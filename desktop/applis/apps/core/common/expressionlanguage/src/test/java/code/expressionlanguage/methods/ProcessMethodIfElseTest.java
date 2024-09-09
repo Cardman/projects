@@ -1,6 +1,5 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.functionid.MethodId;
 import code.util.CustList;
@@ -30,9 +29,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -55,9 +52,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -83,9 +78,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -111,9 +104,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -136,9 +127,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
 
@@ -165,9 +154,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(3, getNumber(ret_));
+        assertEq(3, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -190,9 +177,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(-1, getNumber(ret_));
+        assertEq(-1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -218,9 +203,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -246,9 +229,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -272,9 +253,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -301,9 +280,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -333,9 +310,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -362,9 +337,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -391,9 +364,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument32Test() {
@@ -416,9 +387,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(8, getNumber(ret_));
+        assertEq(8, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument33Test() {
@@ -444,9 +413,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(4, getNumber(ret_));
+        assertEq(4, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument34Test() {
@@ -473,9 +440,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(4, getNumber(ret_));
+        assertEq(4, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -501,9 +466,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument36Test() {
@@ -528,8 +491,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(8, getNumber(ret_));
+        assertEq(8, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -558,9 +520,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(3, getNumber(ret_));
+        assertEq(3, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -589,9 +549,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument39Test() {
@@ -613,9 +571,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument40Test() {
@@ -639,9 +595,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -674,9 +628,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -706,9 +658,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument5FailTest() {

@@ -86,11 +86,4 @@ public final class Argument {
         return object == NullStruct.NULL_VALUE;
     }
 
-    public boolean isTrue() {
-        return BooleanStruct.isTrue(object);
-    }
-    public boolean isFalse() {
-        return BooleanStruct.isFalse(object);
-    }
-
 }

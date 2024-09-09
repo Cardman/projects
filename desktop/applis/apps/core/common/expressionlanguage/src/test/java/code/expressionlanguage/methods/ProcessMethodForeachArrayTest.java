@@ -1,9 +1,7 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.functionid.MethodId;
-import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -31,9 +29,7 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(24, getNumber(ret_));
+        assertEq(24, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -55,9 +51,7 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -81,9 +75,7 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(24, getNumber(ret_));
+        assertEq(24, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -111,9 +103,7 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(5, getNumber(ret_));
+        assertEq(5, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -138,9 +128,7 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(30, getNumber(ret_));
+        assertEq(30, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument73Test() {
@@ -167,9 +155,7 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(5, getNumber(ret_));
+        assertEq(5, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument74Test() {
@@ -192,7 +178,6 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument arg_ = calculateError("pkg.Ex", id_, cont_);
-        assertEq("code.util.exceptions.NullObjectException", arg_.getStruct().getClassName(cont_));
+        assertEq("code.util.exceptions.NullObjectException", calculateError("pkg.Ex",id_,cont_).getClassName(cont_));
     }
 }

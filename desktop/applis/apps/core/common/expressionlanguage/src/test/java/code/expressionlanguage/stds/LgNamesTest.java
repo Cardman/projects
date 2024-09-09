@@ -1,6 +1,5 @@
 package code.expressionlanguage.stds;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefContextGenerator;
 import code.expressionlanguage.SingleInterruptedContextEl;
@@ -21,6 +20,7 @@ import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.dbg.DbgStackStopper;
 import code.expressionlanguage.exec.dbg.DefLogDbg;
 import code.expressionlanguage.exec.inherits.Parameters;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -32,6 +32,7 @@ import code.expressionlanguage.options.*;
 import code.expressionlanguage.sample.CustLgNames;
 import code.expressionlanguage.sample.ElInterceptorStdCaller;
 import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.sml.util.TranslationsAppli;
 import code.threads.ConcreteBoolean;
 import code.util.CustList;
@@ -2326,11 +2327,10 @@ public class LgNamesTest extends ProcessMethodCommon {
         ResultContext ctx_ = validate(options_,lgName_,kw_,all_);
         assertTrue(isEmptyErrors(ctx_.getPageEl()));
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
-        Argument argGlLoc_ = new Argument();
         ExecRootBlock classBody_ = ctx_.getContext().getClasses().getClassBody("pkg.Ex");
         ExecOverridableBlock method_ = getDeepMethodBodiesById(ctx_.getContext(), "pkg.Ex", fct_).first();
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,ctx_.getContext());
-        Argument ret_ = ProcessMethod.calculate(new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, "pkg.Ex"), new ExecTypeFunction(classBody_, method_), new Parameters()), ctx_.getContext(), stackCall_).getValue();
+        Struct ret_ = ArgumentListCall.toStr(ProcessMethod.calculate(new CustomFoundMethod(ArgumentListCall.toStr(NullStruct.NULL_VALUE), new ExecFormattedRootBlock(classBody_, "pkg.Ex"), new ExecTypeFunction(classBody_, method_), new Parameters()), ctx_.getContext(), stackCall_).getValue());
         assertNull(stackCall_.getCallingState());
         assertEq(2, getNumber(ret_));
     }
@@ -2372,11 +2372,10 @@ public class LgNamesTest extends ProcessMethodCommon {
         ResultContext ctx_ = validate(options_,lgName_,kw_,all_);
         assertTrue(isEmptyErrors(ctx_.getPageEl()));
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
-        Argument argGlLoc_ = new Argument();
         ExecRootBlock classBody_ = ctx_.getContext().getClasses().getClassBody("pkg.Ex");
         ExecOverridableBlock method_ = getDeepMethodBodiesById(ctx_.getContext(), "pkg.Ex", fct_).first();
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,ctx_.getContext());
-        Argument ret_ = ProcessMethod.calculate(new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, "pkg.Ex"), new ExecTypeFunction(classBody_, method_), new Parameters()), ctx_.getContext(), stackCall_).getValue();
+        Struct ret_ = ArgumentListCall.toStr(ProcessMethod.calculate(new CustomFoundMethod(ArgumentListCall.toStr(NullStruct.NULL_VALUE), new ExecFormattedRootBlock(classBody_, "pkg.Ex"), new ExecTypeFunction(classBody_, method_), new Parameters()), ctx_.getContext(), stackCall_).getValue());
         assertNull(stackCall_.getCallingState());
         assertEq(2, getNumber(ret_));
     }
@@ -2405,11 +2404,10 @@ public class LgNamesTest extends ProcessMethodCommon {
         ResultContext.fwd(res_, new DefContextGenerator());
         assertTrue(isEmptyErrors(res_.getPageEl()));
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
-        Argument argGlLoc_ = new Argument();
         ExecRootBlock classBody_ = res_.getContext().getClasses().getClassBody("pkg.Ex");
         ExecOverridableBlock method_ = getDeepMethodBodiesById(res_.getContext(), "pkg.Ex", fct_).first();
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,res_.getContext());
-        Argument ret_ = ExecClassesUtil.tryInitStaticlyTypes(res_.getContext(), res_.getForwards().getOptions(),stackCall_,new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, "pkg.Ex"), new ExecTypeFunction(classBody_, method_), new Parameters()),StepDbgActionEnum.RUN,true).getStack().aw().getValue();
+        Struct ret_ = ArgumentListCall.toStr(ExecClassesUtil.tryInitStaticlyTypes(res_.getContext(), res_.getForwards().getOptions(),stackCall_,new CustomFoundMethod(ArgumentListCall.toStr(NullStruct.NULL_VALUE), new ExecFormattedRootBlock(classBody_, "pkg.Ex"), new ExecTypeFunction(classBody_, method_), new Parameters()),StepDbgActionEnum.RUN,true).getStack().aw().getValue());
         assertNull(stackCall_.getCallingState());
         assertEq(2, getNumber(ret_));
     }
@@ -2438,7 +2436,6 @@ public class LgNamesTest extends ProcessMethodCommon {
         ResultContext.fwd(res_, new DefContextGenerator());
         assertTrue(isEmptyErrors(res_.getPageEl()));
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
-        Argument argGlLoc_ = new Argument();
         ExecRootBlock classBody_ = res_.getContext().getClasses().getClassBody("pkg.Ex");
         ExecOverridableBlock method_ = getDeepMethodBodiesById(res_.getContext(), "pkg.Ex", fct_).first();
         ConcreteBoolean stop_ = new ConcreteBoolean(true);
@@ -2446,7 +2443,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         Classes.forwardAndClear(ctx_);
         res_.setContext(ctx_);
         StackCall st_ = StackCall.newInstance(InitPhase.NOTHING,res_.getContext());
-        CustomFoundMethod cf_ = new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, "pkg.Ex"), new ExecTypeFunction(classBody_, method_), new Parameters());
+        CustomFoundMethod cf_ = new CustomFoundMethod(ArgumentListCall.toStr(NullStruct.NULL_VALUE), new ExecFormattedRootBlock(classBody_, "pkg.Ex"), new ExecTypeFunction(classBody_, method_), new Parameters());
         st_.addInternPage(cf_.processAfterOperation(res_.getContext(),st_));
         st_.setCallingState(cf_);
         st_.getBreakPointInfo().getStackState().setCheckingBp(true);

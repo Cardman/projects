@@ -1,7 +1,6 @@
 package code.expressionlanguage.utilfiles;
 
 import code.expressionlanguage.AbstractExiting;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.MessagesCdmBase;
 import code.expressionlanguage.exec.*;
@@ -239,9 +238,6 @@ public abstract class EquallableElUtFilesUtil {
     }
     public static MockFileSet fileSet(long _initMillis, long[] _incrs, String... _roots) {
         return new MockFileSet(_initMillis,_incrs,_roots);
-    }
-    public static Struct str(Argument _arg) {
-        return _arg.getStruct();
     }
 
     public static double[] dbs(double... _args) {

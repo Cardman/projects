@@ -1,6 +1,5 @@
 package code.formathtml;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
@@ -48,73 +47,59 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
 
     @Test
     public void processEl1Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "5");
-        assertEq(5L, getNumber(arg_));
+        assertEq(5L, getNumber(processEl(new StringMap<String>(), "5")));
     }
     @Test
     public void processEl2Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "$static(java.lang.Long).MAX_VALUE");
-        assertEq(Long.MAX_VALUE, getNumber(arg_));
+        assertEq(Long.MAX_VALUE, getNumber(processEl(new StringMap<String>(), "$static(java.lang.Long).MAX_VALUE")));
     }
     @Test
     public void processEl3Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "(1+2)*3");
-        assertEq(9L, getNumber(arg_));
+        assertEq(9L, getNumber(processEl(new StringMap<String>(), "(1+2)*3")));
     }
     @Test
     public void processEl4Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "1- -1");
-        assertEq(2L, getNumber(arg_));
+        assertEq(2L, getNumber(processEl(new StringMap<String>(), "1- -1")));
     }
     @Test
     public void processEl5Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "1+2*3");
-        assertEq(7L, getNumber(arg_));
+        assertEq(7L, getNumber(processEl(new StringMap<String>(), "1+2*3")));
     }
     @Test
     public void processEl6Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "- -1");
-        assertEq(1L, getNumber(arg_));
+        assertEq(1L, getNumber(processEl(new StringMap<String>(), "- -1")));
     }
     @Test
     public void processEl7Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "$static($math).abs(-8l)");
-        assertEq(8L, getNumber(arg_));
+        assertEq(8L, getNumber(processEl(new StringMap<String>(), "$static($math).abs(-8l)")));
     }
     @Test
     public void processEl8Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "$static($math).abs(8l)");
-        assertEq(8L, getNumber(arg_));
+        assertEq(8L, getNumber(processEl(new StringMap<String>(), "$static($math).abs(8l)")));
     }
     @Test
     public void processEl10Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "40908c");
-        assertEq(40908, getNumber(arg_));
+        assertEq(40908, getNumber(processEl(new StringMap<String>(), "40908c")));
     }
     @Test
     public void processEl11Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "'\\u9fcb'");
-        assertEq(40907, getNumber(arg_));
+        assertEq(40907, getNumber(processEl(new StringMap<String>(), "'\\u9fcb'")));
     }
     @Test
     public void processEl12Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "'\\\\'");
-        assertEq('\\', getNumber(arg_));
+        assertEq('\\', getNumber(processEl(new StringMap<String>(), "'\\\\'")));
     }
     @Test
     public void processEl13Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "'\\''");
-        assertEq('\'', getNumber(arg_));
+        assertEq('\'', getNumber(processEl(new StringMap<String>(), "'\\''")));
     }
     @Test
     public void processEl14Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "'\"'");
-        assertEq('"', getNumber(arg_));
+        assertEq('"', getNumber(processEl(new StringMap<String>(), "'\"'")));
     }
     @Test
     public void processEl15Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "'\\n'");
-        assertEq('\n', getNumber(arg_));
+        assertEq('\n', getNumber(processEl(new StringMap<String>(), "'\\n'")));
     }
 
     @Test
@@ -125,8 +110,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument arg_ = processElNormalField(files_, new ClassField("pkg.Ex", "inst"), "pkg.Ex", new IntStruct(2), "v", "pkg.Ex");
-        assertEq(2, getNumber(arg_));
+        assertEq(2, getNumber(processElNormalField(files_, new ClassField("pkg.Ex", "inst"), "pkg.Ex", new IntStruct(2), "v", "pkg.Ex")));
     }
 
 //    @Test
@@ -147,88 +131,71 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
 //    }
     @Test
     public void processEl18Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "5 $instanceof java.lang.Number");
-        assertTrue(arg_.isTrue());
+        assertTrue(processEl(new StringMap<String>(), "5 $instanceof java.lang.Number"));
     }
     @Test
     public void processEl19Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "'5' $instanceof java.lang.Number");
-        assertTrue(arg_.isTrue());
+        assertTrue(processEl(new StringMap<String>(), "'5' $instanceof java.lang.Number"));
     }
     @Test
     public void processEl20Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "!('5' $instanceof java.lang.Number)");
-        assertTrue(arg_.isFalse());
+        assertFalse(processEl(new StringMap<String>(), "!('5' $instanceof java.lang.Number)"));
     }
     @Test
     public void processEl21Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "1+1==2");
-        assertTrue(arg_.isTrue());
+        assertTrue(processEl(new StringMap<String>(), "1+1==2"));
     }
     @Test
     public void processEl22Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "1+1!=2");
-        assertTrue(arg_.isFalse());
+        assertFalse(processEl(new StringMap<String>(), "1+1!=2"));
     }
     @Test
     public void processEl23Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "1+1==2&&1+0==8");
-        assertTrue(arg_.isFalse());
+        assertFalse(processEl(new StringMap<String>(), "1+1==2&&1+0==8"));
     }
     @Test
     public void processEl24Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "1+1!=2||1+7==8");
-        assertTrue(arg_.isTrue());
+        assertTrue(processEl(new StringMap<String>(), "1+1!=2||1+7==8"));
     }
     @Test
     public void processEl25Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "1+1==2&&(1+0==8||3*3==9)");
-        assertTrue(arg_.isTrue());
+        assertTrue(processEl(new StringMap<String>(), "1+1==2&&(1+0==8||3*3==9)"));
     }
     @Test
     public void processEl26Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "1+1==2||1+6==8&&1==1");
-        assertTrue(arg_.isTrue());
+        assertTrue(processEl(new StringMap<String>(), "1+1==2||1+6==8&&1==1"));
     }
     @Test
     public void processEl29Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "1+1==2||1/0>8");
-        assertTrue(arg_.isTrue());
+        assertTrue(processEl(new StringMap<String>(), "1+1==2||1/0>8"));
     }
     @Test
     public void processEl31Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "$static($math).abs(-8i)");
-        assertEq(8, getNumber(arg_));
+        assertEq(8, getNumber(processEl(new StringMap<String>(), "$static($math).abs(-8i)")));
     }
     @Test
     public void processEl32Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "$static($math).abs(8i)");
-        assertEq(8, getNumber(arg_));
+        assertEq(8, getNumber(processEl(new StringMap<String>(), "$static($math).abs(8i)")));
     }
     @Test
     public void processEl33Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "$static($math).abs(-8I)");
-        assertEq(8, getNumber(arg_));
+        assertEq(8, getNumber(processEl(new StringMap<String>(), "$static($math).abs(-8I)")));
     }
     @Test
     public void processEl34Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "$static($math).abs(8I)");
-        assertEq(8, getNumber(arg_));
+        assertEq(8, getNumber(processEl(new StringMap<String>(), "$static($math).abs(8I)")));
     }
     @Test
     public void processEl35Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "$static($math).abs(-8L)");
-        assertEq(8L, getNumber(arg_));
+        assertEq(8L, getNumber(processEl(new StringMap<String>(), "$static($math).abs(-8L)")));
     }
     @Test
     public void processEl36Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "$static($math).abs(8L)");
-        assertEq(8L, getNumber(arg_));
+        assertEq(8L, getNumber(processEl(new StringMap<String>(), "$static($math).abs(8L)")));
     }
     @Test
     public void processEl39Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "$null $instanceof java.lang.Object");
-        assertTrue(arg_.isFalse());
+        assertFalse(processEl(new StringMap<String>(), "$null $instanceof java.lang.Object"));
     }
 //    @Test
 //    public void processEl58Test() {
@@ -301,24 +268,21 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
 
     @Test
     public void processEl63Test() {
-        Argument arg_ = processElNormal3("$new $int[1i]", new StringMap<String>());
-        Struct res_ = arg_.getStruct();
+        Struct res_ = processElNormal3("$new $int[1i]", new StringMap<String>());
         assertEq(ARR_INT, ((ArrayStruct) res_).getClassName());
         assertEq(1, (((ArrayStruct) res_).getInstance()).length);
         assertEq(0, ((NumberStruct) (((ArrayStruct) res_).getInstance())[0]).intStruct());
     }
     @Test
     public void processEl64Test() {
-        Argument arg_ = processElNormal3("$new $int[1i][]", new StringMap<String>());
-        Struct res_ = arg_.getStruct();
+        Struct res_ = processElNormal3("$new $int[1i][]", new StringMap<String>());
         assertEq(ARR_ARR_INT, ((ArrayStruct) res_).getClassName());
         assertEq(1, (((ArrayStruct) res_).getInstance()).length);
         assertSame(NullStruct.NULL_VALUE, (((ArrayStruct) res_).getInstance())[0]);
     }
     @Test
     public void processEl65Test() {
-        Argument arg_ = processElNormal3("$new java.lang.Integer[2i]", new StringMap<String>());
-        Struct res_ = arg_.getStruct();
+        Struct res_ = processElNormal3("$new java.lang.Integer[2i]", new StringMap<String>());
         assertEq(ARR_INTEGER, ((ArrayStruct) res_).getClassName());
         assertEq(2, (((ArrayStruct) res_).getInstance()).length);
         assertSame(NullStruct.NULL_VALUE, (((ArrayStruct) res_).getInstance())[0]);
@@ -326,8 +290,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
     }
     @Test
     public void processEl66Test() {
-        Argument arg_ = processElNormal3("$new java.lang.Integer[2i][]", new StringMap<String>());
-        Struct res_ = arg_.getStruct();
+        Struct res_ = processElNormal3("$new java.lang.Integer[2i][]", new StringMap<String>());
         assertEq(ARR_ARR_INTEGER, ((ArrayStruct) res_).getClassName());
         assertEq(2, (((ArrayStruct) res_).getInstance()).length);
         assertSame(NullStruct.NULL_VALUE, (((ArrayStruct) res_).getInstance())[0]);
@@ -357,33 +320,27 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
 //    }
     @Test
     public void processEl70Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "!!$false");
-        assertTrue(arg_.isFalse());
+        assertFalse(processEl(new StringMap<String>(), "!!$false"));
     }
     @Test
     public void processEl72Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "$static(java.lang.Byte).MAX_VALUE");
-        assertEq((byte)127, getNumber(arg_));
+        assertEq((byte)127, getNumber(processEl(new StringMap<String>(), "$static(java.lang.Byte).MAX_VALUE")));
     }
     @Test
     public void processEl77Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "(\"Hello\\\\\"+\"World\").length()");
-        assertEq(11, getNumber(arg_));
+        assertEq(11, getNumber(processEl(new StringMap<String>(), "(\"Hello\\\\\"+\"World\").length()")));
     }
     @Test
     public void processEl78Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "(\"Hello\\\"\"+\"World\").length()");
-        assertEq(11, getNumber(arg_));
+        assertEq(11, getNumber(processEl(new StringMap<String>(), "(\"Hello\\\"\"+\"World\").length()")));
     }
     @Test
     public void processEl79Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "(\"Hello\\\\\"+'\\\\').length()");
-        assertEq(7, getNumber(arg_));
+        assertEq(7, getNumber(processEl(new StringMap<String>(), "(\"Hello\\\\\"+'\\\\').length()")));
     }
     @Test
     public void processEl80Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "(\"Hello\\\"\"+'\\'').length()");
-        assertEq(7, getNumber(arg_));
+        assertEq(7, getNumber(processEl(new StringMap<String>(), "(\"Hello\\\"\"+'\\'').length()")));
     }
 //    @Test
 //    public void processEl81Test() {
@@ -430,33 +387,27 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
 //    }
     @Test
     public void processEl87Test() {
-        Argument arg_ = processElNormal3("$bool(1>0,0i,1i)", new StringMap<String>());
-        assertEq(0, getNumber(arg_));
+        assertEq(0, getNumber(processElNormal3("$bool(1>0,0i,1i)", new StringMap<String>())));
     }
     @Test
     public void processEl88Test() {
-        Argument arg_ = processElNormal3("$bool(1<0,0i,1i)", new StringMap<String>());
-        assertEq(1, getNumber(arg_));
+        assertEq(1, getNumber(processElNormal3("$bool(1<0,0i,1i)", new StringMap<String>())));
     }
     @Test
     public void processEl89Test() {
-        Argument arg_ = processElNormal3("$bool(1>0,0i,1i/0i)", new StringMap<String>());
-        assertEq(0, getNumber(arg_));
+        assertEq(0, getNumber(processElNormal3("$bool(1>0,0i,1i/0i)", new StringMap<String>())));
     }
     @Test
     public void processEl90Test() {
-        Argument arg_ = processElNormal3("$bool(1<0,1i/0i,1i)", new StringMap<String>());
-        assertEq(1, getNumber(arg_));
+        assertEq(1, getNumber(processElNormal3("$bool(1<0,1i/0i,1i)", new StringMap<String>())));
     }
     @Test
     public void processEl95Test() {
-        Argument arg_ = processElNormal3("($new $int[1i])[0i]", new StringMap<String>());
-        assertEq(0, getNumber(arg_));
+        assertEq(0, getNumber(processElNormal3("($new $int[1i])[0i]", new StringMap<String>())));
     }
     @Test
     public void processEl96Test() {
-        Argument arg_ = processElNormal3("$new $int[]{2i}", new StringMap<String>());
-        Struct res_ = arg_.getStruct();
+        Struct res_ = processElNormal3("$new $int[]{2i}", new StringMap<String>());
         assertEq(ARR_INT, ((ArrayStruct) res_).getClassName());
         Struct[] o_ = ((ArrayStruct) res_).getInstance();
         assertEq(1, o_.length);
@@ -464,8 +415,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
     }
     @Test
     public void processEl97Test() {
-        Argument arg_ = processElNormal3("$new $int[]{3i,7i}", new StringMap<String>());
-        Struct res_ = arg_.getStruct();
+        Struct res_ = processElNormal3("$new $int[]{3i,7i}", new StringMap<String>());
         assertEq(ARR_INT, ((ArrayStruct) res_).getClassName());
         Struct[] o_ = ((ArrayStruct) res_).getInstance();
         assertEq(2, o_.length);
@@ -474,16 +424,14 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
     }
     @Test
     public void processEl98Test() {
-        Argument arg_ = processElNormal3("$new $int[]{}", new StringMap<String>());
-        Struct res_ = arg_.getStruct();
+        Struct res_ = processElNormal3("$new $int[]{}", new StringMap<String>());
         assertEq(ARR_INT, ((ArrayStruct) res_).getClassName());
         Struct[] o_ = ((ArrayStruct) res_).getInstance();
         assertEq(0, o_.length);
     }
     @Test
     public void processEl99Test() {
-        Argument arg_ = processElNormal3("$new java.lang.Integer[]{3i,7i}", new StringMap<String>());
-        Struct res_ = arg_.getStruct();
+        Struct res_ = processElNormal3("$new java.lang.Integer[]{3i,7i}", new StringMap<String>());
         assertEq(ARR_INTEGER, ((ArrayStruct) res_).getClassName());
         Struct[] o_ = ((ArrayStruct) res_).getInstance();
         assertEq(2, o_.length);
@@ -492,13 +440,11 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
     }
     @Test
     public void processEl100Test() {
-        Argument arg_ = processDelimiters(" {(1+2)*3+\" hello\"+\" world {every body ;)\"} ", 43);
-        assertEq("9 hello world {every body ;)",getString(arg_));
+        assertEq("9 hello world {every body ;)",getString(processDelimiters(" {(1+2)*3+\" hello\"+\" world {every body ;)\"} ", 43)));
     }
     @Test
     public void processEl101Test() {
-        Argument arg_ = processDelimiters(" {(\"hello \"+\"world\").length()} ", 30);
-        assertEq(11, getNumber(arg_));
+        assertEq(11, getNumber(processDelimiters(" {(\"hello \"+\"world\").length()} ", 30)));
     }
     @Test
     public void processEl105Test() {
@@ -512,8 +458,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument arg_ = processEl(files_, "$static(pkg.Ex).exmeth()");
-        assertEq(9, getNumber(arg_));
+        assertEq(9, getNumber(processEl(files_, "$static(pkg.Ex).exmeth()")));
     }
     @Test
     public void processEl106Test() {
@@ -527,8 +472,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument arg_ = processEl(files_, "$static(pkg.Ex).exmeth(6i)");
-        assertEq(15, getNumber(arg_));
+        assertEq(15, getNumber(processEl(files_, "$static(pkg.Ex).exmeth(6i)")));
     }
 //    @Test
 //    public void processEl107Test() {
@@ -558,8 +502,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument arg_ = processEl(files_, "$classchoice(pkg.Ex)exmeth(6i)");
-        assertEq(15, getNumber(arg_));
+        assertEq(15, getNumber(processEl(files_, "$classchoice(pkg.Ex)exmeth(6i)")));
     }
     @Test
     public void processEl110Test() {
@@ -574,8 +517,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument arg_ = processEl(files_, "$classchoice(pkg.Ex)inst");
-        assertEq(2, getNumber(arg_));
+        assertEq(2, getNumber(processEl(files_, "$classchoice(pkg.Ex)inst")));
     }
 //    @Test
 //    public void processEl112Test() {
@@ -602,85 +544,69 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
 //    }
     @Test
     public void processEl119Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "(1y+2y)*3");
-        assertEq(9L, getNumber(arg_));
+        assertEq(9L, getNumber(processEl(new StringMap<String>(), "(1y+2y)*3")));
     }
     @Test
     public void processEl120Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "(1s+2y)*3");
-        assertEq(9L, getNumber(arg_));
+        assertEq(9L, getNumber(processEl(new StringMap<String>(), "(1s+2y)*3")));
     }
     @Test
     public void processEl121Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "- -1y");
-        assertEq(1, getNumber(arg_));
+        assertEq(1, getNumber(processEl(new StringMap<String>(), "- -1y")));
     }
     @Test
     public void processEl122Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "-1y");
-        assertEq(-1, getNumber(arg_));
+        assertEq(-1, getNumber(processEl(new StringMap<String>(), "-1y")));
     }
     @Test
     public void processEl123Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "java.lang.Byte.MAX_VALUE+java.lang.Byte.MAX_VALUE");
         int max_ = Byte.MAX_VALUE+Byte.MAX_VALUE;
-        assertEq(max_, getNumber(arg_));
+        assertEq(max_, getNumber(processEl(new StringMap<String>(), "java.lang.Byte.MAX_VALUE+java.lang.Byte.MAX_VALUE")));
     }
     @Test
     public void processEl123FailTest() {
-        Argument arg_ = processEl(new StringMap<String>(), "+1y");
-        assertEq(1, getNumber(arg_));
+        assertEq(1, getNumber(processEl(new StringMap<String>(), "+1y")));
     }
     @Test
     public void processEl124Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "+-1y");
-        assertEq(-1, getNumber(arg_));
+        assertEq(-1, getNumber(processEl(new StringMap<String>(), "+-1y")));
     }
     @Test
     public void processEl125Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "-.25e0+.5");
-        assertEq(0.25d, getDouble(arg_));
+        assertEq(0.25d, getDouble(processEl(new StringMap<String>(), "-.25e0+.5")));
     }
     @Test
     public void processEl126Test() {
-        Argument arg_ = processDelimiters(" {(1+2)*3+\" hello\"+\" world {every body ;)\"}{5*8} ", 43);
-        assertEq("9 hello world {every body ;)",getString(arg_));
+        assertEq("9 hello world {every body ;)",getString(processDelimiters(" {(1+2)*3+\" hello\"+\" world {every body ;)\"}{5*8} ", 43)));
     }
     @Test
     public void processEl126_Test() {
-        Argument arg_ = processDoubleDelimiters(" {(1+2)*3+\" hello\"+\" world {every body ;)\"}{5*8} ", 44, 48);
-        assertEq(40, getNumber(arg_));
+        assertEq(40, getNumber(processDoubleDelimiters(" {(1+2)*3+\" hello\"+\" world {every body ;)\"}{5*8} ", 44, 48)));
     }
     @Test
     public void processEl127Test() {
-        Argument arg_ = processDelimiters(" {(\"hello \"+\"world\").length()}{5*8} ", 30);
-        assertEq(11, getNumber(arg_));
+        assertEq(11, getNumber(processDelimiters(" {(\"hello \"+\"world\").length()}{5*8} ", 30)));
     }
     @Test
     public void processEl127_Test() {
-        Argument arg_ = processDoubleDelimiters(" {(\"hello \"+\"world\").length()}{5*8} ", 31, 35);
-        assertEq(40, getNumber(arg_));
+        assertEq(40, getNumber(processDoubleDelimiters(" {(\"hello \"+\"world\").length()}{5*8} ", 31, 35)));
     }
 
     @Test
     public void processEl128Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "1_0+2*3");
-        assertEq(16L, getNumber(arg_));
+        assertEq(16L, getNumber(processEl(new StringMap<String>(), "1_0+2*3")));
     }
     @Test
     public void processEl129Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "$static($math).mod(-8l,3l)");
-        assertEq(1L, getNumber(arg_));
+        assertEq(1L, getNumber(processEl(new StringMap<String>(), "$static($math).mod(-8l,3l)")));
     }
     @Test
     public void processEl130Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "$static($math).quot(-8l,3l)");
-        assertEq(-3L, getNumber(arg_));
+        assertEq(-3L, getNumber(processEl(new StringMap<String>(), "$static($math).quot(-8l,3l)")));
     }
     @Test
     public void processEl131Test() {
-        Argument arg_ = processElNormal3("$new $int[1i][1i]", new StringMap<String>());
-        Struct res_ = arg_.getStruct();
+        Struct res_ = processElNormal3("$new $int[1i][1i]", new StringMap<String>());
         assertEq(ARR_ARR_INT, ((ArrayStruct) res_).getClassName());
         assertEq(1, (((ArrayStruct) res_).getInstance()).length);
         assertEq(ARR_INT, ((ArrayStruct)(((ArrayStruct) res_).getInstance())[0]).getClassName());
@@ -689,8 +615,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
     }
     @Test
     public void processEl132Test() {
-        Argument arg_ = processElNormal3("$new java.lang.Integer[1i][1i]", new StringMap<String>());
-        Struct res_ = arg_.getStruct();
+        Struct res_ = processElNormal3("$new java.lang.Integer[1i][1i]", new StringMap<String>());
         assertEq(ARR_ARR_INTEGER, ((ArrayStruct) res_).getClassName());
         assertEq(1, (((ArrayStruct) res_).getInstance()).length);
         assertEq(ARR_INTEGER, ((ArrayStruct)(((ArrayStruct) res_).getInstance())[0]).getClassName());
@@ -698,228 +623,183 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
     }
     @Test
     public void processEl133Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "($double)(1 + 2) * 3.0");
-        assertEq(9L, getNumber(arg_));
+        assertEq(9L, getNumber(processEl(new StringMap<String>(), "($double)(1 + 2) * 3.0")));
     }
     @Test
     public void processEl134Test() {
-        Argument arg_ = processEl(new StringMap<String>(), " 2.0 + ($double)$static($math). quot( -8l, 3l) + 3.0");
-        assertEq(2L, getNumber(arg_));
+        assertEq(2L, getNumber(processEl(new StringMap<String>(), " 2.0 + ($double)$static($math). quot( -8l, 3l) + 3.0")));
     }
     @Test
     public void processEl135Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "1 + 2 ");
-        assertEq(3L, getNumber(arg_));
+        assertEq(3L, getNumber(processEl(new StringMap<String>(), "1 + 2 ")));
     }
     @Test
     public void processEl136Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "1. + 2. ");
-        assertEq(3L, getNumber(arg_));
+        assertEq(3L, getNumber(processEl(new StringMap<String>(), "1. + 2. ")));
     }
     @Test
     public void processEl137Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "1.d + 2.d ");
-        assertEq(3L, getNumber(arg_));
+        assertEq(3L, getNumber(processEl(new StringMap<String>(), "1.d + 2.d ")));
     }
     @Test
     public void processEl138Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "-.2_5e0+.5");
-        assertEq(0.25d, getDouble(arg_));
+        assertEq(0.25d, getDouble(processEl(new StringMap<String>(), "-.2_5e0+.5")));
     }
     @Test
     public void processEl139Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "-.25e0_0+.5");
-        assertEq(0.25d, getDouble(arg_));
+        assertEq(0.25d, getDouble(processEl(new StringMap<String>(), "-.25e0_0+.5")));
     }
     @Test
     public void processEl140Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "1_0.d + 2.d ");
-        assertEq(12L, getNumber(arg_));
+        assertEq(12L, getNumber(processEl(new StringMap<String>(), "1_0.d + 2.d ")));
     }
     @Test
     public void processEl141Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "1.05e1");
-        assertEq(10.5d, getDouble(arg_));
+        assertEq(10.5d, getDouble(processEl(new StringMap<String>(), "1.05e1")));
     }
     @Test
     public void processEl142Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "1.00625e1");
-        assertEq(10.0625d, getDouble(arg_));
+        assertEq(10.0625d, getDouble(processEl(new StringMap<String>(), "1.00625e1")));
     }
     @Test
     public void processEl143Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "100.625e-1");
-        assertEq(10.0625d, getDouble(arg_));
+        assertEq(10.0625d, getDouble(processEl(new StringMap<String>(), "100.625e-1")));
     }
     @Test
     public void processEl144Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "100.625");
-        assertEq(100.625d, getDouble(arg_));
+        assertEq(100.625d, getDouble(processEl(new StringMap<String>(), "100.625")));
     }
     @Test
     public void processEl145Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "123456789123456789123456789.0");
-        assertEq(1.2345678912345678912e26, getDouble(arg_));
+        assertEq(1.2345678912345678912e26, getDouble(processEl(new StringMap<String>(), "123456789123456789123456789.0")));
     }
     @Test
     public void processEl147Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "123456789123456789123456789.");
-        assertEq(1.2345678912345678912e26, getDouble(arg_));
+        assertEq(1.2345678912345678912e26, getDouble(processEl(new StringMap<String>(), "123456789123456789123456789.")));
     }
     @Test
     public void processEl148Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "123456789123456789123456789.e-1");
-        assertEq(1.2345678912345678912e25, getDouble(arg_));
+        assertEq(1.2345678912345678912e25, getDouble(processEl(new StringMap<String>(), "123456789123456789123456789.e-1")));
     }
     @Test
     public void processEl149Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "123456789123456789123456789.e1");
-        assertEq(1.2345678912345678912e27, getDouble(arg_));
+        assertEq(1.2345678912345678912e27, getDouble(processEl(new StringMap<String>(), "123456789123456789123456789.e1")));
     }
     @Test
     public void processEl150Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "123456.e1");
-        assertEq(1234560, getDouble(arg_));
+        assertEq(1234560, getDouble(processEl(new StringMap<String>(), "123456.e1")));
     }
     @Test
     public void processEl151Test() {
-        Argument arg_ = processEl(new StringMap<String>(), ".078125e-1");
-        assertEq(.078125e-1, getDouble(arg_));
+        assertEq(.078125e-1, getDouble(processEl(new StringMap<String>(), ".078125e-1")));
     }
     @Test
     public void processEl152Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "123456789123456789123456789.0e-36");
-        assertEq(1.2345678912345678912e-10, getDouble(arg_));
+        assertEq(1.2345678912345678912e-10, getDouble(processEl(new StringMap<String>(), "123456789123456789123456789.0e-36")));
     }
     @Test
     public void processEl153Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "0.0e-36");
-        assertEq(0.0, getDouble(arg_));
+        assertEq(0.0, getDouble(processEl(new StringMap<String>(), "0.0e-36")));
     }
     @Test
     public void processEl154Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "-0.0e-36");
-        assertEq(-0.0, getDouble(arg_));
+        assertEq(-0.0, getDouble(processEl(new StringMap<String>(), "-0.0e-36")));
     }
     @Test
     public void processEl155Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "0.625e-1");
-        assertEq(0.0625, getDouble(arg_));
+        assertEq(0.0625, getDouble(processEl(new StringMap<String>(), "0.625e-1")));
     }
     @Test
     public void processEl156Test() {
-        Argument arg_ = processEl(new StringMap<String>(), ".625e-1");
-        assertEq(0.0625, getDouble(arg_));
+        assertEq(0.0625, getDouble(processEl(new StringMap<String>(), ".625e-1")));
     }
     @Test
     public void processEl157Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "0.625e1");
-        assertEq(6.25, getDouble(arg_));
+        assertEq(6.25, getDouble(processEl(new StringMap<String>(), "0.625e1")));
     }
     @Test
     public void processEl158Test() {
-        Argument arg_ = processEl(new StringMap<String>(), ".625e1");
-        assertEq(6.25, getDouble(arg_));
+        assertEq(6.25, getDouble(processEl(new StringMap<String>(), ".625e1")));
     }
     @Test
     public void processEl159Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "0.625e0");
-        assertEq(0.625, getDouble(arg_));
+        assertEq(0.625, getDouble(processEl(new StringMap<String>(), "0.625e0")));
     }
     @Test
     public void processEl160Test() {
-        Argument arg_ = processEl(new StringMap<String>(), ".625e0");
-        assertEq(0.625, getDouble(arg_));
+        assertEq(0.625, getDouble(processEl(new StringMap<String>(), ".625e0")));
     }
     @Test
     public void processEl161Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "-.625e1");
-        assertEq(-6.25, getDouble(arg_));
+        assertEq(-6.25, getDouble(processEl(new StringMap<String>(), "-.625e1")));
     }
     @Test
     public void processEl162Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "-.6e1");
-        assertEq(-6.0, getDouble(arg_));
+        assertEq(-6.0, getDouble(processEl(new StringMap<String>(), "-.6e1")));
     }
     @Test
     public void processEl163Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "-.60e1");
-        assertEq(-6.0, getDouble(arg_));
+        assertEq(-6.0, getDouble(processEl(new StringMap<String>(), "-.60e1")));
     }
     @Test
     public void processEl164Test() {
-        Argument arg_ = processEl(new StringMap<String>(), ".6e1");
-        assertEq(6.0, getDouble(arg_));
+        assertEq(6.0, getDouble(processEl(new StringMap<String>(), ".6e1")));
     }
     @Test
     public void processEl165Test() {
-        Argument arg_ = processEl(new StringMap<String>(), ".6e2");
-        assertEq(60.0, getDouble(arg_));
+        assertEq(60.0, getDouble(processEl(new StringMap<String>(), ".6e2")));
     }
     @Test
     public void processEl166Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "123456789123456789123456789.1e1");
-        assertEq(1.2345678912345678912e27, getDouble(arg_));
+        assertEq(1.2345678912345678912e27, getDouble(processEl(new StringMap<String>(), "123456789123456789123456789.1e1")));
     }
     @Test
     public void processEl167Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "100.e-1");
-        assertEq(10.0, getDouble(arg_));
+        assertEq(10.0, getDouble(processEl(new StringMap<String>(), "100.e-1")));
     }
     @Test
     public void processEl168Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "-100.e-1");
-        assertEq(-10.0, getDouble(arg_));
+        assertEq(-10.0, getDouble(processEl(new StringMap<String>(), "-100.e-1")));
     }
     @Test
     public void processEl169Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "-1.e1");
-        assertEq(-10.0, getDouble(arg_));
+        assertEq(-10.0, getDouble(processEl(new StringMap<String>(), "-1.e1")));
     }
     @Test
     public void processEl170Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "-1.");
-        assertEq(-1.0, getDouble(arg_));
+        assertEq(-1.0, getDouble(processEl(new StringMap<String>(), "-1.")));
     }
     @Test
     public void processEl171Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "1e-123456789123456789123");
-        assertEq(0.0, getDouble(arg_));
+        assertEq(0.0, getDouble(processEl(new StringMap<String>(), "1e-123456789123456789123")));
     }
     @Test
     public void processEl172Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "-1e-123456789123456789123");
-        assertEq(-0.0, getDouble(arg_));
+        assertEq(-0.0, getDouble(processEl(new StringMap<String>(), "-1e-123456789123456789123")));
     }
     @Test
     public void processEl173Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "1e123456789123456789123");
-        assertEq(Double.POSITIVE_INFINITY, getDouble(arg_));
+        assertEq(Double.POSITIVE_INFINITY, getDouble(processEl(new StringMap<String>(), "1e123456789123456789123")));
     }
     @Test
     public void processEl174Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "-1e123456789123456789123");
-        assertEq(Double.NEGATIVE_INFINITY, getDouble(arg_));
+        assertEq(Double.NEGATIVE_INFINITY, getDouble(processEl(new StringMap<String>(), "-1e123456789123456789123")));
     }
     @Test
     public void processEl175Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "'\\u9FCB'");
-        assertEq(40907, getNumber(arg_));
+        assertEq(40907, getNumber(processEl(new StringMap<String>(), "'\\u9FCB'")));
     }
     @Test
     public void processEl176Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "\"\\u9FCB\"");
-        assertEq("\u9fcb",getString(arg_));
+        assertEq("\u9fcb", getString(processEl(new StringMap<String>(), "\"\\u9FCB\"")));
     }
     @Test
     public void processEl177Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "\"\\u9fcb\"");
-        assertEq("\u9fcb",getString(arg_));
+        assertEq("\u9fcb", getString(processEl(new StringMap<String>(), "\"\\u9fcb\"")));
     }
     @Test
     public void processEl178Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "$static(java.lang.Long) .MAX_VALUE");
-        assertEq(Long.MAX_VALUE, getNumber(arg_));
+        assertEq(Long.MAX_VALUE, getNumber(processEl(new StringMap<String>(), "$static(java.lang.Long) .MAX_VALUE")));
     }
 
 //    @Test
@@ -938,141 +818,117 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
 
     @Test
     public void processEl332Test() {
-        Argument argument_ = processElNormal1Int(2, "arg<<2", "arg");
-        assertEq(8,getNumber(argument_));
+        assertEq(8, getNumber(processElNormal1Int(2, "arg<<2", "arg")));
     }
 
     @Test
     public void processEl333Test() {
-        Argument argument_ = processElNormal1Int(8, "arg>>2", "arg");
-        assertEq(2,getNumber(argument_));
+        assertEq(2, getNumber(processElNormal1Int(8, "arg>>2", "arg")));
     }
 
     @Test
     public void processEl334Test() {
-        Argument argument_ = processElNormal1Int(2, "arg<<<2", "arg");
-        assertEq(8,getNumber(argument_));
+        assertEq(8, getNumber(processElNormal1Int(2, "arg<<<2", "arg")));
     }
 
     @Test
     public void processEl335Test() {
-        Argument argument_ = processElNormal1Int(8, "arg>>>2", "arg");
-        assertEq(2,getNumber(argument_));
+        assertEq(2, getNumber(processElNormal1Int(8, "arg>>>2", "arg")));
     }
 
     @Test
     public void processEl336Test() {
-        Argument argument_ = processElNormal1Int(2, "arg<<<<2", "arg");
-        assertEq(8,getNumber(argument_));
+        assertEq(8, getNumber(processElNormal1Int(2, "arg<<<<2", "arg")));
     }
 
     @Test
     public void processEl337Test() {
-        Argument argument_ = processElNormal1Int(8, "arg>>>>2", "arg");
-        assertEq(2,getNumber(argument_));
+        assertEq(2, getNumber(processElNormal1Int(8, "arg>>>>2", "arg")));
     }
 
     @Test
     public void processEl338Test() {
-        Argument argument_ = processElNormal1Int(8, "arg>2", "arg");
-        assertTrue(argument_.isTrue());
+        assertTrue(processElNormal1Int(8, "arg>2", "arg"));
     }
 
     @Test
     public void processEl339Test() {
-        Argument argument_ = processElNormal2BoolVars(false, false, "arg&&arg2");
-        assertTrue(argument_.isFalse());
+        assertFalse(processElNormal2BoolVars(false, false, "arg&&arg2"));
     }
     @Test
     public void processEl340Test() {
-        Argument argument_ = processElNormal2BoolVars(true, false, "arg&&arg2");
-        assertTrue(argument_.isFalse());
+        assertFalse(processElNormal2BoolVars(true, false, "arg&&arg2"));
     }
     @Test
     public void processEl341Test() {
-        Argument argument_ = processElNormal2BoolVars(true, true, "arg&&arg2");
-        assertTrue(argument_.isTrue());
+        assertTrue(processElNormal2BoolVars(true, true, "arg&&arg2"));
     }
 
     @Test
     public void processEl342Test() {
-        Argument argument_ = processElNormal1Int(10, "arg&3", "arg");
-        assertEq(2,getNumber(argument_));
+        assertEq(2, getNumber(processElNormal1Int(10, "arg&3", "arg")));
     }
 
     @Test
     public void processEl343Test() {
-        Argument argument_ = processElNormal1Int(8, "arg|2", "arg");
-        assertEq(10,getNumber(argument_));
+        assertEq(10, getNumber(processElNormal1Int(8, "arg|2", "arg")));
     }
 
     @Test
     public void processEl344Test() {
-        Argument argument_ = processElNormal1Int(5, "arg^3", "arg");
-        assertEq(6,getNumber(argument_));
+        assertEq(6, getNumber(processElNormal1Int(5, "arg^3", "arg")));
     }
 
     @Test
     public void processEl345Test() {
-        Argument argument_ = processElNormal2BoolVars(true, true, "arg||arg2");
-        assertTrue(argument_.isTrue());
+        assertTrue(processElNormal2BoolVars(true, true, "arg||arg2"));
     }
     @Test
     public void processEl346Test() {
-        Argument argument_ = processElNormal2BoolVars(false, true, "arg||arg2");
-        assertTrue(argument_.isTrue());
+        assertTrue(processElNormal2BoolVars(false, true, "arg||arg2"));
     }
     @Test
     public void processEl347Test() {
-        Argument argument_ = processElNormal2BoolVars(false, false, "arg||arg2");
-        assertTrue(argument_.isFalse());
+        assertFalse(processElNormal2BoolVars(false, false, "arg||arg2"));
     }
 
     @Test
     public void processEl348Test() {
-        Argument argument_ = processElNormal1String("arg>\"2\"");
-        assertTrue(argument_.isTrue());
+        assertTrue(processElNormal1String("arg>\"2\""));
     }
 
     @Test
     public void processEl349Test() {
-        Argument argument_ = processElNormal1Int(5, "~arg", "arg");
-        assertEq(-6,getNumber(argument_));
+        assertEq(-6, getNumber(processElNormal1Int(5, "~arg", "arg")));
     }
 
     @Test
     public void processEl350Test() {
-        Argument argument_ = processElNormal1Int(5, "+arg", "arg");
-        assertEq(5,getNumber(argument_));
+        assertEq(5, getNumber(processElNormal1Int(5, "+arg", "arg")));
     }
 
     @Test
     public void processEl351Test() {
-        Argument argument_ = processElNormalBool(true, "!arg");
-        assertTrue(argument_.isFalse());
+        assertFalse(processElNormalBool(true, "!arg"));
     }
 
     @Test
     public void processEl352Test() {
-        Argument argument_ = processElNormalBool(false, "!arg");
-        assertTrue(argument_.isTrue());
+        assertTrue(processElNormalBool(false, "!arg"));
     }
 
     @Test
     public void processEl353Test() {
-        Argument argument_ = processElNormalBool(false, "$bool(arg,5,6)");
-        assertEq(6,getNumber(argument_));
+        assertEq(6, getNumber(processElNormalBool(false, "$bool(arg,5,6)")));
     }
     @Test
     public void processEl354Test() {
-        Argument argument_ = processElNormalBool(true, "$bool(arg,5,6)");
-        assertEq(5,getNumber(argument_));
+        assertEq(5, getNumber(processElNormalBool(true, "$bool(arg,5,6)")));
     }
 
     @Test
     public void processEl355Test() {
-        Argument argument_ = processElNormal1Int(5, "arg%3", "arg");
-        assertEq(2,getNumber(argument_));
+        assertEq(2, getNumber(processElNormal1Int(5, "arg%3", "arg")));
     }
 //    @Test
 //    public void processEl356Test() {
@@ -1104,172 +960,139 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
 
     @Test
     public void processEl357Test() {
-        Argument argument_ = processElNormalBoolInt(false, "$bool(arg,5+arg2,6+arg2)", new IntStruct(0));
-        assertEq(6,getNumber(argument_));
+        assertEq(6, getNumber(processElNormalBoolInt(false, "$bool(arg,5+arg2,6+arg2)", new IntStruct(0))));
     }
     @Test
     public void processEl358Test() {
-        Argument argument_ = processElNormalBoolInt(true, "$bool(arg,5+arg2,6+arg2)", new IntStruct(0));
-        assertEq(5,getNumber(argument_));
+        assertEq(5, getNumber(processElNormalBoolInt(true, "$bool(arg,5+arg2,6+arg2)", new IntStruct(0))));
     }
 
     @Test
     public void processEl500Test() {
-        Argument argument_ = processElNormal2BoolVars(false, false, "arg&&=1/0>1");
-        assertTrue(argument_.isFalse());
+        assertFalse(processElNormal2BoolVars(false, false, "arg&&=1/0>1"));
     }
     @Test
     public void processEl500_Test() {
-        Argument argument_ = processElNormal2BoolVars(false, false, "arg??=1/0>1");
-        assertTrue(argument_.isFalse());
+        assertFalse(processElNormal2BoolVars(false, false, "arg??=1/0>1"));
     }
     @Test
     public void processEl501_Test() {
-        Argument argument_ = processElNormal2BooleanVars("arg??=arg2");
-        assertTrue(argument_.isFalse());
+        assertFalse(processElNormal2BooleanVars("arg??=arg2"));
     }
 
     @Test
     public void processEl500___Test() {
-        Argument argument_ = processElNormal2BoolVars(false, false, "arg&&&=1/0>1");
-        assertTrue(argument_.isFalse());
+        assertFalse(processElNormal2BoolVars(false, false, "arg&&&=1/0>1"));
     }
     @Test
     public void processEl500____Test() {
-        Argument argument_ = processElNormal2BoolVars(false, false, "arg???=1/0>1");
-        assertTrue(argument_.isFalse());
+        assertFalse(processElNormal2BoolVars(false, false, "arg???=1/0>1"));
     }
     @Test
     public void processEl501___Test() {
-        Argument argument_ = processElNormal2BooleanVars("arg???=arg2");
-        assertTrue(argument_.isFalse());
+        assertFalse(processElNormal2BooleanVars("arg???=arg2"));
     }
     @Test
     public void processEl500__Test() {
-        Argument argument_ = processElNormal2BoolVars(false, false, "arg??arg2");
-        assertTrue(argument_.isFalse());
+        assertFalse(processElNormal2BoolVars(false, false, "arg??arg2"));
     }
     @Test
     public void processEl501__Test() {
-        Argument argument_ = processElNormal2BooleanVars("arg??arg2");
-        assertTrue(argument_.isFalse());
+        assertFalse(processElNormal2BooleanVars("arg??arg2"));
     }
     @Test
     public void processEl501Test() {
-        Argument argument_ = processElNormal2BoolVars(true, false, "arg||=1/0>1");
-        assertTrue(argument_.isTrue());
+        assertTrue(processElNormal2BoolVars(true, false, "arg||=1/0>1"));
     }
     @Test
     public void processEl502Test() {
-        Argument argument_ = processElNormal2BoolVars(true, false, "arg&&=arg2");
-        assertTrue(argument_.isFalse());
+        assertFalse(processElNormal2BoolVars(true, false, "arg&&=arg2"));
     }
     @Test
     public void processEl503Test() {
-        Argument argument_ = processElNormal2BoolVars(false, true, "arg||=arg2");
-        assertTrue(argument_.isTrue());
+        assertTrue(processElNormal2BoolVars(false, true, "arg||=arg2"));
     }
     @Test
     public void processEl_501Test() {
-        Argument argument_ = processElNormal2BoolVars(true, false, "arg|||=1/0>1");
-        assertTrue(argument_.isTrue());
+        assertTrue(processElNormal2BoolVars(true, false, "arg|||=1/0>1"));
     }
     @Test
     public void processEl_502Test() {
-        Argument argument_ = processElNormal2BoolVars(true, false, "arg&&&=arg2");
-        assertTrue(argument_.isFalse());
+        assertFalse(processElNormal2BoolVars(true, false, "arg&&&=arg2"));
     }
     @Test
     public void processEl_503Test() {
-        Argument argument_ = processElNormal2BoolVars(false, true, "arg|||=arg2");
-        assertTrue(argument_.isTrue());
+        assertTrue(processElNormal2BoolVars(false, true, "arg|||=arg2"));
     }
 
     @Test
     public void processEl198Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "$(java.lang.Number)5");
-        assertEq(5L, getNumber(arg_));
+        assertEq(5L, getNumber(processEl(new StringMap<String>(), "$(java.lang.Number)5")));
     }
     @Test
     public void processEl199Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "$($byte)5");
-        assertEq(5L, getNumber(arg_));
+        assertEq(5L, getNumber(processEl(new StringMap<String>(), "$($byte)5")));
     }
     @Test
     public void processEl201Test() {
-        Argument arg_ = processElNormal3("$(java.lang.Byte)$null", new StringMap<String>());
-        assertSame(NullStruct.NULL_VALUE, arg_.getStruct());
+        assertSame(NullStruct.NULL_VALUE, processElNormal3("$(java.lang.Byte)$null", new StringMap<String>()));
     }
 
     @Test
     public void processEl203Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "1!=2!=3");
-        assertTrue(arg_.isTrue());
+        assertTrue(processEl(new StringMap<String>(), "1!=2!=3"));
     }
     @Test
     public void processEl210Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "'1'+'2'");
-        assertEq(99, getNumber(arg_));
+        assertEq(99, getNumber(processEl(new StringMap<String>(), "'1'+'2'")));
     }
     @Test
     public void processEl211Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "\"\"+$new $char[]{'1','2'}[0]+$new $char[]{'1','2'}[1]");
-        assertEq("12",getString(arg_));
+        assertEq("12", getString(processEl(new StringMap<String>(), "\"\"+$new $char[]{'1','2'}[0]+$new $char[]{'1','2'}[1]")));
     }
     @Test
     public void processEl212Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "('1'+'2')*3i");
-        assertEq(297, getNumber(arg_));
+        assertEq(297, getNumber(processEl(new StringMap<String>(), "('1'+'2')*3i")));
     }
     @Test
     public void processEl213Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "'1'>1i");
-        assertTrue(arg_.isTrue());
+        assertTrue(processEl(new StringMap<String>(), "'1'>1i"));
     }
     @Test
     public void processEl214Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "'1'<1i");
-        assertTrue(arg_.isFalse());
+        assertFalse(processEl(new StringMap<String>(), "'1'<1i"));
     }
     @Test
     public void processEl215Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "'1'<1i");
-        assertTrue(arg_.isFalse());
+        assertFalse(processEl(new StringMap<String>(), "'1'<1i"));
     }
     @Test
     public void processEl216Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "'1'>1i");
-        assertTrue(arg_.isTrue());
+        assertTrue(processEl(new StringMap<String>(), "'1'>1i"));
     }
     @Test
     public void processEl217Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "'1'==49i");
-        assertTrue(arg_.isTrue());
+        assertTrue(processEl(new StringMap<String>(), "'1'==49i"));
     }
     @Test
     public void processEl218Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "49i=='1'");
-        assertTrue(arg_.isTrue());
+        assertTrue(processEl(new StringMap<String>(), "49i=='1'"));
     }
     @Test
     public void processEl213FailTest() {
-        Argument arg_ = processEl(new StringMap<String>(), "('1'+'2')*'3'");
-        assertEq(5049, getNumber(arg_));
+        assertEq(5049, getNumber(processEl(new StringMap<String>(), "('1'+'2')*'3'")));
     }
     @Test
     public void processEl219Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "6 + $($int) - $static($math).quot(8,5) - 2");
-        assertEq(3, getNumber(arg_));
+        assertEq(3, getNumber(processEl(new StringMap<String>(), "6 + $($int) - $static($math).quot(8,5) - 2")));
     }
     @Test
     public void processEl220Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "$class($int).getName()");
-        assertEq("$int",getString(arg_));
+        assertEq("$int", getString(processEl(new StringMap<String>(), "$class($int).getName()")));
     }
     @Test
     public void processEl221Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "$class(java.lang.Integer).getName()");
-        assertEq("java.lang.Integer",getString(arg_));
+        assertEq("java.lang.Integer", getString(processEl(new StringMap<String>(), "$class(java.lang.Integer).getName()")));
     }
     @Test
     public void processEl222Test() {
@@ -1284,8 +1107,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument arg_ = processEl(files_, "$class(pkg.Ex).getName()");
-        assertEq("pkg.Ex",getString(arg_));
+        assertEq("pkg.Ex", getString(processEl(files_, "$class(pkg.Ex).getName()")));
     }
     @Test
     public void processEl223Test() {
@@ -1294,8 +1116,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument arg_ = processEl(files_, "$class(pkg.Ex).getName()");
-        assertEq("pkg.Ex",getString(arg_));
+        assertEq("pkg.Ex", getString(processEl(files_, "$class(pkg.Ex).getName()")));
     }
     @Test
     public void processEl224Test() {
@@ -1307,8 +1128,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument arg_ = processEl(files_, "$new pkg.Ex<java.lang.Integer>().exmeth()");
-        assertEq("java.lang.Integer",getString(arg_));
+        assertEq("java.lang.Integer", getString(processEl(files_, "$new pkg.Ex<java.lang.Integer>().exmeth()")));
     }
     @Test
     public void processEl225Test() {
@@ -1320,23 +1140,19 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument arg_ = processEl(files_, "$new pkg.Ex<java.lang.Integer>().exmeth()");
-        assertEq("pkg.Ex<java.lang.Integer>",getString(arg_));
+        assertEq("pkg.Ex<java.lang.Integer>", getString(processEl(files_, "$new pkg.Ex<java.lang.Integer>().exmeth()")));
     }
     @Test
     public void processEl226Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "$static($Class).getClass(\"\").getName()");
-        assertEq("java.lang.String",getString(arg_));
+        assertEq("java.lang.String", getString(processEl(new StringMap<String>(), "$static($Class).getClass(\"\").getName()")));
     }
     @Test
     public void processEl227Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "$static($Class).getClass(1i).getName()");
-        assertEq("java.lang.Integer",getString(arg_));
+        assertEq("java.lang.Integer", getString(processEl(new StringMap<String>(), "$static($Class).getClass(1i).getName()")));
     }
     @Test
     public void processEl228Test() {
-        Argument arg_ = processElNormal3("$static($Class).getClass($null)", new StringMap<String>());
-        assertTrue(arg_.isNull());
+        assertSame(NullStruct.NULL_VALUE,processElNormal3("$static($Class).getClass($null)", new StringMap<String>()));
     }
     @Test
     public void processEl229Test() {
@@ -1348,18 +1164,15 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument arg_ = processEl(files_, "$static($Class).getClass($new pkg.Ex<java.lang.Integer>()).getName()");
-        assertEq("pkg.Ex<java.lang.Integer>",getString(arg_));
+        assertEq("pkg.Ex<java.lang.Integer>", getString(processEl(files_, "$static($Class).getClass($new pkg.Ex<java.lang.Integer>()).getName()")));
     }
     @Test
     public void processEl230Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "$class($int[]).getName()");
-        assertEq("[$int",getString(arg_));
+        assertEq("[$int", getString(processEl(new StringMap<String>(), "$class($int[]).getName()")));
     }
     @Test
     public void processEl231Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "$class(java.lang.Integer[]).getName()");
-        assertEq("[java.lang.Integer",getString(arg_));
+        assertEq("[java.lang.Integer", getString(processEl(new StringMap<String>(), "$class(java.lang.Integer[]).getName()")));
     }
     @Test
     public void processEl232Test() {
@@ -1374,8 +1187,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument arg_ = processEl(files_, "$class(pkg.Ex[]).getName()");
-        assertEq("[pkg.Ex",getString(arg_));
+        assertEq("[pkg.Ex", getString(processEl(files_, "$class(pkg.Ex[]).getName()")));
     }
     @Test
     public void processEl233Test() {
@@ -1384,8 +1196,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument arg_ = processEl(files_, "$class(pkg.Ex[]).getName()");
-        assertEq("[pkg.Ex",getString(arg_));
+        assertEq("[pkg.Ex", getString(processEl(files_, "$class(pkg.Ex[]).getName()")));
     }
     @Test
     public void processEl234Test() {
@@ -1394,8 +1205,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument arg_ = processEl(files_, "$class(pkg.Ex<java.lang.Integer>[]).getName()");
-        assertEq("[pkg.Ex<java.lang.Integer>",getString(arg_));
+        assertEq("[pkg.Ex<java.lang.Integer>", getString(processEl(files_, "$class(pkg.Ex<java.lang.Integer>[]).getName()")));
     }
     @Test
     public void processEl235Test() {
@@ -1407,8 +1217,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument arg_ = processEl(files_, "$new pkg.Ex<java.lang.Integer>().exmeth()");
-        assertEq("[java.lang.Integer",getString(arg_));
+        assertEq("[java.lang.Integer", getString(processEl(files_, "$new pkg.Ex<java.lang.Integer>().exmeth()")));
     }
     @Test
     public void processEl236Test() {
@@ -1420,13 +1229,11 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument arg_ = processEl(files_, "$new pkg.Ex<java.lang.Integer>().exmeth()");
-        assertEq("pkg.Ex<[java.lang.Integer>",getString(arg_));
+        assertEq("pkg.Ex<[java.lang.Integer>", getString(processEl(files_, "$new pkg.Ex<java.lang.Integer>().exmeth()")));
     }
     @Test
     public void processEl237Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "$static($Class).getClass($new $int[]{1i}).getName()");
-        assertEq("[$int",getString(arg_));
+        assertEq("[$int", getString(processEl(new StringMap<String>(), "$static($Class).getClass($new $int[]{1i}).getName()")));
     }
     @Test
     public void processEl238Test() {
@@ -1441,8 +1248,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument arg_ = processEl(files_, "$static($Class).forName(\"pkg.Ex\",$true).getName()");
-        assertEq("pkg.Ex",getString(arg_));
+        assertEq("pkg.Ex", getString(processEl(files_, "$static($Class).forName(\"pkg.Ex\",$true).getName()")));
     }
 //    @Test
 //    public void processEl239Test() {
@@ -1474,13 +1280,11 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
 //    }
     @Test
     public void processEl240Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "$class($void).getName()");
-        assertEq("$void",getString(arg_));
+        assertEq("$void", getString(processEl(new StringMap<String>(), "$class($void).getName()")));
     }
     @Test
     public void processEl241Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "$static($Class).forName(\"$void\",$true).getName()");
-        assertEq("$void",getString(arg_));
+        assertEq("$void", getString(processEl(new StringMap<String>(), "$static($Class).forName(\"$void\",$true).getName()")));
     }
     @Test
     public void processEl250Test() {
@@ -1517,13 +1321,11 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Argument arg_ = processElLow(files_, "$static(pkg.ExTwo).exmeth()");
-        assertEq(14, getNumber(arg_));
+        assertEq(14, getNumber(processElLow(files_, "$static(pkg.ExTwo).exmeth()")));
     }
     @Test
     public void processEl251Test() {
-        Argument arg_ = processElLow(new StringMap<String>(), "$class($math).getDeclaredMethods(\"mod\",$true,$false,$class($int),$class($int))[0i].invoke($null,4i,3i)");
-        assertEq(1, getNumber(arg_));
+        assertEq(1, getNumber(processElLow(new StringMap<String>(), "$class($math).getDeclaredMethods(\"mod\",$true,$false,$class($int),$class($int))[0i].invoke($null,4i,3i)")));
     }
 //    @Test
 //    public void processEl252Test() {
@@ -1598,8 +1400,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Argument arg_ = processElLow(files_, "$static(pkg.ExTwo).exmeth()");
-        assertEq(14, getNumber(arg_));
+        assertEq(14, getNumber(processElLow(files_, "$static(pkg.ExTwo).exmeth()")));
     }
     @Test
     public void processEl254Test() {
@@ -1635,8 +1436,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Argument arg_ = processElLow(files_, "$static(pkg.ExTwo).exmeth()");
-        assertEq("out",getString(arg_));
+        assertEq("out", getString(processElLow(files_, "$static(pkg.ExTwo).exmeth()")));
     }
     @Test
     public void processEl255Test() {
@@ -1674,8 +1474,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Argument arg_ = processElLow(files_, "$static(pkg.ExTwo).exmeth()");
-        assertEq("super",getString(arg_));
+        assertEq("super", getString(processElLow(files_, "$static(pkg.ExTwo).exmeth()")));
     }
     @Test
     public void processEl256Test() {
@@ -1716,8 +1515,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Argument arg_ = processElLow(files_, "$static(pkg.ExTwo).exmeth()");
-        assertEq(19, getNumber(arg_));
+        assertEq(19, getNumber(processElLow(files_, "$static(pkg.ExTwo).exmeth()")));
     }
     @Test
     public void processEl257Test() {
@@ -1755,8 +1553,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Argument arg_ = processElLow(files_, "$static(pkg.ExTwo).exmeth()");
-        assertEq(14, getNumber(arg_));
+        assertEq(14, getNumber(processElLow(files_, "$static(pkg.ExTwo).exmeth()")));
     }
     @Test
     public void processEl258Test() {
@@ -1797,8 +1594,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Argument arg_ = processElLow(files_, "$static(pkg.ExTwo).exmeth()");
-        assertEq(19, getNumber(arg_));
+        assertEq(19, getNumber(processElLow(files_, "$static(pkg.ExTwo).exmeth()")));
     }
     @Test
     public void processEl259Test() {
@@ -1841,8 +1637,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Argument arg_ = processElLow(files_, "$static(pkg.ExTwo).exmeth()");
-        assertEq(9, getNumber(arg_));
+        assertEq(9, getNumber(processElLow(files_, "$static(pkg.ExTwo).exmeth()")));
     }
     @Test
     public void processEl260Test() {
@@ -1886,8 +1681,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Argument arg_ = processElLow(files_, "$static(pkg.ExTwo).exmeth()");
-        assertEq(19, getNumber(arg_));
+        assertEq(19, getNumber(processElLow(files_, "$static(pkg.ExTwo).exmeth()")));
     }
 //    @Test
 //    public void processEl261Test() {
@@ -1980,8 +1774,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Argument arg_ = processElLow(files_, "$static(pkg.ExTwo).exmeth()");
-        assertEq(19, getNumber(arg_));
+        assertEq(19, getNumber(processElLow(files_, "$static(pkg.ExTwo).exmeth()")));
     }
     @Test
     public void processEl268Test() {
@@ -2026,8 +1819,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Argument arg_ = processElLow(files_, "$static(pkg.ExTwo).exmeth()");
-        assertEq(22, getNumber(arg_));
+        assertEq(22, getNumber(processElLow(files_, "$static(pkg.ExTwo).exmeth()")));
     }
     @Test
     public void processEl269Test() {
@@ -2072,8 +1864,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Argument arg_ = processElLow(files_, "$static(pkg.ExTwo).exmeth()");
-        assertEq(28, getNumber(arg_));
+        assertEq(28, getNumber(processElLow(files_, "$static(pkg.ExTwo).exmeth()")));
     }
     @Test
     public void processEl270Test() {
@@ -2120,8 +1911,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Argument arg_ = processElLow(files_, "$static(pkg.ExTwo).exmeth()");
-        assertEq(32, getNumber(arg_));
+        assertEq(32, getNumber(processElLow(files_, "$static(pkg.ExTwo).exmeth()")));
     }
     @Test
     public void processEl271Test() {
@@ -2170,8 +1960,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Argument arg_ = processElLow(files_, "$static(pkg.ExTwo).exmeth()");
-        assertEq(19, getNumber(arg_));
+        assertEq(19, getNumber(processElLow(files_, "$static(pkg.ExTwo).exmeth()")));
     }
 
     @Test
@@ -2219,8 +2008,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Argument arg_ = processElLow(files_, "$static(pkg.ExTwo).exmeth()");
-        assertEq(19, getNumber(arg_));
+        assertEq(19, getNumber(processElLow(files_, "$static(pkg.ExTwo).exmeth()")));
     }
     @Test
     public void processEl276Test() {
@@ -2263,13 +2051,11 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Argument arg_ = processEl(files_, "$static(pkg.ExTwo).exmeth()");
-        assertEq(19, getNumber(arg_));
+        assertEq(19, getNumber(processEl(files_, "$static(pkg.ExTwo).exmeth()")));
     }
     @Test
     public void processEl277Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "$static($Class).getAllClasses().length > 10");
-        assertTrue(arg_.isTrue());
+        assertTrue(processEl(new StringMap<String>(), "$static($Class).getAllClasses().length > 10"));
     }
     @Test
     public void processEl278Test() {
@@ -2314,8 +2100,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Argument arg_ = processEl(files_, "$static(pkg.ExTwo).exmeth()");
-        assertEq(15, getNumber(arg_));
+        assertEq(15, getNumber(processEl(files_, "$static(pkg.ExTwo).exmeth()")));
     }
     @Test
     public void processEl282Test() {
@@ -2357,8 +2142,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Argument arg_ = processElLow(files_, "$static(pkg.ExTwo).exmeth()");
-        assertEq(15, getNumber(arg_));
+        assertEq(15, getNumber(processElLow(files_, "$static(pkg.ExTwo).exmeth()")));
     }
     @Test
     public void processEl283Test() {
@@ -2400,8 +2184,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Argument arg_ = processElLow(files_, "$static(pkg.ExTwo).exmeth()");
-        assertEq("hello", getString(arg_));
+        assertEq("hello", getString(processElLow(files_, "$static(pkg.ExTwo).exmeth()")));
     }
     @Test
     public void processEl286Test() {
@@ -2444,8 +2227,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Argument arg_ = processElNormal3Low("$static(pkg.ExTwo).exmeth()", files_);
-        assertTrue(arg_.isNull());
+        assertSame(NullStruct.NULL_VALUE,processElNormal3Low("$static(pkg.ExTwo).exmeth()", files_));
     }
     @Test
     public void processEl291Test() {
@@ -2489,8 +2271,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Argument arg_ = processElLow(files_, "$static(pkg.ExTwo).exmeth()");
-        assertEq(16, getNumber(arg_));
+        assertEq(16, getNumber(processElLow(files_, "$static(pkg.ExTwo).exmeth()")));
     }
     @Test
     public void processEl292Test() {
@@ -2534,8 +2315,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Argument arg_ = processElNormal3Low("$static(pkg.ExTwo).exmeth()", files_);
-        assertTrue(arg_.isNull());
+        assertSame(NullStruct.NULL_VALUE,processElNormal3Low("$static(pkg.ExTwo).exmeth()", files_));
     }
     @Test
     public void processEl293Test() {
@@ -2579,8 +2359,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Argument arg_ = processElLow(files_, "$static(pkg.ExTwo).exmeth()");
-        assertEq(16, getNumber(arg_));
+        assertEq(16, getNumber(processElLow(files_, "$static(pkg.ExTwo).exmeth()")));
     }
     @Test
     public void processEl299Test() {
@@ -2616,8 +2395,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" $protected $static $final $int sup=15i;\n");
         xml_.append("}\n");
         files_.put("pkg/ExAbs", xml_.toString());
-        Argument arg_ = processEl(files_, "$static(pkg.ExTwo).exmeth()");
-        assertEq(15, getNumber(arg_));
+        assertEq(15, getNumber(processEl(files_, "$static(pkg.ExTwo).exmeth()")));
     }
     @Test
     public void processEl300Test() {
@@ -2656,8 +2434,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExAbs", xml_.toString());
-        Argument arg_ = processEl(files_, "$static(pkg.ExTwo).exmeth()");
-        assertEq(15, getNumber(arg_));
+        assertEq(15, getNumber(processEl(files_, "$static(pkg.ExTwo).exmeth()")));
     }
     @Test
     public void processEl301Test() {
@@ -2696,8 +2473,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExAbs", xml_.toString());
-        Argument arg_ = processEl(files_, "$static(pkg.ExTwo).exmeth()");
-        assertEq(15, getNumber(arg_));
+        assertEq(15, getNumber(processEl(files_, "$static(pkg.ExTwo).exmeth()")));
     }
     @Test
     public void processEl302Test() {
@@ -2736,44 +2512,42 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExAbs", xml_.toString());
-        Argument arg_ = processEl(files_, "$static(pkg.ExTwo).exmeth()");
-        assertEq(15, getNumber(arg_));
+        assertEq(15, getNumber(processEl(files_, "$static(pkg.ExTwo).exmeth()")));
     }
     @Test
     public void processEl307Test() {
-        Argument arg_ = processElNormal3Low("$class(java.lang.String[]).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new java.lang.Number[]{})", new StringMap<String>());
-        assertTrue(arg_.getStruct() instanceof ArrayStruct);
-        assertEq("[java.lang.Number",((ArrayStruct)arg_.getStruct()).getClassName());
-        assertEq(0,(((ArrayStruct)arg_.getStruct()).getInstance()).length);
+        Struct arg_ = processElNormal3Low("$class(java.lang.String[]).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new java.lang.Number[]{})", new StringMap<String>());
+        assertTrue(arg_ instanceof ArrayStruct);
+        assertEq("[java.lang.Number",((ArrayStruct)arg_).getClassName());
+        assertEq(0,(((ArrayStruct)arg_).getInstance()).length);
     }
 
     @Test
     public void processEl308Test() {
-        Argument arg_ = processElNormal3Low("$class(java.lang.String[]).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new java.lang.String[]{})", new StringMap<String>());
-        assertTrue(arg_.getStruct() instanceof ArrayStruct);
-        assertEq("[java.lang.String",((ArrayStruct)arg_.getStruct()).getClassName());
-        assertEq(0,(((ArrayStruct)arg_.getStruct()).getInstance()).length);
+        Struct arg_ = processElNormal3Low("$class(java.lang.String[]).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new java.lang.String[]{})", new StringMap<String>());
+        assertTrue(arg_ instanceof ArrayStruct);
+        assertEq("[java.lang.String",((ArrayStruct)arg_).getClassName());
+        assertEq(0,(((ArrayStruct)arg_).getInstance()).length);
     }
     @Test
     public void processEl309Test() {
-        Argument arg_ = processElNormal3Low("$class(java.lang.String[]).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new java.lang.String[]{\"sample\"})", new StringMap<String>());
-        assertTrue(arg_.getStruct() instanceof ArrayStruct);
-        assertEq("[java.lang.String",((ArrayStruct)arg_.getStruct()).getClassName());
-        assertEq(1,(((ArrayStruct)arg_.getStruct()).getInstance()).length);
-        assertEq("sample",((StringStruct)(((ArrayStruct)arg_.getStruct()).getInstance())[0]).getInstance());
+        Struct arg_ = processElNormal3Low("$class(java.lang.String[]).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new java.lang.String[]{\"sample\"})", new StringMap<String>());
+        assertTrue(arg_ instanceof ArrayStruct);
+        assertEq("[java.lang.String",((ArrayStruct)arg_).getClassName());
+        assertEq(1,(((ArrayStruct)arg_).getInstance()).length);
+        assertEq("sample",((StringStruct)(((ArrayStruct)arg_).getInstance())[0]).getInstance());
     }
     @Test
     public void processEl310Test() {
-        Argument arg_ = processElNormal3Low("$class(java.lang.Object[]).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new java.lang.String[]{\"sample\"})", new StringMap<String>());
-        assertTrue(arg_.getStruct() instanceof ArrayStruct);
-        assertEq("[java.lang.String",((ArrayStruct)arg_.getStruct()).getClassName());
-        assertEq(1,(((ArrayStruct)arg_.getStruct()).getInstance()).length);
-        assertEq("sample",((StringStruct)(((ArrayStruct)arg_.getStruct()).getInstance())[0]).getInstance());
+        Struct arg_ = processElNormal3Low("$class(java.lang.Object[]).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new java.lang.String[]{\"sample\"})", new StringMap<String>());
+        assertTrue(arg_ instanceof ArrayStruct);
+        assertEq("[java.lang.String",((ArrayStruct)arg_).getClassName());
+        assertEq(1,(((ArrayStruct)arg_).getInstance()).length);
+        assertEq("sample",((StringStruct)(((ArrayStruct)arg_).getInstance())[0]).getInstance());
     }
     @Test
     public void processEl311Test() {
-        Argument arg_ = processEl(new StringMap<String>(), "$math.abs(-8l)");
-        assertEq(8L, getNumber(arg_));
+        assertEq(8L, getNumber(processEl(new StringMap<String>(), "$math.abs(-8l)")));
     }
     @Test
     public void processEl312Test() {
@@ -2787,13 +2561,11 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument arg_ = processEl(files_, "pkg.Ex.exmeth()");
-        assertEq(9, getNumber(arg_));
+        assertEq(9, getNumber(processEl(files_, "pkg.Ex.exmeth()")));
     }
     @Test
     public void processEl317Test() {
-        Argument arg_ = processDelimiters(" {(1+2)*3+\" hello\"+\" world {every body ;)\\\\\\\"\"+$new $int[]{0i,1i}.length} ", 73);
-        assertEq("9 hello world {every body ;)\\\"2",getString(arg_));
+        assertEq("9 hello world {every body ;)\\\"2",getString(processDelimiters(" {(1+2)*3+\" hello\"+\" world {every body ;)\\\\\\\"\"+$new $int[]{0i,1i}.length} ", 73)));
     }
 
     @Test
@@ -2817,8 +2589,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument arg_ = processElNormalNotInit(files_, "$static(pkg.ExTwo).exmeth()");
-        assertEq("[pkg.Ex",getString(arg_));
+        assertEq("[pkg.Ex", getString(processElNormalNotInit(files_, "$static(pkg.ExTwo).exmeth()")));
     }
     @Test
     public void processEl319Test() {
@@ -2841,8 +2612,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument arg_ = processElNormalNotInit(files_, "$static(pkg.ExTwo).exmeth()");
-        assertEq("[pkg.Ex",getString(arg_));
+        assertEq("[pkg.Ex", getString(processElNormalNotInit(files_, "$static(pkg.ExTwo).exmeth()")));
     }
 
     @Test
@@ -2867,8 +2637,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument arg_ = processElNormalInit(files_, "$static(pkg.ExTwo).exmeth()+pkg.Ex.inst","pkg.Ex");
-        assertEq(6,getNumber(arg_));
+        assertEq(6, getNumber(processElNormalInit(files_, "$static(pkg.ExTwo).exmeth()+pkg.Ex.inst","pkg.Ex")));
     }
     @Test
     public void processEl321Test() {
@@ -2892,8 +2661,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument arg_ = processElNormalInit(files_, "$new{} pkg.Ex().inst","pkg.Ex");
-        assertEq(1,getNumber(arg_));
+        assertEq(1, getNumber(processElNormalInit(files_, "$new{} pkg.Ex().inst","pkg.Ex")));
     }
     @Test
     public void processEl322Test() {
@@ -2920,8 +2688,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument arg_ = processElNormalInit(files_, "$new pkg.Ex().$new Inner().inst","pkg.Ex");
-        assertEq(5,getNumber(arg_));
+        assertEq(5, getNumber(processElNormalInit(files_, "$new pkg.Ex().$new Inner().inst","pkg.Ex")));
     }
     @Test
     public void processEl359Test() {
@@ -2945,8 +2712,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument arg_ = processElNormalInit(files_, "$new{} pkg.Ex().inst","pkg.Ex");
-        assertEq(1,getNumber(arg_));
+        assertEq(1, getNumber(processElNormalInit(files_, "$new{} pkg.Ex().inst","pkg.Ex")));
     }
 
     @Test
@@ -2974,8 +2740,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument arg_ = processElNormalInit(files_, "$new{} pkg.Ex(5).inst","pkg.Ex");
-        assertEq(5,getNumber(arg_));
+        assertEq(5, getNumber(processElNormalInit(files_, "$new{} pkg.Ex(5).inst","pkg.Ex")));
     }
 //    @Test
 //    public void processEl361Test() {
@@ -3005,13 +2770,11 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument arg_ = processEl(files_, "pkg.ExTwo.exmeth($vararg($int),4,$firstopt(8))");
-        assertEq(12,getNumber(arg_));
+        assertEq(12, getNumber(processEl(files_, "pkg.ExTwo.exmeth($vararg($int),4,$firstopt(8))")));
     }
     @Test
     public void processEl365Test() {
-        Argument argument_ = processElNormalBoolInt(true, "($boolean)arg", new IntStruct(0));
-        assertTrue(argument_.isTrue());
+        assertTrue(processElNormalBoolInt(true, "($boolean)arg", new IntStruct(0)));
     }
 //    @Test
 //    public void processEl366Test() {
@@ -3033,8 +2796,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument arg_ = processEl(files_, "1 $instanceof pkg.ExTwo");
-        assertTrue(arg_.isFalse());
+        assertFalse(processEl(files_, "1 $instanceof pkg.ExTwo"));
     }
     @Test
     public void processEl370Test() {
@@ -3044,32 +2806,27 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument arg_ = processEl(files_, "$new pkg.ExTwo<java.lang.Object>() $instanceof pkg.ExTwo");
-        assertTrue(arg_.isTrue());
+        assertTrue(processEl(files_, "$new pkg.ExTwo<java.lang.Object>() $instanceof pkg.ExTwo"));
     }
 
     @Test
     public void processEl371Test() {
-        Argument argument_ = processElNormal1String("arg!=\"2\"");
-        assertTrue(argument_.isTrue());
+        assertTrue(processElNormal1String("arg!=\"2\""));
     }
 
     @Test
     public void processEl372Test() {
-        Argument argument_ = processElNormal1String("arg==\"2\"");
-        assertTrue(argument_.isFalse());
+        assertFalse(processElNormal1String("arg==\"2\""));
     }
 
     @Test
     public void processEl373Test() {
-        Argument argument_ = processElNormal1String("arg!=\"8\"");
-        assertTrue(argument_.isFalse());
+        assertFalse(processElNormal1String("arg!=\"8\""));
     }
 
     @Test
     public void processEl374Test() {
-        Argument argument_ = processElNormal1String("arg==\"8\"");
-        assertTrue(argument_.isTrue());
+        assertTrue(processElNormal1String("arg==\"8\""));
     }
 
 //    @Test
@@ -3101,8 +2858,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument arg_ = processEl(files_, "pkg.ExTwo.exmeth($id(pkg.ExTwo,$static,$int,$int...),4,8)");
-        assertEq(12,getNumber(arg_));
+        assertEq(12, getNumber(processEl(files_, "pkg.ExTwo.exmeth($id(pkg.ExTwo,$static,$int,$int...),4,8)")));
     }
     @Test
     public void processEl378Test() {
@@ -3115,8 +2871,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument arg_ = processEl(files_, "pkg.ExTwo.exmeth($id(pkg.ExTwo,$static,$int,$int),4,8)");
-        assertEq(12,getNumber(arg_));
+        assertEq(12, getNumber(processEl(files_, "pkg.ExTwo.exmeth($id(pkg.ExTwo,$static,$int,$int),4,8)")));
     }
 //    @Test
 //    public void procesAffect0Test() {
@@ -3188,8 +2943,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument arg_ = processElNormalInit(files_, "++pkg.Ex.inst","pkg.Ex");
-        assertEq(2,getNumber(arg_));
+        assertEq(2, getNumber(processElNormalInit(files_, "++pkg.Ex.inst","pkg.Ex")));
     }
     @Test
     public void processEl380Test() {
@@ -3216,8 +2970,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument arg_ = processElNormalInit(files_, "pkg.Ex.inst++","pkg.Ex");
-        assertEq(1,getNumber(arg_));
+        assertEq(1, getNumber(processElNormalInit(files_, "pkg.Ex.inst++","pkg.Ex")));
     }
     @Test
     public void processEl381Test() {
@@ -3244,8 +2997,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument arg_ = processElNormalInit(files_, "pkg.Ex.inst+=5","pkg.Ex");
-        assertEq(6,getNumber(arg_));
+        assertEq(6, getNumber(processElNormalInit(files_, "pkg.Ex.inst+=5","pkg.Ex")));
     }
 
     @Test
@@ -3272,8 +3024,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument argument_ = processEl(files_, "$new{} pkg.Ex(5).inst=10","pkg.Ex");
-        assertEq(10,getNumber(argument_));
+        assertEq(10, getNumber(processEl(files_, "$new{} pkg.Ex(5).inst=10","pkg.Ex")));
     }
     @Test
     public void processEl387Test() {
@@ -3299,8 +3050,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument argument_ = processEl(files_, "pkg.Ex.inst=10","pkg.Ex");
-        assertEq(10,getNumber(argument_));
+        assertEq(10, getNumber(processEl(files_, "pkg.Ex.inst=10","pkg.Ex")));
     }
     @Test
     public void processEl389Test() {
@@ -3329,8 +3079,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument argument_ = processEl(files_, "$new{} pkg.Ex(52).$that.res(8)","pkg.Ex");
-        assertEq(60,getNumber(argument_));
+        assertEq(60, getNumber(processEl(files_, "$new{} pkg.Ex(52).$that.res(8)","pkg.Ex")));
     }
     @Test
     public void processEl390Test() {
@@ -3360,8 +3109,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument argument_ = processEl(files_, "pkg.Ex.res(8)","pkg.Ex");
-        assertEq(9,getNumber(argument_));
+        assertEq(9, getNumber(processEl(files_, "pkg.Ex.res(8)","pkg.Ex")));
     }
     @Test
     public void processEl393Test() {
@@ -3390,8 +3138,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument argument_ = processEl(files_, "$new pkg.Ex(52).$classchoice(pkg.Ex)res(8)","pkg.Ex");
-        assertEq(60,getNumber(argument_));
+        assertEq(60, getNumber(processEl(files_, "$new pkg.Ex(52).$classchoice(pkg.Ex)res(8)","pkg.Ex")));
     }
 
     @Test
@@ -3422,8 +3169,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument argument_ = processEl(files_, "pkg.Ex.$classchoice(pkg.Ex)res(8)","pkg.Ex");
-        assertEq(9,getNumber(argument_));
+        assertEq(9, getNumber(processEl(files_, "pkg.Ex.$classchoice(pkg.Ex)res(8)","pkg.Ex")));
     }
     @Test
     public void processEl398Test() {
@@ -3452,8 +3198,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument argument_ = processEl(files_, "$new pkg.Ex(52).$superaccess(pkg.Ex)res(8)","pkg.Ex");
-        assertEq(60,getNumber(argument_));
+        assertEq(60, getNumber(processEl(files_, "$new pkg.Ex(52).$superaccess(pkg.Ex)res(8)","pkg.Ex")));
     }
     @Test
     public void processEl399Test() {
@@ -3483,8 +3228,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument argument_ = processEl(files_, "pkg.Ex.$superaccess(pkg.Ex)res(8)","pkg.Ex");
-        assertEq(9,getNumber(argument_));
+        assertEq(9, getNumber(processEl(files_, "pkg.Ex.$superaccess(pkg.Ex)res(8)","pkg.Ex")));
     }
     @Test
     public void processEl402Test() {
@@ -3501,8 +3245,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" $public $static $int v;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument argument_ = processEl(files_, "$values(pkg.ExTwo).length","pkg.ExTwo");
-        assertEq(2,getNumber(argument_));
+        assertEq(2, getNumber(processEl(files_, "$values(pkg.ExTwo).length","pkg.ExTwo")));
     }
     @Test
     public void processEl403Test() {
@@ -3520,8 +3263,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" $public $static $int v;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument argument_ = processEl(files_, "$valueOf(pkg.ExTwo,\"ONE\").myval","pkg.ExTwo-ONE","pkg.ExTwo-TWO","pkg.ExTwo");
-        assertEq(5,getNumber(argument_));
+        assertEq(5, getNumber(processEl(files_, "$valueOf(pkg.ExTwo,\"ONE\").myval","pkg.ExTwo-ONE","pkg.ExTwo-TWO","pkg.ExTwo")));
     }
     @Test
     public void processEl404Test() {
@@ -3539,8 +3281,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" $public $static $int v;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument argument_ = processEl(files_, "$valueOf(pkg.ExTwo,\"TWO\").myval","pkg.ExTwo-ONE","pkg.ExTwo-TWO","pkg.ExTwo");
-        assertEq(7,getNumber(argument_));
+        assertEq(7, getNumber(processEl(files_, "$valueOf(pkg.ExTwo,\"TWO\").myval","pkg.ExTwo-ONE","pkg.ExTwo-TWO","pkg.ExTwo")));
     }
     @Test
     public void processEl408Test() {
@@ -3551,8 +3292,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" ONE,TWO\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument argument_ = processEl(files_, "$values(pkg.ExTwo).length");
-        assertEq(2,getNumber(argument_));
+        assertEq(2, getNumber(processEl(files_, "$values(pkg.ExTwo).length")));
     }
     @Test
     public void processEl409Test() {
@@ -3564,8 +3304,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" $public $int myval;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument argument_ = processEl(files_, "$valueOf(pkg.ExTwo,\"ONE\").myval");
-        assertEq(5,getNumber(argument_));
+        assertEq(5, getNumber(processEl(files_, "$valueOf(pkg.ExTwo,\"ONE\").myval")));
     }
     @Test
     public void processEl410Test() {
@@ -3577,8 +3316,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" $public $int myval;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument argument_ = processEl(files_, "$valueOf(pkg.ExTwo,\"TWO\").myval");
-        assertEq(7,getNumber(argument_));
+        assertEq(7, getNumber(processEl(files_, "$valueOf(pkg.ExTwo,\"TWO\").myval")));
     }
     @Test
     public void processEl411Test() {
@@ -3588,8 +3326,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "$lambda(pkg.Ex,,inst,$int).call(4)");
-        assertEq(4,getNumber(argument_));
+        assertEq(4, getNumber(processEl(files_, "$lambda(pkg.Ex,,inst,$int).call(4)")));
     }
     @Test
     public void processEl412Test() {
@@ -3599,8 +3336,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "$lambda(java.lang.String,length).call(\"mystr\")");
-        assertEq(5,getNumber(argument_));
+        assertEq(5, getNumber(processEl(files_, "$lambda(java.lang.String,length).call(\"mystr\")")));
     }
     @Test
     public void processEl413Test() {
@@ -3610,8 +3346,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "((java.lang.String)$lambda(java.lang.String,$new,$char...).call($new $char[]{'m','y','s','t','r'})).length()");
-        assertEq(5,getNumber(argument_));
+        assertEq(5, getNumber(processEl(files_, "((java.lang.String)$lambda(java.lang.String,$new,$char...).call($new $char[]{'m','y','s','t','r'})).length()")));
     }
     @Test
     public void processEl414Test() {
@@ -3621,8 +3356,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "\"mystr\".$lambda(java.lang.String,length).call()");
-        assertEq(5,getNumber(argument_));
+        assertEq(5, getNumber(processEl(files_, "\"mystr\".$lambda(java.lang.String,length).call()")));
     }
     @Test
     public void processEl415Test() {
@@ -3639,8 +3373,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "pkg.Ex.inst.$lambda(java.lang.String,length).call()","pkg.Ex");
-        assertEq(5,getNumber(argument_));
+        assertEq(5, getNumber(processEl(files_, "pkg.Ex.inst.$lambda(java.lang.String,length).call()","pkg.Ex")));
     }
     @Test
     public void processEl416Test() {
@@ -3657,8 +3390,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "$lambda(pkg.Ex,,inst,java.lang.String).call(\"mystr\")","pkg.Ex");
-        assertEq("mystr",getString(argument_));
+        assertEq("mystr", getString(processEl(files_, "$lambda(pkg.Ex,,inst,java.lang.String).call(\"mystr\")","pkg.Ex")));
     }
     @Test
     public void processEl417Test() {
@@ -3677,8 +3409,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "($new pkg.Ex(6)+$new pkg.Ex(8)).inst");
-        assertEq(14,getNumber(argument_));
+        assertEq(14, getNumber(processEl(files_, "($new pkg.Ex(6)+$new pkg.Ex(8)).inst")));
     }
     @Test
     public void processEl417_Test() {
@@ -3697,8 +3428,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "$operator(+)($new pkg.Ex(6),$new pkg.Ex(8)).inst");
-        assertEq(14,getNumber(argument_));
+        assertEq(14, getNumber(processEl(files_, "$operator(+)($new pkg.Ex(6),$new pkg.Ex(8)).inst")));
     }
     @Test
     public void processEl418_Test() {
@@ -3717,8 +3447,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "$operator(+,pkg.Ex)($new pkg.Ex(6),$new pkg.Ex(8)).inst");
-        assertEq(14,getNumber(argument_));
+        assertEq(14, getNumber(processEl(files_, "$operator(+,pkg.Ex)($new pkg.Ex(6),$new pkg.Ex(8)).inst")));
     }
     @Test
     public void processEl418___Test() {
@@ -3728,8 +3457,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "($(pkg.Int)($static().$lambda($math,plus,$int,$int),$interfaces(pkg.Int)())).pl(6,8)");
-        assertEq(14,getNumber(argument_));
+        assertEq(14, getNumber(processEl(files_, "($(pkg.Int)($static().$lambda($math,plus,$int,$int),$interfaces(pkg.Int)())).pl(6,8)")));
     }
     @Test
     public void processEl419___Test() {
@@ -3741,8 +3469,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "($(pkg.Int)($static().$lambda($math,plus,$int,$int),$interfaces(pkg.Int2)(),$interfaces(pkg.Int)())).pl(6,8)");
-        assertEq(14,getNumber(argument_));
+        assertEq(14, getNumber(processEl(files_, "($(pkg.Int)($static().$lambda($math,plus,$int,$int),$interfaces(pkg.Int2)(),$interfaces(pkg.Int)())).pl(6,8)")));
     }
     @Test
     public void processEl422___Test() {
@@ -3753,8 +3480,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "$($int)(1??2)");
-        assertEq(1,getNumber(argument_));
+        assertEq(1, getNumber(processEl(files_, "$($int)(1??2)")));
     }
     @Test
     public void processEl423___Test() {
@@ -3765,8 +3491,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "$($int)($null??2)");
-        assertEq(2,getNumber(argument_));
+        assertEq(2, getNumber(processEl(files_, "$($int)($null??2)")));
     }
     @Test
     public void processEl424___Test() {
@@ -3777,20 +3502,17 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "\"\"?.length()");
-        assertEq(0,getNumber(argument_));
+        assertEq(0, getNumber(processEl(files_, "\"\"?.length()")));
     }
     @Test
     public void processEl_424___Test() {
         StringMap<String> files_ = new StringMap<String>();
-        Argument argument_ = processEl(files_, "($(java.lang.String)$null)?.$lambda(java.lang.String,length).call()");
-        assertEq(0,getNumber(argument_));
+        assertEq(0, getNumber(processEl(files_, "($(java.lang.String)$null)?.$lambda(java.lang.String,length).call()")));
     }
     @Test
     public void processEl_425___Test() {
         StringMap<String> files_ = new StringMap<String>();
-        Argument argument_ = processEl(files_, "($(java.lang.String)(($(java.lang.String)$null)?.$lambda(java.lang.String,length).call()==0?$null:$null))?.$lambda(java.lang.String,length).call()");
-        assertEq(0,getNumber(argument_));
+        assertEq(0, getNumber(processEl(files_, "($(java.lang.String)(($(java.lang.String)$null)?.$lambda(java.lang.String,length).call()==0?$null:$null))?.$lambda(java.lang.String,length).call()")));
     }
     @Test
     public void processEl425___Test() {
@@ -3800,8 +3522,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "($new pkg.Cl().str)?.length()");
-        assertEq(0,getNumber(argument_));
+        assertEq(0, getNumber(processEl(files_, "($new pkg.Cl().str)?.length()")));
     }
     @Test
     public void processEl426___Test() {
@@ -3811,8 +3532,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "$new pkg.Cl()?.str=\"hello\"");
-        assertEq("hello",getString(argument_));
+        assertEq("hello", getString(processEl(files_, "$new pkg.Cl()?.str=\"hello\"")));
     }
     @Test
     public void processEl427___Test() {
@@ -3825,9 +3545,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processElNormal3("$new pkg.ClOwner()?.owner?.str=\"hello\"", files_);
-        
-        assertSame(NullStruct.NULL_VALUE,argument_.getStruct());
+        assertSame(NullStruct.NULL_VALUE,processElNormal3("$new pkg.ClOwner()?.owner?.str=\"hello\"", files_));
     }
     @Test
     public void processEl428___Test() {
@@ -3837,8 +3555,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "$new pkg.Cl()?.str+=\"hello\"");
-        assertEq("hello",getString(argument_));
+        assertEq("hello", getString(processEl(files_, "$new pkg.Cl()?.str+=\"hello\"")));
     }
     @Test
     public void processEl429___Test() {
@@ -3851,9 +3568,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processElNormal3("$new pkg.ClOwner()?.owner?.str+=\"hello\"", files_);
-        
-        assertSame(NullStruct.NULL_VALUE,argument_.getStruct());
+        assertSame(NullStruct.NULL_VALUE,processElNormal3("$new pkg.ClOwner()?.owner?.str+=\"hello\"", files_));
     }
     @Test
     public void processEl430___Test() {
@@ -3863,8 +3578,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "$new pkg.Cl()?.str++");
-        assertEq(5,getNumber(argument_));
+        assertEq(5, getNumber(processEl(files_, "$new pkg.Cl()?.str++")));
     }
     @Test
     public void processEl431___Test() {
@@ -3874,8 +3588,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "++$new pkg.Cl()?.str");
-        assertEq(6,getNumber(argument_));
+        assertEq(6, getNumber(processEl(files_, "++$new pkg.Cl()?.str")));
     }
     @Test
     public void processEl432___Test() {
@@ -3888,9 +3601,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processElNormal3("$new pkg.ClOwner()?.owner?.str++", files_);
-        
-        assertEq(0,getNumber(argument_));
+        assertEq(0, getNumber(processElNormal3("$new pkg.ClOwner()?.owner?.str++", files_)));
     }
 
     @Test
@@ -3904,9 +3615,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processElNormal3("++$new pkg.ClOwner()?.owner?.str", files_);
-        
-        assertEq(0,getNumber(argument_));
+        assertEq(0, getNumber(processElNormal3("++$new pkg.ClOwner()?.owner?.str", files_)));
     }
     @Test
     public void processEl418Test() {
@@ -3926,8 +3635,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "(pkg.Ex.res+=$new pkg.Ex(8)).inst");
-        assertEq(14,getNumber(argument_));
+        assertEq(14, getNumber(processEl(files_, "(pkg.Ex.res+=$new pkg.Ex(8)).inst")));
     }
     @Test
     public void processEl419Test() {
@@ -3947,8 +3655,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "(pkg.Ex.res++).inst");
-        assertEq(6,getNumber(argument_));
+        assertEq(6, getNumber(processEl(files_, "(pkg.Ex.res++).inst")));
     }
     @Test
     public void processEl420Test() {
@@ -3968,8 +3675,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "(++pkg.Ex.res).inst");
-        assertEq(7,getNumber(argument_));
+        assertEq(7, getNumber(processEl(files_, "(++pkg.Ex.res).inst")));
     }
     @Test
     public void processEl421Test() {
@@ -3989,8 +3695,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "(pkg.Ex.res[0]+=$new pkg.Ex(8)).inst");
-        assertEq(14,getNumber(argument_));
+        assertEq(14, getNumber(processEl(files_, "(pkg.Ex.res[0]+=$new pkg.Ex(8)).inst")));
     }
     @Test
     public void processEl422Test() {
@@ -4010,8 +3715,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "(pkg.Ex.res[0]++).inst");
-        assertEq(6,getNumber(argument_));
+        assertEq(6, getNumber(processEl(files_, "(pkg.Ex.res[0]++).inst")));
     }
     @Test
     public void processEl423Test() {
@@ -4031,8 +3735,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "(++pkg.Ex.res[0]).inst");
-        assertEq(7,getNumber(argument_));
+        assertEq(7, getNumber(processEl(files_, "(++pkg.Ex.res[0]).inst")));
     }
     @Test
     public void processEl424Test() {
@@ -4055,8 +3758,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "(pkg.Ex.res.res[0]+=$new pkg.Ex(8)).inst","pkg.Ex");
-        assertEq(14,getNumber(argument_));
+        assertEq(14, getNumber(processEl(files_, "(pkg.Ex.res.res[0]+=$new pkg.Ex(8)).inst","pkg.Ex")));
     }
     @Test
     public void processEl425Test() {
@@ -4079,8 +3781,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "(pkg.Ex.res.res[0]++).inst","pkg.Ex");
-        assertEq(6,getNumber(argument_));
+        assertEq(6, getNumber(processEl(files_, "(pkg.Ex.res.res[0]++).inst","pkg.Ex")));
     }
     @Test
     public void processEl426Test() {
@@ -4103,8 +3804,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "(++pkg.Ex.res.res[0]).inst","pkg.Ex");
-        assertEq(7,getNumber(argument_));
+        assertEq(7, getNumber(processEl(files_, "(++pkg.Ex.res.res[0]).inst","pkg.Ex")));
     }
     @Test
     public void processEl427Test() {
@@ -4127,8 +3827,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "(pkg.Ex.res.res+=$new pkg.Ex(8)).inst","pkg.Ex");
-        assertEq(14,getNumber(argument_));
+        assertEq(14, getNumber(processEl(files_, "(pkg.Ex.res.res+=$new pkg.Ex(8)).inst","pkg.Ex")));
     }
     @Test
     public void processEl428Test() {
@@ -4151,8 +3850,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "(pkg.Ex.res.res++).inst","pkg.Ex");
-        assertEq(6,getNumber(argument_));
+        assertEq(6, getNumber(processEl(files_, "(pkg.Ex.res.res++).inst","pkg.Ex")));
     }
     @Test
     public void processEl429Test() {
@@ -4175,8 +3873,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "(++pkg.Ex.res.res).inst","pkg.Ex");
-        assertEq(7,getNumber(argument_));
+        assertEq(7, getNumber(processEl(files_, "(++pkg.Ex.res.res).inst","pkg.Ex")));
     }
 //    @Test
 //    public void processEl430Test() {
@@ -4305,8 +4002,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processElNormalVar2(files_, "$new pkg.Ex(5)[0]", new ClassField("pkg.Ex", "inst"), "pkg.Ex", new IntStruct(6), "v", "pkg.Ex");
-        assertEq(5,getNumber(argument_));
+        assertEq(5, getNumber(processElNormalVar2(files_, "$new pkg.Ex(5)[0]", new ClassField("pkg.Ex", "inst"), "pkg.Ex", new IntStruct(6), "v", "pkg.Ex")));
     }
 
     @Test
@@ -4334,8 +4030,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processElNormalVar2(files_, "$new pkg.Ex(5)[0].myval", new ClassField("pkg.Ex", "inst"), "pkg.Ex", new IntStruct(6), "v", "pkg.Ex");
-        assertEq(5,getNumber(argument_));
+        assertEq(5, getNumber(processElNormalVar2(files_, "$new pkg.Ex(5)[0].myval", new ClassField("pkg.Ex", "inst"), "pkg.Ex", new IntStruct(6), "v", "pkg.Ex")));
     }
     @Test
     public void processEl435Test() {
@@ -4355,8 +4050,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processElNormalVar2Low(files_, "$new pkg.Ex(5)[0]=15", new ClassField("pkg.Ex", "inst"), "pkg.Ex", new IntStruct(6), "v", "pkg.Ex");
-        assertEq(15,getNumber(argument_));
+        assertEq(15, getNumber(processElNormalVar2Low(files_, "$new pkg.Ex(5)[0]=15", new ClassField("pkg.Ex", "inst"), "pkg.Ex", new IntStruct(6), "v", "pkg.Ex")));
     }
     @Test
     public void processEl436Test() {
@@ -4376,8 +4070,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processElNormalVar2Low(files_, "$new pkg.Ex(5)[0]+=15", new ClassField("pkg.Ex", "inst"), "pkg.Ex", new IntStruct(6), "v", "pkg.Ex");
-        assertEq(20,getNumber(argument_));
+        assertEq(20, getNumber(processElNormalVar2Low(files_, "$new pkg.Ex(5)[0]+=15", new ClassField("pkg.Ex", "inst"), "pkg.Ex", new IntStruct(6), "v", "pkg.Ex")));
     }
     @Test
     public void processEl437Test() {
@@ -4397,8 +4090,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processElNormalVar2Low(files_, "++$new pkg.Ex(5)[0]", new ClassField("pkg.Ex", "inst"), "pkg.Ex", new IntStruct(6), "v", "pkg.Ex");
-        assertEq(6,getNumber(argument_));
+        assertEq(6, getNumber(processElNormalVar2Low(files_, "++$new pkg.Ex(5)[0]", new ClassField("pkg.Ex", "inst"), "pkg.Ex", new IntStruct(6), "v", "pkg.Ex")));
     }
     @Test
     public void processEl438Test() {
@@ -4418,8 +4110,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processElNormalVar2Low(files_, "$new pkg.Ex(5)[0]++", new ClassField("pkg.Ex", "inst"), "pkg.Ex", new IntStruct(6), "v", "pkg.Ex");
-        assertEq(5,getNumber(argument_));
+        assertEq(5, getNumber(processElNormalVar2Low(files_, "$new pkg.Ex(5)[0]++", new ClassField("pkg.Ex", "inst"), "pkg.Ex", new IntStruct(6), "v", "pkg.Ex")));
     }
     @Test
     public void processEl440Test() {
@@ -4446,8 +4137,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processElNormalVar2Low(files_, "($new pkg.Ex(5)[0]=$new pkg.ExTwo(15)).myval", new ClassField("pkg.Ex", "inst"), "pkg.Ex", new IntStruct(6), "v", "pkg.Ex");
-        assertEq(15,getNumber(argument_));
+        assertEq(15, getNumber(processElNormalVar2Low(files_, "($new pkg.Ex(5)[0]=$new pkg.ExTwo(15)).myval", new ClassField("pkg.Ex", "inst"), "pkg.Ex", new IntStruct(6), "v", "pkg.Ex")));
     }
     @Test
     public void processEl441Test() {
@@ -4479,8 +4169,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processElNormalVar2Low(files_, "($new pkg.Ex(5)[0]+=$new pkg.ExTwo(15)).myval", new ClassField("pkg.Ex", "inst"), "pkg.Ex", new IntStruct(6), "v", "pkg.Ex");
-        assertEq(20,getNumber(argument_));
+        assertEq(20, getNumber(processElNormalVar2Low(files_, "($new pkg.Ex(5)[0]+=$new pkg.ExTwo(15)).myval", new ClassField("pkg.Ex", "inst"), "pkg.Ex", new IntStruct(6), "v", "pkg.Ex")));
     }
     @Test
     public void processEl442Test() {
@@ -4512,8 +4201,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processElNormalVar2Low(files_, "(++$new pkg.Ex(5)[0]).myval", new ClassField("pkg.Ex", "inst"), "pkg.Ex", new IntStruct(6), "v", "pkg.Ex");
-        assertEq(6,getNumber(argument_));
+        assertEq(6, getNumber(processElNormalVar2Low(files_, "(++$new pkg.Ex(5)[0]).myval", new ClassField("pkg.Ex", "inst"), "pkg.Ex", new IntStruct(6), "v", "pkg.Ex")));
     }
     @Test
     public void processEl443Test() {
@@ -4545,8 +4233,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processElNormalVar2Low(files_, "($new pkg.Ex(5)[0]++).myval", new ClassField("pkg.Ex", "inst"), "pkg.Ex", new IntStruct(6), "v", "pkg.Ex");
-        assertEq(5,getNumber(argument_));
+        assertEq(5, getNumber(processElNormalVar2Low(files_, "($new pkg.Ex(5)[0]++).myval", new ClassField("pkg.Ex", "inst"), "pkg.Ex", new IntStruct(6), "v", "pkg.Ex")));
     }
     @Test
     public void processEl445Test() {
@@ -4579,8 +4266,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processElNormalVar2(files_, "$new pkg.ExSub(5).$super[0].myval", new ClassField("pkg.Ex", "inst"), "pkg.Ex", new IntStruct(6), "v", "pkg.Ex");
-        assertEq(5,getNumber(argument_));
+        assertEq(5, getNumber(processElNormalVar2(files_, "$new pkg.ExSub(5).$super[0].myval", new ClassField("pkg.Ex", "inst"), "pkg.Ex", new IntStruct(6), "v", "pkg.Ex")));
     }
 
     @Test
@@ -4601,14 +4287,12 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument arg_ = processEl(files_, "pkg.Apply.test()");
-        assertEq("2,4",getString(arg_));
+        assertEq("2,4", getString(processEl(files_, "pkg.Apply.test()")));
     }
     @Test
     public void processEl452Test() {
         StringMap<String> files_ = new StringMap<String>();
-        Argument argument_ = processEl(files_, "$defaultValue($char)");
-        assertEq(0,getChar(argument_));
+        assertEq(0,getChar(processEl(files_, "$defaultValue($char)")));
     }
     @Test
     public void processEl454Test() {
@@ -4621,8 +4305,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "$new pkg.Ex<$int>().res($id(pkg.Ex,T),15)");
-        assertEq(29,getNumber(argument_));
+        assertEq(29, getNumber(processEl(files_, "$new pkg.Ex<$int>().res($id(pkg.Ex,T),15)")));
     }
     @Test
     public void processEl460Test() {
@@ -4637,8 +4320,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "$new pkg.Outer.Ex<$int>().res($id(pkg.Outer.Ex,T),15)");
-        assertEq(29,getNumber(argument_));
+        assertEq(29, getNumber(processEl(files_, "$new pkg.Outer.Ex<$int>().res($id(pkg.Outer.Ex,T),15)")));
     }
     @Test
     public void processEl463Test() {
@@ -4653,21 +4335,16 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "$new pkg.Outer.Ex<$int>().res($id(pkg.Outer.Ex,T),15)");
-        assertEq(29,getNumber(argument_));
+        assertEq(29, getNumber(processEl(files_, "$new pkg.Outer.Ex<$int>().res($id(pkg.Outer.Ex,T),15)")));
     }
     @Test
     public void processEl465Test() {
-        Argument arg_ = processElNormal3("explicit($int)5", new StringMap<String>());
-        
-        assertEq(5, getNumber(arg_));
+        assertEq(5, getNumber(processElNormal3("explicit($int)5", new StringMap<String>())));
 
     }
     @Test
     public void processEl465_Test() {
-        Argument arg_ = processElNormal3("$($int,$id)5", new StringMap<String>());
-
-        assertEq(5, getNumber(arg_));
+        assertEq(5, getNumber(processElNormal3("$($int,$id)5", new StringMap<String>())));
 
     }
     @Test
@@ -4683,9 +4360,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument arg_ = processElNormal2(files_, "explicit(pkg.Ex)5", "pkg.Ex");
-        
-        Struct struct_ = arg_.getStruct();
+        Struct struct_ = processElNormal2(files_, "explicit(pkg.Ex)5", "pkg.Ex");
         assertEq(5, ((IntStruct)getStruct(struct_,new ClassField("pkg.Ex","field"))).intStruct());
 
     }
@@ -4701,8 +4376,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument arg_ = processEl(files_, "$staticCall(pkg.Ex).exmeth()");
-        assertEq(9, getNumber(arg_));
+        assertEq(9, getNumber(processEl(files_, "$staticCall(pkg.Ex).exmeth()")));
     }
 
     @Test
@@ -4713,8 +4387,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument arg_ = processEl(files_, "((pkg.Interface) $static($math).$lambda($math,plus,$int,$int)).opTwo(1,2)");
-        assertEq(3, getNumber(arg_));
+        assertEq(3, getNumber(processEl(files_, "((pkg.Interface) $static($math).$lambda($math,plus,$int,$int)).opTwo(1,2)")));
     }
     @Test
     public void processEl470Test() {
@@ -4728,14 +4401,12 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument arg_ = processEl(files_, "$staticCall(pkg.Ex<$int>).exmeth()");
-        assertEq(9, getNumber(arg_));
+        assertEq(9, getNumber(processEl(files_, "$staticCall(pkg.Ex<$int>).exmeth()")));
     }
     @Test
     public void processEl471Test() {
         StringMap<String> files_ = new StringMap<String>();
-        Argument argument_ = processEl(files_, "$default(0)");
-        assertEq(0,getNumber(argument_));
+        assertEq(0, getNumber(processEl(files_, "$default(0)")));
     }
 
     @Test
@@ -4750,8 +4421,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Argument arg_ = processEl(files_, "pkg.ExTwo.exmeth($vararg($int),4,$firstopt($null))");
-        assertEq(12,getNumber(arg_));
+        assertEq(12, getNumber(processEl(files_, "pkg.ExTwo.exmeth($vararg($int),4,$firstopt($null))")));
     }
     @Test
     public void processEl473Test() {
@@ -4766,9 +4436,8 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument arg_ = processElNormal2(files_, "$(pkg.Ex,$int)5", "pkg.Ex");
         
-        Struct struct_ = arg_.getStruct();
+        Struct struct_ = processElNormal2(files_, "$(pkg.Ex,$int)5", "pkg.Ex");
         assertEq(5, ((IntStruct)getStruct(struct_,new ClassField("pkg.Ex","field"))).intStruct());
 
     }
@@ -4781,8 +4450,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "($($Field)$lambda(pkg.Ex,,inst,$int).metaInfo()).getType().getName()");
-        assertEq("$int",getString(argument_));
+        assertEq("$int", getString(processEl(files_, "($($Field)$lambda(pkg.Ex,,inst,$int).metaInfo()).getType().getName()")));
     }
     @Test
     public void processEl475Test() {
@@ -4792,8 +4460,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "($Class.getClass($(pkg.Ex)$new pkg.Ex().$lambda(pkg.Ex,,inst,$int).instance())).getName()");
-        assertEq("pkg.Ex",getString(argument_));
+        assertEq("pkg.Ex", getString(processEl(files_, "($Class.getClass($(pkg.Ex)$new pkg.Ex().$lambda(pkg.Ex,,inst,$int).instance())).getName()")));
     }
     @Test
     public void processEl476Test() {
@@ -4803,8 +4470,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "$lambda(pkg.Ex,inst).call()");
-        assertEq(4,getNumber(argument_));
+        assertEq(4, getNumber(processEl(files_, "$lambda(pkg.Ex,inst).call()")));
     }
     @Test
     public void processEl477Test() {
@@ -4818,8 +4484,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument arg_ = processEl(files_, "$static(pkg.Ex).exmeth(k:5,j:3)");
-        assertEq(9, getNumber(arg_));
+        assertEq(9, getNumber(processEl(files_, "$static(pkg.Ex).exmeth(k:5,j:3)")));
     }
     @Test
     public void processEl478Test() {
@@ -4833,8 +4498,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument arg_ = processEl(files_, "$static(pkg.Ex).exmeth(j:3,k:5)");
-        assertEq(9, getNumber(arg_));
+        assertEq(9, getNumber(processEl(files_, "$static(pkg.Ex).exmeth(j:3,k:5)")));
     }
     @Test
     public void processEl479Test() {
@@ -4859,8 +4523,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Argument argument_ = processEl(files_, "(pkg.Ex.res++).inst");
-        assertEq(6,getNumber(argument_));
+        assertEq(6, getNumber(processEl(files_, "(pkg.Ex.res++).inst")));
     }
     @Test
     public void procesAffect00Test() {
@@ -5090,12 +4753,12 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
     @Test
     public void processAffect26Test() {
         LocalVariable lv_ = processElNormal1Bool1(true, "v&=$false");
-        assertTrue(BooleanStruct.isFalse(lv_.getStruct()));
+        assertFalse(lv_.getStruct());
     }
     @Test
     public void processAffect27Test() {
         LocalVariable lv_ = processElNormal1Bool1(false, "v|=$true");
-        assertTrue(BooleanStruct.isTrue(lv_.getStruct()));
+        assertTrue(lv_.getStruct());
     }
 
 //    @Test
@@ -5208,7 +4871,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
     @Test
     public void processEl181Test() {
         LocalVariable lv_ = getModBoolVar(false, "v|=$true");
-        assertTrue(BooleanStruct.isTrue(lv_.getStruct()));
+        assertTrue(lv_.getStruct());
     }
 //    @Test
 //    public void processEl186Test() {
@@ -5514,23 +5177,23 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
 //        assertEq(4, getNumber(arg_));
 //    }
 
-    private static Argument processElNormal1String(String _s) {
+    private static Struct processElNormal1String(String _s) {
         DualNavigationContext context_ = getConfigurationQuick(new StringMap<String>());
         StringStruct fistValue_ = new StringStruct("8");
         return calcLowOneVarValue(fistValue_, context_.getDualAnalyzedContext().getAnalyzed().getAliasString(), "arg", _s, context_);
     }
 
-    private static Argument processElNormal2BooleanVars(String _s) {
+    private static Struct processElNormal2BooleanVars(String _s) {
         DualNavigationContext context_ = getConfigurationQuick(new StringMap<String>());
         return calcLowTwoVars(_s, BooleanStruct.of(false), context_.getDualAnalyzedContext().getAnalyzed().getAliasBoolean(), NullStruct.NULL_VALUE, "arg", context_.getDualAnalyzedContext().getAnalyzed().getAliasBoolean(), "arg2", context_);
     }
 
-    private static Argument processElNormalBoolInt(boolean _b, String _s, IntStruct _sec) {
+    private static Struct processElNormalBoolInt(boolean _b, String _s, IntStruct _sec) {
         DualNavigationContext context_ = getConfigurationQuick(new StringMap<String>());
         return calcLowTwoVars(_s, _sec, context_.getDualAnalyzedContext().getAnalyzed().getAliasPrimBoolean(), BooleanStruct.of(_b), "arg", context_.getDualAnalyzedContext().getAnalyzed().getAliasPrimInteger(), "arg2", context_);
     }
 
-    private static Argument calcLowTwoVars(String _s, Struct _sec, String _firstClass, Struct _firstValue, String _firstKey, String _secondClass, String _secondValue, DualNavigationContext _context) {
+    private static Struct calcLowTwoVars(String _s, Struct _sec, String _firstClass, Struct _firstValue, String _firstKey, String _secondClass, String _secondValue, DualNavigationContext _context) {
         StringMap<LocalVariable> localVariables_ = twoVars(_firstClass, _firstValue, _firstKey, _secondClass, _sec, _secondValue);
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
 //        setGlobalType(_context, _context.getArgumentClass());
@@ -5586,23 +5249,23 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         return localVariables_;
     }
 
-    private static Argument processElNormalBool(boolean _b, String _s) {
+    private static Struct processElNormalBool(boolean _b, String _s) {
         DualNavigationContext context_ = getConfigurationQuick(new StringMap<String>());
         return calcLowOneVarValue(BooleanStruct.of(_b), context_.getDualAnalyzedContext().getAnalyzed().getAliasPrimBoolean(), "arg", _s, context_);
     }
 
-    private static Argument processElNormal1Int(int _i, String _s, String _varName) {
+    private static Struct processElNormal1Int(int _i, String _s, String _varName) {
         DualNavigationContext context_ = getConfigurationQuick(new StringMap<String>());
         IntStruct firstValue_ = new IntStruct(_i);
         return calcLowOneVarValue(firstValue_, context_.getDualAnalyzedContext().getAnalyzed().getAliasPrimInteger(), _varName, _s, context_);
     }
 
-    private static Argument calcLowOneVarValue(Struct _firstValue, String _firstClass, String _key, String _s, DualNavigationContext _context) {
+    private static Struct calcLowOneVarValue(Struct _firstValue, String _firstClass, String _key, String _s, DualNavigationContext _context) {
         StringMap<LocalVariable> localVariables_ = oneVar(_firstValue, _firstClass, _key);
         return calcLow(_s, _context, localVariables_, new AnalyzingDoc());
     }
 
-    private static Argument calcLow(String _s, DualNavigationContext _context, StringMap<LocalVariable> _localVariables, AnalyzingDoc _analyzingDoc) {
+    private static Struct calcLow(String _s, DualNavigationContext _context, StringMap<LocalVariable> _localVariables, AnalyzingDoc _analyzingDoc) {
 //        setGlobalType(_context, _context.getArgumentClass());
         setupAnalyzing(_context, _localVariables, _analyzingDoc);
 //        Argument argGl_ = _context.getArgument();
@@ -5633,17 +5296,17 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
 //        return arg_;
 //    }
 
-    private static Argument processElNormal2BoolVars(boolean _b, boolean _b2, String _s) {
+    private static Struct processElNormal2BoolVars(boolean _b, boolean _b2, String _s) {
         DualNavigationContext context_ = getConfigurationQuick(new StringMap<String>());
         return calcLowTwoVars(_s, BooleanStruct.of(_b2), context_.getDualAnalyzedContext().getAnalyzed().getAliasPrimBoolean(), BooleanStruct.of(_b), "arg", context_.getDualAnalyzedContext().getAnalyzed().getAliasPrimBoolean(), "arg2", context_);
     }
 
-    private static Argument processElNormalVar2(StringMap<String> _files, String _s, ClassField _keyField, String _className, Struct _value, String _varName, String _init) {
+    private static Struct processElNormalVar2(StringMap<String> _files, String _s, ClassField _keyField, String _className, Struct _value, String _varName, String _init) {
         DualNavigationContext conf_ = getConfigurationQuick(_files);
         return calcLow(_s, conf_);
     }
 
-    private static Argument calcLow(String _s, DualNavigationContext _conf) {
+    private static Struct calcLow(String _s, DualNavigationContext _conf) {
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
 //        setGlobalType(_context, _context.getArgumentClass());
         before(analyzingDoc_, _conf);
@@ -5668,7 +5331,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         return caculateReuse(ctx_, executableNodes_, build_);
     }
 
-    private static Argument processElNormalVar2Low(StringMap<String> _files, String _s, ClassField _keyField, String _className, Struct _value, String _varName, String _init) {
+    private static Struct processElNormalVar2Low(StringMap<String> _files, String _s, ClassField _keyField, String _className, Struct _value, String _varName, String _init) {
         DualNavigationContext conf_ = getConfigurationQuick(_files);
         AnalyzingDoc doc_ = new AnalyzingDoc();
         before(doc_, conf_);
@@ -5709,11 +5372,11 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
 
     private static LocalVariable calcLowOneVar(String _s, Struct _fistValue, String _firstClass, String _firstKey, DualNavigationContext _context) {
         StringMap<LocalVariable> localVariables_ = oneVar(_fistValue, _firstClass, _firstKey);
-        localVariables_.firstValue().setStruct(ArgumentListCall.toStr(calcLow(_s, _context, localVariables_, new AnalyzingDoc())));
+        localVariables_.firstValue().setStruct(calcLow(_s, _context, localVariables_, new AnalyzingDoc()));
         return localVariables_.firstValue();
     }
 
-    private static Argument processElNormalLow(String _el, DualNavigationContext _cont, String _expClass, AnalyzingDoc _analyzingDoc) {
+    private static Struct processElNormalLow(String _el, DualNavigationContext _cont, String _expClass, AnalyzingDoc _analyzingDoc) {
 //        setGlobalType(_context, _context.getArgumentClass());
         before(_analyzingDoc, _cont);
 
@@ -5734,8 +5397,8 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         ExecClassesUtil.tryInitStaticlyTypes(ctx_, _cont.getDualAnalyzedContext().getForwards().getOptions());
         RendStackCall build_ = prepare(ctx_);
 //        _lastPage.setGlobalArgumentStruct(_analyzing.getArgument().getStruct(), _context);
-        Argument arg_ = caculateReuse(ctx_, executableNodes_, build_);
-        assertEq(_expClass,arg_.getStruct().getClassName(ctx_));
+        Struct arg_ = caculateReuse(ctx_, executableNodes_, build_);
+        assertEq(_expClass,arg_.getClassName(ctx_));
         return arg_;
     }
 
@@ -5747,12 +5410,12 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
 //        return arg_;
 //    }
 
-    private static Argument processElNormal2(StringMap<String> _files, String _s, String _expClass) {
+    private static Struct processElNormal2(StringMap<String> _files, String _s, String _expClass) {
         DualNavigationContext conf_ = getConfigurationQuick(_files);
         return processElNormalLow(_s, conf_, _expClass, new AnalyzingDoc());
     }
 
-    private static Argument processElNormalNotInit(StringMap<String> _files, String _s,String... _types) {
+    private static Struct processElNormalNotInit(StringMap<String> _files, String _s,String... _types) {
         DualNavigationContext cont_ = getConfigurationQuick(_files,_types);
         return calcLow(_s, cont_);
     }
@@ -5761,18 +5424,18 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
 //        return _cont.getContext().getLocks().getState("pkg.Ex") != InitClassState.NOT_YET;
 //    }
 
-    private static Argument processElNormalInit(StringMap<String> _files, String _s, String... _types) {
+    private static Struct processElNormalInit(StringMap<String> _files, String _s, String... _types) {
         DualNavigationContext conf_ = getConfigurationQuick(_files,_types);
 //        assertTrue(isInitialized(conf_));
 //        assertSame(conf_.getContext().getLocks().getState("pkg.Ex"), InitClassState.SUCCESS);
         return calcLow(_s, conf_);
     }
 
-    private static Argument processEl(StringMap<String> _files, String _s, String... _types) {
+    private static Struct processEl(StringMap<String> _files, String _s, String... _types) {
         return processElNormal3(_s, _files,_types);
     }
 
-    private static Argument processElLow(StringMap<String> _files, String _s, String... _types) {
+    private static Struct processElLow(StringMap<String> _files, String _s, String... _types) {
         return processElNormal3Low(_s, _files,_types);
     }
 
@@ -5849,7 +5512,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
 //    }
 
 
-    private static Argument processDoubleDelimiters(String _s, int _i, int _i2) {
+    private static Struct processDoubleDelimiters(String _s, int _i, int _i2) {
         DualNavigationContext context_ = getConfigurationQuick(new StringMap<String>());
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         before(analyzingDoc_, context_);
@@ -5884,17 +5547,17 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         caculateReuse(ctx_, out1_, build_);
         RendStackCall build1_ = prepare(ctx_);
 //        _lastPage.setGlobalArgumentStruct(_analyzing.getArgument().getStruct(), _context);
-        Argument arg_ = caculateReuse(ctx_, out_, build1_);
+        Struct arg_ = caculateReuse(ctx_, out_, build1_);
         assertEq(_i2, analyzingDoc_.getNextIndex());
         return arg_;
     }
 
-    private static Argument processElNormal3(String _el, StringMap<String> _files, String... _types) {
+    private static Struct processElNormal3(String _el, StringMap<String> _files, String... _types) {
         DualNavigationContext context_ = getConfigurationQuick(_files,_types);
         return calcLow(_el, context_);
     }
 
-    private static Argument processElNormal3Low(String _el, StringMap<String> _files, String... _types) {
+    private static Struct processElNormal3Low(String _el, StringMap<String> _files, String... _types) {
         DualNavigationContext context_ = getConfigurationQuick(_files,_types);
 //        setGlobalType(context_, context_.getArgumentClass());
         AnalyzingDoc doc_ = new AnalyzingDoc();
@@ -5920,17 +5583,17 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         return caculateReuse(ctx_, executableNodes_, build_);
     }
 
-    private static Argument caculateReuse(ContextEl _ctx, DualNavigationContext _conf, CustList<RendDynOperationNode> _out, StringMap<LocalVariable> _localVariables) {
+    private static Struct caculateReuse(ContextEl _ctx, DualNavigationContext _conf, CustList<RendDynOperationNode> _out, StringMap<LocalVariable> _localVariables) {
         RendStackCall build_ = prepare(_ctx);
         transform(build_,_localVariables.getKey(0),_localVariables.getValue(0));
 //        _lastPage.setGlobalArgumentStruct(_analyzing.getArgument().getStruct(), _context);
         return caculateReuse(_ctx, _out, build_);
     }
 
-    private static Argument caculateReuse(ContextEl _ctx, CustList<RendDynOperationNode> _out, RendStackCall _build) {
+    private static Struct caculateReuse(ContextEl _ctx, CustList<RendDynOperationNode> _out, RendStackCall _build) {
         Struct object_ = RenderExpUtil.getFinalArg(_out, _ctx, _build);
         assertNull(_build.getStackCall().getCallingState());
-        return new Argument(object_);
+        return object_;
     }
 
     private static RendStackCall prepare(ContextEl _ctx) {
@@ -5955,7 +5618,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         return ElResolver.checkSyntaxDelimiters(_res, _i, analyzing_);
     }
 
-    private static Argument processDelimiters(String _s, int _i) {
+    private static Struct processDelimiters(String _s, int _i) {
         DualNavigationContext context_ = getConfigurationQuick(new StringMap<String>());
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         before(analyzingDoc_, context_);
@@ -5977,7 +5640,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         ExecClassesUtil.tryInitStaticlyTypes(ctx_, context_.getDualAnalyzedContext().getForwards().getOptions());
         RendStackCall build_ = prepare(ctx_);
 //        _lastPage.setGlobalArgumentStruct(_analyzing.getArgument().getStruct(), _context);
-        Argument arg_ = caculateReuse(ctx_, executableNodes_, build_);
+        Struct arg_ = caculateReuse(ctx_, executableNodes_, build_);
         assertEq(_i, analyzingDoc_.getNextIndex());
         return arg_;
     }
@@ -5990,7 +5653,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         return rendOp(2, _context, _opTwo, _analyzingDoc);
     }
 
-    private static Argument processElNormalField(StringMap<String> _files, ClassField _keyField, String _clasName, IntStruct _value, String _varName, String _init) {
+    private static Struct processElNormalField(StringMap<String> _files, ClassField _keyField, String _clasName, IntStruct _value, String _varName, String _init) {
         DualNavigationContext context_ = getConfigurationQuick(_files);
         setGlobalType(context_, _clasName);
         CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("v.inst", context_, new AnalyzingDoc(),_clasName,_varName,false);
@@ -6004,17 +5667,17 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         return caculateReuse(ctx_, context_, all_, localVariables_);
     }
 
-    private static String getString(Argument _arg) {
-        return ((CharSequenceStruct)_arg.getStruct()).toStringInstance();
+    private static String getString(Struct _arg) {
+        return ((CharSequenceStruct)_arg).toStringInstance();
     }
-    private static long getNumber(Argument _arg) {
-        return ((NumberStruct)_arg.getStruct()).longStruct();
+    private static long getNumber(Struct _arg) {
+        return ((NumberStruct)_arg).longStruct();
     }
-    private static double getDouble(Argument _arg) {
-        return ((NumberStruct)_arg.getStruct()).doubleStruct();
+    private static double getDouble(Struct _arg) {
+        return ((NumberStruct)_arg).doubleStruct();
     }
-    private static char getChar(Argument _arg) {
-        return ((CharStruct)_arg.getStruct()).getChar();
+    private static char getChar(Struct _arg) {
+        return ((CharStruct)_arg).getChar();
     }
 
     private static void setupAnalyzing(DualNavigationContext _context, StringMap<LocalVariable> _localVariables, AnalyzingDoc _analyzingDoc) {

@@ -1,10 +1,9 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.DisplayableStruct;
-import code.util.CustList;
+import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -29,9 +28,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("8 string", getString(ret_));
+        assertEq("8 string", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument2Test() {
@@ -53,9 +50,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("8 int", getString(ret_));
+        assertEq("8 int", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument3Test() {
@@ -79,9 +74,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("8 int", getString(ret_));
+        assertEq("8 int", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument4Test() {
@@ -105,9 +98,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("null", getString(ret_));
+        assertEq("null", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument5Test() {
@@ -131,9 +122,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("string String", getString(ret_));
+        assertEq("string String", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument6Test() {
@@ -161,9 +150,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("string String", getString(ret_));
+        assertEq("string String", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument7Test() {
@@ -191,9 +178,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("null", getString(ret_));
+        assertEq("null", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument8Test() {
@@ -221,9 +206,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("string String", getString(ret_));
+        assertEq("string String", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument9Test() {
@@ -251,9 +234,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("", getString(ret_));
+        assertEq("", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument10Test() {
@@ -275,9 +256,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("8 string", getString(ret_));
+        assertEq("8 string", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument11Test() {
@@ -299,9 +278,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("string", getString(ret_));
+        assertEq("string", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument12Test() {
@@ -322,9 +299,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("8", getString(ret_));
+        assertEq("8", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument13Test() {
@@ -345,9 +320,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("8 int", getString(ret_));
+        assertEq("8 int", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument14Test() {
@@ -368,9 +341,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("string", getString(ret_));
+        assertEq("string", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument15Test() {
@@ -396,9 +367,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("8 string", getString(ret_));
+        assertEq("8 string", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument16Test() {
@@ -423,9 +392,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("8 string", getString(ret_));
+        assertEq("8 string", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument17Test() {
@@ -449,9 +416,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("8 string", getString(ret_));
+        assertEq("8 string", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument18Test() {
@@ -475,9 +440,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("8 char seq", getString(ret_));
+        assertEq("8 char seq", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument19Test() {
@@ -507,9 +470,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("exit 8 string", getString(ret_));
+        assertEq("exit 8 string", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument20Test() {
@@ -539,9 +500,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("exit 8 string", getString(ret_));
+        assertEq("exit 8 string", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument21Test() {
@@ -571,9 +530,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("exit 8 string", getString(ret_));
+        assertEq("exit 8 string", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument22Test() {
@@ -595,9 +552,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("8 string", getString(ret_));
+        assertEq("8 string", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument23Test() {
@@ -627,9 +582,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("8eight", getString(ret_));
+        assertEq("8eight", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument24Test() {
@@ -668,9 +621,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("8eight", getString(ret_));
+        assertEq("8eight", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument25Test() {
@@ -709,9 +660,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("8eight dec", getString(ret_));
+        assertEq("8eight dec", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument26Test() {
@@ -741,9 +690,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("eight", getString(ret_));
+        assertEq("eight", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument27Test() {
@@ -770,9 +717,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("8 int", getString(ret_));
+        assertEq("8 int", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument28Test() {
@@ -799,9 +744,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("8 byte", getString(ret_));
+        assertEq("8 byte", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument29Test() {
@@ -826,9 +769,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("10 int", getString(ret_));
+        assertEq("10 int", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument30Test() {
@@ -853,9 +794,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("10 default", getString(ret_));
+        assertEq("10 default", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument31Test() {
@@ -894,9 +833,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("15 int25 int", getString(ret_));
+        assertEq("15 int25 int", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument32Test() {
@@ -935,9 +872,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("15 int25 int", getString(ret_));
+        assertEq("15 int25 int", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument33Test() {
@@ -959,9 +894,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("alone", getString(ret_));
+        assertEq("alone", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument34Test() {
@@ -983,9 +916,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("8 int", getString(ret_));
+        assertEq("8 int", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument35Test() {
@@ -1009,9 +940,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("alone", getString(ret_));
+        assertEq("alone", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument36Test() {
@@ -1035,9 +964,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("sec alone", getString(ret_));
+        assertEq("sec alone", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument37Test() {
@@ -1060,9 +987,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("ONE", getString(ret_));
+        assertEq("ONE", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument37_Test() {
@@ -1085,9 +1010,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("ONE", getString(ret_));
+        assertEq("ONE", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument37__Test() {
@@ -1110,9 +1033,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("ONE", getString(ret_));
+        assertEq("ONE", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument38Test() {
@@ -1135,9 +1056,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("TWO", getString(ret_));
+        assertEq("TWO", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument38_Test() {
@@ -1160,9 +1079,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("TWO", getString(ret_));
+        assertEq("TWO", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument39Test() {
@@ -1185,9 +1102,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("ONE", getString(ret_));
+        assertEq("ONE", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument40Test() {
@@ -1210,9 +1125,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("TWO", getString(ret_));
+        assertEq("TWO", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument41Test() {
@@ -1235,9 +1148,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("ONE", getString(ret_));
+        assertEq("ONE", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument42Test() {
@@ -1260,9 +1171,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("TWO", getString(ret_));
+        assertEq("TWO", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument43Test() {
@@ -1285,9 +1194,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("ONE", getString(ret_));
+        assertEq("ONE", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument44Test() {
@@ -1310,9 +1217,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("TWO", getString(ret_));
+        assertEq("TWO", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument45Test() {
@@ -1335,9 +1240,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("null", getString(ret_));
+        assertEq("null", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument46Test() {
@@ -1360,9 +1263,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("1", getString(ret_));
+        assertEq("1", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument47Test() {
@@ -1386,9 +1287,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("plus", getString(ret_));
+        assertEq("plus", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument48Test() {
@@ -1412,9 +1311,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("plus", getString(ret_));
+        assertEq("plus", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument49Test() {
@@ -1438,9 +1335,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("1", getString(ret_));
+        assertEq("1", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument50Test() {
@@ -1464,9 +1359,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("plus", getString(ret_));
+        assertEq("plus", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument51Test() {
@@ -1490,9 +1383,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("plus", getString(ret_));
+        assertEq("plus", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument52Test() {
@@ -1516,9 +1407,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("1", getString(ret_));
+        assertEq("1", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument53Test() {
@@ -1542,9 +1431,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("plus", getString(ret_));
+        assertEq("plus", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument54Test() {
@@ -1568,9 +1455,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("plus", getString(ret_));
+        assertEq("plus", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument55Test() {
@@ -1594,9 +1479,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("1", getString(ret_));
+        assertEq("1", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument56Test() {
@@ -1620,9 +1503,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("1plus", getString(ret_));
+        assertEq("1plus", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument56_Test() {
@@ -1646,9 +1527,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("1plus", getString(ret_));
+        assertEq("1plus", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument57Test() {
@@ -1675,9 +1554,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("1plus", getString(ret_));
+        assertEq("1plus", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument58Test() {
@@ -1704,9 +1581,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("1plus", getString(ret_));
+        assertEq("1plus", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument59Test() {
@@ -1733,9 +1608,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("2 plus", getString(ret_));
+        assertEq("2 plus", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument60Test() {
@@ -1762,9 +1635,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateError("pkg.Ex", id_, cont_);
-        assertEq(cont_.getStandards().getCoreNames().getAliasDivisionZero(),ret_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasDivisionZero(), calculateError("pkg.Ex",id_,cont_).getClassName(cont_));
     }
     @Test
     public void calculateArgument61Test() {
@@ -1786,9 +1657,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("1plus", getString(ret_));
+        assertEq("1plus", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument62Test() {
@@ -1813,9 +1682,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("1plus", getString(ret_));
+        assertEq("1plus", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument63Test() {
@@ -1842,9 +1709,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("1plus", getString(ret_));
+        assertEq("1plus", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument64Test() {
@@ -1871,9 +1736,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("2 plus", getString(ret_));
+        assertEq("2 plus", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument65Test() {
@@ -1900,12 +1763,11 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateError("pkg.Ex", id_, cont_);
+        Struct ret_ = calculateError("pkg.Ex", id_, cont_);
         assertEq("code.expressionlanguage.exceptions.DivideZeroException\n" +
                 "\n" +
                 "pkg/Ex:7,24:138\n" +
-                "pkg.Ex.$static exmeth()",((DisplayableStruct)ret_.getStruct()).getDisplayedString(cont_).getInstance());
+                "pkg.Ex.$static exmeth()",((DisplayableStruct)ret_).getDisplayedString(cont_).getInstance());
     }
     @Test
     public void calculateArgument66Test() {
@@ -1938,9 +1800,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("1plus", getString(ret_));
+        assertEq("1plus", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument67Test() {
@@ -1973,9 +1833,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("1plus", getString(ret_));
+        assertEq("1plus", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument68Test() {
@@ -2011,9 +1869,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("1plus", getString(ret_));
+        assertEq("1plus", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument69Test() {
@@ -2035,9 +1891,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(" string", getString(ret_));
+        assertEq(" string", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument70Test() {
@@ -2061,9 +1915,7 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(" string2", getString(ret_));
+        assertEq(" string2", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgumentFailTest() {

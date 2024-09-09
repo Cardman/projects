@@ -22,6 +22,7 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardNamedFunction;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.Replacement;
 import code.util.StringList;
@@ -68,9 +69,7 @@ public abstract class EquallableElUtil {
     public static void assertNull(AbstractWrapper _value) {
         Assert.assertNull(_value);
     }
-    public static void assertNull(Argument _value) {
-        Assert.assertNull(_value);
-    }
+
     public static void assertNull(ArgumentWrapper _value) {
         Assert.assertNull(_value);
     }
@@ -93,6 +92,10 @@ public abstract class EquallableElUtil {
     public static void assertTrue(boolean _value) {
         Assert.assertTrue(_value);
     }
+
+    public static void assertTrue(Struct _value) {
+        Assert.assertTrue(BooleanStruct.isTrue(_value));
+    }
     public static void assertFalse(String _mess,boolean _value) {
         Assert.assertFalse(_mess,_value);
     }
@@ -101,6 +104,9 @@ public abstract class EquallableElUtil {
     }
     public static void assertFalse(boolean _value) {
         Assert.assertFalse(_value);
+    }
+    public static void assertFalse(Struct _value) {
+        Assert.assertTrue(BooleanStruct.isFalse(_value));
     }
     public static void assertSame(StandardNamedFunction _expected, StandardNamedFunction _result) {
         Assert.assertSame(_expected, _result);

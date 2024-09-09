@@ -1,6 +1,5 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.MethodId;
@@ -40,9 +39,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("test");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(6, getNumber(ret_));
+        assertEq(6, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
         assertEq("1 set at 0,5;2 get at 0;3 set at 0,6;4 get at 0;", ((StringStruct) getStaticField(cont_, new ClassField("pkg.Ex", "calls"))).getInstance());
     }
     @Test
@@ -74,9 +71,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("test");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(15, getNumber(ret_));
+        assertEq(15, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
         assertEq("1 set at 0,5;2 get at 0;3 set at 0,15;", ((StringStruct) getStaticField(cont_, new ClassField("pkg.Ex", "calls"))).getInstance());
     }
     @Test
@@ -104,9 +99,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("test");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(5, getNumber(ret_));
+        assertEq(5, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculate102Test() {
@@ -133,9 +126,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("test");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(5, getNumber(ret_));
+        assertEq(5, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculate1022Test() {
@@ -162,9 +153,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("test");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(23, getNumber(ret_));
+        assertEq(23, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculate1023Test() {
@@ -191,9 +180,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("test");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(23, getNumber(ret_));
+        assertEq(23, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculate1024Test() {
@@ -220,9 +207,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("test");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(23, getNumber(ret_));
+        assertEq(23, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculate1025Test() {
@@ -249,9 +234,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("test");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(39, getNumber(ret_));
+        assertEq(39, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculate1026Test() {
@@ -278,9 +261,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("test");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(39, getNumber(ret_));
+        assertEq(39, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculate103Test() {
@@ -307,9 +288,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("test");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(5, getNumber(ret_));
+        assertEq(5, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculate26Test() {
@@ -346,9 +325,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("test");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(20, getNumber(ret_));
+        assertEq(20, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculateFailTest() {

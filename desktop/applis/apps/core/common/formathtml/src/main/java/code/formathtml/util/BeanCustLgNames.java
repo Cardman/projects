@@ -1244,10 +1244,10 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         } else {
             exps_ = _htmlPage.getCallsExps().get(url_);
         }
-        return redir(new Argument(_bean), exps_, _ctx, _rendStack);
+        return redir(_bean, exps_, _ctx, _rendStack);
     }
 
-    public Struct redir(Argument _bean, AnchorCall _exps, ContextEl _context, RendStackCall _rendStackCall) {
+    public Struct redir(Struct _bean, AnchorCall _exps, ContextEl _context, RendStackCall _rendStackCall) {
         ImportingPage ip_ = _rendStackCall.getLastPage();
         CustList<AbstractWrapper> args_ = _exps.getArgs();
         int s_ = args_.size();
@@ -1255,7 +1255,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
             ip_.putValueVar(Long.toString(i), args_.get(i));
         }
         Argument globalArgument_ = _rendStackCall.getLastPage().getGlobalArgument();
-        setGlobalArgumentStruct(_bean.getStruct(), _context, _rendStackCall);
+        setGlobalArgumentStruct(_bean, _context, _rendStackCall);
         Struct argument_ = RenderExpUtil.getFinalArg(_exps.getExps(), _context, _rendStackCall);
         setGlobalArgumentStruct(globalArgument_.getStruct(), _context, _rendStackCall);
         for (int i = 0; i< s_; i++) {

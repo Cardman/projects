@@ -1,6 +1,5 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.functionid.MethodId;
 import code.util.CustList;
@@ -39,9 +38,7 @@ public final class ProcessMethodContinueLoopTest extends
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(11, getNumber(ret_));
+        assertEq(11, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -75,9 +72,7 @@ public final class ProcessMethodContinueLoopTest extends
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(11, getNumber(ret_));
+        assertEq(11, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument49Test() {
@@ -107,9 +102,7 @@ public final class ProcessMethodContinueLoopTest extends
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -140,9 +133,7 @@ public final class ProcessMethodContinueLoopTest extends
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(100, getNumber(ret_));
+        assertEq(100, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -178,9 +169,7 @@ public final class ProcessMethodContinueLoopTest extends
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(811, getNumber(ret_));
+        assertEq(811, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -217,9 +206,7 @@ public final class ProcessMethodContinueLoopTest extends
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(711, getNumber(ret_));
+        assertEq(711, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
 
@@ -258,9 +245,7 @@ public final class ProcessMethodContinueLoopTest extends
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1622, getNumber(ret_));
+        assertEq(1622, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -299,9 +284,7 @@ public final class ProcessMethodContinueLoopTest extends
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1422, getNumber(ret_));
+        assertEq(1422, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -339,9 +322,7 @@ public final class ProcessMethodContinueLoopTest extends
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(811, getNumber(ret_));
+        assertEq(811, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -380,9 +361,7 @@ public final class ProcessMethodContinueLoopTest extends
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(711, getNumber(ret_));
+        assertEq(711, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -419,9 +398,7 @@ public final class ProcessMethodContinueLoopTest extends
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(811, getNumber(ret_));
+        assertEq(811, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -455,9 +432,7 @@ public final class ProcessMethodContinueLoopTest extends
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(11, getNumber(ret_));
+        assertEq(11, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument59Test() {
@@ -486,9 +461,7 @@ public final class ProcessMethodContinueLoopTest extends
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(457, getNumber(ret_));
+        assertEq(457, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument60Test() {
@@ -524,9 +497,7 @@ public final class ProcessMethodContinueLoopTest extends
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(467, getNumber(ret_));
+        assertEq(467, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument61Test() {
@@ -565,9 +536,7 @@ public final class ProcessMethodContinueLoopTest extends
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(711, getNumber(ret_));
+        assertEq(711, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument62Test() {
@@ -607,9 +576,7 @@ public final class ProcessMethodContinueLoopTest extends
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(711, getNumber(ret_));
+        assertEq(711, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument61FailTest() {

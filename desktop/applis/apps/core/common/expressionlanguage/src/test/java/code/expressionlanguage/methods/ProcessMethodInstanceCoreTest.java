@@ -1,13 +1,11 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
-import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -23,10 +21,8 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
     }
 
@@ -42,10 +38,8 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -64,10 +58,8 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormalCtor("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormalCtor("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
     }
 
@@ -84,11 +76,8 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
-
-        Argument ret_;
-        ret_ = instanceNormalCtorParam("pkg.Ex", null, id_, new IntStruct(8), cont_);
+        Struct str_ = instanceNormalCtorParam("pkg.Ex", id_, new IntStruct(8), cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -112,11 +101,8 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
-
-        Argument ret_;
-        ret_ = instanceNormalCtorParam("pkg.Ex", null, id_, new IntStruct(8), cont_);
+        Struct str_ = instanceNormalCtorParam("pkg.Ex", id_, new IntStruct(8), cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -140,13 +126,11 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
 
-        Argument ret_;
-        ret_ = instanceNormalCtor("pkg.Ex", null, 1, cont_);
+        Struct ret_ = instanceNormalCtor("pkg.Ex", 1, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
-        assertEq("pkg.Ex", str_.getClassName(cont_));
+        assertEq("pkg.Ex", ret_.getClassName(cont_));
         Struct field_;
-        field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
+        field_ = getField(ret_, new ClassField("pkg.Ex", "inst"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(4, ((NumberStruct)field_).intStruct());
     }
@@ -172,16 +156,14 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
 
-        Argument ret_;
-        ret_ = instanceNormalCtor("pkg.Ex", null, 2, cont_);
+        Struct ret_ = instanceNormalCtor("pkg.Ex", 2, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
-        assertEq("pkg.Ex", str_.getClassName(cont_));
+        assertEq("pkg.Ex", ret_.getClassName(cont_));
         Struct field_;
-        field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
+        field_ = getField(ret_, new ClassField("pkg.Ex", "inst"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(5, ((NumberStruct)field_).intStruct());
-        field_ = getField(str_, new ClassField("pkg.Ex", "ance"));
+        field_ = getField(ret_, new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(4, ((NumberStruct)field_).intStruct());
     }
@@ -209,19 +191,17 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
 
-        Argument ret_;
-        ret_ = instanceNormalCtor("pkg.Ex", null, 2, cont_);
+        Struct ret_ = instanceNormalCtor("pkg.Ex", 2, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
-        assertEq("pkg.Ex", str_.getClassName(cont_));
+        assertEq("pkg.Ex", ret_.getClassName(cont_));
         Struct field_;
-        field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
+        field_ = getField(ret_, new ClassField("pkg.Ex", "inst"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(5, ((NumberStruct)field_).intStruct());
-        field_ = getField(str_, new ClassField("pkg.Ex", "ance"));
+        field_ = getField(ret_, new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(4, ((NumberStruct)field_).intStruct());
-        field_ = getField(str_, new ClassField("pkg.Ex", "field"));
+        field_ = getField(ret_, new ClassField("pkg.Ex", "field"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(6, ((NumberStruct)field_).intStruct());
     }
@@ -247,10 +227,8 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.Apply");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", getMethodId("exec"), cont_);
+        Struct str_ = calculateNormal("pkg.Apply", getMethodId("exec"), cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -281,10 +259,8 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -315,10 +291,8 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.Apply");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", getMethodId("exec"), cont_);
+        Struct str_ = calculateNormal("pkg.Apply", getMethodId("exec"), cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -348,7 +322,7 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxReadOnlyOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        instanceNormal("pkg.Ex", null, id_, cont_);
+        instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct field_;
         field_ = getStaticField(cont_, new ClassField("pkg.Ex", "inst"));

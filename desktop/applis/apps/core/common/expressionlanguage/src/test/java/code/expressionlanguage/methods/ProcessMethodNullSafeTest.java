@@ -1,6 +1,5 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.MethodId;
@@ -24,9 +23,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument1Test() {
@@ -40,9 +37,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument2Test() {
@@ -56,9 +51,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument3Test() {
@@ -72,9 +65,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument4Test() {
@@ -88,9 +79,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -105,9 +94,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument6Test() {
@@ -122,9 +109,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument7Test() {
@@ -138,9 +123,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument8Test() {
@@ -159,9 +142,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -182,9 +163,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -201,9 +180,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument11Test() {
@@ -219,9 +196,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument12Test() {
@@ -237,9 +212,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument13Test() {
@@ -255,9 +228,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument14Test() {
@@ -273,9 +244,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument15Test() {
@@ -292,9 +261,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -312,9 +279,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -332,9 +297,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -352,9 +315,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(3, getNumber(ret_));
+        assertEq(3, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -372,9 +333,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -392,9 +351,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -412,9 +369,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -432,9 +387,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(3, getNumber(ret_));
+        assertEq(3, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -452,9 +405,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(3, getNumber(ret_));
+        assertEq(3, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -472,9 +423,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -492,9 +441,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -512,9 +459,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -532,9 +477,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -552,9 +495,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -572,9 +513,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -593,9 +532,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -613,9 +550,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(3, getNumber(ret_));
+        assertEq(3, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -633,9 +568,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(3, getNumber(ret_));
+        assertEq(3, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -654,9 +587,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -673,9 +604,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(3, getNumber(ret_));
+        assertEq(3, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -693,9 +622,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(3, getNumber(ret_));
+        assertEq(3, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -713,9 +640,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -732,9 +657,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -752,9 +675,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -772,9 +693,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(3, getNumber(ret_));
+        assertEq(3, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -792,9 +711,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -812,9 +729,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -833,9 +748,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -854,9 +767,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -875,9 +786,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -895,9 +804,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(3, getNumber(ret_));
+        assertEq(3, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -915,9 +822,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -935,9 +840,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -956,9 +859,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(3, getNumber(ret_));
+        assertEq(3, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -977,9 +878,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -998,9 +897,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -1018,9 +915,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(3, getNumber(ret_));
+        assertEq(3, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -1038,9 +933,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -1058,9 +951,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -1079,9 +970,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(3, getNumber(ret_));
+        assertEq(3, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -1100,9 +989,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -1121,9 +1008,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -1142,9 +1027,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -1163,9 +1046,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -1184,9 +1065,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -1205,9 +1084,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(3, getNumber(ret_));
+        assertEq(3, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -1226,9 +1103,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -1247,9 +1122,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -1274,9 +1147,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -1301,9 +1172,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -1329,9 +1198,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -1357,9 +1224,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -1385,9 +1250,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -1412,9 +1275,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(3, getNumber(ret_));
+        assertEq(3, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -1439,9 +1300,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(3, getNumber(ret_));
+        assertEq(3, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -1467,9 +1326,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(3, getNumber(ret_));
+        assertEq(3, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -1495,9 +1352,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(3, getNumber(ret_));
+        assertEq(3, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -1522,9 +1377,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -1549,9 +1402,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -1577,9 +1428,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -1605,9 +1454,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -1623,9 +1470,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument75Test() {
@@ -1640,9 +1485,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument76Test() {
@@ -1658,9 +1501,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("ab", getString(ret_));
+        assertEq("ab", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument77Test() {
@@ -1676,9 +1517,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("ba", getString(ret_));
+        assertEq("ba", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument78Test() {
@@ -1694,9 +1533,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("ab", getString(ret_));
+        assertEq("ab", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument79Test() {
@@ -1712,9 +1549,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("ab", getString(ret_));
+        assertEq("ab", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument80Test() {
@@ -1730,9 +1565,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("ba", getString(ret_));
+        assertEq("ba", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument81Test() {
@@ -1748,9 +1581,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("ab", getString(ret_));
+        assertEq("ab", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument82Test() {
@@ -1767,9 +1598,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("ab", getString(ret_));
+        assertEq("ab", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument83Test() {
@@ -1786,9 +1615,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("ba", getString(ret_));
+        assertEq("ba", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument84Test() {
@@ -1805,9 +1632,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("ab", getString(ret_));
+        assertEq("ab", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument86Test() {
@@ -1824,9 +1649,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("ab", getString(ret_));
+        assertEq("ab", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument87Test() {
@@ -1843,9 +1666,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("ba", getString(ret_));
+        assertEq("ba", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument88Test() {
@@ -1862,9 +1683,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("ab", getString(ret_));
+        assertEq("ab", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument89Test() {
@@ -1880,9 +1699,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("ab", getString(ret_));
+        assertEq("ab", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument90Test() {
@@ -1898,9 +1715,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("ab", getString(ret_));
+        assertEq("ab", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument91Test() {
@@ -1924,9 +1739,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(6, getNumber(ret_));
+        assertEq(6, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument92Test() {
@@ -1947,9 +1760,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(6, getNumber(ret_));
+        assertEq(6, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument91_Test() {
@@ -1964,9 +1775,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument92_Test() {
@@ -1991,9 +1800,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(6, getNumber(ret_));
+        assertEq(6, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument93Test() {
@@ -2014,9 +1821,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(6, getNumber(ret_));
+        assertEq(6, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument94Test() {
@@ -2040,9 +1845,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(6, getNumber(ret_));
+        assertEq(6, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument95Test() {
@@ -2058,9 +1861,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(3, getNumber(ret_));
+        assertEq(3, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2077,9 +1878,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2096,9 +1895,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(3, getNumber(ret_));
+        assertEq(3, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2115,9 +1912,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2134,9 +1929,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getChar(ret_));
+        assertEq(2, getChar(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2153,9 +1946,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getChar(ret_));
+        assertEq(1, getChar(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2172,9 +1963,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getChar(ret_));
+        assertEq(0, getChar(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2190,9 +1979,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2209,9 +1996,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(3, getNumber(ret_));
+        assertEq(3, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2229,9 +2014,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(3, getNumber(ret_));
+        assertEq(3, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2248,9 +2031,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2268,9 +2049,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2288,9 +2067,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(3, getNumber(ret_));
+        assertEq(3, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2308,9 +2085,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2328,9 +2103,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2349,9 +2122,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2370,9 +2141,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2391,9 +2160,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2411,9 +2178,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(3, getNumber(ret_));
+        assertEq(3, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2431,9 +2196,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2451,9 +2214,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2472,9 +2233,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(3, getNumber(ret_));
+        assertEq(3, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2493,9 +2252,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2514,9 +2271,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2534,9 +2289,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(3, getNumber(ret_));
+        assertEq(3, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2554,9 +2307,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2574,9 +2325,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2595,9 +2344,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(3, getNumber(ret_));
+        assertEq(3, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2616,9 +2363,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2637,9 +2382,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2658,9 +2401,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2679,9 +2420,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2700,9 +2439,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2721,9 +2458,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(3, getNumber(ret_));
+        assertEq(3, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2742,9 +2477,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2763,9 +2496,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2790,9 +2521,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2818,9 +2547,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2846,9 +2573,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2873,9 +2598,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(3, getNumber(ret_));
+        assertEq(3, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2901,9 +2624,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(3, getNumber(ret_));
+        assertEq(3, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2929,9 +2650,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(3, getNumber(ret_));
+        assertEq(3, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2956,9 +2675,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -2984,9 +2701,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -3012,9 +2727,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
 
     }
     @Test
@@ -3031,9 +2744,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("ab", getString(ret_));
+        assertEq("ab", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument141Test() {
@@ -3049,9 +2760,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("ba", getString(ret_));
+        assertEq("ba", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument142Test() {
@@ -3067,9 +2776,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("ab", getString(ret_));
+        assertEq("ab", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument143Test() {
@@ -3086,9 +2793,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("ab", getString(ret_));
+        assertEq("ab", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument144Test() {
@@ -3105,9 +2810,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("ba", getString(ret_));
+        assertEq("ba", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument145Test() {
@@ -3124,9 +2827,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("ab", getString(ret_));
+        assertEq("ab", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument146Test() {
@@ -3143,9 +2844,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("ab", getString(ret_));
+        assertEq("ab", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument147Test() {
@@ -3162,9 +2861,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("ba", getString(ret_));
+        assertEq("ba", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument148Test() {
@@ -3181,9 +2878,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("ab", getString(ret_));
+        assertEq("ab", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument149Test() {
@@ -3199,9 +2894,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("ab", getString(ret_));
+        assertEq("ab", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument150Test() {
@@ -3217,9 +2910,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("ab", getString(ret_));
+        assertEq("ab", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument1FailTest() {
@@ -3342,7 +3033,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        assertEq("",getString(new Argument(getStaticField(cont_, new ClassField("pkg.Ex", "res")))));
+        assertEq("",getString(getStaticField(cont_, new ClassField("pkg.Ex", "res"))));
     }
     @Test
     public void calculateArgument10FailTest() {
@@ -3359,7 +3050,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
-        assertEq("",getString(new Argument(getStaticField(cont_, new ClassField("pkg.Ex", "res")))));
+        assertEq("",getString(getStaticField(cont_, new ClassField("pkg.Ex", "res"))));
     }
     @Test
     public void calculateArgument11FailTest() {

@@ -1,9 +1,7 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.functionid.MethodId;
-import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -31,9 +29,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -61,9 +57,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument3Test() {
@@ -90,9 +84,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument4Test() {
@@ -124,9 +116,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument5Test() {
@@ -158,9 +148,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument6Test() {
@@ -192,9 +180,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument7Test() {
@@ -226,9 +212,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument8Test() {
@@ -260,9 +244,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument9Test() {
@@ -298,9 +280,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument10Test() {
@@ -336,9 +316,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument10_Test() {
@@ -374,9 +352,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument11Test() {
@@ -408,9 +384,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument12Test() {
@@ -445,9 +419,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument13Test() {
@@ -482,9 +454,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument14Test() {
@@ -523,9 +493,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument15Test() {
@@ -567,9 +535,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument16Test() {
@@ -601,9 +567,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument___16___Test() {
@@ -637,9 +601,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument16_Test() {
@@ -671,9 +633,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument16__Test() {
@@ -705,9 +665,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument_16Test() {
@@ -739,9 +697,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument__16Test() {
@@ -773,9 +729,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument_16_Test() {
@@ -807,9 +761,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument__16__Test() {
@@ -841,9 +793,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument17Test() {
@@ -879,9 +829,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument18Test() {
@@ -916,9 +864,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument19Test() {
@@ -956,9 +902,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument20Test() {
@@ -995,9 +939,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument21Test() {
@@ -1037,9 +979,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument22Test() {
@@ -1075,9 +1015,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument23Test() {
@@ -1117,9 +1055,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument24Test() {
@@ -1159,9 +1095,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument25Test() {
@@ -1207,9 +1141,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument26Test() {
@@ -1261,9 +1193,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument26_Test() {
@@ -1315,9 +1245,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument26__Test() {
@@ -1369,9 +1297,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument26___Test() {
@@ -1423,9 +1349,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument27Test() {
@@ -1507,9 +1431,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument28Test() {
@@ -1555,9 +1477,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument29Test() {
@@ -1595,9 +1515,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument30Test() {
@@ -1663,9 +1581,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument31Test() {
@@ -1691,9 +1607,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument32Test() {
@@ -1719,9 +1633,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument33Test() {
@@ -1743,9 +1655,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument34Test() {
@@ -1772,9 +1682,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument35Test() {
@@ -1800,9 +1708,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument36Test() {
@@ -1827,9 +1733,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument37Test() {
@@ -1859,9 +1763,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument38Test() {
@@ -1894,9 +1796,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4))", getString(ret_));
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4))", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument39Test() {
@@ -1930,9 +1830,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo=6))", getString(ret_));
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo=6))",getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument40Test() {
@@ -1966,9 +1864,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={6,7}))", getString(ret_));
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={6,7}))",getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument41Test() {
@@ -2005,9 +1901,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={ONE,TWO}))", getString(ret_));
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={ONE,TWO}))",getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument42Test() {
@@ -2044,9 +1938,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={pkg.ExTwo}))", getString(ret_));
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={pkg.ExTwo}))",getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument43Test() {
@@ -2083,9 +1975,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={\"$class(ExTwo)\"}))", getString(ret_));
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={\"$class(ExTwo)\"}))", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument44Test() {
@@ -2121,9 +2011,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={pkg.ExTwo<pkg.Ex>}))", getString(ret_));
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={pkg.ExTwo<pkg.Ex>}))",getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument45Test() {
@@ -2159,9 +2047,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={45}))", getString(ret_));
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={45}))",getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument46Test() {
@@ -2197,9 +2083,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={1}))", getString(ret_));
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={1}))",getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -2227,9 +2111,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument48Test() {
@@ -2263,9 +2145,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={6,7,15}))", getString(ret_));
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={6,7,15}))",getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument49Test() {
@@ -2299,9 +2179,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={}))", getString(ret_));
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={}))",getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument50Test() {
@@ -2335,9 +2213,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo=;))", getString(ret_));
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo=;))",getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument51Test() {
@@ -2373,9 +2249,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument52Test() {
@@ -2410,9 +2284,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument53Test() {
@@ -2447,9 +2319,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument54Test() {
@@ -2478,9 +2348,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument55Test() {
@@ -2508,9 +2376,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument56Test() {
@@ -2541,9 +2407,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument57Test() {
@@ -2577,9 +2441,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument58Test() {
@@ -2610,9 +2472,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -2637,9 +2497,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument60Test() {
@@ -2675,9 +2533,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={0}))", getString(ret_));
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={0}))",getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument61Test() {
@@ -2713,9 +2569,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={0}))", getString(ret_));
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={0}))",getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument62Test() {
@@ -2734,9 +2588,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("@pkg.MyAnnot()", getString(ret_));
+        assertEq("@pkg.MyAnnot()", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument63Test() {
@@ -2760,9 +2612,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument64Test() {
@@ -2789,9 +2639,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument65Test() {
@@ -2819,9 +2667,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument66Test() {
@@ -2849,9 +2695,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument67Test() {
@@ -2902,9 +2746,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument68Test() {
@@ -2956,9 +2798,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument69Test() {
@@ -2988,9 +2828,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument70Test() {
@@ -3011,9 +2849,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument71Test() {
@@ -3040,9 +2876,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument72Test() {
@@ -3063,9 +2897,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument73Test() {
@@ -3086,9 +2918,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument74Test() {
@@ -3109,9 +2939,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument75Test() {
@@ -3140,9 +2968,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument76Test() {
@@ -3177,9 +3003,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument77Test() {
@@ -3211,9 +3035,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument78Test() {
@@ -3245,9 +3067,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument79Test() {
@@ -3274,9 +3094,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument80Test() {
@@ -3304,9 +3122,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument801Test() {
@@ -3334,9 +3150,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument81Test() {
@@ -3358,8 +3172,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument arg_ = calculateError("pkg.Ex", id_, cont_);
-        assertEq("code.util.exceptions.NullObjectException", arg_.getStruct().getClassName(cont_));
+        assertEq("code.util.exceptions.NullObjectException", calculateError("pkg.Ex",id_,cont_).getClassName(cont_));
     }
     @Test
     public void calculateArgument811Test() {
@@ -3381,8 +3194,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument arg_ = calculateError("pkg.Ex", id_, cont_);
-        assertEq("code.util.exceptions.NullObjectException", arg_.getStruct().getClassName(cont_));
+        assertEq("code.util.exceptions.NullObjectException", calculateError("pkg.Ex",id_,cont_).getClassName(cont_));
     }
     @Test
     public void calculateArgument82Test() {
@@ -3419,9 +3231,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={\"$class(ExTwo)\\\\\"}))", getString(ret_));
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={\"$class(ExTwo)\\\\\"}))", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument83Test() {
@@ -3458,9 +3268,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={\"$class(ExTwo)\\\"\"}))", getString(ret_));
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={\"$class(ExTwo)\\\"\"}))", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument84Test() {
@@ -3497,9 +3305,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={\"$class(ExTwo)\\u0000\"}))", getString(ret_));
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={\"$class(ExTwo)\\u0000\"}))", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument85Test() {
@@ -3536,9 +3342,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={\"$class(ExTwo)\\u0001\"}))", getString(ret_));
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={\"$class(ExTwo)\\u0001\"}))", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument86Test() {
@@ -3575,9 +3379,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={\"$class(ExTwo)\\u0010\"}))", getString(ret_));
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={\"$class(ExTwo)\\u0010\"}))", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument87Test() {
@@ -3614,9 +3416,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertTrue(ret_.isTrue());
+        assertTrue(calculateNormal("pkg.Ex", id_, cont_));
     }
     @Test
     public void calculateArgument88Test() {
@@ -3658,9 +3458,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertTrue(ret_.isFalse());
+        assertFalse(calculateNormal("pkg.Ex", id_, cont_));
     }
     @Test
     public void calculateArgument89Test() {
@@ -3697,9 +3495,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertTrue(ret_.isTrue());
+        assertTrue(calculateNormal("pkg.Ex", id_, cont_));
     }
     @Test
     public void calculateArgument90Test() {
@@ -3736,9 +3532,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertTrue(ret_.isTrue());
+        assertTrue(calculateNormal("pkg.Ex", id_, cont_));
     }
     @Test
     public void calculateArgument91Test() {
@@ -3767,9 +3561,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.Ex");
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument92Test() {
@@ -3798,9 +3590,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.Ex");
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument93Test() {
@@ -3836,9 +3626,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument94Test() {
@@ -3871,9 +3659,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument95Test() {
@@ -3910,9 +3696,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument96Test() {
@@ -3955,9 +3739,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument97Test() {
@@ -3994,9 +3776,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument98Test() {
@@ -4039,9 +3819,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument99Test() {
@@ -4065,9 +3843,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument100Test() {
@@ -4089,8 +3865,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument arg_ = calculateError("pkg.Ex", id_, cont_);
-        assertEq("code.util.exceptions.NullObjectException", arg_.getStruct().getClassName(cont_));
+        assertEq("code.util.exceptions.NullObjectException", calculateError("pkg.Ex",id_,cont_).getClassName(cont_));
     }
     @Test
     public void calculateArgument101Test() {
@@ -4112,8 +3887,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument arg_ = calculateError("pkg.Ex", id_, cont_);
-        assertEq("code.util.exceptions.NullObjectException", arg_.getStruct().getClassName(cont_));
+        assertEq("code.util.exceptions.NullObjectException", calculateError("pkg.Ex",id_,cont_).getClassName(cont_));
     }
     @Test
     public void calculateArgument102Test() {
@@ -4135,8 +3909,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument arg_ = calculateError("pkg.Ex", id_, cont_);
-        assertEq("code.util.exceptions.NullObjectException", arg_.getStruct().getClassName(cont_));
+        assertEq("code.util.exceptions.NullObjectException", calculateError("pkg.Ex",id_,cont_).getClassName(cont_));
     }
     @Test
     public void calculateArgument103Test() {
@@ -4158,8 +3931,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument arg_ = calculateError("pkg.Ex", id_, cont_);
-        assertEq("code.util.exceptions.NullObjectException", arg_.getStruct().getClassName(cont_));
+        assertEq("code.util.exceptions.NullObjectException", calculateError("pkg.Ex",id_,cont_).getClassName(cont_));
     }
     @Test
     public void calculateArgument104Test() {
@@ -4188,9 +3960,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument105Test() {
@@ -4240,9 +4010,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument106Test() {
@@ -4294,9 +4062,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument107Test() {
@@ -4318,8 +4084,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument arg_ = calculateError("pkg.Ex", id_, cont_);
-        assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(), arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(), calculateError("pkg.Ex",id_,cont_).getClassName(cont_));
     }
     @Test
     public void calculateArgument108Test() {
@@ -4333,9 +4098,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("", getString(ret_));
+        assertEq("", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument109Test() {
@@ -4368,9 +4131,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4.0))", getString(ret_));
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4.0))", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument110Test() {
@@ -4403,9 +4164,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4.0))", getString(ret_));
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4.0))", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgumentSupp1Test() {
@@ -4455,9 +4214,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgumentSupp2Test() {
@@ -4499,9 +4256,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgumentSupp3Test() {
@@ -4551,9 +4306,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgumentSupp4Test() {
@@ -4588,9 +4341,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgumentSupp5Test() {
@@ -4625,9 +4376,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument0FailTest() {

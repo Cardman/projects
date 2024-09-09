@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.inherits;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.TokenCheckerContext;
 import code.expressionlanguage.analyze.blocks.RootBlock;
@@ -22,6 +21,7 @@ import code.expressionlanguage.sample.CustLgNames;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.DoubleStruct;
 import code.expressionlanguage.structs.IntStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -7388,8 +7388,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary0Test() {
         StringList one_ = new StringList("$int");
         StringList two_ = new StringList("java.lang.Integer");
-        Argument argOne_ = new Argument(new IntStruct(0));
-        Argument argTwo_ = new Argument(new IntStruct(0));
+        Struct argOne_ = new IntStruct(0);
+        Struct argTwo_ = new IntStruct(0);
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7404,8 +7404,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary1Test() {
         StringList one_ = new StringList("$int");
         StringList two_ = new StringList("java.lang.Integer");
-        Argument argOne_ = null;
-        Argument argTwo_ = null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7419,8 +7419,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary2Test() {
         StringList one_ = new StringList("java.lang.Integer");
         StringList two_ = new StringList("$int");
-        Argument argOne_ = null;
-        Argument argTwo_ = null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7434,8 +7434,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary3Test() {
         StringList one_ = new StringList("");
         StringList two_ = new StringList("java.lang.Integer");
-        Argument argOne_ = null;
-        Argument argTwo_ = null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7449,8 +7449,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary4Test() {
         StringList one_ = new StringList("java.lang.Integer");
         StringList two_ = new StringList("");
-        Argument argOne_ = null;
-        Argument argTwo_ = null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7464,8 +7464,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary5Test() {
         StringList one_ = new StringList("");
         StringList two_ = new StringList("$int");
-        Argument argOne_ = null;
-        Argument argTwo_ = null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7479,8 +7479,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary6Test() {
         StringList one_ = new StringList("$int");
         StringList two_ = new StringList("");
-        Argument argOne_ = null;
-        Argument argTwo_ = null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7494,8 +7494,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary7Test() {
         StringList one_ = new StringList("java.lang.Short");
         StringList two_ = new StringList("$byte");
-        Argument argOne_ = null;
-        Argument argTwo_ = null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7509,8 +7509,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary8Test() {
         StringList one_ = new StringList("$byte");
         StringList two_ = new StringList("java.lang.Short");
-        Argument argOne_ = null;
-        Argument argTwo_ = null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7524,8 +7524,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary9Test() {
         StringList one_ = new StringList("java.lang.Byte");
         StringList two_ = new StringList("$short");
-        Argument argOne_ = null;
-        Argument argTwo_ = null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7539,8 +7539,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary10Test() {
         StringList one_ = new StringList("$short");
         StringList two_ = new StringList("java.lang.Byte");
-        Argument argOne_ = null;
-        Argument argTwo_ = null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7554,8 +7554,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary11Test() {
         StringList one_ = new StringList("java.lang.Byte");
         StringList two_ = new StringList("java.lang.Short");
-        Argument argOne_ = null;
-        Argument argTwo_ = null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7569,8 +7569,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary12Test() {
         StringList one_ = new StringList("java.lang.Short");
         StringList two_ = new StringList("java.lang.Byte");
-        Argument argOne_ = null;
-        Argument argTwo_ = null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7584,8 +7584,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary13Test() {
         StringList one_ = new StringList("$byte");
         StringList two_ = new StringList("$short");
-        Argument argOne_ = null;
-        Argument argTwo_ = null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7599,8 +7599,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary14Test() {
         StringList one_ = new StringList("$short");
         StringList two_ = new StringList("$byte");
-        Argument argOne_ = null;
-        Argument argTwo_ = null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7614,9 +7614,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary15Test() {
         StringList one_ = new StringList("$int");
         StringList two_ = new StringList("$byte");
-        Argument argOne_ = new Argument();
-        argOne_.setStruct(new IntStruct(1));
-        Argument argTwo_ = null;
+        Struct argOne_ = new IntStruct(1);
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7630,9 +7629,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary16Test() {
         StringList one_ = new StringList("$byte");
         StringList two_ = new StringList("$int");
-        Argument argOne_ = null;
-        Argument argTwo_ = new Argument();
-        argTwo_.setStruct(new IntStruct(1));
+        Struct argOne_ = null;
+        Struct argTwo_ = new IntStruct(1);
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7646,9 +7644,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary17Test() {
         StringList one_ = new StringList("$int");
         StringList two_ = new StringList("$short");
-        Argument argOne_ = new Argument();
-        argOne_.setStruct(new IntStruct(1));
-        Argument argTwo_ = null;
+        Struct argOne_ = new IntStruct(1);
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7662,9 +7659,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary18Test() {
         StringList one_ = new StringList("$short");
         StringList two_ = new StringList("$int");
-        Argument argOne_ = null;
-        Argument argTwo_ = new Argument();
-        argTwo_.setStruct(new IntStruct(1));
+        Struct argOne_ = null;
+        Struct argTwo_ = new IntStruct(1);
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7678,9 +7674,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary19Test() {
         StringList one_ = new StringList("$int");
         StringList two_ = new StringList("$char");
-        Argument argOne_ = new Argument();
-        argOne_.setStruct(new IntStruct(1));
-        Argument argTwo_ = null;
+        Struct argOne_ = new IntStruct(1);
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7694,9 +7689,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary20Test() {
         StringList one_ = new StringList("$char");
         StringList two_ = new StringList("$int");
-        Argument argOne_ = null;
-        Argument argTwo_ = new Argument();
-        argTwo_.setStruct(new IntStruct(1));
+        Struct argOne_ = null;
+        Struct argTwo_ = new IntStruct(1);
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7710,9 +7704,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary21Test() {
         StringList one_ = new StringList("$int");
         StringList two_ = new StringList("$byte");
-        Argument argOne_ = new Argument();
-        argOne_.setStruct(new IntStruct(129));
-        Argument argTwo_ = null;
+        Struct argOne_ = new IntStruct(129);
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7726,9 +7719,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary22Test() {
         StringList one_ = new StringList("$byte");
         StringList two_ = new StringList("$int");
-        Argument argOne_ = null;
-        Argument argTwo_ = new Argument();
-        argTwo_.setStruct(new IntStruct(129));
+        Struct argOne_ = null;
+        Struct argTwo_ = new IntStruct(129);
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7742,9 +7734,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary23Test() {
         StringList one_ = new StringList("$int");
         StringList two_ = new StringList("$short");
-        Argument argOne_ = new Argument();
-        argOne_.setStruct(new IntStruct(129));
-        Argument argTwo_ = null;
+        Struct argOne_ = new IntStruct(129);
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7758,9 +7749,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary24Test() {
         StringList one_ = new StringList("$short");
         StringList two_ = new StringList("$int");
-        Argument argOne_ = null;
-        Argument argTwo_ = new Argument();
-        argTwo_.setStruct(new IntStruct(129));
+        Struct argOne_ = null;
+        Struct argTwo_ = new IntStruct(129);
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7774,9 +7764,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary25Test() {
         StringList one_ = new StringList("$int");
         StringList two_ = new StringList("$byte");
-        Argument argOne_ = new Argument();
-        argOne_.setStruct(new IntStruct(-129));
-        Argument argTwo_ = null;
+        Struct argOne_ = new IntStruct(-129);
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7790,9 +7779,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary26Test() {
         StringList one_ = new StringList("$byte");
         StringList two_ = new StringList("$int");
-        Argument argOne_ = null;
-        Argument argTwo_ = new Argument();
-        argTwo_.setStruct(new IntStruct(-129));
+        Struct argOne_ = null;
+        Struct argTwo_ = new IntStruct(-129);
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7806,9 +7794,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary27Test() {
         StringList one_ = new StringList("$int");
         StringList two_ = new StringList("$short");
-        Argument argOne_ = new Argument();
-        argOne_.setStruct(new IntStruct(-129));
-        Argument argTwo_ = null;
+        Struct argOne_ = new IntStruct(-129);
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7822,9 +7809,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary28Test() {
         StringList one_ = new StringList("$short");
         StringList two_ = new StringList("$int");
-        Argument argOne_ = null;
-        Argument argTwo_ = new Argument();
-        argTwo_.setStruct(new IntStruct(-129));
+        Struct argOne_ = null;
+        Struct argTwo_ = new IntStruct(-129);
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7838,9 +7824,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary29Test() {
         StringList one_ = new StringList("$int");
         StringList two_ = new StringList("$char");
-        Argument argOne_ = new Argument();
-        argOne_.setStruct(new IntStruct(-129));
-        Argument argTwo_ = null;
+        Struct argOne_ = new IntStruct(-129);
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7854,9 +7839,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary30Test() {
         StringList one_ = new StringList("$char");
         StringList two_ = new StringList("$int");
-        Argument argOne_ = null;
-        Argument argTwo_ = new Argument();
-        argTwo_.setStruct(new IntStruct(-129));
+        Struct argOne_ = null;
+        Struct argTwo_ = new IntStruct(-129);
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7870,9 +7854,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary31Test() {
         StringList one_ = new StringList("$int");
         StringList two_ = new StringList("$byte");
-        Argument argOne_ = new Argument();
-        argOne_.setStruct(new IntStruct(40000));
-        Argument argTwo_ = null;
+        Struct argOne_ = new IntStruct(40000);
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7886,9 +7869,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary32Test() {
         StringList one_ = new StringList("$byte");
         StringList two_ = new StringList("$int");
-        Argument argOne_ = null;
-        Argument argTwo_ = new Argument();
-        argTwo_.setStruct(new IntStruct(40000));
+        Struct argOne_ = null;
+        Struct argTwo_ = new IntStruct(40000);
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7902,9 +7884,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary33Test() {
         StringList one_ = new StringList("$int");
         StringList two_ = new StringList("$short");
-        Argument argOne_ = new Argument();
-        argOne_.setStruct(new IntStruct(40000));
-        Argument argTwo_ = null;
+        Struct argOne_ = new IntStruct(40000);
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7918,9 +7899,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary34Test() {
         StringList one_ = new StringList("$short");
         StringList two_ = new StringList("$int");
-        Argument argOne_ = null;
-        Argument argTwo_ = new Argument();
-        argTwo_.setStruct(new IntStruct(40000));
+        Struct argOne_ = null;
+        Struct argTwo_ = new IntStruct(40000);
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7934,9 +7914,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary35Test() {
         StringList one_ = new StringList("$int");
         StringList two_ = new StringList("$char");
-        Argument argOne_ = new Argument();
-        argOne_.setStruct(new IntStruct(40000));
-        Argument argTwo_ = null;
+        Struct argOne_ = new IntStruct(40000);
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7950,9 +7929,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary36Test() {
         StringList one_ = new StringList("$char");
         StringList two_ = new StringList("$int");
-        Argument argOne_ = null;
-        Argument argTwo_ = new Argument();
-        argTwo_.setStruct(new IntStruct(40000));
+        Struct argOne_ = null;
+        Struct argTwo_ = new IntStruct(40000);
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7966,9 +7944,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary37Test() {
         StringList one_ = new StringList("$int");
         StringList two_ = new StringList("$byte");
-        Argument argOne_ = new Argument();
-        argOne_.setStruct(new IntStruct(-40000));
-        Argument argTwo_ = null;
+        Struct argOne_ = new IntStruct(-40000);
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7982,9 +7959,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary38Test() {
         StringList one_ = new StringList("$byte");
         StringList two_ = new StringList("$int");
-        Argument argOne_ = null;
-        Argument argTwo_ = new Argument();
-        argTwo_.setStruct(new IntStruct(-40000));
+        Struct argOne_ = null;
+        Struct argTwo_ = new IntStruct(-40000);
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -7998,9 +7974,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary39Test() {
         StringList one_ = new StringList("$int");
         StringList two_ = new StringList("$short");
-        Argument argOne_ = new Argument();
-        argOne_.setStruct(new IntStruct(-40000));
-        Argument argTwo_ = null;
+        Struct argOne_ = new IntStruct(-40000);
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8014,9 +7989,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary40Test() {
         StringList one_ = new StringList("$short");
         StringList two_ = new StringList("$int");
-        Argument argOne_ = null;
-        Argument argTwo_ = new Argument();
-        argTwo_.setStruct(new IntStruct(-40000));
+        Struct argOne_ = null;
+        Struct argTwo_ = new IntStruct(-40000);
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8030,9 +8004,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary41Test() {
         StringList one_ = new StringList("$int");
         StringList two_ = new StringList("$char");
-        Argument argOne_ = new Argument();
-        argOne_.setStruct(new IntStruct(-40000));
-        Argument argTwo_ = null;
+        Struct argOne_ = new IntStruct(-40000);
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8046,9 +8019,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary42Test() {
         StringList one_ = new StringList("$char");
         StringList two_ = new StringList("$int");
-        Argument argOne_ = null;
-        Argument argTwo_ = new Argument();
-        argTwo_.setStruct(new IntStruct(-40000));
+        Struct argOne_ = null;
+        Struct argTwo_ = new IntStruct(-40000);
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8062,9 +8034,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary43Test() {
         StringList one_ = new StringList("$int");
         StringList two_ = new StringList("$char");
-        Argument argOne_ = new Argument();
-        argOne_.setStruct(new IntStruct(80000));
-        Argument argTwo_ = null;
+        Struct argOne_ = new IntStruct(80000);
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8078,9 +8049,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary44Test() {
         StringList one_ = new StringList("$char");
         StringList two_ = new StringList("$int");
-        Argument argOne_ = null;
-        Argument argTwo_ = new Argument();
-        argTwo_.setStruct(new IntStruct(80000));
+        Struct argOne_ = null;
+        Struct argTwo_ = new IntStruct(80000);
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8094,9 +8064,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary45Test() {
         StringList one_ = new StringList("$int");
         StringList two_ = new StringList("java.lang.Byte");
-        Argument argOne_ = new Argument();
-        argOne_.setStruct(new IntStruct(1));
-        Argument argTwo_ = null;
+        Struct argOne_ = new IntStruct(1);
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8110,9 +8079,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary46Test() {
         StringList one_ = new StringList("java.lang.Byte");
         StringList two_ = new StringList("$int");
-        Argument argOne_ = null;
-        Argument argTwo_ = new Argument();
-        argTwo_.setStruct(new IntStruct(1));
+        Struct argOne_ = null;
+        Struct argTwo_ = new IntStruct(1);
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8126,9 +8094,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary47Test() {
         StringList one_ = new StringList("$int");
         StringList two_ = new StringList("java.lang.Short");
-        Argument argOne_ = new Argument();
-        argOne_.setStruct(new IntStruct(1));
-        Argument argTwo_ = null;
+        Struct argOne_ = new IntStruct(1);
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8142,9 +8109,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary48Test() {
         StringList one_ = new StringList("java.lang.Short");
         StringList two_ = new StringList("$int");
-        Argument argOne_ = null;
-        Argument argTwo_ = new Argument();
-        argTwo_.setStruct(new IntStruct(1));
+        Struct argOne_ = null;
+        Struct argTwo_ = new IntStruct(1);
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8158,9 +8124,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary49Test() {
         StringList one_ = new StringList("$int");
         StringList two_ = new StringList("java.lang.Character");
-        Argument argOne_ = new Argument();
-        argOne_.setStruct(new IntStruct(1));
-        Argument argTwo_ = null;
+        Struct argOne_ = new IntStruct(1);
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8174,9 +8139,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary50Test() {
         StringList one_ = new StringList("java.lang.Character");
         StringList two_ = new StringList("$int");
-        Argument argOne_ = null;
-        Argument argTwo_ = new Argument();
-        argTwo_.setStruct(new IntStruct(1));
+        Struct argOne_ = null;
+        Struct argTwo_ = new IntStruct(1);
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8190,9 +8154,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary51Test() {
         StringList one_ = new StringList("$int");
         StringList two_ = new StringList("java.lang.Byte");
-        Argument argOne_ = new Argument();
-        argOne_.setStruct(new IntStruct(129));
-        Argument argTwo_ = null;
+        Struct argOne_ = new IntStruct(129);
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8206,9 +8169,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary52Test() {
         StringList one_ = new StringList("java.lang.Byte");
         StringList two_ = new StringList("$int");
-        Argument argOne_ = null;
-        Argument argTwo_ = new Argument();
-        argTwo_.setStruct(new IntStruct(129));
+        Struct argOne_ = null;
+        Struct argTwo_ = new IntStruct(129);
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8222,9 +8184,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary53Test() {
         StringList one_ = new StringList("$int");
         StringList two_ = new StringList("java.lang.Short");
-        Argument argOne_ = new Argument();
-        argOne_.setStruct(new IntStruct(129));
-        Argument argTwo_ = null;
+        Struct argOne_ = new IntStruct(129);
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8238,9 +8199,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary54Test() {
         StringList one_ = new StringList("java.lang.Short");
         StringList two_ = new StringList("$int");
-        Argument argOne_ = null;
-        Argument argTwo_ = new Argument();
-        argTwo_.setStruct(new IntStruct(129));
+        Struct argOne_ = null;
+        Struct argTwo_ = new IntStruct(129);
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8254,9 +8214,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary55Test() {
         StringList one_ = new StringList("$int");
         StringList two_ = new StringList("java.lang.Byte");
-        Argument argOne_ = new Argument();
-        argOne_.setStruct(new IntStruct(-129));
-        Argument argTwo_ = null;
+        Struct argOne_ = new IntStruct(-129);
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8270,9 +8229,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary56Test() {
         StringList one_ = new StringList("java.lang.Byte");
         StringList two_ = new StringList("$int");
-        Argument argOne_ = null;
-        Argument argTwo_ = new Argument();
-        argTwo_.setStruct(new IntStruct(-129));
+        Struct argOne_ = null;
+        Struct argTwo_ = new IntStruct(-129);
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8286,9 +8244,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary57Test() {
         StringList one_ = new StringList("$int");
         StringList two_ = new StringList("java.lang.Short");
-        Argument argOne_ = new Argument();
-        argOne_.setStruct(new IntStruct(-129));
-        Argument argTwo_ = null;
+        Struct argOne_ = new IntStruct(-129);
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8302,9 +8259,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary58Test() {
         StringList one_ = new StringList("java.lang.Short");
         StringList two_ = new StringList("$int");
-        Argument argOne_ = null;
-        Argument argTwo_ = new Argument();
-        argTwo_.setStruct(new IntStruct(-129));
+        Struct argOne_ = null;
+        Struct argTwo_ = new IntStruct(-129);
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8318,9 +8274,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary59Test() {
         StringList one_ = new StringList("$int");
         StringList two_ = new StringList("java.lang.Character");
-        Argument argOne_ = new Argument();
-        argOne_.setStruct(new IntStruct(-129));
-        Argument argTwo_ = null;
+        Struct argOne_ = new IntStruct(-129);
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8334,9 +8289,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary60Test() {
         StringList one_ = new StringList("java.lang.Character");
         StringList two_ = new StringList("$int");
-        Argument argOne_ = null;
-        Argument argTwo_ = new Argument();
-        argTwo_.setStruct(new IntStruct(-129));
+        Struct argOne_ = null;
+        Struct argTwo_ = new IntStruct(-129);
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8350,9 +8304,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary61Test() {
         StringList one_ = new StringList("$int");
         StringList two_ = new StringList("java.lang.Byte");
-        Argument argOne_ = new Argument();
-        argOne_.setStruct(new IntStruct(40000));
-        Argument argTwo_ = null;
+        Struct argOne_ = new IntStruct(40000);
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8366,9 +8319,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary62Test() {
         StringList one_ = new StringList("java.lang.Byte");
         StringList two_ = new StringList("$int");
-        Argument argOne_ = null;
-        Argument argTwo_ = new Argument();
-        argTwo_.setStruct(new IntStruct(40000));
+        Struct argOne_ = null;
+        Struct argTwo_ = new IntStruct(40000);
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8382,9 +8334,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary63Test() {
         StringList one_ = new StringList("$int");
         StringList two_ = new StringList("java.lang.Short");
-        Argument argOne_ = new Argument();
-        argOne_.setStruct(new IntStruct(40000));
-        Argument argTwo_ = null;
+        Struct argOne_ = new IntStruct(40000);
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8398,9 +8349,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary64Test() {
         StringList one_ = new StringList("java.lang.Short");
         StringList two_ = new StringList("$int");
-        Argument argOne_ = null;
-        Argument argTwo_ = new Argument();
-        argTwo_.setStruct(new IntStruct(40000));
+        Struct argOne_ = null;
+        Struct argTwo_ = new IntStruct(40000);
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8414,9 +8364,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary65Test() {
         StringList one_ = new StringList("$int");
         StringList two_ = new StringList("java.lang.Character");
-        Argument argOne_ = new Argument();
-        argOne_.setStruct(new IntStruct(40000));
-        Argument argTwo_ = null;
+        Struct argOne_ = new IntStruct(40000);
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8430,9 +8379,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary66Test() {
         StringList one_ = new StringList("java.lang.Character");
         StringList two_ = new StringList("$int");
-        Argument argOne_ = null;
-        Argument argTwo_ = new Argument();
-        argTwo_.setStruct(new IntStruct(40000));
+        Struct argOne_ = null;
+        Struct argTwo_ = new IntStruct(40000);
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8446,9 +8394,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary67Test() {
         StringList one_ = new StringList("$int");
         StringList two_ = new StringList("java.lang.Byte");
-        Argument argOne_ = new Argument();
-        argOne_.setStruct(new IntStruct(-40000));
-        Argument argTwo_ = null;
+        Struct argOne_ = new IntStruct(-40000);
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8462,9 +8409,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary68Test() {
         StringList one_ = new StringList("java.lang.Byte");
         StringList two_ = new StringList("$int");
-        Argument argOne_ = null;
-        Argument argTwo_ = new Argument();
-        argTwo_.setStruct(new IntStruct(-40000));
+        Struct argOne_ = null;
+        Struct argTwo_ = new IntStruct(-40000);
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8478,9 +8424,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary69Test() {
         StringList one_ = new StringList("$int");
         StringList two_ = new StringList("java.lang.Short");
-        Argument argOne_ = new Argument();
-        argOne_.setStruct(new IntStruct(-40000));
-        Argument argTwo_ = null;
+        Struct argOne_ = new IntStruct(-40000);
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8494,9 +8439,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary70Test() {
         StringList one_ = new StringList("java.lang.Short");
         StringList two_ = new StringList("$int");
-        Argument argOne_ = null;
-        Argument argTwo_ = new Argument();
-        argTwo_.setStruct(new IntStruct(-40000));
+        Struct argOne_ = null;
+        Struct argTwo_ = new IntStruct(-40000);
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8510,9 +8454,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary71Test() {
         StringList one_ = new StringList("$int");
         StringList two_ = new StringList("java.lang.Character");
-        Argument argOne_ = new Argument();
-        argOne_.setStruct(new IntStruct(-40000));
-        Argument argTwo_ = null;
+        Struct argOne_ = new IntStruct(-40000);
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8526,9 +8469,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary72Test() {
         StringList one_ = new StringList("java.lang.Character");
         StringList two_ = new StringList("$int");
-        Argument argOne_ = null;
-        Argument argTwo_ = new Argument();
-        argTwo_.setStruct(new IntStruct(-40000));
+        Struct argOne_ = null;
+        Struct argTwo_ = new IntStruct(-40000);
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8542,9 +8484,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary73Test() {
         StringList one_ = new StringList("$int");
         StringList two_ = new StringList("java.lang.Character");
-        Argument argOne_ = new Argument();
-        argOne_.setStruct(new IntStruct(80000));
-        Argument argTwo_ = null;
+        Struct argOne_ = new IntStruct(80000);
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8558,9 +8499,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary74Test() {
         StringList one_ = new StringList("java.lang.Character");
         StringList two_ = new StringList("$int");
-        Argument argOne_ = null;
-        Argument argTwo_ = new Argument();
-        argTwo_.setStruct(new IntStruct(80000));
+        Struct argOne_ = null;
+        Struct argTwo_ = new IntStruct(80000);
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8574,8 +8514,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary75Test() {
         StringList one_ = new StringList("$int");
         StringList two_ = new StringList("$byte");
-        Argument argOne_ = null;
-        Argument argTwo_ = null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8589,8 +8529,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary76Test() {
         StringList one_ = new StringList("$byte");
         StringList two_ = new StringList("$int");
-        Argument argOne_ = null;
-        Argument argTwo_ = null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8604,9 +8544,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary77Test() {
         StringList one_ = new StringList("$double");
         StringList two_ = new StringList("$byte");
-        Argument argOne_ = new Argument();
-        argOne_.setStruct(new DoubleStruct(1));
-        Argument argTwo_ = null;
+        Struct argOne_ = new DoubleStruct(1);
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8620,9 +8559,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary78Test() {
         StringList one_ = new StringList("$byte");
         StringList two_ = new StringList("$double");
-        Argument argOne_ = null;
-        Argument argTwo_ = new Argument();
-        argTwo_.setStruct(new DoubleStruct(1));
+        Struct argOne_ = null;
+        Struct argTwo_ = new DoubleStruct(1);
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8656,8 +8594,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<StringList> map_ = new StringMap<StringList>();
         StringList one_ = new StringList("pkg.ExTwo");
         StringList two_ = new StringList("pkg.ExThree");
-        Argument argOne_ = null;
-        Argument argTwo_ =  null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(2, res_.getTypes().size());
         assertTrue(StringUtil.contains(res_.getTypes(), "pkg.ExFour"));
@@ -8689,8 +8627,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<StringList> map_ = new StringMap<StringList>();
         StringList one_ = new StringList("[pkg.ExTwo");
         StringList two_ = new StringList("[pkg.ExThree");
-        Argument argOne_ = null;
-        Argument argTwo_ =  null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(2, res_.getTypes().size());
         assertTrue(StringUtil.contains(res_.getTypes(), "[pkg.ExFour"));
@@ -8723,8 +8661,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         map_.put("T", new StringList("pkg.ExTwo"));
         StringList one_ = new StringList("#T");
         StringList two_ = new StringList("pkg.ExThree");
-        Argument argOne_ = null;
-        Argument argTwo_ =  null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(2, res_.getTypes().size());
         assertTrue(StringUtil.contains(res_.getTypes(), "pkg.ExFour"));
@@ -8757,8 +8695,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         map_.put("T", new StringList("pkg.ExTwo"));
         StringList one_ = new StringList("[pkg.ExTwo");
         StringList two_ = new StringList("[pkg.ExThree");
-        Argument argOne_ = null;
-        Argument argTwo_ =  null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(2, res_.getTypes().size());
         assertTrue(StringUtil.contains(res_.getTypes(), "[pkg.ExFour"));
@@ -8792,8 +8730,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         map_.put("S", new StringList("#T"));
         StringList one_ = new StringList("#T");
         StringList two_ = new StringList("#S");
-        Argument argOne_ = null;
-        Argument argTwo_ =  null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertTrue(StringUtil.contains(res_.getTypes(), "#T"));
@@ -8826,8 +8764,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         map_.put("S", new StringList("#T"));
         StringList one_ = new StringList("[#T");
         StringList two_ = new StringList("[#S");
-        Argument argOne_ = null;
-        Argument argTwo_ =  null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertTrue(StringUtil.contains(res_.getTypes(), "[#T"));
@@ -8838,8 +8776,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary85Test() {
         StringList one_ = new StringList("java.lang.Integer");
         StringList two_ = new StringList("java.lang.Integer");
-        Argument argOne_ = null;
-        Argument argTwo_ = null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8853,8 +8791,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary86Test() {
         StringList one_ = new StringList("$int");
         StringList two_ = new StringList("java.lang.Number");
-        Argument argOne_ = null;
-        Argument argTwo_ = null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8868,8 +8806,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary87Test() {
         StringList one_ = new StringList("java.lang.Number");
         StringList two_ = new StringList("$int");
-        Argument argOne_ = null;
-        Argument argTwo_ = null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8883,8 +8821,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary88Test() {
         StringList one_ = new StringList("java.lang.Integer");
         StringList two_ = new StringList("java.lang.Number");
-        Argument argOne_ = null;
-        Argument argTwo_ = null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8898,8 +8836,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary89Test() {
         StringList one_ = new StringList("java.lang.Number");
         StringList two_ = new StringList("java.lang.Integer");
-        Argument argOne_ = null;
-        Argument argTwo_ = null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -8933,8 +8871,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<StringList> map_ = new StringMap<StringList>();
         StringList one_ = new StringList("pkg.ExTwo");
         StringList two_ = new StringList("pkg.ExThree");
-        Argument argOne_ = null;
-        Argument argTwo_ =  null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(2, res_.getTypes().size());
         assertTrue(StringUtil.contains(res_.getTypes(), "pkg.ExFour<java.lang.Number>"));
@@ -8966,8 +8904,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<StringList> map_ = new StringMap<StringList>();
         StringList one_ = new StringList("pkg.ExTwo");
         StringList two_ = new StringList("pkg.ExThree");
-        Argument argOne_ = null;
-        Argument argTwo_ =  null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(2, res_.getTypes().size());
         assertTrue(StringUtil.contains(res_.getTypes(), "pkg.ExFour<java.lang.Number>"));
@@ -8999,8 +8937,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<StringList> map_ = new StringMap<StringList>();
         StringList one_ = new StringList("pkg.ExTwo");
         StringList two_ = new StringList("pkg.ExThree");
-        Argument argOne_ = null;
-        Argument argTwo_ =  null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(2, res_.getTypes().size());
         assertTrue(StringUtil.contains(res_.getTypes(), "pkg.ExFour<?>"));
@@ -9012,8 +8950,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary93Test() {
         StringList one_ = new StringList("java.lang.$Fct<java.lang.Number>");
         StringList two_ = new StringList("java.lang.$Fct<java.lang.Integer>");
-        Argument argOne_ = null;
-        Argument argTwo_ = null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -9027,8 +8965,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary94Test() {
         StringList one_ = new StringList("java.lang.$Fct<java.lang.Integer>");
         StringList two_ = new StringList("java.lang.$Fct<java.lang.Number>");
-        Argument argOne_ = null;
-        Argument argTwo_ = null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         AnalyzedPageEl c_ = unfullValidateOverridingMethods(files_);
@@ -9042,8 +8980,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary95Test() {
         StringList one_ = new StringList("java.lang.$Fct<#T>");
         StringList two_ = new StringList("java.lang.$Fct<#U>");
-        Argument argOne_ = null;
-        Argument argTwo_ = null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put("T", new StringList("java.lang.Number"));
@@ -9059,8 +8997,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary96Test() {
         StringList one_ = new StringList("java.lang.$Fct<#U>");
         StringList two_ = new StringList("java.lang.$Fct<#T>");
-        Argument argOne_ = null;
-        Argument argTwo_ = null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put("T", new StringList("java.lang.Number"));
@@ -9076,8 +9014,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary97Test() {
         StringList one_ = new StringList("java.lang.$Fct<#T>");
         StringList two_ = new StringList("java.lang.$Fct<java.lang.Number>");
-        Argument argOne_ = null;
-        Argument argTwo_ = null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put("T", new StringList("java.lang.Number"));
@@ -9092,8 +9030,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     public void getResultTernary98Test() {
         StringList one_ = new StringList("java.lang.$Fct<java.lang.Number>");
         StringList two_ = new StringList("java.lang.$Fct<#T>");
-        Argument argOne_ = null;
-        Argument argTwo_ = null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put("T", new StringList("java.lang.Number"));
@@ -9133,8 +9071,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         map_.put("W", new StringList("#V"));
         StringList one_ = new StringList("#W");
         StringList two_ = new StringList("#V");
-        Argument argOne_ = null;
-        Argument argTwo_ =  null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertTrue(StringUtil.contains(res_.getTypes(), "#V"));
@@ -9170,8 +9108,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         map_.put("W", new StringList("#V"));
         StringList one_ = new StringList("#W");
         StringList two_ = new StringList("#V");
-        Argument argOne_ = null;
-        Argument argTwo_ =  null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertTrue(StringUtil.contains(res_.getTypes(), "#V"));
@@ -9185,8 +9123,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<StringList> map_ = new StringMap<StringList>();
         StringList one_ = new StringList("[java.lang.CharSequence");
         StringList two_ = new StringList("[[java.lang.Object");
-        Argument argOne_ = null;
-        Argument argTwo_ =  null;
+        Struct argOne_ = null;
+        Struct argTwo_ = null;
         ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertTrue(StringUtil.contains(res_.getTypes(), "[java.lang.Object"));
@@ -10761,7 +10699,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
 
 
-    private static ResultTernary getResultTernary(StringList _one, StringList _two, Argument _argOne, Argument _argTwo, StringMap<StringList> _map, AnalyzedPageEl _c) {
+    private static ResultTernary getResultTernary(StringList _one, StringList _two, Struct _argOne, Struct _argTwo, StringMap<StringList> _map, AnalyzedPageEl _c) {
         return ResultTernary.getResultTernary(_one, _argOne, _two, _argTwo, _map, _c);
     }
 

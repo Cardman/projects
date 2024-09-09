@@ -1,6 +1,5 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.CausingErrorStruct;
@@ -37,9 +36,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument1Test() {
@@ -67,9 +64,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument2Test() {
@@ -97,9 +92,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument3Test() {
@@ -130,9 +123,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -162,9 +153,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument5Test() {
@@ -193,9 +182,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument6Test() {
@@ -227,9 +214,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -259,9 +244,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument8Test() {
@@ -290,9 +273,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument9Test() {
@@ -324,9 +305,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument10Test() {
@@ -355,9 +334,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument11Test() {
@@ -388,9 +365,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument12Test() {
@@ -421,9 +396,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument13Test() {
@@ -449,9 +422,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument14Test() {
@@ -492,8 +463,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_,"pkg.Apply");
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculateArgument15Test() {
@@ -532,8 +502,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_,"pkg.Apply");
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculateArgument16Test() {
@@ -563,8 +532,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument17Test() {
@@ -594,8 +562,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument18Test() {
@@ -636,8 +603,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_,"pkg.Apply");
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculateArgument19Test() {
@@ -676,8 +642,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_,"pkg.Apply");
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculateArgument20Test() {
@@ -713,7 +678,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_,"pkg.Apply");
         MethodId id_ = getMethodId("catching");
-        Struct exc_ = calculateNormal("pkg.Apply", id_, cont_).getStruct();
+        Struct exc_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("$core.DefErrorClass",exc_.getClassName(cont_));
         CausingErrorStruct cause_ = (CausingErrorStruct)exc_;
         assertEq("$core.DivideZero",cause_.getCause().getClassName(cont_));
@@ -742,8 +707,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_,"pkg.Apply");
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(8, getNumber(ret_));
+        assertEq(8, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculateArgument22Test() {
@@ -770,8 +734,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_,"pkg.Apply");
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(8, getNumber(ret_));
+        assertEq(8, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculateArgument23Test() {
@@ -808,7 +771,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_,"pkg.Apply");
         MethodId id_ = getMethodId("catching");
-        Struct exc_ = calculateNormal("pkg.Apply", id_, cont_).getStruct();
+        Struct exc_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("$core.DefErrorClass",exc_.getClassName(cont_));
         CausingErrorStruct cause_ = (CausingErrorStruct)exc_;
         assertEq("$core.DivideZero",cause_.getCause().getClassName(cont_));
@@ -847,7 +810,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_,"pkg.Apply");
         MethodId id_ = getMethodId("catching");
-        Struct exc_ = calculateNormal("pkg.Apply", id_, cont_).getStruct();
+        Struct exc_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("$core.DefErrorClass",exc_.getClassName(cont_));
         CausingErrorStruct cause_ = (CausingErrorStruct)exc_;
         assertEq("$core.DivideZero",cause_.getCause().getClassName(cont_));
@@ -881,9 +844,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(6, getNumber(ret_));
+        assertEq(6, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -914,9 +875,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(7, getNumber(ret_));
+        assertEq(7, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -948,9 +907,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(7, getNumber(ret_));
+        assertEq(7, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -982,9 +939,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(7, getNumber(ret_));
+        assertEq(7, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -1013,9 +968,7 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument1FailTest() {

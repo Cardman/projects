@@ -18,7 +18,7 @@ public final class ProcessDbgDisableUntilTest extends ProcessDbgCommon {
         assertEq(59,now(first_.getStack()));
         assertEq(2,dbgContinueNormal(first_.getStack(),cont_.getContext()).nbPages());
         assertEq(118,now(first_.getStack()));
-        assertEq(2,getNumber(ArgumentListCall.toStr(first_.getStack().getLastPage().getRefParams().getVal("p").getValue())));
+        assertEq(2,getNumber(first_.getStack().getLastPage().getRefParams().getVal("p").getValue()));
     }
     @Test
     public void test2() {

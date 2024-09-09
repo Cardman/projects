@@ -1,6 +1,5 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.IntStruct;
@@ -26,9 +25,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("factrec", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
-        Argument ret_;
-        ret_ = calculateNormalParam("pkg.Ex", id_, new IntStruct(5), cont_);
-        assertEq(120, getNumber(ret_));
+        assertEq(120, getNumber(calculateNormalParam("pkg.Ex", id_, new IntStruct(5), cont_)));
     }
 
     @Test
@@ -51,9 +48,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -73,9 +68,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
 
@@ -99,9 +92,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument1018Test() {
@@ -123,9 +114,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -151,9 +140,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2,getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -175,9 +162,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2,getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument1022Test() {
@@ -193,9 +178,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("calling");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(18, getNumber(ret_));
+        assertEq(18, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument1023Test() {
@@ -226,9 +209,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(17, getNumber(ret_));
+        assertEq(17, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -267,9 +248,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(25, getNumber(ret_));
+        assertEq(25, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
 }

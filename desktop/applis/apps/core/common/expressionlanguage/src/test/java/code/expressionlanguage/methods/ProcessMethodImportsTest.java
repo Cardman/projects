@@ -1,12 +1,10 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.*;
-import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -44,9 +42,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(20, getNumber(ret_));
+        assertEq(20, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument1Test() {
@@ -69,9 +65,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(9, getNumber(ret_));
+        assertEq(9, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -91,9 +85,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("pkg.ExTwo", getString(ret_));
+        assertEq("pkg.ExTwo", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -112,9 +104,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("pkg.ExTwo", getString(ret_));
+        assertEq("pkg.ExTwo", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -133,9 +123,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("java.lang.Boolean,true", getString(ret_));
+        assertEq("java.lang.Boolean,true",getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -154,9 +142,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("[pkg.ExTwo", getString(ret_));
+        assertEq("[pkg.ExTwo", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -175,9 +161,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("[pkg.ExTwo", getString(ret_));
+        assertEq("[pkg.ExTwo", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -205,9 +189,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("1.7.", getString(ret_));
+        assertEq("1.7.", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -240,9 +222,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("100.1.", getString(ret_));
+        assertEq("100.1.", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -278,9 +258,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("100.1.", getString(ret_));
+        assertEq("100.1.", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -316,9 +294,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("100.1.", getString(ret_));
+        assertEq("100.1.", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -364,9 +340,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("1.100.", getString(ret_));
+        assertEq("1.100.", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -410,9 +384,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("-1.0.11.1.", getString(ret_));
+        assertEq("-1.0.11.1.", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -431,9 +403,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("pkg.ExTwo", getString(ret_));
+        assertEq("pkg.ExTwo", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -452,9 +422,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq("pkg.ExTwo", getString(ret_));
+        assertEq("pkg.ExTwo", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument15Test() {
@@ -481,10 +449,8 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "res"));
@@ -533,10 +499,8 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "res"));
@@ -583,10 +547,8 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "res"));
@@ -633,10 +595,8 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "res"));
@@ -683,10 +643,8 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "res"));
@@ -734,10 +692,8 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "res"));
@@ -771,9 +727,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.ExCont", null, id_, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = instanceNormal("pkg.ExCont", id_, cont_);
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExCont", "inst"));
@@ -807,9 +761,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.ExCont", null, id_, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = instanceNormal("pkg.ExCont", id_, cont_);
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExCont", "inst"));
@@ -854,10 +806,8 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "res"));
@@ -996,9 +946,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(9, getNumber(ret_));
+        assertEq(9, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument30_Test() {
@@ -1023,9 +971,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(9, getNumber(ret_));
+        assertEq(9, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -1050,9 +996,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(9, getNumber(ret_));
+        assertEq(9, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -1082,9 +1026,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(10, getNumber(ret_));
+        assertEq(10, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
 
@@ -1120,9 +1062,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(9, getNumber(ret_));
+        assertEq(9, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -1143,9 +1083,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(9, getNumber(ret_));
+        assertEq(9, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -1166,9 +1104,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(9, getNumber(ret_));
+        assertEq(9, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -1195,9 +1131,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(10, getNumber(ret_));
+        assertEq(10, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculateArgument36_Test() {
@@ -1223,9 +1157,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(9, getNumber(ret_));
+        assertEq(9, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculateArgument36__Test() {
@@ -1253,9 +1185,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(9, getNumber(ret_));
+        assertEq(9, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculateArgument37Test() {
@@ -1281,9 +1211,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(9, getNumber(ret_));
+        assertEq(9, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument38Test() {
@@ -1298,9 +1226,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(6, getNumber(ret_));
+        assertEq(6, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument39Test() {
@@ -1325,9 +1251,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(9, getNumber(ret_));
+        assertEq(9, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     private static String getSecondCustomList() {
         StringBuilder xml_ = new StringBuilder();

@@ -1,6 +1,5 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.functionid.MethodId;
 import code.util.CustList;
@@ -66,9 +65,7 @@ public final class ProcessMethodToStringBisTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("test");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq("15,1", getString(ret_));
+        assertEq("15,1",getString(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculate36Test() {
@@ -129,9 +126,7 @@ public final class ProcessMethodToStringBisTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("test");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq("20,3", getString(ret_));
+        assertEq("20,3",getString(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculate37Test() {
@@ -157,9 +152,7 @@ public final class ProcessMethodToStringBisTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("test");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq("2,4", getString(ret_));
+        assertEq("2,4",getString(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculate41Test() {
@@ -214,9 +207,7 @@ public final class ProcessMethodToStringBisTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("test");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq("5,0", getString(ret_));
+        assertEq("5,0",getString(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculate42Test() {
@@ -271,9 +262,7 @@ public final class ProcessMethodToStringBisTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("test");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq("6,1", getString(ret_));
+        assertEq("6,1",getString(calculateNormal("pkg.Apply", id_, cont_)));
     }
 
     @Test
@@ -329,8 +318,6 @@ public final class ProcessMethodToStringBisTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("test");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq("str1:5,1;str2:15,2", getString(ret_));
+        assertEq("str1:5,1;str2:15,2",getString(calculateNormal("pkg.Apply", id_, cont_)));
     }
 }

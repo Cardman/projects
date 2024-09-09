@@ -1,6 +1,5 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ConstructorId;
@@ -8,7 +7,6 @@ import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
-import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -44,10 +42,8 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxReadOnlyOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -91,10 +87,8 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxReadOnlyOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -157,9 +151,7 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -209,9 +201,7 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -261,9 +251,7 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -297,9 +285,7 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -325,9 +311,7 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(0, getNumber(ret_));
+        assertEq(0, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculate14Test() {
@@ -359,9 +343,7 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(4, getNumber(ret_));
+        assertEq(4, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculate24Test() {
@@ -380,9 +362,7 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(4, getNumber(ret_));
+        assertEq(4, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculate25Test() {
@@ -402,9 +382,7 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(4, getNumber(ret_));
+        assertEq(4, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculate27Test() {
@@ -423,9 +401,7 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -451,9 +427,7 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculate29Test() {
@@ -482,9 +456,7 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculate30Test() {
@@ -511,9 +483,7 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
         MethodId id_ = getMethodId("test");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(5, getNumber(ret_));
+        assertEq(5, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
 
     @Test
@@ -530,10 +500,8 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        Argument ret_;
-        ret_ = instanceNormalCtor("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormalCtor("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -559,10 +527,8 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        Argument ret_;
-        ret_ = instanceNormalCtor("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormalCtor("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));

@@ -1,6 +1,5 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.functionid.MethodId;
 import code.util.CustList;
@@ -37,9 +36,7 @@ public final class ProcessMethodContinueLoopFinallyTest extends
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(424, getNumber(ret_));
+        assertEq(424, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -69,9 +66,7 @@ public final class ProcessMethodContinueLoopFinallyTest extends
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(2424, getNumber(ret_));
+        assertEq(2424, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
     @Test
@@ -105,9 +100,7 @@ public final class ProcessMethodContinueLoopFinallyTest extends
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(4424, getNumber(ret_));
+        assertEq(4424, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 
 
@@ -139,8 +132,6 @@ public final class ProcessMethodContinueLoopFinallyTest extends
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(424, getNumber(ret_));
+        assertEq(424, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
     }
 }

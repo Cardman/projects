@@ -1,13 +1,11 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -45,9 +43,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex",getMethodId("getter"), cont_);
-        assertEq(18, getNumber(ret_));
+        assertEq(18, getNumber(calculateNormal("pkg.Ex",getMethodId("getter"), cont_)));
     }
     @Test
     public void calculate2Test() {
@@ -82,9 +78,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex",getMethodId("getter"), cont_);
-        assertEq(18, getNumber(ret_));
+        assertEq(18, getNumber(calculateNormal("pkg.Ex",getMethodId("getter"), cont_)));
     }
     @Test
     public void calculate3Test() {
@@ -119,9 +113,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex",getMethodId("getter"), cont_);
-        assertEq(18, getNumber(ret_));
+        assertEq(18, getNumber(calculateNormal("pkg.Ex",getMethodId("getter"), cont_)));
     }
     @Test
     public void calculate4Test() {
@@ -157,9 +149,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex",getMethodId("getter"), cont_);
-        assertEq(16, getNumber(ret_));
+        assertEq(16, getNumber(calculateNormal("pkg.Ex",getMethodId("getter"), cont_)));
     }
     @Test
     public void calculate5Test() {
@@ -195,9 +185,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex",getMethodId("getter"), cont_);
-        assertEq(16, getNumber(ret_));
+        assertEq(16, getNumber(calculateNormal("pkg.Ex",getMethodId("getter"), cont_)));
     }
     @Test
     public void calculate6Test() {
@@ -233,9 +221,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex",getMethodId("getter"), cont_);
-        assertEq(18, getNumber(ret_));
+        assertEq(18, getNumber(calculateNormal("pkg.Ex",getMethodId("getter"), cont_)));
     }
     @Test
     public void calculate7Test() {
@@ -276,9 +262,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        Argument ret_;
-        ret_ = calculateNormal("pkg.ExThree",getMethodId("getter"), cont_);
-        assertEq(18, getNumber(ret_));
+        assertEq(18, getNumber(calculateNormal("pkg.ExThree",getMethodId("getter"), cont_)));
     }
     @Test
     public void calculate8Test() {
@@ -313,9 +297,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex",getMethodId("getter"), cont_);
-        assertEq(18, getNumber(ret_));
+        assertEq(18, getNumber(calculateNormal("pkg.Ex",getMethodId("getter"), cont_)));
     }
     @Test
     public void calculate9Test() {
@@ -357,9 +339,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex",getMethodId("getter"), cont_);
-        assertEq(22, getNumber(ret_));
+        assertEq(22, getNumber(calculateNormal("pkg.Ex",getMethodId("getter"), cont_)));
     }
     @Test
     public void calculate10Test() {
@@ -392,9 +372,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex",getMethodId("getter"), cont_);
-        assertEq(9, getNumber(ret_));
+        assertEq(9, getNumber(calculateNormal("pkg.Ex",getMethodId("getter"), cont_)));
     }
     @Test
     public void calculate11Test() {
@@ -429,9 +407,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex",getMethodId("getter"), cont_);
-        assertEq(16, getNumber(ret_));
+        assertEq(16, getNumber(calculateNormal("pkg.Ex",getMethodId("getter"), cont_)));
     }
     @Test
     public void calculate12Test() {
@@ -473,9 +449,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex",getMethodId("getter"), cont_);
-        assertEq(34, getNumber(ret_));
+        assertEq(34, getNumber(calculateNormal("pkg.Ex",getMethodId("getter"), cont_)));
     }
     @Test
     public void calculate13Test() {
@@ -517,9 +491,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex",getMethodId("getter"), cont_);
-        assertEq(225, getNumber(ret_));
+        assertEq(225, getNumber(calculateNormal("pkg.Ex",getMethodId("getter"), cont_)));
     }
     @Test
     public void calculate14Test() {
@@ -556,9 +528,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElEnum(files_);
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.ExCont", null, id_, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = instanceNormal("pkg.ExCont", id_, cont_);
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExCont", "inst"));
@@ -604,9 +574,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex",getMethodId("getter"), cont_);
-        assertEq(20, getNumber(ret_));
+        assertEq(20, getNumber(calculateNormal("pkg.Ex",getMethodId("getter"), cont_)));
     }
     @Test
     public void calculate16Test() {
@@ -646,9 +614,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElEnum(files_);
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.ExCont", null, id_, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = instanceNormal("pkg.ExCont", id_, cont_);
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExCont", "inst"));
@@ -697,9 +663,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex",getMethodId("getter"), cont_);
-        assertEq(18, getNumber(ret_));
+        assertEq(18, getNumber(calculateNormal("pkg.Ex",getMethodId("getter"), cont_)));
     }
     @Test
     public void calculate18Test() {
@@ -739,9 +703,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElEnum(files_);
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.ExCont", null, id_, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = instanceNormal("pkg.ExCont", id_, cont_);
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExCont", "inst"));
@@ -784,9 +746,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElEnum(files_);
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.ExCont", null, id_, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = instanceNormal("pkg.ExCont", id_, cont_);
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExCont", "inst"));
@@ -826,9 +786,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex",getMethodId("getter"), cont_);
-        assertEq(18, getNumber(ret_));
+        assertEq(18, getNumber(calculateNormal("pkg.Ex",getMethodId("getter"), cont_)));
     }
     @Test
     public void calculate21Test() {
@@ -863,9 +821,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex",getMethodId("getter"), cont_);
-        assertEq(16, getNumber(ret_));
+        assertEq(16, getNumber(calculateNormal("pkg.Ex",getMethodId("getter"), cont_)));
     }
     @Test
     public void calculate22Test() {
@@ -900,9 +856,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex",getMethodId("getter"), cont_);
-        assertEq(18, getNumber(ret_));
+        assertEq(18, getNumber(calculateNormal("pkg.Ex",getMethodId("getter"), cont_)));
     }
     @Test
     public void calculate23Test() {
@@ -940,9 +894,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex",getMethodId("getter"), cont_);
-        assertEq(18, getNumber(ret_));
+        assertEq(18, getNumber(calculateNormal("pkg.Ex",getMethodId("getter"), cont_)));
     }
     @Test
     public void calculate24Test() {
@@ -984,9 +936,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex",getMethodId("getter"), cont_);
-        assertEq(18, getNumber(ret_));
+        assertEq(18, getNumber(calculateNormal("pkg.Ex",getMethodId("getter"), cont_)));
     }
     @Test
     public void calculate25Test() {
@@ -1028,9 +978,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex",getMethodId("getter"), cont_);
-        assertEq(25, getNumber(ret_));
+        assertEq(25, getNumber(calculateNormal("pkg.Ex",getMethodId("getter"), cont_)));
     }
     @Test
     public void calculate26Test() {
@@ -1072,9 +1020,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex",getMethodId("getter"), cont_);
-        assertEq(25, getNumber(ret_));
+        assertEq(25, getNumber(calculateNormal("pkg.Ex",getMethodId("getter"), cont_)));
     }
     @Test
     public void calculate27Test() {
@@ -1128,9 +1074,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Ex",getMethodId("getter"), cont_);
-        assertEq(25, getNumber(ret_));
+        assertEq(25, getNumber(calculateNormal("pkg.Ex",getMethodId("getter"), cont_)));
     }
     @Test
     public void calculate1FailTest() {

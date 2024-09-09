@@ -1008,7 +1008,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
         Struct field_;
         field_ = getStaticField(cont_, new ClassField("pkg.Ex", "field"));
-        assertTrue(BooleanStruct.isTrue(field_));
+        assertTrue(field_);
     }
     @Test
     public void initializeClass35Test() {
@@ -1033,7 +1033,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
         Struct field_;
         field_ = getStaticField(cont_, new ClassField("pkg.Ex", "field"));
-        assertTrue(BooleanStruct.isTrue(field_));
+        assertTrue(field_);
     }
     @Test
     public void initializeClass36Test() {

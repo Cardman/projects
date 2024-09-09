@@ -1,6 +1,5 @@
 package code.expressionlanguage.utilimpl;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.ProcessMethod;
@@ -14,6 +13,7 @@ import code.expressionlanguage.gui.unit.ProgTestBar;
 import code.expressionlanguage.guicompos.LgNamesGui;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ResultContext;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilcompo.FileInfos;
@@ -54,7 +54,7 @@ public final class RunningShowProgessTest extends EquallableElUtImplUtil {
         ContextEl rCont_ = res_.getContext();
         String infoTest_ = stds_.getExecContent().getCustAliases().getAliasInfoTest();
         ExecFormattedRootBlock className_ = ExecFormattedRootBlock.build(infoTest_, rCont_.getClasses());
-        Struct infoStruct_ = ArgumentListCall.toStr(ProcessMethod.calculate(new CustomFoundConstructor(rCont_,className_, new Argument()),rCont_, StackCall.newInstance(InitPhase.NOTHING,rCont_)).getValue());
+        Struct infoStruct_ = ArgumentListCall.toStr(ProcessMethod.calculate(new CustomFoundConstructor(rCont_,className_, ArgumentListCall.toStr(NullStruct.NULL_VALUE)),rCont_, StackCall.newInstance(InitPhase.NOTHING,rCont_)).getValue());
         ShowUpdates sh_ = new ShowUpdates(infoStruct_, rCont_,progTest_,stds_);
         sh_.run();
         assertEq(0, bar_.getMin());
@@ -85,7 +85,7 @@ public final class RunningShowProgessTest extends EquallableElUtImplUtil {
         AbstractAtomicBoolean a_ = pr_.getThreadFactory().newAtomicBoolean();
         progTest_.setStop(a_);
         ResultContext res_ = CustContextFactory.buildDefKw(new Options(), stds_.getExecContent().getExecutingOptions(), stds_, files_, new SampleAtIntLgNames(),new SampleFileBuilderListGene(), new MockContextGenerator(stds_.getExecContent().getInfos().getThreadFactory().newAtomicBoolean()));
-        fram_.setResults(res_.getContext(),new Argument(),stds_);
+        fram_.setResults(res_.getContext(),ArgumentListCall.toStr(NullStruct.NULL_VALUE),stds_);
         assertEq(0, bar_.getMin());
         assertEq(0, bar_.getMax());
         assertEq(0, bar_.getCurrent());

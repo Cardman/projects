@@ -1,6 +1,5 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.coverage.*;
 import code.expressionlanguage.functionid.MethodId;
@@ -238,8 +237,7 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = covVal2(files_);
         MethodId id_ = getMethodId("exmeth");
-        Argument out_ = calculateNormal("pkg.Ex", id_, cont_);
-        assertEq(3, getNumber(out_));
+        assertEq(3, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
         assertEq(2, sizeFunction(cont_));
         assertSame(BoolVal.TRUE, callFunction(cont_,0));
         assertSame(BoolVal.FALSE, callFunction(cont_,1));

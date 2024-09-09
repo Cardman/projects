@@ -19,6 +19,7 @@ import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.inherits.Parameters;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.VariableWrapper;
@@ -59,49 +60,45 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         return res_;
     }
 
-    protected static Argument calculateError(String _class, MethodId _method, ContextEl _cont) {
+    protected static Struct calculateError(String _class, MethodId _method, ContextEl _cont) {
         ExecRootBlock classBody_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, _method).first();
-        Argument argGlLoc_ = new Argument();
         Parameters p_ = new Parameters();
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_cont);
-        ProcessMethod.calculate(new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_,_class), new ExecTypeFunction(classBody_, method_), p_), _cont, stackCall_);
+        ProcessMethod.calculate(new CustomFoundMethod(ArgumentListCall.toStr(NullStruct.NULL_VALUE), new ExecFormattedRootBlock(classBody_,_class), new ExecTypeFunction(classBody_, method_), p_), _cont, stackCall_);
         CustomFoundExc excState_ = (CustomFoundExc) stackCall_.getCallingState();
         Struct exc_ = excState_.getStruct();
         assertNotNull(exc_);
-        return new Argument(exc_);
+        return exc_;
     }
 
     protected static String calculateErrorMess(String _class, MethodId _method, ContextEl _cont) {
         ExecRootBlock classBody_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, _method).first();
-        Argument argGlLoc_ = new Argument();
         Parameters p_ = new Parameters();
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_cont);
-        ProcessMethod.calculate(new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_,_class), new ExecTypeFunction(classBody_, method_), p_), _cont, stackCall_);
+        ProcessMethod.calculate(new CustomFoundMethod(ArgumentListCall.toStr(NullStruct.NULL_VALUE), new ExecFormattedRootBlock(classBody_,_class), new ExecTypeFunction(classBody_, method_), p_), _cont, stackCall_);
         return _cont.errorMessage(stackCall_);
     }
 
-    protected static Argument calculateNormal(String _class, MethodId _method, ContextEl _cont) {
+    protected static Struct calculateNormal(String _class, MethodId _method, ContextEl _cont) {
         ExecRootBlock classBody_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, _method).first();
-        Argument argGlLoc_ = new Argument();
         Parameters p_ = new Parameters();
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_cont);
-        Argument arg_ = ProcessMethod.calculate(new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_), _cont, stackCall_).getValue();
+        Struct arg_ = ArgumentListCall.toStr(ProcessMethod.calculate(new CustomFoundMethod(ArgumentListCall.toStr(NullStruct.NULL_VALUE), new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_), _cont, stackCall_).getValue());
         assertNull(stackCall_.getCallingState());
         return arg_;
     }
 
-    protected static Argument calculateNormalParam(String _class, MethodId _method, Struct _args, ContextEl _cont) {
+    protected static Struct calculateNormalParam(String _class, MethodId _method, Struct _args, ContextEl _cont) {
         ExecRootBlock classBody_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, _method).first();
-        Argument argGlLoc_ = new Argument();
         Parameters p_ = new Parameters();
         LocalVariable lv_ = LocalVariable.newLocalVariable(_args, _cont);
         p_.getRefParameters().addEntry(method_.getParametersName(0), new VariableWrapper(lv_));
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_cont);
-        Argument arg_ = ProcessMethod.calculate(new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_), _cont, stackCall_).getValue();
+        Struct arg_ = ArgumentListCall.toStr(ProcessMethod.calculate(new CustomFoundMethod(ArgumentListCall.toStr(NullStruct.NULL_VALUE), new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_), _cont, stackCall_).getValue());
         assertNull(stackCall_.getCallingState());
         return arg_;
     }
@@ -119,36 +116,37 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         return new MethodId(_k, _name, cl_, _vararg);
     }
 
-    protected static Argument instanceError(String _class, Argument _global, ConstructorId _id, ContextEl _cont) {
+    protected static Struct instanceError(String _class, ConstructorId _id, ContextEl _cont) {
         assertEq(0, _id.getParametersTypesLength());
         ExecRootBlock type_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_cont);
-        ProcessMethod.calculate(new CustomFoundConstructor(_cont,new ExecFormattedRootBlock(type_,_class), _global), _cont, stackCall_);
+        ProcessMethod.calculate(new CustomFoundConstructor(_cont,new ExecFormattedRootBlock(type_,_class), null), _cont, stackCall_);
         CustomFoundExc excState_ = (CustomFoundExc) stackCall_.getCallingState();
         Struct exc_ = excState_.getStruct();
         assertNotNull(exc_);
-        return new Argument(exc_);
+        return exc_;
     }
-    protected static Argument instanceNormal(String _class, Argument _global, ConstructorId _id, ContextEl _cont) {
+    protected static Struct instanceNormal(String _class, ConstructorId _id, ContextEl _cont) {
         assertEq(0, _id.getParametersTypesLength());
         ExecRootBlock type_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_cont);
-        Argument arg_ = ProcessMethod.calculate(new CustomFoundConstructor(_cont,new ExecFormattedRootBlock(type_, _class), _global), _cont, stackCall_).getValue();
+        Struct arg_ = ArgumentListCall.toStr(ProcessMethod.calculate(new CustomFoundConstructor(_cont,new ExecFormattedRootBlock(type_, _class), null), _cont, stackCall_).getValue());
         assertNull(stackCall_.getCallingState());
         return arg_;
     }
-    protected static Argument instanceNormalCtor(String _class, Argument _global, ConstructorId _id, ContextEl _cont) {
+    protected static Struct instanceNormalCtor(String _class, ConstructorId _id, ContextEl _cont) {
         assertEq(0, _id.getParametersTypesLength());
         ExecRootBlock type_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         ExecNamedFunctionBlock ctor_ = (ExecNamedFunctionBlock) type_.getAllFct().first();
         Parameters p_ = new Parameters();
 //        feedParams(_args, _cont, ctor_, p_);
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_cont);
-        Argument arg_ = ProcessMethod.calculate(new CustomFoundConstructor(_cont,new ExecFormattedRootBlock(type_, _class), new ExecTypeFunction(type_, ctor_), "",-1, _global, p_), _cont, stackCall_).getValue();
+        Struct arg_ = ArgumentListCall.toStr(ProcessMethod.calculate(new CustomFoundConstructor(_cont,new ExecFormattedRootBlock(type_, _class), new ExecTypeFunction(type_, ctor_), "",-1, null, p_), _cont, stackCall_).getValue());
         assertNull(stackCall_.getCallingState());
         return arg_;
     }
-    protected static Argument instanceNormalCtorParam(String _class, Argument _global, ConstructorId _id, Struct _args, ContextEl _cont) {
+
+    protected static Struct instanceNormalCtorParam(String _class, ConstructorId _id, Struct _args, ContextEl _cont) {
         assertEq(1, _id.getParametersTypesLength());
         ExecRootBlock type_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         ExecNamedFunctionBlock ctor_ = (ExecNamedFunctionBlock) type_.getAllFct().first();
@@ -156,17 +154,17 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         LocalVariable lv_ = LocalVariable.newLocalVariable(_args, _cont);
         p_.getRefParameters().addEntry(ctor_.getParametersName(0), new VariableWrapper(lv_));
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_cont);
-        Argument arg_ = ProcessMethod.calculate(new CustomFoundConstructor(_cont,new ExecFormattedRootBlock(type_, _class), new ExecTypeFunction(type_, ctor_), "",-1, _global, p_), _cont, stackCall_).getValue();
+        Struct arg_ = ArgumentListCall.toStr(ProcessMethod.calculate(new CustomFoundConstructor(_cont,new ExecFormattedRootBlock(type_, _class), new ExecTypeFunction(type_, ctor_), "",-1, null, p_), _cont, stackCall_).getValue());
         assertNull(stackCall_.getCallingState());
         return arg_;
     }
-    protected static Argument instanceNormalCtor(String _class, Argument _global, int _id, ContextEl _cont) {
+    protected static Struct instanceNormalCtor(String _class, int _id, ContextEl _cont) {
         ExecRootBlock type_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         ExecNamedFunctionBlock ctor_ = (ExecNamedFunctionBlock) type_.getAllFct().get(_id);
         Parameters p_ = new Parameters();
 //        feedParams(_args, _cont, ctor_, p_);
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_cont);
-        Argument arg_ = ProcessMethod.calculate(new CustomFoundConstructor(_cont,new ExecFormattedRootBlock(type_, _class), new ExecTypeFunction(type_, ctor_), "",-1, _global, p_), _cont, stackCall_).getValue();
+        Struct arg_ = ArgumentListCall.toStr(ProcessMethod.calculate(new CustomFoundConstructor(_cont,new ExecFormattedRootBlock(type_, _class), new ExecTypeFunction(type_, ctor_), "",-1, null, p_), _cont, stackCall_).getValue());
         assertNull(stackCall_.getCallingState());
         return arg_;
     }
@@ -800,17 +798,17 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         return ctx(_files, opt_);
     }
 
-    protected static String getString(Argument _arg) {
-        return ((CharSequenceStruct)_arg.getStruct()).toStringInstance();
+    protected static String getString(Struct _arg) {
+        return ((CharSequenceStruct)_arg).toStringInstance();
     }
-    protected static long getNumber(Argument _arg) {
-        return ((NumberStruct)_arg.getStruct()).longStruct();
+    protected static long getNumber(Struct _arg) {
+        return ((NumberStruct)_arg).longStruct();
     }
-    protected static double getDouble(Argument _arg) {
-        return ((NumberStruct)_arg.getStruct()).doubleStruct();
+    protected static double getDouble(Struct _arg) {
+        return ((NumberStruct)_arg).doubleStruct();
     }
-    protected static char getChar(Argument _arg) {
-        return ((CharStruct)_arg.getStruct()).getChar();
+    protected static char getChar(Struct _arg) {
+        return ((CharStruct)_arg).getChar();
     }
     protected static CustList<ExecOverridableBlock> getDeepMethodBodiesById(ContextEl _context,String _genericClassName, MethodId _id) {
         String base_ = StringExpUtil.getIdFromAllTypes(_genericClassName);

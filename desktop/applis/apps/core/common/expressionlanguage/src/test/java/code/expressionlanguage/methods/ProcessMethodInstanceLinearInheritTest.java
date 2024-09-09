@@ -1,12 +1,10 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.*;
-import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -45,10 +43,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -98,10 +94,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -146,10 +140,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -197,10 +189,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -251,10 +241,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -305,10 +293,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -361,10 +347,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -417,10 +401,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -476,10 +458,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -536,10 +516,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -602,10 +580,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -664,10 +640,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -719,10 +693,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -778,10 +750,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -844,10 +814,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -902,10 +870,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -956,9 +922,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
 
-        Argument ret_;
-        ret_ = instanceNormalCtor("pkg.ExTwo", null, 1, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = instanceNormalCtor("pkg.ExTwo", 1, cont_);
         assertEq("pkg.ExTwo", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExTwo", "sec"));
@@ -986,9 +950,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.ExTwo");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.ExTwo", null, id_, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = instanceNormal("pkg.ExTwo", id_, cont_);
         assertEq("pkg.ExTwo", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExTwo", "inst"));
@@ -1019,9 +981,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.ExOne");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.ExOne", null, id_, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = instanceNormal("pkg.ExOne", id_, cont_);
         assertEq("pkg.ExOne", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExOne", "four"));
@@ -1047,10 +1007,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -1078,10 +1036,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -1120,11 +1076,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
-
-        Argument ret_;
-        ret_ = instanceNormalCtorParam("pkg.Ex", null, id_, new IntStruct(8), cont_);
+        Struct str_ = instanceNormalCtorParam("pkg.Ex", id_, new IntStruct(8), cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -1162,11 +1115,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
-
-        Argument ret_;
-        ret_ = instanceNormalCtorParam("pkg.Ex", null, id_, new IntStruct(8), cont_);
+        Struct str_ = instanceNormalCtorParam("pkg.Ex", id_, new IntStruct(8), cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -1204,11 +1154,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
-
-        Argument ret_;
-        ret_ = instanceNormalCtorParam("pkg.Ex", null, id_, new IntStruct(8), cont_);
+        Struct str_ = instanceNormalCtorParam("pkg.Ex", id_, new IntStruct(8), cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -1241,11 +1188,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
-
-        Argument ret_;
-        ret_ = instanceNormalCtorParam("pkg.Ex", null, id_, new IntStruct(8), cont_);
+        Struct str_ = instanceNormalCtorParam("pkg.Ex", id_, new IntStruct(8), cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -1275,11 +1219,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
-
-        Argument ret_;
-        ret_ = instanceNormalCtorParam("pkg.Ex", null, id_, new IntStruct(8), cont_);
+        Struct str_ = instanceNormalCtorParam("pkg.Ex", id_, new IntStruct(8), cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -1317,11 +1258,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
-
-        Argument ret_;
-        ret_ = instanceNormalCtorParam("pkg.Ex", null, id_, new IntStruct(8), cont_);
+        Struct str_ = instanceNormalCtorParam("pkg.Ex", id_, new IntStruct(8), cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -1359,10 +1297,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.ExThree", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExThree", "ance"));
@@ -1397,10 +1333,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkgtwo.ExThree", null, id_, cont_);
+        Struct str_ = instanceNormal("pkgtwo.ExThree", id_, cont_);
         assertTrue(isInitialized(cont_, "pkgtwo.ExThree"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkgtwo.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkgtwo.ExThree", "ance"));
@@ -1435,10 +1369,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkgtwo.ExThree", null, id_, cont_);
+        Struct str_ = instanceNormal("pkgtwo.ExThree", id_, cont_);
         assertTrue(isInitialized(cont_, "pkgtwo.ExThree"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkgtwo.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkgtwo.ExThree", "ance"));
@@ -1476,9 +1408,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = instanceNormal("pkg.ExThree", id_, cont_);
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExThree", "ance"));
@@ -1508,9 +1438,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = instanceNormal("pkg.ExThree", id_, cont_);
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExThree", "ance"));
@@ -1539,9 +1467,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = instanceNormal("pkg.ExThree", id_, cont_);
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExThree", "ance"));
@@ -1572,9 +1498,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = instanceNormal("pkg.ExThree", id_, cont_);
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExThree", "ance"));
@@ -1605,9 +1529,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = instanceNormal("pkg.ExThree", id_, cont_);
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExThree", "ance"));
@@ -1647,9 +1569,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = instanceNormal("pkg.ExThree", id_, cont_);
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExThree", "ance"));
@@ -1689,9 +1609,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = instanceNormal("pkg.ExThree", id_, cont_);
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExThree", "ance"));
@@ -1735,9 +1653,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = instanceNormal("pkg.ExThree", id_, cont_);
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExThree", "ance"));
@@ -1778,9 +1694,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = instanceNormal("pkg.ExThree", id_, cont_);
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExThree", "ance"));
@@ -1835,9 +1749,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = instanceNormal("pkg.ExThree", id_, cont_);
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExThree", "ance"));
@@ -1892,9 +1804,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = instanceNormal("pkg.ExThree", id_, cont_);
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExThree", "ance"));
@@ -1929,10 +1839,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkgtwo.ExThree", null, id_, cont_);
+        Struct str_ = instanceNormal("pkgtwo.ExThree", id_, cont_);
         assertTrue(isInitialized(cont_, "pkgtwo.ExThree"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkgtwo.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkgtwo.ExThree", "ance"));
@@ -1983,10 +1891,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -2056,10 +1962,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -2129,10 +2033,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -2203,10 +2105,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -2268,10 +2168,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -2315,10 +2213,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -2362,10 +2258,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -2420,10 +2314,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -2478,10 +2370,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -2541,10 +2431,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -2601,10 +2489,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -2665,10 +2551,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -2788,10 +2672,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -2857,10 +2739,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -2924,10 +2804,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -2963,13 +2841,13 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertEq(17, ((NumberStruct)intern_).intStruct());
         field_ = getField(str_, new ClassField("pkg.ExTwo", "eqone"));
         assertEq(BOOLEAN, field_.getClassName(cont_));
-        assertTrue(BooleanStruct.isTrue(field_));
+        assertTrue(field_);
         field_ = getField(str_, new ClassField("pkg.ExTwo", "eqtwo"));
         assertEq(BOOLEAN, field_.getClassName(cont_));
-        assertTrue(BooleanStruct.isFalse(field_));
+        assertFalse(field_);
         field_ = getField(str_, new ClassField("pkg.ExTwo", "eqthree"));
         assertEq(BOOLEAN, field_.getClassName(cont_));
-        assertTrue(BooleanStruct.isFalse(field_));
+        assertFalse(field_);
     }
     @Test
     public void instanceArgument73Test() {
@@ -3021,10 +2899,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -3060,13 +2936,13 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertEq(17, ((NumberStruct)intern_).intStruct());
         field_ = getField(str_, new ClassField("pkg.ExTwo", "eqone"));
         assertEq(BOOLEAN, field_.getClassName(cont_));
-        assertTrue(BooleanStruct.isTrue(field_));
+        assertTrue(field_);
         field_ = getField(str_, new ClassField("pkg.ExTwo", "eqtwo"));
         assertEq(BOOLEAN, field_.getClassName(cont_));
-        assertTrue(BooleanStruct.isFalse(field_));
+        assertFalse(field_);
         field_ = getField(str_, new ClassField("pkg.ExTwo", "eqthree"));
         assertEq(BOOLEAN, field_.getClassName(cont_));
-        assertTrue(BooleanStruct.isFalse(field_));
+        assertFalse(field_);
     }
     @Test
     public void instanceArgument174Test() {
@@ -3108,9 +2984,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_,"pkg.ExThree");
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = instanceNormal("pkg.ExThree", id_, cont_);
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExThree", "ance"));
@@ -3157,9 +3031,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_,"pkg.ExThree");
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = instanceNormal("pkg.ExThree", id_, cont_);
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExThree", "ance"));
@@ -3207,9 +3079,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_,"pkg.ExThree");
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = instanceNormal("pkg.ExThree", id_, cont_);
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExThree", "ance"));
@@ -3266,9 +3136,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_,"pkg.ExThree");
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = instanceNormal("pkg.ExThree", id_, cont_);
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExThree", "ance"));
@@ -3323,9 +3191,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_,"pkg.ExThree");
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = instanceNormal("pkg.ExThree", id_, cont_);
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExThree", "ance"));
@@ -3362,9 +3228,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = instanceNormal("pkg.ExThree", id_, cont_);
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExThree", "ance"));
@@ -3402,9 +3266,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = instanceNormal("pkg.ExThree", id_, cont_);
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExThree", "ance"));
@@ -3444,10 +3306,8 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -3490,9 +3350,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = instanceNormal("pkg.ExThree", id_, cont_);
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExThree", "ance"));
@@ -3529,9 +3387,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = instanceNormal("pkg.ExThree", id_, cont_);
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExThree", "ance"));
@@ -3578,9 +3434,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_,"pkg.ExThree");
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = instanceNormal("pkg.ExThree", id_, cont_);
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExThree", "ance"));
@@ -3627,9 +3481,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_,"pkg.ExThree");
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = instanceNormal("pkg.ExThree", id_, cont_);
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExThree", "ance"));
@@ -3676,9 +3528,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_,"pkg.ExThree");
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = instanceNormal("pkg.ExThree", id_, cont_);
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExThree", "ance"));
@@ -3725,9 +3575,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_,"pkg.ExThree");
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = instanceNormal("pkg.ExThree", id_, cont_);
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExThree", "ance"));
@@ -3774,9 +3622,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ContextEl cont_ = ctxOk(files_,"pkg.ExThree");
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = instanceNormal("pkg.ExThree", id_, cont_);
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExThree", "ance"));
@@ -3825,9 +3671,9 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("execute");
-        Argument arg_ = calculateError("pkg.ExThree", id_, cont_);
+        Struct arg_ = calculateError("pkg.ExThree", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        assertEq("code.util.exceptions.NullObjectException", arg_.getStruct().getClassName(cont_));
+        assertEq("code.util.exceptions.NullObjectException", arg_.getClassName(cont_));
     }
     @Test
     public void instanceArgumentNullPe2() {
@@ -3851,9 +3697,9 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("execute");
-        Argument arg_ = calculateError("pkg.ExThree", id_, cont_);
+        Struct arg_ = calculateError("pkg.ExThree", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        assertEq("code.util.exceptions.NullObjectException", arg_.getStruct().getClassName(cont_));
+        assertEq("code.util.exceptions.NullObjectException", arg_.getClassName(cont_));
     }
     @Test
     public void instanceArgumentNullPe3() {
@@ -3877,9 +3723,9 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("execute");
-        Argument arg_ = calculateError("pkg.ExThree", id_, cont_);
+        Struct arg_ = calculateError("pkg.ExThree", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        assertEq("code.util.exceptions.NullObjectException", arg_.getStruct().getClassName(cont_));
+        assertEq("code.util.exceptions.NullObjectException", arg_.getClassName(cont_));
     }
     @Test
     public void instanceArgumentNullPe4() {
@@ -3900,9 +3746,9 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("execute");
-        Argument arg_ = calculateError("pkg.ExThree", id_, cont_);
+        Struct arg_ = calculateError("pkg.ExThree", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        assertEq("code.util.exceptions.NullObjectException", arg_.getStruct().getClassName(cont_));
+        assertEq("code.util.exceptions.NullObjectException", arg_.getClassName(cont_));
     }
     @Test
     public void instanceArgumentNullPe5() {
@@ -3923,9 +3769,9 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("execute");
-        Argument arg_ = calculateError("pkg.ExThree", id_, cont_);
+        Struct arg_ = calculateError("pkg.ExThree", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        assertEq("code.util.exceptions.NullObjectException", arg_.getStruct().getClassName(cont_));
+        assertEq("code.util.exceptions.NullObjectException", arg_.getClassName(cont_));
     }
     @Test
     public void instanceArgument9FailTest() {
@@ -3978,8 +3824,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = ctxOk(files_,"pkg.ExThree");
         MethodId id_ = getMethodId("execute");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.ExThree", id_, cont_);
+        Struct ret_ = calculateNormal("pkg.ExThree", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertEq(6, getNumber(ret_));
     }

@@ -36,9 +36,8 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         String base_ = StringExpUtil.getIdFromAllTypes(ev_.getClassName(ctx_));
         ExecOverrideInfo mId_ = getRedirections(ctx_,base_);
-        Argument arg_ = new Argument(ev_);
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, ctx_);
-        invoke(arg_, mId_.getClassName(), ctx_, mId_.getPair(), resSt_, new ArgumentListCall());
+        invoke(ev_, mId_.getClassName(), ctx_, mId_.getPair(), resSt_, new ArgumentListCall());
         RateStruct rate_ = (RateStruct) field(ev_, new ClassField("pkg.Sample","r"));
         assertEq(Rate.newRate("0"),rate_.getRate());
         assertTrue(resSt_.calls());
@@ -58,9 +57,8 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         String base_ = StringExpUtil.getIdFromAllTypes(ev_.getClassName(ctx_));
         ExecOverrideInfo mId_ = getRedirections(ctx_,base_);
-        Argument arg_ = new Argument(ev_);
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, ctx_);
-        invoke(arg_, mId_.getClassName(), ctx_, mId_.getPair(), resSt_, new ArgumentListCall());
+        invoke(ev_, mId_.getClassName(), ctx_, mId_.getPair(), resSt_, new ArgumentListCall());
         assertFalse(resSt_.calls());
     }
     @Test
@@ -78,9 +76,8 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         String base_ = StringExpUtil.getIdFromAllTypes(ev_.getClassName(ctx_));
         ExecOverrideInfo mId_ = getRedirections(ctx_,base_);
-        Argument arg_ = new Argument(ev_);
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, ctx_);
-        invoke(arg_, mId_.getClassName(), ctx_, mId_.getPair(), resSt_, new ArgumentListCall());
+        invoke(ev_, mId_.getClassName(), ctx_, mId_.getPair(), resSt_, new ArgumentListCall());
         RateStruct rate_ = (RateStruct) field(ev_, new ClassField("pkg.Sample","r"));
         assertEq(Rate.newRate("2"),rate_.getRate());
         assertTrue(resSt_.calls());
@@ -100,9 +97,8 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         String base_ = StringExpUtil.getIdFromAllTypes(ev_.getClassName(ctx_));
         ExecOverrideInfo mId_ = getRedirections(ctx_,base_);
-        Argument arg_ = new Argument(ev_);
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, ctx_);
-        invoke(arg_, mId_.getClassName(), ctx_, mId_.getPair(), resSt_, new ArgumentListCall());
+        invoke(ev_, mId_.getClassName(), ctx_, mId_.getPair(), resSt_, new ArgumentListCall());
         assertSame(NullStruct.NULL_VALUE, field(ev_, new ClassField("pkg.Sample","r")));
     }
     @Test
@@ -120,9 +116,8 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         String base_ = StringExpUtil.getIdFromAllTypes(ev_.getClassName(ctx_));
         ExecOverrideInfo mId_ = getRedirections(ctx_,base_);
-        Argument arg_ = new Argument(ev_);
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, ctx_);
-        invoke(arg_, mId_.getClassName(), ctx_, mId_.getPair(), resSt_, new ArgumentListCall());
+        invoke(ev_, mId_.getClassName(), ctx_, mId_.getPair(), resSt_, new ArgumentListCall());
         assertFalse(resSt_.calls());
     }
     @Test
@@ -140,9 +135,8 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         String base_ = StringExpUtil.getIdFromAllTypes(ev_.getClassName(ctx_));
         ExecOverrideInfo mId_ = getRedirections(ctx_,base_);
-        Argument arg_ = new Argument(ev_);
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, ctx_);
-        invoke(arg_, mId_.getClassName(), ctx_, mId_.getPair(), resSt_, new ArgumentListCall());
+        invoke(ev_, mId_.getClassName(), ctx_, mId_.getPair(), resSt_, new ArgumentListCall());
         RateStruct rate_ = (RateStruct) field(ev_, new ClassField("pkg.Sample","r"));
         assertEq(Rate.newRate("2"),rate_.getRate());
         assertTrue(resSt_.calls());
@@ -162,9 +156,8 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         String base_ = StringExpUtil.getIdFromAllTypes(ev_.getClassName(ctx_));
         ExecOverrideInfo mId_ = getRedirections(ctx_,base_);
-        Argument arg_ = new Argument(ev_);
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, ctx_);
-        invoke(arg_, mId_.getClassName(), ctx_, mId_.getPair(), resSt_, new ArgumentListCall());
+        invoke(ev_, mId_.getClassName(), ctx_, mId_.getPair(), resSt_, new ArgumentListCall());
         assertFalse(resSt_.calls());
     }
     @Test
@@ -182,9 +175,8 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         String base_ = StringExpUtil.getIdFromAllTypes(ev_.getClassName(ctx_));
         ExecOverrideInfo mId_ = getRedirections(ctx_,base_);
-        Argument arg_ = new Argument(ev_);
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, ctx_);
-        invoke(arg_, mId_.getClassName(), ctx_, mId_.getPair(), resSt_, new ArgumentListCall());
+        invoke(ev_, mId_.getClassName(), ctx_, mId_.getPair(), resSt_, new ArgumentListCall());
         assertFalse(resSt_.calls());
     }
     @Test
@@ -2198,9 +2190,8 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         String base_ = StringExpUtil.getIdFromAllTypes(ev_.getClassName(ctx_));
         ExecOverrideInfo mId_ = getRedirections(ctx_,base_);
-        Argument arg_ = new Argument(ev_);
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, ctx_);
-        invoke(arg_, mId_.getClassName(), ctx_, mId_.getPair(), resSt_, new ArgumentListCall());
+        invoke(ev_, mId_.getClassName(), ctx_, mId_.getPair(), resSt_, new ArgumentListCall());
         RateStruct rate_ = (RateStruct) field(ev_, new ClassField("pkg.Sample","r"));
         assertEq(Rate.newRate("3"),rate_.getRate());
         assertTrue(resSt_.calls());
@@ -2220,9 +2211,8 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         String base_ = StringExpUtil.getIdFromAllTypes(ev_.getClassName(ctx_));
         ExecOverrideInfo mId_ = getRedirections(ctx_,base_);
-        Argument arg_ = new Argument(ev_);
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, ctx_);
-        invoke(arg_, mId_.getClassName(), ctx_, mId_.getPair(), resSt_, new ArgumentListCall());
+        invoke(ev_, mId_.getClassName(), ctx_, mId_.getPair(), resSt_, new ArgumentListCall());
         RateStruct rate_ = (RateStruct) field(ev_, new ClassField("pkg.Sample","r"));
         assertEq(Rate.newRate("3"),rate_.getRate());
         assertTrue(resSt_.calls());
@@ -2242,9 +2232,8 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         String base_ = StringExpUtil.getIdFromAllTypes(ev_.getClassName(ctx_));
         ExecOverrideInfo mId_ = getRedirections(ctx_,base_);
-        Argument arg_ = new Argument(ev_);
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, ctx_);
-        invoke(arg_, mId_.getClassName(), ctx_, mId_.getPair(), resSt_, new ArgumentListCall());
+        invoke(ev_, mId_.getClassName(), ctx_, mId_.getPair(), resSt_, new ArgumentListCall());
         assertFalse(resSt_.calls());
     }
     @Test
@@ -2262,9 +2251,8 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         String base_ = StringExpUtil.getIdFromAllTypes(ev_.getClassName(ctx_));
         ExecOverrideInfo mId_ = getRedirections(ctx_,base_);
-        Argument arg_ = new Argument(ev_);
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, ctx_);
-        invoke(arg_, mId_.getClassName(), ctx_, mId_.getPair(), resSt_, new ArgumentListCall());
+        invoke(ev_, mId_.getClassName(), ctx_, mId_.getPair(), resSt_, new ArgumentListCall());
         RateStruct rate_ = (RateStruct) field(ev_, new ClassField("pkg.Sample","r"));
         assertEq(Rate.newRate("2"),rate_.getRate());
         assertTrue(resSt_.calls());
@@ -2284,9 +2272,8 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         String base_ = StringExpUtil.getIdFromAllTypes(ev_.getClassName(ctx_));
         ExecOverrideInfo mId_ = getRedirections(ctx_,base_);
-        Argument arg_ = new Argument(ev_);
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, ctx_);
-        invoke(arg_, mId_.getClassName(), ctx_, mId_.getPair(), resSt_, new ArgumentListCall());
+        invoke(ev_, mId_.getClassName(), ctx_, mId_.getPair(), resSt_, new ArgumentListCall());
         RateStruct rate_ = (RateStruct) field(ev_, new ClassField("pkg.Sample","r"));
         assertEq(Rate.newRate("2"),rate_.getRate());
         assertTrue(resSt_.calls());
@@ -2306,9 +2293,8 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         String base_ = StringExpUtil.getIdFromAllTypes(ev_.getClassName(ctx_));
         ExecOverrideInfo mId_ = getRedirections(ctx_,base_);
-        Argument arg_ = new Argument(ev_);
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, ctx_);
-        invoke(arg_, mId_.getClassName(), ctx_, mId_.getPair(), resSt_, new ArgumentListCall());
+        invoke(ev_, mId_.getClassName(), ctx_, mId_.getPair(), resSt_, new ArgumentListCall());
         assertFalse(resSt_.calls());
     }
     @Test
@@ -2326,9 +2312,8 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         String base_ = StringExpUtil.getIdFromAllTypes(ev_.getClassName(ctx_));
         ExecOverrideInfo mId_ = getRedirections(ctx_,base_);
-        Argument arg_ = new Argument(ev_);
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, ctx_);
-        invoke(arg_, mId_.getClassName(), ctx_, mId_.getPair(), resSt_, new ArgumentListCall());
+        invoke(ev_, mId_.getClassName(), ctx_, mId_.getPair(), resSt_, new ArgumentListCall());
         assertEq("2/3",field(ev_, new ClassField("pkg.Sample","r")));
         assertTrue(resSt_.calls());
     }
@@ -2347,9 +2332,8 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         String base_ = StringExpUtil.getIdFromAllTypes(ev_.getClassName(ctx_));
         ExecOverrideInfo mId_ = getRedirections(ctx_,base_);
-        Argument arg_ = new Argument(ev_);
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, ctx_);
-        invoke(arg_, mId_.getClassName(), ctx_, mId_.getPair(), resSt_, new ArgumentListCall());
+        invoke(ev_, mId_.getClassName(), ctx_, mId_.getPair(), resSt_, new ArgumentListCall());
         assertEq("2/3",field(ev_, new ClassField("pkg.Sample","r")));
         assertTrue(resSt_.calls());
     }
@@ -2368,9 +2352,8 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         String base_ = StringExpUtil.getIdFromAllTypes(ev_.getClassName(ctx_));
         ExecOverrideInfo mId_ = getRedirections(ctx_,base_);
-        Argument arg_ = new Argument(ev_);
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, ctx_);
-        invoke(arg_, mId_.getClassName(), ctx_, mId_.getPair(), resSt_, new ArgumentListCall());
+        invoke(ev_, mId_.getClassName(), ctx_, mId_.getPair(), resSt_, new ArgumentListCall());
         assertEq("2/3",field(ev_, new ClassField("pkg.Sample","r")));
         assertTrue(resSt_.calls());
     }
@@ -2389,9 +2372,8 @@ public final class RateStructTest extends EquallableElUtUtil {
         
         String base_ = StringExpUtil.getIdFromAllTypes(ev_.getClassName(ctx_));
         ExecOverrideInfo mId_ = getRedirections(ctx_,base_);
-        Argument arg_ = new Argument(ev_);
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, ctx_);
-        invoke(arg_, mId_.getClassName(), ctx_, mId_.getPair(), resSt_, new ArgumentListCall());
+        invoke(ev_, mId_.getClassName(), ctx_, mId_.getPair(), resSt_, new ArgumentListCall());
         assertEq(Rate.zero(),((RateStruct) field(ev_, new ClassField("pkg.Sample","r"))).getRate());
         assertTrue(resSt_.calls());
     }
@@ -2410,12 +2392,11 @@ public final class RateStructTest extends EquallableElUtUtil {
     }
     private Struct instance(ContextEl _rCtor, ExecRootBlock _ex, ContextEl _ctx) {
         StackCall resStCtor_ = StackCall.newInstance(InitPhase.NOTHING, _rCtor);
-        Argument result_ = ProcessMethod.calculate(new CustomFoundConstructor(_ctx,new ExecFormattedRootBlock(_ex),new Argument()), _ctx,resStCtor_).getValue();
-        return ArgumentListCall.toStr(result_);
+        return ArgumentListCall.toStr(ProcessMethod.calculate(new CustomFoundConstructor(_ctx,new ExecFormattedRootBlock(_ex),ArgumentListCall.toStr(NullStruct.NULL_VALUE)), _ctx,resStCtor_).getValue());
     }
 
-    public static void invoke(Argument _global, ExecFormattedRootBlock _class, ContextEl _cont, ExecTypeFunction _pair, StackCall _stackCall, ArgumentListCall _argList) {
-        ExecTemplates.wrapAndCall(new ExecOverrideInfo(_class,_pair), _global, _cont, _stackCall, _argList);
+    public static void invoke(Struct _global, ExecFormattedRootBlock _class, ContextEl _cont, ExecTypeFunction _pair, StackCall _stackCall, ArgumentListCall _argList) {
+        ExecTemplates.wrapAndCall(new ExecOverrideInfo(_class,_pair), ArgumentListCall.toStr(_global), _cont, _stackCall, _argList);
         ProcessMethod.calculate(_stackCall.getCallingState(), _cont, _stackCall);
     }
 
@@ -2435,8 +2416,7 @@ public final class RateStructTest extends EquallableElUtUtil {
         ExecRootBlock cl_ = _ctx.getExecutionInfos().getClasses().getClassBody("pkg.Runnable");
         ExecOverridableBlock a_ = ExecClassesUtil.getMethodBodiesById(cl_, new MethodId(MethodAccessKind.INSTANCE, "run", new CustList<String>())).first();
         ExecOverrideInfo mId_ = _ctx.getClasses().getRedirection(cl_.getNumberType(), a_.getMem(),base_);
-        Argument arg_ = new Argument(_inst);
-        ExecTemplates.wrapAndCall(mId_, arg_, _ctx, _stack, new ArgumentListCall());
+        ExecTemplates.wrapAndCall(mId_, ArgumentListCall.toStr(_inst), _ctx, _stack, new ArgumentListCall());
         ProcessMethod.calculate(_stack.getCallingState(), _ctx, _stack);
     }
 

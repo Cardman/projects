@@ -1,13 +1,11 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -33,8 +31,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -59,8 +56,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -84,8 +80,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -117,8 +112,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_,"pkg.Apply");
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -143,8 +137,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -169,8 +162,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -195,8 +187,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -221,8 +212,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -247,8 +237,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -273,8 +262,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(5,getNumber(ret_));
+        assertEq(5, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
 
     @Test
@@ -297,8 +285,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass<int>", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -323,8 +310,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(5,getNumber(ret_));
+        assertEq(5, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
 
     @Test
@@ -352,8 +338,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass<int>", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -383,8 +368,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(5,getNumber(ret_));
+        assertEq(5, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void test15() {
@@ -423,8 +407,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -474,8 +457,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq(13, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -510,8 +492,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq(13, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -545,8 +526,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq(13, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -585,8 +565,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq(2, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -634,8 +613,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq(10, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -670,8 +648,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq(10, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -705,8 +682,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq(10, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -745,8 +721,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq(3, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -794,8 +769,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq(11, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -830,8 +804,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq(11, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -865,8 +838,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq(11, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -900,8 +872,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq(10, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -943,8 +914,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq(10, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -971,8 +941,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(5,getNumber(ret_));
+        assertEq(5, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
 
     @Test
@@ -997,8 +966,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(5,getNumber(ret_));
+        assertEq(5, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void test31() {
@@ -1020,8 +988,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(5,getNumber(ret_));
+        assertEq(5, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void test32() {
@@ -1043,8 +1010,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument arg_ = calculateError("pkg.Apply", id_, cont_);
-        assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(), calculateError("pkg.Apply",id_,cont_).getClassName(cont_));
     }
     @Test
     public void test33() {
@@ -1066,8 +1032,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(5,getNumber(ret_));
+        assertEq(5, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void test34() {
@@ -1109,8 +1074,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(1,getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void test35() {
@@ -1152,8 +1116,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(2,getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void test36() {
@@ -1195,8 +1158,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(2,getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void test37() {
@@ -1238,8 +1200,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(1,getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
 
     @Test
@@ -1263,8 +1224,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -1290,8 +1250,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -1316,8 +1275,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -1347,8 +1305,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq("5", getString(ret_));
+        assertEq("5", getString(calculateNormal("pkg.Apply", id_, cont_)));
     }
 
     @Test
@@ -1376,8 +1333,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq("5", getString(ret_));
+        assertEq("5", getString(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void test43() {
@@ -1404,8 +1360,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq("5", getString(ret_));
+        assertEq("5", getString(calculateNormal("pkg.Apply", id_, cont_)));
     }
 
     @Test
@@ -1429,8 +1384,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass<int>", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -1456,8 +1410,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(5,getNumber(ret_));
+        assertEq(5, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
 
     @Test
@@ -1481,8 +1434,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(5,getNumber(ret_));
+        assertEq(5, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
 
     @Test
@@ -1506,8 +1458,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(5,getNumber(ret_));
+        assertEq(5, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
 
     @Test
@@ -1536,8 +1487,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(10,getNumber(ret_));
+        assertEq(10, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
 
     @Test
@@ -1566,8 +1516,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(10,getNumber(ret_));
+        assertEq(10, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
 
     @Test
@@ -1596,8 +1545,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(10,getNumber(ret_));
+        assertEq(10, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
 
     @Test
@@ -1626,8 +1574,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(22,getNumber(ret_));
+        assertEq(22, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
 
     @Test
@@ -1656,8 +1603,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(22,getNumber(ret_));
+        assertEq(22, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
 
     @Test
@@ -1686,8 +1632,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(10,getNumber(ret_));
+        assertEq(10, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
 
     @Test
@@ -1716,8 +1661,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(10,getNumber(ret_));
+        assertEq(10, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
 
     @Test
@@ -1746,8 +1690,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(10,getNumber(ret_));
+        assertEq(10, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
 
     @Test
@@ -1776,8 +1719,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(12,getNumber(ret_));
+        assertEq(12, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
 
     @Test
@@ -1806,8 +1748,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(10,getNumber(ret_));
+        assertEq(10, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
 
     @Test
@@ -1841,8 +1782,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(10,getNumber(ret_));
+        assertEq(10, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
 
     @Test
@@ -1876,8 +1816,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(10,getNumber(ret_));
+        assertEq(10, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
 
     @Test
@@ -1901,8 +1840,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq(0, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -1928,8 +1866,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -1955,8 +1892,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq(0, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -1982,8 +1918,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -2013,8 +1948,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(10,getNumber(ret_));
+        assertEq(10, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
 
     @Test
@@ -2046,8 +1980,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(15,getNumber(ret_));
+        assertEq(15, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
 
     @Test
@@ -2088,8 +2021,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(15,getNumber(ret_));
+        assertEq(15, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
 
     @Test
@@ -2121,8 +2053,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(15,getNumber(ret_));
+        assertEq(15, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
 
     @Test
@@ -2154,8 +2085,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(15,getNumber(ret_));
+        assertEq(15, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
 
     @Test
@@ -2184,8 +2114,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(10,getNumber(ret_));
+        assertEq(10, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
 
     @Test
@@ -2231,8 +2160,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_,"pkg.Apply");
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(5,getNumber(ret_));
+        assertEq(5, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
 
     @Test
@@ -2289,8 +2217,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_,"pkg.Apply");
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(10,getNumber(ret_));
+        assertEq(10, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
 
     @Test
@@ -2347,8 +2274,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_,"pkg.Apply");
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(10,getNumber(ret_));
+        assertEq(10, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
 
     @Test
@@ -2405,8 +2331,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_,"pkg.Apply");
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(10,getNumber(ret_));
+        assertEq(10, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
 
     @Test
@@ -2463,8 +2388,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_,"pkg.Apply");
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(10,getNumber(ret_));
+        assertEq(10, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
 
     @Test
@@ -2514,8 +2438,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(15,getNumber(ret_));
+        assertEq(15, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
 
     @Test
@@ -2574,8 +2497,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(15,getNumber(ret_));
+        assertEq(15, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void test75() {
@@ -2646,8 +2568,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(15,getNumber(ret_));
+        assertEq(15, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void test76() {
@@ -2718,8 +2639,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(15,getNumber(ret_));
+        assertEq(15, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void testFail() {
@@ -2832,8 +2752,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(5,getNumber(ret_));
+        assertEq(5, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculate31Test() {
@@ -2855,8 +2774,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass<int>", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -2883,8 +2801,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass<int>", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -2911,8 +2828,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass<int>", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -2939,8 +2855,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass<int>", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -2964,8 +2879,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument arg_ = calculateError("pkg.Apply", id_, cont_);
-        assertEq(cont_.getStandards().getCoreNames().getAliasBadIndex(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasBadIndex(), calculateError("pkg.Apply",id_,cont_).getClassName(cont_));
     }
     @Test
     public void calculate31___Test() {
@@ -2987,8 +2901,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument arg_ = calculateError("pkg.Apply", id_, cont_);
-        assertEq(cont_.getStandards().getCoreNames().getAliasIllegalType(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasIllegalType(), calculateError("pkg.Apply",id_,cont_).getClassName(cont_));
     }
     @Test
     public void calculate32Test() {
@@ -3010,8 +2923,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument arg_ = calculateError("pkg.Apply", id_, cont_);
-        assertEq(cont_.getStandards().getCoreNames().getAliasIllegalType(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasIllegalType(), calculateError("pkg.Apply",id_,cont_).getClassName(cont_));
     }
     @Test
     public void calculate32_Test() {
@@ -3036,8 +2948,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument arg_ = calculateError("pkg.Apply", id_, cont_);
-        assertEq(cont_.getStandards().getCoreNames().getAliasBadArgNumber(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasBadArgNumber(), calculateError("pkg.Apply",id_,cont_).getClassName(cont_));
     }
     @Test
     public void calculate32__Test() {
@@ -3062,8 +2973,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument arg_ = calculateError("pkg.Apply", id_, cont_);
-        assertEq(cont_.getStandards().getCoreNames().getAliasBadArgNumber(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasBadArgNumber(), calculateError("pkg.Apply",id_,cont_).getClassName(cont_));
     }
     @Test
     public void calculate40Test() {
@@ -3085,8 +2995,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument arg_ = calculateError("pkg.Apply", id_, cont_);
-        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), calculateError("pkg.Apply",id_,cont_).getClassName(cont_));
     }
     @Test
     public void calculate41Test() {
@@ -3110,8 +3019,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass<int>", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -3137,8 +3045,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass<int>", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -3164,8 +3071,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument arg_ = calculateError("pkg.Apply", id_, cont_);
-        assertEq(cont_.getStandards().getCoreNames().getAliasIllegalType(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasIllegalType(), calculateError("pkg.Apply",id_,cont_).getClassName(cont_));
     }
 
     @Test
@@ -3190,8 +3096,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument arg_ = calculateError("pkg.Apply", id_, cont_);
-        assertEq(cont_.getStandards().getCoreNames().getAliasIllegalType(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasIllegalType(), calculateError("pkg.Apply",id_,cont_).getClassName(cont_));
     }
     @Test
     public void calculateExTest() {
@@ -3218,8 +3123,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument arg_ = calculateError("pkg.Apply", id_, cont_);
-        assertEq(cont_.getStandards().getCoreNames().getAliasIllegalType(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasIllegalType(), calculateError("pkg.Apply",id_,cont_).getClassName(cont_));
     }
     @Test
     public void calculateEx2Test() {
@@ -3241,8 +3145,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument arg_ = calculateError("pkg.Apply", id_, cont_);
-        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), calculateError("pkg.Apply",id_,cont_).getClassName(cont_));
     }
     @Test
     public void calculate26Test() {
@@ -3265,8 +3168,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -3291,8 +3193,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -3317,8 +3218,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(5, getNumber(ret_));
+        assertEq(5, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculate27Test() {
@@ -3341,8 +3241,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -3367,8 +3266,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass<int>", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -3393,8 +3291,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(5, getNumber(ret_));
+        assertEq(5, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculate___28Test() {
@@ -3420,8 +3317,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(5, getNumber(ret_));
+        assertEq(5, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculate28Test() {
@@ -3444,8 +3340,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass<int>", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -3475,8 +3370,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass<int>", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -3501,8 +3395,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass<int>", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -3519,8 +3412,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq("5", getString(ret_));
+        assertEq("5", getString(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculate34Test() {
@@ -3535,8 +3427,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument arg_ = calculateError("pkg.Apply", id_, cont_);
-        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), calculateError("pkg.Apply",id_,cont_).getClassName(cont_));
     }
 
     @Test
@@ -3559,8 +3450,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass<int>", struct_.getClassName(cont_));
 
     }
@@ -3585,9 +3475,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument arg_ = calculateError("pkg.Apply", id_, cont_);
-        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(),arg_.getStruct().getClassName(cont_));
-
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), calculateError("pkg.Apply",id_,cont_).getClassName(cont_));
     }
     @Test
     public void calculate38Test() {
@@ -3609,9 +3497,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument arg_ = calculateError("pkg.Apply", id_, cont_);
-        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(),arg_.getStruct().getClassName(cont_));
-
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), calculateError("pkg.Apply",id_,cont_).getClassName(cont_));
     }
     @Test
     public void calculate42Test() {
@@ -3633,9 +3519,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument arg_ = calculateError("pkg.Apply", id_, cont_);
-        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(),arg_.getStruct().getClassName(cont_));
-
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), calculateError("pkg.Apply",id_,cont_).getClassName(cont_));
     }
     @Test
     public void calculate43Test() {
@@ -3650,8 +3534,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq("5", getString(ret_));
+        assertEq("5", getString(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculate44Test() {
@@ -3673,8 +3556,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument arg_ = calculateError("pkg.Apply", id_, cont_);
-        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), calculateError("pkg.Apply",id_,cont_).getClassName(cont_));
     }
     @Test
     public void calculate44__Test() {
@@ -3696,8 +3578,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument arg_ = calculateError("pkg.Apply", id_, cont_);
-        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), calculateError("pkg.Apply",id_,cont_).getClassName(cont_));
     }
     @Test
     public void calculate45_Test() {
@@ -3723,8 +3604,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculate46_Test() {
@@ -3750,8 +3630,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculate_45_Test() {
@@ -3777,8 +3656,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculate_46_Test() {
@@ -3804,8 +3682,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculate47_Test() {
@@ -3830,8 +3707,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(5,getNumber(ret_));
+        assertEq(5, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculate48_Test() {
@@ -3856,8 +3732,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(5,getNumber(ret_));
+        assertEq(5, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculate6FailTest() {
@@ -3972,8 +3847,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(5, getNumber(ret_));
+        assertEq(5, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculate9Test() {
@@ -3995,8 +3869,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -4020,8 +3893,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument arg_ = calculateError("pkg.Apply", id_, cont_);
-        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), calculateError("pkg.Apply",id_,cont_).getClassName(cont_));
     }
     @Test
     public void calculate11Test() {
@@ -4048,8 +3920,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq("int:5", ((StringStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).getInstance());
     }
@@ -4076,8 +3947,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq("5", getString(ret_));
+        assertEq("5", getString(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculate__11Test() {
@@ -4102,8 +3972,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(5, getNumber(ret_));
+        assertEq(5, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculate12Test() {
@@ -4130,8 +3999,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq("string:5", ((StringStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).getInstance());
     }
@@ -4155,8 +4023,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(5, getNumber(ret_));
+        assertEq(5, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculate__18Test() {
@@ -4183,8 +4050,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        assertEq(5, getNumber(ret_));
+        assertEq(5, getNumber(calculateNormal("pkg.Apply", id_, cont_)));
     }
     @Test
     public void calculate___18Test() {
@@ -4206,8 +4072,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass<int>", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -4236,8 +4101,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass<int>", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -4261,8 +4125,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass<int>", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
@@ -4286,8 +4149,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument arg_ = calculateError("pkg.Apply", id_, cont_);
-        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), calculateError("pkg.Apply",id_,cont_).getClassName(cont_));
     }
     @Test
     public void calculate20Test() {
@@ -4309,8 +4171,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument arg_ = calculateError("pkg.Apply", id_, cont_);
-        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(), calculateError("pkg.Apply",id_,cont_).getClassName(cont_));
     }
     @Test
     public void calculate22Test() {
@@ -4340,8 +4201,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClassTwo", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClassTwo", "field"))).intStruct());
     }
@@ -4365,8 +4225,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgReadOnlyOk(files_);
         MethodId id_ = getMethodId("method");
-        Argument ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct struct_ = ret_.getStruct();
+        Struct struct_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }

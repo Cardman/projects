@@ -1,6 +1,5 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.functionid.MethodId;
 import code.util.CustList;
@@ -33,9 +32,7 @@ public final class ProcessMethodLocalTypesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ext", id_, cont_)));
     }
     @Test
     public void calculate2() {
@@ -63,9 +60,7 @@ public final class ProcessMethodLocalTypesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ext", id_, cont_)));
     }
     @Test
     public void calculate3() {
@@ -91,9 +86,7 @@ public final class ProcessMethodLocalTypesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, cont_);
-        assertEq(5, getNumber(ret_));
+        assertEq(5, getNumber(calculateNormal("pkg.Ext", id_, cont_)));
     }
     @Test
     public void calculate4() {
@@ -128,9 +121,7 @@ public final class ProcessMethodLocalTypesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, cont_);
-        assertEq(6, getNumber(ret_));
+        assertEq(6, getNumber(calculateNormal("pkg.Ext", id_, cont_)));
     }
     @Test
     public void calculate5() {
@@ -179,9 +170,7 @@ public final class ProcessMethodLocalTypesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, cont_);
-        assertEq("Loc:4,2;LocTwo:8,6;", getString(ret_));
+        assertEq("Loc:4,2;LocTwo:8,6;",getString(calculateNormal("pkg.Ext", id_, cont_)));
     }
     @Test
     public void calculate6() {
@@ -216,9 +205,7 @@ public final class ProcessMethodLocalTypesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, cont_);
-        assertEq("2,6,", getString(ret_));
+        assertEq("2,6,",getString(calculateNormal("pkg.Ext", id_, cont_)));
     }
     @Test
     public void calculate7() {
@@ -242,9 +229,7 @@ public final class ProcessMethodLocalTypesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, cont_);
-        assertEq("pkg.Ext..Loc+1,pkg.Ext..Loc+2", getString(ret_));
+        assertEq("pkg.Ext..Loc+1,pkg.Ext..Loc+2",getString(calculateNormal("pkg.Ext", id_, cont_)));
     }
     @Test
     public void calculate8() {
@@ -293,9 +278,7 @@ public final class ProcessMethodLocalTypesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, cont_);
-        assertEq("Loc:4,2;LocTwo:8,6;", getString(ret_));
+        assertEq("Loc:4,2;LocTwo:8,6;",getString(calculateNormal("pkg.Ext", id_, cont_)));
     }
     @Test
     public void calculate9() {
@@ -346,9 +329,7 @@ public final class ProcessMethodLocalTypesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, cont_);
-        assertEq("Loc:4,2;LocTwo:8,6;", getString(ret_));
+        assertEq("Loc:4,2;LocTwo:8,6;",getString(calculateNormal("pkg.Ext", id_, cont_)));
     }
     @Test
     public void calculate10() {
@@ -399,9 +380,7 @@ public final class ProcessMethodLocalTypesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, cont_);
-        assertEq("Loc:4,2;LocTwo:8,6;", getString(ret_));
+        assertEq("Loc:4,2;LocTwo:8,6;",getString(calculateNormal("pkg.Ext", id_, cont_)));
     }
     @Test
     public void calculate11() {
@@ -426,9 +405,7 @@ public final class ProcessMethodLocalTypesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ext", id_, cont_)));
     }
     @Test
     public void calculate12() {
@@ -455,9 +432,7 @@ public final class ProcessMethodLocalTypesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ext", id_, cont_)));
     }
     @Test
     public void calculate13() {
@@ -492,9 +467,7 @@ public final class ProcessMethodLocalTypesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, cont_);
-        assertEq(6, getNumber(ret_));
+        assertEq(6, getNumber(calculateNormal("pkg.Ext", id_, cont_)));
     }
     @Test
     public void calculate14() {
@@ -529,9 +502,7 @@ public final class ProcessMethodLocalTypesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, cont_);
-        assertEq(6, getNumber(ret_));
+        assertEq(6, getNumber(calculateNormal("pkg.Ext", id_, cont_)));
     }
     @Test
     public void calculate15() {
@@ -569,9 +540,7 @@ public final class ProcessMethodLocalTypesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, cont_);
-        assertEq(7, getNumber(ret_));
+        assertEq(7, getNumber(calculateNormal("pkg.Ext", id_, cont_)));
     }
     @Test
     public void calculate16() {
@@ -609,9 +578,7 @@ public final class ProcessMethodLocalTypesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, cont_);
-        assertEq(7, getNumber(ret_));
+        assertEq(7, getNumber(calculateNormal("pkg.Ext", id_, cont_)));
     }
     @Test
     public void calculate17() {
@@ -674,9 +641,7 @@ public final class ProcessMethodLocalTypesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, cont_);
-        assertEq("Loc:4,2;LocTwo:8,6;", getString(ret_));
+        assertEq("Loc:4,2;LocTwo:8,6;",getString(calculateNormal("pkg.Ext", id_, cont_)));
     }
     @Test
     public void calculate18() {
@@ -717,9 +682,7 @@ public final class ProcessMethodLocalTypesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, cont_);
-        assertEq(15, getNumber(ret_));
+        assertEq(15, getNumber(calculateNormal("pkg.Ext", id_, cont_)));
     }
     @Test
     public void calculate19() {
@@ -747,9 +710,7 @@ public final class ProcessMethodLocalTypesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ext", id_, cont_)));
     }
     @Test
     public void calculate20() {
@@ -779,9 +740,7 @@ public final class ProcessMethodLocalTypesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(2, getNumber(calculateNormal("pkg.Ext", id_, cont_)));
     }
     @Test
     public void calculate21() {
@@ -815,9 +774,7 @@ public final class ProcessMethodLocalTypesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, cont_);
-        assertEq(3, getNumber(ret_));
+        assertEq(3, getNumber(calculateNormal("pkg.Ext", id_, cont_)));
     }
     @Test
     public void calculate22() {
@@ -861,9 +818,7 @@ public final class ProcessMethodLocalTypesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, cont_);
-        assertEq(3, getNumber(ret_));
+        assertEq(3, getNumber(calculateNormal("pkg.Ext", id_, cont_)));
     }
     @Test
     public void calculate23() {
@@ -914,9 +869,7 @@ public final class ProcessMethodLocalTypesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, cont_);
-        assertEq("Loc:4,2;LocTwo:8,6;", getString(ret_));
+        assertEq("Loc:4,2;LocTwo:8,6;",getString(calculateNormal("pkg.Ext", id_, cont_)));
     }
     @Test
     public void calculate24() {
@@ -979,9 +932,7 @@ public final class ProcessMethodLocalTypesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, cont_);
-        assertEq("Loc:4,2;LocTwo:8,6;", getString(ret_));
+        assertEq("Loc:4,2;LocTwo:8,6;",getString(calculateNormal("pkg.Ext", id_, cont_)));
     }
     @Test
     public void calculate25() {
@@ -1017,9 +968,7 @@ public final class ProcessMethodLocalTypesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, cont_);
-        assertEq(6, getNumber(ret_));
+        assertEq(6, getNumber(calculateNormal("pkg.Ext", id_, cont_)));
     }
     @Test
     public void calculate26() {
@@ -1055,9 +1004,7 @@ public final class ProcessMethodLocalTypesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, cont_);
-        assertEq(6, getNumber(ret_));
+        assertEq(6, getNumber(calculateNormal("pkg.Ext", id_, cont_)));
     }
     @Test
     public void calculate27() {
@@ -1093,9 +1040,7 @@ public final class ProcessMethodLocalTypesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, cont_);
-        assertEq(6, getNumber(ret_));
+        assertEq(6, getNumber(calculateNormal("pkg.Ext", id_, cont_)));
     }
     @Test
     public void calculate28() {
@@ -1132,9 +1077,7 @@ public final class ProcessMethodLocalTypesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, cont_);
-        assertEq(6, getNumber(ret_));
+        assertEq(6, getNumber(calculateNormal("pkg.Ext", id_, cont_)));
     }
     @Test
     public void calculate29() {
@@ -1175,9 +1118,7 @@ public final class ProcessMethodLocalTypesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, cont_);
-        assertEq(6, getNumber(ret_));
+        assertEq(6, getNumber(calculateNormal("pkg.Ext", id_, cont_)));
     }
     @Test
     public void calculate30() {
@@ -1218,9 +1159,7 @@ public final class ProcessMethodLocalTypesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, cont_);
-        assertEq(6, getNumber(ret_));
+        assertEq(6, getNumber(calculateNormal("pkg.Ext", id_, cont_)));
     }
     @Test
     public void calculate31() {
@@ -1258,9 +1197,7 @@ public final class ProcessMethodLocalTypesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, cont_);
-        assertEq(6, getNumber(ret_));
+        assertEq(6, getNumber(calculateNormal("pkg.Ext", id_, cont_)));
     }
     @Test
     public void calculate32() {
@@ -1303,9 +1240,7 @@ public final class ProcessMethodLocalTypesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, cont_);
-        assertEq(6, getNumber(ret_));
+        assertEq(6, getNumber(calculateNormal("pkg.Ext", id_, cont_)));
     }
     @Test
     public void calculate33() {
@@ -1348,9 +1283,7 @@ public final class ProcessMethodLocalTypesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, cont_);
-        assertEq(6, getNumber(ret_));
+        assertEq(6, getNumber(calculateNormal("pkg.Ext", id_, cont_)));
     }
     @Test
     public void calculate34() {
@@ -1386,9 +1319,7 @@ public final class ProcessMethodLocalTypesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, cont_);
-        assertEq(6, getNumber(ret_));
+        assertEq(6, getNumber(calculateNormal("pkg.Ext", id_, cont_)));
     }
     @Test
     public void calculate35() {
@@ -1424,8 +1355,6 @@ public final class ProcessMethodLocalTypesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxLgOk(files_);
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, cont_);
-        assertEq(1, getNumber(ret_));
+        assertEq(1, getNumber(calculateNormal("pkg.Ext", id_, cont_)));
     }
 }

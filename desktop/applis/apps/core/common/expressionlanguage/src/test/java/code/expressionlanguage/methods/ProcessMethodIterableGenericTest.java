@@ -1,12 +1,10 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.*;
-import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -35,10 +33,8 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "res"));
@@ -70,10 +66,8 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "one"));
@@ -108,10 +102,8 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "res"));
@@ -137,10 +129,8 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "res"));
@@ -171,10 +161,8 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         ContextEl cont_ = ctxReadOnlyOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex<pkg.CustList<java.lang.Number>>", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex<pkg.CustList<java.lang.Number>>", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex<pkg.CustList<java.lang.Number>>", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "res"));
@@ -201,10 +189,8 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "res"));
@@ -231,10 +217,8 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "res"));
@@ -262,10 +246,8 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "res"));
@@ -296,10 +278,8 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -339,10 +319,8 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "res"));
@@ -368,9 +346,9 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument arg_ = instanceError("pkg.Ex", null, id_, cont_);
+        Struct arg_ = instanceError("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getClassName(cont_));
     }
     @Test
     public void instanceArgument134Test() {
@@ -390,10 +368,8 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "res"));
@@ -418,10 +394,8 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "res"));
@@ -446,10 +420,8 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "res"));
@@ -480,10 +452,8 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "res"));
@@ -505,15 +475,13 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "res"));
         assertEq(BOOLEAN, field_.getClassName(cont_));
-        assertTrue(BooleanStruct.isFalse(field_));
+        assertFalse(field_);
     }
 
     @Test
@@ -528,15 +496,13 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "res"));
         assertEq(BOOLEAN, field_.getClassName(cont_));
-        assertTrue(BooleanStruct.isFalse(field_));
+        assertFalse(field_);
     }
 
     @Test
@@ -552,15 +518,13 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "res"));
         assertEq(BOOLEAN, field_.getClassName(cont_));
-        assertTrue(BooleanStruct.isFalse(field_));
+        assertFalse(field_);
     }
 
     @Test
@@ -577,15 +541,13 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "res"));
         assertEq(BOOLEAN, field_.getClassName(cont_));
-        assertTrue(BooleanStruct.isFalse(field_));
+        assertFalse(field_);
     }
 
     @Test
@@ -602,15 +564,13 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "res"));
         assertEq(BOOLEAN, field_.getClassName(cont_));
-        assertTrue(BooleanStruct.isFalse(field_));
+        assertFalse(field_);
     }
     @Test
     public void instanceArgument164Test() {
@@ -634,10 +594,8 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "res"));
@@ -667,10 +625,8 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "res"));
@@ -705,9 +661,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         MethodId id_ = getMethodId("call");
-        Argument ret_;
-        ret_ = calculateNormal("pkg.Apply", id_, cont_);
-        Struct str_ = ret_.getStruct();
+        Struct str_ = calculateNormal("pkg.Apply", id_, cont_);
         assertEq("pkg.Ex<java.lang.Number>", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "res"));
@@ -744,10 +698,8 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
@@ -809,10 +761,8 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
+        Struct str_ = instanceNormal("pkg.Ex", id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.Ex", "res"));
@@ -854,8 +804,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        Argument arg_ = instanceError("pkg.Ex", null, id_, cont_);
-        assertEq("code.util.exceptions.NullObjectException",arg_.getStruct().getClassName(cont_));
+        assertEq("code.util.exceptions.NullObjectException",instanceError("pkg.Ex", id_, cont_).getClassName(cont_));
     }
     @Test
     public void instanceArgument5FailTest() {
@@ -875,8 +824,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        Argument arg_ = instanceError("pkg.Ex", null, id_, cont_);
-        assertEq("code.util.exceptions.NullObjectException",arg_.getStruct().getClassName(cont_));
+        assertEq("code.util.exceptions.NullObjectException",instanceError("pkg.Ex", id_, cont_).getClassName(cont_));
     }
     @Test
     public void instanceArgument6FailTest() {
@@ -896,8 +844,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_LIST_PATH, getCustomFailList());
         ContextEl cont_ = ctxOk(files_);
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        Argument arg_ = instanceError("pkg.Ex", null, id_, cont_);
-        assertEq("code.util.exceptions.NullObjectException",arg_.getStruct().getClassName(cont_));
+        assertEq("code.util.exceptions.NullObjectException",instanceError("pkg.Ex", id_, cont_).getClassName(cont_));
     }
     @Test
     public void instanceArgument7FailTest() {

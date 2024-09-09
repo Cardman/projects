@@ -18,7 +18,7 @@ public final class ProcessDbgWatchesTest extends ProcessDbgCommon {
         files_.addEntry("src/file.txt","public class pkg.Ex{public static int m(){return 0;}}");
         BreakPointOutputInfo logs_ = conditionalStdViewLogsWacthes("", "\"log\"", "src/file.txt", 49, "pkg.Ex", "m", files_, false, 0, false, true);
         assertNull(logs_.getWatchResults().getWatchedTrace());
-        assertEq("log",getString(ArgumentListCall.toStr(logs_.getWatchResults().getWatchedObject())));
+        assertEq("log",getString(logs_.getWatchResults().getWatchedObject()));
     }
     @Test
     public void logs2() {
@@ -61,7 +61,7 @@ public final class ProcessDbgWatchesTest extends ProcessDbgCommon {
         files_.addEntry("src/file2.txt","public class pkg.Ex2{public static int m(){int j;iter(int i=0;15;1){j++;}return j;}}");
         BreakPointOutputInfo logs_ = conditionalStdViewLogsWacthes("i%3==0", "i", "src/file2.txt", 68, "pkg.Ex2", "m", files_, false, 2, false, true);
         assertNull(logs_.getWatchResults().getWatchedTrace());
-        assertEq(3,getNumber(ArgumentListCall.toStr(logs_.getWatchResults().getWatchedObject())));
+        assertEq(3,getNumber(logs_.getWatchResults().getWatchedObject()));
     }
     @Test
     public void logs7() {
@@ -69,7 +69,7 @@ public final class ProcessDbgWatchesTest extends ProcessDbgCommon {
         files_.addEntry("src/file2.txt","public class pkg.Ex2{public static int m(){int j;iter(int i=0;15;1){j++;}return j;}}");
         BreakPointOutputInfo logs_ = conditionalStdViewLogsWacthes("i%3==0", "i", "src/file2.txt", 68, "pkg.Ex2", "m", files_, false, 2, true, true);
         assertNull(logs_.getWatchResults().getWatchedTrace());
-        assertEq(3,getNumber(ArgumentListCall.toStr(logs_.getWatchResults().getWatchedObject())));
+        assertEq(3,getNumber(logs_.getWatchResults().getWatchedObject()));
     }
     @Test
     public void logs8() {
@@ -86,6 +86,6 @@ public final class ProcessDbgWatchesTest extends ProcessDbgCommon {
         BreakPointOutputInfo logs_ = conditionalStdViewLogsWacthes("", "{static class Sec{public int v=2;}return new Sec();}", "src/file.txt", 50, "pkg.Ex", "me", files_, false, 0, false, true);
         assertNull(logs_.getWatchResults().getWatchedTrace());
         assertEq("pkg.Ex..Sec+1",logs_.getWatchResults().getWatchedObject().getClassName(logs_.getWatchResults().getSubContext()));
-        assertEq(2, getNumber(ExecFieldTemplates.getInstanceField(ArgumentListCall.toStr(logs_.getWatchResults().getWatchedObject()),logs_.getWatchResults().getSubContext(), StackCall.newInstance(InitPhase.NOTHING,logs_.getWatchResults().getSubContext()),new ClassField("pkg.Ex..Sec+1","v"))));
+        assertEq(2, getNumber(ArgumentListCall.toStr(ExecFieldTemplates.getInstanceField(ArgumentListCall.toStr(logs_.getWatchResults().getWatchedObject()),logs_.getWatchResults().getSubContext(), StackCall.newInstance(InitPhase.NOTHING,logs_.getWatchResults().getSubContext()),new ClassField("pkg.Ex..Sec+1","v")))));
     }
 }

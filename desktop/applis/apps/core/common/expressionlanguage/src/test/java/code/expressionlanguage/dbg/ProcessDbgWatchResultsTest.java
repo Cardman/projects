@@ -47,7 +47,7 @@ public final class ProcessDbgWatchResultsTest extends ProcessDbgCommon {
         ResultContext res_ = ctxLgReadOnlyOkQuick(files_);
         divThrown(res_);
         Struct cont_ = endOper("this!=null", "pkg.Ex", "exmeth", res_);
-        assertTrue(BooleanStruct.isTrue(cont_));
+        assertTrue(cont_);
     }
 
     @Test
@@ -224,7 +224,7 @@ public final class ProcessDbgWatchResultsTest extends ProcessDbgCommon {
         res_.toggleBreakPoint("pkg/Ex",70);
         StackCallReturnValue stVal_ = goLoop(res_, "pkg.Ex", "exmeth", null);
         Struct cont1_ = WatchResults.dynamicAnalyze("f!=null", res_, new DefContextGenerator(), stVal_.getStack().getCall(0)).getWatchedObject();
-        assertTrue(BooleanStruct.isTrue(cont1_));
+        assertTrue(cont1_);
     }
     @Test
     public void test19() {

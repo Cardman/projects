@@ -1,6 +1,5 @@
 package code.formathtml;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.InitPhase;
@@ -13,7 +12,6 @@ import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.DefNodeContainer;
-import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -52,7 +50,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         successRes(buildSt_,ctx_, dual_.getDualAnalyzedContext().getStds(), dual_.getNavigation().getSession());
         addInnerPage(buildSt_);
         Struct build_ = dual_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one");
-        Struct value_ = redirect(new Argument(build_), 0, dual_.getDualAnalyzedContext().getStds(), ctx_, buildSt_);
+        Struct value_ = redirect(build_, 0, dual_.getDualAnalyzedContext().getStds(), ctx_, buildSt_);
         assertEq(2,((NumberStruct)value_).intStruct());
     }
     @Test
@@ -121,7 +119,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         successRes(buildSt_,ctx_, dual_.getDualAnalyzedContext().getStds(),  dual_.getNavigation().getSession());
         addInnerPage(buildSt_);
         Struct build_ =  dual_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one");
-        Struct value_ = redirect(new Argument(build_), 0, dual_.getDualAnalyzedContext().getStds(), ctx_, buildSt_);
+        Struct value_ = redirect(build_, 0, dual_.getDualAnalyzedContext().getStds(), ctx_, buildSt_);
         assertEq(10,((NumberStruct)value_).intStruct());
     }
     @Test
@@ -196,7 +194,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         Configuration conf_ = a_.getNavigation().getSession();
         addInnerPage(buildSt_);
         Struct build_ = a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one");
-        Struct value_ = redirect(new Argument(build_), 1, a_.getDualAnalyzedContext().getStds(), ctx_, buildSt_);
+        Struct value_ = redirect(build_, 1, a_.getDualAnalyzedContext().getStds(), ctx_, buildSt_);
         assertEq(4,((NumberStruct)value_).intStruct());
     }
     @Test
@@ -273,7 +271,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         Configuration conf_ = a_.getNavigation().getSession();
         addInnerPage(buildSt_);
         Struct build_ = a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one");
-        Struct value_ = redirect(new Argument(build_), 1, a_.getDualAnalyzedContext().getStds(), ctx_, buildSt_);
+        Struct value_ = redirect(build_, 1, a_.getDualAnalyzedContext().getStds(), ctx_, buildSt_);
         assertEq(20,((NumberStruct)value_).intStruct());
     }
     @Test
@@ -348,7 +346,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         Configuration conf_ = a_.getNavigation().getSession();
         addInnerPage(buildSt_);
         Struct build_ = a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one");
-        redirect(new Argument(build_), 0, a_.getDualAnalyzedContext().getStds(), ctx_, buildSt_);
+        redirect(build_, 0, a_.getDualAnalyzedContext().getStds(), ctx_, buildSt_);
         assertNotNull(getException(buildSt_));
     }
 
@@ -617,7 +615,7 @@ public final class RenderRequestUtilTest extends CommonRender {
     }
 
 
-    private static Struct redirect(Argument _bean, int _url, BeanCustLgNames _advStandards, ContextEl _context, RendStackCall _rendStackCall) {
+    private static Struct redirect(Struct _bean, int _url, BeanCustLgNames _advStandards, ContextEl _context, RendStackCall _rendStackCall) {
         DefHtmlPage htmlPage_ = _rendStackCall.getHtmlPage();
         AnchorCall exps_ = htmlPage_.getCallsExps().get(_url);
         return ((BeanCustLgNames) _advStandards).redir(_bean, exps_, _context, _rendStackCall);

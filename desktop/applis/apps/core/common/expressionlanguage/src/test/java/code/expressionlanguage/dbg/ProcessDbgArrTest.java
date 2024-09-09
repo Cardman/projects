@@ -1550,7 +1550,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         assertEq(120, stack_.getCall(0).getTraceIndex());
         assertSame(StopDbgEnum.METHOD_ENTRY,stack_.getBreakPointInfo().getBreakPointOutputInfo().getStoppedBreakPoint());
         assertEq(0, dbgContinueNormal(stack_,cont_.getContext()).nbPages());
-        assertEq(2, getNumber(ArgumentListCall.toStr(stack_.getReturnedArgument())));
+        assertEq(2, getNumber(stack_.getReturnedArgument()));
         assertNull(stack_.getCallingState());
     }
     @Test
@@ -1739,9 +1739,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         ContextEl cont_ = ctxLgOk("en", files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
-        assertEq(6, getNumber(ret_));
+        assertEq(6, getNumber(calculateNormal("pkg.Ext", id_, args_, cont_)));
     }
      @Test
     public void calculate152() {
@@ -1760,9 +1758,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         ContextEl cont_ = ctxLgOk("en", files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
-        assertEq(3, getNumber(ret_));
+        assertEq(3, getNumber(calculateNormal("pkg.Ext", id_, args_, cont_)));
     }
     @Test
     public void calculate168() {
@@ -1781,8 +1777,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         ContextEl cont_ = ctxLgOk("en", files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
         assertSame(NullStruct.NULL_VALUE, ret_.getStruct());
     }
 
@@ -1803,8 +1798,7 @@ public final class ProcessDbgArrTest extends ProcessDbgCommon {
         ContextEl cont_ = ctxLgOk("en", files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
-        Argument ret_ = new Argument();
-        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        Argument ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
         assertSame(NullStruct.NULL_VALUE, ret_.getStruct());
     }
 */

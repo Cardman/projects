@@ -3,6 +3,7 @@ package code.formathtml;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.exec.calls.util.CallingState;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.exec.stacks.RendAbstractStask;
@@ -49,21 +50,23 @@ public abstract class EquallableRenderUtil {
     public static void assertNull(Node _value) {
         Assert.assertNull(_value);
     }
-//    public static void assertNull(IntComponent _value) {
-//        Assert.assertNull(_value);
-//    }
+
+    public static void assertTrue(Struct _value) {
+        Assert.assertTrue(BooleanStruct.isTrue(_value));
+    }
     public static void assertTrue(boolean _value) {
         Assert.assertTrue(_value);
     }
     public static void assertTrue(String _mess,boolean _value) {
         Assert.assertTrue(_mess,_value);
     }
+    public static void assertFalse(Struct _value) {
+        Assert.assertTrue(BooleanStruct.isFalse(_value));
+    }
     public static void assertFalse(boolean _value) {
         Assert.assertFalse(_value);
     }
-//    public static void assertSame(MetaPointForm _expected, MetaPointForm _result) {
-//        Assert.assertSame(_expected, _result);
-//    }
+
     public static void assertSame(Struct _expected, Struct _result) {
         Assert.assertSame(_expected, _result);
     }

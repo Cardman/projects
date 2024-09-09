@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.inherits;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -11,6 +10,7 @@ import code.expressionlanguage.stds.PrimitiveType;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.IntStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -43,8 +43,8 @@ public final class ResultTernary {
         return new ResultTernary(_types,_cast,true,true);
     }
 
-    public static ResultTernary getResultTernary(StringList _first, Argument _firstArg,
-                                                 StringList _second, Argument _secondArg,
+    public static ResultTernary getResultTernary(StringList _first, Struct _firstArg,
+                                                 StringList _second, Struct _secondArg,
                                                  StringMap<StringList> _vars,
                                                  AnalyzedPageEl _page) {
         if (StringUtil.equalsSet(_first, _second)) {
@@ -112,21 +112,21 @@ public final class ResultTernary {
         return noUnwrap(out_);
     }
 
-    private static ResultTernary twoNumbers(StringList _first, Argument _firstArg, StringList _second, Argument _secondArg, StringMap<StringList> _vars, AnalyzedPageEl _page) {
-        if (_secondArg != null && _secondArg.getStruct() instanceof IntStruct) {
+    private static ResultTernary twoNumbers(StringList _first, Struct _firstArg, StringList _second, Struct _secondArg, StringMap<StringList> _vars, AnalyzedPageEl _page) {
+        if (_secondArg instanceof IntStruct) {
             return definedSecond(_first, _firstArg, _second, _secondArg, _vars, _page);
         }
         return possibleDefFirstNumber(_first, _firstArg, _second, _vars, _page);
     }
 
-    private static ResultTernary definedSecond(StringList _first, Argument _firstArg, StringList _second, Argument _secondArg, StringMap<StringList> _vars, AnalyzedPageEl _page) {
+    private static ResultTernary definedSecond(StringList _first, Struct _firstArg, StringList _second, Struct _secondArg, StringMap<StringList> _vars, AnalyzedPageEl _page) {
         String primShort_ = _page.getAliasPrimShort();
         String primChar_ = _page.getAliasPrimChar();
         String primByte_ = _page.getAliasPrimByte();
         String short_ = _page.getAliasShort();
         String char_ = _page.getAliasCharacter();
         String byte_ = _page.getAliasByte();
-        int value_ = NumParsers.convertToNumber(_secondArg.getStruct()).intStruct();
+        int value_ = NumParsers.convertToNumber(_secondArg).intStruct();
         if (StringUtil.contains(_first, primByte_) && value_ >= Byte.MIN_VALUE && value_ <= Byte.MAX_VALUE) {
             return unwrapRight(new StringList(primByte_), PrimitiveTypes.BYTE_WRAP);
         }
@@ -148,21 +148,21 @@ public final class ResultTernary {
         return possibleDefFirstNumber(_first, _firstArg, _second, _vars, _page);
     }
 
-    private static ResultTernary possibleDefFirstNumber(StringList _first, Argument _firstArg, StringList _second, StringMap<StringList> _vars, AnalyzedPageEl _page) {
-        if (_firstArg != null && _firstArg.getStruct() instanceof IntStruct) {
+    private static ResultTernary possibleDefFirstNumber(StringList _first, Struct _firstArg, StringList _second, StringMap<StringList> _vars, AnalyzedPageEl _page) {
+        if (_firstArg instanceof IntStruct) {
             return definedFirst(_first, _firstArg, _second, _vars, _page);
         }
         return defNumbers(_first, _second, _vars, _page);
     }
 
-    private static ResultTernary definedFirst(StringList _first, Argument _firstArg, StringList _second, StringMap<StringList> _vars, AnalyzedPageEl _page) {
+    private static ResultTernary definedFirst(StringList _first, Struct _firstArg, StringList _second, StringMap<StringList> _vars, AnalyzedPageEl _page) {
         String primShort_ = _page.getAliasPrimShort();
         String primChar_ = _page.getAliasPrimChar();
         String primByte_ = _page.getAliasPrimByte();
         String short_ = _page.getAliasShort();
         String char_ = _page.getAliasCharacter();
         String byte_ = _page.getAliasByte();
-        int value_ = NumParsers.convertToNumber(_firstArg.getStruct()).intStruct();
+        int value_ = NumParsers.convertToNumber(_firstArg).intStruct();
         if (StringUtil.contains(_second, primByte_) && value_ >= Byte.MIN_VALUE && value_ <= Byte.MAX_VALUE) {
             return unwrapLeft(new StringList(primByte_), PrimitiveTypes.BYTE_WRAP);
         }

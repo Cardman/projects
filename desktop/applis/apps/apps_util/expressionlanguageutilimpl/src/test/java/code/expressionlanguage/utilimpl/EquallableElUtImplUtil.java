@@ -1,7 +1,6 @@
 package code.expressionlanguage.utilimpl;
 
 import code.expressionlanguage.AbstractExiting;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.InitPhase;
@@ -260,9 +259,6 @@ public abstract class EquallableElUtImplUtil {
     }
     public static MockFileSet fileSet(long _initMillis, long[] _incrs, String... _roots) {
         return new MockFileSet(_initMillis,_incrs,_roots);
-    }
-    public static Struct str(Argument _arg) {
-        return _arg.getStruct();
     }
     public static void memoryFileSystem(LgNamesGui _stds, AbstractProgramInfos _pr, MockNameFile... _files) {
         AbstractFileSystem m_ = _stds.getExecContent().getCustAliases().getInfos().getFileSystem();

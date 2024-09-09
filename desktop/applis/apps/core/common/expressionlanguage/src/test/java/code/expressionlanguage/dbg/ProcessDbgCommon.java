@@ -1,6 +1,5 @@
 package code.expressionlanguage.dbg;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefContextGenerator;
 import code.expressionlanguage.NoExiting;
@@ -18,6 +17,7 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.dbg.*;
 import code.expressionlanguage.exec.inherits.Parameters;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -28,6 +28,7 @@ import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.options.ResultContextLambda;
 import code.expressionlanguage.sample.CustLgNames;
 import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -99,9 +100,8 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
 //    protected static StackCall dbgNormalAfterInitGene(String _class, MethodId _method, ResultContext _cont) {
         ExecRootBlock classBody_ = _cont.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, _method).first();
-        Argument argGlLoc_ = new Argument();
         Parameters p_ = new Parameters();
-        return ExecClassesUtil.tryInitStaticlyTypes(_cont.getContext(),_cont.getForwards().getOptions(),_st,new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_),StepDbgActionEnum.KEEP, false);
+        return ExecClassesUtil.tryInitStaticlyTypes(_cont.getContext(),_cont.getForwards().getOptions(),_st,new CustomFoundMethod(ArgumentListCall.toStr(NullStruct.NULL_VALUE), new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_),StepDbgActionEnum.KEEP, false);
     }
     protected static StackCallReturnValue dbgNormalInfoInit(String _class, MethodId _method, ResultContext _cont) {
 //        tryInitStaticlyTypes(_cont.getContext(), _cont.getForwards().getOptions());
@@ -111,9 +111,8 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
 //    protected static StackCall dbgNormalAfterInitGene(String _class, MethodId _method, ResultContext _cont) {
         ExecRootBlock classBody_ = _cont.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, _method).first();
-        Argument argGlLoc_ = new Argument();
         Parameters p_ = new Parameters();
-        return ExecClassesUtil.tryInitStaticlyTypes(_cont.getContext(),_cont.getForwards().getOptions(),null,new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_),StepDbgActionEnum.DEBUG, false);
+        return ExecClassesUtil.tryInitStaticlyTypes(_cont.getContext(),_cont.getForwards().getOptions(),null,new CustomFoundMethod(ArgumentListCall.toStr(NullStruct.NULL_VALUE), new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_),StepDbgActionEnum.DEBUG, false);
     }
 //    protected static StackCall dbgNormalAfterInit(String _class, MethodId _method, ResultContext _cont) {
 //        ExecRootBlock classBody_ = _cont.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
@@ -296,9 +295,8 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         assertTrue(pair_.getValue().getResultStatic().lda().getReportedMessages().isAllEmptyErrors());
         assertEq(_dyn,pair_.getValue().getResultStatic().getResultStr());
         ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, getMethodId(_meth)).first();
-        Argument argGlLoc_ = new Argument();
         Parameters p_ = new Parameters();
-        return ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_),null, false);
+        return ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, new CustomFoundMethod(ArgumentListCall.toStr(NullStruct.NULL_VALUE), new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_),null, false);
     }
 
     protected StackCallReturnValue countStView(int _dyn, String _class, String _meth, ResultContext _res) {
@@ -307,9 +305,8 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
         TypePointBlockPair pair_ = _res.getPairType(classBody_.getFile(), ana_.getIdRowCol());
         pair_.getValue().getResultStatic().getCountModulo().set(_dyn);
         ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, getMethodId(_meth)).first();
-        Argument argGlLoc_ = new Argument();
         Parameters p_ = new Parameters();
-        return ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_),null, false);
+        return ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), null, new CustomFoundMethod(ArgumentListCall.toStr(NullStruct.NULL_VALUE), new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_),null, false);
     }
 
     protected ResultContext ctxSt(String _class, StringMap<String> _files) {
@@ -408,9 +405,8 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
     protected CustomFoundMethod state(ResultContext _res, String _class, String _meth) {
         ExecRootBlock classBody_ = _res.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, getMethodId(_meth)).first();
-        Argument argGlLoc_ = new Argument();
         Parameters p_ = new Parameters();
-        return new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_);
+        return new CustomFoundMethod(ArgumentListCall.toStr(NullStruct.NULL_VALUE), new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_);
     }
 
     protected ResultContext ctxInst(String _class, StringMap<String> _files) {
@@ -700,9 +696,8 @@ public abstract class ProcessDbgCommon extends ProcessMethodCommon {
     protected static StackCallReturnValue goLoop(ResultContext _res, String _class, String _meth, StackCall _stack) {
         ExecRootBlock classBody_ = _res.getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, getMethodId(_meth)).first();
-        Argument argGlLoc_ = new Argument();
         Parameters p_ = new Parameters();
-        StackCallReturnValue stVal_ = ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), _stack, new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_),null, false);
+        StackCallReturnValue stVal_ = ExecClassesUtil.tryInitStaticlyTypes(_res.getContext(), _res.getPageEl().getOptions(), _stack, new CustomFoundMethod(ArgumentListCall.toStr(NullStruct.NULL_VALUE), new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_),null, false);
         return stVal_;
     }
 

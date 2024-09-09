@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.inherits;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AnnotationTypeInfo;
 import code.expressionlanguage.common.NumParsers;
@@ -487,10 +486,9 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     public void setCheckedElements1Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = validated(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
-        args_.add(Argument.createVoid());
+        ArgumentListCall alc_ = one(NullStruct.NULL_VALUE);
         StackCall stackCall_ = getStackCall(cont_);
-        ExecArrayTemplates.checkedElements(ArrayStruct.instance("[$int", args_), cont_, stackCall_);
+        ExecArrayTemplates.checkedElements(ArrayStruct.instance("[$int", alc_.getArguments()), cont_, stackCall_);
         assertNotNull(getTrueException(stackCall_));
     }
     @Test
@@ -498,7 +496,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = validated(files_);
         StackCall stackCall_ = getStackCall(cont_);
-        assertNotNull(ExecTemplates.okArgsSetSw(null, new ExecFormattedRootBlock((ExecRootBlock)null,""), null, cont_, stackCall_, new CustList<Argument>()).getError());
+        assertNotNull(ExecTemplates.okArgsSetSw(null, new ExecFormattedRootBlock((ExecRootBlock)null,""), null, cont_, stackCall_, new ArgumentListCall().getArguments()).getError());
         assertNotNull(getTrueException(stackCall_));
     }
     @Test
@@ -514,7 +512,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(classBody_, new ExecFormattedRootBlock(classBody_,"pkg.Ex"), null);
         stackCall_.addInternPage(instancingClass_);
-        ExecTemplates.okArgsSetSwCall( ex_, cont_, stackCall_, Argument.createVoid(), stackCall_.getLastPage().getGlobalClass(), stackCall_.getLastPage().getContentEx());
+        ExecTemplates.okArgsSetSwCall( ex_, cont_, stackCall_, ArgumentListCall.toStr(NullStruct.NULL_VALUE), stackCall_.getLastPage().getGlobalClass(), stackCall_.getLastPage().getContentEx());
         assertNotNull(getTrueException(stackCall_));
     }
     @Test
@@ -523,9 +521,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = validated(files_);
         MethodId id_ = new MethodId(MethodAccessKind.STATIC,"method", new StringList("$int"),true);
         ArrayStruct arr_ = defaultArray1(NullStruct.NULL_VALUE, "[$int");
-        CustList<Argument> args_ = new CustList<Argument>();
-        args_.add(new Argument(arr_));
-        assertNull(ExecTemplates.okArgsSet(id_, args_, cont_, getStackCall(cont_)));
+        assertNull(exc(cont_, id_, arr_));
     }
     @Test
     public void okArgs2Test() {
@@ -533,9 +529,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = validated(files_);
         MethodId id_ = new MethodId(MethodAccessKind.STATIC,"method", new StringList("java.lang.Number"),true);
         ArrayStruct arr_ = defaultArray2("[java.lang.Number");
-        CustList<Argument> args_ = new CustList<Argument>();
-        args_.add(new Argument(arr_));
-        assertNull(ExecTemplates.okArgsSet(id_, args_, cont_, getStackCall(cont_)));
+        assertNull(exc(cont_, id_, arr_));
     }
     @Test
     public void okArgs3Test() {
@@ -544,13 +538,14 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         MethodId id_ = new MethodId(MethodAccessKind.STATIC,"method", new StringList("java.lang.Number"),true);
         ArrayStruct arr_ = new ArrayStruct(1,"[java.lang.Number");
         arr_.set(0,new StringStruct(""));
-        CustList<Argument> args_ = new CustList<Argument>();
-        args_.add(new Argument(arr_));
+        CustList<ArgumentWrapper> args_ = new CustList<ArgumentWrapper>();
+        args_.add(new ArgumentWrapper(arr_));
         arr_ = new ArrayStruct(1,"[java.lang.Number");
         arr_.set(0,new StringStruct(""));
-        args_.add(new Argument(arr_));
+        args_.add(new ArgumentWrapper(arr_));
+        ArgumentListCall alc_ = new ArgumentListCall(args_);
         StackCall stackCall_ = getStackCall(cont_);
-        assertNotNull(ExecTemplates.okArgsSet(id_, args_, cont_, stackCall_));
+        assertNotNull(ExecTemplates.okArgsSet(id_, alc_.getArguments(), cont_, stackCall_));
     }
     @Test
     public void okArgs4Test() {
@@ -558,10 +553,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = validated(files_);
         MethodId id_ = new MethodId(MethodAccessKind.STATIC,"method", new StringList(""),false);
         ArrayStruct arr_ = defaultArray2("[java.lang.Number");
-        CustList<Argument> args_ = new CustList<Argument>();
-        args_.add(new Argument(arr_));
-        StackCall stackCall_ = getStackCall(cont_);
-        assertNotNull(ExecTemplates.okArgsSet(id_, args_, cont_, stackCall_));
+        assertNotNull(exc(cont_, id_, arr_));
     }
     @Test
     public void okArgs5Test() {
@@ -574,10 +566,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"method", new StringList(""),false);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         Struct atr_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(classBody_,"pkg.Ex<$int>"), "", -1);
-        CustList<Argument> args_ = new CustList<Argument>();
-        args_.add(new Argument(atr_));
-        StackCall stackCall_ = getStackCall(cont_);
-        assertNotNull(ExecTemplates.okArgsSet(id_, args_, cont_, stackCall_));
+        assertNotNull(exc(cont_, id_, atr_));
     }
     @Test
     public void okArgs6Test() {
@@ -590,20 +579,14 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"method", new StringList("pkg.Ex"),false);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         Struct atr_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(classBody_,"pkg.Ex<$int>"), "", -1);
-        CustList<Argument> args_ = new CustList<Argument>();
-        args_.add(new Argument(atr_));
-        StackCall stackCall_ = getStackCall(cont_);
-        assertNotNull(ExecTemplates.okArgsSet(id_, args_, cont_, stackCall_));
+        assertNotNull(exc(cont_, id_, atr_));
     }
     @Test
     public void okArgs7Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = validated(files_);
         MethodId id_ = new MethodId(MethodAccessKind.STATIC,"method", new StringList(""),false);
-        CustList<Argument> args_ = new CustList<Argument>();
-        args_.add(new Argument(NullStruct.NULL_VALUE));
-        StackCall stackCall_ = getStackCall(cont_);
-        assertNotNull(ExecTemplates.okArgsSet(id_, args_, cont_, stackCall_));
+        assertNotNull(exc(cont_, id_, NullStruct.NULL_VALUE));
     }
     @Test
     public void okArgs8Test() {
@@ -615,9 +598,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = validated(files_);
         MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"get", new StringList("$int"),true);
         ArrayStruct arr_ = defaultArray2("[$int");
-        CustList<Argument> args_ = new CustList<Argument>();
-        args_.add(new Argument(arr_));
-        ArgumentListCall l_ = ArgumentListCall.wrapCall(args_);
+        ArgumentListCall l_ = one(arr_);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         StackCall stackCall_ = getStackCall(cont_);
         addPage(ExecutingUtil.createInstancingClass(classBody_,new ExecFormattedRootBlock(classBody_,"pkg.Ex"),null), stackCall_);
@@ -635,8 +616,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = validated(files_);
         MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"get", new StringList("$int"),true);
-        CustList<Argument> args_ = new CustList<Argument>();
-        ArgumentListCall l_ = ArgumentListCall.wrapCall(args_);
+        ArgumentListCall l_ = new ArgumentListCall();
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         StackCall stackCall_ = getStackCall(cont_);
         ExecTemplates.okArgsSet(ExecClassesUtil.getMethodBodiesById(classBody_,id_).first(), new ExecFormattedRootBlock(classBody_,"pkg.Ex<$int>"), null, l_, cont_, stackCall_);
@@ -650,9 +630,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<E> { $public $int get($int...v){$return 0;}}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = validated(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
-        args_.add(Argument.createVoid());
-        ArgumentListCall l_ = ArgumentListCall.wrapCall(args_);
+        ArgumentListCall l_ = one(NullStruct.NULL_VALUE);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         StackCall stackCall_ = getStackCall(cont_);
         ExecTemplates.okArgsSet(null, new ExecFormattedRootBlock(classBody_,"pkg.Ex<$int>"), null, l_, cont_, stackCall_);
@@ -666,8 +644,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<E> { $public $int get($int...v){$return 0;}}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = validated(files_);
-        CustList<Argument> args_ = new CustList<Argument>();
-        ArgumentListCall l_ = ArgumentListCall.wrapCall(args_);
+        ArgumentListCall l_ = new ArgumentListCall();
         StackCall stackCall_ = getStackCall(cont_);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         ExecTemplates.okArgsSet(null, new ExecFormattedRootBlock(classBody_,"pkg.Ex"), null, l_, cont_, stackCall_);
@@ -787,7 +764,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         instancingClass_.setCache(cache_);
         StackCall stackCall_ = getStackCall(cont_);
         addPage(instancingClass_, stackCall_);
-        Argument myvar_ = ExecVariableTemplates.getIndexLoop(cont_, "myvar", 0, stackCall_.getLastPage().getCache(), stackCall_.getLastPage().getVars(), stackCall_);
+        Struct myvar_ = ArgumentListCall.toStr(ExecVariableTemplates.getIndexLoop(cont_, "myvar", 0, stackCall_.getLastPage().getCache(), stackCall_.getLastPage().getVars(), stackCall_));
         assertNull(stackCall_.getCallingState());
         assertEq(2,getNumber(myvar_));
     }
@@ -842,7 +819,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         instancingClass_.setCache(cache_);
         StackCall stackCall_ = getStackCall(cont_);
         addPage(instancingClass_, stackCall_);
-        Argument myvar_ = ExecVariableTemplates.getWrapValue(cont_, "myvar", 0, stackCall_.getLastPage().getCache(), stackCall_.getLastPage().getRefParams(), stackCall_);
+        Struct myvar_ = ArgumentListCall.toStr(ExecVariableTemplates.getWrapValue(cont_, "myvar", 0, stackCall_.getLastPage().getCache(), stackCall_.getLastPage().getRefParams(), stackCall_));
         assertNull(stackCall_.getCallingState());
         assertEq(2,getNumber(myvar_));
     }
@@ -864,7 +841,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         instancingClass_.setCache(cache_);
         StackCall stackCall_ = getStackCall(cont_);
         addPage(instancingClass_, stackCall_);
-        Argument myvar_ = ExecVariableTemplates.getWrapValue(cont_, "myvar", 0, stackCall_.getLastPage().getCache(), stackCall_.getLastPage().getRefParams(), stackCall_);
+        Struct myvar_ = ArgumentListCall.toStr(ExecVariableTemplates.getWrapValue(cont_, "myvar", 0, stackCall_.getLastPage().getCache(), stackCall_.getLastPage().getRefParams(), stackCall_));
         assertNull(stackCall_.getCallingState());
         assertEq(2,getNumber(myvar_));
     }
@@ -917,10 +894,10 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         instancingClass_.setCache(cache_);
         StackCall stackCall_ = getStackCall(cont_);
         addPage(instancingClass_, stackCall_);
-        Argument myvar_ = ExecVariableTemplates.setWrapValue(cont_, "myvar", new Argument(new IntStruct(4)),0, stackCall_.getLastPage().getCache(), stackCall_.getLastPage().getRefParams(), stackCall_);
+        Struct myvar_ = ArgumentListCall.toStr(ExecVariableTemplates.setWrapValue(cont_, "myvar", ArgumentListCall.toStr(new IntStruct(4)),0, stackCall_.getLastPage().getCache(), stackCall_.getLastPage().getRefParams(), stackCall_));
         assertNull(stackCall_.getCallingState());
         assertEq(4,getNumber(myvar_));
-        assertEq(4,getNumber(new Argument(cache_.getLocalWrapper("myvar",0).getValue(stackCall_, cont_))));
+        assertEq(4,getNumber(cache_.getLocalWrapper("myvar",0).getValue(stackCall_, cont_)));
     }
     @Test
     public void incrValue() {
@@ -976,7 +953,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         addPage(instancingClass_, stackCall_);
         ExecVariableTemplates.incrIndexLoop(cont_,"myvar", 0, stackCall_.getLastPage().getCache(), stackCall_.getLastPage().getVars(), stackCall_);
         assertNull(stackCall_.getCallingState());
-        assertEq(3,getNumber(new Argument(cache_.getLoopValue("myvar",0))));
+        assertEq(3,getNumber(cache_.getLoopValue("myvar",0)));
     }
     @Test
     public void trySet1() {
@@ -1192,7 +1169,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl c_ = validated(files_);
         ExecRootBlock root_ = c_.getClasses().getClassBody("pkg.Annot");
-        AbstractPageEl instancingClass_ = ExecutingUtil.createAnnotation(c_, new ExecFormattedRootBlock(root_,"pkg.Annot"),root_,  new StringMap<AnnotationTypeInfo>(),new CustList<Argument>());
+        AbstractPageEl instancingClass_ = ExecutingUtil.createAnnotation(c_, new ExecFormattedRootBlock(root_,"pkg.Annot"),root_,  new StringMap<AnnotationTypeInfo>(),new ArgumentListCall().getArguments());
         StackCall stackCall_ = getStackCall(c_);
         addPage2(instancingClass_, stackCall_);
         ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot","pkg.Annot",c_,instancingClass_.getGlobalArgument(), stackCall_);
@@ -1210,7 +1187,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl c_ = validated(files_);
         ExecRootBlock root_ = c_.getClasses().getClassBody("pkg.Annot");
-        AbstractPageEl instancingClass_ = ExecutingUtil.createAnnotation(c_, new ExecFormattedRootBlock(root_,"pkg.Annot"),root_,  new StringMap<AnnotationTypeInfo>(),new CustList<Argument>());
+        AbstractPageEl instancingClass_ = ExecutingUtil.createAnnotation(c_, new ExecFormattedRootBlock(root_,"pkg.Annot"),root_,  new StringMap<AnnotationTypeInfo>(),new ArgumentListCall().getArguments());
         StackCall stackCall_ = getStackCall(c_);
         addPage2(instancingClass_, stackCall_);
         ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot","pkg.Annot",c_,instancingClass_.getGlobalArgument(), stackCall_);
@@ -1228,10 +1205,10 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl c_ = validated(files_);
         ExecRootBlock root_ = c_.getClasses().getClassBody("pkg.Annot");
-        AbstractPageEl instancingClass_ = ExecutingUtil.createAnnotation(c_, new ExecFormattedRootBlock(root_,"pkg.Annot"),root_,  new StringMap<AnnotationTypeInfo>(),new CustList<Argument>());
+        AbstractPageEl instancingClass_ = ExecutingUtil.createAnnotation(c_, new ExecFormattedRootBlock(root_,"pkg.Annot"),root_,  new StringMap<AnnotationTypeInfo>(),new ArgumentListCall().getArguments());
         StackCall stackCall_ = getStackCall(c_);
         addPage2(instancingClass_, stackCall_);
-        AbstractPageEl instancingClass2_ = ExecutingUtil.createAnnotation(c_, new ExecFormattedRootBlock(root_,"pkg.Annot"),root_,  new StringMap<AnnotationTypeInfo>(),new CustList<Argument>());
+        AbstractPageEl instancingClass2_ = ExecutingUtil.createAnnotation(c_, new ExecFormattedRootBlock(root_,"pkg.Annot"),root_,  new StringMap<AnnotationTypeInfo>(),new ArgumentListCall().getArguments());
         ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot","pkg.Annot",c_,instancingClass2_.getGlobalArgument(), stackCall_);
         stackCall_.removeLastPage();
         addPage2(instancingClass2_, stackCall_);
@@ -1250,10 +1227,10 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl c_ = validated(files_);
         ExecRootBlock root_ = c_.getClasses().getClassBody("pkg.Annot");
-        AbstractPageEl instancingClass_ = ExecutingUtil.createAnnotation(c_, new ExecFormattedRootBlock(root_,"pkg.Annot"),root_,  new StringMap<AnnotationTypeInfo>(),new CustList<Argument>());
+        AbstractPageEl instancingClass_ = ExecutingUtil.createAnnotation(c_, new ExecFormattedRootBlock(root_,"pkg.Annot"),root_,  new StringMap<AnnotationTypeInfo>(),new ArgumentListCall().getArguments());
         StackCall stackCall_ = getStackCall(c_);
         addPage2(instancingClass_, stackCall_);
-        AbstractPageEl instancingClass2_ = ExecutingUtil.createAnnotation(c_, new ExecFormattedRootBlock(root_,"pkg.Annot"),root_,  new StringMap<AnnotationTypeInfo>(),new CustList<Argument>());
+        AbstractPageEl instancingClass2_ = ExecutingUtil.createAnnotation(c_, new ExecFormattedRootBlock(root_,"pkg.Annot"),root_,  new StringMap<AnnotationTypeInfo>(),new ArgumentListCall().getArguments());
         ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot","pkg.Annot",c_,instancingClass2_.getGlobalArgument(), stackCall_);
         ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot2","pkg.Annot",c_,instancingClass_.getGlobalArgument(), stackCall_);
         stackCall_.removeLastPage();
@@ -1265,11 +1242,11 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     }
     @Test
     public void getFirstArgument() {
-        assertEq("", ExecHelper.getFirstArgument(new CustList<Argument>()).getStruct().getClassName(null));
+        assertEq("", ExecHelper.getFirstArgument(new ArgumentListCall().getArguments()).getStruct().getClassName(null));
     }
     @Test
     public void getLastArgument() {
-        assertEq("", ExecHelper.getLastArgument(new CustList<Argument>(Argument.createVoid())).getStruct().getClassName(null));
+        assertEq("", ExecHelper.getLastArgument(one(NullStruct.NULL_VALUE).getArguments()).getStruct().getClassName(null));
     }
     @Test
     public void setArgumentExp() {
@@ -1361,10 +1338,10 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     }
 
     private void wrapAndCall(ContextEl _cont, ExecRootBlock _classBody, ExecNamedFunctionBlock _first, StackCall _stackCall) {
-        ArgumentListCall argList_ = new ArgumentListCall(new Argument());
+        ArgumentListCall argList_ = new ArgumentListCall(ArgumentListCall.toStr(NullStruct.NULL_VALUE));
         ArgumentWrapper.helpArg(null);
         ExecHelper.getArgumentWrapper(new CustList<ArgumentWrapper>(),0);
-        ExecTemplates.wrapAndCall(new ExecOverrideInfo(new ExecFormattedRootBlock(_classBody,"pkg.Ex"),new ExecTypeFunction(_classBody, _first)), Argument.createVoid(), _cont, _stackCall, argList_);
+        ExecTemplates.wrapAndCall(new ExecOverrideInfo(new ExecFormattedRootBlock(_classBody,"pkg.Ex"),new ExecTypeFunction(_classBody, _first)), ArgumentListCall.toStr(NullStruct.NULL_VALUE), _cont, _stackCall, argList_);
 //        new ReflectGetFieldPageEl(null,null, false).receive(null,null,_cont, _stackCall);
 //        new ReflectSetFieldPageEl(null,null,null, false).receive(null,null,_cont, _stackCall);
     }
@@ -1388,6 +1365,18 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
 
     private Struct getParent(ArrayStruct _arr, ContextEl _c, StackCall _stackCall) {
         return getParent(_arr, _c, 0, _stackCall);
+    }
+
+    private CustomFoundExc exc(ContextEl _cont, MethodId _id, Struct _str) {
+        ArgumentListCall alc_ = one(_str);
+        StackCall stackCall_ = getStackCall(_cont);
+        return ExecTemplates.okArgsSet(_id, alc_.getArguments(), _cont, stackCall_);
+    }
+
+    private ArgumentListCall one(Struct _str) {
+        CustList<ArgumentWrapper> args_ = new CustList<ArgumentWrapper>();
+        args_.add(new ArgumentWrapper(_str));
+        return new ArgumentListCall(args_);
     }
 
 }
