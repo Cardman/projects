@@ -72,6 +72,15 @@ public final class DefaultConfigurationLoader {
             _context.setFilesConfName(_c.getAttribute(ReadConfiguration.VALUE));
             return true;
         }
+        if (StringUtil.quickEq(fieldName_, ReadConfiguration.INIT_DB)) {
+            String att_ = _c.getAttribute(ReadConfiguration.VALUE);
+            int last_ = att_.lastIndexOf('.');
+            if (last_ > -1) {
+                _context.setInitNameClass(att_.substring(0,last_));
+                _context.setInitNameMethod(att_.substring(last_+1));
+                return true;
+            }
+        }
         return false;
     }
 

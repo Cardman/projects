@@ -111,6 +111,13 @@ public class LaunchingApplications extends SoftApplicationCore {
             launchWindow(getFactories());
             return;
         }
+        String db_ = MessagesExecutingOptions.valExecOptionsKeys(getFrames().currentLg()).getVal(MessagesExecutingOptions.EXEC_OPTIONS_KEY_INIT_DB)+ExecutingOptions.EXEC_OPTIONS_SEP;
+        if (linesFiles_.get(1).startsWith(db_)) {
+            AbsButton bu_ = launchWindow(getFactories()).getButtonRenders();
+            LaunchingRenders launch_ = new LaunchingRenders(getFactories());
+            launch_.launchWithoutLanguage(_language, _args, bu_, new LanguagesButtonsPair(_pair.getLgMenu(),bu_,_pair.getButtons()));
+            return;
+        }
         if (linesFiles_.size() < 3) {
             AbsButton bu_ = launchWindow(getFactories()).getButtonTests();
             LaunchingAppUnitTests launch_ = new LaunchingAppUnitTests(getFactories());
@@ -119,13 +126,6 @@ public class LaunchingApplications extends SoftApplicationCore {
         }
         String possibleMethod_ = StringExpUtil.removeDottedSpaces(linesFiles_.get(2));
         String ma_ = MessagesExecutingOptions.valExecOptionsKeys(getFrames().currentLg()).getVal(MessagesExecutingOptions.EXEC_OPTIONS_KEY_MAIN)+ExecutingOptions.EXEC_OPTIONS_SEP;
-        String db_ = MessagesExecutingOptions.valExecOptionsKeys(getFrames().currentLg()).getVal(MessagesExecutingOptions.EXEC_OPTIONS_KEY_INIT_DB)+ExecutingOptions.EXEC_OPTIONS_SEP;
-        if (possibleMethod_.startsWith(db_)) {
-            AbsButton bu_ = launchWindow(getFactories()).getButtonRenders();
-            LaunchingRenders launch_ = new LaunchingRenders(getFactories());
-            launch_.launchWithoutLanguage(_language, _args, bu_, new LanguagesButtonsPair(_pair.getLgMenu(),bu_,_pair.getButtons()));
-            return;
-        }
         if (possibleMethod_.startsWith(ma_)) {
             AbsButton bu_ = launchWindow(getFactories()).getButtonApps();
             LaunchingFull launch_ = new LaunchingFull(getFactories());

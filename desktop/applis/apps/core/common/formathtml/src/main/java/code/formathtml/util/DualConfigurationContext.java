@@ -25,6 +25,8 @@ public final class DualConfigurationContext {
     private StringMap<ValidatorInfo> lateValidators;
     private StringMap<ValidatorInfo> lateReinit;
     private String filesConfName = "";
+    private String initNameClass = "";
+    private String initNameMethod = "";
     private boolean ko;
     private final Options options = new Options();
 
@@ -134,6 +136,22 @@ public final class DualConfigurationContext {
 
     public void setFilesConfName(String _filesConfName) {
         this.filesConfName = _filesConfName;
+    }
+
+    public String getInitNameClass() {
+        return initNameClass;
+    }
+
+    public void setInitNameClass(String _p) {
+        this.initNameClass = _p;
+    }
+
+    public String getInitNameMethod() {
+        return initNameMethod;
+    }
+
+    public void setInitNameMethod(String _p) {
+        this.initNameMethod = _p;
     }
 
     public boolean isKo() {

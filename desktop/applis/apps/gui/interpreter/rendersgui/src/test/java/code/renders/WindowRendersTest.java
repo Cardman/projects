@@ -28,7 +28,7 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
         StringMap<ContentTime> contents_ = with(pr_, content_, "conf.xml", xmlConf_);
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(contents_);
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
-        StreamTextFile.saveTextFile("/conf.txt","/_.zip\nconf.xml\ninitDb=cl.Init.init\n"+StringUtil.EN, pr_.getStreams());
+        StreamTextFile.saveTextFile("/conf.txt","/_.zip\ninitDb=conf.xml\n"+StringUtil.EN, pr_.getStreams());
         cr_.run();
         WindowRenders w_ = cr_.getWindow();
         w_.getLgCode().setText(StringUtil.EN);
@@ -76,6 +76,7 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
                 "\t\t<str "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='my_val'/>\n" +
                 "\t\t<str "+ReadConfiguration.VALUE+"='pkg.MyVal'/>\n" +
                 "\t</sm>\n" +
+                "\t<_ "+ReadConfiguration.FIELD+"='"+ReadConfiguration.INIT_DB+"' "+ReadConfiguration.VALUE+"='cl.Init.init'/>\n" +
                 "</cfg>";
         CreateMainWindowRenders cr_ = create();
         AbstractProgramInfos pr_ = cr_.getProgramInfos();
@@ -86,7 +87,7 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
         StringMap<ContentTime> contents_ = with(pr_, content_, "conf.xml", xmlConf_);
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(contents_);
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
-        StreamTextFile.saveTextFile("/conf.txt","/_.zip\nconf.xml\ninitDb=cl.Init.init\n"+StringUtil.EN, pr_.getStreams());
+        StreamTextFile.saveTextFile("/conf.txt","/_.zip\ninitDb=conf.xml\n"+StringUtil.EN, pr_.getStreams());
         cr_.run();
         WindowRenders w_ = cr_.getWindow();
         w_.getLgCode().setText("");
@@ -141,6 +142,7 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
                 "\t\t<str "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='my_val'/>\n" +
                 "\t\t<str "+ReadConfiguration.VALUE+"='pkg.MyVal'/>\n" +
                 "\t</sm>\n" +
+                "\t<_ "+ReadConfiguration.FIELD+"='"+ReadConfiguration.INIT_DB+"' "+ReadConfiguration.VALUE+"='cl.Init.init'/>\n" +
                 "</cfg>";
         CreateMainWindowRenders cr_ = create();
         AbstractProgramInfos pr_ = cr_.getProgramInfos();
@@ -151,7 +153,7 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
         StringMap<ContentTime> contents_ = with(pr_, content_, "conf.xml", xmlConf_);
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(contents_);
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
-        StreamTextFile.saveTextFile("/conf.txt","/_.zip\nconf.xml\ninitDb=cl.Init.init\n"+StringUtil.EN, pr_.getStreams());
+        StreamTextFile.saveTextFile("/conf.txt","/_.zip\ninitDb=conf.xml\n"+StringUtil.EN, pr_.getStreams());
         cr_.run();
         WindowRenders w_ = cr_.getWindow();
         w_.getLgCode().setText(StringUtil.EN);
@@ -206,6 +208,7 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
                 "\t\t<str "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='my_val'/>\n" +
                 "\t\t<str "+ReadConfiguration.VALUE+"='pkg.MyVal'/>\n" +
                 "\t</sm>\n" +
+                "\t<_ "+ReadConfiguration.FIELD+"='"+ReadConfiguration.INIT_DB+"' "+ReadConfiguration.VALUE+"='cl.Init.init'/>\n" +
                 "</cfg>";
         CreateMainWindowRenders cr_ = create();
         AbstractProgramInfos pr_ = cr_.getProgramInfos();
@@ -216,7 +219,7 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
         StringMap<ContentTime> contents_ = with(pr_, content_, "conf.xml", xmlConf_);
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(contents_);
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
-        StreamTextFile.saveTextFile("/conf.txt","/_.zip\nconf.xml\ninitDb=cl.Init.init\n"+StringUtil.EN, pr_.getStreams());
+        StreamTextFile.saveTextFile("/conf.txt","/_.zip\ninitDb=conf.xml\n"+StringUtil.EN, pr_.getStreams());
         cr_.run();
         WindowRenders w_ = cr_.getWindow();
         w_.getLgCode().setText(StringUtil.EN);
@@ -241,7 +244,7 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
         StringMap<ContentTime> contents_ = with(pr_, content_, "conf.xml", xmlConf_);
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(contents_);
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
-        StreamTextFile.saveTextFile("/conf.txt","/_.zip\nconf.xml\ninitDb=cl.Init.init\n"+StringUtil.EN+"\nlgs="+StringUtil.EN, pr_.getStreams());
+        StreamTextFile.saveTextFile("/conf.txt","/_.zip\ninitDb=conf.xml\n"+StringUtil.EN+"\nlgs="+StringUtil.EN, pr_.getStreams());
         cr_.run();
         WindowRenders w_ = cr_.getWindow();
         w_.getLgCode().setText(StringUtil.EN);
@@ -262,7 +265,7 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
         StringMap<ContentTime> contents_ = with(pr_, content_, "conf.xml", xmlConf_);
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(contents_);
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
-        StreamTextFile.saveTextFile("/conf.txt","/_.zip\nconf.xml\ninitDb=cl.Init.init\n_\nlgs="+StringUtil.EN, pr_.getStreams());
+        StreamTextFile.saveTextFile("/conf.txt","/_.zip\ninitDb=conf.xml\n_\nlgs="+StringUtil.EN, pr_.getStreams());
         cr_.run();
         WindowRenders w_ = cr_.getWindow();
         w_.getLgCode().setText(StringUtil.EN);
@@ -283,7 +286,7 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
         StringMap<ContentTime> contents_ = with(pr_, content_, "conf.xml", xmlConf_);
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(contents_);
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
-        StreamTextFile.saveTextFile("/conf.txt","/_.zip\nconf.xml\ninitDb=cl.Init.init", pr_.getStreams());
+        StreamTextFile.saveTextFile("/conf.txt","/_.zip\ninitDb=conf.xml", pr_.getStreams());
         cr_.run();
         WindowRenders w_ = cr_.getWindow();
         w_.getLgCode().setText(StringUtil.EN);
@@ -304,7 +307,7 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
         StringMap<ContentTime> contents_ = with(pr_, content_, "conf.xml", xmlConf_);
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(contents_);
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
-        StreamTextFile.saveTextFile("/conf.txt","/_.zip\nconf.xml\ninitDb=_", pr_.getStreams());
+        StreamTextFile.saveTextFile("/conf.txt","/_.zip\ninitDb=conf.xml", pr_.getStreams());
         cr_.run();
         WindowRenders w_ = cr_.getWindow();
         w_.getLgCode().setText(StringUtil.EN);
@@ -325,7 +328,7 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
         StringMap<ContentTime> contents_ = with(pr_, content_, "conf.xml", xmlConf_);
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(contents_);
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
-        StreamTextFile.saveTextFile("/conf.txt","/_.zip\nconf.xml\n_", pr_.getStreams());
+        StreamTextFile.saveTextFile("/conf.txt","/_.zip\ninitDb=conf.xml", pr_.getStreams());
         cr_.run();
         WindowRenders w_ = cr_.getWindow();
         w_.getLgCode().setText(StringUtil.EN);
@@ -384,7 +387,7 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
         StringMap<ContentTime> contents_ = with(pr_, content_, "conf.xml", xmlConf_);
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(contents_);
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
-        StreamTextFile.saveTextFile("/conf.txt","/_.zip\nconf.xml", pr_.getStreams());
+        StreamTextFile.saveTextFile("/conf.txt","/_.zip\ninitDb=conf.xml", pr_.getStreams());
         cr_.run();
         WindowRenders w_ = cr_.getWindow();
         w_.getLgCode().setText(StringUtil.EN);
@@ -406,7 +409,7 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
         StringMap<ContentTime> contents_ = with(pr_, content_, "conf.xml", xmlConf_);
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(contents_);
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
-        StreamTextFile.saveTextFile("/conf.txt","_\nconf.xml", pr_.getStreams());
+        StreamTextFile.saveTextFile("/conf.txt","_\ninitDb=conf.xml", pr_.getStreams());
         cr_.run();
         WindowRenders w_ = cr_.getWindow();
         w_.getLgCode().setText(StringUtil.EN);
@@ -444,7 +447,7 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
         StringMap<ContentTime> contents_ = with(pr_, content_, "conf.xml", xmlConf_);
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(contents_);
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
-        StreamTextFile.saveTextFile("/conf.txt","/_.zip\nconf.xml\ninitDb=cl.Init.init\n"+StringUtil.EN, pr_.getStreams());
+        StreamTextFile.saveTextFile("/conf.txt","/_.zip\ninitDb=conf.xml\n"+StringUtil.EN, pr_.getStreams());
         cr_.run();
         WindowRenders w_ = cr_.getWindow();
         w_.getLgCode().setText(StringUtil.EN);
@@ -466,7 +469,7 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
         StringMap<ContentTime> contents_ = with(pr_, content_, "conf.xml", xmlConf_);
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(contents_);
         StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
-        StreamTextFile.saveTextFile("/conf.txt","/_.zip\nconf.xml\ninitDb=cl.Init.init\n"+StringUtil.EN, pr_.getStreams());
+        StreamTextFile.saveTextFile("/conf.txt","/_.zip\ninitDb=conf.xml\n"+StringUtil.EN, pr_.getStreams());
         cr_.run();
         WindowRenders w_ = cr_.getWindow();
         w_.getLgCode().setText(StringUtil.EN);
@@ -476,6 +479,27 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
         AbstractThread th_ = tryAn(((MockThreadFactory) pr_.getThreadFactory()));
         Runnable exec_ = th_.getRunnable();
         assertTrue(((CustThreadActions)exec_).isRendered());
+    }
+    @Test
+    public void r15() {
+        String xmlConf_ = cfg();
+        CreateMainWindowRenders cr_ = create();
+        AbstractProgramInfos pr_ = cr_.getProgramInfos();
+        StringMap<ContentTime> cont_ = with(pr_, with(pr_, with(pr_, init(), "conf.txt", "content"), "src/"), "src/folder/");
+        StringMap<ContentTime> contConf_ = with(pr_,cont_,"conf_cl.txt","src/folder/file.txt");
+        StringMap<ContentTime> contRend_ = with(pr_,contConf_,"page.html","<html><body>_</body></html>");
+        StringMap<ContentTime> content_ = with(pr_, contRend_, "src/folder/file.txt", "public class cl.Init{public static Object init(String[] names, String[] contents){return new String[0];}}");
+        StringMap<ContentTime> contents_ = with(pr_, content_, "conf.xml", xmlConf_);
+        byte[] zipped_ = pr_.getZipFact().zipBinFiles(contents_);
+        StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
+        StreamTextFile.saveTextFile("/conf.txt","/_.zip\nconf.xml\n"+StringUtil.EN, pr_.getStreams());
+        cr_.run();
+        WindowRenders w_ = cr_.getWindow();
+        w_.getLgCode().setText(StringUtil.EN);
+        tryClick(w_.getOpen());
+        w_.getFileOpenFrame().getFileDialogContent().getFileName().setText("/conf.txt");
+        tryClick((AbsButton) w_.getFileOpenFrame().getFileDialogContent().getButtons().getComponent(0));
+        assertEq(0, ((MockThreadFactory) pr_.getThreadFactory()).getAllThreads().size());
     }
 
     private String cfg() {
@@ -517,6 +541,7 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
                 "\t\t<str "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='my_val'/>\n" +
                 "\t\t<str "+ReadConfiguration.VALUE+"='pkg.MyVal'/>\n" +
                 "\t</sm>\n" +
+                "\t<_ "+ReadConfiguration.FIELD+"='"+ReadConfiguration.INIT_DB+"' "+ReadConfiguration.VALUE+"='cl.Init.init'/>\n" +
                 "</cfg>";
     }
 }

@@ -40,21 +40,16 @@ public final class DefaultInitialization {
 
     private final BeanCustLgNames stds;
 
-    private final String classDbName;
-
-    private final String methodName;
     private LoggableLgNames log;
     private ContextEl context;
     private String keyWordDigit = "";
 
-    public DefaultInitialization(BeanCustLgNames _lgNames, AbstractSymbolFactory _fact, String _lgCode, String _fileName, StringMap<String> _fileNames, String _clName, String _methodName) {
+    public DefaultInitialization(BeanCustLgNames _lgNames, AbstractSymbolFactory _fact, String _lgCode, String _fileName, StringMap<String> _fileNames) {
         stds = _lgNames;
         symbolFactory = _fact;
         lgCode = _lgCode;
         fileName = _fileName;
         fileNames = _fileNames;
-        classDbName = _clName;
-        methodName = _methodName;
     }
 
     public void setLog(LoggableLgNames _l) {
@@ -81,14 +76,15 @@ public final class DefaultInitialization {
             return "";
         }
         context = ctx_;
+        DualConfigurationContext confCont_ = du_.getContext();
         RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING, ctx_);
         String arrStr_ = StringExpUtil.getPrettyArrayType(stds.getContent().getCharSeq().getAliasString());
-        MethodId id_ = new MethodId(MethodAccessKind.STATIC, methodName, new StringList(arrStr_,arrStr_));
-        ExecRootBlock classBody_ = ctx_.getClasses().getClassBody(classDbName);
+        MethodId id_ = new MethodId(MethodAccessKind.STATIC, confCont_.getInitNameMethod(), new StringList(arrStr_,arrStr_));
+        ExecRootBlock classBody_ = ctx_.getClasses().getClassBody(confCont_.getInitNameClass());
         if (classBody_ != null) {
             CustList<ExecOverridableBlock> methods_ = ExecClassesUtil.getMethodBodiesById(classBody_, id_);
             if (!methods_.isEmpty()) {
-                ProcessMethod.initializeClass(classDbName, classBody_,ctx_, rendStackCall_.getStackCall());
+                ProcessMethod.initializeClass(confCont_.getInitNameClass(), classBody_,ctx_, rendStackCall_.getStackCall());
                 if (ctx_.callsOrException(rendStackCall_.getStackCall())) {
                     return afterActionWithoutRemove(ctx_, rendStackCall_);
                 }
@@ -97,7 +93,7 @@ public final class DefaultInitialization {
                 ExecNamedFunctionBlock method_ = methods_.first();
                 ExecTypeFunction pair_ = new ExecTypeFunction(classBody_, method_);
                 ArgumentListCall argList_ = ArgumentListCall.wrapCall(args_);
-                ExecTemplates.wrapAndCall(new ExecOverrideInfo(new ExecFormattedRootBlock(classBody_, classDbName),pair_), arg_, ctx_, rendStackCall_.getStackCall(), argList_);
+                ExecTemplates.wrapAndCall(new ExecOverrideInfo(new ExecFormattedRootBlock(classBody_, confCont_.getInitNameClass()),pair_), arg_, ctx_, rendStackCall_.getStackCall(), argList_);
                 ArgumentWrapper aw_ = RendDynOperationNode.tryGetValue(ctx_, rendStackCall_, null);
                 if (aw_ == null) {
                     return afterActionWithoutRemove(ctx_, rendStackCall_);

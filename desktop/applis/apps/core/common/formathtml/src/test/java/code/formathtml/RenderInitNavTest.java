@@ -996,8 +996,9 @@ public final class RenderInitNavTest extends CommonRender {
                 "\t\t<str "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='session'/>\n" +
                 "\t\t<str "+ReadConfiguration.VALUE+"='pkg.Re'/>\n" +
                 "\t</sm>\n" +
+                "\t<_ "+ReadConfiguration.FIELD+"='"+ReadConfiguration.INIT_DB+"' "+ReadConfiguration.VALUE+"='cl.Init.init'/>\n" +
                 "</cfg>";
-        assertEq("", StringUtil.nullToEmpty(initDbOkConfCtx(xmlConf_,"cl.Init","init","$public $class cl.Init{$public $static Object init(String[] names, String[] contents){$throw $null;}}","<html><body>_</body></html>")));
+        assertEq("", StringUtil.nullToEmpty(initDbOkConfCtx(xmlConf_, "$public $class cl.Init{$public $static Object init(String[] names, String[] contents){$throw $null;}}","<html><body>_</body></html>")));
     }
 
     @Test
@@ -1043,11 +1044,12 @@ public final class RenderInitNavTest extends CommonRender {
                 "\t\t<str "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='session'/>\n" +
                 "\t\t<str "+ReadConfiguration.VALUE+"='pkg.Re'/>\n" +
                 "\t</sm>\n" +
+                "\t<_ "+ReadConfiguration.FIELD+"='"+ReadConfiguration.INIT_DB+"' "+ReadConfiguration.VALUE+"='cl.Init.init'/>\n" +
                 "</cfg>";
         assertEq("java.lang.$defErrorClass\n" +
                 "\n" +
                 "my_file:1,24:23\n" +
-                "cl.Init.", StringUtil.nullToEmpty(initDbOkConfCtx(xmlConf_,"cl.Init","init","$public $class cl.Init{$static{$throw $null;}$public $static Object init(String[] names, String[] contents){$throw $null;}}","<html><body>_</body></html>")));
+                "cl.Init.", StringUtil.nullToEmpty(initDbOkConfCtx(xmlConf_, "$public $class cl.Init{$static{$throw $null;}$public $static Object init(String[] names, String[] contents){$throw $null;}}","<html><body>_</body></html>")));
     }
 
     @Test
@@ -1093,8 +1095,9 @@ public final class RenderInitNavTest extends CommonRender {
                 "\t\t<str "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='session'/>\n" +
                 "\t\t<str "+ReadConfiguration.VALUE+"='pkg.Re'/>\n" +
                 "\t</sm>\n" +
+                "\t<_ "+ReadConfiguration.FIELD+"='"+ReadConfiguration.INIT_DB+"' "+ReadConfiguration.VALUE+"='cl.Init.init'/>\n" +
                 "</cfg>";
-        assertEq("", StringUtil.nullToEmpty(initDbOkConfCtx(xmlConf_,"cl.Init","init","$public $class cl.Init{$public $static Object init(String[] names, String[] contents){$return $new String[0];}}","<html><body>_</body></html>")));
+        assertEq("", StringUtil.nullToEmpty(initDbOkConfCtx(xmlConf_, "$public $class cl.Init{$public $static Object init(String[] names, String[] contents){$return $new String[0];}}","<html><body>_</body></html>")));
     }
 
     @Test
@@ -1140,8 +1143,9 @@ public final class RenderInitNavTest extends CommonRender {
                 "\t\t<str "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='session'/>\n" +
                 "\t\t<str "+ReadConfiguration.VALUE+"='pkg.Re'/>\n" +
                 "\t</sm>\n" +
+                "\t<_ "+ReadConfiguration.FIELD+"='"+ReadConfiguration.INIT_DB+"' "+ReadConfiguration.VALUE+"='cl.Init.'/>\n" +
                 "</cfg>";
-        assertEq("", StringUtil.nullToEmpty(initDbOkConfCtx(xmlConf_,"cl.Init","","$public $class cl.Init{$public $static Object init(String[] names, String[] contents){$return $new String[0];}}","<html><body>_</body></html>")));
+        assertEq("", StringUtil.nullToEmpty(initDbOkConfCtx(xmlConf_, "$public $class cl.Init{$public $static Object init(String[] names, String[] contents){$return $new String[0];}}","<html><body>_</body></html>")));
     }
 
     @Test
@@ -1187,8 +1191,9 @@ public final class RenderInitNavTest extends CommonRender {
                 "\t\t<str "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='session'/>\n" +
                 "\t\t<str "+ReadConfiguration.VALUE+"='pkg.Re'/>\n" +
                 "\t</sm>\n" +
+                "\t<_ "+ReadConfiguration.FIELD+"='"+ReadConfiguration.INIT_DB+"'/>\n" +
                 "</cfg>";
-        assertEq("", StringUtil.nullToEmpty(initDbOkConfCtx(xmlConf_,"","","$public $class cl.Init{$public $static Object init(String[] names, String[] contents){$return $new String[0];}}","<html><body>_</body></html>")));
+        assertEq("", StringUtil.nullToEmpty(initDbOkConfCtx(xmlConf_, "$public $class cl.Init{$public $static Object init(String[] names, String[] contents){$return $new String[0];}}","<html><body>_</body></html>")));
     }
     private static void basicStandards(BeanLgNames _lgNames) {
         _lgNames.getContent().setDefaultPkg("java.lang");
@@ -1659,8 +1664,8 @@ public final class RenderInitNavTest extends CommonRender {
         builders_.add(_lgNames.getBeanAliases());
         return _n.loadConfiguration(_xmlConf, "", _lgNames, BeanFileBuilder.newInstance(_lgNames.getContent(),_lgNames.getBeanAliases()), builders_, def_);
     }
-    private static String initDbOkConfCtx(String _xmlConf, String _clName, String _methodName, String _brCode, String _page) {
-        DefaultInitialization de_ = initDbOkConfBuild(_xmlConf, _clName, _methodName, _brCode, _page);
+    private static String initDbOkConfCtx(String _xmlConf, String _brCode, String _page) {
+        DefaultInitialization de_ = initDbOkConfBuild(_xmlConf, _brCode, _page);
         String ex_ = de_.execute(new Navigation(),new DefRenderContextGenerator());
         assertEq("ABCDEF",de_.getKeyWordDigit());
         assertNotNull(de_.getContext());
@@ -1668,13 +1673,13 @@ public final class RenderInitNavTest extends CommonRender {
     }
 
     private static String initDbOkConfNoCtx(String _xmlConf) {
-        DefaultInitialization de_ = initDbOkConfBuild(_xmlConf, "", "", "", "");
+        DefaultInitialization de_ = initDbOkConfBuild(_xmlConf, "", "");
         String ex_ = de_.execute(new Navigation(),new DefRenderContextGenerator());
         assertNull(de_.getContext());
         return ex_;
     }
 
-    private static DefaultInitialization initDbOkConfBuild(String _xmlConf, String _clName, String _methodName, String _brCode, String _page) {
+    private static DefaultInitialization initDbOkConfBuild(String _xmlConf, String _brCode, String _page) {
         BeanCustLgNamesImpl stds_ = new BeanCustLgNamesImpl();
         basicStandards(stds_);
         String cn_ = "conf.xml";
@@ -1683,7 +1688,7 @@ public final class RenderInitNavTest extends CommonRender {
         files_.addEntry("conf_cl.txt","my_file");
         files_.addEntry("my_file", _brCode);
         files_.addEntry("page.html", _page);
-        DefaultInitialization de_ = new DefaultInitialization(stds_, new DefSymbolFactory(), "", cn_, files_, _clName, _methodName);
+        DefaultInitialization de_ = new DefaultInitialization(stds_, new DefSymbolFactory(), "", cn_, files_);
         de_.setLog(new ListLoggableLgNames());
         return de_;
     }
@@ -1691,7 +1696,7 @@ public final class RenderInitNavTest extends CommonRender {
     private static String initDbKoConf() {
         BeanCustLgNamesImpl stds_ = new BeanCustLgNamesImpl();
         basicStandards(stds_);
-        DefaultInitialization de_ = new DefaultInitialization(stds_,new DefSymbolFactory(),"","conf.xml",new StringMap<String>(),"","");
+        DefaultInitialization de_ = new DefaultInitialization(stds_,new DefSymbolFactory(),"","conf.xml",new StringMap<String>());
         de_.setLog(new ListLoggableLgNames());
         return de_.execute(new Navigation(),new DefRenderContextGenerator());
     }
@@ -1702,7 +1707,7 @@ public final class RenderInitNavTest extends CommonRender {
         String cn_ = "conf.xml";
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry(cn_," ");
-        DefaultInitialization de_ = new DefaultInitialization(stds_,new DefSymbolFactory(),"",cn_,files_,"","");
+        DefaultInitialization de_ = new DefaultInitialization(stds_,new DefSymbolFactory(),"",cn_,files_);
         de_.setLog(new ListLoggableLgNames());
         return de_.execute(new Navigation(),new DefRenderContextGenerator());
     }

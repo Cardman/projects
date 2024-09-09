@@ -42,6 +42,7 @@ public final class ReadConfiguration {
     public static final String ADDED_FILES = "11";
     public static final String RENDER_FILES = "12";
     public static final String LATE_REINIT = "13";
+    public static final String INIT_DB = "14";
 
     private ReadConfiguration(){
     }

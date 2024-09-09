@@ -250,7 +250,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         StringMap<ContentTime> contents_ = with(p_, content_, "conf.xml", xmlConf_);
         byte[] zipped_ = p_.getZipFact().zipBinFiles(contents_);
         StreamBinaryFile.writeFile("/_.zip",zipped_,p_.getStreams());
-        StreamTextFile.saveTextFile(ARG,"/_.zip\nconf.xml\ninitDb=cl.Init.init\n"+StringUtil.EN, p_.getStreams());
+        StreamTextFile.saveTextFile(ARG,"/_.zip\ninitDb=conf.xml\n"+StringUtil.EN, p_.getStreams());
         FullDocument lg_ = DocumentBuilder.newDocumentBuilder().newDocument();
         Element elt_ = lg_.createElement("_");
         Element locale_ = lg_.createElement(LOCALE);
@@ -647,7 +647,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         StringMap<ContentTime> contents_ = with(p_, content_, "conf.xml", xmlConf_);
         byte[] zipped_ = p_.getZipFact().zipBinFiles(contents_);
         StreamBinaryFile.writeFile("/_.zip",zipped_,p_.getStreams());
-        StreamTextFile.saveTextFile(ARG,"/_.zip\nconf.xml\ninitDb=cl.Init.init\n"+StringUtil.EN, p_.getStreams());
+        StreamTextFile.saveTextFile(ARG,"/_.zip\ninitDb=conf.xml\n"+StringUtil.EN, p_.getStreams());
         FullDocument lg_ = DocumentBuilder.newDocumentBuilder().newDocument();
         Element elt_ = lg_.createElement("_");
         Element locale_ = lg_.createElement(LOCALE);
@@ -1266,6 +1266,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
                 "\t\t<str "+ReadConfiguration.KEY+"='' "+ReadConfiguration.VALUE+"='my_val'/>\n" +
                 "\t\t<str "+ReadConfiguration.VALUE+"='pkg.MyVal'/>\n" +
                 "\t</sm>\n" +
+                "\t<_ "+ReadConfiguration.FIELD+"='"+ReadConfiguration.INIT_DB+"' "+ReadConfiguration.VALUE+"='cl.Init.init'/>\n" +
                 "</cfg>";
     }
     public static StringMap<ContentTime> init() {
