@@ -34,13 +34,10 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
 //        BeanNatCommonLgNames.methName(_concat);
         return BeanNatCommonLgNames.processString(res_);
 //        String urlDest_ = _currentUrl;
-//        assert _ret != NullStruct.NULL_VALUE;
 //        if (_ret != NullStruct.NULL_VALUE) {
 //            StringMap<String> cases_ = _navigation.getVal(_concat);
 //            String ca_ = BeanNatCommonLgNames.processString(_ret);
-//            assert cases_ == null;
 //            if (cases_ == null) {
-//                assert !ca_.isEmpty();
 ////                if (ca_.isEmpty()) {
 ////                    return _currentUrl;
 ////                }

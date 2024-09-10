@@ -131,17 +131,6 @@ public final class RulesBelote {
         list_.add(150);
         list_.add(160);
         list_.add(MOST);
-//        assert list_.size() == 10;
-//        assert list_.get(0) == 80;
-//        assert list_.get(1) == 90;
-//        assert list_.get(2) == 100;
-//        assert list_.get(3) == 110;
-//        assert list_.get(4) == 120;
-//        assert list_.get(5) == 130;
-//        assert list_.get(6) == 140;
-//        assert list_.get(7) == 150;
-//        assert list_.get(8) == 160;
-//        assert list_.get(9) == 162;
         return list_;
     }
 

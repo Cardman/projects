@@ -882,7 +882,6 @@ public final class FightFacade {
 //                }
 //                i_++;
 //            }
-//            assert substitute_ == fighters_.first();
             retSubsChoice(_fight, fighters_);
             return;
         }

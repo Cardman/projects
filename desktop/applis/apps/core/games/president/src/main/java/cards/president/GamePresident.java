@@ -696,9 +696,6 @@ public final class GamePresident {
     }
 
     public byte addCardsToCurrentTrickAndLoop(HandPresident _hand) {
-//        if (_hand.estVide()) {
-//            assert keepPlayingCurrentTrick();
-//        }
         byte pl_ = setupStatus(_hand);
         addCardsToCurrentTrick(_hand);
         lookupNextPlayer();

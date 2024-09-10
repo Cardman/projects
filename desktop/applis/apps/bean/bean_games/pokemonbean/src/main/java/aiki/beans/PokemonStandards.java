@@ -361,13 +361,10 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NaSt gl_ = used(natPage);
         NaSt return_ = redirect(natPage, _rendStack, gl_);
         //        String urlDest_ = _currentUrl;
-//        assert _ret != NullStruct.NULL_VALUE;
 //        if (_ret != NullStruct.NULL_VALUE) {
 //            StringMap<String> cases_ = _navigation.getVal(_concat);
 //            String ca_ = BeanNatCommonLgNames.processString(_ret);
-//            assert cases_ == null;
 //            if (cases_ == null) {
-//                assert !ca_.isEmpty();
 ////                if (ca_.isEmpty()) {
 ////                    return _currentUrl;
 ////                }

@@ -16,7 +16,6 @@ public final class MockNameValidating implements AbstractNameValidating {
 
     @Override
     public boolean ok(String _input) {
-//        assert !(_input).contains("-");
         boolean contained_ = false;
         for (char c : _input.toCharArray()) {
             if (c < '0' && c != '.' && c != '$') {

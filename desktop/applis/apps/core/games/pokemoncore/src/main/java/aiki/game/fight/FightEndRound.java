@@ -441,7 +441,6 @@ final class FightEndRound {
 //            if (!(e instanceof EffectEndRoundSingleRelation)) {
 //                continue;
 //            }
-//            assert e == _elt.getEff();
 //            EffectEndRoundSingleRelation effetFinTour_ = (EffectEndRoundSingleRelation) e;
 //            for(TeamPosition c:FightOrder.sortedFightersAmongListEndRound(_fight,false, _import)){
 //                effectEndRoundSingleRelation(_fight,c,effetFinTour_, _elt.getElement(), _diff, _import);
@@ -465,7 +464,6 @@ final class FightEndRound {
 //                continue;
 //            }
 //            EffectEndRoundPositionRelation effetFinTour_ = (EffectEndRoundPositionRelation) e;
-//            assert effetFinTour_ == _elt.getEff();
 //            for(TeamPosition c:FightOrder.sortedFightersAmongListEndRound(_fight,false, _import)){
 //                effectEndRoundPositionRelation(_fight,c,effetFinTour_, _elt.getElement(), _import);
 //            }
@@ -492,7 +490,6 @@ final class FightEndRound {
 //                continue;
 //            }
 //            EffectEndRoundIndividual effetFinTour_ = (EffectEndRoundIndividual) e;
-//            assert effetFinTour_ == _elt.getEff();
 //            for(TeamPosition c:FightOrder.sortedFightersAmongListEndRound(_fight,true, _import)){
 //                Fighter creature_= _fight.getFighter(c);
 //                if(!creature_.getEnabledMovesEndRound().getVal(_elt.getElement()).isEnabled()){
