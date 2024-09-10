@@ -265,7 +265,7 @@ public final class MessagesCorePk {
         f_.add(Fight.ERR_SUBSTITUTE,"{0} ne peut pas être remplaçant deux fois.");
         f_.add(Fight.ERR_SUBSTITUTE_BELONG,"La place ne vous appartient pas.");
         f_.add(Fight.ERR_SUBSTITUTE_KO_END_ROUND,"{0} est ko, donc {0} ne peut pas rester au front.");
-        f_.add(Fight.ERR_SUBSTITUTE_NO_SWITCH_PLACE,"Vous ne pouvez pas &eaute;changer un pokemon de front avec un autre pokemon de front.");
+        f_.add(Fight.ERR_SUBSTITUTE_NO_SWITCH_PLACE,"Vous ne pouvez pas échanger un pokemon de front avec un autre pokemon de front.");
         f_.add(Fight.ERR_SUBSTITUTE_PLACE,"La place numéro {0} est utilisée au moins deux fois.");
         f_.add(Fight.ERR_SUBSTITUTE_USED_PLACE,"Chaque place vous appartenant doit être utilisée une fois seulement.");
         f_.add(Fight.ERR_SWITCH,"{0} doit avoir un seul remplaçant.");
