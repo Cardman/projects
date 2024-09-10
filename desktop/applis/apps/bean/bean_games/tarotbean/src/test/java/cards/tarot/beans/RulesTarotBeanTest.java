@@ -6,6 +6,7 @@ import cards.tarot.RulesTarot;
 import cards.tarot.enumerations.*;
 import code.bean.nat.NatNavigation;
 import code.bean.nat.*;
+import code.scripts.confs.TarotScriptPages;
 import code.scripts.pages.cards.MessTarotPage;
 import code.scripts.pages.cards.PagesTarots;
 import code.sml.util.TranslationsAppli;
@@ -107,7 +108,7 @@ public final class RulesTarotBeanTest extends BeanTarotCommonTs {
         nav_.setLanguage(EN);
         stds_.setDataBaseRules(rules(DealingTarot.DEAL_1_VS_4, true, true));
         stds_.initializeRendSessionDoc(nav_);
-        assertEq("<html xmlns:c=\"javahtml\"><head><link href=\"resources_cards/css/tarot.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
+        assertEq("<html xmlns:c=\"javahtml\"><head><link href=\""+TarotScriptPages.CSS+"\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
                 "\tcolor:blue;\n" +
                 "}\n" +
                 "td,caption{\n" +
@@ -128,7 +129,7 @@ public final class RulesTarotBeanTest extends BeanTarotCommonTs {
         nav_.setLanguage(FR);
         stds_.setDataBaseRules(rules(DealingTarot.DEAL_1_VS_4, true, true));
         stds_.initializeRendSessionDoc(nav_);
-        assertEq("<html xmlns:c=\"javahtml\"><head><link href=\"resources_cards/css/tarot.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
+        assertEq("<html xmlns:c=\"javahtml\"><head><link href=\""+TarotScriptPages.CSS+"\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
                 "\tcolor:blue;\n" +
                 "}\n" +
                 "td,caption{\n" +

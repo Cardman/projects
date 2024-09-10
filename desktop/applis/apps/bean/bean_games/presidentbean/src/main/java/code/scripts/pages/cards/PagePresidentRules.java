@@ -1,11 +1,12 @@
 package code.scripts.pages.cards;
+import code.scripts.confs.*;
 import code.scripts.pages.aiki.PageCardsCommon;
 import code.sml.*;
 import code.util.*;
 final class PagePresidentRules extends PageCardsCommon{
 private static final String C_2_0_0="rules";
 private static final String C_2_0_1="javahtml";
-private static final String C_2_0_2="resources_cards/css/president.css";
+private static final String C_2_0_2=PresidentScriptPages.CSS;
 private static final String C_2_0_3="stylesheet";
 private static final String C_2_0_4="text/css";
 private static final String C_2_0_5="msg,beat_cards";

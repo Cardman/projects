@@ -1,5 +1,6 @@
 package code.scripts.pages.cards;
 import code.bean.nat.analyze.blocks.*;
+import code.scripts.confs.TarotScriptPages;
 import code.sml.util.*;
 import code.util.*;
 public final class MessTarotPage{
@@ -291,7 +292,7 @@ return b;
 }
 public static StringMap<String> ms(){
 StringMap<String> t = new StringMap<String>();
-t.addEntry("resources_cards/css/tarot.css",css());
+t.addEntry(TarotScriptPages.CSS,css());
 //t.addEntry("resources_cards/messages/en/messages_tarot.properties",en());
 //t.addEntry("resources_cards/messages/fr/messages_tarot.properties",fr());
 return t;

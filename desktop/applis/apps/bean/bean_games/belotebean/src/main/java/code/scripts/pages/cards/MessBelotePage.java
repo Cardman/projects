@@ -1,5 +1,6 @@
 package code.scripts.pages.cards;
 import code.bean.nat.analyze.blocks.*;
+import code.scripts.confs.BeloteScriptPages;
 import code.sml.util.*;
 import code.util.*;
 public final class MessBelotePage{
@@ -141,7 +142,7 @@ return b;
 }
 public static StringMap<String> ms(){
 StringMap<String> b = new StringMap<String>();
-b.addEntry("resources_cards/css/belote.css",css());
+b.addEntry(BeloteScriptPages.CSS,css());
 //b.addEntry("resources_cards/messages/en/messages_belote.properties",en());
 //b.addEntry("resources_cards/messages/fr/messages_belote.properties",fr());
 return b;

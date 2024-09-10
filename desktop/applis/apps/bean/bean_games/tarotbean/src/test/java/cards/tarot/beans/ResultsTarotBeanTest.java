@@ -6,6 +6,7 @@ import cards.tarot.*;
 import cards.tarot.enumerations.*;
 import code.bean.nat.NatNavigation;
 import code.bean.nat.*;
+import code.scripts.confs.TarotScriptPages;
 import code.scripts.pages.cards.MessTarotPage;
 import code.scripts.pages.cards.PagesTarots;
 import code.sml.util.TranslationsAppli;
@@ -274,7 +275,7 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
         nav_.setLanguage(EN);
         stds_.setDataBase(resultsFive(game4(), 0));
         stds_.initializeRendSessionDoc(nav_);
-        assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\"resources_cards/css/tarot.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
+        assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\""+TarotScriptPages.CSS+"\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
                 "\tcolor:blue;\n" +
                 "}\n" +
                 "td,caption{\n" +
@@ -295,7 +296,7 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
         nav_.setLanguage(EN);
         stds_.setDataBase(resultsFive(game7(), 0));
         stds_.initializeRendSessionDoc(nav_);
-        assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\"resources_cards/css/tarot.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
+        assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\""+TarotScriptPages.CSS+"\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
                 "\tcolor:blue;\n" +
                 "}\n" +
                 "td,caption{\n" +
@@ -316,7 +317,7 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
         nav_.setLanguage(EN);
         stds_.setDataBase(resultsFive(game8(), 0));
         stds_.initializeRendSessionDoc(nav_);
-        assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\"resources_cards/css/tarot.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
+        assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\""+TarotScriptPages.CSS+"\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
                 "\tcolor:blue;\n" +
                 "}\n" +
                 "td,caption{\n" +

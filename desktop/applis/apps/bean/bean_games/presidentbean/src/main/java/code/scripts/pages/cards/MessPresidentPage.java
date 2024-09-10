@@ -1,5 +1,6 @@
 package code.scripts.pages.cards;
 import code.bean.nat.analyze.blocks.*;
+import code.scripts.confs.PresidentScriptPages;
 import code.sml.util.*;
 import code.util.*;
 public final class MessPresidentPage{
@@ -87,7 +88,7 @@ return b;
 }
 public static StringMap<String> ms(){
 StringMap<String> p = new StringMap<String>();
-p.addEntry("resources_cards/css/president.css",css());
+p.addEntry(PresidentScriptPages.CSS,css());
 //p.addEntry("resources_cards/messages/en/messages_president.properties",en());
 //p.addEntry("resources_cards/messages/fr/messages_president.properties",fr());
 return p;

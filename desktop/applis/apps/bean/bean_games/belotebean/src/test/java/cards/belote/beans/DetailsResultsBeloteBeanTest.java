@@ -4,6 +4,7 @@ import cards.belote.*;
 import cards.belote.enumerations.*;
 import cards.consts.*;
 import code.bean.nat.NatNavigation;
+import code.scripts.confs.BeloteScriptPages;
 import code.scripts.pages.cards.MessBelotePage;
 import code.scripts.pages.cards.PagesBelotes;
 import code.sml.util.*;
@@ -80,7 +81,7 @@ public final class DetailsResultsBeloteBeanTest extends BeanBeloteCommonTs {
         nav_.setLanguage(EN);
         stds_.setDataBase(results(game1(), 0));
         stds_.initializeRendSessionDoc(nav_);
-        assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\"resources_cards/css/belote.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
+        assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\""+BeloteScriptPages.CSS+"\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
                 "\tcolor:blue;\n" +
                 "}\n" +
                 "</style></head><body><h1>Details of declaring</h1><ul><li>0's declaring (taker):<br/><ul><li>hundred : 100</li><li> : 20</li><li> : 10</li><li>Sum :130</li></ul></li><li>1's declaring (defender):No thing</li><li>2's declaring (partner):No thing</li><li>3's declaring (defender):No thing</li></ul></body></html>",nav_.getHtmlText());

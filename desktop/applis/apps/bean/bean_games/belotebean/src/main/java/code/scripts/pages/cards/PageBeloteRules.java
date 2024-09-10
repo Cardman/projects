@@ -1,11 +1,12 @@
 package code.scripts.pages.cards;
+import code.scripts.confs.*;
 import code.scripts.pages.aiki.PageCardsCommon;
 import code.sml.*;
 import code.util.*;
 final class PageBeloteRules extends PageCardsCommon{
 private static final String C_1_0_0="rules";
 private static final String C_1_0_1="javahtml";
-private static final String C_1_0_2="resources_cards/css/belote.css";
+private static final String C_1_0_2=BeloteScriptPages.CSS;
 private static final String C_1_0_3="stylesheet";
 private static final String C_1_0_4="text/css";
 private static final String C_1_0_5="msg,beat_cards";

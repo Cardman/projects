@@ -5,6 +5,7 @@ import cards.belote.enumerations.*;
 import cards.consts.*;
 import code.bean.nat.NatNavigation;
 import code.bean.nat.*;
+import code.scripts.confs.BeloteScriptPages;
 import code.scripts.pages.cards.MessBelotePage;
 import code.scripts.pages.cards.PagesBelotes;
 import code.sml.util.*;
@@ -210,7 +211,7 @@ public final class ResultsBeloteBeanTest extends BeanBeloteCommonTs {
         nav_.setLanguage(EN);
         stds_.setDataBase(results(game1(), 0));
         stds_.initializeRendSessionDoc(nav_);
-        assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\"resources_cards/css/belote.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
+        assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\""+BeloteScriptPages.CSS+"\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
                 "\tcolor:blue;\n" +
                 "}\n" +
                 "</style></head><body><h1>1 Calculation of attack team's points</h1><ul><li>Number of necessary points in order that the taker wins:0</li><li>Number of points won in the attack team's tricks:262</li></ul><h1>2 Attack team</h1><ul><li>Taker:0</li><li>Taker's partners:<ul><li>2</li></ul></li><li>Bid:spade</li></ul><h1>3 Results</h1><p>Scored points by attack's team without bonuses:152</p><br/><p>Scored points by defense's team without bonuses:0</p><br/><p>Scored points by attack's team with bonuses:262</p><br/><p>Scored points by defense's team with bonuses:0</p><br/><p>Final scored points by attack's team:262</p><br/><p>Final scored points by defense's team:0</p><br/><p>You win.</p><br/><p>The bid spade is passed of 262 points.</p><br/><p>The attack's team has achieved the grand slam.</p><br/><br/><table border=\"1\"><caption>Scores</caption><thead><tr><td/><td>0</td><td>1</td><td>2</td><td>3</td></tr></thead><tbody><tr><td>0</td><td>262</td><td>0</td><td>262</td><td>0</td></tr></tbody></table><br/></body></html>",nav_.getHtmlText());

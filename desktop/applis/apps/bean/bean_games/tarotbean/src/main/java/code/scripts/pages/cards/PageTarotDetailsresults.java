@@ -1,4 +1,5 @@
 package code.scripts.pages.cards;
+import code.scripts.confs.*;
 import code.scripts.pages.aiki.PageCardsCommon;
 import code.sml.*;
 import code.util.*;
@@ -6,7 +7,7 @@ final class PageTarotDetailsresults extends PageCardsCommon{
 private static final String C_3_2_0="details";
 private static final String C_3_2_1="javahtml";
 private static final String C_3_2_2="msg,results";
-private static final String C_3_2_3="resources_cards/css/tarot.css";
+private static final String C_3_2_3=TarotScriptPages.CSS;
 private static final String C_3_2_4="stylesheet";
 private static final String C_3_2_5="text/css";
 private static final String C_3_2_6="playClassicGame()";

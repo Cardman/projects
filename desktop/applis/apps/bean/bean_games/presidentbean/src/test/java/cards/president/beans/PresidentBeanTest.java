@@ -5,6 +5,7 @@ import cards.president.*;
 import cards.president.enumerations.CardPresident;
 import code.bean.nat.NatNavigation;
 import code.bean.nat.*;
+import code.scripts.confs.PresidentScriptPages;
 import code.scripts.pages.cards.MessPresidentPage;
 import code.scripts.pages.cards.PagesPresidents;
 import code.sml.util.*;
@@ -50,7 +51,7 @@ public final class PresidentBeanTest extends BeanPresidentCommonTs {
         nav_.setLanguage(EN);
         stds_.setDataBase(build(fourPseudos("0", "1", "2", "3"), oneDeal(1, 3, 2, 4), (byte) 2, (byte) 1, (byte) 3, (byte) 4));
         stds_.initializeRendSessionDoc(nav_);
-        assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\"resources_cards/css/president.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
+        assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\""+PresidentScriptPages.CSS+"\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
                 "\tcolor:blue;\n" +
                 "}\n" +
                 "</style></head><body><table border=\"1\"><caption>Ranks</caption><thead><tr><td/><td>0</td><td>1</td><td>2</td><td>3</td></tr></thead><tbody><tr><td>0</td><td>1</td><td>3</td><td>2</td><td>4</td></tr><tr><td>1</td><td>2</td><td>1</td><td>3</td><td>4</td></tr></tbody></table><br/></body></html>",nav_.getHtmlText());
@@ -67,7 +68,7 @@ public final class PresidentBeanTest extends BeanPresidentCommonTs {
         nav_.setLanguage(EN);
         stds_.setDataBase(build(game(),fourPseudos("0", "1", "2", "3"), oneDeal(1, 3, 2, 4)));
         stds_.initializeRendSessionDoc(nav_);
-        assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\"resources_cards/css/president.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
+        assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\""+PresidentScriptPages.CSS+"\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
                 "\tcolor:blue;\n" +
                 "}\n" +
                 "</style></head><body><table border=\"1\"><caption>Ranks</caption><thead><tr><td/><td>0</td><td>1</td><td>2</td><td>3</td></tr></thead><tbody><tr><td>0</td><td>1</td><td>3</td><td>2</td><td>4</td></tr><tr><td>1</td><td>2</td><td>5</td><td>5</td><td>8</td></tr></tbody></table><br/></body></html>",nav_.getHtmlText());

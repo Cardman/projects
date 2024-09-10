@@ -1,4 +1,5 @@
 package code.scripts.pages.cards;
+import code.scripts.confs.*;
 import code.scripts.pages.aiki.PageCardsCommon;
 import code.sml.*;
 import code.util.*;
@@ -6,7 +7,7 @@ final class PageBeloteDetailsresults extends PageCardsCommon{
 private static final String C_1_2_0="details";
 private static final String C_1_2_1="javahtml";
 private static final String C_1_2_2="msg,results";
-private static final String C_1_2_3="resources_cards/css/belote.css";
+private static final String C_1_2_3=BeloteScriptPages.CSS;
 private static final String C_1_2_4="stylesheet";
 private static final String C_1_2_5="text/css";
 private static final String C_1_2_6="msg,detail";

@@ -6,6 +6,7 @@ import cards.president.RulesPresident;
 import cards.president.enumerations.EqualtyPlaying;
 import cards.president.enumerations.PresidentCardsExporterUtil;
 import code.bean.nat.NatNavigation;
+import code.scripts.confs.PresidentScriptPages;
 import code.scripts.pages.cards.MessPresidentPage;
 import code.scripts.pages.cards.PagesPresidents;
 import code.sml.util.*;
@@ -125,7 +126,7 @@ public final class RulesPresidentBeanTest extends BeanPresidentCommonTs {
         nav_.setLanguage(EN);
         stds_.setDataBaseRules(rules(true, true, true, true, true, 4, 1));
         stds_.initializeRendSessionDoc(nav_);
-        assertEq("<html xmlns:c=\"javahtml\"><head><link href=\"resources_cards/css/president.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
+        assertEq("<html xmlns:c=\"javahtml\"><head><link href=\""+PresidentScriptPages.CSS+"\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
                 "\tcolor:blue;\n" +
                 "}\n" +
                 "</style></head><body><h1>Mix Cards</h1>at each launching<br/><h1>Number of players</h1>4<br/><h1>Number of stacks</h1>1<br/>Number of cards per player: 13<br/><br/><h1>Equality</h1>forbidden<br/><h1>Possible reversing strength</h1>yes<br/><h1>Every player has to play if possible</h1>yes<br/><h1>A player looses if this player finish by the best cards</h1>yes<br/><h1>For next deals, players can switch their cards at the beginning</h1>yes<br/><h1>For next deals, the looser player starts first the first trick</h1>yes<br/></body></html>",nav_.getHtmlText());
@@ -143,7 +144,7 @@ public final class RulesPresidentBeanTest extends BeanPresidentCommonTs {
         nav_.setLanguage(FR);
         stds_.setDataBaseRules(rules(true, true, true, true, true, 4, 1));
         stds_.initializeRendSessionDoc(nav_);
-        assertEq("<html xmlns:c=\"javahtml\"><head><link href=\"resources_cards/css/president.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
+        assertEq("<html xmlns:c=\"javahtml\"><head><link href=\""+PresidentScriptPages.CSS+"\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
                 "\tcolor:blue;\n" +
                 "}\n" +
                 "</style></head><body><h1>Battre les cartes</h1>at each launching<br/><h1>Nombre de joueurs</h1>4<br/><h1>Nombre de tas</h1>1<br/>Nombre de cartes par joueur: 13<br/><br/><h1>Égalité</h1>forbidden<br/><h1>Révolution possible</h1>oui<br/><h1>Chaque joueur doit jouer si possible</h1>oui<br/><h1>Un joueur perd si ce joueur finit par les meilleures cartes</h1>oui<br/><h1>Pour les donnes suivantes, les joueurs peuvent échanger leurs cartes au début</h1>oui<br/><h1>Pour les donnes suivantes, le perdant commence à jouer le premier pli</h1>oui<br/></body></html>",nav_.getHtmlText());
