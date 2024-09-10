@@ -794,6 +794,64 @@ public final class DefaultBeanAliases implements AbsAliasFileBuilder {
         setAliasDocumentReinitValue(LgNamesContent.get(_util, _cust, _mapping.getVal(DOCUMENT_REINIT_VALUE)));
     }
 
+    public static StringMap<String> mapping() {
+        StringMap<String> m_ = new StringMap<String>();
+        m_.addEntry(BEAN,"Bean");
+        m_.addEntry(MAP_KEYS,"MapKeys");
+        m_.addEntry(MAP_VALUES,"MapValues");
+        m_.addEntry(MAP_INDEX_OF_ENTRY,"MapIndexOfEntry");
+        m_.addEntry(MAP_ADD_ENTRY,"MapAddEntry");
+        m_.addEntry(MAP_GET_VALUE,"MapGetValue");
+        m_.addEntry(MAP_FIRST_VALUE,"MapFirstValue");
+        m_.addEntry(MAP_LAST_VALUE,"MapLastValue");
+        m_.addEntry(MAP_SET_VALUE,"MapSetValue");
+        m_.addEntry(MAP_PUT,"MapPut");
+        m_.addEntry(MAP_CONTAINS,"MapContains");
+        m_.addEntry(MAP_PUT_ALL,"MapPutAll");
+        m_.addEntry(MAP_GET_VAL,"MapGetVal");
+        m_.addEntry(MAP_REMOVE_KEY,"MapRemoveKey");
+        m_.addEntry(MAP_GET_KEY,"MapGetKey");
+        m_.addEntry(MAP_FIRST_KEY,"MapFirstKey");
+        m_.addEntry(MAP_LAST_KEY,"MapLastKey");
+        m_.addEntry(MAP_SET_KEY,"MapSetKey");
+        m_.addEntry(MAP_SIZE,"MapSize");
+        m_.addEntry(MAP_IS_EMPTY,"MapIsEmpty");
+        m_.addEntry(MAP_CLEAR,"MapClear");
+        m_.addEntry(VALIDATOR,"Validator");
+        m_.addEntry(VALIDATE,"Validate");
+        m_.addEntry(REINIT_EQ_INTERFACE,"ReinitInterface");
+        m_.addEntry(REINIT_EQ_METHOD,"ReinitMethod");
+        m_.addEntry(DATA_BASE_FIELD,"DataBaseField");
+        m_.addEntry(FORMS,"Forms");
+        m_.addEntry(SET_FORMS,"SetForms");
+        m_.addEntry(GET_FORMS,"GetForms");
+        m_.addEntry(LANGUAGE,"Language");
+        m_.addEntry(SET_LANGUAGE,"SetLanguage");
+        m_.addEntry(GET_LANGUAGE,"GetLanguage");
+        m_.addEntry(SCOPE,"Scope");
+        m_.addEntry(SET_SCOPE,"SetScope");
+        m_.addEntry(GET_SCOPE,"GetScope");
+        m_.addEntry(SET_DATA_BASE,"SetDataBase");
+        m_.addEntry(GET_DATA_BASE,"GetDataBase");
+        m_.addEntry(BEFORE_DISPLAYING,"BeforeDisplaying");
+        m_.addEntry(STRING_MAP_OBJECT,"StringMapObject");
+        m_.addEntry(MESSAGE,"Message");
+        m_.addEntry(DOCUMENT,"Document");
+        m_.addEntry(DOCUMENT_ALL,"DocumentAll");
+        m_.addEntry(DOCUMENT_VALIDATOR_ARRAY,"DocumentValidatorArray");
+        m_.addEntry(DOCUMENT_VALIDATOR_VALUE,"DocumentValidatorValue");
+        m_.addEntry(DOCUMENT_REINIT_ARRAY,"DocumentReinitArray");
+        m_.addEntry(DOCUMENT_REINIT_VALUE,"DocumentReinitValue");
+        m_.addEntry(DOCUMENT_BEAN_ARRAY,"DocumentBeanArray");
+        m_.addEntry(DOCUMENT_BEAN_VALUE,"DocumentBeanValue");
+        m_.addEntry(DOCUMENT_BEAN_NAME,"DocumentBeanName");
+        m_.addEntry(NEW_MESSAGE,"NewMessage");
+        m_.addEntry(MESSAGE_FORMAT,"MessageFormat");
+        m_.addEntry(MESSAGE_GET_ARGS,"MessageGetArgs");
+        m_.addEntry(MESSAGE_SET_ARGS,"MessageSetArgs");
+        BeanAliasParameters.mapping(m_);
+        return m_;
+    }
     public StringMap<String> allRefTypes(StringMap<String> _mapping) {
         StringMap<String> types_ = new StringMap<String>();
         types_.addEntry(_mapping.getVal(MESSAGE),getAliasMessage());

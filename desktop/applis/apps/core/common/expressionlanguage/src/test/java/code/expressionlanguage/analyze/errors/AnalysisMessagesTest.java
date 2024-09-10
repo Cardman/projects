@@ -15,6 +15,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.sample.CustLgNames;
+import code.expressionlanguage.stds.LgNamesContent;
 import code.expressionlanguage.stds.ListLoggableLgNames;
 import code.util.CustList;
 import code.util.core.IndexConstants;
@@ -275,6 +276,8 @@ public final class AnalysisMessagesTest extends EquallableElUtil {
         Forwards forwards_ = ProcessMethodCommon.fwd(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_);
         AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        page_.setMappingKeyWords(KeyWords.mapping());
+        page_.setMappingAliases(LgNamesContent.mapping());
         ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
         ParsedArgument.buildCustom(opt_, kw_);
         lgName_.build();

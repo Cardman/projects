@@ -2639,6 +2639,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         page_.setCalculator(null);
         AnalysisMessages.validateMessageContents(mess_.allMessages(), page_);
         assertTrue(page_.isEmptyMessageError());
+        page_.setMappingKeyWords(KeyWords.mapping());
         return page_;
     }
     @Test

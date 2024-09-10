@@ -410,6 +410,7 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
         StringMap<String> m_ = stds_.getExecContent().getCustAliases().extractAliasesKeys();
         m_.addAllEntries(LgNamesGui.extractAliasesKeys(stds_.getExecContent().getCustAliases()));
         page_.setMappingAliases(m_);
+        page_.setMappingKeyWords(stds_.getExecContent().getCustAliases().extractKeywordsKeys());
         AbstractFileBuilder fileBuilder_ = new GuiFileBuilderFactory(stds_).build();
         Forwards forwards_ = new Forwards(stds_, stds_.getExecContent(), fileBuilder_, opt_);
         forwards_.getResources().addAllEntries(files_);

@@ -337,6 +337,15 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         TranslationsFile com_ = app_.getMapping().getVal(DefaultBeanAliases.TYPES_RENDER);
         return TranslationsFile.extractKeys(com_);
     }
+    public static StringMap<String> extractAliasesKeysFull(CustAliases _cust) {
+        TranslationsLg lg_ = CustAliases.lg(_cust.getTranslations(), _cust.getUserLg(), _cust.getLanguage());
+        TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
+        TranslationsFile base_ = app_.getMapping().getVal(FileInfos.TYPES);
+        TranslationsFile com_ = app_.getMapping().getVal(DefaultBeanAliases.TYPES_RENDER);
+        StringMap<String> union_ = TranslationsFile.extractKeys(base_);
+        union_.addAllEntries(TranslationsFile.extractKeys(com_));
+        return union_;
+    }
 
     public static StringMap<String> defAliases(String _lg, Translations _trs, String _language) {
         TranslationsLg lg_ = CustAliases.lg(_trs, _lg, _language);
@@ -459,6 +468,6 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
 
     @Override
     public StringMap<String> mappingAliases() {
-        return execContent.getCustAliases().extractAliasesKeys();
+        return extractAliasesKeysFull(execContent.getCustAliases());
     }
 }

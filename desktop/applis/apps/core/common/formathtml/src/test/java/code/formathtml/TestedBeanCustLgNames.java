@@ -14,6 +14,7 @@ import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.errors.RendKeyWords;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanFileBuilder;
+import code.formathtml.util.DefaultBeanAliases;
 import code.maths.montecarlo.AbstractGenerator;
 import code.util.CustList;
 import code.util.StringMap;
@@ -92,7 +93,9 @@ public abstract class TestedBeanCustLgNames extends BeanCustLgNames {
 
     @Override
     public StringMap<String> mappingAliases() {
-        return LgNamesContent.mapping();
+        StringMap<String> all_ = LgNamesContent.mapping();
+        all_.addAllEntries(DefaultBeanAliases.mapping());
+        return all_;
     }
 
     @Override

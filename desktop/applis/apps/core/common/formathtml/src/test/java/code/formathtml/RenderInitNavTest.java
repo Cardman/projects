@@ -1610,6 +1610,8 @@ public final class RenderInitNavTest extends CommonRender {
         KeyWords kw_ = new KeyWords();
         int tabWidth_ = 4;
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        page_.setMappingKeyWords(lgNames_.mappingKeywords());
+        page_.setMappingAliases(lgNames_.mappingAliases());
         BeanFileBuilder fileBuilder_ = BeanFileBuilder.newInstance(lgNames_.getContent(), lgNames_.getBeanAliases());
         updateMockBuilders(lgNames_,page_);
         Forwards fwd_ = fwd(lgNames_, fileBuilder_, opt_);

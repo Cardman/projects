@@ -157,6 +157,44 @@ public final class BeanAliasParameters {
         _fr.add(REINIT_0_REINIT_BEAN_4,"aliasReinit0ReinitBean4=e");
         _fr.add(REINIT_0_REINIT_BEAN_5,"aliasReinit0ReinitBean5=f");
     }
+    public static void mapping(StringMap<String> _m) {
+        _m.addEntry(BEAN_0_SET_LANGUAGE_0,"Bean0SetLanguage0");
+        _m.addEntry(BEAN_0_SET_SCOPE_0,"Bean0SetScope0");
+        _m.addEntry(BEAN_0_SET_DATA_BASE_0,"Bean0SetDataBase0");
+        _m.addEntry(BEAN_0_SET_FORMS_0,"Bean0SetForms0");
+        _m.addEntry(STRING_MAP_OBJECT_0_SET_KEY_0,"StringMapObject0SetKey0");
+        _m.addEntry(STRING_MAP_OBJECT_0_SET_KEY_1,"StringMapObject0SetKey1");
+        _m.addEntry(STRING_MAP_OBJECT_0_GET_KEY_0,"StringMapObject0GetKey0");
+        _m.addEntry(STRING_MAP_OBJECT_0_SET_VALUE_0,"StringMapObject0SetValue0");
+        _m.addEntry(STRING_MAP_OBJECT_0_SET_VALUE_1,"StringMapObject0SetValue1");
+        _m.addEntry(STRING_MAP_OBJECT_0_GET_VALUE_0,"StringMapObject0GetValue0");
+        _m.addEntry(STRING_MAP_OBJECT_0_PUT_0,"StringMapObject0Put0");
+        _m.addEntry(STRING_MAP_OBJECT_0_PUT_1,"StringMapObject0Put1");
+        _m.addEntry(STRING_MAP_OBJECT_0_ADD_ENTRY_0,"StringMapObject0AddEntry0");
+        _m.addEntry(STRING_MAP_OBJECT_0_ADD_ENTRY_1,"StringMapObject0AddEntry1");
+        _m.addEntry(STRING_MAP_OBJECT_0_CONTAINS_0,"StringMapObject0Contains0");
+        _m.addEntry(STRING_MAP_OBJECT_0_GET_VAL_0,"StringMapObject0GetVal0");
+        _m.addEntry(STRING_MAP_OBJECT_0_INDEX_OF_ENTRY_0,"StringMapObject0IndexOfEntry0");
+        _m.addEntry(STRING_MAP_OBJECT_0_PUT_ALL_0,"StringMapObject0PutAll0");
+        _m.addEntry(STRING_MAP_OBJECT_0_REMOVE_KEY_0,"StringMapObject0RemoveKey0");
+        _m.addEntry(VALIDATOR_0_VALIDATE_0,"Validator0Validate0");
+        _m.addEntry(VALIDATOR_0_VALIDATE_1,"Validator0Validate1");
+        _m.addEntry(VALIDATOR_0_VALIDATE_2,"Validator0Validate2");
+        _m.addEntry(VALIDATOR_0_VALIDATE_3,"Validator0Validate3");
+        _m.addEntry(VALIDATOR_0_VALIDATE_4,"Validator0Validate4");
+        _m.addEntry(VALIDATOR_0_VALIDATE_5,"Validator0Validate5");
+        _m.addEntry(MESSAGE_1_NEW_MESSAGE_0,"Message1NewMessage0");
+        _m.addEntry(MESSAGE_0_SET_ARGS_0,"Message0SetArgs0");
+        _m.addEntry(DOCUMENT_0_BEAN_VALUE_0,"Document0BeanValue0");
+        _m.addEntry(DOCUMENT_0_VALIDATOR_VALUE_0,"Document0ValidatorValue0");
+        _m.addEntry(DOCUMENT_0_REINIT_VALUE_0,"Document0ReinitValue0");
+        _m.addEntry(REINIT_0_REINIT_BEAN_0,"aliasReinit0ReinitBean0");
+        _m.addEntry(REINIT_0_REINIT_BEAN_1,"aliasReinit0ReinitBean1");
+        _m.addEntry(REINIT_0_REINIT_BEAN_2,"aliasReinit0ReinitBean2");
+        _m.addEntry(REINIT_0_REINIT_BEAN_3,"aliasReinit0ReinitBean3");
+        _m.addEntry(REINIT_0_REINIT_BEAN_4,"aliasReinit0ReinitBean4");
+        _m.addEntry(REINIT_0_REINIT_BEAN_5,"aliasReinit0ReinitBean5");
+    }
     public CustList<CustList<KeyValueMemberName>> allTableTypeMethodParamNames(StringMap<String> _mapping) {
         CustList<CustList<KeyValueMemberName>> m_ = new CustList<CustList<KeyValueMemberName>>();
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(BEAN_0_SET_LANGUAGE_0),aliasBean0SetLanguage0)));

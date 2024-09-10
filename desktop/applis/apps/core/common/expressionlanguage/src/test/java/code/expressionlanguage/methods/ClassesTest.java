@@ -103,6 +103,8 @@ public final class ClassesTest extends ProcessMethodCommon {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards fwd_ = fwd(lgName_, fileBuilder_, opts_);
         page_.setLogErr(fwd_);
+        page_.setMappingKeyWords(KeyWords.mapping());
+        page_.setMappingAliases(LgNamesContent.mapping());
         AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
         assertFalse(ContextFactory.validateStds(new AnalysisElementsBase(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, lgName_.getContent(), page_)));
         validateAndRetWithoutInitCheck(opts_, lgName_, kw_, new StringMap<String>(), new StringMap<String>());
@@ -125,6 +127,8 @@ public final class ClassesTest extends ProcessMethodCommon {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards fwd_ = fwd(lgName_, fileBuilder_, opts_);
         page_.setLogErr(fwd_);
+        page_.setMappingKeyWords(KeyWords.mapping());
+        page_.setMappingAliases(LgNamesContent.mapping());
         AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
         assertFalse(ContextFactory.validateStds(new AnalysisElementsBase(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, lgName_.getContent(), page_)));
         validateAndRetWithoutInitCheck(opts_, lgName_, kw_, new StringMap<String>(), new StringMap<String>());

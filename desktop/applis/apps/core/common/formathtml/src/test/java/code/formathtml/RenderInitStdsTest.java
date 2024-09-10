@@ -13,6 +13,7 @@ import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ValidatorStandard;
+import code.expressionlanguage.stds.LgNamesContent;
 import code.formathtml.analyze.ResultText;
 import code.formathtml.common.AdvFileEscapedCalc;
 import code.formathtml.exec.ImportingPage;
@@ -60,6 +61,8 @@ public final class RenderInitStdsTest extends CommonRender {
         BeanFileBuilder fileBuilder_ = BeanFileBuilder.newInstance(b_.getContent(), b_.getBeanAliases());
         Forwards forwards_ = fwd(b_, fileBuilder_, options_);
         page_.setLogErr(forwards_);
+        page_.setMappingKeyWords(b_.mappingKeywords());
+        page_.setMappingAliases(b_.mappingAliases());
         AnalysisMessages.validateMessageContents(am_.allMessages(), page_);
         ContextFactory.validatedStds(forwards_, am_, k_, new CustList<CommentDelimiters>(), options_, b_.getContent(), page_);
         b_.build();
@@ -109,6 +112,8 @@ public final class RenderInitStdsTest extends CommonRender {
         conf_.setPrefix("c");
         int tabWidth_ = 4;
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        page_.setMappingKeyWords(_beanLgNames.mappingKeywords());
+        page_.setMappingAliases(_beanLgNames.mappingAliases());
         BeanFileBuilder fileBuilder_ = BeanFileBuilder.newInstance(_beanLgNames.getContent(), _beanLgNames.getBeanAliases());
         Forwards forwards_ = fwd(_beanLgNames, fileBuilder_, _opt);
         page_.setLogErr(forwards_);

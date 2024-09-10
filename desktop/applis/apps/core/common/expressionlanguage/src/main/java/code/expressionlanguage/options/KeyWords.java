@@ -1131,10 +1131,10 @@ public static TranslationsFile fr(){
         return allNbWords(mapping(),_othersWords);
     }
     public StringMap<String> allNbWords(StringMap<String> _mapping,StringMap<String> _othersWords) {
-        StringMap<String> keyWords_ = new StringMap<String>();
-        for (EntryCust<String,String> o: _othersWords.entryList()) {
-            keyWords_.addEntry(_mapping.getVal(o.getKey()),o.getValue());
-        }
+        StringMap<String> keyWords_ = new StringMap<String>(_othersWords);
+//        for (EntryCust<String,String> o: _othersWords.entryList()) {
+//            keyWords_.addEntry(_mapping.getVal(o.getKey()),o.getValue());
+//        }
         keyWords_.addEntry(_mapping.getVal(NB_SUF_DOUBLE_PRIM),keyWordNbSufDoublePrim);
         keyWords_.addEntry(_mapping.getVal(NB_SUF_DOUBLE),keyWordNbSufDouble);
         keyWords_.addEntry(_mapping.getVal(NB_SUF_FLOAT_PRIM),keyWordNbSufFloatPrim);
