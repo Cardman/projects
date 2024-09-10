@@ -17,49 +17,44 @@ import code.sml.*;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
 public final class RendMessage extends RendParentBlock implements RendWithEl {
 
-    private final CustList<CustList<RendDynOperationNode>> opExp;
+    private final CustList<RendMessageOperationNode> opExp;
 
     private final StringMap<String> preformatted;
-    private final CustList<BoolVal> quoted;
-    private final CustList<BoolVal> escaped;
     private final StringMap<CustList<CustList<RendDynOperationNode>>> callsExps;
-    private final StringList args;
     private final StringMap<Document> locDoc;
 
 
-    public RendMessage(CustList<CustList<RendDynOperationNode>> _opExp, StringMap<String> _preformatted, CustList<BoolVal> _quoted, CustList<BoolVal> _escaped,
-                       StringMap<CustList<CustList<RendDynOperationNode>>> _callsExps, StringList _args, StringMap<Document> _locDoc) {
+    public RendMessage(CustList<RendMessageOperationNode> _opExp, StringMap<String> _preformatted,
+                       StringMap<CustList<CustList<RendDynOperationNode>>> _callsExps, StringMap<Document> _locDoc) {
         this.opExp = _opExp;
         this.preformatted = _preformatted;
-        this.quoted = _quoted;
-        this.escaped = _escaped;
         this.callsExps = _callsExps;
-        this.args = _args;
         this.locDoc = _locDoc;
     }
 
     @Override
     public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
-        int l_ = args.size();
+        int l_ = opExp.size();
         StringList objects_ = new StringList();
         StringList anchorArg_ = new StringList();
         for (int i = 0; i< l_; i++) {
-            if (quoted.get(i) == BoolVal.TRUE) {
-                objects_.add(args.get(i));
-                anchorArg_.add(args.get(i));
+            RendMessageOperationNode rend_ = opExp.get(i);
+            if (rend_.isQuotted()) {
+                String arg_ = rend_.getArg();
+                objects_.add(arg_);
+                anchorArg_.add(arg_);
                 continue;
             }
-            Struct arg_ = RenderExpUtil.getFinalArg(opExp.get(i), _ctx, _rendStack);
+            Struct arg_ = RenderExpUtil.getFinalArg(rend_.getOpers(), _ctx, _rendStack);
             if (arg_ == null) {
                 return;
             }
             String res_;
-            if (escaped.get(i) == BoolVal.TRUE) {
+            if (rend_.isEscaped()) {
                 res_ = escapeParam(arg_, _ctx, _rendStack);
             } else {
                 res_ = BeanCustLgNames.processString(arg_, _ctx, _rendStack);
@@ -72,32 +67,50 @@ public final class RendMessage extends RendParentBlock implements RendWithEl {
         }
         String preRend_;
         preRend_= StringUtil.simpleStringsFormat(preformatted.getVal(_cont.getCurrentLanguage()), objects_);
-        CustList<Document> docs_ = new CustList<Document>();
-        docs_.add(locDoc.getVal(_cont.getCurrentLanguage()));
+//        CustList<Document> docs_ = new CustList<Document>();
+        int c_ = count(locDoc.getVal(_cont.getCurrentLanguage()),0);
+//        docs_.add(locDoc.getVal(_cont.getCurrentLanguage()));
         String lt_ = Character.toString(LT_BEGIN_TAG);
         String gt_ = Character.toString(GT_TAG);
         String concat_ = StringUtil.concat(lt_,TMP_BLOCK_TAG,gt_,preRend_,LT_END_TAG,TMP_BLOCK_TAG,gt_);
         DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(concat_);
         Document docLoc_ = res_.getDocument();
-        docs_.add(docLoc_);
-        for (Document d: docs_) {
-            if (d == null) {
-                ImportingPage lastPage_ = _rendStack.getLastPage();
-                RendReadWrite rend_ = lastPage_.getRendReadWrite();
-                Document doc_ = rend_.getDocument();
-                Text t_ = doc_.createTextNode(EMPTY_STRING);
-                NavigationCore.simpleAppendChild(doc_,rend_,t_);
-                t_.appendData(preRend_);
-                processBlock(_cont, _stds, _ctx, _rendStack);
-                return;
-            }
+//        docs_.add(docLoc_);
+        c_ = count(docLoc_, c_);
+        if (c_ > 0) {
+            ImportingPage lastPage_ = _rendStack.getLastPage();
+            RendReadWrite rend_ = lastPage_.getRendReadWrite();
+            Document doc_ = rend_.getDocument();
+            Text t_ = doc_.createTextNode(EMPTY_STRING);
+            NavigationCore.simpleAppendChild(doc_,rend_,t_);
+            t_.appendData(preRend_);
+            processBlock(_cont, _stds, _ctx, _rendStack);
+            return;
         }
+//        for (Document d: docs_) {
+//            if (d == null) {
+//                ImportingPage lastPage_ = _rendStack.getLastPage();
+//                RendReadWrite rend_ = lastPage_.getRendReadWrite();
+//                Document doc_ = rend_.getDocument();
+//                Text t_ = doc_.createTextNode(EMPTY_STRING);
+//                NavigationCore.simpleAppendChild(doc_,rend_,t_);
+//                t_.appendData(preRend_);
+//                processBlock(_cont, _stds, _ctx, _rendStack);
+//                return;
+//            }
+//        }
         for (CustList<RendDynOperationNode> e: callsExps.getVal(_cont.getCurrentLanguage())) {
             _rendStack.getFormParts().getCallsExps().add(new AnchorCall(e,new CustList<AbstractWrapper>()));
         }
 //        _rendStack.getFormParts().getCallsExps().addAllElts(callsExps.getVal(_cont.getCurrentLanguage()));
         injectDoc(_cont, docLoc_, _rendStack.getLastPage().getBeanName(), _rendStack.getLastPage().getRendReadWrite(), _rendStack.getFormParts());
         processBlock(_cont, _stds, _ctx, _rendStack);
+    }
+    private static int count(Document _d, int _o) {
+        if (_d == null) {
+            return _o+1;
+        }
+        return _o;
     }
 
     public static void injectDoc(Configuration _cont, Document _docLoc, String _beanName, RendReadWrite _rendReadWrite, FormParts _formParts) {

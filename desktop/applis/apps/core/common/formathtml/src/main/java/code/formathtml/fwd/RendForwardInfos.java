@@ -302,11 +302,11 @@ public final class RendForwardInfos {
         }
         if (_current instanceof AnaRendMessage){
             AnaRendMessage f_ = (AnaRendMessage) _current;
-            CustList<CustList<RendDynOperationNode>> partSub_ = toExecPartExt(f_.getRoots(), _forwards);
+            CustList<RendMessageOperationNode> partSub_ = toExecPartExtMessage(f_.getRes(), _forwards);
             StringMap<CustList<CustList<RendDynOperationNode>>> map_ = toExecPartMapExt(f_.getCallsRoots(), _forwards);
             return new RendMessage(partSub_,
-                    f_.getPreformatted(),f_.getQuoted(),f_.getEscaped(),map_,
-                    f_.getArgs(),f_.getLocDoc()
+                    f_.getPreformatted(), map_,
+                    f_.getLocDoc()
             );
         }
         return input(_cont,_current, _forwards);
@@ -495,6 +495,14 @@ public final class RendForwardInfos {
         part_.getTexts().addAllElts(_texts);
         part_.setOpExp(parts_);
         return part_;
+    }
+    private static CustList<RendMessageOperationNode> toExecPartExtMessage(CustList<AnaMessageOperationNode> _roots, Forwards _forwards) {
+        CustList<RendMessageOperationNode> parts_;
+        parts_ = new CustList<RendMessageOperationNode>();
+        for (AnaMessageOperationNode r: _roots) {
+            parts_.add(new RendMessageOperationNode(getExecutableNodes(r.getRoot(), _forwards),r.isQuotted(),r.isEscaped(),r.getArg()));
+        }
+        return parts_;
     }
     private static StringMap<CustList<CustList<RendDynOperationNode>>> toExecPartMapExt(StringMap<Integer> _roots, Forwards _forwards) {
         StringMap<CustList<CustList<RendDynOperationNode>>> m_ = new StringMap<CustList<CustList<RendDynOperationNode>>>();

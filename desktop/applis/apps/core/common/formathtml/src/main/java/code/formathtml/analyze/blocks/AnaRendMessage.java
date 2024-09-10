@@ -2,7 +2,6 @@ package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
@@ -11,19 +10,19 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
 public final class AnaRendMessage extends AnaRendParentBlock implements AnaRendBuildEl {
 
     private final Element elt;
-    private CustList<OperationNode> roots;
+//    private CustList<OperationNode> roots;
 
     private StringMap<String> preformatted;
-    private final CustList<BoolVal> quoted = new CustList<BoolVal>();
-    private final CustList<BoolVal> escaped = new CustList<BoolVal>();
+    private final CustList<AnaMessageOperationNode> res = new CustList<AnaMessageOperationNode>();
+//    private final CustList<BoolVal> quoted = new CustList<BoolVal>();
+//    private final CustList<BoolVal> escaped = new CustList<BoolVal>();
     private final StringMap<Integer> callsRoots = new StringMap<Integer>();
-    private final StringList args = new StringList();
+//    private final StringList args = new StringList();
     private final StringMap<Document> locDoc = new StringMap<Document>();
     private final CustList<ResultExpression> resultExpressionList = new CustList<ResultExpression>();
     private final CustList<AnaRendElement> children = new CustList<AnaRendElement>();
@@ -36,7 +35,7 @@ public final class AnaRendMessage extends AnaRendParentBlock implements AnaRendB
 
     @Override
     public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        roots = new CustList<OperationNode>();
+//        roots = new CustList<OperationNode>();
         String value_ = elt.getAttribute(_anaDoc.getRendKeyWords().getAttrValue());
         int offMessage_ = getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrValue());
         preformatted = getPre(value_,offMessage_, _anaDoc, _page);
@@ -47,18 +46,21 @@ public final class AnaRendMessage extends AnaRendParentBlock implements AnaRendB
         for (AnaRendElement e: children) {
             if (e.getRead().hasAttribute(_anaDoc.getRendKeyWords().getAttrQuoted())) {
                 String attribute_ = e.getRead().getAttribute(_anaDoc.getRendKeyWords().getAttrValue());
-                quoted.add(BoolVal.TRUE);
-                escapeQuoted(_anaDoc, e, attribute_);
-                roots.add(null);
+//                escapeQuoted(_anaDoc, e, attribute_);
+                if (e.getRead().hasAttribute(_anaDoc.getRendKeyWords().getAttrEscaped())) {
+                    res.add(new AnaMessageOperationNode(null,true,true,escapeParam(attribute_)));
+                } else {
+                    res.add(new AnaMessageOperationNode(null,true,false,attribute_));
+                }
                 continue;
             }
-            args.add(NavigationCore.EMPTY_STRING);
-            quoted.add(BoolVal.FALSE);
-            escape(_anaDoc, e);
+//            args.add(NavigationCore.EMPTY_STRING);
+//            quoted.add(BoolVal.FALSE);
+//            escape(_anaDoc, e);
             ResultExpression res_ = resultExpressionList.get(index_);
             _page.setSumOffset(res_.getSumOffset());
             _page.zeroOffset();
-            roots.add(RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page,res_));
+            res.add(new AnaMessageOperationNode(RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page,res_),false,e.getRead().hasAttribute(_anaDoc.getRendKeyWords().getAttrEscaped()),NavigationCore.EMPTY_STRING));
             index_++;
         }
         //if (!element_.getAttribute(ATTRIBUTE_ESCAPED).isEmpty()) {
@@ -95,23 +97,23 @@ public final class AnaRendMessage extends AnaRendParentBlock implements AnaRendB
 
     }
 
-    private void escape(AnalyzingDoc _anaDoc, AnaRendElement _e) {
-        if (_e.getRead().hasAttribute(_anaDoc.getRendKeyWords().getAttrEscaped())) {
-            escaped.add(BoolVal.TRUE);
-        } else {
-            escaped.add(BoolVal.FALSE);
-        }
-    }
+//    private void escape(AnalyzingDoc _anaDoc, AnaRendElement _e) {
+//        if (_e.getRead().hasAttribute(_anaDoc.getRendKeyWords().getAttrEscaped())) {
+//            escaped.add(BoolVal.TRUE);
+//        } else {
+//            escaped.add(BoolVal.FALSE);
+//        }
+//    }
 
-    private void escapeQuoted(AnalyzingDoc _anaDoc, AnaRendElement _e, String _attr) {
-        if (_e.getRead().hasAttribute(_anaDoc.getRendKeyWords().getAttrEscaped())) {
-            args.add(escapeParam(_attr));
-            escaped.add(BoolVal.TRUE);
-        } else {
-            args.add(_attr);
-            escaped.add(BoolVal.FALSE);
-        }
-    }
+//    private void escapeQuoted(AnalyzingDoc _anaDoc, AnaRendElement _e, String _attr) {
+//        if (_e.getRead().hasAttribute(_anaDoc.getRendKeyWords().getAttrEscaped())) {
+//            args.add(escapeParam(_attr));
+//            escaped.add(BoolVal.TRUE);
+//        } else {
+//            args.add(_attr);
+//            escaped.add(BoolVal.FALSE);
+//        }
+//    }
 
     public CustList<ResultExpression> getResultExpressionList() {
         return resultExpressionList;
@@ -121,25 +123,29 @@ public final class AnaRendMessage extends AnaRendParentBlock implements AnaRendB
         return children;
     }
 
-    public CustList<OperationNode> getRoots() {
-        return roots;
+    public CustList<AnaMessageOperationNode> getRes() {
+        return res;
     }
+
+//    public CustList<OperationNode> getRoots() {
+//        return roots;
+//    }
 
     public StringMap<Integer> getCallsRoots() {
         return callsRoots;
     }
 
-    public CustList<BoolVal> getEscaped() {
-        return escaped;
-    }
-
-    public CustList<BoolVal> getQuoted() {
-        return quoted;
-    }
-
-    public StringList getArgs() {
-        return args;
-    }
+//    public CustList<BoolVal> getEscaped() {
+//        return escaped;
+//    }
+//
+//    public CustList<BoolVal> getQuoted() {
+//        return quoted;
+//    }
+//
+//    public StringList getArgs() {
+//        return args;
+//    }
 
     public StringMap<String> getPreformatted() {
         return preformatted;

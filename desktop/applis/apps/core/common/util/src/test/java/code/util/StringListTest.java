@@ -2269,7 +2269,7 @@ public class StringListTest extends EquallableExUtil {
     @Test
     public void filterByMultiWordsTest() {
         StringList list_ = new StringList();
-        list_.add(null);
+        list_.add("");
         list_.add("hello");
         list_.add("world");
         StringList f_ = list_.filterByMultiWords("world");

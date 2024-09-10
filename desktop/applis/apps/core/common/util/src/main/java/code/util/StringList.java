@@ -66,7 +66,7 @@ public final class StringList extends AbEqList<String> implements Displayable {
     public StringList filterByMultiWords(String _exp) {
         StringList list_ = new StringList();
         for (String s: this) {
-            if (s == null || !StringUtil.match(s, _exp)) {
+            if (!StringUtil.match(s, _exp)) {
                 continue;
             }
             list_.add(s);
