@@ -1,11 +1,11 @@
 package code.scripts.pages.aiki;
+import code.scripts.confs.*;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageDataEndroundStatusrelation extends PageCardsCommon{
 private static final String C_P_111_0="javahtml";
 private static final String C_P_111_1="end_statusrelation";
-private static final String C_P_111_2="web/css/abilities.css";
+private static final String C_P_111_2=PkScriptPages.REN_ADD_WEB_CSS_ABILITIES_CSS;
 private static final String C_P_111_3="stylesheet";
 private static final String C_P_111_4="text/css";
 private static final String C_P_111_5="endRoundStatusHtml";

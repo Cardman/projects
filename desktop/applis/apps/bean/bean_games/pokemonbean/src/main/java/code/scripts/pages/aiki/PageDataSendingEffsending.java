@@ -1,10 +1,11 @@
 package code.scripts.pages.aiki;
+import code.scripts.confs.*;
 import code.sml.*;
 import code.util.*;
 final class PageDataSendingEffsending extends PageCardsCommon{
 private static final String C_P_193_0="javahtml";
 private static final String C_P_193_1="effsending";
-private static final String C_P_193_2="web/css/moves.css";
+private static final String C_P_193_2=PkScriptPages.REN_ADD_WEB_CSS_MOVES_CSS;
 private static final String C_P_193_3="stylesheet";
 private static final String C_P_193_4="text/css";
 private static final String C_P_193_5="msg_eff_sending,effect";

@@ -9,7 +9,6 @@ import code.util.StringList;
 
 public class EffectBean extends CommonBean {
 
-    static final String EFFECT_BEAN=AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFF_HTML;
     private Effect effect;
     private String move;
     private int index;

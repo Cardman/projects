@@ -3,6 +3,7 @@ package aiki.beans.moves.effects;
 import aiki.db.MessagesDataBaseConstants;
 import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
+import code.scripts.confs.*;
 import org.junit.Test;
 
 public final class EffectBeanTest extends InitDbMoveEffect {
@@ -148,6 +149,6 @@ public final class EffectBeanTest extends InitDbMoveEffect {
     }
     @Test
     public void refBase() {
-        assertEq("web/html/moves/effects/eff.html",callEffectBeanEffectBeanGet(dispMoveEffDamage(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFF_HTML,callEffectBeanEffectBeanGet(dispMoveEffDamage(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
     }
 }

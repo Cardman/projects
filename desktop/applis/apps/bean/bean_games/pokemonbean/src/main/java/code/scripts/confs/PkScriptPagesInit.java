@@ -2,7 +2,6 @@ package code.scripts.confs;
 
 import aiki.beans.AikiBeansStd;
 import aiki.beans.endround.AikiBeansEndroundStd;
-import aiki.beans.fight.*;
 import aiki.beans.game.*;
 import aiki.beans.map.AikiBeansMapStd;
 import aiki.beans.map.characters.*;
@@ -607,14 +606,14 @@ private static final String TEAM="team";
 //private static final String WEB_HTML_SIMULATION_SIMULATION_HTML="web/html/simulation/simulation.html";
 //private static final String AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML="web/html/status/data.html";
 //private static final String WEB_HTML_STATUS_STATUS_HTML="web/html/status/status.html";
-private static final String WEB_PK_HTML_POKEMON_HTML="web_pk/html/pokemon.html";
-private static final String WEB_PROG_HTML_GAMEPROG_HTML="web_prog/html/gameprog.html";
+//private static final String WEB_PK_HTML_POKEMON_HTML="web_pk/html/pokemon.html";
+//private static final String WEB_PROG_HTML_GAMEPROG_HTML="web_prog/html/gameprog.html";
 //private static final String WELCOME="welcome";
 //private static final char NAV_SEP='.';
     private PkScriptPagesInit(){
     }
     public static void initConfData(NatConfigurationCore _configuration){
-        _configuration.setFirstUrl(AikiBeansStd.WEB_HTML_INDEX_HTML);
+        _configuration.setFirstUrl(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML);
         _configuration.setPrefix(PREF);
         StringMap<String> beans_ = new StringMap<String>(new CollCapacity(109));
         NavBuilder.buildBeans(beans_,AikiBeansStd.BEAN_WELCOME,AIKI_BEANS_WELCOME_BEAN);
@@ -1128,7 +1127,7 @@ private static final String WEB_PROG_HTML_GAMEPROG_HTML="web_prog/html/gameprog.
 //        NavBuilder.buildNav(nav_,GERERAL_DATA+NAV_SEP+M_CLICK_HM_1,new EntryNav(MOVE,WEB_HTML_MOVES_DATA_HTML));
     }
     public static void initConfFight(NatConfigurationCore _configuration){
-        _configuration.setFirstUrl(AikiBeansFightStd.WEB_FIGHT_HTML_FIGHT_HTML);
+        _configuration.setFirstUrl(PkScriptPages.WEB_FIGHT_HTML_FIGHT_HTML);
         _configuration.setPrefix(PREF);
         StringMap<String> beans_ = new StringMap<String>(new CollCapacity(4));
         NavBuilder.buildBeans(beans_,FIGHTER,AIKI_BEANS_FIGHT_FIGHTER_BEAN);
@@ -1143,7 +1142,7 @@ private static final String WEB_PROG_HTML_GAMEPROG_HTML="web_prog/html/gameprog.
 //        NavBuilder.buildNav(nav_,FIGHTER+NAV_SEP+M_CLICK_FIGHTER_2,new EntryNav(FIGHTER,WEB_FIGHT_HTML_FIGHTER_HTML));
     }
     public static void initConfDiff(NatConfigurationCore _configuration){
-        _configuration.setFirstUrl(AikiBeansGameStd.WEB_GAME_HTML_DIFFICULTY_HTML);
+        _configuration.setFirstUrl(PkScriptPages.WEB_GAME_HTML_DIFFICULTY_HTML);
         _configuration.setPrefix(PREF);
         StringMap<String> beans_ = new StringMap<String>(new CollCapacity(2));
         NavBuilder.buildBeans(beans_,DIFFICULTY,AIKI_BEANS_GAME_DIFFICULTY_BEAN);
@@ -1151,14 +1150,14 @@ private static final String WEB_PROG_HTML_GAMEPROG_HTML="web_prog/html/gameprog.
         _configuration.setBeansInfos(beans_);
     }
     public static void initConfDetPk(NatConfigurationCore _configuration){
-        _configuration.setFirstUrl(WEB_PK_HTML_POKEMON_HTML);
+        _configuration.setFirstUrl(PkScriptPages.REN_ADD_WEB_PK_HTML_POKEMON_HTML);
         StringMap<String> beans_ = new StringMap<String>(new CollCapacity(1));
         NavBuilder.buildBeans(beans_,POKEMON,AIKI_BEANS_GAME_POKEMON_PLAYER_BEAN);
         _configuration.setBeansInfos(beans_);
         _configuration.setPrefix(PREF);
     }
     public static void initConfProg(NatConfigurationCore _configuration){
-        _configuration.setFirstUrl(WEB_PROG_HTML_GAMEPROG_HTML);
+        _configuration.setFirstUrl(PkScriptPages.REN_ADD_WEB_PROG_HTML_GAMEPROG_HTML);
         StringMap<String> beans_ = new StringMap<String>(new CollCapacity(1));
         NavBuilder.buildBeans(beans_,PROGRESSING,AIKI_BEANS_GAME_GAME_PROGRESSION_BEAN);
         _configuration.setBeansInfos(beans_);

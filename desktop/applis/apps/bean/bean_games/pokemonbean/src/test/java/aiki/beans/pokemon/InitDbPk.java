@@ -29,6 +29,7 @@ import aiki.map.util.TileMiniMap;
 import code.bean.nat.*;
 import code.images.*;
 import code.maths.Rate;
+import code.scripts.confs.PkScriptPages;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -226,8 +227,8 @@ public abstract class InitDbPk extends InitDbConstr {
     }
     public static StringMap<String> mappingToPk() {
         StringMap<String> map_ = new StringMap<String>();
-        map_.addEntry(AikiBeansStd.WEB_HTML_INDEX_HTML,AikiBeansStd.BEAN_WELCOME);
-        map_.addEntry(AikiBeansPokemonStd.WEB_HTML_POKEMON_POKEDEX_HTML,AikiBeansPokemonStd.BEAN_POKEDEX);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,AikiBeansStd.BEAN_WELCOME);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML,AikiBeansPokemonStd.BEAN_POKEDEX);
         return map_;
     }
 

@@ -4,6 +4,7 @@ import aiki.beans.WithFilterBean;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.status.Status;
+import code.scripts.confs.PkScriptPages;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -32,7 +33,7 @@ public class StatusSetBean extends WithFilterBean {
             return tryRedirectSt(sortedAbilities_.firstKey());
         }
 //        sortedAbilities_.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
-        return AikiBeansStatusStd.WEB_HTML_STATUS_STATUS_HTML;
+        return PkScriptPages.REN_ADD_WEB_HTML_STATUS_STATUS_HTML;
     }
     public String clickStatus(int _index) {
         return tryRedirectSt(sortedStatus.getKey(_index));

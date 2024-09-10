@@ -1,11 +1,11 @@
 package aiki.beans.help;
 
-import aiki.beans.abilities.AikiBeansAbilitiesStd;
 import aiki.facade.FacadeGame;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.instances.Instances;
 import code.bean.nat.*;
+import code.scripts.confs.PkScriptPages;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -54,7 +54,7 @@ public final class FightHelpBeanAbilitiesSentStatisTest extends InitDbFightHelp 
     }
     @Test
     public void cl1() {
-        assertEq(AikiBeansAbilitiesStd.WEB_HTML_ABILITY_DATA_HTML,click1());
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,click1());
     }
     @Test
     public void clId1() {
@@ -70,7 +70,7 @@ public final class FightHelpBeanAbilitiesSentStatisTest extends InitDbFightHelp 
     }
     @Test
     public void cl2() {
-        assertEq(AikiBeansAbilitiesStd.WEB_HTML_ABILITY_DATA_HTML,click2());
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,click2());
     }
     @Test
     public void clId2() {
@@ -86,7 +86,7 @@ public final class FightHelpBeanAbilitiesSentStatisTest extends InitDbFightHelp 
     }
     @Test
     public void cl3() {
-        assertEq(AikiBeansAbilitiesStd.WEB_HTML_ABILITY_DATA_HTML,click3());
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,click3());
     }
     @Test
     public void clId3() {
@@ -102,7 +102,7 @@ public final class FightHelpBeanAbilitiesSentStatisTest extends InitDbFightHelp 
     }
     @Test
     public void cl4() {
-        assertEq(AikiBeansAbilitiesStd.WEB_HTML_ABILITY_DATA_HTML,click4());
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,click4());
     }
     @Test
     public void clId4() {

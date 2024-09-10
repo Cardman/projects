@@ -1,4 +1,5 @@
 package code.scripts.pages.aiki;
+import code.scripts.confs.*;
 import code.sml.*;
 import code.util.*;
 final class PageDataItemsItemforbattle extends PageCardsCommon{
@@ -6,7 +7,7 @@ private static final String C_P_127_0="javahtml";
 private static final String C_P_127_1="itemforbattle";
 private static final String C_P_127_2="msg_item,title";
 private static final String C_P_127_3="displayName";
-private static final String C_P_127_4="web/css/items.css";
+private static final String C_P_127_4=PkScriptPages.REN_ADD_WEB_CSS_ITEMS_CSS;
 private static final String C_P_127_5="stylesheet";
 private static final String C_P_127_6="text/css";
 private static final String C_P_127_7="itemBean";

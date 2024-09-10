@@ -1,15 +1,14 @@
 package aiki.beans.help;
 
-import aiki.beans.moves.AikiBeansMovesStd;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.StatusMoveData;
-import aiki.fight.moves.effects.EffectAlly;
 import aiki.fight.moves.effects.EffectTeam;
 import aiki.fight.util.CategoryMult;
 import aiki.instances.Instances;
 import code.bean.nat.*;
 import code.maths.Rate;
+import code.scripts.confs.PkScriptPages;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -32,7 +31,7 @@ public final class FightHelpBeanMovesTargetTeamDamageTest extends InitDbFightHel
     }
     @Test
     public void cl1() {
-        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,click());
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,click());
     }
     @Test
     public void clId1() {

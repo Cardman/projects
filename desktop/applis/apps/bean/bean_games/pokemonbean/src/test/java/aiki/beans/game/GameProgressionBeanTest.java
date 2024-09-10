@@ -12,6 +12,7 @@ import aiki.map.pokemon.PokemonPlayer;
 import code.bean.nat.NatNavigation;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.scripts.confs.PkScriptPages;
 import code.scripts.pages.aiki.CssInit;
 import code.scripts.pages.aiki.MessagesInit;
 import code.scripts.pages.aiki.PagesInit;
@@ -585,7 +586,7 @@ public final class GameProgressionBeanTest extends InitDbGameProgressionBean {
         nav_.setLanguage(EN);
         pk_.setDataBase(fac(progress(),GIRL,Sex.GIRL));
         pk_.initializeRendSessionDoc(nav_);
-        String firstPage_ = "<html xmlns:c=\"javahtml\"><head><title>Game progression</title><link href=\"web_prog/css/difficulty.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
+        String firstPage_ = "<html xmlns:c=\"javahtml\"><head><title>Game progression</title><link href=\""+PkScriptPages.REN_ADD_WEB_PROG_CSS_DIFFICULTY_CSS+"\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
                 "\ttext-indent:25px;\n" +
                 "}\n" +
                 "body{\n" +
@@ -614,7 +615,7 @@ public final class GameProgressionBeanTest extends InitDbGameProgressionBean {
         assertEq(firstPage_,nav_.getHtmlText());
 
         goToPage(pk_, nav_, 0);
-        assertEq("<html xmlns:c=\"javahtml\"><head><title>Pokemon families without caught pokemon</title><link href=\"web_prog/css/difficulty.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
+        assertEq("<html xmlns:c=\"javahtml\"><head><title>Pokemon families without caught pokemon</title><link href=\""+PkScriptPages.REN_ADD_WEB_PROG_CSS_DIFFICULTY_CSS+"\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
                 "\ttext-indent:25px;\n" +
                 "}\n" +
                 "body{\n" +
@@ -642,7 +643,7 @@ public final class GameProgressionBeanTest extends InitDbGameProgressionBean {
                 "</style></head><body><a c:command=\"progressing.g\" href=\"\" n-a=\"0\">Return to the summary</a><br/>P_3<br/><table><tbody><tr><td>remaining pokemon to be caught among the current family</td><td><img src=\"AAABAAD3\"/>P_3<br/></td><td><img src=\"AAABAAD4\"/>P_4<br/></td></tr></tbody></table><br/>P_5<br/><table><tbody><tr><td>remaining pokemon to be caught among the current family</td><td><img src=\"AAABAAD5\"/>P_5<br/></td><td><img src=\"AAABAAD6\"/>P_6<br/></td></tr></tbody></table><br/></body></html>",nav_.getHtmlText());
         goToPage(pk_, nav_, 0);
         goToPage(pk_, nav_, 1);
-        assertEq("<html xmlns:c=\"javahtml\"><head><title>Pokemon families with caught pokemon and uncaught pokemon</title><link href=\"web_prog/css/difficulty.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
+        assertEq("<html xmlns:c=\"javahtml\"><head><title>Pokemon families with caught pokemon and uncaught pokemon</title><link href=\""+PkScriptPages.REN_ADD_WEB_PROG_CSS_DIFFICULTY_CSS+"\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
                 "\ttext-indent:25px;\n" +
                 "}\n" +
                 "body{\n" +
@@ -670,7 +671,7 @@ public final class GameProgressionBeanTest extends InitDbGameProgressionBean {
                 "</style></head><body><a c:command=\"progressing.g\" href=\"\" n-a=\"0\">Return to the summary</a><br/>P_1<br/><table><tbody><tr><td>remaining pokemon to be caught among the current family</td><td/><td><img src=\"AAABAAD2\"/>P_2<br/></td></tr><tr><td>caught pokemon among the current family</td><td><img src=\"AAABAAD1\"/>P_1<br/></td><td/></tr></tbody></table><br/></body></html>",nav_.getHtmlText());
         goToPage(pk_, nav_, 0);
         goToPage(pk_, nav_, 2);
-        assertEq("<html xmlns:c=\"javahtml\"><head><title>Pokemon families without uncaught pokemon</title><link href=\"web_prog/css/difficulty.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
+        assertEq("<html xmlns:c=\"javahtml\"><head><title>Pokemon families without uncaught pokemon</title><link href=\""+PkScriptPages.REN_ADD_WEB_PROG_CSS_DIFFICULTY_CSS+"\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
                 "\ttext-indent:25px;\n" +
                 "}\n" +
                 "body{\n" +
@@ -711,7 +712,7 @@ public final class GameProgressionBeanTest extends InitDbGameProgressionBean {
         nav_.setLanguage(EN);
         pk_.setDataBase(fac(progress(),BOY,Sex.BOY));
         pk_.initializeRendSessionDoc(nav_);
-        String firstPage_ = "<html xmlns:c=\"javahtml\"><head><title>Game progression</title><link href=\"web_prog/css/difficulty.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
+        String firstPage_ = "<html xmlns:c=\"javahtml\"><head><title>Game progression</title><link href=\""+PkScriptPages.REN_ADD_WEB_PROG_CSS_DIFFICULTY_CSS+"\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
                 "\ttext-indent:25px;\n" +
                 "}\n" +
                 "body{\n" +
@@ -740,7 +741,7 @@ public final class GameProgressionBeanTest extends InitDbGameProgressionBean {
         assertEq(firstPage_,nav_.getHtmlText());
 
         goToPage(pk_, nav_, 0);
-        assertEq("<html xmlns:c=\"javahtml\"><head><title>Pokemon families without caught pokemon</title><link href=\"web_prog/css/difficulty.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
+        assertEq("<html xmlns:c=\"javahtml\"><head><title>Pokemon families without caught pokemon</title><link href=\""+PkScriptPages.REN_ADD_WEB_PROG_CSS_DIFFICULTY_CSS+"\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
                 "\ttext-indent:25px;\n" +
                 "}\n" +
                 "body{\n" +
@@ -768,7 +769,7 @@ public final class GameProgressionBeanTest extends InitDbGameProgressionBean {
                 "</style></head><body><a c:command=\"progressing.g\" href=\"\" n-a=\"0\">Return to the summary</a><br/>P_3<br/><table><tbody><tr><td>remaining pokemon to be caught among the current family</td><td><img src=\"AAABAAD3\"/>P_3<br/></td><td><img src=\"AAABAAD4\"/>P_4<br/></td></tr></tbody></table><br/>P_5<br/><table><tbody><tr><td>remaining pokemon to be caught among the current family</td><td><img src=\"AAABAAD5\"/>P_5<br/></td><td><img src=\"AAABAAD6\"/>P_6<br/></td></tr></tbody></table><br/></body></html>",nav_.getHtmlText());
         goToPage(pk_, nav_, 0);
         goToPage(pk_, nav_, 1);
-        assertEq("<html xmlns:c=\"javahtml\"><head><title>Pokemon families with caught pokemon and uncaught pokemon</title><link href=\"web_prog/css/difficulty.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
+        assertEq("<html xmlns:c=\"javahtml\"><head><title>Pokemon families with caught pokemon and uncaught pokemon</title><link href=\""+PkScriptPages.REN_ADD_WEB_PROG_CSS_DIFFICULTY_CSS+"\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
                 "\ttext-indent:25px;\n" +
                 "}\n" +
                 "body{\n" +
@@ -796,7 +797,7 @@ public final class GameProgressionBeanTest extends InitDbGameProgressionBean {
                 "</style></head><body><a c:command=\"progressing.g\" href=\"\" n-a=\"0\">Return to the summary</a><br/>P_1<br/><table><tbody><tr><td>remaining pokemon to be caught among the current family</td><td/><td><img src=\"AAABAAD2\"/>P_2<br/></td></tr><tr><td>caught pokemon among the current family</td><td><img src=\"AAABAAD1\"/>P_1<br/></td><td/></tr></tbody></table><br/></body></html>",nav_.getHtmlText());
         goToPage(pk_, nav_, 0);
         goToPage(pk_, nav_, 2);
-        assertEq("<html xmlns:c=\"javahtml\"><head><title>Pokemon families without uncaught pokemon</title><link href=\"web_prog/css/difficulty.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
+        assertEq("<html xmlns:c=\"javahtml\"><head><title>Pokemon families without uncaught pokemon</title><link href=\""+PkScriptPages.REN_ADD_WEB_PROG_CSS_DIFFICULTY_CSS+"\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
                 "\ttext-indent:25px;\n" +
                 "}\n" +
                 "body{\n" +

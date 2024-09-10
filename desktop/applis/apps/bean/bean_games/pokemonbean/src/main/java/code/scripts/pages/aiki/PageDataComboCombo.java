@@ -1,11 +1,11 @@
 package code.scripts.pages.aiki;
+import code.scripts.confs.*;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageDataComboCombo extends PageCardsCommon{
 private static final String C_P_99_0="javahtml";
 private static final String C_P_99_1="eff_combo";
-private static final String C_P_99_2="web/css/abilities.css";
+private static final String C_P_99_2=PkScriptPages.REN_ADD_WEB_CSS_ABILITIES_CSS;
 private static final String C_P_99_3="stylesheet";
 private static final String C_P_99_4="text/css";
 private static final String C_P_99_5="msg_combo,effect";

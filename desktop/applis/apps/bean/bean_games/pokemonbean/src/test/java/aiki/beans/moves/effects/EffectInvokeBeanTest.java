@@ -1,8 +1,8 @@
 package aiki.beans.moves.effects;
 
-import aiki.beans.moves.AikiBeansMovesStd;
 import aiki.map.levels.enums.EnvironmentType;
 import code.maths.Rate;
+import code.scripts.confs.PkScriptPages;
 import code.util.StringList;
 import org.junit.Test;
 
@@ -91,7 +91,7 @@ public final class EffectInvokeBeanTest extends InitDbMoveEffectInvoke {
     }
     @Test
     public void clickMoveUserTypes1() {
-        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callEffectInvokeBeanClickMoveUserTypes(dispMoveEffInvoke(true,true,true,true,true,true),0,0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectInvokeBeanClickMoveUserTypes(dispMoveEffInvoke(true,true,true,true,true,true),0,0));
     }
     @Test
     public void clickMoveUserTypes2() {
@@ -99,7 +99,7 @@ public final class EffectInvokeBeanTest extends InitDbMoveEffectInvoke {
     }
     @Test
     public void clickMoveUserTypes3() {
-        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callEffectInvokeBeanClickMoveUserTypes(dispMoveEffInvoke(true,true,true,true,true,true),0,1));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectInvokeBeanClickMoveUserTypes(dispMoveEffInvoke(true,true,true,true,true,true),0,1));
     }
     @Test
     public void clickMoveUserTypes4() {
@@ -119,7 +119,7 @@ public final class EffectInvokeBeanTest extends InitDbMoveEffectInvoke {
     }
     @Test
     public void clickGlobalMoveFctEnv1() {
-        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callEffectInvokeBeanClickGlobalMoveFctEnv(dispMoveEffInvoke(true,true,true,true,true,true),0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectInvokeBeanClickGlobalMoveFctEnv(dispMoveEffInvoke(true,true,true,true,true,true),0));
     }
     @Test
     public void clickGlobalMoveFctEnv2() {
@@ -139,7 +139,7 @@ public final class EffectInvokeBeanTest extends InitDbMoveEffectInvoke {
     }
     @Test
     public void clickMoveNotInvok1() {
-        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callEffectInvokeBeanClickMoveNotInvok(dispMoveEffInvoke(true,true,true,true,true,true),0,0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectInvokeBeanClickMoveNotInvok(dispMoveEffInvoke(true,true,true,true,true,true),0,0));
     }
     @Test
     public void clickMoveNotInvok2() {
@@ -187,7 +187,7 @@ public final class EffectInvokeBeanTest extends InitDbMoveEffectInvoke {
     }
     @Test
     public void clickMoveFctEnv1() {
-        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callEffectInvokeBeanClickMoveFctEnv(dispMoveEffInvoke(true,true,true,true,true,true),0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectInvokeBeanClickMoveFctEnv(dispMoveEffInvoke(true,true,true,true,true,true),0));
     }
     @Test
     public void clickMoveFctEnv2() {

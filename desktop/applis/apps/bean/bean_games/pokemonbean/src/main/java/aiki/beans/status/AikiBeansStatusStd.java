@@ -8,8 +8,6 @@ import code.bean.nat.SpecialNatClass;
 import code.bean.nat.StandardField;
 import code.util.CustList;
 public final class AikiBeansStatusStd{
-    public static final String WEB_HTML_STATUS_STATUS_HTML="web/html/status/status.html";
-    public static final String WEB_HTML_STATUS_DATA_HTML="web/html/status/data.html";
     public static final String BEAN_STATUS="status";
     public static final String BEAN_STATUS_SET="status_set";
     public static final String TYPE_STATUS_BEAN = "aiki.beans.status.StatusBean";

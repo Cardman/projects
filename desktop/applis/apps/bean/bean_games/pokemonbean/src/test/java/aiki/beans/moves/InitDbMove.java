@@ -24,6 +24,7 @@ import code.bean.nat.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
+import code.scripts.confs.PkScriptPages;
 import code.util.*;
 
 public abstract class InitDbMove extends InitDbMoves {
@@ -480,7 +481,7 @@ public abstract class InitDbMove extends InitDbMoves {
     }
     public static StringMap<String> mappingToMove() {
         StringMap<String> map_ = mappingToMoves();
-        map_.addEntry(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,AikiBeansMovesStd.BEAN_MOVE);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,AikiBeansMovesStd.BEAN_MOVE);
         return map_;
     }
     protected static FacadeGame feedDbMoveStaStatis(TargetChoice _targ, String _acc, SwitchType _noth, int _rk, boolean _c, boolean _dis, boolean _an, boolean _ep, boolean _rech, boolean _sec, boolean _multi, boolean _prio, boolean _solo, boolean _t, boolean _count) {

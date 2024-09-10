@@ -2,7 +2,6 @@ package aiki.beans.map;
 
 import aiki.beans.*;
 import aiki.beans.db.*;
-import aiki.beans.map.elements.AikiBeansMapElementsStd;
 import aiki.db.DataBase;
 import aiki.facade.*;
 import aiki.fight.pokemon.*;
@@ -23,6 +22,7 @@ import aiki.util.Point;
 import code.bean.nat.*;
 import code.images.*;
 import code.maths.Rate;
+import code.scripts.confs.PkScriptPages;
 import code.util.*;
 
 public abstract class InitDbMap extends InitDbConstr {
@@ -244,17 +244,17 @@ public abstract class InitDbMap extends InitDbConstr {
     }
     public static StringMap<String> mappingToMap() {
         StringMap<String> map_ = new StringMap<String>();
-        map_.addEntry(AikiBeansMapElementsStd.WEB_HTML_MAP_MAP_HTML,AikiBeansMapStd.BEAN_GAME_MAP);
-        map_.addEntry(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,AikiBeansMapStd.BEAN_LEVEL_MAP);
-        map_.addEntry(AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_POKEMON_TEAM_HTML,AikiBeansMapStd.BEAN_PK_TEAM);
-        map_.addEntry(AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_TRAINER_MULTI_FIGHT_HTML,AikiBeansMapStd.BEAN_TRAINER_FIGHT);
-        map_.addEntry(AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML,AikiBeansMapStd.BEAN_TRAINER_FIGHT);
-        map_.addEntry(AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_ALLY_HTML,AikiBeansMapStd.BEAN_ALLY);
-        map_.addEntry(AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_DUAL_FIGHT_HTML,AikiBeansMapStd.BEAN_DUAL);
-        map_.addEntry(AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_AREA_HTML,AikiBeansMapStd.BEAN_AREA);
-        map_.addEntry(AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_LEG_PK_HTML,AikiBeansMapStd.BEAN_LEG_PK);
-        map_.addEntry(AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_DEALER_HTML,AikiBeansMapStd.BEAN_DEALER);
-        map_.addEntry(AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_SELLER_HTML,AikiBeansMapStd.BEAN_SELLER);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_MAP_HTML,AikiBeansMapStd.BEAN_GAME_MAP);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,AikiBeansMapStd.BEAN_LEVEL_MAP);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_POKEMON_TEAM_HTML,AikiBeansMapStd.BEAN_PK_TEAM);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_MULTI_FIGHT_HTML,AikiBeansMapStd.BEAN_TRAINER_FIGHT);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML,AikiBeansMapStd.BEAN_TRAINER_FIGHT);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_ALLY_HTML,AikiBeansMapStd.BEAN_ALLY);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_DUAL_FIGHT_HTML,AikiBeansMapStd.BEAN_DUAL);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_AREA_HTML,AikiBeansMapStd.BEAN_AREA);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_LEG_PK_HTML,AikiBeansMapStd.BEAN_LEG_PK);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_DEALER_HTML,AikiBeansMapStd.BEAN_DEALER);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_SELLER_HTML,AikiBeansMapStd.BEAN_SELLER);
         return map_;
     }
     protected static PokemonData pkOne() {

@@ -1,9 +1,9 @@
 package aiki.beans.moves.effects;
 
-import aiki.beans.status.AikiBeansStatusStd;
 import aiki.db.MessagesDataBaseConstants;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.scripts.confs.PkScriptPages;
 import org.junit.Test;
 
 public final class EffectStatusBeanTest extends InitDbMoveEffectStatus {
@@ -69,11 +69,11 @@ public final class EffectStatusBeanTest extends InitDbMoveEffectStatus {
     }
     @Test
     public void clickLink1() {
-        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,callEffectStatusBeanClickLink(dispMoveEffStatus(feedDbMoveEffDataDamComp(withLawStatus(withLawStatus(eff(false,false),S_STA_SIM, LgInt.one()),S_STA_REL,LgInt.newLgInt("3"))),0),0,0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callEffectStatusBeanClickLink(dispMoveEffStatus(feedDbMoveEffDataDamComp(withLawStatus(withLawStatus(eff(false,false),S_STA_SIM, LgInt.one()),S_STA_REL,LgInt.newLgInt("3"))),0),0,0));
     }
     @Test
     public void clickLink2() {
-        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,callEffectStatusBeanClickLink(dispMoveEffStatus(feedDbMoveEffDataDamComp(withLawStatus(withLawStatus(eff(false,false),S_STA_SIM, LgInt.one()),S_STA_REL,LgInt.newLgInt("3"))),0),0,1));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callEffectStatusBeanClickLink(dispMoveEffStatus(feedDbMoveEffDataDamComp(withLawStatus(withLawStatus(eff(false,false),S_STA_SIM, LgInt.one()),S_STA_REL,LgInt.newLgInt("3"))),0),0,1));
     }
     @Test
     public void clickLink3() {
@@ -105,11 +105,11 @@ public final class EffectStatusBeanTest extends InitDbMoveEffectStatus {
     }
     @Test
     public void clickLinkDeleted1() {
-        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,callEffectStatusBeanClickLinkDeleted(dispMoveEffStatus(feedDbMoveEffDataDamComp(withDeletedStatus(withDeletedStatus(eff(false,false),S_STA_SIM),S_STA_REL)),0),0,0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callEffectStatusBeanClickLinkDeleted(dispMoveEffStatus(feedDbMoveEffDataDamComp(withDeletedStatus(withDeletedStatus(eff(false,false),S_STA_SIM),S_STA_REL)),0),0,0));
     }
     @Test
     public void clickLinkDeleted2() {
-        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,callEffectStatusBeanClickLinkDeleted(dispMoveEffStatus(feedDbMoveEffDataDamComp(withDeletedStatus(withDeletedStatus(eff(false,false),S_STA_SIM),S_STA_REL)),0),0,1));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callEffectStatusBeanClickLinkDeleted(dispMoveEffStatus(feedDbMoveEffDataDamComp(withDeletedStatus(withDeletedStatus(eff(false,false),S_STA_SIM),S_STA_REL)),0),0,1));
     }
     @Test
     public void clickLinkDeleted3() {

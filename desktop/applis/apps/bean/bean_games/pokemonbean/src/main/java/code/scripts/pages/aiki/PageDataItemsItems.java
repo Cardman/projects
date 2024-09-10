@@ -1,11 +1,12 @@
 package code.scripts.pages.aiki;
+import code.scripts.confs.*;
 import code.sml.*;
 import code.util.*;
 final class PageDataItemsItems extends PageCardsCommon{
 private static final String C_P_128_0="javahtml";
 private static final String C_P_128_1="items";
 private static final String C_P_128_2="msg_items,title";
-private static final String C_P_128_3="web/css/items.css";
+private static final String C_P_128_3=PkScriptPages.REN_ADD_WEB_CSS_ITEMS_CSS;
 private static final String C_P_128_4="stylesheet";
 private static final String C_P_128_5="text/css";
 private static final String C_P_128_6=GO_TO_IND;

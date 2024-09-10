@@ -1,7 +1,7 @@
 package aiki.beans.moves.effects;
 
-import aiki.beans.status.AikiBeansStatusStd;
 import aiki.db.MessagesDataBaseConstants;
+import code.scripts.confs.PkScriptPages;
 import org.junit.Test;
 
 public final class EffectTeamWhileSendFoeBeanTest extends InitDbMoveEffectTeamWhileSendFoe {
@@ -83,7 +83,7 @@ public final class EffectTeamWhileSendFoeBeanTest extends InitDbMoveEffectTeamWh
     }
     @Test
     public void clickStatus1() {
-        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,callEffectTeamWhileSendFoeBeanClickStatus(dispMoveEffTeamSend(feedDbMoveEffDataDam(),0),0,0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callEffectTeamWhileSendFoeBeanClickStatus(dispMoveEffTeamSend(feedDbMoveEffDataDam(),0),0,0));
     }
     @Test
     public void clickStatus2() {

@@ -4,6 +4,7 @@ import aiki.beans.*;
 import aiki.beans.pokemon.evolutions.*;
 import aiki.util.Coords;
 import code.bean.nat.*;
+import code.scripts.confs.PkScriptPages;
 import code.util.StringMap;
 
 public abstract class InitDbPkOne extends InitDbPk {
@@ -484,16 +485,16 @@ public abstract class InitDbPkOne extends InitDbPk {
     }
     public static StringMap<String> mappingToPkOne() {
         StringMap<String> map_ = mappingToPk();
-        map_.addEntry(AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,AikiBeansPokemonStd.BEAN_PK);
-        map_.addEntry(AikiBeansPokemonStd.WEB_HTML_POKEMON_EVOS_HAPPY,AikiBeansPokemonStd.BEAN_EVO_HAPPY);
-        map_.addEntry(AikiBeansPokemonStd.WEB_HTML_POKEMON_EVOS_ITEM,AikiBeansPokemonStd.BEAN_EVO_ITEM);
-        map_.addEntry(AikiBeansPokemonStd.WEB_HTML_POKEMON_EVOS_LEVEL,AikiBeansPokemonStd.BEAN_EVO_LEVEL);
-        map_.addEntry(AikiBeansPokemonStd.WEB_HTML_POKEMON_EVOS_LEVELGENDER,AikiBeansPokemonStd.BEAN_EVO_LEVELGENDER);
-        map_.addEntry(AikiBeansPokemonStd.WEB_HTML_POKEMON_EVOS_MOVE,AikiBeansPokemonStd.BEAN_EVO_MOVE);
-        map_.addEntry(AikiBeansPokemonStd.WEB_HTML_POKEMON_EVOS_STONE,AikiBeansPokemonStd.BEAN_EVO_STONE);
-        map_.addEntry(AikiBeansPokemonStd.WEB_HTML_POKEMON_EVOS_STONEGENDER,AikiBeansPokemonStd.BEAN_EVO_STONEGENDER);
-        map_.addEntry(AikiBeansPokemonStd.WEB_HTML_POKEMON_EVOS_TEAM,AikiBeansPokemonStd.BEAN_EVO_TEAM);
-        map_.addEntry(AikiBeansPokemonStd.WEB_HTML_POKEMON_EVOS_TYPE,AikiBeansPokemonStd.BEAN_EVO_TYPE);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,AikiBeansPokemonStd.BEAN_PK);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOHAPPY_HTML,AikiBeansPokemonStd.BEAN_EVO_HAPPY);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOITEM_HTML,AikiBeansPokemonStd.BEAN_EVO_ITEM);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOLEVEL_HTML,AikiBeansPokemonStd.BEAN_EVO_LEVEL);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOLEVELGENDER_HTML,AikiBeansPokemonStd.BEAN_EVO_LEVELGENDER);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOMOVE_HTML,AikiBeansPokemonStd.BEAN_EVO_MOVE);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOSTONE_HTML,AikiBeansPokemonStd.BEAN_EVO_STONE);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOSTONEGENDER_HTML,AikiBeansPokemonStd.BEAN_EVO_STONEGENDER);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOTEAM_HTML,AikiBeansPokemonStd.BEAN_EVO_TEAM);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOTYPE_HTML,AikiBeansPokemonStd.BEAN_EVO_TYPE);
         return map_;
     }
 }

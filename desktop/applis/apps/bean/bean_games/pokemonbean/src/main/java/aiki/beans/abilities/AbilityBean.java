@@ -718,7 +718,7 @@ public class AbilityBean extends CommonBean {
     }
     public String clickIndex() {
         getForms().safeAbilities(CST_ABILITIES_SET);
-        return AikiBeansAbilitiesStd.WEB_HTML_ABILITY_ABILITIES_HTML;
+        return PkScriptPages.REN_ADD_WEB_HTML_ABILITY_ABILITIES_HTML;
     }
     public String clickImmuMove(int _index) {
         String type_ = immuMove.get(_index);

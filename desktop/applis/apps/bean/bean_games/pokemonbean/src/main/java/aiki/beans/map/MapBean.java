@@ -2,9 +2,9 @@ package aiki.beans.map;
 
 import aiki.beans.CommonBean;
 import aiki.beans.facade.map.dto.PlaceIndex;
-import aiki.beans.map.elements.*;
 import aiki.map.levels.Level;
 import aiki.map.places.Place;
+import code.scripts.confs.PkScriptPages;
 import code.util.CustList;
 import code.util.core.IndexConstants;
 
@@ -25,7 +25,7 @@ public class MapBean extends CommonBean {
     }
     public String clickLevel(int _indexOne, int _indexTwo) {
         feedForms(_indexOne, _indexTwo, getForms());
-        return AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML;
+        return PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML;
     }
 
     public CustList<PlaceIndex> getPlaces() {

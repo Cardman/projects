@@ -1,6 +1,6 @@
 package aiki.beans.items;
 
-import aiki.beans.pokemon.AikiBeansPokemonStd;
+import code.scripts.confs.PkScriptPages;
 import org.junit.Test;
 
 public final class EvolvingItemBeanTest extends InitDbItemEvolving {
@@ -18,7 +18,7 @@ public final class EvolvingItemBeanTest extends InitDbItemEvolving {
     }
     @Test
     public void clickPokemon1() {
-        assertEq(AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,callEvolvingItemBeanClickPokemon());
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,callEvolvingItemBeanClickPokemon());
     }
     @Test
     public void clickPokemon2() {

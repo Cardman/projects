@@ -1,5 +1,6 @@
 package code.scripts.pages.aiki;
 import aiki.beans.moves.AikiBeansMovesStd;
+import code.scripts.confs.*;
 import code.sml.*;
 import code.util.*;
 final class PageDataMovesData extends PageCardsCommon{
@@ -7,7 +8,7 @@ private static final String C_P_143_0="javahtml";
 private static final String C_P_143_1=AikiBeansMovesStd.BEAN_MOVE;
 private static final String C_P_143_2="msg_movedata,title";
 private static final String C_P_143_3="displayName";
-private static final String C_P_143_4="web/css/moves.css";
+private static final String C_P_143_4=PkScriptPages.REN_ADD_WEB_CSS_MOVES_CSS;
 private static final String C_P_143_5="stylesheet";
 private static final String C_P_143_6="text/css";
 private static final String C_P_143_7="$clickMoves()";

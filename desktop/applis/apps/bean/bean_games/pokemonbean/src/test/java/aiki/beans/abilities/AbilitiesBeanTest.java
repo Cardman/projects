@@ -1,6 +1,7 @@
 package aiki.beans.abilities;
 
 import code.bean.nat.*;
+import code.scripts.confs.PkScriptPages;
 import code.util.CustList;
 import code.util.core.StringUtil;
 import org.junit.Test;
@@ -23,7 +24,7 @@ public final class AbilitiesBeanTest extends InitDbAbilities {
     @Test
     public void search1() {
         NaSt bean_ = dispAllAbilities(feedDb());
-        assertEq(AikiBeansAbilitiesStd.WEB_HTML_ABILITY_ABILITIES_HTML, navigateAbilitiesSearch(bean_));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_ABILITIES_HTML, navigateAbilitiesSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ABILITIES_SET));
         CustList<String> keys_ = forms(bean_).getValAbilityData(CST_ABILITIES_SET).getKeys();
         assertEq(2,keys_.size());
@@ -34,7 +35,7 @@ public final class AbilitiesBeanTest extends InitDbAbilities {
     public void search2() {
         NaSt bean_ = dispAllAbilities(feedDb());
         callAbilitiesBeanTypedAbilitySet(bean_,A_ABILITY_TR);
-        assertEq(AikiBeansAbilitiesStd.WEB_HTML_ABILITY_DATA_HTML, navigateAbilitiesSearch(bean_));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_DATA_HTML, navigateAbilitiesSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ABILITIES_SET));
         CustList<String> keys_ = forms(bean_).getValAbilityData(CST_ABILITIES_SET).getKeys();
         assertEq(1,keys_.size());
@@ -45,7 +46,7 @@ public final class AbilitiesBeanTest extends InitDbAbilities {
         NaSt bean_ = dispAllAbilities(feedDb());
         navigateAbilitiesSearch(bean_);
         beforeDisplaying(bean_);
-        assertEq(AikiBeansAbilitiesStd.WEB_HTML_ABILITY_DATA_HTML,callAbilitiesBeanClickAbility(bean_,0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,callAbilitiesBeanClickAbility(bean_,0));
         assertEq(A_ABILITY,getValAbilityId(bean_));
     }
     @Test

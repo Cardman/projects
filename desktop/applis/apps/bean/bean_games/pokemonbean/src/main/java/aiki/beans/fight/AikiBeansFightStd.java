@@ -11,14 +11,11 @@ import aiki.game.fight.util.AffectedMove;
 import aiki.game.fight.util.CopiedMove;
 import aiki.game.fight.util.MoveTarget;
 import code.bean.nat.*;
+import code.scripts.confs.PkScriptPages;
 import code.util.*;
 import code.util.core.BoolVal;
 
 public final class AikiBeansFightStd{
-    public static final String WEB_FIGHT_HTML_FIGHTER_HTML="web_fight/html/fighter.html";
-    public static final String WEB_FIGHT_HTML_TEAM_HTML="web_fight/html/team.html";
-    public static final String WEB_FIGHT_HTML_FIGHT_HTML="web_fight/html/fight.html";
-    public static final String WEB_FIGHT_HTML_FIGHTDETAIL_HTML = "web_fight/html/fightdetail.html";
     public static final String TYPE_COMMON_FIGHT_BEAN = "aiki.beans.fight.CommonFightBean";
     public static final String TYPE_FIGHT_BEAN = "aiki.beans.fight.FightBean";
     public static final String TYPE_FIGHT_CALCULATION_BEAN = "aiki.beans.fight.FightCalculationBean";
@@ -152,10 +149,10 @@ public final class AikiBeansFightStd{
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, BeanNatCommonLgNames.TYPE_BEAN);
-        methods_.add( new SpecNatMethod("f", BeanNatCommonLgNames.STRING, new CstNatCaller(WEB_FIGHT_HTML_FIGHT_HTML)));
-        methods_.add( new SpecNatMethod("d", BeanNatCommonLgNames.STRING, new CstNatCaller(WEB_FIGHT_HTML_FIGHTDETAIL_HTML)));
-        methods_.add( new SpecNatMethod("e", BeanNatCommonLgNames.STRING, new CstNatCaller(WEB_FIGHT_HTML_FIGHTER_HTML)));
-        methods_.add( new SpecNatMethod("t", BeanNatCommonLgNames.STRING, new CstNatCaller(WEB_FIGHT_HTML_TEAM_HTML)));
+        methods_.add( new SpecNatMethod("f", BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.WEB_FIGHT_HTML_FIGHT_HTML)));
+        methods_.add( new SpecNatMethod("d", BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.WEB_FIGHT_HTML_FIGHTDETAIL_HTML)));
+        methods_.add( new SpecNatMethod("e", BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.WEB_FIGHT_HTML_FIGHTER_HTML)));
+        methods_.add( new SpecNatMethod("t", BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.WEB_FIGHT_HTML_TEAM_HTML)));
         _std.getStds().addEntry(TYPE_COMMON_FIGHT_BEAN, type_);
     }
     private static void buildFightBean(PokemonStandards _std){

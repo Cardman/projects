@@ -1,11 +1,8 @@
 package aiki.beans.endround;
 
-import aiki.beans.abilities.AikiBeansAbilitiesStd;
-import aiki.beans.items.AikiBeansItemsStd;
-import aiki.beans.moves.AikiBeansMovesStd;
-import aiki.beans.status.AikiBeansStatusStd;
 import aiki.db.MessagesDataBaseConstants;
 import code.maths.*;
+import code.scripts.confs.PkScriptPages;
 import org.junit.Test;
 
 public final class EndRoundBeanTest extends InitDbEndRound {
@@ -71,7 +68,7 @@ public final class EndRoundBeanTest extends InitDbEndRound {
     }
     @Test
     public void clickTargetRelationMove1() {
-        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callEffectEndRoundPositionTargetBeanClickTargetRelationMove(7,0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectEndRoundPositionTargetBeanClickTargetRelationMove(7,0));
     }
     @Test
     public void clickTargetRelationMove2() {
@@ -79,7 +76,7 @@ public final class EndRoundBeanTest extends InitDbEndRound {
     }
     @Test
     public void clickTargetRelationMove3() {
-        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callEffectEndRoundPositionTargetBeanClickTargetRelationMove(7,1));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectEndRoundPositionTargetBeanClickTargetRelationMove(7,1));
     }
     @Test
     public void clickTargetRelationMove4() {
@@ -103,7 +100,7 @@ public final class EndRoundBeanTest extends InitDbEndRound {
     }
     @Test
     public void clickDamageStatus1() {
-        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,callEffectEndRoundMultiRelationBeanClickDamageStatus(11,0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callEffectEndRoundMultiRelationBeanClickDamageStatus(11,0));
     }
     @Test
     public void clickDamageStatus2() {
@@ -203,7 +200,7 @@ public final class EndRoundBeanTest extends InitDbEndRound {
     }
     @Test
     public void clickUserStatus1() {
-        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,callEffectEndRoundIndividualBeanClickUserStatus(9));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callEffectEndRoundIndividualBeanClickUserStatus(9));
     }
     @Test
     public void clickUserStatus2() {
@@ -227,7 +224,7 @@ public final class EndRoundBeanTest extends InitDbEndRound {
     }
     @Test
     public void clickMultDamageStatus1() {
-        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,callEffectEndRoundIndividualBeanClickDamageStatus(9,0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callEffectEndRoundIndividualBeanClickDamageStatus(9,0));
     }
     @Test
     public void clickMultDamageStatus2() {
@@ -287,7 +284,7 @@ public final class EndRoundBeanTest extends InitDbEndRound {
     }
     @Test
     public void clickAbility1() {
-        assertEq(AikiBeansAbilitiesStd.WEB_HTML_ABILITY_DATA_HTML,callEffectEndRoundBeanClickAbility(16));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,callEffectEndRoundBeanClickAbility(16));
     }
     @Test
     public void clickAbility2() {
@@ -299,7 +296,7 @@ public final class EndRoundBeanTest extends InitDbEndRound {
     }
     @Test
     public void clickItem1() {
-        assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_ITEMFORBATTLE_HTML,callEffectEndRoundBeanClickItem(11));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEMFORBATTLE_HTML,callEffectEndRoundBeanClickItem(11));
     }
     @Test
     public void clickItem2() {
@@ -311,7 +308,7 @@ public final class EndRoundBeanTest extends InitDbEndRound {
     }
     @Test
     public void clickMove1() {
-        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callEffectEndRoundBeanClickMove(9));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectEndRoundBeanClickMove(9));
     }
     @Test
     public void clickMove2() {
@@ -339,7 +336,7 @@ public final class EndRoundBeanTest extends InitDbEndRound {
     }
     @Test
     public void clickMoves1() {
-        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callEffectEndRoundBeanClickMoves(29,0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectEndRoundBeanClickMoves(29,0));
     }
     @Test
     public void clickMoves2() {
@@ -347,7 +344,7 @@ public final class EndRoundBeanTest extends InitDbEndRound {
     }
     @Test
     public void clickMoves3() {
-        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callEffectEndRoundBeanClickMoves(29,1));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectEndRoundBeanClickMoves(29,1));
     }
     @Test
     public void clickMoves4() {
@@ -359,7 +356,7 @@ public final class EndRoundBeanTest extends InitDbEndRound {
     }
     @Test
     public void clickStatus1() {
-        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,callEffectEndRoundBeanClickStatus(19));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callEffectEndRoundBeanClickStatus(19));
     }
     @Test
     public void clickStatus2() {

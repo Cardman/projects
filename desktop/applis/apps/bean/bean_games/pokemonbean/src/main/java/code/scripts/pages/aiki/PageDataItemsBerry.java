@@ -1,13 +1,13 @@
 package code.scripts.pages.aiki;
+import code.scripts.confs.*;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageDataItemsBerry extends PageCardsCommon{
 private static final String C_P_116_0="javahtml";
 private static final String C_P_116_1="berry";
 private static final String C_P_116_2="msg_item,title";
 private static final String C_P_116_3="displayName";
-private static final String C_P_116_4="web/css/items.css";
+private static final String C_P_116_4=PkScriptPages.REN_ADD_WEB_CSS_ITEMS_CSS;
 private static final String C_P_116_5="stylesheet";
 private static final String C_P_116_6="text/css";
 private static final String C_P_116_7="itemBean";

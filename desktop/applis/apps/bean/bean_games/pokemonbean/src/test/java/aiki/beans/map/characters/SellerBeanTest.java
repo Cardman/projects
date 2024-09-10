@@ -1,7 +1,6 @@
 package aiki.beans.map.characters;
 
-import aiki.beans.items.AikiBeansItemsStd;
-import aiki.beans.moves.AikiBeansMovesStd;
+import code.scripts.confs.PkScriptPages;
 import org.junit.Test;
 
 public final class SellerBeanTest extends InitDbCharacters {
@@ -19,7 +18,7 @@ public final class SellerBeanTest extends InitDbCharacters {
     }
     @Test
     public void clickTm1() {
-        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callSellerBeanClickTm());
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callSellerBeanClickTm());
     }
     @Test
     public void clickTm2() {
@@ -39,7 +38,7 @@ public final class SellerBeanTest extends InitDbCharacters {
     }
     @Test
     public void clickItem1() {
-        assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_ITEMFORBATTLE_HTML,callSellerBeanClickItem());
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEMFORBATTLE_HTML,callSellerBeanClickItem());
     }
     @Test
     public void clickItem2() {

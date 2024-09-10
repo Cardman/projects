@@ -7,6 +7,7 @@ import aiki.beans.moves.MovesBean;
 import aiki.db.DataBase;
 import aiki.fight.moves.MoveData;
 import aiki.game.fight.FightSimulation;
+import code.scripts.confs.PkScriptPages;
 import code.util.*;
 
 public class EditPokemonMovesBean extends WithFilterBean {
@@ -104,14 +105,14 @@ public class EditPokemonMovesBean extends WithFilterBean {
 //        }
 //        moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         getForms().putMoves(CST_MOVES_EDIT_SET, moves_);
-        return AikiBeansSimulationStd.WEB_HTML_SIMULATION_EDITPOKEMONMOVES_HTML;
+        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONMOVES_HTML;
     }
 
     private String redirect() {
         if (player) {
-            return AikiBeansSimulationStd.WEB_HTML_SIMULATION_EDITPOKEMON_HTML;
+            return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMON_HTML;
         }
-        return AikiBeansSimulationStd.WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
+        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
     }
     public StringMap<String> getCategories() {
         return categories;

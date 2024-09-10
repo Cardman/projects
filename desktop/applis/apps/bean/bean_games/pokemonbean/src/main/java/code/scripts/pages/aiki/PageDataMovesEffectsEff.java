@@ -1,11 +1,11 @@
 package code.scripts.pages.aiki;
+import code.scripts.confs.*;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageDataMovesEffectsEff extends PageCardsCommon{
 private static final String C_P_144_0="javahtml";
 private static final String C_P_144_1="eff";
-private static final String C_P_144_2="web/css/moves.css";
+private static final String C_P_144_2=PkScriptPages.REN_ADD_WEB_CSS_MOVES_CSS;
 private static final String C_P_144_3="stylesheet";
 private static final String C_P_144_4="text/css";
 private static final String C_P_144_5="msg_eff,targets";

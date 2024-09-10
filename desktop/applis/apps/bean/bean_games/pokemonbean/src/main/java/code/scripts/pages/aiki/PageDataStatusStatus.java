@@ -1,11 +1,12 @@
 package code.scripts.pages.aiki;
+import code.scripts.confs.*;
 import code.sml.*;
 import code.util.*;
 final class PageDataStatusStatus extends PageCardsCommon{
 private static final String C_P_205_0="javahtml";
 private static final String C_P_205_1="status_set";
 private static final String C_P_205_2="msg_statusset,title";
-private static final String C_P_205_3="web/css/abilities.css";
+private static final String C_P_205_3=PkScriptPages.REN_ADD_WEB_CSS_ABILITIES_CSS;
 private static final String C_P_205_4="stylesheet";
 private static final String C_P_205_5="text/css";
 private static final String C_P_205_6=GO_TO_IND;

@@ -1,13 +1,13 @@
 package code.scripts.pages.aiki;
+import code.scripts.confs.*;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageDataItemsHealingitem extends PageCardsCommon{
 private static final String C_P_123_0="javahtml";
 private static final String C_P_123_1="healingitem";
 private static final String C_P_123_2="msg_item,title";
 private static final String C_P_123_3="displayName";
-private static final String C_P_123_4="web/css/items.css";
+private static final String C_P_123_4=PkScriptPages.REN_ADD_WEB_CSS_ITEMS_CSS;
 private static final String C_P_123_5="stylesheet";
 private static final String C_P_123_6="text/css";
 private static final String C_P_123_7="itemBean";

@@ -1,11 +1,11 @@
 package aiki.beans.help;
 
-import aiki.beans.items.AikiBeansItemsStd;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.instances.Instances;
 import code.bean.nat.*;
+import code.scripts.confs.PkScriptPages;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -29,7 +29,7 @@ public final class FightHelpBeanItemsTypesDefTest extends InitDbFightHelp {
     }
     @Test
     public void cl1() {
-        assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_ITEMFORBATTLE_HTML,click());
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEMFORBATTLE_HTML,click());
     }
     @Test
     public void clId1() {

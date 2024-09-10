@@ -7,6 +7,7 @@ import code.bean.nat.NatNavigation;
 import code.bean.nat.*;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.scripts.confs.PkScriptPages;
 import code.scripts.pages.aiki.CssInit;
 import code.scripts.pages.aiki.MessagesInit;
 import code.scripts.pages.aiki.PagesInit;
@@ -64,7 +65,7 @@ public final class FightBeanTest extends InitDbFight {
     @Test
     public void clickPlayer() {
         NaSt fBean_ = displaying(beanFight(EN, facade(db())));
-        assertEq(AikiBeansFightStd.WEB_FIGHT_HTML_TEAM_HTML,navigateFightPlayer(fBean_));
+        assertEq(PkScriptPages.WEB_FIGHT_HTML_TEAM_HTML,navigateFightPlayer(fBean_));
         assertTrue(forms(fBean_).contains(NO_TEAM));
         assertEq(Fight.CST_PLAYER,forms(fBean_).getValInt(NO_TEAM));
     }
@@ -73,7 +74,7 @@ public final class FightBeanTest extends InitDbFight {
     @Test
     public void clickFoe() {
         NaSt fBean_ = displaying(beanFight(EN, facade(db())));
-        assertEq(AikiBeansFightStd.WEB_FIGHT_HTML_TEAM_HTML,navigateFightFoe(fBean_));
+        assertEq(PkScriptPages.WEB_FIGHT_HTML_TEAM_HTML,navigateFightFoe(fBean_));
         assertTrue(forms(fBean_).contains(NO_TEAM));
         assertEq(Fight.CST_FOE,forms(fBean_).getValInt(NO_TEAM));
     }
@@ -114,7 +115,7 @@ public final class FightBeanTest extends InitDbFight {
         nav_.setLanguage(EN);
         pk_.setDataBase(facadeCalculation5(dbBaseCalc()));
         pk_.initializeRendSessionDoc(nav_);
-        assertEq("<html xmlns:c=\"javahtml\"><head><title>Data about the current fight</title><link href=\"web_fight/css/fight.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
+        assertEq("<html xmlns:c=\"javahtml\"><head><title>Data about the current fight</title><link href=\""+PkScriptPages.REN_ADD_WEB_FIGHT_CSS_FIGHT_CSS+"\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
                 "\ttext-indent:25px;\n" +
                 "}\n" +
                 "body{\n" +
@@ -150,7 +151,7 @@ public final class FightBeanTest extends InitDbFight {
         nav_.setLanguage(EN);
         pk_.setDataBase(facadeCalculation7(dbBaseCalc()));
         pk_.initializeRendSessionDoc(nav_);
-        assertEq("<html xmlns:c=\"javahtml\"><head><title>Data about the current fight</title><link href=\"web_fight/css/fight.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
+        assertEq("<html xmlns:c=\"javahtml\"><head><title>Data about the current fight</title><link href=\""+PkScriptPages.REN_ADD_WEB_FIGHT_CSS_FIGHT_CSS+"\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
                 "\ttext-indent:25px;\n" +
                 "}\n" +
                 "body{\n" +

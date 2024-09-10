@@ -19,6 +19,7 @@ import aiki.fight.pokemon.PokemonData;
 import aiki.fight.util.LevelMove;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.scripts.confs.PkScriptPages;
 import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -408,7 +409,7 @@ public class MoveBean extends CommonBean {
     public String clickMoves() {
         getForms().safeMoves(CST_MOVES_SET);
         getForms().safeMoves(CST_LEARNT_MOVES);
-        return AikiBeansMovesStd.WEB_HTML_MOVES_MOVES_HTML;
+        return PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML;
     }
 
     private StringList getMovesThieve() {
@@ -845,113 +846,113 @@ public class MoveBean extends CommonBean {
         MoveData moveData_ = data_.getMove(name);
         Effect eff_ = moveData_.getEffet(_long);
         if (eff_ instanceof EffectDamage) {
-            return AikiBeansMovesStd.PAGE_DAMAGE;
+            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFDAMAGE_HTML;
         }
         if (eff_ instanceof EffectDamageRate) {
-            return AikiBeansMovesStd.PAGE_DAMAGERATE;
+            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFDAMAGERATE_HTML;
         }
         if (eff_ instanceof EffectStatistic) {
-            return AikiBeansMovesStd.PAGE_STATIS;
+            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSTATIS_HTML;
         }
         if (eff_ instanceof EffectStatus) {
-            return AikiBeansMovesStd.PAGE_STATUS;
+            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSTATUS_HTML;
         }
         if (eff_ instanceof EffectTeam) {
-            return AikiBeansMovesStd.PAGE_TEAM;
+            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFTEAM_HTML;
         }
         if (eff_ instanceof EffectGlobal) {
-            return AikiBeansMovesStd.PAGE_GLOBAL;
+            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFGLOBAL_HTML;
         }
         if (eff_ instanceof EffectEndRound) {
-            return AikiBeansMovesStd.PAGE_ENDROUND;
+            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFENDROUND_HTML;
         }
         if (eff_ instanceof EffectTeamWhileSendFoe) {
-            return AikiBeansMovesStd.PAGE_TEAMWHILESENDINGFOE;
+            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFTEAMWHILESENDINGFOE_HTML;
         }
         if (eff_ instanceof EffectCopyMove) {
-            return AikiBeansMovesStd.PAGE_COPYMOVE;
+            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFCOPYMOVE_HTML;
         }
         if (eff_ instanceof EffectFullHpRate) {
-            return AikiBeansMovesStd.PAGE_FULLHPRATE;
+            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFFULLHPRATE_HTML;
         }
         if (eff_ instanceof EffectInvoke) {
-            return AikiBeansMovesStd.PAGE_INVOKE;
+            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFINVOKE_HTML;
         }
         if (eff_ instanceof EffectSwitchTypes) {
-            return AikiBeansMovesStd.PAGE_SWITCHTYPES;
+            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSWITCHTYPES_HTML;
         }
         if (eff_ instanceof EffectSwitchMoveTypes) {
-            return AikiBeansMovesStd.PAGE_SWITCHMOVETYPES;
+            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSWITCHMOVETYPES_HTML;
         }
         return red(eff_);
     }
 
     private String red(Effect _eff) {
         if (_eff instanceof EffectCounterAttack) {
-            return AikiBeansMovesStd.PAGE_COUNTERATTACK;
+            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFCOUNTERATTACK_HTML;
         }
         if (_eff instanceof EffectProtection) {
-            return AikiBeansMovesStd.PAGE_PROTECTION;
+            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFPROTECTION_HTML;
         }
         if (_eff instanceof EffectAccuracy) {
-            return AikiBeansMovesStd.PAGE_ACCURACY;
+            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFACCURACY_HTML;
         }
         if (_eff instanceof EffectCopyFighter) {
-            return AikiBeansMovesStd.PAGE_COPYFIGHTER;
+            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFCOPYFIGHTER_HTML;
         }
         if (_eff instanceof EffectProtectFromTypes) {
-            return AikiBeansMovesStd.PAGE_PROTECTFROMTYPES;
+            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFPROTECTFROMTYPES_HTML;
         }
         if (_eff instanceof EffectUnprotectFromTypes) {
-            return AikiBeansMovesStd.PAGE_UNPROTECTFROMTYPES;
+            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFUNPROTECTFROMTYPES_HTML;
         }
         if (_eff instanceof EffectAlly) {
-            return AikiBeansMovesStd.PAGE_ALLY;
+            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFALLY_HTML;
         }
         if (_eff instanceof EffectBatonPass) {
-            return AikiBeansMovesStd.PAGE_BATONPASS;
+            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFBATONPASS_HTML;
         }
         if (_eff instanceof EffectClone) {
-            return AikiBeansMovesStd.PAGE_CLONE;
+            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFCLONE_HTML;
         }
         if (_eff instanceof EffectCommonStatistics) {
-            return AikiBeansMovesStd.PAGE_COMMONSTATISTICS;
+            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFCOMMONSTATISTICS_HTML;
         }
         return redir(_eff);
     }
 
     private String redir(Effect _eff) {
         if (_eff instanceof EffectOrder) {
-            return AikiBeansMovesStd.PAGE_ORDER;
+            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFORDER_HTML;
         }
         if (_eff instanceof EffectRestriction) {
-            return AikiBeansMovesStd.PAGE_RESTRICTION;
+            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFRESTRICTION_HTML;
         }
         if (_eff instanceof EffectSwitchAbilities) {
-            return AikiBeansMovesStd.PAGE_SWITCHABILITIES;
+            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSWITCHABILITIES_HTML;
         }
         if (_eff instanceof EffectSwitchItems) {
-            return AikiBeansMovesStd.PAGE_SWITCHITEMS;
+            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSWITCHITEMS_HTML;
         }
         if (_eff instanceof EffectSwitchPointView) {
-            return AikiBeansMovesStd.PAGE_SWITCHPOINTVIEW;
+            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSWITCHPOINTVIEW_HTML;
         }
         if (_eff instanceof EffectRemainedHpRate) {
-            return AikiBeansMovesStd.PAGE_REMAINEDHPRATE;
+            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFREMAINEDHPRATE_HTML;
         }
         if (_eff instanceof EffectMultUsedMovePower) {
-            return AikiBeansMovesStd.PAGE_MULTUSEDMOVEPOWER;
+            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFMULTUSEDMOVEPOWER_HTML;
         }
         if (_eff instanceof EffectMultSufferedMovePower) {
-            return AikiBeansMovesStd.PAGE_MULTSUFFEREDMOVEPOWER;
+            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFMULTSUFFEREDMOVEPOWER_HTML;
         }
         if (_eff instanceof EffectSwitchPosition) {
-            return AikiBeansMovesStd.PAGE_SWITCHPOSITION;
+            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSWITCHPOSITION_HTML;
         }
         if (_eff instanceof EffectVarPP) {
-            return AikiBeansMovesStd.PAGE_VARPP;
+            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFVARPP_HTML;
         }
-        return AikiBeansMovesStd.PAGE_WINMONEY;
+        return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFWINMONEY_HTML;
     }
 
     public String getDisplayName() {

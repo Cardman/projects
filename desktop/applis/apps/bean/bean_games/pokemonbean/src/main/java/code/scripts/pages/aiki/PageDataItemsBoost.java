@@ -1,13 +1,13 @@
 package code.scripts.pages.aiki;
+import code.scripts.confs.*;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageDataItemsBoost extends PageCardsCommon{
 private static final String C_P_117_0="javahtml";
 private static final String C_P_117_1="boost";
 private static final String C_P_117_2="msg_item,title";
 private static final String C_P_117_3="displayName";
-private static final String C_P_117_4="web/css/items.css";
+private static final String C_P_117_4=PkScriptPages.REN_ADD_WEB_CSS_ITEMS_CSS;
 private static final String C_P_117_5="stylesheet";
 private static final String C_P_117_6="text/css";
 private static final String C_P_117_7="itemBean";

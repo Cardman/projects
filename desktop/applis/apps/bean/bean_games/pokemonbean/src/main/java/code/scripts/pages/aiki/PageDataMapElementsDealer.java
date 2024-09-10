@@ -1,10 +1,11 @@
 package code.scripts.pages.aiki;
+import code.scripts.confs.*;
 import code.sml.*;
 import code.util.*;
 final class PageDataMapElementsDealer extends PageCardsCommon{
 private static final String C_P_134_0="javahtml";
 private static final String C_P_134_1="dealer";
-private static final String C_P_134_2="web/css/pokedex.css";
+private static final String C_P_134_2=PkScriptPages.REN_ADD_WEB_CSS_POKEDEX_CSS;
 private static final String C_P_134_3="stylesheet";
 private static final String C_P_134_4="text/css";
 private static final String C_P_134_5="msg_levelmap,title_dealer";

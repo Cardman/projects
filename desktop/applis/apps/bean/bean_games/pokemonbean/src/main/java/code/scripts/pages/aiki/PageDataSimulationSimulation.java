@@ -1,4 +1,5 @@
 package code.scripts.pages.aiki;
+import code.scripts.confs.*;
 import code.sml.*;
 import code.util.*;
 final class PageDataSimulationSimulation extends PageCardsCommon{
@@ -6,7 +7,7 @@ private static final String C_P_201_0="javahtml";
 private static final String C_P_201_1="simulation";
 private static final String C_P_201_2="msg_simulation,title_param";
 private static final String C_P_201_3="getRealStepNumber()";
-private static final String C_P_201_4="web/css/simulation.css";
+private static final String C_P_201_4=PkScriptPages.REN_ADD_WEB_CSS_SIMULATION_CSS;
 private static final String C_P_201_5="stylesheet";
 private static final String C_P_201_6="text/css";
 private static final String C_P_201_7="$quit()";

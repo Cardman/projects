@@ -12,6 +12,7 @@ import aiki.fight.moves.enums.TargetChoice;
 import aiki.instances.Instances;
 import aiki.map.levels.enums.EnvironmentType;
 import code.bean.nat.*;
+import code.scripts.confs.PkScriptPages;
 import code.util.StringMap;
 
 public abstract class InitDbMoveEffectEndRound extends InitDbMoveEffect {
@@ -43,7 +44,7 @@ public abstract class InitDbMoveEffectEndRound extends InitDbMoveEffect {
     }
     public static StringMap<String> mappingToEffectEndRound() {
         StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFENDROUND_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_ENDROUND);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFENDROUND_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_ENDROUND);
         return map_;
     }
     protected static FacadeGame feedDbMoveEffDataDam() {

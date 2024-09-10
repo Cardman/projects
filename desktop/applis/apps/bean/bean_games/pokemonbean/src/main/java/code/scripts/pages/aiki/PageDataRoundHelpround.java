@@ -1,4 +1,5 @@
 package code.scripts.pages.aiki;
+import code.scripts.confs.*;
 import code.sml.*;
 import code.util.*;
 
@@ -13,7 +14,7 @@ private static final String LK_CMD="$clickDefaultMove()";
 private static final String C_P_192_0="javahtml";
 private static final String C_P_192_1="help_fight";
 private static final String C_P_192_2="msg_helpround,title";
-private static final String C_P_192_3="web/css/pokedex.css";
+private static final String C_P_192_3=PkScriptPages.REN_ADD_WEB_CSS_POKEDEX_CSS;
 private static final String C_P_192_4="stylesheet";
 private static final String C_P_192_5="text/css";
 private static final String C_P_192_6=GO_TO_IND;

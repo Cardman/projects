@@ -3,12 +3,11 @@ package aiki.beans.abilities;
 import aiki.beans.AikiBeansStd;
 import aiki.beans.PokemonStandards;
 import code.bean.nat.*;
+import code.scripts.confs.*;
 import code.util.CustList;
 public final class AikiBeansAbilitiesStd{
     public static final String BEAN_ABILITIES="abilities";
     public static final String BEAN_ABILITY="ability";
-    public static final String WEB_HTML_ABILITY_ABILITIES_HTML="web/html/ability/abilities.html";
-    public static final String WEB_HTML_ABILITY_DATA_HTML= "web/html/ability/data.html";
     public static final String TYPE_ABILITIES_BEAN = "aiki.beans.abilities.AbilitiesBean";
     public static final String TYPE_ABILITY_BEAN = "aiki.beans.abilities.AbilityBean";
     private static final String SEARCH = "search";
@@ -406,7 +405,7 @@ public final class AikiBeansAbilitiesStd{
         methods_.add( new SpecNatMethod(GET_TR_FAIL_STATUS,BeanNatCommonLgNames.STRING, new AbilityBeanGetTrFailStatus()));
         methods_.add( new SpecNatMethod(CLICK_POKEMON,BeanNatCommonLgNames.STRING, new AbilityBeanClickPokemon()));
         methods_.add( new SpecNatMethod(GET_TR_POKEMON,BeanNatCommonLgNames.STRING, new AbilityBeanGetTrPokemon()));
-        methods_.add( new SpecNatMethod(GA,BeanNatCommonLgNames.STRING, new CstNatCaller(WEB_HTML_ABILITY_ABILITIES_HTML)));
+        methods_.add( new SpecNatMethod(GA,BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_ABILITIES_HTML)));
         _std.getStds().addEntry(TYPE_ABILITY_BEAN, type_);
     }
 }

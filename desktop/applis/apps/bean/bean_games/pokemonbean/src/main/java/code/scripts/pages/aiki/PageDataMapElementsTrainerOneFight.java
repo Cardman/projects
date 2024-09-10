@@ -1,10 +1,11 @@
 package code.scripts.pages.aiki;
+import code.scripts.confs.*;
 import code.sml.*;
 import code.util.*;
 final class PageDataMapElementsTrainerOneFight extends PageCardsCommon{
 private static final String C_P_140_0="javahtml";
 private static final String C_P_140_1="trainer_fight";
-private static final String C_P_140_2="web/css/pokedex.css";
+private static final String C_P_140_2=PkScriptPages.REN_ADD_WEB_CSS_POKEDEX_CSS;
 private static final String C_P_140_3="stylesheet";
 private static final String C_P_140_4="text/css";
 private static final String C_P_140_5="!isEmpty(getName())";

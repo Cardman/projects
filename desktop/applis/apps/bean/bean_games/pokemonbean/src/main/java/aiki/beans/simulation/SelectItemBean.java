@@ -4,6 +4,7 @@ import aiki.beans.WithFilterBean;
 import aiki.db.DataBase;
 import aiki.fight.items.Item;
 import code.images.BaseSixtyFourUtil;
+import code.scripts.confs.PkScriptPages;
 import code.util.AbsMap;
 
 public class SelectItemBean extends WithFilterBean {
@@ -51,7 +52,7 @@ public class SelectItemBean extends WithFilterBean {
             getForms().put(CST_ITEM_EDIT, item);
             return redirect();
         }
-        return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SELECTITEM_HTML;
+        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SELECTITEM_HTML;
     }
 
     public String clickLink(int _index) {
@@ -61,9 +62,9 @@ public class SelectItemBean extends WithFilterBean {
     }
     private String redirect() {
         if (player) {
-            return AikiBeansSimulationStd.WEB_HTML_SIMULATION_EDITPOKEMON_HTML;
+            return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMON_HTML;
         }
-        return AikiBeansSimulationStd.WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
+        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
     }
     public String getMiniImage(int _number) {
         String item_ = getItems().get(_number).getName();

@@ -1,13 +1,11 @@
 package aiki.beans;
 
-import aiki.beans.endround.AikiBeansEndroundStd;
 import aiki.beans.map.*;
 import aiki.beans.map.elements.*;
 import code.bean.nat.*;
+import code.scripts.confs.*;
 import code.util.CustList;
 public final class AikiBeansStd{
-    public static final String WEB_HTML_INDEX_HTML="web/html/index.html";
-    public static final String WEB_HTML_COMBO_COMBOS_HTML = "web/html/combo/combos.html";
     public static final String BEAN_WELCOME = "welcome";
     public static final String TYPE_COMMON_BEAN = "aiki.beans.CommonBean";
     public static final String TYPE_WELCOME_BEAN = "aiki.beans.WelcomeBean";
@@ -53,8 +51,8 @@ public final class AikiBeansStd{
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, BeanNatCommonLgNames.TYPE_BEAN);
-        methods_.add( new SpecNatMethod(GO_TO_INDEX, BeanNatCommonLgNames.STRING, new CstNatCaller(WEB_HTML_INDEX_HTML)));
-        methods_.add( new SpecNatMethod(GO_TO_ENDROUND, BeanNatCommonLgNames.STRING, new CstNatCaller(AikiBeansEndroundStd.PAGE_END_ROUND)));
+        methods_.add( new SpecNatMethod(GO_TO_INDEX, BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML)));
+        methods_.add( new SpecNatMethod(GO_TO_ENDROUND, BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_ENDROUND_HTML)));
         _std.getStds().addEntry(TYPE_COMMON_BEAN, type_);
     }
     private static void buildWelcomeBean(PokemonStandards _std){
@@ -69,12 +67,12 @@ public final class AikiBeansStd{
         methods_.add( new SpecNatMethod(CLICK_ABILITIES,BeanNatCommonLgNames.STRING, new WelcomeBeanClickAbilities()));
         methods_.add( new SpecNatMethod(CLICK_STATUS,BeanNatCommonLgNames.STRING, new WelcomeBeanClickStatus()));
         methods_.add( new SpecNatMethod(CLICK_SIMULATION,BeanNatCommonLgNames.STRING, new WelcomeBeanClickSimulation()));
-        methods_.add( new SpecNatMethod(AikiBeansMapElementsStd.GM, BeanNatCommonLgNames.STRING, new CstNatCaller(AikiBeansMapElementsStd.WEB_HTML_MAP_MAP_HTML)));
-        methods_.add( new SpecNatMethod(GO_TO_GENERAL, BeanNatCommonLgNames.STRING, new CstNatCaller("web/html/general/general.html")));
-        methods_.add( new SpecNatMethod(GO_TO_HELPROUND, BeanNatCommonLgNames.STRING, new CstNatCaller("web/html/round/helpround.html")));
-        methods_.add( new SpecNatMethod(GO_TO_COMBOS, BeanNatCommonLgNames.STRING, new CstNatCaller(WEB_HTML_COMBO_COMBOS_HTML)));
-        methods_.add( new SpecNatMethod(GO_TO_SOLUTION, BeanNatCommonLgNames.STRING, new CstNatCaller("web/html/solution/solution.html")));
-        methods_.add( new SpecNatMethod(GO_TO_LANGS, BeanNatCommonLgNames.STRING, new CstNatCaller("web/html/langs/langs.html")));
+        methods_.add( new SpecNatMethod(AikiBeansMapElementsStd.GM, BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_MAP_MAP_HTML)));
+        methods_.add( new SpecNatMethod(GO_TO_GENERAL, BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_GENERAL_GENERAL_HTML)));
+        methods_.add( new SpecNatMethod(GO_TO_HELPROUND, BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML)));
+        methods_.add( new SpecNatMethod(GO_TO_COMBOS, BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_COMBO_COMBOS_HTML)));
+        methods_.add( new SpecNatMethod(GO_TO_SOLUTION, BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_SOLUTION_SOLUTION_HTML)));
+        methods_.add( new SpecNatMethod(GO_TO_LANGS, BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_LANGS_LANGS_HTML)));
         _std.getStds().addEntry(TYPE_WELCOME_BEAN, type_);
     }
     private static void buildAbsBean(PokemonStandards _std){

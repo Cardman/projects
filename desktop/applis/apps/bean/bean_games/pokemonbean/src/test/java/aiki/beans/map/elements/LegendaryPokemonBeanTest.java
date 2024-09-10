@@ -1,7 +1,7 @@
 package aiki.beans.map.elements;
 
-import aiki.beans.items.AikiBeansItemsStd;
 import aiki.beans.map.InitDbLegPk;
+import code.scripts.confs.PkScriptPages;
 import org.junit.Test;
 
 public final class LegendaryPokemonBeanTest extends InitDbLegPk {
@@ -126,10 +126,10 @@ public final class LegendaryPokemonBeanTest extends InitDbLegPk {
     }
     @Test
     public void clickItem3() {
-        assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_REPEL_HTML,callLegendaryPokemonBeanClickItem(0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_REPEL_HTML,callLegendaryPokemonBeanClickItem(0));
     }
     @Test
     public void clickItem4() {
-        assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_SELLINGITEM_HTML,callLegendaryPokemonBeanClickItem(1));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_SELLINGITEM_HTML,callLegendaryPokemonBeanClickItem(1));
     }
 }

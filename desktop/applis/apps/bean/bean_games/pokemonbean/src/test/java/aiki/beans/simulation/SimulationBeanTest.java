@@ -1,6 +1,5 @@
 package aiki.beans.simulation;
 
-import aiki.beans.AikiBeansStd;
 import aiki.beans.facade.simulation.enums.TeamCrud;
 import aiki.db.DataBase;
 import aiki.facade.enums.SelectedBoolean;
@@ -9,6 +8,7 @@ import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.scripts.confs.PkScriptPages;
 import code.util.StringList;
 import org.junit.Test;
 
@@ -445,15 +445,15 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void selectFoePkInit() {
-        assertEq(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML,editNoFoePk());
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,editNoFoePk());
     }
     @Test
     public void selectFoePkAddedNoSelect() {
-        assertEq(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML,editNoSelectedFoePk());
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,editNoSelectedFoePk());
     }
     @Test
     public void selectFoePkAddedForget() {
-        assertEq(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML,editForgetSelectedFoePk());
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,editForgetSelectedFoePk());
     }
     @Test
     public void editingFoe() {
@@ -496,15 +496,15 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void selectAllyPkInit() {
-        assertEq(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML,editNoAllyPk());
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,editNoAllyPk());
     }
     @Test
     public void selectAllyPkAddedNoSelect() {
-        assertEq(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML,editNoSelectedAllyPk());
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,editNoSelectedAllyPk());
     }
     @Test
     public void selectAllyPkAddedForget() {
-        assertEq(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML,editForgetSelectedAllyPk());
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,editForgetSelectedAllyPk());
     }
     @Test
     public void editingAlly() {
@@ -724,15 +724,15 @@ public final class SimulationBeanTest extends InitDbSimulation {
 
     @Test
     public void selectPlayerPkInit() {
-        assertEq(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML,editNoPlayerPk());
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,editNoPlayerPk());
     }
     @Test
     public void selectPlayerPkAddedNoSelect() {
-        assertEq(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML,editNoSelectedPlayerPk());
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,editNoSelectedPlayerPk());
     }
     @Test
     public void selectPlayerPkAddedForget() {
-        assertEq(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML,editForgetSelectedPlayerPk());
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,editForgetSelectedPlayerPk());
     }
     @Test
     public void namePkPlayerEdit() {
@@ -1716,6 +1716,6 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void exit() {
-        assertEq(AikiBeansStd.WEB_HTML_INDEX_HTML,quit());
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,quit());
     }
 }

@@ -1,12 +1,13 @@
 package code.scripts.pages.aiki;
 import aiki.beans.moves.AikiBeansMovesStd;
+import code.scripts.confs.*;
 import code.sml.*;
 import code.util.*;
 final class PageDataMovesMoves extends PageCardsCommon{
 private static final String C_P_180_0="javahtml";
 private static final String C_P_180_1= AikiBeansMovesStd.BEAN_MOVES;
 private static final String C_P_180_2="msg_moves,title";
-private static final String C_P_180_3="web/css/moves.css";
+private static final String C_P_180_3=PkScriptPages.REN_ADD_WEB_CSS_MOVES_CSS;
 private static final String C_P_180_4="stylesheet";
 private static final String C_P_180_5="text/css";
 private static final String C_P_180_6=GO_TO_IND;

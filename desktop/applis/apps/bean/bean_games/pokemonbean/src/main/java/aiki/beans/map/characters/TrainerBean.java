@@ -1,17 +1,17 @@
 package aiki.beans.map.characters;
 import aiki.beans.CommonBean;
-import aiki.beans.map.elements.*;
 import aiki.db.DataBase;
 import aiki.map.characters.GymLeader;
 import aiki.map.characters.Trainer;
 import aiki.map.characters.TrainerMultiFights;
 import aiki.map.pokemon.PokemonTeam;
 import code.images.BaseSixtyFourUtil;
+import code.scripts.confs.PkScriptPages;
 import code.util.CustList;
 import code.util.StringMap;
 
 public class TrainerBean extends CommonBean {
-    static final String PAGE_TEAM = AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_POKEMON_TEAM_HTML;
+    static final String PAGE_TEAM = PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_POKEMON_TEAM_HTML;
     private Trainer trainer;
     private String name = DataBase.EMPTY_STRING;
     private String move = DataBase.EMPTY_STRING;

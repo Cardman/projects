@@ -1,9 +1,9 @@
 package aiki.beans.moves.effects;
 
-import aiki.beans.moves.AikiBeansMovesStd;
 import aiki.fight.moves.effects.enums.ConstValuesType;
 import aiki.fight.moves.effects.enums.ExchangeType;
 import aiki.map.levels.enums.EnvironmentType;
+import code.scripts.confs.PkScriptPages;
 import code.util.StringList;
 import org.junit.Test;
 
@@ -84,7 +84,7 @@ public final class EffectSwitchTypesBeanTest extends InitDbMoveEffectSwitch {
     }
     @Test
     public void clickGlobalMoveFctEnv1() {
-        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callEffectSwitchTypesBeanClickGlobalMoveFctEnv(dispMoveEffCopyMove(ConstValuesType.NOTHING,ExchangeType.NOTHING),0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectSwitchTypesBeanClickGlobalMoveFctEnv(dispMoveEffCopyMove(ConstValuesType.NOTHING,ExchangeType.NOTHING),0));
     }
     @Test
     public void clickGlobalMoveFctEnv2() {

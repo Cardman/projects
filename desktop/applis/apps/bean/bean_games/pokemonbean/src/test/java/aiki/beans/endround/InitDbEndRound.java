@@ -15,6 +15,7 @@ import aiki.instances.*;
 import code.bean.nat.*;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.scripts.confs.PkScriptPages;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -416,18 +417,18 @@ public abstract class InitDbEndRound extends InitDbConstr {
     }
     public static StringMap<String> mappingToEndRound() {
         StringMap<String> map_ = new StringMap<String>();
-        map_.addEntry(AikiBeansEndroundStd.PAGE_END_ROUND,AikiBeansEndroundStd.BEAN_ENDROUND);
-        map_.addEntry(AikiBeansEndroundStd.PAGE_EFF,AikiBeansEndroundStd.BEAN_END);
-        map_.addEntry(AikiBeansEndroundStd.PAGE_FOE,AikiBeansEndroundStd.BEAN_END_FOE);
-        map_.addEntry(AikiBeansEndroundStd.PAGE_GLOBAL,AikiBeansEndroundStd.BEAN_END_GLOBAL);
-        map_.addEntry(AikiBeansEndroundStd.PAGE_INDIVIDUAL,AikiBeansEndroundStd.BEAN_END_INDIVIDUAL);
-        map_.addEntry(AikiBeansEndroundStd.PAGE_MULTIRELATION,AikiBeansEndroundStd.BEAN_END_MULTIRELATION);
-        map_.addEntry(AikiBeansEndroundStd.PAGE_POSITIONRELATION,AikiBeansEndroundStd.BEAN_END_POSITIONRELATION);
-        map_.addEntry(AikiBeansEndroundStd.PAGE_POSITIONTARGET,AikiBeansEndroundStd.BEAN_END_POSITIONTARGET);
-        map_.addEntry(AikiBeansEndroundStd.PAGE_SINGLERELATION,AikiBeansEndroundStd.BEAN_END_SINGLERELATION);
-        map_.addEntry(AikiBeansEndroundStd.PAGE_STATUS,AikiBeansEndroundStd.BEAN_END_STATUS);
-        map_.addEntry(AikiBeansEndroundStd.PAGE_STATUSRELATION,AikiBeansEndroundStd.BEAN_END_STATUSRELATION);
-        map_.addEntry(AikiBeansEndroundStd.PAGE_TEAM,AikiBeansEndroundStd.BEAN_END_TEAM);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_ENDROUND_HTML,AikiBeansEndroundStd.BEAN_ENDROUND);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_EFF_HTML,AikiBeansEndroundStd.BEAN_END);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_FOE_HTML,AikiBeansEndroundStd.BEAN_END_FOE);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_GLOBAL_HTML,AikiBeansEndroundStd.BEAN_END_GLOBAL);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_INDIVIDUAL_HTML,AikiBeansEndroundStd.BEAN_END_INDIVIDUAL);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_MULTIRELATION_HTML,AikiBeansEndroundStd.BEAN_END_MULTIRELATION);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_POSITIONRELATION_HTML,AikiBeansEndroundStd.BEAN_END_POSITIONRELATION);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_POSITIONTARGET_HTML,AikiBeansEndroundStd.BEAN_END_POSITIONTARGET);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_SINGLERELATION_HTML,AikiBeansEndroundStd.BEAN_END_SINGLERELATION);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_STATUS_HTML,AikiBeansEndroundStd.BEAN_END_STATUS);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_STATUSRELATION_HTML,AikiBeansEndroundStd.BEAN_END_STATUSRELATION);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_TEAM_HTML,AikiBeansEndroundStd.BEAN_END_TEAM);
         return map_;
     }
     protected static FacadeGame feedDb() {

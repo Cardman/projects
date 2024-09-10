@@ -1,7 +1,7 @@
 package aiki.beans.items;
 
-import aiki.beans.status.AikiBeansStatusStd;
 import code.maths.Rate;
+import code.scripts.confs.PkScriptPages;
 import org.junit.Test;
 
 public final class HealingStatusBeanTest extends InitDbHealingStatus {
@@ -35,7 +35,7 @@ public final class HealingStatusBeanTest extends InitDbHealingStatus {
     }
     @Test
     public void clickStatus1() {
-        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,callHealingStatusBeanClickStatus(statusDb(full(false)),0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callHealingStatusBeanClickStatus(statusDb(full(false)),0));
     }
     @Test
     public void clickStatus2() {

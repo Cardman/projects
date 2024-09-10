@@ -1,6 +1,5 @@
 package aiki.beans.help;
 
-import aiki.beans.AikiBeansStd;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectCombo;
@@ -8,6 +7,7 @@ import aiki.fight.moves.effects.EffectTeam;
 import aiki.fight.util.ListEffectCombo;
 import aiki.instances.Instances;
 import code.maths.Rate;
+import code.scripts.confs.PkScriptPages;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -105,7 +105,7 @@ public final class FightHelpBeanComboMultStatTest extends InitDbFightHelp {
     }
     @Test
     public void cl() {
-        assertEq(AikiBeansStd.WEB_HTML_COMBO_COMBOS_HTML,clickDest());
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_COMBO_COMBOS_HTML,clickDest());
     }
     private static String clickDest() {
         return toStr(callFightHelpBeanClickComboMultStat(bean(db(Statistic.ATTACK)),0));

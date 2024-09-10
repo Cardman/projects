@@ -1,10 +1,11 @@
 package code.scripts.pages.aiki;
+import code.scripts.confs.*;
 import code.sml.*;
 import code.util.*;
 final class PageDataSimulationSimulationlevel extends PageCardsCommon{
 private static final String C_P_202_0="javahtml";
 private static final String C_P_202_1="level_simu";
-private static final String C_P_202_2="web/css/simulation.css";
+private static final String C_P_202_2=PkScriptPages.REN_ADD_WEB_CSS_SIMULATION_CSS;
 private static final String C_P_202_3="stylesheet";
 private static final String C_P_202_4="text/css";
 private static final String C_P_202_5="possibleMultiLayer";

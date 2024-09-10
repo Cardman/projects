@@ -1,22 +1,19 @@
 package code.scripts.pages.aiki;
+import code.scripts.confs.*;
 import code.util.*;
 public final class CssInit{
 private CssInit(){}
 public static StringMap<String> ms(){
 StringMap<String> m = new StringMap<String>();
-m.addEntry("web/css/abilities.css",CssDataAbilities.in());
-m.addEntry("web/css/attaques.css",CssDataAttaques.in());
-m.addEntry("web/css/capacites.css",CssDataCapacites.in());
-m.addEntry("web/css/items.css",CssDataItems.in());
-m.addEntry("web/css/moves.css",CssDataMoves.in());
-m.addEntry("web/css/objets.css",CssDataObjets.in());
-m.addEntry("web/css/pokedex.css",CssDataPokedex.in());
-m.addEntry("web/css/simulation.css",CssDataSimulation.in());
-m.addEntry("web/css/statuts.css",CssDataStatuts.in());
-m.addEntry("web_fight/css/fight.css",CssFightFight.in());
-m.addEntry("web_game/css/difficulty.css",CssGameDifficulty.in());
-m.addEntry("web_pk/css/pokemon.css",CssPkPokemon.in());
-m.addEntry("web_prog/css/difficulty.css",CssProgDifficulty.in());
+m.addEntry(PkScriptPages.REN_ADD_WEB_CSS_ABILITIES_CSS,CssDataAbilities.in());
+m.addEntry(PkScriptPages.REN_ADD_WEB_CSS_ITEMS_CSS,CssDataItems.in());
+m.addEntry(PkScriptPages.REN_ADD_WEB_CSS_MOVES_CSS,CssDataMoves.in());
+m.addEntry(PkScriptPages.REN_ADD_WEB_CSS_POKEDEX_CSS,CssDataPokedex.in());
+m.addEntry(PkScriptPages.REN_ADD_WEB_CSS_SIMULATION_CSS,CssDataSimulation.in());
+m.addEntry(PkScriptPages.REN_ADD_WEB_FIGHT_CSS_FIGHT_CSS,CssFightFight.in());
+m.addEntry(PkScriptPages.REN_ADD_WEB_GAME_CSS_DIFFICULTY_CSS,CssGameDifficulty.in());
+m.addEntry(PkScriptPages.REN_ADD_WEB_PK_CSS_POKEMON_CSS,CssPkPokemon.in());
+m.addEntry(PkScriptPages.REN_ADD_WEB_PROG_CSS_DIFFICULTY_CSS,CssProgDifficulty.in());
 return m;
 }
 }

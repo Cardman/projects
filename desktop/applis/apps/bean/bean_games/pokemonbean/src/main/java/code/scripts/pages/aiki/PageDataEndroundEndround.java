@@ -1,12 +1,12 @@
 package code.scripts.pages.aiki;
+import code.scripts.confs.*;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageDataEndroundEndround extends PageCardsCommon{
 private static final String C_P_102_0="javahtml";
 private static final String C_P_102_1="endround";
 private static final String C_P_102_2="msg_endround,title";
-private static final String C_P_102_3="web/css/abilities.css";
+private static final String C_P_102_3=PkScriptPages.REN_ADD_WEB_CSS_ABILITIES_CSS;
 private static final String C_P_102_4="stylesheet";
 private static final String C_P_102_5="text/css";
 private static final String C_P_102_6=GO_TO_IND;

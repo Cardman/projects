@@ -1,12 +1,13 @@
 package code.scripts.pages.aiki;
 import aiki.beans.fight.*;
+import code.scripts.confs.*;
 import code.sml.*;
 import code.util.*;
 final class PageFightFightdetail extends PageCardsCommon{
 private static final String C_P_207_0="javahtml";
 private static final String C_P_207_1="fight_detail";
 private static final String C_P_207_2="msg_fight,title_detail_fight";
-private static final String C_P_207_3="web_fight/css/fight.css";
+private static final String C_P_207_3=PkScriptPages.REN_ADD_WEB_FIGHT_CSS_FIGHT_CSS;
 private static final String C_P_207_4="stylesheet";
 private static final String C_P_207_5="text/css";
 private static final String C_P_207_6="$f()";

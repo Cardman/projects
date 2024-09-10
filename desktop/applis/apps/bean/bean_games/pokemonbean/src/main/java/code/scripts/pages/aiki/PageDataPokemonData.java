@@ -1,13 +1,13 @@
 package code.scripts.pages.aiki;
+import code.scripts.confs.*;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageDataPokemonData extends PageCardsCommon{
 private static final String C_P_181_0="javahtml";
 private static final String C_P_181_1="pokemon";
 private static final String C_P_181_2="msg_pkdata,title";
 private static final String C_P_181_3="displayName";
-private static final String C_P_181_4="web/css/pokedex.css";
+private static final String C_P_181_4=PkScriptPages.REN_ADD_WEB_CSS_POKEDEX_CSS;
 private static final String C_P_181_5="stylesheet";
 private static final String C_P_181_6="text/css";
 private static final String C_P_181_7="msg_pkdata,general";

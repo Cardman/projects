@@ -1,7 +1,6 @@
 package aiki.beans;
 
 import aiki.beans.facade.simulation.enums.TeamCrud;
-import aiki.beans.items.AikiBeansItemsStd;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.instances.Instances;
@@ -11,6 +10,7 @@ import code.bean.nat.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
+import code.scripts.confs.PkScriptPages;
 import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 import org.junit.Test;
@@ -46,7 +46,7 @@ public final class CommonBeanTest extends InitDbWelcome {
     public void redirect3() {
         FacadeGame d_ = feedDbBase();
         StringMapObject forms_ = new StringMapObject();
-        assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_BALL_HTML,AbsRedirect.tryRedirect(redirectIt(I_ITEM,d_.getData()), KEY, DIRECT,d_.getData(), forms_));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_BALL_HTML,AbsRedirect.tryRedirect(redirectIt(I_ITEM,d_.getData()), KEY, DIRECT,d_.getData(), forms_));
         assertEq(I_ITEM, value(forms_));
     }
 

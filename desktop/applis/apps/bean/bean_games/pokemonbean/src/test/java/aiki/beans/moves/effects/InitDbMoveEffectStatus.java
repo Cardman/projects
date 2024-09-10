@@ -11,6 +11,7 @@ import aiki.fight.moves.enums.TargetChoice;
 import aiki.instances.Instances;
 import code.bean.nat.*;
 import code.maths.LgInt;
+import code.scripts.confs.PkScriptPages;
 import code.util.StringMap;
 
 public abstract class InitDbMoveEffectStatus extends InitDbMoveEffect {
@@ -89,7 +90,7 @@ public abstract class InitDbMoveEffectStatus extends InitDbMoveEffect {
     }
     public static StringMap<String> mappingToEffectStatus() {
         StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFSTATUS_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_STATUS);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSTATUS_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_STATUS);
         return map_;
     }
     private static FacadeGame feedDbMoveEffDataDam(EffectStatus _eff) {

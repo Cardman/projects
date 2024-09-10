@@ -9,6 +9,7 @@ import aiki.fight.util.TypesDuo;
 import aiki.instances.Instances;
 import code.bean.nat.*;
 import code.maths.Rate;
+import code.scripts.confs.PkScriptPages;
 import code.util.StringMap;
 
 public abstract class InitDbMoveEffectChangeProtect extends InitDbMoveEffect {
@@ -105,7 +106,7 @@ public abstract class InitDbMoveEffectChangeProtect extends InitDbMoveEffect {
     }
     public static StringMap<String> mappingToEffectProtection() {
         StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFPROTECTION_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_PROTECTION);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFPROTECTION_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_PROTECTION);
         return map_;
     }
     protected static FacadeGame feedDbMoveEffDataProtection(boolean _protSingle, boolean _protTeamAgainstPrio, boolean _protTeamAgainstStatusMoves, boolean _protTeamAgainstDamageMoves, boolean _protTeamAgainstMultTargets) {
@@ -156,7 +157,7 @@ public abstract class InitDbMoveEffectChangeProtect extends InitDbMoveEffect {
     }
     public static StringMap<String> mappingToEffectProtectFromTypes() {
         StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFPROTECTFROMTYPES_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_PROTECTFROMTYPES);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFPROTECTFROMTYPES_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_PROTECTFROMTYPES);
         return map_;
     }
     protected static FacadeGame feedDbMoveEffDataProtectFromTypes() {
@@ -202,7 +203,7 @@ public abstract class InitDbMoveEffectChangeProtect extends InitDbMoveEffect {
     }
     public static StringMap<String> mappingToEffectUnprotectFromTypes() {
         StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFUNPROTECTFROMTYPES_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_UNPROTECTFROMTYPES);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFUNPROTECTFROMTYPES_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_UNPROTECTFROMTYPES);
         return map_;
     }
     protected static FacadeGame feedDbMoveEffDataUnprotectFromTypes() {

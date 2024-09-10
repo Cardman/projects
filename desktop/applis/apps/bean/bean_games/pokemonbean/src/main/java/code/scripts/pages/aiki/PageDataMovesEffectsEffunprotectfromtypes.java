@@ -1,11 +1,11 @@
 package code.scripts.pages.aiki;
+import code.scripts.confs.*;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageDataMovesEffectsEffunprotectfromtypes extends PageCardsCommon{
 private static final String C_P_176_0="javahtml";
 private static final String C_P_176_1="eff_unprotectfromtypes";
-private static final String C_P_176_2="web/css/moves.css";
+private static final String C_P_176_2=PkScriptPages.REN_ADD_WEB_CSS_MOVES_CSS;
 private static final String C_P_176_3="stylesheet";
 private static final String C_P_176_4="text/css";
 private static final String C_P_176_5="msg_effunprotectfromtypes,effect";

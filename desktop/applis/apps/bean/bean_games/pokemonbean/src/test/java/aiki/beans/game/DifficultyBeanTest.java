@@ -14,6 +14,7 @@ import code.bean.nat.NatHtmlPage;
 import code.bean.nat.NatNavigation;
 import code.bean.nat.*;
 import code.maths.Rate;
+import code.scripts.confs.PkScriptPages;
 import code.scripts.pages.aiki.CssInit;
 import code.scripts.pages.aiki.MessagesInit;
 import code.scripts.pages.aiki.PagesInit;
@@ -485,7 +486,7 @@ public final class DifficultyBeanTest extends InitDbDifficultyBean {
     @Test
     public void change() {
         FacadeGame fac_ = fac();
-        assertEq(AikiBeansGameStd.WEB_GAME_HTML_DIFFICULTY_HTML,navigateDiffChange(callChange(displaying(beanDiff(EN, fac_)),DifficultyWinPointsFight.FACILE.getWinName())));
+        assertEq(PkScriptPages.WEB_GAME_HTML_DIFFICULTY_HTML,navigateDiffChange(callChange(displaying(beanDiff(EN, fac_)),DifficultyWinPointsFight.FACILE.getWinName())));
         assertEq(DifficultyWinPointsFight.FACILE.getWinName(),diff(fac_).getDiffWinningExpPtsFight().getWinName());
     }
     @Test
@@ -507,7 +508,7 @@ public final class DifficultyBeanTest extends InitDbDifficultyBean {
         nav_.setLanguage(EN);
         pk_.setDataBase(fac_);
         pk_.initializeRendSessionDoc(nav_);
-        assertEq("<html xmlns:c=\"javahtml\"><head><title>Difficulty choice</title><link href=\"web_game/css/difficulty.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
+        assertEq("<html xmlns:c=\"javahtml\"><head><title>Difficulty choice</title><link href=\""+PkScriptPages.REN_ADD_WEB_GAME_CSS_DIFFICULTY_CSS+"\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
                 "\ttext-indent:25px;\n" +
                 "}\n" +
                 "body{\n" +
@@ -561,7 +562,7 @@ public final class DifficultyBeanTest extends InitDbDifficultyBean {
         pk_.execute(true, nav_);
 
 
-        assertEq("<html xmlns:c=\"javahtml\"><head><title>Difficulty choice</title><link href=\"web_game/css/difficulty.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
+        assertEq("<html xmlns:c=\"javahtml\"><head><title>Difficulty choice</title><link href=\""+PkScriptPages.REN_ADD_WEB_GAME_CSS_DIFFICULTY_CSS+"\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
                 "\ttext-indent:25px;\n" +
                 "}\n" +
                 "body{\n" +

@@ -1,12 +1,12 @@
 package code.scripts.pages.aiki;
+import code.scripts.confs.*;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageDataSimulationEditpokemon extends PageCardsCommon{
 private static final String C_P_195_0="javahtml";
 private static final String C_P_195_1="editpokemon";
 private static final String C_P_195_2="msg_levelsimu,title_edit_pokemon_pl";
-private static final String C_P_195_3="web/css/simulation.css";
+private static final String C_P_195_3=PkScriptPages.REN_ADD_WEB_CSS_SIMULATION_CSS;
 private static final String C_P_195_4="stylesheet";
 private static final String C_P_195_5="text/css";
 private static final String C_P_195_6="$cancel()";

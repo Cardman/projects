@@ -11,6 +11,7 @@ import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.instances.Instances;
 import code.bean.nat.*;
+import code.scripts.confs.PkScriptPages;
 import code.util.StringMap;
 
 public abstract class InitDbMoveEffect extends InitDbMove {
@@ -124,7 +125,7 @@ public abstract class InitDbMoveEffect extends InitDbMove {
     }
     public static StringMap<String> mappingToEffectDamage() {
         StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFDAMAGE_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_DAMAGE);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFDAMAGE_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_DAMAGE);
         return map_;
     }
     public static StringMap<NaSt> beanToEffect(PkData _pk) {
@@ -134,7 +135,7 @@ public abstract class InitDbMoveEffect extends InitDbMove {
     }
     public static StringMap<String> mappingToEffect() {
         StringMap<String> map_ = mappingToMove();
-        map_.addEntry(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFF_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFF_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT);
         return map_;
     }
 

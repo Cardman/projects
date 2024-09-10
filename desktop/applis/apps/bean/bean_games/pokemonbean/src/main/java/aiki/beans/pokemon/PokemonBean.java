@@ -2,7 +2,6 @@ package aiki.beans.pokemon;
 
 import aiki.beans.CommonBean;
 import aiki.beans.facade.map.dto.PlaceIndex;
-import aiki.beans.map.elements.*;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
@@ -24,21 +23,22 @@ import code.images.BaseSixtyFourUtil;
 import code.images.ConverterBufferedImage;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.scripts.confs.PkScriptPages;
 import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public class PokemonBean extends CommonBean {
 
-    private static final String PAGE_LEVELGENDER = AikiBeansPokemonStd.WEB_HTML_POKEMON_EVOS_LEVELGENDER;
-    private static final String PAGE_LEVEL = AikiBeansPokemonStd.WEB_HTML_POKEMON_EVOS_LEVEL;
-    private static final String PAGE_HAPPY = AikiBeansPokemonStd.WEB_HTML_POKEMON_EVOS_HAPPY;
-    private static final String PAGE_MOVE = AikiBeansPokemonStd.WEB_HTML_POKEMON_EVOS_MOVE;
-    private static final String PAGE_ITEM = AikiBeansPokemonStd.WEB_HTML_POKEMON_EVOS_ITEM;
-    private static final String PAGE_STONEGENDER = AikiBeansPokemonStd.WEB_HTML_POKEMON_EVOS_STONEGENDER;
-    private static final String PAGE_STONE = AikiBeansPokemonStd.WEB_HTML_POKEMON_EVOS_STONE;
-    private static final String PAGE_TYPE = AikiBeansPokemonStd.WEB_HTML_POKEMON_EVOS_TYPE;
-    private static final String PAGE_TEAM = AikiBeansPokemonStd.WEB_HTML_POKEMON_EVOS_TEAM;
+    private static final String PAGE_LEVELGENDER = PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOLEVELGENDER_HTML;
+    private static final String PAGE_LEVEL = PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOLEVEL_HTML;
+    private static final String PAGE_HAPPY = PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOHAPPY_HTML;
+    private static final String PAGE_MOVE = PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOMOVE_HTML;
+    private static final String PAGE_ITEM = PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOITEM_HTML;
+    private static final String PAGE_STONEGENDER = PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOSTONEGENDER_HTML;
+    private static final String PAGE_STONE = PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOSTONE_HTML;
+    private static final String PAGE_TYPE = PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOTYPE_HTML;
+    private static final String PAGE_TEAM = PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOTEAM_HTML;
     private String name;
     private String backImage;
     private String frontImage;
@@ -233,7 +233,7 @@ public class PokemonBean extends CommonBean {
     }
     public String clickPokedex() {
         getForms().safePokedex(CST_POKEMON_SET);
-        return AikiBeansPokemonStd.WEB_HTML_POKEMON_POKEDEX_HTML;
+        return PkScriptPages.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML;
     }
     public String getPage(int _index) {
         DataBase data_ = getDataBase();
@@ -387,7 +387,7 @@ public class PokemonBean extends CommonBean {
     }
     public String clickLevel(int _indexOne, int _indexTwo) {
         CommonBean.feedForms(_indexOne, _indexTwo, getForms());
-        return AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML;
+        return PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML;
     }
 
     public String getDisplayName() {

@@ -1,7 +1,7 @@
 package aiki.beans.items;
 
-import aiki.beans.status.AikiBeansStatusStd;
 import code.maths.Rate;
+import code.scripts.confs.PkScriptPages;
 import org.junit.Test;
 
 public final class BerryBeanTest extends InitDbBerry {
@@ -75,7 +75,7 @@ public final class BerryBeanTest extends InitDbBerry {
     }
     @Test
     public void clickStatus1() {
-        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,callBerryBeanClickStatus(Rate.one(),1,Rate.one(),Rate.one(),NULL_REF,true,true,0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callBerryBeanClickStatus(Rate.one(),1,Rate.one(),Rate.one(),NULL_REF,true,true,0));
     }
     @Test
     public void clickStatus2() {

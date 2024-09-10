@@ -14,6 +14,7 @@ import aiki.instances.Instances;
 import aiki.map.levels.enums.EnvironmentType;
 import code.bean.nat.*;
 import code.maths.Rate;
+import code.scripts.confs.PkScriptPages;
 import code.util.IdMap;
 import code.util.StringMap;
 
@@ -139,7 +140,7 @@ public abstract class InitDbMoveEffectInvoke extends InitDbMoveEffect{
     }
     public static StringMap<String> mappingToEffectInvoke() {
         StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFINVOKE_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_INVOKE);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFINVOKE_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_INVOKE);
         return map_;
     }
     protected static FacadeGame feedDbMoveEffDataInvoke(boolean _invokingAllyMove, boolean _invokingMoveButUser, boolean _invokingSufferedMove, boolean _invokingTargetChosenMove, boolean _invokingTargetSuccesfulMove, boolean _invokingUserMoveWhileSleep) {

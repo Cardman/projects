@@ -5,11 +5,12 @@ import aiki.db.DataBase;
 import aiki.fight.items.HealingHpStatus;
 import aiki.fight.items.HealingStatus;
 import code.maths.Rate;
+import code.scripts.confs.PkScriptPages;
 import code.util.StringList;
 import code.util.StringMap;
 
 public class HealingStatusBean extends HealingItemBean {
-    static final String HEALING_STATUS_BEAN=AikiBeansItemsStd.WEB_HTML_ITEMS_HEALINGSTATUS_HTML;
+    static final String HEALING_STATUS_BEAN= PkScriptPages.REN_ADD_WEB_HTML_ITEMS_HEALINGSTATUS_HTML;
     private StringList status;
     private boolean healingKo;
     private Rate healedHpRate;

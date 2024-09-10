@@ -4,6 +4,7 @@ import aiki.beans.CommonBean;
 import aiki.db.DataBase;
 import aiki.fight.EndRoundMainElements;
 import aiki.fight.moves.effects.*;
+import code.scripts.confs.PkScriptPages;
 import code.util.CustList;
 
 public class EndRoundBean extends CommonBean {
@@ -35,36 +36,36 @@ public class EndRoundBean extends CommonBean {
 
     private String endRound(EffectEndRound _effect) {
         if (_effect instanceof EffectEndRoundGlobal) {
-            return AikiBeansEndroundStd.PAGE_GLOBAL;
+            return PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_GLOBAL_HTML;
         }
         if (_effect instanceof EffectEndRoundIndividual) {
-            return AikiBeansEndroundStd.PAGE_INDIVIDUAL;
+            return PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_INDIVIDUAL_HTML;
         }
         if (_effect instanceof EffectEndRoundStatusRelation) {
-            return AikiBeansEndroundStd.PAGE_STATUSRELATION;
+            return PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_STATUSRELATION_HTML;
         }
         if (_effect instanceof EffectEndRoundStatus) {
-            return AikiBeansEndroundStd.PAGE_STATUS;
+            return PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_STATUS_HTML;
         }
         if (_effect instanceof EffectEndRoundSingleRelation) {
-            return AikiBeansEndroundStd.PAGE_SINGLERELATION;
+            return PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_SINGLERELATION_HTML;
         }
         if (_effect instanceof EffectEndRoundFoe) {
-            return AikiBeansEndroundStd.PAGE_FOE;
+            return PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_FOE_HTML;
         }
         if (_effect instanceof EffectEndRoundTeam) {
-            return AikiBeansEndroundStd.PAGE_TEAM;
+            return PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_TEAM_HTML;
         }
         if (_effect instanceof EffectEndRoundMultiRelation) {
-            return AikiBeansEndroundStd.PAGE_MULTIRELATION;
+            return PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_MULTIRELATION_HTML;
         }
         if (_effect instanceof EffectEndRoundPositionRelation) {
-            return AikiBeansEndroundStd.PAGE_POSITIONRELATION;
+            return PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_POSITIONRELATION_HTML;
         }
         if (_effect instanceof EffectEndRoundPositionTargetRelation) {
-            return AikiBeansEndroundStd.PAGE_POSITIONTARGET;
+            return PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_POSITIONTARGET_HTML;
         }
-        return AikiBeansEndroundStd.PAGE_EFF;
+        return PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_EFF_HTML;
     }
 
     public CustList<EndRoundMainElements> getEvts() {

@@ -4,6 +4,7 @@ import aiki.beans.WithFilterBean;
 import aiki.db.DataBase;
 import aiki.fight.items.*;
 import code.images.BaseSixtyFourUtil;
+import code.scripts.confs.PkScriptPages;
 import code.util.AbsMap;
 
 public class ItemsBean extends WithFilterBean {
@@ -67,50 +68,50 @@ public class ItemsBean extends WithFilterBean {
             return tryRedirectIt(sortedItems_.firstKey());
 //            return switchItem(it_);
         }
-        return AikiBeansItemsStd.WEB_HTML_ITEMS_ITEMS_HTML;
+        return PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEMS_HTML;
     }
 
     public static String switchItemPage(Item _it) {
         if (_it instanceof Ball) {
-            return AikiBeansItemsStd.WEB_HTML_ITEMS_BALL_HTML;
+            return PkScriptPages.REN_ADD_WEB_HTML_ITEMS_BALL_HTML;
         }
         if (_it instanceof Berry) {
-            return AikiBeansItemsStd.WEB_HTML_ITEMS_BERRY_HTML;
+            return PkScriptPages.REN_ADD_WEB_HTML_ITEMS_BERRY_HTML;
         }
         if (_it instanceof Boost) {
-            return AikiBeansItemsStd.WEB_HTML_ITEMS_BOOST_HTML;
+            return PkScriptPages.REN_ADD_WEB_HTML_ITEMS_BOOST_HTML;
         }
         if (_it instanceof EvolvingItem) {
-            return AikiBeansItemsStd.WEB_HTML_ITEMS_EVO_ITEM_HTML;
+            return PkScriptPages.REN_ADD_WEB_HTML_ITEMS_EVO_ITEM_HTML;
         }
         if (_it instanceof EvolvingStone) {
-            return AikiBeansItemsStd.WEB_HTML_ITEMS_EVO_STONE_HTML;
+            return PkScriptPages.REN_ADD_WEB_HTML_ITEMS_EVO_STONE_HTML;
         }
         if (_it instanceof Fossil) {
-            return AikiBeansItemsStd.WEB_HTML_ITEMS_FOSSIL_HTML;
+            return PkScriptPages.REN_ADD_WEB_HTML_ITEMS_FOSSIL_HTML;
         }
         if (_it instanceof HealingHpStatus) {
-            return AikiBeansItemsStd.WEB_HTML_ITEMS_HEALINGHPSTATUS_HTML;
+            return PkScriptPages.REN_ADD_WEB_HTML_ITEMS_HEALINGHPSTATUS_HTML;
         }
         if (_it instanceof HealingStatus) {
-            return AikiBeansItemsStd.WEB_HTML_ITEMS_HEALINGSTATUS_HTML;
+            return PkScriptPages.REN_ADD_WEB_HTML_ITEMS_HEALINGSTATUS_HTML;
         }
         if (_it instanceof HealingHp) {
-            return AikiBeansItemsStd.WEB_HTML_ITEMS_HEALINGHP_HTML;
+            return PkScriptPages.REN_ADD_WEB_HTML_ITEMS_HEALINGHP_HTML;
         }
         if (_it instanceof HealingPp) {
-            return AikiBeansItemsStd.WEB_HTML_ITEMS_HEALINGPP_HTML;
+            return PkScriptPages.REN_ADD_WEB_HTML_ITEMS_HEALINGPP_HTML;
         }
         if (_it instanceof HealingItem) {
-            return AikiBeansItemsStd.WEB_HTML_ITEMS_HEALINGITEM_HTML;
+            return PkScriptPages.REN_ADD_WEB_HTML_ITEMS_HEALINGITEM_HTML;
         }
         if (_it instanceof ItemForBattle) {
-            return AikiBeansItemsStd.WEB_HTML_ITEMS_ITEMFORBATTLE_HTML;
+            return PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEMFORBATTLE_HTML;
         }
         if (_it instanceof Repel) {
-            return AikiBeansItemsStd.WEB_HTML_ITEMS_REPEL_HTML;
+            return PkScriptPages.REN_ADD_WEB_HTML_ITEMS_REPEL_HTML;
         }
-        return AikiBeansItemsStd.WEB_HTML_ITEMS_SELLINGITEM_HTML;
+        return PkScriptPages.REN_ADD_WEB_HTML_ITEMS_SELLINGITEM_HTML;
 //        if (_it instanceof SellingItem) {
 //            return AikiBeansItemsStd.WEB_HTML_ITEMS_SELLINGITEM_HTML;
 //        }

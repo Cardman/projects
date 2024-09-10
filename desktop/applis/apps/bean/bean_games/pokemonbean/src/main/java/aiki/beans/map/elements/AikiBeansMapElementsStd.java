@@ -3,23 +3,13 @@ package aiki.beans.map.elements;
 import aiki.beans.AikiBeansStd;
 import aiki.beans.PokemonStandards;
 import code.bean.nat.*;
+import code.scripts.confs.PkScriptPages;
 import code.util.CustList;
 public final class AikiBeansMapElementsStd{
     public static final String GM = "gm";
     public static final String ELTS = "Elts";
     public static final String TYPE_AREA_BEAN = "aiki.beans.map.elements.AreaBean";
     public static final String TYPE_LEGENDARY_POKEMON_BEAN = "aiki.beans.map.elements.LegendaryPokemonBean";
-    public static final String WEB_HTML_MAP_MAP_HTML = "web/html/map/map.html";
-    public static final String WEB_HTML_MAP_ELEMENTS_ALLY_HTML="web/html/map/elements/ally.html";
-    public static final String WEB_HTML_MAP_ELEMENTS_AREA_HTML="web/html/map/elements/area.html";
-    public static final String WEB_HTML_MAP_ELEMENTS_DEALER_HTML="web/html/map/elements/dealer.html";
-    public static final String WEB_HTML_MAP_ELEMENTS_DUAL_FIGHT_HTML="web/html/map/elements/dual_fight.html";
-    public static final String WEB_HTML_MAP_ELEMENTS_LEG_PK_HTML="web/html/map/elements/leg_pk.html";
-    public static final String WEB_HTML_MAP_ELEMENTS_POKEMON_TEAM_HTML="web/html/map/elements/pokemon_team.html";
-    public static final String WEB_HTML_MAP_ELEMENTS_SELLER_HTML="web/html/map/elements/seller.html";
-    public static final String WEB_HTML_MAP_ELEMENTS_TRAINER_MULTI_FIGHT_HTML="web/html/map/elements/trainer_multi_fight.html";
-    public static final String WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML="web/html/map/elements/trainer_one_fight.html";
-    public static final String WEB_HTML_MAP_LEVEL_HTML="web/html/map/level.html";
 
     private static final String GET_IMAGE = "getImage";
     private static final String CLICK_NAME = "clickName";
@@ -58,8 +48,8 @@ public final class AikiBeansMapElementsStd{
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        methods_.add( new SpecNatMethod(GM, BeanNatCommonLgNames.STRING, new CstNatCaller(WEB_HTML_MAP_MAP_HTML)));
-        methods_.add( new SpecNatMethod(GL, BeanNatCommonLgNames.STRING, new CstNatCaller(WEB_HTML_MAP_LEVEL_HTML)));
+        methods_.add( new SpecNatMethod(GM, BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_MAP_MAP_HTML)));
+        methods_.add( new SpecNatMethod(GL, BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML)));
         _std.getStds().addEntry(ELTS, type_);
     }
     private static void buildAreaBean(PokemonStandards _std){

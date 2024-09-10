@@ -11,6 +11,7 @@ import aiki.fight.moves.enums.*;
 import aiki.instances.Instances;
 import aiki.map.levels.enums.EnvironmentType;
 import code.bean.nat.*;
+import code.scripts.confs.PkScriptPages;
 import code.util.IdMap;
 import code.util.StringMap;
 
@@ -188,7 +189,7 @@ public abstract class InitDbMoveEffectSwitch extends InitDbMoveEffect {
     }
     public static StringMap<String> mappingToEffectSwitchTypes() {
         StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFSWITCHTYPES_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_SWITCHTYPES);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSWITCHTYPES_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_SWITCHTYPES);
         return map_;
     }
     protected static FacadeGame feedDbMoveEffDataDam(ConstValuesType _cst, ExchangeType _exc) {
@@ -245,7 +246,7 @@ public abstract class InitDbMoveEffectSwitch extends InitDbMoveEffect {
     }
     public static StringMap<String> mappingToEffectSwitchMoveTypes() {
         StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFSWITCHMOVETYPES_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_SWITCHMOVETYPES);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSWITCHMOVETYPES_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_SWITCHMOVETYPES);
         return map_;
     }
     protected static FacadeGame feedDbMoveEffDataSwitchMoveTypes() {
@@ -302,7 +303,7 @@ public abstract class InitDbMoveEffectSwitch extends InitDbMoveEffect {
     }
     public static StringMap<String> mappingToEffectSwitchAbilities() {
         StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFSWITCHABILITIES_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_SWITCHABILITIES);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSWITCHABILITIES_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_SWITCHABILITIES);
         return map_;
     }
     protected static FacadeGame feedDbMoveEffDataSwitchAbilities(String _targetAttacksLast, ExchangeType _res) {
@@ -351,7 +352,7 @@ public abstract class InitDbMoveEffectSwitch extends InitDbMoveEffect {
     }
     public static StringMap<String> mappingToEffectSwitchItems() {
         StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFSWITCHITEMS_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_SWITCHITEMS);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSWITCHITEMS_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_SWITCHITEMS);
         return map_;
     }
     protected static FacadeGame feedDbMoveEffDataSwitchItems(MoveItemType _res) {
@@ -399,7 +400,7 @@ public abstract class InitDbMoveEffectSwitch extends InitDbMoveEffect {
     }
     public static StringMap<String> mappingToEffectSwitchPointView() {
         StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFSWITCHPOINTVIEW_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_SWITCHPOINTVIEW);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSWITCHPOINTVIEW_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_SWITCHPOINTVIEW);
         return map_;
     }
     protected static FacadeGame feedDbMoveEffDataSwitchPointView(PointViewChangementType _res) {

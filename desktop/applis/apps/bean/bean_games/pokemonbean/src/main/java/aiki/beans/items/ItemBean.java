@@ -7,10 +7,11 @@ import aiki.db.DataBase;
 import aiki.fight.items.Ball;
 import aiki.fight.items.Item;
 import code.images.BaseSixtyFourUtil;
+import code.scripts.confs.PkScriptPages;
 import code.util.StringMap;
 
 public abstract class ItemBean extends CommonBean {
-    static final String ITEM_BEAN=AikiBeansItemsStd.WEB_HTML_ITEMS_ITEM_HTML;
+    static final String ITEM_BEAN= PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEM_HTML;
 
     private DictionaryComparator<String, Short> happiness;
     private String name;
@@ -60,7 +61,7 @@ public abstract class ItemBean extends CommonBean {
 
     public String clickItems() {
         getForms().safeItems(CST_ITEMS_SET);
-        return AikiBeansItemsStd.WEB_HTML_ITEMS_ITEMS_HTML;
+        return PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEMS_HTML;
     }
 
     protected Item getItem() {

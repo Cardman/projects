@@ -1,11 +1,12 @@
 package code.scripts.pages.aiki;
+import code.scripts.confs.*;
 import code.sml.*;
 import code.util.*;
 final class PageDataSimulationSelectitem extends PageCardsCommon{
 private static final String C_P_199_0="javahtml";
 private static final String C_P_199_1="selectitem";
 private static final String C_P_199_2="msg_levelsimu,title_select_item";
-private static final String C_P_199_3="web/css/simulation.css";
+private static final String C_P_199_3=PkScriptPages.REN_ADD_WEB_CSS_SIMULATION_CSS;
 private static final String C_P_199_4="stylesheet";
 private static final String C_P_199_5="text/css";
 private static final String C_P_199_6="$cancel()";

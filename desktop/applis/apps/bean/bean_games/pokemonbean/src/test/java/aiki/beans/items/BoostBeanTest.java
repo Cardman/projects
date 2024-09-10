@@ -1,6 +1,7 @@
 package aiki.beans.items;
 
 import code.maths.Rate;
+import code.scripts.confs.PkScriptPages;
 import org.junit.Test;
 
 public final class BoostBeanTest extends InitDbBoost {
@@ -42,7 +43,7 @@ public final class BoostBeanTest extends InitDbBoost {
     }
     @Test
     public void clickHappiness1() {
-        assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_BALL_HTML,callBoostBeanClickHappiness(boostDb(),0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_BALL_HTML,callBoostBeanClickHappiness(boostDb(),0));
     }
     @Test
     public void clickHappiness2() {

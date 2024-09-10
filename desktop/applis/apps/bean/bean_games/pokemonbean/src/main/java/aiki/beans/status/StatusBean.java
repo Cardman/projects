@@ -15,6 +15,7 @@ import aiki.fight.status.effects.EffectPartnerStatus;
 import code.images.BaseSixtyFourUtil;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.scripts.confs.PkScriptPages;
 import code.util.*;
 
 public class StatusBean extends CommonBean {
@@ -142,7 +143,7 @@ public class StatusBean extends CommonBean {
     }
     public String clickIndex() {
         getForms().safeStatus(CST_STATUS_SET);
-        return AikiBeansStatusStd.WEB_HTML_STATUS_STATUS_HTML;
+        return PkScriptPages.REN_ADD_WEB_HTML_STATUS_STATUS_HTML;
     }
     public boolean incrementEndRoundInt() {
         return incrementEndRound > 0;

@@ -1,12 +1,12 @@
 package code.scripts.pages.aiki;
+import code.scripts.confs.*;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageProgGameprognotatall extends PageCardsCommon{
 private static final String C_P_214_0="javahtml";
 private static final String C_P_214_1="progressing";
 private static final String C_P_214_2="msg_prog,titleNotAtAll";
-private static final String C_P_214_3="web_prog/css/difficulty.css";
+private static final String C_P_214_3=PkScriptPages.REN_ADD_WEB_PROG_CSS_DIFFICULTY_CSS;
 private static final String C_P_214_4="stylesheet";
 private static final String C_P_214_5="text/css";
 private static final String C_P_214_6="$g()";

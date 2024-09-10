@@ -1,8 +1,7 @@
 package aiki.beans.moves.effects;
 
-import aiki.beans.moves.AikiBeansMovesStd;
-import aiki.beans.status.AikiBeansStatusStd;
 import code.maths.Rate;
+import code.scripts.confs.PkScriptPages;
 import org.junit.Test;
 
 public final class EffectTeamBeanTest extends InitDbMoveEffectTeam {
@@ -136,7 +135,7 @@ public final class EffectTeamBeanTest extends InitDbMoveEffectTeam {
     }
     @Test
     public void clickStatus1() {
-        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,callEffectTeamBeanClickStatus(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0),0,0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callEffectTeamBeanClickStatus(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0),0,0));
     }
     @Test
     public void clickStatus2() {
@@ -148,7 +147,7 @@ public final class EffectTeamBeanTest extends InitDbMoveEffectTeam {
     }
     @Test
     public void clickDisableFoeTeamStatus1() {
-        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,callEffectTeamBeanClickDisableFoeTeamStatus(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0),0,0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callEffectTeamBeanClickDisableFoeTeamStatus(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0),0,0));
     }
     @Test
     public void clickDisableFoeTeamStatus2() {
@@ -160,7 +159,7 @@ public final class EffectTeamBeanTest extends InitDbMoveEffectTeam {
     }
     @Test
     public void clickUnusableMove1() {
-        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callEffectTeamBeanClickUnusableMove(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0),0,0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectTeamBeanClickUnusableMove(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0),0,0));
     }
     @Test
     public void clickUnusableMove2() {
@@ -172,7 +171,7 @@ public final class EffectTeamBeanTest extends InitDbMoveEffectTeam {
     }
     @Test
     public void clickDisableFoeTeamEffects1() {
-        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callEffectTeamBeanClickDisableFoeTeamEffects(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0),0,0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectTeamBeanClickDisableFoeTeamEffects(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0),0,0));
     }
     @Test
     public void clickDisableFoeTeamEffects2() {

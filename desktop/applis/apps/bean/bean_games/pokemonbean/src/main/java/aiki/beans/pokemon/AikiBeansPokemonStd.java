@@ -8,17 +8,6 @@ import code.bean.nat.SpecialNatClass;
 import code.bean.nat.StandardField;
 import code.util.CustList;
 public final class AikiBeansPokemonStd{
-    public static final String WEB_HTML_POKEMON_POKEDEX_HTML="web/html/pokemon/pokedex.html";
-    public static final String WEB_HTML_POKEMON_DATA_HTML="web/html/pokemon/data.html";
-    public static final String WEB_HTML_POKEMON_EVOS_LEVELGENDER ="web/html/pokemon/evolutions/evolevelgender.html";
-    public static final String WEB_HTML_POKEMON_EVOS_LEVEL ="web/html/pokemon/evolutions/evolevel.html";
-    public static final String WEB_HTML_POKEMON_EVOS_HAPPY ="web/html/pokemon/evolutions/evohappy.html";
-    public static final String WEB_HTML_POKEMON_EVOS_MOVE ="web/html/pokemon/evolutions/evomove.html";
-    public static final String WEB_HTML_POKEMON_EVOS_ITEM ="web/html/pokemon/evolutions/evoitem.html";
-    public static final String WEB_HTML_POKEMON_EVOS_STONEGENDER ="web/html/pokemon/evolutions/evostonegender.html";
-    public static final String WEB_HTML_POKEMON_EVOS_STONE ="web/html/pokemon/evolutions/evostone.html";
-    public static final String WEB_HTML_POKEMON_EVOS_TYPE ="web/html/pokemon/evolutions/evotype.html";
-    public static final String WEB_HTML_POKEMON_EVOS_TEAM ="web/html/pokemon/evolutions/evoteam.html";
     public static final String BEAN_POKEDEX="pokedex";
     public static final String BEAN_PK="pokemon";
     public static final String BEAN_EVO_HAPPY="evo_happy";

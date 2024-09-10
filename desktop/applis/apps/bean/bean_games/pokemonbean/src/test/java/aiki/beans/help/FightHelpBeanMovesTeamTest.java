@@ -1,12 +1,12 @@
 package aiki.beans.help;
 
-import aiki.beans.moves.AikiBeansMovesStd;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.effects.EffectTeam;
 import aiki.instances.Instances;
 import code.bean.nat.*;
+import code.scripts.confs.PkScriptPages;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -81,7 +81,7 @@ public final class FightHelpBeanMovesTeamTest extends InitDbFightHelp {
     }
     @Test
     public void cl1() {
-        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,click());
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,click());
     }
     @Test
     public void clId1() {

@@ -10,6 +10,7 @@ import aiki.db.DataBase;
 import aiki.fight.pokemon.PokemonData;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
+import code.scripts.confs.PkScriptPages;
 import code.util.AbsMap;
 import code.util.StringMap;
 
@@ -50,7 +51,7 @@ public class AddPokemonBean extends WithFilterBean {
     }
     public String add() {
         if (!getForms().contains(CST_PK_NAME)) {
-            return AikiBeansSimulationStd.WEB_HTML_SIMULATION_ADDPOKEMON_HTML;
+            return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_ADDPOKEMON_HTML;
         }
         getForms().removeKey(CST_PK_NAME);
         DataBase data_ = getDataBase();
@@ -72,16 +73,16 @@ public class AddPokemonBean extends WithFilterBean {
         pkDto_.setMoves(pkData_.getMovesAtLevel((short) common.getLevel(), data_.getNbMaxMoves()));
         getForms().put(CST_POKEMON_ADDED, pkDto_);
         getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.ADD);
-        return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
+        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
     public String cancel() {
         getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.NOTHING);
         getForms().removeKey(CST_PK_NAME);
-        return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
+        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
     public String search() {
         search(CST_POKEMON_SET_SIMU, CST_PK_NAME, "", "");
-        return AikiBeansSimulationStd.WEB_HTML_SIMULATION_ADDPOKEMON_HTML;
+        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_ADDPOKEMON_HTML;
 //        StringList pokedex_ = pokedex();
 //        getForms().put(CST_POKEMON_SET_SIMU, pokedex_);
 //        if (pokedex_.size() == DataBase.ONE_POSSIBLE_CHOICE) {
@@ -90,7 +91,7 @@ public class AddPokemonBean extends WithFilterBean {
     }
     public String clickLink(int _number) {
         getForms().put(CST_PK_NAME, getPokedex().get(_number).getName());
-        return AikiBeansSimulationStd.WEB_HTML_SIMULATION_ADDPOKEMON_HTML;
+        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_ADDPOKEMON_HTML;
     }
 
     public String getNamePk() {

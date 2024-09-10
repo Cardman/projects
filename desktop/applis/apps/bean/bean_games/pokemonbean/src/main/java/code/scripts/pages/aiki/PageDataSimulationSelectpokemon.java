@@ -1,12 +1,12 @@
 package code.scripts.pages.aiki;
+import code.scripts.confs.*;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageDataSimulationSelectpokemon extends PageCardsCommon{
 private static final String C_P_200_0="javahtml";
 private static final String C_P_200_1="selectpokemon";
 private static final String C_P_200_2="msg_levelsimu,title_select_pk";
-private static final String C_P_200_3="web/css/pokedex.css";
+private static final String C_P_200_3=PkScriptPages.REN_ADD_WEB_CSS_POKEDEX_CSS;
 private static final String C_P_200_4="stylesheet";
 private static final String C_P_200_5="text/css";
 private static final String C_P_200_6="$cancel()";

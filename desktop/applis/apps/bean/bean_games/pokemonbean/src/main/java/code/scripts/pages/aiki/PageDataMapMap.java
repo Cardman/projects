@@ -1,12 +1,12 @@
 package code.scripts.pages.aiki;
+import code.scripts.confs.*;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageDataMapMap extends PageCardsCommon{
 private static final String C_P_142_0="javahtml";
 private static final String C_P_142_1="game_map";
 private static final String C_P_142_2="msg_levelmap,title_map";
-private static final String C_P_142_3="web/css/pokedex.css";
+private static final String C_P_142_3=PkScriptPages.REN_ADD_WEB_CSS_POKEDEX_CSS;
 private static final String C_P_142_4="stylesheet";
 private static final String C_P_142_5="text/css";
 private static final String C_P_142_6=GO_TO_IND;

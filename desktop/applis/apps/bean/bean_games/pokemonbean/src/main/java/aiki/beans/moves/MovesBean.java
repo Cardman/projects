@@ -8,10 +8,11 @@ import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
+import code.scripts.confs.PkScriptPages;
 import code.util.*;
 
 public class MovesBean extends WithFilterBean {
-    static final String MOVES_BEAN=AikiBeansMovesStd.WEB_HTML_MOVES_MOVE_LINE_HTML;
+//    static final String MOVES_BEAN=AikiBeansMovesStd.WEB_HTML_MOVES_MOVE_LINE_HTML;
     private final CustList<MoveLine> moves = new CustList<MoveLine>();
     private final StringList sortedMoves = new StringList();
     private final StringMap<String> categories = new StringMap<String>();
@@ -110,9 +111,9 @@ public class MovesBean extends WithFilterBean {
         getForms().putMoves(CST_MOVES_SET, moves_);
         if (moves_.size() == DataBase.ONE_POSSIBLE_CHOICE) {
             getForms().put(CST_MOVE, moves_.firstKey());
-            return AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML;
+            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML;
         }
-        return AikiBeansMovesStd.WEB_HTML_MOVES_MOVES_HTML;
+        return PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML;
     }
 //    private boolean excludeByAccuracy(MoveData _move) {
 //        if (Rate.isValid(getMinAccuracy())) {

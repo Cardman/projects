@@ -4,12 +4,11 @@ import aiki.beans.PokemonStandards;
 import aiki.beans.facade.game.dto.StatisticInfoPkPlayer;
 import aiki.fight.pokemon.TrainerPlaceNames;
 import code.bean.nat.*;
+import code.scripts.confs.PkScriptPages;
 import code.util.CustList;
 public final class AikiBeansGameStd{
-    public static final String WEB_GAME_HTML_DIFFICULTY_HTML="web_game/html/difficulty.html";
     public static final String TYPE_DIFFICULTY_BEAN = "aiki.beans.game.DifficultyBean";
     public static final String TYPE_DIFFICULTY_COMMON_BEAN = "aiki.beans.DiCo";
-    public static final String DIFF_COMMON_HTML = "diff_common.html";
     public static final String BEAN_DIFFICULTY_COMMON = "difficulty_common";
     public static final String TYPE_GAME_PROGRESSION_BEAN = "aiki.beans.game.GameProgressionBean";
     public static final String TYPE_POKEMON_PLAYER_BEAN = "aiki.beans.game.PokemonPlayerBean";
@@ -89,7 +88,7 @@ public final class AikiBeansGameStd{
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, BeanNatCommonLgNames.TYPE_BEAN);
-        fields_.add(new StandardField("d", BeanNatCommonLgNames.STRING, new CstNatCaller(DIFF_COMMON_HTML),null));
+        fields_.add(new StandardField("d", BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.DIFF_COMMON_HTML),null));
         fields_.add(new StandardField("c", TYPE_DIFFICULTY_COMMON_BEAN, new DifficultyBeanComGet(),null));
         methods_.add( new SpecNatMethod(CHANGE, BeanNatCommonLgNames.VOID, new DifficultyBeanChange()));
         _std.getStds().addEntry(TYPE_DIFFICULTY_BEAN, type_);
@@ -155,10 +154,10 @@ public final class AikiBeansGameStd{
         methods_.add( new SpecNatMethod(GET_KEY_POKEMON, BeanNatCommonLgNames.TYPE_LIST, new GameProgressionBeanGetKeyPokemon()));
         methods_.add( new SpecNatMethod(GET_IMAGE_POKEMON_PARTIAL,BeanNatCommonLgNames.STRING, new GameProgressionBeanGetImagePokemonPartial()));
         methods_.add( new SpecNatMethod(GET_TR_POKEMON_PARTIAL,BeanNatCommonLgNames.STRING, new GameProgressionBeanGetTrPokemonPartial()));
-        methods_.add( new SpecNatMethod("n", BeanNatCommonLgNames.STRING, new CstNatCaller("web_prog/html/gameprognotatall.html")));
-        methods_.add( new SpecNatMethod("p", BeanNatCommonLgNames.STRING, new CstNatCaller("web_prog/html/gameprogpart.html")));
-        methods_.add( new SpecNatMethod("a", BeanNatCommonLgNames.STRING, new CstNatCaller("web_prog/html/gameprogall.html")));
-        methods_.add( new SpecNatMethod("g", BeanNatCommonLgNames.STRING, new CstNatCaller("web_prog/html/gameprog.html")));
+        methods_.add( new SpecNatMethod("n", BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_PROG_HTML_GAMEPROGNOTATALL_HTML)));
+        methods_.add( new SpecNatMethod("p", BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_PROG_HTML_GAMEPROGPART_HTML)));
+        methods_.add( new SpecNatMethod("a", BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_PROG_HTML_GAMEPROGALL_HTML)));
+        methods_.add( new SpecNatMethod("g", BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_PROG_HTML_GAMEPROG_HTML)));
         _std.getStds().addEntry(TYPE_GAME_PROGRESSION_BEAN, type_);
     }
     public static void buildPokemonPlayerBean(PokemonStandards _std){

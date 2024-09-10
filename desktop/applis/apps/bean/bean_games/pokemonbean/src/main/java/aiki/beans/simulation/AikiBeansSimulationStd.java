@@ -6,17 +6,9 @@ import aiki.beans.facade.simulation.enums.TeamCrud;
 import aiki.beans.game.AikiBeansGameStd;
 import aiki.beans.game.DifficultyBeanComGet;
 import code.bean.nat.*;
+import code.scripts.confs.PkScriptPages;
 import code.util.CustList;
 public final class AikiBeansSimulationStd{
-    public static final String WEB_HTML_SIMULATION_SIMULATION_HTML="web/html/simulation/simulation.html";
-    public static final String WEB_HTML_SIMULATION_ADDPOKEMON_HTML="web/html/simulation/addpokemon.html";
-    public static final String WEB_HTML_SIMULATION_EDITPOKEMONMOVES_HTML="web/html/simulation/editpokemonmoves.html";
-    public static final String WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML="web/html/simulation/editpokemontrainer.html";
-    public static final String WEB_HTML_SIMULATION_EDITPOKEMON_HTML="web/html/simulation/editpokemon.html";
-    public static final String WEB_HTML_SIMULATION_SELECTABILITY_HTML="web/html/simulation/selectability.html";
-    public static final String WEB_HTML_SIMULATION_SELECTITEM_HTML="web/html/simulation/selectitem.html";
-    public static final String WEB_HTML_SIMULATION_SELECTPOKEMON_HTML="web/html/simulation/selectpokemon.html";
-    public static final String WEB_HTML_SIMULATION_SIMULATIONLEVEL_HTML="web/html/simulation/simulationlevel.html";
     public static final String BEAN_SIMULATION="simulation";
     public static final String BEAN_ADDPOKEMON="addpokemon";
     public static final String BEAN_EDITPOKEMON="editpokemon";
@@ -409,7 +401,7 @@ public final class AikiBeansSimulationStd{
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        fields_.add(new StandardField("d", BeanNatCommonLgNames.STRING, new CstNatCaller(AikiBeansGameStd.DIFF_COMMON_HTML),null));
+        fields_.add(new StandardField("d", BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.DIFF_COMMON_HTML),null));
         fields_.add(new StandardField("c", AikiBeansGameStd.TYPE_DIFFICULTY_COMMON_BEAN, new DifficultyBeanComGet(),null));
 //        fields_.add(new StandardField(WIN_POINTS_FIGHT, BeanNatCommonLgNames.TYPE_MAP,false,false,new SimulationBeanWinPointsFightGet(),null));
 //        fields_.add(new StandardField(DIFF_WINNING_EXP_PTS_FIGHT,BeanNatCommonLgNames.STRING,false,false,new SimulationBeanDiffWinningExpPtsFightGet(),new SimulationBeanDiffWinningExpPtsFightSet()));
@@ -581,7 +573,7 @@ public final class AikiBeansSimulationStd{
         methods_.add( new SpecNatMethod(VALIDATE_MOVES_ABILITY_AFTER_FIGHT, BeanNatCommonLgNames.VOID, new SimulationBeanValidateMovesAbilityAfterFight()));
         methods_.add( new SpecNatMethod(CHANGE_FIGHT_WHILE_END, BeanNatCommonLgNames.VOID, new SimulationBeanChangeFightWhileEnd()));
         methods_.add( new SpecNatMethod(VALIDATE_MOVES_AFTER_FIGHT, BeanNatCommonLgNames.VOID, new SimulationBeanValidateMovesAfterFight()));
-        methods_.add( new SpecNatMethod(GS, BeanNatCommonLgNames.STRING, new CstNatCaller(WEB_HTML_SIMULATION_SIMULATION_HTML)));
+        methods_.add( new SpecNatMethod(GS, BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML)));
         _std.getStds().addEntry(TYPE_SIMULATION_BEAN, type_);
     }
     private static void buildSimulationLevelBean(PokemonStandards _std){
@@ -589,9 +581,9 @@ public final class AikiBeansSimulationStd{
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansStd.TYPE_ABS_LEVEL_BEAN);
         fields_.add(new StandardField(NO_FIGHT, BeanNatCommonLgNames.PRIM_INTEGER, new SimulationLevelBeanNoFightGet(),new SimulationLevelBeanNoFightSet()));
-        methods_.add( new SpecNatMethod(CANCEL,BeanNatCommonLgNames.STRING, new CstNatCaller(WEB_HTML_SIMULATION_SIMULATION_HTML)));
+        methods_.add( new SpecNatMethod(CANCEL,BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML)));
         methods_.add( new SpecNatMethod(CLICK_TILE,BeanNatCommonLgNames.STRING, new SimulationLevelBeanClickTile()));
-        methods_.add( new SpecNatMethod(GSL, BeanNatCommonLgNames.STRING, new CstNatCaller(WEB_HTML_SIMULATION_SIMULATIONLEVEL_HTML)));
+        methods_.add( new SpecNatMethod(GSL, BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATIONLEVEL_HTML)));
         _std.getStds().addEntry(TYPE_SIMULATION_LEVEL_BEAN, type_);
     }
 }

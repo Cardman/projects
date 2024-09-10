@@ -14,6 +14,7 @@ import aiki.instances.Instances;
 import code.bean.nat.*;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.scripts.confs.PkScriptPages;
 import code.util.StringMap;
 
 public abstract class InitDbMoveEffectStatistic extends InitDbMoveEffect {
@@ -99,7 +100,7 @@ public abstract class InitDbMoveEffectStatistic extends InitDbMoveEffect {
     }
     public static StringMap<String> mappingToEffectStatis() {
         StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFSTATIS_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_STATIS);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSTATIS_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_STATIS);
         return map_;
     }
     private static FacadeGame feedDbMoveEffDataDam(EffectStatistic _eff) {

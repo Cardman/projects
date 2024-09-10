@@ -11,6 +11,7 @@ import aiki.fight.moves.enums.TargetChoice;
 import aiki.instances.Instances;
 import code.bean.nat.*;
 import code.maths.Rate;
+import code.scripts.confs.PkScriptPages;
 import code.util.StringMap;
 
 public abstract class InitDbMoveEffectDamageRate extends InitDbMoveEffect{
@@ -44,7 +45,7 @@ public abstract class InitDbMoveEffectDamageRate extends InitDbMoveEffect{
     }
     public static StringMap<String> mappingToEffectDamageRate() {
         StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFDAMAGERATE_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_DAMAGE_RATE);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFDAMAGERATE_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_DAMAGE_RATE);
         return map_;
     }
     private static FacadeGame feedDbMoveEffDataDam(Rate _efDam) {

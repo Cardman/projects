@@ -1,7 +1,7 @@
 package aiki.beans.moves.effects;
 
-import aiki.beans.moves.AikiBeansMovesStd;
 import code.maths.Rate;
+import code.scripts.confs.PkScriptPages;
 import code.util.StringList;
 import org.junit.Test;
 
@@ -36,7 +36,7 @@ public final class EffectCloneBeanTest extends InitDbMoveEffectOther {
     }
     @Test
     public void clickMoveSending1() {
-        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callEffectCloneBeanClickMoveSending(dispMoveEffClone(),0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectCloneBeanClickMoveSending(dispMoveEffClone(),0));
     }
     @Test
     public void clickMoveSending2() {
@@ -56,7 +56,7 @@ public final class EffectCloneBeanTest extends InitDbMoveEffectOther {
     }
     @Test
     public void clickMoveBatonPass1() {
-        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callEffectCloneBeanClickMoveBatonPass(dispMoveEffClone(),0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectCloneBeanClickMoveBatonPass(dispMoveEffClone(),0));
     }
     @Test
     public void clickMoveBatonPass2() {
@@ -76,7 +76,7 @@ public final class EffectCloneBeanTest extends InitDbMoveEffectOther {
     }
     @Test
     public void clickMoveEndRound1() {
-        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callEffectCloneBeanClickMoveEndRound(dispMoveEffClone(),0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectCloneBeanClickMoveEndRound(dispMoveEffClone(),0));
     }
     @Test
     public void clickMoveEndRound2() {

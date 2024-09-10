@@ -1,13 +1,13 @@
 package code.scripts.pages.aiki;
+import code.scripts.confs.*;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageDataItemsEvoStone extends PageCardsCommon{
 private static final String C_P_119_0="javahtml";
 private static final String C_P_119_1="evostone";
 private static final String C_P_119_2="msg_item,title";
 private static final String C_P_119_3="displayName";
-private static final String C_P_119_4="web/css/items.css";
+private static final String C_P_119_4=PkScriptPages.REN_ADD_WEB_CSS_ITEMS_CSS;
 private static final String C_P_119_5="stylesheet";
 private static final String C_P_119_6="text/css";
 private static final String C_P_119_7="itemBean";

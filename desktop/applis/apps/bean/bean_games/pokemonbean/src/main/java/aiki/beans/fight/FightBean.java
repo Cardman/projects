@@ -5,6 +5,7 @@ import aiki.game.fight.ActivityOfMove;
 import aiki.game.fight.Fight;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.scripts.confs.PkScriptPages;
 import code.util.NatStringTreeMap;
 import code.util.StringMap;
 import code.util.core.BoolVal;
@@ -47,11 +48,11 @@ public class FightBean extends CommonFightBean {
     }
     public String clickPlayer() {
         getForms().put(NO_TEAM, Fight.CST_PLAYER);
-        return AikiBeansFightStd.WEB_FIGHT_HTML_TEAM_HTML;
+        return PkScriptPages.WEB_FIGHT_HTML_TEAM_HTML;
     }
     public String clickFoe() {
         getForms().put(NO_TEAM, Fight.CST_FOE);
-        return AikiBeansFightStd.WEB_FIGHT_HTML_TEAM_HTML;
+        return PkScriptPages.WEB_FIGHT_HTML_TEAM_HTML;
     }
 
     public byte getMult() {

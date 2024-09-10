@@ -7,6 +7,7 @@ import aiki.fight.moves.effects.*;
 import aiki.fight.moves.enums.*;
 import aiki.instances.Instances;
 import code.bean.nat.*;
+import code.scripts.confs.PkScriptPages;
 import code.util.StringMap;
 
 public abstract class InitDbMoveEffectCopy extends InitDbMoveEffect {
@@ -89,7 +90,7 @@ public abstract class InitDbMoveEffectCopy extends InitDbMoveEffect {
     }
     public static StringMap<String> mappingToEffectCopyMove() {
         StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFCOPYMOVE_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_COPY_MOVE);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFCOPYMOVE_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_COPY_MOVE);
         return map_;
     }
     protected static FacadeGame feedDbMoveEffDataDam(boolean _copyingMoveForUserDef, int _copy) {
@@ -139,7 +140,7 @@ public abstract class InitDbMoveEffectCopy extends InitDbMoveEffect {
     }
     public static StringMap<String> mappingToEffectCopyFighter() {
         StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFCOPYFIGHTER_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_COPY_FIGHTER);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFCOPYFIGHTER_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_COPY_FIGHTER);
         return map_;
     }
     protected static FacadeGame feedDbMoveEffDataDam() {

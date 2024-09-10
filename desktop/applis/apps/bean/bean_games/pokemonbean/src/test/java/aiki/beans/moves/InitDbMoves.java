@@ -16,6 +16,7 @@ import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.instances.Instances;
 import code.bean.nat.*;
+import code.scripts.confs.PkScriptPages;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -289,8 +290,8 @@ public abstract class InitDbMoves extends InitDbConstr {
     }
     public static StringMap<String> mappingToMoves() {
         StringMap<String> map_ = new StringMap<String>();
-        map_.addEntry(AikiBeansStd.WEB_HTML_INDEX_HTML,AikiBeansStd.BEAN_WELCOME);
-        map_.addEntry(AikiBeansMovesStd.WEB_HTML_MOVES_MOVES_HTML,AikiBeansMovesStd.BEAN_MOVES);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,AikiBeansStd.BEAN_WELCOME);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML,AikiBeansMovesStd.BEAN_MOVES);
 //        map_.addEntry(AikiBeansMovesStd.WEB_HTML_MOVES_MOVE_LINE_HTML,AikiBeansMovesStd.BEAN_MOVE_LINE);
         return map_;
     }

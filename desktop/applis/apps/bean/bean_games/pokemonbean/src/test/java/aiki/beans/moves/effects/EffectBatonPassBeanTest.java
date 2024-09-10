@@ -1,6 +1,6 @@
 package aiki.beans.moves.effects;
 
-import aiki.beans.moves.AikiBeansMovesStd;
+import code.scripts.confs.PkScriptPages;
 import org.junit.Test;
 
 public final class EffectBatonPassBeanTest extends InitDbMoveEffectOther {
@@ -18,7 +18,7 @@ public final class EffectBatonPassBeanTest extends InitDbMoveEffectOther {
     }
     @Test
     public void clickMove1() {
-        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callEffectBatonPassBeanClickMove(dispMoveEffBatonPass(),0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectBatonPassBeanClickMove(dispMoveEffBatonPass(),0));
     }
     @Test
     public void clickMove2() {

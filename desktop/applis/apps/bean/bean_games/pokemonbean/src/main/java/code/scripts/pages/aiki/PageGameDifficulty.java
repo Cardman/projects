@@ -1,11 +1,12 @@
 package code.scripts.pages.aiki;
+import code.scripts.confs.*;
 import code.sml.*;
 import code.util.*;
 final class PageGameDifficulty extends PageCardsCommon{
 private static final String C_P_210_0="javahtml";
 private static final String C_P_210_1="difficulty";
 private static final String C_P_210_2="msg_difficulty,title";
-private static final String C_P_210_3="web_game/css/difficulty.css";
+private static final String C_P_210_3=PkScriptPages.REN_ADD_WEB_GAME_CSS_DIFFICULTY_CSS;
 private static final String C_P_210_4="stylesheet";
 private static final String C_P_210_5="text/css";
 private static final String C_P_210_6="$change";

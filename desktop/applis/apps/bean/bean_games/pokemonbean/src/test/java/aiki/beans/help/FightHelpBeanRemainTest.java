@@ -1,12 +1,12 @@
 package aiki.beans.help;
 
-import aiki.beans.moves.AikiBeansMovesStd;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.effects.*;
 import aiki.instances.Instances;
 import code.bean.nat.*;
 import code.maths.Rate;
+import code.scripts.confs.PkScriptPages;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -22,7 +22,7 @@ public final class FightHelpBeanRemainTest extends InitDbFightHelp {
     }
     @Test
     public void cl1() {
-        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,click1());
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,click1());
     }
     @Test
     public void clId1() {
@@ -38,7 +38,7 @@ public final class FightHelpBeanRemainTest extends InitDbFightHelp {
     }
     @Test
     public void cl2() {
-        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,click2());
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,click2());
     }
     @Test
     public void clId2() {
@@ -54,7 +54,7 @@ public final class FightHelpBeanRemainTest extends InitDbFightHelp {
     }
     @Test
     public void cl3() {
-        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,click3());
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,click3());
     }
     @Test
     public void clId3() {
@@ -70,7 +70,7 @@ public final class FightHelpBeanRemainTest extends InitDbFightHelp {
     }
     @Test
     public void cl4() {
-        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,click4());
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,click4());
     }
     @Test
     public void clId4() {
@@ -86,7 +86,7 @@ public final class FightHelpBeanRemainTest extends InitDbFightHelp {
     }
     @Test
     public void cl5() {
-        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,click5());
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,click5());
     }
     @Test
     public void clId5() {
@@ -102,7 +102,7 @@ public final class FightHelpBeanRemainTest extends InitDbFightHelp {
     }
     @Test
     public void cl6() {
-        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,click6());
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,click6());
     }
     @Test
     public void clId6() {
@@ -118,7 +118,7 @@ public final class FightHelpBeanRemainTest extends InitDbFightHelp {
     }
     @Test
     public void cl7() {
-        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,click7());
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,click7());
     }
     @Test
     public void clId7() {
@@ -134,7 +134,7 @@ public final class FightHelpBeanRemainTest extends InitDbFightHelp {
     }
     @Test
     public void cl8() {
-        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,click8());
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,click8());
     }
     @Test
     public void clId8() {

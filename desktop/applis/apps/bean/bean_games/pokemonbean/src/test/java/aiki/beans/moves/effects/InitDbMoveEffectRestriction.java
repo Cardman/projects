@@ -11,6 +11,7 @@ import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.instances.Instances;
 import code.bean.nat.*;
+import code.scripts.confs.PkScriptPages;
 import code.util.StringMap;
 
 public abstract class InitDbMoveEffectRestriction extends InitDbMoveEffect {
@@ -58,7 +59,7 @@ public abstract class InitDbMoveEffectRestriction extends InitDbMoveEffect {
     }
     public static StringMap<String> mappingToEffectRestriction() {
         StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFRESTRICTION_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_RESTRICTION);
+        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFRESTRICTION_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_RESTRICTION);
         return map_;
     }
     protected static FacadeGame feedDbMoveEffDataRestriction(boolean _targetAttacksLast, MoveChoiceRestrictionType _res) {

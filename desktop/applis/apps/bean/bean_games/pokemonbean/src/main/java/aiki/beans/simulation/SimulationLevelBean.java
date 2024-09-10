@@ -14,6 +14,7 @@ import aiki.map.places.Place;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
+import code.scripts.confs.PkScriptPages;
 
 public class SimulationLevelBean extends AbsLevelBean {
     private int noFight;
@@ -48,7 +49,7 @@ public class SimulationLevelBean extends AbsLevelBean {
                 coords_.getLevel().setPoint(new Point(pt_));
                 getForms().put(CST_COORDS, coords_);
                 getForms().put(CST_NO_FIGHT, noFight);
-                return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
+                return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
             }
             if (Point.eq(g_.getIndoor().getGymLeaderCoords(), pt_)) {
                 Coords coords_ = new Coords();
@@ -58,11 +59,11 @@ public class SimulationLevelBean extends AbsLevelBean {
                 coords_.getLevel().setPoint(new Point(pt_));
                 getForms().put(CST_COORDS, coords_);
                 getForms().put(CST_NO_FIGHT, noFight);
-                return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
+                return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
             }
         }
         if (!(p_ instanceof Campaign)) {
-            return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATIONLEVEL_HTML;
+            return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATIONLEVEL_HTML;
         }
         Campaign c_ = (Campaign) p_;
         LevelWithWildPokemon l_ = (LevelWithWildPokemon) c_.getLevelsMap().getVal((byte) lev_);
@@ -74,7 +75,7 @@ public class SimulationLevelBean extends AbsLevelBean {
             coords_.getLevel().setPoint(new Point(pt_));
             getForms().put(CST_COORDS, coords_);
             getForms().put(CST_NO_FIGHT, noFight);
-            return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
+            return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
         }
         if (l_.getCharacters().contains(pt_)) {
             CharacterInRoadCave char_ = l_.getCharacters().getVal(pt_);
@@ -89,7 +90,7 @@ public class SimulationLevelBean extends AbsLevelBean {
                 coords_.getLevel().setPoint(new Point(pt_));
                 getForms().put(CST_COORDS, coords_);
                 //noFight
-                return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
+                return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
             }
         }
         for (Point ptKey_: l_.getDualFights().getKeys()) {
@@ -102,10 +103,10 @@ public class SimulationLevelBean extends AbsLevelBean {
                 coords_.getLevel().setPoint(new Point(ptKey_));
                 getForms().put(CST_NO_FIGHT, noFight);
                 getForms().put(CST_COORDS, coords_);
-                return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
+                return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
             }
         }
-        return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATIONLEVEL_HTML;
+        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATIONLEVEL_HTML;
     }
 
     private void updateNbFight(TrainerMultiFights _tr) {

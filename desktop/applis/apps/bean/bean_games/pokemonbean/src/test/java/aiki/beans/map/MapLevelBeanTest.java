@@ -1,9 +1,7 @@
 package aiki.beans.map;
 
-import aiki.beans.items.AikiBeansItemsStd;
-import aiki.beans.map.elements.AikiBeansMapElementsStd;
-import aiki.beans.moves.AikiBeansMovesStd;
 import aiki.util.Coords;
+import code.scripts.confs.PkScriptPages;
 import org.junit.Test;
 
 public final class MapLevelBeanTest extends InitDbLevelMap {
@@ -25,7 +23,7 @@ public final class MapLevelBeanTest extends InitDbLevelMap {
     }
     @Test
     public void clickForeGround1() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(0,12));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(0,12));
     }
     @Test
     public void clickForeGround2() {
@@ -34,7 +32,7 @@ public final class MapLevelBeanTest extends InitDbLevelMap {
     }
     @Test
     public void clickForeGround3() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(1,12));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(1,12));
     }
     @Test
     public void clickForeGround4() {
@@ -79,43 +77,43 @@ public final class MapLevelBeanTest extends InitDbLevelMap {
     }
     @Test
     public void clickForeGround5() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(1,11));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(1,11));
     }
     @Test
     public void clickForeGround6() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(2,10));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(2,10));
     }
     @Test
     public void clickForeGround7() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_LEG_PK_HTML,callMapLevelBeanClickTileOnMap(3,0,12));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_LEG_PK_HTML,callMapLevelBeanClickTileOnMap(3,0,12));
     }
     @Test
     public void clickForeGround8() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_DUAL_FIGHT_HTML,callMapLevelBeanClickTileOnMap(3,0,7));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_DUAL_FIGHT_HTML,callMapLevelBeanClickTileOnMap(3,0,7));
     }
     @Test
     public void clickForeGround9() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_DUAL_FIGHT_HTML,callMapLevelBeanClickTileOnMap(3,0,8));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_DUAL_FIGHT_HTML,callMapLevelBeanClickTileOnMap(3,0,8));
     }
     @Test
     public void clickForeGround10() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_TRAINER_MULTI_FIGHT_HTML,callMapLevelBeanClickTileOnMap(3,1,7));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_MULTI_FIGHT_HTML,callMapLevelBeanClickTileOnMap(3,1,7));
     }
     @Test
     public void clickForeGround11() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_DEALER_HTML,callMapLevelBeanClickTileOnMap(3,1,12));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_DEALER_HTML,callMapLevelBeanClickTileOnMap(3,1,12));
     }
     @Test
     public void clickForeGround12() {
-        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callMapLevelBeanClickTileOnMap(3,1,13));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callMapLevelBeanClickTileOnMap(3,1,13));
     }
     @Test
     public void clickForeGround13() {
-        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callMapLevelBeanClickTileOnMap(3,1,18));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callMapLevelBeanClickTileOnMap(3,1,18));
     }
     @Test
     public void clickForeGround14() {
-        assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_BOOST_HTML,callMapLevelBeanClickTileOnMap(3,1,8));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_BOOST_HTML,callMapLevelBeanClickTileOnMap(3,1,8));
     }
     @Test
     public void clickForeGroundId12() {
@@ -131,75 +129,75 @@ public final class MapLevelBeanTest extends InitDbLevelMap {
     }
     @Test
     public void clickForeGround15() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMapTwice(1,12,12));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMapTwice(1,12,12));
     }
     @Test
     public void clickForeGround17() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMapTwice(1,12,8));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMapTwice(1,12,8));
     }
     @Test
     public void clickForeGround18() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMapTwice(1,12,6));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMapTwice(1,12,6));
     }
     @Test
     public void clickForeGround19() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_SELLER_HTML,callMapLevelBeanClickTileOnMapTwice(1,12,13));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_SELLER_HTML,callMapLevelBeanClickTileOnMapTwice(1,12,13));
     }
     @Test
     public void clickForeGround20() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_SELLER_HTML,callMapLevelBeanClickTileOnMapTwice(1,12,18));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_SELLER_HTML,callMapLevelBeanClickTileOnMapTwice(1,12,18));
     }
     @Test
     public void clickForeGround21() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMapTwice(0,12,13));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMapTwice(0,12,13));
     }
     @Test
     public void clickForeGround22() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML,callMapLevelBeanClickTileOnMapTwice(0,12,4));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML,callMapLevelBeanClickTileOnMapTwice(0,12,4));
     }
     @Test
     public void clickForeGround23() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML,callMapLevelBeanClickTileOnMapTwice(0,12,7));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML,callMapLevelBeanClickTileOnMapTwice(0,12,7));
     }
     @Test
     public void clickForeGround24() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMapTwice(0,12,10));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMapTwice(0,12,10));
     }
     @Test
     public void clickForeGround25() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(8,0,11));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(8,0,11));
     }
     @Test
     public void clickForeGround26() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML,callMapLevelBeanClickTileOnMap(8,0,12));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML,callMapLevelBeanClickTileOnMap(8,0,12));
     }
     @Test
     public void clickForeGround27() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML,callMapLevelBeanClickTileOnMap(8,1,12));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML,callMapLevelBeanClickTileOnMap(8,1,12));
     }
     @Test
     public void clickForeGround28() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(8,0,17));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(8,0,17));
     }
     @Test
     public void clickForeGround29() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(8,1,17));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(8,1,17));
     }
     @Test
     public void clickForeGround30() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(3,1,6));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(3,1,6));
     }
     @Test
     public void clickForeGround31() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(3,0,11));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(3,0,11));
     }
     @Test
     public void clickForeGround32() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(2,0,6));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(2,0,6));
     }
     @Test
     public void clickForeGround33() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(3,0,16));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(3,0,16));
     }
 //    @Test
 //    public void getDirs1() {
@@ -251,35 +249,35 @@ public final class MapLevelBeanTest extends InitDbLevelMap {
 //    }
     @Test
     public void clickTileOnMap1() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(4,18));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(4,18));
     }
     @Test
     public void clickTileOnMap2() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_AREA_HTML,callMapLevelBeanClickTileOnMap(6,10));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_AREA_HTML,callMapLevelBeanClickTileOnMap(6,10));
     }
     @Test
     public void clickTileOnMap3() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(9,10));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(9,10));
     }
     @Test
     public void clickTileOnMap4() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(5,6));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(5,6));
     }
     @Test
     public void clickTileOnMap8() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(8,18));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(8,18));
     }
     @Test
     public void clickTileOnMap9() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML,callMapLevelBeanClickTileOnMap(8,12));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML,callMapLevelBeanClickTileOnMap(8,12));
     }
     @Test
     public void clickTileOnMap10() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(5,9));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(5,9));
     }
     @Test
     public void clickTileOnMap11() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(5,8));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(5,8));
     }
     @Test
     public void getWildPokemonAreas() {
@@ -315,19 +313,19 @@ public final class MapLevelBeanTest extends InitDbLevelMap {
     }
     @Test
     public void clickAreaOnMap1() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickAreaOnMap(2,10));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickAreaOnMap(2,10));
     }
     @Test
     public void clickAreaOnMap2() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_AREA_HTML,callMapLevelBeanClickAreaOnMap(2,5));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_AREA_HTML,callMapLevelBeanClickAreaOnMap(2,5));
     }
     @Test
     public void clickArea() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_AREA_HTML,callMapLevelBeanClickArea(2,0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_AREA_HTML,callMapLevelBeanClickArea(2,0));
     }
     @Test
     public void clickNeighbour() {
-        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickNeighbour(2,0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickNeighbour(2,0));
     }
     @Test
     public void getWhiteTiles() {

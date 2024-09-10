@@ -1,6 +1,5 @@
 package aiki.beans.help;
 
-import aiki.beans.AikiBeansStd;
 import aiki.beans.CommonBean;
 import aiki.beans.PokemonStandards;
 import aiki.beans.facade.comparators.ComparatorStringList;
@@ -31,6 +30,7 @@ import code.images.BaseSixtyFourUtil;
 import code.maths.Rate;
 import code.maths.litteralcom.MathExpUtil;
 import code.maths.montecarlo.MonteCarloNumber;
+import code.scripts.confs.PkScriptPages;
 import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -4689,7 +4689,7 @@ public class FightHelpBean extends CommonBean {
     }
     public String clickComboMultStat(int _index) {
         getForms().put(CST_COMBO, comboMultStat.get(_index));
-        return AikiBeansStd.WEB_HTML_COMBO_COMBOS_HTML;
+        return PkScriptPages.REN_ADD_WEB_HTML_COMBO_COMBOS_HTML;
     }
     public String getTrComboEvtStat(int _index) {
         DataBase data_ = getDataBase();
@@ -4702,7 +4702,7 @@ public class FightHelpBean extends CommonBean {
     }
     public String clickComboEvtStat(int _index) {
         getForms().put(CST_COMBO, comboEvtStat.get(_index));
-        return AikiBeansStd.WEB_HTML_COMBO_COMBOS_HTML;
+        return PkScriptPages.REN_ADD_WEB_HTML_COMBO_COMBOS_HTML;
     }
     public boolean nextRowAfter(int _index) {
         if (_index == IndexConstants.FIRST_INDEX) {

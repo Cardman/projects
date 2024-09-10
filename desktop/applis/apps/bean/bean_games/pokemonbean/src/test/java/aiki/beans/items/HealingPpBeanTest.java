@@ -1,5 +1,6 @@
 package aiki.beans.items;
 
+import code.scripts.confs.PkScriptPages;
 import org.junit.Test;
 
 public final class HealingPpBeanTest extends InitDbHealingPp {
@@ -41,7 +42,7 @@ public final class HealingPpBeanTest extends InitDbHealingPp {
     }
     @Test
     public void clickHappiness1() {
-        assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_BALL_HTML,callHealingItemBeanClickHappiness(ppDb(true,true,1,1),0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_BALL_HTML,callHealingItemBeanClickHappiness(ppDb(true,true,1,1),0));
     }
     @Test
     public void clickHappiness2() {

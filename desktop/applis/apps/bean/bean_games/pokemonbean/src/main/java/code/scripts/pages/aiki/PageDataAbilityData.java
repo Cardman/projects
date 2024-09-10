@@ -1,4 +1,5 @@
 package code.scripts.pages.aiki;
+import code.scripts.confs.*;
 import code.sml.*;
 import code.util.*;
 final class PageDataAbilityData extends PageCardsCommon{
@@ -6,7 +7,7 @@ private static final String C_P_98_0="javahtml";
 private static final String C_P_98_1="ability";
 private static final String C_P_98_2="msg_ability,title";
 private static final String C_P_98_3="displayName";
-private static final String C_P_98_4="web/css/abilities.css";
+private static final String C_P_98_4=PkScriptPages.REN_ADD_WEB_CSS_ABILITIES_CSS;
 private static final String C_P_98_5="stylesheet";
 private static final String C_P_98_6="text/css";
 private static final String C_P_98_7="$clickIndex()";

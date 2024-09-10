@@ -1,12 +1,12 @@
 package code.scripts.pages.aiki;
+import code.scripts.confs.*;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageDataLangsLangs extends PageCardsCommon{
 private static final String C_P_131_0="javahtml";
 private static final String C_P_131_1="langs";
 private static final String C_P_131_2="msg_lang,title";
-private static final String C_P_131_3="web/css/pokedex.css";
+private static final String C_P_131_3=PkScriptPages.REN_ADD_WEB_CSS_POKEDEX_CSS;
 private static final String C_P_131_4="stylesheet";
 private static final String C_P_131_5="text/css";
 private static final String C_P_131_6=GO_TO_IND;

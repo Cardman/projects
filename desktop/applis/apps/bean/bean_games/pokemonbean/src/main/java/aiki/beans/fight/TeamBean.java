@@ -6,6 +6,7 @@ import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.*;
 import code.maths.LgInt;
+import code.scripts.confs.PkScriptPages;
 import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -140,7 +141,7 @@ public class TeamBean extends CommonFightBean {
     }
     public String clickFighter(int _index) {
         getForms().put(NO_FIGHTER, _index);
-        return AikiBeansFightStd.WEB_FIGHT_HTML_FIGHTER_HTML;
+        return PkScriptPages.WEB_FIGHT_HTML_FIGHTER_HTML;
     }
     public String getKey(int _index) {
         return StringUtil.join(enabledMovesByGroup.getKey(_index), MOVES_SEPARATOR);

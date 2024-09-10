@@ -1,11 +1,11 @@
 package code.scripts.pages.aiki;
+import code.scripts.confs.*;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageDataPokemonEvolutionsEvotype extends PageCardsCommon{
 private static final String C_P_190_0="javahtml";
 private static final String C_P_190_1="evo_type";
-private static final String C_P_190_2="web/css/pokedex.css";
+private static final String C_P_190_2=PkScriptPages.REN_ADD_WEB_CSS_POKEDEX_CSS;
 private static final String C_P_190_3="stylesheet";
 private static final String C_P_190_4="text/css";
 private static final String C_P_190_5="$clickEvo({index})";

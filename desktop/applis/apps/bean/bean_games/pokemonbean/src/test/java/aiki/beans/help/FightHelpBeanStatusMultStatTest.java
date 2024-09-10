@@ -1,6 +1,5 @@
 package aiki.beans.help;
 
-import aiki.beans.status.AikiBeansStatusStd;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
 import aiki.fight.status.StatusBeginRoundSimple;
@@ -9,6 +8,7 @@ import aiki.fight.status.StatusType;
 import aiki.instances.Instances;
 import code.bean.nat.*;
 import code.maths.Rate;
+import code.scripts.confs.PkScriptPages;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -163,7 +163,7 @@ public final class FightHelpBeanStatusMultStatTest extends InitDbFightHelp {
     }
     @Test
     public void cl1() {
-        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,click());
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,click());
     }
     @Test
     public void clId1() {

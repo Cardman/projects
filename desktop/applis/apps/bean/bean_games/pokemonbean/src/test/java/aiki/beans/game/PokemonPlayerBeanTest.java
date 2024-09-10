@@ -18,6 +18,7 @@ import aiki.map.pokemon.enums.Gender;
 import code.bean.nat.NatNavigation;
 import code.images.BaseSixtyFourUtil;
 import code.maths.Rate;
+import code.scripts.confs.PkScriptPages;
 import code.scripts.pages.aiki.CssInit;
 import code.scripts.pages.aiki.MessagesInit;
 import code.scripts.pages.aiki.PagesInit;
@@ -454,7 +455,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         nav_.setLanguage(EN);
         pk_.setDataBase(fac_);
         pk_.initializeRendSessionDoc(nav_);
-        assertEq("<html xmlns:c=\"javahtml\"><head><title>Data about the pokemon PIKA</title><link href=\"web_pk/css/pokemon.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
+        assertEq("<html xmlns:c=\"javahtml\"><head><title>Data about the pokemon PIKA</title><link href=\""+PkScriptPages.REN_ADD_WEB_PK_CSS_POKEMON_CSS+"\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
                 "\ttext-indent:25px;\n" +
                 "}\n" +
                 "body{\n" +

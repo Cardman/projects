@@ -1,10 +1,11 @@
 package code.scripts.pages.aiki;
+import code.scripts.confs.*;
 import code.sml.*;
 import code.util.*;
 final class PageDataMapElementsTrainerMultiFight extends PageCardsCommon{
 private static final String C_P_139_0="javahtml";
 private static final String C_P_139_1="trainer_fight";
-private static final String C_P_139_2="web/css/pokedex.css";
+private static final String C_P_139_2=PkScriptPages.REN_ADD_WEB_CSS_POKEDEX_CSS;
 private static final String C_P_139_3="stylesheet";
 private static final String C_P_139_4="text/css";
 private static final String C_P_139_5="msg_levelmap,title_fight_stand";
