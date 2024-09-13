@@ -85,6 +85,7 @@ protected static final String GO_TO_LEVEL = "$gl()";
 protected static final String GO_TO_MAP = "$gm()";
 protected static final String GO_TO_SIMULATION = "$gs()";
 protected static final String DIFF = "d";
+protected static final char SEP = 160;
 protected PageCardsCommon(){}
 public static Attr at(String _name,String _value){
 return CoreDocument.createAttribute(_name,_value);
