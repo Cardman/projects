@@ -1,5 +1,6 @@
 package code.expressionlanguage.methods;
 
+import code.expressionlanguage.common.MessagesCdmBase;
 import code.expressionlanguage.linkage.ExportCst;
 import code.util.StringMap;
 import org.junit.Test;
@@ -238,7 +239,7 @@ public final class WarningReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxWarnStdReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static void <a name=\""+ExportCst.PREF_REF+"42\">caller</a>(){\n" +
-                "  Fct&lt;int,void&gt; <a name=\""+ExportCst.PREF_REF+"68\">elt</a> = staticCall(<a title=\"pkg.Ex\" href=\"#"+ExportCst.PREF_REF+"13\">Ex</a>).<a title=\"pkg.Ex.static exmeth(int)\" href=\"#"+ExportCst.PREF_REF+"129\">$lambda</a>(exmeth);\n" +
+                "  Fct"+MessagesCdmBase.LT+"int,void"+MessagesCdmBase.GT+" <a name=\""+ExportCst.PREF_REF+"68\">elt</a> = staticCall(<a title=\"pkg.Ex\" href=\"#"+ExportCst.PREF_REF+"13\">Ex</a>).<a title=\"pkg.Ex.static exmeth(int)\" href=\"#"+ExportCst.PREF_REF+"129\">$lambda</a>(exmeth);\n" +
                 " }\n" +
                 " public static void <a name=\""+ExportCst.PREF_REF+"129\">exmeth</a>(int <a name=\""+ExportCst.PREF_REF+"140\">u</a>){\n" +
                 " }\n" +

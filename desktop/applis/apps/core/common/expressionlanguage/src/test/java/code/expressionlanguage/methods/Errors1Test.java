@@ -1,5 +1,6 @@
 package code.expressionlanguage.methods;
 
+import code.expressionlanguage.common.MessagesCdmBase;
 import code.expressionlanguage.linkage.ExportCst;
 import code.util.StringMap;
 import org.junit.Test;
@@ -373,20 +374,20 @@ public final class Errors1Test extends ProcessMethodCommon {
                 "class <a name=\""+ExportCst.PREF_REF+"38\">pkg.Ext</a> {\n" +
                 " static String <a name=\""+ExportCst.PREF_REF+"63\">m</a>(){\n" +
                 "  String <a name=\""+ExportCst.PREF_REF+"77\">res</a> = <span class=\"s\">\"\"</span>;\n" +
-                "  for (int <a name=\""+ExportCst.PREF_REF+"98\">i</a>: <a title=\"pkg.Ext..Iterable*1.pkg.Ext..Iterable*1(int...)\" href=\"#"+ExportCst.PREF_REF+"140\">new</a> Iterable&lt;int&gt;(1,2)<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"123\">{</a>\n" +
+                "  for (int <a name=\""+ExportCst.PREF_REF+"98\">i</a>: <a title=\"pkg.Ext..Iterable*1.pkg.Ext..Iterable*1(int...)\" href=\"#"+ExportCst.PREF_REF+"140\">new</a> Iterable"+MessagesCdmBase.LT+"int"+MessagesCdmBase.GT+"(1,2)<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"123\">{</a>\n" +
                 "   int[] <a name=\""+ExportCst.PREF_REF+"134\">f</a>;\n" +
                 "   <a name=\""+ExportCst.PREF_REF+"140\">Iterable(</a>int... <a name=\""+ExportCst.PREF_REF+"156\">a</a>){\n" +
                 "    <a title=\"pkg.Ext..Iterable*1.f\" href=\"#"+ExportCst.PREF_REF+"134\">f</a> = <a href=\"#"+ExportCst.PREF_REF+"156\">a</a>;\n" +
                 "   }\n" +
-                "   public Iterator&lt;int&gt; <a name=\""+ExportCst.PREF_REF+"200\">iterator</a>(){\n" +
-                "    return <a title=\"pkg.Ext..Iterable*1..Iterator*1.pkg.Ext..Iterable*1..Iterator*1(int...)\" href=\"#"+ExportCst.PREF_REF+"276\">new</a> Iterator&lt;int&gt;(<a title=\"pkg.Ext..Iterable*1.f\" href=\"#"+ExportCst.PREF_REF+"134\">f</a>)<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"243\">{</a>\n" +
+                "   public Iterator"+MessagesCdmBase.LT+"int"+MessagesCdmBase.GT+" <a name=\""+ExportCst.PREF_REF+"200\">iterator</a>(){\n" +
+                "    return <a title=\"pkg.Ext..Iterable*1..Iterator*1.pkg.Ext..Iterable*1..Iterator*1(int...)\" href=\"#"+ExportCst.PREF_REF+"276\">new</a> Iterator"+MessagesCdmBase.LT+"int"+MessagesCdmBase.GT+"(<a title=\"pkg.Ext..Iterable*1.f\" href=\"#"+ExportCst.PREF_REF+"134\">f</a>)<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"243\">{</a>\n" +
                 "     int[] <a name=\""+ExportCst.PREF_REF+"256\">g</a>;\n" +
                 "     int <a name=\""+ExportCst.PREF_REF+"268\">j</a>;\n" +
                 "     <a name=\""+ExportCst.PREF_REF+"276\">Iterator(</a>int... <a name=\""+ExportCst.PREF_REF+"292\">a</a>){\n" +
                 "      <a title=\"pkg.Ext..Iterable*1..Iterator*1.g\" href=\"#"+ExportCst.PREF_REF+"256\">g</a> = <a href=\"#"+ExportCst.PREF_REF+"292\">a</a>;\n" +
                 "     }\n" +
                 "     public boolean <a name=\""+ExportCst.PREF_REF+"336\">hasNext</a>(){\n" +
-                "      return <a title=\"pkg.Ext..Iterable*1..Iterator*1.j\" href=\"#"+ExportCst.PREF_REF+"268\">j</a> &lt; <a title=\"pkg.Ext..Iterable*1..Iterator*1.g\" href=\"#"+ExportCst.PREF_REF+"256\">g</a>.<b>length</b>;\n" +
+                "      return <a title=\"pkg.Ext..Iterable*1..Iterator*1.j\" href=\"#"+ExportCst.PREF_REF+"268\">j</a> "+MessagesCdmBase.LT+" <a title=\"pkg.Ext..Iterable*1..Iterator*1.g\" href=\"#"+ExportCst.PREF_REF+"256\">g</a>.<b>length</b>;\n" +
                 "     }\n" +
                 "     public int <a name=\""+ExportCst.PREF_REF+"397\">next</a>(){\n" +
                 "      return <a title=\"pkg.Ext..Iterable*1..Iterator*1.g\" href=\"#"+ExportCst.PREF_REF+"256\">g</a>[<a title=\"pkg.Ext..Iterable*1..Iterator*1.j\" href=\"#"+ExportCst.PREF_REF+"268\">j</a>++];\n" +
@@ -470,15 +471,15 @@ public final class Errors1Test extends ProcessMethodCommon {
                 "class <a name=\""+ExportCst.PREF_REF+"38\">pkg.Ext</a> {\n" +
                 " static String <a name=\""+ExportCst.PREF_REF+"63\">m</a>(){\n" +
                 "  String <a name=\""+ExportCst.PREF_REF+"77\">res</a> = <span class=\"s\">\"\"</span>;\n" +
-                "  for (int <a name=\""+ExportCst.PREF_REF+"98\">i</a>, int <a name=\""+ExportCst.PREF_REF+"105\">y</a>: <a title=\"pkg.Ext..IterableTable*1.pkg.Ext..IterableTable*1([int,[int)\" href=\"#"+ExportCst.PREF_REF+"194\">new</a> IterableTable&lt;int,int&gt;(new int[]{1,2},new int[]{3,4})<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"165\">{</a>\n" +
+                "  for (int <a name=\""+ExportCst.PREF_REF+"98\">i</a>, int <a name=\""+ExportCst.PREF_REF+"105\">y</a>: <a title=\"pkg.Ext..IterableTable*1.pkg.Ext..IterableTable*1([int,[int)\" href=\"#"+ExportCst.PREF_REF+"194\">new</a> IterableTable"+MessagesCdmBase.LT+"int,int"+MessagesCdmBase.GT+"(new int[]{1,2},new int[]{3,4})<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"165\">{</a>\n" +
                 "   int[] <a name=\""+ExportCst.PREF_REF+"176\">e</a>;\n" +
                 "   int[] <a name=\""+ExportCst.PREF_REF+"188\">f</a>;\n" +
                 "   <a name=\""+ExportCst.PREF_REF+"194\">IterableTable(</a>int[] <a name=\""+ExportCst.PREF_REF+"214\">b</a>,int[] <a name=\""+ExportCst.PREF_REF+"222\">a</a>){\n" +
                 "    <a title=\"pkg.Ext..IterableTable*1.e\" href=\"#"+ExportCst.PREF_REF+"176\">e</a> = <a href=\"#"+ExportCst.PREF_REF+"214\">b</a>;\n" +
                 "    <a title=\"pkg.Ext..IterableTable*1.f\" href=\"#"+ExportCst.PREF_REF+"188\">f</a> = <a href=\"#"+ExportCst.PREF_REF+"222\">a</a>;\n" +
                 "   }\n" +
-                "   public IteratorTable&lt;int,int&gt; <a name=\""+ExportCst.PREF_REF+"286\">iteratorTable</a>(){\n" +
-                "    return <a title=\"pkg.Ext..IterableTable*1..IteratorTable*1.pkg.Ext..IterableTable*1..IteratorTable*1([int,[int)\" href=\"#"+ExportCst.PREF_REF+"392\">new</a> IteratorTable&lt;int,int&gt;(<a title=\"pkg.Ext..IterableTable*1.e\" href=\"#"+ExportCst.PREF_REF+"176\">e</a>,<a title=\"pkg.Ext..IterableTable*1.f\" href=\"#"+ExportCst.PREF_REF+"188\">f</a>)<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"345\">{</a>\n" +
+                "   public IteratorTable"+MessagesCdmBase.LT+"int,int"+MessagesCdmBase.GT+" <a name=\""+ExportCst.PREF_REF+"286\">iteratorTable</a>(){\n" +
+                "    return <a title=\"pkg.Ext..IterableTable*1..IteratorTable*1.pkg.Ext..IterableTable*1..IteratorTable*1([int,[int)\" href=\"#"+ExportCst.PREF_REF+"392\">new</a> IteratorTable"+MessagesCdmBase.LT+"int,int"+MessagesCdmBase.GT+"(<a title=\"pkg.Ext..IterableTable*1.e\" href=\"#"+ExportCst.PREF_REF+"176\">e</a>,<a title=\"pkg.Ext..IterableTable*1.f\" href=\"#"+ExportCst.PREF_REF+"188\">f</a>)<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"345\">{</a>\n" +
                 "     int[] <a name=\""+ExportCst.PREF_REF+"358\">g</a>;\n" +
                 "     int[] <a name=\""+ExportCst.PREF_REF+"372\">h</a>;\n" +
                 "     int <a name=\""+ExportCst.PREF_REF+"384\">j</a>;\n" +
@@ -487,10 +488,10 @@ public final class Errors1Test extends ProcessMethodCommon {
                 "      <a title=\"pkg.Ext..IterableTable*1..IteratorTable*1.h\" href=\"#"+ExportCst.PREF_REF+"372\">h</a> = <a href=\"#"+ExportCst.PREF_REF+"420\">a</a>;\n" +
                 "     }\n" +
                 "     public boolean <a name=\""+ExportCst.PREF_REF+"477\">hasNextPair</a>(){\n" +
-                "      return <a title=\"pkg.Ext..IterableTable*1..IteratorTable*1.j\" href=\"#"+ExportCst.PREF_REF+"384\">j</a> &lt; <a title=\"pkg.Ext..IterableTable*1..IteratorTable*1.g\" href=\"#"+ExportCst.PREF_REF+"358\">g</a>.<b>length</b>;\n" +
+                "      return <a title=\"pkg.Ext..IterableTable*1..IteratorTable*1.j\" href=\"#"+ExportCst.PREF_REF+"384\">j</a> "+MessagesCdmBase.LT+" <a title=\"pkg.Ext..IterableTable*1..IteratorTable*1.g\" href=\"#"+ExportCst.PREF_REF+"358\">g</a>.<b>length</b>;\n" +
                 "     }\n" +
-                "     public Pair&lt;int,int&gt; <a name=\""+ExportCst.PREF_REF+"552\">nextPair</a>(){\n" +
-                "      return <a title=\"pkg.Ext..IterableTable*1..IteratorTable*1..Pair*1.pkg.Ext..IterableTable*1..IteratorTable*1..Pair*1([int,[int,int)\" href=\"#"+ExportCst.PREF_REF+"658\">new</a> Pair&lt;int,int&gt;(<a title=\"pkg.Ext..IterableTable*1..IteratorTable*1.g\" href=\"#"+ExportCst.PREF_REF+"358\">g</a>,<a title=\"pkg.Ext..IterableTable*1..IteratorTable*1.h\" href=\"#"+ExportCst.PREF_REF+"372\">h</a>,<a title=\"pkg.Ext..IterableTable*1..IteratorTable*1.j\" href=\"#"+ExportCst.PREF_REF+"384\">j</a>++)<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"603\">{</a>\n" +
+                "     public Pair"+MessagesCdmBase.LT+"int,int"+MessagesCdmBase.GT+" <a name=\""+ExportCst.PREF_REF+"552\">nextPair</a>(){\n" +
+                "      return <a title=\"pkg.Ext..IterableTable*1..IteratorTable*1..Pair*1.pkg.Ext..IterableTable*1..IteratorTable*1..Pair*1([int,[int,int)\" href=\"#"+ExportCst.PREF_REF+"658\">new</a> Pair"+MessagesCdmBase.LT+"int,int"+MessagesCdmBase.GT+"(<a title=\"pkg.Ext..IterableTable*1..IteratorTable*1.g\" href=\"#"+ExportCst.PREF_REF+"358\">g</a>,<a title=\"pkg.Ext..IterableTable*1..IteratorTable*1.h\" href=\"#"+ExportCst.PREF_REF+"372\">h</a>,<a title=\"pkg.Ext..IterableTable*1..IteratorTable*1.j\" href=\"#"+ExportCst.PREF_REF+"384\">j</a>++)<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"603\">{</a>\n" +
                 "       int[] <a name=\""+ExportCst.PREF_REF+"618\">k</a>;\n" +
                 "       int[] <a name=\""+ExportCst.PREF_REF+"634\">l</a>;\n" +
                 "       int <a name=\""+ExportCst.PREF_REF+"648\">m</a>;\n" +
@@ -629,7 +630,7 @@ public final class Errors1Test extends ProcessMethodCommon {
                 "  int <a name=\""+ExportCst.PREF_REF+"168\">sum</a> = 0;\n" +
                 "  for (int <a name=\""+ExportCst.PREF_REF+"188\">v</a> = new <a title=\"pkg.Init\" href=\"#"+ExportCst.PREF_REF+"6\">Init</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"202\">{</a>\n" +
                 "   public int <a name=\""+ExportCst.PREF_REF+"218\">subfield</a>;\n" +
-                "  }</span>.<a title=\"pkg.Init.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>;<a href=\"#"+ExportCst.PREF_REF+"188\">v</a> &lt; new <a title=\"pkg.Until\" href=\"#"+ExportCst.PREF_REF+"41\">Until</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"253\">{</a>\n" +
+                "  }</span>.<a title=\"pkg.Init.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>;<a href=\"#"+ExportCst.PREF_REF+"188\">v</a> "+MessagesCdmBase.LT+" new <a title=\"pkg.Until\" href=\"#"+ExportCst.PREF_REF+"41\">Until</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"253\">{</a>\n" +
                 "   public int <a name=\""+ExportCst.PREF_REF+"269\">subfield</a>;\n" +
                 "  }</span>.<a title=\"pkg.Until.field\" href=\"#"+ExportCst.PREF_REF+"58\">field</a>;<a href=\"#"+ExportCst.PREF_REF+"188\">v</a> += new <a title=\"pkg.Step\" href=\"#"+ExportCst.PREF_REF+"78\">Step</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"304\">{</a>\n" +
                 "   public int <a name=\""+ExportCst.PREF_REF+"320\">subfield</a>;\n" +
@@ -693,7 +694,7 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " static void <a name=\""+ExportCst.PREF_REF+"29\">m</a>(){\n" +
-                "  new Enum&lt;<a title=\"pkg.Ext..MyEnum\" href=\"#"+ExportCst.PREF_REF+"67\">MyEnum</a>&gt;()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"54\" title=\"The type pkg.Ext..Enum*1 cannot have explicitly the type $core.Enum as super type because $core.Enum is reserved.\" class=\"e\">{</a>}</span>;\n" +
+                "  new Enum"+MessagesCdmBase.LT+"<a title=\"pkg.Ext..MyEnum\" href=\"#"+ExportCst.PREF_REF+"67\">MyEnum</a>"+MessagesCdmBase.GT+"()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"54\" title=\"The type pkg.Ext..Enum*1 cannot have explicitly the type $core.Enum as super type because $core.Enum is reserved.\" class=\"e\">{</a>}</span>;\n" +
                 " }\n" +
                 " enum <a name=\""+ExportCst.PREF_REF+"67\">MyEnum</a>{\n" +
                 " }\n" +
@@ -768,7 +769,7 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
-                "  return <span class=\"t\">(int <a name=\""+ExportCst.PREF_REF+"47\">a</a>:int)<a name=\""+ExportCst.PREF_REF+"53\" title=\"A throw block or a return block is missing for the method static .1(int).\" class=\"e\">-&gt;</a>{}</span>.<b>call</b>(3);\n" +
+                "  return <span class=\"t\">(int <a name=\""+ExportCst.PREF_REF+"47\">a</a>:int)<a name=\""+ExportCst.PREF_REF+"53\" title=\"A throw block or a return block is missing for the method static .1(int).\" class=\"e\">-"+MessagesCdmBase.GT+"</a>{}</span>.<b>call</b>(3);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -788,7 +789,7 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
-                "  return <span class=\"t\">(int <a name=\""+ExportCst.PREF_REF+"47\">a</a>,int <a name=\""+ExportCst.PREF_REF+"53\" title=\"The parameter function name a is duplicated.\" class=\"e\">a</a>:int)<a name=\""+ExportCst.PREF_REF+"59\">-&gt;</a>{return 0;}</span>.<b>call</b>(3,4);\n" +
+                "  return <span class=\"t\">(int <a name=\""+ExportCst.PREF_REF+"47\">a</a>,int <a name=\""+ExportCst.PREF_REF+"53\" title=\"The parameter function name a is duplicated.\" class=\"e\">a</a>:int)<a name=\""+ExportCst.PREF_REF+"59\">-"+MessagesCdmBase.GT+"</a>{return 0;}</span>.<b>call</b>(3,4);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -808,7 +809,7 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " static void <a name=\""+ExportCst.PREF_REF+"29\">m</a>(){\n" +
-                "  <span class=\"t\">(int <a name=\""+ExportCst.PREF_REF+"41\">a</a>:void)<a name=\""+ExportCst.PREF_REF+"48\">-&gt;</a>{<a title=\"The type cannot be the key word void.\" class=\"e\">return</a> 0;}</span>.<b>call</b>(3);\n" +
+                "  <span class=\"t\">(int <a name=\""+ExportCst.PREF_REF+"41\">a</a>:void)<a name=\""+ExportCst.PREF_REF+"48\">-"+MessagesCdmBase.GT+"</a>{<a title=\"The type cannot be the key word void.\" class=\"e\">return</a> 0;}</span>.<b>call</b>(3);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -1525,9 +1526,9 @@ public final class Errors1Test extends ProcessMethodCommon {
                 "  return staticCall(<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>).<a title=\"pkg.Ext.staticCall m()\" href=\"#"+ExportCst.PREF_REF+"82\">m</a>();\n" +
                 " }\n" +
                 " staticCall int <a name=\""+ExportCst.PREF_REF+"82\">m</a>(){\n" +
-                "  return <a title=\"pkg.Ext.staticCall m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#"+ExportCst.PREF_REF+"141\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"98\">a</a> <a name=\""+ExportCst.PREF_REF+"100\">-&gt;</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"103\">a</a> <a name=\""+ExportCst.PREF_REF+"105\" title=\"The type $core.Number cannot be implicitly cast to int\" class=\"e\">-&gt;</a> <a href=\"#"+ExportCst.PREF_REF+"103\">a</a> <a title=\"The operands types int;$core.Object for the operator * are unexpected.\" class=\"e\">*</a> <a title=\"There is no accessible field named ##a from the type pkg.Ext in this context.\" class=\"e\">##a</a></span></span>,2,3);\n" +
+                "  return <a title=\"pkg.Ext.staticCall m($core.Fct"+MessagesCdmBase.LT+"int,$core.Fct"+MessagesCdmBase.LT+"int,int"+MessagesCdmBase.GT+""+MessagesCdmBase.GT+",int,int)\" href=\"#"+ExportCst.PREF_REF+"141\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"98\">a</a> <a name=\""+ExportCst.PREF_REF+"100\">-"+MessagesCdmBase.GT+"</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"103\">a</a> <a name=\""+ExportCst.PREF_REF+"105\" title=\"The type $core.Number cannot be implicitly cast to int\" class=\"e\">-"+MessagesCdmBase.GT+"</a> <a href=\"#"+ExportCst.PREF_REF+"103\">a</a> <a title=\"The operands types int;$core.Object for the operator * are unexpected.\" class=\"e\">*</a> <a title=\"There is no accessible field named ##a from the type pkg.Ext in this context.\" class=\"e\">##a</a></span></span>,2,3);\n" +
                 " }\n" +
-                " staticCall int <a name=\""+ExportCst.PREF_REF+"141\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\""+ExportCst.PREF_REF+"165\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"173\">a</a>,int <a name=\""+ExportCst.PREF_REF+"179\">b</a>){\n" +
+                " staticCall int <a name=\""+ExportCst.PREF_REF+"141\">m</a>(Fct"+MessagesCdmBase.LT+"int,Fct"+MessagesCdmBase.LT+"int,int"+MessagesCdmBase.GT+""+MessagesCdmBase.GT+" <a name=\""+ExportCst.PREF_REF+"165\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"173\">a</a>,int <a name=\""+ExportCst.PREF_REF+"179\">b</a>){\n" +
                 "  return <a href=\"#"+ExportCst.PREF_REF+"165\">fct</a>.<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"173\">a</a>).<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"179\">b</a>);\n" +
                 " }\n" +
                 "}\n" +
@@ -1558,12 +1559,12 @@ public final class Errors1Test extends ProcessMethodCommon {
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
                 "  int <a name=\""+ExportCst.PREF_REF+"39\">sum</a> = 0;\n" +
                 "  int <a name=\""+ExportCst.PREF_REF+"54\">sum2</a> = 3;\n" +
-                "  for (int <a name=\""+ExportCst.PREF_REF+"75\">i</a> = 1; <a href=\"#"+ExportCst.PREF_REF+"75\">i</a> &lt;= 9; <a href=\"#"+ExportCst.PREF_REF+"75\">i</a>+= 2){\n" +
-                "   <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#"+ExportCst.PREF_REF+"187\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"110\">a</a> <a name=\""+ExportCst.PREF_REF+"112\">-&gt;</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"115\">i</a> <a name=\""+ExportCst.PREF_REF+"117\" title=\"The type $core.Number cannot be implicitly cast to int\" class=\"e\">-&gt;</a> <a href=\"#"+ExportCst.PREF_REF+"54\">sum2</a> + <a href=\"#"+ExportCst.PREF_REF+"115\">i</a> + <a href=\"#"+ExportCst.PREF_REF+"110\">a</a> <a title=\"The operands types int;$core.Object for the operator + are unexpected.\" class=\"e\">+</a> ([<a title=\"The variable ##i is undefined in this context.\" class=\"e\">##i</a>]) <a title=\"The operands types $core.Number;int for the operator + are unexpected.\" class=\"e\">+</a> <a href=\"#"+ExportCst.PREF_REF+"75\">#i</a></span></span>,2,7);\n" +
+                "  for (int <a name=\""+ExportCst.PREF_REF+"75\">i</a> = 1; <a href=\"#"+ExportCst.PREF_REF+"75\">i</a> "+MessagesCdmBase.LT+"= 9; <a href=\"#"+ExportCst.PREF_REF+"75\">i</a>+= 2){\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct"+MessagesCdmBase.LT+"int,$core.Fct"+MessagesCdmBase.LT+"int,int"+MessagesCdmBase.GT+""+MessagesCdmBase.GT+",int,int)\" href=\"#"+ExportCst.PREF_REF+"187\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"110\">a</a> <a name=\""+ExportCst.PREF_REF+"112\">-"+MessagesCdmBase.GT+"</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"115\">i</a> <a name=\""+ExportCst.PREF_REF+"117\" title=\"The type $core.Number cannot be implicitly cast to int\" class=\"e\">-"+MessagesCdmBase.GT+"</a> <a href=\"#"+ExportCst.PREF_REF+"54\">sum2</a> + <a href=\"#"+ExportCst.PREF_REF+"115\">i</a> + <a href=\"#"+ExportCst.PREF_REF+"110\">a</a> <a title=\"The operands types int;$core.Object for the operator + are unexpected.\" class=\"e\">+</a> ([<a title=\"The variable ##i is undefined in this context.\" class=\"e\">##i</a>]) <a title=\"The operands types $core.Number;int for the operator + are unexpected.\" class=\"e\">+</a> <a href=\"#"+ExportCst.PREF_REF+"75\">#i</a></span></span>,2,7);\n" +
                 "  }\n" +
                 "  return <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a>;\n" +
                 " }\n" +
-                " static int <a name=\""+ExportCst.PREF_REF+"187\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\""+ExportCst.PREF_REF+"211\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"219\">a</a>,int <a name=\""+ExportCst.PREF_REF+"225\">b</a>){\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"187\">m</a>(Fct"+MessagesCdmBase.LT+"int,Fct"+MessagesCdmBase.LT+"int,int"+MessagesCdmBase.GT+""+MessagesCdmBase.GT+" <a name=\""+ExportCst.PREF_REF+"211\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"219\">a</a>,int <a name=\""+ExportCst.PREF_REF+"225\">b</a>){\n" +
                 "  return <a href=\"#"+ExportCst.PREF_REF+"211\">fct</a>.<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"219\">a</a>).<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"225\">b</a>);\n" +
                 " }\n" +
                 "}\n" +
@@ -1594,12 +1595,12 @@ public final class Errors1Test extends ProcessMethodCommon {
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
                 "  int <a name=\""+ExportCst.PREF_REF+"39\">sum</a> = 0;\n" +
                 "  int <a name=\""+ExportCst.PREF_REF+"54\">sum2</a> = 3;\n" +
-                "  for (int <a name=\""+ExportCst.PREF_REF+"75\">i</a> = 1; <a href=\"#"+ExportCst.PREF_REF+"75\">i</a> &lt;= 9; <a href=\"#"+ExportCst.PREF_REF+"75\">i</a>+= 2){\n" +
-                "   <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#"+ExportCst.PREF_REF+"186\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"110\">a</a> <a name=\""+ExportCst.PREF_REF+"112\">-&gt;</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"115\">i</a> <a name=\""+ExportCst.PREF_REF+"117\" title=\"The type $core.Number cannot be implicitly cast to int\" class=\"e\">-&gt;</a> <a href=\"#"+ExportCst.PREF_REF+"54\">sum2</a> + <a href=\"#"+ExportCst.PREF_REF+"115\">i</a> + <a href=\"#"+ExportCst.PREF_REF+"110\">a</a> <a title=\"The operands types int;$core.Object for the operator + are unexpected.\" class=\"e\">+</a> ([<a title=\"The variable #a is undefined in this context.\" class=\"e\">#a</a>]) <a title=\"The operands types $core.Number;int for the operator + are unexpected.\" class=\"e\">+</a> <a href=\"#"+ExportCst.PREF_REF+"75\">#i</a></span></span>,2,7);\n" +
+                "  for (int <a name=\""+ExportCst.PREF_REF+"75\">i</a> = 1; <a href=\"#"+ExportCst.PREF_REF+"75\">i</a> "+MessagesCdmBase.LT+"= 9; <a href=\"#"+ExportCst.PREF_REF+"75\">i</a>+= 2){\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct"+MessagesCdmBase.LT+"int,$core.Fct"+MessagesCdmBase.LT+"int,int"+MessagesCdmBase.GT+""+MessagesCdmBase.GT+",int,int)\" href=\"#"+ExportCst.PREF_REF+"186\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"110\">a</a> <a name=\""+ExportCst.PREF_REF+"112\">-"+MessagesCdmBase.GT+"</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"115\">i</a> <a name=\""+ExportCst.PREF_REF+"117\" title=\"The type $core.Number cannot be implicitly cast to int\" class=\"e\">-"+MessagesCdmBase.GT+"</a> <a href=\"#"+ExportCst.PREF_REF+"54\">sum2</a> + <a href=\"#"+ExportCst.PREF_REF+"115\">i</a> + <a href=\"#"+ExportCst.PREF_REF+"110\">a</a> <a title=\"The operands types int;$core.Object for the operator + are unexpected.\" class=\"e\">+</a> ([<a title=\"The variable #a is undefined in this context.\" class=\"e\">#a</a>]) <a title=\"The operands types $core.Number;int for the operator + are unexpected.\" class=\"e\">+</a> <a href=\"#"+ExportCst.PREF_REF+"75\">#i</a></span></span>,2,7);\n" +
                 "  }\n" +
                 "  return <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a>;\n" +
                 " }\n" +
-                " static int <a name=\""+ExportCst.PREF_REF+"186\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\""+ExportCst.PREF_REF+"210\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"218\">a</a>,int <a name=\""+ExportCst.PREF_REF+"224\">b</a>){\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"186\">m</a>(Fct"+MessagesCdmBase.LT+"int,Fct"+MessagesCdmBase.LT+"int,int"+MessagesCdmBase.GT+""+MessagesCdmBase.GT+" <a name=\""+ExportCst.PREF_REF+"210\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"218\">a</a>,int <a name=\""+ExportCst.PREF_REF+"224\">b</a>){\n" +
                 "  return <a href=\"#"+ExportCst.PREF_REF+"210\">fct</a>.<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"218\">a</a>).<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"224\">b</a>);\n" +
                 " }\n" +
                 "}\n" +
@@ -1630,12 +1631,12 @@ public final class Errors1Test extends ProcessMethodCommon {
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
                 "  int <a name=\""+ExportCst.PREF_REF+"39\">sum</a> = 0;\n" +
                 "  int <a name=\""+ExportCst.PREF_REF+"54\">sum2</a> = 3;\n" +
-                "  for (int <a name=\""+ExportCst.PREF_REF+"75\">i</a> = 1; <a href=\"#"+ExportCst.PREF_REF+"75\">i</a> &lt;= 9; <a href=\"#"+ExportCst.PREF_REF+"75\">i</a>+= 2){\n" +
-                "   <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#"+ExportCst.PREF_REF+"185\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"110\">a</a> <a name=\""+ExportCst.PREF_REF+"112\">-&gt;</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"115\">i</a> <a name=\""+ExportCst.PREF_REF+"117\" title=\"The type $core.Number cannot be implicitly cast to int\" class=\"e\">-&gt;</a> <a href=\"#"+ExportCst.PREF_REF+"54\">sum2</a> + <a href=\"#"+ExportCst.PREF_REF+"115\">i</a> + <a href=\"#"+ExportCst.PREF_REF+"110\">a</a> <a title=\"The operands types int;$core.Object for the operator + are unexpected.\" class=\"e\">+</a> ([<a title=\"The variable # is undefined in this context.\" class=\"e\">#</a>]) <a title=\"The operands types $core.Number;int for the operator + are unexpected.\" class=\"e\">+</a> <a href=\"#"+ExportCst.PREF_REF+"75\">#i</a></span></span>,2,7);\n" +
+                "  for (int <a name=\""+ExportCst.PREF_REF+"75\">i</a> = 1; <a href=\"#"+ExportCst.PREF_REF+"75\">i</a> "+MessagesCdmBase.LT+"= 9; <a href=\"#"+ExportCst.PREF_REF+"75\">i</a>+= 2){\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct"+MessagesCdmBase.LT+"int,$core.Fct"+MessagesCdmBase.LT+"int,int"+MessagesCdmBase.GT+""+MessagesCdmBase.GT+",int,int)\" href=\"#"+ExportCst.PREF_REF+"185\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"110\">a</a> <a name=\""+ExportCst.PREF_REF+"112\">-"+MessagesCdmBase.GT+"</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"115\">i</a> <a name=\""+ExportCst.PREF_REF+"117\" title=\"The type $core.Number cannot be implicitly cast to int\" class=\"e\">-"+MessagesCdmBase.GT+"</a> <a href=\"#"+ExportCst.PREF_REF+"54\">sum2</a> + <a href=\"#"+ExportCst.PREF_REF+"115\">i</a> + <a href=\"#"+ExportCst.PREF_REF+"110\">a</a> <a title=\"The operands types int;$core.Object for the operator + are unexpected.\" class=\"e\">+</a> ([<a title=\"The variable # is undefined in this context.\" class=\"e\">#</a>]) <a title=\"The operands types $core.Number;int for the operator + are unexpected.\" class=\"e\">+</a> <a href=\"#"+ExportCst.PREF_REF+"75\">#i</a></span></span>,2,7);\n" +
                 "  }\n" +
                 "  return <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a>;\n" +
                 " }\n" +
-                " static int <a name=\""+ExportCst.PREF_REF+"185\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\""+ExportCst.PREF_REF+"209\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"217\">a</a>,int <a name=\""+ExportCst.PREF_REF+"223\">b</a>){\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"185\">m</a>(Fct"+MessagesCdmBase.LT+"int,Fct"+MessagesCdmBase.LT+"int,int"+MessagesCdmBase.GT+""+MessagesCdmBase.GT+" <a name=\""+ExportCst.PREF_REF+"209\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"217\">a</a>,int <a name=\""+ExportCst.PREF_REF+"223\">b</a>){\n" +
                 "  return <a href=\"#"+ExportCst.PREF_REF+"209\">fct</a>.<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"217\">a</a>).<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"223\">b</a>);\n" +
                 " }\n" +
                 "}\n" +
@@ -1666,12 +1667,12 @@ public final class Errors1Test extends ProcessMethodCommon {
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
                 "  int <a name=\""+ExportCst.PREF_REF+"39\">sum</a> = 0;\n" +
                 "  int <a name=\""+ExportCst.PREF_REF+"54\">sum2</a> = 3;\n" +
-                "  for (int <a name=\""+ExportCst.PREF_REF+"75\">i</a> = 1; <a href=\"#"+ExportCst.PREF_REF+"75\">i</a> &lt;= 9; <a href=\"#"+ExportCst.PREF_REF+"75\">i</a>+= 2){\n" +
-                "   <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#"+ExportCst.PREF_REF+"185\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"110\">a</a> <a name=\""+ExportCst.PREF_REF+"112\">-&gt;</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"115\">i</a> <a name=\""+ExportCst.PREF_REF+"117\" title=\"The type $core.Number cannot be implicitly cast to int\" class=\"e\">-&gt;</a> <a href=\"#"+ExportCst.PREF_REF+"54\">sum2</a> + <a href=\"#"+ExportCst.PREF_REF+"115\">i</a> + <a href=\"#"+ExportCst.PREF_REF+"110\">a</a> <a title=\"The operands types int;$core.Object for the operator + are unexpected.\" class=\"e\">+</a> ([<a title=\"The variable , is undefined in this context.\" class=\"e\">,</a>]) <a title=\"The operands types $core.Number;int for the operator + are unexpected.\" class=\"e\">+</a> <a href=\"#"+ExportCst.PREF_REF+"75\">#i</a></span></span>,2,7);\n" +
+                "  for (int <a name=\""+ExportCst.PREF_REF+"75\">i</a> = 1; <a href=\"#"+ExportCst.PREF_REF+"75\">i</a> "+MessagesCdmBase.LT+"= 9; <a href=\"#"+ExportCst.PREF_REF+"75\">i</a>+= 2){\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct"+MessagesCdmBase.LT+"int,$core.Fct"+MessagesCdmBase.LT+"int,int"+MessagesCdmBase.GT+""+MessagesCdmBase.GT+",int,int)\" href=\"#"+ExportCst.PREF_REF+"185\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"110\">a</a> <a name=\""+ExportCst.PREF_REF+"112\">-"+MessagesCdmBase.GT+"</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"115\">i</a> <a name=\""+ExportCst.PREF_REF+"117\" title=\"The type $core.Number cannot be implicitly cast to int\" class=\"e\">-"+MessagesCdmBase.GT+"</a> <a href=\"#"+ExportCst.PREF_REF+"54\">sum2</a> + <a href=\"#"+ExportCst.PREF_REF+"115\">i</a> + <a href=\"#"+ExportCst.PREF_REF+"110\">a</a> <a title=\"The operands types int;$core.Object for the operator + are unexpected.\" class=\"e\">+</a> ([<a title=\"The variable , is undefined in this context.\" class=\"e\">,</a>]) <a title=\"The operands types $core.Number;int for the operator + are unexpected.\" class=\"e\">+</a> <a href=\"#"+ExportCst.PREF_REF+"75\">#i</a></span></span>,2,7);\n" +
                 "  }\n" +
                 "  return <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a>;\n" +
                 " }\n" +
-                " static int <a name=\""+ExportCst.PREF_REF+"185\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\""+ExportCst.PREF_REF+"209\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"217\">a</a>,int <a name=\""+ExportCst.PREF_REF+"223\">b</a>){\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"185\">m</a>(Fct"+MessagesCdmBase.LT+"int,Fct"+MessagesCdmBase.LT+"int,int"+MessagesCdmBase.GT+""+MessagesCdmBase.GT+" <a name=\""+ExportCst.PREF_REF+"209\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"217\">a</a>,int <a name=\""+ExportCst.PREF_REF+"223\">b</a>){\n" +
                 "  return <a href=\"#"+ExportCst.PREF_REF+"209\">fct</a>.<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"217\">a</a>).<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"223\">b</a>);\n" +
                 " }\n" +
                 "}\n" +
@@ -1702,12 +1703,12 @@ public final class Errors1Test extends ProcessMethodCommon {
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
                 "  int <a name=\""+ExportCst.PREF_REF+"39\">sum</a> = 0;\n" +
                 "  int <a name=\""+ExportCst.PREF_REF+"54\">sum2</a> = 3;\n" +
-                "  for (int <a name=\""+ExportCst.PREF_REF+"75\">i</a> = 1; <a href=\"#"+ExportCst.PREF_REF+"75\">i</a> &lt;= 9; <a href=\"#"+ExportCst.PREF_REF+"75\">i</a>+= 2){\n" +
-                "   <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#"+ExportCst.PREF_REF+"186\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"110\">a</a> <a name=\""+ExportCst.PREF_REF+"112\">-&gt;</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"115\">i</a> <a name=\""+ExportCst.PREF_REF+"117\" title=\"The type $core.Number cannot be implicitly cast to int\" class=\"e\">-&gt;</a> <a href=\"#"+ExportCst.PREF_REF+"54\">sum2</a> + <a href=\"#"+ExportCst.PREF_REF+"115\">i</a> + <a href=\"#"+ExportCst.PREF_REF+"110\">a</a> <a title=\"The operands types int;$core.Object for the operator + are unexpected.\" class=\"e\">+</a> ([<a title=\"The variable ,a is undefined in this context.\" class=\"e\">,a</a>]) <a title=\"The operands types $core.Number;int for the operator + are unexpected.\" class=\"e\">+</a> <a href=\"#"+ExportCst.PREF_REF+"75\">#i</a></span></span>,2,7);\n" +
+                "  for (int <a name=\""+ExportCst.PREF_REF+"75\">i</a> = 1; <a href=\"#"+ExportCst.PREF_REF+"75\">i</a> "+MessagesCdmBase.LT+"= 9; <a href=\"#"+ExportCst.PREF_REF+"75\">i</a>+= 2){\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct"+MessagesCdmBase.LT+"int,$core.Fct"+MessagesCdmBase.LT+"int,int"+MessagesCdmBase.GT+""+MessagesCdmBase.GT+",int,int)\" href=\"#"+ExportCst.PREF_REF+"186\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"110\">a</a> <a name=\""+ExportCst.PREF_REF+"112\">-"+MessagesCdmBase.GT+"</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"115\">i</a> <a name=\""+ExportCst.PREF_REF+"117\" title=\"The type $core.Number cannot be implicitly cast to int\" class=\"e\">-"+MessagesCdmBase.GT+"</a> <a href=\"#"+ExportCst.PREF_REF+"54\">sum2</a> + <a href=\"#"+ExportCst.PREF_REF+"115\">i</a> + <a href=\"#"+ExportCst.PREF_REF+"110\">a</a> <a title=\"The operands types int;$core.Object for the operator + are unexpected.\" class=\"e\">+</a> ([<a title=\"The variable ,a is undefined in this context.\" class=\"e\">,a</a>]) <a title=\"The operands types $core.Number;int for the operator + are unexpected.\" class=\"e\">+</a> <a href=\"#"+ExportCst.PREF_REF+"75\">#i</a></span></span>,2,7);\n" +
                 "  }\n" +
                 "  return <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a>;\n" +
                 " }\n" +
-                " static int <a name=\""+ExportCst.PREF_REF+"186\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\""+ExportCst.PREF_REF+"210\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"218\">a</a>,int <a name=\""+ExportCst.PREF_REF+"224\">b</a>){\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"186\">m</a>(Fct"+MessagesCdmBase.LT+"int,Fct"+MessagesCdmBase.LT+"int,int"+MessagesCdmBase.GT+""+MessagesCdmBase.GT+" <a name=\""+ExportCst.PREF_REF+"210\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"218\">a</a>,int <a name=\""+ExportCst.PREF_REF+"224\">b</a>){\n" +
                 "  return <a href=\"#"+ExportCst.PREF_REF+"210\">fct</a>.<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"218\">a</a>).<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"224\">b</a>);\n" +
                 " }\n" +
                 "}\n" +
@@ -1738,12 +1739,12 @@ public final class Errors1Test extends ProcessMethodCommon {
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
                 "  int <a name=\""+ExportCst.PREF_REF+"39\">sum</a> = 0;\n" +
                 "  int <a name=\""+ExportCst.PREF_REF+"54\">sum2</a> = 3;\n" +
-                "  for (int <a name=\""+ExportCst.PREF_REF+"75\">i</a> = 1; <a href=\"#"+ExportCst.PREF_REF+"75\">i</a> &lt;= 9; <a href=\"#"+ExportCst.PREF_REF+"75\">i</a>+= 2){\n" +
-                "   <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#"+ExportCst.PREF_REF+"188\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"110\">a</a> <a name=\""+ExportCst.PREF_REF+"112\">-&gt;</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"115\">i</a> <a name=\""+ExportCst.PREF_REF+"117\" title=\"The type $core.Number cannot be implicitly cast to int\" class=\"e\">-&gt;</a> <a href=\"#"+ExportCst.PREF_REF+"54\">sum2</a> + <a href=\"#"+ExportCst.PREF_REF+"115\">i</a> + <a href=\"#"+ExportCst.PREF_REF+"110\">a</a> <a title=\"The operands types int;$core.Object for the operator + are unexpected.\" class=\"e\">+</a> ([<a title=\"The variable ,a,b is undefined in this context.\" class=\"e\">,a,b</a>]) <a title=\"The operands types $core.Number;int for the operator + are unexpected.\" class=\"e\">+</a> <a href=\"#"+ExportCst.PREF_REF+"75\">#i</a></span></span>,2,7);\n" +
+                "  for (int <a name=\""+ExportCst.PREF_REF+"75\">i</a> = 1; <a href=\"#"+ExportCst.PREF_REF+"75\">i</a> "+MessagesCdmBase.LT+"= 9; <a href=\"#"+ExportCst.PREF_REF+"75\">i</a>+= 2){\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct"+MessagesCdmBase.LT+"int,$core.Fct"+MessagesCdmBase.LT+"int,int"+MessagesCdmBase.GT+""+MessagesCdmBase.GT+",int,int)\" href=\"#"+ExportCst.PREF_REF+"188\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"110\">a</a> <a name=\""+ExportCst.PREF_REF+"112\">-"+MessagesCdmBase.GT+"</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"115\">i</a> <a name=\""+ExportCst.PREF_REF+"117\" title=\"The type $core.Number cannot be implicitly cast to int\" class=\"e\">-"+MessagesCdmBase.GT+"</a> <a href=\"#"+ExportCst.PREF_REF+"54\">sum2</a> + <a href=\"#"+ExportCst.PREF_REF+"115\">i</a> + <a href=\"#"+ExportCst.PREF_REF+"110\">a</a> <a title=\"The operands types int;$core.Object for the operator + are unexpected.\" class=\"e\">+</a> ([<a title=\"The variable ,a,b is undefined in this context.\" class=\"e\">,a,b</a>]) <a title=\"The operands types $core.Number;int for the operator + are unexpected.\" class=\"e\">+</a> <a href=\"#"+ExportCst.PREF_REF+"75\">#i</a></span></span>,2,7);\n" +
                 "  }\n" +
                 "  return <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a>;\n" +
                 " }\n" +
-                " static int <a name=\""+ExportCst.PREF_REF+"188\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\""+ExportCst.PREF_REF+"212\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"220\">a</a>,int <a name=\""+ExportCst.PREF_REF+"226\">b</a>){\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"188\">m</a>(Fct"+MessagesCdmBase.LT+"int,Fct"+MessagesCdmBase.LT+"int,int"+MessagesCdmBase.GT+""+MessagesCdmBase.GT+" <a name=\""+ExportCst.PREF_REF+"212\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"220\">a</a>,int <a name=\""+ExportCst.PREF_REF+"226\">b</a>){\n" +
                 "  return <a href=\"#"+ExportCst.PREF_REF+"212\">fct</a>.<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"220\">a</a>).<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"226\">b</a>);\n" +
                 " }\n" +
                 "}\n" +
@@ -1863,7 +1864,7 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
-                "  for (final int <a name=\""+ExportCst.PREF_REF+"50\">i</a> = 1;<a href=\"#"+ExportCst.PREF_REF+"50\">i</a>&lt;2;){\n" +
+                "  for (final int <a name=\""+ExportCst.PREF_REF+"50\">i</a> = 1;<a href=\"#"+ExportCst.PREF_REF+"50\">i</a>"+MessagesCdmBase.LT+"2;){\n" +
                 "   <a href=\"#"+ExportCst.PREF_REF+"50\">i</a> <a title=\"The field i is already assigned.\" class=\"e\">=</a> 2;\n" +
                 "  }\n" +
                 "  return 0;\n" +
@@ -1889,7 +1890,7 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
-                "  for (final int <a name=\""+ExportCst.PREF_REF+"50\">i</a> = 1;<a href=\"#"+ExportCst.PREF_REF+"50\">i</a>&lt;2;){\n" +
+                "  for (final int <a name=\""+ExportCst.PREF_REF+"50\">i</a> = 1;<a href=\"#"+ExportCst.PREF_REF+"50\">i</a>"+MessagesCdmBase.LT+"2;){\n" +
                 "   <a href=\"#"+ExportCst.PREF_REF+"50\">i</a> <a title=\"The type $core.String cannot be implicitly cast to int\" class=\"e\">=</a> <span class=\"s\">\"2\"</span>;\n" +
                 "  }\n" +
                 "  return 0;\n" +
@@ -1915,7 +1916,7 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
-                "  for (final int <a name=\""+ExportCst.PREF_REF+"50\">i</a> = 1;<a href=\"#"+ExportCst.PREF_REF+"50\">i</a>&lt;2;){\n" +
+                "  for (final int <a name=\""+ExportCst.PREF_REF+"50\">i</a> = 1;<a href=\"#"+ExportCst.PREF_REF+"50\">i</a>"+MessagesCdmBase.LT+"2;){\n" +
                 "   <a href=\"#"+ExportCst.PREF_REF+"50\">i</a><a title=\"The field i is already assigned.\" class=\"e\">++</a>;\n" +
                 "  }\n" +
                 "  return 0;\n" +
@@ -1941,7 +1942,7 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
-                "  for (final int <a name=\""+ExportCst.PREF_REF+"50\">i</a> = <a href=\"#"+ExportCst.PREF_REF+"50\">i</a> = 1;<a href=\"#"+ExportCst.PREF_REF+"50\">i</a>&lt;2;){\n" +
+                "  for (final int <a name=\""+ExportCst.PREF_REF+"50\">i</a> = <a href=\"#"+ExportCst.PREF_REF+"50\">i</a> = 1;<a href=\"#"+ExportCst.PREF_REF+"50\">i</a>"+MessagesCdmBase.LT+"2;){\n" +
                 "   <a href=\"#"+ExportCst.PREF_REF+"50\">i</a> +<a title=\"The field i is already assigned.\" class=\"e\">=</a> 1;\n" +
                 "  }\n" +
                 "  return 0;\n" +
@@ -1976,14 +1977,14 @@ public final class Errors1Test extends ProcessMethodCommon {
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
                 "  int <a name=\""+ExportCst.PREF_REF+"39\">sum</a> = 0;\n" +
                 "  final int <a name=\""+ExportCst.PREF_REF+"60\">sum2</a> = 3;\n" +
-                "  for (int <a name=\""+ExportCst.PREF_REF+"81\">i</a> = 1; <a href=\"#"+ExportCst.PREF_REF+"81\">i</a> &lt;= 9; <a href=\"#"+ExportCst.PREF_REF+"81\">i</a>+= 2){\n" +
-                "   <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#"+ExportCst.PREF_REF+"218\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"116\">a</a> <a name=\""+ExportCst.PREF_REF+"118\">-&gt;</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"121\">i</a> <a name=\""+ExportCst.PREF_REF+"123\">-&gt;</a> {final int <a name=\""+ExportCst.PREF_REF+"137\">b</a> = 0;\n" +
+                "  for (int <a name=\""+ExportCst.PREF_REF+"81\">i</a> = 1; <a href=\"#"+ExportCst.PREF_REF+"81\">i</a> "+MessagesCdmBase.LT+"= 9; <a href=\"#"+ExportCst.PREF_REF+"81\">i</a>+= 2){\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct"+MessagesCdmBase.LT+"int,$core.Fct"+MessagesCdmBase.LT+"int,int"+MessagesCdmBase.GT+""+MessagesCdmBase.GT+",int,int)\" href=\"#"+ExportCst.PREF_REF+"218\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"116\">a</a> <a name=\""+ExportCst.PREF_REF+"118\">-"+MessagesCdmBase.GT+"</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"121\">i</a> <a name=\""+ExportCst.PREF_REF+"123\">-"+MessagesCdmBase.GT+"</a> {final int <a name=\""+ExportCst.PREF_REF+"137\">b</a> = 0;\n" +
                 "   <a href=\"#"+ExportCst.PREF_REF+"137\">b</a> <a title=\"The field b is already assigned.\" class=\"e\">=</a> 1;\n" +
                 "   return <a href=\"#"+ExportCst.PREF_REF+"60\">sum2</a> + <a href=\"#"+ExportCst.PREF_REF+"121\">i</a> + <a href=\"#"+ExportCst.PREF_REF+"116\">a</a>;}</span></span>,2,7);\n" +
                 "  }\n" +
                 "  return <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a>;\n" +
                 " }\n" +
-                " static int <a name=\""+ExportCst.PREF_REF+"218\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\""+ExportCst.PREF_REF+"242\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"250\">a</a>,int <a name=\""+ExportCst.PREF_REF+"256\">b</a>){\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"218\">m</a>(Fct"+MessagesCdmBase.LT+"int,Fct"+MessagesCdmBase.LT+"int,int"+MessagesCdmBase.GT+""+MessagesCdmBase.GT+" <a name=\""+ExportCst.PREF_REF+"242\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"250\">a</a>,int <a name=\""+ExportCst.PREF_REF+"256\">b</a>){\n" +
                 "  return <a href=\"#"+ExportCst.PREF_REF+"242\">fct</a>.<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"250\">a</a>).<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"256\">b</a>);\n" +
                 " }\n" +
                 "}\n" +
@@ -2016,14 +2017,14 @@ public final class Errors1Test extends ProcessMethodCommon {
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
                 "  int <a name=\""+ExportCst.PREF_REF+"39\">sum</a> = 0;\n" +
                 "  final int <a name=\""+ExportCst.PREF_REF+"60\">sum2</a> = 3;\n" +
-                "  for (int <a name=\""+ExportCst.PREF_REF+"81\">i</a> = 1; <a href=\"#"+ExportCst.PREF_REF+"81\">i</a> &lt;= 9; <a href=\"#"+ExportCst.PREF_REF+"81\">i</a>+= 2){\n" +
-                "   <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#"+ExportCst.PREF_REF+"221\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"116\">a</a> <a name=\""+ExportCst.PREF_REF+"118\">-&gt;</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"121\">i</a> <a name=\""+ExportCst.PREF_REF+"123\">-&gt;</a> {final int <a name=\""+ExportCst.PREF_REF+"137\">b</a> = 0;\n" +
+                "  for (int <a name=\""+ExportCst.PREF_REF+"81\">i</a> = 1; <a href=\"#"+ExportCst.PREF_REF+"81\">i</a> "+MessagesCdmBase.LT+"= 9; <a href=\"#"+ExportCst.PREF_REF+"81\">i</a>+= 2){\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct"+MessagesCdmBase.LT+"int,$core.Fct"+MessagesCdmBase.LT+"int,int"+MessagesCdmBase.GT+""+MessagesCdmBase.GT+",int,int)\" href=\"#"+ExportCst.PREF_REF+"221\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"116\">a</a> <a name=\""+ExportCst.PREF_REF+"118\">-"+MessagesCdmBase.GT+"</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"121\">i</a> <a name=\""+ExportCst.PREF_REF+"123\">-"+MessagesCdmBase.GT+"</a> {final int <a name=\""+ExportCst.PREF_REF+"137\">b</a> = 0;\n" +
                 "   <a href=\"#"+ExportCst.PREF_REF+"60\">sum2</a> <a title=\"The field sum2 is already assigned.\" class=\"e\">=</a> 1;\n" +
                 "   return <a href=\"#"+ExportCst.PREF_REF+"60\">sum2</a> + <a href=\"#"+ExportCst.PREF_REF+"121\">i</a> + <a href=\"#"+ExportCst.PREF_REF+"116\">a</a>;}</span></span>,2,7);\n" +
                 "  }\n" +
                 "  return <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a>;\n" +
                 " }\n" +
-                " static int <a name=\""+ExportCst.PREF_REF+"221\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\""+ExportCst.PREF_REF+"245\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"253\">a</a>,int <a name=\""+ExportCst.PREF_REF+"259\">b</a>){\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"221\">m</a>(Fct"+MessagesCdmBase.LT+"int,Fct"+MessagesCdmBase.LT+"int,int"+MessagesCdmBase.GT+""+MessagesCdmBase.GT+" <a name=\""+ExportCst.PREF_REF+"245\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"253\">a</a>,int <a name=\""+ExportCst.PREF_REF+"259\">b</a>){\n" +
                 "  return <a href=\"#"+ExportCst.PREF_REF+"245\">fct</a>.<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"253\">a</a>).<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"259\">b</a>);\n" +
                 " }\n" +
                 "}\n" +
@@ -2056,14 +2057,14 @@ public final class Errors1Test extends ProcessMethodCommon {
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
                 "  int <a name=\""+ExportCst.PREF_REF+"39\">sum</a> = 0;\n" +
                 "  final int <a name=\""+ExportCst.PREF_REF+"60\">sum2</a> = 3;\n" +
-                "  for (int <a name=\""+ExportCst.PREF_REF+"81\">i</a> = 1; <a href=\"#"+ExportCst.PREF_REF+"81\">i</a> &lt;= 9; <a href=\"#"+ExportCst.PREF_REF+"81\">i</a>+= 2){\n" +
-                "   <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#"+ExportCst.PREF_REF+"223\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"116\">a</a> <a name=\""+ExportCst.PREF_REF+"118\">-&gt;</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"121\">i</a> <a name=\""+ExportCst.PREF_REF+"123\">-&gt;</a> {final int <a name=\""+ExportCst.PREF_REF+"137\">b</a> = 0;\n" +
+                "  for (int <a name=\""+ExportCst.PREF_REF+"81\">i</a> = 1; <a href=\"#"+ExportCst.PREF_REF+"81\">i</a> "+MessagesCdmBase.LT+"= 9; <a href=\"#"+ExportCst.PREF_REF+"81\">i</a>+= 2){\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct"+MessagesCdmBase.LT+"int,$core.Fct"+MessagesCdmBase.LT+"int,int"+MessagesCdmBase.GT+""+MessagesCdmBase.GT+",int,int)\" href=\"#"+ExportCst.PREF_REF+"223\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"116\">a</a> <a name=\""+ExportCst.PREF_REF+"118\">-"+MessagesCdmBase.GT+"</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"121\">i</a> <a name=\""+ExportCst.PREF_REF+"123\">-"+MessagesCdmBase.GT+"</a> {final int <a name=\""+ExportCst.PREF_REF+"137\">b</a> = 0;\n" +
                 "   <a href=\"#"+ExportCst.PREF_REF+"60\">sum2</a> <a title=\"The type $core.String cannot be implicitly cast to int\" class=\"e\">=</a> <span class=\"s\">\"1\"</span>;\n" +
                 "   return <a href=\"#"+ExportCst.PREF_REF+"60\">sum2</a> + <a href=\"#"+ExportCst.PREF_REF+"121\">i</a> + <a href=\"#"+ExportCst.PREF_REF+"116\">a</a>;}</span></span>,2,7);\n" +
                 "  }\n" +
                 "  return <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a>;\n" +
                 " }\n" +
-                " static int <a name=\""+ExportCst.PREF_REF+"223\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\""+ExportCst.PREF_REF+"247\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"255\">a</a>,int <a name=\""+ExportCst.PREF_REF+"261\">b</a>){\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"223\">m</a>(Fct"+MessagesCdmBase.LT+"int,Fct"+MessagesCdmBase.LT+"int,int"+MessagesCdmBase.GT+""+MessagesCdmBase.GT+" <a name=\""+ExportCst.PREF_REF+"247\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"255\">a</a>,int <a name=\""+ExportCst.PREF_REF+"261\">b</a>){\n" +
                 "  return <a href=\"#"+ExportCst.PREF_REF+"247\">fct</a>.<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"255\">a</a>).<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"261\">b</a>);\n" +
                 " }\n" +
                 "}\n" +
@@ -2096,14 +2097,14 @@ public final class Errors1Test extends ProcessMethodCommon {
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
                 "  int <a name=\""+ExportCst.PREF_REF+"39\">sum</a> = 0;\n" +
                 "  final int <a name=\""+ExportCst.PREF_REF+"60\">sum2</a> = 3;\n" +
-                "  for (int <a name=\""+ExportCst.PREF_REF+"81\">i</a> = 1; <a href=\"#"+ExportCst.PREF_REF+"81\">i</a> &lt;= 9; <a href=\"#"+ExportCst.PREF_REF+"81\">i</a>+= 2){\n" +
-                "   <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#"+ExportCst.PREF_REF+"219\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"116\">a</a> <a name=\""+ExportCst.PREF_REF+"118\">-&gt;</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"121\">i</a> <a name=\""+ExportCst.PREF_REF+"123\">-&gt;</a> {final int <a name=\""+ExportCst.PREF_REF+"137\">b</a> = 0;\n" +
+                "  for (int <a name=\""+ExportCst.PREF_REF+"81\">i</a> = 1; <a href=\"#"+ExportCst.PREF_REF+"81\">i</a> "+MessagesCdmBase.LT+"= 9; <a href=\"#"+ExportCst.PREF_REF+"81\">i</a>+= 2){\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct"+MessagesCdmBase.LT+"int,$core.Fct"+MessagesCdmBase.LT+"int,int"+MessagesCdmBase.GT+""+MessagesCdmBase.GT+",int,int)\" href=\"#"+ExportCst.PREF_REF+"219\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"116\">a</a> <a name=\""+ExportCst.PREF_REF+"118\">-"+MessagesCdmBase.GT+"</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"121\">i</a> <a name=\""+ExportCst.PREF_REF+"123\">-"+MessagesCdmBase.GT+"</a> {final int <a name=\""+ExportCst.PREF_REF+"137\">b</a> = 0;\n" +
                 "   <a href=\"#"+ExportCst.PREF_REF+"60\">sum2</a><a title=\"The field sum2 is already assigned.\" class=\"e\">++</a>;\n" +
                 "   return <a href=\"#"+ExportCst.PREF_REF+"60\">sum2</a> + <a href=\"#"+ExportCst.PREF_REF+"121\">i</a> + <a href=\"#"+ExportCst.PREF_REF+"116\">a</a>;}</span></span>,2,7);\n" +
                 "  }\n" +
                 "  return <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a>;\n" +
                 " }\n" +
-                " static int <a name=\""+ExportCst.PREF_REF+"219\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\""+ExportCst.PREF_REF+"243\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"251\">a</a>,int <a name=\""+ExportCst.PREF_REF+"257\">b</a>){\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"219\">m</a>(Fct"+MessagesCdmBase.LT+"int,Fct"+MessagesCdmBase.LT+"int,int"+MessagesCdmBase.GT+""+MessagesCdmBase.GT+" <a name=\""+ExportCst.PREF_REF+"243\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"251\">a</a>,int <a name=\""+ExportCst.PREF_REF+"257\">b</a>){\n" +
                 "  return <a href=\"#"+ExportCst.PREF_REF+"243\">fct</a>.<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"251\">a</a>).<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"257\">b</a>);\n" +
                 " }\n" +
                 "}\n" +
@@ -2136,14 +2137,14 @@ public final class Errors1Test extends ProcessMethodCommon {
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
                 "  int <a name=\""+ExportCst.PREF_REF+"39\">sum</a> = 0;\n" +
                 "  final int <a name=\""+ExportCst.PREF_REF+"60\">sum2</a> = 3;\n" +
-                "  for (int <a name=\""+ExportCst.PREF_REF+"81\">i</a> = 1; <a href=\"#"+ExportCst.PREF_REF+"81\">i</a> &lt;= 9; <a href=\"#"+ExportCst.PREF_REF+"81\">i</a>+= 2){\n" +
-                "   <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#"+ExportCst.PREF_REF+"220\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"116\">a</a> <a name=\""+ExportCst.PREF_REF+"118\">-&gt;</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"121\">i</a> <a name=\""+ExportCst.PREF_REF+"123\">-&gt;</a> {final int <a name=\""+ExportCst.PREF_REF+"137\">b</a> = 0;\n" +
+                "  for (int <a name=\""+ExportCst.PREF_REF+"81\">i</a> = 1; <a href=\"#"+ExportCst.PREF_REF+"81\">i</a> "+MessagesCdmBase.LT+"= 9; <a href=\"#"+ExportCst.PREF_REF+"81\">i</a>+= 2){\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct"+MessagesCdmBase.LT+"int,$core.Fct"+MessagesCdmBase.LT+"int,int"+MessagesCdmBase.GT+""+MessagesCdmBase.GT+",int,int)\" href=\"#"+ExportCst.PREF_REF+"220\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"116\">a</a> <a name=\""+ExportCst.PREF_REF+"118\">-"+MessagesCdmBase.GT+"</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"121\">i</a> <a name=\""+ExportCst.PREF_REF+"123\">-"+MessagesCdmBase.GT+"</a> {final int <a name=\""+ExportCst.PREF_REF+"137\">b</a> = 0;\n" +
                 "   <a href=\"#"+ExportCst.PREF_REF+"60\">sum2</a>+<a title=\"The field sum2 is already assigned.\" class=\"e\">=</a>1;\n" +
                 "   return <a href=\"#"+ExportCst.PREF_REF+"60\">sum2</a> + <a href=\"#"+ExportCst.PREF_REF+"121\">i</a> + <a href=\"#"+ExportCst.PREF_REF+"116\">a</a>;}</span></span>,2,7);\n" +
                 "  }\n" +
                 "  return <a href=\"#"+ExportCst.PREF_REF+"39\">sum</a>;\n" +
                 " }\n" +
-                " static int <a name=\""+ExportCst.PREF_REF+"220\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\""+ExportCst.PREF_REF+"244\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"252\">a</a>,int <a name=\""+ExportCst.PREF_REF+"258\">b</a>){\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"220\">m</a>(Fct"+MessagesCdmBase.LT+"int,Fct"+MessagesCdmBase.LT+"int,int"+MessagesCdmBase.GT+""+MessagesCdmBase.GT+" <a name=\""+ExportCst.PREF_REF+"244\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"252\">a</a>,int <a name=\""+ExportCst.PREF_REF+"258\">b</a>){\n" +
                 "  return <a href=\"#"+ExportCst.PREF_REF+"244\">fct</a>.<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"252\">a</a>).<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"258\">b</a>);\n" +
                 " }\n" +
                 "}\n" +
@@ -2176,14 +2177,14 @@ public final class Errors1Test extends ProcessMethodCommon {
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(int <a name=\""+ExportCst.PREF_REF+"34\">j</a>){\n" +
                 "  int <a name=\""+ExportCst.PREF_REF+"44\">sum</a> = 0;\n" +
                 "  final int <a name=\""+ExportCst.PREF_REF+"65\">sum2</a> = 3;\n" +
-                "  for (int <a name=\""+ExportCst.PREF_REF+"86\">i</a> = 1; <a href=\"#"+ExportCst.PREF_REF+"86\">i</a> &lt;= 9; <a href=\"#"+ExportCst.PREF_REF+"86\">i</a>+= 2){\n" +
-                "   <a href=\"#"+ExportCst.PREF_REF+"44\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#"+ExportCst.PREF_REF+"223\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"121\">a</a> <a name=\""+ExportCst.PREF_REF+"123\">-&gt;</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"126\">i</a> <a name=\""+ExportCst.PREF_REF+"128\">-&gt;</a> {final int <a name=\""+ExportCst.PREF_REF+"142\">b</a> = 0;\n" +
+                "  for (int <a name=\""+ExportCst.PREF_REF+"86\">i</a> = 1; <a href=\"#"+ExportCst.PREF_REF+"86\">i</a> "+MessagesCdmBase.LT+"= 9; <a href=\"#"+ExportCst.PREF_REF+"86\">i</a>+= 2){\n" +
+                "   <a href=\"#"+ExportCst.PREF_REF+"44\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct"+MessagesCdmBase.LT+"int,$core.Fct"+MessagesCdmBase.LT+"int,int"+MessagesCdmBase.GT+""+MessagesCdmBase.GT+",int,int)\" href=\"#"+ExportCst.PREF_REF+"223\">m</a>(<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"121\">a</a> <a name=\""+ExportCst.PREF_REF+"123\">-"+MessagesCdmBase.GT+"</a> <span class=\"t\"><a name=\""+ExportCst.PREF_REF+"126\">i</a> <a name=\""+ExportCst.PREF_REF+"128\">-"+MessagesCdmBase.GT+"</a> {final int <a name=\""+ExportCst.PREF_REF+"142\">b</a> = 0;\n" +
                 "   <a href=\"#"+ExportCst.PREF_REF+"34\">j</a> <a title=\"The field j is already assigned.\" class=\"e\">=</a> 1;\n" +
                 "   return <a href=\"#"+ExportCst.PREF_REF+"65\">sum2</a> + <a href=\"#"+ExportCst.PREF_REF+"126\">i</a> + <a href=\"#"+ExportCst.PREF_REF+"121\">a</a>;}</span></span>,2,7);\n" +
                 "  }\n" +
                 "  return <a href=\"#"+ExportCst.PREF_REF+"44\">sum</a>;\n" +
                 " }\n" +
-                " static int <a name=\""+ExportCst.PREF_REF+"223\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\""+ExportCst.PREF_REF+"247\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"255\">a</a>,int <a name=\""+ExportCst.PREF_REF+"261\">b</a>){\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"223\">m</a>(Fct"+MessagesCdmBase.LT+"int,Fct"+MessagesCdmBase.LT+"int,int"+MessagesCdmBase.GT+""+MessagesCdmBase.GT+" <a name=\""+ExportCst.PREF_REF+"247\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"255\">a</a>,int <a name=\""+ExportCst.PREF_REF+"261\">b</a>){\n" +
                 "  return <a href=\"#"+ExportCst.PREF_REF+"247\">fct</a>.<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"255\">a</a>).<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"261\">b</a>);\n" +
                 " }\n" +
                 "}\n" +
@@ -2557,15 +2558,15 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>&lt;<a name=\""+ExportCst.PREF_REF+"14\">T</a>&gt; {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>"+MessagesCdmBase.LT+"<a name=\""+ExportCst.PREF_REF+"14\">T</a>"+MessagesCdmBase.GT+" {\n" +
                 " <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"22\">field</a>;\n" +
                 " <a name=\""+ExportCst.PREF_REF+"30\">Ext(</a><a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"36\">p</a>){\n" +
                 "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=<a href=\"#"+ExportCst.PREF_REF+"36\">p</a>;\n" +
                 " }\n" +
                 " static Object <a name=\""+ExportCst.PREF_REF+"69\">m</a>(){\n" +
-                "  return staticCall(<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;int&gt;).<a title=\"The function staticCall m($core.Object) is undefined.\" class=\"e\">m</a>(b:<a title=\"The type Ext&lt;&gt; is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;&gt;(11));\n" +
+                "  return staticCall(<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>"+MessagesCdmBase.LT+"int"+MessagesCdmBase.GT+").<a title=\"The function staticCall m($core.Object) is undefined.\" class=\"e\">m</a>(b:<a title=\"The type Ext"+MessagesCdmBase.LT+""+MessagesCdmBase.GT+" is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>"+MessagesCdmBase.LT+""+MessagesCdmBase.GT+"(11));\n" +
                 " }\n" +
-                " staticCall <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"141\">m</a>(<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>&gt; <a name=\""+ExportCst.PREF_REF+"150\">a</a>){\n" +
+                " staticCall <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"141\">m</a>(<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>"+MessagesCdmBase.LT+"<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>"+MessagesCdmBase.GT+" <a name=\""+ExportCst.PREF_REF+"150\">a</a>){\n" +
                 "  return <a href=\"#"+ExportCst.PREF_REF+"150\">a</a>.<a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>;\n" +
                 " }\n" +
                 "}\n" +
@@ -2591,16 +2592,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>&lt;<a name=\""+ExportCst.PREF_REF+"14\">T</a>&gt; {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>"+MessagesCdmBase.LT+"<a name=\""+ExportCst.PREF_REF+"14\">T</a>"+MessagesCdmBase.GT+" {\n" +
                 " <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"22\">field</a>;\n" +
                 " <a name=\""+ExportCst.PREF_REF+"30\">Ext(</a><a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"36\">p</a>){\n" +
                 "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=<a href=\"#"+ExportCst.PREF_REF+"36\">p</a>;\n" +
                 " }\n" +
-                " <a name=\""+ExportCst.PREF_REF+"55\">Ext(</a><a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>&gt; <a name=\""+ExportCst.PREF_REF+"66\">a</a>){\n" +
+                " <a name=\""+ExportCst.PREF_REF+"55\">Ext(</a><a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>"+MessagesCdmBase.LT+"<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>"+MessagesCdmBase.GT+" <a name=\""+ExportCst.PREF_REF+"66\">a</a>){\n" +
                 "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=<a href=\"#"+ExportCst.PREF_REF+"66\">a</a>.<a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>;\n" +
                 " }\n" +
                 " static Object <a name=\""+ExportCst.PREF_REF+"105\">m</a>(){\n" +
-                "  return <a title=\"The constructor pkg.Ext&lt;int&gt;($core.Object) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;int&gt;(b:<a title=\"The type Ext&lt;&gt; is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;&gt;(11));\n" +
+                "  return <a title=\"The constructor pkg.Ext"+MessagesCdmBase.LT+"int"+MessagesCdmBase.GT+"($core.Object) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>"+MessagesCdmBase.LT+"int"+MessagesCdmBase.GT+"(b:<a title=\"The type Ext"+MessagesCdmBase.LT+""+MessagesCdmBase.GT+" is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>"+MessagesCdmBase.LT+""+MessagesCdmBase.GT+"(11));\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2625,15 +2626,15 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>&lt;<a name=\""+ExportCst.PREF_REF+"14\">T</a>&gt; {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>"+MessagesCdmBase.LT+"<a name=\""+ExportCst.PREF_REF+"14\">T</a>"+MessagesCdmBase.GT+" {\n" +
                 " <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"22\">field</a>;\n" +
                 " <a name=\""+ExportCst.PREF_REF+"30\">Ext(</a><a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"36\">p</a>){\n" +
                 "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=<a href=\"#"+ExportCst.PREF_REF+"36\">p</a>;\n" +
                 " }\n" +
                 " static Object <a name=\""+ExportCst.PREF_REF+"69\">m</a>(){\n" +
-                "  return staticCall(<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;int&gt;).<a title=\"The function staticCall m([$core.Object) is undefined.\" class=\"e\">m</a>(b:new <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a><a title=\"The type Ext&lt;&gt;[] is unknown.\" class=\"e\">&lt;</a>&gt;[]<a title=\"The type $core.Object is unexpected.\" class=\"e\">{</a><a title=\"The type Ext&lt;&gt; is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;&gt;(11)});\n" +
+                "  return staticCall(<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>"+MessagesCdmBase.LT+"int"+MessagesCdmBase.GT+").<a title=\"The function staticCall m([$core.Object) is undefined.\" class=\"e\">m</a>(b:new <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a><a title=\"The type Ext"+MessagesCdmBase.LT+""+MessagesCdmBase.GT+"[] is unknown.\" class=\"e\">"+MessagesCdmBase.LT+"</a>"+MessagesCdmBase.GT+"[]<a title=\"The type $core.Object is unexpected.\" class=\"e\">{</a><a title=\"The type Ext"+MessagesCdmBase.LT+""+MessagesCdmBase.GT+" is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>"+MessagesCdmBase.LT+""+MessagesCdmBase.GT+"(11)});\n" +
                 " }\n" +
-                " staticCall <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"154\">m</a>(<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>&gt;[] <a name=\""+ExportCst.PREF_REF+"165\">a</a>){\n" +
+                " staticCall <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"154\">m</a>(<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>"+MessagesCdmBase.LT+"<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>"+MessagesCdmBase.GT+"[] <a name=\""+ExportCst.PREF_REF+"165\">a</a>){\n" +
                 "  return <a href=\"#"+ExportCst.PREF_REF+"165\">a</a>[0].<a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>;\n" +
                 " }\n" +
                 "}\n" +
@@ -2658,16 +2659,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>&lt;<a name=\""+ExportCst.PREF_REF+"14\">T</a>&gt; {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>"+MessagesCdmBase.LT+"<a name=\""+ExportCst.PREF_REF+"14\">T</a>"+MessagesCdmBase.GT+" {\n" +
                 " <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"22\">field</a>;\n" +
                 " <a name=\""+ExportCst.PREF_REF+"30\">Ext(</a><a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"36\">p</a>){\n" +
                 "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=<a href=\"#"+ExportCst.PREF_REF+"36\">p</a>;\n" +
                 " }\n" +
-                " <a name=\""+ExportCst.PREF_REF+"55\">Ext(</a><a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>&gt;[] <a name=\""+ExportCst.PREF_REF+"68\">a</a>){\n" +
+                " <a name=\""+ExportCst.PREF_REF+"55\">Ext(</a><a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>"+MessagesCdmBase.LT+"<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>"+MessagesCdmBase.GT+"[] <a name=\""+ExportCst.PREF_REF+"68\">a</a>){\n" +
                 "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=<a href=\"#"+ExportCst.PREF_REF+"68\">a</a>[0].<a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>;\n" +
                 " }\n" +
                 " static Object <a name=\""+ExportCst.PREF_REF+"110\">m</a>(){\n" +
-                "  return <a title=\"The constructor pkg.Ext&lt;int&gt;([$core.Object) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;int&gt;(b:new <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a><a title=\"The type Ext&lt;&gt;[] is unknown.\" class=\"e\">&lt;</a>&gt;[]<a title=\"The type $core.Object is unexpected.\" class=\"e\">{</a><a title=\"The type Ext&lt;&gt; is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;&gt;(11)});\n" +
+                "  return <a title=\"The constructor pkg.Ext"+MessagesCdmBase.LT+"int"+MessagesCdmBase.GT+"([$core.Object) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>"+MessagesCdmBase.LT+"int"+MessagesCdmBase.GT+"(b:new <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a><a title=\"The type Ext"+MessagesCdmBase.LT+""+MessagesCdmBase.GT+"[] is unknown.\" class=\"e\">"+MessagesCdmBase.LT+"</a>"+MessagesCdmBase.GT+"[]<a title=\"The type $core.Object is unexpected.\" class=\"e\">{</a><a title=\"The type Ext"+MessagesCdmBase.LT+""+MessagesCdmBase.GT+" is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>"+MessagesCdmBase.LT+""+MessagesCdmBase.GT+"(11)});\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2691,15 +2692,15 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>&lt;<a name=\""+ExportCst.PREF_REF+"14\">T</a>&gt; {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>"+MessagesCdmBase.LT+"<a name=\""+ExportCst.PREF_REF+"14\">T</a>"+MessagesCdmBase.GT+" {\n" +
                 " <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"22\">field</a>;\n" +
                 " <a name=\""+ExportCst.PREF_REF+"30\">Ext(</a><a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"36\">p</a>){\n" +
                 "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=<a href=\"#"+ExportCst.PREF_REF+"36\">p</a>;\n" +
                 " }\n" +
                 " static Object <a name=\""+ExportCst.PREF_REF+"69\">m</a>(){\n" +
-                "  return staticCall(<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;int&gt;).<a title=\"The function staticCall m($core.Fct&lt;$core.Object,$core.Object&gt;,int) is undefined.\" class=\"e\">m</a>(c:<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"108\">a</a> <a name=\""+ExportCst.PREF_REF+"110\">-&gt;</a> 2 <a title=\"The operands types int;$core.Object for the operator * are unexpected.\" class=\"e\">*</a> <a href=\"#"+ExportCst.PREF_REF+"108\">a</a></span>,b:3);\n" +
+                "  return staticCall(<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>"+MessagesCdmBase.LT+"int"+MessagesCdmBase.GT+").<a title=\"The function staticCall m($core.Fct"+MessagesCdmBase.LT+"$core.Object,$core.Object"+MessagesCdmBase.GT+",int) is undefined.\" class=\"e\">m</a>(c:<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"108\">a</a> <a name=\""+ExportCst.PREF_REF+"110\">-"+MessagesCdmBase.GT+"</a> 2 <a title=\"The operands types int;$core.Object for the operator * are unexpected.\" class=\"e\">*</a> <a href=\"#"+ExportCst.PREF_REF+"108\">a</a></span>,b:3);\n" +
                 " }\n" +
-                " staticCall <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"142\">m</a>(Fct&lt;<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>,<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>&gt; <a name=\""+ExportCst.PREF_REF+"153\">a</a>,<a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"157\">b</a>){\n" +
+                " staticCall <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"142\">m</a>(Fct"+MessagesCdmBase.LT+"<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>,<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>"+MessagesCdmBase.GT+" <a name=\""+ExportCst.PREF_REF+"153\">a</a>,<a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"157\">b</a>){\n" +
                 "  return <a href=\"#"+ExportCst.PREF_REF+"153\">a</a>.<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"157\">b</a>);\n" +
                 " }\n" +
                 "}\n" +
@@ -2724,16 +2725,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>&lt;<a name=\""+ExportCst.PREF_REF+"14\">T</a>&gt; {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>"+MessagesCdmBase.LT+"<a name=\""+ExportCst.PREF_REF+"14\">T</a>"+MessagesCdmBase.GT+" {\n" +
                 " <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"22\">field</a>;\n" +
                 " <a name=\""+ExportCst.PREF_REF+"30\">Ext(</a><a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"36\">p</a>){\n" +
                 "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=<a href=\"#"+ExportCst.PREF_REF+"36\">p</a>;\n" +
                 " }\n" +
-                " <a name=\""+ExportCst.PREF_REF+"55\">Ext(</a>Fct&lt;<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>,<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>&gt; <a name=\""+ExportCst.PREF_REF+"68\">a</a>,<a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"72\">b</a>){\n" +
+                " <a name=\""+ExportCst.PREF_REF+"55\">Ext(</a>Fct"+MessagesCdmBase.LT+"<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>,<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>"+MessagesCdmBase.GT+" <a name=\""+ExportCst.PREF_REF+"68\">a</a>,<a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"72\">b</a>){\n" +
                 "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=<a href=\"#"+ExportCst.PREF_REF+"68\">a</a>.<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"72\">b</a>);\n" +
                 " }\n" +
                 " static Object <a name=\""+ExportCst.PREF_REF+"113\">m</a>(){\n" +
-                "  return <a title=\"The constructor pkg.Ext&lt;int&gt;($core.Fct&lt;$core.Object,$core.Object&gt;,int) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;int&gt;(c:<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"142\">a</a> <a name=\""+ExportCst.PREF_REF+"144\">-&gt;</a> 2 <a title=\"The operands types int;$core.Object for the operator * are unexpected.\" class=\"e\">*</a> <a href=\"#"+ExportCst.PREF_REF+"142\">a</a></span>,b:3);\n" +
+                "  return <a title=\"The constructor pkg.Ext"+MessagesCdmBase.LT+"int"+MessagesCdmBase.GT+"($core.Fct"+MessagesCdmBase.LT+"$core.Object,$core.Object"+MessagesCdmBase.GT+",int) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>"+MessagesCdmBase.LT+"int"+MessagesCdmBase.GT+"(c:<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"142\">a</a> <a name=\""+ExportCst.PREF_REF+"144\">-"+MessagesCdmBase.GT+"</a> 2 <a title=\"The operands types int;$core.Object for the operator * are unexpected.\" class=\"e\">*</a> <a href=\"#"+ExportCst.PREF_REF+"142\">a</a></span>,b:3);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2757,13 +2758,13 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>&lt;<a name=\""+ExportCst.PREF_REF+"14\">T</a>&gt; {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>"+MessagesCdmBase.LT+"<a name=\""+ExportCst.PREF_REF+"14\">T</a>"+MessagesCdmBase.GT+" {\n" +
                 " <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"22\">field</a>;\n" +
                 " <a name=\""+ExportCst.PREF_REF+"30\">Ext(</a><a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"36\">p</a>){\n" +
                 "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=<a href=\"#"+ExportCst.PREF_REF+"36\">p</a>;\n" +
                 " }\n" +
                 " static Object <a name=\""+ExportCst.PREF_REF+"69\">m</a>(){\n" +
-                "  return staticCall(<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;int&gt;).<a title=\"pkg.Ext.staticCall m([[$core.Object,int,int,$core.Object)\" href=\"#"+ExportCst.PREF_REF+"155\">m</a>(new <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a><a title=\"The type Ext&lt;&gt; is unknown.\" class=\"e\">&lt;</a>&gt;[1][1],0,0,null);\n" +
+                "  return staticCall(<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>"+MessagesCdmBase.LT+"int"+MessagesCdmBase.GT+").<a title=\"pkg.Ext.staticCall m([[$core.Object,int,int,$core.Object)\" href=\"#"+ExportCst.PREF_REF+"155\">m</a>(new <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a><a title=\"The type Ext"+MessagesCdmBase.LT+""+MessagesCdmBase.GT+" is unknown.\" class=\"e\">"+MessagesCdmBase.LT+"</a>"+MessagesCdmBase.GT+"[1][1],0,0,null);\n" +
                 " }\n" +
                 " staticCall Object <a name=\""+ExportCst.PREF_REF+"155\">m</a>(Object[][] <a name=\""+ExportCst.PREF_REF+"168\">a</a>,int <a name=\""+ExportCst.PREF_REF+"174\">b</a>, int <a name=\""+ExportCst.PREF_REF+"181\">c</a>, Object <a name=\""+ExportCst.PREF_REF+"191\">d</a>){\n" +
                 "  return <a href=\"#"+ExportCst.PREF_REF+"168\">a</a>[<a href=\"#"+ExportCst.PREF_REF+"174\">b</a>][<a href=\"#"+ExportCst.PREF_REF+"181\">c</a>]=<a href=\"#"+ExportCst.PREF_REF+"191\">d</a>;\n" +
@@ -2790,7 +2791,7 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>&lt;<a name=\""+ExportCst.PREF_REF+"14\">T</a>&gt; {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>"+MessagesCdmBase.LT+"<a name=\""+ExportCst.PREF_REF+"14\">T</a>"+MessagesCdmBase.GT+" {\n" +
                 " <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"22\">field</a>;\n" +
                 " <a name=\""+ExportCst.PREF_REF+"30\">Ext(</a><a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"36\">p</a>){\n" +
                 "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=<a href=\"#"+ExportCst.PREF_REF+"36\">p</a>;\n" +
@@ -2799,7 +2800,7 @@ public final class Errors1Test extends ProcessMethodCommon {
                 "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a><a title=\"The type $core.Object cannot be implicitly cast to #T\" class=\"e\">=</a>(<a href=\"#"+ExportCst.PREF_REF+"70\">a</a>[<a href=\"#"+ExportCst.PREF_REF+"76\">b</a>][<a href=\"#"+ExportCst.PREF_REF+"83\">c</a>]=<a href=\"#"+ExportCst.PREF_REF+"93\">d</a>).<a title=\"There is no accessible field named field from the type $core.Object in this context.\" class=\"e\">field</a>;\n" +
                 " }\n" +
                 " static Object <a name=\""+ExportCst.PREF_REF+"142\">m</a>(){\n" +
-                "  return <a title=\"pkg.Ext.pkg.Ext([[$core.Object,int,int,$core.Object)\" href=\"#"+ExportCst.PREF_REF+"55\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;int&gt;(new <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a><a title=\"The type Ext&lt;&gt; is unknown.\" class=\"e\">&lt;</a>&gt;[1][1],0,0,null);\n" +
+                "  return <a title=\"pkg.Ext.pkg.Ext([[$core.Object,int,int,$core.Object)\" href=\"#"+ExportCst.PREF_REF+"55\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>"+MessagesCdmBase.LT+"int"+MessagesCdmBase.GT+"(new <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a><a title=\"The type Ext"+MessagesCdmBase.LT+""+MessagesCdmBase.GT+" is unknown.\" class=\"e\">"+MessagesCdmBase.LT+"</a>"+MessagesCdmBase.GT+"[1][1],0,0,null);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2823,15 +2824,15 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>&lt;<a name=\""+ExportCst.PREF_REF+"14\">T</a>&gt; {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>"+MessagesCdmBase.LT+"<a name=\""+ExportCst.PREF_REF+"14\">T</a>"+MessagesCdmBase.GT+" {\n" +
                 " <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"22\">field</a>;\n" +
                 " <a name=\""+ExportCst.PREF_REF+"30\">Ext(</a><a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"36\">p</a>){\n" +
                 "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=<a href=\"#"+ExportCst.PREF_REF+"36\">p</a>;\n" +
                 " }\n" +
                 " static Object <a name=\""+ExportCst.PREF_REF+"69\">m</a>(){\n" +
-                "  return staticCall(<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;int&gt;).<a title=\"The function staticCall m([[$core.Object,int,int,$core.Object) is undefined.\" class=\"e\">m</a>(e:new <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a><a title=\"The type Ext&lt;&gt; is unknown.\" class=\"e\">&lt;</a>&gt;[1][1],b:0,c:0,d:<a title=\"The type Ext&lt;&gt; is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;&gt;(11));\n" +
+                "  return staticCall(<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>"+MessagesCdmBase.LT+"int"+MessagesCdmBase.GT+").<a title=\"The function staticCall m([[$core.Object,int,int,$core.Object) is undefined.\" class=\"e\">m</a>(e:new <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a><a title=\"The type Ext"+MessagesCdmBase.LT+""+MessagesCdmBase.GT+" is unknown.\" class=\"e\">"+MessagesCdmBase.LT+"</a>"+MessagesCdmBase.GT+"[1][1],b:0,c:0,d:<a title=\"The type Ext"+MessagesCdmBase.LT+""+MessagesCdmBase.GT+" is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>"+MessagesCdmBase.LT+""+MessagesCdmBase.GT+"(11));\n" +
                 " }\n" +
-                " staticCall <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>&gt; <a name=\""+ExportCst.PREF_REF+"172\">m</a>(<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>&gt;[][] <a name=\""+ExportCst.PREF_REF+"185\">a</a>,int <a name=\""+ExportCst.PREF_REF+"191\">b</a>, int <a name=\""+ExportCst.PREF_REF+"198\">c</a>, <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>&gt; <a name=\""+ExportCst.PREF_REF+"208\">d</a>){\n" +
+                " staticCall <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>"+MessagesCdmBase.LT+"<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>"+MessagesCdmBase.GT+" <a name=\""+ExportCst.PREF_REF+"172\">m</a>(<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>"+MessagesCdmBase.LT+"<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>"+MessagesCdmBase.GT+"[][] <a name=\""+ExportCst.PREF_REF+"185\">a</a>,int <a name=\""+ExportCst.PREF_REF+"191\">b</a>, int <a name=\""+ExportCst.PREF_REF+"198\">c</a>, <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>"+MessagesCdmBase.LT+"<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>"+MessagesCdmBase.GT+" <a name=\""+ExportCst.PREF_REF+"208\">d</a>){\n" +
                 "  return <a href=\"#"+ExportCst.PREF_REF+"185\">a</a>[<a href=\"#"+ExportCst.PREF_REF+"191\">b</a>][<a href=\"#"+ExportCst.PREF_REF+"198\">c</a>]=<a href=\"#"+ExportCst.PREF_REF+"208\">d</a>;\n" +
                 " }\n" +
                 "}\n" +
@@ -2856,16 +2857,16 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>&lt;<a name=\""+ExportCst.PREF_REF+"14\">T</a>&gt; {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>"+MessagesCdmBase.LT+"<a name=\""+ExportCst.PREF_REF+"14\">T</a>"+MessagesCdmBase.GT+" {\n" +
                 " <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"22\">field</a>;\n" +
                 " <a name=\""+ExportCst.PREF_REF+"30\">Ext(</a><a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"36\">p</a>){\n" +
                 "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=<a href=\"#"+ExportCst.PREF_REF+"36\">p</a>;\n" +
                 " }\n" +
-                " <a name=\""+ExportCst.PREF_REF+"55\">Ext(</a><a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>&gt;[][] <a name=\""+ExportCst.PREF_REF+"70\">a</a>,int <a name=\""+ExportCst.PREF_REF+"76\">b</a>, int <a name=\""+ExportCst.PREF_REF+"83\">c</a>, <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>&gt; <a name=\""+ExportCst.PREF_REF+"93\">d</a>){\n" +
+                " <a name=\""+ExportCst.PREF_REF+"55\">Ext(</a><a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>"+MessagesCdmBase.LT+"<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>"+MessagesCdmBase.GT+"[][] <a name=\""+ExportCst.PREF_REF+"70\">a</a>,int <a name=\""+ExportCst.PREF_REF+"76\">b</a>, int <a name=\""+ExportCst.PREF_REF+"83\">c</a>, <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>"+MessagesCdmBase.LT+"<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>"+MessagesCdmBase.GT+" <a name=\""+ExportCst.PREF_REF+"93\">d</a>){\n" +
                 "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=(<a href=\"#"+ExportCst.PREF_REF+"70\">a</a>[<a href=\"#"+ExportCst.PREF_REF+"76\">b</a>][<a href=\"#"+ExportCst.PREF_REF+"83\">c</a>]=<a href=\"#"+ExportCst.PREF_REF+"93\">d</a>).<a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>;\n" +
                 " }\n" +
                 " static Object <a name=\""+ExportCst.PREF_REF+"142\">m</a>(){\n" +
-                "  return <a title=\"The constructor pkg.Ext&lt;int&gt;([[$core.Object,int,int,$core.Object) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;int&gt;(e:new <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a><a title=\"The type Ext&lt;&gt; is unknown.\" class=\"e\">&lt;</a>&gt;[1][1],b:0,c:0,d:<a title=\"The type Ext&lt;&gt; is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;&gt;(11));\n" +
+                "  return <a title=\"The constructor pkg.Ext"+MessagesCdmBase.LT+"int"+MessagesCdmBase.GT+"([[$core.Object,int,int,$core.Object) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>"+MessagesCdmBase.LT+"int"+MessagesCdmBase.GT+"(e:new <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a><a title=\"The type Ext"+MessagesCdmBase.LT+""+MessagesCdmBase.GT+" is unknown.\" class=\"e\">"+MessagesCdmBase.LT+"</a>"+MessagesCdmBase.GT+"[1][1],b:0,c:0,d:<a title=\"The type Ext"+MessagesCdmBase.LT+""+MessagesCdmBase.GT+" is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>"+MessagesCdmBase.LT+""+MessagesCdmBase.GT+"(11));\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2895,21 +2896,21 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>&lt;<a name=\""+ExportCst.PREF_REF+"14\">T</a>&gt; {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>"+MessagesCdmBase.LT+"<a name=\""+ExportCst.PREF_REF+"14\">T</a>"+MessagesCdmBase.GT+" {\n" +
                 " <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"22\">field</a>;\n" +
                 " <a name=\""+ExportCst.PREF_REF+"30\">Ext(</a><a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"36\">p</a>){\n" +
                 "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=<a href=\"#"+ExportCst.PREF_REF+"36\">p</a>;\n" +
                 " }\n" +
                 " static Object <a name=\""+ExportCst.PREF_REF+"69\">m</a>(){\n" +
-                "  return staticCall(<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;int&gt;).<a title=\"The function staticCall m(int,[$core.Object) is undefined.\" class=\"e\">m</a>(15,c:<a title=\"The type  is unexpected.\" class=\"e\">{</a><a title=\"The type Ext&lt;&gt; is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;&gt;(11)});\n" +
+                "  return staticCall(<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>"+MessagesCdmBase.LT+"int"+MessagesCdmBase.GT+").<a title=\"The function staticCall m(int,[$core.Object) is undefined.\" class=\"e\">m</a>(15,c:<a title=\"The type  is unexpected.\" class=\"e\">{</a><a title=\"The type Ext"+MessagesCdmBase.LT+""+MessagesCdmBase.GT+" is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>"+MessagesCdmBase.LT+""+MessagesCdmBase.GT+"(11)});\n" +
                 " }\n" +
-                " staticCall <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"146\">m</a>(<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>&gt;... <a name=\""+ExportCst.PREF_REF+"158\">a</a>){\n" +
+                " staticCall <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"146\">m</a>(<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>"+MessagesCdmBase.LT+"<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>"+MessagesCdmBase.GT+"... <a name=\""+ExportCst.PREF_REF+"158\">a</a>){\n" +
                 "  return <a href=\"#"+ExportCst.PREF_REF+"158\">a</a>[0].<a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>;\n" +
                 " }\n" +
-                " staticCall <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"200\">m</a>(int <a name=\""+ExportCst.PREF_REF+"206\">b</a>,<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>&gt;... <a name=\""+ExportCst.PREF_REF+"218\">a</a>){\n" +
+                " staticCall <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"200\">m</a>(int <a name=\""+ExportCst.PREF_REF+"206\">b</a>,<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>"+MessagesCdmBase.LT+"<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>"+MessagesCdmBase.GT+"... <a name=\""+ExportCst.PREF_REF+"218\">a</a>){\n" +
                 "  return (<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>)((int)<a href=\"#"+ExportCst.PREF_REF+"218\">a</a>[0].<a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>+<a href=\"#"+ExportCst.PREF_REF+"206\">b</a>);\n" +
                 " }\n" +
-                " staticCall <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"272\">m</a>(<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>&gt;[] <a name=\""+ExportCst.PREF_REF+"283\">a</a>, int... <a name=\""+ExportCst.PREF_REF+"293\">b</a>){\n" +
+                " staticCall <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"272\">m</a>(<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>"+MessagesCdmBase.LT+"<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>"+MessagesCdmBase.GT+"[] <a name=\""+ExportCst.PREF_REF+"283\">a</a>, int... <a name=\""+ExportCst.PREF_REF+"293\">b</a>){\n" +
                 "  return (<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>)((int)<a href=\"#"+ExportCst.PREF_REF+"283\">a</a>[0].<a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>+<a href=\"#"+ExportCst.PREF_REF+"293\">b</a>[0]);\n" +
                 " }\n" +
                 "}\n" +
@@ -2940,22 +2941,22 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>&lt;<a name=\""+ExportCst.PREF_REF+"14\">T</a>&gt; {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>"+MessagesCdmBase.LT+"<a name=\""+ExportCst.PREF_REF+"14\">T</a>"+MessagesCdmBase.GT+" {\n" +
                 " <a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"22\">field</a>;\n" +
                 " <a name=\""+ExportCst.PREF_REF+"30\">Ext(</a><a href=\"#"+ExportCst.PREF_REF+"14\">T</a> <a name=\""+ExportCst.PREF_REF+"36\">p</a>){\n" +
                 "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=<a href=\"#"+ExportCst.PREF_REF+"36\">p</a>;\n" +
                 " }\n" +
-                " <a name=\""+ExportCst.PREF_REF+"55\">Ext(</a><a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>&gt;... <a name=\""+ExportCst.PREF_REF+"69\">a</a>){\n" +
+                " <a name=\""+ExportCst.PREF_REF+"55\">Ext(</a><a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>"+MessagesCdmBase.LT+"<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>"+MessagesCdmBase.GT+"... <a name=\""+ExportCst.PREF_REF+"69\">a</a>){\n" +
                 "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=<a href=\"#"+ExportCst.PREF_REF+"69\">a</a>[0].<a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>;\n" +
                 " }\n" +
-                " <a name=\""+ExportCst.PREF_REF+"97\">Ext(</a>int <a name=\""+ExportCst.PREF_REF+"105\">b</a>,<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>&gt;... <a name=\""+ExportCst.PREF_REF+"117\">a</a>){\n" +
+                " <a name=\""+ExportCst.PREF_REF+"97\">Ext(</a>int <a name=\""+ExportCst.PREF_REF+"105\">b</a>,<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>"+MessagesCdmBase.LT+"<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>"+MessagesCdmBase.GT+"... <a name=\""+ExportCst.PREF_REF+"117\">a</a>){\n" +
                 "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=(<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>)((int)<a href=\"#"+ExportCst.PREF_REF+"117\">a</a>[0].<a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>+<a href=\"#"+ExportCst.PREF_REF+"105\">b</a>);\n" +
                 " }\n" +
-                " <a name=\""+ExportCst.PREF_REF+"157\">Ext(</a><a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>&gt;[] <a name=\""+ExportCst.PREF_REF+"170\">a</a>, int... <a name=\""+ExportCst.PREF_REF+"180\">b</a>){\n" +
+                " <a name=\""+ExportCst.PREF_REF+"157\">Ext(</a><a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>"+MessagesCdmBase.LT+"<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>"+MessagesCdmBase.GT+"[] <a name=\""+ExportCst.PREF_REF+"170\">a</a>, int... <a name=\""+ExportCst.PREF_REF+"180\">b</a>){\n" +
                 "  <a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>=(<a href=\"#"+ExportCst.PREF_REF+"14\">T</a>)((int)<a href=\"#"+ExportCst.PREF_REF+"170\">a</a>[0].<a title=\"pkg.Ext.field\" href=\"#"+ExportCst.PREF_REF+"22\">field</a>+<a href=\"#"+ExportCst.PREF_REF+"180\">b</a>[0]);\n" +
                 " }\n" +
                 " static Object <a name=\""+ExportCst.PREF_REF+"237\">m</a>(){\n" +
-                "  return <a title=\"The constructor pkg.Ext&lt;int&gt;(int,[$core.Object) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;int&gt;(15,c:<a title=\"The type  is unexpected.\" class=\"e\">{</a><a title=\"The type Ext&lt;&gt; is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;&gt;(11)});\n" +
+                "  return <a title=\"The constructor pkg.Ext"+MessagesCdmBase.LT+"int"+MessagesCdmBase.GT+"(int,[$core.Object) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>"+MessagesCdmBase.LT+"int"+MessagesCdmBase.GT+"(15,c:<a title=\"The type  is unexpected.\" class=\"e\">{</a><a title=\"The type Ext"+MessagesCdmBase.LT+""+MessagesCdmBase.GT+" is not resolved for instancing.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>"+MessagesCdmBase.LT+""+MessagesCdmBase.GT+"(11)});\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -3033,7 +3034,7 @@ public final class Errors1Test extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.MySub</a> {\n" +
                 " $static $final $int <a name=\""+ExportCst.PREF_REF+"48\">i</a>=0;\n" +
                 " $static {\n" +
-                "  <a title=\"pkg.MySub.i\" href=\"#"+ExportCst.PREF_REF+"48\">i</a><a title=\"The type pkg.MySub cannot be implicitly cast to $int\" class=\"e\">&amp;&amp;&amp;</a><a title=\"The field i is already assigned.\" class=\"e\">=</a>(<a title=\"pkg.MySub\" href=\"#"+ExportCst.PREF_REF+"15\">MySub</a>)$null;\n" +
+                "  <a title=\"pkg.MySub.i\" href=\"#"+ExportCst.PREF_REF+"48\">i</a><a title=\"The type pkg.MySub cannot be implicitly cast to $int\" class=\"e\">"+MessagesCdmBase.AMP+""+MessagesCdmBase.AMP+""+MessagesCdmBase.AMP+"</a><a title=\"The field i is already assigned.\" class=\"e\">=</a>(<a title=\"pkg.MySub\" href=\"#"+ExportCst.PREF_REF+"15\">MySub</a>)$null;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -3105,7 +3106,7 @@ public final class Errors1Test extends ProcessMethodCommon {
                 " }\n" +
                 " $public $static $boolean <a name=\""+ExportCst.PREF_REF+"287\" title=\"A $throw block or a $return block is missing for the method $static $false($boolean,pkg.ExClass).\" class=\"e\">$false</a>(<a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"178\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"302\">i</a>){\n" +
                 " }\n" +
-                " $operator<a name=\""+ExportCst.PREF_REF+"319\" title=\"A $throw block or a $return block is missing for the method $static &amp;&amp;(pkg.ExClass,pkg.ExClass).\" class=\"e\">&amp;&amp;</a> $boolean (<a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"178\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"340\">i</a>, <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"178\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"351\">j</a>){\n" +
+                " $operator<a name=\""+ExportCst.PREF_REF+"319\" title=\"A $throw block or a $return block is missing for the method $static "+MessagesCdmBase.AMP+""+MessagesCdmBase.AMP+"(pkg.ExClass,pkg.ExClass).\" class=\"e\">"+MessagesCdmBase.AMP+""+MessagesCdmBase.AMP+"</a> $boolean (<a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"178\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"340\">i</a>, <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"178\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"351\">j</a>){\n" +
                 " }\n" +
                 " $operator<a name=\""+ExportCst.PREF_REF+"368\" title=\"A $throw block or a $return block is missing for the method $static ||(pkg.ExClass,pkg.ExClass).\" class=\"e\">||</a> $boolean (<a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"178\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"389\">i</a>, <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"178\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"400\">j</a>){\n" +
                 " }\n" +
@@ -3413,10 +3414,10 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static void <a name=\""+ExportCst.PREF_REF+"42\">exmeth</a> (){\n" +
-                "  <a title=\"The argument ? of the type pkg.Rec&lt;?&gt; is bound. It cannot be used in constructor call.\" class=\"e\">$lambda</a>(<a title=\"pkg.Rec\" href=\"#"+ExportCst.PREF_REF+"94\">Rec</a>&lt;?&gt;,new,field);\n" +
+                "  <a title=\"The argument ? of the type pkg.Rec"+MessagesCdmBase.LT+"?"+MessagesCdmBase.GT+" is bound. It cannot be used in constructor call.\" class=\"e\">$lambda</a>(<a title=\"pkg.Rec\" href=\"#"+ExportCst.PREF_REF+"94\">Rec</a>"+MessagesCdmBase.LT+"?"+MessagesCdmBase.GT+",new,field);\n" +
                 " }\n" +
                 "}\n" +
-                "@class <a name=\""+ExportCst.PREF_REF+"94\">pkg.Rec</a>&lt;<a name=\""+ExportCst.PREF_REF+"102\">T</a>&gt; {\n" +
+                "@class <a name=\""+ExportCst.PREF_REF+"94\">pkg.Rec</a>"+MessagesCdmBase.LT+"<a name=\""+ExportCst.PREF_REF+"102\">T</a>"+MessagesCdmBase.GT+" {\n" +
                 " int <a name=\""+ExportCst.PREF_REF+"112\">field</a>;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -3477,10 +3478,10 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.MySub</a> {\n" +
                 " {\n" +
-                "  <a title=\"pkg.Param\" href=\"#"+ExportCst.PREF_REF+"68\">Param</a>&lt;<a title=\"The type Param&lt;~$int&gt; is unknown.\" class=\"e\">~</a>$int&gt; <a name=\""+ExportCst.PREF_REF+"45\">t</a>;\n" +
+                "  <a title=\"pkg.Param\" href=\"#"+ExportCst.PREF_REF+"68\">Param</a>"+MessagesCdmBase.LT+"<a title=\"The type Param"+MessagesCdmBase.LT+"~$int"+MessagesCdmBase.GT+" is unknown.\" class=\"e\">~</a>$int"+MessagesCdmBase.GT+" <a name=\""+ExportCst.PREF_REF+"45\">t</a>;\n" +
                 " }\n" +
                 "}\n" +
-                "$public $class <a name=\""+ExportCst.PREF_REF+"68\">pkg.Param</a>&lt;<a name=\""+ExportCst.PREF_REF+"78\">T</a>&gt; {\n" +
+                "$public $class <a name=\""+ExportCst.PREF_REF+"68\">pkg.Param</a>"+MessagesCdmBase.LT+"<a name=\""+ExportCst.PREF_REF+"78\">T</a>"+MessagesCdmBase.GT+" {\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -3500,10 +3501,10 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.MySub</a> {\n" +
                 " {\n" +
-                "  Object <a name=\""+ExportCst.PREF_REF+"39\">t</a>=$(<a title=\"pkg.Param\" href=\"#"+ExportCst.PREF_REF+"84\">Param</a>&lt;~<a title=\"The type Param&lt;~~$int&gt; is unknown.\" class=\"e\">~</a>$int&gt;)$null;\n" +
+                "  Object <a name=\""+ExportCst.PREF_REF+"39\">t</a>=$(<a title=\"pkg.Param\" href=\"#"+ExportCst.PREF_REF+"84\">Param</a>"+MessagesCdmBase.LT+"~<a title=\"The type Param"+MessagesCdmBase.LT+"~~$int"+MessagesCdmBase.GT+" is unknown.\" class=\"e\">~</a>$int"+MessagesCdmBase.GT+")$null;\n" +
                 " }\n" +
                 "}\n" +
-                "$public $class <a name=\""+ExportCst.PREF_REF+"84\">pkg.Param</a>&lt;<a name=\""+ExportCst.PREF_REF+"94\">T</a>&gt; {\n" +
+                "$public $class <a name=\""+ExportCst.PREF_REF+"84\">pkg.Param</a>"+MessagesCdmBase.LT+"<a name=\""+ExportCst.PREF_REF+"94\">T</a>"+MessagesCdmBase.GT+" {\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -3523,10 +3524,10 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.MySub</a> {\n" +
                 " {\n" +
-                "  Object <a name=\""+ExportCst.PREF_REF+"39\">t</a>=$($Fct<a title=\"The type $Fct&lt;~&gt; is unknown.\" class=\"e\">&lt;</a>~&gt;)$null;\n" +
+                "  Object <a name=\""+ExportCst.PREF_REF+"39\">t</a>=$($Fct<a title=\"The type $Fct"+MessagesCdmBase.LT+"~"+MessagesCdmBase.GT+" is unknown.\" class=\"e\">"+MessagesCdmBase.LT+"</a>~"+MessagesCdmBase.GT+")$null;\n" +
                 " }\n" +
                 "}\n" +
-                "$public $class <a name=\""+ExportCst.PREF_REF+"78\">pkg.Param</a>&lt;<a name=\""+ExportCst.PREF_REF+"88\">T</a>&gt; {\n" +
+                "$public $class <a name=\""+ExportCst.PREF_REF+"78\">pkg.Param</a>"+MessagesCdmBase.LT+"<a name=\""+ExportCst.PREF_REF+"88\">T</a>"+MessagesCdmBase.GT+" {\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -3646,7 +3647,7 @@ public final class Errors1Test extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
-                "  $Fct&lt;$int&gt; <a name=\""+ExportCst.PREF_REF+"37\">t</a><a title=\"The type java.lang.$Fct&lt;~$int&gt; cannot be implicitly cast to java.lang.$Fct&lt;$int&gt;\" class=\"e\">=</a>$($Fct&lt;~$int&gt;)$null;\n" +
+                "  $Fct"+MessagesCdmBase.LT+"$int"+MessagesCdmBase.GT+" <a name=\""+ExportCst.PREF_REF+"37\">t</a><a title=\"The type java.lang.$Fct"+MessagesCdmBase.LT+"~$int"+MessagesCdmBase.GT+" cannot be implicitly cast to java.lang.$Fct"+MessagesCdmBase.LT+"$int"+MessagesCdmBase.GT+"\" class=\"e\">=</a>$($Fct"+MessagesCdmBase.LT+"~$int"+MessagesCdmBase.GT+")$null;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -3661,7 +3662,7 @@ public final class Errors1Test extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
-                "  $Fct&lt;~$int&gt; <a name=\""+ExportCst.PREF_REF+"38\">t</a><a title=\"The type java.lang.$Fct&lt;$int&gt; cannot be implicitly cast to java.lang.$Fct&lt;~$int&gt;\" class=\"e\">=</a>$($Fct&lt;$int&gt;)$null;\n" +
+                "  $Fct"+MessagesCdmBase.LT+"~$int"+MessagesCdmBase.GT+" <a name=\""+ExportCst.PREF_REF+"38\">t</a><a title=\"The type java.lang.$Fct"+MessagesCdmBase.LT+"$int"+MessagesCdmBase.GT+" cannot be implicitly cast to java.lang.$Fct"+MessagesCdmBase.LT+"~$int"+MessagesCdmBase.GT+"\" class=\"e\">=</a>$($Fct"+MessagesCdmBase.LT+"$int"+MessagesCdmBase.GT+")$null;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -3679,7 +3680,7 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
                 "  {\n" +
-                "   <a title=\"There is no accessible field named $Fct from the type pkg.Ex in this context.\" class=\"e\">$Fct</a>&lt;<a title=\"The operands types java.lang.Number for the operator ~ are unexpected.\" class=\"e\">~</a><a title=\"The operands types java.lang.Object for the operator ~ are unexpected.\" class=\"e\">~</a><a title=\"There is no accessible field named $int from the type pkg.Ex in this context.\" class=\"e\">$int</a><a title=\"The number of required operands 2 is different from the number of supplied arguments 3 for the operator &lt;\" class=\"e\">&gt;</a> <a title=\"There is no accessible field named t from the type pkg.Ex in this context.\" class=\"e\">t</a>;\n" +
+                "   <a title=\"There is no accessible field named $Fct from the type pkg.Ex in this context.\" class=\"e\">$Fct</a>"+MessagesCdmBase.LT+"<a title=\"The operands types java.lang.Number for the operator ~ are unexpected.\" class=\"e\">~</a><a title=\"The operands types java.lang.Object for the operator ~ are unexpected.\" class=\"e\">~</a><a title=\"There is no accessible field named $int from the type pkg.Ex in this context.\" class=\"e\">$int</a><a title=\"The number of required operands 2 is different from the number of supplied arguments 3 for the operator "+MessagesCdmBase.LT+"\" class=\"e\">"+MessagesCdmBase.GT+"</a> <a title=\"There is no accessible field named t from the type pkg.Ex in this context.\" class=\"e\">t</a>;\n" +
                 "  }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -3853,10 +3854,10 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Ex</a> {\n" +
                 " public static void <a name=\""+ExportCst.PREF_REF+"42\">exmeth</a> (){\n" +
-                "  <a title=\"The argument ? of the type pkg.Rec&lt;?&gt; is bound. It cannot be used in constructor call.\" class=\"e\">$lambda</a>(<a title=\"pkg.Rec\" href=\"#"+ExportCst.PREF_REF+"98\">Rec</a>&lt;?&gt;,new,field);\n" +
+                "  <a title=\"The argument ? of the type pkg.Rec"+MessagesCdmBase.LT+"?"+MessagesCdmBase.GT+" is bound. It cannot be used in constructor call.\" class=\"e\">$lambda</a>(<a title=\"pkg.Rec\" href=\"#"+ExportCst.PREF_REF+"98\">Rec</a>"+MessagesCdmBase.LT+"?"+MessagesCdmBase.GT+",new,field);\n" +
                 " }\n" +
                 "}\n" +
-                "@interface <a name=\""+ExportCst.PREF_REF+"98\">pkg.Rec</a>&lt;<a name=\""+ExportCst.PREF_REF+"106\">T</a>&gt; {\n" +
+                "@interface <a name=\""+ExportCst.PREF_REF+"98\">pkg.Rec</a>"+MessagesCdmBase.LT+"<a name=\""+ExportCst.PREF_REF+"106\">T</a>"+MessagesCdmBase.GT+" {\n" +
                 " int <a name=\""+ExportCst.PREF_REF+"116\">field</a>;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -3919,7 +3920,7 @@ public final class Errors1Test extends ProcessMethodCommon {
                 "  <a title=\"The type boolean cannot be implicitly cast to int\" class=\"e\">return</a> <a title=\"pkg.Apply.static and(boolean,boolean)\" href=\"#"+ExportCst.PREF_REF+"178\">and</a>(<a title=\"pkg.ExClass.static $(boolean,pkg.ExClass)\" href=\"#"+ExportCst.PREF_REF+"296\"> </a><a href=\"#"+ExportCst.PREF_REF+"64\">e</a>,<a title=\"pkg.ExClass2.static $(boolean,pkg.ExClass2)\" href=\"#"+ExportCst.PREF_REF+"408\"> </a><a href=\"#"+ExportCst.PREF_REF+"107\">f</a>);\n" +
                 " }\n" +
                 " static boolean <a name=\""+ExportCst.PREF_REF+"178\">and</a>(boolean <a name=\""+ExportCst.PREF_REF+"190\">a</a>, boolean <a name=\""+ExportCst.PREF_REF+"201\">b</a>){\n" +
-                "  return <a href=\"#"+ExportCst.PREF_REF+"190\">a</a>&amp;&amp;<a href=\"#"+ExportCst.PREF_REF+"201\">b</a>;\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"190\">a</a>"+MessagesCdmBase.AMP+""+MessagesCdmBase.AMP+"<a href=\"#"+ExportCst.PREF_REF+"201\">b</a>;\n" +
                 " }\n" +
                 "}\n" +
                 "public class <a name=\""+ExportCst.PREF_REF+"238\">pkg.ExClass</a> {\n" +
@@ -3980,7 +3981,7 @@ public final class Errors1Test extends ProcessMethodCommon {
                 "  <a href=\"#"+ExportCst.PREF_REF+"64\">e</a>.<a title=\"pkg.ExClass.field\" href=\"#"+ExportCst.PREF_REF+"211\">field</a>=1;\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"185\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"106\">f</a> = new <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"185\">ExClass</a>();\n" +
                 "  <a href=\"#"+ExportCst.PREF_REF+"106\">f</a>.<a title=\"pkg.ExClass.field\" href=\"#"+ExportCst.PREF_REF+"211\">field</a>=1;\n" +
-                "  <a title=\"The type $core.String cannot be implicitly cast to int\" class=\"e\">return</a> <a href=\"#"+ExportCst.PREF_REF+"64\">e</a><a title=\"pkg.ExClass.static false(boolean,pkg.ExClass)\" href=\"#"+ExportCst.PREF_REF+"307\">&amp;</a><a title=\"pkg.ExClass.static &amp;&amp;(pkg.ExClass,pkg.ExClass)\" href=\"#"+ExportCst.PREF_REF+"358\">&amp;</a><a title=\"pkg.ExClass.static $(pkg.ExClass,boolean)\" href=\"#"+ExportCst.PREF_REF+"593\"> </a><a href=\"#"+ExportCst.PREF_REF+"106\">f</a><a title=\"pkg.ExClass.static $(boolean,pkg.ExClass)\" href=\"#"+ExportCst.PREF_REF+"532\">?</a><span class=\"s\">\"Vrai\"</span>:<span class=\"s\">\"Faux\"</span>;\n" +
+                "  <a title=\"The type $core.String cannot be implicitly cast to int\" class=\"e\">return</a> <a href=\"#"+ExportCst.PREF_REF+"64\">e</a><a title=\"pkg.ExClass.static false(boolean,pkg.ExClass)\" href=\"#"+ExportCst.PREF_REF+"307\">"+MessagesCdmBase.AMP+"</a><a title=\"pkg.ExClass.static "+MessagesCdmBase.AMP+""+MessagesCdmBase.AMP+"(pkg.ExClass,pkg.ExClass)\" href=\"#"+ExportCst.PREF_REF+"358\">"+MessagesCdmBase.AMP+"</a><a title=\"pkg.ExClass.static $(pkg.ExClass,boolean)\" href=\"#"+ExportCst.PREF_REF+"593\"> </a><a href=\"#"+ExportCst.PREF_REF+"106\">f</a><a title=\"pkg.ExClass.static $(boolean,pkg.ExClass)\" href=\"#"+ExportCst.PREF_REF+"532\">?</a><span class=\"s\">\"Vrai\"</span>:<span class=\"s\">\"Faux\"</span>;\n" +
                 " }\n" +
                 "}\n" +
                 "public class <a name=\""+ExportCst.PREF_REF+"185\">pkg.ExClass</a> {\n" +
@@ -3991,8 +3992,8 @@ public final class Errors1Test extends ProcessMethodCommon {
                 " public static boolean <a name=\""+ExportCst.PREF_REF+"307\">false</a>(<a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"185\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"321\">i</a>){\n" +
                 "  return <a href=\"#"+ExportCst.PREF_REF+"321\">i</a>.<a title=\"pkg.ExClass.field\" href=\"#"+ExportCst.PREF_REF+"211\">field</a>!=1;\n" +
                 " }\n" +
-                " operator<a name=\""+ExportCst.PREF_REF+"358\">&amp;&amp;</a> boolean (<a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"185\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"378\">i</a>, <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"185\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"389\">j</a>){\n" +
-                "  return <a href=\"#"+ExportCst.PREF_REF+"378\">i</a>.<a title=\"pkg.ExClass.field\" href=\"#"+ExportCst.PREF_REF+"211\">field</a>==1&amp;&amp;<a href=\"#"+ExportCst.PREF_REF+"389\">j</a>.<a title=\"pkg.ExClass.field\" href=\"#"+ExportCst.PREF_REF+"211\">field</a>==1;\n" +
+                " operator<a name=\""+ExportCst.PREF_REF+"358\">"+MessagesCdmBase.AMP+""+MessagesCdmBase.AMP+"</a> boolean (<a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"185\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"378\">i</a>, <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"185\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"389\">j</a>){\n" +
+                "  return <a href=\"#"+ExportCst.PREF_REF+"378\">i</a>.<a title=\"pkg.ExClass.field\" href=\"#"+ExportCst.PREF_REF+"211\">field</a>==1"+MessagesCdmBase.AMP+""+MessagesCdmBase.AMP+"<a href=\"#"+ExportCst.PREF_REF+"389\">j</a>.<a title=\"pkg.ExClass.field\" href=\"#"+ExportCst.PREF_REF+"211\">field</a>==1;\n" +
                 " }\n" +
                 " operator<a name=\""+ExportCst.PREF_REF+"438\">||</a> boolean (<a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"185\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"458\">i</a>, <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"185\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"469\">j</a>){\n" +
                 "  return <a href=\"#"+ExportCst.PREF_REF+"458\">i</a>.<a title=\"pkg.ExClass.field\" href=\"#"+ExportCst.PREF_REF+"211\">field</a>==1||<a href=\"#"+ExportCst.PREF_REF+"469\">j</a>.<a title=\"pkg.ExClass.field\" href=\"#"+ExportCst.PREF_REF+"211\">field</a>==1;\n" +
@@ -4039,12 +4040,12 @@ public final class Errors1Test extends ProcessMethodCommon {
                 " public static int <a name=\""+ExportCst.PREF_REF+"44\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"147\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"64\">nb</a> = new <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"147\">ExClass</a>();\n" +
                 "  <a title=\"pkg.ExTwo\" href=\"#"+ExportCst.PREF_REF+"306\">ExTwo</a> <a name=\""+ExportCst.PREF_REF+"92\">ex</a> = new <a title=\"pkg.ExTwo\" href=\"#"+ExportCst.PREF_REF+"306\">ExTwo</a>();\n" +
-                "  <a title=\"The type pkg.ExClass cannot be implicitly cast to int\" class=\"e\">return</a> <a href=\"#"+ExportCst.PREF_REF+"64\">nb</a> <a title=\"pkg.ExClass.static &lt;=(pkg.ExClass,int)\" href=\"#"+ExportCst.PREF_REF+"191\">&lt;=</a><a title=\"pkg.ExTwo.static $(int,pkg.ExTwo)\" href=\"#"+ExportCst.PREF_REF+"358\"> </a> <a href=\"#"+ExportCst.PREF_REF+"92\">ex</a>;\n" +
+                "  <a title=\"The type pkg.ExClass cannot be implicitly cast to int\" class=\"e\">return</a> <a href=\"#"+ExportCst.PREF_REF+"64\">nb</a> <a title=\"pkg.ExClass.static "+MessagesCdmBase.LT+"=(pkg.ExClass,int)\" href=\"#"+ExportCst.PREF_REF+"191\">"+MessagesCdmBase.LT+"=</a><a title=\"pkg.ExTwo.static $(int,pkg.ExTwo)\" href=\"#"+ExportCst.PREF_REF+"358\"> </a> <a href=\"#"+ExportCst.PREF_REF+"92\">ex</a>;\n" +
                 " }\n" +
                 "}\n" +
                 "public class <a name=\""+ExportCst.PREF_REF+"147\">pkg.ExClass</a> {\n" +
                 " public int <a name=\""+ExportCst.PREF_REF+"173\">field</a>=2;\n" +
-                " operator<a name=\""+ExportCst.PREF_REF+"191\">&lt;=</a> <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"147\">ExClass</a> (<a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"147\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"211\">h</a>, int <a name=\""+ExportCst.PREF_REF+"218\">i</a>){\n" +
+                " operator<a name=\""+ExportCst.PREF_REF+"191\">"+MessagesCdmBase.LT+"=</a> <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"147\">ExClass</a> (<a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"147\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"211\">h</a>, int <a name=\""+ExportCst.PREF_REF+"218\">i</a>){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"147\">ExClass</a> <a name=\""+ExportCst.PREF_REF+"232\">e</a> = new <a title=\"pkg.ExClass\" href=\"#"+ExportCst.PREF_REF+"147\">ExClass</a>();\n" +
                 "  <a href=\"#"+ExportCst.PREF_REF+"232\">e</a>.<a title=\"pkg.ExClass.field\" href=\"#"+ExportCst.PREF_REF+"173\">field</a> = <a href=\"#"+ExportCst.PREF_REF+"218\">i</a> + <a href=\"#"+ExportCst.PREF_REF+"211\">h</a>.<a title=\"pkg.ExClass.field\" href=\"#"+ExportCst.PREF_REF+"173\">field</a>;\n" +
                 "  return <a href=\"#"+ExportCst.PREF_REF+"232\">e</a>;\n" +
@@ -4079,7 +4080,7 @@ public final class Errors1Test extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\""+ExportCst.PREF_REF+"13\">pkg.Apply</a> {\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"44\">method</a>(){\n" +
                 "  <a title=\"pkg.ExTwo\" href=\"#"+ExportCst.PREF_REF+"117\">ExTwo</a> <a name=\""+ExportCst.PREF_REF+"62\">ex</a> = new <a title=\"pkg.ExTwo\" href=\"#"+ExportCst.PREF_REF+"117\">ExTwo</a>();\n" +
-                "  <a title=\"The type boolean cannot be implicitly cast to int\" class=\"e\">return</a> <a href=\"#"+ExportCst.PREF_REF+"62\">ex</a> <a title=\"pkg.ExTwo.static $(int,pkg.ExTwo)\" href=\"#"+ExportCst.PREF_REF+"169\"> </a>&lt;=<a title=\"pkg.ExTwo.static $(int,pkg.ExTwo)\" href=\"#"+ExportCst.PREF_REF+"169\"> </a> <a href=\"#"+ExportCst.PREF_REF+"62\">ex</a>;\n" +
+                "  <a title=\"The type boolean cannot be implicitly cast to int\" class=\"e\">return</a> <a href=\"#"+ExportCst.PREF_REF+"62\">ex</a> <a title=\"pkg.ExTwo.static $(int,pkg.ExTwo)\" href=\"#"+ExportCst.PREF_REF+"169\"> </a>"+MessagesCdmBase.LT+"=<a title=\"pkg.ExTwo.static $(int,pkg.ExTwo)\" href=\"#"+ExportCst.PREF_REF+"169\"> </a> <a href=\"#"+ExportCst.PREF_REF+"62\">ex</a>;\n" +
                 " }\n" +
                 "}\n" +
                 "public class <a name=\""+ExportCst.PREF_REF+"117\">pkg.ExTwo</a> {\n" +
@@ -4985,8 +4986,8 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrReadOnlyImpl(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
                 " $public $static String <a name=\""+ExportCst.PREF_REF+"48\">exmeth</a>($boolean <a name=\""+ExportCst.PREF_REF+"64\">b</a>){\n" +
-                "  $return <span class=\"s\"><a title=\"Bad character format &quot;&quot;&quot;`\n" +
-                "&quot;&quot;&quot;\" class=\"e\">\"\"\"`\n" +
+                "  $return <span class=\"s\"><a title=\"Bad character format "+MessagesCdmBase.QUOT+""+MessagesCdmBase.QUOT+""+MessagesCdmBase.QUOT+"`\n" +
+                ""+MessagesCdmBase.QUOT+""+MessagesCdmBase.QUOT+""+MessagesCdmBase.QUOT+"\" class=\"e\">\"\"\"`\n" +
                 "\"\"\"</a></span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -5005,8 +5006,8 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrReadOnlyImpl(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
                 " $public $static String <a name=\""+ExportCst.PREF_REF+"48\">exmeth</a>($boolean <a name=\""+ExportCst.PREF_REF+"64\">b</a>){\n" +
-                "  $return <span class=\"s\"><a title=\"Bad character format &quot;&quot;&quot;\n" +
-                "\\u000g&quot;&quot;&quot;\" class=\"e\">\"\"\"\n" +
+                "  $return <span class=\"s\"><a title=\"Bad character format "+MessagesCdmBase.QUOT+""+MessagesCdmBase.QUOT+""+MessagesCdmBase.QUOT+"\n" +
+                "\\u000g"+MessagesCdmBase.QUOT+""+MessagesCdmBase.QUOT+""+MessagesCdmBase.QUOT+"\" class=\"e\">\"\"\"\n" +
                 "\\u000g\"\"\"</a></span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -5025,8 +5026,8 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrReadOnlyImpl(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
                 " $public $static String <a name=\""+ExportCst.PREF_REF+"48\">exmeth</a>($boolean <a name=\""+ExportCst.PREF_REF+"64\">b</a>){\n" +
-                "  $return <span class=\"s\"><a title=\"Bad character format &quot;&quot;&quot;\n" +
-                "\\u000G&quot;&quot;&quot;\" class=\"e\">\"\"\"\n" +
+                "  $return <span class=\"s\"><a title=\"Bad character format "+MessagesCdmBase.QUOT+""+MessagesCdmBase.QUOT+""+MessagesCdmBase.QUOT+"\n" +
+                "\\u000G"+MessagesCdmBase.QUOT+""+MessagesCdmBase.QUOT+""+MessagesCdmBase.QUOT+"\" class=\"e\">\"\"\"\n" +
                 "\\u000G\"\"\"</a></span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -5045,8 +5046,8 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrReadOnlyImpl(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
                 " $public $static String <a name=\""+ExportCst.PREF_REF+"48\">exmeth</a>($boolean <a name=\""+ExportCst.PREF_REF+"64\">b</a>){\n" +
-                "  $return <span class=\"s\"><a title=\"Bad character format &quot;&quot;&quot;\n" +
-                "\\u000!&quot;&quot;&quot;\" class=\"e\">\"\"\"\n" +
+                "  $return <span class=\"s\"><a title=\"Bad character format "+MessagesCdmBase.QUOT+""+MessagesCdmBase.QUOT+""+MessagesCdmBase.QUOT+"\n" +
+                "\\u000!"+MessagesCdmBase.QUOT+""+MessagesCdmBase.QUOT+""+MessagesCdmBase.QUOT+"\" class=\"e\">\"\"\"\n" +
                 "\\u000!\"\"\"</a></span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -5065,8 +5066,8 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrReadOnlyImpl(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
                 " $public $static String <a name=\""+ExportCst.PREF_REF+"48\">exmeth</a>($boolean <a name=\""+ExportCst.PREF_REF+"64\">b</a>){\n" +
-                "  $return <span class=\"s\"><a title=\"Bad character format &quot;&quot;&quot;\n" +
-                "\\u000~&quot;&quot;&quot;\" class=\"e\">\"\"\"\n" +
+                "  $return <span class=\"s\"><a title=\"Bad character format "+MessagesCdmBase.QUOT+""+MessagesCdmBase.QUOT+""+MessagesCdmBase.QUOT+"\n" +
+                "\\u000~"+MessagesCdmBase.QUOT+""+MessagesCdmBase.QUOT+""+MessagesCdmBase.QUOT+"\" class=\"e\">\"\"\"\n" +
                 "\\u000~\"\"\"</a></span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -5085,8 +5086,8 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrReadOnlyImpl(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ex</a> {\n" +
                 " $public $static String <a name=\""+ExportCst.PREF_REF+"48\">exmeth</a>($boolean <a name=\""+ExportCst.PREF_REF+"64\">b</a>){\n" +
-                "  $return <span class=\"s\"><a title=\"Bad character format &quot;&quot;&quot;\n" +
-                "\\a&quot;&quot;&quot;\" class=\"e\">\"\"\"\n" +
+                "  $return <span class=\"s\"><a title=\"Bad character format "+MessagesCdmBase.QUOT+""+MessagesCdmBase.QUOT+""+MessagesCdmBase.QUOT+"\n" +
+                "\\a"+MessagesCdmBase.QUOT+""+MessagesCdmBase.QUOT+""+MessagesCdmBase.QUOT+"\" class=\"e\">\"\"\"\n" +
                 "\\a\"\"\"</a></span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -5178,10 +5179,10 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
                 " static int <a name=\""+ExportCst.PREF_REF+"28\">m</a>(){\n" +
-                "  int <a name=\""+ExportCst.PREF_REF+"39\">v</a> = <a title=\"pkg.Ext.static m($core.Fct&lt;int,int,int&gt;,int,int)\" href=\"#"+ExportCst.PREF_REF+"235\">m</a>(<span class=\"t\">(<a title=\"After @ the type AnnotOne is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotOne is unknown.\" class=\"e\">AnnotOne</a>(info1=7)<a title=\"After @ the type AnnotTwo is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotTwo is unknown.\" class=\"e\">AnnotTwo</a>(info2=8) int <a name=\""+ExportCst.PREF_REF+"87\">a</a>,<a title=\"After @ the type AnnotThree is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotThree is unknown.\" class=\"e\">AnnotThree</a>(info3=9)<a title=\"After @ the type AnnotFour is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotFour is unknown.\" class=\"e\">AnnotFour</a>(info4=10) int <a name=\""+ExportCst.PREF_REF+"134\">b</a>:<a title=\"After @ the type AnnotFive is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotFive is unknown.\" class=\"e\">AnnotFive</a>(info5=11)<a title=\"After @ the type AnnotSix is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotSix is unknown.\" class=\"e\">AnnotSix</a>(info6=12) int)<a name=\""+ExportCst.PREF_REF+"180\">-&gt;</a>{return 2 * <a href=\"#"+ExportCst.PREF_REF+"87\">a</a> * <a href=\"#"+ExportCst.PREF_REF+"134\">b</a>;}</span>,3,4);\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"39\">v</a> = <a title=\"pkg.Ext.static m($core.Fct"+MessagesCdmBase.LT+"int,int,int"+MessagesCdmBase.GT+",int,int)\" href=\"#"+ExportCst.PREF_REF+"235\">m</a>(<span class=\"t\">(<a title=\"After @ the type AnnotOne is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotOne is unknown.\" class=\"e\">AnnotOne</a>(info1=7)<a title=\"After @ the type AnnotTwo is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotTwo is unknown.\" class=\"e\">AnnotTwo</a>(info2=8) int <a name=\""+ExportCst.PREF_REF+"87\">a</a>,<a title=\"After @ the type AnnotThree is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotThree is unknown.\" class=\"e\">AnnotThree</a>(info3=9)<a title=\"After @ the type AnnotFour is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotFour is unknown.\" class=\"e\">AnnotFour</a>(info4=10) int <a name=\""+ExportCst.PREF_REF+"134\">b</a>:<a title=\"After @ the type AnnotFive is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotFive is unknown.\" class=\"e\">AnnotFive</a>(info5=11)<a title=\"After @ the type AnnotSix is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotSix is unknown.\" class=\"e\">AnnotSix</a>(info6=12) int)<a name=\""+ExportCst.PREF_REF+"180\">-"+MessagesCdmBase.GT+"</a>{return 2 * <a href=\"#"+ExportCst.PREF_REF+"87\">a</a> * <a href=\"#"+ExportCst.PREF_REF+"134\">b</a>;}</span>,3,4);\n" +
                 "  return 0;\n" +
                 " }\n" +
-                " static int <a name=\""+ExportCst.PREF_REF+"235\">m</a>(Fct&lt;int,int,int&gt; <a name=\""+ExportCst.PREF_REF+"254\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"262\">a</a>, int <a name=\""+ExportCst.PREF_REF+"269\">b</a>){\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"235\">m</a>(Fct"+MessagesCdmBase.LT+"int,int,int"+MessagesCdmBase.GT+" <a name=\""+ExportCst.PREF_REF+"254\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"262\">a</a>, int <a name=\""+ExportCst.PREF_REF+"269\">b</a>){\n" +
                 "  return <a href=\"#"+ExportCst.PREF_REF+"254\">fct</a>.<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"262\">a</a>,<a href=\"#"+ExportCst.PREF_REF+"269\">b</a>);\n" +
                 " }\n" +
                 "}\n" +
@@ -5211,10 +5212,10 @@ public final class Errors1Test extends ProcessMethodCommon {
                 "}\n" +
                 "class <a name=\""+ExportCst.PREF_REF+"42\">pkg.Ext</a> {\n" +
                 " static int <a name=\""+ExportCst.PREF_REF+"64\">m</a>(){\n" +
-                "  int <a name=\""+ExportCst.PREF_REF+"75\">v</a> = <a title=\"pkg.Ext.static m($core.Fct&lt;int,int,int&gt;,int,int)\" href=\"#"+ExportCst.PREF_REF+"565\">m</a>(<span class=\"t\">(<a title=\"After @ the type AnnotOne is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotOne is unknown.\" class=\"e\">AnnotOne</a>(info1=7+new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"10\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"109\">{</a>public int <a name=\""+ExportCst.PREF_REF+"121\">field</a>(){return 0;}}</span>.<a title=\"pkg.Int.field()\" href=\"#"+ExportCst.PREF_REF+"25\">field</a>())<a title=\"After @ the type AnnotTwo is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotTwo is unknown.\" class=\"e\">AnnotTwo</a>(info2=8+new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"10\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"176\">{</a>public int <a name=\""+ExportCst.PREF_REF+"188\">field</a>(){return 0;}}</span>.<a title=\"pkg.Int.field()\" href=\"#"+ExportCst.PREF_REF+"25\">field</a>()) int <a name=\""+ExportCst.PREF_REF+"221\">a</a>,<a title=\"After @ the type AnnotThree is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotThree is unknown.\" class=\"e\">AnnotThree</a>(info3=9+new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"10\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"252\">{</a>public int <a name=\""+ExportCst.PREF_REF+"264\">field</a>(){return 0;}}</span>.<a title=\"pkg.Int.field()\" href=\"#"+ExportCst.PREF_REF+"25\">field</a>())<a title=\"After @ the type AnnotFour is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotFour is unknown.\" class=\"e\">AnnotFour</a>(info4=10+new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"10\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"321\">{</a>public int <a name=\""+ExportCst.PREF_REF+"333\">field</a>(){return 0;}}</span>.<a title=\"pkg.Int.field()\" href=\"#"+ExportCst.PREF_REF+"25\">field</a>()) int <a name=\""+ExportCst.PREF_REF+"366\">b</a>:<a title=\"After @ the type AnnotFive is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotFive is unknown.\" class=\"e\">AnnotFive</a>(info5=11+new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"10\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"397\">{</a>public int <a name=\""+ExportCst.PREF_REF+"409\">field</a>(){return 0;}}</span>.<a title=\"pkg.Int.field()\" href=\"#"+ExportCst.PREF_REF+"25\">field</a>())<a title=\"After @ the type AnnotSix is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotSix is unknown.\" class=\"e\">AnnotSix</a>(info6=12+new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"10\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"465\">{</a>public int <a name=\""+ExportCst.PREF_REF+"477\">field</a>(){return 0;}}</span>.<a title=\"pkg.Int.field()\" href=\"#"+ExportCst.PREF_REF+"25\">field</a>()) int)<a name=\""+ExportCst.PREF_REF+"510\">-&gt;</a>{return 2 * <a href=\"#"+ExportCst.PREF_REF+"221\">a</a> * <a href=\"#"+ExportCst.PREF_REF+"366\">b</a>;}</span>,3,4);\n" +
+                "  int <a name=\""+ExportCst.PREF_REF+"75\">v</a> = <a title=\"pkg.Ext.static m($core.Fct"+MessagesCdmBase.LT+"int,int,int"+MessagesCdmBase.GT+",int,int)\" href=\"#"+ExportCst.PREF_REF+"565\">m</a>(<span class=\"t\">(<a title=\"After @ the type AnnotOne is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotOne is unknown.\" class=\"e\">AnnotOne</a>(info1=7+new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"10\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"109\">{</a>public int <a name=\""+ExportCst.PREF_REF+"121\">field</a>(){return 0;}}</span>.<a title=\"pkg.Int.field()\" href=\"#"+ExportCst.PREF_REF+"25\">field</a>())<a title=\"After @ the type AnnotTwo is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotTwo is unknown.\" class=\"e\">AnnotTwo</a>(info2=8+new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"10\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"176\">{</a>public int <a name=\""+ExportCst.PREF_REF+"188\">field</a>(){return 0;}}</span>.<a title=\"pkg.Int.field()\" href=\"#"+ExportCst.PREF_REF+"25\">field</a>()) int <a name=\""+ExportCst.PREF_REF+"221\">a</a>,<a title=\"After @ the type AnnotThree is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotThree is unknown.\" class=\"e\">AnnotThree</a>(info3=9+new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"10\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"252\">{</a>public int <a name=\""+ExportCst.PREF_REF+"264\">field</a>(){return 0;}}</span>.<a title=\"pkg.Int.field()\" href=\"#"+ExportCst.PREF_REF+"25\">field</a>())<a title=\"After @ the type AnnotFour is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotFour is unknown.\" class=\"e\">AnnotFour</a>(info4=10+new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"10\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"321\">{</a>public int <a name=\""+ExportCst.PREF_REF+"333\">field</a>(){return 0;}}</span>.<a title=\"pkg.Int.field()\" href=\"#"+ExportCst.PREF_REF+"25\">field</a>()) int <a name=\""+ExportCst.PREF_REF+"366\">b</a>:<a title=\"After @ the type AnnotFive is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotFive is unknown.\" class=\"e\">AnnotFive</a>(info5=11+new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"10\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"397\">{</a>public int <a name=\""+ExportCst.PREF_REF+"409\">field</a>(){return 0;}}</span>.<a title=\"pkg.Int.field()\" href=\"#"+ExportCst.PREF_REF+"25\">field</a>())<a title=\"After @ the type AnnotSix is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotSix is unknown.\" class=\"e\">AnnotSix</a>(info6=12+new <a title=\"pkg.Int\" href=\"#"+ExportCst.PREF_REF+"10\">Int</a>()<span class=\"t\"><a name=\""+ExportCst.PREF_REF+"465\">{</a>public int <a name=\""+ExportCst.PREF_REF+"477\">field</a>(){return 0;}}</span>.<a title=\"pkg.Int.field()\" href=\"#"+ExportCst.PREF_REF+"25\">field</a>()) int)<a name=\""+ExportCst.PREF_REF+"510\">-"+MessagesCdmBase.GT+"</a>{return 2 * <a href=\"#"+ExportCst.PREF_REF+"221\">a</a> * <a href=\"#"+ExportCst.PREF_REF+"366\">b</a>;}</span>,3,4);\n" +
                 "  return 0;\n" +
                 " }\n" +
-                " static int <a name=\""+ExportCst.PREF_REF+"565\">m</a>(Fct&lt;int,int,int&gt; <a name=\""+ExportCst.PREF_REF+"584\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"592\">a</a>, int <a name=\""+ExportCst.PREF_REF+"599\">b</a>){\n" +
+                " static int <a name=\""+ExportCst.PREF_REF+"565\">m</a>(Fct"+MessagesCdmBase.LT+"int,int,int"+MessagesCdmBase.GT+" <a name=\""+ExportCst.PREF_REF+"584\">fct</a>,int <a name=\""+ExportCst.PREF_REF+"592\">a</a>, int <a name=\""+ExportCst.PREF_REF+"599\">b</a>){\n" +
                 "  return <a href=\"#"+ExportCst.PREF_REF+"584\">fct</a>.<b>call</b>(<a href=\"#"+ExportCst.PREF_REF+"592\">a</a>,<a href=\"#"+ExportCst.PREF_REF+"599\">b</a>);\n" +
                 " }\n" +
                 "}\n" +
@@ -5585,7 +5586,7 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ext</a> {\n" +
                 " $public $static Object <a name=\""+ExportCst.PREF_REF+"49\">m</a>(){\n" +
-                "  $return $staticCall(<a title=\"The type ExInext is unknown.\" class=\"e\">ExInext</a>&lt;&gt;).<a title=\"The function $staticCall inst($int) is undefined.\" class=\"e\">inst</a>(2);\n" +
+                "  $return $staticCall(<a title=\"The type ExInext is unknown.\" class=\"e\">ExInext</a>"+MessagesCdmBase.LT+""+MessagesCdmBase.GT+").<a title=\"The function $staticCall inst($int) is undefined.\" class=\"e\">inst</a>(2);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -5605,10 +5606,10 @@ public final class Errors1Test extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.Ext</a> {\n" +
                 " $public $static Object <a name=\""+ExportCst.PREF_REF+"49\">m</a>(){\n" +
-                "  $return $staticCall(<a title=\"pkg.ExInext\" href=\"#"+ExportCst.PREF_REF+"116\">ExInext</a>&lt;&gt;).<a title=\"The function $staticCall inst($int) is undefined.\" class=\"e\">inst</a>(2);\n" +
+                "  $return $staticCall(<a title=\"pkg.ExInext\" href=\"#"+ExportCst.PREF_REF+"116\">ExInext</a>"+MessagesCdmBase.LT+""+MessagesCdmBase.GT+").<a title=\"The function $staticCall inst($int) is undefined.\" class=\"e\">inst</a>(2);\n" +
                 " }\n" +
                 "}\n" +
-                "$public $class <a name=\""+ExportCst.PREF_REF+"116\">pkg.ExInext</a>&lt;<a name=\""+ExportCst.PREF_REF+"128\">T</a>&gt; {\n" +
+                "$public $class <a name=\""+ExportCst.PREF_REF+"116\">pkg.ExInext</a>"+MessagesCdmBase.LT+"<a name=\""+ExportCst.PREF_REF+"128\">T</a>"+MessagesCdmBase.GT+" {\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -5628,10 +5629,10 @@ public final class Errors1Test extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\""+ExportCst.PREF_REF+"15\">pkg.MySub</a> {\n" +
-                " <a title=\"pkg.MyCont\" href=\"#"+ExportCst.PREF_REF+"81\">pkg.MyCont</a>.<a title=\"pkg.MyCont..MyClass\" href=\"#"+ExportCst.PREF_REF+"117\">MyClass</a>&lt;String&gt;<a title=\"The type pkg.MyCont..MyClass&lt;java.lang.String&gt;..Inner is not parameterized correctly.\" class=\"e\">.</a><a title=\"pkg.MyCont..MyClass..Inner\" href=\"#"+ExportCst.PREF_REF+"154\">Inner</a> <a name=\""+ExportCst.PREF_REF+"61\">v</a>;\n" +
+                " <a title=\"pkg.MyCont\" href=\"#"+ExportCst.PREF_REF+"81\">pkg.MyCont</a>.<a title=\"pkg.MyCont..MyClass\" href=\"#"+ExportCst.PREF_REF+"117\">MyClass</a>"+MessagesCdmBase.LT+"String"+MessagesCdmBase.GT+"<a title=\"The type pkg.MyCont..MyClass"+MessagesCdmBase.LT+"java.lang.String"+MessagesCdmBase.GT+"..Inner is not parameterized correctly.\" class=\"e\">.</a><a title=\"pkg.MyCont..MyClass..Inner\" href=\"#"+ExportCst.PREF_REF+"154\">Inner</a> <a name=\""+ExportCst.PREF_REF+"61\">v</a>;\n" +
                 "}\n" +
                 "$public $class <a name=\""+ExportCst.PREF_REF+"81\">pkg.MyCont</a>{\n" +
-                " $public $static $class <a name=\""+ExportCst.PREF_REF+"117\">MyClass</a>&lt;<a name=\""+ExportCst.PREF_REF+"125\">T</a>&gt;{\n" +
+                " $public $static $class <a name=\""+ExportCst.PREF_REF+"117\">MyClass</a>"+MessagesCdmBase.LT+"<a name=\""+ExportCst.PREF_REF+"125\">T</a>"+MessagesCdmBase.GT+"{\n" +
                 "  $public $static $class <a name=\""+ExportCst.PREF_REF+"154\">Inner</a>{\n" +
                 "  }\n" +
                 " }\n" +
@@ -5996,9 +5997,9 @@ public final class Errors1Test extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>&lt;<a name=\""+ExportCst.PREF_REF+"14\">T</a>&gt; {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a>"+MessagesCdmBase.LT+"<a name=\""+ExportCst.PREF_REF+"14\">T</a>"+MessagesCdmBase.GT+" {\n" +
                 " static void <a name=\""+ExportCst.PREF_REF+"32\">m</a>(){\n" +
-                "  <a title=\"The type Inex&lt;Ext&lt;int&gt;&gt; is unknown.\" class=\"e\">Inex</a>&lt;<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>&lt;int&gt;&gt; <a name=\""+ExportCst.PREF_REF+"54\">v</a>;\n" +
+                "  <a title=\"The type Inex"+MessagesCdmBase.LT+"Ext"+MessagesCdmBase.LT+"int"+MessagesCdmBase.GT+""+MessagesCdmBase.GT+" is unknown.\" class=\"e\">Inex</a>"+MessagesCdmBase.LT+"<a title=\"pkg.Ext\" href=\"#"+ExportCst.PREF_REF+"6\">Ext</a>"+MessagesCdmBase.LT+"int"+MessagesCdmBase.GT+""+MessagesCdmBase.GT+" <a name=\""+ExportCst.PREF_REF+"54\">v</a>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -6041,13 +6042,13 @@ public final class Errors1Test extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\""+ExportCst.PREF_REF+"6\">pkg.Ext</a> {\n" +
-                " <a title=\"pkg.Param\" href=\"#"+ExportCst.PREF_REF+"48\">Param</a>&lt;<a title=\"pkg.ParamCt\" href=\"#"+ExportCst.PREF_REF+"92\">ParamCt</a><a title=\"The type pkg.ParamCt&lt;int&gt; is not parameterized correctly.\" class=\"e\">&lt;</a>int&gt;&gt; <a name=\""+ExportCst.PREF_REF+"37\">v</a>;\n" +
+                " <a title=\"pkg.Param\" href=\"#"+ExportCst.PREF_REF+"48\">Param</a>"+MessagesCdmBase.LT+"<a title=\"pkg.ParamCt\" href=\"#"+ExportCst.PREF_REF+"92\">ParamCt</a><a title=\"The type pkg.ParamCt"+MessagesCdmBase.LT+"int"+MessagesCdmBase.GT+" is not parameterized correctly.\" class=\"e\">"+MessagesCdmBase.LT+"</a>int"+MessagesCdmBase.GT+""+MessagesCdmBase.GT+" <a name=\""+ExportCst.PREF_REF+"37\">v</a>;\n" +
                 "}\n" +
-                "class <a name=\""+ExportCst.PREF_REF+"48\">pkg.Param</a>&lt;<a name=\""+ExportCst.PREF_REF+"58\">T</a>&gt; {\n" +
+                "class <a name=\""+ExportCst.PREF_REF+"48\">pkg.Param</a>"+MessagesCdmBase.LT+"<a name=\""+ExportCst.PREF_REF+"58\">T</a>"+MessagesCdmBase.GT+" {\n" +
                 "}\n" +
                 "class <a name=\""+ExportCst.PREF_REF+"71\">pkg.Simple</a> {\n" +
                 "}\n" +
-                "class <a name=\""+ExportCst.PREF_REF+"92\">pkg.ParamCt</a>&lt;<a name=\""+ExportCst.PREF_REF+"104\">U</a>:<a title=\"pkg.Simple\" href=\"#"+ExportCst.PREF_REF+"71\">Simple</a>&gt; {\n" +
+                "class <a name=\""+ExportCst.PREF_REF+"92\">pkg.ParamCt</a>"+MessagesCdmBase.LT+"<a name=\""+ExportCst.PREF_REF+"104\">U</a>:<a title=\"pkg.Simple\" href=\"#"+ExportCst.PREF_REF+"71\">Simple</a>"+MessagesCdmBase.GT+" {\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -6577,7 +6578,7 @@ public final class Errors1Test extends ProcessMethodCommon {
                 " public int <a name=\""+ExportCst.PREF_REF+"168\">this</a>(int <a name=\""+ExportCst.PREF_REF+"177\">p</a>){\n" +
                 "  return 0i;\n" +
                 " }\n" +
-                " public void <a name=\""+ExportCst.PREF_REF+"210\">this</a>(int <a name=\""+ExportCst.PREF_REF+"219\">p</a>, @<a title=\"pkg.MyAnnot\" href=\"#"+ExportCst.PREF_REF+"38\">MyAnnot</a>(<a title=\"pkg.MyAnnot.infoIntOne()\" href=\"#"+ExportCst.PREF_REF+"57\">infoIntOne</a>=(<span class=\"t\">(int <a name=\""+ExportCst.PREF_REF+"248\">x</a>:int)<a name=\""+ExportCst.PREF_REF+"254\" title=\"The type $core.Object cannot be implicitly cast to int\" class=\"e\">-&gt;</a><a title=\"There is no accessible field named y from the type pkg.Ex in this context.\" class=\"e\">y</a></span>).<b>call</b>(1))@<a title=\"pkg.MyAnnotTwo\" href=\"#"+ExportCst.PREF_REF+"93\">MyAnnotTwo</a>(<a title=\"pkg.MyAnnotTwo.infoIntTwo()\" href=\"#"+ExportCst.PREF_REF+"115\">infoIntTwo</a>=3i) int value){\n" +
+                " public void <a name=\""+ExportCst.PREF_REF+"210\">this</a>(int <a name=\""+ExportCst.PREF_REF+"219\">p</a>, @<a title=\"pkg.MyAnnot\" href=\"#"+ExportCst.PREF_REF+"38\">MyAnnot</a>(<a title=\"pkg.MyAnnot.infoIntOne()\" href=\"#"+ExportCst.PREF_REF+"57\">infoIntOne</a>=(<span class=\"t\">(int <a name=\""+ExportCst.PREF_REF+"248\">x</a>:int)<a name=\""+ExportCst.PREF_REF+"254\" title=\"The type $core.Object cannot be implicitly cast to int\" class=\"e\">-"+MessagesCdmBase.GT+"</a><a title=\"There is no accessible field named y from the type pkg.Ex in this context.\" class=\"e\">y</a></span>).<b>call</b>(1))@<a title=\"pkg.MyAnnotTwo\" href=\"#"+ExportCst.PREF_REF+"93\">MyAnnotTwo</a>(<a title=\"pkg.MyAnnotTwo.infoIntTwo()\" href=\"#"+ExportCst.PREF_REF+"115\">infoIntTwo</a>=3i) int value){\n" +
                 "  (switch(<a href=\"#"+ExportCst.PREF_REF+"219\">p</a>)<span class=\"t\">{default;return 0;}</span>);\n" +
                 " }\n" +
                 " public static int <a name=\""+ExportCst.PREF_REF+"362\">exmeth</a>(){\n" +
