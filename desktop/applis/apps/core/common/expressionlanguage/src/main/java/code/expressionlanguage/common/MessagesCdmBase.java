@@ -26,10 +26,10 @@ public final class MessagesCdmBase {
     public static final String CLASS_COMMENT = "c";
     public static final String CLASS_IMPORT = "i";
     public static final String CLASS_TYPE = "t";
-    public static final String LT = "&lt;";
-    public static final String GT = "&gt;";
-    public static final String AMP = "&amp;";
-    public static final String QUOT = "&quot;";
+    public static final String LT = "&#60;";
+    public static final String GT = "&#62;";
+    public static final String AMP = "&#38;";
+    public static final String QUOT = "&#34;";
     public static final String TITLE = "title";
     public static final String HREF = "href";
     public static final String NAME = "name";
