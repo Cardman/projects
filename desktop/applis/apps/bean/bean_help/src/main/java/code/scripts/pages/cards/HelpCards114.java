@@ -9,8 +9,8 @@ return e;
 }
 static String fr(){
 String f="";
-f+=M_43_0+"=Cette action permet de g&#233;rer visuellement le tri des cartes et le sens de distribution &#224; la belote.\n";
-f+=M_43_1+"=Cette action ouvre une bo&#238;te de dialogue.\n";
+f+=M_43_0+"=Cette action permet de gérer visuellement le tri des cartes et le sens de distribution à la belote.\n";
+f+=M_43_1+"=Cette action ouvre une boîte de dialogue.\n";
 return f;
 }
 }

@@ -18,16 +18,16 @@ return e;
 }
 static String fr(){
 String f="";
-f+=M_42_0+"=Le menu Fichier poss&#232;de quatre sous menus qui sont:\n";
+f+=M_42_0+"=Le menu Fichier possède quatre sous menus qui sont:\n";
 f+=M_42_1+"=Charger une partie (raccourci: CTRL + C), accessible\n";
-f+=M_42_2+"=lorsqu'aucune partie n'est en train d'&#234;tre jou&#233;e\n";
-f+=M_42_3+"=lorsqu'une partie est en train d'&#234;tre jou&#233;e et mise en pause\n";
-f+=M_42_4+"=lorsqu'une partie est en train d'&#234;tre jou&#233;e et que l'utilisateur doit choisir une ou plusieurs cartes\n";
+f+=M_42_2+"=lorsqu'aucune partie n'est en train d'être jouée\n";
+f+=M_42_3+"=lorsqu'une partie est en train d'être jouée et mise en pause\n";
+f+=M_42_4+"=lorsqu'une partie est en train d'être jouée et que l'utilisateur doit choisir une ou plusieurs cartes\n";
 f+=M_42_5+"=Sauvegarder une partie (raccourci: CTRL + S), accessible\n";
-f+=M_42_6+"=lorsqu'une partie est en train d'&#234;tre jou&#233;e et mise en pause\n";
+f+=M_42_6+"=lorsqu'une partie est en train d'être jouée et mise en pause\n";
 f+=M_42_8+"=Changer de jeu (raccourci: CTRL + J), accessible\n";
-f+=M_42_9+"=lorsqu'une partie est en train d'&#234;tre jou&#233;e et mise en pause et que la partie ne vient pas d'&#234;tre sauvegard&#233;e\n";
-f+=M_42_11+"=lorsqu'aucune partie n'est en train d'&#234;tre jou&#233;e et que les boutons de la fen&#234;tre ne portent pas le nom des jeux de cartes\n";
+f+=M_42_9+"=lorsqu'une partie est en train d'être jouée et mise en pause et que la partie ne vient pas d'être sauvegardée\n";
+f+=M_42_11+"=lorsqu'aucune partie n'est en train d'être jouée et que les boutons de la fenêtre ne portent pas le nom des jeux de cartes\n";
 f+=M_42_12+"=Quitter (raccourci: CTRL + W), toujours accessible\n";
 return f;
 }

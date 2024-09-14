@@ -6,8 +6,8 @@ static String tr(){
 String f=DataBase.DEF_TARGET_ADJ_ADV+"\tLes adversaires adjacents\n";
 f+=DataBase.DEF_TARGET_ADJ_MULT+"\tTous les combattants adjacents\n";
 f+=DataBase.DEF_TARGET_ADJ_UNIQ+"\tUn combattant adjacent\n";
-f+=DataBase.DEF_TARGET_ALLIE+"\tUn alli&eacute;\n";
-f+=DataBase.DEF_TARGET_ALLIES+"\tLes alli&eacute;s\n";
+f+=DataBase.DEF_TARGET_ALLIE+"\tUn allié\n";
+f+=DataBase.DEF_TARGET_ALLIES+"\tLes alliés\n";
 f+=DataBase.DEF_TARGET_ANY_FOE+"\tUn adversaire\n";
 f+=DataBase.DEF_TARGET_AUTRE_UNIQ+"\tUn combattant autre que le lanceur\n";
 f+=DataBase.DEF_TARGET_GLOBALE+"\tTous les combattants\n";

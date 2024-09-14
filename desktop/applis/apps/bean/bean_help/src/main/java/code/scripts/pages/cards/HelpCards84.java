@@ -22,21 +22,21 @@ return e;
 }
 static String fr(){
 String f="";
-f+=M_13_0+"=Le pr&#233;sident est jou&#233; par groupes de cartes de m&#234;me force.\n";
-f+=M_13_1+"=Un pli est un ensemble de cartes gagn&#233; par un joueur ayant jou&#233; le groupe de cartes le plus fort qui est jou&#233; en dernier.\n";
-f+=M_13_2+"=Si le joueur ayant gagn&#233; un pli a encore des cartes, ce joueur comme le pli suivant.(Exemple: le joueur ayant jou&#233; un 2 commence le pli suivant.).\n";
-f+=M_13_3+"=Si le joueur ayant gagn&#233; un pli a fini, le joueur suivant qui a des cartes commence le pli suivant.\n";
+f+=M_13_0+"=Le président est joué par groupes de cartes de même force.\n";
+f+=M_13_1+"=Un pli est un ensemble de cartes gagné par un joueur ayant joué le groupe de cartes le plus fort qui est joué en dernier.\n";
+f+=M_13_2+"=Si le joueur ayant gagné un pli a encore des cartes, ce joueur comme le pli suivant.(Exemple: le joueur ayant joué un 2 commence le pli suivant.).\n";
+f+=M_13_3+"=Si le joueur ayant gagné un pli a fini, le joueur suivant qui a des cartes commence le pli suivant.\n";
 f+=M_13_4+"=Le joueur qui commence un pli est l'entameur.\n";
-f+=M_13_5+"=Le joueur qui a jou&#233; en dernier le groupe de cartes le plus fort d'un pli est le ramasseur du pli, ce joueur gagne le pli.\n";
+f+=M_13_5+"=Le joueur qui a joué en dernier le groupe de cartes le plus fort d'un pli est le ramasseur du pli, ce joueur gagne le pli.\n";
 f+=M_13_6+"=Le premier groupe de cartes d'un pli\n";
-f+=M_13_7+"=Le joueur &#224; droite du donneur commence &#224; jouer. Ce joueur peut jouer n'importe quel groupe de cartes de m&#234;me force.\n";
-f+=M_13_8+"=R&#232;gles\n";
-f+=M_13_9+"=Le joueur peut passer ou jouer des cartes plus fortes que les derni&#232;res cartes jou&#233;es. Les cartes d'un m&#234;me groupe doivent &#234;tre de m&#234;me force.\n";
-f+=M_13_10+"=De plus, pour jouer, le joueur doit utiliser le  player must use the m&#234;me nombre de cartes que le nombre de cartes jou&#233;es par l'entameur.\n";
-f+=M_13_11+"=Un joueur qui a pass&#233; ne peut pas jouer pendant le pli en cours.\n";
-f+=M_13_12+"=Si, au plus, un joueur n'a pas pass&#233;, le pli est fini. L'entameur devient:\n";
-f+=M_13_13+"=le joueur qui a jou&#233; le dernier groupe de cartes, si ce joueur a des cartes.\n";
-f+=M_13_14+"=sinon le joueur suivant, qui a des cartes, apr&#232;s le joueur qui a jou&#233; le dernier groupe de cartes.\n";
+f+=M_13_7+"=Le joueur à droite du donneur commence à jouer. Ce joueur peut jouer n'importe quel groupe de cartes de même force.\n";
+f+=M_13_8+"=Règles\n";
+f+=M_13_9+"=Le joueur peut passer ou jouer des cartes plus fortes que les dernières cartes jouées. Les cartes d'un même groupe doivent être de même force.\n";
+f+=M_13_10+"=De plus, pour jouer, le joueur doit utiliser le  player must use the même nombre de cartes que le nombre de cartes jouées par l'entameur.\n";
+f+=M_13_11+"=Un joueur qui a passé ne peut pas jouer pendant le pli en cours.\n";
+f+=M_13_12+"=Si, au plus, un joueur n'a pas passé, le pli est fini. L'entameur devient:\n";
+f+=M_13_13+"=le joueur qui a joué le dernier groupe de cartes, si ce joueur a des cartes.\n";
+f+=M_13_14+"=sinon le joueur suivant, qui a des cartes, après le joueur qui a joué le dernier groupe de cartes.\n";
 return f;
 }
 }

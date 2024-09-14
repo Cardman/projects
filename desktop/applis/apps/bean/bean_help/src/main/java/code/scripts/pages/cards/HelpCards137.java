@@ -11,7 +11,7 @@ return e;
 }
 static String fr(){
 String f="";
-f+=M_66_0+"=Des d&#233;monstrastions de parties de cartes, avec la belote et le tarot sont possibles.\n";
+f+=M_66_0+"=Des démonstrastions de parties de cartes, avec la belote et le tarot sont possibles.\n";
 f+=M_66_1+"=Ce sous menu comporte deux sous-menus:\n";
 f+=M_66_2+"=Belote, voir comment se joue une partie de belote\n";
 f+=M_66_3+"=Tarot, voir comment se joue une partie de tarot\n";

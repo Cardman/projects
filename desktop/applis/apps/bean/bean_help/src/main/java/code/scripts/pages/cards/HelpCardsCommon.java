@@ -1256,9 +1256,12 @@ protected static final String TABLE="table";
 protected static final String TD="td";
 protected static final String TR="tr";
 protected static final String UL="ul";
+protected static final char SEP = 160;
 protected HelpCardsCommon(){}
 static Attr at(String _name,String _value){
-return CoreDocument.createAttribute(_name,_value);
+Attr a_ = new Attr(_name);
+a_.setValue(_value);
+return a_;
 }
 static void at(Element _elt,CustList<Attr> _ls){
 _elt.setAttributes(new NamedNodeMap(_ls));

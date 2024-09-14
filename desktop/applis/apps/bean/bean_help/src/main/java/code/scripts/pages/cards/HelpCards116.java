@@ -8,7 +8,7 @@ return e;
 }
 static String fr(){
 String f="";
-f+=M_45_0+"=Cette action permet de g&#233;rer visuellement le tri des cartes et le sens de distribution.\n";
+f+=M_45_0+"=Cette action permet de gérer visuellement le tri des cartes et le sens de distribution.\n";
 return f;
 }
 }

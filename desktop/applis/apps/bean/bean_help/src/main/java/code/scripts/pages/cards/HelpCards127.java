@@ -20,7 +20,7 @@ f+=M_56_2+"=Annoncer un contrat ou \"passer\"\n";
 f+=M_56_3+"=Annoncer une carte\n";
 f+=M_56_4+"=Ecarter une ou plusieurs cartes\n";
 f+=M_56_5+"=Jouer une ou plusieurs cartes\n";
-f+=M_56_6+"=Cette bo&#238;te de dialogue permet de conseiller l'utilisateur, sans obliger &agrave; ce que'il suive le conseil.\n";
+f+=M_56_6+"=Cette boîte de dialogue permet de conseiller l'utilisateur, sans obliger à ce que'il suive le conseil.\n";
 return f;
 }
 }

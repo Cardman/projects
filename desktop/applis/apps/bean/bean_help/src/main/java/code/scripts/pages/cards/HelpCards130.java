@@ -13,8 +13,8 @@ static String fr(){
 String f="";
 f+=M_59_0+"=Editer Raccourci CTRL + E:\n";
 f+=M_59_1+"=Le sous menu \"Editer\" comporte les sous menus suivants:\n";
-f+=M_59_2+"=Belote: pour jouer une partie de belote &#233;dit&#233;e.\n";
-f+=M_59_3+"=Tarot: pour jouer une partie de tarot &#233;dit&#233;e.\n";
+f+=M_59_2+"=Belote: pour jouer une partie de belote éditée.\n";
+f+=M_59_3+"=Tarot: pour jouer une partie de tarot éditée.\n";
 return f;
 }
 }

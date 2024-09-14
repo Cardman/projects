@@ -22,17 +22,17 @@ static String fr(){
 String f="";
 f+=M_52_0+"=Temporisation du jeu raccourci F4\n";
 f+=M_52_1+"=L'action du sous menu \"Temporisation du jeu\" permet de changer\n";
-f+=M_52_2+"=les d&#233;lais entre deux cartes cons&#233;cutivement jou&#233;es par les \"robots\".\n";
-f+=M_52_3+"=les d&#233;lais entre deux plis ou tours cons&#233;cutivement jou&#233;s.\n";
-f+=M_52_4+"=les d&#233;lais entre deux contrats cons&#233;cutivement jou&#233;s par les \"robots\".\n";
-f+=M_52_5+"=Cette action met en place une bo&#238;te de dialogue.\n";
-f+=M_52_6+"=Cette bo&#238;te de dialogue permet de fixer les d&#233;lais entre:\n";
-f+=M_52_7+"=Deux cartes cons&#233;cutives.\n";
-f+=M_52_8+"=Deux contrats cons&#233;cutifs.\n";
-f+=M_52_9+"=Deux plis cons&#233;cutifs.\n";
-f+=M_52_10+"=De plus, cette bo&#238;te de dialogue permet\n";
-f+=M_52_11+"=d'activer ou de d&#233;sactiver les d&#233;lais entre deux plis cons&#233;cutifs,\n";
-f+=M_52_12+"=sans cliquer sur les boutons de la fen&#234;tre plac&#233;s en bas &#224; droite de la fen&#234;tre.\n";
+f+=M_52_2+"=les délais entre deux cartes consécutivement jouées par les \"robots\".\n";
+f+=M_52_3+"=les délais entre deux plis ou tours consécutivement joués.\n";
+f+=M_52_4+"=les délais entre deux contrats consécutivement joués par les \"robots\".\n";
+f+=M_52_5+"=Cette action met en place une boîte de dialogue.\n";
+f+=M_52_6+"=Cette boîte de dialogue permet de fixer les délais entre:\n";
+f+=M_52_7+"=Deux cartes consécutives.\n";
+f+=M_52_8+"=Deux contrats consécutifs.\n";
+f+=M_52_9+"=Deux plis consécutifs.\n";
+f+=M_52_10+"=De plus, cette boîte de dialogue permet\n";
+f+=M_52_11+"=d'activer ou de désactiver les délais entre deux plis consécutifs,\n";
+f+=M_52_12+"=sans cliquer sur les boutons de la fenêtre placés en bas à droite de la fenêtre.\n";
 return f;
 }
 }

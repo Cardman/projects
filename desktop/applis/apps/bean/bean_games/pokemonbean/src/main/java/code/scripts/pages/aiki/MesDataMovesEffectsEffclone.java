@@ -1,14 +1,14 @@
 package code.scripts.pages.aiki;
 final class MesDataMovesEffectsEffclone{
 private static final String C_P_40_0="The user uses {0} of its hp maximum.\n";
-private static final String C_P_40_10="Le clone ne peut pas &ecirc;tre soign&eacute;.\n";
-private static final String C_P_40_11="Le clone subit les d&eacute;g&acirc;ts au lieu de son possesseur sauf pour les d&eacute;g&acirc;ts de fin de tour autres que par les attaques suivantes:.\n";
+private static final String C_P_40_10="Le clone ne peut pas être soigné.\n";
+private static final String C_P_40_11="Le clone subit les dégâts au lieu de son possesseur sauf pour les dégâts de fin de tour autres que par les attaques suivantes:.\n";
 private static final String C_P_40_12="Si le possesseur utilise une des attaques suivantes:\n";
-private static final String C_P_40_13="alors le clone est transmis vers le pok&eacute;mon entrant et ce dernier subit les d&eacute;g&acirc;ts des attaques suivantes:\n";
-private static final String C_P_40_14="Les d&eacute;g&acirc;ts d''un pok&eacute;mon clon&eacute; confus vont vers le pok&eacute;mon clon&eacute;.\n";
-private static final String C_P_40_15="Les d&eacute;g&acirc;ts de recul d''une attaque d''un pok&eacute;mon clon&eacute; vont vers le pok&eacute;mon clon&eacute;.\n";
-private static final String C_P_40_16="Les attaques se basant sur des pv restants se basent sur les pv restants du pok&eacute;mon clon&eacute;.\n";
-private static final String C_P_40_17="Si le possesseur du clone tombe KO, alors le clone est d&eacute;truit.\n";
+private static final String C_P_40_13="alors le clone est transmis vers le pokémon entrant et ce dernier subit les dégâts des attaques suivantes:\n";
+private static final String C_P_40_14="Les dégâts d''un pokémon cloné confus vont vers le pokémon cloné.\n";
+private static final String C_P_40_15="Les dégâts de recul d''une attaque d''un pokémon cloné vont vers le pokémon cloné.\n";
+private static final String C_P_40_16="Les attaques se basant sur des pv restants se basent sur les pv restants du pokémon cloné.\n";
+private static final String C_P_40_17="Si le possesseur du clone tombe KO, alors le clone est détruit.\n";
 private static final String C_P_40_1="The clone cannot be healed.\n";
 private static final String C_P_40_2="The clone suffers damage instead of its owner except for damage of end of round other by the following moves:\n";
 private static final String C_P_40_3="If the owner uses one of the following moves:\n";

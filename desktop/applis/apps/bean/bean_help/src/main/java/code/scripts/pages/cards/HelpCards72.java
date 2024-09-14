@@ -25,14 +25,14 @@ f+=M_1_1+"=12 figures.\n";
 f+=M_1_2+"=4 rois.\n";
 f+=M_1_3+"=4 dames.\n";
 f+=M_1_4+"=4 valets.\n";
-f+=M_1_5+"=16 cartes num&#233;rot&#233;es de 7 &#224; 10.\n";
+f+=M_1_5+"=16 cartes numérotées de 7 à 10.\n";
 f+=M_1_6+"=4 as.\n";
-f+=M_1_7+"=Comme dans beaucoup de jeux de cartes, il existe 4 couleurs: coeur, pique, carreau, tr&#232;fle; pour les rois, dames, valets et cartes chiffr&#233;es.\n";
+f+=M_1_7+"=Comme dans beaucoup de jeux de cartes, il existe 4 couleurs: coeur, pique, carreau, trèfle; pour les rois, dames, valets et cartes chiffrées.\n";
 f+=M_1_8+"=Pour chaque couleur, chaque type de carte est unique.(type de carte: roi, dame...)\n";
 f+=M_1_9+"=Coeur\n";
 f+=M_1_10+"=Pique\n";
 f+=M_1_11+"=Carreau\n";
-f+=M_1_12+"=Tr&#232;fle\n";
+f+=M_1_12+"=Trèfle\n";
 return f;
 }
 }

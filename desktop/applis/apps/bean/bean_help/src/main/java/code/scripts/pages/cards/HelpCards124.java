@@ -16,7 +16,7 @@ return e;
 }
 static String fr(){
 String f="";
-f+=M_53_0+"=Le menu \"Param&#232;tres\" poss&#232;de huit sous menus qui sont:\n";
+f+=M_53_0+"=Le menu \"Paramètres\" possède huit sous menus qui sont:\n";
 f+=M_53_1+"=Belote (raccourci: MAJ + B), toujours accessible\n";
 f+=M_53_2+"=Tarot (raccourci: MAJ + T), toujours accessible\n";
 f+=M_53_3+"=Joueurs (raccourci: CTRL + ALT + J), toujours accessible\n";

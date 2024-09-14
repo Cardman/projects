@@ -16,15 +16,15 @@ return e;
 }
 static String fr(){
 String f="";
-f+=M_65_0+"=La donne de tarot est al&#233;atoire et param&#233;tr&#233;e par les r&#232;gles.\n";
+f+=M_65_0+"=La donne de tarot est aléatoire et paramétrée par les règles.\n";
 f+=M_65_1+"=Il est possible de mettre en pause la partie pour comprendre le fonctionnement de la partie.\n";
-f+=M_65_2+"=Les diff&#233;rences entre une partie que l'utilisateur joue et une d&#233;monstration sont:\n";
+f+=M_65_2+"=Les différences entre une partie que l'utilisateur joue et une démonstration sont:\n";
 f+=M_65_3+"=Pas de boutons d'interaction avec la partie.\n";
-f+=M_65_4+"=Dans la zone de texte, on affiche toutes les informations sur la partie d&#233;mont&#233;e.\n";
-f+=M_65_5+"=Il n'y a pas de bo&#238;tes de dialogue pour une partie d&#233;monstr&#233;e.\n";
-f+=M_65_6+"=L'option conseil est toujours d&#233;sactiv&#233;e.\n";
-f+=M_65_7+"=Il est impossible de sauvegarder la partie de cartes d&#233;montr&#233;e.\n";
-f+=M_65_8+"=La partie de cartes d&#233;montr&#233;e peut &#234;tre interrompue brusquement.\n";
+f+=M_65_4+"=Dans la zone de texte, on affiche toutes les informations sur la partie démontée.\n";
+f+=M_65_5+"=Il n'y a pas de boîtes de dialogue pour une partie démonstrée.\n";
+f+=M_65_6+"=L'option conseil est toujours désactivée.\n";
+f+=M_65_7+"=Il est impossible de sauvegarder la partie de cartes démontrée.\n";
+f+=M_65_8+"=La partie de cartes démontrée peut être interrompue brusquement.\n";
 return f;
 }
 }

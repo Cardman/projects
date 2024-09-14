@@ -20,16 +20,16 @@ return e;
 static String fr(){
 String f="";
 f+=M_3_0+"=Le joueur qui distribue les cartes s'appelle le donneur.\n";
-f+=M_3_1+"=D'une partie &#224; l'autre, le donneur tourne,\n";
-f+=M_3_2+"=c'est &#224; dire que le nouveau donneur est le joueur plac&#233; &#224; droite de l'ancien donneur,\n";
-f+=M_3_3+"=et le jeu est m&#233;lang&#233; et coup&#233; &#224; chaque fois.\n";
+f+=M_3_1+"=D'une partie à l'autre, le donneur tourne,\n";
+f+=M_3_2+"=c'est à dire que le nouveau donneur est le joueur placé à droite de l'ancien donneur,\n";
+f+=M_3_3+"=et le jeu est mélangé et coupé à chaque fois.\n";
 f+=M_3_4+"=A la belote classique,\n";
-f+=M_3_5+"=chaque joueur poss&#232;de, au d&#233;part, 5 cartes. Le reste des cartes (en l'occurence 12) constituent un talon,\n";
-f+=M_3_6+"=les cartes sont distribu&#233;es 3 par 3, puis 2 par 2.\n";
-f+=M_3_7+"=Une fois que tous les joueurs ont cinq cartes, la carte au-dessus du talon doit &#234;tre retourn&#233;e.\n";
-f+=M_3_8+"=A la belote coinch&#233;e,\n";
-f+=M_3_9+"=chaque joueur poss&#232;de 8 cartes,\n";
-f+=M_3_10+"=les cartes sont distribu&#233;es 3 par 3, puis 2 par 2 pour les derni&#232;res.\n";
+f+=M_3_5+"=chaque joueur possède, au départ, 5 cartes. Le reste des cartes (en l'occurence 12) constituent un talon,\n";
+f+=M_3_6+"=les cartes sont distribuées 3 par 3, puis 2 par 2.\n";
+f+=M_3_7+"=Une fois que tous les joueurs ont cinq cartes, la carte au-dessus du talon doit être retournée.\n";
+f+=M_3_8+"=A la belote coinchée,\n";
+f+=M_3_9+"=chaque joueur possède 8 cartes,\n";
+f+=M_3_10+"=les cartes sont distribuées 3 par 3, puis 2 par 2 pour les dernières.\n";
 f+=M_3_11+"=Le donneur distribue dans le sens contraire des aiguilles d'une montre.\n";
 return f;
 }

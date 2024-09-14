@@ -88,7 +88,9 @@ protected static final String DIFF = "d";
 protected static final char SEP = 160;
 protected PageCardsCommon(){}
 public static Attr at(String _name,String _value){
-return CoreDocument.createAttribute(_name,_value);
+Attr a_ = new Attr(_name);
+a_.setValue(_value);
+return a_;
 }
 public static void at(Element _elt,CustList<Attr> _ls){
 _elt.setAttributes(new NamedNodeMap(_ls));
@@ -97,7 +99,7 @@ public static CustList<Attr> al(int _len){
 return new CustList<Attr>(new CollCapacity(_len));
 }
 public static Text tx(Document _doc,String _v){
-return _doc.createEscapedTextNode(_v);
+return _doc.createTextNode(_v);
 }
 public static Element el(Document _doc,String _value){
 return _doc.createElement(_value);

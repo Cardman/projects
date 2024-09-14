@@ -12,11 +12,11 @@ return e;
 }
 static String fr(){
 String f="";
-f+=M_16_0+"=Le pr&#233;sident se joue avec 52 cartes.\n";
-f+=M_16_1+"=Il existe diff&#233;rents modes de jeu.\n";
-f+=M_16_2+"=Le but est de se d&#233;barrasser des cartes le plus vite possible.\n";
+f+=M_16_0+"=Le président se joue avec 52 cartes.\n";
+f+=M_16_1+"=Il existe différents modes de jeu.\n";
+f+=M_16_2+"=Le but est de se débarrasser des cartes le plus vite possible.\n";
 f+=M_16_3+"=Quelques variantes (ou modes) existent.\n";
-f+=M_16_4+"=Le pr&#233;sident se joue par un ensemble de cartes par chaque joueur.\n";
+f+=M_16_4+"=Le président se joue par un ensemble de cartes par chaque joueur.\n";
 return f;
 }
 }

@@ -1,14 +1,14 @@
 package code.scripts.pages.aiki;
 final class MesDataMovesEffectsEffswitchitems{
 private static final String C_P_61_0="This effect changes the owner of an item at least.\n";
-private static final String C_P_61_10="La baie du combattant est supprim&eacute; d&eacute;finitivement.\n";
-private static final String C_P_61_11="Le lanceur et la cible s''&eacute;changent les objets.\n";
+private static final String C_P_61_10="La baie du combattant est supprimé définitivement.\n";
+private static final String C_P_61_11="Le lanceur et la cible s''échangent les objets.\n";
 private static final String C_P_61_12="La cible perd son objet. Le lanceur ne prend pas l''objet perdu par la cible.\n";
 private static final String C_P_61_13="Le lanceur prend l''objet de la cible.\n";
 private static final String C_P_61_14="Si possible, le lanceur utilise l''objet de la cible.\n";
 private static final String C_P_61_15="Si possible, le lanceur utilise l''objet de la cible.\n";
-private static final String C_P_61_16="Le lanceur donne son objet &agrave; la cible.\n";
-private static final String C_P_61_17="Le lanceur r&eacute;cup&egrave;re le dernier objet qu''il a utilis&eacute;.\n";
+private static final String C_P_61_16="Le lanceur donne son objet à la cible.\n";
+private static final String C_P_61_17="Le lanceur récupère le dernier objet qu''il a utilisé.\n";
 private static final String C_P_61_1="The berry of the fighter is definitively deleted.\n";
 private static final String C_P_61_2="The user and the target switch one each other the items.\n";
 private static final String C_P_61_3="The target looses its item. The user does not take the lost item of the target.\n";

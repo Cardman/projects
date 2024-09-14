@@ -2,13 +2,13 @@ package code.scripts.pages.aiki;
 final class MesDataMovesEffectsEffcounterattack{
 private static final String C_P_44_0="The effect protects its user against some moves and can let its user counter attack (return some effects of these moves).\n";
 private static final String C_P_44_10="{0}\n";
-private static final String C_P_44_11="L''effet prot&egrave;ge son lanceur contre certains attaques et peut permettre de contre attaquer (retourner certains des effets de ces attaques).\n";
-private static final String C_P_44_12="Lorsqu''un pokemon attaque le lanceur de l''attaque {0}, la protection de l''effet &eacute;choue si et seulement si une des conditions est v&eacute;rifi&eacute;e:\n";
-private static final String C_P_44_13="Lorsqu''un pokemon adverse attaque le lanceur de l''attaque {0}, la contre-attaque de l''effet &eacute;choue si et seulement si une des conditions est v&eacute;rifi&eacute;e:\n";
-private static final String C_P_44_14="Lorsqu''un pokemon adverse attaque le lanceur de l''attaque {0}, il perd des d&eacute;g&acirc;ts en fonction des types de l''attaque utilis&eacute;e (les degats sont cumules s''il y a plusieurs types pour l''attaque):\n";
+private static final String C_P_44_11="L''effet protège son lanceur contre certains attaques et peut permettre de contre attaquer (retourner certains des effets de ces attaques).\n";
+private static final String C_P_44_12="Lorsqu''un pokemon attaque le lanceur de l''attaque {0}, la protection de l''effet échoue si et seulement si une des conditions est vérifiée:\n";
+private static final String C_P_44_13="Lorsqu''un pokemon adverse attaque le lanceur de l''attaque {0}, la contre-attaque de l''effet échoue si et seulement si une des conditions est vérifiée:\n";
+private static final String C_P_44_14="Lorsqu''un pokemon adverse attaque le lanceur de l''attaque {0}, il perd des dégâts en fonction des types de l''attaque utilisée (les degats sont cumules s''il y a plusieurs types pour l''attaque):\n";
 private static final String C_P_44_15="Type de l''attaque\n";
 private static final String C_P_44_16="Taux de vie perdue\n";
-private static final String C_P_44_17="Lorsqu''un pokemon adverse attaque le lanceur de l''attaque {0} avec une attaque directe, ses boosts de statistiques varient de la fa&ccedil;on suivante:\n";
+private static final String C_P_44_17="Lorsqu''un pokemon adverse attaque le lanceur de l''attaque {0} avec une attaque directe, ses boosts de statistiques varient de la façon suivante:\n";
 private static final String C_P_44_18="Statistique\n";
 private static final String C_P_44_19="Variation de la statistique\n";
 private static final String C_P_44_1="While a pokemon uses a move against the user of the move {0}, the protection of the effect fails if and only if one of the conditions is checked:\n";

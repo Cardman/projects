@@ -26,23 +26,23 @@ return e;
 static String fr(){
 String f="";
 f+=M_18_0+"=Le jeu se compose de:\n";
-f+=M_18_1+"=21 atouts num&#233;rot&#233;s de 1 &#224; 21.\n";
+f+=M_18_1+"=21 atouts numérotés de 1 à 21.\n";
 f+=M_18_2+"=56 cartes de couleur.\n";
 f+=M_18_3+"=16 figures.\n";
 f+=M_18_4+"=4 rois.\n";
 f+=M_18_5+"=4 dames.\n";
 f+=M_18_6+"=4 cavaliers.\n";
 f+=M_18_7+"=4 valets.\n";
-f+=M_18_8+"=40 cartes basses num&#233;rot&#233;es de 1 &#224; 10.\n";
-f+=M_18_9+"=1 carte appel&#233;e \"Excuse\".Des fois, cette carte est consid&#233;r&#233;e comme un atout, des fois non.\n";
-f+=M_18_10+"=Comme dans beaucoup de jeux de cartes, il existe 4 couleurs: coeur, pique, carreau, tr&#232;fle; pour les rois, dames, cavaliers, valets et cartes basses.\n";
+f+=M_18_8+"=40 cartes basses numérotées de 1 à 10.\n";
+f+=M_18_9+"=1 carte appelée \"Excuse\".Des fois, cette carte est considérée comme un atout, des fois non.\n";
+f+=M_18_10+"=Comme dans beaucoup de jeux de cartes, il existe 4 couleurs: coeur, pique, carreau, trèfle; pour les rois, dames, cavaliers, valets et cartes basses.\n";
 f+=M_18_11+"=Pour chaque couleur, chaque type de carte est unique.(type de carte: roi, dame...)\n";
 f+=M_18_12+"=Excuse\n";
 f+=M_18_13+"=Atouts\n";
 f+=M_18_14+"=Coeur\n";
 f+=M_18_15+"=Pique\n";
 f+=M_18_16+"=Carreau\n";
-f+=M_18_17+"=Tr&#232;fle\n";
+f+=M_18_17+"=Trèfle\n";
 return f;
 }
 }

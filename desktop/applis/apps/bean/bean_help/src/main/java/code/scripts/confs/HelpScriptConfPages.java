@@ -503,8 +503,12 @@ public final class HelpScriptConfPages {
     private static Element info(Document _doc, String _tag, String _one, String _two) {
         Element element_ = _doc.createElement(_tag);
         NamedNodeMap attributes_ = element_.getAttributes();
-        attributes_.add(CoreDocument.createAttribute(POSITION,_one));
-        attributes_.add(CoreDocument.createAttribute(TEXTE,_two));
+        Attr pos_ = new Attr(POSITION);
+        pos_.setValue(_one);
+        attributes_.add(pos_);
+        Attr txt_ = new Attr(POSITION);
+        txt_.setValue(_two);
+        attributes_.add(txt_);
         return element_;
     }
     public static TranslationsFile en(){

@@ -8,7 +8,7 @@ return e;
 }
 static String fr(){
 String f="";
-f+=M_37_0+"=Le menu Aide poss&#232;de un sous menu qui est: Aide g&#233;n&#233;rale, (Raccourci: F3), toujours accesible.\n";
+f+=M_37_0+"=Le menu Aide possède un sous menu qui est: Aide générale, (Raccourci: F3), toujours accesible.\n";
 return f;
 }
 }

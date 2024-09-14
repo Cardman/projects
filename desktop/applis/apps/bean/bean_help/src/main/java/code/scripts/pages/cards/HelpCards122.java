@@ -19,14 +19,14 @@ static String fr(){
 String f="";
 f+=M_51_0+"=Tarot raccourci MAJ + T\n";
 f+=M_51_1+"=L'action du sous menu \"Tarot\" permet de changer les variantes de jeu pour le tarot.\n";
-f+=M_51_2+"=Cette action met en place une bo&#238;te de dialogue.\n";
-f+=M_51_3+"=La bo&#238;te de dialogue permet de mettre en place des variantes.\n";
-f+=M_51_4+"=Ceci ne change pas les r&#232;gles du jeu de l'&#233;ventuelle partie jou&#233;e.\n";
-f+=M_51_5+"=On change les r&#232;gles du jeu du tarot &#224; partir de la prochaine partie de cartes al&#233;atoire ou d'entra&#238;nement.\n";
-f+=M_51_6+"=On ne change pas les r&#232;gles du jeu du tarot lors d'un tournoi.\n";
-f+=M_51_7+"=Le bouton, dont le nom est \"Valider\", sert &#224; valider les modifications.\n";
-f+=M_51_8+"=Si l'utilisateur a cliqu&#233; sur la croix rouge en haut &#224; droite de la fen&#234;tre,\n";
-f+=M_51_9+"=alors aucune modification n'est faite et la bo&#238;te de dialogue se ferme.\n";
+f+=M_51_2+"=Cette action met en place une boîte de dialogue.\n";
+f+=M_51_3+"=La boîte de dialogue permet de mettre en place des variantes.\n";
+f+=M_51_4+"=Ceci ne change pas les règles du jeu de l'éventuelle partie jouée.\n";
+f+=M_51_5+"=On change les règles du jeu du tarot à partir de la prochaine partie de cartes aléatoire ou d'entraînement.\n";
+f+=M_51_6+"=On ne change pas les règles du jeu du tarot lors d'un tournoi.\n";
+f+=M_51_7+"=Le bouton, dont le nom est \"Valider\", sert à valider les modifications.\n";
+f+=M_51_8+"=Si l'utilisateur a cliqué sur la croix rouge en haut à droite de la fenêtre,\n";
+f+=M_51_9+"=alors aucune modification n'est faite et la boîte de dialogue se ferme.\n";
 return f;
 }
 }

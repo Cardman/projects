@@ -79,7 +79,7 @@ public final class AnaRendBlockHelp {
 
     public static TranslationsFile file(String _content) {
         TranslationsFile t_ = new TranslationsFile();
-        for (EntryCust<String,String> e: MessagesUtil.getMessages(DocumentBuilder.transformSpecialChars(_content,true,true)).entryList()) {
+        for (EntryCust<String,String> e: MessagesUtil.getMessages(_content).entryList()) {
             t_.add(e.getKey(),e.getValue());
         }
         return t_;

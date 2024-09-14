@@ -11,7 +11,6 @@ import aiki.sml.trs.*;
 import aiki.map.levels.enums.*;
 import aiki.game.params.enums.*;
 import aiki.map.pokemon.enums.*;
-import code.sml.*;
 
 public final class LoadResTrs {
 
@@ -111,10 +110,9 @@ public final class LoadResTrs {
             }
             StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
             litteral_
-                    .addEntry(infos_.first(), DocumentBuilder
-                            .transformSpecialChars(StringUtil
+                    .addEntry(infos_.first(), StringUtil
                                     .join(infos_.leftMinusOne(
-                                            infos_.size()), TAB)));
+                                            infos_.size()), TAB));
         }
         return litteral_;
     }
@@ -129,7 +127,7 @@ public final class LoadResTrs {
             StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
             targets_.addEntry(
                     TargetChoice.getTargetChoiceByName(infos_.first()),
-                    DocumentBuilder.transformSpecialChars(infos_.last()));
+                    infos_.last());
         }
         return targets_;
     }
@@ -143,7 +141,7 @@ public final class LoadResTrs {
             }
             StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
             statistics_.addEntry(Statistic.getStatisticByName(infos_.first()),
-                    DocumentBuilder.transformSpecialChars(infos_.last()));
+                    infos_.last());
         }
         return statistics_;
     }
@@ -157,7 +155,7 @@ public final class LoadResTrs {
             }
             StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
             environments_.addEntry(EnvironmentType.getEnvByName(infos_.first()),
-                    DocumentBuilder.transformSpecialChars(infos_.last()));
+                    infos_.last());
         }
         return environments_;
     }
@@ -171,7 +169,7 @@ public final class LoadResTrs {
             }
             StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
             diffLaw_.addEntry(DifficultyModelLaw.getModelByName(infos_.first()),
-                    DocumentBuilder.transformSpecialChars(infos_.last()));
+                    infos_.last());
         }
         return diffLaw_;
     }
@@ -185,8 +183,7 @@ public final class LoadResTrs {
             }
             StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
             diffWinPts_.addEntry(
-                    DifficultyWinPointsFight.getDiffWonPtsByName(infos_.first()), DocumentBuilder
-                            .transformSpecialChars(infos_.last()));
+                    DifficultyWinPointsFight.getDiffWonPtsByName(infos_.first()), infos_.last());
         }
         return diffWinPts_;
     }
@@ -200,7 +197,7 @@ public final class LoadResTrs {
             }
             StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
             booleans_.addEntry(SelectedBoolean.getBoolByName(infos_.first()),
-                    DocumentBuilder.transformSpecialChars(infos_.last()));
+                    infos_.last());
         }
         return booleans_;
     }
@@ -214,7 +211,7 @@ public final class LoadResTrs {
             }
             StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
             genders_.addEntry(Gender.getGenderByName(infos_.first()),
-                    DocumentBuilder.transformSpecialChars(infos_.last()));
+                    infos_.last());
         }
         return genders_;
     }
@@ -228,7 +225,7 @@ public final class LoadResTrs {
             }
             StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
             out_.addEntry(infos_.first(),
-                    DocumentBuilder.transformSpecialChars(infos_.last()));
+                    infos_.last());
         }
         return out_;
     }

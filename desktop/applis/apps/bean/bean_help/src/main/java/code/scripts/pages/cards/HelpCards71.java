@@ -11,8 +11,8 @@ return e;
 static String fr(){
 String f="";
 f+=M_0_0+"=L'annonce de base est la belote rebelote.\n";
-f+=M_0_1+"=Pour annoncer la belote-rebelote une premi&#232;re fois, il faut avoir le roi et la dame de la couleur de l'atout et jouer l'un des deux.\n";
-f+=M_0_2+"=Pour annoncer la belote-rebelote une deuxi&#232;me fois, il faut avoir le roi ou la dame de la couleur de l'atout et jouer la carte poss&#233;d&#233;e entre le roi et la dame et avoir annonc&#233; une premi&#232;re fois la belote-rebelote.\n";
+f+=M_0_1+"=Pour annoncer la belote-rebelote une première fois, il faut avoir le roi et la dame de la couleur de l'atout et jouer l'un des deux.\n";
+f+=M_0_2+"=Pour annoncer la belote-rebelote une deuxième fois, il faut avoir le roi ou la dame de la couleur de l'atout et jouer la carte possédée entre le roi et la dame et avoir annoncé une première fois la belote-rebelote.\n";
 return f;
 }
 }

@@ -10,7 +10,7 @@ return e;
 static String fr(){
 String f="";
 f+=M_50_0+"=Cette action permet de changer la langue.\n";
-f+=M_50_1+"=Cette action ouvre une bo&#238;te de dialogue.\n";
+f+=M_50_1+"=Cette action ouvre une boîte de dialogue.\n";
 return f;
 }
 }

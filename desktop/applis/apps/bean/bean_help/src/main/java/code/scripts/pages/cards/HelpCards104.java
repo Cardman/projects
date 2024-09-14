@@ -13,11 +13,11 @@ return e;
 }
 static String fr(){
 String f="";
-f+=M_33_0+"=Le tarot se joue avec 78 cartes, de 3 &#224; 5 joueurs.\n";
-f+=M_33_1+"=Il existe diff&#233;rents modes de jeu.\n";
-f+=M_33_2+"=Nous allons pr&#233;senter le mode de jeu classique qui est le jeu de contrat.\n";
+f+=M_33_0+"=Le tarot se joue avec 78 cartes, de 3 à 5 joueurs.\n";
+f+=M_33_1+"=Il existe différents modes de jeu.\n";
+f+=M_33_2+"=Nous allons présenter le mode de jeu classique qui est le jeu de contrat.\n";
 f+=M_33_3+"=Le but, c'est de marquer le plus de points possible.\n";
-f+=M_33_4+"=Plusieurs variantes (ou modes) existent. A l'origine, ce jeu se jouait &#224; 4 joueurs.\n";
+f+=M_33_4+"=Plusieurs variantes (ou modes) existent. A l'origine, ce jeu se jouait à 4 joueurs.\n";
 f+=M_33_5+"=Comme beaucoup de jeux de cartes, le tarot se joue carte par carte, les joueurs jouent une carte par tour.\n";
 return f;
 }
