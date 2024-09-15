@@ -336,15 +336,15 @@ public final class MetaDocument {
         line_.setStyle(_styleLoc);
         MetaLabel nb_;
         if (StringUtil.quickEq(_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrType()), _rend.getKeyWordsValues().getValueLiNb())) {
-            nb_ = new MetaNumberedLabel(line_, liLast_, MetaNumberBase.NUMBER);
+            nb_ = new MetaNumberedLabel(line_, liLast_, MetaNumberBase.NUMBER, _rend.getKeyWordsDefs());
         } else if (StringUtil.quickEq(_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrType()), _rend.getKeyWordsValues().getValueLiMinLet())) {
-            nb_ = new MetaNumberedLabel(line_, liLast_, MetaNumberBase.LETTER);
+            nb_ = new MetaNumberedLabel(line_, liLast_, MetaNumberBase.LETTER, _rend.getKeyWordsDefs());
         } else if (StringUtil.quickEq(_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrType()), _rend.getKeyWordsValues().getValueLiMajLet())) {
-            nb_ = new MetaNumberedLabel(line_, liLast_, MetaNumberBase.MAJ_LETTER);
+            nb_ = new MetaNumberedLabel(line_, liLast_, MetaNumberBase.MAJ_LETTER, _rend.getKeyWordsDefs());
         } else if (StringUtil.quickEq(_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrType()), _rend.getKeyWordsValues().getValueLiMinLat())) {
-            nb_ = new MetaNumberedLabel(line_, liLast_, MetaNumberBase.LATIN_MIN);
+            nb_ = new MetaNumberedLabel(line_, liLast_, MetaNumberBase.LATIN_MIN, _rend.getKeyWordsDefs());
         } else if (StringUtil.quickEq(_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrType()), _rend.getKeyWordsValues().getValueLiMajLat())) {
-            nb_ = new MetaNumberedLabel(line_, liLast_, MetaNumberBase.LATIN_MAJ);
+            nb_ = new MetaNumberedLabel(line_, liLast_, MetaNumberBase.LATIN_MAJ, _rend.getKeyWordsDefs());
         } else if (StringUtil.quickEq(_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrType()), _rend.getKeyWordsValues().getValueLiCircle())) {
             nb_ = new MetaPointLabel(line_, MetaPointForm.CIRCLE);
         } else if (StringUtil.quickEq(_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrType()), _rend.getKeyWordsValues().getValueLiDisk())) {
@@ -356,7 +356,7 @@ public final class MetaDocument {
         } else if (!typeLiLast_.isEmpty()) {
             nb_ = liType(_rend, line_, info_);
         } else if (info_.getOrder() == BoolVal.TRUE) {
-            nb_ = new MetaNumberedLabel(line_, liLast_, MetaNumberBase.NUMBER);
+            nb_ = new MetaNumberedLabel(line_, liLast_, MetaNumberBase.NUMBER, _rend.getKeyWordsDefs());
         } else {
             nb_ = new MetaPointLabel(line_, MetaPointForm.DISK);
         }
@@ -378,15 +378,15 @@ public final class MetaDocument {
         String typeLiLast_ = _info.getTypeLi();
         MetaLabel nb_;
         if (StringUtil.quickEq(typeLiLast_, _rend.getKeyWordsValues().getValueLiNb())) {
-            nb_ = new MetaNumberedLabel(_line, liLast_, MetaNumberBase.NUMBER);
+            nb_ = new MetaNumberedLabel(_line, liLast_, MetaNumberBase.NUMBER, _rend.getKeyWordsDefs());
         } else if (StringUtil.quickEq(typeLiLast_, _rend.getKeyWordsValues().getValueLiMinLet())) {
-            nb_ = new MetaNumberedLabel(_line, liLast_, MetaNumberBase.LETTER);
+            nb_ = new MetaNumberedLabel(_line, liLast_, MetaNumberBase.LETTER, _rend.getKeyWordsDefs());
         } else if (StringUtil.quickEq(typeLiLast_, _rend.getKeyWordsValues().getValueLiMajLet())) {
-            nb_ = new MetaNumberedLabel(_line, liLast_, MetaNumberBase.MAJ_LETTER);
+            nb_ = new MetaNumberedLabel(_line, liLast_, MetaNumberBase.MAJ_LETTER, _rend.getKeyWordsDefs());
         } else if (StringUtil.quickEq(typeLiLast_, _rend.getKeyWordsValues().getValueLiMinLat())) {
-            nb_ = new MetaNumberedLabel(_line, liLast_, MetaNumberBase.LATIN_MIN);
+            nb_ = new MetaNumberedLabel(_line, liLast_, MetaNumberBase.LATIN_MIN, _rend.getKeyWordsDefs());
         } else if (StringUtil.quickEq(typeLiLast_, _rend.getKeyWordsValues().getValueLiMajLat())) {
-            nb_ = new MetaNumberedLabel(_line, liLast_, MetaNumberBase.LATIN_MAJ);
+            nb_ = new MetaNumberedLabel(_line, liLast_, MetaNumberBase.LATIN_MAJ, _rend.getKeyWordsDefs());
         } else if (StringUtil.quickEq(typeLiLast_, _rend.getKeyWordsValues().getValueLiCircle())) {
             nb_ = new MetaPointLabel(_line, MetaPointForm.CIRCLE);
         } else if (StringUtil.quickEq(typeLiLast_, _rend.getKeyWordsValues().getValueLiDisk())) {
@@ -396,7 +396,7 @@ public final class MetaDocument {
         } else if (StringUtil.quickEq(typeLiLast_, _rend.getKeyWordsValues().getValueLiRect())) {
             nb_ = new MetaPointLabel(_line, MetaPointForm.RECT);
         } else if (_info.getOrder() == BoolVal.TRUE) {
-            nb_ = new MetaNumberedLabel(_line, liLast_, MetaNumberBase.NUMBER);
+            nb_ = new MetaNumberedLabel(_line, liLast_, MetaNumberBase.NUMBER, _rend.getKeyWordsDefs());
         } else {
             nb_ = new MetaPointLabel(_line, MetaPointForm.DISK);
         }

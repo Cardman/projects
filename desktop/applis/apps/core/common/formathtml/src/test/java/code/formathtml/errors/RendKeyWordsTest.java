@@ -396,6 +396,33 @@ public final class RendKeyWordsTest extends EquallableRenderUtil {
         lgNamesContent_.otherStyleAttrs(def_, cust_, RendKeyWords.mappingStyleAttrs());
         lgNamesContent_.otherStyleValues(def_, cust_, RendKeyWords.mappingStyleValues());
         lgNamesContent_.otherValues(def_, cust_, RendKeyWords.mappingValues());
+        lgNamesContent_.otherStyleDefs(def_, cust_, RendKeyWords.mappingDefs());
         assertEq("",lgNamesContent_.getKeyWordAnchor());
+    }
+    @Test
+    public void patchDefs1() {
+        RendKeyWords lgNamesContent_ = new RendKeyWords();
+        lgNamesContent_.setDefMinLatin("_");
+        lgNamesContent_.setDefMajLatin(";;;;;;;;");
+        lgNamesContent_.setDefMinLetter("");
+        lgNamesContent_.setDefMajLetter("");
+        lgNamesContent_.patchDefs(TranslationsFile.extractDefs(RendKeyWords.messDef()));
+        assertEq("ivxlcdmq",lgNamesContent_.group().getKeyWordsDefs().getDefMinLatin());
+        assertEq("IVXLCDMQ",lgNamesContent_.group().getKeyWordsDefs().getDefMajLatin());
+        assertEq("abcdefghijklmnopqrstuvwxyz",lgNamesContent_.group().getKeyWordsDefs().getDefMinLetter());
+        assertEq("ABCDEFGHIJKLMNOPQRSTUVWXYZ",lgNamesContent_.group().getKeyWordsDefs().getDefMajLetter());
+    }
+    @Test
+    public void patchDefs2() {
+        RendKeyWords lgNamesContent_ = new RendKeyWords();
+        lgNamesContent_.setDefMinLatin("abcdefgh");
+        lgNamesContent_.setDefMajLatin("ABCDEFGH");
+        lgNamesContent_.setDefMinLetter("a");
+        lgNamesContent_.setDefMajLetter("A");
+        lgNamesContent_.patchDefs(TranslationsFile.extractDefs(RendKeyWords.messDef()));
+        assertEq("abcdefgh",lgNamesContent_.group().getKeyWordsDefs().getDefMinLatin());
+        assertEq("ABCDEFGH",lgNamesContent_.group().getKeyWordsDefs().getDefMajLatin());
+        assertEq("a",lgNamesContent_.group().getKeyWordsDefs().getDefMinLetter());
+        assertEq("A",lgNamesContent_.group().getKeyWordsDefs().getDefMajLetter());
     }
 }

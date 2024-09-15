@@ -44,6 +44,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
     public static final String STYLE_ATTRS = "7";
     public static final String STYLE_VALUES = "8";
     public static final String STYLE_UNITS = "9";
+    public static final String STYLE_DEFS = "10";
 //    public static final String RESOURCES_RENDERS_ALIASES = "resources_renders/aliases";
     private final LgNamesUtilsContent execContent;
 //    private final StringMap<String> properties = MessCdmRenderGr.ms();
@@ -95,6 +96,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         StringBuilder styleAttrsPart_ = new StringBuilder();
         StringBuilder styleValuesPart_ = new StringBuilder();
         StringBuilder styleUnitsPart_ = new StringBuilder();
+        StringBuilder styleDefsPart_ = new StringBuilder();
         for (Element c: _elt.getChildElements()) {
             String fieldName_ = c.getAttribute(ReadConfiguration.FIELD);
             feed(fieldName_, MESSAGES, messPart_, c);
@@ -107,6 +109,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
             feed(fieldName_, STYLE_ATTRS, styleAttrsPart_, c);
             feed(fieldName_, STYLE_VALUES, styleValuesPart_, c);
             feed(fieldName_, STYLE_UNITS, styleUnitsPart_, c);
+            feed(fieldName_, STYLE_DEFS, styleDefsPart_, c);
         }
         StringMap<String> mess_ = new StringMap<String>();
         StringMap<String> rendMess_ = new StringMap<String>();
@@ -118,6 +121,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         StringMap<String> styleAttrs_ = new StringMap<String>();
         StringMap<String> styleValues_ = new StringMap<String>();
         StringMap<String> styleUnits_ = new StringMap<String>();
+        StringMap<String> styleDefs_ = new StringMap<String>();
         buildMap(messPart_, mess_);
         buildMap(rendMessPart_, rendMess_);
         buildMap(keyWordsPart_, kw_);
@@ -128,6 +132,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         buildMap(styleAttrsPart_, styleAttrs_);
         buildMap(styleUnitsPart_, styleUnits_);
         buildMap(styleValuesPart_, styleValues_);
+        buildMap(styleDefsPart_, styleDefs_);
         if (!_lg.isEmpty()) {
             execContent.getCustAliases().messages(_mess, mess_);
             rendMessages(_rMess, rendMess_);
@@ -139,6 +144,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
             otherStyleAttrs(_rkw, styleAttrs_);
             otherStyleValues(_rkw, styleValues_);
             otherStyleUnits(_rkw, styleUnits_);
+            otherStyleDefs(_rkw, styleDefs_);
         } else {
             execContent.getCustAliases().messages(_mess,mess_,new StringMap<String>());
             rendMessages(_rMess,rendMess_,new StringMap<String>());
@@ -150,6 +156,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
             allStyleAttrs(_rkw,styleAttrs_,new StringMap<String>());
             allStyleValues(_rkw,styleValues_,new StringMap<String>());
             allStyleUnits(_rkw,styleUnits_,new StringMap<String>());
+            allStyleDefs(_rkw,styleDefs_,new StringMap<String>());
         }
     }
 
@@ -236,6 +243,29 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         TranslationsLg lg_ = CustAliases.lg(_trs, _lg, _language);
         TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
         TranslationsFile com_ = app_.getMapping().getVal(RendKeyWords.STYLE_ATTRS_FILE);
+        return TranslationsFile.extractMap(com_);
+    }
+    private void otherStyleDefs(RendKeyWords _rendKw, StringMap<String> _cust) {
+        otherStyleDefs(_rendKw,addonStyleDefs(execContent.getCustAliases()),_cust);
+    }
+    private void allStyleDefs(RendKeyWords _rendKw, StringMap<String> _util, StringMap<String> _cust) {
+        otherStyleDefs(_rendKw,_util,_cust);
+    }
+    private void otherStyleDefs(RendKeyWords _rendKw, StringMap<String> _util, StringMap<String> _cust) {
+        _rendKw.otherStyleDefs(_util, _cust, extractStyleDefs());
+    }
+    public StringMap<String> extractStyleDefs() {
+        TranslationsFile com_ = styleDefs(execContent.getCustAliases());
+        return TranslationsFile.extractKeys(com_);
+    }
+
+    public static StringMap<String> addonStyleDefs(CustAliases _cust) {
+        return defStyleDefs(_cust.getUserLg(), _cust.getTranslations(), _cust.getLanguage());
+    }
+    public static StringMap<String> defStyleDefs(String _lg, Translations _trs, String _language) {
+        TranslationsLg lg_ = CustAliases.lg(_trs, _lg, _language);
+        TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
+        TranslationsFile com_ = app_.getMapping().getVal(RendKeyWords.STYLE_DEF_FILE);
         return TranslationsFile.extractMap(com_);
     }
     private void otherValues(RendKeyWords _rendKw, StringMap<String> _cust) {
@@ -467,7 +497,20 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
     }
 
     @Override
+    public StringMap<String> mappingStyleDefs() {
+        CustAliases cust_ = execContent.getCustAliases();
+        TranslationsFile com_ = styleDefs(cust_);
+        return TranslationsFile.extractDefs(com_);
+    }
+
+    @Override
     public StringMap<String> mappingAliases() {
         return extractAliasesKeysFull(execContent.getCustAliases());
+    }
+
+    private TranslationsFile styleDefs(CustAliases _cust) {
+        TranslationsLg lg_ = CustAliases.lg(_cust.getTranslations(), _cust.getUserLg(), _cust.getLanguage());
+        TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
+        return app_.getMapping().getVal(RendKeyWords.STYLE_DEF_FILE);
     }
 }

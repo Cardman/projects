@@ -1,6 +1,7 @@
 package code.formathtml.errors;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.common.StringDataUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.errors.stds.StdWordError;
@@ -20,6 +21,7 @@ public final class RendKeyWords {
     public static final String STYLE_VALUES_FILE="st_values";
     public static final String STYLE_UNITS_FILE="st_units";
     public static final String STYLE_ATTRS_FILE="st_attrs";
+    public static final String STYLE_DEF_FILE="st_defs";
     public static final String TAG_FOR="0";
     public static final String TAG_WHILE="1";
     public static final String TAG_DO="2";
@@ -177,10 +179,16 @@ public final class RendKeyWords {
     public static final String STYLE_UNIT_EM="1";
     public static final String STYLE_UNIT_PX="2";
 
+    public static final String DEF_MIN_LETTER="0";
+    public static final String DEF_MAJ_LETTER="1";
+    public static final String DEF_MIN_LATIN="2";
+    public static final String DEF_MAJ_LATIN="3";
+
     private final RendKeyWordsTags rendKeyWordsTags = MessagesRendKeyWordsTags.init();
     private final RendKeyWordsAttrs rendKeyWordsAttrs = MessagesRendKeyWordsAttrs.init();
     private final RendKeyWordsValues rendKeyWordsValues = MessagesRendKeyWordsValues.init();
     private final RendKeyWordsStyles rendKeyWordsStyles = MessagesRendKeyWordsStyles.init();
+    private final RendKeyWordsDefs rendKeyWordsDefs = MessagesRendKeyWordsDefs.init();
 //    private String keyWordFor = "for";
 //    private String keyWordWhile = "while";
 //    private String keyWordDo = "do";
@@ -348,6 +356,60 @@ public final class RendKeyWords {
 //    private String styleUnitPx="px";
 //    private String styleUnitEm="em";
 //    private String styleUnitSolid="solid";
+    public static TranslationsFile messDef() {
+        TranslationsFile fr_ = new TranslationsFile();
+        fr_.add(DEF_MIN_LETTER,"DefMinLetter=abcdefghijklmnopqrstuvwxyz");
+        fr_.add(DEF_MAJ_LETTER,"DefMajLetter=ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+        fr_.add(DEF_MIN_LATIN,"DefMinLatin=ivxlcdmq");
+        fr_.add(DEF_MAJ_LATIN,"DefMajLatin=IVXLCDMQ");
+        return fr_;
+    }
+    public void otherStyleDefs(StringMap<String> _util, StringMap<String> _cust, StringMap<String> _mapping) {
+        setDefMinLetter(LgNamesContent.get(_util, _cust, _mapping.getVal(DEF_MIN_LETTER)));
+        setDefMajLetter(LgNamesContent.get(_util, _cust, _mapping.getVal(DEF_MAJ_LETTER)));
+        setDefMinLatin(LgNamesContent.get(_util, _cust, _mapping.getVal(DEF_MIN_LATIN)));
+        setDefMajLatin(LgNamesContent.get(_util, _cust, _mapping.getVal(DEF_MAJ_LATIN)));
+    }
+    public static StringMap<String> mappingDefs() {
+        StringMap<String> mappingStyleAttrs_ = new StringMap<String>();
+        mappingStyleAttrs_.addEntry(DEF_MIN_LETTER,"DefMinLetter");
+        mappingStyleAttrs_.addEntry(DEF_MAJ_LETTER,"DefMajLetter");
+        mappingStyleAttrs_.addEntry(DEF_MIN_LATIN,"DefMinLatin");
+        mappingStyleAttrs_.addEntry(DEF_MAJ_LATIN,"DefMajLatin");
+        return mappingStyleAttrs_;
+    }
+
+    public void patchDefs(StringMap<String> _mapping) {
+        String adjMinLetter_ = StringDataUtil.toLowerCase(rendKeyWordsDefs.getDefMinLetter());
+        if (ko(adjMinLetter_, 1)) {
+            rendKeyWordsDefs.setDefMinLetter(_mapping.getVal(DEF_MIN_LETTER));
+        } else {
+            rendKeyWordsDefs.setDefMinLetter(adjMinLetter_);
+        }
+        String adjMajLetter_ = StringDataUtil.toUpperCase(rendKeyWordsDefs.getDefMajLetter());
+        if (ko(adjMajLetter_, 1)) {
+            rendKeyWordsDefs.setDefMajLetter(_mapping.getVal(DEF_MAJ_LETTER));
+        } else {
+            rendKeyWordsDefs.setDefMajLetter(adjMajLetter_);
+        }
+        String adjMinLatin_ = StringDataUtil.toLowerCase(rendKeyWordsDefs.getDefMinLatin());
+        if (ko(adjMinLatin_, 8)) {
+            rendKeyWordsDefs.setDefMinLatin(_mapping.getVal(DEF_MIN_LATIN));
+        } else {
+            rendKeyWordsDefs.setDefMinLatin(adjMinLatin_);
+        }
+        String adjMajLatin_ = StringDataUtil.toUpperCase(rendKeyWordsDefs.getDefMajLatin());
+        if (ko(adjMajLatin_, 8)) {
+            rendKeyWordsDefs.setDefMajLatin(_mapping.getVal(DEF_MAJ_LATIN));
+        } else {
+            rendKeyWordsDefs.setDefMajLatin(adjMajLatin_);
+        }
+    }
+
+    private boolean ko(String _a, int _min) {
+        return _a.length() < _min || !MathExpUtil.isWord(_a);
+    }
+
     public static TranslationsFile enStyleUnits() {
         TranslationsFile en_ = new TranslationsFile();
         en_.add(STYLE_UNIT_SOLID,"StyleUnitSolid=solid");
@@ -1307,7 +1369,7 @@ public final class RendKeyWords {
         return mappingStyleUnits_;
     }
     public RendKeyWordsGroup group() {
-        return new RendKeyWordsGroup(rendKeyWordsTags,rendKeyWordsAttrs,rendKeyWordsValues,rendKeyWordsStyles);
+        return new RendKeyWordsGroup(rendKeyWordsTags,rendKeyWordsAttrs,rendKeyWordsValues,rendKeyWordsStyles,rendKeyWordsDefs);
     }
     public String getKeyWordFor() {
         return rendKeyWordsTags.getKeyWordFor();
@@ -2478,4 +2540,21 @@ public final class RendKeyWords {
     public void setStyleUnitSolid(String _styleUnitSolid) {
         this.rendKeyWordsStyles.setStyleUnitSolid(_styleUnitSolid);
     }
+
+    public void setDefMinLetter(String _styleUnitSolid) {
+        this.rendKeyWordsDefs.setDefMinLetter(_styleUnitSolid);
+    }
+
+    public void setDefMajLetter(String _styleUnitSolid) {
+        this.rendKeyWordsDefs.setDefMajLetter(_styleUnitSolid);
+    }
+
+    public void setDefMinLatin(String _styleUnitSolid) {
+        this.rendKeyWordsDefs.setDefMinLatin(_styleUnitSolid);
+    }
+
+    public void setDefMajLatin(String _styleUnitSolid) {
+        this.rendKeyWordsDefs.setDefMajLatin(_styleUnitSolid);
+    }
+
 }

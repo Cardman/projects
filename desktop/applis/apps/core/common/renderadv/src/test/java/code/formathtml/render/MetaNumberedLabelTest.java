@@ -1,231 +1,244 @@
 package code.formathtml.render;
 
+import code.sml.MessagesRendKeyWordsDefs;
 import org.junit.Test;
 
 public final class MetaNumberedLabelTest extends EquallableRenderAdvUtil {
     @Test
     public void convert1Test() {
-        assertEq("1",MetaNumberedLabel.convert(1,MetaNumberBase.NUMBER));
+        assertEq("1",MetaNumberedLabel.convert(1,MetaNumberBase.NUMBER, MessagesRendKeyWordsDefs.init()));
     }
     @Test
     public void convert2Test() {
-        assertEq("a",MetaNumberedLabel.convert(1,MetaNumberBase.LETTER));
+        assertEq("a", convertMinLetter(1));
     }
     @Test
     public void convert3Test() {
-        assertEq("b",MetaNumberedLabel.convert(2,MetaNumberBase.LETTER));
+        assertEq("b", convertMinLetter(2));
     }
     @Test
     public void convert4Test() {
-        assertEq("z",MetaNumberedLabel.convert(26,MetaNumberBase.LETTER));
+        assertEq("z", convertMinLetter(26));
     }
     @Test
     public void convert5Test() {
-        assertEq("aa",MetaNumberedLabel.convert(27,MetaNumberBase.LETTER));
+        assertEq("aa", convertMinLetter(27));
     }
     @Test
     public void convert6Test() {
-        assertEq("az",MetaNumberedLabel.convert(52,MetaNumberBase.LETTER));
+        assertEq("az", convertMinLetter(52));
     }
     @Test
     public void convert7Test() {
-        assertEq("ba",MetaNumberedLabel.convert(53,MetaNumberBase.LETTER));
+        assertEq("ba", convertMinLetter(53));
     }
     @Test
     public void convert8Test() {
-        assertEq("zz",MetaNumberedLabel.convert(26 + 26*26,MetaNumberBase.LETTER));
+        assertEq("zz", convertMinLetter(26 + 26*26));
     }
     @Test
     public void convert9Test() {
-        assertEq("aaa",MetaNumberedLabel.convert(26 + 26*26+1,MetaNumberBase.LETTER));
+        assertEq("aaa", convertMinLetter(26 + 26*26+1));
     }
     @Test
     public void convert10Test() {
-        assertEq("aaz",MetaNumberedLabel.convert(26 + 26*26+26,MetaNumberBase.LETTER));
+        assertEq("aaz", convertMinLetter(26 + 26*26+26));
     }
     @Test
     public void convert11Test() {
-        assertEq("aba",MetaNumberedLabel.convert(26 + 26*26+27,MetaNumberBase.LETTER));
+        assertEq("aba", convertMinLetter(26 + 26*26+27));
     }
     @Test
     public void convert12Test() {
-        assertEq("abz",MetaNumberedLabel.convert(26 + 26*26+52,MetaNumberBase.LETTER));
+        assertEq("abz", convertMinLetter(26 + 26*26+52));
     }
     @Test
     public void convert13Test() {
-        assertEq("aca",MetaNumberedLabel.convert(26 + 26*26+53,MetaNumberBase.LETTER));
+        assertEq("aca", convertMinLetter(26 + 26*26+53));
     }
     @Test
     public void convert14Test() {
-        assertEq("azz",MetaNumberedLabel.convert(26 + 26*26+ 26*26,MetaNumberBase.LETTER));
+        assertEq("azz", convertMinLetter(26 + 26*26+ 26*26));
     }
     @Test
     public void convert15Test() {
-        assertEq("baa",MetaNumberedLabel.convert(26 + 26*26+ 26*26+1,MetaNumberBase.LETTER));
+        assertEq("baa", convertMinLetter(26 + 26*26+ 26*26+1));
     }
     @Test
     public void convert16Test() {
-        assertEq("zzz",MetaNumberedLabel.convert(26 + 26*26+26*26*26,MetaNumberBase.LETTER));
+        assertEq("zzz", convertMinLetter(26 + 26*26+26*26*26));
     }
     @Test
     public void convert17Test() {
-        assertEq("aaaa",MetaNumberedLabel.convert(26 + 26*26+26*26*26+1,MetaNumberBase.LETTER));
+        assertEq("aaaa", convertMinLetter(26 + 26*26+26*26*26+1));
     }
     @Test
     public void convert017Test() {
-        assertEq("zzzz",MetaNumberedLabel.convert(26 + 26*26+26*26*26+26*26*26*26,MetaNumberBase.LETTER));
+        assertEq("zzzz", convertMinLetter(26 + 26*26+26*26*26+26*26*26*26));
     }
     @Test
     public void convert018Test() {
-        assertEq("aaaaa",MetaNumberedLabel.convert(1+26 + 26*26+26*26*26+26*26*26*26,MetaNumberBase.LETTER));
+        assertEq("aaaaa", convertMinLetter(1+26 + 26*26+26*26*26+26*26*26*26));
     }
     @Test
     public void convert18Test() {
-        assertEq("A",MetaNumberedLabel.convert(1,MetaNumberBase.MAJ_LETTER));
+        assertEq("A", convertMajLetter(1));
     }
     @Test
     public void convert19Test() {
-        assertEq("B",MetaNumberedLabel.convert(2,MetaNumberBase.MAJ_LETTER));
+        assertEq("B", convertMajLetter(2));
     }
     @Test
     public void convert20Test() {
-        assertEq("i",MetaNumberedLabel.convert(1,MetaNumberBase.LATIN_MIN));
+        assertEq("i", convertMinLatin(1));
     }
     @Test
     public void convert21Test() {
-        assertEq("ii",MetaNumberedLabel.convert(2,MetaNumberBase.LATIN_MIN));
+        assertEq("ii", convertMinLatin(2));
     }
     @Test
     public void convert22Test() {
-        assertEq("iv",MetaNumberedLabel.convert(4,MetaNumberBase.LATIN_MIN));
+        assertEq("iv", convertMinLatin(4));
     }
     @Test
     public void convert23Test() {
-        assertEq("v",MetaNumberedLabel.convert(5,MetaNumberBase.LATIN_MIN));
+        assertEq("v", convertMinLatin(5));
     }
     @Test
     public void convert24Test() {
-        assertEq("vi",MetaNumberedLabel.convert(6,MetaNumberBase.LATIN_MIN));
+        assertEq("vi", convertMinLatin(6));
     }
     @Test
     public void convert25Test() {
-        assertEq("ix",MetaNumberedLabel.convert(9,MetaNumberBase.LATIN_MIN));
+        assertEq("ix", convertMinLatin(9));
     }
     @Test
     public void convert26Test() {
-        assertEq("x",MetaNumberedLabel.convert(10,MetaNumberBase.LATIN_MIN));
+        assertEq("x", convertMinLatin(10));
     }
     @Test
     public void convert27Test() {
-        assertEq("xi",MetaNumberedLabel.convert(11,MetaNumberBase.LATIN_MIN));
+        assertEq("xi", convertMinLatin(11));
     }
     @Test
     public void convert28Test() {
-        assertEq("xiv",MetaNumberedLabel.convert(14,MetaNumberBase.LATIN_MIN));
+        assertEq("xiv", convertMinLatin(14));
     }
     @Test
     public void convert29Test() {
-        assertEq("xix",MetaNumberedLabel.convert(19,MetaNumberBase.LATIN_MIN));
+        assertEq("xix", convertMinLatin(19));
     }
     @Test
     public void convert30Test() {
-        assertEq("xxxix",MetaNumberedLabel.convert(39,MetaNumberBase.LATIN_MIN));
+        assertEq("xxxix", convertMinLatin(39));
     }
     @Test
     public void convert31Test() {
-        assertEq("xl",MetaNumberedLabel.convert(40,MetaNumberBase.LATIN_MIN));
+        assertEq("xl", convertMinLatin(40));
     }
     @Test
     public void convert32Test() {
-        assertEq("xlix",MetaNumberedLabel.convert(49,MetaNumberBase.LATIN_MIN));
+        assertEq("xlix", convertMinLatin(49));
     }
     @Test
     public void convert33Test() {
-        assertEq("l",MetaNumberedLabel.convert(50,MetaNumberBase.LATIN_MIN));
+        assertEq("l", convertMinLatin(50));
     }
     @Test
     public void convert34Test() {
-        assertEq("lxxxix",MetaNumberedLabel.convert(89,MetaNumberBase.LATIN_MIN));
+        assertEq("lxxxix", convertMinLatin(89));
     }
     @Test
     public void convert35Test() {
-        assertEq("xc",MetaNumberedLabel.convert(90,MetaNumberBase.LATIN_MIN));
+        assertEq("xc", convertMinLatin(90));
     }
     @Test
     public void convert36Test() {
-        assertEq("xcix",MetaNumberedLabel.convert(99,MetaNumberBase.LATIN_MIN));
+        assertEq("xcix", convertMinLatin(99));
     }
     @Test
     public void convert37Test() {
-        assertEq("c",MetaNumberedLabel.convert(100,MetaNumberBase.LATIN_MIN));
+        assertEq("c", convertMinLatin(100));
     }
     @Test
     public void convert38Test() {
-        assertEq("cccxc",MetaNumberedLabel.convert(390,MetaNumberBase.LATIN_MIN));
+        assertEq("cccxc", convertMinLatin(390));
     }
     @Test
     public void convert39Test() {
-        assertEq("cccxcix",MetaNumberedLabel.convert(399,MetaNumberBase.LATIN_MIN));
+        assertEq("cccxcix", convertMinLatin(399));
     }
     @Test
     public void convert40Test() {
-        assertEq("cd",MetaNumberedLabel.convert(400,MetaNumberBase.LATIN_MIN));
+        assertEq("cd", convertMinLatin(400));
     }
     @Test
     public void convert41Test() {
-        assertEq("dcccxc",MetaNumberedLabel.convert(890,MetaNumberBase.LATIN_MIN));
+        assertEq("dcccxc", convertMinLatin(890));
     }
     @Test
     public void convert42Test() {
-        assertEq("dcccxcix",MetaNumberedLabel.convert(899,MetaNumberBase.LATIN_MIN));
+        assertEq("dcccxcix", convertMinLatin(899));
     }
     @Test
     public void convert43Test() {
-        assertEq("cmxcix",MetaNumberedLabel.convert(999,MetaNumberBase.LATIN_MIN));
+        assertEq("cmxcix", convertMinLatin(999));
     }
     @Test
     public void convert44Test() {
-        assertEq("mcmxcix",MetaNumberedLabel.convert(1999,MetaNumberBase.LATIN_MIN));
+        assertEq("mcmxcix", convertMinLatin(1999));
     }
     @Test
     public void convert45Test() {
-        assertEq("mmmdcccxc",MetaNumberedLabel.convert(3890,MetaNumberBase.LATIN_MIN));
+        assertEq("mmmdcccxc", convertMinLatin(3890));
     }
     @Test
     public void convert46Test() {
-        assertEq("mmmdcccxcix",MetaNumberedLabel.convert(3899,MetaNumberBase.LATIN_MIN));
+        assertEq("mmmdcccxcix", convertMinLatin(3899));
     }
     @Test
     public void convert47Test() {
-        assertEq("mmmcmxcix",MetaNumberedLabel.convert(3999,MetaNumberBase.LATIN_MIN));
+        assertEq("mmmcmxcix", convertMinLatin(3999));
     }
     @Test
     public void convert48Test() {
-        assertEq("mqdcccxc",MetaNumberedLabel.convert(4890,MetaNumberBase.LATIN_MIN));
+        assertEq("mqdcccxc", convertMinLatin(4890));
     }
     @Test
     public void convert49Test() {
-        assertEq("mqdcccxcix",MetaNumberedLabel.convert(4899,MetaNumberBase.LATIN_MIN));
+        assertEq("mqdcccxcix", convertMinLatin(4899));
     }
     @Test
     public void convert50Test() {
-        assertEq("mqcmxcix",MetaNumberedLabel.convert(4999,MetaNumberBase.LATIN_MIN));
+        assertEq("mqcmxcix", convertMinLatin(4999));
     }
     @Test
     public void convert51Test() {
-        assertEq("qcmxcix",MetaNumberedLabel.convert(5999,MetaNumberBase.LATIN_MIN));
+        assertEq("qcmxcix", convertMinLatin(5999));
     }
     @Test
     public void convert52Test() {
-        assertEq("qmmmmcmxcix",MetaNumberedLabel.convert(9999,MetaNumberBase.LATIN_MIN));
+        assertEq("qmmmmcmxcix", convertMinLatin(9999));
     }
     @Test
     public void convert53Test() {
-        assertEq("i ",MetaNumberedLabel.convert(10000,MetaNumberBase.LATIN_MIN));
+        assertEq("i ", convertMinLatin(10000));
     }
     @Test
     public void convert54Test() {
-        assertEq("I ",MetaNumberedLabel.convert(10000,MetaNumberBase.LATIN_MAJ));
+        assertEq("I ",MetaNumberedLabel.convert(10000,MetaNumberBase.LATIN_MAJ, MessagesRendKeyWordsDefs.init()));
+    }
+
+    private String convertMinLetter(int _number) {
+        return MetaNumberedLabel.convert(_number, MetaNumberBase.LETTER, MessagesRendKeyWordsDefs.init());
+    }
+
+    private String convertMajLetter(int _number) {
+        return MetaNumberedLabel.convert(_number, MetaNumberBase.MAJ_LETTER, MessagesRendKeyWordsDefs.init());
+    }
+
+    private String convertMinLatin(int _number) {
+        return MetaNumberedLabel.convert(_number, MetaNumberBase.LATIN_MIN, MessagesRendKeyWordsDefs.init());
     }
 
 }

@@ -1353,4 +1353,5 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
     public abstract StringMap<String> mappingStyleValues();
     public abstract StringMap<String> mappingStyleUnits();
     public abstract StringMap<String> mappingStyleAttrs();
+    public abstract StringMap<String> mappingStyleDefs();
 }

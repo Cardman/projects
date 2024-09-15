@@ -31,6 +31,15 @@ public final class TranslationsFile {
         return m_;
     }
 
+    public static StringMap<String> extractDefs(TranslationsFile _file) {
+        StringMap<String> m_ = new StringMap<String>();
+        for (EntryCust<String, String> v:_file.getMapping().entryList()) {
+            int sep_ = v.getValue().indexOf('=');
+            m_.addEntry(v.getKey(),v.getValue().substring(sep_+1));
+        }
+        return m_;
+    }
+
     public void add(String _k, String _v) {
         getMapping().addEntry(_k, _v);
     }

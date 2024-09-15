@@ -92,6 +92,11 @@ public abstract class TestedBeanCustLgNames extends BeanCustLgNames {
     }
 
     @Override
+    public StringMap<String> mappingStyleDefs() {
+        return RendKeyWords.mappingDefs();
+    }
+
+    @Override
     public StringMap<String> mappingAliases() {
         StringMap<String> all_ = LgNamesContent.mapping();
         all_.addAllEntries(DefaultBeanAliases.mapping());

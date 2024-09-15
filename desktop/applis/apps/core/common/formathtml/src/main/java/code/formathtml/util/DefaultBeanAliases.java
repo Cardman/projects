@@ -597,6 +597,7 @@ public final class DefaultBeanAliases implements AbsAliasFileBuilder {
         _lgs.getMapping().addEntry(RendKeyWords.STYLE_VALUES_FILE, RendKeyWords.enStyleValues());
         _lgs.getMapping().addEntry(RendKeyWords.STYLE_UNITS_FILE, RendKeyWords.enStyleUnits());
         _lgs.getMapping().addEntry(RendKeyWords.STYLE_ATTRS_FILE, RendKeyWords.enStyleAttrs());
+        _lgs.getMapping().addEntry(RendKeyWords.STYLE_DEF_FILE, RendKeyWords.messDef());
         _lgs.getMapping().addEntry(RendAnalysisMessages.FILE, RendAnalysisMessages.en());
     }
 
@@ -608,6 +609,7 @@ public final class DefaultBeanAliases implements AbsAliasFileBuilder {
         _lgs.getMapping().addEntry(RendKeyWords.STYLE_VALUES_FILE, RendKeyWords.frStyleValues());
         _lgs.getMapping().addEntry(RendKeyWords.STYLE_UNITS_FILE, RendKeyWords.frStyleUnits());
         _lgs.getMapping().addEntry(RendKeyWords.STYLE_ATTRS_FILE, RendKeyWords.frStyleAttrs());
+        _lgs.getMapping().addEntry(RendKeyWords.STYLE_DEF_FILE, RendKeyWords.messDef());
         _lgs.getMapping().addEntry(RendAnalysisMessages.FILE, RendAnalysisMessages.fr());
     }
     public static TranslationsFile en() {

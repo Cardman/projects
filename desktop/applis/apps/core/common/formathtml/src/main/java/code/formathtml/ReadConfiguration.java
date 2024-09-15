@@ -1,15 +1,15 @@
 package code.formathtml;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.AnalysisElementsBase;
-import code.formathtml.structs.BeanInfo;
-import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.formathtml.errors.RendKeyWords;
+import code.formathtml.structs.BeanInfo;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.DualConfigurationContext;
 import code.sml.Element;
@@ -85,6 +85,7 @@ public final class ReadConfiguration {
         StringMap<String> allStyleUnits_ = _rkw.allStyleUnits(_std.mappingStyleUnits());
         _rkw.validateStyleUnitContents(allStyleUnits_, _page);
         _rkw.validateDuplicates(allStyleUnits_, _page);
+        _rkw.patchDefs(_std.mappingStyleDefs());
         return _page.isEmptyStdError();
     }
 
