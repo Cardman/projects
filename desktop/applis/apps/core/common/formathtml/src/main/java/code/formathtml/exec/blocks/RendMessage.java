@@ -72,13 +72,13 @@ public final class RendMessage extends RendParentBlock implements RendWithEl {
 //        docs_.add(locDoc.getVal(_cont.getCurrentLanguage()));
         String lt_ = Character.toString(LT_BEGIN_TAG);
         String gt_ = Character.toString(GT_TAG);
+        ImportingPage lastPage_ = _rendStack.getLastPage();
         String concat_ = StringUtil.concat(lt_,TMP_BLOCK_TAG,gt_,preRend_,LT_END_TAG,TMP_BLOCK_TAG,gt_);
-        DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(concat_);
+        DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(concat_,lastPage_.getDocument().getEscapedChars());
         Document docLoc_ = res_.getDocument();
 //        docs_.add(docLoc_);
         c_ = count(docLoc_, c_);
         if (c_ > 0) {
-            ImportingPage lastPage_ = _rendStack.getLastPage();
             RendReadWrite rend_ = lastPage_.getRendReadWrite();
             Document doc_ = rend_.getDocument();
             Text t_ = doc_.createTextNode(EMPTY_STRING);

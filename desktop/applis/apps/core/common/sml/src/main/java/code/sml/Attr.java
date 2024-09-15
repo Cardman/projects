@@ -1,5 +1,7 @@
 package code.sml;
 
+import code.util.CustList;
+
 public final class Attr {
 
     private static final String NULL_VALUE = "";
@@ -44,8 +46,8 @@ public final class Attr {
         }
     }
 
-    public void setEscapedValue(String _escapedValue) {
-        value = DocumentBuilder.transformSpecialCharsLtGt(_escapedValue);
+    public void setEscapedValue(String _escapedValue, CustList<EncodedChar> _encodes) {
+        value = DocumentBuilder.transformSpecialChars(_escapedValue, _encodes);
     }
 
 }

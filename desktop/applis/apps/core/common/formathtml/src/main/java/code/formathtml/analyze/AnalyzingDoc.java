@@ -10,10 +10,7 @@ import code.formathtml.errors.RendKeyWords;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.ValidatorInfo;
 import code.formathtml.util.BeanLgNames;
-import code.sml.DocumentBuilder;
-import code.sml.EncodedChar;
 import code.sml.SetupableAnalyzingDoc;
-import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringMap;
 
@@ -27,18 +24,6 @@ public final class AnalyzingDoc extends SetupableAnalyzingDoc {
     private LgNamesContent content;
 
     private StringMap<BeanInfo> beansInfosBefore = new StringMap<BeanInfo>();
-    private CustList<EncodedChar> encoded;
-    public AnalyzingDoc() {
-        setEncoded(DocumentBuilder.possibleEncodes());
-    }
-
-    public CustList<EncodedChar> getEncoded() {
-        return encoded;
-    }
-
-    public void setEncoded(CustList<EncodedChar> _enc) {
-        this.encoded = _enc;
-    }
 
     public static void addError(FoundErrorInterpret _error, AnalyzedPageEl _analyzing) {
         _error.setLocationFile(AnalyzedPageEl.getLocationFile(_error.getIndexFile(),_error.getFile(),_analyzing.getTabWidth()));

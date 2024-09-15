@@ -10,7 +10,6 @@ public interface Document {
     Element getDocumentElement();
 
     Text createTextNode(String _data);
-    Text createEscapedTextNode(String _data);
     void appendChild(Node _newChild);
     void renameNode(Node _node, String _name);
 

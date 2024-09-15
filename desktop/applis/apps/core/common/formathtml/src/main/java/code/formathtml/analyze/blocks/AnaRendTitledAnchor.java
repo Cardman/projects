@@ -7,6 +7,8 @@ import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.ResultText;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
+import code.sml.EncodedChar;
+import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
@@ -35,8 +37,9 @@ public final class AnaRendTitledAnchor extends AnaRendElement implements AnaRend
         if (preformatted.isEmpty()) {
             return;
         }
+        CustList<EncodedChar> chs_ = DocumentBuilder.build(_doc.getEscapedChars());
         for (EntryCust<String,String> e: preformatted.entryList()) {
-            e.setValue(DocumentBuilder.transformSpecialChars(e.getValue(), getRead().hasAttribute(_anaDoc.getRendKeyWords().getAttrEscapedAmp())));
+            e.setValue(DocumentBuilder.transformSpecialChars(e.getValue(), chs_));
         }
         for (EntryCust<String,ResultExpression> e: opExpTitle.entryList()) {
             _page.setSumOffset(e.getValue().getSumOffset());

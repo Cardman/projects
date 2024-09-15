@@ -56,7 +56,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling().getFirstChild();
-        assertEq(10, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, ""));
+        assertEq(10, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>()));
     }
 
     @Test
@@ -65,7 +65,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling().getFirstChild();
-        assertEq(12, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, ""));
+        assertEq(12, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>()));
     }
 
     @Test
@@ -74,7 +74,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling();
-        assertEq(9, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, ""));
+        assertEq(9, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>()));
     }
 
     @Test
@@ -83,7 +83,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling();
-        assertEq(9, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, ""));
+        assertEq(9, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>()));
     }
 
     @Test
@@ -92,7 +92,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling().getNextSibling().getFirstChild();
-        assertEq(17, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, ""));
+        assertEq(17, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>()));
     }
 
     @Test
@@ -101,7 +101,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling().getNextSibling();
-        assertEq(14, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, ""));
+        assertEq(14, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>()));
     }
 
     @Test
@@ -110,7 +110,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling().getNextSibling().getNextSibling();
-        assertEq(43, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, ""));
+        assertEq(43, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>()));
     }
 
     @Test
@@ -119,7 +119,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild();
-        assertEq(9, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "where"));
+        assertEq(9, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "where", new CustList<EncodedChar>()));
     }
 
     @Test
@@ -128,7 +128,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild();
-        assertEq(9, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "where"));
+        assertEq(9, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "where", new CustList<EncodedChar>()));
     }
 
     @Test
@@ -137,16 +137,18 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild();
-        assertEq(23, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "when"));
+        assertEq(23, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "when", new CustList<EncodedChar>()));
     }
 
     @Test
     public void getIndexOfNodeOrAttribute11Test() {
-        String html_ = "<tag>233<ta>&amp;</ta></tag>";
+        String html_ = "amp&38;<tag>233<ta>&amp;</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling().getFirstChild();
-        assertEq(12, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, ""));
+        CustList<EncodedChar> one_ = new CustList<EncodedChar>();
+        one_.add(new EncodedChar("&amp;", '&'));
+        assertEq(19, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", one_));
     }
 
     @Test
@@ -155,7 +157,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling().getFirstChild();
-        assertEq(12, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, ""));
+        assertEq(12, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>()));
     }
 
     @Test
@@ -164,7 +166,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling().getFirstChild();
-        assertEq(10, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, ""));
+        assertEq(10, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>()));
     }
 
     @Test
@@ -173,7 +175,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling().getFirstChild();
-        assertEq(12, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, ""));
+        assertEq(12, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>()));
     }
 
     @Test
@@ -182,7 +184,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling();
-        assertEq(9, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, ""));
+        assertEq(9, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>()));
     }
 
     @Test
@@ -191,7 +193,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling().getFirstChild();
-        assertEq(13, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, ""));
+        assertEq(13, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>()));
     }
 
     @Test
@@ -200,7 +202,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling().getNextSibling();
-        assertEq(18, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, ""));
+        assertEq(18, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>()));
     }
 
     @Test
@@ -208,7 +210,7 @@ public class IndexesTest extends EquallableRowColUtil {
         String html_ = "<tag>233<ta></ta><a/></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
-        assertEq(1, DocumentIndexer.getIndexOfNodeOrAttribute(html_, node_, ""));
+        assertEq(1, DocumentIndexer.getIndexOfNodeOrAttribute(html_, node_, "", new CustList<EncodedChar>()));
     }
 
 
@@ -218,7 +220,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling().getNextSibling().getNextSibling();
-        assertEq(43, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", true));
+        assertEq(43, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", true, new CustList<EncodedChar>()));
     }
 
     @Test
@@ -227,7 +229,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild();
-        assertEq(16, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "where", true));
+        assertEq(16, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "where", true, new CustList<EncodedChar>()));
     }
 
     @Test
@@ -236,7 +238,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild();
-        assertEq(16, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "where", true));
+        assertEq(16, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "where", true, new CustList<EncodedChar>()));
     }
 
     @Test
@@ -245,7 +247,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild();
-        assertEq(29, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "when", true));
+        assertEq(29, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "when", true, new CustList<EncodedChar>()));
     }
 
     @Test
@@ -254,7 +256,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild();
-        assertEq(28, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "where", true));
+        assertEq(28, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "where", true, new CustList<EncodedChar>()));
     }
 
     @Test
@@ -263,7 +265,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild();
-        assertEq(34, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "how", true));
+        assertEq(34, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "how", true, new CustList<EncodedChar>()));
     }
     @Test
     public void getIndexOfNodeOrAttribute25Test() {
@@ -271,7 +273,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling().getFirstChild();
-        assertEq(10, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, ""));
+        assertEq(10, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>()));
     }
     @Test
     public void getIndexOfNodeOrAttribute26Test() {
@@ -279,7 +281,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling();
-        assertEq(7, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, ""));
+        assertEq(7, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>()));
     }
     @Test
     public void getIndexOfNodeOrAttribute27Test() {
@@ -287,7 +289,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling();
-        assertEq(10, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "myattr"));
+        assertEq(10, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "myattr", new CustList<EncodedChar>()));
     }
     @Test
     public void getIndexOfNodeOrAttribute28Test() {
@@ -295,7 +297,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling().getNextSibling();
-        assertEq(44, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "myattr", true));
+        assertEq(44, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "myattr", true, new CustList<EncodedChar>()));
     }
 
     @Test
@@ -991,11 +993,11 @@ public class IndexesTest extends EquallableRowColUtil {
 
     @Test
     public void getSpecialChars1Test() {
-        String html_ = "<tag>\n\t<ta where=\"h&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
+        String html_ = "quot&34;apos&39;<tag>\n\t<ta where=\"h&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling();
-        StringMap<IntTreeMap<Integer>> t_ = DocumentIndexer.getSpecialChars(html_, (Element) n_);
+        StringMap<IntTreeMap<Integer>> t_ = DocumentIndexer.getSpecialChars(html_, (Element) n_, new CustList<EncodedChar>());
         assertEq(2, t_.size());
         IntTreeMap< Integer> aOne_ = t_.getVal("where");
         assertEq(2, aOne_.size());
@@ -1009,7 +1011,7 @@ public class IndexesTest extends EquallableRowColUtil {
 
     @Test
     public void getOffset1Test() {
-        String html_ = "<tag>\n\t<ta where=\"h&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
+        String html_ = "quot&34;apos&39;eacute&233;<tag>\n\t<ta where=\"h&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
@@ -1017,16 +1019,20 @@ public class IndexesTest extends EquallableRowColUtil {
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentIndexer.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
-        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_);
+        CustList<EncodedChar> three_ = new CustList<EncodedChar>();
+        three_.add(new EncodedChar("&quot;", '"'));
+        three_.add(new EncodedChar("&apos;", '\''));
+        three_.add(new EncodedChar("&eacute;", 'é'));
+        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_, three_);
         RowCol rc_ = DocumentIndexer.getOffset("", e_, s_, 0, 4);
         assertEq(2, rc_.getRow());
         assertEq(6, rc_.getCol());
-        assertEq(8, e_.getBegin());
+        assertEq(35, e_.getBegin());
     }
 
     @Test
     public void getOffset2Test() {
-        String html_ = "<tag>\n\t<ta where=\"h&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
+        String html_ = "quot&34;apos&39;eacute&233;<tag>\n\t<ta where=\"h&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
@@ -1034,7 +1040,7 @@ public class IndexesTest extends EquallableRowColUtil {
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentIndexer.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
-        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_);
+        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_, new CustList<EncodedChar>());
         RowCol rc_ = DocumentIndexer.getOffset("where", e_, s_, 0, 4);
         assertEq(2, rc_.getRow());
         assertEq(16, rc_.getCol());
@@ -1042,7 +1048,7 @@ public class IndexesTest extends EquallableRowColUtil {
 
     @Test
     public void getOffset3Test() {
-        String html_ = "<tag>\n\t<ta where=\"h&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
+        String html_ = "quot&34;apos&39;eacute&233;<tag>\n\t<ta where=\"h&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
@@ -1050,7 +1056,7 @@ public class IndexesTest extends EquallableRowColUtil {
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentIndexer.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
-        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_);
+        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_, new CustList<EncodedChar>());
         RowCol rc_ = DocumentIndexer.getOffset("where", e_, s_, 1, 4);
         assertEq(2, rc_.getRow());
         assertEq(17, rc_.getCol());
@@ -1058,7 +1064,7 @@ public class IndexesTest extends EquallableRowColUtil {
 
     @Test
     public void getOffset4Test() {
-        String html_ = "<tag>\n\t<ta where=\"h&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
+        String html_ = "quot&34;apos&39;eacute&233;<tag>\n\t<ta where=\"h&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
@@ -1066,7 +1072,7 @@ public class IndexesTest extends EquallableRowColUtil {
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentIndexer.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
-        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_);
+        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_, new CustList<EncodedChar>());
         RowCol rc_ = DocumentIndexer.getOffset("where", e_, s_, 2, 4);
         assertEq(2, rc_.getRow());
         assertEq(23, rc_.getCol());
@@ -1074,7 +1080,7 @@ public class IndexesTest extends EquallableRowColUtil {
 
     @Test
     public void getOffset5Test() {
-        String html_ = "<tag>\n\t<ta where=\"h&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
+        String html_ = "quot&34;apos&39;eacute&233;<tag>\n\t<ta where=\"h&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
@@ -1082,7 +1088,7 @@ public class IndexesTest extends EquallableRowColUtil {
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentIndexer.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
-        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_);
+        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_, new CustList<EncodedChar>());
         RowCol rc_ = DocumentIndexer.getOffset("where", e_, s_, 3, 4);
         assertEq(2, rc_.getRow());
         assertEq(24, rc_.getCol());
@@ -1090,7 +1096,7 @@ public class IndexesTest extends EquallableRowColUtil {
 
     @Test
     public void getOffset6Test() {
-        String html_ = "<tag>\n\t<ta where=\"h&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
+        String html_ = "quot&34;apos&39;eacute&233;<tag>\n\t<ta where=\"h&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
@@ -1098,7 +1104,7 @@ public class IndexesTest extends EquallableRowColUtil {
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentIndexer.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
-        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_);
+        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_, new CustList<EncodedChar>());
         RowCol rc_ = DocumentIndexer.getOffset("where", e_, s_, 6, 4);
         assertEq(2, rc_.getRow());
         assertEq(27, rc_.getCol());
@@ -1107,7 +1113,7 @@ public class IndexesTest extends EquallableRowColUtil {
 
     @Test
     public void getOffset7Test() {
-        String html_ = "<tag>\n\t<ta where=\"h&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
+        String html_ = "quot&34;apos&39;eacute&233;<tag>\n\t<ta where=\"h&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
@@ -1115,7 +1121,7 @@ public class IndexesTest extends EquallableRowColUtil {
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentIndexer.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
-        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_);
+        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_, new CustList<EncodedChar>());
         RowCol rc_ = DocumentIndexer.getOffset("where", e_, s_, 7, 4);
         assertEq(2, rc_.getRow());
         assertEq(35, rc_.getCol());
@@ -1124,7 +1130,7 @@ public class IndexesTest extends EquallableRowColUtil {
 
     @Test
     public void getOffset8Test() {
-        String html_ = "<tag>\n\t<ta where=\"\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
+        String html_ = "quot&34;apos&39;eacute&233;<tag>\n\t<ta where=\"\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
@@ -1132,7 +1138,7 @@ public class IndexesTest extends EquallableRowColUtil {
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentIndexer.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
-        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_);
+        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_, new CustList<EncodedChar>());
         RowCol rc_ = DocumentIndexer.getOffset("where", e_, s_, 0, 4);
         assertEq(3, rc_.getRow());
         assertEq(0, rc_.getCol());
@@ -1140,7 +1146,7 @@ public class IndexesTest extends EquallableRowColUtil {
 
     @Test
     public void getOffset9Test() {
-        String html_ = "<tag>\n\t<ta where=\"\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
+        String html_ = "quot&34;apos&39;eacute&233;<tag>\n\t<ta where=\"\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
@@ -1148,7 +1154,7 @@ public class IndexesTest extends EquallableRowColUtil {
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentIndexer.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
-        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_);
+        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_, new CustList<EncodedChar>());
         RowCol rc_ = DocumentIndexer.getOffset("where", e_, s_, 1, 4);
         assertEq(3, rc_.getRow());
         assertEq(1, rc_.getCol());
@@ -1156,7 +1162,7 @@ public class IndexesTest extends EquallableRowColUtil {
 
     @Test
     public void getOffset10Test() {
-        String html_ = "<tag>\n\t<ta where=\"\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
+        String html_ = "quot&34;apos&39;eacute&233;<tag>\n\t<ta where=\"\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
@@ -1164,7 +1170,7 @@ public class IndexesTest extends EquallableRowColUtil {
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentIndexer.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
-        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_);
+        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_, new CustList<EncodedChar>());
         RowCol rc_ = DocumentIndexer.getOffset("where", e_, s_, 2, 4);
         assertEq(3, rc_.getRow());
         assertEq(2, rc_.getCol());
@@ -1172,7 +1178,7 @@ public class IndexesTest extends EquallableRowColUtil {
 
     @Test
     public void getOffset11Test() {
-        String html_ = "<tag>\n\t<ta where=\"\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
+        String html_ = "quot&34;apos&39;eacute&233;<tag>\n\t<ta where=\"\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
@@ -1180,7 +1186,7 @@ public class IndexesTest extends EquallableRowColUtil {
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentIndexer.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
-        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_);
+        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_, new CustList<EncodedChar>());
         RowCol rc_ = DocumentIndexer.getOffset("where", e_, s_, 3, 4);
         assertEq(3, rc_.getRow());
         assertEq(8, rc_.getCol());
@@ -1188,7 +1194,7 @@ public class IndexesTest extends EquallableRowColUtil {
 
     @Test
     public void getOffset12Test() {
-        String html_ = "<tag>\n\t<ta where=\"\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
+        String html_ = "quot&34;apos&39;eacute&233;<tag>\n\t<ta where=\"\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
@@ -1196,7 +1202,7 @@ public class IndexesTest extends EquallableRowColUtil {
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentIndexer.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
-        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_);
+        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_, new CustList<EncodedChar>());
         RowCol rc_ = DocumentIndexer.getOffset("where", e_, s_, 6, 4);
         assertEq(3, rc_.getRow());
         assertEq(11, rc_.getCol());
@@ -1205,7 +1211,7 @@ public class IndexesTest extends EquallableRowColUtil {
 
     @Test
     public void getOffset13Test() {
-        String html_ = "<tag>\n\t<ta where=\"\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
+        String html_ = "quot&34;apos&39;eacute&233;<tag>\n\t<ta where=\"\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
@@ -1213,7 +1219,7 @@ public class IndexesTest extends EquallableRowColUtil {
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentIndexer.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
-        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_);
+        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_, new CustList<EncodedChar>());
         RowCol rc_ = DocumentIndexer.getOffset("where", e_, s_, 7, 4);
         assertEq(3, rc_.getRow());
         assertEq(12, rc_.getCol());
@@ -1221,7 +1227,7 @@ public class IndexesTest extends EquallableRowColUtil {
 
     @Test
     public void getOffset14Test() {
-        String html_ = "<tag>\n\t<ta where=\"\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
+        String html_ = "quot&34;apos&39;eacute&233;<tag>\n\t<ta where=\"\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
@@ -1229,7 +1235,7 @@ public class IndexesTest extends EquallableRowColUtil {
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentIndexer.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
-        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_);
+        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_, new CustList<EncodedChar>());
         RowCol rc_ = DocumentIndexer.getOffset("where", e_, s_, 8, 4);
         assertEq(3, rc_.getRow());
         assertEq(20, rc_.getCol());
@@ -1238,7 +1244,7 @@ public class IndexesTest extends EquallableRowColUtil {
 
     @Test
     public void getOffset15Test() {
-        String html_ = "<tag>\n\t<ta where=\"a\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
+        String html_ = "quot&34;apos&39;eacute&233;<tag>\n\t<ta where=\"a\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
@@ -1246,7 +1252,7 @@ public class IndexesTest extends EquallableRowColUtil {
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentIndexer.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
-        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_);
+        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_, new CustList<EncodedChar>());
         RowCol rc_ = DocumentIndexer.getOffset("where", e_, s_, 0, 4);
         assertEq(2, rc_.getRow());
         assertEq(16, rc_.getCol());
@@ -1254,7 +1260,7 @@ public class IndexesTest extends EquallableRowColUtil {
 
     @Test
     public void getOffset16Test() {
-        String html_ = "<tag>\n\t<ta where=\"a\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
+        String html_ = "quot&34;apos&39;eacute&233;<tag>\n\t<ta where=\"a\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
@@ -1262,7 +1268,7 @@ public class IndexesTest extends EquallableRowColUtil {
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentIndexer.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
-        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_);
+        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_, new CustList<EncodedChar>());
         RowCol rc_ = DocumentIndexer.getOffset("where", e_, s_, 1, 4);
         assertEq(3, rc_.getRow());
         assertEq(0, rc_.getCol());
@@ -1270,7 +1276,7 @@ public class IndexesTest extends EquallableRowColUtil {
 
     @Test
     public void getOffset17Test() {
-        String html_ = "<tag>\n\t<ta where=\"a\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
+        String html_ = "quot&34;apos&39;eacute&233;<tag>\n\t<ta where=\"a\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
@@ -1278,7 +1284,7 @@ public class IndexesTest extends EquallableRowColUtil {
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentIndexer.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
-        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_);
+        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_, new CustList<EncodedChar>());
         RowCol rc_ = DocumentIndexer.getOffset("where", e_, s_, 2, 4);
         assertEq(3, rc_.getRow());
         assertEq(1, rc_.getCol());
@@ -1286,7 +1292,7 @@ public class IndexesTest extends EquallableRowColUtil {
 
     @Test
     public void getOffset18Test() {
-        String html_ = "<tag>\n\t<ta where=\"a\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
+        String html_ = "quot&34;apos&39;eacute&233;<tag>\n\t<ta where=\"a\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
@@ -1294,7 +1300,7 @@ public class IndexesTest extends EquallableRowColUtil {
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentIndexer.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
-        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_);
+        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_, new CustList<EncodedChar>());
         RowCol rc_ = DocumentIndexer.getOffset("where", e_, s_, 3, 4);
         assertEq(3, rc_.getRow());
         assertEq(2, rc_.getCol());
@@ -1302,7 +1308,7 @@ public class IndexesTest extends EquallableRowColUtil {
 
     @Test
     public void getOffset19Test() {
-        String html_ = "<tag>\n\t<ta where=\"a\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
+        String html_ = "quot&34;apos&39;eacute&233;<tag>\n\t<ta where=\"a\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
@@ -1310,7 +1316,7 @@ public class IndexesTest extends EquallableRowColUtil {
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentIndexer.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
-        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_);
+        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_, new CustList<EncodedChar>());
         RowCol rc_ = DocumentIndexer.getOffset("where", e_, s_, 6, 4);
         assertEq(3, rc_.getRow());
         assertEq(10, rc_.getCol());
@@ -1319,7 +1325,7 @@ public class IndexesTest extends EquallableRowColUtil {
 
     @Test
     public void getOffset20Test() {
-        String html_ = "<tag>\n\t<ta where=\"a\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
+        String html_ = "quot&34;apos&39;eacute&233;<tag>\n\t<ta where=\"a\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
@@ -1327,7 +1333,7 @@ public class IndexesTest extends EquallableRowColUtil {
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentIndexer.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
-        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_);
+        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_, new CustList<EncodedChar>());
         RowCol rc_ = DocumentIndexer.getOffset("where", e_, s_, 7, 4);
         assertEq(3, rc_.getRow());
         assertEq(11, rc_.getCol());
@@ -1335,7 +1341,7 @@ public class IndexesTest extends EquallableRowColUtil {
 
     @Test
     public void getOffset21Test() {
-        String html_ = "<tag>\n\t<ta where=\"a\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
+        String html_ = "quot&34;apos&39;eacute&233;<tag>\n\t<ta where=\"a\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
@@ -1343,7 +1349,7 @@ public class IndexesTest extends EquallableRowColUtil {
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentIndexer.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
-        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_);
+        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_, new CustList<EncodedChar>());
         RowCol rc_ = DocumentIndexer.getOffset("where", e_, s_, 8, 4);
         assertEq(3, rc_.getRow());
         assertEq(12, rc_.getCol());
@@ -1351,7 +1357,7 @@ public class IndexesTest extends EquallableRowColUtil {
 
     @Test
     public void getOffset22Test() {
-        String html_ = "<tag>\n\t<ta where=\"a\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
+        String html_ = "quot&34;apos&39;eacute&233;<tag>\n\t<ta where=\"a\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
@@ -1359,7 +1365,7 @@ public class IndexesTest extends EquallableRowColUtil {
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentIndexer.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
-        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_);
+        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_, new CustList<EncodedChar>());
         RowCol rc_ = DocumentIndexer.getOffset("where", e_, s_, 4, 4);
         assertEq(3, rc_.getRow());
         assertEq(8, rc_.getCol());
@@ -1367,7 +1373,7 @@ public class IndexesTest extends EquallableRowColUtil {
 
     @Test
     public void getOffset23Test() {
-        String html_ = "<tag>\n\t<ta where=\"a\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
+        String html_ = "quot&34;apos&39;eacute&233;<tag>\n\t<ta where=\"a\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
@@ -1375,7 +1381,7 @@ public class IndexesTest extends EquallableRowColUtil {
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentIndexer.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
-        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_);
+        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_, new CustList<EncodedChar>());
         RowCol rc_ = DocumentIndexer.getOffset("where", e_, s_, 9, 4);
         assertEq(3, rc_.getRow());
         assertEq(20, rc_.getCol());
@@ -1383,7 +1389,7 @@ public class IndexesTest extends EquallableRowColUtil {
 
     @Test
     public void getOffset24Test() {
-        String html_ = "<tag>\n\t<ta where=\"a\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
+        String html_ = "quot&34;apos&39;eacute&233;<tag>\n\t<ta where=\"a\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
@@ -1391,7 +1397,7 @@ public class IndexesTest extends EquallableRowColUtil {
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentIndexer.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
-        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_);
+        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_, new CustList<EncodedChar>());
         RowCol rc_ = DocumentIndexer.getOffset("how", e_, s_, 0, 4);
         assertEq(3, rc_.getRow());
         assertEq(58, rc_.getCol());
@@ -1399,7 +1405,7 @@ public class IndexesTest extends EquallableRowColUtil {
 
     @Test
     public void getOffset25Test() {
-        String html_ = "<tag>\n<ta where=\"\th&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
+        String html_ = "quot&34;apos&39;eacute&233;<tag>\n<ta where=\"\th&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
@@ -1407,7 +1413,7 @@ public class IndexesTest extends EquallableRowColUtil {
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentIndexer.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
         StringMap<IntTreeMap<Integer>> s_;
-        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_);
+        s_ = DocumentIndexer.getSpecialChars(html_, (Element) node_, new CustList<EncodedChar>());
         RowCol rc_ = DocumentIndexer.getOffset("where", e_, s_, 1, 4);
         assertEq(2, rc_.getRow());
         assertEq(16, rc_.getCol());

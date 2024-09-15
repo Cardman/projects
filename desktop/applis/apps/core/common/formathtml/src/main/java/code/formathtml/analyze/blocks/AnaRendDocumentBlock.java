@@ -34,14 +34,16 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
     private AnaFormattedRootBlock declClass = AnaFormattedRootBlock.defValue();
     private final AccessNbContent accessNb = new AccessNbContent();
     private final AccessMemNbContent accessMemNb = new AccessMemNbContent();
+    private final StringMap<String> escapedChars;
 
-    public AnaRendDocumentBlock(Element _elt, int _offset, AdvFileEscapedCalc _e, FileBlock _fileBl) {
+    public AnaRendDocumentBlock(Element _elt, int _offset, AdvFileEscapedCalc _e, FileBlock _fileBl, StringMap<String> _chs) {
         super(_offset);
         esc = _fileBl.getFileEscapedCalc();
         fileBlock = _fileBl;
         elt = _elt;
         fileName = _fileBl.getFileName();
         escapedChar = _e.getEscaped();
+        escapedChars = _chs;
     }
 
     public IntTreeMap<Integer> getEscapedChar() {
@@ -257,4 +259,7 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
         this.beanName = _beanName;
     }
 
+    public StringMap<String> getEscapedChars() {
+        return escapedChars;
+    }
 }

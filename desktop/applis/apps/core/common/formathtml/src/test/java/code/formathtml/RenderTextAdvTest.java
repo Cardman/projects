@@ -90,7 +90,7 @@ public final class RenderTextAdvTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$Fct&lt;$int,T[]&gt;' value='i=$lambda(T[],$new,$int)'/><c:set className='T[]' value='a=i.call(1)'/><c:set value='a[0]=(T)2'/>{a[0]}</body></html>";
+        String html_ = "lt&60;gt&62;amp&38;quot&34;<html c:bean=\"bean_one\"><body><c:set className='$Fct&lt;$int,T[]&gt;' value='i=$lambda(T[],$new,$int)'/><c:set className='T[]' value='a=i.call(1)'/><c:set value='a[0]=(T)2'/>{a[0]}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -114,7 +114,7 @@ public final class RenderTextAdvTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$Fct&lt;$int,T[]&gt;' value='i=$lambda(T[],$new,$int)'/>{$Class.getClass(i)}</body></html>";
+        String html_ = "lt&60;gt&62;amp&38;quot&34;<html c:bean=\"bean_one\"><body><c:set className='$Fct&lt;$int,T[]&gt;' value='i=$lambda(T[],$new,$int)'/>{$Class.getClass(i)}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -138,7 +138,7 @@ public final class RenderTextAdvTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$Fct&lt;T,pkg.BeanRec&lt;T&gt;&gt;' value='i=$lambda(pkg.BeanRec&lt;T&gt;,$new,field)'/><c:set className='pkg.BeanRec&lt;T&gt;' value='a=i.call((T)2)'/>{a.field}</body></html>";
+        String html_ = "lt&60;gt&62;amp&38;quot&34;<html c:bean=\"bean_one\"><body><c:set className='$Fct&lt;T,pkg.BeanRec&lt;T&gt;&gt;' value='i=$lambda(pkg.BeanRec&lt;T&gt;,$new,field)'/><c:set className='pkg.BeanRec&lt;T&gt;' value='a=i.call((T)2)'/>{a.field}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -165,7 +165,7 @@ public final class RenderTextAdvTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$Fct&lt;T,pkg.BeanRec&lt;T&gt;&gt;' value='i=$lambda(pkg.BeanRec&lt;T&gt;,$new,T)'/><c:set className='pkg.BeanRec&lt;T&gt;' value='a=i.call((T)2)'/>{a.field}</body></html>";
+        String html_ = "lt&60;gt&62;amp&38;quot&34;<html c:bean=\"bean_one\"><body><c:set className='$Fct&lt;T,pkg.BeanRec&lt;T&gt;&gt;' value='i=$lambda(pkg.BeanRec&lt;T&gt;,$new,T)'/><c:set className='pkg.BeanRec&lt;T&gt;' value='a=i.call((T)2)'/>{a.field}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -195,7 +195,7 @@ public final class RenderTextAdvTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='pkg.BeanRec&lt;T&gt;' value='elt=$new((T)2)'/><c:set className='$Fct&lt;T,T&gt;' value='i=elt.$lambda(pkg.BeanRec&lt;T&gt;,meth,T)'/>{i.call((T)1)}</body></html>";
+        String html_ = "lt&60;gt&62;amp&38;quot&34;<html c:bean=\"bean_one\"><body><c:set className='pkg.BeanRec&lt;T&gt;' value='elt=$new((T)2)'/><c:set className='$Fct&lt;T,T&gt;' value='i=elt.$lambda(pkg.BeanRec&lt;T&gt;,meth,T)'/>{i.call((T)1)}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -228,7 +228,7 @@ public final class RenderTextAdvTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='pkg.BeanRec&lt;T&gt;' value='elt=$new((T)2)'/><c:set className='$Fct&lt;T&gt;' value='i=elt.$lambda(pkg.BeanRec&lt;T&gt;,,field)'/>{i.call()}</body></html>";
+        String html_ = "lt&60;gt&62;amp&38;quot&34;<html c:bean=\"bean_one\"><body><c:set className='pkg.BeanRec&lt;T&gt;' value='elt=$new((T)2)'/><c:set className='$Fct&lt;T&gt;' value='i=elt.$lambda(pkg.BeanRec&lt;T&gt;,,field)'/>{i.call()}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -258,7 +258,7 @@ public final class RenderTextAdvTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='pkg.BeanRec&lt;T&gt;' value='elt=$new pkg.BeanRec&lt;&gt;((T)2)'/><c:set className='$Fct&lt;T,T&gt;' value='i=elt.$lambda(pkg.BeanRec&lt;T&gt;,meth,T)'/>{i.call((T)1)}</body></html>";
+        String html_ = "lt&60;gt&62;amp&38;quot&34;<html c:bean=\"bean_one\"><body><c:set className='pkg.BeanRec&lt;T&gt;' value='elt=$new pkg.BeanRec&lt;&gt;((T)2)'/><c:set className='$Fct&lt;T,T&gt;' value='i=elt.$lambda(pkg.BeanRec&lt;T&gt;,meth,T)'/>{i.call((T)1)}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -291,7 +291,7 @@ public final class RenderTextAdvTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='T[]' value='i=$new[1]'/><c:set value='i[0]=$staticCall(pkg.BeanOne&lt;T&gt;).elt()'/>{i[0]}</body></html>";
+        String html_ = "lt&60;gt&62;amp&38;quot&34;<html c:bean=\"bean_one\"><body><c:set className='T[]' value='i=$new[1]'/><c:set value='i[0]=$staticCall(pkg.BeanOne&lt;T&gt;).elt()'/>{i[0]}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -345,7 +345,7 @@ public final class RenderTextAdvTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='pkg.BeanRec&lt;T&gt;' value='elt=$new((T)2)'/><c:set className='T' value='i=elt'/>{i}</body></html>";
+        String html_ = "lt&60;gt&62;amp&38;quot&34;<html c:bean=\"bean_one\"><body><c:set className='pkg.BeanRec&lt;T&gt;' value='elt=$new((T)2)'/><c:set className='T' value='i=elt'/>{i}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -426,7 +426,7 @@ public final class RenderTextAdvTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='pkg.BeanRec&lt;T&gt;' value='i=$null'/>{i?.field}</body></html>";
+        String html_ = "lt&60;gt&62;amp&38;quot&34;<html c:bean=\"bean_one\"><body><c:set className='pkg.BeanRec&lt;T&gt;' value='i=$null'/>{i?.field}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -477,7 +477,7 @@ public final class RenderTextAdvTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='pkg.BeanRec&lt;T&gt;' value='elt=explicit(pkg.BeanRec&lt;T&gt;)(T)2'/>{elt.field}</body></html>";
+        String html_ = "lt&60;gt&62;amp&38;quot&34;<html c:bean=\"bean_one\"><body><c:set className='pkg.BeanRec&lt;T&gt;' value='elt=explicit(pkg.BeanRec&lt;T&gt;)(T)2'/>{elt.field}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -510,7 +510,7 @@ public final class RenderTextAdvTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='pkg.BeanRec&lt;T&gt;' value='elt=explicit(pkg.BeanRec&lt;T&gt;)$new pkg.BeanRec&lt;T&gt;((T)2)'/>{elt.field}</body></html>";
+        String html_ = "lt&60;gt&62;amp&38;quot&34;<html c:bean=\"bean_one\"><body><c:set className='pkg.BeanRec&lt;T&gt;' value='elt=explicit(pkg.BeanRec&lt;T&gt;)$new pkg.BeanRec&lt;T&gt;((T)2)'/>{elt.field}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -540,7 +540,7 @@ public final class RenderTextAdvTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='pkg.BeanRec&lt;T&gt;' value='elt=$new((T)2)'/><c:switch value='elt'><c:case className='pkg.BeanRec&lt;T&gt;' var='i' condition='$true'>{i.field}</c:case></c:switch></body></html>";
+        String html_ = "lt&60;gt&62;amp&38;quot&34;<html c:bean=\"bean_one\"><body><c:set className='pkg.BeanRec&lt;T&gt;' value='elt=$new((T)2)'/><c:switch value='elt'><c:case className='pkg.BeanRec&lt;T&gt;' var='i' condition='$true'>{i.field}</c:case></c:switch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -570,7 +570,7 @@ public final class RenderTextAdvTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='pkg.BeanRec&lt;T&gt;' value='elt=$new((T)2)'/><c:switch value='elt'><c:case className='pkg.BeanRec&lt;T&gt;' var='i' condition='i.field == 3'>OTHER</c:case><c:case className='pkg.BeanRec&lt;T&gt;' var='i' condition='$true'>{i.field}</c:case></c:switch></body></html>";
+        String html_ = "lt&60;gt&62;amp&38;quot&34;<html c:bean=\"bean_one\"><body><c:set className='pkg.BeanRec&lt;T&gt;' value='elt=$new((T)2)'/><c:switch value='elt'><c:case className='pkg.BeanRec&lt;T&gt;' var='i' condition='i.field == 3'>OTHER</c:case><c:case className='pkg.BeanRec&lt;T&gt;' var='i' condition='$true'>{i.field}</c:case></c:switch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -600,7 +600,7 @@ public final class RenderTextAdvTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='pkg.BeanRec&lt;T&gt;' value='elt=$new((T)2)'/><c:switch value='elt'><c:default var='i'>{i.field}</c:default></c:switch></body></html>";
+        String html_ = "lt&60;gt&62;amp&38;quot&34;<html c:bean=\"bean_one\"><body><c:set className='pkg.BeanRec&lt;T&gt;' value='elt=$new((T)2)'/><c:switch value='elt'><c:default var='i'>{i.field}</c:default></c:switch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -630,7 +630,7 @@ public final class RenderTextAdvTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='pkg.BeanRec&lt;T&gt;' value='elt=$new((T)2)'/><c:switch value='elt'><c:case className='pkg.BeanRec2&lt;T&gt;' var='i' condition='i.field == 3'>OTHER</c:case><c:case className='pkg.BeanRec&lt;T&gt;' var='i' condition='$true'>{i.field}</c:case></c:switch></body></html>";
+        String html_ = "lt&60;gt&62;amp&38;quot&34;<html c:bean=\"bean_one\"><body><c:set className='pkg.BeanRec&lt;T&gt;' value='elt=$new((T)2)'/><c:switch value='elt'><c:case className='pkg.BeanRec2&lt;T&gt;' var='i' condition='i.field == 3'>OTHER</c:case><c:case className='pkg.BeanRec&lt;T&gt;' var='i' condition='$true'>{i.field}</c:case></c:switch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -666,7 +666,7 @@ public final class RenderTextAdvTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='pkg.BeanRec&lt;T&gt;' value='elt=$new((T)2)'/><c:switch value='elt'><c:case className='pkg.BeanRec2&lt;T&gt;' var='i'>OTHER</c:case><c:case className='pkg.BeanRec&lt;T&gt;' var='i' condition='$true'>{i.field}</c:case></c:switch></body></html>";
+        String html_ = "lt&60;gt&62;amp&38;quot&34;<html c:bean=\"bean_one\"><body><c:set className='pkg.BeanRec&lt;T&gt;' value='elt=$new((T)2)'/><c:switch value='elt'><c:case className='pkg.BeanRec2&lt;T&gt;' var='i'>OTHER</c:case><c:case className='pkg.BeanRec&lt;T&gt;' var='i' condition='$true'>{i.field}</c:case></c:switch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -702,7 +702,7 @@ public final class RenderTextAdvTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><c:for className='T' init='i=(T)2' condition='($int)i&lt;3' step=''>{i}<c:set className='$int' value='j=($int)i+1'/><c:set value='i=(T)j'/></c:for></body></html>";
+        String html_ = "lt&60;gt&62;amp&38;quot&34;<html c:bean=\"bean_one\"><body><c:for className='T' init='i=(T)2' condition='($int)i&lt;3' step=''>{i}<c:set className='$int' value='j=($int)i+1'/><c:set value='i=(T)j'/></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -748,7 +748,7 @@ public final class RenderTextAdvTest extends CommonRender {
     public void process_27Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("<html c:bean=\"bean_one\"><body><table>");
+        xml_.append("lt&60;gt&62;amp&38;quot&34;<html c:bean=\"bean_one\"><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;T,T&gt;\" value=\"inst=$new()\"/>");
         xml_.append("<c:set value=\"inst.add((T)1,(T)2)\"/>");
         xml_.append("<c:set value=\"inst.add((T)3,(T)4)\"/>");
@@ -781,7 +781,7 @@ public final class RenderTextAdvTest extends CommonRender {
     public void process_28Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("<html c:bean=\"bean_one\"><body><table>");
+        xml_.append("lt&60;gt&62;amp&38;quot&34;<html c:bean=\"bean_one\"><body><table>");
         xml_.append("<c:set className=\"pkg.CustList&lt;T&gt;\" value=\"inst=$new()\"/>");
         xml_.append("<c:set value=\"inst.add((T)1)\"/>");
         xml_.append("<c:set value=\"inst.add((T)2)\"/>");
@@ -888,7 +888,7 @@ public final class RenderTextAdvTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><c:for className='T' init='i=(T)2' condition='($int)i&lt;3' step='i=(T)(($int)i+1)'>{i}</c:for></body></html>";
+        String html_ = "lt&60;gt&62;amp&38;quot&34;<html c:bean=\"bean_one\"><body><c:for className='T' init='i=(T)2' condition='($int)i&lt;3' step='i=(T)(($int)i+1)'>{i}</c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -911,7 +911,7 @@ public final class RenderTextAdvTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='pkg.Ex&lt;$int&gt;' value='i=$new pkg.Ex&lt;$int&gt;()'/><c:set value='i.a=5i'/>{++((pkg.Ex&lt;$int&gt;)i).a}</body></html>";
+        String html_ = "lt&60;gt&62;amp&38;quot&34;<html c:bean=\"bean_one\"><body><c:set className='pkg.Ex&lt;$int&gt;' value='i=$new pkg.Ex&lt;$int&gt;()'/><c:set value='i.a=5i'/>{++((pkg.Ex&lt;$int&gt;)i).a}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -945,7 +945,7 @@ public final class RenderTextAdvTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='pkg.Ex&lt;T&gt;' value='i=$new pkg.Ex&lt;T&gt;()'/><c:set value='i.a=(T)5i'/>{(++(pkg.Ex&lt;T&gt;)i).a}</body></html>";
+        String html_ = "lt&60;gt&62;amp&38;quot&34;<html c:bean=\"bean_one\"><body><c:set className='pkg.Ex&lt;T&gt;' value='i=$new pkg.Ex&lt;T&gt;()'/><c:set value='i.a=(T)5i'/>{(++(pkg.Ex&lt;T&gt;)i).a}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -1001,7 +1001,7 @@ public final class RenderTextAdvTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body>{pkg.BeanOne.t(()-&gt;\"txt\")}</body></html>";
+        String html_ = "lt&60;gt&62;amp&38;quot&34;<html c:bean=\"bean_one\"><body>{pkg.BeanOne.t(()-&gt;\"txt\")}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -1043,7 +1043,7 @@ public final class RenderTextAdvTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html><body>{pkg.BeanOne.t(()-&gt;\"txt\")}</body></html>";
+        String html_ = "lt&60;gt&62;amp&38;quot&34;<html><body>{pkg.BeanOne.t(()-&gt;\"txt\")}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -1127,7 +1127,7 @@ public final class RenderTextAdvTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html><body>{pkg.BeanOne.t(()-&gt;{$class Inn{}$return\"txt\";})}</body></html>";
+        String html_ = "lt&60;gt&62;amp&38;quot&34;<html><body>{pkg.BeanOne.t(()-&gt;{$class Inn{}$return\"txt\";})}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);

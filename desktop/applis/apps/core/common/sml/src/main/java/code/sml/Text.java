@@ -1,5 +1,7 @@
 package code.sml;
 
+import code.util.CustList;
+
 public final class Text extends NavigableNode {
 
     private String textContent;
@@ -88,8 +90,8 @@ public final class Text extends NavigableNode {
         textContent = _textContent;
     }
 
-    public void setEscapedTextContent(String _escapedTextContent) {
-        textContent = DocumentBuilder.transformSpecialCharsLtGt(_escapedTextContent);
+    public void setEscapedTextContent(String _escapedTextContent, CustList<EncodedChar> _encodes) {
+        textContent = DocumentBuilder.transformSpecialChars(_escapedTextContent, _encodes);
     }
 
 }

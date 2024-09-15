@@ -128,10 +128,11 @@ public final class Configuration {
         for (String s: _dual.getRenderFiles()) {
             String file_ = _files.getVal(s);
             DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(file_);
+            String input_ = res_.getInput();
             Document document_ = res_.getDocument();
-            AdvFileEscapedCalc es_ = new AdvFileEscapedCalc(AnaRendBlock.getIndexesSpecChars(file_, _analyzingDoc.getEncoded()));
+            AdvFileEscapedCalc es_ = new AdvFileEscapedCalc(AnaRendBlock.getIndexesSpecChars(input_, res_.getChs()));
             FileBlock fileBl_ = new FileBlock(0, false, s, es_);
-            fileBl_.metrics(file_);
+            fileBl_.metrics(input_);
             if (document_ == null) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFile(fileBl_);
@@ -141,7 +142,7 @@ public final class Configuration {
                 AnalyzingDoc.addError(badEl_, _page);
                 continue;
             }
-            AnaRendDocumentBlock anaDoc_ = AnaRendBlock.newRendDocumentBlock(document_, file_, _page, _analyzingDoc, es_, fileBl_);
+            AnaRendDocumentBlock anaDoc_ = AnaRendBlock.newRendDocumentBlock(document_, input_, _page, _analyzingDoc, es_, fileBl_, res_.getEscaped());
             anaDoc_.contentNb().setAccessNb(_page.getCountElts().getCountAnon().size());
             _page.getCountElts().getCountAnon().add(0L);
             anaDoc_.contentMemNb().setAccessMemNb(_page.getCountElts().getAnonTypes().size());

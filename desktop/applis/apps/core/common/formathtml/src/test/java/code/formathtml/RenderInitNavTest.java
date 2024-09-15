@@ -590,8 +590,8 @@ public final class RenderInitNavTest extends CommonRender {
         DualNavigationContext a_ = buildNav(conf_);
         setFirst(a_,"page1.html");
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
-        files_.put("page1.html", html_);
-        files_.put("page2.html", htmlTwo_);
+        files_.put("page1.html", "lt&60;gt&62;amp&38;quot&34;"+html_);
+        files_.put("page2.html", "lt&60;gt&62;amp&38;quot&34;"+htmlTwo_);
         a_.getDualAnalyzedContext().getContext().setFilesConfName("conf");
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page2.html");

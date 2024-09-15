@@ -7,8 +7,7 @@ import code.formathtml.common.AdvFileEscapedCalc;
 import code.formathtml.common.RendBlockUtil;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
-import code.sml.NavigationCore;
-import code.util.StringMap;
+import code.sml.DocumentResult;
 import org.junit.Test;
 
 public final class RenderOffsetsTest extends CommonRender {
@@ -358,91 +357,91 @@ public final class RenderOffsetsTest extends CommonRender {
     @Test
     public void process17Test() {
         String file_ = "";
-        file_ += "<html attr='val&lt;ue'/>";
+        file_ += "lt&60;<html attr='val&lt;ue'/>";
         AnaRendDocumentBlock doc_ = newRendDocumentBlock(file_);
         AnaRendBlock firstChild_ = doc_.getFirstChild();
         assertTrue(firstChild_ instanceof AnaRendStdElement);
-        assertEq(1,firstChild_.getOffset());
-        assertEq(23,firstChild_.getEndHeader());
+        assertEq(7,firstChild_.getOffset());
+        assertEq(29,firstChild_.getEndHeader());
         assertEq(1,firstChild_.getAttributeDelimiters().size());
-        assertEq(12,firstChild_.getAttributeDelimiters().getVal("attr").getBegin());
-        assertEq(21,firstChild_.getAttributeDelimiters().getVal("attr").getEnd());
+        assertEq(18,firstChild_.getAttributeDelimiters().getVal("attr").getBegin());
+        assertEq(27,firstChild_.getAttributeDelimiters().getVal("attr").getEnd());
     }
     @Test
     public void process18Test() {
         String file_ = "";
-        file_ += "<html attr1='val&lt;ue' attr2='value'/>";
+        file_ += "lt&60;<html attr1='val&lt;ue' attr2='value'/>";
         AnaRendDocumentBlock doc_ = newRendDocumentBlock(file_);
         AnaRendBlock firstChild_ = doc_.getFirstChild();
         assertTrue(firstChild_ instanceof AnaRendStdElement);
-        assertEq(1,firstChild_.getOffset());
-        assertEq(38,firstChild_.getEndHeader());
+        assertEq(7,firstChild_.getOffset());
+        assertEq(44,firstChild_.getEndHeader());
         assertEq(2,firstChild_.getAttributeDelimiters().size());
-        assertEq(13,firstChild_.getAttributeDelimiters().getVal("attr1").getBegin());
-        assertEq(22,firstChild_.getAttributeDelimiters().getVal("attr1").getEnd());
-        assertEq(31,firstChild_.getAttributeDelimiters().getVal("attr2").getBegin());
-        assertEq(36,firstChild_.getAttributeDelimiters().getVal("attr2").getEnd());
+        assertEq(19,firstChild_.getAttributeDelimiters().getVal("attr1").getBegin());
+        assertEq(28,firstChild_.getAttributeDelimiters().getVal("attr1").getEnd());
+        assertEq(37,firstChild_.getAttributeDelimiters().getVal("attr2").getBegin());
+        assertEq(42,firstChild_.getAttributeDelimiters().getVal("attr2").getEnd());
     }
     @Test
     public void process19Test() {
         String file_ = " ";
-        file_ += "<html/>";
+        file_ += "lt&60;gt&62;amp&38;quot&34;<html/>";
         AnaRendDocumentBlock doc_ = newRendDocumentBlock(file_);
         AnaRendBlock firstChild_ = doc_.getFirstChild();
         assertTrue(firstChild_ instanceof AnaRendStdElement);
-        assertEq(2,firstChild_.getOffset());
-        assertEq(7,firstChild_.getEndHeader());
+        assertEq(29,firstChild_.getOffset());
+        assertEq(34,firstChild_.getEndHeader());
     }
     @Test
     public void process20Test() {
         String file_ = "";
-        file_ += "<html attr='val&lt;ue'/>";
+        file_ += "lt&60;<html attr='val&lt;ue'/>";
         AnaRendDocumentBlock doc_ = newRendDocumentBlock(file_);
         assertEq(1,doc_.getEscapedChar().size());
-        assertEq(15,doc_.getEscapedChar().getKey(0));
+        assertEq(21,doc_.getEscapedChar().getKey(0));
         assertEq(3,doc_.getEscapedChar().getValue(0));
     }
     @Test
     public void process21Test() {
         String file_ = "";
-        file_ += "<html attr='val&lt;ue'/>";
+        file_ += "lt&60;<html attr='val&lt;ue'/>";
         AnaRendDocumentBlock doc_ = newRendDocumentBlock(file_);
-        assertEq(14, RendBlockUtil.retrieve(14, doc_.getEscapedChar()));
+        assertEq(20, RendBlockUtil.retrieve(20, doc_.getEscapedChar()));
     }
     @Test
     public void process22Test() {
         String file_ = "";
-        file_ += "<html attr='val&lt;ue'/>";
+        file_ += "lt&60;<html attr='val&lt;ue'/>";
         AnaRendDocumentBlock doc_ = newRendDocumentBlock(file_);
-        assertEq(15, RendBlockUtil.retrieve(15, doc_.getEscapedChar()));
+        assertEq(21, RendBlockUtil.retrieve(21, doc_.getEscapedChar()));
     }
     @Test
     public void process23Test() {
         String file_ = "";
-        file_ += "<html attr='val&lt;ue'/>";
+        file_ += "lt&60;<html attr='val&lt;ue'/>";
         AnaRendDocumentBlock doc_ = newRendDocumentBlock(file_);
-        assertEq(19, RendBlockUtil.retrieve(16, doc_.getEscapedChar()));
+        assertEq(25, RendBlockUtil.retrieve(22, doc_.getEscapedChar()));
     }
     @Test
     public void process24Test() {
         String file_ = "";
-        file_ += "<html attr='val&lt;ue'/>";
+        file_ += "lt&60;<html attr='val&lt;ue'/>";
         AnaRendDocumentBlock doc_ = newRendDocumentBlock(file_);
-        assertEq(20, RendBlockUtil.retrieve(17, doc_.getEscapedChar()));
+        assertEq(26, RendBlockUtil.retrieve(23, doc_.getEscapedChar()));
     }
     @Test
     public void process25Test() {
         String file_ = "";
-        file_ += "<html attr='val&lt;&gt;ue'/>";
+        file_ += "lt&60;gt&62;<html attr='val&lt;&gt;ue'/>";
         AnaRendDocumentBlock doc_ = newRendDocumentBlock(file_);
-        assertEq(19, RendBlockUtil.retrieve(16, doc_.getEscapedChar()));
+        assertEq(31, RendBlockUtil.retrieve(28, doc_.getEscapedChar()));
     }
     @Test
     public void process26Test() {
         String file_ = "";
-        file_ += "<html attr='val&lt;&gt;ue'/>";
+        file_ += "lt&60;gt&62;<html attr='val&lt;&gt;ue'/>";
         AnaRendDocumentBlock doc_ = newRendDocumentBlock(file_);
-        assertEq(23, RendBlockUtil.retrieve(17, doc_.getEscapedChar()));
+        assertEq(35, RendBlockUtil.retrieve(29, doc_.getEscapedChar()));
     }
     @Test
     public void process27Test() {
@@ -493,9 +492,11 @@ public final class RenderOffsetsTest extends CommonRender {
 //    }
     private static AnaRendDocumentBlock newRendDocumentBlock(String _docText) {
         DualNavigationContext a_ = buildNav();
-        Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(_docText).getDocument();
+        DocumentResult result_ = DocumentBuilder.parseSaxNotNullRowCol(_docText);
+        Document doc_ = result_.getDocument();
+        String input_ = result_.getInput();
         AnalyzingDoc anaDoc_ = new AnalyzingDoc();
-        AdvFileEscapedCalc es_ = new AdvFileEscapedCalc(AnaRendBlock.getIndexesSpecChars(_docText, anaDoc_.getEncoded()));
-        return AnaRendDocumentBlock.newRendDocumentBlock(doc_, _docText, a_.getDualAnalyzedContext().getAnalyzed(), anaDoc_, es_, new FileBlock(0, false, "page1.html", es_));
+        AdvFileEscapedCalc es_ = new AdvFileEscapedCalc(AnaRendBlock.getIndexesSpecChars(input_, result_.getChs()));
+        return AnaRendDocumentBlock.newRendDocumentBlock(doc_, input_, a_.getDualAnalyzedContext().getAnalyzed(), anaDoc_, es_, new FileBlock(0, false, "page1.html", es_), result_.getEscaped());
     }
 }

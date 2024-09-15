@@ -382,7 +382,7 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
         AbstractProgramInfos pr_ = cr_.getProgramInfos();
         StringMap<ContentTime> cont_ = with(pr_, with(pr_, with(pr_, init(), "conf.txt", "content"), "src/"), "src/folder/");
         StringMap<ContentTime> contConf_ = with(pr_,cont_,"conf_cl.txt","src/folder/file.txt");
-        StringMap<ContentTime> contRend_ = with(pr_,contConf_,"page.html","<html c:bean='bean_one'><body><c:set className='var' value='i=\"1\"'/><c:set className='var' value='j=\"2\"'/><c:set className='var' value='k=(cl.Inter)((:int)-&gt;{return 1;})'/>_{Class.getClass(new Rate(i+'/'+j))}_{Class.getClass(new Rate(i))}_{this}</body></html>");
+        StringMap<ContentTime> contRend_ = with(pr_,contConf_,"page.html","lt&60;gt&62;amp&38;quot&34;<html c:bean='bean_one'><body><c:set className='var' value='i=\"1\"'/><c:set className='var' value='j=\"2\"'/><c:set className='var' value='k=(cl.Inter)((:int)-&gt;{return 1;})'/>_{Class.getClass(new Rate(i+'/'+j))}_{Class.getClass(new Rate(i))}_{this}</body></html>");
         StringMap<ContentTime> content_ = with(pr_, contRend_, "src/folder/file.txt", "public class cl.Init:$core.Bean{public void beforeDisplaying(){}public static Object init(String[] names, String[] contents){return new String[0];}}public interface cl.Inter{int call();}");
         StringMap<ContentTime> contents_ = with(pr_, content_, "conf.xml", xmlConf_);
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(contents_);

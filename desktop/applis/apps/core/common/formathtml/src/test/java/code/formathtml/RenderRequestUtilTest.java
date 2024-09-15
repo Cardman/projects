@@ -79,7 +79,7 @@ public final class RenderRequestUtilTest extends CommonRender {
 
 
         setup(folder_, relative_, files_, dual_);
-        ContextEl ctx_ = elOneBean(filesSec_, filRend(oneFile(html_), files_),dual_);
+        ContextEl ctx_ = elOneBean(filesSec_, filRend(oneFile("lt&60;gt&62;amp&38;quot&34;"+html_), files_),dual_);
 
         RendStackCall st_ = new RendStackCall(InitPhase.NOTHING, ctx_);
         successRes(st_,ctx_, dual_.getDualAnalyzedContext().getStds(),  dual_.getNavigation().getSession());
@@ -148,7 +148,7 @@ public final class RenderRequestUtilTest extends CommonRender {
 
 
         setup(folder_, relative_, files_, a_);
-        ContextEl ctx_ = elOneBean(filesSec_, filRend(oneFile(html_), files_), a_);
+        ContextEl ctx_ = elOneBean(filesSec_, filRend(oneFile("lt&60;gt&62;amp&38;quot&34;"+html_), files_), a_);
 
         RendStackCall buildSt_ = new RendStackCall(InitPhase.NOTHING, ctx_);
         successRes(buildSt_,ctx_, a_);
@@ -226,7 +226,7 @@ public final class RenderRequestUtilTest extends CommonRender {
 
 
         setup(folder_, relative_, files_, a_);
-        ContextEl ctx_ = elOneBean(filesSec_, filRend(oneFile(html_), files_), a_);
+        ContextEl ctx_ = elOneBean(filesSec_, filRend(oneFile("lt&60;gt&62;amp&38;quot&34;"+html_), files_), a_);
 
         RendStackCall buildSt_ = new RendStackCall(InitPhase.NOTHING, ctx_);
         successRes(buildSt_,ctx_, a_);
@@ -303,7 +303,7 @@ public final class RenderRequestUtilTest extends CommonRender {
 
 
         setup(folder_, relative_, files_, a_);
-        ContextEl ctx_ = elOneBean(filesSec_, filRend(oneFile(html_), files_), a_);
+        ContextEl ctx_ = elOneBean(filesSec_, filRend(oneFile("lt&60;gt&62;amp&38;quot&34;"+html_), files_), a_);
 
         RendStackCall buildSt_ = new RendStackCall(InitPhase.NOTHING, ctx_);
         successRes(buildSt_,ctx_, a_);
@@ -376,7 +376,7 @@ public final class RenderRequestUtilTest extends CommonRender {
 
 
         setup(folder_, relative_, files_, a_);
-        ContextEl ctx_ = elOneBean(filesSec_, filRend(oneFile(html_), files_), a_);
+        ContextEl ctx_ = elOneBean(filesSec_, filRend(oneFile("lt&60;gt&62;amp&38;quot&34;"+html_), files_), a_);
 
         RendStackCall buildSt_ = new RendStackCall(InitPhase.NOTHING, ctx_);
         successRes(buildSt_,ctx_, a_);
@@ -408,7 +408,7 @@ public final class RenderRequestUtilTest extends CommonRender {
 
 
         setup(folder_, relative_, files_, a_);
-        ContextEl ctx_ = elOneBean(filesSec_, filRend(oneFile(html_), files_), a_);
+        ContextEl ctx_ = elOneBean(filesSec_, filRend(oneFile("lt&60;gt&62;amp&38;quot&34;"+html_), files_), a_);
 
         RendStackCall buildSt_ = new RendStackCall(InitPhase.NOTHING, ctx_);
         successRes(buildSt_,ctx_, a_);

@@ -42,43 +42,43 @@ public class ExportTextTest extends EquallableRowColUtil {
 
     @Test
     public void getTextContent7Test() {
-        FullElement elt_ = (FullElement) DocumentBuilder.parseSax("<tag a='\"&quot;&apos;'/>").getDocumentElement();
+        FullElement elt_ = (FullElement) DocumentBuilder.parseSax("quot&34;apos&39;<tag a='\"&quot;&apos;'/>").getDocumentElement();
         assertEq("",elt_.getTextContent());
     }
 
     @Test
     public void getTextContent8Test() {
-        FullElement elt_ = (FullElement) DocumentBuilder.parseSax("<tag a='\"&quot;&apos;'>e</tag>").getDocumentElement();
+        FullElement elt_ = (FullElement) DocumentBuilder.parseSax("quot&34;apos&39;<tag a='\"&quot;&apos;'>e</tag>").getDocumentElement();
         assertEq("e",elt_.getTextContent());
     }
 
     @Test
     public void getTextContent9Test() {
-        FullElement elt_ = (FullElement) DocumentBuilder.parseSax("<tag a=\"'&quot;&apos;\"/>").getDocumentElement();
+        FullElement elt_ = (FullElement) DocumentBuilder.parseSax("quot&34;apos&39;<tag a=\"'&quot;&apos;\"/>").getDocumentElement();
         assertEq("",elt_.getTextContent());
     }
 
     @Test
     public void getTextContent10Test() {
-        FullElement elt_ = (FullElement) DocumentBuilder.parseSax("<tag a=\"'&quot;&apos;\">e</tag>").getDocumentElement();
+        FullElement elt_ = (FullElement) DocumentBuilder.parseSax("quot&34;apos&39;<tag a=\"'&quot;&apos;\">e</tag>").getDocumentElement();
         assertEq("e",elt_.getTextContent());
     }
 
     @Test
     public void getTextContent11Test() {
-        FullElement elt_ = (FullElement) DocumentBuilder.parseSax("<tag a='&lt;'/>").getDocumentElement();
+        FullElement elt_ = (FullElement) DocumentBuilder.parseSax("lt&60;<tag a='&lt;'/>").getDocumentElement();
         assertEq("",elt_.getTextContent());
     }
 
     @Test
     public void getTextContent12Test() {
-        FullElement elt_ = (FullElement) DocumentBuilder.parseSax("<tag a='&gt;'/>").getDocumentElement();
+        FullElement elt_ = (FullElement) DocumentBuilder.parseSax("gt&62;<tag a='&gt;'/>").getDocumentElement();
         assertEq("",elt_.getTextContent());
     }
 
     @Test
     public void getTextContent13Test() {
-        FullElement elt_ = (FullElement) DocumentBuilder.parseSax("<tag a='&amp;'/>").getDocumentElement();
+        FullElement elt_ = (FullElement) DocumentBuilder.parseSax("amp&38;<tag a='&amp;'/>").getDocumentElement();
         assertEq("",elt_.getTextContent());
     }
 
@@ -90,19 +90,19 @@ public class ExportTextTest extends EquallableRowColUtil {
 
     @Test
     public void getTextContent15Test() {
-        FullElement elt_ = (FullElement) DocumentBuilder.parseSax("<tag>&lt;</tag>").getDocumentElement();
+        FullElement elt_ = (FullElement) DocumentBuilder.parseSax("lt&60;<tag>&lt;</tag>").getDocumentElement();
         assertEq("<",elt_.getTextContent());
     }
 
     @Test
     public void getTextContent16Test() {
-        FullElement elt_ = (FullElement) DocumentBuilder.parseSax("<tag>&gt;</tag>").getDocumentElement();
+        FullElement elt_ = (FullElement) DocumentBuilder.parseSax("gt&62;<tag>&gt;</tag>").getDocumentElement();
         assertEq(">",elt_.getTextContent());
     }
 
     @Test
     public void getTextContent17Test() {
-        FullElement elt_ = (FullElement) DocumentBuilder.parseSax("<tag>&amp;</tag>").getDocumentElement();
+        FullElement elt_ = (FullElement) DocumentBuilder.parseSax("amp&38;<tag>&amp;</tag>").getDocumentElement();
         assertEq("&",elt_.getTextContent());
     }
 

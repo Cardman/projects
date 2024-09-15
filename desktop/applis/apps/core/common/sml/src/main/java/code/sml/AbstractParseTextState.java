@@ -2,6 +2,7 @@ package code.sml;
 
 import code.util.CustList;
 import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -35,11 +36,15 @@ public abstract class AbstractParseTextState {
     private final StringBuilder attributeValue = new StringBuilder();
     private CustList<Attr> attrs = new CustList<Attr>();
     private int index;
-    AbstractParseTextState(CoreDocument _doc, Element _currentElement,String _input, int _index) {
+    private final StringMap<String> escaped;
+    private final CustList<EncodedChar> chs;
+    AbstractParseTextState(CoreDocument _doc, Element _currentElement, String _input, int _index, StringMap<String> _e, CustList<EncodedChar> _encoded) {
         doc = _doc;
         currentElement = _currentElement;
         input = _input;
         index = _index;
+        escaped = _e;
+        chs = _encoded;
     }
 
     static DocumentResult parseCommon(DocumentResult _res, CoreDocument _doc, String _input, int _len, AbstractParseTextState _st) {
@@ -52,6 +57,9 @@ public abstract class AbstractParseTextState {
             return processErr(_res, _input, _len, _st.index, _doc.getTabWidth());
         }
         _res.setDocument(_doc);
+        _res.setEscaped(_st.getEscaped());
+        _res.setChs(_st.getChs());
+        _res.setInput(_input);
         return _res;
     }
 
@@ -82,6 +90,8 @@ public abstract class AbstractParseTextState {
         rc_.setRow(row_);
         rc_.setCol(col_);
         _res.setLocation(rc_);
+        _res.setChs(new CustList<EncodedChar>());
+        _res.setInput(_input);
         return _res;
     }
     private boolean exit() {
@@ -252,7 +262,7 @@ public abstract class AbstractParseTextState {
             index++;
             return true;
         }
-        Attr attr_ = CoreDocument.createAttribute(attributeName.toString(),attributeValue.toString());
+        Attr attr_ = CoreDocument.createAttribute(attributeName.toString(),attributeValue.toString(),chs);
         attrs.add(attr_);
         attributeName.delete(0, attributeName.length());
         attributeValue.delete(0, attributeValue.length());
@@ -352,6 +362,14 @@ public abstract class AbstractParseTextState {
 
     protected Element getCurrentElement() {
         return currentElement;
+    }
+
+    protected CustList<EncodedChar> getChs() {
+        return chs;
+    }
+
+    protected StringMap<String> getEscaped() {
+        return escaped;
     }
 
     private static boolean koAttrValue(char _curChar) {

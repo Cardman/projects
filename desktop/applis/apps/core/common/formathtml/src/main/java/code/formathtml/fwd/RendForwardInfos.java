@@ -45,7 +45,7 @@ public final class RendForwardInfos {
     private RendForwardInfos() {
     }
     private static RendDocumentBlock build(Configuration _cont, AnaRendDocumentBlock _ana, ResultContext _forwards, AnalyzingDoc _anaDoc) {
-        RendDocumentBlock rendDoc_ = new RendDocumentBlock(_ana.getFileName(),_ana.getEsc(),_ana.getFile().getMetricsCore(), _ana.getElt(), _ana.getBeanName(), fwdType(_ana, _forwards.getForwards()));
+        RendDocumentBlock rendDoc_ = new RendDocumentBlock(_ana.getFileName(),_ana.getEsc(),_ana.getFile().getMetricsCore(), _ana.getElt(), _ana.getBeanName(), fwdType(_ana, _forwards.getForwards()), _ana.getEscapedChars());
         RendAnaExec pair_ = new RendAnaExec(_ana, rendDoc_);
         while (pair_.getRead() != null) {
             RendBlock loc_ = newRendBlock(_cont,pair_.getRead(), _forwards.getForwards());

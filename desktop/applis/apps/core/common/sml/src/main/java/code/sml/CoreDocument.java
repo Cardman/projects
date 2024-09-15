@@ -1,6 +1,8 @@
 package code.sml;
 
 
+import code.util.CustList;
+
 public abstract class CoreDocument implements Node,Document {
     private Element documentElement;
 
@@ -14,12 +16,6 @@ public abstract class CoreDocument implements Node,Document {
     public Text createTextNode(String _data) {
         Text text_ = new Text(this);
         text_.setTextContent(_data);
-        return text_;
-    }
-    @Override
-    public Text createEscapedTextNode(String _data) {
-        Text text_ = new Text(this);
-        text_.setEscapedTextContent(_data);
         return text_;
     }
 
@@ -50,9 +46,9 @@ public abstract class CoreDocument implements Node,Document {
     static Attr createAttribute(String _name) {
         return new Attr(_name);
     }
-    public static Attr createAttribute(String _name, String _value) {
+    public static Attr createAttribute(String _name, String _value, CustList<EncodedChar> _chs) {
         Attr attr_ = new Attr(_name);
-        attr_.setEscapedValue(_value);
+        attr_.setEscapedValue(_value, _chs);
         return attr_;
     }
 

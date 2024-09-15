@@ -87,43 +87,43 @@ public class DescendantTest extends EquallableRowColUtil {
 
     @Test
     public void getElementsByTagNameFull7Test() {
-        Element elt_ =DocumentBuilder.parseSax("<tag a='\"&quot;&apos;'/>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseSax("quot&34;apos&39;<tag a='\"&quot;&apos;'/>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName().size());
     }
 
     @Test
     public void getElementsByTagNameFull8Test() {
-        Element elt_ =DocumentBuilder.parseSax("<tag a='\"&quot;&apos;'>e</tag>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseSax("quot&34;apos&39;<tag a='\"&quot;&apos;'>e</tag>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName().size());
     }
 
     @Test
     public void getElementsByTagNameFull9Test() {
-        Element elt_ =DocumentBuilder.parseSax("<tag a=\"'&quot;&apos;\"/>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseSax("quot&34;apos&39;<tag a=\"'&quot;&apos;\"/>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName().size());
     }
 
     @Test
     public void getElementsByTagNameFull10Test() {
-        Element elt_ =DocumentBuilder.parseSax("<tag a=\"'&quot;&apos;\">e</tag>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseSax("quot&34;apos&39;<tag a=\"'&quot;&apos;\">e</tag>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName().size());
     }
 
     @Test
     public void getElementsByTagNameFull11Test() {
-        Element elt_ =DocumentBuilder.parseSax("<tag a='&lt;'/>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseSax("lt&60;<tag a='&lt;'/>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName().size());
     }
 
     @Test
     public void getElementsByTagNameFull12Test() {
-        Element elt_ =DocumentBuilder.parseSax("<tag a='&gt;'/>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseSax("gt&62;<tag a='&gt;'/>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName().size());
     }
 
     @Test
     public void getElementsByTagNameFull13Test() {
-        Element elt_ =DocumentBuilder.parseSax("<tag a='&amp;'/>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseSax("amp&38;<tag a='&amp;'/>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName().size());
     }
 
@@ -135,19 +135,19 @@ public class DescendantTest extends EquallableRowColUtil {
 
     @Test
     public void getElementsByTagNameFull15Test() {
-        Element elt_ =DocumentBuilder.parseSax("<tag>&lt;</tag>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseSax("lt&60;<tag>&lt;</tag>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName().size());
     }
 
     @Test
     public void getElementsByTagNameFull16Test() {
-        Element elt_ =DocumentBuilder.parseSax("<tag>&gt;</tag>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseSax("gt&62;<tag>&gt;</tag>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName().size());
     }
 
     @Test
     public void getElementsByTagNameFull17Test() {
-        Element elt_ =DocumentBuilder.parseSax("<tag>&amp;</tag>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseSax("amp&38;<tag>&amp;</tag>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName().size());
     }
 
@@ -253,43 +253,43 @@ public class DescendantTest extends EquallableRowColUtil {
 
     @Test
     public void getElementsByTagNameNoText7Test() {
-        Element elt_ =DocumentBuilder.parseNoTextDocument("<tag a='\"&quot;&apos;'/>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseNoTextDocument("quot&34;apos&39;<tag a='\"&quot;&apos;'/>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName().size());
     }
 
     @Test
     public void getElementsByTagNameNoText8Test() {
-        Element elt_ =DocumentBuilder.parseNoTextDocument("<tag a='\"&quot;&apos;'>e</tag>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseNoTextDocument("quot&34;apos&39;<tag a='\"&quot;&apos;'>e</tag>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName().size());
     }
 
     @Test
     public void getElementsByTagNameNoText9Test() {
-        Element elt_ =DocumentBuilder.parseNoTextDocument("<tag a=\"'&quot;&apos;\"/>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseNoTextDocument("quot&34;apos&39;<tag a=\"'&quot;&apos;\"/>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName().size());
     }
 
     @Test
     public void getElementsByTagNameNoText10Test() {
-        Element elt_ =DocumentBuilder.parseNoTextDocument("<tag a=\"'&quot;&apos;\">e</tag>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseNoTextDocument("quot&34;apos&39;<tag a=\"'&quot;&apos;\">e</tag>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName().size());
     }
 
     @Test
     public void getElementsByTagNameNoText11Test() {
-        Element elt_ =DocumentBuilder.parseNoTextDocument("<tag a='&lt;'/>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseNoTextDocument("lt&60;<tag a='&lt;'/>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName().size());
     }
 
     @Test
     public void getElementsByTagNameNoText12Test() {
-        Element elt_ =DocumentBuilder.parseNoTextDocument("<tag a='&gt;'/>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseNoTextDocument("gt&62;<tag a='&gt;'/>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName().size());
     }
 
     @Test
     public void getElementsByTagNameNoText13Test() {
-        Element elt_ =DocumentBuilder.parseNoTextDocument("<tag a='&amp;'/>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseNoTextDocument("amp&38;<tag a='&amp;'/>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName().size());
     }
 
@@ -301,19 +301,19 @@ public class DescendantTest extends EquallableRowColUtil {
 
     @Test
     public void getElementsByTagNameNoText15Test() {
-        Element elt_ =DocumentBuilder.parseNoTextDocument("<tag>&lt;</tag>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseNoTextDocument("lt&60;<tag>&lt;</tag>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName().size());
     }
 
     @Test
     public void getElementsByTagNameNoText16Test() {
-        Element elt_ =DocumentBuilder.parseNoTextDocument("<tag>&gt;</tag>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseNoTextDocument("gt&62;<tag>&gt;</tag>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName().size());
     }
 
     @Test
     public void getElementsByTagNameNoText17Test() {
-        Element elt_ =DocumentBuilder.parseNoTextDocument("<tag>&amp;</tag>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseNoTextDocument("amp&38;<tag>&amp;</tag>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName().size());
     }
 
@@ -403,43 +403,43 @@ public class DescendantTest extends EquallableRowColUtil {
 
     @Test
     public void getElementsByTagNameFullFilter7Test() {
-        Element elt_ =DocumentBuilder.parseSax("<tag a='\"&quot;&apos;'/>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseSax("quot&34;apos&39;<tag a='\"&quot;&apos;'/>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName("tag").size());
     }
 
     @Test
     public void getElementsByTagNameFullFilter8Test() {
-        Element elt_ =DocumentBuilder.parseSax("<tag a='\"&quot;&apos;'>e</tag>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseSax("quot&34;apos&39;<tag a='\"&quot;&apos;'>e</tag>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName("tag").size());
     }
 
     @Test
     public void getElementsByTagNameFullFilter9Test() {
-        Element elt_ =DocumentBuilder.parseSax("<tag a=\"'&quot;&apos;\"/>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseSax("quot&34;apos&39;<tag a=\"'&quot;&apos;\"/>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName("tag").size());
     }
 
     @Test
     public void getElementsByTagNameFullFilter10Test() {
-        Element elt_ =DocumentBuilder.parseSax("<tag a=\"'&quot;&apos;\">e</tag>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseSax("quot&34;apos&39;<tag a=\"'&quot;&apos;\">e</tag>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName("tag").size());
     }
 
     @Test
     public void getElementsByTagNameFullFilter11Test() {
-        Element elt_ =DocumentBuilder.parseSax("<tag a='&lt;'/>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseSax("lt&60;<tag a='&lt;'/>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName("tag").size());
     }
 
     @Test
     public void getElementsByTagNameFullFilter12Test() {
-        Element elt_ =DocumentBuilder.parseSax("<tag a='&gt;'/>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseSax("gt&62;<tag a='&gt;'/>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName("tag").size());
     }
 
     @Test
     public void getElementsByTagNameFullFilter13Test() {
-        Element elt_ =DocumentBuilder.parseSax("<tag a='&amp;'/>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseSax("amp&38;<tag a='&amp;'/>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName("tag").size());
     }
 
@@ -451,19 +451,19 @@ public class DescendantTest extends EquallableRowColUtil {
 
     @Test
     public void getElementsByTagNameFullFilter15Test() {
-        Element elt_ =DocumentBuilder.parseSax("<tag>&lt;</tag>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseSax("lt&60;<tag>&lt;</tag>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName("tag").size());
     }
 
     @Test
     public void getElementsByTagNameFullFilter16Test() {
-        Element elt_ =DocumentBuilder.parseSax("<tag>&gt;</tag>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseSax("gt&62;<tag>&gt;</tag>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName("tag").size());
     }
 
     @Test
     public void getElementsByTagNameFullFilter17Test() {
-        Element elt_ =DocumentBuilder.parseSax("<tag>&amp;</tag>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseSax("amp&38;<tag>&amp;</tag>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName("tag").size());
     }
 
@@ -564,43 +564,43 @@ public class DescendantTest extends EquallableRowColUtil {
 
     @Test
     public void getElementsByTagNameNoTextFilter7Test() {
-        Element elt_ =DocumentBuilder.parseNoTextDocument("<tag a='\"&quot;&apos;'/>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseNoTextDocument("quot&34;apos&39;<tag a='\"&quot;&apos;'/>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName("tag").size());
     }
 
     @Test
     public void getElementsByTagNameNoTextFilter8Test() {
-        Element elt_ =DocumentBuilder.parseNoTextDocument("<tag a='\"&quot;&apos;'>e</tag>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseNoTextDocument("quot&34;apos&39;<tag a='\"&quot;&apos;'>e</tag>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName("tag").size());
     }
 
     @Test
     public void getElementsByTagNameNoTextFilter9Test() {
-        Element elt_ =DocumentBuilder.parseNoTextDocument("<tag a=\"'&quot;&apos;\"/>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseNoTextDocument("quot&34;apos&39;<tag a=\"'&quot;&apos;\"/>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName("tag").size());
     }
 
     @Test
     public void getElementsByTagNameNoTextFilter10Test() {
-        Element elt_ =DocumentBuilder.parseNoTextDocument("<tag a=\"'&quot;&apos;\">e</tag>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseNoTextDocument("quot&34;apos&39;<tag a=\"'&quot;&apos;\">e</tag>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName("tag").size());
     }
 
     @Test
     public void getElementsByTagNameNoTextFilter11Test() {
-        Element elt_ =DocumentBuilder.parseNoTextDocument("<tag a='&lt;'/>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseNoTextDocument("lt&60;<tag a='&lt;'/>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName("tag").size());
     }
 
     @Test
     public void getElementsByTagNameNoTextFilter12Test() {
-        Element elt_ =DocumentBuilder.parseNoTextDocument("<tag a='&gt;'/>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseNoTextDocument("gt&62;<tag a='&gt;'/>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName("tag").size());
     }
 
     @Test
     public void getElementsByTagNameNoTextFilter13Test() {
-        Element elt_ =DocumentBuilder.parseNoTextDocument("<tag a='&amp;'/>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseNoTextDocument("amp&38;<tag a='&amp;'/>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName("tag").size());
     }
 
@@ -612,19 +612,19 @@ public class DescendantTest extends EquallableRowColUtil {
 
     @Test
     public void getElementsByTagNameNoTextFilter15Test() {
-        Element elt_ =DocumentBuilder.parseNoTextDocument("<tag>&lt;</tag>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseNoTextDocument("lt&60;<tag>&lt;</tag>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName("tag").size());
     }
 
     @Test
     public void getElementsByTagNameNoTextFilter16Test() {
-        Element elt_ =DocumentBuilder.parseNoTextDocument("<tag>&gt;</tag>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseNoTextDocument("gt&62;<tag>&gt;</tag>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName("tag").size());
     }
 
     @Test
     public void getElementsByTagNameNoTextFilter17Test() {
-        Element elt_ =DocumentBuilder.parseNoTextDocument("<tag>&amp;</tag>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseNoTextDocument("amp&38;<tag>&amp;</tag>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName("tag").size());
     }
 
@@ -718,43 +718,43 @@ public class DescendantTest extends EquallableRowColUtil {
 
     @Test
     public void getDescNodesFull7Test() {
-        Element elt_ =DocumentBuilder.parseSax("<tag a='\"&quot;&apos;'/>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseSax("quot&34;apos&39;<tag a='\"&quot;&apos;'/>").getDocumentElement();
         assertEq(1,elt_.getDescNodes().size());
     }
 
     @Test
     public void getDescNodesFull8Test() {
-        Element elt_ =DocumentBuilder.parseSax("<tag a='\"&quot;&apos;'>e</tag>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseSax("quot&34;apos&39;<tag a='\"&quot;&apos;'>e</tag>").getDocumentElement();
         assertEq(2,elt_.getDescNodes().size());
     }
 
     @Test
     public void getDescNodesFull9Test() {
-        Element elt_ =DocumentBuilder.parseSax("<tag a=\"'&quot;&apos;\"/>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseSax("quot&34;apos&39;<tag a=\"'&quot;&apos;\"/>").getDocumentElement();
         assertEq(1,elt_.getDescNodes().size());
     }
 
     @Test
     public void getDescNodesFull10Test() {
-        Element elt_ =DocumentBuilder.parseSax("<tag a=\"'&quot;&apos;\">e</tag>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseSax("quot&34;apos&39;<tag a=\"'&quot;&apos;\">e</tag>").getDocumentElement();
         assertEq(2,elt_.getDescNodes().size());
     }
 
     @Test
     public void getDescNodesFull11Test() {
-        Element elt_ =DocumentBuilder.parseSax("<tag a='&lt;'/>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseSax("lt&60;<tag a='&lt;'/>").getDocumentElement();
         assertEq(1,elt_.getDescNodes().size());
     }
 
     @Test
     public void getDescNodesFull12Test() {
-        Element elt_ =DocumentBuilder.parseSax("<tag a='&gt;'/>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseSax("gt&62;<tag a='&gt;'/>").getDocumentElement();
         assertEq(1,elt_.getDescNodes().size());
     }
 
     @Test
     public void getDescNodesFull13Test() {
-        Element elt_ =DocumentBuilder.parseSax("<tag a='&amp;'/>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseSax("amp&38;<tag a='&amp;'/>").getDocumentElement();
         assertEq(1,elt_.getDescNodes().size());
     }
 
@@ -766,19 +766,19 @@ public class DescendantTest extends EquallableRowColUtil {
 
     @Test
     public void getDescNodesFull15Test() {
-        Element elt_ =DocumentBuilder.parseSax("<tag>&lt;</tag>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseSax("lt&60;<tag>&lt;</tag>").getDocumentElement();
         assertEq(2,elt_.getDescNodes().size());
     }
 
     @Test
     public void getDescNodesFull16Test() {
-        Element elt_ =DocumentBuilder.parseSax("<tag>&gt;</tag>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseSax("gt&62;<tag>&gt;</tag>").getDocumentElement();
         assertEq(2,elt_.getDescNodes().size());
     }
 
     @Test
     public void getDescNodesFull17Test() {
-        Element elt_ =DocumentBuilder.parseSax("<tag>&amp;</tag>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseSax("amp&38;<tag>&amp;</tag>").getDocumentElement();
         assertEq(2,elt_.getDescNodes().size());
     }
 
@@ -862,43 +862,43 @@ public class DescendantTest extends EquallableRowColUtil {
 
     @Test
     public void getDescNodesNoText7Test() {
-        Element elt_ =DocumentBuilder.parseNoTextDocument("<tag a='\"&quot;&apos;'/>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseNoTextDocument("quot&34;apos&39;<tag a='\"&quot;&apos;'/>").getDocumentElement();
         assertEq(1,elt_.getDescNodes().size());
     }
 
     @Test
     public void getDescNodesNoText8Test() {
-        Element elt_ =DocumentBuilder.parseNoTextDocument("<tag a='\"&quot;&apos;'>e</tag>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseNoTextDocument("quot&34;apos&39;<tag a='\"&quot;&apos;'>e</tag>").getDocumentElement();
         assertEq(1,elt_.getDescNodes().size());
     }
 
     @Test
     public void getDescNodesNoText9Test() {
-        Element elt_ =DocumentBuilder.parseNoTextDocument("<tag a=\"'&quot;&apos;\"/>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseNoTextDocument("quot&34;apos&39;<tag a=\"'&quot;&apos;\"/>").getDocumentElement();
         assertEq(1,elt_.getDescNodes().size());
     }
 
     @Test
     public void getDescNodesNoText10Test() {
-        Element elt_ =DocumentBuilder.parseNoTextDocument("<tag a=\"'&quot;&apos;\">e</tag>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseNoTextDocument("quot&34;apos&39;<tag a=\"'&quot;&apos;\">e</tag>").getDocumentElement();
         assertEq(1,elt_.getDescNodes().size());
     }
 
     @Test
     public void getDescNodesNoText11Test() {
-        Element elt_ =DocumentBuilder.parseNoTextDocument("<tag a='&lt;'/>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseNoTextDocument("lt&60;<tag a='&lt;'/>").getDocumentElement();
         assertEq(1,elt_.getDescNodes().size());
     }
 
     @Test
     public void getDescNodesNoText12Test() {
-        Element elt_ =DocumentBuilder.parseNoTextDocument("<tag a='&gt;'/>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseNoTextDocument("gt&62;<tag a='&gt;'/>").getDocumentElement();
         assertEq(1,elt_.getDescNodes().size());
     }
 
     @Test
     public void getDescNodesNoText13Test() {
-        Element elt_ =DocumentBuilder.parseNoTextDocument("<tag a='&amp;'/>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseNoTextDocument("amp&38;<tag a='&amp;'/>").getDocumentElement();
         assertEq(1,elt_.getDescNodes().size());
     }
 
@@ -910,19 +910,19 @@ public class DescendantTest extends EquallableRowColUtil {
 
     @Test
     public void getDescNodesNoText15Test() {
-        Element elt_ =DocumentBuilder.parseNoTextDocument("<tag>&lt;</tag>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseNoTextDocument("lt&60;<tag>&lt;</tag>").getDocumentElement();
         assertEq(1,elt_.getDescNodes().size());
     }
 
     @Test
     public void getDescNodesNoText16Test() {
-        Element elt_ =DocumentBuilder.parseNoTextDocument("<tag>&gt;</tag>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseNoTextDocument("gt&62;<tag>&gt;</tag>").getDocumentElement();
         assertEq(1,elt_.getDescNodes().size());
     }
 
     @Test
     public void getDescNodesNoText17Test() {
-        Element elt_ =DocumentBuilder.parseNoTextDocument("<tag>&amp;</tag>").getDocumentElement();
+        Element elt_ =DocumentBuilder.parseNoTextDocument("amp&38;<tag>&amp;</tag>").getDocumentElement();
         assertEq(1,elt_.getDescNodes().size());
     }
 

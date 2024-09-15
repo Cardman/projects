@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.sml.Element;
 import code.util.CustList;
+import code.util.StringMap;
 
 public final class RendDocumentBlock extends ExecFileBlockAbs implements RendParentBlockInt, ExecAccessedFct {
 
@@ -20,12 +21,14 @@ public final class RendDocumentBlock extends ExecFileBlockAbs implements RendPar
     private final CustList<ExecAbstractSwitchMethod> sw = new CustList<ExecAbstractSwitchMethod>();
     private final CustList<ExecRootBlock> reserved = new CustList<ExecRootBlock>();
     private final CustList<ExecRootBlock> anonymous = new CustList<ExecRootBlock>();
-    public RendDocumentBlock(String _f, AbstractFileEscapedCalc _esc, FileMetricsCore _metrics, Element _elt, String _beanName, ExecFormattedRootBlock _d) {
+    private final StringMap<String> escapedChars;
+    public RendDocumentBlock(String _f, AbstractFileEscapedCalc _esc, FileMetricsCore _metrics, Element _elt, String _beanName, ExecFormattedRootBlock _d, StringMap<String> _ch) {
         super(_metrics,_esc);
         this.elt = _elt;
         fileName = _f;
         this.beanName = _beanName;
         decl = _d;
+        escapedChars = _ch;
     }
 
     @Override
@@ -60,6 +63,10 @@ public final class RendDocumentBlock extends ExecFileBlockAbs implements RendPar
     @Override
     public RendParentBlock getParent() {
         return null;
+    }
+
+    public StringMap<String> getEscapedChars() {
+        return escapedChars;
     }
 
     public Element getElt() {

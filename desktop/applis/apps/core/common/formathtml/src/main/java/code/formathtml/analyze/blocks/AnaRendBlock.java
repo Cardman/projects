@@ -58,11 +58,11 @@ public abstract class AnaRendBlock {
         offset = _offset;
     }
 
-    public static AnaRendDocumentBlock newRendDocumentBlock(Document _doc, String _docText, AnalyzedPageEl _primTypes, AnalyzingDoc _anaDoc, AdvFileEscapedCalc _es, FileBlock _fileBl) {
+    public static AnaRendDocumentBlock newRendDocumentBlock(Document _doc, String _docText, AnalyzedPageEl _primTypes, AnalyzingDoc _anaDoc, AdvFileEscapedCalc _es, FileBlock _fileBl, StringMap<String> _chs) {
         RendKeyWords rend_ = _anaDoc.getRendKeyWords();
         Element documentElement_ = _doc.getDocumentElement();
         Node curNode_ = documentElement_;
-        AnaRendDocumentBlock out_ = new AnaRendDocumentBlock(documentElement_, 0, _es, _fileBl);
+        AnaRendDocumentBlock out_ = new AnaRendDocumentBlock(documentElement_, 0, _es, _fileBl, _chs);
         int indexGlobal_ = indexOfBeginNode(curNode_, _docText, 0);
         AnaRendBlock curWrite_ = newRendBlockEsc(indexGlobal_,out_, _anaDoc.getPrefix(), curNode_,_docText, _primTypes, rend_);
         out_.appendChild(curWrite_);
@@ -477,20 +477,32 @@ public abstract class AnaRendBlock {
                 i_++;
             }
             if (i_ < end_) {
-                for (EncodedChar e: _chars) {
-                    if (addEscaped(_html, i_, beginEscaped_, e)) {
-                        indexes_.put(beginEscaped_, i_ - beginEscaped_);
-                        break;
-                    }
-                }
+                feed(_html, _chars, i_, indexes_, beginEscaped_);
             }
             i_++;
         }
         return indexes_;
     }
 
+    private static void feed(String _html, CustList<EncodedChar> _chars, int _i, IntTreeMap<Integer> _indexes, int _beginEscaped) {
+        if (addEscaped(_html, _beginEscaped)) {
+            _indexes.put(_beginEscaped, _i - _beginEscaped);
+        } else {
+            for (EncodedChar e: _chars) {
+                if (addEscaped(_html, _i, _beginEscaped, e)) {
+                    _indexes.put(_beginEscaped, _i - _beginEscaped);
+                    break;
+                }
+            }
+        }
+    }
+
+    private static boolean addEscaped(String _html, int _beginEscaped) {
+        return _html.charAt(_beginEscaped + 1) == '#';
+    }
+
     private static boolean addEscaped(String _html, int _i, int _beginEscaped, EncodedChar _e) {
-        return _html.charAt(_beginEscaped + 1) == '#' || StringUtil.quickEq(_html.substring(_beginEscaped, _i + 1), _e.getKey());
+        return StringUtil.quickEq(_html.substring(_beginEscaped, _i + 1), _e.getKey());
     }
 
     private static StringMap<AttributePart> getAttributes(String _html, int _from, int _to) {

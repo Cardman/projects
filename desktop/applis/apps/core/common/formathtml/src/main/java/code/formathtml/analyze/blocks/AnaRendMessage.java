@@ -70,18 +70,19 @@ public final class AnaRendMessage extends AnaRendParentBlock implements AnaRendB
         String lt_ = Character.toString(LT_BEGIN_TAG);
         String gt_ = Character.toString(GT_TAG);
         StringList formArg_ = new StringList();
+        StringMap<String> ec_ = _doc.getEscapedChars();
         for (EntryCust<String,String> e: preformatted.entryList()) {
             String preRend_;
             String concat_ = StringUtil.concat(lt_,TMP_BLOCK_TAG,gt_,e.getValue(),LT_END_TAG,TMP_BLOCK_TAG,gt_);
             preRend_=StringUtil.simpleStringsFormat(concat_, formArg_);
-            DocumentResult res2_ = DocumentBuilder.parseSaxNotNullRowCol(preRend_);
+            DocumentResult res2_ = DocumentBuilder.parseSaxNotNullRowCol(preRend_,ec_);
             Document docLoc2_ = res2_.getDocument();
             int count_ = 0;
             if (docLoc2_ != null) {
                 ElementList anc_ = docLoc2_.getElementsByTagName(_anaDoc.getRendKeyWords().getKeyWordAnchor());
                 count_ = anc_.size();
             }
-            DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(concat_);
+            DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(concat_,ec_);
             Document docLoc_ = res_.getDocument();
             if (docLoc_ == null) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();

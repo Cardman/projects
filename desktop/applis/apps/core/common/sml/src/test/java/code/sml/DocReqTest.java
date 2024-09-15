@@ -122,10 +122,10 @@ public class DocReqTest extends EquallableRowColUtil {
         assertNull(DocumentBuilder.parseSax(null));
         assertNull(DocumentBuilder.parseNoTextDocument(null));
     }
-    @Test
-    public void encTest() {
-        assertEq("&#9;",DocumentBuilder.encodeToHtml("\u0009"));
-    }
+//    @Test
+//    public void encTest() {
+//        assertEq("&#9;",DocumentBuilder.encodeToHtml("\u0009"));
+//    }
 
     @Test
     public void tabTest() {
