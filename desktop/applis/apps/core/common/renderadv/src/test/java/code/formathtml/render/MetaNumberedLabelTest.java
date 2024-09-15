@@ -222,11 +222,11 @@ public final class MetaNumberedLabelTest extends EquallableRenderAdvUtil {
     }
     @Test
     public void convert53Test() {
-        assertEq("i ", convertMinLatin(10000));
+        assertEq("i+|", convertMinLatin(10000));
     }
     @Test
     public void convert54Test() {
-        assertEq("I ",MetaNumberedLabel.convert(10000,MetaNumberBase.LATIN_MAJ, MessagesRendKeyWordsDefs.init()));
+        assertEq("I+|",MetaNumberedLabel.convert(10000,MetaNumberBase.LATIN_MAJ, MessagesRendKeyWordsDefs.init()));
     }
 
     private String convertMinLetter(int _number) {

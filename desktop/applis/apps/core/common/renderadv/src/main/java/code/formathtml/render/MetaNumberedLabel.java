@@ -42,7 +42,9 @@ public final class MetaNumberedLabel extends MetaLabel {
         Ints parts_ = initParts(_number);
         StringBuilder str_ = new StringBuilder(parts_.size() * 4);
         for (int i: parts_.getReverse()) {
-            if (i < 10) {
+            if (i == 0) {
+                str_.append('|');
+            } else if (i < 10) {
                 str_.append(getLatinString(i, firstUnit_, firstDemi_, secondUnit_));
             } else if (i < 100) {
                 str_.append(getLatinString(i / 10 % 10, secondUnit_, secondDemi_, thirdUnit_));
@@ -57,7 +59,7 @@ public final class MetaNumberedLabel extends MetaLabel {
                 str_.append(getLatinString(i / 10 % 10, secondUnit_, secondDemi_, thirdUnit_));
                 str_.append(getLatinString(i % 10, firstUnit_, firstDemi_, secondUnit_));
             }
-            str_.append(" ");
+            str_.append("+");
         }
         str_.deleteCharAt(str_.length() - 1);
         return str_.toString();
