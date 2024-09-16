@@ -16,6 +16,13 @@ public final class TryIncrEncodingText extends AbstractEncodingText {
 
 
     private static void tryIncr(String _htmlText, CustList<EncodedChar> _map, StringBuilder _str, int _iEncode, int _index) {
+        if (_htmlText.charAt(_iEncode + 1) == NUMBERED_CHAR) {
+            String strValue_ = _htmlText.substring(_iEncode + 2, _index);
+            int ascii_ = (int) NumberUtil.parseLongZero(strValue_);
+            char char_ = (char) ascii_;
+            _str.append(char_);
+            return;
+        }
         if (!next(_htmlText, _str, _iEncode, _index, _map)) {
             tryApp(_htmlText, _str, _iEncode, _index);
         }
@@ -33,13 +40,6 @@ public final class TryIncrEncodingText extends AbstractEncodingText {
         return incr_;
     }
     private static void tryApp(String _htmlText, StringBuilder _str, int _iEncode, int _index) {
-        if (_htmlText.charAt(_iEncode + 1) == NUMBERED_CHAR) {
-            String strValue_ = _htmlText.substring(_iEncode + 2, _index);
-            int ascii_ = (int) NumberUtil.parseLongZero(strValue_);
-            char char_ = (char) ascii_;
-            _str.append(char_);
-            return;
-        }
         _str.append(_htmlText, _iEncode, _index + 1);
     }
 
