@@ -4,10 +4,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.*;
 import code.maths.litteralcom.MathExpUtil;
-import code.util.CustList;
-import code.util.Replacement;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.SortConstants;
@@ -31,18 +28,18 @@ public final class NumParsers {
         if (isDoubleSuffix(suffix_) || isFloatSuffix(suffix_)) {
             return processDotted(_infosNb, suffix_);
         }
-        StringBuilder nbFormatted_ = _infosNb.getIntPart();
-        String nb_ = StringUtil.removeChars(StringUtil.removeAllSpaces(nbFormatted_.toString()), '_');
+//        Ints nbFormatted_ = _infosNb.getIntPart();
+//        String nb_ = StringUtil.removeChars(nbFormatted_.toString(), '_');
         if (_infosNb.getBase() == 16) {
-            return processSixteen(suffix_, nb_);
+            return processSixteen(suffix_, _infosNb.getIntPart());
         }
         if (_infosNb.getBase() == 2) {
-            return processTwo(suffix_, nb_);
+            return processTwo(suffix_, _infosNb.getIntPart());
         }
         if (_infosNb.getBase() == 8) {
-            return processEight(suffix_, nb_);
+            return processEight(suffix_, _infosNb.getIntPart());
         }
-        return processTen(suffix_, nb_);
+        return processTen(suffix_, _infosNb.getIntPart());
     }
 
     private static WithoutParentStruct processDotted(NumberInfos _infosNb, int _suffix) {
@@ -56,8 +53,8 @@ public final class NumParsers {
         return new FloatStruct((float) doubleInfo_.getValue());
     }
 
-    private static WithoutParentStruct processSixteen(int _suffix, String _nb) {
-        if (_nb.length() > 16) {
+    private static WithoutParentStruct processSixteen(int _suffix, Ints _nb) {
+        if (_nb.size() > 16) {
             return NullStruct.NULL_VALUE;
         }
         boolean[] bits_ = NumParsers.parseLongSixteenToBits(_nb);
@@ -69,24 +66,24 @@ public final class NumParsers {
             return processBaseInt(_nb, bits_, 8);
         }
         if (isCharSuffix(_suffix)) {
-            if (_nb.length() > 4) {
+            if (_nb.size() > 4) {
                 return NullStruct.NULL_VALUE;
             }
-            char int_ = NumParsers.parseCharSixteen(_nb);
+            char int_ = (char)buildQuickLong(_nb,16);
             return new CharStruct(int_);
         }
         if (isShortSuffix(_suffix)) {
             return processBaseShort(_nb, bits_, 4);
         }
-        if (_nb.length() > 2) {
+        if (_nb.size() > 2) {
             return NullStruct.NULL_VALUE;
         }
         byte int_ = NumParsers.extractByte(bits_);
         return new ByteStruct(int_);
     }
 
-    private static WithoutParentStruct processTwo(int _suffix, String _nb) {
-        if (_nb.length() > 64) {
+    private static WithoutParentStruct processTwo(int _suffix, Ints _nb) {
+        if (_nb.size() > 64) {
             return NullStruct.NULL_VALUE;
         }
         boolean[] bits_ = NumParsers.parseLongBinaryToBits(_nb);
@@ -103,45 +100,45 @@ public final class NumParsers {
         if (isShortSuffix(_suffix)) {
             return processBaseShort(_nb, bits_, 16);
         }
-        if (_nb.length() > 8) {
+        if (_nb.size() > 8) {
             return NullStruct.NULL_VALUE;
         }
         byte int_ = NumParsers.extractByte(bits_);
         return new ByteStruct(int_);
     }
 
-    private static WithoutParentStruct processBaseShort(String _nb, boolean[] _bits, int _max) {
-        if (_nb.length() > _max) {
+    private static WithoutParentStruct processBaseShort(Ints _nb, boolean[] _bits, int _max) {
+        if (_nb.size() > _max) {
             return NullStruct.NULL_VALUE;
         }
         short int_ = NumParsers.extractShort(_bits);
         return new ShortStruct(int_);
     }
 
-    private static WithoutParentStruct processBaseChar(String _nb, boolean[] _bits) {
-        if (_nb.length() > 16) {
+    private static WithoutParentStruct processBaseChar(Ints _nb, boolean[] _bits) {
+        if (_nb.size() > 16) {
             return NullStruct.NULL_VALUE;
         }
         char int_ = (char) NumParsers.extractShort(_bits);
         return new CharStruct(int_);
     }
 
-    private static WithoutParentStruct processBaseInt(String _nb, boolean[] _bits, int _max) {
-        if (_nb.length() > _max) {
+    private static WithoutParentStruct processBaseInt(Ints _nb, boolean[] _bits, int _max) {
+        if (_nb.size() > _max) {
             return NullStruct.NULL_VALUE;
         }
         int int_ = NumParsers.extractInt(_bits);
         return new IntStruct(int_);
     }
 
-    private static WithoutParentStruct processEight(int _suffix, String _nb) {
+    private static WithoutParentStruct processEight(int _suffix, Ints _nb) {
         if (isLongSuffix(_suffix)) {
             return processEightLong(_nb);
         }
         if (isCharSuffix(_suffix)) {
             return processEightChar(_nb);
         }
-        LongInfo lg_ = NumParsers.parseLong(_nb, 8);
+        LongInfo lg_ = buildLong(_nb, 8, false);
         if (!lg_.isValid()) {
             return NullStruct.NULL_VALUE;
         }
@@ -155,11 +152,11 @@ public final class NumParsers {
         return processEightByte(_nb, value_);
     }
 
-    private static WithoutParentStruct processEightByte(String _nb, long _value) {
-        if (_nb.length() > 3) {
+    private static WithoutParentStruct processEightByte(Ints _nb, long _value) {
+        if (_nb.size() > 3) {
             return NullStruct.NULL_VALUE;
         }
-        if (_nb.length() == 3 && notFourFirst(_nb)) {
+        if (_nb.size() == 3 && notFourFirst(_nb)) {
             return NullStruct.NULL_VALUE;
         }
         long value_ = _value;
@@ -172,11 +169,11 @@ public final class NumParsers {
         return new ByteStruct((byte) value_);
     }
 
-    private static WithoutParentStruct processEightShort(String _nb, long _value) {
-        if (_nb.length() > 6) {
+    private static WithoutParentStruct processEightShort(Ints _nb, long _value) {
+        if (_nb.size() > 6) {
             return NullStruct.NULL_VALUE;
         }
-        if (_nb.length() == 6 && notFourFirst(_nb)) {
+        if (_nb.size() == 6 && notFourFirst(_nb)) {
             return NullStruct.NULL_VALUE;
         }
         long value_ = _value;
@@ -189,11 +186,11 @@ public final class NumParsers {
         return new ShortStruct((short) value_);
     }
 
-    private static WithoutParentStruct processEightInt(String _nb, long _value) {
-        if (_nb.length() > 11) {
+    private static WithoutParentStruct processEightInt(Ints _nb, long _value) {
+        if (_nb.size() > 11) {
             return NullStruct.NULL_VALUE;
         }
-        if (_nb.length() == 11 && notFourFirst(_nb)) {
+        if (_nb.size() == 11 && notFourFirst(_nb)) {
             return NullStruct.NULL_VALUE;
         }
         long value_ = _value;
@@ -206,35 +203,35 @@ public final class NumParsers {
         return new IntStruct((int) value_);
     }
 
-    private static WithoutParentStruct processEightChar(String _nb) {
-        if (_nb.length() > 6) {
+    private static WithoutParentStruct processEightChar(Ints _nb) {
+        if (_nb.size() > 6) {
             return NullStruct.NULL_VALUE;
         }
-        if (_nb.length() == 6 && notTwoFirst(_nb)) {
+        if (_nb.size() == 6 && notTwoFirst(_nb)) {
             return NullStruct.NULL_VALUE;
         }
-        LongInfo lg_ = NumParsers.parseLong(_nb, 8);
+        LongInfo lg_ = buildLong(_nb, 8, false);
         if (!lg_.isValid()) {
             return NullStruct.NULL_VALUE;
         }
         return new CharStruct((char) lg_.getValue());
     }
 
-    private static WithoutParentStruct processEightLong(String _nb) {
-        if (_nb.length() > 22) {
+    private static WithoutParentStruct processEightLong(Ints _nb) {
+        if (_nb.size() > 22) {
             return NullStruct.NULL_VALUE;
         }
         int sub_ = 0;
         boolean rev_ = false;
-        if (_nb.length() == 22) {
+        if (_nb.size() == 22) {
             if (notTwoFirst(_nb)) {
                 return NullStruct.NULL_VALUE;
             }
-            rev_ = _nb.charAt(0) == '1';
+            rev_ = _nb.get(0) == 1;
             sub_ = 1;
         }
-        String subString_ = _nb.substring(sub_);
-        LongInfo lg_ = NumParsers.parseLong(subString_, 8);
+        CustList<Integer> subString_ = _nb.mid(sub_);
+        LongInfo lg_ = buildLong(subString_, 8, false);
         if (!lg_.isValid()) {
             return NullStruct.NULL_VALUE;
         }
@@ -243,12 +240,12 @@ public final class NumParsers {
         return new LongStruct(longValue_);
     }
 
-    private static boolean notFourFirst(String _nb) {
-        return _nb.charAt(0) != '0' && _nb.charAt(0) != '1' && _nb.charAt(0) != '2' && _nb.charAt(0) != '3';
+    private static boolean notFourFirst(Ints _nb) {
+        return _nb.get(0) != 0 && _nb.get(0) != 1 && _nb.get(0) != 2 && _nb.get(0) != 3;
     }
 
-    private static boolean notTwoFirst(String _nb) {
-        return _nb.charAt(0) != '0' && _nb.charAt(0) != '1';
+    private static boolean notTwoFirst(Ints _nb) {
+        return _nb.get(0) != 0 && _nb.get(0) != 1;
     }
 
     private static boolean isFloatSuffix(int _suffix) {
@@ -259,11 +256,10 @@ public final class NumParsers {
         return _suffix == NumberInfos.WRAP_DOUBLE || _suffix == NumberInfos.PRIM_DOUBLE;
     }
 
-    private static WithoutParentStruct processTen(int _suffix, String _nb) {
-        LongInfo longValue_ = NumParsers.parseLong(_nb, 10);
+    private static WithoutParentStruct processTen(int _suffix, Ints _nb) {
+        LongInfo longValue_ = buildLong(_nb, 10, false);
         if (!longValue_.isValid()) {
-            String str_  = StringUtil.concat("-", _nb);
-            LongInfo oppLongValue_ = NumParsers.parseLong(str_, 10);
+            LongInfo oppLongValue_ = buildLong(_nb, 10, true);
             if (oppLongValue_.isValid() && isLongSuffix(_suffix)) {
                 return new LongStruct(Long.MIN_VALUE);
             }
@@ -344,91 +340,91 @@ public final class NumParsers {
 
 
     public static DoubleInfo parseDouble(NumberInfos _nb) {
-        StringBuilder int_ = new StringBuilder(_nb.getIntPart());
-        removeNbSep(int_);
-        StringBuilder dec_ = new StringBuilder(_nb.getDecimalPart());
-        removeNbSep(dec_);
-        StringBuilder exp_ = new StringBuilder(_nb.getExponentialPart());
-        removeNbSep(exp_);
+        Ints int_ = new Ints(_nb.getIntPart());
+//        removeNbSep(int_);
+        Ints dec_ = new Ints(_nb.getDecimalPart());
+//        removeNbSep(dec_);
+        Ints exp_ = new Ints(_nb.getExponentialPart());
+//        removeNbSep(exp_);
         boolean positive_ = _nb.isPositive();
-        LongInfo expNb_ = exponent(exp_);
+        LongInfo expNb_ = exponent(exp_, _nb.isNegativeExp());
         if (!expNb_.isValid()) {
-            return bulldBoundNbArea(exp_, positive_);
+            return bulldBoundNbArea(_nb.isNegativeExp(), positive_);
         }
         long expNbLong_ = expNb_.getValue();
-        StringBuilder nb_ = new StringBuilder(int_);
-        nb_.append(dec_);
+        Ints nb_ = new Ints(int_);
+        nb_.addAllElts(dec_);
         if (_nb.getBase() == 16) {
-            long longValue_ = NumberUtil.parseLongSixteen(nb_.toString());
+            long longValue_ = buildQuickLong(nb_,16);
             return buildNb(dec_, expNbLong_, longValue_, 4L);
         }
         if (_nb.getBase() == 2) {
-            long longValue_ = parseLongBase(nb_.toString(), 2);
+            long longValue_ = buildQuickLong(nb_,2);
             return buildNb(dec_, expNbLong_, longValue_, 1L);
         }
         if (_nb.getBase() == 8) {
-            long longValue_ = parseLongBase(nb_.toString(), 8);
+            long longValue_ = buildQuickLong(nb_,8);
             return buildNb(dec_, expNbLong_, longValue_, 3L);
         }
-        if (dec_.length() == 0) {
+        if (dec_.size() == 0) {
             return noDotTenBase(int_, positive_, expNbLong_);
         }
-        if (expNbLong_ >= dec_.length()) {
-            return exitDigitsFromDecPart(positive_, nb_, (int) expNbLong_ - dec_.length());
+        if (expNbLong_ >= dec_.size()) {
+            return exitDigitsFromDecPart(positive_, nb_, (int) expNbLong_ - dec_.size());
         }
-        if (-expNbLong_ >= int_.length()) {
+        if (-expNbLong_ >= int_.size()) {
             return insertDot(int_, dec_, positive_, expNbLong_, nb_);
         }
         return shiftDot(int_, dec_, positive_, expNbLong_);
     }
 
-    private static DoubleInfo shiftDot(StringBuilder _int, StringBuilder _dec, boolean _positive, long _expNbLong) {
-        StringBuilder numberInt_ = new StringBuilder();
-        StringBuilder numberDec_ = new StringBuilder();
+    private static DoubleInfo shiftDot(Ints _int, Ints _dec, boolean _positive, long _expNbLong) {
+        Ints numberInt_ = new Ints();
+        Ints numberDec_ = new Ints();
         if (_expNbLong > 0) {
             //expNbLong_ < dec_.length() => dec_.length() > 0 => numberInt_.length() > 0
             //-expNbLong_ < int_.length()
-            numberInt_.append(_int);
-            numberInt_.append(_dec.substring(0, (int) _expNbLong));
-            numberDec_.append(_dec.substring((int) _expNbLong));
+            numberInt_.addAllElts(_int);
+            numberInt_.addAllElts(_dec.sub(0, (int) _expNbLong));
+            numberDec_.addAllElts(_dec.mid((int) _expNbLong));
         } else if (_expNbLong == 0) {
             //expNbLong_ < dec_.length() => 0 < dec_.length()
             //-expNbLong_ < int_.length() => 0 < int_.length() => numberInt_.length() > 0
-            numberInt_.append(_int);
-            numberDec_.append(_dec);
+            numberInt_.addAllElts(_int);
+            numberDec_.addAllElts(_dec);
         } else {
             //expNbLong_ < 0
-            int del_ = _int.length() +(int) _expNbLong;
+            int del_ = _int.size() +(int) _expNbLong;
             //-expNbLong_ < int_.length() => 0 < -expNbLong_ < int_.length() => 0 < int_.length()
             //-expNbLong_ < int_.length() => 0 < expNbLong_ + int_.length() => numberInt_.length() > 0
-            numberInt_.append(_int.substring(0, del_));
-            numberDec_.append(_int.substring(del_));
-            numberDec_.append(_dec);
+            numberInt_.addAllElts(_int.sub(0, del_));
+            numberDec_.addAllElts(_int.mid(del_));
+            numberDec_.addAllElts(_dec);
         }
-        if (numberInt_.length() > MAX_DIGITS_DOUBLE) {
+        if (numberInt_.size() > MAX_DIGITS_DOUBLE) {
             return bigNb(_positive, numberInt_);
         }
-        long longValue_ = parseQuickLongTen(numberInt_.toString());
+        long longValue_ = buildQuickLong(numberInt_,10);
         double value_ = MathExpUtil.toDouble(longValue_);
         int index_ = indexNotZero(numberDec_);
-        StringBuilder decCopy_ = new StringBuilder(numberDec_.substring(index_));
-        decCopy_.delete(NumberUtil.min(MAX_DIGITS_DOUBLE + 1, decCopy_.length()), decCopy_.length());
-        if (decCopy_.length() == 0) {
+        CustList<Integer> decCopy_ = new CustList<Integer>(numberDec_.mid(index_));
+        decCopy_ = decCopy_.sub(0, NumberUtil.min(MAX_DIGITS_DOUBLE + 1, decCopy_.size()));
+        if (decCopy_.size() == 0) {
             return buildNbSimple(_positive, longValue_, value_);
         }
-        long decLongValue_ = parseQuickLongTen(decCopy_.toString());
+        long decLongValue_ = buildQuickLong(decCopy_,10);
         double decValue_ = MathExpUtil.toDouble(decLongValue_);
-        double power_ = pow(numberDec_.length(),10.0);
+        double power_ = pow(numberDec_.size(),10.0);
         if (!_positive) {
             return new DoubleInfo(-value_ - decValue_ / power_);
         }
         return new DoubleInfo(value_ + decValue_ / power_);
     }
 
-    private static DoubleInfo insertDot(StringBuilder _int, StringBuilder _dec, boolean _positive, long _expNbLong, StringBuilder _nb) {
+    private static DoubleInfo insertDot(Ints _int, Ints _dec, boolean _positive, long _expNbLong, Ints _nb) {
         int index_ = indexNotZero(_nb);
-        StringBuilder decCopy_ = new StringBuilder(_nb.substring(index_));
-        if (decCopy_.length() == 0) {
+        Ints decCopy_ = new Ints(_nb.mid(index_));
+        if (decCopy_.size() == 0) {
             if (!_positive) {
                 return new DoubleInfo(-0.0,true);
             }
@@ -436,15 +432,15 @@ public final class NumParsers {
         }
         long longValue_;
         int diff_;
-        if (decCopy_.length() > MAX_DIGITS_DOUBLE) {
-            longValue_ = parseQuickLongTen(decCopy_.substring(0, MAX_DIGITS_DOUBLE + 1));
-            diff_ = (int) (-_expNbLong - _int.length() + MAX_DIGITS_DOUBLE + 1 + index_);
+        if (decCopy_.size() > MAX_DIGITS_DOUBLE) {
+            longValue_ = buildQuickLong(decCopy_.sub(0, MAX_DIGITS_DOUBLE + 1),10);
+            diff_ = (int) (-_expNbLong - _int.size() + MAX_DIGITS_DOUBLE + 1 + index_);
             //-expNbLong_ >= int_.length() => -expNbLong_ - int_.length() >= 0
             //-expNbLong_ >= int_.length() => -expNbLong_ - int_.length() + 1 > 0
             //-expNbLong_ >= int_.length() => -expNbLong_ - int_.length() + MAX_DIGITS_DOUBLE + 1 > MAX_DIGITS_DOUBLE > 0
         } else {
-            longValue_ = parseQuickLongTen(decCopy_.toString());
-            diff_ = (int) (-_expNbLong + _dec.length());
+            longValue_ = buildQuickLong(decCopy_,10);
+            diff_ = (int) (-_expNbLong + _dec.size());
             //expNbLong_ < dec_.length() => 0 < dec_.length() - expNbLong_
         }
         double value_ = MathExpUtil.toDouble(longValue_);
@@ -455,38 +451,38 @@ public final class NumParsers {
         return new DoubleInfo(value_ / power_);
     }
 
-    private static DoubleInfo exitDigitsFromDecPart(boolean _positive, StringBuilder _nb, int _diff) {
+    private static DoubleInfo exitDigitsFromDecPart(boolean _positive, Ints _nb, int _diff) {
         //try to get "double" as int
-        StringBuilder number_ = new StringBuilder(_nb);
+        Ints number_ = new Ints(_nb);
         for (long i = 0; i < _diff; i++) {
-            number_.append("0");
+            number_.add(0);
         }
-        if (number_.length() > MAX_DIGITS_DOUBLE) {
+        if (number_.size() > MAX_DIGITS_DOUBLE) {
             return bigNb(_positive, number_);
         }
-        long longValue_ = parseQuickLongTen(number_.toString());
+        long longValue_ = buildQuickLong(number_,10);
         double value_ = MathExpUtil.toDouble(longValue_);
         return buildNbSimple(_positive, longValue_, value_);
     }
 
-    private static DoubleInfo noDotTenBase(StringBuilder _int, boolean _positive, long _expNbLong) {
+    private static DoubleInfo noDotTenBase(Ints _int, boolean _positive, long _expNbLong) {
         if (_expNbLong == 0) {
-            if (_int.length() > MAX_DIGITS_DOUBLE) {
+            if (_int.size() > MAX_DIGITS_DOUBLE) {
                 return bigNb(_positive, _int);
             }
-            long longValue_ = parseQuickLongTen(_int.toString());
+            long longValue_ = buildQuickLong(_int,10);
             double value_ = MathExpUtil.toDouble(longValue_);
             return buildNbSimple(_positive, longValue_, value_);
         }
         long longValue_;
         long expNbLong_;
-        if (_int.length() > MAX_DIGITS_DOUBLE) {
+        if (_int.size() > MAX_DIGITS_DOUBLE) {
             //MAX_DIGITS_DOUBLE >= 0 => MAX_DIGITS_DOUBLE + 1 > 0
-            longValue_ = parseQuickLongTen(_int.substring(0, MAX_DIGITS_DOUBLE + 1));
-            expNbLong_ = _expNbLong+_int.length() - MAX_DIGITS_DOUBLE - 1;
+            longValue_ = buildQuickLong(_int.sub(0, MAX_DIGITS_DOUBLE + 1),10);
+            expNbLong_ = _expNbLong+_int.size() - MAX_DIGITS_DOUBLE - 1;
         } else {
             //dec_.length() + int_.toString() > 0 && dec_.length() == 0 => int_.toString() > 0
-            longValue_ = parseQuickLongTen(_int.toString());
+            longValue_ = buildQuickLong(_int,10);
             expNbLong_ = _expNbLong;
         }
         double value_ = MathExpUtil.toDouble(longValue_);
@@ -497,32 +493,36 @@ public final class NumParsers {
         return buildNb(value_, expNbLong_, power_, longValue_);
     }
 
-    private static DoubleInfo bulldBoundNbArea(StringBuilder _exp, boolean _positive) {
+    private static DoubleInfo bulldBoundNbArea(boolean _exp, boolean _positive) {
         if (_positive) {
-            if (StringExpUtil.startsWith(_exp,'-')) {
+            if (_exp) {
                 return new DoubleInfo(0.0);
             }
             return new DoubleInfo(Double.POSITIVE_INFINITY);
         }
-        if (StringExpUtil.startsWith(_exp,'-')) {
+        if (_exp) {
             return new DoubleInfo(-0.0);
         }
         return new DoubleInfo(Double.NEGATIVE_INFINITY);
     }
 
-    private static LongInfo exponent(StringBuilder _exp) {
-        LongInfo expNb_;
-        if (StringExpUtil.startsWith(_exp,'+')) {
-            expNb_ = parseLong(_exp.substring(1), 10);
-        } else if (_exp.length() == 0) {
-            expNb_ = new LongInfo(0);
-        } else {
-            expNb_ = parseLong(_exp.toString(), 10);
+    private static LongInfo exponent(Ints _exp, boolean _negative) {
+        if (_exp.isEmpty()) {
+            return new LongInfo(0);
         }
-        return expNb_;
+        return buildLong(_exp,10, _negative);
+//        LongInfo expNb_;
+//        if (StringExpUtil.startsWith(_exp,'+')) {
+//            expNb_ = parseLong(_exp.substring(1), 10);
+//        } else if (_exp.length() == 0) {
+//            expNb_ = new LongInfo(0);
+//        } else {
+//            expNb_ = parseLong(_exp.toString(), 10);
+//        }
+//        return expNb_;
     }
 
-    private static DoubleInfo bigNb(boolean _positive, StringBuilder _number) {
+    private static DoubleInfo bigNb(boolean _positive, Ints _number) {
         return new DoubleInfo(processBigNumbers(_number, _positive));
     }
 
@@ -534,15 +534,15 @@ public final class NumParsers {
         return new DoubleInfo(_value, zero_);
     }
 
-    private static DoubleInfo buildNb(StringBuilder _dec, long _expNbLong, long _longValue, long _ra) {
+    private static DoubleInfo buildNb(Ints _dec, long _expNbLong, long _longValue, long _ra) {
         double parsed_ = MathExpUtil.toDouble(_longValue);
         long delta_ = delta(_dec, _expNbLong, _ra);
         double p_ = pow(delta_, 2.0);
         return buildNb(parsed_, delta_, p_, _longValue);
     }
 
-    private static long delta(StringBuilder _dec, long _expNbLong, long _ra) {
-        return _expNbLong - _ra * _dec.length();
+    private static long delta(Ints _dec, long _expNbLong, long _ra) {
+        return _expNbLong - _ra * _dec.size();
     }
 
     private static double pow(long _delta, double _exp) {
@@ -565,10 +565,10 @@ public final class NumParsers {
         return new DoubleInfo(_parsed / _p,_zero);
     }
 
-    private static int indexNotZero(StringBuilder _number) {
+    private static int indexNotZero(Ints _number) {
         int index_ = 0;
-        while (index_ < _number.length()) {
-            if (_number.charAt(index_) != '0') {
+        while (index_ < _number.size()) {
+            if (_number.get(index_) != 0) {
                 break;
             }
             index_++;
@@ -576,26 +576,21 @@ public final class NumParsers {
         return index_;
     }
 
-    private static void removeNbSep(StringBuilder _part) {
-        while (_part.indexOf("_") >= 0) {
-            _part.deleteCharAt(_part.indexOf("_"));
-        }
-    }
+//    private static void removeNbSep(StringBuilder _part) {
+//        while (_part.indexOf("_") >= 0) {
+//            _part.deleteCharAt(_part.indexOf("_"));
+//        }
+//    }
 
-    private static double processBigNumbers(StringBuilder _nb, boolean _positive) {
-        double long_ = MathExpUtil.toDouble(parseQuickLongTen(_nb.substring(0, MAX_DIGITS_DOUBLE + 1)));
-        int logDec_ = _nb.length() - MAX_DIGITS_DOUBLE - 1;
+    private static double processBigNumbers(Ints _nb, boolean _positive) {
+        double long_ = MathExpUtil.toDouble(buildQuickLong(_nb.sub(0, MAX_DIGITS_DOUBLE + 1),10));
+        int logDec_ = _nb.size() - MAX_DIGITS_DOUBLE - 1;
         double power_ = pow(logDec_,10.0);
         double out_ = long_ * power_;
         if (_positive) {
             return out_;
         }
         return -out_;
-    }
-
-    //this long parser is very naive
-    public static char parseCharSixteen(String _string) {
-        return (char)NumberUtil.parseLongSixteen(_string);
     }
 
     private static boolean[] toBits(long _l) {
@@ -729,20 +724,21 @@ public final class NumParsers {
         return s_;
     }
 
-    private static boolean[] parseLongSixteenToBits(String _string) {
-        StringBuilder str_ = init(_string, 16);
-        boolean[] out_ = new boolean[str_.length() * 4];
+    private static boolean[] parseLongSixteenToBits(Ints _string) {
+        Ints str_ = init(_string, 16);
+        boolean[] out_ = new boolean[str_.size() * 4];
         int i_ = 0;
         int j_ = 0;
-        int max_ = str_.length();
+        int max_ = str_.size();
         while (i_ < max_) {
             // Accumulating negatively avoids surprises near MAX_VALUE
-            int ch_ = str_.charAt(i_);
-            if (ch_ >= NumberUtil.MIN_UPP && ch_ <= NumberUtil.MAX_UPP) {
-                ch_ = ch_ - NumberUtil.MIN_UPP + NumberUtil.MIN_LOW;
-            }
+            int ch_ = str_.get(i_);
+//            if (ch_ >= NumberUtil.MIN_UPP && ch_ <= NumberUtil.MAX_UPP) {
+//                ch_ = ch_ - NumberUtil.MIN_UPP + NumberUtil.MIN_LOW;
+//            }
             i_++;
-            int t_ = NumberUtil.min(ch_ - '0', 10) + NumberUtil.max(ch_ - NumberUtil.MIN_LOW, 0);
+//            int t_ = NumberUtil.min(ch_ - '0', 10) + NumberUtil.max(ch_ - NumberUtil.MIN_LOW, 0);
+            int t_ = ch_;
             int k_ = 3;
             for (int j = 0; j < 4; j++) {
                 if (t_ % 2 == 1) {
@@ -756,16 +752,16 @@ public final class NumParsers {
         return out_;
     }
 
-    private static boolean[] parseLongOctalToBits(String _string) {
-        StringBuilder str_ = init(_string, 21);
+    private static boolean[] parseLongOctalToBits(CustList<Integer> _string) {
+        Ints str_ = init(_string, 21);
         int j_ = 0;
-        boolean[] out_ = new boolean[str_.length()*3];
+        boolean[] out_ = new boolean[str_.size()*3];
         int i_ = 0;
-        int max_ = str_.length();
+        int max_ = str_.size();
         while (i_ < max_) {
-            int ch_ = str_.charAt(i_);
+            int ch_ = str_.get(i_);
             i_++;
-            int t_ = ch_ - '0';
+            int t_ = ch_;// - '0';
             int k_ = 2;
             for (int j = 0; j < 3; j++) {
                 if (t_ % 2 == 1) {
@@ -779,15 +775,15 @@ public final class NumParsers {
         return out_;
     }
 
-    private static boolean[] parseLongBinaryToBits(String _string) {
-        StringBuilder str_ = init(_string, 64);
-        boolean[] out_ = new boolean[str_.length()];
+    private static boolean[] parseLongBinaryToBits(Ints _string) {
+        Ints str_ = init(_string, 64);
+        boolean[] out_ = new boolean[str_.size()];
         int i_ = 0;
-        int max_ = str_.length();
+        int max_ = str_.size();
         while (i_ < max_) {
             // Accumulating negatively avoids surprises near MAX_VALUE
-            int ch_ = str_.charAt(i_);
-            if (ch_ == '1') {
+            int ch_ = str_.get(i_);
+            if (ch_ == 1) {
                 out_[i_] = true;
             }
             i_++;
@@ -795,39 +791,21 @@ public final class NumParsers {
         return out_;
     }
 
-    private static StringBuilder init(String _string, int _nb) {
-        StringBuilder str_;
-        if (_string.length() < _nb) {
-            str_ = new StringBuilder();
-            int add_ = _nb - _string.length();
+    private static Ints init(CustList<Integer> _string, int _nb) {
+        Ints str_;
+        if (_string.size() < _nb) {
+            str_ = new Ints();
+            int add_ = _nb - _string.size();
             for (int i = 0; i < add_; i++) {
-                str_.append("0");
+                str_.add(0);
             }
             for (int i = add_; i < _nb; i++) {
-                str_.append(_string.charAt(i - add_));
+                str_.add(_string.get(i - add_));
             }
         } else {
-            str_ = new StringBuilder(_string);
+            str_ = new Ints(_string);
         }
         return str_;
-    }
-
-    private static long parseLongBase(String _string, int _base) {
-        long result_ = 0;
-        int i_ = 0;
-        int max_ = _string.length();
-        while (i_ < max_) {
-            int ch_ = _string.charAt(i_);
-            i_++;
-            int digit_ = ch_ - '0';
-            result_ *= _base;
-            result_ += digit_;
-        }
-        return result_;
-    }
-
-    private static long parseQuickLongTen(String _string) {
-        return -NumberUtil.simpleParse(0,_string);
     }
 
     public static LongInfo parseLong(String _string, int _radix) {
@@ -843,12 +821,12 @@ public final class NumParsers {
         if (i_ >= max_) {
             return new LongInfo();
         }
-        int chEnt_ = _string.charAt(i_);
-        int digEnt_ = dig(chEnt_,_radix);
-        if (digEnt_ < 0) {
-            return new LongInfo();
-        }
-        return buildAccLg(_string,_radix,i_,negative_,-digEnt_);
+//        int chEnt_ = _string.charAt(i_);
+//        int digEnt_ = dig(chEnt_,_radix);
+//        if (digEnt_ < 0) {
+//            return new LongInfo();
+//        }
+        return buildAccLg(_string,_radix,i_,negative_, MessagesCdmBase.DEF_ALPHA);
     }
 
     private static int first(boolean _negative) {
@@ -861,9 +839,10 @@ public final class NumParsers {
         return i_;
     }
 
-    private static LongInfo buildAccLg(String _string, int _radix, int _i, boolean _negative, long _result) {
+    private static LongInfo buildAccLg(String _string, int _radix, int _i, boolean _negative, String _alpha) {
         int max_ = _string.length();
-        long result_ = _result;
+        long result_ = 0L;
+//        long result_ = _result;
         long limit_;
         if (_negative) {
             limit_ = Long.MIN_VALUE;
@@ -872,11 +851,11 @@ public final class NumParsers {
         }
         long multmin_ = limit_ / _radix;
         int i_ = _i;
-        i_++;
+//        i_++;
         while (i_ < max_) {
             // Accumulating negatively avoids surprises near MAX_VALUE
-            int ch_ = _string.charAt(i_);
-            int dig_ = dig(ch_,_radix);
+            char ch_ = _string.charAt(i_);
+            int dig_ = dig(ch_,_radix, _alpha);
             if (dig_ < 0 || result_ < multmin_) {
                 return new LongInfo();
             }
@@ -896,8 +875,8 @@ public final class NumParsers {
         return new LongInfo(-_result);
     }
 
-    private static int dig(int _ch, int _radix) {
-        int dig_ = dig(_ch);
+    private static int dig(char _ch, int _radix, String _alpha) {
+        int dig_ = dig(_ch, _alpha);
         if (dig_ < 0) {
             return -1;
         }
@@ -906,17 +885,22 @@ public final class NumParsers {
         }
         return dig_;
     }
-    private static int dig(int _ch) {
-        if (_ch >= '0' && _ch <= '9') {
+    private static int dig(char _ch, String _alpha) {
+        if (MathExpUtil.isDigit(_ch)) {
             return _ch - '0';
         }
-        if (_ch >= NumberUtil.MIN_LOW && _ch <= NumberUtil.MIN_LOW + 25) {
-            return 10 + _ch - NumberUtil.MIN_LOW;
+        int ind_ = _alpha.indexOf(NumParsers.toMinCaseLetter(_ch));
+        if (ind_ < 0) {
+            return -1;
         }
-        if (_ch >= NumberUtil.MIN_UPP && _ch <= NumberUtil.MIN_UPP + 25) {
-            return 10 + _ch - NumberUtil.MIN_UPP;
-        }
-        return -1;
+        return ind_ + 10;
+//        if (_ch >= NumberUtil.MIN_LOW && _ch <= NumberUtil.MIN_LOW + 25) {
+//            return 10 + _ch - NumberUtil.MIN_LOW;
+//        }
+//        if (_ch >= NumberUtil.MIN_UPP && _ch <= NumberUtil.MIN_UPP + 25) {
+//            return 10 + _ch - NumberUtil.MIN_UPP;
+//        }
+//        return -1;
     }
 
     public static DoubleInfo splitDouble(String _nb) {
@@ -957,25 +941,25 @@ public final class NumParsers {
     private static NumberInfos buildIntDecExpPart(NumberInfos _built, String _nb, int _i) {
         int len_ = _nb.length();
         int i_ = _i;
-        StringBuilder intPart_ = new StringBuilder();
+        Ints intPart_ = new Ints();
         _built.setIntPart(intPart_);
-        StringBuilder decimalPart_ = new StringBuilder();
+        Ints decimalPart_ = new Ints();
         _built.setDecimalPart(decimalPart_);
-        StringBuilder exponentialPart_ = new StringBuilder();
+        Ints exponentialPart_ = new Ints();
         _built.setExponentialPart(exponentialPart_);
         while (i_ < len_) {
             char cur_ = _nb.charAt(i_);
             if (!StringExpUtil.isDigit(cur_)) {
                 break;
             }
-            intPart_.append(cur_);
+            intPart_.add(cur_-'0');
             i_++;
         }
         return buildDecExpPart(_built,_nb,i_);
     }
     private static NumberInfos buildDecExpPart(NumberInfos _built, String _nb, int _i) {
-        StringBuilder intPart_ = _built.getIntPart();
-        StringBuilder decimalPart_ = _built.getDecimalPart();
+        Ints intPart_ = _built.getIntPart();
+        Ints decimalPart_ = _built.getDecimalPart();
         int len_ = _nb.length();
         int i_ = _i;
         if (StringExpUtil.nextCharIs(_nb,i_,len_,DOT_VAR)) {
@@ -985,11 +969,11 @@ public final class NumParsers {
                 if (!StringExpUtil.isDigit(cur_)) {
                     break;
                 }
-                decimalPart_.append(cur_);
+                decimalPart_.add(cur_-'0');
                 i_++;
             }
         }
-        if (intPart_.length() + decimalPart_.length() == 0L) {
+        if (intPart_.size() + decimalPart_.size() == 0L) {
             return null;
         }
         if (i_ >= len_) {
@@ -999,11 +983,12 @@ public final class NumParsers {
     }
     private static NumberInfos buildExpPart(NumberInfos _built, String _nb, int _i) {
         int len_ = _nb.length();
-        StringBuilder exponentialPart_ = _built.getExponentialPart();
+        Ints exponentialPart_ = _built.getExponentialPart();
         int i_ = _i;
         while (i_ < len_) {
             char cur_ = _nb.charAt(i_);
             if (StringExpUtil.isDigit(cur_) || cur_ == MINUS_CHAR || cur_ == PLUS_CHAR) {
+                _built.setNegativeExp(cur_ == MINUS_CHAR);
                 break;
             }
             i_++;
@@ -1012,8 +997,11 @@ public final class NumParsers {
             return null;
         }
         char cur_ = _nb.charAt(i_);
+        if (StringExpUtil.isDigit(cur_)) {
+            exponentialPart_.add(cur_ - '0');
+        }
         i_++;
-        exponentialPart_.append(cur_);
+//        exponentialPart_.append(cur_);
         int nbDig_ = 0;
         if (StringExpUtil.isDigit(cur_)) {
             nbDig_++;
@@ -1023,7 +1011,8 @@ public final class NumParsers {
             if (!StringExpUtil.isDigit(cur_)) {
                 return null;
             }
-            exponentialPart_.append(cur_);
+            exponentialPart_.add(cur_ - '0');
+//            exponentialPart_.append(cur_);
             nbDig_++;
             i_++;
         }
@@ -1032,6 +1021,54 @@ public final class NumParsers {
         }
         return _built;
     }
+    public static LongInfo buildLong(CustList<Integer> _is, int _base, boolean _negative) {
+//        if (_is.isEmpty()) {
+//            return new LongInfo();
+//        }
+        long limit_;
+        if (_negative) {
+            limit_ = Long.MIN_VALUE;
+        } else {
+            limit_ = -Long.MAX_VALUE;
+        }
+        long multmin_ = limit_ / _base;
+        int nb_ = _is.size();
+        long value_ = 0L;
+        for (int i = 0; i < nb_; i++) {
+            int dig_ = _is.get(i);
+            if (dig_ >= _base || value_ < multmin_) {
+                return new LongInfo();
+            }
+            value_ *= _base;
+            if (value_ < limit_ + dig_) {
+                return new LongInfo();
+            }
+            value_ -= dig_;
+
+//            if (!valid(dig_, _base) || value_ < multmin_) {
+//                return new LongInfo();
+//            }
+//            value_ = _base * value_ - dig_;
+        }
+        if (_negative) {
+            return new LongInfo(value_);
+        }
+        return new LongInfo(-value_);
+    }
+
+    public static long buildQuickLong(CustList<Integer> _is, int _base) {
+        return NumberUtil.buildQuickLong(_is, _base);
+//        int nb_ = _is.size();
+//        long value_ = 0L;
+//        for (int i = 0; i < nb_; i++) {
+//            int dig_ = _is.get(i);
+//            value_ -= _base * value_ + dig_;
+//        }
+//        return -value_;
+    }
+//    private static boolean valid(int _v, int _base) {
+//        return _v >= 0 && _v < _base;
+//    }
 
     public static StringStruct exportValue(NumberStruct _nb, String _infinity, String _nan, String _exp) {
         if (_nb instanceof DoubleStruct) {

@@ -12,7 +12,6 @@ import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.ConstType;
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.maths.litteralcom.MathExpUtil;
@@ -1584,13 +1583,13 @@ public final class ElResolver {
         return i_;
     }
 
-    private static char trUnicodeDigToLetterInStr(KeyWords _key, TextBlockInfo _si, char _curChar) {
+    private static int trUnicodeDigToLetterInStr(KeyWords _key, TextBlockInfo _si, char _curChar) {
         int index_ = index(_key, _curChar);
         if (index_ < 0) {
             _si.setKo();
-            return _curChar;
+            return -1;
         }
-        return (char) index_;
+        return index_;
     }
 
     private static int index(KeyWords _key, char _curChar) {
@@ -1642,7 +1641,7 @@ public final class ElResolver {
 
     private static boolean unicode(KeyWords _key, TextBlockInfo _si, int _i, int _nbChars, int _unicode, char _curChar, IndexUnicodeEscape _infos) {
         boolean pr_;
-        char charToAdd_ = trUnicodeDigToLetterInStr(_key, _si, _curChar);
+        int charToAdd_ = trUnicodeDigToLetterInStr(_key, _si, _curChar);
         _infos.getStringInfo().getBuiltUnicode()[_unicode -1] = charToAdd_;
         if (_unicode < UNICODE_SIZE) {
             _infos.setNbChars(_nbChars);
@@ -1650,8 +1649,7 @@ public final class ElResolver {
             _infos.setUnicode(_unicode +1);
             pr_ = false;
         } else {
-            char[] unicodes_ = _infos.getStringInfo().getBuiltUnicode();
-            char builtChar_ = NumParsers.parseCharSixteen(String.valueOf(unicodes_));
+            char builtChar_ = (char) NumberUtil.buildQuickLong(Ints.newList(_infos.getStringInfo().getBuiltUnicode()),16);
             _infos.getStringInfo().appendChar(builtChar_);
             _infos.setNbChars(_nbChars +1);
             _infos.setEscape(false);

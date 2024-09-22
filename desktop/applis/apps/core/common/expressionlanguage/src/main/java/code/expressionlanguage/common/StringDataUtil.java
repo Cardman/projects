@@ -64,22 +64,29 @@ public final class StringDataUtil {
     }
 
     public static int digit(char _ch, int _radix) {
+        return digit(_ch,_radix,MessagesCdmBase.DEF_ALPHA);
+    }
+    public static int digit(char _ch, int _radix, String _alpha) {
         if (_radix < 2) {
             return -1;
         }
-        if (_radix > 36) {
+        if (_radix > 10+_alpha.length()) {
             return -1;
         }
         int digit_ = -1;
         if (MathExpUtil.isDigit(_ch)) {
             digit_ = _ch - '0';
         }
-        if (inRangeBounds(_ch, NumberUtil.MIN_LOW, NumberUtil.MIN_LOW + 25)) {
-            digit_ = _ch - NumberUtil.MIN_LOW + 10;
+        int kn_ = _alpha.indexOf(NumParsers.toMinCaseLetter(_ch));
+        if (kn_ >= 0) {
+            digit_ = kn_ + 10;
         }
-        if (inRangeBounds(_ch, NumberUtil.MIN_UPP, NumberUtil.MIN_UPP + 25)) {
-            digit_ = _ch - NumberUtil.MIN_UPP + 10;
-        }
+//        if (inRangeBounds(_ch, NumberUtil.MIN_LOW, NumberUtil.MIN_LOW + 25)) {
+//            digit_ = _ch - NumberUtil.MIN_LOW + 10;
+//        }
+//        if (inRangeBounds(_ch, NumberUtil.MIN_UPP, NumberUtil.MIN_UPP + 25)) {
+//            digit_ = _ch - NumberUtil.MIN_UPP + 10;
+//        }
         if (digit_ < _radix) {
             return digit_;
         }
@@ -87,10 +94,13 @@ public final class StringDataUtil {
     }
 
     public static char forDigit(int _digit, int _radix) {
+        return forDigit(_digit,_radix,MessagesCdmBase.DEF_ALPHA);
+    }
+    public static char forDigit(int _digit, int _radix, String _alpha) {
         if (_radix < 2) {
             return 0;
         }
-        if (_radix > 36) {
+        if (_radix > 10+_alpha.length()) {
             return 0;
         }
         if (_digit < 0) {
@@ -102,7 +112,8 @@ public final class StringDataUtil {
         if (_digit < 10) {
             return (char) ('0'+_digit);
         }
-        return (char)(NumberUtil.MIN_LOW+_digit-10);
+        return StringDataUtil.toLowerCase(_alpha.charAt(_digit-10));
+//        return (char)(NumberUtil.MIN_LOW+_digit-10);
     }
 
     public static boolean isLetterOrDigit(char _ch) {

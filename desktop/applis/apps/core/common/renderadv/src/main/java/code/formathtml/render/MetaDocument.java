@@ -878,15 +878,15 @@ public final class MetaDocument {
     }
     private static int geneHex(String _value, int _default, String _keyWordDig, CharacterCaseConverter _converter) {
         String v_ = _value.substring(1);
-        StringBuilder tr_ = new StringBuilder();
+        Ints tr_ = new Ints();
         for (char c: v_.toCharArray()) {
             int i_ = _converter.index(_keyWordDig, c);
             if (i_ < 0) {
                 return _default;
             }
-            tr_.append((char) i_);
+            tr_.add(i_);
         }
-        return (int) NumberUtil.parseLongSixteen(tr_.toString());
+        return (int) NumberUtil.buildQuickLong(tr_,16);
     }
     private static int getRgb(String _value) {
         int rgb_ = 0;

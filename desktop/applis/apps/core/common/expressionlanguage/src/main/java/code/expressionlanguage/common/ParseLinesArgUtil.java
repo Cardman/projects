@@ -6,7 +6,7 @@ import code.util.CharList;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.core.NumberUtil;
+//import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class ParseLinesArgUtil {
@@ -157,27 +157,27 @@ public final class ParseLinesArgUtil {
     private String exportChar(char _current,char... _ch) {
         for (char c: _ch) {
             if (c == _current) {
-                String ch_ = StringExpUtil.toGeneHex(c);
+                String ch_ = StringExpUtil.toGeneHex(c, digitsSupp);
                 if (ch_.length() == 1) {
-                    return "\\"+unicode+"000"+ convert(ch_);
+                    return "\\"+unicode+"000"+ ch_;
                 }
-                return "\\"+unicode+"00"+ convert(ch_);
+                return "\\"+unicode+"00"+ ch_;
             }
         }
         return Character.toString(_current);
     }
-    private String convert(String _str) {
-        StringBuilder str_ = new StringBuilder();
-        for (char c: _str.toCharArray()) {
-            if (StringExpUtil.isDigit(c)) {
-                str_.append(c);
-            } else {
-                int d_ = c - NumberUtil.MIN_LOW;
-                str_.append(StringDataUtil.toLowerCase(digitsSupp).charAt(d_));
-            }
-        }
-        return str_.toString();
-    }
+//    private static String convert(String _str, String _digitsSupp) {
+//        StringBuilder str_ = new StringBuilder();
+//        for (char c: _str.toCharArray()) {
+//            if (StringExpUtil.isDigit(c)) {
+//                str_.append(c);
+//            } else {
+//                int d_ = c - NumberUtil.MIN_LOW;
+//                str_.append(StringDataUtil.toLowerCase(_digitsSupp).charAt(d_));
+//            }
+//        }
+//        return str_.toString();
+//    }
     public static String parseValue(StringMap<String> _messages,String _line) {
         StringBuilder arg_ = new StringBuilder();
         int len_ = _line.length();
@@ -258,7 +258,7 @@ public final class ParseLinesArgUtil {
         while (i_ < max_) {
             // Accumulating negatively avoids surprises near MAX_VALUE
             char ch_ = _string.charAt(i_);
-            int dig_ = adj(_def.index(digitsSupp, ch_));
+            int dig_ = _def.index(digitsSupp, ch_);
             if (dig_ < 0) {
                 return new LongInfo();
             }
@@ -267,15 +267,6 @@ public final class ParseLinesArgUtil {
             i_++;
         }
         return buildLg(result_);
-    }
-    private static int adj(int _ch) {
-        if (_ch < 0) {
-            return _ch;
-        }
-        if (StringExpUtil.isDigit((char) _ch)) {
-            return _ch - '0';
-        }
-        return _ch - NumberUtil.MIN_UPP + 10;
     }
     private static LongInfo buildLg(long _result) {
         return new LongInfo(-_result);

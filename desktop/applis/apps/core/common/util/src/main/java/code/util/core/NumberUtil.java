@@ -1,14 +1,15 @@
 package code.util.core;
 
+import code.util.CustList;
 import code.util.ints.Listable;
 
 public final class NumberUtil {
     public static final char MIN_LOW = 97;
-    public static final char MAX_LOW = MIN_LOW+5;
+//    public static final char MAX_LOW = MIN_LOW+5;
     public static final char MIN_UPP = 65;
-    public static final char MAX_UPP = MIN_UPP+5;
+//    public static final char MAX_UPP = MIN_UPP+5;
     private static final int DEFAULT_RADIX = 10;
-    private static final byte HEX_BASE = 16;
+//    private static final byte HEX_BASE = 16;
     private static final char MINUS = '-';
     private NumberUtil() {
     }
@@ -212,32 +213,41 @@ public final class NumberUtil {
         }
         return (int) int_;
     }
+//
+//    public static long parseLongSixteen(String _string) {
+//        long result_ = 0;
+//        int i_ = 0;
+//        int max_ = _string.length();
+//        while (i_ < max_) {
+//            int ch_ = _string.charAt(i_);
+//            if (isMajHex(ch_)) {
+//                ch_ = ch_ - MIN_UPP + MIN_LOW;
+//            }
+//            i_++;
+//            int digit_ = NumberUtil.min(ch_ - '0', 10) + NumberUtil.max(ch_ - MIN_LOW, 0);
+//            result_ *= HEX_BASE;
+//            result_ += digit_;
+//        }
+//        return result_;
+//    }
 
-    public static long parseLongSixteen(String _string) {
-        long result_ = 0;
-        int i_ = 0;
-        int max_ = _string.length();
-        while (i_ < max_) {
-            int ch_ = _string.charAt(i_);
-            if (isMajHex(ch_)) {
-                ch_ = ch_ - MIN_UPP + MIN_LOW;
-            }
-            i_++;
-            int digit_ = NumberUtil.min(ch_ - '0', 10) + NumberUtil.max(ch_ - MIN_LOW, 0);
-            result_ *= HEX_BASE;
-            result_ += digit_;
+//    public static boolean isMajHex(int _ch) {
+//        return _ch >= MIN_UPP && _ch <= MAX_UPP;
+//    }
+//
+//    public static boolean isMinHex(int _ch) {
+//        return _ch >= MIN_LOW && _ch <= MAX_LOW;
+//    }
+
+    public static long buildQuickLong(CustList<Integer> _is, int _base) {
+        int nb_ = _is.size();
+        long value_ = 0L;
+        for (int i = 0; i < nb_; i++) {
+            int dig_ = _is.get(i);
+            value_ = _base * value_ + dig_;
         }
-        return result_;
+        return value_;
     }
-
-    public static boolean isMajHex(int _ch) {
-        return _ch >= MIN_UPP && _ch <= MAX_UPP;
-    }
-
-    public static boolean isMinHex(int _ch) {
-        return _ch >= MIN_LOW && _ch <= MAX_LOW;
-    }
-
     //this long parser is very naive
     public static long parseLongZero(String _string) {
         if (_string.isEmpty()) {

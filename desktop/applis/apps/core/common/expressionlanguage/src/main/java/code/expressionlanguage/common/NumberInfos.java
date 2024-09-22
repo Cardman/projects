@@ -1,5 +1,7 @@
 package code.expressionlanguage.common;
 
+import code.util.Ints;
+
 public final class NumberInfos {
 
     public static final int WRAP_DOUBLE=1;
@@ -19,11 +21,13 @@ public final class NumberInfos {
     private boolean positive;
     private boolean error;
 
-    private StringBuilder intPart;
+    private Ints intPart;
 
-    private StringBuilder decimalPart;
+    private Ints decimalPart;
 
-    private StringBuilder exponentialPart;
+    private Ints exponentialPart;
+
+    private boolean negativeExp;
 
     private int suffix;
 
@@ -45,27 +49,27 @@ public final class NumberInfos {
         positive = _positive;
     }
 
-    public StringBuilder getIntPart() {
+    public Ints getIntPart() {
         return intPart;
     }
 
-    public void setIntPart(StringBuilder _intPart) {
+    public void setIntPart(Ints _intPart) {
         intPart = _intPart;
     }
 
-    public StringBuilder getDecimalPart() {
+    public Ints getDecimalPart() {
         return decimalPart;
     }
 
-    public void setDecimalPart(StringBuilder _decimalPart) {
+    public void setDecimalPart(Ints _decimalPart) {
         decimalPart = _decimalPart;
     }
 
-    public StringBuilder getExponentialPart() {
+    public Ints getExponentialPart() {
         return exponentialPart;
     }
 
-    public void setExponentialPart(StringBuilder _exponentialPart) {
+    public void setExponentialPart(Ints _exponentialPart) {
         exponentialPart = _exponentialPart;
     }
 
@@ -85,4 +89,11 @@ public final class NumberInfos {
         base = _base;
     }
 
+    public boolean isNegativeExp() {
+        return negativeExp;
+    }
+
+    public void setNegativeExp(boolean _n) {
+        this.negativeExp = _n;
+    }
 }

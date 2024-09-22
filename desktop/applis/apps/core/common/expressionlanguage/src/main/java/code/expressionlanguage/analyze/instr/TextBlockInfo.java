@@ -7,7 +7,7 @@ public final class TextBlockInfo {
     private final StringBuilder chars = new StringBuilder();
     private String found;
     private boolean ko;
-    private final char[] builtUnicode = new char[4];
+    private final int[] builtUnicode = new int[4];
 
     public int length() {
         return chars.length();
@@ -31,7 +31,7 @@ public final class TextBlockInfo {
         found = _found;
     }
 
-    public char[] getBuiltUnicode() {
+    public int[] getBuiltUnicode() {
         return builtUnicode;
     }
 

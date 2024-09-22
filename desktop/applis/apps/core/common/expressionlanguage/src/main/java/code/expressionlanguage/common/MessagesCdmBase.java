@@ -67,6 +67,8 @@ public final class MessagesCdmBase {
     public static final String TAG_TR = "tr";
     public static final String TAG_TD = "td";
     public static final String HTML = "html";
+    public static final String DEF_ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    public static final String DEF_ALPHA_HEX = "ABCDEF";
 
     private MessagesCdmBase() {
     }
@@ -84,7 +86,7 @@ public final class MessagesCdmBase {
         en_.add(SPACE,"e");
         en_.add(TAB,"t");
         en_.add(CHARACTER,"c");
-        en_.add(DIGITS_SUPP,"ABCDEF");
+        en_.add(DIGITS_SUPP,DEF_ALPHA_HEX);
         return en_;
     }
 

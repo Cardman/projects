@@ -228,12 +228,12 @@ public final class StringExpUtil {
         }
         return j_;
     }
-
-    public static boolean startsWith(CharSequence _string,char _char) {
-        return _string.length()>0&&_string.charAt(0)==_char;
-    }
+//
+//    public static boolean startsWith(CharSequence _string,char _char) {
+//        return _string.length()>0&&_string.charAt(0)==_char;
+//    }
     public static boolean isDigit(char _char) {
-        return _char >= '0' && _char <= '9';
+        return in(_char, '0', '9');
     }
 
     public static int getBackPrintChar(String _string, int _i) {
@@ -633,16 +633,16 @@ public final class StringExpUtil {
                 }
                 return str_.toString();
             }
-            StringBuilder str_ = base(-(_i+1), radix_);
+            StringBuilder str_ = base(-(_i+1), radix_, MessagesCdmBase.DEF_ALPHA);
             str_.insert(0,"-");
             int last_ = str_.length() - 1;
             str_.setCharAt(last_, (char) (str_.charAt(last_)+1));
             return str_.toString();
         }
         if (_i >= 0) {
-            return base(_i, radix_).toString();
+            return base(_i, radix_, MessagesCdmBase.DEF_ALPHA).toString();
         }
-        StringBuilder str_ = base(-_i, radix_);
+        StringBuilder str_ = base(-_i, radix_, MessagesCdmBase.DEF_ALPHA);
         str_.insert(0,"-");
         return str_.toString();
     }
@@ -659,7 +659,7 @@ public final class StringExpUtil {
         return baseTwo(_i, 64);
     }
 
-    private static StringBuilder base(long _i, int _base) {
+    private static StringBuilder base(long _i, int _base, String _alpha) {
         StringBuilder str_ = new StringBuilder();
         if (_i == 0) {
             str_.append(0);
@@ -668,13 +668,20 @@ public final class StringExpUtil {
         long q_ = _i;
         while (q_ > 0) {
             int r_ = (int)(q_ % _base);
-            str_.insert(0, toSingleChar(r_));
+            if (r_ < 10) {
+                str_.insert(0, Long.toString(r_));
+            } else {
+                str_.insert(0, StringDataUtil.toLowerCase((char)NumParsers.toMinCase(_alpha.charAt(r_-10))));
+            }
             q_ = q_ / _base;
         }
         return str_;
     }
     public static String toGeneHex(int _i) {
-        return baseHex(_i, 8);
+        return toGeneHex(_i, MessagesCdmBase.DEF_ALPHA_HEX);
+    }
+    public static String toGeneHex(int _i,String _exp) {
+        return baseHex(_i, 8,_exp);
     }
 
     public static String toGeneOct(int _i) {
@@ -702,10 +709,13 @@ public final class StringExpUtil {
     }
 
     private static String baseHex(long _i, int _b) {
+        return baseHex(_i,_b,MessagesCdmBase.DEF_ALPHA_HEX);
+    }
+    private static String baseHex(long _i, int _b, String _exp) {
         if (_i >= 0) {
-            return base(_i, 16).toString();
+            return base(_i, 16, _exp).toString();
         }
-        StringBuilder str_ = base(-_i - 1, 16);
+        StringBuilder str_ = base(-_i - 1, 16, _exp);
         int len_ = str_.length();
         int nbZeros_ = _b - len_;
         for (int i = 0; i < nbZeros_; i++) {
@@ -713,13 +723,23 @@ public final class StringExpUtil {
         }
         for (int i = 0; i < _b; i++) {
             char c_ = str_.charAt(i);
-            if (c_ >= '6' &&c_ <= '9') {
+            if (in(c_, '6', '9')) {
                 str_.setCharAt(i,(char)('6' + '9'-c_));
                 continue;
             }
-            str_.setCharAt(i,(char)(NumberUtil.MIN_LOW + '5'-c_));
+            if (in(c_, '0', '5')) {
+                int in_ = c_ - '0';
+                str_.setCharAt(i, StringDataUtil.toLowerCase(_exp.charAt(_exp.length()-1-in_)));
+            } else {
+                int in_ = _exp.length()-1-_exp.indexOf(NumParsers.toMinCase(c_)) + '0';
+                str_.setCharAt(i, (char) in_);
+            }
         }
         return str_.toString();
+    }
+
+    private static boolean in(char c_, char _l, char _u) {
+        return c_ >= _l && c_ <= _u;
     }
 
     public static String toByteGeneOct(int _i) {
@@ -728,9 +748,9 @@ public final class StringExpUtil {
 
     private static String baseOct(long _i, int _sum, int _b) {
         if (_i >= 0) {
-            return base(_i, 8).toString();
+            return base(_i, 8, "").toString();
         }
-        StringBuilder str_ = base(-_i - 1, 8);
+        StringBuilder str_ = base(-_i - 1, 8, "");
         int len_ = str_.length();
         int nbZeros_ = _b - len_;
         for (int i = 0; i < nbZeros_; i++) {
@@ -751,9 +771,9 @@ public final class StringExpUtil {
 
     private static String baseTwo(long _i, int _b) {
         if (_i >= 0) {
-            return base(_i, 2).toString();
+            return base(_i, 2, "").toString();
         }
-        StringBuilder str_ = base(-_i - 1, 2);
+        StringBuilder str_ = base(-_i - 1, 2, "");
         int len_ = str_.length();
         int nbZeros_ = _b - len_;
         for (int i = 0; i < nbZeros_; i++) {
@@ -764,13 +784,6 @@ public final class StringExpUtil {
             str_.setCharAt(i,(char)('0' + '1' -c_));
         }
         return str_.toString();
-    }
-
-    private static String toSingleChar(int _i) {
-        if (_i < 10) {
-            return Long.toString(_i);
-        }
-        return Character.toString((char)(_i+NumberUtil.MIN_LOW-10));
     }
 
     public static boolean matchChars(String _info, int _index, char... _chars) {

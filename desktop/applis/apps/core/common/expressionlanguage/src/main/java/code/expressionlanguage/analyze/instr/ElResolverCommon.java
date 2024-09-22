@@ -80,9 +80,9 @@ public final class ElResolverCommon {
         NumberInfosOutput output_ = new NumberInfosOutput();
         NumberInfos nbInfos_ = new NumberInfos();
         output_.setInfos(nbInfos_);
-        StringBuilder intPart_ = new StringBuilder();
-        StringBuilder decPart_ = new StringBuilder();
-        StringBuilder expPart_ = new StringBuilder();
+        Ints intPart_ = new Ints();
+        Ints decPart_ = new Ints();
+        Ints expPart_ = new Ints();
         nbInfos_.setIntPart(intPart_);
         nbInfos_.setDecimalPart(decPart_);
         nbInfos_.setExponentialPart(expPart_);
@@ -104,8 +104,8 @@ public final class ElResolverCommon {
     }
     private static int tryStart(boolean _seenDot,KeyWords _key, String _string, int _start,NumberInfosOutput _output) {
         NumberInfos nbInfos_ = _output.getInfos();
-        StringBuilder intPart_ = nbInfos_.getIntPart();
-        StringBuilder decPart_ = nbInfos_.getDecimalPart();
+        Ints intPart_ = nbInfos_.getIntPart();
+        Ints decPart_ = nbInfos_.getDecimalPart();
         int start_ = _start;
         char startChar_ = _string.charAt(start_);
         int base_ = 10;
@@ -113,7 +113,7 @@ public final class ElResolverCommon {
         String binPre_ = _key.getKeyWordNbBin();
         if (_seenDot) {
             nbInfos_.setSuffix(NumberInfos.PRIM_DOUBLE);
-            decPart_.append(startChar_);
+            decPart_.add(startChar_ - '0');
             if (StringUtil.isWhitespace(startChar_)) {
                 nbInfos_.setError(true);
             }
@@ -123,7 +123,7 @@ public final class ElResolverCommon {
         nbInfos_.setSuffix(NumberInfos.PRIM_INT);
         int len_ = _string.length();
         if (startChar_ != '0' || start_ + 1 >= len_) {
-            intPart_.append(startChar_);
+            intPart_.add(startChar_ - '0');
             nbInfos_.setBase(base_);
             return start_ + 1;
         }
@@ -131,7 +131,7 @@ public final class ElResolverCommon {
         if (suff_ != null) {
             int ch_ = suff_.getValue();
             nbInfos_.setSuffix(ch_);
-            intPart_.append(startChar_);
+            intPart_.add(0);
             _output.setNextIndex(start_ + 1 + suff_.getKey().length());
             return _start;
         }
@@ -145,7 +145,7 @@ public final class ElResolverCommon {
                 return _start;
             }
             startChar_ = _string.charAt(start_);
-            intPart_.append(startChar_);
+            intPart_.add(digit(startChar_,base_,_key));
             nbInfos_.setBase(base_);
             return start_ + 1;
         }
@@ -159,7 +159,7 @@ public final class ElResolverCommon {
                 return _start;
             }
             startChar_ = _string.charAt(start_);
-            intPart_.append(startChar_);
+            intPart_.add(startChar_ - '0');
             nbInfos_.setBase(base_);
             return start_ + 1;
         }
@@ -168,14 +168,14 @@ public final class ElResolverCommon {
             start_++;
             startChar_ = _string.charAt(start_);
         }
-        intPart_.append(startChar_);
+        intPart_.add(startChar_ - '0');
         nbInfos_.setBase(base_);
         return start_ + 1;
     }
     private static int tryIncr(boolean _seenDot,KeyWords _key, String _string, int _j,NumberInfosOutput _output) {
         NumberInfos nbInfos_ = _output.getInfos();
-        StringBuilder intPart_ = nbInfos_.getIntPart();
-        StringBuilder decPart_ = nbInfos_.getDecimalPart();
+        Ints intPart_ = nbInfos_.getIntPart();
+        Ints decPart_ = nbInfos_.getDecimalPart();
         String decExp_ = _key.getKeyWordNbExpDec();
         String binExp_ = _key.getKeyWordNbExpBin();
         char current_ = _string.charAt(_j);
@@ -197,8 +197,8 @@ public final class ElResolverCommon {
             return expCase(_seenDot, _key, _string, _j, _output, off_);
         }
         int dig_ = digitPart(current_, nbInfos_.getBase(), _key);
-        if (dig_ >= 0) {//current_ is digit or expected letter
-            append(_seenDot, intPart_, decPart_, (char) dig_);
+        if (dig_ >= -1) {//current_ is digit or expected letter
+            append(_seenDot, intPart_, decPart_, dig_);
             return _j + 1;
         }
         String hexEnd_ = _key.getKeyWordNbHexEnd();
@@ -208,7 +208,7 @@ public final class ElResolverCommon {
             return _j;
         }
         nbInfos_.setError(true);
-        append(_seenDot, intPart_, decPart_, current_);
+        append(_seenDot, intPart_, decPart_, current_-'0');
         return jAft_ + 1;
     }
 
@@ -220,17 +220,17 @@ public final class ElResolverCommon {
         }
         char current_ = _string.charAt(_j);
         NumberInfos nbInfos_ = _output.getInfos();
-        StringBuilder intPart_ = nbInfos_.getIntPart();
-        StringBuilder decPart_ = nbInfos_.getDecimalPart();
+        Ints intPart_ = nbInfos_.getIntPart();
+        Ints decPart_ = nbInfos_.getDecimalPart();
         int len_ = _string.length();
         int n_ = StringExpUtil.nextPrintChar(_j + 1, len_, _string);
         if (_seenDot) {
             nbInfos_.setError(true);
-            decPart_.append(current_);
+            decPart_.add(current_ - '0');
             return _j + 1;
         }
         if (nbInfos_.isError()) {
-            intPart_.append(current_);
+            intPart_.add(current_ - '0');
             return _j + 1;
         }
         if (n_ == -1 && nbInfos_.getBase() == 10) {
@@ -240,7 +240,7 @@ public final class ElResolverCommon {
         }
         if (n_ == -1 || isWhite(_j + 1, _string) && isDigitOrDot(_string, n_) || _string.charAt(n_) == ElResolver.DOT_VAR) {
             nbInfos_.setError(true);
-            intPart_.append(current_);
+            intPart_.add(current_ - '0');
             return _j + 1;
         }
         return errOrExit(false, _key, _string, _j, _output, true);
@@ -262,15 +262,15 @@ public final class ElResolverCommon {
     private static int expCase(boolean _seenDot, KeyWords _key, String _string, int _j, NumberInfosOutput _output, int _off) {
         char current_ = _string.charAt(_j);
         NumberInfos nbInfos_ = _output.getInfos();
-        StringBuilder intPart_ = nbInfos_.getIntPart();
-        StringBuilder decPart_ = nbInfos_.getDecimalPart();
+        Ints intPart_ = nbInfos_.getIntPart();
+        Ints decPart_ = nbInfos_.getDecimalPart();
         if (nbInfos_.isError()) {
-            append(_seenDot, intPart_, decPart_, current_);
+            append(_seenDot, intPart_, decPart_, current_-'0');
             return _j + 1;
         }
         if (isWhite(_j + _off, _string)) {
             nbInfos_.setError(true);
-            append(_seenDot, intPart_, decPart_, current_);
+            append(_seenDot, intPart_, decPart_, current_-'0');
             return _j + 1;
         }
         nbInfos_.setSuffix(NumberInfos.PRIM_DOUBLE);
@@ -284,16 +284,16 @@ public final class ElResolverCommon {
         int n_ = StringExpUtil.nextPrintChar(_j + 1, len_, _string);
         char current_ = _string.charAt(_j);
         NumberInfos nbInfos_ = _output.getInfos();
-        StringBuilder intPart_ = nbInfos_.getIntPart();
-        StringBuilder decPart_ = nbInfos_.getDecimalPart();
+        Ints intPart_ = nbInfos_.getIntPart();
+        Ints decPart_ = nbInfos_.getDecimalPart();
         if (isWhite(_j, _string)) {
             if (nbInfos_.isError()) {
-                append(_seenDot, intPart_, decPart_, current_);
+                append(_seenDot, intPart_, decPart_, current_ - '0');
                 return _j + 1;
             }
             if (isDigitOrDot(_string,n_)) {
                 nbInfos_.setError(true);
-                intPart_.append(current_);
+                intPart_.add(current_ - '0');
                 return _j + 1;
             }
         }
@@ -306,7 +306,7 @@ public final class ElResolverCommon {
         String binExp_ = _key.getKeyWordNbExpBin();
         int len_ = _string.length();
         NumberInfos nbInfos_ = _output.getInfos();
-        StringBuilder decPart_ = nbInfos_.getDecimalPart();
+        Ints decPart_ = nbInfos_.getDecimalPart();
         nbInfos_.setSuffix(NumberInfos.PRIM_DOUBLE);
         int base_ = nbInfos_.getBase();
         int offFirst_ = offExp(base_, decExp_, binExp_, _string, j_ + 1);
@@ -335,16 +335,16 @@ public final class ElResolverCommon {
         }
         suffix(_key, _string, _output, incrSep(j_, base_, _string, _key.getKeyWordNbHexEnd()));
     }
-    private static int appendDec(KeyWords _key, String _string, int _j, int _base, StringBuilder _decPart) {
+    private static int appendDec(KeyWords _key, String _string, int _j, int _base, Ints _decPart) {
         int len_ = _string.length();
         int j_ = _j;
         while (j_ < len_) {
             char curChar_ = _string.charAt(j_);
             int dig_ = digitPart(curChar_, _base, _key);
-            if (dig_ < 0) {
+            if (dig_ < -1) {
                 break;
             }
-            _decPart.append((char) dig_);
+            tryAppend(_decPart,dig_);
             j_++;
         }
         return j_;
@@ -363,11 +363,11 @@ public final class ElResolverCommon {
         return _current < len_ && StringUtil.isWhitespace(_str.charAt(_current));
     }
 
-    private static void append(boolean _seenDot, StringBuilder _intPart, StringBuilder _decPart, char _current) {
+    private static void append(boolean _seenDot, Ints _intPart, Ints _decPart, int _current) {
         if (_seenDot) {
-            _decPart.append(_current);
+            tryAppend(_decPart,_current);
         } else {
-            _intPart.append(_current);
+            tryAppend(_intPart,_current);
         }
     }
 
@@ -435,7 +435,7 @@ public final class ElResolverCommon {
     }
     private static int digitPart(char _char, int _base, KeyWords _key) {
         if (_char == ElResolver.NB_INTERN_SP) {
-            return _char;
+            return -1;
         }
         return digit(_char,_base,_key);
     }
@@ -443,32 +443,32 @@ public final class ElResolverCommon {
     private static int digit(char _char, int _base, KeyWords _key) {
         if (_base == 10) {
             if (StringExpUtil.isDigit(_char)) {
-                return _char;
+                return _char - '0';
             }
-            return -1;
+            return -2;
         }
         if (_base == 16) {
             if (StringExpUtil.isDigit(_char)) {
-                return _char;
+                return _char - '0';
             }
             int min_ = NumParsers.toMinCaseLetter(_char);
             String keyWordNbDig_ = _key.getKeyWordNbDig();
             int ch_ = keyWordNbDig_.indexOf(min_);
             if (ch_ >= 0) {
-                return ch_ + NumberUtil.MIN_UPP;
+                return ch_ + 10;
             }
-            return -1;
+            return -2;
         }
         if (_base == 2) {
             if (_char == '0' || _char == '1') {
-                return _char;
+                return _char - '0';
             }
-            return -1;
+            return -2;
         }
         if (_char >= ElResolver.MIN_ENCODE_DIGIT && _char <= '7') {
-            return _char;
+            return _char - '0';
         }
-        return -1;
+        return -2;
     }
 
     private static void processExp(KeyWords _key, int _start, String _string, NumberInfosOutput _output) {
@@ -480,14 +480,15 @@ public final class ElResolverCommon {
             _output.setNextIndex(len_);
             return;
         }
-        StringBuilder exp_ = _output.getInfos().getExponentialPart();
+        Ints exp_ = _output.getInfos().getExponentialPart();
         if (_string.charAt(j_) == ElResolver.MINUS_CHAR || _string.charAt(j_) == ElResolver.PLUS_CHAR) {
             if (j_ + 1 >= len_ || !StringExpUtil.isDigit(_string.charAt(j_ + 1))) {
                 _output.getInfos().setError(true);
                 _output.setNextIndex(j_);
                 return;
             }
-            exp_.append(_string.charAt(j_));
+            _output.getInfos().setNegativeExp(_string.charAt(j_) == ElResolver.MINUS_CHAR);
+//            exp_.append(_string.charAt(j_));
             j_++;
             expDigitsAndSuffix(_key,_string,exp_,j_,_output);
             return;
@@ -499,7 +500,7 @@ public final class ElResolverCommon {
         expDigitsAndSuffix(_key,_string,exp_,j_,_output);
     }
 
-    private static void unsignedExpErr(KeyWords _key, String _string, NumberInfosOutput _output, StringBuilder _exp, int _j) {
+    private static void unsignedExpErr(KeyWords _key, String _string, NumberInfosOutput _output, Ints _exp, int _j) {
         int len_ = _string.length();
 
         int j_ = _j;
@@ -511,14 +512,14 @@ public final class ElResolverCommon {
                 return;
             }
             while (j_ < n_) {
-                _exp.append(_string.charAt(j_));
+                _exp.add(_string.charAt(j_)-'0');
                 j_++;
             }
         }
         expDigitsAndSuffix(_key, _string, _exp, j_, _output);
     }
 
-    private static void expDigitsAndSuffix(KeyWords _key, String _string, StringBuilder _exp, int _j, NumberInfosOutput _output) {
+    private static void expDigitsAndSuffix(KeyWords _key, String _string, Ints _exp, int _j, NumberInfosOutput _output) {
         int len_ = _string.length();
         int j_ = appendDigitToExp(_key,_string,_exp,_j);
         int n_ = StringExpUtil.nextPrintChar(j_, len_, _string);
@@ -534,20 +535,26 @@ public final class ElResolverCommon {
         }
         afterExp(_key, _string, _output, _exp, j_);
     }
-    private static int appendDigitToExp(KeyWords _key, String _string, StringBuilder _exp, int _j){
+    private static int appendDigitToExp(KeyWords _key, String _string, Ints _exp, int _j){
         int len_ = _string.length();
         int j_ = _j;
         while (j_ < len_) {
             int dig_ = digitPart(_string.charAt(j_), 10, _key);
-            if (dig_ < 0) {
+            if (dig_ < -1) {
                 break;
             }
-            _exp.append((char) dig_);
+            tryAppend(_exp,dig_);
             j_++;
         }
         return j_;
     }
-    private static void afterExp(KeyWords _key, String _string, NumberInfosOutput _output, StringBuilder _exp, int _j) {
+    private static void tryAppend(Ints _digs, int _cand) {
+        if (_cand < 0) {
+            return;
+        }
+        _digs.add(_cand);
+    }
+    private static void afterExp(KeyWords _key, String _string, NumberInfosOutput _output, Ints _exp, int _j) {
         int len_ = _string.length();
         int j_ = _j;
         if (j_ < len_ && StringDataLetterUtil.isLetter(_string.charAt(j_))) {
@@ -556,21 +563,21 @@ public final class ElResolverCommon {
         _output.setNextIndex(nextIndex(_key, j_, _string, _output, _exp));
     }
 
-    private static int nextIndex(KeyWords _key, int _j, String _string, NumberInfosOutput _output, StringBuilder _str) {
+    private static int nextIndex(KeyWords _key, int _j, String _string, NumberInfosOutput _output, Ints _str) {
         int len_ = _string.length();
         int j_ = _j;
         if (j_ < len_) {
             char first_ = _string.charAt(j_);
             if (unexpectedWordChars(_key, _string, j_, first_)) {
                 _output.getInfos().setError(true);
-                _str.append(first_);
+                _str.add(first_ - '0');
                 j_++;
                 while (j_ < len_) {
                     char cur_ = _string.charAt(j_);
                     if (!unexpectedWordChars(_key, _string, j_, cur_)) {
                         break;
                     }
-                    _str.append(cur_);
+                    _str.add(cur_ - '0');
                     j_++;
                 }
             }
