@@ -738,8 +738,8 @@ public final class StringExpUtil {
         return str_.toString();
     }
 
-    private static boolean in(char c_, char _l, char _u) {
-        return c_ >= _l && c_ <= _u;
+    private static boolean in(char _c, char _l, char _u) {
+        return _c >= _l && _c <= _u;
     }
 
     public static String toByteGeneOct(int _i) {

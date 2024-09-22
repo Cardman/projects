@@ -841,49 +841,18 @@ public final class NumParsers {
 
     private static LongInfo buildAccLg(String _string, int _radix, int _i, boolean _negative, String _alpha) {
         int max_ = _string.length();
-        long result_ = 0L;
-//        long result_ = _result;
-        long limit_;
-        if (_negative) {
-            limit_ = Long.MIN_VALUE;
-        } else {
-            limit_ = -Long.MAX_VALUE;
-        }
-        long multmin_ = limit_ / _radix;
         int i_ = _i;
-//        i_++;
+        CustList<Integer> ints_ = new CustList<Integer>();
         while (i_ < max_) {
-            // Accumulating negatively avoids surprises near MAX_VALUE
             char ch_ = _string.charAt(i_);
-            int dig_ = dig(ch_,_radix, _alpha);
-            if (dig_ < 0 || result_ < multmin_) {
+            int dig_ = dig(ch_, _alpha);
+            if (dig_ < 0) {
                 return new LongInfo();
             }
-            result_ *= _radix;
-            if (result_ < limit_ + dig_) {
-                return new LongInfo();
-            }
-            result_ -= dig_;
+            ints_.add(dig_);
             i_++;
         }
-        return buildLg(_negative, result_);
-    }
-    private static LongInfo buildLg(boolean _negative, long _result) {
-        if (_negative) {
-            return new LongInfo(_result);
-        }
-        return new LongInfo(-_result);
-    }
-
-    private static int dig(char _ch, int _radix, String _alpha) {
-        int dig_ = dig(_ch, _alpha);
-        if (dig_ < 0) {
-            return -1;
-        }
-        if (dig_ >= _radix) {
-            return -1;
-        }
-        return dig_;
+        return buildLong(ints_,_radix,_negative);
     }
     private static int dig(char _ch, String _alpha) {
         if (MathExpUtil.isDigit(_ch)) {

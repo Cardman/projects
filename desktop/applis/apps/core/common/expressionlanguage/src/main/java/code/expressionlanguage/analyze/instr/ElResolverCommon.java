@@ -113,7 +113,7 @@ public final class ElResolverCommon {
         String binPre_ = _key.getKeyWordNbBin();
         if (_seenDot) {
             nbInfos_.setSuffix(NumberInfos.PRIM_DOUBLE);
-            decPart_.add(startChar_ - '0');
+            tryAppend(decPart_,startChar_ - '0');
             if (StringUtil.isWhitespace(startChar_)) {
                 nbInfos_.setError(true);
             }
@@ -123,7 +123,7 @@ public final class ElResolverCommon {
         nbInfos_.setSuffix(NumberInfos.PRIM_INT);
         int len_ = _string.length();
         if (startChar_ != '0' || start_ + 1 >= len_) {
-            intPart_.add(startChar_ - '0');
+            tryAppend(intPart_,startChar_ - '0');
             nbInfos_.setBase(base_);
             return start_ + 1;
         }
@@ -131,7 +131,7 @@ public final class ElResolverCommon {
         if (suff_ != null) {
             int ch_ = suff_.getValue();
             nbInfos_.setSuffix(ch_);
-            intPart_.add(0);
+            tryAppend(intPart_,0);
             _output.setNextIndex(start_ + 1 + suff_.getKey().length());
             return _start;
         }
@@ -145,7 +145,7 @@ public final class ElResolverCommon {
                 return _start;
             }
             startChar_ = _string.charAt(start_);
-            intPart_.add(digit(startChar_,base_,_key));
+            tryAppend(intPart_,digitPart(startChar_,base_,_key));
             nbInfos_.setBase(base_);
             return start_ + 1;
         }
@@ -159,7 +159,7 @@ public final class ElResolverCommon {
                 return _start;
             }
             startChar_ = _string.charAt(start_);
-            intPart_.add(startChar_ - '0');
+            tryAppend(intPart_,startChar_ - '0');
             nbInfos_.setBase(base_);
             return start_ + 1;
         }
@@ -168,7 +168,7 @@ public final class ElResolverCommon {
             start_++;
             startChar_ = _string.charAt(start_);
         }
-        intPart_.add(startChar_ - '0');
+        tryAppend(intPart_,startChar_ - '0');
         nbInfos_.setBase(base_);
         return start_ + 1;
     }
@@ -226,11 +226,11 @@ public final class ElResolverCommon {
         int n_ = StringExpUtil.nextPrintChar(_j + 1, len_, _string);
         if (_seenDot) {
             nbInfos_.setError(true);
-            decPart_.add(current_ - '0');
+            tryAppend(decPart_,current_ - '0');
             return _j + 1;
         }
         if (nbInfos_.isError()) {
-            intPart_.add(current_ - '0');
+            tryAppend(intPart_, current_ - '0');
             return _j + 1;
         }
         if (n_ == -1 && nbInfos_.getBase() == 10) {
@@ -240,7 +240,7 @@ public final class ElResolverCommon {
         }
         if (n_ == -1 || isWhite(_j + 1, _string) && isDigitOrDot(_string, n_) || _string.charAt(n_) == ElResolver.DOT_VAR) {
             nbInfos_.setError(true);
-            intPart_.add(current_ - '0');
+            tryAppend(intPart_, current_ - '0');
             return _j + 1;
         }
         return errOrExit(false, _key, _string, _j, _output, true);
@@ -293,7 +293,7 @@ public final class ElResolverCommon {
             }
             if (isDigitOrDot(_string,n_)) {
                 nbInfos_.setError(true);
-                intPart_.add(current_ - '0');
+                tryAppend(intPart_, current_ - '0');
                 return _j + 1;
             }
         }
@@ -512,7 +512,7 @@ public final class ElResolverCommon {
                 return;
             }
             while (j_ < n_) {
-                _exp.add(_string.charAt(j_)-'0');
+                tryAppend(_exp, _string.charAt(j_)-'0');
                 j_++;
             }
         }
@@ -570,14 +570,14 @@ public final class ElResolverCommon {
             char first_ = _string.charAt(j_);
             if (unexpectedWordChars(_key, _string, j_, first_)) {
                 _output.getInfos().setError(true);
-                _str.add(first_ - '0');
+                tryAppend(_str,first_ - '0');
                 j_++;
                 while (j_ < len_) {
                     char cur_ = _string.charAt(j_);
                     if (!unexpectedWordChars(_key, _string, j_, cur_)) {
                         break;
                     }
-                    _str.add(cur_ - '0');
+                    tryAppend(_str,cur_ - '0');
                     j_++;
                 }
             }
