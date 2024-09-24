@@ -1297,10 +1297,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         partieBelote().setNombre();
         mettreEnPlaceIhmBelote();
     }
-    @Override
-    public void stopPlaying() {
-        win.menuSoloGames();
-    }
+
     @Override
     public void replay() {
         GameBelote partie_=partieBelote();

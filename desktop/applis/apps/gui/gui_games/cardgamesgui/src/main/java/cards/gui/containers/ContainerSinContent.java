@@ -9,7 +9,7 @@ public class ContainerSinContent {
     private AbsButton stopButton;
     public void addButtonStopPlaying(ContainerSin _cont, AbsPanel _panneau, String _texte) {
         AbsButton bouton_=_cont.getOwner().getCompoFactory().newPlainButton(_texte);
-        bouton_.addActionListener(new CardsNonModalEvent(_cont),new StopPlayingEvent(_cont));
+        bouton_.addActionListener(new CardsNonModalEvent(_cont),new StopPlayingEvent(_cont.window()));
         _panneau.add(bouton_);
         stopButton = bouton_;
     }

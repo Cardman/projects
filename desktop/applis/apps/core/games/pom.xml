@@ -15,6 +15,7 @@
 		<module>cardgamescommon</module>
 		<module>belote</module>
 		<module>president</module>
+		<module>solitaire</module>
 		<module>tarot</module>
 		<module>pokemoncore</module>
 	</modules>

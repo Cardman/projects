@@ -5,6 +5,7 @@ import cards.consts.Suit;
 import cards.gui.animations.HelpInitializer;
 import cards.gui.dialogs.help.HelpIndexesTree;
 import cards.president.enumerations.CardPresident;
+import cards.solitaire.CardSolitaire;
 import cards.tarot.enumerations.CardTarot;
 import code.gui.*;
 import code.gui.images.AbstractImageFactory;
@@ -60,6 +61,9 @@ public final class CardFactories {
     }
     public static ScrollCustomGraphicList<CardTarot> tarot(AbsCompoFactory _compo, AbstractImageFactory _img, AbsCustCellRenderGene<CardTarot> _rend) {
         return new DefScrollCustomGraphicList<CardTarot>(_compo,_img,_rend,false);
+    }
+    public static ScrollCustomGraphicList<CardSolitaire> solitaire(AbsCompoFactory _compo, AbstractImageFactory _img, AbsCustCellRenderGene<CardSolitaire> _rend) {
+        return new DefScrollCustomGraphicList<CardSolitaire>(_compo,_img,_rend,false);
     }
     public static ScrollCustomGraphicList<Suit> suit(AbsCompoFactory _compo, AbstractImageFactory _img, AbsCustCellRenderGene<Suit> _rend) {
         return new DefScrollCustomGraphicList<Suit>(_compo,_img,_rend,false);

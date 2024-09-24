@@ -7,11 +7,13 @@ import cards.facade.enumerations.*;
 import cards.facade.sml.*;
 import cards.president.*;
 import cards.president.sml.*;
+import cards.solitaire.*;
+import cards.solitaire.sml.*;
 import cards.tarot.*;
 import cards.tarot.sml.*;
 import code.gui.initialize.*;
 import code.sml.Document;
-import code.sml.util.TranslationsFile;
+import code.sml.util.*;
 import code.stream.*;
 import code.util.*;
 import code.util.core.*;
@@ -202,6 +204,18 @@ public final class FacadeCards {
             }
             g_.jouerTarot(par_);
             return g_;
+        }
+        if (StringUtil.quickEq(tagName_, DocumentWriterSolitaireUtil.TYPE_GAME_SOLITAIRE)) {
+            AbsDealSolitaire par_ = cs_.solitaire(_file,doc_);
+            if (par_ != null) {
+                par_.valid(files_.getVal(MessagesCardGames.GAME_SOLITAIRE_CH).getMapping());
+                if (!par_.getError().isEmpty()) {
+                    g_.setErrorFile(par_.getError());
+                    return g_;
+                }
+                g_.jouerSolitaire(par_);
+                return g_;
+            }
         }
         return g_;
     }

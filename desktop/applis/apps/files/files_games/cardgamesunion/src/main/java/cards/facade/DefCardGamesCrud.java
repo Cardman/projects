@@ -4,6 +4,9 @@ import cards.belote.*;
 import cards.belote.sml.*;
 import cards.president.*;
 import cards.president.sml.*;
+import cards.solitaire.AbsDealSolitaire;
+import cards.solitaire.sml.DocumentReaderSolitaireUtil;
+import cards.solitaire.sml.DocumentWriterSolitaireUtil;
 import cards.tarot.*;
 import cards.tarot.sml.*;
 import code.gui.initialize.*;
@@ -137,6 +140,22 @@ public final class DefCardGamesCrud extends AbsCardGamesCrudImpl {
     public void tarot(String _k, GameTarot _n) {
         getTarot().clear();
         StreamTextFile.saveTextFile(_k,DocumentWriterTarotUtil.setGameTarot(_n),getProgramInfos().getStreams());
+    }
+
+    @Override
+    public AbsDealSolitaire solitaire(String _k) {
+        return solitaire(_k,DocumentBuilder.parseNoTextDocument(StreamTextFile.contentsOfFile(_k,getProgramInfos().getFileCoreStream(), getProgramInfos().getStreams())));
+    }
+
+    @Override
+    public AbsDealSolitaire solitaire(String _k, Document _d) {
+        return DocumentReaderSolitaireUtil.getGameSolitaire(_d);
+    }
+
+    @Override
+    public void solitaire(String _k, AbsDealSolitaire _n) {
+        getSolitaire().clear();
+        StreamTextFile.saveTextFile(_k, DocumentWriterSolitaireUtil.setGameSolitaire(_n),getProgramInfos().getStreams());
     }
 
     @Override

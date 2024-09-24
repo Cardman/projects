@@ -24,7 +24,7 @@ import code.util.StringList;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
-public final class EditorTarot extends DialogTarot implements SetterSelectedCardList {
+public final class EditorTarot extends DialogTarot implements SetterSelectedCardList,SetterSelectedCardListStepRules {
     private final EditorCards editorCards;
     private GameTarot partie;
     private TarotCardsScrollableList stack;

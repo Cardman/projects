@@ -5,6 +5,7 @@ import cards.facade.MessagesCardGames;
 import cards.facade.enumerations.*;
 import cards.gui.panels.*;
 import cards.president.enumerations.*;
+import cards.solitaire.CardSolitaire;
 import cards.tarot.enumerations.*;
 import code.gui.*;
 import code.scripts.messages.cards.MessagesGuiCards;
@@ -122,5 +123,80 @@ public final class SavingDealEventTest extends EquallableCardsGuiUtil {
         tryClick((AbsButton) fr_.getEditorTarot().getEditorCards().getSaveDialogContent().getButtons().getComponent(PLAY_WITHOUT_SAVING));
         assertTrue(fr_.baseWindow().getContainerGame().getPar().enCoursDePartieTarot());
         assertFalse(fr_.getEditorTarot().getCardDialog().isVisible());
+    }
+    @Test
+    public void solitaire() {
+        WindowCards fr_ = frameMiniSolitaire("/__/","/_/");
+        appendMainGame(MessagesCardGames.getAppliTr(fr_.getFrames().getTranslations().getMapping().getVal(EN)), MessagesGuiCards.enGame());
+        appendMainGame(MessagesCardGames.getAppliTr(fr_.getFrames().getTranslations().getMapping().getVal(FR)), MessagesGuiCards.frGame());
+        tryClick(fr_.getEditGames().getVal(GameEnum.CLASSIC));
+        dealClassic(fr_);
+        fr_.getEditorClassic().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
+        tryClick((AbsButton) fr_.getEditorClassic().getEditorCards().getSaveDialogContent().getButtons().getComponent(PLAY_WITHOUT_SAVING));
+        assertTrue(fr_.baseWindow().getContainerGame().getPar().enCoursDePartieSolitaire());
+        assertFalse(fr_.getEditorClassic().getCardDialog().isVisible());
+    }
+    private void tryMove(WindowCards _fr, SolitaireCardsScrollableList _stack, CardSolitaire _one, int _dest) {
+        ScrollCustomGraphicList<CardSolitaire> input_ = _stack.getListe();
+        IdList<CardSolitaire> handFirst_ = _stack.valElts();
+        selectEventSolitaire(input_, Ints.newList(handFirst_.indexOfObj(_one)));
+        _fr.getEditorClassic().getEditorCards().getListeTwo().selectItem(_dest);
+        tryClick(_fr.getEditorClassic().getEditorCards().getMoveCards());
+    }
+
+    private void dealClassic(WindowCards _fr) {
+        SolitaireCardsScrollableList stack_ = _fr.getEditorClassic().getStack();
+        tryMove(_fr,stack_,CardSolitaire.HEART_6,2);
+        tryMove(_fr,stack_,CardSolitaire.SPADE_6,3);
+        tryMove(_fr,stack_,CardSolitaire.SPADE_5,3);
+        tryMove(_fr,stack_,CardSolitaire.DIAMOND_6,4);
+        tryMove(_fr,stack_,CardSolitaire.DIAMOND_5,4);
+        tryMove(_fr,stack_,CardSolitaire.DIAMOND_4,4);
+        tryMove(_fr,stack_,CardSolitaire.HEART_KING,5);
+        tryMove(_fr,stack_,CardSolitaire.SPADE_QUEEN,5);
+        tryMove(_fr,stack_,CardSolitaire.DIAMOND_JACK,5);
+        tryMove(_fr,stack_,CardSolitaire.CLUB_10,5);
+        tryMove(_fr,stack_,CardSolitaire.SPADE_KING,6);
+        tryMove(_fr,stack_,CardSolitaire.DIAMOND_QUEEN,6);
+        tryMove(_fr,stack_,CardSolitaire.CLUB_JACK,6);
+        tryMove(_fr,stack_,CardSolitaire.HEART_10,6);
+        tryMove(_fr,stack_,CardSolitaire.HEART_9,6);
+        tryMove(_fr,stack_,CardSolitaire.DIAMOND_KING,7);
+        tryMove(_fr,stack_,CardSolitaire.CLUB_QUEEN,7);
+        tryMove(_fr,stack_,CardSolitaire.HEART_JACK,7);
+        tryMove(_fr,stack_,CardSolitaire.SPADE_10,7);
+        tryMove(_fr,stack_,CardSolitaire.SPADE_9,7);
+        tryMove(_fr,stack_,CardSolitaire.SPADE_8,7);
+        tryMove(_fr,stack_,CardSolitaire.CLUB_KING,8);
+        tryMove(_fr,stack_,CardSolitaire.HEART_QUEEN,8);
+        tryMove(_fr,stack_,CardSolitaire.SPADE_JACK,8);
+        tryMove(_fr,stack_,CardSolitaire.DIAMOND_10,8);
+        tryMove(_fr,stack_,CardSolitaire.DIAMOND_9,8);
+        tryMove(_fr,stack_,CardSolitaire.DIAMOND_8,8);
+        tryMove(_fr,stack_,CardSolitaire.SPADE_7,8);
+        tryMove(_fr,stack_,CardSolitaire.HEART_1,1);
+        tryMove(_fr,stack_,CardSolitaire.SPADE_1,1);
+        tryMove(_fr,stack_,CardSolitaire.DIAMOND_1,1);
+        tryMove(_fr,stack_,CardSolitaire.CLUB_1,1);
+        tryMove(_fr,stack_,CardSolitaire.HEART_2,1);
+        tryMove(_fr,stack_,CardSolitaire.SPADE_2,1);
+        tryMove(_fr,stack_,CardSolitaire.DIAMOND_2,1);
+        tryMove(_fr,stack_,CardSolitaire.CLUB_2,1);
+        tryMove(_fr,stack_,CardSolitaire.HEART_3,1);
+        tryMove(_fr,stack_,CardSolitaire.SPADE_3,1);
+        tryMove(_fr,stack_,CardSolitaire.DIAMOND_3,1);
+        tryMove(_fr,stack_,CardSolitaire.CLUB_3,1);
+        tryMove(_fr,stack_,CardSolitaire.HEART_4,1);
+        tryMove(_fr,stack_,CardSolitaire.SPADE_4,1);
+        tryMove(_fr,stack_,CardSolitaire.CLUB_4,1);
+        tryMove(_fr,stack_,CardSolitaire.HEART_5,1);
+        tryMove(_fr,stack_,CardSolitaire.CLUB_5,1);
+        tryMove(_fr,stack_,CardSolitaire.CLUB_6,1);
+        tryMove(_fr,stack_,CardSolitaire.HEART_7,1);
+        tryMove(_fr,stack_,CardSolitaire.DIAMOND_7,1);
+        tryMove(_fr,stack_,CardSolitaire.CLUB_7,1);
+        tryMove(_fr,stack_,CardSolitaire.HEART_8,1);
+        tryMove(_fr,stack_,CardSolitaire.CLUB_8,1);
+        tryMove(_fr,stack_,CardSolitaire.CLUB_9,1);
     }
 }

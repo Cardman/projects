@@ -7,6 +7,10 @@ import cards.belote.sml.*;
 import cards.president.*;
 import cards.president.enumerations.*;
 import cards.president.sml.*;
+import cards.solitaire.AbsDealSolitaire;
+import cards.solitaire.CardSolitaire;
+import cards.solitaire.sml.DocumentReaderSolitaireUtil;
+import cards.solitaire.sml.DocumentWriterSolitaireUtil;
 import cards.tarot.*;
 import cards.tarot.enumerations.*;
 import cards.tarot.sml.*;
@@ -87,6 +91,9 @@ public abstract class EquallableCardsSerialUtil {
     public static ResultsTarot saveResultTarot(ResultsTarot _i) {
         return DocumentReaderTarotUtil.resultsTarot(DocumentBuilder.parseSax(DocumentWriterTarotUtil.resultsTarot(_i)).getDocumentElement());
     }
+    public static AbsDealSolitaire saveGameSolitaire(AbsDealSolitaire _i) {
+        return DocumentReaderSolitaireUtil.getGameSolitaire(DocumentBuilder.parseSax(DocumentWriterSolitaireUtil.setGameSolitaire(_i)));
+    }
     public static void assertTrue(boolean _value) {
         Assert.assertTrue(_value);
     }
@@ -120,6 +127,9 @@ public abstract class EquallableCardsSerialUtil {
     public static void assertEq(CardTarot _expected, CardTarot _result) {
         Assert.assertSame(_expected, _result);
     }
+    public static void assertEq(CardSolitaire _expected, CardSolitaire _result) {
+        Assert.assertSame(_expected, _result);
+    }
     public static void assertEq(Handfuls _expected, Handfuls _result) {
         Assert.assertSame(_expected, _result);
     }
@@ -140,5 +150,8 @@ public abstract class EquallableCardsSerialUtil {
     }
     public static void assertEq(LgInt _expected, LgInt _result) {
         Assert.assertEquals(_expected.toNumberString(), _result.toNumberString());
+    }
+    public static void assertNull(AbsDealSolitaire _ads) {
+        Assert.assertNull(_ads);
     }
 }

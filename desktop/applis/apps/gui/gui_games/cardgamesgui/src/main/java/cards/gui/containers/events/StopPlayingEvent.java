@@ -1,18 +1,18 @@
 package cards.gui.containers.events;
 
-import cards.gui.containers.ContainerSin;
+import cards.gui.WindowCards;
 import code.gui.events.AbsActionListener;
 
 public class StopPlayingEvent implements AbsActionListener {
 
-    private final ContainerSin container;
+    private final WindowCards container;
 
-    public StopPlayingEvent(ContainerSin _container) {
+    public StopPlayingEvent(WindowCards _container) {
         container = _container;
     }
 
     @Override
     public void action() {
-        container.stopPlaying();
+        container.menuSoloGames();
     }
 }

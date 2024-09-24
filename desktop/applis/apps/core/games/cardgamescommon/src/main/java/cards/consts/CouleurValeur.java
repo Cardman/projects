@@ -81,6 +81,8 @@ public final class CouleurValeur {
     public static final int CLUB_3 = 75;
     public static final int CLUB_2 = 76;
     public static final int CLUB_1 = 77;
+    public static final int RED = 0;
+    public static final int BLACK = 1;
 
     /**Numero de couleur de la carte (0: Excuse Tarot,1: Atout Tarot,2: Coeur,3: Pique,4: Carreau,5: Tr&egrave;fle)*/
     private final Suit couleur;

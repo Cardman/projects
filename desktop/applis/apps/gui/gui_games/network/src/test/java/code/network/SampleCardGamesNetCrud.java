@@ -6,6 +6,7 @@ import cards.facade.AbsCardGamesCrudImpl;
 import cards.facade.DefCardGamesCrud;
 import cards.president.GamePresident;
 import cards.president.HandPresident;
+import cards.solitaire.AbsDealSolitaire;
 import cards.tarot.GameTarot;
 import cards.tarot.HandTarot;
 import code.gui.initialize.AbstractProgramInfos;
@@ -101,6 +102,21 @@ public final class SampleCardGamesNetCrud extends AbsCardGamesCrudImpl {
     @Override
     public GameTarot tarot(String _k, Document _d) {
         return getTarot().getVal(_k);
+    }
+
+    @Override
+    public void solitaire(String _k, AbsDealSolitaire _n) {
+        getSolitaire().put(_k, _n);
+    }
+
+    @Override
+    public AbsDealSolitaire solitaire(String _k) {
+        return getSolitaire().getVal(_k);
+    }
+
+    @Override
+    public AbsDealSolitaire solitaire(String _k, Document _d) {
+        return getSolitaire().getVal(_k);
     }
 
     @Override

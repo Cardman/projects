@@ -2,7 +2,7 @@ package cards.gui.dialogs.events;
 
 import cards.gui.WindowCardsInt;
 import cards.gui.dialogs.DialogHelpCards;
-import cards.gui.dialogs.SetterSelectedCardList;
+import cards.gui.dialogs.SetterSelectedCardListStepRules;
 import code.gui.AbsButton;
 import code.gui.AbsCustComponent;
 import code.gui.AbsPanel;
@@ -12,14 +12,14 @@ import code.scripts.messages.cards.MessagesEditorCards;
 
 public class ValidateRulesDealEvent implements AbsActionListener {
 
-    private final SetterSelectedCardList dialog;
+    private final SetterSelectedCardListStepRules dialog;
     private final WindowCardsInt window;
 
-    public ValidateRulesDealEvent(SetterSelectedCardList _dialog, WindowCardsInt _parent) {
+    public ValidateRulesDealEvent(SetterSelectedCardListStepRules _dialog, WindowCardsInt _parent) {
         dialog = _dialog;
         window = _parent;
     }
-    public static void addButton(AbsCustComponent _jt, WindowCardsInt _parent, SetterSelectedCardList _dialog, DialogHelpCards _d) {
+    public static void addButton(AbsCustComponent _jt, WindowCardsInt _parent, SetterSelectedCardListStepRules _dialog, DialogHelpCards _d) {
         AbsPanel container_=_parent.getCompoFactory().newBorder();
         container_.add(_jt, MessagesGuiFct.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_=_parent.getCompoFactory().newLineBox();

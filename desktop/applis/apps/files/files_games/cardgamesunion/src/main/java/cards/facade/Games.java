@@ -4,6 +4,7 @@ import cards.belote.enumerations.*;
 import cards.consts.*;
 import cards.president.*;
 import cards.president.enumerations.*;
+import cards.solitaire.AbsDealSolitaire;
 import cards.tarot.*;
 import cards.tarot.enumerations.*;
 import code.scripts.messages.cards.*;
@@ -23,6 +24,8 @@ public final class Games {
     private CustList<GameTarot> partiesTarot = new CustList<GameTarot>();
 
     private CustList<GamePresident> partiesPresident = new CustList<GamePresident>();
+
+    private final CustList<AbsDealSolitaire> partiesSolitaire = new CustList<AbsDealSolitaire>();
 
     private RulesBelote rulesBelote;
 
@@ -57,7 +60,7 @@ public final class Games {
     }
 
     public boolean enCoursDePartie(){
-        return enCoursDePartieBelote() || enCoursDePartieTarot() || enCoursDePartiePresident();
+        return enCoursDePartieBelote() || enCoursDePartieTarot() || enCoursDePartiePresident() || enCoursDePartieSolitaire();
     }
     public boolean enCoursDePartieBelote(){
         return !partiesBelote.isEmpty();
@@ -69,6 +72,10 @@ public final class Games {
 
     public boolean enCoursDePartiePresident(){
         return !partiesPresident.isEmpty();
+    }
+
+    public boolean enCoursDePartieSolitaire(){
+        return !partiesSolitaire.isEmpty();
     }
 
     public GameBelote partieBelote(){
@@ -83,10 +90,15 @@ public final class Games {
         return partiesPresident.first();
     }
 
+    public AbsDealSolitaire partieSolitaire() {
+        return partiesSolitaire.first();
+    }
+
     public void finirParties(){
         partiesBelote.clear();
         partiesTarot.clear();
         partiesPresident.clear();
+        partiesSolitaire.clear();
     }
     public void jouerBelote(GameBelote _partieBelote){
         finirParties();
@@ -99,6 +111,10 @@ public final class Games {
     public void jouerPresident(GamePresident _partiePresident){
         finirParties();
         partiesPresident.add(_partiePresident);
+    }
+    public void jouerSolitaire(AbsDealSolitaire _partiePresident){
+        finirParties();
+        partiesSolitaire.add(_partiePresident);
     }
 
     public boolean isSameTeam(Bytes _players) {
@@ -127,6 +143,10 @@ public final class Games {
         if(enCoursDePartiePresident()){
             GamePresident game_ = partiePresident();
             cr_.president(_nomFichier,game_);
+        }
+        if(enCoursDePartieSolitaire()){
+            AbsDealSolitaire game_ = partieSolitaire();
+            cr_.solitaire(_nomFichier,game_);
         }
     }
     public static StringBuilder autoriseMessEcartDe(ReasonDiscard _r, CardTarot _c, TranslationsLg _tr) {
@@ -507,6 +527,10 @@ public final class Games {
     }
     public CustList<GamePresident> getPartiesPresident() {
         return partiesPresident;
+    }
+
+    public CustList<AbsDealSolitaire> getPartiesSolitaire() {
+        return partiesSolitaire;
     }
 
     public String getErrorFile() {

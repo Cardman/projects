@@ -37,6 +37,7 @@ public final class WindowCardsCore {
     private IntFirstDealBelote firstDealBelote;
     private IntFirstDealPresident firstDealPresident;
     private IntFirstDealTarot firstDealTarot;
+    private IntFirstDealSolitaire firstDealSolitaire;
     private final ReportingFrame reportingFrame;
 
     public WindowCardsCore(WindowCardsInt _cards,CardGamesStream _nicknames, AbstractProgramInfos _list, IntArtCardGames _ia, AbstractAtomicBoolean _modal, EnabledMenu _lgMenu) {
@@ -71,6 +72,7 @@ public final class WindowCardsCore {
         setFirstDealBelote(new DefFirstDealBelote());
         setFirstDealPresident(new DefFirstDealPresident());
         setFirstDealTarot(new DefFirstDealTarot());
+        setFirstDealSolitaire(new DefFirstDealSolitaire());
     }
 
     public void changerNombreDePartiesEnQuittant(GroupFrame _inst) {
@@ -257,6 +259,14 @@ public final class WindowCardsCore {
 
     public void setFirstDealTarot(IntFirstDealTarot _f) {
         this.firstDealTarot = _f;
+    }
+
+    public IntFirstDealSolitaire getFirstDealSolitaire() {
+        return firstDealSolitaire;
+    }
+
+    public void setFirstDealSolitaire(IntFirstDealSolitaire _f) {
+        this.firstDealSolitaire = _f;
     }
 
     public ReportingFrame getReportingFrame() {

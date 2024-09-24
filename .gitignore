@@ -227,6 +227,11 @@
 !/desktop/applis/apps/core/games/president/src/
 !/desktop/applis/apps/core/games/president/src/**/
 !/desktop/applis/apps/core/games/president/src/**/*.java
+!/desktop/applis/apps/core/games/solitaire/
+!/desktop/applis/apps/core/games/solitaire/pom.xml
+!/desktop/applis/apps/core/games/solitaire/src/
+!/desktop/applis/apps/core/games/solitaire/src/**/
+!/desktop/applis/apps/core/games/solitaire/src/**/*.java
 !/desktop/applis/apps/core/games/tarot/
 !/desktop/applis/apps/core/games/tarot/pom.xml
 !/desktop/applis/apps/core/games/tarot/src/

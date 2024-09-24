@@ -4,6 +4,7 @@ import cards.belote.GameBelote;
 import cards.belote.HandBelote;
 import cards.president.GamePresident;
 import cards.president.HandPresident;
+import cards.solitaire.AbsDealSolitaire;
 import cards.tarot.GameTarot;
 import cards.tarot.HandTarot;
 import code.gui.initialize.AbstractProgramInfos;
@@ -28,6 +29,9 @@ public interface AbsCardGamesCrud {
     GameTarot tarot(String _k);
     GameTarot tarot(String _k, Document _d);
     void tarot(String _k,GameTarot _n);
+    AbsDealSolitaire solitaire(String _k);
+    AbsDealSolitaire solitaire(String _k, Document _d);
+    void solitaire(String _k,AbsDealSolitaire _n);
     String read(String _k);
     Document parse(String _k, String _c);
     String tag(String _k, String _c,Document _d);

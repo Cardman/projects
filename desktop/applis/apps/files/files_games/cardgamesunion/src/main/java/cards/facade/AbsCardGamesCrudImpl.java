@@ -1,18 +1,17 @@
 package cards.facade;
 
-import cards.belote.GameBelote;
-import cards.belote.HandBelote;
-import cards.president.GamePresident;
-import cards.president.HandPresident;
-import cards.tarot.GameTarot;
-import cards.tarot.HandTarot;
-import code.gui.initialize.AbstractProgramInfos;
-import code.util.StringMap;
+import cards.belote.*;
+import cards.president.*;
+import cards.solitaire.*;
+import cards.tarot.*;
+import code.gui.initialize.*;
+import code.util.*;
 
 public abstract class AbsCardGamesCrudImpl extends AbsCrudImpl implements AbsCardGamesCrud {
     private final StringMap<GameBelote> belote = new StringMap<GameBelote>();
     private final StringMap<GamePresident> president = new StringMap<GamePresident>();
     private final StringMap<GameTarot> tarot = new StringMap<GameTarot>();
+    private final StringMap<AbsDealSolitaire> solitaire = new StringMap<AbsDealSolitaire>();
     private HandBelote handBelote;
     private HandBelote handBeloteShort;
     private final StringMap<HandPresident> handPresident = new StringMap<HandPresident>();
@@ -32,6 +31,10 @@ public abstract class AbsCardGamesCrudImpl extends AbsCrudImpl implements AbsCar
 
     public StringMap<GameTarot> getTarot() {
         return tarot;
+    }
+
+    public StringMap<AbsDealSolitaire> getSolitaire() {
+        return solitaire;
     }
 
     public HandBelote getHandBelote() {

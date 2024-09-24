@@ -14,8 +14,6 @@ public interface ContainerSin extends ContainerPlayableGame{
 
     void keepPlayingEdited();
 
-    void stopPlaying();
-
     void replay();
 
     void modify();

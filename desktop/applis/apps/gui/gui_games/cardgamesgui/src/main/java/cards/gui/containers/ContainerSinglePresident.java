@@ -810,11 +810,6 @@ public class ContainerSinglePresident extends ContainerPresident implements
     }
 
     @Override
-    public void stopPlaying() {
-        win.menuSoloGames();
-    }
-
-    @Override
     public void replay() {
         GamePresident partie_=partiePresident();
         partie_.restituerMainsDepartRejouerDonne();

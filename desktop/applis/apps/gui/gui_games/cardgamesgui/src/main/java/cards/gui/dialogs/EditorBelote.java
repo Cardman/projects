@@ -21,7 +21,7 @@ import code.util.StringList;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
-public final class EditorBelote extends DialogBelote implements SetterSelectedCardList{
+public final class EditorBelote extends DialogBelote implements SetterSelectedCardList,SetterSelectedCardListStepRules{
 
     private final EditorCards editorCards;
     private GameBelote partie;

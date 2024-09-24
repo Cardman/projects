@@ -7,7 +7,6 @@ public interface SetterSelectedCardList {
 
     AbsCommonFrame getAbsDialog();
     EditorCards getEditorCards();
-    void validateRulesDeal(WindowCardsInt _parent);
     void backToRules(WindowCardsInt _parent);
     void deplacerCartes();
     void cancelDeal();

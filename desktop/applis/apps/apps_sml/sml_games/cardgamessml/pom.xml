@@ -28,6 +28,11 @@
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
+			<groupId>solitaire</groupId>
+			<artifactId>solitaire</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
 			<groupId>tarot</groupId>
 			<artifactId>tarot</artifactId>
 			<version>1.0-SNAPSHOT</version>

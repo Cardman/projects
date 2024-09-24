@@ -194,6 +194,9 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     private final EditorBelote editorBelote;
     private final EditorPresident editorPresident;
     private final EditorTarot editorTarot;
+    private final EditorSolitaire editorClassic;
+    private final EditorSolitaire editorFreeCell;
+    private final EditorSolitaire editorSpider;
 //    private final DialogTeamsPlayers dialogTeamsPlayers;
     private final DialogNicknames dialogNicknames;
     private final StringMap<DialogSoft> dialogSoft = new StringMap<DialogSoft>();
@@ -302,6 +305,9 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         editorBelote = new EditorBelote(_list, editGames.getVal(GameEnum.BELOTE));
         editorPresident = new EditorPresident(_list, editGames.getVal(GameEnum.PRESIDENT));
         editorTarot = new EditorTarot(_list, editGames.getVal(GameEnum.TAROT));
+        editorClassic = new EditorSolitaire(_list, editGames.getVal(GameEnum.CLASSIC), GameEnum.CLASSIC);
+        editorFreeCell = new EditorSolitaire(_list, editGames.getVal(GameEnum.FREECELL), GameEnum.FREECELL);
+        editorSpider = new EditorSolitaire(_list, editGames.getVal(GameEnum.SPIDER), GameEnum.SPIDER);
         dialogRulesBelote = new DialogRulesBelote(_list, rulesGames.getVal(GameEnum.BELOTE));
         dialogRulesPresident = new DialogRulesPresident(_list, rulesGames.getVal(GameEnum.PRESIDENT));
         dialogRulesTarot = new DialogRulesTarot(_list, rulesGames.getVal(GameEnum.TAROT));
@@ -516,6 +522,9 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         editorBelote.closeWindow();
         editorPresident.closeWindow();
         editorTarot.closeWindow();
+        editorClassic.closeWindow();
+        editorFreeCell.closeWindow();
+        editorSpider.closeWindow();
         core.closeWindows();
         for (DialogSoft d:dialogSoft.values()) {
             d.closeWindow();
@@ -965,7 +974,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     private void boutonsSolo(AbsPanel _container) {
         TranslationsLg lg_ = getFrames().currentLg();
         soloGames.clear();
-        for (GameEnum jeu2_:GameEnum.allValid()) {
+        for (GameEnum jeu2_:GameEnum.allValidPlusSolo()) {
             soloGames.addEntry(jeu2_,ajouterBoutonPrincipal(jeu2_.toString(lg_),jeu2_, _container));
         }
     }
@@ -1158,6 +1167,15 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
             MenuItemUtils.setEnabledMenu(change,true);
             return;
         }
+        if (_g.enCoursDePartieSolitaire()) {
+            ContainerSolitaire containerGame_ = new ContainerSolitaire(this);
+            containerGame_.getPar().jouerSolitaire(_g.partieSolitaire());
+            containerGame_.load();
+            partieSauvegardee=false;
+            core.setContainerGame(containerGame_);
+            MenuItemUtils.setEnabledMenu(change,true);
+            return;
+        }
         erreurDeChargement(_nomFichier, _g.getErrorFile());
     }
 
@@ -1285,6 +1303,18 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         sousSousMenu_.addActionListener(new EditEvent(this, GameEnum.TAROT));
         edit.addMenuItem(sousSousMenu_);
         editGames.put(GameEnum.TAROT, sousSousMenu_);
+        sousSousMenu_ = getCompoFactory().newMenuItem(GameEnum.CLASSIC.toString(lg_));
+        sousSousMenu_.addActionListener(new EditEvent(this, GameEnum.CLASSIC));
+        edit.addMenuItem(sousSousMenu_);
+        editGames.put(GameEnum.CLASSIC, sousSousMenu_);
+        sousSousMenu_ = getCompoFactory().newMenuItem(GameEnum.FREECELL.toString(lg_));
+        sousSousMenu_.addActionListener(new EditEvent(this, GameEnum.FREECELL));
+        edit.addMenuItem(sousSousMenu_);
+        editGames.put(GameEnum.FREECELL, sousSousMenu_);
+        sousSousMenu_ = getCompoFactory().newMenuItem(GameEnum.SPIDER.toString(lg_));
+        sousSousMenu_.addActionListener(new EditEvent(this, GameEnum.SPIDER));
+        edit.addMenuItem(sousSousMenu_);
+        editGames.put(GameEnum.SPIDER, sousSousMenu_);
         deal.addMenuItem(edit);
         /* Partie/Demo "Permet de voir la demostration d une partie"*/
         demo=getCompoFactory().newMenu(getMenusMessages().getVal(MessagesGuiCards.CST_DEMO));
@@ -1472,6 +1502,18 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         if (_game == GameEnum.TAROT) {
             editeurTarot();
             EditorTarot.getPartie(getEditorTarot());
+        }
+        if (_game == GameEnum.CLASSIC) {
+            editeurSolitaireClassic();
+            EditorSolitaire.getPartie(getEditorClassic());
+        }
+        if (_game == GameEnum.FREECELL) {
+            editeurSolitaireFreeCell();
+            EditorSolitaire.getPartie(getEditorFreeCell());
+        }
+        if (_game == GameEnum.SPIDER) {
+            editeurSolitaireSpider();
+            EditorSolitaire.getPartie(getEditorSpider());
         }
     }
     public void simulateGame(GameEnum _game) {
@@ -1754,6 +1796,15 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     private void editeurTarot() {
         EditorTarot.initEditorTarot(this);
     }
+    private void editeurSolitaireClassic() {
+        EditorSolitaire.initEditorSolitaire(this,getEditorClassic());
+    }
+    private void editeurSolitaireFreeCell() {
+        EditorSolitaire.initEditorSolitaire(this,getEditorFreeCell());
+    }
+    private void editeurSolitaireSpider() {
+        EditorSolitaire.initEditorSolitaire(this,getEditorSpider());
+    }
     private void erreurDeChargement(String _fichier, String _cause) {
         //The issue of quality of game are caught here
         String mes_ = StringUtil.simpleStringsFormat(getMenusMessages().getVal(MessagesGuiCards.CST_FILE_NOT_LOADED), _fichier);
@@ -1776,8 +1827,14 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
             MenuItemUtils.setEnabledMenu(change,true);
             p_.setReglesPresident(getReglesPresident());
             p_.modify();
-        } else {
+        } else if(_jeuBouton==GameEnum.TAROT){
             ContainerSingleTarot t_ = new ContainerSingleTarot(this);
+            core.setContainerGame(t_);
+            MenuItemUtils.setEnabledMenu(change,true);
+            t_.modify();
+        } else {
+            ContainerSolitaire t_ = new ContainerSolitaire(this);
+            t_.setSolitaireType(_jeuBouton.getSolitaireType());
             core.setContainerGame(t_);
             MenuItemUtils.setEnabledMenu(change,true);
             t_.modify();
@@ -1877,7 +1934,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         tricksHands.setText(getMenusMessages().getVal(MessagesGuiCards.CST_TRICKS_HANDS));
         teams.setText(getMenusMessages().getVal(MessagesGuiCards.CST_TEAMS));
         edit.setText(getMenusMessages().getVal(MessagesGuiCards.CST_EDIT));
-        for (GameEnum g: GameEnum.allValid()) {
+        for (GameEnum g: GameEnum.allValidPlusSolo()) {
             editGames.getVal(g).setText(g.toString(lg_));
         }
         demo.setText(getMenusMessages().getVal(MessagesGuiCards.CST_DEMO));
@@ -2132,6 +2189,18 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 
     public EditorTarot getEditorTarot() {
         return editorTarot;
+    }
+
+    public EditorSolitaire getEditorClassic() {
+        return editorClassic;
+    }
+
+    public EditorSolitaire getEditorFreeCell() {
+        return editorFreeCell;
+    }
+
+    public EditorSolitaire getEditorSpider() {
+        return editorSpider;
     }
 
     public DialogTeamsPlayers getDialogTeamsPlayers() {

@@ -74,6 +74,12 @@ public final class EditorCards {
     public StringComboBox beginCombo(AbstractImageFactory _img, AbsCompoFactory _compo, CustList<String> _nicknames, int _nbPlayers) {
         listeTwo=new StringComboBox(GuiBaseUtil.combo(_img,new StringList(), 0, _compo));
         listeTwo.addItem(translate(MessagesEditorCards.DEALING_STACK));
+        if (_nicknames.isEmpty()) {
+            for(int i = 0; i < _nbPlayers; i++) {
+                listeTwo.addItem(Long.toString(i));
+            }
+            return getListeTwo();
+        }
         listeTwo.addItem(translate(MessagesEditorCards.USER_HAND));
         for(String n: _nicknames) {
             if (listeTwo.getItemCount() == _nbPlayers + 1) {
@@ -167,7 +173,7 @@ public final class EditorCards {
         panneau_.add(getPanelsCards(), MessagesGuiFct.BORDER_LAYOUT_CENTER);
         AbsPanel sousPanneau_=buildMoveCards(_w,_d);
         StringComboBox handPl_ = beginCombo(_w.getImageFactory(), _w.getCompoFactory(), _pseudos, _nbPlayers);
-        if (_addItem) {
+        if (!_pseudos.isEmpty() && _addItem) {
             handPl_.addItem(_add);
         }
         handPl_.getCombo().repaint();

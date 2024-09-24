@@ -1887,11 +1887,6 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     }
 
     @Override
-    public void stopPlaying() {
-        win.menuSoloGames();
-    }
-
-    @Override
     public void replay() {
         GameTarot partie_=partieTarot();
         partie_.restituerMainsDepartRejouerDonne();

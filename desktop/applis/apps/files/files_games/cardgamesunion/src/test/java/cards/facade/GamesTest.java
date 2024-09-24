@@ -11,6 +11,11 @@ import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.EqualtyPlaying;
 import cards.president.enumerations.Playing;
 import cards.president.sml.DocumentWriterPresidentUtil;
+import cards.solitaire.ActionSolitaire;
+import cards.solitaire.DealClassic;
+import cards.solitaire.HandSolitaire;
+import cards.solitaire.SolitaireType;
+import cards.solitaire.sml.DocumentWriterSolitaireUtil;
 import cards.tarot.*;
 import cards.tarot.enumerations.*;
 import cards.tarot.sml.DocumentWriterTarotUtil;
@@ -21,6 +26,7 @@ import code.scripts.messages.cards.*;
 import code.sml.util.TranslationsLg;
 import code.stream.core.TechStreams;
 import code.util.Bytes;
+import code.util.CustList;
 import code.util.IdList;
 import code.util.core.StringUtil;
 import org.junit.Test;
@@ -135,6 +141,18 @@ public final class GamesTest extends EquallableCardsFileUtil {
         assertEq(1,o_.getPartiesTarot().size());
     }
     @Test
+    public void test7() {
+        assertEq(SolitaireType.CLASSIC,GameEnum.getStatusTypeByName(GameEnum.CLASSIC.getNumber()).getSolitaireType());
+    }
+    @Test
+    public void test8() {
+        assertEq(SolitaireType.FREECELL,GameEnum.getStatusTypeByName(GameEnum.FREECELL.getNumber()).getSolitaireType());
+    }
+    @Test
+    public void test9() {
+        assertEq(SolitaireType.SPIDER,GameEnum.getStatusTypeByName(GameEnum.SPIDER.getNumber()).getSolitaireType());
+    }
+    @Test
     public void isContentObject1() {
         GameBelote b_ = new GameBelote();
         b_.setType(GameType.RANDOM);
@@ -157,10 +175,17 @@ public final class GamesTest extends EquallableCardsFileUtil {
     }
     @Test
     public void isContentObject4() {
-        assertFalse(DocumentReaderCardsUnionUtil.isContentObject("<_/>"));
+        DealClassic s_ = new DealClassic();
+        s_.setHandsBegin(new CustList<HandSolitaire>());
+        s_.setActions(new CustList<ActionSolitaire>());
+        assertTrue(DocumentReaderCardsUnionUtil.isContentObject(DocumentWriterSolitaireUtil.setGameSolitaire(s_)));
     }
     @Test
     public void isContentObject5() {
+        assertFalse(DocumentReaderCardsUnionUtil.isContentObject("<_/>"));
+    }
+    @Test
+    public void isContentObject6() {
         assertFalse(DocumentReaderCardsUnionUtil.isContentObject(""));
     }
     @Test
@@ -185,6 +210,7 @@ public final class GamesTest extends EquallableCardsFileUtil {
         assertTrue(g_.enCoursDePartieBelote());
         assertFalse(g_.enCoursDePartiePresident());
         assertFalse(g_.enCoursDePartieTarot());
+        assertFalse(g_.enCoursDePartieSolitaire());
     }
     @Test
     public void prog2() {
@@ -194,6 +220,7 @@ public final class GamesTest extends EquallableCardsFileUtil {
         assertFalse(g_.enCoursDePartieBelote());
         assertTrue(g_.enCoursDePartiePresident());
         assertFalse(g_.enCoursDePartieTarot());
+        assertFalse(g_.enCoursDePartieSolitaire());
     }
     @Test
     public void prog3() {
@@ -203,14 +230,26 @@ public final class GamesTest extends EquallableCardsFileUtil {
         assertFalse(g_.enCoursDePartieBelote());
         assertFalse(g_.enCoursDePartiePresident());
         assertTrue(g_.enCoursDePartieTarot());
+        assertFalse(g_.enCoursDePartieSolitaire());
     }
     @Test
     public void prog4() {
+        Games g_ = new Games();
+        g_.jouerSolitaire(new DealClassic());
+        assertTrue(g_.enCoursDePartie());
+        assertFalse(g_.enCoursDePartieBelote());
+        assertFalse(g_.enCoursDePartiePresident());
+        assertFalse(g_.enCoursDePartieTarot());
+        assertTrue(g_.enCoursDePartieSolitaire());
+    }
+    @Test
+    public void prog5() {
         Games g_ = new Games();
         assertFalse(g_.enCoursDePartie());
         assertFalse(g_.enCoursDePartieBelote());
         assertFalse(g_.enCoursDePartiePresident());
         assertFalse(g_.enCoursDePartieTarot());
+        assertFalse(g_.enCoursDePartieSolitaire());
     }
     @Test
     public void toString1() {
@@ -532,6 +571,17 @@ public final class GamesTest extends EquallableCardsFileUtil {
         CardGamesStream s_ = saveFile(n_);
         assertTrue(s_.getCardGamesCrud().getProgramInfos().getFileCoreStream().newFile("_").exists());
         s_.getCardGamesCrud().tarot("_");
+    }
+    @Test
+    public void saveSolitaire() {
+        Games n_ = new Games();
+        DealClassic d_ = new DealClassic();
+        d_.setHandsBegin(new CustList<HandSolitaire>());
+        d_.setActions(new CustList<ActionSolitaire>());
+        n_.getPartiesSolitaire().add(d_);
+        CardGamesStream s_ = saveFile(n_);
+        assertTrue(s_.getCardGamesCrud().getProgramInfos().getFileCoreStream().newFile("_").exists());
+        s_.getCardGamesCrud().solitaire("_");
     }
     @Test
     public void messagesLoad() {

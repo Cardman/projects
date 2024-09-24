@@ -8,6 +8,7 @@ import cards.facade.SoftParams;
 import cards.facade.enumerations.GameEnum;
 import cards.president.sml.DocumentReaderPresidentUtil;
 import cards.president.sml.DocumentWriterPresidentUtil;
+import cards.solitaire.sml.DocumentWriterSolitaireUtil;
 import cards.tarot.sml.DocumentReaderTarotUtil;
 import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.sml.Document;
@@ -30,7 +31,7 @@ public final class DocumentReaderCardsUnionUtil {
         }
         Element elt_ = doc_.getDocumentElement();
         String tagName_ = elt_.getTagName();
-        return StringUtil.quickEq(tagName_, DocumentWriterBeloteUtil.TYPE_GAME_BELOTE) || StringUtil.quickEq(tagName_, DocumentWriterPresidentUtil.TYPE_GAME_PRESIDENT) || StringUtil.quickEq(tagName_, DocumentWriterTarotUtil.TYPE_GAME_TAROT);
+        return StringUtil.quickEq(tagName_, DocumentWriterBeloteUtil.TYPE_GAME_BELOTE) || StringUtil.quickEq(tagName_, DocumentWriterPresidentUtil.TYPE_GAME_PRESIDENT) || StringUtil.quickEq(tagName_, DocumentWriterTarotUtil.TYPE_GAME_TAROT) || StringUtil.quickEq(tagName_, DocumentWriterSolitaireUtil.TYPE_GAME_SOLITAIRE);
     }
     public static Games getGames(Element _element) {
         ElementList childElements_ = _element.getChildElements();

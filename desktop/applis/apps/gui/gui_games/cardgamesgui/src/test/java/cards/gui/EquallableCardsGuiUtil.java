@@ -14,6 +14,7 @@ import cards.gui.labels.HandfulLabel;
 import cards.main.*;
 import cards.president.*;
 import cards.president.enumerations.*;
+import cards.solitaire.CardSolitaire;
 import cards.tarot.enumerations.*;
 import code.bean.nat.NatNavigation;
 import code.bean.nat.analyze.NatConfigurationCore;
@@ -194,6 +195,41 @@ public abstract class EquallableCardsGuiUtil {
         return wc_;
     }
 
+    protected WindowCards frameEditorSolitaire() {
+        MockProgramInfos pr_ = appendFileAppli(updateEditorSolitaire(build()));
+        return new WindowCards(stream(pr_), pr_);
+    }
+
+    protected WindowCards frameSingleSolitaire() {
+        MockProgramInfos pr_ = updateSingleSolitaire(build());
+        return new WindowCards(stream(pr_), pr_, new IntArtCardGames());
+    }
+
+    protected WindowCards frameSingleSolitaireSave() {
+        MockProgramInfos pr_ = updateSingleSolitaireSave(build());
+        return new WindowCards(stream(pr_), pr_, new IntArtCardGames());
+    }
+    protected WindowCards frameSingleSolitaireWithEnd() {
+        return frameSingleSolitaireWithEnd(0);
+    }
+    protected WindowCards frameSingleSolitaireWithEnd(int _i) {
+        MockProgramInfos pr_ = updateSingleSolitaire(build());
+        CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<HelpIndexesTree>());
+        WindowCards wc_ = new WindowCards(stream(pr_), pr_, new IntArtCardGames());
+        wc_.setPrepare(cf_.getTaskNav());
+        return wc_;
+    }
+    protected WindowCards frameSingleSolitaireWithEndModif(int _i) {
+        MockProgramInfos pr_ = updateSingleSolitaire(build());
+        CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<HelpIndexesTree>());
+        CardGamesStream str_ = stream(pr_);
+        SoftParams sp_ = new SoftParams();
+        sp_.getLancement().add(GameEnum.CLASSIC);
+        StreamTextFile.saveTextFile(StringUtil.concat(WindowCards.getTempFolderSl(pr_), MessagesCardGames.getAppliFilesTr(pr_.getTranslations()).val().getMapping().getVal(MessagesCardGames.PARAMS)),DocumentWriterCardsUnionUtil.setSoftParams(sp_),pr_.getStreams());
+        WindowCards wc_ = new WindowCards(str_, pr_, new IntArtCardGames());
+        wc_.setPrepare(cf_.getTaskNav());
+        return wc_;
+    }
     public static NatNavigation nav() {
         NatNavigation nav_ = new NatNavigation();
         nav_.setSession(new NatConfigurationCore());
@@ -389,6 +425,46 @@ public abstract class EquallableCardsGuiUtil {
         MockProgramInfos pr_ = appendFileAppli(updateEditorTarot(build(_h, _t, _dbs)));
         return new WindowCards(streamPseudoTarot(pr_), pr_);
     }
+
+    public WindowCards frameMiniSolitaire(String _h, String _t) {
+        return frameMiniSolitaire(_h, _t, dbs(0.75));
+    }
+    public WindowCards frameMiniSolitaire(String _h, String _t, double[] _dbs) {
+        WindowCards wc_ = frameEditorSolitaireFiles(_h, _t,_dbs);
+        wc_.getFrames().getFileCoreStream().newFile(_h).mkdirs();
+        wc_.getFrames().getFileCoreStream().newFile(_t).mkdirs();
+        return wc_;
+    }
+
+    public static MockProgramInfos updateSingleSolitaire(MockProgramInfos _pr) {
+        appendMainGame(appendCards(appendCommon(appendMix(baseEn(_pr) ,MessagesCommonMix.en()),MessagesCommonFile.en()),MessagesCommonCards.en()),MessagesGuiCards.enGame());
+        appendMainGame(appendCards(appendCommon(appendMix(baseFr(_pr),MessagesCommonMix.en()),MessagesCommonFile.fr()),MessagesCommonCards.fr()),MessagesGuiCards.frGame());
+        maxiImgs(_pr);
+        return _pr;
+    }
+
+    protected WindowCards frameEditorSolitaireFiles(String _h, String _t) {
+        return frameEditorSolitaireFiles(_h, _t, dbs(0.75));
+    }
+
+    public static MockProgramInfos updateSingleSolitaireSave(MockProgramInfos _pr) {
+        appendMainGame(appendCards(appendCommon(appendMix(baseEn(_pr),MessagesCommonMix.en()),MessagesCommonFile.en()),MessagesCommonCards.en()),MessagesGuiCards.enGame());
+        appendMainGame(appendCards(appendCommon(appendMix(baseFr(_pr),MessagesCommonMix.en()),MessagesCommonFile.fr()),MessagesCommonCards.fr()),MessagesGuiCards.frGame());
+        maxiImgs(_pr);
+        _pr.setLanguage(EN);
+        updateBase(_pr.currentLg());
+        return _pr;
+    }
+    protected WindowCards frameEditorSolitaireFiles(String _h, String _t, double[] _dbs) {
+        MockProgramInfos pr_ = appendFileAppli(updateEditorSolitaire(build(_h, _t, _dbs)));
+        return new WindowCards(stream(pr_), pr_);
+    }
+    public static MockProgramInfos updateEditorSolitaire(MockProgramInfos _pr) {
+        appendEditor(appendMix(baseEn(_pr),MessagesCommonMix.en()), MessagesEditorCards.en());
+        appendEditor(appendMix(baseFr(_pr),MessagesCommonMix.en()),MessagesEditorCards.fr());
+        miniImgs(_pr);
+        return _pr;
+    }
     protected WindowCards frameDialogNicknames(String _h, String _t) {
         MockProgramInfos pr_ = updateDialogNicknames(build(_h, _t, dbs(0.75)));
         return new WindowCards(streamPseudos(pr_), pr_);
@@ -544,6 +620,10 @@ public abstract class EquallableCardsGuiUtil {
         _input.events();
     }
     public void selectEventTarot(ScrollCustomGraphicList<CardTarot> _input, Ints _indices) {
+        _input.select(_indices);
+        _input.events();
+    }
+    public void selectEventSolitaire(ScrollCustomGraphicList<CardSolitaire> _input, Ints _indices) {
         _input.select(_indices);
         _input.events();
     }
@@ -827,6 +907,9 @@ public abstract class EquallableCardsGuiUtil {
         Assert.assertSame(_expected, _result);
     }
     public static void assertEq(BidBelote _expected, BidBelote _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertEq(CardSolitaire _expected, CardSolitaire _result) {
         Assert.assertSame(_expected, _result);
     }
     public static void assertEq(BoolVal _expected, BoolVal _result) {

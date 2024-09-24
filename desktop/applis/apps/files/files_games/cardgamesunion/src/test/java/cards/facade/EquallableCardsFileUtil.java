@@ -9,6 +9,7 @@ import cards.facade.enumerations.GameEnum;
 import cards.facade.sml.DocumentReaderCardsUnionUtil;
 import cards.facade.sml.DocumentWriterCardsUnionUtil;
 import cards.president.enumerations.CardPresident;
+import cards.solitaire.SolitaireType;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
@@ -118,6 +119,9 @@ public abstract class EquallableCardsFileUtil {
         Assert.assertSame(_expected, _result);
     }
     public static void assertEq(GameEnum _expected, GameEnum _result) {
+        Assert.assertSame(_expected,_result);
+    }
+    public static void assertEq(SolitaireType _expected, SolitaireType _result) {
         Assert.assertSame(_expected,_result);
     }
     public static void assertEq(Rate _expected, Rate _result) {
