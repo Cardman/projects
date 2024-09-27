@@ -134,7 +134,7 @@ public final class DealClassicTest extends EquallableSolitaireUtil {
     }
     @Test
     public void canBePlayed19() {
-        assertFalse(playedOnce2().canBePlayed(2,1,1));
+        assertFalse(playedOnce2().canBePlayed(2,1,2));
     }
     @Test
     public void canBePlayed20() {

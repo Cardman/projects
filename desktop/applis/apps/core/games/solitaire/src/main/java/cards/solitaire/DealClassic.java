@@ -99,7 +99,7 @@ public final class DealClassic extends AbsDealSolitaire {
         HandSolitaire destHand_ = hand(_to);
         if (_to <= 7) {
             if (destHand_.estVide()) {
-                return _selected.getForce() == 13;
+                return true;
             }
             return mixed(_selected, destHand_.derniereCarte());
         }
