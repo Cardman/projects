@@ -5,6 +5,7 @@ import aiki.facade.IntGamePkStream;
 import aiki.facade.SexListInt;
 import aiki.game.Game;
 import code.gui.initialize.AbstractProgramInfos;
+import code.sml.*;
 import code.stream.StreamTextFile;
 
 public final class DefGamePkStream implements IntGamePkStream {
@@ -22,7 +23,7 @@ public final class DefGamePkStream implements IntGamePkStream {
     @Override
     public Game loadThen(String _fileName, SexListInt _sexList) {
         String file_ = StreamTextFile.contentsOfFile(_fileName, programInfos.getFileCoreStream(), programInfos.getStreams());
-        return DocumentReaderAikiCoreUtil.getGameOrNull(file_,_sexList);
+        return DocumentReaderAikiCoreUtil.getGameOrNull(DocumentBuilder.parseNoTextDocument(file_),_sexList);
     }
 
     public static Game checkGame(DataBase _data, SexListInt _sexList, Game _game) {

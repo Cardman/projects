@@ -4272,16 +4272,15 @@ public final class DocumentReaderAikiCoreUtil {
         return getGame(doc_.getDocumentElement(),_sexListInt);
     }
 
-    public static Game getGameOrNull(String _string, SexListInt _sexList) {
-        Document doc_ = DocumentBuilder.parseNoTextDocument(_string);
-        if (doc_ == null) {
+    public static Game getGameOrNull(Document _string, SexListInt _sexList) {
+        if (_string == null) {
             return null;
         }
-        String tagName_ = doc_.getDocumentElement().getTagName();
+        String tagName_ = _string.getDocumentElement().getTagName();
         if (!StringUtil.quickEq(tagName_, GAME)) {
             return null;
         }
-        return getGame(doc_.getDocumentElement(),_sexList);
+        return getGame(_string.getDocumentElement(),_sexList);
     }
 
     private static Game getGame(Element _element, SexListInt _sexList) {
@@ -5107,16 +5106,15 @@ public final class DocumentReaderAikiCoreUtil {
         _object.setSkipLearningMovesWhileNotGrowingLevel(DocumentReaderCoreUtil.getBoolean(_element));
     }
 
-    public static LoadingGame getLoadingGameOrNull(String _string) {
-        Document doc_ = DocumentBuilder.parseNoTextDocument(_string);
-        if (doc_ == null) {
+    public static LoadingGame getLoadingGameOrNull(Document _string) {
+        if (_string == null) {
             return null;
         }
-        String tagName_ = doc_.getDocumentElement().getTagName();
+        String tagName_ = _string.getDocumentElement().getTagName();
         if (!StringUtil.quickEq(tagName_, LOADING_GAME)) {
             return null;
         }
-        return getLoadingGame(doc_.getDocumentElement());
+        return getLoadingGame(_string.getDocumentElement());
     }
     public static LoadingGame getLoadingGame(String _string) {
         Document doc_ = DocumentBuilder.parseNoTextDocument(_string);

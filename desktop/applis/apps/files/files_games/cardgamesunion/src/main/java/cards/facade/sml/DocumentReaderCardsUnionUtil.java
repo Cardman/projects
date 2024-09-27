@@ -12,7 +12,6 @@ import cards.solitaire.sml.DocumentWriterSolitaireUtil;
 import cards.tarot.sml.DocumentReaderTarotUtil;
 import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.sml.Document;
-import code.sml.DocumentBuilder;
 import code.sml.core.DocumentReaderCoreUtil;
 import code.sml.Element;
 import code.sml.ElementList;
@@ -24,12 +23,11 @@ public final class DocumentReaderCardsUnionUtil {
     private DocumentReaderCardsUnionUtil() {
     }
 
-    public static boolean isContentObject(String _content) {
-        Document doc_ = DocumentBuilder.parseNoTextDocument(_content);
-        if (doc_ == null) {
+    public static boolean isContentObject(Document _content) {
+        if (_content == null) {
             return false;
         }
-        Element elt_ = doc_.getDocumentElement();
+        Element elt_ = _content.getDocumentElement();
         String tagName_ = elt_.getTagName();
         return StringUtil.quickEq(tagName_, DocumentWriterBeloteUtil.TYPE_GAME_BELOTE) || StringUtil.quickEq(tagName_, DocumentWriterPresidentUtil.TYPE_GAME_PRESIDENT) || StringUtil.quickEq(tagName_, DocumentWriterTarotUtil.TYPE_GAME_TAROT) || StringUtil.quickEq(tagName_, DocumentWriterSolitaireUtil.TYPE_GAME_SOLITAIRE);
     }

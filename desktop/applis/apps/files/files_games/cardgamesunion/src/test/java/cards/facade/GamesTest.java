@@ -20,6 +20,7 @@ import code.maths.montecarlo.CustomSeedGene;
 import code.maths.montecarlo.DefaultGenerator;
 import code.mock.*;
 import code.scripts.messages.cards.*;
+import code.sml.DocumentBuilder;
 import code.sml.util.TranslationsLg;
 import code.stream.core.TechStreams;
 import code.util.Bytes;
@@ -154,50 +155,50 @@ public final class GamesTest extends EquallableCardsFileUtil {
         GameBelote b_ = new GameBelote();
         b_.setType(GameType.RANDOM);
         b_.setDeal(new DealBelote());
-        assertTrue(DocumentReaderCardsUnionUtil.isContentObject(DocumentWriterBeloteUtil.setGameBelote(b_)));
+        assertTrue(isContentObject(DocumentWriterBeloteUtil.setGameBelote(b_)));
     }
     @Test
     public void isContentObject2() {
         GamePresident p_ = new GamePresident();
         p_.setType(GameType.RANDOM);
         p_.setDeal(new DealPresident());
-        assertTrue(DocumentReaderCardsUnionUtil.isContentObject(DocumentWriterPresidentUtil.setGamePresident(p_)));
+        assertTrue(isContentObject(DocumentWriterPresidentUtil.setGamePresident(p_)));
     }
     @Test
     public void isContentObject3() {
         GameTarot t_ = new GameTarot();
         t_.setType(GameType.RANDOM);
         t_.setDeal(new DealTarot());
-        assertTrue(DocumentReaderCardsUnionUtil.isContentObject(DocumentWriterTarotUtil.setGameTarot(t_)));
+        assertTrue(isContentObject(DocumentWriterTarotUtil.setGameTarot(t_)));
     }
     @Test
     public void isContentObject4() {
         DealClassic s_ = new DealClassic();
         s_.setHandsBegin(new CustList<HandSolitaire>());
         s_.setActions(new CustList<ActionSolitaire>());
-        assertTrue(DocumentReaderCardsUnionUtil.isContentObject(DocumentWriterSolitaireUtil.setGameSolitaire(s_)));
+        assertTrue(isContentObject(DocumentWriterSolitaireUtil.setGameSolitaire(s_)));
     }
     @Test
     public void isContentObject5() {
         DealFreeCell s_ = new DealFreeCell();
         s_.setHandsBegin(new CustList<HandSolitaire>());
         s_.setActions(new CustList<ActionSolitaire>());
-        assertTrue(DocumentReaderCardsUnionUtil.isContentObject(DocumentWriterSolitaireUtil.setGameSolitaire(s_)));
+        assertTrue(isContentObject(DocumentWriterSolitaireUtil.setGameSolitaire(s_)));
     }
     @Test
     public void isContentObject6() {
         DealSpider s_ = new DealSpider();
         s_.setHandsBegin(new CustList<HandSolitaire>());
         s_.setActions(new CustList<ActionSolitaire>());
-        assertTrue(DocumentReaderCardsUnionUtil.isContentObject(DocumentWriterSolitaireUtil.setGameSolitaire(s_)));
+        assertTrue(isContentObject(DocumentWriterSolitaireUtil.setGameSolitaire(s_)));
     }
     @Test
     public void isContentObject7() {
-        assertFalse(DocumentReaderCardsUnionUtil.isContentObject("<_/>"));
+        assertFalse(isContentObject("<_/>"));
     }
     @Test
     public void isContentObject8() {
-        assertFalse(DocumentReaderCardsUnionUtil.isContentObject(""));
+        assertFalse(isContentObject(""));
     }
     @Test
     public void save() {
@@ -668,6 +669,10 @@ public final class GamesTest extends EquallableCardsFileUtil {
         assertFalse(MessagesCardGames.getSimuGame(MessagesCardGames.getAppliTr(fr_)).getMapping().isEmpty());
         assertFalse(MessagesCardGames.getMenus(MessagesCardGames.getAppliTr(fr_)).getMapping().isEmpty());
         assertFalse(MessagesCardGames.getMulti(MessagesCardGames.getAppliTr(fr_)).getMapping().isEmpty());
+    }
+
+    private boolean isContentObject(String _cont) {
+        return DocumentReaderCardsUnionUtil.isContentObject(DocumentBuilder.parseNoTextDocument(_cont));
     }
 
     private CardGamesStream saveFile(Games _n) {

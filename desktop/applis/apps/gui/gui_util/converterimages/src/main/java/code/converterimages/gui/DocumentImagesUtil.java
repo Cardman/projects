@@ -18,15 +18,17 @@ public final class DocumentImagesUtil {
     private DocumentImagesUtil() {
     }
     public static CustList<String> parse(String _doc) {
-        Document doc_ = DocumentBuilder.parseNoTextDocument(_doc);
-        if (doc_ == null) {
+        return parse(DocumentBuilder.parseNoTextDocument(_doc));
+    }
+    public static CustList<String> parse(Document _doc) {
+        if (_doc == null) {
             return new CustList<String>();
         }
-        if (StringUtil.quickEq(doc_.getDocumentElement().getTagName(),ROOT_CONF)) {
+        if (StringUtil.quickEq(_doc.getDocumentElement().getTagName(),ROOT_CONF)) {
             CustList<String> res_ = new CustList<String>();
 //            res_.add(READ_IMAGES);
-            res_.add(doc_.getDocumentElement().getAttribute(INFO_IMP));
-            res_.add(doc_.getDocumentElement().getAttribute(INFO_EXP));
+            res_.add(_doc.getDocumentElement().getAttribute(INFO_IMP));
+            res_.add(_doc.getDocumentElement().getAttribute(INFO_EXP));
             return res_;
         }
 //        if (StringUtil.quickEq(doc_.getDocumentElement().getTagName(),ROOT_CONF1)) {

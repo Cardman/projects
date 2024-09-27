@@ -53,7 +53,7 @@ public class LaunchingApplications extends SoftApplicationCore {
             launchWindow(getFactories());
             return;
         }
-        if (!DocumentImagesUtil.parse(StringUtil.decode(bytes_.getBytes())).isEmpty()) {
+        if (!DocumentImagesUtil.parse(_args.getDocument()).isEmpty()) {
 //
 //        }
 //        if (FileListInfo.isBinary(bytes_) && !FileListInfo.isZip(bytes_.getBytes()) && getFrames().getImageFactory().newImageFromBytes(bytes_.getBytes()) != null) {
@@ -73,14 +73,14 @@ public class LaunchingApplications extends SoftApplicationCore {
 //        if (file_ == null) {
 //            return;
 //        }
-        if (DocumentReaderCardsUnionUtil.isContentObject(file_)) {
+        if (DocumentReaderCardsUnionUtil.isContentObject(_args.getDocument())) {
             AbsButton bu_ = launchWindow(getFactories()).getButtonCards();
             LaunchingCards launch_ = new LaunchingCards(getFactories());
             launch_.launchWithoutLanguage(_language, _args, bu_, new LanguagesButtonsPair(_pair.getLgMenu(),bu_,_pair.getButtons()));
             return;
         }
-        Game gameOrNull_ = DocumentReaderAikiCoreUtil.getGameOrNull(file_, new SexListImpl());
-        LoadingGame loadingGameOrNull_ = DocumentReaderAikiCoreUtil.getLoadingGameOrNull(file_);
+        Game gameOrNull_ = DocumentReaderAikiCoreUtil.getGameOrNull(_args.getDocument(), new SexListImpl());
+        LoadingGame loadingGameOrNull_ = DocumentReaderAikiCoreUtil.getLoadingGameOrNull(_args.getDocument());
         if (loadingGameOrNull_ != null || gameOrNull_ != null) {
             AbsButton bu_ = launchWindow(getFactories()).getButtonPokemon();
             LaunchingPokemon launch_ = new LaunchingPokemon(getFactories());

@@ -42,6 +42,10 @@ import code.util.core.*;
 import org.junit.Test;
 
 public final class DocumentAikiTest extends EquallableAikiSerialUtil {
+
+    public static final String LOADING_GAME_MINI = "<" + DocumentReaderAikiCoreUtil.LOADING_GAME + "/>";
+    public static final String GAME_MINI = "<" + DocumentReaderAikiCoreUtil.GAME + "/>";
+
     @Test
     public void t1() {
         assertFalse(StringUtil.nullToEmpty(DocumentWriterAikiCoreUtil.nullToPk(null).getNickname()+" ").isEmpty());
@@ -523,19 +527,19 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
     }
     @Test
     public void t46() {
-        assertNull(DocumentReaderAikiCoreUtil.getGame("<"+DocumentReaderAikiCoreUtil.LOADING_GAME+"/>",new SexListImpl()));
+        assertNull(DocumentReaderAikiCoreUtil.getGame(LOADING_GAME_MINI,new SexListImpl()));
     }
     @Test
     public void t47() {
-        assertNull(DocumentReaderAikiCoreUtil.getGameOrNull("",new SexListImpl()));
+        assertNull(getGameOrNull(""));
     }
     @Test
     public void t48() {
-        assertNull(DocumentReaderAikiCoreUtil.getGameOrNull("<"+DocumentReaderAikiCoreUtil.LOADING_GAME+"/>",new SexListImpl()));
+        assertNull(getGameOrNull(LOADING_GAME_MINI));
     }
     @Test
     public void t49() {
-        Game g_ = DocumentReaderAikiCoreUtil.getGameOrNull("<" + DocumentReaderAikiCoreUtil.GAME + "/>", new SexListImpl());
+        Game g_ = getGameOrNull(GAME_MINI);
         assertNotNull(g_);
     }
     @Test
@@ -551,15 +555,15 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
     }
     @Test
     public void t52() {
-        assertNull(DocumentReaderAikiCoreUtil.getLoadingGameOrNull(""));
+        assertNull(getLoadingGameOrNull(""));
     }
     @Test
     public void t53() {
-        assertNull(DocumentReaderAikiCoreUtil.getLoadingGameOrNull("<"+DocumentReaderAikiCoreUtil.GAME+"/>"));
+        assertNull(getLoadingGameOrNull(GAME_MINI));
     }
     @Test
     public void t54() {
-        LoadingGame o_ = DocumentReaderAikiCoreUtil.getLoadingGameOrNull("<" + DocumentReaderAikiCoreUtil.LOADING_GAME + "/>");
+        LoadingGame o_ = getLoadingGameOrNull(LOADING_GAME_MINI);
         assertNotNull(o_);
     }
     @Test
@@ -831,4 +835,13 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
         d_.appendChild(d_.createElement(DocumentWriterCoreUtil.ANON_TAG));
         return d_;
     }
+
+    private Game getGameOrNull(String _str) {
+        return DocumentReaderAikiCoreUtil.getGameOrNull(DocumentBuilder.parseNoTextDocument(_str), new SexListImpl());
+    }
+
+    private LoadingGame getLoadingGameOrNull(String _str) {
+        return DocumentReaderAikiCoreUtil.getLoadingGameOrNull(DocumentBuilder.parseNoTextDocument(_str));
+    }
+
 }
