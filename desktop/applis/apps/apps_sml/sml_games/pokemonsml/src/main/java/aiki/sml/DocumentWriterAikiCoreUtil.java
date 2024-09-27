@@ -1176,7 +1176,7 @@ public final class DocumentWriterAikiCoreUtil {
         }
     }
     private static String imgDoc(int[][] _img, String _kind, String _name) {
-        String res_ = BaseSixtyFourUtil.getStringByImage(_img);
+        String res_ = BaseSixtyFourUtil.getStringByImage(_img,MessagesDataBaseConstants.BASE);
         Document doc_ = DocumentBuilder.newXmlDocument();
         Element element_ = doc_.createElement(DocumentWriterCoreUtil.ANON_TAG);
         element_.setAttribute(DocumentWriterCoreUtil.FIELD,_kind);
@@ -1195,7 +1195,7 @@ public final class DocumentWriterAikiCoreUtil {
         for (EntryCust<String, int[][]> e: _imgs.entryList()) {
             Element e_ = doc_.createElement(DocumentWriterCoreUtil.ANON_TAG);
             e_.setAttribute(DocumentWriterCoreUtil.FIELD,e.getKey());
-            e_.setAttribute(DocumentWriterCoreUtil.VALUE,BaseSixtyFourUtil.getStringByImage(e.getValue()));
+            e_.setAttribute(DocumentWriterCoreUtil.VALUE,BaseSixtyFourUtil.getStringByImage(e.getValue(),MessagesDataBaseConstants.BASE));
             element_.appendChild(e_);
         }
         doc_.appendChild(element_);

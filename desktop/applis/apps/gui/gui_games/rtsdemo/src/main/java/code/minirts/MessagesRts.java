@@ -5,6 +5,7 @@ import code.util.*;
 
 public final class MessagesRts {
 //    public static final String FOLDER = "rts_imgs";
+    public static final String BASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
     public static final String APPS_RTS = "rts";
     public static final String FRAME = "0";
     public static final String ANIMATE = "0";

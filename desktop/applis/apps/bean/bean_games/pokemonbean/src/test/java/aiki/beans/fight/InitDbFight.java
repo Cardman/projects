@@ -1308,7 +1308,7 @@ public abstract class InitDbFight extends InitDbBean {
         return fac_;
     }
     protected FacadeGame facadeCalculation5(DataBase _data) {
-        _data.getMaxiPkFront().addEntry(PIKA_2, BaseSixtyFourUtil.getImageByString(MAX_RAI));
+        _data.getMaxiPkFront().addEntry(PIKA_2, getImageByString(MAX_RAI));
         FacadeGame fac_ = initFacade(_data);
         Game g_ = new Game();
         Difficulty diff_= new Difficulty();

@@ -16,7 +16,7 @@ import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class FileDialog {
-
+    public static final String BASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
     private static final String EMPTY_STRING = "";
 
     private static final int MIN_BORDER = 50;
@@ -93,7 +93,7 @@ public final class FileDialog {
     }
 
     public static AbstractImage getImage(String _icon, AbstractImageFactory _fact) {
-        int[][] file_ = BaseSixtyFourUtil.getImageByString(_icon);
+        int[][] file_ = BaseSixtyFourUtil.getImageByString(_icon,BASE);
         return ConverterGraphicBufferedImage.decodeToImage(_fact,file_);
     }
 }

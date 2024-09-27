@@ -1,5 +1,6 @@
 package aiki.main;
 
+import aiki.db.MessagesDataBaseConstants;
 import aiki.sml.MessagesPkGame;
 import code.gui.images.AbstractImage;
 import code.gui.images.ConverterGraphicBufferedImage;
@@ -57,7 +58,7 @@ public final class VideoLoading {
 //                continue;
 //            }
             int[][] txtFile_ = BaseSixtyFourUtil.getImageByString(
-                    e.getValue());
+                    e.getValue(), MessagesDataBaseConstants.BASE);
             AbstractImage image_ = ConverterGraphicBufferedImage.decodeToImage(_abInfo.getImageFactory(),txtFile_);
             imgs_.add(image_);
         }

@@ -199,19 +199,19 @@ public abstract class InitDbStatusSet extends InitDbConstr {
         facade_.getData().getTranslatedStatus().getVal(EN).addEntry(S_STA_10,S_STA_10_TR);
         facade_.getData().getTranslatedStatus().getVal(EN).addEntry(S_STA_11,S_STA_11_TR);
         facade_.getData().getTranslatedStatus().getVal(EN).addEntry(S_STA_12,S_STA_12_TR);
-        facade_.getData().getAnimStatus().addEntry(S_STA_00,BaseSixtyFourUtil.getImageByString("AAACAAAABAAA////////"));
-        facade_.getData().getAnimStatus().addEntry(S_STA_01,BaseSixtyFourUtil.getImageByString("AAACAAABBAAA////////"));
-        facade_.getData().getAnimStatus().addEntry(S_STA_02,BaseSixtyFourUtil.getImageByString("AAACAAACBAAA////////"));
-        facade_.getData().getAnimStatus().addEntry(S_STA_03,BaseSixtyFourUtil.getImageByString("AAACAAADBAAA////////"));
-        facade_.getData().getAnimStatus().addEntry(S_STA_04,BaseSixtyFourUtil.getImageByString("AAACAAAEBAAA////////"));
-        facade_.getData().getAnimStatus().addEntry(S_STA_05,BaseSixtyFourUtil.getImageByString("AAACAAAFBAAA////////"));
-        facade_.getData().getAnimStatus().addEntry(S_STA_06,BaseSixtyFourUtil.getImageByString("AAACAAAGBAAA////////"));
-        facade_.getData().getAnimStatus().addEntry(S_STA_07,BaseSixtyFourUtil.getImageByString("AAACAAAHBAAA////////"));
-        facade_.getData().getAnimStatus().addEntry(S_STA_08,BaseSixtyFourUtil.getImageByString("AAACAAAIBAAA////////"));
-        facade_.getData().getAnimStatus().addEntry(S_STA_09,BaseSixtyFourUtil.getImageByString("AAACAAAJBAAA////////"));
-        facade_.getData().getAnimStatus().addEntry(S_STA_10,BaseSixtyFourUtil.getImageByString("AAACAAAKBAAA////////"));
-        facade_.getData().getAnimStatus().addEntry(S_STA_11,BaseSixtyFourUtil.getImageByString("AAACAAALBAAA////////"));
-        facade_.getData().getAnimStatus().addEntry(S_STA_12,BaseSixtyFourUtil.getImageByString("AAACAAAMBAAA////////"));
+        facade_.getData().getAnimStatus().addEntry(S_STA_00,getImageByString("AAACAAAABAAA////////"));
+        facade_.getData().getAnimStatus().addEntry(S_STA_01,getImageByString("AAACAAABBAAA////////"));
+        facade_.getData().getAnimStatus().addEntry(S_STA_02,getImageByString("AAACAAACBAAA////////"));
+        facade_.getData().getAnimStatus().addEntry(S_STA_03,getImageByString("AAACAAADBAAA////////"));
+        facade_.getData().getAnimStatus().addEntry(S_STA_04,getImageByString("AAACAAAEBAAA////////"));
+        facade_.getData().getAnimStatus().addEntry(S_STA_05,getImageByString("AAACAAAFBAAA////////"));
+        facade_.getData().getAnimStatus().addEntry(S_STA_06,getImageByString("AAACAAAGBAAA////////"));
+        facade_.getData().getAnimStatus().addEntry(S_STA_07,getImageByString("AAACAAAHBAAA////////"));
+        facade_.getData().getAnimStatus().addEntry(S_STA_08,getImageByString("AAACAAAIBAAA////////"));
+        facade_.getData().getAnimStatus().addEntry(S_STA_09,getImageByString("AAACAAAJBAAA////////"));
+        facade_.getData().getAnimStatus().addEntry(S_STA_10,getImageByString("AAACAAAKBAAA////////"));
+        facade_.getData().getAnimStatus().addEntry(S_STA_11,getImageByString("AAACAAALBAAA////////"));
+        facade_.getData().getAnimStatus().addEntry(S_STA_12,getImageByString("AAACAAAMBAAA////////"));
         return facade_;
     }
 

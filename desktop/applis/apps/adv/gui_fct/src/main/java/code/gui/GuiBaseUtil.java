@@ -328,7 +328,7 @@ public final class GuiBaseUtil {
         return _txt.getActionsMap().values();
     }
 
-    public static AbsClipStream getAbsClipStream(AbstractProgramInfos _api,byte[] _bytes) {
+    public static AbsClipStream getAbsClipStream(AbstractProgramInfos _api, byte[] _bytes, String _base) {
         AbsClipStream res_ = getAbsClipStreamDirect(_api, _bytes);
         if (res_ != null) {
             return res_;
@@ -344,7 +344,7 @@ public final class GuiBaseUtil {
 //                return absClipStream_;
 //            }
 //        }
-        byte[] bytesTr_ = parseBaseSixtyFourBinary(StringUtil.nullToEmpty(StringUtil.decode(_bytes)));
+        byte[] bytesTr_ = parseBaseSixtyFourBinary(StringUtil.nullToEmpty(StringUtil.decode(_bytes)),_base);
         return getAbsClipStreamDirect(_api,bytesTr_);
 //        if (FileListInfo.isWav(bytesTr_)) {
 //            return _api.openClip(bytesTr_);
@@ -363,8 +363,11 @@ public final class GuiBaseUtil {
         }
         return null;
     }
-    public static byte[] parseBaseSixtyFourBinary(String _text) {
+    public static byte[] parseBaseSixtyFourBinary(String _text, String _base) {
         int buflen_ = guessLength(_text);
+//        if (buflen_ < 0) {
+//            return new byte[0];
+//        }
         byte[] out_ = new byte[buflen_];
         int o_=0;
 
@@ -377,7 +380,16 @@ public final class GuiBaseUtil {
         for(int i=0; i<len_; i++ ) {
             char ch_ = _text.charAt(i);
             //v!=-1
-            quadruplet_[q_] = BaseSixtyFourUtil.charToByte(ch_);
+            if (ch_ != '=') {
+                int index_ = BaseSixtyFourUtil.charToByte(ch_,_base);
+//                int index_ = _base.indexOf(ch_);
+//                if (index_ < 0) {
+//                    return new byte[0];
+//                }
+                quadruplet_[q_] = (byte) index_;
+            } else {
+                quadruplet_[q_] = 63;
+            }
             q_++;
 
             if(q_==FOUR_BITS) {
@@ -428,6 +440,9 @@ public final class GuiBaseUtil {
             }
             j_--;
         }
+//        if (j_ < 0) {
+//            return -1;
+//        }
 
         j_++;
         int padSize_ = len_-j_;

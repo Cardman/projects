@@ -6,7 +6,6 @@ import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.items.Ball;
 import aiki.fight.items.Item;
-import code.images.BaseSixtyFourUtil;
 import code.scripts.confs.PkScriptPages;
 import code.util.StringMap;
 
@@ -27,7 +26,7 @@ public abstract class ItemBean extends CommonBean {
         StringMap<String> translationsItems_;
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
         name = getForms().getValStr(CST_ITEM);
-        itemImage = BaseSixtyFourUtil.getStringByImage(data_.getMiniItems().getVal(name));
+        itemImage = getStringByImage(data_.getMiniItems().getVal(name));
         displayName = translationsItems_.getVal(name);
         Item item_ = data_.getItem(name);
         price = item_.getPrice();

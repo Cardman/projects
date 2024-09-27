@@ -3,12 +3,11 @@ package code.formathtml.render;
 import code.sml.*;
 import code.util.LongTreeMap;
 import code.util.StringList;
-import code.util.StringMap;
 import code.util.core.BoolVal;
-import code.util.core.NumberUtil;
 import org.junit.Assert;
 
 public abstract class EquallableRenderAdvUtil {
+    public static final String BASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
     public static void assertNotNull(Node _value) {
         Assert.assertNotNull(_value);
     }
@@ -90,10 +89,10 @@ public abstract class EquallableRenderAdvUtil {
         ((HtmlPage)_page).getContainersBase().addEntry(_n, v_);
     }
     protected static MetaDocument getMetaDocument(String _nav) {
-        return MetaDocument.newInstance(DocumentBuilder.parseSaxNotNullRowCol(_nav).getDocument(),new RendKeyWordsGroup(),"ABCDEF",new SampleCharacterCaseConverter());
+        return MetaDocument.newInstance(DocumentBuilder.parseSaxNotNullRowCol(_nav).getDocument(),new RendKeyWordsGroup(),"ABCDEF",new SampleCharacterCaseConverter(), BASE);
     }
     protected static MetaDocument getMetaDocumentSpec(String _nav) {
-        return MetaDocument.newInstance(DocumentBuilder.parseSaxNotNullRowCol(_nav).getDocument(),new RendKeyWordsGroup(),"ABCDEF",new SampleNotCharacterCaseConverter());
+        return MetaDocument.newInstance(DocumentBuilder.parseSaxNotNullRowCol(_nav).getDocument(),new RendKeyWordsGroup(),"ABCDEF",new SampleNotCharacterCaseConverter(), BASE);
     }
     public static long[] lgs(long... _args) {
         return _args;

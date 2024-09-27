@@ -533,7 +533,7 @@ public final class MetaDocument {
         }
         if (_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrSrc()).contains(SEP_IMG)) {
             int delay_ = NumberUtil.parseInt(_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrDelay()));
-            MetaAnimatedImage imgs_ = new MetaAnimatedImage(currentParent, StringUtil.splitStrings(_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrSrc()), SEP_IMG), title_, delay_, anchor_, _rend);
+            MetaAnimatedImage imgs_ = new MetaAnimatedImage(currentParent, StringUtil.splitStrings(_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrSrc()), SEP_IMG), title_, delay_, anchor_, _rend, _absImg);
             imgs_.setStyle(_styleLoc);
             currentParent.appendChild(imgs_);
         } else {
@@ -1127,8 +1127,8 @@ public final class MetaDocument {
     public MetaBlock getRoot() {
         return root;
     }
-    public static MetaDocument newInstance(Document _document, RendKeyWordsGroup _rend, String _keyWordDig, CharacterCaseConverter _converter) {
-        return newInstance(_document,_rend,_keyWordDig,_converter,new DefMetaSimpleImageBuilder());
+    public static MetaDocument newInstance(Document _document, RendKeyWordsGroup _rend, String _keyWordDig, CharacterCaseConverter _converter, String _base) {
+        return newInstance(_document,_rend,_keyWordDig,_converter,new DefMetaSimpleImageBuilder(_base));
     }
     public static MetaDocument newInstance(Document _document, RendKeyWordsGroup _rend, String _keyWordDig, CharacterCaseConverter _converter, AbsMetaSimpleImageBuilder _absImg) {
         return new MetaDocument(_document,_rend,_keyWordDig,_converter,_absImg);

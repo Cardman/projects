@@ -5035,12 +5035,12 @@ public final class MetaDocumentTest extends EquallableRenderAdvUtil {
     }
     private static MetaDocument getMetaDocument(StringBuilder _doc) {
         DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(_doc.toString());
-        return MetaDocument.newInstance(res_.getDocument(), new RendKeyWordsGroup(),"ABCDEF",new SampleCharacterCaseConverter());
+        return MetaDocument.newInstance(res_.getDocument(), new RendKeyWordsGroup(),"ABCDEF",new SampleCharacterCaseConverter(), BASE);
     }
 
     private static MetaDocument getMetaSpecDocument(StringBuilder _doc) {
         DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(_doc.toString());
-        return MetaDocument.newInstance(res_.getDocument(), new RendKeyWordsGroup(),"ABCDEF",new SampleNotCharacterCaseConverter());
+        return MetaDocument.newInstance(res_.getDocument(), new RendKeyWordsGroup(),"ABCDEF",new SampleNotCharacterCaseConverter(), BASE);
     }
     private void assertUnordered(MetaComponent _ch) {
         assertTrue(_ch instanceof MetaOrderedList);

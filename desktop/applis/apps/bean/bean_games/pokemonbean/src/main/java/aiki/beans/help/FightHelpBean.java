@@ -26,7 +26,6 @@ import aiki.fight.util.*;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
 import aiki.instances.Instances;
-import code.images.BaseSixtyFourUtil;
 import code.maths.Rate;
 import code.maths.litteralcom.MathExpUtil;
 import code.maths.montecarlo.MonteCarloNumber;
@@ -2384,11 +2383,11 @@ public class FightHelpBean extends CommonBean {
     public String getAnimStatistic(int _index) {
         Statistic d_ = statisticAnim.get(_index);
         DataBase data_ = getDataBase();
-        return BaseSixtyFourUtil.getStringByImage(data_.getAnimStatis().getVal(d_.getStatName()));
+        return getStringByImage(data_.getAnimStatis().getVal(d_.getStatName()));
     }
     public String getAnimAbsorb() {
         DataBase data_ = getDataBase();
-        return BaseSixtyFourUtil.getStringByImage(data_.getAnimAbsorb());
+        return getStringByImage(data_.getAnimAbsorb());
     }
     public String getTrLawRate(int _index) {
         DifficultyModelLaw d_ = PokemonStandards.getModelByName(lawsRates.getKey(_index));

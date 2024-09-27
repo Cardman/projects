@@ -42,7 +42,7 @@ public final class ImageCsvTest extends EquallableImageUtil {
 
     @Test
     public void toBaseSixtyFour() {
-        assertEq("AAACAAADAAAE",ImageCsv.toBaseSixtyFour(StringUtil.concat("2",Character.toString(ImageCsv.SEPARATOR_CHAR),"3",Character.toString(ImageCsv.SEPARATOR_CHAR),"4")));
+        assertEq("AAACAAADAAAE",BaseSixtyFourUtil.getStringByImage(ImageCsv.getImageByString(StringUtil.concat("2",Character.toString(ImageCsv.SEPARATOR_CHAR),"3",Character.toString(ImageCsv.SEPARATOR_CHAR),"4")),BASE));
     }
 
     @Test

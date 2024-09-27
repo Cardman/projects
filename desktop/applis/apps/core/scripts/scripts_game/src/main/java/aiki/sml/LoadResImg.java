@@ -25,7 +25,7 @@ public final class LoadResImg {
             EnvironmentType env_ = getEnvByName(keyStrings_.first());
             Sex sex_ = getSexByName(keyStrings_.last(),_sexList);
             _d.getFrontHeros().addEntry(new ImageHeroKey(env_, sex_),
-                    BaseSixtyFourUtil.getImageByString(e.getValue()));
+                    BaseSixtyFourUtil.getImageByString(e.getValue(),MessagesDataBaseConstants.BASE));
         }
         _d.setBackHeros(new ImageHeroKeys());
         StringMap<String> heBk_ = HeBack.im();
@@ -36,7 +36,7 @@ public final class LoadResImg {
                     .first());
             Sex sex_ = getSexByName(keyStrings_.last(),_sexList);
             _d.getBackHeros().addEntry(new ImageHeroKey(env_, sex_),
-                    BaseSixtyFourUtil.getImageByString(e.getValue()));
+                    BaseSixtyFourUtil.getImageByString(e.getValue(),MessagesDataBaseConstants.BASE));
         }
         _d.setOverWorldHeros(new ImageHeroKeys());
         StringMap<String> heMi_ = HeMini.im();
@@ -49,14 +49,14 @@ public final class LoadResImg {
                     .get(IndexConstants.SECOND_INDEX));
             Sex sex_ = getSexByName(keyStrings_.last(),_sexList);
             _d.getOverWorldHeros().addEntry(new ImageHeroKey(env_, dir_, sex_),
-                    BaseSixtyFourUtil.getImageByString(e.getValue()));
+                    BaseSixtyFourUtil.getImageByString(e.getValue(),MessagesDataBaseConstants.BASE));
         }
-        _d.setImageTmHm(BaseSixtyFourUtil.getImageByString(ImHmTm.im()));
-        _d.setStorage(BaseSixtyFourUtil.getImageByString(ImStorage.im()));
-        _d.setEndGameImage(BaseSixtyFourUtil.getImageByString(ImEndGame.im()));
+        _d.setImageTmHm(BaseSixtyFourUtil.getImageByString(ImHmTm.im(),MessagesDataBaseConstants.BASE));
+        _d.setStorage(BaseSixtyFourUtil.getImageByString(ImStorage.im(),MessagesDataBaseConstants.BASE));
+        _d.setEndGameImage(BaseSixtyFourUtil.getImageByString(ImEndGame.im(),MessagesDataBaseConstants.BASE));
         feedImgs(AnStatis.im(), _d.getAnimStatis());
         feedImgs(AnStatus.im(), _d.getAnimStatus());
-        _d.setAnimAbsorb(BaseSixtyFourUtil.getImageByString(AnAbs.im().firstValue()));
+        _d.setAnimAbsorb(BaseSixtyFourUtil.getImageByString(AnAbs.im().firstValue(),MessagesDataBaseConstants.BASE));
         _d.setMaxiPkBack(new StringMap<int[][]>());
         feedImgs(Bk.im(), _d.getMaxiPkBack());
         _d.setMaxiPkFront(new StringMap<int[][]>());
@@ -84,7 +84,7 @@ public final class LoadResImg {
 
     private static void feedImgs(StringMap<String> _imgs, StringMap<int[][]> _dest) {
         for (EntryCust<String,String> e: _imgs.entryList()) {
-            _dest.addEntry(e.getKey(), BaseSixtyFourUtil.getImageByString(e.getValue()));
+            _dest.addEntry(e.getKey(), BaseSixtyFourUtil.getImageByString(e.getValue(),MessagesDataBaseConstants.BASE));
         }
     }
     public static EnvironmentType getEnvByName(String _env) {

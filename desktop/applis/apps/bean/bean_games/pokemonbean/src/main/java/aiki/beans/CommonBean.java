@@ -1,10 +1,12 @@
 package aiki.beans;
 
 import aiki.db.DataBase;
+import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.util.Coords;
 import code.bean.Bean;
 import code.bean.nat.StringMapObjectBase;
+import code.images.BaseSixtyFourUtil;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
 import code.scripts.confs.PkScriptPages;
@@ -131,6 +133,9 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
 
     private FacadeGame dataBase;
 
+    public static String getStringByImage(int[][] _img) {
+        return BaseSixtyFourUtil.getStringByImage(_img, MessagesDataBaseConstants.BASE);
+    }
     public static Rate rateTrue(MonteCarloBoolean _law) {
         if (_law.isZero()) {
             return Rate.zero();

@@ -3965,20 +3965,20 @@ public abstract class InitDbSimulation extends InitDbConstr {
         data_.getTranslatedClassesDescriptions().getVal(EN).addEntry(data_.getItem(I_BALL).getItemType(), CI_BALL);
         data_.getLitterals().addEntry(EN,new StringMap<String>());
         data_.getLitterals().getVal(EN).addEntry(MessagesDataBaseConstants.DEF_TEMPS_TOUR, TAB+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +TAB+TIME);
-        data_.getMiniPk().addEntry(P_POK_00, BaseSixtyFourUtil.getImageByString("AAABAAAC"));
-        data_.getMiniPk().addEntry(P_POK_01, BaseSixtyFourUtil.getImageByString("AAABAAAD"));
-        data_.getMiniPk().addEntry(P_POK_02, BaseSixtyFourUtil.getImageByString("AAABAAAE"));
-        data_.getMiniPk().addEntry(P_POK_03, BaseSixtyFourUtil.getImageByString("AAABAAAF"));
-        data_.getMiniPk().addEntry(P_POK_04, BaseSixtyFourUtil.getImageByString("AAABAAAG"));
-        data_.getMiniPk().addEntry(P_POK_05, BaseSixtyFourUtil.getImageByString("AAABAAAH"));
-        data_.getMiniPk().addEntry(P_POK_06, BaseSixtyFourUtil.getImageByString("AAABAAAI"));
-        data_.getMiniPk().addEntry(P_POK_07, BaseSixtyFourUtil.getImageByString("AAABAAAJ"));
-        data_.getMiniPk().addEntry(P_POK_08, BaseSixtyFourUtil.getImageByString("AAABAAAK"));
-        data_.getMiniPk().addEntry(P_POK_09, BaseSixtyFourUtil.getImageByString("AAABAAAL"));
-        data_.getMiniItems().addEntry(I_NOTHING, BaseSixtyFourUtil.getImageByString("AAABBUTC"));
-        data_.getMiniItems().addEntry(I_MULT_EXP, BaseSixtyFourUtil.getImageByString("AAABBUTD"));
-        data_.getMiniItems().addEntry(I_STONE, BaseSixtyFourUtil.getImageByString("AAABBUTE"));
-        data_.getMiniItems().addEntry(I_BALL, BaseSixtyFourUtil.getImageByString("AAABBUTF"));
+        data_.getMiniPk().addEntry(P_POK_00, getImageByString("AAABAAAC"));
+        data_.getMiniPk().addEntry(P_POK_01, getImageByString("AAABAAAD"));
+        data_.getMiniPk().addEntry(P_POK_02, getImageByString("AAABAAAE"));
+        data_.getMiniPk().addEntry(P_POK_03, getImageByString("AAABAAAF"));
+        data_.getMiniPk().addEntry(P_POK_04, getImageByString("AAABAAAG"));
+        data_.getMiniPk().addEntry(P_POK_05, getImageByString("AAABAAAH"));
+        data_.getMiniPk().addEntry(P_POK_06, getImageByString("AAABAAAI"));
+        data_.getMiniPk().addEntry(P_POK_07, getImageByString("AAABAAAJ"));
+        data_.getMiniPk().addEntry(P_POK_08, getImageByString("AAABAAAK"));
+        data_.getMiniPk().addEntry(P_POK_09, getImageByString("AAABAAAL"));
+        data_.getMiniItems().addEntry(I_NOTHING, getImageByString("AAABBUTC"));
+        data_.getMiniItems().addEntry(I_MULT_EXP, getImageByString("AAABBUTD"));
+        data_.getMiniItems().addEntry(I_STONE, getImageByString("AAABBUTE"));
+        data_.getMiniItems().addEntry(I_BALL, getImageByString("AAABBUTF"));
     }
     private static DamagingMoveData power(String _type, String _cat, String _power) {
         DamagingMoveData move_ = Instances.newDamagingMoveData();
@@ -4290,14 +4290,14 @@ public abstract class InitDbSimulation extends InitDbConstr {
         d_.getMap().addPlace(city(trGymTrainer(),trGymLeader()));
         d_.getMap().addPlace(cave());
         d_.getMap().addPlace(league());
-        d_.getData().getTrainers().addEntry(DUAL,BaseSixtyFourUtil.getImageByString("AAACAAAWAAAX"));
-        d_.getData().getTrainers().addEntry(SINGLE,BaseSixtyFourUtil.getImageByString("AAABAAAW"));
-        d_.getData().getPeople().addEntry(DUAL_1,BaseSixtyFourUtil.getImageByString("AAABAAAX"));
-        d_.getData().getPeople().addEntry(DUAL_2,BaseSixtyFourUtil.getImageByString("AAABAAAY"));
-        d_.getData().getPeople().addEntry(SI,BaseSixtyFourUtil.getImageByString("AAABAAAZ"));
-        d_.getData().getPeople().addEntry(NULL_REF,BaseSixtyFourUtil.getImageByString("AAAB////"));
-        d_.getData().getImages().addEntry(NULL_REF,BaseSixtyFourUtil.getImageByString("AAAB////"));
-        d_.getData().getLinks().addEntry(NULL_REF,BaseSixtyFourUtil.getImageByString("AAAB////"));
+        d_.getData().getTrainers().addEntry(DUAL,getImageByString("AAACAAAWAAAX"));
+        d_.getData().getTrainers().addEntry(SINGLE,getImageByString("AAABAAAW"));
+        d_.getData().getPeople().addEntry(DUAL_1,getImageByString("AAABAAAX"));
+        d_.getData().getPeople().addEntry(DUAL_2,getImageByString("AAABAAAY"));
+        d_.getData().getPeople().addEntry(SI,getImageByString("AAABAAAZ"));
+        d_.getData().getPeople().addEntry(NULL_REF,getImageByString("AAAB////"));
+        d_.getData().getImages().addEntry(NULL_REF,getImageByString("AAAB////"));
+        d_.getData().getLinks().addEntry(NULL_REF,getImageByString("AAAB////"));
         return d_;
     }
     private static City city(GymTrainer _tr, GymLeader _leader) {

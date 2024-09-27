@@ -4,8 +4,8 @@ import code.gui.AbsCustComponent;
 import code.gui.AbsPreparedLabel;
 import code.gui.images.AbstractImage;
 import code.gui.images.MetaFont;
-import code.images.BaseSixtyFourUtil;
-import code.util.StringList;
+import code.images.*;
+import code.util.*;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
@@ -35,7 +35,7 @@ public final class MockImage implements AbstractImage {
 
     @Override
     public byte[] toBytes() {
-        return StringUtil.encode(BaseSixtyFourUtil.getStringByImage(pixels));
+        return exportBytes();
     }
 
     @Override
@@ -163,7 +163,18 @@ public final class MockImage implements AbstractImage {
 
     @Override
     public byte[] writeImg(String _s) {
-        return StringUtil.encode(BaseSixtyFourUtil.getStringByImage(pixels));
+        return exportBytes();
+    }
+    private byte[] exportBytes() {
+        CustList<String> rows_ = new CustList<String>();
+        for (int[] r: pixels) {
+            CustList<String> row_ = new CustList<String>();
+            for (int p:r) {
+                row_.add(Long.toString(p));
+            }
+            rows_.add(StringUtil.join(row_,ImageCsv.SEPARATOR_CHAR));
+        }
+        return StringUtil.encode(""+width+ImageCsv.SEPARATOR_CHAR+StringUtil.join(rows_,ImageCsv.SEPARATOR_CHAR));
     }
 
     public StringList getStrings() {

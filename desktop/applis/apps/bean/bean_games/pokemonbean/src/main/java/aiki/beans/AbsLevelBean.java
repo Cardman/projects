@@ -15,7 +15,6 @@ import aiki.util.CommonParam;
 import aiki.util.Coords;
 import aiki.util.Point;
 import aiki.util.Points;
-import code.images.BaseSixtyFourUtil;
 import code.scripts.confs.PkScriptPages;
 import code.util.CustList;
 import code.util.core.IndexConstants;
@@ -91,7 +90,7 @@ public abstract class AbsLevelBean extends CommonBean {
             DataBase.updateBorders(_map, _side);
         }
         for (CommonParam<Point,int[][]> pt_: _map.entryList()) {
-            _de.put(pt_.getKey(), BaseSixtyFourUtil.getStringByImage(pt_.getValue()));
+            _de.put(pt_.getKey(), getStringByImage(pt_.getValue()));
         }
     }
     public String clickArea(int _index) {

@@ -19,7 +19,6 @@ import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.MiniMapCoords;
 import aiki.map.util.MiniMapCoordsTile;
 import aiki.map.util.MiniMapCoordsTileInts;
-import code.images.BaseSixtyFourUtil;
 import code.images.ConverterBufferedImage;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -94,9 +93,9 @@ public class PokemonBean extends CommonBean {
                 placesAppears.add(i);
             }
         }
-        backImage = BaseSixtyFourUtil.getStringByImage(data_.getMaxiPkBack().getVal(name));
+        backImage = getStringByImage(data_.getMaxiPkBack().getVal(name));
         //ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkBack().getVal(name));
-        frontImage = BaseSixtyFourUtil.getStringByImage(data_.getMaxiPkFront().getVal(name));
+        frontImage = getStringByImage(data_.getMaxiPkFront().getVal(name));
         //ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name));
         PokemonData pk_ = data_.getPokemon(name);
         displayName = translationsPokemon_.getVal(name);
@@ -205,7 +204,7 @@ public class PokemonBean extends CommonBean {
             int[][] miniImg_ = data_.getMiniPk().getVal(name);
             image_ = ConverterBufferedImage.stackImages(image_, miniImg_);
         }
-        return BaseSixtyFourUtil.getStringByImage(image_);
+        return getStringByImage(image_);
     }
     public String getPlaceName(int _index) {
         return namesPlaces.getValue(_index);
@@ -487,7 +486,7 @@ public class PokemonBean extends CommonBean {
         DictionaryComparator<MiniMapCoords, String> map_ = DictionaryComparatorUtil.buildMiniMapCoords();
         for (MiniMapCoordsTile m_: data_.getMap().getMiniMap().entryList()) {
             int[][] image_ = data_.getMiniMap(m_.getTileMap().getFile());
-            map_.put(m_.getMiniMapCoords(), BaseSixtyFourUtil.getStringByImage(image_));
+            map_.put(m_.getMiniMapCoords(), getStringByImage(image_));
         }
         return map_;
     }

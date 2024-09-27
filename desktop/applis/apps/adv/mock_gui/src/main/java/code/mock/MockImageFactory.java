@@ -3,7 +3,7 @@ package code.mock;
 import code.gui.AbsPreparedLabel;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
-import code.images.BaseSixtyFourUtil;
+import code.images.*;
 import code.stream.FileListInfo;
 import code.util.core.StringUtil;
 
@@ -33,7 +33,7 @@ public final class MockImageFactory implements AbstractImageFactory {
                 byte[] bytes_ = FileListInfo.extractWithPrefixes(_bs, p).getBytes();
                 String decode_ = StringUtil.decode(bytes_);
                 if (decode_ != null) {
-                    int[][] imageByString_ = BaseSixtyFourUtil.getImageByString(decode_);
+                    int[][] imageByString_ = ImageCsv.getImageByString(decode_);
                     if (imageByString_.length != 0) {
                         return new MockImage(imageByString_);
                     }

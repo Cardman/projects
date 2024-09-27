@@ -16,7 +16,6 @@ import aiki.fight.moves.effects.Effect;
 import aiki.fight.moves.effects.EffectDamage;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.GenderRepartition;
-import code.images.BaseSixtyFourUtil;
 import code.maths.Rate;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -295,7 +294,7 @@ public abstract class WithFilterBean extends CommonBean {
         String name_ = getPokedex().get(_number).getName();
         DataBase data_ = getDataBase();
 //        return ConverterBufferedImage.toBaseSixtyFour(data_.getMiniPk().getVal(name_));
-        return BaseSixtyFourUtil.getStringByImage(data_.getMiniPk().getVal(name_));
+        return getStringByImage(data_.getMiniPk().getVal(name_));
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMiniPk().getVal(name_));
     }
     public void setTypedAbility(String _typedAbility) {

@@ -5,6 +5,7 @@ import code.sml.util.*;
 import code.util.*;
 
 public final class MessagesRenders {
+    public static final String BASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
     public static final String APPS_RENDERS_SITES = "renders_sites";
     public static final String FRAME = "render_frame";
     public static final String FILE = "0";

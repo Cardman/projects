@@ -93,7 +93,7 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
     }
 
     public static CustThreadActions inst(DefaultInitialization _init, RenderedPage _page, Navigation _nav) {
-        return CustThreadActions.inst(_page, _init,_nav);
+        return CustThreadActions.inst(_page, _init,_nav,MessagesRenders.BASE);
     }
 
 //    @Override

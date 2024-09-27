@@ -130,7 +130,7 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
         stop.addActionListener(new Stop(this));
         buttons_.add(stop);
 //        noteFile = note_;
-        AbstractImage or_ = ConverterGraphicBufferedImage.decodeToImage(getImageFactory(),BaseSixtyFourUtil.getImageByString(_note));
+        AbstractImage or_ = ConverterGraphicBufferedImage.decodeToImage(getImageFactory(),BaseSixtyFourUtil.getImageByString(_note,MessagesRts.BASE));
         int wCurs_ = or_.getWidth();
         int hCurs_ = or_.getHeight();
         int[] pixels_ = new int[wCurs_ * hCurs_];

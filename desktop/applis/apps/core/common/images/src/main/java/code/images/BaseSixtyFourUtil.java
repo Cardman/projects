@@ -5,21 +5,21 @@ import code.util.core.StringUtil;
 
 public final class BaseSixtyFourUtil {
 
-    private static final int FIRST_DIGIT = '0';
-    private static final int FIRST_LOW_LETTER = NumberUtil.MIN_LOW;
-    private static final int FIRST_UPP_LETTER = NumberUtil.MIN_UPP;
+//    private static final int FIRST_DIGIT = '0';
+//    private static final int FIRST_LOW_LETTER = NumberUtil.MIN_LOW;
+//    private static final int FIRST_UPP_LETTER = NumberUtil.MIN_UPP;
     private static final short BYTE = 256;
     private static final byte SIXTY_FOUR_BITS = 64;
     private static final byte SIXTEEN_BITS = 16;
     private static final byte FOUR_BITS = 4;
     private static final byte THREE_COLORS_BYTES = 3;
-    private static final byte NB_LETTERS = 26;
-    private static final byte NB_LETTERS_UPP_LOW = 52;
-    private static final byte NB_DIGITS_LETTERS = 62;
+//    private static final byte NB_LETTERS = 26;
+//    private static final byte NB_LETTERS_UPP_LOW = 52;
+//    private static final byte NB_DIGITS_LETTERS = 62;
 
     private BaseSixtyFourUtil(){
     }
-    public static int[][] getImageByString(String _image) {
+    public static int[][] getImageByString(String _image, String _base) {
         int index_ = StringUtil.getFirstPrintableCharIndex(_image);
         if (index_ < 0) {
             return new int[0][0];
@@ -32,11 +32,14 @@ public final class BaseSixtyFourUtil {
         if (len_ % 4 != 0) {
             return new int[0][0];
         }
-        return processDef(img_, len_);
+        return processDef(img_, len_,_base);
     }
 
-    private static int[][] processDef(String _img, int _len) {
-        byte[] widthArray_ = parseFourChars(_img.substring(0, 4));
+    private static int[][] processDef(String _img, int _len, String _base) {
+        byte[] widthArray_ = parseFourChars(_img.substring(0, 4),_base);
+//        if (widthArray_.length == 0) {
+//            return new int[0][0];
+//        }
         int width_ = 0;
         for (byte b: widthArray_) {
             int real_ = b;
@@ -65,7 +68,10 @@ public final class BaseSixtyFourUtil {
         int max_ = _len - 4;
         while (i_ <= max_) {
             String part_ = _img.substring(i_, i_ + 4);
-            byte[] pixel_ = parseFourChars(part_);
+            byte[] pixel_ = parseFourChars(part_,_base);
+//            if (pixel_.length == 0) {
+//                return new int[0][0];
+//            }
             int color_ = 0;
             for (byte b: pixel_) {
                 int real_ = b;
@@ -88,7 +94,7 @@ public final class BaseSixtyFourUtil {
         return image_;
     }
 
-    static byte[] parseFourChars(String _text) {
+    static byte[] parseFourChars(String _text, String _base) {
         byte[] out_ = new byte[THREE_COLORS_BYTES];
         int o_=0;
 
@@ -98,7 +104,10 @@ public final class BaseSixtyFourUtil {
         for(int i=0; i<FOUR_BITS; i++ ) {
             char ch_ = _text.charAt(i);
 
-            byte v_ = charToByte(ch_);
+            byte v_ = charToByte(ch_,_base);
+//            if (v_ < 0) {
+//                return new byte[0];
+//            }
             quadruplet_[i] = v_;
         }
          // quadruplet is now filled.
@@ -114,33 +123,42 @@ public final class BaseSixtyFourUtil {
         return out_;
     }
 
-    public static byte charToByte(char _ch) {
-        byte v_;
-        if (_ch >= FIRST_DIGIT && _ch <= '9') {
-            int diff_ = _ch - FIRST_DIGIT;
-            v_ = (byte) (NB_LETTERS_UPP_LOW + diff_);
-        } else if (_ch >= FIRST_LOW_LETTER && _ch <= NumberUtil.MIN_LOW + 25) {
-            int diff_ = _ch - FIRST_LOW_LETTER;
-            v_ = (byte) (NB_LETTERS+diff_);
-        } else if (_ch >= FIRST_UPP_LETTER && _ch <= NumberUtil.MIN_UPP + 25) {
-            int diff_ = _ch - FIRST_UPP_LETTER;
-            v_ = (byte) diff_;
-        } else if (_ch == '+') {
-            v_ = NB_DIGITS_LETTERS;
-        } else {
-            v_ = NB_DIGITS_LETTERS + 1;
+    public static byte charToByte(char _ch, String _base) {
+        int index_ = _base.indexOf(_ch);
+        if (index_ < 0) {
+            return 63;
         }
-        return v_;
+        return (byte) index_;
+//        int index_ = _base.indexOf(_ch);
+//        if (index_ > -1) {
+//            return (byte) index_;
+//        }
+//        byte v_;
+//        if (_ch >= FIRST_DIGIT && _ch <= '9') {
+//            int diff_ = _ch - FIRST_DIGIT;
+//            v_ = (byte) (NB_LETTERS_UPP_LOW + diff_);
+//        } else if (_ch >= FIRST_LOW_LETTER && _ch <= NumberUtil.MIN_LOW + 25) {
+//            int diff_ = _ch - FIRST_LOW_LETTER;
+//            v_ = (byte) (NB_LETTERS+diff_);
+//        } else if (_ch >= FIRST_UPP_LETTER && _ch <= NumberUtil.MIN_UPP + 25) {
+//            int diff_ = _ch - FIRST_UPP_LETTER;
+//            v_ = (byte) diff_;
+//        } else if (_ch == '+') {
+//            v_ = NB_DIGITS_LETTERS;
+//        } else {
+//            v_ = NB_DIGITS_LETTERS + 1;
+//        }
+//        return v_;
     }
 
-    public static String getStringByImage(int[][] _image) {
+    public static String getStringByImage(int[][] _image, String _base) {
         int w_ = _image[0].length;
         StringBuilder str_ = new StringBuilder(4+_image[0].length*_image.length*4);
         byte[] bytes_ = new byte[THREE_COLORS_BYTES];
         bytes_[0] = (byte) ((w_ / (256*256))%256);
         bytes_[1] = (byte) ((w_ / 256)%256);
         bytes_[2] = (byte) (w_ %256);
-        str_.append(printThreeBytes(bytes_));
+        str_.append(printThreeBytes(bytes_,_base));
         for (int[] a : _image) {
             for (int j = 0; j < w_; j++) {
                 bytes_ = new byte[THREE_COLORS_BYTES];
@@ -148,13 +166,13 @@ public final class BaseSixtyFourUtil {
                 bytes_[0] = (byte) ((p_ / (256 * 256)) % 256);
                 bytes_[1] = (byte) ((p_ / 256) % 256);
                 bytes_[2] = (byte) (p_ % 256);
-                str_.append(printThreeBytes(bytes_));
+                str_.append(printThreeBytes(bytes_,_base));
             }
         }
         return str_.toString();
     }
 
-    static String printThreeBytes(byte[] _input) {
+    static String printThreeBytes(byte[] _input, String _base) {
         char[] buf_ = new char[FOUR_BITS];
         int ptr_ = 0;
         int i = 0;
@@ -162,7 +180,7 @@ public final class BaseSixtyFourUtil {
         if (adj_ < 0) {
             adj_ += BYTE;
         }
-        buf_[ptr_] = encode(adj_/FOUR_BITS);
+        buf_[ptr_] = encode(adj_/FOUR_BITS,_base);
         ptr_++;
         int adjNext_ = _input[i+1];
         if (adjNext_ < 0) {
@@ -174,30 +192,31 @@ public final class BaseSixtyFourUtil {
         }
         buf_[ptr_] = encode(
                 ((adj_%FOUR_BITS)*SIXTEEN_BITS) +
-                ((adjNext_/SIXTEEN_BITS)%SIXTEEN_BITS));
+                ((adjNext_/SIXTEEN_BITS)%SIXTEEN_BITS),_base);
         ptr_++;
         buf_[ptr_] = encode(
                     ((adjNext_%SIXTEEN_BITS)*FOUR_BITS)+
-                    ((adjNextNext_/SIXTY_FOUR_BITS)%FOUR_BITS));
+                    ((adjNextNext_/SIXTY_FOUR_BITS)%FOUR_BITS),_base);
         ptr_++;
-        buf_[ptr_] = encode(adjNextNext_%SIXTY_FOUR_BITS);
+        buf_[ptr_] = encode(adjNextNext_%SIXTY_FOUR_BITS,_base);
         return String.valueOf(buf_);
     }
 
-    private static char encode(int _i) {
-        if (_i < NB_LETTERS) {
-            return (char) (FIRST_UPP_LETTER+_i);
-        }
-        if (_i < NB_LETTERS_UPP_LOW) {
-            return (char) (FIRST_LOW_LETTER-NB_LETTERS+_i);
-        }
-        if (_i < NB_DIGITS_LETTERS) {
-            return (char) (FIRST_DIGIT-NB_LETTERS_UPP_LOW+_i);
-        }
-        if (_i == NB_DIGITS_LETTERS) {
-            return '+';
-        }
-        return '/';
+    private static char encode(int _i, String _base) {
+        return _base.charAt(_i);
+//        if (_i < NB_LETTERS) {
+//            return (char) (FIRST_UPP_LETTER+_i);
+//        }
+//        if (_i < NB_LETTERS_UPP_LOW) {
+//            return (char) (FIRST_LOW_LETTER-NB_LETTERS+_i);
+//        }
+//        if (_i < NB_DIGITS_LETTERS) {
+//            return (char) (FIRST_DIGIT-NB_LETTERS_UPP_LOW+_i);
+//        }
+//        if (_i == NB_DIGITS_LETTERS) {
+//            return '+';
+//        }
+//        return '/';
     }
 
     public static int[][] clipSixtyFour(int[][] _image,int _x,int _y,int _w,int _h) {

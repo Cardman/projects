@@ -12,7 +12,6 @@ import aiki.fight.status.StatusBeginRound;
 import aiki.fight.status.StatusBeginRoundAutoDamage;
 import aiki.fight.status.StatusType;
 import aiki.fight.status.effects.EffectPartnerStatus;
-import code.images.BaseSixtyFourUtil;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.scripts.confs.PkScriptPages;
@@ -51,7 +50,7 @@ public class StatusBean extends CommonBean {
     public void beforeDisplaying() {
         String n_ = getForms().getValStr(CST_STATUS);
         DataBase data_ = getDataBase();
-        animStatus = BaseSixtyFourUtil.getStringByImage(data_.getAnimStatus().getVal(n_));
+        animStatus = getStringByImage(data_.getAnimStatus().getVal(n_));
         StringMap<String> translatedStatus_;
         translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         displayName = translatedStatus_.getVal(n_);

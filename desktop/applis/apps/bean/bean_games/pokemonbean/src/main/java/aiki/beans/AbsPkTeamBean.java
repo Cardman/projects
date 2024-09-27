@@ -3,7 +3,6 @@ package aiki.beans;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.map.pokemon.PkTrainer;
-import code.images.BaseSixtyFourUtil;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -36,7 +35,7 @@ public abstract class AbsPkTeamBean extends CommonBean {
         PkTrainer pk_;
         pk_ = _list.get(_index);
         String name_ = pk_.getName();
-        return BaseSixtyFourUtil.getStringByImage(data_.getMaxiPkFront().getVal(name_));
+        return getStringByImage(data_.getMaxiPkFront().getVal(name_));
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name_));
     }
     public String getName(int _index) {

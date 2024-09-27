@@ -1,10 +1,12 @@
 package code.scripts.confs;
 
 import aiki.beans.facade.simulation.enums.SimulationSteps;
+import aiki.db.MessagesDataBaseConstants;
 import aiki.fight.enums.Statistic;
 import aiki.util.Coords;
 import code.bean.nat.*;
 //import code.formathtml.structs.Message;
+import code.images.BaseSixtyFourUtil;
 import org.junit.Assert;
 
 public abstract class EquallablePkBeanUtil {
@@ -56,4 +58,7 @@ public abstract class EquallablePkBeanUtil {
         Assert.assertEquals(_expected, _result);
     }
 
+    public static int[][] getImageByString(String _img) {
+        return BaseSixtyFourUtil.getImageByString(_img, MessagesDataBaseConstants.BASE);
+    }
 }

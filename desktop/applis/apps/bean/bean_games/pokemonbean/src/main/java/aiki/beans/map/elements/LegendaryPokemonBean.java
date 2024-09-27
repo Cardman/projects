@@ -5,7 +5,6 @@ import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
-import code.images.BaseSixtyFourUtil;
 import code.util.AbsMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -20,7 +19,7 @@ public class LegendaryPokemonBean extends CommonBean {
     public String getImage() {
         DataBase data_ = getDataBase();
         String name_ = pokemon.getName();
-        return BaseSixtyFourUtil.getStringByImage(data_.getMaxiPkFront().getVal(name_));
+        return getStringByImage(data_.getMaxiPkFront().getVal(name_));
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name_));
     }
     public String getName() {

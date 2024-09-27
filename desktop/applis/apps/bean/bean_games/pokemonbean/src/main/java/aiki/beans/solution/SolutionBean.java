@@ -14,7 +14,6 @@ import aiki.map.places.Place;
 import aiki.map.util.PlaceLevel;
 import aiki.util.Coords;
 import aiki.util.PlaceLevelsCustListGenderName;
-import code.images.BaseSixtyFourUtil;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
@@ -93,7 +92,7 @@ public class SolutionBean extends CommonBean {
 //                }
         for (GenderName g:g_) {
             String name_ = _data.getTranslatedPokemon().getVal(getLanguage()).getVal(g.getName());
-            String image_ = BaseSixtyFourUtil.getStringByImage(_data.getMiniPk().getVal(g.getName()));
+            String image_ = getStringByImage(_data.getMiniPk().getVal(g.getName()));
             String gender_ = _data.getTranslatedGenders().getVal(getLanguage()).getVal(g.getGender());
             pokemon_.add(new WildPokemonDto(image_, name_, gender_));
         }

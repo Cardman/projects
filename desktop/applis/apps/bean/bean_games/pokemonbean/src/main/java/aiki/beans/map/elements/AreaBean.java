@@ -6,7 +6,6 @@ import aiki.db.DataBase;
 import aiki.map.levels.AbsAreaApparition;
 import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.enums.Gender;
-import code.images.BaseSixtyFourUtil;
 import code.util.AbsMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -23,7 +22,7 @@ public class AreaBean extends CommonBean {
         Pokemon pk_;
         pk_ = area.getWildPokemon(_index);
         String name_ = pk_.getName();
-        return BaseSixtyFourUtil.getStringByImage(data_.getMaxiPkFront().getVal(name_));
+        return getStringByImage(data_.getMaxiPkFront().getVal(name_));
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name_));
     }
     public String getName(int _index) {
@@ -147,7 +146,7 @@ public class AreaBean extends CommonBean {
         Pokemon pk_;
         pk_ = area.getPokemonFishing(_index);
         String name_ = pk_.getName();
-        return BaseSixtyFourUtil.getStringByImage(data_.getMaxiPkFront().getVal(name_));
+        return getStringByImage(data_.getMaxiPkFront().getVal(name_));
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name_));
     }
     public String getNameFishing(int _index) {

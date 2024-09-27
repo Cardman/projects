@@ -10,7 +10,6 @@ import code.formathtml.EquallableBeanHelpUtil;
 //import code.formathtml.Navigation;
 //import code.formathtml.util.DualConfigurationContext;
 import code.formathtml.render.*;
-import code.images.BaseSixtyFourUtil;
 import code.sml.DocumentBuilder;
 import code.sml.util.TranslationsAppli;
 import code.util.CustList;
@@ -193,7 +192,7 @@ public final class HelpTest extends EquallableBeanHelpUtil {
         add_.add("added");
         StringMap<String> pr_ = new StringMap<String>();
         pr_.put("msg_example", relative_);
-        filesImgs_.put("added", BaseSixtyFourUtil.getImageByString("AAACAAABAAADAAAEAAAFAAAGAAAH"));
+        filesImgs_.put("added", new int[][]{new int[]{1,3},new int[]{4,5},new int[]{6,7}});
 //        HelpRendBlockHelp.text("","page1.html",html_,files_,folder_,pr_);
         MetaDocument doc_ = text(html_, add_, files_, folder_, pr_,filesImgs_);
         CustList<MetaComponent> chs_ = doc_.getRoot().getChildren();

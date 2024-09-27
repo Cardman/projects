@@ -6,6 +6,7 @@ import aiki.comparators.TrMovesComparator;
 import aiki.db.DataBase;
 import aiki.db.ExchangedData;
 import aiki.db.ImageHeroKey;
+import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.enums.SearchingMode;
 import aiki.facade.enums.SelectedBoolean;
 import aiki.facade.enums.StorageActions;
@@ -132,14 +133,14 @@ public class FacadeGame {
         ImageHeroKey i_;
         i_ = ImageHeroKey.direct(EnvironmentType.ROAD, game.getPlayer());
         return BaseSixtyFourUtil.getStringByImage(data.getFrontHeros().getVal(
-                i_));
+                i_), MessagesDataBaseConstants.BASE);
     }
 
     public String getFrontChosenHerosOppositeSex() {
         ImageHeroKey i_;
         i_ = ImageHeroKey.opposite(EnvironmentType.ROAD, game.getPlayer());
         return BaseSixtyFourUtil.getStringByImage(data.getFrontHeros().getVal(
-                i_));
+                i_),MessagesDataBaseConstants.BASE);
     }
 
     // public void initializeDefaultHtmlFiles() {

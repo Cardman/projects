@@ -3,6 +3,7 @@ package code.images;
 import org.junit.Assert;
 
 public abstract class EquallableImageUtil {
+    public static final String BASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
     public static void assertTrue(boolean _value) {
         Assert.assertTrue(_value);

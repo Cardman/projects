@@ -8,7 +8,6 @@ import aiki.facade.FacadeGame;
 import aiki.fight.pokemon.TrainerPlaceNames;
 import aiki.game.GameProgression;
 import aiki.map.DataMap;
-import code.images.BaseSixtyFourUtil;
 import code.maths.LgInt;
 import code.util.CustList;
 import code.util.NatStringTreeMap;
@@ -42,7 +41,7 @@ public class GameProgressionBean extends CommonSingleBean {
         heroImageOppositeSex = facade_.getFrontChosenHerosOppositeSex();
         GameProgression progression_ = facade_.getGameProgression();
         finishedGame = progression_.isFinishedGame();
-        endGameImage = BaseSixtyFourUtil.getStringByImage(facade_.getData().getEndGameImage());
+        endGameImage = getStringByImage(facade_.getData().getEndGameImage());
         nickname = progression_.getNickname();
         notAtAllFamiliesBaseInit(facade_, progression_);
         partialFamiliesBaseCaughtInit(facade_, progression_);
@@ -183,7 +182,7 @@ public class GameProgressionBean extends CommonSingleBean {
         StringList value_ = values_.get(_indexList);
         String pkName_ = value_.get(_indexElt);
         int[][] img_ = _facade.getData().getMaxiPkFront().getVal(pkName_);
-        return BaseSixtyFourUtil.getStringByImage(img_);
+        return getStringByImage(img_);
     }
 
     public boolean getFinishedGame() {

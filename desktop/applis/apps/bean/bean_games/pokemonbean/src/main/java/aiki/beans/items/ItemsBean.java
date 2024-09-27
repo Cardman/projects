@@ -3,7 +3,6 @@ package aiki.beans.items;
 import aiki.beans.WithFilterBean;
 import aiki.db.DataBase;
 import aiki.fight.items.*;
-import code.images.BaseSixtyFourUtil;
 import code.scripts.confs.PkScriptPages;
 import code.util.AbsMap;
 
@@ -129,6 +128,6 @@ public class ItemsBean extends WithFilterBean {
     public String getMiniImage(int _number) {
         String item_ = getItems().get(_number).getName();
         DataBase data_ = getDataBase();
-        return BaseSixtyFourUtil.getStringByImage(data_.getMiniItems().getVal(item_));
+        return getStringByImage(data_.getMiniItems().getVal(item_));
     }
 }

@@ -193,11 +193,11 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         pkm_.setLevel((short) 7);
         data_.getMap().setFirstPokemon(pkm_);
         data_.getMap().setBegin(newCoords(0, 0, 0, 1));
-        data_.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Sex.GIRL), BaseSixtyFourUtil.getImageByString(H_1));
-        data_.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Sex.BOY),BaseSixtyFourUtil.getImageByString(H_2));
-        data_.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Sex.GIRL),BaseSixtyFourUtil.getImageByString(H_3));
-        data_.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Sex.BOY),BaseSixtyFourUtil.getImageByString(H_4));
-        data_.setEndGameImage(BaseSixtyFourUtil.getImageByString(H_5));
+        data_.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Sex.GIRL), getImageByString(H_1));
+        data_.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Sex.BOY),getImageByString(H_2));
+        data_.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Sex.GIRL),getImageByString(H_3));
+        data_.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Sex.BOY),getImageByString(H_4));
+        data_.setEndGameImage(getImageByString(H_5));
         StringMap<String> pks_ = new StringMap<String>();
         pks_.addEntry(PROG_PK1,PROG_PK_TR1);
         pks_.addEntry(PROG_PK2,PROG_PK_TR2);
@@ -206,12 +206,12 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         pks_.addEntry(PROG_PK5,PROG_PK_TR5);
         pks_.addEntry(PROG_PK6,PROG_PK_TR6);
         data_.getTranslatedPokemon().addEntry(LANGUAGE, pks_);
-        data_.getMaxiPkFront().addEntry(PROG_PK1,BaseSixtyFourUtil.getImageByString(PR_IMG_1));
-        data_.getMaxiPkFront().addEntry(PROG_PK2,BaseSixtyFourUtil.getImageByString(PR_IMG_2));
-        data_.getMaxiPkFront().addEntry(PROG_PK3,BaseSixtyFourUtil.getImageByString(PR_IMG_3));
-        data_.getMaxiPkFront().addEntry(PROG_PK4,BaseSixtyFourUtil.getImageByString(PR_IMG_4));
-        data_.getMaxiPkFront().addEntry(PROG_PK5,BaseSixtyFourUtil.getImageByString(PR_IMG_5));
-        data_.getMaxiPkFront().addEntry(PROG_PK6,BaseSixtyFourUtil.getImageByString(PR_IMG_6));
+        data_.getMaxiPkFront().addEntry(PROG_PK1,getImageByString(PR_IMG_1));
+        data_.getMaxiPkFront().addEntry(PROG_PK2,getImageByString(PR_IMG_2));
+        data_.getMaxiPkFront().addEntry(PROG_PK3,getImageByString(PR_IMG_3));
+        data_.getMaxiPkFront().addEntry(PROG_PK4,getImageByString(PR_IMG_4));
+        data_.getMaxiPkFront().addEntry(PROG_PK5,getImageByString(PR_IMG_5));
+        data_.getMaxiPkFront().addEntry(PROG_PK6,getImageByString(PR_IMG_6));
         return data_;
     }
     public static DataBase one() {

@@ -182,7 +182,7 @@ public final class ConverterBufferedImage {
     }
 
     public static String getSquareColorSixtyFour(String _color,
-            String _separatorRgb, int _sideLength) {
+                                                 String _separatorRgb, int _sideLength, String _base) {
         StringList list_ = StringUtil.splitStrings(_color,_separatorRgb);
         Ints ints_ = new Ints();
         for (String c: list_) {
@@ -195,7 +195,7 @@ public final class ConverterBufferedImage {
                 pixels_[i][j] = rgb_;
             }
         }
-        return BaseSixtyFourUtil.getStringByImage(pixels_);
+        return BaseSixtyFourUtil.getStringByImage(pixels_, _base);
     }
 
     public static CustList<IntPoint> getNext(int _w, int _h, IntPoint _visited) {

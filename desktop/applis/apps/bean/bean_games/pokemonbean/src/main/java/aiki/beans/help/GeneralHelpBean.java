@@ -5,13 +5,13 @@ import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.comparators.TrMovesComparator;
 import aiki.db.DataBase;
+import aiki.db.MessagesDataBaseConstants;
 import aiki.fight.pokemon.PokemonData;
 import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.MiniMapCoords;
 import aiki.map.util.MiniMapCoordsTile;
 import aiki.map.util.MiniMapCoordsTileInts;
-import code.images.BaseSixtyFourUtil;
 import code.images.ConverterBufferedImage;
 import code.maths.Rate;
 import code.util.AbsMap;
@@ -54,7 +54,7 @@ public class GeneralHelpBean extends CommonBean {
         for (MiniMapCoords m: miniMap.getKeys()) {
             namesPlaces.put(m, data_.getMap().getName(m.getXcoords(), m.getYcoords()));
         }
-        unlockedCity = BaseSixtyFourUtil.getStringByImage(data_.getMiniMap(data_.getMap().getUnlockedCity()));
+        unlockedCity = getStringByImage(data_.getMiniMap(data_.getMap().getUnlockedCity()));
         nbMaxTeam = data_.getNbMaxTeam();
         minLevel = data_.getMinLevel();
         maxLevel = data_.getMaxLevel();
@@ -84,7 +84,7 @@ public class GeneralHelpBean extends CommonBean {
     }
     public String getMiniMapImage(int _index) {
         int[][] image_ = miniMap.getValue(_index);
-        return BaseSixtyFourUtil.getStringByImage(image_);
+        return getStringByImage(image_);
     }
     public int getMapWidth() {
         int w_ = 0;
@@ -116,7 +116,7 @@ public class GeneralHelpBean extends CommonBean {
     public String getImage() {
         DataBase data_ = getDataBase();
         String name_ = firstPokemon.getName();
-        return BaseSixtyFourUtil.getStringByImage(data_.getMaxiPkFront().getVal(name_));
+        return getStringByImage(data_.getMaxiPkFront().getVal(name_));
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name_));
     }
     public String getName() {
@@ -267,13 +267,13 @@ public class GeneralHelpBean extends CommonBean {
     public String getImageType(int _index) {
         DataBase data_ = getDataBase();
         String type_ = types.get(_index);
-        return BaseSixtyFourUtil.getStringByImage(data_.getTypesImages().getVal(type_));
+        return getStringByImage(data_.getTypesImages().getVal(type_));
     }
     public String getColorType(int _index) {
         DataBase data_ = getDataBase();
         String type_ = types.get(_index);
         String color_ = data_.getTypesColors().getVal(type_);
-        return ConverterBufferedImage.getSquareColorSixtyFour(color_, DataBase.SEPARATOR_RGB, data_.getMap().getSideLength());
+        return ConverterBufferedImage.getSquareColorSixtyFour(color_, DataBase.SEPARATOR_RGB, data_.getMap().getSideLength(), MessagesDataBaseConstants.BASE);
     }
 
     public int getMaxLevel() {
@@ -301,7 +301,7 @@ public class GeneralHelpBean extends CommonBean {
         DictionaryComparator<MiniMapCoords, String> map_ = DictionaryComparatorUtil.buildMiniMapCoords();
         for (MiniMapCoordsTile m_: data_.getMap().getMiniMap().entryList()) {
             int[][] image_ = data_.getMiniMap(m_.getTileMap().getFile());
-            map_.put(m_.getMiniMapCoords(), BaseSixtyFourUtil.getStringByImage(image_));
+            map_.put(m_.getMiniMapCoords(), getStringByImage(image_));
         }
         return map_;
     }

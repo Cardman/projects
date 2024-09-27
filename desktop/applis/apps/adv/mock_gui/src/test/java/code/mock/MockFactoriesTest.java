@@ -19,7 +19,7 @@ public final class MockFactoriesTest extends EquallableMockGuiUtil {
     }
     @Test
     public void f2() {
-        AbstractImage res_ = init().getImageFactory().newImageFromBytes(wrapInts('A','A','A','B','A','A','A','A'));
+        AbstractImage res_ = init().getImageFactory().newImageFromBytes(wrapInts('1',';','0'));
         assertEq(1, res_.getHeight());
         assertEq(1, res_.getWidth());
         assertEq(0, res_.getRGB(0,0));
@@ -77,7 +77,7 @@ public final class MockFactoriesTest extends EquallableMockGuiUtil {
     }
     @Test
     public void f9() {
-        AbstractImage res_ = init().getImageFactory().newImageFromBytes(wrapInts('A','A','A','C','A','A','A','A','A','A','A','A'));
+        AbstractImage res_ = init().getImageFactory().newImageFromBytes(wrapInts('2',';','0',';','0'));
         assertEq(1, res_.getHeight());
         assertEq(2, res_.getWidth());
         assertEq(0, res_.getRGB(0,0));
@@ -86,7 +86,7 @@ public final class MockFactoriesTest extends EquallableMockGuiUtil {
     @Test
     public void f10() {
         byte[] res_ = init().getImageFactory().decodeToImage(new int[][]{new int[]{1}});
-        assertEq(8, res_.length);
+        assertEq(3, res_.length);
     }
     @Test
     public void t1() {

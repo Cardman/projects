@@ -40,7 +40,7 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
         w_.getPathExport().setText("/from");
         w_.getPath().setText("/to");
         tryClick(w_.getOkButton());
-        int[][] i1_ = BaseSixtyFourUtil.getImageByString(StreamTextFile.contentsOfFile("/to/one/sub1/2", w_.getFileCoreStream(), w_.getStreams()));
+        int[][] i1_ = getImageByString(StreamTextFile.contentsOfFile("/to/one/sub1/2", w_.getFileCoreStream(), w_.getStreams()));
         assertEq(2,i1_.length);
         assertEq(2,i1_[0].length);
         assertEq(1,i1_[0][0]);
@@ -48,7 +48,7 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
         assertEq(2,i1_[1].length);
         assertEq(3,i1_[1][0]);
         assertEq(4,i1_[1][1]);
-        int[][] i2_ = BaseSixtyFourUtil.getImageByString(StreamTextFile.contentsOfFile("/to/one/sub2/2", w_.getFileCoreStream(), w_.getStreams()));
+        int[][] i2_ = getImageByString(StreamTextFile.contentsOfFile("/to/one/sub2/2", w_.getFileCoreStream(), w_.getStreams()));
         assertEq(3,i2_.length);
         assertEq(2,i2_[0].length);
         assertEq(1,i2_[0][0]);
@@ -59,7 +59,7 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
         assertEq(2,i2_[2].length);
         assertEq(5,i2_[2][0]);
         assertEq(6,i2_[2][1]);
-        int[][] i3_ = BaseSixtyFourUtil.getImageByString(StreamTextFile.contentsOfFile("/to/two/sub1/2", w_.getFileCoreStream(), w_.getStreams()));
+        int[][] i3_ = getImageByString(StreamTextFile.contentsOfFile("/to/two/sub1/2", w_.getFileCoreStream(), w_.getStreams()));
         assertEq(2,i3_.length);
         assertEq(3,i3_[0].length);
         assertEq(1,i3_[0][0]);
@@ -69,7 +69,7 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
         assertEq(4,i3_[1][0]);
         assertEq(5,i3_[1][1]);
         assertEq(6,i3_[1][2]);
-        int[][] i4_ = BaseSixtyFourUtil.getImageByString(StreamTextFile.contentsOfFile("/to/two/sub2/2", w_.getFileCoreStream(), w_.getStreams()));
+        int[][] i4_ = getImageByString(StreamTextFile.contentsOfFile("/to/two/sub2/2", w_.getFileCoreStream(), w_.getStreams()));
         assertEq(3,i4_.length);
         assertEq(3,i4_[0].length);
         assertEq(1,i4_[0][0]);
@@ -105,7 +105,7 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
         w_.getPath().setText("/to");
 //        tryToggle(w_.getReadImages());
         tryClick(w_.getOkButton());
-        int[][] i1_ = BaseSixtyFourUtil.getImageByString(StringUtil.decode(StreamBinaryFile.loadFile("/to/one/sub1/2",w_.getStreams()).getBytes()));
+        int[][] i1_ = getCsvImageByString(StringUtil.decode(StreamBinaryFile.loadFile("/to/one/sub1/2",w_.getStreams()).getBytes()));
         assertEq(2,i1_.length);
         assertEq(2,i1_[0].length);
         assertEq(1,i1_[0][0]);
@@ -113,7 +113,7 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
         assertEq(2,i1_[1].length);
         assertEq(3,i1_[1][0]);
         assertEq(4,i1_[1][1]);
-        int[][] i2_ = BaseSixtyFourUtil.getImageByString(StringUtil.decode(StreamBinaryFile.loadFile("/to/one/sub2/2",w_.getStreams()).getBytes()));
+        int[][] i2_ = getCsvImageByString(StringUtil.decode(StreamBinaryFile.loadFile("/to/one/sub2/2",w_.getStreams()).getBytes()));
         assertEq(3,i2_.length);
         assertEq(2,i2_[0].length);
         assertEq(1,i2_[0][0]);
@@ -124,7 +124,7 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
         assertEq(2,i2_[2].length);
         assertEq(5,i2_[2][0]);
         assertEq(6,i2_[2][1]);
-        int[][] i3_ = BaseSixtyFourUtil.getImageByString(StringUtil.decode(StreamBinaryFile.loadFile("/to/two/sub1/2",w_.getStreams()).getBytes()));
+        int[][] i3_ = getCsvImageByString(StringUtil.decode(StreamBinaryFile.loadFile("/to/two/sub1/2",w_.getStreams()).getBytes()));
         assertEq(2,i3_.length);
         assertEq(3,i3_[0].length);
         assertEq(1,i3_[0][0]);
@@ -134,7 +134,7 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
         assertEq(4,i3_[1][0]);
         assertEq(5,i3_[1][1]);
         assertEq(6,i3_[1][2]);
-        int[][] i4_ = BaseSixtyFourUtil.getImageByString(StringUtil.decode(StreamBinaryFile.loadFile("/to/two/sub2/2",w_.getStreams()).getBytes()));
+        int[][] i4_ = getCsvImageByString(StringUtil.decode(StreamBinaryFile.loadFile("/to/two/sub2/2",w_.getStreams()).getBytes()));
         assertEq(3,i4_.length);
         assertEq(3,i4_[0].length);
         assertEq(1,i4_[0][0]);
@@ -231,7 +231,7 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
         assertEq("/from",cr_.getWindow().getPathExport().getText());
         assertEq("/to",cr_.getWindow().getPath().getText());
 //        assertTrue(cr_.getWindow().getReadImages().isSelected());
-        int[][] i1_ = BaseSixtyFourUtil.getImageByString(StreamTextFile.contentsOfFile("/to/one/sub1/2", pr_.getFileCoreStream(), pr_.getStreams()));
+        int[][] i1_ = getImageByString(StreamTextFile.contentsOfFile("/to/one/sub1/2", pr_.getFileCoreStream(), pr_.getStreams()));
         assertEq(2,i1_.length);
         assertEq(2,i1_[0].length);
         assertEq(1,i1_[0][0]);
@@ -239,7 +239,7 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
         assertEq(2,i1_[1].length);
         assertEq(3,i1_[1][0]);
         assertEq(4,i1_[1][1]);
-        int[][] i2_ = BaseSixtyFourUtil.getImageByString(StreamTextFile.contentsOfFile("/to/one/sub2/2", pr_.getFileCoreStream(), pr_.getStreams()));
+        int[][] i2_ = getImageByString(StreamTextFile.contentsOfFile("/to/one/sub2/2", pr_.getFileCoreStream(), pr_.getStreams()));
         assertEq(3,i2_.length);
         assertEq(2,i2_[0].length);
         assertEq(1,i2_[0][0]);
@@ -250,7 +250,7 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
         assertEq(2,i2_[2].length);
         assertEq(5,i2_[2][0]);
         assertEq(6,i2_[2][1]);
-        int[][] i3_ = BaseSixtyFourUtil.getImageByString(StreamTextFile.contentsOfFile("/to/two/sub1/2", pr_.getFileCoreStream(), pr_.getStreams()));
+        int[][] i3_ = getImageByString(StreamTextFile.contentsOfFile("/to/two/sub1/2", pr_.getFileCoreStream(), pr_.getStreams()));
         assertEq(2,i3_.length);
         assertEq(3,i3_[0].length);
         assertEq(1,i3_[0][0]);
@@ -260,7 +260,7 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
         assertEq(4,i3_[1][0]);
         assertEq(5,i3_[1][1]);
         assertEq(6,i3_[1][2]);
-        int[][] i4_ = BaseSixtyFourUtil.getImageByString(StreamTextFile.contentsOfFile("/to/two/sub2/2", pr_.getFileCoreStream(), pr_.getStreams()));
+        int[][] i4_ = getImageByString(StreamTextFile.contentsOfFile("/to/two/sub2/2", pr_.getFileCoreStream(), pr_.getStreams()));
         assertEq(3,i4_.length);
         assertEq(3,i4_[0].length);
         assertEq(1,i4_[0][0]);
@@ -306,7 +306,7 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
         assertEq("/from",cr_.getWindow().getPathExport().getText());
         assertEq("/to",cr_.getWindow().getPath().getText());
 //        assertFalse(cr_.getWindow().getReadImages().isSelected());
-        int[][] i1_ = BaseSixtyFourUtil.getImageByString(StringUtil.decode(StreamBinaryFile.loadFile("/to/one/sub1/2",pr_.getStreams()).getBytes()));
+        int[][] i1_ = getCsvImageByString(StringUtil.decode(StreamBinaryFile.loadFile("/to/one/sub1/2",pr_.getStreams()).getBytes()));
         assertEq(2,i1_.length);
         assertEq(2,i1_[0].length);
         assertEq(1,i1_[0][0]);
@@ -314,7 +314,7 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
         assertEq(2,i1_[1].length);
         assertEq(3,i1_[1][0]);
         assertEq(4,i1_[1][1]);
-        int[][] i2_ = BaseSixtyFourUtil.getImageByString(StringUtil.decode(StreamBinaryFile.loadFile("/to/one/sub2/2",pr_.getStreams()).getBytes()));
+        int[][] i2_ = getCsvImageByString(StringUtil.decode(StreamBinaryFile.loadFile("/to/one/sub2/2",pr_.getStreams()).getBytes()));
         assertEq(3,i2_.length);
         assertEq(2,i2_[0].length);
         assertEq(1,i2_[0][0]);
@@ -325,7 +325,7 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
         assertEq(2,i2_[2].length);
         assertEq(5,i2_[2][0]);
         assertEq(6,i2_[2][1]);
-        int[][] i3_ = BaseSixtyFourUtil.getImageByString(StringUtil.decode(StreamBinaryFile.loadFile("/to/two/sub1/2",pr_.getStreams()).getBytes()));
+        int[][] i3_ = getCsvImageByString(StringUtil.decode(StreamBinaryFile.loadFile("/to/two/sub1/2",pr_.getStreams()).getBytes()));
         assertEq(2,i3_.length);
         assertEq(3,i3_[0].length);
         assertEq(1,i3_[0][0]);
@@ -335,7 +335,7 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
         assertEq(4,i3_[1][0]);
         assertEq(5,i3_[1][1]);
         assertEq(6,i3_[1][2]);
-        int[][] i4_ = BaseSixtyFourUtil.getImageByString(StringUtil.decode(StreamBinaryFile.loadFile("/to/two/sub2/2",pr_.getStreams()).getBytes()));
+        int[][] i4_ = getCsvImageByString(StringUtil.decode(StreamBinaryFile.loadFile("/to/two/sub2/2", pr_.getStreams()).getBytes()));
         assertEq(3,i4_.length);
         assertEq(3,i4_[0].length);
         assertEq(1,i4_[0][0]);
@@ -350,6 +350,15 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
         assertEq(8,i4_[2][1]);
         assertEq(9,i4_[2][2]);
     }
+
+    private int[][] getImageByString(String _decode) {
+        return BaseSixtyFourUtil.getImageByString(_decode,MessagesConverter.BASE);
+    }
+
+    private int[][] getCsvImageByString(String _decode) {
+        return ImageCsv.getImageByString(_decode);
+    }
+
     public static void updateBase(TranslationsLg _en) {
         StringMap<TranslationsFile> en_ = MessagesGuiFct.initAppliTr(_en).getMapping();
         en_.addEntry(MessagesGuiFct.FILE_DIAL, MessagesFileDialog.en());
@@ -367,6 +376,6 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
         return bs_.toArrByte();
     }
     private static String toText(int[][] _img) {
-        return BaseSixtyFourUtil.getStringByImage(_img);
+        return BaseSixtyFourUtil.getStringByImage(_img,MessagesConverter.BASE);
     }
 }

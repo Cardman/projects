@@ -20,7 +20,6 @@ import code.gui.document.RenderedPage;
 import code.gui.document.ThreadRefresh;
 import code.gui.events.AlwaysActionListenerAct;
 import code.gui.images.AbstractImage;
-import code.images.BaseSixtyFourUtil;
 import code.mock.*;
 import code.sml.*;
 import code.sml.util.Translations;
@@ -240,7 +239,8 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         WindowAiki window2_ = newFight();
         updateBase(window2_.getFrames().getTranslations());
         window2_.getFrames().getFileCoreStream().newFile("/video/1").mkdirs();
-        StreamBinaryFile.writeFile("/video/1/link_0.png", StringUtil.encode(BaseSixtyFourUtil.getStringByImage(new int[][]{new int[1]})),window2_.getStreams());
+        StreamBinaryFile.writeFile("/video/1/link_0.png", StringUtil.encode("1;1"),window2_.getStreams());
+//        StreamBinaryFile.writeFile("/video/1/link_0.png", StringUtil.encode(BaseSixtyFourUtil.getStringByImage(new int[][]{new int[1]})),window2_.getStreams());
         StreamBinaryFile.writeFile("/video/1/2", new byte[0],window2_.getStreams());
         StreamBinaryFile.writeFile("/video/2", new byte[0],window2_.getStreams());
         window2_.getVideoLoading().getVideo(window2_.getGenerator(),window2_.getFrames().getFileCoreStream(),window2_.getFrames(),window2_.getVideoBase());

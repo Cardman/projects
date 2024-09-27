@@ -139,9 +139,9 @@ public final class ImageCsv {
         }
         return return_;
     }
-    public static String toBaseSixtyFour(String _string) {
-        return BaseSixtyFourUtil.getStringByImage(getImageByString(_string));
-    }
+//    public static String toBaseSixtyFour(String _string) {
+//        return BaseSixtyFourUtil.getStringByImage(getImageByString(_string));
+//    }
 
     public static int[][] getImageByString(String _string) {
         ImageCsv i_ = new ImageCsv(_string);

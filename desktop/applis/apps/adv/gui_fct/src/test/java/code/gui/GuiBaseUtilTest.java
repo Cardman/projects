@@ -4,6 +4,7 @@ import code.gui.events.*;
 import code.gui.files.ClosingFileFrameEvent;
 import code.gui.initialize.*;
 import code.mock.*;
+import code.stream.AbsClipStream;
 import code.threads.ConcreteBoolean;
 import code.util.*;
 import code.util.comparators.NaturalComparator;
@@ -12,7 +13,7 @@ import code.util.core.StringUtil;
 import org.junit.Test;
 
 public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
-
+    public static final String BASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
     @Test
     public void eq1() {
         MockImage img_ = new MockImage(new int[2][3]);
@@ -573,7 +574,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
     }
     @Test
     public void parseBaseSixtyFourBinary1() {
-        byte[] bytes_ = GuiBaseUtil.parseBaseSixtyFourBinary("AAAB");
+        byte[] bytes_ = parseBaseSixtyFourBinary("AAAB");
         assertEq(3,bytes_.length);
         assertEq(0,bytes_[0]);
         assertEq(0,bytes_[1]);
@@ -581,7 +582,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
     }
     @Test
     public void parseBaseSixtyFourBinary2() {
-        byte[] bytes_ = GuiBaseUtil.parseBaseSixtyFourBinary("AAAB===");
+        byte[] bytes_ = parseBaseSixtyFourBinary("AAAB===");
         assertEq(3,bytes_.length);
         assertEq(0,bytes_[0]);
         assertEq(0,bytes_[1]);
@@ -589,7 +590,8 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
     }
     @Test
     public void parseBaseSixtyFourBinary3() {
-        byte[] bytes_ = GuiBaseUtil.parseBaseSixtyFourBinary("====");
+        byte[] bytes_ = parseBaseSixtyFourBinary("====");
+//        assertEq(0,bytes_.length);
         assertEq(3,bytes_.length);
         assertEq(-1,bytes_[0]);
         assertEq(-1,bytes_[1]);
@@ -597,48 +599,48 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
     }
     @Test
     public void parseBaseSixtyFourBinary4() {
-        byte[] bytes_ = GuiBaseUtil.parseBaseSixtyFourBinary("AAA");
+        byte[] bytes_ = parseBaseSixtyFourBinary("AAA");
         assertEq(0,bytes_.length);
     }
     @Test
     public void parseBaseSixtyFourBinary5() {
-        byte[] bytes_ = GuiBaseUtil.parseBaseSixtyFourBinary("AA");
+        byte[] bytes_ = parseBaseSixtyFourBinary("AA");
         assertEq(0,bytes_.length);
     }
     @Test
     public void parseBaseSixtyFourBinary6() {
-        byte[] bytes_ = GuiBaseUtil.parseBaseSixtyFourBinary("A");
+        byte[] bytes_ = parseBaseSixtyFourBinary("A");
         assertEq(0,bytes_.length);
     }
     @Test
     public void parseBaseSixtyFourBinary7() {
-        byte[] bytes_ = GuiBaseUtil.parseBaseSixtyFourBinary("");
+        byte[] bytes_ = parseBaseSixtyFourBinary("");
         assertEq(0,bytes_.length);
     }
     @Test
     public void parseBaseSixtyFourBinary8() {
-        byte[] bytes_ = GuiBaseUtil.parseBaseSixtyFourBinary("AAA=");
+        byte[] bytes_ = parseBaseSixtyFourBinary("AAA=");
         assertEq(2,bytes_.length);
         assertEq(0,bytes_[0]);
         assertEq(0,bytes_[1]);
     }
     @Test
     public void parseBaseSixtyFourBinary9() {
-        byte[] bytes_ = GuiBaseUtil.parseBaseSixtyFourBinary("AA==");
+        byte[] bytes_ = parseBaseSixtyFourBinary("AA==");
         assertEq(1,bytes_.length);
         assertEq(0,bytes_[0]);
     }
     @Test
     public void getAbsClipStream1() {
-        assertNull(GuiBaseUtil.getAbsClipStream(init(),wrapInts()));
+        assertNull(getAbsClipStream(init(), wrapInts()));
     }
     @Test
     public void getAbsClipStream2() {
-        assertNotNull(GuiBaseUtil.getAbsClipStream(init(),wrapInts('R', 'I', 'F', 'F', 0, 0, 0, 0, 'W', 'A', 'V', 'E', 1)));
+        assertNotNull(getAbsClipStream(init(), wrapInts('R', 'I', 'F', 'F', 0, 0, 0, 0, 'W', 'A', 'V', 'E', 1)));
     }
     @Test
     public void getAbsClipStream3() {
-        assertNotNull(GuiBaseUtil.getAbsClipStream(init(),wrapInts('I', 'D', '3', 1)));
+        assertNotNull(getAbsClipStream(init(), wrapInts('I', 'D', '3', 1)));
     }
     @Test
     public void getStringTime1() {
@@ -705,4 +707,13 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
     private boolean launch(MockSoundRecord _pl) {
         return GuiBaseUtil.launch(_pl.build());
     }
+
+    private AbsClipStream getAbsClipStream(MockProgramInfosSecSample _pr, byte[] _bytes) {
+        return GuiBaseUtil.getAbsClipStream(_pr, _bytes, BASE);
+    }
+
+    private byte[] parseBaseSixtyFourBinary(String _text) {
+        return GuiBaseUtil.parseBaseSixtyFourBinary(_text, BASE);
+    }
+
 }

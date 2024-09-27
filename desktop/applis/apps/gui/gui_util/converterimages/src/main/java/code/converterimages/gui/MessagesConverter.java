@@ -10,6 +10,7 @@ public final class MessagesConverter {
 //    public static final String FOLDER = "rts_imgs";
     public static final String APPS_CONVERTER = "converter";
     public static final String TEMP_FOLDER = MessagesConverter.APPS_CONVERTER;
+    public static final String BASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
     public static final String FRAME = "0";
     public static final String OK = "0";
     public static final String READ = "1";

@@ -9,7 +9,6 @@ import aiki.facade.FacadeGame;
 import aiki.game.fight.*;
 import aiki.game.fight.util.MoveTarget;
 import aiki.util.*;
-import code.images.BaseSixtyFourUtil;
 import code.util.*;
 import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
@@ -87,7 +86,7 @@ public class FightCalculationBean extends CommonFightBean {
             CustList<FighterNamePkNameMv> keys_ = new CustList<FighterNamePkNameMv>();
             for (FighterNamePkNameMv k:e.getKeyPks()) {
                 FighterNamePkNameMv cp_ = new FighterNamePkNameMv();
-                cp_.setNamePk(BaseSixtyFourUtil.getStringByImage(dataBaseFight_.getData().getMaxiPkFront().getVal(k.getNamePk())));
+                cp_.setNamePk(getStringByImage(dataBaseFight_.getData().getMaxiPkFront().getVal(k.getNamePk())));
                 cp_.setNameMv(k.getNameMv());
                 cp_.setNameMvTr(k.getNameMvTr());
                 cp_.setNumber(k.getNumber());

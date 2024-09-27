@@ -5,7 +5,6 @@ import aiki.map.characters.GymLeader;
 import aiki.map.characters.Trainer;
 import aiki.map.characters.TrainerMultiFights;
 import aiki.map.pokemon.PokemonTeam;
-import code.images.BaseSixtyFourUtil;
 import code.scripts.confs.PkScriptPages;
 import code.util.CustList;
 import code.util.StringMap;
@@ -27,8 +26,8 @@ public class TrainerBean extends CommonBean {
             GymLeader gym_ = (GymLeader) trainer;
             move = data_.getTm().getVal(gym_.getTm());
         }
-        image = BaseSixtyFourUtil.getStringByImage(data_.getTrainer(trainer.getImageMaxiFileName()));
-        imageMini = BaseSixtyFourUtil.getStringByImage(data_.getPerson(trainer.getImageMiniFileName()));
+        image = getStringByImage(data_.getTrainer(trainer.getImageMaxiFileName()));
+        imageMini = getStringByImage(data_.getPerson(trainer.getImageMiniFileName()));
     }
     public String getName() {
         return name;

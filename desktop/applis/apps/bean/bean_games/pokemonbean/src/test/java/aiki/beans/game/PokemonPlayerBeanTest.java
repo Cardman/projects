@@ -484,7 +484,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         ev_.setBaseEvo(PIKACHU);
         _init.completeMembers(RAI, ev_);
         _init.getPokemon(PIKACHU).getEvolutions().addEntry(RAI,Instances.newEvolutionHappiness());
-        _init.getMaxiPkFront().put(RAI, BaseSixtyFourUtil.getImageByString(MAX_RAI));
+        _init.getMaxiPkFront().put(RAI, getImageByString(MAX_RAI));
         _init.getTranslatedPokemon().getVal(EN).addEntry(RAI,RAI_TR);
     }
     private void evos2(DataBase _init) {
@@ -496,8 +496,8 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         _init.completeMembers(RAI2, ev2_);
         _init.getPokemon(PIKACHU).getEvolutions().addEntry(RAI,Instances.newEvolutionHappiness());
         _init.getPokemon(PIKACHU).getEvolutions().addEntry(RAI2,Instances.newEvolutionHappiness());
-        _init.getMaxiPkFront().put(RAI, BaseSixtyFourUtil.getImageByString(MAX_RAI));
-        _init.getMaxiPkFront().put(RAI2, BaseSixtyFourUtil.getImageByString(MAX_RAI2));
+        _init.getMaxiPkFront().put(RAI, getImageByString(MAX_RAI));
+        _init.getMaxiPkFront().put(RAI2, getImageByString(MAX_RAI2));
         _init.getTranslatedPokemon().getVal(EN).addEntry(RAI,RAI_TR);
         _init.getTranslatedPokemon().getVal(EN).addEntry(RAI2,RAI2_TR);
     }
@@ -515,7 +515,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
     }
 
     private void image(DataBase _init) {
-        _init.getMaxiPkFront().put(PIKACHU, BaseSixtyFourUtil.getImageByString(MAX_PIKA));
+        _init.getMaxiPkFront().put(PIKACHU, getImageByString(MAX_PIKA));
     }
     private void moves(DataBase _init) {
         _init.addConstNumTest(DataBase.DEF_MAX_ATT,Rate.newRate("2"));

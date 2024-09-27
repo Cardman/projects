@@ -1,7 +1,6 @@
 package code.formathtml.render;
 
 import code.sml.RendKeyWordsGroup;
-import code.images.BaseSixtyFourUtil;
 import code.sml.*;
 import code.util.CollCapacity;
 import code.util.CustList;
@@ -13,12 +12,12 @@ public final class MetaAnimatedImage extends MetaImage {
 
     private final int delay;
 
-    public MetaAnimatedImage(MetaContainer _parent, StringList _images, String _title,int _delay, Element _anchor, RendKeyWordsGroup _rend) {
+    public MetaAnimatedImage(MetaContainer _parent, StringList _images, String _title, int _delay, Element _anchor, RendKeyWordsGroup _rend, AbsMetaSimpleImageBuilder _absImg) {
         super(_parent, _title, _anchor,_rend);
         delay = _delay;
         images = new CustList<int[][]>(new CollCapacity(_images.size()));
         for (String s: _images) {
-            images.add(BaseSixtyFourUtil.getImageByString(s));
+            images.add(_absImg.build(s));
         }
     }
     public CustList<int[][]> getImages() {

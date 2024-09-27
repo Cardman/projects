@@ -15,6 +15,7 @@ import code.util.core.SortConstants;
 import org.junit.Assert;
 
 public abstract class EquallableGuiDocUtil {
+    public static final String BASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
     public static void assertNotNull(Node _value) {
         Assert.assertNotNull(_value);
     }
@@ -79,6 +80,7 @@ public abstract class EquallableGuiDocUtil {
     }
     public static RenderedPage withFrame(RenderedPage _rend) {
         _rend.setFrame(_rend.getGene().getFrameFactory().newCommonFrame());
+        _rend.setBase(BASE);
         return _rend;
     }
     public static RenderedPage withStd(RenderedPage _rend) {
@@ -124,13 +126,14 @@ public abstract class EquallableGuiDocUtil {
         co_.setCurrentUrl(_dest);
         co_.setupText(_txt,res_.getDocument(),keys_.getKeyWordsTags().getKeyWordHead(),keys_.getKeyWordsAttrs().getAttrTitle());
         _rend.setKeyWordDigit(_rend.getKeyWordDigit());
+        _rend.setBase(_rend.getBase());
         _rend.setArea(_rend.getArea());
         _rend.initNav(co_,keys_);
         _rend.setupText();
         return _rend;
     }
     protected static MetaDocument getMetaDocument(String _nav) {
-        return MetaDocument.newInstance(DocumentBuilder.parseSaxNotNullRowCol(_nav).getDocument(),new RendKeyWordsGroup(),"ABCDEF",new MockCharacterCaseConverter());
+        return MetaDocument.newInstance(DocumentBuilder.parseSaxNotNullRowCol(_nav).getDocument(),new RendKeyWordsGroup(),"ABCDEF",new MockCharacterCaseConverter(), BASE);
     }
     public static RenderedPage newRenderedPage(MockProgramInfos _pr) {
         return new RenderedPage(_pr.getCompoFactory().newAbsScrollPane(), _pr,new MockCharacterCaseConverter(), new AlwaysActionListenerAct());

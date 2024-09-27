@@ -110,8 +110,8 @@ public final class FightHelpBeanTest extends InitDbFightHelp{
         f_.getData().getTranslatedMoves().getVal(EN).addEntry(M_STA,M_STA_TR);
         f_.getData().getTranslatedStatistics().addEntry(EN,new IdMap<Statistic,String>());
         f_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.ATTACK, CC);
-        f_.getData().getAnimStatis().addEntry(Statistic.ATTACK.getStatName(), BaseSixtyFourUtil.getImageByString("AAABAAAA"));
-        f_.getData().setAnimAbsorb(BaseSixtyFourUtil.getImageByString("AAABAAAA"));
+        f_.getData().getAnimStatis().addEntry(Statistic.ATTACK.getStatName(), getImageByString("AAABAAAA"));
+        f_.getData().setAnimAbsorb(getImageByString("AAABAAAA"));
         f_.getData().setCombos(Instances.newCombos());
         f_.getData().getLitterals().addEntry(EN,new StringMap<String>());
         f_.getData().getLitterals().getVal(EN).addEntry(MessagesDataBaseConstants.DEF_TEMPS_TOUR, TAB+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +TAB+TIME);

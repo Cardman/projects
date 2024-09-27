@@ -44,7 +44,7 @@ public final class ConverterBufferedImageTest extends EquallableImageUtil {
     }
     @Test
     public void getSquareColorSixtyFour1Test() {
-        String intColor_ = ConverterBufferedImage.getSquareColorSixtyFour("12,168,14", ",",1);
+        String intColor_ = ConverterBufferedImage.getSquareColorSixtyFour("12,168,14", ",",1, BASE);
         assertEq("AAABDKgO",intColor_);
     }
     @Test

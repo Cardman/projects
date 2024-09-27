@@ -184,7 +184,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
         if (!listSong(bytes_)) {
 //        if (bytes_.length > 0 && bytes_[0] != '<')
             //.wav or .mp3 or .txt
-            clipStream = GuiBaseUtil.getAbsClipStream(getFrames(),bytes_);
+            clipStream = GuiBaseUtil.getAbsClipStream(getFrames(),bytes_, MessagesPlayer.BASE);
             possibleLaunch();
             return;
         }
@@ -342,11 +342,11 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
 
     private AbsClipStream getAbsClipStream() {
         byte[] bytes_ = getBytes();
-        return GuiBaseUtil.getAbsClipStream(getFrames(),bytes_);
+        return GuiBaseUtil.getAbsClipStream(getFrames(),bytes_, MessagesPlayer.BASE);
     }
 
     private boolean valid(byte[] _bytes) {
-        AbsClipStream absClipStream_ = GuiBaseUtil.getAbsClipStream(getFrames(),_bytes);
+        AbsClipStream absClipStream_ = GuiBaseUtil.getAbsClipStream(getFrames(),_bytes, MessagesPlayer.BASE);
         if (absClipStream_ == null) {
             return false;
         }

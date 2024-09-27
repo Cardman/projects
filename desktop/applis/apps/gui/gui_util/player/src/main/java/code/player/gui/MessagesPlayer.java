@@ -9,6 +9,7 @@ public final class MessagesPlayer {
     public static final String CANNOT_READ_TITLE = "3";
     public static final String CANNOT_READ_MESSAGE = "4";
     public static final String LAST = "5";
+    public static final String BASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
     private MessagesPlayer() {
     }
     public static TranslationsFile en(){

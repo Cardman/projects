@@ -3,7 +3,6 @@ import aiki.beans.CommonBean;
 import aiki.db.DataBase;
 import aiki.map.characters.Ally;
 import aiki.map.characters.TempTrainer;
-import code.images.BaseSixtyFourUtil;
 import code.scripts.confs.PkScriptPages;
 
 public class DualFightBean extends CommonBean {
@@ -20,9 +19,9 @@ public class DualFightBean extends CommonBean {
         trainer = (TempTrainer) getForms().getValPers(CST_PERSON);
         ally = getForms().getValAlly(CST_ALLY);
         DataBase data_ = getDataBase();
-        image = BaseSixtyFourUtil.getStringByImage(data_.getTrainer(trainer.getImageMaxiFileName()));
-        imageMini = BaseSixtyFourUtil.getStringByImage(data_.getPerson(trainer.getImageMiniFileName()));
-        imageMiniSecond = BaseSixtyFourUtil.getStringByImage(data_.getPerson(trainer.getImageMiniSecondTrainerFileName()));
+        image = getStringByImage(data_.getTrainer(trainer.getImageMaxiFileName()));
+        imageMini = getStringByImage(data_.getPerson(trainer.getImageMiniFileName()));
+        imageMiniSecond = getStringByImage(data_.getPerson(trainer.getImageMiniSecondTrainerFileName()));
     }
 
     public String getImage() {
