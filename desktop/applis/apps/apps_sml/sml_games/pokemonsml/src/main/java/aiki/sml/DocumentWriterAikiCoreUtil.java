@@ -2655,13 +2655,13 @@ public final class DocumentWriterAikiCoreUtil {
 
     public static String setGame(Game _object) {
         Document doc_ = DocumentBuilder.newXmlDocument();
-        doc_.appendChild(setGame(_object, EMPTY_STRING, doc_));
+        doc_.appendChild(setGame(_object, doc_));
         return doc_.export();
     }
 
-    private static Element setGame(Game _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(DocumentReaderAikiCoreUtil.GAME);
-        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+    private static Element setGame(Game _object, Document _document) {
+        Element element_ = _document.createElement(DocumentReaderAikiCoreUtil.MAIN_TAG);
+        DocumentWriterCoreUtil.setFieldName(element_, DocumentReaderAikiCoreUtil.GAME);
         setGame(_object,element_,_document);
         return element_;
     }
@@ -3045,13 +3045,13 @@ public final class DocumentWriterAikiCoreUtil {
 
     public static String setLoadingGame(LoadingGame _object) {
         Document doc_ = DocumentBuilder.newXmlDocument();
-        doc_.appendChild(setLoadingGame(_object, EMPTY_STRING, doc_));
+        doc_.appendChild(setLoadingGame(_object, doc_));
         return doc_.export();
     }
 
-    private static Element setLoadingGame(LoadingGame _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(DocumentReaderAikiCoreUtil.LOADING_GAME);
-        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
+    private static Element setLoadingGame(LoadingGame _object, Document _document) {
+        Element element_ = _document.createElement(DocumentReaderAikiCoreUtil.MAIN_TAG);
+        element_.setAttribute(DocumentWriterCoreUtil.FIELD,DocumentReaderAikiCoreUtil.LOADING_GAME);
         setLoadingGame(_object,element_,_document);
         return element_;
     }

@@ -43,8 +43,10 @@ import org.junit.Test;
 
 public final class DocumentAikiTest extends EquallableAikiSerialUtil {
 
-    public static final String LOADING_GAME_MINI = "<" + DocumentReaderAikiCoreUtil.LOADING_GAME + "/>";
-    public static final String GAME_MINI = "<" + DocumentReaderAikiCoreUtil.GAME + "/>";
+    public static final String LOADING_GAME_MINI = "<" +DocumentReaderAikiCoreUtil.MAIN_TAG+" "+DocumentWriterCoreUtil.FIELD+"=\""+ DocumentReaderAikiCoreUtil.LOADING_GAME + "\"/>";
+    public static final String GAME_MINI = "<" + DocumentReaderAikiCoreUtil.MAIN_TAG+" "+DocumentWriterCoreUtil.FIELD+"=\""+ DocumentReaderAikiCoreUtil.GAME + "\"/>";
+    public static final String OTHER_MINI = "<" + DocumentReaderAikiCoreUtil.MAIN_TAG + "/>";
+    public static final String OTHER_SEC_MINI = "<" + DocumentReaderAikiCoreUtil.MAIN_TAG + "_/>";
 
     @Test
     public void t1() {
@@ -538,6 +540,14 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
         assertNull(getGameOrNull(LOADING_GAME_MINI));
     }
     @Test
+    public void t_48() {
+        assertNull(getGameOrNull(OTHER_MINI));
+    }
+    @Test
+    public void t__48() {
+        assertNull(getGameOrNull(OTHER_SEC_MINI));
+    }
+    @Test
     public void t49() {
         Game g_ = getGameOrNull(GAME_MINI);
         assertNotNull(g_);
@@ -560,6 +570,14 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
     @Test
     public void t53() {
         assertNull(getLoadingGameOrNull(GAME_MINI));
+    }
+    @Test
+    public void t_53() {
+        assertNull(getLoadingGameOrNull(OTHER_MINI));
+    }
+    @Test
+    public void t__53() {
+        assertNull(getLoadingGameOrNull(OTHER_SEC_MINI));
     }
     @Test
     public void t54() {

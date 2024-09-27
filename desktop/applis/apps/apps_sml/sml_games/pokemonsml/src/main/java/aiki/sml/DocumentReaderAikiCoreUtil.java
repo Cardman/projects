@@ -50,8 +50,9 @@ import code.util.*;
 import code.util.core.*;
 
 public final class DocumentReaderAikiCoreUtil {
-    public static final String LOADING_GAME = "LoadingGame";
-    public static final String GAME = "Game";
+    public static final String MAIN_TAG = "4";
+    public static final String LOADING_GAME = "0";
+    public static final String GAME = "1";
 
     private DocumentReaderAikiCoreUtil() {
     }
@@ -4261,23 +4262,16 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     public static Game getGame(String _string, SexListInt _sexListInt) {
-        Document doc_ = DocumentBuilder.parseNoTextDocument(_string);
-        if (doc_ == null) {
-            return null;
-        }
-        String tagName_ = doc_.getDocumentElement().getTagName();
-        if (StringUtil.quickEq(tagName_, LOADING_GAME)) {
-            return null;
-        }
-        return getGame(doc_.getDocumentElement(),_sexListInt);
+        return getGameOrNull(DocumentBuilder.parseNoTextDocument(_string),_sexListInt);
     }
 
     public static Game getGameOrNull(Document _string, SexListInt _sexList) {
         if (_string == null) {
             return null;
         }
-        String tagName_ = _string.getDocumentElement().getTagName();
-        if (!StringUtil.quickEq(tagName_, GAME)) {
+        Element documentElement_ = _string.getDocumentElement();
+        String tagName_ = documentElement_.getTagName();
+        if (!StringUtil.quickEq(tagName_, MAIN_TAG) || !StringUtil.quickEq(documentElement_.getAttribute(DocumentWriterCoreUtil.FIELD), GAME)) {
             return null;
         }
         return getGame(_string.getDocumentElement(),_sexList);
@@ -5110,11 +5104,12 @@ public final class DocumentReaderAikiCoreUtil {
         if (_string == null) {
             return null;
         }
-        String tagName_ = _string.getDocumentElement().getTagName();
-        if (!StringUtil.quickEq(tagName_, LOADING_GAME)) {
+        Element documentElement_ = _string.getDocumentElement();
+        String tagName_ = documentElement_.getTagName();
+        if (!StringUtil.quickEq(tagName_, MAIN_TAG) || !StringUtil.quickEq(documentElement_.getAttribute(DocumentWriterCoreUtil.FIELD), LOADING_GAME)) {
             return null;
         }
-        return getLoadingGame(_string.getDocumentElement());
+        return getLoadingGame(documentElement_);
     }
     public static LoadingGame getLoadingGame(String _string) {
         Document doc_ = DocumentBuilder.parseNoTextDocument(_string);
