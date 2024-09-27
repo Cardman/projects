@@ -10,7 +10,7 @@ import cards.president.*;
 import cards.president.enumerations.*;
 import cards.president.sml.*;
 import cards.solitaire.*;
-import cards.solitaire.sml.DocumentWriterSolitaireUtil;
+import cards.solitaire.sml.*;
 import cards.tarot.*;
 import cards.tarot.enumerations.*;
 import cards.tarot.sml.*;
@@ -513,14 +513,16 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
     public void load8() {
         MockProgramInfos pr_ = prAppli();
         FacadeCards fg_ = facade(pr_);
-        fg_.getNicknamesCrud().getCardGamesCrud().solitaire(DocumentWriterSolitaireUtil.TYPE_GAME_SOLITAIRE,solitaire());
-        assertEq(1,fg_.load(DocumentWriterSolitaireUtil.TYPE_GAME_SOLITAIRE).getPartiesSolitaire().size());
+        fg_.getNicknamesCrud().getCardGamesCrud().solitaire(DocumentWriterSolitaireUtil.TYPE_GAME_SOLITAIRE, solitaireClassic());
+        Games games_ = fg_.load(DocumentWriterSolitaireUtil.TYPE_GAME_SOLITAIRE);
+        assertEq(1, games_.getPartiesSolitaire().size());
+        assertEq(SolitaireType.CLASSIC, games_.getPartiesSolitaire().get(0).type());
     }
     @Test
     public void load9() {
         MockProgramInfos pr_ = prAppli();
         FacadeCards fg_ = facade(pr_);
-        AbsDealSolitaire s_ = solitaire();
+        AbsDealSolitaire s_ = solitaireClassic();
         s_.getHandsBegin().clear();
         fg_.getNicknamesCrud().getCardGamesCrud().solitaire(DocumentWriterSolitaireUtil.TYPE_GAME_SOLITAIRE,s_);
         Games load_ = fg_.load(DocumentWriterSolitaireUtil.TYPE_GAME_SOLITAIRE);
@@ -534,7 +536,85 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
     public void load10() {
         MockProgramInfos pr_ = prAppli();
         FacadeCards fg_ = facade(pr_);
-        AbsDealSolitaire s_ = solitaire();
+        AbsDealSolitaire s_ = solitaireClassic();
+        s_.getHandsBegin().clear();
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(doc_.createElement(DocumentWriterSolitaireUtil.TYPE_GAME_SOLITAIRE));
+        StreamTextFile.saveTextFile(DocumentWriterSolitaireUtil.TYPE_GAME_SOLITAIRE, doc_.export(),pr_.getStreams());
+        Games load_ = fg_.load(DocumentWriterSolitaireUtil.TYPE_GAME_SOLITAIRE);
+        assertEq(0, load_.getPartiesBelote().size());
+        assertEq(0, load_.getPartiesPresident().size());
+        assertEq(0, load_.getPartiesTarot().size());
+        assertEq(0, load_.getPartiesSolitaire().size());
+        assertTrue(load_.getErrorFile().isEmpty());
+    }
+    @Test
+    public void load11() {
+        MockProgramInfos pr_ = prAppli();
+        FacadeCards fg_ = facade(pr_);
+        fg_.getNicknamesCrud().getCardGamesCrud().solitaire(DocumentWriterSolitaireUtil.TYPE_GAME_SOLITAIRE, solitaireFreeCell());
+        Games games_ = fg_.load(DocumentWriterSolitaireUtil.TYPE_GAME_SOLITAIRE);
+        assertEq(1, games_.getPartiesSolitaire().size());
+        assertEq(SolitaireType.FREECELL, games_.getPartiesSolitaire().get(0).type());
+    }
+    @Test
+    public void load12() {
+        MockProgramInfos pr_ = prAppli();
+        FacadeCards fg_ = facade(pr_);
+        AbsDealSolitaire s_ = solitaireFreeCell();
+        s_.getHandsBegin().clear();
+        fg_.getNicknamesCrud().getCardGamesCrud().solitaire(DocumentWriterSolitaireUtil.TYPE_GAME_SOLITAIRE,s_);
+        Games load_ = fg_.load(DocumentWriterSolitaireUtil.TYPE_GAME_SOLITAIRE);
+        assertEq(0, load_.getPartiesBelote().size());
+        assertEq(0, load_.getPartiesPresident().size());
+        assertEq(0, load_.getPartiesTarot().size());
+        assertEq(0, load_.getPartiesSolitaire().size());
+        assertFalse(load_.getErrorFile().isEmpty());
+    }
+    @Test
+    public void load13() {
+        MockProgramInfos pr_ = prAppli();
+        FacadeCards fg_ = facade(pr_);
+        AbsDealSolitaire s_ = solitaireFreeCell();
+        s_.getHandsBegin().clear();
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(doc_.createElement(DocumentWriterSolitaireUtil.TYPE_GAME_SOLITAIRE));
+        StreamTextFile.saveTextFile(DocumentWriterSolitaireUtil.TYPE_GAME_SOLITAIRE, doc_.export(),pr_.getStreams());
+        Games load_ = fg_.load(DocumentWriterSolitaireUtil.TYPE_GAME_SOLITAIRE);
+        assertEq(0, load_.getPartiesBelote().size());
+        assertEq(0, load_.getPartiesPresident().size());
+        assertEq(0, load_.getPartiesTarot().size());
+        assertEq(0, load_.getPartiesSolitaire().size());
+        assertTrue(load_.getErrorFile().isEmpty());
+    }
+    @Test
+    public void load14() {
+        MockProgramInfos pr_ = prAppli();
+        FacadeCards fg_ = facade(pr_);
+        fg_.getNicknamesCrud().getCardGamesCrud().solitaire(DocumentWriterSolitaireUtil.TYPE_GAME_SOLITAIRE, solitaireSpider());
+        Games games_ = fg_.load(DocumentWriterSolitaireUtil.TYPE_GAME_SOLITAIRE);
+        assertEq(1, games_.getPartiesSolitaire().size());
+        assertEq(SolitaireType.SPIDER, games_.getPartiesSolitaire().get(0).type());
+    }
+    @Test
+    public void load15() {
+        MockProgramInfos pr_ = prAppli();
+        FacadeCards fg_ = facade(pr_);
+        AbsDealSolitaire s_ = solitaireSpider();
+        s_.getHandsBegin().clear();
+        fg_.getNicknamesCrud().getCardGamesCrud().solitaire(DocumentWriterSolitaireUtil.TYPE_GAME_SOLITAIRE,s_);
+        Games load_ = fg_.load(DocumentWriterSolitaireUtil.TYPE_GAME_SOLITAIRE);
+        assertEq(0, load_.getPartiesBelote().size());
+        assertEq(0, load_.getPartiesPresident().size());
+        assertEq(0, load_.getPartiesTarot().size());
+        assertEq(0, load_.getPartiesSolitaire().size());
+        assertFalse(load_.getErrorFile().isEmpty());
+    }
+    @Test
+    public void load16() {
+        MockProgramInfos pr_ = prAppli();
+        FacadeCards fg_ = facade(pr_);
+        AbsDealSolitaire s_ = solitaireSpider();
         s_.getHandsBegin().clear();
         Document doc_ = DocumentBuilder.newXmlDocument();
         doc_.appendChild(doc_.createElement(DocumentWriterSolitaireUtil.TYPE_GAME_SOLITAIRE));
@@ -780,7 +860,7 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
         hands_.add(hand_);
         return new DealTarot(hands_,_dealer);
     }
-    private static AbsDealSolitaire solitaire() {
+    private static AbsDealSolitaire solitaireClassic() {
         DealClassic d_ = new DealClassic();
         d_.setActions(new CustList<ActionSolitaire>());
         d_.setHands(new CustList<HandSolitaire>());
@@ -852,4 +932,202 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
         return d_;
     }
 
+    private static AbsDealSolitaire solitaireFreeCell() {
+        DealFreeCell d_ = new DealFreeCell();
+        d_.setActions(new CustList<ActionSolitaire>());
+        d_.setHands(new CustList<HandSolitaire>());
+        d_.setHandsBegin(new CustList<HandSolitaire>());
+        d_.getHandsBegin().add(new HandSolitaire());
+        d_.getHandsBegin().add(new HandSolitaire());
+        d_.getHandsBegin().add(new HandSolitaire());
+        d_.getHandsBegin().add(new HandSolitaire());
+        d_.getHandsBegin().add(new HandSolitaire());
+        d_.getHandsBegin().add(new HandSolitaire());
+        d_.getHandsBegin().add(new HandSolitaire());
+        d_.getHandsBegin().add(new HandSolitaire());
+        d_.getHandsBegin().add(new HandSolitaire());
+        d_.getHandsBegin().add(new HandSolitaire());
+        d_.getHandsBegin().add(new HandSolitaire());
+        d_.getHandsBegin().add(new HandSolitaire());
+        d_.getHandsBegin().add(new HandSolitaire());
+        d_.getHandsBegin().add(new HandSolitaire());
+        d_.getHandsBegin().add(new HandSolitaire());
+        d_.getHandsBegin().add(new HandSolitaire());
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.HEART_KING);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.HEART_QUEEN);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.HEART_JACK);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.HEART_10);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.HEART_9);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.HEART_8);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.HEART_7);
+        d_.getHandsBegin().get(1).ajouter(CardSolitaire.SPADE_KING);
+        d_.getHandsBegin().get(1).ajouter(CardSolitaire.SPADE_QUEEN);
+        d_.getHandsBegin().get(1).ajouter(CardSolitaire.SPADE_JACK);
+        d_.getHandsBegin().get(1).ajouter(CardSolitaire.SPADE_10);
+        d_.getHandsBegin().get(1).ajouter(CardSolitaire.SPADE_9);
+        d_.getHandsBegin().get(1).ajouter(CardSolitaire.SPADE_8);
+        d_.getHandsBegin().get(1).ajouter(CardSolitaire.SPADE_7);
+        d_.getHandsBegin().get(2).ajouter(CardSolitaire.DIAMOND_KING);
+        d_.getHandsBegin().get(2).ajouter(CardSolitaire.DIAMOND_QUEEN);
+        d_.getHandsBegin().get(2).ajouter(CardSolitaire.DIAMOND_JACK);
+        d_.getHandsBegin().get(2).ajouter(CardSolitaire.DIAMOND_10);
+        d_.getHandsBegin().get(2).ajouter(CardSolitaire.DIAMOND_9);
+        d_.getHandsBegin().get(2).ajouter(CardSolitaire.DIAMOND_8);
+        d_.getHandsBegin().get(2).ajouter(CardSolitaire.DIAMOND_7);
+        d_.getHandsBegin().get(3).ajouter(CardSolitaire.CLUB_KING);
+        d_.getHandsBegin().get(3).ajouter(CardSolitaire.CLUB_QUEEN);
+        d_.getHandsBegin().get(3).ajouter(CardSolitaire.CLUB_JACK);
+        d_.getHandsBegin().get(3).ajouter(CardSolitaire.CLUB_10);
+        d_.getHandsBegin().get(3).ajouter(CardSolitaire.CLUB_9);
+        d_.getHandsBegin().get(3).ajouter(CardSolitaire.CLUB_8);
+        d_.getHandsBegin().get(3).ajouter(CardSolitaire.CLUB_7);
+        d_.getHandsBegin().get(4).ajouter(CardSolitaire.HEART_1);
+        d_.getHandsBegin().get(4).ajouter(CardSolitaire.HEART_2);
+        d_.getHandsBegin().get(4).ajouter(CardSolitaire.HEART_3);
+        d_.getHandsBegin().get(4).ajouter(CardSolitaire.HEART_4);
+        d_.getHandsBegin().get(4).ajouter(CardSolitaire.HEART_5);
+        d_.getHandsBegin().get(4).ajouter(CardSolitaire.HEART_6);
+        d_.getHandsBegin().get(5).ajouter(CardSolitaire.SPADE_1);
+        d_.getHandsBegin().get(5).ajouter(CardSolitaire.SPADE_2);
+        d_.getHandsBegin().get(5).ajouter(CardSolitaire.SPADE_3);
+        d_.getHandsBegin().get(5).ajouter(CardSolitaire.SPADE_4);
+        d_.getHandsBegin().get(5).ajouter(CardSolitaire.SPADE_5);
+        d_.getHandsBegin().get(5).ajouter(CardSolitaire.SPADE_6);
+        d_.getHandsBegin().get(6).ajouter(CardSolitaire.DIAMOND_1);
+        d_.getHandsBegin().get(6).ajouter(CardSolitaire.DIAMOND_2);
+        d_.getHandsBegin().get(6).ajouter(CardSolitaire.DIAMOND_3);
+        d_.getHandsBegin().get(6).ajouter(CardSolitaire.DIAMOND_4);
+        d_.getHandsBegin().get(6).ajouter(CardSolitaire.DIAMOND_5);
+        d_.getHandsBegin().get(6).ajouter(CardSolitaire.DIAMOND_6);
+        d_.getHandsBegin().get(7).ajouter(CardSolitaire.CLUB_1);
+        d_.getHandsBegin().get(7).ajouter(CardSolitaire.CLUB_2);
+        d_.getHandsBegin().get(7).ajouter(CardSolitaire.CLUB_3);
+        d_.getHandsBegin().get(7).ajouter(CardSolitaire.CLUB_4);
+        d_.getHandsBegin().get(7).ajouter(CardSolitaire.CLUB_5);
+        d_.getHandsBegin().get(7).ajouter(CardSolitaire.CLUB_6);
+        return d_;
+    }
+    private static AbsDealSolitaire solitaireSpider() {
+        DealSpider d_ = new DealSpider();
+        d_.setActions(new CustList<ActionSolitaire>());
+        d_.setHands(new CustList<HandSolitaire>());
+        d_.setHandsBegin(new CustList<HandSolitaire>());
+        d_.getHandsBegin().add(new HandSolitaire());
+        d_.getHandsBegin().add(new HandSolitaire());
+        d_.getHandsBegin().add(new HandSolitaire());
+        d_.getHandsBegin().add(new HandSolitaire());
+        d_.getHandsBegin().add(new HandSolitaire());
+        d_.getHandsBegin().add(new HandSolitaire());
+        d_.getHandsBegin().add(new HandSolitaire());
+        d_.getHandsBegin().add(new HandSolitaire());
+        d_.getHandsBegin().add(new HandSolitaire());
+        d_.getHandsBegin().add(new HandSolitaire());
+        d_.getHandsBegin().add(new HandSolitaire());
+        d_.getHandsBegin().add(new HandSolitaire());
+        d_.getHandsBegin().get(1).ajouter(CardSolitaire.HEART_KING);
+        d_.getHandsBegin().get(2).ajouter(CardSolitaire.SPADE_KING);
+        d_.getHandsBegin().get(3).ajouter(CardSolitaire.DIAMOND_KING);
+        d_.getHandsBegin().get(4).ajouter(CardSolitaire.CLUB_KING);
+        d_.getHandsBegin().get(5).ajouter(CardSolitaire.HEART_6);
+        d_.getHandsBegin().get(6).ajouter(CardSolitaire.SPADE_6);
+        d_.getHandsBegin().get(7).ajouter(CardSolitaire.DIAMOND_6);
+        d_.getHandsBegin().get(8).ajouter(CardSolitaire.CLUB_6);
+        d_.getHandsBegin().get(9).ajouter(CardSolitaire.HEART_6);
+        d_.getHandsBegin().get(10).ajouter(CardSolitaire.SPADE_6);
+        d_.getHandsBegin().get(1).ajouter(CardSolitaire.HEART_QUEEN);
+        d_.getHandsBegin().get(2).ajouter(CardSolitaire.SPADE_QUEEN);
+        d_.getHandsBegin().get(3).ajouter(CardSolitaire.DIAMOND_QUEEN);
+        d_.getHandsBegin().get(4).ajouter(CardSolitaire.CLUB_QUEEN);
+        d_.getHandsBegin().get(5).ajouter(CardSolitaire.HEART_5);
+        d_.getHandsBegin().get(6).ajouter(CardSolitaire.SPADE_5);
+        d_.getHandsBegin().get(7).ajouter(CardSolitaire.DIAMOND_5);
+        d_.getHandsBegin().get(8).ajouter(CardSolitaire.CLUB_5);
+        d_.getHandsBegin().get(9).ajouter(CardSolitaire.HEART_7);
+        d_.getHandsBegin().get(10).ajouter(CardSolitaire.SPADE_7);
+        d_.getHandsBegin().get(1).ajouter(CardSolitaire.HEART_JACK);
+        d_.getHandsBegin().get(2).ajouter(CardSolitaire.SPADE_JACK);
+        d_.getHandsBegin().get(3).ajouter(CardSolitaire.DIAMOND_JACK);
+        d_.getHandsBegin().get(4).ajouter(CardSolitaire.CLUB_JACK);
+        d_.getHandsBegin().get(5).ajouter(CardSolitaire.HEART_4);
+        d_.getHandsBegin().get(6).ajouter(CardSolitaire.SPADE_4);
+        d_.getHandsBegin().get(7).ajouter(CardSolitaire.DIAMOND_4);
+        d_.getHandsBegin().get(8).ajouter(CardSolitaire.CLUB_4);
+        d_.getHandsBegin().get(9).ajouter(CardSolitaire.HEART_10);
+        d_.getHandsBegin().get(10).ajouter(CardSolitaire.SPADE_10);
+        d_.getHandsBegin().get(1).ajouter(CardSolitaire.HEART_10);
+        d_.getHandsBegin().get(2).ajouter(CardSolitaire.SPADE_10);
+        d_.getHandsBegin().get(3).ajouter(CardSolitaire.DIAMOND_10);
+        d_.getHandsBegin().get(4).ajouter(CardSolitaire.CLUB_10);
+        d_.getHandsBegin().get(5).ajouter(CardSolitaire.HEART_3);
+        d_.getHandsBegin().get(6).ajouter(CardSolitaire.SPADE_3);
+        d_.getHandsBegin().get(7).ajouter(CardSolitaire.DIAMOND_3);
+        d_.getHandsBegin().get(8).ajouter(CardSolitaire.CLUB_3);
+        d_.getHandsBegin().get(9).ajouter(CardSolitaire.HEART_9);
+        d_.getHandsBegin().get(10).ajouter(CardSolitaire.SPADE_9);
+        d_.getHandsBegin().get(1).ajouter(CardSolitaire.HEART_9);
+        d_.getHandsBegin().get(2).ajouter(CardSolitaire.SPADE_9);
+        d_.getHandsBegin().get(3).ajouter(CardSolitaire.DIAMOND_9);
+        d_.getHandsBegin().get(4).ajouter(CardSolitaire.CLUB_9);
+        d_.getHandsBegin().get(5).ajouter(CardSolitaire.HEART_2);
+        d_.getHandsBegin().get(6).ajouter(CardSolitaire.SPADE_2);
+        d_.getHandsBegin().get(7).ajouter(CardSolitaire.DIAMOND_2);
+        d_.getHandsBegin().get(8).ajouter(CardSolitaire.CLUB_2);
+        d_.getHandsBegin().get(9).ajouter(CardSolitaire.HEART_8);
+        d_.getHandsBegin().get(10).ajouter(CardSolitaire.SPADE_8);
+        d_.getHandsBegin().get(1).ajouter(CardSolitaire.HEART_8);
+        d_.getHandsBegin().get(2).ajouter(CardSolitaire.SPADE_8);
+        d_.getHandsBegin().get(3).ajouter(CardSolitaire.DIAMOND_8);
+        d_.getHandsBegin().get(4).ajouter(CardSolitaire.CLUB_8);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.HEART_7);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.SPADE_7);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.DIAMOND_7);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.CLUB_7);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.HEART_1);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.SPADE_1);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.DIAMOND_1);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.CLUB_1);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.HEART_JACK);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.SPADE_JACK);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.HEART_1);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.HEART_2);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.HEART_3);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.HEART_4);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.HEART_5);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.SPADE_1);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.SPADE_2);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.SPADE_3);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.SPADE_4);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.SPADE_5);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.DIAMOND_1);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.DIAMOND_2);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.DIAMOND_3);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.DIAMOND_4);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.DIAMOND_5);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.CLUB_1);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.CLUB_2);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.CLUB_3);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.CLUB_4);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.CLUB_5);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.DIAMOND_6);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.DIAMOND_7);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.DIAMOND_8);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.DIAMOND_9);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.DIAMOND_10);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.CLUB_6);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.CLUB_7);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.CLUB_8);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.CLUB_9);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.CLUB_10);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.DIAMOND_JACK);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.CLUB_JACK);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.HEART_QUEEN);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.HEART_KING);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.SPADE_QUEEN);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.SPADE_KING);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.DIAMOND_QUEEN);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.DIAMOND_KING);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.CLUB_QUEEN);
+        d_.getHandsBegin().get(0).ajouter(CardSolitaire.CLUB_KING);
+        return d_;
+    }
 }

@@ -9,6 +9,7 @@ import cards.president.enumerations.*;
 import cards.president.sml.*;
 import cards.solitaire.AbsDealSolitaire;
 import cards.solitaire.CardSolitaire;
+import cards.solitaire.SolitaireType;
 import cards.solitaire.sml.DocumentReaderSolitaireUtil;
 import cards.solitaire.sml.DocumentWriterSolitaireUtil;
 import cards.tarot.*;
@@ -150,6 +151,9 @@ public abstract class EquallableCardsSerialUtil {
     }
     public static void assertEq(LgInt _expected, LgInt _result) {
         Assert.assertEquals(_expected.toNumberString(), _result.toNumberString());
+    }
+    public static void assertEq(SolitaireType _expected, SolitaireType _result) {
+        Assert.assertSame(_expected, _result);
     }
     public static void assertNull(AbsDealSolitaire _ads) {
         Assert.assertNull(_ads);

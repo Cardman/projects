@@ -25,6 +25,7 @@ public final class DocumentSolitaireTest extends EquallableCardsSerialUtil {
         as_.add(a_);
         g_.setActions(as_);
         AbsDealSolitaire o_ = saveGameSolitaire(g_);
+        assertEq(SolitaireType.CLASSIC,o_.type());
         assertEq(4,o_.getHandsBegin().size());
         assertEq(1,o_.getHandsBegin().get(0).total());
         assertEq(CardSolitaire.HEART_1,o_.getHandsBegin().get(0).carte(0));
@@ -56,6 +57,7 @@ public final class DocumentSolitaireTest extends EquallableCardsSerialUtil {
         as_.add(a_);
         g_.setActions(as_);
         AbsDealSolitaire o_ = saveGameSolitaire(g_);
+        assertEq(SolitaireType.FREECELL,o_.type());
         assertEq(4,o_.getHandsBegin().size());
         assertEq(1,o_.getHandsBegin().get(0).total());
         assertEq(CardSolitaire.HEART_1,o_.getHandsBegin().get(0).carte(0));
@@ -87,6 +89,7 @@ public final class DocumentSolitaireTest extends EquallableCardsSerialUtil {
         as_.add(a_);
         g_.setActions(as_);
         AbsDealSolitaire o_ = saveGameSolitaire(g_);
+        assertEq(SolitaireType.SPIDER,o_.type());
         assertEq(4,o_.getHandsBegin().size());
         assertEq(1,o_.getHandsBegin().get(0).total());
         assertEq(CardSolitaire.HEART_1,o_.getHandsBegin().get(0).carte(0));

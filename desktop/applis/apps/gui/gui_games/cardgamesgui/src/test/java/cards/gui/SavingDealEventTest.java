@@ -125,7 +125,7 @@ public final class SavingDealEventTest extends EquallableCardsGuiUtil {
         assertFalse(fr_.getEditorTarot().getCardDialog().isVisible());
     }
     @Test
-    public void solitaire() {
+    public void solitaireClassic() {
         WindowCards fr_ = frameMiniSolitaire("/__/","/_/");
         appendMainGame(MessagesCardGames.getAppliTr(fr_.getFrames().getTranslations().getMapping().getVal(EN)), MessagesGuiCards.enGame());
         appendMainGame(MessagesCardGames.getAppliTr(fr_.getFrames().getTranslations().getMapping().getVal(FR)), MessagesGuiCards.frGame());
@@ -135,6 +135,30 @@ public final class SavingDealEventTest extends EquallableCardsGuiUtil {
         tryClick((AbsButton) fr_.getEditorClassic().getEditorCards().getSaveDialogContent().getButtons().getComponent(PLAY_WITHOUT_SAVING));
         assertTrue(fr_.baseWindow().getContainerGame().getPar().enCoursDePartieSolitaire());
         assertFalse(fr_.getEditorClassic().getCardDialog().isVisible());
+    }
+    @Test
+    public void solitaireFreeCell() {
+        WindowCards fr_ = frameMiniSolitaire("/__/","/_/");
+        appendMainGame(MessagesCardGames.getAppliTr(fr_.getFrames().getTranslations().getMapping().getVal(EN)), MessagesGuiCards.enGame());
+        appendMainGame(MessagesCardGames.getAppliTr(fr_.getFrames().getTranslations().getMapping().getVal(FR)), MessagesGuiCards.frGame());
+        tryClick(fr_.getEditGames().getVal(GameEnum.FREECELL));
+        dealFreeCell(fr_);
+        fr_.getEditorFreeCell().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
+        tryClick((AbsButton) fr_.getEditorFreeCell().getEditorCards().getSaveDialogContent().getButtons().getComponent(PLAY_WITHOUT_SAVING));
+        assertTrue(fr_.baseWindow().getContainerGame().getPar().enCoursDePartieSolitaire());
+        assertFalse(fr_.getEditorFreeCell().getCardDialog().isVisible());
+    }
+    @Test
+    public void solitaireSpider() {
+        WindowCards fr_ = frameMiniSolitaire("/__/","/_/");
+        appendMainGame(MessagesCardGames.getAppliTr(fr_.getFrames().getTranslations().getMapping().getVal(EN)), MessagesGuiCards.enGame());
+        appendMainGame(MessagesCardGames.getAppliTr(fr_.getFrames().getTranslations().getMapping().getVal(FR)), MessagesGuiCards.frGame());
+        tryClick(fr_.getEditGames().getVal(GameEnum.SPIDER));
+        dealSpider(fr_);
+        fr_.getEditorSpider().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
+        tryClick((AbsButton) fr_.getEditorSpider().getEditorCards().getSaveDialogContent().getButtons().getComponent(PLAY_WITHOUT_SAVING));
+        assertTrue(fr_.baseWindow().getContainerGame().getPar().enCoursDePartieSolitaire());
+        assertFalse(fr_.getEditorSpider().getCardDialog().isVisible());
     }
     private void tryMove(WindowCards _fr, SolitaireCardsScrollableList _stack, CardSolitaire _one, int _dest) {
         ScrollCustomGraphicList<CardSolitaire> input_ = _stack.getListe();
@@ -198,5 +222,183 @@ public final class SavingDealEventTest extends EquallableCardsGuiUtil {
         tryMove(_fr,stack_,CardSolitaire.HEART_8,1);
         tryMove(_fr,stack_,CardSolitaire.CLUB_8,1);
         tryMove(_fr,stack_,CardSolitaire.CLUB_9,1);
+    }
+    private void tryMoveFreeCell(WindowCards _fr, SolitaireCardsScrollableList _stack, CardSolitaire _one, int _dest) {
+        ScrollCustomGraphicList<CardSolitaire> input_ = _stack.getListe();
+        IdList<CardSolitaire> handFirst_ = _stack.valElts();
+        selectEventSolitaire(input_, Ints.newList(handFirst_.indexOfObj(_one)));
+        _fr.getEditorFreeCell().getEditorCards().getListeTwo().selectItem(_dest);
+        tryClick(_fr.getEditorFreeCell().getEditorCards().getMoveCards());
+    }
+
+    private void dealFreeCell(WindowCards _fr) {
+        SolitaireCardsScrollableList stack_ = _fr.getEditorFreeCell().getStack();
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.HEART_KING,1);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.HEART_QUEEN,1);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.HEART_JACK,1);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.HEART_10,1);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.HEART_9,1);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.HEART_8,1);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.HEART_7,1);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.SPADE_KING,2);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.SPADE_QUEEN,2);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.SPADE_JACK,2);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.SPADE_10,2);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.SPADE_9,2);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.SPADE_8,2);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.SPADE_7,2);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.DIAMOND_KING,3);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.DIAMOND_QUEEN,3);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.DIAMOND_JACK,3);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.DIAMOND_10,3);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.DIAMOND_9,3);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.DIAMOND_8,3);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.DIAMOND_7,3);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.CLUB_KING,4);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.CLUB_QUEEN,4);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.CLUB_JACK,4);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.CLUB_10,4);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.CLUB_9,4);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.CLUB_8,4);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.CLUB_7,4);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.HEART_1,5);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.HEART_2,5);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.HEART_3,5);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.HEART_4,5);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.HEART_5,5);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.HEART_6,5);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.SPADE_1,6);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.SPADE_2,6);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.SPADE_3,6);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.SPADE_4,6);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.SPADE_5,6);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.SPADE_6,6);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.DIAMOND_1,7);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.DIAMOND_2,7);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.DIAMOND_3,7);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.DIAMOND_4,7);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.DIAMOND_5,7);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.DIAMOND_6,7);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.CLUB_1,8);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.CLUB_2,8);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.CLUB_3,8);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.CLUB_4,8);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.CLUB_5,8);
+        tryMoveFreeCell(_fr,stack_,CardSolitaire.CLUB_6,8);
+    }
+
+    private void tryMoveSpider(WindowCards _fr, SolitaireCardsScrollableList _stack, CardSolitaire _one, int _dest) {
+        ScrollCustomGraphicList<CardSolitaire> input_ = _stack.getListe();
+        IdList<CardSolitaire> handFirst_ = _stack.valElts();
+        selectEventSolitaire(input_, Ints.newList(handFirst_.indexOfObj(_one)));
+        _fr.getEditorSpider().getEditorCards().getListeTwo().selectItem(_dest);
+        tryClick(_fr.getEditorSpider().getEditorCards().getMoveCards());
+    }
+    private void dealSpider(WindowCards _fr) {
+        SolitaireCardsScrollableList stack_ = _fr.getEditorSpider().getStack();
+        tryMoveSpider(_fr,stack_,CardSolitaire.HEART_KING,2);
+        tryMoveSpider(_fr,stack_,CardSolitaire.SPADE_KING,3);
+        tryMoveSpider(_fr,stack_,CardSolitaire.DIAMOND_KING,4);
+        tryMoveSpider(_fr,stack_,CardSolitaire.CLUB_KING,5);
+        tryMoveSpider(_fr,stack_,CardSolitaire.HEART_6,6);
+        tryMoveSpider(_fr,stack_,CardSolitaire.SPADE_6,7);
+        tryMoveSpider(_fr,stack_,CardSolitaire.DIAMOND_6,8);
+        tryMoveSpider(_fr,stack_,CardSolitaire.CLUB_6,9);
+        tryMoveSpider(_fr,stack_,CardSolitaire.HEART_6,10);
+        tryMoveSpider(_fr,stack_,CardSolitaire.SPADE_6,11);
+        tryMoveSpider(_fr,stack_,CardSolitaire.HEART_QUEEN,2);
+        tryMoveSpider(_fr,stack_,CardSolitaire.SPADE_QUEEN,3);
+        tryMoveSpider(_fr,stack_,CardSolitaire.DIAMOND_QUEEN,4);
+        tryMoveSpider(_fr,stack_,CardSolitaire.CLUB_QUEEN,5);
+        tryMoveSpider(_fr,stack_,CardSolitaire.HEART_5,6);
+        tryMoveSpider(_fr,stack_,CardSolitaire.SPADE_5,7);
+        tryMoveSpider(_fr,stack_,CardSolitaire.DIAMOND_5,8);
+        tryMoveSpider(_fr,stack_,CardSolitaire.CLUB_5,9);
+        tryMoveSpider(_fr,stack_,CardSolitaire.HEART_7,10);
+        tryMoveSpider(_fr,stack_,CardSolitaire.SPADE_7,11);
+        tryMoveSpider(_fr,stack_,CardSolitaire.HEART_JACK,2);
+        tryMoveSpider(_fr,stack_,CardSolitaire.SPADE_JACK,3);
+        tryMoveSpider(_fr,stack_,CardSolitaire.DIAMOND_JACK,4);
+        tryMoveSpider(_fr,stack_,CardSolitaire.CLUB_JACK,5);
+        tryMoveSpider(_fr,stack_,CardSolitaire.HEART_4,6);
+        tryMoveSpider(_fr,stack_,CardSolitaire.SPADE_4,7);
+        tryMoveSpider(_fr,stack_,CardSolitaire.DIAMOND_4,8);
+        tryMoveSpider(_fr,stack_,CardSolitaire.CLUB_4,9);
+        tryMoveSpider(_fr,stack_,CardSolitaire.HEART_10,10);
+        tryMoveSpider(_fr,stack_,CardSolitaire.SPADE_10,11);
+        tryMoveSpider(_fr,stack_,CardSolitaire.HEART_10,2);
+        tryMoveSpider(_fr,stack_,CardSolitaire.SPADE_10,3);
+        tryMoveSpider(_fr,stack_,CardSolitaire.DIAMOND_10,4);
+        tryMoveSpider(_fr,stack_,CardSolitaire.CLUB_10,5);
+        tryMoveSpider(_fr,stack_,CardSolitaire.HEART_3,6);
+        tryMoveSpider(_fr,stack_,CardSolitaire.SPADE_3,7);
+        tryMoveSpider(_fr,stack_,CardSolitaire.DIAMOND_3,8);
+        tryMoveSpider(_fr,stack_,CardSolitaire.CLUB_3,9);
+        tryMoveSpider(_fr,stack_,CardSolitaire.HEART_9,10);
+        tryMoveSpider(_fr,stack_,CardSolitaire.SPADE_9,11);
+        tryMoveSpider(_fr,stack_,CardSolitaire.HEART_9,2);
+        tryMoveSpider(_fr,stack_,CardSolitaire.SPADE_9,3);
+        tryMoveSpider(_fr,stack_,CardSolitaire.DIAMOND_9,4);
+        tryMoveSpider(_fr,stack_,CardSolitaire.CLUB_9,5);
+        tryMoveSpider(_fr,stack_,CardSolitaire.HEART_2,6);
+        tryMoveSpider(_fr,stack_,CardSolitaire.SPADE_2,7);
+        tryMoveSpider(_fr,stack_,CardSolitaire.DIAMOND_2,8);
+        tryMoveSpider(_fr,stack_,CardSolitaire.CLUB_2,9);
+        tryMoveSpider(_fr,stack_,CardSolitaire.HEART_8,10);
+        tryMoveSpider(_fr,stack_,CardSolitaire.SPADE_8,11);
+        tryMoveSpider(_fr,stack_,CardSolitaire.HEART_8,2);
+        tryMoveSpider(_fr,stack_,CardSolitaire.SPADE_8,3);
+        tryMoveSpider(_fr,stack_,CardSolitaire.DIAMOND_8,4);
+        tryMoveSpider(_fr,stack_,CardSolitaire.CLUB_8,5);
+        tryMoveSpider(_fr,stack_,CardSolitaire.HEART_7,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.SPADE_7,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.DIAMOND_7,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.CLUB_7,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.HEART_1,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.SPADE_1,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.DIAMOND_1,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.CLUB_1,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.HEART_JACK,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.SPADE_JACK,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.HEART_1,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.HEART_2,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.HEART_3,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.HEART_4,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.HEART_5,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.SPADE_1,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.SPADE_2,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.SPADE_3,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.SPADE_4,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.SPADE_5,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.DIAMOND_1,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.DIAMOND_2,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.DIAMOND_3,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.DIAMOND_4,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.DIAMOND_5,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.CLUB_1,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.CLUB_2,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.CLUB_3,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.CLUB_4,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.CLUB_5,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.DIAMOND_6,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.DIAMOND_7,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.DIAMOND_8,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.DIAMOND_9,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.DIAMOND_10,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.CLUB_6,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.CLUB_7,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.CLUB_8,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.CLUB_9,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.CLUB_10,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.DIAMOND_JACK,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.CLUB_JACK,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.HEART_QUEEN,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.HEART_KING,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.SPADE_QUEEN,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.SPADE_KING,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.DIAMOND_QUEEN,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.DIAMOND_KING,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.CLUB_QUEEN,1);
+        tryMoveSpider(_fr,stack_,CardSolitaire.CLUB_KING,1);
     }
 }

@@ -175,6 +175,150 @@ public final class EditorSolitaireTest extends EquallableCardsGuiUtil {
         assertFalse(fr_.getEditorClassic().getEditorCards().getErrors().getText().isEmpty());
     }
     @Test
+    public void deplacer5() {
+        WindowCards fr_ = frameMiniSolitaire("/__/","/_/");
+        fr_.getCore().getFacadeCards().getParametres().setSaveHomeFolder(false);
+        tryClick(fr_.getEditGames().getVal(GameEnum.FREECELL));
+        SolitaireCardsScrollableList stack_ = fr_.getEditorFreeCell().getStack();
+        ScrollCustomGraphicList<CardSolitaire> input_ = stack_.getListe();
+        IdList<CardSolitaire> hand_ = stack_.valElts();
+        selectEventSolitaire(input_, Ints.newList(hand_.indexOfObj(CardSolitaire.HEART_8),hand_.indexOfObj(CardSolitaire.HEART_1)));
+        fr_.getEditorFreeCell().getEditorCards().getListeTwo().selectItem(1);
+        tryClick(fr_.getEditorFreeCell().getEditorCards().getMoveCards());
+        IdList<CardSolitaire> result_ = fr_.getEditorFreeCell().stackHands().get(1).valElts();
+        assertEq(2,result_.size());
+        assertEq(CardSolitaire.HEART_8,result_.get(0));
+        assertEq(CardSolitaire.HEART_1,result_.get(1));
+        assertEq(50,stack_.valElts().size());
+    }
+    @Test
+    public void deplacer6() {
+        WindowCards fr_ = frameMiniSolitaire("/__/","/_/");
+        fr_.getCore().getFacadeCards().getParametres().setSaveHomeFolder(false);
+        tryClick(fr_.getEditGames().getVal(GameEnum.FREECELL));
+        SolitaireCardsScrollableList stack_ = fr_.getEditorFreeCell().getStack();
+        ScrollCustomGraphicList<CardSolitaire> input_ = stack_.getListe();
+        IdList<CardSolitaire> handFirst_ = stack_.valElts();
+        selectEventSolitaire(input_, Ints.newList(handFirst_.indexOfObj(CardSolitaire.HEART_8),handFirst_.indexOfObj(CardSolitaire.HEART_1)));
+        fr_.getEditorFreeCell().getEditorCards().getListeTwo().selectItem(1);
+        tryClick(fr_.getEditorFreeCell().getEditorCards().getMoveCards());
+        IdList<CardSolitaire> handSecond_ = stack_.valElts();
+        selectEventSolitaire(input_, Ints.newList(handSecond_.indexOfObj(CardSolitaire.HEART_10)));
+        tryClick(fr_.getEditorFreeCell().getEditorCards().getMoveCards());
+        IdList<CardSolitaire> result_ = fr_.getEditorFreeCell().stackHands().get(1).valElts();
+        assertEq(3,result_.size());
+        assertEq(CardSolitaire.HEART_8,result_.get(0));
+        assertEq(CardSolitaire.HEART_1,result_.get(1));
+        assertEq(CardSolitaire.HEART_10,result_.get(2));
+        assertEq(49,stack_.valElts().size());
+    }
+    @Test
+    public void deplacer7() {
+        WindowCards fr_ = frameMiniSolitaire("/__/","/_/");
+        fr_.getCore().getFacadeCards().getParametres().setSaveHomeFolder(false);
+        tryClick(fr_.getEditGames().getVal(GameEnum.FREECELL));
+        SolitaireCardsScrollableList stack_ = fr_.getEditorFreeCell().getStack();
+        ScrollCustomGraphicList<CardSolitaire> input_ = stack_.getListe();
+        IdList<CardSolitaire> handFirst_ = stack_.valElts();
+        selectEventSolitaire(input_, Ints.newList(handFirst_.indexOfObj(CardSolitaire.HEART_8),handFirst_.indexOfObj(CardSolitaire.HEART_1)));
+        fr_.getEditorFreeCell().getEditorCards().getListeTwo().selectItem(5);
+        tryClick(fr_.getEditorFreeCell().getEditorCards().getMoveCards());
+        IdList<CardSolitaire> handSecond_ = stack_.valElts();
+        selectEventSolitaire(input_, Ints.newList(handSecond_.indexOfObj(CardSolitaire.HEART_10)));
+        tryClick(fr_.getEditorFreeCell().getEditorCards().getMoveCards());
+        IdList<CardSolitaire> result_ = fr_.getEditorFreeCell().stackHands().get(5).valElts();
+        assertEq(3,result_.size());
+        assertEq(CardSolitaire.HEART_8,result_.get(0));
+        assertEq(CardSolitaire.HEART_1,result_.get(1));
+        assertEq(CardSolitaire.HEART_10,result_.get(2));
+        assertEq(49,stack_.valElts().size());
+    }
+    @Test
+    public void deplacer8() {
+        WindowCards fr_ = frameMiniSolitaire("/__/","/_/");
+        fr_.getCore().getFacadeCards().getParametres().setSaveHomeFolder(false);
+        tryClick(fr_.getEditGames().getVal(GameEnum.FREECELL));
+        SolitaireCardsScrollableList stack_ = fr_.getEditorFreeCell().getStack();
+        ScrollCustomGraphicList<CardSolitaire> input_ = stack_.getListe();
+        input_.selectAll();
+        fr_.getEditorFreeCell().getEditorCards().getListeTwo().selectItem(1);
+        tryClick(fr_.getEditorFreeCell().getEditorCards().getMoveCards());
+        assertEq(52,stack_.valElts().size());
+        assertFalse(fr_.getEditorFreeCell().getEditorCards().getErrors().getText().isEmpty());
+    }
+    @Test
+    public void deplacer9() {
+        WindowCards fr_ = frameMiniSolitaire("/__/","/_/");
+        fr_.getCore().getFacadeCards().getParametres().setSaveHomeFolder(false);
+        tryClick(fr_.getEditGames().getVal(GameEnum.SPIDER));
+        SolitaireCardsScrollableList stack_ = fr_.getEditorSpider().getStack();
+        ScrollCustomGraphicList<CardSolitaire> input_ = stack_.getListe();
+        IdList<CardSolitaire> hand_ = stack_.valElts();
+        selectEventSolitaire(input_, Ints.newList(hand_.indexOfObj(CardSolitaire.HEART_8),hand_.indexOfObj(CardSolitaire.HEART_1)));
+        fr_.getEditorSpider().getEditorCards().getListeTwo().selectItem(1);
+        tryClick(fr_.getEditorSpider().getEditorCards().getMoveCards());
+        IdList<CardSolitaire> result_ = fr_.getEditorSpider().stackHands().get(1).valElts();
+        assertEq(2,result_.size());
+        assertEq(CardSolitaire.HEART_8,result_.get(0));
+        assertEq(CardSolitaire.HEART_1,result_.get(1));
+        assertEq(102,stack_.valElts().size());
+    }
+    @Test
+    public void deplacer10() {
+        WindowCards fr_ = frameMiniSolitaire("/__/","/_/");
+        fr_.getCore().getFacadeCards().getParametres().setSaveHomeFolder(false);
+        tryClick(fr_.getEditGames().getVal(GameEnum.SPIDER));
+        SolitaireCardsScrollableList stack_ = fr_.getEditorSpider().getStack();
+        ScrollCustomGraphicList<CardSolitaire> input_ = stack_.getListe();
+        IdList<CardSolitaire> handFirst_ = stack_.valElts();
+        selectEventSolitaire(input_, Ints.newList(handFirst_.indexOfObj(CardSolitaire.HEART_8),handFirst_.indexOfObj(CardSolitaire.HEART_1)));
+        fr_.getEditorSpider().getEditorCards().getListeTwo().selectItem(1);
+        tryClick(fr_.getEditorSpider().getEditorCards().getMoveCards());
+        IdList<CardSolitaire> handSecond_ = stack_.valElts();
+        selectEventSolitaire(input_, Ints.newList(handSecond_.indexOfObj(CardSolitaire.HEART_10)));
+        tryClick(fr_.getEditorSpider().getEditorCards().getMoveCards());
+        IdList<CardSolitaire> result_ = fr_.getEditorSpider().stackHands().get(1).valElts();
+        assertEq(3,result_.size());
+        assertEq(CardSolitaire.HEART_8,result_.get(0));
+        assertEq(CardSolitaire.HEART_1,result_.get(1));
+        assertEq(CardSolitaire.HEART_10,result_.get(2));
+        assertEq(101,stack_.valElts().size());
+    }
+    @Test
+    public void deplacer11() {
+        WindowCards fr_ = frameMiniSolitaire("/__/","/_/");
+        fr_.getCore().getFacadeCards().getParametres().setSaveHomeFolder(false);
+        tryClick(fr_.getEditGames().getVal(GameEnum.SPIDER));
+        SolitaireCardsScrollableList stack_ = fr_.getEditorSpider().getStack();
+        ScrollCustomGraphicList<CardSolitaire> input_ = stack_.getListe();
+        IdList<CardSolitaire> handFirst_ = stack_.valElts();
+        selectEventSolitaire(input_, Ints.newList(handFirst_.indexOfObj(CardSolitaire.HEART_8),handFirst_.indexOfObj(CardSolitaire.HEART_1)));
+        fr_.getEditorSpider().getEditorCards().getListeTwo().selectItem(5);
+        tryClick(fr_.getEditorSpider().getEditorCards().getMoveCards());
+        IdList<CardSolitaire> handSecond_ = stack_.valElts();
+        selectEventSolitaire(input_, Ints.newList(handSecond_.indexOfObj(CardSolitaire.HEART_10)));
+        tryClick(fr_.getEditorSpider().getEditorCards().getMoveCards());
+        IdList<CardSolitaire> result_ = fr_.getEditorSpider().stackHands().get(5).valElts();
+        assertEq(3,result_.size());
+        assertEq(CardSolitaire.HEART_8,result_.get(0));
+        assertEq(CardSolitaire.HEART_1,result_.get(1));
+        assertEq(CardSolitaire.HEART_10,result_.get(2));
+        assertEq(101,stack_.valElts().size());
+    }
+    @Test
+    public void deplacer12() {
+        WindowCards fr_ = frameMiniSolitaire("/__/","/_/");
+        fr_.getCore().getFacadeCards().getParametres().setSaveHomeFolder(false);
+        tryClick(fr_.getEditGames().getVal(GameEnum.SPIDER));
+        SolitaireCardsScrollableList stack_ = fr_.getEditorSpider().getStack();
+        ScrollCustomGraphicList<CardSolitaire> input_ = stack_.getListe();
+        input_.selectAll();
+        fr_.getEditorSpider().getEditorCards().getListeTwo().selectItem(1);
+        tryClick(fr_.getEditorSpider().getEditorCards().getMoveCards());
+        assertEq(104,stack_.valElts().size());
+        assertFalse(fr_.getEditorSpider().getEditorCards().getErrors().getText().isEmpty());
+    }
+    @Test
     public void save1() {
         WindowCards fr_ = frameMiniSolitaire("/__/","/_/");
         tryClick(fr_.getEditGames().getVal(GameEnum.CLASSIC));
@@ -200,29 +344,6 @@ public final class EditorSolitaireTest extends EquallableCardsGuiUtil {
 
     @Test
     public void save2() {
-        WindowCards fr_ = frameMiniSolitaire("/__/","/_/",dbs(0.375,0.75,0.75,0.75,0.75));
-        tryClick(fr_.getEditGames().getVal(GameEnum.CLASSIC));
-        dealClassic(fr_);
-        fr_.getEditorClassic().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
-        tryClick((AbsButton) fr_.getEditorClassic().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_WITHOUT_CLOSING));
-        assertTrue(fr_.getEditorClassic().getCardDialog().isVisible());
-        AbsDealSolitaire game_ = fr_.getCore().getFacadeCards().getNicknamesCrud().getCardGamesCrud().solitaire("/__/txt");
-        assertEq(12,game_.getHandsBegin().size());
-        assertTrue(game_.getHandsBegin().get(0).getCards().eq(new IdList<CardSolitaire>(CardSolitaire.HEART_1,CardSolitaire.SPADE_1,CardSolitaire.DIAMOND_1,CardSolitaire.CLUB_1,CardSolitaire.HEART_2,CardSolitaire.SPADE_2,CardSolitaire.DIAMOND_2,CardSolitaire.CLUB_2,CardSolitaire.HEART_3,CardSolitaire.SPADE_3,CardSolitaire.DIAMOND_3,CardSolitaire.CLUB_3,CardSolitaire.HEART_4,CardSolitaire.SPADE_4,CardSolitaire.CLUB_4,CardSolitaire.HEART_5,CardSolitaire.CLUB_5,CardSolitaire.CLUB_6,CardSolitaire.HEART_7,CardSolitaire.DIAMOND_7,CardSolitaire.CLUB_7,CardSolitaire.HEART_8,CardSolitaire.CLUB_8,CardSolitaire.CLUB_9)));
-        assertTrue(game_.getHandsBegin().get(1).getCards().eq(new IdList<CardSolitaire>(CardSolitaire.HEART_6)));
-        assertTrue(game_.getHandsBegin().get(2).getCards().eq(new IdList<CardSolitaire>(CardSolitaire.SPADE_6,CardSolitaire.SPADE_5)));
-        assertTrue(game_.getHandsBegin().get(3).getCards().eq(new IdList<CardSolitaire>(CardSolitaire.DIAMOND_6,CardSolitaire.DIAMOND_5,CardSolitaire.DIAMOND_4)));
-        assertTrue(game_.getHandsBegin().get(4).getCards().eq(new IdList<CardSolitaire>(CardSolitaire.HEART_KING,CardSolitaire.SPADE_QUEEN,CardSolitaire.DIAMOND_JACK,CardSolitaire.CLUB_10)));
-        assertTrue(game_.getHandsBegin().get(5).getCards().eq(new IdList<CardSolitaire>(CardSolitaire.SPADE_KING,CardSolitaire.DIAMOND_QUEEN,CardSolitaire.CLUB_JACK,CardSolitaire.HEART_10,CardSolitaire.HEART_9)));
-        assertTrue(game_.getHandsBegin().get(6).getCards().eq(new IdList<CardSolitaire>(CardSolitaire.DIAMOND_KING,CardSolitaire.CLUB_QUEEN,CardSolitaire.HEART_JACK,CardSolitaire.SPADE_10,CardSolitaire.SPADE_9,CardSolitaire.SPADE_8)));
-        assertTrue(game_.getHandsBegin().get(7).getCards().eq(new IdList<CardSolitaire>(CardSolitaire.CLUB_KING,CardSolitaire.HEART_QUEEN,CardSolitaire.SPADE_JACK,CardSolitaire.DIAMOND_10,CardSolitaire.DIAMOND_9,CardSolitaire.DIAMOND_8,CardSolitaire.SPADE_7)));
-        assertTrue(game_.getHandsBegin().get(8).getCards().isEmpty());
-        assertTrue(game_.getHandsBegin().get(9).getCards().isEmpty());
-        assertTrue(game_.getHandsBegin().get(10).getCards().isEmpty());
-        assertTrue(game_.getHandsBegin().get(11).getCards().isEmpty());
-    }
-    @Test
-    public void save3() {
         WindowCards fr_ = frameMiniSolitaire("/__/","/_/");
         tryClick(fr_.getEditGames().getVal(GameEnum.CLASSIC));
         dealClassic(fr_);
@@ -245,7 +366,7 @@ public final class EditorSolitaireTest extends EquallableCardsGuiUtil {
         assertTrue(game_.getHandsBegin().get(11).getCards().isEmpty());
     }
     @Test
-    public void save4() {
+    public void save3() {
         WindowCards fr_ = frameMiniSolitaire("/__/","/_/");
         tryClick(fr_.getEditGames().getVal(GameEnum.CLASSIC));
         fr_.getEditorClassic().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
@@ -254,7 +375,7 @@ public final class EditorSolitaireTest extends EquallableCardsGuiUtil {
         assertFalse(fr_.getEditorClassic().getEditorCards().getErrors().getText().isEmpty());
     }
     @Test
-    public void save5() {
+    public void save4() {
         WindowCards fr_ = frameMiniSolitaire("/__/","/_/");
         tryClick(fr_.getEditGames().getVal(GameEnum.CLASSIC));
         dealClassic(fr_);
@@ -262,7 +383,7 @@ public final class EditorSolitaireTest extends EquallableCardsGuiUtil {
         assertTrue(fr_.getEditorClassic().getCardDialog().isVisible());
     }
     @Test
-    public void save6() {
+    public void save5() {
         WindowCards fr_ = frameMiniSolitaire("/__/","/_/");
         tryClick(fr_.getEditGames().getVal(GameEnum.CLASSIC));
         dealClassic(fr_);
@@ -271,7 +392,7 @@ public final class EditorSolitaireTest extends EquallableCardsGuiUtil {
         fr_.getEditorClassic().backToRules(fr_);
     }
     @Test
-    public void save7() {
+    public void save6() {
         WindowCards fr_ = frameMiniSolitaire("/__/","/_/");
         tryClick(fr_.getEditGames().getVal(GameEnum.FREECELL));
         dealFreeCell(fr_);
@@ -297,8 +418,62 @@ public final class EditorSolitaireTest extends EquallableCardsGuiUtil {
         assertTrue(game_.getHandsBegin().get(14).getCards().eq(new IdList<CardSolitaire>()));
         assertTrue(game_.getHandsBegin().get(15).getCards().eq(new IdList<CardSolitaire>()));
     }
+
+    @Test
+    public void save7() {
+        WindowCards fr_ = frameMiniSolitaire("/__/","/_/");
+        tryClick(fr_.getEditGames().getVal(GameEnum.FREECELL));
+        dealFreeCell(fr_);
+        fr_.getEditorFreeCell().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
+        tryClick((AbsButton) fr_.getEditorFreeCell().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_THEN_CLOSE));
+        assertFalse(fr_.getEditorFreeCell().getCardDialog().isVisible());
+        AbsDealSolitaire game_ = fr_.getCore().getFacadeCards().getNicknamesCrud().getCardGamesCrud().solitaire("/__/txt");
+        assertEq(16,game_.getHandsBegin().size());
+        assertTrue(game_.getHandsBegin().get(0).getCards().eq(new IdList<CardSolitaire>(CardSolitaire.HEART_KING,CardSolitaire.HEART_QUEEN,CardSolitaire.HEART_JACK,CardSolitaire.HEART_10,CardSolitaire.HEART_9,CardSolitaire.HEART_8,CardSolitaire.HEART_7)));
+        assertTrue(game_.getHandsBegin().get(1).getCards().eq(new IdList<CardSolitaire>(CardSolitaire.SPADE_KING,CardSolitaire.SPADE_QUEEN,CardSolitaire.SPADE_JACK,CardSolitaire.SPADE_10,CardSolitaire.SPADE_9,CardSolitaire.SPADE_8,CardSolitaire.SPADE_7)));
+        assertTrue(game_.getHandsBegin().get(2).getCards().eq(new IdList<CardSolitaire>(CardSolitaire.DIAMOND_KING,CardSolitaire.DIAMOND_QUEEN,CardSolitaire.DIAMOND_JACK,CardSolitaire.DIAMOND_10,CardSolitaire.DIAMOND_9,CardSolitaire.DIAMOND_8,CardSolitaire.DIAMOND_7)));
+        assertTrue(game_.getHandsBegin().get(3).getCards().eq(new IdList<CardSolitaire>(CardSolitaire.CLUB_KING,CardSolitaire.CLUB_QUEEN,CardSolitaire.CLUB_JACK,CardSolitaire.CLUB_10,CardSolitaire.CLUB_9,CardSolitaire.CLUB_8,CardSolitaire.CLUB_7)));
+        assertTrue(game_.getHandsBegin().get(4).getCards().eq(new IdList<CardSolitaire>(CardSolitaire.HEART_1,CardSolitaire.HEART_2,CardSolitaire.HEART_3,CardSolitaire.HEART_4,CardSolitaire.HEART_5,CardSolitaire.HEART_6)));
+        assertTrue(game_.getHandsBegin().get(5).getCards().eq(new IdList<CardSolitaire>(CardSolitaire.SPADE_1,CardSolitaire.SPADE_2,CardSolitaire.SPADE_3,CardSolitaire.SPADE_4,CardSolitaire.SPADE_5,CardSolitaire.SPADE_6)));
+        assertTrue(game_.getHandsBegin().get(6).getCards().eq(new IdList<CardSolitaire>(CardSolitaire.DIAMOND_1,CardSolitaire.DIAMOND_2,CardSolitaire.DIAMOND_3,CardSolitaire.DIAMOND_4,CardSolitaire.DIAMOND_5,CardSolitaire.DIAMOND_6)));
+        assertTrue(game_.getHandsBegin().get(7).getCards().eq(new IdList<CardSolitaire>(CardSolitaire.CLUB_1,CardSolitaire.CLUB_2,CardSolitaire.CLUB_3,CardSolitaire.CLUB_4,CardSolitaire.CLUB_5,CardSolitaire.CLUB_6)));
+        assertTrue(game_.getHandsBegin().get(8).getCards().eq(new IdList<CardSolitaire>()));
+        assertTrue(game_.getHandsBegin().get(9).getCards().eq(new IdList<CardSolitaire>()));
+        assertTrue(game_.getHandsBegin().get(10).getCards().eq(new IdList<CardSolitaire>()));
+        assertTrue(game_.getHandsBegin().get(11).getCards().eq(new IdList<CardSolitaire>()));
+        assertTrue(game_.getHandsBegin().get(12).getCards().eq(new IdList<CardSolitaire>()));
+        assertTrue(game_.getHandsBegin().get(13).getCards().eq(new IdList<CardSolitaire>()));
+        assertTrue(game_.getHandsBegin().get(14).getCards().eq(new IdList<CardSolitaire>()));
+        assertTrue(game_.getHandsBegin().get(15).getCards().eq(new IdList<CardSolitaire>()));
+    }
     @Test
     public void save8() {
+        WindowCards fr_ = frameMiniSolitaire("/__/","/_/");
+        tryClick(fr_.getEditGames().getVal(GameEnum.FREECELL));
+        fr_.getEditorFreeCell().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
+        tryClick((AbsButton) fr_.getEditorFreeCell().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_WITHOUT_CLOSING));
+        assertTrue(fr_.getEditorFreeCell().getCardDialog().isVisible());
+        assertFalse(fr_.getEditorFreeCell().getEditorCards().getErrors().getText().isEmpty());
+    }
+    @Test
+    public void save9() {
+        WindowCards fr_ = frameMiniSolitaire("/__/","/_/");
+        tryClick(fr_.getEditGames().getVal(GameEnum.FREECELL));
+        dealFreeCell(fr_);
+        tryClick((AbsButton) fr_.getEditorFreeCell().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_WITHOUT_CLOSING));
+        assertTrue(fr_.getEditorFreeCell().getCardDialog().isVisible());
+    }
+    @Test
+    public void save10() {
+        WindowCards fr_ = frameMiniSolitaire("/__/","/_/");
+        tryClick(fr_.getEditGames().getVal(GameEnum.FREECELL));
+        dealFreeCell(fr_);
+        tryClick((AbsButton) fr_.getEditorFreeCell().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_THEN_CLOSE));
+        assertTrue(fr_.getEditorFreeCell().getCardDialog().isVisible());
+        fr_.getEditorFreeCell().backToRules(fr_);
+    }
+    @Test
+    public void save11() {
         WindowCards fr_ = frameMiniSolitaire("/__/","/_/");
         tryClick(fr_.getEditGames().getVal(GameEnum.SPIDER));
         dealSpider(fr_);
@@ -319,6 +494,55 @@ public final class EditorSolitaireTest extends EquallableCardsGuiUtil {
         assertTrue(game_.getHandsBegin().get(9).getCards().eq(new IdList<CardSolitaire>(CardSolitaire.HEART_6,CardSolitaire.HEART_7,CardSolitaire.HEART_10,CardSolitaire.HEART_9,CardSolitaire.HEART_8)));
         assertTrue(game_.getHandsBegin().get(10).getCards().eq(new IdList<CardSolitaire>(CardSolitaire.SPADE_6,CardSolitaire.SPADE_7,CardSolitaire.SPADE_10,CardSolitaire.SPADE_9,CardSolitaire.SPADE_8)));
         assertTrue(game_.getHandsBegin().get(11).getCards().eq(new IdList<CardSolitaire>()));
+    }
+    @Test
+    public void save12() {
+        WindowCards fr_ = frameMiniSolitaire("/__/","/_/");
+        tryClick(fr_.getEditGames().getVal(GameEnum.SPIDER));
+        dealSpider(fr_);
+        fr_.getEditorSpider().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
+        tryClick((AbsButton) fr_.getEditorSpider().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_THEN_CLOSE));
+        assertFalse(fr_.getEditorSpider().getCardDialog().isVisible());
+        AbsDealSolitaire game_ = fr_.getCore().getFacadeCards().getNicknamesCrud().getCardGamesCrud().solitaire("/__/txt");
+        assertEq(12,game_.getHandsBegin().size());
+        assertTrue(game_.getHandsBegin().get(0).getCards().eq(new IdList<CardSolitaire>(CardSolitaire.HEART_7,CardSolitaire.SPADE_7,CardSolitaire.DIAMOND_7,CardSolitaire.CLUB_7,CardSolitaire.HEART_1,CardSolitaire.SPADE_1,CardSolitaire.DIAMOND_1,CardSolitaire.CLUB_1,CardSolitaire.HEART_JACK,CardSolitaire.SPADE_JACK,CardSolitaire.HEART_1,CardSolitaire.HEART_2,CardSolitaire.HEART_3,CardSolitaire.HEART_4,CardSolitaire.HEART_5,CardSolitaire.SPADE_1,CardSolitaire.SPADE_2,CardSolitaire.SPADE_3,CardSolitaire.SPADE_4,CardSolitaire.SPADE_5,CardSolitaire.DIAMOND_1,CardSolitaire.DIAMOND_2,CardSolitaire.DIAMOND_3,CardSolitaire.DIAMOND_4,CardSolitaire.DIAMOND_5,CardSolitaire.CLUB_1,CardSolitaire.CLUB_2,CardSolitaire.CLUB_3,CardSolitaire.CLUB_4,CardSolitaire.CLUB_5,CardSolitaire.DIAMOND_6,CardSolitaire.DIAMOND_7,CardSolitaire.DIAMOND_8,CardSolitaire.DIAMOND_9,CardSolitaire.DIAMOND_10,CardSolitaire.CLUB_6,CardSolitaire.CLUB_7,CardSolitaire.CLUB_8,CardSolitaire.CLUB_9,CardSolitaire.CLUB_10,CardSolitaire.DIAMOND_JACK,CardSolitaire.CLUB_JACK,CardSolitaire.HEART_QUEEN,CardSolitaire.HEART_KING,CardSolitaire.SPADE_QUEEN,CardSolitaire.SPADE_KING,CardSolitaire.DIAMOND_QUEEN,CardSolitaire.DIAMOND_KING,CardSolitaire.CLUB_QUEEN,CardSolitaire.CLUB_KING)));
+        assertTrue(game_.getHandsBegin().get(1).getCards().eq(new IdList<CardSolitaire>(CardSolitaire.HEART_KING,CardSolitaire.HEART_QUEEN,CardSolitaire.HEART_JACK,CardSolitaire.HEART_10,CardSolitaire.HEART_9,CardSolitaire.HEART_8)));
+        assertTrue(game_.getHandsBegin().get(2).getCards().eq(new IdList<CardSolitaire>(CardSolitaire.SPADE_KING,CardSolitaire.SPADE_QUEEN,CardSolitaire.SPADE_JACK,CardSolitaire.SPADE_10,CardSolitaire.SPADE_9,CardSolitaire.SPADE_8)));
+        assertTrue(game_.getHandsBegin().get(3).getCards().eq(new IdList<CardSolitaire>(CardSolitaire.DIAMOND_KING,CardSolitaire.DIAMOND_QUEEN,CardSolitaire.DIAMOND_JACK,CardSolitaire.DIAMOND_10,CardSolitaire.DIAMOND_9,CardSolitaire.DIAMOND_8)));
+        assertTrue(game_.getHandsBegin().get(4).getCards().eq(new IdList<CardSolitaire>(CardSolitaire.CLUB_KING,CardSolitaire.CLUB_QUEEN,CardSolitaire.CLUB_JACK,CardSolitaire.CLUB_10,CardSolitaire.CLUB_9,CardSolitaire.CLUB_8)));
+        assertTrue(game_.getHandsBegin().get(5).getCards().eq(new IdList<CardSolitaire>(CardSolitaire.HEART_6,CardSolitaire.HEART_5,CardSolitaire.HEART_4,CardSolitaire.HEART_3,CardSolitaire.HEART_2)));
+        assertTrue(game_.getHandsBegin().get(6).getCards().eq(new IdList<CardSolitaire>(CardSolitaire.SPADE_6,CardSolitaire.SPADE_5,CardSolitaire.SPADE_4,CardSolitaire.SPADE_3,CardSolitaire.SPADE_2)));
+        assertTrue(game_.getHandsBegin().get(7).getCards().eq(new IdList<CardSolitaire>(CardSolitaire.DIAMOND_6,CardSolitaire.DIAMOND_5,CardSolitaire.DIAMOND_4,CardSolitaire.DIAMOND_3,CardSolitaire.DIAMOND_2)));
+        assertTrue(game_.getHandsBegin().get(8).getCards().eq(new IdList<CardSolitaire>(CardSolitaire.CLUB_6,CardSolitaire.CLUB_5,CardSolitaire.CLUB_4,CardSolitaire.CLUB_3,CardSolitaire.CLUB_2)));
+        assertTrue(game_.getHandsBegin().get(9).getCards().eq(new IdList<CardSolitaire>(CardSolitaire.HEART_6,CardSolitaire.HEART_7,CardSolitaire.HEART_10,CardSolitaire.HEART_9,CardSolitaire.HEART_8)));
+        assertTrue(game_.getHandsBegin().get(10).getCards().eq(new IdList<CardSolitaire>(CardSolitaire.SPADE_6,CardSolitaire.SPADE_7,CardSolitaire.SPADE_10,CardSolitaire.SPADE_9,CardSolitaire.SPADE_8)));
+        assertTrue(game_.getHandsBegin().get(11).getCards().eq(new IdList<CardSolitaire>()));
+    }
+    @Test
+    public void save13() {
+        WindowCards fr_ = frameMiniSolitaire("/__/","/_/");
+        tryClick(fr_.getEditGames().getVal(GameEnum.SPIDER));
+        fr_.getEditorSpider().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
+        tryClick((AbsButton) fr_.getEditorSpider().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_WITHOUT_CLOSING));
+        assertTrue(fr_.getEditorSpider().getCardDialog().isVisible());
+        assertFalse(fr_.getEditorSpider().getEditorCards().getErrors().getText().isEmpty());
+    }
+    @Test
+    public void save14() {
+        WindowCards fr_ = frameMiniSolitaire("/__/","/_/");
+        tryClick(fr_.getEditGames().getVal(GameEnum.SPIDER));
+        dealSpider(fr_);
+        tryClick((AbsButton) fr_.getEditorSpider().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_WITHOUT_CLOSING));
+        assertTrue(fr_.getEditorSpider().getCardDialog().isVisible());
+    }
+    @Test
+    public void save15() {
+        WindowCards fr_ = frameMiniSolitaire("/__/","/_/");
+        tryClick(fr_.getEditGames().getVal(GameEnum.SPIDER));
+        dealSpider(fr_);
+        tryClick((AbsButton) fr_.getEditorSpider().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_THEN_CLOSE));
+        assertTrue(fr_.getEditorSpider().getCardDialog().isVisible());
+        fr_.getEditorSpider().backToRules(fr_);
     }
     private void tryMove(WindowCards _fr, SolitaireCardsScrollableList _stack, CardSolitaire _one, int _dest) {
         ScrollCustomGraphicList<CardSolitaire> input_ = _stack.getListe();

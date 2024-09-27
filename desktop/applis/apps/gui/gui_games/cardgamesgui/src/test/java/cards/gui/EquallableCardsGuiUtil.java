@@ -219,12 +219,12 @@ public abstract class EquallableCardsGuiUtil {
         wc_.setPrepare(cf_.getTaskNav());
         return wc_;
     }
-    protected WindowCards frameSingleSolitaireWithEndModif(int _i) {
+    protected WindowCards frameSingleSolitaireWithEndModif(int _i, GameEnum _solo) {
         MockProgramInfos pr_ = updateSingleSolitaire(build());
         CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<HelpIndexesTree>());
         CardGamesStream str_ = stream(pr_);
         SoftParams sp_ = new SoftParams();
-        sp_.getLancement().add(GameEnum.CLASSIC);
+        sp_.getLancement().add(_solo);
         StreamTextFile.saveTextFile(StringUtil.concat(WindowCards.getTempFolderSl(pr_), MessagesCardGames.getAppliFilesTr(pr_.getTranslations()).val().getMapping().getVal(MessagesCardGames.PARAMS)),DocumentWriterCardsUnionUtil.setSoftParams(sp_),pr_.getStreams());
         WindowCards wc_ = new WindowCards(str_, pr_, new IntArtCardGames());
         wc_.setPrepare(cf_.getTaskNav());
