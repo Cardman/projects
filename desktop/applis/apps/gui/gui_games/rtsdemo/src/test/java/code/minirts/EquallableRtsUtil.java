@@ -14,7 +14,7 @@ import org.junit.Assert;
 public abstract class EquallableRtsUtil {
     public static WindowRts window() {
         MockProgramInfos pr_ = build();
-        WindowRts wa_ = new WindowRts(pr_, new LanguagesButtonsPair(null,null,null), "AAACAAAA////");
+        WindowRts wa_ = new WindowRts(pr_, new LanguagesButtonsPair(null,null,null), new int[][]{new int[]{0,GuiConstants.WHITE}});
         wa_.setTaskEnabled(new MockRtsTaskEnabled());
         wa_.pack();
         wa_.setVisible(true);

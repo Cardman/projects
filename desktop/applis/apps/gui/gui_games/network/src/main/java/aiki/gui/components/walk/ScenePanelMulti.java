@@ -1,5 +1,6 @@
 package aiki.gui.components.walk;
 
+import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.gui.components.walk.events.*;
 import aiki.gui.dialogs.*;
@@ -734,6 +735,7 @@ public class ScenePanelMulti {
         group_.add(window.getCompoFactory().newPlainLabel(messages.getVal(MessagesRenderScenePanel.RECEIVED_POKEMON)), MessagesGuiFct.BORDER_LAYOUT_NORTH);
         AbsScrollPane scrollSession_ = compoFactory.newAbsScrollPane();
         receivedPk = new RenderedPage(scrollSession_, window.getFrames(),new FixCharacterCaseConverter(), window.getGuardRender());
+        receivedPk.setBase(MessagesPkGame.getAppliTr(window.getFrames().currentLg()).getMapping().getVal(MessagesPkGame.BASE_FILE).getMapping().getVal(MessagesDataBaseConstants.BASE_KEY));
 //        receivedPk.setFiles(facade.getData().getWebPk(), Resources.ACCESS_TO_DEFAULT_FILES);
         receivedPk.setFrame(window.getCommonFrame());
 //        receivedPk.prepare();

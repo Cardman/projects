@@ -20,7 +20,7 @@ public class LaunchingDemo extends AdvSoftApplicationCore {
 
     @Override
     protected void launch(String _language, InterpretedFile _args, EnabledMenu _lgMenu, AbsButton _main, LanguagesButtonsPair _pair) {
-        getFrames().getCompoFactory().invokeNow(new CreateMainWindowRts(getFrames(), _pair, MessagesApplications.resourcesPlayerPlayer()));
+        getFrames().getCompoFactory().invokeNow(new CreateMainWindowRts(getFrames(), _pair, MessagesApplications.player()));
     }
 
 

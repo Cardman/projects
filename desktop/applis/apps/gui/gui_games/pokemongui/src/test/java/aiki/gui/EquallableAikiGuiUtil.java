@@ -100,6 +100,7 @@ public abstract class EquallableAikiGuiUtil {
         return window(pr_, fact_);
     }
     public static void preparePkTask(WindowAiki _window) {
+        MessagesPkGame.getAppliTr(_window.getFrames().currentLg()).getMapping().addEntry(MessagesPkGame.BASE_FILE,MessagesCorePk.parsingBase());
         _window.getCore().getAikiFactory().submitNavPkTask(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),nav())));
         _window.setPreparedPkTask(_window.getCore().getAikiFactory().getTaskNavPkTask());
     }
@@ -107,16 +108,19 @@ public abstract class EquallableAikiGuiUtil {
     public static void prepareFightTask(WindowAiki _window) {
 //        _window.getCore().getAikiFactory().setPreparedFightTask(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),nav()));
 //        _window.setPreparedFightTask(_window.getCore().getAikiFactory().getPreparedFightTask());
+        MessagesPkGame.getAppliTr(_window.getFrames().currentLg()).getMapping().addEntry(MessagesPkGame.BASE_FILE,MessagesCorePk.parsingBase());
         _window.getCore().getAikiFactory().submitNavFight(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),nav())));
         _window.setPreparedFightTask(_window.getCore().getAikiFactory().getTaskNavFight());
     }
 
     public static void prepareDiffTask(WindowAiki _window) {
+        MessagesPkGame.getAppliTr(_window.getFrames().currentLg()).getMapping().addEntry(MessagesPkGame.BASE_FILE,MessagesCorePk.parsingBase());
         _window.getCore().getAikiFactory().submitNavDiffTask(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),nav())));
         _window.setPreparedDiffTask(_window.getCore().getAikiFactory().getTaskNavDiff());
     }
 
     public static void prepareWebTask(WindowAiki _window) {
+        MessagesPkGame.getAppliTr(_window.getFrames().currentLg()).getMapping().addEntry(MessagesPkGame.BASE_FILE,MessagesCorePk.parsingBase());
         _window.getCore().getAikiFactory().submitNavData(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),nav())));
         _window.setPreparedDataWebTask(_window.getCore().getAikiFactory().getTaskNavData());
     }
@@ -216,7 +220,7 @@ public abstract class EquallableAikiGuiUtil {
 
     public static WindowAiki window(MockProgramInfos _pr, AikiFactory _fact) {
         WindowAiki wa_ = new WindowAiki(_pr, _fact, new LanguagesButtonsPair(_pr.getCompoFactory().newMenuItem(),null,null), _pr.getImageFactory().newImageRgb(1,1));
-        wa_.getVideoBase().addEntry("","AAABAAAA");
+        wa_.getVideoBase().addEntry("",new int[][]{new int[]{0}});
         wa_.setTaskEnabled(new MockTaskEnabled());
         wa_.pack();
         wa_.setVisible(true);

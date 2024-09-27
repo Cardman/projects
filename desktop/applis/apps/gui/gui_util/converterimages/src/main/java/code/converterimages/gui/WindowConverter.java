@@ -107,6 +107,7 @@ public final class WindowConverter extends GroupFrame implements AbsOpenQuit {
             getFileCoreStream().newFile(path.getText()+f_).mkdirs();
 //            StreamFolderFile.makeParent(path.getText()+StreamTextFile.SEPARATEUR+f_,getFileCoreStream());
         }
+        String base_ = MessagesConverter.valMessages(getFrames().currentLg()).getVal(MessagesConverter.BASE_KEY);
 //        if (readImages.isSelected()) {
 //            StringList files_ = StreamTextFile.files(pathExport.getText(),getFileCoreStream());
 //            for (String f: files_) {
@@ -125,13 +126,13 @@ public final class WindowConverter extends GroupFrame implements AbsOpenQuit {
                 byte[] bytes_ = StreamBinaryFile.loadFile(pathExport.getText() + f, getStreams()).getBytes();
                 AbstractImage img_ = startsWithPrefixes(bytes_,new byte[][]{new byte[]{(byte)0x89,(byte)0x50,(byte)0x4E,(byte)0x47,(byte)0x0D,(byte)0x0A,(byte)0x1A,(byte)0x0A}, new byte[]{(byte)0xFF,(byte)0xD8,(byte)0xFF}, new byte[]{(byte)0xFF,(byte)0x4F,(byte)0xFF}, new byte[]{(byte)0x00,(byte)0x00,(byte)0x00,(byte)0x0C,(byte)0x6A,(byte)0x50,(byte)0x20,(byte)0x20,(byte)0x0D,(byte)0x0A,(byte)0x87,(byte)0x0A}});
                 if (img_ == null) {
-                    int[][] readImage_ = BaseSixtyFourUtil.getImageByString(StringUtil.nullToEmpty(StringUtil.decode(bytes_)),MessagesConverter.BASE);
+                    int[][] readImage_ = BaseSixtyFourUtil.getImageByString(StringUtil.nullToEmpty(StringUtil.decode(bytes_)),base_);
                     if (readImage_.length != 0) {
                         StreamBinaryFile.writeFile(path.getText() + f_, getImageFactory().decodeToImage(readImage_), getStreams());
                     }
                     continue;
                 }
-                String txt_ = BaseSixtyFourUtil.getStringByImage(ConverterGraphicBufferedImage.toArrays(img_),MessagesConverter.BASE);
+                String txt_ = BaseSixtyFourUtil.getStringByImage(ConverterGraphicBufferedImage.toArrays(img_),base_);
                 StreamTextFile.saveTextFile(path.getText()+ f_, txt_,getStreams());
 //                if (f_.endsWith(DOT+PNG_EXT)) {
 //                    String path_ = StringUtil.replace(f_, DOT + PNG_EXT, DOT + TXT_EXT);

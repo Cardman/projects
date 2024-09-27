@@ -1707,8 +1707,8 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         windowPk(app_);
         updateBase(_pr.getTranslations());
 //        app_.getMapping().addEntry(MessagesPkGame.FILES_PATH,MessagesPkGame.mes());
-        StringMap<String> mess_ = new StringMap<String>();
-        mess_.addEntry("","AAABAAAA");
+        StringMap<int[][]> mess_ = new StringMap<int[][]>();
+        mess_.addEntry("",new int[][]{new int[]{0}});
         return new CreateMainWindowAiki(_conf, new StringList(), _pr, _fact, new LanguagesButtonsPair(_pr.getCompoFactory().newMenuItem(),null,null), mess_, _pr.getImageFactory().newImageRgb(1,1));
     }
 
@@ -1724,8 +1724,8 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         windowPk(app_);
         updateBase(_pr.getTranslations());
 //        app_.getMapping().addEntry(MessagesPkGame.FILES_PATH,MessagesPkGame.mes());
-        StringMap<String> mess_ = new StringMap<String>();
-        mess_.addEntry("","AAABAAAA");
+        StringMap<int[][]> mess_ = new StringMap<int[][]>();
+        mess_.addEntry("",new int[][]{new int[]{0}});
         return new CreateMainWindowAiki(_conf, path_, _pr, _fact, new LanguagesButtonsPair(_pr.getCompoFactory().newMenuItem(),null,null), mess_, _pr.getImageFactory().newImageRgb(1,1));
     }
 }

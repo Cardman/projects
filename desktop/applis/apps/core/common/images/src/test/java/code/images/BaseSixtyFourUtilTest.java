@@ -124,10 +124,7 @@ public final class BaseSixtyFourUtilTest extends EquallableImageUtil {
     @Test
     public void parseFourChars14Test() {
         byte[] bytes_ = parseFourChars("|1z_");
-        assertEq(3, bytes_.length);
-        assertEq(-1, bytes_[0]);
-        assertEq(92, bytes_[1]);
-        assertEq(-1, bytes_[2]);
+        assertEq(0, bytes_.length);
     }
     @Test
     public void printThreeBytes1Test() {
@@ -463,6 +460,16 @@ public final class BaseSixtyFourUtilTest extends EquallableImageUtil {
         assertEq(0, img_.length);
     }
     @Test
+    public void getImageByString17Test() {
+        int[][] img_ = getImageByString("/1z_");
+        assertEq(0, img_.length);
+    }
+    @Test
+    public void getImageByString18Test() {
+        int[][] img_ = getImageByString("AAAB/1z_");
+        assertEq(0, img_.length);
+    }
+    @Test
     public void getSringByImage1Test() {
         int[][] img_ = getImageByString("AAABAAAA");
         assertEq("AAABAAAA", getStringByImage(img_));
@@ -633,6 +640,116 @@ public final class BaseSixtyFourUtilTest extends EquallableImageUtil {
         imgStr_.append("AAAA");
         int[][] img_ = getImageByString(imgStr_.toString());
         assertEq(imgStr_.toString(), getStringByImage(img_));
+    }
+
+    @Test
+    public void clipSixtyFour1Test() {
+        int[][] img_ = new int[2][3];
+        img_[0][0] = 2;
+        img_[0][1] = 5;
+        img_[0][2] = 8;
+        img_[1][0] = 7;
+        img_[1][1] = 1;
+        img_[1][2] = 3;
+        int[][] out_ = BaseSixtyFourUtil.clipSixtyFour(img_, 0, 0, 3, 2);
+        assertEq(2, out_.length);
+        assertEq(3, out_[0].length);
+        assertEq(2, out_[0][0]);
+        assertEq(5, out_[0][1]);
+        assertEq(8, out_[0][2]);
+        assertEq(3, out_[1].length);
+        assertEq(7, out_[1][0]);
+        assertEq(1, out_[1][1]);
+        assertEq(3, out_[1][2]);
+    }
+
+    @Test
+    public void clipSixtyFour2Test() {
+        int[][] img_ = new int[2][3];
+        img_[0][0] = 2;
+        img_[0][1] = 5;
+        img_[0][2] = 8;
+        img_[1][0] = 7;
+        img_[1][1] = 1;
+        img_[1][2] = 3;
+        int[][] out_ = BaseSixtyFourUtil.clipSixtyFour(img_, 1, 1, 2, 1);
+        assertEq(1, out_.length);
+        assertEq(2, out_[0].length);
+        assertEq(1, out_[0][0]);
+        assertEq(3, out_[0][1]);
+    }
+
+    @Test
+    public void clipSixtyFour3Test() {
+        int[][] img_ = new int[2][3];
+        img_[0][0] = 2;
+        img_[0][1] = 5;
+        img_[0][2] = 8;
+        img_[1][0] = 7;
+        img_[1][1] = 1;
+        img_[1][2] = 3;
+        int[][] out_ = BaseSixtyFourUtil.clipSixtyFour(img_, 1, 1, 3, 2);
+        assertEq(1, out_.length);
+        assertEq(2, out_[0].length);
+        assertEq(1, out_[0][0]);
+        assertEq(3, out_[0][1]);
+    }
+
+    @Test
+    public void clipSixtyFour4Test() {
+        int[][] img_ = new int[2][3];
+        img_[0][0] = 2;
+        img_[0][1] = 5;
+        img_[0][2] = 8;
+        img_[1][0] = 7;
+        img_[1][1] = 1;
+        img_[1][2] = 3;
+        int[][] out_ = BaseSixtyFourUtil.clipSixtyFour(img_, 0, 1, 2, 1);
+        assertEq(1, out_.length);
+        assertEq(2, out_[0].length);
+        assertEq(7, out_[0][0]);
+        assertEq(1, out_[0][1]);
+    }
+
+    @Test
+    public void clipSixtyFour5Test() {
+        int[][] img_ = new int[2][3];
+        img_[0][0] = 2;
+        img_[0][1] = 5;
+        img_[0][2] = 8;
+        img_[1][0] = 7;
+        img_[1][1] = 1;
+        img_[1][2] = 3;
+        int[][] out_ = BaseSixtyFourUtil.clipSixtyFour(img_, 1, 0, 2, 1);
+        assertEq(1, out_.length);
+        assertEq(2, out_[0].length);
+        assertEq(5, out_[0][0]);
+        assertEq(8, out_[0][1]);
+    }
+
+    @Test
+    public void checkBase1() {
+        assertEq("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz:/", BaseSixtyFourUtil.checkBase("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz:/",BASE));
+    }
+
+    @Test
+    public void checkBase2() {
+        assertEq(BASE, BaseSixtyFourUtil.checkBase("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz:",BASE));
+    }
+
+    @Test
+    public void checkBase3() {
+        assertEq(BASE, BaseSixtyFourUtil.checkBase("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz :",BASE));
+    }
+
+    @Test
+    public void checkBase4() {
+        assertEq(BASE, BaseSixtyFourUtil.checkBase("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz::",BASE));
+    }
+
+    @Test
+    public void checkBase5() {
+        assertEq(BASE, BaseSixtyFourUtil.checkBase("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz=/",BASE));
     }
 
     private byte[] parseFourChars(String _text) {

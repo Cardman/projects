@@ -22,12 +22,12 @@ public final class CreateMainWindowAiki implements Runnable {
 
     private final AikiFactory aikiFactory;
     private final LanguagesButtonsPair pair;
-    private final StringMap<String> videoBase;
+    private final StringMap<int[][]> videoBase;
     private final AbstractImage image;
     private WindowAiki window;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public CreateMainWindowAiki(LoadingGame _load, StringList _withParam, AbstractProgramInfos _list, AikiFactory _fact, LanguagesButtonsPair _p, StringMap<String> _mess, AbstractImage _icon) {
+    public CreateMainWindowAiki(LoadingGame _load, StringList _withParam, AbstractProgramInfos _list, AikiFactory _fact, LanguagesButtonsPair _p, StringMap<int[][]> _mess, AbstractImage _icon) {
         load = _load;
         withParam = _withParam;
         list = _list;

@@ -30,7 +30,7 @@ public interface WindowAikiInt {
     ProgressingDialog progressDial();
     AbstractAtomicBooleanCore getLoadFlag();
     AbstractAtomicBooleanCore getModal();
-    StringMap<String> getVideoBase();
+    StringMap<int[][]> getVideoBase();
 
     AbsCommonFrame getCommonFrame();
     void showSuccessfulMessageDialogThenLoadHelp(String _fileName);

@@ -31,6 +31,7 @@ public final class MessagesPkGame {
     public static final String FIGHTER_ACCESS = "aiki.game.fight.fighter";
     public static final String PLAYER_ACCESS = "aiki.game.player.player";
     public static final String POKEMON_PLAYER = "aiki.map.pokemon.pokemonplayer";
+    public static final String BASE_FILE = "sixty_four";
     public static final String TEMP_FOLDER = Translations.TEMP_FOLDER;
     public static final String DEFAULT_SAVE_GAME = "1";
     public static final String PORT_INI = "2";
@@ -88,6 +89,7 @@ public final class MessagesPkGame {
         _lgs.getMapping().addEntry(FIGHTER_ACCESS,MessagesCorePk.enFighter());
         _lgs.getMapping().addEntry(PLAYER_ACCESS,MessagesCorePk.enPlayer());
         _lgs.getMapping().addEntry(POKEMON_PLAYER,MessagesCorePk.enPokemonPlayer());
+        _lgs.getMapping().addEntry(BASE_FILE,MessagesCorePk.parsingBase());
     }
 
     public static void frTr(TranslationsAppli _lgs) {
@@ -118,6 +120,7 @@ public final class MessagesPkGame {
         _lgs.getMapping().addEntry(FIGHTER_ACCESS,MessagesCorePk.frFighter());
         _lgs.getMapping().addEntry(PLAYER_ACCESS,MessagesCorePk.frPlayer());
         _lgs.getMapping().addEntry(POKEMON_PLAYER,MessagesCorePk.frPokemonPlayer());
+        _lgs.getMapping().addEntry(BASE_FILE,MessagesCorePk.parsingBase());
     }
 
     public static void sys(TranslationsAppli _lgs) {

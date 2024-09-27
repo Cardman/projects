@@ -591,11 +591,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
     @Test
     public void parseBaseSixtyFourBinary3() {
         byte[] bytes_ = parseBaseSixtyFourBinary("====");
-//        assertEq(0,bytes_.length);
-        assertEq(3,bytes_.length);
-        assertEq(-1,bytes_[0]);
-        assertEq(-1,bytes_[1]);
-        assertEq(-1,bytes_[2]);
+        assertEq(0,bytes_.length);
     }
     @Test
     public void parseBaseSixtyFourBinary4() {
@@ -629,6 +625,11 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         byte[] bytes_ = parseBaseSixtyFourBinary("AA==");
         assertEq(1,bytes_.length);
         assertEq(0,bytes_[0]);
+    }
+    @Test
+    public void parseBaseSixtyFourBinary10() {
+        byte[] bytes_ = parseBaseSixtyFourBinary("AAAB/1z_");
+        assertEq(0,bytes_.length);
     }
     @Test
     public void getAbsClipStream1() {

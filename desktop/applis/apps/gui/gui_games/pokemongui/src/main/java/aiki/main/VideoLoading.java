@@ -1,11 +1,9 @@
 package aiki.main;
 
-import aiki.db.MessagesDataBaseConstants;
 import aiki.sml.MessagesPkGame;
 import code.gui.images.AbstractImage;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.initialize.AbstractProgramInfos;
-import code.images.BaseSixtyFourUtil;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.AbstractGenerator;
@@ -28,7 +26,7 @@ public final class VideoLoading {
     private boolean initialized;
     private final LgInt maxRd = LgInt.getMaxLongPlusOne();
 
-    public CustList<AbstractImage> getVideo(AbstractGenerator _abs, AbstractFileCoreStream _list, AbstractProgramInfos _abInfo, StringMap<String> _mess) {
+    public CustList<AbstractImage> getVideo(AbstractGenerator _abs, AbstractFileCoreStream _list, AbstractProgramInfos _abInfo, StringMap<int[][]> _mess) {
         if (initialized) {
             return images(_abs);
         }
@@ -51,14 +49,13 @@ public final class VideoLoading {
         return images(_abs);
     }
 
-    private CustList<AbstractImage> imgsByRes(AbstractProgramInfos _abInfo, StringMap<String> _mess) {
+    private CustList<AbstractImage> imgsByRes(AbstractProgramInfos _abInfo, StringMap<int[][]> _mess) {
         CustList<AbstractImage> imgs_ = new CustList<AbstractImage>();
-        for (EntryCust<String, String> e: _mess.entryList()) {
+        for (EntryCust<String, int[][]> e: _mess.entryList()) {
 //            if (!e.getKey().startsWith(VIDEO_DEFAULT)) {
 //                continue;
 //            }
-            int[][] txtFile_ = BaseSixtyFourUtil.getImageByString(
-                    e.getValue(), MessagesDataBaseConstants.BASE);
+            int[][] txtFile_ = e.getValue();
             AbstractImage image_ = ConverterGraphicBufferedImage.decodeToImage(_abInfo.getImageFactory(),txtFile_);
             imgs_.add(image_);
         }

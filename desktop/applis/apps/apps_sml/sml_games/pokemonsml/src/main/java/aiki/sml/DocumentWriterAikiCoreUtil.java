@@ -723,6 +723,7 @@ public final class DocumentWriterAikiCoreUtil {
     public static final String KIND_COMBOS = "6";
     public static final String FOLD_DATA = "0";
     public static final String ATTR_IMG = "2";
+    public static final String ATTR_IMG_BASE = "3";
     public static final String KIND_IMG_PK_FR="0";
     public static final String KIND_IMG_PK_BK="1";
     public static final String KIND_IMG_PK_MI="2";
@@ -772,7 +773,7 @@ public final class DocumentWriterAikiCoreUtil {
     private DocumentWriterAikiCoreUtil() {
     }
 
-    public static StringMap<String> getTextFiles(DataBase _d) {
+    public static StringMap<String> getTextFiles(DataBase _d, StringMap<String> _baseParse) {
         StringMap<String> files_ = new StringMap<String>();
         coreData(_d, files_);
         String file_ = DocumentWriterAikiCoreUtil.setCombos(_d.getCombos());
@@ -879,38 +880,24 @@ public final class DocumentWriterAikiCoreUtil {
         }
         files_.put(ATTR_CST+DataBase.SEPARATOR_FILES+KIND_CST_TM,elementTm_.export());
         trs(_d, files_);
-        loopImgs(files_, _d.getAnimStatis(),KIND_IMG_AI, ATTR_IMG+DataBase.SEPARATOR_FILES+KIND_IMG_AI);
-        loopImgs(files_, _d.getAnimStatus(),KIND_IMG_AU, ATTR_IMG+DataBase.SEPARATOR_FILES+KIND_IMG_AU);
+        String base_ = _baseParse.getVal(MessagesDataBaseConstants.BASE_KEY);
+        loopImgs(files_, _d.getAnimStatis(),KIND_IMG_AI, ATTR_IMG+DataBase.SEPARATOR_FILES+KIND_IMG_AI, base_);
+        loopImgs(files_, _d.getAnimStatus(),KIND_IMG_AU, ATTR_IMG+DataBase.SEPARATOR_FILES+KIND_IMG_AU, base_);
         files_.put(ATTR_IMG+DataBase.SEPARATOR_FILES+KIND_IMG_INDIV+DataBase.SEPARATOR_FILES+KIND_IMG_ABS,
-                imgDoc(_d.getAnimAbsorb(),KIND_IMG_INDIV,KIND_IMG_ABS));
-        for (String n : _d.getImages().getKeys()) {
-            files_.put(
-                    StringUtil.concat(ATTR_IMG+DataBase.SEPARATOR_FILES+KIND_IMG_IM, DataBase.SEPARATOR_FILES, n),
-                    imgDoc(_d.getImages().getVal(n),KIND_IMG_IM,n));
-        }
-        for (String n : _d.getMiniMap().getKeys()) {
-            files_.put(
-                    StringUtil.concat(ATTR_IMG+DataBase.SEPARATOR_FILES+KIND_IMG_MINI_MAP, DataBase.SEPARATOR_FILES, n),
-                    imgDoc(_d.getMiniMap().getVal(n),KIND_IMG_MINI_MAP,n));
-        }
-        for (String n : _d.getLinks().getKeys()) {
-            files_.put(StringUtil.concat(ATTR_IMG+DataBase.SEPARATOR_FILES+KIND_IMG_LK, DataBase.SEPARATOR_FILES, n),
-                    imgDoc(_d.getLinks().getVal(n),KIND_IMG_LK,n));
-        }
-        for (String n : _d.getPeople().getKeys()) {
-            files_.put(
-                    StringUtil.concat(ATTR_IMG+DataBase.SEPARATOR_FILES+KIND_IMG_PEOPLE, DataBase.SEPARATOR_FILES, n),
-                    imgDoc(_d.getPeople().getVal(n),KIND_IMG_PEOPLE,n));
-        }
-        heros(_d, files_);
-        images(_d, files_);
+                imgDoc(_d.getAnimAbsorb(),KIND_IMG_INDIV,KIND_IMG_ABS, base_));
+        loopImgs(files_, _d.getImages(), KIND_IMG_IM, ATTR_IMG+ DataBase.SEPARATOR_FILES+KIND_IMG_IM, base_);
+        loopImgs(files_, _d.getMiniMap(), KIND_IMG_MINI_MAP, ATTR_IMG+ DataBase.SEPARATOR_FILES+KIND_IMG_MINI_MAP, base_);
+        loopImgs(files_, _d.getLinks(), KIND_IMG_LK, ATTR_IMG+ DataBase.SEPARATOR_FILES+KIND_IMG_LK, base_);
+        loopImgs(files_, _d.getPeople(), KIND_IMG_PEOPLE, ATTR_IMG+ DataBase.SEPARATOR_FILES+KIND_IMG_PEOPLE, base_);
+        heros(_d, files_, base_);
+        images(_d, files_, base_);
         files_.put(
                 ATTR_IMG+DataBase.SEPARATOR_FILES+KIND_IMG_INDIV+DataBase.SEPARATOR_FILES+KIND_IMG_TM,
-                imgDoc(_d.getImageTmHm(),KIND_IMG_INDIV,KIND_IMG_TM));
-        files_.put(ATTR_IMG+DataBase.SEPARATOR_FILES+KIND_IMG_INDIV+DataBase.SEPARATOR_FILES+KIND_IMG_STORE, imgDoc(_d.getStorage(),KIND_IMG_INDIV,KIND_IMG_STORE));
+                imgDoc(_d.getImageTmHm(),KIND_IMG_INDIV,KIND_IMG_TM, base_));
+        files_.put(ATTR_IMG+DataBase.SEPARATOR_FILES+KIND_IMG_INDIV+DataBase.SEPARATOR_FILES+KIND_IMG_STORE, imgDoc(_d.getStorage(),KIND_IMG_INDIV,KIND_IMG_STORE, base_));
         files_.put(
                 ATTR_IMG+DataBase.SEPARATOR_FILES+KIND_IMG_INDIV+DataBase.SEPARATOR_FILES+KIND_IMG_END,
-                imgDoc(_d.getEndGameImage(),KIND_IMG_INDIV,KIND_IMG_END));
+                imgDoc(_d.getEndGameImage(),KIND_IMG_INDIV,KIND_IMG_END, base_));
         return files_;
     }
 
@@ -938,7 +925,7 @@ public final class DocumentWriterAikiCoreUtil {
         return elementTypes_;
     }
 
-    private static void heros(DataBase _d, StringMap<String> _files) {
+    private static void heros(DataBase _d, StringMap<String> _files, String _base) {
         StringMap<int[][]> frs_ = new StringMap<int[][]>();
         for (ImageHeroKey k : _d.getFrontHeros().getKeys()) {
             StringBuilder str_ = new StringBuilder();
@@ -950,7 +937,7 @@ public final class DocumentWriterAikiCoreUtil {
         }
         _files.put(
                 StringUtil.concat(ATTR_IMG, DataBase.SEPARATOR_FILES, KIND_IMG_INDIV, DataBase.SEPARATOR_FILES, KIND_IMG_HEROS_FR),
-                imgsDoc(frs_,KIND_IMG_HEROS_FR));
+                imgsDoc(frs_,KIND_IMG_HEROS_FR, _base));
         StringMap<int[][]> bks_ = new StringMap<int[][]>();
         for (ImageHeroKey k : _d.getBackHeros().getKeys()) {
             StringBuilder str_ = new StringBuilder();
@@ -962,7 +949,7 @@ public final class DocumentWriterAikiCoreUtil {
         }
         _files.put(
                 StringUtil.concat(ATTR_IMG, DataBase.SEPARATOR_FILES, KIND_IMG_INDIV, DataBase.SEPARATOR_FILES, KIND_IMG_HEROS_BK),
-                imgsDoc(bks_,KIND_IMG_HEROS_BK));
+                imgsDoc(bks_,KIND_IMG_HEROS_BK, _base));
         StringMap<int[][]> minis_ = new StringMap<int[][]>();
         for (ImageHeroKey k : _d.getOverWorldHeros().getKeys()) {
             StringBuilder str_ = new StringBuilder();
@@ -976,7 +963,7 @@ public final class DocumentWriterAikiCoreUtil {
         }
         _files.put(
                 StringUtil.concat(ATTR_IMG, DataBase.SEPARATOR_FILES, KIND_IMG_INDIV, DataBase.SEPARATOR_FILES, KIND_IMG_HEROS_MIN),
-                imgsDoc(minis_,KIND_IMG_HEROS_MIN));
+                imgsDoc(minis_,KIND_IMG_HEROS_MIN, _base));
     }
 
     private static void coreData(DataBase _d, StringMap<String> _files) {
@@ -1155,28 +1142,24 @@ public final class DocumentWriterAikiCoreUtil {
         return doc_.export();
     }
 
-    private static void images(DataBase _d, StringMap<String> _files) {
-        for (String n : _d.getTrainers().getKeys()) {
-            _files.put(
-                    StringUtil.concat(ATTR_IMG+DataBase.SEPARATOR_FILES+KIND_IMG_TR, DataBase.SEPARATOR_FILES, n),
-                    imgDoc(_d.getTrainers().getVal(n),KIND_IMG_TR,n));
-        }
-        loopImgs(_files, _d.getMaxiPkFront(),KIND_IMG_PK_FR, ATTR_IMG+DataBase.SEPARATOR_FILES+KIND_IMG_PK_FR);
-        loopImgs(_files, _d.getMaxiPkBack(),KIND_IMG_PK_BK, ATTR_IMG+DataBase.SEPARATOR_FILES+KIND_IMG_PK_BK);
-        loopImgs(_files, _d.getMiniPk(),KIND_IMG_PK_MI, ATTR_IMG+DataBase.SEPARATOR_FILES+KIND_IMG_PK_MI);
-        loopImgs(_files, _d.getMiniItems(),KIND_IMG_IT_MI, ATTR_IMG+DataBase.SEPARATOR_FILES+KIND_IMG_IT_MI);
-        loopImgs(_files, _d.getTypesImages(),KIND_IMG_TY, ATTR_IMG+DataBase.SEPARATOR_FILES+KIND_IMG_TY);
+    private static void images(DataBase _d, StringMap<String> _files, String _base) {
+        loopImgs(_files, _d.getTrainers(), KIND_IMG_TR, ATTR_IMG+ DataBase.SEPARATOR_FILES+KIND_IMG_TR, _base);
+        loopImgs(_files, _d.getMaxiPkFront(),KIND_IMG_PK_FR, ATTR_IMG+DataBase.SEPARATOR_FILES+KIND_IMG_PK_FR, _base);
+        loopImgs(_files, _d.getMaxiPkBack(),KIND_IMG_PK_BK, ATTR_IMG+DataBase.SEPARATOR_FILES+KIND_IMG_PK_BK, _base);
+        loopImgs(_files, _d.getMiniPk(),KIND_IMG_PK_MI, ATTR_IMG+DataBase.SEPARATOR_FILES+KIND_IMG_PK_MI, _base);
+        loopImgs(_files, _d.getMiniItems(),KIND_IMG_IT_MI, ATTR_IMG+DataBase.SEPARATOR_FILES+KIND_IMG_IT_MI, _base);
+        loopImgs(_files, _d.getTypesImages(),KIND_IMG_TY, ATTR_IMG+DataBase.SEPARATOR_FILES+KIND_IMG_TY, _base);
     }
 
-    private static void loopImgs(StringMap<String> _files, StringMap<int[][]> _from, String _kind, String _pref) {
+    private static void loopImgs(StringMap<String> _files, StringMap<int[][]> _from, String _kind, String _pref, String _base) {
         for (String n : _from.getKeys()) {
             _files.put(StringUtil.concat(_pref,
                             DataBase.SEPARATOR_FILES, n),
-                    imgDoc(_from.getVal(n),_kind,n));
+                    imgDoc(_from.getVal(n),_kind,n, _base));
         }
     }
-    private static String imgDoc(int[][] _img, String _kind, String _name) {
-        String res_ = BaseSixtyFourUtil.getStringByImage(_img,MessagesDataBaseConstants.BASE);
+    private static String imgDoc(int[][] _img, String _kind, String _name, String _base) {
+        String res_ = BaseSixtyFourUtil.getStringByImage(_img, _base);
         Document doc_ = DocumentBuilder.newXmlDocument();
         Element element_ = doc_.createElement(DocumentWriterCoreUtil.ANON_TAG);
         element_.setAttribute(DocumentWriterCoreUtil.FIELD,_kind);
@@ -1186,7 +1169,7 @@ public final class DocumentWriterAikiCoreUtil {
         return doc_.export();
     }
 
-    private static String imgsDoc(StringMap<int[][]> _imgs, String _name) {
+    private static String imgsDoc(StringMap<int[][]> _imgs, String _name, String _base) {
         Document doc_ = DocumentBuilder.newXmlDocument();
         Element element_ = doc_.createElement(DocumentWriterCoreUtil.ANON_TAG);
         element_.setAttribute(DocumentWriterCoreUtil.FIELD,DocumentWriterAikiCoreUtil.KIND_IMG_INDIV);
@@ -1195,7 +1178,7 @@ public final class DocumentWriterAikiCoreUtil {
         for (EntryCust<String, int[][]> e: _imgs.entryList()) {
             Element e_ = doc_.createElement(DocumentWriterCoreUtil.ANON_TAG);
             e_.setAttribute(DocumentWriterCoreUtil.FIELD,e.getKey());
-            e_.setAttribute(DocumentWriterCoreUtil.VALUE,BaseSixtyFourUtil.getStringByImage(e.getValue(),MessagesDataBaseConstants.BASE));
+            e_.setAttribute(DocumentWriterCoreUtil.VALUE,BaseSixtyFourUtil.getStringByImage(e.getValue(), _base));
             element_.appendChild(e_);
         }
         doc_.appendChild(element_);

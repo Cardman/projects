@@ -2009,7 +2009,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         return guardRender;
     }
 
-    public StringMap<String> getVideoBase() {
+    public StringMap<int[][]> getVideoBase() {
         return core.getVideoBase();
     }
 }

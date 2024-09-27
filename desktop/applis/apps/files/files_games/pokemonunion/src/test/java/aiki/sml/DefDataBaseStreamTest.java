@@ -12,6 +12,7 @@ public final class DefDataBaseStreamTest extends EquallablePkFileUtil {
     @Test
     public void v1() {
         MockProgramInfos pr_ = pr(0, 1);
+        MessagesPkGame.initAppliTr(pr_.lg("")).getMapping().addEntry(MessagesPkGame.BASE_FILE, MessagesCorePk.parsingBase());
         GamesPkMiniDb db_ = new GamesPkMiniDb();
         MockFutureCallableParam<DataBase> task_ = new MockFutureCallableParam<DataBase>(db_, new IntMap<AbstractFuture>(), 0);
         DataBase res_ = task_.attendreResultat();
@@ -30,6 +31,7 @@ public final class DefDataBaseStreamTest extends EquallablePkFileUtil {
     @Test
     public void v2() {
         MockProgramInfos pr_ = pr(0, 1);
+        MessagesPkGame.initAppliTr(pr_.lg("")).getMapping().addEntry(MessagesPkGame.BASE_FILE, MessagesCorePk.parsingBase());
         GamesPkMiniDb db_ = new GamesPkMiniDb();
         FacadeGame f_ = new FacadeGame();
         f_.setLanguages(new StringList(StringUtil.EN));

@@ -2,13 +2,9 @@ package code.gui.files;
 
 
 import code.gui.*;
-import code.gui.images.AbstractImage;
-import code.gui.images.AbstractImageFactory;
-import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.initialize.AbstractProgramInfos;
 import code.gui.stream.DocumentReaderGuiUtil;
 import code.gui.stream.DocumentWriterGuiUtil;
-import code.images.BaseSixtyFourUtil;
 import code.images.IntPoint;
 import code.stream.*;
 import code.stream.core.TechStreams;
@@ -16,7 +12,6 @@ import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class FileDialog {
-    public static final String BASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
     private static final String EMPTY_STRING = "";
 
     private static final int MIN_BORDER = 50;
@@ -92,8 +87,4 @@ public final class FileDialog {
         return _content;
     }
 
-    public static AbstractImage getImage(String _icon, AbstractImageFactory _fact) {
-        int[][] file_ = BaseSixtyFourUtil.getImageByString(_icon,BASE);
-        return ConverterGraphicBufferedImage.decodeToImage(_fact,file_);
-    }
 }

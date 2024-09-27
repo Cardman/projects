@@ -17,6 +17,8 @@ import aiki.main.AikiNatLgNamesNavigation;
 import aiki.map.characters.enums.GeranceType;
 import aiki.map.pokemon.Egg;
 import aiki.map.pokemon.PokemonPlayer;
+import aiki.sml.MessagesCorePk;
+import aiki.sml.MessagesPkGame;
 import code.gui.AbsButton;
 import code.gui.AbsCommonFrame;
 import code.gui.AbsCustComponent;
@@ -34,6 +36,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
     @Test
     public void progress() {
         WindowAiki window_ = newProg();
+        MessagesPkGame.getAppliTr(window_.getFrames().currentLg()).getMapping().addEntry(MessagesPkGame.BASE_FILE, MessagesCorePk.parsingBase());
         window_.getCore().getAikiFactory().submitNavProgTask(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),nav())));
         window_.setPreparedProgTask(window_.getCore().getAikiFactory().getTaskNavProg());
         loadRomGame(window_);

@@ -1,5 +1,6 @@
 package aiki.sml;
 
+import aiki.db.*;
 import aiki.facade.*;
 import aiki.fight.*;
 import aiki.fight.abilities.*;
@@ -16,7 +17,7 @@ import code.util.core.*;
 import org.junit.Assert;
 
 public abstract class EquallableAikiSerialUtil {
-
+    public static final String BASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
     public static final String NAME = "_";
 
     public static AbilityData save(AbilityData _a) {
@@ -138,10 +139,18 @@ public abstract class EquallableAikiSerialUtil {
     }
 
     public static FacadeGame save(FacadeGame _a) {
-        StringMap<String> txt_ = DocumentWriterAikiCoreUtil.getTextFiles(_a.getData());
-        DocumentReaderAikiCoreUtil.loadRom(_a.getData(),txt_,new ConcreteInteger(),new SexListImpl());
+        StringMap<String> baseParse_ = baseParse();
+        StringMap<String> txt_ = DocumentWriterAikiCoreUtil.getTextFiles(_a.getData(), baseParse_);
+        DocumentReaderAikiCoreUtil.loadRom(_a.getData(),txt_,new ConcreteInteger(),new SexListImpl(), baseParse_);
         return _a;
     }
+
+    public static StringMap<String> baseParse() {
+        StringMap<String> baseParse_ = new StringMap<String>();
+        baseParse_.addEntry(MessagesDataBaseConstants.BASE_KEY,BASE);
+        return baseParse_;
+    }
+
     public static void assertTrue(boolean _value) {
         Assert.assertTrue(_value);
     }

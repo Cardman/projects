@@ -336,7 +336,7 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
         Element e_ = doc_.createElement(DocumentWriterCoreUtil.ANON_TAG);
         doc_.appendChild(e_);
         e_.appendChild(doc_.createElement(DocumentWriterCoreUtil.ANON_TAG));
-        DocumentReaderAikiCoreUtil.heros(d_, doc_,new SexListImpl(),DocumentWriterAikiCoreUtil.KIND_IMG_HEROS_MIN);
+        DocumentReaderAikiCoreUtil.heros(d_, doc_,new SexListImpl(),DocumentWriterAikiCoreUtil.KIND_IMG_HEROS_MIN, BASE);
         assertEq(0,d_.getOverWorldHeros().getList().size());
     }
     @Test
@@ -768,7 +768,7 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
         f_.getData().setLanguages(new StringList(""));
         StringMap<String> txt_ = new StringMap<String>();
         txt_.addEntry("_","");
-        DocumentReaderAikiCoreUtil.loadRom(f_.getData(), txt_,new ConcreteInteger(),new SexListImpl());
+        DocumentReaderAikiCoreUtil.loadRom(f_.getData(), txt_,new ConcreteInteger(),new SexListImpl(), baseParse());
         assertEq(0,f_.getData().getPokedex().size());
     }
     @Test

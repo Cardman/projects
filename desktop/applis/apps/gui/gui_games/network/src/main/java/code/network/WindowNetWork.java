@@ -2688,7 +2688,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     }
 
     @Override
-    public StringMap<String> getVideoBase() {
+    public StringMap<int[][]> getVideoBase() {
         return aiki.getVideoBase();
     }
 

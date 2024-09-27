@@ -89,12 +89,12 @@ public final class FileDialogTest extends EquallableGuiCommonUtil {
         StreamLanguageUtil.saveLanguage("/tmp","__",pr_.getStreams());
         assertEq("",FileDialog.loadLanguage("/tmp", pr_.getFileCoreStream(), pr_.getStreams(),new StringList("_")));
     }
-    @Test
-    public void getImage() {
-        AbstractImage img_ = FileDialog.getImage("AAABAAAA", new MockImageFactory());
-        assertEq(1,img_.getWidth());
-        assertEq(1,img_.getHeight());
-    }
+//    @Test
+//    public void getImage() {
+//        AbstractImage img_ = FileDialog.getImage("AAABAAAA", new MockImageFactory());
+//        assertEq(1,img_.getWidth());
+//        assertEq(1,img_.getHeight());
+//    }
 
     private void setLocation(MockProgramInfos _pr, TopLeftFrame _tl) {
         FileDialog.setLocation(_pr.getFrameFactory().newCommonFrame(), _tl, _pr);

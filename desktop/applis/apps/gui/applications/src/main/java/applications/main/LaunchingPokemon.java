@@ -9,7 +9,7 @@ import applications.code.gui.AdvSoftApplicationCore;
 import applications.code.gui.WithAppFactories;
 import applications.gui.MessagesApplications;
 import code.gui.*;
-import code.gui.files.FileDialog;
+import code.gui.images.ConverterGraphicBufferedImage;
 import code.util.StringList;
 
 public class LaunchingPokemon extends AdvSoftApplicationCore {
@@ -37,7 +37,7 @@ public class LaunchingPokemon extends AdvSoftApplicationCore {
 //        path_ = Constants.getInitFolder();
 //        CreateMainWindow create_ = new CreateMainWindow(param_, false, path_, topLeft_);
 //        create_.start();
-        getFrames().getCompoFactory().invokeNow(new CreateMainWindowAiki(param_, args_, getFrames(),getAppFactories().getAikiFactory(), _pair, MessagesApplications.ms(), FileDialog.getImage(MessagesApplications.resourcesPkPokemon(), getFrames().getImageFactory())));
+        getFrames().getCompoFactory().invokeNow(new CreateMainWindowAiki(param_, args_, getFrames(),getAppFactories().getAikiFactory(), _pair, MessagesApplications.ms(), ConverterGraphicBufferedImage.decodeToImage(getFrames().getImageFactory(), MessagesApplications.pk())));
     }
 
 }

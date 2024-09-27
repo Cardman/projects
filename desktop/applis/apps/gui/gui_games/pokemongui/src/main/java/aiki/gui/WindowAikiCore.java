@@ -40,7 +40,7 @@ public final class WindowAikiCore {
     private StringMap<String> messages = new StringMap<String>();
     private IntGameChecker gameCheck;
 
-    private final StringMap<String> videoBase = new StringMap<String>();
+    private final StringMap<int[][]> videoBase = new StringMap<int[][]>();
     public WindowAikiCore(AikiFactory _fact, AbstractProgramInfos _list, ReportingFrame _resFile) {
         setGameCheck(new DefGameChecker());
         aikiFactory = _fact;
@@ -152,7 +152,7 @@ public final class WindowAikiCore {
         return zipLoad;
     }
 
-    public StringMap<String> getVideoBase() {
+    public StringMap<int[][]> getVideoBase() {
         return videoBase;
     }
 

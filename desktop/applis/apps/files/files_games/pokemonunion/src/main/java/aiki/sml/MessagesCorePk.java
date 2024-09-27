@@ -1,5 +1,6 @@
 package aiki.sml;
 
+import aiki.db.*;
 import aiki.game.*;
 import aiki.game.fight.*;
 import aiki.game.player.*;
@@ -457,6 +458,11 @@ public final class MessagesCorePk {
         TranslationsFile f_ = new TranslationsFile();
         f_.add(PokemonPlayer.CST_HAPPINESS,"{0} gagne {1} points de bonheur.");
         f_.add(PokemonPlayer.DECREASING_HP,"Les points de vie de {0} passent de {1} à {2}.");
+        return f_;
+    }
+    public static TranslationsFile parsingBase(){
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(MessagesDataBaseConstants.BASE_KEY,MessagesDataBaseConstants.BASE);
         return f_;
     }
 }

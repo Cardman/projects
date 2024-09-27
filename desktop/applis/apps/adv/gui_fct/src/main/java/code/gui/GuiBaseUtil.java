@@ -8,7 +8,6 @@ import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractLightProgramInfos;
 import code.gui.initialize.AbstractProgramInfos;
-import code.images.*;
 import code.stream.*;
 import code.threads.AbstractDate;
 import code.threads.AbstractDateFactory;
@@ -365,9 +364,9 @@ public final class GuiBaseUtil {
     }
     public static byte[] parseBaseSixtyFourBinary(String _text, String _base) {
         int buflen_ = guessLength(_text);
-//        if (buflen_ < 0) {
-//            return new byte[0];
-//        }
+        if (buflen_ < 0) {
+            return new byte[0];
+        }
         byte[] out_ = new byte[buflen_];
         int o_=0;
 
@@ -381,11 +380,10 @@ public final class GuiBaseUtil {
             char ch_ = _text.charAt(i);
             //v!=-1
             if (ch_ != '=') {
-                int index_ = BaseSixtyFourUtil.charToByte(ch_,_base);
-//                int index_ = _base.indexOf(ch_);
-//                if (index_ < 0) {
-//                    return new byte[0];
-//                }
+                int index_ = _base.indexOf(ch_);
+                if (index_ < 0) {
+                    return new byte[0];
+                }
                 quadruplet_[q_] = (byte) index_;
             } else {
                 quadruplet_[q_] = 63;
@@ -440,9 +438,9 @@ public final class GuiBaseUtil {
             }
             j_--;
         }
-//        if (j_ < 0) {
-//            return -1;
-//        }
+        if (j_ < 0) {
+            return -1;
+        }
 
         j_++;
         int padSize_ = len_-j_;

@@ -32,8 +32,8 @@ public final class GamesPk {
 
     // Load rom option
     public static void loadRomAndCheck(AbstractGenerator _gene, FacadeGame _f, String _fileName,
-                                       StringMap<String> _files, AbstractAtomicIntegerCoreAdd _p, AbstractAtomicBooleanCore _l) {
-        DataBase data_ = loadedRom(_gene,_f,_files,_p,_l);
+                                       StringMap<String> _files, AbstractAtomicIntegerCoreAdd _p, AbstractAtomicBooleanCore _l, StringMap<String> _baseParse) {
+        DataBase data_ = loadedRom(_gene,_f,_files,_p,_l, _baseParse);
         if (data_.isError()) {
             postLoad(_f, _fileName, _p, _l, null);
             return;
@@ -83,14 +83,14 @@ public final class GamesPk {
     }
 
     // Load rom first
-    private static DataBase loadedRom(AbstractGenerator _gene, FacadeGame _f, StringMap<String> _files, AbstractAtomicIntegerCoreAdd _p, AbstractAtomicBooleanCore _l) {
+    private static DataBase loadedRom(AbstractGenerator _gene, FacadeGame _f, StringMap<String> _files, AbstractAtomicIntegerCoreAdd _p, AbstractAtomicBooleanCore _l, StringMap<String> _baseParse) {
         DataBase data_ = new DataBase(_gene);
         MessagesDataBaseConstants.initEmpty(data_);
         data_.setLanguages(_f.getLanguages());
         data_.setDisplayLanguages(_f.getDisplayLanguages());
         _l.set(true);
         data_.setLanguage(_f.getLanguage());
-        DocumentReaderAikiCoreUtil.loadRom(data_,_files,_p,_f.getSexList());
+        DocumentReaderAikiCoreUtil.loadRom(data_,_files,_p,_f.getSexList(), _baseParse);
         if (!data_.getMap().validSavedLink()) {
             data_.setError(true);
             return data_;

@@ -7,7 +7,6 @@ import code.gui.images.AbstractImage;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
-import code.images.BaseSixtyFourUtil;
 import code.maths.Rate;
 import code.maths.geo.RatePoint;
 import code.minirts.events.*;
@@ -62,7 +61,7 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
 //    private String noteFile = "";
     private AbsRtsTaskEnabled taskEnabled;
     private final LanguagesButtonsPair mainButton;
-    public WindowRts(AbstractProgramInfos _list, LanguagesButtonsPair _pair, String _note) {
+    public WindowRts(AbstractProgramInfos _list, LanguagesButtonsPair _pair, int[][] _note) {
         super(_list);
         StringMap<String> mes_ = MessagesRts.valMessages(_list.currentLg());
         animate.setText(mes_.getVal(MessagesRts.ANIMATE));
@@ -130,7 +129,7 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
         stop.addActionListener(new Stop(this));
         buttons_.add(stop);
 //        noteFile = note_;
-        AbstractImage or_ = ConverterGraphicBufferedImage.decodeToImage(getImageFactory(),BaseSixtyFourUtil.getImageByString(_note,MessagesRts.BASE));
+        AbstractImage or_ = ConverterGraphicBufferedImage.decodeToImage(getImageFactory(),_note);
         int wCurs_ = or_.getWidth();
         int hCurs_ = or_.getHeight();
         int[] pixels_ = new int[wCurs_ * hCurs_];

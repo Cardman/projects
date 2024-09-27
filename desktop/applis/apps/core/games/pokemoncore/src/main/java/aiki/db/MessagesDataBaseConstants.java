@@ -1,6 +1,7 @@
 package aiki.db;
 
 public final class MessagesDataBaseConstants {
+    public static final String BASE_KEY = "0";
     public static final String BASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
     public static final String VAR_DEF = "VAR";
     public static final String DEF_NIVEAU = "NIVEAU";

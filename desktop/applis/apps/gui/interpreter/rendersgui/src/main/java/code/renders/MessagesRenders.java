@@ -12,6 +12,7 @@ public final class MessagesRenders {
     public static final String OPEN = "1";
     public static final String TITLE = "2";
     public static final String SEARCH = "3";
+    public static final String BASE_KEY = "4";
     private MessagesRenders() {
     }
     public static StringMap<String> valMessages(TranslationsLg _lg) {
@@ -31,6 +32,7 @@ public final class MessagesRenders {
         en_.add(OPEN,"open");
         en_.add(TITLE,"Local sites");
         en_.add(SEARCH,"search");
+        en_.add(BASE_KEY,BASE);
         return en_;
     }
     public static TranslationsFile fr(){
@@ -39,6 +41,7 @@ public final class MessagesRenders {
         fr_.add(OPEN,"ouvrir");
         fr_.add(TITLE,"Sites locaux");
         fr_.add(SEARCH,"chercher");
+        fr_.add(BASE_KEY,BASE);
         return fr_;
     }
 }

@@ -15,6 +15,7 @@ public final class MessagesConverter {
     public static final String OK = "0";
     public static final String READ = "1";
     public static final String CONVERT = "2";
+    public static final String BASE_KEY = "3";
 
     private MessagesConverter() {
     }
@@ -54,6 +55,7 @@ public final class MessagesConverter {
         en_.add(OK,"ok");
         en_.add(READ,"read");
         en_.add(CONVERT,"convert images");
+        en_.add(BASE_KEY,BASE);
         return en_;
     }
     public static TranslationsFile fr(){
@@ -61,6 +63,7 @@ public final class MessagesConverter {
         fr_.add(OK,"ok");
         fr_.add(READ,"lire");
         fr_.add(CONVERT,"convertir des images");
+        fr_.add(BASE_KEY,BASE);
         return fr_;
     }
 

@@ -1,5 +1,6 @@
 package code.images;
 
+import code.util.Ints;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
@@ -37,18 +38,10 @@ public final class BaseSixtyFourUtil {
 
     private static int[][] processDef(String _img, int _len, String _base) {
         byte[] widthArray_ = parseFourChars(_img.substring(0, 4),_base);
-//        if (widthArray_.length == 0) {
-//            return new int[0][0];
-//        }
-        int width_ = 0;
-        for (byte b: widthArray_) {
-            int real_ = b;
-            if (real_ < 0) {
-                real_ += 256;
-            }
-            width_ *= 256;
-            width_ += real_;
+        if (widthArray_.length == 0) {
+            return new int[0][0];
         }
+        int width_ = retrieveWidth(widthArray_);
         int fourWidth_ = width_ * 4;
         if (fourWidth_ <= 0) {
             return new int[0][0];
@@ -69,18 +62,10 @@ public final class BaseSixtyFourUtil {
         while (i_ <= max_) {
             String part_ = _img.substring(i_, i_ + 4);
             byte[] pixel_ = parseFourChars(part_,_base);
-//            if (pixel_.length == 0) {
-//                return new int[0][0];
-//            }
-            int color_ = 0;
-            for (byte b: pixel_) {
-                int real_ = b;
-                if (real_ < 0) {
-                    real_ += 256;
-                }
-                color_ *= 256;
-                color_ += real_;
+            if (pixel_.length == 0) {
+                return new int[0][0];
             }
+            int color_ = retrieveWidth(pixel_);
             row_[w_] = color_;
             w_++;
             if (w_ >= width_) {
@@ -94,6 +79,19 @@ public final class BaseSixtyFourUtil {
         return image_;
     }
 
+    private static int retrieveWidth(byte[] _array) {
+        int width_ = 0;
+        for (byte b: _array) {
+            int real_ = b;
+            if (real_ < 0) {
+                real_ += 256;
+            }
+            width_ *= 256;
+            width_ += real_;
+        }
+        return width_;
+    }
+
     static byte[] parseFourChars(String _text, String _base) {
         byte[] out_ = new byte[THREE_COLORS_BYTES];
         int o_=0;
@@ -105,9 +103,9 @@ public final class BaseSixtyFourUtil {
             char ch_ = _text.charAt(i);
 
             byte v_ = charToByte(ch_,_base);
-//            if (v_ < 0) {
-//                return new byte[0];
-//            }
+            if (v_ < 0) {
+                return new byte[0];
+            }
             quadruplet_[i] = v_;
         }
          // quadruplet is now filled.
@@ -126,7 +124,7 @@ public final class BaseSixtyFourUtil {
     public static byte charToByte(char _ch, String _base) {
         int index_ = _base.indexOf(_ch);
         if (index_ < 0) {
-            return 63;
+            return -1;
         }
         return (byte) index_;
 //        int index_ = _base.indexOf(_ch);
@@ -176,20 +174,11 @@ public final class BaseSixtyFourUtil {
         char[] buf_ = new char[FOUR_BITS];
         int ptr_ = 0;
         int i = 0;
-        int adj_ = _input[i];
-        if (adj_ < 0) {
-            adj_ += BYTE;
-        }
+        int adj_ = adj(_input[i]);
         buf_[ptr_] = encode(adj_/FOUR_BITS,_base);
         ptr_++;
-        int adjNext_ = _input[i+1];
-        if (adjNext_ < 0) {
-            adjNext_ += BYTE;
-        }
-        int adjNextNext_ = _input[i+2];
-        if (adjNextNext_ < 0) {
-            adjNextNext_ += BYTE;
-        }
+        int adjNext_ = adj(_input[i+1]);
+        int adjNextNext_ = adj(_input[i + 2]);
         buf_[ptr_] = encode(
                 ((adj_%FOUR_BITS)*SIXTEEN_BITS) +
                 ((adjNext_/SIXTEEN_BITS)%SIXTEEN_BITS),_base);
@@ -200,6 +189,14 @@ public final class BaseSixtyFourUtil {
         ptr_++;
         buf_[ptr_] = encode(adjNextNext_%SIXTY_FOUR_BITS,_base);
         return String.valueOf(buf_);
+    }
+
+    private static int adj(int _input) {
+        int adjNextNext_ = _input;
+        if (adjNextNext_ < 0) {
+            adjNextNext_ += BYTE;
+        }
+        return adjNextNext_;
     }
 
     private static char encode(int _i, String _base) {
@@ -217,6 +214,26 @@ public final class BaseSixtyFourUtil {
 //            return '+';
 //        }
 //        return '/';
+    }
+
+    public static String checkBase(String _base, String _defaultBase) {
+        if (_base.length() != 64) {
+            return _defaultBase;
+        }
+        if (_base.indexOf('=') > -1) {
+            return _defaultBase;
+        }
+        if (StringUtil.removeAllSpaces(_base).length() < _base.length()) {
+            return _defaultBase;
+        }
+        Ints ints_ = new Ints();
+        for (char c: _base.toCharArray()) {
+            ints_.add((int)c);
+        }
+        if (ints_.hasDuplicates()) {
+            return _defaultBase;
+        }
+        return _base;
     }
 
     public static int[][] clipSixtyFour(int[][] _image,int _x,int _y,int _w,int _h) {

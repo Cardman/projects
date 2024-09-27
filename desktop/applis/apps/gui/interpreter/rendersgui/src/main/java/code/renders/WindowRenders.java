@@ -68,6 +68,7 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
         path = getCompoFactory().newTextField(20);
         pane_.add(path);
         session = new RenderedPage(getCompoFactory().newAbsScrollPane(), _programInfos,new DefCharacterCaseConverter(), getGuardRender());
+        session.setBase(mes_.getVal(MessagesRenders.BASE_KEY));
         Navigation n_ = nav();
         session.initNav(n_.getCore(),n_.getSession().getRendKeyWords().group());
         session.setLanguage(_lg,_programInfos.getLanguages());
@@ -93,7 +94,7 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
     }
 
     public static CustThreadActions inst(DefaultInitialization _init, RenderedPage _page, Navigation _nav) {
-        return CustThreadActions.inst(_page, _init,_nav,MessagesRenders.BASE);
+        return CustThreadActions.inst(_page, _init,_nav,MessagesRenders.valMessages(_page.getGene().currentLg()).getVal(MessagesRenders.BASE_KEY));
     }
 
 //    @Override

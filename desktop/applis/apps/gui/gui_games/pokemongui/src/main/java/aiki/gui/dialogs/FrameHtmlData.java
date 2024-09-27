@@ -4,6 +4,7 @@ package aiki.gui.dialogs;
 
 
 import aiki.beans.BeanNatCommonLgNamesForm;
+import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.main.AikiNatLgNamesNavigation;
 import aiki.main.VideoLoading;
@@ -92,6 +93,7 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
     public static RenderedPage initializeOnlyConf(AikiNatLgNamesNavigation _prepared, String _lg, BeanNatCommonLgNamesForm _stds, AbstractProgramInfos _pr, AbsActionListenerAct _guard) {
         AbsScrollPane ascenseur_=_pr.getCompoFactory().newAbsScrollPane();
         RenderedPage r_ = new RenderedPage(ascenseur_, _pr,new FixCharacterCaseConverter(), _guard);
+        r_.setBase(MessagesPkGame.getAppliTr(_pr.currentLg()).getMapping().getVal(MessagesPkGame.BASE_FILE).getMapping().getVal(MessagesDataBaseConstants.BASE_KEY));
         NatNavigation n_ = _prepared.getNavigation();
         n_.setLanguage(_lg);
         coreInfos(r_, n_);
@@ -123,6 +125,7 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
         menuItem.setEnabled(false);
         search.setText(MessagesPkGame.getPkGameDetailContentTr(MessagesPkGame.getAppliTr(window.getFrames().currentLg())).getMapping().getVal(MessagesRenderPkGameDetail.SEARCH_LABEL));
         _pr.getBeanNatLgNames().setDataBase(_dataBase);
+        session.setBase(MessagesPkGame.getAppliTr(getFrames().currentLg()).getMapping().getVal(MessagesPkGame.BASE_FILE).getMapping().getVal(MessagesDataBaseConstants.BASE_KEY));
         session.setProcess(videoLoading.getVideo(getGenerator(),getFileCoreStream(),getFrames(), window.getVideoBase()));
         initializeOnlyConf(_pr, _lg, _pr.getBeanNatLgNames(), session);
     }
