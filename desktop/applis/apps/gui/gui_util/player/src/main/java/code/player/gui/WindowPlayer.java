@@ -11,6 +11,7 @@ import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.AbstractGenerator;
 import code.maths.montecarlo.MonteCarloUtil;
+import code.sml.core.DocumentWriterCoreUtil;
 import code.stream.*;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
@@ -26,12 +27,10 @@ import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class WindowPlayer extends GroupFrame implements LineShortListenable,AbsOpenQuit {
-    public static final String SMIL = "smil";
-    public static final String CST_MEDIA = "media";
-    public static final String CST_SRC = "src";
-    public static final String CST_KEY_PAUSE = "pause";
-    public static final String CST_KEY_RANDOM = "random";
-    public static final String CST_ATTR_VALUE = "value";
+    public static final String SMIL = "5";
+    public static final String CST_MEDIA = "0";
+    public static final String CST_KEY_PAUSE = "2";
+    public static final String CST_KEY_RANDOM = "1";
 
 //    private static final String CST_START = "Start";
 //    private static final String CST_CLOSE = "Close";
@@ -205,7 +204,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
         songsList.clear();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             Element elt_ = e_.item(i);
-            String v_ = elt_.getAttribute(CST_SRC);
+            String v_ = elt_.getAttribute(DocumentWriterCoreUtil.VALUE);
             byte[] data_ = StreamBinaryFile.loadFile(v_, getStreams()).getBytes();
             if (valid(data_)) {
                 songsList.add(new LoadedSongBytes(v_,data_));
@@ -303,7 +302,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
         }
         if (!elts_.isEmpty()) {
             if (StringUtil.quickEq(CST_KEY_PAUSE, elts_.get(0).getTagName())) {
-                String txtCont_ = elts_.get(0).getAttribute(CST_ATTR_VALUE);
+                String txtCont_ = elts_.get(0).getAttribute(DocumentWriterCoreUtil.VALUE);
                 int paused_ = NumberUtil.parseInt(txtCont_);
                 if (songsList.isValidIndex(paused_)) {
                     noSong = paused_;
@@ -366,11 +365,11 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
         Document list_ = DocumentBuilder.newXmlDocument();
         Element mainDoc_ = list_.createElement(SMIL);
         Element pause_ = list_.createElement(CST_KEY_PAUSE);
-        pause_.setAttribute(CST_ATTR_VALUE,Long.toString(noSong));
+        pause_.setAttribute(DocumentWriterCoreUtil.VALUE,Long.toString(noSong));
         mainDoc_.appendChild(pause_);
         for (LoadedSongBytes s: songsList) {
             Element elt_ = list_.createElement(CST_MEDIA);
-            elt_.setAttribute(CST_SRC,s.getName());
+            elt_.setAttribute(DocumentWriterCoreUtil.VALUE,s.getName());
             mainDoc_.appendChild(elt_);
         }
 //        contentList = mainDoc_.export();
