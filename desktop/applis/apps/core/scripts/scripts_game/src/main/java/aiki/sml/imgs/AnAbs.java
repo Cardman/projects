@@ -3,7 +3,7 @@ import code.util.*;
 public final class AnAbs{
 private AnAbs(){}
 public static StringMap<String> im(){
-StringMap<String> i = new StringMap<String>(new CollCapacity(1));
+StringMap<String> i = new StringMap<String>(1);
 i.addEntry("absorb.txt",AnAbs0.i0());
 return i;
 }

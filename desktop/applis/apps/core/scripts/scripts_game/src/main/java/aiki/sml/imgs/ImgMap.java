@@ -3,7 +3,7 @@ import code.util.*;
 public final class ImgMap{
 private ImgMap(){}
 public static StringMap<String> im(){
-StringMap<String> i = new StringMap<String>(new CollCapacity(61));
+StringMap<String> i = new StringMap<String>(61);
 i.addEntry("batiment.txt",ImgMap0.i0());
 i.addEntry("bottom_bound.txt",ImgMap1.i1());
 i.addEntry("bottom_bound_14_3.txt",ImgMap2.i2());

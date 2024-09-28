@@ -3,7 +3,7 @@ import code.util.*;
 public final class TrainerImg{
 private TrainerImg(){}
 public static StringMap<String> im(){
-StringMap<String> i = new StringMap<String>(new CollCapacity(8));
+StringMap<String> i = new StringMap<String>(8);
 i.addEntry("ADRIANA.txt",TrainerImg0.i0());
 i.addEntry("ALISE.txt",TrainerImg0.i1());
 i.addEntry("CONSTANT.txt",TrainerImg0.i2());

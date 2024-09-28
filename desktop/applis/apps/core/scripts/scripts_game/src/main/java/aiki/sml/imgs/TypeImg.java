@@ -3,7 +3,7 @@ import code.util.*;
 public final class TypeImg{
 private TypeImg(){}
 public static StringMap<String> im(){
-StringMap<String> i = new StringMap<String>(new CollCapacity(18));
+StringMap<String> i = new StringMap<String>(18);
 i.addEntry("ACIER",TypeImg0.i0());
 i.addEntry("COMBAT",TypeImg0.i1());
 i.addEntry("DRAGON",TypeImg0.i2());

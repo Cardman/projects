@@ -3,7 +3,7 @@ import code.util.*;
 public final class AnStatus{
 private AnStatus(){}
 public static StringMap<String> im(){
-StringMap<String> i = new StringMap<String>(new CollCapacity(13));
+StringMap<String> i = new StringMap<String>(13);
 i.addEntry("AMOUR",AnStatus0.i0());
 i.addEntry("BRULURE",AnStatus0.i1());
 i.addEntry("CAUCHEMAR_ST",AnStatus0.i2());

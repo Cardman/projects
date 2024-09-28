@@ -3,7 +3,7 @@ import code.util.*;
 public final class MiniMapImg{
 private MiniMapImg(){}
 public static StringMap<String> im(){
-StringMap<String> i = new StringMap<String>(new CollCapacity(8));
+StringMap<String> i = new StringMap<String>(8);
 i.addEntry("city_locked.txt",MiniMapImg0.i0());
 i.addEntry("city_unlocked.txt",MiniMapImg0.i1());
 i.addEntry("ground.txt",MiniMapImg0.i2());

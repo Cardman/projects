@@ -3,7 +3,7 @@ import code.util.*;
 public final class Mn{
 private Mn(){}
 public static StringMap<String> im(){
-StringMap<String> i = new StringMap<String>(new CollCapacity(722));
+StringMap<String> i = new StringMap<String>(722);
 i.addEntry("ABO",Mn0.i0());
 i.addEntry("ABRA",Mn0.i1());
 i.addEntry("ABSOL",Mn0.i2());

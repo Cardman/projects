@@ -3,7 +3,7 @@ import code.util.*;
 public final class Ft{
 private Ft(){}
 public static StringMap<String> im(){
-StringMap<String> i = new StringMap<String>(new CollCapacity(722));
+StringMap<String> i = new StringMap<String>(722);
 i.addEntry("ABO",Ft0.i0());
 i.addEntry("ABRA",Ft0.i1());
 i.addEntry("ABSOL",Ft0.i2());

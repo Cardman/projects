@@ -3,7 +3,7 @@ import code.util.*;
 public final class PeopleImg{
 private PeopleImg(){}
 public static StringMap<String> im(){
-StringMap<String> i = new StringMap<String>(new CollCapacity(15));
+StringMap<String> i = new StringMap<String>(15);
 i.addEntry("ADRIANA.txt",PeopleImg0.i0());
 i.addEntry("ALISE.txt",PeopleImg0.i1());
 i.addEntry("BIANCA.txt",PeopleImg0.i2());

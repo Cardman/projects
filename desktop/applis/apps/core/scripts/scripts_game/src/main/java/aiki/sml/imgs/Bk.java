@@ -3,7 +3,7 @@ import code.util.*;
 public final class Bk{
 private Bk(){}
 public static StringMap<String> im(){
-StringMap<String> i = new StringMap<String>(new CollCapacity(722));
+StringMap<String> i = new StringMap<String>(722);
 i.addEntry("ABO",Bk0.i0());
 i.addEntry("ABRA",Bk0.i1());
 i.addEntry("ABSOL",Bk0.i2());

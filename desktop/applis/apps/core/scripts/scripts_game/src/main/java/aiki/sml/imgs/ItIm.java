@@ -3,7 +3,7 @@ import code.util.*;
 public final class ItIm{
 private ItIm(){}
 public static StringMap<String> im(){
-StringMap<String> i = new StringMap<String>(new CollCapacity(287));
+StringMap<String> i = new StringMap<String>(287);
 i.addEntry("ACCRO_GRIFFE",ItIm0.i0());
 i.addEntry("AIMANT",ItIm0.i1());
 i.addEntry("AMELIORATOR",ItIm0.i2());
