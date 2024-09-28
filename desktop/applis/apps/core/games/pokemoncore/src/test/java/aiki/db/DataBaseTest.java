@@ -1283,86 +1283,86 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.getAnimAbsorb();
         assertTrue(!data_.isError());
     }
-
-    @Test
-    public void toUpperCaseTest() {
-        assertEq("Aa!<>_{}[]?".length(), DataBase.toUpperCase("Aa!<>_{}[]?").length());
-    }
-    @Test
-    public void checkCaseOfFiles1Test() {
-        DataBase data_ = newData();
-        data_.initializeMembers();
-        StringList files_ = new StringList();
-        data_.checkCaseOfFiles("folder", files_);
-        assertEq(0, data_.getFilesWithSameNameDifferentCase().size());
-    }
-
-    @Test
-    public void checkCaseOfFiles2Test() {
-        DataBase data_ = newData();
-        data_.initializeMembers();
-        StringList files_ = new StringList();
-        files_.add("file_one");
-        files_.add("file_TWO");
-        data_.checkCaseOfFiles("folder", files_);
-        assertEq(0, data_.getFilesWithSameNameDifferentCase().size());
-    }
-
-    @Test
-    public void checkCaseOfFiles3Test() {
-        DataBase data_ = newData();
-        data_.initializeMembers();
-        StringList files_ = new StringList();
-        files_.add("file_one");
-        files_.add("file_ONE");
-        files_.add("file_TWO");
-        data_.checkCaseOfFiles("folder", files_);
-        assertEq(1, data_.getFilesWithSameNameDifferentCase().size());
-        assertTrue(StringUtil.contains(data_.getFilesWithSameNameDifferentCase(), "folder/FILE_ONE"));
-    }
-
-    @Test
-    public void checkCaseOfFiles4Test() {
-        DataBase data_ = newData();
-        data_.initializeMembers();
-        StringList files_ = new StringList();
-        files_.add("file_one");
-        files_.add("file_ONE");
-        files_.add("File_ONE");
-        files_.add("file_TWO");
-        data_.checkCaseOfFiles("folder", files_);
-        assertEq(1, data_.getFilesWithSameNameDifferentCase().size());
-        assertTrue(StringUtil.contains(data_.getFilesWithSameNameDifferentCase(), "folder/FILE_ONE"));
-    }
-
-    @Test
-    public void checkCaseOfFiles5Test() {
-        DataBase data_ = newData();
-        data_.initializeMembers();
-        StringList files_ = new StringList();
-        files_.add("!file_one");
-        files_.add("!file_ONE");
-        files_.add("!File_ONE");
-        files_.add("!file_TWO");
-        data_.checkCaseOfFiles("folder", files_);
-        assertEq(1, data_.getFilesWithSameNameDifferentCase().size());
-        assertTrue(StringUtil.contains(data_.getFilesWithSameNameDifferentCase(), "folder/!FILE_ONE"));
-    }
-
-    @Test
-    public void checkCaseOfFiles6Test() {
-        DataBase data_ = newData();
-        data_.initializeMembers();
-        StringList files_ = new StringList();
-        files_.add("<file_one");
-        files_.add("<file_ONE");
-        files_.add("<File_ONE");
-        files_.add("<file_TWO");
-        data_.checkCaseOfFiles("folder", files_);
-        assertEq(1, data_.getFilesWithSameNameDifferentCase().size());
-        assertTrue(StringUtil.contains(data_.getFilesWithSameNameDifferentCase(), "folder/<FILE_ONE"));
-        DataBase.toUpperCase("Aa!<>{}[]?");
-    }
+//
+//    @Test
+//    public void toUpperCaseTest() {
+//        assertEq("Aa!<>_{}[]?".length(), DataBase.toUpperCase("Aa!<>_{}[]?").length());
+//    }
+//    @Test
+//    public void checkCaseOfFiles1Test() {
+//        DataBase data_ = newData();
+//        data_.initializeMembers();
+//        StringList files_ = new StringList();
+//        data_.checkCaseOfFiles("folder", files_);
+//        assertEq(0, data_.getFilesWithSameNameDifferentCase().size());
+//    }
+//
+//    @Test
+//    public void checkCaseOfFiles2Test() {
+//        DataBase data_ = newData();
+//        data_.initializeMembers();
+//        StringList files_ = new StringList();
+//        files_.add("file_one");
+//        files_.add("file_TWO");
+//        data_.checkCaseOfFiles("folder", files_);
+//        assertEq(0, data_.getFilesWithSameNameDifferentCase().size());
+//    }
+//
+//    @Test
+//    public void checkCaseOfFiles3Test() {
+//        DataBase data_ = newData();
+//        data_.initializeMembers();
+//        StringList files_ = new StringList();
+//        files_.add("file_one");
+//        files_.add("file_ONE");
+//        files_.add("file_TWO");
+//        data_.checkCaseOfFiles("folder", files_);
+//        assertEq(1, data_.getFilesWithSameNameDifferentCase().size());
+//        assertTrue(StringUtil.contains(data_.getFilesWithSameNameDifferentCase(), "folder/FILE_ONE"));
+//    }
+//
+//    @Test
+//    public void checkCaseOfFiles4Test() {
+//        DataBase data_ = newData();
+//        data_.initializeMembers();
+//        StringList files_ = new StringList();
+//        files_.add("file_one");
+//        files_.add("file_ONE");
+//        files_.add("File_ONE");
+//        files_.add("file_TWO");
+//        data_.checkCaseOfFiles("folder", files_);
+//        assertEq(1, data_.getFilesWithSameNameDifferentCase().size());
+//        assertTrue(StringUtil.contains(data_.getFilesWithSameNameDifferentCase(), "folder/FILE_ONE"));
+//    }
+//
+//    @Test
+//    public void checkCaseOfFiles5Test() {
+//        DataBase data_ = newData();
+//        data_.initializeMembers();
+//        StringList files_ = new StringList();
+//        files_.add("!file_one");
+//        files_.add("!file_ONE");
+//        files_.add("!File_ONE");
+//        files_.add("!file_TWO");
+//        data_.checkCaseOfFiles("folder", files_);
+//        assertEq(1, data_.getFilesWithSameNameDifferentCase().size());
+//        assertTrue(StringUtil.contains(data_.getFilesWithSameNameDifferentCase(), "folder/!FILE_ONE"));
+//    }
+//
+//    @Test
+//    public void checkCaseOfFiles6Test() {
+//        DataBase data_ = newData();
+//        data_.initializeMembers();
+//        StringList files_ = new StringList();
+//        files_.add("<file_one");
+//        files_.add("<file_ONE");
+//        files_.add("<File_ONE");
+//        files_.add("<file_TWO");
+//        data_.checkCaseOfFiles("folder", files_);
+//        assertEq(1, data_.getFilesWithSameNameDifferentCase().size());
+//        assertTrue(StringUtil.contains(data_.getFilesWithSameNameDifferentCase(), "folder/<FILE_ONE"));
+//        DataBase.toUpperCase("Aa!<>{}[]?");
+//    }
 
     @Test
     public void isVariableTest() {

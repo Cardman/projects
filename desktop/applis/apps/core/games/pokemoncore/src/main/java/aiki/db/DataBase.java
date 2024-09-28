@@ -506,7 +506,7 @@ public class DataBase {
 
     private int[][] endGameImage = new int[0][0];
 
-    private StringList filesWithSameNameDifferentCase;
+//    private StringList filesWithSameNameDifferentCase;
 
     private StringMap<StringMap<String>> translatedCategories = new StringMap<StringMap<String>>();
 
@@ -4676,24 +4676,24 @@ public class DataBase {
         language = _language;
     }
 
-    public static String toUpperCase(String _string) {
-        int len_ = _string.length();
-        StringBuilder str_ = new StringBuilder(len_);
-        for (int i = 0; i < len_; i++) {
-            char curr_ = _string.charAt(i);
-            if (isLowerLetter(curr_)) {
-                int char_ = curr_ - NumberUtil.MIN_LOW + NumberUtil.MIN_UPP;
-                str_.append((char)char_);
-                continue;
-            }
-            str_.append(curr_);
-        }
-        return str_.toString();
-    }
-
-    private static boolean isLowerLetter(char _curr) {
-        return _curr >= NumberUtil.MIN_LOW && _curr <= NumberUtil.MIN_LOW + 25;
-    }
+//    public static String toUpperCase(String _string) {
+//        int len_ = _string.length();
+//        StringBuilder str_ = new StringBuilder(len_);
+//        for (int i = 0; i < len_; i++) {
+//            char curr_ = _string.charAt(i);
+//            if (isLowerLetter(curr_)) {
+//                int char_ = curr_ - NumberUtil.MIN_LOW + NumberUtil.MIN_UPP;
+//                str_.append((char)char_);
+//                continue;
+//            }
+//            str_.append(curr_);
+//        }
+//        return str_.toString();
+//    }
+//
+//    private static boolean isLowerLetter(char _curr) {
+//        return _curr >= NumberUtil.MIN_LOW && _curr <= NumberUtil.MIN_LOW + 25;
+//    }
 
     public void setMessages(DataBase _other) {
         messagesPokemonPlayer = _other.messagesPokemonPlayer;
@@ -4786,21 +4786,21 @@ public class DataBase {
 
     }
 
-    void checkCaseOfFiles(String _folderName, StringList _files) {
-        StringList filesNamesWithSameCase_;
-        filesNamesWithSameCase_ = new StringList();
-        for (String s : _files) {
-            String upperCase_ = toUpperCase(s);
-            if (StringUtil.contains(filesNamesWithSameCase_, upperCase_)) {
-                String name_ = StringUtil.concat(_folderName, SEPARATOR_FILES,
-                        upperCase_);
-                if (!StringUtil.contains(filesWithSameNameDifferentCase, name_)) {
-                    filesWithSameNameDifferentCase.add(name_);
-                }
-            }
-            filesNamesWithSameCase_.add(upperCase_);
-        }
-    }
+//    void checkCaseOfFiles(String _folderName, StringList _files) {
+//        StringList filesNamesWithSameCase_;
+//        filesNamesWithSameCase_ = new StringList();
+//        for (String s : _files) {
+//            String upperCase_ = toUpperCase(s);
+//            if (StringUtil.contains(filesNamesWithSameCase_, upperCase_)) {
+//                String name_ = StringUtil.concat(_folderName, SEPARATOR_FILES,
+//                        upperCase_);
+//                if (!StringUtil.contains(filesWithSameNameDifferentCase, name_)) {
+//                    filesWithSameNameDifferentCase.add(name_);
+//                }
+//            }
+//            filesNamesWithSameCase_.add(upperCase_);
+//        }
+//    }
 
     public void initializeWildPokemon() {
         map.initializeWildPokemon();
@@ -4849,7 +4849,7 @@ public class DataBase {
         categories = new StringList();
         evtEndRound = new CustList<EndRoundMainElements>();
         variables = new StringList();
-        filesWithSameNameDifferentCase = new StringList();
+//        filesWithSameNameDifferentCase = new StringList();
         setAnimStatis(new StringMap<int[][]>());
         setAnimStatus(new StringMap<int[][]>());
         legPks = new StringList();
@@ -6228,9 +6228,9 @@ public class DataBase {
         endGameImage = _endGameImage;
     }
 
-    StringList getFilesWithSameNameDifferentCase() {
-        return filesWithSameNameDifferentCase;
-    }
+//    StringList getFilesWithSameNameDifferentCase() {
+//        return filesWithSameNameDifferentCase;
+//    }
 
     public StringMap<StringMap<String>> getTranslatedCategories() {
         return translatedCategories;
