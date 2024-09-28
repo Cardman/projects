@@ -11,11 +11,13 @@ public final class StringMap<V> extends AbsBasicMap<String,V> {
     }
 
     public StringMap(ListableEntries<String, V> _arg0) {
-        super(new CollCapacity(_arg0.size()));
+        this(_arg0.size());
         addAllEntries(_arg0);
     }
 
-    
+    public StringMap(int _capacity) {
+        this(new CollCapacity(_capacity));
+    }
     public StringMap(CollCapacity _capacity) {
         super(_capacity);
     }

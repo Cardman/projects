@@ -8,7 +8,7 @@ public class IdMapTest extends EquallableExUtil {
 
     @Test
     public void put1Test() {
-        IdMap<Ints,Integer> otherMap_ = new IdMap<Ints,Integer>(new IdMap<Ints,Integer>(new CollCapacity(0)));
+        IdMap<Ints,Integer> otherMap_ = new IdMap<Ints,Integer>(new IdMap<Ints,Integer>(0));
         Ints k1_ = Ints.newList(0, 0);
         Ints k2_ = Ints.newList(0, 1);
         Ints k3_ = Ints.newList(0, 1);

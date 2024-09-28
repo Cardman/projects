@@ -9,11 +9,13 @@ public final class IdMap<K,V> extends AbsBasicMap<K,V> {
     }
 
     public IdMap(ListableEntries<K, V> _arg0) {
-        super(new CollCapacity(_arg0.size()));
+        this(_arg0.size());
         addAllEntries(_arg0);
     }
 
-    
+    public IdMap(int _capacity) {
+        this(new CollCapacity(_capacity));
+    }
     public IdMap(CollCapacity _capacity) {
         super(_capacity);
     }

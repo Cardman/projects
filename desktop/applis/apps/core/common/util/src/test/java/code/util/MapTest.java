@@ -9,7 +9,7 @@ public class MapTest extends EquallableExUtil {
 
     @Test
     public void put1Test() {
-        StringMap<Integer> map_ = new StringMap<Integer>(new StringMap<Integer>(new CollCapacity(0)));
+        StringMap<Integer> map_ = new StringMap<Integer>(new StringMap<Integer>(0));
         Listable<EntryCust<String,Integer>> l_ = map_.getList();
         assertEq(0, l_.size());
         map_.put("ONE", 1);
@@ -454,7 +454,7 @@ public class MapTest extends EquallableExUtil {
     }
     @Test
     public void getKeysNb2Test() {
-        ByteMap<Integer> mapEmpty_ = new ByteMap<Integer>(new CollCapacity(2));
+        ByteMap<Integer> mapEmpty_ = new ByteMap<Integer>(2);
         ByteMap<Integer> map_ = new ByteMap<Integer>(mapEmpty_);
         map_.put((byte) 0, 0);
         map_.put((byte) 1, 1);
@@ -476,7 +476,7 @@ public class MapTest extends EquallableExUtil {
         assertEq(2,elts_.size());
         assertEq(0,elts_.first());
         assertEq(1,elts_.last());
-        LongMap<Integer> mapEmpty_ = new LongMap<Integer>(new CollCapacity(2));
+        LongMap<Integer> mapEmpty_ = new LongMap<Integer>(2);
         elts_ = mapEmpty_.getKeys();
         assertEq(0,elts_.size());
     }
@@ -489,7 +489,7 @@ public class MapTest extends EquallableExUtil {
         assertEq(2,elts_.size());
         assertEq(0,elts_.first());
         assertEq(1,elts_.last());
-        ShortMap<Integer> mapEmpty_ = new ShortMap<Integer>(new CollCapacity(2));
+        ShortMap<Integer> mapEmpty_ = new ShortMap<Integer>(2);
         elts_ = mapEmpty_.getKeys();
         assertEq(0,elts_.size());
     }

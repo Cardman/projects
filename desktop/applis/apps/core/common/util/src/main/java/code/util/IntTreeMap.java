@@ -7,7 +7,9 @@ public final class IntTreeMap<V> extends NatTreeMap<Integer, V>  {
 
     public IntTreeMap() {
     }
-
+    public IntTreeMap(int _capacity) {
+        this(new CollCapacity(_capacity));
+    }
     public IntTreeMap(CollCapacity _capacity) {
         super(_capacity);
     }

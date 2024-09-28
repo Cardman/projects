@@ -38,7 +38,7 @@ public final class NatTreeMapTest extends EquallableExUtil {
 
     @Test
     public void put2Test() {
-        IntTreeMap<Integer> map_ = new IntTreeMap<Integer>(new CollCapacity(2));
+        IntTreeMap<Integer> map_ = new IntTreeMap<Integer>(2);
         CustList<EntryCust<Integer,Integer>> l_ = map_.getList();
         assertEq(0, l_.size());
         map_.put(2, 2);
@@ -88,7 +88,7 @@ public final class NatTreeMapTest extends EquallableExUtil {
 
     @Test
     public void put4Test() {
-        ByteTreeMap<Integer> map_ = new ByteTreeMap<Integer>(new CollCapacity(2));
+        ByteTreeMap<Integer> map_ = new ByteTreeMap<Integer>(2);
         CustList<EntryCust<Byte,Integer>> l_ = map_.getList();
         assertEq(0, l_.size());
         map_.put((byte) 2, 2);
