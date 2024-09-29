@@ -2,7 +2,6 @@ package code.scripts.confs;
 
 import aiki.beans.facade.simulation.enums.SimulationSteps;
 import aiki.db.ImageArrayBaseSixtyFour;
-import aiki.db.MessagesDataBaseConstants;
 import aiki.fight.enums.Statistic;
 import aiki.util.Coords;
 import code.bean.nat.*;
@@ -11,7 +10,7 @@ import code.images.BaseSixtyFourUtil;
 import org.junit.Assert;
 
 public abstract class EquallablePkBeanUtil {
-
+    public static final String BASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 //    public static void assertNull(Message _value) {
 //        Assert.assertNull(_value);
 //    }
@@ -60,7 +59,7 @@ public abstract class EquallablePkBeanUtil {
     }
 
     public static ImageArrayBaseSixtyFour getImageByString(String _img) {
-        return instance(BaseSixtyFourUtil.getImageByString(_img, MessagesDataBaseConstants.BASE));
+        return instance(BaseSixtyFourUtil.getImageByString(_img, BASE));
     }
 
     public static ImageArrayBaseSixtyFour instance(int[][] _img) {

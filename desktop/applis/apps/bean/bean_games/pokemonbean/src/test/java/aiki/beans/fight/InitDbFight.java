@@ -248,7 +248,7 @@ public abstract class InitDbFight extends InitDbBean {
 
     public static NaSt beanFightCalculation(PkFight _stds,String _language, FacadeGame _dataBase) {
         _stds.setDataBase(_dataBase);
-        _stds.setBaseEncode(MessagesDataBaseConstants.BASE);
+        _stds.setBaseEncode(BASE);
         return _stds.beanFightCalculation(_language);
     }
 
