@@ -21,7 +21,7 @@ public final class DefDataBaseStream implements IntDataBaseStream {
         if (!export_.isEmpty()) {
             String path_ = _api.getFileCoreStream().newFile(export_).getAbsolutePath();
             path_ = StringUtil.replaceBackSlash(path_);
-            StringMap<String> textFiles_ = DocumentWriterAikiCoreUtil.getTextFiles(_f.getData(), MessagesPkGame.getAppliTr(_api.currentLg()).getMapping().getVal(MessagesPkGame.BASE_FILE).getMapping());
+            StringMap<String> textFiles_ = DocumentWriterAikiCoreUtil.getTextFiles(_f.getData());
             StringMap<ContentTime> meta_ = new StringMap<ContentTime>();
             for (EntryCust<String,String> e: textFiles_.entryList()) {
                 meta_.addEntry(e.getKey(),new ContentTime(StringUtil.encode(e.getValue()),_api.getThreadFactory().millis()));
@@ -36,7 +36,7 @@ public final class DefDataBaseStream implements IntDataBaseStream {
     @Override
     public AbstractAtomicBooleanCore loadRomAndCheck(AbstractProgramInfos _api, AbstractFutureParam<DataBase> _db, FacadeGame _f, String _fileName, AbstractAtomicIntegerCoreAdd _p, AbstractAtomicBooleanCore _l) {
         StringMap<String> files_ = StreamFolderFile.getFiles(_fileName,_api.getFileCoreStream(),_api.getStreams());
-        GamesPk.loadRomAndCheck(_api.getGenerator(),_f,_fileName,files_,_p,_l, MessagesPkGame.getAppliTr(_api.currentLg()).getMapping().getVal(MessagesPkGame.BASE_FILE).getMapping());
+        GamesPk.loadRomAndCheck(_api.getGenerator(),_f,_fileName,files_,_p,_l, GamesPk.baseEncode(_api.getTranslations()));
         if (!_f.isLoadedData()) {
             FacadeGame.postLoad(_f, _db.attendreResultat());
             _p.set(100);

@@ -170,7 +170,7 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
 
     public static DataBase coreDataBaseCity(Person _interact) {
         DataBase data_ = init();
-        data_.addPerson(GERANT,new int[][]{new int[1]});
+        data_.addPerson(GERANT,instance(new int[][]{new int[1]}));
         initDefaultConsts(POKE_BALL,"1","1","1","1","1", ECLAIR_2, PIKACHU, data_);
         StringMap<String> trsIt_ = new StringMap<String>();
         StringMap<String> trsPk_ = new StringMap<String>();
@@ -184,7 +184,7 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         data_.getTranslatedItems().addEntry(LANGUAGE, trsIt_);
         data_.getTranslatedTypes().addEntry(LANGUAGE, trsTypes_);
         data_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, trsDesc_);
-        data_.setStorage(new int[][]{new int[1]});
+        data_.setStorage(instance(new int[][]{new int[1]}));
         trsTypes_.put(ELECTRICK,"elec");
         DataBase ab_ = withAb(data_, PARATONNERRE, trsAb_, "parra");
         DataBase mv_ = withMv(withMv(withMv(ab_, ECLAIR_4, trsMv_, "biz 4"), ECLAIR_2, trsMv_, "biz 2"), ECLAIR, trsMv_, "biz");
@@ -211,7 +211,7 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
 
     public static DataBase coreDataBaseCity() {
         DataBase data_ = init();
-        data_.addPerson(GERANT,new int[][]{new int[1]});
+        data_.addPerson(GERANT,instance(new int[][]{new int[1]}));
         initDefaultConsts(POKE_BALL,"1","1","1","1","1", ECLAIR_2, PIKACHU, data_);
         StringMap<String> trsIt_ = new StringMap<String>();
         StringMap<String> trsPk_ = new StringMap<String>();
@@ -225,7 +225,7 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         data_.getTranslatedItems().addEntry(LANGUAGE, trsIt_);
         data_.getTranslatedTypes().addEntry(LANGUAGE, trsTypes_);
         data_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, trsDesc_);
-        data_.setStorage(new int[][]{new int[1]});
+        data_.setStorage(instance(new int[][]{new int[1]}));
         trsTypes_.put(ELECTRICK,"elec");
         DataBase ab_ = withAb(data_, PARATONNERRE, trsAb_, "parra");
         DataBase mv_ = withMv(withMv(withMv(ab_, ECLAIR_4, trsMv_, "biz 4"), ECLAIR_2, trsMv_, "biz 2"), ECLAIR, trsMv_, "biz");
@@ -284,11 +284,11 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         data_.getTmPrice().addEntry((short)2,new LgInt("1"));
         data_.getTmPrice().addEntry((short)3,new LgInt("2"));
         data_.getMap().setUnlockedCity("4");
-        data_.getMiniMap().addEntry("0",new int[][]{new int[1]});
-        data_.getMiniMap().addEntry("1",new int[][]{new int[1]});
-        data_.getMiniMap().addEntry("2",new int[][]{new int[1]});
-        data_.getMiniMap().addEntry("3",new int[][]{new int[1]});
-        data_.getMiniMap().addEntry("4",new int[][]{new int[1]});
+        data_.getMiniMap().addEntry("0",instance(new int[][]{new int[1]}));
+        data_.getMiniMap().addEntry("1",instance(new int[][]{new int[1]}));
+        data_.getMiniMap().addEntry("2",instance(new int[][]{new int[1]}));
+        data_.getMiniMap().addEntry("3",instance(new int[][]{new int[1]}));
+        data_.getMiniMap().addEntry("4",instance(new int[][]{new int[1]}));
         data_.getMap().getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 0), tile(0, true, "0"));
         data_.getMap().getMiniMap().addEntry(new MiniMapCoords((short) 1,(short) 0), tile(-1, false, "1"));
         data_.getMap().getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 1), tile(1, true, "2"));
@@ -363,7 +363,7 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         cave_.setName("____");
         cave_.getLevels().add(withBlocks(Instances.newLevelCave()));
         data_.getMap().addPlace(cave_);
-        data_.addLink(DESERT,new int[][]{new int[1]});
+        data_.addLink(DESERT,instance(new int[][]{new int[1]}));
 
 
 //        initMiniMap(data_);
@@ -446,7 +446,7 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         tr_.getTeamsRewards().add(team_);
         road_.getLevelRoad().getCharacters().addEntry(newPoint(0,1), tr_);
         data_.getMap().addPlace(road_);
-        data_.addTrainerImage(SNOW, new int[][]{new int[1]});
+        data_.addTrainerImage(SNOW, instance(new int[][]{new int[1]}));
 
 
 //        initMiniMap(data_);
@@ -487,7 +487,7 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         Road road_ = withArea(withFishBlocks(Instances.newRoad()));
         road_.getLevelRoad().getLegendaryPks().addEntry(newPoint(0,1),wild(RAICHU,1,PARATONNERRE,POKE_BALL));
         data_.getMap().addPlace(road_);
-        data_.getMiniItems().addEntry(POKE_BALL,new int[][]{new int[1]});
+        data_.getMiniItems().addEntry(POKE_BALL,instance(new int[][]{new int[1]}));
 
 
 //        initMiniMap(data_);
@@ -528,7 +528,7 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         data_.getMap().addPlace(city_);
         Road road_ = withArea(withFishBlocks(Instances.newRoad()));
         data_.getMap().addPlace(road_);
-        data_.getMiniItems().addEntry(POKE_BALL,new int[][]{new int[1]});
+        data_.getMiniItems().addEntry(POKE_BALL,instance(new int[][]{new int[1]}));
 
 
 //        initMiniMap(data_);
@@ -606,24 +606,24 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         data_.setCombos(Instances.newCombos());
         data_.getMap().setSideLength(1);
         data_.getConstNum().addEntry(DataBase.STRONG_MOVE,Rate.newRate("90"));
-        data_.getAnimStatis().addEntry(Statistic.ATTACK.getStatName(), new int[][]{new int[]{3}});
-        data_.getAnimStatis().addEntry(Statistic.SPECIAL_ATTACK.getStatName(), new int[][]{new int[]{3}});
-        data_.getAnimStatis().addEntry(Statistic.DEFENSE.getStatName(), new int[][]{new int[]{3}});
-        data_.getAnimStatis().addEntry(Statistic.SPECIAL_DEFENSE.getStatName(), new int[][]{new int[]{3}});
-        data_.getAnimStatis().addEntry(Statistic.SPEED.getStatName(), new int[][]{new int[]{3}});
-        data_.getAnimStatis().addEntry(Statistic.ACCURACY.getStatName(), new int[][]{new int[]{3}});
-        data_.getAnimStatis().addEntry(Statistic.EVASINESS.getStatName(), new int[][]{new int[]{3}});
-        data_.getAnimStatis().addEntry(Statistic.CRITICAL_HIT.getStatName(), new int[][]{new int[]{3}});
-        data_.getTypesImages().addEntry(ELECTRICK, new int[][]{new int[1]});
+        data_.getAnimStatis().addEntry(Statistic.ATTACK.getStatName(), instance(new int[][]{new int[]{3}}));
+        data_.getAnimStatis().addEntry(Statistic.SPECIAL_ATTACK.getStatName(), instance(new int[][]{new int[]{3}}));
+        data_.getAnimStatis().addEntry(Statistic.DEFENSE.getStatName(), instance(new int[][]{new int[]{3}}));
+        data_.getAnimStatis().addEntry(Statistic.SPECIAL_DEFENSE.getStatName(), instance(new int[][]{new int[]{3}}));
+        data_.getAnimStatis().addEntry(Statistic.SPEED.getStatName(), instance(new int[][]{new int[]{3}}));
+        data_.getAnimStatis().addEntry(Statistic.ACCURACY.getStatName(), instance(new int[][]{new int[]{3}}));
+        data_.getAnimStatis().addEntry(Statistic.EVASINESS.getStatName(), instance(new int[][]{new int[]{3}}));
+        data_.getAnimStatis().addEntry(Statistic.CRITICAL_HIT.getStatName(), instance(new int[][]{new int[]{3}}));
+        data_.getTypesImages().addEntry(ELECTRICK, instance(new int[][]{new int[1]}));
         data_.getTypesColors().addEntry(ELECTRICK,"255;255;0");
-        data_.setEndGameImage(new int[][]{new int[1]});
-        data_.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Sex.NO), new int[][]{new int[1]});
-        data_.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Sex.NO), new int[][]{new int[1]});
-        data_.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Direction.UP, Sex.NO), new int[][]{new int[1]});
-        data_.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Direction.DOWN, Sex.NO), new int[][]{new int[1]});
-        data_.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Direction.LEFT, Sex.NO), new int[][]{new int[1]});
-        data_.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Direction.RIGHT, Sex.NO), new int[][]{new int[1]});
-        data_.addImage(ROAD, new int[][]{new int[1]});
+        data_.setEndGameImage(instance(new int[][]{new int[1]}));
+        data_.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Sex.NO), instance(new int[][]{new int[1]}));
+        data_.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Sex.NO), instance(new int[][]{new int[1]}));
+        data_.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Direction.UP, Sex.NO), instance(new int[][]{new int[1]}));
+        data_.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Direction.DOWN, Sex.NO), instance(new int[][]{new int[1]}));
+        data_.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Direction.LEFT, Sex.NO), instance(new int[][]{new int[1]}));
+        data_.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Direction.RIGHT, Sex.NO), instance(new int[][]{new int[1]}));
+        data_.addImage(ROAD, instance(new int[][]{new int[1]}));
         return data_;
     }
     public static Road withBlocks(Road _road) {
@@ -725,9 +725,9 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
     }
     public static DataBase withPk(DataBase _data, String _key, StringMap<String> _trs, String _val) {
         _data.completeQuickMembers(_key,pkData(_data,_key));
-        _data.getMiniPk().addEntry(_key,new int[][]{new int[1]});
-        _data.getMaxiPkBack().addEntry(_key,new int[][]{new int[1]});
-        _data.getMaxiPkFront().addEntry(_key,new int[][]{new int[1]});
+        _data.getMiniPk().addEntry(_key,instance(new int[][]{new int[1]}));
+        _data.getMaxiPkBack().addEntry(_key,instance(new int[][]{new int[1]}));
+        _data.getMaxiPkFront().addEntry(_key,instance(new int[][]{new int[1]}));
         _trs.addEntry(_key,_val);
         return _data;
     }
@@ -752,14 +752,14 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
     public static DataBase withIt(DataBase _data, String _key, StringMap<String> _trs, String _val, Item _it) {
         _data.completeQuickMembers(_key, _it);
         _trs.addEntry(_key,_val);
-        _data.getMiniItems().addEntry(_key,new int[][]{new int[1]});
+        _data.getMiniItems().addEntry(_key,instance(new int[][]{new int[1]}));
         return _data;
     }
 
     public static DataBase withIt(DataBase _data, String _key, StringMap<String> _trs, String _val, Item _it, StringMap<String> _trsDesc, String _valDesc) {
         _data.completeQuickMembers(_key, _it);
         _trs.addEntry(_key,_val);
-        _data.getMiniItems().addEntry(_key,new int[][]{new int[1]});
+        _data.getMiniItems().addEntry(_key,instance(new int[][]{new int[1]}));
         _trsDesc.addEntry(_it.getItemType(),_valDesc);
         return _data;
     }

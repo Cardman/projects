@@ -45,12 +45,12 @@ public final class PokemonLabel extends SelectableLabel {
     }
 
     public void setImagesResults(AbstractImageFactory _fact, FacadeGame _facade, IntTileRender _rend) {
-        int[][] miniPk_ = _facade.getData().getMiniPk().getVal(pokemon.getKeyName());
+        int[][] miniPk_ = _facade.getData().getMiniPk().getVal(pokemon.getKeyName()).getImage();
         sideLength = _facade.getMap().getSideLength();
         miniImagePk = _rend.render(_fact,miniPk_,sideLength,sideLength);
         withItem = !pokemon.getKeyItem().isEmpty();
         if (withItem) {
-            int[][] miniItem_ = _facade.getData().getMiniItems().getVal(pokemon.getKeyItem());
+            int[][] miniItem_ = _facade.getData().getMiniItems().getVal(pokemon.getKeyItem()).getImage();
             miniImageItem = _rend.render(_fact,miniItem_,sideLength,sideLength);
         }
     }

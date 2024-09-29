@@ -89,7 +89,6 @@ public final class MessagesPkGame {
         _lgs.getMapping().addEntry(FIGHTER_ACCESS,MessagesCorePk.enFighter());
         _lgs.getMapping().addEntry(PLAYER_ACCESS,MessagesCorePk.enPlayer());
         _lgs.getMapping().addEntry(POKEMON_PLAYER,MessagesCorePk.enPokemonPlayer());
-        _lgs.getMapping().addEntry(BASE_FILE,MessagesCorePk.parsingBase());
     }
 
     public static void frTr(TranslationsAppli _lgs) {
@@ -120,11 +119,11 @@ public final class MessagesPkGame {
         _lgs.getMapping().addEntry(FIGHTER_ACCESS,MessagesCorePk.frFighter());
         _lgs.getMapping().addEntry(PLAYER_ACCESS,MessagesCorePk.frPlayer());
         _lgs.getMapping().addEntry(POKEMON_PLAYER,MessagesCorePk.frPokemonPlayer());
-        _lgs.getMapping().addEntry(BASE_FILE,MessagesCorePk.parsingBase());
     }
 
     public static void sys(TranslationsAppli _lgs) {
         _lgs.sys(mes());
+        _lgs.getMapping().addEntry(BASE_FILE,MessagesCorePk.parsingBase());
     }
     public static TranslationsFile mes(){
         TranslationsFile t_ = new TranslationsFile();

@@ -602,7 +602,7 @@ public final class Game {
                 _images.add(_data.getPerson(person_.getImageMiniFileName()));
             }
             if (Point.eq(lv_.getStorageCoords(), _pt)) {
-                _images.add(_data.getStorage());
+                _images.add(_data.getStorage().getImage());
             }
         }
     }
@@ -631,16 +631,16 @@ public final class Game {
         }
         if (lv_.containsPokemon(pt_) && !isEmpty(map_, _coords)) {
             WildPk pk_ = lv_.getPokemon(pt_);
-            _images.add(_data.getMiniPk().getVal(pk_.getName()));
+            _images.add(_data.getMiniPk().getVal(pk_.getName()).getImage());
         }
         if (lv_.getItems().contains(pt_) && !isEmpty(map_, _coords)) {
-            _images.add(_data.getMiniItems().getVal(lv_.getItems().getVal(pt_)));
+            _images.add(_data.getMiniItems().getVal(lv_.getItems().getVal(pt_)).getImage());
         }
         if (lv_.getTm().contains(pt_) && !isEmpty(map_, _coords)) {
-            _images.add(_data.getImageTmHm());
+            _images.add(_data.getImageTmHm().getImage());
         }
         if (lv_.getHm().contains(pt_) && !isEmpty(map_, _coords)) {
-            _images.add(_data.getImageTmHm());
+            _images.add(_data.getImageTmHm().getImage());
         }
         possibleDualFight(_data, _coords, _images, lv_);
     }
@@ -696,10 +696,10 @@ public final class Game {
         ImageHeroKey key_;
         key_ = ImageHeroKey.direct(currentEnv_, playerOrientation, player);
         if (_data.getOverWorldHeros().contains(key_)) {
-            return _data.getOverWorldHeros().getVal(key_);
+            return _data.getOverWorldHeros().getVal(key_).getImage();
         }
         key_ = ImageHeroKey.direct(EnvironmentType.ROAD, playerOrientation, player);
-        return _data.getOverWorldHeros().getVal(key_);
+        return _data.getOverWorldHeros().getVal(key_).getImage();
     }
 
     public int[][] getBackHeros(DataBase _data) {
@@ -708,10 +708,10 @@ public final class Game {
         Sex sex_ = player.getSex();
         key_ = new ImageHeroKey(currentEnv_, sex_);
         if (_data.getBackHeros().contains(key_)) {
-            return _data.getBackHeros().getVal(key_);
+            return _data.getBackHeros().getVal(key_).getImage();
         }
         key_ = new ImageHeroKey(EnvironmentType.ROAD, sex_);
-        return _data.getBackHeros().getVal(key_);
+        return _data.getBackHeros().getVal(key_).getImage();
     }
 
     public int[][] getBackHerosSexOpposite(DataBase _data) {
@@ -719,10 +719,10 @@ public final class Game {
         EnvironmentType currentEnv_ = _data.getMap().currentBlock(playerCoords).getType();
         key_ = ImageHeroKey.opposite(currentEnv_, player);
         if (_data.getBackHeros().contains(key_)) {
-            return _data.getBackHeros().getVal(key_);
+            return _data.getBackHeros().getVal(key_).getImage();
         }
         key_ = ImageHeroKey.opposite(EnvironmentType.ROAD, player);
-        return _data.getBackHeros().getVal(key_);
+        return _data.getBackHeros().getVal(key_).getImage();
     }
 
     public boolean isDualFight() {

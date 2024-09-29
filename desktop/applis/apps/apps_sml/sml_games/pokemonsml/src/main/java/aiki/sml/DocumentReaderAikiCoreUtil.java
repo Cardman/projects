@@ -57,51 +57,51 @@ public final class DocumentReaderAikiCoreUtil {
     private DocumentReaderAikiCoreUtil() {
     }
 
-    public static void loadRom(DataBase _d, StringMap<String> _files, AbstractAtomicIntegerCoreAdd _perCentLoading, SexListInt _sexList, StringMap<String> _baseParse) {
+    public static void loadRom(DataBase _d, StringMap<String> _files, AbstractAtomicIntegerCoreAdd _perCentLoading, SexListInt _sexList, String _base) {
         _perCentLoading.set(0);
         _d.initializeMembers();
         _d.initTranslations();
         _d.setCombos(Instances.newCombos());
         _d.setMap(Instances.newDataMap());
 
-        _d.setImages(new StringMap<int[][]>());
+        _d.setImages(new StringMap<ImageArrayBaseSixtyFour>());
         _d.setImagesTiles(new StringMap<ScreenCoordssInt>());
 
 
-        _d.setMiniMap(new StringMap<int[][]>());
+        _d.setMiniMap(new StringMap<ImageArrayBaseSixtyFour>());
 
 
-        _d.setLinks(new StringMap<int[][]>());
+        _d.setLinks(new StringMap<ImageArrayBaseSixtyFour>());
 
-        _d.setPeople(new StringMap<int[][]>());
+        _d.setPeople(new StringMap<ImageArrayBaseSixtyFour>());
 
-        _d.setTrainers(new StringMap<int[][]>());
+        _d.setTrainers(new StringMap<ImageArrayBaseSixtyFour>());
 
-        _d.setMaxiPkBack(new StringMap<int[][]>());
+        _d.setMaxiPkBack(new StringMap<ImageArrayBaseSixtyFour>());
 
-        _d.setMaxiPkFront(new StringMap<int[][]>());
+        _d.setMaxiPkFront(new StringMap<ImageArrayBaseSixtyFour>());
 
-        _d.setMiniPk(new StringMap<int[][]>());
+        _d.setMiniPk(new StringMap<ImageArrayBaseSixtyFour>());
 
-        _d.setMiniItems(new StringMap<int[][]>());
+        _d.setMiniItems(new StringMap<ImageArrayBaseSixtyFour>());
 
 
-        _d.setTypesImages(new StringMap<int[][]>());
+        _d.setTypesImages(new StringMap<ImageArrayBaseSixtyFour>());
 
         _d.setTableTypes(new TypesDuos());
         _d.setLawsDamageRate(new IdMap<DifficultyModelLaw, LawNumber>());
         _d.setExpGrowth(new IdMap<ExpType, String>());
         _d.setRates(new IdMap<DifficultyWinPointsFight, String>());
-        _d.setEndGameImage(new int[0][0]);
-        _d.setStorage(new int[0][0]);
-        _d.setAnimAbsorb(new int[0][0]);
-        _d.setImageTmHm(new int[0][0]);
+        _d.setEndGameImage(ImageArrayBaseSixtyFour.instance());
+        _d.setStorage(ImageArrayBaseSixtyFour.instance());
+        _d.setAnimAbsorb(ImageArrayBaseSixtyFour.instance());
+        _d.setImageTmHm(ImageArrayBaseSixtyFour.instance());
         allTrs(_d);
         int percent_ = NumberUtil.max(_files.size() / 50, 1);
         int i = 0;
 
         for (String v: _files.values()) {
-            feedByContent(_d,DocumentBuilder.parseNoTextDocument(v),_sexList,_baseParse);
+            feedByContent(_d,DocumentBuilder.parseNoTextDocument(v),_sexList,_base);
             incr(_perCentLoading,percent_,i);
             i++;
         }
@@ -149,12 +149,12 @@ public final class DocumentReaderAikiCoreUtil {
         }
     }
 
-    private static void feedByContent(DataBase _d, Document _doc, SexListInt _sexList, StringMap<String> _baseParse) {
+    private static void feedByContent(DataBase _d, Document _doc, SexListInt _sexList, String _base) {
         //AbstractAtomicIntegerCoreAdd _perCentLoading,
         if (_doc == null) {
             return;
         }
-        images(_d, _doc,_sexList,_baseParse);
+        images(_d, _doc,_sexList,_base);
         data(_d, _doc);
         trs(_d,_doc);
         csts(_d,_doc);
@@ -162,8 +162,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static void csts(DataBase _d, Document _doc) {
         Element c_ = _doc.getDocumentElement();
-        String valueTr_ = c_.getAttribute(DocumentWriterAikiCoreUtil.ATTR_CST);
-        if (valueTr_.isEmpty()) {
+        if (notCst(_doc)) {
             return;
         }
         if (StringUtil.quickEq(c_.getAttribute(DocumentWriterCoreUtil.FIELD),DocumentWriterAikiCoreUtil.KIND_CST_HM)) {
@@ -197,6 +196,10 @@ public final class DocumentReaderAikiCoreUtil {
         if (StringUtil.quickEq(c_.getAttribute(DocumentWriterCoreUtil.FIELD),DocumentWriterAikiCoreUtil.KIND_CST_RANDS)) {
             rands(_d,c_);
         }
+    }
+
+    private static boolean notCst(Document _doc) {
+        return _doc.getDocumentElement().getAttribute(DocumentWriterAikiCoreUtil.ATTR_CST).isEmpty() || !_doc.getDocumentElement().getAttribute(DocumentWriterAikiCoreUtil.ATTR_IMG).isEmpty();
     }
 
     private static void rands(DataBase _d, Element _c) {
@@ -431,67 +434,67 @@ public final class DocumentReaderAikiCoreUtil {
         return k_;
     }
 
-    private static void images(DataBase _d, Document _doc, SexListInt _sexList, StringMap<String> _baseParse) {
+    private static void images(DataBase _d, Document _doc, SexListInt _sexList, String _base) {
         String valueImg_ = _doc.getDocumentElement().getAttribute(DocumentWriterAikiCoreUtil.ATTR_IMG);
         if (valueImg_.isEmpty()) {
             return;
         }
-        String base_ = BaseSixtyFourUtil.checkBase(_doc.getDocumentElement().getAttribute(DocumentWriterAikiCoreUtil.ATTR_IMG_BASE), _baseParse.getVal(MessagesDataBaseConstants.BASE_KEY));
+        String baseMerged_ = BaseSixtyFourUtil.checkBase(_doc.getDocumentElement().getAttribute(DocumentWriterAikiCoreUtil.ATTR_IMG_BASE), _base);
         String kindImg_ = _doc.getDocumentElement().getAttribute(DocumentWriterCoreUtil.FIELD);
         String nameImg_ = _doc.getDocumentElement().getAttribute(DocumentWriterCoreUtil.VALUE);
         if (StringUtil.quickEq(kindImg_, DocumentWriterAikiCoreUtil.KIND_IMG_PK_FR)) {
-            _d.getMaxiPkFront().addEntry(nameImg_,BaseSixtyFourUtil.getImageByString(valueImg_,base_));
+            _d.getMaxiPkFront().addEntry(nameImg_,ImageArrayBaseSixtyFour.instance(BaseSixtyFourUtil.getImageByString(valueImg_,baseMerged_),baseMerged_));
         }
         if (StringUtil.quickEq(kindImg_, DocumentWriterAikiCoreUtil.KIND_IMG_PK_BK)) {
-            _d.getMaxiPkBack().addEntry(nameImg_,BaseSixtyFourUtil.getImageByString(valueImg_,base_));
+            _d.getMaxiPkBack().addEntry(nameImg_,ImageArrayBaseSixtyFour.instance(BaseSixtyFourUtil.getImageByString(valueImg_,baseMerged_),baseMerged_));
         }
         if (StringUtil.quickEq(kindImg_, DocumentWriterAikiCoreUtil.KIND_IMG_PK_MI)) {
-            _d.getMiniPk().addEntry(nameImg_,BaseSixtyFourUtil.getImageByString(valueImg_,base_));
+            _d.getMiniPk().addEntry(nameImg_,ImageArrayBaseSixtyFour.instance(BaseSixtyFourUtil.getImageByString(valueImg_,baseMerged_),baseMerged_));
         }
         if (StringUtil.quickEq(kindImg_, DocumentWriterAikiCoreUtil.KIND_IMG_IT_MI)) {
-            _d.getMiniItems().addEntry(nameImg_,BaseSixtyFourUtil.getImageByString(valueImg_,base_));
+            _d.getMiniItems().addEntry(nameImg_,ImageArrayBaseSixtyFour.instance(BaseSixtyFourUtil.getImageByString(valueImg_,baseMerged_),baseMerged_));
         }
         if (StringUtil.quickEq(kindImg_, DocumentWriterAikiCoreUtil.KIND_IMG_TY)) {
-            _d.getTypesImages().addEntry(nameImg_,BaseSixtyFourUtil.getImageByString(valueImg_,base_));
+            _d.getTypesImages().addEntry(nameImg_,ImageArrayBaseSixtyFour.instance(BaseSixtyFourUtil.getImageByString(valueImg_,baseMerged_),baseMerged_));
         }
         if (StringUtil.quickEq(kindImg_, DocumentWriterAikiCoreUtil.KIND_IMG_AI)) {
-            _d.getAnimStatis().addEntry(nameImg_,BaseSixtyFourUtil.getImageByString(valueImg_,base_));
+            _d.getAnimStatis().addEntry(nameImg_,ImageArrayBaseSixtyFour.instance(BaseSixtyFourUtil.getImageByString(valueImg_,baseMerged_),baseMerged_));
         }
         if (StringUtil.quickEq(kindImg_, DocumentWriterAikiCoreUtil.KIND_IMG_AU)) {
-            _d.getAnimStatus().addEntry(nameImg_,BaseSixtyFourUtil.getImageByString(valueImg_,base_));
+            _d.getAnimStatus().addEntry(nameImg_,ImageArrayBaseSixtyFour.instance(BaseSixtyFourUtil.getImageByString(valueImg_,baseMerged_),baseMerged_));
         }
         if (StringUtil.quickEq(kindImg_, DocumentWriterAikiCoreUtil.KIND_IMG_TR)) {
-            _d.getTrainers().addEntry(nameImg_,BaseSixtyFourUtil.getImageByString(valueImg_,base_));
+            _d.getTrainers().addEntry(nameImg_,ImageArrayBaseSixtyFour.instance(BaseSixtyFourUtil.getImageByString(valueImg_,baseMerged_),baseMerged_));
         }
         if (StringUtil.quickEq(kindImg_, DocumentWriterAikiCoreUtil.KIND_IMG_IM)) {
-            _d.getImages().addEntry(nameImg_,BaseSixtyFourUtil.getImageByString(valueImg_,base_));
+            _d.getImages().addEntry(nameImg_,ImageArrayBaseSixtyFour.instance(BaseSixtyFourUtil.getImageByString(valueImg_,baseMerged_),baseMerged_));
         }
         if (StringUtil.quickEq(kindImg_, DocumentWriterAikiCoreUtil.KIND_IMG_LK)) {
-            _d.getLinks().addEntry(nameImg_,BaseSixtyFourUtil.getImageByString(valueImg_,base_));
+            _d.getLinks().addEntry(nameImg_,ImageArrayBaseSixtyFour.instance(BaseSixtyFourUtil.getImageByString(valueImg_,baseMerged_),baseMerged_));
         }
         if (StringUtil.quickEq(kindImg_, DocumentWriterAikiCoreUtil.KIND_IMG_PEOPLE)) {
-            _d.getPeople().addEntry(nameImg_,BaseSixtyFourUtil.getImageByString(valueImg_,base_));
+            _d.getPeople().addEntry(nameImg_,ImageArrayBaseSixtyFour.instance(BaseSixtyFourUtil.getImageByString(valueImg_,baseMerged_),baseMerged_));
         }
         if (StringUtil.quickEq(kindImg_, DocumentWriterAikiCoreUtil.KIND_IMG_MINI_MAP)) {
-            _d.getMiniMap().addEntry(nameImg_,BaseSixtyFourUtil.getImageByString(valueImg_,base_));
+            _d.getMiniMap().addEntry(nameImg_,ImageArrayBaseSixtyFour.instance(BaseSixtyFourUtil.getImageByString(valueImg_,baseMerged_),baseMerged_));
         }
         if (StringUtil.quickEq(kindImg_, DocumentWriterAikiCoreUtil.KIND_IMG_INDIV)) {
-            imagesIndiv(_d,_doc,valueImg_,_sexList, base_);
+            imagesIndiv(_d,_doc,valueImg_,_sexList, baseMerged_);
         }
     }
     private static void imagesIndiv(DataBase _d, Document _doc, String _valueImg, SexListInt _sexList, String _base) {
         String nameImg_ = _doc.getDocumentElement().getAttribute(DocumentWriterCoreUtil.VALUE);
         if (StringUtil.quickEq(nameImg_, DocumentWriterAikiCoreUtil.KIND_IMG_TM)) {
-            _d.setImageTmHm(BaseSixtyFourUtil.getImageByString(_valueImg,_base));
+            _d.setImageTmHm(ImageArrayBaseSixtyFour.instance(BaseSixtyFourUtil.getImageByString(_valueImg,_base),_base));
         }
         if (StringUtil.quickEq(nameImg_, DocumentWriterAikiCoreUtil.KIND_IMG_STORE)) {
-            _d.setStorage(BaseSixtyFourUtil.getImageByString(_valueImg,_base));
+            _d.setStorage(ImageArrayBaseSixtyFour.instance(BaseSixtyFourUtil.getImageByString(_valueImg,_base),_base));
         }
         if (StringUtil.quickEq(nameImg_, DocumentWriterAikiCoreUtil.KIND_IMG_ABS)) {
-            _d.setAnimAbsorb(BaseSixtyFourUtil.getImageByString(_valueImg,_base));
+            _d.setAnimAbsorb(ImageArrayBaseSixtyFour.instance(BaseSixtyFourUtil.getImageByString(_valueImg,_base),_base));
         }
         if (StringUtil.quickEq(nameImg_, DocumentWriterAikiCoreUtil.KIND_IMG_END)) {
-            _d.setEndGameImage(BaseSixtyFourUtil.getImageByString(_valueImg,_base));
+            _d.setEndGameImage(ImageArrayBaseSixtyFour.instance(BaseSixtyFourUtil.getImageByString(_valueImg,_base),_base));
         }
         if (StringUtil.quickEq(nameImg_, DocumentWriterAikiCoreUtil.KIND_IMG_CODE)) {
             _d.setTypesColors(new StringMap<String>());
@@ -512,7 +515,7 @@ public final class DocumentReaderAikiCoreUtil {
                         .first());
                 Sex sex_ = getSexByName(keyStrings_.last(), _sexList);
                 _d.getFrontHeros().put(new ImageHeroKey(env_, sex_),
-                        BaseSixtyFourUtil.getImageByString(c.getAttribute(DocumentWriterCoreUtil.VALUE),_base));
+                        ImageArrayBaseSixtyFour.instance(BaseSixtyFourUtil.getImageByString(c.getAttribute(DocumentWriterCoreUtil.VALUE),_base),_base));
             }
         }
         if (StringUtil.quickEq(_nameImg, DocumentWriterAikiCoreUtil.KIND_IMG_HEROS_BK)) {
@@ -524,7 +527,7 @@ public final class DocumentReaderAikiCoreUtil {
                         .first());
                 Sex sex_ = getSexByName(keyStrings_.last(), _sexList);
                 _d.getBackHeros().put(new ImageHeroKey(env_, sex_),
-                        BaseSixtyFourUtil.getImageByString(c.getAttribute(DocumentWriterCoreUtil.VALUE),_base));
+                        ImageArrayBaseSixtyFour.instance(BaseSixtyFourUtil.getImageByString(c.getAttribute(DocumentWriterCoreUtil.VALUE),_base),_base));
             }
         }
         if (StringUtil.quickEq(_nameImg, DocumentWriterAikiCoreUtil.KIND_IMG_HEROS_MIN)) {
@@ -541,7 +544,7 @@ public final class DocumentReaderAikiCoreUtil {
                         .get(IndexConstants.SECOND_INDEX));
                 Sex sex_ = getSexByName(keyStrings_.last(), _sexList);
                 _d.getOverWorldHeros().put(new ImageHeroKey(env_, dir_, sex_),
-                        BaseSixtyFourUtil.getImageByString(c.getAttribute(DocumentWriterCoreUtil.VALUE),_base));
+                        ImageArrayBaseSixtyFour.instance(BaseSixtyFourUtil.getImageByString(c.getAttribute(DocumentWriterCoreUtil.VALUE),_base),_base));
             }
         }
     }

@@ -2325,7 +2325,7 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
         tr_.getTeamsRewards().add(team_);
         road_.getLevelRoad().getCharacters().addEntry(newPoint(0,1), tr_);
         data_.getMap().addPlace(road_);
-        data_.addTrainerImage(SNOW, new int[][]{new int[1]});
+        data_.addTrainerImage(SNOW, instance(new int[][]{new int[1]}));
 
 
 //        initMiniMap(data_);
@@ -2445,7 +2445,7 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
 
         road_.getLevelRoad().getDualFights().addEntry(newPoint(0,1), tr_);
         data_.getMap().addPlace(road_);
-        data_.addTrainerImage(SNOW, new int[][]{new int[1]});
+        data_.addTrainerImage(SNOW, instance(new int[][]{new int[1]}));
 
 
 //        initMiniMap(data_);
@@ -2489,7 +2489,7 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
         data_.getMap().addPlace(city_);
         Road road_ = withArea2(withFishBlocks(Instances.newRoad()));
         data_.getMap().addPlace(road_);
-        data_.addTrainerImage(SNOW, new int[][]{new int[1]});
+        data_.addTrainerImage(SNOW, instance(new int[][]{new int[1]}));
 
 
 //        initMiniMap(data_);
@@ -2533,7 +2533,7 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
         data_.getMap().addPlace(city_);
         Road road_ = withArea3(withFishBlocks(Instances.newRoad()));
         data_.getMap().addPlace(road_);
-        data_.addTrainerImage(SNOW, new int[][]{new int[1]});
+        data_.addTrainerImage(SNOW, instance(new int[][]{new int[1]}));
 
 
 //        initMiniMap(data_);
@@ -2578,7 +2578,7 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
         data_.getMap().addPlace(city_);
         Road road_ = withArea4(withFishBlocks(Instances.newRoad()));
         data_.getMap().addPlace(road_);
-        data_.addTrainerImage(SNOW, new int[][]{new int[1]});
+        data_.addTrainerImage(SNOW, instance(new int[][]{new int[1]}));
 
 
 //        initMiniMap(data_);
@@ -2641,7 +2641,7 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
         tr_.getTeamsRewards().add(team_);
         road_.getLevelRoad().getCharacters().addEntry(newPoint(0,1), tr_);
         data_.getMap().addPlace(road_);
-        data_.addTrainerImage(SNOW, new int[][]{new int[1]});
+        data_.addTrainerImage(SNOW, instance(new int[][]{new int[1]}));
 
 
 //        initMiniMap(data_);
@@ -2690,7 +2690,7 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
         tr_.getTeamsRewards().add(team_);
         road_.getLevelRoad().getCharacters().addEntry(newPoint(0,1), tr_);
         data_.getMap().addPlace(road_);
-        data_.addTrainerImage(SNOW, new int[][]{new int[1]});
+        data_.addTrainerImage(SNOW, instance(new int[][]{new int[1]}));
 
 
 //        initMiniMap(data_);
@@ -3322,7 +3322,7 @@ public final class FightGuiRoundTest extends InitDbGuiAiki {
         DataBase ball_ = withIt(res_, POKE_BALL, trsIt_, "ball", _ball,trsDesc_,"chance");
         ball_.completeQuickMembers(DESERT,Instances.newStatusSimple());
         trsSt_.addEntry(DESERT,"dessert");
-        data_.getAnimStatus().addEntry(DESERT, new int[][]{new int[1]});
+        data_.getAnimStatus().addEntry(DESERT, instance(new int[][]{new int[1]}));
         initBeginAttSt(data_);
 
         Road road_ = withArea(withFishBlocks(Instances.newRoad()));

@@ -2383,11 +2383,11 @@ public class FightHelpBean extends CommonBean {
     public String getAnimStatistic(int _index) {
         Statistic d_ = statisticAnim.get(_index);
         DataBase data_ = getDataBase();
-        return getStringByImage(data_.getAnimStatis().getVal(d_.getStatName()));
+        return getStringByImage(data_.getAnimStatis().getVal(d_.getStatName()).getImage());
     }
     public String getAnimAbsorb() {
         DataBase data_ = getDataBase();
-        return getStringByImage(data_.getAnimAbsorb());
+        return getStringByImage(data_.getAnimAbsorb().getImage());
     }
     public String getTrLawRate(int _index) {
         DifficultyModelLaw d_ = PokemonStandards.getModelByName(lawsRates.getKey(_index));

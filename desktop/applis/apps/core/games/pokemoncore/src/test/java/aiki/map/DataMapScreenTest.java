@@ -1,6 +1,7 @@
 package aiki.map;
 
 import aiki.db.EquallablePkUtil;
+import aiki.db.ImageArrayBaseSixtyFour;
 import aiki.map.util.PlaceInterConnects;
 import aiki.util.*;
 import code.maths.montecarlo.DefaultGenerator;
@@ -472,7 +473,7 @@ public class DataMapScreenTest extends EquallablePkUtil {
         DataMap dataMap_ = initDataMap();
         dataMap_.setSideLength(2);
         DataBase data_ = newData();
-        StringMap<int[][]> images_ = imgages();
+        StringMap<ImageArrayBaseSixtyFour> images_ = imgages();
         data_.getImages().putAllMap(images_);
         data_.setMap(dataMap_);
         data_.setupPseudoImages();
@@ -541,7 +542,7 @@ public class DataMapScreenTest extends EquallablePkUtil {
         DataMap dataMap_ = initDataMap();
         dataMap_.setSideLength(2);
         DataBase data_ = newData();
-        StringMap<int[][]> images_ = imgages();
+        StringMap<ImageArrayBaseSixtyFour> images_ = imgages();
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) 0);
         begin_.setLevel(new LevelPoint());
@@ -603,7 +604,7 @@ public class DataMapScreenTest extends EquallablePkUtil {
         DataMap dataMap_ = initDataMap();
         dataMap_.setSideLength(2);
         DataBase data_ = newData();
-        StringMap<int[][]> images_ = imgages();
+        StringMap<ImageArrayBaseSixtyFour> images_ = imgages();
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) 0);
         begin_.setLevel(new LevelPoint());
@@ -659,7 +660,7 @@ public class DataMapScreenTest extends EquallablePkUtil {
         DataMap dataMap_ = initDataMap();
         dataMap_.setSideLength(2);
         DataBase data_ = newData();
-        StringMap<int[][]> images_ = imgages();
+        StringMap<ImageArrayBaseSixtyFour> images_ = imgages();
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) 0);
         begin_.setLevel(new LevelPoint());
@@ -707,11 +708,11 @@ public class DataMapScreenTest extends EquallablePkUtil {
         assertTrue(backGroundImages_.contains(new ScreenCoords(8,1)));
     }
 
-    private StringMap<int[][]> imgages() {
-        StringMap<int[][]> images_ = new StringMap<int[][]>();
-        images_.put(VOIE, new int[][]{shortRow1(), shortRow2(), shortRow1(), shortRow2(), shortRow1(), shortRow2()});
-        images_.put(VOIE2, new int[][]{longRow(), longRow(), longRow(), longRow(), longRow(), longRow()});
-        images_.put(VOIE3, new int[][]{shortRow1(), shortRow2(), shortRow1(), shortRow2(), shortRow1(), shortRow2(), shortRow1(), shortRow2(), shortRow1(), shortRow2(), shortRow1(), shortRow2()});
+    private StringMap<ImageArrayBaseSixtyFour> imgages() {
+        StringMap<ImageArrayBaseSixtyFour> images_ = new StringMap<ImageArrayBaseSixtyFour>();
+        images_.put(VOIE, instance(new int[][]{shortRow1(), shortRow2(), shortRow1(), shortRow2(), shortRow1(), shortRow2()}));
+        images_.put(VOIE2, instance(new int[][]{longRow(), longRow(), longRow(), longRow(), longRow(), longRow()}));
+        images_.put(VOIE3, instance(new int[][]{shortRow1(), shortRow2(), shortRow1(), shortRow2(), shortRow1(), shortRow2(), shortRow1(), shortRow2(), shortRow1(), shortRow2(), shortRow1(), shortRow2()}));
         return images_;
     }
 

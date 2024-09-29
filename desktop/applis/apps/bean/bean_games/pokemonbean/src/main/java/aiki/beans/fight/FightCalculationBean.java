@@ -86,7 +86,7 @@ public class FightCalculationBean extends CommonFightBean {
             CustList<FighterNamePkNameMv> keys_ = new CustList<FighterNamePkNameMv>();
             for (FighterNamePkNameMv k:e.getKeyPks()) {
                 FighterNamePkNameMv cp_ = new FighterNamePkNameMv();
-                cp_.setNamePk(getStringByImage(dataBaseFight_.getData().getMaxiPkFront().getVal(k.getNamePk())));
+                cp_.setNamePk(getStringByImage(dataBaseFight_.getData().getMaxiPkFront().getVal(k.getNamePk()).getImage()));
                 cp_.setNameMv(k.getNameMv());
                 cp_.setNameMvTr(k.getNameMvTr());
                 cp_.setNumber(k.getNumber());

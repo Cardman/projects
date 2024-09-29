@@ -59,11 +59,11 @@ public class PokemonPlayerBean extends CommonSingleBean {
         } else {
             usedBallCatching = translatedItems_.getVal(pkPlayer_.getUsedBallCatching());
         }
-        image = getStringByImage(data_.getMaxiPkFront().getVal(pkPlayer_.getName()));
+        image = getStringByImage(data_.getMaxiPkFront().getVal(pkPlayer_.getName()).getImage());
         DictionaryComparator<String,String> evolutions_;
         evolutions_ = DictionaryComparatorUtil.buildPkStr(data_,getLanguage());
         for (String e: pkPlayer_.getDirectEvolutions(data_)) {
-            int[][] img_ = data_.getMaxiPkFront().getVal(e);
+            int[][] img_ = data_.getMaxiPkFront().getVal(e).getImage();
             evolutions_.put(e, getStringByImage(img_));
         }
         evolutions = evolutions_;

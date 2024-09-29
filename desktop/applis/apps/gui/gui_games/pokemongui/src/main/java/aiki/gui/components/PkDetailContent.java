@@ -5,8 +5,7 @@ import aiki.gui.WindowAiki;
 import aiki.gui.components.listeners.HidePkDetailContentEvent;
 import aiki.gui.dialogs.FrameHtmlData;
 import aiki.main.AikiNatLgNamesNavigation;
-import aiki.sml.MessagesPkGame;
-import aiki.sml.MessagesRenderPkGameDetail;
+import aiki.sml.*;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
@@ -35,6 +34,7 @@ public final class PkDetailContent {
 //        DialogHtmlData d_ = _parent.getDialogHtmlData();
         AikiNatLgNamesNavigation res_ = _pre.attendreResultat();
         res_.getBeanNatLgNames().setDataBase(_dataBase);
+        res_.getBeanNatLgNames().setBaseEncode(GamesPk.baseEncode(_parent.getFrames().getTranslations()));
         RenderedPage session_ = FrameHtmlData.initializeOnlyConf(res_, _lg, res_.getBeanNatLgNames(), _parent.getFrames(), _parent.getGuardRender());
 //        d_.messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), d_.absDialog.getAccessFile());
 //        session = _session;

@@ -819,7 +819,7 @@ public final class FrontBattle extends AbsMetaLabelPk {
     private void drawAnimationInstantAfterDamage(AbstractImageFactory _fact, AnimationEffectDamage _damage) {
         StringMap<AbstractImage> types_ = new StringMap<AbstractImage>();
         for (String t: _damage.getTypes()) {
-            int[][] type_ = facade.getData().getTypesImages().getVal(t);
+            int[][] type_ = facade.getData().getTypesImages().getVal(t).getImage();
             AbstractImage t_ = battle.getWindow().getTileRender().render(battle.getWindow().getImageFactory(), type_,1,1);
             types_.put(t, t_);
         }
@@ -856,7 +856,7 @@ public final class FrontBattle extends AbsMetaLabelPk {
         int h_ = heightFont();
         int statSide_ = facade.getMap().getSideLength();
         for (InfosAnimationStatistic t: _statis.getInfos()) {
-            int[][] type_ = facade.getData().getAnimStatis().getVal(t.getStatistic().getStatName());
+            int[][] type_ = facade.getData().getAnimStatis().getVal(t.getStatistic().getStatName()).getImage();
             AbstractImage t_ = battle.getWindow().getTileRender().render(battle.getWindow().getImageFactory(), type_,statSide_,statSide_);
             String var_ = Long.toString(t.getVariation());
             int widthVar_ = NumberUtil.max(stringWidth(var_),statSide_);
@@ -919,7 +919,7 @@ public final class FrontBattle extends AbsMetaLabelPk {
         if (!_status.getStatus().isEmpty()) {
             int statSide_ = facade.getMap().getSideLength();
             if (TargetCoords.eq(_status.getFromFighter(), _status.getToFighter())) {
-                int[][] stTxt_ = facade.getData().getAnimStatus().getVal(_status.getStatus());
+                int[][] stTxt_ = facade.getData().getAnimStatus().getVal(_status.getStatus()).getImage();
                 AbstractImage image_ = battle.getWindow().getTileRender().render(battle.getWindow().getImageFactory(), stTxt_, statSide_, statSide_);
                 TargetLabel label_ = target(_status.isPlayerFromFighter(), playerTargets, foeTargets, _status.getFromFighter().getPosition());
                 if (keepAnimation) {
@@ -933,7 +933,7 @@ public final class FrontBattle extends AbsMetaLabelPk {
                 imageNumber++;
                 imageNumber++;
             } else {
-                int[][] stTxt_ = facade.getData().getAnimStatus().getVal(_status.getStatus());
+                int[][] stTxt_ = facade.getData().getAnimStatus().getVal(_status.getStatus()).getImage();
                 image = battle.getWindow().getTileRender().render(battle.getWindow().getImageFactory(), stTxt_, statSide_, statSide_);
             }
         } else {
@@ -945,7 +945,7 @@ public final class FrontBattle extends AbsMetaLabelPk {
     private void drawAnimationInstantAfterEffect(AnimationEffect _e) {
         if (_e.getEffectKind() == EffectKind.ABSORB) {
             int statSide_ = facade.getMap().getSideLength();
-            int[][] stTxt_ = facade.getData().getAnimAbsorb();
+            int[][] stTxt_ = facade.getData().getAnimAbsorb().getImage();
             image = battle.getWindow().getTileRender().render(battle.getWindow().getImageFactory(), stTxt_, statSide_, statSide_);
         } else {
             if (TargetCoords.eq(_e.getFromFighter(), _e.getToFighter())) {
@@ -1207,7 +1207,7 @@ public final class FrontBattle extends AbsMetaLabelPk {
         yEnd_ = foe_.getPoint().getyPoint();
         xEnd_ += maxWidth / 2;
         yEnd_ += maxHeight / 2;
-        int[][] img_ = facade.getData().getMiniItems().getVal(_ball);
+        int[][] img_ = facade.getData().getMiniItems().getVal(_ball).getImage();
         image = battle.getWindow().getTileRender().centerImage(_fact,img_, facade.getMap().getSideLength());
         int remainImages_ = NB_IMAGES - imageNumber;
         if (remainImages_ > 0) {

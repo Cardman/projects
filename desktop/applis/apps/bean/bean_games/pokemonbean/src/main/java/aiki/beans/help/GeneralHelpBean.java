@@ -5,7 +5,6 @@ import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.comparators.TrMovesComparator;
 import aiki.db.DataBase;
-import aiki.db.MessagesDataBaseConstants;
 import aiki.fight.pokemon.PokemonData;
 import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.enums.Gender;
@@ -116,7 +115,7 @@ public class GeneralHelpBean extends CommonBean {
     public String getImage() {
         DataBase data_ = getDataBase();
         String name_ = firstPokemon.getName();
-        return getStringByImage(data_.getMaxiPkFront().getVal(name_));
+        return getStringByImage(data_.getMaxiPkFront().getVal(name_).getImage());
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name_));
     }
     public String getName() {
@@ -267,13 +266,13 @@ public class GeneralHelpBean extends CommonBean {
     public String getImageType(int _index) {
         DataBase data_ = getDataBase();
         String type_ = types.get(_index);
-        return getStringByImage(data_.getTypesImages().getVal(type_));
+        return getStringByImage(data_.getTypesImages().getVal(type_).getImage());
     }
     public String getColorType(int _index) {
         DataBase data_ = getDataBase();
         String type_ = types.get(_index);
         String color_ = data_.getTypesColors().getVal(type_);
-        return ConverterBufferedImage.getSquareColorSixtyFour(color_, DataBase.SEPARATOR_RGB, data_.getMap().getSideLength(), MessagesDataBaseConstants.BASE);
+        return ConverterBufferedImage.getSquareColorSixtyFour(color_, DataBase.SEPARATOR_RGB, data_.getMap().getSideLength(), getBaseEncode());
     }
 
     public int getMaxLevel() {

@@ -1,5 +1,6 @@
 package aiki.sml;
 
+import aiki.db.ImageArrayBaseSixtyFour;
 import aiki.game.Game;
 import code.maths.montecarlo.CustomSeedGene;
 import code.mock.MockFileSet;
@@ -7,7 +8,7 @@ import code.mock.MockProgramInfos;
 import org.junit.Assert;
 
 public abstract class EquallablePkFileUtil {
-
+    public static final String BASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
     public static MockProgramInfos pr(long _init, long..._incrs) {
         return prTmp("",_init,_incrs);
     }
@@ -40,5 +41,9 @@ public abstract class EquallablePkFileUtil {
 
     public static void assertEq(String _expected, String _result) {
         Assert.assertEquals(_expected, _result);
+    }
+
+    public static ImageArrayBaseSixtyFour instance(int[][] _img) {
+        return ImageArrayBaseSixtyFour.instance(_img,BASE);
     }
 }

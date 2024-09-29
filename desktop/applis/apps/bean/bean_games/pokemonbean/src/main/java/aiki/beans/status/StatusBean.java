@@ -50,7 +50,7 @@ public class StatusBean extends CommonBean {
     public void beforeDisplaying() {
         String n_ = getForms().getValStr(CST_STATUS);
         DataBase data_ = getDataBase();
-        animStatus = getStringByImage(data_.getAnimStatus().getVal(n_));
+        animStatus = getStringByImage(data_.getAnimStatus().getVal(n_).getImage());
         StringMap<String> translatedStatus_;
         translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         displayName = translatedStatus_.getVal(n_);

@@ -561,7 +561,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
     public String getImageFoe(int _index) {
         DataBase data_ = getDataBase();
         PokemonTrainerDto pk_ = foeTeams.get(indexTeam).get(_index);
-        return getStringByImage(data_.getMiniPk().getVal(pk_.getPkTrainer().getName()));
+        return getStringByImage(data_.getMiniPk().getVal(pk_.getPkTrainer().getName()).getImage());
     }
     public String getNameFoe(int _index) {
         DataBase data_ = getDataBase();
@@ -637,7 +637,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
     public String getImageAlly(int _index) {
         DataBase data_ = getDataBase();
         PokemonTrainerDto pk_ = allyTeams.get(indexTeam).get(_index);
-        return getStringByImage(data_.getMiniPk().getVal(pk_.getPkTrainer().getName()));
+        return getStringByImage(data_.getMiniPk().getVal(pk_.getPkTrainer().getName()).getImage());
     }
     public String getNameAlly(int _index) {
         DataBase data_ = getDataBase();
@@ -826,7 +826,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
     public String getImage(int _index) {
         DataBase data_ = getDataBase();
         PokemonPlayerDto pk_ = team.get(_index);
-        return getStringByImage(data_.getMiniPk().getVal(pk_.getPokemon().getName()));
+        return getStringByImage(data_.getMiniPk().getVal(pk_.getPokemon().getName()).getImage());
     }
     public String getName(int _index) {
         DataBase data_ = getDataBase();
@@ -1166,7 +1166,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
     public String getImageAfterFight(int _index) {
         DataBase data_ = getDataBase();
         PokemonPlayer pk_ = teamAfterFight.get(_index);
-        return getStringByImage(data_.getMiniPk().getVal(pk_.getName()));
+        return getStringByImage(data_.getMiniPk().getVal(pk_.getName()).getImage());
     }
     public String getNameAfterFight(int _index) {
         DataBase data_ = getDataBase();

@@ -393,23 +393,23 @@ public class DataBase {
 
     private StringMap<Status> status = new StringMap<Status>();
 
-    private StringMap<int[][]> miniPk = new StringMap<int[][]>();
+    private StringMap<ImageArrayBaseSixtyFour> miniPk = new StringMap<ImageArrayBaseSixtyFour>();
 
-    private StringMap<int[][]> maxiPkBack = new StringMap<int[][]>();
+    private StringMap<ImageArrayBaseSixtyFour> maxiPkBack = new StringMap<ImageArrayBaseSixtyFour>();
 
-    private StringMap<int[][]> maxiPkFront = new StringMap<int[][]>();
+    private StringMap<ImageArrayBaseSixtyFour> maxiPkFront = new StringMap<ImageArrayBaseSixtyFour>();
 
     private int maxWidthPk;
 
     private int maxHeightPk;
 
-    private StringMap<int[][]> miniItems = new StringMap<int[][]>();
+    private StringMap<ImageArrayBaseSixtyFour> miniItems = new StringMap<ImageArrayBaseSixtyFour>();
 
-    private StringMap<int[][]> trainers = new StringMap<int[][]>();
+    private StringMap<ImageArrayBaseSixtyFour> trainers = new StringMap<ImageArrayBaseSixtyFour>();
 
-    private StringMap<int[][]> people = new StringMap<int[][]>();
+    private StringMap<ImageArrayBaseSixtyFour> people = new StringMap<ImageArrayBaseSixtyFour>();
 
-    private StringMap<int[][]> typesImages = new StringMap<int[][]>();
+    private StringMap<ImageArrayBaseSixtyFour> typesImages = new StringMap<ImageArrayBaseSixtyFour>();
 
     private StringMap<String> typesColors = new StringMap<String>();
 
@@ -419,17 +419,17 @@ public class DataBase {
 
     private ImageHeroKeys overWorldHeros = new ImageHeroKeys();
 
-    private StringMap<int[][]> links = new StringMap<int[][]>();
+    private StringMap<ImageArrayBaseSixtyFour> links = new StringMap<ImageArrayBaseSixtyFour>();
 
-    private StringMap<int[][]> images = new StringMap<int[][]>();
+    private StringMap<ImageArrayBaseSixtyFour> images = new StringMap<ImageArrayBaseSixtyFour>();
 
     private StringMap<ScreenCoordssInt> imagesTiles = new StringMap<ScreenCoordssInt>();
 
-    private StringMap<int[][]> miniMap = new StringMap<int[][]>();
+    private StringMap<ImageArrayBaseSixtyFour> miniMap = new StringMap<ImageArrayBaseSixtyFour>();
 
-    private int[][] imageTmHm = new int[0][0];
+    private ImageArrayBaseSixtyFour imageTmHm = ImageArrayBaseSixtyFour.instance();
 
-    private int[][] storage = new int[0][0];
+    private ImageArrayBaseSixtyFour storage = ImageArrayBaseSixtyFour.instance();
 
     private DataMap map = new DataMap();
 
@@ -504,7 +504,7 @@ public class DataBase {
 
     private CustList<EndRoundMainElements> evtEndRound;
 
-    private int[][] endGameImage = new int[0][0];
+    private ImageArrayBaseSixtyFour endGameImage = ImageArrayBaseSixtyFour.instance();
 
 //    private StringList filesWithSameNameDifferentCase;
 
@@ -538,11 +538,11 @@ public class DataBase {
 
     private StringMap<StringMap<String>> translatedClassesDescriptions = new StringMap<StringMap<String>>();
 
-    private StringMap<int[][]> animStatis = new StringMap<int[][]>();
+    private StringMap<ImageArrayBaseSixtyFour> animStatis = new StringMap<ImageArrayBaseSixtyFour>();
 
-    private StringMap<int[][]> animStatus = new StringMap<int[][]>();
+    private StringMap<ImageArrayBaseSixtyFour> animStatus = new StringMap<ImageArrayBaseSixtyFour>();
 
-    private int[][] animAbsorb = new int[0][0];
+    private ImageArrayBaseSixtyFour animAbsorb = ImageArrayBaseSixtyFour.instance();
 
     private StringMap<StringMap<String>> litterals = new StringMap<StringMap<String>>();
 
@@ -774,19 +774,19 @@ public class DataBase {
         return ConverterBufferedImage.stackImages(imgBack_, img_);
     }
 
-    public void addPerson(String _fileName, int[][] _img) {
+    public void addPerson(String _fileName, ImageArrayBaseSixtyFour _img) {
         people.put(_fileName, _img);
     }
 
-    public void addImage(String _fileName, int[][] _img) {
+    public void addImage(String _fileName, ImageArrayBaseSixtyFour _img) {
         images.put(_fileName, _img);
     }
 
-    public void addLink(String _fileName, int[][] _img) {
+    public void addLink(String _fileName, ImageArrayBaseSixtyFour _img) {
         links.put(_fileName, _img);
     }
 
-    public void addTrainerImage(String _fileName, int[][] _img) {
+    public void addTrainerImage(String _fileName, ImageArrayBaseSixtyFour _img) {
         trainers.put(_fileName, _img);
     }
 
@@ -2876,17 +2876,17 @@ public class DataBase {
         checkExact(miniMap.values());
         checkExact(animStatis.values());
         checkExact(animStatus.values());
-        checkExact(animAbsorb);
+        checkExact(animAbsorb.getImage());
         checkInners(miniPk.values());
-        checkInners(imageTmHm);
-        checkInners(storage);
+        checkInners(imageTmHm.getImage());
+        checkInners(storage.getImage());
         notEmptyImages(maxiPkBack.values());
         notEmptyImages(maxiPkFront.values());
         DataInfoChecker.checkStringListContains(miniPk.getKeys(),pokedex.getKeys(),this);
         DataInfoChecker.checkStringListContains(miniItems.getKeys(),items.getKeys(),this);
         DataInfoChecker.checkStringListContains(maxiPkBack.getKeys(),pokedex.getKeys(),this);
         DataInfoChecker.checkStringListContains(maxiPkFront.getKeys(),pokedex.getKeys(),this);
-        notEmptyImage(endGameImage);
+        notEmptyImage(endGameImage.getImage());
         for (TileMiniMap t : map.getMiniMap().values()) {
             if (!miniMap.contains(t.getFile())) {
                 setError(true);
@@ -2911,9 +2911,9 @@ public class DataBase {
         updateDims(maxiPkFront.values());
     }
 
-    private void updateDims(CustList<int[][]> _imgs) {
-        for (int[][] i : _imgs) {
-            updateDims(i);
+    private void updateDims(CustList<ImageArrayBaseSixtyFour> _imgs) {
+        for (ImageArrayBaseSixtyFour i : _imgs) {
+            updateDims(i.getImage());
         }
     }
 
@@ -2934,9 +2934,9 @@ public class DataBase {
         }
     }
 
-    private void checkExact(CustList<int[][]> _imgs) {
-        for (int[][] i : _imgs) {
-            checkExact(i);
+    private void checkExact(CustList<ImageArrayBaseSixtyFour> _imgs) {
+        for (ImageArrayBaseSixtyFour i : _imgs) {
+            checkExact(i.getImage());
         }
     }
 
@@ -2949,9 +2949,9 @@ public class DataBase {
         }
     }
 
-    private void notEmptyImages(CustList<int[][]> _imgs) {
-        for (int[][] i : _imgs) {
-            notEmptyImage(i);
+    private void notEmptyImages(CustList<ImageArrayBaseSixtyFour> _imgs) {
+        for (ImageArrayBaseSixtyFour i : _imgs) {
+            notEmptyImage(i.getImage());
 
         }
     }
@@ -2962,9 +2962,9 @@ public class DataBase {
         }
     }
 
-    private void checkInners(CustList<int[][]> _imgs) {
-        for (int[][] i : _imgs) {
-            checkInners(i);
+    private void checkInners(CustList<ImageArrayBaseSixtyFour> _imgs) {
+        for (ImageArrayBaseSixtyFour i : _imgs) {
+            checkInners(i.getImage());
         }
     }
 
@@ -3359,31 +3359,31 @@ public class DataBase {
         return MathExpUtil.isWordChar(_curr);
     }
 
-    public void setMiniPk(StringMap<int[][]> _miniPk) {
+    public void setMiniPk(StringMap<ImageArrayBaseSixtyFour> _miniPk) {
         miniPk = _miniPk;
     }
 
-    public void setMaxiPkBack(StringMap<int[][]> _maxiPkBack) {
+    public void setMaxiPkBack(StringMap<ImageArrayBaseSixtyFour> _maxiPkBack) {
         maxiPkBack = _maxiPkBack;
     }
 
-    public void setMaxiPkFront(StringMap<int[][]> _maxiPkFront) {
+    public void setMaxiPkFront(StringMap<ImageArrayBaseSixtyFour> _maxiPkFront) {
         maxiPkFront = _maxiPkFront;
     }
 
-    public void setMiniItems(StringMap<int[][]> _miniItems) {
+    public void setMiniItems(StringMap<ImageArrayBaseSixtyFour> _miniItems) {
         miniItems = _miniItems;
     }
 
-    public void setTrainers(StringMap<int[][]> _trainers) {
+    public void setTrainers(StringMap<ImageArrayBaseSixtyFour> _trainers) {
         trainers = _trainers;
     }
 
-    public void setPeople(StringMap<int[][]> _people) {
+    public void setPeople(StringMap<ImageArrayBaseSixtyFour> _people) {
         people = _people;
     }
 
-    public void setTypesImages(StringMap<int[][]> _typesImages) {
+    public void setTypesImages(StringMap<ImageArrayBaseSixtyFour> _typesImages) {
         typesImages = _typesImages;
     }
 
@@ -3403,11 +3403,11 @@ public class DataBase {
         overWorldHeros = _overWorldHeros;
     }
 
-    public void setLinks(StringMap<int[][]> _links) {
+    public void setLinks(StringMap<ImageArrayBaseSixtyFour> _links) {
         links = _links;
     }
 
-    public void setImages(StringMap<int[][]> _images) {
+    public void setImages(StringMap<ImageArrayBaseSixtyFour> _images) {
         images = _images;
     }
 
@@ -3419,7 +3419,7 @@ public class DataBase {
         imagesTiles = _imagesTiles;
     }
 
-    public void setMiniMap(StringMap<int[][]> _miniMap) {
+    public void setMiniMap(StringMap<ImageArrayBaseSixtyFour> _miniMap) {
         miniMap = _miniMap;
     }
 
@@ -4644,7 +4644,7 @@ public class DataBase {
         lawsDamageRate = _lawsDamageRate;
     }
 
-    public void setAnimAbsorb(int[][] _a) {
+    public void setAnimAbsorb(ImageArrayBaseSixtyFour _a) {
         animAbsorb = _a;
     }
 
@@ -4704,44 +4704,51 @@ public class DataBase {
         messagesGame = _other.messagesGame;
     }
 
-    public void setMessagesGame(StringMap<String> _messagesGame) {
-        messagesGame = _messagesGame;
+    public StringMap<String> getMessagesGame() {
+        return messagesGame;
     }
 
-    public void setMessagesPokemonPlayer(StringMap<String> _messagesPokemonPlayer) {
-        messagesPokemonPlayer = _messagesPokemonPlayer;
+    public void setMessagesGame(StringMap<String> _m) {
+        messagesGame = _m;
     }
 
     public StringMap<String> getMessagesPokemonPlayer() {
         return messagesPokemonPlayer;
     }
 
-    public void setMessagesFight(StringMap<String> _messagesFight) {
-        messagesFight = _messagesFight;
+    public void setMessagesPokemonPlayer(StringMap<String> _m) {
+        messagesPokemonPlayer = _m;
+    }
+    public StringMap<String> getMessagesFight() {
+        return messagesFight;
+    }
+
+    public void setMessagesFight(StringMap<String> _m) {
+        messagesFight = _m;
     }
 
     public StringMap<String> getMessagesPlayer() {
         return messagesPlayer;
     }
 
-    public void setMessagesPlayer(StringMap<String> _messagesPlayer) {
-        messagesPlayer = _messagesPlayer;
+    public void setMessagesPlayer(StringMap<String> _m) {
+        messagesPlayer = _m;
     }
 
     public StringMap<String> getMessagesFighter() {
         return messagesFighter;
     }
 
-    public void setMessagesFighter(StringMap<String> _messagesFighter) {
-        messagesFighter = _messagesFighter;
+    public void setMessagesFighter(StringMap<String> _m) {
+        messagesFighter = _m;
     }
 
     public StringMap<String> getMessagesTeam() {
         return messagesTeam;
     }
 
-    public void setMessagesTeam(StringMap<String> _messagesTeam) {
-        messagesTeam = _messagesTeam;
+    public void setMessagesTeam(StringMap<String> _m) {
+        messagesTeam = _m;
     }
 
     public String getFighterName(boolean _foe, String _foeStr, String _allyStr, String _name) {
@@ -4757,17 +4764,10 @@ public class DataBase {
         }
         return StringUtil.simpleStringsFormat(value_, _name);
     }
-
-    public StringMap<String> getMessagesFight() {
-        return messagesFight;
-    }
-    public StringMap<String> getMessagesGame() {
-        return messagesGame;
-    }
     public void setupPseudoImages() {
         int side_ = map.getSideLength();
-        for (EntryCust<String, int[][]> i : images.entryList()) {
-            int[][] img_ = i.getValue();
+        for (EntryCust<String, ImageArrayBaseSixtyFour> i : images.entryList()) {
+            int[][] img_ = i.getValue().getImage();
             String name_ = i.getKey();
             Dims d_ = new Dims();
             d_.setWidth((short) (img_[0].length / side_));
@@ -4850,8 +4850,8 @@ public class DataBase {
         evtEndRound = new CustList<EndRoundMainElements>();
         variables = new StringList();
 //        filesWithSameNameDifferentCase = new StringList();
-        setAnimStatis(new StringMap<int[][]>());
-        setAnimStatus(new StringMap<int[][]>());
+        setAnimStatis(new StringMap<ImageArrayBaseSixtyFour>());
+        setAnimStatus(new StringMap<ImageArrayBaseSixtyFour>());
         legPks = new StringList();
     }
 
@@ -5813,15 +5813,15 @@ public class DataBase {
         return lawsDamageRate;
     }
 
-    public StringMap<int[][]> getMiniPk() {
+    public StringMap<ImageArrayBaseSixtyFour> getMiniPk() {
         return miniPk;
     }
 
-    public StringMap<int[][]> getMaxiPkBack() {
+    public StringMap<ImageArrayBaseSixtyFour> getMaxiPkBack() {
         return maxiPkBack;
     }
 
-    public StringMap<int[][]> getMaxiPkFront() {
+    public StringMap<ImageArrayBaseSixtyFour> getMaxiPkFront() {
         return maxiPkFront;
     }
 
@@ -5841,7 +5841,7 @@ public class DataBase {
         maxWidthPk = _maxWidthPk;
     }
 
-    public StringMap<int[][]> getMiniItems() {
+    public StringMap<ImageArrayBaseSixtyFour> getMiniItems() {
         return miniItems;
     }
 
@@ -5850,7 +5850,7 @@ public class DataBase {
 
     }
 
-    public StringMap<int[][]> getTrainers() {
+    public StringMap<ImageArrayBaseSixtyFour> getTrainers() {
         return trainers;
     }
 
@@ -5859,7 +5859,7 @@ public class DataBase {
 
     }
 
-    public StringMap<int[][]> getPeople() {
+    public StringMap<ImageArrayBaseSixtyFour> getPeople() {
         return people;
     }
 
@@ -5880,7 +5880,7 @@ public class DataBase {
 
     }
 
-    public StringMap<int[][]> getLinks() {
+    public StringMap<ImageArrayBaseSixtyFour> getLinks() {
         return links;
     }
 
@@ -5889,7 +5889,7 @@ public class DataBase {
 
     }
 
-    public StringMap<int[][]> getImages() {
+    public StringMap<ImageArrayBaseSixtyFour> getImages() {
         return images;
     }
 
@@ -5909,33 +5909,33 @@ public class DataBase {
 
     }
 
-    private static int[][] getValueCaseInsensitive(StringMap<int[][]> _map,
+    private static int[][] getValueCaseInsensitive(StringMap<ImageArrayBaseSixtyFour> _map,
                                                    String _name) {
-        for (EntryCust<String, int[][]> e : _map.entryList()) {
+        for (EntryCust<String, ImageArrayBaseSixtyFour> e : _map.entryList()) {
             if (StringUtil.quickEq(e.getKey(),_name)) {
-                return e.getValue();
+                return e.getValue().getImage();
             }
         }
         return new int[0][0];
     }
 
-    public StringMap<int[][]> getMiniMap() {
+    public StringMap<ImageArrayBaseSixtyFour> getMiniMap() {
         return miniMap;
     }
 
-    public int[][] getImageTmHm() {
+    public ImageArrayBaseSixtyFour getImageTmHm() {
         return imageTmHm;
     }
 
-    public void setImageTmHm(int[][] _imageTmHm) {
+    public void setImageTmHm(ImageArrayBaseSixtyFour _imageTmHm) {
         imageTmHm = _imageTmHm;
     }
 
-    public int[][] getStorage() {
+    public ImageArrayBaseSixtyFour getStorage() {
         return storage;
     }
 
-    public void setStorage(int[][] _storage) {
+    public void setStorage(ImageArrayBaseSixtyFour _storage) {
         storage = _storage;
     }
 
@@ -6220,11 +6220,11 @@ public class DataBase {
         return avgWeight;
     }
 
-    public int[][] getEndGameImage() {
+    public ImageArrayBaseSixtyFour getEndGameImage() {
         return endGameImage;
     }
 
-    public void setEndGameImage(int[][] _endGameImage) {
+    public void setEndGameImage(ImageArrayBaseSixtyFour _endGameImage) {
         endGameImage = _endGameImage;
     }
 
@@ -6357,27 +6357,27 @@ public class DataBase {
         return typesColors;
     }
 
-    public StringMap<int[][]> getTypesImages() {
+    public StringMap<ImageArrayBaseSixtyFour> getTypesImages() {
         return typesImages;
     }
 
-    public StringMap<int[][]> getAnimStatis() {
+    public StringMap<ImageArrayBaseSixtyFour> getAnimStatis() {
         return animStatis;
     }
 
-    public void setAnimStatis(StringMap<int[][]> _a) {
+    public void setAnimStatis(StringMap<ImageArrayBaseSixtyFour> _a) {
         this.animStatis = _a;
     }
 
-    public StringMap<int[][]> getAnimStatus() {
+    public StringMap<ImageArrayBaseSixtyFour> getAnimStatus() {
         return animStatus;
     }
 
-    public void setAnimStatus(StringMap<int[][]> _a) {
+    public void setAnimStatus(StringMap<ImageArrayBaseSixtyFour> _a) {
         this.animStatus = _a;
     }
 
-    public int[][] getAnimAbsorb() {
+    public ImageArrayBaseSixtyFour getAnimAbsorb() {
         return animAbsorb;
     }
 

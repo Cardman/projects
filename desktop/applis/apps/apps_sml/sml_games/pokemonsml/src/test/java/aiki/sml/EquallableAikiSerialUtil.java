@@ -139,16 +139,9 @@ public abstract class EquallableAikiSerialUtil {
     }
 
     public static FacadeGame save(FacadeGame _a) {
-        StringMap<String> baseParse_ = baseParse();
-        StringMap<String> txt_ = DocumentWriterAikiCoreUtil.getTextFiles(_a.getData(), baseParse_);
-        DocumentReaderAikiCoreUtil.loadRom(_a.getData(),txt_,new ConcreteInteger(),new SexListImpl(), baseParse_);
+        StringMap<String> txt_ = DocumentWriterAikiCoreUtil.getTextFiles(_a.getData());
+        DocumentReaderAikiCoreUtil.loadRom(_a.getData(),txt_,new ConcreteInteger(),new SexListImpl(), BASE);
         return _a;
-    }
-
-    public static StringMap<String> baseParse() {
-        StringMap<String> baseParse_ = new StringMap<String>();
-        baseParse_.addEntry(MessagesDataBaseConstants.BASE_KEY,BASE);
-        return baseParse_;
     }
 
     public static void assertTrue(boolean _value) {
@@ -186,5 +179,9 @@ public abstract class EquallableAikiSerialUtil {
     }
     public static void assertNotNull(LoadingGame _g) {
         Assert.assertNotNull(_g);
+    }
+
+    public static ImageArrayBaseSixtyFour instance(int[][] _img) {
+        return ImageArrayBaseSixtyFour.instance(_img,BASE);
     }
 }

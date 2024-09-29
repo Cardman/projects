@@ -22,7 +22,7 @@ public class AreaBean extends CommonBean {
         Pokemon pk_;
         pk_ = area.getWildPokemon(_index);
         String name_ = pk_.getName();
-        return getStringByImage(data_.getMaxiPkFront().getVal(name_));
+        return getStringByImage(data_.getMaxiPkFront().getVal(name_).getImage());
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name_));
     }
     public String getName(int _index) {
@@ -146,7 +146,7 @@ public class AreaBean extends CommonBean {
         Pokemon pk_;
         pk_ = area.getPokemonFishing(_index);
         String name_ = pk_.getName();
-        return getStringByImage(data_.getMaxiPkFront().getVal(name_));
+        return getStringByImage(data_.getMaxiPkFront().getVal(name_).getImage());
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name_));
     }
     public String getNameFishing(int _index) {

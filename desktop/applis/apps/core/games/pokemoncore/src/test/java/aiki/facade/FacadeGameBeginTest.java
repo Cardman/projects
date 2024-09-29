@@ -1,6 +1,7 @@
 package aiki.facade;
 
 import aiki.db.DataBase;
+import aiki.db.MessagesDataBaseConstants;
 import aiki.game.fight.InitializationDataBase;
 import aiki.game.player.enums.Sex;
 import aiki.util.Coords;
@@ -58,8 +59,8 @@ public final class FacadeGameBeginTest extends InitializationDataBase {
         FacadeGame facadeGame_ = initTests();
         facadeGame_.newGame("", Sex.GIRL);
         facadeGame_.getBackHerosSexOpposite();
-        facadeGame_.getFrontChosenHeros();
-        facadeGame_.getFrontChosenHerosOppositeSex();
+        facadeGame_.getFrontChosenHeros(MessagesDataBaseConstants.BASE);
+        facadeGame_.getFrontChosenHerosOppositeSex(MessagesDataBaseConstants.BASE);
         assertEq(1, facadeGame_.getPlayer().getPokemonPlayerList().size());
     }
 
@@ -68,8 +69,8 @@ public final class FacadeGameBeginTest extends InitializationDataBase {
         FacadeGame facadeGame_ = initTests();
         facadeGame_.newGame("", Sex.BOY);
         facadeGame_.getBackHerosSexOpposite();
-        facadeGame_.getFrontChosenHeros();
-        facadeGame_.getFrontChosenHerosOppositeSex();
+        facadeGame_.getFrontChosenHeros(MessagesDataBaseConstants.BASE);
+        facadeGame_.getFrontChosenHerosOppositeSex(MessagesDataBaseConstants.BASE);
         assertEq(1, facadeGame_.getPlayer().getPokemonPlayerList().size());
     }
     private static Coords newCoords(int _place, int _level, int _x, int _y) {

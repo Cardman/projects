@@ -68,6 +68,6 @@ public class SelectItemBean extends WithFilterBean {
     public String getMiniImage(int _number) {
         String item_ = getItems().get(_number).getName();
         DataBase data_ = getDataBase();
-        return getStringByImage(data_.getMiniItems().getVal(item_));
+        return getStringByImage(data_.getMiniItems().getVal(item_).getImage());
     }
 }

@@ -19,7 +19,7 @@ public class LegendaryPokemonBean extends CommonBean {
     public String getImage() {
         DataBase data_ = getDataBase();
         String name_ = pokemon.getName();
-        return getStringByImage(data_.getMaxiPkFront().getVal(name_));
+        return getStringByImage(data_.getMaxiPkFront().getVal(name_).getImage());
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name_));
     }
     public String getName() {

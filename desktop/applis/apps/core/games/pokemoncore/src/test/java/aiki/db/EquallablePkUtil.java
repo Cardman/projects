@@ -471,4 +471,8 @@ public abstract class EquallablePkUtil {
         _db.setDefCategory(AUTRE);
         _db.defValues();
     }
+
+    public static ImageArrayBaseSixtyFour instance(int[][] _img) {
+        return ImageArrayBaseSixtyFour.instance(_img,"");
+    }
 }

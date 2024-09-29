@@ -174,7 +174,7 @@ public abstract class Level {
                         _data.getPerson(person_.getImageMiniFileName()));
             }
             _frontTiles.put(new Point(lv_.getStorageCoords()),
-                    _data.getStorage());
+                    _data.getStorage().getImage());
         }
         if (_lev instanceof LevelIndoorGym) {
             LevelIndoorGym lv_ = (LevelIndoorGym) _lev;
@@ -239,17 +239,17 @@ public abstract class Level {
             for (Point p : lv_.getLegendaryPks().getKeys()) {
                 WildPk pk_ = lv_.getPokemon(p);
                 _frontTiles.put(new Point(p),
-                        _data.getMiniPk().getVal(pk_.getName()));
+                        _data.getMiniPk().getVal(pk_.getName()).getImage());
             }
             for (Point p : lv_.getItems().getKeys()) {
                 _frontTiles.put(new Point(p),
-                        _data.getMiniItems().getVal(lv_.getItems().getVal(p)));
+                        _data.getMiniItems().getVal(lv_.getItems().getVal(p)).getImage());
             }
             for (Point p : lv_.getTm().getKeys()) {
-                _frontTiles.put(new Point(p), _data.getImageTmHm());
+                _frontTiles.put(new Point(p), _data.getImageTmHm().getImage());
             }
             for (Point p : lv_.getHm().getKeys()) {
-                _frontTiles.put(new Point(p), _data.getImageTmHm());
+                _frontTiles.put(new Point(p), _data.getImageTmHm().getImage());
             }
             for (Point p : lv_.getDualFights().getKeys()) {
                 DualFight dual_ = lv_.getDualFights().getVal(p);

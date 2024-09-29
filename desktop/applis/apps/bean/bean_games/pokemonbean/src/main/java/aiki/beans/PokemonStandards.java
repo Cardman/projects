@@ -83,6 +83,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
 
 
     private FacadeGame dataBase;
+    private String baseEncode;
 
 //    private final StringMap<Validator> validators = new StringMap<Validator>();
     private NatHtmlPage natPage;
@@ -451,6 +452,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
 
     protected PokemonBeanStruct bean(CommonBean _bean, String _lg) {
         _bean.setDataBase(dataBase);
+        _bean.setBaseEncode(baseEncode);
         _bean.setForms(new StringMapObject());
         _bean.setLanguage(_lg);
         return new PokemonBeanStruct(_bean);
@@ -1135,6 +1137,10 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
 
     public void setDataBase(FacadeGame _dataBase){
         dataBase = _dataBase;
+    }
+
+    public void setBaseEncode(String _p) {
+        this.baseEncode = _p;
     }
 
     @Override

@@ -7,7 +7,6 @@ import aiki.main.AikiFactory;
 import aiki.main.AikiNatLgNamesNavigation;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.sml.IntDataBaseStream;
-import aiki.sml.MessagesCorePk;
 import aiki.sml.MessagesPkGame;
 import cards.facade.IntArtCardGames;
 import cards.facade.MessagesCardGames;
@@ -204,7 +203,6 @@ public final class NetGroupFrameTest extends EquallableNetworkUtil {
 //        ai_.submit(new MockCallable<DataBase>(_db));
         WindowNetWork w_ = new WindowNetWork(stream(pr_), pr_, ai_, new IntArtCardGames(), new LanguagesButtonsPair(null,null,null));
         updateBase(pr_.currentLg());
-        MessagesPkGame.getAppliTr(w_.getFrames().currentLg()).getMapping().addEntry(MessagesPkGame.BASE_FILE, MessagesCorePk.parsingBase());
         ai_.submitNavPkNetTask(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSampleNet(),nav())));
         w_.setVisible(true);
         w_.pack();

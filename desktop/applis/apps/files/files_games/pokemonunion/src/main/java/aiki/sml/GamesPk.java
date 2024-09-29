@@ -22,8 +22,17 @@ public final class GamesPk {
         _d.setMessagesGame(messages(_app, MessagesPkGame.GAME_ACCESS));
     }
 
+    public static String baseEncode(Translations _msg) {
+        return GamesPk.messages(MessagesPkGame.getAppliFilesTr(_msg),MessagesPkGame.BASE_FILE).getVal(MessagesDataBaseConstants.BASE_KEY);
+    }
     public static StringMap<String> messages(TranslationsAppli _app, String _key) {
-        TranslationsFile file_ = _app.getMapping().getVal(_key);
+        TranslationsAppli a_;
+        if (_app == null) {
+            a_ = new TranslationsAppli();
+        } else {
+            a_ = _app;
+        }
+        TranslationsFile file_ = a_.getMapping().getVal(_key);
         if (file_ == null) {
             return new StringMap<String>();
         }
@@ -32,7 +41,7 @@ public final class GamesPk {
 
     // Load rom option
     public static void loadRomAndCheck(AbstractGenerator _gene, FacadeGame _f, String _fileName,
-                                       StringMap<String> _files, AbstractAtomicIntegerCoreAdd _p, AbstractAtomicBooleanCore _l, StringMap<String> _baseParse) {
+                                       StringMap<String> _files, AbstractAtomicIntegerCoreAdd _p, AbstractAtomicBooleanCore _l, String _baseParse) {
         DataBase data_ = loadedRom(_gene,_f,_files,_p,_l, _baseParse);
         if (data_.isError()) {
             postLoad(_f, _fileName, _p, _l, null);
@@ -83,7 +92,7 @@ public final class GamesPk {
     }
 
     // Load rom first
-    private static DataBase loadedRom(AbstractGenerator _gene, FacadeGame _f, StringMap<String> _files, AbstractAtomicIntegerCoreAdd _p, AbstractAtomicBooleanCore _l, StringMap<String> _baseParse) {
+    private static DataBase loadedRom(AbstractGenerator _gene, FacadeGame _f, StringMap<String> _files, AbstractAtomicIntegerCoreAdd _p, AbstractAtomicBooleanCore _l, String _baseParse) {
         DataBase data_ = new DataBase(_gene);
         MessagesDataBaseConstants.initEmpty(data_);
         data_.setLanguages(_f.getLanguages());

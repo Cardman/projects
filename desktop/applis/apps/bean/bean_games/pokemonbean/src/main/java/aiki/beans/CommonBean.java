@@ -1,7 +1,6 @@
 package aiki.beans;
 
 import aiki.db.DataBase;
-import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.util.Coords;
 import code.bean.Bean;
@@ -132,9 +131,10 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     private StringMapObjectBase baseForms;
 
     private FacadeGame dataBase;
+    private String baseEncode;
 
-    public static String getStringByImage(int[][] _img) {
-        return BaseSixtyFourUtil.getStringByImage(_img, MessagesDataBaseConstants.BASE);
+    public String getStringByImage(int[][] _img) {
+        return BaseSixtyFourUtil.getStringByImage(_img, baseEncode);
     }
     public static Rate rateTrue(MonteCarloBoolean _law) {
         if (_law.isZero()) {
@@ -168,6 +168,14 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     @Override
     public void setDataBase(FacadeGame _dataBase) {
         dataBase = _dataBase;
+    }
+
+    public String getBaseEncode() {
+        return baseEncode;
+    }
+
+    public void setBaseEncode(String _p) {
+        this.baseEncode = _p;
     }
 
     public StringMapObject getForms() {

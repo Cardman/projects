@@ -248,6 +248,7 @@ public abstract class InitDbFight extends InitDbBean {
 
     public static NaSt beanFightCalculation(PkFight _stds,String _language, FacadeGame _dataBase) {
         _stds.setDataBase(_dataBase);
+        _stds.setBaseEncode(MessagesDataBaseConstants.BASE);
         return _stds.beanFightCalculation(_language);
     }
 
@@ -1044,9 +1045,9 @@ public abstract class InitDbFight extends InitDbBean {
         data_.completeMembers(PIKACHU,pkData_);
         Ball ball_ = Instances.newBall();
         data_.completeMembers(POKE_BALL,ball_);
-        data_.getMiniPk().addEntry(PIKACHU,new int[1][1]);
-        data_.getMaxiPkBack().addEntry(PIKACHU,new int[1][1]);
-        data_.getMaxiPkFront().addEntry(PIKACHU,new int[1][1]);
+        data_.getMiniPk().addEntry(PIKACHU,instance(new int[1][1]));
+        data_.getMaxiPkBack().addEntry(PIKACHU,instance(new int[1][1]));
+        data_.getMaxiPkFront().addEntry(PIKACHU,instance(new int[1][1]));
         IdMap<Gender, String> gdrs_ = new IdMap<Gender, String>();
         gdrs_.addEntry(Gender.NO_GENDER, NO_G);
         gdrs_.addEntry(Gender.FEMALE,"FE");

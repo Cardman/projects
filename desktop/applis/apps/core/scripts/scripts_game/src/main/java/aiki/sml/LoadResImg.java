@@ -16,7 +16,7 @@ public final class LoadResImg {
     private static final String SEPARATOR_KEY_HEROS = ";";
 
     private LoadResImg(){}
-    public static void loadResources(DataBase _d, SexListInt _sexList) {
+    public static void loadResources(DataBase _d, SexListInt _sexList, String _base) {
         _d.setFrontHeros(new ImageHeroKeys());
         StringMap<String> heFr_ = HeFront.im();
         for (EntryCust<String,String> e:heFr_.entryList()){
@@ -25,7 +25,7 @@ public final class LoadResImg {
             EnvironmentType env_ = getEnvByName(keyStrings_.first());
             Sex sex_ = getSexByName(keyStrings_.last(),_sexList);
             _d.getFrontHeros().addEntry(new ImageHeroKey(env_, sex_),
-                    BaseSixtyFourUtil.getImageByString(e.getValue(),MessagesDataBaseConstants.BASE));
+                    ImageArrayBaseSixtyFour.instance(BaseSixtyFourUtil.getImageByString(e.getValue(),MessagesDataBaseConstants.BASE), _base));
         }
         _d.setBackHeros(new ImageHeroKeys());
         StringMap<String> heBk_ = HeBack.im();
@@ -36,7 +36,7 @@ public final class LoadResImg {
                     .first());
             Sex sex_ = getSexByName(keyStrings_.last(),_sexList);
             _d.getBackHeros().addEntry(new ImageHeroKey(env_, sex_),
-                    BaseSixtyFourUtil.getImageByString(e.getValue(),MessagesDataBaseConstants.BASE));
+                    ImageArrayBaseSixtyFour.instance(BaseSixtyFourUtil.getImageByString(e.getValue(),MessagesDataBaseConstants.BASE), _base));
         }
         _d.setOverWorldHeros(new ImageHeroKeys());
         StringMap<String> heMi_ = HeMini.im();
@@ -49,42 +49,42 @@ public final class LoadResImg {
                     .get(IndexConstants.SECOND_INDEX));
             Sex sex_ = getSexByName(keyStrings_.last(),_sexList);
             _d.getOverWorldHeros().addEntry(new ImageHeroKey(env_, dir_, sex_),
-                    BaseSixtyFourUtil.getImageByString(e.getValue(),MessagesDataBaseConstants.BASE));
+                    ImageArrayBaseSixtyFour.instance(BaseSixtyFourUtil.getImageByString(e.getValue(),MessagesDataBaseConstants.BASE), _base));
         }
-        _d.setImageTmHm(BaseSixtyFourUtil.getImageByString(ImHmTm.im(),MessagesDataBaseConstants.BASE));
-        _d.setStorage(BaseSixtyFourUtil.getImageByString(ImStorage.im(),MessagesDataBaseConstants.BASE));
-        _d.setEndGameImage(BaseSixtyFourUtil.getImageByString(ImEndGame.im(),MessagesDataBaseConstants.BASE));
-        feedImgs(AnStatis.im(), _d.getAnimStatis());
-        feedImgs(AnStatus.im(), _d.getAnimStatus());
-        _d.setAnimAbsorb(BaseSixtyFourUtil.getImageByString(AnAbs.im().firstValue(),MessagesDataBaseConstants.BASE));
-        _d.setMaxiPkBack(new StringMap<int[][]>());
-        feedImgs(Bk.im(), _d.getMaxiPkBack());
-        _d.setMaxiPkFront(new StringMap<int[][]>());
-        feedImgs(Ft.im(), _d.getMaxiPkFront());
-        _d.setMiniPk(new StringMap<int[][]>());
-        feedImgs(Mn.im(), _d.getMiniPk());
-        _d.setMiniItems(new StringMap<int[][]>());
-        feedImgs(ItIm.im(), _d.getMiniItems());
-        _d.setTypesImages(new StringMap<int[][]>());
-        feedImgs(TypeImg.im(), _d.getTypesImages());
-        _d.setTrainers(new StringMap<int[][]>());
-        _d.setPeople(new StringMap<int[][]>());
-        _d.setImages(new StringMap<int[][]>());
+        _d.setImageTmHm(ImageArrayBaseSixtyFour.instance(BaseSixtyFourUtil.getImageByString(ImHmTm.im(),MessagesDataBaseConstants.BASE), _base));
+        _d.setStorage(ImageArrayBaseSixtyFour.instance(BaseSixtyFourUtil.getImageByString(ImStorage.im(),MessagesDataBaseConstants.BASE), _base));
+        _d.setEndGameImage(ImageArrayBaseSixtyFour.instance(BaseSixtyFourUtil.getImageByString(ImEndGame.im(),MessagesDataBaseConstants.BASE), _base));
+        feedImgs(AnStatis.im(), _d.getAnimStatis(), _base);
+        feedImgs(AnStatus.im(), _d.getAnimStatus(), _base);
+        _d.setAnimAbsorb(ImageArrayBaseSixtyFour.instance(BaseSixtyFourUtil.getImageByString(AnAbs.im().firstValue(),MessagesDataBaseConstants.BASE), _base));
+        _d.setMaxiPkBack(new StringMap<ImageArrayBaseSixtyFour>());
+        feedImgs(Bk.im(), _d.getMaxiPkBack(), _base);
+        _d.setMaxiPkFront(new StringMap<ImageArrayBaseSixtyFour>());
+        feedImgs(Ft.im(), _d.getMaxiPkFront(), _base);
+        _d.setMiniPk(new StringMap<ImageArrayBaseSixtyFour>());
+        feedImgs(Mn.im(), _d.getMiniPk(), _base);
+        _d.setMiniItems(new StringMap<ImageArrayBaseSixtyFour>());
+        feedImgs(ItIm.im(), _d.getMiniItems(), _base);
+        _d.setTypesImages(new StringMap<ImageArrayBaseSixtyFour>());
+        feedImgs(TypeImg.im(), _d.getTypesImages(), _base);
+        _d.setTrainers(new StringMap<ImageArrayBaseSixtyFour>());
+        _d.setPeople(new StringMap<ImageArrayBaseSixtyFour>());
+        _d.setImages(new StringMap<ImageArrayBaseSixtyFour>());
         _d.setImagesTiles(new StringMap<ScreenCoordssInt>());
-        _d.setLinks(new StringMap<int[][]>());
-        _d.setMiniMap(new StringMap<int[][]>());
-        feedImgs(TrainerImg.im(), _d.getTrainers());
-        feedImgs(PeopleImg.im(), _d.getPeople());
-        feedImgs(ImgMap.im(), _d.getImages());
-        feedImgs(LinkImg.im(), _d.getLinks());
-        feedImgs(MiniMapImg.im(), _d.getMiniMap());
+        _d.setLinks(new StringMap<ImageArrayBaseSixtyFour>());
+        _d.setMiniMap(new StringMap<ImageArrayBaseSixtyFour>());
+        feedImgs(TrainerImg.im(), _d.getTrainers(), _base);
+        feedImgs(PeopleImg.im(), _d.getPeople(), _base);
+        feedImgs(ImgMap.im(), _d.getImages(), _base);
+        feedImgs(LinkImg.im(), _d.getLinks(), _base);
+        feedImgs(MiniMapImg.im(), _d.getMiniMap(), _base);
         _d.boundsPk();
         _d.setupPseudoImages();
     }
 
-    private static void feedImgs(StringMap<String> _imgs, StringMap<int[][]> _dest) {
+    private static void feedImgs(StringMap<String> _imgs, StringMap<ImageArrayBaseSixtyFour> _dest, String _base) {
         for (EntryCust<String,String> e: _imgs.entryList()) {
-            _dest.addEntry(e.getKey(), BaseSixtyFourUtil.getImageByString(e.getValue(),MessagesDataBaseConstants.BASE));
+            _dest.addEntry(e.getKey(), ImageArrayBaseSixtyFour.instance(BaseSixtyFourUtil.getImageByString(e.getValue(),MessagesDataBaseConstants.BASE),_base));
         }
     }
     public static EnvironmentType getEnvByName(String _env) {

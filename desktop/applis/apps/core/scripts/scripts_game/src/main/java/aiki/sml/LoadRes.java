@@ -7,22 +7,22 @@ public final class LoadRes{
 
     private LoadRes(){}
 
-    public static DataBase loadResource(AbstractGenerator _gene, StringList _languages, StringMap<String> _displayLanguages, SexListInt _sexList) {
+    public static DataBase loadResource(AbstractGenerator _gene, StringList _languages, StringMap<String> _displayLanguages, SexListInt _sexList, String _messagesParse) {
         DataBase data_ = new DataBase(_gene);
         data_.defValues();
         data_.setLanguages(_languages);
         data_.setDisplayLanguages(_displayLanguages);
-        loadResources(data_, _sexList);
+        loadResources(data_, _sexList,_messagesParse);
         return data_;
     }
 
-    public static void loadResources(DataBase _d, SexListInt _sexList) {
+    public static void loadResources(DataBase _d, SexListInt _sexList, String _messagesParse) {
 //        int delta_ = (100 - _perCentLoading.get()) / 6;
 
         _d.initializeMembers();
         LoadResTrs.loadResources(_d);
         LoadResInit.loadResources(_d);
-        LoadResImg.loadResources(_d, _sexList);
+        LoadResImg.loadResources(_d, _sexList,_messagesParse);
         /*for (EntryCust<String,String> c: Cst.cs().entryList()) {
             short cle_ = (short) NumberUtil.parseInt(c.getKey());
             _d.getHm().addEntry(cle_, c.getValue());

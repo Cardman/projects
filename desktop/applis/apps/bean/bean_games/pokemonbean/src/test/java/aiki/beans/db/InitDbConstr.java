@@ -6,6 +6,7 @@ import aiki.beans.facade.map.dto.PlaceIndexGetPlace;
 import aiki.beans.facade.map.dto.PlaceIndexIndexGet;
 import aiki.beans.simulation.SimulationBeanSelectedTeamNumberGet;
 import aiki.db.DataBase;
+import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Ball;
@@ -362,6 +363,7 @@ public abstract class InitDbConstr extends InitDbBean {
     public static PkData pkDataByFacade(FacadeGame _dataBase) {
         PkData pk_ = new PkData();
         pk_.setDataBase(_dataBase);
+        pk_.setBaseEncode(MessagesDataBaseConstants.BASE);
         return pk_;
     }
 

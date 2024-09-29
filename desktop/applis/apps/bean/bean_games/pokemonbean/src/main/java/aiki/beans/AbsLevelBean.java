@@ -85,7 +85,7 @@ public abstract class AbsLevelBean extends CommonBean {
         }
     }
 
-    private static void feedImages(Points<int[][]> _map, DictionaryComparator<Point, String> _de, int _side, boolean _addBorder) {
+    private void feedImages(Points<int[][]> _map, DictionaryComparator<Point, String> _de, int _side, boolean _addBorder) {
         if (_addBorder) {
             DataBase.updateBorders(_map, _side);
         }

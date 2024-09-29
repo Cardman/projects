@@ -577,9 +577,9 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         pk_.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE, new StatBaseEv((short) 1,(short)1));
         pk_.getStatistics().addEntry(Statistic.HP, new StatBaseEv((short) 1,(short)1));
         _data.completeQuickMembers(_key, pk_);
-        _data.getMiniPk().addEntry(_key,new int[][]{new int[1]});
-        _data.getMaxiPkBack().addEntry(_key,new int[][]{new int[1]});
-        _data.getMaxiPkFront().addEntry(_key,new int[][]{new int[1]});
+        _data.getMiniPk().addEntry(_key,instance(new int[][]{new int[1]}));
+        _data.getMaxiPkBack().addEntry(_key,instance(new int[][]{new int[1]}));
+        _data.getMaxiPkFront().addEntry(_key,instance(new int[][]{new int[1]}));
         _trs.addEntry(_key,_key);
         return _data;
     }
@@ -604,7 +604,7 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
     public static DataBase withIt(DataBase _data, String _key, StringMap<String> _trs, Item _it) {
         _data.completeQuickMembers(_key, _it);
         _trs.addEntry(_key,_key);
-        _data.getMiniItems().addEntry(_key,new int[][]{new int[1]});
+        _data.getMiniItems().addEntry(_key,instance(new int[][]{new int[1]}));
         return _data;
     }
 
@@ -613,7 +613,7 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         ball_.setCatchingRate("1");
         _data.completeQuickMembers(_key, ball_);
         _trs.addEntry(_key,_key);
-        _data.getMiniItems().addEntry(_key,new int[][]{new int[1]});
+        _data.getMiniItems().addEntry(_key,instance(new int[][]{new int[1]}));
         _trsDesc.addEntry(ball_.getItemType(),ball_.getItemType());
         return _data;
     }

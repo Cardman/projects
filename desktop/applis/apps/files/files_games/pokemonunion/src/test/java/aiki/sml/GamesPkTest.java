@@ -24,7 +24,7 @@ public final class GamesPkTest extends EquallablePkFileUtil {
     @Test
     public void t1() {
         DataBase d_ = new DataBase(new DefaultGenerator(new CustomSeedGene()));
-        GamesPk.initMessages(d_, new TranslationsAppli());
+        GamesPk.initMessages(d_, null);
         assertFalse(d_.isError());
         TranslationsAppli app_ = new TranslationsAppli();
         TranslationsFile file_ = new TranslationsFile();
@@ -98,7 +98,7 @@ public final class GamesPkTest extends EquallablePkFileUtil {
     @Test
     public void t11() {
         FacadeGame f_ = new FacadeGame();
-        GamesPk.loadRomAndCheck(new DefaultGenerator(new CustomSeedGene()),f_,"",new StringMap<String>(),new ConcreteInteger(),new ConcreteBoolean(false), MessagesCorePk.parsingBase().getMapping());
+        GamesPk.loadRomAndCheck(new DefaultGenerator(new CustomSeedGene()),f_,"",new StringMap<String>(),new ConcreteInteger(),new ConcreteBoolean(false), BASE);
         assertFalse(f_.isLoadedData());
     }
     @Test
@@ -122,7 +122,7 @@ public final class GamesPkTest extends EquallablePkFileUtil {
         StringMap<String> fs_ = new StringMap<String>();
         fs_.addEntry("_",DocumentWriterAikiCoreUtil.setDataMap(map_));
         FacadeGame f_ = new FacadeGame();
-        GamesPk.loadRomAndCheck(new DefaultGenerator(new CustomSeedGene()),f_,"", fs_,new ConcreteInteger(),new ConcreteBoolean(false), MessagesCorePk.parsingBase().getMapping());
+        GamesPk.loadRomAndCheck(new DefaultGenerator(new CustomSeedGene()),f_,"", fs_,new ConcreteInteger(),new ConcreteBoolean(false), BASE);
         assertFalse(f_.isLoadedData());
     }
     @Test

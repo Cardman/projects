@@ -1,6 +1,7 @@
 package aiki.map.levels;
 
 import aiki.db.EquallablePkUtil;
+import aiki.db.ImageArrayBaseSixtyFour;
 import code.maths.montecarlo.DefaultGenerator;
 import org.junit.Test;
 
@@ -138,8 +139,8 @@ public class BlockTest extends EquallablePkUtil {
         assertTrue(!blockOne_.hasValidImage(dataBase_));
     }
 
-    static int[][] rows() {
-        return new int[][]{row(),row(),row(),row()};
+    static ImageArrayBaseSixtyFour rows() {
+        return instance(new int[][]{row(),row(),row(),row()});
     }
     static int[] row() {
         return new int[]{1,2,6,9,-1,12};

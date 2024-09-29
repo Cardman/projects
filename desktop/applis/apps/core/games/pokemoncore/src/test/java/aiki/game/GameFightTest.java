@@ -191,7 +191,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.setPlayerCoords(newCoords(0, 0, 0, 0));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
-        int[][] exp_ = data_.getBackHeros().getVal(new ImageHeroKey(EnvironmentType.ROAD, Sex.GIRL));
+        int[][] exp_ = data_.getBackHeros().getVal(new ImageHeroKey(EnvironmentType.ROAD, Sex.GIRL)).getImage();
         assertEq(exp_, game_.getBackHeros(data_));
     }
     @Test
@@ -202,7 +202,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.setPlayerCoords(newCoords(0, 0, 0, 0));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
-        int[][] exp_ = data_.getBackHeros().getVal(new ImageHeroKey(EnvironmentType.ROAD, Sex.BOY));
+        int[][] exp_ = data_.getBackHeros().getVal(new ImageHeroKey(EnvironmentType.ROAD, Sex.BOY)).getImage();
         assertEq(exp_, game_.getBackHeros(data_));
     }
     @Test
@@ -213,7 +213,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.setPlayerCoords(newCoords(5, 0, 0, 0));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
-        int[][] exp_ = data_.getBackHeros().getVal(new ImageHeroKey(EnvironmentType.ROAD, Sex.GIRL));
+        int[][] exp_ = data_.getBackHeros().getVal(new ImageHeroKey(EnvironmentType.ROAD, Sex.GIRL)).getImage();
         assertEq(exp_, game_.getBackHeros(data_));
     }
     @Test
@@ -224,7 +224,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.setPlayerCoords(newCoords(5, 0, 0, 0));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
-        int[][] exp_ = data_.getBackHeros().getVal(new ImageHeroKey(EnvironmentType.ROAD, Sex.BOY));
+        int[][] exp_ = data_.getBackHeros().getVal(new ImageHeroKey(EnvironmentType.ROAD, Sex.BOY)).getImage();
         assertEq(exp_, game_.getBackHeros(data_));
     }
     @Test
@@ -235,7 +235,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.setPlayerCoords(newCoords(0, 0, 0, 0));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
-        int[][] exp_ = data_.getBackHeros().getVal(new ImageHeroKey(EnvironmentType.ROAD, Sex.GIRL.getOppositeSex()));
+        int[][] exp_ = data_.getBackHeros().getVal(new ImageHeroKey(EnvironmentType.ROAD, Sex.GIRL.getOppositeSex())).getImage();
         assertEq(exp_, game_.getBackHerosSexOpposite(data_));
     }
     @Test
@@ -246,7 +246,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.setPlayerCoords(newCoords(0, 0, 0, 0));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
-        int[][] exp_ = data_.getBackHeros().getVal(new ImageHeroKey(EnvironmentType.ROAD, Sex.BOY.getOppositeSex()));
+        int[][] exp_ = data_.getBackHeros().getVal(new ImageHeroKey(EnvironmentType.ROAD, Sex.BOY.getOppositeSex())).getImage();
         assertEq(exp_, game_.getBackHerosSexOpposite(data_));
     }
     @Test
@@ -257,7 +257,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.setPlayerCoords(newCoords(5, 0, 0, 0));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
-        int[][] exp_ = data_.getBackHeros().getVal(new ImageHeroKey(EnvironmentType.ROAD, Sex.GIRL.getOppositeSex()));
+        int[][] exp_ = data_.getBackHeros().getVal(new ImageHeroKey(EnvironmentType.ROAD, Sex.GIRL.getOppositeSex())).getImage();
         assertEq(exp_, game_.getBackHerosSexOpposite(data_));
     }
     @Test
@@ -268,7 +268,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.setPlayerCoords(newCoords(5, 0, 0, 0));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
-        int[][] exp_ = data_.getBackHeros().getVal(new ImageHeroKey(EnvironmentType.ROAD, Sex.BOY.getOppositeSex()));
+        int[][] exp_ = data_.getBackHeros().getVal(new ImageHeroKey(EnvironmentType.ROAD, Sex.BOY.getOppositeSex())).getImage();
         assertEq(exp_, game_.getBackHerosSexOpposite(data_));
     }
     @Test

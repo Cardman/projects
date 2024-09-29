@@ -1,6 +1,5 @@
 package aiki.gui.components.walk;
 
-import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.gui.components.walk.events.*;
 import aiki.gui.dialogs.*;
@@ -8,8 +7,7 @@ import aiki.gui.listeners.*;
 import aiki.main.AikiNatLgNamesNavigation;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
-import aiki.sml.MessagesPkGame;
-import aiki.sml.MessagesRenderScenePanel;
+import aiki.sml.*;
 import cards.facade.enumerations.GameEnum;
 import code.bean.nat.FixCharacterCaseConverter;
 import code.gui.*;
@@ -735,7 +733,9 @@ public class ScenePanelMulti {
         group_.add(window.getCompoFactory().newPlainLabel(messages.getVal(MessagesRenderScenePanel.RECEIVED_POKEMON)), MessagesGuiFct.BORDER_LAYOUT_NORTH);
         AbsScrollPane scrollSession_ = compoFactory.newAbsScrollPane();
         receivedPk = new RenderedPage(scrollSession_, window.getFrames(),new FixCharacterCaseConverter(), window.getGuardRender());
-        receivedPk.setBase(MessagesPkGame.getAppliTr(window.getFrames().currentLg()).getMapping().getVal(MessagesPkGame.BASE_FILE).getMapping().getVal(MessagesDataBaseConstants.BASE_KEY));
+        receivedPk.setBase(GamesPk.baseEncode(window.getFrames().getTranslations()));
+//        receivedPk.setBase(facade.getData().getMessagesParse().getVal(MessagesPkGame.BASE_FILE));
+//        receivedPk.setBase(MessagesPkGame.getAppliTr(window.getFrames().currentLg()).getMapping().getVal(MessagesPkGame.BASE_FILE).getMapping().getVal(MessagesDataBaseConstants.BASE_KEY));
 //        receivedPk.setFiles(facade.getData().getWebPk(), Resources.ACCESS_TO_DEFAULT_FILES);
         receivedPk.setFrame(window.getCommonFrame());
 //        receivedPk.prepare();
@@ -781,6 +781,7 @@ public class ScenePanelMulti {
 //            return;
 //        }
         task_.getBeanNatLgNames().setDataBase(facade);
+        task_.getBeanNatLgNames().setBaseEncode(GamesPk.baseEncode(window.getFrames().getTranslations()));
         FrameHtmlData.initializeOnlyConf(task_, facade.getLanguage(), task_.getBeanNatLgNames(), receivedPk);
     }
 

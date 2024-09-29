@@ -276,7 +276,6 @@ public abstract class EquallableNetworkUtil {
 //        ai_.submit(new MockCallable<DataBase>(_db));
         WindowNetWork w_ = new WindowNetWork(stream(pr_), pr_, ai_, new IntArtCardGames(), new LanguagesButtonsPair(null,null,null));
         updateBase(pr_.currentLg());
-        MessagesPkGame.getAppliTr(w_.getFrames().currentLg()).getMapping().addEntry(MessagesPkGame.BASE_FILE,MessagesCorePk.parsingBase());
         ai_.submitNavPkNetTask(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSampleNet(),nav())));
         w_.setVisible(true);
         w_.pack();
@@ -312,7 +311,6 @@ public abstract class EquallableNetworkUtil {
 //        ai_.submit(new MockCallable<DataBase>(_db));
         WindowNetWork w_ = new WindowNetWork(stream(pr_), pr_, ai_, new IntArtCardGames(), new LanguagesButtonsPair(null,_mai,null));
         updateBase(pr_.currentLg());
-        MessagesPkGame.getAppliTr(w_.getFrames().currentLg()).getMapping().addEntry(MessagesPkGame.BASE_FILE,MessagesCorePk.parsingBase());
         ai_.submitNavPkNetTask(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSampleNet(),nav())));
         w_.setVisible(true);
         w_.pack();
@@ -350,7 +348,6 @@ public abstract class EquallableNetworkUtil {
 //        ai_.submit(new MockCallable<DataBase>(_db));
         WindowNetWork w_ = new WindowNetWork(streamPseudoTarot(pr_), pr_, ai_, new IntArtCardGames(), new LanguagesButtonsPair(null,null,null));
         updateBase(pr_.currentLg());
-        MessagesPkGame.getAppliTr(w_.getFrames().currentLg()).getMapping().addEntry(MessagesPkGame.BASE_FILE,MessagesCorePk.parsingBase());
         ai_.submitNavPkNetTask(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSampleNet(),nav())));
         w_.setVisible(true);
         w_.pack();
@@ -803,5 +800,9 @@ public abstract class EquallableNetworkUtil {
     }
     public static void assertEq(LgInt _expected, LgInt _result) {
         Assert.assertEquals(_expected.toNumberString(), _result.toNumberString());
+    }
+
+    public static ImageArrayBaseSixtyFour instance(int[][] _img) {
+        return ImageArrayBaseSixtyFour.instance(_img,"");
     }
 }

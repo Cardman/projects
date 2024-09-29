@@ -35,7 +35,7 @@ public abstract class AbsPkTeamBean extends CommonBean {
         PkTrainer pk_;
         pk_ = _list.get(_index);
         String name_ = pk_.getName();
-        return getStringByImage(data_.getMaxiPkFront().getVal(name_));
+        return getStringByImage(data_.getMaxiPkFront().getVal(name_).getImage());
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name_));
     }
     public String getName(int _index) {

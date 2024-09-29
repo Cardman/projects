@@ -1731,8 +1731,8 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         tile_.setFile(TREMPETTE2);
         tile_.setPlace((short)1);
         map_.getMiniMap().addEntry(new MiniMapCoords((short)1,(short)0), tile_);
-        data_.getMiniMap().addEntry(TREMPETTE,new int[2][2]);
-        data_.getMiniMap().addEntry(TREMPETTE2,new int[2][2]);
+        data_.getMiniMap().addEntry(TREMPETTE,instance(new int[2][2]));
+        data_.getMiniMap().addEntry(TREMPETTE2,instance(new int[2][2]));
         data_.completeVariables();
         initConstants(data_);
         initRandomLaws(data_);
@@ -1796,8 +1796,8 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         tile_.setFile(TREMPETTE2);
         tile_.setPlace((short)1);
         map_.getMiniMap().addEntry(new MiniMapCoords((short)1,(short)0), tile_);
-        data_.getMiniMap().addEntry(TREMPETTE,new int[2][1]);
-        data_.getMiniMap().addEntry(TREMPETTE2,new int[2][2]);
+        data_.getMiniMap().addEntry(TREMPETTE,instance(new int[2][1]));
+        data_.getMiniMap().addEntry(TREMPETTE2,instance(new int[2][2]));
         data_.completeVariables();
         initConstants(data_);
         initRandomLaws(data_);
@@ -1861,8 +1861,8 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         tile_.setFile(TREMPETTE2);
         tile_.setPlace((short)1);
         map_.getMiniMap().addEntry(new MiniMapCoords((short)1,(short)0), tile_);
-        data_.getMiniMap().addEntry(TREMPETTE,new int[1][2]);
-        data_.getMiniMap().addEntry(TREMPETTE2,new int[2][2]);
+        data_.getMiniMap().addEntry(TREMPETTE,instance(new int[1][2]));
+        data_.getMiniMap().addEntry(TREMPETTE2,instance(new int[2][2]));
         data_.completeVariables();
         initConstants(data_);
         initRandomLaws(data_);
@@ -2361,7 +2361,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         t_ = new TileMiniMap();
         t_.setFile(ELECTRICK);
         map_.getMiniMap().addEntry(new MiniMapCoords((short)1,(short)1),t_);
-        data_.getMiniMap().addEntry(ELECTRICK,new int[1][1]);
+        data_.getMiniMap().addEntry(ELECTRICK,instance(new int[1][1]));
         assertEq(2,map_.getMapWidth());
         assertEq(0,map_.getTrainerName(newCoords(0,0,1,1)).length());
         assertEq(4,map_.getImages(data_).size());
@@ -2390,7 +2390,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         t_ = new TileMiniMap();
         t_.setFile(ELECTRICK);
         map_.getMiniMap().addEntry(new MiniMapCoords((short)1,(short)1),t_);
-        data_.getMiniMap().addEntry(ELECTRICK,new int[1][1]);
+        data_.getMiniMap().addEntry(ELECTRICK,instance(new int[1][1]));
         assertEq(2,map_.getMapHeight());
         assertEq(0,map_.getTrainerName(newCoords(0,0,1,1)).length());
         assertEq(4,map_.getImages(data_).size());

@@ -32,7 +32,7 @@ public final class EggLabel extends SelectableLabel {
     }
 
     public void setImagesResults(AbstractImageFactory _fact, FacadeGame _facade, IntTileRender _rend) {
-        int[][] miniPk_ = _facade.getData().getMiniPk().getVal(egg.getKeyName());
+        int[][] miniPk_ = _facade.getData().getMiniPk().getVal(egg.getKeyName()).getImage();
         sideLength = _facade.getMap().getSideLength();
         miniImagePk = _rend.render(_fact,miniPk_,sideLength,sideLength);
         remainSteps = (int) (_facade.getData().getPokemon(egg.getKeyName()).getHatchingSteps().ll() - egg.getSteps());

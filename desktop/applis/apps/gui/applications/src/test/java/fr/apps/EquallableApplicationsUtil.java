@@ -1,6 +1,7 @@
 package fr.apps;
 
 import aiki.db.DataBase;
+import aiki.db.ImageArrayBaseSixtyFour;
 import aiki.db.MessagesDataBaseConstants;
 import code.maths.montecarlo.CustomSeedGene;
 import code.mock.MockFileSet;
@@ -9,6 +10,7 @@ import code.util.core.StringUtil;
 import org.junit.Assert;
 
 public abstract class EquallableApplicationsUtil {
+    public static final String BASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
     public static final String VAR_PREFIX = MessagesDataBaseConstants.VAR_DEF+DataBase.SEP_BETWEEN_KEYS;
     public static final String EN = StringUtil.EN;
     public static MockProgramInfos build() {
@@ -25,5 +27,9 @@ public abstract class EquallableApplicationsUtil {
     }
     public static void assertEq(long _expected, long _result) {
         Assert.assertEquals(_expected, _result);
+    }
+
+    public static ImageArrayBaseSixtyFour instance(int[][] _img) {
+        return ImageArrayBaseSixtyFour.instance(_img,BASE);
     }
 }

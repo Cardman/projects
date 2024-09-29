@@ -93,9 +93,9 @@ public class PokemonBean extends CommonBean {
                 placesAppears.add(i);
             }
         }
-        backImage = getStringByImage(data_.getMaxiPkBack().getVal(name));
+        backImage = getStringByImage(data_.getMaxiPkBack().getVal(name).getImage());
         //ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkBack().getVal(name));
-        frontImage = getStringByImage(data_.getMaxiPkFront().getVal(name));
+        frontImage = getStringByImage(data_.getMaxiPkFront().getVal(name).getImage());
         //ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name));
         PokemonData pk_ = data_.getPokemon(name);
         displayName = translationsPokemon_.getVal(name);
@@ -201,7 +201,7 @@ public class PokemonBean extends CommonBean {
             }
         }
         if (appear_) {
-            int[][] miniImg_ = data_.getMiniPk().getVal(name);
+            int[][] miniImg_ = data_.getMiniPk().getVal(name).getImage();
             image_ = ConverterBufferedImage.stackImages(image_, miniImg_);
         }
         return getStringByImage(image_);

@@ -8,6 +8,7 @@ import aiki.beans.facade.game.dto.StatisticInfoPkPlayerGetEv;
 import aiki.beans.facade.game.dto.StatisticInfoPkPlayerGetIv;
 import aiki.beans.facade.game.dto.StatisticInfoPkPlayerGetName;
 import aiki.beans.facade.game.dto.StatisticInfoPkPlayerGetRate;
+import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import code.bean.nat.*;
 
@@ -115,6 +116,7 @@ public abstract class InitDbPkBean extends InitDbBean {
     public static NaSt beanPk(String _language, FacadeGame _dataBase) {
         PkInd stds_ = new PkInd();
         stds_.setDataBase(_dataBase);
+        stds_.setBaseEncode(MessagesDataBaseConstants.BASE);
         return stds_.beanPk(_language);
     }
 

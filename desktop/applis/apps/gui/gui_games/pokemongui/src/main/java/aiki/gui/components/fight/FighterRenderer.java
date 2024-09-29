@@ -60,7 +60,7 @@ public class FighterRenderer implements AbsCustCellRenderGene<FighterPosition> {
         intRate = fighter.rateRemainHp();
         selected = _isSelected;
         String name_ = fighter.getName();
-        int[][] img_ = facade.getData().getMiniPk().getVal(name_);
+        int[][] img_ = facade.getData().getMiniPk().getVal(name_).getImage();
 //        pkImage = ConverterGraphicBufferedImage.decodeToImage(fact,img_);
         pkImage = render.render(fact,img_,sideLength,sideLength);
         if (facade.getFight().getChoices().isEmpty()) {

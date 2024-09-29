@@ -1,6 +1,7 @@
 package aiki.game.fight;
 import aiki.db.DataBase;
 import aiki.db.EquallablePkUtil;
+import aiki.db.ImageArrayBaseSixtyFour;
 import aiki.db.ImageHeroKey;
 import aiki.fight.pokemon.NameLevel;
 import aiki.game.player.enums.Sex;
@@ -1359,7 +1360,7 @@ final class InitializationMap  extends EquallablePkUtil {
         _data.getMiniMap().addEntry(MINI4, square(218,200,112,118));
         _data.getMiniMap().addEntry(MINI5, square(200,218,112,118));
         _data.getMiniMap().addEntry(MINI6, square(200,218,212,118));
-        _data.setEndGameImage(new int[][]{new int[]{1}});
+        _data.setEndGameImage(ImageArrayBaseSixtyFour.instance(new int[][]{new int[]{1}},NULL_REF));
     }
 
     private static void initImgsSta(DataBase _data, String _key) {
@@ -1406,7 +1407,7 @@ final class InitializationMap  extends EquallablePkUtil {
         _data.getTypesImages().addEntry(_type, squareUni(_data));
     }
 
-    private static int[][] squareUni(DataBase _data) {
+    private static ImageArrayBaseSixtyFour squareUni(DataBase _data) {
         return square(_data.getTypesColors().size(), _data.getTypesColors().size(), _data.getTypesColors().size(), _data.getTypesColors().size());
     }
 
@@ -1414,14 +1415,14 @@ final class InitializationMap  extends EquallablePkUtil {
         int nb_ = _data.getTypesColors().size() + 1;
         return nb_ +DataBase.SEPARATOR_RGB+ nb_ +DataBase.SEPARATOR_RGB+ nb_;
     }
-    static int[][] square(int _one, int _two, int _three, int _four) {
-        return new int[][]{new int[]{_one,_two}, new int[]{_three,_four}};
+    static ImageArrayBaseSixtyFour square(int _one, int _two, int _three, int _four) {
+        return instance(new int[][]{new int[]{_one,_two}, new int[]{_three,_four}});
     }
-    static int[][] rows(int _v) {
-        return new int[][]{new int[]{_v, _v, _v, _v}, new int[]{_v, _v, _v, _v}, new int[]{_v, _v, _v, _v}, new int[]{_v, _v, _v, _v}};
+    static ImageArrayBaseSixtyFour rows(int _v) {
+        return instance(new int[][]{new int[]{_v, _v, _v, _v}, new int[]{_v, _v, _v, _v}, new int[]{_v, _v, _v, _v}, new int[]{_v, _v, _v, _v}});
     }
-    static int[][] longRows() {
-        return new int[][]{longRow(),longRow(),longRow(),longRow(),longRow(),longRow(),longRow(),longRow(),longRow(),longRow(),longRow(),longRow(),longRow(),longRow(),longRow(),longRow(),longRow(),longRow()};
+    static ImageArrayBaseSixtyFour longRows() {
+        return instance(new int[][]{longRow(),longRow(),longRow(),longRow(),longRow(),longRow(),longRow(),longRow(),longRow(),longRow(),longRow(),longRow(),longRow(),longRow(),longRow(),longRow(),longRow(),longRow()});
     }
     static int[] longRow() {
         return new int[]{-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985};
@@ -1686,101 +1687,101 @@ final class InitializationMap  extends EquallablePkUtil {
         CustList<Sex> sex_ = Sex.all();
         Sex one_ = sex_.first();
         Sex two_ = sex_.last();
-        _data.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.BUILDING,one_),new int[][]{new int[]{0,1},new int[]{-2,-2}});
-        _data.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.BUILDING,two_),new int[][]{new int[]{3,4},new int[]{-2,-2}});
-        _data.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.DESERT,one_),new int[][]{new int[]{6,7},new int[]{-2,-2}});
-        _data.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.DESERT,two_),new int[][]{new int[]{9,10},new int[]{-2,-2}});
-        _data.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.WATER,one_),new int[][]{new int[]{12,13},new int[]{-2,-2}});
-        _data.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.WATER,two_),new int[][]{new int[]{15,16},new int[]{-2,-2}});
-        _data.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.ICE,one_),new int[][]{new int[]{18,19},new int[]{-2,-2}});
-        _data.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.ICE,two_),new int[][]{new int[]{21,22},new int[]{-2,-2}});
-        _data.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.GRASS,one_),new int[][]{new int[]{24,25},new int[]{-2,-2}});
-        _data.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.GRASS,two_),new int[][]{new int[]{27,28},new int[]{-2,-2}});
-        _data.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.SNOW,one_),new int[][]{new int[]{30,31},new int[]{-2,-2}});
-        _data.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.SNOW,two_),new int[][]{new int[]{33,34},new int[]{-2,-2}});
-        _data.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD,one_),new int[][]{new int[]{36,37},new int[]{-2,-2}});
-        _data.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD,two_),new int[][]{new int[]{39,40},new int[]{-2,-2}});
-        _data.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.NOTHING,one_),new int[][]{new int[]{42,43},new int[]{-2,-2}});
-        _data.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.NOTHING,two_),new int[][]{new int[]{45,46},new int[]{-2,-2}});
-        _data.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.BUILDING,one_),new int[][]{new int[]{0,1},new int[]{-2,-2}});
-        _data.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.BUILDING,two_),new int[][]{new int[]{3,4},new int[]{-2,-2}});
-        _data.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.DESERT,one_),new int[][]{new int[]{6,7},new int[]{-2,-2}});
-        _data.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.DESERT,two_),new int[][]{new int[]{9,10},new int[]{-2,-2}});
-        _data.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.WATER,one_),new int[][]{new int[]{12,13},new int[]{-2,-2}});
-        _data.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.WATER,two_),new int[][]{new int[]{15,16},new int[]{-2,-2}});
-        _data.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.ICE,one_),new int[][]{new int[]{18,19},new int[]{-2,-2}});
-        _data.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.ICE,two_),new int[][]{new int[]{21,22},new int[]{-2,-2}});
-        _data.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.GRASS,one_),new int[][]{new int[]{24,25},new int[]{-2,-2}});
-        _data.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.GRASS,two_),new int[][]{new int[]{27,28},new int[]{-2,-2}});
-        _data.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.SNOW,one_),new int[][]{new int[]{30,31},new int[]{-2,-2}});
-        _data.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.SNOW,two_),new int[][]{new int[]{33,34},new int[]{-2,-2}});
-        _data.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD,one_),new int[][]{new int[]{36,37},new int[]{-2,-2}});
-        _data.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD,two_),new int[][]{new int[]{39,40},new int[]{-2,-2}});
-        _data.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.NOTHING,one_),new int[][]{new int[]{42,43},new int[]{-2,-2}});
-        _data.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.NOTHING,two_),new int[][]{new int[]{45,46},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.BUILDING,Direction.UP,one_),new int[][]{new int[]{0,0},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.BUILDING,Direction.UP,two_),new int[][]{new int[]{1,1},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.BUILDING,Direction.DOWN,one_),new int[][]{new int[]{2,2},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.BUILDING,Direction.DOWN,two_),new int[][]{new int[]{3,3},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.BUILDING,Direction.LEFT,one_),new int[][]{new int[]{4,4},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.BUILDING,Direction.LEFT,two_),new int[][]{new int[]{5,5},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.BUILDING,Direction.RIGHT,one_),new int[][]{new int[]{6,6},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.BUILDING,Direction.RIGHT,two_),new int[][]{new int[]{7,7},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.DESERT,Direction.UP,one_),new int[][]{new int[]{8,8},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.DESERT,Direction.UP,two_),new int[][]{new int[]{9,9},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.DESERT,Direction.DOWN,one_),new int[][]{new int[]{10,10},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.DESERT,Direction.DOWN,two_),new int[][]{new int[]{11,11},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.DESERT,Direction.LEFT,one_),new int[][]{new int[]{12,12},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.DESERT,Direction.LEFT,two_),new int[][]{new int[]{13,13},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.DESERT,Direction.RIGHT,one_),new int[][]{new int[]{14,14},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.DESERT,Direction.RIGHT,two_),new int[][]{new int[]{15,15},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.WATER,Direction.UP,one_),new int[][]{new int[]{16,16},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.WATER,Direction.UP,two_),new int[][]{new int[]{17,17},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.WATER,Direction.DOWN,one_),new int[][]{new int[]{18,18},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.WATER,Direction.DOWN,two_),new int[][]{new int[]{19,19},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.WATER,Direction.LEFT,one_),new int[][]{new int[]{20,20},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.WATER,Direction.LEFT,two_),new int[][]{new int[]{21,21},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.WATER,Direction.RIGHT,one_),new int[][]{new int[]{22,22},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.WATER,Direction.RIGHT,two_),new int[][]{new int[]{23,23},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ICE,Direction.UP,one_),new int[][]{new int[]{24,24},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ICE,Direction.UP,two_),new int[][]{new int[]{25,25},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ICE,Direction.DOWN,one_),new int[][]{new int[]{26,26},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ICE,Direction.DOWN,two_),new int[][]{new int[]{27,27},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ICE,Direction.LEFT,one_),new int[][]{new int[]{28,28},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ICE,Direction.LEFT,two_),new int[][]{new int[]{29,29},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ICE,Direction.RIGHT,one_),new int[][]{new int[]{30,30},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ICE,Direction.RIGHT,two_),new int[][]{new int[]{31,31},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.GRASS,Direction.UP,one_),new int[][]{new int[]{32,32},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.GRASS,Direction.UP,two_),new int[][]{new int[]{33,33},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.GRASS,Direction.DOWN,one_),new int[][]{new int[]{34,34},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.GRASS,Direction.DOWN,two_),new int[][]{new int[]{35,35},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.GRASS,Direction.LEFT,one_),new int[][]{new int[]{36,36},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.GRASS,Direction.LEFT,two_),new int[][]{new int[]{37,37},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.GRASS,Direction.RIGHT,one_),new int[][]{new int[]{38,38},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.GRASS,Direction.RIGHT,two_),new int[][]{new int[]{39,39},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.SNOW,Direction.UP,one_),new int[][]{new int[]{40,40},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.SNOW,Direction.UP,two_),new int[][]{new int[]{41,41},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.SNOW,Direction.DOWN,one_),new int[][]{new int[]{42,42},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.SNOW,Direction.DOWN,two_),new int[][]{new int[]{43,43},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.SNOW,Direction.LEFT,one_),new int[][]{new int[]{44,44},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.SNOW,Direction.LEFT,two_),new int[][]{new int[]{45,45},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.SNOW,Direction.RIGHT,one_),new int[][]{new int[]{46,46},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.SNOW,Direction.RIGHT,two_),new int[][]{new int[]{47,47},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD,Direction.UP,one_),new int[][]{new int[]{48,48},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD,Direction.UP,two_),new int[][]{new int[]{49,49},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD,Direction.DOWN,one_),new int[][]{new int[]{50,50},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD,Direction.DOWN,two_),new int[][]{new int[]{51,51},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD,Direction.LEFT,one_),new int[][]{new int[]{52,52},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD,Direction.LEFT,two_),new int[][]{new int[]{53,53},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD,Direction.RIGHT,one_),new int[][]{new int[]{54,54},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD,Direction.RIGHT,two_),new int[][]{new int[]{55,55},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.NOTHING,Direction.UP,one_),new int[][]{new int[]{56,56},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.NOTHING,Direction.UP,two_),new int[][]{new int[]{57,57},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.NOTHING,Direction.DOWN,one_),new int[][]{new int[]{58,58},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.NOTHING,Direction.DOWN,two_),new int[][]{new int[]{59,59},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.NOTHING,Direction.LEFT,one_),new int[][]{new int[]{60,60},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.NOTHING,Direction.LEFT,two_),new int[][]{new int[]{61,61},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.NOTHING,Direction.RIGHT,one_),new int[][]{new int[]{62,62},new int[]{-2,-2}});
-        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.NOTHING,Direction.RIGHT,two_),new int[][]{new int[]{63,63},new int[]{-2,-2}});
+        _data.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.BUILDING,one_),instance(new int[][]{new int[]{0,1},new int[]{-2,-2}}));
+        _data.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.BUILDING,two_),instance(new int[][]{new int[]{3,4},new int[]{-2,-2}}));
+        _data.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.DESERT,one_),instance(new int[][]{new int[]{6,7},new int[]{-2,-2}}));
+        _data.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.DESERT,two_),instance(new int[][]{new int[]{9,10},new int[]{-2,-2}}));
+        _data.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.WATER,one_),instance(new int[][]{new int[]{12,13},new int[]{-2,-2}}));
+        _data.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.WATER,two_),instance(new int[][]{new int[]{15,16},new int[]{-2,-2}}));
+        _data.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.ICE,one_),instance(new int[][]{new int[]{18,19},new int[]{-2,-2}}));
+        _data.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.ICE,two_),instance(new int[][]{new int[]{21,22},new int[]{-2,-2}}));
+        _data.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.GRASS,one_),instance(new int[][]{new int[]{24,25},new int[]{-2,-2}}));
+        _data.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.GRASS,two_),instance(new int[][]{new int[]{27,28},new int[]{-2,-2}}));
+        _data.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.SNOW,one_),instance(new int[][]{new int[]{30,31},new int[]{-2,-2}}));
+        _data.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.SNOW,two_),instance(new int[][]{new int[]{33,34},new int[]{-2,-2}}));
+        _data.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD,one_),instance(new int[][]{new int[]{36,37},new int[]{-2,-2}}));
+        _data.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD,two_),instance(new int[][]{new int[]{39,40},new int[]{-2,-2}}));
+        _data.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.NOTHING,one_),instance(new int[][]{new int[]{42,43},new int[]{-2,-2}}));
+        _data.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.NOTHING,two_),instance(new int[][]{new int[]{45,46},new int[]{-2,-2}}));
+        _data.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.BUILDING,one_),instance(new int[][]{new int[]{0,1},new int[]{-2,-2}}));
+        _data.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.BUILDING,two_),instance(new int[][]{new int[]{3,4},new int[]{-2,-2}}));
+        _data.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.DESERT,one_),instance(new int[][]{new int[]{6,7},new int[]{-2,-2}}));
+        _data.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.DESERT,two_),instance(new int[][]{new int[]{9,10},new int[]{-2,-2}}));
+        _data.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.WATER,one_),instance(new int[][]{new int[]{12,13},new int[]{-2,-2}}));
+        _data.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.WATER,two_),instance(new int[][]{new int[]{15,16},new int[]{-2,-2}}));
+        _data.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.ICE,one_),instance(new int[][]{new int[]{18,19},new int[]{-2,-2}}));
+        _data.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.ICE,two_),instance(new int[][]{new int[]{21,22},new int[]{-2,-2}}));
+        _data.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.GRASS,one_),instance(new int[][]{new int[]{24,25},new int[]{-2,-2}}));
+        _data.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.GRASS,two_),instance(new int[][]{new int[]{27,28},new int[]{-2,-2}}));
+        _data.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.SNOW,one_),instance(new int[][]{new int[]{30,31},new int[]{-2,-2}}));
+        _data.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.SNOW,two_),instance(new int[][]{new int[]{33,34},new int[]{-2,-2}}));
+        _data.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD,one_),instance(new int[][]{new int[]{36,37},new int[]{-2,-2}}));
+        _data.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD,two_),instance(new int[][]{new int[]{39,40},new int[]{-2,-2}}));
+        _data.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.NOTHING,one_),instance(new int[][]{new int[]{42,43},new int[]{-2,-2}}));
+        _data.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.NOTHING,two_),instance(new int[][]{new int[]{45,46},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.BUILDING,Direction.UP,one_),instance(new int[][]{new int[]{0,0},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.BUILDING,Direction.UP,two_),instance(new int[][]{new int[]{1,1},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.BUILDING,Direction.DOWN,one_),instance(new int[][]{new int[]{2,2},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.BUILDING,Direction.DOWN,two_),instance(new int[][]{new int[]{3,3},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.BUILDING,Direction.LEFT,one_),instance(new int[][]{new int[]{4,4},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.BUILDING,Direction.LEFT,two_),instance(new int[][]{new int[]{5,5},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.BUILDING,Direction.RIGHT,one_),instance(new int[][]{new int[]{6,6},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.BUILDING,Direction.RIGHT,two_),instance(new int[][]{new int[]{7,7},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.DESERT,Direction.UP,one_),instance(new int[][]{new int[]{8,8},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.DESERT,Direction.UP,two_),instance(new int[][]{new int[]{9,9},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.DESERT,Direction.DOWN,one_),instance(new int[][]{new int[]{10,10},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.DESERT,Direction.DOWN,two_),instance(new int[][]{new int[]{11,11},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.DESERT,Direction.LEFT,one_),instance(new int[][]{new int[]{12,12},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.DESERT,Direction.LEFT,two_),instance(new int[][]{new int[]{13,13},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.DESERT,Direction.RIGHT,one_),instance(new int[][]{new int[]{14,14},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.DESERT,Direction.RIGHT,two_),instance(new int[][]{new int[]{15,15},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.WATER,Direction.UP,one_),instance(new int[][]{new int[]{16,16},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.WATER,Direction.UP,two_),instance(new int[][]{new int[]{17,17},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.WATER,Direction.DOWN,one_),instance(new int[][]{new int[]{18,18},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.WATER,Direction.DOWN,two_),instance(new int[][]{new int[]{19,19},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.WATER,Direction.LEFT,one_),instance(new int[][]{new int[]{20,20},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.WATER,Direction.LEFT,two_),instance(new int[][]{new int[]{21,21},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.WATER,Direction.RIGHT,one_),instance(new int[][]{new int[]{22,22},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.WATER,Direction.RIGHT,two_),instance(new int[][]{new int[]{23,23},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ICE,Direction.UP,one_),instance(new int[][]{new int[]{24,24},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ICE,Direction.UP,two_),instance(new int[][]{new int[]{25,25},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ICE,Direction.DOWN,one_),instance(new int[][]{new int[]{26,26},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ICE,Direction.DOWN,two_),instance(new int[][]{new int[]{27,27},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ICE,Direction.LEFT,one_),instance(new int[][]{new int[]{28,28},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ICE,Direction.LEFT,two_),instance(new int[][]{new int[]{29,29},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ICE,Direction.RIGHT,one_),instance(new int[][]{new int[]{30,30},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ICE,Direction.RIGHT,two_),instance(new int[][]{new int[]{31,31},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.GRASS,Direction.UP,one_),instance(new int[][]{new int[]{32,32},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.GRASS,Direction.UP,two_),instance(new int[][]{new int[]{33,33},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.GRASS,Direction.DOWN,one_),instance(new int[][]{new int[]{34,34},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.GRASS,Direction.DOWN,two_),instance(new int[][]{new int[]{35,35},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.GRASS,Direction.LEFT,one_),instance(new int[][]{new int[]{36,36},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.GRASS,Direction.LEFT,two_),instance(new int[][]{new int[]{37,37},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.GRASS,Direction.RIGHT,one_),instance(new int[][]{new int[]{38,38},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.GRASS,Direction.RIGHT,two_),instance(new int[][]{new int[]{39,39},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.SNOW,Direction.UP,one_),instance(new int[][]{new int[]{40,40},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.SNOW,Direction.UP,two_),instance(new int[][]{new int[]{41,41},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.SNOW,Direction.DOWN,one_),instance(new int[][]{new int[]{42,42},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.SNOW,Direction.DOWN,two_),instance(new int[][]{new int[]{43,43},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.SNOW,Direction.LEFT,one_),instance(new int[][]{new int[]{44,44},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.SNOW,Direction.LEFT,two_),instance(new int[][]{new int[]{45,45},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.SNOW,Direction.RIGHT,one_),instance(new int[][]{new int[]{46,46},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.SNOW,Direction.RIGHT,two_),instance(new int[][]{new int[]{47,47},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD,Direction.UP,one_),instance(new int[][]{new int[]{48,48},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD,Direction.UP,two_),instance(new int[][]{new int[]{49,49},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD,Direction.DOWN,one_),instance(new int[][]{new int[]{50,50},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD,Direction.DOWN,two_),instance(new int[][]{new int[]{51,51},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD,Direction.LEFT,one_),instance(new int[][]{new int[]{52,52},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD,Direction.LEFT,two_),instance(new int[][]{new int[]{53,53},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD,Direction.RIGHT,one_),instance(new int[][]{new int[]{54,54},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD,Direction.RIGHT,two_),instance(new int[][]{new int[]{55,55},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.NOTHING,Direction.UP,one_),instance(new int[][]{new int[]{56,56},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.NOTHING,Direction.UP,two_),instance(new int[][]{new int[]{57,57},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.NOTHING,Direction.DOWN,one_),instance(new int[][]{new int[]{58,58},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.NOTHING,Direction.DOWN,two_),instance(new int[][]{new int[]{59,59},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.NOTHING,Direction.LEFT,one_),instance(new int[][]{new int[]{60,60},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.NOTHING,Direction.LEFT,two_),instance(new int[][]{new int[]{61,61},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.NOTHING,Direction.RIGHT,one_),instance(new int[][]{new int[]{62,62},new int[]{-2,-2}}));
+        _data.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.NOTHING,Direction.RIGHT,two_),instance(new int[][]{new int[]{63,63},new int[]{-2,-2}}));
     }
 }

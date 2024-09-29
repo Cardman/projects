@@ -37,11 +37,11 @@ public class GameProgressionBean extends CommonSingleBean {
     @Override
     public void beforeDisplaying() {
         FacadeGame facade_ = facade();
-        heroImage = facade_.getFrontChosenHeros();
-        heroImageOppositeSex = facade_.getFrontChosenHerosOppositeSex();
+        heroImage = facade_.getFrontChosenHeros(getBaseEncode());
+        heroImageOppositeSex = facade_.getFrontChosenHerosOppositeSex(getBaseEncode());
         GameProgression progression_ = facade_.getGameProgression();
         finishedGame = progression_.isFinishedGame();
-        endGameImage = getStringByImage(facade_.getData().getEndGameImage());
+        endGameImage = getStringByImage(facade_.getData().getEndGameImage().getImage());
         nickname = progression_.getNickname();
         notAtAllFamiliesBaseInit(facade_, progression_);
         partialFamiliesBaseCaughtInit(facade_, progression_);
@@ -177,11 +177,11 @@ public class GameProgressionBean extends CommonSingleBean {
         return _facade.translatePokemon(pkName_);
     }
 
-    private static String getImagePokemon(FacadeGame _facade,NatStringTreeMap<CustList<StringList>> _treeMap, int _key, int _indexList, int _indexElt) {
+    private String getImagePokemon(FacadeGame _facade,NatStringTreeMap<CustList<StringList>> _treeMap, int _key, int _indexList, int _indexElt) {
         CustList<StringList> values_ = _treeMap.getValue(_key);
         StringList value_ = values_.get(_indexList);
         String pkName_ = value_.get(_indexElt);
-        int[][] img_ = _facade.getData().getMaxiPkFront().getVal(pkName_);
+        int[][] img_ = _facade.getData().getMaxiPkFront().getVal(pkName_).getImage();
         return getStringByImage(img_);
     }
 

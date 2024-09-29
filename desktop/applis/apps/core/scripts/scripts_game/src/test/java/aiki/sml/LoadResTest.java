@@ -14,7 +14,7 @@ public final class LoadResTest extends EquallableAikiScriptsUtil {
         FacadeGame facade_ = new FacadeGame();
         facade_.setLanguages(new StringList(Trs.EN,Trs.FR));
         facade_.setDisplayLanguages(new StringMap<String>());
-        DataBase data_ = new DefLoadingData(DefaultGenerator.oneElt(), facade_.getLanguages(), facade_.getDisplayLanguages(), facade_.getSexList()).call();
+        DataBase data_ = new DefLoadingData(DefaultGenerator.oneElt(), facade_.getLanguages(), facade_.getDisplayLanguages(), facade_.getSexList(), "").call();
         FacadeGame.postLoad(facade_, data_);
         assertNotNull(facade_.getData());
         assertNotNull(new CstIgameImpl().self());

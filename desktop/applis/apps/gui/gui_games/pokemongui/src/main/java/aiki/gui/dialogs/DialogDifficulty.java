@@ -6,8 +6,7 @@ import aiki.gui.WindowAiki;
 import aiki.gui.dialogs.events.ClosingDialogDifficulty;
 import aiki.gui.threads.AfterSettingDifficutyThread;
 import aiki.main.AikiNatLgNamesNavigation;
-import aiki.sml.MessagesPkGame;
-import aiki.sml.MessagesRenderPkGameDetail;
+import aiki.sml.*;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
@@ -49,6 +48,7 @@ public final class DialogDifficulty {
         absDialog.setTitle(_title);
         absDialog.setLocationRelativeTo(_window.getCommonFrame());
         _pre.getBeanNatLgNames().setDataBase(facade);
+        _pre.getBeanNatLgNames().setBaseEncode(GamesPk.baseEncode(_window.getFrames().getTranslations()));
         RenderedPage session_ = FrameHtmlData.initializeOnlyConf(_pre, _facade.getLanguage(), _pre.getBeanNatLgNames(), window.getFrames(), _window.getGuardRender());
         session_.setFrame(absDialog);
         AbsPanel panel_ = window.getCompoFactory().newPageBox();

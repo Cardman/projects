@@ -29,7 +29,7 @@ public final class FightWildIntroThread extends FightIntroThread {
         CustList<AbstractImage> imgs_ = new CustList<AbstractImage>();
         for (EntryCust<Byte, Fighter> f: getFacade().getFight().getFoeTeam().getMembers().entryList()) {
             String name_ = f.getValue().getName();
-            imgs_.add(ConverterGraphicBufferedImage.decodeToImage(getBattle().getWindow().getImageFactory(), getFacade().getData().getMaxiPkFront().getVal(name_)));
+            imgs_.add(ConverterGraphicBufferedImage.decodeToImage(getBattle().getWindow().getImageFactory(), getFacade().getData().getMaxiPkFront().getVal(name_).getImage()));
         }
         getBattle().drawAnimationFightIni(getHeros(), imgs_);
         while (getBattle().isKeepAnimation()) {

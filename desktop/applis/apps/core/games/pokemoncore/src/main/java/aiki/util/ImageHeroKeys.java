@@ -1,12 +1,13 @@
 package aiki.util;
 
+import aiki.db.ImageArrayBaseSixtyFour;
 import aiki.db.ImageHeroKey;
 
-public final class ImageHeroKeys extends CommonMap<ImageHeroKey, int[][]> {
+public final class ImageHeroKeys extends CommonMap<ImageHeroKey, ImageArrayBaseSixtyFour> {
 
     @Override
-    protected int[][] def() {
-        return new int[0][0];
+    protected ImageArrayBaseSixtyFour def() {
+        return ImageArrayBaseSixtyFour.instance();
     }
 
     @Override
