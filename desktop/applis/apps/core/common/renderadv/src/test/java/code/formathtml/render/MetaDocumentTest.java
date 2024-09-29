@@ -3320,7 +3320,7 @@ public final class MetaDocumentTest extends EquallableRenderAdvUtil {
         StringBuilder doc_ = new StringBuilder();
         doc_.append("<html>\n");
         doc_.append("<body>\n");
-        doc_.append("<img src='AAACABABbaba;AAABABABbaba' delay='10'/>\n");
+        doc_.append("<img src='AAACABABbaba"+MetaDocument.SEP_IMG+"AAABABABbaba' delay='10'/>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
         MetaDocument out_ = getMetaDocument(doc_);

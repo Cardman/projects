@@ -14,9 +14,9 @@ import code.util.ints.CharacterCaseConverter;
 public final class MetaDocument {
 
     public static final String SPACE = " ";
+    public static final String SEP_IMG = "=";
     private static final String LF = "\n";
     private static final String CRLF = "\r\n";
-    private static final String SEP_IMG = ";";
     private static final String COLOR_PREFIX = "#";
     private final MetaBlock root;
 
