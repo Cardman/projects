@@ -239,6 +239,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
     @Test
     public void rend() {
         MockProgramInfos p_ = build();
+        MessagesRenders.sys(FileInfos.initAppliFilesTr(p_.getTranslations()));
         TranslationsLg en_ = p_.lg(EN);
         DefaultBeanAliases.enTr(MessagesRenders.updateEn(FileInfos.enTr(FileInfos.initComments(en_))));
         p_.setLanguages(new StringList(EN));

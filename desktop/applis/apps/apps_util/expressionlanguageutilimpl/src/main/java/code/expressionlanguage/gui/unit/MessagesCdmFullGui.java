@@ -201,8 +201,9 @@ public final class MessagesCdmFullGui {
         return updateFrGui(_a);
     }
 
-    public static void sys(TranslationsAppli _lgs) {
+    public static TranslationsAppli sys(TranslationsAppli _lgs) {
         _lgs.sys(mes());
+        return _lgs;
     }
     public static TranslationsFile mes(){
         TranslationsFile t_ = new TranslationsFile();

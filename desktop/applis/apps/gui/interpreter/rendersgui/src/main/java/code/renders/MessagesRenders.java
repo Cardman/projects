@@ -8,6 +8,7 @@ public final class MessagesRenders {
     public static final String BASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
     public static final String APPS_RENDERS_SITES = "renders_sites";
     public static final String FRAME = "render_frame";
+    public static final String BASE_FILE = "sixty_four";
     public static final String FILE = "0";
     public static final String OPEN = "1";
     public static final String TITLE = "2";
@@ -26,13 +27,15 @@ public final class MessagesRenders {
         _a.getMapping().addEntry(FRAME,fr());
         return _a;
     }
+    public static void sys(TranslationsAppli _lgs) {
+        _lgs.getMapping().addEntry(BASE_FILE,parsingBase());
+    }
     public static TranslationsFile en(){
         TranslationsFile en_ = new TranslationsFile();
         en_.add(FILE,"file");
         en_.add(OPEN,"open");
         en_.add(TITLE,"Local sites");
         en_.add(SEARCH,"search");
-        en_.add(BASE_KEY,BASE);
         return en_;
     }
     public static TranslationsFile fr(){
@@ -41,7 +44,11 @@ public final class MessagesRenders {
         fr_.add(OPEN,"ouvrir");
         fr_.add(TITLE,"Sites locaux");
         fr_.add(SEARCH,"chercher");
-        fr_.add(BASE_KEY,BASE);
         return fr_;
+    }
+    public static TranslationsFile parsingBase(){
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(BASE_KEY,BASE);
+        return f_;
     }
 }

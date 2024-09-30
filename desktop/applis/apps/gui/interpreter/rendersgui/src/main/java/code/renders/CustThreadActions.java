@@ -5,6 +5,7 @@ import code.formathtml.Navigation;
 import code.formathtml.util.DefaultInitialization;
 import code.gui.document.AbstractThreadActions;
 import code.gui.document.RenderedPage;
+import code.renders.utilcompo.LgNamesRenderUtils;
 
 public final class CustThreadActions extends AbstractThreadActions {
 
@@ -21,24 +22,24 @@ public final class CustThreadActions extends AbstractThreadActions {
     private final Navigation navigation;
 
     private final DefaultInitialization init;
-    private final String base;
+    private final LgNamesRenderUtils renderUtils;
 
-    private CustThreadActions(RenderedPage _page, DefaultInitialization _i, Navigation _nav, String _base){
+    private CustThreadActions(RenderedPage _page, DefaultInitialization _i, Navigation _nav, LgNamesRenderUtils _stds){
         super(_page);
         init = _i;
         navigation = _nav;
-        base = _base;
+        renderUtils = _stds;
     }
 
-    public static CustThreadActions inst(RenderedPage _page, DefaultInitialization _init, Navigation _nav, String _base) {
-        return new CustThreadActions(_page, _init,_nav,_base);
+    public static CustThreadActions inst(RenderedPage _page, DefaultInitialization _init, Navigation _nav, LgNamesRenderUtils _stds) {
+        return new CustThreadActions(_page, _init,_nav, _stds);
     }
 
     @Override
     public void run() {
         String res_ = init.execute(navigation,new AdvContextGenerator(getPage().getGene().getThreadFactory().newAtomicBoolean()));
         getPage().setKeyWordDigit(init.getKeyWordDigit());
-        getPage().setBase(base);
+        getPage().setBase(renderUtils.getEncodingBaseSixtyFour());
         if (res_ != null) {
 //            if (getPage().getArea() != null) {
 //                getPage().getArea().append(res_);

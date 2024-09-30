@@ -144,7 +144,7 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         MessagesApplications.tr(MessagesApplications.initAppliTr(fr_));
         MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(_pr.getTranslations()));
         MessagesCardGames.sys(MessagesCardGames.initAppliFilesTr(_pr.getTranslations()));
-        MessagesCdmFullGui.sys(FileInfos.initAppliFilesTr(_pr.getTranslations()));
+        MessagesRenders.sys(MessagesCdmFullGui.sys(FileInfos.initAppliFilesTr(_pr.getTranslations())));
         MessagesConverter.sys(MessagesConverter.initAppliFilesTr(_pr.getTranslations()));
         MessagesSongs.sys(MessagesSongs.initAppliFilesTr(_pr.getTranslations()));
         MessagesApplications.sys(MessagesApplications.initAppliFilesTr(_pr.getTranslations()));

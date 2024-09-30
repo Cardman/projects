@@ -25,6 +25,8 @@ import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.errors.RendKeyWords;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.DefaultBeanAliases;
+import code.images.BaseSixtyFourUtil;
+import code.renders.MessagesRenders;
 import code.sml.Element;
 import code.sml.util.*;
 import code.threads.AbstractAtomicBoolean;
@@ -45,8 +47,10 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
     public static final String STYLE_VALUES = "8";
     public static final String STYLE_UNITS = "9";
     public static final String STYLE_DEFS = "10";
+    public static final String BASE = "11";
 //    public static final String RESOURCES_RENDERS_ALIASES = "resources_renders/aliases";
     private final LgNamesUtilsContent execContent;
+    private String encodingBaseSixtyFour;
 //    private final StringMap<String> properties = MessCdmRenderGr.ms();
     public LgNamesRenderUtils(FileInfos _infos,AbstractInterceptor _inter) {
         super(_infos.getGenerator());
@@ -97,6 +101,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         StringBuilder styleValuesPart_ = new StringBuilder();
         StringBuilder styleUnitsPart_ = new StringBuilder();
         StringBuilder styleDefsPart_ = new StringBuilder();
+        StringBuilder encodingPart_ = new StringBuilder();
         for (Element c: _elt.getChildElements()) {
             String fieldName_ = c.getAttribute(ReadConfiguration.FIELD);
             feed(fieldName_, MESSAGES, messPart_, c);
@@ -110,6 +115,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
             feed(fieldName_, STYLE_VALUES, styleValuesPart_, c);
             feed(fieldName_, STYLE_UNITS, styleUnitsPart_, c);
             feed(fieldName_, STYLE_DEFS, styleDefsPart_, c);
+            feed(fieldName_, BASE, encodingPart_, c);
         }
         StringMap<String> mess_ = new StringMap<String>();
         StringMap<String> rendMess_ = new StringMap<String>();
@@ -122,6 +128,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         StringMap<String> styleValues_ = new StringMap<String>();
         StringMap<String> styleUnits_ = new StringMap<String>();
         StringMap<String> styleDefs_ = new StringMap<String>();
+        StringMap<String> encoding_ = new StringMap<String>();
         buildMap(messPart_, mess_);
         buildMap(rendMessPart_, rendMess_);
         buildMap(keyWordsPart_, kw_);
@@ -133,6 +140,9 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         buildMap(styleUnitsPart_, styleUnits_);
         buildMap(styleValuesPart_, styleValues_);
         buildMap(styleDefsPart_, styleDefs_);
+        buildMap(encodingPart_, encoding_);
+        String defVal_ = FileInfos.getAppliFilesTr(execContent.getExecutingOptions().getLightProgramInfos().getTranslations()).getMapping().getVal(MessagesRenders.BASE_FILE).getMapping().getVal(MessagesRenders.BASE_KEY);
+        encodingBaseSixtyFour = BaseSixtyFourUtil.checkBase(ParseLinesArgUtil.parseValue(MessagesCdmBase.valMessages(FileInfos.getAppliTr(execContent.getExecutingOptions().getLightProgramInfos().currentLg())),StringUtil.removeAllSpaces(encodingPart_.toString())),defVal_);
         if (!_lg.isEmpty()) {
             execContent.getCustAliases().messages(_mess, mess_);
             rendMessages(_rMess, rendMess_);
@@ -512,5 +522,9 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         TranslationsLg lg_ = CustAliases.lg(_cust.getTranslations(), _cust.getUserLg(), _cust.getLanguage());
         TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
         return app_.getMapping().getVal(RendKeyWords.STYLE_DEF_FILE);
+    }
+
+    public String getEncodingBaseSixtyFour() {
+        return encodingBaseSixtyFour;
     }
 }

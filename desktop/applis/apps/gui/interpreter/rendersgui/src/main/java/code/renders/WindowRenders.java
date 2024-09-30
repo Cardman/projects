@@ -68,7 +68,6 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
         path = getCompoFactory().newTextField(20);
         pane_.add(path);
         session = new RenderedPage(getCompoFactory().newAbsScrollPane(), _programInfos,new DefCharacterCaseConverter(), getGuardRender());
-        session.setBase(mes_.getVal(MessagesRenders.BASE_KEY));
         Navigation n_ = nav();
         session.initNav(n_.getCore(),n_.getSession().getRendKeyWords().group());
         session.setLanguage(_lg,_programInfos.getLanguages());
@@ -93,8 +92,8 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
         addWindowListener(new QuittingEvent(this));
     }
 
-    public static CustThreadActions inst(DefaultInitialization _init, RenderedPage _page, Navigation _nav) {
-        return CustThreadActions.inst(_page, _init,_nav,MessagesRenders.valMessages(_page.getGene().currentLg()).getVal(MessagesRenders.BASE_KEY));
+    public static CustThreadActions inst(DefaultInitialization _init, RenderedPage _page, Navigation _nav, LgNamesRenderUtils _stds) {
+        return CustThreadActions.inst(_page, _init,_nav, _stds);
     }
 
 //    @Override
@@ -176,7 +175,7 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
         session.setFiles(zipFiles_);
         DefaultInitialization ini_ = new DefaultInitialization(lgNames_, new AdvSymbolFactory(lgNames_.getExecContent().getCustAliases().getMathAdvAliases()), lgCode_, confRel_, zipFiles_);
         ini_.setLog(lgNames_.getExecContent());
-        session.initializeOnlyConf(new CustRenderAction(ini_,n_,new CustContextCreator(),session,lgNames_), lgNames_, inst(ini_, session,n_));
+        session.initializeOnlyConf(new CustRenderAction(ini_,n_,new CustContextCreator(),session,lgNames_), lgNames_, inst(ini_, session,n_, lgNames_));
     }
 
     private String lgCode() {

@@ -29,6 +29,7 @@ public abstract class EquallableRendersGuiUtil {
         TranslationsLg fr_ = lg(_pr, StringUtil.FR);
         DefaultBeanAliases.enTr(MessagesRenders.updateEn(FileInfos.enTr(FileInfos.initComments(en_))));
         DefaultBeanAliases.frTr(MessagesRenders.updateFr(FileInfos.enTr(FileInfos.initComments(fr_))));
+        MessagesRenders.sys(FileInfos.initAppliFilesTr(_pr.getTranslations()));
         updateBase(_pr.currentLg());
     }
     public static void updateBase(TranslationsLg _en) {
