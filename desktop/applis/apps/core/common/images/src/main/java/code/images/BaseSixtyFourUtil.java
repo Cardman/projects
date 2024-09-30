@@ -170,7 +170,20 @@ public final class BaseSixtyFourUtil {
         return str_.toString();
     }
 
-    static String printThreeBytes(byte[] _input, String _base) {
+    public static String printThreeBytes(byte[] _input, String _base) {
+        if (_input.length == 1) {
+            int adj_ = adj(_input[0]);
+            return ""+encode(adj_ / FOUR_BITS, _base) +encode(
+                    (adj_%FOUR_BITS) *SIXTEEN_BITS,_base)+"==";
+        }
+        if (_input.length == 2) {
+            int adj_ = adj(_input[0]);
+            int adjNext_ = adj(_input[1]);
+            return ""+encode(adj_ / FOUR_BITS, _base)+encode(
+                    ((adj_%FOUR_BITS)*SIXTEEN_BITS) +
+                            ((adjNext_/SIXTEEN_BITS)%SIXTEEN_BITS),_base)+encode(
+                    (adjNext_%SIXTEEN_BITS) *FOUR_BITS,_base)+"=";
+        }
         char[] buf_ = new char[FOUR_BITS];
         int ptr_ = 0;
         int i = 0;

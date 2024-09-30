@@ -8,6 +8,9 @@ import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractLightProgramInfos;
 import code.gui.initialize.AbstractProgramInfos;
+import code.images.*;
+import code.sml.*;
+import code.sml.Element;
 import code.stream.*;
 import code.threads.AbstractDate;
 import code.threads.AbstractDateFactory;
@@ -343,7 +346,16 @@ public final class GuiBaseUtil {
 //                return absClipStream_;
 //            }
 //        }
-        byte[] bytesTr_ = parseBaseSixtyFourBinary(StringUtil.nullToEmpty(StringUtil.decode(_bytes)),_base);
+        String strDecode_ = StringUtil.nullToEmpty(StringUtil.decode(_bytes));
+        Document doc_ = DocumentBuilder.parseNoTextDocument(strDecode_);
+        if (doc_ != null) {
+            Element elt_ = doc_.getDocumentElement();
+            String value_ = elt_.getAttribute("0");
+            String encodeLocal_ = BaseSixtyFourUtil.checkBase(elt_.getAttribute("1"),_base);
+            byte[] bytesTr_ = parseBaseSixtyFourBinary(value_,encodeLocal_);
+            return getAbsClipStreamDirect(_api,bytesTr_);
+        }
+        byte[] bytesTr_ = parseBaseSixtyFourBinary(strDecode_,_base);
         return getAbsClipStreamDirect(_api,bytesTr_);
 //        if (FileListInfo.isWav(bytesTr_)) {
 //            return _api.openClip(bytesTr_);
@@ -449,6 +461,29 @@ public final class GuiBaseUtil {
         }
 
         return size_-padSize_;
+    }
+    public static String printBaseSixtyFourBinary(byte[] _text, String _base) {
+        StringBuilder str_ = new StringBuilder();
+        int len_ = _text.length;
+        for (int i = 0; i < len_; i+=3) {
+            if (i + 1 == len_) {
+                byte[] bytes_ = new byte[1];
+                bytes_[0] = _text[i];
+                str_.append(BaseSixtyFourUtil.printThreeBytes(bytes_,_base));
+            } else if (i + 2 == len_) {
+                byte[] bytes_ = new byte[2];
+                bytes_[0] = _text[i];
+                bytes_[1] = _text[i+1];
+                str_.append(BaseSixtyFourUtil.printThreeBytes(bytes_,_base));
+            } else {
+                byte[] bytes_ = new byte[3];
+                bytes_[0] = _text[i];
+                bytes_[1] = _text[i+1];
+                bytes_[2] = _text[i+2];
+                str_.append(BaseSixtyFourUtil.printThreeBytes(bytes_,_base));
+            }
+        }
+        return str_.toString();
     }
 
     public static String getStringTime(long _micro) {

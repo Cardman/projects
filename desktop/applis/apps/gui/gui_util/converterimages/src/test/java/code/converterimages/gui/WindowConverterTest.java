@@ -7,9 +7,11 @@ import code.gui.files.*;
 import code.gui.images.*;
 import code.images.*;
 import code.mock.*;
+import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.sml.FullDocument;
+import code.sml.core.DocumentWriterCoreUtil;
 import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
 import code.stream.*;
@@ -350,9 +352,151 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
         assertEq(8,i4_[2][1]);
         assertEq(9,i4_[2][2]);
     }
-
+    @Test
+    public void r8() {
+        WindowConverter w_ = window();
+        w_.getFrames().getFileCoreStream().newFile("/from/one").mkdirs();
+        w_.getFrames().getFileCoreStream().newFile("/from/one/sub1").mkdirs();
+        w_.getFrames().getFileCoreStream().newFile("/from/one/sub2").mkdirs();
+        w_.getFrames().getFileCoreStream().newFile("/from/two").mkdirs();
+        w_.getFrames().getFileCoreStream().newFile("/from/two/sub1").mkdirs();
+        w_.getFrames().getFileCoreStream().newFile("/from/two/sub2").mkdirs();
+        StreamBinaryFile.writeFile("/from/one/sub1/1",new byte[0],w_.getStreams());
+        StreamTextFile.saveTextFile("/from/one/sub1/2",toDoc(new int[][]{new int[]{1,2},new int[]{3,4}}),w_.getStreams());
+        StreamBinaryFile.writeFile("/from/one/sub2/1",new byte[0],w_.getStreams());
+        StreamTextFile.saveTextFile("/from/one/sub2/2",toDoc(new int[][]{new int[]{1,2},new int[]{3,4},new int[]{5,6}}),w_.getStreams());
+        StreamBinaryFile.writeFile("/from/two/sub1/1",new byte[0],w_.getStreams());
+        StreamTextFile.saveTextFile("/from/two/sub1/2",toDoc(new int[][]{new int[]{1,2,3},new int[]{4,5,6}}),w_.getStreams());
+        StreamBinaryFile.writeFile("/from/two/sub2/1",new byte[0],w_.getStreams());
+        StreamTextFile.saveTextFile("/from/two/sub2/2",toDoc(new int[][]{new int[]{1,2,3},new int[]{4,5,6},new int[]{7,8,9}}),w_.getStreams());
+        w_.getPathExport().setText("/from");
+        w_.getPath().setText("/to");
+//        tryToggle(w_.getReadImages());
+        tryClick(w_.getOkButton());
+        int[][] i1_ = getCsvImageByString(StringUtil.decode(StreamBinaryFile.loadFile("/to/one/sub1/2",w_.getStreams()).getBytes()));
+        assertEq(2,i1_.length);
+        assertEq(2,i1_[0].length);
+        assertEq(1,i1_[0][0]);
+        assertEq(2,i1_[0][1]);
+        assertEq(2,i1_[1].length);
+        assertEq(3,i1_[1][0]);
+        assertEq(4,i1_[1][1]);
+        int[][] i2_ = getCsvImageByString(StringUtil.decode(StreamBinaryFile.loadFile("/to/one/sub2/2",w_.getStreams()).getBytes()));
+        assertEq(3,i2_.length);
+        assertEq(2,i2_[0].length);
+        assertEq(1,i2_[0][0]);
+        assertEq(2,i2_[0][1]);
+        assertEq(2,i2_[1].length);
+        assertEq(3,i2_[1][0]);
+        assertEq(4,i2_[1][1]);
+        assertEq(2,i2_[2].length);
+        assertEq(5,i2_[2][0]);
+        assertEq(6,i2_[2][1]);
+        int[][] i3_ = getCsvImageByString(StringUtil.decode(StreamBinaryFile.loadFile("/to/two/sub1/2",w_.getStreams()).getBytes()));
+        assertEq(2,i3_.length);
+        assertEq(3,i3_[0].length);
+        assertEq(1,i3_[0][0]);
+        assertEq(2,i3_[0][1]);
+        assertEq(3,i3_[0][2]);
+        assertEq(3,i3_[1].length);
+        assertEq(4,i3_[1][0]);
+        assertEq(5,i3_[1][1]);
+        assertEq(6,i3_[1][2]);
+        int[][] i4_ = getCsvImageByString(StringUtil.decode(StreamBinaryFile.loadFile("/to/two/sub2/2",w_.getStreams()).getBytes()));
+        assertEq(3,i4_.length);
+        assertEq(3,i4_[0].length);
+        assertEq(1,i4_[0][0]);
+        assertEq(2,i4_[0][1]);
+        assertEq(3,i4_[0][2]);
+        assertEq(3,i4_[1].length);
+        assertEq(4,i4_[1][0]);
+        assertEq(5,i4_[1][1]);
+        assertEq(6,i4_[1][2]);
+        assertEq(3,i4_[2].length);
+        assertEq(7,i4_[2][0]);
+        assertEq(8,i4_[2][1]);
+        assertEq(9,i4_[2][2]);
+    }
+    @Test
+    public void r9() {
+        MockProgramInfos pr_ = build();
+//        pr_.lg("");
+//        pr_.setLanguage("");
+        updateBase(pr_.currentLg());
+        pr_.getFileCoreStream().newFile("/from/one").mkdirs();
+        pr_.getFileCoreStream().newFile("/from/one/sub1").mkdirs();
+        pr_.getFileCoreStream().newFile("/from/one/sub2").mkdirs();
+        pr_.getFileCoreStream().newFile("/from/two").mkdirs();
+        pr_.getFileCoreStream().newFile("/from/two/sub1").mkdirs();
+        pr_.getFileCoreStream().newFile("/from/two/sub2").mkdirs();
+        StreamBinaryFile.writeFile("/from/one/sub1/1",new byte[0],pr_.getStreams());
+        StreamTextFile.saveTextFile("/from/one/sub1/2",toDoc(new int[][]{new int[]{1,2},new int[]{3,4}}),pr_.getStreams());
+        StreamBinaryFile.writeFile("/from/one/sub2/1",new byte[0],pr_.getStreams());
+        StreamTextFile.saveTextFile("/from/one/sub2/2",toDoc(new int[][]{new int[]{1,2},new int[]{3,4},new int[]{5,6}}),pr_.getStreams());
+        StreamBinaryFile.writeFile("/from/two/sub1/1",new byte[0],pr_.getStreams());
+        StreamTextFile.saveTextFile("/from/two/sub1/2",toDoc(new int[][]{new int[]{1,2,3},new int[]{4,5,6}}),pr_.getStreams());
+        StreamBinaryFile.writeFile("/from/two/sub2/1",new byte[0],pr_.getStreams());
+        StreamTextFile.saveTextFile("/from/two/sub2/2",toDoc(new int[][]{new int[]{1,2,3},new int[]{4,5,6},new int[]{7,8,9}}),pr_.getStreams());
+        FullDocument d_ = DocumentBuilder.newDocumentBuilder().newDocument();
+        Element elt_ = d_.createElement(DocumentImagesUtil.ROOT_CONF);
+        elt_.setAttribute(DocumentImagesUtil.INFO_IMP,"/from");
+        elt_.setAttribute(DocumentImagesUtil.INFO_EXP,"/to");
+        d_.appendChild(elt_);
+        StreamTextFile.saveTextFile("/_",d_.export(),pr_.getStreams());
+        CreateMainWindowConverter cr_ = new CreateMainWindowConverter(new StringList("/_"), pr_, new LanguagesButtonsPair(null,null,null));
+        cr_.run();
+        assertEq("/from",cr_.getWindow().getPathExport().getText());
+        assertEq("/to",cr_.getWindow().getPath().getText());
+//        assertFalse(cr_.getWindow().getReadImages().isSelected());
+        int[][] i1_ = getCsvImageByString(StringUtil.decode(StreamBinaryFile.loadFile("/to/one/sub1/2",pr_.getStreams()).getBytes()));
+        assertEq(2,i1_.length);
+        assertEq(2,i1_[0].length);
+        assertEq(1,i1_[0][0]);
+        assertEq(2,i1_[0][1]);
+        assertEq(2,i1_[1].length);
+        assertEq(3,i1_[1][0]);
+        assertEq(4,i1_[1][1]);
+        int[][] i2_ = getCsvImageByString(StringUtil.decode(StreamBinaryFile.loadFile("/to/one/sub2/2",pr_.getStreams()).getBytes()));
+        assertEq(3,i2_.length);
+        assertEq(2,i2_[0].length);
+        assertEq(1,i2_[0][0]);
+        assertEq(2,i2_[0][1]);
+        assertEq(2,i2_[1].length);
+        assertEq(3,i2_[1][0]);
+        assertEq(4,i2_[1][1]);
+        assertEq(2,i2_[2].length);
+        assertEq(5,i2_[2][0]);
+        assertEq(6,i2_[2][1]);
+        int[][] i3_ = getCsvImageByString(StringUtil.decode(StreamBinaryFile.loadFile("/to/two/sub1/2",pr_.getStreams()).getBytes()));
+        assertEq(2,i3_.length);
+        assertEq(3,i3_[0].length);
+        assertEq(1,i3_[0][0]);
+        assertEq(2,i3_[0][1]);
+        assertEq(3,i3_[0][2]);
+        assertEq(3,i3_[1].length);
+        assertEq(4,i3_[1][0]);
+        assertEq(5,i3_[1][1]);
+        assertEq(6,i3_[1][2]);
+        int[][] i4_ = getCsvImageByString(StringUtil.decode(StreamBinaryFile.loadFile("/to/two/sub2/2", pr_.getStreams()).getBytes()));
+        assertEq(3,i4_.length);
+        assertEq(3,i4_[0].length);
+        assertEq(1,i4_[0][0]);
+        assertEq(2,i4_[0][1]);
+        assertEq(3,i4_[0][2]);
+        assertEq(3,i4_[1].length);
+        assertEq(4,i4_[1][0]);
+        assertEq(5,i4_[1][1]);
+        assertEq(6,i4_[1][2]);
+        assertEq(3,i4_[2].length);
+        assertEq(7,i4_[2][0]);
+        assertEq(8,i4_[2][1]);
+        assertEq(9,i4_[2][2]);
+    }
     private int[][] getImageByString(String _decode) {
-        return BaseSixtyFourUtil.getImageByString(_decode,MessagesConverter.BASE);
+        Document doc_ = DocumentBuilder.parseNoTextDocument(_decode);
+        Element elt_ = doc_.getDocumentElement();
+        String value_ = elt_.getAttribute(WindowConverter.IMG_VALUE);
+        return BaseSixtyFourUtil.getImageByString(value_,MessagesConverter.BASE);
     }
 
     private int[][] getCsvImageByString(String _decode) {
@@ -377,5 +521,14 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
     }
     private static String toText(int[][] _img) {
         return BaseSixtyFourUtil.getStringByImage(_img,MessagesConverter.BASE);
+    }
+    private static String toDoc(int[][] _img) {
+        String txt_ = BaseSixtyFourUtil.getStringByImage(_img,MessagesConverter.BASE);
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        Element element_ = doc_.createElement(DocumentWriterCoreUtil.ANON_TAG);
+        element_.setAttribute(WindowConverter.IMG_VALUE,txt_);
+        element_.setAttribute(WindowConverter.ENCODE, MessagesConverter.BASE);
+        doc_.appendChild(element_);
+        return doc_.export();
     }
 }

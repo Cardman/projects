@@ -10,11 +10,13 @@ public final class MessagesConverter {
 //    public static final String FOLDER = "rts_imgs";
     public static final String APPS_CONVERTER = "converter";
     public static final String TEMP_FOLDER = MessagesConverter.APPS_CONVERTER;
+    public static final String BASE_FILE = "sixty_four";
     public static final String BASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
     public static final String FRAME = "0";
     public static final String OK = "0";
     public static final String READ = "1";
     public static final String CONVERT = "2";
+    public static final String BASE_MESSAGE = "3";
     public static final String BASE_KEY = "3";
 
     private MessagesConverter() {
@@ -55,7 +57,7 @@ public final class MessagesConverter {
         en_.add(OK,"ok");
         en_.add(READ,"read");
         en_.add(CONVERT,"convert images");
-        en_.add(BASE_KEY,BASE);
+        en_.add(BASE_MESSAGE,"base");
         return en_;
     }
     public static TranslationsFile fr(){
@@ -63,16 +65,22 @@ public final class MessagesConverter {
         fr_.add(OK,"ok");
         fr_.add(READ,"lire");
         fr_.add(CONVERT,"convertir des images");
-        fr_.add(BASE_KEY,BASE);
+        fr_.add(BASE_MESSAGE,"base");
         return fr_;
     }
 
     public static void sys(TranslationsAppli _lgs) {
         _lgs.sys(mes());
+        _lgs.getMapping().addEntry(BASE_FILE,parsingBase());
     }
     public static TranslationsFile mes(){
         TranslationsFile t_ = new TranslationsFile();
         t_.add(Translations.TEMP_FOLDER,TEMP_FOLDER);
         return t_;
+    }
+    public static TranslationsFile parsingBase(){
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(BASE_KEY,BASE);
+        return f_;
     }
 }

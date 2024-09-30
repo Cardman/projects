@@ -1,5 +1,6 @@
 package code.images;
 
+import code.util.Ints;
 import org.junit.Test;
 
 public final class BaseSixtyFourUtilTest extends EquallableImageUtil {
@@ -202,6 +203,14 @@ public final class BaseSixtyFourUtilTest extends EquallableImageUtil {
     public void printThreeBytes13Test() {
         byte[] bytes_ = parseFourChars("/1z+");
         assertEq("/1z+", printThreeBytes(bytes_));
+    }
+    @Test
+    public void printThreeBytes14Test() {
+        assertEq("TWE=", printThreeBytes(wrapInts(77,97)));
+    }
+    @Test
+    public void printThreeBytes15Test() {
+        assertEq("TQ==", printThreeBytes(wrapInts(77)));
     }
     @Test
     public void getImageByString0Test() {
@@ -752,6 +761,9 @@ public final class BaseSixtyFourUtilTest extends EquallableImageUtil {
         assertEq(BASE, BaseSixtyFourUtil.checkBase("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz=/",BASE));
     }
 
+    public static byte[] wrapInts(int... _files) {
+        return Ints.newList(_files).toArrByte();
+    }
     private byte[] parseFourChars(String _text) {
         return BaseSixtyFourUtil.parseFourChars(_text, BASE);
     }

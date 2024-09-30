@@ -435,6 +435,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
     public void imgs() {
         MockProgramInfos p_ = build();
         TranslationsLg en_ = p_.lg(EN);
+        MessagesConverter.sys(MessagesConverter.initAppliFilesTr(p_.getTranslations()));
         MessagesConverter.updateEn(MessagesConverter.initAppliTr(en_));
         p_.setLanguages(new StringList(EN));
         p_.setLanguage(EN);
@@ -474,6 +475,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
     @Test
     public void sound() {
         MockProgramInfos p_ = build();
+        MessagesSongs.sys(MessagesSongs.initAppliFilesTr(p_.getTranslations()));
         p_.setLanguages(new StringList(EN));
         p_.setLanguage(EN);
         MessagesSongs.updateEn(MessagesSongs.initAppliTr(p_.lg(EN)));

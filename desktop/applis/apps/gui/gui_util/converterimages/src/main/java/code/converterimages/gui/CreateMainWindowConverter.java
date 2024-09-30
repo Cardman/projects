@@ -34,6 +34,7 @@ public final class CreateMainWindowConverter implements Runnable {
 //        window.getPath().setText(infos_.get(2));
         window.getPathExport().setText(infos_.get(0));
         window.getPath().setText(infos_.get(1));
+        window.getBaseEncode().setText(infos_.get(2));
         window.export();
     }
 

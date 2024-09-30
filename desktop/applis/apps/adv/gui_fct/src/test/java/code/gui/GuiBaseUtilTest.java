@@ -632,6 +632,42 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         assertEq(0,bytes_.length);
     }
     @Test
+    public void printBaseSixtyFourBinary1() {
+        assertEq("AAAB",printBaseSixtyFourBinary(wrapInts(0,0,1)));
+    }
+    @Test
+    public void printBaseSixtyFourBinary2() {
+        assertEq("TWE=", printBaseSixtyFourBinary(wrapInts(77,97)));
+    }
+    @Test
+    public void printBaseSixtyFourBinary3() {
+        assertEq("TQ==", printBaseSixtyFourBinary(wrapInts(77)));
+    }
+    @Test
+    public void printBaseSixtyFourBinary4() {
+        assertEq("////",printBaseSixtyFourBinary(wrapInts(-1,-1,-1)));
+    }
+    @Test
+    public void printBaseSixtyFourBinary8() {
+        assertEq("AAA=",printBaseSixtyFourBinary(wrapInts(0,0)));
+    }
+    @Test
+    public void printBaseSixtyFourBinary9() {
+        assertEq("//8=",printBaseSixtyFourBinary(wrapInts(-1,-1)));
+    }
+    @Test
+    public void printBaseSixtyFourBinary10() {
+        assertEq("AA==",printBaseSixtyFourBinary(wrapInts(0)));
+    }
+    @Test
+    public void printBaseSixtyFourBinary11() {
+        assertEq("SUQzAQ==",printBaseSixtyFourBinary(wrapInts('I','D','3',1)));
+    }
+    @Test
+    public void printBaseSixtyFourBinary12() {
+        assertEq("UklGRgAAAABXQVZFAQ==",printBaseSixtyFourBinary(wrapInts('R', 'I', 'F', 'F', 0, 0, 0, 0, 'W', 'A', 'V', 'E', 1)));
+    }
+    @Test
     public void getAbsClipStream1() {
         assertNull(getAbsClipStream(init(), wrapInts()));
     }
@@ -642,6 +678,22 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
     @Test
     public void getAbsClipStream3() {
         assertNotNull(getAbsClipStream(init(), wrapInts('I', 'D', '3', 1)));
+    }
+    @Test
+    public void getAbsClipStream4() {
+        assertNotNull(getAbsClipStream(init(), StringUtil.encode("<_ 0='UklGRgAAAABXQVZFAQ=='/>")));
+    }
+    @Test
+    public void getAbsClipStream5() {
+        assertNotNull(getAbsClipStream(init(), StringUtil.encode("<_ 0='SUQzAQ=='/>")));
+    }
+    @Test
+    public void getAbsClipStream6() {
+        assertNotNull(getAbsClipStream(init(), StringUtil.encode("UklGRgAAAABXQVZFAQ==")));
+    }
+    @Test
+    public void getAbsClipStream7() {
+        assertNotNull(getAbsClipStream(init(), StringUtil.encode("SUQzAQ==")));
     }
     @Test
     public void getStringTime1() {
@@ -715,6 +767,10 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
 
     private byte[] parseBaseSixtyFourBinary(String _text) {
         return GuiBaseUtil.parseBaseSixtyFourBinary(_text, BASE);
+    }
+
+    private String printBaseSixtyFourBinary(byte[] _text) {
+        return GuiBaseUtil.printBaseSixtyFourBinary(_text, BASE);
     }
 
 }

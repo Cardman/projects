@@ -9,6 +9,7 @@ import code.gui.events.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
+import code.images.BaseSixtyFourUtil;
 import code.maths.montecarlo.AbstractGenerator;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.sml.core.DocumentWriterCoreUtil;
@@ -53,6 +54,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     private final AbstractScheduledExecutorService timer = getThreadFactory().newScheduledExecutorService();
     private final AbsPlainLabel songsLabel = getCompoFactory().newPlainLabel("");
     private final AbsPlainLabel songsSave = getCompoFactory().newPlainLabel("");
+    private final AbsPlainLabel songsEncode = getCompoFactory().newPlainLabel("");
     private AbsClipStream clipStream;
     private int noSong = -1;
     private final AbsTextArea songs = getCompoFactory().newTextArea(10, 40);
@@ -63,6 +65,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     private final AbsButton playNext = getCompoFactory().newPlainButton(CST_NEXT);
     private final AbsButton stop = getCompoFactory().newPlainButton("\u23F9");
     private final AbsTextField fileSave = getCompoFactory().newTextField();
+    private final AbsTextField fileEncode = getCompoFactory().newTextField();
     private final AbsPlainLabel currentNoSong = getCompoFactory().newPlainLabel(EMPTY);
     private final AbsPlainLabel currentSong = getCompoFactory().newPlainLabel(EMPTY);
     private final AbsScrollPane scroll;
@@ -111,6 +114,11 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
         actionsSave_.add(songsSave);
         actionsSave_.add(fileSave);
         pane_.add(actionsSave_);
+        AbsPanel actionsEncode_ = getCompoFactory().newLineBox();
+        songsEncode.setText(messages.getVal(MessagesPlayer.BASE_MESSAGE));
+        actionsEncode_.add(songsEncode);
+        actionsEncode_.add(fileEncode);
+        pane_.add(actionsEncode_);
         scroll = getCompoFactory().newAbsScrollPane(songRend.getPaintableLabel());
         scroll.setPreferredSize(new MetaDimension(256, 352));
         pane_.add(scroll);
@@ -184,7 +192,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
         if (!listSong(bytes_)) {
 //        if (bytes_.length > 0 && bytes_[0] != '<')
             //.wav or .mp3 or .txt
-            clipStream = GuiBaseUtil.getAbsClipStream(getFrames(),bytes_, messages.getVal(MessagesPlayer.BASE_KEY));
+            clipStream = GuiBaseUtil.getAbsClipStream(getFrames(),bytes_, checkBase());
             possibleLaunch();
             return;
         }
@@ -224,6 +232,10 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
 //                    return;
 //                }
         possibleLaunch();
+    }
+
+    private String checkBase() {
+        return BaseSixtyFourUtil.checkBase(fileEncode.getText(),MessagesSongs.getAppliFilesTr(getFrames().getTranslations()).getMapping().getVal(MessagesSongs.BASE_FILE).getMapping().getVal(MessagesPlayer.BASE_KEY));
     }
 
 //    private void export() {
@@ -342,11 +354,11 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
 
     private AbsClipStream getAbsClipStream() {
         byte[] bytes_ = getBytes();
-        return GuiBaseUtil.getAbsClipStream(getFrames(),bytes_, messages.getVal(MessagesPlayer.BASE_KEY));
+        return GuiBaseUtil.getAbsClipStream(getFrames(),bytes_, checkBase());
     }
 
     private boolean valid(byte[] _bytes) {
-        AbsClipStream absClipStream_ = GuiBaseUtil.getAbsClipStream(getFrames(),_bytes, messages.getVal(MessagesPlayer.BASE_KEY));
+        AbsClipStream absClipStream_ = GuiBaseUtil.getAbsClipStream(getFrames(),_bytes, checkBase());
         if (absClipStream_ == null) {
             return false;
         }
@@ -527,6 +539,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
         random.setText(messages.getVal(MessagesPlayer.RANDOM));
         songsLabel.setText(messages.getVal(MessagesPlayer.SONGS));
         songsSave.setText(messages.getVal(MessagesPlayer.LAST));
+        songsEncode.setText(messages.getVal(MessagesPlayer.BASE_MESSAGE));
     }
 
     @Override

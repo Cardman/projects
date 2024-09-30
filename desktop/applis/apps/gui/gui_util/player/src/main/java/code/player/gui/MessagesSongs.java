@@ -14,6 +14,7 @@ public final class MessagesSongs {
     public static final String APPS_MUSICPLAYER = "musicplayer";
     public static final String START = "Start";
     public static final String STOP = "Stop";
+    public static final String BASE_FILE = "sixty_four";
 
     private MessagesSongs() {
     }
@@ -61,10 +62,16 @@ public final class MessagesSongs {
 
     public static void sys(TranslationsAppli _lgs) {
         _lgs.sys(mes());
+        _lgs.getMapping().addEntry(BASE_FILE,parsingBase());
     }
     public static TranslationsFile mes(){
         TranslationsFile t_ = new TranslationsFile();
         t_.add(Translations.TEMP_FOLDER,"playersongs");
         return t_;
+    }
+    public static TranslationsFile parsingBase(){
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(MessagesPlayer.BASE_KEY,MessagesPlayer.BASE);
+        return f_;
     }
 }
