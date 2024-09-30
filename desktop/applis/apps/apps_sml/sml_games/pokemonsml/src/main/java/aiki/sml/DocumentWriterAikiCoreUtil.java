@@ -769,6 +769,7 @@ public final class DocumentWriterAikiCoreUtil {
     public static final String KIND_TRS_D_MODEL = "_3";
     public static final String KIND_TRS_STAT = "_4";
     public static final String KIND_TRS_TARG = "_5";
+    public static final String CST_FLAG_VALUE = "_";
 
     private DocumentWriterAikiCoreUtil() {
     }
@@ -784,7 +785,7 @@ public final class DocumentWriterAikiCoreUtil {
         Element elementCstNum_ = docCstNum_.createElement(DocumentWriterCoreUtil.ANON_TAG);
         docCstNum_.appendChild(elementCstNum_);
         elementCstNum_.setAttribute(DocumentWriterCoreUtil.FIELD,KIND_CST_NUM);
-        elementCstNum_.setAttribute(ATTR_CST,"_");
+        elementCstNum_.setAttribute(ATTR_CST,CST_FLAG_VALUE);
         for (String s : _d.getConstNum().getKeys()) {
             Element h_ = docCstNum_.createElement(DocumentWriterCoreUtil.ANON_TAG);
             h_.setAttribute(DocumentWriterCoreUtil.FIELD,s);
@@ -799,7 +800,7 @@ public final class DocumentWriterAikiCoreUtil {
         Element elementCstNotNum_ = docCstNotNum_.createElement(DocumentWriterCoreUtil.ANON_TAG);
         docCstNotNum_.appendChild(elementCstNotNum_);
         elementCstNotNum_.setAttribute(DocumentWriterCoreUtil.FIELD,KIND_CST_OTH);
-        elementCstNotNum_.setAttribute(ATTR_CST,"_");
+        elementCstNotNum_.setAttribute(ATTR_CST,CST_FLAG_VALUE);
         elementCstNotNum_.setAttribute(DataBase.DEF_MOVE,_d.getDefMove());
         elementCstNotNum_.setAttribute(DataBase.RATE_BOOST,_d.getRateBoost());
         elementCstNotNum_.setAttribute(DataBase.RATE_BOOST_CRITICAL_HIT,_d.getRateBoostCriticalHit());
@@ -815,7 +816,7 @@ public final class DocumentWriterAikiCoreUtil {
         Element elementGr_ = docGr_.createElement(DocumentWriterCoreUtil.ANON_TAG);
         docGr_.appendChild(elementGr_);
         elementGr_.setAttribute(DocumentWriterCoreUtil.FIELD,KIND_CST_VARS);
-        elementGr_.setAttribute(ATTR_CST,"_");
+        elementGr_.setAttribute(ATTR_CST,CST_FLAG_VALUE);
         for (ExpType c : _d.getExpGrowth().getKeys()) {
             Element h_ = docGr_.createElement(DocumentWriterCoreUtil.ANON_TAG);
             h_.setAttribute(DocumentWriterCoreUtil.FIELD,c.getExpName());
@@ -827,7 +828,7 @@ public final class DocumentWriterAikiCoreUtil {
         Element elementRt_ = docRt_.createElement(DocumentWriterCoreUtil.ANON_TAG);
         docRt_.appendChild(elementRt_);
         elementRt_.setAttribute(DocumentWriterCoreUtil.FIELD,KIND_CST_RATES);
-        elementRt_.setAttribute(ATTR_CST,"_");
+        elementRt_.setAttribute(ATTR_CST,CST_FLAG_VALUE);
         for (DifficultyWinPointsFight c : _d.getRates().getKeys()) {
             Element h_ = docRt_.createElement(DocumentWriterCoreUtil.ANON_TAG);
             h_.setAttribute(DocumentWriterCoreUtil.FIELD,c.getWinName());
@@ -839,7 +840,7 @@ public final class DocumentWriterAikiCoreUtil {
         Element elementLaws_ = docLaws_.createElement(DocumentWriterCoreUtil.ANON_TAG);
         docLaws_.appendChild(elementLaws_);
         elementLaws_.setAttribute(DocumentWriterCoreUtil.FIELD,KIND_CST_RANDS);
-        elementLaws_.setAttribute(ATTR_CST,"_");
+        elementLaws_.setAttribute(ATTR_CST,CST_FLAG_VALUE);
         for (DifficultyModelLaw k : _d.getLawsDamageRate().getKeys()) {
             LawNumber value_ = _d.getLawsDamageRate().getVal(k);
             StringList lawValues_ = new StringList();
@@ -858,7 +859,7 @@ public final class DocumentWriterAikiCoreUtil {
         Element elementHm_ = docHm_.createElement(DocumentWriterCoreUtil.ANON_TAG);
         docHm_.appendChild(elementHm_);
         elementHm_.setAttribute(DocumentWriterCoreUtil.FIELD,KIND_CST_HM);
-        elementHm_.setAttribute(ATTR_CST,"_");
+        elementHm_.setAttribute(ATTR_CST,CST_FLAG_VALUE);
         for (short k : _d.getHm().getKeys()) {
             Element h_ = docHm_.createElement(DocumentWriterCoreUtil.ANON_TAG);
             h_.setAttribute(DocumentWriterCoreUtil.FIELD,Long.toString(k));
@@ -870,7 +871,7 @@ public final class DocumentWriterAikiCoreUtil {
         Element elementTm_ = docTm_.createElement(DocumentWriterCoreUtil.ANON_TAG);
         docTm_.appendChild(elementTm_);
         elementTm_.setAttribute(DocumentWriterCoreUtil.FIELD,KIND_CST_TM);
-        elementTm_.setAttribute(ATTR_CST,"_");
+        elementTm_.setAttribute(ATTR_CST,CST_FLAG_VALUE);
         for (short k : _d.getTm().getKeys()) {
             Element h_ = docHm_.createElement(DocumentWriterCoreUtil.ANON_TAG);
             h_.setAttribute(DocumentWriterCoreUtil.FIELD,Long.toString(k));
@@ -910,7 +911,7 @@ public final class DocumentWriterAikiCoreUtil {
         Element elementTypes_ = docHm_.createElement(DocumentWriterCoreUtil.ANON_TAG);
         docHm_.appendChild(elementTypes_);
         elementTypes_.setAttribute(DocumentWriterCoreUtil.FIELD,KIND_CST_TYPES);
-        elementTypes_.setAttribute(ATTR_CST,"_");
+        elementTypes_.setAttribute(ATTR_CST,CST_FLAG_VALUE);
         for (String pkType_ : types_) {
             for (String damageType_ : types_) {
                 Element elementPair_ = docHm_.createElement(DocumentWriterCoreUtil.ANON_TAG);

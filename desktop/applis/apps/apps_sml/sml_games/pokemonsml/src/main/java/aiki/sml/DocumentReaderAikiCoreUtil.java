@@ -199,7 +199,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static boolean notCst(Document _doc) {
-        return _doc.getDocumentElement().getAttribute(DocumentWriterAikiCoreUtil.ATTR_CST).isEmpty() || !_doc.getDocumentElement().getAttribute(DocumentWriterAikiCoreUtil.ATTR_IMG).isEmpty();
+        return !StringUtil.quickEq(_doc.getDocumentElement().getAttribute(DocumentWriterAikiCoreUtil.ATTR_CST),DocumentWriterAikiCoreUtil.CST_FLAG_VALUE);
     }
 
     private static void rands(DataBase _d, Element _c) {
