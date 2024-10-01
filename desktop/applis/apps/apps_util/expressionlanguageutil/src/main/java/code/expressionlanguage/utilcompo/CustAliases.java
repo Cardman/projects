@@ -3724,16 +3724,22 @@ public final class CustAliases implements AbsAliasFileBuilder {
         TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
         TranslationsFile com_ = app_.getMapping().getVal(FileInfos.COMMENTS);
         StringMap<String> mes_ = MessagesCdmBase.valMessages(app_);
-        char low_ = StringDataUtil.toLowerCase(mes_.getVal(MessagesCdmBase.DIGITS_SUPP)).charAt(2);
-        String un_ = mes_.getVal(MessagesCdmBase.UNICODE);
-        String nl_ = mes_.getVal(MessagesCdmBase.NEW_LINE);
-        String comments_ = "\\"+ un_ +"005"+low_+"*,*\\"+ un_ +"005"+low_+";\\"+ un_ +"005"+low_+"\\"+ un_ +"005"+low_+",\\"+ nl_ +";\\"+ un_ +"005"+low_+"<"
-                +com_.getMapping().getVal(FileInfos.COMM_BEGIN)
-                +">,</"+com_.getMapping().getVal(FileInfos.COMM_END)
-                +">;\\"+ un_ +"005"+low_+">,\\"+ nl_ +"\n";
+        String nl_ = "\\+00012";
+        String esc_ = "\\+00134";
+        String comments_ = esc_ +"*,*"+ esc_ +";"+ esc_ + esc_ +","+ nl_ +";"+ esc_ +"<"
+                +exportString(com_.getMapping().getVal(FileInfos.COMM_BEGIN))
+                +">,</"+exportString(com_.getMapping().getVal(FileInfos.COMM_END))
+                +">;"+ esc_ +">,"+ nl_ +"\n";
         return ParseLinesArgUtil.buildComments(mes_,comments_);
     }
 
+    public static StringBuilder exportString(String _str) {
+        StringBuilder out_ = new StringBuilder();
+        for (char c: _str.toCharArray()) {
+            out_.append(NumParsers.escapeChar(c));
+        }
+        return out_;
+    }
     public static TranslationsLg lg(Translations _trs, String _one, String _two) {
         if (!_one.isEmpty()) {
             return _trs.getMapping().getVal(_one);

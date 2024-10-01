@@ -2877,6 +2877,55 @@ public class LgNamesTest extends ProcessMethodCommon {
         assertEq("second_argu-111", args_.get(1));
     }
     @Test
+    public void parseLineArg25Test() {
+        StringList args_ = ParseLinesArgUtil.parseLineArg(app(),"first_arg second_arg\\+00012");
+        assertEq(2, args_.size());
+        assertEq("first_arg", args_.get(0));
+        assertEq("second_arg\n", args_.get(1));
+    }
+    @Test
+    public void parseLineArg26Test() {
+        StringList args_ = ParseLinesArgUtil.parseLineArg(app(),"first_arg second_arg\\+00012v");
+        assertEq(2, args_.size());
+        assertEq("first_arg", args_.get(0));
+        assertEq("second_arg\nv", args_.get(1));
+    }
+    @Test
+    public void parseLineArg27Test() {
+        StringList args_ = ParseLinesArgUtil.parseLineArg(app(),"first_arg second_arg\\+00012");
+        assertEq(2, args_.size());
+        assertEq("first_arg", args_.get(0));
+        assertEq("second_arg\n", args_.get(1));
+    }
+    @Test
+    public void parseLineArg28Test() {
+        StringList args_ = ParseLinesArgUtil.parseLineArg(app(),"first_arg second_arg\\+00012v");
+        assertEq(2, args_.size());
+        assertEq("first_arg", args_.get(0));
+        assertEq("second_arg\nv", args_.get(1));
+    }
+    @Test
+    public void parseLineArg29Test() {
+        StringList args_ = ParseLinesArgUtil.parseLineArg(app(),"first_arg second_arg\\-00012");
+        assertEq(2, args_.size());
+        assertEq("first_arg", args_.get(0));
+        assertEq("second_arg"+(char)32778, args_.get(1));
+    }
+    @Test
+    public void parseLineArg30Test() {
+        StringList args_ = ParseLinesArgUtil.parseLineArg(app(),"first_arg second_arg\\+0001");
+        assertEq(2, args_.size());
+        assertEq("first_arg", args_.get(0));
+        assertEq("second_arg+0001", args_.get(1));
+    }
+    @Test
+    public void parseLineArg31Test() {
+        StringList args_ = ParseLinesArgUtil.parseLineArg(app(),"first_arg second_arg\\+00018");
+        assertEq(2, args_.size());
+        assertEq("first_arg", args_.get(0));
+        assertEq("second_arg+00018", args_.get(1));
+    }
+    @Test
     public void parseValue1Test() {
         assertEq("first_arg", ParseLinesArgUtil.parseValue(app(),"first_arg"));
     }
@@ -2965,6 +3014,34 @@ public class LgNamesTest extends ProcessMethodCommon {
         assertEq("first_argugggg", ParseLinesArgUtil.parseValue(app(),"first_arg\\ugggg"));
     }
     @Test
+    public void parseValue24Test() {
+        assertEq("first_arg\n", ParseLinesArgUtil.parseValue(app(),"first_arg\\+00012"));
+    }
+    @Test
+    public void parseValue25Test() {
+        assertEq("first_arg\nafter", ParseLinesArgUtil.parseValue(app(),"first_arg\\+00012after"));
+    }
+    @Test
+    public void parseValue26Test() {
+        assertEq("first_arg\n", ParseLinesArgUtil.parseValue(app(),"first_arg\\+00012"));
+    }
+    @Test
+    public void parseValue27Test() {
+        assertEq("first_arg\nafter", ParseLinesArgUtil.parseValue(app(),"first_arg\\+00012after"));
+    }
+    @Test
+    public void parseValue28Test() {
+        assertEq("first_arg"+(char)32778, ParseLinesArgUtil.parseValue(app(),"first_arg\\-00012"));
+    }
+    @Test
+    public void parseValue29Test() {
+        assertEq("first_arg-0001", ParseLinesArgUtil.parseValue(app(),"first_arg\\-0001"));
+    }
+    @Test
+    public void parseValue30Test() {
+        assertEq("first_arg-00018", ParseLinesArgUtil.parseValue(app(),"first_arg\\-00018"));
+    }
+    @Test
     public void buildList1Test() {
         StringList map_ = new StringList();
         ParseLinesArgUtil.buildList(new StringBuilder(), map_);
@@ -3044,71 +3121,71 @@ public class LgNamesTest extends ProcessMethodCommon {
     }
     @Test
     public void exportLineArg1Test() {
-        assertEq("\\u0020", ParseLinesArgUtil.exportLineArg(app(),new StringList(" ")));
+        assertEq("\\+00040", ParseLinesArgUtil.exportLineArg(new StringList(" ")));
     }
     @Test
     public void exportLineArg2Test() {
-        assertEq("\\u005c", ParseLinesArgUtil.exportLineArg(app(),new StringList("\\")));
+        assertEq("\\+00134", ParseLinesArgUtil.exportLineArg(new StringList("\\")));
     }
     @Test
     public void exportLineArg3Test() {
-        assertEq("\\u000a", ParseLinesArgUtil.exportLineArg(app(),new StringList("\n")));
+        assertEq("\\+00012", ParseLinesArgUtil.exportLineArg(new StringList("\n")));
     }
     @Test
     public void exportLineArg4Test() {
-        assertEq("\\u0009", ParseLinesArgUtil.exportLineArg(app(),new StringList("\t")));
+        assertEq("\\+00011", ParseLinesArgUtil.exportLineArg(new StringList("\t")));
     }
     @Test
     public void exportLineArg5Test() {
-        assertEq("nt", ParseLinesArgUtil.exportLineArg(app(),new StringList("nt")));
+        assertEq("nt", ParseLinesArgUtil.exportLineArg(new StringList("nt")));
     }
     @Test
     public void exportLineArg6Test() {
-        assertEq("n t", ParseLinesArgUtil.exportLineArg(app(),new StringList("n","t")));
+        assertEq("n t", ParseLinesArgUtil.exportLineArg(new StringList("n","t")));
     }
     @Test
     public void exportMapLine1Test() {
         StringMap<String> map_ = new StringMap<String>();
         map_.addEntry("k","=");
-        assertEq("k==", ParseLinesArgUtil.buildMapLine(app(),map_));
+        assertEq("k==", ParseLinesArgUtil.buildMapLine(map_));
     }
     @Test
     public void exportMapLine2Test() {
         StringMap<String> map_ = new StringMap<String>();
         map_.addEntry("k",",");
-        assertEq("k=\\u002c", ParseLinesArgUtil.buildMapLine(app(),map_));
+        assertEq("k=\\+00054", ParseLinesArgUtil.buildMapLine(map_));
     }
     @Test
     public void exportMapLine3Test() {
         StringMap<String> map_ = new StringMap<String>();
         map_.addEntry("k","1");
         map_.addEntry("l","2");
-        assertEq("k=1,l=2", ParseLinesArgUtil.buildMapLine(app(),map_));
+        assertEq("k=1,l=2", ParseLinesArgUtil.buildMapLine(map_));
     }
     @Test
     public void exportComment1Test() {
         CustList<CommentDelimiters> comments_ = new CustList<CommentDelimiters>();
         comments_.add(new CommentDelimiters("\\",new StringList("\n")));
-        assertEq("\\u005c,\\u000a", ParseLinesArgUtil.buildCommentsLine(app(),comments_));
+        assertEq("\\+00134,\\+00012", ParseLinesArgUtil.buildCommentsLine(comments_));
     }
     @Test
     public void exportComment2Test() {
         CustList<CommentDelimiters> comments_ = new CustList<CommentDelimiters>();
         comments_.add(new CommentDelimiters("\\*",new StringList("*\\")));
-        assertEq("\\u005c*,*\\u005c", ParseLinesArgUtil.buildCommentsLine(app(),comments_));
+        assertEq("\\+00134*,*\\+00134", ParseLinesArgUtil.buildCommentsLine(comments_));
     }
     @Test
     public void exportComment3Test() {
         CustList<CommentDelimiters> comments_ = new CustList<CommentDelimiters>();
         comments_.add(new CommentDelimiters("\\ ;",new StringList(", \\")));
-        assertEq("\\u005c\\u0020\\u003b,\\u002c\\u0020\\u005c", ParseLinesArgUtil.buildCommentsLine(app(),comments_));
+        assertEq("\\+00134\\+00040\\+00073,\\+00054\\+00040\\+00134", ParseLinesArgUtil.buildCommentsLine(comments_));
     }
     @Test
     public void exportComment4Test() {
         CustList<CommentDelimiters> comments_ = new CustList<CommentDelimiters>();
         comments_.add(new CommentDelimiters("\\*",new StringList("*\\")));
         comments_.add(new CommentDelimiters("\\ ;",new StringList(", \\")));
-        assertEq("\\u005c*,*\\u005c;\\u005c\\u0020\\u003b,\\u002c\\u0020\\u005c", ParseLinesArgUtil.buildCommentsLine(app(),comments_));
+        assertEq("\\+00134*,*\\+00134;\\+00134\\+00040\\+00073,\\+00054\\+00040\\+00134", ParseLinesArgUtil.buildCommentsLine(comments_));
     }
     private static StringMap<String> app() {
         TranslationsAppli a_ = new TranslationsAppli();

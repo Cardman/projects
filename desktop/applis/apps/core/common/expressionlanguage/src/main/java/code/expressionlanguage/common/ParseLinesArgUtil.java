@@ -1,7 +1,7 @@
 package code.expressionlanguage.common;
 
 import code.expressionlanguage.analyze.files.CommentDelimiters;
-import code.expressionlanguage.analyze.instr.DefCharacterCaseConverter;
+import code.expressionlanguage.analyze.instr.*;
 import code.util.CharList;
 import code.util.CustList;
 import code.util.StringList;
@@ -11,18 +11,18 @@ import code.util.core.StringUtil;
 
 public final class ParseLinesArgUtil {
     private boolean escaped;
-    private final char unicode;
-    private final char newLine;
-    private final char space;
-    private final char tab;
-    private final char character;
+    private final String unicode;
+    private final String newLine;
+    private final String space;
+    private final String tab;
+    private final String character;
     private final String digitsSupp;
     private ParseLinesArgUtil(StringMap<String> _messages) {
-        unicode = _messages.getVal(MessagesCdmBase.UNICODE).charAt(0);
-        newLine = _messages.getVal(MessagesCdmBase.NEW_LINE).charAt(0);
-        space = _messages.getVal(MessagesCdmBase.SPACE).charAt(0);
-        tab = _messages.getVal(MessagesCdmBase.TAB).charAt(0);
-        character = _messages.getVal(MessagesCdmBase.CHARACTER).charAt(0);
+        unicode = _messages.getVal(MessagesCdmBase.UNICODE);
+        newLine = _messages.getVal(MessagesCdmBase.NEW_LINE);
+        space = _messages.getVal(MessagesCdmBase.SPACE);
+        tab = _messages.getVal(MessagesCdmBase.TAB);
+        character = _messages.getVal(MessagesCdmBase.CHARACTER);
         digitsSupp = _messages.getVal(MessagesCdmBase.DIGITS_SUPP);
     }
     public static CustList<CommentDelimiters> buildComments(StringMap<String> _messages,String _line) {
@@ -44,16 +44,15 @@ public final class ParseLinesArgUtil {
         }
         return comments_;
     }
-    public static String buildCommentsLine(StringMap<String> _messages,CustList<CommentDelimiters> _line) {
-        ParseLinesArgUtil state_ = new ParseLinesArgUtil(_messages);
+    public static String buildCommentsLine(CustList<CommentDelimiters> _line) {
         char[] escaped_ = CharList.wrapCharArray(';', ',', ' ', '\\', '\n', '\t','\r');
         StringBuilder e_ = new StringBuilder();
         int len_ = _line.size();
         for (int i = 0; i < len_; i++) {
             StringList ends_ = _line.get(i).getEnd();
-            state_.exportString(e_,_line.get(i).getBegin(),escaped_);
+            exportString(e_,_line.get(i).getBegin(),escaped_);
             e_.append(',');
-            state_.exportString(e_, ends_.get(0),escaped_);
+            exportString(e_, ends_.get(0),escaped_);
             if (i + 1 < len_) {
                 e_.append(';');
             }
@@ -77,15 +76,14 @@ public final class ParseLinesArgUtil {
         }
     }
 
-    public static String buildMapLine(StringMap<String> _messages,StringMap<String> _map) {
-        ParseLinesArgUtil state_ = new ParseLinesArgUtil(_messages);
+    public static String buildMapLine(StringMap<String> _map) {
         char[] escaped_ = CharList.wrapCharArray(',', ' ', '\\', '\n', '\t','\r');
         StringBuilder e_ = new StringBuilder();
         int len_ = _map.size();
         for (int i = 0; i < len_; i++) {
             e_.append(_map.getKey(i));
             e_.append('=');
-            state_.exportString(e_,_map.getValue(i),escaped_);
+            exportString(e_,_map.getValue(i),escaped_);
             if (i + 1 < len_) {
                 e_.append(',');
             }
@@ -118,13 +116,12 @@ public final class ParseLinesArgUtil {
         args_.add(arg_.toString());
         return args_;
     }
-    public static String exportLineArg(StringMap<String> _messages,StringList _args) {
-        ParseLinesArgUtil p_ = new ParseLinesArgUtil(_messages);
+    public static String exportLineArg(StringList _args) {
         char[] escaped_ = CharList.wrapCharArray(' ', '\\', '\n', '\t','\r');
         StringBuilder e_ = new StringBuilder();
         int len_ = _args.size();
         for (int i = 0; i < len_; i++) {
-            p_.exportString(e_,_args.get(i),escaped_);
+            exportString(e_,_args.get(i),escaped_);
             if (i + 1 < len_) {
                 e_.append(' ');
             }
@@ -149,19 +146,23 @@ public final class ParseLinesArgUtil {
         return prEsc(_line, _ch, _i, _arg);
     }
 
-    private void exportString(StringBuilder _dest,String _current,char... _ch) {
+    private static void exportString(StringBuilder _dest,String _current,char... _ch) {
         for (char c: _current.toCharArray()) {
             _dest.append(exportChar(c,_ch));
         }
     }
-    private String exportChar(char _current,char... _ch) {
+    private static String exportChar(char _current,char... _ch) {
         for (char c: _ch) {
             if (c == _current) {
-                String ch_ = StringExpUtil.toGeneHex(c, digitsSupp);
-                if (ch_.length() == 1) {
-                    return "\\"+unicode+"000"+ ch_;
+                if (c < 32) {
+                    return NumParsers.exportChar(c);
                 }
-                return "\\"+unicode+"00"+ ch_;
+                return "\\"+ElResolver.OCTAL_FIRST+"00"+Long.toString(c / 64)+Long.toString((c / 8)%8)+Long.toString(c % 8);
+//                String ch_ = StringExpUtil.toGeneHex(c, digitsSupp);
+//                if (ch_.length() == 1) {
+//                    return "\\"+unicode+"000"+ ch_;
+//                }
+//                return "\\"+unicode+"00"+ ch_;
             }
         }
         return Character.toString(_current);
@@ -203,47 +204,68 @@ public final class ParseLinesArgUtil {
 
     private int prEsc(String _line, char _ch, int _i, StringBuilder _arg) {
         escaped = false;
-        if (_ch == newLine) {
+        if (_line.startsWith(newLine,_i)) {
             _arg.append('\n');
-            return 0;
+            return newLine.length() - 1;
         }
-        if (_ch == space) {
+        if (_line.startsWith(space,_i)) {
             _arg.append(' ');
-            return 0;
+            return space.length() - 1;
         }
-        if (_ch == tab) {
+        if (_line.startsWith(tab,_i)) {
             _arg.append('\t');
-            return 0;
+            return tab.length() - 1;
         }
         return specEsc(_line, _ch, _i, _arg);
     }
 
     private int specEsc(String _line, char _ch, int _i, StringBuilder _arg) {
         int len_ = _line.length();
-        if (_ch == character && _i + 2 < len_) {
-            String sub_ = _line.substring(_i + 1, _i + 3);
+        if (_line.startsWith(character,_i) && _i + character.length() + 2 - 1 < len_) {
+            String sub_ = _line.substring(_i + character.length(), _i + character.length() + 2);
             LongInfo char_ = parseLong(sub_);
             if (char_.isValid()) {
                 long value_ = char_.getValue();
                 if (value_ < ' ') {
                     char ch_ = (char) value_;
                     _arg.append(ch_);
-                    return 2;
+                    return 2 + character.length() - 1;
                 }
             }
         }
-        if (_ch == unicode && _i + 4 < len_) {
-            String sub_ = _line.substring(_i + 1, _i + 5);
+        if (_line.startsWith(unicode,_i) && _i + unicode.length() + 4 - 1 < len_) {
+            String sub_ = _line.substring(_i + unicode.length(), _i + unicode.length() + 4);
             LongInfo char_ = parseLong(sub_);
             if (char_.isValid()) {
                 long value_ = char_.getValue();
                 char ch_ = (char) value_;
                 _arg.append(ch_);
-                return 4;
+                return 4 + unicode.length() - 1;
+            }
+        }
+        if (isOctalPrefix(_ch) && _i + 5 < len_) {
+            String sub_ = _line.substring(_i + 1, _i + 6);
+            LongInfo char_ = NumParsers.parseLong(sub_,8);
+            if (char_.isValid()) {
+                long value_ = value(_ch,char_);
+                char ch_ = (char) value_;
+                _arg.append(ch_);
+                return 5;
             }
         }
         _arg.append(_ch);
         return 0;
+    }
+
+    private static long value(char _ch, LongInfo _longInfo) {
+        if (_ch == ElResolver.OCTAL_LAST) {
+            return _longInfo.getValue()+128*256;
+        }
+        return _longInfo.getValue();
+    }
+
+    private static boolean isOctalPrefix(char _ch) {
+        return _ch == ElResolver.OCTAL_FIRST || _ch == ElResolver.OCTAL_LAST;
     }
 
     private LongInfo parseLong(String _string) {

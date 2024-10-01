@@ -1,5 +1,6 @@
 package code.expressionlanguage.common;
 
+import code.expressionlanguage.analyze.instr.ElResolver;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.*;
@@ -1145,8 +1146,15 @@ public final class NumParsers {
         return new StringStruct(out_.toString());
     }
 
-    private static String exportChar(char _char) {
-        if (_char == '"' || _char == '\\') {
+    public static String exportChar(char _char) {
+        if (_char == '"') {
+            return "\\"+_char;
+        }
+        return escapeChar(_char);
+    }
+
+    public static String escapeChar(char _char) {
+        if (_char == '\\') {
             return "\\"+_char;
         }
 //        if (_char == 0) {
@@ -1154,17 +1162,18 @@ public final class NumParsers {
 ////            return "\\"+_unicode+"0000";
 //        }
         if (_char < 8) {
-            return "\\+0000"+Long.toString(_char);
+            return "\\" + ElResolver.OCTAL_FIRST + "0000" + Long.toString(_char);
         }
 //        if (_char < 16) {
 //            return "\\"+_unicode+"000"+StringExpUtil.toGeneHex(_char);
 //        }
         if (_char < 32) {
-            return "\\+000"+Long.toString(_char / 8)+Long.toString(_char % 8);
+            return "\\" + ElResolver.OCTAL_FIRST + "000" + Long.toString(_char / 8) + Long.toString(_char % 8);
 //            return "\\"+_unicode+"00"+StringExpUtil.toGeneHex(_char);
         }
         return Character.toString(_char);
     }
+
     public static boolean sameEq(CharSequenceStruct _current, Struct _other) {
         if (!(_other instanceof CharSequenceStruct)) {
             return false;

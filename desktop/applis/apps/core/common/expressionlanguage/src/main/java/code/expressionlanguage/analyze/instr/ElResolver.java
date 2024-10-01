@@ -46,10 +46,10 @@ public final class ElResolver {
     public static final int UNARY_PRIO = 17;
     public static final int POST_INCR_PRIO = 18;
     public static final int FCT_OPER_PRIO = 19;
+    public static final char OCTAL_FIRST = '+';
+    public static final char OCTAL_LAST = '-';
     static final byte UNICODE_SIZE = 4;
     static final byte OCTAL_SIZE = 5;
-    static final char OCTAL_FIRST = '+';
-    static final char OCTAL_LAST = '-';
 
     static final String EMPTY_STRING = "";
     static final char LINE_RETURN = '\n';
