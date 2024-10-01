@@ -26,6 +26,8 @@ import code.util.core.StringUtil;
 
 public final class GuiBaseUtil {
 //    static final String ACCESS = "gui.groupframe";
+    public static final String ATTR_VALUE = "0";
+    public static final String ATTR_BASE = "1";
     private static final byte SIXTY_FOUR_BITS = 64;
     private static final byte SIXTEEN_BITS = 16;
     private static final byte FOUR_BITS = 4;
@@ -350,8 +352,8 @@ public final class GuiBaseUtil {
         Document doc_ = DocumentBuilder.parseNoTextDocument(strDecode_);
         if (doc_ != null) {
             Element elt_ = doc_.getDocumentElement();
-            String value_ = elt_.getAttribute("0");
-            String encodeLocal_ = BaseSixtyFourUtil.checkBase(elt_.getAttribute("1"),_base);
+            String value_ = elt_.getAttribute(ATTR_VALUE);
+            String encodeLocal_ = BaseSixtyFourUtil.checkBase(elt_.getAttribute(ATTR_BASE),_base);
             byte[] bytesTr_ = parseBaseSixtyFourBinary(value_,encodeLocal_);
             return getAbsClipStreamDirect(_api,bytesTr_);
         }

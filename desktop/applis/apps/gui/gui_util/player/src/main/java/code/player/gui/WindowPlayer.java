@@ -55,6 +55,8 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     private final AbsPlainLabel songsLabel = getCompoFactory().newPlainLabel("");
     private final AbsPlainLabel songsSave = getCompoFactory().newPlainLabel("");
     private final AbsPlainLabel songsEncode = getCompoFactory().newPlainLabel("");
+    private final AbsPlainLabel folderFromLabel = getCompoFactory().newPlainLabel("");
+    private final AbsPlainLabel folderToLabel = getCompoFactory().newPlainLabel("");
     private AbsClipStream clipStream;
     private int noSong = -1;
     private final AbsTextArea songs = getCompoFactory().newTextArea(10, 40);
@@ -66,6 +68,9 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     private final AbsButton stop = getCompoFactory().newPlainButton("\u23F9");
     private final AbsTextField fileSave = getCompoFactory().newTextField();
     private final AbsTextField fileEncode = getCompoFactory().newTextField();
+    private final AbsTextField folderFromField = getCompoFactory().newTextField();
+    private final AbsTextField folderToField = getCompoFactory().newTextField();
+    private final AbsButton migrate = getCompoFactory().newPlainButton();
     private final AbsPlainLabel currentNoSong = getCompoFactory().newPlainLabel(EMPTY);
     private final AbsPlainLabel currentSong = getCompoFactory().newPlainLabel(EMPTY);
     private final AbsScrollPane scroll;
@@ -119,6 +124,19 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
         actionsEncode_.add(songsEncode);
         actionsEncode_.add(fileEncode);
         pane_.add(actionsEncode_);
+        AbsPanel actionsFolderFrom_ = getCompoFactory().newLineBox();
+        folderFromLabel.setText(messages.getVal(MessagesPlayer.FROM_FOLDER));
+        actionsFolderFrom_.add(folderFromLabel);
+        actionsFolderFrom_.add(folderFromField);
+        pane_.add(actionsFolderFrom_);
+        AbsPanel actionsFolderTo_ = getCompoFactory().newLineBox();
+        folderToLabel.setText(messages.getVal(MessagesPlayer.TO_FOLDER));
+        actionsFolderTo_.add(folderToLabel);
+        actionsFolderTo_.add(folderToField);
+        pane_.add(actionsFolderTo_);
+        migrate.setText(messages.getVal(MessagesPlayer.MIGRATE));
+        migrate.addActionListener(new MigrateBinariesToSixtyFourEvent(this));
+        pane_.add(migrate);
         scroll = getCompoFactory().newAbsScrollPane(songRend.getPaintableLabel());
         scroll.setPreferredSize(new MetaDimension(256, 352));
         pane_.add(scroll);
@@ -158,6 +176,31 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
 //        }
     }
 
+    public void migrate() {
+        getFileCoreStream().newFile(folderToField.getText()+StreamTextFile.SEPARATEUR).mkdirs();
+        StringList files_ = StreamTextFile.files(folderFromField.getText(),getFileCoreStream());
+        StringList reg_ = new StringList();
+        for (String f: files_) {
+            String f_ = StringUtil.replaceBackSlash(f);
+            if (!getFileCoreStream().newFile(folderFromField.getText()+f).isDirectory()) {
+                reg_.add(f);
+                continue;
+            }
+            getFileCoreStream().newFile(folderToField.getText()+f_).mkdirs();
+        }
+        String base_ = checkBase();
+        for (String f: reg_) {
+            String f_ = StringUtil.replaceBackSlash(f);
+            byte[] bytes_ = StreamBinaryFile.loadFile(folderFromField.getText() + f, getStreams()).getBytes();
+            String txt_ = GuiBaseUtil.printBaseSixtyFourBinary(bytes_,base_);
+            Document doc_ = DocumentBuilder.newXmlDocument();
+            Element element_ = doc_.createElement(DocumentWriterCoreUtil.ANON_TAG);
+            element_.setAttribute(GuiBaseUtil.ATTR_VALUE,txt_);
+            element_.setAttribute(GuiBaseUtil.ATTR_BASE, base_);
+            doc_.appendChild(element_);
+            StreamTextFile.saveTextFile(folderToField.getText()+ f_, doc_.export(),getStreams());
+        }
+    }
     public void initMessages(String _lg) {
         setLanguageKey(_lg);
 //        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(CST_RESOURCES_FOLDER, _lg, ACCESS);
@@ -540,11 +583,26 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
         songsLabel.setText(messages.getVal(MessagesPlayer.SONGS));
         songsSave.setText(messages.getVal(MessagesPlayer.LAST));
         songsEncode.setText(messages.getVal(MessagesPlayer.BASE_MESSAGE));
+        folderFromLabel.setText(messages.getVal(MessagesPlayer.FROM_FOLDER));
+        folderToLabel.setText(messages.getVal(MessagesPlayer.TO_FOLDER));
+        migrate.setText(messages.getVal(MessagesPlayer.MIGRATE));
     }
 
     @Override
     public String getApplicationName() {
         return MessagesSongs.APPS_MUSICPLAYER;
+    }
+
+    public AbsTextField getFolderFromField() {
+        return folderFromField;
+    }
+
+    public AbsTextField getFolderToField() {
+        return folderToField;
+    }
+
+    public AbsButton getMigrate() {
+        return migrate;
     }
 
     public AbsButton getPlay() {

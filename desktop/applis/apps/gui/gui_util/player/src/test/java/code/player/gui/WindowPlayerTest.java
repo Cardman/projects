@@ -586,4 +586,21 @@ public final class WindowPlayerTest extends EquallableSoundPlayerUtil {
         tryClick(w_.getPlay());
         assertNotNull(w_.getClipStream());
     }
+    @Test
+    public void migrate() {
+        WindowPlayer w_ = windowPlayer();
+        w_.getFrames().getFileCoreStream().newFile("/from/sub1/").mkdirs();
+        w_.getFrames().getFileCoreStream().newFile("/from/sub2/").mkdirs();
+        StreamBinaryFile.writeFile("/from/sub1/file1",wrapInts('R', 'I', 'F', 'F', 0, 0, 0, 0, 'W', 'A', 'V', 'E', 1),w_.getStreams());
+        StreamBinaryFile.writeFile("/from/sub1/file2",wrapInts('R', 'I', 'F', 'F', 0, 0, 0, 0, 'W', 'A', 'V', 'E', 2),w_.getStreams());
+        StreamBinaryFile.writeFile("/from/sub2/file1",wrapInts('I', 'D', '3', 1),w_.getStreams());
+        StreamBinaryFile.writeFile("/from/sub2/file2",wrapInts('I', 'D', '3', 2),w_.getStreams());
+        w_.getFolderFromField().setText("/from");
+        w_.getFolderToField().setText("/to");
+        tryClick(w_.getMigrate());
+        assertEq("<_ 0=\"UklGRgAAAABXQVZFAQ==\" 1=\"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/\"/>",StreamTextFile.contentsOfFile("/to/sub1/file1",w_.getFileCoreStream(),w_.getStreams()));
+        assertEq("<_ 0=\"UklGRgAAAABXQVZFAg==\" 1=\"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/\"/>",StreamTextFile.contentsOfFile("/to/sub1/file2",w_.getFileCoreStream(),w_.getStreams()));
+        assertEq("<_ 0=\"SUQzAQ==\" 1=\"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/\"/>",StreamTextFile.contentsOfFile("/to/sub2/file1",w_.getFileCoreStream(),w_.getStreams()));
+        assertEq("<_ 0=\"SUQzAg==\" 1=\"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/\"/>",StreamTextFile.contentsOfFile("/to/sub2/file2",w_.getFileCoreStream(),w_.getStreams()));
+    }
 }
