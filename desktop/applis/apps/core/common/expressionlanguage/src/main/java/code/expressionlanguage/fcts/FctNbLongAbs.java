@@ -30,22 +30,22 @@ public abstract class FctNbLongAbs implements AnaStdCaller {
 
     @Override
     public Struct call(AnalyzedPageEl _page, Struct _instance, Struct[] _args) {
-        return parse(_args[0],_args[_args.length-1]);
+        return parse(_args[0],_args[_args.length-1], _page.getDisplayedStrings().getAlpha());
     }
-    private Struct parse(Struct _arg, Struct _radix) {
-        LongInfo lg_ = parseAsInfo(minValue, maxValue, radix, _arg, _radix);
+    private Struct parse(Struct _arg, Struct _radix, String _alpha) {
+        LongInfo lg_ = parseAsInfo(minValue, maxValue, radix, _arg, _radix, _alpha);
         if (lg_ == null) {
             return null;
         }
         return build(lg_);
     }
-    public static LongInfo parseAsInfo(long _minValue, long _maxValue, AbsRadix _rad,Struct _arg, Struct _radix) {
+    public static LongInfo parseAsInfo(long _minValue, long _maxValue, AbsRadix _rad, Struct _arg, Struct _radix, String _alpha) {
         if (!(_arg instanceof CharSequenceStruct)) {
             return null;
         }
         String one_ = NumParsers.getCharSeq(_arg).toStringInstance();
         int radix_ = _rad.radix(_radix);
-        LongInfo lg_ = NumParsers.parseLong(one_, radix_);
+        LongInfo lg_ = NumParsers.parseLong(one_, radix_, _alpha);
         if (lg_.outOfRange(_minValue, _maxValue)) {
             return null;
         }
@@ -64,7 +64,7 @@ public abstract class FctNbLongAbs implements AnaStdCaller {
         }
         String one_ = NumParsers.getCharSeq(_arg).toStringInstance();
         int radix_ = radix.radix(_radix);
-        LongInfo lg_ = NumParsers.parseLong(one_, radix_);
+        LongInfo lg_ = NumParsers.parseLong(one_, radix_, _context.getStandards().getDisplayedStrings().getAlpha());
         if (lg_.outOfRange(minValue, maxValue)) {
             _stackCall.setCallingState(new CustomFoundExc(FctUtil.getFormatError(_context, FctUtil.getNumberRadixMessage(one_, radix_), _stackCall)));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);

@@ -809,8 +809,8 @@ public final class NumParsers {
         return str_;
     }
 
-    public static LongInfo parseLong(String _string, int _radix) {
-        if (_radix < Character.MIN_RADIX || _radix > Character.MAX_RADIX) {
+    public static LongInfo parseLong(String _string, int _radix, String _alpha) {
+        if (_radix < Character.MIN_RADIX || _radix > 10 + _alpha.length()) {
             return new LongInfo();
         }
         int max_ = _string.length();
@@ -827,7 +827,7 @@ public final class NumParsers {
 //        if (digEnt_ < 0) {
 //            return new LongInfo();
 //        }
-        return buildAccLg(_string,_radix,i_,negative_, MessagesCdmBase.DEF_ALPHA);
+        return buildAccLg(_string,_radix,i_,negative_, _alpha);
     }
 
     private static int first(boolean _negative) {

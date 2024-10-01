@@ -607,9 +607,9 @@ public final class StringExpUtil {
         return !_type.startsWith("[");
     }
 
-    public static String toLongRadix(long _i, int _radix) {
+    public static String toLongRadix(long _i, int _radix, String _alpha) {
         int radix_ = _radix;
-        if (radix_ < 2 || radix_ > 36) {
+        if (radix_ < 2 || radix_ > 10 + _alpha.length()) {
             radix_ = 10;
         }
         if (_i == Long.MIN_VALUE) {
@@ -633,22 +633,22 @@ public final class StringExpUtil {
                 }
                 return str_.toString();
             }
-            StringBuilder str_ = base(-(_i+1), radix_, MessagesCdmBase.DEF_ALPHA);
+            StringBuilder str_ = base(-(_i+1), radix_, _alpha);
             str_.insert(0,"-");
             int last_ = str_.length() - 1;
             str_.setCharAt(last_, (char) (str_.charAt(last_)+1));
             return str_.toString();
         }
         if (_i >= 0) {
-            return base(_i, radix_, MessagesCdmBase.DEF_ALPHA).toString();
+            return base(_i, radix_, _alpha).toString();
         }
-        StringBuilder str_ = base(-_i, radix_, MessagesCdmBase.DEF_ALPHA);
+        StringBuilder str_ = base(-_i, radix_, _alpha);
         str_.insert(0,"-");
         return str_.toString();
     }
 
-    public static String toLongGeneHex(long _i) {
-        return baseHex(_i,16);
+    public static String toLongGeneHex(long _i, String _base) {
+        return baseHex(_i,16,_base);
     }
 
     public static String toLongGeneOct(long _i) {
@@ -677,9 +677,7 @@ public final class StringExpUtil {
         }
         return str_;
     }
-    public static String toGeneHex(int _i) {
-        return toGeneHex(_i, MessagesCdmBase.DEF_ALPHA_HEX);
-    }
+
     public static String toGeneHex(int _i,String _exp) {
         return baseHex(_i, 8,_exp);
     }
@@ -692,8 +690,8 @@ public final class StringExpUtil {
         return baseTwo(_i, 32);
     }
 
-    public static String toShortGeneHex(int _i) {
-        return baseHex(_i, 4);
+    public static String toShortGeneHex(int _i, String _base) {
+        return baseHex(_i, 4,_base);
     }
 
     public static String toShortGeneOct(int _i) {
@@ -704,12 +702,8 @@ public final class StringExpUtil {
         return baseTwo(_i, 16);
     }
 
-    public static String toByteGeneHex(int _i) {
-        return baseHex(_i, 2);
-    }
-
-    private static String baseHex(long _i, int _b) {
-        return baseHex(_i,_b,MessagesCdmBase.DEF_ALPHA_HEX);
+    public static String toByteGeneHex(int _i, String _base) {
+        return baseHex(_i, 2,_base);
     }
     private static String baseHex(long _i, int _b, String _exp) {
         if (_i >= 0) {

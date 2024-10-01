@@ -249,6 +249,8 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
         stds_.getNbAlias().setAliasMinusInfinityField("3");
         stds_.getNbAlias().setAliasPlusInfinityField("4");
         stds_.getNbAlias().setAliasNanField("5");
+        stds_.getNbAlias().setAliasAlpha("6");
+        stds_.getNbAlias().setAliasAlphaHex("7");
         assertEq(Double.MAX_VALUE,new AdvancedConstantsCalculator(stds_).getInnerSimpleResult(new ClassField("_","_")));
     }
     @Test

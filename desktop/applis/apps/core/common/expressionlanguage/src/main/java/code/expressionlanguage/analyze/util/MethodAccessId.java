@@ -55,7 +55,7 @@ public final class MethodAccessId {
     public void setupAncestor(StringList _args, int _i) {
         if (_args.size() > _i) {
             String trim_ = _args.get(_i).trim();
-            LongInfo longValue_ = NumParsers.parseLong(trim_, 10);
+            LongInfo longValue_ = NumParsers.parseLong(trim_, 10, "");
             if (!longValue_.outOfRange(0,Integer.MAX_VALUE)) {
                 ancestor = (int) longValue_.getValue();
                 index++;

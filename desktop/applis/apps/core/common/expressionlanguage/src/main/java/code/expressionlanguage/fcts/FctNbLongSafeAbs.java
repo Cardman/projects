@@ -26,17 +26,17 @@ public abstract class FctNbLongSafeAbs implements AnaStdCaller {
 
     @Override
     public Struct call(AnalyzedPageEl _page, Struct _instance, Struct[] _args) {
-        return parse(_args[0],_args[_args.length-1]);
+        return parse(_args[0],_args[_args.length-1], _page.getDisplayedStrings().getAlpha());
     }
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        Struct parse_ = parse(argumentWrappers_.get(0).getValue(), argumentWrappers_.last().getValue());
+        Struct parse_ = parse(argumentWrappers_.get(0).getValue(), argumentWrappers_.last().getValue(), _cont.getStandards().getDisplayedStrings().getAlpha());
         return new ArgumentWrapper(parse_);
     }
-    private Struct parse(Struct _arg, Struct _radix) {
-        LongInfo lg_ = FctNbLongAbs.parseAsInfo(minValue, maxValue, radix, _arg, _radix);
+    private Struct parse(Struct _arg, Struct _radix, String _alpha) {
+        LongInfo lg_ = FctNbLongAbs.parseAsInfo(minValue, maxValue, radix, _arg, _radix, _alpha);
         if (lg_ == null) {
             return null;
         }

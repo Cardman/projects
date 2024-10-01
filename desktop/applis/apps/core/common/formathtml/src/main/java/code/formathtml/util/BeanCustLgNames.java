@@ -1024,7 +1024,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
             }
             return NumParsers.convertToFloat(cast_,new DoubleStruct(doubleInfo_.getValue()));
         }
-        LongInfo val_ = NumParsers.parseLong(_values.first(), 10);
+        LongInfo val_ = NumParsers.parseLong(_values.first(), 10, "");
         if (!val_.isValid()) {
             _stack.getStackCall().setCallingState(new CustomFoundExc(new ErrorStruct(_ctx, _values.first(), getContent().getCoreNames().getAliasNbFormat(), _stack.getStackCall())));
             return null;

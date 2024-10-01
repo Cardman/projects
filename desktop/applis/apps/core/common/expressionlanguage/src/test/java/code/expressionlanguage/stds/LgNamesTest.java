@@ -10,6 +10,7 @@ import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.common.DisplayedStrings;
 import code.expressionlanguage.common.MessagesCdmBase;
 import code.expressionlanguage.common.ParseLinesArgUtil;
 import code.expressionlanguage.exec.*;
@@ -3186,6 +3187,14 @@ public class LgNamesTest extends ProcessMethodCommon {
         comments_.add(new CommentDelimiters("\\*",new StringList("*\\")));
         comments_.add(new CommentDelimiters("\\ ;",new StringList(", \\")));
         assertEq("\\+00134*,*\\+00134;\\+00134\\+00040\\+00073,\\+00054\\+00040\\+00134", ParseLinesArgUtil.buildCommentsLine(comments_));
+    }
+    @Test
+    public void patchDisplayingHex1() {
+        assertEq(MessagesCdmBase.DEF_ALPHA_HEX, DisplayedStrings.patchAlphaHex("0"));
+    }
+    @Test
+    public void patchDisplayingHex2() {
+        assertEq(MessagesCdmBase.DEF_ALPHA_HEX, DisplayedStrings.patchAlphaHex(MessagesCdmBase.DEF_ALPHA_HEX));
     }
     private static StringMap<String> app() {
         TranslationsAppli a_ = new TranslationsAppli();

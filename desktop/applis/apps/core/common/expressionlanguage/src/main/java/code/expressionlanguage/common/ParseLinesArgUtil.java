@@ -245,7 +245,7 @@ public final class ParseLinesArgUtil {
         }
         if (isOctalPrefix(_ch) && _i + 5 < len_) {
             String sub_ = _line.substring(_i + 1, _i + 6);
-            LongInfo char_ = NumParsers.parseLong(sub_,8);
+            LongInfo char_ = NumParsers.parseLong(sub_,8, "");
             if (char_.isValid()) {
                 long value_ = value(_ch,char_);
                 char ch_ = (char) value_;

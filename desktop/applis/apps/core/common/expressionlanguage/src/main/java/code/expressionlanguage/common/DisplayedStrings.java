@@ -1,5 +1,7 @@
 package code.expressionlanguage.common;
 
+import code.util.StringList;
+
 public final class DisplayedStrings {
     private String trueString;
     private String falseString;
@@ -12,6 +14,35 @@ public final class DisplayedStrings {
     private String infinity;
     private String exponent;
     private String nan;
+    private String alpha;
+    private String alphaHex;
+
+    public static String patchAlpha(String _alpha) {
+        return build(_alpha).toString();
+    }
+
+    public static String patchAlphaHex(String _alpha) {
+        StringBuilder builder_ = build(_alpha);
+        if (builder_.length() != 6) {
+            return MessagesCdmBase.DEF_ALPHA_HEX;
+        }
+        return builder_.toString();
+    }
+
+    private static StringBuilder build(String _alpha) {
+        StringList str_ = new StringList();
+        for (char c: _alpha.toCharArray()) {
+            if (StringDataLetterUtil.isLetter(c)) {
+                str_.add(Character.toString((char)NumParsers.toMinCase(c)));
+            }
+        }
+        str_.removeDuplicates();
+        StringBuilder builder_ = new StringBuilder();
+        for (String s: str_) {
+            builder_.append(s);
+        }
+        return builder_;
+    }
 
     public String getTrueString() {
         return trueString;
@@ -87,4 +118,19 @@ public final class DisplayedStrings {
         this.nan = _nan;
     }
 
+    public String getAlpha() {
+        return alpha;
+    }
+
+    public void setAlpha(String _p) {
+        this.alpha = _p;
+    }
+
+    public String getAlphaHex() {
+        return alphaHex;
+    }
+
+    public void setAlphaHex(String _p) {
+        this.alphaHex = _p;
+    }
 }

@@ -63,9 +63,6 @@ public final class StringDataUtil {
         return str_.toString();
     }
 
-    public static int digit(char _ch, int _radix) {
-        return digit(_ch,_radix,MessagesCdmBase.DEF_ALPHA);
-    }
     public static int digit(char _ch, int _radix, String _alpha) {
         if (_radix < 2) {
             return -1;
@@ -93,9 +90,6 @@ public final class StringDataUtil {
         return -1;
     }
 
-    public static char forDigit(int _digit, int _radix) {
-        return forDigit(_digit,_radix,MessagesCdmBase.DEF_ALPHA);
-    }
     public static char forDigit(int _digit, int _radix, String _alpha) {
         if (_radix < 2) {
             return 0;

@@ -2,6 +2,7 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.MessagesCdmBase;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.ArrayRefState;
@@ -7018,6 +7019,36 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(arg_ instanceof ArrayStruct);
         assertEq("[java.lang.Number",arg_.getClassName(cont_));
         assertEq(0,(((ArrayStruct)arg_).getInstance()).length);
+    }
+    @Test
+    public void processEl511Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static Object exmeth(){\n");
+        xml_.append("  $return $class(Character).getDeclaredMethods(\"alpha\",$true,$false)[0i].invoke($null);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        MethodId id_ = getMethodId("exmeth");
+        assertEq(MessagesCdmBase.DEF_ALPHA, ((StringStruct)calculateNormal("pkg.Ex",id_,cont_)).getInstance());
+    }
+    @Test
+    public void processEl512Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static Object exmeth(){\n");
+        xml_.append("  $return $class(Character).getDeclaredMethods(\"alphaHex\",$true,$false)[0i].invoke($null);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        MethodId id_ = getMethodId("exmeth");
+        assertEq(MessagesCdmBase.DEF_ALPHA_HEX, ((StringStruct)calculateNormal("pkg.Ex",id_,cont_)).getInstance());
     }
     @Test
     public void processEl_1Test() {

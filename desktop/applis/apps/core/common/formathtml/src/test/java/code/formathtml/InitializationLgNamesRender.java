@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.common.MessagesCdmBase;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
 
@@ -78,6 +79,8 @@ public final class InitializationLgNamesRender extends EquallableRenderUtil {
         _lgNames.getContent().getNbAlias().setAliasPlusInfinityField("PLUS_INFINITY");
         _lgNames.getContent().getNbAlias().setAliasMinusInfinityField("MINUS_INFINITY");
         _lgNames.getContent().getNbAlias().setAliasNanField("NAN");
+        _lgNames.getContent().getNbAlias().setAliasAlpha("alpha");
+        _lgNames.getContent().getNbAlias().setAliasAlphaHex("alphaHex");
         _lgNames.getContent().getPredefTypes().setAliasIteratorType("java.lang.$iterator");
         _lgNames.getContent().getPredefTypes().setAliasIterator("iterator");
         _lgNames.getContent().getPredefTypes().setAliasIterable("java.lang.$iterable");
@@ -419,5 +422,7 @@ public final class InitializationLgNamesRender extends EquallableRenderUtil {
         _lgNames.getDisplayedStrings().setInfinity("Infinity");
         _lgNames.getDisplayedStrings().setNan("Nan");
         _lgNames.getDisplayedStrings().setExponent("E");
+        _lgNames.getDisplayedStrings().setAlpha(MessagesCdmBase.DEF_ALPHA);
+        _lgNames.getDisplayedStrings().setAlphaHex(MessagesCdmBase.DEF_ALPHA_HEX);
     }
 }

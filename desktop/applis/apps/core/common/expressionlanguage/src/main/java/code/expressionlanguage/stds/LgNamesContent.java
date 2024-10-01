@@ -2,6 +2,7 @@ package code.expressionlanguage.stds;
 
 import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.common.DisplayedStrings;
+import code.expressionlanguage.common.MessagesCdmBase;
 import code.sml.util.TranslationsFile;
 import code.util.CustList;
 import code.util.StringMap;
@@ -21,6 +22,8 @@ public final class LgNamesContent {
     private static final String EXPONENT = "_________1873";
     private static final String NAN = "_________1874";
     private static final String UNICODE = "_________1874_";
+    private static final String ALPHA = "_________1874_";
+    private static final String ALPHA_HEX = "_________1874__";
 
     private final StringMap<StandardType> standards = new StringMap<StandardType>();
 
@@ -55,6 +58,8 @@ public final class LgNamesContent {
         getDisplayedStrings().setInfinity(get(_util,_cust, _mapping.getVal(INFINITY)));
         getDisplayedStrings().setNan(get(_util,_cust, _mapping.getVal(NAN)));
         getDisplayedStrings().setExponent(get(_util,_cust, _mapping.getVal(EXPONENT)));
+        getDisplayedStrings().setAlpha(DisplayedStrings.patchAlpha(get(_util,_cust, _mapping.getVal(ALPHA))));
+        getDisplayedStrings().setAlphaHex(DisplayedStrings.patchAlphaHex(get(_util,_cust, _mapping.getVal(ALPHA_HEX))));
         getPredefTypes().getParams().build(_util, _cust,_mapping);
         getCharSeq().getParams().build(_util, _cust,_mapping);
         getCoreNames().getParams().build(_util, _cust,_mapping);
@@ -75,6 +80,8 @@ public final class LgNamesContent {
         _en.add(NOT_NULL_COVER_STRING,"NotNullCoverString=not null");
         _en.add(STATIC_STRING,"StaticString=static");
         _en.add(STATIC_CALL_STRING,"StaticCallString=staticCall");
+        _en.add(ALPHA,"Alpha="+ MessagesCdmBase.DEF_ALPHA);
+        _en.add(ALPHA_HEX,"AlphaHex="+ MessagesCdmBase.DEF_ALPHA_HEX);
         AliasPredefinedTypes.en(_en);
         AliasParamPredefinedTypes.en(_en);
         AliasCharSequenceType.en(_en);
@@ -103,6 +110,8 @@ public final class LgNamesContent {
         _fr.add(NOT_NULL_COVER_STRING,"NotNullCoverString=non nul");
         _fr.add(STATIC_STRING,"StaticString=static");
         _fr.add(STATIC_CALL_STRING,"StaticCallString=staticAppel");
+        _fr.add(ALPHA,"Alpha="+ MessagesCdmBase.DEF_ALPHA);
+        _fr.add(ALPHA_HEX,"AlphaHex="+ MessagesCdmBase.DEF_ALPHA_HEX);
         AliasPredefinedTypes.fr(_fr);
         AliasParamPredefinedTypes.fr(_fr);
         AliasCharSequenceType.fr(_fr);
@@ -132,6 +141,8 @@ public final class LgNamesContent {
         m_.addEntry(NOT_NULL_COVER_STRING,"NotNullCoverString");
         m_.addEntry(STATIC_STRING,"StaticString");
         m_.addEntry(STATIC_CALL_STRING,"StaticCallString");
+        m_.addEntry(ALPHA,"Alpha");
+        m_.addEntry(ALPHA_HEX,"AlphaHex");
         AliasPredefinedTypes.mapping(m_);
         AliasParamPredefinedTypes.mapping(m_);
         AliasCharSequenceType.mapping(m_);

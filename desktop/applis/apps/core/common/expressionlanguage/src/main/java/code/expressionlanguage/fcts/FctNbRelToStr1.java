@@ -16,18 +16,18 @@ import code.util.CustList;
 public final class FctNbRelToStr1 implements AnaStdCaller {
     @Override
     public Struct call(AnalyzedPageEl _page, Struct _instance, Struct[] _args) {
-        return str(_args[0],_args[1]);
+        return str(_args[0],_args[1], _page.getDisplayedStrings().getAlpha());
     }
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        return new ArgumentWrapper(str(argumentWrappers_.get(0).getValue(),argumentWrappers_.get(1).getValue()));
+        return new ArgumentWrapper(str(argumentWrappers_.get(0).getValue(),argumentWrappers_.get(1).getValue(), _cont.getStandards().getDisplayedStrings().getAlpha()));
     }
 
-    private static Struct str(Struct _arg, Struct _radix) {
+    private static Struct str(Struct _arg, Struct _radix, String _alpha) {
         long nb_ = NumParsers.convertToNumber(_arg).longStruct();
         int radix_ = NumParsers.convertToNumber(_radix).intStruct();
-        return new StringStruct(StringExpUtil.toLongRadix(nb_,radix_));
+        return new StringStruct(StringExpUtil.toLongRadix(nb_,radix_, _alpha));
     }
 }

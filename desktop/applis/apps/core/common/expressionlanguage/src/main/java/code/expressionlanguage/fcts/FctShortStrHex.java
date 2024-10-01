@@ -15,16 +15,16 @@ import code.expressionlanguage.structs.Struct;
 public final class FctShortStrHex implements AnaStdCaller {
     @Override
     public Struct call(AnalyzedPageEl _page, Struct _instance, Struct[] _args) {
-        return convert(_args[0]);
+        return convert(_args[0], _page.getDisplayedStrings().getAlphaHex());
     }
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return new ArgumentWrapper(convert(_firstArgs.getArgumentWrappers().get(0).getValue()));
+        return new ArgumentWrapper(convert(_firstArgs.getArgumentWrappers().get(0).getValue(), _cont.getStandards().getDisplayedStrings().getAlphaHex()));
     }
 
-    private Struct convert(Struct _arg) {
+    private Struct convert(Struct _arg, String _hex) {
         short one_ = NumParsers.convertToNumber(_arg).shortStruct();
-        return new StringStruct(StringExpUtil.toShortGeneHex(one_));
+        return new StringStruct(StringExpUtil.toShortGeneHex(one_, _hex));
     }
 }

@@ -3,8 +3,6 @@ package code.expressionlanguage.common;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.methods.ProcessMethodCommon;
-import code.expressionlanguage.structs.ArrayStruct;
-import code.expressionlanguage.structs.StringStruct;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
@@ -535,103 +533,103 @@ public final class StringExpUtilTest extends ProcessMethodCommon {
 
     @Test
     public void toGeneHex1Test(){
-        assertEq("0",StringExpUtil.toGeneHex(0));
+        assertEq("0", toGeneHex(0));
     }
     @Test
     public void toGeneHex2Test(){
-        assertEq("1",StringExpUtil.toGeneHex(1));
+        assertEq("1", toGeneHex(1));
     }
     @Test
     public void toGeneHex3Test(){
-        assertEq("9",StringExpUtil.toGeneHex(9));
+        assertEq("9", toGeneHex(9));
     }
     @Test
     public void toGeneHex4Test(){
-        assertEq("a",StringExpUtil.toGeneHex(10));
+        assertEq("a", toGeneHex(10));
     }
     @Test
     public void toGeneHex5Test(){
-        assertEq("f",StringExpUtil.toGeneHex(15));
+        assertEq("f", toGeneHex(15));
     }
     @Test
     public void toGeneHex6Test(){
-        assertEq("10",StringExpUtil.toGeneHex(16));
+        assertEq("10", toGeneHex(16));
     }
     @Test
     public void toGeneHex7Test(){
-        assertEq("11",StringExpUtil.toGeneHex(17));
+        assertEq("11", toGeneHex(17));
     }
     @Test
     public void toGeneHex8Test(){
-        assertEq("1e",StringExpUtil.toGeneHex(30));
+        assertEq("1e", toGeneHex(30));
     }
     @Test
     public void toGeneHex9Test(){
-        assertEq("7f",StringExpUtil.toGeneHex(127));
+        assertEq("7f", toGeneHex(127));
     }
     @Test
     public void toGeneHex10Test(){
-        assertEq("80",StringExpUtil.toGeneHex(128));
+        assertEq("80", toGeneHex(128));
     }
     @Test
     public void toGeneHex11Test(){
-        assertEq("ff",StringExpUtil.toGeneHex(255));
+        assertEq("ff", toGeneHex(255));
     }
     @Test
     public void toGeneHex12Test(){
-        assertEq("100",StringExpUtil.toGeneHex(256));
+        assertEq("100", toGeneHex(256));
     }
     @Test
     public void toGeneHex13Test(){
-        assertEq("123",StringExpUtil.toGeneHex(291));
+        assertEq("123", toGeneHex(291));
     }
     @Test
     public void toGeneHex14Test(){
-        assertEq("ffffffff",StringExpUtil.toGeneHex(-1));
+        assertEq("ffffffff", toGeneHex(-1));
     }
     @Test
     public void toGeneHex15Test(){
-        assertEq("fffffffe",StringExpUtil.toGeneHex(-2));
+        assertEq("fffffffe", toGeneHex(-2));
     }
     @Test
     public void toGeneHex16Test(){
-        assertEq("fffffffa",StringExpUtil.toGeneHex(-6));
+        assertEq("fffffffa", toGeneHex(-6));
     }
     @Test
     public void toGeneHex17Test(){
-        assertEq("fffffff9",StringExpUtil.toGeneHex(-7));
+        assertEq("fffffff9", toGeneHex(-7));
     }
     @Test
     public void toGeneHex18Test(){
-        assertEq("fffffff0",StringExpUtil.toGeneHex(-16));
+        assertEq("fffffff0", toGeneHex(-16));
     }
     @Test
     public void toGeneHex19Test(){
-        assertEq("ffffffef",StringExpUtil.toGeneHex(-17));
+        assertEq("ffffffef", toGeneHex(-17));
     }
     @Test
     public void toGeneHex20Test(){
-        assertEq("ffffffea",StringExpUtil.toGeneHex(-22));
+        assertEq("ffffffea", toGeneHex(-22));
     }
     @Test
     public void toGeneHex21Test(){
-        assertEq("ffffffe9",StringExpUtil.toGeneHex(-23));
+        assertEq("ffffffe9", toGeneHex(-23));
     }
     @Test
     public void toGeneHex22Test(){
-        assertEq("ffffffe5",StringExpUtil.toGeneHex(-27));
+        assertEq("ffffffe5", toGeneHex(-27));
     }
     @Test
     public void toGeneHex23Test(){
-        assertEq("ffffffe0",StringExpUtil.toGeneHex(-32));
+        assertEq("ffffffe0", toGeneHex(-32));
     }
     @Test
     public void toGeneHex24Test(){
-        assertEq("fffffedc",StringExpUtil.toGeneHex(-292));
+        assertEq("fffffedc", toGeneHex(-292));
     }
     @Test
     public void toGeneHex25Test(){
-        assertEq("80000000",StringExpUtil.toGeneHex(Integer.MIN_VALUE));
+        assertEq("80000000", toGeneHex(Integer.MIN_VALUE));
     }
     @Test
     public void toGeneOct1Test(){
@@ -779,107 +777,107 @@ public final class StringExpUtilTest extends ProcessMethodCommon {
     }
     @Test
     public void toLongGeneHex1Test(){
-        assertEq("0",StringExpUtil.toLongGeneHex(0));
+        assertEq("0", toLongGeneHex(0));
     }
     @Test
     public void toLongGeneHex2Test(){
-        assertEq("1",StringExpUtil.toLongGeneHex(1));
+        assertEq("1", toLongGeneHex(1));
     }
     @Test
     public void toLongGeneHex3Test(){
-        assertEq("9",StringExpUtil.toLongGeneHex(9));
+        assertEq("9", toLongGeneHex(9));
     }
     @Test
     public void toLongGeneHex4Test(){
-        assertEq("a",StringExpUtil.toLongGeneHex(10));
+        assertEq("a", toLongGeneHex(10));
     }
     @Test
     public void toLongGeneHex5Test(){
-        assertEq("f",StringExpUtil.toLongGeneHex(15));
+        assertEq("f", toLongGeneHex(15));
     }
     @Test
     public void toLongGeneHex6Test(){
-        assertEq("10",StringExpUtil.toLongGeneHex(16));
+        assertEq("10", toLongGeneHex(16));
     }
     @Test
     public void toLongGeneHex7Test(){
-        assertEq("11",StringExpUtil.toLongGeneHex(17));
+        assertEq("11", toLongGeneHex(17));
     }
     @Test
     public void toLongGeneHex8Test(){
-        assertEq("1e",StringExpUtil.toLongGeneHex(30));
+        assertEq("1e", toLongGeneHex(30));
     }
     @Test
     public void toLongGeneHex9Test(){
-        assertEq("7f",StringExpUtil.toLongGeneHex(127));
+        assertEq("7f", toLongGeneHex(127));
     }
     @Test
     public void toLongGeneHex10Test(){
-        assertEq("80",StringExpUtil.toLongGeneHex(128));
+        assertEq("80", toLongGeneHex(128));
     }
     @Test
     public void toLongGeneHex11Test(){
-        assertEq("ff",StringExpUtil.toLongGeneHex(255));
+        assertEq("ff", toLongGeneHex(255));
     }
     @Test
     public void toLongGeneHex12Test(){
-        assertEq("100",StringExpUtil.toLongGeneHex(256));
+        assertEq("100", toLongGeneHex(256));
     }
     @Test
     public void toLongGeneHex13Test(){
-        assertEq("123",StringExpUtil.toLongGeneHex(291));
+        assertEq("123", toLongGeneHex(291));
     }
     @Test
     public void toLongGeneHex14Test(){
-        assertEq("ffffffffffffffff",StringExpUtil.toLongGeneHex(-1));
+        assertEq("ffffffffffffffff", toLongGeneHex(-1));
     }
     @Test
     public void toLongGeneHex15Test(){
-        assertEq("fffffffffffffffe",StringExpUtil.toLongGeneHex(-2));
+        assertEq("fffffffffffffffe", toLongGeneHex(-2));
     }
     @Test
     public void toLongGeneHex16Test(){
-        assertEq("fffffffffffffffa",StringExpUtil.toLongGeneHex(-6));
+        assertEq("fffffffffffffffa", toLongGeneHex(-6));
     }
     @Test
     public void toLongGeneHex17Test(){
-        assertEq("fffffffffffffff9",StringExpUtil.toLongGeneHex(-7));
+        assertEq("fffffffffffffff9", toLongGeneHex(-7));
     }
     @Test
     public void toLongGeneHex18Test(){
-        assertEq("fffffffffffffff0",StringExpUtil.toLongGeneHex(-16));
+        assertEq("fffffffffffffff0", toLongGeneHex(-16));
     }
     @Test
     public void toLongGeneHex19Test(){
-        assertEq("ffffffffffffffef",StringExpUtil.toLongGeneHex(-17));
+        assertEq("ffffffffffffffef", toLongGeneHex(-17));
     }
     @Test
     public void toLongGeneHex20Test(){
-        assertEq("ffffffffffffffea",StringExpUtil.toLongGeneHex(-22));
+        assertEq("ffffffffffffffea", toLongGeneHex(-22));
     }
     @Test
     public void toLongGeneHex21Test(){
-        assertEq("ffffffffffffffe9",StringExpUtil.toLongGeneHex(-23));
+        assertEq("ffffffffffffffe9", toLongGeneHex(-23));
     }
     @Test
     public void toLongGeneHex22Test(){
-        assertEq("ffffffffffffffe5",StringExpUtil.toLongGeneHex(-27));
+        assertEq("ffffffffffffffe5", toLongGeneHex(-27));
     }
     @Test
     public void toLongGeneHex23Test(){
-        assertEq("ffffffffffffffe0",StringExpUtil.toLongGeneHex(-32));
+        assertEq("ffffffffffffffe0", toLongGeneHex(-32));
     }
     @Test
     public void toLongGeneHex24Test(){
-        assertEq("fffffffffffffedc",StringExpUtil.toLongGeneHex(-292));
+        assertEq("fffffffffffffedc", toLongGeneHex(-292));
     }
     @Test
     public void toLongGeneHex25Test(){
-        assertEq("ffffffff80000000",StringExpUtil.toLongGeneHex(Integer.MIN_VALUE));
+        assertEq("ffffffff80000000", toLongGeneHex(Integer.MIN_VALUE));
     }
     @Test
     public void toLongGeneHex26Test(){
-        assertEq("8000000000000000",StringExpUtil.toLongGeneHex(Long.MIN_VALUE));
+        assertEq("8000000000000000", toLongGeneHex(Long.MIN_VALUE));
     }
     @Test
     public void toLongGeneOct1Test(){
@@ -1035,103 +1033,103 @@ public final class StringExpUtilTest extends ProcessMethodCommon {
     }
     @Test
     public void toShortGeneHex1Test(){
-        assertEq("0",StringExpUtil.toShortGeneHex((short) 0));
+        assertEq("0", toShortGeneHex((short) 0));
     }
     @Test
     public void toShortGeneHex2Test(){
-        assertEq("1",StringExpUtil.toShortGeneHex((short) 1));
+        assertEq("1", toShortGeneHex((short) 1));
     }
     @Test
     public void toShortGeneHex3Test(){
-        assertEq("9",StringExpUtil.toShortGeneHex((short) 9));
+        assertEq("9", toShortGeneHex((short) 9));
     }
     @Test
     public void toShortGeneHex4Test(){
-        assertEq("a",StringExpUtil.toShortGeneHex((short) 10));
+        assertEq("a", toShortGeneHex((short) 10));
     }
     @Test
     public void toShortGeneHex5Test(){
-        assertEq("f",StringExpUtil.toShortGeneHex((short) 15));
+        assertEq("f", toShortGeneHex((short) 15));
     }
     @Test
     public void toShortGeneHex6Test(){
-        assertEq("10",StringExpUtil.toShortGeneHex((short) 16));
+        assertEq("10", toShortGeneHex((short) 16));
     }
     @Test
     public void toShortGeneHex7Test(){
-        assertEq("11",StringExpUtil.toShortGeneHex((short) 17));
+        assertEq("11", toShortGeneHex((short) 17));
     }
     @Test
     public void toShortGeneHex8Test(){
-        assertEq("1e",StringExpUtil.toShortGeneHex((short) 30));
+        assertEq("1e", toShortGeneHex((short) 30));
     }
     @Test
     public void toShortGeneHex9Test(){
-        assertEq("7f",StringExpUtil.toShortGeneHex((short) 127));
+        assertEq("7f", toShortGeneHex((short) 127));
     }
     @Test
     public void toShortGeneHex10Test(){
-        assertEq("80",StringExpUtil.toShortGeneHex((short) 128));
+        assertEq("80", toShortGeneHex((short) 128));
     }
     @Test
     public void toShortGeneHex11Test(){
-        assertEq("ff",StringExpUtil.toShortGeneHex((short) 255));
+        assertEq("ff", toShortGeneHex((short) 255));
     }
     @Test
     public void toShortGeneHex12Test(){
-        assertEq("100",StringExpUtil.toShortGeneHex((short) 256));
+        assertEq("100", toShortGeneHex((short) 256));
     }
     @Test
     public void toShortGeneHex13Test(){
-        assertEq("123",StringExpUtil.toShortGeneHex((short) 291));
+        assertEq("123", toShortGeneHex((short) 291));
     }
     @Test
     public void toShortGeneHex14Test(){
-        assertEq("ffff",StringExpUtil.toShortGeneHex((short) -1));
+        assertEq("ffff", toShortGeneHex((short) -1));
     }
     @Test
     public void toShortGeneHex15Test(){
-        assertEq("fffe",StringExpUtil.toShortGeneHex((short) -2));
+        assertEq("fffe", toShortGeneHex((short) -2));
     }
     @Test
     public void toShortGeneHex16Test(){
-        assertEq("fffa",StringExpUtil.toShortGeneHex((short) -6));
+        assertEq("fffa", toShortGeneHex((short) -6));
     }
     @Test
     public void toShortGeneHex17Test(){
-        assertEq("fff9",StringExpUtil.toShortGeneHex((short) -7));
+        assertEq("fff9", toShortGeneHex((short) -7));
     }
     @Test
     public void toShortGeneHex18Test(){
-        assertEq("fff0",StringExpUtil.toShortGeneHex((short) -16));
+        assertEq("fff0", toShortGeneHex((short) -16));
     }
     @Test
     public void toShortGeneHex19Test(){
-        assertEq("ffef",StringExpUtil.toShortGeneHex((short) -17));
+        assertEq("ffef", toShortGeneHex((short) -17));
     }
     @Test
     public void toShortGeneHex20Test(){
-        assertEq("ffea",StringExpUtil.toShortGeneHex((short) -22));
+        assertEq("ffea", toShortGeneHex((short) -22));
     }
     @Test
     public void toShortGeneHex21Test(){
-        assertEq("ffe9",StringExpUtil.toShortGeneHex((short) -23));
+        assertEq("ffe9", toShortGeneHex((short) -23));
     }
     @Test
     public void toShortGeneHex22Test(){
-        assertEq("ffe5",StringExpUtil.toShortGeneHex((short) -27));
+        assertEq("ffe5", toShortGeneHex((short) -27));
     }
     @Test
     public void toShortGeneHex23Test(){
-        assertEq("ffe0",StringExpUtil.toShortGeneHex((short) -32));
+        assertEq("ffe0", toShortGeneHex((short) -32));
     }
     @Test
     public void toShortGeneHex24Test(){
-        assertEq("fedc",StringExpUtil.toShortGeneHex((short) -292));
+        assertEq("fedc", toShortGeneHex((short) -292));
     }
     @Test
     public void toShortGeneHex25Test(){
-        assertEq("8000",StringExpUtil.toShortGeneHex(Short.MIN_VALUE));
+        assertEq("8000", toShortGeneHex(Short.MIN_VALUE));
     }
     @Test
     public void toShortGeneOct1Test(){
@@ -1279,83 +1277,83 @@ public final class StringExpUtilTest extends ProcessMethodCommon {
     }
     @Test
     public void toByteGeneHex1Test(){
-        assertEq("0",StringExpUtil.toByteGeneHex((byte) 0));
+        assertEq("0", toByteGeneHex((byte) 0));
     }
     @Test
     public void toByteGeneHex2Test(){
-        assertEq("1",StringExpUtil.toByteGeneHex((byte) 1));
+        assertEq("1", toByteGeneHex((byte) 1));
     }
     @Test
     public void toByteGeneHex3Test(){
-        assertEq("9",StringExpUtil.toByteGeneHex((byte) 9));
+        assertEq("9", toByteGeneHex((byte) 9));
     }
     @Test
     public void toByteGeneHex4Test(){
-        assertEq("a",StringExpUtil.toByteGeneHex((byte) 10));
+        assertEq("a", toByteGeneHex((byte) 10));
     }
     @Test
     public void toByteGeneHex5Test(){
-        assertEq("f",StringExpUtil.toByteGeneHex((byte) 15));
+        assertEq("f", toByteGeneHex((byte) 15));
     }
     @Test
     public void toByteGeneHex6Test(){
-        assertEq("10",StringExpUtil.toByteGeneHex((byte) 16));
+        assertEq("10", toByteGeneHex((byte) 16));
     }
     @Test
     public void toByteGeneHex7Test(){
-        assertEq("11",StringExpUtil.toByteGeneHex((byte) 17));
+        assertEq("11", toByteGeneHex((byte) 17));
     }
     @Test
     public void toByteGeneHex8Test(){
-        assertEq("1e",StringExpUtil.toByteGeneHex((byte) 30));
+        assertEq("1e", toByteGeneHex((byte) 30));
     }
     @Test
     public void toByteGeneHex9Test(){
-        assertEq("7f",StringExpUtil.toByteGeneHex((byte) 127));
+        assertEq("7f", toByteGeneHex((byte) 127));
     }
     @Test
     public void toByteGeneHex10Test(){
-        assertEq("80",StringExpUtil.toByteGeneHex((byte) -128));
+        assertEq("80", toByteGeneHex((byte) -128));
     }
     @Test
     public void toByteGeneHex11Test(){
-        assertEq("ff",StringExpUtil.toByteGeneHex((byte) -1));
+        assertEq("ff", toByteGeneHex((byte) -1));
     }
     @Test
     public void toByteGeneHex12Test(){
-        assertEq("fe",StringExpUtil.toByteGeneHex((byte) -2));
+        assertEq("fe", toByteGeneHex((byte) -2));
     }
     @Test
     public void toByteGeneHex13Test(){
-        assertEq("fa",StringExpUtil.toByteGeneHex((byte) -6));
+        assertEq("fa", toByteGeneHex((byte) -6));
     }
     @Test
     public void toByteGeneHex14Test(){
-        assertEq("f9",StringExpUtil.toByteGeneHex((byte) -7));
+        assertEq("f9", toByteGeneHex((byte) -7));
     }
     @Test
     public void toByteGeneHex15Test(){
-        assertEq("f0",StringExpUtil.toByteGeneHex((byte) -16));
+        assertEq("f0", toByteGeneHex((byte) -16));
     }
     @Test
     public void toByteGeneHex16Test(){
-        assertEq("ef",StringExpUtil.toByteGeneHex((byte) -17));
+        assertEq("ef", toByteGeneHex((byte) -17));
     }
     @Test
     public void toByteGeneHex17Test(){
-        assertEq("ea",StringExpUtil.toByteGeneHex((byte) -22));
+        assertEq("ea", toByteGeneHex((byte) -22));
     }
     @Test
     public void toByteGeneHex18Test(){
-        assertEq("e9",StringExpUtil.toByteGeneHex((byte) -23));
+        assertEq("e9", toByteGeneHex((byte) -23));
     }
     @Test
     public void toByteGeneHex19Test(){
-        assertEq("e5",StringExpUtil.toByteGeneHex((byte) -27));
+        assertEq("e5", toByteGeneHex((byte) -27));
     }
     @Test
     public void toByteGeneHex20Test(){
-        assertEq("e0",StringExpUtil.toByteGeneHex((byte) -32));
+        assertEq("e0", toByteGeneHex((byte) -32));
     }
     @Test
     public void toByteGeneOct1Test(){
@@ -1464,183 +1462,183 @@ public final class StringExpUtilTest extends ProcessMethodCommon {
 
     @Test
     public void toLongRadix1Test(){
-        assertEq("0",StringExpUtil.toLongRadix(0,10));
+        assertEq("0",StringExpUtil.toLongRadix(0,10, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix2Test(){
-        assertEq("1",StringExpUtil.toLongRadix(1,10));
+        assertEq("1",StringExpUtil.toLongRadix(1,10, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix3Test(){
-        assertEq("-1",StringExpUtil.toLongRadix(-1,10));
+        assertEq("-1",StringExpUtil.toLongRadix(-1,10, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix4Test(){
-        assertEq("21",StringExpUtil.toLongRadix(33,16));
+        assertEq("21",StringExpUtil.toLongRadix(33,16, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix5Test(){
-        assertEq("-21",StringExpUtil.toLongRadix(-33,16));
+        assertEq("-21",StringExpUtil.toLongRadix(-33,16, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix6Test(){
-        assertEq("2",StringExpUtil.toLongRadix(2,1));
+        assertEq("2",StringExpUtil.toLongRadix(2,1, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix7Test(){
-        assertEq("10",StringExpUtil.toLongRadix(2,2));
+        assertEq("10",StringExpUtil.toLongRadix(2,2, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix8Test(){
-        assertEq("z",StringExpUtil.toLongRadix(35,36));
+        assertEq("z",StringExpUtil.toLongRadix(35,36, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix9Test(){
-        assertEq("10",StringExpUtil.toLongRadix(36,36));
+        assertEq("10",StringExpUtil.toLongRadix(36,36, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix10Test(){
-        assertEq("36",StringExpUtil.toLongRadix(36,37));
+        assertEq("36",StringExpUtil.toLongRadix(36,37, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix11Test(){
-        assertEq("-1000000000000000000000000000000000000000000000000000000000000000",StringExpUtil.toLongRadix(Long.MIN_VALUE,2));
+        assertEq("-1000000000000000000000000000000000000000000000000000000000000000",StringExpUtil.toLongRadix(Long.MIN_VALUE,2, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix12Test(){
-        assertEq("-2021110011022210012102010021220101220222",StringExpUtil.toLongRadix(Long.MIN_VALUE,3));
+        assertEq("-2021110011022210012102010021220101220222",StringExpUtil.toLongRadix(Long.MIN_VALUE,3, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix13Test(){
-        assertEq("-20000000000000000000000000000000",StringExpUtil.toLongRadix(Long.MIN_VALUE,4));
+        assertEq("-20000000000000000000000000000000",StringExpUtil.toLongRadix(Long.MIN_VALUE,4, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix14Test(){
-        assertEq("-1104332401304422434310311213",StringExpUtil.toLongRadix(Long.MIN_VALUE,5));
+        assertEq("-1104332401304422434310311213",StringExpUtil.toLongRadix(Long.MIN_VALUE,5, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix15Test(){
-        assertEq("-1540241003031030222122212",StringExpUtil.toLongRadix(Long.MIN_VALUE,6));
+        assertEq("-1540241003031030222122212",StringExpUtil.toLongRadix(Long.MIN_VALUE,6, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix16Test(){
-        assertEq("-22341010611245052052301",StringExpUtil.toLongRadix(Long.MIN_VALUE,7));
+        assertEq("-22341010611245052052301",StringExpUtil.toLongRadix(Long.MIN_VALUE,7, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix17Test(){
-        assertEq("-1000000000000000000000",StringExpUtil.toLongRadix(Long.MIN_VALUE,8));
+        assertEq("-1000000000000000000000",StringExpUtil.toLongRadix(Long.MIN_VALUE,8, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix18Test(){
-        assertEq("-67404283172107811828",StringExpUtil.toLongRadix(Long.MIN_VALUE,9));
+        assertEq("-67404283172107811828",StringExpUtil.toLongRadix(Long.MIN_VALUE,9, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix19Test(){
-        assertEq("-9223372036854775808",StringExpUtil.toLongRadix(Long.MIN_VALUE,10));
+        assertEq("-9223372036854775808",StringExpUtil.toLongRadix(Long.MIN_VALUE,10, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix20Test(){
-        assertEq("-1728002635214590698",StringExpUtil.toLongRadix(Long.MIN_VALUE,11));
+        assertEq("-1728002635214590698",StringExpUtil.toLongRadix(Long.MIN_VALUE,11, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix21Test(){
-        assertEq("-41a792678515120368",StringExpUtil.toLongRadix(Long.MIN_VALUE,12));
+        assertEq("-41a792678515120368",StringExpUtil.toLongRadix(Long.MIN_VALUE,12, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix22Test(){
-        assertEq("-10b269549075433c38",StringExpUtil.toLongRadix(Long.MIN_VALUE,13));
+        assertEq("-10b269549075433c38",StringExpUtil.toLongRadix(Long.MIN_VALUE,13, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix23Test(){
-        assertEq("-4340724c6c71dc7a8",StringExpUtil.toLongRadix(Long.MIN_VALUE,14));
+        assertEq("-4340724c6c71dc7a8",StringExpUtil.toLongRadix(Long.MIN_VALUE,14, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix24Test(){
-        assertEq("-160e2ad3246366808",StringExpUtil.toLongRadix(Long.MIN_VALUE,15));
+        assertEq("-160e2ad3246366808",StringExpUtil.toLongRadix(Long.MIN_VALUE,15, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix25Test(){
-        assertEq("-8000000000000000",StringExpUtil.toLongRadix(Long.MIN_VALUE,16));
+        assertEq("-8000000000000000",StringExpUtil.toLongRadix(Long.MIN_VALUE,16, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix26Test(){
-        assertEq("-33d3d8307b214009",StringExpUtil.toLongRadix(Long.MIN_VALUE,17));
+        assertEq("-33d3d8307b214009",StringExpUtil.toLongRadix(Long.MIN_VALUE,17, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix27Test(){
-        assertEq("-16agh595df825fa8",StringExpUtil.toLongRadix(Long.MIN_VALUE,18));
+        assertEq("-16agh595df825fa8",StringExpUtil.toLongRadix(Long.MIN_VALUE,18, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix28Test(){
-        assertEq("-ba643dci0ffeehi",StringExpUtil.toLongRadix(Long.MIN_VALUE,19));
+        assertEq("-ba643dci0ffeehi",StringExpUtil.toLongRadix(Long.MIN_VALUE,19, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix29Test(){
-        assertEq("-5cbfjia3fh26ja8",StringExpUtil.toLongRadix(Long.MIN_VALUE,20));
+        assertEq("-5cbfjia3fh26ja8",StringExpUtil.toLongRadix(Long.MIN_VALUE,20, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix30Test(){
-        assertEq("-2heiciiie82dh98",StringExpUtil.toLongRadix(Long.MIN_VALUE,21));
+        assertEq("-2heiciiie82dh98",StringExpUtil.toLongRadix(Long.MIN_VALUE,21, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix31Test(){
-        assertEq("-1adaibb21dckfa8",StringExpUtil.toLongRadix(Long.MIN_VALUE,22));
+        assertEq("-1adaibb21dckfa8",StringExpUtil.toLongRadix(Long.MIN_VALUE,22, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix32Test(){
-        assertEq("-i6k448cf4192c3",StringExpUtil.toLongRadix(Long.MIN_VALUE,23));
+        assertEq("-i6k448cf4192c3",StringExpUtil.toLongRadix(Long.MIN_VALUE,23, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix33Test(){
-        assertEq("-acd772jnc9l0l8",StringExpUtil.toLongRadix(Long.MIN_VALUE,24));
+        assertEq("-acd772jnc9l0l8",StringExpUtil.toLongRadix(Long.MIN_VALUE,24, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix34Test(){
-        assertEq("-64ie1focnn5g78",StringExpUtil.toLongRadix(Long.MIN_VALUE,25));
+        assertEq("-64ie1focnn5g78",StringExpUtil.toLongRadix(Long.MIN_VALUE,25, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix35Test(){
-        assertEq("-3igoecjbmca688",StringExpUtil.toLongRadix(Long.MIN_VALUE,26));
+        assertEq("-3igoecjbmca688",StringExpUtil.toLongRadix(Long.MIN_VALUE,26, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix36Test(){
-        assertEq("-27c48l5b37oaoq",StringExpUtil.toLongRadix(Long.MIN_VALUE,27));
+        assertEq("-27c48l5b37oaoq",StringExpUtil.toLongRadix(Long.MIN_VALUE,27, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix37Test(){
-        assertEq("-1bk39f3ah3dmq8",StringExpUtil.toLongRadix(Long.MIN_VALUE,28));
+        assertEq("-1bk39f3ah3dmq8",StringExpUtil.toLongRadix(Long.MIN_VALUE,28, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix38Test(){
-        assertEq("-q1se8f0m04isc",StringExpUtil.toLongRadix(Long.MIN_VALUE,29));
+        assertEq("-q1se8f0m04isc",StringExpUtil.toLongRadix(Long.MIN_VALUE,29, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix39Test(){
-        assertEq("-hajppbc1fc208",StringExpUtil.toLongRadix(Long.MIN_VALUE,30));
+        assertEq("-hajppbc1fc208",StringExpUtil.toLongRadix(Long.MIN_VALUE,30, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix40Test(){
-        assertEq("-bm03i95hia438",StringExpUtil.toLongRadix(Long.MIN_VALUE,31));
+        assertEq("-bm03i95hia438",StringExpUtil.toLongRadix(Long.MIN_VALUE,31, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix41Test(){
-        assertEq("-8000000000000",StringExpUtil.toLongRadix(Long.MIN_VALUE,32));
+        assertEq("-8000000000000",StringExpUtil.toLongRadix(Long.MIN_VALUE,32, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix42Test(){
-        assertEq("-5hg4ck9jd4u38",StringExpUtil.toLongRadix(Long.MIN_VALUE,33));
+        assertEq("-5hg4ck9jd4u38",StringExpUtil.toLongRadix(Long.MIN_VALUE,33, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix43Test(){
-        assertEq("-3tdtk1v8j6tpq",StringExpUtil.toLongRadix(Long.MIN_VALUE,34));
+        assertEq("-3tdtk1v8j6tpq",StringExpUtil.toLongRadix(Long.MIN_VALUE,34, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix44Test(){
-        assertEq("-2pijmikexrxp8",StringExpUtil.toLongRadix(Long.MIN_VALUE,35));
+        assertEq("-2pijmikexrxp8",StringExpUtil.toLongRadix(Long.MIN_VALUE,35, MessagesCdmBase.DEF_ALPHA));
     }
     @Test
     public void toLongRadix45Test(){
-        assertEq("-1y2p0ij32e8e8",StringExpUtil.toLongRadix(Long.MIN_VALUE,36));
+        assertEq("-1y2p0ij32e8e8",StringExpUtil.toLongRadix(Long.MIN_VALUE,36, MessagesCdmBase.DEF_ALPHA));
     }
 
     @Test
@@ -1666,5 +1664,17 @@ public final class StringExpUtilTest extends ProcessMethodCommon {
     @Test
     public void matchChars5() {
         assertTrue(StringExpUtil.matchChars(";.!:",1,'.','!'));
+    }
+    public static String toGeneHex(int _i) {
+        return StringExpUtil.toGeneHex(_i, MessagesCdmBase.DEF_ALPHA_HEX);
+    }
+    public static String toLongGeneHex(long _i) {
+        return StringExpUtil.toLongGeneHex(_i,MessagesCdmBase.DEF_ALPHA_HEX);
+    }
+    public static String toShortGeneHex(int _i) {
+        return StringExpUtil.toShortGeneHex(_i, MessagesCdmBase.DEF_ALPHA_HEX);
+    }
+    public static String toByteGeneHex(int _i) {
+        return StringExpUtil.toByteGeneHex(_i, MessagesCdmBase.DEF_ALPHA_HEX);
     }
 }

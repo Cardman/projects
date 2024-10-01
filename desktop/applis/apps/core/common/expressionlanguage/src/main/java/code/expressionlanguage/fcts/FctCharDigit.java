@@ -16,7 +16,7 @@ import code.util.CustList;
 public final class FctCharDigit implements AnaStdCaller {
     @Override
     public Struct call(AnalyzedPageEl _page, Struct _instance, Struct[] _args) {
-        return toDig(_args[0],_args[1]);
+        return toDig(_args[0],_args[1], _page.getDisplayedStrings().getAlpha());
     }
 
     @Override
@@ -24,12 +24,12 @@ public final class FctCharDigit implements AnaStdCaller {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
         Struct one_ = argumentWrappers_.get(0).getValue();
         Struct two_ = argumentWrappers_.get(1).getValue();
-        return new ArgumentWrapper(toDig(one_,two_));
+        return new ArgumentWrapper(toDig(one_,two_, _cont.getStandards().getDisplayedStrings().getAlpha()));
     }
 
-    private Struct toDig(Struct _arg, Struct _sec) {
+    private Struct toDig(Struct _arg, Struct _sec, String _alpha) {
         char one_ = NumParsers.convertToChar(_arg).getChar();
         int two_ = (NumParsers.convertToNumber(_sec)).intStruct();
-        return(new IntStruct(StringDataUtil.digit(one_, two_)));
+        return(new IntStruct(StringDataUtil.digit(one_, two_, _alpha)));
     }
 }

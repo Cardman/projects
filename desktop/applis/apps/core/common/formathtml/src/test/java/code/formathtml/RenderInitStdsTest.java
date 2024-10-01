@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.common.MessagesCdmBase;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.Forwards;
@@ -13,7 +14,6 @@ import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ValidatorStandard;
-import code.expressionlanguage.stds.LgNamesContent;
 import code.formathtml.analyze.ResultText;
 import code.formathtml.common.AdvFileEscapedCalc;
 import code.formathtml.exec.ImportingPage;
@@ -152,6 +152,8 @@ public final class RenderInitStdsTest extends CommonRender {
         _lgNames.getContent().getNbAlias().setAliasPlusInfinityField("PLUS_INFINITY");
         _lgNames.getContent().getNbAlias().setAliasMinusInfinityField("MINUS_INFINITY");
         _lgNames.getContent().getNbAlias().setAliasNanField("NAN");
+        _lgNames.getContent().getNbAlias().setAliasAlpha("alpha");
+        _lgNames.getContent().getNbAlias().setAliasAlphaHex("alphaHex");
         _lgNames.getContent().getPredefTypes().setAliasIteratorType("java.lang.$iterator");
         _lgNames.getContent().getPredefTypes().setAliasIterator("iterator");
         _lgNames.getContent().getPredefTypes().setAliasIterable("java.lang.$iterable");
@@ -486,5 +488,7 @@ public final class RenderInitStdsTest extends CommonRender {
         _lgNames.getDisplayedStrings().setInfinity("Infinity");
         _lgNames.getDisplayedStrings().setNan("Nan");
         _lgNames.getDisplayedStrings().setExponent("E");
+        _lgNames.getDisplayedStrings().setAlpha(MessagesCdmBase.DEF_ALPHA);
+        _lgNames.getDisplayedStrings().setAlphaHex(MessagesCdmBase.DEF_ALPHA_HEX);
     }
 }

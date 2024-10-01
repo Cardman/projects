@@ -1292,71 +1292,71 @@ public final class StringExpUtilTwoTest extends ProcessMethodCommon {
     }
     @Test
     public void digit1() {
-        assertEq(-1, StringDataUtil.digit('0',1));
+        assertEq(-1, digit('0',1));
     }
     @Test
     public void digit2() {
-        assertEq(-1, StringDataUtil.digit('0',37));
+        assertEq(-1, digit('0',37));
     }
     @Test
     public void digit3() {
-        assertEq(-1, StringDataUtil.digit('8',5));
+        assertEq(-1, digit('8',5));
     }
     @Test
     public void digit4() {
-        assertEq(8, StringDataUtil.digit('8',9));
+        assertEq(8, digit('8',9));
     }
     @Test
     public void digit5() {
-        assertEq(-1, StringDataUtil.digit('a',9));
+        assertEq(-1, digit('a',9));
     }
     @Test
     public void digit6() {
-        assertEq(10, StringDataUtil.digit('a',11));
+        assertEq(10, digit('a',11));
     }
     @Test
     public void digit7() {
-        assertEq(-1, StringDataUtil.digit('A',9));
+        assertEq(-1, digit('A',9));
     }
     @Test
     public void digit8() {
-        assertEq(10, StringDataUtil.digit('A',11));
+        assertEq(10, digit('A',11));
     }
     @Test
     public void digit9() {
-        assertEq(-1, StringDataUtil.digit('!',36));
+        assertEq(-1, digit('!',36));
     }
     @Test
     public void digit10() {
-        assertEq(-1, StringDataUtil.digit('|',36));
+        assertEq(-1, digit('|',36));
     }
     @Test
     public void forDigit1() {
-        assertEq(0, StringDataUtil.forDigit(0,1));
+        assertEq(0, forDigit(0,1));
     }
     @Test
     public void forDigit2() {
-        assertEq(0, StringDataUtil.forDigit(0,37));
+        assertEq(0, forDigit(0,37));
     }
     @Test
     public void forDigit3() {
-        assertEq(0, StringDataUtil.forDigit(8,5));
+        assertEq(0, forDigit(8,5));
     }
     @Test
     public void forDigit4() {
-        assertEq(0, StringDataUtil.forDigit(-1,2));
+        assertEq(0, forDigit(-1,2));
     }
     @Test
     public void forDigit5() {
-        assertEq('1', StringDataUtil.forDigit(1,9));
+        assertEq('1', forDigit(1,9));
     }
     @Test
     public void forDigit6() {
-        assertEq('a', StringDataUtil.forDigit(10,11));
+        assertEq('a', forDigit(10,11));
     }
     @Test
     public void forDigit7() {
-        assertEq('b', StringDataUtil.forDigit(11,12));
+        assertEq('b', forDigit(11,12));
     }
     @Test
     public void isUp1(){
@@ -20660,5 +20660,10 @@ public final class StringExpUtilTwoTest extends ProcessMethodCommon {
     public void isDollarWord7Test(){
         assertTrue(MathExpUtil.isDollarWord("$"));
     }
-
+    public static char forDigit(int _digit, int _radix) {
+        return StringDataUtil.forDigit(_digit,_radix,MessagesCdmBase.DEF_ALPHA);
+    }
+    public static int digit(char _ch, int _radix) {
+        return StringDataUtil.digit(_ch,_radix,MessagesCdmBase.DEF_ALPHA);
+    }
 }

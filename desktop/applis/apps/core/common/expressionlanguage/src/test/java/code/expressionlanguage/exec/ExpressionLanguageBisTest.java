@@ -1,6 +1,7 @@
 package code.expressionlanguage.exec;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.MessagesCdmBase;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.functionid.MethodId;
@@ -4628,5 +4629,33 @@ public final class ExpressionLanguageBisTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("exmeth");
         assertEq("####_", getString(calculateNormal("pkg.Ex", id_, cont_)));
+    }
+    @Test
+    public void calculateArgument284Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth (){\n");
+        xml_.append("  $return Character.alpha();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        MethodId id_ = getMethodId("exmeth");
+        assertEq(MessagesCdmBase.DEF_ALPHA, getString(calculateNormal("pkg.Ex", id_, cont_)));
+    }
+    @Test
+    public void calculateArgument285Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth (){\n");
+        xml_.append("  $return Character.alphaHex();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        MethodId id_ = getMethodId("exmeth");
+        assertEq(MessagesCdmBase.DEF_ALPHA_HEX, getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
 }
