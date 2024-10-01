@@ -30,7 +30,7 @@ public final class AnnotationStruct extends WithoutParentStruct implements Field
             return false;
         }
         AnnotationStruct a_ = (AnnotationStruct) _other;
-        return StringUtil.quickEq(ExportAnnotationUtil.exportAnnotation(INFINITY, NAN, "#", "", a_), ExportAnnotationUtil.exportAnnotation(INFINITY, NAN, "#", "", this));
+        return StringUtil.quickEq(ExportAnnotationUtil.exportAnnotation(INFINITY, NAN, "#", a_), ExportAnnotationUtil.exportAnnotation(INFINITY, NAN, "#", this));
     }
 
     @Override
@@ -62,6 +62,6 @@ public final class AnnotationStruct extends WithoutParentStruct implements Field
         DisplayedStrings dis_ = _an.getStandards().getDisplayedStrings();
         return new StringStruct(ExportAnnotationUtil.exportAnnotation(dis_.getInfinity(),
                 dis_.getNan(),
-                dis_.getExponent(), dis_.getUnicode(), this));
+                dis_.getExponent(), this));
     }
 }

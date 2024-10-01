@@ -544,7 +544,6 @@ public final class KeyWordsMap {
         _lgNames.getDisplayedStrings().setStaticString("static");
         _lgNames.getDisplayedStrings().setInfinity("Infinity");
         _lgNames.getDisplayedStrings().setNan("Nan");
-        _lgNames.getDisplayedStrings().setUnicode("u");
         _lgNames.getDisplayedStrings().setExponent("E");
         _lgNames.getPredefTypes().getParams().setAliasSeedGenerator0Get0("a");
 //        stds.put("en", _lgNames);
@@ -904,7 +903,6 @@ public final class KeyWordsMap {
         _lgNames.getDisplayedStrings().setStaticString("static");
         _lgNames.getDisplayedStrings().setInfinity("Infini");
         _lgNames.getDisplayedStrings().setNan("Pun");
-        _lgNames.getDisplayedStrings().setUnicode("u");
         _lgNames.getDisplayedStrings().setExponent("E");
         _lgNames.getPredefTypes().getParams().setAliasSeedGenerator0Get0("a");
 //        stds.put("fr", _lgNames);

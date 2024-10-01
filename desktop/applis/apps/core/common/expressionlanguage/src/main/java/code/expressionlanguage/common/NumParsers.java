@@ -1135,28 +1135,33 @@ public final class NumParsers {
         return _value instanceof DoubleStruct || _value instanceof FloatStruct;
     }
 
-    public static StringStruct exportValue(CharSequenceStruct _ch, String _unicode) {
+    public static StringStruct exportValue(CharSequenceStruct _ch) {
         StringBuilder out_ = new StringBuilder();
         out_.append("\"");
         for (char c: _ch.toStringInstance().toCharArray()) {
-            out_.append(exportChar(c,_unicode));
+            out_.append(exportChar(c));
         }
         out_.append("\"");
         return new StringStruct(out_.toString());
     }
 
-    private static String exportChar(char _char, String _unicode) {
+    private static String exportChar(char _char) {
         if (_char == '"' || _char == '\\') {
             return "\\"+_char;
         }
-        if (_char == 0) {
-            return "\\"+_unicode+"0000";
+//        if (_char == 0) {
+//            return "\\+00000";
+////            return "\\"+_unicode+"0000";
+//        }
+        if (_char < 8) {
+            return "\\+0000"+Long.toString(_char);
         }
-        if (_char < 16) {
-            return "\\"+_unicode+"000"+StringExpUtil.toGeneHex(_char);
-        }
-        if (_char < 31) {
-            return "\\"+_unicode+"00"+StringExpUtil.toGeneHex(_char);
+//        if (_char < 16) {
+//            return "\\"+_unicode+"000"+StringExpUtil.toGeneHex(_char);
+//        }
+        if (_char < 32) {
+            return "\\+000"+Long.toString(_char / 8)+Long.toString(_char % 8);
+//            return "\\"+_unicode+"00"+StringExpUtil.toGeneHex(_char);
         }
         return Character.toString(_char);
     }

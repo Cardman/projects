@@ -8,6 +8,7 @@ public final class TextBlockInfo {
     private String found;
     private boolean ko;
     private final int[] builtUnicode = new int[4];
+    private final int[] builtOctal = new int[5];
 
     public int length() {
         return chars.length();
@@ -33,6 +34,10 @@ public final class TextBlockInfo {
 
     public int[] getBuiltUnicode() {
         return builtUnicode;
+    }
+
+    public int[] getBuiltOctal() {
+        return builtOctal;
     }
 
     public boolean isKo() {

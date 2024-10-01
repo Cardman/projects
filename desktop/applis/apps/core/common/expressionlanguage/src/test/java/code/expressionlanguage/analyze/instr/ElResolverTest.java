@@ -4452,6 +4452,18 @@ public final class ElResolverTest extends ProcessMethodCommon {
     }
 
     @Test
+    public void checkSyntaxDelimiters_4FailTest() {
+        int badOffset_ = getBadOffsetDel("{6*('\\+9gcb&'+8)}");
+        assertEq(-1, badOffset_);
+    }
+
+    @Test
+    public void checkSyntaxDelimiters_5FailTest() {
+        int badOffset_ = getBadOffsetDel("{6*('\\-9gcb&'+8)}");
+        assertEq(-1, badOffset_);
+    }
+
+    @Test
     public void checkSyntax1FailTest() {
         int badOffset_ = getBadOffset("6*('\\u9gcb'+8)");
         assertEq(-1, badOffset_);
@@ -4484,6 +4496,18 @@ public final class ElResolverTest extends ProcessMethodCommon {
     @Test
     public void checkSyntax7FailTest() {
         int badOffset_ = getBadOffset("6*(\"t\\u98\"+[8])");
+        assertEq(15, badOffset_);
+    }
+
+    @Test
+    public void checkSyntax7_FailTest() {
+        int badOffset_ = getBadOffset("6*(\"t\\+98\"+[8])");
+        assertEq(15, badOffset_);
+    }
+
+    @Test
+    public void checkSyntax7__FailTest() {
+        int badOffset_ = getBadOffset("6*(\"t\\-98\"+[8])");
         assertEq(15, badOffset_);
     }
 
@@ -4586,6 +4610,18 @@ public final class ElResolverTest extends ProcessMethodCommon {
     @Test
     public void checkSyntax23FailTest() {
         int badOffset_ = getBadOffset("'\\u9fc");
+        assertEq(6, badOffset_);
+    }
+
+    @Test
+    public void checkSyntax23__FailTest() {
+        int badOffset_ = getBadOffset("'\\+000");
+        assertEq(6, badOffset_);
+    }
+
+    @Test
+    public void checkSyntax23___FailTest() {
+        int badOffset_ = getBadOffset("'\\-000");
         assertEq(6, badOffset_);
     }
 
@@ -4695,6 +4731,18 @@ public final class ElResolverTest extends ProcessMethodCommon {
     @Test
     public void checkSyntax80FailTest() {
         int badOffset_ = getBadOffset("'\\u9'");
+        assertEq(-1, badOffset_);
+    }
+
+    @Test
+    public void checkSyntax80_FailTest() {
+        int badOffset_ = getBadOffset("'\\+0'");
+        assertEq(-1, badOffset_);
+    }
+
+    @Test
+    public void checkSyntax80__FailTest() {
+        int badOffset_ = getBadOffset("'\\-0'");
         assertEq(-1, badOffset_);
     }
 

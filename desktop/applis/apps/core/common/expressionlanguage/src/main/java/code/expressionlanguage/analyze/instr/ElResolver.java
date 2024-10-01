@@ -47,6 +47,9 @@ public final class ElResolver {
     public static final int POST_INCR_PRIO = 18;
     public static final int FCT_OPER_PRIO = 19;
     static final byte UNICODE_SIZE = 4;
+    static final byte OCTAL_SIZE = 5;
+    static final char OCTAL_FIRST = '+';
+    static final char OCTAL_LAST = '-';
 
     static final String EMPTY_STRING = "";
     static final char LINE_RETURN = '\n';
@@ -256,6 +259,7 @@ public final class ElResolver {
         TextBlockInfo txt_ = new TextBlockInfo();
         boolean escapedMeta_ = false;
         int unicode_ = 0;
+        int octal_ = 0;
         int end_ = _stPart.getEnd();
         int st_ = _stPart.getBegin();
         _resOpers.setConstTextString(true);
@@ -268,6 +272,7 @@ public final class ElResolver {
             unic_.setNbChars(_resOpers.getNbChars());
             unic_.setPart(true);
             unic_.setUnicode(unicode_);
+            unic_.setOctal(octal_);
             unic_.setStringInfo(txt_);
             IndexUnicodeEscape res_ = processTextBlocks(_keyWords, _string, len_, txt_,unic_, _delimiterChar);
             int index_ = res_.getIndex();
@@ -284,6 +289,7 @@ public final class ElResolver {
             escapedMeta_ = res_.isEscape();
             _resOpers.setNbChars(res_.getNbChars());
             unicode_ = res_.getUnicode();
+            octal_ = res_.getOctal();
         }
     }
 
@@ -297,6 +303,7 @@ public final class ElResolver {
         TextBlockInfo si_ = new TextBlockInfo();
         boolean escapedMeta_ = false;
         int unicode_ = 0;
+        int octal_ = 0;
         int end_ = _stPart.getEnd();
         int st_ = _stPart.getBegin();
         _resOpers.setConstText(true);
@@ -310,6 +317,7 @@ public final class ElResolver {
             unic_.setNbChars(_resOpers.getNbChars());
             unic_.setPart(true);
             unic_.setUnicode(unicode_);
+            unic_.setOctal(octal_);
             IndexUnicodeEscape res_ = processStringsDelText(_string, len_, unic_);
             int index_ = res_.getIndex();
             if (!res_.isPart()) {
@@ -325,6 +333,7 @@ public final class ElResolver {
             escapedMeta_ = res_.isEscape();
             _resOpers.setNbChars(res_.getNbChars());
             unicode_ = res_.getUnicode();
+            octal_ = res_.getOctal();
         }
     }
 
@@ -334,6 +343,7 @@ public final class ElResolver {
         TextBlockInfo si_ = new TextBlockInfo();
         boolean escapedMeta_ = false;
         int unicode_ = 0;
+        int octal_ = 0;
         int end_ = _stPart.getEnd();
         _d.getDelStringsChars().add(i_);
         int st_ = _stPart.getBegin();
@@ -347,6 +357,7 @@ public final class ElResolver {
             unic_.setNbChars(_resOpers.getNbChars());
             unic_.setPart(true);
             unic_.setUnicode(unicode_);
+            unic_.setOctal(octal_);
             IndexUnicodeEscape res_ = processStrings(_keyWords, _string, len_, si_, unic_, DELIMITER_STRING);
             int index_ = res_.getIndex();
             if (!res_.isPart()) {
@@ -362,6 +373,7 @@ public final class ElResolver {
             escapedMeta_ = res_.isEscape();
             _resOpers.setNbChars(res_.getNbChars());
             unicode_ = res_.getUnicode();
+            octal_ = res_.getOctal();
         }
     }
 
@@ -370,6 +382,7 @@ public final class ElResolver {
         TextBlockInfo si_ = new TextBlockInfo();
         boolean escapedMeta_ = false;
         int unicode_ = 0;
+        int octal_ = 0;
         int end_ = _stPart.getEnd();
         int st_ = _stPart.getBegin();
         _resOpers.setConstChar(true);
@@ -383,6 +396,7 @@ public final class ElResolver {
             unic_.setNbChars(_resOpers.getNbChars());
             unic_.setPart(true);
             unic_.setUnicode(unicode_);
+            unic_.setOctal(octal_);
             unic_.setStringInfo(si_);
             if (unic_.getNbChars() > 1) {
                 si_.setKo();
@@ -402,6 +416,7 @@ public final class ElResolver {
             escapedMeta_ = res_.isEscape();
             _resOpers.setNbChars(res_.getNbChars());
             unicode_ = res_.getUnicode();
+            octal_ = res_.getOctal();
         }
     }
 
@@ -1459,6 +1474,7 @@ public final class ElResolver {
         int i_ = _infos.getIndex();
         int nbChars_ = _infos.getNbChars();
         int unicode_ = _infos.getUnicode();
+        int octal_ = _infos.getOctal();
         char curChar_ = _string.charAt(i_);
         boolean escapedMeta_ = _infos.isEscape();
         IndexUnicodeEscape infos_ = buildState(_infos);
@@ -1487,6 +1503,10 @@ public final class ElResolver {
             unicode(_key, _si, i_, nbChars_, unicode_, curChar_, infos_);
             return infos_;
         }
+        if (octal_ != 0) {
+            octal(_si, i_, nbChars_, octal_, curChar_, infos_);
+            return infos_;
+        }
         return escOthStrings(_infos,_key, _string, _max, _si, _delimiter, infos_);
     }
 
@@ -1497,6 +1517,7 @@ public final class ElResolver {
         infos_.setIndex(_infos.getIndex());
         infos_.setNbChars(_infos.getNbChars());
         infos_.setUnicode(_infos.getUnicode());
+        infos_.setOctal(_infos.getOctal());
         infos_.setPart(_infos.isPart());
         return infos_;
     }
@@ -1539,6 +1560,23 @@ public final class ElResolver {
         int i_ = _infos.getIndex();
         int nbChars_ = _infos.getNbChars();
         char curChar_ = _string.charAt(i_);
+        if (curChar_ == OCTAL_FIRST || curChar_ == OCTAL_LAST) {
+            if (i_ + 1 + OCTAL_SIZE > _max) {
+                _si.setKo();
+                _infTx.appendChar(curChar_);
+                _out.setNbChars(nbChars_ +1);
+                _out.setEscape(false);
+                _out.setIndex(i_ +1);
+                return _out;
+            }
+            if (curChar_ == OCTAL_LAST) {
+                _out.setOctal(-1);
+            } else {
+                _out.setOctal(1);
+            }
+            _out.setIndex(i_+1);
+            return _out;
+        }
         String unicodeStr_ = _key.getKeyWordEscUnicode();
         if (!_string.startsWith(unicodeStr_, i_) || i_ + unicodeStr_.length() + UNICODE_SIZE > _max) {
             _si.setKo();
@@ -1592,6 +1630,14 @@ public final class ElResolver {
         return index_;
     }
 
+    private static int trOctalDigToLetterInStr(TextBlockInfo _si, char _curChar) {
+        if (_curChar < '0' || _curChar > '7') {
+            _si.setKo();
+            return -1;
+        }
+        return _curChar - '0';
+    }
+
     private static int index(KeyWords _key, char _curChar) {
         return new DefCharacterCaseConverter().index(_key.getKeyWordNbDig(),_curChar);
     }
@@ -1600,6 +1646,7 @@ public final class ElResolver {
         int i_ = _infos.getIndex();
         int nbChars_ = _infos.getNbChars();
         int unicode_ = _infos.getUnicode();
+        int octal_ = _infos.getOctal();
         char curChar_ = _string.charAt(i_);
         boolean escapedMeta_ = _infos.isEscape();
         IndexUnicodeEscape infos_ = new IndexUnicodeEscape();
@@ -1608,6 +1655,7 @@ public final class ElResolver {
         infos_.setIndex(i_);
         infos_.setNbChars(nbChars_);
         infos_.setUnicode(unicode_);
+        infos_.setOctal(octal_);
         infos_.setPart(_infos.isPart());
         if (!StringUtil.isWhitespace(curChar_)&&!infos_.getStringInfo().isLine()) {
             infos_.getStringInfo().setKo();
@@ -1618,6 +1666,12 @@ public final class ElResolver {
         infos_.getStringInfo().setLastSpace(-1);
         if (unicode_ > 0) {
             if (unicode(_key, _si, i_, nbChars_, unicode_, curChar_, infos_)) {
+                infos_.getStringInfo().setPrintable(true);
+            }
+            return infos_;
+        }
+        if (octal_ != 0) {
+            if (octal(_si, i_, nbChars_, octal_, curChar_, infos_)) {
                 infos_.getStringInfo().setPrintable(true);
             }
             return infos_;
@@ -1654,6 +1708,37 @@ public final class ElResolver {
             _infos.setNbChars(_nbChars +1);
             _infos.setEscape(false);
             _infos.setUnicode(0);
+            pr_ = true;
+        }
+        _infos.setIndex(_i +1);
+        return pr_;
+    }
+
+    private static boolean octal(TextBlockInfo _si, int _i, int _nbChars, int _octal, char _curChar, IndexUnicodeEscape _infos) {
+        int charToAdd_ = trOctalDigToLetterInStr(_si, _curChar);
+        if (_octal < 0) {
+            _infos.getStringInfo().getBuiltOctal()[-_octal -1] = charToAdd_;
+        } else {
+            _infos.getStringInfo().getBuiltOctal()[_octal -1] = charToAdd_;
+        }
+        boolean pr_;
+        if (NumberUtil.abs(_octal) < NumberUtil.abs(OCTAL_SIZE)) {
+            _infos.setNbChars(_nbChars);
+            _infos.setEscape(true);
+            _infos.setOctal(_octal +NumberUtil.signum(_octal));
+            pr_ = false;
+        } else {
+            long value_ = NumberUtil.buildQuickLong(Ints.newList(_infos.getStringInfo().getBuiltOctal()), 8);
+            char builtChar_;
+            if (_octal == OCTAL_SIZE) {
+                builtChar_ = (char) value_;
+            } else {
+                builtChar_ = (char) (value_ + 128 * 256);
+            }
+            _infos.getStringInfo().appendChar(builtChar_);
+            _infos.setNbChars(_nbChars + 1);
+            _infos.setEscape(false);
+            _infos.setOctal(0);
             pr_ = true;
         }
         _infos.setIndex(_i +1);

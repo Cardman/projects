@@ -3305,7 +3305,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={\"$class(ExTwo)\\u0000\"}))", getString(calculateNormal("pkg.Ex", id_, cont_)));
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={\"$class(ExTwo)\\+00000\"}))", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument85Test() {
@@ -3342,7 +3342,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={\"$class(ExTwo)\\u0001\"}))", getString(calculateNormal("pkg.Ex", id_, cont_)));
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={\"$class(ExTwo)\\+00001\"}))", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument86Test() {
@@ -3379,7 +3379,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
         MethodId id_ = getMethodId("catching");
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={\"$class(ExTwo)\\u0010\"}))", getString(calculateNormal("pkg.Ex", id_, cont_)));
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={\"$class(ExTwo)\\+00020\"}))", getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
     @Test
     public void calculateArgument87Test() {

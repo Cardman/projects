@@ -11,12 +11,12 @@ final class LeafAnnotPart extends InfoAnnotPart {
         part = _part;
     }
 
-    String export(String _infinity, String _nan,String _exp, String _unicode) {
+    String export(String _infinity, String _nan, String _exp) {
         if (part instanceof BooleanStruct) {
             return ((BooleanStruct)part).exportValue().getInstance();
         }
         if (part instanceof CharSequenceStruct) {
-            return NumParsers.exportValue((CharSequenceStruct)part,_unicode).getInstance();
+            return NumParsers.exportValue((CharSequenceStruct)part).getInstance();
         }
         if (part instanceof NumberStruct) {
             return NumParsers.exportValue((NumberStruct)part,_infinity,_nan,_exp).getInstance();

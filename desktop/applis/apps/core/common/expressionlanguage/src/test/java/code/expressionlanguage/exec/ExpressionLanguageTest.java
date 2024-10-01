@@ -687,8 +687,33 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     }
 
     @Test
+    public void processEl175_Test() {
+        assertEq(0, getNumber(directCalculate("'\\+00000'")));
+    }
+
+    @Test
+    public void processEl175__Test() {
+        assertEq(32768, getNumber(directCalculate("'\\-00000'")));
+    }
+
+    @Test
+    public void processEl_175Test() {
+        assertEq(32767, getNumber(directCalculate("'\\+77777'")));
+    }
+
+    @Test
+    public void processEl__175Test() {
+        assertEq(65535, getNumber(directCalculate("'\\-77777'")));
+    }
+
+    @Test
     public void processEl176Test() {
         assertEq("\u9fcb", getString(directCalculate("\"\\u9FCB\"")));
+    }
+
+    @Test
+    public void processEl176_Test() {
+        assertEq(" ", getString(directCalculate("\"\\+00040\"")));
     }
 
     @Test
@@ -5612,6 +5637,16 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     }
 
     @Test
+    public void processEl103118_Test() {
+        assertEq("l\n \nc", getString(directCalculate("\"\"\" \nl\n\\+00040\nc\"\"\"")));
+    }
+
+    @Test
+    public void processEl103118__Test() {
+        assertEq("l\n!\nc", getString(directCalculate("\"\"\" \nl\n\\+00041\nc\"\"\"")));
+    }
+
+    @Test
     public void processEl103119Test() {
         assertEq("l\n\uaaaa\nc", getString(directCalculate("\"\"\" \nl\n\\uaaaa\nc\"\"\"")));
     }
@@ -5741,6 +5776,16 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     @Test
     public void processEl113118Test() {
         assertEq("l\n \nc", getString(directCalculate("''' \nl\n\\u0020\nc'''")));
+    }
+
+    @Test
+    public void processEl113118_Test() {
+        assertEq("l\n \nc", getString(directCalculate("''' \nl\n\\+00040\nc'''")));
+    }
+
+    @Test
+    public void processEl113118__Test() {
+        assertEq("l\n!\nc", getString(directCalculate("''' \nl\n\\+00041\nc'''")));
     }
 
     @Test

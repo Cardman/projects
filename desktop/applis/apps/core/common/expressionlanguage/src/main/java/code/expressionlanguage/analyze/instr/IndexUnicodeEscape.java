@@ -7,6 +7,7 @@ public final class IndexUnicodeEscape {
     private boolean escape;
 
     private int unicode;
+    private int octal;
 
     private int nbChars;
 
@@ -36,6 +37,14 @@ public final class IndexUnicodeEscape {
 
     public void setUnicode(int _unicode) {
         unicode = _unicode;
+    }
+
+    public int getOctal() {
+        return octal;
+    }
+
+    public void setOctal(int _p) {
+        this.octal = _p;
     }
 
     public int getNbChars() {

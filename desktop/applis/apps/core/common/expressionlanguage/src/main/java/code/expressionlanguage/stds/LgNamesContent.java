@@ -54,7 +54,6 @@ public final class LgNamesContent {
         getDisplayedStrings().setStaticString(get(_util,_cust, _mapping.getVal(STATIC_STRING)));
         getDisplayedStrings().setInfinity(get(_util,_cust, _mapping.getVal(INFINITY)));
         getDisplayedStrings().setNan(get(_util,_cust, _mapping.getVal(NAN)));
-        getDisplayedStrings().setUnicode(get(_util,_cust, _mapping.getVal(UNICODE)));
         getDisplayedStrings().setExponent(get(_util,_cust, _mapping.getVal(EXPONENT)));
         getPredefTypes().getParams().build(_util, _cust,_mapping);
         getCharSeq().getParams().build(_util, _cust,_mapping);

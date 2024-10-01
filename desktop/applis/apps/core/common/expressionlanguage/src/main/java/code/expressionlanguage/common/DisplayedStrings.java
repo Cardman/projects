@@ -12,7 +12,6 @@ public final class DisplayedStrings {
     private String infinity;
     private String exponent;
     private String nan;
-    private String unicode;
 
     public String getTrueString() {
         return trueString;
@@ -88,11 +87,4 @@ public final class DisplayedStrings {
         this.nan = _nan;
     }
 
-    public String getUnicode() {
-        return unicode;
-    }
-
-    public void setUnicode(String _un) {
-        this.unicode = _un;
-    }
 }

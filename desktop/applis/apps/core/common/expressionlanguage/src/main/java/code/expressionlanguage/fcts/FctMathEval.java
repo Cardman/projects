@@ -47,11 +47,10 @@ public final class FctMathEval extends FctMath {
         AbsLogDbg lg_ = _stackCall.getStopper().getLogger();
         String paramStr_;
         if (lg_ != null) {
-            String un_ = lgNames_.getDisplayedStrings().getUnicode();
             for (Replacement r: repls_) {
-                chgs_.add(NumParsers.exportValue(new StringStruct(r.getOldString()),un_).getInstance()+"-"+NumParsers.exportValue(new StringStruct(r.getNewString()),un_).getInstance());
+                chgs_.add(NumParsers.exportValue(new StringStruct(r.getOldString())).getInstance()+"-"+NumParsers.exportValue(new StringStruct(r.getNewString())).getInstance());
             }
-            paramStr_ = _id +":"+NumParsers.exportValue(new StringStruct(val_),un_).getInstance()+","+StringUtil.join(chgs_, ";");
+            paramStr_ = _id +":"+NumParsers.exportValue(new StringStruct(val_)).getInstance()+","+StringUtil.join(chgs_, ";");
         } else {
             paramStr_ = "";
         }
