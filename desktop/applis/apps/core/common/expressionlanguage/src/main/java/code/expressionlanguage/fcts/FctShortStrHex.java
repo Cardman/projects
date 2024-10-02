@@ -23,7 +23,7 @@ public final class FctShortStrHex implements AnaStdCaller {
         return new ArgumentWrapper(convert(_firstArgs.getArgumentWrappers().get(0).getValue(), _cont.getStandards().getDisplayedStrings().getAlphaHex()));
     }
 
-    private Struct convert(Struct _arg, String _hex) {
+    public static Struct convert(Struct _arg, String _hex) {
         short one_ = NumParsers.convertToNumber(_arg).shortStruct();
         return new StringStruct(StringExpUtil.toShortGeneHex(one_, _hex));
     }

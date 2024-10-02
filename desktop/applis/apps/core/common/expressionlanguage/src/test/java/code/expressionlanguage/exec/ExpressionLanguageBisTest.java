@@ -4658,4 +4658,241 @@ public final class ExpressionLanguageBisTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         assertEq(MessagesCdmBase.DEF_ALPHA_HEX, getString(calculateNormal("pkg.Ex", id_, cont_)));
     }
+    @Test
+    public void calculateArgument286Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth (){\n");
+        xml_.append("  $var t = ($byte)107;\n");
+        xml_.append("  $return Byte.hex(t,\"éèçàùµ\");\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        MethodId id_ = getMethodId("exmeth");
+        assertEq("6è", getString(calculateNormal("pkg.Ex", id_, cont_)));
+    }
+    @Test
+    public void calculateArgument287Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth (){\n");
+        xml_.append("  $var t = ($short)450;\n");
+        xml_.append("  $return Short.hex(t,\"éèçàùµ\");\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        MethodId id_ = getMethodId("exmeth");
+        assertEq("1ç2", getString(calculateNormal("pkg.Ex", id_, cont_)));
+    }
+    @Test
+    public void calculateArgument288Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth (){\n");
+        xml_.append("  $var t = 89237;\n");
+        xml_.append("  $return Integer.hex(t,\"éèçàùµ\");\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        MethodId id_ = getMethodId("exmeth");
+        assertEq("15ç95", getString(calculateNormal("pkg.Ex", id_, cont_)));
+    }
+    @Test
+    public void calculateArgument289Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth (){\n");
+        xml_.append("  $var t = 5_563_789_413L;\n");
+        xml_.append("  $return Long.hex(t,\"éèçàùµ\");\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        MethodId id_ = getMethodId("exmeth");
+        assertEq("14èé0è065", getString(calculateNormal("pkg.Ex", id_, cont_)));
+    }
+
+    @Test
+    public void calculateArgument290Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $long exmeth (){\n");
+        xml_.append("  $var t = \"1\";\n");
+        xml_.append("  $return Long.parseLong(t,10,\"\");\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        MethodId id_ = getMethodId("exmeth");
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
+    }
+
+    @Test
+    public void calculateArgument291Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth (){\n");
+        xml_.append("  $var t = \"1\";\n");
+        xml_.append("  $return Integer.parseInt(t,10,\"\");\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        MethodId id_ = getMethodId("exmeth");
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
+    }
+
+    @Test
+    public void calculateArgument292Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $short exmeth (){\n");
+        xml_.append("  $var t = \"1\";\n");
+        xml_.append("  $return Short.parseShort(t,10,\"\");\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        MethodId id_ = getMethodId("exmeth");
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
+    }
+
+    @Test
+    public void calculateArgument293Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $byte exmeth (){\n");
+        xml_.append("  $var t = \"1\";\n");
+        xml_.append("  $return Byte.parseByte(t,10,\"\");\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        MethodId id_ = getMethodId("exmeth");
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
+    }
+
+    @Test
+    public void calculateArgument294Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $long exmeth (){\n");
+        xml_.append("  $var t = \"1\";\n");
+        xml_.append("  $return Long.parseLongOrNull(t,10,\"\");\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        MethodId id_ = getMethodId("exmeth");
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
+    }
+
+    @Test
+    public void calculateArgument295Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth (){\n");
+        xml_.append("  $var t = \"1\";\n");
+        xml_.append("  $return Integer.parseIntOrNull(t,10,\"\");\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        MethodId id_ = getMethodId("exmeth");
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
+    }
+
+    @Test
+    public void calculateArgument296Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $short exmeth (){\n");
+        xml_.append("  $var t = \"1\";\n");
+        xml_.append("  $return Short.parseShortOrNull(t,10,\"\");\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        MethodId id_ = getMethodId("exmeth");
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
+    }
+
+    @Test
+    public void calculateArgument297Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $byte exmeth (){\n");
+        xml_.append("  $var t = \"1\";\n");
+        xml_.append("  $return Byte.parseByteOrNull(t,10,\"\");\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        MethodId id_ = getMethodId("exmeth");
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
+    }
+    @Test
+    public void calculateArgument298Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth (){\n");
+        xml_.append("  $long t = 33;\n");
+        xml_.append("  $int u = 16;\n");
+        xml_.append("  $return Long.toString(t,u,\"abcdef\");\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        MethodId id_ = getMethodId("exmeth");
+        assertEq("21", getString(calculateNormal("pkg.Ex", id_, cont_)));
+    }
+
+    @Test
+    public void calculateArgument299Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth (){\n");
+        xml_.append("  $char t = '1';\n");
+        xml_.append("  $return Character.digit(t,10,$null);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        MethodId id_ = getMethodId("exmeth");
+        assertEq(1, getNumber(calculateNormal("pkg.Ex", id_, cont_)));
+    }
+
+    @Test
+    public void calculateArgument300Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $char exmeth (){\n");
+        xml_.append("  $int t = 1;\n");
+        xml_.append("  $return Character.forDigit(t,10,$null);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        MethodId id_ = getMethodId("exmeth");
+        assertEq('1',getChar(calculateNormal("pkg.Ex", id_, cont_)));
+    }
+
 }

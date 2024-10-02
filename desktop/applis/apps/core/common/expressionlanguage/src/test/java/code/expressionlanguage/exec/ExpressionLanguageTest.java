@@ -3541,6 +3541,46 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     }
 
     @Test
+    public void processEl777_Test() {
+        assertEq(1, getNumber(directCalculate("Byte.parseByte(\"1\",10,$null)")));
+    }
+
+    @Test
+    public void processEl778_Test() {
+        assertEq(1, getNumber(directCalculate("Short.parseShort(\"1\",10,$null)")));
+    }
+
+    @Test
+    public void processEl779_Test() {
+        assertEq(1, getNumber(directCalculate("Integer.parseInt(\"1\",10,$null)")));
+    }
+
+    @Test
+    public void processEl780_Test() {
+        assertEq(1, getNumber(directCalculate("Long.parseLong(\"1\",10,$null)")));
+    }
+
+    @Test
+    public void processEl777__Test() {
+        assertEq(1, getNumber(directCalculate("Byte.parseByte(\"1\",10,\"\")")));
+    }
+
+    @Test
+    public void processEl778__Test() {
+        assertEq(1, getNumber(directCalculate("Short.parseShort(\"1\",10,\"\")")));
+    }
+
+    @Test
+    public void processEl779__Test() {
+        assertEq(1, getNumber(directCalculate("Integer.parseInt(\"1\",10,\"\")")));
+    }
+
+    @Test
+    public void processEl780__Test() {
+        assertEq(1, getNumber(directCalculate("Long.parseLong(\"1\",10,\"\")")));
+    }
+
+    @Test
     public void processEl781Test() {
         assertEq(1, getNumber(directCalculate("Short.parseShort(\"1\")")));
     }
@@ -3853,6 +3893,26 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     @Test
     public void processEl825Test() {
         assertEq('1', getNumber(directCalculate("Character.forDigit(1,10)")));
+    }
+
+    @Test
+    public void processEl824_Test() {
+        assertEq(1, getNumber(directCalculate("Character.digit('1',10,$null)")));
+    }
+
+    @Test
+    public void processEl825_Test() {
+        assertEq('1', getNumber(directCalculate("Character.forDigit(1,10,$null)")));
+    }
+
+    @Test
+    public void processEl824__Test() {
+        assertEq(1, getNumber(directCalculate("Character.digit('1',10,\"\")")));
+    }
+
+    @Test
+    public void processEl825__Test() {
+        assertEq('1', getNumber(directCalculate("Character.forDigit(1,10,\"\")")));
     }
 
     @Test
@@ -4798,6 +4858,48 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         assertEq(1, getNumber(directCalculate("Long.parseLongOrNull(\"1\",10)")));
     }
 
+
+    @Test
+    public void processEl997_Test() {
+        assertEq(1, getNumber(directCalculate("Byte.parseByteOrNull(\"1\",10,\"\")")));
+    }
+
+    @Test
+    public void processEl998_Test() {
+        assertEq(1, getNumber(directCalculate("Short.parseShortOrNull(\"1\",10,\"\")")));
+    }
+
+    @Test
+    public void processEl999_Test() {
+        assertEq(1, getNumber(directCalculate("Integer.parseIntOrNull(\"1\",10,\"\")")));
+    }
+
+    @Test
+    public void processEl1000_Test() {
+        assertEq(1, getNumber(directCalculate("Long.parseLongOrNull(\"1\",10,\"\")")));
+    }
+
+
+    @Test
+    public void processEl997__Test() {
+        assertEq(1, getNumber(directCalculate("Byte.parseByteOrNull(\"1\",10,$null)")));
+    }
+
+    @Test
+    public void processEl998__Test() {
+        assertEq(1, getNumber(directCalculate("Short.parseShortOrNull(\"1\",10,$null)")));
+    }
+
+    @Test
+    public void processEl999__Test() {
+        assertEq(1, getNumber(directCalculate("Integer.parseIntOrNull(\"1\",10,$null)")));
+    }
+
+    @Test
+    public void processEl1000__Test() {
+        assertEq(1, getNumber(directCalculate("Long.parseLongOrNull(\"1\",10,$null)")));
+    }
+
     @Test
     public void processEl1001Test() {
         assertEq(1, getNumber(directCalculate("Short.parseShortOrNull(\"1\")")));
@@ -5345,6 +5447,16 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     }
 
     @Test
+    public void processEl103063_Test() {
+        assertEq("21", getString(directCalculate("Long.toString(33,16,$null)")));
+    }
+
+    @Test
+    public void processEl103063__Test() {
+        assertEq("21", getString(directCalculate("Long.toString(33,16,\"abcdef\")")));
+    }
+
+    @Test
     public void processEl103064Test() {
         assertEq(0, getNumber(directCalculate("Long.sgn(0)")));
     }
@@ -5381,6 +5493,46 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     @Test
     public void processEl103070Test() {
         assertEq("0", getString(directCalculate("Short.hex(($short)0)")));
+    }
+
+    @Test
+    public void processEl103067_Test() {
+        assertEq("6b", getString(directCalculate("Byte.hex(($byte)107,$null)")));
+    }
+
+    @Test
+    public void processEl103068_Test() {
+        assertEq("1c2", getString(directCalculate("Short.hex(($short)450,$null)")));
+    }
+
+    @Test
+    public void processEl103069_Test() {
+        assertEq("15c95", getString(directCalculate("Integer.hex(89237,$null)")));
+    }
+
+    @Test
+    public void processEl103070_Test() {
+        assertEq("14ba0b065", getString(directCalculate("Long.hex(5_563_789_413L,$null)")));
+    }
+
+    @Test
+    public void processEl103067__Test() {
+        assertEq("6è", getString(directCalculate("Byte.hex(($byte)107,\"éèçàùµ\")")));
+    }
+
+    @Test
+    public void processEl103068__Test() {
+        assertEq("1ç2", getString(directCalculate("Short.hex(($short)450,\"éèçàùµ\")")));
+    }
+
+    @Test
+    public void processEl103069__Test() {
+        assertEq("15ç95", getString(directCalculate("Integer.hex(89237,\"éèçàùµ\")")));
+    }
+
+    @Test
+    public void processEl103070__Test() {
+        assertEq("14èé0è065", getString(directCalculate("Long.hex(5_563_789_413L,\"éèçàùµ\")")));
     }
 
     @Test

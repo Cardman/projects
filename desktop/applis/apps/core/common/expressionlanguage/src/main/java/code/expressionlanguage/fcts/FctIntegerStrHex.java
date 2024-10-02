@@ -23,7 +23,7 @@ public final class FctIntegerStrHex implements AnaStdCaller {
         return new ArgumentWrapper(convert(_firstArgs.getArgumentWrappers().get(0).getValue(), _cont.getStandards().getDisplayedStrings().getAlphaHex()));
     }
 
-    private Struct convert(Struct _arg, String _hex) {
+    public static Struct convert(Struct _arg, String _hex) {
         int one_ = NumParsers.convertToNumber(_arg).intStruct();
         return new StringStruct(StringExpUtil.toGeneHex(one_, _hex));
     }

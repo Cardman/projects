@@ -5,26 +5,25 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.stds.AnaStdCaller;
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
+import code.util.CustList;
 
-public final class FctLongStrHex implements AnaStdCaller {
+public final class FctCharDigitBase implements AnaStdCaller {
     @Override
     public Struct call(AnalyzedPageEl _page, Struct _instance, Struct[] _args) {
-        return convert(_args[0], _page.getDisplayedStrings().getAlphaHex());
+        return FctCharDigit.toDig(_args[0],_args[1], NumParsers.base(_args[2],_page.getDisplayedStrings().getAlpha()));
     }
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return new ArgumentWrapper(convert(_firstArgs.getArgumentWrappers().get(0).getValue(), _cont.getStandards().getDisplayedStrings().getAlphaHex()));
+        CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
+        Struct one_ = argumentWrappers_.get(0).getValue();
+        Struct two_ = argumentWrappers_.get(1).getValue();
+        Struct three_ = argumentWrappers_.get(2).getValue();
+        return new ArgumentWrapper(FctCharDigit.toDig(one_,two_, NumParsers.base(three_, _cont.getStandards().getDisplayedStrings().getAlpha())));
     }
 
-    public static Struct convert(Struct _arg, String _hex) {
-        long one_ = NumParsers.convertToNumber(_arg).longStruct();
-        return new StringStruct(StringExpUtil.toLongGeneHex(one_, _hex));
-    }
 }

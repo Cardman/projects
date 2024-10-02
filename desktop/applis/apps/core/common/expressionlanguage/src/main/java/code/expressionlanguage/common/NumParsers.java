@@ -2143,6 +2143,18 @@ public final class NumParsers {
         }
         return map_;
     }
+    public static String base(Struct _value, String _def) {
+        if (!(_value instanceof StringStruct)) {
+            return _def;
+        }
+        return DisplayedStrings.patchAlpha(((StringStruct)_value).getInstance());
+    }
+    public static String baseHex(Struct _value, String _def) {
+        if (!(_value instanceof StringStruct)) {
+            return _def;
+        }
+        return DisplayedStrings.patchAlphaHex(((StringStruct)_value).getInstance(),_def);
+    }
     public static long randCode(Struct _boolean) {
         if (BooleanStruct.isTrue(_boolean)) {
             return 1;

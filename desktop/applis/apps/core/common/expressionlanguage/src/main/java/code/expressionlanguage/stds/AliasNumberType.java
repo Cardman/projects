@@ -617,14 +617,20 @@ public final class AliasNumberType {
         numbersConstructors(_lgNames,constructors_, aliasPrimLong_,new StringList(params.getAliasLong0Long0()),new StringList(params.getAliasLong1Long0()), new FctLong(new DefRadix()));
         StandardNamedFunction.addFct(methods_, addToStrMeth(_lgNames, aliasPrimLong_, new StringList(params.getAliasLong0ToStringMethod0()), new FctNbRelToStr0()));
         bulk(methods_, addParserMaths(_lgNames, aliasLong, aliasParseLong, new StringList(params.getAliasLong0ParseLong0()), new StringList(params.getAliasLong1ParseLong0(), params.getAliasLong1ParseLong1()), new FctLong(new DefRadix()), new FctLong(new ArgRadix())));
+        bulk(methods_, addParserMaths(_lgNames, aliasLong, aliasParseLong, new StringList(params.getAliasLong2ParseLong0(),params.getAliasLong2ParseLong1(), params.getAliasLong2ParseLong2()), new FctLong(new ArgRadix(),new AdvEncodeArg())));
         bulk(methods_, addCompare(_lgNames, aliasPrimLong_, aliasLong, new StringList(params.getAliasLong0CompareTo0()), new StringList(params.getAliasLong0Compare0(),params.getAliasLong0Compare1()), new FctNbCompareToSpecRel(), new FctNbCompareSpecRel()));
         StandardNamedFunction.addFct(methods_, addSpecBaseStr(aliasToBinString, _lgNames, aliasPrimLong_, new StringList(params.getAliasLong0ToBinString0()), new FctLongStrBin()));
         StandardNamedFunction.addFct(methods_, addSpecBaseStr(aliasToOctString, _lgNames, aliasPrimLong_, new StringList(params.getAliasLong0ToOctString0()),new FctLongStrOct()));
         StandardNamedFunction.addFct(methods_, addSpecBaseStr(aliasToHexString, _lgNames, aliasPrimLong_, new StringList(params.getAliasLong0ToHexString0()),new FctLongStrHex()));
+        StandardNamedFunction.addFct(methods_, addSpecBaseStrBase(aliasToHexString, _lgNames, aliasPrimLong_, new StringList(params.getAliasLong1ToHexString0(),params.getAliasLong1ToHexString1()),new FctLongStrHexBase()));
         bulk(methods_, addParserMaths(_lgNames, aliasLong, aliasParseLongOrNull, new StringList(params.getAliasLong0ParseLongOrNull0()), new StringList(params.getAliasLong1ParseLongOrNull0(),params.getAliasLong1ParseLongOrNull1()), new FctLongSafe(new DefRadix()), new FctLongSafe(new ArgRadix())));
+        bulk(methods_, addParserMaths(_lgNames, aliasLong, aliasParseLongOrNull, new StringList(params.getAliasLong2ParseLongOrNull0(), params.getAliasLong2ParseLongOrNull0(),params.getAliasLong2ParseLongOrNull1()), new FctLongSafe(new ArgRadix(),new AdvEncodeArg())));
         numbersValuesFields(fields_, aliasPrimLong_);
         StringList params_ = new StringList(aliasPrimLong_,_lgNames.getContent().getPrimTypes().getAliasPrimInteger());
         StandardMethod method_ = new StandardMethod(aliasToStringMethod, params_, _lgNames.getContent().getCharSeq().getAliasString(), false, MethodModifier.STATIC,new StringList(params.getAliasLong1ToStringMethod0(),params.getAliasLong1ToStringMethod1()), new FctNbRelToStr1());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(aliasPrimLong_,_lgNames.getContent().getPrimTypes().getAliasPrimInteger(),_lgNames.getContent().getCharSeq().getAliasString());
+        method_ = new StandardMethod(aliasToStringMethod, params_, _lgNames.getContent().getCharSeq().getAliasString(), false, MethodModifier.STATIC,new StringList(params.getAliasLong2ToStringMethod0(),params.getAliasLong2ToStringMethod1(),params.getAliasLong2ToStringMethod2()), new FctNbRelToStr2());
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList(aliasPrimLong_);
         method_ = new StandardMethod(aliasSignum, params_, _lgNames.getContent().getPrimTypes().getAliasPrimByte(), false, MethodModifier.STATIC,new StringList(params.getAliasLong0Signum0()),new FctNbRelSgn());
@@ -653,10 +659,13 @@ public final class AliasNumberType {
         StandardNamedFunction.addFct(methods_, addToStrMeth(_lgNames, aliasPrimInteger_, new StringList(params.getAliasInteger0ToStringMethod0()), new FctNbRelToStr0()));
         bulk(methods_, addParserMaths(_lgNames, aliasInteger, aliasParseInt, new StringList(params.getAliasInteger0ParseInt0()), new StringList(params.getAliasInteger1ParseInt0(), params.getAliasInteger1ParseInt1()), new FctInteger(new DefRadix()), new FctInteger(new ArgRadix())));
         bulk(methods_, addCompare(_lgNames, aliasPrimInteger_, aliasInteger, new StringList(params.getAliasInteger0CompareTo0()), new StringList(params.getAliasInteger0Compare0(),params.getAliasInteger0Compare1()), new FctNbCompareToSpecRel(), new FctNbCompareSpecRel()));
+        bulk(methods_, addParserMaths(_lgNames, aliasInteger, aliasParseInt, new StringList(params.getAliasInteger2ParseInt0(),params.getAliasInteger2ParseInt1(), params.getAliasInteger2ParseInt2()), new FctInteger(new ArgRadix(),new AdvEncodeArg())));
         StandardNamedFunction.addFct(methods_, addSpecBaseStr(aliasToBinString, _lgNames, aliasPrimInteger_, new StringList(params.getAliasInteger0ToBinString0()),new FctIntegerStrBin()));
         StandardNamedFunction.addFct(methods_, addSpecBaseStr(aliasToOctString, _lgNames, aliasPrimInteger_, new StringList(params.getAliasInteger0ToOctString0()),new FctIntegerStrOct()));
         StandardNamedFunction.addFct(methods_, addSpecBaseStr(aliasToHexString, _lgNames, aliasPrimInteger_, new StringList(params.getAliasInteger0ToHexString0()),new FctIntegerStrHex()));
+        StandardNamedFunction.addFct(methods_, addSpecBaseStrBase(aliasToHexString, _lgNames, aliasPrimInteger_, new StringList(params.getAliasInteger1ToHexString0(),params.getAliasInteger1ToHexString1()),new FctIntegerStrHexBase()));
         bulk(methods_, addParserMaths(_lgNames, aliasInteger, aliasParseIntOrNull, new StringList(params.getAliasInteger0ParseIntOrNull0()), new StringList(params.getAliasInteger1ParseIntOrNull0(),params.getAliasInteger1ParseIntOrNull1()), new FctIntegerSafe(new DefRadix()), new FctIntegerSafe(new ArgRadix())));
+        bulk(methods_, addParserMaths(_lgNames, aliasInteger, aliasParseIntOrNull, new StringList(params.getAliasInteger2ParseIntOrNull0(), params.getAliasInteger2ParseIntOrNull0(),params.getAliasInteger2ParseIntOrNull1()), new FctIntegerSafe(new ArgRadix(),new AdvEncodeArg())));
         numbersValuesFields(fields_, aliasPrimInteger_);
         StandardType.addType(standards_, aliasInteger, std_);
         return std_;
@@ -675,11 +684,14 @@ public final class AliasNumberType {
         numbersConstructors(_lgNames,constructors_, aliasPrimShort_,new StringList(params.getAliasShort0Short0()),new StringList(params.getAliasShort1Short0()), new FctShort(new DefRadix()));
         StandardNamedFunction.addFct(methods_, addToStrMeth(_lgNames, aliasPrimShort_, new StringList(params.getAliasShort0ToStringMethod0()), new FctNbRelToStr0()));
         bulk(methods_, addParserMaths(_lgNames, aliasShort, aliasParseShort, new StringList(params.getAliasShort0ParseShort0()), new StringList(params.getAliasShort1ParseShort0(), params.getAliasShort1ParseShort1()), new FctShort(new DefRadix()), new FctShort(new ArgRadix())));
+        bulk(methods_, addParserMaths(_lgNames, aliasShort, aliasParseShort, new StringList(params.getAliasShort2ParseShort0(),params.getAliasShort2ParseShort1(), params.getAliasShort2ParseShort2()), new FctShort(new ArgRadix(),new AdvEncodeArg())));
         bulk(methods_, addCompare(_lgNames, aliasPrimShort_, aliasShort, new StringList(params.getAliasShort0CompareTo0()), new StringList(params.getAliasShort0Compare0(),params.getAliasShort0Compare1()), new FctNbCompareToSpecRel(), new FctNbCompareSpecRel()));
         StandardNamedFunction.addFct(methods_, addSpecBaseStr(aliasToBinString, _lgNames, aliasPrimShort_, new StringList(params.getAliasShort0ToBinString0()),new FctShortStrBin()));
         StandardNamedFunction.addFct(methods_, addSpecBaseStr(aliasToOctString, _lgNames, aliasPrimShort_, new StringList(params.getAliasShort0ToOctString0()),new FctShortStrOct()));
         StandardNamedFunction.addFct(methods_, addSpecBaseStr(aliasToHexString, _lgNames, aliasPrimShort_, new StringList(params.getAliasShort0ToHexString0()),new FctShortStrHex()));
+        StandardNamedFunction.addFct(methods_, addSpecBaseStrBase(aliasToHexString, _lgNames, aliasPrimShort_, new StringList(params.getAliasShort1ToHexString0(),params.getAliasShort1ToHexString1()),new FctShortStrHexBase()));
         bulk(methods_, addParserMaths(_lgNames, aliasShort, aliasParseShortOrNull, new StringList(params.getAliasShort0ParseShortOrNull0()), new StringList(params.getAliasShort1ParseShortOrNull0(),params.getAliasShort1ParseShortOrNull1()), new FctShortSafe(new DefRadix()), new FctShortSafe(new ArgRadix())));
+        bulk(methods_, addParserMaths(_lgNames, aliasShort, aliasParseShortOrNull, new StringList(params.getAliasShort2ParseShortOrNull0(), params.getAliasShort2ParseShortOrNull0(),params.getAliasShort2ParseShortOrNull1()), new FctShortSafe(new ArgRadix(),new AdvEncodeArg())));
         numbersValuesFields(fields_, aliasPrimShort_);
         StandardType.addType(standards_, aliasShort, std_);
         return std_;
@@ -699,11 +711,14 @@ public final class AliasNumberType {
         numbersConstructors(_lgNames,constructors_, aliasPrimByte_,new StringList(params.getAliasByte0Byte0()),new StringList(params.getAliasByte1Byte0()), new FctByte(new DefRadix()));
         StandardNamedFunction.addFct(methods_, addToStrMeth(_lgNames, aliasPrimByte_, new StringList(params.getAliasByte0ToStringMethod0()), new FctNbRelToStr0()));
         bulk(methods_, addParserMaths(_lgNames, aliasByte, aliasParseByte, new StringList(params.getAliasByte0ParseByte0()), new StringList(params.getAliasByte1ParseByte0(), params.getAliasByte1ParseByte1()), new FctByte(new DefRadix()), new FctByte(new ArgRadix())));
+        bulk(methods_, addParserMaths(_lgNames, aliasByte, aliasParseByte, new StringList(params.getAliasByte2ParseByte0(),params.getAliasByte2ParseByte1(), params.getAliasByte2ParseByte2()), new FctByte(new ArgRadix(),new AdvEncodeArg())));
         bulk(methods_, addCompare(_lgNames, aliasPrimByte_, aliasByte, new StringList(params.getAliasByte0CompareTo0()), new StringList(params.getAliasByte0Compare0(),params.getAliasByte0Compare1()), new FctNbCompareToSpecRel(), new FctNbCompareSpecRel()));
         StandardNamedFunction.addFct(methods_, addSpecBaseStr(aliasToBinString, _lgNames, aliasPrimByte_, new StringList(params.getAliasByte0ToBinString0()),new FctByteStrBin()));
         StandardNamedFunction.addFct(methods_, addSpecBaseStr(aliasToOctString, _lgNames, aliasPrimByte_, new StringList(params.getAliasByte0ToOctString0()),new FctByteStrOct()));
         StandardNamedFunction.addFct(methods_, addSpecBaseStr(aliasToHexString, _lgNames, aliasPrimByte_, new StringList(params.getAliasByte0ToHexString0()),new FctByteStrHex()));
+        StandardNamedFunction.addFct(methods_, addSpecBaseStrBase(aliasToHexString, _lgNames, aliasPrimByte_, new StringList(params.getAliasByte1ToHexString0(),params.getAliasByte1ToHexString1()),new FctByteStrHexBase()));
         bulk(methods_, addParserMaths(_lgNames, aliasByte, aliasParseByteOrNull, new StringList(params.getAliasByte0ParseByteOrNull0()), new StringList(params.getAliasByte1ParseByteOrNull0(),params.getAliasByte1ParseByteOrNull1()), new FctByteSafe(new DefRadix()), new FctByteSafe(new ArgRadix())));
+        bulk(methods_, addParserMaths(_lgNames, aliasByte, aliasParseByteOrNull, new StringList(params.getAliasByte2ParseByteOrNull0(), params.getAliasByte2ParseByteOrNull0(),params.getAliasByte2ParseByteOrNull1()), new FctByteSafe(new ArgRadix(),new AdvEncodeArg())));
         numbersValuesFields(fields_, aliasPrimByte_);
         StandardType.addType(standards_, aliasByte, std_);
     }
@@ -733,8 +748,14 @@ public final class AliasNumberType {
         params_ = new StringList(aliasPrimChar_, aliasPrimInteger_);
         method_ = new StandardMethod(aliasDigit, params_, aliasPrimInteger_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0Digit0(),params.getAliasCharacter0Digit1()),new FctCharDigit());
         StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(aliasPrimChar_, aliasPrimInteger_, _lgNames.getCharSeq().getAliasString());
+        method_ = new StandardMethod(aliasDigit, params_, aliasPrimInteger_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter1Digit0(),params.getAliasCharacter1Digit1(),params.getAliasCharacter1Digit2()),new FctCharDigitBase());
+        StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList(aliasPrimInteger_, aliasPrimInteger_);
         method_ = new StandardMethod(aliasForDigit, params_, aliasPrimChar_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0ForDigit0(),params.getAliasCharacter0ForDigit1()),new FctCharForDigit());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(aliasPrimInteger_, aliasPrimInteger_, _lgNames.getCharSeq().getAliasString());
+        method_ = new StandardMethod(aliasForDigit, params_, aliasPrimChar_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter1ForDigit0(),params.getAliasCharacter1ForDigit1(),params.getAliasCharacter1ForDigit2()),new FctCharForDigitBase());
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList(aliasPrimChar_);
         method_ = new StandardMethod(aliasGetDirectionality, params_, aliasPrimByte_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0GetDirectionality0()),new FctCharGetDirectionality());
@@ -908,8 +929,23 @@ public final class AliasNumberType {
         return methods_;
     }
 
+    private static CustList<StandardMethod> addParserMaths(LgNames _lgNames, String _aliasType, String _aliasParseOrNull, StringList _first, StdCaller _radixCaller) {
+        CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
+        String aliasPrimInteger_ = _lgNames.getContent().getPrimTypes().getAliasPrimInteger();
+        StringList params_;
+        StandardMethod method_;
+        params_ = new StringList(_lgNames.getContent().getCharSeq().getAliasString(), aliasPrimInteger_, _lgNames.getContent().getCharSeq().getAliasString());
+        method_ = new StandardMethod(_aliasParseOrNull, params_, _aliasType, false, MethodModifier.STATIC, _first, _radixCaller);
+        StandardNamedFunction.addFct(methods_, method_);
+        return methods_;
+    }
+
     private static StandardMethod addSpecBaseStr(String _name, LgNames _lgNames, String _primitive, StringList _paramsNames, StdCaller _caller) {
         StringList params_ = new StringList(_primitive);
+        return new StandardMethod(_name, params_, _lgNames.getContent().getCharSeq().getAliasString(), false, MethodModifier.STATIC, _paramsNames, _caller);
+    }
+    private static StandardMethod addSpecBaseStrBase(String _name, LgNames _lgNames, String _primitive, StringList _paramsNames, StdCaller _caller) {
+        StringList params_ = new StringList(_primitive, _lgNames.getContent().getCharSeq().getAliasString());
         return new StandardMethod(_name, params_, _lgNames.getContent().getCharSeq().getAliasString(), false, MethodModifier.STATIC, _paramsNames, _caller);
     }
 

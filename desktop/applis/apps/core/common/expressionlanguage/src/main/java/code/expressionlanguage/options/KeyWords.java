@@ -612,16 +612,25 @@ public static TranslationsFile fr(){
                 supplDigMin_.add(NumParsers.toMinCase(p.charAt(0)));
             }
         }
-        supplDigMin_.sort();
-        int size_ = supplDigMin_.size();
-        for (int i = 1; i < size_; i++) {
-            int va_ = supplDigMin_.get(i);
-            if (supplDigMin_.get(i - 1) >= va_) {
+        if (supplDigMin_.hasDuplicates()) {
+            int size_ = supplDigMin_.size();
+            for (int i = 0; i < size_; i++) {
                 StdWordError err_ = new StdWordError();
-                err_.setMessage(StringUtil.simpleStringsFormat(a_.getDuplicateNumberWord(),Character.toString((char)va_)));
+                int value_ = supplDigMin_.get(i);
+                err_.setMessage(StringUtil.simpleStringsFormat(a_.getDuplicateNumberWord(),Character.toString((char) value_)));
                 _page.addStdError(err_);
             }
         }
+//        supplDigMin_.sort();
+//        int size_ = supplDigMin_.size();
+//        for (int i = 0; i < size_; i++) {
+//            int va_ = supplDigMin_.get(i);
+//            if (supplDigMin_.get(i - 1) >= va_) {
+//                StdWordError err_ = new StdWordError();
+//                err_.setMessage(StringUtil.simpleStringsFormat(a_.getDuplicateNumberWord(),Character.toString((char)va_)));
+//                _page.addStdError(err_);
+//            }
+//        }
     }
 
     private CustList<String> supplDig() {

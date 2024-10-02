@@ -6,7 +6,10 @@ import code.expressionlanguage.structs.NumberStruct;
 
 public final class FctInteger extends FctNbLongAbs {
     public FctInteger(AbsRadix _radix) {
-        super(Integer.MIN_VALUE, Integer.MAX_VALUE, _radix);
+        this(_radix,new DefEncodeArg());
+    }
+    public FctInteger(AbsRadix _radix, AbsEncodeArg _e) {
+        super(Integer.MIN_VALUE, Integer.MAX_VALUE, _radix, _e);
     }
 
     @Override

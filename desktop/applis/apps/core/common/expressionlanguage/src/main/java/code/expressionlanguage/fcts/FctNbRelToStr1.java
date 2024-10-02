@@ -25,7 +25,7 @@ public final class FctNbRelToStr1 implements AnaStdCaller {
         return new ArgumentWrapper(str(argumentWrappers_.get(0).getValue(),argumentWrappers_.get(1).getValue(), _cont.getStandards().getDisplayedStrings().getAlpha()));
     }
 
-    private static Struct str(Struct _arg, Struct _radix, String _alpha) {
+    public static Struct str(Struct _arg, Struct _radix, String _alpha) {
         long nb_ = NumParsers.convertToNumber(_arg).longStruct();
         int radix_ = NumParsers.convertToNumber(_radix).intStruct();
         return new StringStruct(StringExpUtil.toLongRadix(nb_,radix_, _alpha));

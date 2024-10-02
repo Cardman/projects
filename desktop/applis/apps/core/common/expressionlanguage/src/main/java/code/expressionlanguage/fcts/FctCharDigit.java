@@ -27,7 +27,7 @@ public final class FctCharDigit implements AnaStdCaller {
         return new ArgumentWrapper(toDig(one_,two_, _cont.getStandards().getDisplayedStrings().getAlpha()));
     }
 
-    private Struct toDig(Struct _arg, Struct _sec, String _alpha) {
+    public static Struct toDig(Struct _arg, Struct _sec, String _alpha) {
         char one_ = NumParsers.convertToChar(_arg).getChar();
         int two_ = (NumParsers.convertToNumber(_sec)).intStruct();
         return(new IntStruct(StringDataUtil.digit(one_, two_, _alpha)));

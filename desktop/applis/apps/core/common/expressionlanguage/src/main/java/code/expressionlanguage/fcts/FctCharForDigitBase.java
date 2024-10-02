@@ -13,10 +13,10 @@ import code.expressionlanguage.structs.CharStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
-public final class FctCharForDigit implements AnaStdCaller {
+public final class FctCharForDigitBase implements AnaStdCaller {
     @Override
     public Struct call(AnalyzedPageEl _page, Struct _instance, Struct[] _args) {
-        return forDig(_args[0],_args[1], _page.getDisplayedStrings().getAlpha());
+        return forDig(_args[0],_args[1], NumParsers.base(_args[2],_page.getDisplayedStrings().getAlpha()));
     }
 
     @Override
@@ -24,7 +24,8 @@ public final class FctCharForDigit implements AnaStdCaller {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
         Struct one_ = argumentWrappers_.get(0).getValue();
         Struct two_ = argumentWrappers_.get(1).getValue();
-        return new ArgumentWrapper(forDig(one_,two_, _cont.getStandards().getDisplayedStrings().getAlpha()));
+        Struct three_ = argumentWrappers_.get(2).getValue();
+        return new ArgumentWrapper(forDig(one_,two_, NumParsers.base(three_, _cont.getStandards().getDisplayedStrings().getAlpha())));
     }
 
     public static Struct forDig(Struct _arg, Struct _sec, String _alpha) {

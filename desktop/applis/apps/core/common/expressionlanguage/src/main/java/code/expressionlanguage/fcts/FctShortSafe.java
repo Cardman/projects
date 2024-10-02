@@ -6,7 +6,10 @@ import code.expressionlanguage.structs.ShortStruct;
 
 public final class FctShortSafe extends FctNbLongSafeAbs {
     public FctShortSafe(AbsRadix _radix) {
-        super(Short.MIN_VALUE, Short.MAX_VALUE, _radix);
+        this(_radix, new DefEncodeArg());
+    }
+    public FctShortSafe(AbsRadix _radix, AbsEncodeArg _a) {
+        super(Short.MIN_VALUE, Short.MAX_VALUE, _radix, _a);
     }
 
     @Override

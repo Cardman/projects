@@ -59,7 +59,7 @@ public final class LgNamesContent {
         getDisplayedStrings().setNan(get(_util,_cust, _mapping.getVal(NAN)));
         getDisplayedStrings().setExponent(get(_util,_cust, _mapping.getVal(EXPONENT)));
         getDisplayedStrings().setAlpha(DisplayedStrings.patchAlpha(get(_util,_cust, _mapping.getVal(ALPHA))));
-        getDisplayedStrings().setAlphaHex(DisplayedStrings.patchAlphaHex(get(_util,_cust, _mapping.getVal(ALPHA_HEX))));
+        getDisplayedStrings().setAlphaHex(DisplayedStrings.patchAlphaHex(get(_util,_cust, _mapping.getVal(ALPHA_HEX)), MessagesCdmBase.DEF_ALPHA_HEX));
         getPredefTypes().getParams().build(_util, _cust,_mapping);
         getCharSeq().getParams().build(_util, _cust,_mapping);
         getCoreNames().getParams().build(_util, _cust,_mapping);

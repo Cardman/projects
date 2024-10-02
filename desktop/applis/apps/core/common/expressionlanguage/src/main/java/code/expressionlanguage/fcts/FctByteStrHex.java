@@ -23,7 +23,7 @@ public final class FctByteStrHex implements AnaStdCaller {
         return new ArgumentWrapper(convert(_firstArgs.getArgumentWrappers().get(0).getValue(), _cont.getStandards().getDisplayedStrings().getAlphaHex()));
     }
 
-    private Struct convert(Struct _arg, String _hex) {
+    public static Struct convert(Struct _arg, String _hex) {
         byte one_ = NumParsers.convertToNumber(_arg).byteStruct();
         return new StringStruct(StringExpUtil.toByteGeneHex(one_, _hex));
     }

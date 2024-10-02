@@ -21,10 +21,10 @@ public final class DisplayedStrings {
         return build(_alpha).toString();
     }
 
-    public static String patchAlphaHex(String _alpha) {
+    public static String patchAlphaHex(String _alpha, String _defHex) {
         StringBuilder builder_ = build(_alpha);
         if (builder_.length() != 6) {
-            return MessagesCdmBase.DEF_ALPHA_HEX;
+            return _defHex;
         }
         return builder_.toString();
     }
