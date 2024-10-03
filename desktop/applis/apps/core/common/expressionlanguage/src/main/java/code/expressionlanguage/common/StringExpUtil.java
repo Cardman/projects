@@ -636,7 +636,8 @@ public final class StringExpUtil {
             StringBuilder str_ = base(-(_i+1), radix_, _alpha);
             str_.insert(0,"-");
             int last_ = str_.length() - 1;
-            str_.setCharAt(last_, (char) (str_.charAt(last_)+1));
+            String base_ = baseAll(_alpha);
+            str_.setCharAt(last_, base_.charAt(base_.indexOf(str_.charAt(last_))+1));
             return str_.toString();
         }
         if (_i >= 0) {
@@ -645,6 +646,14 @@ public final class StringExpUtil {
         StringBuilder str_ = base(-_i, radix_, _alpha);
         str_.insert(0,"-");
         return str_.toString();
+    }
+
+    private static String baseAll(String _alpha) {
+        StringBuilder baseBuild_ = new StringBuilder("0123456789");
+        for (char c: _alpha.toCharArray()) {
+            baseBuild_.append(StringDataUtil.toLowerCase((char)NumParsers.toMinCase(c)));
+        }
+        return baseBuild_.toString();
     }
 
     public static String toLongGeneHex(long _i, String _base) {
