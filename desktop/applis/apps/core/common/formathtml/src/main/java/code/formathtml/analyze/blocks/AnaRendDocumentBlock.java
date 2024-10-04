@@ -60,7 +60,7 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
         imports = StringUtil.splitChar(elt.getAttribute(alias_),';');
         _page.putFileBlock(fileBlock);
         fileBlock.checkErrors(_page);
-        int o_ = getAttributeDelimiter(alias_);
+        int o_ = getFirstChild().getAttributeDelimiter(alias_);
         for (String o: imports) {
             fileBlock.getImports().add(o);
             fileBlock.getImportsOffset().add(o_);
@@ -79,8 +79,8 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
     }
 
     public void buildFctInstructions(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        _page.setSumOffset(getOffset());
-        _page.zeroOffset();
+//        _page.setSumOffset(getOffset());
+//        _page.zeroOffset();
         _page.setAccessStaticContext(MethodAccessKind.STATIC);
         _page.setCurrentPkg("");
         _page.setCurrentFile(fileBlock);

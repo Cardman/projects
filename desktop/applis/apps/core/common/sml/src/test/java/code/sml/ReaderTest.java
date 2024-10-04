@@ -15,6 +15,7 @@ public class ReaderTest extends EquallableRowColUtil {
         Element elt_ = doc_.getDocumentElement();
         assertNotNull(elt_);
         assertEq("<example/>", res_.getInput());
+        assertEq(0, res_.getFirstIndex());
         assertEq(0, res_.getEscaped().size());
         assertEq(0, res_.getChs().size());
         assertEq("example", elt_.getTagName());

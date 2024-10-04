@@ -1,6 +1,7 @@
 package code.sml;
 
 import code.util.CustList;
+import code.util.core.StringUtil;
 
 abstract class AbstractEncodingText {
     private static final char ENCODED = '&';
@@ -47,8 +48,25 @@ abstract class AbstractEncodingText {
 
     protected static boolean matchRegion(String _htmlText, int _iEncode, int _index, String _key) {
         boolean equals_ = true;
-        int j_ = 0;
-        for (int i = _iEncode; i <= _index; i++) {
+        int from_ = _iEncode+1;
+        int to_ = _index-1;
+        while (from_ <= to_) {
+            if (!StringUtil.isWhitespace(_htmlText.charAt(from_))) {
+                break;
+            }
+            from_++;
+        }
+        while (to_ >= from_) {
+            if (!StringUtil.isWhitespace(_htmlText.charAt(to_))) {
+                break;
+            }
+            to_--;
+        }
+        if (to_ < from_) {
+            return false;
+        }
+        int j_ = 1;
+        for (int i = from_; i <= to_; i++) {
             if (_htmlText.charAt(i) != _key.charAt(j_)) {
                 equals_ = false;
                 break;

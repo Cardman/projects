@@ -142,7 +142,7 @@ public final class Configuration {
                 AnalyzingDoc.addError(badEl_, _page);
                 continue;
             }
-            AnaRendDocumentBlock anaDoc_ = AnaRendBlock.newRendDocumentBlock(document_, input_, _page, _analyzingDoc, es_, fileBl_, res_.getEscaped());
+            AnaRendDocumentBlock anaDoc_ = AnaRendBlock.newRendDocumentBlock(document_, input_, _page, _analyzingDoc, es_, fileBl_, res_);
             anaDoc_.contentNb().setAccessNb(_page.getCountElts().getCountAnon().size());
             _page.getCountElts().getCountAnon().add(0L);
             anaDoc_.contentMemNb().setAccessMemNb(_page.getCountElts().getAnonTypes().size());

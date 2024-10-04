@@ -614,7 +614,7 @@ public final class RenderSwitchTest extends CommonRender {
     public void process54Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String html_ = "lt&60;gt&62;amp&38;quot&34;<html><body><c:switch value='(pkg.ExSub&lt;?&gt;)$new pkg.ExSub&lt;$int&gt;()'><c:case className='pkg.ExSub&lt;?&gt;' var='v'>{v.v}</c:case><c:case className='pkg.ExAbs' var='v'>-{v.v}</c:case><c:default var='v'>Text</c:default></c:switch></body></html>";
+        String html_ = "<>lt&60;gt&62;amp&38;quot&34;<html><body><c:switch value='(pkg.ExSub&lt;?&gt;)$new pkg.ExSub&lt;$int&gt;()'><c:case className='pkg.ExSub&lt;?&gt;' var='v'>{v.v}</c:case><c:case className='pkg.ExAbs' var='v'>-{v.v}</c:case><c:default var='v'>Text</c:default></c:switch></body></html>";
         StringBuilder enum_ = new StringBuilder();
         enum_.append("$public $final $class pkg.ExSub<T>:ExAbs{");
         enum_.append("}");

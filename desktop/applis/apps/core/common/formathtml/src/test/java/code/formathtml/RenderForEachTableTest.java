@@ -20,7 +20,7 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("lt&60;gt&62;amp&38;quot&34;<html><body><table>");
+        xml_.append("<>lt&60;gt&62;amp&38;quot&34;<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
         xml_.append("<c:set value=\"inst.add(&quot;ONE&quot;,1)\"/>");
         xml_.append("<c:set value=\"inst.add(&quot;TWO&quot;,2)\"/>");
@@ -40,7 +40,7 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("lt&60;gt&62;amp&38;quot&34;<html><body><table>");
+        xml_.append("<>lt&60;gt&62;amp&38;quot&34;<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
         xml_.append("<c:set value=\"inst.add(&quot;TWO&quot;,$null)\"/>");
         xml_.append("<c:for key=\"k\" keyClassName=\"$var\" value=\"v\" varClassName=\"$int\" map=\"inst\">");
@@ -59,7 +59,7 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("lt&60;gt&62;amp&38;quot&34;<html><body><table>");
+        xml_.append("<>lt&60;gt&62;amp&38;quot&34;<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;()\"/>");
         xml_.append("<c:set value=\"inst.add($null,1)\"/>");
         xml_.append("<c:for key=\"k\" keyClassName=\"$int\" value=\"v\" varClassName=\"$int\" map=\"inst\">");
@@ -80,7 +80,7 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPairFailFirst());
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("lt&60;gt&62;amp&38;quot&34;<html><body><table>");
+        xml_.append("<>lt&60;gt&62;amp&38;quot&34;<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;()\"/>");
         xml_.append("<c:set value=\"inst.add(1,1)\"/>");
         xml_.append("<c:for key=\"k\" keyClassName=\"$int\" value=\"v\" varClassName=\"$int\" map=\"inst\">");
@@ -99,7 +99,7 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPairFailSecond());
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("lt&60;gt&62;amp&38;quot&34;<html><body><table>");
+        xml_.append("<>lt&60;gt&62;amp&38;quot&34;<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;()\"/>");
         xml_.append("<c:set value=\"inst.add(1,1)\"/>");
         xml_.append("<c:for key=\"k\" keyClassName=\"$int\" value=\"v\" varClassName=\"$int\" map=\"inst\">");
@@ -118,7 +118,7 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("lt&60;gt&62;amp&38;quot&34;<html><body><table>");
+        xml_.append("<>lt&60;gt&62;amp&38;quot&34;<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;()\"/>");
         xml_.append("<c:set value=\"inst.add(1,1)\"/>");
         xml_.append("<c:for key=\"k\" keyClassName=\"$int\" value=\"v\" varClassName=\"$int\" map=\"inst\">");
@@ -138,7 +138,7 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("lt&60;gt&62;amp&38;quot&34;<html><body><table>");
+        xml_.append("<>lt&60;gt&62;amp&38;quot&34;<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;()\"/>");
         xml_.append("<c:set value=\"inst.add(1,1)\"/>");
         xml_.append("<c:for key=\"k\" keyClassName=\"$int\" value=\"v\" varClassName=\"$int\" map=\"inst\">");
@@ -157,7 +157,7 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_TABLE_PATH, getCustomTableFail());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("lt&60;gt&62;amp&38;quot&34;<html><body><table>");
+        xml_.append("<>lt&60;gt&62;amp&38;quot&34;<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;()\"/>");
         xml_.append("<c:set value=\"inst.add(1,1)\"/>");
         xml_.append("<c:for key=\"k\" keyClassName=\"$int\" value=\"v\" varClassName=\"$int\" map=\"inst\">");
@@ -176,7 +176,7 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("lt&60;gt&62;amp&38;quot&34;<html><body><table>");
+        xml_.append("<>lt&60;gt&62;amp&38;quot&34;<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;\" value=\"inst\"/>");
         xml_.append("<c:for key=\"k\" keyClassName=\"$int\" value=\"v\" varClassName=\"$int\" map=\"inst\">");
         xml_.append("<tr><td>{k}</td><td>{v}</td></tr>");
@@ -194,7 +194,7 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_TABLE_PATH, getCustomTableFailBis());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("lt&60;gt&62;amp&38;quot&34;<html><body><table>");
+        xml_.append("<>lt&60;gt&62;amp&38;quot&34;<html><body><table>");
         xml_.append("<c:for key=\"k\" keyClassName=\"$int\" value=\"v\" varClassName=\"$int\" map=\"$new pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;()\">");
         xml_.append("<tr><td>{k}</td><td>{v}</td></tr>");
         xml_.append("</c:for>");
@@ -212,7 +212,7 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("lt&60;gt&62;amp&38;quot&34;<html><body><table>");
+        xml_.append("<>lt&60;gt&62;amp&38;quot&34;<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
         xml_.append("<c:set value=\"inst.add(&quot;ONE&quot;,1)\"/>");
         xml_.append("<c:set value=\"inst.add(&quot;TWO&quot;,2)\"/>");
@@ -232,7 +232,7 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("lt&60;gt&62;amp&38;quot&34;<html><body><table>");
+        xml_.append("<>lt&60;gt&62;amp&38;quot&34;<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
         xml_.append("<c:set value=\"inst.add(&quot;ONE&quot;,1)\"/>");
         xml_.append("<c:set value=\"inst.add(&quot;TWO&quot;,2)\"/>");
@@ -252,7 +252,7 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("lt&60;gt&62;amp&38;quot&34;<html><body><table>");
+        xml_.append("<>lt&60;gt&62;amp&38;quot&34;<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
         xml_.append("<c:set value=\"inst.add(&quot;ONE&quot;,1)\"/>");
         xml_.append("<c:set value=\"inst.add(&quot;TWO&quot;,2)\"/>");
@@ -271,7 +271,7 @@ public final class RenderForEachTableTest extends CommonRender {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("lt&60;gt&62;amp&38;quot&34;<html><body><table>");
+        xml_.append("<>lt&60;gt&62;amp&38;quot&34;<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
         xml_.append("<c:set value=\"inst.add(&quot;ONE&quot;,1)\"/>");
         xml_.append("<c:set value=\"inst.add(&quot;TWO&quot;,2)\"/>");
@@ -298,7 +298,7 @@ public final class RenderForEachTableTest extends CommonRender {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("lt&60;gt&62;amp&38;quot&34;<html><body><table>");
+        xml_.append("<>lt&60;gt&62;amp&38;quot&34;<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
         xml_.append("<c:set value=\"inst.add(&quot;ONE&quot;,1)\"/>");
         xml_.append("<c:set value=\"inst.add(&quot;TWO&quot;,2)\"/>");
@@ -329,7 +329,7 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("lt&60;gt&62;amp&38;quot&34;<html><body><table>");
+        xml_.append("<>lt&60;gt&62;amp&38;quot&34;<html><body><table>");
         xml_.append("<c:for key=\"k\" keyClassName=\"$int\" value=\"v\" varClassName=\"$int\" map=\"$new pkg.CustTable&lt;&gt;()\">");
         xml_.append("<tr><td>{k}</td><td>{v}</td></tr>");
         xml_.append("</c:for>");
@@ -347,7 +347,7 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("lt&60;gt&62;amp&38;quot&34;<html><body><table>");
+        xml_.append("<>lt&60;gt&62;amp&38;quot&34;<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
         xml_.append("<c:set value=\"inst.add(&quot;ONE&quot;,1)\"/>");
         xml_.append("<c:set value=\"inst.add(&quot;TWO&quot;,2)\"/>");
@@ -376,7 +376,7 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("lt&60;gt&62;amp&38;quot&34;<html><body><table>");
+        xml_.append("<>lt&60;gt&62;amp&38;quot&34;<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
         xml_.append("<c:set value=\"inst.add(&quot;ONE&quot;,1)\"/>");
         xml_.append("<c:set value=\"inst.add(&quot;TWO&quot;,2)\"/>");
@@ -396,7 +396,7 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("lt&60;gt&62;amp&38;quot&34;<html><body><table>");
+        xml_.append("<>lt&60;gt&62;amp&38;quot&34;<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
         xml_.append("<c:set value=\"inst.add(&quot;ONE&quot;,1)\"/>");
         xml_.append("<c:set value=\"inst.add(&quot;TWO&quot;,2)\"/>");
@@ -416,7 +416,7 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("lt&60;gt&62;amp&38;quot&34;<html><body><table>");
+        xml_.append("<>lt&60;gt&62;amp&38;quot&34;<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
         xml_.append("<c:set value=\"inst.add(&quot;ONE&quot;,1)\"/>");
         xml_.append("<c:set value=\"inst.add(&quot;TWO&quot;,2)\"/>");
@@ -436,7 +436,7 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("lt&60;gt&62;amp&38;quot&34;<html><body><table>");
+        xml_.append("<>lt&60;gt&62;amp&38;quot&34;<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
         xml_.append("<c:set value=\"inst.add(&quot;ONE&quot;,1)\"/>");
         xml_.append("<c:set value=\"inst.add(&quot;TWO&quot;,2)\"/>");
@@ -456,7 +456,7 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("lt&60;gt&62;amp&38;quot&34;<html><body><table>");
+        xml_.append("<>lt&60;gt&62;amp&38;quot&34;<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
         xml_.append("<c:set value=\"inst.add(&quot;ONE&quot;,1)\"/>");
         xml_.append("<c:set value=\"inst.add(&quot;TWO&quot;,2)\"/>");
@@ -476,7 +476,7 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("lt&60;gt&62;amp&38;quot&34;<html><body><table>");
+        xml_.append("<>lt&60;gt&62;amp&38;quot&34;<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
         xml_.append("<c:set value=\"inst.add(&quot;ONE&quot;,1)\"/>");
         xml_.append("<c:set value=\"inst.add(&quot;TWO&quot;,2)\"/>");
@@ -498,7 +498,7 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("lt&60;gt&62;amp&38;quot&34;<html><body><table>");
+        xml_.append("<>lt&60;gt&62;amp&38;quot&34;<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
         xml_.append("<c:set value=\"inst.add(&quot;ONE&quot;,1)\"/>");
         xml_.append("<c:set value=\"inst.add(&quot;TWO&quot;,2)\"/>");
@@ -520,7 +520,7 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("lt&60;gt&62;amp&38;quot&34;<html><body><table>");
+        xml_.append("<>lt&60;gt&62;amp&38;quot&34;<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
         xml_.append("<c:set value=\"inst.add(&quot;ONE&quot;,1)\"/>");
         xml_.append("<c:set value=\"inst.add(&quot;TWO&quot;,2)\"/>");
@@ -542,7 +542,7 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("lt&60;gt&62;amp&38;quot&34;<html><body><table>");
+        xml_.append("<>lt&60;gt&62;amp&38;quot&34;<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
         xml_.append("<c:set value=\"inst.add(&quot;ONE&quot;,1)\"/>");
         xml_.append("<c:set value=\"inst.add(&quot;TWO&quot;,2)\"/>");
@@ -563,7 +563,7 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("lt&60;gt&62;amp&38;quot&34;<html><body><table>");
+        xml_.append("<>lt&60;gt&62;amp&38;quot&34;<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
         xml_.append("<c:set value=\"inst.add(&quot;ONE&quot;,1)\"/>");
         xml_.append("<c:set value=\"inst.add(&quot;TWO&quot;,2)\"/>");

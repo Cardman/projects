@@ -1441,7 +1441,7 @@ public final class RenderNavigationTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "lt&60;gt&62;amp&38;quot&34;<html c:bean='bean_one'><body><form c:command=\"validate\"><c:select default=\"\" name=\"choice\" map=\"$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\" varValue=\"choice\" convertValue='conv'/></form></body></html>";
+        String html_ = "<>lt&60;gt&62;amp&38;quot&34;<html c:bean='bean_one'><body><form c:command=\"validate\"><c:select default=\"\" name=\"choice\" map=\"$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\" varValue=\"choice\" convertValue='conv'/></form></body></html>";
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -2338,7 +2338,7 @@ public final class RenderNavigationTest extends CommonRender {
         String html_ = "<html c:bean=\"bean_one\"><body><form c:command=\"validate\"><c:for var=\"n\" list=\"numbers\"><input c:validator='valRef' c:groupId='\"myId\"' type=\"radio\" name=\"index\" n-r='0' c:varValue=\"n\"/></c:for><span c:for=\"&quot;myId&quot;\" c:valueMessage=\"msg_example,one\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
-        files_.put("page1.html", "lt&60;gt&62;amp&38;quot&34;"+html_);
+        files_.put("page1.html", "<>lt&60;gt&62;amp&38;quot&34;"+html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class [code.bean.Message;] pkg.MyVal:code.bean.Validator{");

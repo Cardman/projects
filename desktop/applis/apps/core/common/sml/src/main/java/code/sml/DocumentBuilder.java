@@ -917,6 +917,7 @@ public final class DocumentBuilder {
         return new FullDocument(getTabWidth());
     }
     public DocumentResult parseNoText(String _input) {
+        return parse(_input,new StringMap<String>(),false);
 //        int firstPrint_ = StringUtil.getFirstPrintableCharIndex(_input);
 //        if (firstPrint_ < 0) {
 //            res_.setLocation(new RowCol());
@@ -928,17 +929,28 @@ public final class DocumentBuilder {
 //        int len_ = _input.length();
 //        StringBuilder currentText_ = new StringBuilder();
 //        StringBuilder currentComment_ = new StringBuilder();
-        int until_ = _input.indexOf(LT);
-        if (until_ < 0) {
-            return noLt(_input);
-        }
-//        String next_ = input_.substring(until_);
-        NoTextDocument doc_ = new NoTextDocument(getTabWidth());
-        StringMap<String> enc_ = new StringMap<String>();
-        CustList<EncodedChar> chs_ = mergeAndBuild(_input, until_, enc_);
-        AbstractParseTextState st_ = new ParseNoTextState(doc_,(NotTextElement)doc_.createElement(""), _input,until_+1, enc_, chs_);
+//        int until_ = _input.indexOf(LT);
+//        if (until_ < 0) {
+//            return noLt(_input);
+//        }
 //        DocumentResult res_ = new DocumentResult();
-        return AbstractParseTextState.parseCommon(new DocumentResult(), doc_, _input, _input.length(), st_);
+//        if (_input.charAt(until_+1)=='>') {
+//            NoTextDocument doc_ = new NoTextDocument(getTabWidth());
+//            StringMap<String> enc_ = new StringMap<String>();
+//            int second_ = _input.indexOf(LT, until_ + 2);
+//            CustList<EncodedChar> chs_ = mergeAndBuild(_input, until_+2, second_, enc_);
+//            AbstractParseTextState st_ = new ParseNoTextState(doc_, doc_.createElement(""), _input,second_+1, enc_, chs_);
+////        DocumentResult res_ = new DocumentResult();
+//            res_.setFirstIndex(until_+2);
+//            return AbstractParseTextState.parseCommon(res_, doc_, _input, _input.length(), st_);
+//        }
+////        String next_ = input_.substring(until_);
+//        NoTextDocument doc_ = new NoTextDocument(getTabWidth());
+//        StringMap<String> enc_ = new StringMap<String>();
+//        CustList<EncodedChar> chs_ = mergeAndBuild(_input, 0, until_, enc_);
+//        AbstractParseTextState st_ = new ParseNoTextState(doc_, doc_.createElement(""), _input,until_+1, enc_, chs_);
+////        DocumentResult res_ = new DocumentResult();
+//        return AbstractParseTextState.parseCommon(res_, doc_, _input, _input.length(), st_);
     }
     public DocumentResult parse(String _input) {
         return parse(_input,new StringMap<String>());
@@ -965,6 +977,9 @@ public final class DocumentBuilder {
 //        return AbstractParseTextState.parseCommon(res_, doc_, _input, _input.length(), st_);
     }
     public DocumentResult parse(String _input, StringMap<String> _encoded) {
+        return parse(_input,_encoded,true);
+    }
+    public DocumentResult parse(String _input, StringMap<String> _encoded, boolean _withText) {
 //        int firstPrint_ = StringUtil.getFirstPrintableCharIndex(_input);
 //        if (firstPrint_ < 0) {
 //            res_.setLocation(new RowCol());
@@ -975,33 +990,71 @@ public final class DocumentBuilder {
 //        String input_ = _input.substring(firstPrint_);
 //        int len_ = _input.length();
         int until_ = _input.indexOf(LT);
-        if (until_ < 0) {
-            return noLt(_input);
+//        if (until_ < 0) {
+//            return noLt(_input);
+//        }
+        DocumentResult res_ = new DocumentResult();
+        CoreDocument doc_ = docCreate(_withText);
+        CustList<EncodedChar> chs_;
+        AbstractParseTextState st_;
+        if (until_ < 0 || StringUtil.getFirstPrintableCharIndex(_input) != until_) {
+            st_ = parserInit(doc_, _input, new StringMap<String>(), new CustList<EncodedChar>(), _withText, -1);
+        } else if (_input.startsWith(">",until_+1)) {
+            StringMap<String> enc_ = new StringMap<String>(_encoded);
+            res_.setFirstIndex(until_+2);
+            int second_ = _input.indexOf(LT, until_ + 2);
+            chs_ = mergeAndBuild(_input, until_+2, second_, enc_);
+            st_ = parserInit(doc_, _input, enc_, chs_, _withText, second_ + 1);
+        } else {
+            chs_ = build(_encoded);
+            st_ = parserInit(doc_, _input, _encoded, chs_, _withText, until_ + 1);
         }
-//        String next_ = input_.substring(until_);
-        FullDocument doc_ = new FullDocument(getTabWidth());
-        StringMap<String> enc_ = new StringMap<String>(_encoded);
-        CustList<EncodedChar> chs_ = mergeAndBuild(_input, until_, enc_);
-        AbstractParseTextState st_ = new ParseFullTextState(doc_,(FullElement) doc_.createElement(""), _input,until_+1, enc_, chs_);
-//        DocumentResult res_ = new DocumentResult();
-        return AbstractParseTextState.parseCommon(new DocumentResult(), doc_, _input, _input.length(), st_);
+        return AbstractParseTextState.parseCommon(res_, doc_, _input, _input.length(), st_);
+//        if (_input.charAt(until_+1)=='>') {
+//
+//
+//            AbstractParseTextState st_ = new ParseFullTextState(doc_,(FullElement) doc_.createElement(""), _input,second_+1, enc_, chs_);
+////        DocumentResult res_ = new DocumentResult();
+//            return AbstractParseTextState.parseCommon(res_, doc_, _input, _input.length(), st_);
+//        }
+////        String next_ = input_.substring(until_);
+////        StringMap<String> enc_ = new StringMap<String>(_encoded);
+//        CustList<EncodedChar> chs_ = mergeAndBuild(_input, 0, until_, enc_);
+//        AbstractParseTextState st_ = new ParseFullTextState(doc_,(FullElement) doc_.createElement(""), _input,until_+1, enc_, chs_);
+////        DocumentResult res_ = new DocumentResult();
+//        return AbstractParseTextState.parseCommon(res_, doc_, _input, _input.length(), st_);
     }
 
-    private CustList<EncodedChar> mergeAndBuild(String _input, int _until, StringMap<String> _enc) {
-        mergeInto(_input, _until, _enc);
+    private CoreDocument docCreate(boolean _withText) {
+        if (_withText) {
+            return new FullDocument(getTabWidth());
+        }
+        return new NoTextDocument(getTabWidth());
+    }
+
+    private static AbstractParseTextState parserInit(CoreDocument _doc, String _input, StringMap<String> _encoded, CustList<EncodedChar> _chs, boolean _withText, int _index) {
+        Element elt_ = _doc.createElement("");
+        if (_withText) {
+            return new ParseFullTextState(_doc, elt_, _input, _index, _encoded, _chs);
+        }
+        return new ParseNoTextState(_doc, elt_, _input, _index, _encoded, _chs);
+    }
+
+    private static CustList<EncodedChar> mergeAndBuild(String _input, int _from, int _until, StringMap<String> _enc) {
+        mergeInto(_input, _from, _until, _enc);
         return build(_enc);
     }
 
-    private DocumentResult noLt(String _input) {
-        DocumentResult res_ = new DocumentResult();
-        RowCol rc_ = new RowCol();
-        rc_.setRow(1);
-        rc_.setCol(1);
-        res_.setLocation(rc_);
-        res_.setChs(new CustList<EncodedChar>());
-        res_.setInput(_input);
-        return res_;
-    }
+//    private DocumentResult noLt(String _input) {
+//        DocumentResult res_ = new DocumentResult();
+//        RowCol rc_ = new RowCol();
+//        rc_.setRow(1);
+//        rc_.setCol(1);
+//        res_.setLocation(rc_);
+//        res_.setChs(new CustList<EncodedChar>());
+//        res_.setInput(_input);
+//        return res_;
+//    }
 
     public static CustList<EncodedChar> build(StringMap<String> _enc) {
         CustList<EncodedChar> out_ = new CustList<EncodedChar>();
@@ -1011,8 +1064,9 @@ public final class DocumentBuilder {
         return out_;
     }
 
-    public static void mergeInto(String _str, int _until, StringMap<String> _enc) {
-        StringList parts_ = StringUtil.splitChars(_str.substring(0, NumberUtil.min(NumberUtil.max(_until, 0), _str.length())), '&', ';');
+    public static void mergeInto(String _str, int _from, int _until, StringMap<String> _enc) {
+        int from_ = NumberUtil.max(_from, 0);
+        StringList parts_ = StringUtil.splitChars(_str.substring(from_, NumberUtil.max(from_,NumberUtil.min(_until, _str.length()))), '&', ';');
         StringList relevant_ = new StringList();
         for (String s: parts_) {
             String tr_ = s.trim();

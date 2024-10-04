@@ -7,7 +7,7 @@ public final class ParseFullTextState extends AbstractParseTextState {
 
     private final StringBuilder currentText = new StringBuilder();
 
-    ParseFullTextState(FullDocument _doc, FullElement _currentElement, String _input, int _index, StringMap<String> _e, CustList<EncodedChar> _encoded) {
+    ParseFullTextState(CoreDocument _doc, Element _currentElement, String _input, int _index, StringMap<String> _e, CustList<EncodedChar> _encoded) {
         super(_doc,_currentElement,_input,_index, _e, _encoded);
     }
 

@@ -22,7 +22,7 @@ public final class RenderBaseSuccessTest extends CommonRender {
     public void process3Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String html_ = "lt&60;gt&62;amp&38;quot&34;<html><body><c:set className=\"String\" value=\"f=&quot;varargs;{0} {1} {2}&quot;,v=&quot;7&quot;,d=&quot;8&quot;\"/>{(f.format($vararg(CharSequence),$firstopt(v),d,v)+'\\'').length()}</body></html>";
+        String html_ = "<>lt&60;gt&62;amp&38;quot&34;<html><body><c:set className=\"String\" value=\"f=&quot;varargs;{0} {1} {2}&quot;,v=&quot;7&quot;,d=&quot;8&quot;\"/>{(f.format($vararg(CharSequence),$firstopt(v),d,v)+'\\'').length()}</body></html>";
         assertEq("<html><body>14</body></html>", getRes2(folder_, relative_, html_, new StringMap<String>()));
     }
 }

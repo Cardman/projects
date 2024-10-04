@@ -14,7 +14,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "lt&60;gt&62;amp&38;quot&34;<html><body><ul><c:for var=\"s\" list=\"$new java.lang.String[]{&quot;FIRST&quot;,&quot;SECOND&quot;}\" className='java.lang.String'><li>{s.length()}</li><c:continue/></c:for></ul></body></html>";
+        String html_ = "<>lt&60;gt&62;amp&38;quot&34;<html><body><ul><c:for var=\"s\" list=\"$new java.lang.String[]{&quot;FIRST&quot;,&quot;SECOND&quot;}\" className='java.lang.String'><li>{s.length()}</li><c:continue/></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", getRes(html_, new StringMap<String>()));
@@ -26,7 +26,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "lt&60;gt&62;amp&38;quot&34;<html><body><ul><c:for var=\"s\" list=\"$new java.lang.String[]{&quot;FIRST&quot;,&quot;SECOND&quot;}\" className='$var'><li>{s.length()}</li></c:for></ul></body></html>";
+        String html_ = "<>lt&60;gt&62;amp&38;quot&34;<html><body><ul><c:for var=\"s\" list=\"$new java.lang.String[]{&quot;FIRST&quot;,&quot;SECOND&quot;}\" className='$var'><li>{s.length()}</li></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", getRes(html_, new StringMap<String>()));
@@ -45,7 +45,7 @@ public final class RenderForEachLoopTest extends CommonRender {
     }
     @Test
     public void process4Test() {
-        String html_ = "lt&60;gt&62;amp&38;quot&34;<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='$int'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        String html_ = "<>lt&60;gt&62;amp&38;quot&34;<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='$int'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
@@ -54,7 +54,7 @@ public final class RenderForEachLoopTest extends CommonRender {
 
     @Test
     public void process5Test() {
-        String html_ = "lt&60;gt&62;amp&38;quot&34;<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;()\" className='$int'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        String html_ = "<>lt&60;gt&62;amp&38;quot&34;<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;()\" className='$int'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
@@ -130,7 +130,7 @@ public final class RenderForEachLoopTest extends CommonRender {
 
     @Test
     public void process11Test() {
-        String html_ = "lt&60;gt&62;amp&38;quot&34;<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='$int'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        String html_ = "<>lt&60;gt&62;amp&38;quot&34;<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='$int'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomFailIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
@@ -138,7 +138,7 @@ public final class RenderForEachLoopTest extends CommonRender {
     }
     @Test
     public void process12Test() {
-        String html_ = "lt&60;gt&62;amp&38;quot&34;<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='$int'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        String html_ = "<>lt&60;gt&62;amp&38;quot&34;<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='$int'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomFailIteratorBis());
         files_.put(CUST_LIST_PATH, getCustomList());
@@ -146,7 +146,7 @@ public final class RenderForEachLoopTest extends CommonRender {
     }
     @Test
     public void process13Test() {
-        String html_ = "lt&60;gt&62;amp&38;quot&34;<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='$int'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        String html_ = "<>lt&60;gt&62;amp&38;quot&34;<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='$int'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomFailList());
@@ -155,7 +155,7 @@ public final class RenderForEachLoopTest extends CommonRender {
 
     @Test
     public void process14Test() {
-        String html_ = "lt&60;gt&62;amp&38;quot&34;<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;(0,1/0,2,3)\" className='$int'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        String html_ = "<>lt&60;gt&62;amp&38;quot&34;<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;(0,1/0,2,3)\" className='$int'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
@@ -163,7 +163,7 @@ public final class RenderForEachLoopTest extends CommonRender {
     }
     @Test
     public void process15Test() {
-        String html_ = "lt&60;gt&62;amp&38;quot&34;<html><c:for var=\"i\" list=\"(pkg.CustList&lt;?java.lang.Integer&gt;)$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='$int'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        String html_ = "<>lt&60;gt&62;amp&38;quot&34;<html><c:for var=\"i\" list=\"(pkg.CustList&lt;?java.lang.Integer&gt;)$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='$int'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
@@ -171,7 +171,7 @@ public final class RenderForEachLoopTest extends CommonRender {
     }
     @Test
     public void process16Test() {
-        String html_ = "lt&60;gt&62;amp&38;quot&34;<html><c:for var=\"i\" list=\"(pkg.CustList&lt;!java.lang.Integer&gt;)$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='java.lang.Object'>{i}-</c:for></html>";
+        String html_ = "<>lt&60;gt&62;amp&38;quot&34;<html><c:for var=\"i\" list=\"(pkg.CustList&lt;!java.lang.Integer&gt;)$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='java.lang.Object'>{i}-</c:for></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
@@ -179,7 +179,7 @@ public final class RenderForEachLoopTest extends CommonRender {
     }
     @Test
     public void process17Test() {
-        String html_ = "lt&60;gt&62;amp&38;quot&34;<html><c:for var=\"i\" list=\"(pkg.CustList&lt;?&gt;)$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='java.lang.Object'>{i}-</c:for></html>";
+        String html_ = "<>lt&60;gt&62;amp&38;quot&34;<html><c:for var=\"i\" list=\"(pkg.CustList&lt;?&gt;)$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='java.lang.Object'>{i}-</c:for></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
@@ -230,14 +230,14 @@ public final class RenderForEachLoopTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "lt&60;gt&62;amp&38;quot&34;<html><body><ul><c:for var=\"s\" list=\"{&quot;FIRST&quot;,&quot;SECOND&quot;}\" className='java.lang.String'><li>{s.length()}</li></c:for></ul></body></html>";
+        String html_ = "<>lt&60;gt&62;amp&38;quot&34;<html><body><ul><c:for var=\"s\" list=\"{&quot;FIRST&quot;,&quot;SECOND&quot;}\" className='java.lang.String'><li>{s.length()}</li></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process21Test() {
-        String html_ = "lt&60;gt&62;amp&38;quot&34;<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;&gt;(0,1,2,3)\" className='$int'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        String html_ = "<>lt&60;gt&62;amp&38;quot&34;<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;&gt;(0,1,2,3)\" className='$int'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
@@ -246,7 +246,7 @@ public final class RenderForEachLoopTest extends CommonRender {
 
     @Test
     public void process22Test() {
-        String html_ = "lt&60;gt&62;amp&38;quot&34;<html><c:set className='$var' value='l=$(pkg.CustList&lt;$int&gt;)$null'/><c:for var=\"i\" list=\"l\" className='$int'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        String html_ = "<>lt&60;gt&62;amp&38;quot&34;<html><c:set className='$var' value='l=$(pkg.CustList&lt;$int&gt;)$null'/><c:for var=\"i\" list=\"l\" className='$int'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
@@ -259,7 +259,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "lt&60;gt&62;amp&38;quot&34;<html><body><ul><c:for var=\"s\" list=\"$new java.lang.String[]{&quot;FIRST&quot;,&quot;SECOND&quot;}\" className='java.lang.String' label='lab'><li>{s.length()}</li><c:break label='lab'/></c:for></ul></body></html>";
+        String html_ = "<>lt&60;gt&62;amp&38;quot&34;<html><body><ul><c:for var=\"s\" list=\"$new java.lang.String[]{&quot;FIRST&quot;,&quot;SECOND&quot;}\" className='java.lang.String' label='lab'><li>{s.length()}</li><c:break label='lab'/></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         assertEq("<html><body><ul><li>5</li></ul></body></html>", getRes(html_, new StringMap<String>()));
@@ -364,7 +364,7 @@ public final class RenderForEachLoopTest extends CommonRender {
     }
     @Test
     public void process8FailTest() {
-        String html_ = "lt&60;gt&62;amp&38;quot&34;<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;()\" className='java.lang.String'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        String html_ = "<>lt&60;gt&62;amp&38;quot&34;<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;()\" className='java.lang.String'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
@@ -393,7 +393,7 @@ public final class RenderForEachLoopTest extends CommonRender {
 
     @Test
     public void process10FailTest() {
-        String html_ = "lt&60;gt&62;amp&38;quot&34;<html><body><ul><c:for var=\"s\" list=\"$new java.lang.String[]{&quot;FIRST&quot;,&quot;SECOND&quot;}\" className='java.lang.String' label=','><li>{s.length()}</li></c:for></ul></body></html>";
+        String html_ = "<>lt&60;gt&62;amp&38;quot&34;<html><body><ul><c:for var=\"s\" list=\"$new java.lang.String[]{&quot;FIRST&quot;,&quot;SECOND&quot;}\" className='java.lang.String' label=','><li>{s.length()}</li></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());

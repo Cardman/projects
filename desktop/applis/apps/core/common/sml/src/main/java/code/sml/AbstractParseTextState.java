@@ -48,6 +48,9 @@ public abstract class AbstractParseTextState {
     }
 
     static DocumentResult parseCommon(DocumentResult _res, CoreDocument _doc, String _input, int _len, AbstractParseTextState _st) {
+        if (_st.index < 0) {
+            _st.index = _len;
+        }
         while (_st.index < _len) {
             if (_st.exit()) {
                 break;

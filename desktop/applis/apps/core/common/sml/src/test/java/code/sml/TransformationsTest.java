@@ -34,6 +34,12 @@ public class TransformationsTest extends EquallableRowColUtil {
     public void encodeHtml6Test() {
         assertEq("&eacute", DocumentBuilder.encodeHtml("&eacute"));
     }
+    @Test
+    public void encodeHtml7Test() {
+        CustList<EncodedChar> one_ = new CustList<EncodedChar>();
+        one_.add(new EncodedChar("&eacute;", 'é'));
+        assertEq("&;", DocumentBuilder.encodeHtml("&;",one_));
+    }
 //    @Test
 //    public void transformSpecialChars1Test() {
 //        assertEq(String.valueOf(CharList.wrapCharArray((char)233)), DocumentBuilder.transformSpecialChars("&eacute;"));

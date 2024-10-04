@@ -11,6 +11,7 @@ public final class DocumentResult {
     private StringMap<String> escaped;
     private CustList<EncodedChar> chs;
     private String input;
+    private int firstIndex;
     public Document getDocument() {
         return document;
     }
@@ -49,5 +50,13 @@ public final class DocumentResult {
 
     public void setInput(String _i) {
         this.input = _i;
+    }
+
+    public int getFirstIndex() {
+        return firstIndex;
+    }
+
+    public void setFirstIndex(int _f) {
+        this.firstIndex = _f;
     }
 }

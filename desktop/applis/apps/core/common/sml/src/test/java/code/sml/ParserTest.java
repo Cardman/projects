@@ -36,12 +36,32 @@ public class ParserTest extends EquallableRowColUtil {
 
     @Test
     public void parseSax6Test() {
-        assertNotNull(DocumentBuilder.parseSax("eacute&233;<tag>&eacute;</tag>"));
+        assertNotNull(DocumentBuilder.parseSax("<>eacute&233;<tag>&eacute;</tag>"));
     }
 
     @Test
     public void parseSax7Test() {
         assertNotNull(DocumentBuilder.parseSax("<tag>&#0;</tag>"));
+    }
+
+    @Test
+    public void parseSax8Test() {
+        assertNotNull(DocumentBuilder.parseSax("<>eacute&233;<tag>&  eacute  ;</tag>"));
+    }
+
+    @Test
+    public void parseSax9Test() {
+        assertNull(DocumentBuilder.parseSax("<><>"));
+    }
+
+    @Test
+    public void parseSax10Test() {
+        assertNull(DocumentBuilder.parseSax("_<"));
+    }
+
+    @Test
+    public void parseSax11Test() {
+        assertNull(DocumentBuilder.parseSax(""));
     }
 
     @Test
@@ -71,7 +91,7 @@ public class ParserTest extends EquallableRowColUtil {
 
     @Test
     public void parseSaxHtml6Test() {
-        assertNotNull(DocumentBuilder.parseSax("eacute&233;<tag>&eacute;</tag>"));
+        assertNotNull(DocumentBuilder.parseSax("<>eacute&233;<tag>&eacute;</tag>"));
     }
 
     @Test
@@ -191,12 +211,12 @@ public class ParserTest extends EquallableRowColUtil {
 
     @Test
     public void parseSaxHtml30Test() {
-        assertNotNull(DocumentBuilder.parseSax("quot&34;apos&39;<tag a= \"'&apos;&quot;\" b= '\"&apos;&quot;'/>"));
+        assertNotNull(DocumentBuilder.parseSax("<>quot&34;apos&39;<tag a= \"'&apos;&quot;\" b= '\"&apos;&quot;'/>"));
     }
 
     @Test
     public void parseSaxHtml31Test() {
-        assertNotNull(DocumentBuilder.parseSax("quot&34;apos&39;<tag b= '\"&apos;&quot;' a= \"'&apos;&quot;\"/>"));
+        assertNotNull(DocumentBuilder.parseSax("<>quot&34;apos&39;<tag b= '\"&apos;&quot;' a= \"'&apos;&quot;\"/>"));
     }
 
     @Test
@@ -425,7 +445,7 @@ public class ParserTest extends EquallableRowColUtil {
 
     @Test
     public void parseSaxNo6Test() {
-        assertNotNull(DocumentBuilder.parseNoTextDocument("eacute&233;<tag>&eacute;</tag>"));
+        assertNotNull(DocumentBuilder.parseNoTextDocument("<>eacute&233;<tag>&eacute;</tag>"));
     }
 
     @Test
@@ -460,7 +480,7 @@ public class ParserTest extends EquallableRowColUtil {
 
     @Test
     public void parseNoText6Test() {
-        assertNotNull(DocumentBuilder.parseNoTextDocument("eacute&233;<tag>&eacute;</tag>"));
+        assertNotNull(DocumentBuilder.parseNoTextDocument("<>eacute&233;<tag>&eacute;</tag>"));
     }
 
     @Test
@@ -580,12 +600,12 @@ public class ParserTest extends EquallableRowColUtil {
 
     @Test
     public void parseNoText30Test() {
-        assertNotNull(DocumentBuilder.parseNoTextDocument("quot&34;apos&39;<tag a= \"'&apos;&quot;\" b= '\"&apos;&quot;'/>"));
+        assertNotNull(DocumentBuilder.parseNoTextDocument("<>quot&34;apos&39;<tag a= \"'&apos;&quot;\" b= '\"&apos;&quot;'/>"));
     }
 
     @Test
     public void parseNoText31Test() {
-        assertNotNull(DocumentBuilder.parseNoTextDocument("quot&34;apos&39;<tag b= '\"&apos;&quot;' a= \"'&apos;&quot;\"/>"));
+        assertNotNull(DocumentBuilder.parseNoTextDocument("<>quot&34;apos&39;<tag b= '\"&apos;&quot;' a= \"'&apos;&quot;\"/>"));
     }
 
     @Test
