@@ -56,7 +56,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling().getFirstChild();
-        assertEq(10, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>()));
+        assertEq(10, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>(), 0));
     }
 
     @Test
@@ -65,7 +65,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling().getFirstChild();
-        assertEq(12, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>()));
+        assertEq(12, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>(), 0));
     }
 
     @Test
@@ -74,7 +74,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling();
-        assertEq(9, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>()));
+        assertEq(9, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>(), 0));
     }
 
     @Test
@@ -83,7 +83,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling();
-        assertEq(9, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>()));
+        assertEq(9, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>(), 0));
     }
 
     @Test
@@ -92,7 +92,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling().getNextSibling().getFirstChild();
-        assertEq(17, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>()));
+        assertEq(17, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>(), 0));
     }
 
     @Test
@@ -101,7 +101,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling().getNextSibling();
-        assertEq(14, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>()));
+        assertEq(14, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>(), 0));
     }
 
     @Test
@@ -110,7 +110,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling().getNextSibling().getNextSibling();
-        assertEq(43, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>()));
+        assertEq(43, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>(), 0));
     }
 
     @Test
@@ -119,7 +119,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild();
-        assertEq(9, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "where", new CustList<EncodedChar>()));
+        assertEq(9, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "where", new CustList<EncodedChar>(), 0));
     }
 
     @Test
@@ -128,7 +128,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild();
-        assertEq(9, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "where", new CustList<EncodedChar>()));
+        assertEq(9, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "where", new CustList<EncodedChar>(), 0));
     }
 
     @Test
@@ -137,7 +137,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild();
-        assertEq(23, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "when", new CustList<EncodedChar>()));
+        assertEq(23, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "when", new CustList<EncodedChar>(), 0));
     }
 
     @Test
@@ -148,7 +148,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Node n_ = node_.getFirstChild().getNextSibling().getFirstChild();
         CustList<EncodedChar> one_ = new CustList<EncodedChar>();
         one_.add(new EncodedChar("&amp;", '&'));
-        assertEq(21, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", one_));
+        assertEq(21, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", one_, 2));
     }
 
     @Test
@@ -157,7 +157,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling().getFirstChild();
-        assertEq(12, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>()));
+        assertEq(12, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>(), 0));
     }
 
     @Test
@@ -166,7 +166,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling().getFirstChild();
-        assertEq(10, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>()));
+        assertEq(10, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>(), 0));
     }
 
     @Test
@@ -175,7 +175,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling().getFirstChild();
-        assertEq(12, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>()));
+        assertEq(12, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>(), 0));
     }
 
     @Test
@@ -184,7 +184,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling();
-        assertEq(9, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>()));
+        assertEq(9, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>(), 0));
     }
 
     @Test
@@ -193,7 +193,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling().getFirstChild();
-        assertEq(13, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>()));
+        assertEq(13, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>(), 0));
     }
 
     @Test
@@ -202,7 +202,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling().getNextSibling();
-        assertEq(18, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>()));
+        assertEq(18, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>(), 0));
     }
 
     @Test
@@ -210,7 +210,7 @@ public class IndexesTest extends EquallableRowColUtil {
         String html_ = "<tag>233<ta></ta><a/></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
-        assertEq(1, DocumentIndexer.getIndexOfNodeOrAttribute(html_, node_, "", new CustList<EncodedChar>()));
+        assertEq(1, DocumentIndexer.getIndexOfNodeOrAttribute(html_, node_, "", new CustList<EncodedChar>(), 0));
     }
 
 
@@ -220,7 +220,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling().getNextSibling().getNextSibling();
-        assertEq(43, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", true, new CustList<EncodedChar>()));
+        assertEq(43, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", true, new CustList<EncodedChar>(), 0));
     }
 
     @Test
@@ -229,7 +229,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild();
-        assertEq(16, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "where", true, new CustList<EncodedChar>()));
+        assertEq(16, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "where", true, new CustList<EncodedChar>(), 0));
     }
 
     @Test
@@ -238,7 +238,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild();
-        assertEq(16, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "where", true, new CustList<EncodedChar>()));
+        assertEq(16, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "where", true, new CustList<EncodedChar>(), 0));
     }
 
     @Test
@@ -247,7 +247,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild();
-        assertEq(29, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "when", true, new CustList<EncodedChar>()));
+        assertEq(29, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "when", true, new CustList<EncodedChar>(), 0));
     }
 
     @Test
@@ -256,7 +256,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild();
-        assertEq(28, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "where", true, new CustList<EncodedChar>()));
+        assertEq(28, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "where", true, new CustList<EncodedChar>(), 0));
     }
 
     @Test
@@ -265,7 +265,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild();
-        assertEq(34, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "how", true, new CustList<EncodedChar>()));
+        assertEq(34, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "how", true, new CustList<EncodedChar>(), 0));
     }
     @Test
     public void getIndexOfNodeOrAttribute25Test() {
@@ -273,7 +273,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling().getFirstChild();
-        assertEq(10, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>()));
+        assertEq(10, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>(), 0));
     }
     @Test
     public void getIndexOfNodeOrAttribute26Test() {
@@ -281,7 +281,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling();
-        assertEq(7, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>()));
+        assertEq(7, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "", new CustList<EncodedChar>(), 0));
     }
     @Test
     public void getIndexOfNodeOrAttribute27Test() {
@@ -289,7 +289,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling();
-        assertEq(10, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "myattr", new CustList<EncodedChar>()));
+        assertEq(10, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "myattr", new CustList<EncodedChar>(), 0));
     }
     @Test
     public void getIndexOfNodeOrAttribute28Test() {
@@ -297,7 +297,7 @@ public class IndexesTest extends EquallableRowColUtil {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling().getNextSibling();
-        assertEq(44, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "myattr", true, new CustList<EncodedChar>()));
+        assertEq(44, DocumentIndexer.getIndexOfNodeOrAttribute(html_, n_, "myattr", true, new CustList<EncodedChar>(), 0));
     }
 
     @Test

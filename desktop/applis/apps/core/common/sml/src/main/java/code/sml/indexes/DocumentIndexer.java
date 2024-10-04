@@ -34,7 +34,7 @@ public final class DocumentIndexer {
         if (_node == null) {
             return new RowCol();
         }
-        int index_ = getIndexOfNodeOrAttribute(_xml, _node, _attribute, _attrValue, new CustList<EncodedChar>());
+        int index_ = getIndexOfNodeOrAttribute(_xml, _node, _attribute, _attrValue, new CustList<EncodedChar>(), 0);
         return getRowColOfString(_xml, index_ + _offest, _tabWidth);
     }
 
@@ -60,7 +60,7 @@ public final class DocumentIndexer {
         return rc_;
     }
 
-    public static int getIndexOfNodeOrAttribute(String _xml, Node _node, String _attribute, boolean _attrValue, CustList<EncodedChar> _esc) {
+    public static int getIndexOfNodeOrAttribute(String _xml, Node _node, String _attribute, boolean _attrValue, CustList<EncodedChar> _esc, int _from) {
         Document doc_ = _node.getOwnerDocument();
         Element root_ = doc_.getDocumentElement();
         CustList<Node> nodesBefore_ = getDeepChildNodesDocOrder(root_, _node);
@@ -78,7 +78,7 @@ public final class DocumentIndexer {
             }
         }
         StringBuilder arg_ = new StringBuilder();
-        int i_ = _xml.indexOf(LT) + 1;
+        int i_ = _xml.indexOf(LT, _from) + 1;
         int found_ = IndexConstants.INDEX_NOT_FOUND_ELT;
         int count_ = 0;
         int nb_ = nbSameNamedNodes_ + 1;
@@ -129,9 +129,10 @@ public final class DocumentIndexer {
                 StringBuilder strArg_ = new StringBuilder();
                 j_ = goToEndEsc(_arg, j_, strArg_);
                 String convered_ = DocumentBuilder.encodeHtml(strArg_.append(END_ESCAPED).toString(), _esc);
-                convered_ = convered_.substring(IndexConstants.SECOND_INDEX + 1, convered_.length() - 1);
-                int intArg_ = NumberUtil.parseInt(convered_);
-                formatted_.append((char) intArg_);
+//                convered_ = convered_.substring(IndexConstants.SECOND_INDEX + 1, convered_.length() - 1);
+//                int intArg_ = NumberUtil.parseInt(convered_);
+//                formatted_.append((char) intArg_);
+                formatted_.append(convered_);
             }
             j_++;
         }
@@ -343,14 +344,14 @@ public final class DocumentIndexer {
         return i_;
     }
 
-    public static int getIndexOfNodeOrAttribute(String _xml, Node _node, String _attribute, CustList<EncodedChar> _esc) {
-        return getIndexOfNodeOrAttribute(_xml, _node, _attribute, false, _esc);
+    public static int getIndexOfNodeOrAttribute(String _xml, Node _node, String _attribute, CustList<EncodedChar> _esc, int _from) {
+        return getIndexOfNodeOrAttribute(_xml, _node, _attribute, false, _esc, _from);
     }
 
     public static StringMap<IntTreeMap<Integer>> getSpecialChars(String _html, Element _element, CustList<EncodedChar> _esc) {
         StringMap<IntTreeMap<Integer>> encoded_;
         encoded_ = new StringMap<IntTreeMap<Integer>>();
-        int index_ = getIndexOfNodeOrAttribute(_html, _element, EMPTY_STRING, _esc);
+        int index_ = getIndexOfNodeOrAttribute(_html, _element, EMPTY_STRING, _esc, 0);
         int endHeader_ = _html.indexOf(GT, index_);
         int beginHeader_ = index_ + _element.getTagName().length();
         StringMap<AttributePart> attr_;

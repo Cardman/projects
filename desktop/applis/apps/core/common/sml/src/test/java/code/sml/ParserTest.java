@@ -65,6 +65,21 @@ public class ParserTest extends EquallableRowColUtil {
     }
 
     @Test
+    public void parseSax12Test() {
+        assertNotNull(DocumentBuilder.parseSax("<tag>&# 0 ;</tag>"));
+    }
+
+    @Test
+    public void parseSax13Test() {
+        assertNotNull(DocumentBuilder.parseSax("<tag>&#123456;</tag>"));
+    }
+
+    @Test
+    public void parseSax14Test() {
+        assertNotNull(DocumentBuilder.parseSax("<tag>&#78520;</tag>"));
+    }
+
+    @Test
     public void parseSaxHtml1Test() {
         assertNotNull(DocumentBuilder.parseSax("<tag>e</tag>"));
     }

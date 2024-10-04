@@ -884,7 +884,7 @@ public final class DocumentBuilder {
         int length_ = _htmlText.length();
         StringBuilder str_ = new StringBuilder();
         int i_ = 0;
-        AbstractEncodingText incr_ = new IncrEncodingText(i_,str_);
+        AbstractEncodingText incr_ = new TryIncrEncodingText(i_,str_);
         return AbstractEncodingText.encodeCommon(_htmlText, _map, length_, incr_);
     }
 

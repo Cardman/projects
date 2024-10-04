@@ -14,7 +14,7 @@ public class TransformationsTest extends EquallableRowColUtil {
     public void encodeHtml2Test() {
         CustList<EncodedChar> one_ = new CustList<EncodedChar>();
         one_.add(new EncodedChar("&eacute;", 'é'));
-        assertEq("&#233; changes", DocumentBuilder.encodeHtml("&eacute; changes",one_));
+        assertEq("é changes", DocumentBuilder.encodeHtml("&eacute; changes",one_));
     }
     @Test
     public void encodeHtmll3Test() {
@@ -28,7 +28,7 @@ public class TransformationsTest extends EquallableRowColUtil {
     }
     @Test
     public void encodeHtml5Test() {
-        assertEq("&#233;", DocumentBuilder.encodeHtml("&#233;"));
+        assertEq("é", DocumentBuilder.encodeHtml("&#233;"));
     }
     @Test
     public void encodeHtml6Test() {
