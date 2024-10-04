@@ -1,7 +1,7 @@
 package code.formathtml.errors;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.common.StringDataUtil;
+import code.expressionlanguage.common.DisplayedStrings;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.errors.stds.StdWordError;
@@ -12,6 +12,7 @@ import code.sml.util.TranslationsFile;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class RendKeyWords {
@@ -380,34 +381,37 @@ public final class RendKeyWords {
     }
 
     public void patchDefs(StringMap<String> _mapping) {
-        String adjMinLetter_ = StringDataUtil.toLowerCase(rendKeyWordsDefs.getDefMinLetter());
+        String adjMinLetter_ = DisplayedStrings.build(rendKeyWordsDefs.getDefMinLetter(),new LowerCharMapping()).toString();
         if (ko(adjMinLetter_, 1)) {
             rendKeyWordsDefs.setDefMinLetter(_mapping.getVal(DEF_MIN_LETTER));
         } else {
             rendKeyWordsDefs.setDefMinLetter(adjMinLetter_);
         }
-        String adjMajLetter_ = StringDataUtil.toUpperCase(rendKeyWordsDefs.getDefMajLetter());
+        String adjMajLetter_ = DisplayedStrings.build(rendKeyWordsDefs.getDefMajLetter(),new UpperCharMapping()).toString();
         if (ko(adjMajLetter_, 1)) {
             rendKeyWordsDefs.setDefMajLetter(_mapping.getVal(DEF_MAJ_LETTER));
         } else {
             rendKeyWordsDefs.setDefMajLetter(adjMajLetter_);
         }
-        String adjMinLatin_ = StringDataUtil.toLowerCase(rendKeyWordsDefs.getDefMinLatin());
+        String adjMinLatin_ = eightFirstChars(DisplayedStrings.build(rendKeyWordsDefs.getDefMinLatin(),new LowerCharMapping()).toString());
         if (ko(adjMinLatin_, 8)) {
             rendKeyWordsDefs.setDefMinLatin(_mapping.getVal(DEF_MIN_LATIN));
         } else {
             rendKeyWordsDefs.setDefMinLatin(adjMinLatin_);
         }
-        String adjMajLatin_ = StringDataUtil.toUpperCase(rendKeyWordsDefs.getDefMajLatin());
+        String adjMajLatin_ = eightFirstChars(DisplayedStrings.build(rendKeyWordsDefs.getDefMajLatin(),new UpperCharMapping()).toString());
         if (ko(adjMajLatin_, 8)) {
             rendKeyWordsDefs.setDefMajLatin(_mapping.getVal(DEF_MAJ_LATIN));
         } else {
             rendKeyWordsDefs.setDefMajLatin(adjMajLatin_);
         }
     }
+    private static String eightFirstChars(String _str) {
+        return _str.substring(0, NumberUtil.min(8,_str.length()));
+    }
 
     private boolean ko(String _a, int _min) {
-        return _a.length() < _min || !MathExpUtil.isWord(_a);
+        return _a.length() < _min;
     }
 
     public static TranslationsFile enStyleUnits() {

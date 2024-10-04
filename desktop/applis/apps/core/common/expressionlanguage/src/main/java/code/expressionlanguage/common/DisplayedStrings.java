@@ -18,22 +18,22 @@ public final class DisplayedStrings {
     private String alphaHex;
 
     public static String patchAlpha(String _alpha) {
-        return build(_alpha).toString();
+        return build(_alpha, new MinCaseCharMapping()).toString();
     }
 
     public static String patchAlphaHex(String _alpha, String _defHex) {
-        StringBuilder builder_ = build(_alpha);
+        StringBuilder builder_ = build(_alpha, new MinCaseCharMapping());
         if (builder_.length() != 6) {
             return _defHex;
         }
         return builder_.toString();
     }
 
-    private static StringBuilder build(String _alpha) {
+    public static StringBuilder build(String _alpha, AbsCharMapping _mapping) {
         StringList str_ = new StringList();
         for (char c: _alpha.toCharArray()) {
             if (StringDataLetterUtil.isLetter(c)) {
-                str_.add(Character.toString((char)NumParsers.toMinCase(c)));
+                str_.add(Character.toString(_mapping.map(c)));
             }
         }
         str_.removeDuplicates();

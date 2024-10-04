@@ -71,8 +71,8 @@ public final class AliasNumberType {
     private static final String FIELD_NAN="812";
     private static final String FIELD_MIN_VALUE="813";
     private static final String FIELD_MAX_VALUE="814";
-    private static final String FIELD_ALPHA="814_";
-    private static final String FIELD_ALPHA_HEX="814__";
+    private static final String ALPHA ="814_";
+    private static final String ALPHA_HEX ="814__";
     private String aliasCompareTo;
     private String aliasCompare;
     private String aliasEquals;
@@ -143,8 +143,8 @@ public final class AliasNumberType {
         setAliasPlusInfinityField(LgNamesContent.get(_util,_cust,_mapping.getVal(FIELD_PLUS_INFINITY)));
         setAliasMinusInfinityField(LgNamesContent.get(_util,_cust,_mapping.getVal(FIELD_MINUS_INFINITY)));
         setAliasNanField(LgNamesContent.get(_util,_cust,_mapping.getVal(FIELD_NAN)));
-        setAliasAlpha(LgNamesContent.get(_util,_cust,_mapping.getVal(FIELD_ALPHA)));
-        setAliasAlphaHex(LgNamesContent.get(_util,_cust,_mapping.getVal(FIELD_ALPHA_HEX)));
+        setAliasAlpha(LgNamesContent.get(_util,_cust,_mapping.getVal(ALPHA)));
+        setAliasAlphaHex(LgNamesContent.get(_util,_cust,_mapping.getVal(ALPHA_HEX)));
         setAliasEquals(LgNamesContent.get(_util,_cust,_mapping.getVal(EQUALS)));
         setAliasLong(LgNamesContent.get(_util,_cust,_mapping.getVal(LONG)));
         setAliasShort(LgNamesContent.get(_util,_cust,_mapping.getVal(SHORT)));
@@ -262,8 +262,8 @@ public final class AliasNumberType {
         _en.add(FIELD_NAN,"NAN=NAN");
         _en.add(FIELD_MIN_VALUE,"MIN_VALUE=MIN_VALUE");
         _en.add(FIELD_MAX_VALUE,"MAX_VALUE=MAX_VALUE");
-        _en.add(FIELD_ALPHA,"Alpha=alpha");
-        _en.add(FIELD_ALPHA_HEX,"AlphaHex=alphaHex");
+        _en.add(ALPHA,"Alpha=alpha");
+        _en.add(ALPHA_HEX,"AlphaHex=alphaHex");
     }
     public static void fr(TranslationsFile _fr){
         _fr.add(BOOLEAN,"Boolean=$coeur.Booleen");
@@ -326,8 +326,8 @@ public final class AliasNumberType {
         _fr.add(FIELD_NAN,"NAN=PUN");
         _fr.add(FIELD_MIN_VALUE,"MIN_VALUE=MIN_VALEUR");
         _fr.add(FIELD_MAX_VALUE,"MAX_VALUE=MAX_VALEUR");
-        _fr.add(FIELD_ALPHA,"Alpha=alpha");
-        _fr.add(FIELD_ALPHA_HEX,"AlphaHex=alphaHex");
+        _fr.add(ALPHA,"Alpha=alpha");
+        _fr.add(ALPHA_HEX,"AlphaHex=alphaHex");
     }
     public static void mapping(StringMap<String> _m){
         _m.addEntry(BOOLEAN,"Boolean");
@@ -390,8 +390,8 @@ public final class AliasNumberType {
         _m.addEntry(FIELD_NAN,"NAN");
         _m.addEntry(FIELD_MIN_VALUE,"MIN_VALUE");
         _m.addEntry(FIELD_MAX_VALUE,"MAX_VALUE");
-        _m.addEntry(FIELD_ALPHA,"ALPHA");
-        _m.addEntry(FIELD_ALPHA_HEX,"ALPHA_HEX");
+        _m.addEntry(ALPHA,"Alpha");
+        _m.addEntry(ALPHA_HEX,"AlphaHex");
     }
     public StringMap<String> allRefTypes(StringMap<String> _mapping) {
         StringMap<String> list_ = new StringMap<String>();
@@ -496,8 +496,8 @@ public final class AliasNumberType {
                 new KeyValueMemberName(_mapping.getVal(OCT),getAliasToOctString()),
                 new KeyValueMemberName(_mapping.getVal(HEX),getAliasToHexString()),
                 new KeyValueMemberName(_mapping.getVal(TO_UPPER_CASE_CHAR),getAliasToUpperCaseChar()),
-                new KeyValueMemberName(_mapping.getVal(FIELD_ALPHA),getAliasAlpha()),
-                new KeyValueMemberName(_mapping.getVal(FIELD_ALPHA_HEX),getAliasAlphaHex())));
+                new KeyValueMemberName(_mapping.getVal(ALPHA),getAliasAlpha()),
+                new KeyValueMemberName(_mapping.getVal(ALPHA_HEX),getAliasAlphaHex())));
         map_.addEntry(getAliasDouble(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(BYTE_VALUE),getAliasByteValue()),
                 new KeyValueMemberName(_mapping.getVal(COMPARE),getAliasCompare()),
