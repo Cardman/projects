@@ -18,7 +18,7 @@ public final class TryIncrEncodingText extends AbstractEncodingText {
     private static void tryIncr(String _htmlText, CustList<EncodedChar> _map, StringBuilder _str, int _iEncode, int _index) {
         if (_htmlText.charAt(_iEncode + 1) == NUMBERED_CHAR) {
             String strValue_ = _htmlText.substring(_iEncode + 2, _index);
-            if (strValue_.length() <= 5 && onlyDigits(strValue_)) {
+            if (!strValue_.isEmpty() && strValue_.length() <= 5 && onlyDigits(strValue_)) {
                 long value_ = NumberUtil.parseLongZero(strValue_);
                 if (value_ < 256 * 256) {
                     char char_ = (char) value_;
