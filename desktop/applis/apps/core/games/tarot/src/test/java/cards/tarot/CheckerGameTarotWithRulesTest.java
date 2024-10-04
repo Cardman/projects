@@ -3709,6 +3709,52 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         assertTrue(!game_.getError().isEmpty());
     }
     @Test
+    public void check51_FailTest() {
+        RulesTarot rules_ = new RulesTarot();
+        rules_.setMode(ModeTarot.NORMAL);
+        DealTarot deal_ = deal1((byte) 0);
+        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
+        int first_ = game_.playerAfter(deal_.getDealer());
+        game_.ajouterContrat(BidTarot.TAKE);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        HandTarot called_ = new HandTarot();
+        called_.ajouter(CardTarot.HEART_KING);
+        called_.ajouter(CardTarot.SPADE_KING);
+        game_.setCarteAppelee(called_);
+        check(game_);
+        assertTrue(!game_.getError().isEmpty());
+    }
+    @Test
+    public void check51__FailTest() {
+        RulesTarot rules_ = new RulesTarot();
+        rules_.setMode(ModeTarot.NORMAL);
+        DealTarot deal_ = deal1((byte) 0);
+        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
+        int first_ = game_.playerAfter(deal_.getDealer());
+        game_.ajouterContrat(BidTarot.GUARD_WITHOUT);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD);
+        HandTarot called_ = new HandTarot();
+        called_.ajouter(CardTarot.HEART_KING);
+        called_.ajouter(CardTarot.SPADE_KING);
+        game_.setCarteAppelee(called_);
+        check(game_);
+        assertTrue(!game_.getError().isEmpty());
+    }
+    @Test
     public void check52FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.getAllowedHandfuls().put(Handfuls.ONE,-1);

@@ -583,10 +583,18 @@ public final class CheckerGameTarotWithRules {
         if (_loadedGame.getContrat().getJeuChien() == PlayingDog.WITH) {
             return koBidWith(_loadedGame, _rules, _loadedGameCopy, _mes);
         }
+        if (_loadedGame.getContrat().isJouerDonne() && badCall(_loadedGame, _loadedGameCopy.callableCards())) {
+            _loadedGame
+                    .setError(_mes.getVal(A_CARD_MUST_BE_CALLED_AMONG_ALL_POSSIBLE));
+            return true;
+        }
         if (_loadedGame.getContrat().isJouerDonne() && !_loadedGame.getTricks().isEmpty()) {
 //            if (!_loadedGame.existPlayedCard()) {
 //                return false;
 //            }
+            _loadedGameCopy.setCarteAppelee(_loadedGame
+                    .getCarteAppelee());
+            _loadedGameCopy.initConfianceAppele();
             _loadedGameCopy.gererChienInconnu();
             TrickTarot discardedCards_ = discardedCards(_loadedGame);
 //            discardedCards_ = _loadedGame.getTricks().first();
@@ -611,8 +619,7 @@ public final class CheckerGameTarotWithRules {
             _loadedGameCopy.ajouterCartes(_loadedGameCopy.getPreneur(),
                     _loadedGameCopy.derniereMain());
             HandTarot callableCards_ = _loadedGameCopy.callableCards();
-            if (!callableCards_.contientCartes(_loadedGame
-                    .getCarteAppelee())) {
+            if (badCall(_loadedGame, callableCards_)) {
                 _loadedGame
                         .setError(_mes.getVal(A_CARD_MUST_BE_CALLED_AMONG_ALL_POSSIBLE));
                 return true;
@@ -632,8 +639,7 @@ public final class CheckerGameTarotWithRules {
             _loadedGameCopy.initConfianceAppele();
         } else {
             HandTarot callableCards_ = _loadedGameCopy.callableCards();
-            if (!callableCards_.contientCartes(_loadedGame
-                    .getCarteAppelee())) {
+            if (badCall(_loadedGame, callableCards_)) {
                 _loadedGame
                         .setError(_mes.getVal(A_CARD_MUST_BE_CALLED_AMONG_ALL_POSSIBLE));
                 return true;
@@ -654,6 +660,15 @@ public final class CheckerGameTarotWithRules {
 //            _loadedGameCopy.setEntameur(_loadedGame.getPreneur());
 //        }
         return false;
+    }
+
+    private static boolean badCall(GameTarot _loadedGame, HandTarot _callableCards) {
+        HandTarot carteAppelee_ = _loadedGame
+                .getCarteAppelee();
+        if (carteAppelee_.total() > 1) {
+            return true;
+        }
+        return !_callableCards.contientCartes(carteAppelee_);
     }
 
     private static boolean koDiscarded(TrickTarot _discardedCards, GameTarot _loadedGameCopy, GameTarot _loadedGame, StringMap<String> _mes) {
