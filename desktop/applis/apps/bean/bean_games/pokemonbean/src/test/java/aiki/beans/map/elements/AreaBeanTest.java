@@ -55,35 +55,35 @@ public final class AreaBeanTest extends InitDbArea {
     }
     @Test
     public void getImage1() {
-        assertEq("AAABAAAA",callAreaBeanGetImage(0,0));
+        assertImgEq(IMG_00,callAreaBeanGetImage(0,0));
     }
     @Test
     public void getImage2() {
-        assertEq("AAABAAAB",callAreaBeanGetImage(0,1));
+        assertImgEq(IMG_01,callAreaBeanGetImage(0,1));
     }
     @Test
     public void getImage3() {
-        assertEq("AAABAAAE",callAreaBeanGetImage(1,0));
+        assertImgEq(IMG_04,callAreaBeanGetImage(1,0));
     }
     @Test
     public void getImage4() {
-        assertEq("AAABAAAF",callAreaBeanGetImage(1,1));
+        assertImgEq(IMG_05,callAreaBeanGetImage(1,1));
     }
     @Test
     public void getImageFishing1() {
-        assertEq("AAABAAAC",callAreaBeanGetImageFishing(0,0));
+        assertImgEq(IMG_02,callAreaBeanGetImageFishing(0,0));
     }
     @Test
     public void getImageFishing2() {
-        assertEq("AAABAAAD",callAreaBeanGetImageFishing(0,1));
+        assertImgEq(IMG_03,callAreaBeanGetImageFishing(0,1));
     }
     @Test
     public void getImageFishing3() {
-        assertEq("AAABAAAG",callAreaBeanGetImageFishing(1,0));
+        assertImgEq(IMG_06,callAreaBeanGetImageFishing(1,0));
     }
     @Test
     public void getImageFishing4() {
-        assertEq("AAABAAAH",callAreaBeanGetImageFishing(1,1));
+        assertImgEq(IMG_07,callAreaBeanGetImageFishing(1,1));
     }
     @Test
     public void getName1() {

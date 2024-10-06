@@ -7,7 +7,6 @@ import aiki.fight.items.*;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.instances.Instances;
 import code.bean.nat.*;
-import code.images.BaseSixtyFourUtil;
 import code.maths.Rate;
 import code.util.StringMap;
 
@@ -71,9 +70,9 @@ public abstract class InitDbHealingStatus extends InitDbHealing {
         feedHm(facade_.getData().getHm());
         facade_.getData().addConstNumTest(DataBase.MAX_EV, Rate.newRate("2"));
         facade_.getData().completeVariables();
-        facade_.getData().getMiniItems().addEntry(I_BASE, getImageByString(MAX_RAI));
-        facade_.getData().getMiniItems().addEntry(I_BALL, getImageByString(MAX_RAI2));
-        facade_.getData().getMiniItems().addEntry(I_BOOST, getImageByString(MAX_RAI));
+        facade_.getData().getMiniItems().addEntry(I_BASE, getImageByString(IMG_MAX_RAI));
+        facade_.getData().getMiniItems().addEntry(I_BALL, getImageByString(IMG_MAX_RAI2));
+        facade_.getData().getMiniItems().addEntry(I_BOOST, getImageByString(IMG_MAX_RAI));
         return facade_;
     }
     protected static HealingStatus simple() {

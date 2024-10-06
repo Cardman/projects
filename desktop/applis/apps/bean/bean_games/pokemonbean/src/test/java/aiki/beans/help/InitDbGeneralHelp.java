@@ -13,7 +13,6 @@ import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.*;
 import aiki.map.util.*;
 import code.bean.nat.*;
-import code.images.*;
 import code.maths.*;
 import code.util.*;
 
@@ -37,6 +36,15 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
     public static final String ROAD = "R 1";
     public static final String CITY = "CI 1";
     public static final String CAVE = "CA 1";
+    public static final String IMG_MINI0 = "AAACXXXXCAAADAAA////";
+    public static final String IMG_MINI1 = "AAACXXXXCAAAEAAA////";
+    public static final String IMG_MINI2 = "AAACXXXXCAAAFAAA////";
+    public static final String IMG_MINI3 = "AAACXXXXCAAAGAAA////";
+    public static final String IMG_MINI4 = "AAACXXXXCAAAHAAA////";
+    public static final String IMG_MINI5 = "AAACXXXXCAAAIAAA////";
+    public static final String IMG_0 = "AAABAAAA";
+    public static final String IMG_1 = "AAABAAAB";
+
     public static NaSt callGeneralHelpBeanBeginGet() {
         return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanBeginGet(),with());
     }
@@ -322,12 +330,12 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
         facade_.getData().getTypes().add(T_TYPE1);
         trsCore(facade_);
         facade_.getData().setMap(dm(_it));
-        facade_.getData().getMiniMap().addEntry("0",getImageByString("AAACXXXXCAAADAAA////"));
-        facade_.getData().getMiniMap().addEntry("1",getImageByString("AAACXXXXCAAAEAAA////"));
-        facade_.getData().getMiniMap().addEntry("2",getImageByString("AAACXXXXCAAAFAAA////"));
-        facade_.getData().getMiniMap().addEntry("3",getImageByString("AAACXXXXCAAAGAAA////"));
-        facade_.getData().getMiniMap().addEntry("4",getImageByString("AAACXXXXCAAAHAAA////"));
-        facade_.getData().getTypesImages().addEntry(T_TYPE1,getImageByString("AAACXXXXCAAAIAAA////"));
+        facade_.getData().getMiniMap().addEntry("0",getImageByString(IMG_MINI0));
+        facade_.getData().getMiniMap().addEntry("1",getImageByString(IMG_MINI1));
+        facade_.getData().getMiniMap().addEntry("2",getImageByString(IMG_MINI2));
+        facade_.getData().getMiniMap().addEntry("3",getImageByString(IMG_MINI3));
+        facade_.getData().getMiniMap().addEntry("4",getImageByString(IMG_MINI4));
+        facade_.getData().getTypesImages().addEntry(T_TYPE1,getImageByString(IMG_MINI5));
         facade_.getData().getTypesColors().addEntry(T_TYPE1,"5;6;7");
         return facade_;
     }
@@ -369,10 +377,10 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
 //        _facade.getData().getMiniPk().addEntry(P_POK_13,getImageByString("AAACAAANBAAA////////"));
 //        _facade.getData().getMiniPk().addEntry(P_POK_14,getImageByString("AAACAAAOBAAA////////"));
 //        _facade.getData().getMiniPk().addEntry(P_POK_15,getImageByString("AAACAAAPBAAA////////"));
-        _facade.getData().getMaxiPkFront().addEntry(P_POK_00, getImageByString("AAABAAAA"));
-        _facade.getData().getMaxiPkFront().addEntry(P_POK_01,getImageByString("AAABAAAB"));
-        _facade.getData().getMiniPk().addEntry(P_POK_00,getImageByString("AAABAAAA"));
-        _facade.getData().getMiniPk().addEntry(P_POK_01,getImageByString("AAABAAAB"));
+        _facade.getData().getMaxiPkFront().addEntry(P_POK_00, getImageByString(IMG_0));
+        _facade.getData().getMaxiPkFront().addEntry(P_POK_01,getImageByString(IMG_1));
+        _facade.getData().getMiniPk().addEntry(P_POK_00,getImageByString(IMG_0));
+        _facade.getData().getMiniPk().addEntry(P_POK_01,getImageByString(IMG_1));
 //        _facade.getData().getMiniItems().addEntry(I_BALL,getImageByString("AAAB////"));
 //        _facade.getData().setImageTmHm(getImageByString("AAAB////"));
         _facade.getData().addConstNumTest(DataBase.DEF_MAX_ATT,new Rate(4));

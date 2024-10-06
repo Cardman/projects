@@ -133,7 +133,7 @@ public final class StatusBeanTest extends InitDbStatus {
     }
     @Test
     public void getAnimStatus() {
-        assertEq("AAACAAAABAAA////////",callStatusBeanAnimStatusGet(0));
+        assertImgEq(IMG_00,callStatusBeanAnimStatusGet(0));
     }
     @Test
     public void getEndRoundRank() {

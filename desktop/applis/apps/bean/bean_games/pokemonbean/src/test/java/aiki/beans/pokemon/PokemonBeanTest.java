@@ -8,6 +8,9 @@ import code.scripts.confs.PkScriptPages;
 import org.junit.Test;
 
 public final class PokemonBeanTest extends InitDbPkOne {
+
+    public static final String IMG_STACK = "AAACAAAABAAAEAAA////";
+
     @Test
     public void getDisplayName() {
         assertEq(P_POK_00_TR,callPokemonBeanDisplayNameGet(0));
@@ -94,43 +97,43 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void getImages2() {
-        assertEq("AAACXXXXCAAADAAA////",second(elt(callPokemonBeanImagesGet(),0)));
+        assertImgEq(IMG_0,second(elt(callPokemonBeanImagesGet(),0)));
     }
     @Test
     public void getImages3() {
-        assertEq("AAACXXXXCAAAFAAA////",second(elt(callPokemonBeanImagesGet(),1)));
+        assertImgEq(IMG_2,second(elt(callPokemonBeanImagesGet(),1)));
     }
     @Test
     public void getImages4() {
-        assertEq("AAACXXXXCAAAEAAA////",second(elt(callPokemonBeanImagesGet(),2)));
+        assertImgEq(IMG_1,second(elt(callPokemonBeanImagesGet(),2)));
     }
     @Test
     public void getImages5() {
-        assertEq("AAACXXXXCAAAGAAA////",second(elt(callPokemonBeanImagesGet(),3)));
+        assertImgEq(IMG_3,second(elt(callPokemonBeanImagesGet(),3)));
     }
     @Test
     public void getBackImage() {
-        assertEq("AAACAAAADAAA////////",callPokemonBeanBackImageGet());
+        assertImgEq(IMG_B00,callPokemonBeanBackImageGet());
     }
     @Test
     public void getFrontImage() {
-        assertEq("AAACAAAAEAAA////////",callPokemonBeanFrontImageGet());
+        assertImgEq(IMG_F00,callPokemonBeanFrontImageGet());
     }
     @Test
     public void getMiniMapImage1() {
-        assertEq("AAACXXXXCAAADAAA////",callPokemonBeanGetMiniMapImage(0));
+        assertImgEq(IMG_0,callPokemonBeanGetMiniMapImage(0));
     }
     @Test
     public void getMiniMapImage2() {
-        assertEq("AAACXXXXCAAAFAAA////",callPokemonBeanGetMiniMapImage(1));
+        assertImgEq(IMG_2,callPokemonBeanGetMiniMapImage(1));
     }
     @Test
     public void getMiniMapImage3() {
-        assertEq("AAACAAAABAAAEAAA////",callPokemonBeanGetMiniMapImage(2));
+        assertImgEq(IMG_STACK,callPokemonBeanGetMiniMapImage(2));
     }
     @Test
     public void getMiniMapImage4() {
-        assertEq("AAACXXXXCAAAGAAA////",callPokemonBeanGetMiniMapImage(3));
+        assertImgEq(IMG_3,callPokemonBeanGetMiniMapImage(3));
     }
     @Test
     public void getPlaces1() {

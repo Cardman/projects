@@ -366,7 +366,7 @@ public final class PokedexBeanTest extends InitDbPk {
     }
     @Test
     public void getMiniImagePk() {
-        assertEq("AAACAAAABAAA////////",callPokedexBeanGetMiniImage(dispAllPksSearch(),0));
+        assertImgEq(IMG_M00,callPokedexBeanGetMiniImage(dispAllPksSearch(),0));
     }
     @Test
     public void lineName() {

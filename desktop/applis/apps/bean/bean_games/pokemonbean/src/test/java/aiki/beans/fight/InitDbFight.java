@@ -45,7 +45,6 @@ import aiki.util.LawNumber;
 import code.bean.nat.*;
 import code.bean.nat.analyze.NatConfigurationCore;
 //import code.formathtml.Configuration;
-import code.images.BaseSixtyFourUtil;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.litteral.MbOperationNode;
@@ -121,6 +120,8 @@ public abstract class InitDbFight extends InitDbBean {
     protected static final String PIKA_2 = "PIKACHU2";
     protected static final String PIKA_2_TR = "PIKACHU_TR2";
     protected static final String NICK_NA = "NICK_NA";
+    protected static final String IMG_0MAX_RAI = "AAABAACP";
+    protected static final String IMG_0MAX_RAI2 = "AAABAACQ";
     static final String NICKNAME = "CARDTEAM";
 
 //    private static final String FIGHT="fight";
@@ -1309,7 +1310,8 @@ public abstract class InitDbFight extends InitDbBean {
         return fac_;
     }
     protected FacadeGame facadeCalculation5(DataBase _data) {
-        _data.getMaxiPkFront().addEntry(PIKA_2, getImageByString(MAX_RAI));
+        //AAABAACP
+        _data.getMaxiPkFront().addEntry(PIKA_2, getImageByString(IMG_0MAX_RAI));
         FacadeGame fac_ = initFacade(_data);
         Game g_ = new Game();
         Difficulty diff_= new Difficulty();

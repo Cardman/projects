@@ -30,7 +30,6 @@ import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.*;
 import aiki.util.*;
 import code.bean.nat.*;
-import code.images.*;
 import code.maths.*;
 import code.maths.montecarlo.*;
 import code.scripts.confs.PkScriptPages;
@@ -125,6 +124,20 @@ public abstract class InitDbSimulation extends InitDbConstr {
     public static final String PL_7 = "PL 7";
     public static final String PL_8 = "PL 8";
     public static final String PL_9 = "PL 9";
+    public static final String IMG_00 = "AAABAAAC";
+    public static final String IMG_01 = "AAABAAAD";
+    public static final String IMG_02 = "AAABAAAE";
+    public static final String IMG_03 = "AAABAAAF";
+    public static final String IMG_04 = "AAABAAAG";
+    public static final String IMG_05 = "AAABAAAH";
+    public static final String IMG_06 = "AAABAAAI";
+    public static final String IMG_07 = "AAABAAAJ";
+    public static final String IMG_08 = "AAABAAAK";
+    public static final String IMG_09 = "AAABAAAL";
+    public static final String IMG_NOTHING = "AAABBUTC";
+    public static final String IMG_MULTI_EXP = "AAABBUTD";
+    public static final String IMG_STONE = "AAABBUTE";
+    public static final String IMG_BALL = "AAABBUTF";
 
     public static NaSt callSimulationBeanAbilitiesAfterFightGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanAbilitiesAfterFightGet(),_str,_args);
@@ -3965,20 +3978,20 @@ public abstract class InitDbSimulation extends InitDbConstr {
         data_.getTranslatedClassesDescriptions().getVal(EN).addEntry(data_.getItem(I_BALL).getItemType(), CI_BALL);
         data_.getLitterals().addEntry(EN,new StringMap<String>());
         data_.getLitterals().getVal(EN).addEntry(MessagesDataBaseConstants.DEF_TEMPS_TOUR, TAB+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +TAB+TIME);
-        data_.getMiniPk().addEntry(P_POK_00, getImageByString("AAABAAAC"));
-        data_.getMiniPk().addEntry(P_POK_01, getImageByString("AAABAAAD"));
-        data_.getMiniPk().addEntry(P_POK_02, getImageByString("AAABAAAE"));
-        data_.getMiniPk().addEntry(P_POK_03, getImageByString("AAABAAAF"));
-        data_.getMiniPk().addEntry(P_POK_04, getImageByString("AAABAAAG"));
-        data_.getMiniPk().addEntry(P_POK_05, getImageByString("AAABAAAH"));
-        data_.getMiniPk().addEntry(P_POK_06, getImageByString("AAABAAAI"));
-        data_.getMiniPk().addEntry(P_POK_07, getImageByString("AAABAAAJ"));
-        data_.getMiniPk().addEntry(P_POK_08, getImageByString("AAABAAAK"));
-        data_.getMiniPk().addEntry(P_POK_09, getImageByString("AAABAAAL"));
-        data_.getMiniItems().addEntry(I_NOTHING, getImageByString("AAABBUTC"));
-        data_.getMiniItems().addEntry(I_MULT_EXP, getImageByString("AAABBUTD"));
-        data_.getMiniItems().addEntry(I_STONE, getImageByString("AAABBUTE"));
-        data_.getMiniItems().addEntry(I_BALL, getImageByString("AAABBUTF"));
+        data_.getMiniPk().addEntry(P_POK_00, getImageByString(IMG_00));
+        data_.getMiniPk().addEntry(P_POK_01, getImageByString(IMG_01));
+        data_.getMiniPk().addEntry(P_POK_02, getImageByString(IMG_02));
+        data_.getMiniPk().addEntry(P_POK_03, getImageByString(IMG_03));
+        data_.getMiniPk().addEntry(P_POK_04, getImageByString(IMG_04));
+        data_.getMiniPk().addEntry(P_POK_05, getImageByString(IMG_05));
+        data_.getMiniPk().addEntry(P_POK_06, getImageByString(IMG_06));
+        data_.getMiniPk().addEntry(P_POK_07, getImageByString(IMG_07));
+        data_.getMiniPk().addEntry(P_POK_08, getImageByString(IMG_08));
+        data_.getMiniPk().addEntry(P_POK_09, getImageByString(IMG_09));
+        data_.getMiniItems().addEntry(I_NOTHING, getImageByString(IMG_NOTHING));
+        data_.getMiniItems().addEntry(I_MULT_EXP, getImageByString(IMG_MULTI_EXP));
+        data_.getMiniItems().addEntry(I_STONE, getImageByString(IMG_STONE));
+        data_.getMiniItems().addEntry(I_BALL, getImageByString(IMG_BALL));
     }
     private static DamagingMoveData power(String _type, String _cat, String _power) {
         DamagingMoveData move_ = Instances.newDamagingMoveData();

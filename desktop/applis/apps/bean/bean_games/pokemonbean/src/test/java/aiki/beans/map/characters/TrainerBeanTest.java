@@ -30,43 +30,43 @@ public final class TrainerBeanTest extends InitDbCharacters {
     }
     @Test
     public void getImage1() {
-        assertEq("AAABAAAW",callTrainerBeanImageGetLevelZero(0,12,4));
+        assertImgEq(IMG_SINGLE,callTrainerBeanImageGetLevelZero(0,12,4));
     }
     @Test
     public void getImage2() {
-        assertEq("AAABAAAW",callTrainerBeanImageGetLevelZero(0,12,7));
+        assertImgEq(IMG_SINGLE,callTrainerBeanImageGetLevelZero(0,12,7));
     }
     @Test
     public void getImage3() {
-        assertEq("AAABAAAW",callTrainerBeanImageGetOtherLevel(8,0,12));
+        assertImgEq(IMG_SINGLE,callTrainerBeanImageGetOtherLevel(8,0,12));
     }
     @Test
     public void getImage4() {
-        assertEq("AAABAAAW",callTrainerBeanImageGetOtherLevel(8,1,12));
+        assertImgEq(IMG_SINGLE,callTrainerBeanImageGetOtherLevel(8,1,12));
     }
     @Test
     public void getImage5() {
-        assertEq("AAABAAAW",callTrainerBeanImageGetOtherLevel(3,1,7));
+        assertImgEq(IMG_SINGLE,callTrainerBeanImageGetOtherLevel(3,1,7));
     }
     @Test
     public void getImageMini1() {
-        assertEq("AAABAAAZ",callTrainerBeanImageMiniGetLevelZero(0,12,4));
+        assertImgEq(IMG_SI,callTrainerBeanImageMiniGetLevelZero(0,12,4));
     }
     @Test
     public void getImageMini2() {
-        assertEq("AAABAAAZ",callTrainerBeanImageMiniGetLevelZero(0,12,7));
+        assertImgEq(IMG_SI,callTrainerBeanImageMiniGetLevelZero(0,12,7));
     }
     @Test
     public void getImageMini3() {
-        assertEq("AAABAAAZ",callTrainerBeanImageMiniGetOtherLevel(8,0,12));
+        assertImgEq(IMG_SI,callTrainerBeanImageMiniGetOtherLevel(8,0,12));
     }
     @Test
     public void getImageMini4() {
-        assertEq("AAABAAAZ",callTrainerBeanImageMiniGetOtherLevel(8,1,12));
+        assertImgEq(IMG_SI,callTrainerBeanImageMiniGetOtherLevel(8,1,12));
     }
     @Test
     public void getImageMini5() {
-        assertEq("AAABAAAZ",callTrainerBeanImageMiniGetOtherLevel(3,1,7));
+        assertImgEq(IMG_SI,callTrainerBeanImageMiniGetOtherLevel(3,1,7));
     }
     @Test
     public void getTeamsRewards1() {

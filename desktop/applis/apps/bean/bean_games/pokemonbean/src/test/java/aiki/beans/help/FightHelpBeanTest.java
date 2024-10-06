@@ -6,7 +6,6 @@ import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
 import aiki.instances.Instances;
 import code.bean.nat.*;
-import code.images.BaseSixtyFourUtil;
 import code.maths.Rate;
 import code.scripts.confs.PkScriptPages;
 import code.util.IdMap;
@@ -16,17 +15,19 @@ import org.junit.Test;
 public final class FightHelpBeanTest extends InitDbFightHelp{
 
     public static final String CC = "CC";
+    public static final String IMG_ANIM = "AAABAAAA";
+
     @Test
     public void getTrStatistic() {
         assertEq(CC,callFightHelpBeanGetTrStatistic(bean(db()),0));
     }
     @Test
     public void getAnimStatistic() {
-        assertEq("AAABAAAA",callFightHelpBeanGetAnimStatistic(bean(db()),0));
+        assertImgEq(IMG_ANIM,callFightHelpBeanGetAnimStatistic(bean(db()),0));
     }
     @Test
     public void getAnimAbsorb() {
-        assertEq("AAABAAAA",callFightHelpBeanGetAnimAbsorb(bean(db())));
+        assertImgEq(IMG_ANIM,callFightHelpBeanGetAnimAbsorb(bean(db())));
     }
     @Test
     public void getStab() {
@@ -110,8 +111,8 @@ public final class FightHelpBeanTest extends InitDbFightHelp{
         f_.getData().getTranslatedMoves().getVal(EN).addEntry(M_STA,M_STA_TR);
         f_.getData().getTranslatedStatistics().addEntry(EN,new IdMap<Statistic,String>());
         f_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.ATTACK, CC);
-        f_.getData().getAnimStatis().addEntry(Statistic.ATTACK.getStatName(), getImageByString("AAABAAAA"));
-        f_.getData().setAnimAbsorb(getImageByString("AAABAAAA"));
+        f_.getData().getAnimStatis().addEntry(Statistic.ATTACK.getStatName(), getImageByString(IMG_ANIM));
+        f_.getData().setAnimAbsorb(getImageByString(IMG_ANIM));
         f_.getData().setCombos(Instances.newCombos());
         f_.getData().getLitterals().addEntry(EN,new StringMap<String>());
         f_.getData().getLitterals().getVal(EN).addEntry(MessagesDataBaseConstants.DEF_TEMPS_TOUR, TAB+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +TAB+TIME);

@@ -116,6 +116,9 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
 //        assertEq(_exp,((NatArrayStruct)(((NatArrayStruct)_result).get(_index))).get(_second));
 //    }
 
+    public static void assertImgEq(String _exp, NaSt _result) {
+        assertEq(_exp,_result);
+    }
     public static void assertEq(String _exp, NaSt _result) {
         assertEq(_exp,((NaStSt)_result).getInstance());
     }

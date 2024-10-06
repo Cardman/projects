@@ -22,7 +22,7 @@ public final class ItemBeanTest extends InitDbItem {
     }
     @Test
     public void callItemBeanItemImageGet() {
-        assertEq(MAX_RAI,callItemBeanItemImageGet(itemLineSample()));
+        assertImgEq(IMG_MAX_RAI,callItemBeanItemImageGet(itemLineSample()));
     }
     @Test
     public void clickItems() {

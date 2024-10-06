@@ -9,7 +9,6 @@ import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.instances.Instances;
 import code.bean.nat.*;
-import code.images.BaseSixtyFourUtil;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -88,9 +87,9 @@ public abstract class InitDbItem extends InitDbItems{
         feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
         feedHm(facade_.getData().getHm());
         facade_.getData().completeVariables();
-        facade_.getData().getMiniItems().addEntry(I_BASE, getImageByString(MAX_RAI));
-        facade_.getData().getMiniItems().addEntry(I_BALL, getImageByString(MAX_RAI2));
-        facade_.getData().getMiniItems().addEntry(I_BOOST, getImageByString(MAX_RAI));
+        facade_.getData().getMiniItems().addEntry(I_BASE, getImageByString(IMG_MAX_RAI));
+        facade_.getData().getMiniItems().addEntry(I_BALL, getImageByString(IMG_MAX_RAI2));
+        facade_.getData().getMiniItems().addEntry(I_BOOST, getImageByString(IMG_MAX_RAI));
         return facade_;
     }
 

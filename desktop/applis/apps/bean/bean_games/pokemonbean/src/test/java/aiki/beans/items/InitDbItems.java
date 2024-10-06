@@ -17,7 +17,6 @@ import aiki.fight.util.EfficiencyRate;
 import aiki.fight.util.StatisticPokemon;
 import aiki.instances.Instances;
 import code.bean.nat.*;
-import code.images.BaseSixtyFourUtil;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.IdMap;
@@ -27,8 +26,8 @@ import code.util.core.BoolVal;
 
 public abstract class InitDbItems extends InitDbConstr {
 
-    protected static final String MAX_RAI = "AAABAACP";
-    protected static final String MAX_RAI2 = "AAABAACQ";
+    protected static final String IMG_MAX_RAI = "AAABAACP";
+    protected static final String IMG_MAX_RAI2 = "AAABAACQ";
 
     protected static final String CI_BALL_TR = "CI_BALL_TR";
     protected static final String CI_BERRY_TR = "CI_BERRY_TR";
@@ -205,20 +204,20 @@ public abstract class InitDbItems extends InitDbConstr {
         feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
         feedHm(facade_.getData().getHm());
         facade_.getData().completeVariables();
-        facade_.getData().getMiniItems().addEntry(I_BALL,getImageByString(MAX_RAI));
-        facade_.getData().getMiniItems().addEntry(I_BERRY,getImageByString(MAX_RAI2));
-        facade_.getData().getMiniItems().addEntry(I_BOOST,getImageByString(MAX_RAI));
-        facade_.getData().getMiniItems().addEntry(I_ITEMBATTLE,getImageByString(MAX_RAI2));
-        facade_.getData().getMiniItems().addEntry(I_EVO_ITEM,getImageByString(MAX_RAI));
-        facade_.getData().getMiniItems().addEntry(I_EVO_STONE,getImageByString(MAX_RAI2));
-        facade_.getData().getMiniItems().addEntry(I_FOSSIL,getImageByString(MAX_RAI));
-        facade_.getData().getMiniItems().addEntry(I_HEAL,getImageByString(MAX_RAI2));
-        facade_.getData().getMiniItems().addEntry(I_HEAL_HP,getImageByString(MAX_RAI));
-        facade_.getData().getMiniItems().addEntry(I_HEAL_PP,getImageByString(MAX_RAI2));
-        facade_.getData().getMiniItems().addEntry(I_HEAL_HP_STATUS,getImageByString(MAX_RAI));
-        facade_.getData().getMiniItems().addEntry(I_HEAL_STATUS,getImageByString(MAX_RAI2));
-        facade_.getData().getMiniItems().addEntry(I_REPEL,getImageByString(MAX_RAI));
-        facade_.getData().getMiniItems().addEntry(I_SELLING,getImageByString(MAX_RAI2));
+        facade_.getData().getMiniItems().addEntry(I_BALL,getImageByString(IMG_MAX_RAI));
+        facade_.getData().getMiniItems().addEntry(I_BERRY,getImageByString(IMG_MAX_RAI2));
+        facade_.getData().getMiniItems().addEntry(I_BOOST,getImageByString(IMG_MAX_RAI));
+        facade_.getData().getMiniItems().addEntry(I_ITEMBATTLE,getImageByString(IMG_MAX_RAI2));
+        facade_.getData().getMiniItems().addEntry(I_EVO_ITEM,getImageByString(IMG_MAX_RAI));
+        facade_.getData().getMiniItems().addEntry(I_EVO_STONE,getImageByString(IMG_MAX_RAI2));
+        facade_.getData().getMiniItems().addEntry(I_FOSSIL,getImageByString(IMG_MAX_RAI));
+        facade_.getData().getMiniItems().addEntry(I_HEAL,getImageByString(IMG_MAX_RAI2));
+        facade_.getData().getMiniItems().addEntry(I_HEAL_HP,getImageByString(IMG_MAX_RAI));
+        facade_.getData().getMiniItems().addEntry(I_HEAL_PP,getImageByString(IMG_MAX_RAI2));
+        facade_.getData().getMiniItems().addEntry(I_HEAL_HP_STATUS,getImageByString(IMG_MAX_RAI));
+        facade_.getData().getMiniItems().addEntry(I_HEAL_STATUS,getImageByString(IMG_MAX_RAI2));
+        facade_.getData().getMiniItems().addEntry(I_REPEL,getImageByString(IMG_MAX_RAI));
+        facade_.getData().getMiniItems().addEntry(I_SELLING,getImageByString(IMG_MAX_RAI2));
         return facade_;
     }
 

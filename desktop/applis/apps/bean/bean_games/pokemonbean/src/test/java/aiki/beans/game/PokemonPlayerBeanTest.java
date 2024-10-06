@@ -3,7 +3,6 @@ package aiki.beans.game;
 import aiki.beans.DetPkGameInit;
 import aiki.beans.PkInd;
 import aiki.db.DataBase;
-import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Fossil;
@@ -17,7 +16,6 @@ import aiki.instances.Instances;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.enums.Gender;
 import code.bean.nat.NatNavigation;
-import code.images.BaseSixtyFourUtil;
 import code.maths.Rate;
 import code.scripts.confs.PkScriptPages;
 import code.scripts.pages.aiki.CssInit;
@@ -29,6 +27,8 @@ import code.util.StringMap;
 import org.junit.Test;
 
 public final class PokemonPlayerBeanTest extends InitDbPkBean {
+    static final String IMG_MAX_RAI = "AAABAACP";
+    static final String IMG_MAX_RAI2 = "AAABAACQ";
     static final String NICKNAME = "CARDTEAM";
 
     @Test
@@ -272,7 +272,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         FacadeGame fac_ = fac(init_);
         fac_.openMenu();
         fac_.setChosenTeamPokemon((short) 0);
-        assertEq(MAX_PIKA,callPokemonPlayerBeanImageGet(displaying(beanPk(EN, fac_))));
+        assertImgEq(IMG_MAX_PIKA,callPokemonPlayerBeanImageGet(displaying(beanPk(EN, fac_))));
     }
 
     @Test
@@ -424,7 +424,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         FacadeGame fac_ = fac(init_);
         fac_.openMenu();
         fac_.setChosenTeamPokemon((short) 0);
-        assertEq(MAX_RAI,second(elt(callPokemonPlayerBeanEvolutionsGet(displaying(beanPk(EN, fac_))),0)));
+        assertImgEq(IMG_MAX_RAI,second(elt(callPokemonPlayerBeanEvolutionsGet(displaying(beanPk(EN, fac_))),0)));
     }
 
     @Test
@@ -486,7 +486,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         ev_.setBaseEvo(PIKACHU);
         _init.completeMembers(RAI, ev_);
         _init.getPokemon(PIKACHU).getEvolutions().addEntry(RAI,Instances.newEvolutionHappiness());
-        _init.getMaxiPkFront().put(RAI, getImageByString(MAX_RAI));
+        _init.getMaxiPkFront().put(RAI, getImageByString(IMG_MAX_RAI));
         _init.getTranslatedPokemon().getVal(EN).addEntry(RAI,RAI_TR);
     }
     private void evos2(DataBase _init) {
@@ -498,8 +498,8 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         _init.completeMembers(RAI2, ev2_);
         _init.getPokemon(PIKACHU).getEvolutions().addEntry(RAI,Instances.newEvolutionHappiness());
         _init.getPokemon(PIKACHU).getEvolutions().addEntry(RAI2,Instances.newEvolutionHappiness());
-        _init.getMaxiPkFront().put(RAI, getImageByString(MAX_RAI));
-        _init.getMaxiPkFront().put(RAI2, getImageByString(MAX_RAI2));
+        _init.getMaxiPkFront().put(RAI, getImageByString(IMG_MAX_RAI));
+        _init.getMaxiPkFront().put(RAI2, getImageByString(IMG_MAX_RAI2));
         _init.getTranslatedPokemon().getVal(EN).addEntry(RAI,RAI_TR);
         _init.getTranslatedPokemon().getVal(EN).addEntry(RAI2,RAI2_TR);
     }
@@ -517,7 +517,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
     }
 
     private void image(DataBase _init) {
-        _init.getMaxiPkFront().put(PIKACHU, getImageByString(MAX_PIKA));
+        _init.getMaxiPkFront().put(PIKACHU, getImageByString(IMG_MAX_PIKA));
     }
     private void moves(DataBase _init) {
         _init.addConstNumTest(DataBase.DEF_MAX_ATT,Rate.newRate("2"));
