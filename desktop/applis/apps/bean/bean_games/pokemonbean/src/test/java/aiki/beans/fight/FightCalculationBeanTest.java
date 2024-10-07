@@ -454,12 +454,12 @@ public final class FightCalculationBeanTest extends InitDbFight {
 
     @Test
     public void sortedFightersWild8() {
-        assertImgEq(IMG_0MAX_RAI, callFighterNamePkNameMvNamePkGet(elt(first(elt(callFightCalculationBeanSortedFightersWildFightGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),0)),0)));
+        assertImgEq(IMG_MAX_RAI, callFighterNamePkNameMvNamePkGet(elt(first(elt(callFightCalculationBeanSortedFightersWildFightGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),0)),0)));
     }
 
     @Test
     public void sortedFightersWild9() {
-        assertImgEq(IMG_0MAX_RAI, callFighterNamePkNameMvNamePkGet(elt(first(elt(callFightCalculationBeanSortedFightersWildFightGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),1)),0)));
+        assertImgEq(IMG_MAX_RAI, callFighterNamePkNameMvNamePkGet(elt(first(elt(callFightCalculationBeanSortedFightersWildFightGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),1)),0)));
     }
 
     @Test
