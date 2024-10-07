@@ -93,11 +93,15 @@ public abstract class FullNode implements Node {
 
     public String getAttribute(String _name) {
         for (Attr a: getAttributes()) {
-            if (StringUtil.quickEq(a.getName(), _name)) {
-                return a.getValue();
+            if (matchNormal(a, _name)) {
+                return ((DefAttr)a).getValue();
             }
         }
         return EMPTY_STRING;
+    }
+
+    public static boolean matchNormal(Attr _a, String _name) {
+        return _a instanceof DefAttr && StringUtil.quickEq(_a.getName(), _name);
     }
 
     public boolean hasAttribute(String _name) {
@@ -125,14 +129,20 @@ public abstract class FullNode implements Node {
         getAttributes().remove(index_);
     }
 
+    public void setAttributesCopy(NamedNodeMap _at) {
+        getAttributes().clear();
+        for (Attr a: _at) {
+            getAttributes().add(a.copy());
+        }
+    }
     public void setAttribute(String _name, String _value) {
         for (Attr a: getAttributes()) {
-            if (StringUtil.quickEq(a.getName(), _name)) {
-                a.setValue(_value);
+            if (matchNormal(a,_name)) {
+                ((DefAttr)a).setValue(_value);
                 return;
             }
         }
-        Attr attr_ = CoreDocument.createAttribute(_name);
+        DefAttr attr_ = CoreDocument.createAttribute(_name);
         attr_.setValue(_value);
         getAttributes().add(attr_);
     }

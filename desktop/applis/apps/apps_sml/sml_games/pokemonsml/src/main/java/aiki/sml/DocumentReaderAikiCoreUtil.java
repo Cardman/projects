@@ -241,7 +241,7 @@ public final class DocumentReaderAikiCoreUtil {
     private static void cstNotNum(DataBase _d, Element _c) {
         for (Attr a: _c.getAttributes()) {
             if (!StringUtil.quickEq(a.getName(),DocumentWriterCoreUtil.FIELD)&&!StringUtil.quickEq(a.getName(),DocumentWriterAikiCoreUtil.ATTR_CST)) {
-                _d.initValue(a.getName(),a.getValue());
+                _d.initValue(a.getName(),((DefAttr)a).getValue());
             }
         }
     }

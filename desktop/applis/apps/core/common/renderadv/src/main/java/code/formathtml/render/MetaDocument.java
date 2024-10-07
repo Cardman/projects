@@ -51,7 +51,7 @@ public final class MetaDocument {
     private final int tabWidth;
     private final IndexButtons indexesButtons = new IndexButtons();
 
-    private MetaDocument(Document _document, RendKeyWordsGroup _rend, String _keyWordDig, CharacterCaseConverter _converter, AbsMetaSimpleImageBuilder _absImg) {
+    private MetaDocument(Document _document, RendKeyWordsGroup _rend, String _keyWordDig, CharacterCaseConverter _converter) {
         tabWidth = _document.getTabWidth();
         //process style parse
         style(_document, _rend);
@@ -72,7 +72,7 @@ public final class MetaDocument {
         Element body_ = bodies_.first();
         Node current_ = body_;
         while (current_ != null) {
-            eltTxt(_rend, current_, _keyWordDig,_converter,_absImg);
+            eltTxt(_rend, current_, _keyWordDig,_converter);
             Node next_ = current_.getFirstChild();
             if (next_ != null && !skipChildrenBuild) {
                 current_ = next_;
@@ -96,7 +96,7 @@ public final class MetaDocument {
         removeUseless();
     }
 
-    private void eltTxt(RendKeyWordsGroup _rend, Node _curr, String _keyWordDig, CharacterCaseConverter _converter, AbsMetaSimpleImageBuilder _absImg) {
+    private void eltTxt(RendKeyWordsGroup _rend, Node _curr, String _keyWordDig, CharacterCaseConverter _converter) {
         MetaStyle styleLoc_ = new MetaStyle();
         updateSty(_rend, _curr, styleLoc_,_keyWordDig,_converter);
         if (_curr instanceof Text) {
@@ -145,7 +145,7 @@ public final class MetaDocument {
             currentParent = line_;
         }
         if (StringUtil.quickEq(tagName, _rend.getKeyWordsTags().getKeyWordImg())) {
-            img(_rend, _curr, styleLoc_, elt_,_absImg);
+            img(_rend, _curr, styleLoc_, elt_);
             skipChildrenBuild = true;
             rowGroup = 0;
             partGroup++;
@@ -517,7 +517,7 @@ public final class MetaDocument {
         currentParent = map_;
     }
 
-    private void img(RendKeyWordsGroup _rend, Node _current, MetaStyle _styleLoc, Element _elt, AbsMetaSimpleImageBuilder _absImg) {
+    private void img(RendKeyWordsGroup _rend, Node _current, MetaStyle _styleLoc, Element _elt) {
         String title_ = MetaComponent.EMPTY_STRING;
         Element anchor_ = null;
         Element par_ = _current.getParentNode();
@@ -531,15 +531,41 @@ public final class MetaDocument {
             }
             par_ = par_.getParentNode();
         }
-        if (_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrSrc()).contains(SEP_IMG)) {
-            int delay_ = NumberUtil.parseInt(_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrDelay()));
-            MetaAnimatedImage imgs_ = new MetaAnimatedImage(currentParent, StringUtil.splitStrings(_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrSrc()), SEP_IMG), title_, delay_, anchor_, _rend, _absImg);
-            imgs_.setStyle(_styleLoc);
-            currentParent.appendChild(imgs_);
-        } else {
-            MetaSimpleImage imgs_ = new MetaSimpleImage(currentParent, _absImg.build(_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrSrc())), title_, anchor_, _rend);
-            imgs_.setStyle(_styleLoc);
-            currentParent.appendChild(imgs_);
+        imgs(_rend, _styleLoc, _elt, title_, anchor_);
+//        if (_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrSrc()).contains(SEP_IMG)) {
+//            int delay_ = NumberUtil.parseInt(_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrDelay()));
+//            MetaAnimatedImage imgs_ = new MetaAnimatedImage(currentParent, StringUtil.splitStrings(_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrSrc()), SEP_IMG), title_, delay_, anchor_, _rend, _absImg);
+//            imgs_.setStyle(_styleLoc);
+//            currentParent.appendChild(imgs_);
+//        } else {
+//            MetaSimpleImage imgs_ = new MetaSimpleImage(currentParent, _absImg.build(_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrSrc())), title_, anchor_, _rend);
+//            imgs_.setStyle(_styleLoc);
+//            currentParent.appendChild(imgs_);
+//        }
+    }
+
+    private void imgs(RendKeyWordsGroup _rend, MetaStyle _styleLoc, Element _elt, String _title, Element _anchor) {
+//        for (Attr a: _elt.getAttributes()) {
+//            if (a instanceof AbsImgAttr) {
+//                MetaSimpleImage imgs_ = new MetaSimpleImage(currentParent, ((AbsImgAttr)a).getImg(), _title, _anchor, _rend);
+//                imgs_.setStyle(_styleLoc);
+//                currentParent.appendChild(imgs_);
+//            }
+//        }
+        for (Attr a: _elt.getAttributes()) {
+            if (a instanceof AbsImgAnimAttr) {
+                int delay_ = NumberUtil.parseInt(_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrDelay()));
+                CustList<int[][]> anim_ = ((AbsImgAnimAttr) a).getAnim();
+                if (anim_.size() != 1) {
+                    MetaAnimatedImage imgs_ = new MetaAnimatedImage(currentParent, anim_, _title, delay_, _anchor, _rend);
+                    imgs_.setStyle(_styleLoc);
+                    currentParent.appendChild(imgs_);
+                } else {
+                    MetaSimpleImage imgs_ = new MetaSimpleImage(currentParent, anim_.get(0), _title, _anchor, _rend);
+                    imgs_.setStyle(_styleLoc);
+                    currentParent.appendChild(imgs_);
+                }
+            }
         }
     }
 
@@ -1127,13 +1153,10 @@ public final class MetaDocument {
     public MetaBlock getRoot() {
         return root;
     }
-    public static MetaDocument newInstance(Document _document, RendKeyWordsGroup _rend, String _keyWordDig, CharacterCaseConverter _converter, String _base) {
-        return newInstance(_document,_rend,_keyWordDig,_converter,new DefMetaSimpleImageBuilder(_base));
-    }
-    public static MetaDocument newInstance(Document _document, RendKeyWordsGroup _rend, String _keyWordDig, CharacterCaseConverter _converter, AbsMetaSimpleImageBuilder _absImg) {
-        return new MetaDocument(_document,_rend,_keyWordDig,_converter,_absImg);
-    }
 
+    public static MetaDocument newInstance(Document _document, RendKeyWordsGroup _rend, String _keyWordDig, CharacterCaseConverter _converter) {
+        return new MetaDocument(_document,_rend,_keyWordDig,_converter);
+    }
     public CustList<IntForm> getForms() {
         return forms;
     }

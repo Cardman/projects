@@ -101,20 +101,20 @@ public final class NavigationCoreTest extends EquallableSmlAdvUtil {
         r_.setWrite((Element)d_.getDocumentElement().getFirstChild().getFirstChild());
         assertEq("<__><___/></__>",NavigationCore.getParentNode(r_).export());
     }
-    @Test
-    public void prImg1() {
-        Document d_ = doc("<_ src='cont.txt'/>");
-        NavigationCore.prImg(new ConfigurationCore(),MessagesRendKeyWordsAttrs.init(),d_.getDocumentElement(),"");
-        assertEq("<_ src=\"cont.txt\"/>",d_.export());
-    }
-    @Test
-    public void prImg2() {
-        Document d_ = doc("<_ src='cont.txt'/>");
-        ConfigurationCore c_ = new ConfigurationCore();
-        c_.getFiles().addEntry("repl.txt","inner");
-        NavigationCore.prImg(c_,MessagesRendKeyWordsAttrs.init(),d_.getDocumentElement(),"repl.txt");
-        assertEq("<_ src=\"inner\"/>",d_.export());
-    }
+//    @Test
+//    public void prImg1() {
+//        Document d_ = doc("<_ src='cont.txt'/>");
+//        NavigationCore.prImg(new ConfigurationCore(),MessagesRendKeyWordsAttrs.init(),d_.getDocumentElement(),"");
+//        assertEq("<_ src=\"cont.txt\"/>",d_.export());
+//    }
+//    @Test
+//    public void prImg2() {
+//        Document d_ = doc("<_ src='cont.txt'/>");
+//        ConfigurationCore c_ = new ConfigurationCore();
+//        c_.getFiles().addEntry("repl.txt","inner");
+//        NavigationCore.prImg(c_,MessagesRendKeyWordsAttrs.init(),d_.getDocumentElement(),"repl.txt");
+//        assertEq("<_ src=\"inner\"/>",d_.export());
+//    }
     @Test
     public void procLink1() {
         Document d_ = doc("<head><other/></head>");

@@ -1,5 +1,6 @@
 package code.images;
 
+import code.util.CustList;
 import code.util.Ints;
 import org.junit.Test;
 
@@ -650,7 +651,24 @@ public final class BaseSixtyFourUtilTest extends EquallableImageUtil {
         int[][] img_ = getImageByString(imgStr_.toString());
         assertEq(imgStr_.toString(), getStringByImage(img_));
     }
-
+    @Test
+    public void getSringByImage9Test() {
+        assertEq("", getStringByImage(new int[0][0]));
+    }
+    @Test
+    public void getImagesByStringTest() {
+        CustList<int[][]> img_ = getImagesByString("AAABAAAA");
+        assertEq(1, img_.size());
+        assertEq(1, img_.get(0).length);
+        assertEq(1, img_.get(0)[0].length);
+        assertEq(0, img_.get(0)[0][0]);
+    }
+    @Test
+    public void getStringByImageTest() {
+        CustList<String> img_ = getStringsByImage(new int[][]{new int[]{0}});
+        assertEq(1, img_.size());
+        assertEq("AAABAAAA", img_.get(0));
+    }
     @Test
     public void clipSixtyFour1Test() {
         int[][] img_ = new int[2][3];
@@ -776,8 +794,16 @@ public final class BaseSixtyFourUtilTest extends EquallableImageUtil {
         return BaseSixtyFourUtil.getStringByImage(_img, BASE);
     }
 
+    private CustList<String> getStringsByImage(int[][] _img) {
+        return BaseSixtyFourUtil.getStringsByImage(new CustList<int[][]>(_img), BASE);
+    }
+
     private int[][] getImageByString(String _img) {
         return BaseSixtyFourUtil.getImageByString(_img,BASE);
+    }
+
+    private CustList<int[][]> getImagesByString(String _img) {
+        return BaseSixtyFourUtil.getImagesByString(new CustList<String>(_img),BASE);
     }
 
 }

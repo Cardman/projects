@@ -13,6 +13,7 @@ public interface Element extends MutableNode {
 
     void removeAttribute(String _name);
 
+    void setAttributesCopy(NamedNodeMap _at);
     void setAttribute(String _name, String _value);
 
     void setAttributes(NamedNodeMap _attributes);

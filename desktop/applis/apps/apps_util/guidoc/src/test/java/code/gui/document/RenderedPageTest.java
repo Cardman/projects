@@ -2,9 +2,12 @@ package code.gui.document;
 
 import code.formathtml.render.*;
 import code.gui.*;
+import code.images.BaseSixtyFourUtil;
 import code.maths.montecarlo.CustomSeedGene;
 import code.maths.montecarlo.DefaultGenerator;
 import code.mock.*;
+import code.sml.DocumentBuilder;
+import code.sml.DocumentResult;
 import code.sml.SetupableAnalyzingDoc;
 import code.util.CustList;
 import code.util.Ints;
@@ -178,7 +181,7 @@ public final class RenderedPageTest extends EquallableGuiDocUtil {
     @Test
     public void render17() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(10, lgs(), StringUtil.wrapStringArray("/")));
-        RenderedPage r_ = withDoc(withFrame(newRenderedPage(pr_)),"<html><body><img src='AAAA'/></body></html>");
+        RenderedPage r_ = withImageDoc(withFrame(newRenderedPage(pr_)), "<html><body><img src='AAAA'/></body></html>");
         CustList<DualComponent> list_ = r_.allMainComponents();
         assertEq(1, list_.size());
         assertEq(0,((DualSimpleImage)list_.get(0)).getImage().length);
@@ -186,7 +189,7 @@ public final class RenderedPageTest extends EquallableGuiDocUtil {
     @Test
     public void render18() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(10, lgs(), StringUtil.wrapStringArray("/")));
-        RenderedPage r_ = withDoc(withFrame(newRenderedPage(pr_)),"<html><body><img src='AAABAAAA'/></body></html>");
+        RenderedPage r_ = withImageDoc(withFrame(newRenderedPage(pr_)),"<html><body><img src='AAABAAAA'/></body></html>");
         CustList<DualComponent> list_ = r_.allMainComponents();
         assertEq(1, list_.size());
         assertEq(1,((DualSimpleImage)list_.get(0)).getImage().length);
@@ -195,7 +198,7 @@ public final class RenderedPageTest extends EquallableGuiDocUtil {
     @Test
     public void render19() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(10, lgs(), StringUtil.wrapStringArray("/")));
-        RenderedPage r_ = withDoc(withFrame(newRenderedPage(pr_)),"<html><body><a><img src='AAABAAAA'/></a></body></html>");
+        RenderedPage r_ = withImageDoc(withFrame(newRenderedPage(pr_)),"<html><body><a><img src='AAABAAAA'/></a></body></html>");
         CustList<DualComponent> list_ = r_.allMainComponents();
         assertEq(1, list_.size());
         assertEq(1,((DualSimpleImage)list_.get(0)).getImage().length);
@@ -204,7 +207,7 @@ public final class RenderedPageTest extends EquallableGuiDocUtil {
     @Test
     public void render20() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(10, lgs(), StringUtil.wrapStringArray("/")));
-        RenderedPage r_ = withDoc(withFrame(newRenderedPage(pr_)),"<html><body><img src='"+MetaDocument.SEP_IMG+"'/></body></html>");
+        RenderedPage r_ = withImageDoc(withFrame(newRenderedPage(pr_)),"<html><body><img src='"+MetaDocument.SEP_IMG+"'/></body></html>");
         CustList<DualComponent> list_ = r_.allMainComponents();
         assertEq(1, list_.size());
         assertEq(2,((DualAnimatedImage)list_.get(0)).getImages().size());
@@ -218,7 +221,7 @@ public final class RenderedPageTest extends EquallableGuiDocUtil {
     @Test
     public void render21() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(10, lgs(), StringUtil.wrapStringArray("/")));
-        RenderedPage r_ = withDoc(withFrame(newRenderedPage(pr_)),"<html><body><img src='AAABAAAA"+MetaDocument.SEP_IMG+"AAABAAAA"+MetaDocument.SEP_IMG+"AAABAAAA'/></body></html>");
+        RenderedPage r_ = withImageDoc(withFrame(newRenderedPage(pr_)),"<html><body><img src='AAABAAAA"+MetaDocument.SEP_IMG+"AAABAAAA"+MetaDocument.SEP_IMG+"AAABAAAA'/></body></html>");
         CustList<DualComponent> list_ = r_.allMainComponents();
         assertEq(1, list_.size());
         assertEq(3,((DualAnimatedImage)list_.get(0)).getImages().size());
@@ -240,7 +243,7 @@ public final class RenderedPageTest extends EquallableGuiDocUtil {
     @Test
     public void render22() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(10, lgs(), StringUtil.wrapStringArray("/")));
-        RenderedPage r_ = withDoc(withFrame(newRenderedPage(pr_)),"<html><body><a><img delay='1' src='AAABAAAA"+MetaDocument.SEP_IMG+"AAABAAAA"+MetaDocument.SEP_IMG+"AAABAAAA'/></a></body></html>");
+        RenderedPage r_ = withImageDoc(withFrame(newRenderedPage(pr_)),"<html><body><a><img delay='1' src='AAABAAAA"+MetaDocument.SEP_IMG+"AAABAAAA"+MetaDocument.SEP_IMG+"AAABAAAA'/></a></body></html>");
         CustList<DualComponent> list_ = r_.allMainComponents();
         assertEq(1, list_.size());
         assertEq(3,((DualAnimatedImage)list_.get(0)).getImages().size());
@@ -452,7 +455,7 @@ public final class RenderedPageTest extends EquallableGuiDocUtil {
     @Test
     public void render45() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(10, lgs(), StringUtil.wrapStringArray("/")));
-        RenderedPage r_ = withDoc(withFrame(newRenderedPage(pr_)),"<html><body><input type='submit' name='myradio' value='0'/><img src='AAABAAAA"+MetaDocument.SEP_IMG+"AAABAAAA"+MetaDocument.SEP_IMG+"AAABAAAA'/></body></html>");
+        RenderedPage r_ = withImageDoc(withFrame(newRenderedPage(pr_)),"<html><body><input type='submit' name='myradio' value='0'/><img src='AAABAAAA"+MetaDocument.SEP_IMG+"AAABAAAA"+MetaDocument.SEP_IMG+"AAABAAAA'/></body></html>");
         CustList<DualComponent> list_ = r_.allMainComponents();
         ((MockPlainButton)list_.get(0).getGraphic()).getMouseIntRelListeners().get(0).mouseReleased(null,null,null);
         assertTrue(r_.getAnims().get(0).isStarted());
@@ -460,7 +463,7 @@ public final class RenderedPageTest extends EquallableGuiDocUtil {
     @Test
     public void render46() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(10, lgs(), StringUtil.wrapStringArray("/")));
-        RenderedPage r_ = withDoc(withStd(withFrame(newRenderedPage(pr_))),"<html><body><form n-f='0'><input type='submit' name='myradio' value='0'/></form><img src='AAABAAAA"+MetaDocument.SEP_IMG+"AAABAAAA"+MetaDocument.SEP_IMG+"AAABAAAA'/></body></html>");
+        RenderedPage r_ = withImageDoc(withStd(withFrame(newRenderedPage(pr_))),"<html><body><form n-f='0'><input type='submit' name='myradio' value='0'/></form><img src='AAABAAAA"+MetaDocument.SEP_IMG+"AAABAAAA"+MetaDocument.SEP_IMG+"AAABAAAA'/></body></html>");
         CustList<DualComponent> list_ = r_.allMainComponents();
         ((MockPlainButton)list_.get(0).getGraphic()).getMouseIntRelListeners().get(0).mouseReleased(null,null,null);
         assertFalse(r_.getAnims().get(0).isStarted());
@@ -468,7 +471,7 @@ public final class RenderedPageTest extends EquallableGuiDocUtil {
     @Test
     public void render47() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(10, lgs(), StringUtil.wrapStringArray("/")));
-        RenderedPage r_ = withDoc(withStd(withFrame(newRenderedPage(pr_))),"<html><body><form n-f='0'><input type='submit' name='myradio' value='0'/><select name='myradio' n-i='0'><option value='0' selected='selected'>ZERO</option><option value='1'>ZERO</option><option value='2'>TWO</option><option value='3'>THREE</option></select></form><img src='AAABAAAA"+MetaDocument.SEP_IMG+"AAABAAAA"+MetaDocument.SEP_IMG+"AAABAAAA'/></body></html>");
+        RenderedPage r_ = withImageDoc(withStd(withFrame(newRenderedPage(pr_))),"<html><body><form n-f='0'><input type='submit' name='myradio' value='0'/><select name='myradio' n-i='0'><option value='0' selected='selected'>ZERO</option><option value='1'>ZERO</option><option value='2'>TWO</option><option value='3'>THREE</option></select></form><img src='AAABAAAA"+MetaDocument.SEP_IMG+"AAABAAAA"+MetaDocument.SEP_IMG+"AAABAAAA'/></body></html>");
         CustList<DualComponent> list_ = r_.allMainComponents();
         ((DualComboBox)list_.get(1)).setSelectedIndexes(Ints.newList(2));
         form(r_.getStandards().getPage(), 0L,0L);
@@ -479,7 +482,7 @@ public final class RenderedPageTest extends EquallableGuiDocUtil {
     @Test
     public void render48() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(10, lgs(), StringUtil.wrapStringArray("/")));
-        RenderedPage r_ = withDoc(withStd(withFrame(newRenderedPage(pr_))),"<html><body><form n-f='0'><input type='submit' name='myradio' value='0'/><select name='myradio' n-i='0' multiple=''><option value='0' selected='selected'>ZERO</option><option value='1'>ZERO</option><option value='2'>TWO</option><option value='3'>THREE</option></select></form><img src='AAABAAAA"+MetaDocument.SEP_IMG+"AAABAAAA"+MetaDocument.SEP_IMG+"AAABAAAA'/></body></html>");
+        RenderedPage r_ = withImageDoc(withStd(withFrame(newRenderedPage(pr_))),"<html><body><form n-f='0'><input type='submit' name='myradio' value='0'/><select name='myradio' n-i='0' multiple=''><option value='0' selected='selected'>ZERO</option><option value='1'>ZERO</option><option value='2'>TWO</option><option value='3'>THREE</option></select></form><img src='AAABAAAA"+MetaDocument.SEP_IMG+"AAABAAAA"+MetaDocument.SEP_IMG+"AAABAAAA'/></body></html>");
         CustList<DualComponent> list_ = r_.allMainComponents();
         ((DualComboList)list_.get(1)).setSelectedIndexes(Ints.newList(1,3));
         form(r_.getStandards().getPage(), 0L,0L);
@@ -491,7 +494,7 @@ public final class RenderedPageTest extends EquallableGuiDocUtil {
     @Test
     public void render49() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(10, lgs(), StringUtil.wrapStringArray("/")));
-        RenderedPage r_ = withDoc(withStd(withFrame(newRenderedPage(pr_))),"<html><body><a n-a='0'>0</a><img src='AAABAAAA"+MetaDocument.SEP_IMG+"AAABAAAA"+MetaDocument.SEP_IMG+"AAABAAAA'/></body></html>");
+        RenderedPage r_ = withImageDoc(withStd(withFrame(newRenderedPage(pr_))),"<html><body><a n-a='0'>0</a><img src='AAABAAAA"+MetaDocument.SEP_IMG+"AAABAAAA"+MetaDocument.SEP_IMG+"AAABAAAA'/></body></html>");
         CustList<DualComponent> list_ = r_.allMainComponents();
         ((MockPreparedLabel)list_.get(0).getGraphic()).getMouseIntRelListeners().get(0).mouseReleased(null,null,null);
         assertFalse(r_.getAnims().get(0).isStarted());

@@ -1066,7 +1066,7 @@ public final class DocumentBuilder {
 
     public static void mergeInto(String _str, int _from, int _until, StringMap<String> _enc) {
         int from_ = NumberUtil.max(_from, 0);
-        StringList parts_ = StringUtil.splitChars(_str.substring(from_, NumberUtil.max(from_,NumberUtil.min(_until, _str.length()))), '&', ';');
+        StringList parts_ = StringUtil.splitChars(_str.substring(from_, NumberUtil.min(NumberUtil.max(from_,_until), _str.length())), '&', ';');
         StringList relevant_ = new StringList();
         for (String s: parts_) {
             String tr_ = s.trim();

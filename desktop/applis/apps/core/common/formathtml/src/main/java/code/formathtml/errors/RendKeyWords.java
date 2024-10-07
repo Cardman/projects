@@ -6,8 +6,10 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.errors.stds.StdWordError;
 import code.expressionlanguage.stds.LgNamesContent;
+import code.images.BaseSixtyFourUtil;
 import code.maths.litteralcom.MathExpUtil;
 import code.sml.*;
+import code.sml.util.MessagesTranslations;
 import code.sml.util.TranslationsFile;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -184,6 +186,7 @@ public final class RendKeyWords {
     public static final String DEF_MAJ_LETTER="1";
     public static final String DEF_MIN_LATIN="2";
     public static final String DEF_MAJ_LATIN="3";
+    public static final String DEF_BASE_SIXTY_FOUR="4";
 
     private final RendKeyWordsTags rendKeyWordsTags = MessagesRendKeyWordsTags.init();
     private final RendKeyWordsAttrs rendKeyWordsAttrs = MessagesRendKeyWordsAttrs.init();
@@ -363,6 +366,7 @@ public final class RendKeyWords {
         fr_.add(DEF_MAJ_LETTER,"DefMajLetter=ABCDEFGHIJKLMNOPQRSTUVWXYZ");
         fr_.add(DEF_MIN_LATIN,"DefMinLatin=ivxlcdmq");
         fr_.add(DEF_MAJ_LATIN,"DefMajLatin=IVXLCDMQ");
+        fr_.add(DEF_BASE_SIXTY_FOUR,"DefBaseSixtyFour="+ MessagesTranslations.BASE);
         return fr_;
     }
     public void otherStyleDefs(StringMap<String> _util, StringMap<String> _cust, StringMap<String> _mapping) {
@@ -370,6 +374,7 @@ public final class RendKeyWords {
         setDefMajLetter(LgNamesContent.get(_util, _cust, _mapping.getVal(DEF_MAJ_LETTER)));
         setDefMinLatin(LgNamesContent.get(_util, _cust, _mapping.getVal(DEF_MIN_LATIN)));
         setDefMajLatin(LgNamesContent.get(_util, _cust, _mapping.getVal(DEF_MAJ_LATIN)));
+        setDefBaseSixtyFour(LgNamesContent.get(_util, _cust, _mapping.getVal(DEF_BASE_SIXTY_FOUR)));
     }
     public static StringMap<String> mappingDefs() {
         StringMap<String> mappingStyleAttrs_ = new StringMap<String>();
@@ -377,6 +382,7 @@ public final class RendKeyWords {
         mappingStyleAttrs_.addEntry(DEF_MAJ_LETTER,"DefMajLetter");
         mappingStyleAttrs_.addEntry(DEF_MIN_LATIN,"DefMinLatin");
         mappingStyleAttrs_.addEntry(DEF_MAJ_LATIN,"DefMajLatin");
+        mappingStyleAttrs_.addEntry(DEF_BASE_SIXTY_FOUR,"DefBaseSixtyFour");
         return mappingStyleAttrs_;
     }
 
@@ -405,6 +411,7 @@ public final class RendKeyWords {
         } else {
             rendKeyWordsDefs.setDefMajLatin(adjMajLatin_);
         }
+        rendKeyWordsDefs.setDefBaseSixtyFour(BaseSixtyFourUtil.checkBase(rendKeyWordsDefs.getDefBaseSixtyFour(),_mapping.getVal(DEF_BASE_SIXTY_FOUR)));
     }
     private static String eightFirstChars(String _str) {
         return _str.substring(0, NumberUtil.min(8,_str.length()));
@@ -2559,6 +2566,10 @@ public final class RendKeyWords {
 
     public void setDefMajLatin(String _styleUnitSolid) {
         this.rendKeyWordsDefs.setDefMajLatin(_styleUnitSolid);
+    }
+
+    public void setDefBaseSixtyFour(String _styleUnitSolid) {
+        this.rendKeyWordsDefs.setDefBaseSixtyFour(_styleUnitSolid);
     }
 
 }

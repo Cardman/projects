@@ -2,7 +2,6 @@ package code.bean.nat.exec.blocks;
 
 import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.exec.*;
-import code.sml.Document;
 import code.sml.Element;
 import code.util.EntryCust;
 import code.util.StringMap;
@@ -28,22 +27,31 @@ public abstract class NatRendElement extends NatParentBlock implements NatRendEl
             RendBlockHelp.processBlockAndRemove(_rendStack, this);
             return;
         }
-        Document ownerDocument_ = rw_.getDocument();
-        Element created_ = RendBlockHelp.appendChild(ownerDocument_, rw_, read);
+        tag(_cont, _rendStack, ip_, rw_);
+    }
+
+    protected void tag(NatConfigurationCore _cont, NatRendStackCall _rendStack, NatImportingPageAbs _ip, NatRendReadWrite _rw) {
+        //        Document ownerDocument_ = rw_.getDocument();
+        Element created_ = RendBlockHelp.appendChild(_rw.getDocument(), _rw, read);
 //        for (EntryCust<String, NatExecTextPart> e: natAttributesText.entryList()) {
 //            NatExecTextPart res_ = e.getValue();
 //            String txt_ = NatRenderingText.renderNat(res_, _rendStack);
 //            created_.setAttribute(e.getKey(),txt_);
 //        }
-        if (this instanceof NatRendEscImg) {
-            ((NatRendEscImg)this).escImg(_cont, created_);
-        } else if (this instanceof NatRendImg) {
-            ((NatRendImg)this).img(_cont, created_, _rendStack);
-        } else if (this instanceof NatRendLink) {
+//        if (this instanceof NatRendEscImg) {
+//            ((NatRendEscImg)this).escImg(_cont, created_);
+////        } else if (this instanceof NatRendImg) {
+////            ((NatRendImg)this).img(_cont, created_, _rendStack);
+//        } else
+        if (this instanceof NatRendLink) {
             ((NatRendLink)this).link(_cont, created_);
         }
-        attributes(_rendStack, created_, natAttributes);
-        addEltStack(ip_,rw_,created_,this);
+        endElement(_rendStack, _ip, _rw, created_);
+    }
+
+    protected void endElement(NatRendStackCall _rendStack, NatImportingPageAbs _ip, NatRendReadWrite _rw, Element _created) {
+        attributes(_rendStack, _created, natAttributes);
+        addEltStack(_ip, _rw, _created,this);
     }
 
     public static void attributes(NatRendStackCall _rendStack, Element _created, StringMap<NatExecTextPart> _map) {

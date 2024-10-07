@@ -38,7 +38,7 @@ public final class HelpCaller {
         Node current_ = root_;
         while (current_ != null) {
             Node child_ = current_.getFirstChild();
-            write_ = complete(write_, child_, ins_.proc(current_, dest_, files_, rend_));
+            write_ = complete(write_, child_, ins_.proc(current_, dest_, files_, rend_,_imgs));
             if (child_ != null) {
                 current_ = child_;
                 continue;
@@ -58,9 +58,9 @@ public final class HelpCaller {
                 }
             }
         }
-        return MetaDocument.newInstance(dest_, rend_,"",new FixCharacterCaseConverter(),new HelpMetaSimpleImageBuilder(_imgs));
+        return MetaDocument.newInstance(dest_, rend_,"",new FixCharacterCaseConverter());
     }
-    private Node proc(Node _current, Document _doc, StringMap<TranslationsFile> _files, RendKeyWordsGroup _rend) {
+    private Node proc(Node _current, Document _doc, StringMap<TranslationsFile> _files, RendKeyWordsGroup _rend, StringMap<int[][]> _imgs) {
         if (_current instanceof Element) {
             String tagName_ = ((Element)_current).getTagName();
             if (StringUtil.quickEq(tagName_, _rend.getKeyWordsTags().getKeyWordMessage())) {
@@ -68,9 +68,23 @@ public final class HelpCaller {
                 return _doc.createTextNode(getPre(value_, properties, _files));
             }
             Element elt_ = _doc.createElement(tagName_);
-            for (Attr a: _current.getAttributes()) {
-                elt_.setAttribute(a.getName(),a.getValue());
+            elt_.setAttributesCopy(_current.getAttributes());
+            if (StringUtil.quickEq(tagName_, _rend.getKeyWordsTags().getKeyWordImg())) {
+                String attrSrc_ = _rend.getKeyWordsAttrs().getAttrSrc();
+                String valueSrc_ = elt_.getAttribute(attrSrc_);
+                elt_.removeAttribute(attrSrc_);
+                HelpAttr img_ = new HelpAttr(attrSrc_);
+                int[][] val_ = _imgs.getVal(valueSrc_);
+                if (val_ != null) {
+                    img_.setAnim(new CustList<int[][]>(val_));
+                } else {
+                    img_.setAnim(new CustList<int[][]>(new int[0][0]));
+                }
+                elt_.getAttributes().add(img_);
             }
+//            for (Attr a: _current.getAttributes()) {
+//                elt_.setAttribute(a.getName(),((DefAttr)a).getValue());
+//            }
             return elt_;
         }
         return _doc.createTextNode(_current.getTextContent());

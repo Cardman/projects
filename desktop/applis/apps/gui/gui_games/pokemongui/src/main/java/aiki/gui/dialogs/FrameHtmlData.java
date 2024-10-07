@@ -50,7 +50,7 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
         setFocusableWindowState(true);
         RenderedPage session_;
         session_ = new RenderedPage(getFrames().getCompoFactory().newAbsScrollPane(), _parent.getFrames(),new FixCharacterCaseConverter(), _parent.getGuardRender());
-        session_.setBase(GamesPk.baseEncode(_parent.getFrames().getTranslations()));
+//        session_.setBase(GamesPk.baseEncode(_parent.getFrames().getTranslations()));
         session = session_;
         session.setFrame(getCommonFrame());
         session.setDialog(getDialog());
@@ -92,7 +92,7 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
     public static RenderedPage initializeOnlyConf(AikiNatLgNamesNavigation _prepared, String _lg, BeanNatCommonLgNamesForm _stds, AbstractProgramInfos _pr, AbsActionListenerAct _guard) {
         AbsScrollPane ascenseur_=_pr.getCompoFactory().newAbsScrollPane();
         RenderedPage r_ = new RenderedPage(ascenseur_, _pr,new FixCharacterCaseConverter(), _guard);
-        r_.setBase(GamesPk.baseEncode(_pr.getTranslations()));
+//        r_.setBase(GamesPk.baseEncode(_pr.getTranslations()));
         NatNavigation n_ = _prepared.getNavigation();
         n_.setLanguage(_lg);
         coreInfos(r_, n_);

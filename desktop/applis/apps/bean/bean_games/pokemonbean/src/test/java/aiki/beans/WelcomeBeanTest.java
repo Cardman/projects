@@ -205,6 +205,9 @@ public final class WelcomeBeanTest extends InitDbWelcome {
         assertFalse(s_.containsBase("6"));
         assertEq(0,s_.getValInt("7"));
         s_.removeKeyBase("1");
+        NatImgAttr n_ = new NatImgAttr("");
+        n_.setAnim(new CustList<int[][]>());
+        n_.copy();
 
     }
     @Test

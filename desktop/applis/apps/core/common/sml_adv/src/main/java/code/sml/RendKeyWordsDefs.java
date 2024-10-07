@@ -5,6 +5,7 @@ public final class RendKeyWordsDefs {
     private String defMajLetter;
     private String defMinLatin;
     private String defMajLatin;
+    private String defBaseSixtyFour;
 
     public String getDefMinLetter() {
         return defMinLetter;
@@ -36,5 +37,13 @@ public final class RendKeyWordsDefs {
 
     public void setDefMajLatin(String _p) {
         this.defMajLatin = _p;
+    }
+
+    public String getDefBaseSixtyFour() {
+        return defBaseSixtyFour;
+    }
+
+    public void setDefBaseSixtyFour(String _p) {
+        this.defBaseSixtyFour = _p;
     }
 }

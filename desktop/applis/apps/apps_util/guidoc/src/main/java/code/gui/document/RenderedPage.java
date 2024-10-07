@@ -50,7 +50,7 @@ public final class RenderedPage implements ProcessingSession {
     private AbstractScheduledExecutorService timer;
     private AbstractFuture taskTimer;
     private String keyWordDigit = "";
-    private String base = "";
+//    private String base = "";
     private final CharacterCaseConverter converter;
     private final AbsActionListenerAct aa;
     private final LanguageComponentButtons languageComponentButtons;
@@ -170,7 +170,7 @@ public final class RenderedPage implements ProcessingSession {
 
     public void setupText() {
         Document doc_ = navCore.getDocument();
-        MetaDocument metadoc_ = MetaDocument.newInstance(doc_,keys,keyWordDigit,converter, base);
+        MetaDocument metadoc_ = MetaDocument.newInstance(doc_,keys,keyWordDigit,converter);
         getGene().getCompoFactory().invokeNow(new WindowPage(metadoc_, scroll, this));
     }
     void directScroll(MetaDocument _meta) {
@@ -274,13 +274,13 @@ public final class RenderedPage implements ProcessingSession {
         this.keyWordDigit = _k;
     }
 
-    public String getBase() {
-        return base;
-    }
+//    public String getBase() {
+//        return base;
+//    }
 
-    public void setBase(String _b) {
-        this.base = _b;
-    }
+//    public void setBase(String _b) {
+//        this.base = _b;
+//    }
 
     void setPage(DualPanel _page) {
         page = _page;

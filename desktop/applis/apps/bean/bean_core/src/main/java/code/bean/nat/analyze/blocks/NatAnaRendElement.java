@@ -24,11 +24,13 @@ public abstract class NatAnaRendElement extends NatAnaRendParentBlock implements
         StringList attributesNames_ = buildAttrNames(_anaDoc, read);
         String prefGr_ = StringUtil.concat(prefixWrite_, _anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrGroupId());
         attributesNames_.removeAllString(prefGr_);
-        if (this instanceof NatAnaRendImg) {
-            ((NatAnaRendImg)this).img(read,attributesNames_, _anaDoc, _page);
-        } else if (this instanceof NatAnaRendLink) {
+//        if (this instanceof NatAnaRendImg) {
+//            ((NatAnaRendImg)this).img(read,attributesNames_, _anaDoc, _page);
+//        } else
+        if (this instanceof NatAnaRendLink) {
             ((NatAnaRendLink)this).link(read,attributesNames_, _anaDoc);
-        } else if (this instanceof NatAnaRendStdElement) {
+        }
+        if (this instanceof NatAnaRendStdElement) {
             ((NatAnaRendStdElement)this).sdtElement(attributesNames_, _anaDoc);
         }
         for (String a: attributesNames_) {

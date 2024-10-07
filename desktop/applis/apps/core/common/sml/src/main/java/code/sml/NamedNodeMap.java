@@ -17,6 +17,9 @@ public final class NamedNodeMap implements Iterable<Attr> {
         attrs = new CustList<Attr>(_c);
     }
 
+    public void clear() {
+        attrs.clear();
+    }
     public Attr item(int _i) {
         return attrs.get(_i);
     }

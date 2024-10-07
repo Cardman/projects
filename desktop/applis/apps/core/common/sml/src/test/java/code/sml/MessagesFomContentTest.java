@@ -91,4 +91,11 @@ public final class MessagesFomContentTest extends EquallableRowColUtil {
         assertEq(1,m_.size());
         assertEq("2",m_.getVal("0"));
     }
+    @Test
+    public void core() {
+        String key_ = "0";
+        TranslationsFile tf_ = MessagesTranslations.mes(key_);
+        assertEq(1, tf_.getMapping().size());
+        assertEq(MessagesTranslations.BASE, tf_.getMapping().getVal(key_));
+    }
 }

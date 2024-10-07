@@ -4,7 +4,6 @@ import code.sml.RendKeyWordsGroup;
 import code.sml.*;
 import code.util.CollCapacity;
 import code.util.CustList;
-import code.util.StringList;
 
 public final class MetaAnimatedImage extends MetaImage {
 
@@ -12,12 +11,12 @@ public final class MetaAnimatedImage extends MetaImage {
 
     private final int delay;
 
-    public MetaAnimatedImage(MetaContainer _parent, StringList _images, String _title, int _delay, Element _anchor, RendKeyWordsGroup _rend, AbsMetaSimpleImageBuilder _absImg) {
+    public MetaAnimatedImage(MetaContainer _parent, CustList<int[][]> _images, String _title, int _delay, Element _anchor, RendKeyWordsGroup _rend) {
         super(_parent, _title, _anchor,_rend);
         delay = _delay;
         images = new CustList<int[][]>(new CollCapacity(_images.size()));
-        for (String s: _images) {
-            images.add(_absImg.build(s));
+        for (int[][] s: _images) {
+            images.add(s);
         }
     }
     public CustList<int[][]> getImages() {

@@ -1,5 +1,6 @@
 package code.images;
 
+import code.util.CustList;
 import code.util.Ints;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -19,6 +20,13 @@ public final class BaseSixtyFourUtil {
 //    private static final byte NB_DIGITS_LETTERS = 62;
 
     private BaseSixtyFourUtil(){
+    }
+    public static CustList<int[][]> getImagesByString(CustList<String> _ls, String _base) {
+        CustList<int[][]> anim_ = new CustList<int[][]>();
+        for (String p: _ls) {
+            anim_.add(BaseSixtyFourUtil.getImageByString(p,_base));
+        }
+        return anim_;
     }
     public static int[][] getImageByString(String _image, String _base) {
         int index_ = StringUtil.getFirstPrintableCharIndex(_image);
@@ -149,7 +157,17 @@ public final class BaseSixtyFourUtil {
 //        return v_;
     }
 
+    public static CustList<String> getStringsByImage(CustList<int[][]> _image, String _base) {
+        CustList<String> ls_ = new CustList<String>();
+        for (int[][] i: _image) {
+            ls_.add(getStringByImage(i,_base));
+        }
+        return ls_;
+    }
     public static String getStringByImage(int[][] _image, String _base) {
+        if (_image.length == 0) {
+            return "";
+        }
         int w_ = _image[0].length;
         StringBuilder str_ = new StringBuilder(4+_image[0].length*_image.length*4);
         byte[] bytes_ = new byte[THREE_COLORS_BYTES];

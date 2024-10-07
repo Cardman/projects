@@ -25,8 +25,6 @@ import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.errors.RendKeyWords;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.DefaultBeanAliases;
-import code.images.BaseSixtyFourUtil;
-import code.renders.MessagesRenders;
 import code.sml.Element;
 import code.sml.util.*;
 import code.threads.AbstractAtomicBoolean;
@@ -50,7 +48,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
     public static final String BASE = "11";
 //    public static final String RESOURCES_RENDERS_ALIASES = "resources_renders/aliases";
     private final LgNamesUtilsContent execContent;
-    private String encodingBaseSixtyFour;
+//    private String encodingBaseSixtyFour;
 //    private final StringMap<String> properties = MessCdmRenderGr.ms();
     public LgNamesRenderUtils(FileInfos _infos,AbstractInterceptor _inter) {
         super(_infos.getGenerator());
@@ -141,8 +139,8 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         buildMap(styleValuesPart_, styleValues_);
         buildMap(styleDefsPart_, styleDefs_);
         buildMap(encodingPart_, encoding_);
-        String defVal_ = FileInfos.getAppliFilesTr(execContent.getExecutingOptions().getLightProgramInfos().getTranslations()).getMapping().getVal(MessagesRenders.BASE_FILE).getMapping().getVal(MessagesRenders.BASE_KEY);
-        encodingBaseSixtyFour = BaseSixtyFourUtil.checkBase(ParseLinesArgUtil.parseValue(MessagesCdmBase.valMessages(FileInfos.getAppliTr(execContent.getExecutingOptions().getLightProgramInfos().currentLg())),StringUtil.removeAllSpaces(encodingPart_.toString())),defVal_);
+//        String defVal_ = FileInfos.getAppliFilesTr(execContent.getExecutingOptions().getLightProgramInfos().getTranslations()).getMapping().getVal(MessagesRenders.BASE_FILE).getMapping().getVal(MessagesRenders.BASE_KEY);
+//        encodingBaseSixtyFour = BaseSixtyFourUtil.checkBase(ParseLinesArgUtil.parseValue(MessagesCdmBase.valMessages(FileInfos.getAppliTr(execContent.getExecutingOptions().getLightProgramInfos().currentLg())),StringUtil.removeAllSpaces(encodingPart_.toString())),defVal_);
         if (!_lg.isEmpty()) {
             execContent.getCustAliases().messages(_mess, mess_);
             rendMessages(_rMess, rendMess_);
@@ -524,7 +522,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         return app_.getMapping().getVal(RendKeyWords.STYLE_DEF_FILE);
     }
 
-    public String getEncodingBaseSixtyFour() {
-        return encodingBaseSixtyFour;
-    }
+//    public String getEncodingBaseSixtyFour() {
+//        return encodingBaseSixtyFour;
+//    }
 }

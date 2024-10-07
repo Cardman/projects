@@ -1,8 +1,11 @@
 package code.formathtml.render;
 
+import code.images.BaseSixtyFourUtil;
 import code.sml.RendKeyWordsGroup;
 import code.util.CustList;
+import code.util.StringList;
 import code.util.core.BoolVal;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 import code.sml.DocumentBuilder;
@@ -3245,7 +3248,7 @@ public final class MetaDocumentTest extends EquallableRenderAdvUtil {
         doc_.append("<img src='AAACABABbaba'/>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        MetaDocument out_ = getMetaDocument(doc_);
+        MetaDocument out_ = getImgSimpleMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -3271,7 +3274,7 @@ public final class MetaDocumentTest extends EquallableRenderAdvUtil {
         doc_.append("</span>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        MetaDocument out_ = getMetaDocument(doc_);
+        MetaDocument out_ = getImgSimpleMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -3299,7 +3302,7 @@ public final class MetaDocumentTest extends EquallableRenderAdvUtil {
         doc_.append("</span>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        MetaDocument out_ = getMetaDocument(doc_);
+        MetaDocument out_ = getImgSimpleMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -3323,7 +3326,7 @@ public final class MetaDocumentTest extends EquallableRenderAdvUtil {
         doc_.append("<img src='AAACABABbaba"+MetaDocument.SEP_IMG+"AAABABABbaba' delay='10'/>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        MetaDocument out_ = getMetaDocument(doc_);
+        MetaDocument out_ = getImgAnimMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -3347,6 +3350,30 @@ public final class MetaDocumentTest extends EquallableRenderAdvUtil {
         assertEq(4097, img_[0][0]);
         assertEq(1, img_[1].length);
         assertEq(7186138, img_[1][0]);
+    }
+    @Test
+    public void newInstance57_Test() {
+        StringBuilder doc_ = new StringBuilder();
+        doc_.append("<html>\n");
+        doc_.append("<body>\n");
+        doc_.append("<img src='AAACABABbaba' delay='10'/>\n");
+        doc_.append("</body>\n");
+        doc_.append("</html>");
+        MetaDocument out_ = getImgAnimOneMetaDocument(doc_);
+        MetaBlock root_ = out_.getRoot();
+        assertEq(1, root_.getChildren().size());
+        MetaComponent ch_ = root_.getChildren().get(0);
+        assertTrue(ch_ instanceof MetaLine);
+        MetaContainer cont_ = (MetaContainer) ch_;
+        assertEq(1, cont_.getChildren().size());
+        MetaSimpleImage imgMeta_ = (MetaSimpleImage) cont_.getChildren().get(0);
+        assertEq("",imgMeta_.getTitle());
+        assertNull(imgMeta_.getAnchor());
+        int[][] img_= imgMeta_.getImage();
+        assertEq(1, img_.length);
+        assertEq(2, img_[0].length);
+        assertEq(4097, img_[0][0]);
+        assertEq(7186138, img_[0][1]);
     }
     @Test
     public void newInstance58Test() {
@@ -3429,7 +3456,7 @@ public final class MetaDocumentTest extends EquallableRenderAdvUtil {
         doc_.append("</a>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        MetaDocument out_ = getMetaDocument(doc_);
+        MetaDocument out_ = getImgSimpleMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -3458,7 +3485,7 @@ public final class MetaDocumentTest extends EquallableRenderAdvUtil {
         doc_.append("</a>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
-        MetaDocument out_ = getMetaDocument(doc_);
+        MetaDocument out_ = getImgSimpleMetaDocument(doc_);
         MetaBlock root_ = out_.getRoot();
         assertEq(1, root_.getChildren().size());
         MetaComponent ch_ = root_.getChildren().get(0);
@@ -5035,12 +5062,46 @@ public final class MetaDocumentTest extends EquallableRenderAdvUtil {
     }
     private static MetaDocument getMetaDocument(StringBuilder _doc) {
         DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(_doc.toString());
-        return MetaDocument.newInstance(res_.getDocument(), new RendKeyWordsGroup(),"ABCDEF",new SampleCharacterCaseConverter(), BASE);
+        return MetaDocument.newInstance(res_.getDocument(), new RendKeyWordsGroup(),"ABCDEF",new SampleCharacterCaseConverter());
     }
-
+    private static MetaDocument getImgSimpleMetaDocument(StringBuilder _doc) {
+        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(_doc.toString());
+        String src_ = res_.getDocument().getElementsByTagName("img").item(0).getAttribute("src");
+        res_.getDocument().getElementsByTagName("img").item(0).removeAttribute("src");
+        TestedRenderImgAnimAttr anim_ = new TestedRenderImgAnimAttr("src");
+        anim_.setAnim(new CustList<int[][]>(BaseSixtyFourUtil.getImageByString(src_,BASE)));
+        res_.getDocument().getElementsByTagName("img").item(0).getAttributes().add(anim_);
+        return MetaDocument.newInstance(res_.getDocument(), new RendKeyWordsGroup(),"ABCDEF",new SampleCharacterCaseConverter());
+    }
+    private static MetaDocument getImgAnimMetaDocument(StringBuilder _doc) {
+        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(_doc.toString());
+        String src_ = res_.getDocument().getElementsByTagName("img").item(0).getAttribute("src");
+        StringList parts_ = StringUtil.splitChar(src_, '=');
+//        String first_ = parts_.first();
+//        String last_ = parts_.last();
+        res_.getDocument().getElementsByTagName("img").item(0).removeAttribute("src");
+//        CustList<int[][]> ls_ = new CustList<int[][]>();
+//        ls_.add(BaseSixtyFourUtil.getImageByString(first_,BASE));
+//        ls_.add(BaseSixtyFourUtil.getImageByString(last_,BASE));
+        TestedRenderImgAnimAttr anim_ = new TestedRenderImgAnimAttr("src");
+        anim_.setAnim(BaseSixtyFourUtil.getImagesByString(parts_,BASE));
+        res_.getDocument().getElementsByTagName("img").item(0).getAttributes().add(anim_);
+        return MetaDocument.newInstance(res_.getDocument(), new RendKeyWordsGroup(),"ABCDEF",new SampleCharacterCaseConverter());
+    }
+    private static MetaDocument getImgAnimOneMetaDocument(StringBuilder _doc) {
+        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(_doc.toString());
+        String src_ = res_.getDocument().getElementsByTagName("img").item(0).getAttribute("src");
+        res_.getDocument().getElementsByTagName("img").item(0).removeAttribute("src");
+        CustList<int[][]> ls_ = new CustList<int[][]>();
+        ls_.add(BaseSixtyFourUtil.getImageByString(src_,BASE));
+        TestedRenderImgAnimAttr anim_ = new TestedRenderImgAnimAttr("src");
+        anim_.setAnim(ls_);
+        res_.getDocument().getElementsByTagName("img").item(0).getAttributes().add(anim_);
+        return MetaDocument.newInstance(res_.getDocument(), new RendKeyWordsGroup(),"ABCDEF",new SampleCharacterCaseConverter());
+    }
     private static MetaDocument getMetaSpecDocument(StringBuilder _doc) {
         DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(_doc.toString());
-        return MetaDocument.newInstance(res_.getDocument(), new RendKeyWordsGroup(),"ABCDEF",new SampleNotCharacterCaseConverter(), BASE);
+        return MetaDocument.newInstance(res_.getDocument(), new RendKeyWordsGroup(),"ABCDEF",new SampleNotCharacterCaseConverter());
     }
     private void assertUnordered(MetaComponent _ch) {
         assertTrue(_ch instanceof MetaOrderedList);

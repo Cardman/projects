@@ -503,10 +503,10 @@ public final class HelpScriptConfPages {
     private static Element info(Document _doc, String _tag, String _one, String _two) {
         Element element_ = _doc.createElement(_tag);
         NamedNodeMap attributes_ = element_.getAttributes();
-        Attr pos_ = new Attr(POSITION);
+        DefAttr pos_ = new DefAttr(POSITION);
         pos_.setValue(_one);
         attributes_.add(pos_);
-        Attr txt_ = new Attr(POSITION);
+        DefAttr txt_ = new DefAttr(POSITION);
         txt_.setValue(_two);
         attributes_.add(txt_);
         return element_;

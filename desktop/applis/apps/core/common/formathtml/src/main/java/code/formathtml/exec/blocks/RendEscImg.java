@@ -9,6 +9,7 @@ import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Element;
 import code.sml.Node;
+import code.sml.RendKeyWordsGroup;
 import code.util.CustList;
 import code.util.StringMap;
 
@@ -20,6 +21,8 @@ public final class RendEscImg extends RendElement {
 
     @Override
     protected Struct processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+        RendKeyWordsGroup gr_ = _cont.getRendKeyWords().group();
+        RendImg.buildAttr(gr_,(Element) _nextWrite,((Element) _nextWrite).getAttribute(gr_.getKeyWordsAttrs().getAttrSrc()));
         _nextWrite.getOwnerDocument().renameNode(_nextWrite,_cont.getRendKeyWords().getKeyWordImg());
         return NullStruct.NULL_VALUE;
     }

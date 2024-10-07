@@ -5,7 +5,7 @@ import code.sml.Element;
 
 public final class NatAnaRendEscImg extends NatAnaRendElement {
 
-    NatAnaRendEscImg(Element _elt, AbstractNatBlockBuilder _builder) {
+    public NatAnaRendEscImg(Element _elt, AbstractNatBlockBuilder _builder) {
         super(_elt,_builder);
     }
 

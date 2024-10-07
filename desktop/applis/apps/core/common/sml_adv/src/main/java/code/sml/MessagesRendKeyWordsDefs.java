@@ -1,5 +1,7 @@
 package code.sml;
 
+import code.sml.util.*;
+
 public final class MessagesRendKeyWordsDefs {
     private MessagesRendKeyWordsDefs() {
     }
@@ -9,6 +11,7 @@ public final class MessagesRendKeyWordsDefs {
         v_.setDefMajLetter("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
         v_.setDefMinLatin("ivxlcdmq");
         v_.setDefMajLatin("IVXLCDMQ");
+        v_.setDefBaseSixtyFour(MessagesTranslations.BASE);
         return v_;
     }
 }

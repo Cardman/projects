@@ -92,8 +92,8 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
         addWindowListener(new QuittingEvent(this));
     }
 
-    public static CustThreadActions inst(DefaultInitialization _init, RenderedPage _page, Navigation _nav, LgNamesRenderUtils _stds) {
-        return CustThreadActions.inst(_page, _init,_nav, _stds);
+    public static CustThreadActions inst(DefaultInitialization _init, RenderedPage _page, Navigation _nav) {
+        return CustThreadActions.inst(_page, _init,_nav);
     }
 
 //    @Override
@@ -175,7 +175,7 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
         session.setFiles(zipFiles_);
         DefaultInitialization ini_ = new DefaultInitialization(lgNames_, new AdvSymbolFactory(lgNames_.getExecContent().getCustAliases().getMathAdvAliases()), lgCode_, confRel_, zipFiles_);
         ini_.setLog(lgNames_.getExecContent());
-        session.initializeOnlyConf(new CustRenderAction(ini_,n_,new CustContextCreator(),session,lgNames_), lgNames_, inst(ini_, session,n_, lgNames_));
+        session.initializeOnlyConf(new CustRenderAction(ini_,n_,new CustContextCreator(),session,lgNames_), lgNames_, inst(ini_, session,n_));
     }
 
     private String lgCode() {

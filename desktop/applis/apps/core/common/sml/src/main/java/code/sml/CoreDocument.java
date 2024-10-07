@@ -43,11 +43,11 @@ public abstract class CoreDocument implements Node,Document {
         return null;
     }
 
-    static Attr createAttribute(String _name) {
-        return new Attr(_name);
+    static DefAttr createAttribute(String _name) {
+        return new DefAttr(_name);
     }
     public static Attr createAttribute(String _name, String _value, CustList<EncodedChar> _chs) {
-        Attr attr_ = new Attr(_name);
+        DefAttr attr_ = new DefAttr(_name);
         attr_.setEscapedValue(_value, _chs);
         return attr_;
     }

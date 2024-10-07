@@ -1,5 +1,6 @@
 package code.sml;
 
+import code.util.CustList;
 import org.junit.Test;
 
 public class AttrTest extends EquallableRowColUtil {
@@ -44,6 +45,14 @@ public class AttrTest extends EquallableRowColUtil {
     public void getAttribute4Test() {
         FullElement elt_ = (FullElement) DocumentBuilder.parseSax("<tag before='one' exist='value'/>").getDocumentElement();
         assertEq("value",elt_.getAttribute("exist"));
+    }
+    @Test
+    public void getAttribute5Test() {
+        FullElement elt_ = (FullElement) DocumentBuilder.parseSax("<tag before='one' exist='value'/>").getDocumentElement();
+        TestedSmlImgAnimAttr img_ = new TestedSmlImgAnimAttr("src");
+        img_.setAnim(new CustList<int[][]>(new int[0][0]));
+        elt_.getAttributes().add(img_);
+        assertEq("",elt_.getAttribute("src"));
     }
     @Test
     public void setAttribute1Test() {
@@ -92,6 +101,40 @@ public class AttrTest extends EquallableRowColUtil {
         assertEq("one",elt_.getAttribute("before"));
         assertTrue(!elt_.hasAttribute("inexist"));
         assertEq("",elt_.getAttribute("inexist"));
+    }
+    @Test
+    public void copyAttr1() {
+        FullElement elt_ = (FullElement) DocumentBuilder.parseSax("<tag before='one' exist='value'/>").getDocumentElement();
+        Element cp_ = elt_.getOwnerDocument().createElement("cp");
+        cp_.setAttributesCopy(elt_.getAttributes());
+        assertEq(2,cp_.getAttributes().getLength());
+        assertEq("before",cp_.getAttributes().item(0).getName());
+        assertEq("one",((DefAttr)cp_.getAttributes().item(0)).getValue());
+        assertEq("exist",cp_.getAttributes().item(1).getName());
+        assertEq("value",((DefAttr)cp_.getAttributes().item(1)).getValue());
+    }
+    @Test
+    public void copyAttr2() {
+        FullElement elt_ = (FullElement) DocumentBuilder.parseSax("<tag before='one' exist='value'/>").getDocumentElement();
+        TestedSmlImgAnimAttr img_ = new TestedSmlImgAnimAttr("img");
+        CustList<int[][]> imgs_ = new CustList<int[][]>();
+        imgs_.add(new int[1][1]);
+        imgs_.add(new int[1][1]);
+        img_.setAnim(imgs_);
+        elt_.getAttributes().add(img_);
+        Element cp_ = elt_.getOwnerDocument().createElement("cp");
+        cp_.setAttributesCopy(elt_.getAttributes());
+        assertEq(3,cp_.getAttributes().getLength());
+        assertEq("before",cp_.getAttributes().item(0).getName());
+        assertEq("one",((DefAttr)cp_.getAttributes().item(0)).getValue());
+        assertEq("exist",cp_.getAttributes().item(1).getName());
+        assertEq("value",((DefAttr)cp_.getAttributes().item(1)).getValue());
+        assertEq("img",cp_.getAttributes().item(2).getName());
+        assertEq(2,((TestedSmlImgAnimAttr)cp_.getAttributes().item(2)).getAnim().size());
+        assertEq(1,((TestedSmlImgAnimAttr)cp_.getAttributes().item(2)).getAnim().get(0).length);
+        assertEq(1,((TestedSmlImgAnimAttr)cp_.getAttributes().item(2)).getAnim().get(0)[0].length);
+        assertEq(1,((TestedSmlImgAnimAttr)cp_.getAttributes().item(2)).getAnim().get(1).length);
+        assertEq(1,((TestedSmlImgAnimAttr)cp_.getAttributes().item(2)).getAnim().get(1)[0].length);
     }
     @Test
     public void hasAttributeNoText1Test() {

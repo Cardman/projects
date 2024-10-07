@@ -25,6 +25,9 @@ public final class AdvNatBlockBuilder implements AbstractNatBlockBuilder {
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordsTags().getKeyWordSelect()))) {
             return new NatAnaRendSelect(_elt);
         }
+        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordsTags().getKeyWordImg()))) {
+            return new NatAnaRendEscImg(_elt,this);
+        }
         if (StringUtil.quickEq(tagName_, _rendKeyWords.getKeyWordsTags().getKeyWordInput())) {
             return new NatAnaRendInput(_elt, StringUtil.quickEq(_elt.getAttribute(_rendKeyWords.getKeyWordsAttrs().getAttrType()), _rendKeyWords.getKeyWordsValues().getValueRadio()));
         }
@@ -57,6 +60,11 @@ public final class AdvNatBlockBuilder implements AbstractNatBlockBuilder {
             StringMap<NatExecTextPart> part_ = NatRendForwardInfos.toExecPartExt(f_.getAttributes());
             StringMap<NatExecTextPart> partText_ = NatRendForwardInfos.toExecPartExt(f_.getAttributesText());
             return new NatRendSubmit(f_.getRead(),part_,partText_, f_.getPreformatted());
+        }
+        if (_from instanceof NatAnaRendEscImg){
+            NatAnaRendEscImg f_ = (NatAnaRendEscImg) _from;
+            StringMap<NatExecTextPart> part_ = NatRendForwardInfos.toExecPartExt(f_.getAttributes());
+            return new NatRendEscImg(f_.getRead(),part_);
         }
         if (_from instanceof NatAnaRendAnchor){
             NatAnaRendAnchor f_ = (NatAnaRendAnchor) _from;

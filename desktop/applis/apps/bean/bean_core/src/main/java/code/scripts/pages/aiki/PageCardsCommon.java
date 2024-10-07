@@ -88,7 +88,7 @@ protected static final String DIFF = "d";
 protected static final char SEP = 160;
 protected PageCardsCommon(){}
 public static Attr at(String _name,String _value){
-Attr a_ = new Attr(_name);
+DefAttr a_ = new DefAttr(_name);
 a_.setValue(_value);
 return a_;
 }

@@ -670,37 +670,37 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        //setInteger(v_);
 //        assertEq("<html><body><a c:command=\"bean_one.goToPage1\" title=\"Click\" href=\"\" n-a=\"0\"/></body></html>", getNatRes(folder_, relative_, html_, files_, v_));
 //    }
-    @Test
-    public void process1ImgTest() {
-        String locale_ = StringUtil.EN;
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Click";
-        String html_ = "<html c:bean='bean_one'><body><img/></body></html>";
-        StringMap<TranslationsAppli> files_ = trFile(folder_, locale_, relative_, content_);
-        BeanOne bean_ = new BeanOne();
-        SampleBeanStruct v_ = init(bean_);
-//        getStrings(v_).add("FIRST");
-//        getStrings(v_).add("SECOND");
-        //setInteger(v_);
-        assertEq("<html><body><img/></body></html>", getNatRes(folder_, relative_, html_, new StringMap<String>(), files_, v_));
-    }
+//    @Test
+//    public void process1ImgTest() {
+//        String locale_ = StringUtil.EN;
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Click";
+//        String html_ = "<html c:bean='bean_one'><body><img/></body></html>";
+//        StringMap<TranslationsAppli> files_ = trFile(folder_, locale_, relative_, content_);
+//        BeanOne bean_ = new BeanOne();
+//        SampleBeanStruct v_ = init(bean_);
+////        getStrings(v_).add("FIRST");
+////        getStrings(v_).add("SECOND");
+//        //setInteger(v_);
+//        assertEq("<html><body><img/></body></html>", getNatRes(folder_, relative_, html_, new StringMap<String>(), files_, v_));
+//    }
 
-    @Test
-    public void process2ImgTest() {
-        String locale_ = StringUtil.EN;
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Click";
-        String html_ = "<html c:bean='bean_one'><body><c:img/></body></html>";
-        StringMap<TranslationsAppli> files_ = trFile(folder_, locale_, relative_, content_);
-        BeanOne bean_ = new BeanOne();
-        SampleBeanStruct v_ = init(bean_);
-//        getStrings(v_).add("FIRST");
-//        getStrings(v_).add("SECOND");
-        //setInteger(v_);
-        assertEq("<html><body><img/></body></html>", getNatRes(folder_, relative_, html_, new StringMap<String>(), files_, v_));
-    }
+//    @Test
+//    public void process2ImgTest() {
+//        String locale_ = StringUtil.EN;
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Click";
+//        String html_ = "<html c:bean='bean_one'><body><c:img/></body></html>";
+//        StringMap<TranslationsAppli> files_ = trFile(folder_, locale_, relative_, content_);
+//        BeanOne bean_ = new BeanOne();
+//        SampleBeanStruct v_ = init(bean_);
+////        getStrings(v_).add("FIRST");
+////        getStrings(v_).add("SECOND");
+//        //setInteger(v_);
+//        assertEq("<html><body><img/></body></html>", getNatRes(folder_, relative_, html_, new StringMap<String>(), files_, v_));
+//    }
     @Test
     public void process2LkTest() {
         String locale_ = StringUtil.EN;

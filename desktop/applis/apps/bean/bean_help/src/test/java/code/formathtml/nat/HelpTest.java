@@ -1,5 +1,6 @@
 package code.formathtml.nat;
 
+import code.bean.help.HelpAttr;
 import code.bean.help.HelpCaller;
 import code.bean.nat.NatDualConfigurationContext;
 import code.bean.nat.NatNavigation;
@@ -40,6 +41,10 @@ public final class HelpTest extends EquallableBeanHelpUtil {
         assertEq(1,chs1_.size());
         MetaSimpleImage img_ = (MetaSimpleImage) chs1_.get(0);
         assertEq(0,img_.getImage().length);
+        HelpAttr im_ = new HelpAttr("");
+        im_.setAnim(new CustList<int[][]>());
+        im_.copy();
+        im_.escape();
 //        assertEq("<html><body><ul>Message</ul></body></html>", getNatRes(folder_, relative_, html_, bean_,files_));
     }
     @Test

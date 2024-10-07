@@ -92,24 +92,25 @@ public final class NavigationCore {
     }
 
     public static void setNormalAttributes(Element _read, Element _write) {
-        NamedNodeMap map_ = _read.getAttributes();
-        int nbAttrs_ = map_.getLength();
-        for (int i = 0; i < nbAttrs_; i++) {
-            Attr at_ = map_.item(i);
-            String name_ = at_.getName();
-            String value_ = at_.getValue();
-            _write.setAttribute(name_, value_);
-        }
+        _write.setAttributesCopy(_read.getAttributes());
+//        NamedNodeMap map_ = _read.getAttributes();
+//        int nbAttrs_ = map_.getLength();
+//        for (int i = 0; i < nbAttrs_; i++) {
+//            Attr at_ = map_.item(i);
+//            String name_ = at_.getName();
+//            String value_ = ((DefAttr)at_).getValue();
+//            _write.setAttribute(name_, value_);
+//        }
     }
 
-    public static boolean prImg(ConfigurationCore _cont, RendKeyWordsAttrs _attrs, Element _nextWrite, String _link) {
-        String file_ = StringUtil.nullToEmpty(_cont.getFiles().getVal(_link));
-        if (file_.isEmpty()) {
-            return false;
-        }
-        _nextWrite.setAttribute(_attrs.getAttrSrc(),file_);
-        return true;
-    }
+//    public static boolean prImg(ConfigurationCore _cont, RendKeyWordsAttrs _attrs, Element _nextWrite, String _link) {
+//        String file_ = StringUtil.nullToEmpty(_cont.getFiles().getVal(_link));
+//        if (file_.isEmpty()) {
+//            return false;
+//        }
+//        _nextWrite.setAttribute(_attrs.getAttrSrc(),file_);
+//        return true;
+//    }
 
     public static void prHeader(RendKeyWordsTags _cont, String _fileContent, Document _ownerDocument, Element _head) {
         CustList<Element> children_ = new CustList<Element>();

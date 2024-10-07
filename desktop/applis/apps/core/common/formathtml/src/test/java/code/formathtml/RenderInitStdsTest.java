@@ -19,6 +19,7 @@ import code.formathtml.common.AdvFileEscapedCalc;
 import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.RendBlock;
+import code.formathtml.exec.blocks.RendImgAnimAttr;
 import code.formathtml.exec.opers.RendDimensionArrayInstancing;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.*;
@@ -35,6 +36,9 @@ public final class RenderInitStdsTest extends CommonRender {
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords k_ = new KeyWords();
         assertTrue(contextEl(b_,a_,k_, null));
+        RendImgAnimAttr r_ = new RendImgAnimAttr("");
+        r_.setAnim(new CustList<int[][]>());
+        r_.copy();
     }
     @Test
     public void process5Test() {

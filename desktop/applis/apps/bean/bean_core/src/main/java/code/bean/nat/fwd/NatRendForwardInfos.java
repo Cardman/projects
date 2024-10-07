@@ -104,22 +104,22 @@ public final class NatRendForwardInfos {
     }
 
     private static NatBlock element(NatAnaRendBlock _current, AbstractNatBlockBuilder _builder) {
-        if (_current instanceof NatAnaRendImg){
-            NatAnaRendImg f_ = (NatAnaRendImg) _current;
-            StringMap<NatExecTextPart> part_ = toExecPartExt(f_.getAttributes());
-            NatExecTextPart partSub_ = toExecPartExt(f_.getRoots(),f_.getTexts());
-            return new NatRendImg(f_.getRead(),part_, partSub_);
-        }
+//        if (_current instanceof NatAnaRendImg){
+//            NatAnaRendImg f_ = (NatAnaRendImg) _current;
+//            StringMap<NatExecTextPart> part_ = toExecPartExt(f_.getAttributes());
+//            NatExecTextPart partSub_ = toExecPartExt(f_.getRoots(),f_.getTexts());
+//            return new NatRendImg(f_.getRead(),part_, partSub_);
+//        }
         if (_current instanceof NatAnaRendLink){
             NatAnaRendLink f_ = (NatAnaRendLink) _current;
             StringMap<NatExecTextPart> part_ = toExecPartExt(f_.getAttributes());
             return new NatRendLink(f_.getRead(),part_, f_.getContent());
         }
-        if (_current instanceof NatAnaRendEscImg){
-            NatAnaRendEscImg f_ = (NatAnaRendEscImg) _current;
-            StringMap<NatExecTextPart> part_ = toExecPartExt(f_.getAttributes());
-            return new NatRendEscImg(f_.getRead(),part_);
-        }
+//        if (_current instanceof NatAnaRendEscImg){
+//            NatAnaRendEscImg f_ = (NatAnaRendEscImg) _current;
+//            StringMap<NatExecTextPart> part_ = toExecPartExt(f_.getAttributes());
+//            return new NatRendEscImg(f_.getRead(),part_);
+//        }
         if (_current instanceof NatAnaRendMessage){
             NatAnaRendMessage f_ = (NatAnaRendMessage) _current;
             CustList<CustList<NatExecOperationNode>> partSub_ = toExecPartExt(f_.getRoots());

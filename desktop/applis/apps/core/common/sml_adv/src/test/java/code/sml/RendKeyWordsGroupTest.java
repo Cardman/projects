@@ -160,6 +160,7 @@ public class RendKeyWordsGroupTest extends EquallableSmlAdvUtil {
         r_.getKeyWordsDefs().setDefMajLetter("");
         r_.getKeyWordsDefs().setDefMinLatin("");
         r_.getKeyWordsDefs().setDefMajLatin("");
+        r_.getKeyWordsDefs().setDefBaseSixtyFour("");
         assertEq("",r_.getKeyWordsStyles().getStyleAttrBorder());
         assertEq("",r_.getKeyWordsStyles().getStyleAttrColor());
         assertEq("",r_.getKeyWordsAttrs().getAttrAction());
@@ -314,6 +315,7 @@ public class RendKeyWordsGroupTest extends EquallableSmlAdvUtil {
         assertEq("",r_.getKeyWordsDefs().getDefMajLetter());
         assertEq("",r_.getKeyWordsDefs().getDefMinLatin());
         assertEq("",r_.getKeyWordsDefs().getDefMajLatin());
+        assertEq("",r_.getKeyWordsDefs().getDefBaseSixtyFour());
     }
     @Test
     public void st() {

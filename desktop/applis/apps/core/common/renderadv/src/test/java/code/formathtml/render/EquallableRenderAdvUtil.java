@@ -89,10 +89,10 @@ public abstract class EquallableRenderAdvUtil {
         ((HtmlPage)_page).getContainersBase().addEntry(_n, v_);
     }
     protected static MetaDocument getMetaDocument(String _nav) {
-        return MetaDocument.newInstance(DocumentBuilder.parseSaxNotNullRowCol(_nav).getDocument(),new RendKeyWordsGroup(),"ABCDEF",new SampleCharacterCaseConverter(), BASE);
+        return MetaDocument.newInstance(DocumentBuilder.parseSaxNotNullRowCol(_nav).getDocument(),new RendKeyWordsGroup(),"ABCDEF",new SampleCharacterCaseConverter());
     }
     protected static MetaDocument getMetaDocumentSpec(String _nav) {
-        return MetaDocument.newInstance(DocumentBuilder.parseSaxNotNullRowCol(_nav).getDocument(),new RendKeyWordsGroup(),"ABCDEF",new SampleNotCharacterCaseConverter(), BASE);
+        return MetaDocument.newInstance(DocumentBuilder.parseSaxNotNullRowCol(_nav).getDocument(),new RendKeyWordsGroup(),"ABCDEF",new SampleNotCharacterCaseConverter());
     }
     public static long[] lgs(long... _args) {
         return _args;
