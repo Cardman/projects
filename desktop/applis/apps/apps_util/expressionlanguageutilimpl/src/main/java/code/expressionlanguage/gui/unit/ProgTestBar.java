@@ -11,7 +11,7 @@ import code.util.core.NumberUtil;
 public final class ProgTestBar implements ProgTestBarInt{
     public static final String LINE_RETURN = "\n";
     public static final String FLAG_SUCCESS = "\u2713";
-    public static final String FLAG_FAIL = "\u274C";
+    public static final String FLAG_FAIL = "\u2716";
     private final AbsPlainLabel doneTestsCalls;
     private final AbsPlainLabel doneTestsCount;
 
