@@ -127,6 +127,7 @@ public final class MessagesIde {
     public static final String IDE_POINTS_POINT_FORM_SINGLE = "15";
     public static final String IDE_POINTS_POINT_FORM_INC = "16";
     public static final String IDE_POINTS_POINT_FORM_EXC = "17";
+    public static final String IDE_POINTS_POINT_FORM_PREF_IMPL = "18";
     public static final String IDE_POINTS_REND_FORM = "15";
     public static final String IDE_POINTS_REND_FORM_EN_REND = "0";
     public static final String IDE_POINTS_REND_FORM_EN_EXP = "1";
@@ -138,6 +139,7 @@ public final class MessagesIde {
     public static final String IDE_POINTS_REND_FORM_VALIDATE = "7";
     public static final String IDE_POINTS_REND_FORM_REMOVE = "8";
     public static final String IDE_POINTS_REND_FORM_PREF = "9";
+    public static final String IDE_POINTS_REND_FORM_PREF_IMPL = "10";
     public static final String IDE_POINTS_GL_FORM = "16";
     public static final String IDE_POINTS_GL_FORM_STACK = "0";
     public static final String IDE_POINTS_GL_FORM_REND = "1";
@@ -666,6 +668,7 @@ public final class MessagesIde {
         e_.add(IDE_POINTS_POINT_FORM_SINGLE,"single");
         e_.add(IDE_POINTS_POINT_FORM_INC,"add include");
         e_.add(IDE_POINTS_POINT_FORM_EXC,"add exclude");
+        e_.add(IDE_POINTS_POINT_FORM_PREF_IMPL,"preference about implement of the point");
         return e_;
     }
     public static TranslationsFile frPointForm(){
@@ -688,6 +691,7 @@ public final class MessagesIde {
         f_.add(IDE_POINTS_POINT_FORM_SINGLE,"simple");
         f_.add(IDE_POINTS_POINT_FORM_INC,"ajout d'inclusion");
         f_.add(IDE_POINTS_POINT_FORM_EXC,"ajout d'exclusion");
+        f_.add(IDE_POINTS_POINT_FORM_PREF_IMPL,"préférence à propos de l'implémentation du point");
         return f_;
     }
     public static void appendRendForm(TranslationsAppli _a, TranslationsFile _v) {
@@ -705,6 +709,7 @@ public final class MessagesIde {
         e_.add(IDE_POINTS_REND_FORM_VALIDATE,"ok");
         e_.add(IDE_POINTS_REND_FORM_REMOVE,"remove render point");
         e_.add(IDE_POINTS_REND_FORM_PREF,"preference about render");
+        e_.add(IDE_POINTS_REND_FORM_PREF_IMPL,"preference about implement of the render");
         return e_;
     }
     public static TranslationsFile frRendForm(){
@@ -719,6 +724,7 @@ public final class MessagesIde {
         f_.add(IDE_POINTS_REND_FORM_VALIDATE,"ok");
         f_.add(IDE_POINTS_REND_FORM_REMOVE,"supprimer le point de rendu");
         f_.add(IDE_POINTS_REND_FORM_PREF,"préférence à propos du rendu");
+        f_.add(IDE_POINTS_REND_FORM_PREF_IMPL,"préférence à propos de l'implémentation du rendu");
         return f_;
     }
     public static void appendGlForm(TranslationsAppli _a, TranslationsFile _v) {

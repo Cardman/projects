@@ -57,6 +57,7 @@ public final class GuiStackForm {
         AbsSplitPane panel_ = stackConstraintsForm.guiBuild(_d,null);
         AbsPanel staIncExc_ = _d.getFrames().getCompoFactory().newPageBox();
         staIncExc_.add(pref);
+        prefs.getGroup().setTitledBorder(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_PREF_IMPL));
         AbsPanel g_ = prefs.getGroup();
         g_.setVisible(false);
         staIncExc_.add(g_);

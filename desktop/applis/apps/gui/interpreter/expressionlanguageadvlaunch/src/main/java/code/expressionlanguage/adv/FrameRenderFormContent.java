@@ -56,6 +56,7 @@ public final class FrameRenderFormContent {
         expandRenderText = _d.getFrames().getCompoFactory().newTextArea();
         AbsPanel bpForm_ = _d.getFrames().getCompoFactory().newPageBox();
         bpForm_.add(pref);
+        prefs.getGroup().setTitledBorder(mes_.getVal(MessagesIde.IDE_POINTS_REND_FORM_PREF_IMPL));
         bpForm_.add(prefs.getGroup());
         bpForm_.add(exactForm.getPanel());
         bpForm_.add(clName);
