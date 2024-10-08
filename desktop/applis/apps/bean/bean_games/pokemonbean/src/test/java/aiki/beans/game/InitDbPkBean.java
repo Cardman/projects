@@ -116,7 +116,7 @@ public abstract class InitDbPkBean extends InitDbBean {
     public static NaSt beanPk(String _language, FacadeGame _dataBase) {
         PkInd stds_ = new PkInd();
         stds_.setDataBase(_dataBase);
-        stds_.setBaseEncode(BASE);
+//        stds_.setBaseEncode(BASE);
         return stds_.beanPk(_language);
     }
 

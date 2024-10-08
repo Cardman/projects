@@ -64,7 +64,7 @@ public final class AdvNatBlockBuilder implements AbstractNatBlockBuilder {
         if (_from instanceof NatAnaRendEscImg){
             NatAnaRendEscImg f_ = (NatAnaRendEscImg) _from;
             StringMap<NatExecTextPart> part_ = NatRendForwardInfos.toExecPartExt(f_.getAttributes());
-            return new NatRendEscImg(f_.getRead(),part_);
+            return new NatRendEscImg(f_.getRead(),part_, NatRendForwardInfos.getExecutableNodes(f_.getRoot()));
         }
         if (_from instanceof NatAnaRendAnchor){
             NatAnaRendAnchor f_ = (NatAnaRendAnchor) _from;

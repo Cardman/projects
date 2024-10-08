@@ -20,8 +20,8 @@ import code.util.CustList;
 import code.util.core.IndexConstants;
 
 public abstract class AbsLevelBean extends CommonBean {
-    private DictionaryComparator<Point,String> tiles;
-    private DictionaryComparator<Point,String> whiteTiles;
+    private DictionaryComparator<Point,int[][]> tiles;
+    private DictionaryComparator<Point,int[][]> whiteTiles;
     private String placeName;
     private int levelIndex;
     private boolean outside;
@@ -85,12 +85,12 @@ public abstract class AbsLevelBean extends CommonBean {
         }
     }
 
-    private void feedImages(Points<int[][]> _map, DictionaryComparator<Point, String> _de, int _side, boolean _addBorder) {
+    private void feedImages(Points<int[][]> _map, DictionaryComparator<Point, int[][]> _de, int _side, boolean _addBorder) {
         if (_addBorder) {
             DataBase.updateBorders(_map, _side);
         }
         for (CommonParam<Point,int[][]> pt_: _map.entryList()) {
-            _de.put(pt_.getKey(), getStringByImage(pt_.getValue()));
+            _de.put(pt_.getKey(), pt_.getValue());
         }
     }
     public String clickArea(int _index) {
@@ -163,11 +163,11 @@ public abstract class AbsLevelBean extends CommonBean {
         return wildPokemonAreas;
     }
 
-    public DictionaryComparator<Point, String> getTiles() {
+    public DictionaryComparator<Point, int[][]> getTiles() {
         return tiles;
     }
 
-    public DictionaryComparator<Point, String> getWhiteTiles() {
+    public DictionaryComparator<Point, int[][]> getWhiteTiles() {
         return whiteTiles;
     }
 

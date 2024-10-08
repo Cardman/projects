@@ -23,7 +23,7 @@ private static final String C_P_215_16="m";
 private static final String C_P_215_17="l";
 private static final String C_P_215_18="l";
 private static final String C_P_215_19="e";
-private static final String C_P_215_20="{getImagePokemonPartialNot(([k]),([l]),([e]))}";
+private static final String C_P_215_20="getImagePokemonPartialNot(([k]),([l]),([e]))";
 private static final String C_P_215_21="{getTrPokemonPartialNot(([k]),([l]),([e]))}";
 private static final String C_P_215_22="msg_prog,notCaughtPkCaughtPart";
 private static final String C_P_215_23="ls";
@@ -31,7 +31,7 @@ private static final String C_P_215_24="m";
 private static final String C_P_215_25="l";
 private static final String C_P_215_26="getKeyPokemon(([k]),([l]))";
 private static final String C_P_215_27="e";
-private static final String C_P_215_28="{getImagePokemonPartial(([k]),([l]),([e]))}";
+private static final String C_P_215_28="getImagePokemonPartial(([k]),([l]),([e]))";
 private static final String C_P_215_29="{getTrPokemonPartial(([k]),([l]),([e]))}";
 private PageProgGameprogpart(){}
 static Document build(){

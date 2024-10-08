@@ -4,21 +4,25 @@ import aiki.beans.CommonSingleBean;
 import aiki.comparators.ComparatorTrainerPlaceNames;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
+import aiki.db.DataBase;
+import aiki.db.ImageHeroKey;
 import aiki.facade.FacadeGame;
 import aiki.fight.pokemon.TrainerPlaceNames;
+import aiki.game.Game;
 import aiki.game.GameProgression;
 import aiki.map.DataMap;
+import aiki.map.levels.enums.EnvironmentType;
 import code.maths.LgInt;
 import code.util.CustList;
 import code.util.NatStringTreeMap;
 import code.util.StringList;
 
 public class GameProgressionBean extends CommonSingleBean {
-    private String heroImage;
-    private String heroImageOppositeSex;
+    private int[][] heroImage;
+    private int[][] heroImageOppositeSex;
     private String nickname;
     private boolean finishedGame;
-    private String endGameImage;
+    private int[][] endGameImage;
     private NatStringTreeMap<CustList<StringList>> notAtAllFamiliesBase;
     private NatStringTreeMap<CustList<StringList>> partialFamiliesBaseNotCaught;
     private NatStringTreeMap<CustList<StringList>> partialFamiliesBaseCaught;
@@ -37,11 +41,11 @@ public class GameProgressionBean extends CommonSingleBean {
     @Override
     public void beforeDisplaying() {
         FacadeGame facade_ = facade();
-        heroImage = facade_.getFrontChosenHeros(getBaseEncode());
-        heroImageOppositeSex = facade_.getFrontChosenHerosOppositeSex(getBaseEncode());
+        heroImage = getFrontChosenHeros();
+        heroImageOppositeSex = getFrontChosenHerosOppositeSex();
         GameProgression progression_ = facade_.getGameProgression();
         finishedGame = progression_.isFinishedGame();
-        endGameImage = getStringByImage(facade_.getData().getEndGameImage().getImage());
+        endGameImage = facade_.getData().getEndGameImage().getImage();
         nickname = progression_.getNickname();
         notAtAllFamiliesBaseInit(facade_, progression_);
         partialFamiliesBaseCaughtInit(facade_, progression_);
@@ -64,6 +68,25 @@ public class GameProgressionBean extends CommonSingleBean {
         nbRemainingNotMaxLevel = progression_.getNbRemainingNotMaxLevel();
     }
 
+    public int[][] getFrontChosenHeros() {
+        FacadeGame facade_ = facade();
+        DataBase data_ = facade_.getData();
+        Game game_ = facade_.getGame();
+        ImageHeroKey i_;
+        i_ = ImageHeroKey.direct(EnvironmentType.ROAD, game_.getPlayer());
+        return data_.getFrontHeros().getVal(
+                i_).getImage();
+    }
+
+    public int[][] getFrontChosenHerosOppositeSex() {
+        FacadeGame facade_ = facade();
+        DataBase data_ = facade_.getData();
+        Game game_ = facade_.getGame();
+        ImageHeroKey i_;
+        i_ = ImageHeroKey.opposite(EnvironmentType.ROAD, game_.getPlayer());
+        return data_.getFrontHeros().getVal(
+                i_).getImage();
+    }
     private void fullFamiliesBaseInit(FacadeGame _facade, GameProgression _progression) {
         fullFamiliesBase = new NatStringTreeMap<CustList<StringList>>();
         for (String b: _progression.getFullFamiliesBase().getKeys()) {
@@ -137,7 +160,7 @@ public class GameProgressionBean extends CommonSingleBean {
         FacadeGame facade_ = facade();
         return getTrPokemon(facade_, notAtAllFamiliesBase, _key, _indexList, _indexElt);
     }
-    public String getImagePokemonNotAll(int _key, int _indexList, int _indexElt) {
+    public int[][] getImagePokemonNotAll(int _key, int _indexList, int _indexElt) {
         FacadeGame facade_ = facade();
         return getImagePokemon(facade_, notAtAllFamiliesBase, _key, _indexList, _indexElt);
     }
@@ -145,7 +168,7 @@ public class GameProgressionBean extends CommonSingleBean {
         FacadeGame facade_ = facade();
         return getTrPokemon(facade_, partialFamiliesBaseNotCaught, _key, _indexList, _indexElt);
     }
-    public String getImagePokemonPartialNot(int _key, int _indexList, int _indexElt) {
+    public int[][] getImagePokemonPartialNot(int _key, int _indexList, int _indexElt) {
         FacadeGame facade_ = facade();
         return getImagePokemon(facade_, partialFamiliesBaseNotCaught, _key, _indexList, _indexElt);
     }
@@ -153,7 +176,7 @@ public class GameProgressionBean extends CommonSingleBean {
         FacadeGame facade_ = facade();
         return getTrPokemon(facade_, partialFamiliesBaseCaught, _key, _indexList, _indexElt);
     }
-    public String getImagePokemonPartial(int _key, int _indexList, int _indexElt) {
+    public int[][] getImagePokemonPartial(int _key, int _indexList, int _indexElt) {
         FacadeGame facade_ = facade();
         return getImagePokemon(facade_, partialFamiliesBaseCaught, _key, _indexList, _indexElt);
     }
@@ -161,7 +184,7 @@ public class GameProgressionBean extends CommonSingleBean {
         FacadeGame facade_ = facade();
         return getTrPokemon(facade_, fullFamiliesBase, _key, _indexList, _indexElt);
     }
-    public String getImagePokemonFull(int _key, int _indexList, int _indexElt) {
+    public int[][] getImagePokemonFull(int _key, int _indexList, int _indexElt) {
         FacadeGame facade_ = facade();
         return getImagePokemon(facade_, fullFamiliesBase, _key, _indexList, _indexElt);
     }
@@ -177,27 +200,26 @@ public class GameProgressionBean extends CommonSingleBean {
         return _facade.translatePokemon(pkName_);
     }
 
-    private String getImagePokemon(FacadeGame _facade,NatStringTreeMap<CustList<StringList>> _treeMap, int _key, int _indexList, int _indexElt) {
+    private int[][] getImagePokemon(FacadeGame _facade,NatStringTreeMap<CustList<StringList>> _treeMap, int _key, int _indexList, int _indexElt) {
         CustList<StringList> values_ = _treeMap.getValue(_key);
         StringList value_ = values_.get(_indexList);
         String pkName_ = value_.get(_indexElt);
-        int[][] img_ = _facade.getData().getMaxiPkFront().getVal(pkName_).getImage();
-        return getStringByImage(img_);
+        return _facade.getData().getMaxiPkFront().getVal(pkName_).getImage();
     }
 
     public boolean getFinishedGame() {
         return finishedGame;
     }
 
-    public String getHeroImage() {
+    public int[][] getHeroImage() {
         return heroImage;
     }
 
-    public String getHeroImageOppositeSex() {
+    public int[][] getHeroImageOppositeSex() {
         return heroImageOppositeSex;
     }
 
-    public String getEndGameImage() {
+    public int[][] getEndGameImage() {
         return endGameImage;
     }
 

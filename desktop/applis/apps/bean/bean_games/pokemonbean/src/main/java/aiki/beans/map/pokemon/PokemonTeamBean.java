@@ -73,7 +73,7 @@ public class PokemonTeamBean extends AbsPkTeamBean {
         return list_;
     }
 
-    public String getImage(int _index) {
+    public int[][] getImage(int _index) {
 //        DataBase data_ = getDataBase();
         CustList<PkTrainer> list_ = list(noFight);
         return getImage(list_,_index);

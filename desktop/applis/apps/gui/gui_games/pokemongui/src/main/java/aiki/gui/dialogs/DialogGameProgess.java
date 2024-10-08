@@ -39,7 +39,7 @@ public final class DialogGameProgess {
         absDialog.setTitle(_title);
         absDialog.setLocationRelativeTo(_window.getCommonFrame());
         _pre.getBeanNatLgNames().setDataBase(_facade);
-        _pre.getBeanNatLgNames().setBaseEncode(GamesPk.baseEncode(_window.getFrames().getTranslations()));
+//        _pre.getBeanNatLgNames().setBaseEncode(GamesPk.baseEncode(_window.getFrames().getTranslations()));
         RenderedPage session_ = FrameHtmlData.initializeOnlyConf(_pre, _facade.getLanguage(), _pre.getBeanNatLgNames(), _window.getFrames(), _window.getGuardRender());
         session_.setFrame(absDialog);
         AbsPanel panel_ = _window.getCompoFactory().newPageBox();

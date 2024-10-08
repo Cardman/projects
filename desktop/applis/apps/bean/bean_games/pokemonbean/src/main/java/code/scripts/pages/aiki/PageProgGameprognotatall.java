@@ -23,7 +23,7 @@ private static final String C_P_214_16="m";
 private static final String C_P_214_17="l";
 private static final String C_P_214_18="l";
 private static final String C_P_214_19="e";
-private static final String C_P_214_20="{getImagePokemonNotAll(([k]),([l]),([e]))}";
+private static final String C_P_214_20="getImagePokemonNotAll(([k]),([l]),([e]))";
 private static final String C_P_214_21="{getTrPokemonNotAll(([k]),([l]),([e]))}";
 private PageProgGameprognotatall(){}
 static Document build(){

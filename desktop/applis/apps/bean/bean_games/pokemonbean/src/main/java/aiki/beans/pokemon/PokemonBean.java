@@ -39,8 +39,8 @@ public class PokemonBean extends CommonBean {
     private static final String PAGE_TYPE = PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOTYPE_HTML;
     private static final String PAGE_TEAM = PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOTEAM_HTML;
     private String name;
-    private String backImage;
-    private String frontImage;
+    private int[][] backImage;
+    private int[][] frontImage;
     private String displayName;
     private Rate weight;
     private Rate height;
@@ -93,9 +93,9 @@ public class PokemonBean extends CommonBean {
                 placesAppears.add(i);
             }
         }
-        backImage = getStringByImage(data_.getMaxiPkBack().getVal(name).getImage());
+        backImage = data_.getMaxiPkBack().getVal(name).getImage();
         //ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkBack().getVal(name));
-        frontImage = getStringByImage(data_.getMaxiPkFront().getVal(name).getImage());
+        frontImage = data_.getMaxiPkFront().getVal(name).getImage();
         //ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name));
         PokemonData pk_ = data_.getPokemon(name);
         displayName = translationsPokemon_.getVal(name);
@@ -187,7 +187,7 @@ public class PokemonBean extends CommonBean {
         eggGroupsPk.removeDuplicates();
     }
 
-    public String getMiniMapImage(int _index) {
+    public int[][] getMiniMapImage(int _index) {
         int[][] image_ = images.getValue(_index);
         MiniMapCoords key_ = images.getKey(_index);
         DataBase data_ = getDataBase();
@@ -204,7 +204,7 @@ public class PokemonBean extends CommonBean {
             int[][] miniImg_ = data_.getMiniPk().getVal(name).getImage();
             image_ = ConverterBufferedImage.stackImages(image_, miniImg_);
         }
-        return getStringByImage(image_);
+        return image_;
     }
     public String getPlaceName(int _index) {
         return namesPlaces.getValue(_index);
@@ -393,11 +393,11 @@ public class PokemonBean extends CommonBean {
         return displayName;
     }
 
-    public String getBackImage() {
+    public int[][] getBackImage() {
         return backImage;
     }
 
-    public String getFrontImage() {
+    public int[][] getFrontImage() {
         return frontImage;
     }
 
@@ -481,12 +481,12 @@ public class PokemonBean extends CommonBean {
         return places;
     }
 
-    public DictionaryComparator<MiniMapCoords,String> getImages() {
+    public DictionaryComparator<MiniMapCoords,int[][]> getImages() {
         DataBase data_ = getDataBase();
-        DictionaryComparator<MiniMapCoords, String> map_ = DictionaryComparatorUtil.buildMiniMapCoords();
+        DictionaryComparator<MiniMapCoords, int[][]> map_ = DictionaryComparatorUtil.buildMiniMapImgs();
         for (MiniMapCoordsTile m_: data_.getMap().getMiniMap().entryList()) {
             int[][] image_ = data_.getMiniMap(m_.getTileMap().getFile());
-            map_.put(m_.getMiniMapCoords(), getStringByImage(image_));
+            map_.put(m_.getMiniMapCoords(), image_);
         }
         return map_;
     }

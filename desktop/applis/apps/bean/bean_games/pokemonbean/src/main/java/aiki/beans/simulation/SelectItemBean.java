@@ -65,9 +65,9 @@ public class SelectItemBean extends WithFilterBean {
         }
         return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
     }
-    public String getMiniImage(int _number) {
+    public int[][] getMiniImage(int _number) {
         String item_ = getItems().get(_number).getName();
         DataBase data_ = getDataBase();
-        return getStringByImage(data_.getMiniItems().getVal(item_).getImage());
+        return data_.getMiniItems().getVal(item_).getImage();
     }
 }

@@ -20,7 +20,7 @@ public class FightCalculationBean extends CommonFightBean {
     private ByteTreeMap<BoolVal> foeChoicesTargets;
     private CustList<KeyHypothesis> damage;
     private TeamPositionList sortedFighters;
-    private CustList<MovesListTeamPositionsList> sortedFightersWildFight;
+    private CustList<ImgMovesListTeamPositionsList> sortedFightersWildFight;
 
     @Override
     public void beforeDisplaying() {
@@ -34,7 +34,7 @@ public class FightCalculationBean extends CommonFightBean {
         if (dataBaseFight_.getGame().getFight().getFightType().isWild()) {
             sortedFightersWildFight = convert();
         } else {
-            sortedFightersWildFight = new CustList<MovesListTeamPositionsList>();
+            sortedFightersWildFight = new CustList<ImgMovesListTeamPositionsList>();
         }
         DataBase data_ = dataBaseFight_.getData();
         StringMap<String> translationsMoves_;
@@ -79,20 +79,21 @@ public class FightCalculationBean extends CommonFightBean {
         foeChoicesTargets = foeChoicesTargets_;
     }
 
-    private CustList<MovesListTeamPositionsList> convert() {
+    private CustList<ImgMovesListTeamPositionsList> convert() {
         FacadeGame dataBaseFight_ = facade();
-        CustList<MovesListTeamPositionsList> t_ = new CustList<MovesListTeamPositionsList>();
+        CustList<ImgMovesListTeamPositionsList> t_ = new CustList<ImgMovesListTeamPositionsList>();
         for (MovesListTeamPositionsList e: dataBaseFight_.sortedFightersBeginRoundWildFight()) {
-            CustList<FighterNamePkNameMv> keys_ = new CustList<FighterNamePkNameMv>();
+            CustList<FighterImgPkNameMv> keys_ = new CustList<FighterImgPkNameMv>();
             for (FighterNamePkNameMv k:e.getKeyPks()) {
-                FighterNamePkNameMv cp_ = new FighterNamePkNameMv();
-                cp_.setNamePk(getStringByImage(dataBaseFight_.getData().getMaxiPkFront().getVal(k.getNamePk()).getImage()));
-                cp_.setNameMv(k.getNameMv());
+                FighterImgPkNameMv cp_ = new FighterImgPkNameMv();
+//                cp_.setNamePk(k.getNamePk());
+                cp_.setImagePk(dataBaseFight_.getData().getMaxiPkFront().getVal(k.getNamePk()).getImage());
+//                cp_.setNameMv(k.getNameMv());
                 cp_.setNameMvTr(k.getNameMvTr());
-                cp_.setNumber(k.getNumber());
+//                cp_.setNumber(k.getNumber());
                 keys_.add(cp_);
             }
-            t_.add(new MovesListTeamPositionsList(keys_,e.getTeamPositions()));
+            t_.add(new ImgMovesListTeamPositionsList(keys_,e.getTeamPositions()));
         }
         return t_;
     }
@@ -201,7 +202,7 @@ public class FightCalculationBean extends CommonFightBean {
         return sortedFighters;
     }
 
-    public CustList<MovesListTeamPositionsList> getSortedFightersWildFight() {
+    public CustList<ImgMovesListTeamPositionsList> getSortedFightersWildFight() {
         return sortedFightersWildFight;
     }
 

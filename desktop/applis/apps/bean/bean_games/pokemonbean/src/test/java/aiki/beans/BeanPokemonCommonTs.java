@@ -3,6 +3,7 @@ package aiki.beans;
 import code.bean.nat.*;
 import code.bean.nat.*;
 import code.bean.nat.*;
+import code.images.BaseSixtyFourUtil;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.scripts.confs.EquallablePkBeanUtil;
@@ -117,7 +118,7 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
 //    }
 
     public static void assertImgEq(String _exp, NaSt _result) {
-        assertEq(_exp,_result);
+        assertEq(_exp, BaseSixtyFourUtil.getStringByImage(NaImgSt.tryGet(_result),BASE));
     }
     public static void assertEq(String _exp, NaSt _result) {
         assertEq(_exp,((NaStSt)_result).getInstance());

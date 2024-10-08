@@ -121,7 +121,7 @@ public abstract class InitDbGameProgressionBean extends InitDbBean {
     public static NaSt beanProg(String _language, FacadeGame _dataBase) {
         PkProg stds_ = new PkProg();
         stds_.setDataBase(_dataBase);
-        stds_.setBaseEncode(BASE);
+//        stds_.setBaseEncode(BASE);
         return stds_.initProg(_language);
     }
 

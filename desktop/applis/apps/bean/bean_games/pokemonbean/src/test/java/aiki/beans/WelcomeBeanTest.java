@@ -208,6 +208,7 @@ public final class WelcomeBeanTest extends InitDbWelcome {
         NatImgAttr n_ = new NatImgAttr("");
         n_.setAnim(new CustList<int[][]>());
         n_.copy();
+        assertEq(0,NaImgSt.tryGet(null).length);
 
     }
     @Test

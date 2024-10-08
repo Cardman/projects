@@ -585,7 +585,7 @@ public final class GameProgressionBeanTest extends InitDbGameProgressionBean {
         NatNavigation nav_ = pk_.nav(new StringList(EN,FR), new ProgGameInit(),PagesInit.buildProg(),builtOther_,builtMessages_);
         nav_.setLanguage(EN);
         pk_.setDataBase(fac(progress(),GIRL,Sex.GIRL));
-        pk_.setBaseEncode(BASE);
+//        pk_.setBaseEncode(BASE);
         pk_.initializeRendSessionDoc(nav_);
         String firstPage_ = "<html xmlns:c=\"javahtml\"><head><title>Game progression</title><link href=\""+PkScriptPages.REN_ADD_WEB_PROG_CSS_DIFFICULTY_CSS+"\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
                 "\ttext-indent:25px;\n" +
@@ -712,7 +712,7 @@ public final class GameProgressionBeanTest extends InitDbGameProgressionBean {
         NatNavigation nav_ = pk_.nav(new StringList(EN,FR), new ProgGameInit(),PagesInit.buildProg(),builtOther_,builtMessages_);
         nav_.setLanguage(EN);
         pk_.setDataBase(fac(progress(),BOY,Sex.BOY));
-        pk_.setBaseEncode(BASE);
+//        pk_.setBaseEncode(BASE);
         pk_.initializeRendSessionDoc(nav_);
         String firstPage_ = "<html xmlns:c=\"javahtml\"><head><title>Game progression</title><link href=\""+PkScriptPages.REN_ADD_WEB_PROG_CSS_DIFFICULTY_CSS+"\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
                 "\ttext-indent:25px;\n" +

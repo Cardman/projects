@@ -30,12 +30,12 @@ public abstract class AbsPkTeamBean extends CommonBean {
         team = team_;
     }
 
-    public String getImage(CustList<PkTrainer> _list,int _index) {
+    public int[][] getImage(CustList<PkTrainer> _list,int _index) {
         DataBase data_ = getDataBase();
         PkTrainer pk_;
         pk_ = _list.get(_index);
         String name_ = pk_.getName();
-        return getStringByImage(data_.getMaxiPkFront().getVal(name_).getImage());
+        return data_.getMaxiPkFront().getVal(name_).getImage();
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name_));
     }
     public String getName(int _index) {

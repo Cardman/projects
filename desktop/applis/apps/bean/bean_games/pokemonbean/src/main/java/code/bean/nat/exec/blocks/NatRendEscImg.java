@@ -1,21 +1,25 @@
 package code.bean.nat.exec.blocks;
 
+import aiki.beans.NaImgSt;
+import code.bean.nat.BeanNatCommonLgNames;
+import code.bean.nat.NaSt;
 import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.exec.NatImportingPageAbs;
 import code.bean.nat.exec.NatRendReadWrite;
 import code.bean.nat.exec.NatRendStackCall;
-import code.images.BaseSixtyFourUtil;
+import code.bean.nat.exec.opers.NatExecOperationNode;
 import code.sml.Element;
 import code.sml.Node;
 import code.sml.RendKeyWordsGroup;
-import code.sml.util.MessagesTranslations;
 import code.util.CustList;
 import code.util.StringMap;
 
 public final class NatRendEscImg extends NatRendElement {
 
-    public NatRendEscImg(Element _read, StringMap<NatExecTextPart> _execAttributes) {
+    private final CustList<NatExecOperationNode> imgOps;
+    public NatRendEscImg(Element _read, StringMap<NatExecTextPart> _execAttributes, CustList<NatExecOperationNode> _i) {
         super(_read, _execAttributes);
+        this.imgOps = _i;
     }
 
     @Override
@@ -27,14 +31,15 @@ public final class NatRendEscImg extends NatRendElement {
 //            created_.setAttribute(e.getKey(),txt_);
 //        }
         escImg(_cont, created_);
+        NaSt argument_ = BeanNatCommonLgNames.getAllArgs(imgOps, _rendStack).lastValue().getArgument();
         endElement(_rendStack, _ip, _rw, created_);
-        buildAttr(_cont.getRendKeyWords(),created_,created_.getAttribute(_cont.getRendKeyWords().getKeyWordsAttrs().getAttrSrc()));
+        buildAttr(_cont.getRendKeyWords(),created_,NaImgSt.tryGet(argument_));
     }
 
     void escImg(NatConfigurationCore _cont, Node _nextWrite) {
         _nextWrite.getOwnerDocument().renameNode(_nextWrite,_cont.getRendKeyWords().getKeyWordsTags().getKeyWordImg());
     }
-    public static void buildAttr(RendKeyWordsGroup _attrs, Element _nextWrite, String _content) {
+    public static void buildAttr(RendKeyWordsGroup _attrs, Element _nextWrite, int[][] _content) {
 //        String base_;
 //        int sep_ = _content.indexOf("==");
 //        int from_;
@@ -46,7 +51,7 @@ public final class NatRendEscImg extends NatRendElement {
 //        for (String p: ls_) {
 //            anim_.add(BaseSixtyFourUtil.getImageByString(_content,base_));
 //        }
-        img_.setAnim(new CustList<int[][]>(BaseSixtyFourUtil.getImageByString(_content, MessagesTranslations.BASE)));
+        img_.setAnim(new CustList<int[][]>(_content));
         _nextWrite.removeAttribute(_attrs.getKeyWordsAttrs().getAttrSrc());
         _nextWrite.getAttributes().add(img_);
 

@@ -108,6 +108,10 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<String,String>(_data.getTranslatedPokemon().getVal(_language));
     }
 
+    public static DictionaryComparator<String,int[][]> buildPkImg(DataBase _data, String _language) {
+        return new DictionaryComparator<String,int[][]>(_data.getTranslatedPokemon().getVal(_language));
+    }
+
     public static DictionaryComparator<String,Status> buildStatusData(DataBase _data, String _language) {
         return new DictionaryComparator<String,Status>(_data.getTranslatedStatus().getVal(_language));
     }
@@ -204,6 +208,9 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<MoveTeamPosition, BoolVal>(new ComparatorMoveTeamPosition());
     }
 
+    public static DictionaryComparator<MiniMapCoords,int[][]> buildMiniMapImgs() {
+        return new DictionaryComparator<MiniMapCoords, int[][]>(new ComparatorMiniMapCoords());
+    }
     public static DictionaryComparator<MiniMapCoords,String> buildMiniMapCoords() {
         return new DictionaryComparator<MiniMapCoords, String>(new ComparatorMiniMapCoords());
     }
@@ -291,8 +298,8 @@ public final class DictionaryComparatorUtil {
         return new ComparatorTr<String>(_data.getTranslatedTypes().getVal(_language));
     }
 
-    public static DictionaryComparator<Point, String> buildPointString() {
-        return new DictionaryComparator<Point, String>(new ComparatorPoint());
+    public static DictionaryComparator<Point, int[][]> buildPointString() {
+        return new DictionaryComparator<Point, int[][]>(new ComparatorPoint());
     }
 
     public static DictionaryComparator<MoveTarget, MoveTarget> buildMoveTarget() {

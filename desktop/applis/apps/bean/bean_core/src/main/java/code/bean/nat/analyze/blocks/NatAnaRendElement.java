@@ -33,7 +33,11 @@ public abstract class NatAnaRendElement extends NatAnaRendParentBlock implements
         if (this instanceof NatAnaRendStdElement) {
             ((NatAnaRendStdElement)this).sdtElement(attributesNames_, _anaDoc);
         }
-        for (String a: attributesNames_) {
+        attributes(_anaDoc, _page, attributesNames_);
+    }
+
+    protected void attributes(NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page, StringList _attributesNames) {
+        for (String a: _attributesNames) {
             String attr_ = read.getAttribute(a);
             NatResultText r_ = bu.newNatResultText();
             r_.buildIdAna(attr_, _anaDoc, _page);

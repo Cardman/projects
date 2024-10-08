@@ -10,29 +10,29 @@ public class DualFightBean extends CommonBean {
     static final String PAGE_TEAM = PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_POKEMON_TEAM_HTML;
     private TempTrainer trainer;
     private Ally ally;
-    private String image;
-    private String imageMini;
-    private String imageMiniSecond;
+    private int[][] image;
+    private int[][] imageMini;
+    private int[][] imageMiniSecond;
 
     @Override
     public void beforeDisplaying() {
         trainer = (TempTrainer) getForms().getValPers(CST_PERSON);
         ally = getForms().getValAlly(CST_ALLY);
         DataBase data_ = getDataBase();
-        image = getStringByImage(data_.getTrainer(trainer.getImageMaxiFileName()));
-        imageMini = getStringByImage(data_.getPerson(trainer.getImageMiniFileName()));
-        imageMiniSecond = getStringByImage(data_.getPerson(trainer.getImageMiniSecondTrainerFileName()));
+        image = data_.getTrainer(trainer.getImageMaxiFileName());
+        imageMini = data_.getPerson(trainer.getImageMiniFileName());
+        imageMiniSecond = data_.getPerson(trainer.getImageMiniSecondTrainerFileName());
     }
 
-    public String getImage() {
+    public int[][] getImage() {
         return image;
     }
 
-    public String getImageMini() {
+    public int[][] getImageMini() {
         return imageMini;
     }
 
-    public String getImageMiniSecond() {
+    public int[][] getImageMiniSecond() {
         return imageMiniSecond;
     }
 

@@ -290,11 +290,11 @@ public abstract class WithFilterBean extends CommonBean {
         return translationsAbilities_.getVal(ability_);
     }
 
-    public String getMiniImagePk(int _number) {
+    public int[][] getMiniImagePk(int _number) {
         String name_ = getPokedex().get(_number).getName();
         DataBase data_ = getDataBase();
 //        return ConverterBufferedImage.toBaseSixtyFour(data_.getMiniPk().getVal(name_));
-        return getStringByImage(data_.getMiniPk().getVal(name_).getImage());
+        return data_.getMiniPk().getVal(name_).getImage();
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMiniPk().getVal(name_));
     }
     public void setTypedAbility(String _typedAbility) {

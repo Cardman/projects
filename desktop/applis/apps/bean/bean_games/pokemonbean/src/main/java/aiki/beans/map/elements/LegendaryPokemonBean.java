@@ -16,10 +16,10 @@ public class LegendaryPokemonBean extends CommonBean {
     public void beforeDisplaying() {
         pokemon = getForms().getValPk(CST_LEG_PK);
     }
-    public String getImage() {
+    public int[][] getImage() {
         DataBase data_ = getDataBase();
         String name_ = pokemon.getName();
-        return getStringByImage(data_.getMaxiPkFront().getVal(name_).getImage());
+        return data_.getMaxiPkFront().getVal(name_).getImage();
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name_));
     }
     public String getName() {

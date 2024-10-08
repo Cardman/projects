@@ -22,7 +22,7 @@ public class GeneralHelpBean extends CommonBean {
     private MiniMapCoordsTileInts miniMap;
 
     private DictionaryComparator<MiniMapCoords, String> namesPlaces;
-    private String unlockedCity;
+    private int[][] unlockedCity;
     private String begin;
 
     private Pokemon firstPokemon;
@@ -53,7 +53,7 @@ public class GeneralHelpBean extends CommonBean {
         for (MiniMapCoords m: miniMap.getKeys()) {
             namesPlaces.put(m, data_.getMap().getName(m.getXcoords(), m.getYcoords()));
         }
-        unlockedCity = getStringByImage(data_.getMiniMap(data_.getMap().getUnlockedCity()));
+        unlockedCity = data_.getMiniMap(data_.getMap().getUnlockedCity());
         nbMaxTeam = data_.getNbMaxTeam();
         minLevel = data_.getMinLevel();
         maxLevel = data_.getMaxLevel();
@@ -81,9 +81,8 @@ public class GeneralHelpBean extends CommonBean {
         types = new StringList(data_.getTypes());
         types.sortElts(DictionaryComparatorUtil.cmpTypes(data_,getLanguage()));
     }
-    public String getMiniMapImage(int _index) {
-        int[][] image_ = miniMap.getValue(_index);
-        return getStringByImage(image_);
+    public int[][] getMiniMapImage(int _index) {
+        return miniMap.getValue(_index);
     }
     public int getMapWidth() {
         int w_ = 0;
@@ -112,10 +111,10 @@ public class GeneralHelpBean extends CommonBean {
         String pk_ = pokemonDefaultEggGroup.get(_index);
         return tryRedirectPk(pk_);
     }
-    public String getImage() {
+    public int[][] getImage() {
         DataBase data_ = getDataBase();
         String name_ = firstPokemon.getName();
-        return getStringByImage(data_.getMaxiPkFront().getVal(name_).getImage());
+        return data_.getMaxiPkFront().getVal(name_).getImage();
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name_));
     }
     public String getName() {
@@ -263,16 +262,16 @@ public class GeneralHelpBean extends CommonBean {
         String type_ = types.get(_index);
         return translationsTypes_.getVal(type_);
     }
-    public String getImageType(int _index) {
+    public int[][] getImageType(int _index) {
         DataBase data_ = getDataBase();
         String type_ = types.get(_index);
-        return getStringByImage(data_.getTypesImages().getVal(type_).getImage());
+        return data_.getTypesImages().getVal(type_).getImage();
     }
-    public String getColorType(int _index) {
+    public int[][] getColorType(int _index) {
         DataBase data_ = getDataBase();
         String type_ = types.get(_index);
         String color_ = data_.getTypesColors().getVal(type_);
-        return ConverterBufferedImage.getSquareColorSixtyFour(color_, DataBase.SEPARATOR_RGB, data_.getMap().getSideLength(), getBaseEncode());
+        return ConverterBufferedImage.getSquareColorSixtyFour(color_, DataBase.SEPARATOR_RGB, data_.getMap().getSideLength());
     }
 
     public int getMaxLevel() {
@@ -295,17 +294,17 @@ public class GeneralHelpBean extends CommonBean {
         return begin;
     }
 
-    public DictionaryComparator<MiniMapCoords,String> getMiniMap() {
+    public DictionaryComparator<MiniMapCoords,int[][]> getMiniMap() {
         DataBase data_ = getDataBase();
-        DictionaryComparator<MiniMapCoords, String> map_ = DictionaryComparatorUtil.buildMiniMapCoords();
+        DictionaryComparator<MiniMapCoords, int[][]> map_ = DictionaryComparatorUtil.buildMiniMapImgs();
         for (MiniMapCoordsTile m_: data_.getMap().getMiniMap().entryList()) {
             int[][] image_ = data_.getMiniMap(m_.getTileMap().getFile());
-            map_.put(m_.getMiniMapCoords(), getStringByImage(image_));
+            map_.put(m_.getMiniMapCoords(), image_);
         }
         return map_;
     }
 
-    public String getUnlockedCity() {
+    public int[][] getUnlockedCity() {
         return unlockedCity;
     }
 

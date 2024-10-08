@@ -345,12 +345,12 @@ public final class AikiBeansFightStd{
         return arr_;
     }
 
-    public static NatArrayStruct getBigNatMapLs(CustList<MovesListTeamPositionsList> _map) {
+    public static NatArrayStruct getBigNatMapLs(CustList<ImgMovesListTeamPositionsList> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (MovesListTeamPositionsList e:_map) {
+        for (ImgMovesListTeamPositionsList e:_map) {
             NatArrayStruct k_ = new NatArrayStruct(e.getKeyPks().size());
-            CustList<FighterNamePkNameMv> ls_ = e.getKeyPks();
+            CustList<FighterImgPkNameMv> ls_ = e.getKeyPks();
             int s_ = ls_.size();
             for (int i = 0; i < s_; i++) {
                 k_.set(i, new FighterNamePkNameMvStruct(ls_.get(i)));

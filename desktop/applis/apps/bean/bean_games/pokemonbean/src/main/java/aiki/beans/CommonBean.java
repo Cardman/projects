@@ -5,7 +5,6 @@ import aiki.facade.FacadeGame;
 import aiki.util.Coords;
 import code.bean.Bean;
 import code.bean.nat.StringMapObjectBase;
-import code.images.BaseSixtyFourUtil;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
 import code.scripts.confs.PkScriptPages;
@@ -131,11 +130,8 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     private StringMapObjectBase baseForms;
 
     private FacadeGame dataBase;
-    private String baseEncode;
+//    private String baseEncode;
 
-    public String getStringByImage(int[][] _img) {
-        return BaseSixtyFourUtil.getStringByImage(_img, baseEncode);
-    }
     public static Rate rateTrue(MonteCarloBoolean _law) {
         if (_law.isZero()) {
             return Rate.zero();
@@ -169,14 +165,14 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     public void setDataBase(FacadeGame _dataBase) {
         dataBase = _dataBase;
     }
+//
+//    public String getBaseEncode() {
+//        return baseEncode;
+//    }
 
-    public String getBaseEncode() {
-        return baseEncode;
-    }
-
-    public void setBaseEncode(String _p) {
-        this.baseEncode = _p;
-    }
+//    public void setBaseEncode(String _p) {
+//        this.baseEncode = _p;
+//    }
 
     public StringMapObject getForms() {
         return (StringMapObject) getBaseForms();

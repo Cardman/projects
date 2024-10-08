@@ -433,10 +433,10 @@ public final class CmpsPkBeanTest extends InitDbConstr {
     public void cmp19() {
         ComparatorWildPokemonDto c_ = new ComparatorWildPokemonDto();
         CustList<WildPokemonDto> lists_ = new CustList<WildPokemonDto>();
-        lists_.add(new WildPokemonDto("",M_DAM, M_DAM_VAR));
-        lists_.add(new WildPokemonDto("",M_DAM, M_DAM_BAD));
-        lists_.add(new WildPokemonDto("",M_DAM_POW, M_DAM_VAR));
-        lists_.add(new WildPokemonDto("",M_DAM_POW, M_DAM_BAD));
+        lists_.add(new WildPokemonDto(new int[0][0],M_DAM, M_DAM_VAR));
+        lists_.add(new WildPokemonDto(new int[0][0],M_DAM, M_DAM_BAD));
+        lists_.add(new WildPokemonDto(new int[0][0],M_DAM_POW, M_DAM_VAR));
+        lists_.add(new WildPokemonDto(new int[0][0],M_DAM_POW, M_DAM_BAD));
         lists_.sortElts(c_);
         assertEq(4,lists_.size());
         assertEq(M_DAM,lists_.get(0).getName());

@@ -92,7 +92,7 @@ public class SolutionBean extends CommonBean {
 //                }
         for (GenderName g:g_) {
             String name_ = _data.getTranslatedPokemon().getVal(getLanguage()).getVal(g.getName());
-            String image_ = getStringByImage(_data.getMiniPk().getVal(g.getName()).getImage());
+            int[][] image_ = _data.getMiniPk().getVal(g.getName()).getImage();
             String gender_ = _data.getTranslatedGenders().getVal(getLanguage()).getVal(g.getGender());
             pokemon_.add(new WildPokemonDto(image_, name_, gender_));
         }

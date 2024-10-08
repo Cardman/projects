@@ -1,11 +1,11 @@
 package aiki.beans.facade.solution.dto;
 
 public final class WildPokemonDto {
-    private String image;
-    private String name;
-    private String gender;
+    private final int[][] image;
+    private final String name;
+    private final String gender;
 
-    public WildPokemonDto(String _image, String _name, String _gender) {
+    public WildPokemonDto(int[][] _image, String _name, String _gender) {
         image = _image;
         name = _name;
         gender = _gender;
@@ -19,7 +19,7 @@ public final class WildPokemonDto {
         return gender;
     }
 
-    public String getImage() {
+    public int[][] getImage() {
         return image;
     }
 }

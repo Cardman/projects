@@ -6,6 +6,6 @@ import code.bean.nat.*;
 public class FighterNamePkNameMvNamePkGet implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return new NaStSt(((FighterNamePkNameMvStruct)_instance).getKey().getNamePk());
+        return new NaImgSt(((FighterNamePkNameMvStruct)_instance).getKey().getImagePk());
     }
 }

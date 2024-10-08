@@ -19,7 +19,7 @@ import code.util.*;
 
 public class StatusBean extends CommonBean {
     private String displayName;
-    private String animStatus;
+    private int[][] animStatus;
 
     private StatusType statusType;
     private Rate catchingRate;
@@ -50,7 +50,7 @@ public class StatusBean extends CommonBean {
     public void beforeDisplaying() {
         String n_ = getForms().getValStr(CST_STATUS);
         DataBase data_ = getDataBase();
-        animStatus = getStringByImage(data_.getAnimStatus().getVal(n_).getImage());
+        animStatus = data_.getAnimStatus().getVal(n_).getImage();
         StringMap<String> translatedStatus_;
         translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         displayName = translatedStatus_.getVal(n_);
@@ -158,7 +158,7 @@ public class StatusBean extends CommonBean {
         return displayName;
     }
 
-    public String getAnimStatus() {
+    public int[][] getAnimStatus() {
         return animStatus;
     }
 

@@ -2380,14 +2380,14 @@ public class FightHelpBean extends CommonBean {
         DataBase data_ = getDataBase();
         return data_.getTranslatedStatistics().getVal(getLanguage()).getVal(d_);
     }
-    public String getAnimStatistic(int _index) {
+    public int[][] getAnimStatistic(int _index) {
         Statistic d_ = statisticAnim.get(_index);
         DataBase data_ = getDataBase();
-        return getStringByImage(data_.getAnimStatis().getVal(d_.getStatName()).getImage());
+        return data_.getAnimStatis().getVal(d_.getStatName()).getImage();
     }
-    public String getAnimAbsorb() {
+    public int[][] getAnimAbsorb() {
         DataBase data_ = getDataBase();
-        return getStringByImage(data_.getAnimAbsorb().getImage());
+        return data_.getAnimAbsorb().getImage();
     }
     public String getTrLawRate(int _index) {
         DifficultyModelLaw d_ = PokemonStandards.getModelByName(lawsRates.getKey(_index));

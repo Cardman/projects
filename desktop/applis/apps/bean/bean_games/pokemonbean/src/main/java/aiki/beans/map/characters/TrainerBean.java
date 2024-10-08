@@ -14,8 +14,8 @@ public class TrainerBean extends CommonBean {
     private Trainer trainer;
     private String name = DataBase.EMPTY_STRING;
     private String move = DataBase.EMPTY_STRING;
-    private String image;
-    private String imageMini;
+    private int[][] image;
+    private int[][] imageMini;
 
     @Override
     public void beforeDisplaying() {
@@ -26,8 +26,8 @@ public class TrainerBean extends CommonBean {
             GymLeader gym_ = (GymLeader) trainer;
             move = data_.getTm().getVal(gym_.getTm());
         }
-        image = getStringByImage(data_.getTrainer(trainer.getImageMaxiFileName()));
-        imageMini = getStringByImage(data_.getPerson(trainer.getImageMiniFileName()));
+        image = data_.getTrainer(trainer.getImageMaxiFileName());
+        imageMini = data_.getPerson(trainer.getImageMiniFileName());
     }
     public String getName() {
         return name;
@@ -48,11 +48,11 @@ public class TrainerBean extends CommonBean {
         return new CustList<PokemonTeam>();
     }
 
-    public String getImage() {
+    public int[][] getImage() {
         return image;
     }
 
-    public String getImageMini() {
+    public int[][] getImageMini() {
         return imageMini;
     }
 

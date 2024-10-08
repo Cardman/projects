@@ -48,7 +48,7 @@ private static final String C_P_202_41="java.lang.Object";
 private static final String C_P_202_42="java.lang.String";
 private static final String C_P_202_43="$clickTile({([p])})";
 private static final String C_P_202_44="0";
-private static final String C_P_202_45="{b}";
+private static final String C_P_202_45="b";
 private PageDataSimulationSimulationlevel(){}
 static Document build(){
 FullDocument doc_ = DocumentBuilder.newXmlDocument(4);

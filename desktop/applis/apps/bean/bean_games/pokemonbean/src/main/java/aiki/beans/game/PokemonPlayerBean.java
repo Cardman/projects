@@ -17,7 +17,7 @@ import code.util.*;
 
 public class PokemonPlayerBean extends CommonSingleBean {
     private String name;
-    private String image;
+    private int[][] image;
     private short level;
     private String gender;
     private String ability;
@@ -35,7 +35,7 @@ public class PokemonPlayerBean extends CommonSingleBean {
     private short happiness;
     private String usedBallCatching;
     private short nbStepsTeamLead;
-    private DictionaryComparator<String,String> evolutions;
+    private DictionaryComparator<String,int[][]> evolutions;
 
     @Override
     public void beforeDisplaying() {
@@ -59,12 +59,12 @@ public class PokemonPlayerBean extends CommonSingleBean {
         } else {
             usedBallCatching = translatedItems_.getVal(pkPlayer_.getUsedBallCatching());
         }
-        image = getStringByImage(data_.getMaxiPkFront().getVal(pkPlayer_.getName()).getImage());
-        DictionaryComparator<String,String> evolutions_;
-        evolutions_ = DictionaryComparatorUtil.buildPkStr(data_,getLanguage());
+        image = data_.getMaxiPkFront().getVal(pkPlayer_.getName()).getImage();
+        DictionaryComparator<String, int[][]> evolutions_;
+        evolutions_ = DictionaryComparatorUtil.buildPkImg(data_,getLanguage());
         for (String e: pkPlayer_.getDirectEvolutions(data_)) {
             int[][] img_ = data_.getMaxiPkFront().getVal(e).getImage();
-            evolutions_.put(e, getStringByImage(img_));
+            evolutions_.put(e, img_);
         }
         evolutions = evolutions_;
         ability = translatedAbilities_.getVal(pkPlayer_.getAbility());
@@ -134,11 +134,11 @@ public class PokemonPlayerBean extends CommonSingleBean {
         return name;
     }
 
-    public String getImage() {
+    public int[][] getImage() {
         return image;
     }
 
-    public DictionaryComparator<String,String> getEvolutions() {
+    public DictionaryComparator<String,int[][]> getEvolutions() {
         return evolutions;
     }
 

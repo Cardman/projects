@@ -17,7 +17,7 @@ public abstract class ItemBean extends CommonBean {
     private String displayName;
     private int price;
     private String description;
-    private String itemImage;
+    private int[][] itemImage;
 
     protected void beforeDisplayingItem() {
         DataBase data_ = getDataBase();
@@ -26,7 +26,7 @@ public abstract class ItemBean extends CommonBean {
         StringMap<String> translationsItems_;
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
         name = getForms().getValStr(CST_ITEM);
-        itemImage = getStringByImage(data_.getMiniItems().getVal(name).getImage());
+        itemImage = data_.getMiniItems().getVal(name).getImage();
         displayName = translationsItems_.getVal(name);
         Item item_ = data_.getItem(name);
         price = item_.getPrice();
@@ -80,7 +80,7 @@ public abstract class ItemBean extends CommonBean {
         return displayName;
     }
 
-    public String getItemImage() {
+    public int[][] getItemImage() {
         return itemImage;
     }
 

@@ -29,7 +29,7 @@ public class AllyBean extends AbsPkTeamBean {
 //        }
 //        team = team_;
     }
-    public String getImage(int _index) {
+    public int[][] getImage(int _index) {
 //        DataBase data_ = getDataBase();
 //        PkTrainer pk_;
 //        pk_ = team.get(_index);

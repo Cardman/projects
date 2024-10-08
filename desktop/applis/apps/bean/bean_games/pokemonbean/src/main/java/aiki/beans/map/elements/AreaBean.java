@@ -17,12 +17,12 @@ public class AreaBean extends CommonBean {
     public void beforeDisplaying() {
         area = getForms().getValArea(CST_AREA);
     }
-    public String getImage(int _index) {
+    public int[][] getImage(int _index) {
         DataBase data_ = getDataBase();
         Pokemon pk_;
         pk_ = area.getWildPokemon(_index);
         String name_ = pk_.getName();
-        return getStringByImage(data_.getMaxiPkFront().getVal(name_).getImage());
+        return data_.getMaxiPkFront().getVal(name_).getImage();
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name_));
     }
     public String getName(int _index) {
@@ -141,12 +141,12 @@ public class AreaBean extends CommonBean {
         moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         return moves_;
     }
-    public String getImageFishing(int _index) {
+    public int[][] getImageFishing(int _index) {
         DataBase data_ = getDataBase();
         Pokemon pk_;
         pk_ = area.getPokemonFishing(_index);
         String name_ = pk_.getName();
-        return getStringByImage(data_.getMaxiPkFront().getVal(name_).getImage());
+        return data_.getMaxiPkFront().getVal(name_).getImage();
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name_));
     }
     public String getNameFishing(int _index) {

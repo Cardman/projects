@@ -1,16 +1,16 @@
 package aiki.beans;
 
-import aiki.game.fight.FighterNamePkNameMv;
+import aiki.beans.fight.FighterImgPkNameMv;
 import code.bean.nat.NaNuSt;
 
 public final class FighterNamePkNameMvStruct extends NaNuSt {
-    private final FighterNamePkNameMv key;
+    private final FighterImgPkNameMv key;
 
-    public FighterNamePkNameMvStruct(FighterNamePkNameMv _k) {
+    public FighterNamePkNameMvStruct(FighterImgPkNameMv _k) {
         this.key = _k;
     }
 
-    public FighterNamePkNameMv getKey() {
+    public FighterImgPkNameMv getKey() {
         return key;
     }
 }

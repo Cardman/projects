@@ -125,9 +125,9 @@ public class ItemsBean extends WithFilterBean {
 //        Item it_ = data_.getItem(item_);
 //        return switchItem(it_);
     }
-    public String getMiniImage(int _number) {
+    public int[][] getMiniImage(int _number) {
         String item_ = getItems().get(_number).getName();
         DataBase data_ = getDataBase();
-        return getStringByImage(data_.getMiniItems().getVal(item_).getImage());
+        return data_.getMiniItems().getVal(item_).getImage();
     }
 }

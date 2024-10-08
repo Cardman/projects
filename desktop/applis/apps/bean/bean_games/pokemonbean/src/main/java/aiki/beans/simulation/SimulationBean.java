@@ -558,10 +558,10 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
         getForms().put(CST_SIMULATION_STATE, SimulationSteps.TEAM);
         stepNumber++;
     }
-    public String getImageFoe(int _index) {
+    public int[][] getImageFoe(int _index) {
         DataBase data_ = getDataBase();
         PokemonTrainerDto pk_ = foeTeams.get(indexTeam).get(_index);
-        return getStringByImage(data_.getMiniPk().getVal(pk_.getPkTrainer().getName()).getImage());
+        return data_.getMiniPk().getVal(pk_.getPkTrainer().getName()).getImage();
     }
     public String getNameFoe(int _index) {
         DataBase data_ = getDataBase();
@@ -634,10 +634,10 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
     public boolean errorSelectedFoePk() {
         return selectedFoePk == IndexConstants.INDEX_NOT_FOUND_ELT || (TeamCrud.getTeamCrudByName(selectedFoeAction) != TeamCrud.EDIT && TeamCrud.getTeamCrudByName(selectedFoeAction) != TeamCrud.REMOVE);
     }
-    public String getImageAlly(int _index) {
+    public int[][] getImageAlly(int _index) {
         DataBase data_ = getDataBase();
         PokemonTrainerDto pk_ = allyTeams.get(indexTeam).get(_index);
-        return getStringByImage(data_.getMiniPk().getVal(pk_.getPkTrainer().getName()).getImage());
+        return data_.getMiniPk().getVal(pk_.getPkTrainer().getName()).getImage();
     }
     public String getNameAlly(int _index) {
         DataBase data_ = getDataBase();
@@ -823,10 +823,10 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
         getForms().putPokedex(CST_POKEMON_SET_SIMU, new StringMap<PokemonData>());
         return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_ADDPOKEMON_HTML;
     }
-    public String getImage(int _index) {
+    public int[][] getImage(int _index) {
         DataBase data_ = getDataBase();
         PokemonPlayerDto pk_ = team.get(_index);
-        return getStringByImage(data_.getMiniPk().getVal(pk_.getPokemon().getName()).getImage());
+        return data_.getMiniPk().getVal(pk_.getPokemon().getName()).getImage();
     }
     public String getName(int _index) {
         DataBase data_ = getDataBase();
@@ -1163,10 +1163,10 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
         }
         return simulation.hasNextFight();
     }
-    public String getImageAfterFight(int _index) {
+    public int[][] getImageAfterFight(int _index) {
         DataBase data_ = getDataBase();
         PokemonPlayer pk_ = teamAfterFight.get(_index);
-        return getStringByImage(data_.getMiniPk().getVal(pk_.getName()).getImage());
+        return data_.getMiniPk().getVal(pk_.getName()).getImage();
     }
     public String getNameAfterFight(int _index) {
         DataBase data_ = getDataBase();

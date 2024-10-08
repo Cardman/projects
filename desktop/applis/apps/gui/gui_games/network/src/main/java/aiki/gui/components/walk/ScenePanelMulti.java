@@ -781,7 +781,7 @@ public class ScenePanelMulti {
 //            return;
 //        }
         task_.getBeanNatLgNames().setDataBase(facade);
-        task_.getBeanNatLgNames().setBaseEncode(GamesPk.baseEncode(window.getFrames().getTranslations()));
+//        task_.getBeanNatLgNames().setBaseEncode(GamesPk.baseEncode(window.getFrames().getTranslations()));
         FrameHtmlData.initializeOnlyConf(task_, facade.getLanguage(), task_.getBeanNatLgNames(), receivedPk);
     }
 

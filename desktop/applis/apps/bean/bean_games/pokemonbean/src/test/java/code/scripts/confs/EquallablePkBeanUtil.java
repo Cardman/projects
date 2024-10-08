@@ -61,23 +61,6 @@ public abstract class EquallablePkBeanUtil {
     public static ImageArrayBaseSixtyFour getImageByString(String _img) {
         return instance(BaseSixtyFourUtil.getImageByString(_img, BASE));
     }
-
-    public static String getStringByImage(int[][] _img) {
-        return BaseSixtyFourUtil.getStringByImage(_img, BASE);
-    }
-
-    public static int[][] one(int _c) {
-        return new int[][]{new int[]{_c}};
-    }
-    public static int[][] squareTwo1(int _a) {
-        return new int[][]{new int[]{_a,262144},new int[]{16777215,16777215}};
-    }
-    public static int[][] squareTwo2(int _a) {
-        return new int[][]{new int[]{_a,786432},new int[]{16777215,16777215}};
-    }
-    public static int[][] squareTwo(int _a, int _b, int _c, int _d) {
-        return new int[][]{new int[]{_a,_b},new int[]{_c,_d}};
-    }
     public static ImageArrayBaseSixtyFour instance(int[][] _img) {
         return ImageArrayBaseSixtyFour.instance(_img,"");
     }
