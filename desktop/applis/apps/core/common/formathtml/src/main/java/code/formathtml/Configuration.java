@@ -130,7 +130,7 @@ public final class Configuration {
             DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(file_);
             String input_ = res_.getInput();
             Document document_ = res_.getDocument();
-            AdvFileEscapedCalc es_ = new AdvFileEscapedCalc(AnaRendBlock.getIndexesSpecChars(input_, res_.getChs()));
+            AdvFileEscapedCalc es_ = new AdvFileEscapedCalc(res_.getEncodes());
             FileBlock fileBl_ = new FileBlock(0, false, s, es_);
             fileBl_.metrics(input_);
             if (document_ == null) {

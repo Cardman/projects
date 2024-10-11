@@ -575,12 +575,12 @@ public final class DocumentBuilder {
 //        return transformSpecialChars(_htmlText, possibleEncodes(_escapeAmp, false));
 //    }
 
-    public static String transformSpecialChars(String _htmlText, CustList<EncodedChar> _encodes) {
+    public static String transformSpecialChars(int _from, String _htmlText, CustList<EncodedChar> _encodes, IntTreeMap<Integer> _found) {
         int length_ = _htmlText.length();
         StringBuilder str_ = new StringBuilder();
         int i_ = 0;
         AbstractEncodingText incr_ = new TryIncrEncodingText(i_,str_);
-        return AbstractEncodingText.encodeCommon(_htmlText, _encodes, length_, incr_);
+        return AbstractEncodingText.encodeCommon(_from, _htmlText, _encodes, _found, length_, incr_);
     }
 
 //    public static CustList<EncodedChar> possibleEncodes() {
@@ -885,7 +885,7 @@ public final class DocumentBuilder {
         StringBuilder str_ = new StringBuilder();
         int i_ = 0;
         AbstractEncodingText incr_ = new TryIncrEncodingText(i_,str_);
-        return AbstractEncodingText.encodeCommon(_htmlText, _map, length_, incr_);
+        return AbstractEncodingText.encodeCommon(0, _htmlText, _map, new IntTreeMap<Integer>(), length_, incr_);
     }
 
 //    public static String encodeToHtml(String _text) {

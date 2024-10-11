@@ -1,6 +1,7 @@
 package code.sml;
 
 import code.util.CustList;
+import code.util.IntTreeMap;
 import code.util.core.StringUtil;
 
 abstract class AbstractEncodingText {
@@ -14,15 +15,15 @@ abstract class AbstractEncodingText {
         str = _str;
     }
 
-    static String encodeCommon(String _htmlText, CustList<EncodedChar> _map, int _length, AbstractEncodingText _incr) {
+    static String encodeCommon(int _from, String _htmlText, CustList<EncodedChar> _map, IntTreeMap<Integer> _found, int _length, AbstractEncodingText _incr) {
         while (_incr.index < _length) {
-            if (_incr.exit(_htmlText, _map)) {
+            if (_incr.exit(_from,_htmlText, _map,_found)) {
                 break;
             }
         }
         return _incr.str.toString();
     }
-    private boolean exit(String _htmlText, CustList<EncodedChar> _map) {
+    private boolean exit(int _from, String _htmlText, CustList<EncodedChar> _map, IntTreeMap<Integer> _found) {
         int length_ = _htmlText.length();
         char ch_ = _htmlText.charAt(index);
         if (ch_ != ENCODED) {
@@ -39,12 +40,15 @@ abstract class AbstractEncodingText {
             str.append(_htmlText.substring(iEncode_));
             return true;
         }
-        incr(_htmlText, _map, str, iEncode_, index);
+        if (incr(_htmlText, _map, str, iEncode_, index)){
+            int beginEsc_ = iEncode_ + _from;
+            _found.put(beginEsc_, index - iEncode_);
+        }
         index++;
         return false;
     }
 
-    protected abstract void incr(String _htmlText, CustList<EncodedChar> _map, StringBuilder _str, int _iEncode, int _index);
+    protected abstract boolean incr(String _htmlText, CustList<EncodedChar> _map, StringBuilder _str, int _iEncode, int _index);
 
     protected static boolean matchRegion(String _htmlText, int _iEncode, int _index, String _key) {
         boolean equals_ = true;

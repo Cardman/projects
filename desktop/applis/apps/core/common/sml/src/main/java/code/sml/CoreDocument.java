@@ -2,6 +2,7 @@ package code.sml;
 
 
 import code.util.CustList;
+import code.util.IntTreeMap;
 
 public abstract class CoreDocument implements Node,Document {
     private Element documentElement;
@@ -46,9 +47,9 @@ public abstract class CoreDocument implements Node,Document {
     static DefAttr createAttribute(String _name) {
         return new DefAttr(_name);
     }
-    public static Attr createAttribute(String _name, String _value, CustList<EncodedChar> _chs) {
+    public static Attr createAttribute(int _from, String _name, String _value, CustList<EncodedChar> _chs, IntTreeMap<Integer> _found) {
         DefAttr attr_ = new DefAttr(_name);
-        attr_.setEscapedValue(_value, _chs);
+        attr_.setEscapedValue(_from, _value, _chs, _found);
         return attr_;
     }
 

@@ -38,8 +38,6 @@ public abstract class AnaRendBlock {
     static final String ZERO = "0";
     static final String STR = "\"";
 
-    private static final char END_ESCAPED = ';';
-    private static final char ENCODED = '&';
     private AnaRendParentBlock parent;
 
     private AnaRendBlock nextSibling;
@@ -459,50 +457,6 @@ public abstract class AnaRendBlock {
             return null;
         }
         return _link.getAttribute(_rendKeyWords.getAttrHref());
-    }
-    public static IntTreeMap< Integer> getIndexesSpecChars(String _html, CustList<EncodedChar> _chars) {
-        int begin_ = 0;
-        int end_ = _html.length();
-        int i_ = begin_;
-        IntTreeMap< Integer> indexes_;
-        indexes_ = new IntTreeMap< Integer>();
-        while (i_ < end_) {
-            if (_html.charAt(i_) != ENCODED) {
-                i_++;
-                continue;
-            }
-            int beginEscaped_ = i_;
-            i_++;
-            while (i_ < end_&&_html.charAt(i_) != END_ESCAPED) {
-                i_++;
-            }
-            if (i_ < end_) {
-                feed(_html, _chars, i_, indexes_, beginEscaped_);
-            }
-            i_++;
-        }
-        return indexes_;
-    }
-
-    private static void feed(String _html, CustList<EncodedChar> _chars, int _i, IntTreeMap<Integer> _indexes, int _beginEscaped) {
-        if (addEscaped(_html, _beginEscaped)) {
-            _indexes.put(_beginEscaped, _i - _beginEscaped);
-        } else {
-            for (EncodedChar e: _chars) {
-                if (addEscaped(_html, _i, _beginEscaped, e)) {
-                    _indexes.put(_beginEscaped, _i - _beginEscaped);
-                    break;
-                }
-            }
-        }
-    }
-
-    private static boolean addEscaped(String _html, int _beginEscaped) {
-        return _html.charAt(_beginEscaped + 1) == '#';
-    }
-
-    private static boolean addEscaped(String _html, int _i, int _beginEscaped, EncodedChar _e) {
-        return StringUtil.quickEq(_html.substring(_beginEscaped, _i + 1), _e.getKey());
     }
 
     private static StringMap<AttributePart> getAttributes(String _html, int _from, int _to) {

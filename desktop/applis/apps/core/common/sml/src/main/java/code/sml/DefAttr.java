@@ -1,6 +1,7 @@
 package code.sml;
 
 import code.util.CustList;
+import code.util.IntTreeMap;
 
 public final class DefAttr extends Attr {
 
@@ -37,8 +38,8 @@ public final class DefAttr extends Attr {
         }
     }
 
-    public void setEscapedValue(String _escapedValue, CustList<EncodedChar> _encodes) {
-        value = DocumentBuilder.transformSpecialChars(_escapedValue, _encodes);
+    public void setEscapedValue(int _from, String _escapedValue, CustList<EncodedChar> _encodes, IntTreeMap<Integer> _found) {
+        value = DocumentBuilder.transformSpecialChars(_from, _escapedValue, _encodes, _found);
     }
 
 }

@@ -10,12 +10,12 @@ public final class TryIncrEncodingText extends AbstractEncodingText {
     }
 
     @Override
-    protected void incr(String _htmlText, CustList<EncodedChar> _map, StringBuilder _str, int _iEncode, int _index) {
-        tryIncr(_htmlText, _map, _str, _iEncode, _index);
+    protected boolean incr(String _htmlText, CustList<EncodedChar> _map, StringBuilder _str, int _iEncode, int _index) {
+        return tryIncr(_htmlText, _map, _str, _iEncode, _index);
     }
 
 
-    private static void tryIncr(String _htmlText, CustList<EncodedChar> _map, StringBuilder _str, int _iEncode, int _index) {
+    private static boolean tryIncr(String _htmlText, CustList<EncodedChar> _map, StringBuilder _str, int _iEncode, int _index) {
         if (_htmlText.charAt(_iEncode + 1) == NUMBERED_CHAR) {
             String strValue_ = _htmlText.substring(_iEncode + 2, _index);
             if (!strValue_.isEmpty() && strValue_.length() <= 5 && onlyDigits(strValue_)) {
@@ -23,13 +23,15 @@ public final class TryIncrEncodingText extends AbstractEncodingText {
                 if (value_ < 256 * 256) {
                     char char_ = (char) value_;
                     _str.append(char_);
-                    return;
+                    return true;
                 }
             }
         }
         if (!next(_htmlText, _str, _iEncode, _index, _map)) {
             tryApp(_htmlText, _str, _iEncode, _index);
+            return false;
         }
+        return true;
     }
 
     private static boolean onlyDigits(String _strValue) {
@@ -42,15 +44,13 @@ public final class TryIncrEncodingText extends AbstractEncodingText {
     }
 
     private static boolean next(String _htmlText, StringBuilder _str, int _iEncode, int _index, CustList<EncodedChar> _map) {
-        boolean incr_ = false;
         for (EncodedChar k: _map) {
             if (matchRegion(_htmlText, _iEncode, _index, k.getKey())) {
                 _str.append(k.getValue());
-                incr_ = true;
-                break;
+                return true;
             }
         }
-        return incr_;
+        return false;
     }
     private static void tryApp(String _htmlText, StringBuilder _str, int _iEncode, int _index) {
         _str.append(_htmlText, _iEncode, _index + 1);

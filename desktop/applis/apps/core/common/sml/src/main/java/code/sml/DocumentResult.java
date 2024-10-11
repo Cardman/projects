@@ -1,6 +1,6 @@
 package code.sml;
 
-import code.util.CustList;
+import code.util.IntTreeMap;
 import code.util.StringMap;
 
 public final class DocumentResult {
@@ -9,9 +9,10 @@ public final class DocumentResult {
 
     private RowCol location;
     private StringMap<String> escaped;
-    private CustList<EncodedChar> chs;
+//    private CustList<EncodedChar> chs;
     private String input;
     private int firstIndex;
+    private IntTreeMap<Integer> encodes;
     public Document getDocument() {
         return document;
     }
@@ -36,13 +37,13 @@ public final class DocumentResult {
         this.escaped = _e;
     }
 
-    public CustList<EncodedChar> getChs() {
-        return chs;
-    }
+//    public CustList<EncodedChar> getChs() {
+//        return chs;
+//    }
 
-    public void setChs(CustList<EncodedChar> _c) {
-        this.chs = _c;
-    }
+//    public void setChs(CustList<EncodedChar> _c) {
+//        this.chs = _c;
+//    }
 
     public String getInput() {
         return input;
@@ -58,5 +59,13 @@ public final class DocumentResult {
 
     public void setFirstIndex(int _f) {
         this.firstIndex = _f;
+    }
+
+    public IntTreeMap<Integer> getEncodes() {
+        return encodes;
+    }
+
+    public void setEncodes(IntTreeMap<Integer> _e) {
+        this.encodes = _e;
     }
 }

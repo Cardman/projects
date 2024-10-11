@@ -1,6 +1,7 @@
 package code.sml;
 
 import code.util.CustList;
+import code.util.IntTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -38,6 +39,7 @@ public abstract class AbstractParseTextState {
     private int index;
     private final StringMap<String> escaped;
     private final CustList<EncodedChar> chs;
+    private IntTreeMap<Integer> encodes;
     AbstractParseTextState(CoreDocument _doc, Element _currentElement, String _input, int _index, StringMap<String> _e, CustList<EncodedChar> _encoded) {
         doc = _doc;
         currentElement = _currentElement;
@@ -51,6 +53,7 @@ public abstract class AbstractParseTextState {
         if (_st.index < 0) {
             _st.index = _len;
         }
+        _st.encodes = new IntTreeMap<Integer>();
         while (_st.index < _len) {
             if (_st.exit()) {
                 break;
@@ -61,7 +64,8 @@ public abstract class AbstractParseTextState {
         }
         _res.setDocument(_doc);
         _res.setEscaped(_st.getEscaped());
-        _res.setChs(_st.getChs());
+        _res.setEncodes(_st.getEncodes());
+//        _res.setChs(_st.getChs());
         _res.setInput(_input);
         return _res;
     }
@@ -93,7 +97,8 @@ public abstract class AbstractParseTextState {
         rc_.setRow(row_);
         rc_.setCol(col_);
         _res.setLocation(rc_);
-        _res.setChs(new CustList<EncodedChar>());
+//        _res.setChs(new CustList<EncodedChar>());
+        _res.setEncodes(new IntTreeMap<Integer>());
         _res.setInput(_input);
         return _res;
     }
@@ -265,7 +270,8 @@ public abstract class AbstractParseTextState {
             index++;
             return true;
         }
-        Attr attr_ = CoreDocument.createAttribute(attributeName.toString(),attributeValue.toString(),chs);
+        String value_ = attributeValue.toString();
+        Attr attr_ = CoreDocument.createAttribute(index-value_.length(), attributeName.toString(), value_,chs, encodes);
         attrs.add(attr_);
         attributeName.delete(0, attributeName.length());
         attributeValue.delete(0, attributeValue.length());
@@ -375,6 +381,10 @@ public abstract class AbstractParseTextState {
         return escaped;
     }
 
+    protected int getIndex() {
+        return index;
+    }
+
     private static boolean koAttrValue(char _curChar) {
         return _curChar == LT_CHAR || _curChar == GT_CHAR;
     }
@@ -411,4 +421,7 @@ public abstract class AbstractParseTextState {
         }
     }
 
+    public IntTreeMap<Integer> getEncodes() {
+        return encodes;
+    }
 }

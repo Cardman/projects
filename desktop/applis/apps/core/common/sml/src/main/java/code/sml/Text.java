@@ -1,6 +1,7 @@
 package code.sml;
 
 import code.util.CustList;
+import code.util.IntTreeMap;
 
 public final class Text extends NavigableNode {
 
@@ -90,8 +91,8 @@ public final class Text extends NavigableNode {
         textContent = _textContent;
     }
 
-    public void setEscapedTextContent(String _escapedTextContent, CustList<EncodedChar> _encodes) {
-        textContent = DocumentBuilder.transformSpecialChars(_escapedTextContent, _encodes);
+    public void setEscapedTextContent(int _from, String _escapedTextContent, CustList<EncodedChar> _encodes, IntTreeMap<Integer> _found) {
+        textContent = DocumentBuilder.transformSpecialChars(_from, _escapedTextContent, _encodes, _found);
     }
 
 }

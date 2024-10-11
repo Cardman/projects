@@ -6,7 +6,6 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.formathtml.common.AdvFileEscapedCalc;
 import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.structs.Message;
@@ -40,7 +39,7 @@ public final class Navigation {
     public DualAnalyzedContext loadConfiguration(String _cont, String _lgCode, BeanCustLgNames _lgNames, AbstractFileBuilder _fileBuilder, CustList<AbsAliasFileBuilder> _bs, DefaultConfigurationLoader _confLoad) {
         DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(_cont);
         Document doc_ = res_.getDocument();
-        AdvFileEscapedCalc es_ = new AdvFileEscapedCalc(AnaRendBlock.getIndexesSpecChars(_cont, res_.getChs()));
+        AdvFileEscapedCalc es_ = new AdvFileEscapedCalc(res_.getEncodes());
         FileBlock file_ = new FileBlock(0, false, "", es_);
         file_.metrics(StringUtil.nullToEmpty(_cont));
         return loadConfiguration(_lgCode, _lgNames, _fileBuilder, _bs, _confLoad, doc_, file_);

@@ -23,7 +23,8 @@ public final class ParseFullTextState extends AbstractParseTextState {
             return true;
         }
         Text attr_ = new Text(getDoc());
-        attr_.setEscapedTextContent(currentText.toString(), getChs());
+        String value_ = currentText.toString();
+        attr_.setEscapedTextContent(getIndex()-value_.length(), value_, getChs(), getEncodes());
         currentText.delete(0, currentText.length());
         getCurrentElement().appendChild(attr_);
         return processAfterText(_len);

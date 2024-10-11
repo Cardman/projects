@@ -516,7 +516,7 @@ public final class RenderOffsetsTest extends CommonRender {
         Document doc_ = result_.getDocument();
         String input_ = result_.getInput();
         AnalyzingDoc anaDoc_ = new AnalyzingDoc();
-        AdvFileEscapedCalc es_ = new AdvFileEscapedCalc(AnaRendBlock.getIndexesSpecChars(input_, result_.getChs()));
+        AdvFileEscapedCalc es_ = new AdvFileEscapedCalc(result_.getEncodes());
         return AnaRendDocumentBlock.newRendDocumentBlock(doc_, input_, a_.getDualAnalyzedContext().getAnalyzed(), anaDoc_, es_, new FileBlock(0, false, "page1.html", es_), result_);
     }
 }

@@ -17,7 +17,8 @@ public class ReaderTest extends EquallableRowColUtil {
         assertEq("<example/>", res_.getInput());
         assertEq(0, res_.getFirstIndex());
         assertEq(0, res_.getEscaped().size());
-        assertEq(0, res_.getChs().size());
+//        assertEq(0, res_.getChs().size());
+        assertEq(0, res_.getEncodes().size());
         assertEq("example", elt_.getTagName());
         assertEq(0, elt_.getAttributes().size());
     }
@@ -34,7 +35,8 @@ public class ReaderTest extends EquallableRowColUtil {
         assertNotNull(elt_);
         assertEq("\n<example/>", res_.getInput());
         assertEq(0, res_.getEscaped().size());
-        assertEq(0, res_.getChs().size());
+//        assertEq(0, res_.getChs().size());
+        assertEq(0, res_.getEncodes().size());
         assertEq("example", elt_.getTagName());
         assertEq(0, elt_.getAttributes().size());
     }
