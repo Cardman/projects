@@ -26,8 +26,8 @@ import code.util.core.BoolVal;
 
 public abstract class InitDbItems extends InitDbConstr {
 
-    protected static final String IMG_MAX_RAI = "AAABAACP";
-    protected static final String IMG_MAX_RAI2 = "AAABAACQ";
+    protected static final int IMG_MAX_RAI = 143;
+    protected static final int IMG_MAX_RAI2 = 144;
 
     protected static final String CI_BALL_TR = "CI_BALL_TR";
     protected static final String CI_BERRY_TR = "CI_BERRY_TR";
@@ -204,20 +204,20 @@ public abstract class InitDbItems extends InitDbConstr {
         feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
         feedHm(facade_.getData().getHm());
         facade_.getData().completeVariables();
-        facade_.getData().getMiniItems().addEntry(I_BALL,getImageByString(IMG_MAX_RAI));
-        facade_.getData().getMiniItems().addEntry(I_BERRY,getImageByString(IMG_MAX_RAI2));
-        facade_.getData().getMiniItems().addEntry(I_BOOST,getImageByString(IMG_MAX_RAI));
-        facade_.getData().getMiniItems().addEntry(I_ITEMBATTLE,getImageByString(IMG_MAX_RAI2));
-        facade_.getData().getMiniItems().addEntry(I_EVO_ITEM,getImageByString(IMG_MAX_RAI));
-        facade_.getData().getMiniItems().addEntry(I_EVO_STONE,getImageByString(IMG_MAX_RAI2));
-        facade_.getData().getMiniItems().addEntry(I_FOSSIL,getImageByString(IMG_MAX_RAI));
-        facade_.getData().getMiniItems().addEntry(I_HEAL,getImageByString(IMG_MAX_RAI2));
-        facade_.getData().getMiniItems().addEntry(I_HEAL_HP,getImageByString(IMG_MAX_RAI));
-        facade_.getData().getMiniItems().addEntry(I_HEAL_PP,getImageByString(IMG_MAX_RAI2));
-        facade_.getData().getMiniItems().addEntry(I_HEAL_HP_STATUS,getImageByString(IMG_MAX_RAI));
-        facade_.getData().getMiniItems().addEntry(I_HEAL_STATUS,getImageByString(IMG_MAX_RAI2));
-        facade_.getData().getMiniItems().addEntry(I_REPEL,getImageByString(IMG_MAX_RAI));
-        facade_.getData().getMiniItems().addEntry(I_SELLING,getImageByString(IMG_MAX_RAI2));
+        facade_.getData().getMiniItems().addEntry(I_BALL,instance(IMG_MAX_RAI));
+        facade_.getData().getMiniItems().addEntry(I_BERRY,instance(IMG_MAX_RAI2));
+        facade_.getData().getMiniItems().addEntry(I_BOOST,instance(IMG_MAX_RAI));
+        facade_.getData().getMiniItems().addEntry(I_ITEMBATTLE,instance(IMG_MAX_RAI2));
+        facade_.getData().getMiniItems().addEntry(I_EVO_ITEM,instance(IMG_MAX_RAI));
+        facade_.getData().getMiniItems().addEntry(I_EVO_STONE,instance(IMG_MAX_RAI2));
+        facade_.getData().getMiniItems().addEntry(I_FOSSIL,instance(IMG_MAX_RAI));
+        facade_.getData().getMiniItems().addEntry(I_HEAL,instance(IMG_MAX_RAI2));
+        facade_.getData().getMiniItems().addEntry(I_HEAL_HP,instance(IMG_MAX_RAI));
+        facade_.getData().getMiniItems().addEntry(I_HEAL_PP,instance(IMG_MAX_RAI2));
+        facade_.getData().getMiniItems().addEntry(I_HEAL_HP_STATUS,instance(IMG_MAX_RAI));
+        facade_.getData().getMiniItems().addEntry(I_HEAL_STATUS,instance(IMG_MAX_RAI2));
+        facade_.getData().getMiniItems().addEntry(I_REPEL,instance(IMG_MAX_RAI));
+        facade_.getData().getMiniItems().addEntry(I_SELLING,instance(IMG_MAX_RAI2));
         return facade_;
     }
 

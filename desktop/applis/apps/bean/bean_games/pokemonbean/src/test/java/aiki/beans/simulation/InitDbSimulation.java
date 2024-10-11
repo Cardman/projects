@@ -124,20 +124,25 @@ public abstract class InitDbSimulation extends InitDbConstr {
     public static final String PL_7 = "PL 7";
     public static final String PL_8 = "PL 8";
     public static final String PL_9 = "PL 9";
-    public static final String IMG_00 = "AAABAAAC";
-    public static final String IMG_01 = "AAABAAAD";
-    public static final String IMG_02 = "AAABAAAE";
-    public static final String IMG_03 = "AAABAAAF";
-    public static final String IMG_04 = "AAABAAAG";
-    public static final String IMG_05 = "AAABAAAH";
-    public static final String IMG_06 = "AAABAAAI";
-    public static final String IMG_07 = "AAABAAAJ";
-    public static final String IMG_08 = "AAABAAAK";
-    public static final String IMG_09 = "AAABAAAL";
-    public static final String IMG_NOTHING = "AAABBUTC";
-    public static final String IMG_MULTI_EXP = "AAABBUTD";
-    public static final String IMG_STONE = "AAABBUTE";
-    public static final String IMG_BALL = "AAABBUTF";
+    public static final int IMG_00 = 2;
+    public static final int IMG_01 = IMG_00 + 1;
+    public static final int IMG_02 = IMG_01 + 1;
+    public static final int IMG_03 = IMG_02 + 1;
+    public static final int IMG_04 = IMG_03 + 1;
+    public static final int IMG_05 = IMG_04 + 1;
+    public static final int IMG_06 = IMG_05 + 1;
+    public static final int IMG_07 = IMG_06 + 1;
+    public static final int IMG_08 = IMG_07 + 1;
+    public static final int IMG_09 = IMG_08 + 1;
+    public static final int IMG_NOTHING = 345282;
+    public static final int IMG_MULTI_EXP = IMG_NOTHING + 1;
+    public static final int IMG_STONE = IMG_MULTI_EXP + 1;
+    public static final int IMG_BALL = IMG_STONE + 1;
+    public static final int IMG_SINGLE = 22;
+    public static final int IMG_DUAL1 = IMG_SINGLE + 1;
+    public static final int IMG_DUAL2 = IMG_DUAL1 + 1;
+    public static final int IMG_SI = IMG_DUAL2 + 1;
+    public static final int IMG_ITEM = 16777215;
 
     public static NaSt callSimulationBeanAbilitiesAfterFightGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanAbilitiesAfterFightGet(),_str,_args);
@@ -3978,20 +3983,20 @@ public abstract class InitDbSimulation extends InitDbConstr {
         data_.getTranslatedClassesDescriptions().getVal(EN).addEntry(data_.getItem(I_BALL).getItemType(), CI_BALL);
         data_.getLitterals().addEntry(EN,new StringMap<String>());
         data_.getLitterals().getVal(EN).addEntry(MessagesDataBaseConstants.DEF_TEMPS_TOUR, TAB+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +TAB+TIME);
-        data_.getMiniPk().addEntry(P_POK_00, getImageByString(IMG_00));
-        data_.getMiniPk().addEntry(P_POK_01, getImageByString(IMG_01));
-        data_.getMiniPk().addEntry(P_POK_02, getImageByString(IMG_02));
-        data_.getMiniPk().addEntry(P_POK_03, getImageByString(IMG_03));
-        data_.getMiniPk().addEntry(P_POK_04, getImageByString(IMG_04));
-        data_.getMiniPk().addEntry(P_POK_05, getImageByString(IMG_05));
-        data_.getMiniPk().addEntry(P_POK_06, getImageByString(IMG_06));
-        data_.getMiniPk().addEntry(P_POK_07, getImageByString(IMG_07));
-        data_.getMiniPk().addEntry(P_POK_08, getImageByString(IMG_08));
-        data_.getMiniPk().addEntry(P_POK_09, getImageByString(IMG_09));
-        data_.getMiniItems().addEntry(I_NOTHING, getImageByString(IMG_NOTHING));
-        data_.getMiniItems().addEntry(I_MULT_EXP, getImageByString(IMG_MULTI_EXP));
-        data_.getMiniItems().addEntry(I_STONE, getImageByString(IMG_STONE));
-        data_.getMiniItems().addEntry(I_BALL, getImageByString(IMG_BALL));
+        data_.getMiniPk().addEntry(P_POK_00, instance(IMG_00));
+        data_.getMiniPk().addEntry(P_POK_01, instance(IMG_01));
+        data_.getMiniPk().addEntry(P_POK_02, instance(IMG_02));
+        data_.getMiniPk().addEntry(P_POK_03, instance(IMG_03));
+        data_.getMiniPk().addEntry(P_POK_04, instance(IMG_04));
+        data_.getMiniPk().addEntry(P_POK_05, instance(IMG_05));
+        data_.getMiniPk().addEntry(P_POK_06, instance(IMG_06));
+        data_.getMiniPk().addEntry(P_POK_07, instance(IMG_07));
+        data_.getMiniPk().addEntry(P_POK_08, instance(IMG_08));
+        data_.getMiniPk().addEntry(P_POK_09, instance(IMG_09));
+        data_.getMiniItems().addEntry(I_NOTHING, instance(IMG_NOTHING));
+        data_.getMiniItems().addEntry(I_MULT_EXP, instance(IMG_MULTI_EXP));
+        data_.getMiniItems().addEntry(I_STONE, instance(IMG_STONE));
+        data_.getMiniItems().addEntry(I_BALL, instance(IMG_BALL));
     }
     private static DamagingMoveData power(String _type, String _cat, String _power) {
         DamagingMoveData move_ = Instances.newDamagingMoveData();
@@ -4303,14 +4308,14 @@ public abstract class InitDbSimulation extends InitDbConstr {
         d_.getMap().addPlace(city(trGymTrainer(),trGymLeader()));
         d_.getMap().addPlace(cave());
         d_.getMap().addPlace(league());
-        d_.getData().getTrainers().addEntry(DUAL,getImageByString("AAACAAAWAAAX"));
-        d_.getData().getTrainers().addEntry(SINGLE,getImageByString("AAABAAAW"));
-        d_.getData().getPeople().addEntry(DUAL_1,getImageByString("AAABAAAX"));
-        d_.getData().getPeople().addEntry(DUAL_2,getImageByString("AAABAAAY"));
-        d_.getData().getPeople().addEntry(SI,getImageByString("AAABAAAZ"));
-        d_.getData().getPeople().addEntry(NULL_REF,getImageByString("AAAB////"));
-        d_.getData().getImages().addEntry(NULL_REF,getImageByString("AAAB////"));
-        d_.getData().getLinks().addEntry(NULL_REF,getImageByString("AAAB////"));
+        d_.getData().getTrainers().addEntry(DUAL,instance(line(IMG_SINGLE,IMG_DUAL1)));
+        d_.getData().getTrainers().addEntry(SINGLE,instance(IMG_SINGLE));
+        d_.getData().getPeople().addEntry(DUAL_1,instance(IMG_DUAL1));
+        d_.getData().getPeople().addEntry(DUAL_2,instance(IMG_DUAL2));
+        d_.getData().getPeople().addEntry(SI,instance(IMG_SI));
+        d_.getData().getPeople().addEntry(NULL_REF,instance(IMG_ITEM));
+        d_.getData().getImages().addEntry(NULL_REF,instance(IMG_ITEM));
+        d_.getData().getLinks().addEntry(NULL_REF,instance(IMG_ITEM));
         return d_;
     }
     private static City city(GymTrainer _tr, GymLeader _leader) {
@@ -4501,5 +4506,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         pk_.setItem(NULL_REF);
         pk_.getMoves().add(M_POK_00);
         return pk_;
+    }
+    public static int[][] line(int _c, int _d) {
+        return new int[][]{new int[]{_c, _d}};
     }
 }

@@ -338,6 +338,6 @@ public final class ItemsBeanTest extends InitDbItems {
         NaSt bean_ = dispAllItems(feedDb());
         navigateItemsSearch(bean_);
         beforeDisplaying(bean_);
-        assertImgEq(IMG_MAX_RAI,callItemsBeanGetMiniImage(bean_,0));
+        assertEq(one(IMG_MAX_RAI),callItemsBeanGetMiniImage(bean_,0));
     }
 }

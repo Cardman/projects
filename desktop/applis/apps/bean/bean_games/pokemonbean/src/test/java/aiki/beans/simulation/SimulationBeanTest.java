@@ -130,7 +130,7 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void getMiniImagePk() {
-        assertImgEq(IMG_00,callSelectPokemonBeanGetMiniImage());
+        assertEq(one(IMG_00),callSelectPokemonBeanGetMiniImage());
     }
     @Test
     public void clickLinkPk1() {
@@ -238,7 +238,7 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void getMiniImageIt() {
-        assertImgEq(IMG_BALL,callSelectItemBeanGetMiniImage());
+        assertEq(one(IMG_BALL),callSelectItemBeanGetMiniImage());
     }
     @Test
     public void clickLinkIt1() {
@@ -342,7 +342,7 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void getImageFoe() {
-        assertImgEq(IMG_00,callSimulationBeanGetImageFoe(addPkTrainerChangeMoves(false),0));
+        assertEq(one(IMG_00),callSimulationBeanGetImageFoe(addPkTrainerChangeMoves(false),0));
     }
     @Test
     public void getNameFoe() {
@@ -378,7 +378,7 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void getImageAlly() {
-        assertImgEq(IMG_00,callSimulationBeanGetImageAlly(addPkTrainerChangeMoves(true),0));
+        assertEq(one(IMG_00),callSimulationBeanGetImageAlly(addPkTrainerChangeMoves(true),0));
     }
     @Test
     public void getNameAlly() {
@@ -620,7 +620,7 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void getMiniImagePkPlayer() {
-        assertImgEq(IMG_00,callAddPokemonBeanGetMiniImage());
+        assertEq(one(IMG_00),callAddPokemonBeanGetMiniImage());
     }
     @Test
     public void clickLinkPkPlayer1() {
@@ -692,7 +692,7 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void getImage() {
-        assertImgEq(IMG_01,callSimulationBeanGetImage(pkPlayerSelectPkNameAdded(P_POK_01_TR),0));
+        assertEq(one(IMG_01),callSimulationBeanGetImage(pkPlayerSelectPkNameAdded(P_POK_01_TR),0));
     }
     @Test
     public void getName() {
@@ -1292,7 +1292,7 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void getImageAfterFight() {
-        assertImgEq(IMG_04,callSimulationBeanGetImageAfterFight(pkPlayerFighterSimulateOneFight(),0));
+        assertEq(one(IMG_04),callSimulationBeanGetImageAfterFight(pkPlayerFighterSimulateOneFight(),0));
     }
     @Test
     public void getNameAfterFight() {

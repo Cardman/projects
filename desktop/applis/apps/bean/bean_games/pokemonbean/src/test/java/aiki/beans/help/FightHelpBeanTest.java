@@ -15,7 +15,7 @@ import org.junit.Test;
 public final class FightHelpBeanTest extends InitDbFightHelp{
 
     public static final String CC = "CC";
-    public static final String IMG_ANIM = "AAABAAAA";
+    public static final int IMG_ANIM = 0;
 
     @Test
     public void getTrStatistic() {
@@ -23,11 +23,11 @@ public final class FightHelpBeanTest extends InitDbFightHelp{
     }
     @Test
     public void getAnimStatistic() {
-        assertImgEq(IMG_ANIM,callFightHelpBeanGetAnimStatistic(bean(db()),0));
+        assertEq(one(IMG_ANIM),callFightHelpBeanGetAnimStatistic(bean(db()),0));
     }
     @Test
     public void getAnimAbsorb() {
-        assertImgEq(IMG_ANIM,callFightHelpBeanGetAnimAbsorb(bean(db())));
+        assertEq(one(IMG_ANIM),callFightHelpBeanGetAnimAbsorb(bean(db())));
     }
     @Test
     public void getStab() {
@@ -111,8 +111,8 @@ public final class FightHelpBeanTest extends InitDbFightHelp{
         f_.getData().getTranslatedMoves().getVal(EN).addEntry(M_STA,M_STA_TR);
         f_.getData().getTranslatedStatistics().addEntry(EN,new IdMap<Statistic,String>());
         f_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.ATTACK, CC);
-        f_.getData().getAnimStatis().addEntry(Statistic.ATTACK.getStatName(), getImageByString(IMG_ANIM));
-        f_.getData().setAnimAbsorb(getImageByString(IMG_ANIM));
+        f_.getData().getAnimStatis().addEntry(Statistic.ATTACK.getStatName(), instance(IMG_ANIM));
+        f_.getData().setAnimAbsorb(instance(IMG_ANIM));
         f_.getData().setCombos(Instances.newCombos());
         f_.getData().getLitterals().addEntry(EN,new StringMap<String>());
         f_.getData().getLitterals().getVal(EN).addEntry(MessagesDataBaseConstants.DEF_TEMPS_TOUR, TAB+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +TAB+TIME);

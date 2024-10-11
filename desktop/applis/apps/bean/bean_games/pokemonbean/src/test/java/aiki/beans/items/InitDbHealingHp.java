@@ -44,9 +44,9 @@ public abstract class InitDbHealingHp extends InitDbHealing {
         feedHm(facade_.getData().getHm());
         facade_.getData().addConstNumTest(DataBase.MAX_EV, Rate.newRate("2"));
         facade_.getData().completeVariables();
-        facade_.getData().getMiniItems().addEntry(I_BASE, getImageByString(IMG_MAX_RAI));
-        facade_.getData().getMiniItems().addEntry(I_BALL, getImageByString(IMG_MAX_RAI2));
-        facade_.getData().getMiniItems().addEntry(I_BOOST, getImageByString(IMG_MAX_RAI));
+        facade_.getData().getMiniItems().addEntry(I_BASE, instance(IMG_MAX_RAI));
+        facade_.getData().getMiniItems().addEntry(I_BALL, instance(IMG_MAX_RAI2));
+        facade_.getData().getMiniItems().addEntry(I_BOOST, instance(IMG_MAX_RAI));
         return facade_;
     }
 }

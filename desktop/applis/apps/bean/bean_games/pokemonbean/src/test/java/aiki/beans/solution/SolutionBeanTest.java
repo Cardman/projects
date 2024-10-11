@@ -93,19 +93,19 @@ public final class SolutionBeanTest extends InitDbSolution {
     }
     @Test
     public void getImage1() {
-        assertImgEq(IMG_00, callWildPokemonDtoImageGet(elt(second(elt(callStepDtoGetPokemon(elt(callSolutionBeanStepsGet(),0)),0)),0)));
+        assertEq(one(IMG_00), callWildPokemonDtoImageGet(elt(second(elt(callStepDtoGetPokemon(elt(callSolutionBeanStepsGet(),0)),0)),0)));
     }
     @Test
     public void getImage2() {
-        assertImgEq(IMG_02, callWildPokemonDtoImageGet(elt(second(elt(callStepDtoGetPokemon(elt(callSolutionBeanStepsGet(),1)),0)),0)));
+        assertEq(one(IMG_02), callWildPokemonDtoImageGet(elt(second(elt(callStepDtoGetPokemon(elt(callSolutionBeanStepsGet(),1)),0)),0)));
     }
     @Test
     public void getImage3() {
-        assertImgEq(IMG_04, callWildPokemonDtoImageGet(elt(second(elt(callStepDtoGetPokemon(elt(callSolutionBeanStepsGet(),3)),0)),0)));
+        assertEq(one(IMG_04), callWildPokemonDtoImageGet(elt(second(elt(callStepDtoGetPokemon(elt(callSolutionBeanStepsGet(),3)),0)),0)));
     }
     @Test
     public void getImage4() {
-        assertImgEq(IMG_05, callWildPokemonDtoImageGet(elt(second(elt(callStepDtoGetPokemon(elt(callSolutionBeanStepsGet(),3)),1)),0)));
+        assertEq(one(IMG_05), callWildPokemonDtoImageGet(elt(second(elt(callStepDtoGetPokemon(elt(callSolutionBeanStepsGet(),3)),1)),0)));
     }
     @Test
     public void getName1() {

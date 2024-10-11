@@ -6,8 +6,6 @@ import org.junit.Test;
 
 public final class GeneralHelpBeanTest extends InitDbGeneralHelp {
 
-    public static final String IMG_COLOR_TYPE = "AAABBQYH";
-
     @Test
     public void firstGeneralHelpHasItem1() {
         assertFalse(callGeneralHelpBeanFirstPokemonHasNoItem());
@@ -34,35 +32,35 @@ public final class GeneralHelpBeanTest extends InitDbGeneralHelp {
     }
     @Test
     public void getMiniMap2() {
-        assertImgEq(IMG_MINI0,second(elt(callGeneralHelpBeanMiniMapGet(),0)));
+        assertEq(two(IMG_MINI0),second(elt(callGeneralHelpBeanMiniMapGet(),0)));
     }
     @Test
     public void getMiniMap3() {
-        assertImgEq(IMG_MINI2,second(elt(callGeneralHelpBeanMiniMapGet(),1)));
+        assertEq(two(IMG_MINI2),second(elt(callGeneralHelpBeanMiniMapGet(),1)));
     }
     @Test
     public void getMiniMap4() {
-        assertImgEq(IMG_MINI1,second(elt(callGeneralHelpBeanMiniMapGet(),2)));
+        assertEq(two(IMG_MINI1),second(elt(callGeneralHelpBeanMiniMapGet(),2)));
     }
     @Test
     public void getMiniMap5() {
-        assertImgEq(IMG_MINI3,second(elt(callGeneralHelpBeanMiniMapGet(),3)));
+        assertEq(two(IMG_MINI3),second(elt(callGeneralHelpBeanMiniMapGet(),3)));
     }
     @Test
     public void getMiniMapImage1() {
-        assertImgEq(IMG_MINI0,callGeneralHelpBeanGetMiniMapImage(0));
+        assertEq(two(IMG_MINI0),callGeneralHelpBeanGetMiniMapImage(0));
     }
     @Test
     public void getMiniMapImage2() {
-        assertImgEq(IMG_MINI2,callGeneralHelpBeanGetMiniMapImage(1));
+        assertEq(two(IMG_MINI2),callGeneralHelpBeanGetMiniMapImage(1));
     }
     @Test
     public void getMiniMapImage3() {
-        assertImgEq(IMG_MINI1,callGeneralHelpBeanGetMiniMapImage(2));
+        assertEq(two(IMG_MINI1),callGeneralHelpBeanGetMiniMapImage(2));
     }
     @Test
     public void getMiniMapImage4() {
-        assertImgEq(IMG_MINI3,callGeneralHelpBeanGetMiniMapImage(3));
+        assertEq(two(IMG_MINI3),callGeneralHelpBeanGetMiniMapImage(3));
     }
     @Test
     public void getPlaceName1() {
@@ -86,7 +84,7 @@ public final class GeneralHelpBeanTest extends InitDbGeneralHelp {
     }
     @Test
     public void getUnlockedCity() {
-        assertImgEq(IMG_MINI4,callGeneralHelpBeanUnlockedCityGet());
+        assertEq(two(IMG_MINI4),callGeneralHelpBeanUnlockedCityGet());
     }
     @Test
     public void getPkName() {
@@ -150,7 +148,7 @@ public final class GeneralHelpBeanTest extends InitDbGeneralHelp {
     }
     @Test
     public void getPkImage() {
-        assertImgEq(IMG_0,callGeneralHelpBeanGetImage());
+        assertEq(one(IMG_0),callGeneralHelpBeanGetImage());
     }
     @Test
     public void getPokemonDefaultEggGroup() {
@@ -222,11 +220,11 @@ public final class GeneralHelpBeanTest extends InitDbGeneralHelp {
     }
     @Test
     public void getImageType() {
-        assertImgEq(IMG_MINI5,callGeneralHelpBeanGetImageType());
+        assertEq(two(IMG_MINI5),callGeneralHelpBeanGetImageType());
     }
     @Test
     public void getColorType() {
-        assertImgEq(IMG_COLOR_TYPE,callGeneralHelpBeanGetColorType());
+        assertEq(one(329223),callGeneralHelpBeanGetColorType());
     }
     @Test
     public void getNbMaxMoves() {

@@ -44,19 +44,19 @@ public abstract class InitDbStatusSet extends InitDbConstr {
     public static final String S_STA_11_TR = "S_STA_11_TR";
     public static final String S_STA_12_TR = "S_STA_12_TR";
     public static final String EV_TR = "EV_TR";
-    public static final String IMG_00 = "AAACAAAABAAA////////";
-    public static final String IMG_01 = "AAACAAABBAAA////////";
-    public static final String IMG_02 = "AAACAAACBAAA////////";
-    public static final String IMG_03 = "AAACAAADBAAA////////";
-    public static final String IMG_04 = "AAACAAAEBAAA////////";
-    public static final String IMG_05 = "AAACAAAFBAAA////////";
-    public static final String IMG_06 = "AAACAAAGBAAA////////";
-    public static final String IMG_07 = "AAACAAAHBAAA////////";
-    public static final String IMG_08 = "AAACAAAIBAAA////////";
-    public static final String IMG_09 = "AAACAAAJBAAA////////";
-    public static final String IMG_10 = "AAACAAAKBAAA////////";
-    public static final String IMG_11 = "AAACAAALBAAA////////";
-    public static final String IMG_12 = "AAACAAAMBAAA////////";
+    public static final int IMG_00 = 0;
+    public static final int IMG_01 = IMG_00 + 1;
+    public static final int IMG_02 = IMG_01 + 1;
+    public static final int IMG_03 = IMG_02 + 1;
+    public static final int IMG_04 = IMG_03 + 1;
+    public static final int IMG_05 = IMG_04 + 1;
+    public static final int IMG_06 = IMG_05 + 1;
+    public static final int IMG_07 = IMG_06 + 1;
+    public static final int IMG_08 = IMG_07 + 1;
+    public static final int IMG_09 = IMG_08 + 1;
+    public static final int IMG_10 = IMG_09 + 1;
+    public static final int IMG_11 = IMG_10 + 1;
+    public static final int IMG_12 = IMG_11 + 1;
 
     public static String callStatusSetBeanClickStatus(long... _args) {
         return callStatusSetBeanClickStatus(dispAllStatusSearch(),_args);
@@ -211,19 +211,19 @@ public abstract class InitDbStatusSet extends InitDbConstr {
         facade_.getData().getTranslatedStatus().getVal(EN).addEntry(S_STA_10,S_STA_10_TR);
         facade_.getData().getTranslatedStatus().getVal(EN).addEntry(S_STA_11,S_STA_11_TR);
         facade_.getData().getTranslatedStatus().getVal(EN).addEntry(S_STA_12,S_STA_12_TR);
-        facade_.getData().getAnimStatus().addEntry(S_STA_00,getImageByString(IMG_00));
-        facade_.getData().getAnimStatus().addEntry(S_STA_01,getImageByString(IMG_01));
-        facade_.getData().getAnimStatus().addEntry(S_STA_02,getImageByString(IMG_02));
-        facade_.getData().getAnimStatus().addEntry(S_STA_03,getImageByString(IMG_03));
-        facade_.getData().getAnimStatus().addEntry(S_STA_04,getImageByString(IMG_04));
-        facade_.getData().getAnimStatus().addEntry(S_STA_05,getImageByString(IMG_05));
-        facade_.getData().getAnimStatus().addEntry(S_STA_06,getImageByString(IMG_06));
-        facade_.getData().getAnimStatus().addEntry(S_STA_07,getImageByString(IMG_07));
-        facade_.getData().getAnimStatus().addEntry(S_STA_08,getImageByString(IMG_08));
-        facade_.getData().getAnimStatus().addEntry(S_STA_09,getImageByString(IMG_09));
-        facade_.getData().getAnimStatus().addEntry(S_STA_10,getImageByString(IMG_10));
-        facade_.getData().getAnimStatus().addEntry(S_STA_11,getImageByString(IMG_11));
-        facade_.getData().getAnimStatus().addEntry(S_STA_12,getImageByString(IMG_12));
+        facade_.getData().getAnimStatus().addEntry(S_STA_00,instance(two(IMG_00)));
+        facade_.getData().getAnimStatus().addEntry(S_STA_01,instance(two(IMG_01)));
+        facade_.getData().getAnimStatus().addEntry(S_STA_02,instance(two(IMG_02)));
+        facade_.getData().getAnimStatus().addEntry(S_STA_03,instance(two(IMG_03)));
+        facade_.getData().getAnimStatus().addEntry(S_STA_04,instance(two(IMG_04)));
+        facade_.getData().getAnimStatus().addEntry(S_STA_05,instance(two(IMG_05)));
+        facade_.getData().getAnimStatus().addEntry(S_STA_06,instance(two(IMG_06)));
+        facade_.getData().getAnimStatus().addEntry(S_STA_07,instance(two(IMG_07)));
+        facade_.getData().getAnimStatus().addEntry(S_STA_08,instance(two(IMG_08)));
+        facade_.getData().getAnimStatus().addEntry(S_STA_09,instance(two(IMG_09)));
+        facade_.getData().getAnimStatus().addEntry(S_STA_10,instance(two(IMG_10)));
+        facade_.getData().getAnimStatus().addEntry(S_STA_11,instance(two(IMG_11)));
+        facade_.getData().getAnimStatus().addEntry(S_STA_12,instance(two(IMG_12)));
         return facade_;
     }
 
@@ -233,5 +233,8 @@ public abstract class InitDbStatusSet extends InitDbConstr {
         e_.setRestoredHpRateLovedAlly(Rate.one());
         e_.setWeddingAlly(_weddingAlly);
         return e_;
+    }
+    protected static int[][] two(int _i) {
+        return new int[][]{new int[]{_i, 262144},new int[]{16777215, 16777215}};
     }
 }

@@ -120,8 +120,8 @@ public abstract class InitDbFight extends InitDbBean {
     protected static final String PIKA_2 = "PIKACHU2";
     protected static final String PIKA_2_TR = "PIKACHU_TR2";
     protected static final String NICK_NA = "NICK_NA";
-    protected static final String IMG_MAX_RAI = "AAABAACP";
-    protected static final String IMG_MAX_RAI2 = "AAABAACQ";
+    protected static final int IMG_MAX_RAI = 143;
+//    protected static final String IMG_MAX_RAI2 = "AAABAACQ";
     static final String NICKNAME = "CARDTEAM";
 
 //    private static final String FIGHT="fight";
@@ -1311,7 +1311,7 @@ public abstract class InitDbFight extends InitDbBean {
     }
     protected FacadeGame facadeCalculation5(DataBase _data) {
         //AAABAACP
-        _data.getMaxiPkFront().addEntry(PIKA_2, getImageByString(IMG_MAX_RAI));
+        _data.getMaxiPkFront().addEntry(PIKA_2, instance(IMG_MAX_RAI));
         FacadeGame fac_ = initFacade(_data);
         Game g_ = new Game();
         Difficulty diff_= new Difficulty();

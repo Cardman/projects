@@ -6,11 +6,10 @@ import aiki.fight.enums.Statistic;
 import aiki.util.Coords;
 import code.bean.nat.*;
 //import code.formathtml.structs.Message;
-import code.images.BaseSixtyFourUtil;
 import org.junit.Assert;
 
 public abstract class EquallablePkBeanUtil {
-    public static final String BASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+//    public static final String BASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 //    public static void assertNull(Message _value) {
 //        Assert.assertNull(_value);
 //    }
@@ -58,9 +57,17 @@ public abstract class EquallablePkBeanUtil {
         Assert.assertEquals(_expected, _result);
     }
 
-    public static ImageArrayBaseSixtyFour getImageByString(String _img) {
-        return instance(BaseSixtyFourUtil.getImageByString(_img, BASE));
+    public static void assertEq(int[][] _expected, int[][] _result) {
+        Assert.assertNotNull(_result);
+        Assert.assertArrayEquals(_expected,_result);
     }
+    public static ImageArrayBaseSixtyFour instance(int _c) {
+        return instance(one(_c));
+    }
+    public static int[][] one(int _c) {
+        return new int[][]{new int[]{_c}};
+    }
+
     public static ImageArrayBaseSixtyFour instance(int[][] _img) {
         return ImageArrayBaseSixtyFour.instance(_img,"");
     }

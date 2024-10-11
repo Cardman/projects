@@ -169,6 +169,6 @@ public abstract class InitDbItemEvolving extends InitDbItem {
         feedTm(_facade.getData().getTm(), _facade.getData().getTmPrice());
         feedHm(_facade.getData().getHm());
         _facade.getData().completeVariables();
-        _facade.getData().getMiniItems().addEntry(I_BASE, getImageByString(IMG_MAX_RAI));
+        _facade.getData().getMiniItems().addEntry(I_BASE, instance(IMG_MAX_RAI));
     }
 }

@@ -34,59 +34,59 @@ public final class PokemonTeamBeanTest extends InitDbCharacters {
     }
     @Test
     public void getImage1() {
-        assertImgEq(IMG_16,callPokemonTeamBeanGetImageGymTrainer(0));
+        assertEq(one(IMG_16),callPokemonTeamBeanGetImageGymTrainer(0));
     }
     @Test
     public void getImage2() {
-        assertImgEq(IMG_17,callPokemonTeamBeanGetImageGymTrainer(1));
+        assertEq(one(IMG_17),callPokemonTeamBeanGetImageGymTrainer(1));
     }
     @Test
     public void getImage3() {
-        assertImgEq(IMG_14,callPokemonTeamBeanGetImageGymLeader(0));
+        assertEq(one(IMG_14),callPokemonTeamBeanGetImageGymLeader(0));
     }
     @Test
     public void getImage4() {
-        assertImgEq(IMG_15,callPokemonTeamBeanGetImageGymLeader(1));
+        assertEq(one(IMG_15),callPokemonTeamBeanGetImageGymLeader(1));
     }
     @Test
     public void getImage5() {
-        assertImgEq(IMG_14,callPokemonTeamBeanGetImageTempTrainer(0));
+        assertEq(one(IMG_14),callPokemonTeamBeanGetImageTempTrainer(0));
     }
     @Test
     public void getImage6() {
-        assertImgEq(IMG_15,callPokemonTeamBeanGetImageTempTrainer(1));
+        assertEq(one(IMG_15),callPokemonTeamBeanGetImageTempTrainer(1));
     }
     @Test
     public void getImage7() {
-        assertImgEq(IMG_12,callPokemonTeamBeanGetImageTrainerLeague(0,0));
+        assertEq(one(IMG_12),callPokemonTeamBeanGetImageTrainerLeague(0,0));
     }
     @Test
     public void getImage8() {
-        assertImgEq(IMG_13,callPokemonTeamBeanGetImageTrainerLeague(0,1));
+        assertEq(one(IMG_13),callPokemonTeamBeanGetImageTrainerLeague(0,1));
     }
     @Test
     public void getImage9() {
-        assertImgEq(IMG_20,callPokemonTeamBeanGetImageTrainerLeague(1,0));
+        assertEq(one(IMG_20),callPokemonTeamBeanGetImageTrainerLeague(1,0));
     }
     @Test
     public void getImage10() {
-        assertImgEq(IMG_21,callPokemonTeamBeanGetImageTrainerLeague(1,1));
+        assertEq(one(IMG_21),callPokemonTeamBeanGetImageTrainerLeague(1,1));
     }
     @Test
     public void getImage11() {
-        assertImgEq(IMG_08,callPokemonTeamBeanGetImageMulti(0,0));
+        assertEq(one(IMG_08),callPokemonTeamBeanGetImageMulti(0,0));
     }
     @Test
     public void getImage12() {
-        assertImgEq(IMG_09,callPokemonTeamBeanGetImageMulti(0,1));
+        assertEq(one(IMG_09),callPokemonTeamBeanGetImageMulti(0,1));
     }
     @Test
     public void getImage13() {
-        assertImgEq(IMG_10,callPokemonTeamBeanGetImageMulti(1,0));
+        assertEq(one(IMG_10),callPokemonTeamBeanGetImageMulti(1,0));
     }
     @Test
     public void getImage14() {
-        assertImgEq(IMG_11,callPokemonTeamBeanGetImageMulti(1,1));
+        assertEq(one(IMG_11),callPokemonTeamBeanGetImageMulti(1,1));
     }
     @Test
     public void getGender() {

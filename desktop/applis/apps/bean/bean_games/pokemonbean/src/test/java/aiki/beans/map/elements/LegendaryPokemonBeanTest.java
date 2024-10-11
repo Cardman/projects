@@ -7,11 +7,11 @@ import org.junit.Test;
 public final class LegendaryPokemonBeanTest extends InitDbLegPk {
     @Test
     public void getImage1() {
-        assertImgEq(IMG_18,callLegendaryPokemonBeanGetImage(0));
+        assertEq(one(IMG_18),callLegendaryPokemonBeanGetImage(0));
     }
     @Test
     public void getImage2() {
-        assertImgEq(IMG_19,callLegendaryPokemonBeanGetImage(1));
+        assertEq(one(IMG_19),callLegendaryPokemonBeanGetImage(1));
     }
     @Test
     public void getName1() {

@@ -39,22 +39,22 @@ public final class GameProgressionBeanTest extends InitDbGameProgressionBean {
 
     @Test
     public void heroImage1() {
-        assertImgEq(IMG_H_1, callGameProgressionBeanHeroImageGet(displaying(beanProg(EN, fac(progress(),GIRL,Sex.GIRL)))));
+        assertEq(one(IMG_H_1), callGameProgressionBeanHeroImageGet(displaying(beanProg(EN, fac(progress(),GIRL,Sex.GIRL)))));
     }
 
     @Test
     public void heroImage2() {
-        assertImgEq(IMG_H_2, callGameProgressionBeanHeroImageGet(displaying(beanProg(EN, fac(progress(),BOY, Sex.BOY)))));
+        assertEq(one(IMG_H_2), callGameProgressionBeanHeroImageGet(displaying(beanProg(EN, fac(progress(),BOY, Sex.BOY)))));
     }
 
     @Test
     public void heroImageOppositeSex1() {
-        assertImgEq(IMG_H_2, callGameProgressionBeanHeroImageOppositeSexGet(displaying(beanProg(EN, fac(progress(),GIRL,Sex.GIRL)))));
+        assertEq(one(IMG_H_2), callGameProgressionBeanHeroImageOppositeSexGet(displaying(beanProg(EN, fac(progress(),GIRL,Sex.GIRL)))));
     }
 
     @Test
     public void heroImageOppositeSex2() {
-        assertImgEq(IMG_H_1, callGameProgressionBeanHeroImageOppositeSexGet(displaying(beanProg(EN, fac(progress(),BOY, Sex.BOY)))));
+        assertEq(one(IMG_H_1), callGameProgressionBeanHeroImageOppositeSexGet(displaying(beanProg(EN, fac(progress(),BOY, Sex.BOY)))));
     }
 
     @Test
@@ -79,12 +79,12 @@ public final class GameProgressionBeanTest extends InitDbGameProgressionBean {
 
     @Test
     public void endGameImage1() {
-        assertImgEq(IMG_H_5, callGameProgressionBeanEndGameImageGet(displaying(beanProg(EN, fac(progress(),GIRL,Sex.GIRL)))));
+        assertEq(one(IMG_H_5), callGameProgressionBeanEndGameImageGet(displaying(beanProg(EN, fac(progress(),GIRL,Sex.GIRL)))));
     }
 
     @Test
     public void endGameImage2() {
-        assertImgEq(IMG_H_5, callGameProgressionBeanEndGameImageGet(displaying(beanProg(EN, fac(progress(),BOY, Sex.BOY)))));
+        assertEq(one(IMG_H_5), callGameProgressionBeanEndGameImageGet(displaying(beanProg(EN, fac(progress(),BOY, Sex.BOY)))));
     }
 
     @Test
@@ -507,12 +507,12 @@ public final class GameProgressionBeanTest extends InitDbGameProgressionBean {
 
     @Test
     public void imgPart1() {
-        assertImgEq(IMG_PR_1,callGameProgressionBeanGetImagePokemonPartial(displaying(beanProg(EN, fac(progress(),GIRL,Sex.GIRL))),0,0,0));
+        assertEq(one(IMG_PR_1),callGameProgressionBeanGetImagePokemonPartial(displaying(beanProg(EN, fac(progress(),GIRL,Sex.GIRL))),0,0,0));
     }
 
     @Test
     public void imgPart2() {
-        assertImgEq(IMG_PR_1,callGameProgressionBeanGetImagePokemonPartial(displaying(beanProg(EN, fac(progress(),BOY,Sex.BOY))),0,0,0));
+        assertEq(one(IMG_PR_1),callGameProgressionBeanGetImagePokemonPartial(displaying(beanProg(EN, fac(progress(),BOY,Sex.BOY))),0,0,0));
     }
 
     @Test
@@ -527,12 +527,12 @@ public final class GameProgressionBeanTest extends InitDbGameProgressionBean {
 
     @Test
     public void imgPartNot1() {
-        assertImgEq(IMG_PR_2,callGameProgressionBeanGetImagePokemonPartialNot(displaying(beanProg(EN, fac(progress(),GIRL,Sex.GIRL))),0,1,0));
+        assertEq(one(IMG_PR_2),callGameProgressionBeanGetImagePokemonPartialNot(displaying(beanProg(EN, fac(progress(),GIRL,Sex.GIRL))),0,1,0));
     }
 
     @Test
     public void imgPartNot2() {
-        assertImgEq(IMG_PR_2,callGameProgressionBeanGetImagePokemonPartialNot(displaying(beanProg(EN, fac(progress(),BOY,Sex.BOY))),0,1,0));
+        assertEq(one(IMG_PR_2),callGameProgressionBeanGetImagePokemonPartialNot(displaying(beanProg(EN, fac(progress(),BOY,Sex.BOY))),0,1,0));
     }
 
     @Test
@@ -547,12 +547,12 @@ public final class GameProgressionBeanTest extends InitDbGameProgressionBean {
 
     @Test
     public void imgNotAll1() {
-        assertImgEq(IMG_PR_4,callGameProgressionBeanGetImagePokemonNotAll(displaying(beanProg(EN, fac(progress(),GIRL,Sex.GIRL))),0,1,0));
+        assertEq(one(IMG_PR_4),callGameProgressionBeanGetImagePokemonNotAll(displaying(beanProg(EN, fac(progress(),GIRL,Sex.GIRL))),0,1,0));
     }
 
     @Test
     public void imgNotAll2() {
-        assertImgEq(IMG_PR_4,callGameProgressionBeanGetImagePokemonNotAll(displaying(beanProg(EN, fac(progress(),BOY,Sex.BOY))),0,1,0));
+        assertEq(one(IMG_PR_4),callGameProgressionBeanGetImagePokemonNotAll(displaying(beanProg(EN, fac(progress(),BOY,Sex.BOY))),0,1,0));
     }
 
     @Test
@@ -567,12 +567,12 @@ public final class GameProgressionBeanTest extends InitDbGameProgressionBean {
 
     @Test
     public void imgAll1() {
-        assertImgEq(IMG_PR_1,callGameProgressionBeanGetImagePokemonFull(displaying(beanProg(EN, finish(progress(),GIRL,Sex.GIRL))),0,0,0));
+        assertEq(one(IMG_PR_1),callGameProgressionBeanGetImagePokemonFull(displaying(beanProg(EN, finish(progress(),GIRL,Sex.GIRL))),0,0,0));
     }
 
     @Test
     public void imgAll2() {
-        assertImgEq(IMG_PR_1,callGameProgressionBeanGetImagePokemonFull(displaying(beanProg(EN, finish(progress(),BOY,Sex.BOY))),0,0,0));
+        assertEq(one(IMG_PR_1),callGameProgressionBeanGetImagePokemonFull(displaying(beanProg(EN, finish(progress(),BOY,Sex.BOY))),0,0,0));
     }
 
     @Test

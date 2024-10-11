@@ -50,11 +50,11 @@ public final class AllyBeanTest extends InitDbCharacters {
     }
     @Test
     public void getImage1() {
-        assertImgEq(IMG_16,callAllyBeanGetImage(0));
+        assertEq(one(IMG_16),callAllyBeanGetImage(0));
     }
     @Test
     public void getImage2() {
-        assertImgEq(IMG_17,callAllyBeanGetImage(1));
+        assertEq(one(IMG_17),callAllyBeanGetImage(1));
     }
     @Test
     public void getName1() {

@@ -30,43 +30,43 @@ public final class TrainerBeanTest extends InitDbCharacters {
     }
     @Test
     public void getImage1() {
-        assertImgEq(IMG_SINGLE,callTrainerBeanImageGetLevelZero(0,12,4));
+        assertEq(one(IMG_SINGLE),callTrainerBeanImageGetLevelZero(0,12,4));
     }
     @Test
     public void getImage2() {
-        assertImgEq(IMG_SINGLE,callTrainerBeanImageGetLevelZero(0,12,7));
+        assertEq(one(IMG_SINGLE),callTrainerBeanImageGetLevelZero(0,12,7));
     }
     @Test
     public void getImage3() {
-        assertImgEq(IMG_SINGLE,callTrainerBeanImageGetOtherLevel(8,0,12));
+        assertEq(one(IMG_SINGLE),callTrainerBeanImageGetOtherLevel(8,0,12));
     }
     @Test
     public void getImage4() {
-        assertImgEq(IMG_SINGLE,callTrainerBeanImageGetOtherLevel(8,1,12));
+        assertEq(one(IMG_SINGLE),callTrainerBeanImageGetOtherLevel(8,1,12));
     }
     @Test
     public void getImage5() {
-        assertImgEq(IMG_SINGLE,callTrainerBeanImageGetOtherLevel(3,1,7));
+        assertEq(one(IMG_SINGLE),callTrainerBeanImageGetOtherLevel(3,1,7));
     }
     @Test
     public void getImageMini1() {
-        assertImgEq(IMG_SI,callTrainerBeanImageMiniGetLevelZero(0,12,4));
+        assertEq(one(IMG_SI),callTrainerBeanImageMiniGetLevelZero(0,12,4));
     }
     @Test
     public void getImageMini2() {
-        assertImgEq(IMG_SI,callTrainerBeanImageMiniGetLevelZero(0,12,7));
+        assertEq(one(IMG_SI),callTrainerBeanImageMiniGetLevelZero(0,12,7));
     }
     @Test
     public void getImageMini3() {
-        assertImgEq(IMG_SI,callTrainerBeanImageMiniGetOtherLevel(8,0,12));
+        assertEq(one(IMG_SI),callTrainerBeanImageMiniGetOtherLevel(8,0,12));
     }
     @Test
     public void getImageMini4() {
-        assertImgEq(IMG_SI,callTrainerBeanImageMiniGetOtherLevel(8,1,12));
+        assertEq(one(IMG_SI),callTrainerBeanImageMiniGetOtherLevel(8,1,12));
     }
     @Test
     public void getImageMini5() {
-        assertImgEq(IMG_SI,callTrainerBeanImageMiniGetOtherLevel(3,1,7));
+        assertEq(one(IMG_SI),callTrainerBeanImageMiniGetOtherLevel(3,1,7));
     }
     @Test
     public void getTeamsRewards1() {

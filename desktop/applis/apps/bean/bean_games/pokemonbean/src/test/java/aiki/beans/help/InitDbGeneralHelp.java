@@ -36,14 +36,14 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
     public static final String ROAD = "R 1";
     public static final String CITY = "CI 1";
     public static final String CAVE = "CA 1";
-    public static final String IMG_MINI0 = "AAACXXXXCAAADAAA////";
-    public static final String IMG_MINI1 = "AAACXXXXCAAAEAAA////";
-    public static final String IMG_MINI2 = "AAACXXXXCAAAFAAA////";
-    public static final String IMG_MINI3 = "AAACXXXXCAAAGAAA////";
-    public static final String IMG_MINI4 = "AAACXXXXCAAAHAAA////";
-    public static final String IMG_MINI5 = "AAACXXXXCAAAIAAA////";
-    public static final String IMG_0 = "AAABAAAA";
-    public static final String IMG_1 = "AAABAAAB";
+    public static final int IMG_MINI0 = 786432;
+    public static final int IMG_MINI1 = IMG_MINI0 + 262144;
+    public static final int IMG_MINI2 = IMG_MINI1 + 262144;
+    public static final int IMG_MINI3 = IMG_MINI2 + 262144;
+    public static final int IMG_MINI4 = IMG_MINI3 + 262144;
+    public static final int IMG_MINI5 = IMG_MINI4 + 262144;
+    public static final int IMG_0 = 0;
+    public static final int IMG_1 = 1;
 
     public static NaSt callGeneralHelpBeanBeginGet() {
         return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanBeginGet(),with());
@@ -330,12 +330,12 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
         facade_.getData().getTypes().add(T_TYPE1);
         trsCore(facade_);
         facade_.getData().setMap(dm(_it));
-        facade_.getData().getMiniMap().addEntry("0",getImageByString(IMG_MINI0));
-        facade_.getData().getMiniMap().addEntry("1",getImageByString(IMG_MINI1));
-        facade_.getData().getMiniMap().addEntry("2",getImageByString(IMG_MINI2));
-        facade_.getData().getMiniMap().addEntry("3",getImageByString(IMG_MINI3));
-        facade_.getData().getMiniMap().addEntry("4",getImageByString(IMG_MINI4));
-        facade_.getData().getTypesImages().addEntry(T_TYPE1,getImageByString(IMG_MINI5));
+        facade_.getData().getMiniMap().addEntry("0",instance(two(IMG_MINI0)));
+        facade_.getData().getMiniMap().addEntry("1",instance(two(IMG_MINI1)));
+        facade_.getData().getMiniMap().addEntry("2",instance(two(IMG_MINI2)));
+        facade_.getData().getMiniMap().addEntry("3",instance(two(IMG_MINI3)));
+        facade_.getData().getMiniMap().addEntry("4",instance(two(IMG_MINI4)));
+        facade_.getData().getTypesImages().addEntry(T_TYPE1,instance(two(IMG_MINI5)));
         facade_.getData().getTypesColors().addEntry(T_TYPE1,"5;6;7");
         return facade_;
     }
@@ -377,10 +377,10 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
 //        _facade.getData().getMiniPk().addEntry(P_POK_13,getImageByString("AAACAAANBAAA////////"));
 //        _facade.getData().getMiniPk().addEntry(P_POK_14,getImageByString("AAACAAAOBAAA////////"));
 //        _facade.getData().getMiniPk().addEntry(P_POK_15,getImageByString("AAACAAAPBAAA////////"));
-        _facade.getData().getMaxiPkFront().addEntry(P_POK_00, getImageByString(IMG_0));
-        _facade.getData().getMaxiPkFront().addEntry(P_POK_01,getImageByString(IMG_1));
-        _facade.getData().getMiniPk().addEntry(P_POK_00,getImageByString(IMG_0));
-        _facade.getData().getMiniPk().addEntry(P_POK_01,getImageByString(IMG_1));
+        _facade.getData().getMaxiPkFront().addEntry(P_POK_00, instance(IMG_0));
+        _facade.getData().getMaxiPkFront().addEntry(P_POK_01,instance(IMG_1));
+        _facade.getData().getMiniPk().addEntry(P_POK_00,instance(IMG_0));
+        _facade.getData().getMiniPk().addEntry(P_POK_01,instance(IMG_1));
 //        _facade.getData().getMiniItems().addEntry(I_BALL,getImageByString("AAAB////"));
 //        _facade.getData().setImageTmHm(getImageByString("AAAB////"));
         _facade.getData().addConstNumTest(DataBase.DEF_MAX_ATT,new Rate(4));
@@ -447,5 +447,8 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
         pk_.setAbility(A_ABILITY);
         pk_.setItem(_it);
         return pk_;
+    }
+    protected static int[][] two(int _i) {
+        return new int[][]{new int[]{6125015, 524288},new int[]{_i, 16777215}};
     }
 }

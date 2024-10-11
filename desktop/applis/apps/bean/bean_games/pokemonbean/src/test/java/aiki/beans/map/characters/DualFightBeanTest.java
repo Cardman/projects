@@ -5,14 +5,14 @@ import org.junit.Test;
 public final class DualFightBeanTest extends InitDbCharacters {
     @Test
     public void getImage() {
-        assertImgEq(IMG_DUAL,callDualFightBeanImageGet());
+        assertEq(line(IMG_SINGLE,IMG_DUAL1),callDualFightBeanImageGet());
     }
     @Test
     public void getImageMini() {
-        assertImgEq(IMG_DUAL1,callDualFightBeanImageMiniGet());
+        assertEq(one(IMG_DUAL1),callDualFightBeanImageMiniGet());
     }
     @Test
     public void getImageMiniSecond() {
-        assertImgEq(IMG_DUAL2,callDualFightBeanImageMiniSecondGet());
+        assertEq(one(IMG_DUAL2),callDualFightBeanImageMiniSecondGet());
     }
 }
