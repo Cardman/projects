@@ -7,6 +7,7 @@ import code.maths.litteral.MbOperationNode;
 import code.maths.montecarlo.MonteCarloNumber;
 
 public abstract class CstIgame{
+public static final String SEPARATOR_KEY_HEROS = ";";
 protected static final String A_CARACDROITEFERME = MbOperationNode.CARAC_DROITE_FERME;
 protected static final String A_CARACDROITEOUVERT = MbOperationNode.CARAC_DROITE_OUVERT;
 protected static final String A_CARACFERME = MbOperationNode.CARAC_FERME;

@@ -2,6 +2,7 @@ package aiki.sml;
 
 import aiki.db.*;
 import aiki.facade.*;
+import aiki.sml.init.*;
 import code.images.*;
 import code.util.*;
 import code.util.core.*;
@@ -13,15 +14,13 @@ import aiki.util.*;
 
 public final class LoadResImg {
 
-    private static final String SEPARATOR_KEY_HEROS = ";";
-
     private LoadResImg(){}
     public static void loadResources(DataBase _d, SexListInt _sexList, String _base) {
         _d.setFrontHeros(new ImageHeroKeys());
         StringMap<String> heFr_ = HeFront.im();
         for (EntryCust<String,String> e:heFr_.entryList()){
             StringList keyStrings_ = StringUtil.splitStrings(e.getKey(),
-                    SEPARATOR_KEY_HEROS);
+                    CstIgame.SEPARATOR_KEY_HEROS);
             EnvironmentType env_ = getEnvByName(keyStrings_.first());
             Sex sex_ = getSexByName(keyStrings_.last(),_sexList);
             _d.getFrontHeros().addEntry(new ImageHeroKey(env_, sex_),
@@ -31,7 +30,7 @@ public final class LoadResImg {
         StringMap<String> heBk_ = HeBack.im();
         for (EntryCust<String,String> e:heBk_.entryList()) {
             StringList keyStrings_ = StringUtil.splitStrings(e.getKey(),
-                    SEPARATOR_KEY_HEROS);
+                    CstIgame.SEPARATOR_KEY_HEROS);
             EnvironmentType env_ = getEnvByName(keyStrings_
                     .first());
             Sex sex_ = getSexByName(keyStrings_.last(),_sexList);
@@ -42,7 +41,7 @@ public final class LoadResImg {
         StringMap<String> heMi_ = HeMini.im();
         for (EntryCust<String,String> e:heMi_.entryList()) {
             StringList keyStrings_ = StringUtil.splitStrings(e.getKey(),
-                    SEPARATOR_KEY_HEROS);
+                    CstIgame.SEPARATOR_KEY_HEROS);
             EnvironmentType env_ = getEnvByName(keyStrings_
                     .first());
             Direction dir_ = Direction.getDirectionByName(keyStrings_
