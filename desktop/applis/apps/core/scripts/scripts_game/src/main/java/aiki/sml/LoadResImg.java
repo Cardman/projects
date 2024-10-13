@@ -56,7 +56,7 @@ public final class LoadResImg {
         _d.setEndGameImage(ImageArrayBaseSixtyFour.instance(BaseSixtyFourUtil.getImageByString(ImEndGame.im(),MessagesDataBaseConstants.BASE), _base));
         feedImgs(AnStatis.im(), _d.getAnimStatis(), _base);
         feedImgs(AnStatus.im(), _d.getAnimStatus(), _base);
-        _d.setAnimAbsorb(ImageArrayBaseSixtyFour.instance(BaseSixtyFourUtil.getImageByString(AnAbs.im().firstValue(),MessagesDataBaseConstants.BASE), _base));
+        _d.setAnimAbsorb(ImageArrayBaseSixtyFour.instance(BaseSixtyFourUtil.getImageByString(AnAbs.im(),MessagesDataBaseConstants.BASE), _base));
         _d.setMaxiPkBack(new StringMap<ImageArrayBaseSixtyFour>());
         feedImgs(Bk.im(), _d.getMaxiPkBack(), _base);
         _d.setMaxiPkFront(new StringMap<ImageArrayBaseSixtyFour>());

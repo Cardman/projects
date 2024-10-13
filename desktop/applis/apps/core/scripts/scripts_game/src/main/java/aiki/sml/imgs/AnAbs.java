@@ -1,10 +1,7 @@
 package aiki.sml.imgs;
-import code.util.*;
 public final class AnAbs{
 private AnAbs(){}
-public static StringMap<String> im(){
-StringMap<String> i = new StringMap<String>(1);
-i.addEntry("absorb.txt",AnAbs0.i0());
-return i;
+public static String im(){
+return AnAbs0.i0();
 }
 }
