@@ -1,17 +1,16 @@
 package aiki.sml.imgs;
 import code.util.*;
-public final class MiniMapImg{
+import aiki.sml.init.*;
+public final class MiniMapImg extends CstIgame{
 private MiniMapImg(){}
 public static StringMap<String> im(){
-StringMap<String> i = new StringMap<String>(8);
-i.addEntry("city_locked.txt",MiniMapImg0.i0());
-i.addEntry("city_unlocked.txt",MiniMapImg0.i1());
-i.addEntry("ground.txt",MiniMapImg0.i2());
-i.addEntry("league.txt",MiniMapImg0.i3());
-i.addEntry("road.txt",MiniMapImg0.i4());
-i.addEntry("rock.txt",MiniMapImg0.i5());
-i.addEntry("sea.txt",MiniMapImg0.i6());
-i.addEntry("sea_way.txt",MiniMapImg0.i7());
+StringMap<String> i = new StringMap<String>(6);
+i.addEntry(F_CITY_LOCKED_TXT,MiniMapImg0.i0());
+i.addEntry(F_CITY_UNLOCKED_TXT,MiniMapImg0.i1());
+i.addEntry(F_GROUND_TXT,MiniMapImg0.i2());
+i.addEntry(F_LEAGUE_TXT,MiniMapImg0.i3());
+i.addEntry(F_ROAD_TXT,MiniMapImg0.i4());
+i.addEntry(F_ROCK_TXT,MiniMapImg0.i5());
 return i;
 }
 }
