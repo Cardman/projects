@@ -17,7 +17,6 @@ import code.util.StringMap;
 import code.util.comparators.ComparatorBoolean;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
-import code.util.core.StringUtil;
 
 final class FightKo {
 
@@ -226,10 +225,9 @@ final class FightKo {
     }
 
     static Rate rateWonPoint(Difficulty _diff, DataBase _import, short _winner, short _looser) {
-        String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         StringMap<String> vars_ = new StringMap<String>();
-        vars_.put(StringUtil.concat(varPref_,_import.levelWinner()),Long.toString(_winner));
-        vars_.put(StringUtil.concat(varPref_,_import.levelLooser()),Long.toString(_looser));
+        vars_.put(_import.prefixLevelWinner(),Long.toString(_winner));
+        vars_.put(_import.prefixLevelLooser(),Long.toString(_looser));
         String exp_ = _import.getRates().getVal(_diff.getDiffWinningExpPtsFight());
         return _import.evaluatePositiveExp(exp_, vars_, Rate.one());
     }

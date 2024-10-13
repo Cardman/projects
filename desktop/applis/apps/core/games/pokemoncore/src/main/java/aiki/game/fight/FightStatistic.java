@@ -20,7 +20,6 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
-import code.util.core.StringUtil;
 
 final class FightStatistic {
 
@@ -195,10 +194,9 @@ final class FightStatistic {
 
     static Rate rateBoost(byte _boost, DataBase _import) {
         //RATE_BOOST
-        String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         String numericExp_ = _import.getRateBoost();
         StringMap<String> variables_ = new StringMap<String>();
-        variables_.put(StringUtil.concat(varPref_,_import.boost()), Long.toString(_boost));
+        variables_.put(_import.prefixBoost(), Long.toString(_boost));
         return _import.evaluatePositiveExp(numericExp_, variables_, Rate.one());
     }
 

@@ -1224,12 +1224,10 @@ final class FightSuccess {
     }
 
     static Rate rateCriticalHit(Fight _fight, TeamPosition _thrower,byte _boost,DataBase _import) {
-        String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
-        Rate rate_;
         StringMap<String> vars_ = new StringMap<String>();
-        vars_.put(StringUtil.concat(varPref_,_import.boost()), Long.toString(_boost));
+        vars_.put(_import.prefixBoost(), Long.toString(_boost));
         String rateBoos_ = _import.getRateBoostCriticalHit();
-        rate_ = _import.evaluatePositiveExp(rateBoos_, vars_, Rate.one());
+        Rate rate_ = _import.evaluatePositiveExp(rateBoos_, vars_, Rate.one());
         Fighter fighter_ = _fight.getFighter(_thrower);
         AbilityData fCapac_=fighter_.ficheCapaciteActuelle(_import);
         if (fCapac_ != null && !fCapac_.getMultEvtRateCh().isZero()) {

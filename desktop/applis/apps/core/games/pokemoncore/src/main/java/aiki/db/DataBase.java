@@ -3022,7 +3022,7 @@ public class DataBase {
         for (String v: variables) {
             checkLittVar(v);
         }
-        checkLittVar(StringUtil.concat(prefixVar(),DataBase.SEP_BETWEEN_KEYS,boost()));
+        checkLittVar(prefixBoost());
     }
 
     private void checkLittVar(String _v) {
@@ -3437,6 +3437,479 @@ public class DataBase {
 
     public void defValues() {
         MessagesDataBaseConstants.init(this);
+    }
+    public String prefixBoost() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,boost());
+    }
+    public String prefixAttack() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,attack());
+    }
+    public String prefixDefense() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,defense());
+    }
+    public String prefixPower() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,power());
+    }
+    public String prefixNiveau() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,niveau());
+    }
+    public String prefixLevelLooser() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,levelLooser());
+    }
+    public String prefixLevelWinner() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,levelWinner());
+    }
+    public String prefixImmuTypeAttCombattantEntrant(String _e) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,immuTypeAttCombattantEntrant(),SEP_BETWEEN_KEYS,_e);
+    }
+    public String prefixPasAttaqueInvoc() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,pasAttaqueInvoc());
+    }
+    public String prefixPasAttaquesCopiables() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,pasAttaquesCopiables());
+    }
+    public String prefixBaseCaptPk() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,baseCaptPk());
+    }
+    public String prefixRateBallStatus() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,rateBallStatus());
+    }
+    public String prefixFoePkMaxHp() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,foePkMaxHp());
+    }
+    public String prefixFoePkRemoteHp() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,foePkRemoteHp());
+    }
+    public String prefixAttaqueCategorie() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,attaqueCategorie());
+    }
+    public String prefixAttaqueNom() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,attaqueNom());
+    }
+    public String prefixAttaqueTypes() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,attaqueTypes());
+    }
+    public String prefixPuissanceBase() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,puissanceBase());
+    }
+    public String prefixCoeffEffBaseTypesCible(String _c) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,coeffEffBaseTypesCible(),SEP_BETWEEN_KEYS,_c);
+    }
+    public String prefixCoeffEffBaseTypesCombattantEntrant(String _c) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,coeffEffBaseTypesCombattantEntrant(),SEP_BETWEEN_KEYS,_c);
+    }
+    public String prefixCoeffEffBaseTypesFighter(String _c) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,coeffEffBaseTypesFighter(),SEP_BETWEEN_KEYS,_c);
+    }
+    public String prefixCoeffEffBaseTypesLanceur(String _c) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,coeffEffBaseTypesLanceur(),SEP_BETWEEN_KEYS,_c);
+    }
+
+    public String prefixLanceurNom() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,lanceurNom());
+    }
+
+    public String prefixLanceurNiveau() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,lanceurNiveau());
+    }
+
+    public String prefixLanceurGenre() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,lanceurGenre());
+    }
+    public String prefixLanceurAttaques() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,lanceurAttaques());
+    }
+    public String prefixLanceurAttaqueChoisie() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,lanceurAttaqueChoisie());
+    }
+    public String prefixLanceurAttaquesTypes() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,lanceurAttaquesTypes());
+    }
+    public String prefixLanceurTypes() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,lanceurTypes());
+    }
+    public String prefixLanceurDegatsRecusTotal() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,lanceurDegatsRecusTotal());
+    }
+    public String prefixLanceurDegatsRecusTotalTour() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,lanceurDegatsRecusTotalTour());
+    }
+    public String prefixLanceurClone() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,lanceurClone());
+    }
+    public String prefixLanceurDisparait() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,lanceurDisparait());
+    }
+    public String prefixLanceurMasse() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,lanceurMasse());
+    }
+    public String prefixLanceurTaille() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,lanceurTaille());
+    }
+    public String prefixLanceurObjet() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,lanceurObjet());
+    }
+    public String prefixLanceurCapacite() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,lanceurCapacite());
+    }
+    public String prefixLanceurBonheur() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,lanceurBonheur());
+    }
+    public String prefixLanceurNbUtilisation(String _c) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,lanceurNbUtilisation(),SEP_BETWEEN_KEYS,_c);
+    }
+    public String prefixLanceurDegatsRecus(String _c) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,lanceurDegatsRecus(),SEP_BETWEEN_KEYS,_c);
+    }
+    public String prefixLanceurDegatsRecusTour(String _c) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,lanceurDegatsRecusTour(),SEP_BETWEEN_KEYS,_c);
+    }
+    public String prefixLanceurPp(String _c) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,lanceurPp(),SEP_BETWEEN_KEYS,_c);
+    }
+    public String prefixLanceurPvRestants() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,lanceurPvRestants());
+    }
+    public String prefixLanceurPvMax() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,lanceurPvMax());
+    }
+    public String prefixSommeBoostPosLanceur() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,sommeBoostPosLanceur());
+    }
+    public String prefixNbKoEquipeAdvLanceur() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,nbKoEquipeAdvLanceur());
+    }
+    public String prefixNbKoEquipeLanceur() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,nbKoEquipeLanceur());
+    }
+    public String prefixLanceurDerJoue() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,lanceurDerJoue());
+    }
+    public String prefixLanceurJoue() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,lanceurJoue());
+    }
+    public String prefixLanceurStatuts() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,lanceurStatuts());
+    }
+    public String prefixLanceurBoost(String _c) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,lanceurBoost(),SEP_BETWEEN_KEYS,_c);
+    }
+    public String prefixLanceurStatis(String _c) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,lanceurStatis(),SEP_BETWEEN_KEYS,_c);
+    }
+    public String prefixLanceurEffet(String _c) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,lanceurEffet(),SEP_BETWEEN_KEYS,_c);
+    }
+    public String prefixTypesAttaquesResVide() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,typesAttaquesResVide());
+    }
+    public String prefixPasTourTerrain() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,pasTourTerrain());
+    }
+    public String prefixPasPartenaire() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,pasPartenaire());
+    }
+    public String prefixPasPartenaireArriere() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,pasPartenaireArriere());
+    }
+    public String prefixPasPartenaireTerrain() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,pasPartenaireTerrain());
+    }
+    public String prefixCibleNom() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,cibleNom());
+    }
+    public String prefixCibleNiveau() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,cibleNiveau());
+    }
+
+    public String prefixCibleGenre() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,cibleGenre());
+    }
+    public String prefixCibleAttaques() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,cibleAttaques());
+    }
+    public String prefixCibleAttaqueChoisie() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,cibleAttaqueChoisie());
+    }
+    public String prefixCibleAttaquesTypes() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,cibleAttaquesTypes());
+    }
+    public String prefixCibleTypes() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,cibleTypes());
+    }
+    public String prefixCibleDegatsRecusTotal() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,cibleDegatsRecusTotal());
+    }
+    public String prefixCibleDegatsRecusTotalTour() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,cibleDegatsRecusTotalTour());
+    }
+    public String prefixCibleClone() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,cibleClone());
+    }
+    public String prefixCibleDisparait() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,cibleDisparait());
+    }
+    public String prefixCibleMasse() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,cibleMasse());
+    }
+    public String prefixCibleTaille() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,cibleTaille());
+    }
+    public String prefixCibleObjet() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,cibleObjet());
+    }
+    public String prefixCibleCapacite() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,cibleCapacite());
+    }
+    public String prefixCibleBonheur() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,cibleBonheur());
+    }
+    public String prefixCibleNbUtilisation(String _c) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,cibleNbUtilisation(),SEP_BETWEEN_KEYS,_c);
+    }
+    public String prefixCibleDegatsRecus(String _c) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,cibleDegatsRecus(),SEP_BETWEEN_KEYS,_c);
+    }
+    public String prefixCibleDegatsRecusTour(String _c) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,cibleDegatsRecusTour(),SEP_BETWEEN_KEYS,_c);
+    }
+    public String prefixCiblePp(String _c) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,ciblePp(),SEP_BETWEEN_KEYS,_c);
+    }
+    public String prefixCiblePvRestants() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,ciblePvRestants());
+    }
+    public String prefixCiblePvMax() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,ciblePvMax());
+    }
+    public String prefixSommeBoostPosCible() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,sommeBoostPosCible());
+    }
+    public String prefixNbKoEquipeAdvCible() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,nbKoEquipeAdvCible());
+    }
+    public String prefixNbKoEquipeCible() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,nbKoEquipeCible());
+    }
+    public String prefixCibleDerJoue() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,cibleDerJoue());
+    }
+    public String prefixCibleJoue() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,cibleJoue());
+    }
+    public String prefixCibleStatuts() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,cibleStatuts());
+    }
+    public String prefixCibleBoost(String _c) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,cibleBoost(),SEP_BETWEEN_KEYS,_c);
+    }
+    public String prefixCibleStatis(String _c) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,cibleStatis(),SEP_BETWEEN_KEYS,_c);
+    }
+    public String prefixCibleEffet(String _c) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,cibleEffet(),SEP_BETWEEN_KEYS,_c);
+    }
+    public String prefixCiblePossedeStatutRelation(String _c) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,ciblePossedeStatutRelation(),SEP_BETWEEN_KEYS,_c);
+    }
+    public String prefixImmuTypeAttCible(String _e) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,immuTypeAttCible(),SEP_BETWEEN_KEYS,_e);
+    }
+    public String prefixPasPpAttaqueCible() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,pasPpAttaqueCible());
+    }
+    public String prefixPasUtilisAttaqueCible() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,pasUtilisAttaqueCible());
+    }
+    public String prefixRateEffMoveAgainstTarget() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,rateEffMoveAgainstTarget());
+    }
+    public String prefixAucunBoostPossible() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,aucunBoostPossible());
+    }
+    public String prefixFighterNom() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,fighterNom());
+    }
+    public String prefixFighterNiveau() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,fighterNiveau());
+    }
+
+    public String prefixFighterGenre() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,fighterGenre());
+    }
+    public String prefixFighterAttaques() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,fighterAttaques());
+    }
+    public String prefixFighterAttaqueChoisie() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,fighterAttaqueChoisie());
+    }
+    public String prefixFighterAttaquesTypes() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,fighterAttaquesTypes());
+    }
+    public String prefixFighterTypes() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,fighterTypes());
+    }
+    public String prefixFighterDegatsRecusTotal() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,fighterDegatsRecusTotal());
+    }
+    public String prefixFighterDegatsRecusTotalTour() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,fighterDegatsRecusTotalTour());
+    }
+    public String prefixFighterClone() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,fighterClone());
+    }
+    public String prefixFighterDisparait() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,fighterDisparait());
+    }
+    public String prefixFighterMasse() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,fighterMasse());
+    }
+    public String prefixFighterTaille() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,fighterTaille());
+    }
+    public String prefixFighterObjet() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,fighterObjet());
+    }
+    public String prefixFighterCapacite() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,fighterCapacite());
+    }
+    public String prefixFighterBonheur() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,fighterBonheur());
+    }
+    public String prefixFighterNbUtilisation(String _c) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,fighterNbUtilisation(),SEP_BETWEEN_KEYS,_c);
+    }
+    public String prefixFighterDegatsRecus(String _c) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,fighterDegatsRecus(),SEP_BETWEEN_KEYS,_c);
+    }
+    public String prefixFighterDegatsRecusTour(String _c) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,fighterDegatsRecusTour(),SEP_BETWEEN_KEYS,_c);
+    }
+    public String prefixFighterPp(String _c) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,fighterPp(),SEP_BETWEEN_KEYS,_c);
+    }
+    public String prefixFighterPvRestants() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,fighterPvRestants());
+    }
+    public String prefixFighterPvMax() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,fighterPvMax());
+    }
+    public String prefixSommeBoostPosFighter() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,sommeBoostPosFighter());
+    }
+    public String prefixNbKoEquipeAdvFighter() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,nbKoEquipeAdvFighter());
+    }
+    public String prefixNbKoEquipeFighter() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,nbKoEquipeFighter());
+    }
+    public String prefixFighterDerJoue() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,fighterDerJoue());
+    }
+    public String prefixFighterJoue() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,fighterJoue());
+    }
+    public String prefixFighterStatuts() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,fighterStatuts());
+    }
+    public String prefixFighterBoost(String _c) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,fighterBoost(),SEP_BETWEEN_KEYS,_c);
+    }
+    public String prefixFighterStatis(String _c) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,fighterStatis(),SEP_BETWEEN_KEYS,_c);
+    }
+    public String prefixNbTour(String _c) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,nbTour(),SEP_BETWEEN_KEYS,_c);
+    }
+    public String prefixNbTourGlobal(String _c) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,nbTourGlobal(),SEP_BETWEEN_KEYS,_c);
+    }
+    public String prefixEquipeNbUtilisation(String _c) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,equipeNbUtilisation(),SEP_BETWEEN_KEYS,_c);
+    }
+    public String prefixEquipeAdvNbUtilisation(String _c) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,equipeAdvNbUtilisation(),SEP_BETWEEN_KEYS,_c);
+    }
+    public String prefixEquipeAdvCombattantEntrantNbUtilisation(String _c) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,equipeAdvCombattantEntrantNbUtilisation(),SEP_BETWEEN_KEYS,_c);
+    }
+    public String prefixCombattantEntrantClone() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,combattantEntrantClone());
+    }
+    public String prefixCombattantEntrantTypes() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,combattantEntrantTypes());
+    }
+    public String prefixNbUtiliAttEqTour(String _c) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,nbUtiliAttEqTour(),SEP_BETWEEN_KEYS,_c);
+    }
+    public String prefixClimats() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,climats());
+    }
+    public String prefixLieuCombat() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,lieuCombat());
+    }
+    public String prefixTempsTour() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,tempsTour());
+    }
+    public String prefixNbCombattantsTerrain() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,nbCombattantsTerrain());
+    }
+    public String prefixCoeffEff() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,coeffEff());
+    }
+    public String prefixNbUtilisationConsecutif() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,nbUtilisationConsecutif());
+    }
+    public String prefixExisteGenreAssexue() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,existeGenreAssexue());
+    }
+    public String prefixGenresEgaux() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,genresEgaux());
+    }
+    public String prefixDejaCapture() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,dejaCapture());
+    }
+    public String prefixNbFlees() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,nbFlees());
+    }
+    public String prefixPkUtNiveau() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,pkUtNiveau());
+    }
+    public String prefixPkUtGenre() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,pkUtGenre());
+    }
+    public String prefixPkUtVitesse() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,pkUtVitesse());
+    }
+    public String prefixPkUtTypesBase() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,pkUtTypesBase());
+    }
+    public String prefixPkUtPierresEvos() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,pkUtPierresEvos());
+    }
+    public String prefixPkUtMasse() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,pkUtMasse());
+    }
+    public String prefixPkSauvageNiveau() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,pkSauvageNiveau());
+    }
+    public String prefixPkSauvageGenre() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,pkSauvageGenre());
+    }
+    public String prefixPkSauvageVitesse() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,pkSauvageVitesse());
+    }
+    public String prefixPkSauvageTypesBase() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,pkSauvageTypesBase());
+    }
+    public String prefixPkSauvagePierresEvos() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,pkSauvagePierresEvos());
+    }
+    public String prefixPkSauvageMasse() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,pkSauvageMasse());
+    }
+    public String prefixMasseMoyennePk() {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,masseMoyennePk());
     }
     public String prefixVar() {
         return getConstNonNum().getPrefixVar();

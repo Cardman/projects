@@ -2299,13 +2299,13 @@ public class FightHelpBean extends CommonBean {
         boostsCh.addAllEntries(boostsChInit(_minBoost,_maxBoost,getDataBase()));
     }
     static LongTreeMap<Rate> boostsInit(long _minBoost, long _maxBoost, DataBase _db) {
-        String pref_ = _db.prefixVar();
+        String pref_ = _db.prefixBoost();
         LongTreeMap<Rate> boosts_ = new LongTreeMap<Rate>();
         for (long b = _minBoost; b <= _maxBoost; b++) {
             String rateBoost_ = _db.getRateBoost();
 //            NumericString chNum_=new NumericString(rateBoost_);
             StringMap<String> variables_ = new StringMap<String>();
-            variables_.put(StringUtil.concat(pref_,DataBase.SEP_BETWEEN_KEYS,_db.boost()), Long.toString(b));
+            variables_.put(pref_, Long.toString(b));
 //            chNum_.replaceVars(variables_);
 //            chNum_.evaluateExp();
 //            Rate res_ = chNum_.toRate();
@@ -2315,13 +2315,13 @@ public class FightHelpBean extends CommonBean {
         return boosts_;
     }
     static LongTreeMap<Rate> boostsChInit(long _minBoost, long _maxBoost, DataBase _db) {
-        String pref_ = _db.prefixVar();
+        String pref_ = _db.prefixBoost();
         LongTreeMap<Rate> boostsCh_ = new LongTreeMap<Rate>();
         for (long b = _minBoost; b <= _maxBoost; b++) {
             String rateBoost_ = _db.getRateBoostCriticalHit();
 //            NumericString chNum_=new NumericString(rateBoost_);
             StringMap<String> variables_ = new StringMap<String>();
-            variables_.put(StringUtil.concat(pref_,DataBase.SEP_BETWEEN_KEYS,_db.boost()), Long.toString(b));
+            variables_.put(pref_, Long.toString(b));
 //            chNum_.replaceVars(variables_);
 //            chNum_.evaluateExp();
 //            Rate res_ = chNum_.toRate();
@@ -2410,10 +2410,9 @@ public class FightHelpBean extends CommonBean {
     }
 
     private static String numString(DataBase _data, StatusBeginRoundAutoDamage _st) {
-        String pref_ = _data.prefixVar();
         String str_ = _data.getDamageFormula();
         StringMap<String> replace_ = new StringMap<String>();
-        replace_.put(StringUtil.concat(pref_,DataBase.SEP_BETWEEN_KEYS, _data.power()), _st.getPower().toNumberString());
+        replace_.put(_data.prefixPower(), _st.getPower().toNumberString());
         str_ = MathExpUtil.replaceWordsJoin(str_, replace_);
         return str_;
     }

@@ -1214,12 +1214,11 @@ final class FightEffects {
         Fighter fighter_ = _fight.getFighter(_fighter);
         Rate rate_ = DataBase.defRateProduct();
         AbilityData ab_=fighter_.ficheCapaciteActuelle(_import);
-        String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         if(ab_ != null){
             StringMap<String> vars_ = new StringMap<String>(_variables);
             vars_.putAllMap(FightValues.calculateValuesFighter(_fight, _fighter, _import));
             rate_.multiplyBy(FightStatistic.multiplyStringFighterVariables(ab_.getMultPower(), vars_, _import));
-            for (String t: StringUtil.splitChars(StringUtil.nullToEmpty(_variables.getVal(StringUtil.concat(varPref_, _import.attaqueTypes()))), _import.getSepartorSetChar())) {
+            for (String t: StringUtil.splitChars(StringUtil.nullToEmpty(_variables.getVal(_import.prefixAttaqueTypes())), _import.getSepartorSetChar())) {
                 for (TypeDamageBoost tDamage_: ab_.getChangingBoostTypes().values()) {
                     if (!StringUtil.quickEq(tDamage_.getType(), t)) {
                         continue;

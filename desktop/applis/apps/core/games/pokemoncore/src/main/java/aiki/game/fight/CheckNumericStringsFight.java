@@ -29,7 +29,6 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
-import code.util.core.StringUtil;
 
 public final class CheckNumericStringsFight {
 
@@ -485,12 +484,11 @@ public final class CheckNumericStringsFight {
     }
 
     private static void checkRateGrowLevel(DataBase _data, DifficultyWinPointsFight _d) {
-        String varPref_ = StringUtil.concat(_data.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         StringMap<String> vars_ = new StringMap<String>();
-        vars_.put(StringUtil.concat(varPref_,
-                _data.levelWinner()), LgInt.one().toNumberString());
-        vars_.put(StringUtil.concat(varPref_,
-                _data.levelLooser()), LgInt.one().toNumberString());
+        vars_.put(
+                _data.prefixLevelWinner(), LgInt.one().toNumberString());
+        vars_.put(
+                _data.prefixLevelLooser(), LgInt.one().toNumberString());
         EvolvedNumString chNum_ = _data.createNumericableString(
                 _data.getRates().getVal(_d), vars_);
         chNum_.evaluateExp(true);
@@ -514,15 +512,15 @@ public final class CheckNumericStringsFight {
     }
 
     private static void checkBoosts(DataBase _data) {
-        String varPref_ = StringUtil.concat(_data.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         long minBoost_ = _data.getMinBoost();
         long defBoost_ = _data.getDefaultBoost();
         long maxBoost_ = _data.getMaxBoost();
         String rateBoost_ = _data.getRateBoost();
         CustList<Rate> ratesBoost_ = new CustList<Rate>();
+        String key_ = _data.prefixBoost();
         for (long b = minBoost_; b <= maxBoost_; b++) {
             StringMap<String> variables_ = new StringMap<String>();
-            variables_.put(StringUtil.concat(varPref_, _data.boost()),
+            variables_.put(key_,
                     Long.toString(b));
             EvolvedNumString chNum_ = _data.createNumericableString(
                     rateBoost_, variables_);
@@ -538,7 +536,7 @@ public final class CheckNumericStringsFight {
         ratesBoost_ = new CustList<Rate>();
         for (long b = minBoost_; b <= maxBoost_; b++) {
             StringMap<String> variables_ = new StringMap<String>();
-            variables_.put(StringUtil.concat(varPref_, _data.boost()),
+            variables_.put(key_,
                     Long.toString(b));
             EvolvedNumString chNum_ = _data.createNumericableString(
                     rateBoost_, variables_);
@@ -596,10 +594,8 @@ public final class CheckNumericStringsFight {
     }
 
     private static void checkLevels(DataBase _data, String _formula) {
-        String varPref_ = StringUtil.concat(_data.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         StringMap<String> vars_ = new StringMap<String>();
-        String varName_ = StringUtil
-                .concat(varPref_, _data.niveau());
+        String varName_ = _data.prefixNiveau();
         long minLevel_ = _data.getMinLevel();
         long maxLevel_ = _data.getMaxLevel();
         Rate min_ = Rate.zero();
@@ -617,13 +613,12 @@ public final class CheckNumericStringsFight {
     }
 
     private void checkNumericStringsBalls() {
-        String varPref_ = StringUtil.concat(data.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         StringMap<String> vars_;
         vars_ = new StringMap<String>();
-        vars_.put(StringUtil.concat(varPref_, data.baseCaptPk()), LgInt.one().toNumberString());
-        vars_.put(StringUtil.concat(varPref_, data.rateBallStatus()), LgInt.one().toNumberString());
-        vars_.put(StringUtil.concat(varPref_, data.foePkMaxHp()), LgInt.one().toNumberString());
-        vars_.put(StringUtil.concat(varPref_, data.foePkRemoteHp()), LgInt.one().toNumberString());
+        vars_.put(data.prefixBaseCaptPk(), LgInt.one().toNumberString());
+        vars_.put(data.prefixRateBallStatus(), LgInt.one().toNumberString());
+        vars_.put(data.prefixFoePkMaxHp(), LgInt.one().toNumberString());
+        vars_.put(data.prefixFoePkRemoteHp(), LgInt.one().toNumberString());
 
         String numericExp_ = data.getRateCatching();
         EvolvedNumString num_;
@@ -660,24 +655,19 @@ public final class CheckNumericStringsFight {
     private static StringMap<String> calculateBooleanValuesForValidation(
             Fight _fight, TeamPosition _lanceur, TeamPosition _cible,
             boolean _sending, DataBase _import) {
-        String varPref_ = StringUtil.concat(_import.prefixVar(),DataBase.SEP_BETWEEN_KEYS);
         StringMap<String> variables_ = new StringMap<String>();
         if (_sending) {
             StringList immuTypesIndiv_ = _import
                     .getVarParamsMove(_import.immuTypeAttCombattantEntrant());
             for (String e : immuTypesIndiv_) {
                 variables_
-                        .put(StringUtil.concat(varPref_,
-                                _import.immuTypeAttCombattantEntrant(),
-                                DataBase.SEP_BETWEEN_KEYS, e), _import
+                        .put(_import.prefixImmuTypeAttCombattantEntrant(e), _import
                                 .getFalseString());
             }
         }
         variables_
-                .put(StringUtil.concat(varPref_,
-                        _import.pasAttaqueInvoc()), _import.getFalseString());
-        variables_.put(StringUtil.concat(varPref_,
-                _import.pasAttaquesCopiables()), _import.getFalseString());
+                .put(_import.prefixPasAttaqueInvoc(), _import.getFalseString());
+        variables_.put(_import.prefixPasAttaquesCopiables(), _import.getFalseString());
         variables_.putAllMap(FightValues.calculateBasicBooleanValues(_fight,
                 _lanceur, _cible, _import));
         return variables_;
