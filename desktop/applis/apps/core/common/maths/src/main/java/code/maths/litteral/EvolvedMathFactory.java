@@ -43,6 +43,9 @@ public final class EvolvedMathFactory {
         list_.add(MbOperationNode.DIV_FCT);
         return list_;
     }
+    public static boolean usedId(String _el, String _prefix, StringList _mids, String _id) {
+        return MathUtil.usedId(_el, _prefix, _mids, _id);
+    }
     public static Rate evaluateDirectlyRate(String _numExp) {
         return MathUtil.processEl(_numExp, false, new StringMap<String>()).getRateVal();
     }

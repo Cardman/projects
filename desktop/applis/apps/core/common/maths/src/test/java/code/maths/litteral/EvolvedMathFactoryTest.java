@@ -2,6 +2,7 @@ package code.maths.litteral;
 
 import code.maths.EquallableMathUtil;
 import code.maths.Rate;
+import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.NumberUtil;
 import org.junit.Test;
@@ -155,5 +156,29 @@ public class EvolvedMathFactoryTest extends EquallableMathUtil {
         EvolvedMathFactory e_ = new EvolvedMathFactory();
         StringMap<String> vars_ = new StringMap<String>();
         assertEq(true, EvolvedMathFactory.evaluateBoolean("++",vars_,true));
+    }
+    @Test
+    public void usedId1() {
+        assertTrue(EvolvedMathFactory.usedId("VAR__INTER__ID","VAR__",new StringList("INTER__"),"ID"));
+    }
+    @Test
+    public void usedId2() {
+        assertTrue(!EvolvedMathFactory.usedId("VAR__INTER__ID","VAR__",new StringList("INTER__"),"OTHER"));
+    }
+    @Test
+    public void usedId3() {
+        assertTrue(EvolvedMathFactory.usedId("{ID}","VAR__",new StringList(),"ID"));
+    }
+    @Test
+    public void usedId4() {
+        assertTrue(!EvolvedMathFactory.usedId("{ID}","VAR__",new StringList(),"OTHER"));
+    }
+    @Test
+    public void usedId5() {
+        assertTrue(EvolvedMathFactory.usedId("{OTHER;ID}","VAR__",new StringList(),"ID"));
+    }
+    @Test
+    public void usedId6() {
+        assertTrue(!EvolvedMathFactory.usedId("VAR__INTER","VAR__",new StringList("INTER"),"ID"));
     }
 }

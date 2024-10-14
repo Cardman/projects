@@ -24,35 +24,35 @@ public final class FctMbOperation extends InvokingMbOperation {
     void analyze(StringMap<String> _conf, ErrorStatus _error, MbDelimiters _del) {
         CustList<MbOperationNode> chidren_ = getChildrenNodes();
         if (checkBinNum()) {
-            checkBinary(_error, chidren_, MathType.RATE, MathType.RATE);
+            processBinary(_error, chidren_, MathType.RATE, MathType.RATE);
             return;
         }
-        if (processUnaryNum()) {
-            checkUnary(_error, chidren_, MathType.RATE);
+        if (checkUnaryNum()) {
+            processUnary(_error, chidren_, MathType.RATE);
             return;
         }
-        if (procStatis()) {
+        if (checkStatis()) {
             processStat(_error, chidren_);
             return;
         }
-        if (processInterval()) {
+        if (checkInterval()) {
             processInterval(_error, chidren_);
             return;
         }
-        if (processBinInterval()) {
-            checkBinary(_error, chidren_, MathType.RATE, MathType.RATE);
+        if (checkBinInterval()) {
+            processBinary(_error, chidren_, MathType.RATE, MathType.RATE);
             return;
         }
         if (StringUtil.quickEq(methodName,CARD)){
-            checkUnary(_error, chidren_, MathType.SET);
+            processUnary(_error, chidren_, MathType.SET);
             return;
         }
         if (checkBinSet()) {
-            checkBinary(_error, chidren_, MathType.SET, MathType.SET);
+            processBinary(_error, chidren_, MathType.SET, MathType.SET);
             return;
         }
         if (checkBinSet2()) {
-            checkBinary(_error, chidren_, MathType.SET, MathType.RATE);
+            processBinary(_error, chidren_, MathType.SET, MathType.RATE);
             return;
         }
         _error.setIndex(getIndexInEl());
@@ -67,36 +67,28 @@ public final class FctMbOperation extends InvokingMbOperation {
         return StringUtil.quickEq(methodName, INTER) || StringUtil.quickEq(methodName, UNION) || StringUtil.quickEq(methodName, COMPL);
     }
 
-    private boolean processBinInterval() {
+    private boolean checkBinInterval() {
         return StringUtil.quickEq(methodName, CARAC_DROITE_OUVERT) || StringUtil.quickEq(methodName, CARAC_DROITE_FERME) || StringUtil.quickEq(methodName, CARAC_GAUCHE_OUVERT) || StringUtil.quickEq(methodName, CARAC_GAUCHE_FERME);
     }
 
-    private boolean processInterval() {
+    private boolean checkInterval() {
         return StringUtil.quickEq(methodName, CARAC_FERME) || StringUtil.quickEq(methodName, CARAC_OUVERT) || StringUtil.quickEq(methodName, CARAC_SEMI_OUVERT_G) || StringUtil.quickEq(methodName, CARAC_SEMI_OUVERT_D);
     }
 
-    private boolean procStatis() {
+    private boolean checkStatis() {
         return StringUtil.quickEq(methodName, MIN) || StringUtil.quickEq(methodName, MAX) || StringUtil.quickEq(methodName, MOY) || StringUtil.quickEq(methodName, VAR);
     }
 
-    private boolean processUnaryNum() {
-        return processUnaryNum2() || StringUtil.quickEq(methodName, NUM) || StringUtil.quickEq(methodName, DEN) || StringUtil.quickEq(methodName, SGN);
-    }
-
-    private boolean processUnaryNum2() {
-        return StringUtil.quickEq(methodName, ABS) || StringUtil.quickEq(methodName, ENT) || StringUtil.quickEq(methodName, TRONC);
+    private boolean checkUnaryNum() {
+        return StringUtil.quickEq(methodName, ABS) || StringUtil.quickEq(methodName, ENT) || StringUtil.quickEq(methodName, TRONC) || StringUtil.quickEq(methodName, NUM) || StringUtil.quickEq(methodName, DEN) || StringUtil.quickEq(methodName, SGN);
     }
 
     private boolean checkBinNum() {
-        return checkBinNum2() || StringUtil.quickEq(methodName, MODTAUX) || StringUtil.quickEq(methodName, DIV_FCT);
-    }
-
-    private boolean checkBinNum2() {
-        return StringUtil.quickEq(methodName, PUIS) || StringUtil.quickEq(methodName, QUOT) || StringUtil.quickEq(methodName, MOD);
+        return StringUtil.quickEq(methodName, PUIS) || StringUtil.quickEq(methodName, QUOT) || StringUtil.quickEq(methodName, MOD) || StringUtil.quickEq(methodName, MODTAUX) || StringUtil.quickEq(methodName, DIV_FCT);
     }
 
     private void processInterval(ErrorStatus _error, CustList<MbOperationNode> _chidren) {
-        if (processSets(_chidren)) {
+        if (koSets(_chidren)) {
             _error.setIndex(getIndexInEl());
             _error.setError(true);
             return;
@@ -120,8 +112,8 @@ public final class FctMbOperation extends InvokingMbOperation {
         setResultClass(MathType.RATE);
     }
 
-    private void checkUnary(ErrorStatus _error, CustList<MbOperationNode> _chidren, MathType _type) {
-        if (unary(_chidren, _type)) {
+    private void processUnary(ErrorStatus _error, CustList<MbOperationNode> _chidren, MathType _type) {
+        if (koUnary(_chidren, _type)) {
             _error.setIndex(getIndexInEl());
             _error.setError(true);
             return;
@@ -129,8 +121,8 @@ public final class FctMbOperation extends InvokingMbOperation {
         setResultClass(MathType.RATE);
     }
 
-    private void checkBinary(ErrorStatus _error, CustList<MbOperationNode> _chidren, MathType _inType, MathType _outType) {
-        if (binary(_chidren, _inType)) {
+    private void processBinary(ErrorStatus _error, CustList<MbOperationNode> _chidren, MathType _inType, MathType _outType) {
+        if (koBinary(_chidren, _inType)) {
             _error.setIndex(getIndexInEl());
             _error.setError(true);
             return;
@@ -138,15 +130,15 @@ public final class FctMbOperation extends InvokingMbOperation {
         setResultClass(_outType);
     }
 
-    private static boolean processSets(CustList<MbOperationNode> _chidren) {
+    private static boolean koSets(CustList<MbOperationNode> _chidren) {
         return _chidren.size() != THREE_ARGUMENTS || _chidren.first().getResultClass() != MathType.RATE || _chidren.get(IndexConstants.SECOND_INDEX).getResultClass() != MathType.RATE || _chidren.last().getResultClass() != MathType.RATE;
     }
 
-    private static boolean unary(CustList<MbOperationNode> _chidren, MathType _type) {
+    private static boolean koUnary(CustList<MbOperationNode> _chidren, MathType _type) {
         return _chidren.size() != 1 || _chidren.first().getResultClass() != _type;
     }
 
-    private static boolean binary(CustList<MbOperationNode> _chidren, MathType _type) {
+    private static boolean koBinary(CustList<MbOperationNode> _chidren, MathType _type) {
         return _chidren.size() != 2 || _chidren.first().getResultClass() != _type || _chidren.last().getResultClass() != _type;
     }
 

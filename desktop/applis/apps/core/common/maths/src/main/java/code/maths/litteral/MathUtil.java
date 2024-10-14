@@ -1,33 +1,51 @@
 package code.maths.litteral;
-import code.maths.litteralcom.StrTypes;
-import code.util.CustList;
-import code.util.StringMap;
-import code.util.core.IndexConstants;
+import code.maths.litteralcom.*;
+import code.util.*;
+import code.util.core.*;
 
 final class MathUtil {
 
     private MathUtil() {
     }
 
-    static MbArgument processEl(String _el, boolean _onlycheckSyntax, StringMap<String> _conf) {
+    static boolean usedId(String _el, String _prefix, StringList _mids, String _id) {
         ErrorStatus err_ = new ErrorStatus();
         MbDelimiters d_ = MathResolver.checkSyntax(_el, err_);
-        if (err_.isError()) {
-            MbArgument arg_ = new MbArgument();
-            arg_.setArgClass(MathType.NOTHING);
-            arg_.setObject(err_);
-            return arg_;
+        for (String m: _mids) {
+            for (MatVariableInfo v: d_.getVariables()) {
+                if (StringUtil.quickEq(v.getName(),_prefix+m+_id)) {
+                    return true;
+                }
+            }
         }
-        MbOperationsSequence opTwo_ = MathResolver.getOperationsSequence(IndexConstants.FIRST_INDEX, _el, d_);
-        MbOperationNode op_ = MbOperationNode.createOperationNodeAndChild(IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX, null, opTwo_);
-        if (op_ == null) {
-            MbArgument arg_ = new MbArgument();
-            arg_.setArgClass(MathType.NOTHING);
-            arg_.setObject(err_);
-            return arg_;
+        for (StringList v: d_.getStringInfo()) {
+            for (String e: v) {
+                if (StringUtil.quickEq(e,_id)) {
+                    return true;
+                }
+            }
         }
-        CustList<MbOperationNode> all_ = getSortedDescNodes(op_,_conf,err_, d_);
-        if (err_.isError()) {
+        return false;
+    }
+    static MbArgument processEl(String _el, boolean _onlycheckSyntax, StringMap<String> _conf) {
+        ErrorStatus err_ = new ErrorStatus();
+//        MbDelimiters d_ = MathResolver.checkSyntax(_el, err_);
+//        if (err_.isError()) {
+//            MbArgument arg_ = new MbArgument();
+//            arg_.setArgClass(MathType.NOTHING);
+//            arg_.setObject(err_);
+//            return arg_;
+//        }
+//        MbOperationsSequence opTwo_ = MathResolver.getOperationsSequence(IndexConstants.FIRST_INDEX, _el, d_);
+//        MbOperationNode op_ = MbOperationNode.createOperationNodeAndChild(IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX, null, opTwo_);
+//        if (op_ == null) {
+//            MbArgument arg_ = new MbArgument();
+//            arg_.setArgClass(MathType.NOTHING);
+//            arg_.setObject(err_);
+//            return arg_;
+//        }
+        CustList<MbOperationNode> all_ = getSortedDescNodes(_el, _conf,err_);
+        if (all_.isEmpty()) {
             MbArgument arg_ = new MbArgument();
             arg_.setArgClass(MathType.NOTHING);
             arg_.setObject(err_);
@@ -41,18 +59,24 @@ final class MathUtil {
                 arg_.setObject(err_);
                 return arg_;
             }
-            return MbArgument.ofNullable(op_.getArgument());
+            return MbArgument.ofNullable(all_.last().getArgument());
         }
         MbArgument a_ = new MbArgument();
-        a_.setArgClass(op_.getResultClass());
+        a_.setArgClass(all_.last().getResultClass());
         return a_;
     }
 
-    public static CustList<MbOperationNode> getSortedDescNodes(MbOperationNode _root, StringMap<String> _context, ErrorStatus _error, MbDelimiters _del) {
+    public static CustList<MbOperationNode> getSortedDescNodes(String _el, StringMap<String> _context, ErrorStatus _error) {
+        MbDelimiters d_ = MathResolver.checkSyntax(_el, _error);
+        if (_error.isError()) {
+            return new CustList<MbOperationNode>();
+        }
         CustList<MbOperationNode> list_ = new CustList<MbOperationNode>();
-        MbOperationNode c_ = _root;
+        MbOperationsSequence opTwo_ = MathResolver.getOperationsSequence(IndexConstants.FIRST_INDEX, _el, d_);
+        MbOperationNode op_ = MbOperationNode.createOperationNodeAndChild(IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX, null, opTwo_);
+        MbOperationNode c_ = op_;
         while (c_ != null) {
-            c_ = getAnalyzedNext(c_, _root, list_, _context, _error, _del);
+            c_ = getAnalyzedNext(c_, op_, list_, _context, _error, d_);
         }
         return list_;
     }

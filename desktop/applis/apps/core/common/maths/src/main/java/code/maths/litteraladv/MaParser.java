@@ -170,31 +170,40 @@ public final class MaParser {
 
     private static MaStruct analyzeCalculate(String _el, StringMap<MaStruct> _conf, MaParameters _mapping, MaError _err, boolean _procVar, StringList _varNames, CustList<String> _rands) {
         MaDelimiters d_ = checkSyntax(_el, _err,_varNames);
-        if (_err.getOffset() > -1) {
-            return MaNullStruct.NULL_VALUE;
-        }
-        MaOperationsSequence opTwo_ = getOperationsSequence(IndexConstants.FIRST_INDEX, _el, d_);
-        MaOperationNode op_ = MaOperationNode.createOperationNodeAndChild(IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX, null, opTwo_, _mapping);
-        if (op_ == null) {
-            _err.setOffset(0);
-            return MaNullStruct.NULL_VALUE;
-        }
-        CustList<MaOperationNode> all_ = getSortedDescNodes(op_, _err, d_, _mapping);
-        if (_err.getOffset() > -1) {
+//        if (_err.getOffset() > -1) {
+//            return MaNullStruct.NULL_VALUE;
+//        }
+//        MaOperationsSequence opTwo_ = getOperationsSequence(IndexConstants.FIRST_INDEX, _el, d_);
+//        MaOperationNode op_ = MaOperationNode.createOperationNodeAndChild(IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX, null, opTwo_, _mapping);
+//        if (op_ == null) {
+//            _err.setOffset(0);
+//            return MaNullStruct.NULL_VALUE;
+//        }
+        CustList<MaOperationNode> all_ = getSortedDescNodes(_el, _err, d_, _mapping);
+        if (all_.isEmpty()) {
             return MaNullStruct.NULL_VALUE;
         }
         calculate(all_, _conf, _err,d_, _procVar,_rands);
         if (_err.getOffset() > -1) {
             return MaNullStruct.NULL_VALUE;
         }
-        return MaNullStruct.def(op_.getStruct());
+        return MaNullStruct.def(all_.last().getStruct());
     }
 
-    public static CustList<MaOperationNode> getSortedDescNodes(MaOperationNode _root, MaError _error, MaDelimiters _del, MaParameters _mapping) {
+    public static CustList<MaOperationNode> getSortedDescNodes(String _el, MaError _error, MaDelimiters _del, MaParameters _mapping) {
+        if (_error.getOffset() > -1) {
+            return new CustList<MaOperationNode>();
+        }
+        MaOperationsSequence opTwo_ = getOperationsSequence(IndexConstants.FIRST_INDEX, _el, _del);
+        MaOperationNode op_ = MaOperationNode.createOperationNodeAndChild(IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX, null, opTwo_, _mapping);
+        if (op_ == null) {
+            _error.setOffset(0);
+            return new CustList<MaOperationNode>();
+        }
         CustList<MaOperationNode> list_ = new CustList<MaOperationNode>();
-        MaOperationNode c_ = _root;
+        MaOperationNode c_ = op_;
         while (c_ != null) {
-            c_ = getAnalyzedNext(c_, _root, list_, _error, _del, _mapping);
+            c_ = getAnalyzedNext(c_, op_, list_, _error, _del, _mapping);
         }
         return list_;
     }
