@@ -1,18 +1,18 @@
 package aiki.sml.imgs;
-import aiki.db.*;
 import code.util.*;
+import aiki.db.*;
 public final class AnStatis{
 private AnStatis(){}
-public static StringMap<String> im(){
-StringMap<String> i = new StringMap<String>(8);
-i.addEntry(DataBase.DEF_STAT_ACCURACY,AnStatis0.i0());
-i.addEntry(DataBase.DEF_STAT_ATTACK,AnStatis0.i1());
-i.addEntry(DataBase.DEF_STAT_CRITICAL_HIT,AnStatis0.i2());
-i.addEntry(DataBase.DEF_STAT_DEFENSE,AnStatis0.i3());
-i.addEntry(DataBase.DEF_STAT_EVASINESS,AnStatis0.i4());
-i.addEntry(DataBase.DEF_STAT_SPECIAL_ATTACK,AnStatis0.i5());
-i.addEntry(DataBase.DEF_STAT_SPECIAL_DEFENSE,AnStatis0.i6());
-i.addEntry(DataBase.DEF_STAT_SPEED,AnStatis0.i7());
+public static StringMap<ImageArrayBaseSixtyFour> im(String _base){
+StringMap<ImageArrayBaseSixtyFour> i = new StringMap<ImageArrayBaseSixtyFour>(8);
+i.addEntry(DataBase.DEF_STAT_ACCURACY,ImageArrayBaseSixtyFour.instance(AnStatis0.i0(),_base));
+i.addEntry(DataBase.DEF_STAT_ATTACK,ImageArrayBaseSixtyFour.instance(AnStatis0.i1(),_base));
+i.addEntry(DataBase.DEF_STAT_CRITICAL_HIT,ImageArrayBaseSixtyFour.instance(AnStatis0.i2(),_base));
+i.addEntry(DataBase.DEF_STAT_DEFENSE,ImageArrayBaseSixtyFour.instance(AnStatis0.i3(),_base));
+i.addEntry(DataBase.DEF_STAT_EVASINESS,ImageArrayBaseSixtyFour.instance(AnStatis0.i4(),_base));
+i.addEntry(DataBase.DEF_STAT_SPECIAL_ATTACK,ImageArrayBaseSixtyFour.instance(AnStatis0.i5(),_base));
+i.addEntry(DataBase.DEF_STAT_SPECIAL_DEFENSE,ImageArrayBaseSixtyFour.instance(AnStatis0.i6(),_base));
+i.addEntry(DataBase.DEF_STAT_SPEED,ImageArrayBaseSixtyFour.instance(AnStatis0.i7(),_base));
 return i;
 }
 }

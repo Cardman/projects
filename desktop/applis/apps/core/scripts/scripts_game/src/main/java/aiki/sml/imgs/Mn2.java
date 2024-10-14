@@ -1,2044 +1,994 @@
 package aiki.sml.imgs;
 public final class Mn2{
-private static final String I_12_60_0="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_60_1="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_60_2="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_60_3="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_60_4="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_60_5="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_60_6="////////////////////////////////////////////////////////////////////MzQ1MTExMTEx////////////////////////////////////////////////";
-private static final String I_12_60_7="////////////////////////////////////////////////////////////////MzQ1imJBtINJtYRKMzIx////////////////////////////////////////////";
-private static final String I_12_60_8="////////////////////////////////////MjM0////////////////////MzQ1soJJtYRKMzIxMTExMTEx////////////////////////////////////////////";
-private static final String I_12_60_9="////////////////////////////////MzQ1cbpZMjMx////////////MzQ1imJBtINJMzIx////////////////////////////////////////////////////////";
-private static final String I_12_60_10="////////////////////////////MzQ1cbpZc71aMjMx////////MzQ1UVFRi2JCjGNCUlJRMTEx////////////////////////////////////////////////////";
-private static final String I_12_60_11="////////////////////////MzQ1SZpJcrxZMjMx////////MzQ1MTEx8+RZVFRSUlJSzLtSMzMx////////////////////////////////////////////////////";
-private static final String I_12_60_12="////////////////////////MzQ1cbpZSpxKMTIx////////MzQ18+RZppVS9eVZ9+dappVS9eVZNDMx////////////////////////////////////////////////";
-private static final String I_12_60_13="////////////////////NTU1SZpJcrxZSpxKSpxKMTIxMTEx8+RZ9+da9+dappVSpZRS9eVZ9+daNDMx////////////////////MjM0MTEx////////////////////";
-private static final String I_12_60_14="////////////////////NjY2SZpJSpxKSpxKSpxKSpxKUVNR9ORZ9+da9+da9+da9+da9+da9+da9+daNDMx////////MzQ1MTExittxMjMy////////////////////";
-private static final String I_12_60_15="////////////////////NjY2SZpJSpxKSpxKSpxKSpxKUVNR9ORZ9+da9+da9+da9+da9+da9+daVFRSMTExMTExMTExittxjN5zjN5zMjMy////////////////////";
-private static final String I_12_60_16="////////////////////////MzQ1SZpJSpxKSpxKSpxKUVNR9ORZ9+dazr1Szr1S9uZZ9+daVFRScrtZc71ai91yjN5zjN5zjN5zjN5zMjMy////////////////////";
-private static final String I_12_60_17="////////////////////////////MzQ1SZpJSpxKUVNR9ORZ9+da9+da/v78////zr5UU1NScrtZc71ac71ac71ai91yjN5zjN5zMjMy////////////////////////";
-private static final String I_12_60_18="////////////////////////////////MzQ1MTExUVFR9ORZ9+dazr1SMzMx+/v7////VFRUcrtZc71ac71ac71ai91yjN5zjN5zMjMy////////////////////////";
-private static final String I_12_60_19="////////////////////////////////////MzQ18+RZ9+da9+dazr1S/v38////zr5UU1NScrtZc71ac71ac71ac71ai91yMjMy////////////////////////////";
-private static final String I_12_60_20="////////////////////////////////MzQ1UVFRzLtS9uZZ9+da9+dazr1Szr1Szr1Szr1SU1NScrtZc71ac71aMjMxMTEx////////////////////////////////";
-private static final String I_12_60_21="////////////////////////////////MjM085qrVFNTzLtS9uZZzr1Szr1Szr1Szr1SU1NSUlJSUlJSMTExMTEx////////////////////////////////////////";
-private static final String I_12_60_22="////////////////////////////////MzQ185qr95ytVFNTUlJSUlJSUlJSUlJSUlJSu3qDvXuEMzIy////////////////////////////////////////////////";
-private static final String I_12_60_23="////////////////////////////////////MjM085qr95yt95yt95yt95ytvXuEvXuEvXuEMzIy////////////////////////////////////////////////////";
-private static final String I_12_60_24="////////////////////////////////////////MzQ1MTExunmCvXuEvXuEvXuEMzIyMTEx////////////////////////////////////////////////////////";
-private static final String I_12_60_25="////////////////////////////////////////////////MzQ1MTExMTExMTEx////////////////////////////////////////////////////////////////";
-private static final String I_12_60_26="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_60_27="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_60_28="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_60_29="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_60_30="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_60_31="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_61_0="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_61_1="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_61_2="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_61_3="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_61_4="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_61_5="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_61_6="////////////////////////////////////////////////////////////////////////////////////MDAwLi4u////////////////////////////////////";
-private static final String I_12_61_7="////////////////////////////////////////////////////////////////////////////////Ly8vaGhoLy8v////MDAwLy8v////////////////////////";
-private static final String I_12_61_8="////////////////////////////////////////////////////////////////////////////MTEx/f39a2trMjIyMjIya2trMTEx////////////////////////";
-private static final String I_12_61_9="////////////////////////////////////////////////////////////////////////////MjIy4ODgaGlpaGhoYWFhaGlpLi4u////////////////////////";
-private static final String I_12_61_10="////////////////////////////////////////////Ly4tMDAwMzIxLy4tMDAw////////MDAw9/f3YWFhorm59fX15ubmampqMjQ1////////////////////////";
-private static final String I_12_61_11="////////////////////////////////////NDMyNDMy5XpR5ntS5ntS43lRNDY3////MTExMjIy/f39a2xsbm5ubm5uampqMTEx////////////////////////////";
-private static final String I_12_61_12="////////////////////////////////Li0s1nJM3nZPzG1I1nJM3nZPLi0s////////KysrZmZmTU1Nkaam8vLy7OzsXl5eMzU2////////////////////////////";
-private static final String I_12_61_13="////////////////////////////MTEx0nBL3nZP43lR0nBL3nZP43lR0nBLMDAw////LS0tVFJRaGhoYWFhaGlpaGhoLS0t////////////////////////////////";
-private static final String I_12_61_14="////////////////////////////NDMy4nhQ5ntS5ntS4nhQ5ntS6H1S4nhQzVoyMTExyVkx5ntSzVoyaGhoa2trVFNSNDMxMTEx////////////////////////////";
-private static final String I_12_61_15="////////////////////////LS0t43lRzG1I1nJM3nZPymxIwFUu9b5PzG1I3XZO3nZPymxIxFYwTU1NSUlJUVBOjHU24a9INDMxLi4u////////////////////////";
-private static final String I_12_61_16="////////////////////////MTEx5ntS1XNNq0o45n1ULy8v+sJQ/cNR2XNN5XpR43pRTk5OUlJSaGlpZGRk+8NS+8NR77pN+8NSMzU2////////////////////////";
-private static final String I_12_61_17="////////////////////MTExa2trUlJSVFJRzVoy/f39UVBQ/sRS5ntS4nhQ5ntSU1NTaGhoa2tra2traGhobm1r/sRS9r9QNDY3////////////////////////////";
-private static final String I_12_61_18="////////////////MzU2YWJjMDIzMzU2ymxI1XFMUU9OS0lI1XNN3HhQzG1ITk5OZmZmXl5eZmZmYWJjXl5e8rxO6rZMLjAx////////////////////////////////";
-private static final String I_12_61_19="////////////////////////////////Li4uyVkx5HxT2XNNpLi4pLy82HVPU1NTampqZGRkampqaGlpZGRkknk5MzU2////////////////////////////////////";
-private static final String I_12_61_20="////////////////////////////////MTM0aGlppLy82ndQ43lRpLy8nbOzpLy8VFRUZmZmampqampqMTM0NDY3////////////////////////////////////////";
-private static final String I_12_61_21="////////////////////////////////////MDIzfZSNkaam1XNNnrW1kaamnbS0nbS0SkpKLy8vMDIz////////////////////////////////////////////////";
-private static final String I_12_61_22="////////////////////////////////////////MTExT09Po7q6g5qSYXl5o7u7ZHt7nbS0MTEx////////////////////////////////////////////////////";
-private static final String I_12_61_23="////////////////////////////////////////NDY3MTM0MzU2UlJSnLGxUlJSa2trMTM0NDY3////////////////////////////////////////////////////";
-private static final String I_12_61_24="////////////////////////////////////////////////////MjQ1KysrZmZmMjQ1////////////////////////////////////////////////////////////";
-private static final String I_12_61_25="////////////////////////////////////////////////////////MjQ1NDY3////////////////////////////////////////////////////////////////";
-private static final String I_12_61_26="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_61_27="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_61_28="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_61_29="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_61_30="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_61_31="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_62_0="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_62_1="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_62_2="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_62_3="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_62_4="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_62_5="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_62_6="////////////////////////////////////////////NjY2MTEx////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_62_7="////////////////////////////NTU1MTEx////NTU1kpKKMjIyMTExMTExMTEx////////////////////////////////////////////////////////////////";
-private static final String I_12_62_8="////////////////////////NTU1cXFqUlJSMTExkpKKlJSMc3NrUlJScnJqc3NrMjIxMTEx////////////////////////////////////////////////////////";
-private static final String I_12_62_9="////////////////////////NTU1cXFqk5OLU1NSkpKLlJSMc3Nrc3NrUlJScnJqc3Nrc3NrMjIx////////////////////////////////////////////////////";
-private static final String I_12_62_10="////////////////////////NjY2kpKKU1NSkpKLlJSMlJSMlJSMU1NSkpKLU1NScnJqc3NrMjIx////////////////////////////////////////////////////";
-private static final String I_12_62_11="////////////////////NjY2UVFRkpKLlJSMlJSMlJSMlJSMlJSMlJSMlJSMc3NrUlJScnJqc3NrMjIx////NjY2MTExMTEx////////////////////////////////";
-private static final String I_12_62_12="////////////////////NjY201FilZKLlJSMlJSMlJSMU1NSkpKLlJSMlJSMlJSMU1NScnJqc3Nrc3NrMjIxcXFqc3NrUlJSMTEx////////////////////////////";
-private static final String I_12_62_13="////////////////////NjY2kpKKlJSMlJSMlJSMU1NS01JiVFJSUlJSkpKLc3NrUlJSMTExcXFqc3Nrc3Nrc3NrMjIxUVFRUlJSMTEx////////////////////////";
-private static final String I_12_62_14="////////////////////////NjY2cXFqk5OLlJSM1FNjMzEx+6vL1lNkdHJqc3NrMjIx////NjY2cXFqc3NrMjIx////NjY2MTExUVFRMTEx////////////////////";
-private static final String I_12_62_15="////////////////////////NTU189NJdXRqc3Nrk5OL/azM1lNkdHJqc3NrMjIx////////////NjY1MTEx////////////////NTU1MTEx////////////////////";
-private static final String I_12_62_16="////////////////////////////NTU1y6tB9tVJdXRqc3Nrc3Nr9NRKNDMx////////////////////NTU1////////////////////////////////////////////";
-private static final String I_12_62_17="////////////////////////////////NTU1cXFqzKxC9tVJzq1CU1NRcnJqMjIx////////////NTU1y6tBMzIxMTEx////////////////////////////////////";
-private static final String I_12_62_18="////////////////////////NTU1MTExUVFRUlJSUlJSUlJSUlJScnJqc3Nrk5OLMjIyMTEx////NTU189NJ99ZKNDMx////////////////////////////////////";
-private static final String I_12_62_19="////////////////////NTU1UVFRUlJSUlJSUlJScnJqc3Nrc3Nrc3NrUlJSkpKLlJSMU1NSMTExy6tBzq1C9tVJzq1CMzIx////////////////////////////////";
-private static final String I_12_62_20="////////////////////NTU1UVFRUlJSUlJSMTExMTExcXFqc3NrUlJSkpKLlJSMlJSMU1NScnJqUlJSzKtCMzIxMTEx////////////////////////////////////";
-private static final String I_12_62_21="////////////////////NTU1UVFRMTExUVFRMTEx////NTU1UVFRkpKLlJSMlJSMlJSMU1NScnJqMjIxMTEx////////////////////////////////////////////";
-private static final String I_12_62_22="////////////////////////NTU1////NTU1////////////NTU1kpKKU1NSkpKLU1NScnJqc3NrMjIx////////////////////////////////////////////////";
-private static final String I_12_62_23="////////////////////////////////////////////////NTU1MTEx////NTU1MTExcXFqMjIx////////////////////////////////////////////////////";
-private static final String I_12_62_24="////////////////////////////////////////////////////////////////////NTU1MTEx////////////////////////////////////////////////////";
-private static final String I_12_62_25="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_62_26="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_62_27="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_62_28="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_62_29="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_62_30="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_62_31="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_63_0="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_63_1="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_63_2="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_63_3="////////////////////////////////////NjY2////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_63_4="////////////////////////////////NjY2+3FRNDIx////////////////////////NjY2MTEx////////////////////////////////////////////////////";
-private static final String I_12_63_5="////////////////////////////////NjY2+3FRNDIx////NjY2MTExMTEx////NjY2+3FRNDIx////////////////////////////////////////////////////";
-private static final String I_12_63_6="////////////////////////////////NjY2+3FRVFJSMTEx08N5/v7E///GNDQz+3FRNDIx////////////////////////////////////////////////////////";
-private static final String I_12_63_7="////////////////////////////////NjY2+3FRVFJS08R6/v7E///GVFRT/HJSxlI51cR5MzMy////////////////////////////////////////////////////";
-private static final String I_12_63_8="////////////////////////////////NjY2+3FRVFJS/PzE///GVFRT/HJSxlI5lEJB/fzD///GNDQz////////////////////////////////////////////////";
-private static final String I_12_63_9="////////////////////////////////NjY2+3FRxlI5/vzDVFRT/HJSxlI5lEJB/fzD1sZ8/v7E///GNDQz////////////////////////////////////////////";
-private static final String I_12_63_10="////////////////////////////////NTU1w1E4/nJRVFJS/HJS/3NSlUJC1MN6lURClEJClEJC/fzD///GNDQz////////////////////////////////////////";
-private static final String I_12_63_11="////////////////////////////////////NjY2+3FR/3NS/3NSlUJCxVE5xlI5/nJR/3NSlUJC1MN6/v7E///GNDQz////////////////////////////////////";
-private static final String I_12_63_12="////////////////////////////////////NjY2+3FR/3NS/3NSxlI5U4Pb/Mwz/3RRlUJC1MN61sZ7/v7E///G///GNDQz////////////////////////////////";
-private static final String I_12_63_13="////////////////////////////////////NjY2kkFB/XJRxlI5/swxNDMx+8sx/3RR/3NSlUJC1MN61sZ7/v7E1sZ8/v7ENDQz////////////////////////////";
-private static final String I_12_63_14="////////////////////////NjY2MTExMTExw1E4U1JR/HJS/3NS/3NS/8wxlURBm4qC1cV7/v7EVFRTmouD/f3E///GnY2F/f3ENDQz////////////////////////";
-private static final String I_12_63_15="////////////////////NjY2w7qjxr2lnIyEnIyExVI6MzEx+3FRVFJSUlJS08R6/v7E///GxlQ7/nJRVFJSmouD1cV7/v7EnY2FMjIy////////////////////////";
-private static final String I_12_63_16="////////////////////NjY2w7qjU1NTxLujMzMyMTEx////NTU1UVFR08R6/v7E///G///GlURE/XJR/3NSxlI5U1JR08R61sZ7MzMy////////////////////////";
-private static final String I_12_63_17="////////////////////NjY2moqCxbykMzMy////////////NTU108N5/s0yxlM4/vzD///G///GlURE/XJR/3NSxlI5U1JRMTEx////////////////////////////";
-private static final String I_12_63_18="////////////////////////NTU1MTEx////////////NTU1+/vDxlQ7/swxxlM41cR5/v7E///GVFRTUlJSmouDxbyknIyEMjIyMTEx////////////////////////";
-private static final String I_12_63_19="////////////////////////////////////////////NjY2UVFR/HJSxlI5/nJRxlI5/vzDxlQ7/vzDlUREU1FRmouDxbykxr2lxr2lMzMy////////////////////";
-private static final String I_12_63_20="////////////////////////////////////////NjY2kkFBlEJClEJC/XJR/3NSxlI5xlI5/nJRlUJC/XJRVFJSxLujU1NTUlJSxLujMzMy////////////////////";
-private static final String I_12_63_21="////////////////////////////////////////NjY2kkFBxVE5lEJBlEJCMjExkkFBxVE5/nJR/3NS/3NSVFJSMTExMTExw7qjnIyEMjIy////////////////////";
-private static final String I_12_63_22="////////////////////////////////////NjY2w1E4/swxxlM4xlI5MzEx////NjY2kkFB/XJR/3NS/3NS/3NSNDIx////NjY2MTEx////////////////////////";
-private static final String I_12_63_23="////////////////////////////////////NjY2+8sx/84x/84xlURBxbujMzMy////NjY2w1E4/nJR/3NS/3NSNDIx////////////////////////////////////";
-private static final String I_12_63_24="////////////////////////////////NjY2+8sx/84x/84x/84xxpwYMzIwMTEx////NjY2w1E4/nJR/8wx/3RR/8wxNDMx////////////////////////////////";
-private static final String I_12_63_25="////////////////////////////////NTU1MTEx+8sxNDMxw5oYMzIw////////////////NjY2+8sx/84x/84x/84xxpwYMzIw////////////////////////////";
-private static final String I_12_63_26="////////////////////////////////////NTU1MTEx////NTU1MTEx////////////////NTU1w5oY/s0w/84x/84x/84xNDMx////////////////////////////";
-private static final String I_12_63_27="////////////////////////////////////////////////////////////////////////NjY2MTEx+8sxNDMx+8sxNDMxMTEx////////////////////////////";
-private static final String I_12_63_28="////////////////////////////////////////////////////////////////////////////NjY2MTEx////NjY2MTEx////////////////////////////////";
-private static final String I_12_63_29="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_63_30="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_63_31="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_64_0="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_64_1="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_64_2="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_64_3="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_64_4="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_64_5="////////////////////////////////////////////////////////////////////MTExMTEx////////////////////////////////////////////////////";
-private static final String I_12_64_6="////////////////////////////////////////////////////////////////MDAwTU1NLCws////////////////////////////////////////////////////";
-private static final String I_12_64_7="////////////////////////////MjIyMDAw////////////////////////////MDAwTk5OLCws////////////////////////////////////////////////////";
-private static final String I_12_64_8="////////////////////////NDMztJNzMjIyaqxRRHc/////////////MjIyMjIyUlJSUlJSUVFRMTEx////////////////////////////////////////////////";
-private static final String I_12_64_9="////////////////P202MDAwoIJmUVBQaKdPPGk4////////////Ly8vTU1NSUlJUVFRTU1NSUlJMzU2////////////LS0tLS0tMjIy////////////////////////";
-private static final String I_12_64_10="////////////Pmw5Z6dPaapRo4ZospJxMjIx////////////////MTExT09PS0tLUVFRT09PLS0t////////Pm06aqxRLzAvpIZoVFRTLy8v////////////////////";
-private static final String I_12_64_11="////////////////RHc/RHc/MTExtJRzlHNSMjIy////MjIyMjIyUlJSUlJSUVFRUlJSUlJSMjIyMjIy////////QnI5a6tSNDMztJRzMTEx////////////////////";
-private static final String I_12_64_12="////////////////////////LCwsjm5Ojm5PgmVIMTEximtNgmVIUE9OTU1NSEhIUVBQTU1Ng2ZJkHBQLi4u////MjIyLi4uoIJmtJNyLCws////////////////////";
-private static final String I_12_64_13="////////////////////MDAwh2lLkXBRkXBRS0tLsJBxcFhBalI9kXBRjm5Ph2lLk3JRjm5PalI9dFpCrIxtLi4utJNyrIxtpYdptJRzLzAv////////////////////";
-private static final String I_12_64_14="////////////////////NDY3kG9QknJSdFtDUVBQVVNUtJNzsZFwdFtDc1pDcFhBdFtDc1pCsZFwtJNzs5NycFhBtJRztJNyr5Bva61SaqxRQ3U+////////////////";
-private static final String I_12_64_15="////////////////////////LjAxjG1Ojm5PSEhI9IaeqIproINlrI1uTU1NSEhIsJBxqIproIJmUVBQalI9g2ZJsJBxpIZoKysrQ3Y/Pmw5////////////////////";
-private static final String I_12_64_16="////////////////////////////NDY3NDY3TU1N+4ujspJxqotsUVFRVFJTTU1NUlJSspJxTU1NknJSjm5Pi2xNknJSjm5PLi4u////////////////////////////";
-private static final String I_12_64_17="////////////////////////////////////MDAwVFNStJNzsZFwUlJS/oukUVBQUlJStJNzUVBQknJSc1pCcFhBknJSkXBRMzU2////////////////////////////";
-private static final String I_12_64_18="////////////////////////////////////LjAxjG1OimtMoINlTk5O64KYSEhIUVBQqIprgmVIUVBQhWdKgmVIMzU2LzEy////////////////////////////////";
-private static final String I_12_64_19="////////////////////////////////////////NDY3kXBRimtNU1JRUVFRTU1NVFNSkXBRi2xNknJSMjQ1MTM0////////////////////////////////////////";
-private static final String I_12_64_20="////////////////////////////////////////////MzU2MTM0kXBRUVFRUE9OlHNSkXBRjG1ONDY3////////////////////////////////////////////////";
-private static final String I_12_64_21="////////////////////////////////////////////////////MDAwLi4ugmVIkHBQLi4uKysr////LS0tLCws////////////////////////////////////////";
-private static final String I_12_64_22="////////////////////////////////////////////////Ly8vUlJSUVFRT09PUlJSUVFRMDAwMjIyUVFRT09PMjIy////////////////////////////////////";
-private static final String I_12_64_23="////////////////////////////////////////////////MTM0UVFRUVFRTk5OUlJSUVFRTk5OUlJSMzU2MTM0UlJSMDAw////////////////////////////////";
-private static final String I_12_64_24="////////////////////////////////////////////////////MTM0TExMSEhIUVBQTExMLjAxMzU2////////MzU2LzEy////////////////////////////////";
-private static final String I_12_64_25="////////////////////////////////////////////////////////NDY3MjQ1NDY3NDY3////////////////////////////////////////////////////////";
-private static final String I_12_64_26="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_64_27="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_64_28="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_64_29="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_64_30="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_64_31="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_65_0="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_65_1="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_65_2="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_65_3="////////////////////////////////////////////////////NTU1MTExMTEx////////////////////////////////////////////////////////////////";
-private static final String I_12_65_4="////////////////////////////////////////////////NTU1y6NJ9t1Z995aNDMx////////////////////////////////////////////////////////////";
-private static final String I_12_65_5="////////////////////////////////////////NTU1MTExUVFR9NtZ/v78995c995aNDMx////////////////////////////////////////////////////////";
-private static final String I_12_65_6="////////////////////////////////////NTU189tZVFRSzKNK/v38995c995a9dxZVFRRNDMxNTQy////////////////////////////////////////////////";
-private static final String I_12_65_7="////////////////////////////////////NTU1sqvzVVRX89tc995a995a9dxZzKVJV1RS9Nxa995aNDMx////////////////////////////////////////////";
-private static final String I_12_65_8="////////////////////////////////Nzc1UVFRUlJSs6z0ta33ta339d1czaRMVFVV89tc9t5a9dxZNDMx////////////////////////////////////////////";
-private static final String I_12_65_9="////////////////////////////NTU1y6NJdHPLs6z2ta33ta33ta33ta33dXTOs6z2ta339d1czKRJMzIx////////////////////////////////////////////";
-private static final String I_12_65_10="////////////////////////////Nzc3cXHLzMz+ta33s6v1ta33ta33lJTntK33ta33s6v1dHPOMjIz////////////////NTU1NTQyMTEx////////////////////";
-private static final String I_12_65_11="////////////////////////ODU3y8v7zcz+ta73s6v1dHXPs6z2s6z2ta33taz2ta33dHPNUlJTMzQ0MTExNTQy////Nzc189tZ995a995aNzYy////////////////";
-private static final String I_12_65_12="////////////////////NTU15Hmjzcv8ta73ta33dHTOs6v2ta33lpTmk5PmtK32VVRXVFRVs6z0zs389d5f9NtZNTQy89pY995a9dxZzqVKzqVKMzIx////////////";
-private static final String I_12_65_13="////////////////NjY4MTEx4nmktaz1s6z2taz2lZTntav14nuj53qldHPNs6z2ta33ta33zMz+9t1c//75VFVVUlJS8dlb9t1dz6VKzqVKzqVKMzIx////////////";
-private static final String I_12_65_14="////////////NTU1kpLkU1NUk5LktK33lZTnsqv0tKz15HunNTM143qjdnTOtKz2ta33s6v1lJTny6NM9NtaVVRSUlJTk5PlkpLmzKROzaVKy6JJNzc1////////////";
-private static final String I_12_65_15="////////////NjY4kpLkU1NVsarwsqrzs6z0VFNVUlJScXHKlZXnsqr0taz3ta33ta33dXTPcnLLU1NWU1NUUVFRkZHik5PmdHTOcXHLyqJMODg2////////////////";
-private static final String I_12_65_16="////////NTU1kJDjlJTmdHTOUVFTNjY2UVFRU1NUUlJSUlJS+fn5VVVVsarxtaz3ta30t671U1NUcnLMc3PNVFRWVFRVcnLKc3PNVFNXMTEx////////////////////";
-private static final String I_12_65_17="////////NTU1cnLLk5PnlJTnMjIz////OTk5kZHhVFRXUlJSUlFSVFJSVFJSsqnx9txc9dxZVFRRcnLMkZHjk5PmlJPmVVVXVFRVs6z0MzI0////////////////////";
-private static final String I_12_65_18="////////NTU1kJDjlJTmlJTnMzM1////////NTU1kpLkU1JUpEJSpUJSpUJSVFFS8tlZzaRKVFNUcnLMU1NVkZHhs6v2tK33ta33s6v1MzM0////////////////////";
-private static final String I_12_65_19="////////OTk5cXHJk5PmlJTndHTOMTEz////NTU1kpLkpENUpUJSpUJSpUJSpUJSU1FSUlJTcnLMc3POc3POU1NVcXHJtKz2ta33dXTPMjEz////////////////////";
-private static final String I_12_65_20="////////////ODg4kZHhk5Plk5PlNzc5////NTU1kpLkpENUpUJSpUJTp0NUp0NUU1FScnLMcXHLc3POcnLOc3POUlJTs6v0ta33s6v1MzM0////////////////////";
-private static final String I_12_65_21="////////////////OTk5NjY2NjY2////////NTU3kpLkpURVzWKD53uk53ul53ulVVJTcXLJU1NWk5PldHTOcnLMVFNXs6z0ta33dXTPMjEz////////////////////";
-private static final String I_12_65_22="////////////////////////////////NTU1cXHLdHTOzGKD5nuk5nqj53ul5nqlzmOEU1JSkpLklJTnlJTnU1NUs6v0ta33s6v1sqv0Njc3////////////////////";
-private static final String I_12_65_23="////////////////////////////NTU3MTExcXHL+vr9pkZX5XmjzWKDzmWG5XqjzGSGVFJUkZHhk5PmkpLmVFRWsarws6z0c3PMNjY4////////////////////////";
-private static final String I_12_65_24="////////////////////////Nzc3cnLLU1NVcXHJkZHkk5PmzGSGpkRV/Pv8zmaHk5Hic3PMUlJTkZHic3POc3POMjIzNTU1NjY2////////////////////////////";
-private static final String I_12_65_25="////////////////////OTk5+fn5dHTMcnLMUlJTNjU1cXHJkZHkk5Plk5Plk5PlNzc5MTExUVFSU1NUc3PNdXTPNDI1////////////////////////////////////";
-private static final String I_12_65_26="////////////////////////OTk5NjY2NjY2NjY2////OTg4NTU1NjY2NjY2NjY2////NTU1c3PLs6v1ta73tKz2dXbPMjIz////////////////////////////////";
-private static final String I_12_65_27="////////////////////////////////////////////////////////////////////OTk5+fn5dHTM+fn7dHTM+fn7ODg4////////////////////////////////";
-private static final String I_12_65_28="////////////////////////////////////////////////////////////////////////OTk5NjY2NjY2NjY2NjY2////////////////////////////////////";
-private static final String I_12_65_29="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_65_30="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_65_31="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_66_0="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_66_1="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_66_2="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_66_3="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_66_4="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_66_5="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_66_6="////////////////////////////////////////////////////MDAwMTExNTMx////////////////////////////////////////////////////////////////";
-private static final String I_12_66_7="////////////////////////////////////////////LS4uNTMxLSws840n/ZIpLS0t////////////////////////////////////////////////////////////";
-private static final String I_12_66_8="////////////////////////////////////////////LS0t+5EoSUlJ7okm1FMoS0pJLS4u////////////////////////////////////////////////////////";
-private static final String I_12_66_9="////////////////////////////////////////////NTMx11Qp/ZIp11Qp/ZIp+5IqMTEx////////////////////////////////////////////////////////";
-private static final String I_12_66_10="////////////////////////////////////////MC4s7Yom/ZIp5YUl8Y4p01MrLS4u////////////////////////////////////////////////////////////";
-private static final String I_12_66_11="////////////////////MDAtNDIy////////MjIy5YUl64gm+5Qr44YnVbyFXMSKUbJ+LzAv////////////////////////////////////////////////////////";
-private static final String I_12_66_12="////////////////NDY39OUq7kpaNTQxNDEyUlNT/ZIp/ZUrWsaMXMSKXcaL/ZMqXMSKSoxrMTEx////////////////////////////////////////////////////";
-private static final String I_12_66_13="////////////////////MDAtzCpD3M8nuyY9S4xs4YQmUrSAXMSJ44Qk740mUVFR44QkVLqDMDAw////////////////////////////////////////////////////";
-private static final String I_12_66_14="////////////////LS0t5NMnUlJSQ39hTExMXcSLUbJ+U7aB/ZIp4YQm6tsnUVFR5YUlVbyFVFFS////////////////////////////////////////////////////";
-private static final String I_12_66_15="////////////////MTExyypCU1RTSoprUlNT7kpaWcKKWcSL/ZUrNTMx9+cpVVRS/ZIpWsaM7kpaMTExNTQxNDEy////////////////////////////////////////";
-private static final String I_12_66_16="////////////////////MDEyWcKKQ39hRH9i7kpauCU8UrSAWcKK44YoUFBQ/JEqU6994EVU7ElZLSws6NcnySlBLy4r////////////////////////////////////";
-private static final String I_12_66_17="////////////////////////MTExVLiCLS4uNDY32URTTU1NVVJT6ujo9vT07kpa2URT6EpayytD2URTxilB7ExZ39AmMDAw////////////////////////////////";
-private static final String I_12_66_18="////////////////////////NDY3WcKKNDY3////NTU1VFRU7kpa7Uxc7kpa8E1dzCxE/v7+SoxrWcSLU1RT9eYrUlJS7UxbNDIy////////////////////////////";
-private static final String I_12_66_19="////////////////////////////LjAx////MTEx4uLihoaH7Uxc4uLi3kdW+/v7t7fUiYmJSYppT698U7eCSIdoT698RYJk5ElXLSws////////////////////////";
-private static final String I_12_66_20="////////////////////////////////////NDY35+fnxMTf+/v7vb3b8/PzzMzsvb3b9vb2TY1uUrN/V7+HWcKKUrR/V7+HSotq2ENSMDAw////////////////////";
-private static final String I_12_66_21="////////////////////////////////////////MDAw8eIqNDY3yMjoNDY3UlJS+vr6/f39////UFBQWcSLSoprWMGJSoprWcSLMzU2NDY3////////////////////";
-private static final String I_12_66_22="////////////////////////////////////////LjAxLzEy////LjAx////MzU24uLii4uI+Pj4LjAxU7WBLy8vT617MDIzMjQ1////////////////////////////";
-private static final String I_12_66_23="////////////////////////////////////////////////////////////////MTM07+EpMTEx////MzU2////MTM0////////////////////////////////////";
-private static final String I_12_66_24="////////////////////////////////////////////////////////////////////NDY3NDY3////////////////////////////////////////////////////";
-private static final String I_12_66_25="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_66_26="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_66_27="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_66_28="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_66_29="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_66_30="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_66_31="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_67_0="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_67_1="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_67_2="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_67_3="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_67_4="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_67_5="////////NjY2////MTEx////////////////////NjY2MTExMTExMTEx////////////////////////////////////////////////////////////////////////";
-private static final String I_12_67_6="////NjY2y3GCMTExznOEMTEx////////NjY2MTExullqzXKDznOEvVprMzExMTEx////////////////////////////////////////////////////////////////";
-private static final String I_12_67_7="////NjY2ullqUlJSvVprvVprMTExMTExullqzXKDjUJSvFlqvVprvVprpWrsvFptMzEx////////////////////////////////////////////////////////////";
-private static final String I_12_67_8="////////NjY2vVprUlJSvVprpWvvUlJSjEJSvFlqvVprjEJSvFlqpWrsvFptpWrsMjEz////////////////////////////////NjY2////////////////////////";
-private static final String I_12_67_9="////////NjY2jFrOUlJSpWvvvVprUlJSvVprjEJSvFlqjEJSvFlqpWrspWvvvFptjEJSMjEx////////////////////////NjY2y3GCMzIy////NTU1////////////";
-private static final String I_12_67_10="////////////MTExvVprUlJSpWvvvVprUlJSvVprjEJSjEJSvFlqvVprvVprjEJSvFlqMzEx////////////////////////NjY2ullqU1JSMTExy3GCMzIy////////";
-private static final String I_12_67_11="////////////////MTExjEJSUlJSUlJSvVpra2trvZRrUlJSpWvvjEJUjEJSvFlqpWrsMjEz////////////////////////NjY2o2rsU1JUMTExullqMzEx////////";
-private static final String I_12_67_12="////////////////////MTExvVprvVprUlJSMTEx9/cpUlJSUlJSvVprvVprpWrsMjEz////////////////////////NTU1ullqvVprU1JSi0JSpGrsMjEz////////";
-private static final String I_12_67_13="////////////////////MTExvVprUlJSa2tra2tra2tra2trUlJSpWvvvVprpWrsMjEz////////////////NjY2MTExMTExo2rspWvvU1JUu1lqvVprMzEx////////";
-private static final String I_12_67_14="////////////////////////MTExa2trMTExMTExUlJSa2trUlJSUlJSjEJSjEJSvVprMzEx////NjY2MTExy3GCznOEU1JSu1lqjEJSpGrspWvvvFptMzEx////////";
-private static final String I_12_67_15="////////////////////////////MTEx////////MTExa2tra2trjEJSvVprvVprpWvvMTExMTExy3GCjUJSvFlqvVprvVprU1JSi0JSvFlqMzExMTEx////////////";
-private static final String I_12_67_16="////////////////////////////////////MTExpWvva2trUlJSvVprvVprpWvvjEJSvVprjEJSjEJSvFlqjEJSvFlqpWrsvFptMzExMTEx////////////////////";
-private static final String I_12_67_17="////////////////////////////////////MTExUlJSUlJSpWvvvVprvVprjEJSvVprjEJSvVprjEJSvVprpWrsjEJUpGrspWvvMjEz////////////////////////";
-private static final String I_12_67_18="////////////////////////////////MTExpWvva2trUlJSUlJSjEJSjEJSvVprpWvvjEJSvVprpWvvjEJSpWvvjEJUvFlqvVprjEJSMjEx////////////////////";
-private static final String I_12_67_19="////////////////////////////////MTExUlJSa2tra2trUlJSvVprvVprpWvvvVprjEJSvVprpWvvjEJSvVprjEJSjEJSjEJSvFlqMzEx////////////////////";
-private static final String I_12_67_20="////////////////////////////////MTExa2tra2trUlJSpWvvvVprvVprpWvvvVprjEJSvVprvVprjEJSjEJSUlJSMTExjEJSvFlqMzEx////////////////////";
-private static final String I_12_67_21="////////////////////////////////MTExa2tra2trUlJSUlJSUlJSvVprjFrOjEJSvVprvVprUlJSjFrOMTExMTEx////MTExUlJSMTEx////////////////////";
-private static final String I_12_67_22="////////////////////////////MTExUlJSUlJSUlJSa2tra2trUlJSjEJSvVprvVpra2trMTExMTExMTEx////////////MTExMTEx////////////////////////";
-private static final String I_12_67_23="////////////////////////////MTExa2trMTExMTExUlJSUlJSUlJSUlJSvVprvVprMTEx////////////////////////////////////////////////////////";
-private static final String I_12_67_24="////////////////////////////MTExMTEx////////MTExMTExMTExUlJSvVprjEJSMTEx////////////////////////////////////////////////////////";
-private static final String I_12_67_25="////////////////////////////////////////////////////////MTExa2trMTEx////////////////////////////////////////////////////////////";
-private static final String I_12_67_26="////////////////////////////////////////////////////////MTExMTEx////////////////////////////////////////////////////////////////";
-private static final String I_12_67_27="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_67_28="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_67_29="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_67_30="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_67_31="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_68_0="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_68_1="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_68_2="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_68_3="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_68_4="////////////////////////////////////////////////////////////LS0tMTEx////////////////////////////////////////////////////////////";
-private static final String I_12_68_5="////////////////////////////////////////////////////////MTExUlJSMTEx////////////////////////////////////////////////////////////";
-private static final String I_12_68_6="////////////////////////////////////////////////////////Li4uTExMMzU2////////////////////////////////////////////////////////////";
-private static final String I_12_68_7="////////////////////////////////////////////////LS0tMjIySktLLS0t////////////////////LS0tMDAwKysr////////////////////////////////";
-private static final String I_12_68_8="////////////////////////////////////////////MTExUlRTSpNrSpRrUlJSMjIy////MjIyMjIyMjIyUlJSUlJSMzU2////////////////////////////////";
-private static final String I_12_68_9="////////////////////MC8x////////////////////Li4uRYZiUlRTRYZiTExMQ0NDLS0tTE5NUlJSSkpKTExMMzU2////////////////////////////////////";
-private static final String I_12_68_10="////////////////MzI0e0yoLCws////////////MTExQ4dhS0xLWsSLSktLTExMUlRTQ4dhRYdjSpNrSkpKLS0t////////////////////////////////////////";
-private static final String I_12_68_11="////////////MTExhFK1hFK1MTEx////////////MTExSpNrWsSLUlJSUlJSUlRTSpRrQkJCUlRTWsaMUlJSMTEx////////////////////////////////////////";
-private static final String I_12_68_12="////////////LSwug1K0eEulLS0t////////////MTExOzs7SkpKUlJSSkpKUrN/UlJSPD49UrWAUlJSSUlJLjAx////////////////////////////////////////";
-private static final String I_12_68_13="////////Li4ud0qjg1K0PTw9SkpKMjIy////LCwskzExPDw8SkpKQkJCPDw8PTw9WsSLUrN/TExMUlJSLCws////////////////////////////////////////////";
-private static final String I_12_68_14="////////MTExg1G0g1K0Q0NDUlJSUlJSMTExkzExkzIyREJCREJCxTExxDIyQ0NDUlJSUlJSRERENDQ0////////////////////////////////MzI0MTEx////////";
-private static final String I_12_68_15="////////LS0tdkmhQkJCSktLSkpKQkJCiC0thiwsREJCsiwssiwsxjQyPDw8SktLQkJCPTw9paWltLS0Li4uLS0t////////////////////MC8xglGzKysr////////";
-private static final String I_12_68_16="////////Ly8veEulQkJCTk5OTExMQ0NDjS8vti0txTExuC4uti0t/9Y5TExMPz8/QkJCp6enq6urhYWFpqamLi4u////////////////LS4wf0+vglKyLjAx////////";
-private static final String I_12_68_17="////////MTExREFBQkJCUlJSUlJSUlJSQkJCxDIyxDIyWsSLMjIy/dQ6UlJSUlJSUlJSREREtLS0tbW1srKyMzU2////////MzI0MzI0g1G0hFK1MTEx////////////";
-private static final String I_12_68_18="////////LCwsrSsrREFBSkpKLS4wMTExPDw8SUlJUVFRSUlJSUlJUlJSSUlJPj4+QkJCoKCgo6Ojs7OzKysr////MTExLSwud0qjglGydUmgeUymMjQ1////////////";
-private static final String I_12_68_19="////////MDIzLS0txTExMDIz////////MDIzTExMRUVFTExMTExMRUVFQEBA2tratLS0Pj4+Pz8/Q0NDPTw9Ly8vQkJCeUumfU2rg1K0eUumLy8v////////////////";
-private static final String I_12_68_20="////////////MjQ1MzU2////////////////MjQ15eXlQ0NDRERE5+fn4+Pj4uLiRENEUVFRUVFRUlJSUFBQUVFRRENEgVCxglGzhFK1gFCvMzU2////////////////";
-private static final String I_12_68_21="////////////////////////////////////////MjIyoKCgzMzM5ubmzMzMPTw9g1K0Ozs7SkpKUlJSSUlJPDw8glGydUmgd0qjgVGwLS4w////////////////////";
-private static final String I_12_68_22="////////////////////////////////////Ly8vUlJSQEBAPz8/5eXlQEBBgE+vg1K0QEBAT09PUlJSTU1NQkFCg1K0fE2pf0+tMzU2////////////////////////";
-private static final String I_12_68_23="////////////////////////////////////MjQ1UlJSUVFRMjQ1MzU2YUmJYUmJQkJCUVFRQEBBREJCREFBgVCxg1KzMjQ1MjQ1////////////////////////////";
-private static final String I_12_68_24="////////////////////////////////////////MzU2LS4w////////LS4wLjAwMzU2SUlJPDw8wjIyrSsrLjAwMjQ1////////////////////////////////////";
-private static final String I_12_68_25="////////////////////////////////////////////////////////////////////MS8vT09PREJCLi4u////////////////////////////////////////////";
-private static final String I_12_68_26="////////////////////////////////////////////////////////////////MzU2jS8vQEBAkzExMDIz////////////////////////////////////////////";
-private static final String I_12_68_27="////////////////////////////////////////////////////////////////////LjAxLjAxNDY3////////////////////////////////////////////////";
-private static final String I_12_68_28="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_68_29="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_68_30="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_68_31="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_69_0="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_69_1="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_69_2="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_69_3="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_69_4="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_69_5="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_69_6="////////////////////////////////////////////////////////////////////////MzQ1////MjM0////////////////////////////////////////////";
-private static final String I_12_69_7="////////////////////////////////////////////////////////////////////MzQ1ect5MjMyect5MjMy////////////////////////////////////////";
-private static final String I_12_69_8="////////////////////////////////////////////////////////////////MzQ1MTExaqtRes16a61SMTIx////////////////////////////////////////";
-private static final String I_12_69_9="////////////////////////////////////////////////////////MzQ1MTExaqtRQnM5QnM5aqxRQnM5aqxRMTIxMTEx////////////////////////////////";
-private static final String I_12_69_10="////////////////////////////////////////////////////MjM0aqtRa61SQnM5aqxRQnM5aqxRQnM5aqxRa61SQnM5MTIx////////////////////////////";
-private static final String I_12_69_11="////////////////////////////////////MzQ1////////MjM0UYpRaqxSQnM5aqxRa61SQnM5aqxRa61SQnM5aqxRa61SQnM5MTIx////////////////////////";
-private static final String I_12_69_12="////////////////////////////////MzQ1ect5MjMyMTExUVFRUotSQnM5UYtRaqxSQnM5aqxRa61Sa61Sa61SQnM5aqxRUoxSMTIx////////////////////////";
-private static final String I_12_69_13="////////////////////////////////MzQ1ect5e857e857Y5xjUlNSUlJSUotSUoxSQnM5aqxRa61Sa61Sa61SQnM5UYtRUoxSMTIx////////////////////////";
-private static final String I_12_69_14="////////////////////////////////MzQ1ect5e857Y5xjQnM5QnM5YptiUlNSUotSQnM5UYtRUoxSUoxSUoxSQnM5UYtRUoxSMTIx////////////////////////";
-private static final String I_12_69_15="////////////////////////////MzQ1ect5e857e857QnQ6QnM5QnM5esx5Y5xjUlNSUlJSUlJSUotSUoxSUoxSQnM5UYtRMTIx////////////////////////////";
-private static final String I_12_69_16="////////////////////////////MzQ1Yppies16e857e857e857e857e857e857e857e857UlNSUotSUoxSQnM5UVJRMTEx////////////////////////////////";
-private static final String I_12_69_17="////////////////////////MzQ1uklBQ3I5esx5e857e857Y5xjes16e857e857e857UlNSYppiUlNSUlJSUlJSYppiMTIx////////////////////////////////";
-private static final String I_12_69_18="////////////////////////MjM0ect5e857e857e857QnQ6esx5UlNSMTExUVFResx6Y5xjY5xjY5xjY5xjY5xjQnM5QnM5MTIx////////////////////////////";
-private static final String I_12_69_19="////////////////////////////MzQ1ect5e857e857e857MjMyMTEx+/v7////ZZ1lY5xjY5xjUlNSYppiY5xjQnM5QnM5MTIx////////////////////////////";
-private static final String I_12_69_20="////////////////////////////MzQ1Yppies16e857e857MjMy5ElB/vz8ZZ1lY5xjY5xjQnM5QnM5UVJRYppiY5xjY5xjMTIx////////////////////////////";
-private static final String I_12_69_21="////////////////////////////////MzQ1MTExYppiY5xjY5xjY5xjY5xjY5xjUlNSYppiQnM5QnM5UVJRYppiu7y7MzMz////////////////////////////////";
-private static final String I_12_69_22="////////////////////////////////////////MzQ1MTExMTExMTExMTExMTExYppiY5xjY5xjY5xjUlNSMTExMTEx////////////////////////////////////";
-private static final String I_12_69_23="////////////////////////////////////////////////////////////MzQ1+/v7ZZ1l/P38VFRUMTEx////////////////////////////////////////////";
-private static final String I_12_69_24="////////////////////////////////////////////////////////////////MzQ1MTExMTExMTEx////////////////////////////////////////////////";
-private static final String I_12_69_25="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_69_26="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_69_27="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_69_28="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_69_29="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_69_30="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_69_31="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_70_0="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_70_1="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_70_2="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_70_3="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_70_4="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_70_5="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_70_6="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_70_7="////////////////////////////////////Li4uMTEx////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_70_8="////////////////////////////////MzU2ZWVla2trMTEx////////MTExLS0tMTEx////////////////////////////////////////////////////////////";
-private static final String I_12_70_9="////////////////////////////////////MTExc3Nzc3NzMjIyMjIzc3NzcnJycnJyNDY3////////////////////////////////////////////////////////";
-private static final String I_12_70_10="////////////////////////////////MjIzLi4uTk5OcHBwSkpKbm5ucHBwLCwsMzU2////////MDAwLy8v////////////////////////////////////////////";
-private static final String I_12_70_11="////////////////////////////Ly8vpIt6k31uUE9PUlFRSkpKbW1tUlFRLi4u////////LC4sQKAoMDEvLC4sMDAw////////////////////////////////////";
-private static final String I_12_70_12="////////////////////////////NDY3pIt6VFNTpYx7pYx7pIt7VFNTpYx7pIt7MjIyMTMxMXoYMXoYQaQpQaQpNDY3////////////////////////////////////";
-private static final String I_12_70_13="////////////////////////////////MDAwknxtm4NzoIh3knxtm4NzoIh3knxtUlJSL3cXK20Vn4d3LnQXLS0t////////////////////////////////////////";
-private static final String I_12_70_14="////////////////////////////////MjIzlH1unYV1oIh4lX9xnYV1o4t7eGJT9/f3MHgYknxtoIh4nYV1lH1uMDAw////////////////////////////////////";
-private static final String I_12_70_15="////////////////////////////MTExpYx7pIt6pYx7p45++vr6p45+/////Pz8vb29QaQpMXoYpYx7pYx7pIt6pIt6MTEx////////////////////////////////";
-private static final String I_12_70_16="////////////////////////////Li4ugmpZknxtnYV29/f3LCws7+/v9/f3pqemMHgYQKAoLW4Xn4d3m4R0knxtLy8vMTM0////////////////////////////////";
-private static final String I_12_70_17="////////////////////////////MjQ1UlJSTU1N9vb2+/v7TU1N9vb2+Pn4LXEXQaIoMHgYln9woop5oIh3eGFSMjIz////////////////////////////////////";
-private static final String I_12_70_18="////////////////////////////////NDY3+vr6/f39/f39/Pz8/Pz8MnwZQaQpQaQpM3sagmpZpIt6g2tagmpZvb29MTEx////////////////////////////////";
-private static final String I_12_70_19="////////////////////////////////////KysrTE1MT1FPpqelLnMXP58nK20VMXYZf2dWdF5PLy8vMjIzdF5PtbW1Li4u////////////////////////////////";
-private static final String I_12_70_20="////////////////////////////////////LzEyL3YYQaApPJYlQJ8oMnkaLnEYgWlZMDAwLzEyMzU2////LS0twzgQMjQ1////////////////////////////////";
-private static final String I_12_70_21="////////////////////////////////////////MTExVFJRQaApNDY3g2taoop6MTExNDY3////////////MzU2NDY3////////////////////////////////////";
-private static final String I_12_70_22="////////////////////////////////////////LS0tvDcQLjAx////Ly8vqKWlLy8v////////////////////////////////////////////////////////////";
-private static final String I_12_70_23="////////////////////////////////////////MzU2NDY3////////MTExuDUQNDY3////////////////////////////////////////////////////////////";
-private static final String I_12_70_24="////////////////////////////////////////////////////////NDY3MzU2////////////////////////////////////////////////////////////////";
-private static final String I_12_70_25="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_70_26="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_70_27="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_70_28="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_70_29="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_70_30="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_70_31="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_71_0="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_71_1="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_71_2="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_71_3="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_71_4="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_71_5="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_71_6="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_71_7="////////////////////////////////////////////////////////NjY2MTEx////NjY2MTEx////////////////////////////////////////////////////";
-private static final String I_12_71_8="////////////////////////////////////////////////NjY2////NjY28+QpNDMw8+QpNDMw////////////////////////////////////////////////////";
-private static final String I_12_71_9="////////////////////////////////////////////NTU1QWpJMTEx8+QpvaZZvaVavaVa9uUpNDMw////////////////////////////////////////////////";
-private static final String I_12_71_10="////////////////////////////////////////////NjY2UVFRSotSUVJS9OQpVFRR9OQpVFRRMTEx////////////////////////////////////////////////";
-private static final String I_12_71_11="////////////////////////////////////////////NjY2SYpRSoxSSoxSUVJSSotSUVJSSotSUVJSMTExMTEx////////////////////////////////////////";
-private static final String I_12_71_12="////////////////////////////////NjY2MTExMTExist5jM57S41SSoxSSoxSSoxSSoxSQmtKSYtRSoxSMTIx////////////////////////////////////////";
-private static final String I_12_71_13="////////////////////////NjY2MTExaqNRa6VSUlNSUlJSi8x6S41SSoxSisx6jM57jM57UlNSSotSQmtKMTEx////////////////////////////////////////";
-private static final String I_12_71_14="////////////////////NjY2QWpJaqRRUntCUlJRaqNSUlNSi8x6jM57jM57UlNSUlJSi8x6jM57UlNSUlJSaqNSMTIx////////////////////////////////////";
-private static final String I_12_71_15="////////////////////NjY2aqNRUntCaqRRUlNSaqNSi816jM57jM57UlNSMTEx+/v7VFRUi8x6jM57a6VSa6VSMTIx////////////////////////////////////";
-private static final String I_12_71_16="////////////////////NjY2UVFRaqNSa6VSMTIxaqNRQmtKisx6jM57UlNSi4uLzMzcU1NUi8x6a6VSa6VSa6VSMTIx////////////////////////////////////";
-private static final String I_12_71_17="////////////////////////NTU1MTExMTEx////NjY2UVFRi8x6Q2xKisx6UlNSUlJSi8x6a6VSa6VSUlNSi8x6jM57MjMy////////////////////////////////";
-private static final String I_12_71_18="////////////////////////////////////////NjY2aqNRa6VSUlNSaqNSa6VSa6VSUlNSaqNSUlNSUnpCi8x6jM57jM57MjMyMTEx////////////////////////";
-private static final String I_12_71_19="////////////////////////////////////////NjY2UVFRaqNSa6VSa6VSUlNSaqNSa6VSa6VSUlNSaqNSUntCi8x6jM57S41SMTIx////////////////////////";
-private static final String I_12_71_20="////////////////////////////////////////NjY2QWpJUVJRMTExaqNRa6VSa6VSUlNSUlJSSotSMTIxaqNRUntCi8x6jM57jM57MjMy////////////////////";
-private static final String I_12_71_21="////////////////////////////////////////////NjY2MTEx////NjY2MTExUVFRSotSSoxSUVJSMTExaqNRa6VSUntCi8x6jM57MjMy////////////////////";
-private static final String I_12_71_22="////////////////////////////////////////////////////////////////NjY2QWpJSYtRMTIx////NjY2aqNRa6VSUntCUlJRMTEx////////////////////";
-private static final String I_12_71_23="////////////////////////////////////////////////////////////////////NjY2MTEx////////////NjY2MTExMTExMTEx////////////////////////";
-private static final String I_12_71_24="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_71_25="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_71_26="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_71_27="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_71_28="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_71_29="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_71_30="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_71_31="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_72_0="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_72_1="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_72_2="////////////////////////////////////////////////////////////NjY2////////////////////////////////////////////////////////////////";
-private static final String I_12_72_3="////////////////////////////////////////////////////////NjY2QXlJMTIx////////////////////////////////////////////////////////////";
-private static final String I_12_72_4="////////////////////////////////////////////////////NTU1WZJRQntKWZNRMTIx////////////////////////////////////////////////////////";
-private static final String I_12_72_5="////////////////////////////////////////////////////////NjY2QXlJMTIx////////////////////////////////////////////////////////////";
-private static final String I_12_72_6="////////////////////////////////////////////////////NTU1eatiOmRKQXpKMTIx////////////////////////////////////////////////////////";
-private static final String I_12_72_7="////////////////////////////////////////////////////NjY2eatiOmRKQXpKMTIx////////////////////////////////////////////////////////";
-private static final String I_12_72_8="////////////////////////////////////////////NjY2MTExWZJReqxiOmRKQXpKOWNKMTEx////////////////////////////////////////////////////";
-private static final String I_12_72_9="////////////////////////////NjY2////NjY2MTExWZJRWpRSeqxiOmRKQXpKQntKQntKOWNKMTEx////////////////////////////////////////////////";
-private static final String I_12_72_10="////////////////////////NjY2WZJRMTIxWZJRWpRSWpRSWpRSeqxiOmRKQXpKQntKQntKQntKOWNKMTEx////////////////////////////////////////////";
-private static final String I_12_72_11="////////////////////////////NjY2////NjY2WZJRWpRSeqxiOmRKQXpKQntKQntKQntKQntKQntKQntKMTIx////NjY2////////////////////////////////";
-private static final String I_12_72_12="////////////////////////////////////////NjY2WZJRWpRSOWNKQXpKQntKOWNKQXpKOWNKQXpKQntKQntKMTIxQXlJMTIx////////////////////////////";
-private static final String I_12_72_13="////////////////////////////////////////NjY2WZJROWNKQXpKQntKOWNKUVJROWJKUVJROWJKMTExMTEx////NjY2////////////////////////////////";
-private static final String I_12_72_14="////////////////////////////////////NTU1WZJRQntKQntKOWNKOWNKuqMQMzIw89s4fK1iMjIx////////////////////////////////////////////////";
-private static final String I_12_72_15="////////////////////////////////////NjY2MTExUVFReqtie61jUlNSUlJS9Ns5VFRReqtiMjIx////////////////////////////////////////////////";
-private static final String I_12_72_16="////////////////////////////////////////////NjY2UVFReqtie61jUlNSUlJSeqtiMjIx////////////////////////////////////////////////////";
-private static final String I_12_72_17="////////////////////////////////////////NjY2MTExeatiUlNSUlJSeqtie61jMjIx////////////////////////////////////////////////////////";
-private static final String I_12_72_18="////////////////////////////////////NjY2eatie61je61jUlNSeqtie61je61jm82LMjMyMTEx////////////////////////////////////////////////";
-private static final String I_12_72_19="////////////////////////////////NjY2eatie61je61jUlNSmsyLQ3xLmsyKnM6MnM6MnM6MnM6MMjMy////////////////////////////////////////////";
-private static final String I_12_72_20="////////////////////////////////NjY2eatie61jUlNSUlJSmsyLnM6MnM6MnM6MU1NSmsyLnM6MnM6MMjMy////////////////////////////////////////";
-private static final String I_12_72_21="////////////////////////////////////NjY2MTExMTExeatiQntKmsyKnM6MnM6MU1NSUlJSmsyLnM6MnM6MMjMy////////////////////////////////////";
-private static final String I_12_72_22="////////////////////////////////////////////NjY2eatim82LnM6MnM6MnM6MU1NSUlJSmsyLnM6MQ3xLMTIx////////////////////////////////////";
-private static final String I_12_72_23="////////////////////////////////////////NjY2QXlJeqxiUlNSmsyLnM6MQ3xLmsyKU1NSeqtinM6MnM6MMjMy////////////////////////////////////";
-private static final String I_12_72_24="////////////////////////////////////////NjY2eatie61je61jUlNSmsyLnM6MnM6MnM6MU1NSMTExMTEx////////////////////////////////////////";
-private static final String I_12_72_25="////////////////////////////////////////NjY2UVFReqtie61jUlNSmsyLnM6MQ3xLmsyKMjMy////////////////////////////////////////////////";
-private static final String I_12_72_26="////////////////////////////////////////////NjY2MTExMTExMTExeatim82LnM6MnM6MMjMy////////////////////////////////////////////////";
-private static final String I_12_72_27="////////////////////////////////////////////////////////NjY2UVFReqtiQntKeqxiMjIx////////////////////////////////////////////////";
-private static final String I_12_72_28="////////////////////////////////////////////////////////////NjY2MTExMTExMTEx////////////////////////////////////////////////////";
-private static final String I_12_72_29="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_72_30="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_72_31="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_73_0="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_73_1="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_73_2="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_73_3="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_73_4="////////////////////////////////////NjY2////NjY2////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_73_5="////////////////////////////////NjY2+/v7NDQ0+/v7NDQ0////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_73_6="////////////////////////////////NjY2+/v7////////NDQ0////////////////////NjY2////NjY2////////////////////////////////////////////";
-private static final String I_12_73_7="////////////////////////////////////NTU1+/v7////NDQ0////////////////NTU1+/v7NDQ0+/v7NDQ0////////////////////////////////////////";
-private static final String I_12_73_8="////////////////////////////////NTU1+/v7////////fUREMjExMTExMTEx////NTU1+/v7////////NDQ0////////////////////////////////////////";
-private static final String I_12_73_9="////////////////////////////////////NjY2+/v7////vr6+1Ts7/mpZ1jk5MzExurq6/f39////////////NDQ0////////////////////////////////////";
-private static final String I_12_73_10="////////////////////////////////////////NjY2+/v7////1jw8fEFBu7u7/f39////////vr6+MzMzMTEx////////////////////////////////////////";
-private static final String I_12_73_11="////////////////////////////////////NjY2UVFR/Pz8////////////////////////VFRUMTEx////////////////////////////////////////////////";
-private static final String I_12_73_12="////////////////////////////////////NjY2+/v7VFRU/Pz8////VFRUUlJS/Pz8////////NDQ0////////////////////////////////////////////////";
-private static final String I_12_73_13="////////////////////////////////////NjY2MTExUVFR/Pz8VFRU/Pz8vr6+U1NT/Pz8vr6+vb29MzMz////////////////////////////////////////////";
-private static final String I_12_73_14="////////////////////////////////NjY28/Mp9/cplWUhU1JR/Pz8NDQ0+/v7VFRU/Pz8////vr6+MzMz////////////////////////////////////////////";
-private static final String I_12_73_15="////////////////////////////NTU10zg4VFFR25pC3pxCVFNRMTExMTEx+/v7VFRU/Pz8vr6+vb29MzMz////////////////////////////////////////////";
-private static final String I_12_73_16="////////////////////////NTU1+2pZ1jk5VFFRkpKS/f39////lZWVU1NTUlJSu7u7vb29vb29MzMz////////////////////////////////////////////////";
-private static final String I_12_73_17="////////////////////////NjY2+2pZVFJS/Pz8////////////////////vr6+/f39VFRUekJCMjEx////////////////////////////////////////////////";
-private static final String I_12_73_18="////////////////////////////NjY2eUFBUlFR/Pz8////fURE/Pz8////////fUREe0JC/GpZ/2taNDEx////////////////////////////////////////////";
-private static final String I_12_73_19="////////////////////////////////NjY20zg4/vv7fURE/GpZ1jk5/vv7fURE1Dk5fEFB1Dk5/mpZ/2taNDExMTEx////////////////////////////////////";
-private static final String I_12_73_20="////////////////////////////////NjY2+2pZfUJCu7u7/Wxb/2ta1jk51jk51jk5/vv7VFRU0zk51jk5VFFR/Pz8NDQ0////////////////////////////////";
-private static final String I_12_73_21="////////////////////////////////////NjY20zg4/vv7lZWV/Wta/2ta1jk5/vv7vr6+vb29U1NTUlJSkpKS/f39////NDQ0////////////////////////////";
-private static final String I_12_73_22="////////////////////////////////NjY28/MplWUh1Dk41jk5/mpZ1jk51jk5fEFB/Pz8vr6+lJSU/f39////////////NDQ0////////////////////////////";
-private static final String I_12_73_23="////////////////////////////////////NjY2MTExMTExMTEx0zg41jk51jk51jk5fEFBe0JCu7u7/f39////////vr6+MzMz////////////////////////////";
-private static final String I_12_73_24="////////////////////////////////////////////////////NTU1MTExeUFBe0JCUlFRUlJSMTExurq6vb29vb29MzMz////////////////////////////////";
-private static final String I_12_73_25="////////////////////////////////////////////////////////////NjY28/Mp9/cpNDQw////NjY2MTExMTEx////////////////////////////////////";
-private static final String I_12_73_26="////////////////////////////////////////////////////////////////NjY2MTEx////////////////////////////////////////////////////////";
-private static final String I_12_73_27="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_73_28="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_73_29="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_73_30="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_73_31="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_74_0="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_74_1="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_74_2="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_74_3="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_74_4="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_74_5="////////////////////////////////////////////////////////////////////////////NTU1MTExMTExMTExMTEx////////////////////////////////";
-private static final String I_12_74_6="////////////////////////////////////////////////////////////////////////NjY2cXFqzMy7zs69zs69dHRsMjIx////////////////////////////";
-private static final String I_12_74_7="////////////////////////////////////////////////NjY2MTExMTExMTExMTEx////NjY2y8u6U1NTUlJSUlJSzMy7MzMz////////////////////////////";
-private static final String I_12_74_8="////////////////////////////////////////////NjY2cXFqzMy7zs69zs69dHRsMjIxmpqKnJyMzc28zs69zs69nJyMnJyMMjIy////////////////////////";
-private static final String I_12_74_9="////////////////////////////////////////////NTU1y8u6U1NTUlJSUlJSzMy7U1NTmpqLnJyMc3Nrc3Nrc3Nrm5uLnJyMMjIy////////////////////////";
-private static final String I_12_74_10="////////////////////////////NTU1MTEx////NTU1MTExmpqKzc28zs69zs69nJyMU1NSmpqLnJyMc3Nrc3Nrc3Nrm5uLnJyM9YxaNDIx////////////////////";
-private static final String I_12_74_11="////////////////////NTU1MTExMTEx84pZNDIxMTExmpqKnJyMc3Nrc3Nrc3Nrm5uLnJyMU1NScnJqc3Nrc3Nrc3Nrc3Nr9Ita94xa94xaNDIx////////////////";
-private static final String I_12_74_12="////////////////////NjY202pZVFJS9ItZ94xaVFJSUlJSmpqLc3Nrc3Nrc3Nrm5uLnJyM9YxaVFJS9ItZdXNq9Ita94xa94xaTKT89IxcNDIx////////////////";
-private static final String I_12_74_13="////////////////////NjY202pZVFJS02pZ9otaVFJS9ItZVFJScnJqc3Nrc3Nrc3Nr9Ita94xa94xa94xa94xa94xaTKT8o5yu9YxbTKT89IxcNDIx////////////";
-private static final String I_12_74_14="////////////NjY2MTEx02pZVFJS02pZVFJS9ItZVFJS9ItZVFJS9ItZdXNq9Ita94xa94xa94xa94xa94xa94xaTKT89IxcTKT89IxcTKT802tcMzEx////////////";
-private static final String I_12_74_15="////////NjY202pZ1mta1mtaVFJSUlJS9ItZ94xa94xa94xa94xaVFJSUlJSUlJS9ItZ94xa94xa94xaTKT89IxcTKT89IxcTKT89IxcTKT802tcMzEx////////////";
-private static final String I_12_74_16="////////////NjY2MTExUVFR9ItZ94xa94xa94xa94xa94xa94xa94xa94xa1mtaVFJS9ItZ94xaTKT89IxcTKT8o5yu9Yxbppur9YxbTKT802tcMzEx////////////";
-private static final String I_12_74_17="////////////////NTU102pZ9ota94xa94xa94xa94xa94xa94xaVFJS9ItZ94xa94xaVFJS9ItZTKT89IxcTKT8o5yu9YxbppurS6T902tcMzEx////////////////";
-private static final String I_12_74_18="////////////////NTU1+/v7941c94xa94xa1mta9ota1mta9ota1mtaVFJSUlJSUlJSUlJS9ItZTKT89IxcTKT8o5yu9YxbTKT802tc1mtaMzEx////////////////";
-private static final String I_12_74_19="////////////////NTU1+/v7zs6+1Wxbzsy7nJyM9YxaNDIx+/v7VFRU02pZ1mta1mta1mta9otaTKT89IxcTKT802tcTKT802tc1mta1mtadHJqMjIx////////////";
-private static final String I_12_74_20="////////////////////NTU1y8u6zs69zs69nJyM/f39////////VFRU02pZ1mta1mta1mta1mta1mtaTKT802tc1mta1mtaVFJS02pZ1mta1mtaMzEx////////////";
-private static final String I_12_74_21="////////////////////NTU1y8u6zs69zs69zs69nJyM/f39nZ2NnJyMU1NS02pZ1mta1mta1mta1mta1mta1mta1mtaVFJS02pZ1mta1mta1mtaMzEx////////////";
-private static final String I_12_74_22="////////////////NTU1y8u6zs69zs69zs69zs69zs69nJyMnJyMnJyMU1NS02pZ1mta1mta1mtaVFJS02pZMzExMTEx02pZ1mtaVFJS02pZMzEx////////////////";
-private static final String I_12_74_23="////////////////NTU1UVFRzMy7zs69zs69U1NTmpqLnJyMnJyMU1NS02pZ1mta9ota94xa1mtaVFJSMTEx////////NTU1MTExMTExMTEx////////////////////";
-private static final String I_12_74_24="////////////////////NTU1MTExmpqKc3Nrm5uLnJyMnJyMMjIyUVFR02pZ9ota94xa94xa1mta1mtaMzEx////////////////////////////////////////////";
-private static final String I_12_74_25="////////////////////////////NTU1MTExMTExMTExMTEx////NTU1UVFR02pZVFJS02pZ1mtaVFJSMTEx////////////////////////////////////////////";
-private static final String I_12_74_26="////////////////////////////////////////////////////////NTU1MTExMTExMTExMTExMTEx////////////////////////////////////////////////";
-private static final String I_12_74_27="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_74_28="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_74_29="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_74_30="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_74_31="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_75_0="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_75_1="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_75_2="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_75_3="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_75_4="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_75_5="////////////////////////////////////////////////MzQ1MTEx////////////////////////////////////////////////////////////////////////";
-private static final String I_12_75_6="////////////////////////////////////////////MzQ1upJxvZRzMzIy////////////////////////////////////////////////////////////////////";
-private static final String I_12_75_7="////////////////////////////////////////MzQ1UVFRu5JyvZRzU1NSMTEx////////////////////////////////////////////////////////////////";
-private static final String I_12_75_8="////////////////////////////////////MzQ1upJxU1NSu5JyvZRzU1NSu5JyMzIy////////////////////////////////////////////////////////////";
-private static final String I_12_75_9="////////////////////////////////////MjM0upJxU1NSu5JynHNSvJNyvZRzMzIy////////////////////////////////////////////////////////////";
-private static final String I_12_75_10="////////////////////////////////////////MjM0UVFRu5JyU1NSu5JyMzIy////////////////////////////MjM0MTExMTEx////////////////////////";
-private static final String I_12_75_11="////////////////////////////////////MzQ1upJxvZRzvZRzvZRzvZRzvZRzMzIy////////////////MzQ1MTExupJxvZRzvZRzMzIyMTEx////////////////";
-private static final String I_12_75_12="////////////////////////////////MzQ1upJxvZRznHNSU1JSu5JyvZRzvZRzvZRzMzIy////////MzQ1upJxvZRzvZRzvZRz9vWs9/et9/etNDQy////////////";
-private static final String I_12_75_13="////////////////MzQ1MTEx////////MzQ1upJxU1NSUlJSu5Jy/f38nXVUvJNyvZRzMzIy////////////vZRzvZRz9vWs9/et9/et9/etppVDMjIx////////////";
-private static final String I_12_75_14="////////////NjY2+/v7////NDQ0////////MzQ1UVFRu5Jy/f38NDQ0+/v7vpV1nHNSMjIx////MzQ1upJxvZRz9vWs9/et9/etppVDU1NRMTEx////////////////";
-private static final String I_12_75_15="////////////NjY2+/v7////NDQ0////////MzQ1upJxvZRz/f38VFRU/Pz8vpV1U1NSMTExMTExupJxvZRz9vWs9/etppVDpZRC9fWr9/etNDQy////////////////";
-private static final String I_12_75_16="////////////////MzQ1+/v7////NDQ0MTEx89Mx99YxppVBpZRC/f38nXVUnHNSU1JSu5JyvZRzvZRz9vWs9/et9/et9/et9/et9/et9/etNDQy////////////////";
-private static final String I_12_75_17="////////////////////MjM0UVFR9NMx99Yx99Yx99Yx99Yx99YxppVBnHNRnHNSnHNSvJNy9vWs9/et9/et9/et9/et9/etppVDpZRCMjIx////////////////////";
-private static final String I_12_75_18="////////////////////MjM089Mx99Yx99YxppVBpZRC/f38////////VFRUUlJS9PSr9/et9/et9/et9/et9/etppVDpZRC9fWr9/etNDQy////////////////////";
-private static final String I_12_75_19="////////////////////////MjM089MxppVB9dQxNDMxMTEx+/v7////lfdMlPdKU1RRUlJSUlJS9PSr9/et9/et9/et9/etNDQyMTEx////////////////////////";
-private static final String I_12_75_20="////////////////////////////MjM0MTExMTEx////////MjM0MTExeZpJm81KlPZKlPdKm85KU1NRUlJSMTExMTExMTEx////////////////////////////////";
-private static final String I_12_75_21="////////////////////////////////////////////////MjM08/OrVFRTUlJSmsxKnM5Ke5xKe5xKzMV6MzMy////////////////////////////////////////";
-private static final String I_12_75_22="////////////////////////////////////////////////MjM0UVFR9PSr9/etVFRTUlJSUlJSUlJSMTEx////////////////////////////////////////////";
-private static final String I_12_75_23="////////////////////////////////////////////MjM0o5JBpZRCMjIxy8N5zsZ7zsZ7U1NSUlJS9NMxNDMx////////////////////////////////////////";
-private static final String I_12_75_24="////////////////////////////////////////////////MjM0MTEx////MjM0MTExUVFR9NMx99Yx99YxNDMx////////////////////////////////////////";
-private static final String I_12_75_25="////////////////////////////////////////////////////////////////////MjM089MxNDMx89MxNDMx////////////////////////////////////////";
-private static final String I_12_75_26="////////////////////////////////////////////////////////////////////////MjM0////MjM0////////////////////////////////////////////";
-private static final String I_12_75_27="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_75_28="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_75_29="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_75_30="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_75_31="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_76_0="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_76_1="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_76_2="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_76_3="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_76_4="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_76_5="////////////////////////////////////////////////MjMyMTEx////////////////////////////////////////////////////////////////////////";
-private static final String I_12_76_6="////////////////////////////////////////MjMyMTEx7MuCMzMy////////////////////////////////////////////////////////////////////////";
-private static final String I_12_76_7="////////////////////////////////////MjMy7MuC786ErnxSMjIxMTEx////////////////////////////////////////////////////////////////////";
-private static final String I_12_76_8="////////////////////////////////MjMy7MuC786EzqVz7s2D786EMzMy////////////////////////////////////////////////////////////////////";
-private static final String I_12_76_9="////////////////////////////////UlRS7MyD786E786E786EMzMy////////////////////////////////////////////////////////////////////////";
-private static final String I_12_76_10="////////////////////////NDQyUFFR7MyD786E786E786EzqVzzqVzMzIy////////////////////////////////////////////////////////////////////";
-private static final String I_12_76_11="////////////////////MjMy03lJNjMx6sqC786E7MuC786EVFNSMTEx////MjMyMTEx////////////////////////////////////////////////////////////";
-private static final String I_12_76_12="////////////////////MzYz0XhJ1npJhYNy7cyDVlRRVVNR9JpC95xCVFNR9JpC95xCNDIx////////MjMyMTExMTEx////////////////////////////////////";
-private static final String I_12_76_13="////////////////////////MzYz0XhJ9ptCtmNC1ntJ85pBV1VU9JpC95xCVFNRUlJS9JpCNDIxMTEx7MuC786E786EMzMy////////////////////////////////";
-private static final String I_12_76_14="////////////////////////////MjMy9JpC95xC95xCVFNR/Pz8951EVFNRg4NyhIRz9ZtCVFNR7MyD786E786E786EzqVzMzIy////////////////////////////";
-private static final String I_12_76_15="////////////////////////MjMy85pB9pxD951EVFNRNTQz+/v7955F95xChINw9ZtCVFNR7MyD786E786E786ErnxSzaRyMzIy////////////////////////////";
-private static final String I_12_76_16="////////////////////////MjMyUVBR6sqC7s6E786E786E9ZxD95xB95xCV1NSUlJSzKNyzqVz7s2D786EzqVzrXtSzaRyzqVzMzIy////////////////////////";
-private static final String I_12_76_17="////////////////////////////NTYyUlJS68qC786E7s2Ez6Zz9JpCVFNR9JtCtmNCU1JRzKNyzqVzzqVzzqVzzqVzMzIyMTExMTEx////////////////////////";
-private static final String I_12_76_18="////////////////////////MjMy6ciCzqVyrnxTrnxTzaRyzqVzrnxS9ZtC95tC95xC95xCVVNSyqJxzqVzzqVzzqVzMzIy////////////////////////////////";
-private static final String I_12_76_19="////////////////////////////NTYyzKRyzaRzzqVzzqVzzqVy7s2EVlVT8ZhB95xCVFNRU1JRUlFRzKNyzqVzzqVzMzIy////////////////////////////////";
-private static final String I_12_76_20="////////////////////////MzYy6ciC7cyDzqd0z6Z0z6Z07s2E786E7MuCVlVT9JpC9JpC1XtKVFNSyaFwzKRyNDUy////////////////////////////////////";
-private static final String I_12_76_21="////////////////////////////MzYzUVBR6sqC7s6E7cyD786D7MuCVFRT03pK1HpJVlNRVFJRUVFRMzUzMzQz////////////////////////////////////////";
-private static final String I_12_76_22="////////////////////////////////NDQyUlJR7MyCzKNx7MuDV1VTUVFR0XlKtmRBt2RC03hJNTUz////////////////////////////////////////////////";
-private static final String I_12_76_23="////////////////////////////MjMy03tLtWRB7MqCV1VTVVRS85pBNDMxMjMx8ZhC9JtCNTYy////////////////////////////////////////////////////";
-private static final String I_12_76_24="////////////////////////////MzYz+Pj51HxMVlRU9JpB9p1E1HpJNTUz////MzUyMjMy////////////////////////////////////////////////////////";
-private static final String I_12_76_25="////////////////////////////////MzYzMzQz+Pj59JxE+/r5Njc1////////////////////////////////////////////////////////////////////////";
-private static final String I_12_76_26="////////////////////////////////////////MzYzMzQzMzQz////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_76_27="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_76_28="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_76_29="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_76_30="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_76_31="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_77_0="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_77_1="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_77_2="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_77_3="////////////////////////////////////NjY2MTEx////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_77_4="////////////////////////////////////NjY2cVmjMjEy////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_77_5="////////////////////////////////////////NTU1cVmjMjEy////////NTU1MTExMTEx////////////////////////////////////////////////////////";
-private static final String I_12_77_6="////////////NjY2MTEx////NjY2MTEx////////NjY2cVmjMjEy////NjY2knnLlHvOlHvOMjIz////////////////////////////////////////////////////";
-private static final String I_12_77_7="////////NjY2w1FZpUJKMjExw1FZpUJKMjEx////NjY2UVFRclmjUlJTknrMlHvOMjIzMTEx////////////////////////////////////////////////////////";
-private static final String I_12_77_8="////////NjY2o0FJxVFZU1JSw1NZU1JSxFJZMzEx////NjY2cVmjk3rNlHvOMjIz////////////////////////////////////////////////////////////////";
-private static final String I_12_77_9="////////////NjY207JiVFNS07NiVFNSxFJZMzEx////NjY2UVFRknrMMjIz////////////////////////////NjY2MTEx////NTU1MTEx////////////////////";
-private static final String I_12_77_10="////////NjY207Ji1rVj1rVjVFNSclmjMjEy////////NjY2cVmjk3rNMjIzMTEx////////////////////NjY282JqxlJaMTExw1FZ92NrMTExMTEx////////////";
-private static final String I_12_77_11="////////NjY207Ji1rVjVFNSclmjc1qlc1qlMjEyMTExknnLlHvOc1qlk3rNU1JTMTEx////////////////NjY2w1FZ92NrNDEx92NrUlJSxlJa92NrMTEx////////";
-private static final String I_12_77_12="////NjY2cVmjUlJT07NiVFNSxFJZdFmjUlJTknrMlHvOlHvOlHvOlHvOlHvOlHvOlHvOMjIz////NjY2MTEx////NjY289uKVFRS9NuLUlJS92Nr92NrMTEx////////";
-private static final String I_12_77_13="////NTU1cVmjc1qlc1qlUlJTxFJZU1JSknrM9dyNlXzMlHvO1LRk9t2LlXzMlHvOlHvOlHvOMjIzknnLlHvOMjIz////NTU189uK996M1rVj9t2L1rVjMTEx////////";
-private static final String I_12_77_14="////////NjY2MTExMTExUVFRclmjUlJT07Ni9t2L996M996M996M996M996MlXzMlHvOU1JTknrMlHvOlHvOU1JTMTEx89uK996M996M996M996MMTEx////////////";
-private static final String I_12_77_15="////////////////NjY2cVmjUlJTknrM9dyN996M996M996M996M/v79996N1rVjlXvMU1JTknrM9WNslXrMU1JTUlJS9NuL996M996M996M996MMTEx////////////";
-private static final String I_12_77_16="////////////////////NjY2MTExknnL9dyN996M996M996M996MNDMy+/v7996NlXzMlHvO9WNs92NrlXrMMjIzknnLc1ql9NuM996M996MdVykk3rNMjIz////////";
-private static final String I_12_77_17="////////////////////////////NjY207JilXvMlHvO9dyN996MNDMy+/v7996NlXzMU1JT9GJqlXrMMjIz////NjY2knnLc1qlUlJTclmjk3rNc1qlMjEy////////";
-private static final String I_12_77_18="////////////////////NjY2MTEx////NjY207Ji9t2L996M996M/v79996N996MlXzMlHvOMjIzMTEx////////////NjY2MTExcVmjUlJTMTExMTEx////////////";
-private static final String I_12_77_19="////////////////////NjY2cVmjMjEyMTExUVFRUlJS/Pz8vr629t2M996MlXzMMjIzMTEx////////////////////////NjY2cVmjMjEy////////////////////";
-private static final String I_12_77_20="////////////////////////NjY2cVmjc1qlc1qlc1qlUlJTUlJSUlJSMTExMTEx////////////////////////////NjY2cVmjk3rNMjIz////////////////////";
-private static final String I_12_77_21="////////////////////////////NTU1MTExMTExMTExUVFRknrMlHvOMjIz////////////////////////////NjY2cVmjk3rNMjIz////////////////////////";
-private static final String I_12_77_22="////////////////////////////////////////NjY289uKlXzMU1JTknrMMjIzMTExMTExMTExMTExMTExMTExknnLlHvOMjIz////////////////////////////";
-private static final String I_12_77_23="////////////////////////////////////NTU1cVmj1LNk9t2LVFRSknrMU1JTclmjc1qlc1qlc1qlk3rNlHvOMjIzMTEx////////////////////////////////";
-private static final String I_12_77_24="////////////////////////////////////NTU1UVFR07NiVFNSknrMU1JTclmjUlJTMTExMTExMTExMTExMTEx////////////////////////////////////////";
-private static final String I_12_77_25="////////////////////////////////////////NjY2MTExknnLMjIzcVmjc1qlMjEy////////////////////////////////////////////////////////////";
-private static final String I_12_77_26="////////////////////////////////////////////NjY2MTEx////NjY2knnLlHvOMjIz////////////////////////////////////////////////////////";
-private static final String I_12_77_27="////////////////////////////////////////////////////////////NjY2MTEx////////////////////////////////////////////////////////////";
-private static final String I_12_77_28="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_77_29="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_77_30="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_77_31="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_78_0="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_78_1="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_78_2="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_78_3="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_78_4="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_78_5="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_78_6="////////////////////////NjY2MTEx////////NTU1MTEx////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_78_7="////////////////////NjY2w6PLxqXOMzIzMTExMTExw6PLMzIz////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_78_8="////////////////////NjY2w6PLxqXOU1NTxKPMU1NTxKPMU1NTMTEx////////////////////////////////////////////////////////////////////////";
-private static final String I_12_78_9="////////////////NjY2moLDxaTNdFu1UlJTxKPMnITGxaTNxqXOMzIz////////////NjY2MTEx////////////////////////////////////////////////////";
-private static final String I_12_78_10="////////////////NjY2moLDc1q1m4PFxaTNxqXOxqXOxqXOnITGxaTNMzIz////NjY2w6PLxqXOMzIz////////////////////////////////////////////////";
-private static final String I_12_78_11="////////////////NjY2moLDU1JTxKPMxqXOxqXOxqXOxqXOxqXOxqXOxqXOMzIzw6PLnITGnITGMjIz////////NjY2MTEx////////////////////////////////";
-private static final String I_12_78_12="////////////////////NTU1+/v79/euxqbNxqXOxqXOxqXOxqXOxqXOxqXOdFu1m4PF9fWtnYXFMjIzMTExMTEx8/Or9/etNDQy////////////////////////////";
-private static final String I_12_78_13="////////////////////NjY2MTEx+/v7xqbOxqXO3cVT/v78////3sZUxqXMdFu19PSt9/etnYXFMjIz8/OrNDQy8/Or9/etnYVLMjIxMTEx////////////////////";
-private static final String I_12_78_14="////////////////////NjY2UVFR/Pz89/eu9/et/v79////NDQ0+/v73sZUdFuz9PSt3sZTnYXEMjIz8/Or3sZTnYVK3MRRVFNS9PSr3sZTMzMx////////////////";
-private static final String I_12_78_15="////////////////////NjY28/Or9/et9/et9/et/v79NDQ0MTEx+/v73sZUnYXEc1q1m4PFMjIz////NjY228NR9var9/et3sZT3sZS3sZSMzMx////////////////";
-private static final String I_12_78_16="////////////////////////NjY2urqy/f399/eu9/et/v79////3sZUnYXEc1q1MjEzMTEx////////NjY28/Or9/et9/et9/etVFRTMTEx////////////////////";
-private static final String I_12_78_17="////////////////////////////NjY2MTExurqy/f393sZU3sZSnYXEU1JTMTEx////////////////NjY228NR9var9/et3sZTMzMx////////////////////////";
-private static final String I_12_78_18="////////////////////////////NjY2w6PLU1NTUlJSUlJSUlJSMTExMTEx////////////////////////NjY228NR3sZSMzMx////////////////////////////";
-private static final String I_12_78_19="////////////////////////////////NjY2UVFR9PSr9/etnYXFxaTNnITGMjIzMTExMTEx////////////NjY2cVmyMjEz////////////////////////////////";
-private static final String I_12_78_20="////////////////////////////////////NTU128NR9var9/etVFRTxKPMxqXOMzIzcVmyMjEz////////NTU1moLDMjIz////////////////////////////////";
-private static final String I_12_78_21="////////////////////////////////NjY228NRVFNS28RS3sZSnYXEU1JTUlJSMTExMTExcVmyMjEzMTExcVmym4PFMjIz////////////////////////////////";
-private static final String I_12_78_22="////////////////////////////////////NjY2MTExMTExUVFRUlJSclmzMjEz////////NjY2cVmym4PFnITGMjIz////////////////////////////////////";
-private static final String I_12_78_23="////////////////////////////////////////////////NjY28/Or3sZTMzMx////////////NjY2MTExMTEx////////////////////////////////////////";
-private static final String I_12_78_24="////////////////////////////////////////////////////NjY2MTEx////////////////////////////////////////////////////////////////////";
-private static final String I_12_78_25="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_78_26="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_78_27="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_78_28="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_78_29="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_78_30="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_78_31="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_79_0="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_79_1="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_79_2="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_79_3="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_79_4="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_79_5="////////////////////////////NjY2////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_79_6="////////////////////////NTU10+TzMzM0////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_79_7="////////////////////////NjY20+TzMzM0////////////////////////////////NjY2MTEx////////////////////////////////////////////////////";
-private static final String I_12_79_8="////////////////////NjY2o8PLZHzO1OX2MzM0////////////////////NjY2MTEx0+TzMzM0////////////////////////////////////////////////////";
-private static final String I_12_79_9="////////////////////NjY2o8PLZHzO1OX2MzM0////////////////NjY20+Tz1uf3pcbOMjMz////////////////NjY2MTExMTEx////////////////////////";
-private static final String I_12_79_10="////////////////////NjY2o8PLpcbOU1NTMTExMTExMTEx////NjY20+Tz1uf3lab3MjI0////////////////NjY20+Tz1uf31uf3MzM0////////////////////";
-private static final String I_12_79_11="////////////////////////NjY2UVFRkqP0lKX3lKX3Y3vOY3vOMTIz0+TzZHzOo8TOMjMz////////////NjY20+Tz1uf31uf31uf31uf3MzM0////////////////";
-private static final String I_12_79_12="////////////////////NjY2YnnLk6T2lKX3lKX3lKX3lKX3U1NU0+T0ZHzOo8TOU1NTMTEx////////////NjY20+Tz1uf3VFRU0+T0pcbOMjMz////////////////";
-private static final String I_12_79_13="////////////////////NjY2kqPzlKX3lKX3lKX3lKX3lKX3U1NU0+T0ZHzOo8TOpcbOMjMz////////NTU10+Tz1uf31uf3pcbOU1NTUlJSMTEx////////////////";
-private static final String I_12_79_14="////////////////NTU1kqPzlKX3lKX3lKX3lKX3lKX3MjI0QVmaUVJTo8TMpcbOU1NTs4NKMzIx////NTU10+Tz1uf3VFRUUlJSo8TMMjMz////////////////////";
-private static final String I_12_79_15="////////////////NjY2kqPzlKX3lKX3Y3vOk6T2MjI0srKyQ1ucYnrNUlJTUlJSakops4NJjGM5MjExo8PLpcbOU1NT0+T01uf3MzM0////////////////////////";
-private static final String I_12_79_16="////////////////////NjY2kqPzlKX3Y3vOQlqcMTEy+/v7////ZX3OUlJT/Pz8////bUwss4NJU1JRo8TMpcbOU1NT0+T01uf3MzM0////////////////////////";
-private static final String I_12_79_17="////////////////////NjY2YnnLk6T2lKX3lKX3jGQ7/fz7RFydQlqcUVJTUlJS/Pz8bUwss4NJjGM5UlJRo8TMpcbOpcbOMjMz////////////////////////////";
-private static final String I_12_79_18="////////////////NjY2YnnLMTIzYnnLQlqcYnrNY3vOY3vOUlJTUlJSkqP0lKX3U1NU/Pz8bUwsa0opUlFRo8TMpcbOpcbOMjMz////////////////////////////";
-private static final String I_12_79_19="////////////////NjY2srKyZHvNMTIzUVFRUlJSUlJSUlJSzLNSU1NSkqP0lKX3Y3vO/Pz+bUwsi2I4UlJRo8TMpcbOMjMz////////////////////////////////";
-private static final String I_12_79_20="////////////////////NjY2MTEx////NjY28+SS9+eU9+eUVFRT/Pz8lab3lKX3U1NU/Pz8bUwsi2I4UlJRMTExMTEx////////////////////////////////////";
-private static final String I_12_79_21="////////////////////////////////////NjY2y7JRzrVSU1NSYnrMs7S1U1NTUlJSs7OzbEsra0opMTEw////////////////////////////////////////////";
-private static final String I_12_79_22="////////////////////////////////NTU1QVmaUVJTUlJS9OSSVFRTUlJS9OSSVFRTUlJSs7OzMzMz////////////////////////////////////////////////";
-private static final String I_12_79_23="////////////////////////////////NjY2QVmaQlqcUVJTMTExy7JRzrVSU1NSkqP0U1NUs7OzMTEx////////////////////////////////////////////////";
-private static final String I_12_79_24="////////////////////////////////////NjY2MTExMTEx////NjY2UVFRkqP0lKX3Y3vOMTIz////////////////////////////////////////////////////";
-private static final String I_12_79_25="////////////////////////////////////////////////////////NjY2YnnLQlqcYnrNMTIz////////////////////////////////////////////////////";
-private static final String I_12_79_26="////////////////////////////////////////////////////////////NjY2MTExMTEx////////////////////////////////////////////////////////";
-private static final String I_12_79_27="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_79_28="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_79_29="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_79_30="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_79_31="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_80_0="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_80_1="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_80_2="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_80_3="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_80_4="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_80_5="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_80_6="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_80_7="////////////////////////////////////////////////////////NTU1////NjY2////////////////////////////////////////////////////////////";
-private static final String I_12_80_8="////////////////////////////////////////////////////NjY2WaP7MTI0WaP7MTI0////////////////////////////////////////////////////////";
-private static final String I_12_80_9="////////////////////////////////////////////////////NjY2OILkWaT+OYTnMTIz////////////////////////////////////////////////////////";
-private static final String I_12_80_10="////////////////////////////////////////////////////////NTU1OILkMTIz////////////////////////////////////////////////////////////";
-private static final String I_12_80_11="////////////////////////////////////////////////////////NTU1OILkMTIz////////////////////////////////////////////////////////////";
-private static final String I_12_80_12="////////////////////////////////////////////////////NTU1OILkOYTnOYTnMTIz////////////////////////////////////////////////////////";
-private static final String I_12_80_13="////////////////////////////////////////////////NTU1OILkasz+OYXnOYTnOYTnMTIz////////////////////////////////////////////////////";
-private static final String I_12_80_14="////////////////////////////////////////////NjY2+9sxbc77a87/a87/UlNUOYPkKVqFMDEy////////////////////////////////////////////////";
-private static final String I_12_80_15="////////////////////////////////////////////NjY2+9sxbc77a87/UlNUampq/NwxPIXkMTIz////////////////////////////////////////////////";
-private static final String I_12_80_16="////////////////////////////////////////NjY2UVFRampqUlJSUlJS/Nsx74VB/twxPIXkOYTnMTIz////////////////////////////////////////////";
-private static final String I_12_80_17="////////////////////////////////////////NjY2OILk+/3+bW1ta2tra2tr1KsZbGxpOYPlUVJUampqMTEx////////////////////////////////////////";
-private static final String I_12_80_18="////////////////////////////////////////NjY2OILkamtsUlJSUlJS/Pz8bW1ta2trOYPlUVJUUlJSMTEx////////////////////////////////////////";
-private static final String I_12_80_19="////////////////////////////////////////////NjY2+9sxbWxqa2tra2tra2trOYPlOYTnOYTnMTIz////////////////////////////////////////////";
-private static final String I_12_80_20="////////////////////////////////////////////NTU1UVFR/Nsx/94x/94x/94xPIXkKVqFMDEy////////////////////////////////////////////////";
-private static final String I_12_80_21="////////////////////////////////////////////////NTU1UVFR06sY1q0YK1uCKVqEKVqEMDEy////////////////////////////////////////////////";
-private static final String I_12_80_22="////////////////////////////////////////////////////NjY2MTExMTExMTExUVFRampqMTEx////////////////////////////////////////////////";
-private static final String I_12_80_23="////////////////////////////////////////////////////////////////////NjY2MTEx////////////////////////////////////////////////////";
-private static final String I_12_80_24="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_80_25="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_80_26="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_80_27="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_80_28="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_80_29="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_80_30="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_80_31="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_81_0="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_81_1="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_81_2="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_81_3="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_81_4="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_81_5="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_81_6="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_81_7="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_81_8="////////////////////////////////////////////////////////////NjY2MTEx////////////////////////////////////////////////////////////";
-private static final String I_12_81_9="////////////////////////////////////////////////////////NjY2ebLsMjMz////////////////////////////////////////////////////////////";
-private static final String I_12_81_10="////////////////////////////////////////////////////NTU1ebLse7XvMjMz////////////////////////////NjY2MTEx////////////////////////";
-private static final String I_12_81_11="////////////////////////////////////////////////////NTU1ebLsUlNUUlJSMTExMTExMTEx////////////NjY2ebLsMjMz////////////////////////";
-private static final String I_12_81_12="////////////////////////NjY2////////////////////////NTU1UVFRcnKSc3OUWlpzWlpzWlpzMTEy////NjY2ebLse7XvMjMz////////////////////////";
-private static final String I_12_81_13="////////////////////NTU1ebLsMjMz////////////////NTU1cXGSc3OUWlpzWlpzWlpzcnKTc3OUWlpzMTEyYoK6erTuMjMz////////////////////////////";
-private static final String I_12_81_14="////////////////NTU1cXGSerPtUlNUMTEx////////NTU1MTExUVFRUlJSWVlycnKTc3OUWlpzWlpzWlpzcnKTUlJTMTEx////////////////////////////////";
-private static final String I_12_81_15="////////////////NTU1UVFRerPse7Xve7XvMjMzMTExebLse7Xve7Xve7XvUlNUUlJScnKSc3OUWlpzWlpzcnKTMjIy////////////////////////////////////";
-private static final String I_12_81_16="////////////////NTU1ebLse7Xve7XvY4S9UlJTYoO7Y4S9Y4S9erTue7Xve7XvY4S9UlJTWVlycnKTc3OUMjIy////////////////////////////////////////";
-private static final String I_12_81_17="////////////////////NTU1MTExMTExUVFRcnKSerPte7Xve7XvY4S9cnOUWlpzerPtY4S9UlJTUlJSMTEx////////////NTU1MTExMTEx////////////////////";
-private static final String I_12_81_18="////////////////////////////////NTU1WVlxerPte7Xvc3SVc3OU/Pz9XFx1erPtUlNUYoO7erTue7XvMjMzMTExMTExebLse7XvMjMz////////////////////";
-private static final String I_12_81_19="////////////////////////////////NTU1cXGSWlpzcnKTc3OUMjIy+/v7XFx1YoO7MTIzebLse7Xve7Xve7Xve7Xve7XvWlt0WlpzMTEx////////////////////";
-private static final String I_12_81_20="////////////////////////////////NTU1cXGSc3OUc3OUWlpzk8TUe7XuY4S9MTIz////NTU1MTExebLse7XvY4S9Wlp0cnKTMTEx////////////////////////";
-private static final String I_12_81_21="////////////////////////////////NTU1WVlxcnKTMjIyw1FxxlJzZIO7MTIz////////////////NTU1MTExMTExMTExMTEx////////////////////////////";
-private static final String I_12_81_22="////////////////////////////////////NTU1MTEx////NTU1MTExMTEx////////////////////////////////////////////////////////////////////";
-private static final String I_12_81_23="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_81_24="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_81_25="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_81_26="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_81_27="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_81_28="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_81_29="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_81_30="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_81_31="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_82_0="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_82_1="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_82_2="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_82_3="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_82_4="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_82_5="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_82_6="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_82_7="////////////////////////////////NjY2MTExMTExMTEx////////////////////////////////////NjY2MTExMTEx////////////////////////////////";
-private static final String I_12_82_8="////////////////////////////NjY2UZqacsX1c8b3c8b3MjM0MTEx////////////////////////NjY2ccPzc8b3c8b3MjM0////////////////////////////";
-private static final String I_12_82_9="////////////////////////NjY2ccPzc8b3c8b3c8b3c8b3c8b3UpydMTIyMTEx////////////NTU1ccPzc8b3c8b3UpydUpycMTIy////////////////////////";
-private static final String I_12_82_10="////////////////////////NjY2ccPzc8b3c8b3c8b3c8b3c8b3c8b3UlNUu2ohMzEwMTEx////NTU1ccPzc8b3UpydUlNTOXJqMTIx////////////////////////";
-private static final String I_12_82_11="////////////////////NTU1ccPzc8b3c8b3c8b3UpydcsX1c8b3c8b3UpydUlNT04spvWshMzEwUZqacsX1UpydUlNTUpqaUpycMTIy////////////////////////";
-private static final String I_12_82_12="////////////////////NjY2ccPzc8b3c8b3OXRt+/z8NDQ0ccPzc8b3UpydUlNTi1Ip1IspvWshU1JRUpqaUpycUlNTUpqaMTIy////////////////////////////";
-private static final String I_12_82_13="////////////////////NjY2ccPzc8b3c8b3UpydMTIyMTExccPzUpydUpycUlNT/Pz8jVQs1IspVFJRUpqaUpycUlNTMTEx////////////////////////////////";
-private static final String I_12_82_14="////////////////////////NjY2ccPzc8b3c8b3MjM0ilEpUpqaUpycUlNTu7u7/f39jVQs1IspvWshU1JRUpqaMTIy////////////////////////////////////";
-private static final String I_12_82_15="////////////////////////////NjY2UVFRUpqaUpycUpycUpycUlNTUpqaUlNTu7u7/f39jVQsvGohU1JRUpqaMTIy////////////////////////////////////";
-private static final String I_12_82_16="////////////////////////////NjY2UZqaUlNTUlJSUlJSzKtZ9uaLVFRScsT0UlNU/Pz8jVQsjFIpUlJRMTEx////////////////////////////////////////";
-private static final String I_12_82_17="////////////////////////////////NjY2MTEx8+SK9+eM9+eMVFRScsT0c8b3c8b3UlNUi1IpvGohMzEw////////////////////////////////////////////";
-private static final String I_12_82_18="////////////////////////////////////////NjY2y6tZzq1aU1NScsT0c8b3UpydUlNTi1IpvGohMzEw////////////////////////////////////////////";
-private static final String I_12_82_19="////////////////////////////////////NTU1OHFqUVJS9OSL9+eMVFRSUpqaUlNTUlJSu7u7MzMz////////////////////////////////////////////////";
-private static final String I_12_82_20="////////////////////////////////////NjY2OHFqOXNrMTIxy6tZzq1aU1NSUlJSUpqaUlNTMTEx////////////////////////////////////////////////";
-private static final String I_12_82_21="////////////////////////////////////////NjY2MTEx////NjY2UVFRcsT0UpydUpycMTIy////////////////////////////////////////////////////";
-private static final String I_12_82_22="////////////////////////////////////////////////////////NjY2UZqaOXNrUZubMTIy////////////////////////////////////////////////////";
-private static final String I_12_82_23="////////////////////////////////////////////////////////////NjY2MTExMTEx////////////////////////////////////////////////////////";
-private static final String I_12_82_24="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_82_25="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_82_26="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_82_27="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_82_28="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_82_29="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_82_30="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_82_31="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_83_0="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_83_1="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_83_2="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_83_3="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_83_4="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_83_5="////////////////////////////////////////////NjY2MTExMTExMTEx////////////////////////////////////////////////////////////////////";
-private static final String I_12_83_6="////////////////////////////////////////NjY206NR/t05/9451qVRMzIx////////////////////////////////////////////////////////////////";
-private static final String I_12_83_7="////////////////////////////////////NjY2+9s4/945/945/945/9451qVRMzIx////////////////////////////////////////////////////////////";
-private static final String I_12_83_8="////////////////////////////////NTU1UVFR/Ns5/945NDMx+9s4/945/945NDMx////////////////////////////////////////////////////////////";
-private static final String I_12_83_9="////////////////////////////////NTU1+9s4/945/945NDMx+9s4/945/945NDMx////////////////////////////////////////////////////////////";
-private static final String I_12_83_10="////////////////////////////////NTU1o2JB/dw5/945/945/9451qVR1qVSMzIx////////////////////////////////////////////////////////////";
-private static final String I_12_83_11="////////////////////////////////////NTU1MTExo2JBpWNC1aNR1qVSpWRCMjEx////////////////////////////////////////////////////////////";
-private static final String I_12_83_12="////////////////////////////////////////////NjY206NR1qVS1qVSMzIx////////////////////////////////////////////////////////////////";
-private static final String I_12_83_13="////////////////////////////////////////////////NjY206NR1qVSMzIx////////////////////////////////////////////////////////////////";
-private static final String I_12_83_14="////////////////////////////////////////////////NjY206NR1qVSpWRCMjExMTExMTEx////////////////////////////////////////////////////";
-private static final String I_12_83_15="////////////////////////////////////////////////NjY206NR1qVSpWRC1cSKtURL3UlZMzExMTEx////////////////////////////////////////////";
-private static final String I_12_83_16="////////////////////////////////////////////NjY208OKVFNS06NS1qVSVFNS08SL3Uta9uSzVFRTMTEx////////////////////////////////////////";
-private static final String I_12_83_17="////////////////////////////////////////NjY2eUE49eSzlZVkU1NSUlJS9OSztkRL3UlZ9uSz9+e1NDMz////////////////////////////////////////";
-private static final String I_12_83_18="////////////////////////////////////////NjY220lZtUJK9eSz9+e19+e1tkRL3UlZ3kpatUJK9eSz3kxbMzEx////////////////////////////////////";
-private static final String I_12_83_19="////////////////////////////////////NTU108OKfEQ63ElZtUJKtUJKtUJK3UlZ9uSz9+e13kxb3kpafEI59eSzNDMzMTExMTExMTEx////////////////////";
-private static final String I_12_83_20="////////////////////NjY2MTExMTExMTExo2JB1cSKfEQ69eSz3kxb3kpatUJKtUJK3UlZ3kpatUJKe0I59eSzVFRT06NS1qVS1qVSpWRCMjEx////////////////";
-private static final String I_12_83_21="////////////////NjY2o2JB/dw5/945/945pmRB1cSKfEQ6tEJJtUJKe0I59eSz9+e1fEQ6tEJJtUJKe0I51MOKMzMyMTEx06NR1qVS1qVSMzIx////////////////";
-private static final String I_12_83_22="////////////////NjY2+9s4/9451qVRMzIxMTExMTExeUE4tEJJe0I59eSzVFRTUlJS08SLfEQ6tEJJMzExMTEx////////NTU1MTExMTEx////////////////////";
-private static final String I_12_83_23="////////////////////NjY2MTExMTEx////////////NjY2MTExeUE4UlFR06NS1qVSVFNSUlJSMTExMTEx////////////////////////////////////////////";
-private static final String I_12_83_24="////////////////////////////////////////////////////NjY2MTExUVFR/Ns5/945/945/945pmRBMjEx////////////////////////////////////////";
-private static final String I_12_83_25="////////////////////////////////////////////////////////////NjY2MTEx06NR/t05/945/945NDMx////////////////////////////////////////";
-private static final String I_12_83_26="////////////////////////////////////////////////////////////////////NjY2MTExMTExMTEx////////////////////////////////////////////";
-private static final String I_12_83_27="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_83_28="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_83_29="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_83_30="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_83_31="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_84_0="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_84_1="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_84_2="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_84_3="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_84_4="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_84_5="////////////////////NTU1MjI0MTEx////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_84_6="////////////NTU1MTExYmLMYmLLUlJTMTExMzM1MzM1MTEx////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_84_7="////////NTU1YmLLY2POY2POUlJTUlJSeoP0e4T3e4T3e4T3MjI0MzM1////NjY3MTExMTI0////////////////////////////////////////////////////////";
-private static final String I_12_84_8="////////Ojo6YmLJVFVTVVVS/OQ5/+c5fYX0e4T3e4T3e4T3e4T3eYLzMjI0Y2PNY2POeoL1MjI0////////////////////////////////////////////////////";
-private static final String I_12_84_9="////////////Nzg0/OQ5/OQ7vbWbfIX2e4T3e4T3e4T3e4T3eYLzUlNXeoP0eoT3e4T3YmLMMTEz////////////////////////////////////////////////////";
-private static final String I_12_84_10="////////Nzg0/OQ5/+c5f4fxe4P3e4T3e4T3e4T3e4T3eoP0UlJUYmPMZGTPeoL1eoT3MjI0////////////NjY3MTI0MTEx////////////////////////////////";
-private static final String I_12_84_11="////NTU1++Q4/+c5/OQ7/eY8fYb0e4T3eYLzeYLzNDUzMTAxUVFReoP0e4T3Y2POeIHyNjc4////////NTY3Y2PNeYLzNjc4////////////////////////////////";
-private static final String I_12_84_12="////ODg4+eE5/uc4f4fxe4P3e4T3eYLzU1RXMTEx+OE4NDQxUlJUeYHxeYLzYmPMNjY3////NjY3MTI0eoP0eYLzNTY3////////////////////////////////////";
-private static final String I_12_84_13="////////OTk5+eE5/OU5fofwe4P3U1NXeoP0VFVWNTIxUlFUeoP0U1NXMTExNTU1////NjY3YmLMeoL1e4T3MTI0////////////////////////////////////////";
-private static final String I_12_84_14="////////////OTk5NjY2+eE5fIXxfIPzfoT1/fv8/21Nf4PxeoP0e4T3MzM3////NjY3YmLMY2POY2POYWHLNzc4////////////////////////////////////////";
-private static final String I_12_84_15="////////////////////OTk5NjY2+WlJ/mtJ/2tK+2pJ/WtLV1JSeoP0e4T3NDU2YmLJY2PNYmLOY2POMTEz////NTU1MTEy////NjY3MDAx////////////////////";
-private static final String I_12_84_16="////////////////////////////NjY3+WlJ/WtLV1JSVVNS/GtKf4Pxe4P3+vv+VVZXVFRUYmLJYWHLNzc4////NTU1YmLLMjI1YmLMMjI1////////////////////";
-private static final String I_12_84_17="////////////////////Nzc3MTExYWHLUlJVUVFR+WpK/mtJ/2tK/2tKf4PxeoP0e4T1+/v+VVZXMzM1////////OTk5YmLJY2PNY2POY2POMjI1MjI0////////////";
-private static final String I_12_84_18="////////////////Nzc3+/v7VFRUYmLKYWHLNTMzMTAx+2pJ/2tK/2tK/GpMVVNUU1NVeYHxeoP2eoT3MzM3////////NTU1YWHJYmLOYWHLY2PMY2PMNzc4////////";
-private static final String I_12_84_19="////////////NTU1+/v7u7u7U1NWUVFRNDMx+Zg5NDMx+2tI/21K/2pJfYP0eoL1e4T3UlNUZGTMe4P2eoL1MTI0////NjY3UVFRYWHJNzc4NjY2NjY2////////////";
-private static final String I_12_84_20="////////////NTU1+Pj4VFRUY2PMMjI1+Jg4NTMzMTEx+eI7/uc4/25JfIPzY2TPYmLLVFRX+/v7fIX1Y2TPMjIzMTEzYWHJUlJWMTEx////////////////////////";
-private static final String I_12_84_21="////////////OTk5NjY2MTExYmLLY2POMjIzYWHLUlJVeoLw++Q/++Q4ZmXMe4P2UlJU/Pz8u7u7ZWXOe4P2UlJUYmLMUlJVYWHJNjY3////////////////////////";
-private static final String I_12_84_22="////////////////////OTk5YmLJY2PNUFBSYmLKY2PNUlJVeYHwUlJUeYLxe4T3UlJU+fn5VVVVeoP0e4T3U1NXYmHJYWHLNzc4////////////////////////////";
-private static final String I_12_84_23="////////////////////////OTk5YmLJMjIzNDQ0YmLJY2PMNzc4NjY2UVFReoP0U1NXU1NVU1NVeYHxe4T3e4T3UVFTNjY2////////////////////////////////";
-private static final String I_12_84_24="////////////////////////////OTk5NjU1////OTk5NjY2////////OTk5eYHxfIX2eoL0fYb3UlJUeYLxeoP2MjI0////////////////////////////////////";
-private static final String I_12_84_25="////////////////////////////////////////////////////////////OTk5+fn5VFRU+fn5ODg4NjY2eYHxMjI0////////////////////////////////////";
-private static final String I_12_84_26="////////////////////////////////////////////////////////////////OTk5NjY2NjY2////////OTk5NjY2////////////////////////////////////";
-private static final String I_12_84_27="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_84_28="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_84_29="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_84_30="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_84_31="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_85_0="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_85_1="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_85_2="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_85_3="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_85_4="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_85_5="////////////////////////////////////////NjY2MTExMTEx////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_85_6="////////////////////////////////NjY2MTExamrDa2vGUlJTMTExMTExMTEx////////////////////////////////////////////////////////////////";
-private static final String I_12_85_7="////////////////////////////NTU1amrDa2vGUlJTUlJSeovTe4zWe4zWe4zWMjIzMTExMTEx////////////////////////////////////////////////////";
-private static final String I_12_85_8="////////////////////////NTU1amrDa2vGUlJTeovTe4zWe4zWe4zWe4zWMjIzsrr7tb3/e4zWMjIz////////////////////////////////////////////////";
-private static final String I_12_85_9="////////////////////////NTU1amrDUlJTeovTe4zWe4zWe4zWe4zWUlJUs7v8tb3/tb3/tb3/MzM0////NTU1MTExMTEx////////////////////////////////";
-private static final String I_12_85_10="////////////////////////////NTU1eYrTe4zWe4zWe4zWe4zWUlJUeovTe4zWk5vdtLz+tb3/MzM0MTExeYrTe4zWMjIz////////////////////////////////";
-private static final String I_12_85_11="////////////////////////NjY2eYrTe4zWe4zWe4zWe4zWMjIzUVFReovTe4zWe4zWtLz+U1NUamrEa2vGeovVMjIz////////////////////////////////////";
-private static final String I_12_85_12="////////////////////////NjY2eYrTe4zWe4zWe4zWMjIz8/MpVFRRUlJSeovTe4zWUlJUamrEa2vGa2vGMTEz////////////////////////////////////////";
-private static final String I_12_85_13="////////////////////NjY2eYrTe4zWe4zWe4zWMjIzUVFRMTExUVFRamrEUlJTUlJSamrEa2vGa2vGa2vGMTEz////////////////////////////////////////";
-private static final String I_12_85_14="////////////////////NjY2eYrTe4zWe4zWMjIzeYrTUlJUUlJSamrEa2vGa2vGUlJTUlJSamrEa2vGMTEz////////////////NjY2MTEx////////////////////";
-private static final String I_12_85_15="////////////////////NjY2eYrTe4zWe4zWe4zWe4zWe4zWe4zW/P3+vmVlfIvUe4zWUlJUUlJSamrEMTEz////////NjY2MTExamrDMTEz////////////////////";
-private static final String I_12_85_16="////////////////////////NTU1UVFRu2JivWNjvWNjvWNjvWNjvWNjvWNj9mpKfIvTe4zWe4zWUlJUUlJSMTExMTExUVFRamrEa2vGMTEz////////////////////";
-private static final String I_12_85_17="////////////////////////////NTU1UVFRUlJSu2JivWNjvWNjU1JS9GpK92tK92tKVFJRamrEeovVe4zWUlJUamrEa2vGa2vGMTEz////////////////////////";
-private static final String I_12_85_18="////////////////////NTU1MTExamrD/Pz+tr7/MzM0MTExUVFR9GpK92tK92tK92tKfIvTUlJUeovTe4zWe4zWUlJUUlJSamrEMTEz////////////////////////";
-private static final String I_12_85_19="////////////////NTU1amrDa2vGMTEz+/v7VFRUMTEx////NTU182pJvWNi9mpK92tK92tKVFJR/Pz8fY3We4zWe4zWe4zWMjIz////////////////////////////";
-private static final String I_12_85_20="////////////////NTU1MTExMTEx////NTU1MTEx////NTU1UVFR9GpKlZvbvGNkvWNjU1JS/Pz8////bW3GeovVe4zWe4zWe4zWMjIz////////////////////////";
-private static final String I_12_85_21="////////////////////////////////////////NTU1amrDa2vGUlJTkprblJzelJzeU1NU/Pz8VFRUUlJSUlJSUlJSMTExMTEx////////////////////////////";
-private static final String I_12_85_22="////////////////////////////////////NTU1srr7/f3/tr7/bGzGMTEzMTExkprbU1NUUlJSamrEa2vGa2vGk5vdMjIz////////////////////////////////";
-private static final String I_12_85_23="////////////////////////////////////////NTU1MTExMTExMTEx////////NTU1MTExamrDa2vGa2vGUlJTMTEx////////////////////////////////////";
-private static final String I_12_85_24="////////////////////////////////////////////////////////////////////NTU1+/v7VFRU/Pz8NDQ0////////////////////////////////////////";
-private static final String I_12_85_25="////////////////////////////////////////////////////////////////////////NTU1MTExMTEx////////////////////////////////////////////";
-private static final String I_12_85_26="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_85_27="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_85_28="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_85_29="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_85_30="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_85_31="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_86_0="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_86_1="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_86_2="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_86_3="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_86_4="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_86_5="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_86_6="////////////////////////////////NTU1MTEx////////////////////NTU1MTEx////////////////NTU1MTEx////////////////////////////////////";
-private static final String I_12_86_7="////////////////////////////////NjY289tBNDMx////////////NjY289tBNDMx////////////NjY222JZMzEx////////////////////////////////////";
-private static final String I_12_86_8="////////////////////////////////NjY289tBvaVCMzIx////////NjY289tBNDMx////////NjY222JZ9txCNDMx////////////////////////////////////";
-private static final String I_12_86_9="////////////////////////////////NjY289tBvaVCMzIx////NTU189tBvaVCMzIxMTEx////NjY222JZ9txCNDMx////////////////////////////////////";
-private static final String I_12_86_10="////////////////////////////////NjY289tBvaVCvaVCMzIxMTEx89tBvaVCMzIxOEmjMTEy22JZ9txC995CvaVCMzIx////////////////////////////////";
-private static final String I_12_86_11="////////////////////////////////////NjY2uqNBvaVCO0uj9NtDvaVCvaVCvaVCO0ujOUqlMTEy89tBvaVCU1NRMTEx////////////////////////////////";
-private static final String I_12_86_12="////////////////////////////////////NjY2uqNBO0ujSWrV9NxEvaVCS2vTSmvWOUqlOUqlOUqlMTEyuqNBMzIx////////////////////////////////////";
-private static final String I_12_86_13="////////////////////////////NjY2MTExSWrTu6RES2vTSmvWu6RES2vTSmvWOUqlOUqlOUqlOUqlMTEyUVFRMTEx////////////////////////////////////";
-private static final String I_12_86_14="////////////////////////NTU1uqNBU1NRUlJSSmrTSmvWSmvWOUqlSWrVMTEzMTExOEmjOUqlOUqluqNDvaVCMzIxMTEx////////////////////////////////";
-private static final String I_12_86_15="////////////////////////////NjY2UVFR/Pz8VFRUSmrTUVJUOUqjMTEy+/v7NDQ0OEmjuqND9t1C995C995C995C995CNDMx////////////////////////////";
-private static final String I_12_86_16="////////////////////////////////NjY2+/v7VFRU22JZ/vz8VFRU22JZ/vz8NDQ022JZVFJSu6NC9t1C995CVFRRMTEx////////////////////////////////";
-private static final String I_12_86_17="////////////////////////////////NjY222JZ3mNa3mNa/vz8VFRU/Pz83mVcrUpC3WJZrUpCU1FRUlJSUlJSMTEx////////////////////////////////////";
-private static final String I_12_86_18="////////////////////////////////////NjY222JZ3mNa3mNa3mNa3mNa3mNa3mNarUpCrUpCrUpCU1FRu6NCvaVCMzIx////////////////////////////////";
-private static final String I_12_86_19="////////////////////////////////////NjY2UVFR9NtC3mRZ3mNa3mNa3mNarUpCrUpCrUpCU1FRq0pCvKNCU1NRMTEx////////////////////////////////";
-private static final String I_12_86_20="////////////////////////////////////////NjY2MTExuqNBvaVCrUtCrUpCrUpCMjExMTExMTExq0lBvKNCMzIx////////////////////////////////////";
-private static final String I_12_86_21="////////////////////////////////////////////////NTU1MTExUVFRUlJSMTEx////////////NTU1q0lBMjEx////////////////////////////////////";
-private static final String I_12_86_22="////////////////////////////////////////////////////NTU189tBvaVCMzIx////////////////NTU1MTEx////////////////////////////////////";
-private static final String I_12_86_23="////////////////////////////////////////////////////NTU189tBNDMx////////////////////////////////////////////////////////////////";
-private static final String I_12_86_24="////////////////////////////////////////////////////////NTU1////////////////////////////////////////////////////////////////////";
-private static final String I_12_86_25="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_86_26="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_86_27="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_86_28="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_86_29="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_86_30="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_86_31="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_87_0="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_87_1="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_87_2="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_87_3="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_87_4="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_87_5="////////////////////////////////////NjY2////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_87_6="////////////////////////////////NTU18+SKNDMy////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_87_7="////////////////////////////NjY2y7Ji9uaLNDMyMTExMTEx////////NjY2MTEx////////////////////////////////////////////////////////////";
-private static final String I_12_87_8="////////////////////////////NjY28+SK9+eMjWU6tINJtYRKMzIxMTEx8+SKzrVjMzMx////////////////////////////////////////////////////////";
-private static final String I_12_87_9="////////////////////////////NjY2+/v7toVM9eWK9+eMjWU69eSK9+eM9+eM9+eMNDMy////////////NjY2MTExMTExMTEx////////////////////////////";
-private static final String I_12_87_10="////////////////////////NjY28+SK/v799+eN9+eM9+eMzrVjzrVj9uaL9+eMjWU6UlJRMTEx////NjY2allJa1pKa1pKa1pKMTEx////////////////////////";
-private static final String I_12_87_11="////////////////////////NjY2w6NZbFtKxKNZ9uWLzrVj/v38////zrZl9uaLjWU6tINJjGM5MjExallJa1pKa1pKa1pKa1pKa1pKMTEx////////////////////";
-private static final String I_12_87_12="////////////////////////NjY2allJ9GJRbVpKa1pK/Pz8NDQ0+/v7zrZljWQ5tINJtYRKtYRKU1JRzLNi9uaLzrVjbFtKa1pKa1pKMTEx////////////////////";
-private static final String I_12_87_13="////////////////////////NjY2allJa1pKa1pKa1pKa1pK/Pz8zrZljWQ5tINJtYRKjGM5UlJRallKa1pKa1pKzLNizrVjbFtKa1pKMTEx////////////////////";
-private static final String I_12_87_14="////////////////////////////NTU1w8PDU1NTallKa1pKa1pKs4NKtYRKtYRKtYRKtYRKU1JRallKa1pKa1pKa1pK9OSKbVxLa1pKMTEx////////////////////";
-private static final String I_12_87_15="////////////////////////////NjY2+/v7////VFRUUlJSs4NKtYRKjGM5tINJtYRKU1JRallKa1pKa1pKa1pKa1pK9OSKzrVjzrVjMzMx////////////////////";
-private static final String I_12_87_16="////////////////////////////////NjY2+/v7VFRUs4NKjGM5tINJtYRKU1JRUlJSs4NKU1JRallKa1pKa1pKa1pKa1pKa1pKMTEx////////////////////////";
-private static final String I_12_87_17="////////////////////////////NjY2imI4UlJRzLNizrVjzrVjU1NSUlJSs4NKtYRKtYRKtYRKU1JRallKa1pKa1pKa1pKa1pKMTEx////////////////////////";
-private static final String I_12_87_18="////////////////////////////NjY2imI4UlJR9OSLzrVj9uaLzrVj9uaLtoVLtYRKjGM5tINJU1JRallKa1pKa1pKa1pKMTEx////////////////////////////";
-private static final String I_12_87_19="////////////////////////NjY2MTEximI4UlJR9OSL9+eM9+eMbVxLzLNitYRKU1JRi2I5tINJtYRKU1JRallKa1pKa1pKMTEx////////////////////////////";
-private static final String I_12_87_20="////////////////////NjY2allJs4NKU1JRs4NKtYRK9eWKVFRSs4NKtYRKtYRKU1JRs4NKtYRKtYRKU1JRallKa1pKMTEx////////////////////////////////";
-private static final String I_12_87_21="////////////////////NjY2allJa1pKs4NKtYRKtYRKtYRKU1JRallKs4NKU1JRs4NKtYRKtYRKtYRKU1JRallKMTEx////////////////////////////////////";
-private static final String I_12_87_22="////////////////////////NTU1allJs4NKjGM5tINJtYRKU1JRUlJSUlJSs4NKtYRKtYRKtYRKU1JRallKMTEx////////////////////////////////////////";
-private static final String I_12_87_23="////////////////////////////NjY2MTExMTEximI4UlJRallKa1pKa1pKUlJRs4NKtYRKU1JRMTExMTEx////////////////////////////////////////////";
-private static final String I_12_87_24="////////////////////////////////////////NjY2MTExallJzLNizrVjbFtKUlJRMTExMTEx////////////////////////////////////////////////////";
-private static final String I_12_87_25="////////////////////////////////////////////////NjY2allJa1pKa1pKMTEx////////////////////////////////////////////////////////////";
-private static final String I_12_87_26="////////////////////////////////////////////////////NjY2MTExMTEx////////////////////////////////////////////////////////////////";
-private static final String I_12_87_27="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_87_28="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_87_29="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_87_30="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_87_31="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_88_0="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_88_1="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_88_2="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_88_3="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_88_4="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_88_5="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_88_6="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_88_7="////////////////////////////////////////////NjY2MTEx////////////////NjY2////////////////////////////////////////////////////////";
-private static final String I_12_88_8="////////////////////////////////////////NjY2WbLzMTM0////////NjY2MTExkvNJMjQx////////////////////////////////////////////////////";
-private static final String I_12_88_9="////////////////////////////////////NjY2WbLzMTM0////////MTExWbLzUlNUkvRKe7Y5MjMx////////////////////////////////////////////////";
-private static final String I_12_88_10="////////////////////////////////////NjY2utNxU1RSMTExMTExWrX3UlNUkvRKlPdKe7Y5MjMx////////////////////////////////////////////////";
-private static final String I_12_88_11="////////////////////////////////////////NjY2UVFR5PS7VFRT5PS7VFRT5PS7fLY7k/VJe7Y5MjMx////////////////////////////////////////////";
-private static final String I_12_88_12="////////////////////////////////////////NjY25PO65/e95/e9VFRT5PS75/e95/e95/e9vdZ0MzMy////////////////////////////////////////////";
-private static final String I_12_88_13="////////////////////////////////////NTU15PO65/e95/e95/e95/e95/e95/e95/e9vdZ05va7MzQz////////////////////////////////////////////";
-private static final String I_12_88_14="////////////////////////////////////NjY25PO65/e95/e95/e95/e9VFRTUlJS5PS75/e9vdZ0MzMy////////////////////////////////////////////";
-private static final String I_12_88_15="////////////////////////////////////NjY2WWpZ5PS75/e95/e9VFRT/Pz8////VFRU5PS7MzQz////////////////////////////////////////////////";
-private static final String I_12_88_16="////////////////////////////////////NjY2WWpZ5PS75/e9VFRT/Pz8XLb3/P3+XG1cu9RyMzMyMTExMTEx////////////////////////////////////////";
-private static final String I_12_88_17="////////////////////////////////////////NjY2utNx5va7XG1bKWOrWbP1Wmxcu9RyU1RSq9vkrd7nMjMz////////////////////////////////////////";
-private static final String I_12_88_18="////////////////////////////////////////////NjY2utNxvdZzW2xaWmtau9RyU1RSq9vkrd7nMjMz////////////////////////////////////////////";
-private static final String I_12_88_19="////////////////////////////////////////////////NjY2UVFRu9NyvdZzW4U5WoQ5UlJRUlJS////////////////////////////////////////////////";
-private static final String I_12_88_20="////////////////////////////////////////////NjY25PO6vdZ0U1RSerM5e7U5WoQ55PW65/e9MzQzMTEx////////////////////////////////////////";
-private static final String I_12_88_21="////////////////////////////////////////////////NTU1MTExUVFRWYM5erQ5e7U5UlNRu9Ny5va75/e9MzQz////////////////////////////////////";
-private static final String I_12_88_22="////////////////////////////////////////////////////////NjY2kvNJU1RRWYM5erQ5MjMxMTExMTEx////////////////////////////////////////";
-private static final String I_12_88_23="////////////////////////////////////////////////////////////NjY2MTExebI4k/VJMjQx////////////////////////////////////////////////";
-private static final String I_12_88_24="////////////////////////////////////////////////////////////////////NjY2MTEx////////////////////////////////////////////////////";
-private static final String I_12_88_25="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_88_26="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_88_27="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_88_28="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_88_29="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_88_30="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_88_31="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_89_0="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_89_1="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_89_2="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_89_3="////////////////////////////////////NTU1////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_89_4="////////////////////////NTU1MTExMTEx+/txNDQy////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_89_5="////////////////////NjY2+/txtpUyMzIx+/txNDQy////////////////NjY2////////////////////////////////////////////////////////////////";
-private static final String I_12_89_6="////////////////////////NTU1+/txpn2kU1JT/PxyNDQy////////NjY2+/txNDQyMTExMTEx////////////////////////////////////////////////////";
-private static final String I_12_89_7="////////////////////////NTU1+/txVFRSUlJS/PxyNDQy////////NjY2+/txNDQyspIx/f1xNDQy////////////////////////////////////////////////";
-private static final String I_12_89_8="////////////////////////////NTU1+/tx//9z//9zNDQy////NjY2+/txpn2kU1JT/PxyNDQy////////////////////////////////////////////////////";
-private static final String I_12_89_9="////////////////////////NTU1+/txVFRSUlJS/PxyVFRSMTExUVFR/PxyVFRSUlJS/PxyNDQy////////////////////////////////////////////////////";
-private static final String I_12_89_10="////////////////////////NTU1UVFR05qDrYRzjGtj1JuD1pyErYRz/f1z//9z//9zNDQy////////////////////////////////////////////////////////";
-private static final String I_12_89_11="////////////////////////////NTU105qCVFNS05qD1pyErYRz/f1zroVzjGtj/fxyNDQy////////////////////////////////////////////////////////";
-private static final String I_12_89_12="////////////////////////////////NTU1UVFR5LOj1pyErYRzjGtj1JuD1pyEVFNS05qDMzIy////////////NjY2MTEx////////////////////////////////";
-private static final String I_12_89_13="////////////////////////////////NjY205qC5rSkrYRz1ZuD/v39jW1lrINy1ZuD1pyEMzIy////////NjY25LKj57WlMzMy////////////////////////////";
-private static final String I_12_89_14="////////////////////////////NjY205qC5rSk1pyErYRzMjIy+/v71p2FVFNSMTExMTEx////////NjY205qC5rSk57Wl1pyEMzIy////////////////////////";
-private static final String I_12_89_15="////////////////////////////NjY2w2JBnFI51ZqC1pyE1pyE1pyE1pyEMzIy////////////NjY2UVFRUlJS05qD1pyE1pyEMzIy////////////////////////";
-private static final String I_12_89_16="////////////////////////////NjY2mlE4nFI5U1JR05qD1pyErYRzrYRzrYRzMjIyMTExMTEx05qC1pyE1pyEVFNS05qDrYRzMjIy////////////////////////";
-private static final String I_12_89_17="////////////////////////////////NjY2MTExMTExq4JxrYRzU1JSi2pirINy1ZuD1pyE1pyE1pyE1pyE1pyE1pyEVFNSMTEx////////////////////////////";
-private static final String I_12_89_18="////////////////////////////////////////////NTU1UVFRq4NyrYRzrYRz1ZuD1pyE7u2s1p2E7u2s1p2E1pyEMzIy////////////////////////////////";
-private static final String I_12_89_19="////////////////////////////////////////////NTU1q4JxrYRzrYRz1ZuD1pyE1pyE7u2s1p2E1pyE5rSk1pyEMzIy////////////////////////////////";
-private static final String I_12_89_20="////////////////////////////////////////////NTU105qC7u2s1p2E1pyE1pyE1pyE1pyE1pyErYRz5rSk1pyEMzIy////////////////////////////////";
-private static final String I_12_89_21="////////////////////////////////////////////////NTU1urqa7u6sjW1k1JuD1pyErYRzvLybU1NT05qD5rSkrYRzMjIy////////////////////////////";
-private static final String I_12_89_22="////////////////////////////////////////////////NTU1q4JxvLybU1NT5LOj1pyEVFNSMTExMTExMTEx05qC1pyEMzIy////////////////////////////";
-private static final String I_12_89_23="////////////////////////////////////////////////NTU1q4JxMjIyMTEx05qC5rSkMzMy////////////NTU105qCrYRzMjIy////////////////////////";
-private static final String I_12_89_24="////////////////////////////////////////////NTU1UVFRUlJSMTEx////NTU105qCMzIy////////////////NTU1UVFRMTEx////////////////////////";
-private static final String I_12_89_25="////////////////////////////////////////////NTU1MTExMTEx////////NTU105qCMzIy////////////////NTU1MTEx////////////////////////////";
-private static final String I_12_89_26="////////////////////////////////////////////////////////////NTU1UVFRUlJSMTEx////////////////////////////////////////////////////";
-private static final String I_12_89_27="////////////////////////////////////////////////////////////NTU1MTExMTEx////////////////////////////////////////////////////////";
-private static final String I_12_89_28="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_89_29="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_89_30="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
-private static final String I_12_89_31="////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////";
 private Mn2(){}
-static String i60(){
-String i="AAAg";
-i+=I_12_60_0;
-i+=I_12_60_1;
-i+=I_12_60_2;
-i+=I_12_60_3;
-i+=I_12_60_4;
-i+=I_12_60_5;
-i+=I_12_60_6;
-i+=I_12_60_7;
-i+=I_12_60_8;
-i+=I_12_60_9;
-i+=I_12_60_10;
-i+=I_12_60_11;
-i+=I_12_60_12;
-i+=I_12_60_13;
-i+=I_12_60_14;
-i+=I_12_60_15;
-i+=I_12_60_16;
-i+=I_12_60_17;
-i+=I_12_60_18;
-i+=I_12_60_19;
-i+=I_12_60_20;
-i+=I_12_60_21;
-i+=I_12_60_22;
-i+=I_12_60_23;
-i+=I_12_60_24;
-i+=I_12_60_25;
-i+=I_12_60_26;
-i+=I_12_60_27;
-i+=I_12_60_28;
-i+=I_12_60_29;
-i+=I_12_60_30;
-i+=I_12_60_31;
-return i;
-}
-static String i61(){
-String i="AAAg";
-i+=I_12_61_0;
-i+=I_12_61_1;
-i+=I_12_61_2;
-i+=I_12_61_3;
-i+=I_12_61_4;
-i+=I_12_61_5;
-i+=I_12_61_6;
-i+=I_12_61_7;
-i+=I_12_61_8;
-i+=I_12_61_9;
-i+=I_12_61_10;
-i+=I_12_61_11;
-i+=I_12_61_12;
-i+=I_12_61_13;
-i+=I_12_61_14;
-i+=I_12_61_15;
-i+=I_12_61_16;
-i+=I_12_61_17;
-i+=I_12_61_18;
-i+=I_12_61_19;
-i+=I_12_61_20;
-i+=I_12_61_21;
-i+=I_12_61_22;
-i+=I_12_61_23;
-i+=I_12_61_24;
-i+=I_12_61_25;
-i+=I_12_61_26;
-i+=I_12_61_27;
-i+=I_12_61_28;
-i+=I_12_61_29;
-i+=I_12_61_30;
-i+=I_12_61_31;
-return i;
-}
-static String i62(){
-String i="AAAg";
-i+=I_12_62_0;
-i+=I_12_62_1;
-i+=I_12_62_2;
-i+=I_12_62_3;
-i+=I_12_62_4;
-i+=I_12_62_5;
-i+=I_12_62_6;
-i+=I_12_62_7;
-i+=I_12_62_8;
-i+=I_12_62_9;
-i+=I_12_62_10;
-i+=I_12_62_11;
-i+=I_12_62_12;
-i+=I_12_62_13;
-i+=I_12_62_14;
-i+=I_12_62_15;
-i+=I_12_62_16;
-i+=I_12_62_17;
-i+=I_12_62_18;
-i+=I_12_62_19;
-i+=I_12_62_20;
-i+=I_12_62_21;
-i+=I_12_62_22;
-i+=I_12_62_23;
-i+=I_12_62_24;
-i+=I_12_62_25;
-i+=I_12_62_26;
-i+=I_12_62_27;
-i+=I_12_62_28;
-i+=I_12_62_29;
-i+=I_12_62_30;
-i+=I_12_62_31;
-return i;
-}
-static String i63(){
-String i="AAAg";
-i+=I_12_63_0;
-i+=I_12_63_1;
-i+=I_12_63_2;
-i+=I_12_63_3;
-i+=I_12_63_4;
-i+=I_12_63_5;
-i+=I_12_63_6;
-i+=I_12_63_7;
-i+=I_12_63_8;
-i+=I_12_63_9;
-i+=I_12_63_10;
-i+=I_12_63_11;
-i+=I_12_63_12;
-i+=I_12_63_13;
-i+=I_12_63_14;
-i+=I_12_63_15;
-i+=I_12_63_16;
-i+=I_12_63_17;
-i+=I_12_63_18;
-i+=I_12_63_19;
-i+=I_12_63_20;
-i+=I_12_63_21;
-i+=I_12_63_22;
-i+=I_12_63_23;
-i+=I_12_63_24;
-i+=I_12_63_25;
-i+=I_12_63_26;
-i+=I_12_63_27;
-i+=I_12_63_28;
-i+=I_12_63_29;
-i+=I_12_63_30;
-i+=I_12_63_31;
-return i;
-}
-static String i64(){
-String i="AAAg";
-i+=I_12_64_0;
-i+=I_12_64_1;
-i+=I_12_64_2;
-i+=I_12_64_3;
-i+=I_12_64_4;
-i+=I_12_64_5;
-i+=I_12_64_6;
-i+=I_12_64_7;
-i+=I_12_64_8;
-i+=I_12_64_9;
-i+=I_12_64_10;
-i+=I_12_64_11;
-i+=I_12_64_12;
-i+=I_12_64_13;
-i+=I_12_64_14;
-i+=I_12_64_15;
-i+=I_12_64_16;
-i+=I_12_64_17;
-i+=I_12_64_18;
-i+=I_12_64_19;
-i+=I_12_64_20;
-i+=I_12_64_21;
-i+=I_12_64_22;
-i+=I_12_64_23;
-i+=I_12_64_24;
-i+=I_12_64_25;
-i+=I_12_64_26;
-i+=I_12_64_27;
-i+=I_12_64_28;
-i+=I_12_64_29;
-i+=I_12_64_30;
-i+=I_12_64_31;
-return i;
-}
-static String i65(){
-String i="AAAg";
-i+=I_12_65_0;
-i+=I_12_65_1;
-i+=I_12_65_2;
-i+=I_12_65_3;
-i+=I_12_65_4;
-i+=I_12_65_5;
-i+=I_12_65_6;
-i+=I_12_65_7;
-i+=I_12_65_8;
-i+=I_12_65_9;
-i+=I_12_65_10;
-i+=I_12_65_11;
-i+=I_12_65_12;
-i+=I_12_65_13;
-i+=I_12_65_14;
-i+=I_12_65_15;
-i+=I_12_65_16;
-i+=I_12_65_17;
-i+=I_12_65_18;
-i+=I_12_65_19;
-i+=I_12_65_20;
-i+=I_12_65_21;
-i+=I_12_65_22;
-i+=I_12_65_23;
-i+=I_12_65_24;
-i+=I_12_65_25;
-i+=I_12_65_26;
-i+=I_12_65_27;
-i+=I_12_65_28;
-i+=I_12_65_29;
-i+=I_12_65_30;
-i+=I_12_65_31;
-return i;
-}
-static String i66(){
-String i="AAAg";
-i+=I_12_66_0;
-i+=I_12_66_1;
-i+=I_12_66_2;
-i+=I_12_66_3;
-i+=I_12_66_4;
-i+=I_12_66_5;
-i+=I_12_66_6;
-i+=I_12_66_7;
-i+=I_12_66_8;
-i+=I_12_66_9;
-i+=I_12_66_10;
-i+=I_12_66_11;
-i+=I_12_66_12;
-i+=I_12_66_13;
-i+=I_12_66_14;
-i+=I_12_66_15;
-i+=I_12_66_16;
-i+=I_12_66_17;
-i+=I_12_66_18;
-i+=I_12_66_19;
-i+=I_12_66_20;
-i+=I_12_66_21;
-i+=I_12_66_22;
-i+=I_12_66_23;
-i+=I_12_66_24;
-i+=I_12_66_25;
-i+=I_12_66_26;
-i+=I_12_66_27;
-i+=I_12_66_28;
-i+=I_12_66_29;
-i+=I_12_66_30;
-i+=I_12_66_31;
-return i;
-}
-static String i67(){
-String i="AAAg";
-i+=I_12_67_0;
-i+=I_12_67_1;
-i+=I_12_67_2;
-i+=I_12_67_3;
-i+=I_12_67_4;
-i+=I_12_67_5;
-i+=I_12_67_6;
-i+=I_12_67_7;
-i+=I_12_67_8;
-i+=I_12_67_9;
-i+=I_12_67_10;
-i+=I_12_67_11;
-i+=I_12_67_12;
-i+=I_12_67_13;
-i+=I_12_67_14;
-i+=I_12_67_15;
-i+=I_12_67_16;
-i+=I_12_67_17;
-i+=I_12_67_18;
-i+=I_12_67_19;
-i+=I_12_67_20;
-i+=I_12_67_21;
-i+=I_12_67_22;
-i+=I_12_67_23;
-i+=I_12_67_24;
-i+=I_12_67_25;
-i+=I_12_67_26;
-i+=I_12_67_27;
-i+=I_12_67_28;
-i+=I_12_67_29;
-i+=I_12_67_30;
-i+=I_12_67_31;
-return i;
-}
-static String i68(){
-String i="AAAg";
-i+=I_12_68_0;
-i+=I_12_68_1;
-i+=I_12_68_2;
-i+=I_12_68_3;
-i+=I_12_68_4;
-i+=I_12_68_5;
-i+=I_12_68_6;
-i+=I_12_68_7;
-i+=I_12_68_8;
-i+=I_12_68_9;
-i+=I_12_68_10;
-i+=I_12_68_11;
-i+=I_12_68_12;
-i+=I_12_68_13;
-i+=I_12_68_14;
-i+=I_12_68_15;
-i+=I_12_68_16;
-i+=I_12_68_17;
-i+=I_12_68_18;
-i+=I_12_68_19;
-i+=I_12_68_20;
-i+=I_12_68_21;
-i+=I_12_68_22;
-i+=I_12_68_23;
-i+=I_12_68_24;
-i+=I_12_68_25;
-i+=I_12_68_26;
-i+=I_12_68_27;
-i+=I_12_68_28;
-i+=I_12_68_29;
-i+=I_12_68_30;
-i+=I_12_68_31;
-return i;
-}
-static String i69(){
-String i="AAAg";
-i+=I_12_69_0;
-i+=I_12_69_1;
-i+=I_12_69_2;
-i+=I_12_69_3;
-i+=I_12_69_4;
-i+=I_12_69_5;
-i+=I_12_69_6;
-i+=I_12_69_7;
-i+=I_12_69_8;
-i+=I_12_69_9;
-i+=I_12_69_10;
-i+=I_12_69_11;
-i+=I_12_69_12;
-i+=I_12_69_13;
-i+=I_12_69_14;
-i+=I_12_69_15;
-i+=I_12_69_16;
-i+=I_12_69_17;
-i+=I_12_69_18;
-i+=I_12_69_19;
-i+=I_12_69_20;
-i+=I_12_69_21;
-i+=I_12_69_22;
-i+=I_12_69_23;
-i+=I_12_69_24;
-i+=I_12_69_25;
-i+=I_12_69_26;
-i+=I_12_69_27;
-i+=I_12_69_28;
-i+=I_12_69_29;
-i+=I_12_69_30;
-i+=I_12_69_31;
-return i;
-}
-static String i70(){
-String i="AAAg";
-i+=I_12_70_0;
-i+=I_12_70_1;
-i+=I_12_70_2;
-i+=I_12_70_3;
-i+=I_12_70_4;
-i+=I_12_70_5;
-i+=I_12_70_6;
-i+=I_12_70_7;
-i+=I_12_70_8;
-i+=I_12_70_9;
-i+=I_12_70_10;
-i+=I_12_70_11;
-i+=I_12_70_12;
-i+=I_12_70_13;
-i+=I_12_70_14;
-i+=I_12_70_15;
-i+=I_12_70_16;
-i+=I_12_70_17;
-i+=I_12_70_18;
-i+=I_12_70_19;
-i+=I_12_70_20;
-i+=I_12_70_21;
-i+=I_12_70_22;
-i+=I_12_70_23;
-i+=I_12_70_24;
-i+=I_12_70_25;
-i+=I_12_70_26;
-i+=I_12_70_27;
-i+=I_12_70_28;
-i+=I_12_70_29;
-i+=I_12_70_30;
-i+=I_12_70_31;
-return i;
-}
-static String i71(){
-String i="AAAg";
-i+=I_12_71_0;
-i+=I_12_71_1;
-i+=I_12_71_2;
-i+=I_12_71_3;
-i+=I_12_71_4;
-i+=I_12_71_5;
-i+=I_12_71_6;
-i+=I_12_71_7;
-i+=I_12_71_8;
-i+=I_12_71_9;
-i+=I_12_71_10;
-i+=I_12_71_11;
-i+=I_12_71_12;
-i+=I_12_71_13;
-i+=I_12_71_14;
-i+=I_12_71_15;
-i+=I_12_71_16;
-i+=I_12_71_17;
-i+=I_12_71_18;
-i+=I_12_71_19;
-i+=I_12_71_20;
-i+=I_12_71_21;
-i+=I_12_71_22;
-i+=I_12_71_23;
-i+=I_12_71_24;
-i+=I_12_71_25;
-i+=I_12_71_26;
-i+=I_12_71_27;
-i+=I_12_71_28;
-i+=I_12_71_29;
-i+=I_12_71_30;
-i+=I_12_71_31;
-return i;
-}
-static String i72(){
-String i="AAAg";
-i+=I_12_72_0;
-i+=I_12_72_1;
-i+=I_12_72_2;
-i+=I_12_72_3;
-i+=I_12_72_4;
-i+=I_12_72_5;
-i+=I_12_72_6;
-i+=I_12_72_7;
-i+=I_12_72_8;
-i+=I_12_72_9;
-i+=I_12_72_10;
-i+=I_12_72_11;
-i+=I_12_72_12;
-i+=I_12_72_13;
-i+=I_12_72_14;
-i+=I_12_72_15;
-i+=I_12_72_16;
-i+=I_12_72_17;
-i+=I_12_72_18;
-i+=I_12_72_19;
-i+=I_12_72_20;
-i+=I_12_72_21;
-i+=I_12_72_22;
-i+=I_12_72_23;
-i+=I_12_72_24;
-i+=I_12_72_25;
-i+=I_12_72_26;
-i+=I_12_72_27;
-i+=I_12_72_28;
-i+=I_12_72_29;
-i+=I_12_72_30;
-i+=I_12_72_31;
-return i;
-}
-static String i73(){
-String i="AAAg";
-i+=I_12_73_0;
-i+=I_12_73_1;
-i+=I_12_73_2;
-i+=I_12_73_3;
-i+=I_12_73_4;
-i+=I_12_73_5;
-i+=I_12_73_6;
-i+=I_12_73_7;
-i+=I_12_73_8;
-i+=I_12_73_9;
-i+=I_12_73_10;
-i+=I_12_73_11;
-i+=I_12_73_12;
-i+=I_12_73_13;
-i+=I_12_73_14;
-i+=I_12_73_15;
-i+=I_12_73_16;
-i+=I_12_73_17;
-i+=I_12_73_18;
-i+=I_12_73_19;
-i+=I_12_73_20;
-i+=I_12_73_21;
-i+=I_12_73_22;
-i+=I_12_73_23;
-i+=I_12_73_24;
-i+=I_12_73_25;
-i+=I_12_73_26;
-i+=I_12_73_27;
-i+=I_12_73_28;
-i+=I_12_73_29;
-i+=I_12_73_30;
-i+=I_12_73_31;
-return i;
-}
-static String i74(){
-String i="AAAg";
-i+=I_12_74_0;
-i+=I_12_74_1;
-i+=I_12_74_2;
-i+=I_12_74_3;
-i+=I_12_74_4;
-i+=I_12_74_5;
-i+=I_12_74_6;
-i+=I_12_74_7;
-i+=I_12_74_8;
-i+=I_12_74_9;
-i+=I_12_74_10;
-i+=I_12_74_11;
-i+=I_12_74_12;
-i+=I_12_74_13;
-i+=I_12_74_14;
-i+=I_12_74_15;
-i+=I_12_74_16;
-i+=I_12_74_17;
-i+=I_12_74_18;
-i+=I_12_74_19;
-i+=I_12_74_20;
-i+=I_12_74_21;
-i+=I_12_74_22;
-i+=I_12_74_23;
-i+=I_12_74_24;
-i+=I_12_74_25;
-i+=I_12_74_26;
-i+=I_12_74_27;
-i+=I_12_74_28;
-i+=I_12_74_29;
-i+=I_12_74_30;
-i+=I_12_74_31;
-return i;
-}
-static String i75(){
-String i="AAAg";
-i+=I_12_75_0;
-i+=I_12_75_1;
-i+=I_12_75_2;
-i+=I_12_75_3;
-i+=I_12_75_4;
-i+=I_12_75_5;
-i+=I_12_75_6;
-i+=I_12_75_7;
-i+=I_12_75_8;
-i+=I_12_75_9;
-i+=I_12_75_10;
-i+=I_12_75_11;
-i+=I_12_75_12;
-i+=I_12_75_13;
-i+=I_12_75_14;
-i+=I_12_75_15;
-i+=I_12_75_16;
-i+=I_12_75_17;
-i+=I_12_75_18;
-i+=I_12_75_19;
-i+=I_12_75_20;
-i+=I_12_75_21;
-i+=I_12_75_22;
-i+=I_12_75_23;
-i+=I_12_75_24;
-i+=I_12_75_25;
-i+=I_12_75_26;
-i+=I_12_75_27;
-i+=I_12_75_28;
-i+=I_12_75_29;
-i+=I_12_75_30;
-i+=I_12_75_31;
-return i;
-}
-static String i76(){
-String i="AAAg";
-i+=I_12_76_0;
-i+=I_12_76_1;
-i+=I_12_76_2;
-i+=I_12_76_3;
-i+=I_12_76_4;
-i+=I_12_76_5;
-i+=I_12_76_6;
-i+=I_12_76_7;
-i+=I_12_76_8;
-i+=I_12_76_9;
-i+=I_12_76_10;
-i+=I_12_76_11;
-i+=I_12_76_12;
-i+=I_12_76_13;
-i+=I_12_76_14;
-i+=I_12_76_15;
-i+=I_12_76_16;
-i+=I_12_76_17;
-i+=I_12_76_18;
-i+=I_12_76_19;
-i+=I_12_76_20;
-i+=I_12_76_21;
-i+=I_12_76_22;
-i+=I_12_76_23;
-i+=I_12_76_24;
-i+=I_12_76_25;
-i+=I_12_76_26;
-i+=I_12_76_27;
-i+=I_12_76_28;
-i+=I_12_76_29;
-i+=I_12_76_30;
-i+=I_12_76_31;
-return i;
-}
-static String i77(){
-String i="AAAg";
-i+=I_12_77_0;
-i+=I_12_77_1;
-i+=I_12_77_2;
-i+=I_12_77_3;
-i+=I_12_77_4;
-i+=I_12_77_5;
-i+=I_12_77_6;
-i+=I_12_77_7;
-i+=I_12_77_8;
-i+=I_12_77_9;
-i+=I_12_77_10;
-i+=I_12_77_11;
-i+=I_12_77_12;
-i+=I_12_77_13;
-i+=I_12_77_14;
-i+=I_12_77_15;
-i+=I_12_77_16;
-i+=I_12_77_17;
-i+=I_12_77_18;
-i+=I_12_77_19;
-i+=I_12_77_20;
-i+=I_12_77_21;
-i+=I_12_77_22;
-i+=I_12_77_23;
-i+=I_12_77_24;
-i+=I_12_77_25;
-i+=I_12_77_26;
-i+=I_12_77_27;
-i+=I_12_77_28;
-i+=I_12_77_29;
-i+=I_12_77_30;
-i+=I_12_77_31;
-return i;
-}
-static String i78(){
-String i="AAAg";
-i+=I_12_78_0;
-i+=I_12_78_1;
-i+=I_12_78_2;
-i+=I_12_78_3;
-i+=I_12_78_4;
-i+=I_12_78_5;
-i+=I_12_78_6;
-i+=I_12_78_7;
-i+=I_12_78_8;
-i+=I_12_78_9;
-i+=I_12_78_10;
-i+=I_12_78_11;
-i+=I_12_78_12;
-i+=I_12_78_13;
-i+=I_12_78_14;
-i+=I_12_78_15;
-i+=I_12_78_16;
-i+=I_12_78_17;
-i+=I_12_78_18;
-i+=I_12_78_19;
-i+=I_12_78_20;
-i+=I_12_78_21;
-i+=I_12_78_22;
-i+=I_12_78_23;
-i+=I_12_78_24;
-i+=I_12_78_25;
-i+=I_12_78_26;
-i+=I_12_78_27;
-i+=I_12_78_28;
-i+=I_12_78_29;
-i+=I_12_78_30;
-i+=I_12_78_31;
-return i;
-}
-static String i79(){
-String i="AAAg";
-i+=I_12_79_0;
-i+=I_12_79_1;
-i+=I_12_79_2;
-i+=I_12_79_3;
-i+=I_12_79_4;
-i+=I_12_79_5;
-i+=I_12_79_6;
-i+=I_12_79_7;
-i+=I_12_79_8;
-i+=I_12_79_9;
-i+=I_12_79_10;
-i+=I_12_79_11;
-i+=I_12_79_12;
-i+=I_12_79_13;
-i+=I_12_79_14;
-i+=I_12_79_15;
-i+=I_12_79_16;
-i+=I_12_79_17;
-i+=I_12_79_18;
-i+=I_12_79_19;
-i+=I_12_79_20;
-i+=I_12_79_21;
-i+=I_12_79_22;
-i+=I_12_79_23;
-i+=I_12_79_24;
-i+=I_12_79_25;
-i+=I_12_79_26;
-i+=I_12_79_27;
-i+=I_12_79_28;
-i+=I_12_79_29;
-i+=I_12_79_30;
-i+=I_12_79_31;
-return i;
-}
-static String i80(){
-String i="AAAg";
-i+=I_12_80_0;
-i+=I_12_80_1;
-i+=I_12_80_2;
-i+=I_12_80_3;
-i+=I_12_80_4;
-i+=I_12_80_5;
-i+=I_12_80_6;
-i+=I_12_80_7;
-i+=I_12_80_8;
-i+=I_12_80_9;
-i+=I_12_80_10;
-i+=I_12_80_11;
-i+=I_12_80_12;
-i+=I_12_80_13;
-i+=I_12_80_14;
-i+=I_12_80_15;
-i+=I_12_80_16;
-i+=I_12_80_17;
-i+=I_12_80_18;
-i+=I_12_80_19;
-i+=I_12_80_20;
-i+=I_12_80_21;
-i+=I_12_80_22;
-i+=I_12_80_23;
-i+=I_12_80_24;
-i+=I_12_80_25;
-i+=I_12_80_26;
-i+=I_12_80_27;
-i+=I_12_80_28;
-i+=I_12_80_29;
-i+=I_12_80_30;
-i+=I_12_80_31;
-return i;
-}
-static String i81(){
-String i="AAAg";
-i+=I_12_81_0;
-i+=I_12_81_1;
-i+=I_12_81_2;
-i+=I_12_81_3;
-i+=I_12_81_4;
-i+=I_12_81_5;
-i+=I_12_81_6;
-i+=I_12_81_7;
-i+=I_12_81_8;
-i+=I_12_81_9;
-i+=I_12_81_10;
-i+=I_12_81_11;
-i+=I_12_81_12;
-i+=I_12_81_13;
-i+=I_12_81_14;
-i+=I_12_81_15;
-i+=I_12_81_16;
-i+=I_12_81_17;
-i+=I_12_81_18;
-i+=I_12_81_19;
-i+=I_12_81_20;
-i+=I_12_81_21;
-i+=I_12_81_22;
-i+=I_12_81_23;
-i+=I_12_81_24;
-i+=I_12_81_25;
-i+=I_12_81_26;
-i+=I_12_81_27;
-i+=I_12_81_28;
-i+=I_12_81_29;
-i+=I_12_81_30;
-i+=I_12_81_31;
-return i;
-}
-static String i82(){
-String i="AAAg";
-i+=I_12_82_0;
-i+=I_12_82_1;
-i+=I_12_82_2;
-i+=I_12_82_3;
-i+=I_12_82_4;
-i+=I_12_82_5;
-i+=I_12_82_6;
-i+=I_12_82_7;
-i+=I_12_82_8;
-i+=I_12_82_9;
-i+=I_12_82_10;
-i+=I_12_82_11;
-i+=I_12_82_12;
-i+=I_12_82_13;
-i+=I_12_82_14;
-i+=I_12_82_15;
-i+=I_12_82_16;
-i+=I_12_82_17;
-i+=I_12_82_18;
-i+=I_12_82_19;
-i+=I_12_82_20;
-i+=I_12_82_21;
-i+=I_12_82_22;
-i+=I_12_82_23;
-i+=I_12_82_24;
-i+=I_12_82_25;
-i+=I_12_82_26;
-i+=I_12_82_27;
-i+=I_12_82_28;
-i+=I_12_82_29;
-i+=I_12_82_30;
-i+=I_12_82_31;
-return i;
-}
-static String i83(){
-String i="AAAg";
-i+=I_12_83_0;
-i+=I_12_83_1;
-i+=I_12_83_2;
-i+=I_12_83_3;
-i+=I_12_83_4;
-i+=I_12_83_5;
-i+=I_12_83_6;
-i+=I_12_83_7;
-i+=I_12_83_8;
-i+=I_12_83_9;
-i+=I_12_83_10;
-i+=I_12_83_11;
-i+=I_12_83_12;
-i+=I_12_83_13;
-i+=I_12_83_14;
-i+=I_12_83_15;
-i+=I_12_83_16;
-i+=I_12_83_17;
-i+=I_12_83_18;
-i+=I_12_83_19;
-i+=I_12_83_20;
-i+=I_12_83_21;
-i+=I_12_83_22;
-i+=I_12_83_23;
-i+=I_12_83_24;
-i+=I_12_83_25;
-i+=I_12_83_26;
-i+=I_12_83_27;
-i+=I_12_83_28;
-i+=I_12_83_29;
-i+=I_12_83_30;
-i+=I_12_83_31;
-return i;
-}
-static String i84(){
-String i="AAAg";
-i+=I_12_84_0;
-i+=I_12_84_1;
-i+=I_12_84_2;
-i+=I_12_84_3;
-i+=I_12_84_4;
-i+=I_12_84_5;
-i+=I_12_84_6;
-i+=I_12_84_7;
-i+=I_12_84_8;
-i+=I_12_84_9;
-i+=I_12_84_10;
-i+=I_12_84_11;
-i+=I_12_84_12;
-i+=I_12_84_13;
-i+=I_12_84_14;
-i+=I_12_84_15;
-i+=I_12_84_16;
-i+=I_12_84_17;
-i+=I_12_84_18;
-i+=I_12_84_19;
-i+=I_12_84_20;
-i+=I_12_84_21;
-i+=I_12_84_22;
-i+=I_12_84_23;
-i+=I_12_84_24;
-i+=I_12_84_25;
-i+=I_12_84_26;
-i+=I_12_84_27;
-i+=I_12_84_28;
-i+=I_12_84_29;
-i+=I_12_84_30;
-i+=I_12_84_31;
-return i;
-}
-static String i85(){
-String i="AAAg";
-i+=I_12_85_0;
-i+=I_12_85_1;
-i+=I_12_85_2;
-i+=I_12_85_3;
-i+=I_12_85_4;
-i+=I_12_85_5;
-i+=I_12_85_6;
-i+=I_12_85_7;
-i+=I_12_85_8;
-i+=I_12_85_9;
-i+=I_12_85_10;
-i+=I_12_85_11;
-i+=I_12_85_12;
-i+=I_12_85_13;
-i+=I_12_85_14;
-i+=I_12_85_15;
-i+=I_12_85_16;
-i+=I_12_85_17;
-i+=I_12_85_18;
-i+=I_12_85_19;
-i+=I_12_85_20;
-i+=I_12_85_21;
-i+=I_12_85_22;
-i+=I_12_85_23;
-i+=I_12_85_24;
-i+=I_12_85_25;
-i+=I_12_85_26;
-i+=I_12_85_27;
-i+=I_12_85_28;
-i+=I_12_85_29;
-i+=I_12_85_30;
-i+=I_12_85_31;
-return i;
-}
-static String i86(){
-String i="AAAg";
-i+=I_12_86_0;
-i+=I_12_86_1;
-i+=I_12_86_2;
-i+=I_12_86_3;
-i+=I_12_86_4;
-i+=I_12_86_5;
-i+=I_12_86_6;
-i+=I_12_86_7;
-i+=I_12_86_8;
-i+=I_12_86_9;
-i+=I_12_86_10;
-i+=I_12_86_11;
-i+=I_12_86_12;
-i+=I_12_86_13;
-i+=I_12_86_14;
-i+=I_12_86_15;
-i+=I_12_86_16;
-i+=I_12_86_17;
-i+=I_12_86_18;
-i+=I_12_86_19;
-i+=I_12_86_20;
-i+=I_12_86_21;
-i+=I_12_86_22;
-i+=I_12_86_23;
-i+=I_12_86_24;
-i+=I_12_86_25;
-i+=I_12_86_26;
-i+=I_12_86_27;
-i+=I_12_86_28;
-i+=I_12_86_29;
-i+=I_12_86_30;
-i+=I_12_86_31;
-return i;
-}
-static String i87(){
-String i="AAAg";
-i+=I_12_87_0;
-i+=I_12_87_1;
-i+=I_12_87_2;
-i+=I_12_87_3;
-i+=I_12_87_4;
-i+=I_12_87_5;
-i+=I_12_87_6;
-i+=I_12_87_7;
-i+=I_12_87_8;
-i+=I_12_87_9;
-i+=I_12_87_10;
-i+=I_12_87_11;
-i+=I_12_87_12;
-i+=I_12_87_13;
-i+=I_12_87_14;
-i+=I_12_87_15;
-i+=I_12_87_16;
-i+=I_12_87_17;
-i+=I_12_87_18;
-i+=I_12_87_19;
-i+=I_12_87_20;
-i+=I_12_87_21;
-i+=I_12_87_22;
-i+=I_12_87_23;
-i+=I_12_87_24;
-i+=I_12_87_25;
-i+=I_12_87_26;
-i+=I_12_87_27;
-i+=I_12_87_28;
-i+=I_12_87_29;
-i+=I_12_87_30;
-i+=I_12_87_31;
-return i;
-}
-static String i88(){
-String i="AAAg";
-i+=I_12_88_0;
-i+=I_12_88_1;
-i+=I_12_88_2;
-i+=I_12_88_3;
-i+=I_12_88_4;
-i+=I_12_88_5;
-i+=I_12_88_6;
-i+=I_12_88_7;
-i+=I_12_88_8;
-i+=I_12_88_9;
-i+=I_12_88_10;
-i+=I_12_88_11;
-i+=I_12_88_12;
-i+=I_12_88_13;
-i+=I_12_88_14;
-i+=I_12_88_15;
-i+=I_12_88_16;
-i+=I_12_88_17;
-i+=I_12_88_18;
-i+=I_12_88_19;
-i+=I_12_88_20;
-i+=I_12_88_21;
-i+=I_12_88_22;
-i+=I_12_88_23;
-i+=I_12_88_24;
-i+=I_12_88_25;
-i+=I_12_88_26;
-i+=I_12_88_27;
-i+=I_12_88_28;
-i+=I_12_88_29;
-i+=I_12_88_30;
-i+=I_12_88_31;
-return i;
-}
-static String i89(){
-String i="AAAg";
-i+=I_12_89_0;
-i+=I_12_89_1;
-i+=I_12_89_2;
-i+=I_12_89_3;
-i+=I_12_89_4;
-i+=I_12_89_5;
-i+=I_12_89_6;
-i+=I_12_89_7;
-i+=I_12_89_8;
-i+=I_12_89_9;
-i+=I_12_89_10;
-i+=I_12_89_11;
-i+=I_12_89_12;
-i+=I_12_89_13;
-i+=I_12_89_14;
-i+=I_12_89_15;
-i+=I_12_89_16;
-i+=I_12_89_17;
-i+=I_12_89_18;
-i+=I_12_89_19;
-i+=I_12_89_20;
-i+=I_12_89_21;
-i+=I_12_89_22;
-i+=I_12_89_23;
-i+=I_12_89_24;
-i+=I_12_89_25;
-i+=I_12_89_26;
-i+=I_12_89_27;
-i+=I_12_89_28;
-i+=I_12_89_29;
-i+=I_12_89_30;
-i+=I_12_89_31;
-return i;
-}
+static int[][] i60(){return new int[][]{i12i60i0(),i12i60i1(),i12i60i2(),i12i60i3(),i12i60i4(),i12i60i5(),i12i60i6(),i12i60i7(),i12i60i8(),i12i60i9(),i12i60i10(),i12i60i11(),i12i60i12(),i12i60i13(),i12i60i14(),i12i60i15(),i12i60i16(),i12i60i17(),i12i60i18(),i12i60i19(),i12i60i20(),i12i60i21(),i12i60i22(),i12i60i23(),i12i60i24(),i12i60i25(),i12i60i26(),i12i60i27(),i12i60i28(),i12i60i29(),i12i60i30(),i12i60i31()};}
+static int[] i12i60i0(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i60i1(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i60i2(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i60i3(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i60i4(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i60i5(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i60i6(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355701,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i60i7(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355701,9069121,11830089,11895882,3355185,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i60i8(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3289908,16777215,16777215,16777215,16777215,16777215,3355701,11698761,11895882,3355185,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i60i9(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355701,7453273,3289905,16777215,16777215,16777215,3355701,9069121,11830089,3355185,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i60i10(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355701,7453273,7585114,3289905,16777215,16777215,3355701,5329233,9134658,9200450,5395025,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i60i11(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3355701,4823625,7519321,3289905,16777215,16777215,3355701,3223857,15983705,5526610,5395026,13417298,3355441,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i60i12(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3355701,7453273,4889674,3224113,16777215,16777215,3355701,15983705,10917202,16115033,16246618,10917202,16115033,3420977,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i60i13(){return new int[]{16777215,16777215,16777215,16777215,16777215,3487029,4823625,7519321,4889674,4889674,3224113,3223857,15983705,16246618,16246618,10917202,10851410,16115033,16246618,3420977,16777215,16777215,16777215,16777215,16777215,3289908,3223857,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i60i14(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,4823625,4889674,4889674,4889674,4889674,5329745,16049241,16246618,16246618,16246618,16246618,16246618,16246618,16246618,3420977,16777215,16777215,3355701,3223857,9100145,3289906,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i60i15(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,4823625,4889674,4889674,4889674,4889674,5329745,16049241,16246618,16246618,16246618,16246618,16246618,16246618,5526610,3223857,3223857,3223857,9100145,9231987,9231987,3289906,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i60i16(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3355701,4823625,4889674,4889674,4889674,5329745,16049241,16246618,13548882,13548882,16180825,16246618,5526610,7519065,7585114,9166194,9231987,9231987,9231987,9231987,3289906,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i60i17(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355701,4823625,4889674,5329745,16049241,16246618,16246618,16711420,16777215,13549140,5460818,7519065,7585114,7585114,7585114,9166194,9231987,9231987,3289906,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i60i18(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355701,3223857,5329233,16049241,16246618,13548882,3355441,16514043,16777215,5526612,7519065,7585114,7585114,7585114,9166194,9231987,9231987,3289906,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i60i19(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355701,15983705,16246618,16246618,13548882,16711164,16777215,13549140,5460818,7519065,7585114,7585114,7585114,7585114,9166194,3289906,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i60i20(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355701,5329233,13417298,16180825,16246618,16246618,13548882,13548882,13548882,13548882,5460818,7519065,7585114,7585114,3289905,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i60i21(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3289908,15964843,5526355,13417298,16180825,13548882,13548882,13548882,13548882,5460818,5395026,5395026,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i60i22(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355701,15964843,16227501,5526355,5395026,5395026,5395026,5395026,5395026,12286595,12417924,3355186,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i60i23(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3289908,15964843,16227501,16227501,16227501,16227501,12417924,12417924,12417924,3355186,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i60i24(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355701,3223857,12220802,12417924,12417924,12417924,3355186,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i60i25(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355701,3223857,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i60i26(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i60i27(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i60i28(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i60i29(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i60i30(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i60i31(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[][] i61(){return new int[][]{i12i61i0(),i12i61i1(),i12i61i2(),i12i61i3(),i12i61i4(),i12i61i5(),i12i61i6(),i12i61i7(),i12i61i8(),i12i61i9(),i12i61i10(),i12i61i11(),i12i61i12(),i12i61i13(),i12i61i14(),i12i61i15(),i12i61i16(),i12i61i17(),i12i61i18(),i12i61i19(),i12i61i20(),i12i61i21(),i12i61i22(),i12i61i23(),i12i61i24(),i12i61i25(),i12i61i26(),i12i61i27(),i12i61i28(),i12i61i29(),i12i61i30(),i12i61i31()};}
+static int[] i12i61i0(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i61i1(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i61i2(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i61i3(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i61i4(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i61i5(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i61i6(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3158064,3026478,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i61i7(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3092271,6842472,3092271,16777215,3158064,3092271,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i61i8(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3223857,16645629,7039851,3289650,3289650,7039851,3223857,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i61i9(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3289650,14737632,6842729,6842472,6381921,6842729,3026478,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i61i10(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3092013,3158064,3355185,3092013,3158064,16777215,16777215,3158064,16250871,6381921,10664377,16119285,15132390,6974058,3290165,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i61i11(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3420978,3420978,15039057,15104850,15104850,14907729,3421751,16777215,3223857,3289650,16645629,7040108,7237230,7237230,6974058,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i61i12(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3026220,14053964,14579279,13397320,14053964,14579279,3026220,16777215,16777215,2829099,6710886,5066061,9545382,15921906,15527148,6184542,3355958,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i61i13(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3223857,13791307,14579279,14907729,13791307,14579279,14907729,13791307,3158064,16777215,2960685,5526097,6842472,6381921,6842729,6842472,2960685,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i61i14(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3420978,14841936,15104850,15104850,14841936,15104850,15236434,14841936,13457970,3223857,13195569,15104850,13457970,6842472,7039851,5526354,3420977,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i61i15(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,2960685,14907729,13397320,14053964,14579279,13265992,12604718,16105039,13397320,14513742,14579279,13265992,12867120,5066061,4802889,5328974,9205046,14790472,3420977,3026478,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i61i16(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3223857,15104850,13988685,11225656,15105364,3092271,16433744,16630609,14250829,15039057,14907985,5131854,5395026,6842729,6579300,16499538,16499537,15710797,16499538,3355958,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i61i17(){return new int[]{16777215,16777215,16777215,16777215,16777215,3223857,7039851,5395026,5526097,13457970,16645629,5328976,16696402,15104850,14841936,15104850,5460819,6842472,7039851,7039851,6842472,7236971,16696402,16170832,3421751,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i61i18(){return new int[]{16777215,16777215,16777215,16777215,3355958,6382179,3158579,3355958,13265992,13988172,5328718,4933960,13988685,14448720,13397320,5131854,6710886,6184542,6710886,6382179,6184542,15907918,15382092,3026993,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i61i19(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3026478,13195569,14974035,14250829,10795192,10796220,14185807,5460819,6974058,6579300,6974058,6842729,6579300,9599289,3355958,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i61i20(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3224372,6842729,10796220,14317392,14907729,10796220,10335155,10796220,5526612,6710886,6974058,6974058,3224372,3421751,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i61i21(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3158579,8230029,9545382,13988685,10401205,9545382,10335412,10335412,4868682,3092271,3158579,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i61i22(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3223857,5197647,10730170,8624786,6388089,10730427,6585211,10335412,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i61i23(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3421751,3224372,3355958,5395026,10269105,5395026,7039851,3224372,3421751,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i61i24(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3290165,2829099,6710886,3290165,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i61i25(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3290165,3421751,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i61i26(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i61i27(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i61i28(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i61i29(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i61i30(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i61i31(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[][] i62(){return new int[][]{i12i62i0(),i12i62i1(),i12i62i2(),i12i62i3(),i12i62i4(),i12i62i5(),i12i62i6(),i12i62i7(),i12i62i8(),i12i62i9(),i12i62i10(),i12i62i11(),i12i62i12(),i12i62i13(),i12i62i14(),i12i62i15(),i12i62i16(),i12i62i17(),i12i62i18(),i12i62i19(),i12i62i20(),i12i62i21(),i12i62i22(),i12i62i23(),i12i62i24(),i12i62i25(),i12i62i26(),i12i62i27(),i12i62i28(),i12i62i29(),i12i62i30(),i12i62i31()};}
+static int[] i12i62i0(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i62i1(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i62i2(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i62i3(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i62i4(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i62i5(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i62i6(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i62i7(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,3223857,16777215,3487029,9605770,3289650,3223857,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i62i8(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3487029,7434602,5395026,3223857,9605770,9737356,7566187,5395026,7500394,7566187,3289649,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i62i9(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3487029,7434602,9671563,5460818,9605771,9737356,7566187,7566187,5395026,7500394,7566187,7566187,3289649,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i62i10(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3552822,9605770,5460818,9605771,9737356,9737356,9737356,5460818,9605771,5460818,7500394,7566187,3289649,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i62i11(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,5329233,9605771,9737356,9737356,9737356,9737356,9737356,9737356,9737356,7566187,5395026,7500394,7566187,3289649,16777215,3552822,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i62i12(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,13848930,9802379,9737356,9737356,9737356,5460818,9605771,9737356,9737356,9737356,5460818,7500394,7566187,7566187,3289649,7434602,7566187,5395026,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i62i13(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,9605770,9737356,9737356,9737356,5460818,13849186,5526098,5395026,9605771,7566187,5395026,3223857,7434602,7566187,7566187,7566187,3289649,5329233,5395026,3223857,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i62i14(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3552822,7434602,9671563,9737356,13914979,3354929,16493515,14046052,7631466,7566187,3289649,16777215,3552822,7434602,7566187,3289649,16777215,3552822,3223857,5329233,3223857,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i62i15(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3487029,15979337,7697514,7566187,9671563,16624844,14046052,7631466,7566187,3289649,16777215,16777215,16777215,3552821,3223857,16777215,16777215,16777215,16777215,3487029,3223857,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i62i16(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,13347649,16176457,7697514,7566187,7566187,16045130,3420977,16777215,16777215,16777215,16777215,16777215,3487029,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i62i17(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,7434602,13413442,16176457,13544770,5460817,7500394,3289649,16777215,16777215,16777215,3487029,13347649,3355185,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i62i18(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3487029,3223857,5329233,5395026,5395026,5395026,5395026,7500394,7566187,9671563,3289650,3223857,16777215,3487029,15979337,16242250,3420977,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i62i19(){return new int[]{16777215,16777215,16777215,16777215,16777215,3487029,5329233,5395026,5395026,5395026,7500394,7566187,7566187,7566187,5395026,9605771,9737356,5460818,3223857,13347649,13544770,16176457,13544770,3355185,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i62i20(){return new int[]{16777215,16777215,16777215,16777215,16777215,3487029,5329233,5395026,5395026,3223857,3223857,7434602,7566187,5395026,9605771,9737356,9737356,5460818,7500394,5395026,13413186,3355185,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i62i21(){return new int[]{16777215,16777215,16777215,16777215,16777215,3487029,5329233,3223857,5329233,3223857,16777215,3487029,5329233,9605771,9737356,9737356,9737356,5460818,7500394,3289649,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i62i22(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3487029,16777215,3487029,16777215,16777215,16777215,3487029,9605770,5460818,9605771,5460818,7500394,7566187,3289649,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i62i23(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,3223857,16777215,3487029,3223857,7434602,3289649,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i62i24(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i62i25(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i62i26(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i62i27(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i62i28(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i62i29(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i62i30(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i62i31(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[][] i63(){return new int[][]{i12i63i0(),i12i63i1(),i12i63i2(),i12i63i3(),i12i63i4(),i12i63i5(),i12i63i6(),i12i63i7(),i12i63i8(),i12i63i9(),i12i63i10(),i12i63i11(),i12i63i12(),i12i63i13(),i12i63i14(),i12i63i15(),i12i63i16(),i12i63i17(),i12i63i18(),i12i63i19(),i12i63i20(),i12i63i21(),i12i63i22(),i12i63i23(),i12i63i24(),i12i63i25(),i12i63i26(),i12i63i27(),i12i63i28(),i12i63i29(),i12i63i30(),i12i63i31()};}
+static int[] i12i63i0(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i63i1(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i63i2(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i63i3(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i63i4(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,16478545,3420721,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i63i5(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,16478545,3420721,16777215,3552822,3223857,3223857,16777215,3552822,16478545,3420721,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i63i6(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,16478545,5526098,3223857,13878137,16711364,16777158,3421235,16478545,3420721,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i63i7(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,16478545,5526098,13878394,16711364,16777158,5526611,16544338,12997177,14009465,3355442,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i63i8(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,16478545,5526098,16579780,16777158,5526611,16544338,12997177,9716289,16645315,16777158,3421235,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i63i9(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,16478545,12997177,16710851,5526611,16544338,12997177,9716289,16645315,14075516,16711364,16777158,3421235,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i63i10(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,12800312,16675409,5526098,16544338,16741202,9781826,13943674,9782338,9716290,9716290,16645315,16777158,3421235,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i63i11(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,16478545,16741202,16741202,9781826,12931385,12997177,16675409,16741202,9781826,13943674,16711364,16777158,3421235,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i63i12(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,16478545,16741202,16741202,12997177,5473243,16567347,16741457,9781826,13943674,14075515,16711364,16777158,16777158,3421235,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i63i13(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,9584961,16609873,12997177,16698417,3420977,16501553,16741457,16741202,9781826,13943674,14075515,16711364,14075516,16711364,3421235,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i63i14(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,3223857,12800312,5460561,16544338,16741202,16741202,16763953,9782337,10193538,14009723,16711364,5526611,10128259,16645572,16777158,10325381,16645572,3421235,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i63i15(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,12827299,13024677,10259588,10259588,12931642,3354929,16478545,5526098,5395026,13878394,16711364,16777158,12997691,16675409,5526098,10128259,14009723,16711364,10325381,3289650,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i63i16(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,12827299,5460819,12893091,3355442,3223857,16777215,3487029,5329233,13878394,16711364,16777158,16777158,9782340,16609873,16741202,12997177,5460561,13878394,14075515,3355442,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i63i17(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,10128002,12958884,3355442,16777215,16777215,16777215,3487029,13878137,16698674,12997432,16710851,16777158,16777158,9782340,16609873,16741202,12997177,5460561,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i63i18(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3487029,3223857,16777215,16777215,16777215,3487029,16513987,12997691,16698417,12997432,14009465,16711364,16777158,5526611,5395026,10128259,12958884,10259588,3289650,3223857,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i63i19(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,5329233,16544338,12997177,16675409,12997177,16710851,12997691,16710851,9782340,5460305,10128259,12958884,13024677,13024677,3355442,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i63i20(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,9584961,9716290,9716290,16609873,16741202,12997177,12997177,16675409,9781826,16609873,5526098,12893091,5460819,5395026,12893091,3355442,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i63i21(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,9584961,12931385,9716289,9716290,3289393,9584961,12931385,16675409,16741202,16741202,5526098,3223857,3223857,12827299,10259588,3289650,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i63i22(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,12800312,16698417,12997432,12997177,3354929,16777215,3552822,9584961,16609873,16741202,16741202,16741202,3420721,16777215,3552822,3223857,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i63i23(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,16501553,16764465,16764465,9782337,12958627,3355442,16777215,3552822,12800312,16675409,16741202,16741202,3420721,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i63i24(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,16501553,16764465,16764465,16764465,13016088,3355184,3223857,16777215,3552822,12800312,16675409,16763953,16741457,16763953,3420977,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i63i25(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,3223857,16501553,3420977,12818968,3355184,16777215,16777215,16777215,16777215,3552822,16501553,16764465,16764465,16764465,13016088,3355184,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i63i26(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,3223857,16777215,3487029,3223857,16777215,16777215,16777215,16777215,3487029,12818968,16698672,16764465,16764465,16764465,3420977,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i63i27(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,16501553,3420977,16501553,3420977,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i63i28(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,16777215,3552822,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i63i29(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i63i30(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i63i31(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[][] i64(){return new int[][]{i12i64i0(),i12i64i1(),i12i64i2(),i12i64i3(),i12i64i4(),i12i64i5(),i12i64i6(),i12i64i7(),i12i64i8(),i12i64i9(),i12i64i10(),i12i64i11(),i12i64i12(),i12i64i13(),i12i64i14(),i12i64i15(),i12i64i16(),i12i64i17(),i12i64i18(),i12i64i19(),i12i64i20(),i12i64i21(),i12i64i22(),i12i64i23(),i12i64i24(),i12i64i25(),i12i64i26(),i12i64i27(),i12i64i28(),i12i64i29(),i12i64i30(),i12i64i31()};}
+static int[] i12i64i0(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i64i1(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i64i2(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i64i3(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i64i4(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i64i5(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i64i6(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3158064,5066061,2894892,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i64i7(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3289650,3158064,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3158064,5131854,2894892,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i64i8(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3420979,11834227,3289650,6990929,4486975,16777215,16777215,16777215,3289650,3289650,5395026,5395026,5329233,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i64i9(){return new int[]{16777215,16777215,16777215,16777215,4156726,3158064,10519142,5328976,6858575,3959096,16777215,16777215,16777215,3092271,5066061,4802889,5329233,5066061,4802889,3355958,16777215,16777215,16777215,2960685,2960685,3289650,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i64i10(){return new int[]{16777215,16777215,16777215,4090937,6793039,6924881,10716776,11702897,3289649,16777215,16777215,16777215,16777215,3223857,5197647,4934475,5329233,5197647,2960685,16777215,16777215,4091194,6990929,3092527,10782312,5526611,3092271,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i64i11(){return new int[]{16777215,16777215,16777215,16777215,4486975,4486975,3223857,11834483,9728850,3289650,16777215,3289650,3289650,5395026,5395026,5329233,5395026,5395026,3289650,3289650,16777215,16777215,4354617,7056210,3420979,11834483,3223857,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i64i12(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,2894892,9334350,9334351,8545608,3223857,9071437,8545608,5263182,5066061,4737096,5328976,5066061,8611401,9465936,3026478,16777215,3289650,3026478,10519142,11834226,2894892,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i64i13(){return new int[]{16777215,16777215,16777215,16777215,16777215,3158064,8874315,9531473,9531473,4934475,11571313,7362625,6967869,9531473,9334351,8874315,9663057,9334351,6967869,7625282,11308141,3026478,11834226,11308141,10848105,11834483,3092527,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i64i14(){return new int[]{16777215,16777215,16777215,16777215,16777215,3421751,9465680,9597522,7625539,5328976,5591892,11834227,11637104,7625539,7559747,7362625,7625539,7559746,11637104,11834227,11768690,7362625,11834483,11834226,11505775,7056722,6990929,4420926,16777215,16777215,16777215,16777215};}
+static int[] i12i64i15(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3026993,9203022,9334351,4737096,16025246,11045483,10519397,11308398,5066061,4737096,11571313,11045483,10519142,5328976,6967869,8611401,11571313,10782312,2829099,4421183,4090937,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i64i16(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3421751,3421751,5066061,16485283,11702897,11176812,5329233,5526099,5066061,5395026,11702897,5066061,9597522,9334351,9137229,9597522,9334351,3026478,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i64i17(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3158064,5526354,11834227,11637104,5395026,16681892,5328976,5395026,11834227,5328976,9597522,7559746,7362625,9597522,9531473,3355958,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i64i18(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3026993,9203022,9071436,10519397,5131854,15434392,4737096,5328976,11045483,8545608,5328976,8742730,8545608,3355958,3092786,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i64i19(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3421751,9531473,9071437,5460561,5329233,5066061,5526354,9531473,9137229,9597522,3290165,3224372,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i64i20(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355958,3224372,9531473,5329233,5263182,9728850,9531473,9203022,3421751,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i64i21(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3158064,3026478,8545608,9465936,3026478,2829099,16777215,2960685,2894892,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i64i22(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3092271,5395026,5329233,5197647,5395026,5329233,3158064,3289650,5329233,5197647,3289650,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i64i23(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3224372,5329233,5329233,5131854,5395026,5329233,5131854,5395026,3355958,3224372,5395026,3158064,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i64i24(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3224372,5000268,4737096,5328976,5000268,3026993,3355958,16777215,16777215,3355958,3092786,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i64i25(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3421751,3290165,3421751,3421751,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i64i26(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i64i27(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i64i28(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i64i29(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i64i30(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i64i31(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[][] i65(){return new int[][]{i12i65i0(),i12i65i1(),i12i65i2(),i12i65i3(),i12i65i4(),i12i65i5(),i12i65i6(),i12i65i7(),i12i65i8(),i12i65i9(),i12i65i10(),i12i65i11(),i12i65i12(),i12i65i13(),i12i65i14(),i12i65i15(),i12i65i16(),i12i65i17(),i12i65i18(),i12i65i19(),i12i65i20(),i12i65i21(),i12i65i22(),i12i65i23(),i12i65i24(),i12i65i25(),i12i65i26(),i12i65i27(),i12i65i28(),i12i65i29(),i12i65i30(),i12i65i31()};}
+static int[] i12i65i0(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i65i1(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i65i2(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i65i3(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i65i4(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,13345609,16178521,16244314,3420977,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i65i5(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,3223857,5329233,16046937,16711420,16244316,16244314,3420977,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i65i6(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,15981401,5526610,13411146,16711164,16244316,16244314,16112729,5526609,3420977,3486770,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i65i7(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,11709427,5592151,15981404,16244314,16244314,16112729,13411657,5723218,16047194,16244314,3420977,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i65i8(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3618613,5329233,5395026,11775220,11906551,11906551,16112988,13476940,5526869,15981404,16178778,16112729,3420977,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i65i9(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,13345609,7631819,11775222,11906551,11906551,11906551,11906551,7697614,11775222,11906551,16112988,13411401,3355185,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i65i10(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3618615,7434699,13421822,11906551,11774965,11906551,11906551,9737447,11841015,11906551,11774965,7631822,3289651,16777215,16777215,16777215,16777215,3487029,3486770,3223857,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i65i11(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3683639,13356027,13487358,11906807,11774965,7632335,11775222,11775222,11906551,11906294,11906551,7631821,5395027,3355700,3223857,3486770,16777215,3618613,15981401,16244314,16244314,3618354,16777215,16777215,16777215,16777215};}
+static int[] i12i65i12(){return new int[]{16777215,16777215,16777215,16777215,16777215,3487029,14973347,13487100,11906807,11906551,7632078,11774966,11906551,9868518,9671654,11841014,5592151,5526613,11775220,13553148,16113247,16046937,3486770,15981144,16244314,16112729,13542730,13542730,3355185,16777215,16777215,16777215};}
+static int[] i12i65i13(){return new int[]{16777215,16777215,16777215,16777215,3552824,3223857,14842276,11906293,11775222,11906294,9802983,11906037,14842787,15170213,7631821,11775222,11906551,11906551,13421822,16178524,16776953,5526869,5395026,15849819,16178525,13608266,13542730,13542730,3355185,16777215,16777215,16777215};}
+static int[] i12i65i14(){return new int[]{16777215,16777215,16777215,3487029,9605860,5460820,9671396,11841015,9802983,11709428,11840757,14973863,3486517,14908067,7763150,11840758,11906551,11774965,9737447,13345612,16046938,5592146,5395027,9671653,9605862,13411406,13477194,13345353,3618613,16777215,16777215,16777215};}
+static int[] i12i65i15(){return new int[]{16777215,16777215,16777215,3552824,9605860,5460821,11643632,11709171,11775220,5526357,5395026,7434698,9803239,11709172,11906295,11906551,11906551,7697615,7500491,5460822,5460820,5329233,9540066,9671654,7632078,7434699,13279820,3684406,16777215,16777215,16777215,16777215};}
+static int[] i12i65i16(){return new int[]{16777215,16777215,3487029,9474275,9737446,7632078,5329235,3552822,5329233,5460820,5395026,5395026,16382457,5592405,11643633,11906295,11906548,12037877,5460820,7500492,7566285,5526614,5526613,7500490,7566285,5526359,3223857,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i65i17(){return new int[]{16777215,16777215,3487029,7500491,9671655,9737447,3289651,16777215,3750201,9540065,5526615,5395026,5394770,5526098,5526098,11708913,16178268,16112729,5526609,7500492,9540067,9671654,9737190,5592407,5526613,11775220,3355188,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i65i18(){return new int[]{16777215,16777215,3487029,9474275,9737446,9737447,3355445,16777215,16777215,3487029,9605860,5460564,10764882,10830418,10830418,5525842,15915353,13476938,5526356,7500492,5460821,9540065,11774966,11841015,11906551,11774965,3355444,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i65i19(){return new int[]{16777215,16777215,3750201,7434697,9671654,9737447,7632078,3223859,16777215,3487029,9605860,10765140,10830418,10830418,10830418,10830418,5460306,5395027,7500492,7566286,7566286,5460821,7434697,11840758,11906551,7697615,3289395,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i65i20(){return new int[]{16777215,16777215,16777215,3684408,9540065,9671653,9671653,3618617,16777215,3487029,9605860,10765140,10830418,10830419,10961748,10961748,5460306,7500492,7434699,7566286,7500494,7566286,5395027,11774964,11906551,11774965,3355444,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i65i21(){return new int[]{16777215,16777215,16777215,16777215,3750201,3552822,3552822,16777215,16777215,3487031,9605860,10830933,13460099,15170468,15170469,15170469,5591635,7434953,5460822,9671653,7632078,7500492,5526359,11775220,11906551,7697615,3289395,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i65i22(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,7434699,7632078,13394563,15104932,15104675,15170469,15104677,13525892,5460562,9605860,9737447,9737447,5460820,11774964,11906551,11774965,11709428,3553079,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i65i23(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487031,3223857,7434699,16448253,10896983,15038883,13460099,13526406,15039139,13395078,5526100,9540065,9671654,9605862,5526614,11643632,11775220,7566284,3552824,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i65i24(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3618615,7500491,5460821,7434697,9540068,9671654,13395078,10896469,16579580,13526663,9671138,7566284,5395027,9540066,7566286,7566286,3289651,3487029,3552822,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i65i25(){return new int[]{16777215,16777215,16777215,16777215,16777215,3750201,16382457,7632076,7500492,5395027,3552565,7434697,9540068,9671653,9671653,9671653,3618617,3223857,5329234,5460820,7566285,7697615,3420725,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i65i26(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3750201,3552822,3552822,3552822,16777215,3749944,3487029,3552822,3552822,3552822,16777215,3487029,7566283,11774965,11906807,11840758,7698127,3289651,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i65i27(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3750201,16382457,7632076,16382459,7632076,16382459,3684408,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i65i28(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3750201,3552822,3552822,3552822,3552822,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i65i29(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i65i30(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i65i31(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[][] i66(){return new int[][]{i12i66i0(),i12i66i1(),i12i66i2(),i12i66i3(),i12i66i4(),i12i66i5(),i12i66i6(),i12i66i7(),i12i66i8(),i12i66i9(),i12i66i10(),i12i66i11(),i12i66i12(),i12i66i13(),i12i66i14(),i12i66i15(),i12i66i16(),i12i66i17(),i12i66i18(),i12i66i19(),i12i66i20(),i12i66i21(),i12i66i22(),i12i66i23(),i12i66i24(),i12i66i25(),i12i66i26(),i12i66i27(),i12i66i28(),i12i66i29(),i12i66i30(),i12i66i31()};}
+static int[] i12i66i0(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i66i1(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i66i2(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i66i3(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i66i4(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i66i5(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i66i6(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3158064,3223857,3486513,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i66i7(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,2960942,3486513,2960428,15961383,16618025,2960685,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i66i8(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,2960685,16486696,4802889,15632678,13914920,4934217,2960942,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i66i9(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3486513,14111785,16618025,14111785,16618025,16486954,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i66i10(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3157548,15567398,16618025,15041829,15830569,13849387,2960942,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i66i11(){return new int[]{16777215,16777215,16777215,16777215,16777215,3158061,3420722,16777215,16777215,3289650,15041829,15435814,16487467,14911015,5618821,6079626,5354110,3092527,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i66i12(){return new int[]{16777215,16777215,16777215,16777215,3421751,16049450,15616602,3486769,3420466,5395283,16618025,16618795,5949068,6079626,6145675,16618282,6079626,4885611,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i66i13(){return new int[]{16777215,16777215,16777215,16777215,16777215,3158061,13380163,14470951,12265021,4951148,14779430,5420160,6079625,14910500,15699238,5329233,14910500,5552771,3158064,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i66i14(){return new int[]{16777215,16777215,16777215,16777215,2960685,14996263,5395026,4423521,5000268,6145163,5354110,5486209,16618025,14779430,15391527,5329233,15041829,5618821,5525842,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i66i15(){return new int[]{16777215,16777215,16777215,16777215,3223857,13314626,5461075,4885099,5395283,15616602,5882506,5883019,16618795,3486513,16246569,5592146,16618025,5949068,15616602,3223857,3486769,3420466,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i66i16(){return new int[]{16777215,16777215,16777215,16777215,16777215,3158322,5882506,4423521,4489058,15616602,12068156,5420160,5882506,14911016,5263440,16552234,5484413,14697812,15485273,2960428,15259431,13183297,3092011,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i66i17(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3223857,5552258,2960942,3421751,14238803,5066061,5591635,15395048,16184564,15616602,14238803,15223386,13314883,14238803,12986689,15486041,14667814,3158064,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i66i18(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3421751,5882506,3421751,16777215,3487029,5526612,15616602,15551580,15616602,15748445,13380676,16711422,4885611,5883019,5461075,16115243,5395026,15551579,3420722,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i66i19(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3026993,16777215,3223857,14869218,8816263,15551580,14869218,14567254,16514043,12040148,9013641,4819561,5222268,5486466,4753256,5222268,4555364,14960983,2960428,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i66i20(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3421751,15198183,12895455,16514043,12434907,15987699,13421804,12434907,16185078,5082478,5419903,5750663,5882506,5420159,5750663,4885354,14173010,3158064,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i66i21(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3158064,15852074,3421751,13158632,3421751,5395026,16448250,16645629,16777215,5263440,5883019,4885099,5816713,4885099,5883019,3355958,3421751,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i66i22(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3026993,3092786,16777215,3026993,16777215,3355958,14869218,9145224,16316664,3026993,5485953,3092271,5221755,3158579,3290165,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i66i23(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3224372,15720745,3223857,16777215,3355958,16777215,3224372,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i66i24(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3421751,3421751,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i66i25(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i66i26(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i66i27(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i66i28(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i66i29(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i66i30(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i66i31(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[][] i67(){return new int[][]{i12i67i0(),i12i67i1(),i12i67i2(),i12i67i3(),i12i67i4(),i12i67i5(),i12i67i6(),i12i67i7(),i12i67i8(),i12i67i9(),i12i67i10(),i12i67i11(),i12i67i12(),i12i67i13(),i12i67i14(),i12i67i15(),i12i67i16(),i12i67i17(),i12i67i18(),i12i67i19(),i12i67i20(),i12i67i21(),i12i67i22(),i12i67i23(),i12i67i24(),i12i67i25(),i12i67i26(),i12i67i27(),i12i67i28(),i12i67i29(),i12i67i30(),i12i67i31()};}
+static int[] i12i67i0(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i67i1(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i67i2(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i67i3(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i67i4(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i67i5(){return new int[]{16777215,16777215,3552822,16777215,3223857,16777215,16777215,16777215,16777215,16777215,3552822,3223857,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i67i6(){return new int[]{16777215,3552822,13332866,3223857,13529988,3223857,16777215,16777215,3552822,3223857,12212586,13464195,13529988,12409451,3354929,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i67i7(){return new int[]{16777215,3552822,12212586,5395026,12409451,12409451,3223857,3223857,12212586,13464195,9257554,12343658,12409451,12409451,10840812,12343917,3354929,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i67i8(){return new int[]{16777215,16777215,3552822,12409451,5395026,12409451,10841071,5395026,9192018,12343658,12409451,9192018,12343658,10840812,12343917,10840812,3289395,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i67i9(){return new int[]{16777215,16777215,3552822,9198286,5395026,10841071,12409451,5395026,12409451,9192018,12343658,9192018,12343658,10840812,10841071,12343917,9192018,3289393,16777215,16777215,16777215,16777215,16777215,16777215,3552822,13332866,3355186,16777215,3487029,16777215,16777215,16777215};}
+static int[] i12i67i10(){return new int[]{16777215,16777215,16777215,3223857,12409451,5395026,10841071,12409451,5395026,12409451,9192018,9192018,12343658,12409451,12409451,9192018,12343658,3354929,16777215,16777215,16777215,16777215,16777215,16777215,3552822,12212586,5460562,3223857,13332866,3355186,16777215,16777215};}
+static int[] i12i67i11(){return new int[]{16777215,16777215,16777215,16777215,3223857,9192018,5395026,5395026,12409451,7039851,12424299,5395026,10841071,9192020,9192018,12343658,10840812,3289395,16777215,16777215,16777215,16777215,16777215,16777215,3552822,10709740,5460564,3223857,12212586,3354929,16777215,16777215};}
+static int[] i12i67i12(){return new int[]{16777215,16777215,16777215,16777215,16777215,3223857,12409451,12409451,5395026,3223857,16250665,5395026,5395026,12409451,12409451,10840812,3289395,16777215,16777215,16777215,16777215,16777215,16777215,3487029,12212586,12409451,5460562,9126482,10775276,3289395,16777215,16777215};}
+static int[] i12i67i13(){return new int[]{16777215,16777215,16777215,16777215,16777215,3223857,12409451,5395026,7039851,7039851,7039851,7039851,5395026,10841071,12409451,10840812,3289395,16777215,16777215,16777215,16777215,3552822,3223857,3223857,10709740,10841071,5460564,12278122,12409451,3354929,16777215,16777215};}
+static int[] i12i67i14(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3223857,7039851,3223857,3223857,5395026,7039851,5395026,5395026,9192018,9192018,12409451,3354929,16777215,3552822,3223857,13332866,13529988,5460562,12278122,9192018,10775276,10841071,12343917,3354929,16777215,16777215};}
+static int[] i12i67i15(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3223857,16777215,16777215,3223857,7039851,7039851,9192018,12409451,12409451,10841071,3223857,3223857,13332866,9257554,12343658,12409451,12409451,5460562,9126482,12343658,3354929,3223857,16777215,16777215,16777215};}
+static int[] i12i67i16(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3223857,10841071,7039851,5395026,12409451,12409451,10841071,9192018,12409451,9192018,9192018,12343658,9192018,12343658,10840812,12343917,3354929,3223857,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i67i17(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3223857,5395026,5395026,10841071,12409451,12409451,9192018,12409451,9192018,12409451,9192018,12409451,10840812,9192020,10775276,10841071,3289395,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i67i18(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3223857,10841071,7039851,5395026,5395026,9192018,9192018,12409451,10841071,9192018,12409451,10841071,9192018,10841071,9192020,12343658,12409451,9192018,3289393,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i67i19(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3223857,5395026,7039851,7039851,5395026,12409451,12409451,10841071,12409451,9192018,12409451,10841071,9192018,12409451,9192018,9192018,9192018,12343658,3354929,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i67i20(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3223857,7039851,7039851,5395026,10841071,12409451,12409451,10841071,12409451,9192018,12409451,12409451,9192018,9192018,5395026,3223857,9192018,12343658,3354929,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i67i21(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3223857,7039851,7039851,5395026,5395026,5395026,12409451,9198286,9192018,12409451,12409451,5395026,9198286,3223857,3223857,16777215,3223857,5395026,3223857,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i67i22(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3223857,5395026,5395026,5395026,7039851,7039851,5395026,9192018,12409451,12409451,7039851,3223857,3223857,3223857,16777215,16777215,16777215,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i67i23(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3223857,7039851,3223857,3223857,5395026,5395026,5395026,5395026,12409451,12409451,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i67i24(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3223857,3223857,16777215,16777215,3223857,3223857,3223857,5395026,12409451,9192018,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i67i25(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3223857,7039851,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i67i26(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i67i27(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i67i28(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i67i29(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i67i30(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i67i31(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[][] i68(){return new int[][]{i12i68i0(),i12i68i1(),i12i68i2(),i12i68i3(),i12i68i4(),i12i68i5(),i12i68i6(),i12i68i7(),i12i68i8(),i12i68i9(),i12i68i10(),i12i68i11(),i12i68i12(),i12i68i13(),i12i68i14(),i12i68i15(),i12i68i16(),i12i68i17(),i12i68i18(),i12i68i19(),i12i68i20(),i12i68i21(),i12i68i22(),i12i68i23(),i12i68i24(),i12i68i25(),i12i68i26(),i12i68i27(),i12i68i28(),i12i68i29(),i12i68i30(),i12i68i31()};}
+static int[] i12i68i0(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i68i1(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i68i2(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i68i3(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i68i4(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,2960685,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i68i5(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3223857,5395026,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i68i6(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3026478,5000268,3355958,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i68i7(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,2960685,3289650,4868939,2960685,16777215,16777215,16777215,16777215,16777215,2960685,3158064,2829099,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i68i8(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3223857,5395539,4887403,4887659,5395026,3289650,16777215,3289650,3289650,3289650,5395026,5395026,3355958,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i68i9(){return new int[]{16777215,16777215,16777215,16777215,16777215,3157809,16777215,16777215,16777215,16777215,16777215,3026478,4556386,5395539,4556386,5000268,4408131,2960685,5000781,5395026,4868682,5000268,3355958,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i68i10(){return new int[]{16777215,16777215,16777215,16777215,3355188,8080552,2894892,16777215,16777215,16777215,3223857,4425569,4934731,5948555,4868939,5000268,5395539,4425569,4556643,4887403,4868682,2960685,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i68i11(){return new int[]{16777215,16777215,16777215,3223857,8671925,8671925,3223857,16777215,16777215,16777215,3223857,4887403,5948555,5395026,5395026,5395539,4887659,4342338,5395539,5949068,5395026,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i68i12(){return new int[]{16777215,16777215,16777215,2960430,8606388,7883685,2960685,16777215,16777215,16777215,3223857,3881787,4868682,5395026,4868682,5419903,5395026,3948093,5420416,5395026,4802889,3026993,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i68i13(){return new int[]{16777215,16777215,3026478,7817891,8606388,4013117,4868682,3289650,16777215,2894892,9646385,3947580,4868682,4342338,3947580,4013117,5948555,5419903,5000268,5395026,2894892,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i68i14(){return new int[]{16777215,16777215,3223857,8606132,8606388,4408131,5395026,5395026,3223857,9646385,9646642,4473410,4473410,12923185,12857906,4408131,5395026,5395026,4473924,3421236,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355188,3223857,16777215,16777215};}
+static int[] i12i68i15(){return new int[]{16777215,16777215,2960685,7752097,4342338,4868939,4868682,4342338,8924461,8793132,4473410,11676716,11676716,12989490,3947580,4868939,4342338,4013117,10855845,11842740,3026478,2960685,16777215,16777215,16777215,16777215,16777215,3157809,8540595,2829099,16777215,16777215};}
+static int[] i12i68i16(){return new int[]{16777215,16777215,3092271,7883685,4342338,5131854,5000268,4408131,9252655,11939117,12923185,12070446,11939117,16766521,5000268,4144959,4342338,10987431,11250603,8750469,10921638,3026478,16777215,16777215,16777215,16777215,2960944,8343471,8540850,3026993,16777215,16777215};}
+static int[] i12i68i17(){return new int[]{16777215,16777215,3223857,4473153,4342338,5395026,5395026,5395026,4342338,12857906,12857906,5948555,3289650,16634938,5395026,5395026,5395026,4473924,11842740,11908533,11711154,3355958,16777215,16777215,3355188,3355188,8606132,8671925,3223857,16777215,16777215,16777215};}
+static int[] i12i68i18(){return new int[]{16777215,16777215,2894892,11348779,4473153,4868682,2960944,3223857,3947580,4802889,5329233,4802889,4802889,5395026,4802889,4079166,4342338,10526880,10724259,11776947,2829099,16777215,3223857,2960430,7817891,8540594,7686560,7949478,3290165,16777215,16777215,16777215};}
+static int[] i12i68i19(){return new int[]{16777215,16777215,3158579,2960685,12923185,3158579,16777215,16777215,3158579,5000268,4539717,5000268,5000268,4539717,4210752,14342874,11842740,4079166,4144959,4408131,4013117,3092271,4342338,7949222,8211883,8606388,7949222,3092271,16777215,16777215,16777215,16777215};}
+static int[] i12i68i20(){return new int[]{16777215,16777215,16777215,3290165,3355958,16777215,16777215,16777215,16777215,3290165,15066597,4408131,4473924,15198183,14935011,14869218,4473668,5329233,5329233,5395026,5263440,5329233,4473668,8474801,8540595,8671925,8409263,3355958,16777215,16777215,16777215,16777215};}
+static int[] i12i68i21(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3289650,10526880,13421772,15132390,13421772,4013117,8606388,3881787,4868682,5395026,4802889,3947580,8540594,7686560,7817891,8475056,2960944,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i68i22(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3092271,5395026,4210752,4144959,15066597,4210753,8409007,8606388,4210752,5197647,5395026,5066061,4342082,8606388,8146345,8343469,3355958,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i68i23(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3290165,5395026,5329233,3290165,3355958,6375817,6375817,4342338,5329233,4210753,4473410,4473153,8474801,8606387,3290165,3290165,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i68i24(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355958,2960944,16777215,16777215,2960944,3026992,3355958,4802889,3947580,12726834,11348779,3026992,3290165,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i68i25(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3223343,5197647,4473410,3026478,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i68i26(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355958,9252655,4210752,9646385,3158579,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i68i27(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3026993,3026993,3421751,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i68i28(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i68i29(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i68i30(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i68i31(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[][] i69(){return new int[][]{i12i69i0(),i12i69i1(),i12i69i2(),i12i69i3(),i12i69i4(),i12i69i5(),i12i69i6(),i12i69i7(),i12i69i8(),i12i69i9(),i12i69i10(),i12i69i11(),i12i69i12(),i12i69i13(),i12i69i14(),i12i69i15(),i12i69i16(),i12i69i17(),i12i69i18(),i12i69i19(),i12i69i20(),i12i69i21(),i12i69i22(),i12i69i23(),i12i69i24(),i12i69i25(),i12i69i26(),i12i69i27(),i12i69i28(),i12i69i29(),i12i69i30(),i12i69i31()};}
+static int[] i12i69i0(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i69i1(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i69i2(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i69i3(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i69i4(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i69i5(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i69i6(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355701,16777215,3289908,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i69i7(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355701,7981945,3289906,7981945,3289906,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i69i8(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355701,3223857,6990673,8047994,7056722,3224113,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i69i9(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355701,3223857,6990673,4354873,4354873,6990929,4354873,6990929,3224113,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i69i10(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3289908,6990673,7056722,4354873,6990929,4354873,6990929,4354873,6990929,7056722,4354873,3224113,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i69i11(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355701,16777215,16777215,3289908,5343825,6990930,4354873,6990929,7056722,4354873,6990929,7056722,4354873,6990929,7056722,4354873,3224113,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i69i12(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355701,7981945,3289906,3223857,5329233,5409618,4354873,5344081,6990930,4354873,6990929,7056722,7056722,7056722,4354873,6990929,5409874,3224113,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i69i13(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355701,7981945,8113787,8113787,6528099,5395282,5395026,5409618,5409874,4354873,6990929,7056722,7056722,7056722,4354873,5344081,5409874,3224113,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i69i14(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355701,7981945,8113787,6528099,4354873,4354873,6462306,5395282,5409618,4354873,5344081,5409874,5409874,5409874,4354873,5344081,5409874,3224113,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i69i15(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355701,7981945,8113787,8113787,4355130,4354873,4354873,8047737,6528099,5395282,5395026,5395026,5409618,5409874,5409874,4354873,5344081,3224113,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i69i16(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355701,6462050,8047994,8113787,8113787,8113787,8113787,8113787,8113787,8113787,8113787,5395282,5409618,5409874,4354873,5329489,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i69i17(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3355701,12208449,4420153,8047737,8113787,8113787,6528099,8047994,8113787,8113787,8113787,5395282,6462050,5395282,5395026,5395026,6462050,3224113,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i69i18(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3289908,7981945,8113787,8113787,8113787,4355130,8047737,5395282,3223857,5329233,8047738,6528099,6528099,6528099,6528099,6528099,4354873,4354873,3224113,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i69i19(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355701,7981945,8113787,8113787,8113787,3289906,3223857,16514043,16777215,6659429,6528099,6528099,5395282,6462050,6528099,4354873,4354873,3224113,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i69i20(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355701,6462050,8047994,8113787,8113787,3289906,14960961,16710908,6659429,6528099,6528099,4354873,4354873,5329489,6462050,6528099,6528099,3224113,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i69i21(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355701,3223857,6462050,6528099,6528099,6528099,6528099,6528099,5395282,6462050,4354873,4354873,5329489,6462050,12303547,3355443,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i69i22(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355701,3223857,3223857,3223857,3223857,3223857,6462050,6528099,6528099,6528099,5395282,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i69i23(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355701,16514043,6659429,16580092,5526612,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i69i24(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355701,3223857,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i69i25(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i69i26(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i69i27(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i69i28(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i69i29(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i69i30(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i69i31(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[][] i70(){return new int[][]{i12i70i0(),i12i70i1(),i12i70i2(),i12i70i3(),i12i70i4(),i12i70i5(),i12i70i6(),i12i70i7(),i12i70i8(),i12i70i9(),i12i70i10(),i12i70i11(),i12i70i12(),i12i70i13(),i12i70i14(),i12i70i15(),i12i70i16(),i12i70i17(),i12i70i18(),i12i70i19(),i12i70i20(),i12i70i21(),i12i70i22(),i12i70i23(),i12i70i24(),i12i70i25(),i12i70i26(),i12i70i27(),i12i70i28(),i12i70i29(),i12i70i30(),i12i70i31()};}
+static int[] i12i70i0(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i70i1(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i70i2(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i70i3(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i70i4(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i70i5(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i70i6(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i70i7(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3026478,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i70i8(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355958,6645093,7039851,3223857,16777215,16777215,3223857,2960685,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i70i9(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3223857,7566195,7566195,3289650,3289651,7566195,7500402,7500402,3421751,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i70i10(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3289651,3026478,5131854,7368816,4868682,7237230,7368816,2894892,3355958,16777215,16777215,3158064,3092271,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i70i11(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3092271,10783610,9665902,5263183,5394769,4868682,7171437,5394769,3026478,16777215,16777215,2895404,4235304,3158319,2895404,3158064,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i70i12(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3421751,10783610,5526355,10849403,10849403,10783611,5526355,10849403,10783611,3289650,3224369,3242520,3242520,4301865,4301865,3421751,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i70i13(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3158064,9600109,10191731,10520695,9600109,10191731,10520695,9600109,5395026,3110679,2845973,10454903,3044375,2960685,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i70i14(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3289651,9731438,10323317,10520696,9797489,10323317,10718075,7889491,16250871,3176472,9600109,10520696,10323317,9731438,3158064,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i70i15(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3223857,10849403,10783610,10849403,10980990,16448250,10980990,16777215,16579836,12434877,4301865,3242520,10849403,10849403,10783610,10783610,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i70i16(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3026478,8546905,9600109,10323318,16250871,2894892,15724527,16250871,10921894,3176472,4235304,2977303,10454903,10191988,9600109,3092271,3224372,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i70i17(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3290165,5395026,5066061,16185078,16514043,5066061,16185078,16316920,2978071,4301352,3176472,9863024,10652281,10520695,7889234,3289651,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i70i18(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3421751,16448250,16645629,16645629,16579836,16579836,3308569,4301865,4301865,3373850,8546905,10783610,8612698,8546905,12434877,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i70i19(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,2829099,5000524,5198159,10921893,3044119,4169511,2845973,3241497,8349526,7626319,3092271,3289651,7626319,11908533,3026478,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i70i20(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3092786,3110424,4300841,3970597,4235048,3307802,3043608,8481113,3158064,3092786,3355958,16777215,2960685,12793872,3290165,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i70i21(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3223857,5526097,4300841,3421751,8612698,10652282,3223857,3421751,16777215,16777215,16777215,3355958,3421751,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i70i22(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,2960685,12334864,3026993,16777215,3092271,11052453,3092271,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i70i23(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355958,3421751,16777215,16777215,3223857,12072208,3421751,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i70i24(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3421751,3355958,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i70i25(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i70i26(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i70i27(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i70i28(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i70i29(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i70i30(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i70i31(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[][] i71(){return new int[][]{i12i71i0(),i12i71i1(),i12i71i2(),i12i71i3(),i12i71i4(),i12i71i5(),i12i71i6(),i12i71i7(),i12i71i8(),i12i71i9(),i12i71i10(),i12i71i11(),i12i71i12(),i12i71i13(),i12i71i14(),i12i71i15(),i12i71i16(),i12i71i17(),i12i71i18(),i12i71i19(),i12i71i20(),i12i71i21(),i12i71i22(),i12i71i23(),i12i71i24(),i12i71i25(),i12i71i26(),i12i71i27(),i12i71i28(),i12i71i29(),i12i71i30(),i12i71i31()};}
+static int[] i12i71i0(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i71i1(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i71i2(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i71i3(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i71i4(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i71i5(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i71i6(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i71i7(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,16777215,3552822,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i71i8(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,16777215,3552822,15983657,3420976,15983657,3420976,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i71i9(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,4287049,3223857,15983657,12428889,12428634,12428634,16180521,3420976,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i71i10(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,5329233,4885330,5329490,16049193,5526609,16049193,5526609,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i71i11(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,4819537,4885586,4885586,5329490,4885330,5329490,4885330,5329490,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i71i12(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,3223857,9096057,9227899,4951378,4885586,4885586,4885586,4885586,4352842,4819793,4885586,3224113,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i71i13(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,6988625,7054674,5395282,5395026,9161850,4951378,4885586,9096314,9227899,9227899,5395282,4885330,4352842,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i71i14(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,4287049,6988881,5405506,5395025,6988626,5395282,9161850,9227899,9227899,5395282,5395026,9161850,9227899,5395282,5395026,6988626,3224113,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i71i15(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,6988625,5405506,6988881,5395282,6988626,9162106,9227899,9227899,5395282,3223857,16514043,5526612,9161850,9227899,7054674,7054674,3224113,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i71i16(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,5329233,6988626,7054674,3224113,6988625,4352842,9096314,9227899,5395282,9145227,13421788,5460820,9161850,7054674,7054674,7054674,3224113,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i71i17(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3487029,3223857,3223857,16777215,3552822,5329233,9161850,4418634,9096314,5395282,5395026,9161850,7054674,7054674,5395282,9161850,9227899,3289906,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i71i18(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,6988625,7054674,5395282,6988626,7054674,7054674,5395282,6988626,5395282,5405250,9161850,9227899,9227899,3289906,3223857,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i71i19(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,5329233,6988626,7054674,7054674,5395282,6988626,7054674,7054674,5395282,6988626,5405506,9161850,9227899,4951378,3224113,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i71i20(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,4287049,5329489,3223857,6988625,7054674,7054674,5395282,5395026,4885330,3224113,6988625,5405506,9161850,9227899,9227899,3289906,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i71i21(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,16777215,3552822,3223857,5329233,4885330,4885586,5329490,3223857,6988625,7054674,5405506,9161850,9227899,3289906,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i71i22(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,4287049,4819793,3224113,16777215,3552822,6988625,7054674,5405506,5395025,3223857,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i71i23(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,16777215,16777215,16777215,3552822,3223857,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i71i24(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i71i25(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i71i26(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i71i27(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i71i28(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i71i29(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i71i30(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i71i31(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[][] i72(){return new int[][]{i12i72i0(),i12i72i1(),i12i72i2(),i12i72i3(),i12i72i4(),i12i72i5(),i12i72i6(),i12i72i7(),i12i72i8(),i12i72i9(),i12i72i10(),i12i72i11(),i12i72i12(),i12i72i13(),i12i72i14(),i12i72i15(),i12i72i16(),i12i72i17(),i12i72i18(),i12i72i19(),i12i72i20(),i12i72i21(),i12i72i22(),i12i72i23(),i12i72i24(),i12i72i25(),i12i72i26(),i12i72i27(),i12i72i28(),i12i72i29(),i12i72i30(),i12i72i31()};}
+static int[] i12i72i0(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i72i1(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i72i2(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i72i3(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,4290889,3224113,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i72i4(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,5870161,4356938,5870417,3224113,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i72i5(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,4290889,3224113,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i72i6(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,7973730,3826762,4291146,3224113,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i72i7(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,7973730,3826762,4291146,3224113,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i72i8(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,5870161,8039522,3826762,4291146,3760970,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i72i9(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,16777215,3552822,3223857,5870161,5936210,8039522,3826762,4291146,4356938,4356938,3760970,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i72i10(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3552822,5870161,3224113,5870161,5936210,5936210,5936210,8039522,3826762,4291146,4356938,4356938,4356938,3760970,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i72i11(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,16777215,3552822,5870161,5936210,8039522,3826762,4291146,4356938,4356938,4356938,4356938,4356938,4356938,3224113,16777215,3552822,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i72i12(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,5870161,5936210,3760970,4291146,4356938,3760970,4291146,3760970,4291146,4356938,4356938,3224113,4290889,3224113,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i72i13(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,5870161,3760970,4291146,4356938,3760970,5329489,3760714,5329489,3760714,3223857,3223857,16777215,3552822,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i72i14(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,5870161,4356938,4356938,3760970,3760970,12231440,3355184,15981368,8170850,3289649,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i72i15(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,5329233,8039266,8105315,5395282,5395026,16046905,5526609,8039266,3289649,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i72i16(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,5329233,8039266,8105315,5395282,5395026,8039266,3289649,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i72i17(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,7973730,5395282,5395026,8039266,8105315,3289649,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i72i18(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,7973730,8105315,8105315,5395282,8039266,8105315,8105315,10210699,3289906,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i72i19(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,7973730,8105315,8105315,5395282,10144907,4422731,10144906,10276492,10276492,10276492,10276492,3289906,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i72i20(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,7973730,8105315,5395282,5395026,10144907,10276492,10276492,10276492,5460818,10144907,10276492,10276492,3289906,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i72i21(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,3223857,7973730,4356938,10144906,10276492,10276492,5460818,5395026,10144907,10276492,10276492,3289906,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i72i22(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,7973730,10210699,10276492,10276492,10276492,5460818,5395026,10144907,10276492,4422731,3224113,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i72i23(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,4290889,8039522,5395282,10144907,10276492,4422731,10144906,5460818,8039266,10276492,10276492,3289906,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i72i24(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,7973730,8105315,8105315,5395282,10144907,10276492,10276492,10276492,5460818,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i72i25(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,5329233,8039266,8105315,5395282,10144907,10276492,4422731,10144906,3289906,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i72i26(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,3223857,3223857,7973730,10210699,10276492,10276492,3289906,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i72i27(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,5329233,8039266,4356938,8039522,3289649,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i72i28(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i72i29(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i72i30(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i72i31(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[][] i73(){return new int[][]{i12i73i0(),i12i73i1(),i12i73i2(),i12i73i3(),i12i73i4(),i12i73i5(),i12i73i6(),i12i73i7(),i12i73i8(),i12i73i9(),i12i73i10(),i12i73i11(),i12i73i12(),i12i73i13(),i12i73i14(),i12i73i15(),i12i73i16(),i12i73i17(),i12i73i18(),i12i73i19(),i12i73i20(),i12i73i21(),i12i73i22(),i12i73i23(),i12i73i24(),i12i73i25(),i12i73i26(),i12i73i27(),i12i73i28(),i12i73i29(),i12i73i30(),i12i73i31()};}
+static int[] i12i73i0(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i73i1(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i73i2(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i73i3(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i73i4(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,16777215,3552822,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i73i5(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,16514043,3421236,16514043,3421236,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i73i6(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,16514043,16777215,16777215,3421236,16777215,16777215,16777215,16777215,16777215,3552822,16777215,3552822,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i73i7(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,16514043,16777215,3421236,16777215,16777215,16777215,16777215,3487029,16514043,3421236,16514043,3421236,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i73i8(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,16514043,16777215,16777215,8209476,3289393,3223857,3223857,16777215,3487029,16514043,16777215,16777215,3421236,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i73i9(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,16514043,16777215,12500670,13974331,16673369,14039353,3354929,12237498,16645629,16777215,16777215,16777215,3421236,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i73i10(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,16514043,16777215,14040124,8143169,12303291,16645629,16777215,16777215,12500670,3355443,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i73i11(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,5329233,16579836,16777215,16777215,16777215,16777215,16777215,16777215,5526612,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i73i12(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,16514043,5526612,16579836,16777215,5526612,5395026,16579836,16777215,16777215,3421236,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i73i13(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,5329233,16579836,5526612,16579836,12500670,5460819,16579836,12500670,12434877,3355443,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i73i14(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,15987497,16250665,9790753,5460561,16579836,3421236,16514043,5526612,16579836,16777215,12500670,3355443,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i73i15(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,13842488,5525841,14391874,14588994,5526353,3223857,3223857,16514043,5526612,16579836,12500670,12434877,3355443,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i73i16(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3487029,16476761,14039353,5525841,9605778,16645629,16777215,9803157,5460819,5395026,12303291,12434877,12434877,3355443,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i73i17(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3552822,16476761,5526098,16579836,16777215,16777215,16777215,16777215,16777215,12500670,16645629,5526612,8012354,3289393,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i73i18(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,7946561,5394769,16579836,16777215,8209476,16579836,16777215,16777215,8209476,8077890,16542297,16739162,3420465,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i73i19(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,13842488,16710651,8209476,16542297,14039353,16710651,8209476,13908281,8143169,13908281,16673369,16739162,3420465,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i73i20(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,16476761,8208962,12303291,16608347,16739162,14039353,14039353,14039353,16710651,5526612,13842745,14039353,5525841,16579836,3421236,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i73i21(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,13842488,16710651,9803157,16608090,16739162,14039353,16710651,12500670,12434877,5460819,5395026,9605778,16645629,16777215,3421236,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i73i22(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,15987497,9790753,13908280,14039353,16673369,14039353,14039353,8143169,16579836,12500670,9737364,16645629,16777215,16777215,16777215,3421236,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i73i23(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,3223857,3223857,13842488,14039353,14039353,14039353,8143169,8077890,12303291,16645629,16777215,16777215,12500670,3355443,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i73i24(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,3223857,7946561,8077890,5394769,5395026,3223857,12237498,12434877,12434877,3355443,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i73i25(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,15987497,16250665,3421232,16777215,3552822,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i73i26(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i73i27(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i73i28(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i73i29(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i73i30(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i73i31(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[][] i74(){return new int[][]{i12i74i0(),i12i74i1(),i12i74i2(),i12i74i3(),i12i74i4(),i12i74i5(),i12i74i6(),i12i74i7(),i12i74i8(),i12i74i9(),i12i74i10(),i12i74i11(),i12i74i12(),i12i74i13(),i12i74i14(),i12i74i15(),i12i74i16(),i12i74i17(),i12i74i18(),i12i74i19(),i12i74i20(),i12i74i21(),i12i74i22(),i12i74i23(),i12i74i24(),i12i74i25(),i12i74i26(),i12i74i27(),i12i74i28(),i12i74i29(),i12i74i30(),i12i74i31()};}
+static int[] i12i74i0(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i74i1(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i74i2(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i74i3(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i74i4(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i74i5(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,3223857,3223857,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i74i6(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,7434602,13421755,13553341,13553341,7631980,3289649,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i74i7(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,3223857,3223857,3223857,16777215,3552822,13355962,5460819,5395026,5395026,13421755,3355443,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i74i8(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,7434602,13421755,13553341,13553341,7631980,3289649,10132106,10263692,13487548,13553341,13553341,10263692,10263692,3289650,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i74i9(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,13355962,5460819,5395026,5395026,13421755,5460819,10132107,10263692,7566187,7566187,7566187,10197899,10263692,3289650,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i74i10(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,3223857,16777215,3487029,3223857,10132106,13487548,13553341,13553341,10263692,5460818,10132107,10263692,7566187,7566187,7566187,10197899,10263692,16092250,3420721,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i74i11(){return new int[]{16777215,16777215,16777215,16777215,16777215,3487029,3223857,3223857,15960665,3420721,3223857,10132106,10263692,7566187,7566187,7566187,10197899,10263692,5460818,7500394,7566187,7566187,7566187,7566187,16026458,16223322,16223322,3420721,16777215,16777215,16777215,16777215};}
+static int[] i12i74i12(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,13855321,5526098,16026457,16223322,5526098,5395026,10132107,7566187,7566187,7566187,10197899,10263692,16092250,5526098,16026457,7697258,16026458,16223322,16223322,5022972,16026716,3420721,16777215,16777215,16777215,16777215};}
+static int[] i12i74i13(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,13855321,5526098,13855321,16157530,5526098,16026457,5526098,7500394,7566187,7566187,7566187,16026458,16223322,16223322,16223322,16223322,16223322,5022972,10722478,16092251,5022972,16026716,3420721,16777215,16777215,16777215};}
+static int[] i12i74i14(){return new int[]{16777215,16777215,16777215,3552822,3223857,13855321,5526098,13855321,5526098,16026457,5526098,16026457,5526098,16026457,7697258,16026458,16223322,16223322,16223322,16223322,16223322,16223322,5022972,16026716,5022972,16026716,5022972,13855580,3354929,16777215,16777215,16777215};}
+static int[] i12i74i15(){return new int[]{16777215,16777215,3552822,13855321,14052186,14052186,5526098,5395026,16026457,16223322,16223322,16223322,16223322,5526098,5395026,5395026,16026457,16223322,16223322,16223322,5022972,16026716,5022972,16026716,5022972,16026716,5022972,13855580,3354929,16777215,16777215,16777215};}
+static int[] i12i74i16(){return new int[]{16777215,16777215,16777215,3552822,3223857,5329233,16026457,16223322,16223322,16223322,16223322,16223322,16223322,16223322,16223322,14052186,5526098,16026457,16223322,5022972,16026716,5022972,10722478,16092251,10918827,16092251,5022972,13855580,3354929,16777215,16777215,16777215};}
+static int[] i12i74i17(){return new int[]{16777215,16777215,16777215,16777215,3487029,13855321,16157530,16223322,16223322,16223322,16223322,16223322,16223322,5526098,16026457,16223322,16223322,5526098,16026457,5022972,16026716,5022972,10722478,16092251,10918827,4957437,13855580,3354929,16777215,16777215,16777215,16777215};}
+static int[] i12i74i18(){return new int[]{16777215,16777215,16777215,16777215,3487029,16514043,16223580,16223322,16223322,14052186,16157530,14052186,16157530,14052186,5526098,5395026,5395026,5395026,16026457,5022972,16026716,5022972,10722478,16092251,5022972,13855580,14052186,3354929,16777215,16777215,16777215,16777215};}
+static int[] i12i74i19(){return new int[]{16777215,16777215,16777215,16777215,3487029,16514043,13553342,13986907,13552827,10263692,16092250,3420721,16514043,5526612,13855321,14052186,14052186,14052186,16157530,5022972,16026716,5022972,13855580,5022972,13855580,14052186,14052186,7631466,3289649,16777215,16777215,16777215};}
+static int[] i12i74i20(){return new int[]{16777215,16777215,16777215,16777215,16777215,3487029,13355962,13553341,13553341,10263692,16645629,16777215,16777215,5526612,13855321,14052186,14052186,14052186,14052186,14052186,5022972,13855580,14052186,14052186,5526098,13855321,14052186,14052186,3354929,16777215,16777215,16777215};}
+static int[] i12i74i21(){return new int[]{16777215,16777215,16777215,16777215,16777215,3487029,13355962,13553341,13553341,13553341,10263692,16645629,10329485,10263692,5460818,13855321,14052186,14052186,14052186,14052186,14052186,14052186,14052186,5526098,13855321,14052186,14052186,14052186,3354929,16777215,16777215,16777215};}
+static int[] i12i74i22(){return new int[]{16777215,16777215,16777215,16777215,3487029,13355962,13553341,13553341,13553341,13553341,13553341,10263692,10263692,10263692,5460818,13855321,14052186,14052186,14052186,5526098,13855321,3354929,3223857,13855321,14052186,5526098,13855321,3354929,16777215,16777215,16777215,16777215};}
+static int[] i12i74i23(){return new int[]{16777215,16777215,16777215,16777215,3487029,5329233,13421755,13553341,13553341,5460819,10132107,10263692,10263692,5460818,13855321,14052186,16157530,16223322,14052186,5526098,3223857,16777215,16777215,3487029,3223857,3223857,3223857,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i74i24(){return new int[]{16777215,16777215,16777215,16777215,16777215,3487029,3223857,10132106,7566187,10197899,10263692,10263692,3289650,5329233,13855321,16157530,16223322,16223322,14052186,14052186,3354929,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i74i25(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,3223857,3223857,3223857,3223857,16777215,3487029,5329233,13855321,5526098,13855321,14052186,5526098,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i74i26(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,3223857,3223857,3223857,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i74i27(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i74i28(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i74i29(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i74i30(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i74i31(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[][] i75(){return new int[][]{i12i75i0(),i12i75i1(),i12i75i2(),i12i75i3(),i12i75i4(),i12i75i5(),i12i75i6(),i12i75i7(),i12i75i8(),i12i75i9(),i12i75i10(),i12i75i11(),i12i75i12(),i12i75i13(),i12i75i14(),i12i75i15(),i12i75i16(),i12i75i17(),i12i75i18(),i12i75i19(),i12i75i20(),i12i75i21(),i12i75i22(),i12i75i23(),i12i75i24(),i12i75i25(),i12i75i26(),i12i75i27(),i12i75i28(),i12i75i29(),i12i75i30(),i12i75i31()};}
+static int[] i12i75i0(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i75i1(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i75i2(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i75i3(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i75i4(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i75i5(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355701,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i75i6(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355701,12227185,12424307,3355186,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i75i7(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355701,5329233,12292722,12424307,5460818,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i75i8(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355701,12227185,5460818,12292722,12424307,5460818,12292722,3355186,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i75i9(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3289908,12227185,5460818,12292722,10253138,12358514,12424307,3355186,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i75i10(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3289908,5329233,12292722,5460818,12292722,3355186,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3289908,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i75i11(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355701,12227185,12424307,12424307,12424307,12424307,12424307,3355186,16777215,16777215,16777215,16777215,3355701,3223857,12227185,12424307,12424307,3355186,3223857,16777215,16777215,16777215,16777215};}
+static int[] i12i75i12(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3355701,12227185,12424307,10253138,5460562,12292722,12424307,12424307,12424307,3355186,16777215,16777215,3355701,12227185,12424307,12424307,12424307,16184748,16250797,16250797,3421234,16777215,16777215,16777215};}
+static int[] i12i75i13(){return new int[]{16777215,16777215,16777215,16777215,3355701,3223857,16777215,16777215,3355701,12227185,5460818,5395026,12292722,16645628,10319188,12358514,12424307,3355186,16777215,16777215,16777215,12424307,12424307,16184748,16250797,16250797,16250797,10917187,3289649,16777215,16777215,16777215};}
+static int[] i12i75i14(){return new int[]{16777215,16777215,16777215,3552822,16514043,16777215,3421236,16777215,16777215,3355701,5329233,12292722,16645628,3421236,16514043,12490101,10253138,3289649,16777215,3355701,12227185,12424307,16184748,16250797,16250797,10917187,5460817,3223857,16777215,16777215,16777215,16777215};}
+static int[] i12i75i15(){return new int[]{16777215,16777215,16777215,3552822,16514043,16777215,3421236,16777215,16777215,3355701,12227185,12424307,16645628,5526612,16579836,12490101,5460818,3223857,3223857,12227185,12424307,16184748,16250797,10917187,10851394,16119211,16250797,3421234,16777215,16777215,16777215,16777215};}
+static int[] i12i75i16(){return new int[]{16777215,16777215,16777215,16777215,3355701,16514043,16777215,3421236,3223857,15979313,16242225,10917185,10851394,16645628,10319188,10253138,5460562,12292722,12424307,12424307,16184748,16250797,16250797,16250797,16250797,16250797,16250797,3421234,16777215,16777215,16777215,16777215};}
+static int[] i12i75i17(){return new int[]{16777215,16777215,16777215,16777215,16777215,3289908,5329233,16044849,16242225,16242225,16242225,16242225,16242225,10917185,10253137,10253138,10253138,12358514,16184748,16250797,16250797,16250797,16250797,16250797,10917187,10851394,3289649,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i75i18(){return new int[]{16777215,16777215,16777215,16777215,16777215,3289908,15979313,16242225,16242225,10917185,10851394,16645628,16777215,16777215,5526612,5395026,16053419,16250797,16250797,16250797,16250797,16250797,10917187,10851394,16119211,16250797,3421234,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i75i19(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3289908,15979313,10917185,16110641,3420977,3223857,16514043,16777215,9828172,9762634,5461073,5395026,5395026,16053419,16250797,16250797,16250797,16250797,3421234,3223857,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i75i20(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3289908,3223857,3223857,16777215,16777215,3289908,3223857,7969353,10210634,9762378,9762634,10210890,5460817,5395026,3223857,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i75i21(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3289908,15987627,5526611,5395026,10144842,10276426,8100938,8100938,13419898,3355442,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i75i22(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3289908,5329233,16053419,16250797,5526611,5395026,5395026,5395026,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i75i23(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3289908,10719809,10851394,3289649,13353849,13551227,13551227,5460818,5395026,16044849,3420977,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i75i24(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3289908,3223857,16777215,3289908,3223857,5329233,16044849,16242225,16242225,3420977,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i75i25(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3289908,15979313,3420977,15979313,3420977,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i75i26(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3289908,16777215,3289908,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i75i27(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i75i28(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i75i29(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i75i30(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i75i31(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[][] i76(){return new int[][]{i12i76i0(),i12i76i1(),i12i76i2(),i12i76i3(),i12i76i4(),i12i76i5(),i12i76i6(),i12i76i7(),i12i76i8(),i12i76i9(),i12i76i10(),i12i76i11(),i12i76i12(),i12i76i13(),i12i76i14(),i12i76i15(),i12i76i16(),i12i76i17(),i12i76i18(),i12i76i19(),i12i76i20(),i12i76i21(),i12i76i22(),i12i76i23(),i12i76i24(),i12i76i25(),i12i76i26(),i12i76i27(),i12i76i28(),i12i76i29(),i12i76i30(),i12i76i31()};}
+static int[] i12i76i0(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i76i1(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i76i2(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i76i3(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i76i4(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i76i5(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3289906,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i76i6(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3289906,3223857,15518594,3355442,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i76i7(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3289906,15518594,15715972,11435090,3289649,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i76i8(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3289906,15518594,15715972,13542771,15650179,15715972,3355442,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i76i9(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,5395538,15518851,15715972,15715972,15715972,3355442,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i76i10(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3421234,5263697,15518851,15715972,15715972,15715972,13542771,13542771,3355186,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i76i11(){return new int[]{16777215,16777215,16777215,16777215,16777215,3289906,13859145,3552049,15387266,15715972,15518594,15715972,5526354,3223857,16777215,3289906,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i76i12(){return new int[]{16777215,16777215,16777215,16777215,16777215,3356211,13727817,14056009,8749938,15584387,5657681,5591889,16030274,16227394,5526353,16030274,16227394,3420721,16777215,16777215,3289906,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i76i13(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3356211,13727817,16161602,11952962,14056265,15964737,5723476,16030274,16227394,5526353,5395026,16030274,3420721,3223857,15518594,15715972,15715972,3355442,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i76i14(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3289906,16030274,16227394,16227394,5526353,16579836,16227652,5526353,8618866,8684659,16096066,5526353,15518851,15715972,15715972,15715972,13542771,3355186,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i76i15(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3289906,15964737,16161859,16227652,5526353,3486771,16514043,16227909,16227394,8684400,16096066,5526353,15518851,15715972,15715972,15715972,11435090,13476978,3355186,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i76i16(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3289906,5328977,15387266,15650436,15715972,15715972,16096323,16227393,16227394,5722962,5395026,13411186,13542771,15650179,15715972,13542771,11369298,13476978,13542771,3355186,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i76i17(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487282,5395026,15452802,15715972,15650180,13608563,16030274,5526353,16030530,11952962,5460561,13411186,13542771,13542771,13542771,13542771,3355186,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i76i18(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3289906,15321218,13542770,11435091,11435091,13476978,13542771,11435090,16096066,16227138,16227394,16227394,5591890,13279857,13542771,13542771,13542771,3355186,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i76i19(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487282,13411442,13476979,13542771,13542771,13542770,15650180,5657939,15833153,16227394,5526353,5460561,5394769,13411186,13542771,13542771,3355186,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i76i20(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3356210,15321218,15584387,13543284,13608564,13608564,15650180,15715972,15518594,5657939,16030274,16030274,13990730,5526354,13214064,13411442,3421490,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i76i21(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3356211,5328977,15387266,15650436,15584387,15715971,15518594,5526611,13859402,13924937,5657425,5526097,5329233,3355955,3355699,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i76i22(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3421234,5395025,15518850,13411185,15518595,5723475,5329233,13728074,11953217,12018754,13858889,3487027,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i76i23(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3289906,13859659,11887681,15518338,5723475,5592146,15964737,3420977,3289905,15833154,16030530,3487282,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i76i24(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3356211,16316665,13925452,5657684,16030273,16162116,13924937,3487027,16777215,3355954,3289906,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i76i25(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3356211,3355699,16316665,16030788,16513785,3553077,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i76i26(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3356211,3355699,3355699,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i76i27(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i76i28(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i76i29(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i76i30(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i76i31(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[][] i77(){return new int[][]{i12i77i0(),i12i77i1(),i12i77i2(),i12i77i3(),i12i77i4(),i12i77i5(),i12i77i6(),i12i77i7(),i12i77i8(),i12i77i9(),i12i77i10(),i12i77i11(),i12i77i12(),i12i77i13(),i12i77i14(),i12i77i15(),i12i77i16(),i12i77i17(),i12i77i18(),i12i77i19(),i12i77i20(),i12i77i21(),i12i77i22(),i12i77i23(),i12i77i24(),i12i77i25(),i12i77i26(),i12i77i27(),i12i77i28(),i12i77i29(),i12i77i30(),i12i77i31()};}
+static int[] i12i77i0(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i77i1(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i77i2(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i77i3(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i77i4(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,7428515,3289394,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i77i5(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,7428515,3289394,16777215,16777215,3487029,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i77i6(){return new int[]{16777215,16777215,16777215,3552822,3223857,16777215,3552822,3223857,16777215,16777215,3552822,7428515,3289394,16777215,3552822,9599435,9731022,9731022,3289651,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i77i7(){return new int[]{16777215,16777215,3552822,12800345,10830410,3289393,12800345,10830410,3289393,16777215,3552822,5329233,7494051,5395027,9599692,9731022,3289651,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i77i8(){return new int[]{16777215,16777215,3552822,10699081,12931417,5460562,12800857,5460562,12866137,3354929,16777215,3552822,7428515,9665229,9731022,3289651,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i77i9(){return new int[]{16777215,16777215,16777215,3552822,13873762,5526354,13874018,5526354,12866137,3354929,16777215,3552822,5329233,9599692,3289651,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,16777215,3487029,3223857,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i77i10(){return new int[]{16777215,16777215,3552822,13873762,14071139,14071139,5526354,7494051,3289394,16777215,16777215,3552822,7428515,9665229,3289651,3223857,16777215,16777215,16777215,16777215,16777215,3552822,15950442,12997210,3223857,12800345,16212843,3223857,3223857,16777215,16777215,16777215};}
+static int[] i12i77i11(){return new int[]{16777215,16777215,3552822,13873762,14071139,5526354,7494051,7559845,7559845,3289394,3223857,9599435,9731022,7559845,9665229,5460563,3223857,16777215,16777215,16777215,16777215,3552822,12800345,16212843,3420465,16212843,5395026,12997210,16212843,3223857,16777215,16777215};}
+static int[] i12i77i12(){return new int[]{16777215,3552822,7428515,5395027,13874018,5526354,12866137,7625123,5395027,9599692,9731022,9731022,9731022,9731022,9731022,9731022,9731022,3289651,16777215,3552822,3223857,16777215,3552822,15981450,5526610,16046987,5395026,16212843,16212843,3223857,16777215,16777215};}
+static int[] i12i77i13(){return new int[]{16777215,3487029,7428515,7559845,7559845,5395027,12866137,5460562,9599692,16112781,9796812,9731022,13939812,16178571,9796812,9731022,9731022,9731022,3289651,9599435,9731022,3289651,16777215,3487029,15981450,16244364,14071139,16178571,14071139,3223857,16777215,16777215};}
+static int[] i12i77i14(){return new int[]{16777215,16777215,3552822,3223857,3223857,5329233,7494051,5395027,13874018,16178571,16244364,16244364,16244364,16244364,16244364,9796812,9731022,5460563,9599692,9731022,9731022,5460563,3223857,15981450,16244364,16244364,16244364,16244364,3223857,16777215,16777215,16777215};}
+static int[] i12i77i15(){return new int[]{16777215,16777215,16777215,16777215,3552822,7428515,5395027,9599692,16112781,16244364,16244364,16244364,16244364,16711421,16244365,14071139,9796556,5460563,9599692,16081772,9796300,5460563,5395026,16046987,16244364,16244364,16244364,16244364,3223857,16777215,16777215,16777215};}
+static int[] i12i77i16(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,3223857,9599435,16112781,16244364,16244364,16244364,16244364,3420978,16514043,16244365,9796812,9731022,16081772,16212843,9796300,3289651,9599435,7559845,16046988,16244364,16244364,7691428,9665229,3289651,16777215,16777215};}
+static int[] i12i77i17(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,13873762,9796556,9731022,16112781,16244364,3420978,16514043,16244365,9796812,5460563,16015978,9796300,3289651,16777215,3552822,9599435,7559845,5395027,7494051,9665229,7559845,3289394,16777215,16777215};}
+static int[] i12i77i18(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,3223857,16777215,3552822,13873762,16178571,16244364,16244364,16711421,16244365,16244364,9796812,9731022,3289651,3223857,16777215,16777215,16777215,3552822,3223857,7428515,5395027,3223857,3223857,16777215,16777215,16777215};}
+static int[] i12i77i19(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,7428515,3289394,3223857,5329233,5395026,16579836,12500662,16178572,16244364,9796812,3289651,3223857,16777215,16777215,16777215,16777215,16777215,16777215,3552822,7428515,3289394,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i77i20(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3552822,7428515,7559845,7559845,7559845,5395027,5395026,5395026,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,7428515,9665229,3289651,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i77i21(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,3223857,3223857,3223857,5329233,9599692,9731022,3289651,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,7428515,9665229,3289651,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i77i22(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,15981450,9796812,5460563,9599692,3289651,3223857,3223857,3223857,3223857,3223857,3223857,9599435,9731022,3289651,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i77i23(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,7428515,13939556,16178571,5526610,9599692,5460563,7494051,7559845,7559845,7559845,9665229,9731022,3289651,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i77i24(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,5329233,13874018,5526354,9599692,5460563,7494051,5395027,3223857,3223857,3223857,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i77i25(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,9599435,3289651,7428515,7559845,3289394,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i77i26(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,16777215,3552822,9599435,9731022,3289651,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i77i27(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i77i28(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i77i29(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i77i30(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i77i31(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[][] i78(){return new int[][]{i12i78i0(),i12i78i1(),i12i78i2(),i12i78i3(),i12i78i4(),i12i78i5(),i12i78i6(),i12i78i7(),i12i78i8(),i12i78i9(),i12i78i10(),i12i78i11(),i12i78i12(),i12i78i13(),i12i78i14(),i12i78i15(),i12i78i16(),i12i78i17(),i12i78i18(),i12i78i19(),i12i78i20(),i12i78i21(),i12i78i22(),i12i78i23(),i12i78i24(),i12i78i25(),i12i78i26(),i12i78i27(),i12i78i28(),i12i78i29(),i12i78i30(),i12i78i31()};}
+static int[] i12i78i0(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i78i1(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i78i2(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i78i3(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i78i4(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i78i5(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i78i6(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,16777215,16777215,3487029,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i78i7(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,12821451,13018574,3355187,3223857,3223857,12821451,3355187,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i78i8(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,12821451,13018574,5460819,12886988,5460819,12886988,5460819,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i78i9(){return new int[]{16777215,16777215,16777215,16777215,3552822,10126019,12952781,7625653,5395027,12886988,10257606,12952781,13018574,3355187,16777215,16777215,16777215,3552822,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i78i10(){return new int[]{16777215,16777215,16777215,16777215,3552822,10126019,7559861,10191813,12952781,13018574,13018574,13018574,10257606,12952781,3355187,16777215,3552822,12821451,13018574,3355187,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i78i11(){return new int[]{16777215,16777215,16777215,16777215,3552822,10126019,5460563,12886988,13018574,13018574,13018574,13018574,13018574,13018574,13018574,3355187,12821451,10257606,10257606,3289651,16777215,16777215,3552822,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i78i12(){return new int[]{16777215,16777215,16777215,16777215,16777215,3487029,16514043,16250798,13018829,13018574,13018574,13018574,13018574,13018574,13018574,7625653,10191813,16119213,10323397,3289651,3223857,3223857,15987627,16250797,3421234,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i78i13(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,3223857,16514043,13018830,13018574,14533971,16711420,16777215,14599764,13018572,7625653,16053421,16250797,10323397,3289651,15987627,3421234,15987627,16250797,10323275,3289649,3223857,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i78i14(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,5329233,16579836,16250798,16250797,16711421,16777215,3421236,16514043,14599764,7625651,16053421,14599763,10323396,3289651,15987627,14599763,10323274,14468177,5526354,16053419,14599763,3355441,16777215,16777215,16777215,16777215};}
+static int[] i12i78i15(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,15987627,16250797,16250797,16250797,16711421,3421236,3223857,16514043,14599764,10323396,7559861,10191813,3289651,16777215,3552822,14402385,16185003,16250797,14599763,14599762,14599762,3355441,16777215,16777215,16777215,16777215};}
+static int[] i12i78i16(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3552822,12237490,16645629,16250798,16250797,16711421,16777215,14599764,10323396,7559861,3289395,3223857,16777215,16777215,3552822,15987627,16250797,16250797,16250797,5526611,3223857,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i78i17(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,12237490,16645629,14599764,14599762,10323396,5460563,3223857,16777215,16777215,16777215,16777215,3552822,14402385,16185003,16250797,14599763,3355441,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i78i18(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,12821451,5460819,5395026,5395026,5395026,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,3552822,14402385,14599762,3355441,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i78i19(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,5329233,16053419,16250797,10323397,12952781,10257606,3289651,3223857,3223857,16777215,16777215,16777215,3552822,7428530,3289395,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i78i20(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,14402385,16185003,16250797,5526611,12886988,13018574,3355187,7428530,3289395,16777215,16777215,3487029,10126019,3289651,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i78i21(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,14402385,5526354,14402642,14599762,10323396,5460563,5395026,3223857,3223857,7428530,3289395,3223857,7428530,10191813,3289651,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i78i22(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,3223857,5329233,5395026,7494067,3289395,16777215,16777215,3552822,7428530,10191813,10257606,3289651,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i78i23(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,15987627,14599763,3355441,16777215,16777215,16777215,3552822,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i78i24(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i78i25(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i78i26(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i78i27(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i78i28(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i78i29(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i78i30(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i78i31(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[][] i79(){return new int[][]{i12i79i0(),i12i79i1(),i12i79i2(),i12i79i3(),i12i79i4(),i12i79i5(),i12i79i6(),i12i79i7(),i12i79i8(),i12i79i9(),i12i79i10(),i12i79i11(),i12i79i12(),i12i79i13(),i12i79i14(),i12i79i15(),i12i79i16(),i12i79i17(),i12i79i18(),i12i79i19(),i12i79i20(),i12i79i21(),i12i79i22(),i12i79i23(),i12i79i24(),i12i79i25(),i12i79i26(),i12i79i27(),i12i79i28(),i12i79i29(),i12i79i30(),i12i79i31()};}
+static int[] i12i79i0(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i79i1(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i79i2(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i79i3(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i79i4(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i79i5(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i79i6(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3487029,13886707,3355444,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i79i7(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3552822,13886707,3355444,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i79i8(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,10732491,6585550,13952502,3355444,16777215,16777215,16777215,16777215,16777215,3552822,3223857,13886707,3355444,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i79i9(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,10732491,6585550,13952502,3355444,16777215,16777215,16777215,16777215,3552822,13886707,14084087,10864334,3289907,16777215,16777215,16777215,16777215,3552822,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i79i10(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,10732491,10864334,5460819,3223857,3223857,3223857,16777215,3552822,13886707,14084087,9807607,3289652,16777215,16777215,16777215,16777215,3552822,13886707,14084087,14084087,3355444,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i79i11(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3552822,5329233,9610228,9741815,9741815,6519758,6519758,3224115,13886707,6585550,10732750,3289907,16777215,16777215,16777215,3552822,13886707,14084087,14084087,14084087,14084087,3355444,16777215,16777215,16777215,16777215};}
+static int[] i12i79i12(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,6453707,9676022,9741815,9741815,9741815,9741815,5460820,13886708,6585550,10732750,5460819,3223857,16777215,16777215,16777215,3552822,13886707,14084087,5526612,13886708,10864334,3289907,16777215,16777215,16777215,16777215};}
+static int[] i12i79i13(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,9610227,9741815,9741815,9741815,9741815,9741815,5460820,13886708,6585550,10732750,10864334,3289907,16777215,16777215,3487029,13886707,14084087,14084087,10864334,5460819,5395026,3223857,16777215,16777215,16777215,16777215};}
+static int[] i12i79i14(){return new int[]{16777215,16777215,16777215,16777215,3487029,9610227,9741815,9741815,9741815,9741815,9741815,3289652,4282778,5329491,10732748,10864334,5460819,11764554,3355185,16777215,3487029,13886707,14084087,5526612,5395026,10732748,3289907,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i79i15(){return new int[]{16777215,16777215,16777215,16777215,3552822,9610227,9741815,9741815,6519758,9676022,3289652,11711154,4414364,6453965,5395027,5395026,6965801,11764553,9200441,3289393,10732491,10864334,5460819,13886708,14084087,3355444,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i79i16(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,9610227,9741815,6519758,4348572,3223858,16514043,16777215,6651342,5395027,16579836,16777215,7162924,11764553,5460561,10732748,10864334,5460819,13886708,14084087,3355444,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i79i17(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,6453707,9676022,9741815,9741815,9200699,16645371,4480157,4348572,5329491,5395026,16579836,7162924,11764553,9200441,5395025,10732748,10864334,10864334,3289907,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i79i18(){return new int[]{16777215,16777215,16777215,16777215,3552822,6453707,3224115,6453707,4348572,6453965,6519758,6519758,5395027,5395026,9610228,9741815,5460820,16579836,7162924,7031337,5394769,10732748,10864334,10864334,3289907,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i79i19(){return new int[]{16777215,16777215,16777215,16777215,3552822,11711154,6585293,3224115,5329233,5395026,5395026,5395026,13415250,5460818,9610228,9741815,6519758,16579838,7162924,9134648,5395025,10732748,10864334,3289907,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i79i20(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,3223857,16777215,3552822,15983762,16246676,16246676,5526611,16579836,9807607,9741815,5460820,16579836,7162924,9134648,5395025,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i79i21(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,13349457,13546834,5460818,6453964,11777205,5460819,5395026,11776947,7097131,7031337,3223856,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i79i22(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,4282778,5329491,5395026,16049298,5526611,5395026,16049298,5526611,5395026,11776947,3355443,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i79i23(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,4282778,4348572,5329491,3223857,13349457,13546834,5460818,9610228,5460820,11776947,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i79i24(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,3223857,16777215,3552822,5329233,9610228,9741815,6519758,3224115,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i79i25(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,6453707,4348572,6453965,3224115,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i79i26(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i79i27(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i79i28(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i79i29(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i79i30(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i79i31(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[][] i80(){return new int[][]{i12i80i0(),i12i80i1(),i12i80i2(),i12i80i3(),i12i80i4(),i12i80i5(),i12i80i6(),i12i80i7(),i12i80i8(),i12i80i9(),i12i80i10(),i12i80i11(),i12i80i12(),i12i80i13(),i12i80i14(),i12i80i15(),i12i80i16(),i12i80i17(),i12i80i18(),i12i80i19(),i12i80i20(),i12i80i21(),i12i80i22(),i12i80i23(),i12i80i24(),i12i80i25(),i12i80i26(),i12i80i27(),i12i80i28(),i12i80i29(),i12i80i30(),i12i80i31()};}
+static int[] i12i80i0(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i80i1(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i80i2(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i80i3(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i80i4(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i80i5(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i80i6(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i80i7(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,16777215,3552822,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i80i8(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,5874683,3224116,5874683,3224116,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i80i9(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3703524,5874942,3769575,3224115,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i80i10(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,3703524,3224115,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i80i11(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,3703524,3224115,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i80i12(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,3703524,3769575,3769575,3224115,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i80i13(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,3703524,6999294,3769831,3769575,3769575,3224115,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i80i14(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,16505649,7196411,7065343,7065343,5395284,3769316,2710149,3158322,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i80i15(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,16505649,7196411,7065343,5395284,6974058,16571441,3966436,3224115,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i80i16(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,5329233,6974058,5395026,5395026,16571185,15697217,16702513,3966436,3769575,3224115,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i80i17(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3703524,16514558,7171437,7039851,7039851,13937433,7105641,3769317,5329492,6974058,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i80i18(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3703524,6974316,5395026,5395026,16579836,7171437,7039851,3769317,5329492,5395026,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i80i19(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,16505649,7171178,7039851,7039851,7039851,3769317,3769575,3769575,3224115,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i80i20(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,5329233,16571185,16768561,16768561,16768561,3966436,2710149,3158322,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i80i21(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,5329233,13871896,14069016,2841474,2710148,2710148,3158322,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i80i22(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,3223857,3223857,5329233,6974058,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i80i23(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i80i24(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i80i25(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i80i26(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i80i27(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i80i28(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i80i29(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i80i30(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i80i31(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[][] i81(){return new int[][]{i12i81i0(),i12i81i1(),i12i81i2(),i12i81i3(),i12i81i4(),i12i81i5(),i12i81i6(),i12i81i7(),i12i81i8(),i12i81i9(),i12i81i10(),i12i81i11(),i12i81i12(),i12i81i13(),i12i81i14(),i12i81i15(),i12i81i16(),i12i81i17(),i12i81i18(),i12i81i19(),i12i81i20(),i12i81i21(),i12i81i22(),i12i81i23(),i12i81i24(),i12i81i25(),i12i81i26(),i12i81i27(),i12i81i28(),i12i81i29(),i12i81i30(),i12i81i31()};}
+static int[] i12i81i0(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i81i1(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i81i2(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i81i3(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i81i4(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i81i5(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i81i6(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i81i7(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i81i8(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i81i9(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,7975660,3289907,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i81i10(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,7975660,8107503,3289907,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i81i11(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,7975660,5395284,5395026,3223857,3223857,3223857,16777215,16777215,16777215,3552822,7975660,3289907,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i81i12(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3552822,16777215,16777215,16777215,16777215,16777215,16777215,3487029,5329233,7500434,7566228,5921395,5921395,5921395,3223858,16777215,3552822,7975660,8107503,3289907,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i81i13(){return new int[]{16777215,16777215,16777215,16777215,16777215,3487029,7975660,3289907,16777215,16777215,16777215,16777215,3487029,7434642,7566228,5921395,5921395,5921395,7500435,7566228,5921395,3223858,6455994,8041710,3289907,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i81i14(){return new int[]{16777215,16777215,16777215,16777215,3487029,7434642,8041453,5395284,3223857,16777215,16777215,3487029,3223857,5329233,5395026,5855602,7500435,7566228,5921395,5921395,5921395,7500435,5395027,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i81i15(){return new int[]{16777215,16777215,16777215,16777215,3487029,5329233,8041452,8107503,8107503,3289907,3223857,7975660,8107503,8107503,8107503,5395284,5395026,7500434,7566228,5921395,5921395,7500435,3289650,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i81i16(){return new int[]{16777215,16777215,16777215,16777215,3487029,7975660,8107503,8107503,6522045,5395027,6456251,6522045,6522045,8041710,8107503,8107503,6522045,5395027,5855602,7500435,7566228,3289650,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i81i17(){return new int[]{16777215,16777215,16777215,16777215,16777215,3487029,3223857,3223857,5329233,7500434,8041453,8107503,8107503,6522045,7500692,5921395,8041453,6522045,5395027,5395026,3223857,16777215,16777215,16777215,3487029,3223857,3223857,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i81i18(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,5855601,8041453,8107503,7566485,7566228,16579837,6052981,8041453,5395284,6456251,8041710,8107503,3289907,3223857,3223857,7975660,8107503,3289907,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i81i19(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,7434642,5921395,7500435,7566228,3289650,16514043,6052981,6456251,3224115,7975660,8107503,8107503,8107503,8107503,8107503,5921652,5921395,3223857,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i81i20(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,7434642,7566228,7566228,5921395,9684180,8107502,6522045,3224115,16777215,3487029,3223857,7975660,8107503,6522045,5921396,7500435,3223857,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i81i21(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,5855601,7500435,3289650,12800369,12997235,6587323,3224115,16777215,16777215,16777215,16777215,3487029,3223857,3223857,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i81i22(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,3223857,16777215,3487029,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i81i23(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i81i24(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i81i25(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i81i26(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i81i27(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i81i28(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i81i29(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i81i30(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i81i31(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[][] i82(){return new int[][]{i12i82i0(),i12i82i1(),i12i82i2(),i12i82i3(),i12i82i4(),i12i82i5(),i12i82i6(),i12i82i7(),i12i82i8(),i12i82i9(),i12i82i10(),i12i82i11(),i12i82i12(),i12i82i13(),i12i82i14(),i12i82i15(),i12i82i16(),i12i82i17(),i12i82i18(),i12i82i19(),i12i82i20(),i12i82i21(),i12i82i22(),i12i82i23(),i12i82i24(),i12i82i25(),i12i82i26(),i12i82i27(),i12i82i28(),i12i82i29(),i12i82i30(),i12i82i31()};}
+static int[] i12i82i0(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i82i1(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i82i2(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i82i3(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i82i4(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i82i5(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i82i6(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i82i7(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i82i8(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,5347994,7521781,7587575,7587575,3289908,3223857,16777215,16777215,16777215,16777215,16777215,16777215,3552822,7455731,7587575,7587575,3289908,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i82i9(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3552822,7455731,7587575,7587575,7587575,7587575,7587575,5414045,3224114,3223857,16777215,16777215,16777215,3487029,7455731,7587575,7587575,5414045,5414044,3224114,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i82i10(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3552822,7455731,7587575,7587575,7587575,7587575,7587575,7587575,5395284,12282401,3354928,3223857,16777215,3487029,7455731,7587575,5414045,5395283,3764842,3224113,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i82i11(){return new int[]{16777215,16777215,16777215,16777215,16777215,3487029,7455731,7587575,7587575,7587575,5414045,7521781,7587575,7587575,5414045,5395283,13863721,12413729,3354928,5347994,7521781,5414045,5395283,5413530,5414044,3224114,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i82i12(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,7455731,7587575,7587575,3765357,16514300,3421236,7455731,7587575,5414045,5395283,9130537,13929257,12413729,5460561,5413530,5414044,5395283,5413530,3224114,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i82i13(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,7455731,7587575,7587575,5414045,3224114,3223857,7455731,5414045,5414044,5395283,16579836,9262124,13929257,5526097,5413530,5414044,5395283,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i82i14(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3552822,7455731,7587575,7587575,3289908,9064745,5413530,5414044,5395283,12303291,16645629,9262124,13929257,12413729,5460561,5413530,3224114,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i82i15(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,5329233,5413530,5414044,5414044,5414044,5395283,5413530,5395283,12303291,16645629,9262124,12347937,5460561,5413530,3224114,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i82i16(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,5347994,5395283,5395026,5395026,13413209,16180875,5526610,7521524,5395284,16579836,9262124,9196073,5395025,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i82i17(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,15983754,16246668,16246668,5526610,7521524,7587575,7587575,5395284,9130537,12347937,3354928,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i82i18(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,13347673,13544794,5460818,7521524,7587575,5414045,5395283,9130537,12347937,3354928,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i82i19(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,3699050,5329490,16049291,16246668,5526610,5413530,5395283,5395026,12303291,3355443,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i82i20(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3699050,3765099,3224113,13347673,13544794,5460818,5395026,5413530,5395283,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i82i21(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,16777215,3552822,5329233,7521524,5414045,5414044,3224114,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i82i22(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,5347994,3765099,5348251,3224114,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i82i23(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i82i24(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i82i25(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i82i26(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i82i27(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i82i28(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i82i29(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i82i30(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i82i31(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[][] i83(){return new int[][]{i12i83i0(),i12i83i1(),i12i83i2(),i12i83i3(),i12i83i4(),i12i83i5(),i12i83i6(),i12i83i7(),i12i83i8(),i12i83i9(),i12i83i10(),i12i83i11(),i12i83i12(),i12i83i13(),i12i83i14(),i12i83i15(),i12i83i16(),i12i83i17(),i12i83i18(),i12i83i19(),i12i83i20(),i12i83i21(),i12i83i22(),i12i83i23(),i12i83i24(),i12i83i25(),i12i83i26(),i12i83i27(),i12i83i28(),i12i83i29(),i12i83i30(),i12i83i31()};}
+static int[] i12i83i0(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i83i1(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i83i2(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i83i3(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i83i4(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i83i5(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i83i6(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,13869905,16702777,16768569,14067025,3355185,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i83i7(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,16505656,16768569,16768569,16768569,16768569,14067025,3355185,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i83i8(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,5329233,16571193,16768569,3420977,16505656,16768569,16768569,3420977,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i83i9(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,16505656,16768569,16768569,3420977,16505656,16768569,16768569,3420977,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i83i10(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,10707521,16636985,16768569,16768569,16768569,14067025,14067026,3355185,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i83i11(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,3223857,10707521,10838850,14000977,14067026,10839106,3289393,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i83i12(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,13869905,14067026,14067026,3355185,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i83i13(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,13869905,14067026,3355185,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i83i14(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,13869905,14067026,10839106,3289393,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i83i15(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,13869905,14067026,10839106,14009482,11879499,14502233,3354929,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i83i16(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,13878154,5526354,13869906,14067026,5526354,13878411,14502746,16180403,5526611,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i83i17(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,7946552,16114867,9803108,5460818,5395026,16049331,11945035,14502233,16180403,16246709,3420979,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i83i18(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,14371161,11878986,16114867,16246709,16246709,11945035,14502233,14568026,11878986,16114867,14568539,3354929,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i83i19(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,13878154,8143930,14436697,11878986,11878986,11878986,14502233,16180403,16246709,14568539,14568026,8143417,16114867,3420979,3223857,3223857,3223857,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i83i20(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,3223857,3223857,3223857,10707521,14009482,8143930,16114867,14568539,14568026,11878986,11878986,14502233,14568026,11878986,8077881,16114867,5526611,13869906,14067026,14067026,10839106,3289393,16777215,16777215,16777215,16777215};}
+static int[] i12i83i21(){return new int[]{16777215,16777215,16777215,16777215,3552822,10707521,16636985,16768569,16768569,10904641,14009482,8143930,11813449,11878986,8077881,16114867,16246709,8143930,11813449,11878986,8077881,13943690,3355442,3223857,13869905,14067026,14067026,3355185,16777215,16777215,16777215,16777215};}
+static int[] i12i83i22(){return new int[]{16777215,16777215,16777215,16777215,3552822,16505656,16768569,14067025,3355185,3223857,3223857,7946552,11813449,8077881,16114867,5526611,5395026,13878411,8143930,11813449,3354929,3223857,16777215,16777215,3487029,3223857,3223857,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i83i23(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,3223857,3223857,16777215,16777215,16777215,3552822,3223857,7946552,5394769,13869906,14067026,5526354,5395026,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i83i24(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,5329233,16571193,16768569,16768569,16768569,10904641,3289393,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i83i25(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,13869905,16702777,16768569,16768569,3420977,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i83i26(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i83i27(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i83i28(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i83i29(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i83i30(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i83i31(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[][] i84(){return new int[][]{i12i84i0(),i12i84i1(),i12i84i2(),i12i84i3(),i12i84i4(),i12i84i5(),i12i84i6(),i12i84i7(),i12i84i8(),i12i84i9(),i12i84i10(),i12i84i11(),i12i84i12(),i12i84i13(),i12i84i14(),i12i84i15(),i12i84i16(),i12i84i17(),i12i84i18(),i12i84i19(),i12i84i20(),i12i84i21(),i12i84i22(),i12i84i23(),i12i84i24(),i12i84i25(),i12i84i26(),i12i84i27(),i12i84i28(),i12i84i29(),i12i84i30(),i12i84i31()};}
+static int[] i12i84i0(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i84i1(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i84i2(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i84i3(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i84i4(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i84i5(){return new int[]{16777215,16777215,16777215,16777215,16777215,3487029,3289652,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i84i6(){return new int[]{16777215,16777215,16777215,3487029,3223857,6447820,6447819,5395027,3223857,3355445,3355445,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i84i7(){return new int[]{16777215,16777215,3487029,6447819,6513614,6513614,5395027,5395026,8029172,8094967,8094967,8094967,3289652,3355445,16777215,3552823,3223857,3224116,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i84i8(){return new int[]{16777215,16777215,3815994,6447817,5526867,5592402,16573497,16770873,8226292,8094967,8094967,8094967,8094967,7963379,3289652,6513613,6513614,8028917,3289652,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i84i9(){return new int[]{16777215,16777215,16777215,3618868,16573497,16573499,12432795,8160758,8094967,8094967,8094967,8094967,7963379,5395287,8029172,8029431,8094967,6447820,3223859,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i84i10(){return new int[]{16777215,16777215,3618868,16573497,16770873,8357873,8094711,8094967,8094967,8094967,8094967,8029172,5395028,6448076,6579407,8028917,8029431,3289652,16777215,16777215,16777215,3552823,3224116,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i84i11(){return new int[]{16777215,3487029,16507960,16770873,16573499,16639548,8226548,8094967,7963379,7963379,3421491,3223601,5329233,8029172,8094967,6513614,7897586,3553080,16777215,16777215,3487287,6513613,7963379,3553080,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i84i12(){return new int[]{16777215,3684408,16376121,16705336,8357873,8094711,8094967,7963379,5461079,3223857,16310584,3421233,5395028,7963121,7963379,6448076,3552823,16777215,3552823,3224116,8029172,7963379,3487287,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i84i13(){return new int[]{16777215,16777215,3750201,16376121,16573753,8292336,8094711,5460823,8029172,5526870,3486257,5394772,8029172,5460823,3223857,3487029,16777215,3552823,6447820,8028917,8094967,3224116,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i84i14(){return new int[]{16777215,16777215,16777215,3750201,3552822,16376121,8160753,8160243,8291573,16645116,16739661,8356849,8029172,8094967,3355447,16777215,3552823,6447820,6513614,6513614,6382027,3618616,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i84i15(){return new int[]{16777215,16777215,16777215,16777215,16777215,3750201,3552822,16345417,16673609,16739146,16476745,16608075,5722706,8029172,8094967,3421494,6447817,6513613,6447822,6513614,3223859,16777215,3487029,3223858,16777215,3552823,3158065,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i84i16(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552823,16345417,16608075,5722706,5591890,16542538,8356849,8094711,16448510,5592663,5526612,6447817,6382027,3618616,16777215,3487029,6447819,3289653,6447820,3289653,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i84i17(){return new int[]{16777215,16777215,16777215,16777215,16777215,3618615,3223857,6382027,5395029,5329233,16345674,16673609,16739146,16739146,8356849,8029172,8094965,16514046,5592663,3355445,16777215,16777215,3750201,6447817,6513613,6513614,6513614,3289653,3289652,16777215,16777215,16777215};}
+static int[] i12i84i18(){return new int[]{16777215,16777215,16777215,16777215,3618615,16514043,5526612,6447818,6382027,3486515,3223601,16476745,16739146,16739146,16542284,5591892,5460821,7963121,8029174,8029431,3355447,16777215,16777215,3487029,6382025,6447822,6382027,6513612,6513612,3618616,16777215,16777215};}
+static int[] i12i84i19(){return new int[]{16777215,16777215,16777215,3487029,16514043,12303291,5460822,5329233,3420977,16357433,3420977,16477000,16739658,16738889,8225780,8028917,8094967,5395284,6579404,8094710,8028917,3224116,16777215,3552823,5329233,6382025,3618616,3552822,3552822,16777215,16777215,16777215};}
+static int[] i12i84i20(){return new int[]{16777215,16777215,16777215,3487029,16316664,5526612,6513612,3289653,16291896,3486515,3223857,16376379,16705336,16739913,8160243,6513871,6447819,5526615,16514043,8160757,6513871,3289651,3223859,6382025,5395030,3223857,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i84i21(){return new int[]{16777215,16777215,16777215,3750201,3552822,3223857,6447819,6513614,3289651,6382027,5395029,8028912,16507967,16507960,6710732,8094710,5395028,16579836,12303291,6645198,8094710,5395028,6447820,5395029,6382025,3552823,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i84i22(){return new int[]{16777215,16777215,16777215,16777215,16777215,3750201,6447817,6513613,5263442,6447818,6513613,5395029,7963120,5395028,7963377,8094967,5395028,16382457,5592405,8029172,8094967,5460823,6447561,6382027,3618616,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i84i23(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3750201,6447817,3289651,3421236,6447817,6513612,3618616,3552822,5329233,8029172,5460823,5460821,5460821,7963121,8094967,8094967,5329235,3552822,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i84i24(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3750201,3552565,16777215,3750201,3552822,16777215,16777215,3750201,7963121,8160758,8028916,8226551,5395028,7963377,8029174,3289652,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i84i25(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3750201,16382457,5526612,16382457,3684408,3552822,7963121,3289652,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i84i26(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3750201,3552822,3552822,16777215,16777215,3750201,3552822,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i84i27(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i84i28(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i84i29(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i84i30(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i84i31(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[][] i85(){return new int[][]{i12i85i0(),i12i85i1(),i12i85i2(),i12i85i3(),i12i85i4(),i12i85i5(),i12i85i6(),i12i85i7(),i12i85i8(),i12i85i9(),i12i85i10(),i12i85i11(),i12i85i12(),i12i85i13(),i12i85i14(),i12i85i15(),i12i85i16(),i12i85i17(),i12i85i18(),i12i85i19(),i12i85i20(),i12i85i21(),i12i85i22(),i12i85i23(),i12i85i24(),i12i85i25(),i12i85i26(),i12i85i27(),i12i85i28(),i12i85i29(),i12i85i30(),i12i85i31()};}
+static int[] i12i85i0(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i85i1(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i85i2(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i85i3(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i85i4(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i85i5(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i85i6(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,6974147,7039942,5395027,3223857,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i85i7(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,6974147,7039942,5395027,5395026,8031187,8096982,8096982,8096982,3289651,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i85i8(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3487029,6974147,7039942,5395027,8031187,8096982,8096982,8096982,8096982,3289651,11713275,11910655,8096982,3289651,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i85i9(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3487029,6974147,5395027,8031187,8096982,8096982,8096982,8096982,5395028,11779068,11910655,11910655,11910655,3355444,16777215,3487029,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i85i10(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,7965395,8096982,8096982,8096982,8096982,5395028,8031187,8096982,9673693,11844862,11910655,3355444,3223857,7965395,8096982,3289651,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i85i11(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3552822,7965395,8096982,8096982,8096982,8096982,3289651,5329233,8031187,8096982,8096982,11844862,5460820,6974148,7039942,8031189,3289651,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i85i12(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3552822,7965395,8096982,8096982,8096982,3289651,15987497,5526609,5395026,8031187,8096982,5395028,6974148,7039942,7039942,3223859,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i85i13(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,7965395,8096982,8096982,8096982,3289651,5329233,3223857,5329233,6974148,5395027,5395026,6974148,7039942,7039942,7039942,3223859,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i85i14(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,7965395,8096982,8096982,3289651,7965395,5395028,5395026,6974148,7039942,7039942,5395027,5395026,6974148,7039942,3223859,16777215,16777215,16777215,16777215,3552822,3223857,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i85i15(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,7965395,8096982,8096982,8096982,8096982,8096982,8096982,16580094,12477797,8162260,8096982,5395028,5395026,6974148,3223859,16777215,16777215,3552822,3223857,6974147,3223859,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i85i16(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3487029,5329233,12280418,12411747,12411747,12411747,12411747,12411747,12411747,16149066,8162259,8096982,8096982,5395028,5395026,3223857,3223857,5329233,6974148,7039942,3223859,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i85i17(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,5329233,5395026,12280418,12411747,12411747,5460562,16017994,16214858,16214858,5526097,6974148,8031189,8096982,5395028,6974148,7039942,7039942,3223859,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i85i18(){return new int[]{16777215,16777215,16777215,16777215,16777215,3487029,3223857,6974147,16579838,11976447,3355444,3223857,5329233,16017994,16214858,16214858,16214858,8162259,5395028,8031187,8096982,8096982,5395028,5395026,6974148,3223859,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i85i19(){return new int[]{16777215,16777215,16777215,16777215,3487029,6974147,7039942,3223859,16514043,5526612,3223857,16777215,3487029,15952457,12411746,16149066,16214858,16214858,5526097,16579836,8228310,8096982,8096982,8096982,3289651,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i85i20(){return new int[]{16777215,16777215,16777215,16777215,3487029,3223857,3223857,16777215,3487029,3223857,16777215,3487029,5329233,16017994,9804763,12346212,12411747,5460562,16579836,16777215,7171526,8031189,8096982,8096982,8096982,3289651,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i85i21(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,6974147,7039942,5395027,9607899,9739486,9739486,5460820,16579836,5526612,5395026,5395026,5395026,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i85i22(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,11713275,16645631,11976447,7105734,3223859,3223857,9607899,5460820,5395026,6974148,7039942,7039942,9673693,3289651,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i85i23(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,3223857,3223857,3223857,16777215,16777215,3487029,3223857,6974147,7039942,7039942,5395027,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i85i24(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,16514043,5526612,16579836,3421236,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i85i25(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i85i26(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i85i27(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i85i28(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i85i29(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i85i30(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i85i31(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[][] i86(){return new int[][]{i12i86i0(),i12i86i1(),i12i86i2(),i12i86i3(),i12i86i4(),i12i86i5(),i12i86i6(),i12i86i7(),i12i86i8(),i12i86i9(),i12i86i10(),i12i86i11(),i12i86i12(),i12i86i13(),i12i86i14(),i12i86i15(),i12i86i16(),i12i86i17(),i12i86i18(),i12i86i19(),i12i86i20(),i12i86i21(),i12i86i22(),i12i86i23(),i12i86i24(),i12i86i25(),i12i86i26(),i12i86i27(),i12i86i28(),i12i86i29(),i12i86i30(),i12i86i31()};}
+static int[] i12i86i0(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i86i1(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i86i2(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i86i3(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i86i4(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i86i5(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i86i6(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,3223857,16777215,16777215,16777215,16777215,16777215,3487029,3223857,16777215,16777215,16777215,16777215,3487029,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i86i7(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,15981377,3420977,16777215,16777215,16777215,3552822,15981377,3420977,16777215,16777215,16777215,3552822,14377561,3354929,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i86i8(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,15981377,12428610,3355185,16777215,16777215,3552822,15981377,3420977,16777215,16777215,3552822,14377561,16178242,3420977,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i86i9(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,15981377,12428610,3355185,16777215,3487029,15981377,12428610,3355185,3223857,16777215,3552822,14377561,16178242,3420977,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i86i10(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,15981377,12428610,12428610,3355185,3223857,15981377,12428610,3355185,3688867,3223858,14377561,16178242,16244290,12428610,3355185,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i86i11(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,12231489,12428610,3885987,16046915,12428610,12428610,12428610,3885987,3754661,3223858,15981377,12428610,5460817,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i86i12(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,12231489,3885987,4811477,16047172,12428610,4942803,4877270,3754661,3754661,3754661,3223858,12231489,3355185,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i86i13(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,4811475,12297284,4942803,4877270,12297284,4942803,4877270,3754661,3754661,3754661,3754661,3223858,5329233,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i86i14(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3487029,12231489,5460817,5395026,4877011,4877270,4877270,3754661,4811477,3223859,3223857,3688867,3754661,3754661,12231491,12428610,3355185,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i86i15(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,5329233,16579836,5526612,4877011,5329492,3754659,3223858,16514043,3421236,3688867,12231491,16178498,16244290,16244290,16244290,16244290,3420977,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i86i16(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,16514043,5526612,14377561,16710908,5526612,14377561,16710908,3421236,14377561,5526098,12297026,16178498,16244290,5526609,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i86i17(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,14377561,14574426,14574426,16710908,5526612,16579836,14574940,11356738,14508633,11356738,5460305,5395026,5395026,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i86i18(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,14377561,14574426,14574426,14574426,14574426,14574426,14574426,11356738,11356738,11356738,5460305,12297026,12428610,3355185,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i86i19(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,5329233,16046914,14574681,14574426,14574426,14574426,11356738,11356738,11356738,5460305,11225666,12362562,5460817,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i86i20(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,12231489,12428610,11356994,11356738,11356738,3289393,3223857,3223857,11225409,12362562,3355185,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i86i21(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,3223857,5329233,5395026,3223857,16777215,16777215,16777215,3487029,11225409,3289393,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i86i22(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,15981377,12428610,3355185,16777215,16777215,16777215,16777215,3487029,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i86i23(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,15981377,3420977,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i86i24(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i86i25(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i86i26(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i86i27(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i86i28(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i86i29(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i86i30(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i86i31(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[][] i87(){return new int[][]{i12i87i0(),i12i87i1(),i12i87i2(),i12i87i3(),i12i87i4(),i12i87i5(),i12i87i6(),i12i87i7(),i12i87i8(),i12i87i9(),i12i87i10(),i12i87i11(),i12i87i12(),i12i87i13(),i12i87i14(),i12i87i15(),i12i87i16(),i12i87i17(),i12i87i18(),i12i87i19(),i12i87i20(),i12i87i21(),i12i87i22(),i12i87i23(),i12i87i24(),i12i87i25(),i12i87i26(),i12i87i27(),i12i87i28(),i12i87i29(),i12i87i30(),i12i87i31()};}
+static int[] i12i87i0(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i87i1(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i87i2(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i87i3(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i87i4(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i87i5(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i87i6(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,15983754,3420978,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i87i7(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,13349474,16180875,3420978,3223857,3223857,16777215,16777215,3552822,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i87i8(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,15983754,16246668,9266490,11830089,11895882,3355185,3223857,15983754,13546851,3355441,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i87i9(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,16514043,11961676,16115082,16246668,9266490,16114826,16246668,16246668,16246668,3420978,16777215,16777215,16777215,3552822,3223857,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i87i10(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3552822,15983754,16711421,16246669,16246668,16246668,13546851,13546851,16180875,16246668,9266490,5395025,3223857,16777215,3552822,6969673,7035466,7035466,7035466,3223857,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i87i11(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3552822,12821337,7101258,12886873,16180619,13546851,16711164,16777215,13547109,16180875,9266490,11830089,9200441,3289393,6969673,7035466,7035466,7035466,7035466,7035466,3223857,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i87i12(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3552822,6969673,16015953,7166538,7035466,16579836,3421236,16514043,13547109,9266233,11830089,11895882,11895882,5460561,13415266,16180875,13546851,7101258,7035466,7035466,3223857,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i87i13(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3552822,6969673,7035466,7035466,7035466,7035466,16579836,13547109,9266233,11830089,11895882,9200441,5395025,6969674,7035466,7035466,13415266,13546851,7101258,7035466,3223857,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i87i14(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,12829635,5460819,6969674,7035466,7035466,11764554,11895882,11895882,11895882,11895882,5460561,6969674,7035466,7035466,7035466,16049290,7167051,7035466,3223857,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i87i15(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,16514043,16777215,5526612,5395026,11764554,11895882,9200441,11830089,11895882,5460561,6969674,7035466,7035466,7035466,7035466,16049290,13546851,13546851,3355441,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i87i16(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,16514043,5526612,11764554,9200441,11830089,11895882,5460561,5395026,11764554,5460561,6969674,7035466,7035466,7035466,7035466,7035466,3223857,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i87i17(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,9069112,5395025,13415266,13546851,13546851,5460818,5395026,11764554,11895882,11895882,11895882,5460561,6969674,7035466,7035466,7035466,7035466,3223857,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i87i18(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,9069112,5395025,16049291,13546851,16180875,13546851,16180875,11961675,11895882,9200441,11830089,5460561,6969674,7035466,7035466,7035466,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i87i19(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,9069112,5395025,16049291,16246668,16246668,7167051,13415266,11895882,5460561,9134649,11830089,11895882,5460561,6969674,7035466,7035466,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i87i20(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,6969673,11764554,5460561,11764554,11895882,16115082,5526610,11764554,11895882,11895882,5460561,11764554,11895882,11895882,5460561,6969674,7035466,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i87i21(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,6969673,7035466,11764554,11895882,11895882,11895882,5460561,6969674,11764554,5460561,11764554,11895882,11895882,11895882,5460561,6969674,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i87i22(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3487029,6969673,11764554,9200441,11830089,11895882,5460561,5395026,5395026,11764554,11895882,11895882,11895882,5460561,6969674,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i87i23(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,3223857,9069112,5395025,6969674,7035466,7035466,5395025,11764554,11895882,5460561,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i87i24(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,6969673,13415266,13546851,7101258,5395025,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i87i25(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,6969673,7035466,7035466,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i87i26(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i87i27(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i87i28(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i87i29(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i87i30(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i87i31(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[][] i88(){return new int[][]{i12i88i0(),i12i88i1(),i12i88i2(),i12i88i3(),i12i88i4(),i12i88i5(),i12i88i6(),i12i88i7(),i12i88i8(),i12i88i9(),i12i88i10(),i12i88i11(),i12i88i12(),i12i88i13(),i12i88i14(),i12i88i15(),i12i88i16(),i12i88i17(),i12i88i18(),i12i88i19(),i12i88i20(),i12i88i21(),i12i88i22(),i12i88i23(),i12i88i24(),i12i88i25(),i12i88i26(),i12i88i27(),i12i88i28(),i12i88i29(),i12i88i30(),i12i88i31()};}
+static int[] i12i88i0(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i88i1(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i88i2(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i88i3(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i88i4(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i88i5(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i88i6(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i88i7(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,16777215,16777215,16777215,16777215,3552822,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i88i8(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,5878515,3224372,16777215,16777215,3552822,3223857,9630537,3290161,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i88i9(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,5878515,3224372,16777215,16777215,3223857,5878515,5395284,9630794,8107577,3289905,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i88i10(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,12243825,5461074,3223857,3223857,5944823,5395284,9630794,9762634,8107577,3289905,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i88i11(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,5329233,15004859,5526611,15004859,5526611,15004859,8173115,9696585,8107577,3289905,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i88i12(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,15004602,15202237,15202237,5526611,15004859,15202237,15202237,15202237,12441204,3355442,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i88i13(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,15004602,15202237,15202237,15202237,15202237,15202237,15202237,15202237,12441204,15136443,3355699,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i88i14(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,15004602,15202237,15202237,15202237,15202237,5526611,5395026,15004859,15202237,12441204,3355442,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i88i15(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,5859929,15004859,15202237,15202237,5526611,16579836,16777215,5526612,15004859,3355699,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i88i16(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,5859929,15004859,15202237,5526611,16579836,6076151,16580094,6057308,12309618,3355442,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i88i17(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,12243825,15136443,6057307,2712491,5878773,5925980,12309618,5461074,11262948,11394791,3289907,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i88i18(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,12243825,12441203,5991514,5925722,12309618,5461074,11262948,11394791,3289907,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i88i19(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,5329233,12309362,12441203,5997881,5932089,5395025,5395026,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i88i20(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,15004602,12441204,5461074,8041273,8107321,5932089,15005114,15202237,3355699,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i88i21(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,3223857,5329233,5866297,8041529,8107321,5395281,12309362,15136443,15202237,3355699,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i88i22(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,9630537,5461073,5866297,8041529,3289905,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i88i23(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,7975480,9696585,3290161,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i88i24(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i88i25(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i88i26(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i88i27(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i88i28(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i88i29(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i88i30(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i88i31(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[][] i89(){return new int[][]{i12i89i0(),i12i89i1(),i12i89i2(),i12i89i3(),i12i89i4(),i12i89i5(),i12i89i6(),i12i89i7(),i12i89i8(),i12i89i9(),i12i89i10(),i12i89i11(),i12i89i12(),i12i89i13(),i12i89i14(),i12i89i15(),i12i89i16(),i12i89i17(),i12i89i18(),i12i89i19(),i12i89i20(),i12i89i21(),i12i89i22(),i12i89i23(),i12i89i24(),i12i89i25(),i12i89i26(),i12i89i27(),i12i89i28(),i12i89i29(),i12i89i30(),i12i89i31()};}
+static int[] i12i89i0(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i89i1(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i89i2(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i89i3(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i89i4(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3487029,3223857,3223857,16513905,3421234,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i89i5(){return new int[]{16777215,16777215,16777215,16777215,16777215,3552822,16513905,11965746,3355185,16513905,3421234,16777215,16777215,16777215,16777215,3552822,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i89i6(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3487029,16513905,10911140,5460563,16579698,3421234,16777215,16777215,3552822,16513905,3421234,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i89i7(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3487029,16513905,5526610,5395026,16579698,3421234,16777215,16777215,3552822,16513905,3421234,11702833,16645489,3421234,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i89i8(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,16513905,16777075,16777075,3421234,16777215,3552822,16513905,10911140,5460563,16579698,3421234,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i89i9(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3487029,16513905,5526610,5395026,16579698,5526610,3223857,5329233,16579698,5526610,5395026,16579698,3421234,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i89i10(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,3487029,5329233,13867651,11371635,9202531,13933443,14064772,11371635,16645491,16777075,16777075,3421234,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i89i11(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,13867650,5526354,13867651,14064772,11371635,16645491,11437427,9202531,16645234,3421234,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i89i12(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,5329233,14988195,14064772,11371635,9202531,13933443,14064772,5526354,13867651,3355186,16777215,16777215,16777215,3552822,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i89i13(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,13867650,15119524,11371635,13998979,16711165,9268581,11305842,13998979,14064772,3355186,16777215,16777215,3552822,14987939,15185317,3355442,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i89i14(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,13867650,15119524,14064772,11371635,3289650,16514043,14065029,5526354,3223857,3223857,16777215,16777215,3552822,13867650,15119524,15185317,14064772,3355186,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i89i15(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,12804673,10244665,13998722,14064772,14064772,14064772,14064772,3355186,16777215,16777215,16777215,3552822,5329233,5395026,13867651,14064772,14064772,3355186,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i89i16(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,10113336,10244665,5460561,13867651,14064772,11371635,11371635,11371635,3289650,3223857,3223857,13867650,14064772,14064772,5526354,13867651,11371635,3289650,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i89i17(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3552822,3223857,3223857,11240049,11371635,5460562,9136738,11305842,13998979,14064772,14064772,14064772,14064772,14064772,14064772,5526354,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i89i18(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,5329233,11240306,11371635,11371635,13998979,14064772,15658412,14065028,15658412,14065028,14064772,3355186,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i89i19(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,11240049,11371635,11371635,13998979,14064772,14064772,15658412,14065028,14064772,15119524,14064772,3355186,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i89i20(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,13867650,15658412,14065028,14064772,14064772,14064772,14064772,14064772,11371635,15119524,14064772,3355186,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i89i21(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,12237466,15658668,9268580,13933443,14064772,11371635,12369051,5460819,13867651,15119524,11371635,3289650,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i89i22(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,11240049,12369051,5460819,14988195,14064772,5526354,3223857,3223857,3223857,13867650,14064772,3355186,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i89i23(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,11240049,3289650,3223857,13867650,15119524,3355442,16777215,16777215,16777215,3487029,13867650,11371635,3289650,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i89i24(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,5329233,5395026,3223857,16777215,3487029,13867650,3355186,16777215,16777215,16777215,16777215,3487029,5329233,3223857,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i89i25(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,3223857,3223857,16777215,16777215,3487029,13867650,3355186,16777215,16777215,16777215,16777215,3487029,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i89i26(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,5329233,5395026,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i89i27(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,3487029,3223857,3223857,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i89i28(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i89i29(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i89i30(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
+static int[] i12i89i31(){return new int[]{16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215};}
 }
