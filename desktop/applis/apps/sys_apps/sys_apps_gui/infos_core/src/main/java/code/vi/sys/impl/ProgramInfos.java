@@ -4,7 +4,7 @@ import aiki.db.DataBase;
 import aiki.main.AikiFactory;
 import aiki.main.AikiNatLgNamesNavigation;
 import aiki.sml.MessagesPkGame;
-import aiki.sml.trs.Trs;
+import aiki.sml.trs.*;
 import applications.code.gui.AppFactories;
 import applications.code.gui.WithAppFactories;
 import applications.gui.MessagesApplications;
@@ -95,13 +95,13 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
     }
 
     public static void locales(ProgramInfosBase _pr) {
-        _pr.setLanguages(new StringList(Trs.EN,Trs.FR));
+        _pr.setLanguages(new StringList(MessagesTrs.EN,MessagesTrs.FR));
         StringMap<String> m_ = new StringMap<String>();
-        m_.addEntry(Trs.EN,"English");
-        m_.addEntry(Trs.FR,"Français");
+        m_.addEntry(MessagesTrs.EN,"English");
+        m_.addEntry(MessagesTrs.FR,"Français");
         _pr.setDisplayLanguages(m_);
-        TranslationsLg en_ = _pr.lg(Trs.EN);
-        TranslationsLg fr_ = _pr.lg(Trs.FR);
+        TranslationsLg en_ = _pr.lg(MessagesTrs.EN);
+        TranslationsLg fr_ = _pr.lg(MessagesTrs.FR);
         en_.getMaxiCards().addAllEntries(CardsInit.en());
         fr_.getMaxiCards().addAllEntries(CardsInit.fr());
         en_.getMiniCardsDef().addAllEntries(AbsMetaLabelCard.enDef());
@@ -140,6 +140,8 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         fr_.getMapping().addEntry(MessagesInit.APP_BEAN_DATA,MessagesInit.frData());
         en_.getMapping().addEntry(MessagesInit.APP_BEAN_FIGHT,MessagesInit.enFight());
         fr_.getMapping().addEntry(MessagesInit.APP_BEAN_FIGHT,MessagesInit.frFight());
+        en_.getMapping().addEntry(MessagesTrs.SC_APP,MessagesTrs.enPart());
+        fr_.getMapping().addEntry(MessagesTrs.SC_APP,MessagesTrs.frPart());
         MessagesApplications.tr(MessagesApplications.initAppliTr(en_));
         MessagesApplications.tr(MessagesApplications.initAppliTr(fr_));
         MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(_pr.getTranslations()));

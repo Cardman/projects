@@ -5,6 +5,7 @@ import aiki.facade.*;
 import aiki.gui.threads.*;
 import aiki.main.*;
 import aiki.sml.*;
+import aiki.sml.trs.MessagesTrs;
 import applications.code.gui.initialize.LoadLanguageUtil;
 import cards.belote.beans.*;
 import cards.gui.dialogs.*;
@@ -63,7 +64,7 @@ public abstract class SoftApplicationCore {
         cf_.submitHelp();
     }
     private static void aiki(AikiFactory _af, StringList _lgs, Translations _msg, StringMap<String> _dis, AbstractGenerator _gene) {
-        _af.submit(new DefLoadingData(_gene, _lgs, _dis,new SexListImpl(), GamesPk.baseEncode(_msg)));
+        _af.submit(new DefLoadingData(_gene, _lgs, _dis,new SexListImpl(), GamesPk.baseEncode(_msg), _msg.byAppl(MessagesTrs.SC_APP)));
         StringMap<String> builtOther_ = CssInit.ms();
         _af.submitNavData(new DataWebInit(new PreparedRenderedPages(new DataGameInit(), PagesInit.build(), _msg.byAppl(MessagesInit.APP_BEAN_DATA), builtOther_, new PkData(), _lgs),_af.getGeneralHelp()));
         _af.submitNavFight(new DataWebInit(new PreparedRenderedPages(new FightGameInit(), PagesInit.buildFight(), _msg.byAppl(MessagesInit.APP_BEAN_FIGHT), builtOther_, new PkFight(), _lgs),null));

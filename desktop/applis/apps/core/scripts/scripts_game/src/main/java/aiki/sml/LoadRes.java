@@ -2,25 +2,26 @@ package aiki.sml;
 import aiki.db.*;
 import aiki.facade.*;
 import code.maths.montecarlo.*;
+import code.sml.util.TranslationsAppli;
 import code.util.*;
 public final class LoadRes{
 
     private LoadRes(){}
 
-    public static DataBase loadResource(AbstractGenerator _gene, StringList _languages, StringMap<String> _displayLanguages, SexListInt _sexList, String _messagesParse) {
+    public static DataBase loadResource(AbstractGenerator _gene, StringList _languages, StringMap<String> _displayLanguages, SexListInt _sexList, StringMap<TranslationsAppli> _defParts, String _messagesParse) {
         DataBase data_ = new DataBase(_gene);
         data_.defValues();
         data_.setLanguages(_languages);
         data_.setDisplayLanguages(_displayLanguages);
-        loadResources(data_, _sexList,_messagesParse);
+        loadResources(data_, _sexList,_defParts,_messagesParse);
         return data_;
     }
 
-    public static void loadResources(DataBase _d, SexListInt _sexList, String _messagesParse) {
+    public static void loadResources(DataBase _d, SexListInt _sexList, StringMap<TranslationsAppli> _defParts, String _messagesParse) {
 //        int delta_ = (100 - _perCentLoading.get()) / 6;
 
         _d.initializeMembers();
-        LoadResTrs.loadResources(_d);
+        LoadResTrs.loadResources(_d,_defParts);
         LoadResInit.loadResources(_d);
         LoadResImg.loadResources(_d, _sexList,_messagesParse);
         /*for (EntryCust<String,String> c: Cst.cs().entryList()) {

@@ -1,7 +1,8 @@
 package aiki.sml;
 
 import aiki.db.*;
-import aiki.sml.trs.Trs;
+import aiki.sml.trs.*;
+import code.sml.util.*;
 import code.util.*;
 import org.junit.Test;
 
@@ -12,9 +13,12 @@ public final class LoadResTest extends EquallableAikiScriptsUtil {
     @Test
     public void load(){
         FacadeGame facade_ = new FacadeGame();
-        facade_.setLanguages(new StringList(Trs.EN,Trs.FR));
+        facade_.setLanguages(new StringList(MessagesTrs.EN,MessagesTrs.FR));
         facade_.setDisplayLanguages(new StringMap<String>());
-        DataBase data_ = new DefLoadingData(DefaultGenerator.oneElt(), facade_.getLanguages(), facade_.getDisplayLanguages(), facade_.getSexList(), "").call();
+        StringMap<TranslationsAppli> apps_ = new StringMap<TranslationsAppli>();
+        apps_.addEntry(MessagesTrs.EN,MessagesTrs.enPart());
+        apps_.addEntry(MessagesTrs.FR,MessagesTrs.frPart());
+        DataBase data_ = new DefLoadingData(DefaultGenerator.oneElt(), facade_.getLanguages(), facade_.getDisplayLanguages(), facade_.getSexList(), "", apps_).call();
         FacadeGame.postLoad(facade_, data_);
         assertNotNull(facade_.getData());
         assertNotNull(new CstIgameImpl().self());

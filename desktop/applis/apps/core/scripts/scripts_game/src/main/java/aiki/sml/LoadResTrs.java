@@ -4,6 +4,7 @@ import aiki.db.*;
 import aiki.fight.enums.*;
 import aiki.fight.moves.enums.*;
 import code.maths.*;
+import code.sml.util.*;
 import code.util.*;
 import aiki.facade.enums.*;
 import code.util.core.*;
@@ -15,11 +16,9 @@ import aiki.map.pokemon.enums.*;
 public final class LoadResTrs {
 
     private static final char TAB_CHAR = '\t';
-    private static final String TAB = "\t";
 
-    private static final char RETURN_LINE_CHAR = '\n';
     private LoadResTrs(){}
-    public static void loadResources(DataBase _d) {
+    public static void loadResources(DataBase _d, StringMap<TranslationsAppli> _defParts) {
         for (EntryCust<String,String> c: Cst.cs().entryList()) {
             short cle_ = (short) NumberUtil.parseInt(c.getKey());
             _d.getHm().addEntry(cle_, c.getValue());
@@ -44,173 +43,113 @@ public final class LoadResTrs {
         _d.setRates(Cst.di());
         _d.setTypesColors(Cst.tc());
         _d.initTranslations();
-        StringMap<String> trs_ = Trs.tr();
-        for (String l : _d.getLanguages()) {
-            IdMap<Gender, String> genders_ = trGenders(trs_.getVal(l + DataBase.SEPARATOR_FILES + Trs.TRANSLATION_GENDERS));
+        for (EntryCust<String, TranslationsAppli> e : _defParts.entryList()) {
+            String l = e.getKey();
+            StringMap<TranslationsFile> files_ = e.getValue().getMapping();
+            IdMap<Gender, String> genders_ = trGenders(files_.getVal(MessagesTrs.TRANSLATION_GENDERS));
             _d.getTranslatedGenders().addEntry(l, genders_);
-            IdMap<SelectedBoolean, String> booleans_ = trBooleans(trs_.getVal(l + DataBase.SEPARATOR_FILES + Trs.TRANSLATION_BOOLEANS));
+            IdMap<SelectedBoolean, String> booleans_ = trBooleans(files_.getVal(MessagesTrs.TRANSLATION_BOOLEANS));
             _d.getTranslatedBooleans().addEntry(l, booleans_);
-            IdMap<DifficultyWinPointsFight, String> diffWinPts_ = trDiffWinPts(trs_.getVal(l + DataBase.SEPARATOR_FILES + Trs.TRANSLATION_WINPTS));
+            IdMap<DifficultyWinPointsFight, String> diffWinPts_ = trDiffWinPts(files_.getVal(MessagesTrs.TRANSLATION_WINPTS));
             _d.getTranslatedDiffWinPts().addEntry(l, diffWinPts_);
-            IdMap<DifficultyModelLaw, String> diffLaw_ = trDiffLaw(trs_.getVal(l + DataBase.SEPARATOR_FILES + Trs.TRANSLATION_MODELLAW));
+            IdMap<DifficultyModelLaw, String> diffLaw_ = trDiffLaw(files_.getVal(MessagesTrs.TRANSLATION_MODELLAW));
             _d.getTranslatedDiffModelLaw().addEntry(l, diffLaw_);
-            IdMap<EnvironmentType, String> environments_ = trEnv(trs_.getVal(l + DataBase.SEPARATOR_FILES + Trs.TRANSLATION_ENVIRONMENTS));
+            IdMap<EnvironmentType, String> environments_ = trEnv(files_.getVal(MessagesTrs.TRANSLATION_ENVIRONMENTS));
             _d.getTranslatedEnvironment().addEntry(l, environments_);
-            IdMap<Statistic, String> statistics_ = trStat(trs_.getVal(l + DataBase.SEPARATOR_FILES + Trs.TRANSLATION_STATISTICS));
+            IdMap<Statistic, String> statistics_ = trStat(files_.getVal(MessagesTrs.TRANSLATION_STATISTICS));
             _d.getTranslatedStatistics().addEntry(l, statistics_);
-            IdMap<TargetChoice, String> targets_ = trTargets(trs_.getVal(l + DataBase.SEPARATOR_FILES + Trs.TRANSLATION_TARGETS));
+            IdMap<TargetChoice, String> targets_ = trTargets(files_.getVal(MessagesTrs.TRANSLATION_TARGETS));
             _d.getTranslatedTargets().addEntry(l, targets_);
-            StringMap<String> categories_ = tr(trs_.getVal(l + DataBase.SEPARATOR_FILES + Trs.TRANSLATION_CATEGORIES));
+            StringMap<String> categories_ = tr(files_.getVal(MessagesTrs.TRANSLATION_CATEGORIES));
             _d.getTranslatedCategories().addEntry(l, categories_);
-            StringMap<String> types_ = tr(trs_.getVal(l + DataBase.SEPARATOR_FILES + Trs.TRANSLATION_TYPES));
+            StringMap<String> types_ = tr(files_.getVal(MessagesTrs.TRANSLATION_TYPES));
             _d.getTranslatedTypes().addEntry(l, types_);
-            StringMap<String> pokemon_ = tr(trs_.getVal(l + DataBase.SEPARATOR_FILES + Trs.TRANSLATION_POKEMON));
+            StringMap<String> pokemon_ = tr(files_.getVal(MessagesTrs.TRANSLATION_POKEMON));
             _d.getTranslatedPokemon().addEntry(l, pokemon_);
-            StringMap<String> moves_ = tr(trs_.getVal(l + DataBase.SEPARATOR_FILES + Trs.TRANSLATION_MOVES));
+            StringMap<String> moves_ = tr(files_.getVal(MessagesTrs.TRANSLATION_MOVES));
             _d.getTranslatedMoves().addEntry(l, moves_);
-            StringMap<String> items_ = tr(trs_.getVal(l + DataBase.SEPARATOR_FILES + Trs.TRANSLATION_ITEMS));
+            StringMap<String> items_ = tr(files_.getVal(MessagesTrs.TRANSLATION_ITEMS));
             _d.getTranslatedItems().addEntry(l, items_);
-            StringMap<String> abilities_ = tr(trs_.getVal(l + DataBase.SEPARATOR_FILES + Trs.TRANSLATION_ABILITIES));
+            StringMap<String> abilities_ = tr(files_.getVal(MessagesTrs.TRANSLATION_ABILITIES));
             _d.getTranslatedAbilities().addEntry(l, abilities_);
-            StringMap<String> status_ = tr(trs_.getVal(l + DataBase.SEPARATOR_FILES + Trs.TRANSLATION_STATUS));
+            StringMap<String> status_ = tr(files_.getVal(MessagesTrs.TRANSLATION_STATUS));
             _d.getTranslatedStatus().addEntry(l, status_);
-            StringMap<String> fctsMath_ = tr(trs_.getVal(l + DataBase.SEPARATOR_FILES + Trs.TRANSLATION_MATH));
+            StringMap<String> fctsMath_ = tr(files_.getVal(MessagesTrs.TRANSLATION_MATH));
             _d.getTranslatedFctMath().addEntry(l, fctsMath_);
-            StringMap<String> descrClasses_ = tr(trs_.getVal(l + DataBase.SEPARATOR_FILES + Trs.TRANSLATION_CLASSES));
+            StringMap<String> descrClasses_ = tr(files_.getVal(MessagesTrs.TRANSLATION_CLASSES));
             _d.getTranslatedClassesDescriptions().addEntry(l, descrClasses_);
-            StringMap<String> litteral_ = trLitt(trs_.getVal(l + DataBase.SEPARATOR_FILES + Trs.TRANSLATION_LITTERAL));
+            StringMap<String> litteral_ = files_.getVal(MessagesTrs.TRANSLATION_LITTERAL).getMapping();
             _d.getLitterals().addEntry(l, litteral_);
         }
 //        _d.getConstNum().addEntry(DataBase.DEF_BASE_MOVE,new Rate("1"));
     }
 
-    private static StringMap<String> trLitt(String _str) {
-        StringMap<String> litteral_ = new StringMap<String>();
-        for (String l2_ : StringUtil.splitChars(_str,
-                RETURN_LINE_CHAR)) {
-            if (l2_.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
-            litteral_
-                    .addEntry(infos_.first(), StringUtil
-                                    .join(infos_.leftMinusOne(
-                                            infos_.size()), TAB));
-        }
-        return litteral_;
-    }
-
-    private static IdMap<TargetChoice, String> trTargets(String _str) {
+    private static IdMap<TargetChoice, String> trTargets(TranslationsFile _str) {
         IdMap<TargetChoice, String> targets_ = new IdMap<TargetChoice, String>();
-        for (String l2_ : StringUtil.splitChars(_str,
-                RETURN_LINE_CHAR)) {
-            if (l2_.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
+        for (EntryCust<String, String> l2_ : _str.getMapping().entryList()) {
             targets_.addEntry(
-                    TargetChoice.getTargetChoiceByName(infos_.first()),
-                    infos_.last());
+                    TargetChoice.getTargetChoiceByName(l2_.getKey()),
+                    l2_.getValue());
         }
         return targets_;
     }
 
-    private static IdMap<Statistic, String> trStat(String _str) {
+    private static IdMap<Statistic, String> trStat(TranslationsFile _str) {
         IdMap<Statistic, String> statistics_ = new IdMap<Statistic, String>();
-        for (String l2_ : StringUtil.splitChars(_str,
-                RETURN_LINE_CHAR)) {
-            if (l2_.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
-            statistics_.addEntry(Statistic.getStatisticByName(infos_.first()),
-                    infos_.last());
+        for (EntryCust<String, String> l2_ : _str.getMapping().entryList()) {
+            statistics_.addEntry(Statistic.getStatisticByName(l2_.getKey()),
+                    l2_.getValue());
         }
         return statistics_;
     }
 
-    private static IdMap<EnvironmentType, String> trEnv(String _str) {
+    private static IdMap<EnvironmentType, String> trEnv(TranslationsFile _str) {
         IdMap<EnvironmentType, String> environments_ = new IdMap<EnvironmentType, String>();
-        for (String l2_ : StringUtil.splitChars(_str,
-                RETURN_LINE_CHAR)) {
-            if (l2_.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
-            environments_.addEntry(EnvironmentType.getEnvByName(infos_.first()),
-                    infos_.last());
+        for (EntryCust<String, String> l2_ : _str.getMapping().entryList()) {
+            environments_.addEntry(EnvironmentType.getEnvByName(l2_.getKey()),
+                    l2_.getValue());
         }
         return environments_;
     }
 
-    private static IdMap<DifficultyModelLaw, String> trDiffLaw(String _str) {
+    private static IdMap<DifficultyModelLaw, String> trDiffLaw(TranslationsFile _str) {
         IdMap<DifficultyModelLaw, String> diffLaw_ = new IdMap<DifficultyModelLaw, String>();
-        for (String l2_ : StringUtil.splitChars(_str,
-                RETURN_LINE_CHAR)) {
-            if (l2_.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
-            diffLaw_.addEntry(DifficultyModelLaw.getModelByName(infos_.first()),
-                    infos_.last());
+        for (EntryCust<String, String> l2_ : _str.getMapping().entryList()) {
+            diffLaw_.addEntry(DifficultyModelLaw.getModelByName(l2_.getKey()),
+                    l2_.getValue());
         }
         return diffLaw_;
     }
 
-    private static IdMap<DifficultyWinPointsFight, String> trDiffWinPts(String _str) {
+    private static IdMap<DifficultyWinPointsFight, String> trDiffWinPts(TranslationsFile _str) {
         IdMap<DifficultyWinPointsFight, String> diffWinPts_ = new IdMap<DifficultyWinPointsFight, String>();
-        for (String l2_ : StringUtil.splitChars(_str,
-                RETURN_LINE_CHAR)) {
-            if (l2_.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
+        for (EntryCust<String, String> l2_ : _str.getMapping().entryList()) {
             diffWinPts_.addEntry(
-                    DifficultyWinPointsFight.getDiffWonPtsByName(infos_.first()), infos_.last());
+                    DifficultyWinPointsFight.getDiffWonPtsByName(l2_.getKey()), l2_.getValue());
         }
         return diffWinPts_;
     }
 
-    private static IdMap<SelectedBoolean, String> trBooleans(String _str) {
+    private static IdMap<SelectedBoolean, String> trBooleans(TranslationsFile _str) {
         IdMap<SelectedBoolean, String> booleans_ = new IdMap<SelectedBoolean, String>();
-        for (String l2_ : StringUtil.splitChars(_str,
-                RETURN_LINE_CHAR)) {
-            if (l2_.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
-            booleans_.addEntry(SelectedBoolean.getBoolByName(infos_.first()),
-                    infos_.last());
+        for (EntryCust<String, String> l2_ : _str.getMapping().entryList()) {
+            booleans_.addEntry(SelectedBoolean.getBoolByName(l2_.getKey()),
+                    l2_.getValue());
         }
         return booleans_;
     }
 
-    private static IdMap<Gender, String> trGenders(String _str) {
+    private static IdMap<Gender, String> trGenders(TranslationsFile _str) {
         IdMap<Gender, String> genders_ = new IdMap<Gender, String>();
-        for (String l2_ : StringUtil.splitChars(_str,
-                RETURN_LINE_CHAR)) {
-            if (l2_.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
-            genders_.addEntry(Gender.getGenderByName(infos_.first()),
-                    infos_.last());
+        for (EntryCust<String, String> l2_ : _str.getMapping().entryList()) {
+            genders_.addEntry(Gender.getGenderByName(l2_.getKey()),
+                    l2_.getValue());
         }
         return genders_;
     }
 
-    private static StringMap<String> tr(String _str) {
-        StringMap<String> out_ = new StringMap<String>();
-        for (String l2_ : StringUtil.splitChars(_str,
-                RETURN_LINE_CHAR)) {
-            if (l2_.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringUtil.splitChars(l2_, TAB_CHAR);
-            out_.addEntry(infos_.first(),
-                    infos_.last());
-        }
-        return out_;
+    private static StringMap<String> tr(TranslationsFile _str) {
+        return _str.getMapping();
     }
 
 }
