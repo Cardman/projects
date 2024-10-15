@@ -671,7 +671,7 @@ m703damagingMoveData_.setBoostedTypes(m703stringList_);
 m703damagingMoveData_.setAccuracy(R_1);
 CustList<Effect> m703custListEffect_ = new CustList<Effect>(new CollCapacity(2));
 EffectDamage m703effectDamage_=Instances.newEffectDamage();
-m703effectDamage_.setPower(R_80);
+m703effectDamage_.setPower(R_90);
 m703effectDamage_.setUserAttack(true);
 m703effectDamage_.setStatisAtt(Statistic.SPECIAL_ATTACK);
 m703effectDamage_.setTargetDefense(true);
