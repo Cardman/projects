@@ -181,4 +181,20 @@ public class EvolvedMathFactoryTest extends EquallableMathUtil {
     public void usedId6() {
         assertTrue(!EvolvedMathFactory.usedId("VAR__INTER","VAR__",new StringList("INTER"),"ID"));
     }
+    @Test
+    public void rename1() {
+        assertEq("VAR__INTER__OTHER",EvolvedMathFactory.rename("VAR__INTER__ID","VAR__",new StringList("INTER__"),"ID","OTHER"));
+    }
+    @Test
+    public void rename2() {
+        assertEq("VAR__INTER__ID",EvolvedMathFactory.rename("VAR__INTER__ID","VAR__",new StringList("INTER__"),"OTHER","ID"));
+    }
+    @Test
+    public void rename3() {
+        assertEq("ID()",EvolvedMathFactory.rename("ID()","VAR__",new StringList("INTER__"),"ID","OTHER"));
+    }
+    @Test
+    public void rename4() {
+        assertEq("OTHER*(1+2)",EvolvedMathFactory.rename("ID*(1+2)","VAR__",new StringList("INTER__"),"ID","OTHER"));
+    }
 }

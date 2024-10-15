@@ -9,8 +9,7 @@ final class MathUtil {
     }
 
     static boolean usedId(String _el, String _prefix, StringList _mids, String _id) {
-        ErrorStatus err_ = new ErrorStatus();
-        MbDelimiters d_ = MathResolver.checkSyntax(_el, err_);
+        MbDelimiters d_ = MathResolver.checkSyntax(_el, new ErrorStatus());
         for (String m: _mids) {
             for (MatVariableInfo v: d_.getVariables()) {
                 if (StringUtil.quickEq(v.getName(),_prefix+m+_id)) {
@@ -27,6 +26,39 @@ final class MathUtil {
         }
         return false;
     }
+    static String rename(String _el, String _prefix, StringList _mids, String _id, String _target) {
+        StringMap<String> replace_ = build(_prefix, _mids, _id, _target);
+        return replaceWordsJoin(_el,replace_);
+    }
+
+    static String replaceWordsJoin(String _str, StringMap<String> _map) {
+        return StringUtil.join(replaceWords(_str, _map),"");
+    }
+
+    static StringList replaceWords(String _str, StringMap<String> _map) {
+        StringList list_ = MathExpUtil.getWordsSeparators(_str);
+        StringList newList_ = new StringList();
+        int size_ = list_.size();
+        for (int i = 0; i < size_; i++) {
+            String t_ = list_.get(i);
+            int possibleNext_ = i + 1;
+            if (_map.contains(t_) && (possibleNext_ == size_ || !list_.get(possibleNext_).trim().startsWith("("))) {
+                newList_.add(_map.getVal(t_));
+            } else {
+                newList_.add(t_);
+            }
+        }
+        return newList_;
+    }
+    static StringMap<String> build(String _prefix, StringList _mids, String _id, String _target) {
+        StringMap<String> replace_ = new StringMap<String>();
+        replace_.addEntry(_id,_target);
+        for (String m: _mids) {
+            replace_.addEntry(_prefix+m+_id,_prefix+m+_target);
+        }
+        return replace_;
+    }
+
     static MbArgument processEl(String _el, boolean _onlycheckSyntax, StringMap<String> _conf) {
         ErrorStatus err_ = new ErrorStatus();
 //        MbDelimiters d_ = MathResolver.checkSyntax(_el, err_);

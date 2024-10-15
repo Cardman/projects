@@ -46,6 +46,9 @@ public final class EvolvedMathFactory {
     public static boolean usedId(String _el, String _prefix, StringList _mids, String _id) {
         return MathUtil.usedId(_el, _prefix, _mids, _id);
     }
+    public static String rename(String _el, String _prefix, StringList _mids, String _id, String _target) {
+        return MathUtil.rename(_el, _prefix, _mids, _id, _target);
+    }
     public static Rate evaluateDirectlyRate(String _numExp) {
         return MathUtil.processEl(_numExp, false, new StringMap<String>()).getRateVal();
     }
