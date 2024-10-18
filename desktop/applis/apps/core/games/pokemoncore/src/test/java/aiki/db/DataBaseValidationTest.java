@@ -3050,6 +3050,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
 
     private void validate(DataBase _data, AbstractAtomicIntegerCoreAdd _per, AbstractAtomicBooleanCore _l) {
+        _data.setVarParamsMove(new StringMap<StringList>());
         _data.validate(_per, _l,new SexListImpl());
     }
 

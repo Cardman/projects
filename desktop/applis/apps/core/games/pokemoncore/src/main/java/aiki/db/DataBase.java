@@ -1115,6 +1115,13 @@ public class DataBase {
         for (EntryCust<String, MoveData> e : getMoves().entryList()) {
             e.getValue().validate(this);
         }
+        StringList attaques_ = new StringList();
+        attaques_.addAllElts(getVarParamsMove(equipeNbUtilisation()));
+        attaques_.addAllElts(getVarParamsMove(equipeAdvNbUtilisation()));
+        attaques_.addAllElts(getVarParamsMove(nbUtiliAttEqTour()));
+        attaques_.addAllElts(getVarParamsMove(cibleNbUtilisation()));
+        attaques_.addAllElts(getVarParamsMove(lanceurNbUtilisation()));
+        DataInfoChecker.checkStringListContains(getMoves().getKeys(),attaques_,this);
         for (String m : movesFullHeal) {
             MoveData move_ = getMove(m);
             checkKoUserHealSubst(move_);
@@ -6703,6 +6710,10 @@ public class DataBase {
 
     StringMap<StringList> getVarParamsMove() {
         return varParamsMove;
+    }
+
+    public void setVarParamsMove(StringMap<StringList> _p) {
+        this.varParamsMove = _p;
     }
 
     public TypesDuos getTableTypes() {
