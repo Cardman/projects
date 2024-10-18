@@ -9,6 +9,6 @@ public final class PkVariableSuffixCibleStatis extends AbsVariableSuffixImpl imp
 
     @Override
     public String value(Statistic _v) {
-        return getData().prefixCibleStatis(_v.getStatName());
+        return getData().prefixCibleStatis(_v);
     }
 }

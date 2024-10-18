@@ -3591,11 +3591,11 @@ public class DataBase {
     public String prefixLanceurStatuts() {
         return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,lanceurStatuts());
     }
-    public String prefixLanceurBoost(String _c) {
-        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,lanceurBoost(),SEP_BETWEEN_KEYS,_c);
+    public String prefixLanceurBoost(Statistic _c) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,lanceurBoost(),SEP_BETWEEN_KEYS,_c.getStatName());
     }
-    public String prefixLanceurStatis(String _c) {
-        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,lanceurStatis(),SEP_BETWEEN_KEYS,_c);
+    public String prefixLanceurStatis(Statistic _c) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,lanceurStatis(),SEP_BETWEEN_KEYS,_c.getStatName());
     }
     public String prefixLanceurEffet(String _c) {
         return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,lanceurEffet(),SEP_BETWEEN_KEYS,_c);
@@ -3700,11 +3700,11 @@ public class DataBase {
     public String prefixCibleStatuts() {
         return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,cibleStatuts());
     }
-    public String prefixCibleBoost(String _c) {
-        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,cibleBoost(),SEP_BETWEEN_KEYS,_c);
+    public String prefixCibleBoost(Statistic _c) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,cibleBoost(),SEP_BETWEEN_KEYS,_c.getStatName());
     }
-    public String prefixCibleStatis(String _c) {
-        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,cibleStatis(),SEP_BETWEEN_KEYS,_c);
+    public String prefixCibleStatis(Statistic _c) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,cibleStatis(),SEP_BETWEEN_KEYS,_c.getStatName());
     }
     public String prefixCibleEffet(String _c) {
         return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,cibleEffet(),SEP_BETWEEN_KEYS,_c);
@@ -3812,11 +3812,11 @@ public class DataBase {
     public String prefixFighterStatuts() {
         return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,fighterStatuts());
     }
-    public String prefixFighterBoost(String _c) {
-        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,fighterBoost(),SEP_BETWEEN_KEYS,_c);
+    public String prefixFighterBoost(Statistic _c) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,fighterBoost(),SEP_BETWEEN_KEYS,_c.getStatName());
     }
-    public String prefixFighterStatis(String _c) {
-        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,fighterStatis(),SEP_BETWEEN_KEYS,_c);
+    public String prefixFighterStatis(Statistic _c) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,fighterStatis(),SEP_BETWEEN_KEYS,_c.getStatName());
     }
     public String prefixNbTour(String _c) {
         return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,nbTour(),SEP_BETWEEN_KEYS,_c);
@@ -6549,6 +6549,150 @@ public class DataBase {
         return defaultEggGroup;
     }
 
+
+    public boolean usedDefInExp(String _name) {
+        return usedInExp(new StringList(),_name);
+    }
+    public boolean usedTypeInExp(String _name) {
+        return usedInExp(new StringList(StringUtil.concat(immuTypeAttCombattantEntrant(),SEP_BETWEEN_KEYS),
+                StringUtil.concat(coeffEffBaseTypesCible(),SEP_BETWEEN_KEYS),
+                StringUtil.concat(coeffEffBaseTypesCombattantEntrant(),SEP_BETWEEN_KEYS),
+                StringUtil.concat(coeffEffBaseTypesFighter(),SEP_BETWEEN_KEYS),
+                StringUtil.concat(coeffEffBaseTypesLanceur(),SEP_BETWEEN_KEYS),
+                StringUtil.concat(immuTypeAttCible(),SEP_BETWEEN_KEYS)),_name);
+    }
+    public boolean usedMoveInExp(String _name) {
+        return usedInExp(new StringList(StringUtil.concat(cibleNbUtilisation(),SEP_BETWEEN_KEYS),
+                StringUtil.concat(fighterNbUtilisation(),SEP_BETWEEN_KEYS),
+                StringUtil.concat(lanceurNbUtilisation(),SEP_BETWEEN_KEYS),
+                StringUtil.concat(ciblePp(),SEP_BETWEEN_KEYS),
+                StringUtil.concat(fighterPp(),SEP_BETWEEN_KEYS),
+                StringUtil.concat(lanceurPp(),SEP_BETWEEN_KEYS),
+                StringUtil.concat(cibleEffet(),SEP_BETWEEN_KEYS),
+                StringUtil.concat(nbTour(),SEP_BETWEEN_KEYS),
+                StringUtil.concat(nbTourGlobal(),SEP_BETWEEN_KEYS),
+                StringUtil.concat(equipeNbUtilisation(),SEP_BETWEEN_KEYS),
+                StringUtil.concat(equipeAdvNbUtilisation(),SEP_BETWEEN_KEYS),
+                StringUtil.concat(equipeAdvCombattantEntrantNbUtilisation(),SEP_BETWEEN_KEYS),
+                StringUtil.concat(nbUtiliAttEqTour(),SEP_BETWEEN_KEYS)),_name);
+    }
+    public boolean usedCategoryInExp(String _name) {
+        return usedInExp(new StringList(StringUtil.concat(cibleDegatsRecus(),SEP_BETWEEN_KEYS),
+                StringUtil.concat(cibleDegatsRecusTour(),SEP_BETWEEN_KEYS),
+                StringUtil.concat(fighterDegatsRecus(),SEP_BETWEEN_KEYS),
+                StringUtil.concat(fighterDegatsRecusTour(),SEP_BETWEEN_KEYS),
+                StringUtil.concat(lanceurDegatsRecus(),SEP_BETWEEN_KEYS),
+                StringUtil.concat(lanceurDegatsRecusTour(),SEP_BETWEEN_KEYS)),_name);
+    }
+    public boolean usedStatusInExp(String _name) {
+        return usedInExp(new StringList(StringUtil.concat(ciblePossedeStatutRelation(),SEP_BETWEEN_KEYS)),_name);
+    }
+    boolean usedInExp(StringList _mids, String _name) {
+        for (Item o: items.values()) {
+            if (containsItem(_mids, _name, o)) {
+                return true;
+            }
+        }
+        for (AbilityData a: abilities.values()) {
+            if (containsAbility(_mids, _name, a)) {
+                return true;
+            }
+        }
+        for (MoveData m: moves.values()) {
+            if (containsWord(m.getAccuracy(), _mids, _name)) {
+                return true;
+            }
+            for (Effect e: m.getEffects()) {
+                if (containsMoveEffect(_mids, _name, e)) {
+                    return true;
+                }
+            }
+        }
+        return containsEndRound(_mids, _name);
+    }
+
+    private boolean containsEndRound(StringList _mids, String _name) {
+        for (Status s: status.values()) {
+            for (EffectEndRoundStatus e: s.getEffectEndRound()) {
+                if (containsEndRound(_mids, _name, e)) {
+                    return true;
+                }
+            }
+        }
+        for (EffectCombo e: combos.getEffects().values()) {
+            for (EffectEndRoundFoe e2_: e.getEffectEndRound()) {
+                if (containsEndRound(_mids, _name, e2_)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean containsItem(StringList _mids, String _name, Item _o) {
+        return _o instanceof Ball && containsWord(((Ball) _o).getCatchingRate(), _mids, _name) || _o instanceof ItemForBattle && (containsWord(((ItemForBattle) _o).getMultPower(), _mids, _name) || containsWord(((ItemForBattle) _o).getMultDamage(), _mids, _name) || new ChangeStringValueUtil<Statistic>(((ItemForBattle) _o).getMultStat()).containsWord(this, _mids, _name) || !((ItemForBattle) _o).getEffectSending().isEmpty() && containsWordStat(_mids, _name, ((ItemForBattle) _o).getEffectSending().first().getEffect()) || !((ItemForBattle) _o).getEffectEndRound().isEmpty() && containsEndRound(_mids, _name, ((ItemForBattle) _o).getEffectEndRound().first()));
+    }
+
+    private boolean containsAbility(StringList _mids, String _name, AbilityData _a) {
+        if (containsWord(_a.getMultPower(), _mids, _name)) {
+            return true;
+        }
+        if (containsWord(_a.getMultDamage(), _mids, _name)) {
+            return true;
+        }
+        if (new ChangeStringValueUtil<Statistic>(_a.getMultStat()).containsWord(this, _mids, _name)) {
+            return true;
+        }
+        if (new ChangeStringValueUtil<String>(_a.getFailStatus()).containsWord(this, _mids, _name)) {
+            return true;
+        }
+        if (!_a.getEffectSending().isEmpty() && containsWordStat(_mids, _name, _a.getEffectSending().first().getEffect())) {
+            return true;
+        }
+        return !_a.getEffectEndRound().isEmpty() && containsEndRound(_mids, _name, _a.getEffectEndRound().first());
+    }
+
+    private boolean containsMoveEffect(StringList _mids, String _name, Effect _e) {
+        if (containsWord(_e.getFail(), _mids, _name)) {
+            return true;
+        }
+        if (_e instanceof EffectDamage) {
+            EffectDamage eff_ = (EffectDamage) _e;
+            if (containsWord(eff_.getPower(), _mids, _name)) {
+                return true;
+            }
+            for (String s: eff_.getDamageLaw().events()) {
+                if (containsWord(s, _mids, _name)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        return containsMoveEffectDef(_mids, _name, _e);
+    }
+
+    private boolean containsMoveEffectDef(StringList _mids, String _name, Effect _e) {
+        return _e instanceof EffectTeamWhileSendFoe && (containsWord(((EffectTeamWhileSendFoe) _e).getDamageRateAgainstFoe(), _mids, _name) || containsWord(((EffectTeamWhileSendFoe) _e).getFailSending(), _mids, _name)) || _e instanceof EffectCommonStatistics && new ChangeStringValueUtil<Statistic>(((EffectCommonStatistics) _e).getCommonValue()).containsWord(this, _mids, _name) || _e instanceof EffectStatistic && containsWordStatSpec(_mids, _name, (EffectStatistic) _e) || _e instanceof EffectStatus && new ChangeStringValueUtil<String>(((EffectStatus) _e).getLocalFailStatus()).containsWord(this, _mids, _name) || _e instanceof EffectFullHpRate && containsWord(((EffectFullHpRate) _e).getRestoredHp(), _mids, _name) || _e instanceof EffectEndRound && containsWord(((EffectEndRound) _e).getFailEndRound(), _mids, _name);
+    }
+
+    private boolean containsWordStat(StringList _mids, String _name, EffectStatistic _eff) {
+        return containsWord(_eff.getFail(), _mids, _name) || containsWordStatSpec(_mids, _name, _eff);
+    }
+
+    private boolean containsWordStatSpec(StringList _mids, String _name, EffectStatistic _eff) {
+        return new ChangeStringValueUtil<Statistic>(_eff.getLocalFailStatis()).containsWord(this, _mids, _name) || new ChangeStringValueUtil<Statistic>(_eff.getLocalFailSwapBoostStatis()).containsWord(this, _mids, _name);
+    }
+
+    private boolean containsEndRound(StringList _mids, String _name, EffectEndRound _e) {
+        return containsWord(_e.getFail(), _mids, _name) || containsWord(_e.getFailEndRound(), _mids, _name);
+    }
+
+    public boolean containsWord(String _el, StringList _mids, String _id) {
+        return EvolvedMathFactory.usedId(_el,StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS), _mids, _id);
+    }
+    public boolean isUsed(String _id) {
+        return moves.contains(_id) || items.contains(_id) || pokedex.contains(_id) || status.contains(_id) || abilities.contains(_id) || getTypes().containsObj(_id) || getCategories().containsObj(_id);
+    }
     public StringList getVarParamsMove(String _var) {
         StringList elements_ = new StringList();
         if (varParamsMove.contains(_var)) {

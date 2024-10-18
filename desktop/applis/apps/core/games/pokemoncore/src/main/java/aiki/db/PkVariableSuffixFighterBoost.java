@@ -9,6 +9,6 @@ public final class PkVariableSuffixFighterBoost extends AbsVariableSuffixImpl im
 
     @Override
     public String value(Statistic _v) {
-        return getData().prefixFighterBoost(_v.getStatName());
+        return getData().prefixFighterBoost(_v);
     }
 }

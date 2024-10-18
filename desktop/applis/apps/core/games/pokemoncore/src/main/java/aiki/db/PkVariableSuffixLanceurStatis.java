@@ -9,6 +9,6 @@ public final class PkVariableSuffixLanceurStatis extends AbsVariableSuffixImpl i
 
     @Override
     public String value(Statistic _v) {
-        return getData().prefixLanceurStatis(_v.getStatName());
+        return getData().prefixLanceurStatis(_v);
     }
 }
