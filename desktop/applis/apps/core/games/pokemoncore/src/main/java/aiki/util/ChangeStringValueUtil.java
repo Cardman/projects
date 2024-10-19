@@ -16,6 +16,11 @@ public final class ChangeStringValueUtil<K> {
             }
         }
     }
+    public void replaceExp(DataBase _db, StringList _mids, String _o, String _n) {
+        for (EntryCust<K,String> e: collection.entryList()) {
+            e.setValue(_db.rename(e.getValue(),_mids,_o,_n));
+        }
+    }
     public boolean containsWord(DataBase _db, StringList _mids, String _id) {
         for (EntryCust<K,String> e: collection.entryList()) {
             if (_db.containsWord(e.getValue(),_mids,_id)) {

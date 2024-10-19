@@ -723,6 +723,227 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         assertEq(PARATONNERRE,str_.getVal(PIKACHU));
         assertEq(CHARGE2,str_.getVal(CHARGE));
     }
+    @Test
+    public void changeName1() {
+        Ball b_ = Instances.newBall();
+        b_.setCatchingRate(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
+        DataBase db_ = newData();
+        db_.completeMembers(POKE_BALL,b_);
+        db_.changeNameDefInExp(PARATONNERRE,PIKACHU);
+        assertEq(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PIKACHU+RB+RP, b_.getCatchingRate());
+    }
+    @Test
+    public void changeName2() {
+        ItemForBattle b_ = Instances.newItemForBattle();
+        b_.setMultPower(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
+        DataBase db_ = newData();
+        db_.completeMembers(POKE_BALL,b_);
+        db_.changeNameDefInExp(PARATONNERRE,PIKACHU);
+        assertEq(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PIKACHU+RB+RP, b_.getMultPower());
+    }
+    @Test
+    public void changeName3() {
+        ItemForBattle b_ = Instances.newItemForBattle();
+        b_.setMultDamage(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
+        DataBase db_ = newData();
+        db_.completeMembers(POKE_BALL,b_);
+        db_.changeNameDefInExp(PARATONNERRE,PIKACHU);
+        assertEq(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PIKACHU+RB+RP, b_.getMultDamage());
+    }
+    @Test
+    public void changeName4() {
+        AbilityData b_ = Instances.newAbilityData();
+        b_.setMultPower(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
+        DataBase db_ = newData();
+        db_.completeMembers(POKE_BALL,b_);
+        db_.changeNameDefInExp(PARATONNERRE,PIKACHU);
+        assertEq(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PIKACHU+RB+RP, b_.getMultPower());
+    }
+    @Test
+    public void changeName5() {
+        AbilityData b_ = Instances.newAbilityData();
+        b_.setMultDamage(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
+        DataBase db_ = newData();
+        db_.completeMembers(POKE_BALL,b_);
+        db_.changeNameDefInExp(PARATONNERRE,PIKACHU);
+        assertEq(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PIKACHU+RB+RP, b_.getMultDamage());
+    }
+    @Test
+    public void changeName6() {
+        MoveData b_ = Instances.newDamagingMoveData();
+        EffectDamage e_ = Instances.newEffectDamage();
+        e_.getDamageLaw().addQuickEvent(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP, LgInt.one());
+        b_.getEffects().add(e_);
+        DataBase db_ = newData();
+        db_.completeMembers(POKE_BALL,b_);
+        db_.changeNameDefInExp(PARATONNERRE,PIKACHU);
+        assertEq(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PIKACHU+RB+RP,  e_.getDamageLaw().getEvent(0));
+    }
+    @Test
+    public void changeName7() {
+        MoveData b_ = Instances.newDamagingMoveData();
+        Effect e_ = Instances.newEffectDamage();
+        e_.setFail(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
+        b_.getEffects().add(e_);
+        DataBase db_ = newData();
+        db_.completeMembers(POKE_BALL,b_);
+        db_.changeNameDefInExp(PARATONNERRE,PIKACHU);
+        assertEq(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PIKACHU+RB+RP, e_.getFail());
+    }
+    @Test
+    public void changeName8() {
+        MoveData b_ = Instances.newDamagingMoveData();
+        Effect e_ = Instances.newEffectTeamWhileSendFoe();
+        e_.setFail(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
+        b_.getEffects().add(e_);
+        DataBase db_ = newData();
+        db_.completeMembers(POKE_BALL,b_);
+        db_.changeNameDefInExp(PARATONNERRE,PIKACHU);
+        assertEq(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PIKACHU+RB+RP, e_.getFail());
+    }
+    @Test
+    public void changeName9() {
+        MoveData b_ = Instances.newDamagingMoveData();
+        Effect e_ = Instances.newEffectCommonStatistics();
+        e_.setFail(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
+        b_.getEffects().add(e_);
+        DataBase db_ = newData();
+        db_.completeMembers(POKE_BALL,b_);
+        db_.changeNameDefInExp(PARATONNERRE,PIKACHU);
+        assertEq(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PIKACHU+RB+RP, e_.getFail());
+    }
+    @Test
+    public void changeName10() {
+        MoveData b_ = Instances.newDamagingMoveData();
+        EffectStatistic e_ = Instances.newEffectStatistic();
+        e_.getLocalFailStatis().addEntry(Statistic.SPEED,ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
+        b_.getEffects().add(e_);
+        DataBase db_ = newData();
+        db_.completeMembers(POKE_BALL,b_);
+        db_.changeNameDefInExp(PARATONNERRE,PIKACHU);
+        assertEq(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PIKACHU+RB+RP, e_.getLocalFailStatis().getVal(Statistic.SPEED));
+    }
+    @Test
+    public void changeName11() {
+        MoveData b_ = Instances.newDamagingMoveData();
+        Effect e_ = Instances.newEffectStatus();
+        e_.setFail(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
+        b_.getEffects().add(e_);
+        DataBase db_ = newData();
+        db_.completeMembers(POKE_BALL,b_);
+        db_.changeNameDefInExp(PARATONNERRE,PIKACHU);
+        assertEq(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PIKACHU+RB+RP, e_.getFail());
+    }
+    @Test
+    public void changeName12() {
+        MoveData b_ = Instances.newDamagingMoveData();
+        Effect e_ = Instances.newEffectFullHpRate();
+        e_.setFail(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
+        b_.getEffects().add(e_);
+        DataBase db_ = newData();
+        db_.completeMembers(POKE_BALL,b_);
+        db_.changeNameDefInExp(PARATONNERRE,PIKACHU);
+        assertEq(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PIKACHU+RB+RP, e_.getFail());
+    }
+    @Test
+    public void changeName13() {
+        MoveData b_ = Instances.newDamagingMoveData();
+        Effect e_ = Instances.newEffectEndRoundFoe();
+        e_.setFail(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
+        b_.getEffects().add(e_);
+        DataBase db_ = newData();
+        db_.completeMembers(POKE_BALL,b_);
+        db_.changeNameDefInExp(PARATONNERRE,PIKACHU);
+        assertEq(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PIKACHU+RB+RP, e_.getFail());
+    }
+    @Test
+    public void changeName14() {
+        AbilityData b_ = Instances.newAbilityData();
+        EffectWhileSendingWithStatistic e_ = Instances.newEffectWhileSendingWithStatistic();
+        b_.getEffectSending().add(e_);
+        e_.getEffect().setFail(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
+        DataBase db_ = newData();
+        db_.completeMembers(POKE_BALL,b_);
+        db_.changeNameDefInExp(PARATONNERRE,PIKACHU);
+        assertEq(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PIKACHU+RB+RP, e_.getEffect().getFail());
+    }
+    @Test
+    public void changeName15() {
+        AbilityData b_ = Instances.newAbilityData();
+        EffectEndRoundFoe e_ = Instances.newEffectEndRoundFoe();
+        b_.getEffectEndRound().add(e_);
+        e_.setFail(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
+        DataBase db_ = newData();
+        db_.completeMembers(POKE_BALL,b_);
+        db_.changeNameDefInExp(PARATONNERRE,PIKACHU);
+        assertEq(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PIKACHU+RB+RP, e_.getFail());
+    }
+    @Test
+    public void changeName16() {
+        Status b_ = Instances.newStatusSimple();
+        EffectEndRoundStatus eff_ = Instances.newEffectEndRoundSingleStatus();
+        b_.getEffectEndRound().add(eff_);
+        eff_.setFail(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
+        DataBase db_ = newData();
+        db_.completeMembers(POKE_BALL,b_);
+        db_.changeNameDefInExp(PARATONNERRE,PIKACHU);
+        assertEq(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PIKACHU+RB+RP, eff_.getFail());
+    }
+    @Test
+    public void changeName17() {
+        EffectCombo b_ = Instances.newEffectCombo();
+        EffectEndRoundFoe eff_ = Instances.newEffectEndRoundFoe();
+        b_.getEffectEndRound().add(eff_);
+        eff_.setFail(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
+        DataBase db_ = newData();
+        db_.getCombos().getEffects().add(new ListEffectCombo(new StringList(POKE_BALL),b_));
+        db_.changeNameDefInExp(PARATONNERRE,PIKACHU);
+        assertEq(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PIKACHU+RB+RP, eff_.getFail());
+    }
+    @Test
+    public void changeName18() {
+        EffectCombo b_ = Instances.newEffectCombo();
+        EffectEndRoundFoe eff_ = Instances.newEffectEndRoundFoe();
+        b_.getEffectEndRound().add(eff_);
+        eff_.setFailEndRound(ES+V_COEFF_EFF_BASE_TYPES_COMBATTANT_ENTRANT+SE+PARATONNERRE);
+        DataBase db_ = newData();
+        db_.getCombos().getEffects().add(new ListEffectCombo(new StringList(POKE_BALL),b_));
+        db_.changeNameTypeInExp(PARATONNERRE,PIKACHU);
+        assertEq(ES+V_COEFF_EFF_BASE_TYPES_COMBATTANT_ENTRANT+SE+PIKACHU, eff_.getFailEndRound());
+    }
+    @Test
+    public void changeName19() {
+        EffectCombo b_ = Instances.newEffectCombo();
+        EffectEndRoundFoe eff_ = Instances.newEffectEndRoundFoe();
+        b_.getEffectEndRound().add(eff_);
+        eff_.setFailEndRound(ES+V_NB_TOUR_GLOBAL+SE+PARATONNERRE);
+        DataBase db_ = newData();
+        db_.getCombos().getEffects().add(new ListEffectCombo(new StringList(POKE_BALL),b_));
+        db_.changeNameMoveInExp(PARATONNERRE,PIKACHU);
+        assertEq(ES+V_NB_TOUR_GLOBAL+SE+PIKACHU, eff_.getFailEndRound());
+    }
+    @Test
+    public void changeName20() {
+        EffectCombo b_ = Instances.newEffectCombo();
+        EffectEndRoundFoe eff_ = Instances.newEffectEndRoundFoe();
+        b_.getEffectEndRound().add(eff_);
+        eff_.setFailEndRound(ES+V_CIBLE_POSSEDE_STATUT_RELATION+SE+PARATONNERRE);
+        DataBase db_ = newData();
+        db_.getCombos().getEffects().add(new ListEffectCombo(new StringList(POKE_BALL),b_));
+        db_.changeNameStatusInExp(PARATONNERRE,PIKACHU);
+        assertEq(ES+V_CIBLE_POSSEDE_STATUT_RELATION+SE+PIKACHU, eff_.getFailEndRound());
+    }
+    @Test
+    public void changeName21() {
+        EffectCombo b_ = Instances.newEffectCombo();
+        EffectEndRoundFoe eff_ = Instances.newEffectEndRoundFoe();
+        b_.getEffectEndRound().add(eff_);
+        eff_.setFailEndRound(ES+V_NB_TOUR_GLOBAL+SE+PARATONNERRE);
+        DataBase db_ = newData();
+        db_.getCombos().getEffects().add(new ListEffectCombo(new StringList(POKE_BALL),b_));
+        db_.changeNameCategoryInExp(PARATONNERRE,PIKACHU);
+        assertEq(ES+V_NB_TOUR_GLOBAL+SE+PARATONNERRE, eff_.getFailEndRound());
+    }
     private static DataBase newData() {
         DataBase db_ = new DataBase(DefaultGenerator.oneElt());
         db_.initializeMembers();

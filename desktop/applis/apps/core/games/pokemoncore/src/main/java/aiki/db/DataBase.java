@@ -5,6 +5,7 @@ import aiki.facade.SexListInt;
 import aiki.fight.Combos;
 import aiki.fight.EndRoundMainElements;
 import aiki.fight.abilities.AbilityData;
+import aiki.fight.effects.*;
 import aiki.fight.enums.EndTurnType;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Ball;
@@ -52,6 +53,7 @@ import code.maths.litteral.EvolvedMathFactory;
 import code.maths.litteral.EvolvedNumString;
 import code.maths.litteralcom.MathExpUtil;
 import code.maths.montecarlo.AbstractGenerator;
+import code.maths.montecarlo.MonteCarloString;
 import code.threads.AbstractAtomicBooleanCore;
 import code.threads.AbstractAtomicIntegerCoreAdd;
 import code.util.CustList;
@@ -6555,21 +6557,175 @@ public class DataBase {
 
         return defaultEggGroup;
     }
+    public void changeNameDefInExp(String _oldName, String _newName) {
+        changeNameInNumericExpressions(new StringList(),_oldName, _newName);
+    }
+    public void changeNameTypeInExp(String _oldName, String _newName) {
+        changeNameInNumericExpressions(typesPart(),_oldName, _newName);
+    }
 
+    public void changeNameMoveInExp(String _oldName, String _newName) {
+        changeNameInNumericExpressions(movesPart(),_oldName, _newName);
+    }
+    public void changeNameCategoryInExp(String _oldName, String _newName) {
+        changeNameInNumericExpressions(categoriesPart(),_oldName, _newName);
+    }
+    public void changeNameStatusInExp(String _oldName, String _newName) {
+        changeNameInNumericExpressions(statusPart(),_oldName, _newName);
+    }
+    void changeNameInNumericExpressions(StringList _mids, String _oldName, String _newName) {
+        for (Item o: items.values()) {
+            renameExpItem(_mids, _oldName, _newName, o);
+        }
+        for (AbilityData a: abilities.values()) {
+            renameExpAbility(_mids, _oldName, _newName, a);
+        }
+        for (MoveData m: moves.values()) {
+            m.setAccuracy(rename(m.getAccuracy(), _mids, _oldName, _newName));
+            for (Effect e: m.getEffects()) {
+                renameExpEffect(_mids, _oldName, _newName, e);
+            }
+        }
+        for (Status s: status.values()) {
+            for (EffectEndRoundStatus e: s.getEffectEndRound()) {
+                e.setFail(rename(e.getFail(), _mids, _oldName, _newName));
+                e.setFailEndRound(rename(e.getFailEndRound(), _mids, _oldName, _newName));
+            }
+        }
+        for (EffectCombo e: combos.getEffects().values()) {
+            for (EffectEndRoundFoe e2_: e.getEffectEndRound()) {
+                e2_.setFail(rename(e2_.getFail(), _mids, _oldName, _newName));
+                e2_.setFailEndRound(rename(e2_.getFailEndRound(), _mids, _oldName, _newName));
+            }
+        }
+    }
+
+    private void renameExpAbility(StringList _mids, String _oldName, String _newName, AbilityData _a) {
+        _a.setMultPower(rename(_a.getMultPower(), _mids, _oldName, _newName));
+        _a.setMultDamage(rename(_a.getMultDamage(), _mids, _oldName, _newName));
+        new ChangeStringValueUtil<Statistic>(_a.getMultStat()).replaceExp(this, _mids, _oldName, _newName);
+        new ChangeStringValueUtil<String>(_a.getFailStatus()).replaceExp(this, _mids, _oldName, _newName);
+        renameExpSend(_mids, _oldName, _newName, _a.getEffectSending());
+        endRound(_mids, _oldName, _newName, _a.getEffectEndRound());
+    }
+
+    private void renameExpEffect(StringList _mids, String _oldName, String _newName, Effect _e) {
+        _e.setFail(rename(_e.getFail(), _mids, _oldName, _newName));
+        if (_e instanceof EffectDamage) {
+            EffectDamage eff_ = (EffectDamage) _e;
+            eff_.setPower(rename(eff_.getPower(), _mids, _oldName, _newName));
+            MonteCarloString newLaw_ = patchLaw(_mids, _oldName, _newName, eff_.getDamageLaw());
+            eff_.setDamageLaw(newLaw_);
+        }
+        if (_e instanceof EffectTeamWhileSendFoe) {
+            EffectTeamWhileSendFoe eff_ = (EffectTeamWhileSendFoe) _e;
+            eff_.setDamageRateAgainstFoe(rename(eff_.getDamageRateAgainstFoe(), _mids, _oldName, _newName));
+            eff_.setFailSending(rename(eff_.getFailSending(), _mids, _oldName, _newName));
+        }
+        if (_e instanceof EffectCommonStatistics) {
+            EffectCommonStatistics eff_ = (EffectCommonStatistics) _e;
+            new ChangeStringValueUtil<Statistic>(eff_.getCommonValue()).replaceExp(this, _mids, _oldName, _newName);
+        }
+        if (_e instanceof EffectStatistic) {
+            EffectStatistic eff_ = (EffectStatistic) _e;
+            new ChangeStringValueUtil<Statistic>(eff_.getLocalFailStatis()).replaceExp(this, _mids, _oldName, _newName);
+            new ChangeStringValueUtil<Statistic>(eff_.getLocalFailSwapBoostStatis()).replaceExp(this, _mids, _oldName, _newName);
+        }
+        if (_e instanceof EffectStatus) {
+            EffectStatus eff_ = (EffectStatus) _e;
+            new ChangeStringValueUtil<String>(eff_.getLocalFailStatus()).replaceExp(this, _mids, _oldName, _newName);
+        }
+        if (_e instanceof EffectFullHpRate) {
+            EffectFullHpRate eff_ = (EffectFullHpRate) _e;
+            eff_.setRestoredHp(rename(eff_.getRestoredHp(), _mids, _oldName, _newName));
+        }
+        if (_e instanceof EffectEndRound) {
+            EffectEndRound eff_ = (EffectEndRound) _e;
+            eff_.setFailEndRound(rename(eff_.getFailEndRound(), _mids, _oldName, _newName));
+        }
+    }
+
+    private void renameExpItem(StringList _mids, String _oldName, String _newName, Item _o) {
+        if (_o instanceof Ball) {
+            Ball b_ = (Ball) _o;
+            b_.setCatchingRate(rename(b_.getCatchingRate(), _mids, _oldName, _newName));
+        }
+        if (_o instanceof ItemForBattle) {
+            ItemForBattle i_ = (ItemForBattle) _o;
+            i_.setMultPower(rename(i_.getMultPower(), _mids, _oldName, _newName));
+            i_.setMultDamage(rename(i_.getMultDamage(), _mids, _oldName, _newName));
+            new ChangeStringValueUtil<String>(i_.getFailStatus()).replaceExp(this, _mids, _oldName, _newName);
+            new ChangeStringValueUtil<Statistic>(i_.getMultStat()).replaceExp(this, _mids, _oldName, _newName);
+            renameExpSend(_mids, _oldName, _newName, i_.getEffectSending());
+            endRound(_mids, _oldName, _newName, i_.getEffectEndRound());
+        }
+    }
+
+    private void renameExpSend(StringList _mids, String _oldName, String _newName, CustList<EffectWhileSendingWithStatistic> _ls) {
+        if (!_ls.isEmpty()) {
+            EffectWhileSendingWithStatistic e_ = _ls.first();
+            EffectStatistic eff_ = e_.getEffect();
+            eff_.setFail(rename(eff_.getFail(), _mids, _oldName, _newName));
+            new ChangeStringValueUtil<Statistic>(eff_.getLocalFailStatis()).replaceExp(this, _mids, _oldName, _newName);
+            new ChangeStringValueUtil<Statistic>(eff_.getLocalFailSwapBoostStatis()).replaceExp(this, _mids, _oldName, _newName);
+        }
+    }
+
+    private void endRound(StringList _mids, String _oldName, String _newName, CustList<EffectEndRound> _ls) {
+        if (!_ls.isEmpty()) {
+            EffectEndRound e_ = _ls.first();
+            e_.setFail(rename(e_.getFail(), _mids, _oldName, _newName));
+            e_.setFailEndRound(rename(e_.getFailEndRound(), _mids, _oldName, _newName));
+        }
+    }
+
+    private MonteCarloString patchLaw(StringList _mids, String _oldName, String _newName, MonteCarloString _law) {
+        MonteCarloString newLaw_ = new MonteCarloString();
+        for (EntryCust<String, LgInt> s: _law.getLaw().entryList()) {
+            String ev_ = rename(s.getKey(), _mids, _oldName, _newName);
+            newLaw_.addQuickEvent(ev_,s.getValue());
+        }
+        return PatchPkLawStringUtil.patch(newLaw_);
+    }
+
+    public String rename(String _el, StringList _mids, String _oldName, String _newName) {
+        return EvolvedMathFactory.rename(_el, prefixedVar(), _mids, _oldName, _newName);
+    }
 
     public boolean usedDefInExp(String _name) {
         return usedInExp(new StringList(),_name);
     }
     public boolean usedTypeInExp(String _name) {
-        return usedInExp(new StringList(StringUtil.concat(immuTypeAttCombattantEntrant(),SEP_BETWEEN_KEYS),
-                StringUtil.concat(coeffEffBaseTypesCible(),SEP_BETWEEN_KEYS),
-                StringUtil.concat(coeffEffBaseTypesCombattantEntrant(),SEP_BETWEEN_KEYS),
-                StringUtil.concat(coeffEffBaseTypesFighter(),SEP_BETWEEN_KEYS),
-                StringUtil.concat(coeffEffBaseTypesLanceur(),SEP_BETWEEN_KEYS),
-                StringUtil.concat(immuTypeAttCible(),SEP_BETWEEN_KEYS)),_name);
+        return usedInExp(typesPart(),_name);
     }
     public boolean usedMoveInExp(String _name) {
-        return usedInExp(new StringList(StringUtil.concat(cibleNbUtilisation(),SEP_BETWEEN_KEYS),
+        return usedInExp(movesPart(),_name);
+    }
+    public boolean usedCategoryInExp(String _name) {
+        return usedInExp(categoriesPart(),_name);
+    }
+    public boolean usedStatusInExp(String _name) {
+        return usedInExp(statusPart(),_name);
+    }
+
+    private StringList typesPart() {
+        return new StringList(StringUtil.concat(immuTypeAttCombattantEntrant(), SEP_BETWEEN_KEYS),
+                StringUtil.concat(coeffEffBaseTypesCible(), SEP_BETWEEN_KEYS),
+                StringUtil.concat(coeffEffBaseTypesCombattantEntrant(), SEP_BETWEEN_KEYS),
+                StringUtil.concat(coeffEffBaseTypesFighter(), SEP_BETWEEN_KEYS),
+                StringUtil.concat(coeffEffBaseTypesLanceur(), SEP_BETWEEN_KEYS),
+                StringUtil.concat(immuTypeAttCible(), SEP_BETWEEN_KEYS));
+    }
+    private StringList categoriesPart() {
+        return new StringList(StringUtil.concat(cibleDegatsRecus(),SEP_BETWEEN_KEYS),
+                StringUtil.concat(cibleDegatsRecusTour(),SEP_BETWEEN_KEYS),
+                StringUtil.concat(fighterDegatsRecus(),SEP_BETWEEN_KEYS),
+                StringUtil.concat(fighterDegatsRecusTour(),SEP_BETWEEN_KEYS),
+                StringUtil.concat(lanceurDegatsRecus(),SEP_BETWEEN_KEYS),
+                StringUtil.concat(lanceurDegatsRecusTour(),SEP_BETWEEN_KEYS));
+    }
+    private StringList movesPart() {
+        return new StringList(StringUtil.concat(cibleNbUtilisation(),SEP_BETWEEN_KEYS),
                 StringUtil.concat(fighterNbUtilisation(),SEP_BETWEEN_KEYS),
                 StringUtil.concat(lanceurNbUtilisation(),SEP_BETWEEN_KEYS),
                 StringUtil.concat(ciblePp(),SEP_BETWEEN_KEYS),
@@ -6581,19 +6737,12 @@ public class DataBase {
                 StringUtil.concat(equipeNbUtilisation(),SEP_BETWEEN_KEYS),
                 StringUtil.concat(equipeAdvNbUtilisation(),SEP_BETWEEN_KEYS),
                 StringUtil.concat(equipeAdvCombattantEntrantNbUtilisation(),SEP_BETWEEN_KEYS),
-                StringUtil.concat(nbUtiliAttEqTour(),SEP_BETWEEN_KEYS)),_name);
+                StringUtil.concat(nbUtiliAttEqTour(),SEP_BETWEEN_KEYS));
     }
-    public boolean usedCategoryInExp(String _name) {
-        return usedInExp(new StringList(StringUtil.concat(cibleDegatsRecus(),SEP_BETWEEN_KEYS),
-                StringUtil.concat(cibleDegatsRecusTour(),SEP_BETWEEN_KEYS),
-                StringUtil.concat(fighterDegatsRecus(),SEP_BETWEEN_KEYS),
-                StringUtil.concat(fighterDegatsRecusTour(),SEP_BETWEEN_KEYS),
-                StringUtil.concat(lanceurDegatsRecus(),SEP_BETWEEN_KEYS),
-                StringUtil.concat(lanceurDegatsRecusTour(),SEP_BETWEEN_KEYS)),_name);
+    private StringList statusPart() {
+        return new StringList(StringUtil.concat(ciblePossedeStatutRelation(),SEP_BETWEEN_KEYS));
     }
-    public boolean usedStatusInExp(String _name) {
-        return usedInExp(new StringList(StringUtil.concat(ciblePossedeStatutRelation(),SEP_BETWEEN_KEYS)),_name);
-    }
+
     boolean usedInExp(StringList _mids, String _name) {
         for (Item o: items.values()) {
             if (containsItem(_mids, _name, o)) {
@@ -6695,7 +6844,7 @@ public class DataBase {
     }
 
     public boolean containsWord(String _el, StringList _mids, String _id) {
-        return EvolvedMathFactory.usedId(_el,StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS), _mids, _id);
+        return EvolvedMathFactory.usedId(_el,prefixedVar(), _mids, _id);
     }
     public boolean isUsed(String _id) {
         return moves.contains(_id) || items.contains(_id) || pokedex.contains(_id) || status.contains(_id) || abilities.contains(_id) || getTypes().containsObj(_id) || getCategories().containsObj(_id);
