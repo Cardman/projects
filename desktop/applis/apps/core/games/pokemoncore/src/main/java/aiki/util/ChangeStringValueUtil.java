@@ -1,14 +1,26 @@
 package aiki.util;
 
+import aiki.db.ChangeStringFieldMatch;
 import aiki.db.DataBase;
 import code.util.*;
 import code.util.core.*;
 
-public final class ChangeStringValueUtil<K> {
+public final class ChangeStringValueUtil<K> implements ChangeStringFieldMatch {
     private final AbsMap<K,String> collection;
     public ChangeStringValueUtil(AbsMap<K,String> _map) {
         collection = _map;
     }
+
+    @Override
+    public boolean match(String _v) {
+        for (EntryCust<K,String> e: collection.entryList()) {
+            if (StringUtil.quickEq(e.getValue(),_v)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void replace(String _o, String _n) {
         for (EntryCust<K,String> e: collection.entryList()) {
             if (StringUtil.quickEq(e.getValue(), _o)) {

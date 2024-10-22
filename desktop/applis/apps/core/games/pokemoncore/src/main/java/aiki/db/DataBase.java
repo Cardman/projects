@@ -2,43 +2,33 @@ package aiki.db;
 
 import aiki.comparators.ComparatorEndRoundMainElements;
 import aiki.facade.SexListInt;
-import aiki.fight.Combos;
-import aiki.fight.EndRoundMainElements;
-import aiki.fight.abilities.AbilityData;
+import aiki.fight.*;
+import aiki.fight.abilities.*;
 import aiki.fight.effects.*;
-import aiki.fight.enums.EndTurnType;
-import aiki.fight.enums.Statistic;
-import aiki.fight.items.Ball;
-import aiki.fight.items.Item;
-import aiki.fight.items.ItemForBattle;
-import aiki.fight.moves.DamagingMoveData;
-import aiki.fight.moves.MoveData;
+import aiki.fight.enums.*;
+import aiki.fight.items.*;
+import aiki.fight.moves.*;
 import aiki.fight.moves.effects.*;
-import aiki.fight.moves.effects.enums.MoveChoiceRestrictionType;
-import aiki.fight.moves.effects.enums.RelationType;
-import aiki.fight.moves.enums.TargetChoice;
-import aiki.fight.pokemon.PokemonData;
-import aiki.fight.pokemon.PokemonFamily;
-import aiki.fight.pokemon.enums.ExpType;
-import aiki.fight.pokemon.enums.GenderRepartition;
+import aiki.fight.moves.effects.enums.*;
+import aiki.fight.moves.enums.*;
+import aiki.fight.pokemon.*;
+import aiki.fight.pokemon.enums.*;
 import aiki.fight.pokemon.evolution.*;
-import aiki.fight.status.Status;
-import aiki.fight.status.StatusType;
-import aiki.fight.util.LevelMove;
-import aiki.fight.util.ListEffectCombos;
-import aiki.fight.util.TypesDuos;
-import aiki.fight.util.TypesDuo;
+import aiki.fight.status.*;
+import aiki.fight.util.*;
 import aiki.game.fight.CheckNumericStringsFight;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
 import aiki.game.player.enums.Sex;
 import aiki.instances.Instances;
 import aiki.map.DataMap;
+import aiki.map.buildings.Building;
+import aiki.map.characters.*;
 import aiki.map.enums.Direction;
-import aiki.map.levels.Block;
-import aiki.map.levels.Level;
+import aiki.map.levels.*;
 import aiki.map.levels.enums.EnvironmentType;
-import aiki.map.places.Place;
+import aiki.map.places.*;
+import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.tree.util.Dims;
 import aiki.map.util.ScreenCoords;
@@ -347,6 +337,13 @@ public class DataBase {
     public static final String DEF_DIFFICILE="2";
     public static final String DEF_TRES_DIFFICILE="3";
 
+    public static final int KIND_AB = 0;
+    public static final int KIND_IT = 1;
+    public static final int KIND_MV = 2;
+    public static final int KIND_PK = 3;
+    public static final int KIND_ST = 4;
+    public static final int KIND_CA = 5;
+    public static final int KIND_TY = 6;
     /**
      * The custom beans can be modified but they must have a common base package
      * Avoid to recompile classes in standard packages like java, javax, and
@@ -6557,6 +6554,1299 @@ public class DataBase {
 
         return defaultEggGroup;
     }
+    public void removeMoveFromLists(String _moveName,MoveData _move) {
+        categories.removeObj(getCategory(_move));
+        allCategories.removeObj(getCategory(_move));
+        movesCopyingTemp.removeObj(_moveName);
+        movesProtAgainstPrio.removeObj(_moveName);
+        movesProtAgainstMultiTarget.removeObj(_moveName);
+        movesProtSingleTarget.removeObj(_moveName);
+        movesProtSingleTargetAgainstKo.removeObj(_moveName);
+        movesAccuracy.removeObj(_moveName);
+        movesEffectAlly.removeObj(_moveName);
+        trappingMoves.removeObj(_moveName);
+        movesEffEndRoundIndiv.removeObj(_moveName);
+        movesEffEndRoundIndivIncr.removeObj(_moveName);
+        movesAnticipation.removeObj(_moveName);
+        movesHealingAfter.removeObj(_moveName);
+        movesEffectUnprot.removeObj(_moveName);
+        movesEffectProt.removeObj(_moveName);
+        movesEffectIndivIncr.removeObj(_moveName);
+        movesActingMoveUses.removeObj(_moveName);
+        movesForbidding.removeObj(_moveName);
+        movesEffectIndiv.removeObj(_moveName);
+        movesEffectIndivIncr.removeObj(_moveName);
+        movesEffectTeam.removeObj(_moveName);
+        movesEffectGlobalWeather.removeObj(_moveName);
+        movesEffectGlobal.removeObj(_moveName);
+        movesFullHeal.removeObj(_moveName);
+        movesEffectWhileSending.removeObj(_moveName);
+    }
+    public void renamePokemon(String _oldName, String _newName) {
+        if (isUsed(_newName)) {
+            return;
+        }
+        changeNameDefInExp(_oldName, _newName);
+        for (Item o: items.values()) {
+            if (o instanceof Fossil) {
+                Fossil f_ = (Fossil) o;
+                changeValue(new ChangeStringFieldFossil(f_),_oldName,_newName);
+            }
+        }
+        for (PokemonData p: pokedex.values()) {
+            changeValue(new ChangeStringFieldPokemonDataBaseEvo(p),_oldName,_newName);
+            p.getEvolutions().move(_oldName, _newName);
+        }
+        for (Place p: map.getPlaces()) {
+            for (Level l: p.getLevelsList()) {
+                new ChangeStringFieldLevelWildName().change(l,_oldName,_newName);
+            }
+        }
+        pokedex.move(_oldName, _newName);
+    }
+    public void deletePokemon(String _oldName) {
+        if (usedPkInExp(_oldName)) {
+            return;
+        }
+        ChangeStringKeyUtil ls_ = new ChangeStringKeyUtil();
+        for (Item o: items.values()) {
+            if (o instanceof Fossil) {
+                Fossil f_ = (Fossil) o;
+                ls_.add(new ChangeStringFieldMatchDef(new ChangeStringFieldFossil(f_)));
+            }
+        }
+        for (EntryCust<String, PokemonData> p: pokedex.entryList()) {
+            if (!StringUtil.quickEq(p.getKey(),_oldName)) {
+                ls_.add(new ChangeStringFieldMatchDef(new ChangeStringFieldPokemonDataBaseEvo(p.getValue())));
+                ls_.add(new ChangeStringFieldMatchMapContains<Evolution>(p.getValue().getEvolutions()));
+            }
+        }
+        for (Place p: map.getPlaces()) {
+            for (Level l: p.getLevelsList()) {
+                ls_.addAllElts(new ChangeStringFieldLevelWildName().change(l));
+            }
+        }
+        if (ls_.contains(_oldName)) {
+            return;
+        }
+        pokedex.removeKey(_oldName);
+    }
+    public void renameMove(String _oldName, String _newName) {
+        if (isUsed(_newName)) {
+            return;
+        }
+        changeNameMoveInExp(_oldName, _newName);
+        for (PokemonData p: pokedex.values()) {
+            pokemonMove(_oldName, _newName, p);
+        }
+        for (AbilityData a: abilities.values()) {
+            abilityMove(_oldName, _newName, a);
+        }
+        for (Item o: items.values()) {
+            if (o instanceof ItemForBattle) {
+                ItemForBattle obj_ = (ItemForBattle) o;
+                obj_.getIncreasingMaxNbRoundTrap().move(_oldName, _newName);
+                obj_.getIncreasingMaxNbRoundGlobalMove().move(_oldName, _newName);
+                obj_.getIncreasingMaxNbRoundTeamMove().move(_oldName, _newName);
+                changeEnabledWeatherList(_oldName, _newName, obj_.getEffectSending());
+            }
+        }
+        ListEffectCombos effects_ = new ListEffectCombos();
+        for (StringList l: combos.getEffects().getKeys()) {
+            EffectCombo eff_ = combos.getEffects().getVal(l);
+            if (eff_.estActifEquipe()) {
+                EffectTeam eff2_ = eff_.getTeamMove().first();
+                eff2_.getUnusableMoves().replace(_oldName, _newName);
+                eff2_.getDisableFoeTeamEffects().replace(_oldName, _newName);
+            }
+            StringList l_ = new StringList(l);
+            l_.replace(_oldName, _newName);
+            effects_.add(new ListEffectCombo(l_, eff_));
+        }
+        combos.setEffects(effects_);
+        for (MoveData m: moves.values()) {
+            m.getAchieveDisappearedPkUsingMove().replace(_oldName, _newName);
+            for (Effect e: m.getEffects()) {
+                moveEffect(_oldName, _newName, e);
+            }
+        }
+        for (Place p: map.getPlaces()) {
+            for (Level l: p.getLevelsList()) {
+                new ChangeStringFieldLevelMoves().change(l,_oldName,_newName);
+            }
+        }
+        movesCopyingTemp.replace(_oldName, _newName);
+        movesProtAgainstPrio.replace(_oldName, _newName);
+        movesProtAgainstMultiTarget.replace(_oldName, _newName);
+        movesProtSingleTarget.replace(_oldName, _newName);
+        movesProtSingleTargetAgainstKo.replace(_oldName, _newName);
+        movesAccuracy.replace(_oldName, _newName);
+        movesEffectAlly.replace(_oldName, _newName);
+        trappingMoves.replace(_oldName, _newName);
+        movesEffEndRoundIndiv.replace(_oldName, _newName);
+        movesEffEndRoundIndivIncr.replace(_oldName, _newName);
+        movesAnticipation.replace(_oldName, _newName);
+        movesHealingAfter.replace(_oldName, _newName);
+        movesEffectUnprot.replace(_oldName, _newName);
+        movesEffectProt.replace(_oldName, _newName);
+        movesEffectIndivIncr.replace(_oldName, _newName);
+        movesActingMoveUses.replace(_oldName, _newName);
+        movesForbidding.replace(_oldName, _newName);
+        movesEffectIndiv.replace(_oldName, _newName);
+        movesEffectIndivIncr.replace(_oldName, _newName);
+        movesEffectTeam.replace(_oldName, _newName);
+        movesEffectGlobalWeather.replace(_oldName, _newName);
+        movesEffectGlobal.replace(_oldName, _newName);
+        movesFullHeal.replace(_oldName, _newName);
+        movesEffectWhileSending.replace(_oldName, _newName);
+        new ChangeStringValueUtil<Short>(hm).replace(_oldName, _newName);
+        new ChangeStringValueUtil<Short>(tm).replace(_oldName, _newName);
+        moves.move(_oldName, _newName);
+    }
+
+    public void deleteMove(String _oldName) {
+        if (usedMoveInExp(_oldName)) {
+            return;
+        }
+        ChangeStringKeyUtil ls_ = new ChangeStringKeyUtil();
+        for (PokemonData p: pokedex.values()) {
+            ls_.addAllElts(pokemonMove(p));
+        }
+        for (AbilityData a: abilities.values()) {
+            ls_.addAllElts(abilityMove(a));
+        }
+        for (Item o: items.values()) {
+            if (o instanceof ItemForBattle) {
+                ItemForBattle obj_ = (ItemForBattle) o;
+                ls_.add(new ChangeStringFieldMatchMapContains<Short>(obj_.getIncreasingMaxNbRoundTrap()));
+                ls_.add(new ChangeStringFieldMatchMapContains<Short>(obj_.getIncreasingMaxNbRoundGlobalMove()));
+                ls_.add(new ChangeStringFieldMatchMapContains<Short>(obj_.getIncreasingMaxNbRoundTeamMove()));
+                ls_.addAllElts(changeEnabledWeatherList(obj_.getEffectSending()));
+            }
+        }
+        for (StringList l: combos.getEffects().getKeys()) {
+            EffectCombo eff_ = combos.getEffects().getVal(l);
+            if (eff_.estActifEquipe()) {
+                EffectTeam eff2_ = eff_.getTeamMove().first();
+                ls_.add(new ChangeStringFieldMatchStringListContains(eff2_.getUnusableMoves()));
+                ls_.add(new ChangeStringFieldMatchStringListContains(eff2_.getDisableFoeTeamEffects()));
+            }
+            ls_.add(new ChangeStringFieldMatchStringListContains(l));
+        }
+        for (EntryCust<String, MoveData> m: moves.entryList()) {
+            move(_oldName, ls_, m.getKey(), m.getValue());
+
+        }
+        for (Place p: map.getPlaces()) {
+            for (Level l: p.getLevelsList()) {
+                ls_.addAllElts(new ChangeStringFieldLevelMoves().change(l));
+            }
+        }
+        ls_.add(new ChangeStringValueUtil<Short>(hm));
+        ls_.add(new ChangeStringValueUtil<Short>(tm));
+        if (ls_.contains(_oldName)) {
+            return;
+        }
+        removeMoveFromLists(_oldName, moves.getVal(_oldName));
+        moves.removeKey(_oldName);
+    }
+
+    private void move(String _oldName, ChangeStringKeyUtil _ls, String _key, MoveData _value) {
+        if (!StringUtil.quickEq(_key, _oldName)) {
+            _ls.add(new ChangeStringFieldMatchStringListContains(_value.getAchieveDisappearedPkUsingMove()));
+            for (Effect e: _value.getEffects()) {
+                _ls.addAllElts(moveEffect(e));
+            }
+        }
+    }
+
+    private void abilityMove(String _oldName, String _newName, AbilityData _a) {
+        _a.getImmuMove().replace(_oldName, _newName);
+        _a.getIgnFoeTeamMove().replace(_oldName, _newName);
+        _a.getImmuWeather().replace(_oldName, _newName);
+        _a.getImmuMoveTypesByWeather().move(_oldName, _newName);
+        _a.getImmuStatus().move(_oldName, _newName);
+        _a.getChgtTypeByWeather().move(_oldName, _newName);
+        _a.getHealHpByWeather().move(_oldName, _newName);
+        changeEnabledWeatherList(_oldName, _newName, _a.getEffectSending());
+        WeatherTypes map_ = new WeatherTypes();
+        for (WeatherType p: _a.getHealHpByTypeIfWeather().getKeys()) {
+            WeatherType w_ = new WeatherType(p.getWeather(),p.getType());
+            changeValue(new ChangeStringFieldWeatherTypeMove(w_), _oldName, _newName);
+            map_.addEntry(w_, _a.getHealHpByTypeIfWeather().getVal(p));
+        }
+        _a.setHealHpByTypeIfWeather(map_);
+    }
+
+    private CustList<ChangeStringFieldMatch> abilityMove(AbilityData _a) {
+        CustList<ChangeStringFieldMatch> ls_ = new CustList<ChangeStringFieldMatch>();
+        ls_.add(new ChangeStringFieldMatchStringListContains(_a.getImmuMove()));
+        ls_.add(new ChangeStringFieldMatchStringListContains(_a.getIgnFoeTeamMove()));
+        ls_.add(new ChangeStringFieldMatchStringListContains(_a.getImmuWeather()));
+        ls_.add(new ChangeStringFieldMatchMapContains<StringList>(_a.getImmuMoveTypesByWeather()));
+        ls_.add(new ChangeStringFieldMatchMapContains<StringList>(_a.getImmuStatus()));
+        ls_.add(new ChangeStringFieldMatchMapContains<String>(_a.getChgtTypeByWeather()));
+        ls_.add(new ChangeStringFieldMatchMapContains<Rate>(_a.getHealHpByWeather()));
+        ls_.addAllElts(changeEnabledWeatherList(_a.getEffectSending()));
+        for (WeatherType p: _a.getHealHpByTypeIfWeather().getKeys()) {
+            ls_.add(new ChangeStringFieldMatchDef(new ChangeStringFieldWeatherTypeMove(p)));
+        }
+        return ls_;
+    }
+
+    private void pokemonMove(String _oldName, String _newName, PokemonData _p) {
+        for (LevelMove p2_: _p.getLevMoves()) {
+            changeValue(new ChangeStringFieldLevelMove(p2_), _oldName, _newName);
+        }
+        _p.getMoveTutors().replace(_oldName, _newName);
+        for (Evolution e: _p.getEvolutions().values()) {
+            if (e instanceof EvolutionMove) {
+                EvolutionMove evo_ = (EvolutionMove) e;
+                changeValue(new ChangeStringFieldEvolutionMove(evo_), _oldName, _newName);
+            }
+        }
+    }
+
+    private CustList<ChangeStringFieldMatch> pokemonMove(PokemonData _p) {
+        CustList<ChangeStringFieldMatch> ls_ = new CustList<ChangeStringFieldMatch>();
+        for (LevelMove p2_: _p.getLevMoves()) {
+            ls_.add(new ChangeStringFieldMatchDef(new ChangeStringFieldLevelMove(p2_)));
+        }
+        ls_.add(new ChangeStringFieldMatchStringListContains(_p.getMoveTutors()));
+        for (Evolution e: _p.getEvolutions().values()) {
+            if (e instanceof EvolutionMove) {
+                EvolutionMove evo_ = (EvolutionMove) e;
+                ls_.add(new ChangeStringFieldMatchDef(new ChangeStringFieldEvolutionMove(evo_)));
+            }
+        }
+        return ls_;
+    }
+
+    private void moveEffect(String _oldName, String _newName, Effect _e) {
+        if (_e instanceof EffectUnprotectFromTypes) {
+            EffectUnprotectFromTypes eff_ = (EffectUnprotectFromTypes) _e;
+            eff_.getDisableImmuFromMoves().replace(_oldName, _newName);
+        }
+        if (_e instanceof EffectCopyMove) {
+            EffectCopyMove eff_ = (EffectCopyMove) _e;
+            eff_.getMovesNotToBeCopied().replace(_oldName, _newName);
+        }
+        if (_e instanceof EffectTeam) {
+            EffectTeam eff_ = (EffectTeam) _e;
+            eff_.getUnusableMoves().replace(_oldName, _newName);
+            eff_.getDisableFoeTeamEffects().replace(_oldName, _newName);
+        }
+        if (_e instanceof EffectGlobal) {
+            EffectGlobal eff_ = (EffectGlobal) _e;
+            eff_.getCancelEffects().replace(_oldName, _newName);
+            eff_.getMultPowerMoves().move(_oldName, _newName);
+            eff_.getUnusableMoves().replace(_oldName, _newName);
+            eff_.getMovesUsedByTargetedFighters().replace(_oldName, _newName);
+        }
+        if (_e instanceof EffectInvoke) {
+            EffectInvoke eff_ = (EffectInvoke) _e;
+            eff_.getMovesNotToBeInvoked().replace(_oldName, _newName);
+            new ChangeStringValueUtil<EnvironmentType>(eff_.getMoveFctEnv()).replace(_oldName, _newName);
+            new ChangeStringValueUtil<String>(eff_.getInvokingMoveByUserTypes()).replace(_oldName, _newName);
+        }
+    }
+
+    private CustList<ChangeStringFieldMatch> moveEffect(Effect _e) {
+        CustList<ChangeStringFieldMatch> ls_ = new CustList<ChangeStringFieldMatch>();
+        if (_e instanceof EffectUnprotectFromTypes) {
+            EffectUnprotectFromTypes eff_ = (EffectUnprotectFromTypes) _e;
+            ls_.add(new ChangeStringFieldMatchStringListContains(eff_.getDisableImmuFromMoves()));
+        }
+        if (_e instanceof EffectCopyMove) {
+            EffectCopyMove eff_ = (EffectCopyMove) _e;
+            ls_.add(new ChangeStringFieldMatchStringListContains(eff_.getMovesNotToBeCopied()));
+        }
+        if (_e instanceof EffectTeam) {
+            EffectTeam eff_ = (EffectTeam) _e;
+            ls_.add(new ChangeStringFieldMatchStringListContains(eff_.getUnusableMoves()));
+            ls_.add(new ChangeStringFieldMatchStringListContains(eff_.getDisableFoeTeamEffects()));
+        }
+        if (_e instanceof EffectGlobal) {
+            EffectGlobal eff_ = (EffectGlobal) _e;
+            ls_.add(new ChangeStringFieldMatchStringListContains(eff_.getCancelEffects()));
+            ls_.add(new ChangeStringFieldMatchMapContains<Rate>(eff_.getMultPowerMoves()));
+            ls_.add(new ChangeStringFieldMatchStringListContains(eff_.getUnusableMoves()));
+            ls_.add(new ChangeStringFieldMatchStringListContains(eff_.getMovesUsedByTargetedFighters()));
+        }
+        if (_e instanceof EffectInvoke) {
+            EffectInvoke eff_ = (EffectInvoke) _e;
+            ls_.add(new ChangeStringFieldMatchStringListContains(eff_.getMovesNotToBeInvoked()));
+            ls_.add(new ChangeStringValueUtil<EnvironmentType>(eff_.getMoveFctEnv()));
+            ls_.add(new ChangeStringValueUtil<String>(eff_.getInvokingMoveByUserTypes()));
+        }
+        return ls_;
+    }
+
+    private void changeEnabledWeatherList(String _oldName, String _newName, CustList<EffectWhileSendingWithStatistic> _ls) {
+        if (!_ls.isEmpty()) {
+            changeValue(new ChangeStringFieldEnabledWeather(_ls.first()), _oldName, _newName);
+        }
+    }
+
+    private CustList<ChangeStringFieldMatch> changeEnabledWeatherList(CustList<EffectWhileSendingWithStatistic> _ls) {
+        if (!_ls.isEmpty()) {
+            return new CustList<ChangeStringFieldMatch>(new ChangeStringFieldMatchDef(new ChangeStringFieldEnabledWeather(_ls.first())));
+        }
+        return new CustList<ChangeStringFieldMatch>();
+    }
+
+    public static void changeMoves(String _oldName, String _newName, CustList<PkTrainer> _ls) {
+        for (PkTrainer p2_: _ls) {
+            p2_.getMoves().replace(_oldName, _newName);
+        }
+    }
+
+    public static CustList<ChangeStringFieldMatch> changeMoves(CustList<PkTrainer> _ls) {
+        CustList<ChangeStringFieldMatch> ls_ = new CustList<ChangeStringFieldMatch>();
+        for (PkTrainer p2_: _ls) {
+            ls_.add(new ChangeStringFieldMatchStringListContains(p2_.getMoves()));
+        }
+        return ls_;
+    }
+
+    public void renameItem(String _oldName, String _newName) {
+        if (isUsed(_newName)) {
+            return;
+        }
+        changeNameDefInExp(_oldName, _newName);
+        for (MoveData m: moves.values()) {
+            m.getTypesByOwnedItem().move(_oldName, _newName);
+            m.getSecEffectsByItem().move(_oldName, _newName);
+        }
+        for (PokemonData p: pokedex.values()) {
+            for (Evolution e: p.getEvolutions().values()) {
+                evoItem(_oldName, _newName, e);
+            }
+        }
+        for (Item o: items.values()) {
+            otherItem(_oldName, _newName, o);
+        }
+        for (Place p: map.getPlaces()) {
+            place(_oldName, _newName, p);
+        }
+        items.move(_oldName, _newName);
+    }
+
+    private void place(String _oldName, String _newName, Place _p) {
+        if (_p instanceof City) {
+            for (Building b: ((City) _p).getBuildings().values()) {
+                new ChangeStringFieldLevelWildItem().change(b.getLevel(), _oldName, _newName);
+                charItem(_oldName, _newName, b.getLevel());
+            }
+        }
+        for (Level l: _p.getLevelsList()) {
+            new ChangeStringFieldLevelWildItem().change(l, _oldName, _newName);
+            charItem(_oldName, _newName, l);
+        }
+    }
+
+    public void deleteItem(String _oldName) {
+        if (usedItInExp(_oldName)) {
+            return;
+        }
+        ChangeStringKeyUtil matches_ = new ChangeStringKeyUtil();
+        for (MoveData m: moves.values()) {
+            matches_.add(new ChangeStringFieldMatchMapContains<String>(m.getTypesByOwnedItem()));
+            matches_.add(new ChangeStringFieldMatchMapContains<Ints>(m.getSecEffectsByItem()));
+        }
+        for (PokemonData p: pokedex.values()) {
+            for (Evolution e: p.getEvolutions().values()) {
+                matches_.addAllElts(evoItem(e));
+            }
+        }
+        for (EntryCust<String, Item> o: items.entryList()) {
+            if (!StringUtil.quickEq(o.getKey(),_oldName)) {
+                matches_.addAllElts(otherItem(o.getValue()));
+            }
+        }
+        for (Place p: map.getPlaces()) {
+            matches_.addAllElts(place(p));
+        }
+        if (matches_.contains(_oldName)) {
+            return;
+        }
+        items.removeKey(_oldName);
+    }
+    private CustList<ChangeStringFieldMatch> place(Place _p) {
+        CustList<ChangeStringFieldMatch> matches_ = new CustList<ChangeStringFieldMatch>();
+        if (_p instanceof City) {
+            for (Building b: ((City)_p).getBuildings().values()) {
+                matches_.addAllElts(new ChangeStringFieldLevelWildItem().change(b.getLevel()));
+                matches_.addAllElts(charItem(b.getLevel()));
+            }
+        }
+        for (Level l: _p.getLevelsList()) {
+            matches_.addAllElts(new ChangeStringFieldLevelWildItem().change(l));
+            matches_.addAllElts(charItem(l));
+        }
+        return matches_;
+    }
+
+    private void charItem(String _oldName, String _newName, Level _l) {
+        if (_l instanceof LevelWithWildPokemon) {
+            LevelWithWildPokemon level_ = (LevelWithWildPokemon) _l;
+            for (CharacterInRoadCave t: level_.getCharacters().values()) {
+                if (t instanceof DealerItem) {
+                    DealerItem d_ = (DealerItem) t;
+                    d_.getItems().replace(_oldName, _newName);
+                }
+            }
+        }
+        if (_l instanceof LevelIndoorPokemonCenter) {
+            LevelIndoorPokemonCenter level_ = (LevelIndoorPokemonCenter) _l;
+            for (Person g: level_.getGerants().values()) {
+                if (g instanceof Seller) {
+                    Seller s_ = (Seller) g;
+                    s_.getItems().replace(_oldName, _newName);
+                }
+            }
+        }
+    }
+
+    private CustList<ChangeStringFieldMatch> charItem(Level _l) {
+        CustList<ChangeStringFieldMatch> ls_ = new CustList<ChangeStringFieldMatch>();
+        if (_l instanceof LevelWithWildPokemon) {
+            LevelWithWildPokemon level_ = (LevelWithWildPokemon) _l;
+            for (CharacterInRoadCave t: level_.getCharacters().values()) {
+                if (t instanceof DealerItem) {
+                    DealerItem d_ = (DealerItem) t;
+                    ls_.add(new ChangeStringFieldMatchStringListContains(d_.getItems()));
+                }
+            }
+        }
+        if (_l instanceof LevelIndoorPokemonCenter) {
+            LevelIndoorPokemonCenter level_ = (LevelIndoorPokemonCenter) _l;
+            for (Person g: level_.getGerants().values()) {
+                if (g instanceof Seller) {
+                    Seller s_ = (Seller) g;
+                    ls_.add(new ChangeStringFieldMatchStringListContains(s_.getItems()));
+                }
+            }
+        }
+        return ls_;
+    }
+
+    private void otherItem(String _oldName, String _newName, Item _o) {
+        if (_o instanceof HealingItem) {
+            HealingItem h_ = (HealingItem) _o;
+            h_.getHappiness().move(_oldName, _newName);
+        }
+        if (_o instanceof Boost) {
+            Boost b_ = (Boost) _o;
+            b_.getHappiness().move(_oldName, _newName);
+        }
+    }
+
+    private CustList<ChangeStringFieldMatch> otherItem(Item _o) {
+        CustList<ChangeStringFieldMatch> ls_ = new CustList<ChangeStringFieldMatch>();
+        if (_o instanceof HealingItem) {
+            HealingItem h_ = (HealingItem) _o;
+            ls_.add(new ChangeStringFieldMatchMapContains<Short>(h_.getHappiness()));
+        }
+        if (_o instanceof Boost) {
+            Boost b_ = (Boost) _o;
+            ls_.add(new ChangeStringFieldMatchMapContains<Short>(b_.getHappiness()));
+        }
+        return ls_;
+    }
+
+    private void evoItem(String _oldName, String _newName, Evolution _e) {
+        if (_e instanceof EvolutionStone) {
+            EvolutionStone evo_ = (EvolutionStone) _e;
+            changeValue(new ChangeStringFieldEvolutionStone(evo_), _oldName, _newName);
+        }
+        if (_e instanceof EvolutionItem) {
+            EvolutionItem evo_ = (EvolutionItem) _e;
+            changeValue(new ChangeStringFieldEvolutionItem(evo_), _oldName, _newName);
+        }
+    }
+
+    private CustList<ChangeStringFieldMatch> evoItem(Evolution _e) {
+        CustList<ChangeStringFieldMatch> ls_ = new CustList<ChangeStringFieldMatch>();
+        if (_e instanceof EvolutionStone) {
+            EvolutionStone evo_ = (EvolutionStone) _e;
+            ls_.add(new ChangeStringFieldMatchDef(new ChangeStringFieldEvolutionStone(evo_)));
+        }
+        if (_e instanceof EvolutionItem) {
+            EvolutionItem evo_ = (EvolutionItem) _e;
+            ls_.add(new ChangeStringFieldMatchDef(new ChangeStringFieldEvolutionItem(evo_)));
+        }
+        return ls_;
+    }
+
+    public void renameAbility(String _oldName, String _newName) {
+        if (isUsed(_newName)) {
+            return;
+        }
+        changeNameDefInExp(_oldName, _newName);
+        for (MoveData m: moves.values()) {
+            for (Effect e: m.getEffects()) {
+                if (e instanceof EffectSwitchAbilities) {
+                    EffectSwitchAbilities eff_ = (EffectSwitchAbilities) e;
+                    changeValue(new ChangeStringFieldConstAbility(eff_), _oldName, _newName);
+                }
+                if (e instanceof EffectGlobal) {
+                    EffectGlobal eff_ = (EffectGlobal) e;
+                    eff_.getCancelProtectingAbilities().replace(_oldName, _newName);
+                }
+            }
+        }
+        for (PokemonData p: pokedex.values()) {
+            p.getAbilities().replace(_oldName, _newName);
+        }
+        for (AbilityData a: abilities.values()) {
+            a.getImmuAbility().replace(_oldName, _newName);
+            a.getIgnAbility().replace(_oldName, _newName);
+        }
+        for (Place p: map.getPlaces()) {
+            for (Level l: p.getLevelsList()) {
+                new ChangeStringFieldLevelWildAbility().change(l,_oldName,_newName);
+            }
+        }
+        abilities.move(_oldName, _newName);
+    }
+
+    public void deleteAbility(String _oldName) {
+        if (usedAbInExp(_oldName)) {
+            return;
+        }
+        ChangeStringKeyUtil matches_ = movesMatches();
+        for (PokemonData p: pokedex.values()) {
+            matches_.add(new ChangeStringFieldMatchStringListContains(p.getAbilities()));
+        }
+        for (EntryCust<String, AbilityData> a: abilities.entryList()) {
+            if (!StringUtil.quickEq(a.getKey(),_oldName)) {
+                matches_.add(new ChangeStringFieldMatchStringListContains(a.getValue().getImmuAbility()));
+                matches_.add(new ChangeStringFieldMatchStringListContains(a.getValue().getIgnAbility()));
+            }
+        }
+        for (Place p: map.getPlaces()) {
+            for (Level l: p.getLevelsList()) {
+                matches_.addAllElts(new ChangeStringFieldLevelWildAbility().change(l));
+            }
+        }
+        if (matches_.contains(_oldName)) {
+            return;
+        }
+        abilities.removeKey(_oldName);
+    }
+
+    private ChangeStringKeyUtil movesMatches() {
+        ChangeStringKeyUtil matches_ = new ChangeStringKeyUtil();
+        for (MoveData m: moves.values()) {
+            for (Effect e: m.getEffects()) {
+                if (e instanceof EffectSwitchAbilities) {
+                    EffectSwitchAbilities eff_ = (EffectSwitchAbilities) e;
+                    matches_.add(new ChangeStringFieldMatchDef(new ChangeStringFieldConstAbility(eff_)));
+                }
+                if (e instanceof EffectGlobal) {
+                    EffectGlobal eff_ = (EffectGlobal) e;
+                    matches_.add(new ChangeStringFieldMatchStringListContains(eff_.getCancelProtectingAbilities()));
+                }
+            }
+        }
+        return matches_;
+    }
+
+    public void renameStatus(String _oldName, String _newName) {
+        if (isUsed(_newName)) {
+            return;
+        }
+        changeNameStatusInExp(_oldName, _newName);
+        for (MoveData m: moves.values()) {
+            m.getRequiredStatus().replace(_oldName, _newName);
+            m.getDeletedStatus().replace(_oldName, _newName);
+            for (Effect e: m.getEffects()) {
+                statusEffect(_oldName, _newName, e);
+            }
+        }
+        for (Item o: items.values()) {
+            statusItem(_oldName, _newName, o);
+        }
+        for (AbilityData a: abilities.values()) {
+            a.getFailStatus().move(_oldName, _newName);
+            MonteCarloString law_ = renameLawKeys(_oldName, _newName, a.getSingleStatus());
+            a.setSingleStatus(law_);
+            a.getForwardStatus().move(_oldName, _newName);
+            new ChangeStringValueUtil<String>(a.getForwardStatus()).replace(_oldName, _newName);
+            renameStatusEffectEndRoundList(_oldName, _newName, a.getEffectEndRound());
+        }
+//        for (Status s: status.values()) {
+//            for (EffectEndRoundStatus e: s.getEffectEndRound()) {
+//                renameStatusEffectEndRound(e, _oldName, _newName);
+//            }
+//        }
+        for (EffectCombo e: combos.getEffects().values()) {
+            for (EffectTeam e2_: e.getTeamMove()) {
+                e2_.getProtectAgainstStatus().replace(_oldName, _newName);
+            }
+        }
+        status.move(_oldName, _newName);
+    }
+
+    public void deleteStatus(String _oldName) {
+        if (usedStatusInExp(_oldName)) {
+            return;
+        }
+        ChangeStringKeyUtil matches_ = statusMatches();
+        for (Item o: items.values()) {
+            matches_.addAllElts(statusItem(o));
+        }
+        for (AbilityData a: abilities.values()) {
+            matches_.add(new ChangeStringFieldMatchMapContains<String>(a.getFailStatus()));
+            matches_.add(new ChangeStringFieldMatchMapContains<LgInt>(a.getSingleStatus().getLaw()));
+            matches_.add(new ChangeStringFieldMatchMapContains<String>(a.getForwardStatus()));
+            matches_.add(new ChangeStringValueUtil<String>(a.getForwardStatus()));
+            matches_.addAllElts(renameStatusEffectEndRoundList(a.getEffectEndRound()));
+        }
+//        for (EntryCust<String, Status> s: status.entryList()) {
+//            if (!StringUtil.quickEq(s.getKey(),_oldName)) {
+//                for (EffectEndRoundStatus e: s.getValue().getEffectEndRound()) {
+//                    matches_.addAllElts(renameStatusEffectEndRound(e));
+//                }
+//            }
+//        }
+        for (EffectCombo e: combos.getEffects().values()) {
+            for (EffectTeam e2_: e.getTeamMove()) {
+                matches_.add(new ChangeStringFieldMatchStringListContains(e2_.getProtectAgainstStatus()));
+            }
+        }
+        if (matches_.contains(_oldName)) {
+            return;
+        }
+        status.removeKey(_oldName);
+    }
+
+    private ChangeStringKeyUtil statusMatches() {
+        ChangeStringKeyUtil matches_ = new ChangeStringKeyUtil();
+        for (MoveData m: moves.values()) {
+            matches_.add(new ChangeStringFieldMatchStringListContains(m.getRequiredStatus()));
+            matches_.add(new ChangeStringFieldMatchStringListContains(m.getDeletedStatus()));
+            for (Effect e: m.getEffects()) {
+                matches_.addAllElts(statusEffect(e));
+            }
+        }
+        return matches_;
+    }
+
+    private void statusItem(String _oldName, String _newName, Item _o) {
+        if (_o instanceof Berry) {
+            Berry b_ = (Berry) _o;
+            b_.getHealStatus().replace(_oldName, _newName);
+        }
+        if (_o instanceof ItemForBattle) {
+            ItemForBattle i_ = (ItemForBattle) _o;
+            i_.getFailStatus().move(_oldName, _newName);
+            i_.getImmuStatus().replace(_oldName, _newName);
+            i_.getSynchroStatus().replace(_oldName, _newName);
+            renameStatusEffectEndRoundList(_oldName, _newName, i_.getEffectEndRound());
+        }
+        if (_o instanceof HealingStatus) {
+            HealingStatus s_ = (HealingStatus) _o;
+            s_.getStatus().replace(_oldName, _newName);
+        }
+    }
+
+    private CustList<ChangeStringFieldMatch> statusItem(Item _o) {
+        CustList<ChangeStringFieldMatch> ls_ = new CustList<ChangeStringFieldMatch>();
+        if (_o instanceof Berry) {
+            Berry b_ = (Berry) _o;
+            ls_.add(new ChangeStringFieldMatchStringListContains(b_.getHealStatus()));
+        }
+        if (_o instanceof ItemForBattle) {
+            ItemForBattle i_ = (ItemForBattle) _o;
+            ls_.add(new ChangeStringFieldMatchMapContains<String>(i_.getFailStatus()));
+            ls_.add(new ChangeStringFieldMatchStringListContains(i_.getImmuStatus()));
+            ls_.add(new ChangeStringFieldMatchStringListContains(i_.getSynchroStatus()));
+            ls_.addAllElts(renameStatusEffectEndRoundList(i_.getEffectEndRound()));
+        }
+        if (_o instanceof HealingStatus) {
+            HealingStatus s_ = (HealingStatus) _o;
+            ls_.add(new ChangeStringFieldMatchStringListContains(s_.getStatus()));
+        }
+        return ls_;
+    }
+
+    private void statusEffect(String _oldName, String _newName, Effect _e) {
+        if (_e instanceof EffectEndRound) {
+            renameStatusEffectEndRound((EffectEndRound) _e, _oldName, _newName);
+        }
+        if (_e instanceof EffectTeam) {
+            EffectTeam eff_ = (EffectTeam) _e;
+            eff_.getProtectAgainstStatus().replace(_oldName, _newName);
+        }
+        if (_e instanceof EffectTeamWhileSendFoe) {
+            EffectTeamWhileSendFoe eff_ = (EffectTeamWhileSendFoe) _e;
+            new ChangeStringValueUtil<Short>(eff_.getStatusByNbUses()).replace(_oldName, _newName);
+        }
+        if (_e instanceof EffectGlobal) {
+            EffectGlobal eff_ = (EffectGlobal) _e;
+            eff_.getPreventStatus().replace(_oldName, _newName);
+        }
+        if (_e instanceof EffectStatus) {
+            EffectStatus eff_ = (EffectStatus) _e;
+            eff_.getLocalFailStatus().move(_oldName, _newName);
+            MonteCarloString newLaw_ = renameLawKeys(_oldName, _newName, eff_.getLawStatus());
+            eff_.setLawStatus(newLaw_);
+        }
+    }
+
+    private CustList<ChangeStringFieldMatch> statusEffect(Effect _e) {
+        CustList<ChangeStringFieldMatch> ls_ = new CustList<ChangeStringFieldMatch>();
+        if (_e instanceof EffectEndRound) {
+            ls_.addAllElts(renameStatusEffectEndRound((EffectEndRound) _e));
+        }
+        if (_e instanceof EffectTeam) {
+            EffectTeam eff_ = (EffectTeam) _e;
+            ls_.add(new ChangeStringFieldMatchStringListContains(eff_.getProtectAgainstStatus()));
+        }
+        if (_e instanceof EffectTeamWhileSendFoe) {
+            EffectTeamWhileSendFoe eff_ = (EffectTeamWhileSendFoe) _e;
+            ls_.add(new ChangeStringValueUtil<Short>(eff_.getStatusByNbUses()));
+        }
+        if (_e instanceof EffectGlobal) {
+            EffectGlobal eff_ = (EffectGlobal) _e;
+            ls_.add(new ChangeStringFieldMatchStringListContains(eff_.getPreventStatus()));
+        }
+        if (_e instanceof EffectStatus) {
+            EffectStatus eff_ = (EffectStatus) _e;
+            ls_.add(new ChangeStringFieldMatchMapContains<String>(eff_.getLocalFailStatus()));
+            ls_.add(new ChangeStringFieldMatchMapContains<LgInt>(eff_.getLawStatus().getLaw()));
+        }
+        return ls_;
+    }
+
+    private MonteCarloString renameLawKeys(String _oldName, String _newName, MonteCarloString _law) {
+        MonteCarloString newLaw_ = new MonteCarloString();
+        for (String s: _law.events()) {
+            if (StringUtil.quickEq(s, _oldName)) {
+                newLaw_.addEvent(_newName, _law.rate(s));
+            } else {
+                newLaw_.addEvent(s, _law.rate(s));
+            }
+        }
+        newLaw_.deleteZeroEvents();
+        return newLaw_;
+    }
+
+    private void renameStatusEffectEndRoundList(String _oldName, String _newName, CustList<EffectEndRound> _ls) {
+        if (!_ls.isEmpty()) {
+            renameStatusEffectEndRound(_ls.first(), _oldName, _newName);
+        }
+    }
+
+    private CustList<ChangeStringFieldMatch> renameStatusEffectEndRoundList(CustList<EffectEndRound> _ls) {
+        if (!_ls.isEmpty()) {
+            return renameStatusEffectEndRound(_ls.first());
+        }
+        return new CustList<ChangeStringFieldMatch>();
+    }
+
+    static void renameStatusEffectEndRound(EffectEndRound _effect, String _oldName, String _newName) {
+        if (_effect instanceof EffectEndRoundIndividual) {
+            EffectEndRoundIndividual eff_ = (EffectEndRoundIndividual) _effect;
+            eff_.getMultDamageStatus().move(_oldName, _newName);
+            changeValue(new ChangeStringFieldUserStatusEndRound(eff_),_oldName,_newName);
+        }
+        if (_effect instanceof EffectEndRoundMultiRelation) {
+            EffectEndRoundMultiRelation eff_ = (EffectEndRoundMultiRelation) _effect;
+//            eff_.getMultDamageStatus().move(_oldName, _newName);
+            eff_.getDamageByStatus().move(_oldName, _newName);
+        }
+//        if (_effect instanceof EffectEndRoundSingleStatus) {
+//            EffectEndRoundSingleStatus eff_ = (EffectEndRoundSingleStatus) _effect;
+//            eff_.getMultDamageStatus().move(_oldName, _newName);
+//        }
+    }
+
+    static CustList<ChangeStringFieldMatch> renameStatusEffectEndRound(EffectEndRound _effect) {
+        CustList<ChangeStringFieldMatch> ls_ = new CustList<ChangeStringFieldMatch>();
+        if (_effect instanceof EffectEndRoundIndividual) {
+            EffectEndRoundIndividual eff_ = (EffectEndRoundIndividual) _effect;
+            ls_.add(new ChangeStringFieldMatchMapContains<Rate>(eff_.getMultDamageStatus()));
+            ls_.add(new ChangeStringFieldMatchDef(new ChangeStringFieldUserStatusEndRound(eff_)));
+        }
+        if (_effect instanceof EffectEndRoundMultiRelation) {
+            EffectEndRoundMultiRelation eff_ = (EffectEndRoundMultiRelation) _effect;
+//            eff_.getMultDamageStatus().move(_oldName, _newName);
+            ls_.add(new ChangeStringFieldMatchMapContains<Rate>(eff_.getDamageByStatus()));
+        }
+//        if (_effect instanceof EffectEndRoundSingleStatus) {
+//            EffectEndRoundSingleStatus eff_ = (EffectEndRoundSingleStatus) _effect;
+//            eff_.getMultDamageStatus().move(_oldName, _newName);
+//        }
+        return ls_;
+    }
+
+    public void renameType(String _oldName, String _newName) {
+        if (isUsed(_newName)) {
+            return;
+        }
+        changeNameTypeInExp(_oldName, _newName);
+        for (PokemonData p: pokedex.values()) {
+            p.getTypes().replace(_oldName, _newName);
+        }
+        for (MoveData p: moves.values()) {
+            p.getTypes().replace(_oldName, _newName);
+            p.getBoostedTypes().replace(_oldName, _newName);
+            new ChangeStringValueUtil<String>(p.getTypesByWeather()).replace(_oldName, _newName);
+            new ChangeStringValueUtil<String>(p.getTypesByOwnedItem()).replace(_oldName, _newName);
+            for (Effect e: p.getEffects()) {
+                typeEffect(_oldName, _newName, e);
+            }
+        }
+        for (Item o: items.values()) {
+            multFoesDamage(_oldName, _newName, o);
+            if (o instanceof ItemForBattle) {
+                ItemForBattle i_ = (ItemForBattle) o;
+                i_.getTypesPk().replace(_oldName, _newName);
+                i_.getImmuTypes().replace(_oldName, _newName);
+                renameTypeEffectEndRoundList(_oldName, _newName, i_.getEffectEndRound());
+            }
+        }
+        for (AbilityData a: abilities.values()) {
+            typeAbility(_oldName, _newName, a);
+        }
+        TypesDuos table_ = new TypesDuos();
+        for (TypesDuo p: tableTypes.getKeys()) {
+            Rate value_ = tableTypes.getVal(p);
+            TypesDuo pair_ = convertDuo(p, _oldName, _newName);
+            table_.addEntry(pair_, value_);
+        }
+        tableTypes = table_;
+        types.replace(_oldName, _newName);
+    }
+
+    public void deleteType(String _oldName) {
+        if (usedTypeInExp(_oldName)) {
+            return;
+        }
+        ChangeStringKeyUtil matches_ = new ChangeStringKeyUtil();
+        for (PokemonData p: pokedex.values()) {
+            matches_.add(new ChangeStringFieldMatchStringListContains(p.getTypes()));
+        }
+        for (MoveData p: moves.values()) {
+            matches_.add(new ChangeStringFieldMatchStringListContains(p.getTypes()));
+            matches_.add(new ChangeStringFieldMatchStringListContains(p.getBoostedTypes()));
+            matches_.add(new ChangeStringValueUtil<String>(p.getTypesByWeather()));
+            matches_.add(new ChangeStringValueUtil<String>(p.getTypesByOwnedItem()));
+            for (Effect e: p.getEffects()) {
+                matches_.addAllElts(typeEffect(e));
+            }
+        }
+        for (Item o: items.values()) {
+            matches_.addAllElts(multFoesDamage(o));
+            if (o instanceof ItemForBattle) {
+                ItemForBattle i_ = (ItemForBattle) o;
+                matches_.add(new ChangeStringFieldMatchStringListContains(i_.getTypesPk()));
+                matches_.add(new ChangeStringFieldMatchStringListContains(i_.getImmuTypes()));
+                matches_.addAllElts(renameTypeEffectEndRoundList(i_.getEffectEndRound()));
+            }
+        }
+        for (AbilityData a: abilities.values()) {
+            matches_.addAllElts(typeAbility(a));
+        }
+        if (matches_.contains(_oldName)) {
+            return;
+        }
+        TypesDuos table_ = new TypesDuos();
+        for (TypesDuo p: tableTypes.getKeys()) {
+            if (!StringUtil.quickEq(p.getDamageType(),_oldName)&&!StringUtil.quickEq(p.getPokemonType(),_oldName)) {
+                Rate value_ = tableTypes.getVal(p);
+                table_.addEntry(p, value_);
+            }
+        }
+        tableTypes = table_;
+        types.removeObj(_oldName);
+    }
+    private void typeAbility(String _oldName, String _newName, AbilityData _a) {
+        StatisticTypeByte mult_ = new StatisticTypeByte();
+        for (StatisticType t: _a.getMultStatIfDamgeType().getKeys()) {
+            byte value_ = _a.getMultStatIfDamgeType().getVal(t);
+            StatisticType pair_ = convertStatisticType(t, _oldName, _newName);
+            mult_.addEntry(pair_, value_);
+        }
+        _a.setMultStatIfDamgeType(mult_);
+        CustList<TypesDuo> newList_ = new CustList<TypesDuo>();
+        for (TypesDuo t: _a.getBreakFoeImmune()) {
+            TypesDuo pair_ = convertDuo(t, _oldName, _newName);
+            newList_.add(pair_);
+        }
+        _a.setBreakFoeImmune(newList_);
+
+        WeatherTypes restore_ = new WeatherTypes();
+        for (WeatherType t: _a.getHealHpByTypeIfWeather().getKeys()) {
+            Rate value_ = _a.getHealHpByTypeIfWeather().getVal(t);
+            WeatherType pair_ = new WeatherType(t.getWeather(),t.getType());
+            changeValue(new ChangeStringFieldWeatherType(pair_), _oldName, _newName);
+            restore_.addEntry(pair_, value_);
+        }
+        _a.setHealHpByTypeIfWeather(restore_);
+        new ChangeStringValueUtil<String>(_a.getChgtTypeByWeather()).replace(_oldName, _newName);
+        for (StringList l: _a.getImmuMoveTypesByWeather().values()) {
+            l.replace(_oldName, _newName);
+        }
+        _a.getMultDamageFoe().move(_oldName, _newName);
+        changeValue(new ChangeStringFieldTypeForMoves(_a), _oldName, _newName);
+        renameTypeEffectEndRoundList(_oldName, _newName, _a.getEffectEndRound());
+    }
+    private CustList<ChangeStringFieldMatch> typeAbility(AbilityData _a) {
+        CustList<ChangeStringFieldMatch> matches_ = new CustList<ChangeStringFieldMatch>();
+        for (StatisticType t: _a.getMultStatIfDamgeType().getKeys()) {
+            matches_.addAllElts(convertStatisticType(t));
+        }
+        for (TypesDuo t: _a.getBreakFoeImmune()) {
+            matches_.addAllElts(convertDuo(t));
+        }
+        for (WeatherType t: _a.getHealHpByTypeIfWeather().getKeys()) {
+            matches_.add(new ChangeStringFieldMatchDef(new ChangeStringFieldWeatherType(t)));
+        }
+        matches_.add(new ChangeStringValueUtil<String>(_a.getChgtTypeByWeather()));
+        for (StringList l: _a.getImmuMoveTypesByWeather().values()) {
+            matches_.add(new ChangeStringFieldMatchStringListContains(l));
+        }
+        matches_.add(new ChangeStringFieldMatchMapContains<Rate>(_a.getMultDamageFoe()));
+        matches_.add(new ChangeStringFieldMatchDef(new ChangeStringFieldTypeForMoves(_a)));
+        matches_.addAllElts(renameTypeEffectEndRoundList(_a.getEffectEndRound()));
+        return matches_;
+    }
+
+    private void typeEffect(String _oldName, String _newName, Effect _e) {
+        if (_e instanceof EffectUnprotectFromTypes) {
+            EffectUnprotectFromTypes eff_ = (EffectUnprotectFromTypes) _e;
+            eff_.getAttackTargetWithTypes().replace(_oldName, _newName);
+            eff_.getDisableImmuAgainstTypes().replace(_oldName, _newName);
+            CustList<TypesDuo> newList_ = new CustList<TypesDuo>();
+            for (TypesDuo t: eff_.getTypes()) {
+                TypesDuo pair_ = convertDuo(t, _oldName, _newName);
+                newList_.add(pair_);
+            }
+            eff_.setTypes(newList_);
+        }
+        if (_e instanceof EffectSwitchTypes) {
+            EffectSwitchTypes eff_ = (EffectSwitchTypes) _e;
+            eff_.getConstTypes().replace(_oldName, _newName);
+            new ChangeStringValueUtil<EnvironmentType>(eff_.getChgtTypeByEnv()).replace(_oldName, _newName);
+        }
+        if (_e instanceof EffectTeamWhileSendFoe) {
+            EffectTeamWhileSendFoe eff_ = (EffectTeamWhileSendFoe) _e;
+            eff_.getDeletedByFoeTypes().replace(_oldName, _newName);
+        }
+        if (_e instanceof EffectGlobal) {
+            EffectGlobal eff_ = (EffectGlobal) _e;
+            eff_.getImmuneTypes().replace(_oldName, _newName);
+            eff_.getMultDamagePrepaRound().move(_oldName, _newName);
+            eff_.getMultDamageTypesMoves().move(_oldName, _newName);
+            eff_.getDisableImmuAgainstTypes().replace(_oldName, _newName);
+            TypesDuos table_ = new TypesDuos();
+            for (TypesDuo t: eff_.getEfficiencyMoves().getKeys()) {
+                Rate value_ = eff_.getEfficiencyMoves().getVal(t);
+                TypesDuo pair_ = convertDuo(t, _oldName, _newName);
+                table_.addEntry(pair_, value_);
+            }
+            eff_.setEfficiencyMoves(table_);
+            StatisticTypeRate mult_ = new StatisticTypeRate();
+            for (StatisticType t: eff_.getMultStatIfContainsType().getKeys()) {
+                Rate value_ = eff_.getMultStatIfContainsType().getVal(t);
+                StatisticType pair_ = convertStatisticType(t, _oldName, _newName);
+                mult_.addEntry(pair_, value_);
+            }
+            eff_.setMultStatIfContainsType(mult_);
+        }
+        if (_e instanceof EffectProtectFromTypes) {
+            EffectProtectFromTypes eff_ = (EffectProtectFromTypes) _e;
+            eff_.getImmuAgainstTypes().replace(_oldName, _newName);
+        }
+        if (_e instanceof EffectMultUsedMovePower) {
+            EffectMultUsedMovePower eff_ = (EffectMultUsedMovePower) _e;
+            eff_.getMultMovePowerFctType().move(_oldName, _newName);
+        }
+        if (_e instanceof EffectMultSufferedMovePower) {
+            EffectMultSufferedMovePower eff_ = (EffectMultSufferedMovePower) _e;
+            eff_.getMultMovePowerFctType().move(_oldName, _newName);
+        }
+        if (_e instanceof EffectEndRound) {
+            renameTypeEffectEndRound((EffectEndRound) _e, _oldName, _newName);
+        }
+    }
+
+    private CustList<ChangeStringFieldMatch> typeEffect(Effect _e) {
+        CustList<ChangeStringFieldMatch> matches_ = new CustList<ChangeStringFieldMatch>();
+        if (_e instanceof EffectUnprotectFromTypes) {
+            EffectUnprotectFromTypes eff_ = (EffectUnprotectFromTypes) _e;
+            matches_.add(new ChangeStringFieldMatchStringListContains(eff_.getAttackTargetWithTypes()));
+            matches_.add(new ChangeStringFieldMatchStringListContains(eff_.getDisableImmuAgainstTypes()));
+            for (TypesDuo t: eff_.getTypes()) {
+                matches_.addAllElts(convertDuo(t));
+            }
+        }
+        if (_e instanceof EffectSwitchTypes) {
+            EffectSwitchTypes eff_ = (EffectSwitchTypes) _e;
+            matches_.add(new ChangeStringFieldMatchStringListContains(eff_.getConstTypes()));
+            matches_.add(new ChangeStringValueUtil<EnvironmentType>(eff_.getChgtTypeByEnv()));
+        }
+        if (_e instanceof EffectTeamWhileSendFoe) {
+            EffectTeamWhileSendFoe eff_ = (EffectTeamWhileSendFoe) _e;
+            matches_.add(new ChangeStringFieldMatchStringListContains(eff_.getDeletedByFoeTypes()));
+        }
+        if (_e instanceof EffectGlobal) {
+            EffectGlobal eff_ = (EffectGlobal) _e;
+            matches_.add(new ChangeStringFieldMatchStringListContains(eff_.getImmuneTypes()));
+            matches_.add(new ChangeStringFieldMatchMapContains<Rate>(eff_.getMultDamagePrepaRound()));
+            matches_.add(new ChangeStringFieldMatchMapContains<Rate>(eff_.getMultDamageTypesMoves()));
+            matches_.add(new ChangeStringFieldMatchStringListContains(eff_.getDisableImmuAgainstTypes()));
+            for (TypesDuo t: eff_.getEfficiencyMoves().getKeys()) {
+                matches_.addAllElts(convertDuo(t));
+            }
+            for (StatisticType t: eff_.getMultStatIfContainsType().getKeys()) {
+                matches_.addAllElts(convertStatisticType(t));
+            }
+        }
+        if (_e instanceof EffectProtectFromTypes) {
+            EffectProtectFromTypes eff_ = (EffectProtectFromTypes) _e;
+            matches_.add(new ChangeStringFieldMatchStringListContains(eff_.getImmuAgainstTypes()));
+        }
+        if (_e instanceof EffectMultUsedMovePower) {
+            EffectMultUsedMovePower eff_ = (EffectMultUsedMovePower) _e;
+            matches_.add(new ChangeStringFieldMatchMapContains<Rate>(eff_.getMultMovePowerFctType()));
+        }
+        if (_e instanceof EffectMultSufferedMovePower) {
+            EffectMultSufferedMovePower eff_ = (EffectMultSufferedMovePower) _e;
+            matches_.add(new ChangeStringFieldMatchMapContains<Rate>(eff_.getMultMovePowerFctType()));
+        }
+        if (_e instanceof EffectEndRound) {
+            matches_.addAllElts(renameTypeEffectEndRound((EffectEndRound) _e));
+        }
+        return matches_;
+    }
+    private void multFoesDamage(String _oldName, String _newName, Item _o) {
+        if (_o instanceof Berry) {
+            Berry b_ = (Berry) _o;
+            b_.getMultFoesDamage().move(_oldName, _newName);
+        }
+    }
+
+    private CustList<ChangeStringFieldMatch> multFoesDamage(Item _o) {
+        CustList<ChangeStringFieldMatch> ls_ = new CustList<ChangeStringFieldMatch>();
+        if (_o instanceof Berry) {
+            Berry b_ = (Berry) _o;
+            ls_.add(new ChangeStringFieldMatchMapContains<EfficiencyRate>(b_.getMultFoesDamage()));
+        }
+        return ls_;
+    }
+
+    private StatisticType convertStatisticType(StatisticType _t, String _oldName, String _newName) {
+        StatisticType pair_ = new StatisticType(_t.getStatistic(),_t.getType());
+        changeValue(new ChangeStringFieldStatisticType(pair_),_oldName,_newName);
+        return pair_;
+    }
+
+    private CustList<ChangeStringFieldMatch> convertStatisticType(StatisticType _t) {
+        CustList<ChangeStringFieldMatch> ls_ = new CustList<ChangeStringFieldMatch>();
+        ls_.add(new ChangeStringFieldMatchDef(new ChangeStringFieldStatisticType(_t)));
+        return ls_;
+    }
+
+    private void renameTypeEffectEndRoundList(String _oldName, String _newName, CustList<EffectEndRound> _ls) {
+        if (!_ls.isEmpty()) {
+            renameTypeEffectEndRound(_ls.first(), _oldName, _newName);
+        }
+    }
+
+    private CustList<ChangeStringFieldMatch> renameTypeEffectEndRoundList(CustList<EffectEndRound> _ls) {
+        if (!_ls.isEmpty()) {
+            return renameTypeEffectEndRound(_ls.first());
+        }
+        return new CustList<ChangeStringFieldMatch>();
+    }
+
+    private TypesDuo convertDuo(TypesDuo _t, String _oldName, String _newName) {
+        TypesDuo pair_ = new TypesDuo(_t.getDamageType(),_t.getPokemonType());
+        changeValue(new ChangeStringFieldDamageType(pair_),_oldName,_newName);
+        changeValue(new ChangeStringFieldPokemonType(pair_),_oldName,_newName);
+        return pair_;
+    }
+
+    private CustList<ChangeStringFieldMatch> convertDuo(TypesDuo _t) {
+        CustList<ChangeStringFieldMatch> ls_ = new CustList<ChangeStringFieldMatch>();
+        ls_.add(new ChangeStringFieldMatchDef(new ChangeStringFieldDamageType(_t)));
+        ls_.add(new ChangeStringFieldMatchDef(new ChangeStringFieldPokemonType(_t)));
+        return ls_;
+    }
+
+    static void renameTypeEffectEndRound(EffectEndRound _effect, String _oldName, String _newName) {
+        if (_effect instanceof EffectEndRoundIndividual) {
+            EffectEndRoundIndividual eff_ = (EffectEndRoundIndividual) _effect;
+            eff_.getHealHpByOwnerTypes().move(_oldName,_newName);
+        }
+    }
+
+    static CustList<ChangeStringFieldMatch> renameTypeEffectEndRound(EffectEndRound _effect) {
+        CustList<ChangeStringFieldMatch> ls_ = new CustList<ChangeStringFieldMatch>();
+        if (_effect instanceof EffectEndRoundIndividual) {
+            ls_.add(new ChangeStringFieldMatchMapContains<Rate>(((EffectEndRoundIndividual) _effect).getHealHpByOwnerTypes()));
+        }
+        return ls_;
+    }
+
+    public void renameCategory(String _oldName, String _newName) {
+        if (isUsed(_newName)) {
+            return;
+        }
+        changeNameCategoryInExp(_oldName, _newName);
+        for (AbilityData a: abilities.values()) {
+            StatisticCategoryByte mult_ = new StatisticCategoryByte();
+            for (StatisticCategory t: a.getMultStatIfDamageCat().getKeys()) {
+                byte value_ = a.getMultStatIfDamageCat().getVal(t);
+                StatisticCategory pair_ = convertStatisticCategory(t, _oldName, _newName);
+                mult_.addEntry(pair_, value_);
+            }
+            a.setMultStatIfDamageCat(mult_);
+            a.getIncreasedPrio().move(_oldName, _newName);
+            StatisticCategoryRate mult2_ = new StatisticCategoryRate();
+            for (StatisticCategory t: a.getMultStatIfCat().getKeys()) {
+                Rate value_ = a.getMultStatIfCat().getVal(t);
+                StatisticCategory pair_ = convertStatisticCategory(t, _oldName, _newName);
+                mult2_.addEntry(pair_, value_);
+            }
+            a.setMultStatIfCat(mult2_);
+        }
+        for (MoveData m: moves.values()) {
+            moveCategory(_oldName, _newName, m);
+        }
+        for (Item o: items.values()) {
+            damageRateRecoilFoe(_oldName, _newName, o);
+        }
+        changeCategory(_oldName,_newName);
+//        getAllCategories().replace(_oldName, _newName);
+//        getCategories().replace(_oldName, _newName);
+    }
+
+    public void deleteCategory(String _oldName) {
+        if (usedCategoryInExp(_oldName) || StringUtil.quickEq(_oldName,getDefCategory())) {
+            return;
+        }
+        ChangeStringKeyUtil ls_ = new ChangeStringKeyUtil();
+        for (AbilityData a: abilities.values()) {
+            ls_.addAllElts(useCategoryAbility(a));
+        }
+        for (MoveData m: moves.values()) {
+            ls_.addAllElts(moveCategory(m));
+        }
+        for (Item o: items.values()) {
+            ls_.addAllElts(damageRateRecoilFoe(o));
+        }
+        if (ls_.contains(_oldName)) {
+            return;
+        }
+        getCategories().removeObj(_oldName);
+        getAllCategories().removeObj(_oldName);
+//        getAllCategories().replace(_oldName, _newName);
+//        getCategories().replace(_oldName, _newName);
+    }
+
+    private CustList<ChangeStringFieldMatch> useCategoryAbility(AbilityData _a) {
+        CustList<StatisticCategory> all_ = new CustList<StatisticCategory>();
+        all_.addAllElts(_a.getMultStatIfDamageCat().getKeys());
+        all_.addAllElts(_a.getMultStatIfCat().getKeys());
+        CustList<ChangeStringFieldMatch> chg_ = new CustList<ChangeStringFieldMatch>();
+        for (StatisticCategory t: all_) {
+            chg_.add(new ChangeStringFieldMatchDef(new ChangeStringFieldStatisticCategory(t)));
+        }
+        chg_.add(new ChangeStringFieldMatchMapContains<Short>(_a.getIncreasedPrio()));
+        return chg_;
+    }
+
+    private void moveCategory(String _oldName, String _newName, MoveData _m) {
+        ChangeStringField chg_ = tryChgDamagingMoveData(_m);
+        changeValue(chg_, _oldName, _newName);
+        for (Effect e: _m.getEffects()) {
+            if (e instanceof EffectTeam) {
+                EffectTeam eff_ = (EffectTeam) e;
+                CategoryMults mult_ = new CategoryMults();
+                for (CategoryMult t: eff_.getMultDamage().getKeys()) {
+                    Rate value_ = eff_.getMultDamage().getVal(t);
+                    CategoryMult pair_ = new CategoryMult(t.getCategory(),t.getMult());
+                    changeValue(new ChangeStringFieldCategoryMult(pair_), _oldName, _newName);
+                    mult_.addEntry(pair_, value_);
+                }
+                eff_.setMultDamage(mult_);
+            }
+        }
+    }
+
+    private CustList<ChangeStringFieldMatch> moveCategory(MoveData _m) {
+        ChangeStringField chg_ = tryChgDamagingMoveData(_m);
+        CustList<ChangeStringFieldMatch> chgUtil_ = new CustList<ChangeStringFieldMatch>();
+        chgUtil_.add(new ChangeStringFieldMatchDef(chg_));
+        for (Effect e: _m.getEffects()) {
+            if (e instanceof EffectTeam) {
+                EffectTeam eff_ = (EffectTeam) e;
+                for (CategoryMult t: eff_.getMultDamage().getKeys()) {
+                    chgUtil_.add(new ChangeStringFieldMatchDef(new ChangeStringFieldCategoryMult(t)));
+                }
+            }
+        }
+        return chgUtil_;
+    }
+
+    private void damageRateRecoilFoe(String _oldName, String _newName, Item _o) {
+        if (_o instanceof Berry) {
+            Berry b_ = (Berry) _o;
+            b_.getDamageRateRecoilFoe().move(_oldName, _newName);
+        }
+    }
+
+    private CustList<ChangeStringFieldMatch> damageRateRecoilFoe(Item _o) {
+        if (_o instanceof Berry) {
+            return new CustList<ChangeStringFieldMatch>(new ChangeStringFieldMatchMapContains<Rate>(((Berry) _o).getDamageRateRecoilFoe()));
+        }
+        return new CustList<ChangeStringFieldMatch>();
+    }
+
+    private ChangeStringField tryChgDamagingMoveData(MoveData _m) {
+        ChangeStringField chg_;
+        if (_m instanceof DamagingMoveData) {
+            DamagingMoveData m_ = (DamagingMoveData) _m;
+            chg_ = new ChangeStringFieldMoveCategory(m_);
+        } else {
+            chg_ = null;
+        }
+        return chg_;
+    }
+
+    private StatisticCategory convertStatisticCategory(StatisticCategory _t, String _oldName, String _newName) {
+        StatisticCategory pair_ = new StatisticCategory(_t.getStatistic(),_t.getCategory());
+        changeValue(new ChangeStringFieldStatisticCategory(pair_),_oldName,_newName);
+        return pair_;
+    }
+
+    void changeCategory(String _oldName, String _newName) {
+        if (StringUtil.quickEq(_oldName, getDefCategory()) || StringUtil.quickEq(_newName, getDefCategory())) {
+            return;
+        }
+        getCategories().removeObj(_oldName);
+        getAllCategories().removeObj(_oldName);
+        getCategories().add(_newName);
+        getAllCategories().add(_newName);
+        getCategories().removeDuplicates();
+        getAllCategories().removeDuplicates();
+    }
+
+    public static void changeValue(ChangeStringField _i, String _oldName, String _newName) {
+        if (_i == null) {
+            return;
+        }
+        if (StringUtil.quickEq(_i.value(), _oldName)) {
+            _i.value(_newName);
+        }
+    }
+
     public void changeNameDefInExp(String _oldName, String _newName) {
         changeNameInNumericExpressions(new StringList(),_oldName, _newName);
     }
@@ -6692,20 +7982,28 @@ public class DataBase {
         return EvolvedMathFactory.rename(_el, prefixedVar(), _mids, _oldName, _newName);
     }
 
-    public boolean usedDefInExp(String _name) {
-        return usedInExp(new StringList(),_name);
+    public boolean usedAbInExp(String _name) {
+        return usedInExp(new StringList(),_name, KIND_AB);
+    }
+
+    public boolean usedItInExp(String _name) {
+        return usedInExp(new StringList(),_name, KIND_IT);
+    }
+
+    public boolean usedPkInExp(String _name) {
+        return usedInExp(new StringList(),_name, KIND_PK);
     }
     public boolean usedTypeInExp(String _name) {
-        return usedInExp(typesPart(),_name);
+        return usedInExp(typesPart(),_name, KIND_TY);
     }
     public boolean usedMoveInExp(String _name) {
-        return usedInExp(movesPart(),_name);
+        return usedInExp(movesPart(),_name, KIND_MV);
     }
     public boolean usedCategoryInExp(String _name) {
-        return usedInExp(categoriesPart(),_name);
+        return usedInExp(categoriesPart(),_name, KIND_CA);
     }
     public boolean usedStatusInExp(String _name) {
-        return usedInExp(statusPart(),_name);
+        return usedInExp(statusPart(),_name, KIND_ST);
     }
 
     private StringList typesPart() {
@@ -6743,34 +8041,45 @@ public class DataBase {
         return new StringList(StringUtil.concat(ciblePossedeStatutRelation(),SEP_BETWEEN_KEYS));
     }
 
-    boolean usedInExp(StringList _mids, String _name) {
-        for (Item o: items.values()) {
-            if (containsItem(_mids, _name, o)) {
+    boolean usedInExp(StringList _mids, String _name, int _kind) {
+        for (EntryCust<String, Item> o: items.entryList()) {
+            if (checkContains(_name, _kind, o.getKey(), KIND_IT) && containsItem(_mids, _name, o.getValue())) {
                 return true;
             }
         }
-        for (AbilityData a: abilities.values()) {
-            if (containsAbility(_mids, _name, a)) {
+        for (EntryCust<String, AbilityData> a: abilities.entryList()) {
+            if (checkContains(_name, _kind, a.getKey(), KIND_AB) && containsAbility(_mids, _name, a.getValue())) {
                 return true;
             }
         }
-        for (MoveData m: moves.values()) {
-            if (containsWord(m.getAccuracy(), _mids, _name)) {
+        for (EntryCust<String, MoveData> m: moves.entryList()) {
+            if (checkContains(_name, _kind, m.getKey(), KIND_MV) && containsMove(_mids, _name, m.getValue())) {
                 return true;
             }
-            for (Effect e: m.getEffects()) {
-                if (containsMoveEffect(_mids, _name, e)) {
-                    return true;
-                }
-            }
         }
-        return containsEndRound(_mids, _name);
+        return containsEndRound(_mids, _name, _kind);
     }
 
-    private boolean containsEndRound(StringList _mids, String _name) {
-        for (Status s: status.values()) {
-            for (EffectEndRoundStatus e: s.getEffectEndRound()) {
-                if (containsEndRound(_mids, _name, e)) {
+    private boolean containsMove(StringList _mids, String _name, MoveData _m) {
+        if (containsWord(_m.getAccuracy(), _mids, _name)) {
+            return true;
+        }
+        for (Effect e: _m.getEffects()) {
+            if (containsMoveEffect(_mids, _name, e)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean checkContains(String _name, int _kind, String _key, int _cst) {
+        return _kind != _cst || !StringUtil.quickEq(_key, _name);
+    }
+
+    private boolean containsEndRound(StringList _mids, String _name, int _kind) {
+        for (EntryCust<String, Status> s: status.entryList()) {
+            for (EffectEndRoundStatus e: s.getValue().getEffectEndRound()) {
+                if (checkContains(_name, _kind, s.getKey(), KIND_ST) && containsEndRound(_mids, _name, e)) {
                     return true;
                 }
             }
@@ -6847,7 +8156,7 @@ public class DataBase {
         return EvolvedMathFactory.usedId(_el,prefixedVar(), _mids, _id);
     }
     public boolean isUsed(String _id) {
-        return moves.contains(_id) || items.contains(_id) || pokedex.contains(_id) || status.contains(_id) || abilities.contains(_id) || getTypes().containsObj(_id) || getCategories().containsObj(_id);
+        return moves.contains(_id) || items.contains(_id) || pokedex.contains(_id) || status.contains(_id) || abilities.contains(_id) || getTypes().containsObj(_id) || getAllCategories().containsObj(_id);
     }
     public StringList getVarParamsMove(String _var) {
         StringList elements_ = new StringList();

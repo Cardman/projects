@@ -22,6 +22,7 @@ public abstract class DataBaseValidationCommon extends EquallablePkUtil {
     protected static final String PIKACHU4 = "PIKACHU4";
     protected static final String ECLAIR = "ECLAIR";
     protected static final String POKE_BALL = "POKE_BALL";
+    protected static final String POKE_BALL_2 = "POKE_BALL_2";
     protected static final String LUTTE = "LUTTE";
     protected static final String CHARGE = "CHARGE";
     protected static final String CHARGE2 = "CHARGE2";

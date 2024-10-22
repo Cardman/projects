@@ -23,7 +23,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         b_.setCatchingRate(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertTrue(db_.usedDefInExp(PARATONNERRE));
+        assertTrue(db_.usedItInExp(PARATONNERRE));
     }
     @Test
     public void used2() {
@@ -31,7 +31,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         b_.setCatchingRate(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertFalse(db_.usedDefInExp(PIKACHU));
+        assertFalse(db_.usedItInExp(PIKACHU));
     }
     @Test
     public void used3() {
@@ -39,7 +39,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         b_.setMultPower(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertTrue(db_.usedDefInExp(PARATONNERRE));
+        assertTrue(db_.usedItInExp(PARATONNERRE));
     }
     @Test
     public void used4() {
@@ -47,7 +47,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         b_.setMultDamage(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertTrue(db_.usedDefInExp(PARATONNERRE));
+        assertTrue(db_.usedItInExp(PARATONNERRE));
     }
     @Test
     public void used5() {
@@ -55,7 +55,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         b_.getMultStat().addEntry(Statistic.SPEED,ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertTrue(db_.usedDefInExp(PARATONNERRE));
+        assertTrue(db_.usedItInExp(PARATONNERRE));
     }
     @Test
     public void used6() {
@@ -63,7 +63,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         b_.getMultStat().addEntry(Statistic.SPEED,ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertFalse(db_.usedDefInExp(PIKACHU));
+        assertFalse(db_.usedItInExp(PIKACHU));
     }
     @Test
     public void used7() {
@@ -73,7 +73,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         eff_.getEffect().setFail(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertTrue(db_.usedDefInExp(PARATONNERRE));
+        assertTrue(db_.usedItInExp(PARATONNERRE));
     }
     @Test
     public void used8() {
@@ -83,7 +83,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         eff_.getEffect().getLocalFailStatis().addEntry(Statistic.SPEED,ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertTrue(db_.usedDefInExp(PARATONNERRE));
+        assertTrue(db_.usedItInExp(PARATONNERRE));
     }
     @Test
     public void used9() {
@@ -93,7 +93,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         eff_.getEffect().getLocalFailSwapBoostStatis().addEntry(Statistic.SPEED,ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertTrue(db_.usedDefInExp(PARATONNERRE));
+        assertTrue(db_.usedItInExp(PARATONNERRE));
     }
     @Test
     public void used10() {
@@ -103,7 +103,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         eff_.getEffect().setFail(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertFalse(db_.usedDefInExp(PIKACHU));
+        assertFalse(db_.usedItInExp(PIKACHU));
     }
     @Test
     public void used11() {
@@ -113,7 +113,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         eff_.getEffect().getLocalFailStatis().addEntry(Statistic.SPEED,ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertFalse(db_.usedDefInExp(PIKACHU));
+        assertFalse(db_.usedItInExp(PIKACHU));
     }
     @Test
     public void used12() {
@@ -123,7 +123,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         eff_.getEffect().getLocalFailSwapBoostStatis().addEntry(Statistic.SPEED,ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertFalse(db_.usedDefInExp(PIKACHU));
+        assertFalse(db_.usedItInExp(PIKACHU));
     }
     @Test
     public void used13() {
@@ -133,7 +133,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         eff_.setFail(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertTrue(db_.usedDefInExp(PARATONNERRE));
+        assertTrue(db_.usedItInExp(PARATONNERRE));
     }
     @Test
     public void used14() {
@@ -143,7 +143,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         eff_.setFailEndRound(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertTrue(db_.usedDefInExp(PARATONNERRE));
+        assertTrue(db_.usedItInExp(PARATONNERRE));
     }
     @Test
     public void used15() {
@@ -153,7 +153,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         eff_.setFail(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertFalse(db_.usedDefInExp(PIKACHU));
+        assertFalse(db_.usedItInExp(PIKACHU));
     }
     @Test
     public void used16() {
@@ -163,7 +163,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         eff_.setFailEndRound(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertFalse(db_.usedDefInExp(PIKACHU));
+        assertFalse(db_.usedItInExp(PIKACHU));
     }
     @Test
     public void used17() {
@@ -171,7 +171,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         b_.setMultPower(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertTrue(db_.usedDefInExp(PARATONNERRE));
+        assertTrue(db_.usedAbInExp(PARATONNERRE));
     }
     @Test
     public void used18() {
@@ -179,7 +179,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         b_.setMultDamage(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertTrue(db_.usedDefInExp(PARATONNERRE));
+        assertTrue(db_.usedAbInExp(PARATONNERRE));
     }
     @Test
     public void used19() {
@@ -187,7 +187,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         b_.getMultStat().addEntry(Statistic.SPEED,ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertTrue(db_.usedDefInExp(PARATONNERRE));
+        assertTrue(db_.usedAbInExp(PARATONNERRE));
     }
     @Test
     public void used20() {
@@ -195,7 +195,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         b_.getMultStat().addEntry(Statistic.SPEED,ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertFalse(db_.usedDefInExp(PIKACHU));
+        assertFalse(db_.usedAbInExp(PIKACHU));
     }
     @Test
     public void used21() {
@@ -205,7 +205,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         eff_.getEffect().setFail(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertTrue(db_.usedDefInExp(PARATONNERRE));
+        assertTrue(db_.usedAbInExp(PARATONNERRE));
     }
     @Test
     public void used22() {
@@ -215,7 +215,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         eff_.getEffect().getLocalFailStatis().addEntry(Statistic.SPEED,ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertTrue(db_.usedDefInExp(PARATONNERRE));
+        assertTrue(db_.usedAbInExp(PARATONNERRE));
     }
     @Test
     public void used23() {
@@ -225,7 +225,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         eff_.getEffect().getLocalFailSwapBoostStatis().addEntry(Statistic.SPEED,ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertTrue(db_.usedDefInExp(PARATONNERRE));
+        assertTrue(db_.usedAbInExp(PARATONNERRE));
     }
     @Test
     public void used24() {
@@ -235,7 +235,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         eff_.getEffect().setFail(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertFalse(db_.usedDefInExp(PIKACHU));
+        assertFalse(db_.usedAbInExp(PIKACHU));
     }
     @Test
     public void used25() {
@@ -245,7 +245,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         eff_.getEffect().getLocalFailStatis().addEntry(Statistic.SPEED,ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertFalse(db_.usedDefInExp(PIKACHU));
+        assertFalse(db_.usedAbInExp(PIKACHU));
     }
     @Test
     public void used26() {
@@ -255,7 +255,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         eff_.getEffect().getLocalFailSwapBoostStatis().addEntry(Statistic.SPEED,ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertFalse(db_.usedDefInExp(PIKACHU));
+        assertFalse(db_.usedAbInExp(PIKACHU));
     }
     @Test
     public void used27() {
@@ -265,7 +265,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         eff_.setFail(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertTrue(db_.usedDefInExp(PARATONNERRE));
+        assertTrue(db_.usedAbInExp(PARATONNERRE));
     }
     @Test
     public void used28() {
@@ -275,7 +275,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         eff_.setFailEndRound(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertTrue(db_.usedDefInExp(PARATONNERRE));
+        assertTrue(db_.usedAbInExp(PARATONNERRE));
     }
     @Test
     public void used29() {
@@ -285,7 +285,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         eff_.setFail(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertFalse(db_.usedDefInExp(PIKACHU));
+        assertFalse(db_.usedAbInExp(PIKACHU));
     }
     @Test
     public void used30() {
@@ -295,7 +295,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         eff_.setFailEndRound(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertFalse(db_.usedDefInExp(PIKACHU));
+        assertFalse(db_.usedAbInExp(PIKACHU));
     }
     @Test
     public void used31() {
@@ -303,7 +303,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         b_.getFailStatus().addEntry(TREMPETTE,ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertTrue(db_.usedDefInExp(PARATONNERRE));
+        assertTrue(db_.usedAbInExp(PARATONNERRE));
     }
     @Test
     public void used32() {
@@ -311,7 +311,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         b_.getFailStatus().addEntry(TREMPETTE,ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertFalse(db_.usedDefInExp(PIKACHU));
+        assertFalse(db_.usedAbInExp(PIKACHU));
     }
     @Test
     public void used33() {
@@ -319,7 +319,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         b_.setAccuracy(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertTrue(db_.usedDefInExp(PARATONNERRE));
+        assertTrue(db_.usedMoveInExp(PARATONNERRE));
     }
     @Test
     public void used34() {
@@ -327,7 +327,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         b_.setAccuracy(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertFalse(db_.usedDefInExp(PIKACHU));
+        assertFalse(db_.usedMoveInExp(PIKACHU));
     }
     @Test
     public void used35() {
@@ -337,7 +337,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         b_.getEffects().add(e_);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertTrue(db_.usedDefInExp(PARATONNERRE));
+        assertTrue(db_.usedMoveInExp(PARATONNERRE));
     }
     @Test
     public void used36() {
@@ -347,7 +347,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         b_.getEffects().add(e_);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertFalse(db_.usedDefInExp(PIKACHU));
+        assertFalse(db_.usedMoveInExp(PIKACHU));
     }
     @Test
     public void used37() {
@@ -357,7 +357,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         b_.getEffects().add(e_);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertTrue(db_.usedDefInExp(PARATONNERRE));
+        assertTrue(db_.usedMoveInExp(PARATONNERRE));
     }
     @Test
     public void used38() {
@@ -367,7 +367,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         b_.getEffects().add(e_);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertFalse(db_.usedDefInExp(PIKACHU));
+        assertFalse(db_.usedMoveInExp(PIKACHU));
     }
     @Test
     public void used39() {
@@ -377,7 +377,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         b_.getEffects().add(e_);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertTrue(db_.usedDefInExp(PARATONNERRE));
+        assertTrue(db_.usedMoveInExp(PARATONNERRE));
     }
     @Test
     public void used40() {
@@ -387,7 +387,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         b_.getEffects().add(e_);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertFalse(db_.usedDefInExp(PIKACHU));
+        assertFalse(db_.usedMoveInExp(PIKACHU));
     }
     @Test
     public void used41() {
@@ -397,7 +397,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         b_.getEffects().add(e_);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertTrue(db_.usedDefInExp(PARATONNERRE));
+        assertTrue(db_.usedMoveInExp(PARATONNERRE));
     }
     @Test
     public void used42() {
@@ -407,7 +407,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         b_.getEffects().add(e_);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertFalse(db_.usedDefInExp(PIKACHU));
+        assertFalse(db_.usedMoveInExp(PIKACHU));
     }
     @Test
     public void used43() {
@@ -417,7 +417,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         b_.getEffects().add(e_);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertTrue(db_.usedDefInExp(PARATONNERRE));
+        assertTrue(db_.usedMoveInExp(PARATONNERRE));
     }
     @Test
     public void used44() {
@@ -427,7 +427,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         b_.getEffects().add(e_);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertFalse(db_.usedDefInExp(PIKACHU));
+        assertFalse(db_.usedMoveInExp(PIKACHU));
     }
     @Test
     public void used45() {
@@ -437,7 +437,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         b_.getEffects().add(e_);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertTrue(db_.usedDefInExp(PARATONNERRE));
+        assertTrue(db_.usedMoveInExp(PARATONNERRE));
     }
     @Test
     public void used46() {
@@ -447,7 +447,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         b_.getEffects().add(e_);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertFalse(db_.usedDefInExp(PIKACHU));
+        assertFalse(db_.usedMoveInExp(PIKACHU));
     }
     @Test
     public void used47() {
@@ -457,7 +457,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         b_.getEffects().add(e_);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertTrue(db_.usedDefInExp(PARATONNERRE));
+        assertTrue(db_.usedMoveInExp(PARATONNERRE));
     }
     @Test
     public void used48() {
@@ -467,7 +467,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         b_.getEffects().add(e_);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertFalse(db_.usedDefInExp(PIKACHU));
+        assertFalse(db_.usedMoveInExp(PIKACHU));
     }
     @Test
     public void used49() {
@@ -477,7 +477,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         b_.getEffects().add(e_);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertTrue(db_.usedDefInExp(PARATONNERRE));
+        assertTrue(db_.usedMoveInExp(PARATONNERRE));
     }
     @Test
     public void used50() {
@@ -487,7 +487,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         b_.getEffects().add(e_);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertFalse(db_.usedDefInExp(PIKACHU));
+        assertFalse(db_.usedMoveInExp(PIKACHU));
     }
     @Test
     public void used51() {
@@ -497,7 +497,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         b_.getEffects().add(e_);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertTrue(db_.usedDefInExp(PARATONNERRE));
+        assertTrue(db_.usedMoveInExp(PARATONNERRE));
     }
     @Test
     public void used52() {
@@ -507,7 +507,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         b_.getEffects().add(e_);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertFalse(db_.usedDefInExp(PIKACHU));
+        assertFalse(db_.usedMoveInExp(PIKACHU));
     }
     @Test
     public void used53() {
@@ -517,7 +517,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         eff_.setFailEndRound(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertTrue(db_.usedDefInExp(PARATONNERRE));
+        assertTrue(db_.usedMoveInExp(PARATONNERRE));
     }
     @Test
     public void used54() {
@@ -527,7 +527,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         eff_.setFailEndRound(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertFalse(db_.usedDefInExp(PIKACHU));
+        assertFalse(db_.usedMoveInExp(PIKACHU));
     }
     @Test
     public void used55() {
@@ -537,7 +537,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         eff_.setFail(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertTrue(db_.usedDefInExp(PARATONNERRE));
+        assertTrue(db_.usedStatusInExp(PARATONNERRE));
     }
     @Test
     public void used56() {
@@ -547,7 +547,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         eff_.setFailEndRound(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertTrue(db_.usedDefInExp(PARATONNERRE));
+        assertTrue(db_.usedStatusInExp(PARATONNERRE));
     }
     @Test
     public void used57() {
@@ -557,7 +557,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         eff_.setFail(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertFalse(db_.usedDefInExp(PIKACHU));
+        assertFalse(db_.usedStatusInExp(PIKACHU));
     }
     @Test
     public void used58() {
@@ -567,7 +567,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         eff_.setFailEndRound(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
-        assertFalse(db_.usedDefInExp(PIKACHU));
+        assertFalse(db_.usedStatusInExp(PIKACHU));
     }
     @Test
     public void used59() {
@@ -577,7 +577,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         eff_.setFail(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.getCombos().getEffects().add(new ListEffectCombo(new StringList(POKE_BALL),b_));
-        assertTrue(db_.usedDefInExp(PARATONNERRE));
+        assertTrue(db_.usedMoveInExp(PARATONNERRE));
     }
     @Test
     public void used60() {
@@ -587,7 +587,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         eff_.setFailEndRound(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.getCombos().getEffects().add(new ListEffectCombo(new StringList(POKE_BALL),b_));
-        assertTrue(db_.usedDefInExp(PARATONNERRE));
+        assertTrue(db_.usedMoveInExp(PARATONNERRE));
     }
     @Test
     public void used61() {
@@ -597,7 +597,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         eff_.setFail(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.getCombos().getEffects().add(new ListEffectCombo(new StringList(POKE_BALL),b_));
-        assertFalse(db_.usedDefInExp(PIKACHU));
+        assertFalse(db_.usedMoveInExp(PIKACHU));
     }
     @Test
     public void used62() {
@@ -607,7 +607,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         eff_.setFailEndRound(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.getCombos().getEffects().add(new ListEffectCombo(new StringList(POKE_BALL),b_));
-        assertFalse(db_.usedDefInExp(PIKACHU));
+        assertFalse(db_.usedMoveInExp(PIKACHU));
     }
     @Test
     public void used63() {
@@ -693,7 +693,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
     @Test
     public void isUsed7() {
         DataBase db_ = newData();
-        db_.getCategories().add(POKE_BALL);
+        db_.getAllCategories().add(POKE_BALL);
         assertTrue(db_.isUsed(POKE_BALL));
     }
     @Test
