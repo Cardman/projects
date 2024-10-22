@@ -23,6 +23,7 @@ import aiki.game.player.enums.Sex;
 import aiki.instances.Instances;
 import aiki.map.DataMap;
 import aiki.map.buildings.Building;
+import aiki.map.buildings.Gym;
 import aiki.map.characters.*;
 import aiki.map.enums.Direction;
 import aiki.map.levels.*;
@@ -6630,6 +6631,158 @@ public class DataBase {
             return;
         }
         pokedex.removeKey(_oldName);
+    }
+    public void renameTm(short _oldName, short _newName) {
+        if (tm.contains(_newName)) {
+            return;
+        }
+        for (PokemonData p: pokedex.values()) {
+            Shorts ls_ = p.getTechnicalMoves();
+            replace(_oldName, _newName, ls_);
+        }
+        for (Place p: map.getPlaces()) {
+            levelTm(_oldName, _newName, p);
+        }
+        tm.move(_oldName,_newName);
+    }
+
+    private void levelTm(short _oldName, short _newName, Place _p) {
+        for (Level l: _p.getLevelsList()) {
+            if (l instanceof LevelWithWildPokemon) {
+                levelTm(_oldName, _newName, (LevelWithWildPokemon) l);
+            }
+        }
+        if (_p instanceof City) {
+            for (Building b: ((City) _p).getBuildings().values()) {
+                if (b instanceof Gym) {
+                    updateTm(_oldName, _newName, (Gym) b);
+                }
+            }
+        }
+    }
+
+    private void levelTm(short _oldName, short _newName, LevelWithWildPokemon _l) {
+        new ChangeShortValueUtil<Point>(_l.getTm()).replace(_oldName, _newName);
+        for (CharacterInRoadCave c: _l.getCharacters().values()) {
+            if (c instanceof DealerItem) {
+                replace(_oldName, _newName,((DealerItem)c).getTechnicalMoves());
+            }
+        }
+    }
+
+    private void updateTm(short _oldName, short _newName, Gym _b) {
+        ChangeShortFieldGymLeader ch_ = new ChangeShortFieldGymLeader(_b.getIndoor().getGymLeader());
+        if (ch_.value() == _oldName) {
+            ch_.value(_newName);
+        }
+    }
+
+    public void renameHm(short _oldName, short _newName) {
+        if (hm.contains(_newName)) {
+            return;
+        }
+        for (PokemonData p: pokedex.values()) {
+            Shorts ls_ = p.getHiddenMoves();
+            replace(_oldName, _newName, ls_);
+        }
+        for (Place p: map.getPlaces()) {
+            levelHm(_oldName, _newName, p);
+        }
+        hm.move(_oldName,_newName);
+    }
+
+    private void levelHm(short _oldName, short _newName, Place _p) {
+        for (Level l: _p.getLevelsList()) {
+            if (l instanceof LevelWithWildPokemon) {
+                levelHm(_oldName, _newName, (LevelWithWildPokemon) l);
+            }
+        }
+    }
+
+    private void levelHm(short _oldName, short _newName, LevelWithWildPokemon _l) {
+        new ChangeShortValueUtil<Point>(_l.getHm()).replace(_oldName, _newName);
+    }
+    private static void replace(short _oldName, short _newName, Shorts _ls) {
+        int len_ = _ls.size();
+        for (int i = 0; i < len_; i++) {
+            if (_ls.get(i) == _oldName) {
+                _ls.set(i, _newName);
+            }
+        }
+    }
+
+    public void deleteTm(short _oldName) {
+        ChangeShortKeyUtil ch_ = new ChangeShortKeyUtil();
+        for (PokemonData p: pokedex.values()) {
+            Shorts ls_ = p.getTechnicalMoves();
+            ch_.add(new ChangeStringFieldMatchShortsContains(ls_));
+        }
+        for (Place p: map.getPlaces()) {
+            ch_.addAllElts(levelTm(p));
+        }
+        if (ch_.contains(_oldName)) {
+            return;
+        }
+        tm.removeKey(_oldName);
+    }
+
+    private CustList<ChangeShortFieldMatch> levelTm(Place _p) {
+        CustList<ChangeShortFieldMatch> ls_ = new CustList<ChangeShortFieldMatch>();
+        for (Level l: _p.getLevelsList()) {
+            if (l instanceof LevelWithWildPokemon) {
+                ls_.addAllElts(levelTm((LevelWithWildPokemon) l));
+            }
+        }
+        if (_p instanceof City) {
+            for (Building b: ((City) _p).getBuildings().values()) {
+                if (b instanceof Gym) {
+                    ls_.add(updateTm((Gym) b));
+                }
+            }
+        }
+        return ls_;
+    }
+
+    private ChangeShortFieldMatchDef updateTm(Gym _b) {
+        return new ChangeShortFieldMatchDef(new ChangeShortFieldGymLeader(_b.getIndoor().getGymLeader()));
+    }
+    private CustList<ChangeShortFieldMatch> levelTm(LevelWithWildPokemon _l) {
+        CustList<ChangeShortFieldMatch> ls_ = new CustList<ChangeShortFieldMatch>();
+        ls_.add(new ChangeShortValueUtil<Point>(_l.getTm()));
+        for (CharacterInRoadCave c: _l.getCharacters().values()) {
+            if (c instanceof DealerItem) {
+                ls_.add(new ChangeStringFieldMatchShortsContains(((DealerItem)c).getTechnicalMoves()));
+            }
+        }
+        return ls_;
+    }
+    public void deleteHm(short _oldName) {
+        ChangeShortKeyUtil ch_ = new ChangeShortKeyUtil();
+        for (PokemonData p: pokedex.values()) {
+            Shorts ls_ = p.getHiddenMoves();
+            ch_.add(new ChangeStringFieldMatchShortsContains(ls_));
+        }
+        for (Place p: map.getPlaces()) {
+            ch_.addAllElts(levelHm(p));
+        }
+        if (ch_.contains(_oldName)) {
+            return;
+        }
+        hm.removeKey(_oldName);
+    }
+
+    private CustList<ChangeShortFieldMatch> levelHm(Place _p) {
+        CustList<ChangeShortFieldMatch> ls_ = new CustList<ChangeShortFieldMatch>();
+        for (Level l: _p.getLevelsList()) {
+            if (l instanceof LevelWithWildPokemon) {
+                ls_.add(levelHm((LevelWithWildPokemon) l));
+            }
+        }
+        return ls_;
+    }
+
+    private ChangeShortFieldMatch levelHm(LevelWithWildPokemon _l) {
+        return new ChangeShortValueUtil<Point>(_l.getHm());
     }
     public void renameMove(String _oldName, String _newName) {
         if (isUsed(_newName)) {

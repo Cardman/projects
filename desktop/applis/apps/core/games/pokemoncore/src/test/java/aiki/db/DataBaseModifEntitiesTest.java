@@ -2311,6 +2311,308 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         db_.deleteCategory(db_.getDefCategory());
         assertEq(2,db_.getAllCategories().size());
     }
+    @Test
+    public void renameTm1() {
+        DataBase db_ = newData();
+        db_.getTm().addEntry((short)1,POKE_BALL);
+        db_.renameTm((short)1,(short)1);
+        assertEq(1,db_.getTm().size());
+        assertEq(1,db_.getTm().firstKey());
+    }
+    @Test
+    public void renameTm2() {
+        DataBase db_ = newData();
+        db_.getTm().addEntry((short)1,POKE_BALL);
+        PokemonData pk_ = Instances.newPokemonData();
+        pk_.getTechnicalMoves().add((short) 1);
+        db_.completeMembers(TREMPETTE, pk_);
+        db_.renameTm((short)1,(short)2);
+        assertEq(1,db_.getTm().size());
+        assertEq(2,db_.getTm().firstKey());
+        assertEq(2,pk_.getTechnicalMoves().first());
+    }
+    @Test
+    public void renameTm3() {
+        DataBase db_ = newData();
+        db_.getTm().addEntry((short)1,POKE_BALL);
+        PokemonData pk_ = Instances.newPokemonData();
+        pk_.getTechnicalMoves().add((short) 3);
+        db_.completeMembers(TREMPETTE, pk_);
+        db_.renameTm((short)1,(short)2);
+        assertEq(1,db_.getTm().size());
+        assertEq(2,db_.getTm().firstKey());
+        assertEq(3,pk_.getTechnicalMoves().first());
+    }
+    @Test
+    public void renameTm4() {
+        DataBase db_ = newData();
+        db_.getTm().addEntry((short)1,POKE_BALL);
+        Road r_ = Instances.newRoad();
+        r_.getLevelRoad().getTm().addEntry(newPoint(0,0), (short) 1);
+        db_.getMap().getPlaces().add(r_);
+        db_.renameTm((short)1,(short)2);
+        assertEq(1,db_.getTm().size());
+        assertEq(2,db_.getTm().firstKey());
+        assertEq(2,r_.getLevelRoad().getTm().getList().first().getValue());
+    }
+    @Test
+    public void renameTm5() {
+        DataBase db_ = newData();
+        db_.getTm().addEntry((short)1,POKE_BALL);
+        Road r_ = Instances.newRoad();
+        r_.getLevelRoad().getTm().addEntry(newPoint(0,0), (short) 3);
+        db_.getMap().getPlaces().add(r_);
+        db_.renameTm((short)1,(short)2);
+        assertEq(1,db_.getTm().size());
+        assertEq(2,db_.getTm().firstKey());
+        assertEq(3,r_.getLevelRoad().getTm().getList().first().getValue());
+    }
+    @Test
+    public void renameTm6() {
+        DataBase db_ = newData();
+        db_.getTm().addEntry((short)1,POKE_BALL);
+        Road r_ = Instances.newRoad();
+        DealerItem d_ = Instances.newDealerItem();
+        d_.getTechnicalMoves().add((short) 1);
+        r_.getLevelRoad().getCharacters().addEntry(newPoint(0,0), d_);
+        r_.getLevelRoad().getCharacters().addEntry(newPoint(0,1),Instances.newTrainerMultiFights());
+        db_.getMap().getPlaces().add(r_);
+        db_.renameTm((short)1,(short)2);
+        assertEq(1,db_.getTm().size());
+        assertEq(2,db_.getTm().firstKey());
+        assertEq(2,d_.getTechnicalMoves().first());
+    }
+    @Test
+    public void renameTm7() {
+        DataBase db_ = newData();
+        db_.getTm().addEntry((short)1,POKE_BALL);
+        City r_ = Instances.newCity();
+        Gym g_ = Instances.newGym();
+        g_.getIndoor().getGymLeader().setTm((short) 1);
+        r_.getBuildings().addEntry(newPoint(0,0), g_);
+        r_.getBuildings().addEntry(newPoint(0,1),Instances.newPokemonCenter());
+        db_.getMap().getPlaces().add(r_);
+        db_.renameTm((short)1,(short)2);
+        assertEq(1,db_.getTm().size());
+        assertEq(2,db_.getTm().firstKey());
+        assertEq(2,g_.getIndoor().getGymLeader().getTm());
+    }
+    @Test
+    public void renameTm8() {
+        DataBase db_ = newData();
+        db_.getTm().addEntry((short)1,POKE_BALL);
+        City r_ = Instances.newCity();
+        Gym g_ = Instances.newGym();
+        g_.getIndoor().getGymLeader().setTm((short) 3);
+        r_.getBuildings().addEntry(newPoint(0,0), g_);
+        r_.getBuildings().addEntry(newPoint(0,1),Instances.newPokemonCenter());
+        db_.getMap().getPlaces().add(r_);
+        db_.renameTm((short)1,(short)2);
+        assertEq(1,db_.getTm().size());
+        assertEq(2,db_.getTm().firstKey());
+        assertEq(3,g_.getIndoor().getGymLeader().getTm());
+    }
+    @Test
+    public void deleteTm1() {
+        DataBase db_ = newData();
+        db_.getTm().addEntry((short)1,POKE_BALL);
+        db_.deleteTm((short)1);
+        assertEq(0,db_.getTm().size());
+    }
+    @Test
+    public void deleteTm2() {
+        DataBase db_ = newData();
+        db_.getTm().addEntry((short)1,POKE_BALL);
+        PokemonData pk_ = Instances.newPokemonData();
+        pk_.getTechnicalMoves().add((short) 1);
+        db_.completeMembers(TREMPETTE, pk_);
+        db_.deleteTm((short)1);
+        assertEq(1,db_.getTm().size());
+    }
+    @Test
+    public void deleteTm3() {
+        DataBase db_ = newData();
+        db_.getTm().addEntry((short)1,POKE_BALL);
+        PokemonData pk_ = Instances.newPokemonData();
+        pk_.getTechnicalMoves().add((short) 3);
+        db_.completeMembers(TREMPETTE, pk_);
+        db_.deleteTm((short)1);
+        assertEq(0,db_.getTm().size());
+    }
+    @Test
+    public void deleteTm4() {
+        DataBase db_ = newData();
+        db_.getTm().addEntry((short)1,POKE_BALL);
+        Road r_ = Instances.newRoad();
+        r_.getLevelRoad().getTm().addEntry(newPoint(0,0), (short) 1);
+        db_.getMap().getPlaces().add(r_);
+        db_.deleteTm((short)1);
+        assertEq(1,db_.getTm().size());
+    }
+    @Test
+    public void deleteTm5() {
+        DataBase db_ = newData();
+        db_.getTm().addEntry((short)1,POKE_BALL);
+        Road r_ = Instances.newRoad();
+        r_.getLevelRoad().getTm().addEntry(newPoint(0,0), (short) 3);
+        db_.getMap().getPlaces().add(r_);
+        db_.deleteTm((short)1);
+        assertEq(0,db_.getTm().size());
+    }
+    @Test
+    public void deleteTm6() {
+        DataBase db_ = newData();
+        db_.getTm().addEntry((short)1,POKE_BALL);
+        Road r_ = Instances.newRoad();
+        DealerItem d_ = Instances.newDealerItem();
+        d_.getTechnicalMoves().add((short) 1);
+        r_.getLevelRoad().getCharacters().addEntry(newPoint(0,0), d_);
+        r_.getLevelRoad().getCharacters().addEntry(newPoint(0,1),Instances.newTrainerMultiFights());
+        db_.getMap().getPlaces().add(r_);
+        db_.deleteTm((short)1);
+        assertEq(1,db_.getTm().size());
+    }
+    @Test
+    public void deleteTm7() {
+        DataBase db_ = newData();
+        db_.getTm().addEntry((short)1,POKE_BALL);
+        City r_ = Instances.newCity();
+        Gym g_ = Instances.newGym();
+        g_.getIndoor().getGymLeader().setTm((short) 1);
+        r_.getBuildings().addEntry(newPoint(0,0), g_);
+        r_.getBuildings().addEntry(newPoint(0,1),Instances.newPokemonCenter());
+        db_.getMap().getPlaces().add(r_);
+        db_.deleteTm((short)1);
+        assertEq(1,db_.getTm().size());
+    }
+    @Test
+    public void deleteTm8() {
+        DataBase db_ = newData();
+        db_.getTm().addEntry((short)1,POKE_BALL);
+        City r_ = Instances.newCity();
+        Gym g_ = Instances.newGym();
+        g_.getIndoor().getGymLeader().setTm((short) 3);
+        r_.getBuildings().addEntry(newPoint(0,0), g_);
+        r_.getBuildings().addEntry(newPoint(0,1),Instances.newPokemonCenter());
+        db_.getMap().getPlaces().add(r_);
+        db_.deleteTm((short)1);
+        assertEq(0,db_.getTm().size());
+    }
+    @Test
+    public void renameHm1() {
+        DataBase db_ = newData();
+        db_.getHm().addEntry((short)1,POKE_BALL);
+        db_.renameHm((short)1,(short)1);
+        assertEq(1,db_.getHm().size());
+        assertEq(1,db_.getHm().firstKey());
+    }
+    @Test
+    public void renameHm2() {
+        DataBase db_ = newData();
+        db_.getHm().addEntry((short)1,POKE_BALL);
+        PokemonData pk_ = Instances.newPokemonData();
+        pk_.getHiddenMoves().add((short) 1);
+        db_.completeMembers(TREMPETTE, pk_);
+        db_.renameHm((short)1,(short)2);
+        assertEq(1,db_.getHm().size());
+        assertEq(2,db_.getHm().firstKey());
+        assertEq(2,pk_.getHiddenMoves().first());
+    }
+    @Test
+    public void renameHm3() {
+        DataBase db_ = newData();
+        db_.getHm().addEntry((short)1,POKE_BALL);
+        PokemonData pk_ = Instances.newPokemonData();
+        pk_.getHiddenMoves().add((short) 3);
+        db_.completeMembers(TREMPETTE, pk_);
+        City r_ = Instances.newCity();
+        Gym g_ = Instances.newGym();
+        g_.getIndoor().getGymLeader().setTm((short) 1);
+        r_.getBuildings().addEntry(newPoint(0,0), g_);
+        r_.getBuildings().addEntry(newPoint(0,1),Instances.newPokemonCenter());
+        db_.getMap().getPlaces().add(r_);
+        db_.renameHm((short)1,(short)2);
+        assertEq(1,db_.getHm().size());
+        assertEq(2,db_.getHm().firstKey());
+        assertEq(3,pk_.getHiddenMoves().first());
+    }
+    @Test
+    public void renameHm4() {
+        DataBase db_ = newData();
+        db_.getHm().addEntry((short)1,POKE_BALL);
+        Road r_ = Instances.newRoad();
+        r_.getLevelRoad().getHm().addEntry(newPoint(0,0), (short) 1);
+        db_.getMap().getPlaces().add(r_);
+        db_.renameHm((short)1,(short)2);
+        assertEq(1,db_.getHm().size());
+        assertEq(2,db_.getHm().firstKey());
+        assertEq(2,r_.getLevelRoad().getHm().getList().first().getValue());
+    }
+    @Test
+    public void renameHm5() {
+        DataBase db_ = newData();
+        db_.getHm().addEntry((short)1,POKE_BALL);
+        Road r_ = Instances.newRoad();
+        r_.getLevelRoad().getHm().addEntry(newPoint(0,0), (short) 3);
+        db_.getMap().getPlaces().add(r_);
+        db_.renameHm((short)1,(short)2);
+        assertEq(1,db_.getHm().size());
+        assertEq(2,db_.getHm().firstKey());
+        assertEq(3,r_.getLevelRoad().getHm().getList().first().getValue());
+    }
+    @Test
+    public void deleteHm1() {
+        DataBase db_ = newData();
+        db_.getHm().addEntry((short)1,POKE_BALL);
+        db_.deleteHm((short)1);
+        assertEq(0,db_.getHm().size());
+    }
+    @Test
+    public void deleteHm2() {
+        DataBase db_ = newData();
+        db_.getHm().addEntry((short)1,POKE_BALL);
+        PokemonData pk_ = Instances.newPokemonData();
+        pk_.getHiddenMoves().add((short) 1);
+        db_.completeMembers(TREMPETTE, pk_);
+        db_.deleteHm((short)1);
+        assertEq(1,db_.getHm().size());
+    }
+    @Test
+    public void deleteHm3() {
+        DataBase db_ = newData();
+        db_.getHm().addEntry((short)1,POKE_BALL);
+        PokemonData pk_ = Instances.newPokemonData();
+        pk_.getHiddenMoves().add((short) 3);
+        db_.completeMembers(TREMPETTE, pk_);
+        City r_ = Instances.newCity();
+        Gym g_ = Instances.newGym();
+        g_.getIndoor().getGymLeader().setTm((short) 1);
+        r_.getBuildings().addEntry(newPoint(0,0), g_);
+        r_.getBuildings().addEntry(newPoint(0,1),Instances.newPokemonCenter());
+        db_.getMap().getPlaces().add(r_);
+        db_.deleteHm((short)1);
+        assertEq(0,db_.getHm().size());
+    }
+    @Test
+    public void deleteHm4() {
+        DataBase db_ = newData();
+        db_.getHm().addEntry((short)1,POKE_BALL);
+        Road r_ = Instances.newRoad();
+        r_.getLevelRoad().getHm().addEntry(newPoint(0,0), (short) 1);
+        db_.getMap().getPlaces().add(r_);
+        db_.deleteHm((short)1);
+        assertEq(1,db_.getHm().size());
+    }
+    @Test
+    public void deleteHm5() {
+        DataBase db_ = newData();
+        db_.getHm().addEntry((short)1,POKE_BALL);
+        Road r_ = Instances.newRoad();
+        r_.getLevelRoad().getHm().addEntry(newPoint(0,0), (short) 3);
+        db_.getMap().getPlaces().add(r_);
+        db_.deleteHm((short)1);
+        assertEq(0,db_.getHm().size());
+    }
     private static DataBase newData() {
         DataBase db_ = new DataBase(DefaultGenerator.oneElt());
         db_.initializeMembers();
