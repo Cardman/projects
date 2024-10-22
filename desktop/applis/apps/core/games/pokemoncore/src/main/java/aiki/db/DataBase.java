@@ -6604,6 +6604,9 @@ public class DataBase {
             }
         }
         pokedex.move(_oldName, _newName);
+        for (StringMap<String> t: getTranslatedPokemon().values()) {
+            t.move(_oldName, _newName);
+        }
     }
     public void deletePokemon(String _oldName) {
         if (usedPkInExp(_oldName)) {
@@ -6631,6 +6634,9 @@ public class DataBase {
             return;
         }
         pokedex.removeKey(_oldName);
+        for (StringMap<String> t: getTranslatedPokemon().values()) {
+            t.removeKey(_oldName);
+        }
     }
     public void renameTm(short _oldName, short _newName) {
         if (tm.contains(_newName)) {
@@ -6818,10 +6824,7 @@ public class DataBase {
         }
         combos.setEffects(effects_);
         for (MoveData m: moves.values()) {
-            m.getAchieveDisappearedPkUsingMove().replace(_oldName, _newName);
-            for (Effect e: m.getEffects()) {
-                moveEffect(_oldName, _newName, e);
-            }
+            move(_oldName, _newName, m);
         }
         for (Place p: map.getPlaces()) {
             for (Level l: p.getLevelsList()) {
@@ -6855,6 +6858,16 @@ public class DataBase {
         new ChangeStringValueUtil<Short>(hm).replace(_oldName, _newName);
         new ChangeStringValueUtil<Short>(tm).replace(_oldName, _newName);
         moves.move(_oldName, _newName);
+        for (StringMap<String> t: getTranslatedMoves().values()) {
+            t.move(_oldName, _newName);
+        }
+    }
+
+    private void move(String _oldName, String _newName, MoveData _m) {
+        _m.getAchieveDisappearedPkUsingMove().replace(_oldName, _newName);
+        for (Effect e: _m.getEffects()) {
+            moveEffect(_oldName, _newName, e);
+        }
     }
 
     public void deleteMove(String _oldName) {
@@ -6902,6 +6915,9 @@ public class DataBase {
         }
         removeMoveFromLists(_oldName, moves.getVal(_oldName));
         moves.removeKey(_oldName);
+        for (StringMap<String> t: getTranslatedMoves().values()) {
+            t.removeKey(_oldName);
+        }
     }
 
     private void move(String _oldName, ChangeStringKeyUtil _ls, String _key, MoveData _value) {
@@ -7083,6 +7099,9 @@ public class DataBase {
             place(_oldName, _newName, p);
         }
         items.move(_oldName, _newName);
+        for (StringMap<String> t: getTranslatedItems().values()) {
+            t.move(_oldName, _newName);
+        }
     }
 
     private void place(String _oldName, String _newName, Place _p) {
@@ -7124,6 +7143,9 @@ public class DataBase {
             return;
         }
         items.removeKey(_oldName);
+        for (StringMap<String> t: getTranslatedItems().values()) {
+            t.removeKey(_oldName);
+        }
     }
     private CustList<ChangeStringFieldMatch> place(Place _p) {
         CustList<ChangeStringFieldMatch> matches_ = new CustList<ChangeStringFieldMatch>();
@@ -7237,18 +7259,7 @@ public class DataBase {
             return;
         }
         changeNameDefInExp(_oldName, _newName);
-        for (MoveData m: moves.values()) {
-            for (Effect e: m.getEffects()) {
-                if (e instanceof EffectSwitchAbilities) {
-                    EffectSwitchAbilities eff_ = (EffectSwitchAbilities) e;
-                    changeValue(new ChangeStringFieldConstAbility(eff_), _oldName, _newName);
-                }
-                if (e instanceof EffectGlobal) {
-                    EffectGlobal eff_ = (EffectGlobal) e;
-                    eff_.getCancelProtectingAbilities().replace(_oldName, _newName);
-                }
-            }
-        }
+        movesMatches(_oldName, _newName);
         for (PokemonData p: pokedex.values()) {
             p.getAbilities().replace(_oldName, _newName);
         }
@@ -7262,6 +7273,24 @@ public class DataBase {
             }
         }
         abilities.move(_oldName, _newName);
+        for (StringMap<String> t: getTranslatedAbilities().values()) {
+            t.move(_oldName, _newName);
+        }
+    }
+
+    private void movesMatches(String _oldName, String _newName) {
+        for (MoveData m: moves.values()) {
+            for (Effect e: m.getEffects()) {
+                if (e instanceof EffectSwitchAbilities) {
+                    EffectSwitchAbilities eff_ = (EffectSwitchAbilities) e;
+                    changeValue(new ChangeStringFieldConstAbility(eff_), _oldName, _newName);
+                }
+                if (e instanceof EffectGlobal) {
+                    EffectGlobal eff_ = (EffectGlobal) e;
+                    eff_.getCancelProtectingAbilities().replace(_oldName, _newName);
+                }
+            }
+        }
     }
 
     public void deleteAbility(String _oldName) {
@@ -7287,6 +7316,9 @@ public class DataBase {
             return;
         }
         abilities.removeKey(_oldName);
+        for (StringMap<String> t: getTranslatedAbilities().values()) {
+            t.removeKey(_oldName);
+        }
     }
 
     private ChangeStringKeyUtil movesMatches() {
@@ -7340,6 +7372,9 @@ public class DataBase {
             }
         }
         status.move(_oldName, _newName);
+        for (StringMap<String> t: getTranslatedStatus().values()) {
+            t.move(_oldName, _newName);
+        }
     }
 
     public void deleteStatus(String _oldName) {
@@ -7373,6 +7408,9 @@ public class DataBase {
             return;
         }
         status.removeKey(_oldName);
+        for (StringMap<String> t: getTranslatedStatus().values()) {
+            t.removeKey(_oldName);
+        }
     }
 
     private ChangeStringKeyUtil statusMatches() {
@@ -7573,6 +7611,9 @@ public class DataBase {
         }
         tableTypes = table_;
         types.replace(_oldName, _newName);
+        for (StringMap<String> t: getTranslatedTypes().values()) {
+            t.move(_oldName, _newName);
+        }
     }
 
     public void deleteType(String _oldName) {
@@ -7616,6 +7657,9 @@ public class DataBase {
         }
         tableTypes = table_;
         types.removeObj(_oldName);
+        for (StringMap<String> t: getTranslatedTypes().values()) {
+            t.removeKey(_oldName);
+        }
     }
     private void typeAbility(String _oldName, String _newName, AbilityData _a) {
         StatisticTypeByte mult_ = new StatisticTypeByte();
@@ -7876,6 +7920,9 @@ public class DataBase {
             damageRateRecoilFoe(_oldName, _newName, o);
         }
         changeCategory(_oldName,_newName);
+        for (StringMap<String> t: getTranslatedCategories().values()) {
+            t.move(_oldName, _newName);
+        }
 //        getAllCategories().replace(_oldName, _newName);
 //        getCategories().replace(_oldName, _newName);
     }
@@ -7899,6 +7946,9 @@ public class DataBase {
         }
         getCategories().removeObj(_oldName);
         getAllCategories().removeObj(_oldName);
+        for (StringMap<String> t: getTranslatedCategories().values()) {
+            t.removeKey(_oldName);
+        }
 //        getAllCategories().replace(_oldName, _newName);
 //        getCategories().replace(_oldName, _newName);
     }
