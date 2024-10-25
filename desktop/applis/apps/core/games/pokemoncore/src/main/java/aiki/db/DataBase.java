@@ -5373,10 +5373,7 @@ public class DataBase {
     }
 
     private void updateInfo(String _moveName, MoveData _move) {
-        if (_move instanceof DamagingMoveData) {
-            categories.add(((DamagingMoveData)_move).getCategory());
-        }
-        allCategories.add(getCategory(_move));
+        addCat(_move, categories, allCategories, defCategory);
 
         variables.addAllElts(getVariableWords(_move.getAccuracy(), prefixedVar()));
 
@@ -5397,6 +5394,17 @@ public class DataBase {
         if (!StringUtil.contains(movesEffectIndiv, _moveName) && !StringUtil.contains(movesEffEndRoundIndiv, _moveName) && _move.getRepeatRoundLaw().events().size() > 0 && _move.getConstUserChoice()) {
             movesConstChoices.add(_moveName);
         }
+    }
+
+    private static void addCat(MoveData _move, StringList _categories, StringList _allCategories, String _defCategory) {
+        String category_;
+        if (_move instanceof DamagingMoveData) {
+            category_ = ((DamagingMoveData) _move).getCategory();
+            _categories.add(category_);
+        } else {
+            category_ = _defCategory;
+        }
+        _allCategories.add(category_);
     }
 
     private void updateInfoEffect(String _moveName, MoveData _move, Effect _e) {
@@ -6555,9 +6563,7 @@ public class DataBase {
 
         return defaultEggGroup;
     }
-    public void removeMoveFromLists(String _moveName,MoveData _move) {
-        categories.removeObj(getCategory(_move));
-        allCategories.removeObj(getCategory(_move));
+    public void removeMoveFromLists(String _moveName) {
         movesCopyingTemp.removeObj(_moveName);
         movesProtAgainstPrio.removeObj(_moveName);
         movesProtAgainstMultiTarget.removeObj(_moveName);
@@ -6607,6 +6613,10 @@ public class DataBase {
         for (StringMap<String> t: getTranslatedPokemon().values()) {
             t.move(_oldName, _newName);
         }
+        miniPk.move(_oldName, _newName);
+        maxiPkBack.move(_oldName, _newName);
+        maxiPkFront.move(_oldName, _newName);
+        legPks.replace(_oldName, _newName);
     }
     public void deletePokemon(String _oldName) {
         if (usedPkInExp(_oldName)) {
@@ -6637,6 +6647,10 @@ public class DataBase {
         for (StringMap<String> t: getTranslatedPokemon().values()) {
             t.removeKey(_oldName);
         }
+        miniPk.removeKey(_oldName);
+        maxiPkBack.removeKey(_oldName);
+        maxiPkFront.removeKey(_oldName);
+        legPks.removeObj(_oldName);
     }
     public void renameTm(short _oldName, short _newName) {
         if (tm.contains(_newName)) {
@@ -6861,6 +6875,7 @@ public class DataBase {
         for (StringMap<String> t: getTranslatedMoves().values()) {
             t.move(_oldName, _newName);
         }
+        changeParams(_oldName, _newName, movesPart());
     }
 
     private void move(String _oldName, String _newName, MoveData _m) {
@@ -6869,7 +6884,20 @@ public class DataBase {
             moveEffect(_oldName, _newName, e);
         }
     }
-
+    public void editMove(String _name, MoveData _modifiedMove) {
+        removeMoveFromLists(_name);
+        completeMembers(_name, _modifiedMove);
+        StringList nextCat_ = new StringList();
+        StringList nextAllCat_ = new StringList();
+        for (EntryCust<String, MoveData> m: moves.entryList()) {
+            addCat(m.getValue(), nextCat_, nextAllCat_, defCategory);
+        }
+        categories.clear();
+        allCategories.clear();
+        categories.addAllElts(nextCat_);
+        allCategories.addAllElts(nextAllCat_);
+        removeDuplicatesCategoriesMoves();
+    }
     public void deleteMove(String _oldName) {
         if (usedMoveInExp(_oldName)) {
             return;
@@ -6899,9 +6927,10 @@ public class DataBase {
             }
             ls_.add(new ChangeStringFieldMatchStringListContains(l));
         }
+        StringList nextCat_ = new StringList();
+        StringList nextAllCat_ = new StringList();
         for (EntryCust<String, MoveData> m: moves.entryList()) {
-            move(_oldName, ls_, m.getKey(), m.getValue());
-
+            move(_oldName, ls_, m.getKey(), m.getValue(), nextCat_, nextAllCat_);
         }
         for (Place p: map.getPlaces()) {
             for (Level l: p.getLevelsList()) {
@@ -6913,19 +6942,26 @@ public class DataBase {
         if (ls_.contains(_oldName)) {
             return;
         }
-        removeMoveFromLists(_oldName, moves.getVal(_oldName));
+        categories.clear();
+        allCategories.clear();
+        categories.addAllElts(nextCat_);
+        allCategories.addAllElts(nextAllCat_);
+        removeDuplicatesCategoriesMoves();
+        removeMoveFromLists(_oldName);
         moves.removeKey(_oldName);
         for (StringMap<String> t: getTranslatedMoves().values()) {
             t.removeKey(_oldName);
         }
+        removeParams(_oldName, movesPart());
     }
 
-    private void move(String _oldName, ChangeStringKeyUtil _ls, String _key, MoveData _value) {
+    private void move(String _oldName, ChangeStringKeyUtil _ls, String _key, MoveData _value, StringList _nextCat, StringList _nextAllCat) {
         if (!StringUtil.quickEq(_key, _oldName)) {
             _ls.add(new ChangeStringFieldMatchStringListContains(_value.getAchieveDisappearedPkUsingMove()));
             for (Effect e: _value.getEffects()) {
                 _ls.addAllElts(moveEffect(e));
             }
+            addCat(_value, _nextCat, _nextAllCat, defCategory);
         }
     }
 
@@ -7102,6 +7138,7 @@ public class DataBase {
         for (StringMap<String> t: getTranslatedItems().values()) {
             t.move(_oldName, _newName);
         }
+        miniItems.move(_oldName, _newName);
     }
 
     private void place(String _oldName, String _newName, Place _p) {
@@ -7146,6 +7183,7 @@ public class DataBase {
         for (StringMap<String> t: getTranslatedItems().values()) {
             t.removeKey(_oldName);
         }
+        miniItems.removeKey(_oldName);
     }
     private CustList<ChangeStringFieldMatch> place(Place _p) {
         CustList<ChangeStringFieldMatch> matches_ = new CustList<ChangeStringFieldMatch>();
@@ -7375,6 +7413,8 @@ public class DataBase {
         for (StringMap<String> t: getTranslatedStatus().values()) {
             t.move(_oldName, _newName);
         }
+        animStatus.move(_oldName,_newName);
+        changeParams(_oldName, _newName, statusPart());
     }
 
     public void deleteStatus(String _oldName) {
@@ -7411,6 +7451,8 @@ public class DataBase {
         for (StringMap<String> t: getTranslatedStatus().values()) {
             t.removeKey(_oldName);
         }
+        animStatus.removeKey(_oldName);
+        removeParams(_oldName, statusPart());
     }
 
     private ChangeStringKeyUtil statusMatches() {
@@ -7614,6 +7656,9 @@ public class DataBase {
         for (StringMap<String> t: getTranslatedTypes().values()) {
             t.move(_oldName, _newName);
         }
+        typesImages.move(_oldName, _newName);
+        typesColors.move(_oldName, _newName);
+        changeParams(_oldName, _newName, typesPart());
     }
 
     public void deleteType(String _oldName) {
@@ -7660,6 +7705,9 @@ public class DataBase {
         for (StringMap<String> t: getTranslatedTypes().values()) {
             t.removeKey(_oldName);
         }
+        typesImages.removeKey(_oldName);
+        typesColors.removeKey(_oldName);
+        removeParams(_oldName, typesPart());
     }
     private void typeAbility(String _oldName, String _newName, AbilityData _a) {
         StatisticTypeByte mult_ = new StatisticTypeByte();
@@ -7923,8 +7971,17 @@ public class DataBase {
         for (StringMap<String> t: getTranslatedCategories().values()) {
             t.move(_oldName, _newName);
         }
+        changeParams(_oldName, _newName, categoriesPart());
 //        getAllCategories().replace(_oldName, _newName);
 //        getCategories().replace(_oldName, _newName);
+    }
+
+    void changeCategory(String _oldName, String _newName) {
+        if (StringUtil.quickEq(_oldName, getDefCategory()) || StringUtil.quickEq(_newName, getDefCategory())) {
+            return;
+        }
+        getAllCategories().replace(_oldName, _newName);
+        getCategories().replace(_oldName, _newName);
     }
 
     public void deleteCategory(String _oldName) {
@@ -7949,6 +8006,7 @@ public class DataBase {
         for (StringMap<String> t: getTranslatedCategories().values()) {
             t.removeKey(_oldName);
         }
+        removeParams(_oldName, categoriesPart());
 //        getAllCategories().replace(_oldName, _newName);
 //        getCategories().replace(_oldName, _newName);
     }
@@ -8029,16 +8087,20 @@ public class DataBase {
         return pair_;
     }
 
-    void changeCategory(String _oldName, String _newName) {
-        if (StringUtil.quickEq(_oldName, getDefCategory()) || StringUtil.quickEq(_newName, getDefCategory())) {
-            return;
+    private void changeParams(String _oldName, String _newName, StringList _parts) {
+        for (EntryCust<String,StringList> e: getVarParamsMove().entryList()) {
+            if (_parts.containsObj(StringUtil.concat(e.getKey(),SEP_BETWEEN_KEYS))) {
+                e.getValue().replace(_oldName,_newName);
+            }
         }
-        getCategories().removeObj(_oldName);
-        getAllCategories().removeObj(_oldName);
-        getCategories().add(_newName);
-        getAllCategories().add(_newName);
-        getCategories().removeDuplicates();
-        getAllCategories().removeDuplicates();
+    }
+
+    private void removeParams(String _oldName, StringList _parts) {
+        for (EntryCust<String,StringList> e: getVarParamsMove().entryList()) {
+            if (_parts.containsObj(StringUtil.concat(e.getKey(),SEP_BETWEEN_KEYS))) {
+                e.getValue().removeObj(_oldName);
+            }
+        }
     }
 
     public static void changeValue(ChangeStringField _i, String _oldName, String _newName) {
