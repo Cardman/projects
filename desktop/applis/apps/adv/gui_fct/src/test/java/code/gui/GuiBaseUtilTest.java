@@ -634,7 +634,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         mess_.addEntry("2","TWO");
         GeneComponentModelEltStr g_ = new GeneComponentModelEltStr(init(), mess_,new CustList<String>("1","2"));
         g_.gene();
-        assertNull(g_.value());
+        assertEq("",g_.value());
     }
     @Test
     public void modelElt2() {

@@ -70,10 +70,12 @@ public abstract class GeneComponentModelElt<T> implements GeneComponentModel<T> 
 
     private T tryRet(int _sel) {
         if (!elements.isValidIndex(_sel)) {
-            return null;
+            return defValue();
         }
         return elements.get(_sel);
     }
+
+    protected abstract T defValue();
 
     public CustList<T> getElements() {
         return elements;

@@ -17,4 +17,8 @@ public final class GeneComponentModelEltStr extends GeneComponentModelElt<String
         _t.select(StringUtil.indexOf(getElements(),_v));
     }
 
+    @Override
+    protected String defValue() {
+        return "";
+    }
 }
