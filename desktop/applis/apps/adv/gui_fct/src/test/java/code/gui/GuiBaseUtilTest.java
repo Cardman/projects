@@ -3,6 +3,8 @@ package code.gui;
 import code.gui.events.*;
 import code.gui.files.ClosingFileFrameEvent;
 import code.gui.initialize.*;
+import code.maths.LgInt;
+import code.maths.Rate;
 import code.mock.*;
 import code.stream.AbsClipStream;
 import code.threads.ConcreteBoolean;
@@ -587,6 +589,43 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         assertEq(2,c_.getList().size());
         assertEq("ONE",c_.getList().get(0));
         assertEq("TWO",c_.getList().get(1));
+    }
+    @Test
+    public void modelLongChg() {
+        MockTextField txt_ = new MockTextField();
+        txt_.setText("2");
+        ChgLgInput c_ = new ChgLgInput(1, txt_);
+        c_.action();
+        assertEq("3",txt_.getText());
+    }
+    @Test
+    public void modelLong() {
+        GeneComponentModelLong g_ = new GeneComponentModelLong(init());
+        g_.gene();
+        g_.value(5L);
+        assertEq(5L,g_.value());
+    }
+    @Test
+    public void modelLgIntChg() {
+        MockTextField txt_ = new MockTextField();
+        txt_.setText("2");
+        ChgLgTextInput c_ = new ChgLgTextInput(1, txt_);
+        c_.action();
+        assertEq("3",txt_.getText());
+    }
+    @Test
+    public void modelLgInt() {
+        GeneComponentModelLgInt g_ = new GeneComponentModelLgInt(init());
+        g_.gene();
+        g_.value(new LgInt(5L));
+        assertEq(new LgInt(5L), g_.value());
+    }
+    @Test
+    public void modelRate() {
+        GeneComponentModelRate g_ = new GeneComponentModelRate(init());
+        g_.gene();
+        g_.value(new Rate(5L));
+        assertEq(new Rate(5L), g_.value());
     }
     @Test
     public void quit() {

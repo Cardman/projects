@@ -2,6 +2,8 @@ package code.gui;
 
 import code.gui.events.*;
 import code.gui.files.*;
+import code.maths.LgInt;
+import code.maths.Rate;
 import code.mock.*;
 import code.sml.util.*;
 import code.stream.*;
@@ -152,7 +154,14 @@ public abstract class EquallableGuiFctUtil {
     public static void assertEq(long _expected, long _result) {
         Assert.assertEquals(_expected, _result);
     }
-
+    public static void assertEq(LgInt _expected, LgInt _result) {
+        Assert.assertNotNull(_result);
+        Assert.assertTrue(StringUtil.concat(_expected.toNumberString(),"!=",_result.toNumberString()), _expected.eq(_result));
+    }
+    public static void assertEq(Rate _expected, Rate _result) {
+        Assert.assertNotNull(_result);
+        Assert.assertTrue(StringUtil.concat(_expected.toNumberString(),"!=",_result.toNumberString()), _expected.eq(_result));
+    }
     public static void assertTrue(boolean _value) {
         Assert.assertTrue(_value);
     }
