@@ -656,6 +656,38 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         assertEq("1",g_.value());
     }
     @Test
+    public void modelLs1() {
+        StringMap<String> mess_ = new StringMap<String>();
+        mess_.addEntry("1","ONE");
+        mess_.addEntry("2","TWO");
+        GeneComponentModelLsStr g_ = new GeneComponentModelLsStr(init(), mess_,new CustList<String>("1","2"));
+        g_.gene();
+        assertEq(0,g_.value().size());
+    }
+    @Test
+    public void modelLs2() {
+        StringMap<String> mess_ = new StringMap<String>();
+        mess_.addEntry("1","ONE");
+        mess_.addEntry("2","TWO");
+        GeneComponentModelLsStr g_ = new GeneComponentModelLsStr(init(), mess_,new CustList<String>("1","2"));
+        g_.gene(new CustList<String>("2"));
+        CustList<String> ls_ = g_.value();
+        assertEq(1, ls_.size());
+        assertEq("2", ls_.get(0));
+    }
+    @Test
+    public void modelLs3() {
+        StringMap<String> mess_ = new StringMap<String>();
+        mess_.addEntry("1","ONE");
+        mess_.addEntry("2","TWO");
+        GeneComponentModelLsStr g_ = new GeneComponentModelLsStr(init(), mess_,new CustList<String>("1","2"));
+        g_.gene(new CustList<String>("2"));
+        g_.value(new CustList<String>("1"));
+        CustList<String> ls_ = g_.value();
+        assertEq(1, ls_.size());
+        assertEq("1", ls_.get(0));
+    }
+    @Test
     public void quit() {
         SampleGroupFrame fr_ = new SampleGroupFrame(init());
         new QuitEvent(fr_).action();
