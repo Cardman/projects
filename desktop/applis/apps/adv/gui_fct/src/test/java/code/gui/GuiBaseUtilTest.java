@@ -628,6 +628,34 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         assertEq(new Rate(5L), g_.value());
     }
     @Test
+    public void modelElt1() {
+        StringMap<String> mess_ = new StringMap<String>();
+        mess_.addEntry("1","ONE");
+        mess_.addEntry("2","TWO");
+        GeneComponentModelEltStr g_ = new GeneComponentModelEltStr(init(), mess_,new CustList<String>("1","2"));
+        g_.gene();
+        assertNull(g_.value());
+    }
+    @Test
+    public void modelElt2() {
+        StringMap<String> mess_ = new StringMap<String>();
+        mess_.addEntry("1","ONE");
+        mess_.addEntry("2","TWO");
+        GeneComponentModelEltStr g_ = new GeneComponentModelEltStr(init(), mess_,new CustList<String>("1","2"));
+        g_.gene("2");
+        assertEq("2",g_.value());
+    }
+    @Test
+    public void modelElt3() {
+        StringMap<String> mess_ = new StringMap<String>();
+        mess_.addEntry("1","ONE");
+        mess_.addEntry("2","TWO");
+        GeneComponentModelEltStr g_ = new GeneComponentModelEltStr(init(), mess_,new CustList<String>("1","2"));
+        g_.gene("2");
+        g_.value("1");
+        assertEq("1",g_.value());
+    }
+    @Test
     public void quit() {
         SampleGroupFrame fr_ = new SampleGroupFrame(init());
         new QuitEvent(fr_).action();
