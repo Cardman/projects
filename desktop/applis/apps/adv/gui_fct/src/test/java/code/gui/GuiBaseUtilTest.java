@@ -523,6 +523,72 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         assertEq(20,c_.getList().getValue(1));
     }
     @Test
+    public void crudList1() {
+        CustList<String> m_ = new CustList<String>();
+        m_.add("ONE");
+        CrudGeneFormList<String> c_ = crudList(m_, new StringList("ONE"));
+        assertEq(1,c_.getList().size());
+        assertEq("ONE",c_.getList().get(0));
+        assertFalse(c_.isVisibleSingle());
+        assertEq(4,c_.getButtons().getComponentCount());
+    }
+    @Test
+    public void crudList2() {
+        CustList<String> m_ = new CustList<String>();
+        m_.add("ONE");
+        CrudGeneFormList<String> c_ = crudList(m_, new StringList("ONE","TWO"));
+        c_.getAdd().getActionListeners().get(0).action();
+        assertTrue(c_.isVisibleSingle());
+        c_.getGene().value("TWO");
+        c_.getValidAddEdit().getActionListeners().get(0).action();
+        assertEq(2,c_.getList().size());
+        assertEq("ONE",c_.getList().get(0));
+        assertEq("TWO",c_.getList().get(1));
+    }
+    @Test
+    public void crudList3() {
+        CustList<String> m_ = new CustList<String>();
+        m_.add("ONE");
+        CrudGeneFormList<String> c_ = crudList(m_, new StringList("ONE","TWO"));
+        c_.getAdd().getActionListeners().get(0).action();
+        c_.getGene().value("TWO");
+        c_.getValidAddEdit().getActionListeners().get(0).action();
+        ((AbsButton)c_.getElements().getComponent(0)).getActionListeners().get(0).action();
+        c_.getGene().value("ONE");
+        c_.getValidAddEdit().getActionListeners().get(0).action();
+        assertEq(2,c_.getList().size());
+        assertEq("ONE",c_.getList().get(0));
+        assertEq("TWO",c_.getList().get(1));
+    }
+    @Test
+    public void crudList4() {
+        CustList<String> m_ = new CustList<String>();
+        m_.add("ONE");
+        CrudGeneFormList<String> c_ = crudList(m_, new StringList("ONE","TWO"));
+        c_.getAdd().getActionListeners().get(0).action();
+        c_.getGene().value("TWO");
+        c_.getValidAddEdit().getActionListeners().get(0).action();
+        ((AbsButton)c_.getElements().getComponent(0)).getActionListeners().get(0).action();
+        c_.getValidRemove().getActionListeners().get(0).action();
+        assertEq(1,c_.getList().size());
+        assertEq("TWO",c_.getList().get(0));
+    }
+    @Test
+    public void crudList5() {
+        CustList<String> m_ = new CustList<String>();
+        m_.add("ONE");
+        CrudGeneFormList<String> c_ = crudList(m_, new StringList("ONE","TWO"));
+        c_.getAdd().getActionListeners().get(0).action();
+        c_.getGene().value("TWO");
+        c_.getValidAddEdit().getActionListeners().get(0).action();
+        ((AbsButton)c_.getElements().getComponent(0)).getActionListeners().get(0).action();
+        c_.getGene().value("ONE");
+        c_.getCancel().getActionListeners().get(0).action();
+        assertEq(2,c_.getList().size());
+        assertEq("ONE",c_.getList().get(0));
+        assertEq("TWO",c_.getList().get(1));
+    }
+    @Test
     public void quit() {
         SampleGroupFrame fr_ = new SampleGroupFrame(init());
         new QuitEvent(fr_).action();
@@ -756,7 +822,13 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         GuiBaseUtil.initStringMapInt(f_, c_, _map, _dico,new DefValidateText());
         return c_;
     }
-
+    private CrudGeneFormList<String> crudList(CustList<String> _map, StringList _dico) {
+        MockProgramInfosSecSample pr_ = init();
+        AbsCommonFrame f_ = pr_.getFrameFactory().newCommonFrame();
+        CrudGeneFormList<String> c_ = new CrudGeneFormList<String>(pr_);
+        GuiBaseUtil.initStringList(f_, c_, _map, _dico,new DefValidateText());
+        return c_;
+    }
     private boolean launch(MockSoundRecord _pl) {
         return GuiBaseUtil.launch(_pl.build());
     }

@@ -1,19 +1,18 @@
 package code.gui;
 
 import code.gui.events.AbsActionListener;
-import code.util.EntryCust;
 
-public final class SelectCrudGeneFormEvent<K,V> implements AbsActionListener {
-    private final CrudGeneForm<K,V> crud;
-    private final EntryCust<K,V> entry;
+public final class SelectCrudGeneFormEvent implements AbsActionListener {
+    private final AbsCrudGeneForm crud;
+    private final int index;
 
-    public SelectCrudGeneFormEvent(CrudGeneForm<K, V> _c, EntryCust<K, V> _e) {
+    public SelectCrudGeneFormEvent(AbsCrudGeneForm _c, int _i) {
         this.crud = _c;
-        this.entry = _e;
+        this.index = _i;
     }
 
     @Override
     public void action() {
-        crud.select(entry);
+        crud.select(index);
     }
 }

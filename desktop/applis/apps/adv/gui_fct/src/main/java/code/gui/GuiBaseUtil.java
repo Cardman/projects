@@ -565,6 +565,10 @@ public final class GuiBaseUtil {
         _f.initForm(_c,new StringIntDisplayEntryCust(),new GeneComponentModelString(_f.getFactory(), _aDictionary, _after),new GeneComponentModelInt(_f.getFactory()),new NaturalComparator(),_m);
     }
 
+    public static void initStringList(AbsCommonFrame _c,CrudGeneFormList<String> _f, CustList<String> _m, StringList _aDictionary, AfterValidateText _after) {
+        _f.initForm(_c,new IntStringDisplayEntryCust(),new GeneComponentModelString(_f.getFactory(), _aDictionary, _after),_m);
+    }
+
     public static ScrollCustomGraphicList<String> standard(AbsCompoFactory _compo, AbstractImageFactory _img, boolean _simple, CustList<String> _elts, Ints _selected, int _rows) {
         CustCellRenderString rend_ = new CustCellRenderString(_compo, _img);
         ScrollCustomGraphicList<String> std_ = new DefScrollCustomGraphicList<String>(_compo, _img, rend_, _simple);
