@@ -1,9 +1,9 @@
 package code.gui;
 
-public final class RefreshComboFocusEvent implements AbsFocusListener {
-    private final ScrollCustomCombo list;
+public final class RefreshComboFocusEvent<T> implements AbsFocusListener {
+    private final AbsScrollCustomCombo<T> list;
 
-    public RefreshComboFocusEvent(ScrollCustomCombo _l) {
+    public RefreshComboFocusEvent(AbsScrollCustomCombo<T> _l) {
         this.list = _l;
     }
     @Override

@@ -4,7 +4,6 @@ import code.gui.events.MockProgramInfosSecSample;
 import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
 import code.mock.*;
-import code.util.CustList;
 import code.util.StringList;
 import org.junit.Test;
 
@@ -1059,7 +1058,7 @@ public final class ScrollCustomComboTest extends EquallableGuiFctUtil {
     }
 
     private static ScrollCustomCombo gene(MockProgramInfosSecSample _pr) {
-        ScrollCustomCombo str_ = new DefScrollCustomCombo(_pr.getCompoFactory(), _pr.getImageFactory());
+        ScrollCustomCombo str_ = new ScrollCustomCombo(_pr.getCompoFactory(), _pr.getImageFactory());
         str_.getList().getElements().setFont(str_.getGlobal().getMetaFont());
         str_.getList().getElements().setFont(new MetaFont("",0,8));
         return str_;

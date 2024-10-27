@@ -591,7 +591,7 @@ public final class GuiBaseUtil {
         return combo(_fact, _elts, _index, _compo, new AlwaysActionListenerAct());
     }
     public static ScrollCustomCombo combo(AbstractImageFactory _fact, StringList _elts, int _index, AbsCompoFactory _compo, AbsActionListenerAct _act) {
-        ScrollCustomCombo scr_ = new DefScrollCustomCombo(_compo,_fact, _act);
+        ScrollCustomCombo scr_ = new ScrollCustomCombo(_compo,_fact, _act);
         for (String s: _elts) {
             scr_.add(s);
         }

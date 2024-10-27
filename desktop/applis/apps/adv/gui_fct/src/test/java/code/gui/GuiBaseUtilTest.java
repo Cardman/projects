@@ -629,13 +629,22 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         assertEq(new Rate(5L), g_.value());
     }
     @Test
+    public void modelElt0() {
+        StringMap<String> mess_ = new StringMap<String>();
+        mess_.addEntry("1","ONE");
+        mess_.addEntry("2","TWO");
+        GeneComponentModelEltStr g_ = new GeneComponentModelEltStr(init(), mess_,new CustList<String>());
+        g_.gene();
+        assertEq("",g_.value());
+    }
+    @Test
     public void modelElt1() {
         StringMap<String> mess_ = new StringMap<String>();
         mess_.addEntry("1","ONE");
         mess_.addEntry("2","TWO");
         GeneComponentModelEltStr g_ = new GeneComponentModelEltStr(init(), mess_,new CustList<String>("1","2"));
         g_.gene();
-        assertEq("",g_.value());
+        assertEq("1",g_.value());
     }
     @Test
     public void modelElt2() {
@@ -657,6 +666,17 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         assertEq("1",g_.value());
     }
     @Test
+    public void modelEltId0() {
+        ConcreteInteger one_ = new ConcreteInteger(1);
+        ConcreteInteger two_ = new ConcreteInteger(2);
+        IdMap<ConcreteInteger,String> mess_ = new IdMap<ConcreteInteger,String>();
+        mess_.addEntry(one_,"ONE");
+        mess_.addEntry(two_,"TWO");
+        GeneComponentModelEltEnumSample g_ = new GeneComponentModelEltEnumSample(init(), mess_,new IdList<ConcreteInteger>());
+        g_.gene();
+        assertSame(null,g_.value());
+    }
+    @Test
     public void modelEltId1() {
         ConcreteInteger one_ = new ConcreteInteger(1);
         ConcreteInteger two_ = new ConcreteInteger(2);
@@ -665,7 +685,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         mess_.addEntry(two_,"TWO");
         GeneComponentModelEltEnumSample g_ = new GeneComponentModelEltEnumSample(init(), mess_,new IdList<ConcreteInteger>(one_,two_));
         g_.gene();
-        assertSame(null,g_.value());
+        assertSame(one_,g_.value());
     }
     @Test
     public void modelEltId2() {

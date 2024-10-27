@@ -2,10 +2,10 @@ package code.gui;
 
 import code.gui.events.AbsMouseListenerIntRel;
 
-public final class MoveComboHideAfterMouseEvent implements AbsMouseListenerIntRel {
-    private final ScrollCustomCombo component;
+public final class MoveComboHideAfterMouseEvent<T> implements AbsMouseListenerIntRel {
+    private final AbsScrollCustomCombo<T> component;
 
-    public MoveComboHideAfterMouseEvent(ScrollCustomCombo _c) {
+    public MoveComboHideAfterMouseEvent(AbsScrollCustomCombo<T> _c) {
         this.component = _c;
     }
 

@@ -2,10 +2,10 @@ package code.gui;
 
 import code.gui.events.AbsActionListener;
 
-public final class MoveComboHideEvent implements AbsActionListener {
-    private final ScrollCustomCombo component;
+public final class MoveComboHideEvent<T> implements AbsActionListener {
+    private final AbsScrollCustomCombo<T> component;
 
-    public MoveComboHideEvent(ScrollCustomCombo _c) {
+    public MoveComboHideEvent(AbsScrollCustomCombo<T> _c) {
         this.component = _c;
     }
     @Override

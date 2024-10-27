@@ -4,30 +4,35 @@ import code.gui.initialize.*;
 import code.util.*;
 
 public abstract class GeneComponentModelElt<T> extends GeneComponentModelEltCommon<T> implements GeneComponentModel<T> {
-    protected GeneComponentModelElt(AbstractProgramInfos _c, CustCellRenderGeneStrImpl<T> _rend, CustList<T> _elts) {
-        super(_c, _rend, _elts);
+    private AbsStringScrollCustomCombo<T> select;
+    protected GeneComponentModelElt(AbstractProgramInfos _c, CustList<T> _elts) {
+        super(_c, _elts);
     }
 
     @Override
     public AbsCustComponent gene() {
-        setSelect(new DefScrollCustomGraphicList<T>(getCompoFactory().getCompoFactory(), getCompoFactory().getImageFactory(), getRender(), true));
-        computeWidth(getRender());
+        select = buildSelect();
         feed();
-        return getSelect().getScrollPane();
+        return getSelect().getElements();
     }
 
     @Override
     public AbsCustComponent gene(T _d) {
-        setSelect(new DefScrollCustomGraphicList<T>(getCompoFactory().getCompoFactory(), getCompoFactory().getImageFactory(), getRender(), true));
-        computeWidth(getRender());
+        select = buildSelect();
         feed();
         setupValue(getSelect(),_d);
-        getSelect().events();
-        getSelect().revalidate();
-        return getSelect().getScrollPane();
+        return getSelect().getElements();
     }
 
-    protected abstract void setupValue(DefScrollCustomGraphicList<T> _t, T _v);
+    protected void feed() {
+        for (T e: getElements()) {
+            select.add(e);
+        }
+        select.repaint();
+    }
+    protected abstract AbsStringScrollCustomCombo<T> buildSelect();
+
+    protected abstract void setupValue(AbsStringScrollCustomCombo<T> _t, T _v);
 
     @Override
     public T value() {
@@ -40,6 +45,10 @@ public abstract class GeneComponentModelElt<T> extends GeneComponentModelEltComm
         int sel_ = getSelect().getSelectedIndex();
         setupValue(getSelect(),_v);
         return tryRet(sel_);
+    }
+
+    public AbsStringScrollCustomCombo<T> getSelect() {
+        return select;
     }
 
     private T tryRet(int _sel) {

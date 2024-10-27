@@ -9,12 +9,18 @@ public final class GeneComponentModelEltStr extends GeneComponentModelElt<String
         this(_c, new CustCellRenderGeneStrImpl<String>(_c.getImageFactory(),_messages), _elts);
     }
     public GeneComponentModelEltStr(AbstractProgramInfos _c, CustCellRenderGeneStrImpl<String> _rend, CustList<String> _elts) {
-        super(_c, _rend, _elts);
+        super(_c, _elts);
     }
 
     @Override
-    protected void setupValue(DefScrollCustomGraphicList<String> _t, String _v) {
+    protected AbsStringScrollCustomCombo<String> buildSelect() {
+        return new ScrollCustomCombo(getCompoFactory().getCompoFactory(), getCompoFactory().getImageFactory());
+    }
+
+    @Override
+    protected void setupValue(AbsStringScrollCustomCombo<String> _t, String _v) {
         _t.select(StringUtil.indexOf(getElements(),_v));
+        _t.repaint();
     }
 
     @Override
