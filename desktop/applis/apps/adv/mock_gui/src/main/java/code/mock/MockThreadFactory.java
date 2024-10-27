@@ -36,8 +36,15 @@ public final class MockThreadFactory implements AbstractThreadFactory {
     }
 
     @Override
-    public boolean sleep(long _time) {
-        return mockRand.edit();
+    public int sleep(long _time) {
+        return edit(mockRand);
+    }
+
+    public static int edit(MockAbsRand _rd) {
+        if (_rd.edit()) {
+            return 1;
+        }
+        return 0;
     }
 
     @Override

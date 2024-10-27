@@ -11,8 +11,8 @@ public final class MockTextStreamIn implements AbstractTextStreamIn {
     }
 
     @Override
-    public boolean close() {
-        return true;
+    public int close() {
+        return 1;
     }
 
     @Override

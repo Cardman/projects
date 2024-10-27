@@ -446,7 +446,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
     }
     @Test
     public void sleepTh4() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.25)), new MockFileSet(0, new long[1], new String[]{"/"}));
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.25)), new MockFileSet(0, new long[1], new String[]{"/"}),new MockFalseRand());
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
         ContextEl ctx_ = gene(stds_,opt_);

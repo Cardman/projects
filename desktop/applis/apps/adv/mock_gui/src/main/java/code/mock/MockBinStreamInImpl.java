@@ -19,9 +19,9 @@ public final class MockBinStreamInImpl implements AbstractBinStreamIn {
         range = _r;
     }
     @Override
-    public boolean close() {
+    public int close() {
         out = new byte[0];
-        return true;
+        return 1;
     }
 
 

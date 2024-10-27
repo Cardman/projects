@@ -16,12 +16,12 @@ public abstract class AbMonteCarlo<E> implements IntMonteCarlo {
         }
         return editNumberSeed(MonteCarloUtil.randomNumberSe(MonteCarloUtil.randomNumbersSeed(_lgInt,_gene,_cust),_lgInt));
     }
-    public E editNumber(LgInt _lgInt,AbstractGenerator _gene, CustomSeedGene _cust, CustList<String> _rands) {
+    public E editNumber(LgInt _lgInt,AbstractGenerator _gene, CustomSeedGene _cust, AbsDoubleToStrConverter _conv, CustList<String> _rands) {
         Listable<E> cles_ = events();
         if(cles_.size() == IndexConstants.SECOND_INDEX - IndexConstants.FIRST_INDEX){
             return cles_.first();
         }
-        return editNumberSeed(MonteCarloUtil.randomNumberSe(MonteCarloUtil.randomNumbersSeed(_lgInt,_gene,_cust,_rands),_lgInt));
+        return editNumberSeed(MonteCarloUtil.randomNumberSe(MonteCarloUtil.randomNumbersSeed(_lgInt,_gene,_cust,_conv,_rands),_lgInt));
     }
 
     E editNumberSeed(LgInt _randomNumber) {

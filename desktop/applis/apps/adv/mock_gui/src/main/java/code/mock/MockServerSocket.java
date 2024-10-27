@@ -12,9 +12,9 @@ public final class MockServerSocket implements AbstractServerSocket {
     }
 
     @Override
-    public boolean close() {
+    public int close() {
         closed = true;
-        return true;
+        return 1;
     }
 
     @Override

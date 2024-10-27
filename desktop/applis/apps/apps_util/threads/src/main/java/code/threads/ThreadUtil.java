@@ -19,7 +19,7 @@ public final class ThreadUtil {
         if (_time <= 0) {
             return false;
         }
-        return _fact.sleep(_time);
+        return _fact.sleep(_time) == 1;
     }
 
 }

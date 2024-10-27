@@ -1,7 +1,7 @@
 package code.gui.initialize;
 
 public interface AbstractServerSocket {
-    boolean close();
+    int close();
 
     boolean isOk();
     void setOk(boolean _o);

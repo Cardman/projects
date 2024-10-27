@@ -6,9 +6,11 @@ import code.util.StringMap;
 
 public final class MockTextFactory implements AbstractTextFactory {
     private final StringMap<String> mockBinFact;
+    private final MockAbsRand rand;
 
-    public MockTextFactory(StringMap<String> _mockBinFact) {
+    public MockTextFactory(StringMap<String> _mockBinFact, MockAbsRand _rd) {
         this.mockBinFact = _mockBinFact;
+        this.rand = _rd;
     }
     @Override
     public AbstractTextStreamIn buildIn(String _filePath) {
@@ -16,8 +18,8 @@ public final class MockTextFactory implements AbstractTextFactory {
     }
 
     @Override
-    public boolean write(String _nomFichier, String _text, boolean _append) {
+    public int write(String _nomFichier, String _text, boolean _append) {
         mockBinFact.put(_nomFichier,_text);
-        return false;
+        return MockThreadFactory.edit(rand);
     }
 }

@@ -31,6 +31,6 @@ public final class DefBinFact implements AbstractBinFact {
 
     @Override
     public boolean writeFile(String _nomFichier, byte[] _text) {
-        return textFactory.writeFile(_nomFichier, _text);
+        return textFactory.writeFile(_nomFichier, _text) == 1;
     }
 }

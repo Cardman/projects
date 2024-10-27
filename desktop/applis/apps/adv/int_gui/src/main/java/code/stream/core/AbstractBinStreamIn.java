@@ -2,7 +2,7 @@ package code.stream.core;
 
 
 public interface AbstractBinStreamIn {
-    boolean close();
+    int close();
     int read();
     byte[] getBytes();
 }

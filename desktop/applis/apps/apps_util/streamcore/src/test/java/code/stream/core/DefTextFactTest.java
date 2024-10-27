@@ -1,6 +1,7 @@
 package code.stream.core;
 
 import code.mock.MockTextFactory;
+import code.mock.*;
 import code.util.StringMap;
 import code.util.core.DefaultUniformingString;
 import org.junit.Test;
@@ -10,18 +11,19 @@ public class DefTextFactTest extends EquallableStreamCoreUtil {
     public void t1() {
         StringMap<String> f = new StringMap<String>();
         f.put("abc","abc");
-        assertEq("abc",new DefTextFact(new MockTextFactory(f)).contentsOfFile("abc",new DefaultUniformingString(),3));
+        assertEq("abc",new DefTextFact(new MockTextFactory(f, new MockTrueRand())).contentsOfFile("abc",new DefaultUniformingString(),3));
     }
     @Test
     public void t2() {
         StringMap<String> f = new StringMap<String>();
         f.put("abc","abc");
-        assertNull(new DefTextFact(new MockTextFactory(f)).contentsOfFile("",new DefaultUniformingString(),3));
+        assertNull(new DefTextFact(new MockTextFactory(f, new MockTrueRand())).contentsOfFile("",new DefaultUniformingString(),3));
     }
     @Test
     public void t3() {
         StringMap<String> f = new StringMap<String>();
-        new DefTextFact(new MockTextFactory(f)).write("abc","abc",false);
+        new DefTextFact(new MockTextFactory(f, new MockTrueRand())).write("abc","abc",false);
         assertEq("abc",f.getVal("abc"));
+        new DefTextFact(new MockTextFactory(f, new MockFalseRand())).write("abc","abc",false);
     }
 }

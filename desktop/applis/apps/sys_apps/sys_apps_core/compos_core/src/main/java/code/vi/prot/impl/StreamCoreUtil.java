@@ -9,12 +9,12 @@ public final class StreamCoreUtil {
 
     private StreamCoreUtil() {
     }
-    public static boolean close(Closeable _close) {
+    public static int close(Closeable _close) {
         try {
             _close.close();
-            return true;
+            return 1;
         } catch (Exception e) {
-            return false;
+            return 0;
         }
     }
     public static Charset utf() {

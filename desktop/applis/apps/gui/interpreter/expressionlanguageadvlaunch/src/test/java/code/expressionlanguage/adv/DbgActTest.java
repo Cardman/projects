@@ -8745,7 +8745,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         executeOneTask(_w.getService());
     }
     private static MockProgramInfos advPr() {
-        MockProgramInfos pr_ = new MockProgramInfos("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
+        MockProgramInfos pr_ = MockProgramInfos.inst("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
         String current_ = "/editor/conf.xml";
         StreamTextFile.saveTextFile(WindowCdmEditor.getTempDefConf(pr_),WindowCdmEditor.buildDefConfFile(current_,new StringList("src/file.txt")),pr_.getStreams());
         StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());

@@ -15,7 +15,7 @@ public abstract class AbstractBinStreamInImpl implements AbstractBinStreamIn {
         this.reader = _read;
     }
     @Override
-    public boolean close() {
+    public int close() {
         out.reset();
         return StreamCoreUtil.close(reader);
     }

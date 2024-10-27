@@ -18,13 +18,13 @@ final class DefaultThread implements AbstractThread {
         runnable = null;
     }
 
-    static boolean simpleSleep(long _time) {
+    static int simpleSleep(long _time) {
         try {
             Thread.sleep(_time);
-            return true;
+            return 1;
         } catch (Exception e) {
             Thread.currentThread().interrupt();
-            return false;
+            return 0;
         }
     }
 

@@ -24,7 +24,7 @@ public final class FctMathNativeRandom1 extends FctMath {
         AbstractGenerator generator_ = _cont.getStandards().getGenerator();
         long b_ = NumParsers.convertToNumber(_firstArgs.getArgumentWrappers().get(0).getValue()).longStruct();
         CustList<String> rds_ = new CustList<String>();
-        LongStruct res_ = new LongStruct(MonteCarloUtil.randomLong(b_, generator_, _stackCall.getSeedCust(),rds_));
+        LongStruct res_ = new LongStruct(MonteCarloUtil.randomLong(b_, generator_, _stackCall.getSeedCust(), _cont.getExecutionInfos().getDbConverter(), rds_));
         FctMathEval.log(_stackCall, rds_, id +":"+ b_);
         return new ArgumentWrapper(res_);
     }

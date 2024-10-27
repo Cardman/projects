@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.files.DefaultAccess;
 import code.expressionlanguage.common.AbstractTypePairHash;
 import code.expressionlanguage.common.DefTypePairHash;
 import code.expressionlanguage.common.OptionsReport;
+import code.maths.montecarlo.AbsDoubleToStrConverter;
 import code.maths.montecarlo.CustomSeedGene;
 import code.util.CustList;
 import code.util.StringList;
@@ -22,16 +23,14 @@ public final class Options {
     private int tabWidth = 4;
     private int stack = -1;
     private String seedElts = "";
-    private CustomSeedGene seedGene = defSeed();
+    private CustomSeedGene seedGene;
+    private final AbsDoubleToStrConverter dbConverter;
     private AbstractTypePairHash checker;
 
     public Options() {
         setChecker(new DefTypePairHash());
-    }
-    private static CustomSeedGene defSeed() {
-        CustomSeedGene c_ = new CustomSeedGene();
-        c_.setConverter(new AdvDoubleToStrConverter());
-        return c_;
+        dbConverter = new AdvDoubleToStrConverter();
+        seedGene = new CustomSeedGene();
     }
     public AbstractTypePairHash getChecker() {
         return checker;
@@ -111,6 +110,10 @@ public final class Options {
 
     public void setSeedElts(String _seedElts) {
         this.seedElts = _seedElts;
+    }
+
+    public AbsDoubleToStrConverter getDbConverter() {
+        return dbConverter;
     }
 
     public CustomSeedGene getSeedGene() {

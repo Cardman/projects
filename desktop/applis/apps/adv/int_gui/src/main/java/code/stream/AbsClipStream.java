@@ -11,6 +11,6 @@ public interface AbsClipStream {
 
     void stop(long _lastPosition);
 
-    boolean closeClipStream();
+    int closeClipStream();
 
 }

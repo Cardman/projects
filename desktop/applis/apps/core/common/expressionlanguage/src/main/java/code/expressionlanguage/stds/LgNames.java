@@ -33,7 +33,7 @@ public abstract class LgNames implements BuildableLgNames {
     }
 
     public CommonExecutionInfos commonExecutionInfos(AbstractInterceptorStdCaller _caller, Options _opt, Forwards _options, Initializer _initializer) {
-        return new CommonExecutionInfos(_caller,new CommonExecutionMetricsInfos(_opt.getTabWidth(),_opt.getStack(),_opt.getSeedGene()),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),_initializer);
+        return new CommonExecutionInfos(_caller,new CommonExecutionMetricsInfos(_opt.getTabWidth(),_opt.getStack(),_opt.getSeedGene(),_opt.getDbConverter()),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),_initializer);
     }
     /**Called after setters*/
     public void buildBase() {

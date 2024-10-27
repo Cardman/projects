@@ -110,7 +110,7 @@ public abstract class EquallableElAdvUtil {
         future_.attendre();
     }
     public static AbsDebuggerGui build() {
-        MockProgramInfos pr_ = new MockProgramInfos("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
+        MockProgramInfos pr_ = MockProgramInfos.inst("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
         String current_ = "/editor/conf.xml";
         StreamTextFile.saveTextFile(WindowCdmEditor.getTempDefConf(pr_),WindowCdmEditor.buildDefConfFile(current_,new StringList("src/file.txt")),pr_.getStreams());
         StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
@@ -129,7 +129,7 @@ public abstract class EquallableElAdvUtil {
     }
 
     public static AbsDebuggerGui buildExp() {
-        MockProgramInfos pr_ = new MockProgramInfos("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
+        MockProgramInfos pr_ = MockProgramInfos.inst("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
         String current_ = "/editor/conf.xml";
         StreamTextFile.saveTextFile(WindowCdmEditor.getTempDefConf(pr_),WindowCdmEditor.buildDefConfFile(current_,new StringList("src/file.txt")),pr_.getStreams());
         StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
@@ -148,7 +148,7 @@ public abstract class EquallableElAdvUtil {
     }
 
     public static MockProgramInfos genePr() {
-        MockProgramInfos pr_ = new MockProgramInfos("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
+        MockProgramInfos pr_ = MockProgramInfos.inst("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
         String current_ = "/editor/conf.xml";
         CdmParameterSoftModel c_ = new CdmParameterSoftModel();
         c_.setExecConf(current_);
@@ -966,7 +966,7 @@ public abstract class EquallableElAdvUtil {
         return _w.getExpressionEditors().get(0);
     }
     public static MockProgramInfos newMockProgramInfosInitConf() {
-        MockProgramInfos pr_ = new MockProgramInfos("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
+        MockProgramInfos pr_ = MockProgramInfos.inst("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
         String current_ = "/editor/conf.xml";
         StreamTextFile.saveTextFile(WindowCdmEditor.getTempDefConf(pr_),WindowCdmEditor.buildDefConfFile(current_,new StringList("src/file.txt")),pr_.getStreams());
         StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
@@ -978,7 +978,7 @@ public abstract class EquallableElAdvUtil {
         return pr_;
     }
     public static MockProgramInfos newMockProgramInfosInitConfExpFolder(String... _folders) {
-        MockProgramInfos pr_ = new MockProgramInfos("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
+        MockProgramInfos pr_ = MockProgramInfos.inst("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
         String current_ = "/editor/conf.xml";
         StreamTextFile.saveTextFile(WindowCdmEditor.getTempDefConf(pr_),WindowCdmEditor.buildDefConfFile(current_,new StringList("src/file.txt")),pr_.getStreams());
         StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
@@ -990,7 +990,7 @@ public abstract class EquallableElAdvUtil {
         return pr_;
     }
     public static MockProgramInfos newMockProgramInfosInitConfExpFolderAlready(String _folder, String _sec) {
-        MockProgramInfos pr_ = new MockProgramInfos("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
+        MockProgramInfos pr_ = MockProgramInfos.inst("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
         String current_ = "/editor/conf.xml";
         CdmParameterSoftModel c_ = new CdmParameterSoftModel();
         c_.setExecConf(current_);
@@ -1008,7 +1008,7 @@ public abstract class EquallableElAdvUtil {
         return pr_;
     }
     public static MockProgramInfos newMockProgramInfosInitConfMessages() {
-        MockProgramInfos pr_ = new MockProgramInfos("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
+        MockProgramInfos pr_ = MockProgramInfos.inst("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
         String current_ = "/editor/conf.xml";
         StreamTextFile.saveTextFile(WindowCdmEditor.getTempDefConf(pr_),WindowCdmEditor.buildDefConfFile(current_,new StringList("src/file.txt")),pr_.getStreams());
         StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
@@ -1021,7 +1021,7 @@ public abstract class EquallableElAdvUtil {
         return pr_;
     }
     public static MockProgramInfos newMockProgramInfosInitConfAliasesKeywords() {
-        MockProgramInfos pr_ = new MockProgramInfos("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
+        MockProgramInfos pr_ = MockProgramInfos.inst("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
         String current_ = "/editor/conf.xml";
         StreamTextFile.saveTextFile(WindowCdmEditor.getTempDefConf(pr_),WindowCdmEditor.buildDefConfFile(current_,new StringList("src/file.txt")),pr_.getStreams());
         StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
@@ -1035,7 +1035,7 @@ public abstract class EquallableElAdvUtil {
         return pr_;
     }
     public static MockProgramInfos newMockProgramInfosInitConfTab() {
-        MockProgramInfos pr_ = new MockProgramInfos("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
+        MockProgramInfos pr_ = MockProgramInfos.inst("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
         String current_ = "/editor/conf.xml";
         StreamTextFile.saveTextFile(WindowCdmEditor.getTempDefConf(pr_),WindowCdmEditor.buildDefConfFile(current_,new StringList("src/file.txt")),pr_.getStreams());
         StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
@@ -1048,7 +1048,7 @@ public abstract class EquallableElAdvUtil {
         return pr_;
     }
     public static MockProgramInfos newMockProgramInfosInitConfNo(TextAnswerValue _ans) {
-        MockProgramInfos pr_ = new MockProgramInfos("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
+        MockProgramInfos pr_ = MockProgramInfos.inst("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
         String current_ = "/editor/conf.xml";
         StreamTextFile.saveTextFile(WindowCdmEditor.getTempDefConf(pr_),WindowCdmEditor.buildDefConfFile(current_,new StringList("file.txt")),pr_.getStreams());
         StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
@@ -1061,7 +1061,7 @@ public abstract class EquallableElAdvUtil {
         return pr_;
     }
     public static MockProgramInfos newMockProgramInfosInitConfNoArr(TextAnswerValue... _ans) {
-        MockProgramInfos pr_ = new MockProgramInfos("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
+        MockProgramInfos pr_ = MockProgramInfos.inst("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
         String current_ = "/editor/conf.xml";
         StreamTextFile.saveTextFile(WindowCdmEditor.getTempDefConf(pr_),WindowCdmEditor.buildDefConfFile(current_,new StringList("src/file.txt")),pr_.getStreams());
         StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
@@ -1073,7 +1073,7 @@ public abstract class EquallableElAdvUtil {
         return pr_;
     }
     public static MockProgramInfos newMockProgramInfosInitConfNoArrRem(int... _ans) {
-        MockProgramInfos pr_ = new MockProgramInfos("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
+        MockProgramInfos pr_ = MockProgramInfos.inst("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
         String current_ = "/editor/conf.xml";
         StreamTextFile.saveTextFile(WindowCdmEditor.getTempDefConf(pr_),WindowCdmEditor.buildDefConfFile(current_,new StringList("src/file.txt")),pr_.getStreams());
         StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
@@ -1085,7 +1085,7 @@ public abstract class EquallableElAdvUtil {
         return pr_;
     }
     public static MockProgramInfos newMockProgramInfosInitConfNoDeepProject() {
-        MockProgramInfos pr_ = new MockProgramInfos("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
+        MockProgramInfos pr_ = MockProgramInfos.inst("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
         String current_ = "/editor/conf.xml";
         StreamTextFile.saveTextFile(WindowCdmEditor.getTempDefConf(pr_),WindowCdmEditor.buildDefConfFile(current_,new StringList("src/file.txt")),pr_.getStreams());
         StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
@@ -1097,7 +1097,7 @@ public abstract class EquallableElAdvUtil {
     }
     public static MockProgramInfos newMockProgramInfosInitConfNoDirConfSave(String _folder, String _conf) {
         String chooseConf_ = "/editor/conf.txt";
-        MockProgramInfos pr_ = new MockProgramInfos("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
+        MockProgramInfos pr_ = MockProgramInfos.inst("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
         pr_.getFileCoreStream().newFile(_folder).mkdirs();
         StreamFolderFile.makeParent("/editor/conf.xml",pr_.getFileCoreStream());
         StreamTextFile.saveTextFile("/editor/conf.xml",WindowCdmEditor.buildDefConfFile(chooseConf_,new StringList()),pr_.getStreams());
@@ -1128,28 +1128,28 @@ public abstract class EquallableElAdvUtil {
         return WindowCdmEditor.getTempDefConf(_tmpUserFolderSl);
     }
     public static MockProgramInfos newMockProgramInfosInitConfNo() {
-        return new MockProgramInfos("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
+        return MockProgramInfos.inst("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
     }
     public static MockProgramInfos newMockProgramInfosInitConfNoFolder(String _folder, String _conf) {
-        MockProgramInfos pr_ = new MockProgramInfos("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
+        MockProgramInfos pr_ = MockProgramInfos.inst("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
         pr_.getFileCoreStream().newFile(_folder).mkdirs();
         return pr_;
     }
     public static MockProgramInfos newMockProgramInfosInitConfNoDirConf(String _folder, String _conf) {
-        MockProgramInfos pr_ = new MockProgramInfos("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
+        MockProgramInfos pr_ = MockProgramInfos.inst("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
         pr_.getFileCoreStream().newFile(_folder).mkdirs();
         return pr_;
     }
     public static MockProgramInfos newMockProgramInfosInitConfNoChooseFolder(String _conf) {
-        return new MockProgramInfos("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
+        return MockProgramInfos.inst("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
     }
     public static MockProgramInfos newMockProgramInfosInitConfNoChooseFolderConf(String _folder) {
-        MockProgramInfos pr_ = new MockProgramInfos("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
+        MockProgramInfos pr_ = MockProgramInfos.inst("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
         pr_.getFileCoreStream().newFile(_folder).mkdirs();
         return pr_;
     }
     public static MockProgramInfos newMockProgramInfos(CustomSeedGene _s, MockFileSet _set) {
-        return new MockProgramInfos("", "", _s, _set);
+        return MockProgramInfos.inst("", "", _s, _set);
     }
     public static MockProgramInfos buildTrs(String _h, String _t) {
         MockProgramInfos pr_ = build(_h, _t);

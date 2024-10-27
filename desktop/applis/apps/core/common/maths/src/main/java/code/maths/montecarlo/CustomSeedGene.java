@@ -5,7 +5,6 @@ import code.util.core.NumberUtil;
 public final class CustomSeedGene {
     private final double[] rand;
     private int seedIndex;
-    private AbsDoubleToStrConverter converter = new DefDoubleToStrConverter();
 
     public CustomSeedGene() {
         this(new double[0]);
@@ -16,9 +15,7 @@ public final class CustomSeedGene {
     }
 
     public static CustomSeedGene copy(CustomSeedGene _orig) {
-        CustomSeedGene g_ = new CustomSeedGene(_orig.rand);
-        g_.setConverter(_orig.getConverter());
-        return g_;
+        return new CustomSeedGene(_orig.rand);
     }
 
     public double pick(AbstractGenerator _gene) {
@@ -32,14 +29,6 @@ public final class CustomSeedGene {
     }
     public boolean custom() {
         return rand.length > 0;
-    }
-
-    public AbsDoubleToStrConverter getConverter() {
-        return converter;
-    }
-
-    public void setConverter(AbsDoubleToStrConverter _c) {
-        this.converter = _c;
     }
 
     int getRandLen() {

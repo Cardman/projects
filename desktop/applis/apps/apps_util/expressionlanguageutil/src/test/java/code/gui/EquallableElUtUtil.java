@@ -345,7 +345,10 @@ public abstract class EquallableElUtUtil {
         return new Forwards(_lgName,_lgName.getExecContent(), fileBuilder_, _opt);
     }
     public static MockProgramInfos newMockProgramInfos(CustomSeedGene _s, MockFileSet _set) {
-        return new MockProgramInfos("", "", _s, _set);
+        return MockProgramInfos.inst("", "", _s, _set);
+    }
+    public static MockProgramInfos newMockProgramInfos(CustomSeedGene _s, MockFileSet _set,MockAbsRand _rd) {
+        return new MockProgramInfos("", "", _s, _set,_rd);
     }
     public static void update(MockProgramInfos _pr) {
         FileInfos.enTr(FileInfos.initComments(lg(_pr,StringUtil.EN)));

@@ -395,6 +395,7 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         assertFalse(sound_.isActive());
 //        sound_.recordSongInFile("");
         pr_.getThreadFactory().sleep(1);
+        new MockThreadFactory(new MockFalseRand(),pr_.getMockFileSet()).sleep(1);
         mf_.dispatchExit();
         mf_.setVisible(false);
         assertFalse(mf_.isVisible());

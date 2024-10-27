@@ -14,7 +14,7 @@ public abstract class EquallablePkFileUtil {
     }
 
     public static MockProgramInfos prTmp(String _tmp,long _init,long..._incrs) {
-        MockProgramInfos pr_ = new MockProgramInfos("", _tmp, new CustomSeedGene(new double[]{0.75}), new MockFileSet(_init, _incrs, new String[]{"/"}));
+        MockProgramInfos pr_ = MockProgramInfos.inst("", _tmp, new CustomSeedGene(new double[]{0.75}), new MockFileSet(_init, _incrs, new String[]{"/"}));
         MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(pr_.getTranslations()));
         return pr_;
     }

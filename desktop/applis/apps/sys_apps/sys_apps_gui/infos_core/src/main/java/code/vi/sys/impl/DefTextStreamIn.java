@@ -26,7 +26,7 @@ public final class DefTextStreamIn implements AbstractTextStreamIn {
         }
     }
     @Override
-    public boolean close() {
+    public int close() {
         return StreamCoreUtil.close(reader);
     }
 

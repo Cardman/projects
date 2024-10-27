@@ -1,6 +1,7 @@
 package code.maths.litteraladv;
 
 import code.maths.litteralcom.*;
+import code.maths.montecarlo.AbsDoubleToStrConverter;
 import code.maths.montecarlo.AbstractGenerator;
 import code.maths.montecarlo.CustomSeedGene;
 import code.util.*;
@@ -11,12 +12,12 @@ public final class MaParser {
     private MaParser() {
     }
 
-    public static String processEl(AbstractGenerator _gene, CustList<String> _rands, CustomSeedGene _cust, MaUserInput _input) {
+    public static String processEl(AbstractGenerator _gene, CustList<String> _rands, CustomSeedGene _cust, MaUserInput _input, AbsDoubleToStrConverter _conv) {
         String exp_ = StringUtil.nullToEmpty(_input.getEl());
         if (!_input.isOk()) {
             return "#####"+exp_;
         }
-        MaParameters aliases_ = new MaParameters(_gene,_cust);
+        MaParameters aliases_ = new MaParameters(_gene,_cust,_conv);
         String outStr_ = checkedAliases(exp_, _input.getRepl());
         if (!outStr_.isEmpty()) {
             return outStr_;

@@ -96,7 +96,7 @@ public abstract class EquallableMockGuiAdvUtil {
     }
 
     protected static MockProgramInfos init() {
-        return new MockProgramInfos("", "", new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(0,new long[0], StringUtil.wrapStringArray("/")));
+        return MockProgramInfos.inst("", "", new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(0,new long[0], StringUtil.wrapStringArray("/")));
     }
 
     protected static MockProgramInfos init2() {

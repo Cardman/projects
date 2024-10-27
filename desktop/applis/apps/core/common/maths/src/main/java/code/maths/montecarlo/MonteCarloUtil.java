@@ -35,11 +35,11 @@ public final class MonteCarloUtil {
         return loi_;
     }
 
-    static CustList<LgInt> randomNumbersSeed(LgInt _lgInt, AbstractGenerator _gene, CustomSeedGene _cust, CustList<String> _rands) {
+    static CustList<LgInt> randomNumbersSeed(LgInt _lgInt, AbstractGenerator _gene, CustomSeedGene _cust, AbsDoubleToStrConverter _conv, CustList<String> _rands) {
         CustList<LgInt> numbers_ = new CustList<LgInt>();
         for(int i = IndexConstants.FIRST_INDEX; i < NB_RAND; i++){
 //          numbers_.add(MAX_RANDOM.multiply(randomDouble()));
-            numbers_.add(randomLgInt(_lgInt, _gene, _cust,_rands));
+            numbers_.add(randomLgInt(_lgInt, _gene, _cust, _conv,_rands));
         }
         return numbers_;
     }
@@ -61,8 +61,8 @@ public final class MonteCarloUtil {
         return toInt(_excludeMax, randomRate(_gene,_cust));
     }
 
-    public static LgInt randomLgInt(LgInt _excludeMax, AbstractGenerator _gene, CustomSeedGene _cust, CustList<String> _rands) {
-        return toInt(_excludeMax, randomRate(_gene, _cust, _rands));
+    public static LgInt randomLgInt(LgInt _excludeMax, AbstractGenerator _gene, CustomSeedGene _cust, AbsDoubleToStrConverter _conv, CustList<String> _rands) {
+        return toInt(_excludeMax, randomRate(_gene, _cust, _conv, _rands));
     }
 
     private static LgInt toInt(LgInt _excludeMax, Rate _num) {
@@ -73,8 +73,8 @@ public final class MonteCarloUtil {
         return toRate(randomInt(_gene,_cust));
     }
 
-    private static Rate randomRate(AbstractGenerator _gene, CustomSeedGene _cust, CustList<String> _rands) {
-        return toRate(randomInt(_gene, _cust, _rands));
+    private static Rate randomRate(AbstractGenerator _gene, CustomSeedGene _cust, AbsDoubleToStrConverter _conv, CustList<String> _rands) {
+        return toRate(randomInt(_gene, _cust, _conv, _rands));
     }
 
     private static Rate toRate(int _num) {
@@ -85,8 +85,8 @@ public final class MonteCarloUtil {
         return (int)randomLong(EXC_MAX,_gene,_cust);
     }
 
-    private static int randomInt(AbstractGenerator _gene, CustomSeedGene _cust, CustList<String> _rands) {
-        return (int)randomLong(EXC_MAX,_gene,_cust,_rands);
+    private static int randomInt(AbstractGenerator _gene, CustomSeedGene _cust, AbsDoubleToStrConverter _conv, CustList<String> _rands) {
+        return (int)randomLong(EXC_MAX,_gene,_cust, _conv,_rands);
     }
 
     /**@param _excludeMax the maximum of possible returned values
@@ -94,14 +94,14 @@ public final class MonteCarloUtil {
     public static long randomLong(long _excludeMax, AbstractGenerator _gene) {
         return randomLong(_excludeMax, _gene, _gene.seed());
     }
-    public static long randomLong(long _excludeMax, AbstractGenerator _gene, CustomSeedGene _cust, CustList<String> _rands) {
-        double rand_ = pick(_gene, _cust, _rands);
+    public static long randomLong(long _excludeMax, AbstractGenerator _gene, CustomSeedGene _cust, AbsDoubleToStrConverter _conv, CustList<String> _rands) {
+        double rand_ = pick(_gene, _cust, _conv, _rands);
         return randomLong(_excludeMax, rand_);
     }
 
-    public static double pick(AbstractGenerator _gene, CustomSeedGene _cust, CustList<String> _rands) {
+    public static double pick(AbstractGenerator _gene, CustomSeedGene _cust, AbsDoubleToStrConverter _conv, CustList<String> _rands) {
         double rand_ = _cust.pick(_gene);
-        _rands.add(_cust.getConverter().convert(rand_));
+        _rands.add(_conv.convert(rand_));
         return rand_;
     }
 

@@ -29,7 +29,7 @@ public final class MockNetworkTest extends EquallableMockGuiUtil {
         so_.close();
         assertEq("",so_.println("_"));
         assertFalse(server_.isClosed());
-        assertTrue(server_.close());
+        assertEq(1,server_.close());
         assertTrue(server_.isClosed());
         assertTrue(server_.accept().isKo());
         ((MockSocket)so_).inetAddress("_1");

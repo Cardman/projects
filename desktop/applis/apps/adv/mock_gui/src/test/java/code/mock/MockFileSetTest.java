@@ -9,62 +9,62 @@ import org.junit.Test;
 public final class MockFileSetTest extends EquallableMockGuiUtil {
     @Test
     public void f1() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,0,wrapLongs(1,2),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(0,wrapLongs(1,2), "/");
         assertEq("/",pr_.getCurrentPath());
     }
     @Test
     public void f2() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,0,wrapLongs(1,2),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(0,wrapLongs(1,2), "/");
         assertEq("/",pr_.getFileCoreStream().newFile("/").getAbsolutePath());
     }
     @Test
     public void f3() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,0,wrapLongs(1,2),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(0,wrapLongs(1,2), "/");
         assertEq("/tmp",pr_.getFileCoreStream().newFile("/tmp").getAbsolutePath());
     }
     @Test
     public void f4() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,0,wrapLongs(1,2),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(0,wrapLongs(1,2), "/");
         assertEq("/tmp",pr_.getFileCoreStream().newFile("tmp").getAbsolutePath());
     }
     @Test
     public void f5() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,0,wrapLongs(1,2),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(0,wrapLongs(1,2), "/");
         pr_.getMockFileSet().getFiles().addEntry("/tmp",new FileStruct(null,0));
         pr_.setCurrentPath("/tmp");
         assertEq("/tmp",pr_.getFileCoreStream().newFile(".").getAbsolutePath());
     }
     @Test
     public void f6() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,0,wrapLongs(1,2),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(0,wrapLongs(1,2), "/");
         pr_.getMockFileSet().getFiles().addEntry("/tmp",new FileStruct(null,0));
         pr_.setCurrentPath("/tmp");
         assertEq("/",pr_.getFileCoreStream().newFile("..").getAbsolutePath());
     }
     @Test
     public void f7() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,0,wrapLongs(1,2),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(0,wrapLongs(1,2), "/");
         pr_.getMockFileSet().getFiles().addEntry("/tmp",new FileStruct(null,0));
         pr_.setCurrentPath("/tmp");
         assertEq("",pr_.getFileCoreStream().newFile("../..").getAbsolutePath());
     }
     @Test
     public void f8() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,0,wrapLongs(1,2),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(0,wrapLongs(1,2), "/");
         pr_.getMockFileSet().getFiles().addEntry("/tmp",new FileStruct(null,0));
         pr_.setCurrentPath("/tmp");
         assertEq("",pr_.getFileCoreStream().newFile("a/%%/b").getAbsolutePath());
     }
     @Test
     public void f9() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,0,wrapLongs(1,2),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(0,wrapLongs(1,2), "/");
         pr_.getMockFileSet().getFiles().addEntry("/tmp",new FileStruct(null,0));
         pr_.setCurrentPath("/tmp");
         assertEq("",pr_.getFileCoreStream().newFile("a//b").getAbsolutePath());
     }
     @Test
     public void f10() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,0,wrapLongs(1,2),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(0,wrapLongs(1,2), "/");
         pr_.getMockFileSet().getFiles().addEntry("/tmp",new FileStruct(null,0));
         pr_.getMockFileSet().getFiles().addEntry("/tmp/tmp2",new FileStruct(null,0));
         pr_.setCurrentPath("/tmp/tmp2");
@@ -72,7 +72,7 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
     }
     @Test
     public void f11() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,0,wrapLongs(1,2),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(0,wrapLongs(1,2), "/");
         pr_.getMockFileSet().getFiles().addEntry("/tmp",new FileStruct(null,0));
         pr_.getMockFileSet().getFiles().addEntry("/tmp/tmp2",new FileStruct(null,0));
         pr_.setCurrentPath("/tmp/tmp2");
@@ -80,41 +80,41 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
     }
     @Test
     public void f12() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,0,wrapLongs(1,2),true,"c:/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(0,wrapLongs(1,2), "c:/");
         assertEq("c:/",pr_.getCurrentPath());
     }
     @Test
     public void f13() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,0,wrapLongs(1,2),true,"c:/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(0,wrapLongs(1,2), "c:/");
         assertEq("c:/",pr_.getFileCoreStream().newFile("c:/").getAbsolutePath());
     }
     @Test
     public void f14() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,0,wrapLongs(1,2),true,"c:/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(0,wrapLongs(1,2), "c:/");
         assertEq("c:/tmp",pr_.getFileCoreStream().newFile("c:/tmp").getAbsolutePath());
     }
     @Test
     public void f15() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,0,wrapLongs(1,2),true,"c:/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(0,wrapLongs(1,2), "c:/");
         assertEq("c:/tmp",pr_.getFileCoreStream().newFile("tmp").getAbsolutePath());
     }
     @Test
     public void f16() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,0,wrapLongs(1,2),true,"c:/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(0,wrapLongs(1,2), "c:/");
         pr_.getMockFileSet().getFiles().addEntry("c:/tmp",new FileStruct(null,0));
         pr_.setCurrentPath("c:/tmp");
         assertEq("c:/tmp",pr_.getFileCoreStream().newFile(".").getAbsolutePath());
     }
     @Test
     public void f17() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,0,wrapLongs(1,2),true,"c:/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(0,wrapLongs(1,2), "c:/");
         pr_.getMockFileSet().getFiles().addEntry("c:/tmp",new FileStruct(null,0));
         pr_.setCurrentPath("c:/tmp");
         assertEq("c:/",pr_.getFileCoreStream().newFile("..").getAbsolutePath());
     }
     @Test
     public void f18() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,0,wrapLongs(1,2),true,"c:/","d:/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(0,wrapLongs(1,2), "c:/","d:/");
         pr_.getMockFileSet().getFiles().addEntry("c:/tmp",new FileStruct(null,0));
         pr_.getMockFileSet().getFiles().addEntry("d:/tmp2",new FileStruct(null,0));
         pr_.setCurrentPath("c:/tmp");
@@ -122,7 +122,7 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
     }
     @Test
     public void f19() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,0,wrapLongs(1,2),true,"c:/","d:/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(0,wrapLongs(1,2), "c:/","d:/");
         pr_.getMockFileSet().getFiles().addEntry("c:/tmp",new FileStruct(null,0));
         pr_.getMockFileSet().getFiles().addEntry("d:/tmp2",new FileStruct(null,0));
         pr_.setCurrentPath("d:/tmp2");
@@ -130,27 +130,27 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
     }
     @Test
     public void f20() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,0,wrapLongs(1,2),true,"c:/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(0,wrapLongs(1,2), "c:/");
         assertEq("",pr_.getFileCoreStream().newFile("/c:/").getAbsolutePath());
     }
     @Test
     public void f21() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,0,wrapLongs(1,2),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(0,wrapLongs(1,2), "/");
         assertEq("/tmp",pr_.getFileCoreStream().newFile("/tmp/").getAbsolutePath());
     }
     @Test
     public void f22() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,0,wrapLongs(1,2),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(0,wrapLongs(1,2), "/");
         assertEq("/tmp",pr_.getFileCoreStream().newFile("tmp/").getAbsolutePath());
     }
     @Test
     public void f23() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,0,wrapLongs(1,2),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(0,wrapLongs(1,2), "/");
         assertEq("",pr_.getFileCoreStream().newFile("").getAbsolutePath());
     }
     @Test
     public void f24() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,0,wrapLongs(1,2),true,"c:/","d:/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(0,wrapLongs(1,2), "c:/","d:/");
         pr_.getMockFileSet().getFiles().addEntry("c:/tmp",new FileStruct(null,0));
         pr_.getMockFileSet().getFiles().addEntry("d:/tmp2",new FileStruct(null,0));
         pr_.setCurrentPath("e:/tmp2");
@@ -158,28 +158,28 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
     }
     @Test
     public void f25() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,0,wrapLongs(1,2),true,"c:/","d:/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(0,wrapLongs(1,2), "c:/","d:/");
         pr_.getMockFileSet().getFiles().addEntry("c:/tmp",new FileStruct(null,0));
         pr_.getMockFileSet().getFiles().addEntry("d:/tmp2",new FileStruct(null,0));
         assertEq("c:/",pr_.getMockFileSet().linkedRoot("c:/tmp"));
     }
     @Test
     public void f26() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,0,wrapLongs(1,2),true,"c:/","d:/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(0,wrapLongs(1,2), "c:/","d:/");
         pr_.getMockFileSet().getFiles().addEntry("c:/tmp",new FileStruct(null,0));
         pr_.getMockFileSet().getFiles().addEntry("d:/tmp2",new FileStruct(null,0));
         assertEq("d:/",pr_.getMockFileSet().linkedRoot("d:/tmp2"));
     }
     @Test
     public void f27() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,0,wrapLongs(1,2),true,"c:/","d:/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(0,wrapLongs(1,2), "c:/","d:/");
         pr_.getMockFileSet().getFiles().addEntry("c:/tmp",new FileStruct(null,0));
         pr_.getMockFileSet().getFiles().addEntry("d:/tmp2",new FileStruct(null,0));
         assertEq("",pr_.getMockFileSet().linkedRoot("e:/tmp3"));
     }
     @Test
     public void f28() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,5,wrapLongs(1,2),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2), "/");
         assertTrue(pr_.getFileCoreStream().newFile("/tmp").mkdirs());
         FileStruct val_ = pr_.getMockFileSet().getFiles().getVal("/tmp");
         assertNull(val_.getContent());
@@ -187,7 +187,7 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
     }
     @Test
     public void f29() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,7,wrapLongs(1,2),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(7,wrapLongs(1,2), "/");
         assertTrue(pr_.getFileCoreStream().newFile("tmp").mkdirs());
         FileStruct val_ = pr_.getMockFileSet().getFiles().getVal("/tmp");
         assertNull(val_.getContent());
@@ -195,24 +195,24 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
     }
     @Test
     public void f30() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,5,wrapLongs(1,2),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2), "/");
         assertTrue(pr_.getFileCoreStream().newFile("/tmp").mkdirs());
         assertFalse(pr_.getFileCoreStream().newFile("/tmp").mkdirs());
     }
     @Test
     public void f31() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,5,wrapLongs(1,2),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2), "/");
         assertFalse(pr_.getFileCoreStream().newFile("/tmp%").mkdirs());
     }
     @Test
     public void f32() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,5,wrapLongs(1,2),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2), "/");
         pr_.getMockFileSet().getFiles().addEntry("/tmp",new FileStruct(new byte[0],0));
         assertFalse(pr_.getFileCoreStream().newFile("tmp").mkdirs());
     }
     @Test
     public void f33() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,5,wrapLongs(1,2),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2), "/");
         pr_.getMockFileSet().getFiles().addEntry("/tmp",new FileStruct(null,0));
         assertTrue(pr_.getFileCoreStream().newFile("/tmp/tmp2").mkdirs());
         pr_.setCurrentPath("/tmp");
@@ -220,13 +220,13 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
     }
     @Test
     public void f34() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,5,wrapLongs(1,2),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2), "/");
         pr_.getMockFileSet().getFiles().addEntry("/tmp",new FileStruct(new byte[0],0));
         assertFalse(pr_.getFileCoreStream().newFile("tmp/tmp2").mkdirs());
     }
     @Test
     public void f35() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,5,wrapLongs(1,2,7),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2,7), "/");
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         assertTrue(pr_.getStreams().getTextFact().write("txt","content",false));
@@ -238,7 +238,7 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
     }
     @Test
     public void f36() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.25,5,wrapLongs(1,2,7),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2,7), new MockFalseRand(),"/");
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         assertFalse(pr_.getStreams().getTextFact().write("txt","content",false));
@@ -246,7 +246,7 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
     }
     @Test
     public void f37() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,5,wrapLongs(1,2,7),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2,7), "/");
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         assertFalse(pr_.getStreams().getTextFact().write("/tmp","content",false));
@@ -254,7 +254,7 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
     }
     @Test
     public void f38() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,5,wrapLongs(1,2,7,4),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2,7,4), "/");
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         assertTrue(pr_.getStreams().getTextFact().write("txt","content",false));
@@ -267,7 +267,7 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
     }
     @Test
     public void f39() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,5,wrapLongs(1,2,7,4),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2,7,4), "/");
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getFileCoreStream().newFile("txt").mkdirs();
@@ -275,7 +275,7 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
     }
     @Test
     public void f40() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,5,wrapLongs(1,2,7,4),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2,7,4), "/");
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         assertTrue(pr_.getStreams().getTextFact().write("txt","content",false));
@@ -283,14 +283,14 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
     }
     @Test
     public void f41() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,5,wrapLongs(1,2,7,4),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2,7,4), "/");
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         assertFalse(pr_.getStreams().getTextFact().write("%","content",false));
     }
     @Test
     public void f42() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,5,wrapLongs(1,2,7,6),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2,7,6), "/");
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         assertTrue(pr_.getStreams().getTextFact().write("txt","content",false));
@@ -303,7 +303,7 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
     }
     @Test
     public void f43() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,5,wrapLongs(1,2,7,6),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2,7,6), "/");
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         assertTrue(pr_.getStreams().getTextFact().write("txt","content",true));
@@ -316,7 +316,7 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
     }
     @Test
     public void f44() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,5,wrapLongs(1,2,7,6),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2,7,6), "/");
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt","content",true);
@@ -324,7 +324,7 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
     }
     @Test
     public void f45() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,5,wrapLongs(1,2,7,6),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2,7,6), "/");
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.getFileCoreStream().newFile("tm").mkdirs();
         pr_.setCurrentPath("/tmp");
@@ -334,7 +334,7 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
     }
     @Test
     public void f46() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,5,wrapLongs(1,2,7,6),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2,7,6), "/");
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt","content",true);
@@ -345,7 +345,7 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
     }
     @Test
     public void f47() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,5,wrapLongs(1,2,7,6),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2,7,6), "/");
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt","content",true);
@@ -355,7 +355,7 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
     }
     @Test
     public void f48() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,5,wrapLongs(1,2,7,6),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2,7,6), "/");
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt","content",true);
@@ -365,7 +365,7 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
     }
     @Test
     public void f49() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,5,wrapLongs(1,2,7,6),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2,7,6), "/");
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt","content",true);
@@ -373,7 +373,7 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
     }
     @Test
     public void f50() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,5,wrapLongs(1,2,7,6),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2,7,6), "/");
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getTextFact().write("txt","content",true);
@@ -389,7 +389,7 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
     }
     @Test
     public void f51() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,5,wrapLongs(1,2,7,6),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2,7,6), "/");
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.getFileCoreStream().newFile("tmp2").mkdirs();
         pr_.getFileCoreStream().newFile("tmp/sub").mkdirs();
@@ -418,7 +418,7 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
     }
     @Test
     public void f52() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,5,wrapLongs(1,2,7,6),true,"c:/","d:/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2,7,6), "c:/","d:/");
         pr_.getFileCoreStream().newFile("c:/tmp").mkdirs();
         pr_.getFileCoreStream().newFile("d:/tmp2").mkdirs();
         pr_.getStreams().getTextFact().write("c:/txt5","content",true);
@@ -434,7 +434,7 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
     }
     @Test
     public void f53() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,5,wrapLongs(1,2,7,6),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2,7,6), "/");
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getStreams().getBinFact().writeFile("txt", SortConstants.wrapByteArray((byte)-17,(byte)-65));
@@ -443,7 +443,7 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
     }
     @Test
     public void f54() {
-        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,5,wrapLongs(1,2),true,"/");
+        MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2), "/");
         pr_.getMockFileSet().getFiles().addEntry("/tmp",new FileStruct(null,0));
         assertTrue(pr_.getFileCoreStream().newFile("/tmp/tmp2/tmp3").mkdirs());
         pr_.setCurrentPath("/tmp");

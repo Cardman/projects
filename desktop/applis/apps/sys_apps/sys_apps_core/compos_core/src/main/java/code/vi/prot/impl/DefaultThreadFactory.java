@@ -32,7 +32,7 @@ public final class DefaultThreadFactory implements AbstractThreadFactory {
 //    }
 
     @Override
-    public boolean sleep(long _time) {
+    public int sleep(long _time) {
         return DefaultThread.simpleSleep(_time);
     }
 

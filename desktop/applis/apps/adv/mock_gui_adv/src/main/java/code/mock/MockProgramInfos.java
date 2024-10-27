@@ -6,10 +6,6 @@ public final class MockProgramInfos extends MockAbsProgramInfos {
 
     private final MockFrameFactory mockFrameFactory = new MockFrameFactory();
 
-    public MockProgramInfos(String _h, String _t, CustomSeedGene _se, MockFileSet _set) {
-        super(_h, _t, _se, _set);
-    }
-
     public MockProgramInfos(String _h, String _t, CustomSeedGene _se, MockFileSet _set, MockAbsRand _mar) {
         super(_h, _t, _se, _set, _mar);
     }

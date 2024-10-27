@@ -57,7 +57,7 @@ public final class ClipStream implements AbsClipStream {
     }
 
     @Override
-    public boolean closeClipStream() {
+    public int closeClipStream() {
         clip.stop();
         clip.close();
         return StreamCoreUtil.close(stream);

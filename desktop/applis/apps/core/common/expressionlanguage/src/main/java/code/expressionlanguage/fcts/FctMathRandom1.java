@@ -51,7 +51,7 @@ public final class FctMathRandom1 extends FctMath {
         AbstractGenerator generator_ = lgNames_.getGenerator();
         long b_ = numberStruct_.longStruct();
         CustList<String> rds_ = new CustList<String>();
-        LongStruct res_ = new LongStruct(MonteCarloUtil.randomLong(b_, generator_, _stackCall.getSeedCust(), rds_));
+        LongStruct res_ = new LongStruct(MonteCarloUtil.randomLong(b_, generator_, _stackCall.getSeedCust(), _cont.getExecutionInfos().getDbConverter(), rds_));
         FctMathEval.log(_stackCall, rds_, _id +":"+ b_);
         return new ArgumentWrapper(res_);
     }

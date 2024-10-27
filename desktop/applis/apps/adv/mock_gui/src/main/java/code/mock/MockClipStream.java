@@ -1,6 +1,5 @@
 package code.mock;
 
-import code.maths.montecarlo.AbstractGenerator;
 import code.stream.AbsClipStream;
 import code.stream.LineShortListenable;
 import code.util.CustList;
@@ -17,9 +16,6 @@ public final class MockClipStream implements AbsClipStream {
     private final CustList<LineShortListenable> listeners = new CustList<LineShortListenable>();
     private long position;
     private final MockAbsRand mockRand;
-    public MockClipStream(AbstractGenerator _gen, long _length, boolean _wav) {
-        this(new MockRand(_gen),_length,_wav);
-    }
     public MockClipStream(MockAbsRand _gen, long _length, boolean _wav) {
         mockRand = _gen;
         microsecondLength = _length;
@@ -68,7 +64,7 @@ public final class MockClipStream implements AbsClipStream {
     }
 
     @Override
-    public boolean closeClipStream() {
+    public int closeClipStream() {
         for (LineShortListenable l: listeners) {
             if (isWave()) {
                 l.update(STOP,position);
@@ -76,7 +72,10 @@ public final class MockClipStream implements AbsClipStream {
                 l.updateMp3(STOP,position);
             }
         }
-        return mockRand.edit();
+        if (mockRand.edit()) {
+            return 1;
+        }
+        return 0;
     }
 
     public boolean isWave() {

@@ -162,7 +162,7 @@ public abstract class EquallableGuiDocUtil {
         return new RenderedPage(_pr.getCompoFactory().newAbsScrollPane(), _pr,new MockCharacterCaseConverter(), new AlwaysActionListenerAct(), buttons_);
     }
     public static MockProgramInfos newMockProgramInfos(CustomSeedGene _s, MockFileSet _set) {
-        return new MockProgramInfos("", "", _s, _set);
+        return MockProgramInfos.inst("", "", _s, _set);
     }
     public static MockFileSet fileSet(long _initMillis, long[] _incrs, String... _roots) {
         return new MockFileSet(_initMillis,_incrs,_roots);

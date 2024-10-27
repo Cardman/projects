@@ -3,7 +3,7 @@ package code.expressionlanguage.exec;
 import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.expressionlanguage.stds.LgNames;
-import code.maths.montecarlo.CustomSeedGene;
+import code.maths.montecarlo.*;
 
 public final class CommonExecutionInfos {
 
@@ -19,6 +19,7 @@ public final class CommonExecutionInfos {
     private final Initializer initializer;
     private final AbstractMethodCriteria defCriteria = new DefaultMethodCriteria();
     private final AbstractMethodCriteria staticCriteria = new StaticMethodCriteria();
+    private final AbsDoubleToStrConverter dbConverter;
 
     public CommonExecutionInfos(AbstractInterceptorStdCaller _caller, CommonExecutionMetricsInfos _metrics,
                                 LgNames _standards, Classes _classes, Coverage _coverage,
@@ -32,10 +33,15 @@ public final class CommonExecutionInfos {
         this.coverage = _coverage;
         this.locks = _locks;
         this.initializer = _initializer;
+        this.dbConverter = _metrics.getDbConverter();
     }
 
     public AbstractInterceptorStdCaller getCaller() {
         return caller;
+    }
+
+    public AbsDoubleToStrConverter getDbConverter() {
+        return dbConverter;
     }
 
     public int getTabWidth() {

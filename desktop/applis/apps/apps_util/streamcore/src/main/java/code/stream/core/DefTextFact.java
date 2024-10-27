@@ -33,6 +33,6 @@ public final class DefTextFact implements AbstractTextFact {
 
     @Override
     public boolean write(String _nomFichier, String _text, boolean _append) {
-        return textFactory.write(_nomFichier, _text, _append);
+        return textFactory.write(_nomFichier, _text, _append) == 1;
     }
 }

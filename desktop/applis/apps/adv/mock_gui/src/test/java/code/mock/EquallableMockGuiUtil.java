@@ -100,10 +100,10 @@ public abstract class EquallableMockGuiUtil {
     }
 
     protected static MockProgramInfosSample init() {
-        return new MockProgramInfosSample("", "",0, new long[0], true, "/");
+        return new MockProgramInfosSample("", "",0, new long[0], "/");
     }
 
     protected static MockProgramInfosSample initDef() {
-        return new MockProgramInfosSample("", "",0, new long[0], false, "/");
+        return new MockProgramInfosSample("", "",0, new long[0], "/");
     }
 }

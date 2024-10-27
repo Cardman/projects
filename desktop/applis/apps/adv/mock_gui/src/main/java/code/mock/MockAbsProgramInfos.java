@@ -18,15 +18,8 @@ public abstract class MockAbsProgramInfos extends ProgramInfosBase implements Ab
     private int screenWidth;
     private int screenHeight;
 
-    protected MockAbsProgramInfos(String _h, String _t, CustomSeedGene _se, MockFileSet _set) {
-        this(_h,_t,new DefaultGenerator(_se), _set);
-    }
-
     protected MockAbsProgramInfos(String _h, String _t, CustomSeedGene _se, MockFileSet _set, MockAbsRand _abs) {
         this(_h,_t,new DefaultGenerator(_se), _set, _abs);
-    }
-    protected MockAbsProgramInfos(String _h, String _t, AbstractGenerator _gene, MockFileSet _set) {
-        this(_h, _t, _gene, _set, new MockRand(_gene));
     }
     protected MockAbsProgramInfos(String _h, String _t, AbstractGenerator _gene, MockFileSet _set, MockAbsRand _abs) {
         super(_h,_t,_gene,
@@ -65,7 +58,7 @@ public abstract class MockAbsProgramInfos extends ProgramInfosBase implements Ab
         if (ml_ == null) {
             return null;
         }
-        return new MockClipStream(getGenerator(), NumberUtil.parseLongZero(ml_.toString()),true);
+        return new MockClipStream(new MockTrueRand(), NumberUtil.parseLongZero(ml_.toString()),true);
     }
 
     @Override
@@ -83,7 +76,7 @@ public abstract class MockAbsProgramInfos extends ProgramInfosBase implements Ab
         if (ml_ == null) {
             return null;
         }
-        return new MockClipStream(getGenerator(),NumberUtil.parseLongZero(ml_.toString()),false);
+        return new MockClipStream(new MockTrueRand(),NumberUtil.parseLongZero(ml_.toString()),false);
     }
 
     @Override

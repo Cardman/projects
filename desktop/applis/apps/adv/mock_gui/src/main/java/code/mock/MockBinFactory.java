@@ -6,9 +6,10 @@ import code.threads.FileStruct;
 
 public final class MockBinFactory implements AbstractBinFactory {
     private final MockFileSet mockBinFact;
-
-    public MockBinFactory(MockFileSet _mockBinFact) {
+    private final MockAbsRand rand;
+    public MockBinFactory(MockFileSet _mockBinFact, MockAbsRand _rd) {
         this.mockBinFact = _mockBinFact;
+        this.rand = _rd;
     }
 
     @Override
@@ -17,8 +18,8 @@ public final class MockBinFactory implements AbstractBinFactory {
     }
 
     @Override
-    public boolean writeFile(String _file, byte[] _content) {
+    public int writeFile(String _file, byte[] _content) {
         mockBinFact.getFiles().put(_file,new FileStruct(_content,mockBinFact.getMockMillis().millis()));
-        return true;
+        return MockThreadFactory.edit(rand);
     }
 }

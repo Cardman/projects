@@ -16,4 +16,8 @@ public final class MockRandTest extends EquallableMockGuiUtil {
     public void b123() {
         assertTrue(new MockTrueRand().edit());
     }
+    @Test
+    public void b23() {
+        assertFalse(new MockFalseRand().edit());
+    }
 }

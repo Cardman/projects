@@ -51,7 +51,7 @@ public class DefServerSocket implements AbstractServerSocket {
     }
 
     @Override
-    public boolean close() {
+    public int close() {
         return StreamCoreUtil.close(serverSocket);
     }
 

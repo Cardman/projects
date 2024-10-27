@@ -237,7 +237,13 @@ public abstract class EquallableElUtFilesUtil {
     }
 
     public static MockProgramInfos newMockProgramInfos(CustomSeedGene _s, MockFileSet _set) {
-        MockProgramInfos pr_ = new MockProgramInfos("", "", _s, _set);
+        MockProgramInfos pr_ = MockProgramInfos.inst("", "", _s, _set);
+        pr_.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
+        return pr_;
+    }
+
+    public static MockProgramInfos newMockProgramInfos(CustomSeedGene _s, MockFileSet _set, MockAbsRand _rd) {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", _s, _set,_rd);
         pr_.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
         return pr_;
     }

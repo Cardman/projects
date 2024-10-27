@@ -44,7 +44,7 @@ public final class FctMathRandom0 extends FctMath {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         CustList<String> rds_ = new CustList<String>();
-        double rand_ = MonteCarloUtil.pick(_cont.getStandards().getGenerator(),_stackCall.getSeedCust(),rds_);
+        double rand_ = MonteCarloUtil.pick(_cont.getStandards().getGenerator(),_stackCall.getSeedCust(),_cont.getExecutionInfos().getDbConverter(), rds_);
         FctMathEval.log(_stackCall, rds_, _id);
         return new ArgumentWrapper(new DoubleStruct(rand_));
     }

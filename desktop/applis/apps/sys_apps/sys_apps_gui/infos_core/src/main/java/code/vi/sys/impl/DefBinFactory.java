@@ -21,7 +21,7 @@ public final class DefBinFactory implements AbstractBinFactory {
     }
 
     @Override
-    public boolean writeFile(String _file, byte[] _content) {
+    public int writeFile(String _file, byte[] _content) {
         return write(_content, tryCreateFileOutputStream(_file));
     }
 
@@ -32,7 +32,7 @@ public final class DefBinFactory implements AbstractBinFactory {
             return null;
         }
     }
-    private static boolean write(byte[] _content, OutputStream _fos) {
+    private static int write(byte[] _content, OutputStream _fos) {
         OutputStream w_ = write2(_content, _fos);
         return StreamCoreUtil.close(w_);
     }

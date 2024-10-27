@@ -4,7 +4,7 @@ public interface AbstractThreadFactory extends AbstractTimerRetriever {
     AbstractConcurrentMap<String, FileStruct> newMapStringFileStruct();
     AbstractDateFactory getDateFactory();
 //    void yieldThread();
-    boolean sleep(long _time);
+    int sleep(long _time);
     AbstractThread newStartedThread(Runnable _runnable);
     void newStartedThread(Runnable _runnable, boolean _immediate);
     AbstractThread newThread(Runnable _runnable);

@@ -47,7 +47,7 @@ public final class ParsedArgument {
             arr_[i] = nbs_.get(i).doubleStruct();
         }
         CustomSeedGene s_ = new CustomSeedGene(arr_);
-        s_.setConverter(new AdvDoubleToStrConverter());
+//        s_.setConverter(new AdvDoubleToStrConverter());
         _opt.setSeedGene(s_);
     }
     public static ParsedArgument parse(NumberInfos _infosNb, AnalyzedPageEl _context) {

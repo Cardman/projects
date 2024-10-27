@@ -245,7 +245,7 @@ public abstract class EquallableElUtImplUtil {
     }
 
     public static MockProgramInfos newMockProgramInfos(CustomSeedGene _s, MockFileSet _set) {
-        MockProgramInfos pr_ = new MockProgramInfos("", "", _s, _set);
+        MockProgramInfos pr_ = MockProgramInfos.inst("", "", _s, _set);
         pr_.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
         pr_.setLanguage(StringUtil.EN);
         update(pr_);

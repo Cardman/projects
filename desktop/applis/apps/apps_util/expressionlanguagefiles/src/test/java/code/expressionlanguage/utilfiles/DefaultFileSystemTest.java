@@ -3,6 +3,7 @@ package code.expressionlanguage.utilfiles;
 import code.expressionlanguage.filenames.DefaultNameValidating;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.maths.montecarlo.CustomSeedGene;
+import code.mock.MockFalseRand;
 import code.mock.MockFileSet;
 import code.mock.MockProgramInfos;
 import code.stream.StreamTextFile;
@@ -193,7 +194,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
     @Test
     public void saveTxt1() {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.25));
-        MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}),new MockFalseRand());
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
         ExecutingOptions exec_ = exOpt(pr_);
         exec_.setBaseFiles("/files/");
@@ -233,7 +234,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
     @Test
     public void saveBin1() {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.25));
-        MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}),new MockFalseRand());
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
         ExecutingOptions exec_ = exOpt(pr_);
         exec_.setBaseFiles("/files/");
@@ -273,7 +274,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
     @Test
     public void logTxt1() {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.25));
-        MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}),new MockFalseRand());
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
         ExecutingOptions exec_ = exOpt(pr_);
         exec_.setBaseFiles("/files/");
@@ -312,7 +313,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
     @Test
     public void del1() {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.25));
-        MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}),new MockFalseRand());
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
         ExecutingOptions exec_ = exOpt(pr_);
         exec_.setBaseFiles("/files/");
@@ -354,7 +355,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
     @Test
     public void ren1() {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.25));
-        MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}),new MockFalseRand());
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
         ExecutingOptions exec_ = exOpt(pr_);
         exec_.setBaseFiles("/files/");
@@ -410,7 +411,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
     @Test
     public void isFile1() {
         CustomSeedGene law_ = new CustomSeedGene(dbs(0.25));
-        MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = newMockProgramInfos(law_, new MockFileSet(2, lgs(1), new String[]{"/"}),new MockFalseRand());
         DefaultFileSystem f_ = new DefaultFileSystem(new DefaultUniformingString(), new DefaultNameValidating(new StringList()), pr_.getFileCoreStream(), pr_.getStreams());
         ExecutingOptions exec_ = exOpt(pr_);
         exec_.setBaseFiles("/files/");

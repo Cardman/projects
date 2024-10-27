@@ -14,16 +14,16 @@ public final class DefTextFactory implements AbstractTextFactory {
     }
 
     @Override
-    public boolean write(String _nomFichier, String _text, boolean _append) {
+    public int write(String _nomFichier, String _text, boolean _append) {
         return writeInner(_nomFichier, _text, _append);
     }
 
-    private static boolean writeInner(String _nomFichier, String _text, boolean _append) {
+    private static int writeInner(String _nomFichier, String _text, boolean _append) {
         try {
             OutputStreamWriter res_ = writeLoc(tryCreateWriter(_nomFichier, _append), _text);
             return StreamCoreUtil.close(res_);
         } catch (Exception e) {
-            return false;
+            return 0;
         }
     }
 

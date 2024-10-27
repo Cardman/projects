@@ -5,6 +5,7 @@ import code.maths.Rate;
 import code.maths.geo.*;
 import code.maths.litteralcom.StrTypes;
 import code.maths.montecarlo.CustomSeedGene;
+import code.maths.montecarlo.DefDoubleToStrConverter;
 import code.maths.montecarlo.DefaultGenerator;
 import code.util.CustList;
 import code.util.IdList;
@@ -3929,6 +3930,6 @@ public final class MaParserTest extends EquallableMathUtil {
     }
 
     private static String processEl(MaUserInput _input) {
-        return MaParser.processEl(DefaultGenerator.oneElt(),new CustList<String>(),new CustomSeedGene(),_input);
+        return MaParser.processEl(DefaultGenerator.oneElt(),new CustList<String>(),new CustomSeedGene(),_input, new DefDoubleToStrConverter());
     }
 }
