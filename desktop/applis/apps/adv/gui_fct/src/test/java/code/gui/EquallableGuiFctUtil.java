@@ -148,6 +148,9 @@ public abstract class EquallableGuiFctUtil {
     public static void assertSame(AbsCustComponent _expected, AbsCustComponent _result) {
         Assert.assertSame(_expected, _result);
     }
+    public static void assertSame(AbstractAtomicIntegerCore _expected, AbstractAtomicIntegerCore _result) {
+        Assert.assertSame(_expected, _result);
+    }
     public static void assertSame(ThState _expected, ThState _result) {
         Assert.assertSame(_expected, _result);
     }

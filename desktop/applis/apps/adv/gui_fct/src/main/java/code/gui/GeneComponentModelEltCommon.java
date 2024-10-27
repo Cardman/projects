@@ -16,6 +16,12 @@ public abstract class GeneComponentModelEltCommon<T> {
         elements = _elts;
     }
 
+    protected AbsCustComponent buildLs() {
+        setSelect(new DefScrollCustomGraphicList<T>(getCompoFactory().getCompoFactory(), getCompoFactory().getImageFactory(), getRender(), false));
+        computeWidth(getRender());
+        feed();
+        return getSelect().getScrollPane();
+    }
 
     protected void computeWidth(CustCellRenderGeneStrImpl<T> _r) {
         int w_ = 0;

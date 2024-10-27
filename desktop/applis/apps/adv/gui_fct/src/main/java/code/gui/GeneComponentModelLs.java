@@ -3,47 +3,41 @@ package code.gui;
 import code.gui.initialize.*;
 import code.util.*;
 
-public abstract class GeneComponentModelLs<T> extends GeneComponentModelEltCommon<T> implements GeneComponentModel<CustList<T>> {
+public abstract class GeneComponentModelLs<T> extends GeneComponentModelEltCommon<T> {
 
     protected GeneComponentModelLs(AbstractProgramInfos _c, CustCellRenderGeneStrImpl<T> _rend, CustList<T> _elts) {
         super(_c, _rend, _elts);
     }
 
-    @Override
     public AbsCustComponent gene() {
-        setSelect(new DefScrollCustomGraphicList<T>(getCompoFactory().getCompoFactory(), getCompoFactory().getImageFactory(), getRender(), false));
-        computeWidth(getRender());
-        feed();
-        return getSelect().getScrollPane();
+        return buildLs();
     }
 
-    @Override
-    public AbsCustComponent gene(CustList<T> _d) {
-        setSelect(new DefScrollCustomGraphicList<T>(getCompoFactory().getCompoFactory(), getCompoFactory().getImageFactory(), getRender(), false));
-        computeWidth(getRender());
-        feed();
+    public AbsCustComponent geneCommon(CustList<T> _d) {
+        AbsCustComponent a_ = buildLs();
         setupValue(getSelect(),_d);
         getSelect().events();
         getSelect().revalidate();
-        return getSelect().getScrollPane();
+        return a_;
     }
 
-    protected abstract void setupValue(DefScrollCustomGraphicList<T> _t, CustList<T> _v);
+    protected void setupValue(DefScrollCustomGraphicList<T> _t, CustList<T> _v) {
+        Ints ind_ = new Ints();
+        for (T s: _v) {
+            int res_ = indexOf(s);
+            if (res_ >= 0) {
+                ind_.add(res_);
+            }
+        }
+        _t.select(ind_);
+    }
+    protected abstract int indexOf(T _t);
 
-    @Override
-    public CustList<T> value() {
+    protected CustList<T> tryRet() {
         Ints sel_ = getSelect().getSelectedIndexes();
         return tryRet(sel_);
     }
-
-    @Override
-    public CustList<T> value(CustList<T> _v) {
-        Ints sel_ = getSelect().getSelectedIndexes();
-        setupValue(getSelect(),_v);
-        return tryRet(sel_);
-    }
-
-    private CustList<T> tryRet(Ints _sel) {
+    protected CustList<T> tryRet(Ints _sel) {
         CustList<T> elts_ = new CustList<T>();
         for (int i:_sel) {
             elts_.add(getElements().get(i));

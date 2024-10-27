@@ -8,6 +8,7 @@ import code.maths.Rate;
 import code.mock.*;
 import code.stream.AbsClipStream;
 import code.threads.ConcreteBoolean;
+import code.threads.ConcreteInteger;
 import code.util.*;
 import code.util.comparators.NaturalComparator;
 import code.util.core.NumberUtil;
@@ -656,11 +657,45 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         assertEq("1",g_.value());
     }
     @Test
+    public void modelEltId1() {
+        ConcreteInteger one_ = new ConcreteInteger(1);
+        ConcreteInteger two_ = new ConcreteInteger(2);
+        IdMap<ConcreteInteger,String> mess_ = new IdMap<ConcreteInteger,String>();
+        mess_.addEntry(one_,"ONE");
+        mess_.addEntry(two_,"TWO");
+        GeneComponentModelEltEnumSample g_ = new GeneComponentModelEltEnumSample(init(), mess_,new IdList<ConcreteInteger>(one_,two_));
+        g_.gene();
+        assertSame(null,g_.value());
+    }
+    @Test
+    public void modelEltId2() {
+        ConcreteInteger one_ = new ConcreteInteger(1);
+        ConcreteInteger two_ = new ConcreteInteger(2);
+        IdMap<ConcreteInteger,String> mess_ = new IdMap<ConcreteInteger,String>();
+        mess_.addEntry(one_,"ONE");
+        mess_.addEntry(two_,"TWO");
+        GeneComponentModelEltEnumSample g_ = new GeneComponentModelEltEnumSample(init(), mess_,new IdList<ConcreteInteger>(one_,two_));
+        g_.gene(two_);
+        assertSame(two_,g_.value());
+    }
+    @Test
+    public void modelEltId3() {
+        ConcreteInteger one_ = new ConcreteInteger(1);
+        ConcreteInteger two_ = new ConcreteInteger(2);
+        IdMap<ConcreteInteger,String> mess_ = new IdMap<ConcreteInteger,String>();
+        mess_.addEntry(one_,"ONE");
+        mess_.addEntry(two_,"TWO");
+        GeneComponentModelEltEnumSample g_ = new GeneComponentModelEltEnumSample(init(), mess_,new IdList<ConcreteInteger>(one_,two_));
+        g_.gene(two_);
+        g_.value(one_);
+        assertSame(one_,g_.value());
+    }
+    @Test
     public void modelLs1() {
         StringMap<String> mess_ = new StringMap<String>();
         mess_.addEntry("1","ONE");
         mess_.addEntry("2","TWO");
-        GeneComponentModelLsStr g_ = new GeneComponentModelLsStr(init(), mess_,new CustList<String>("1","2"));
+        GeneComponentModelLsStr g_ = new GeneComponentModelLsStr(init(), mess_,new StringList("1","2"));
         g_.gene();
         assertEq(0,g_.value().size());
     }
@@ -669,8 +704,8 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         StringMap<String> mess_ = new StringMap<String>();
         mess_.addEntry("1","ONE");
         mess_.addEntry("2","TWO");
-        GeneComponentModelLsStr g_ = new GeneComponentModelLsStr(init(), mess_,new CustList<String>("1","2"));
-        g_.gene(new CustList<String>("2"));
+        GeneComponentModelLsStr g_ = new GeneComponentModelLsStr(init(), mess_,new StringList("1","2"));
+        g_.gene(new StringList("2"));
         CustList<String> ls_ = g_.value();
         assertEq(1, ls_.size());
         assertEq("2", ls_.get(0));
@@ -680,12 +715,77 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         StringMap<String> mess_ = new StringMap<String>();
         mess_.addEntry("1","ONE");
         mess_.addEntry("2","TWO");
-        GeneComponentModelLsStr g_ = new GeneComponentModelLsStr(init(), mess_,new CustList<String>("1","2"));
-        g_.gene(new CustList<String>("2"));
-        g_.value(new CustList<String>("1"));
+        GeneComponentModelLsStr g_ = new GeneComponentModelLsStr(init(), mess_,new StringList("1","2"));
+        g_.gene(new StringList("2"));
+        g_.value(new StringList("1"));
         CustList<String> ls_ = g_.value();
         assertEq(1, ls_.size());
         assertEq("1", ls_.get(0));
+    }
+    @Test
+    public void modelLs4() {
+        StringMap<String> mess_ = new StringMap<String>();
+        mess_.addEntry("1","ONE");
+        mess_.addEntry("2","TWO");
+        GeneComponentModelLsStr g_ = new GeneComponentModelLsStr(init(), mess_,new StringList("1","2"));
+        g_.gene(new StringList("2"));
+        g_.value(new StringList("2","3"));
+        CustList<String> ls_ = g_.value();
+        assertEq(1, ls_.size());
+        assertEq("2", ls_.get(0));
+    }
+    @Test
+    public void modelLsId1() {
+        ConcreteInteger one_ = new ConcreteInteger(1);
+        ConcreteInteger two_ = new ConcreteInteger(2);
+        IdMap<ConcreteInteger,String> mess_ = new IdMap<ConcreteInteger,String>();
+        mess_.addEntry(one_,"ONE");
+        mess_.addEntry(two_,"TWO");
+        GeneComponentModelLsEnum<ConcreteInteger> g_ = new GeneComponentModelLsEnum<ConcreteInteger>(init(), mess_,new IdList<ConcreteInteger>(one_,two_));
+        g_.gene();
+        assertEq(0,g_.value().size());
+    }
+    @Test
+    public void modelLsId2() {
+        ConcreteInteger one_ = new ConcreteInteger(1);
+        ConcreteInteger two_ = new ConcreteInteger(2);
+        IdMap<ConcreteInteger,String> mess_ = new IdMap<ConcreteInteger,String>();
+        mess_.addEntry(one_,"ONE");
+        mess_.addEntry(two_,"TWO");
+        GeneComponentModelLsEnum<ConcreteInteger> g_ = new GeneComponentModelLsEnum<ConcreteInteger>(init(), mess_,new IdList<ConcreteInteger>(one_,two_));
+        g_.gene(new IdList<ConcreteInteger>(two_));
+        CustList<ConcreteInteger> ls_ = g_.value();
+        assertEq(1, ls_.size());
+        assertSame(two_, ls_.get(0));
+    }
+    @Test
+    public void modelLsId3() {
+        ConcreteInteger one_ = new ConcreteInteger(1);
+        ConcreteInteger two_ = new ConcreteInteger(2);
+        IdMap<ConcreteInteger,String> mess_ = new IdMap<ConcreteInteger,String>();
+        mess_.addEntry(one_,"ONE");
+        mess_.addEntry(two_,"TWO");
+        GeneComponentModelLsEnum<ConcreteInteger> g_ = new GeneComponentModelLsEnum<ConcreteInteger>(init(), mess_,new IdList<ConcreteInteger>(one_,two_));
+        g_.gene(new IdList<ConcreteInteger>(two_));
+        g_.value(new IdList<ConcreteInteger>(one_));
+        CustList<ConcreteInteger> ls_ = g_.value();
+        assertEq(1, ls_.size());
+        assertSame(one_, ls_.get(0));
+    }
+    @Test
+    public void modelLsId4() {
+        ConcreteInteger one_ = new ConcreteInteger(1);
+        ConcreteInteger two_ = new ConcreteInteger(2);
+        ConcreteInteger three_ = new ConcreteInteger(3);
+        IdMap<ConcreteInteger,String> mess_ = new IdMap<ConcreteInteger,String>();
+        mess_.addEntry(one_,"ONE");
+        mess_.addEntry(two_,"TWO");
+        GeneComponentModelLsEnum<ConcreteInteger> g_ = new GeneComponentModelLsEnum<ConcreteInteger>(init(), mess_,new IdList<ConcreteInteger>(one_,two_));
+        g_.gene(new IdList<ConcreteInteger>(two_));
+        g_.value(new IdList<ConcreteInteger>(two_,three_));
+        CustList<ConcreteInteger> ls_ = g_.value();
+        assertEq(1, ls_.size());
+        assertSame(two_, ls_.get(0));
     }
     @Test
     public void quit() {
