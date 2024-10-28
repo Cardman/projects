@@ -560,14 +560,17 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
     }
     public static DataBase init() {
         DataBase data_ = new DataBase(DefaultGenerator.oneElt());
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initTranslations();
         data_.initializeMembers();
         data_.setMap(Instances.newDataMap());
         data_.setCombos(Instances.newCombos());
         data_.getMap().setSideLength(1);
         return data_;
+    }
+    public static void updateLg(DataBase _db) {
+        _db.setLanguage(LANGUAGE);
+        _db.setLanguages(new StringList(LANGUAGE));
     }
     public static DataBase withPk(DataBase _data, String _key, StringMap<String> _trs) {
         PokemonData pk_ = Instances.newPokemonData();

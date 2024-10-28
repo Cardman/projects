@@ -943,8 +943,7 @@ public abstract class InitDbFight extends InitDbBean {
 
     private DataBase dbBaseCalcCom() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         data_.completeMembers(ECLAIR, damMoveAcc(TargetChoice.ANY_FOE, "40"));
         data_.completeMembers(CHARGE, damMoveAcc(TargetChoice.TOUS_ADV, "20"));
@@ -1014,8 +1013,7 @@ public abstract class InitDbFight extends InitDbBean {
 
     private DataBase dbBase() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         move_.setPp((short) 20);
@@ -1525,7 +1523,7 @@ public abstract class InitDbFight extends InitDbBean {
 
     private FacadeGame initFacade(DataBase _data) {
         FacadeGame fac_ = new FacadeGame();
-        fac_.setLanguages(new StringList(EN));
+        fac_.setLanguages(indexes());
         StringMap<String> displayLanguages_ = new StringMap<String>();
         displayLanguages_.addEntry(EN,EN);
         fac_.setDisplayLanguages(displayLanguages_);

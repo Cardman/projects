@@ -1076,7 +1076,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     public void changeLanguage(String _language) {
         AbstractProgramInfos infos_ = getFrames();
         String value_ = StringUtil.nullToEmpty(_language);
-        StreamLanguageUtil.saveLanguage(WindowAiki.getTempFolder(getFrames()), value_,infos_.getStreams());
+        StreamLanguageUtil.saveLanguage(WindowAiki.getTempFolder(getFrames()), value_,infos_);
         setLanguageKey(_language);
         core.getFacade().setLanguage(_language);
         initMessages();

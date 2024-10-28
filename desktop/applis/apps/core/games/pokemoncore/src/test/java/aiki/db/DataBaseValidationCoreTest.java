@@ -64,8 +64,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
     @Test
     public void fail1Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         PokemonData pkData_ = Instances.newPokemonData();
         pkData_.setGenderRep(GenderRepartition.MIXED);
@@ -145,8 +144,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
     @Test
     public void fail2Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         PokemonData pkData_ = Instances.newPokemonData();
         pkData_.setMoveTutors(new StringList(LUTTE));
@@ -179,8 +177,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
     @Test
     public void fail3Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         MoveData mvDam_ = Instances.newDamagingMoveData();
         mvDam_.getRepeatRoundLaw().addQuickEvent(Rate.newRate("-1"),LgInt.newLgInt("-1"));
@@ -377,8 +374,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
     @Test
     public void fail4Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         MoveData mvDam_ = Instances.newStatusMoveData();
         EffectStatistic effectStatistic_ = Instances.newEffectStatistic();
@@ -422,8 +418,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
     @Test
     public void fail5Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         MoveData mvDam_ = Instances.newStatusMoveData();
         EffectTeam effectTeam_ = Instances.newEffectTeam();
@@ -457,8 +452,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
     @Test
     public void fail6Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         MoveData mvDam_ = Instances.newStatusMoveData();
         EffectStatus effectStatus_ = Instances.newEffectStatus();
@@ -506,8 +500,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
     @Test
     public void fail7Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         MoveData mvDam_ = Instances.newStatusMoveData();
         EffectSwitchTypes effectSwitchTypes_ = Instances.newEffectSwitchTypes();
@@ -543,8 +536,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
     @Test
     public void fail8Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         MoveData mvDam_ = Instances.newStatusMoveData();
         EffectCounterAttack effectCounterAttack_ = Instances.newEffectCounterAttack();
@@ -700,8 +692,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
     @Test
     public void fail9Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         AbilityData abilityData_ = Instances.newAbilityData();
         EffectWhileSendingWithStatistic effectWhileSendingSimple_ = Instances.newEffectWhileSendingSimple();
@@ -796,8 +787,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
     @Test
     public void fail10Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         StatusBeginRoundAutoDamage statusBeginRoundAutoDamage_ = Instances.newStatusBeginRoundAutoDamage();
         statusBeginRoundAutoDamage_.setPower(Rate.newRate("-1"));
@@ -834,8 +824,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
     @Test
     public void fail11Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         ItemForBattle itemForBattle_ = Instances.newItemForBattle();
         itemForBattle_.getLawForAttackFirst().addQuickEvent(BoolVal.TRUE,LgInt.newLgInt("-1"));
@@ -914,8 +903,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
     @Test
     public void fail12Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         Boost boost_ = Instances.newBoost();
         boost_.setWinPp(Rate.newRate("-1"));
@@ -948,8 +936,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
     @Test
     public void fail13Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         HealingPp healingPp_ = Instances.newHealingPp();
         healingPp_.setHealingAllMovesPp(true);

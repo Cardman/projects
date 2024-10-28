@@ -1,24 +1,25 @@
 package code.stream;
 
+import code.gui.initialize.AbstractProgramInfos;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.sml.Node;
 import code.stream.core.TechStreams;
-import code.util.CustList;
+import code.util.*;
 import code.util.core.StringUtil;
 
 public final class StreamLanguageUtil {
-    private static final String LOCALE = "locale";
+    public static final String LOCALE = "locale";
 
-    private static final String PARAMETERS = "parameters";
+    public static final String PARAMETERS = "parameters";
 
-    private static final String LANGUAGE = "langue.xml";
+    public static final String LANGUAGE = "langue.xml";
 
     private StreamLanguageUtil() {
     }
 
-    public static String tryToGetXmlLanguage(String _dir, AbstractFileCoreStream _fact, TechStreams _tech, CustList<String> _lgs) {
+    public static String tryToGetXmlLanguage(String _dir, AbstractFileCoreStream _fact, TechStreams _tech, StringMap<String> _lgs) {
         Node noeud_ = StreamTextFile.contenuDocumentXmlExterne(lg(_dir),_fact,_tech);
         if (noeud_ == null) {
             return "";
@@ -26,8 +27,8 @@ public final class StreamLanguageUtil {
         for(Element e: noeud_.getChildElements()){
             if(StringUtil.quickEq(e.getTagName(),LOCALE)){
                 String code_ = e.getAttribute(LOCALE);
-                if (StringUtil.contains(_lgs, code_)) {
-                    return StringUtil.nullToEmpty(code_);
+                if (_lgs.contains(code_)) {
+                    return StringUtil.nullToEmpty(_lgs.getVal(code_));
                 }
                 return "";
             }
@@ -35,17 +36,21 @@ public final class StreamLanguageUtil {
         return "";
     }
 
-    public static boolean saveLanguage(String _folder, String _locale,TechStreams _str) {
-        if (_locale.isEmpty()) {
-            return false;
+    public static void saveLanguage(String _folder, String _locale, AbstractProgramInfos _str) {
+        for (EntryCust<String,String> e: _str.getTranslations().getIndexes().entryList()) {
+            if (StringUtil.quickEq(e.getValue(),_locale)) {
+                saveLanguage(_folder,e.getKey(),_str.getStreams());
+            }
         }
+    }
+    public static void saveLanguage(String _folder, String _locale,TechStreams _str) {
         Document document_= DocumentBuilder.newXmlDocument();
         Element info_=document_.createElement(PARAMETERS);
         Element infoPart_ = document_.createElement(LOCALE);
         infoPart_.setAttribute(LOCALE, _locale);
         info_.appendChild(infoPart_);
         document_.appendChild(info_);
-        return StreamTextFile.saveTextFile(lg(_folder), document_.export(),_str);
+        StreamTextFile.saveTextFile(lg(_folder), document_.export(),_str);
     }
 
     static String lg(String _f) {

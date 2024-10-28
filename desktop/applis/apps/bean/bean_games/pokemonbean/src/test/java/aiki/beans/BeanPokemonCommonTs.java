@@ -5,6 +5,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.scripts.confs.EquallablePkBeanUtil;
 import code.util.Longs;
+import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -154,5 +155,11 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
     }
     public static NaSt second(NaSt _arr) {
         return ((PairStruct)_arr).getSecond();
+    }
+    public static StringList indexes(){
+        return new StringList(EN);
+    }
+    public static StringList indexesAll(){
+        return new StringList(EN,FR);
     }
 }

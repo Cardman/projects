@@ -588,8 +588,7 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
     public void t55() {
         FacadeGame f_ = new FacadeGame();
         f_.setData(new DataBase(new DefaultGenerator(DefaultGenerator.oneEltGene())));
-        f_.getData().setLanguage("");
-        f_.getData().setLanguages(new StringList(""));
+        updateLg(f_.getData());
         f_.getData().getPokedex().addEntry("P",Instances.newPokemonData());
         f_.getData().getMoves().addEntry("",Instances.newDamagingMoveData());
         f_.getData().getMoves().addEntry("M",Instances.newDamagingMoveData());
@@ -613,8 +612,7 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
     public void t56() {
         FacadeGame f_ = new FacadeGame();
         f_.setData(new DataBase(new DefaultGenerator(DefaultGenerator.oneEltGene())));
-        f_.getData().setLanguage("");
-        f_.getData().setLanguages(new StringList(""));
+        updateLg(f_.getData());
         f_.getData().getPokedex().addEntry("P",Instances.newPokemonData());
         f_.getData().getMoves().addEntry("",Instances.newDamagingMoveData());
         f_.getData().getMoves().addEntry("M",Instances.newDamagingMoveData());
@@ -764,8 +762,7 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
     public void t67() {
         FacadeGame f_ = new FacadeGame();
         f_.setData(new DataBase(new DefaultGenerator(DefaultGenerator.oneEltGene())));
-        f_.getData().setLanguage("");
-        f_.getData().setLanguages(new StringList(""));
+        updateLg(f_.getData());
         StringMap<String> txt_ = new StringMap<String>();
         txt_.addEntry("_","");
         DocumentReaderAikiCoreUtil.loadRom(f_.getData(), txt_,new ConcreteInteger(),new SexListImpl(), BASE);
@@ -862,4 +859,8 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
         return DocumentReaderAikiCoreUtil.getLoadingGameOrNull(DocumentBuilder.parseNoTextDocument(_str));
     }
 
+    private static void updateLg(DataBase _db) {
+        _db.setLanguage("");
+        _db.setLanguages(new StringList(""));
+    }
 }

@@ -885,11 +885,11 @@ public final class GameProgressionBeanTest extends InitDbGameProgressionBean {
         facadeGame_.setData(_init);
         StringMap<String> displayLanguages_ = new StringMap<String>();
         displayLanguages_.put(EN,EN);
-        facadeGame_.setLanguages(new StringList(EN));
+        facadeGame_.setLanguages(indexes());
         facadeGame_.setDisplayLanguages(displayLanguages_);
         facadeGame_.setLanguage(EN);
         facadeGame_.setZipName("zip");
-        facadeGame_.setLanguages(new StringList(EN));
+        facadeGame_.setLanguages(indexes());
         _init.setMessages(facadeGame_.getData());
         facadeGame_.setLoadedData(true);
         return facadeGame_;

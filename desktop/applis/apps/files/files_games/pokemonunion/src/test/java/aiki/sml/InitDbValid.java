@@ -154,8 +154,7 @@ public abstract class InitDbValid extends EquallablePkFileUtil {
     public static DataBase coreDataBase() {
         DataBase data_ = new DataBase(DefaultGenerator.oneElt());
         data_.defValues();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         initConstants(data_);
         PokemonData pkData_ = Instances.newPokemonData();
@@ -184,6 +183,10 @@ public abstract class InitDbValid extends EquallablePkFileUtil {
         return data_;
     }
 
+    protected static void updateLg(DataBase _db) {
+        _db.setLanguage(LANGUAGE);
+        _db.setLanguages(new StringList(LANGUAGE));
+    }
     private static DamagingMoveData def() {
         EffectDamage eff_;
         DamagingMoveData sec_ = Instances.newDamagingMoveData();

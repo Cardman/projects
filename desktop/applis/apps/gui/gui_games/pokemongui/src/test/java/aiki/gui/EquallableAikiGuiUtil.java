@@ -492,4 +492,9 @@ public abstract class EquallableAikiGuiUtil {
     public static ImageArrayBaseSixtyFour instance(int[][] _img) {
         return ImageArrayBaseSixtyFour.instance(_img,"");
     }
+
+    protected static void updateLg(DataBase _db) {
+        _db.setLanguage(LANGUAGE);
+        _db.setLanguages(new StringList(LANGUAGE));
+    }
 }

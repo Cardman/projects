@@ -1095,8 +1095,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     }
     public static DataBase coreDataBaseValid() {
         DataBase data_ = new DataBase(DefaultGenerator.oneElt());
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.defValues();
         data_.initializeMembers();
         initConstants(data_);

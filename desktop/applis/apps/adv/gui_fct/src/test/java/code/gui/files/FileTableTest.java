@@ -2,14 +2,12 @@ package code.gui.files;
 
 import code.gui.CoreMouseLocation;
 import code.gui.EquallableGuiFctUtil;
-import code.gui.TextAnswerValue;
 import code.gui.events.MockProgramInfosSecSample;
-import code.gui.images.MetaDimension;
 import code.mock.*;
 import code.stream.AbstractFile;
 import code.threads.ConcreteBoolean;
 import code.util.CustList;
-import code.util.core.StringUtil;
+import code.util.StringMap;
 import org.junit.Test;
 
 public final class FileTableTest extends EquallableGuiFctUtil {
@@ -198,6 +196,34 @@ public final class FileTableTest extends EquallableGuiFctUtil {
         ls_.add(pr_.getFileCoreStream().newFile("tmp1/sub/txt1"));
         ls_.sortElts(new FileComparator(false,FileTable.PATH_INDEX,"tmp1/"));
         assertEq(2,ls_.size());
+    }
+    @Test
+    public void indexPath1() {
+        MockProgramInfosSecSample pr_ = init();
+        StringMap<String> indexes_ = FileDialogContent.index("a/b", pr_.getValidator());
+        assertEq(2,indexes_.size());
+        assertEq("0",indexes_.getVal("a"));
+        assertEq("1",indexes_.getVal("b"));
+    }
+    @Test
+    public void indexPath2() {
+        MockProgramInfosSecSample pr_ = init();
+        StringMap<String> indexes_ = FileDialogContent.index("b/a", pr_.getValidator());
+        assertEq(2,indexes_.size());
+        assertEq("0",indexes_.getVal("b"));
+        assertEq("1",indexes_.getVal("a"));
+    }
+    @Test
+    public void indexPath3() {
+        MockProgramInfosSecSample pr_ = init();
+        StringMap<String> indexes_ = FileDialogContent.index("!", pr_.getValidator());
+        assertEq(0,indexes_.size());
+    }
+    @Test
+    public void indexPath4() {
+        MockProgramInfosSecSample pr_ = init();
+        StringMap<String> indexes_ = FileDialogContent.index("", pr_.getValidator());
+        assertEq(0,indexes_.size());
     }
     private void click(FileOpenFrame _open, int _x, int _y) {
         ((MockTableGui) _open.getFileDialogContent().getFileTable()).getHeadersCl().get(0).mouseReleased(new CoreMouseLocation(_x, _y),null,null);

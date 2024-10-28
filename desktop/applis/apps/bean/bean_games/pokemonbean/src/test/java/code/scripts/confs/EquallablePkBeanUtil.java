@@ -6,6 +6,7 @@ import aiki.fight.enums.Statistic;
 import aiki.util.Coords;
 import code.bean.nat.*;
 //import code.formathtml.structs.Message;
+import code.util.StringMap;
 import org.junit.Assert;
 
 public abstract class EquallablePkBeanUtil {

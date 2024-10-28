@@ -59,7 +59,7 @@ public final class LanguageFrame implements SetterLanguage, AbsQuit, AbsChangeLa
     public void setLanguage(String _language) {
         langue = _language;
 //        commonFrame.dispose();
-        StreamLanguageUtil.saveLanguage(dir, _language,soft.getFrames().getStreams());
+        StreamLanguageUtil.saveLanguage(dir, _language,soft.getFrames());
         getCommonFrame().setVisible(false);
 //        commonFrame.getPane().removeAll();
 //        getFrames().getFrames().clear();

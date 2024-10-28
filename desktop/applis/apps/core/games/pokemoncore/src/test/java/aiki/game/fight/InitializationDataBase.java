@@ -1218,8 +1218,7 @@ public class InitializationDataBase extends EquallablePkUtil {
     }
     protected static DataBase coreDataBase() {
         DataBase data_ = new DataBase(DefaultGenerator.oneElt());
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         initConstants(data_);
         InitializationPokedex.initAllPokemon(data_);
@@ -1232,6 +1231,10 @@ public class InitializationDataBase extends EquallablePkUtil {
         return data_;
     }
 
+    protected static void updateLg(DataBase _db) {
+        _db.setLanguage(LANGUAGE);
+        _db.setLanguages(new StringList(LANGUAGE));
+    }
     protected static void initTableTypes(DataBase _data) {
         _data.getTableTypes().addEntry(new TypesDuo(ACIER,FEE),new Rate("1"));
         _data.getTableTypes().addEntry(new TypesDuo(COMBAT,FEE),new Rate("1"));

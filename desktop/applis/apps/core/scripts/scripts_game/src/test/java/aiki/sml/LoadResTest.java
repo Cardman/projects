@@ -13,7 +13,7 @@ public final class LoadResTest extends EquallableAikiScriptsUtil {
     @Test
     public void load(){
         FacadeGame facade_ = new FacadeGame();
-        facade_.setLanguages(new StringList(MessagesTrs.EN,MessagesTrs.FR));
+        facade_.setLanguages(indexesAll());
         facade_.setDisplayLanguages(new StringMap<String>());
         StringMap<TranslationsAppli> apps_ = new StringMap<TranslationsAppli>();
         apps_.addEntry(MessagesTrs.EN,MessagesTrs.enPart());
@@ -23,5 +23,9 @@ public final class LoadResTest extends EquallableAikiScriptsUtil {
         assertNotNull(facade_.getData());
         assertNotNull(new CstIgameImpl().self());
         FacadeGame.postLoad(facade_,facade_.getData());
+    }
+
+    public static StringList indexesAll(){
+        return new StringList(MessagesTrs.EN,MessagesTrs.FR);
     }
 }

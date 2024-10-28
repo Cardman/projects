@@ -86,7 +86,6 @@ public final class FileSaveDialogContent extends FileDialogContent {
     public static boolean koCreate(String _p, AbstractProgramInfos _pr) {
         return !_pr.getValidator().okPath(PathsUtil.getRelativeRootPath(_p,_pr.getFileCoreStream()), '/', '\\') || !PathsUtil.mkdirs(_p, _pr.getFileCoreStream());
     }
-
     @Override
     public void clickRow() {
         super.clickRow();

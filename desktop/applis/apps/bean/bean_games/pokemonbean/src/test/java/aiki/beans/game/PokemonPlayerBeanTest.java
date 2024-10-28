@@ -563,7 +563,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
 
     private FacadeGame fac(DataBase _init) {
         FacadeGame fac_ = new FacadeGame();
-        fac_.setLanguages(new StringList(EN));
+        fac_.setLanguages(indexes());
         StringMap<String> displayLanguages_ = new StringMap<String>();
         displayLanguages_.addEntry(EN,EN);
         fac_.setDisplayLanguages(displayLanguages_);

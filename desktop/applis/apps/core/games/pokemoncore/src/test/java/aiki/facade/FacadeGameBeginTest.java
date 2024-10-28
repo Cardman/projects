@@ -14,18 +14,6 @@ import org.junit.Test;
 
 public final class FacadeGameBeginTest extends InitializationDataBase {
 
-    public static FacadeGame initTests() {
-        DataBase data_ = initDb();
-        FacadeGame facadeGame_ = new FacadeGame();
-        facadeGame_.setData(data_);
-        StringMap<String> displayLanguages_ = new StringMap<String>();
-        displayLanguages_.put(LANGUAGE,LANGUAGE);
-        facadeGame_.setLanguages(new StringList(LANGUAGE));
-        facadeGame_.setDisplayLanguages(displayLanguages_);
-        facadeGame_.setLanguage(LANGUAGE);
-        facadeGame_.setZipName("zip");
-        return facadeGame_;
-    }
 
     @Test
     public void sexList() {
@@ -72,6 +60,22 @@ public final class FacadeGameBeginTest extends InitializationDataBase {
         facadeGame_.getFrontChosenHeros(MessagesDataBaseConstants.BASE);
         facadeGame_.getFrontChosenHerosOppositeSex(MessagesDataBaseConstants.BASE);
         assertEq(1, facadeGame_.getPlayer().getPokemonPlayerList().size());
+    }
+
+    public static FacadeGame initTests() {
+        DataBase data_ = initDb();
+        FacadeGame facadeGame_ = new FacadeGame();
+        facadeGame_.setData(data_);
+        StringMap<String> displayLanguages_ = new StringMap<String>();
+        displayLanguages_.put(LANGUAGE,LANGUAGE);
+        facadeGame_.setLanguages(indexes());
+        facadeGame_.setDisplayLanguages(displayLanguages_);
+        facadeGame_.setLanguage(LANGUAGE);
+        facadeGame_.setZipName("zip");
+        return facadeGame_;
+    }
+    public static StringList indexes(){
+        return new StringList(LANGUAGE);
     }
     private static Coords newCoords(int _place, int _level, int _x, int _y) {
         Coords begin_ = new Coords();

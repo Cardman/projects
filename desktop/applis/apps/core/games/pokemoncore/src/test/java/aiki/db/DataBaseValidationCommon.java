@@ -11,6 +11,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.litteral.MbOperationNode;
 import code.maths.montecarlo.MonteCarloNumber;
+import code.util.*;
 import code.util.core.StringUtil;
 
 public abstract class DataBaseValidationCommon extends EquallablePkUtil {
@@ -162,5 +163,10 @@ public abstract class DataBaseValidationCommon extends EquallablePkUtil {
         monteCarloNumber_ = new MonteCarloNumber();
         monteCarloNumber_.addQuickEvent(new Rate("1"),new LgInt("1"));
         _data.getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MAX,new LawNumber(monteCarloNumber_,(short)5));
+    }
+
+    protected static void updateLg(DataBase _db) {
+        _db.setLanguage(LANGUAGE);
+        _db.setLanguages(new StringList(LANGUAGE));
     }
 }

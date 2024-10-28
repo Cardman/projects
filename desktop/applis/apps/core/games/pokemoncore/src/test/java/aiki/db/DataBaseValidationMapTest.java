@@ -62,8 +62,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail1Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         initPlaces(map_);
@@ -90,8 +89,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail2Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         initPlaces(map_);
@@ -118,8 +116,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail3Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new CoordsLists());
@@ -246,8 +243,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail4Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new CoordsLists());
@@ -302,8 +298,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail5Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new CoordsLists());
@@ -367,8 +362,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail6Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new CoordsLists());
@@ -420,8 +414,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail7Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new CoordsLists());
@@ -463,8 +456,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail8Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new CoordsLists());
@@ -506,8 +498,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail9Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new CoordsLists());
@@ -571,8 +562,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail10Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new CoordsLists());
@@ -623,8 +613,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail11Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new CoordsLists());
@@ -676,8 +665,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail112Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new CoordsLists());
@@ -738,8 +726,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail13Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new CoordsLists());
@@ -797,8 +784,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail14Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new CoordsLists());
@@ -854,8 +840,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail15Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new CoordsLists());
@@ -910,8 +895,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail16Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new CoordsLists());
@@ -974,8 +958,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail17Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         initPlaces(map_);
@@ -1002,8 +985,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail18Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         initPlaces(map_);
@@ -1033,8 +1015,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail19Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new CoordsLists());
@@ -1100,8 +1081,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail20Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new CoordsLists());
@@ -1167,8 +1147,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail21Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new CoordsLists());
@@ -1233,8 +1212,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail22Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new CoordsLists());
@@ -1278,8 +1256,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail23Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new CoordsLists());
@@ -1327,8 +1304,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail24Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DamagingMoveData damagingMoveData_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
@@ -1409,8 +1385,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail25Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DamagingMoveData damagingMoveData_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
@@ -1482,8 +1457,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail26Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DamagingMoveData damagingMoveData_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
@@ -1580,8 +1554,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail27Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DamagingMoveData damagingMoveData_ = Instances.newDamagingMoveData();
         EffectDamage effectDamage_ = Instances.newEffectDamage();
@@ -1680,8 +1653,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail28Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new CoordsLists());
@@ -1745,8 +1717,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail29Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new CoordsLists());
@@ -1810,8 +1781,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail30Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new CoordsLists());
@@ -1875,8 +1845,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail31Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new CoordsLists());
@@ -1930,8 +1899,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail32Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new CoordsLists());
@@ -1984,8 +1952,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail33Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new CoordsLists());
@@ -2039,8 +2006,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail34Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new CoordsLists());
@@ -2058,8 +2024,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail35Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new CoordsLists());
@@ -2079,8 +2044,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail36Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new CoordsLists());
@@ -2100,8 +2064,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail37Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new CoordsLists());
@@ -2120,8 +2083,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail38Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new CoordsLists());
@@ -2140,8 +2102,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail39Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new CoordsLists());
@@ -2160,8 +2121,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail40Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new CoordsLists());
@@ -2180,8 +2140,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail41Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new CoordsLists());
@@ -2200,8 +2159,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void fail42Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new CoordsLists());
@@ -2341,8 +2299,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void getMapWidth1Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         Road road_ = Instances.newRoad();
@@ -2370,8 +2327,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void getMapHeight1Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         City road_ = Instances.newCity();
@@ -2491,8 +2447,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void validSavedLink1Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new CoordsLists());
@@ -2522,8 +2477,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void validSavedLink2Test() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new CoordsLists());

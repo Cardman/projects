@@ -146,8 +146,7 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
     }
     public static DataBase progress() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         PokemonData one_ = Instances.newPokemonData();
         statBase(one_);
@@ -213,8 +212,7 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
     }
     public static DataBase one() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         PokemonData pkData_ = Instances.newPokemonData();
         pkData_.setBaseEvo(PIKACHU);
@@ -333,8 +331,7 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
 
     private static DataBase init() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         initConstants(data_);
         AbilityData ab_ = Instances.newAbilityData();
@@ -851,8 +848,7 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
 
     protected static DataBase diff(int _iv) {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         IdMap<DifficultyWinPointsFight, String> wfn_ = new IdMap<DifficultyWinPointsFight, String>();
         wfn_.addEntry(DifficultyWinPointsFight.TRES_DIFFICILE,"TRES_DIFFICILE");
@@ -870,5 +866,9 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         initRandomLaws(data_);
         data_.addConstNumTest(DataBase.MAX_IV,Rate.newRate(Long.toString(_iv)));
         return data_;
+    }
+    protected static void updateLg(DataBase _db) {
+        _db.setLanguage(LANGUAGE);
+        _db.setLanguages(new StringList(LANGUAGE));
     }
 }

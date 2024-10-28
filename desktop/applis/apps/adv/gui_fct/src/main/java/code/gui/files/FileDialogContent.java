@@ -1,5 +1,6 @@
 package code.gui.files;
 
+import code.expressionlanguage.filenames.*;
 import code.gui.*;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
@@ -137,6 +138,20 @@ public abstract class FileDialogContent {
 
     public AutoCompleteDocument getAuto() {
         return auto;
+    }
+
+    public static StringMap<String> index(String _part, AbstractNameValidating _abs) {
+        StringList parts_ = StringUtil.splitChar(_part, '/');
+        parts_.removeDuplicates();
+        StringMap<String> o_ = new StringMap<String>();
+        int len_ = parts_.size();
+        for (int i = 0; i < len_; i++) {
+            String part_ = parts_.get(i);
+            if (_abs.ok(part_)) {
+                o_.addEntry(part_,Long.toString(o_.size()));
+            }
+        }
+        return o_;
     }
 
     public void clickHeader(AbsMouseLocation _e) {

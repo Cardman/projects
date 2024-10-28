@@ -17,7 +17,7 @@ public final class DefDataBaseStreamTest extends EquallablePkFileUtil {
         DataBase res_ = task_.attendreResultat();
         FacadeGame f_ = new FacadeGame();
         f_.setData(res_);
-        f_.setLanguages(new StringList(StringUtil.EN));
+        f_.setLanguages(indexes());
         f_.setSimplyLanguage(StringUtil.EN);
         f_.setSexList(new MockLSexList());
         DefDataBaseStream ins_ = new DefDataBaseStream();
@@ -32,7 +32,7 @@ public final class DefDataBaseStreamTest extends EquallablePkFileUtil {
         MockProgramInfos pr_ = pr(0, 1);
         GamesPkMiniDb db_ = new GamesPkMiniDb();
         FacadeGame f_ = new FacadeGame();
-        f_.setLanguages(new StringList(StringUtil.EN));
+        f_.setLanguages(indexes());
         f_.setSimplyLanguage(StringUtil.EN);
         f_.setSexList(new MockLSexList());
         AbstractAtomicBooleanCore result_ = new DefDataBaseStream().loadRomAndCheck(pr_,new MockFutureCallableParam<DataBase>(db_, new IntMap<AbstractFuture>(), 0),f_,"_",new ConcreteInteger(), new ConcreteBoolean(true));
@@ -44,5 +44,8 @@ public final class DefDataBaseStreamTest extends EquallablePkFileUtil {
         DefDataBaseStream ins_ = new DefDataBaseStream();
         FacadeGame f_ = new FacadeGame();
         assertTrue(ins_.exportRom(pr_,f_, new LoadingGame()).isEmpty());
+    }
+    public static StringList indexes(){
+        return new StringList(StringUtil.EN);
     }
 }

@@ -1,11 +1,10 @@
 package code.gui.files;
 
 import code.gui.*;
-import code.gui.images.AbstractImage;
 import code.maths.montecarlo.CustomSeedGene;
 import code.mock.*;
 import code.stream.StreamLanguageUtil;
-import code.util.StringList;
+import code.util.*;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -67,27 +66,31 @@ public final class FileDialogTest extends EquallableGuiCommonUtil {
     }
     @Test
     public void lg1() {
-        assertEq("_",FileDialog.checkLgs(new StringList("_"),"_"));
+        assertEq("_",FileDialog.checkLgs(indexes(),"_"));
     }
     @Test
     public void lg2() {
-        assertEq("",FileDialog.checkLgs(new StringList("_"),"__"));
+        assertEq("",FileDialog.checkLgs(indexes(),"__"));
     }
     @Test
     public void lg3() {
         MockProgramInfos pr_ = MockProgramInfos.inst("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
-        StreamLanguageUtil.saveLanguage("/tmp","_",pr_.getStreams());
-        assertEq("_",FileDialog.loadLanguage("/tmp", pr_.getFileCoreStream(), pr_.getStreams(),new StringList("_")));
+        StringMap<String> indexes_ = indexes();
+        pr_.getTranslations().getIndexes().addAllEntries(indexes_);
+        StreamLanguageUtil.saveLanguage("/tmp","_",pr_);
+        assertEq("_",FileDialog.loadLanguage("/tmp", pr_.getFileCoreStream(), pr_.getStreams(), indexes_));
     }
     @Test
     public void lg4() {
         MockProgramInfos pr_ = MockProgramInfos.inst("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
-        StreamLanguageUtil.saveLanguage("/tmp","__",pr_.getStreams());
-        assertEq("",FileDialog.loadLanguage("/tmp", pr_.getFileCoreStream(), pr_.getStreams(),new StringList("_")));
+        StringMap<String> indexes_ = indexes();
+        pr_.getTranslations().getIndexes().addAllEntries(indexes_);
+        StreamLanguageUtil.saveLanguage("/tmp","__",pr_);
+        assertEq("",FileDialog.loadLanguage("/tmp", pr_.getFileCoreStream(), pr_.getStreams(), indexes_));
     }
 //    @Test
 //    public void getImage() {
@@ -149,4 +152,9 @@ public final class FileDialogTest extends EquallableGuiCommonUtil {
 //        assertEq("__",l_.getLanguage());
 //    }
 
+    private StringMap<String> indexes() {
+        StringMap<String> is_ = new StringMap<String>();
+        is_.addEntry("_","_");
+        return is_;
+    }
 }

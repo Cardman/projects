@@ -183,12 +183,11 @@ public abstract class InitDbConstr extends InitDbBean {
 
     protected static FacadeGame facade() {
         DataBase data_ = newData();
-        data_.setLanguage(LANGUAGE);
-        data_.setLanguages(new StringList(LANGUAGE));
+        updateLg(data_);
         data_.initializeMembers();
         data_.initValue(DataBase.DEF_CAT,AUTRE);
         FacadeGame fac_ = new FacadeGame();
-        fac_.setLanguages(new StringList(EN));
+        fac_.setLanguages(indexes());
         StringMap<String> displayLanguages_ = new StringMap<String>();
         displayLanguages_.addEntry(EN,EN);
         fac_.setDisplayLanguages(displayLanguages_);

@@ -162,7 +162,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         res_.getMap().initializeAccessibility();
         FacadeGame f_ = new FacadeGame();
         f_.setData(res_);
-        f_.setLanguages(new StringList(EN));
+        f_.setLanguages(indexes());
         f_.setSimplyLanguage(EN);
         f_.setSexList(new MockLSexList());
         DefDataBaseStream ins_ = new DefDataBaseStream();
@@ -206,7 +206,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         res_.getMap().initializeAccessibility();
         FacadeGame f_ = new FacadeGame();
         f_.setData(res_);
-        f_.setLanguages(new StringList(EN));
+        f_.setLanguages(indexes());
         f_.setSimplyLanguage(EN);
         f_.setSexList(new MockLSexList());
         DefDataBaseStream ins_ = new DefDataBaseStream();
@@ -608,7 +608,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         res_.getMap().initializeAccessibility();
         FacadeGame f_ = new FacadeGame();
         f_.setData(res_);
-        f_.setLanguages(new StringList(EN));
+        f_.setLanguages(indexes());
         f_.setSimplyLanguage(EN);
         f_.setSexList(new MockLSexList());
         DefDataBaseStream ins_ = new DefDataBaseStream();
@@ -1309,5 +1309,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         MessagesApplications.sys(tmpFold_);
         return new LaunchingApplications(new WithAppFactories(_p, new AppFactories(new AikiFactory(_p, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>()), new CardFactories(_p, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>()), new CdmFactory(_p, new MockInterceptor()), TEMP_FOLDER)));
     }
-
+    public static StringList indexes(){
+        return new StringList(EN);
+    }
 }

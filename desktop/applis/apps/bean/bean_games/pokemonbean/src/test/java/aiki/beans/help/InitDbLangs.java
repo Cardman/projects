@@ -145,11 +145,11 @@ public abstract class InitDbLangs extends InitDbConstr {
     protected static FacadeGame db(){
         DataBase data_ = newData();
         data_.setLanguage(EN);
-        data_.setLanguages(new StringList(EN,FR));
+        data_.setLanguages(indexesAll());
         data_.initializeMembers();
         data_.initValue(DataBase.DEF_CAT,AUTRE);
         FacadeGame fac_ = new FacadeGame();
-        fac_.setLanguages(new StringList(EN,FR));
+        fac_.setLanguages(indexesAll());
         StringMap<String> displayLanguages_ = new StringMap<String>();
         displayLanguages_.addEntry(EN,"EN1");
         displayLanguages_.addEntry(FR,"FR2");
