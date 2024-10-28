@@ -180,8 +180,10 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
 
     private String lgCode() {
         String lgCode_ = lgCode.getText();
-        if (!StringUtil.contains(getFrames().getLanguages(),lgCode_)){
+        if (!getFrames().getTranslations().getIndexes().contains(lgCode_)){
             lgCode_ = "";
+        } else {
+            lgCode_ = StringUtil.nullToEmpty(getFrames().getTranslations().getIndexes().getVal(lgCode_));
         }
         return lgCode_;
     }
@@ -189,10 +191,11 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
     private String updateLg(StringList _linesFiles, ExecutingOptions _exec, Options _opt) {
         String lg_;
         lg_ = _linesFiles.get(2);
-        if (!StringUtil.contains(getFrames().getLanguages(),lg_)){
+        if (!getFrames().getTranslations().getIndexes().contains(lg_)){
             lg_ = getFrames().getLanguage();
             ExecutingOptions.setupOptionals(2, _opt, _exec, _linesFiles);
         } else {
+            lg_ = StringUtil.nullToEmpty(getFrames().getTranslations().getIndexes().getVal(lg_));
             ExecutingOptions.setupOptionals(3, _opt, _exec, _linesFiles);
         }
         return lg_;

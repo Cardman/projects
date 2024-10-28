@@ -24,13 +24,13 @@ public final class RunningTest implements Runnable {
     private ProgressingTests progressingTests;
     private boolean file;
     private FileInfos infos;
-    private StringList languages;
+    private StringMap<String> languages;
     private AbsBuildLightResultContextNext buildLightResultContextNext;
     private AbsFileBuilderListGene factory;
 
     private RunningTest() {
     }
-    public static RunningTest newFromFile(StringList _lgs, String _fileConf, ProgressingTests _progressingTests, FileInfos _infos, AbsBuildLightResultContextNext _b, AbsFileBuilderListGene _fact) {
+    public static RunningTest newFromFile(StringMap<String> _lgs, String _fileConf, ProgressingTests _progressingTests, FileInfos _infos, AbsBuildLightResultContextNext _b, AbsFileBuilderListGene _fact) {
         RunningTest r_ = new RunningTest();
         r_.fileConfOrContent = _fileConf;
         r_.progressingTests = _progressingTests;
@@ -42,7 +42,7 @@ public final class RunningTest implements Runnable {
         return r_;
     }
 
-    public static RunningTest newFromContent(StringList _lgs, String _fileConf, ProgressingTests _progressingTests, FileInfos _infos, AbsBuildLightResultContextNext _b, AbsFileBuilderListGene _fact) {
+    public static RunningTest newFromContent(StringMap<String> _lgs, String _fileConf, ProgressingTests _progressingTests, FileInfos _infos, AbsBuildLightResultContextNext _b, AbsFileBuilderListGene _fact) {
         RunningTest r_ = new RunningTest();
         r_.fileConfOrContent = _fileConf;
         r_.progressingTests = _progressingTests;
@@ -72,7 +72,7 @@ public final class RunningTest implements Runnable {
         return progressingTests;
     }
 
-    public static boolean launchByConfContent(StringList _lgs, String _content, ProgressingTests _progressingTests, FileInfos _infos, AbsBuildLightResultContextNext _lgname, AbsFileBuilderListGene _fact) {
+    public static boolean launchByConfContent(StringMap<String> _lgs, String _content, ProgressingTests _progressingTests, FileInfos _infos, AbsBuildLightResultContextNext _lgname, AbsFileBuilderListGene _fact) {
         StringList linesFiles_ = ExecutingOptions.lines(StringUtil.nullToEmpty(_content));
         if (linesFiles_.size() < 2) {
             return false;

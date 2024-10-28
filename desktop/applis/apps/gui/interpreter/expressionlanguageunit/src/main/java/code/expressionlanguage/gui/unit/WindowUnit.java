@@ -213,7 +213,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame,AbsOpe
 //            return;
 //        }
         String txt_ = _mainWindow.getTxtConf();
-        RunningTest r_ = RunningTest.newFromContent(getFrames().getLanguages(),txt_, new ProgressingTestsImpl(_mainWindow,getStreams(),getFileCoreStream()),
+        RunningTest r_ = RunningTest.newFromContent(getFrames().getTranslations().getIndexes(),txt_, new ProgressingTestsImpl(_mainWindow,getStreams(),getFileCoreStream()),
                 _mainWindow.getInfos(), new DefBuildLightResultContextNext(),new DefFileBuilderListGene());
         running = r_;
         th = exec.submitLater(r_);
@@ -241,7 +241,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame,AbsOpe
 //        if (!_mainWindow.ok(_fichier)) {
 //            return;
 //        }
-        RunningTest r_ = RunningTest.newFromFile(getFrames().getLanguages(),_fichier, new ProgressingTestsImpl(_mainWindow,getStreams(),getFileCoreStream()),
+        RunningTest r_ = RunningTest.newFromFile(getFrames().getTranslations().getIndexes(),_fichier, new ProgressingTestsImpl(_mainWindow,getStreams(),getFileCoreStream()),
                 _mainWindow.getInfos(), new DefBuildLightResultContextNext(),new DefFileBuilderListGene());
         running = r_;
         th = exec.submitLater(r_);

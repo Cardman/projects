@@ -43,7 +43,7 @@ public final class ExecutingOptions {
     private AbstractLightProgramInfos lightProgramInfos;
     private AbstractInterceptor interceptor;
     private FileSystemParameterizing fileSystemParameterizing;
-    private String callsFile;
+    private final String callsFile;
 
     public ExecutingOptions(AbstractLightProgramInfos _api) {
         this(_api.currentLg());
@@ -326,7 +326,7 @@ public final class ExecutingOptions {
                 if (tr_.isEmpty()) {
                     continue;
                 }
-                _exec.getLgs().add(tr_);
+                _exec.getLgs().add(StringUtil.nullToEmpty(_exec.getLightProgramInfos().getTranslations().getIndexes().getVal(tr_)));
             }
         }
     }

@@ -13,6 +13,7 @@ import code.mock.MockInterceptor;
 import code.mock.MockProgramInfos;
 import code.stream.BytesInfo;
 import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -26,7 +27,7 @@ public final class ManageOptionsTest extends EquallableElUtImplUtil {
         AbsCompoFactory compo_ = pr_.getCompoFactory();
         ProgTestBar bar_ = new ProgTestBar(compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
         MemoryProgressingTests progTest_ = new MemoryProgressingTests(new LightTestableFrame(pr_, null,new MockInterceptor(), mem_, bar_));
-        ManageOptions man_ = new ManageOptions(new StringList("_"), new StringList("", "__"), progTest_);
+        ManageOptions man_ = new ManageOptions(indexes(), new StringList("", "__"), progTest_);
         assertEq("",man_.getLanguage());
     }
     @Test
@@ -38,7 +39,12 @@ public final class ManageOptionsTest extends EquallableElUtImplUtil {
         AbsCompoFactory compo_ = pr_.getCompoFactory();
         ProgTestBar bar_ = new ProgTestBar(compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
         MemoryProgressingTests progTest_ = new MemoryProgressingTests(new LightTestableFrame(pr_, null,new MockInterceptor(), mem_, bar_));
-        ManageOptions man_ = new ManageOptions(new StringList("_"), new StringList("", "_"), progTest_);
-        assertEq("_",man_.getLanguage());
+        ManageOptions man_ = new ManageOptions(indexes(), new StringList("", "_"), progTest_);
+        assertEq(StringUtil.EN,man_.getLanguage());
+    }
+    public static StringMap<String> indexes() {
+        StringMap<String> indexes_ = new StringMap<String>();
+        indexes_.addEntry("_",StringUtil.EN);
+        return indexes_;
     }
 }

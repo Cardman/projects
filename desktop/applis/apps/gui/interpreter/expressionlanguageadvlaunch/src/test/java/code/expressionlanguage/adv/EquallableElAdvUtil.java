@@ -121,6 +121,8 @@ public abstract class EquallableElAdvUtil {
         pr_.getFileCoreStream().newFile("/project/sources/src/").mkdirs();
         pr_.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
         pr_.setLanguage(StringUtil.EN);
+        pr_.getTranslations().getIndexes().addEntry(StringUtil.EN,"0");
+        pr_.getTranslations().getIndexes().addEntry(StringUtil.FR,"1");
         update(pr_);
         pr_.getFileCoreStream().newFile("/project/sources/exp/errors/").mkdirs();
         pr_.getFileCoreStream().newFile("/project/sources/exp/files/").mkdirs();
@@ -140,6 +142,8 @@ public abstract class EquallableElAdvUtil {
         pr_.getFileCoreStream().newFile("/project/sources/src/").mkdirs();
         pr_.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
         pr_.setLanguage(StringUtil.EN);
+        pr_.getTranslations().getIndexes().addEntry(StringUtil.EN,"0");
+        pr_.getTranslations().getIndexes().addEntry(StringUtil.FR,"1");
         update(pr_);
         pr_.getFileCoreStream().newFile("/project/sources/exp/errors/").mkdirs();
         pr_.getFileCoreStream().newFile("/project/sources/exp/files/").mkdirs();
@@ -163,6 +167,8 @@ public abstract class EquallableElAdvUtil {
         pr_.getFileCoreStream().newFile("/project/sources/src/").mkdirs();
         pr_.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
         pr_.setLanguage(StringUtil.EN);
+        pr_.getTranslations().getIndexes().addEntry(StringUtil.EN,"0");
+        pr_.getTranslations().getIndexes().addEntry(StringUtil.FR,"1");
         update(pr_);
         return pr_;
     }
@@ -175,7 +181,7 @@ public abstract class EquallableElAdvUtil {
         AbstractProgramInfos frs_ = _pr.getFrames();
         String flatConf_ = StreamTextFile.contentsOfFile("/editor/conf.xml", frs_.getFileCoreStream(), frs_.getStreams());
         StringList linesFiles_ = ExecutingOptions.lines(StringUtil.nullToEmpty(flatConf_));
-        return new ManageOptions(frs_.getLanguages(), linesFiles_, _pr.getFactory());
+        return new ManageOptions(frs_.getTranslations().getIndexes(), linesFiles_, _pr.getFactory());
     }
     public static ResultContext res(AbsDebuggerGui _pr, ManageOptions _man) {
         return _pr.getResultContextNext().init(_man.getOptions());
@@ -609,7 +615,7 @@ public abstract class EquallableElAdvUtil {
         lines_.add("/project/sources");
         lines_.add(StringUtil.EN);
         lines_.add("src=//");
-        return new ManageOptions(frs_.getLanguages(), lines_, _pr.getFactory());
+        return new ManageOptions(frs_.getTranslations().getIndexes(), lines_, _pr.getFactory());
     }
    public static ManageOptions optBad2(AbsDebuggerGui _pr) {
         AbstractProgramInfos frs_ = _pr.getFrames();
@@ -617,7 +623,7 @@ public abstract class EquallableElAdvUtil {
         lines_.add("/project/sources");
         lines_.add(StringUtil.EN);
         lines_.add("keyWords=If=;");
-        return new ManageOptions(frs_.getLanguages(), lines_, _pr.getFactory());
+        return new ManageOptions(frs_.getTranslations().getIndexes(), lines_, _pr.getFactory());
     }
     protected static ReadOnlyTabEditor tabEditor(AbsDebuggerGui _w, int _index) {
         return _w.getTabs().get(_index);
@@ -640,15 +646,13 @@ public abstract class EquallableElAdvUtil {
     }
 
     public static WindowCdmEditor quickCreate(AbstractProgramInfos _pr) {
-        _pr.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
-        _pr.setLanguage(StringUtil.EN);
+        ajdAllLgs(_pr);
         update((MockProgramInfos) _pr);
         return window(_pr);
     }
 
     public static WindowCdmEditor windowLoadDefTwice(AbstractProgramInfos _pr) {
-        _pr.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
-        _pr.setLanguage(StringUtil.EN);
+        ajdAllLgs(_pr);
         update((MockProgramInfos) _pr);
         WindowCdmEditor w_ = window(_pr);
         w_.updateCommentsInit(new StringList());
@@ -665,8 +669,7 @@ public abstract class EquallableElAdvUtil {
     }
 
     public static WindowCdmEditor windowLoadDefTwiceOtherPlace(AbstractProgramInfos _pr) {
-        _pr.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
-        _pr.setLanguage(StringUtil.EN);
+        ajdAllLgs(_pr);
         update((MockProgramInfos) _pr);
         WindowCdmEditor w_ = window(_pr);
         w_.updateCommentsInit(new StringList());
@@ -681,8 +684,7 @@ public abstract class EquallableElAdvUtil {
     }
 
     public static WindowCdmEditor windowLoadDefTwiceRefresh(AbstractProgramInfos _pr) {
-        _pr.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
-        _pr.setLanguage(StringUtil.EN);
+        ajdAllLgs(_pr);
         update((MockProgramInfos) _pr);
         WindowCdmEditor w_ = window(_pr);
         _pr.getFileCoreStream().newFile("/project/sources/src/under/").mkdirs();
@@ -697,8 +699,7 @@ public abstract class EquallableElAdvUtil {
         return w_;
     }
     public static WindowCdmEditor windowLoadDefTwiceRefreshDelete(AbstractProgramInfos _pr) {
-        _pr.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
-        _pr.setLanguage(StringUtil.EN);
+        ajdAllLgs(_pr);
         update((MockProgramInfos) _pr);
         WindowCdmEditor w_ = window(_pr);
         _pr.getFileCoreStream().newFile("/project/sources/src/under/").mkdirs();
@@ -711,8 +712,7 @@ public abstract class EquallableElAdvUtil {
         return w_;
     }
     public static WindowCdmEditor windowLoadDefTwiceRefreshDeleteExceptRoot(AbstractProgramInfos _pr) {
-        _pr.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
-        _pr.setLanguage(StringUtil.EN);
+        ajdAllLgs(_pr);
         update((MockProgramInfos) _pr);
         WindowCdmEditor w_ = window(_pr);
         _pr.getFileCoreStream().newFile("/project/sources/src/under/").mkdirs();
@@ -726,8 +726,7 @@ public abstract class EquallableElAdvUtil {
         return w_;
     }
     public static WindowCdmEditor windowLoadDefNoTab(AbstractProgramInfos _pr) {
-        _pr.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
-        _pr.setLanguage(StringUtil.EN);
+        ajdAllLgs(_pr);
         update((MockProgramInfos) _pr);
         WindowCdmEditor w_ = window(_pr);
         w_.updateCommentsInit(new StringList());
@@ -739,8 +738,7 @@ public abstract class EquallableElAdvUtil {
         return w_;
     }
     public static WindowCdmEditor windowLoadDefNoTabQuick(AbstractProgramInfos _pr) {
-        _pr.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
-        _pr.setLanguage(StringUtil.EN);
+        ajdAllLgs(_pr);
         update((MockProgramInfos) _pr);
         WindowCdmEditor w_ = window(_pr);
         w_.updateCommentsInit(new StringList());
@@ -750,22 +748,19 @@ public abstract class EquallableElAdvUtil {
     }
     public static WindowCdmEditor windowLoadDefInit(WindowCdmEditor _first) {
         AbstractProgramInfos pr_ = _first.getFrames();
-        pr_.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
-        pr_.setLanguage(StringUtil.EN);
+        ajdAllLgs(pr_);
         update((MockProgramInfos) pr_);
         return window(pr_);
     }
 
     public static WindowCdmEditor windowLoadDefInit(AbstractProgramInfos _pr) {
-        _pr.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
-        _pr.setLanguage(StringUtil.EN);
+        ajdAllLgs(_pr);
         updateChoose((MockProgramInfos) _pr);
         return window(_pr);
     }
 
     public static WindowCdmEditor createWindowCdm(AbstractProgramInfos _pr) {
-        _pr.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
-        _pr.setLanguage(StringUtil.EN);
+        ajdAllLgs(_pr);
         update((MockProgramInfos) _pr);
         CdmFactory fact_ = new CdmFactory(_pr, new MockInterceptor());
 //        _pr.getCounts().addEntry(WindowCdmEditor.CDM_EDITOR,_pr.getThreadFactory().newAtomicInteger());
@@ -773,6 +768,14 @@ public abstract class EquallableElAdvUtil {
         c_.run();
         return c_.getWindow();
     }
+
+    private static void ajdAllLgs(AbstractProgramInfos _pr) {
+        _pr.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
+        _pr.setLanguage(StringUtil.EN);
+        _pr.getTranslations().getIndexes().addEntry(StringUtil.EN,"0");
+        _pr.getTranslations().getIndexes().addEntry(StringUtil.FR,"1");
+    }
+
     public static WindowCdmEditor window(AbstractProgramInfos _pr) {
         CdmFactory fact_ = new CdmFactory(_pr, new MockInterceptor());
 //        _pr.getCounts().addEntry(WindowCdmEditor.CDM_EDITOR,_pr.getThreadFactory().newAtomicInteger());

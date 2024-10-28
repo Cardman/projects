@@ -63,8 +63,10 @@ public final class GuiProcess implements GuiRunnable {
         String lg_ = linesFiles_.get(1);
         String clName_ = "";
         String mName_ = "";
-        if (!StringUtil.contains(_infos.getLanguages(),lg_)){
+        if (!_infos.getTranslations().getIndexes().contains(lg_)){
             lg_ = "";
+        } else {
+            lg_ = StringUtil.nullToEmpty(_infos.getTranslations().getIndexes().getVal(lg_));
         }
         String ma_ = MessagesExecutingOptions.valExecOptionsKeys(_infos.currentLg()).getVal(MessagesExecutingOptions.EXEC_OPTIONS_KEY_MAIN)+ExecutingOptions.EXEC_OPTIONS_SEP;
         String line_ = StringExpUtil.removeDottedSpaces(linesFiles_.get(2));
