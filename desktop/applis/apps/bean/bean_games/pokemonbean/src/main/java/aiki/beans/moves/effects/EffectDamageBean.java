@@ -57,7 +57,7 @@ public class EffectDamageBean extends EffectBean {
         multDamageAgainst = multDamageAgainst_;
         NatStringTreeMap< Rate> damageLaw_;
         damageLaw_ = new NatStringTreeMap< Rate>();
-        for (String e: effect_.getDamageLaw().events()) {
+        for (String e: effect_.getDamageLaw().eventsDiff()) {
             String formula_ = data_.getFormula(e, getLanguage());
 //            formula_ = StringList.replace(formula_, loc_);
 //            formula_ = formula_.replace(LEFT_BRACE, QUOTED_LEFT_BRACE);
@@ -72,7 +72,7 @@ public class EffectDamageBean extends EffectBean {
         }
         damageLaw = damageLaw_;
         if (hasDeterminatedLawForDamage()) {
-            power = data_.getFormula(effect_.getDamageLaw().events().first(),getLanguage());
+            power = data_.getFormula(effect_.getDamageLaw().eventsDiff().first(),getLanguage());
 //            power = StringList.replace(power, loc_);
 //            power = power.replace(LEFT_BRACE, QUOTED_LEFT_BRACE);
 //            power = power.replace(RIGHT_BRACE, QUOTED_RIGHT_BRACE);
@@ -80,7 +80,7 @@ public class EffectDamageBean extends EffectBean {
         }
         LongTreeMap< Rate> hitsLaw_;
         hitsLaw_ = new LongTreeMap< Rate>();
-        for (Rate e: effect_.getHitsLaw().events()) {
+        for (Rate e: effect_.getHitsLaw().eventsDiff()) {
             hitsLaw_.put(e.ll(), effect_.getHitsLaw().normalizedRate(e));
         }
         hitsLaw = hitsLaw_;
@@ -91,7 +91,7 @@ public class EffectDamageBean extends EffectBean {
         chRate = effect_.getChRate();
         DictionaryComparator<Rate, Rate> chLaw_;
         chLaw_ = DictionaryComparatorUtil.buildRateRate();
-        for (Rate e: effect_.getChLaw().events()) {
+        for (Rate e: effect_.getChLaw().eventsDiff()) {
             chLaw_.put(e, effect_.getChLaw().normalizedRate(e));
         }
         chLaw = chLaw_;
@@ -126,22 +126,22 @@ public class EffectDamageBean extends EffectBean {
     }
     public boolean hasLawForDamage() {
         EffectDamage effect_ = (EffectDamage) getEffect();
-        return !effect_.getDamageLaw().events().isEmpty();
+        return !effect_.getDamageLaw().isEmpty();
     }
     public boolean hasDeterminatedLawForDamage() {
         EffectDamage effect_ = (EffectDamage) getEffect();
-        return effect_.getDamageLaw().events().size() == DataBase.ONE_POSSIBLE_CHOICE;
+        return effect_.getDamageLaw().eventsDiff().size() == DataBase.ONE_POSSIBLE_CHOICE;
     }
     public boolean counterDamageCat() {
         EffectDamage effect_ = (EffectDamage) getEffect();
-        if (!effect_.getDamageLaw().events().isEmpty()) {
+        if (!effect_.getDamageLaw().isEmpty()) {
             return false;
         }
         return !effect_.getMultDamageAgainst().isEmpty();
     }
     public boolean constPower() {
         EffectDamage effect_ = (EffectDamage) getEffect();
-        if (!effect_.getDamageLaw().events().isEmpty()) {
+        if (!effect_.getDamageLaw().isEmpty()) {
             return false;
         }
         if (!effect_.getMultDamageAgainst().isEmpty()) {

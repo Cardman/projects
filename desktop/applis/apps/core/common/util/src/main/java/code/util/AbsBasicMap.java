@@ -12,14 +12,13 @@ public abstract class AbsBasicMap<K,V> extends AbsMap<K, V> {
     }
 
     @Override
-    public int indexOfEntry(K _key) {
-        int index_ = IndexConstants.FIRST_INDEX;
-        for (EntryCust<K, V> e:getList()) {
-            K k_ = e.getKey();
+    public int indexOfEntry(K _key, int _from) {
+        int s_ = size();
+        for (int i = _from; i < s_; i++) {
+            K k_ = getKey(i);
             if (matchKeys(_key, k_)) {
-                return index_;
+                return i;
             }
-            index_++;
         }
         return IndexConstants.INDEX_NOT_FOUND_ELT;
     }

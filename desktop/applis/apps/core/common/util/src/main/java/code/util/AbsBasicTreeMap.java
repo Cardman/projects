@@ -28,14 +28,13 @@ public abstract class AbsBasicTreeMap<K,V> extends AbsMap<K,V> {
     }
 
     @Override
-    public int indexOfEntry(K _key) {
-        int index_ = IndexConstants.FIRST_INDEX;
-        for (EntryCust<K, V> e:getList()) {
-            int res_ = compare(_key, e.getKey());
+    public int indexOfEntry(K _key, int _from) {
+        int s_ = size();
+        for (int i = _from; i < s_; i++) {
+            int res_ = compare(_key, getKey(i));
             if (res_ == SortConstants.EQ_CMP) {
-                return index_;
+                return i;
             }
-            index_++;
         }
         return IndexConstants.INDEX_NOT_FOUND_ELT;
     }

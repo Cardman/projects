@@ -3,14 +3,16 @@ package code.maths.montecarlo;
 import code.maths.LgInt;
 import code.util.CollCapacity;
 import code.util.CustList;
+import code.util.core.IndexConstants;
+import code.util.core.IntIndexOfEntryUtil;
 
-public final class MonteCarloList<E> extends AbMonteCarlo<E> {
+public abstract class MonteCarloList<E> extends AbMonteCarlo<E> {
     private final CustList<EventFreq<E>> events;
 
-    public MonteCarloList() {
+    protected MonteCarloList() {
         events = new CustList<EventFreq<E>>();
     }
-    public MonteCarloList(CollCapacity _capacity) {
+    protected MonteCarloList(CollCapacity _capacity) {
         events = new CustList<EventFreq<E>>(_capacity);
     }
     @Override
@@ -32,6 +34,20 @@ public final class MonteCarloList<E> extends AbMonteCarlo<E> {
         return evs_;
     }
     @Override
+    public boolean containsEvent(E _event) {
+        for (EventFreq<E> e: getEvents()) {
+            if (matchesEvent(_event,e.getEvent())) {
+                return true;
+            }
+        }
+        return false;
+    }
+    @Override
+    public CustList<E> eventsDiff() {
+        return new IntIndexOfEntryUtil<E>(this).differentKeys();
+    }
+
+    @Override
     public LgInt sum() {
         LgInt somme_= LgInt.zero();
         for (EventFreq<E> e: events) {
@@ -40,12 +56,41 @@ public final class MonteCarloList<E> extends AbMonteCarlo<E> {
         return somme_;
     }
 
+    @Override
+    public LgInt rate(E _e) {
+        LgInt somme_= LgInt.zero();
+        for (EventFreq<E> e: events) {
+            if (matchesEvent(_e,e.getEvent())) {
+                somme_.addNb(e.getFreq());
+            }
+        }
+        return somme_;
+    }
+
+    @Override
+    public int indexOfEntry(E _key, int _from) {
+        int len_ = nbEvents();
+        for (int i = _from; i < len_; i++) {
+            if (matchesEvent(getEvent(i),_key)) {
+                return i;
+            }
+        }
+        return IndexConstants.INDEX_NOT_FOUND_ELT;
+    }
+
+    protected abstract boolean matchesEvent(E _one, E _two);
+
     public CustList<EventFreq<E>> getEvents() {
         return events;
     }
 
     @Override
     public int nbEvents() {
+        return size();
+    }
+
+    @Override
+    public int size() {
         return getEvents().size();
     }
 

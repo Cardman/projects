@@ -1,10 +1,11 @@
 package code.util;
 import code.util.core.IndexConstants;
-import code.util.ints.ListableEntries;
+import code.util.core.IntIndexOfEntryUtil;
+import code.util.ints.*;
 
 
 
-public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
+public abstract class AbsMap<K, V> implements ListableEntries<K, V>, IntIndexOfEntry<K> {
 
     //list cannot be null, even by reflection
     private final CustList<EntryCust<K,V>> list;
@@ -183,7 +184,26 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
         return getList().isValidIndex(_index);
     }
 
-    public abstract int indexOfEntry(K _key);
+    public int indexOfEntry(K _key) {
+        return indexOfEntry(_key, 0);
+    }
+
+    public CustList<V> valuesKey(K _key) {
+        Ints is_ = valuesKeyIndexes(_key);
+        int len_ = is_.size();
+        CustList<V> v_ = new CustList<V>();
+        for (int i = 0; i < len_; i++) {
+            v_.add(getValue(is_.get(i)));
+        }
+        return v_;
+    }
+
+    public CustList<K> differentKeys() {
+        return new IntIndexOfEntryUtil<K>(this).differentKeys();
+    }
+    public Ints valuesKeyIndexes(K _key) {
+        return new IntIndexOfEntryUtil<K>(this).valuesKeyIndexes(_key);
+    }
 
     public void addEntry(K _k, V _v) {
         list.add(new EntryCust<K, V>(_k, _v));

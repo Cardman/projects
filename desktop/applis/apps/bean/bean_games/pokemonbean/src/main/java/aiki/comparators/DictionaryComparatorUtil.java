@@ -229,7 +229,7 @@ public final class DictionaryComparatorUtil {
 
     public static DictionaryComparator<Rate,Rate> feedRateRate(MonteCarloNumber _law) {
         DictionaryComparator<Rate, Rate> r_ = buildRateRate();
-        for (Rate e: _law.events()) {
+        for (Rate e: _law.eventsDiff()) {
             r_.put(e, _law.normalizedRate(e));
         }
         return r_;
@@ -237,7 +237,7 @@ public final class DictionaryComparatorUtil {
 
     public static DictionaryComparator<LgInt, Rate> buildIntRate(MonteCarloNumber _law) {
         DictionaryComparator<LgInt, Rate> r_ = buildIntRate();
-        for (Rate r: _law.events()) {
+        for (Rate r: _law.eventsDiff()) {
             r_.put(r.intPart(), _law.normalizedRate(r));
         }
         return r_;

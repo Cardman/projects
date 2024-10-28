@@ -23,7 +23,7 @@ public class EffectEndRoundSingleRelationBean extends EffectEndRoundBean {
         rateDamageFunctionOfNbRounds = rateDamageFunctionOfNbRounds_;
         DictionaryComparator<LgInt, Rate> lawForEnablingEffect_;
         lawForEnablingEffect_ = DictionaryComparatorUtil.buildIntRate();
-        for (Rate k: effect_.getLawForEnablingEffect().events()) {
+        for (Rate k: effect_.getLawForEnablingEffect().eventsDiff()) {
             lawForEnablingEffect_.put(k.intPart(), effect_.getLawForEnablingEffect().normalizedRate(k));
         }
         lawForEnablingEffect = lawForEnablingEffect_;

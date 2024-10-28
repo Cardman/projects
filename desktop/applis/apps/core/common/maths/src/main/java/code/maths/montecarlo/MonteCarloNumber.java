@@ -7,46 +7,28 @@ import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 
 
-public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
-
-    private final CustList<EventFreq<Rate>> events;
+public final class MonteCarloNumber extends MonteCarloList<Rate> {
 
     public MonteCarloNumber() {
-        events = new CustList<EventFreq<Rate>>();
     }
     
     public MonteCarloNumber(CollCapacity _capacity) {
-        events = new CustList<EventFreq<Rate>>(_capacity);
-    }
-    public boolean containsEvent(Rate _event) {
-        for (EventFreq<Rate> e: events) {
-            if (_event.eq(e.getEvent())) {
-                return true;
-            }
-        }
-        return false;
+        super(_capacity);
     }
 
-    public Rate normalizedRate(Rate _event) {
-        LgInt sum_ = sum();
-        return new Rate(rate(_event), sum_);
-    }
     public MonteCarloNumber copy() {
         MonteCarloNumber mc_ = new MonteCarloNumber(new CollCapacity(nbEvents()));
-        for (EventFreq<Rate> e: events) {
-            mc_.events.add(new EventFreq<Rate>(new Rate(e.getEvent()),new LgInt(e.getFreq())));
+        for (EventFreq<Rate> e: getEvents()) {
+            mc_.getEvents().add(new EventFreq<Rate>(new Rate(e.getEvent()),new LgInt(e.getFreq())));
         }
         return mc_;
     }
-    public LgInt rate(Rate _event) {
-        LgInt sum_ = LgInt.zero();
-        for (EventFreq<Rate> e: events) {
-            if (_event.eq(e.getEvent())) {
-                sum_.addNb(e.getFreq());
-            }
-        }
-        return sum_;
+
+    @Override
+    protected boolean matchesEvent(Rate _one, Rate _two) {
+        return _one.eq(_two);
     }
+
     /**Retourne l'esperance d'une loi de probabilite.*/
     public Rate getAvg(){
         Rate sum_ = Rate.zero();
@@ -238,48 +220,4 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
         return loi_;
     }
 
-    @Override
-    public Rate getEvent(int _index) {
-        return events.get(_index).getEvent();
-    }
-
-    @Override
-    public LgInt getFreq(int _index) {
-        return events.get(_index).getFreq();
-    }
-
-    @Override
-    public CustList<Rate> events() {
-        CustList<Rate> evs_ = new CustList<Rate>(new CollCapacity(events.size()));
-        for (EventFreq<Rate> e: events) {
-            evs_.add(e.getEvent());
-        }
-        return evs_;
-    }
-
-    @Override
-    public LgInt sum() {
-        LgInt somme_= LgInt.zero();
-        for (EventFreq<Rate> e: events) {
-            somme_.addNb(e.getFreq());
-        }
-        return somme_;
-    }
-
-    public void addEvent(Rate _event, LgInt _probaRelative) {
-        addQuickEvent(_event, _probaRelative);
-    }
-
-    public void addQuickEvent(Rate _event, LgInt _probaRelative) {
-        events.add(new EventFreq<Rate>(_event, _probaRelative));
-    }
-
-    public CustList<EventFreq<Rate>> getEvents() {
-        return events;
-    }
-
-    @Override
-    public int nbEvents() {
-        return getEvents().size();
-    }
 }

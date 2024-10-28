@@ -4,8 +4,6 @@ import aiki.db.DataBase;
 import aiki.map.levels.AreaApparition;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.LgInt;
-import code.maths.montecarlo.EventFreq;
-import code.maths.montecarlo.MonteCarloList;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
@@ -20,7 +18,7 @@ public final class WildPk extends Pokemon {
         setAbility(DataBase.EMPTY_STRING);
         setItem(DataBase.EMPTY_STRING);
     }
-    public static int nbPk(MonteCarloList<CustList<WildPk>> _monte) {
+    public static int nbPk(MonteCarloWilPkList _monte) {
         CustList<CustList<WildPk>> wp_ = new CustList<CustList<WildPk>>();
         for (CustList<WildPk> e: _monte.events()) {
 //            boolean eq_ = false;
@@ -35,7 +33,7 @@ public final class WildPk extends Pokemon {
         }
         return wp_.size();
     }
-    public static boolean containsPk(MonteCarloList<CustList<WildPk>> _monte, CustList<WildPk> _ev) {
+    public static boolean containsPk(MonteCarloWilPkList _monte, CustList<WildPk> _ev) {
         return contains(_ev, _monte.events());
     }
 
@@ -47,14 +45,8 @@ public final class WildPk extends Pokemon {
         }
         return false;
     }
-    public static LgInt freqPk(MonteCarloList<CustList<WildPk>> _monte, CustList<WildPk> _ev) {
-        LgInt sum_ = LgInt.zero();
-        for (EventFreq<CustList<WildPk>> e: _monte.getEvents()) {
-            if (AreaApparition.eqList(e.getEvent(), _ev)) {
-                sum_.addNb(e.getFreq());
-            }
-        }
-        return sum_;
+    public static LgInt freqPk(MonteCarloWilPkList _monte, CustList<WildPk> _ev) {
+        return _monte.rate(_ev);
     }
     public static boolean eq(WildPk _wildOne, WildPk _wildTwo) {
         return _wildOne.eq(_wildTwo);

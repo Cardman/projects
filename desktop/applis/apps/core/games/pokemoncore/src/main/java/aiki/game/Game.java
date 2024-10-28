@@ -38,7 +38,6 @@ import aiki.util.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.EventFreq;
-import code.maths.montecarlo.MonteCarloList;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.maths.montecarlo.MonteCarloString;
 import code.util.*;
@@ -2438,8 +2437,8 @@ public final class Game {
         commentGame.addComment(fight.getComment());
     }
 
-    void newRandomPokemon(MonteCarloList<CustList<WildPk>> _law, DataBase _d) {
-        MonteCarloList<CustList<WildPk>> lawCopy_ = lawCopy(_law, _d);
+    void newRandomPokemon(MonteCarloWilPkList _law, DataBase _d) {
+        MonteCarloWilPkList lawCopy_ = lawCopy(_law, _d);
         LgInt maxRd_ = _d.getMaxRd();
         CustList<WildPk> pkAlea_=lawCopy_.editNumber(maxRd_,_d.getGenerator());
         if(pkAlea_.isEmpty()){
@@ -2450,8 +2449,8 @@ public final class Game {
     }
 
 
-    MonteCarloList<CustList<WildPk>> lawCopy(MonteCarloList<CustList<WildPk>> _law, DataBase _d) {
-        MonteCarloList<CustList<WildPk>> lawCopy_ = new MonteCarloList<CustList<WildPk>>();
+    MonteCarloWilPkList lawCopy(MonteCarloWilPkList _law, DataBase _d) {
+        MonteCarloWilPkList lawCopy_ = new MonteCarloWilPkList();
         for(EventFreq<CustList<WildPk>> i:_law.getEvents()){
             CustList<WildPk> e = i.getEvent();
             LgInt f_ = i.getFreq();

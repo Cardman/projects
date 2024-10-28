@@ -327,7 +327,46 @@ public class MapTest extends EquallableExUtil {
         assertEq(0, values_.first());
         assertEq(1, values_.last());
     }
-
+    @Test
+    public void valuesLs1Test() {
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put("0, 0", 0);
+        map_.put("0, 1", 1);
+        CustList<Integer> values_ = map_.valuesKey("0, 0");
+        assertEq(1, values_.size());
+        assertEq(0, values_.first());
+    }
+    @Test
+    public void valuesLs2Test() {
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put("0, 0", 0);
+        map_.put("0, 1", 1);
+        CustList<Integer> values_ = map_.valuesKey("0, 1");
+        assertEq(1, values_.size());
+        assertEq(1, values_.first());
+    }
+    @Test
+    public void differentKeys1() {
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put("0, 0", 0);
+        map_.put("0, 1", 1);
+        CustList<String> values_ = map_.differentKeys();
+        assertEq(2, values_.size());
+        assertEq("0, 0", values_.first());
+        assertEq("0, 1", values_.last());
+    }
+    @Test
+    public void differentKeys2() {
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put("0, 0", 0);
+        map_.addEntry("0, 0", 2);
+        map_.put("0, 1", 1);
+        map_.addEntry("0, 1", 3);
+        CustList<String> values_ = map_.differentKeys();
+        assertEq(2, values_.size());
+        assertEq("0, 0", values_.first());
+        assertEq("0, 1", values_.last());
+    }
     @Test
     public void add1Test() {
         StringMap<Integer> map_ = new StringMap<Integer>();

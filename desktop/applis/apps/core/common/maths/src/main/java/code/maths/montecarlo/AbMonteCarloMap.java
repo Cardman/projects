@@ -1,9 +1,9 @@
 package code.maths.montecarlo;
 
 import code.maths.LgInt;
-import code.maths.Rate;
 import code.util.AbsMap;
 import code.util.CustList;
+import code.util.core.IntIndexOfEntryUtil;
 import code.util.ints.Listable;
 
 public abstract class AbMonteCarloMap<E> extends AbMonteCarlo<E> {
@@ -24,6 +24,12 @@ public abstract class AbMonteCarloMap<E> extends AbMonteCarlo<E> {
     public CustList<E> events() {
         return getLaw().getKeys();
     }
+
+    @Override
+    public CustList<E> eventsDiff() {
+        return new IntIndexOfEntryUtil<E>(this).differentKeys();
+    }
+
     @Override
     public LgInt sum() {
         LgInt somme_= LgInt.zero();
@@ -32,13 +38,25 @@ public abstract class AbMonteCarloMap<E> extends AbMonteCarlo<E> {
         }
         return somme_;
     }
+    @Override
     public boolean containsEvent(E _event) {
         return getLaw().contains(_event);
     }
     @Override
     public int nbEvents() {
+        return size();
+    }
+
+    @Override
+    public int size() {
         return getLaw().size();
     }
+
+    @Override
+    public int indexOfEntry(E _key, int _from) {
+        return getLaw().indexOfEntry(_key, _from);
+    }
+
     public boolean isValid() {
         if (getLaw().isEmpty()) {
             return false;
@@ -54,12 +72,12 @@ public abstract class AbMonteCarloMap<E> extends AbMonteCarlo<E> {
         return true;
     }
 
-    public Rate normalizedRate(E _event) {
-        LgInt sum_ = sum();
-        return new Rate(rate(_event), sum_);
-    }
     public LgInt rate(E _event) {
-        return getLaw().getVal(_event);
+        LgInt somme_= LgInt.zero();
+        for (LgInt i:getLaw().valuesKey(_event)) {
+            somme_.addNb(i);
+        }
+        return somme_;
     }
 
     public void deleteZeroEvents() {

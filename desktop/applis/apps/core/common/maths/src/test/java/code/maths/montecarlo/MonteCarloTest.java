@@ -54,7 +54,7 @@ public class MonteCarloTest extends EquallableMathUtil {
 
     @Test
     public void sum2Test() {
-        MonteCarloList<Long> law_ = new MonteCarloList<Long>();
+        MonteCarloNb law_ = new MonteCarloNb();
         law_.addEvent(2L, new LgInt(1));
         assertEq(new LgInt(1),law_.sum());
         law_.addEvent(3L, new LgInt(5));
@@ -299,6 +299,7 @@ public class MonteCarloTest extends EquallableMathUtil {
     public void nbEventsTest() {
         MonteCarloNb law_ = new MonteCarloNb();
         assertEq(0, law_.nbEvents());
+        assertTrue(law_.isEmpty());
     }
 
     @Test
@@ -312,6 +313,7 @@ public class MonteCarloTest extends EquallableMathUtil {
         MonteCarloNb law_ = new MonteCarloNb();
         law_.addEvent(1L,LgInt.one());
         assertTrue(!law_.isZero());
+        assertTrue(!law_.isEmpty());
     }
 
     @Test
@@ -367,7 +369,7 @@ public class MonteCarloTest extends EquallableMathUtil {
 
     @Test
     public void editNumber14Test() {
-        MonteCarloList<String> law_ = new MonteCarloList<String>();
+        MonteCarloString law_ = new MonteCarloString();
         law_.addEvent("2", new LgInt(1));
         law_.addEvent("3", new LgInt(1));
         law_.addEvent("2", new LgInt(1));
@@ -385,12 +387,13 @@ public class MonteCarloTest extends EquallableMathUtil {
 
     @Test
     public void editNumber15Test() {
-        MonteCarloList<String> law_ = new MonteCarloList<String>();
-        law_.addEvent("2", new LgInt(1));
-        law_.addEvent("3", new LgInt(2));
-        law_.addEvent("2", new LgInt(3));
-        law_.addEvent("3", new LgInt(4));
+        MonteCarloString law_ = new MonteCarloString();
+        law_.addQuickEvent("2", new LgInt(1));
+        law_.addQuickEvent("3", new LgInt(2));
+        law_.addQuickEvent("2", new LgInt(3));
+        law_.addQuickEvent("3", new LgInt(4));
         law_.events();
+        assertEq(2,law_.eventsDiff().size());
         assertEq("2", law_.editNumberSeed(LgInt.zero()));
         assertEq("3", law_.editNumberSeed(LgInt.one()));
         assertEq("3", law_.editNumberSeed(new LgInt(2)));
@@ -415,7 +418,7 @@ public class MonteCarloTest extends EquallableMathUtil {
 
     @Test
     public void editNumber16Test() {
-        MonteCarloList<String> law_ = new MonteCarloList<String>();
+        MonteCarloString law_ = new MonteCarloString();
         law_.addEvent("2", new LgInt(1));
         law_.events();
         assertEq("2", law_.editNumber(LgInt.one(),DefaultGenerator.oneElt()));
@@ -427,6 +430,7 @@ public class MonteCarloTest extends EquallableMathUtil {
         law_.addQuickEvent(new Rate(2), new LgInt(2));
         law_.addQuickEvent(new Rate(2), new LgInt(1));
         law_.events();
+        assertEq(1,law_.eventsDiff().size());
         assertEq(new Rate(2), law_.editNumber(new LgInt(8), DefaultGenerator.oneElt()));
     }
 
@@ -438,6 +442,17 @@ public class MonteCarloTest extends EquallableMathUtil {
         law_.events();
         assertSame(BoolVal.TRUE, law_.editNumber(new LgInt(8), DefaultGenerator.oneElt()));
     }
+
+    @Test
+    public void eventsDiff() {
+        MonteCarloNumber law_ = new MonteCarloNumber();
+        law_.addQuickEvent(new Rate(2), new LgInt(9));
+        law_.addQuickEvent(new Rate(3), new LgInt(3));
+        law_.addQuickEvent(new Rate(3), new LgInt(5));
+        law_.addQuickEvent(new Rate(2), new LgInt(1));
+        assertEq(2,law_.eventsDiff().size());
+    }
+
     @Test
     public void normalRate1() {
         MonteCarloString law_ = new MonteCarloString();

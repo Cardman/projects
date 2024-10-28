@@ -59,7 +59,7 @@ public class EffectComboBean extends CommonBean {
         rankIncrementNbRound = e_.getRankIncrementNbRound();
         DictionaryComparator<LgInt,Rate> repeatedRoundsLaw_;
         repeatedRoundsLaw_ = DictionaryComparatorUtil.buildIntRate();
-        for (Rate e: e_.getRepeatedRoundsLaw().events()) {
+        for (Rate e: e_.getRepeatedRoundsLaw().eventsDiff()) {
             repeatedRoundsLaw_.put(e.intPart(), e_.getRepeatedRoundsLaw().normalizedRate(e));
         }
         repeatedRoundsLaw = repeatedRoundsLaw_;

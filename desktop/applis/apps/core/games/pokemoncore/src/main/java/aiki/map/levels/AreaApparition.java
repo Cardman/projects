@@ -1,10 +1,10 @@
 package aiki.map.levels;
 
 import aiki.db.DataBase;
+import aiki.map.pokemon.MonteCarloWilPkList;
 import aiki.map.pokemon.WildPk;
 import aiki.util.DataInfoChecker;
 import code.maths.LgInt;
-import code.maths.montecarlo.MonteCarloList;
 import code.util.CustList;
 
 
@@ -30,48 +30,26 @@ public final class AreaApparition extends AbsAreaApparition {
         setWildPokemonRandFishing(random(wildPokemonFishing, ALWAYS_APPARITION, multFight));
     }
 
-    static MonteCarloList<CustList<WildPk>> random(CustList<WildPk> _wildPokemon,
+    static MonteCarloWilPkList random(CustList<WildPk> _wildPokemon,
                                                    int _avgNbSteps, int _multFight) {
         CustList<CustList<WildPk>> wildPokemonCopy_ = prod(_wildPokemon,_multFight);
         return randomList(_avgNbSteps, wildPokemonCopy_);
     }
 
-    static MonteCarloList<CustList<WildPk>> randomList(int _avgNbSteps, CustList<CustList<WildPk>> _wildPokemonCopy) {
-        CustList<CustList<WildPk>> dis_ = distinct(_wildPokemonCopy);
-        MonteCarloList<CustList<WildPk>> wildPokemonRand_ = new MonteCarloList<CustList<WildPk>>();
-        for (CustList<WildPk> p : dis_) {
-            int count_ = 0;
-            for (CustList<WildPk> p2_ : _wildPokemonCopy) {
-                if (!eqList(p2_, p)) {
-                    continue;
-                }
-                count_++;
-            }
-            wildPokemonRand_.addQuickEvent(p, new LgInt(count_));
+    static MonteCarloWilPkList randomList(int _avgNbSteps, CustList<CustList<WildPk>> _wildPokemonCopy) {
+        MonteCarloWilPkList wildPokemonRandAll_ = new MonteCarloWilPkList();
+        for (CustList<WildPk> p : _wildPokemonCopy) {
+            wildPokemonRandAll_.addQuickEvent(p, LgInt.one());
+        }
+        MonteCarloWilPkList wildPokemonRand_ = new MonteCarloWilPkList();
+        for (CustList<WildPk> p : wildPokemonRandAll_.eventsDiff()) {
+            wildPokemonRand_.addQuickEvent(p, wildPokemonRandAll_.rate(p));
         }
         if (_avgNbSteps > 1) {
             wildPokemonRand_.addQuickEvent(new CustList<WildPk>(), new LgInt((_avgNbSteps - 1L)
                     * _wildPokemonCopy.size()));
         }
         return wildPokemonRand_;
-    }
-
-    private static CustList<CustList<WildPk>> distinct(CustList<CustList<WildPk>> _wildPokemonCopy) {
-        CustList<CustList<WildPk>> wildPokemonCopy_ = new CustList<CustList<WildPk>>(_wildPokemonCopy);
-        int i_ = 0;
-        while (i_ < wildPokemonCopy_.size()) {
-            CustList<WildPk> pk_ = wildPokemonCopy_.get(i_);
-            int j_ = i_ + 1;
-            while (j_ < wildPokemonCopy_.size()) {
-                if (eqList(wildPokemonCopy_.get(j_), pk_)) {
-                    wildPokemonCopy_.remove(j_);
-                } else {
-                    j_++;
-                }
-            }
-            i_++;
-        }
-        return wildPokemonCopy_;
     }
 
     private static CustList<CustList<WildPk>> prod(CustList<WildPk> _wildPokemon, int _multFight) {

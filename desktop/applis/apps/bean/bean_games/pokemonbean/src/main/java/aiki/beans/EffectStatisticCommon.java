@@ -47,7 +47,7 @@ public final class EffectStatisticCommon {
         swapBoostStatis = swapBoostStatis_;
         NatStringTreeMap< Rate> lawBoost_;
         lawBoost_ = new NatStringTreeMap< Rate>();
-        for (Statistic s: adj_.getLawBoost().events()) {
+        for (Statistic s: adj_.getLawBoost().eventsDiff()) {
             lawBoost_.put(translatedStatistics_.getVal(s), adj_.getLawBoost().normalizedRate(s));
         }
         lawBoost = lawBoost_;

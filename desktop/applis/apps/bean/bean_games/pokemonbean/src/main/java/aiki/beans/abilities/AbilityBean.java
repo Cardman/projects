@@ -521,7 +521,7 @@ public class AbilityBean extends CommonBean {
         DataBase data_ = getDataBase();
         DictionaryComparator<String, Rate> singleStatus_;
         singleStatus_ = DictionaryComparatorUtil.buildStatusRate(data_,getLanguage());
-        for (String s: _ability.getSingleStatus().events()) {
+        for (String s: _ability.getSingleStatus().eventsDiff()) {
             singleStatus_.put(s, _ability.getSingleStatus().normalizedRate(s));
         }
         return singleStatus_;

@@ -96,7 +96,7 @@ public class StatusBean extends CommonBean {
             rates(statusBegin_);
             DictionaryComparator<LgInt,Rate> lawForUsingAMoveNbRound_;
             lawForUsingAMoveNbRound_ = DictionaryComparatorUtil.buildIntRate();
-            for (Rate e: statusBegin_.getLawForUsingAMoveNbRound().events()) {
+            for (Rate e: statusBegin_.getLawForUsingAMoveNbRound().eventsDiff()) {
                 lawForUsingAMoveNbRound_.put(e.intPart(), statusBegin_.getLawForUsingAMoveNbRound().normalizedRate(e));
             }
             lawForUsingAMoveNbRound = lawForUsingAMoveNbRound_;

@@ -844,7 +844,7 @@ public final class DocumentWriterAikiCoreUtil {
         for (DifficultyModelLaw k : _d.getLawsDamageRate().getKeys()) {
             LawNumber value_ = _d.getLawsDamageRate().getVal(k);
             StringList lawValues_ = new StringList();
-            for (Rate event_ : value_.getLaw().events()) {
+            for (Rate event_ : value_.getLaw().eventsDiff()) {
                 lawValues_.add(StringUtil.concat(event_.toNumberString(),
                         DataBase.SEPARATOR_RAND_EVENTS, value_.getLaw().rate(event_)
                                 .toNumberString()));

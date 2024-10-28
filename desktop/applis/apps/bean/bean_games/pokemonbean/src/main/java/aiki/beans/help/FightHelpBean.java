@@ -1650,7 +1650,7 @@ public class FightHelpBean extends CommonBean {
         StringList abilitiesStatus_ = new StringList();
         for (String a: _db.getAbilities().getKeys()) {
             AbilityData ab_ = _db.getAbility(a);
-            if (!ab_.getSingleStatus().events().isEmpty()) {
+            if (!ab_.getSingleStatus().isEmpty()) {
                 abilitiesStatus_.add(a);
             }
         }
@@ -2171,7 +2171,7 @@ public class FightHelpBean extends CommonBean {
         StringList itemSpeed_ = new StringList();
         for (String i: _db.getItems().getKeys()) {
             Item it_ = _db.getItem(i);
-            if (it_ instanceof ItemForBattle && !((ItemForBattle) it_).getLawForAttackFirst().events().isEmpty()) {
+            if (it_ instanceof ItemForBattle && !((ItemForBattle) it_).getLawForAttackFirst().isEmpty()) {
                 itemSpeed_.add(i);
             }
         }
@@ -2367,7 +2367,7 @@ public class FightHelpBean extends CommonBean {
         for (DifficultyModelLaw d: _db.getLawsDamageRate().getKeys()) {
             DictionaryComparator<Rate,Rate> tree_ = DictionaryComparatorUtil.buildRateRate();
             MonteCarloNumber law_ = _db.getLawsDamageRate().getVal(d).getLaw();
-            for (Rate e: law_.events()) {
+            for (Rate e: law_.eventsDiff()) {
                 tree_.put(e, law_.normalizedRate(e));
             }
             lawsRates_.put(d.getModelName(), tree_);
@@ -3903,7 +3903,7 @@ public class FightHelpBean extends CommonBean {
         DataBase data_ = getDataBase();
         MoveData move_ = data_.getMove(damagingMoves.get(_index));
         EffectDamage eff_ = (EffectDamage) move_.getEffet(move_.indexOfPrimaryEffect());
-        return !eff_.getDamageLaw().events().isEmpty();
+        return !eff_.getDamageLaw().isEmpty();
     }
     public boolean withMultDamageAny() {
         int len_;
@@ -4464,8 +4464,8 @@ public class FightHelpBean extends CommonBean {
         DataBase data_ = getDataBase();
         Status st_ = data_.getStatus(status_);
         StatusBeginRound s_ = (StatusBeginRound) st_;
-        if (s_.getLawForUsingAMove().events().isEmpty()) {
-            return !s_.getLawForUsingAMoveIfFoe().events().isEmpty();
+        if (s_.getLawForUsingAMove().isEmpty()) {
+            return !s_.getLawForUsingAMoveIfFoe().isEmpty();
         }
         return true;
     }
@@ -4484,7 +4484,7 @@ public class FightHelpBean extends CommonBean {
         DataBase data_ = getDataBase();
         Status st_ = data_.getStatus(status_);
         StatusBeginRound s_ = (StatusBeginRound) st_;
-        return !s_.getLawForFullHealIfMove().events().isEmpty();
+        return !s_.getLawForFullHealIfMove().isEmpty();
     }
     public String getTrBeginRoundStatus(int _index) {
         DataBase data_ = getDataBase();

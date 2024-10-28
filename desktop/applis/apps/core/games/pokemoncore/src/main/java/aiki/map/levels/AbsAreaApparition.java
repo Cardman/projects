@@ -1,9 +1,9 @@
 package aiki.map.levels;
 
 import aiki.db.DataBase;
+import aiki.map.pokemon.MonteCarloWilPkList;
 import aiki.map.pokemon.WildPk;
 import aiki.util.DataInfoChecker;
-import code.maths.montecarlo.MonteCarloList;
 import code.util.CustList;
 
 public abstract class AbsAreaApparition {
@@ -12,10 +12,10 @@ public abstract class AbsAreaApparition {
 
     private CustList<CustList<WildPk>> wildPokemonList;
 
-    private MonteCarloList<CustList<WildPk>> wildPokemonRand;
+    private MonteCarloWilPkList wildPokemonRand;
     private CustList<CustList<WildPk>> wildPokemonFishingList;
 
-    private MonteCarloList<CustList<WildPk>> wildPokemonRandFishing;
+    private MonteCarloWilPkList wildPokemonRandFishing;
 
     private short avgNbSteps;
 
@@ -74,19 +74,19 @@ public abstract class AbsAreaApparition {
         this.wildPokemonFishingList = _w;
     }
 
-    public MonteCarloList<CustList<WildPk>> getWildPokemonRand() {
+    public MonteCarloWilPkList getWildPokemonRand() {
         return wildPokemonRand;
     }
 
-    public void setWildPokemonRand(MonteCarloList<CustList<WildPk>> _w) {
+    public void setWildPokemonRand(MonteCarloWilPkList _w) {
         this.wildPokemonRand = _w;
     }
 
-    public MonteCarloList<CustList<WildPk>> getWildPokemonRandFishing() {
+    public MonteCarloWilPkList getWildPokemonRandFishing() {
         return wildPokemonRandFishing;
     }
 
-    public void setWildPokemonRandFishing(MonteCarloList<CustList<WildPk>> _w) {
+    public void setWildPokemonRandFishing(MonteCarloWilPkList _w) {
         this.wildPokemonRandFishing = _w;
     }
 }

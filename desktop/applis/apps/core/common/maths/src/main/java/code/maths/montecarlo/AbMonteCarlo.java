@@ -1,10 +1,12 @@
 package code.maths.montecarlo;
 import code.maths.LgInt;
+import code.maths.Rate;
 import code.util.CustList;
 import code.util.core.IndexConstants;
+import code.util.ints.IntIndexOfEntry;
 import code.util.ints.Listable;
 
-public abstract class AbMonteCarlo<E> implements IntMonteCarlo {
+public abstract class AbMonteCarlo<E> implements IntMonteCarlo, IntIndexOfEntry<E> {
 
     public E editNumber(LgInt _lgInt,AbstractGenerator _gene) {
         return editNumber(_lgInt, _gene, _gene.seed());
@@ -54,11 +56,26 @@ public abstract class AbMonteCarlo<E> implements IntMonteCarlo {
         }
         return true;
     }
+    public boolean isEmpty() {
+        return nbEvents() == 0;
+    }
+    public abstract boolean containsEvent(E _event);
     public abstract E getEvent(int _index);
     public abstract LgInt getFreq(int _index);
     public abstract CustList<E> events();
+    public abstract CustList<E> eventsDiff();
 
+    @Override
+    public E getKey(int _i) {
+        return getEvent(_i);
+    }
+
+    public Rate normalizedRate(E _event) {
+        LgInt sum_ = sum();
+        return new Rate(rate(_event), sum_);
+    }
     public abstract LgInt sum();
+    public abstract LgInt rate(E _e);
 
     public final boolean isZero() {
         return sum().isZero();

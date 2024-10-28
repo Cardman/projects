@@ -27,7 +27,7 @@ public class EffectStatusBean extends EffectBean {
         DataBase data_ = getDataBase();
         DictionaryComparator<String, Rate> lawStatus_;
         lawStatus_ = DictionaryComparatorUtil.buildStatusRate(data_,getLanguage());
-        for (String s: effect_.getLawStatus().events()) {
+        for (String s: effect_.getLawStatus().eventsDiff()) {
             lawStatus_.put(s, effect_.getLawStatus().normalizedRate(s));
         }
         lawStatus = lawStatus_;
@@ -75,7 +75,7 @@ public class EffectStatusBean extends EffectBean {
         EffectStatus effect_ = (EffectStatus) getEffect(_indexEffect);
         DictionaryComparator<String, Rate> lawStatus_;
         lawStatus_ = DictionaryComparatorUtil.buildStatusRate(data_,getLanguage());
-        for (String s: effect_.getLawStatus().events()) {
+        for (String s: effect_.getLawStatus().eventsDiff()) {
             lawStatus_.put(s, effect_.getLawStatus().normalizedRate(s));
         }
         return lawStatus_;

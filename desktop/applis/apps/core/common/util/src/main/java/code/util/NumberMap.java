@@ -12,10 +12,10 @@ public abstract class NumberMap<K, V> extends AbsMap<K, V> {
     }
 
     @Override
-    public int indexOfEntry(K _key) {
+    public int indexOfEntry(K _key, int _from) {
         long convert_ = convert(_key);
         int s_ = size();
-        for (int i = 0; i < s_;i++) {
+        for (int i = _from; i < s_;i++) {
             if (convert(getKey(i)) == convert_) {
                 return i;
             }

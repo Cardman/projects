@@ -2,7 +2,7 @@ package aiki.map.levels;
 
 import aiki.db.*;
 import aiki.game.fight.*;
-import code.maths.montecarlo.MonteCarloList;
+import aiki.map.pokemon.MonteCarloWilPkList;
 import code.util.CustList;
 import org.junit.Test;
 
@@ -16,14 +16,14 @@ public final class AreaApparitionTest extends InitializationDataBase {
     @Test
     public void random1Test() {
         CustList<WildPk> list_ = new CustList<WildPk>();
-        MonteCarloList<CustList<WildPk>> law_ = AreaApparition.random(list_, AreaApparition.ALWAYS_APPARITION,1);
+        MonteCarloWilPkList law_ = AreaApparition.random(list_, AreaApparition.ALWAYS_APPARITION,1);
         assertEq(0, law_.nbEvents());
     }
 
     @Test
     public void random2Test() {
         CustList<WildPk> list_ = new CustList<WildPk>();
-        MonteCarloList<CustList<WildPk>> law_ = AreaApparition.random(list_, 2,1);
+        MonteCarloWilPkList law_ = AreaApparition.random(list_, 2,1);
         assertEq(1, law_.nbEvents());
         assertTrue(law_.events().first().isEmpty());
     }
@@ -39,7 +39,7 @@ public final class AreaApparitionTest extends InitializationDataBase {
         pk_.setLevel((short) 3);
         pk_.setItem(NULL_REF);
         list_.add(pk_);
-        MonteCarloList<CustList<WildPk>> law_ = AreaApparition.random(list_, AreaApparition.ALWAYS_APPARITION,1);
+        MonteCarloWilPkList law_ = AreaApparition.random(list_, AreaApparition.ALWAYS_APPARITION,1);
         assertEq(1, law_.nbEvents());
         CustList<WildPk> event_;
         event_ = law_.events().first();
@@ -62,7 +62,7 @@ public final class AreaApparitionTest extends InitializationDataBase {
         pk_.setLevel((short) 3);
         pk_.setItem(NULL_REF);
         list_.add(pk_);
-        MonteCarloList<CustList<WildPk>> law_ = AreaApparition.random(list_, 3,1);
+        MonteCarloWilPkList law_ = AreaApparition.random(list_, 3,1);
         assertEq(2, law_.nbEvents());
         assertTrue(containsPk(law_,pk_));
         assertTrue(containsPk(law_));
@@ -87,7 +87,7 @@ public final class AreaApparitionTest extends InitializationDataBase {
         pkTwo_.setLevel((short) 3);
         pkTwo_.setItem(NULL_REF);
         list_.add(pkTwo_);
-        MonteCarloList<CustList<WildPk>> law_ = AreaApparition.random(list_, 3,1);
+        MonteCarloWilPkList law_ = AreaApparition.random(list_, 3,1);
         assertEq(3, law_.nbEvents());
         assertTrue(containsPk(law_,pkOne_));
         assertTrue(containsPk(law_,pkTwo_));
@@ -121,7 +121,7 @@ public final class AreaApparitionTest extends InitializationDataBase {
         pkThree_.setLevel((short) 3);
         pkThree_.setItem(NULL_REF);
         list_.add(pkThree_);
-        MonteCarloList<CustList<WildPk>> law_ = AreaApparition.random(list_, 3,1);
+        MonteCarloWilPkList law_ = AreaApparition.random(list_, 3,1);
         assertEq(3, law_.nbEvents());
         assertTrue(containsPk(law_,pkOne_));
         assertTrue(containsPk(law_,pkTwo_));
@@ -148,7 +148,7 @@ public final class AreaApparitionTest extends InitializationDataBase {
         pkTwo_.setLevel((short) 3);
         pkTwo_.setItem(NULL_REF);
         list_.add(pkTwo_);
-        MonteCarloList<CustList<WildPk>> law_ = AreaApparition.random(list_, AreaApparition.ALWAYS_APPARITION,1);
+        MonteCarloWilPkList law_ = AreaApparition.random(list_, AreaApparition.ALWAYS_APPARITION,1);
         assertEq(2, law_.nbEvents());
         assertTrue(containsPk(law_,pkOne_));
         assertTrue(containsPk(law_,pkTwo_));
@@ -180,7 +180,7 @@ public final class AreaApparitionTest extends InitializationDataBase {
         pkThree_.setLevel((short) 3);
         pkThree_.setItem(NULL_REF);
         list_.add(pkThree_);
-        MonteCarloList<CustList<WildPk>> law_ = AreaApparition.random(list_, AreaApparition.ALWAYS_APPARITION,1);
+        MonteCarloWilPkList law_ = AreaApparition.random(list_, AreaApparition.ALWAYS_APPARITION,1);
         assertEq(2, law_.nbEvents());
         assertTrue(containsPk(law_,pkOne_));
         assertTrue(containsPk(law_,pkTwo_));
@@ -269,7 +269,7 @@ public final class AreaApparitionTest extends InitializationDataBase {
         return pkOne_;
     }
 
-    private static boolean containsPk(MonteCarloList<CustList<WildPk>> _monte, WildPk _ev) {
+    private static boolean containsPk(MonteCarloWilPkList _monte, WildPk _ev) {
         CustList<WildPk> l_ = new CustList<WildPk>();
         l_.add(_ev);
 //        for (WildPk e: _monte.events()) {
@@ -281,7 +281,7 @@ public final class AreaApparitionTest extends InitializationDataBase {
         return WildPk.containsPk(_monte, l_);
     }
 
-    private static boolean containsPk(MonteCarloList<CustList<WildPk>> _monte) {
+    private static boolean containsPk(MonteCarloWilPkList _monte) {
         CustList<WildPk> l_ = new CustList<WildPk>();
 //        for (WildPk e: _monte.events()) {
 //            if (e.eq(_ev)) {
@@ -291,7 +291,7 @@ public final class AreaApparitionTest extends InitializationDataBase {
 //        return false;
         return WildPk.containsPk(_monte, l_);
     }
-    private static LgInt freqPk(MonteCarloList<CustList<WildPk>> _monte, WildPk _ev) {
+    private static LgInt freqPk(MonteCarloWilPkList _monte, WildPk _ev) {
         CustList<WildPk> l_ = new CustList<WildPk>();
         l_.add(_ev);
         return WildPk.freqPk(_monte, l_);
@@ -304,7 +304,7 @@ public final class AreaApparitionTest extends InitializationDataBase {
 //        return sum_;
     }
 
-    private static LgInt freqPk(MonteCarloList<CustList<WildPk>> _monte) {
+    private static LgInt freqPk(MonteCarloWilPkList _monte) {
         CustList<WildPk> l_ = new CustList<WildPk>();
         return WildPk.freqPk(_monte, l_);
 //        LgInt sum_ = LgInt.zero();
