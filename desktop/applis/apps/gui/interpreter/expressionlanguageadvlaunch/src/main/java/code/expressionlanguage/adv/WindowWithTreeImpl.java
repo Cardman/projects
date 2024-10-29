@@ -553,7 +553,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
     }
 
     protected ManageOptions manage(StringList _linesFiles) {
-        return new ManageOptions(getFrames().getTranslations().getIndexes(), _linesFiles, factory);
+        return new ManageOptions(getFrames().getLanguages(), _linesFiles, factory);
     }
 
     public AbsTreeGui getFolderSystem() {

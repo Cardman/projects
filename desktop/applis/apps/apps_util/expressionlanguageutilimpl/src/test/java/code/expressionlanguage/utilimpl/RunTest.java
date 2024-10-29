@@ -48,7 +48,7 @@ public final class RunTest extends EquallableElUtImplUtil {
     }
     @Test
     public void launch1() {
-        assertFalse(RunningTest.launchByConfContent(new StringMap<String>(),"",null,null, new DefBuildLightResultContextNext(),new DefFileBuilderListGene()));
+        assertFalse(RunningTest.launchByConfContent(new StringList(),"",null,null, new DefBuildLightResultContextNext(),new DefFileBuilderListGene()));
     }
     @Test
     public void launch2() {
@@ -56,7 +56,7 @@ public final class RunTest extends EquallableElUtImplUtil {
         byte[] zipped_ = pr_.getZipFact().zipBinFiles(with(pr_, init(), "conf.txt", "content"));
         MemInputFiles mem_ = new MemInputFiles(StringUtil.encode("__"), new BytesInfo(StringUtil.encode(""), true), new BytesInfo(GuiConstants.nullToEmpty(zipped_), false));
         FileInfos infos_ = FileInfos.buildMemoryFromFile(pr_, pr_.getGenerator(), pr_.getValidator(), null, mem_, pr_.getZipFact(), pr_.getThreadFactory());
-        assertFalse(RunningTest.launchByConfContent(new StringMap<String>(),";\n;",null,infos_, new DefBuildLightResultContextNext(),new DefFileBuilderListGene()));
+        assertFalse(RunningTest.launchByConfContent(new StringList(),";\n;",null,infos_, new DefBuildLightResultContextNext(),new DefFileBuilderListGene()));
     }
     @Test
     public void launch3() {
@@ -67,7 +67,7 @@ public final class RunTest extends EquallableElUtImplUtil {
         AbsCompoFactory compo_ = pr_.getCompoFactory();
         ProgTestBar bar_ = new ProgTestBar(compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
         MemoryProgressingTests progTest_ = new MemoryProgressingTests(new LightTestableFrame(pr_, null,new MockInterceptor(), mem_, bar_));
-        assertFalse(RunningTest.launchByConfContent(new StringMap<String>(),";\n;\nout=//",progTest_,infos_, new SampleAtIntLgNames(),new SampleExecFileBuilderGene()));
+        assertFalse(RunningTest.launchByConfContent(new StringList(),";\n;\nout=//",progTest_,infos_, new SampleAtIntLgNames(),new SampleExecFileBuilderGene()));
     }
     @Test
     public void launch4() {
@@ -78,7 +78,7 @@ public final class RunTest extends EquallableElUtImplUtil {
         AbsCompoFactory compo_ = pr_.getCompoFactory();
         ProgTestBar bar_ = new ProgTestBar(compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
         MemoryProgressingTests progTest_ = new MemoryProgressingTests(new LightTestableFrame(pr_, null,new MockInterceptor(), mem_, bar_));
-        assertTrue(RunningTest.launchByConfContent(new StringMap<String>(),";\n;",progTest_,infos_, new SampleAtIntLgNames(),new SampleExecFileBuilderGene()));
+        assertTrue(RunningTest.launchByConfContent(new StringList(),";\n;",progTest_,infos_, new SampleAtIntLgNames(),new SampleExecFileBuilderGene()));
     }
     @Test
     public void launch5() {
@@ -230,16 +230,11 @@ public final class RunTest extends EquallableElUtImplUtil {
     private ResultContext baseValidateMemo(String _lg, StringList _otherLines, AbstractInterceptor _interceptor, AbstractLightProgramInfos _factories) {
         return RunningTest.baseValidateMemo(_lg, _otherLines, _interceptor, _factories, null,new SampleAtIntLgNames(),new SampleFileBuilderListGene());
     }
-    public static StringMap<String> indexes() {
-        StringMap<String> indexes_ = new StringMap<String>();
-        indexes_.addEntry(StringUtil.EN,"0");
-        return indexes_;
+    public static StringList indexes() {
+        return new StringList(StringUtil.EN);
     }
 
-    public static StringMap<String> indexesAll() {
-        StringMap<String> indexes_ = new StringMap<String>();
-        indexes_.addEntry(StringUtil.EN,"0");
-        indexes_.addEntry(StringUtil.FR,"1");
-        return indexes_;
+    public static StringList indexesAll() {
+        return new StringList(StringUtil.EN,StringUtil.FR);
     }
 }

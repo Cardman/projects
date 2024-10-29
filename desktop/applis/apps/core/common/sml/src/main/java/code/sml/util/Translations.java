@@ -9,7 +9,6 @@ public final class Translations {
     public static final String TEMP_FOLDER = "0";
     private final StringMap<TranslationsLg> mapping = new StringMap<TranslationsLg>();
     private final StringMap<TranslationsAppli> files = new StringMap<TranslationsAppli>();
-    private final StringMap<String> indexes = new StringMap<String>();
 
     public StringMap<TranslationsAppli> byAppl(String _appl) {
         StringMap<TranslationsAppli> m_ = new StringMap<TranslationsAppli>();
@@ -30,7 +29,4 @@ public final class Translations {
         return files;
     }
 
-    public StringMap<String> getIndexes() {
-        return indexes;
-    }
 }

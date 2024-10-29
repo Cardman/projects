@@ -33,7 +33,7 @@ public final class ProgressingTestsImplTest extends EquallableElUtFilesUtil {
         AbsCompoFactory compo_ = pr_.getCompoFactory();
         ProgTestBar bar_ = new ProgTestBar(compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
         ProgressingTestsImpl progTest_ = new ProgressingTestsImpl(new LightTestableFrame(pr_, null,new MockInterceptor(), mem_, bar_),pr_.getStreams(),pr_.getFileCoreStream());
-        assertFalse(RunningTest.launchByConfContent(new StringMap<String>(),";\n;\nout=//",progTest_,infos_, new DefBuildLightResultContextNext(),new DefFileBuilderListGene()));
+        assertFalse(RunningTest.launchByConfContent(new StringList(),";\n;\nout=//",progTest_,infos_, new DefBuildLightResultContextNext(),new DefFileBuilderListGene()));
     }
     @Test
     public void launch4() {
@@ -45,7 +45,7 @@ public final class ProgressingTestsImplTest extends EquallableElUtFilesUtil {
         AbsCompoFactory compo_ = pr_.getCompoFactory();
         ProgTestBar bar_ = new ProgTestBar(compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
         ProgressingTestsImpl progTest_ = new ProgressingTestsImpl(new LightTestableFrame(pr_, null,new MockInterceptor(), mem_, bar_),pr_.getStreams(),pr_.getFileCoreStream());
-        assertTrue(RunningTest.launchByConfContent(new StringMap<String>(),";\n;",progTest_,infos_, new DefBuildLightResultContextNext(),new DefFileBuilderListGene()));
+        assertTrue(RunningTest.launchByConfContent(new StringList(),";\n;",progTest_,infos_, new DefBuildLightResultContextNext(),new DefFileBuilderListGene()));
     }
     @Test
     public void launch5() {
@@ -160,16 +160,11 @@ public final class ProgressingTestsImplTest extends EquallableElUtFilesUtil {
         return _a;
     }
 
-    public static StringMap<String> indexes() {
-        StringMap<String> indexes_ = new StringMap<String>();
-        indexes_.addEntry(StringUtil.EN,"0");
-        return indexes_;
+    public static StringList indexes() {
+        return new StringList(StringUtil.EN);
     }
 
-    public static StringMap<String> indexesAll() {
-        StringMap<String> indexes_ = new StringMap<String>();
-        indexes_.addEntry(StringUtil.EN,"0");
-        indexes_.addEntry(StringUtil.FR,"1");
-        return indexes_;
+    public static StringList indexesAll() {
+        return new StringList(StringUtil.EN,StringUtil.FR);
     }
 }

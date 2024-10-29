@@ -502,8 +502,6 @@ public abstract class EquallableElUtUtil {
         FileInfos.initAppliFilesTr(_p.getTranslations());
         FileInfos.getAppliFilesTr(_p.getTranslations());
         ((MockProgramInfos)_p).setLanguage(StringUtil.EN);
-        _p.getTranslations().getIndexes().addEntry(StringUtil.EN,"0");
-        _p.getTranslations().getIndexes().addEntry(StringUtil.FR,"1");
         return new ExecutingOptions(_p);
     }
     public static ExecutingOptions exOptInit(AbstractLightProgramInfos _p) {

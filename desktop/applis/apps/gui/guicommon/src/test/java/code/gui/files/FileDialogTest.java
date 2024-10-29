@@ -77,9 +77,8 @@ public final class FileDialogTest extends EquallableGuiCommonUtil {
         MockProgramInfos pr_ = MockProgramInfos.inst("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
-        StringMap<String> indexes_ = indexes();
-        pr_.getTranslations().getIndexes().addAllEntries(indexes_);
-        StreamLanguageUtil.saveLanguage("/tmp","_",pr_);
+        StringList indexes_ = indexes();
+        StreamLanguageUtil.saveLanguage("/tmp","_",pr_.getStreams());
         assertEq("_",FileDialog.loadLanguage("/tmp", pr_.getFileCoreStream(), pr_.getStreams(), indexes_));
     }
     @Test
@@ -87,9 +86,8 @@ public final class FileDialogTest extends EquallableGuiCommonUtil {
         MockProgramInfos pr_ = MockProgramInfos.inst("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
-        StringMap<String> indexes_ = indexes();
-        pr_.getTranslations().getIndexes().addAllEntries(indexes_);
-        StreamLanguageUtil.saveLanguage("/tmp","__",pr_);
+        StringList indexes_ = indexes();
+        StreamLanguageUtil.saveLanguage("/tmp","__",pr_.getStreams());
         assertEq("",FileDialog.loadLanguage("/tmp", pr_.getFileCoreStream(), pr_.getStreams(), indexes_));
     }
 //    @Test
@@ -152,9 +150,7 @@ public final class FileDialogTest extends EquallableGuiCommonUtil {
 //        assertEq("__",l_.getLanguage());
 //    }
 
-    private StringMap<String> indexes() {
-        StringMap<String> is_ = new StringMap<String>();
-        is_.addEntry("_","_");
-        return is_;
+    private StringList indexes() {
+        return new StringList("_");
     }
 }

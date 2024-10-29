@@ -39,7 +39,7 @@ public final class ManageOptionsTest extends EquallableElUtImplUtil {
         AbsCompoFactory compo_ = pr_.getCompoFactory();
         ProgTestBar bar_ = new ProgTestBar(compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
         MemoryProgressingTests progTest_ = new MemoryProgressingTests(new LightTestableFrame(pr_, null,new MockInterceptor(), mem_, bar_));
-        ManageOptions man_ = new ManageOptions(indexes(), new StringList("", "_"), progTest_);
+        ManageOptions man_ = new ManageOptions(indexes(), new StringList("", StringUtil.EN), progTest_);
         assertEq(StringUtil.EN,man_.getLanguage());
     }
     @Test
@@ -54,9 +54,7 @@ public final class ManageOptionsTest extends EquallableElUtImplUtil {
         ManageOptions man_ = new ManageOptions(indexes(), new StringList("", "/"), progTest_);
         assertEq(StringUtil.EN,man_.getLanguage());
     }
-    public static StringMap<String> indexes() {
-        StringMap<String> indexes_ = new StringMap<String>();
-        indexes_.addEntry("_",StringUtil.EN);
-        return indexes_;
+    public static StringList indexes() {
+        return new StringList(StringUtil.EN);
     }
 }

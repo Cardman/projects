@@ -3,11 +3,9 @@ package fr.apps;
 import aiki.db.DataBase;
 import aiki.db.ImageArrayBaseSixtyFour;
 import aiki.db.MessagesDataBaseConstants;
-import code.gui.files.FileDialogContent;
 import code.maths.montecarlo.CustomSeedGene;
 import code.mock.MockFileSet;
 import code.mock.MockProgramInfos;
-import code.util.StringMap;
 import code.util.core.StringUtil;
 import org.junit.Assert;
 
@@ -21,9 +19,6 @@ public abstract class EquallableApplicationsUtil {
     public static MockProgramInfos build(String _h, String _t, double[] _dbs) {
         MockProgramInfos pr_ = MockProgramInfos.inst(_h, _t, new CustomSeedGene(_dbs), new MockFileSet(0, new long[1], new String[]{"/"}));
         pr_.setLanguage(EN);
-        StringMap<String> indexes_ = pr_.getTranslations().getIndexes();
-        indexes_.clear();
-        indexes_.addAllEntries(FileDialogContent.index(EN, pr_.getValidator()));
         return pr_;
     }
 

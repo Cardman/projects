@@ -47,7 +47,6 @@ public final class MessagesFomContentTest extends EquallableRowColUtil {
         tr_.getFiles().addEntry("", ta_);
         assertEq(1, tr_.getFiles().size());
         assertEq(1, ta_.val().getMapping().size());
-        assertEq(0, tr_.getIndexes().size());
     }
     @Test
     public void byAppl() {

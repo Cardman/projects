@@ -8,8 +8,7 @@ import code.gui.stream.DocumentWriterGuiUtil;
 import code.images.IntPoint;
 import code.stream.*;
 import code.stream.core.TechStreams;
-import code.util.EntryCust;
-import code.util.StringMap;
+import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class FileDialog {
@@ -64,7 +63,7 @@ public final class FileDialog {
     }
 
     /**@throws LangueException*/
-    public static String loadLanguage(String _dir, AbstractFileCoreStream _fact, TechStreams _tech, StringMap<String> _lgs) {
+    public static String loadLanguage(String _dir, AbstractFileCoreStream _fact, TechStreams _tech, StringList _lgs) {
 //        Node noeud_ = StreamTextFile.contenuDocumentXmlExterne(getFolderJarPath()+LANGUAGE);
         String language_ = StreamLanguageUtil.tryToGetXmlLanguage(_dir,_fact,_tech, _lgs);
         if (!language_.isEmpty()) {
@@ -75,14 +74,17 @@ public final class FileDialog {
         return checkLgs(_lgs, content_);
     }
 
-    static String checkLgs(StringMap<String> _lgs, String _content) {
-        String valide_ = EMPTY_STRING;
-        for (EntryCust<String, String> l: _lgs.entryList()) {
-            if (StringUtil.quickEq(_content,l.getKey())) {
-                valide_ = l.getValue();
+    static String checkLgs(StringList _lgs, String _content) {
+        boolean valide_ = false;
+        for (String l: _lgs) {
+            if (StringUtil.quickEq(_content,l)) {
+                valide_ = true;
             }
         }
-        return valide_;
+        if(!valide_) {
+            return EMPTY_STRING;
+        }
+        return _content;
     }
 
 }

@@ -102,7 +102,7 @@ public abstract class SoftApplicationCore {
     }
 
     protected final String prepareLanguage(String _dir, String[] _args, AbstractImage _icon) {
-        String language_ = FileDialog.loadLanguage(_dir,getFrames().getFileCoreStream(), getFrames().getStreams(), getFrames().getTranslations().getIndexes());
+        String language_ = FileDialog.loadLanguage(_dir,getFrames().getFileCoreStream(), getFrames().getStreams(), getFrames().getLanguages());
         if (language_.isEmpty()) {
             languageFrame = proponeLanguage(_dir, _args, _icon);
         }

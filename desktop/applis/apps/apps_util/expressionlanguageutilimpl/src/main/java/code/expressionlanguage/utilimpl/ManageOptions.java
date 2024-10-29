@@ -11,22 +11,22 @@ public final class ManageOptions {
     private final ExecutingOptions ex;
     private final Options options;
     private final String language;
-    public ManageOptions(StringMap<String> _lgs, StringList _linesFiles, ProgressingTests _progressingTests) {
+    public ManageOptions(StringList _lgs, StringList _linesFiles, ProgressingTests _progressingTests) {
         this(_lgs, _linesFiles,_progressingTests.getFactory());
     }
-    public ManageOptions(StringMap<String> _lgs, StringList _linesFiles, CdmFactory _progressingTests) {
+    public ManageOptions(StringList _lgs, StringList _linesFiles, CdmFactory _progressingTests) {
         ExecutingOptions exec_ = new ExecutingOptions(_progressingTests.getProgramInfos());
         exec_.setListGenerator(_progressingTests);
         Options opt_ = new Options();
         if (StringUtil.quickEq("/",_linesFiles.get(1))) {
             ExecutingOptions.setupOptionals(2, opt_, exec_, _linesFiles);
             exec_.setLg(_progressingTests.getProgramInfos().getLanguage());
-        } else if (!_lgs.contains(_linesFiles.get(1))){
+        } else if (!StringUtil.contains(_lgs,_linesFiles.get(1))){
             ExecutingOptions.setupOptionals(1, opt_, exec_,_linesFiles);
             exec_.setLg("");
         } else {
             ExecutingOptions.setupOptionals(2, opt_, exec_, _linesFiles);
-            exec_.setLg(StringUtil.nullToEmpty(_lgs.getVal(_linesFiles.get(1))));
+            exec_.setLg(_linesFiles.get(1));
         }
         exec_.setAccess(_linesFiles.get(0));
         ex = exec_;

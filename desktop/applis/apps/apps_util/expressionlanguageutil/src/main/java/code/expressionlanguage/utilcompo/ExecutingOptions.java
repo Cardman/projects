@@ -326,7 +326,7 @@ public final class ExecutingOptions {
                 if (tr_.isEmpty()) {
                     continue;
                 }
-                _exec.getLgs().add(StringUtil.nullToEmpty(_exec.getLightProgramInfos().getTranslations().getIndexes().getVal(tr_)));
+                _exec.getLgs().add(tr_);
             }
         }
     }

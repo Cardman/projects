@@ -95,9 +95,7 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
     }
 
     public static void locales(ProgramInfosBase _pr) {
-        StringMap<String> indexes_ = _pr.getTranslations().getIndexes();
-        indexes_.clear();
-        indexes_.addAllEntries(FileDialogContent.index(MessagesTrs.EN+"/"+MessagesTrs.FR, _pr.getValidator()));
+        StringMap<String> indexes_ = FileDialogContent.index(MessagesTrs.EN + "/" + MessagesTrs.FR, _pr.getValidator());
         String enStr_ = indexes_.getVal(MessagesTrs.EN);
         String frStr_ = indexes_.getVal(MessagesTrs.FR);
         _pr.setLanguages(new StringList(enStr_,frStr_));

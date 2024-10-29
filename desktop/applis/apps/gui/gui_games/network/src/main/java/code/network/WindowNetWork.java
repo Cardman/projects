@@ -1999,7 +1999,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     public void changeLanguage(String _language) {
         AbstractProgramInfos infos_ = getFrames();
         String value_ = StringUtil.nullToEmpty(_language);
-        StreamLanguageUtil.saveLanguage(WindowCards.getTempFolder(getFrames()), value_,infos_);
+        StreamLanguageUtil.saveLanguage(WindowCards.getTempFolder(getFrames()), value_,infos_.getStreams());
         setLanguageKey(_language);
         translate();
     }

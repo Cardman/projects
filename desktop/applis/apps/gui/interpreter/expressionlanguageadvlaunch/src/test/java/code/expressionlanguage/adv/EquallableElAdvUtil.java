@@ -121,8 +121,6 @@ public abstract class EquallableElAdvUtil {
         pr_.getFileCoreStream().newFile("/project/sources/src/").mkdirs();
         pr_.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
         pr_.setLanguage(StringUtil.EN);
-        pr_.getTranslations().getIndexes().addEntry(StringUtil.EN,"0");
-        pr_.getTranslations().getIndexes().addEntry(StringUtil.FR,"1");
         update(pr_);
         pr_.getFileCoreStream().newFile("/project/sources/exp/errors/").mkdirs();
         pr_.getFileCoreStream().newFile("/project/sources/exp/files/").mkdirs();
@@ -142,8 +140,6 @@ public abstract class EquallableElAdvUtil {
         pr_.getFileCoreStream().newFile("/project/sources/src/").mkdirs();
         pr_.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
         pr_.setLanguage(StringUtil.EN);
-        pr_.getTranslations().getIndexes().addEntry(StringUtil.EN,"0");
-        pr_.getTranslations().getIndexes().addEntry(StringUtil.FR,"1");
         update(pr_);
         pr_.getFileCoreStream().newFile("/project/sources/exp/errors/").mkdirs();
         pr_.getFileCoreStream().newFile("/project/sources/exp/files/").mkdirs();
@@ -167,8 +163,6 @@ public abstract class EquallableElAdvUtil {
         pr_.getFileCoreStream().newFile("/project/sources/src/").mkdirs();
         pr_.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
         pr_.setLanguage(StringUtil.EN);
-        pr_.getTranslations().getIndexes().addEntry(StringUtil.EN,"0");
-        pr_.getTranslations().getIndexes().addEntry(StringUtil.FR,"1");
         update(pr_);
         return pr_;
     }
@@ -181,7 +175,7 @@ public abstract class EquallableElAdvUtil {
         AbstractProgramInfos frs_ = _pr.getFrames();
         String flatConf_ = StreamTextFile.contentsOfFile("/editor/conf.xml", frs_.getFileCoreStream(), frs_.getStreams());
         StringList linesFiles_ = ExecutingOptions.lines(StringUtil.nullToEmpty(flatConf_));
-        return new ManageOptions(frs_.getTranslations().getIndexes(), linesFiles_, _pr.getFactory());
+        return new ManageOptions(frs_.getLanguages(), linesFiles_, _pr.getFactory());
     }
     public static ResultContext res(AbsDebuggerGui _pr, ManageOptions _man) {
         return _pr.getResultContextNext().init(_man.getOptions());
@@ -615,7 +609,7 @@ public abstract class EquallableElAdvUtil {
         lines_.add("/project/sources");
         lines_.add(StringUtil.EN);
         lines_.add("src=//");
-        return new ManageOptions(frs_.getTranslations().getIndexes(), lines_, _pr.getFactory());
+        return new ManageOptions(frs_.getLanguages(), lines_, _pr.getFactory());
     }
    public static ManageOptions optBad2(AbsDebuggerGui _pr) {
         AbstractProgramInfos frs_ = _pr.getFrames();
@@ -623,7 +617,7 @@ public abstract class EquallableElAdvUtil {
         lines_.add("/project/sources");
         lines_.add(StringUtil.EN);
         lines_.add("keyWords=If=;");
-        return new ManageOptions(frs_.getTranslations().getIndexes(), lines_, _pr.getFactory());
+        return new ManageOptions(frs_.getLanguages(), lines_, _pr.getFactory());
     }
     protected static ReadOnlyTabEditor tabEditor(AbsDebuggerGui _w, int _index) {
         return _w.getTabs().get(_index);
@@ -772,8 +766,6 @@ public abstract class EquallableElAdvUtil {
     private static void ajdAllLgs(AbstractProgramInfos _pr) {
         _pr.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
         _pr.setLanguage(StringUtil.EN);
-        _pr.getTranslations().getIndexes().addEntry(StringUtil.EN,"0");
-        _pr.getTranslations().getIndexes().addEntry(StringUtil.FR,"1");
     }
 
     public static WindowCdmEditor window(AbstractProgramInfos _pr) {

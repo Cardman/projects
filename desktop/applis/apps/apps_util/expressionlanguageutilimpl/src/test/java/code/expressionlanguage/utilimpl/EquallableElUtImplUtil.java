@@ -248,8 +248,6 @@ public abstract class EquallableElUtImplUtil {
         MockProgramInfos pr_ = MockProgramInfos.inst("", "", _s, _set);
         pr_.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
         pr_.setLanguage(StringUtil.EN);
-        pr_.getTranslations().getIndexes().addEntry(StringUtil.EN,"0");
-        pr_.getTranslations().getIndexes().addEntry(StringUtil.FR,"1");
         update(pr_);
         return pr_;
     }

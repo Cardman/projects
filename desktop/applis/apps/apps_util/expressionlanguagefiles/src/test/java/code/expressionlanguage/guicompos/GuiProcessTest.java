@@ -155,8 +155,6 @@ public final class GuiProcessTest extends EquallableElUtFilesUtil {
     public static void update(MockProgramInfos _pr) {
         _pr.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
         _pr.setLanguage(StringUtil.EN);
-        _pr.getTranslations().getIndexes().addEntry(StringUtil.EN,"0");
-        _pr.getTranslations().getIndexes().addEntry(StringUtil.FR,"1");
         FileInfos.enTr(FileInfos.initComments(lg(_pr,StringUtil.EN)));
         FileInfos.frTr(FileInfos.initComments(lg(_pr,StringUtil.FR)));
     }
