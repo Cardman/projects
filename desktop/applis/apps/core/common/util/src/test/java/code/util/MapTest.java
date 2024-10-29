@@ -317,6 +317,14 @@ public class MapTest extends EquallableExUtil {
         assertTrue(map_.isValidIndex(0));
         assertTrue(!map_.isValidIndex(-1));
     }
+
+    @Test
+    public void removeIndexTest() {
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put("ONE", 1);
+        map_.remove(0);
+        assertTrue(map_.isEmpty());
+    }
     @Test
     public void valuesTest() {
         StringMap<Integer> map_ = new StringMap<Integer>();

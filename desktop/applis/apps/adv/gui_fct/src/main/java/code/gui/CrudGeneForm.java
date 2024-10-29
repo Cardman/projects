@@ -1,16 +1,17 @@
 package code.gui;
 
-import code.gui.initialize.AbstractProgramInfos;
+import code.gui.initialize.*;
 import code.util.AbsMap;
 import code.util.EntryCust;
 import code.util.TreeMap;
-import code.util.ints.Comparing;
+import code.util.ints.*;
 
 public final class CrudGeneForm<K,V> extends AbsCrudGeneForm {
     private DisplayEntryCust<K,V> displayEntry;
     private GeneComponentModel<K> geneKey;
     private GeneComponentModel<V> geneValue;
     private AbsMap<K,V> list;
+    private int selectedIndex = -1;
 
     public CrudGeneForm(AbstractProgramInfos _fact, Comparing<K> _cmp) {
         super(_fact);
@@ -38,6 +39,7 @@ public final class CrudGeneForm<K,V> extends AbsCrudGeneForm {
     }
 
     public void select(int _index) {
+        selectedIndex = _index;
         EntryCust<K, V> e_ = list.getEntry(_index);
         getElement().removeAll();
         getElement().add(geneKey.gene(e_.getKey()));
@@ -46,17 +48,26 @@ public final class CrudGeneForm<K,V> extends AbsCrudGeneForm {
     }
 
     public void formAdd() {
+        selectedIndex = -1;
         getElement().removeAll();
         getElement().add(geneKey.gene());
         getElement().add(geneValue.gene());
         selectOrAdd();
     }
     public void validAddEdit() {
-        list.put(geneKey.value(), geneValue.value());
+        if (selectedIndex < 0) {
+            K key_ = geneKey.value();
+            if (list.contains(key_)) {
+                return;
+            }
+            list.put(key_, geneValue.value());
+        } else {
+            list.setValue(selectedIndex, geneValue.value());
+        }
         afterModif();
     }
     public void validRemove() {
-        list.removeKey(geneKey.value());
+        list.remove(selectedIndex);
         afterModif();
     }
 

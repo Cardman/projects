@@ -1,6 +1,7 @@
 package code.maths.montecarlo;
 
 import code.maths.EquallableMathUtil;
+import code.util.IdMap;
 import code.util.core.BoolVal;
 import org.junit.Test;
 
@@ -30,6 +31,7 @@ public class MonteCarloNumberTest extends EquallableMathUtil {
         MonteCarloNumber law_ = new MonteCarloNumber();
         law_.addQuickEvent(Rate.one(),LgInt.one());
         assertEq(1,law_.copy().nbEvents());
+        assertEq(0,new MonteCarloNumber(new IdMap<Rate, LgInt>()).nbEvents());
 //        assertTrue(!law_.isValid());
     }
 

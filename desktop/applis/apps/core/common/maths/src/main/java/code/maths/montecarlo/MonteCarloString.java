@@ -16,6 +16,11 @@ public final class MonteCarloString extends AbMonteCarloMap<String> {
     public MonteCarloString(CollCapacity _capacity) {
         setLaw(new StringMap<LgInt>(_capacity));
     }
+
+    public MonteCarloString(AbsMap<String,LgInt> _other) {
+        setLaw(new StringMap<LgInt>());
+        build(_other);
+    }
     @Override
     public AbsMap<String,LgInt> getLaw() {
         return law;

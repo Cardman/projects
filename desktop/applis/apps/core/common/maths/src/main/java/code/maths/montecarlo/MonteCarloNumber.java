@@ -1,6 +1,7 @@
 package code.maths.montecarlo;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.util.AbsMap;
 import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.core.BoolVal;
@@ -16,6 +17,9 @@ public final class MonteCarloNumber extends MonteCarloList<Rate> {
         super(_capacity);
     }
 
+    public MonteCarloNumber(AbsMap<Rate,LgInt> _other) {
+        super(_other);
+    }
     public MonteCarloNumber copy() {
         MonteCarloNumber mc_ = new MonteCarloNumber(new CollCapacity(nbEvents()));
         for (EventFreq<Rate> e: getEvents()) {

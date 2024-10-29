@@ -526,6 +526,20 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         assertEq(20,c_.getList().getValue(1));
     }
     @Test
+    public void crud6() {
+        StringMap<Integer> m_ = new StringMap<Integer>();
+        m_.addEntry("ONE",15);
+        CrudGeneForm<String, Integer> c_ = crud(m_, new StringList("ONE","TWO"));
+        c_.getAdd().getActionListeners().get(0).action();
+        assertTrue(c_.isVisibleSingle());
+        c_.getGeneKey().value("ONE");
+        c_.getGeneValue().value(20);
+        c_.getValidAddEdit().getActionListeners().get(0).action();
+        assertEq(1,c_.getList().size());
+        assertEq("ONE",c_.getList().getKey(0));
+        assertEq(15,c_.getList().getValue(0));
+    }
+    @Test
     public void crudList1() {
         CustList<String> m_ = new CustList<String>();
         m_.add("ONE");

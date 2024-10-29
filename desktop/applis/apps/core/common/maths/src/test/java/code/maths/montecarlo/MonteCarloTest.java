@@ -3,6 +3,7 @@ package code.maths.montecarlo;
 import code.maths.EquallableMathUtil;
 import code.util.CollCapacity;
 import code.util.CustList;
+import code.util.IdMap;
 import code.util.core.BoolVal;
 import code.util.core.NumberUtil;
 import org.junit.Test;
@@ -347,6 +348,10 @@ public class MonteCarloTest extends EquallableMathUtil {
         MonteCarloBoolean l_ = new MonteCarloBoolean(new CollCapacity(1));
         l_.addEvent(BoolVal.TRUE,LgInt.one());
         assertEq(1,l_.nbEvents());
+        IdMap<BoolVal, LgInt> id_ = new IdMap<BoolVal, LgInt>();
+        id_.addEntry(BoolVal.TRUE,LgInt.one());
+        l_ = new MonteCarloBoolean(id_);
+        assertEq(1,l_.nbEvents());
     }
     @Test
     public void new_MonteCarloEnum_test() {
@@ -356,6 +361,8 @@ public class MonteCarloTest extends EquallableMathUtil {
         l_ = new MonteCarloEnum<BoolVal>(new CollCapacity(1));
         l_.addEvent(BoolVal.FALSE,LgInt.one());
         assertEq(1,l_.nbEvents());
+        l_ = new MonteCarloEnum<BoolVal>(l_.getLaw());
+        assertEq(1,l_.nbEvents());
     }
     @Test
     public void new_MonteCarloString_test() {
@@ -364,6 +371,8 @@ public class MonteCarloTest extends EquallableMathUtil {
         assertEq(1,l_.nbEvents());
         l_ = new MonteCarloString(new CollCapacity(1));
         l_.addEvent("1",LgInt.one());
+        assertEq(1,l_.nbEvents());
+        l_ = new MonteCarloString(l_.getLaw());
         assertEq(1,l_.nbEvents());
     }
 

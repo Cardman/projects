@@ -180,6 +180,9 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V>, IntIndexOfE
         getList().remove(index_);
     }
 
+    public void remove(int _index) {
+        getList().remove(_index);
+    }
     public boolean isValidIndex(int _index) {
         return getList().isValidIndex(_index);
     }

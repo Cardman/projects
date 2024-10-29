@@ -17,6 +17,10 @@ public final class MonteCarloEnum<E> extends AbMonteCarloMap<E> {
         setLaw(new IdMap<E,LgInt>(_capacity));
     }
 
+    public MonteCarloEnum(AbsMap<E,LgInt> _other) {
+        setLaw(new IdMap<E,LgInt>());
+        build(_other);
+    }
     @Override
     public AbsMap<E,LgInt> getLaw() {
         return law;

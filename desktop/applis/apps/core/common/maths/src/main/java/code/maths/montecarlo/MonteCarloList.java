@@ -1,6 +1,7 @@
 package code.maths.montecarlo;
 
 import code.maths.LgInt;
+import code.util.AbsMap;
 import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.core.IndexConstants;
@@ -14,6 +15,14 @@ public abstract class MonteCarloList<E> extends AbMonteCarlo<E> {
     }
     protected MonteCarloList(CollCapacity _capacity) {
         events = new CustList<EventFreq<E>>(_capacity);
+    }
+
+    protected MonteCarloList(AbsMap<E,LgInt> _other) {
+        events = new CustList<EventFreq<E>>();
+        int len_ = _other.size();
+        for (int i = 0; i < len_; i++) {
+            addQuickEvent(_other.getKey(i), _other.getValue(i));
+        }
     }
     @Override
     public E getEvent(int _index) {
@@ -94,10 +103,12 @@ public abstract class MonteCarloList<E> extends AbMonteCarlo<E> {
         return getEvents().size();
     }
 
+    @Override
     public void addEvent(E _event, LgInt _probaRelative){
         addQuickEvent(_event, _probaRelative);
     }
 
+    @Override
     public void addQuickEvent(E _event, LgInt _probaRelative){
         events.add(new EventFreq<E>(_event, _probaRelative));
     }

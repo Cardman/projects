@@ -8,6 +8,12 @@ import code.util.ints.Listable;
 
 public abstract class AbMonteCarloMap<E> extends AbMonteCarlo<E> {
 
+    protected void build(AbsMap<E, LgInt> _other) {
+        int len_ = _other.size();
+        for (int i = 0; i < len_; i++) {
+            addQuickEvent(_other.getKey(i), _other.getValue(i));
+        }
+    }
     public abstract AbsMap<E, LgInt> getLaw();
 
     @Override
@@ -94,10 +100,12 @@ public abstract class AbMonteCarloMap<E> extends AbMonteCarlo<E> {
             getLaw().removeKey(e);
         }
     }
+    @Override
     public void addEvent(E _event, LgInt _probaRelative){
         getLaw().put(_event, _probaRelative);
     }
 
+    @Override
     public void addQuickEvent(E _event, LgInt _probaRelative){
         getLaw().addEntry(_event, _probaRelative);
     }

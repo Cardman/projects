@@ -80,6 +80,8 @@ public abstract class AbMonteCarlo<E> implements IntMonteCarlo, IntIndexOfEntry<
     public final boolean isZero() {
         return sum().isZero();
     }
+    public abstract void addEvent(E _event, LgInt _probaRelative);
 
+    public abstract void addQuickEvent(E _event, LgInt _probaRelative);
 
 }
