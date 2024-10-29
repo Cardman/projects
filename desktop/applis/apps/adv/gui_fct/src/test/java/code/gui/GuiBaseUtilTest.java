@@ -13,6 +13,7 @@ import code.util.*;
 import code.util.comparators.NaturalComparator;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
+import code.util.ints.*;
 import org.junit.Test;
 
 public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
@@ -606,6 +607,21 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         assertEq("TWO",c_.getList().get(1));
     }
     @Test
+    public void crudList6() {
+        CustList<String> m_ = new CustList<String>();
+        m_.add("ONE");
+        CrudGeneFormList<String> c_ = crudListCmp(m_, new StringList("ONE","TWO"),new NaturalComparator());
+        c_.getAdd().getActionListeners().get(0).action();
+        c_.getGene().value("TWO");
+        c_.getValidAddEdit().getActionListeners().get(0).action();
+        ((AbsButton)c_.getElements().getComponent(0)).getActionListeners().get(0).action();
+        c_.getGene().value("ONE");
+        c_.getCancel().getActionListeners().get(0).action();
+        assertEq(2,c_.getList().size());
+        assertEq("ONE",c_.getList().get(0));
+        assertEq("TWO",c_.getList().get(1));
+    }
+    @Test
     public void modelLongChg() {
         MockTextField txt_ = new MockTextField();
         txt_.setText("2");
@@ -1060,6 +1076,13 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         AbsCommonFrame f_ = pr_.getFrameFactory().newCommonFrame();
         CrudGeneFormList<String> c_ = new CrudGeneFormList<String>(pr_);
         GuiBaseUtil.initStringList(f_, c_, _map, _dico,new DefValidateText());
+        return c_;
+    }
+    private CrudGeneFormList<String> crudListCmp(CustList<String> _map, StringList _dico, Comparing<String> _str) {
+        MockProgramInfosSecSample pr_ = init();
+        AbsCommonFrame f_ = pr_.getFrameFactory().newCommonFrame();
+        CrudGeneFormList<String> c_ = new CrudGeneFormList<String>(pr_);
+        GuiBaseUtil.initStringList(f_, c_, _map, _dico,new DefValidateText(),_str);
         return c_;
     }
     private boolean launch(MockSoundRecord _pl) {

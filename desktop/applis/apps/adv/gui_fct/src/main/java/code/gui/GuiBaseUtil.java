@@ -23,6 +23,7 @@ import code.util.comparators.NaturalComparator;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
+import code.util.ints.*;
 
 public final class GuiBaseUtil {
 //    static final String ACCESS = "gui.groupframe";
@@ -567,6 +568,10 @@ public final class GuiBaseUtil {
 
     public static void initStringList(AbsCommonFrame _c,CrudGeneFormList<String> _f, CustList<String> _m, StringList _aDictionary, AfterValidateText _after) {
         _f.initForm(_c,new IntStringDisplayEntryCust(),new GeneComponentModelString(_f.getFactory(), _aDictionary, _after),_m);
+    }
+
+    public static void initStringList(AbsCommonFrame _c, CrudGeneFormList<String> _f, CustList<String> _m, StringList _aDictionary, AfterValidateText _after, Comparing<String> _cmp) {
+        _f.initForm(_c,new IntStringDisplayEntryCust(),new GeneComponentModelString(_f.getFactory(), _aDictionary, _after),_m,_cmp);
     }
 
     public static ScrollCustomGraphicList<String> standard(AbsCompoFactory _compo, AbstractImageFactory _img, boolean _simple, CustList<String> _elts, Ints _selected, int _rows) {

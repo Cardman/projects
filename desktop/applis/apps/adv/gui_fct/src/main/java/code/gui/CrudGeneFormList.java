@@ -2,6 +2,7 @@ package code.gui;
 
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
+import code.util.ints.Comparing;
 
 public final class CrudGeneFormList<E> extends AbsCrudGeneForm {
     private DisplayEntryCust<Integer,E> displayEntry;
@@ -9,18 +10,29 @@ public final class CrudGeneFormList<E> extends AbsCrudGeneForm {
     private CustList<E> list;
     private int selectedIndex = -1;
     private AbsSpinner indicator;
+    private Comparing<E> cmp;
 
     public CrudGeneFormList(AbstractProgramInfos _fact) {
+        this(_fact, null);
+    }
+
+    public CrudGeneFormList(AbstractProgramInfos _fact, Comparing<E> _c) {
         super(_fact);
         list = new CustList<E>();
+        cmp = _c;
     }
 
     public void initForm(AbsCommonFrame _fr, DisplayEntryCust<Integer, E> _disp, GeneComponentModel<E> _k, CustList<E> _map) {
+        initForm(_fr, _disp, _k, _map, null);
+    }
+    public void initForm(AbsCommonFrame _fr, DisplayEntryCust<Integer, E> _disp, GeneComponentModel<E> _k, CustList<E> _map, Comparing<E> _c) {
         indicator = getFactory().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
         indicator.setEnabled(false);
         gene = _k;
         displayEntry = _disp;
         list = new CustList<E>(_map);
+        cmp = _c;
+        possibleSort();
         initForm(_fr);
     }
 
@@ -61,15 +73,22 @@ public final class CrudGeneFormList<E> extends AbsCrudGeneForm {
         } else {
             list.set(selectedIndex, gene.value());
         }
+        possibleSort();
         afterModif();
     }
 
     @Override
     public void validRemove() {
         list.remove(selectedIndex);
+        possibleSort();
         afterModif();
     }
 
+    private void possibleSort() {
+        if (cmp != null) {
+            list.sortElts(cmp);
+        }
+    }
     public CustList<E> getList() {
         return list;
     }
