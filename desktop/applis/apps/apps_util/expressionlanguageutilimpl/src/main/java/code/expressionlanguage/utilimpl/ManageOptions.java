@@ -18,7 +18,10 @@ public final class ManageOptions {
         ExecutingOptions exec_ = new ExecutingOptions(_progressingTests.getProgramInfos());
         exec_.setListGenerator(_progressingTests);
         Options opt_ = new Options();
-        if (!_lgs.contains(_linesFiles.get(1))){
+        if (StringUtil.quickEq("/",_linesFiles.get(1))) {
+            ExecutingOptions.setupOptionals(2, opt_, exec_, _linesFiles);
+            exec_.setLg(_progressingTests.getProgramInfos().getLanguage());
+        } else if (!_lgs.contains(_linesFiles.get(1))){
             ExecutingOptions.setupOptionals(1, opt_, exec_,_linesFiles);
             exec_.setLg("");
         } else {

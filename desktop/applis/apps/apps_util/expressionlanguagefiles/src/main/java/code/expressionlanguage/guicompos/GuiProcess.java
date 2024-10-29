@@ -63,7 +63,9 @@ public final class GuiProcess implements GuiRunnable {
         String lg_ = linesFiles_.get(1);
         String clName_ = "";
         String mName_ = "";
-        if (!_infos.getTranslations().getIndexes().contains(lg_)){
+        if (StringUtil.quickEq(lg_,"/")) {
+            lg_ = _infos.getLanguage();
+        } else if (!_infos.getTranslations().getIndexes().contains(lg_)){
             lg_ = "";
         } else {
             lg_ = StringUtil.nullToEmpty(_infos.getTranslations().getIndexes().getVal(lg_));

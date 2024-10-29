@@ -42,6 +42,18 @@ public final class ManageOptionsTest extends EquallableElUtImplUtil {
         ManageOptions man_ = new ManageOptions(indexes(), new StringList("", "_"), progTest_);
         assertEq(StringUtil.EN,man_.getLanguage());
     }
+    @Test
+    public void adjLg3() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        byte[] zipped_ = pr_.getZipFact().zipBinFiles(with(pr_, init(), "conf.txt", "content"));
+        MemInputFiles mem_ = new MemInputFiles(StringUtil.encode(""), new BytesInfo(StringUtil.encode(""), false), new BytesInfo(GuiConstants.nullToEmpty(zipped_), false));
+        FileInfos infos_ = FileInfos.buildMemoryFromFile(pr_, pr_.getGenerator(), pr_.getValidator(), null, mem_, pr_.getZipFact(), pr_.getThreadFactory());
+        AbsCompoFactory compo_ = pr_.getCompoFactory();
+        ProgTestBar bar_ = new ProgTestBar(compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
+        MemoryProgressingTests progTest_ = new MemoryProgressingTests(new LightTestableFrame(pr_, null,new MockInterceptor(), mem_, bar_));
+        ManageOptions man_ = new ManageOptions(indexes(), new StringList("", "/"), progTest_);
+        assertEq(StringUtil.EN,man_.getLanguage());
+    }
     public static StringMap<String> indexes() {
         StringMap<String> indexes_ = new StringMap<String>();
         indexes_.addEntry("_",StringUtil.EN);

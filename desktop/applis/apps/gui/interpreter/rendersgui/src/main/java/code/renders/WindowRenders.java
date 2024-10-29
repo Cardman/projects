@@ -180,7 +180,9 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
 
     private String lgCode() {
         String lgCode_ = lgCode.getText();
-        if (!getFrames().getTranslations().getIndexes().contains(lgCode_)){
+        if (StringUtil.quickEq("/",lgCode_)){
+            lgCode_ = getFrames().getLanguage();
+        } else if (!getFrames().getTranslations().getIndexes().contains(lgCode_)){
             lgCode_ = "";
         } else {
             lgCode_ = StringUtil.nullToEmpty(getFrames().getTranslations().getIndexes().getVal(lgCode_));

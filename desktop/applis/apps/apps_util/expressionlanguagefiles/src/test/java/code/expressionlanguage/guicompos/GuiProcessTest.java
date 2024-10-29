@@ -139,6 +139,19 @@ public final class GuiProcessTest extends EquallableElUtFilesUtil {
         CdmFactory f_ = new CdmFactory(pr_, new MockInterceptor());
         assertNull(GuiProcess.build("/_.zip","/__.zip\n_\n_",f_,pr_));
     }
+    @Test
+    public void run13() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        update(pr_);
+        byte[] zipped_ = pr_.getZipFact().zipBinFiles(with(pr_,  with(pr_,with(pr_,with(pr_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt","public class pkg.Sample{public static void m(){}@Test public void err(){Assert.assert(0,1);}@Test public void success(){Assert.assert(1,1);}}"));
+        StreamBinaryFile.writeFile("/_.zip",zipped_,pr_.getStreams());
+        CdmFactory f_ = new CdmFactory(pr_, new MockInterceptor());
+        GuiProcess b_ = GuiProcess.build("/_.zip", "/_.zip\n/\nmain=pkg.Sample.m\ncover=", f_, pr_);
+        b_.run();
+        assertFalse(b_.getContext().getInterrupt().get());
+        new CoveringCodeTask(b_.getContext(),b_.getExecutingOptions()).run();
+        assertTrue(pr_.getFileCoreStream().newFile("/coverage/src/folder/file.txt.html").exists());
+    }
     public static void update(MockProgramInfos _pr) {
         _pr.setLanguages(new StringList(StringUtil.EN,StringUtil.FR));
         _pr.setLanguage(StringUtil.EN);
