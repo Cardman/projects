@@ -838,7 +838,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         db_.renameMove(POKE_BALL,PIKACHU);
         assertEq(1,db_.getMoves().size());
         assertEq(PIKACHU,db_.getMoves().firstKey());
-        assertEq(PIKACHU,d_.getHealHpByTypeIfWeather().getList().first().getStat().getWeather());
+        assertEq(PIKACHU,d_.getHealHpByTypeIfWeather().getList().first().getKey().getWeather());
     }
     @Test
     public void renameMove6() {
@@ -2096,7 +2096,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         move_.getHealHpByTypeIfWeather().addEntry(new WeatherType(POKE_BALL,POKE_BALL),Rate.one());
         db_.completeMembers(POKE_BALL_2, move_);
         db_.renameType(POKE_BALL,PIKACHU);
-        assertEq(PIKACHU,move_.getHealHpByTypeIfWeather().entryList().first().getStat().getType());
+        assertEq(PIKACHU,move_.getHealHpByTypeIfWeather().entryList().first().getKey().getType());
     }
     @Test
     public void renameType17() {
@@ -2121,8 +2121,8 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         DataBase db_ = newData();
         db_.getTableTypes().addEntry(new TypesDuo(POKE_BALL,POKE_BALL),Rate.one());
         db_.renameType(POKE_BALL,PIKACHU);
-        assertEq(PIKACHU,db_.getTableTypes().getList().first().getStat().getDamageType());
-        assertEq(PIKACHU,db_.getTableTypes().getList().first().getStat().getPokemonType());
+        assertEq(PIKACHU,db_.getTableTypes().getList().first().getKey().getDamageType());
+        assertEq(PIKACHU,db_.getTableTypes().getList().first().getKey().getPokemonType());
     }
     @Test
     public void deleteType0() {
@@ -2422,7 +2422,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         ab_.getEffects().add(Instances.newEffectEndRoundFoe());
         db_.completeMembers(POKE_BALL_2, ab_);
         db_.renameCategory(POKE_BALL,PIKACHU);
-        assertEq(PIKACHU,e_.getMultDamage().getList().first().getCategory().getCategory());
+        assertEq(PIKACHU,e_.getMultDamage().getList().first().getKey().getCategory());
     }
     @Test
     public void renameCategory6() {

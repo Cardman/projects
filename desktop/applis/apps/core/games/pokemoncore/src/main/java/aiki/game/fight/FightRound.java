@@ -26,8 +26,7 @@ import aiki.fight.pokemon.evolution.EvolutionStone;
 import aiki.fight.status.Status;
 import aiki.fight.status.StatusBeginRound;
 import aiki.fight.status.StatusBeginRoundAutoDamage;
-import aiki.fight.util.WeatherTypeRate;
-import aiki.fight.util.WeatherTypes;
+import aiki.fight.util.*;
 import aiki.game.fight.actions.ActionHeal;
 import aiki.game.fight.actions.ActionMove;
 import aiki.game.fight.actions.ActionSwitch;
@@ -964,17 +963,17 @@ final class FightRound {
 
     private static void effectWhileFailHealByWeather(Fight _fight, TeamPosition _target, DataBase _import, Fighter _creatureCible, StringList _typeAttaque, WeatherTypes _healHpByTypeIfWeather) {
         StringList activeWeathers_ = FightMoves.climatsActifs(_fight,_import);
-        for(WeatherTypeRate k: _healHpByTypeIfWeather.entryList()){
-            if (!StringUtil.contains(_typeAttaque, k.getStat().getType())) {
+        for(CommonParam<WeatherType, Rate> k: _healHpByTypeIfWeather.entryList()){
+            if (!StringUtil.contains(_typeAttaque, k.getKey().getType())) {
                 continue;
             }
             effectWhileFailHealByWeatherType(_fight, _target, _import, _creatureCible, activeWeathers_, k);
         }
     }
 
-    private static void effectWhileFailHealByWeatherType(Fight _fight, TeamPosition _target, DataBase _import, Fighter _creatureCible, StringList _activeWeathers, WeatherTypeRate _k) {
+    private static void effectWhileFailHealByWeatherType(Fight _fight, TeamPosition _target, DataBase _import, Fighter _creatureCible, StringList _activeWeathers, CommonParam<WeatherType, Rate> _k) {
         for (String w: _activeWeathers) {
-            if(!StringUtil.quickEq(_k.getStat().getWeather(),w)){
+            if(!StringUtil.quickEq(_k.getKey().getWeather(),w)){
                 continue;
             }
             Rate varPv_=new Rate(_k.getValue());
@@ -983,7 +982,7 @@ final class FightRound {
             _fight.addHpMessage(_target, _import,r_);
         }
         if (_activeWeathers.isEmpty()) {
-            if(!StringUtil.quickEq(_k.getStat().getWeather(),DataBase.EMPTY_STRING)){
+            if(!StringUtil.quickEq(_k.getKey().getWeather(),DataBase.EMPTY_STRING)){
                 return;
             }
             //ABSORB_VOLT, ABSORB_EAU

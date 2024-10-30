@@ -4145,11 +4145,11 @@ public final class DocumentWriterAikiCoreUtil {
     private static Element setMapCategoryMultRate(CategoryMults _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (CategoryMultRate s: _object.entryList()) {
-            Element sub_ = setCategoryMult(s.getCategory(), EMPTY_STRING, _document);
+        for (CommonParam<CategoryMult, Rate> s: _object.entryList()) {
+            Element sub_ = setCategoryMult(s.getKey(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
-            sub_ = DocumentWriterMathUtil.setRate(s.getRate(), EMPTY_STRING, _document);
+            sub_ = DocumentWriterMathUtil.setRate(s.getValue(), EMPTY_STRING, _document);
             elt_.appendChild(sub_);
         }
         return elt_;
@@ -4158,8 +4158,8 @@ public final class DocumentWriterAikiCoreUtil {
     private static Element setMapStatisticCategoryRate(StatisticCategoryList<Rate> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (StatisticCategoryParam<Rate> s: _object.entryList()) {
-            Element sub_ = setStatisticCategory(s.getStatistic(), EMPTY_STRING, _document);
+        for (CommonParam<StatisticCategory, Rate> s: _object.entryList()) {
+            Element sub_ = setStatisticCategory(s.getKey(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
             sub_ = DocumentWriterMathUtil.setRate(s.getValue(), EMPTY_STRING, _document);
@@ -4171,8 +4171,8 @@ public final class DocumentWriterAikiCoreUtil {
     private static Element setMapStatisticCategoryByte(StatisticCategoryList<Byte> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (StatisticCategoryParam<Byte> s: _object.entryList()) {
-            Element sub_ = setStatisticCategory(s.getStatistic(), EMPTY_STRING, _document);
+        for (CommonParam<StatisticCategory, Byte> s: _object.entryList()) {
+            Element sub_ = setStatisticCategory(s.getKey(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
             sub_ = DocumentWriterCoreUtil.setByte(s.getValue(), EMPTY_STRING, _document);
@@ -4184,8 +4184,8 @@ public final class DocumentWriterAikiCoreUtil {
     private static Element setMapStatisticPokemonByte(StatisticPokemons _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (StatisticPokemonByte s: _object.entryList()) {
-            Element sub_ = setStatisticPokemon(s.getStat(), EMPTY_STRING, _document);
+        for (CommonParam<StatisticPokemon, Byte> s: _object.entryList()) {
+            Element sub_ = setStatisticPokemon(s.getKey(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
             sub_ = DocumentWriterCoreUtil.setByte(s.getValue(), EMPTY_STRING, _document);
@@ -4197,8 +4197,8 @@ public final class DocumentWriterAikiCoreUtil {
     private static Element setMapStatisticStatusByte(StatisticStatusList _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (StatisticStatusByte s: _object.entryList()) {
-            Element sub_ = setStatisticStatus(s.getStat(), EMPTY_STRING, _document);
+        for (CommonParam<StatisticStatus, Byte> s: _object.entryList()) {
+            Element sub_ = setStatisticStatus(s.getKey(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
             sub_ = DocumentWriterCoreUtil.setByte(s.getValue(), EMPTY_STRING, _document);
@@ -4210,8 +4210,8 @@ public final class DocumentWriterAikiCoreUtil {
     private static Element setMapStatisticTypeRate(StatisticTypeList<Rate> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (StatisticTypeParam<Rate> s: _object.entryList()) {
-            Element sub_ = setStatisticType(s.getStatistic(), EMPTY_STRING, _document);
+        for (CommonParam<StatisticType, Rate> s: _object.entryList()) {
+            Element sub_ = setStatisticType(s.getKey(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
             sub_ = DocumentWriterMathUtil.setRate(s.getValue(), EMPTY_STRING, _document);
@@ -4223,8 +4223,8 @@ public final class DocumentWriterAikiCoreUtil {
     private static Element setMapStatisticTypeByte(StatisticTypeList<Byte> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (StatisticTypeParam<Byte> s: _object.entryList()) {
-            Element sub_ = setStatisticType(s.getStatistic(), EMPTY_STRING, _document);
+        for (CommonParam<StatisticType, Byte> s: _object.entryList()) {
+            Element sub_ = setStatisticType(s.getKey(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
             sub_ = DocumentWriterCoreUtil.setByte(s.getValue(), EMPTY_STRING, _document);
@@ -4236,8 +4236,8 @@ public final class DocumentWriterAikiCoreUtil {
     private static Element setMapTypesDuoRate(TypesDuos _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (TypesDuoRate s: _object.entryList()) {
-            Element sub_ = setTypesDuo(s.getStat(), EMPTY_STRING, _document);
+        for (CommonParam<TypesDuo, Rate> s: _object.entryList()) {
+            Element sub_ = setTypesDuo(s.getKey(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
             sub_ = DocumentWriterMathUtil.setRate(s.getValue(), EMPTY_STRING, _document);
@@ -4249,8 +4249,8 @@ public final class DocumentWriterAikiCoreUtil {
     private static Element setMapWeatherTypeRate(WeatherTypes _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (WeatherTypeRate s: _object.entryList()) {
-            Element sub_ = setWeatherType(s.getStat(), EMPTY_STRING, _document);
+        for (CommonParam<WeatherType, Rate> s: _object.entryList()) {
+            Element sub_ = setWeatherType(s.getKey(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
             sub_ = DocumentWriterMathUtil.setRate(s.getValue(), EMPTY_STRING, _document);

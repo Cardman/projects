@@ -5,9 +5,8 @@ import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectEndRound;
 import aiki.fight.moves.effects.EffectEndRoundIndividual;
-import aiki.fight.util.StatisticPokemonByte;
-import aiki.fight.util.StatisticPokemons;
-import aiki.util.DataInfoChecker;
+import aiki.fight.util.*;
+import aiki.util.*;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
 import code.util.CustList;
@@ -81,9 +80,9 @@ public final class ItemForBattle extends Item {
         if (!effectSending.isEmpty()) {
             effectSending.first().validate(_data);
         }
-        for (StatisticPokemonByte e : multStatPokemonRank
+        for (CommonParam<StatisticPokemon, Byte> e : multStatPokemonRank
                 .entryList()) {
-            DataInfoChecker.checkStringListContains(_data.getPokedex().getKeys(),e.getStat().getPokemon(),_data);
+            DataInfoChecker.checkStringListContains(_data.getPokedex().getKeys(),e.getKey().getPokemon(),_data);
         }
         DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),multStatRank.getKeys(),_data);
         DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),multStat.getKeys(),_data);
