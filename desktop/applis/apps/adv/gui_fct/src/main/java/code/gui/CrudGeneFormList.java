@@ -52,7 +52,9 @@ public final class CrudGeneFormList<E> extends AbsCrudGeneForm {
         getElement().removeAll();
         indicator.setValue(_index);
         getElement().add(indicator);
-        getElement().add(gene.gene(list.get(_index)));
+        AbsCustComponent elt_ = gene.gene();
+        gene.value(list.get(_index));
+        getElement().add(elt_);
         selectOrAdd();
     }
 

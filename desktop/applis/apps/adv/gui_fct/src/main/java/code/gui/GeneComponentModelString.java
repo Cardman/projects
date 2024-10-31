@@ -24,13 +24,6 @@ public final class GeneComponentModelString implements GeneComponentModel<String
     }
 
     @Override
-    public AbsCustComponent gene(String _d) {
-        textField = compoFactory.getCompoFactory().newTextField(_d);
-        textField.addAutoComplete(new AutoCompleteDocument(textField,dico,compoFactory,validateText));
-        return textField;
-    }
-
-    @Override
     public String value() {
         return textField.getText();
     }

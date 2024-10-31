@@ -13,11 +13,6 @@ public final class GeneComponentModelLsStr extends GeneComponentModelLs<String> 
     }
 
     @Override
-    public AbsCustComponent gene(StringList _d) {
-        return geneCommon(_d);
-    }
-
-    @Override
     protected int indexOf(String _t) {
         return StringUtil.indexOf(getElements(),_t);
     }

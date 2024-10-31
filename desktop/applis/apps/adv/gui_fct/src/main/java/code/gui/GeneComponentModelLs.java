@@ -44,8 +44,12 @@ public abstract class GeneComponentModelLs<T> extends GeneComponentModelEltCommo
 
     public AbsCustComponent geneCommon(CustList<T> _d) {
         AbsCustComponent a_ = buildLs();
-        setupValue(getSelect(),_d);
+        setupValue(_d);
         return a_;
+    }
+
+    public void setupValue(CustList<T> _d) {
+        setupValue(getSelect(), _d);
     }
 
     protected void setupValue(DefScrollCustomGraphicList<T> _t, CustList<T> _v) {
@@ -62,7 +66,7 @@ public abstract class GeneComponentModelLs<T> extends GeneComponentModelEltCommo
     }
     protected abstract int indexOf(T _t);
 
-    protected CustList<T> tryRet() {
+    public CustList<T> tryRet() {
         Ints sel_ = getSelect().getSelectedIndexes();
         return tryRet(sel_);
     }

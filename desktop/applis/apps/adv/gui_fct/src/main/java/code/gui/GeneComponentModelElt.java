@@ -16,12 +16,15 @@ public abstract class GeneComponentModelElt<T> extends GeneComponentModelEltComm
         return getSelect().getElements();
     }
 
-    @Override
-    public AbsCustComponent gene(T _d) {
+    public AbsPanel geneEnum(T _d) {
         select = buildSelect();
         feed();
-        setupValue(getSelect(),_d);
+        setupValue(_d);
         return getSelect().getElements();
+    }
+
+    public void setupValue(T _d) {
+        setupValue(getSelect(), _d);
     }
 
     protected void feed() {
@@ -36,6 +39,10 @@ public abstract class GeneComponentModelElt<T> extends GeneComponentModelEltComm
 
     @Override
     public T value() {
+        return tryRet();
+    }
+
+    public T tryRet() {
         int sel_ = getSelect().getSelectedIndex();
         return tryRet(sel_);
     }

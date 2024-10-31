@@ -17,12 +17,6 @@ public final class GeneComponentModelInt implements GeneComponentModel<Integer> 
     }
 
     @Override
-    public AbsCustComponent gene(Integer _d) {
-        spinner = compoFactory.getCompoFactory().newSpinner(_d, Integer.MIN_VALUE, Integer.MAX_VALUE, 1);
-        return spinner;
-    }
-
-    @Override
     public Integer value() {
         return spinner.getValue();
     }

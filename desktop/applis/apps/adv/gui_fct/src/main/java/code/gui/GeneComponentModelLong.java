@@ -16,7 +16,6 @@ public final class GeneComponentModelLong implements GeneComponentModel<Long> {
         return gene(0L);
     }
 
-    @Override
     public AbsCustComponent gene(Long _d) {
         textLong = compoFactory.getCompoFactory().newTextField(Long.toString(_d), 20);
         textLong.registerKeyboardAction(compoFactory.getCompoFactory().wrap(new ChgLgInput(1,textLong)), GuiConstants.VK_UP,0);

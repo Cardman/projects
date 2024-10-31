@@ -1,6 +1,7 @@
 package code.vi.sys.impl;
 
 import aiki.db.DataBase;
+import aiki.gui.components.editor.MessagesPkEditor;
 import aiki.main.AikiFactory;
 import aiki.main.AikiNatLgNamesNavigation;
 import aiki.sml.MessagesPkGame;
@@ -119,6 +120,8 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         MessagesCardGames.frTr(MessagesCardGames.initAppliTr(fr_));
         MessagesPkGame.enTr(MessagesPkGame.initAppliTr(en_));
         MessagesPkGame.frTr(MessagesPkGame.initAppliTr(fr_));
+        MessagesPkEditor.enTr(MessagesPkEditor.initAppliTr(en_));
+        MessagesPkEditor.frTr(MessagesPkEditor.initAppliTr(fr_));
         MessagesRts.updateEn(MessagesRts.initAppliTr(en_));
         MessagesRts.updateFr(MessagesRts.initAppliTr(fr_));
         MessagesNetWork.enTr(MessagesNetWork.initAppliTr(en_));

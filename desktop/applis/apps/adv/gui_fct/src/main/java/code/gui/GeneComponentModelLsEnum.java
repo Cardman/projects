@@ -10,10 +10,6 @@ public final class GeneComponentModelLsEnum<E> extends GeneComponentModelLs<E> i
     public GeneComponentModelLsEnum(AbstractProgramInfos _c, CustCellRenderGeneStrImpl<E> _rend, CustList<E> _elts) {
         super(_c, _rend, _elts);
     }
-    @Override
-    public AbsCustComponent gene(IdList<E> _d) {
-        return geneCommon(_d);
-    }
 
     @Override
     public IdList<E> value() {

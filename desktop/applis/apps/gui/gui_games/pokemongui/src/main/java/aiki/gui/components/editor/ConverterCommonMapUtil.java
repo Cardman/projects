@@ -1,11 +1,29 @@
 package aiki.gui.components.editor;
 
+import aiki.facade.*;
+import aiki.fight.pokemon.enums.*;
 import aiki.fight.util.*;
+import code.gui.*;
+import code.gui.initialize.*;
 import code.maths.*;
 import code.util.*;
 
 public final class ConverterCommonMapUtil {
     private ConverterCommonMapUtil() {
+    }
+    public static GeneComponentModelLsStr buildTypeList(AbstractProgramInfos _api, FacadeGame _facade){
+        StringMap<String> messages_ = _facade.getData().getTranslatedTypes().getVal(_api.getLanguage());
+        return new GeneComponentModelLsStr(_api, messages_,new StringList(messages_.getKeys()));
+    }
+    public static GeneComponentModelEltGenderRepartition buildGenderRepartition(AbstractProgramInfos _api){
+        return new GeneComponentModelEltGenderRepartition(_api,messages(MessagesPkEditor.getMessagesEditorSelectContentTr(MessagesPkEditor.getAppliTr(_api.currentLg())).getMapping()), GenderRepartition.all());
+    }
+    private static IdMap<GenderRepartition,String> messages(StringMap<String> _m) {
+        IdMap<GenderRepartition,String> i_ = new IdMap<GenderRepartition, String>();
+        for (EntryCust<String,String> e: _m.entryList()) {
+            i_.addEntry(GenderRepartition.getGenderRepartitionByName(e.getKey()),e.getValue());
+        }
+        return i_;
     }
     public static CategoryMults buildCategoryMults(AbsMap<CategoryMult, Rate> _m) {
         CategoryMults c_ = new CategoryMults(new CollCapacity(_m.size()));

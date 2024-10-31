@@ -42,8 +42,12 @@ public final class CrudGeneForm<K,V> extends AbsCrudGeneForm {
         selectedIndex = _index;
         EntryCust<K, V> e_ = list.getEntry(_index);
         getElement().removeAll();
-        getElement().add(geneKey.gene(e_.getKey()));
-        getElement().add(geneValue.gene(e_.getValue()));
+        AbsCustComponent key_ = geneKey.gene();
+        geneKey.value(e_.getKey());
+        AbsCustComponent value_ = geneValue.gene();
+        geneValue.value(e_.getValue());
+        getElement().add(key_);
+        getElement().add(value_);
         selectOrAdd();
     }
 

@@ -12,24 +12,31 @@ public final class GeneComponentModelRate implements GeneComponentModel<Rate> {
 
     @Override
     public AbsCustComponent gene() {
-        return gene(Rate.zero());
+        return geneRate(Rate.zero());
     }
 
-    @Override
-    public AbsCustComponent gene(Rate _d) {
+    public AbsCustComponent geneRate(Rate _d) {
         textRate = compoFactory.getCompoFactory().newTextField(_d.toNumberString());
-        return textRate;
+        return getTextRate();
     }
-
     @Override
     public Rate value() {
-        return Rate.newRate(textRate.getText());
+        return valueRate();
     }
-
+    public Rate valueRate() {
+        return Rate.newRate(getTextRate().getText());
+    }
     @Override
     public Rate value(Rate _v) {
-        String p_ = textRate.getText();
-        textRate.setText(_v.toNumberString());
+        return valueRate(_v);
+    }
+    public Rate valueRate(Rate _v) {
+        String p_ = getTextRate().getText();
+        getTextRate().setText(_v.toNumberString());
         return Rate.newRate(p_);
+    }
+
+    public AbsTextField getTextRate() {
+        return textRate;
     }
 }

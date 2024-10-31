@@ -16,7 +16,6 @@ public final class GeneComponentModelLgInt implements GeneComponentModel<LgInt> 
         return gene(LgInt.zero());
     }
 
-    @Override
     public AbsCustComponent gene(LgInt _d) {
         textLgInt = compoFactory.getCompoFactory().newTextField(_d.toNumberString());
         textLgInt.registerKeyboardAction(compoFactory.getCompoFactory().wrap(new ChgLgTextInput(1,textLgInt)), GuiConstants.VK_UP,0);
