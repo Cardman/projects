@@ -8,7 +8,6 @@ import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.comparators.NaturalComparator;
 import code.util.core.StringUtil;
 
 public final class FrameRenderFormContent {
@@ -32,7 +31,7 @@ public final class FrameRenderFormContent {
     private AbsSpinner pref;
     private final CrudGeneForm<String,Integer> prefs;
     public FrameRenderFormContent(AbstractProgramInfos _list) {
-        prefs = new CrudGeneForm<String,Integer>(_list,new NaturalComparator());
+        prefs = new CrudGeneForm<String,Integer>(_list);
     }
 
     public void guiBuild(AbsDebuggerGui _d) {

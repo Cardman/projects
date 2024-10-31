@@ -3,6 +3,7 @@ package code.gui;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.AbsMap;
 import code.util.EntryCust;
+import code.util.IdMap;
 import code.util.TreeMap;
 import code.util.ints.Comparing;
 
@@ -13,24 +14,19 @@ public abstract class AbsCrudGeneFormMap<K,V> extends AbsCrudGeneForm {
     private AbsMap<K,V> list;
     private int selectedIndex = -1;
 
-    protected AbsCrudGeneFormMap(AbstractProgramInfos _fact, Comparing<K> _cmp) {
+    protected AbsCrudGeneFormMap(AbstractProgramInfos _fact) {
         super(_fact);
-        list = new TreeMap<K, V>(_cmp);
+        list = new IdMap<K, V>();
     }
 
     public void initForm(AbsCommonFrame _fr,DisplayEntryCust<K,V> _disp, GeneComponentModel<K> _k, GeneComponentModel<V> _v, Comparing<K> _cmp, AbsMap<K,V> _map) {
         setGeneKey(_k);
         geneValue = _v;
-        displayEntry = _disp;
+        setDisplayEntry(_disp);
         list = new TreeMap<K, V>(_cmp);
         list.putAllMap(_map);
         initForm(_fr);
     }
-
-    public void setGeneKey(GeneComponentModel<K> _g) {
-        this.geneKey = _g;
-    }
-
     @Override
     protected int size() {
         return list.size();
@@ -67,7 +63,7 @@ public abstract class AbsCrudGeneFormMap<K,V> extends AbsCrudGeneForm {
         V value_;
         if (getSelectedIndex() < 0) {
             key_ = geneKey.value();
-            if (list.contains(key_)) {
+            if (invalidKey(key_)) {
                 return;
             }
             value_ = geneValue.value();
@@ -79,6 +75,11 @@ public abstract class AbsCrudGeneFormMap<K,V> extends AbsCrudGeneForm {
         }
         afterModif(-1, key_, value_);
     }
+
+    protected boolean invalidKey(K _key) {
+        return list.contains(_key);
+    }
+
     public void validRemove() {
         K key_ = list.getKey(getSelectedIndex());
         V value_ = list.getValue(getSelectedIndex());
@@ -94,10 +95,18 @@ public abstract class AbsCrudGeneFormMap<K,V> extends AbsCrudGeneForm {
         return geneKey;
     }
 
+    public void setGeneKey(GeneComponentModel<K> _g) {
+        this.geneKey = _g;
+    }
+
     public GeneComponentModel<V> getGeneValue() {
         return geneValue;
     }
 
+
+    public void setDisplayEntry(DisplayEntryCust<K, V> _d) {
+        this.displayEntry = _d;
+    }
 
     public AbsMap<K, V> getList() {
         return list;

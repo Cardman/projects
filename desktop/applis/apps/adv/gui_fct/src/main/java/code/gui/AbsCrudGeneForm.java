@@ -26,7 +26,7 @@ public abstract class AbsCrudGeneForm {
         visibleSingle = false;
         frame = _fr;
         elements = factory.getCompoFactory().newPageBox();
-        allButtons.clear();
+        getAllButtons().clear();
         element = factory.getCompoFactory().newPageBox();
         buttons = factory.getCompoFactory().newLineBox();
         AbsPanel buttons_ = buttons;
@@ -35,7 +35,7 @@ public abstract class AbsCrudGeneForm {
             AbsButton but_ = factory.getCompoFactory().newPlainButton(display(i));
             but_.addActionListener(new SelectCrudGeneFormEvent(this, i));
             elements.add(but_);
-            allButtons.add(but_);
+            getAllButtons().add(but_);
         }
         add = factory.getCompoFactory().newPlainButton("+");
         add.addActionListener(new AddCrudGeneFormEvent(this));
@@ -61,13 +61,13 @@ public abstract class AbsCrudGeneForm {
     }
     public void refresh() {
         elements.removeAll();
-        allButtons.clear();
+        getAllButtons().clear();
         int len_ = size();
         for (int i = 0; i < len_; i++) {
             AbsButton but_ = factory.getCompoFactory().newPlainButton(display(i));
             but_.addActionListener(new SelectCrudGeneFormEvent(this, i));
             elements.add(but_);
-            allButtons.add(but_);
+            getAllButtons().add(but_);
         }
     }
     protected abstract int size();
@@ -90,7 +90,7 @@ public abstract class AbsCrudGeneForm {
         add.setEnabled(false);
         visibleSingle = true;
         enable(false);
-        frame.pack();
+        getFrame().pack();
     }
 
     public void afterModif() {
@@ -101,7 +101,7 @@ public abstract class AbsCrudGeneForm {
         add.setEnabled(true);
         refresh();
         visibleSingle = false;
-        frame.pack();
+        getFrame().pack();
     }
     public void cancel() {
         element.removeAll();
@@ -111,10 +111,10 @@ public abstract class AbsCrudGeneForm {
         add.setEnabled(true);
         enable(true);
         visibleSingle = false;
-        frame.pack();
+        getFrame().pack();
     }
     private void enable(boolean _e) {
-        for (AbsButton b: allButtons) {
+        for (AbsButton b: getAllButtons()) {
             b.setEnabled(_e);
         }
     }
@@ -149,6 +149,14 @@ public abstract class AbsCrudGeneForm {
 
     public AbsPanel getButtons() {
         return buttons;
+    }
+
+    public CustList<AbsButton> getAllButtons() {
+        return allButtons;
+    }
+
+    public AbsCommonFrame getFrame() {
+        return frame;
     }
 
     public boolean isVisibleSingle() {

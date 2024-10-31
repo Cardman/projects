@@ -1,12 +1,11 @@
 package code.gui;
 
 import code.gui.initialize.*;
-import code.util.ints.*;
 
 public final class CrudGeneForm<K,V> extends AbsCrudGeneFormMap<K,V> {
 
-    public CrudGeneForm(AbstractProgramInfos _fact, Comparing<K> _cmp) {
-        super(_fact, _cmp);
+    public CrudGeneForm(AbstractProgramInfos _fact) {
+        super(_fact);
     }
 
     @Override

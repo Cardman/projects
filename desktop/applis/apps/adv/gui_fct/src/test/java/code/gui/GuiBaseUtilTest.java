@@ -1067,7 +1067,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
     private CrudGeneForm<String, Integer> crud(StringMap<Integer> _map, StringList _dico) {
         MockProgramInfosSecSample pr_ = init();
         AbsCommonFrame f_ = pr_.getFrameFactory().newCommonFrame();
-        CrudGeneForm<String, Integer> c_ = new CrudGeneForm<String, Integer>(pr_, new NaturalComparator());
+        CrudGeneForm<String, Integer> c_ = new CrudGeneForm<String, Integer>(pr_);
         GuiBaseUtil.initStringMapInt(f_, c_, _map, _dico,new DefValidateText());
         return c_;
     }

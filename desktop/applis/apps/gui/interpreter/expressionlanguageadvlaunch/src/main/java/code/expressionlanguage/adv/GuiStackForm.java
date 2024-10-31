@@ -7,7 +7,6 @@ import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 import code.util.StringMap;
-import code.util.comparators.NaturalComparator;
 import code.util.core.StringUtil;
 
 public final class GuiStackForm {
@@ -30,7 +29,7 @@ public final class GuiStackForm {
     private final CrudGeneForm<String,Integer> prefs;
     private final DependantPointsForm dependantPointsForm;
     public GuiStackForm(AbstractProgramInfos _c) {
-        prefs = new CrudGeneForm<String,Integer>(_c,new NaturalComparator());
+        prefs = new CrudGeneForm<String,Integer>(_c);
         dependantPointsForm = new DependantPointsForm(_c);
         stackConstraintsForm = new StackConstraintsForm(_c);
     }

@@ -3,12 +3,8 @@ package aiki.gui;
 import aiki.db.*;
 import aiki.facade.*;
 import aiki.fight.enums.*;
-import aiki.fight.pokemon.*;
-import aiki.fight.pokemon.enums.*;
-import aiki.fight.util.*;
 import aiki.gui.components.editor.*;
 import aiki.instances.*;
-import code.gui.*;
 import code.gui.initialize.*;
 import code.maths.montecarlo.*;
 import code.mock.*;
@@ -24,6 +20,7 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
     public static final String T_3 = "T3";
     public static final String P_2 = "P2";
     public static final String P_3 = "P3";
+    public static final String P_4 = "P_4";
 
     @Test
     public void pkForm1() {
@@ -53,7 +50,7 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
         g_.getStatistics().getVal(Statistic.SPEED).getBase().setValue(50);
         g_.getStatistics().getVal(Statistic.SPEED).getEv().setValue(25);
         tryClick(c_.getValidAddEdit());
-        tryClick((AbsButton) c_.getElements().getComponent(0));
+        tryClick(c_.getAllButtons().get(0));
         GeneComponentModelPokemonData gSec_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         assertEq(6,gSec_.getStatistics().size());
         assertEq(50,gSec_.getStatistics().getVal(Statistic.SPEED).getBase().getValue());
@@ -71,7 +68,7 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
         g_.getStatistics().getVal(Statistic.SPEED).getBase().setValue(50);
         g_.getStatistics().getVal(Statistic.SPEED).getEv().setValue(25);
         tryClick(c_.getValidAddEdit());
-        tryClick((AbsButton) c_.getElements().getComponent(0));
+        tryClick(c_.getAllButtons().get(0));
         g_.getStatistics().getVal(Statistic.SPEED).getBase().setValue(40);
         tryClick(c_.getValidAddEdit());
         assertEq(40, facade_.getData().getPokedex().getVal(P_1).getStatistics().getVal(Statistic.SPEED).getBase());
@@ -88,7 +85,7 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
         g_.getStatistics().getVal(Statistic.SPEED).getBase().setValue(50);
         g_.getStatistics().getVal(Statistic.SPEED).getEv().setValue(25);
         tryClick(c_.getValidAddEdit());
-        tryClick((AbsButton) c_.getElements().getComponent(0));
+        tryClick(c_.getAllButtons().get(0));
         tryClick(c_.getValidRemove());
         assertEq(0, facade_.getData().getPokedex().size());
         assertEq(0, c_.getList().size());
@@ -113,13 +110,263 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
         g_.getStatistics().getVal(Statistic.SPEED).getEv().setValue(25);
         g_.getBaseEvo().setupValue(P_1);
         tryClick(c_.getValidAddEdit());
-        tryClick((AbsButton) c_.getElements().getComponent(0));
+        tryClick(c_.getAllButtons().get(0));
         tryClick(c_.getValidRemove());
         assertEq(2, facade_.getData().getPokedex().size());
         assertEq(2, c_.getList().size());
     }
+    @Test
+    public void pkForm6() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
+        CrudGeneFormPk c_ = crud(pr_, facade_, sub_);
+        CrudGeneFormPkTr cTr_ = crudTr(pr_, facade_, sub_);
+        GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
+        tryClick(c_.getAdd());
+        c_.getGeneKey().value(P_1);
+        g_.getTypes().setupValue(new CustList<String>(T_1));
+        g_.getStatistics().getVal(Statistic.SPEED).getBase().setValue(50);
+        g_.getStatistics().getVal(Statistic.SPEED).getEv().setValue(25);
+        g_.getBaseEvo().setupValue(P_2);
+        tryClick(c_.getValidAddEdit());
+        tryClick(cTr_.getAllButtons().get(1));
+        GeneComponentModelTr gTr_ = (GeneComponentModelTr) cTr_.getGeneValue();
+        gTr_.getTranslations().getVal(pr_.getLanguage()).setText("p_2");
+        tryClick(cTr_.getValidAddEdit());
+        assertEq(P_2,facade_.getData().getPokemon(P_1).getBaseEvo());
+    }
+    @Test
+    public void pkForm7() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
+        CrudGeneFormPk c_ = crud(pr_, facade_, sub_);
+        CrudGeneFormPkTr cTr_ = crudTr(pr_, facade_, sub_);
+        GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
+        tryClick(c_.getAdd());
+        c_.getGeneKey().value(P_1);
+        g_.getTypes().setupValue(new CustList<String>(T_1));
+        g_.getStatistics().getVal(Statistic.SPEED).getBase().setValue(50);
+        g_.getStatistics().getVal(Statistic.SPEED).getEv().setValue(25);
+        g_.getBaseEvo().setupValue(P_2);
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryClick(cTr_.getAllButtons().get(1));
+        GeneComponentModelTr gTr_ = (GeneComponentModelTr) cTr_.getGeneValue();
+        gTr_.getTranslations().getVal(pr_.getLanguage()).setText("p_2");
+        tryClick(cTr_.getValidAddEdit());
+        assertEq(P_2,facade_.getData().getPokemon(P_1).getBaseEvo());
+    }
+    @Test
+    public void pkForm8() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
+        CrudGeneFormPk c_ = crud(pr_, facade_, sub_);
+        CrudGeneFormPkTr cTr_ = crudTr(pr_, facade_, sub_);
+        GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
+        tryClick(c_.getAdd());
+        c_.getGeneKey().value(P_1);
+        g_.getTypes().setupValue(new CustList<String>(T_1));
+        g_.getStatistics().getVal(Statistic.SPEED).getBase().setValue(50);
+        g_.getStatistics().getVal(Statistic.SPEED).getEv().setValue(25);
+        g_.getBaseEvo().setupValue(P_2);
+        tryClick(c_.getValidAddEdit());
+        tryClick(cTr_.getAllButtons().get(1));
+        cTr_.getDestination().setText(P_4);
+        ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
+        assertEq(P_4,facade_.getData().getPokemon(P_1).getBaseEvo());
+    }
+    @Test
+    public void pkForm9() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
+        CrudGeneFormPk c_ = crud(pr_, facade_, sub_);
+        CrudGeneFormPkTr cTr_ = crudTr(pr_, facade_, sub_);
+        GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
+        tryClick(c_.getAdd());
+        c_.getGeneKey().value(P_1);
+        g_.getTypes().setupValue(new CustList<String>(T_1));
+        g_.getStatistics().getVal(Statistic.SPEED).getBase().setValue(50);
+        g_.getStatistics().getVal(Statistic.SPEED).getEv().setValue(25);
+        g_.getBaseEvo().setupValue(P_2);
+        tryClick(c_.getValidAddEdit());
+        tryClick(cTr_.getAllButtons().get(1));
+        cTr_.getDestination().setText(P_2);
+        ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
+        assertEq(P_2,facade_.getData().getPokemon(P_1).getBaseEvo());
+    }
+    @Test
+    public void pkForm10() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
+        CrudGeneFormPk c_ = crud(pr_, facade_, sub_);
+        CrudGeneFormPkTr cTr_ = crudTr(pr_, facade_, sub_);
+        GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
+        tryClick(c_.getAdd());
+        c_.getGeneKey().value(P_1);
+        g_.getTypes().setupValue(new CustList<String>(T_1));
+        g_.getStatistics().getVal(Statistic.SPEED).getBase().setValue(50);
+        g_.getStatistics().getVal(Statistic.SPEED).getEv().setValue(25);
+        g_.getBaseEvo().setupValue(P_2);
+        tryClick(c_.getValidAddEdit());
+        tryClick(cTr_.getAllButtons().get(1));
+        cTr_.getDestination().setText("");
+        ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
+        assertEq(P_2,facade_.getData().getPokemon(P_1).getBaseEvo());
+    }
+    @Test
+    public void pkForm11() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
+        CrudGeneFormPk c_ = crud(pr_, facade_, sub_);
+        CrudGeneFormPkTr cTr_ = crudTr(pr_, facade_, sub_);
+        GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
+        tryClick(c_.getAdd());
+        c_.getGeneKey().value(P_1);
+        g_.getTypes().setupValue(new CustList<String>(T_1));
+        g_.getStatistics().getVal(Statistic.SPEED).getBase().setValue(50);
+        g_.getStatistics().getVal(Statistic.SPEED).getEv().setValue(25);
+        g_.getBaseEvo().setupValue(P_2);
+        tryClick(c_.getValidAddEdit());
+        cTr_.getDestination().setText("");
+        ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
+        assertEq(P_2,facade_.getData().getPokemon(P_1).getBaseEvo());
+    }
+    @Test
+    public void pkForm12() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
+        CrudGeneFormPkTr cTr_ = crudTr(pr_, facade_, sub_);
+        tryClick(cTr_.getAdd());
+        cTr_.getGeneKey().value("");
+        GeneComponentModelTr gTr_ = (GeneComponentModelTr) cTr_.getGeneValue();
+        gTr_.getTranslations().getVal(pr_.getLanguage()).setText("p_2");
+        tryClick(cTr_.getValidAddEdit());
+        assertEq(3,facade_.getData().getTranslatedPokemon().getVal(pr_.getLanguage()).size());
+    }
+    @Test
+    public void pkForm13() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
+        CrudGeneFormPkTr cTr_ = crudTr(pr_, facade_, sub_);
+        tryClick(cTr_.getAdd());
+        cTr_.getGeneKey().value(P_3);
+        GeneComponentModelTr gTr_ = (GeneComponentModelTr) cTr_.getGeneValue();
+        gTr_.getTranslations().getVal(pr_.getLanguage()).setText("p_2");
+        tryClick(cTr_.getValidAddEdit());
+        assertEq(3,facade_.getData().getTranslatedPokemon().getVal(pr_.getLanguage()).size());
+    }
+    @Test
+    public void pkForm14() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
+        CrudGeneFormPkTr cTr_ = crudTr(pr_, facade_, sub_);
+        tryClick(cTr_.getAdd());
+        cTr_.getGeneKey().value(P_4);
+        GeneComponentModelTr gTr_ = (GeneComponentModelTr) cTr_.getGeneValue();
+        gTr_.getTranslations().getVal(pr_.getLanguage()).setText("p_2");
+        tryClick(cTr_.getValidAddEdit());
+        assertEq(4,facade_.getData().getTranslatedPokemon().getVal(pr_.getLanguage()).size());
+    }
+    @Test
+    public void pkForm15() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
+        CrudGeneFormPk c_ = crud(pr_, facade_, sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
+        c_.getGeneKey().value(P_1);
+        g_.getTypes().setupValue(new CustList<String>(T_1));
+        g_.getStatistics().getVal(Statistic.SPEED).getBase().setValue(50);
+        g_.getStatistics().getVal(Statistic.SPEED).getEv().setValue(25);
+        g_.getBaseEvo().setupValue(P_2);
+        tryClick(c_.getValidAddEdit());
+        CrudGeneFormPkTr cTr_ = crudTr(pr_, facade_, sub_);
+        tryClick(cTr_.getAllButtons().get(0));
+        tryClick(cTr_.getValidRemove());
+        assertEq(3,facade_.getData().getTranslatedPokemon().getVal(pr_.getLanguage()).size());
+    }
+    @Test
+    public void pkForm16() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
+        CrudGeneFormPk c_ = crud(pr_, facade_, sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
+        c_.getGeneKey().value(P_1);
+        g_.getTypes().setupValue(new CustList<String>(T_1));
+        g_.getStatistics().getVal(Statistic.SPEED).getBase().setValue(50);
+        g_.getStatistics().getVal(Statistic.SPEED).getEv().setValue(25);
+        g_.getBaseEvo().setupValue(P_2);
+        tryClick(c_.getValidAddEdit());
+        CrudGeneFormPkTr cTr_ = crudTr(pr_, facade_, sub_);
+        tryClick(cTr_.getAllButtons().get(1));
+        tryClick(cTr_.getValidRemove());
+        assertEq(2,facade_.getData().getTranslatedPokemon().getVal(pr_.getLanguage()).size());
+    }
+    @Test
+    public void pkForm17() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
+        CrudGeneFormPk c_ = crud(pr_, facade_, sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
+        c_.getGeneKey().value(P_1);
+        g_.getTypes().setupValue(new CustList<String>(T_1));
+        g_.getStatistics().getVal(Statistic.SPEED).getBase().setValue(50);
+        g_.getStatistics().getVal(Statistic.SPEED).getEv().setValue(25);
+        g_.getBaseEvo().setupValue(P_2);
+        tryClick(c_.getCancel());
+        assertEq(0,facade_.getData().getPokedex().size());
+    }
+    @Test
+    public void pkForm18() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
+        CrudGeneFormPk c_ = crud(pr_, facade_, sub_);
+        CrudGeneFormPkTr cTr_ = crudTr(pr_, facade_, sub_);
+        GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
+        tryClick(c_.getAdd());
+        c_.getGeneKey().value(P_1);
+        g_.getTypes().setupValue(new CustList<String>(T_1));
+        g_.getStatistics().getVal(Statistic.SPEED).getBase().setValue(50);
+        g_.getStatistics().getVal(Statistic.SPEED).getEv().setValue(25);
+        g_.getBaseEvo().setupValue(P_2);
+        tryClick(c_.getValidAddEdit());
+        GeneComponentModelPokemonData gs_ = (GeneComponentModelPokemonData)c_.getGeneValue();
+        tryClick(c_.getAdd());
+        c_.getGeneKey().value(P_2);
+        gs_.getTypes().setupValue(new CustList<String>(T_1));
+        gs_.getStatistics().getVal(Statistic.SPEED).getBase().setValue(50);
+        gs_.getStatistics().getVal(Statistic.SPEED).getEv().setValue(25);
+        gs_.getBaseEvo().setupValue(P_2);
+        tryClick(c_.getValidAddEdit());
+        tryClick(cTr_.getAllButtons().get(1));
+        cTr_.getDestination().setText(P_2);
+        ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
+        assertEq(P_2,facade_.getData().getPokemon(P_1).getBaseEvo());
+    }
     private CrudGeneFormPk crud(AbstractProgramInfos _core, FacadeGame _facade) {
-        return GeneComponentModelPokemonData.crud(_core.getFrameFactory().newCommonFrame(), _core,_facade);
+        SubscribedTranslationList sub_ = new SubscribedTranslationList(_core,_facade);
+        return crud(_core,_facade, sub_);
+    }
+    private CrudGeneFormPk crud(AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
+        return GeneComponentModelPokemonData.crud(_core.getFrameFactory().newCommonFrame(), _core,_facade, _sub);
+    }
+    private CrudGeneFormPkTr crudTr(AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
+        return GeneComponentModelPokemonData.crudTr(_core.getFrameFactory().newCommonFrame(), _core,_facade, _sub);
     }
     private MockProgramInfos initForms() {
         MockProgramInfos pr_ = build("/__/", "/_/", dbs(0.75));
@@ -138,8 +385,10 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
         facade_.setSimplyLanguage(_m.getLanguage());
         facade_.setData(new DataBase(new DefaultGenerator(new CustomSeedGene())));
         facade_.getData().initTranslations();
+        facade_.getData().initializeMembers();
         facade_.getData().setCombos(Instances.newCombos());
         facade_.getData().setMap(Instances.newDataMap());
+        facade_.getData().setLanguages(_m.getLanguages());
         StringMap<String> allTypes_ = new StringMap<String>();
         allTypes_.addEntry(T_1,"t1");
         allTypes_.addEntry(T_2,"t2");

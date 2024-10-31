@@ -16,9 +16,13 @@ public final class GeneComponentModelEltStr extends GeneComponentModelElt<String
         messages = _rend.getMessages();
     }
 
+    public AbsMap<String, String> getMessages() {
+        return messages;
+    }
+
     @Override
     protected AbsStringScrollCustomCombo<String> buildSelect() {
-        return new EnumScrollCustomCombo<String>(getCompoFactory().getCompoFactory(), getCompoFactory().getImageFactory(),messages);
+        return new EnumScrollCustomCombo<String>(getCompoFactory().getCompoFactory(), getCompoFactory().getImageFactory(),getMessages());
     }
 
     @Override

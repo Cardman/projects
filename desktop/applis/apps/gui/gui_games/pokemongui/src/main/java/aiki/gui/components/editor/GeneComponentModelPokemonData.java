@@ -1,6 +1,5 @@
 package aiki.gui.components.editor;
 
-import aiki.comparators.ComparatorTr;
 import aiki.db.DataBase;
 import aiki.facade.*;
 import aiki.fight.enums.*;
@@ -31,10 +30,13 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
         genderRep =ConverterCommonMapUtil.buildGenderRepartition(compoFactory);
         baseEvo = ConverterCommonMapUtil.buildPkFull(compoFactory,_facade);
     }
-    public static CrudGeneFormPk crud(AbsCommonFrame _fr, AbstractProgramInfos _core, FacadeGame _facade) {
-        StringMap<String> messages_ = _facade.getData().getTranslatedPokemon().getVal(_core.getLanguage());
-        ComparatorTr<String> cmp_ = new ComparatorTr<String>(messages_);
-        CrudGeneFormPk c_ = new CrudGeneFormPk(_core, cmp_, _facade);
+    public static CrudGeneFormPkTr crudTr(AbsCommonFrame _fr, AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
+        CrudGeneFormPkTr c_ = new CrudGeneFormPkTr(_core, _facade,_sub);
+        c_.initForm(_fr,_core);
+        return c_;
+    }
+    public static CrudGeneFormPk crud(AbsCommonFrame _fr, AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
+        CrudGeneFormPk c_ = new CrudGeneFormPk(_core, _facade,_sub);
         c_.initForm(_fr,_core);
         return c_;
     }
@@ -103,6 +105,9 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
                 e.getValue().getBase().setValue(stat_.getBase());
             }
         }
+    }
+    public IdList<SubscribedTranslation> all() {
+        return new IdList<SubscribedTranslation>(new SubscribedTranslationPkSelect(getBaseEvo()));
     }
 
     public GeneComponentModelRate getWeight() {

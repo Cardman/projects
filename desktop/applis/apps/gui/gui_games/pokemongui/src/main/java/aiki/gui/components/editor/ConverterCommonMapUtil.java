@@ -7,6 +7,7 @@ import code.gui.*;
 import code.gui.initialize.*;
 import code.maths.*;
 import code.util.*;
+import code.util.core.*;
 
 public final class ConverterCommonMapUtil {
     private ConverterCommonMapUtil() {
@@ -27,6 +28,22 @@ public final class ConverterCommonMapUtil {
     }
     public static GeneComponentModelEltEnum<GenderRepartition> buildGenderRepartition(AbstractProgramInfos _api){
         return new GeneComponentModelEltEnum<GenderRepartition>(_api,messages(MessagesPkEditor.getMessagesEditorSelectContentTr(MessagesPkEditor.getAppliTr(_api.currentLg())).getMapping()), GenderRepartition.all());
+    }
+    public static StringMap<StringMap<String>> toEntityLg(StringMap<StringMap<String>> _map) {
+        StringMap<StringMap<String>> inv_ = new StringMap<StringMap<String>>();
+        StringList next_ = new StringList();
+        for (EntryCust<String,StringMap<String>> e: _map.entryList()) {
+            next_.addAllElts(e.getValue().getKeys());
+        }
+        next_.removeDuplicates();
+        for (String e: next_) {
+            StringMap<String> trs_ = new StringMap<String>();
+            for (EntryCust<String,StringMap<String>> l: _map.entryList()) {
+                trs_.addEntry(l.getKey(), StringUtil.nullToEmpty(l.getValue().getVal(e)));
+            }
+            inv_.addEntry(e, trs_);
+        }
+        return inv_;
     }
     private static IdMap<GenderRepartition,String> messages(StringMap<String> _m) {
         IdMap<GenderRepartition,String> i_ = new IdMap<GenderRepartition, String>();
@@ -87,5 +104,23 @@ public final class ConverterCommonMapUtil {
             bk_.addEntry(e.getKey(),new StringMap<String>(e.getValue()));
         }
         return bk_;
+    }
+
+    public static void setKey(String _key, StringMap<String> _value, StringMap<StringMap<String>> _tr) {
+        for (EntryCust<String, StringMap<String>> v: _tr.entryList()) {
+            v.getValue().set(_key, StringUtil.nullToEmpty(_value.getVal(v.getKey())));
+        }
+    }
+
+    public static void addKey(String _key, StringMap<String> _value, StringMap<StringMap<String>> _tr) {
+        for (EntryCust<String, StringMap<String>> v: _tr.entryList()) {
+            v.getValue().addEntry(_key, StringUtil.nullToEmpty(_value.getVal(v.getKey())));
+        }
+    }
+
+    public static void removeKey(String _key, StringMap<StringMap<String>> _tr) {
+        for (StringMap<String> v: _tr.values()) {
+            v.removeKey(_key);
+        }
     }
 }
