@@ -7,7 +7,7 @@ public abstract class AbsCrudGeneForm {
     private final AbstractProgramInfos factory;
     private AbsPanel elements;
     private AbsPanel element;
-    private final AbsPanel group;
+    private AbsPanel group;
     private AbsButton validAddEdit;
     private AbsButton add;
     private AbsButton validRemove;
@@ -19,24 +19,28 @@ public abstract class AbsCrudGeneForm {
 
     protected AbsCrudGeneForm(AbstractProgramInfos _fact) {
         factory = _fact;
-        group = _fact.getCompoFactory().newPageBox();
     }
 
-    public void initForm(AbsCommonFrame _fr) {
+    public void setFrame(AbsCommonFrame _fr) {
+        this.frame = _fr;
+    }
+
+    public void initForm() {
         visibleSingle = false;
-        frame = _fr;
+        setGroup(factory.getCompoFactory().newPageBox());
+        group.removeAll();
         elements = factory.getCompoFactory().newPageBox();
         getAllButtons().clear();
         element = factory.getCompoFactory().newPageBox();
         buttons = factory.getCompoFactory().newLineBox();
         AbsPanel buttons_ = buttons;
-        int len_ = size();
-        for (int i = 0; i < len_; i++) {
-            AbsButton but_ = factory.getCompoFactory().newPlainButton(display(i));
-            but_.addActionListener(new SelectCrudGeneFormEvent(this, i));
-            elements.add(but_);
-            getAllButtons().add(but_);
-        }
+//        int len_ = size();
+//        for (int i = 0; i < len_; i++) {
+//            AbsButton but_ = factory.getCompoFactory().newPlainButton(display(i));
+//            but_.addActionListener(new SelectCrudGeneFormEvent(this, i));
+//            elements.add(but_);
+//            getAllButtons().add(but_);
+//        }
         add = factory.getCompoFactory().newPlainButton("+");
         add.addActionListener(new AddCrudGeneFormEvent(this));
         buttons_.add(add);
@@ -74,6 +78,10 @@ public abstract class AbsCrudGeneForm {
 
     public AbsPanel getGroup() {
         return group;
+    }
+
+    public void setGroup(AbsPanel _g) {
+        this.group = _g;
     }
 
     public abstract String display(int _index);

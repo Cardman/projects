@@ -22,18 +22,17 @@ public final class CrudGeneFormList<E> extends AbsCrudGeneForm {
         cmp = _c;
     }
 
-    public void initForm(AbsCommonFrame _fr, DisplayEntryCust<Integer, E> _disp, GeneComponentModel<E> _k, CustList<E> _map) {
-        initForm(_fr, _disp, _k, _map, null);
+    public void initForm(DisplayEntryCust<Integer, E> _disp, GeneComponentModel<E> _k, CustList<E> _map) {
+        initForm(_disp, _k, _map, null);
     }
-    public void initForm(AbsCommonFrame _fr, DisplayEntryCust<Integer, E> _disp, GeneComponentModel<E> _k, CustList<E> _map, Comparing<E> _c) {
+    public void initForm(DisplayEntryCust<Integer, E> _disp, GeneComponentModel<E> _k, CustList<E> _map, Comparing<E> _c) {
         indicator = getFactory().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
         indicator.setEnabled(false);
         gene = _k;
         displayEntry = _disp;
-        list = new CustList<E>(_map);
         cmp = _c;
-        possibleSort();
-        initForm(_fr);
+        list = new CustList<E>();
+        setupValues(_map);
     }
 
     @Override
@@ -86,6 +85,12 @@ public final class CrudGeneFormList<E> extends AbsCrudGeneForm {
         afterModif();
     }
 
+    public void setupValues(CustList<E> _values) {
+        list.clear();
+        list.addAllElts(_values);
+        possibleSort();
+        refresh();
+    }
     private void possibleSort() {
         if (cmp != null) {
             list.sortElts(cmp);

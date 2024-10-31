@@ -562,16 +562,16 @@ public final class GuiBaseUtil {
         return _dialog.getLanguage();
     }
 
-    public static void initStringMapInt(AbsCommonFrame _c,CrudGeneForm<String,Integer> _f, StringMap<Integer> _m, StringList _aDictionary, AfterValidateText _after) {
-        _f.initForm(_c,new StringIntDisplayEntryCust(),new GeneComponentModelString(_f.getFactory(), _aDictionary, _after),new GeneComponentModelInt(_f.getFactory()),new NaturalComparator(),_m);
+    public static void initStringMapInt(CrudGeneForm<String,Integer> _f, StringMap<Integer> _m, StringList _aDictionary, AfterValidateText _after) {
+        _f.initForm(new StringIntDisplayEntryCust(),new GeneComponentModelString(_f.getFactory(), _aDictionary, _after),new GeneComponentModelInt(_f.getFactory()),new NaturalComparator(),_m);
     }
 
-    public static void initStringList(AbsCommonFrame _c,CrudGeneFormList<String> _f, CustList<String> _m, StringList _aDictionary, AfterValidateText _after) {
-        _f.initForm(_c,new IntStringDisplayEntryCust(),new GeneComponentModelString(_f.getFactory(), _aDictionary, _after),_m);
+    public static void initStringList(CrudGeneFormList<String> _f, CustList<String> _m, StringList _aDictionary, AfterValidateText _after) {
+        _f.initForm(new IntStringDisplayEntryCust(),new GeneComponentModelString(_f.getFactory(), _aDictionary, _after),_m);
     }
 
-    public static void initStringList(AbsCommonFrame _c, CrudGeneFormList<String> _f, CustList<String> _m, StringList _aDictionary, AfterValidateText _after, Comparing<String> _cmp) {
-        _f.initForm(_c,new IntStringDisplayEntryCust(),new GeneComponentModelString(_f.getFactory(), _aDictionary, _after),_m,_cmp);
+    public static void initStringList(CrudGeneFormList<String> _f, CustList<String> _m, StringList _aDictionary, AfterValidateText _after, Comparing<String> _cmp) {
+        _f.initForm(new IntStringDisplayEntryCust(),new GeneComponentModelString(_f.getFactory(), _aDictionary, _after),_m,_cmp);
     }
 
     public static ScrollCustomGraphicList<String> standard(AbsCompoFactory _compo, AbstractImageFactory _img, boolean _simple, CustList<String> _elts, Ints _selected, int _rows) {

@@ -3,8 +3,11 @@ package aiki.gui;
 import aiki.db.*;
 import aiki.facade.*;
 import aiki.fight.enums.*;
+import aiki.fight.pokemon.enums.ExpType;
+import aiki.fight.util.LevelMove;
 import aiki.gui.components.editor.*;
 import aiki.instances.*;
+import code.gui.CrudGeneFormList;
 import code.gui.initialize.*;
 import code.maths.montecarlo.*;
 import code.mock.*;
@@ -21,6 +24,9 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
     public static final String P_2 = "P2";
     public static final String P_3 = "P3";
     public static final String P_4 = "P_4";
+    public static final String M_1 = "M1";
+    public static final String M_2 = "M2";
+    public static final String M_3 = "M3";
 
     @Test
     public void pkForm1() {
@@ -358,6 +364,29 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
         ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
         assertEq(P_2,facade_.getData().getPokemon(P_1).getBaseEvo());
     }
+    @Test
+    public void pkForm19() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        facade_.getData().getExpGrowth().addEntry(ExpType.E,"1");
+        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
+        CrudGeneFormPk c_ = crud(pr_, facade_, sub_);
+        GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
+        tryClick(c_.getAdd());
+        c_.getGeneKey().value(P_1);
+        CrudGeneFormList<LevelMove> levMoves_ = g_.getLevMoves();
+        tryClick(levMoves_.getAdd());
+        levMoves_.getGene().value(new LevelMove((short)1,M_1));
+        tryClick(levMoves_.getValidAddEdit());
+        tryClick(levMoves_.getAdd());
+        levMoves_.getGene().value(new LevelMove((short)1,M_2));
+        tryClick(levMoves_.getValidAddEdit());
+        tryClick(levMoves_.getAdd());
+        levMoves_.getGene().value(new LevelMove((short)2,M_3));
+        tryClick(levMoves_.getValidAddEdit());
+        tryClick(c_.getValidAddEdit());
+        assertEq(3,facade_.getData().getPokemon(P_1).getLevMoves().size());
+    }
     private CrudGeneFormPk crud(AbstractProgramInfos _core, FacadeGame _facade) {
         SubscribedTranslationList sub_ = new SubscribedTranslationList(_core,_facade);
         return crud(_core,_facade, sub_);
@@ -400,6 +429,11 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
         allPk_.addEntry(P_2,"p2");
         allPk_.addEntry(P_3,"p3");
         facade_.getData().getTranslatedPokemon().addEntry(_m.getLanguage(), allPk_);
+        StringMap<String> allMv_ = new StringMap<String>();
+        allMv_.addEntry(M_1,"m1");
+        allMv_.addEntry(M_2,"m2");
+        allMv_.addEntry(M_3,"m3");
+        facade_.getData().getTranslatedMoves().addEntry(_m.getLanguage(), allMv_);
         return facade_;
     }
 }

@@ -18,14 +18,16 @@ public final class CrudGeneFormPk extends AbsCrudGeneFormMap<String, PokemonData
         facadeGame = _facade;
         subscribedTranslations = _sub.getSubscribedTranslations();
         subscribedTranslationsForm = new IdList<SubscribedTranslation>();
+        initForm();
     }
     public void initForm(AbsCommonFrame _fr, AbstractProgramInfos _core) {
         subscribedTranslationsForm.clear();
         StringMap<String> messages_ = new StringMap<String>(facadeGame.getData().getTranslatedPokemon().getVal(_core.getLanguage()));
         ComparatorTr<String> cmp_ = new ComparatorTr<String>(messages_);
-        geneComponentModelPokemonData = new GeneComponentModelPokemonData(_core, facadeGame);
+        geneComponentModelPokemonData = new GeneComponentModelPokemonData(_fr,_core, facadeGame);
         GeneComponentModelEltStr geneKey_ = subscribe(_core);
-        initForm(_fr,new DisplayKeyOnly<String,PokemonData>(messages_), geneKey_, geneComponentModelPokemonData,cmp_,facadeGame.getData().getPokedex());
+        initForm(new DisplayKeyOnly<String,PokemonData>(messages_), geneKey_, geneComponentModelPokemonData, cmp_, facadeGame.getData().getPokedex());
+        setFrame(_fr);
     }
 
     @Override

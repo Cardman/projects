@@ -109,7 +109,8 @@ public final class BreakPointFormEvent implements AbsActionListener {
         _specForm.actualiseLists(_frame);
         _specForm.getDependantPointsForm().init(_r,_model);
         _specForm.getPref().setValue(_model.getPref().get());
-        GuiBaseUtil.initStringMapInt(_frame,_specForm.getPrefs(),_model.mapPrefs(),new StringList(_r.getContext().getClasses().getClassesBodies().getKeys()),new StrictTypeFromFilter(_r));
+        _specForm.getPrefs().setFrame(_frame);
+        GuiBaseUtil.initStringMapInt(_specForm.getPrefs(),_model.mapPrefs(),new StringList(_r.getContext().getClasses().getClassesBodies().getKeys()),new StrictTypeFromFilter(_r));
         GuiStackForm.initPrefs(_bpcs, _specForm.getPrefs());
     }
 

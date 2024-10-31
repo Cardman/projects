@@ -55,6 +55,7 @@ public final class FrameRenderFormContent {
         expandRenderText = _d.getFrames().getCompoFactory().newTextArea();
         AbsPanel bpForm_ = _d.getFrames().getCompoFactory().newPageBox();
         bpForm_.add(pref);
+        prefs.initForm();
         prefs.getGroup().setTitledBorder(mes_.getVal(MessagesIde.IDE_POINTS_REND_FORM_PREF_IMPL));
         bpForm_.add(prefs.getGroup());
         bpForm_.add(exactForm.getPanel());
@@ -84,7 +85,8 @@ public final class FrameRenderFormContent {
         }
         if (exc_ != null) {
             getPref().setValue(exc_.getPref());
-            GuiBaseUtil.initStringMapInt(_c,prefs,exc_.getPrefs(),new StringList(_r.getContext().getClasses().getClassesBodies().getKeys()),new StrictTypeFromFilter(_r));
+            prefs.setFrame(_c);
+            GuiBaseUtil.initStringMapInt(prefs,exc_.getPrefs(),new StringList(_r.getContext().getClasses().getClassesBodies().getKeys()),new StrictTypeFromFilter(_r));
             initPrefs(_bpc, prefs);
             clName.setEnabled(false);
             clName.setText(exc_.getExcPointBlockPair().getEp().getClName());
@@ -114,7 +116,8 @@ public final class FrameRenderFormContent {
 
     public void updatePref(CustList<RenderPointPair> _bpc, AbsCommonFrame _c, ResultContext _r) {
         getPref().setValue(BreakPointBlockList.pref(retrieve(_bpc)));
-        GuiBaseUtil.initStringMapInt(_c,getPrefs(),new StringMap<Integer>(),new StringList(_r.getContext().getClasses().getClassesBodies().getKeys()),new StrictTypeFromFilter(_r));
+        getPrefs().setFrame(_c);
+        GuiBaseUtil.initStringMapInt(getPrefs(),new StringMap<Integer>(),new StringList(_r.getContext().getClasses().getClassesBodies().getKeys()),new StrictTypeFromFilter(_r));
         initPrefs(_bpc, getPrefs());
     }
 

@@ -19,9 +19,11 @@ public final class CrudGeneFormPkTr extends AbsCrudGeneFormMap<String, StringMap
         facadeGame = _facade;
         destination = _fact.getCompoFactory().newTextField();
         destination.addActionListener(new RenameEntPkEvent(this));
+        initForm();
     }
     public void initForm(AbsCommonFrame _fr, AbstractProgramInfos _core) {
-        initForm(_fr,new DisplayKeyOnlyDirect<StringMap<String>>(),new GeneComponentModelString(_core,new StringList(),new DefValidateText()),new GeneComponentModelTr(_core,facadeGame),new NaturalComparator(),ConverterCommonMapUtil.toEntityLg(facadeGame.getData().getTranslatedPokemon()));
+        initForm(new DisplayKeyOnlyDirect<StringMap<String>>(), new GeneComponentModelString(_core,new StringList(),new DefValidateText()), new GeneComponentModelTr(_core,facadeGame), new NaturalComparator(), ConverterCommonMapUtil.toEntityLg(facadeGame.getData().getTranslatedPokemon()));
+        setFrame(_fr);
         getButtons().add(destination);
     }
     @Override

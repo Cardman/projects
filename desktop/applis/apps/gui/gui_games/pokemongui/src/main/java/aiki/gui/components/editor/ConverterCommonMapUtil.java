@@ -1,5 +1,6 @@
 package aiki.gui.components.editor;
 
+import aiki.db.DataBase;
 import aiki.facade.*;
 import aiki.fight.pokemon.enums.*;
 import aiki.fight.util.*;
@@ -22,12 +23,30 @@ public final class ConverterCommonMapUtil {
         StringMap<String> messages_ = _facade.getData().getTranslatedPokemon().getVal(_api.getLanguage());
         return new GeneComponentModelEltStr(_api,messages_,messages_.getKeys());
     }
+    public static GeneComponentModelEltStr buildMvFull(AbstractProgramInfos _api, FacadeGame _facade) {
+        StringMap<String> messages_ = _facade.getData().getTranslatedMoves().getVal(_api.getLanguage());
+        return new GeneComponentModelEltStr(_api,messages_,messages_.getKeys());
+    }
     public static GeneComponentModelLsStr buildTypeList(AbstractProgramInfos _api, FacadeGame _facade){
         StringMap<String> messages_ = _facade.getData().getTranslatedTypes().getVal(_api.getLanguage());
         return new GeneComponentModelLsStr(_api, messages_,new StringList(messages_.getKeys()));
     }
     public static GeneComponentModelEltEnum<GenderRepartition> buildGenderRepartition(AbstractProgramInfos _api){
         return new GeneComponentModelEltEnum<GenderRepartition>(_api,messages(MessagesPkEditor.getMessagesEditorSelectContentTr(MessagesPkEditor.getAppliTr(_api.currentLg())).getMapping()), GenderRepartition.all());
+    }
+    public static GeneComponentModelEltEnum<ExpType> buildExpType(AbstractProgramInfos _api, FacadeGame _facade){
+        DataBase data_ = _facade.getData();
+        IdMap<ExpType,String> messages_ = new IdMap<ExpType, String>();
+        CustList<ExpType> all_ = ExpType.all();
+        for (ExpType e: all_) {
+            String litt_ = StringUtil.nullToEmpty(data_.getExpGrowth(e));
+            if (litt_.isEmpty()) {
+                messages_.addEntry(e,data_.getFormula("1",data_.getLanguage()));
+            } else {
+                messages_.addEntry(e,data_.getFormula(litt_,data_.getLanguage()));
+            }
+        }
+        return new GeneComponentModelEltEnum<ExpType>(_api,messages_, all_);
     }
     public static StringMap<StringMap<String>> toEntityLg(StringMap<StringMap<String>> _map) {
         StringMap<StringMap<String>> inv_ = new StringMap<StringMap<String>>();

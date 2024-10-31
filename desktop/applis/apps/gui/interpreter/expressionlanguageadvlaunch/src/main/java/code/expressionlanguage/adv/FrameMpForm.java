@@ -50,7 +50,8 @@ public final class FrameMpForm extends AdvFrameMpForm{
 
     public static void updatePref(CustList<BreakPointCondition> _bpc, GuiStackForm _g, AbsCommonFrame _c, ResultContext _r) {
         _g.getPref().setValue(BreakPointBlockList.prefIn(_bpc));
-        GuiBaseUtil.initStringMapInt(_c,_g.getPrefs(),new StringMap<Integer>(),new StringList(_r.getContext().getClasses().getClassesBodies().getKeys()),new StrictTypeFromFilter(_r));
+        _g.getPrefs().setFrame(_c);
+        GuiBaseUtil.initStringMapInt(_g.getPrefs(),new StringMap<Integer>(),new StringList(_r.getContext().getClasses().getClassesBodies().getKeys()),new StrictTypeFromFilter(_r));
         GuiStackForm.initPrefs(_bpc, _g.getPrefs());
     }
 

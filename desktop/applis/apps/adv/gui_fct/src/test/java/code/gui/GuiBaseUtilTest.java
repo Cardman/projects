@@ -1068,21 +1068,27 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         MockProgramInfosSecSample pr_ = init();
         AbsCommonFrame f_ = pr_.getFrameFactory().newCommonFrame();
         CrudGeneForm<String, Integer> c_ = new CrudGeneForm<String, Integer>(pr_);
-        GuiBaseUtil.initStringMapInt(f_, c_, _map, _dico,new DefValidateText());
+        c_.setFrame(f_);
+        c_.initForm();
+        GuiBaseUtil.initStringMapInt(c_, _map, _dico,new DefValidateText());
         return c_;
     }
     private CrudGeneFormList<String> crudList(CustList<String> _map, StringList _dico) {
         MockProgramInfosSecSample pr_ = init();
         AbsCommonFrame f_ = pr_.getFrameFactory().newCommonFrame();
         CrudGeneFormList<String> c_ = new CrudGeneFormList<String>(pr_);
-        GuiBaseUtil.initStringList(f_, c_, _map, _dico,new DefValidateText());
+        c_.setFrame(f_);
+        c_.initForm();
+        GuiBaseUtil.initStringList(c_, _map, _dico,new DefValidateText());
         return c_;
     }
     private CrudGeneFormList<String> crudListCmp(CustList<String> _map, StringList _dico, Comparing<String> _str) {
         MockProgramInfosSecSample pr_ = init();
         AbsCommonFrame f_ = pr_.getFrameFactory().newCommonFrame();
         CrudGeneFormList<String> c_ = new CrudGeneFormList<String>(pr_);
-        GuiBaseUtil.initStringList(f_, c_, _map, _dico,new DefValidateText(),_str);
+        c_.setFrame(f_);
+        c_.initForm();
+        GuiBaseUtil.initStringList(c_, _map, _dico,new DefValidateText(),_str);
         return c_;
     }
     private boolean launch(MockSoundRecord _pl) {
