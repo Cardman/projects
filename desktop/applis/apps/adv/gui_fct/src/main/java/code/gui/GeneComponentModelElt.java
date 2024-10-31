@@ -39,28 +39,28 @@ public abstract class GeneComponentModelElt<T> extends GeneComponentModelEltComm
 
     @Override
     public T value() {
-        return tryRet();
+        return tryRet(defValue());
     }
 
-    public T tryRet() {
+    public T tryRet(T _d) {
         int sel_ = getSelect().getSelectedIndex();
-        return tryRet(sel_);
+        return tryRet(sel_, _d);
     }
 
     @Override
     public T value(T _v) {
         int sel_ = getSelect().getSelectedIndex();
         setupValue(getSelect(),_v);
-        return tryRet(sel_);
+        return tryRet(sel_, defValue());
     }
 
     public AbsStringScrollCustomCombo<T> getSelect() {
         return select;
     }
 
-    private T tryRet(int _sel) {
+    private T tryRet(int _sel, T _d) {
         if (!getElements().isValidIndex(_sel)) {
-            return defValue();
+            return _d;
         }
         return getElements().get(_sel);
     }

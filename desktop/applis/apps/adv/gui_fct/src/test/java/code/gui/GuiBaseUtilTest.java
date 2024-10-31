@@ -702,7 +702,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         IdMap<ConcreteInteger,String> mess_ = new IdMap<ConcreteInteger,String>();
         mess_.addEntry(one_,"ONE");
         mess_.addEntry(two_,"TWO");
-        GeneComponentModelEltEnumSample g_ = new GeneComponentModelEltEnumSample(init(), mess_,new IdList<ConcreteInteger>());
+        GeneComponentModelEltEnum<ConcreteInteger> g_ = new GeneComponentModelEltEnum<ConcreteInteger>(init(), mess_,new IdList<ConcreteInteger>());
         g_.gene();
         assertSame(null,g_.value());
     }
@@ -713,7 +713,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         IdMap<ConcreteInteger,String> mess_ = new IdMap<ConcreteInteger,String>();
         mess_.addEntry(one_,"ONE");
         mess_.addEntry(two_,"TWO");
-        GeneComponentModelEltEnumSample g_ = new GeneComponentModelEltEnumSample(init(), mess_,new IdList<ConcreteInteger>(one_,two_));
+        GeneComponentModelEltEnum<ConcreteInteger> g_ = new GeneComponentModelEltEnum<ConcreteInteger>(init(), mess_,new IdList<ConcreteInteger>(one_,two_));
         g_.gene();
         assertSame(one_,g_.value());
     }
@@ -724,7 +724,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         IdMap<ConcreteInteger,String> mess_ = new IdMap<ConcreteInteger,String>();
         mess_.addEntry(one_,"ONE");
         mess_.addEntry(two_,"TWO");
-        GeneComponentModelEltEnumSample g_ = new GeneComponentModelEltEnumSample(init(), mess_,new IdList<ConcreteInteger>(one_,two_));
+        GeneComponentModelEltEnum<ConcreteInteger> g_ = new GeneComponentModelEltEnum<ConcreteInteger>(init(), mess_,new IdList<ConcreteInteger>(one_,two_));
         g_.geneEnum(two_);
         assertSame(two_,g_.value());
     }
@@ -735,7 +735,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         IdMap<ConcreteInteger,String> mess_ = new IdMap<ConcreteInteger,String>();
         mess_.addEntry(one_,"ONE");
         mess_.addEntry(two_,"TWO");
-        GeneComponentModelEltEnumSample g_ = new GeneComponentModelEltEnumSample(init(), mess_,new IdList<ConcreteInteger>(one_,two_));
+        GeneComponentModelEltEnum<ConcreteInteger> g_ = new GeneComponentModelEltEnum<ConcreteInteger>(init(), mess_,new IdList<ConcreteInteger>(one_,two_));
         g_.geneEnum(two_);
         g_.value(one_);
         assertSame(one_,g_.value());

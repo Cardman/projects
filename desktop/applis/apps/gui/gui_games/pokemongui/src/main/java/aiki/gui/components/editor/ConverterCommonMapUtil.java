@@ -11,12 +11,22 @@ import code.util.*;
 public final class ConverterCommonMapUtil {
     private ConverterCommonMapUtil() {
     }
+    public static GeneComponentModelEltStr buildPk(AbstractProgramInfos _api, FacadeGame _facade) {
+        StringMap<String> messages_ = _facade.getData().getTranslatedPokemon().getVal(_api.getLanguage());
+        StringList rem_ = new StringList(messages_.getKeys());
+        rem_.removeAllElements(_facade.getData().getPokedex().getKeys());
+        return new GeneComponentModelEltStr(_api,messages_,rem_);
+    }
+    public static GeneComponentModelEltStr buildPkFull(AbstractProgramInfos _api, FacadeGame _facade) {
+        StringMap<String> messages_ = _facade.getData().getTranslatedPokemon().getVal(_api.getLanguage());
+        return new GeneComponentModelEltStr(_api,messages_,messages_.getKeys());
+    }
     public static GeneComponentModelLsStr buildTypeList(AbstractProgramInfos _api, FacadeGame _facade){
         StringMap<String> messages_ = _facade.getData().getTranslatedTypes().getVal(_api.getLanguage());
         return new GeneComponentModelLsStr(_api, messages_,new StringList(messages_.getKeys()));
     }
-    public static GeneComponentModelEltGenderRepartition buildGenderRepartition(AbstractProgramInfos _api){
-        return new GeneComponentModelEltGenderRepartition(_api,messages(MessagesPkEditor.getMessagesEditorSelectContentTr(MessagesPkEditor.getAppliTr(_api.currentLg())).getMapping()), GenderRepartition.all());
+    public static GeneComponentModelEltEnum<GenderRepartition> buildGenderRepartition(AbstractProgramInfos _api){
+        return new GeneComponentModelEltEnum<GenderRepartition>(_api,messages(MessagesPkEditor.getMessagesEditorSelectContentTr(MessagesPkEditor.getAppliTr(_api.currentLg())).getMapping()), GenderRepartition.all());
     }
     private static IdMap<GenderRepartition,String> messages(StringMap<String> _m) {
         IdMap<GenderRepartition,String> i_ = new IdMap<GenderRepartition, String>();
@@ -69,5 +79,13 @@ public final class ConverterCommonMapUtil {
         WeatherTypes c_ = new WeatherTypes(new CollCapacity(_m.size()));
         new ConverterCommonMap<WeatherType,Rate>().feed(c_,_m);
         return c_;
+    }
+
+    public static StringMap<StringMap<String>> backUp(StringMap<StringMap<String>> _tr) {
+        StringMap<StringMap<String>> bk_ = new StringMap<StringMap<String>>();
+        for (EntryCust<String, StringMap<String>> e: _tr.entryList()) {
+            bk_.addEntry(e.getKey(),new StringMap<String>(e.getValue()));
+        }
+        return bk_;
     }
 }

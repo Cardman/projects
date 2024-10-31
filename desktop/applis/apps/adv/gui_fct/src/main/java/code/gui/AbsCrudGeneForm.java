@@ -55,9 +55,9 @@ public abstract class AbsCrudGeneForm {
         cancel.addActionListener(new CancelCrudGeneFormEvent(this));
         buttons_.add(cancel);
         getGroup().removeAll();
+        getGroup().add(buttons_);
         getGroup().add(elements);
         getGroup().add(element);
-        getGroup().add(buttons_);
     }
     public void refresh() {
         elements.removeAll();

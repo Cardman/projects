@@ -1,9 +1,11 @@
 package aiki.gui.components.editor;
 
 import aiki.comparators.ComparatorTr;
+import aiki.db.DataBase;
 import aiki.facade.*;
 import aiki.fight.enums.*;
 import aiki.fight.pokemon.*;
+import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.fight.util.*;
 import aiki.instances.*;
 import code.gui.*;
@@ -17,7 +19,8 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
     private final GeneComponentModelRate height;
     private final GeneComponentModelLsStr types;
     private final IdMap<Statistic, FormStatBaseEv> statistics = new IdMap<Statistic, FormStatBaseEv>();
-    private final GeneComponentModelEltGenderRepartition genderRep;
+    private final GeneComponentModelEltEnum<GenderRepartition> genderRep;
+    private final GeneComponentModelEltStr baseEvo;
     private PokemonData element;
     public GeneComponentModelPokemonData(AbstractProgramInfos _core, FacadeGame _facade) {
         this.compoFactory = _core;
@@ -26,14 +29,13 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
         height = new GeneComponentModelRate(compoFactory);
         types = ConverterCommonMapUtil.buildTypeList(compoFactory,facade);
         genderRep =ConverterCommonMapUtil.buildGenderRepartition(compoFactory);
+        baseEvo = ConverterCommonMapUtil.buildPkFull(compoFactory,_facade);
     }
-    public static CrudGeneForm<String, PokemonData> crud(AbsCommonFrame _fr, AbstractProgramInfos _core, FacadeGame _facade) {
+    public static CrudGeneFormPk crud(AbsCommonFrame _fr, AbstractProgramInfos _core, FacadeGame _facade) {
         StringMap<String> messages_ = _facade.getData().getTranslatedPokemon().getVal(_core.getLanguage());
         ComparatorTr<String> cmp_ = new ComparatorTr<String>(messages_);
-        CrudGeneForm<String, PokemonData> c_ = new CrudGeneForm<String, PokemonData>(_core, cmp_);
-        StringList rem_ = new StringList(messages_.getKeys());
-        rem_.removeAllElements(_facade.getData().getPokedex().getKeys());
-        c_.initForm(_fr,new DisplayKeyOnly<String,PokemonData>(messages_),new GeneComponentModelEltStr(_core,messages_,rem_),new GeneComponentModelPokemonData(_core,_facade),cmp_,_facade.getData().getPokedex());
+        CrudGeneFormPk c_ = new CrudGeneFormPk(_core, cmp_, _facade);
+        c_.initForm(_fr,_core);
         return c_;
     }
     @Override
@@ -59,6 +61,7 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
         updateStats(element);
         form_.add(stats_);
         form_.add(genderRep.geneEnum(element.getGenderRep()));
+        form_.add(baseEvo.geneEnum(element.getBaseEvo()));
         sc_.setViewportView(form_);
         return sc_;
     }
@@ -72,7 +75,8 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
         for (EntryCust<Statistic,FormStatBaseEv> e: statistics.entryList()) {
             ent_.getStatistics().addEntry(e.getKey(),new StatBaseEv((short)e.getValue().getBase().getValue(),(short)e.getValue().getEv().getValue()));
         }
-        ent_.setGenderRep(genderRep.tryRet());
+        ent_.setGenderRep(genderRep.tryRet(GenderRepartition.MIXED));
+        ent_.setBaseEvo(baseEvo.tryRet(DataBase.EMPTY_STRING));
         return ent_;
     }
 
@@ -88,6 +92,7 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
         getTypes().setupValue(_v.getTypes());
         updateStats(_v);
         getGenderRep().setupValue(_v.getGenderRep());
+        getBaseEvo().setupValue(_v.getBaseEvo());
     }
 
     private void updateStats(PokemonData _v) {
@@ -116,7 +121,11 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
         return statistics;
     }
 
-    public GeneComponentModelEltGenderRepartition getGenderRep() {
+    public GeneComponentModelEltEnum<GenderRepartition> getGenderRep() {
         return genderRep;
+    }
+
+    public GeneComponentModelEltStr getBaseEvo() {
+        return baseEvo;
     }
 }
