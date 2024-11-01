@@ -13,7 +13,12 @@ public final class GeneComponentModelEltStrSub extends GeneComponentModelEltStrC
     public GeneComponentModelEltStr getSelectUniq() {
         return selectUniq;
     }
-
+    public IdList<SubscribedTranslation> subsIt() {
+        return subs(new SubscribedTranslationItMessages(getSelectUniq().getMessages()));
+    }
+    public IdList<SubscribedTranslation> subsTy() {
+        return subs(new SubscribedTranslationTyMessages(getSelectUniq().getMessages()));
+    }
     public IdList<SubscribedTranslation> subsPk() {
         return subs(new SubscribedTranslationPkMessages(getSelectUniq().getMessages()));
     }

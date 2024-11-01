@@ -36,11 +36,11 @@ public final class ConverterCommonMapUtil {
     }
     public static GeneComponentModelEltStrSub buildItFull(AbstractProgramInfos _api, FacadeGame _facade) {
         StringMap<String> messages_ = new StringMap<String>(_facade.getData().getTranslatedItems().getVal(_api.getLanguage()));
-        return merge(_api, feedTree(messages_), new SubscribedTranslationPkMessages(messages_));
+        return merge(_api, feedTree(messages_), new SubscribedTranslationItMessages(messages_));
     }
     public static GeneComponentModelEltStrSub buildTypeElt(AbstractProgramInfos _api, FacadeGame _facade){
         StringMap<String> messages_ = new StringMap<String>(_facade.getData().getTranslatedTypes().getVal(_api.getLanguage()));
-        return merge(_api, feedTree(messages_), new SubscribedTranslationPkMessages(messages_));
+        return merge(_api, feedTree(messages_), new SubscribedTranslationTyMessages(messages_));
     }
     public static GeneComponentModelLsStrSub buildTypeList(AbstractProgramInfos _api, FacadeGame _facade){
         return mergeMapLs(_api, _facade.getData().getTranslatedTypes());
@@ -67,7 +67,7 @@ public final class ConverterCommonMapUtil {
 
     private static GeneComponentModelLsStrSub mergeLs(AbstractProgramInfos _api, IdList<SubscribedTranslation> _ids, TreeMap<String, String> _tree, StringMap<String> _messages) {
         GeneComponentModelLsStrSub g_ = new GeneComponentModelLsStrSub(new GeneComponentModelLsStr(_api, _tree));
-        _ids.add(new SubscribedTranslationPkMessages(_messages));
+        _ids.add(new SubscribedTranslationTyMessages(_messages));
         g_.getSubs().addAllElts(_ids);
         return g_;
     }

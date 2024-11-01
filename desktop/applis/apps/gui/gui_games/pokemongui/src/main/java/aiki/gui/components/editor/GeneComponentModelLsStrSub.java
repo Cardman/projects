@@ -13,7 +13,15 @@ public final class GeneComponentModelLsStrSub extends GeneComponentModelEltStrCo
     public AbsCustComponent geneCommon(CustList<String> _values) {
         return selectList.geneCommon(_values);
     }
+    public IdList<SubscribedTranslation> subsTy() {
+        return subs(new SubscribedTranslationTyMessages(selectList.getRender().getMessages()));
+    }
 
+    public IdList<SubscribedTranslation> subs(SubscribedTranslation _s) {
+        IdList<SubscribedTranslation> s_ = new IdList<SubscribedTranslation>(getSubs());
+        s_.add(_s);
+        return s_;
+    }
     public CustList<String> tryRet() {
         return selectList.tryRet();
     }

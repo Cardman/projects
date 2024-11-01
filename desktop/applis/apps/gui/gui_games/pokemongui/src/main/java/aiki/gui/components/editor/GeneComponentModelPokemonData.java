@@ -129,7 +129,10 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
         }
     }
     public IdList<SubscribedTranslation> all() {
-        return new IdList<SubscribedTranslation>(getBaseEvo().subsPk());
+        IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
+        ids_.addAllElts(getTypes().subsTy());
+        ids_.addAllElts(getBaseEvo().subsPk());
+        return ids_;
     }
 
     public GeneComponentModelRate getWeight() {

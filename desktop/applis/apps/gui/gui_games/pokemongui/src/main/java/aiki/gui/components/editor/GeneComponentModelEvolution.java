@@ -176,6 +176,8 @@ public final class GeneComponentModelEvolution implements GeneComponentModel<Evo
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
         ids_.addAllElts(evoTeamPokemon.subsPk());
         ids_.addAllElts(evoMove.subsMv());
+        ids_.addAllElts(evoMoveType.subsTy());
+        ids_.addAllElts(item.subsIt());
         return ids_;
     }
 
