@@ -5,8 +5,8 @@ import code.util.*;
 
 public abstract class GeneComponentModelEltCommon<T> {
     private final AbstractProgramInfos compoFactory;
-    private final CustList<T> elements;
-    protected GeneComponentModelEltCommon(AbstractProgramInfos _c, CustList<T> _elts) {
+    private final AbsMap<T,String> elements;
+    protected GeneComponentModelEltCommon(AbstractProgramInfos _c, AbsMap<T,String> _elts) {
         this.compoFactory = _c;
         elements = _elts;
     }
@@ -17,7 +17,7 @@ public abstract class GeneComponentModelEltCommon<T> {
         return compoFactory;
     }
 
-    public CustList<T> getElements() {
+    public AbsMap<T,String> getElements() {
         return elements;
     }
 }

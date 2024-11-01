@@ -5,6 +5,7 @@ import aiki.facade.*;
 import aiki.fight.enums.*;
 import aiki.fight.pokemon.*;
 import aiki.fight.pokemon.enums.*;
+import aiki.fight.pokemon.evolution.Evolution;
 import aiki.fight.util.*;
 import aiki.instances.*;
 import code.gui.*;
@@ -16,15 +17,16 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
     private final FacadeGame facade;
     private final GeneComponentModelRate weight;
     private final GeneComponentModelRate height;
-    private final GeneComponentModelLsStr types;
+    private final GeneComponentModelLsStrSub types;
     private final IdMap<Statistic, FormStatBaseEv> statistics = new IdMap<Statistic, FormStatBaseEv>();
     private final GeneComponentModelEltEnum<GenderRepartition> genderRep;
-    private final GeneComponentModelEltStr baseEvo;
+    private final GeneComponentModelEltStrSub baseEvo;
     private final GeneComponentModelEltEnum<ExpType> expEvo;
     private final CrudGeneFormList<LevelMove> levMoves;
+    private final CrudGeneFormEvolutions evolutions;
     private PokemonData element;
 
-    public GeneComponentModelPokemonData(AbsCommonFrame _fr, AbstractProgramInfos _core, FacadeGame _facade) {
+    public GeneComponentModelPokemonData(AbsCommonFrame _fr, AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
         this.compoFactory = _core;
         facade = _facade;
         weight = new GeneComponentModelRate(compoFactory);
@@ -35,6 +37,8 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
         expEvo =ConverterCommonMapUtil.buildExpType(compoFactory,_facade);
         levMoves = new CrudGeneFormList<LevelMove>(compoFactory);
         levMoves.setFrame(_fr);
+        evolutions = new CrudGeneFormEvolutions(_core,_facade,_sub);
+        evolutions.setFrame(_fr);
     }
     public static CrudGeneFormPkTr crudTr(AbsCommonFrame _fr, AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
         CrudGeneFormPkTr c_ = new CrudGeneFormPkTr(_core, _facade,_sub);
@@ -72,9 +76,12 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
         form_.add(baseEvo.geneEnum(element.getBaseEvo()));
         form_.add(expEvo.geneEnum(element.getExpEvo()));
         levMoves.initForm();
-        StringMap<String> messages_ = facade.getData().getTranslatedMoves().getVal(compoFactory.getLanguage());
+        StringMap<String> messages_ = new StringMap<String>(facade.getData().getTranslatedMoves().getVal(compoFactory.getLanguage()));
         levMoves.initForm(new DisplayEntryCustLevelMove(messages_),new GeneComponentModelLevelMove(compoFactory,facade), element.getLevMoves(),new ComparingLevelMove(messages_));
         form_.add(levMoves.getGroup());
+        evolutions.initForm();
+        evolutions.initForm(compoFactory, element.getEvolutions());
+        form_.add(evolutions.getGroup());
         sc_.setViewportView(form_);
         return sc_;
     }
@@ -92,6 +99,7 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
         ent_.setBaseEvo(baseEvo.tryRet(DataBase.EMPTY_STRING));
         ent_.setExpEvo(expEvo.tryRet(ExpType.M));
         ent_.setLevMoves(levMoves.getList());
+        ent_.setEvolutions(new StringMap<Evolution>(evolutions.getList()));
         return ent_;
     }
 
@@ -110,6 +118,7 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
         getBaseEvo().setupValue(_v.getBaseEvo());
         getExpEvo().setupValue(_v.getExpEvo());
         getLevMoves().setupValues(_v.getLevMoves());
+        getEvolutions().setupValues(_v.getEvolutions());
     }
 
     private void updateStats(PokemonData _v) {
@@ -122,7 +131,7 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
         }
     }
     public IdList<SubscribedTranslation> all() {
-        return new IdList<SubscribedTranslation>(new SubscribedTranslationPkSelect(getBaseEvo()));
+        return new IdList<SubscribedTranslation>(getBaseEvo().subsPk());
     }
 
     public GeneComponentModelRate getWeight() {
@@ -133,7 +142,7 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
         return height;
     }
 
-    public GeneComponentModelLsStr getTypes() {
+    public GeneComponentModelLsStrSub getTypes() {
         return types;
     }
 
@@ -145,7 +154,7 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
         return genderRep;
     }
 
-    public GeneComponentModelEltStr getBaseEvo() {
+    public GeneComponentModelEltStrSub getBaseEvo() {
         return baseEvo;
     }
 
@@ -155,5 +164,9 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
 
     public CrudGeneFormList<LevelMove> getLevMoves() {
         return levMoves;
+    }
+
+    public CrudGeneFormEvolutions getEvolutions() {
+        return evolutions;
     }
 }

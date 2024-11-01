@@ -7,7 +7,7 @@ import code.gui.initialize.AbstractProgramInfos;
 
 public class GeneComponentModelLevelMove implements GeneComponentModel<LevelMove> {
     private final AbstractProgramInfos programInfos;
-    private final GeneComponentModelEltStr move;
+    private final GeneComponentModelEltStrSub move;
     private final GeneComponentModelInt level;
 
     public GeneComponentModelLevelMove(AbstractProgramInfos _core, FacadeGame _facade) {

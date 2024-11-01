@@ -5,6 +5,7 @@ import code.sml.util.*;
 public final class MessagesPkEditor {
     public static final String PK_EDITOR = "pk_editor";
     public static final String GENDER_REP = "gender_rep";
+    public static final String EVO = "evo";
     private MessagesPkEditor() {
     }
 
@@ -19,17 +20,26 @@ public final class MessagesPkEditor {
     }
 
     public static void enTr(TranslationsAppli _lgs) {
-        appendMessagesEditorSelectContent(_lgs,MessagesEditorSelect.en());
+        appendMessagesEditorSelectGenderRep(_lgs,MessagesEditorSelect.enGenderRep());
+        appendMessagesEditorSelectEvo(_lgs,MessagesEditorSelect.enEvo());
     }
 
     public static void frTr(TranslationsAppli _lgs) {
-        appendMessagesEditorSelectContent(_lgs,MessagesEditorSelect.fr());
+        appendMessagesEditorSelectGenderRep(_lgs,MessagesEditorSelect.frGenderRep());
+        appendMessagesEditorSelectEvo(_lgs,MessagesEditorSelect.frEvo());
     }
 
-    public static void appendMessagesEditorSelectContent(TranslationsAppli _lgs, TranslationsFile _f) {
+    public static void appendMessagesEditorSelectGenderRep(TranslationsAppli _lgs, TranslationsFile _f) {
         _lgs.getMapping().addEntry(GENDER_REP, _f);
     }
-    public static TranslationsFile getMessagesEditorSelectContentTr(TranslationsAppli _lgs) {
+
+    public static void appendMessagesEditorSelectEvo(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(EVO, _f);
+    }
+    public static TranslationsFile getMessagesEditorSelectGenderRepTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(GENDER_REP);
+    }
+    public static TranslationsFile getMessagesEditorSelectEvoTr(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(EVO);
     }
 }

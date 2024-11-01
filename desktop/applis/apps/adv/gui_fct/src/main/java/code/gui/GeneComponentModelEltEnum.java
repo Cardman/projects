@@ -7,10 +7,10 @@ public final class GeneComponentModelEltEnum<E> extends GeneComponentModelElt<E>
 
     private final AbsMap<E, String> messages;
 
-    public GeneComponentModelEltEnum(AbstractProgramInfos _c, AbsMap<E,String> _messages, CustList<E> _elts) {
-        this(_c, new CustCellRenderGeneStrImpl<E>(_c.getImageFactory(),_messages), _elts);
+    public GeneComponentModelEltEnum(AbstractProgramInfos _c, AbsMap<E, String> _messages) {
+        this(_c, new CustCellRenderGeneStrImpl<E>(_c.getImageFactory(),_messages), _messages);
     }
-    public GeneComponentModelEltEnum(AbstractProgramInfos _c, CustCellRenderGeneStrImpl<E> _rend, CustList<E> _elts) {
+    public GeneComponentModelEltEnum(AbstractProgramInfos _c, CustCellRenderGeneStrImpl<E> _rend, AbsMap<E,String> _elts) {
         super(_c, _elts);
         messages = _rend.getMessages();
     }
@@ -27,7 +27,7 @@ public final class GeneComponentModelEltEnum<E> extends GeneComponentModelElt<E>
 
     @Override
     protected void setupValue(AbsStringScrollCustomCombo<E> _t, E _v) {
-        _t.select(new IdList<E>(getElements()).indexOfObj(_v));
+        _t.select(getElements().indexOfEntry(_v));
         _t.repaint();
     }
 }

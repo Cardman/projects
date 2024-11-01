@@ -1,9 +1,11 @@
 package aiki.gui.components.editor;
 
-import aiki.db.DataBase;
+import aiki.comparators.*;
+import aiki.db.*;
 import aiki.facade.*;
 import aiki.fight.pokemon.enums.*;
 import aiki.fight.util.*;
+import aiki.map.pokemon.enums.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.maths.*;
@@ -13,26 +15,68 @@ import code.util.core.*;
 public final class ConverterCommonMapUtil {
     private ConverterCommonMapUtil() {
     }
-    public static GeneComponentModelEltStr buildPk(AbstractProgramInfos _api, FacadeGame _facade) {
-        StringMap<String> messages_ = _facade.getData().getTranslatedPokemon().getVal(_api.getLanguage());
+    public static GeneComponentModelEltStrSub buildPk(AbstractProgramInfos _api, FacadeGame _facade) {
+        StringMap<String> messages_ = new StringMap<String>(_facade.getData().getTranslatedPokemon().getVal(_api.getLanguage()));
+        TreeMap<String, String> tree_ = new TreeMap<String, String>(new ComparatorTr<String>(messages_));
         StringList rem_ = new StringList(messages_.getKeys());
         rem_.removeAllElements(_facade.getData().getPokedex().getKeys());
-        return new GeneComponentModelEltStr(_api,messages_,rem_);
+        for (String s: rem_) {
+            tree_.put(s,messages_.getVal(s));
+        }
+        return merge(_api,new IdList<SubscribedTranslation>(),tree_,messages_);
     }
-    public static GeneComponentModelEltStr buildPkFull(AbstractProgramInfos _api, FacadeGame _facade) {
-        StringMap<String> messages_ = _facade.getData().getTranslatedPokemon().getVal(_api.getLanguage());
-        return new GeneComponentModelEltStr(_api,messages_,messages_.getKeys());
+    public static GeneComponentModelEltStrSub buildPkFull(AbstractProgramInfos _api, FacadeGame _facade) {
+        return mergeMap(_api, _facade.getData().getTranslatedPokemon());
     }
-    public static GeneComponentModelEltStr buildMvFull(AbstractProgramInfos _api, FacadeGame _facade) {
-        StringMap<String> messages_ = _facade.getData().getTranslatedMoves().getVal(_api.getLanguage());
-        return new GeneComponentModelEltStr(_api,messages_,messages_.getKeys());
+
+    public static GeneComponentModelEltStrSub buildMvFull(AbstractProgramInfos _api, FacadeGame _facade) {
+        return mergeMap(_api, _facade.getData().getTranslatedMoves());
     }
-    public static GeneComponentModelLsStr buildTypeList(AbstractProgramInfos _api, FacadeGame _facade){
-        StringMap<String> messages_ = _facade.getData().getTranslatedTypes().getVal(_api.getLanguage());
-        return new GeneComponentModelLsStr(_api, messages_,new StringList(messages_.getKeys()));
+    public static GeneComponentModelEltStrSub buildItFull(AbstractProgramInfos _api, FacadeGame _facade) {
+        return mergeMap(_api, _facade.getData().getTranslatedItems());
+    }
+    public static GeneComponentModelEltStrSub buildTypeElt(AbstractProgramInfos _api, FacadeGame _facade){
+        return mergeMap(_api, _facade.getData().getTranslatedTypes());
+    }
+    public static GeneComponentModelLsStrSub buildTypeList(AbstractProgramInfos _api, FacadeGame _facade){
+        return mergeMapLs(_api, _facade.getData().getTranslatedTypes());
+    }
+
+    private static GeneComponentModelEltStrSub mergeMap(AbstractProgramInfos _api, StringMap<StringMap<String>> _trs) {
+        IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
+        StringMap<String> messages_ = new StringMap<String>(_trs.getVal(_api.getLanguage()));
+        TreeMap<String, String> tree_ = new TreeMap<String, String>(new ComparatorTr<String>(messages_));
+        tree_.putAllMap(messages_);
+        return merge(_api, ids_, tree_,messages_);
+    }
+
+    private static GeneComponentModelEltStrSub merge(AbstractProgramInfos _api, IdList<SubscribedTranslation> _ids, TreeMap<String, String> _tree, StringMap<String> _messages) {
+        GeneComponentModelEltStrSub g_ = new GeneComponentModelEltStrSub(new GeneComponentModelEltStr(_api, _tree));
+        _ids.add(new SubscribedTranslationPkMessages(_messages));
+        g_.getSubs().addAllElts(_ids);
+        return g_;
+    }
+
+    private static GeneComponentModelLsStrSub mergeMapLs(AbstractProgramInfos _api, StringMap<StringMap<String>> _trs) {
+        IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
+        StringMap<String> messages_ = new StringMap<String>(_trs.getVal(_api.getLanguage()));
+        TreeMap<String, String> tree_ = new TreeMap<String, String>(new ComparatorTr<String>(messages_));
+        tree_.putAllMap(messages_);
+        return mergeLs(_api, ids_, tree_, messages_);
+    }
+
+    private static GeneComponentModelLsStrSub mergeLs(AbstractProgramInfos _api, IdList<SubscribedTranslation> _ids, TreeMap<String, String> _tree, StringMap<String> _messages) {
+        GeneComponentModelLsStrSub g_ = new GeneComponentModelLsStrSub(new GeneComponentModelLsStr(_api, _tree));
+        _ids.add(new SubscribedTranslationPkMessages(_messages));
+        g_.getSubs().addAllElts(_ids);
+        return g_;
+    }
+
+    public static GeneComponentModelEltEnum<Gender> buildGender(AbstractProgramInfos _api, FacadeGame _facade){
+        return new GeneComponentModelEltEnum<Gender>(_api,_facade.getData().getTranslatedGenders().getVal(_api.getLanguage()));
     }
     public static GeneComponentModelEltEnum<GenderRepartition> buildGenderRepartition(AbstractProgramInfos _api){
-        return new GeneComponentModelEltEnum<GenderRepartition>(_api,messages(MessagesPkEditor.getMessagesEditorSelectContentTr(MessagesPkEditor.getAppliTr(_api.currentLg())).getMapping()), GenderRepartition.all());
+        return new GeneComponentModelEltEnum<GenderRepartition>(_api,messages(MessagesPkEditor.getMessagesEditorSelectGenderRepTr(MessagesPkEditor.getAppliTr(_api.currentLg())).getMapping()));
     }
     public static GeneComponentModelEltEnum<ExpType> buildExpType(AbstractProgramInfos _api, FacadeGame _facade){
         DataBase data_ = _facade.getData();
@@ -46,7 +90,7 @@ public final class ConverterCommonMapUtil {
                 messages_.addEntry(e,data_.getFormula(litt_,data_.getLanguage()));
             }
         }
-        return new GeneComponentModelEltEnum<ExpType>(_api,messages_, all_);
+        return new GeneComponentModelEltEnum<ExpType>(_api,messages_);
     }
     public static StringMap<StringMap<String>> toEntityLg(StringMap<StringMap<String>> _map) {
         StringMap<StringMap<String>> inv_ = new StringMap<StringMap<String>>();

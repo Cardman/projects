@@ -21,7 +21,7 @@ public abstract class AbsCrudGeneFormMap<K,V> extends AbsCrudGeneForm {
 
     public void initForm(DisplayEntryCust<K, V> _disp, GeneComponentModel<K> _k, GeneComponentModel<V> _v, Comparing<K> _cmp, AbsMap<K, V> _map) {
         setGeneKey(_k);
-        geneValue = _v;
+        setGeneValue(_v);
         setDisplayEntry(_disp);
         list = new TreeMap<K, V>(_cmp);
         setupValues(_map);
@@ -89,9 +89,16 @@ public abstract class AbsCrudGeneFormMap<K,V> extends AbsCrudGeneForm {
 
     public void setupValues(AbsMap<K,V> _values) {
         list.clear();
-        list.putAllMap(_values);
+        list.addAllEntries(_values);
+        possibleSort();
         refresh();
     }
+
+    @Override
+    public void possibleSort() {
+        list.reset();
+    }
+
     public int getSelectedIndex() {
         return selectedIndex;
     }
@@ -108,6 +115,10 @@ public abstract class AbsCrudGeneFormMap<K,V> extends AbsCrudGeneForm {
         return geneValue;
     }
 
+
+    public void setGeneValue(GeneComponentModel<V> _g) {
+        this.geneValue = _g;
+    }
 
     public void setDisplayEntry(DisplayEntryCust<K, V> _d) {
         this.displayEntry = _d;

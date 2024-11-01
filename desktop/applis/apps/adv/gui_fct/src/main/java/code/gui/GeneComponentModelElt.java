@@ -5,7 +5,7 @@ import code.util.*;
 
 public abstract class GeneComponentModelElt<T> extends GeneComponentModelEltCommon<T> implements GeneComponentModel<T> {
     private AbsStringScrollCustomCombo<T> select;
-    protected GeneComponentModelElt(AbstractProgramInfos _c, CustList<T> _elts) {
+    protected GeneComponentModelElt(AbstractProgramInfos _c, AbsMap<T,String> _elts) {
         super(_c, _elts);
     }
 
@@ -28,10 +28,23 @@ public abstract class GeneComponentModelElt<T> extends GeneComponentModelEltComm
     }
 
     protected void feed() {
-        for (T e: getElements()) {
+        for (T e: getElements().getKeys()) {
             select.add(e);
         }
         select.repaint();
+    }
+
+    public void reset() {
+        if (select == null) {
+            return;
+        }
+        T selected_ = tryRet(defValue());
+        getElements().reset();
+        select.clear();
+        for (T e: getElements().getKeys()) {
+            select.add(e);
+        }
+        setupValue(selected_);
     }
     protected abstract AbsStringScrollCustomCombo<T> buildSelect();
 
@@ -59,10 +72,11 @@ public abstract class GeneComponentModelElt<T> extends GeneComponentModelEltComm
     }
 
     private T tryRet(int _sel, T _d) {
-        if (!getElements().isValidIndex(_sel)) {
+        CustList<T> ls_ = select.getList().getList();
+        if (!ls_.isValidIndex(_sel)) {
             return _d;
         }
-        return getElements().get(_sel);
+        return ls_.get(_sel);
     }
 
     protected abstract T defValue();

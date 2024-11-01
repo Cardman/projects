@@ -121,6 +121,7 @@ public abstract class AbsCrudGeneForm {
         visibleSingle = false;
         getFrame().pack();
     }
+    public abstract void possibleSort();
     private void enable(boolean _e) {
         for (AbsButton b: getAllButtons()) {
             b.setEnabled(_e);

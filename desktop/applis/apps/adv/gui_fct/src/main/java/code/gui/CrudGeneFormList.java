@@ -91,7 +91,7 @@ public final class CrudGeneFormList<E> extends AbsCrudGeneForm {
         possibleSort();
         refresh();
     }
-    private void possibleSort() {
+    public void possibleSort() {
         if (cmp != null) {
             list.sortElts(cmp);
         }
