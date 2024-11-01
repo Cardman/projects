@@ -3,7 +3,8 @@ package aiki.gui.components.editor;
 import aiki.facade.FacadeGame;
 import aiki.fight.util.*;
 import code.gui.*;
-import code.gui.initialize.AbstractProgramInfos;
+import code.gui.initialize.*;
+import code.util.*;
 
 public class GeneComponentModelLevelMove implements GeneComponentModel<LevelMove> {
     private final AbstractProgramInfos programInfos;
@@ -37,5 +38,18 @@ public class GeneComponentModelLevelMove implements GeneComponentModel<LevelMove
         level.valueInt(_v.getLevel());
         move.setupValue(_v.getMove());
         return null;
+    }
+    public IdList<SubscribedTranslation> all() {
+        IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
+        ids_.addAllElts(move.subsMv());
+        return ids_;
+    }
+
+    public GeneComponentModelInt getLevel() {
+        return level;
+    }
+
+    public GeneComponentModelEltStrSub getMove() {
+        return move;
     }
 }

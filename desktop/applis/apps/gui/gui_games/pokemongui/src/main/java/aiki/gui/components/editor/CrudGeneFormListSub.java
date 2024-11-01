@@ -1,22 +1,17 @@
 package aiki.gui.components.editor;
 
-import aiki.comparators.*;
 import aiki.facade.*;
 import code.gui.*;
 import code.gui.initialize.*;
-import code.util.*;
+import code.util.IdList;
+import code.util.ints.*;
 
-public abstract class CrudGeneFormSub<K,V> extends AbsCrudGeneFormMap<K, V> {
+public abstract class CrudGeneFormListSub<E> extends AbsCrudGeneFormList<E> {
     private final CrudGeneFormSubContent crudGeneFormSubContent;
 
-    protected CrudGeneFormSub(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub) {
-        super(_fact);
+    protected CrudGeneFormListSub(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub, Comparing<E> _c) {
+        super(_fact, _c);
         crudGeneFormSubContent = new CrudGeneFormSubContent(_facade, _sub);
-
-    }
-
-    public void initForm(AbsMap<K, String> _disp, GeneComponentModel<K> _k, GeneComponentModel<V> _v, AbsMap<K, V> _map) {
-        initForm(new DisplayKeyOnly<K, V>(_disp),_k,_v,new ComparatorTr<K>(_disp),_map);
     }
 
     public CrudGeneFormSubContent getCrudGeneFormSubContent() {
@@ -40,8 +35,6 @@ public abstract class CrudGeneFormSub<K,V> extends AbsCrudGeneFormMap<K, V> {
 
     protected void subscribeAll() {
         getCrudGeneFormSubContent().addAllSub(subscribe());
-        getCrudGeneFormSubContent().addSub(new SubscribedTranslationPkKey<K, V>(this));
     }
     protected abstract IdList<SubscribedTranslation> subscribe();
-    public abstract void updateDisplayEntry(AbstractProgramInfos _api, FacadeGame _facade);
 }

@@ -379,7 +379,7 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         tryClick(c_.getAdd());
         c_.getGeneKey().value(P_1);
-        CrudGeneFormList<LevelMove> levMoves_ = g_.getLevMoves();
+        CrudGeneFormListSubLevelMove levMoves_ = g_.getLevMoves();
         tryClick(levMoves_.getAdd());
         levMoves_.getGene().value(new LevelMove((short)1,M_1));
         tryClick(levMoves_.getValidAddEdit());
@@ -622,6 +622,51 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
         tryClick(levMoves_.getValidRemove());
         tryClick(c_.getValidAddEdit());
         assertEq(0,facade_.getData().getPokemon(P_1).getEvolutions().size());
+    }
+    @Test
+    public void pkForm30() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        facade_.getData().getExpGrowth().addEntry(ExpType.E,"1");
+        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
+        CrudGeneFormPk c_ = crud(pr_, facade_, sub_);
+        GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
+        tryClick(c_.getAdd());
+        c_.getGeneKey().value(P_1);
+        CrudGeneFormListSubLevelMove levMoves_ = g_.getLevMoves();
+        tryClick(levMoves_.getAdd());
+        levMoves_.getGene().value(new LevelMove((short)1,M_1));
+        tryClick(levMoves_.getValidAddEdit());
+        tryClick(levMoves_.getAllButtons().get(0));
+        tryClick(levMoves_.getValidRemove());
+        tryClick(c_.getValidAddEdit());
+        assertEq(0,facade_.getData().getPokemon(P_1).getLevMoves().size());
+    }
+    @Test
+    public void pkForm31() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        facade_.getData().getExpGrowth().addEntry(ExpType.E,"1");
+        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
+        CrudGeneFormPkTr cTr_ = crudTr(pr_, facade_, sub_);
+        CrudGeneFormPk c_ = crud(pr_, facade_, sub_);
+        GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
+        tryClick(c_.getAdd());
+        c_.getGeneKey().value(P_1);
+        CrudGeneFormListSubLevelMove levMoves_ = g_.getLevMoves();
+        tryClick(levMoves_.getAdd());
+        levMoves_.getGeneComponentModelLevelMove().getLevel().value(1);
+        levMoves_.getGeneComponentModelLevelMove().getMove().setupValue(M_1);
+        tryClick(levMoves_.getValidAddEdit());
+        tryClick(levMoves_.getAllButtons().get(0));
+        tryClick(cTr_.getAdd());
+        cTr_.getGeneKey().value(P_4);
+        GeneComponentModelTr gTr_ = (GeneComponentModelTr) cTr_.getGeneValue();
+        gTr_.getTranslations().getVal(pr_.getLanguage()).setText("p_2");
+        tryClick(cTr_.getValidAddEdit());
+        tryClick(levMoves_.getCancel());
+        tryClick(c_.getValidAddEdit());
+        assertEq(1,facade_.getData().getPokemon(P_1).getLevMoves().size());
     }
     private CrudGeneFormPk crud(AbstractProgramInfos _core, FacadeGame _facade) {
         SubscribedTranslationList sub_ = new SubscribedTranslationList(_core,_facade);

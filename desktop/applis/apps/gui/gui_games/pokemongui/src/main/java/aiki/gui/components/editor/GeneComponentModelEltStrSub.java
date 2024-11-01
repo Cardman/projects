@@ -17,6 +17,9 @@ public final class GeneComponentModelEltStrSub extends GeneComponentModelEltStrC
     public IdList<SubscribedTranslation> subsPk() {
         return subs(new SubscribedTranslationPkMessages(getSelectUniq().getMessages()));
     }
+    public IdList<SubscribedTranslation> subsMv() {
+        return subs(new SubscribedTranslationMvMessages(getSelectUniq().getMessages()));
+    }
     public IdList<SubscribedTranslation> subs(SubscribedTranslation _s) {
         IdList<SubscribedTranslation> s_ = new IdList<SubscribedTranslation>(getSubs());
         s_.add(_s);

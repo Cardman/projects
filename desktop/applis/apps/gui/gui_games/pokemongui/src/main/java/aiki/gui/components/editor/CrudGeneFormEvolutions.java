@@ -13,9 +13,9 @@ public final class CrudGeneFormEvolutions extends CrudGeneFormBasicSub<String, E
 
     }
     public void initForm(AbstractProgramInfos _core, StringMap<Evolution> _evos) {
-        clear();
-        StringMap<String> messages_ = new StringMap<String>(getFacadeGame().getData().getTranslatedPokemon().getVal(_core.getLanguage()));
-        geneComponentModelEvolution = new GeneComponentModelEvolution(getFrame(),_core, getFacadeGame());
+        getCrudGeneFormSubContent().clear();
+        StringMap<String> messages_ = new StringMap<String>(getCrudGeneFormSubContent().getFacadeGame().getData().getTranslatedPokemon().getVal(_core.getLanguage()));
+        geneComponentModelEvolution = new GeneComponentModelEvolution(getFrame(),_core, getCrudGeneFormSubContent().getFacadeGame());
         subscribeAll();
         initForm();
         initForm(messages_, getGeneKey(), geneComponentModelEvolution, _evos);
@@ -23,7 +23,7 @@ public final class CrudGeneFormEvolutions extends CrudGeneFormBasicSub<String, E
 
     @Override
     protected IdList<SubscribedTranslation> subscribe() {
-        GeneComponentModelEltStrSub key_ = ConverterCommonMapUtil.buildPk(getFactory(), getFacadeGame());
+        GeneComponentModelEltStrSub key_ = ConverterCommonMapUtil.buildPk(getFactory(), getCrudGeneFormSubContent().getFacadeGame());
         setGeneKey(key_.getSelectUniq());
         return new IdList<SubscribedTranslation>(key_.subsPk());
     }
@@ -39,7 +39,7 @@ public final class CrudGeneFormEvolutions extends CrudGeneFormBasicSub<String, E
 
     @Override
     protected void afterChange() {
-        removeOpenSub();
+        getCrudGeneFormSubContent().removeOpenSub();
         subscribeAll();
         afterModif();
     }

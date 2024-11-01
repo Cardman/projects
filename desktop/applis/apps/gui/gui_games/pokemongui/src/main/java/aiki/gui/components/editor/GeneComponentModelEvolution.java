@@ -173,7 +173,10 @@ public final class GeneComponentModelEvolution implements GeneComponentModel<Evo
         return null;
     }
     public IdList<SubscribedTranslation> all() {
-        return new IdList<SubscribedTranslation>(evoTeamPokemon.subsPk());
+        IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
+        ids_.addAllElts(evoTeamPokemon.subsPk());
+        ids_.addAllElts(evoMove.subsMv());
+        return ids_;
     }
 
     public GeneComponentModelEltEnum<Gender> getEvoGender() {

@@ -14,53 +14,55 @@ public final class CrudGeneFormPk extends CrudGeneFormSub<String, PokemonData> {
         initForm();
     }
     public void initForm(AbsCommonFrame _fr, AbstractProgramInfos _core) {
-        clearSub();
-        StringMap<String> messages_ = new StringMap<String>(getFacadeGame().getData().getTranslatedPokemon().getVal(_core.getLanguage()));
-        geneComponentModelPokemonData = new GeneComponentModelPokemonData(_fr,_core, getFacadeGame(), getSubscription());
+        getCrudGeneFormSubContent().clearSub();
+        FacadeGame facadeGame_ = getCrudGeneFormSubContent().getFacadeGame();
+        StringMap<String> messages_ = new StringMap<String>(facadeGame_.getData().getTranslatedPokemon().getVal(_core.getLanguage()));
+        geneComponentModelPokemonData = new GeneComponentModelPokemonData(_fr,_core, facadeGame_, getCrudGeneFormSubContent().getSubscription());
         subscribeAll();
-        initForm(messages_, getGeneKey(), geneComponentModelPokemonData, getFacadeGame().getData().getPokedex());
+        initForm(messages_, getGeneKey(), geneComponentModelPokemonData, facadeGame_.getData().getPokedex());
         setFrame(_fr);
     }
 
     @Override
     protected void afterModif(int _index, String _key, PokemonData _value) {
+        FacadeGame facadeGame_ = getCrudGeneFormSubContent().getFacadeGame();
         if (_index > -1) {
-            int old_ = getFacadeGame().getData().getPokedex().size();
-            StringMap<StringMap<String>> bk_ = ConverterCommonMapUtil.backUp(getFacadeGame().getData().getTranslatedPokemon());
-            getFacadeGame().getData().deletePokemon(_key);
-            if (old_ > getFacadeGame().getData().getPokedex().size()) {
-                getFacadeGame().getData().getTranslatedPokemon().clear();
-                getFacadeGame().getData().getTranslatedPokemon().addAllEntries(bk_);
+            int old_ = facadeGame_.getData().getPokedex().size();
+            StringMap<StringMap<String>> bk_ = ConverterCommonMapUtil.backUp(facadeGame_.getData().getTranslatedPokemon());
+            facadeGame_.getData().deletePokemon(_key);
+            if (old_ > facadeGame_.getData().getPokedex().size()) {
+                facadeGame_.getData().getTranslatedPokemon().clear();
+                facadeGame_.getData().getTranslatedPokemon().addAllEntries(bk_);
                 getList().remove(_index);
                 afterChange();
             }
             return;
         }
         if (getSelectedIndex() < 0) {
-            getFacadeGame().getData().completeQuickMembers(_key,_value);
+            facadeGame_.getData().completeQuickMembers(_key,_value);
             afterChange();
             return;
         }
-        getFacadeGame().getData().getPokedex().set(_key, _value);
+        facadeGame_.getData().getPokedex().set(_key, _value);
         afterChange();
     }
 
     @Override
     protected void afterChange() {
-        removeOpenSub();
+        getCrudGeneFormSubContent().removeOpenSub();
         subscribeAll();
         afterModif();
     }
 
     @Override
     public void cancel() {
-        geneComponentModelPokemonData.getEvolutions().removeOpenSub();
+        geneComponentModelPokemonData.getEvolutions().getCrudGeneFormSubContent().removeOpenSub();
         super.cancel();
     }
 
     @Override
     protected IdList<SubscribedTranslation> subscribe() {
-        GeneComponentModelEltStrSub key_ = ConverterCommonMapUtil.buildPk(getFactory(), getFacadeGame());
+        GeneComponentModelEltStrSub key_ = ConverterCommonMapUtil.buildPk(getFactory(), getCrudGeneFormSubContent().getFacadeGame());
         setGeneKey(key_.getSelectUniq());
         return new IdList<SubscribedTranslation>(key_.subsPk());
     }

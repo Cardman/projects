@@ -22,7 +22,7 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
     private final GeneComponentModelEltEnum<GenderRepartition> genderRep;
     private final GeneComponentModelEltStrSub baseEvo;
     private final GeneComponentModelEltEnum<ExpType> expEvo;
-    private final CrudGeneFormList<LevelMove> levMoves;
+    private final CrudGeneFormListSubLevelMove levMoves;
     private final CrudGeneFormEvolutions evolutions;
     private PokemonData element;
 
@@ -35,7 +35,7 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
         genderRep =ConverterCommonMapUtil.buildGenderRepartition(compoFactory);
         baseEvo = ConverterCommonMapUtil.buildPkFull(compoFactory,_facade);
         expEvo =ConverterCommonMapUtil.buildExpType(compoFactory,_facade);
-        levMoves = new CrudGeneFormList<LevelMove>(compoFactory);
+        levMoves = new CrudGeneFormListSubLevelMove(compoFactory,_facade,_sub);
         levMoves.setFrame(_fr);
         evolutions = new CrudGeneFormEvolutions(_core,_facade,_sub);
         evolutions.setFrame(_fr);
@@ -75,9 +75,7 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
         form_.add(genderRep.geneEnum(element.getGenderRep()));
         form_.add(baseEvo.geneEnum(element.getBaseEvo()));
         form_.add(expEvo.geneEnum(element.getExpEvo()));
-        levMoves.initForm();
-        StringMap<String> messages_ = new StringMap<String>(facade.getData().getTranslatedMoves().getVal(compoFactory.getLanguage()));
-        levMoves.initForm(new DisplayEntryCustLevelMove(messages_),new GeneComponentModelLevelMove(compoFactory,facade), element.getLevMoves(),new ComparingLevelMove(messages_));
+        levMoves.initForm(compoFactory, element.getLevMoves());
         form_.add(levMoves.getGroup());
         evolutions.initForm();
         evolutions.initForm(compoFactory, element.getEvolutions());
@@ -162,7 +160,7 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
         return expEvo;
     }
 
-    public CrudGeneFormList<LevelMove> getLevMoves() {
+    public CrudGeneFormListSubLevelMove getLevMoves() {
         return levMoves;
     }
 

@@ -23,45 +23,45 @@ public final class ConverterCommonMapUtil {
         for (String s: rem_) {
             tree_.put(s,messages_.getVal(s));
         }
-        return merge(_api,new IdList<SubscribedTranslation>(),tree_,messages_);
+        return merge(_api, tree_, new SubscribedTranslationPkMessages(messages_));
     }
     public static GeneComponentModelEltStrSub buildPkFull(AbstractProgramInfos _api, FacadeGame _facade) {
-        return mergeMap(_api, _facade.getData().getTranslatedPokemon());
+        StringMap<String> messages_ = new StringMap<String>(_facade.getData().getTranslatedPokemon().getVal(_api.getLanguage()));
+        return merge(_api, feedTree(messages_), new SubscribedTranslationPkMessages(messages_));
     }
 
     public static GeneComponentModelEltStrSub buildMvFull(AbstractProgramInfos _api, FacadeGame _facade) {
-        return mergeMap(_api, _facade.getData().getTranslatedMoves());
+        StringMap<String> messages_ = new StringMap<String>(_facade.getData().getTranslatedMoves().getVal(_api.getLanguage()));
+        return merge(_api, feedTree(messages_), new SubscribedTranslationMvMessages(messages_));
     }
     public static GeneComponentModelEltStrSub buildItFull(AbstractProgramInfos _api, FacadeGame _facade) {
-        return mergeMap(_api, _facade.getData().getTranslatedItems());
+        StringMap<String> messages_ = new StringMap<String>(_facade.getData().getTranslatedItems().getVal(_api.getLanguage()));
+        return merge(_api, feedTree(messages_), new SubscribedTranslationPkMessages(messages_));
     }
     public static GeneComponentModelEltStrSub buildTypeElt(AbstractProgramInfos _api, FacadeGame _facade){
-        return mergeMap(_api, _facade.getData().getTranslatedTypes());
+        StringMap<String> messages_ = new StringMap<String>(_facade.getData().getTranslatedTypes().getVal(_api.getLanguage()));
+        return merge(_api, feedTree(messages_), new SubscribedTranslationPkMessages(messages_));
     }
     public static GeneComponentModelLsStrSub buildTypeList(AbstractProgramInfos _api, FacadeGame _facade){
         return mergeMapLs(_api, _facade.getData().getTranslatedTypes());
     }
 
-    private static GeneComponentModelEltStrSub mergeMap(AbstractProgramInfos _api, StringMap<StringMap<String>> _trs) {
-        IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
-        StringMap<String> messages_ = new StringMap<String>(_trs.getVal(_api.getLanguage()));
-        TreeMap<String, String> tree_ = new TreeMap<String, String>(new ComparatorTr<String>(messages_));
-        tree_.putAllMap(messages_);
-        return merge(_api, ids_, tree_,messages_);
+    private static TreeMap<String, String> feedTree(StringMap<String> _messages) {
+        TreeMap<String, String> tree_ = new TreeMap<String, String>(new ComparatorTr<String>(_messages));
+        tree_.putAllMap(_messages);
+        return tree_;
     }
 
-    private static GeneComponentModelEltStrSub merge(AbstractProgramInfos _api, IdList<SubscribedTranslation> _ids, TreeMap<String, String> _tree, StringMap<String> _messages) {
+    private static GeneComponentModelEltStrSub merge(AbstractProgramInfos _api, TreeMap<String, String> _tree, SubscribedTranslation _sub) {
         GeneComponentModelEltStrSub g_ = new GeneComponentModelEltStrSub(new GeneComponentModelEltStr(_api, _tree));
-        _ids.add(new SubscribedTranslationPkMessages(_messages));
-        g_.getSubs().addAllElts(_ids);
+        g_.getSubs().add(_sub);
         return g_;
     }
 
     private static GeneComponentModelLsStrSub mergeMapLs(AbstractProgramInfos _api, StringMap<StringMap<String>> _trs) {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
         StringMap<String> messages_ = new StringMap<String>(_trs.getVal(_api.getLanguage()));
-        TreeMap<String, String> tree_ = new TreeMap<String, String>(new ComparatorTr<String>(messages_));
-        tree_.putAllMap(messages_);
+        TreeMap<String, String> tree_ = feedTree(messages_);
         return mergeLs(_api, ids_, tree_, messages_);
     }
 
