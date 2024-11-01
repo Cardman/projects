@@ -244,4 +244,16 @@ public class TreeMapTest extends EquallableExUtil {
         assertEq(4, mapToPut_.getValue(1));
     }
 
+    @Test
+    public void resetTest() {
+        TreeMap<String,Integer> map_ = new TreeMap<String,Integer>(new NaturalComparator());
+        map_.put("ONE", 1);
+        map_.put("TWO", 2);
+        map_.reset();
+        assertEq(2, map_.size());
+        assertEq("ONE", map_.getKey(0));
+        assertEq(1, map_.getValue(0));
+        assertEq("TWO", map_.getKey(1));
+        assertEq(2, map_.getValue(1));
+    }
 }

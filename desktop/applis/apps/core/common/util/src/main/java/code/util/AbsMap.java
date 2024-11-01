@@ -120,6 +120,14 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V>, IntIndexOfE
     }
 
 
+    public void reset() {
+        CustList<EntryCust<K,V>> ls_ = new CustList<EntryCust<K, V>>(list);
+        list.clear();
+        for (EntryCust<K,V> e: ls_) {
+            put(e.getKey(),e.getValue());
+        }
+    }
+
     @Override
     public void put(K _key, V _v) {
         int index_ = indexOfEntry(_key);
