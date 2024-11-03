@@ -6,6 +6,7 @@ import code.gui.*;
 import code.gui.events.QuittingEvent;
 import code.gui.initialize.*;
 //import code.stream.*;
+import code.util.EntryCust;
 import code.util.IdList;
 
 public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
@@ -61,7 +62,10 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
     @Override
     public void quit() {
         getCommonFrame().setVisible(false);
-        subscriptions.getSubscribedTranslations().clear();
+        for (EntryCust<AbsCommonFrame, IdList<SubscribedTranslation>> e: subscriptions.getSubscribedTranslations().entryList()) {
+            e.getKey().setVisible(false);
+            e.getValue().clear();
+        }
         GuiBaseUtil.trEx(this, getFrames());
     }
 

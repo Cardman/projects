@@ -1,11 +1,8 @@
 package aiki.gui.components.editor;
 
-import aiki.facade.FacadeGame;
-import code.gui.initialize.AbstractProgramInfos;
-import code.util.IdList;
+import code.util.*;
 
 public interface CrudGeneFormSubUp {
-    void updateDisplayEntry(AbstractProgramInfos _api, FacadeGame _facade);
     void subscribeAll(IdList<SubscribedTranslation> _sub);
     IdList<SubscribedTranslation> subscribe();
 }

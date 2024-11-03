@@ -55,6 +55,7 @@ public final class CrudGeneFormPk extends CrudGeneFormSub<String, PokemonData> {
     @Override
     public void cancel() {
         geneComponentModelPokemonData.getEvolutions().getCrudGeneFormSubContent().removeOpenSub();
+        geneComponentModelPokemonData.getLevMoves().getCrudGeneFormSubContent().removeOpenSub();
         super.cancel();
     }
 
@@ -63,18 +64,14 @@ public final class CrudGeneFormPk extends CrudGeneFormSub<String, PokemonData> {
         GeneComponentModelEltStrSub key_ = geneComponentModelSelectKey;
         setGeneKey(key_.getSelectUniq());
         return new IdList<SubscribedTranslation>(key_.getSubs());
-//        return new IdList<SubscribedTranslation>(key_.subsPk());
-    }
-
-    @Override
-    public void updateDisplayEntry(AbstractProgramInfos _api, FacadeGame _facade) {
-        possibleSort();
-        refresh();
     }
 
     @Override
     protected IdList<SubscribedTranslation> all() {
-        return geneComponentModelPokemonData.all();
+        IdList<SubscribedTranslation> all_ = new IdList<SubscribedTranslation>();
+        all_.addAllElts(geneComponentModelSelectKey.getSubs());
+        all_.addAllElts(geneComponentModelPokemonData.all());
+        return all_;
     }
 
 }

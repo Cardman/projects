@@ -29,12 +29,6 @@ public final class CrudGeneFormListSubLevelMove extends CrudGeneFormListSub<Leve
     }
 
     @Override
-    public void updateDisplayEntry(AbstractProgramInfos _api, FacadeGame _facade) {
-        possibleSort();
-        refresh();
-    }
-
-    @Override
     public IdList<SubscribedTranslation> subscribe() {
         return new IdList<SubscribedTranslation>();
     }

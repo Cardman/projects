@@ -37,11 +37,7 @@ public final class CrudGeneFormEvolutions extends CrudGeneFormBasicSub<String, E
         ids_.add(new SubscribedTranslationPkKey(this));
         return ids_;
     }
-    @Override
-    public void updateDisplayEntry(AbstractProgramInfos _api, FacadeGame _facade) {
-        possibleSort();
-        refresh();
-    }
+
     @Override
     protected IdList<SubscribedTranslation> all() {
         IdList<SubscribedTranslation> all_ = new IdList<SubscribedTranslation>();
