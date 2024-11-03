@@ -3,7 +3,7 @@ package code.gui;
 import code.gui.initialize.*;
 import code.util.*;
 
-public abstract class GeneComponentModelElt<T> extends GeneComponentModelEltCommon<T> implements GeneComponentModel<T> {
+public abstract class GeneComponentModelElt<T> extends GeneComponentModelEltCommon<T> implements GeneComponentModel<T>,GeneComponentModelStr {
     private AbsStringScrollCustomCombo<T> select;
     protected GeneComponentModelElt(AbstractProgramInfos _c, AbsMap<T,String> _elts) {
         super(_c, _elts);
@@ -34,6 +34,7 @@ public abstract class GeneComponentModelElt<T> extends GeneComponentModelEltComm
         select.repaint();
     }
 
+    @Override
     public void reset() {
         if (select == null) {
             return;

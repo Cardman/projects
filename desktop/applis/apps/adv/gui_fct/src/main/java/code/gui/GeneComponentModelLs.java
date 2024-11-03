@@ -6,7 +6,7 @@ import code.util.*;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
-public abstract class GeneComponentModelLs<T> extends GeneComponentModelEltCommon<T> {
+public abstract class GeneComponentModelLs<T> extends GeneComponentModelEltCommon<T> implements GeneComponentModelStr {
     private DefScrollCustomGraphicList<T> select;
     private final DefCustCellRenderGeneImpl<T> render;
 
@@ -39,6 +39,7 @@ public abstract class GeneComponentModelLs<T> extends GeneComponentModelEltCommo
         select.revalidate();
     }
 
+    @Override
     public void reset() {
         if (select == null) {
             return;

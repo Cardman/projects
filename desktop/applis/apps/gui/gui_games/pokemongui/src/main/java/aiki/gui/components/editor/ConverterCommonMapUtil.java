@@ -49,9 +49,7 @@ public final class ConverterCommonMapUtil {
         TreeMap<String, String> treeFilter_ = feedTree(sub_, rem_);
         GeneComponentModelEltStr sel_ = new GeneComponentModelEltStr(_api, treeFilter_);
         GeneComponentModelEltStrSub g_ = new GeneComponentModelEltStrSub(sel_);
-        g_.getSubs().add(_builder.buildSub(sub_));
-        g_.getSubs().add(_builder.buildSub(treeFilter_));
-        g_.getSubs().add(new SubscribedTranslationSelect(sel_));
+        feedSub(_builder, sub_, treeFilter_, sel_, g_.getSubs());
         return g_;
     }
 
@@ -66,10 +64,16 @@ public final class ConverterCommonMapUtil {
         StringMap<String> sub_ = _builder.buildMessages(_api, _sub);
         StringList rem_ = new StringList(sub_.getKeys());
         TreeMap<String, String> treeFilter_ = feedTree(sub_, rem_);
-        GeneComponentModelLsStrSub g_ = new GeneComponentModelLsStrSub(new GeneComponentModelLsStr(_api, treeFilter_));
-        g_.getSubs().add(_builder.buildSub(sub_));
-        g_.getSubs().add(_builder.buildSub(treeFilter_));
+        GeneComponentModelLsStr sel_ = new GeneComponentModelLsStr(_api, treeFilter_);
+        GeneComponentModelLsStrSub g_ = new GeneComponentModelLsStrSub(sel_);
+        feedSub(_builder, sub_, treeFilter_, sel_, g_.getSubs());
         return g_;
+    }
+
+    private static void feedSub(SubscribedTranslationMessagesFactory _builder, StringMap<String> _sub, TreeMap<String, String> _treeFilter, GeneComponentModelStr _sel, IdList<SubscribedTranslation> _subs) {
+        _subs.add(_builder.buildSub(_sub));
+        _subs.add(_builder.buildSub(_treeFilter));
+        _subs.add(new SubscribedTranslationSelect(_sel));
     }
 
     public static GeneComponentModelEltEnum<Gender> buildGender(AbstractProgramInfos _api, FacadeGame _facade){
