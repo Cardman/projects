@@ -13,18 +13,21 @@ public final class CrudGeneFormPkTr extends AbsCrudGeneFormMap<String, StringMap
     private final FacadeGame facadeGame;
     private final AbsTextField destination;
     private final SubscribedTranslationList subscribedTranslations;
-    public CrudGeneFormPkTr(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub) {
+    public CrudGeneFormPkTr(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub, AbsCommonFrame _fr) {
         super(_fact);
         subscribedTranslations = _sub;
         facadeGame = _facade;
         destination = _fact.getCompoFactory().newTextField();
         destination.addActionListener(new RenameEntPkEvent(this));
-        initForm();
-    }
-    public void initForm(AbsCommonFrame _fr, AbstractProgramInfos _core) {
-        initForm(new DisplayKeyOnlyDirect<StringMap<String>>(), new GeneComponentModelString(_core,new StringList(),new DefValidateText()), new GeneComponentModelTr(_core,facadeGame), new NaturalComparator(), ConverterCommonMapUtil.toEntityLg(facadeGame.getData().getTranslatedPokemon()));
         setFrame(_fr);
+    }
+    public void initForm(AbstractProgramInfos _core) {
+        initForm();
+        initForm(new DisplayKeyOnlyDirect<StringMap<String>>(), new GeneComponentModelString(_core,new StringList(),new DefValidateText()), new GeneComponentModelTr(_core,facadeGame), new NaturalComparator(), ConverterCommonMapUtil.toEntityLg(facadeGame.getData().getTranslatedPokemon()));
         getButtons().add(destination);
+        getFrame().setContentPane(getGroup());
+        getFrame().setVisible(true);
+        getFrame().pack();
     }
     @Override
     protected void afterModif(int _index, String _key, StringMap<String> _value) {
@@ -76,7 +79,7 @@ public final class CrudGeneFormPkTr extends AbsCrudGeneFormMap<String, StringMap
     }
 
     private void update() {
-        subscribedTranslations.update(getFrame());
+        subscribedTranslations.update();
     }
 
 }

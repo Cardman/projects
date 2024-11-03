@@ -10,9 +10,10 @@ public abstract class CrudGeneFormSub<K,V> extends AbsCrudGeneFormMap<K, V> impl
     private final CrudGeneFormSubContent crudGeneFormSubContent;
     private AbsMap<K, String> messages;
 
-    protected CrudGeneFormSub(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub) {
+    protected CrudGeneFormSub(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub, AbsCommonFrame _fr) {
         super(_fact);
-        crudGeneFormSubContent = new CrudGeneFormSubContent(_facade, _sub, this);
+        setFrame(_fr);
+        crudGeneFormSubContent = new CrudGeneFormSubContent(_facade, _sub, this, _fr);
 
     }
 

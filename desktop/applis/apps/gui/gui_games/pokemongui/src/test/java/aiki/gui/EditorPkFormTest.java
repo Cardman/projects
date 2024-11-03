@@ -37,7 +37,8 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
     public void pkForm1() {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facade(pr_);
-        CrudGeneFormPk c_ = crud(pr_, facade_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormPk c_ = crud(sub_);
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         tryClick(c_.getAdd());
         c_.getGeneKey().value(P_1);
@@ -53,7 +54,8 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
     public void pkForm2() {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facade(pr_);
-        CrudGeneFormPk c_ = crud(pr_, facade_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormPk c_ = crud(sub_);
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         tryClick(c_.getAdd());
         c_.getGeneKey().value(P_1);
@@ -71,7 +73,8 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
     public void pkForm3() {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facade(pr_);
-        CrudGeneFormPk c_ = crud(pr_, facade_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormPk c_ = crud(sub_);
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         tryClick(c_.getAdd());
         c_.getGeneKey().value(P_1);
@@ -88,7 +91,8 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
     public void pkForm4() {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facade(pr_);
-        CrudGeneFormPk c_ = crud(pr_, facade_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormPk c_ = crud(sub_);
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         tryClick(c_.getAdd());
         c_.getGeneKey().value(P_1);
@@ -105,7 +109,8 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
     public void pkForm5() {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facade(pr_);
-        CrudGeneFormPk c_ = crud(pr_, facade_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormPk c_ = crud(sub_);
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         tryClick(c_.getAdd());
         c_.getGeneKey().value(P_1);
@@ -130,9 +135,9 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
     public void pkForm6() {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facade(pr_);
-        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
-        CrudGeneFormPk c_ = crud(pr_, facade_, sub_);
-        CrudGeneFormPkTr cTr_ = crudTr(pr_, facade_, sub_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormPk c_ = crud(sub_);
+        CrudGeneFormPkTr cTr_ = crudTr(sub_);
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         tryClick(c_.getAdd());
         c_.getGeneKey().value(P_1);
@@ -151,9 +156,9 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
     public void pkForm7() {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facade(pr_);
-        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
-        CrudGeneFormPk c_ = crud(pr_, facade_, sub_);
-        CrudGeneFormPkTr cTr_ = crudTr(pr_, facade_, sub_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormPk c_ = crud(sub_);
+        CrudGeneFormPkTr cTr_ = crudTr(sub_);
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         tryClick(c_.getAdd());
         c_.getGeneKey().value(P_1);
@@ -173,9 +178,9 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
     public void pkForm8() {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facade(pr_);
-        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
-        CrudGeneFormPk c_ = crud(pr_, facade_, sub_);
-        CrudGeneFormPkTr cTr_ = crudTr(pr_, facade_, sub_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormPk c_ = crud(sub_);
+        CrudGeneFormPkTr cTr_ = crudTr(sub_);
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         tryClick(c_.getAdd());
         c_.getGeneKey().value(P_1);
@@ -193,9 +198,9 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
     public void pkForm9() {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facade(pr_);
-        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
-        CrudGeneFormPk c_ = crud(pr_, facade_, sub_);
-        CrudGeneFormPkTr cTr_ = crudTr(pr_, facade_, sub_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormPk c_ = crud(sub_);
+        CrudGeneFormPkTr cTr_ = crudTr(sub_);
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         tryClick(c_.getAdd());
         c_.getGeneKey().value(P_1);
@@ -213,9 +218,9 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
     public void pkForm10() {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facade(pr_);
-        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
-        CrudGeneFormPk c_ = crud(pr_, facade_, sub_);
-        CrudGeneFormPkTr cTr_ = crudTr(pr_, facade_, sub_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormPk c_ = crud(sub_);
+        CrudGeneFormPkTr cTr_ = crudTr(sub_);
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         tryClick(c_.getAdd());
         c_.getGeneKey().value(P_1);
@@ -233,9 +238,9 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
     public void pkForm11() {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facade(pr_);
-        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
-        CrudGeneFormPk c_ = crud(pr_, facade_, sub_);
-        CrudGeneFormPkTr cTr_ = crudTr(pr_, facade_, sub_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormPk c_ = crud(sub_);
+        CrudGeneFormPkTr cTr_ = crudTr(sub_);
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         tryClick(c_.getAdd());
         c_.getGeneKey().value(P_1);
@@ -252,8 +257,8 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
     public void pkForm12() {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facade(pr_);
-        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
-        CrudGeneFormPkTr cTr_ = crudTr(pr_, facade_, sub_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormPkTr cTr_ = crudTr(sub_);
         tryClick(cTr_.getAdd());
         cTr_.getGeneKey().value("");
         GeneComponentModelTr gTr_ = (GeneComponentModelTr) cTr_.getGeneValue();
@@ -265,8 +270,8 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
     public void pkForm13() {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facade(pr_);
-        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
-        CrudGeneFormPkTr cTr_ = crudTr(pr_, facade_, sub_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormPkTr cTr_ = crudTr(sub_);
         tryClick(cTr_.getAdd());
         cTr_.getGeneKey().value(P_3);
         GeneComponentModelTr gTr_ = (GeneComponentModelTr) cTr_.getGeneValue();
@@ -278,8 +283,8 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
     public void pkForm14() {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facade(pr_);
-        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
-        CrudGeneFormPkTr cTr_ = crudTr(pr_, facade_, sub_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormPkTr cTr_ = crudTr(sub_);
         tryClick(cTr_.getAdd());
         cTr_.getGeneKey().value(P_4);
         GeneComponentModelTr gTr_ = (GeneComponentModelTr) cTr_.getGeneValue();
@@ -291,8 +296,8 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
     public void pkForm15() {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facade(pr_);
-        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
-        CrudGeneFormPk c_ = crud(pr_, facade_, sub_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormPk c_ = crud(sub_);
         tryClick(c_.getAdd());
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         c_.getGeneKey().value(P_1);
@@ -301,7 +306,7 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
         g_.getStatistics().getVal(Statistic.SPEED).getEv().setValue(25);
         g_.getBaseEvo().setupValue(P_2);
         tryClick(c_.getValidAddEdit());
-        CrudGeneFormPkTr cTr_ = crudTr(pr_, facade_, sub_);
+        CrudGeneFormPkTr cTr_ = crudTr(sub_);
         tryClick(cTr_.getAllButtons().get(0));
         tryClick(cTr_.getValidRemove());
         assertEq(3,facade_.getData().getTranslatedPokemon().getVal(pr_.getLanguage()).size());
@@ -310,8 +315,8 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
     public void pkForm16() {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facade(pr_);
-        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
-        CrudGeneFormPk c_ = crud(pr_, facade_, sub_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormPk c_ = crud(sub_);
         tryClick(c_.getAdd());
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         c_.getGeneKey().value(P_1);
@@ -320,7 +325,7 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
         g_.getStatistics().getVal(Statistic.SPEED).getEv().setValue(25);
         g_.getBaseEvo().setupValue(P_2);
         tryClick(c_.getValidAddEdit());
-        CrudGeneFormPkTr cTr_ = crudTr(pr_, facade_, sub_);
+        CrudGeneFormPkTr cTr_ = crudTr(sub_);
         tryClick(cTr_.getAllButtons().get(1));
         tryClick(cTr_.getValidRemove());
         assertEq(2,facade_.getData().getTranslatedPokemon().getVal(pr_.getLanguage()).size());
@@ -329,8 +334,8 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
     public void pkForm17() {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facade(pr_);
-        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
-        CrudGeneFormPk c_ = crud(pr_, facade_, sub_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormPk c_ = crud(sub_);
         tryClick(c_.getAdd());
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         c_.getGeneKey().value(P_1);
@@ -345,9 +350,9 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
     public void pkForm18() {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facade(pr_);
-        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
-        CrudGeneFormPk c_ = crud(pr_, facade_, sub_);
-        CrudGeneFormPkTr cTr_ = crudTr(pr_, facade_, sub_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormPk c_ = crud(sub_);
+        CrudGeneFormPkTr cTr_ = crudTr(sub_);
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         tryClick(c_.getAdd());
         c_.getGeneKey().value(P_1);
@@ -374,8 +379,8 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facade(pr_);
         facade_.getData().getExpGrowth().addEntry(ExpType.E,"1");
-        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
-        CrudGeneFormPk c_ = crud(pr_, facade_, sub_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormPk c_ = crud(sub_);
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         tryClick(c_.getAdd());
         c_.getGeneKey().value(P_1);
@@ -401,8 +406,8 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facade(pr_);
         facade_.getData().getExpGrowth().addEntry(ExpType.E,"1");
-        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
-        CrudGeneFormPk c_ = crud(pr_, facade_, sub_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormPk c_ = crud(sub_);
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         tryClick(c_.getAdd());
         c_.getGeneKey().value(P_1);
@@ -424,8 +429,8 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facade(pr_);
         facade_.getData().getExpGrowth().addEntry(ExpType.E,"1");
-        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
-        CrudGeneFormPk c_ = crud(pr_, facade_, sub_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormPk c_ = crud(sub_);
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         tryClick(c_.getAdd());
         c_.getGeneKey().value(P_1);
@@ -448,8 +453,8 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facade(pr_);
         facade_.getData().getExpGrowth().addEntry(ExpType.E,"1");
-        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
-        CrudGeneFormPk c_ = crud(pr_, facade_, sub_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormPk c_ = crud(sub_);
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         tryClick(c_.getAdd());
         c_.getGeneKey().value(P_1);
@@ -471,8 +476,8 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facade(pr_);
         facade_.getData().getExpGrowth().addEntry(ExpType.E,"1");
-        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
-        CrudGeneFormPk c_ = crud(pr_, facade_, sub_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormPk c_ = crud(sub_);
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         tryClick(c_.getAdd());
         c_.getGeneKey().value(P_1);
@@ -495,8 +500,8 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facade(pr_);
         facade_.getData().getExpGrowth().addEntry(ExpType.E,"1");
-        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
-        CrudGeneFormPk c_ = crud(pr_, facade_, sub_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormPk c_ = crud(sub_);
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         tryClick(c_.getAdd());
         c_.getGeneKey().value(P_1);
@@ -517,8 +522,8 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facade(pr_);
         facade_.getData().getExpGrowth().addEntry(ExpType.E,"1");
-        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
-        CrudGeneFormPk c_ = crud(pr_, facade_, sub_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormPk c_ = crud(sub_);
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         tryClick(c_.getAdd());
         c_.getGeneKey().value(P_1);
@@ -540,8 +545,8 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facade(pr_);
         facade_.getData().getExpGrowth().addEntry(ExpType.E,"1");
-        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
-        CrudGeneFormPk c_ = crud(pr_, facade_, sub_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormPk c_ = crud(sub_);
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         tryClick(c_.getAdd());
         c_.getGeneKey().value(P_1);
@@ -563,8 +568,8 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facade(pr_);
         facade_.getData().getExpGrowth().addEntry(ExpType.E,"1");
-        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
-        CrudGeneFormPk c_ = crud(pr_, facade_, sub_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormPk c_ = crud(sub_);
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         tryClick(c_.getAdd());
         c_.getGeneKey().value(P_1);
@@ -586,8 +591,8 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facade(pr_);
         facade_.getData().getExpGrowth().addEntry(ExpType.E,"1");
-        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
-        CrudGeneFormPk c_ = crud(pr_, facade_, sub_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormPk c_ = crud(sub_);
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         tryClick(c_.getAdd());
         c_.getGeneKey().value(P_1);
@@ -609,8 +614,8 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facade(pr_);
         facade_.getData().getExpGrowth().addEntry(ExpType.E,"1");
-        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
-        CrudGeneFormPk c_ = crud(pr_, facade_, sub_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormPk c_ = crud(sub_);
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         tryClick(c_.getAdd());
         c_.getGeneKey().value(P_1);
@@ -632,8 +637,8 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facade(pr_);
         facade_.getData().getExpGrowth().addEntry(ExpType.E,"1");
-        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
-        CrudGeneFormPk c_ = crud(pr_, facade_, sub_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormPk c_ = crud(sub_);
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         tryClick(c_.getAdd());
         c_.getGeneKey().value(P_1);
@@ -653,9 +658,9 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facade(pr_);
         facade_.getData().getExpGrowth().addEntry(ExpType.E,"1");
-        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
-        CrudGeneFormPkTr cTr_ = crudTr(pr_, facade_, sub_);
-        CrudGeneFormPk c_ = crud(pr_, facade_, sub_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormPkTr cTr_ = crudTr(sub_);
+        CrudGeneFormPk c_ = crud(sub_);
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         tryClick(c_.getAdd());
         c_.getGeneKey().value(P_1);
@@ -680,9 +685,9 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facade(pr_);
         facade_.getData().getExpGrowth().addEntry(ExpType.E,"1");
-        SubscribedTranslationList sub_ = new SubscribedTranslationList(pr_, facade_);
-        CrudGeneFormPkTr cTr_ = crudTr(pr_, facade_, sub_);
-        CrudGeneFormPk c_ = crud(pr_, facade_, sub_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormPkTr cTr_ = crudTr(sub_);
+        CrudGeneFormPk c_ = crud(sub_);
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         tryClick(c_.getAdd());
         c_.getGeneKey().value(P_1);
@@ -704,15 +709,28 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
         tryClick(c_.getValidAddEdit());
         assertEq(1,facade_.getData().getPokemon(P_1).getEvolutions().size());
     }
-    private CrudGeneFormPk crud(AbstractProgramInfos _core, FacadeGame _facade) {
-        SubscribedTranslationList sub_ = new SubscribedTranslationList(_core,_facade);
-        return crud(_core,_facade, sub_);
+    @Test
+    public void menus() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        pr_.getFrames().add(sub_);
+        crudTr(sub_).getFrame().getWindowListenersDef().get(0).windowClosing();
+        crud(sub_).getFrame().getWindowListenersDef().get(0).windowClosing();
+        sub_.getCommonFrame().getWindowListenersDef().get(0).windowClosing();
+        assertFalse(sub_.getCommonFrame().isVisible());
+        sub_.changeLanguage(sub_.getApplicationName());
     }
-    private CrudGeneFormPk crud(AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
-        return GeneComponentModelPokemonData.crud(_core.getFrameFactory().newCommonFrame(), _core,_facade, _sub);
+    private CrudGeneFormPk crud(WindowPkEditor _crud) {
+        tryClick(_crud.getPkMenu());
+        return _crud.getCrudGeneFormPk();
     }
-    private CrudGeneFormPkTr crudTr(AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
-        return GeneComponentModelPokemonData.crudTr(_core.getFrameFactory().newCommonFrame(), _core,_facade, _sub);
+    private CrudGeneFormPkTr crudTr(WindowPkEditor _crud) {
+        tryClick(_crud.getTrsPkMenu());
+        return _crud.getCrudGeneFormPkTr();
+    }
+    private WindowPkEditor window(AbstractProgramInfos _core, FacadeGame _facade) {
+        return new WindowPkEditor(_core,_facade);
     }
     private MockProgramInfos initForms() {
         MockProgramInfos pr_ = build("/__/", "/_/", dbs(0.75));

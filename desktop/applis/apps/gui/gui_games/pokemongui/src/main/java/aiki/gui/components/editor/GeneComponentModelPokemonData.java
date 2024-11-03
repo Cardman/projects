@@ -35,20 +35,8 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
         genderRep =ConverterCommonMapUtil.buildGenderRepartition(compoFactory);
         baseEvo = ConverterCommonMapUtil.buildPkFull(compoFactory,_facade);
         expEvo =ConverterCommonMapUtil.buildExpType(compoFactory,_facade);
-        levMoves = new CrudGeneFormListSubLevelMove(compoFactory,_facade,_sub);
-        levMoves.setFrame(_fr);
-        evolutions = new CrudGeneFormEvolutions(_core,_facade,_sub);
-        evolutions.setFrame(_fr);
-    }
-    public static CrudGeneFormPkTr crudTr(AbsCommonFrame _fr, AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
-        CrudGeneFormPkTr c_ = new CrudGeneFormPkTr(_core, _facade,_sub);
-        c_.initForm(_fr,_core);
-        return c_;
-    }
-    public static CrudGeneFormPk crud(AbsCommonFrame _fr, AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
-        CrudGeneFormPk c_ = new CrudGeneFormPk(_core, _facade,_sub);
-        c_.initForm(_fr,_core);
-        return c_;
+        levMoves = new CrudGeneFormListSubLevelMove(compoFactory,_facade,_sub,_fr);
+        evolutions = new CrudGeneFormEvolutions(_core,_facade,_sub,_fr);
     }
     @Override
     public AbsCustComponent gene() {

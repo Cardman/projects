@@ -1,6 +1,7 @@
 package aiki.gui.components.editor;
 
 import aiki.facade.*;
+import code.gui.AbsCommonFrame;
 import code.gui.AbsCrudGeneForm;
 import code.util.*;
 
@@ -11,10 +12,10 @@ public final class CrudGeneFormSubContent {
     private final IdList<SubscribedTranslation> subscribedTranslationsForm;
     private final CrudGeneFormSubUp visited;
 
-    public CrudGeneFormSubContent(FacadeGame _facade, SubscribedTranslationList _sub, CrudGeneFormSubUp _current) {
+    public CrudGeneFormSubContent(FacadeGame _facade, SubscribedTranslationList _sub, CrudGeneFormSubUp _current, AbsCommonFrame _fr) {
         facadeGame = _facade;
         subscription = _sub;
-        subscribedTranslations = _sub.getSubscribedTranslations();
+        subscribedTranslations = _sub.getSubscribedTranslations().getVal(_fr);
         subscribedTranslationsForm = new IdList<SubscribedTranslation>();
         visited = _current;
     }

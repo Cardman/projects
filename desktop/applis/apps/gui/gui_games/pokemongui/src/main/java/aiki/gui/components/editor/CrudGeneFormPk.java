@@ -10,20 +10,22 @@ public final class CrudGeneFormPk extends CrudGeneFormSub<String, PokemonData> {
     private final GeneComponentModelEltStrSub geneComponentModelSelectKey = ConverterCommonMapUtil.buildPk(getFactory(), getCrudGeneFormSubContent().getFacadeGame());
     private GeneComponentModelPokemonData geneComponentModelPokemonData;
 
-    public CrudGeneFormPk(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub) {
-        super(_fact,_facade,_sub);
-        initForm();
+    public CrudGeneFormPk(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub, AbsCommonFrame _fr) {
+        super(_fact,_facade,_sub, _fr);
     }
-    public void initForm(AbsCommonFrame _fr, AbstractProgramInfos _core) {
+    public void initForm(AbstractProgramInfos _core) {
+        initForm();
         getCrudGeneFormSubContent().clearSub();
         FacadeGame facadeGame_ = getCrudGeneFormSubContent().getFacadeGame();
         StringMap<String> messages_ = new StringMap<String>(facadeGame_.getData().getTranslatedPokemon().getVal(_core.getLanguage()));
-        geneComponentModelPokemonData = new GeneComponentModelPokemonData(_fr,_core, facadeGame_, getCrudGeneFormSubContent().getSubscription());
+        geneComponentModelPokemonData = new GeneComponentModelPokemonData(getFrame(),_core, facadeGame_, getCrudGeneFormSubContent().getSubscription());
         setGeneKey(geneComponentModelSelectKey.getSelectUniq());
         getCrudGeneFormSubContent().addSubRoot(new SubscribedTranslationPkMessages(messages_));
         getCrudGeneFormSubContent().subscribeAll();
         initForm(messages_, getGeneKey(), geneComponentModelPokemonData, facadeGame_.getData().getPokedex());
-        setFrame(_fr);
+        getFrame().setContentPane(getGroup());
+        getFrame().setVisible(true);
+        getFrame().pack();
     }
 
     @Override

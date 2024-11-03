@@ -2,6 +2,7 @@ package aiki.gui.components.editor;
 
 import aiki.facade.*;
 import aiki.fight.pokemon.evolution.*;
+import code.gui.AbsCommonFrame;
 import code.gui.initialize.*;
 import code.util.*;
 
@@ -9,8 +10,8 @@ public final class CrudGeneFormEvolutions extends CrudGeneFormBasicSub<String, E
     private final GeneComponentModelEltStrSub geneComponentModelSelectKey = ConverterCommonMapUtil.buildPkFull(getFactory(), getCrudGeneFormSubContent().getFacadeGame());
     private GeneComponentModelEvolution geneComponentModelEvolution;
 
-    public CrudGeneFormEvolutions(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub) {
-        super(_fact, _facade, _sub);
+    public CrudGeneFormEvolutions(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub, AbsCommonFrame _fr) {
+        super(_fact, _facade, _sub, _fr);
 
     }
     public void initForm(AbstractProgramInfos _core, StringMap<Evolution> _evos) {

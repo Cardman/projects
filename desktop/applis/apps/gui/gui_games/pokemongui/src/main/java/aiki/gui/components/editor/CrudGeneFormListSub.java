@@ -9,9 +9,10 @@ import code.util.ints.*;
 public abstract class CrudGeneFormListSub<E> extends AbsCrudGeneFormList<E> implements CrudGeneFormSubUp{
     private final CrudGeneFormSubContent crudGeneFormSubContent;
 
-    protected CrudGeneFormListSub(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub, Comparing<E> _c) {
+    protected CrudGeneFormListSub(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub, AbsCommonFrame _fr, Comparing<E> _c) {
         super(_fact, _c);
-        crudGeneFormSubContent = new CrudGeneFormSubContent(_facade, _sub, this);
+        setFrame(_fr);
+        crudGeneFormSubContent = new CrudGeneFormSubContent(_facade, _sub, this, _fr);
     }
 
     public CrudGeneFormSubContent getCrudGeneFormSubContent() {
