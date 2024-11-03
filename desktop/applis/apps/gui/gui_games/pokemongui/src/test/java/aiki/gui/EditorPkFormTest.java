@@ -32,6 +32,9 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
     public static final String I_1 = "I1";
     public static final String I_2 = "I2";
     public static final String I_3 = "I3";
+    public static final String A_1 = "A1";
+    public static final String A_2 = "A2";
+    public static final String A_3 = "A3";
 
     @Test
     public void pkForm1() {
@@ -774,6 +777,11 @@ public final class EditorPkFormTest extends EquallableAikiGuiUtil {
         allIt_.addEntry(I_2,"i2");
         allIt_.addEntry(I_3,"i3");
         facade_.getData().getTranslatedItems().addEntry(_m.getLanguage(), allIt_);
+        StringMap<String> allAb_ = new StringMap<String>();
+        allAb_.addEntry(A_1,"a1");
+        allAb_.addEntry(A_2,"a2");
+        allAb_.addEntry(A_3,"a3");
+        facade_.getData().getTranslatedAbilities().addEntry(_m.getLanguage(), allAb_);
         IdMap<Gender, String> g_ = new IdMap<Gender, String>();
         g_.addEntry(Gender.NO_GENDER,"_");
         facade_.getData().getTranslatedGenders().addEntry(_m.getLanguage(), g_);

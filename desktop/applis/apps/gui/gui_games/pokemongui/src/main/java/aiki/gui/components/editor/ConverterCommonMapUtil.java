@@ -32,6 +32,12 @@ public final class ConverterCommonMapUtil {
     public static GeneComponentModelEltStrSub buildTypeElt(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
         return merge(_api, _facade, _sub.getFactoryTy(), new CustList<String>());
     }
+    public static GeneComponentModelLsStrSub buildAbilityList(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
+        return mergeLs(_api, _facade, _sub.getFactoryAb());
+    }
+    public static GeneComponentModelLsStrSub buildMoveList(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
+        return mergeLs(_api, _facade, _sub.getFactoryMv());
+    }
     public static GeneComponentModelLsStrSub buildTypeList(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
         return mergeLs(_api, _facade, _sub.getFactoryTy());
     }

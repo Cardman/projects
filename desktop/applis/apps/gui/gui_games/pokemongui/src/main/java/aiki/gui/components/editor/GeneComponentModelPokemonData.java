@@ -19,6 +19,8 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
     private final GeneComponentModelRate weight;
     private final GeneComponentModelRate height;
     private GeneComponentModelLsStrSub types;
+    private GeneComponentModelLsStrSub abilities;
+    private GeneComponentModelLsStrSub moveTutors;
     private final IdMap<Statistic, FormStatBaseEv> statistics = new IdMap<Statistic, FormStatBaseEv>();
     private GeneComponentModelEltEnum<GenderRepartition> genderRep;
     private GeneComponentModelEltStrSub baseEvo;
@@ -43,6 +45,8 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
         genderRep =ConverterCommonMapUtil.buildGenderRepartition(compoFactory);
         expEvo =ConverterCommonMapUtil.buildExpType(compoFactory,facade);
         types = ConverterCommonMapUtil.buildTypeList(compoFactory,facade,subscribedTranslationList);
+        abilities = ConverterCommonMapUtil.buildAbilityList(compoFactory,facade,subscribedTranslationList);
+        moveTutors = ConverterCommonMapUtil.buildMoveList(compoFactory,facade,subscribedTranslationList);
         baseEvo = ConverterCommonMapUtil.buildPkFull(compoFactory,facade,subscribedTranslationList);
         AbsCompoFactory compoFactory_ = compoFactory.getCompoFactory();
         AbsScrollPane sc_ = compoFactory_.newAbsScrollPane();
@@ -59,6 +63,8 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
         updateStats(element);
         form_.add(stats_);
         form_.add(genderRep.geneEnum(element.getGenderRep()));
+        form_.add(abilities.geneCommon(element.getAbilities()));
+        form_.add(moveTutors.geneCommon(element.getMoveTutors()));
         form_.add(baseEvo.geneEnum());
         form_.add(expEvo.geneEnum(element.getExpEvo()));
         levMoves.initForm(compoFactory, element.getLevMoves());
@@ -76,6 +82,8 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
         ent_.setWeight(weight.valueRate());
         ent_.setHeight(height.valueRate());
         ent_.setTypes(new StringList(types.tryRet()));
+        ent_.setAbilities(new StringList(abilities.tryRet()));
+        ent_.setMoveTutors(new StringList(moveTutors.tryRet()));
         for (EntryCust<Statistic,FormStatBaseEv> e: statistics.entryList()) {
             ent_.getStatistics().addEntry(e.getKey(),new StatBaseEv((short)e.getValue().getBase().getValue(),(short)e.getValue().getEv().getValue()));
         }
@@ -97,6 +105,8 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
         getWeight().valueRate(_v.getWeight());
         getHeight().valueRate(_v.getHeight());
         getTypes().setupValue(_v.getTypes());
+        getAbilities().setupValue(_v.getAbilities());
+        getMoveTutors().setupValue(_v.getMoveTutors());
         updateStats(_v);
         getGenderRep().setupValue(_v.getGenderRep());
         getBaseEvo().setupValue(_v.getBaseEvo());
@@ -117,6 +127,8 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
     public IdList<SubscribedTranslation> all() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
         ids_.addAllElts(getTypes().getSubs());
+        ids_.addAllElts(getAbilities().getSubs());
+        ids_.addAllElts(getMoveTutors().getSubs());
         ids_.addAllElts(getBaseEvo().getSubs());
         ids_.addAllElts(getEvolutions().subscribeButtons());
         ids_.addAllElts(getLevMoves().subscribeButtons());
@@ -133,6 +145,14 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
 
     public GeneComponentModelLsStrSub getTypes() {
         return types;
+    }
+
+    public GeneComponentModelLsStrSub getAbilities() {
+        return abilities;
+    }
+
+    public GeneComponentModelLsStrSub getMoveTutors() {
+        return moveTutors;
     }
 
     public IdMap<Statistic, FormStatBaseEv> getStatistics() {

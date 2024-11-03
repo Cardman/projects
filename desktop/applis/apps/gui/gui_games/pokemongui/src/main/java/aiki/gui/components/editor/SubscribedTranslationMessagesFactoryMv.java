@@ -1,15 +1,10 @@
 package aiki.gui.components.editor;
 
-import aiki.facade.FacadeGame;
-import code.gui.initialize.AbstractProgramInfos;
-import code.util.AbsMap;
-import code.util.StringMap;
+import aiki.facade.*;
+import code.gui.initialize.*;
+import code.util.*;
 
-public final class SubscribedTranslationMessagesFactoryMv implements SubscribedTranslationMessagesFactory {
-    @Override
-    public SubscribedTranslation buildSub(AbsMap<String, String> _map) {
-        return new SubscribedTranslationMessages(_map,this);
-    }
+public final class SubscribedTranslationMessagesFactoryMv extends SubscribedTranslationMessagesFactoryCommon {
 
     @Override
     public StringMap<String> buildMessages(AbstractProgramInfos _api, FacadeGame _facade) {
