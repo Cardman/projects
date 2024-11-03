@@ -5,9 +5,9 @@ import code.util.*;
 
 public final class GeneComponentModelLsStr extends GeneComponentModelLs<String> implements GeneComponentModel<StringList> {
     public GeneComponentModelLsStr(AbstractProgramInfos _c, AbsMap<String, String> _messages) {
-        this(_c, new CustCellRenderGeneStrImpl<String>(_c.getImageFactory(),_messages), _messages);
+        this(_c, new DefCustCellRenderGeneImpl<String>(_c.getCompoFactory(), _c.getImageFactory(), _messages), _messages);
     }
-    public GeneComponentModelLsStr(AbstractProgramInfos _c, CustCellRenderGeneStrImpl<String> _rend, AbsMap<String,String> _elts) {
+    public GeneComponentModelLsStr(AbstractProgramInfos _c, DefCustCellRenderGeneImpl<String> _rend, AbsMap<String,String> _elts) {
         super(_c, _rend, _elts);
     }
 

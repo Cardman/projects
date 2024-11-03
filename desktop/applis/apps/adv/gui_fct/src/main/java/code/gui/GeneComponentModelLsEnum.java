@@ -5,9 +5,9 @@ import code.util.*;
 
 public final class GeneComponentModelLsEnum<E> extends GeneComponentModelLs<E> implements GeneComponentModel<IdList<E>> {
     public GeneComponentModelLsEnum(AbstractProgramInfos _c, IdMap<E, String> _messages) {
-        this(_c, new CustCellRenderGeneStrImpl<E>(_c.getImageFactory(),_messages), _messages);
+        this(_c, new DefCustCellRenderGeneImpl<E>(_c.getCompoFactory(), _c.getImageFactory(), _messages), _messages);
     }
-    public GeneComponentModelLsEnum(AbstractProgramInfos _c, CustCellRenderGeneStrImpl<E> _rend, IdMap<E,String> _elts) {
+    public GeneComponentModelLsEnum(AbstractProgramInfos _c, DefCustCellRenderGeneImpl<E> _rend, IdMap<E,String> _elts) {
         super(_c, _rend, _elts);
     }
 

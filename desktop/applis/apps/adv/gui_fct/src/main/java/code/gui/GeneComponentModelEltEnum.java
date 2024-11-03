@@ -8,9 +8,9 @@ public final class GeneComponentModelEltEnum<E> extends GeneComponentModelElt<E>
     private final AbsMap<E, String> messages;
 
     public GeneComponentModelEltEnum(AbstractProgramInfos _c, AbsMap<E, String> _messages) {
-        this(_c, new CustCellRenderGeneStrImpl<E>(_c.getImageFactory(),_messages), _messages);
+        this(_c, new DefCustCellRenderGeneImpl<E>(_c.getCompoFactory(), _c.getImageFactory(), _messages), _messages);
     }
-    public GeneComponentModelEltEnum(AbstractProgramInfos _c, CustCellRenderGeneStrImpl<E> _rend, AbsMap<E,String> _elts) {
+    public GeneComponentModelEltEnum(AbstractProgramInfos _c, DefCustCellRenderGeneImpl<E> _rend, AbsMap<E,String> _elts) {
         super(_c, _elts);
         messages = _rend.getMessages();
     }

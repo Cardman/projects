@@ -8,9 +8,9 @@ public final class GeneComponentModelEltStr extends GeneComponentModelElt<String
     private final AbsMap<String, String> messages;
 
     public GeneComponentModelEltStr(AbstractProgramInfos _c, AbsMap<String, String> _messages) {
-        this(_c, new CustCellRenderGeneStrImpl<String>(_c.getImageFactory(),_messages), _messages);
+        this(_c, new DefCustCellRenderGeneImpl<String>(_c.getCompoFactory(), _c.getImageFactory(), _messages), _messages);
     }
-    public GeneComponentModelEltStr(AbstractProgramInfos _c, CustCellRenderGeneStrImpl<String> _rend, AbsMap<String,String> _elts) {
+    public GeneComponentModelEltStr(AbstractProgramInfos _c, DefCustCellRenderGeneImpl<String> _rend, AbsMap<String,String> _elts) {
         super(_c, _elts);
         messages = _rend.getMessages();
     }

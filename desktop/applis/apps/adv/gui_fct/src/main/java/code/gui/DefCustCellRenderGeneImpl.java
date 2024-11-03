@@ -12,6 +12,10 @@ public final class DefCustCellRenderGeneImpl<T> extends AbsCustCellRenderGeneImp
         messages = _m;
     }
 
+    public AbsMap<T, String> getMessages() {
+        return messages;
+    }
+
     @Override
     protected String convert(T _info) {
         return StringUtil.nullToEmpty(messages.getVal(_info));

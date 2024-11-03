@@ -8,9 +8,9 @@ import code.util.core.StringUtil;
 
 public abstract class GeneComponentModelLs<T> extends GeneComponentModelEltCommon<T> {
     private DefScrollCustomGraphicList<T> select;
-    private final CustCellRenderGeneStrImpl<T> render;
+    private final DefCustCellRenderGeneImpl<T> render;
 
-    protected GeneComponentModelLs(AbstractProgramInfos _c, CustCellRenderGeneStrImpl<T> _rend, AbsMap<T,String> _elts) {
+    protected GeneComponentModelLs(AbstractProgramInfos _c, DefCustCellRenderGeneImpl<T> _rend, AbsMap<T,String> _elts) {
         super(_c, _elts);
         render = _rend;
     }
@@ -22,13 +22,13 @@ public abstract class GeneComponentModelLs<T> extends GeneComponentModelEltCommo
         return getSelect().getScrollPane();
     }
 
-    protected void computeWidth(CustCellRenderGeneStrImpl<T> _r) {
+    protected void computeWidth(DefCustCellRenderGeneImpl<T> _r) {
         int w_ = 0;
         MetaFont metaFont_ = getSelect().getElements().getMetaFont();
         for (T e: getElements().getKeys()) {
             w_ = NumberUtil.max(getCompoFactory().getCompoFactory().stringWidth(metaFont_, StringUtil.nullToEmpty(_r.getMessages().getVal(e))),w_);
         }
-        _r.setWidth(w_+2);
+        _r.setMaxWidth(w_+2);
     }
 
     protected void feed() {
@@ -91,7 +91,7 @@ public abstract class GeneComponentModelLs<T> extends GeneComponentModelEltCommo
         return elts_;
     }
 
-    public CustCellRenderGeneStrImpl<T> getRender() {
+    public DefCustCellRenderGeneImpl<T> getRender() {
         return render;
     }
     public DefScrollCustomGraphicList<T> getSelect() {
