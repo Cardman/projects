@@ -21,8 +21,13 @@ public final class GeneComponentModelEvolution implements GeneComponentModel<Evo
     private GeneComponentModelEltEnum<Gender> evoGender;
     private final SubscribedTranslationList subscribedTranslationList;
     private Evolution edited;
-    private AbsPanel selected;
     private final AbsCommonFrame frame;
+    private AbsSpinner compoLevel;
+    private AbsCustComponent compoItem;
+    private AbsPanel compoGender;
+    private AbsCustComponent compoMove;
+    private AbsCustComponent compoMoveType;
+    private AbsCustComponent compoTeamPokemon;
 
     public GeneComponentModelEvolution(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _subscription) {
         frame = _f;
@@ -35,11 +40,34 @@ public final class GeneComponentModelEvolution implements GeneComponentModel<Evo
     public AbsCustComponent gene() {
         StringMap<String> messages_ = MessagesPkEditor.getMessagesEditorSelectEvoTr(MessagesPkEditor.getAppliTr(programInfos.currentLg())).getMapping();
         evolutionKind = new GeneComponentModelEltEnum<String>(programInfos, messages_);
+        item = ConverterCommonMapUtil.buildItFull(programInfos, fac,subscribedTranslationList);
+        evoTeamPokemon = ConverterCommonMapUtil.buildPkFull(programInfos,fac,subscribedTranslationList);
+        evoMove = ConverterCommonMapUtil.buildMvFull(programInfos,fac,subscribedTranslationList);
+        evoMoveType = ConverterCommonMapUtil.buildTypeElt(programInfos,fac,subscribedTranslationList);
+        evoGender = ConverterCommonMapUtil.buildGender(programInfos,fac);
         AbsCompoFactory compoFactory_ = programInfos.getCompoFactory();
         AbsPanel evoForm_ = compoFactory_.newLineBox();
-        selected = compoFactory_.newLineBox();
+        AbsPanel selected_ = compoFactory_.newLineBox();
         evoForm_.add(evolutionKind.geneEnum(""));
-        evoForm_.add(selected);
+        evoForm_.add(selected_);
+        compoLevel = level.geneInt();
+        compoLevel.setVisible(false);
+        selected_.add(compoLevel);
+        compoItem = item.geneEnum();
+        compoItem.setVisible(false);
+        selected_.add(compoItem);
+        compoGender = evoGender.geneEnum(Gender.NO_GENDER);
+        compoGender.setVisible(false);
+        selected_.add(compoGender);
+        compoMove = evoMove.geneEnum();
+        compoMove.setVisible(false);
+        selected_.add(compoMove);
+        compoMoveType = evoMoveType.geneEnum();
+        compoMoveType.setVisible(false);
+        selected_.add(compoMoveType);
+        compoTeamPokemon = evoTeamPokemon.geneEnum();
+        compoTeamPokemon.setVisible(false);
+        selected_.add(compoTeamPokemon);
         evolutionKind.getSelect().addListener(new ChangingEvolutionEvent(this));
         evolutionKind.getSelect().select(0);
         evolutionKind.getSelect().events(null);
@@ -47,49 +75,39 @@ public final class GeneComponentModelEvolution implements GeneComponentModel<Evo
     }
 
     public void applyChange() {
-        selected.removeAll();
         String evo_ = evolutionKind.tryRet("");
-        item = ConverterCommonMapUtil.buildItFull(programInfos, fac,subscribedTranslationList);
-        evoTeamPokemon = ConverterCommonMapUtil.buildPkFull(programInfos,fac,subscribedTranslationList);
-        evoMove = ConverterCommonMapUtil.buildMvFull(programInfos,fac,subscribedTranslationList);
-        evoMoveType = ConverterCommonMapUtil.buildTypeElt(programInfos,fac,subscribedTranslationList);
-        evoGender = ConverterCommonMapUtil.buildGender(programInfos,fac);
+        compoLevel.setVisible(StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_LEVEL_SIMPLE) || StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_LEVEL_GENDER));
+        compoItem.setVisible(StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_STONE_SIMPLE) || StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_STONE_GENDER) || StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_ITEM));
+        compoGender.setVisible(StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_LEVEL_GENDER) || StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_STONE_GENDER));
+        compoMove.setVisible(StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_MOVE));
+        compoMoveType.setVisible(StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_MOVE_TYPE));
+        compoTeamPokemon.setVisible(StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_TEAM));
         if (StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_LEVEL_SIMPLE)) {
             edited = Instances.newEvolutionLevelSimple();
-            selected.add(level.geneInt());
         }
         if (StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_LEVEL_GENDER)) {
             edited = Instances.newEvolutionLevelGender();
-            selected.add(level.geneInt());
-            selected.add(evoGender.geneEnum(Gender.NO_GENDER));
         }
         if (StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_STONE_SIMPLE)) {
             edited = Instances.newEvolutionStoneSimple();
-            selected.add(item.geneEnum());
         }
         if (StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_STONE_GENDER)) {
             edited = Instances.newEvolutionStoneGender();
-            selected.add(item.geneEnum());
-            selected.add(evoGender.geneEnum(Gender.NO_GENDER));
         }
         if (StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_HAPPINESS)) {
             edited = Instances.newEvolutionHappiness();
         }
         if (StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_ITEM)) {
             edited = Instances.newEvolutionItem();
-            selected.add(item.geneEnum());
         }
         if (StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_MOVE)) {
             edited = Instances.newEvolutionMove();
-            selected.add(evoMove.geneEnum());
         }
         if (StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_MOVE_TYPE)) {
             edited = Instances.newEvolutionMoveType();
-            selected.add(evoMoveType.geneEnum());
         }
         if (StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_TEAM)) {
             edited = Instances.newEvolutionTeam();
-            selected.add(evoTeamPokemon.geneEnum());
         }
         evolutionKind.getSelect().repaint();
         frame.pack();
