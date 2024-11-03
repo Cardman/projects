@@ -7,6 +7,7 @@ import code.util.*;
 
 public final class CrudGeneFormListSubLevelMove extends CrudGeneFormListSub<LevelMove> {
 
+    private StringMap<String> messages;
     private GeneComponentModelLevelMove geneComponentModelLevelMove;
 
     public CrudGeneFormListSubLevelMove(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub) {
@@ -14,11 +15,11 @@ public final class CrudGeneFormListSubLevelMove extends CrudGeneFormListSub<Leve
     }
     public void initForm(AbstractProgramInfos _core, CustList<LevelMove> _moves) {
         getCrudGeneFormSubContent().clear();
-        StringMap<String> messages_ = new StringMap<String>(getCrudGeneFormSubContent().getFacadeGame().getData().getTranslatedMoves().getVal(_core.getLanguage()));
+        messages = new StringMap<String>(getCrudGeneFormSubContent().getFacadeGame().getData().getTranslatedMoves().getVal(getFactory().getLanguage()));
         geneComponentModelLevelMove = new GeneComponentModelLevelMove(_core, getCrudGeneFormSubContent().getFacadeGame());
-        subscribeAll();
+        getCrudGeneFormSubContent().subscribeAll();
         initForm();
-        initForm(new DisplayEntryCustLevelMove(messages_), geneComponentModelLevelMove, _moves,new ComparingLevelMove(messages_));
+        initForm(new DisplayEntryCustLevelMove(messages), geneComponentModelLevelMove, _moves, new ComparingLevelMove(messages));
     }
 
     @Override
@@ -26,28 +27,20 @@ public final class CrudGeneFormListSubLevelMove extends CrudGeneFormListSub<Leve
         return geneComponentModelLevelMove.all();
     }
 
-    public GeneComponentModelLevelMove getGeneComponentModelLevelMove() {
-        return geneComponentModelLevelMove;
+    @Override
+    public void updateDisplayEntry(AbstractProgramInfos _api, FacadeGame _facade) {
+        possibleSort();
+        refresh();
     }
 
     @Override
-    protected void afterModif(int _index, LevelMove _value) {
-        if (_index > -1) {
-            getList().remove(_index);
-        }
-        afterChange();
-    }
-
-    @Override
-    protected void afterChange() {
-        getCrudGeneFormSubContent().removeOpenSub();
-        subscribeAll();
-        afterModif();
-    }
-
-    @Override
-    protected IdList<SubscribedTranslation> subscribe() {
+    public IdList<SubscribedTranslation> subscribe() {
         return new IdList<SubscribedTranslation>();
     }
-
+    public IdList<SubscribedTranslation> subscribeButtons() {
+        IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
+        ids_.add(new SubscribedTranslationMvMessages(messages));
+        ids_.add(new SubscribedTranslationPkKey(this));
+        return ids_;
+    }
 }

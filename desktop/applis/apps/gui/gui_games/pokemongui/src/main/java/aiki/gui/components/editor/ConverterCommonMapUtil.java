@@ -16,59 +16,53 @@ public final class ConverterCommonMapUtil {
     private ConverterCommonMapUtil() {
     }
     public static GeneComponentModelEltStrSub buildPk(AbstractProgramInfos _api, FacadeGame _facade) {
-        StringMap<String> messages_ = new StringMap<String>(_facade.getData().getTranslatedPokemon().getVal(_api.getLanguage()));
-        TreeMap<String, String> tree_ = new TreeMap<String, String>(new ComparatorTr<String>(messages_));
-        StringList rem_ = new StringList(messages_.getKeys());
-        rem_.removeAllElements(_facade.getData().getPokedex().getKeys());
-        for (String s: rem_) {
-            tree_.put(s,messages_.getVal(s));
-        }
-        return merge(_api, tree_, new SubscribedTranslationPkMessages(messages_));
+        return merge(_api, _facade, new SubscribedTranslationMessagesFactoryPk(), _facade.getData().getPokedex().getKeys());
     }
+
     public static GeneComponentModelEltStrSub buildPkFull(AbstractProgramInfos _api, FacadeGame _facade) {
-        StringMap<String> messages_ = new StringMap<String>(_facade.getData().getTranslatedPokemon().getVal(_api.getLanguage()));
-        return merge(_api, feedTree(messages_), new SubscribedTranslationPkMessages(messages_));
+        return merge(_api, _facade, new SubscribedTranslationMessagesFactoryPk(), new CustList<String>());
     }
 
     public static GeneComponentModelEltStrSub buildMvFull(AbstractProgramInfos _api, FacadeGame _facade) {
-        StringMap<String> messages_ = new StringMap<String>(_facade.getData().getTranslatedMoves().getVal(_api.getLanguage()));
-        return merge(_api, feedTree(messages_), new SubscribedTranslationMvMessages(messages_));
+        return merge(_api, _facade, new SubscribedTranslationMessagesFactoryMv(), new CustList<String>());
     }
     public static GeneComponentModelEltStrSub buildItFull(AbstractProgramInfos _api, FacadeGame _facade) {
-        StringMap<String> messages_ = new StringMap<String>(_facade.getData().getTranslatedItems().getVal(_api.getLanguage()));
-        return merge(_api, feedTree(messages_), new SubscribedTranslationItMessages(messages_));
+        return merge(_api, _facade, new SubscribedTranslationMessagesFactoryIt(), new CustList<String>());
     }
     public static GeneComponentModelEltStrSub buildTypeElt(AbstractProgramInfos _api, FacadeGame _facade){
-        StringMap<String> messages_ = new StringMap<String>(_facade.getData().getTranslatedTypes().getVal(_api.getLanguage()));
-        return merge(_api, feedTree(messages_), new SubscribedTranslationTyMessages(messages_));
+        return merge(_api, _facade, new SubscribedTranslationMessagesFactoryTy(), new CustList<String>());
     }
     public static GeneComponentModelLsStrSub buildTypeList(AbstractProgramInfos _api, FacadeGame _facade){
-        return mergeMapLs(_api, _facade.getData().getTranslatedTypes());
+        return mergeLs(_api, _facade, new SubscribedTranslationMessagesFactoryTy());
     }
 
-    private static TreeMap<String, String> feedTree(StringMap<String> _messages) {
-        TreeMap<String, String> tree_ = new TreeMap<String, String>(new ComparatorTr<String>(_messages));
-        tree_.putAllMap(_messages);
-        return tree_;
-    }
-
-    private static GeneComponentModelEltStrSub merge(AbstractProgramInfos _api, TreeMap<String, String> _tree, SubscribedTranslation _sub) {
-        GeneComponentModelEltStrSub g_ = new GeneComponentModelEltStrSub(new GeneComponentModelEltStr(_api, _tree));
-        g_.getSubs().add(_sub);
+    private static GeneComponentModelEltStrSub merge(AbstractProgramInfos _api, FacadeGame _sub, SubscribedTranslationMessagesFactory _builder, CustList<String> _excluded) {
+        StringMap<String> sub_ = _builder.buildMessages(_api, _sub);
+        StringList rem_ = new StringList(sub_.getKeys());
+        rem_.removeAllElements(_excluded);
+        TreeMap<String, String> treeFilter_ = feedTree(sub_, rem_);
+        GeneComponentModelEltStr sel_ = new GeneComponentModelEltStr(_api, treeFilter_);
+        GeneComponentModelEltStrSub g_ = new GeneComponentModelEltStrSub(sel_);
+        g_.getSubs().add(_builder.buildSub(sub_));
+        g_.getSubs().add(_builder.buildSub(treeFilter_));
+        g_.getSubs().add(new SubscribedTranslationSelect(sel_));
         return g_;
     }
 
-    private static GeneComponentModelLsStrSub mergeMapLs(AbstractProgramInfos _api, StringMap<StringMap<String>> _trs) {
-        IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
-        StringMap<String> messages_ = new StringMap<String>(_trs.getVal(_api.getLanguage()));
-        TreeMap<String, String> tree_ = feedTree(messages_);
-        return mergeLs(_api, ids_, tree_, messages_);
+    private static TreeMap<String, String> feedTree(AbsMap<String, String> _messages, CustList<String> _rem) {
+        TreeMap<String, String> tree_ = new TreeMap<String, String>(new ComparatorTr<String>(_messages));
+        for (String s: _rem) {
+            tree_.put(s,_messages.getVal(s));
+        }
+        return tree_;
     }
-
-    private static GeneComponentModelLsStrSub mergeLs(AbstractProgramInfos _api, IdList<SubscribedTranslation> _ids, TreeMap<String, String> _tree, StringMap<String> _messages) {
-        GeneComponentModelLsStrSub g_ = new GeneComponentModelLsStrSub(new GeneComponentModelLsStr(_api, _tree));
-        _ids.add(new SubscribedTranslationTyMessages(_messages));
-        g_.getSubs().addAllElts(_ids);
+    private static GeneComponentModelLsStrSub mergeLs(AbstractProgramInfos _api, FacadeGame _sub, SubscribedTranslationMessagesFactory _builder) {
+        StringMap<String> sub_ = _builder.buildMessages(_api, _sub);
+        StringList rem_ = new StringList(sub_.getKeys());
+        TreeMap<String, String> treeFilter_ = feedTree(sub_, rem_);
+        GeneComponentModelLsStrSub g_ = new GeneComponentModelLsStrSub(new GeneComponentModelLsStr(_api, treeFilter_));
+        g_.getSubs().add(_builder.buildSub(sub_));
+        g_.getSubs().add(_builder.buildSub(treeFilter_));
         return g_;
     }
 

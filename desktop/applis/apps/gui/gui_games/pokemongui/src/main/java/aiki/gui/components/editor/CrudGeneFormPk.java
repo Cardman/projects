@@ -7,6 +7,7 @@ import code.gui.initialize.*;
 import code.util.*;
 
 public final class CrudGeneFormPk extends CrudGeneFormSub<String, PokemonData> {
+    private final GeneComponentModelEltStrSub geneComponentModelSelectKey = ConverterCommonMapUtil.buildPk(getFactory(), getCrudGeneFormSubContent().getFacadeGame());
     private GeneComponentModelPokemonData geneComponentModelPokemonData;
 
     public CrudGeneFormPk(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub) {
@@ -18,7 +19,9 @@ public final class CrudGeneFormPk extends CrudGeneFormSub<String, PokemonData> {
         FacadeGame facadeGame_ = getCrudGeneFormSubContent().getFacadeGame();
         StringMap<String> messages_ = new StringMap<String>(facadeGame_.getData().getTranslatedPokemon().getVal(_core.getLanguage()));
         geneComponentModelPokemonData = new GeneComponentModelPokemonData(_fr,_core, facadeGame_, getCrudGeneFormSubContent().getSubscription());
-        subscribeAll();
+        setGeneKey(geneComponentModelSelectKey.getSelectUniq());
+        getCrudGeneFormSubContent().addSubRoot(new SubscribedTranslationPkMessages(messages_));
+        getCrudGeneFormSubContent().subscribeAll();
         initForm(messages_, getGeneKey(), geneComponentModelPokemonData, facadeGame_.getData().getPokedex());
         setFrame(_fr);
     }
@@ -48,29 +51,23 @@ public final class CrudGeneFormPk extends CrudGeneFormSub<String, PokemonData> {
     }
 
     @Override
-    protected void afterChange() {
-        getCrudGeneFormSubContent().removeOpenSub();
-        subscribeAll();
-        afterModif();
-    }
-
-    @Override
     public void cancel() {
         geneComponentModelPokemonData.getEvolutions().getCrudGeneFormSubContent().removeOpenSub();
         super.cancel();
     }
 
     @Override
-    protected IdList<SubscribedTranslation> subscribe() {
-        GeneComponentModelEltStrSub key_ = ConverterCommonMapUtil.buildPk(getFactory(), getCrudGeneFormSubContent().getFacadeGame());
+    public IdList<SubscribedTranslation> subscribe() {
+        GeneComponentModelEltStrSub key_ = geneComponentModelSelectKey;
         setGeneKey(key_.getSelectUniq());
-        return new IdList<SubscribedTranslation>(key_.subsPk());
+        return new IdList<SubscribedTranslation>(key_.getSubs());
+//        return new IdList<SubscribedTranslation>(key_.subsPk());
     }
 
     @Override
     public void updateDisplayEntry(AbstractProgramInfos _api, FacadeGame _facade) {
-        StringMap<String> messages_ = new StringMap<String>(_facade.getData().getTranslatedPokemon().getVal(_api.getLanguage()));
-        setDisplayEntry(new DisplayKeyOnly<String, PokemonData>(messages_));
+        possibleSort();
+        refresh();
     }
 
     @Override

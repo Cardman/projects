@@ -130,8 +130,10 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
     }
     public IdList<SubscribedTranslation> all() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
-        ids_.addAllElts(getTypes().subsTy());
-        ids_.addAllElts(getBaseEvo().subsPk());
+        ids_.addAllElts(getTypes().getSubs());
+        ids_.addAllElts(getBaseEvo().getSubs());
+        ids_.addAllElts(getEvolutions().subscribeButtons());
+        ids_.addAllElts(getLevMoves().subscribeButtons());
         return ids_;
     }
 

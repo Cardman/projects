@@ -1,7 +1,6 @@
 package aiki.gui.components.editor;
 
 import code.gui.*;
-import code.util.*;
 
 public final class GeneComponentModelEltStrSub extends GeneComponentModelEltStrCom {
     private final GeneComponentModelEltStr selectUniq;
@@ -12,24 +11,6 @@ public final class GeneComponentModelEltStrSub extends GeneComponentModelEltStrC
 
     public GeneComponentModelEltStr getSelectUniq() {
         return selectUniq;
-    }
-    public IdList<SubscribedTranslation> subsIt() {
-        return subs(new SubscribedTranslationItMessages(getSelectUniq().getMessages()));
-    }
-    public IdList<SubscribedTranslation> subsTy() {
-        return subs(new SubscribedTranslationTyMessages(getSelectUniq().getMessages()));
-    }
-    public IdList<SubscribedTranslation> subsPk() {
-        return subs(new SubscribedTranslationPkMessages(getSelectUniq().getMessages()));
-    }
-    public IdList<SubscribedTranslation> subsMv() {
-        return subs(new SubscribedTranslationMvMessages(getSelectUniq().getMessages()));
-    }
-    public IdList<SubscribedTranslation> subs(SubscribedTranslation _s) {
-        IdList<SubscribedTranslation> s_ = new IdList<SubscribedTranslation>(getSubs());
-        s_.add(_s);
-        s_.add(new SubscribedTranslationSelect(selectUniq));
-        return s_;
     }
 
     public AbsCustComponent geneEnum(String _value) {

@@ -174,10 +174,10 @@ public final class GeneComponentModelEvolution implements GeneComponentModel<Evo
     }
     public IdList<SubscribedTranslation> all() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
-        ids_.addAllElts(evoTeamPokemon.subsPk());
-        ids_.addAllElts(evoMove.subsMv());
-        ids_.addAllElts(evoMoveType.subsTy());
-        ids_.addAllElts(item.subsIt());
+        ids_.addAllElts(evoTeamPokemon.getSubs());
+        ids_.addAllElts(evoMove.getSubs());
+        ids_.addAllElts(evoMoveType.getSubs());
+        ids_.addAllElts(item.getSubs());
         return ids_;
     }
 

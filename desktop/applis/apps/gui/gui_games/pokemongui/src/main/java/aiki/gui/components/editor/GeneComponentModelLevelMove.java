@@ -41,7 +41,7 @@ public class GeneComponentModelLevelMove implements GeneComponentModel<LevelMove
     }
     public IdList<SubscribedTranslation> all() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
-        ids_.addAllElts(move.subsMv());
+        ids_.addAllElts(move.getSubs());
         return ids_;
     }
 

@@ -14,6 +14,7 @@ public abstract class AbsCrudGeneForm {
     private AbsButton cancel;
     private AbsPanel buttons;
     private boolean visibleSingle;
+    private boolean enabledButtons;
     private AbsCommonFrame frame;
     private final CustList<AbsButton> allButtons = new CustList<AbsButton>();
 
@@ -62,6 +63,7 @@ public abstract class AbsCrudGeneForm {
         getGroup().add(buttons_);
         getGroup().add(elements);
         getGroup().add(element);
+        setEnabledButtons(true);
     }
     public void refresh() {
         elements.removeAll();
@@ -70,6 +72,7 @@ public abstract class AbsCrudGeneForm {
         for (int i = 0; i < len_; i++) {
             AbsButton but_ = factory.getCompoFactory().newPlainButton(display(i));
             but_.addActionListener(new SelectCrudGeneFormEvent(this, i));
+            but_.setEnabled(enabledButtons);
             elements.add(but_);
             getAllButtons().add(but_);
         }
@@ -97,6 +100,7 @@ public abstract class AbsCrudGeneForm {
         cancel.setEnabled(true);
         add.setEnabled(false);
         visibleSingle = true;
+        setEnabledButtons(false);
         enable(false);
         getFrame().pack();
     }
@@ -107,6 +111,7 @@ public abstract class AbsCrudGeneForm {
         validRemove.setEnabled(false);
         cancel.setEnabled(false);
         add.setEnabled(true);
+        setEnabledButtons(true);
         refresh();
         visibleSingle = false;
         getFrame().pack();
@@ -117,10 +122,16 @@ public abstract class AbsCrudGeneForm {
         validRemove.setEnabled(false);
         cancel.setEnabled(false);
         add.setEnabled(true);
+        setEnabledButtons(true);
         enable(true);
         visibleSingle = false;
         getFrame().pack();
     }
+
+    public void setEnabledButtons(boolean _e) {
+        this.enabledButtons = _e;
+    }
+
     public abstract void possibleSort();
     private void enable(boolean _e) {
         for (AbsButton b: getAllButtons()) {

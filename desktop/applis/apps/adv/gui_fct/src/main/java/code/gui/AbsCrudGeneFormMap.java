@@ -57,6 +57,7 @@ public abstract class AbsCrudGeneFormMap<K,V> extends AbsCrudGeneForm {
         getElement().add(geneKey.gene());
         getElement().add(geneValue.gene());
         selectOrAdd();
+        getValidRemove().setEnabled(false);
     }
     public void validAddEdit() {
         K key_;

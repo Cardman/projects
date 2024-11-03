@@ -61,6 +61,7 @@ public abstract class AbsCrudGeneFormList<E> extends AbsCrudGeneForm {
         getElement().add(indicator);
         getElement().add(gene.gene());
         selectOrAdd();
+        getValidRemove().setEnabled(false);
     }
 
     @Override

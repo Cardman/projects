@@ -6,17 +6,23 @@ import code.gui.*;
 import code.gui.initialize.*;
 import code.util.*;
 
-public abstract class CrudGeneFormSub<K,V> extends AbsCrudGeneFormMap<K, V> {
+public abstract class CrudGeneFormSub<K,V> extends AbsCrudGeneFormMap<K, V> implements CrudGeneFormSubUp {
     private final CrudGeneFormSubContent crudGeneFormSubContent;
+    private AbsMap<K, String> messages;
 
     protected CrudGeneFormSub(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub) {
         super(_fact);
-        crudGeneFormSubContent = new CrudGeneFormSubContent(_facade, _sub);
+        crudGeneFormSubContent = new CrudGeneFormSubContent(_facade, _sub, this);
 
     }
 
     public void initForm(AbsMap<K, String> _disp, GeneComponentModel<K> _k, GeneComponentModel<V> _v, AbsMap<K, V> _map) {
         initForm(new DisplayKeyOnly<K, V>(_disp),_k,_v,new ComparatorTr<K>(_disp),_map);
+        messages = _disp;
+    }
+
+    public AbsMap<K, String> getMessages() {
+        return messages;
     }
 
     public CrudGeneFormSubContent getCrudGeneFormSubContent() {
@@ -36,12 +42,13 @@ public abstract class CrudGeneFormSub<K,V> extends AbsCrudGeneFormMap<K, V> {
         super.cancel();
     }
 
-    protected abstract void afterChange();
-
-    protected void subscribeAll() {
-        getCrudGeneFormSubContent().addAllSub(subscribe());
-        getCrudGeneFormSubContent().addSub(new SubscribedTranslationPkKey<K, V>(this));
+    protected void afterChange() {
+        getCrudGeneFormSubContent().afterChange(this);
     }
-    protected abstract IdList<SubscribedTranslation> subscribe();
-    public abstract void updateDisplayEntry(AbstractProgramInfos _api, FacadeGame _facade);
+
+    @Override
+    public void subscribeAll(IdList<SubscribedTranslation> _sub) {
+        getCrudGeneFormSubContent().addAllSub(_sub);
+        getCrudGeneFormSubContent().addSub(new SubscribedTranslationPkKey(this));
+    }
 }
