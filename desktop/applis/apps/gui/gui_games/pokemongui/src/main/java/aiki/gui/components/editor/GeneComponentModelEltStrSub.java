@@ -1,5 +1,6 @@
 package aiki.gui.components.editor;
 
+import aiki.db.DataBase;
 import code.gui.*;
 
 public final class GeneComponentModelEltStrSub extends GeneComponentModelEltStrCom {
@@ -13,8 +14,8 @@ public final class GeneComponentModelEltStrSub extends GeneComponentModelEltStrC
         return selectUniq;
     }
 
-    public AbsCustComponent geneEnum(String _value) {
-        return selectUniq.geneEnum(_value);
+    public AbsCustComponent geneEnum() {
+        return selectUniq.geneEnum(DataBase.EMPTY_STRING);
     }
 
     public String tryRet(String _def) {

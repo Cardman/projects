@@ -6,7 +6,7 @@ import code.gui.*;
 import code.gui.initialize.*;
 import code.util.*;
 
-public abstract class CrudGeneFormSub<K,V> extends AbsCrudGeneFormMap<K, V> implements CrudGeneFormSubUp {
+public abstract class CrudGeneFormSub<K,V> extends AbsCrudGeneFormMap<K, V> {
     private final CrudGeneFormSubContent crudGeneFormSubContent;
     private AbsMap<K, String> messages;
 
@@ -26,11 +26,28 @@ public abstract class CrudGeneFormSub<K,V> extends AbsCrudGeneFormMap<K, V> impl
         return messages;
     }
 
+    public SubscribedTranslationList subscription() {
+        return getCrudGeneFormSubContent().getSubscription();
+    }
     public CrudGeneFormSubContent getCrudGeneFormSubContent() {
         return crudGeneFormSubContent;
     }
 
     protected abstract IdList<SubscribedTranslation> all();
+
+    @Override
+    public void select(int _index) {
+        build();
+        super.select(_index);
+    }
+
+    protected abstract void build();
+
+    @Override
+    public void formAdd() {
+        build();
+        super.formAdd();
+    }
 
     @Override
     public void selectOrAdd() {
@@ -44,12 +61,7 @@ public abstract class CrudGeneFormSub<K,V> extends AbsCrudGeneFormMap<K, V> impl
     }
 
     protected void afterChange() {
-        getCrudGeneFormSubContent().afterChange(this);
+        getCrudGeneFormSubContent().afterChange();
     }
 
-    @Override
-    public void subscribeAll(IdList<SubscribedTranslation> _sub) {
-        getCrudGeneFormSubContent().addAllSub(_sub);
-        getCrudGeneFormSubContent().addSub(new SubscribedTranslationPkKey(this));
-    }
 }

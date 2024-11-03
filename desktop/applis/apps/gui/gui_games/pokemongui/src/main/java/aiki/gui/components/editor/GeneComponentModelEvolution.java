@@ -11,31 +11,30 @@ import code.util.core.*;
 
 public final class GeneComponentModelEvolution implements GeneComponentModel<Evolution> {
     private final AbstractProgramInfos programInfos;
-    private final GeneComponentModelEltEnum<String> evolutionKind;
+    private final FacadeGame fac;
+    private GeneComponentModelEltEnum<String> evolutionKind;
     private final GeneComponentModelInt level;
-    private final GeneComponentModelEltStrSub item;
-    private final GeneComponentModelEltStrSub evoTeamPokemon;
-    private final GeneComponentModelEltStrSub evoMove;
-    private final GeneComponentModelEltStrSub evoMoveType;
-    private final GeneComponentModelEltEnum<Gender> evoGender;
+    private GeneComponentModelEltStrSub item;
+    private GeneComponentModelEltStrSub evoTeamPokemon;
+    private GeneComponentModelEltStrSub evoMove;
+    private GeneComponentModelEltStrSub evoMoveType;
+    private GeneComponentModelEltEnum<Gender> evoGender;
+    private final SubscribedTranslationList subscribedTranslationList;
     private Evolution edited;
     private AbsPanel selected;
     private final AbsCommonFrame frame;
 
-    public GeneComponentModelEvolution(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _facade) {
+    public GeneComponentModelEvolution(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _subscription) {
         frame = _f;
         programInfos = _core;
-        StringMap<String> messages_ = MessagesPkEditor.getMessagesEditorSelectEvoTr(MessagesPkEditor.getAppliTr(_core.currentLg())).getMapping();
-        evolutionKind = new GeneComponentModelEltEnum<String>(programInfos, messages_);
+        fac = _facade;
         level = new GeneComponentModelInt(_core);
-        item = ConverterCommonMapUtil.buildItFull(_core, _facade);
-        evoTeamPokemon = ConverterCommonMapUtil.buildPkFull(_core,_facade);
-        evoMove = ConverterCommonMapUtil.buildMvFull(_core,_facade);
-        evoMoveType = ConverterCommonMapUtil.buildTypeElt(_core,_facade);
-        evoGender = ConverterCommonMapUtil.buildGender(_core,_facade);
+        subscribedTranslationList = _subscription;
     }
     @Override
     public AbsCustComponent gene() {
+        StringMap<String> messages_ = MessagesPkEditor.getMessagesEditorSelectEvoTr(MessagesPkEditor.getAppliTr(programInfos.currentLg())).getMapping();
+        evolutionKind = new GeneComponentModelEltEnum<String>(programInfos, messages_);
         AbsCompoFactory compoFactory_ = programInfos.getCompoFactory();
         AbsPanel evoForm_ = compoFactory_.newLineBox();
         selected = compoFactory_.newLineBox();
@@ -50,6 +49,11 @@ public final class GeneComponentModelEvolution implements GeneComponentModel<Evo
     public void applyChange() {
         selected.removeAll();
         String evo_ = evolutionKind.tryRet("");
+        item = ConverterCommonMapUtil.buildItFull(programInfos, fac,subscribedTranslationList);
+        evoTeamPokemon = ConverterCommonMapUtil.buildPkFull(programInfos,fac,subscribedTranslationList);
+        evoMove = ConverterCommonMapUtil.buildMvFull(programInfos,fac,subscribedTranslationList);
+        evoMoveType = ConverterCommonMapUtil.buildTypeElt(programInfos,fac,subscribedTranslationList);
+        evoGender = ConverterCommonMapUtil.buildGender(programInfos,fac);
         if (StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_LEVEL_SIMPLE)) {
             edited = Instances.newEvolutionLevelSimple();
             selected.add(level.geneInt());
@@ -61,11 +65,11 @@ public final class GeneComponentModelEvolution implements GeneComponentModel<Evo
         }
         if (StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_STONE_SIMPLE)) {
             edited = Instances.newEvolutionStoneSimple();
-            selected.add(item.geneEnum(""));
+            selected.add(item.geneEnum());
         }
         if (StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_STONE_GENDER)) {
             edited = Instances.newEvolutionStoneGender();
-            selected.add(item.geneEnum(""));
+            selected.add(item.geneEnum());
             selected.add(evoGender.geneEnum(Gender.NO_GENDER));
         }
         if (StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_HAPPINESS)) {
@@ -73,19 +77,19 @@ public final class GeneComponentModelEvolution implements GeneComponentModel<Evo
         }
         if (StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_ITEM)) {
             edited = Instances.newEvolutionItem();
-            selected.add(item.geneEnum(""));
+            selected.add(item.geneEnum());
         }
         if (StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_MOVE)) {
             edited = Instances.newEvolutionMove();
-            selected.add(evoMove.geneEnum(""));
+            selected.add(evoMove.geneEnum());
         }
         if (StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_MOVE_TYPE)) {
             edited = Instances.newEvolutionMoveType();
-            selected.add(evoMoveType.geneEnum(""));
+            selected.add(evoMoveType.geneEnum());
         }
         if (StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_TEAM)) {
             edited = Instances.newEvolutionTeam();
-            selected.add(evoTeamPokemon.geneEnum(""));
+            selected.add(evoTeamPokemon.geneEnum());
         }
         evolutionKind.getSelect().repaint();
         frame.pack();

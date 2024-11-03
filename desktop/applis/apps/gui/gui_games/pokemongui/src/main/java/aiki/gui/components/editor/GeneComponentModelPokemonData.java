@@ -13,15 +13,16 @@ import code.gui.initialize.*;
 import code.util.*;
 
 public final class GeneComponentModelPokemonData implements GeneComponentModel<PokemonData> {
+    private final SubscribedTranslationList subscribedTranslationList;
     private final AbstractProgramInfos compoFactory;
     private final FacadeGame facade;
     private final GeneComponentModelRate weight;
     private final GeneComponentModelRate height;
-    private final GeneComponentModelLsStrSub types;
+    private GeneComponentModelLsStrSub types;
     private final IdMap<Statistic, FormStatBaseEv> statistics = new IdMap<Statistic, FormStatBaseEv>();
-    private final GeneComponentModelEltEnum<GenderRepartition> genderRep;
-    private final GeneComponentModelEltStrSub baseEvo;
-    private final GeneComponentModelEltEnum<ExpType> expEvo;
+    private GeneComponentModelEltEnum<GenderRepartition> genderRep;
+    private GeneComponentModelEltStrSub baseEvo;
+    private GeneComponentModelEltEnum<ExpType> expEvo;
     private final CrudGeneFormListSubLevelMove levMoves;
     private final CrudGeneFormEvolutions evolutions;
     private PokemonData element;
@@ -29,23 +30,20 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
     public GeneComponentModelPokemonData(AbsCommonFrame _fr, AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
         this.compoFactory = _core;
         facade = _facade;
+        subscribedTranslationList = _sub;
         weight = new GeneComponentModelRate(compoFactory);
         height = new GeneComponentModelRate(compoFactory);
-        types = ConverterCommonMapUtil.buildTypeList(compoFactory,facade);
-        genderRep =ConverterCommonMapUtil.buildGenderRepartition(compoFactory);
-        baseEvo = ConverterCommonMapUtil.buildPkFull(compoFactory,_facade);
-        expEvo =ConverterCommonMapUtil.buildExpType(compoFactory,_facade);
         levMoves = new CrudGeneFormListSubLevelMove(compoFactory,_facade,_sub,_fr);
         evolutions = new CrudGeneFormEvolutions(_core,_facade,_sub,_fr);
     }
     @Override
     public AbsCustComponent gene() {
         element = Instances.newPokemonData();
-        return group();
-    }
-
-    private AbsCustComponent group() {
         statistics.clear();
+        genderRep =ConverterCommonMapUtil.buildGenderRepartition(compoFactory);
+        expEvo =ConverterCommonMapUtil.buildExpType(compoFactory,facade);
+        types = ConverterCommonMapUtil.buildTypeList(compoFactory,facade,subscribedTranslationList);
+        baseEvo = ConverterCommonMapUtil.buildPkFull(compoFactory,facade,subscribedTranslationList);
         AbsCompoFactory compoFactory_ = compoFactory.getCompoFactory();
         AbsScrollPane sc_ = compoFactory_.newAbsScrollPane();
         AbsPanel form_ = compoFactory_.newLineBox();
@@ -61,7 +59,7 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
         updateStats(element);
         form_.add(stats_);
         form_.add(genderRep.geneEnum(element.getGenderRep()));
-        form_.add(baseEvo.geneEnum(element.getBaseEvo()));
+        form_.add(baseEvo.geneEnum());
         form_.add(expEvo.geneEnum(element.getExpEvo()));
         levMoves.initForm(compoFactory, element.getLevMoves());
         form_.add(levMoves.getGroup());

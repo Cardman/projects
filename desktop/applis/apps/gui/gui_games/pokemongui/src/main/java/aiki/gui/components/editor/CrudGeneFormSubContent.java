@@ -10,9 +10,9 @@ public final class CrudGeneFormSubContent {
     private final SubscribedTranslationList subscription;
     private final IdList<SubscribedTranslation> subscribedTranslations;
     private final IdList<SubscribedTranslation> subscribedTranslationsForm;
-    private final CrudGeneFormSubUp visited;
+    private final AbsCrudGeneForm visited;
 
-    public CrudGeneFormSubContent(FacadeGame _facade, SubscribedTranslationList _sub, CrudGeneFormSubUp _current, AbsCommonFrame _fr) {
+    public CrudGeneFormSubContent(FacadeGame _facade, SubscribedTranslationList _sub, AbsCrudGeneForm _current, AbsCommonFrame _fr) {
         facadeGame = _facade;
         subscription = _sub;
         subscribedTranslations = _sub.getSubscribedTranslations().getVal(_fr);
@@ -43,26 +43,14 @@ public final class CrudGeneFormSubContent {
         subscribedTranslations.removeAllElements(subscribedTranslationsForm);
     }
 
-    public void subscribeAll() {
-        visited.subscribeAll(visited.subscribe());
-    }
-    public void afterChange(AbsCrudGeneForm _c) {
+    public void afterChange() {
         removeOpenSub();
-        visited.subscribeAll(visited.subscribe());
-        _c.afterModif();
+        visited.afterModif();
     }
     public void clearSub() {
         subscribedTranslationsForm.clear();
     }
-    public void addAllSub(IdList<SubscribedTranslation> _sub) {
-        for (SubscribedTranslation s:_sub) {
-            addSub(s);
-        }
-    }
-    public void addSub(SubscribedTranslation _sub) {
-        subscribedTranslations.add(_sub);
-        subscribedTranslationsForm.add(_sub);
-    }
+
     public void addSubRoot(SubscribedTranslation _sub) {
         subscribedTranslations.add(_sub);
     }

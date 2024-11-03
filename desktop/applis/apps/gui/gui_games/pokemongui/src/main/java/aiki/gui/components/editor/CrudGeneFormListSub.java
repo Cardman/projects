@@ -6,7 +6,7 @@ import code.gui.initialize.*;
 import code.util.IdList;
 import code.util.ints.*;
 
-public abstract class CrudGeneFormListSub<E> extends AbsCrudGeneFormList<E> implements CrudGeneFormSubUp{
+public abstract class CrudGeneFormListSub<E> extends AbsCrudGeneFormList<E> {
     private final CrudGeneFormSubContent crudGeneFormSubContent;
 
     protected CrudGeneFormListSub(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub, AbsCommonFrame _fr, Comparing<E> _c) {
@@ -15,6 +15,9 @@ public abstract class CrudGeneFormListSub<E> extends AbsCrudGeneFormList<E> impl
         crudGeneFormSubContent = new CrudGeneFormSubContent(_facade, _sub, this, _fr);
     }
 
+    public SubscribedTranslationList subscription() {
+        return getCrudGeneFormSubContent().getSubscription();
+    }
     public CrudGeneFormSubContent getCrudGeneFormSubContent() {
         return crudGeneFormSubContent;
     }
@@ -30,7 +33,7 @@ public abstract class CrudGeneFormListSub<E> extends AbsCrudGeneFormList<E> impl
     }
 
     protected void afterChange() {
-        getCrudGeneFormSubContent().afterChange(this);
+        getCrudGeneFormSubContent().afterChange();
     }
 
     @Override
@@ -44,9 +47,4 @@ public abstract class CrudGeneFormListSub<E> extends AbsCrudGeneFormList<E> impl
         super.cancel();
     }
 
-    @Override
-    public void subscribeAll(IdList<SubscribedTranslation> _sub) {
-        getCrudGeneFormSubContent().addAllSub(_sub);
-        getCrudGeneFormSubContent().addSub(new SubscribedTranslationPkKey(this));
-    }
 }

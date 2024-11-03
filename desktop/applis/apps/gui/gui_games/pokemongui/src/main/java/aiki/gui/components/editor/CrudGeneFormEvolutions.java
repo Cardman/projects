@@ -7,7 +7,7 @@ import code.gui.initialize.*;
 import code.util.*;
 
 public final class CrudGeneFormEvolutions extends CrudGeneFormBasicSub<String, Evolution> {
-    private final GeneComponentModelEltStrSub geneComponentModelSelectKey = ConverterCommonMapUtil.buildPkFull(getFactory(), getCrudGeneFormSubContent().getFacadeGame());
+    private GeneComponentModelEltStrSub geneComponentModelSelectKey;
     private GeneComponentModelEvolution geneComponentModelEvolution;
 
     public CrudGeneFormEvolutions(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub, AbsCommonFrame _fr) {
@@ -16,26 +16,27 @@ public final class CrudGeneFormEvolutions extends CrudGeneFormBasicSub<String, E
     }
     public void initForm(AbstractProgramInfos _core, StringMap<Evolution> _evos) {
         getCrudGeneFormSubContent().clear();
-        StringMap<String> messages_ = new StringMap<String>(getCrudGeneFormSubContent().getFacadeGame().getData().getTranslatedPokemon().getVal(_core.getLanguage()));
-        geneComponentModelEvolution = new GeneComponentModelEvolution(getFrame(),_core, getCrudGeneFormSubContent().getFacadeGame());
+//        geneComponentModelSelectKey = ConverterCommonMapUtil.buildPkFull(getFactory(), getCrudGeneFormSubContent().getFacadeGame(), subscription());
+        StringMap<String> messages_ = subscription().getFactoryPk().buildMessages(_core,getCrudGeneFormSubContent().getFacadeGame());
+        geneComponentModelEvolution = new GeneComponentModelEvolution(getFrame(),_core, getCrudGeneFormSubContent().getFacadeGame(),subscription());
 //        getCrudGeneFormSubContent().addAllSub(subscribe());
-        setGeneKey(geneComponentModelSelectKey.getSelectUniq());
+//        setGeneKey(geneComponentModelSelectKey.getSelectUniq());
 //        getCrudGeneFormSubContent().subscribeAll();
         initForm();
         initForm(messages_, getGeneKey(), geneComponentModelEvolution, _evos);
     }
 
-    @Override
-    public IdList<SubscribedTranslation> subscribe() {
-        setGeneKey(geneComponentModelSelectKey.getSelectUniq());
-        return new IdList<SubscribedTranslation>(geneComponentModelSelectKey.getSubs());
-    }
-
     public IdList<SubscribedTranslation> subscribeButtons() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
-        ids_.add(new SubscribedTranslationPkMessages(getMessages()));
+        ids_.add(new SubscribedTranslationMessages(getMessages(),subscription().getFactoryPk()));
         ids_.add(new SubscribedTranslationPkKey(this));
         return ids_;
+    }
+
+    @Override
+    protected void build() {
+        geneComponentModelSelectKey = ConverterCommonMapUtil.buildPkFull(getFactory(), getCrudGeneFormSubContent().getFacadeGame(), subscription());
+        setGeneKey(geneComponentModelSelectKey.getSelectUniq());
     }
 
     @Override

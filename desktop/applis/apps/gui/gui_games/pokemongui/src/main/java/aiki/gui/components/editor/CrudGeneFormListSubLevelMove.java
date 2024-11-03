@@ -16,9 +16,8 @@ public final class CrudGeneFormListSubLevelMove extends CrudGeneFormListSub<Leve
     }
     public void initForm(AbstractProgramInfos _core, CustList<LevelMove> _moves) {
         getCrudGeneFormSubContent().clear();
-        messages = new StringMap<String>(getCrudGeneFormSubContent().getFacadeGame().getData().getTranslatedMoves().getVal(getFactory().getLanguage()));
-        geneComponentModelLevelMove = new GeneComponentModelLevelMove(_core, getCrudGeneFormSubContent().getFacadeGame());
-        getCrudGeneFormSubContent().subscribeAll();
+        messages = subscription().getFactoryMv().buildMessages(_core,getCrudGeneFormSubContent().getFacadeGame());
+        geneComponentModelLevelMove = new GeneComponentModelLevelMove(_core, getCrudGeneFormSubContent().getFacadeGame(),subscription());
         initForm();
         initForm(new DisplayEntryCustLevelMove(messages), geneComponentModelLevelMove, _moves, new ComparingLevelMove(messages));
     }
@@ -28,13 +27,9 @@ public final class CrudGeneFormListSubLevelMove extends CrudGeneFormListSub<Leve
         return geneComponentModelLevelMove.all();
     }
 
-    @Override
-    public IdList<SubscribedTranslation> subscribe() {
-        return new IdList<SubscribedTranslation>();
-    }
     public IdList<SubscribedTranslation> subscribeButtons() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
-        ids_.add(new SubscribedTranslationMvMessages(messages));
+        ids_.add(new SubscribedTranslationMessages(messages,subscription().getFactoryMv()));
         ids_.add(new SubscribedTranslationPkKey(this));
         return ids_;
     }

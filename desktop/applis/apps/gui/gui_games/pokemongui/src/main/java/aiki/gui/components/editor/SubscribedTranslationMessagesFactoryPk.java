@@ -7,7 +7,7 @@ import code.util.*;
 public final class SubscribedTranslationMessagesFactoryPk implements SubscribedTranslationMessagesFactory {
     @Override
     public SubscribedTranslation buildSub(AbsMap<String, String> _map) {
-        return new SubscribedTranslationPkMessages(_map);
+        return new SubscribedTranslationMessages(_map, this);
     }
 
     @Override

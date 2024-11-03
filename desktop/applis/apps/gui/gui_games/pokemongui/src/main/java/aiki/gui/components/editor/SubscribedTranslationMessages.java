@@ -5,16 +5,18 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.util.AbsMap;
 import code.util.StringMap;
 
-public final class SubscribedTranslationTyMessages implements SubscribedTranslation {
+public final class SubscribedTranslationMessages implements SubscribedTranslation {
     private final AbsMap<String, String> input;
+    private final SubscribedTranslationMessagesFactory factory;
 
-    public SubscribedTranslationTyMessages(AbsMap<String, String> _c) {
+    public SubscribedTranslationMessages(AbsMap<String, String> _c, SubscribedTranslationMessagesFactory _sub) {
         this.input = _c;
+        this.factory = _sub;
     }
 
     @Override
     public void update(AbstractProgramInfos _api, FacadeGame _facade) {
-        StringMap<String> messages_ = new StringMap<String>(_facade.getData().getTranslatedTypes().getVal(_api.getLanguage()));
+        StringMap<String> messages_ = factory.buildMessages(_api, _facade);
         input.clear();
         input.addAllEntries(messages_);
     }

@@ -8,12 +8,15 @@ import code.util.*;
 
 public class GeneComponentModelLevelMove implements GeneComponentModel<LevelMove> {
     private final AbstractProgramInfos programInfos;
-    private final GeneComponentModelEltStrSub move;
+    private final FacadeGame facade;
+    private GeneComponentModelEltStrSub move;
     private final GeneComponentModelInt level;
+    private final SubscribedTranslationList subscribedTranslationList;
 
-    public GeneComponentModelLevelMove(AbstractProgramInfos _core, FacadeGame _facade) {
+    public GeneComponentModelLevelMove(AbstractProgramInfos _core, FacadeGame _f, SubscribedTranslationList _subscription) {
         programInfos = _core;
-        move = ConverterCommonMapUtil.buildMvFull(_core, _facade);
+        facade = _f;
+        subscribedTranslationList = _subscription;
         level = new GeneComponentModelInt(_core);
     }
 
@@ -21,7 +24,8 @@ public class GeneComponentModelLevelMove implements GeneComponentModel<LevelMove
     public AbsCustComponent gene() {
         AbsPanel form_ = programInfos.getCompoFactory().newLineBox();
         form_.add(level.geneInt());
-        form_.add(move.geneEnum(""));
+        move = ConverterCommonMapUtil.buildMvFull(programInfos, facade,subscribedTranslationList);
+        form_.add(move.geneEnum());
         return form_;
     }
 

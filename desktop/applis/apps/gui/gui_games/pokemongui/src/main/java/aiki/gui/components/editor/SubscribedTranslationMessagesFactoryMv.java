@@ -8,7 +8,7 @@ import code.util.StringMap;
 public final class SubscribedTranslationMessagesFactoryMv implements SubscribedTranslationMessagesFactory {
     @Override
     public SubscribedTranslation buildSub(AbsMap<String, String> _map) {
-        return new SubscribedTranslationMvMessages(_map);
+        return new SubscribedTranslationMessages(_map,this);
     }
 
     @Override
