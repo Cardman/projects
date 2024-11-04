@@ -5,19 +5,11 @@ import code.util.*;
 
 public final class GeneComponentModelEltEnum<E> extends GeneComponentModelElt<E> {
 
-    private final AbsMap<E, String> messages;
-
     public GeneComponentModelEltEnum(AbstractProgramInfos _c, AbsMap<E, String> _messages) {
         this(_c, new DefCustCellRenderGeneImpl<E>(_c.getCompoFactory(), _c.getImageFactory(), _messages), _messages);
     }
     public GeneComponentModelEltEnum(AbstractProgramInfos _c, DefCustCellRenderGeneImpl<E> _rend, AbsMap<E,String> _elts) {
-        super(_c, _elts);
-        messages = _rend.getMessages();
-    }
-
-    @Override
-    protected AbsStringScrollCustomCombo<E> buildSelect() {
-        return new EnumScrollCustomCombo<E>(getCompoFactory().getCompoFactory(), getCompoFactory().getImageFactory(), messages);
+        super(_c, _elts, _rend);
     }
 
     @Override
@@ -25,9 +17,4 @@ public final class GeneComponentModelEltEnum<E> extends GeneComponentModelElt<E>
         return null;
     }
 
-    @Override
-    protected void setupValue(AbsStringScrollCustomCombo<E> _t, E _v) {
-        _t.select(getElements().indexOfEntry(_v));
-        _t.repaint();
-    }
 }

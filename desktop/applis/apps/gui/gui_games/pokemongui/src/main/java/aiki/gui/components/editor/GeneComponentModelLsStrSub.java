@@ -3,22 +3,22 @@ package aiki.gui.components.editor;
 import code.gui.*;
 import code.util.*;
 
-public final class GeneComponentModelLsStrSub extends GeneComponentModelEltStrCom {
-    private final GeneComponentModelLsStr selectList;
+public final class GeneComponentModelLsStrSub<E> extends GeneComponentModelEltStrCom {
+    private final GeneComponentModelLs<E> selectList;
 
-    public GeneComponentModelLsStrSub(GeneComponentModelLsStr _s) {
+    public GeneComponentModelLsStrSub(GeneComponentModelLs<E> _s) {
         this.selectList = _s;
     }
 
-    public AbsCustComponent geneCommon(CustList<String> _values) {
+    public AbsCustComponent geneCommon(CustList<E> _values) {
         return selectList.geneCommon(_values);
     }
 
-    public CustList<String> tryRet() {
+    public CustList<E> tryRet() {
         return selectList.tryRet();
     }
 
-    public void setupValue(CustList<String> _types) {
+    public void setupValue(CustList<E> _types) {
         selectList.setupValue(_types);
     }
 }

@@ -14,6 +14,8 @@ public final class SubscribedTranslationList {
     private final SubscribedTranslationMessagesFactory factoryMv = new SubscribedTranslationMessagesFactoryMv();
     private final SubscribedTranslationMessagesFactory factoryPk = new SubscribedTranslationMessagesFactoryPk();
     private final SubscribedTranslationMessagesFactory factoryTy = new SubscribedTranslationMessagesFactoryTy();
+    private final SubscribedTranslationMessagesNbFactory factoryTm = new SubscribedTranslationMessagesNbFactoryTm();
+    private final SubscribedTranslationMessagesNbFactory factoryHm = new SubscribedTranslationMessagesNbFactoryHm();
 
     public SubscribedTranslationList(AbstractProgramInfos _p, FacadeGame _f) {
         this.programInfos = _p;
@@ -51,5 +53,13 @@ public final class SubscribedTranslationList {
 
     public SubscribedTranslationMessagesFactory getFactoryTy() {
         return factoryTy;
+    }
+
+    public SubscribedTranslationMessagesNbFactory getFactoryTm() {
+        return factoryTm;
+    }
+
+    public SubscribedTranslationMessagesNbFactory getFactoryHm() {
+        return factoryHm;
     }
 }

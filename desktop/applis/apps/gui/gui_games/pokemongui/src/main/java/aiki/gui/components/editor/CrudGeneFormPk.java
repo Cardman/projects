@@ -31,13 +31,15 @@ public final class CrudGeneFormPk extends CrudGeneFormSub<String, PokemonData> {
     @Override
     protected void afterModif(int _index, String _key, PokemonData _value) {
         FacadeGame facadeGame_ = getCrudGeneFormSubContent().getFacadeGame();
+        SubscribedTranslationMessagesFactory factoryPk_ = getCrudGeneFormSubContent().getSubscription().getFactoryPk();
         if (_index > -1) {
             int old_ = facadeGame_.getData().getPokedex().size();
-            StringMap<StringMap<String>> bk_ = ConverterCommonMapUtil.backUp(facadeGame_.getData().getTranslatedPokemon());
+            StringMap<StringMap<String>> trs_ = factoryPk_.buildMessages(facadeGame_);
+            StringMap<StringMap<String>> bk_ = ConverterCommonMapUtil.backUp(trs_);
             facadeGame_.getData().deletePokemon(_key);
             if (old_ > facadeGame_.getData().getPokedex().size()) {
-                facadeGame_.getData().getTranslatedPokemon().clear();
-                facadeGame_.getData().getTranslatedPokemon().addAllEntries(bk_);
+                trs_.clear();
+                trs_.addAllEntries(bk_);
                 getList().remove(_index);
                 afterChange();
             }

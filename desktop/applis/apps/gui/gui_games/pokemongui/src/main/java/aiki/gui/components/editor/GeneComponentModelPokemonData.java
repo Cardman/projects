@@ -18,9 +18,11 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
     private final FacadeGame facade;
     private final GeneComponentModelRate weight;
     private final GeneComponentModelRate height;
-    private GeneComponentModelLsStrSub types;
-    private GeneComponentModelLsStrSub abilities;
-    private GeneComponentModelLsStrSub moveTutors;
+    private GeneComponentModelLsStrSub<String> types;
+    private GeneComponentModelLsStrSub<String> abilities;
+    private GeneComponentModelLsStrSub<String> moveTutors;
+    private GeneComponentModelLsStrSub<Short> technicalMoves;
+    private GeneComponentModelLsStrSub<Short> hiddenMoves;
     private final IdMap<Statistic, FormStatBaseEv> statistics = new IdMap<Statistic, FormStatBaseEv>();
     private GeneComponentModelEltEnum<GenderRepartition> genderRep;
     private GeneComponentModelEltStrSub baseEvo;
@@ -48,6 +50,8 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
         abilities = ConverterCommonMapUtil.buildAbilityList(compoFactory,facade,subscribedTranslationList);
         moveTutors = ConverterCommonMapUtil.buildMoveList(compoFactory,facade,subscribedTranslationList);
         baseEvo = ConverterCommonMapUtil.buildPkFull(compoFactory,facade,subscribedTranslationList);
+        technicalMoves = ConverterCommonMapUtil.buildTmList(compoFactory,facade,subscribedTranslationList);
+        hiddenMoves = ConverterCommonMapUtil.buildHmList(compoFactory,facade,subscribedTranslationList);
         AbsCompoFactory compoFactory_ = compoFactory.getCompoFactory();
         AbsScrollPane sc_ = compoFactory_.newAbsScrollPane();
         AbsPanel form_ = compoFactory_.newLineBox();
@@ -72,6 +76,8 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
         evolutions.initForm();
         evolutions.initForm(compoFactory, element.getEvolutions());
         form_.add(evolutions.getGroup());
+        form_.add(technicalMoves.geneCommon(element.getTechnicalMoves()));
+        form_.add(hiddenMoves.geneCommon(element.getHiddenMoves()));
         sc_.setViewportView(form_);
         return sc_;
     }
@@ -92,6 +98,8 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
         ent_.setExpEvo(expEvo.tryRet(ExpType.M));
         ent_.setLevMoves(levMoves.getList());
         ent_.setEvolutions(new StringMap<Evolution>(evolutions.getList()));
+        ent_.setTechnicalMoves(new Shorts(technicalMoves.tryRet()));
+        ent_.setHiddenMoves(new Shorts(technicalMoves.tryRet()));
         return ent_;
     }
 
@@ -113,6 +121,8 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
         getExpEvo().setupValue(_v.getExpEvo());
         getLevMoves().setupValues(_v.getLevMoves());
         getEvolutions().setupValues(_v.getEvolutions());
+        getTechnicalMoves().setupValue(_v.getTechnicalMoves());
+        getHiddenMoves().setupValue(_v.getHiddenMoves());
     }
 
     private void updateStats(PokemonData _v) {
@@ -132,6 +142,8 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
         ids_.addAllElts(getBaseEvo().getSubs());
         ids_.addAllElts(getEvolutions().subscribeButtons());
         ids_.addAllElts(getLevMoves().subscribeButtons());
+        ids_.addAllElts(getTechnicalMoves().getSubs());
+        ids_.addAllElts(getHiddenMoves().getSubs());
         return ids_;
     }
 
@@ -143,16 +155,24 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
         return height;
     }
 
-    public GeneComponentModelLsStrSub getTypes() {
+    public GeneComponentModelLsStrSub<String> getTypes() {
         return types;
     }
 
-    public GeneComponentModelLsStrSub getAbilities() {
+    public GeneComponentModelLsStrSub<String> getAbilities() {
         return abilities;
     }
 
-    public GeneComponentModelLsStrSub getMoveTutors() {
+    public GeneComponentModelLsStrSub<String> getMoveTutors() {
         return moveTutors;
+    }
+
+    public GeneComponentModelLsStrSub<Short> getTechnicalMoves() {
+        return technicalMoves;
+    }
+
+    public GeneComponentModelLsStrSub<Short> getHiddenMoves() {
+        return hiddenMoves;
     }
 
     public IdMap<Statistic, FormStatBaseEv> getStatistics() {

@@ -46,6 +46,7 @@ public abstract class GeneComponentModelLs<T> extends GeneComponentModelEltCommo
         }
         CustList<T> selected_ = tryRet();
         getElements().reset();
+        select.clear();
         for (T e: getElements().getKeys()) {
             select.add(e);
         }
@@ -77,7 +78,9 @@ public abstract class GeneComponentModelLs<T> extends GeneComponentModelEltCommo
         _t.events();
         _t.revalidate();
     }
-    protected abstract int indexOf(T _t);
+    protected int indexOf(T _t) {
+        return getElements().indexOfEntry(_t);
+    }
 
     public CustList<T> tryRet() {
         Ints sel_ = getSelect().getSelectedIndexes();

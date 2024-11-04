@@ -4,10 +4,10 @@ import code.gui.initialize.*;
 import code.util.*;
 
 public final class GeneComponentModelLsEnum<E> extends GeneComponentModelLs<E> implements GeneComponentModel<IdList<E>> {
-    public GeneComponentModelLsEnum(AbstractProgramInfos _c, IdMap<E, String> _messages) {
+    public GeneComponentModelLsEnum(AbstractProgramInfos _c, AbsMap<E, String> _messages) {
         this(_c, new DefCustCellRenderGeneImpl<E>(_c.getCompoFactory(), _c.getImageFactory(), _messages), _messages);
     }
-    public GeneComponentModelLsEnum(AbstractProgramInfos _c, DefCustCellRenderGeneImpl<E> _rend, IdMap<E,String> _elts) {
+    public GeneComponentModelLsEnum(AbstractProgramInfos _c, DefCustCellRenderGeneImpl<E> _rend, AbsMap<E,String> _elts) {
         super(_c, _rend, _elts);
     }
 
@@ -19,12 +19,7 @@ public final class GeneComponentModelLsEnum<E> extends GeneComponentModelLs<E> i
     @Override
     public IdList<E> value(IdList<E> _v) {
         IdList<E> ls_ = new IdList<E>(tryRet());
-        setupValue(getSelect(),_v);
+        setupValue(_v);
         return ls_;
-    }
-
-    @Override
-    protected int indexOf(E _t) {
-        return getElements().indexOfEntry(_t);
     }
 }

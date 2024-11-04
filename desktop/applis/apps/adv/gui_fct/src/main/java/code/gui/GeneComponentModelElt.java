@@ -4,9 +4,11 @@ import code.gui.initialize.*;
 import code.util.*;
 
 public abstract class GeneComponentModelElt<T> extends GeneComponentModelEltCommon<T> implements GeneComponentModel<T>,GeneComponentModelStr {
+    private final AbsMap<T, String> messages;
     private AbsStringScrollCustomCombo<T> select;
-    protected GeneComponentModelElt(AbstractProgramInfos _c, AbsMap<T,String> _elts) {
+    protected GeneComponentModelElt(AbstractProgramInfos _c, AbsMap<T,String> _elts, DefCustCellRenderGeneImpl<T> _rend) {
         super(_c, _elts);
+        messages = _rend.getMessages();
     }
 
     @Override
@@ -47,9 +49,14 @@ public abstract class GeneComponentModelElt<T> extends GeneComponentModelEltComm
         }
         setupValue(selected_);
     }
-    protected abstract AbsStringScrollCustomCombo<T> buildSelect();
 
-    protected abstract void setupValue(AbsStringScrollCustomCombo<T> _t, T _v);
+    protected AbsStringScrollCustomCombo<T> buildSelect() {
+        return new EnumScrollCustomCombo<T>(getCompoFactory().getCompoFactory(), getCompoFactory().getImageFactory(), messages);
+    }
+    protected void setupValue(AbsStringScrollCustomCombo<T> _t, T _v) {
+        _t.select(getElements().indexOfEntry(_v));
+        _t.repaint();
+    }
 
     @Override
     public T value() {

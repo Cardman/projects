@@ -12,11 +12,6 @@ public final class GeneComponentModelLsStr extends GeneComponentModelLs<String> 
     }
 
     @Override
-    protected int indexOf(String _t) {
-        return getElements().indexOfEntry(_t);
-    }
-
-    @Override
     public StringList value() {
         return new StringList(tryRet());
     }
@@ -24,7 +19,7 @@ public final class GeneComponentModelLsStr extends GeneComponentModelLs<String> 
     @Override
     public StringList value(StringList _v) {
         StringList ls_ = new StringList(tryRet());
-        setupValue(getSelect(),_v);
+        setupValue(_v);
         return ls_;
     }
 }
