@@ -6,7 +6,7 @@ import code.gui.initialize.*;
 import code.maths.LgInt;
 import code.util.*;
 
-public abstract class AbsCrudGeneFormNb extends CrudGeneFormSub<Integer, String> {
+public final class CrudGeneFormNb extends CrudGeneFormSub<Integer, String> {
     private final FacadeGame facadeGame;
     private final AbsSpinner destination;
     private final SubscribedTranslationList subscribedTranslations;
@@ -14,7 +14,7 @@ public abstract class AbsCrudGeneFormNb extends CrudGeneFormSub<Integer, String>
     private GeneComponentModelEltStrSub geneComponentModelSelectKey;
     private GeneComponentModelLgInt price;
     private boolean tm;
-    protected AbsCrudGeneFormNb(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub, AbsCommonFrame _fr, SubscribedTranslationMessagesNbFactory _facto) {
+    public CrudGeneFormNb(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub, AbsCommonFrame _fr, SubscribedTranslationMessagesNbFactory _facto) {
         super(_fact,_facade,_sub,_fr);
         factoryMessage = _facto;
         subscribedTranslations = _sub;
@@ -41,7 +41,9 @@ public abstract class AbsCrudGeneFormNb extends CrudGeneFormSub<Integer, String>
         int i_ = _key;
         short k_ = (short) i_;
         if (_index > -1) {
-            if (already(k_)) {
+            int old_ = factoryMessage.retrieveMap(getFactory(), facadeGame).size();
+            factoryMessage.delete(facadeGame,k_);
+            if (old_ <= factoryMessage.retrieveMap(getFactory(), facadeGame).size()) {
                 return;
             }
             if (tm) {
@@ -74,7 +76,9 @@ public abstract class AbsCrudGeneFormNb extends CrudGeneFormSub<Integer, String>
             short next_ = (short) destination.getValue();
             int key_ = getList().getKey(getSelectedIndex());
             short old_ = (short) key_;
-            if (renamed(old_, next_)) {
+            factoryMessage.rename(facadeGame,old_,next_);
+            ShortMap<String> after_ = factoryMessage.retrieveMap(getFactory(), facadeGame);
+            if (!after_.contains(old_)) {
                 getList().move((int)old_,(int)next_);
                 if (tm) {
                     getCrudGeneFormSubContent().getFacadeGame().getData().getTmPrice().move(old_,next_);
@@ -120,9 +124,6 @@ public abstract class AbsCrudGeneFormNb extends CrudGeneFormSub<Integer, String>
         all_.addAllElts(geneComponentModelSelectKey.getSubs());
         return all_;
     }
-    protected abstract boolean already(short _key);
-
-    protected abstract boolean renamed(short _previous, short _next);
 
     public AbsSpinner getDestination() {
         return destination;

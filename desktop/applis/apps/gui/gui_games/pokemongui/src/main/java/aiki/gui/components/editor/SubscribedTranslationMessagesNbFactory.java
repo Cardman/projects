@@ -10,4 +10,6 @@ public abstract class SubscribedTranslationMessagesNbFactory {
         return new SubscribedTranslationMessagesNb(_map,_messages,this);
     }
     public abstract ShortMap<String> retrieveMap(AbstractProgramInfos _api, FacadeGame _facade);
+    public abstract void delete(FacadeGame _facade, short _id);
+    public abstract void rename(FacadeGame _facade, short _previous, short _next);
 }

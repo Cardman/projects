@@ -3,9 +3,9 @@ package aiki.gui.components.editor;
 import code.gui.events.*;
 
 public final class RenameNbEvent implements AbsChangeListener {
-    private final AbsCrudGeneFormNb crud;
+    private final CrudGeneFormNb crud;
 
-    public RenameNbEvent(AbsCrudGeneFormNb _c) {
+    public RenameNbEvent(CrudGeneFormNb _c) {
         this.crud = _c;
     }
 

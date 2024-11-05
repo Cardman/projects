@@ -17,7 +17,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facadeAdd(pr_);
         WindowPkEditor sub_ = window(pr_, facade_);
-        CrudGeneFormTm c_ = crudTm(sub_);
+        CrudGeneFormNb c_ = crudTm(sub_);
         tryClick(c_.getAdd());
         GeneComponentModelEltStr g_ = (GeneComponentModelEltStr)c_.getGeneValue();
         c_.getGeneKey().value(2);
@@ -31,7 +31,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facadeAdd(pr_);
         WindowPkEditor sub_ = window(pr_, facade_);
-        CrudGeneFormTm c_ = crudTm(sub_);
+        CrudGeneFormNb c_ = crudTm(sub_);
         tryClick(c_.getAdd());
         GeneComponentModelEltStr g_ = (GeneComponentModelEltStr)c_.getGeneValue();
         c_.getGeneKey().value(3);
@@ -45,7 +45,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facadeAdd(pr_);
         WindowPkEditor sub_ = window(pr_, facade_);
-        CrudGeneFormTm c_ = crudTm(sub_);
+        CrudGeneFormNb c_ = crudTm(sub_);
         tryClick(c_.getAllButtons().get(0));
         c_.getDestination().setValue(2);
         assertEq(2,facade_.getData().getTmPrice().size());
@@ -58,7 +58,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facadeAdd(pr_);
         WindowPkEditor sub_ = window(pr_, facade_);
-        CrudGeneFormTm c_ = crudTm(sub_);
+        CrudGeneFormNb c_ = crudTm(sub_);
         c_.getDestination().setValue(2);
         assertEq(2,facade_.getData().getTmPrice().size());
         assertEq(2,facade_.getData().getTm().size());
@@ -70,7 +70,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facadeAdd(pr_);
         WindowPkEditor sub_ = window(pr_, facade_);
-        CrudGeneFormTm c_ = crudTm(sub_);
+        CrudGeneFormNb c_ = crudTm(sub_);
         tryClick(c_.getAllButtons().get(0));
         c_.getDestination().setValue(3);
         assertEq(2,facade_.getData().getTmPrice().size());
@@ -86,7 +86,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         pData_.getTechnicalMoves().add((short)1);
         facade_.getData().completeQuickMembers(P_1, pData_);
         WindowPkEditor sub_ = window(pr_, facade_);
-        CrudGeneFormTm c_ = crudTm(sub_);
+        CrudGeneFormNb c_ = crudTm(sub_);
         tryClick(c_.getAllButtons().get(0));
         tryClick(c_.getValidRemove());
         assertEq(2,facade_.getData().getTm().size());
@@ -97,7 +97,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facadeAdd(pr_);
         WindowPkEditor sub_ = window(pr_, facade_);
-        CrudGeneFormTm c_ = crudTm(sub_);
+        CrudGeneFormNb c_ = crudTm(sub_);
         tryClick(c_.getAllButtons().get(0));
         tryClick(c_.getValidRemove());
         assertEq(1,facade_.getData().getTm().size());
@@ -108,7 +108,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facadeAdd(pr_);
         WindowPkEditor sub_ = window(pr_, facade_);
-        CrudGeneFormTm c_ = crudTm(sub_);
+        CrudGeneFormNb c_ = crudTm(sub_);
         tryClick(c_.getAllButtons().get(0));
         GeneComponentModelEltStr g_ = (GeneComponentModelEltStr)c_.getGeneValue();
         g_.value(M_3);
@@ -121,7 +121,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facadeAdd(pr_);
         WindowPkEditor sub_ = window(pr_, facade_);
-        CrudGeneFormTm c_ = crudTm(sub_);
+        CrudGeneFormNb c_ = crudTm(sub_);
         CrudGeneFormPk cPk_ = crudPk(sub_);
         tryClick(cPk_.getAdd());
         tryClick(c_.getAdd());
@@ -137,7 +137,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facadeAdd(pr_);
         WindowPkEditor sub_ = window(pr_, facade_);
-        CrudGeneFormHm c_ = crudHm(sub_);
+        CrudGeneFormNb c_ = crudHm(sub_);
         tryClick(c_.getAdd());
         GeneComponentModelEltStr g_ = (GeneComponentModelEltStr)c_.getGeneValue();
         c_.getGeneKey().value(2);
@@ -150,7 +150,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facadeAdd(pr_);
         WindowPkEditor sub_ = window(pr_, facade_);
-        CrudGeneFormHm c_ = crudHm(sub_);
+        CrudGeneFormNb c_ = crudHm(sub_);
         tryClick(c_.getAdd());
         GeneComponentModelEltStr g_ = (GeneComponentModelEltStr)c_.getGeneValue();
         c_.getGeneKey().value(3);
@@ -163,7 +163,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facadeAdd(pr_);
         WindowPkEditor sub_ = window(pr_, facade_);
-        CrudGeneFormHm c_ = crudHm(sub_);
+        CrudGeneFormNb c_ = crudHm(sub_);
         tryClick(c_.getAllButtons().get(0));
         c_.getDestination().setValue(2);
         assertEq(2,facade_.getData().getHm().size());
@@ -175,7 +175,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facadeAdd(pr_);
         WindowPkEditor sub_ = window(pr_, facade_);
-        CrudGeneFormHm c_ = crudHm(sub_);
+        CrudGeneFormNb c_ = crudHm(sub_);
         c_.getDestination().setValue(2);
         assertEq(2,facade_.getData().getHm().size());
         assertEq(M_1,facade_.getData().getHm().getVal((short)1));
@@ -186,7 +186,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facadeAdd(pr_);
         WindowPkEditor sub_ = window(pr_, facade_);
-        CrudGeneFormHm c_ = crudHm(sub_);
+        CrudGeneFormNb c_ = crudHm(sub_);
         tryClick(c_.getAllButtons().get(0));
         c_.getDestination().setValue(3);
         assertEq(2,facade_.getData().getHm().size());
@@ -201,7 +201,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         pData_.getHiddenMoves().add((short)1);
         facade_.getData().completeQuickMembers(P_1, pData_);
         WindowPkEditor sub_ = window(pr_, facade_);
-        CrudGeneFormHm c_ = crudHm(sub_);
+        CrudGeneFormNb c_ = crudHm(sub_);
         tryClick(c_.getAllButtons().get(0));
         tryClick(c_.getValidRemove());
         assertEq(2,facade_.getData().getHm().size());
@@ -211,7 +211,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facadeAdd(pr_);
         WindowPkEditor sub_ = window(pr_, facade_);
-        CrudGeneFormHm c_ = crudHm(sub_);
+        CrudGeneFormNb c_ = crudHm(sub_);
         tryClick(c_.getAllButtons().get(0));
         tryClick(c_.getValidRemove());
         assertEq(1,facade_.getData().getHm().size());
@@ -221,7 +221,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facadeAdd(pr_);
         WindowPkEditor sub_ = window(pr_, facade_);
-        CrudGeneFormHm c_ = crudHm(sub_);
+        CrudGeneFormNb c_ = crudHm(sub_);
         tryClick(c_.getAllButtons().get(0));
         GeneComponentModelEltStr g_ = (GeneComponentModelEltStr)c_.getGeneValue();
         g_.value(M_3);
@@ -234,7 +234,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facadeAdd(pr_);
         WindowPkEditor sub_ = window(pr_, facade_);
-        CrudGeneFormHm c_ = crudHm(sub_);
+        CrudGeneFormNb c_ = crudHm(sub_);
         CrudGeneFormPk cPk_ = crudPk(sub_);
         tryClick(cPk_.getAdd());
         tryClick(c_.getAdd());
@@ -300,11 +300,11 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         tryClick(_crud.getTrsMvMenu());
         return _crud.getCrudGeneFormMvTr();
     }
-    private CrudGeneFormTm crudTm(WindowPkEditor _crud) {
+    private CrudGeneFormNb crudTm(WindowPkEditor _crud) {
         tryClick(_crud.getTmMenu());
         return _crud.getCrudGeneFormTm();
     }
-    private CrudGeneFormHm crudHm(WindowPkEditor _crud) {
+    private CrudGeneFormNb crudHm(WindowPkEditor _crud) {
         tryClick(_crud.getHmMenu());
         return _crud.getCrudGeneFormHm();
     }

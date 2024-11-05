@@ -10,4 +10,14 @@ public final class SubscribedTranslationMessagesNbFactoryTm extends SubscribedTr
     public ShortMap<String> retrieveMap(AbstractProgramInfos _api, FacadeGame _facade) {
         return _facade.getData().getTm();
     }
+
+    @Override
+    public void delete(FacadeGame _facade, short _id) {
+        _facade.getData().deleteTm(_id);
+    }
+
+    @Override
+    public void rename(FacadeGame _facade, short _previous, short _next) {
+        _facade.getData().renameTm(_previous,_next);
+    }
 }

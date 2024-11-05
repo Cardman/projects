@@ -12,8 +12,8 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
     private final SubscribedTranslationList subscriptions;
     private final CrudGeneFormPkTr crudGeneFormPkTr;
     private final CrudGeneFormMvTr crudGeneFormMvTr;
-    private final CrudGeneFormTm crudGeneFormTm;
-    private final CrudGeneFormHm crudGeneFormHm;
+    private final CrudGeneFormNb crudGeneFormTm;
+    private final CrudGeneFormNb crudGeneFormHm;
     private final CrudGeneFormPk crudGeneFormPk;
     private final EnabledMenu trsPkMenu = getFrames().getCompoFactory().newMenuItem("0");
     private final EnabledMenu trsMvMenu = getFrames().getCompoFactory().newMenuItem("1");
@@ -44,8 +44,8 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         subscriptions.getSubscribedTranslations().addEntry(frPk_, subPk_);
         crudGeneFormPkTr = new CrudGeneFormPkTr(_list, _facade,subscriptions, frTrsPk_);
         crudGeneFormMvTr = new CrudGeneFormMvTr(_list, _facade,subscriptions, frTrsMv_);
-        crudGeneFormTm = new CrudGeneFormTm(_list, _facade,subscriptions, frTm_);
-        crudGeneFormHm = new CrudGeneFormHm(_list, _facade,subscriptions, frHm_);
+        crudGeneFormTm = new CrudGeneFormNb(_list, _facade,subscriptions, frTm_,subscriptions.getFactoryTm());
+        crudGeneFormHm = new CrudGeneFormNb(_list, _facade,subscriptions, frHm_,subscriptions.getFactoryHm());
         crudGeneFormPk = new CrudGeneFormPk(_list, _facade,subscriptions, frPk_);
         AbsMenuBar bar_ = getFrames().getCompoFactory().newMenuBar();
         EnabledMenu file_ = getFrames().getCompoFactory().newMenu("0");
@@ -132,11 +132,11 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         return crudGeneFormPkTr;
     }
 
-    public CrudGeneFormTm getCrudGeneFormTm() {
+    public CrudGeneFormNb getCrudGeneFormTm() {
         return crudGeneFormTm;
     }
 
-    public CrudGeneFormHm getCrudGeneFormHm() {
+    public CrudGeneFormNb getCrudGeneFormHm() {
         return crudGeneFormHm;
     }
 }
