@@ -41,16 +41,22 @@ public final class CrudGeneFormPk extends CrudGeneFormSub<String, PokemonData> {
                 trs_.clear();
                 trs_.addAllEntries(bk_);
                 getList().remove(_index);
+                geneComponentModelPokemonData.getEvolutions().getCrudGeneFormSubContent().removeOpenSub();
+                geneComponentModelPokemonData.getLevMoves().getCrudGeneFormSubContent().removeOpenSub();
                 afterChange();
             }
             return;
         }
         if (getSelectedIndex() < 0) {
             facadeGame_.getData().completeQuickMembers(_key,_value);
+            geneComponentModelPokemonData.getEvolutions().getCrudGeneFormSubContent().removeOpenSub();
+            geneComponentModelPokemonData.getLevMoves().getCrudGeneFormSubContent().removeOpenSub();
             afterChange();
             return;
         }
         facadeGame_.getData().getPokedex().set(_key, _value);
+        geneComponentModelPokemonData.getEvolutions().getCrudGeneFormSubContent().removeOpenSub();
+        geneComponentModelPokemonData.getLevMoves().getCrudGeneFormSubContent().removeOpenSub();
         afterChange();
     }
 

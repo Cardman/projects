@@ -76,6 +76,9 @@ public abstract class AbsCrudGeneFormNb extends CrudGeneFormSub<Integer, String>
             short old_ = (short) key_;
             if (renamed(old_, next_)) {
                 getList().move((int)old_,(int)next_);
+                if (tm) {
+                    getCrudGeneFormSubContent().getFacadeGame().getData().getTmPrice().move(old_,next_);
+                }
                 refresh();
                 afterModif();
                 update();
