@@ -10,7 +10,7 @@ import code.util.comparators.*;
 
 public abstract class AbsCrudGeneFormTr extends AbsCrudGeneFormMap<String, StringMap<String>> {
     private final FacadeGame facadeGame;
-    private final AbsTextField destination;
+    private AbsTextField destination;
     private final SubscribedTranslationList subscribedTranslations;
     private final SubscribedTranslationMessagesFactory factoryMessage;
     protected AbsCrudGeneFormTr(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub, AbsCommonFrame _fr, SubscribedTranslationMessagesFactory _facto) {
@@ -18,11 +18,11 @@ public abstract class AbsCrudGeneFormTr extends AbsCrudGeneFormMap<String, Strin
         factoryMessage = _facto;
         subscribedTranslations = _sub;
         facadeGame = _facade;
-        destination = _fact.getCompoFactory().newTextField();
-        destination.addActionListener(new RenameEntPkEvent(this));
         setFrame(_fr);
     }
     public void initForm(AbstractProgramInfos _core) {
+        destination = getFactory().getCompoFactory().newTextField();
+        destination.addActionListener(new RenameEntPkEvent(this));
         initForm();
         initForm(new DisplayKeyOnlyDirect<StringMap<String>>(), new GeneComponentModelString(_core,new StringList(),new DefValidateText()), new GeneComponentModelTr(_core,facadeGame), new NaturalComparator(), ConverterCommonMapUtil.toEntityLg(factoryMessage.buildMessages(facadeGame)));
         getButtons().add(destination);

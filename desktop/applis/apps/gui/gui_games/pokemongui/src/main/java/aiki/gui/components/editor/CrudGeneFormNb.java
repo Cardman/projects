@@ -8,7 +8,7 @@ import code.util.*;
 
 public final class CrudGeneFormNb extends CrudGeneFormSub<Integer, String> {
     private final FacadeGame facadeGame;
-    private final AbsSpinner destination;
+    private AbsSpinner destination;
     private final SubscribedTranslationList subscribedTranslations;
     private final SubscribedTranslationMessagesNbFactory factoryMessage;
     private GeneComponentModelEltStrSub geneComponentModelSelectKey;
@@ -19,10 +19,10 @@ public final class CrudGeneFormNb extends CrudGeneFormSub<Integer, String> {
         factoryMessage = _facto;
         subscribedTranslations = _sub;
         facadeGame = _facade;
-        destination = _fact.getCompoFactory().newSpinner(0,0,Integer.MAX_VALUE,1);
-        destination.addChangeListener(new RenameNbEvent(this));
     }
     public void initFormTr(boolean _t) {
+        destination = getFactory().getCompoFactory().newSpinner(0,0,Integer.MAX_VALUE,1);
+        destination.addChangeListener(new RenameNbEvent(this));
         tm = _t;
         initForm();
         IntMap<String> nbs_ = new IntMap<String>();
