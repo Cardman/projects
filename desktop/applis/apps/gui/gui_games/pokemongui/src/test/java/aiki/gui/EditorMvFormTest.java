@@ -249,7 +249,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facadeAdd(pr_);
         WindowPkEditor sub_ = window(pr_, facade_);
-        CrudGeneFormMvTr cTr_ = crudTr(sub_);
+        CrudGeneFormTr cTr_ = crudTr(sub_);
         tryClick(cTr_.getAllButtons().get(1));
         GeneComponentModelTr gTr_ = (GeneComponentModelTr) cTr_.getGeneValue();
         gTr_.getTranslations().getVal(pr_.getLanguage()).setText("p_2");
@@ -261,7 +261,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facadeAdd(pr_);
         WindowPkEditor sub_ = window(pr_, facade_);
-        CrudGeneFormMvTr cTr_ = crudTr(sub_);
+        CrudGeneFormTr cTr_ = crudTr(sub_);
         tryClick(cTr_.getAllButtons().get(1));
         cTr_.getDestination().setText(M_3);
         ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
@@ -272,7 +272,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facadeAdd(pr_);
         WindowPkEditor sub_ = window(pr_, facade_);
-        CrudGeneFormMvTr cTr_ = crudTr(sub_);
+        CrudGeneFormTr cTr_ = crudTr(sub_);
         tryClick(cTr_.getAllButtons().get(1));
         cTr_.getDestination().setText(M_1);
         ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
@@ -296,7 +296,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         tryClick(_crud.getPkMenu());
         return _crud.getCrudGeneFormPk();
     }
-    private CrudGeneFormMvTr crudTr(WindowPkEditor _crud) {
+    private CrudGeneFormTr crudTr(WindowPkEditor _crud) {
         tryClick(_crud.getTrsMvMenu());
         return _crud.getCrudGeneFormMvTr();
     }

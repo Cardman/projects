@@ -9,4 +9,6 @@ public interface SubscribedTranslationMessagesFactory {
     SubscribedTranslation buildSub(AbsMap<String, String> _map);
     StringMap<String> buildMessages(AbstractProgramInfos _api, FacadeGame _facade);
     StringMap<StringMap<String>> buildMessages(FacadeGame _facade);
+    boolean contains(FacadeGame _facade,String _key);
+    void rename(FacadeGame _facade,String _previous, String _next);
 }

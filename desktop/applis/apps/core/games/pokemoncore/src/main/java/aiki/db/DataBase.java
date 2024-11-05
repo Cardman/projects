@@ -7617,7 +7617,7 @@ public class DataBase {
     }
 
     public void renameType(String _oldName, String _newName) {
-        if (isUsed(_newName)) {
+        if (usedInTr(_newName, getTranslatedTypes())) {
             return;
         }
         changeNameTypeInExp(_oldName, _newName);
@@ -7660,10 +7660,39 @@ public class DataBase {
         typesColors.move(_oldName, _newName);
         changeParams(_oldName, _newName, typesPart());
     }
+    private boolean usedInTr(String _name, StringMap<StringMap<String>> _trs) {
+        int nb_ = 0;
+        for (StringMap<String> t: _trs.values()) {
+            if (t.contains(_name)) {
+                nb_++;
+            }
+        }
+        return nb_>0;
+    }
 
     public void deleteType(String _oldName) {
-        if (usedTypeInExp(_oldName)) {
+        if (usedType(_oldName)) {
             return;
+        }
+        TypesDuos table_ = new TypesDuos();
+        for (TypesDuo p: tableTypes.getKeys()) {
+            if (!StringUtil.quickEq(p.getDamageType(),_oldName)&&!StringUtil.quickEq(p.getPokemonType(),_oldName)) {
+                Rate value_ = tableTypes.getVal(p);
+                table_.addEntry(p, value_);
+            }
+        }
+        tableTypes = table_;
+        types.removeObj(_oldName);
+        for (StringMap<String> t: getTranslatedTypes().values()) {
+            t.removeKey(_oldName);
+        }
+        typesImages.removeKey(_oldName);
+        typesColors.removeKey(_oldName);
+        removeParams(_oldName, typesPart());
+    }
+    public boolean usedType(String _oldName) {
+        if (usedTypeInExp(_oldName)) {
+            return true;
         }
         ChangeStringKeyUtil matches_ = new ChangeStringKeyUtil();
         for (PokemonData p: pokedex.values()) {
@@ -7690,24 +7719,7 @@ public class DataBase {
         for (AbilityData a: abilities.values()) {
             matches_.addAllElts(typeAbility(a));
         }
-        if (matches_.contains(_oldName)) {
-            return;
-        }
-        TypesDuos table_ = new TypesDuos();
-        for (TypesDuo p: tableTypes.getKeys()) {
-            if (!StringUtil.quickEq(p.getDamageType(),_oldName)&&!StringUtil.quickEq(p.getPokemonType(),_oldName)) {
-                Rate value_ = tableTypes.getVal(p);
-                table_.addEntry(p, value_);
-            }
-        }
-        tableTypes = table_;
-        types.removeObj(_oldName);
-        for (StringMap<String> t: getTranslatedTypes().values()) {
-            t.removeKey(_oldName);
-        }
-        typesImages.removeKey(_oldName);
-        typesColors.removeKey(_oldName);
-        removeParams(_oldName, typesPart());
+        return matches_.contains(_oldName);
     }
     private void typeAbility(String _oldName, String _newName, AbilityData _a) {
         StatisticTypeByte mult_ = new StatisticTypeByte();
@@ -7940,7 +7952,7 @@ public class DataBase {
     }
 
     public void renameCategory(String _oldName, String _newName) {
-        if (isUsed(_newName)) {
+        if (usedInTr(_newName,getTranslatedCategories())) {
             return;
         }
         changeNameCategoryInExp(_oldName, _newName);
@@ -7985,20 +7997,7 @@ public class DataBase {
     }
 
     public void deleteCategory(String _oldName) {
-        if (usedCategoryInExp(_oldName) || StringUtil.quickEq(_oldName,getDefCategory())) {
-            return;
-        }
-        ChangeStringKeyUtil ls_ = new ChangeStringKeyUtil();
-        for (AbilityData a: abilities.values()) {
-            ls_.addAllElts(useCategoryAbility(a));
-        }
-        for (MoveData m: moves.values()) {
-            ls_.addAllElts(moveCategory(m));
-        }
-        for (Item o: items.values()) {
-            ls_.addAllElts(damageRateRecoilFoe(o));
-        }
-        if (ls_.contains(_oldName)) {
+        if (usedCategory(_oldName)) {
             return;
         }
         getCategories().removeObj(_oldName);
@@ -8011,6 +8010,22 @@ public class DataBase {
 //        getCategories().replace(_oldName, _newName);
     }
 
+    public boolean usedCategory(String _oldName) {
+        if (usedCategoryInExp(_oldName) || StringUtil.quickEq(_oldName,getDefCategory())) {
+            return true;
+        }
+        ChangeStringKeyUtil ls_ = new ChangeStringKeyUtil();
+        for (AbilityData a: abilities.values()) {
+            ls_.addAllElts(useCategoryAbility(a));
+        }
+        for (MoveData m: moves.values()) {
+            ls_.addAllElts(moveCategory(m));
+        }
+        for (Item o: items.values()) {
+            ls_.addAllElts(damageRateRecoilFoe(o));
+        }
+        return ls_.contains(_oldName);
+    }
     private CustList<ChangeStringFieldMatch> useCategoryAbility(AbilityData _a) {
         CustList<StatisticCategory> all_ = new CustList<StatisticCategory>();
         all_.addAllElts(_a.getMultStatIfDamageCat().getKeys());

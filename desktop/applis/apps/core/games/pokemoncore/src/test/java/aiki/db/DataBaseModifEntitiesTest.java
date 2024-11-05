@@ -1935,6 +1935,9 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     public void renameType1() {
         DataBase db_ = newData();
         db_.getTypes().add(POKE_BALL);
+        StringMap<String> tr_ = new StringMap<String>();
+        tr_.addEntry(POKE_BALL,NULL_REF);
+        db_.getTranslatedTypes().addEntry(NULL_REF, tr_);
         db_.renameType(POKE_BALL,POKE_BALL);
         assertEq(1,db_.getTypes().size());
         assertEq(POKE_BALL,db_.getTypes().first());
@@ -2377,6 +2380,9 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     public void renameCategory1() {
         DataBase db_ = newData();
         db_.getAllCategories().add(POKE_BALL);
+        StringMap<String> tr_ = new StringMap<String>();
+        tr_.addEntry(POKE_BALL,NULL_REF);
+        db_.getTranslatedCategories().addEntry(NULL_REF, tr_);
         db_.renameCategory(POKE_BALL,POKE_BALL);
         assertEq(1,db_.getAllCategories().size());
         assertEq(POKE_BALL,db_.getAllCategories().first());

@@ -116,7 +116,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         FacadeGame facade_ = facade(pr_);
         WindowPkEditor sub_ = window(pr_, facade_);
         CrudGeneFormPk c_ = crud(sub_);
-        CrudGeneFormPkTr cTr_ = crudTr(sub_);
+        CrudGeneFormTr cTr_ = crudTr(sub_);
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         tryClick(c_.getAdd());
         c_.getGeneKey().value(P_1);
@@ -137,7 +137,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         FacadeGame facade_ = facade(pr_);
         WindowPkEditor sub_ = window(pr_, facade_);
         CrudGeneFormPk c_ = crud(sub_);
-        CrudGeneFormPkTr cTr_ = crudTr(sub_);
+        CrudGeneFormTr cTr_ = crudTr(sub_);
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         tryClick(c_.getAdd());
         c_.getGeneKey().value(P_1);
@@ -159,7 +159,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         FacadeGame facade_ = facade(pr_);
         WindowPkEditor sub_ = window(pr_, facade_);
         CrudGeneFormPk c_ = crud(sub_);
-        CrudGeneFormPkTr cTr_ = crudTr(sub_);
+        CrudGeneFormTr cTr_ = crudTr(sub_);
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         tryClick(c_.getAdd());
         c_.getGeneKey().value(P_1);
@@ -179,7 +179,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         FacadeGame facade_ = facade(pr_);
         WindowPkEditor sub_ = window(pr_, facade_);
         CrudGeneFormPk c_ = crud(sub_);
-        CrudGeneFormPkTr cTr_ = crudTr(sub_);
+        CrudGeneFormTr cTr_ = crudTr(sub_);
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         tryClick(c_.getAdd());
         c_.getGeneKey().value(P_1);
@@ -199,7 +199,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         FacadeGame facade_ = facade(pr_);
         WindowPkEditor sub_ = window(pr_, facade_);
         CrudGeneFormPk c_ = crud(sub_);
-        CrudGeneFormPkTr cTr_ = crudTr(sub_);
+        CrudGeneFormTr cTr_ = crudTr(sub_);
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         tryClick(c_.getAdd());
         c_.getGeneKey().value(P_1);
@@ -219,7 +219,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         FacadeGame facade_ = facade(pr_);
         WindowPkEditor sub_ = window(pr_, facade_);
         CrudGeneFormPk c_ = crud(sub_);
-        CrudGeneFormPkTr cTr_ = crudTr(sub_);
+        CrudGeneFormTr cTr_ = crudTr(sub_);
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         tryClick(c_.getAdd());
         c_.getGeneKey().value(P_1);
@@ -237,7 +237,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facade(pr_);
         WindowPkEditor sub_ = window(pr_, facade_);
-        CrudGeneFormPkTr cTr_ = crudTr(sub_);
+        CrudGeneFormTr cTr_ = crudTr(sub_);
         tryClick(cTr_.getAdd());
         cTr_.getGeneKey().value("");
         GeneComponentModelTr gTr_ = (GeneComponentModelTr) cTr_.getGeneValue();
@@ -250,7 +250,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facade(pr_);
         WindowPkEditor sub_ = window(pr_, facade_);
-        CrudGeneFormPkTr cTr_ = crudTr(sub_);
+        CrudGeneFormTr cTr_ = crudTr(sub_);
         tryClick(cTr_.getAdd());
         cTr_.getGeneKey().value(P_3);
         GeneComponentModelTr gTr_ = (GeneComponentModelTr) cTr_.getGeneValue();
@@ -263,7 +263,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facade(pr_);
         WindowPkEditor sub_ = window(pr_, facade_);
-        CrudGeneFormPkTr cTr_ = crudTr(sub_);
+        CrudGeneFormTr cTr_ = crudTr(sub_);
         tryClick(cTr_.getAdd());
         cTr_.getGeneKey().value(P_4);
         GeneComponentModelTr gTr_ = (GeneComponentModelTr) cTr_.getGeneValue();
@@ -285,7 +285,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         g_.getStatistics().getVal(Statistic.SPEED).getEv().setValue(25);
         g_.getBaseEvo().setupValue(P_2);
         tryClick(c_.getValidAddEdit());
-        CrudGeneFormPkTr cTr_ = crudTr(sub_);
+        CrudGeneFormTr cTr_ = crudTr(sub_);
         tryClick(cTr_.getAllButtons().get(0));
         tryClick(cTr_.getValidRemove());
         assertEq(3,facade_.getData().getTranslatedPokemon().getVal(pr_.getLanguage()).size());
@@ -304,7 +304,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         g_.getStatistics().getVal(Statistic.SPEED).getEv().setValue(25);
         g_.getBaseEvo().setupValue(P_2);
         tryClick(c_.getValidAddEdit());
-        CrudGeneFormPkTr cTr_ = crudTr(sub_);
+        CrudGeneFormTr cTr_ = crudTr(sub_);
         tryClick(cTr_.getAllButtons().get(1));
         tryClick(cTr_.getValidRemove());
         assertEq(2,facade_.getData().getTranslatedPokemon().getVal(pr_.getLanguage()).size());
@@ -331,7 +331,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         FacadeGame facade_ = facade(pr_);
         WindowPkEditor sub_ = window(pr_, facade_);
         CrudGeneFormPk c_ = crud(sub_);
-        CrudGeneFormPkTr cTr_ = crudTr(sub_);
+        CrudGeneFormTr cTr_ = crudTr(sub_);
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         tryClick(c_.getAdd());
         c_.getGeneKey().value(P_1);
@@ -638,7 +638,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         FacadeGame facade_ = facade(pr_);
         facade_.getData().getExpGrowth().addEntry(ExpType.E,"1");
         WindowPkEditor sub_ = window(pr_, facade_);
-        CrudGeneFormPkTr cTr_ = crudTr(sub_);
+        CrudGeneFormTr cTr_ = crudTr(sub_);
         CrudGeneFormPk c_ = crud(sub_);
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         tryClick(c_.getAdd());
@@ -665,7 +665,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         FacadeGame facade_ = facade(pr_);
         facade_.getData().getExpGrowth().addEntry(ExpType.E,"1");
         WindowPkEditor sub_ = window(pr_, facade_);
-        CrudGeneFormPkTr cTr_ = crudTr(sub_);
+        CrudGeneFormTr cTr_ = crudTr(sub_);
         CrudGeneFormPk c_ = crud(sub_);
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
         tryClick(c_.getAdd());
@@ -704,7 +704,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(_crud.getPkMenu());
         return _crud.getCrudGeneFormPk();
     }
-    private CrudGeneFormPkTr crudTr(WindowPkEditor _crud) {
+    private CrudGeneFormTr crudTr(WindowPkEditor _crud) {
         tryClick(_crud.getTrsPkMenu());
         return _crud.getCrudGeneFormPkTr();
     }

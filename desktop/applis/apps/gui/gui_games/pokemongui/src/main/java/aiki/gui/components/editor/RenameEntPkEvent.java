@@ -4,9 +4,9 @@ import code.gui.*;
 import code.gui.events.*;
 
 public final class RenameEntPkEvent implements AbsAdvActionListener {
-    private final AbsCrudGeneFormTr crud;
+    private final CrudGeneFormTr crud;
 
-    public RenameEntPkEvent(AbsCrudGeneFormTr _c) {
+    public RenameEntPkEvent(CrudGeneFormTr _c) {
         this.crud = _c;
     }
 
