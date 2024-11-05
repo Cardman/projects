@@ -80,7 +80,7 @@ public final class ConverterCommonMapUtil {
     public static ShortMap<String> map(ShortMap<String> _map, AbsMap<String,String> _messages) {
         ShortMap<String> messages_ = new ShortMap<String>();
         for (EntryCust<Short,String> e: _map.entryList()) {
-            messages_.addEntry(e.getKey(),StringUtil.nullToEmpty(_messages.getVal(e.getValue())));
+            messages_.addEntry(e.getKey(),StringUtil.nullToEmpty(_messages.getVal(e.getValue()))+":"+e.getKey());
         }
         return messages_;
     }
