@@ -5,11 +5,13 @@ import aiki.facade.*;
 import aiki.fight.enums.*;
 import aiki.fight.pokemon.*;
 import aiki.fight.pokemon.enums.*;
-import aiki.fight.pokemon.evolution.Evolution;
+import aiki.fight.pokemon.evolution.*;
 import aiki.fight.util.*;
 import aiki.instances.*;
 import code.gui.*;
+import code.gui.events.*;
 import code.gui.initialize.*;
+import code.maths.*;
 import code.util.*;
 
 public final class GeneComponentModelPokemonData implements GeneComponentModel<PokemonData> {
@@ -18,6 +20,11 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
     private final FacadeGame facade;
     private final GeneComponentModelRate weight;
     private final GeneComponentModelRate height;
+    private final GeneComponentModelInt catchingRate;
+    private final GeneComponentModelLong expRate;
+    private final GeneComponentModelLgInt hatchingSteps;
+    private final GeneComponentModelInt happiness;
+    private final GeneComponentModelInt happinessHatch;
     private GeneComponentModelLsStrSub<String> types;
     private GeneComponentModelLsStrSub<String> abilities;
     private GeneComponentModelLsStrSub<String> moveTutors;
@@ -29,6 +36,7 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
     private GeneComponentModelEltEnum<ExpType> expEvo;
     private final CrudGeneFormListSubLevelMove levMoves;
     private final CrudGeneFormEvolutions evolutions;
+    private final CrudGeneFormList<String> eggGroups;
     private PokemonData element;
 
     public GeneComponentModelPokemonData(AbsCommonFrame _fr, AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
@@ -37,6 +45,12 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
         subscribedTranslationList = _sub;
         weight = new GeneComponentModelRate(compoFactory);
         height = new GeneComponentModelRate(compoFactory);
+        catchingRate = new GeneComponentModelInt(compoFactory);
+        expRate = new GeneComponentModelLong(compoFactory);
+        hatchingSteps = new GeneComponentModelLgInt(compoFactory);
+        eggGroups = new CrudGeneFormList<String>(compoFactory);
+        happiness = new GeneComponentModelInt(compoFactory);
+        happinessHatch = new GeneComponentModelInt(compoFactory);
         levMoves = new CrudGeneFormListSubLevelMove(compoFactory,_facade,_sub,_fr);
         evolutions = new CrudGeneFormEvolutions(_core,_facade,_sub,_fr);
     }
@@ -78,6 +92,14 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
         form_.add(evolutions.getGroup());
         form_.add(technicalMoves.geneCommon(element.getTechnicalMoves()));
         form_.add(hiddenMoves.geneCommon(element.getHiddenMoves()));
+        form_.add(catchingRate.geneInt());
+        form_.add(expRate.gene(0L));
+        form_.add(hatchingSteps.gene(LgInt.zero()));
+        form_.add(happiness.geneInt());
+        form_.add(happinessHatch.geneInt());
+        eggGroups.initForm();
+        eggGroups.initForm(new IntStringDisplayEntryCust(),new GeneComponentModelString(compoFactory,new StringList(),new DefValidateText()),new CustList<String>());
+        form_.add(eggGroups.getGroup());
         sc_.setViewportView(form_);
         return sc_;
     }
@@ -99,7 +121,13 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
         ent_.setLevMoves(levMoves.getList());
         ent_.setEvolutions(new StringMap<Evolution>(evolutions.getList()));
         ent_.setTechnicalMoves(new Shorts(technicalMoves.tryRet()));
-        ent_.setHiddenMoves(new Shorts(technicalMoves.tryRet()));
+        ent_.setHiddenMoves(new Shorts(hiddenMoves.tryRet()));
+        ent_.setCatchingRate((short) catchingRate.valueInt());
+        ent_.setExpRate(expRate.valueLong());
+        ent_.setHatchingSteps(hatchingSteps.valueLgInt());
+        ent_.setHappiness((short) happiness.valueInt());
+        ent_.setHappinessHatch((short) happinessHatch.valueInt());
+        ent_.setEggGroups(new StringList(eggGroups.getList()));
         return ent_;
     }
 
@@ -123,6 +151,12 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
         getEvolutions().setupValues(_v.getEvolutions());
         getTechnicalMoves().setupValue(_v.getTechnicalMoves());
         getHiddenMoves().setupValue(_v.getHiddenMoves());
+        getCatchingRate().valueInt(_v.getCatchingRate());
+        getExpRate().valueLong(_v.getCatchingRate());
+        getHatchingSteps().valueLgInt(_v.getHatchingSteps());
+        getHappiness().valueInt(_v.getHappiness());
+        getHappinessHatch().valueInt(_v.getHappinessHatch());
+        getEggGroups().setupValues(_v.getEggGroups());
     }
 
     private void updateStats(PokemonData _v) {
@@ -197,5 +231,29 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
 
     public CrudGeneFormEvolutions getEvolutions() {
         return evolutions;
+    }
+
+    public CrudGeneFormList<String> getEggGroups() {
+        return eggGroups;
+    }
+
+    public GeneComponentModelInt getCatchingRate() {
+        return catchingRate;
+    }
+
+    public GeneComponentModelInt getHappiness() {
+        return happiness;
+    }
+
+    public GeneComponentModelInt getHappinessHatch() {
+        return happinessHatch;
+    }
+
+    public GeneComponentModelLgInt getHatchingSteps() {
+        return hatchingSteps;
+    }
+
+    public GeneComponentModelLong getExpRate() {
+        return expRate;
     }
 }

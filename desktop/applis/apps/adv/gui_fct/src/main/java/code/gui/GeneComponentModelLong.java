@@ -16,7 +16,7 @@ public final class GeneComponentModelLong implements GeneComponentModel<Long> {
         return gene(0L);
     }
 
-    public AbsCustComponent gene(Long _d) {
+    public AbsCustComponent gene(long _d) {
         textLong = compoFactory.getCompoFactory().newTextField(Long.toString(_d), 20);
         textLong.registerKeyboardAction(compoFactory.getCompoFactory().wrap(new ChgLgInput(1,textLong)), GuiConstants.VK_UP,0);
         textLong.registerKeyboardAction(compoFactory.getCompoFactory().wrap(new ChgLgInput(-1,textLong)),GuiConstants.VK_DOWN,0);
@@ -25,11 +25,19 @@ public final class GeneComponentModelLong implements GeneComponentModel<Long> {
 
     @Override
     public Long value() {
+        return valueLong();
+    }
+
+    public long valueLong() {
         return NumberUtil.parseLongZero(textLong.getText());
     }
 
     @Override
     public Long value(Long _v) {
+        return valueLong(_v);
+    }
+
+    public long valueLong(long _v) {
         String p_ = textLong.getText();
         textLong.setText(Long.toString(_v));
         return NumberUtil.parseLongZero(p_);

@@ -25,11 +25,19 @@ public final class GeneComponentModelLgInt implements GeneComponentModel<LgInt> 
 
     @Override
     public LgInt value() {
+        return valueLgInt();
+    }
+
+    public LgInt valueLgInt() {
         return LgInt.newLgInt(textLgInt.getText());
     }
 
     @Override
     public LgInt value(LgInt _v) {
+        return valueLgInt(_v);
+    }
+
+    public LgInt valueLgInt(LgInt _v) {
         String p_ = textLgInt.getText();
         textLgInt.setText(_v.toNumberString());
         return LgInt.newLgInt(p_);
