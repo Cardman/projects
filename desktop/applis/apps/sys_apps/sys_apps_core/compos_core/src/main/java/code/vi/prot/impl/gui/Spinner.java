@@ -144,7 +144,7 @@ public final class Spinner extends CustComponent implements AbsSpinner {
         updateModel();
     }
     public void updateModel() {
-        mod(getValue(), min, max, step);
+        mod(valueLong(), min, max, step);
     }
     public void updateModel(long _value) {
         mod(_value, min, max, step);
