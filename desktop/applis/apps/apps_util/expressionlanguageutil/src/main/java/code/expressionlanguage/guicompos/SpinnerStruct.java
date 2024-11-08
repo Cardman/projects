@@ -1,19 +1,16 @@
 package code.expressionlanguage.guicompos;
 
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.NumberStruct;
-import code.expressionlanguage.structs.Struct;
-import code.gui.AbsCustComponent;
-import code.gui.AbsSpinner;
-import code.gui.events.AbsChangeListener;
-import code.gui.initialize.AbsCompoFactory;
+import code.expressionlanguage.structs.*;
+import code.gui.*;
+import code.gui.events.*;
+import code.gui.initialize.*;
 
 public final class SpinnerStruct extends CustComponentStruct {
-    private AbsSpinner spinner;
+    private final AbsSpinner spinner;
 
     public SpinnerStruct(String _className, Struct _value, Struct _min, Struct _max, Struct _step, AbsCompoFactory _compoFactory) {
         super(_className);
-        spinner = _compoFactory.newSpinner(((NumberStruct)_value).intStruct(),((NumberStruct)_min).intStruct(),((NumberStruct)_max).intStruct(),((NumberStruct)_step).intStruct());
+        spinner = _compoFactory.newSpinner(((NumberStruct)_value).longStruct(),((NumberStruct)_min).longStruct(),((NumberStruct)_max).longStruct(),((NumberStruct)_step).longStruct());
     }
 
     public void addChangeListener(Struct _l) {
@@ -23,43 +20,52 @@ public final class SpinnerStruct extends CustComponentStruct {
     }
 
     public void setRange(Struct _min, Struct _max) {
-        spinner.range(((NumberStruct)_min).intStruct(),((NumberStruct)_max).intStruct());
+        spinner.range(((NumberStruct)_min).longStruct(),((NumberStruct)_max).longStruct());
     }
 
     public void setRangeValue(Struct _value, Struct _min, Struct _max) {
-        spinner.setRangeValue(((NumberStruct)_value).intStruct(),((NumberStruct)_min).intStruct(),((NumberStruct)_max).intStruct());
+        spinner.setRangeValue(((NumberStruct)_value).longStruct(),((NumberStruct)_min).longStruct(),((NumberStruct)_max).longStruct());
     }
 
     public Struct getMin() {
         return new IntStruct(spinner.getMin());
     }
+    public Struct getMinLong() {
+        return new LongStruct(spinner.minLong());
+    }
 
     public void setMin(Struct _min) {
-        spinner.setMin(((NumberStruct)_min).intStruct());
+        spinner.setMin(((NumberStruct)_min).longStruct());
     }
 
     public Struct getMax() {
         return new IntStruct(spinner.getMax());
     }
-
+    public Struct getMaxLong() {
+        return new LongStruct(spinner.maxLong());
+    }
     public void setMax(Struct _max) {
-        spinner.setMax(((NumberStruct)_max).intStruct());
+        spinner.setMax(((NumberStruct)_max).longStruct());
     }
 
     public Struct getStep() {
         return new IntStruct(spinner.getStep());
     }
-
+    public Struct getStepLong() {
+        return new LongStruct(spinner.stepLong());
+    }
     public void setStep(Struct _step) {
-        spinner.setStep(((NumberStruct)_step).intStruct());
+        spinner.setStep(((NumberStruct)_step).longStruct());
     }
 
     public Struct getValue() {
         return new IntStruct(spinner.getValue());
     }
-
+    public Struct getValueLong() {
+        return new LongStruct(spinner.valueLong());
+    }
     public void setValue(Struct _step) {
-        spinner.setValue(((NumberStruct)_step).intStruct());
+        spinner.setValue(((NumberStruct)_step).longStruct());
     }
 
 

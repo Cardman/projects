@@ -182,7 +182,7 @@ public final class DefCompoFactory implements AbsCompoFactory {
     }
 
     @Override
-    public AbsSpinner newSpinner(int _a, int _b, int _c, int _d) {
+    public AbsSpinner newSpinner(long _a, long _b, long _c, long _d) {
         return new Spinner(_a,_b,_c,_d);
     }
 

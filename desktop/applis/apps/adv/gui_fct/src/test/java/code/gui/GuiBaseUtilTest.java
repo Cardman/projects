@@ -622,14 +622,6 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         assertEq("TWO",c_.getList().get(1));
     }
     @Test
-    public void modelLongChg() {
-        MockTextField txt_ = new MockTextField();
-        txt_.setText("2");
-        ChgLgInput c_ = new ChgLgInput(1, txt_);
-        c_.action();
-        assertEq("3",txt_.getText());
-    }
-    @Test
     public void modelLong() {
         GeneComponentModelLong g_ = new GeneComponentModelLong(init());
         g_.gene();

@@ -244,9 +244,13 @@ public final class GuiAliases implements AbsAliasFileBuilder {
     private static final String CHECK_BOX_IS_SELECTED="_____1326";
     private static final String CHECK_BOX_SET_SELECTED="_____1327";
     private static final String SPINNER_GET_MAX="_____1328";
+    private static final String SPINNER_GET_MAX_LONG="_____1328_";
     private static final String SPINNER_GET_MIN="_____1329";
+    private static final String SPINNER_GET_MIN_LONG="_____1329_";
     private static final String SPINNER_GET_STEP="_____1330";
+    private static final String SPINNER_GET_STEP_LONG="_____1330_";
     private static final String SPINNER_GET_VALUE="_____1331";
+    private static final String SPINNER_GET_VALUE_LONG="_____1331_";
     private static final String SPINNER_SET_MAX="_____1332";
     private static final String SPINNER_SET_MIN="_____1333";
     private static final String SPINNER_SET_STEP="_____1334";
@@ -889,12 +893,16 @@ public final class GuiAliases implements AbsAliasFileBuilder {
     private String aliasSpinnerSetRange;
     private String aliasSpinnerSetRangeValue;
     private String aliasSpinnerGetValue;
+    private String aliasSpinnerGetValueLong;
     private String aliasSpinnerSetValue;
     private String aliasSpinnerGetMax;
+    private String aliasSpinnerGetMaxLong;
     private String aliasSpinnerSetMax;
     private String aliasSpinnerGetMin;
+    private String aliasSpinnerGetMinLong;
     private String aliasSpinnerSetMin;
     private String aliasSpinnerGetStep;
+    private String aliasSpinnerGetStepLong;
     private String aliasSpinnerSetStep;
     private String aliasSlider;
     private String aliasSliderGetValue;
@@ -2904,37 +2912,49 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         params_ = new StringList();
         method_ = new StandardMethod(aliasSpinnerGetMax, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctSpinnerGetMax());
         StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasSpinnerGetMaxLong, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.FINAL, new FctSpinnerGetMaxLong());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimLong());
         method_ = new StandardMethod(aliasSpinnerSetMax, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSpinner0SpinnerSetMax0()), new FctSpinnerSetMax());
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasSpinnerGetMin, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctSpinnerGetMin());
         StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasSpinnerGetMinLong, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.FINAL, new FctSpinnerGetMinLong());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimLong());
         method_ = new StandardMethod(aliasSpinnerSetMin, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSpinner0SpinnerSetMin0()), new FctSpinnerSetMin());
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasSpinnerGetValue, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctSpinnerGetValue());
         StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasSpinnerGetValueLong, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.FINAL, new FctSpinnerGetValueLong());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimLong());
         method_ = new StandardMethod(aliasSpinnerSetValue, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSpinner0TreeNodeSetUserObject0()), new FctSpinnerSetValue());
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasSpinnerGetStep, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctSpinnerGetStep());
         StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasSpinnerGetStepLong, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.FINAL, new FctSpinnerGetStepLong());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimLong());
         method_ = new StandardMethod(aliasSpinnerSetStep, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSpinner0SpinnerSetStep0()), new FctSpinnerSetStep());
         StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimLong(),_content.getPrimTypes().getAliasPrimLong());
         method_ = new StandardMethod(aliasSpinnerSetRange, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSpinner0SpinnerSetRange0(),guiAliasParameters.getAliasSpinner0SpinnerSetRange1()), new FctSpinnerSetRange());
         StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimLong(),_content.getPrimTypes().getAliasPrimLong(),_content.getPrimTypes().getAliasPrimLong());
         method_ = new StandardMethod(aliasSpinnerSetRangeValue, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSpinner0SpinnerSetRangeValue0(),guiAliasParameters.getAliasSpinner0SpinnerSetRangeValue1(),guiAliasParameters.getAliasSpinner0SpinnerSetRangeValue2()), new FctSpinnerSetRangeValue());
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList(aliasChangeListener);
         method_ = new StandardMethod(aliasAddChange, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSpinner0AddChange0()), new FctSpinnerAddChange());
         StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimLong(),_content.getPrimTypes().getAliasPrimLong(),_content.getPrimTypes().getAliasPrimLong(),_content.getPrimTypes().getAliasPrimLong());
         ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasSpinner0Spinner0(),guiAliasParameters.getAliasSpinner0Spinner1(),guiAliasParameters.getAliasSpinner0Spinner2(),guiAliasParameters.getAliasSpinner0Spinner3()), new FctSpinner(_cust,_guiEx,aliasSpinner));
         StandardNamedFunction.addFct(constructors_, ctor_);
         StandardType.addType(_content.getStandards(), aliasSpinner, stdcl_);
@@ -3601,6 +3621,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         setAliasCheckBoxSetSelected(LgNamesContent.get(_util,_cust,_mapping.getVal(CHECK_BOX_SET_SELECTED)));
         setAliasTextAreaSetSelectionEnd(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_AREA_SET_SELECTION_END)));
         setAliasSpinnerGetValue(LgNamesContent.get(_util,_cust,_mapping.getVal(SPINNER_GET_VALUE)));
+        setAliasSpinnerGetValueLong(LgNamesContent.get(_util,_cust,_mapping.getVal(SPINNER_GET_VALUE_LONG)));
         setAliasSliderGetMax(LgNamesContent.get(_util,_cust,_mapping.getVal(SLIDER_GET_MAX)));
         setAliasTextAreaSelect(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_AREA_SELECT)));
         setAliasTextAreaReplaceRange(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_AREA_REPLACE_RANGE)));
@@ -3615,17 +3636,20 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         setAliasSliderProperties(LgNamesContent.get(_util,_cust,_mapping.getVal(SLIDER_PROPERTIES)));
         setAliasTextAreaSetTabSize(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_AREA_SET_TAB_SIZE)));
         setAliasSpinnerGetMin(LgNamesContent.get(_util,_cust,_mapping.getVal(SPINNER_GET_MIN)));
+        setAliasSpinnerGetMinLong(LgNamesContent.get(_util,_cust,_mapping.getVal(SPINNER_GET_MIN_LONG)));
         setAliasCheckBoxSetText(LgNamesContent.get(_util,_cust,_mapping.getVal(CHECK_BOX_SET_TEXT)));
         setAliasCheckBoxGetText(LgNamesContent.get(_util,_cust,_mapping.getVal(CHECK_BOX_GET_TEXT)));
         setAliasTextAreaInsert(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_AREA_INSERT)));
         setAliasTextAreaSelectAll(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_AREA_SELECT_ALL)));
         setAliasTextAreaAppend(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_AREA_APPEND)));
         setAliasSpinnerGetMax(LgNamesContent.get(_util,_cust,_mapping.getVal(SPINNER_GET_MAX)));
+        setAliasSpinnerGetMaxLong(LgNamesContent.get(_util,_cust,_mapping.getVal(SPINNER_GET_MAX_LONG)));
         setAliasSpinnerSetMax(LgNamesContent.get(_util,_cust,_mapping.getVal(SPINNER_SET_MAX)));
         setAliasTextAreaGetTabSize(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_AREA_GET_TAB_SIZE)));
         setAliasTextAreaSetText(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_AREA_SET_TEXT)));
         setAliasSpinnerSetMin(LgNamesContent.get(_util,_cust,_mapping.getVal(SPINNER_SET_MIN)));
         setAliasSpinnerGetStep(LgNamesContent.get(_util,_cust,_mapping.getVal(SPINNER_GET_STEP)));
+        setAliasSpinnerGetStepLong(LgNamesContent.get(_util,_cust,_mapping.getVal(SPINNER_GET_STEP_LONG)));
         setAliasSpinnerSetRangeValue(LgNamesContent.get(_util,_cust,_mapping.getVal(SPINNER_SET_RANGE_VALUE)));
         setAliasTextAreaGetSelectedText(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_AREA_GET_SELECTED_TEXT)));
         setAliasSliderSetMax(LgNamesContent.get(_util,_cust,_mapping.getVal(SLIDER_SET_MAX)));
@@ -3877,9 +3901,13 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         _en.add(CHECK_BOX_IS_SELECTED,"CheckBoxIsSelected=isSelected");
         _en.add(CHECK_BOX_SET_SELECTED,"CheckBoxSetSelected=setSelected");
         _en.add(SPINNER_GET_MAX,"SpinnerGetMax=getMax");
+        _en.add(SPINNER_GET_MAX_LONG,"SpinnerGetMaxLong=getMaxLong");
         _en.add(SPINNER_GET_MIN,"SpinnerGetMin=getMin");
+        _en.add(SPINNER_GET_MIN_LONG,"SpinnerGetMinLong=getMinLong");
         _en.add(SPINNER_GET_STEP,"SpinnerGetStep=getStep");
+        _en.add(SPINNER_GET_STEP_LONG,"SpinnerGetStepLong=getStepLong");
         _en.add(SPINNER_GET_VALUE,"SpinnerGetValue=getValue");
+        _en.add(SPINNER_GET_VALUE_LONG,"SpinnerGetValueLong=getValueLong");
         _en.add(SPINNER_SET_MAX,"SpinnerSetMax=setMax");
         _en.add(SPINNER_SET_MIN,"SpinnerSetMin=setMin");
         _en.add(SPINNER_SET_STEP,"SpinnerSetStep=setStep");
@@ -4337,9 +4365,13 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         _fr.add(CHECK_BOX_IS_SELECTED,"CheckBoxIsSelected=estSelect");
         _fr.add(CHECK_BOX_SET_SELECTED,"CheckBoxSetSelected=majSelect");
         _fr.add(SPINNER_GET_MAX,"SpinnerGetMax=valMax");
+        _fr.add(SPINNER_GET_MAX_LONG,"SpinnerGetMaxLong=valMaxEnt8");
         _fr.add(SPINNER_GET_MIN,"SpinnerGetMin=valMin");
+        _fr.add(SPINNER_GET_MIN_LONG,"SpinnerGetMinLong=valMinEnt8");
         _fr.add(SPINNER_GET_STEP,"SpinnerGetStep=valPas");
+        _fr.add(SPINNER_GET_STEP_LONG,"SpinnerGetStepLong=valPasEnt8");
         _fr.add(SPINNER_GET_VALUE,"SpinnerGetValue=val");
+        _fr.add(SPINNER_GET_VALUE_LONG,"SpinnerGetValueLong=valEnt8");
         _fr.add(SPINNER_SET_MAX,"SpinnerSetMax=majMax");
         _fr.add(SPINNER_SET_MIN,"SpinnerSetMin=majMin");
         _fr.add(SPINNER_SET_STEP,"SpinnerSetStep=majPas");
@@ -4868,9 +4900,13 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         );
         _m.addEntry(getAliasSpinner(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(SPINNER_GET_MAX),getAliasSpinnerGetMax()),
+                new KeyValueMemberName(_mapping.getVal(SPINNER_GET_MAX_LONG),getAliasSpinnerGetMaxLong()),
                 new KeyValueMemberName(_mapping.getVal(SPINNER_GET_MIN),getAliasSpinnerGetMin()),
+                new KeyValueMemberName(_mapping.getVal(SPINNER_GET_MIN_LONG),getAliasSpinnerGetMinLong()),
                 new KeyValueMemberName(_mapping.getVal(SPINNER_GET_STEP),getAliasSpinnerGetStep()),
+                new KeyValueMemberName(_mapping.getVal(SPINNER_GET_STEP_LONG),getAliasSpinnerGetStepLong()),
                 new KeyValueMemberName(_mapping.getVal(SPINNER_GET_VALUE),getAliasSpinnerGetValue()),
+                new KeyValueMemberName(_mapping.getVal(SPINNER_GET_VALUE_LONG),getAliasSpinnerGetValueLong()),
                 new KeyValueMemberName(_mapping.getVal(SPINNER_SET_MAX),getAliasSpinnerSetMax()),
                 new KeyValueMemberName(_mapping.getVal(SPINNER_SET_MIN),getAliasSpinnerSetMin()),
                 new KeyValueMemberName(_mapping.getVal(SPINNER_SET_STEP),getAliasSpinnerSetStep()),
@@ -8502,6 +8538,14 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         this.aliasSpinnerGetValue = _v;
     }
 
+    public String getAliasSpinnerGetValueLong() {
+        return aliasSpinnerGetValueLong;
+    }
+
+    public void setAliasSpinnerGetValueLong(String _v) {
+        this.aliasSpinnerGetValueLong = _v;
+    }
+
     public String getAliasSpinnerSetValue() {
         return aliasSpinnerSetValue;
     }
@@ -8516,6 +8560,14 @@ public final class GuiAliases implements AbsAliasFileBuilder {
 
     public void setAliasSpinnerGetMax(String _v) {
         this.aliasSpinnerGetMax = _v;
+    }
+
+    public String getAliasSpinnerGetMaxLong() {
+        return aliasSpinnerGetMaxLong;
+    }
+
+    public void setAliasSpinnerGetMaxLong(String _v) {
+        this.aliasSpinnerGetMaxLong = _v;
     }
 
     public String getAliasSpinnerSetMax() {
@@ -8534,6 +8586,14 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         this.aliasSpinnerGetMin = _v;
     }
 
+    public String getAliasSpinnerGetMinLong() {
+        return aliasSpinnerGetMinLong;
+    }
+
+    public void setAliasSpinnerGetMinLong(String _v) {
+        this.aliasSpinnerGetMinLong = _v;
+    }
+
     public String getAliasSpinnerSetMin() {
         return aliasSpinnerSetMin;
     }
@@ -8548,6 +8608,14 @@ public final class GuiAliases implements AbsAliasFileBuilder {
 
     public void setAliasSpinnerGetStep(String _v) {
         this.aliasSpinnerGetStep = _v;
+    }
+
+    public String getAliasSpinnerGetStepLong() {
+        return aliasSpinnerGetStepLong;
+    }
+
+    public void setAliasSpinnerGetStepLong(String _v) {
+        this.aliasSpinnerGetStepLong = _v;
     }
 
     public String getAliasSpinnerSetStep() {

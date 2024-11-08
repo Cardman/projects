@@ -4,32 +4,36 @@ import code.gui.events.AbsChangeListener;
 
 public interface AbsSpinner extends AbsCustComponent {
     void updateModel();
-    void updateModel(int _value);
+    void updateModel(long _value);
 
     void addChangeListener(AbsChangeListener _list);
 
-    void setRange(int _a, int _b);
-    void range(int _min, int _max);
+    void setRange(long _a, long _b);
+    void range(long _min, long _max);
     void defValues();
-    void mod(int _value, int _min, int _max, int _step);
-    void setRangeValue(int _a, int _b, int _c);
-    void rangeValue(int _value, int _min, int _max);
+    void mod(long _value, long _min, long _max, long _step);
+    void setRangeValue(long _a, long _b, long _c);
+    void rangeValue(long _value, long _min, long _max);
 
-    void min(int _min);
-    void max(int _max);
+    void min(long _min);
+    void max(long _max);
     int getMin();
+    long minLong();
 
-    void setMin(int _value);
+    void setMin(long _value);
 
     int getMax();
+    long maxLong();
 
-    void setMax(int _value);
+    void setMax(long _value);
 
     int getStep();
+    long stepLong();
 
-    void setStep(int _value);
+    void setStep(long _value);
 
     int getValue();
+    long valueLong();
 
-    void setValue(int _value);
+    void setValue(long _value);
 }

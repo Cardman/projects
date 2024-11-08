@@ -5,27 +5,27 @@ import code.gui.events.AbsChangeListener;
 import code.util.CustList;
 
 public final class MockSpinner extends MockInput implements AbsSpinner {
-    private int min;
-    private int max;
+    private long min;
+    private long max;
     private final CustList<AbsChangeListener> changeListeners = new CustList<AbsChangeListener>();
-    private int value;
-    private int step;
+    private long value;
+    private long step;
 
-    public MockSpinner(int _value,int _min, int _max, int _step) {
+    public MockSpinner(long _value,long _min, long _max, long _step) {
         min = _min;
         max = _max;
         step = _step;
         mod(_value, _min, _max, _step);
     }
 
-    private void val(int _value, int _min, int _max, int _step) {
+    private void val(long _value, long _min, long _max, long _step) {
         min = _min;
         max = _max;
         step = _step;
         value = _value;
     }
 
-    public static boolean invalidSpinner(int _value, int _min, int _max) {
+    public static boolean invalidSpinner(long _value, long _min, long _max) {
         if (_value < _min) {
             return true;
         } else {
@@ -34,10 +34,10 @@ public final class MockSpinner extends MockInput implements AbsSpinner {
     }
     @Override
     public void updateModel() {
-        mod(getValue(), min, max, step);
+        mod(valueLong(), min, max, step);
     }
     @Override
-    public void updateModel(int _value) {
+    public void updateModel(long _value) {
         mod(_value, min, max, step);
     }
 
@@ -51,12 +51,12 @@ public final class MockSpinner extends MockInput implements AbsSpinner {
     }
 
     @Override
-    public void setRange(int _min, int _max) {
-        mod(getValue(), _min, _max, getStep());
+    public void setRange(long _min, long _max) {
+        mod(valueLong(), _min, _max, stepLong());
     }
 
     @Override
-    public void range(int _min, int _max) {
+    public void range(long _min, long _max) {
         max = _max;
         min = _min;
     }
@@ -69,7 +69,7 @@ public final class MockSpinner extends MockInput implements AbsSpinner {
     }
 
     @Override
-    public void mod(int _value, int _min, int _max, int _step) {
+    public void mod(long _value, long _min, long _max, long _step) {
         if (invalidSpinner(_value, _min, _max)) {
             defValues();
         } else {
@@ -78,18 +78,18 @@ public final class MockSpinner extends MockInput implements AbsSpinner {
     }
 
     @Override
-    public void setRangeValue(int _value,int _min, int _max) {
-        mod(_value,_min,_max,getStep());
+    public void setRangeValue(long _value,long _min, long _max) {
+        mod(_value,_min,_max,stepLong());
     }
 
     @Override
-    public void rangeValue(int _value, int _min, int _max) {
+    public void rangeValue(long _value, long _min, long _max) {
         range(_min, _max);
         updateModel(_value);
     }
 
     @Override
-    public void min(int _m) {
+    public void min(long _m) {
         if (_m != min) {
             min = _m;
             fireEvent();
@@ -97,7 +97,7 @@ public final class MockSpinner extends MockInput implements AbsSpinner {
     }
 
     @Override
-    public void max(int _m) {
+    public void max(long _m) {
         if (_m != max) {
             max = _m;
             fireEvent();
@@ -106,35 +106,50 @@ public final class MockSpinner extends MockInput implements AbsSpinner {
 
     @Override
     public int getMin() {
+        return (int) minLong();
+    }
+
+    @Override
+    public long minLong() {
         return min;
     }
 
     @Override
-    public void setMin(int _m) {
-        if (!invalidSpinner(getValue(), _m, getMax())) {
+    public void setMin(long _m) {
+        if (!invalidSpinner(valueLong(), _m, maxLong())) {
             min(_m);
         }
     }
 
     @Override
     public int getMax() {
+        return (int) maxLong();
+    }
+
+    @Override
+    public long maxLong() {
         return max;
     }
 
     @Override
-    public void setMax(int _m) {
-        if (!invalidSpinner(getValue(), getMin(), _m)) {
+    public void setMax(long _m) {
+        if (!invalidSpinner(valueLong(), minLong(), _m)) {
             max(_m);
         }
     }
 
     @Override
     public int getStep() {
+        return (int) stepLong();
+    }
+
+    @Override
+    public long stepLong() {
         return step;
     }
 
     @Override
-    public void setStep(int _s) {
+    public void setStep(long _s) {
         if (_s != step) {
             step = _s;
             fireEvent();
@@ -143,12 +158,17 @@ public final class MockSpinner extends MockInput implements AbsSpinner {
 
     @Override
     public int getValue() {
+        return (int) valueLong();
+    }
+
+    @Override
+    public long valueLong() {
         return value;
     }
 
     @Override
-    public void setValue(int _v) {
-        if (!invalidSpinner(_v, getMin(), getMax()) && _v != value) {
+    public void setValue(long _v) {
+        if (!invalidSpinner(_v, minLong(), maxLong()) && _v != value) {
             value = _v;
             fireEvent();
         }

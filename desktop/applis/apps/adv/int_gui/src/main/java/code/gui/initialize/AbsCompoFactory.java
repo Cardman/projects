@@ -48,7 +48,7 @@ public interface AbsCompoFactory {
 
     AbsProgressBar newAbsProgressBar();
 
-    AbsSpinner newSpinner(int _a, int _b, int _c, int _d);
+    AbsSpinner newSpinner(long _a, long _b, long _c, long _d);
     AbsTextArea newTextArea();
     AbsTextArea newTextArea(int _r,int _c);
     AbsTextArea newTextArea(String _txt);

@@ -1,12 +1,10 @@
 package code.gui;
 
-import code.gui.events.ChgLgInput;
 import code.gui.initialize.*;
-import code.util.core.NumberUtil;
 
 public final class GeneComponentModelLong implements GeneComponentModel<Long> {
     private final AbstractProgramInfos compoFactory;
-    private AbsTextField textLong;
+    private AbsSpinner textLong;
     public GeneComponentModelLong(AbstractProgramInfos _c) {
         this.compoFactory = _c;
     }
@@ -17,9 +15,7 @@ public final class GeneComponentModelLong implements GeneComponentModel<Long> {
     }
 
     public AbsCustComponent gene(long _d) {
-        textLong = compoFactory.getCompoFactory().newTextField(Long.toString(_d), 20);
-        textLong.registerKeyboardAction(compoFactory.getCompoFactory().wrap(new ChgLgInput(1,textLong)), GuiConstants.VK_UP,0);
-        textLong.registerKeyboardAction(compoFactory.getCompoFactory().wrap(new ChgLgInput(-1,textLong)),GuiConstants.VK_DOWN,0);
+        textLong = compoFactory.getCompoFactory().newSpinner(_d, Long.MIN_VALUE,Long.MAX_VALUE,1);
         return textLong;
     }
 
@@ -29,7 +25,7 @@ public final class GeneComponentModelLong implements GeneComponentModel<Long> {
     }
 
     public long valueLong() {
-        return NumberUtil.parseLongZero(textLong.getText());
+        return textLong.valueLong();
     }
 
     @Override
@@ -38,8 +34,8 @@ public final class GeneComponentModelLong implements GeneComponentModel<Long> {
     }
 
     public long valueLong(long _v) {
-        String p_ = textLong.getText();
-        textLong.setText(Long.toString(_v));
-        return NumberUtil.parseLongZero(p_);
+        long p_ = textLong.valueLong();
+        textLong.setValue(_v);
+        return p_;
     }
 }

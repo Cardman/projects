@@ -41,6 +41,7 @@ public final class SpinnerStructTest extends EquallableElUtUtil {
         Struct sl_ = call(new FctSpinner(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(71),new IntStruct(5),new IntStruct(95),new IntStruct(3)), st_);
         call(new FctSpinnerSetMin(),null,ctx_,sl_,one(new IntStruct(3)),st_);
         assertEq(3,toLong(call(new FctSpinnerGetMin(),null,ctx_,sl_,null,st_)));
+        assertEq(3,toLong(call(new FctSpinnerGetMinLong(),null,ctx_,sl_,null,st_)));
     }
     @Test
     public void max() {
@@ -53,6 +54,7 @@ public final class SpinnerStructTest extends EquallableElUtUtil {
         Struct sl_ = call(new FctSpinner(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(71),new IntStruct(5),new IntStruct(95),new IntStruct(3)), st_);
         call(new FctSpinnerSetMax(),null,ctx_,sl_,one(new IntStruct(98)),st_);
         assertEq(98,toLong(call(new FctSpinnerGetMax(),null,ctx_,sl_,null,st_)));
+        assertEq(98,toLong(call(new FctSpinnerGetMaxLong(),null,ctx_,sl_,null,st_)));
     }
     @Test
     public void value() {
@@ -65,6 +67,7 @@ public final class SpinnerStructTest extends EquallableElUtUtil {
         Struct sl_ = call(new FctSpinner(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(71),new IntStruct(5),new IntStruct(95),new IntStruct(3)), st_);
         call(new FctSpinnerSetValue(),null,ctx_,sl_,one(new IntStruct(55)),st_);
         assertEq(55,toLong(call(new FctSpinnerGetValue(),null,ctx_,sl_,null,st_)));
+        assertEq(55,toLong(call(new FctSpinnerGetValueLong(),null,ctx_,sl_,null,st_)));
     }
     @Test
     public void step() {
@@ -77,6 +80,7 @@ public final class SpinnerStructTest extends EquallableElUtUtil {
         Struct sl_ = call(new FctSpinner(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(71),new IntStruct(5),new IntStruct(95),new IntStruct(3)), st_);
         call(new FctSpinnerSetStep(),null,ctx_,sl_,one(new IntStruct(4)),st_);
         assertEq(4,toLong(call(new FctSpinnerGetStep(),null,ctx_,sl_,null,st_)));
+        assertEq(4,toLong(call(new FctSpinnerGetStepLong(),null,ctx_,sl_,null,st_)));
     }
     @Test
     public void range() {
