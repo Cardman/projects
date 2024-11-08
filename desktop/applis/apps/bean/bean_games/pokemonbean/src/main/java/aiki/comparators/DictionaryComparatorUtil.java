@@ -30,6 +30,7 @@ import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.*;
 import code.util.core.BoolVal;
+import code.util.ints.Comparing;
 
 public final class DictionaryComparatorUtil {
     private DictionaryComparatorUtil() {
@@ -274,28 +275,28 @@ public final class DictionaryComparatorUtil {
 //        StringMap<String> translated_ = trEnvs(_data, _language);
 //        return new DictionaryComparator<String,String>(translated_);
 //    }
-    public static ComparatorTr<Statistic> cmpStatistic(DataBase _data, String _language) {
-        return new ComparatorTr<Statistic>(_data.getTranslatedStatistics().getVal(_language));
+    public static Comparing<Statistic> cmpStatistic(DataBase _data, String _language) {
+        return new ComparatorTrWrapper<Statistic>().wrap(_data.getTranslatedStatistics().getVal(_language));
     }
-    public static ComparatorTr<String> cmpAbilities(DataBase _data, String _language) {
-        return new ComparatorTr<String>(_data.getTranslatedAbilities().getVal(_language));
+    public static Comparing<String> cmpAbilities(DataBase _data, String _language) {
+        return new ComparatorTrWrapper<String>().wrap(_data.getTranslatedAbilities().getVal(_language));
     }
-    public static ComparatorTr<String> cmpItems(DataBase _data, String _language) {
-        return new ComparatorTr<String>(_data.getTranslatedItems().getVal(_language));
+    public static Comparing<String> cmpItems(DataBase _data, String _language) {
+        return new ComparatorTrWrapper<String>().wrap(_data.getTranslatedItems().getVal(_language));
     }
-    public static ComparatorTr<String> cmpMoves(DataBase _data, String _language) {
-        return new ComparatorTr<String>(_data.getTranslatedMoves().getVal(_language));
+    public static Comparing<String> cmpMoves(DataBase _data, String _language) {
+        return new ComparatorTrWrapper<String>().wrap(_data.getTranslatedMoves().getVal(_language));
     }
-    public static ComparatorTr<String> cmpPokemon(DataBase _data, String _language) {
-        return new ComparatorTr<String>(_data.getTranslatedPokemon().getVal(_language));
-    }
-
-    public static ComparatorTr<String> cmpStatus(DataBase _data, String _language) {
-        return new ComparatorTr<String>(_data.getTranslatedStatus().getVal(_language));
+    public static Comparing<String> cmpPokemon(DataBase _data, String _language) {
+        return new ComparatorTrWrapper<String>().wrap(_data.getTranslatedPokemon().getVal(_language));
     }
 
-    public static ComparatorTr<String> cmpTypes(DataBase _data, String _language) {
-        return new ComparatorTr<String>(_data.getTranslatedTypes().getVal(_language));
+    public static Comparing<String> cmpStatus(DataBase _data, String _language) {
+        return new ComparatorTrWrapper<String>().wrap(_data.getTranslatedStatus().getVal(_language));
+    }
+
+    public static Comparing<String> cmpTypes(DataBase _data, String _language) {
+        return new ComparatorTrWrapper<String>().wrap(_data.getTranslatedTypes().getVal(_language));
     }
 
     public static DictionaryComparator<Point, int[][]> buildPointString() {

@@ -6,7 +6,7 @@ package aiki.gui.components.fight;
 
 
 
-import aiki.comparators.ComparatorTr;
+import aiki.comparators.*;
 import aiki.db.DataBase;
 import aiki.game.fight.*;
 import aiki.game.fight.enums.UsefulValueLaw;
@@ -1444,7 +1444,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
     private void initLearntMovesAbilities() {
         StringMap<StringMap<String>> trMoves_;
         trMoves_ = facade.getData().getTranslatedMoves();
-        TreeMap<String,BoolVal> moves_ = new TreeMap<String, BoolVal>(new ComparatorTr<String>(trMoves_.getVal(window.getFrames().getLanguage())));
+        TreeMap<String,BoolVal> moves_ = new TreeMap<String, BoolVal>(new ComparatorTrWrapper<String>().wrap(trMoves_.getVal(window.getFrames().getLanguage())));
         NatStringTreeMap<BoolVal> retMoves_ = facade.getMoves();
         moves_.putAllMap(retMoves_);
         moveLearnList.clear();
@@ -1456,7 +1456,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
                 continue;
             }
             String tr_ = facade.translateMove(m);
-            MoveFighterCheckBox check_ = new MoveFighterCheckBox(m,tr_,learnt_,this);
+            MoveFighterCheckBox check_ = new MoveFighterCheckBox(m,tr_, true,this);
 //            check_.setBackground(GuiConstants.RED);
             movesLearnPanel.add(check_.getComponent());
             moveLearnList.add(check_);
@@ -1467,7 +1467,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
                 continue;
             }
             String tr_ = facade.translateMove(m);
-            MoveFighterCheckBox check_ = new MoveFighterCheckBox(m,tr_,learnt_,this);
+            MoveFighterCheckBox check_ = new MoveFighterCheckBox(m,tr_, false,this);
 //            check_.setBackground(GuiConstants.WHITE);
             movesLearnPanel.add(check_.getComponent());
             moveLearnList.add(check_);
@@ -1500,7 +1500,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 //                return transOne_.compareTo(transTwo_);
 //            }
 //        });
-        abilitiesCopy_.sortElts(new ComparatorTr<String>(facade.getTranslatedAbilitiesCurLanguage()));
+        abilitiesCopy_.sortElts(new ComparatorTrWrapper<String>().wrap(facade.getTranslatedAbilitiesCurLanguage()));
         for (String a: abilitiesCopy_) {
             AbilityLabel ab_ = new AbilityLabel(facade.translateAbility(a), a, window.getCompoFactory());
 //            ab_.setSelected(facade.getAbility());

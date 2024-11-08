@@ -94,7 +94,7 @@ public final class ConverterCommonMapUtil {
         _subs.add(new SubscribedTranslationSelect(_sel));
     }
     public static TreeMap<String, String> feedTree(AbsMap<String, String> _messages, CustList<String> _rem) {
-        TreeMap<String, String> tree_ = new TreeMap<String, String>(new ComparatorTr<String>(_messages));
+        TreeMap<String, String> tree_ = new TreeMap<String, String>(new ComparatorTrWrapper<String>().wrap(_messages));
         for (String s: _rem) {
             tree_.put(s,_messages.getVal(s));
         }
@@ -102,7 +102,7 @@ public final class ConverterCommonMapUtil {
     }
 
     public static TreeMap<Short, String> feedTreeNb(AbsMap<Short, String> _messages, CustList<Short> _rem) {
-        TreeMap<Short, String> tree_ = new TreeMap<Short, String>(new ComparatorTr<Short>(_messages));
+        TreeMap<Short, String> tree_ = new TreeMap<Short, String>(new ComparatorTrWrapper<Short>().wrap(_messages));
         for (short s: _rem) {
             tree_.put(s,_messages.getVal(s));
         }

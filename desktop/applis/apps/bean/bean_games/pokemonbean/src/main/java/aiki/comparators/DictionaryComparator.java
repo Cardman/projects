@@ -7,7 +7,7 @@ import code.util.ints.Comparing;
 public final class DictionaryComparator<K,V> extends AbsComparerTreeMap<K, V> {
 
     public DictionaryComparator(AbsMap<K,String> _tr) {
-        this(new ComparatorTr<K>(_tr));
+        this(new ComparatorTrWrapper<K>().wrap(_tr));
     }
 
     public DictionaryComparator(Comparing<K> _tr) {

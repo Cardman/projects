@@ -1,6 +1,6 @@
 package aiki.game.fight;
 import aiki.comments.Comment;
-import aiki.comparators.ComparatorTr;
+import aiki.comparators.*;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Ball;
@@ -1982,7 +1982,7 @@ public final class FightFacade {
         String lg_ = _d.getLanguage();
         StringMap<String> m_ = _d.getTranslatedPokemonCurLanguage(lg_);
         EvolutionChoiceMap map_;
-        map_ = new EvolutionChoiceMap(new ComparatorTr<String>(m_));
+        map_ = new EvolutionChoiceMap(new ComparatorTrWrapper<String>().wrap(m_));
         map_.put(DataBase.EMPTY_STRING, BoolVal.TRUE);
         for (String e: fighter_.getMovesAbilitiesEvos().getKeys()) {
             map_.put(e, BoolVal.FALSE);

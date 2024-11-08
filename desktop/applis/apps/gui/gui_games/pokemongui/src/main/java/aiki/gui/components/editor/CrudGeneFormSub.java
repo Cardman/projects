@@ -18,7 +18,7 @@ public abstract class CrudGeneFormSub<K,V> extends AbsCrudGeneFormMap<K, V> {
     }
 
     public void initForm(AbsMap<K, String> _disp, GeneComponentModel<K> _k, GeneComponentModel<V> _v, AbsMap<K, V> _map) {
-        initForm(new DisplayKeyOnly<K, V>(_disp),_k,_v,new ComparatorTr<K>(_disp),_map);
+        initForm(new DisplayKeyOnly<K, V>(_disp),_k,_v,new ComparatorTrWrapper<K>().wrap(_disp),_map);
         messages = _disp;
     }
 

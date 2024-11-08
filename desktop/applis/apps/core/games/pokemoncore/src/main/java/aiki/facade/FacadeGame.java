@@ -1,7 +1,7 @@
 package aiki.facade;
 
 import aiki.comments.Comment;
-import aiki.comparators.ComparatorTr;
+import aiki.comparators.*;
 import aiki.comparators.TrMovesComparator;
 import aiki.db.DataBase;
 import aiki.db.ExchangedData;
@@ -1221,7 +1221,7 @@ public class FacadeGame {
     }
 
     public ItemsBuySellMap getChosenItemsForBuyOrSell() {
-        ItemsBuySellMap tr_ = new ItemsBuySellMap(new ComparatorTr<String>(data
+        ItemsBuySellMap tr_ = new ItemsBuySellMap(new ComparatorTrWrapper<String>().wrap(data
                 .getTranslatedItems().getVal(language)));
         for (EntryCust<String, LgInt> e : chosenItemsForBuyOrSell.entryList()) {
             tr_.put(e.getKey(), e.getValue());
