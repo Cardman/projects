@@ -1,16 +1,20 @@
 package aiki.gui.components.editor;
 
-import code.gui.events.AbsActionListener;
+import code.gui.*;
+import code.gui.events.*;
 
-public final class PkEditorOpenCrudPkEvent implements AbsActionListener {
-    private final WindowPkEditor window;
+public final class PkEditorOpenCrudPkEvent<T> implements AbsActionListener {
+    private final CrudGeneFormEnt<T> crudGeneFormPk;
+    private final EnabledMenu menu;
 
-    public PkEditorOpenCrudPkEvent(WindowPkEditor _w) {
-        this.window = _w;
+    public PkEditorOpenCrudPkEvent(CrudGeneFormEnt<T> _c, EnabledMenu _m) {
+        crudGeneFormPk = _c;
+        menu = _m;
     }
 
     @Override
     public void action() {
-        window.openCrudPk();
+        crudGeneFormPk.initForm(crudGeneFormPk.getFactory());
+        menu.setEnabled(false);
     }
 }

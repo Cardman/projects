@@ -55,6 +55,7 @@ public abstract class InitEditorPkForm extends EquallableAikiGuiUtil {
         facade_.getData().setCombos(Instances.newCombos());
         facade_.getData().setMap(Instances.newDataMap());
         facade_.getData().setLanguages(_m.getLanguages());
+        facade_.getData().setVarParamsMove(new StringMap<StringList>());
         StringMap<String> allTypes_ = new StringMap<String>();
         allTypes_.addEntry(T_1,"t1");
         allTypes_.addEntry(T_2,"t2");

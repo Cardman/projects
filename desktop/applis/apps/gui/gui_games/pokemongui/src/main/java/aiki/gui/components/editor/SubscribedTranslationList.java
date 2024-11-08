@@ -9,10 +9,10 @@ public final class SubscribedTranslationList {
     private final AbstractProgramInfos programInfos;
     private final FacadeGame facadeGame;
     private final IdMap<AbsCommonFrame,IdList<SubscribedTranslation>> subscribedTranslations = new IdMap<AbsCommonFrame, IdList<SubscribedTranslation>>();
-    private final SubscribedTranslationMessagesFactory factoryAb = new SubscribedTranslationMessagesFactoryAb();
-    private final SubscribedTranslationMessagesFactory factoryIt = new SubscribedTranslationMessagesFactoryIt();
-    private final SubscribedTranslationMessagesFactory factoryMv = new SubscribedTranslationMessagesFactoryMv();
-    private final SubscribedTranslationMessagesFactory factoryPk = new SubscribedTranslationMessagesFactoryPk();
+    private final SubscribedTranslationMessagesFactoryAb factoryAb = new SubscribedTranslationMessagesFactoryAb();
+    private final SubscribedTranslationMessagesFactoryIt factoryIt = new SubscribedTranslationMessagesFactoryIt();
+    private final SubscribedTranslationMessagesFactoryMv factoryMv = new SubscribedTranslationMessagesFactoryMv();
+    private final SubscribedTranslationMessagesFactoryPk factoryPk = new SubscribedTranslationMessagesFactoryPk();
     private final SubscribedTranslationMessagesFactory factoryTy = new SubscribedTranslationMessagesFactoryTy();
     private final SubscribedTranslationMessagesNbFactory factoryTm = new SubscribedTranslationMessagesNbFactoryTm();
     private final SubscribedTranslationMessagesNbFactory factoryHm = new SubscribedTranslationMessagesNbFactoryHm();
@@ -35,19 +35,19 @@ public final class SubscribedTranslationList {
         return subscribedTranslations;
     }
 
-    public SubscribedTranslationMessagesFactory getFactoryAb() {
+    public SubscribedTranslationMessagesFactoryAb getFactoryAb() {
         return factoryAb;
     }
 
-    public SubscribedTranslationMessagesFactory getFactoryIt() {
+    public SubscribedTranslationMessagesFactoryIt getFactoryIt() {
         return factoryIt;
     }
 
-    public SubscribedTranslationMessagesFactory getFactoryMv() {
+    public SubscribedTranslationMessagesFactoryMv getFactoryMv() {
         return factoryMv;
     }
 
-    public SubscribedTranslationMessagesFactory getFactoryPk() {
+    public SubscribedTranslationMessagesFactoryPk getFactoryPk() {
         return factoryPk;
     }
 

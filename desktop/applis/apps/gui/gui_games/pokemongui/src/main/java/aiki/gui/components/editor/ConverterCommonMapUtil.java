@@ -15,9 +15,6 @@ import code.util.core.*;
 public final class ConverterCommonMapUtil {
     private ConverterCommonMapUtil() {
     }
-    public static GeneComponentModelEltStrSub buildPk(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub) {
-        return merge(_api, _facade, _sub.getFactoryPk(), _facade.getData().getPokedex().getKeys());
-    }
 
     public static GeneComponentModelEltStrSub buildPkFull(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub) {
         return merge(_api, _facade, _sub.getFactoryPk(), new CustList<String>());
@@ -47,7 +44,7 @@ public final class ConverterCommonMapUtil {
     public static GeneComponentModelLsStrSub<Short> buildHmList(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
         return mergeLsNb(_api, _facade, _sub.getFactoryMv(), _sub.getFactoryHm());
     }
-    private static GeneComponentModelEltStrSub merge(AbstractProgramInfos _api, FacadeGame _sub, SubscribedTranslationMessagesFactory _builder, CustList<String> _excluded) {
+    public static GeneComponentModelEltStrSub merge(AbstractProgramInfos _api, FacadeGame _sub, SubscribedTranslationMessagesFactory _builder, CustList<String> _excluded) {
         StringMap<String> sub_ = _builder.buildMessages(_api, _sub);
         StringList rem_ = new StringList(sub_.getKeys());
         rem_.removeAllElements(_excluded);

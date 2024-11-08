@@ -1,15 +1,110 @@
 package aiki.gui;
 
 import aiki.facade.*;
+import aiki.fight.items.*;
+import aiki.fight.pokemon.*;
 import aiki.gui.components.editor.*;
 import aiki.instances.*;
 import code.mock.*;
-import code.util.*;
+import code.util.core.*;
 import org.junit.Test;
 
 public final class EditorItFormTest extends InitEditorPkForm {
     @Test
     public void itForm1() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<Item> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelItem g_ = (GeneComponentModelItem) c_.getGeneValue();
+        c_.getGeneKey().value(I_1);
+        g_.getPrice().valueInt(10);
+        tryClick(c_.getValidAddEdit());
+        assertEq(1,facade_.getData().getItems().size());
+        assertEq(1,c_.getList().size());
+        assertEq(I_1,c_.getList().getKey(0));
+        assertEq(10,c_.getList().getValue(0).getPrice());
+    }
+    @Test
+    public void itForm2() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<Item> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelItem g_ = (GeneComponentModelItem) c_.getGeneValue();
+        c_.getGeneKey().value(I_1);
+        g_.getPrice().valueInt(10);
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        GeneComponentModelItem gSec_ = (GeneComponentModelItem)c_.getGeneValue();
+        assertEq(10,gSec_.getPrice().valueInt());
+    }
+    @Test
+    public void itForm3() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<Item> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelItem g_ = (GeneComponentModelItem) c_.getGeneValue();
+        c_.getGeneKey().value(I_1);
+        g_.getPrice().valueInt(10);
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        GeneComponentModelItem gSec_ = (GeneComponentModelItem)c_.getGeneValue();
+        gSec_.getPrice().valueInt(20);
+        tryClick(c_.getValidAddEdit());
+        assertEq(1,facade_.getData().getItems().size());
+        assertEq(20, facade_.getData().getItems().getVal(I_1).getPrice());
+    }
+    @Test
+    public void itForm4() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<Item> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        c_.getGeneKey().value(I_1);
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryClick(c_.getValidRemove());
+        assertEq(0, facade_.getData().getItems().size());
+        assertEq(0, c_.getList().size());
+    }
+    @Test
+    public void itForm5() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<Item> cm_ = crud(sub_);
+        tryClick(cm_.getAdd());
+        cm_.getGeneKey().value(I_1);
+        tryClick(cm_.getValidAddEdit());
+        CrudGeneFormEnt<PokemonData> c_ = crudPk(sub_);
+        tryClick(c_.getAdd());
+        c_.getGeneKey().value(P_1);
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAdd());
+        GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
+        c_.getGeneKey().value(P_2);
+        CrudGeneFormEvolutions evolutions_ = g_.getEvolutions();
+        tryClick(evolutions_.getAdd());
+        c_.getGeneKey().value(P_1);
+        GeneComponentModelEvolution gEvo_ = (GeneComponentModelEvolution) evolutions_.getGeneValue();
+        gEvo_.getEvolutionKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EVO_STONE_SIMPLE));
+        gEvo_.getEvolutionKind().getSelect().events(null);
+        gEvo_.getItem().setupValue(I_1);
+        tryClick(evolutions_.getValidAddEdit());
+        tryClick(c_.getValidAddEdit());
+        tryClick(cm_.getAllButtons().get(0));
+        tryClick(cm_.getValidRemove());
+        assertEq(1, facade_.getData().getItems().size());
+        assertEq(1, cm_.getList().size());
+    }
+    @Test
+    public void itForm6() {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facadeAdd(pr_);
         WindowPkEditor sub_ = window(pr_, facade_);
@@ -21,7 +116,7 @@ public final class EditorItFormTest extends InitEditorPkForm {
         assertEq("p_2",facade_.getData().getTranslatedItems().firstValue().getVal(I_2));
     }
     @Test
-    public void itForm2() {
+    public void itForm7() {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facadeAdd(pr_);
         WindowPkEditor sub_ = window(pr_, facade_);
@@ -32,7 +127,7 @@ public final class EditorItFormTest extends InitEditorPkForm {
         assertTrue(facade_.getData().getItems().contains(I_3));
     }
     @Test
-    public void itForm3() {
+    public void itForm8() {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facadeAdd(pr_);
         WindowPkEditor sub_ = window(pr_, facade_);
@@ -47,8 +142,15 @@ public final class EditorItFormTest extends InitEditorPkForm {
         FacadeGame f_ = facade(_m);
         f_.getData().completeQuickMembers(I_1, Instances.newBall());
         f_.getData().completeQuickMembers(I_2, Instances.newBall());
-        f_.getData().setVarParamsMove(new StringMap<StringList>());
         return f_;
+    }
+    private CrudGeneFormEnt<Item> crud(WindowPkEditor _crud) {
+        tryClick(_crud.getItMenu());
+        return _crud.getCrudGeneFormIt();
+    }
+    private CrudGeneFormEnt<PokemonData> crudPk(WindowPkEditor _crud) {
+        tryClick(_crud.getPkMenu());
+        return _crud.getCrudGeneFormPk();
     }
     private CrudGeneFormTr crudTr(WindowPkEditor _crud) {
         tryClick(_crud.getTrsItMenu());

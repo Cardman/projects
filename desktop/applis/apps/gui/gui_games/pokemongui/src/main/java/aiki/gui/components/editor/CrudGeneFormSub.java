@@ -57,6 +57,10 @@ public abstract class CrudGeneFormSub<K,V> extends AbsCrudGeneFormMap<K, V> {
     @Override
     public void cancel() {
         getCrudGeneFormSubContent().removeOpenSub();
+        cancelBase();
+    }
+
+    public void cancelBase() {
         super.cancel();
     }
 

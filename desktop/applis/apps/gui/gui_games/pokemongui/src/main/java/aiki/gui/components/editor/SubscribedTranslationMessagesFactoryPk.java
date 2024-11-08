@@ -2,9 +2,14 @@ package aiki.gui.components.editor;
 
 import aiki.facade.*;
 import aiki.fight.pokemon.PokemonData;
+import code.gui.AbsCommonFrame;
+import code.gui.GeneComponentModel;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.*;
 
 public final class SubscribedTranslationMessagesFactoryPk extends SubscribedTranslationMessagesFactoryCommonParam<PokemonData> {
+
+    private GeneComponentModelPokemonData geneComponentModelPokemonData;
 
     @Override
     public StringMap<StringMap<String>> buildMessages(FacadeGame _facade) {
@@ -19,5 +24,33 @@ public final class SubscribedTranslationMessagesFactoryPk extends SubscribedTran
     @Override
     public StringMap<PokemonData> all(FacadeGame _facade) {
         return _facade.getData().getPokedex();
+    }
+
+    @Override
+    public void delete(FacadeGame _facade, String _key) {
+        _facade.getData().deletePokemon(_key);
+    }
+
+    @Override
+    public void completeQuickMembers(FacadeGame _facade, String _key, PokemonData _value) {
+        _facade.getData().completeQuickMembers(_key,_value);
+    }
+
+    @Override
+    public GeneComponentModel<PokemonData> build(AbsCommonFrame _frame, AbstractProgramInfos _core, CrudGeneFormSubContent _facade) {
+        geneComponentModelPokemonData = new GeneComponentModelPokemonData(_frame, _core, _facade.getFacadeGame(), _facade.getSubscription());
+        return geneComponentModelPokemonData;
+    }
+
+    @Override
+    public void removeOpenSub(CrudGeneFormSubContent _base) {
+        geneComponentModelPokemonData.getEvolutions().getCrudGeneFormSubContent().removeOpenSub();
+        geneComponentModelPokemonData.getLevMoves().getCrudGeneFormSubContent().removeOpenSub();
+        _base.removeOpenSub();
+    }
+
+    @Override
+    public IdList<SubscribedTranslation> all() {
+        return geneComponentModelPokemonData.all();
     }
 }

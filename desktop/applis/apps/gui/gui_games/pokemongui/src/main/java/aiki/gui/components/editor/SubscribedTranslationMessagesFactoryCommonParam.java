@@ -1,7 +1,9 @@
 package aiki.gui.components.editor;
 
-import aiki.facade.FacadeGame;
-import code.util.StringMap;
+import aiki.facade.*;
+import code.gui.*;
+import code.gui.initialize.*;
+import code.util.*;
 
 public abstract class SubscribedTranslationMessagesFactoryCommonParam<T> extends SubscribedTranslationMessagesFactoryCommon {
     @Override
@@ -9,4 +11,10 @@ public abstract class SubscribedTranslationMessagesFactoryCommonParam<T> extends
         return all(_facade).contains(_key);
     }
     public abstract StringMap<T> all(FacadeGame _facade);
+    public abstract GeneComponentModel<T> build(AbsCommonFrame _frame, AbstractProgramInfos _core, CrudGeneFormSubContent _facade);
+
+    public abstract void removeOpenSub(CrudGeneFormSubContent _base);
+    public abstract IdList<SubscribedTranslation> all();
+    public abstract void delete(FacadeGame _facade, String _key);
+    public abstract void completeQuickMembers(FacadeGame _facade, String _key, T _value);
 }
