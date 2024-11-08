@@ -1,7 +1,6 @@
 package aiki.beans.moves.effects;
 
 import aiki.beans.CommonBean;
-import aiki.comparators.ComparatorTr;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
@@ -95,7 +94,7 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
         IdList<Statistic> list_;
         list_ = new IdList<Statistic>(statistics.getKeys());
         DataBase data_ = getDataBase();
-        list_.sortElts(new ComparatorTr<Statistic>(data_.getTranslatedStatistics().getVal(getLanguage())));
+        list_.sortElts(DictionaryComparatorUtil.cmpStatistic(data_,getLanguage()));
         return list_;
     }
     public String getTranslatedType(int _index) {
