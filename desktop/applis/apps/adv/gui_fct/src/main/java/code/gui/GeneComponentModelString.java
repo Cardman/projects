@@ -25,11 +25,19 @@ public final class GeneComponentModelString implements GeneComponentModel<String
 
     @Override
     public String value() {
+        return valueString();
+    }
+
+    public String valueString() {
         return textField.getText();
     }
 
     @Override
     public String value(String _v) {
+        return valueString(_v);
+    }
+
+    public String valueString(String _v) {
         String p_ = textField.getText();
         textField.setText(_v);
         return p_;

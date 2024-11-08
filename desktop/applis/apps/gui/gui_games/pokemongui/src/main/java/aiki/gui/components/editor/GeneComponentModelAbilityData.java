@@ -33,15 +33,15 @@ public final class GeneComponentModelAbilityData implements GeneComponentModel<A
     @Override
     public AbilityData value() {
         AbilityData ent_ = Instances.newAbilityData();
-        ent_.setMultPower(multPower.value());
-        ent_.setMultDamage(multDamage.value());
+        ent_.setMultPower(multPower.valueString());
+        ent_.setMultDamage(multDamage.valueString());
         return ent_;
     }
 
     @Override
     public AbilityData value(AbilityData _v) {
-        multPower.value(_v.getMultPower());
-        multDamage.value(_v.getMultDamage());
+        multPower.valueString(_v.getMultPower());
+        multDamage.valueString(_v.getMultDamage());
         return element;
     }
 
