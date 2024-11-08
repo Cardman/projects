@@ -24,8 +24,8 @@ public final class GeneComponentModelAbilityData implements GeneComponentModel<A
         AbsCompoFactory compoFactory_ = compoFactory.getCompoFactory();
         AbsScrollPane sc_ = compoFactory_.newAbsScrollPane();
         AbsPanel form_ = compoFactory_.newLineBox();
-        form_.add(multPower.gene());
-        form_.add(multDamage.gene());
+        form_.add(multPower.geneString());
+        form_.add(multDamage.geneString());
         sc_.setViewportView(form_);
         return sc_;
     }

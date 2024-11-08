@@ -18,6 +18,10 @@ public final class GeneComponentModelString implements GeneComponentModel<String
 
     @Override
     public AbsCustComponent gene() {
+        return geneString();
+    }
+
+    public AbsTextField geneString() {
         textField = compoFactory.getCompoFactory().newTextField();
         textField.addAutoComplete(new AutoCompleteDocument(textField,dico,compoFactory,validateText));
         return textField;
