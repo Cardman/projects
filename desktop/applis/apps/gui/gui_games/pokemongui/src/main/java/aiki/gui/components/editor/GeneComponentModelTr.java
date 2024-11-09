@@ -50,6 +50,7 @@ public final class GeneComponentModelTr implements GeneComponentModel<EditedCrud
     @Override
     public void value(EditedCrudPair<String, StringMap<String>> _v) {
         key.valueString(_v.getKey());
+        key.getTextField().setEditable(false);
         for (EntryCust<String,AbsTextField> e:getTranslations().entryList()) {
             e.getValue().setText(StringUtil.nullToEmpty(_v.getValue().getVal(e.getKey())));
         }

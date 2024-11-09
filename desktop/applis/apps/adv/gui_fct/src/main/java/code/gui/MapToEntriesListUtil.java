@@ -1,5 +1,7 @@
 package code.gui;
 
+import code.maths.LgInt;
+import code.maths.montecarlo.AbMonteCarlo;
 import code.util.*;
 
 public final class MapToEntriesListUtil<K,V> {
@@ -10,9 +12,22 @@ public final class MapToEntriesListUtil<K,V> {
         }
         return ls_;
     }
+    public CustList<EditedCrudPair<K, LgInt>> build(AbMonteCarlo<K> _map) {
+        CustList<EditedCrudPair<K,LgInt>> ls_ = new CustList<EditedCrudPair<K, LgInt>>();
+        int len_ = _map.size();
+        for (int i = 0; i < len_; i++) {
+            ls_.add(new EditedCrudPair<K, LgInt>(_map.getKey(i), _map.getFreq(i)));
+        }
+        return ls_;
+    }
     public void feedMap(CustList<EditedCrudPair<K,V>> _ls,AbsMap<K,V> _dest) {
         for (EditedCrudPair<K, V> e: _ls) {
             _dest.addEntry(e.getKey(),e.getValue());
+        }
+    }
+    public void feedMap(CustList<EditedCrudPair<K,LgInt>> _ls,AbMonteCarlo<K> _dest) {
+        for (EditedCrudPair<K, LgInt> e: _ls) {
+            _dest.addQuickEvent(e.getKey(),e.getValue());
         }
     }
 }

@@ -199,6 +199,7 @@ public final class GeneComponentModelEvolution implements GeneComponentModel<Edi
         }
         edited = evo_;
         geneComponentModelSelectKey.setupValue(_v.getKey());
+        geneComponentModelSelectKey.getSelectUniq().getSelect().setEnabled(false);
     }
     public IdList<SubscribedTranslation> all() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();

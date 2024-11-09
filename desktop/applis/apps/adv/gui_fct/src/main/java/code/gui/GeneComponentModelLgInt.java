@@ -29,7 +29,7 @@ public final class GeneComponentModelLgInt implements GeneComponentModel<LgInt> 
     }
 
     public LgInt valueLgInt() {
-        return LgInt.newLgInt(textLgInt.getText());
+        return LgInt.newLgInt(getTextLgInt().getText());
     }
 
     @Override
@@ -41,5 +41,9 @@ public final class GeneComponentModelLgInt implements GeneComponentModel<LgInt> 
         String p_ = textLgInt.getText();
         textLgInt.setText(_v.toNumberString());
         return LgInt.newLgInt(p_);
+    }
+
+    public AbsTextField getTextLgInt() {
+        return textLgInt;
     }
 }

@@ -26,7 +26,7 @@ public final class GeneComponentModelInt implements GeneComponentModel<Integer> 
     }
 
     public int valueInt() {
-        return spinner.getValue();
+        return getSpinner().getValue();
     }
 
     @Override
@@ -38,5 +38,9 @@ public final class GeneComponentModelInt implements GeneComponentModel<Integer> 
         int p_ = spinner.getValue();
         spinner.setValue(_v);
         return p_;
+    }
+
+    public AbsSpinner getSpinner() {
+        return spinner;
     }
 }

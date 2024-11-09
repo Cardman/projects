@@ -36,6 +36,7 @@ public final class GeneComponentModelNb implements GeneComponentModel<EditedCrud
     @Override
     public void value(EditedCrudPair<Integer, String> _v) {
         key.valueInt(_v.getKey());
+        key.getSpinner().setEnabled(false);
         value.setupValue(_v.getValue());
     }
     public IdList<SubscribedTranslation> all() {

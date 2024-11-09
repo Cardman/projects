@@ -5,6 +5,7 @@ import code.gui.files.ClosingFileFrameEvent;
 import code.gui.initialize.*;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.maths.montecarlo.*;
 import code.mock.*;
 import code.stream.AbsClipStream;
 import code.threads.ConcreteBoolean;
@@ -621,6 +622,99 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         assertEq("TWO",c_.getList().get(1));
     }
     @Test
+    public void crudMc1() {
+        MonteCarloNumber m_ = new MonteCarloNumber();
+        m_.addQuickEvent(Rate.one(),new LgInt(15));
+        CrudGeneFormMonteCarlo<Rate> c_ = crudMc(m_);
+        assertEq(1,c_.getList().size());
+        MonteCarloNumber map_ = retrieve(c_);
+        assertEq(Rate.one(),map_.getEvent(0));
+        assertEq(new LgInt(15),map_.getFreq(0));
+        assertFalse(c_.isVisibleSingle());
+        assertEq(4,c_.getButtons().getComponentCount());
+    }
+    @Test
+    public void crudMc2() {
+        MonteCarloNumber m_ = new MonteCarloNumber();
+        m_.addQuickEvent(Rate.one(),new LgInt(15));
+        CrudGeneFormMonteCarlo<Rate> c_ = crudMc(m_);
+        c_.getAdd().getActionListeners().get(0).action();
+        assertTrue(c_.isVisibleSingle());
+        update(c_, new Rate(2), new LgInt(20));
+        c_.getValidAddEdit().getActionListeners().get(0).action();
+        MonteCarloNumber map_ = retrieve(c_);
+        assertEq(2,map_.size());
+        assertEq(Rate.one(),map_.getEvent(0));
+        assertEq(new LgInt(15),map_.getFreq(0));
+        assertEq(new Rate(2),map_.getEvent(1));
+        assertEq(new LgInt(20),map_.getFreq(1));
+    }
+    @Test
+    public void crudMc3() {
+        MonteCarloNumber m_ = new MonteCarloNumber();
+        m_.addQuickEvent(Rate.one(),new LgInt(15));
+        CrudGeneFormMonteCarlo<Rate> c_ = crudMc(m_);
+        c_.getAdd().getActionListeners().get(0).action();
+        update(c_, new Rate(2), new LgInt(20));
+        c_.getValidAddEdit().getActionListeners().get(0).action();
+        ((AbsButton)c_.getElements().getComponent(0)).getActionListeners().get(0).action();
+        update(c_, new Rate(1), new LgInt(16));
+        c_.getValidAddEdit().getActionListeners().get(0).action();
+        MonteCarloNumber map_ = retrieve(c_);
+        assertEq(2,map_.size());
+        assertEq(Rate.one(),map_.getEvent(0));
+        assertEq(new LgInt(16),map_.getFreq(0));
+        assertEq(new Rate(2),map_.getEvent(1));
+        assertEq(new LgInt(20),map_.getFreq(1));
+    }
+    @Test
+    public void crudMc4() {
+        MonteCarloNumber m_ = new MonteCarloNumber();
+        m_.addQuickEvent(Rate.one(),new LgInt(15));
+        CrudGeneFormMonteCarlo<Rate> c_ = crudMc(m_);
+        c_.getAdd().getActionListeners().get(0).action();
+        update(c_, new Rate(2), new LgInt(20));
+        c_.getValidAddEdit().getActionListeners().get(0).action();
+        ((AbsButton)c_.getElements().getComponent(0)).getActionListeners().get(0).action();
+        c_.getValidRemove().getActionListeners().get(0).action();
+        MonteCarloNumber map_ = retrieve(c_);
+        assertEq(1,map_.size());
+        assertEq(new Rate(2),map_.getEvent(0));
+        assertEq(new LgInt(20),map_.getFreq(0));
+    }
+    @Test
+    public void crudMc5() {
+        MonteCarloNumber m_ = new MonteCarloNumber();
+        m_.addQuickEvent(Rate.one(),new LgInt(15));
+        CrudGeneFormMonteCarlo<Rate> c_ = crudMc(m_);
+        c_.getAdd().getActionListeners().get(0).action();
+        update(c_, new Rate(2), new LgInt(20));
+        c_.getValidAddEdit().getActionListeners().get(0).action();
+        ((AbsButton)c_.getElements().getComponent(0)).getActionListeners().get(0).action();
+        update(c_, new Rate(1), new LgInt(16));
+        c_.getCancel().getActionListeners().get(0).action();
+        MonteCarloNumber map_ = retrieve(c_);
+        assertEq(2,map_.size());
+        assertEq(Rate.one(),map_.getEvent(0));
+        assertEq(new LgInt(15),map_.getFreq(0));
+        assertEq(new Rate(2),map_.getEvent(1));
+        assertEq(new LgInt(20),map_.getFreq(1));
+    }
+    @Test
+    public void crudMc6() {
+        MonteCarloNumber m_ = new MonteCarloNumber();
+        m_.addQuickEvent(Rate.one(),new LgInt(15));
+        CrudGeneFormMonteCarlo<Rate> c_ = crudMc(m_);
+        c_.getAdd().getActionListeners().get(0).action();
+        assertTrue(c_.isVisibleSingle());
+        update(c_, new Rate(1), new LgInt(20));
+        c_.getValidAddEdit().getActionListeners().get(0).action();
+        MonteCarloNumber map_ = retrieve(c_);
+        assertEq(1,map_.size());
+        assertEq(Rate.one(),map_.getEvent(0));
+        assertEq(new LgInt(15),map_.getFreq(0));
+    }
+    @Test
     public void modelInt() {
         GeneComponentModelInt g_ = new GeneComponentModelInt(init());
         g_.gene(-1);
@@ -1103,6 +1197,10 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         _form.getGeneComponentModelEntryStringInteger().getKey().valueString(_key);
         _form.getGeneComponentModelEntryStringInteger().getValue().valueInt(_value);
     }
+    private static void update(CrudGeneFormMonteCarlo<Rate> _form, Rate _key, LgInt _value) {
+        ((GeneComponentModelEventRate)_form.getGene()).getEvent().valueRate(_key);
+        ((GeneComponentModelEventRate)_form.getGene()).getProba().valueLgInt(_value);
+    }
     private CrudGeneForm crud(StringMap<Integer> _map, StringList _dico) {
         MockProgramInfosSecSample pr_ = init();
         AbsCommonFrame f_ = pr_.getFrameFactory().newCommonFrame();
@@ -1130,6 +1228,22 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         GuiBaseUtil.initStringList(c_, _map, _dico,new DefValidateText(),_str);
         return c_;
     }
+    private CrudGeneFormMonteCarlo<Rate> crudMc(AbMonteCarlo<Rate> _map) {
+        MockProgramInfosSecSample pr_ = init();
+        AbsCommonFrame f_ = pr_.getFrameFactory().newCommonFrame();
+        CrudGeneFormMonteCarlo<Rate> c_ = new CrudGeneFormMonteCarlo<Rate>(pr_,new ComparingRateKey<LgInt>());
+        c_.setFrame(f_);
+        c_.initForm();
+        c_.initForm(new RateLgIntDisplayEntryCust(),new GeneComponentModelEventRate(pr_),_map,new ComparingRateKey<LgInt>());
+        return c_;
+    }
+
+    public static MonteCarloNumber retrieve(CrudGeneFormMonteCarlo<Rate> _f) {
+        MonteCarloNumber out_ = new MonteCarloNumber();
+        new MapToEntriesListUtil<Rate,LgInt>().feedMap(_f.getList(), out_);
+        return out_;
+    }
+
     private boolean launch(MockSoundRecord _pl) {
         return GuiBaseUtil.launch(_pl.build());
     }

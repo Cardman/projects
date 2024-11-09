@@ -25,7 +25,7 @@ public final class GeneComponentModelLong implements GeneComponentModel<Long> {
     }
 
     public long valueLong() {
-        return textLong.valueLong();
+        return getTextLong().valueLong();
     }
 
     @Override
@@ -37,5 +37,9 @@ public final class GeneComponentModelLong implements GeneComponentModel<Long> {
         long p_ = textLong.valueLong();
         textLong.setValue(_v);
         return p_;
+    }
+
+    public AbsSpinner getTextLong() {
+        return textLong;
     }
 }

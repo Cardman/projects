@@ -46,4 +46,8 @@ public final class GeneComponentModelString implements GeneComponentModel<String
         textField.setText(_v);
         return p_;
     }
+
+    public AbsTextField getTextField() {
+        return textField;
+    }
 }

@@ -29,6 +29,7 @@ public final class GeneComponentModelEntryStringInteger implements GeneComponent
     @Override
     public void value(EditedCrudPair<String, Integer> _v) {
         key.valueString(_v.getKey());
+        key.getTextField().setEditable(false);
         value.valueInt(_v.getValue());
     }
 
