@@ -1,27 +1,27 @@
 package aiki.gui.components.editor;
 
-import aiki.comparators.*;
 import aiki.facade.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.util.*;
+import code.util.ints.*;
 
-public abstract class CrudGeneFormSub<K,V> extends AbsCrudGeneFormMap<K, V> {
+public abstract class CrudGeneFormSub<K,V> extends AbsCrudGeneFormList<EditedCrudPair<K, V>> {
     private final CrudGeneFormSubContent crudGeneFormSubContent;
     private AbsMap<K, String> messages;
 
     protected CrudGeneFormSub(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub, AbsCommonFrame _fr) {
-        super(_fact);
+        super(_fact,null);
         setFrame(_fr);
         crudGeneFormSubContent = new CrudGeneFormSubContent(_facade, _sub, this, _fr);
 
     }
 
-    public void initForm(AbsMap<K, String> _disp, GeneComponentModel<K> _k, GeneComponentModel<V> _v, AbsMap<K, V> _map) {
-        initForm(new DisplayKeyOnly<K, V>(_disp),_k,_v,new ComparatorTrWrapper<K>().wrap(_disp),_map);
+    public void initForm(AbsMap<K, String> _disp, GeneComponentModel<EditedCrudPair<K,V>> _v, AbsMap<K, V> _map) {
+        Comparing<EditedCrudPair<K, V>> cmp_ = new ComparatorTrWrapperPairs<K, V>().wrap(_disp);
+        initForm(new DisplayKeyOnly<K, V>(_disp),_v,new MapToEntriesListUtil<K,V>().build(_map), cmp_,new ValidateElementPair<K, V>(cmp_));
         messages = _disp;
     }
-
     public AbsMap<K, String> getMessages() {
         return messages;
     }
@@ -34,20 +34,6 @@ public abstract class CrudGeneFormSub<K,V> extends AbsCrudGeneFormMap<K, V> {
     }
 
     protected abstract IdList<SubscribedTranslation> all();
-
-    @Override
-    public void select(int _index) {
-        build();
-        super.select(_index);
-    }
-
-    protected abstract void build();
-
-    @Override
-    public void formAdd() {
-        build();
-        super.formAdd();
-    }
 
     @Override
     public void selectOrAdd() {

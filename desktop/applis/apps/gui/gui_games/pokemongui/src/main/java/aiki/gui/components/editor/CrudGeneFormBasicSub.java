@@ -2,6 +2,7 @@ package aiki.gui.components.editor;
 
 import aiki.facade.*;
 import code.gui.AbsCommonFrame;
+import code.gui.EditedCrudPair;
 import code.gui.initialize.*;
 
 public abstract class CrudGeneFormBasicSub<K,V> extends CrudGeneFormSub<K, V> {
@@ -11,7 +12,7 @@ public abstract class CrudGeneFormBasicSub<K,V> extends CrudGeneFormSub<K, V> {
 
     }
     @Override
-    protected void afterModif(int _index, K _key, V _value) {
+    protected void afterModif(int _index, EditedCrudPair<K, V> _value) {
         if (_index > -1) {
             getList().remove(_index);
             afterChange();

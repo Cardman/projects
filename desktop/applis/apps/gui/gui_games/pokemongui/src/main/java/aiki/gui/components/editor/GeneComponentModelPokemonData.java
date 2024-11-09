@@ -14,10 +14,7 @@ import code.gui.initialize.*;
 import code.maths.*;
 import code.util.*;
 
-public final class GeneComponentModelPokemonData implements GeneComponentModel<PokemonData> {
-    private final SubscribedTranslationList subscribedTranslationList;
-    private final AbstractProgramInfos compoFactory;
-    private final FacadeGame facade;
+public final class GeneComponentModelPokemonData extends GeneComponentModelEntity<PokemonData> {
     private final GeneComponentModelRate weight;
     private final GeneComponentModelRate height;
     private final GeneComponentModelInt catchingRate;
@@ -37,75 +34,77 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
     private final CrudGeneFormListSubLevelMove levMoves;
     private final CrudGeneFormEvolutions evolutions;
     private final CrudGeneFormList<String> eggGroups;
-    private PokemonData element;
 
     public GeneComponentModelPokemonData(AbsCommonFrame _fr, AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
-        this.compoFactory = _core;
-        facade = _facade;
-        subscribedTranslationList = _sub;
-        weight = new GeneComponentModelRate(compoFactory);
-        height = new GeneComponentModelRate(compoFactory);
-        catchingRate = new GeneComponentModelInt(compoFactory);
-        expRate = new GeneComponentModelLong(compoFactory);
-        hatchingSteps = new GeneComponentModelLgInt(compoFactory);
-        eggGroups = new CrudGeneFormList<String>(compoFactory);
-        happiness = new GeneComponentModelInt(compoFactory);
-        happinessHatch = new GeneComponentModelInt(compoFactory);
-        levMoves = new CrudGeneFormListSubLevelMove(compoFactory,_facade,_sub,_fr);
+        super(_core, _facade, _sub);
+        weight = new GeneComponentModelRate(getCompoFactory());
+        height = new GeneComponentModelRate(getCompoFactory());
+        catchingRate = new GeneComponentModelInt(getCompoFactory());
+        expRate = new GeneComponentModelLong(getCompoFactory());
+        hatchingSteps = new GeneComponentModelLgInt(getCompoFactory());
+        eggGroups = new CrudGeneFormList<String>(getCompoFactory());
+        happiness = new GeneComponentModelInt(getCompoFactory());
+        happinessHatch = new GeneComponentModelInt(getCompoFactory());
+        levMoves = new CrudGeneFormListSubLevelMove(getCompoFactory(),_facade,_sub,_fr);
         evolutions = new CrudGeneFormEvolutions(_core,_facade,_sub,_fr);
     }
     @Override
-    public AbsCustComponent gene() {
-        element = Instances.newPokemonData();
+    public AbsCustComponent gene(int _select) {
+        SubscribedTranslationMessagesFactoryPk factoryPk_ = getSubscribedTranslationList().getFactoryPk();
+        buildKey(_select,factoryPk_,factoryPk_.all(getFacade()).getKeys());
+        PokemonData element_ = Instances.newPokemonData();
         statistics.clear();
-        genderRep =ConverterCommonMapUtil.buildGenderRepartition(compoFactory);
-        expEvo =ConverterCommonMapUtil.buildExpType(compoFactory,facade);
-        types = ConverterCommonMapUtil.buildTypeList(compoFactory,facade,subscribedTranslationList);
-        abilities = ConverterCommonMapUtil.buildAbilityList(compoFactory,facade,subscribedTranslationList);
-        moveTutors = ConverterCommonMapUtil.buildMoveList(compoFactory,facade,subscribedTranslationList);
-        baseEvo = ConverterCommonMapUtil.buildPkFull(compoFactory,facade,subscribedTranslationList);
-        technicalMoves = ConverterCommonMapUtil.buildTmList(compoFactory,facade,subscribedTranslationList);
-        hiddenMoves = ConverterCommonMapUtil.buildHmList(compoFactory,facade,subscribedTranslationList);
-        AbsCompoFactory compoFactory_ = compoFactory.getCompoFactory();
+        genderRep =ConverterCommonMapUtil.buildGenderRepartition(getCompoFactory());
+        expEvo =ConverterCommonMapUtil.buildExpType(getCompoFactory(),getFacade());
+        types = ConverterCommonMapUtil.buildTypeList(getCompoFactory(),getFacade(),getSubscribedTranslationList());
+        abilities = ConverterCommonMapUtil.buildAbilityList(getCompoFactory(),getFacade(),getSubscribedTranslationList());
+        moveTutors = ConverterCommonMapUtil.buildMoveList(getCompoFactory(),getFacade(),getSubscribedTranslationList());
+        baseEvo = ConverterCommonMapUtil.buildPkFull(getCompoFactory(),getFacade(),getSubscribedTranslationList());
+        technicalMoves = ConverterCommonMapUtil.buildTmList(getCompoFactory(),getFacade(),getSubscribedTranslationList());
+        hiddenMoves = ConverterCommonMapUtil.buildHmList(getCompoFactory(),getFacade(),getSubscribedTranslationList());
+        AbsCompoFactory compoFactory_ = getCompoFactory().getCompoFactory();
+        AbsPanel page_ = compoFactory_.newPageBox();
+        page_.add(getGeneComponentModelSelectKey().geneEnum());
         AbsScrollPane sc_ = compoFactory_.newAbsScrollPane();
         AbsPanel form_ = compoFactory_.newLineBox();
-        form_.add(weight.geneRate(element.getWeight()));
-        form_.add(height.geneRate(element.getHeight()));
-        form_.add(types.geneCommon(element.getTypes()));
+        form_.add(weight.geneRate(element_.getWeight()));
+        form_.add(height.geneRate(element_.getHeight()));
+        form_.add(types.geneCommon(element_.getTypes()));
         AbsPanel stats_ = compoFactory_.newPageBox();
         for (Statistic s: Statistic.getStatisticsWithBase()) {
-            FormStatBaseEv f_ = new FormStatBaseEv(compoFactory);
+            FormStatBaseEv f_ = new FormStatBaseEv(getCompoFactory());
             statistics.addEntry(s, f_);
-            stats_.add(f_.row(facade.getData().getTranslatedStatistics().getVal(compoFactory.getLanguage()).getVal(s)));
+            stats_.add(f_.row(getFacade().getData().getTranslatedStatistics().getVal(getCompoFactory().getLanguage()).getVal(s)));
         }
-        updateStats(element);
+        updateStats(element_);
         form_.add(stats_);
-        form_.add(genderRep.geneEnum(element.getGenderRep()));
-        form_.add(abilities.geneCommon(element.getAbilities()));
-        form_.add(moveTutors.geneCommon(element.getMoveTutors()));
+        form_.add(genderRep.geneEnum(element_.getGenderRep()));
+        form_.add(abilities.geneCommon(element_.getAbilities()));
+        form_.add(moveTutors.geneCommon(element_.getMoveTutors()));
         form_.add(baseEvo.geneEnum());
-        form_.add(expEvo.geneEnum(element.getExpEvo()));
-        levMoves.initForm(compoFactory, element.getLevMoves());
+        form_.add(expEvo.geneEnum(element_.getExpEvo()));
+        levMoves.initForm(getCompoFactory(), element_.getLevMoves());
         form_.add(levMoves.getGroup());
         evolutions.initForm();
-        evolutions.initForm(compoFactory, element.getEvolutions());
+        evolutions.initForm(getCompoFactory(), element_.getEvolutions());
         form_.add(evolutions.getGroup());
-        form_.add(technicalMoves.geneCommon(element.getTechnicalMoves()));
-        form_.add(hiddenMoves.geneCommon(element.getHiddenMoves()));
+        form_.add(technicalMoves.geneCommon(element_.getTechnicalMoves()));
+        form_.add(hiddenMoves.geneCommon(element_.getHiddenMoves()));
         form_.add(catchingRate.geneInt());
         form_.add(expRate.gene(0L));
         form_.add(hatchingSteps.gene(LgInt.zero()));
         form_.add(happiness.geneInt());
         form_.add(happinessHatch.geneInt());
         eggGroups.initForm();
-        eggGroups.initForm(new IntStringDisplayEntryCust(),new GeneComponentModelString(compoFactory,new StringList(),new DefValidateText()),new CustList<String>());
+        eggGroups.initForm(new IntStringDisplayEntryCust(),new GeneComponentModelString(getCompoFactory(),new StringList(),new DefValidateText()),new CustList<String>());
         form_.add(eggGroups.getGroup());
         sc_.setViewportView(form_);
-        return sc_;
+        page_.add(sc_);
+        return page_;
     }
 
     @Override
-    public PokemonData value() {
+    public EditedCrudPair<String,PokemonData> value() {
         PokemonData ent_ = Instances.newPokemonData();
         ent_.setWeight(weight.valueRate());
         ent_.setHeight(height.valueRate());
@@ -119,7 +118,7 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
         ent_.setBaseEvo(baseEvo.tryRet(DataBase.EMPTY_STRING));
         ent_.setExpEvo(expEvo.tryRet(ExpType.M));
         ent_.setLevMoves(levMoves.getList());
-        ent_.setEvolutions(new StringMap<Evolution>(evolutions.getList()));
+        ent_.setEvolutions(ConverterCommonMapUtil.buildStringMapEvolution(evolutions.getList()));
         ent_.setTechnicalMoves(new Shorts(technicalMoves.tryRet()));
         ent_.setHiddenMoves(new Shorts(hiddenMoves.tryRet()));
         ent_.setCatchingRate((short) catchingRate.valueInt());
@@ -128,13 +127,14 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
         ent_.setHappiness((short) happiness.valueInt());
         ent_.setHappinessHatch((short) happinessHatch.valueInt());
         ent_.setEggGroups(new StringList(eggGroups.getList()));
-        return ent_;
+        return new EditedCrudPair<String, PokemonData>(getGeneComponentModelSelectKey().tryRet(DataBase.EMPTY_STRING),ent_);
     }
 
     @Override
-    public PokemonData value(PokemonData _v) {
-        updateForm(_v);
-        return element;
+    public void value(EditedCrudPair<String,PokemonData> _v) {
+        getGeneComponentModelSelectKey().setupValue(_v.getKey());
+        updateSelector();
+        updateForm(_v.getValue());
     }
 
     private void updateForm(PokemonData _v) {
@@ -148,7 +148,7 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
         getBaseEvo().setupValue(_v.getBaseEvo());
         getExpEvo().setupValue(_v.getExpEvo());
         getLevMoves().setupValues(_v.getLevMoves());
-        getEvolutions().setupValues(_v.getEvolutions());
+        getEvolutions().setupValues(new MapToEntriesListUtil<String,Evolution>().build(_v.getEvolutions()));
         getTechnicalMoves().setupValue(_v.getTechnicalMoves());
         getHiddenMoves().setupValue(_v.getHiddenMoves());
         getCatchingRate().valueInt(_v.getCatchingRate());
@@ -170,6 +170,7 @@ public final class GeneComponentModelPokemonData implements GeneComponentModel<P
     }
     public IdList<SubscribedTranslation> all() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
+        ids_.addAllElts(getGeneComponentModelSelectKey().getSubs());
         ids_.addAllElts(getTypes().getSubs());
         ids_.addAllElts(getAbilities().getSubs());
         ids_.addAllElts(getMoveTutors().getSubs());

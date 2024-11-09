@@ -3,11 +3,14 @@ package aiki.gui.components.editor;
 import aiki.facade.*;
 import aiki.fight.items.Item;
 import code.gui.AbsCommonFrame;
+import code.gui.EditedCrudPair;
 import code.gui.GeneComponentModel;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.*;
 
 public final class SubscribedTranslationMessagesFactoryIt extends SubscribedTranslationMessagesFactoryCommonParam<Item> {
+
+    private GeneComponentModelItem geneComponentModelItem;
 
     @Override
     public StringMap<StringMap<String>> buildMessages(FacadeGame _facade) {
@@ -35,8 +38,9 @@ public final class SubscribedTranslationMessagesFactoryIt extends SubscribedTran
     }
 
     @Override
-    public GeneComponentModel<Item> build(AbsCommonFrame _frame, AbstractProgramInfos _core, CrudGeneFormSubContent _facade) {
-        return new GeneComponentModelItem(_core);
+    public GeneComponentModel<EditedCrudPair<String,Item>> build(AbsCommonFrame _frame, AbstractProgramInfos _core, CrudGeneFormSubContent _facade) {
+        geneComponentModelItem = new GeneComponentModelItem(_core, _facade.getFacadeGame(), _facade.getSubscription());
+        return geneComponentModelItem;
     }
 
     @Override
@@ -46,6 +50,6 @@ public final class SubscribedTranslationMessagesFactoryIt extends SubscribedTran
 
     @Override
     public IdList<SubscribedTranslation> all() {
-        return new IdList<SubscribedTranslation>();
+        return geneComponentModelItem.all();
     }
 }

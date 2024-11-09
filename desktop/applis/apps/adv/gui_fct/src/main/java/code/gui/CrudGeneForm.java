@@ -1,18 +1,32 @@
 package code.gui;
 
+import code.gui.events.AfterValidateText;
 import code.gui.initialize.*;
+import code.util.StringList;
+import code.util.StringMap;
 
-public final class CrudGeneForm<K,V> extends AbsCrudGeneFormMap<K,V> {
+public final class CrudGeneForm extends AbsCrudGeneFormList<EditedCrudPair<String,Integer>> {
+
+    private GeneComponentModelEntryStringInteger geneComponentModelEntryStringInteger;
 
     public CrudGeneForm(AbstractProgramInfos _fact) {
-        super(_fact);
+        super(_fact,null);
     }
 
+    public void initForm(StringMap<Integer> _m, StringList _aDictionary, AfterValidateText _after) {
+        ComparingStringKey<Integer> cmp_ = new ComparingStringKey<Integer>();
+        geneComponentModelEntryStringInteger = new GeneComponentModelEntryStringInteger(getFactory(), _aDictionary, _after);
+        initForm(new StringIntDisplayEntryCust(), geneComponentModelEntryStringInteger,new MapToEntriesListUtil<String,Integer>().build(_m), cmp_,new ValidateElementPair<String, Integer>(cmp_));
+    }
     @Override
-    protected void afterModif(int _index, K _key, V _value) {
+    protected void afterModif(int _index, EditedCrudPair<String,Integer> _value) {
         if (_index > -1) {
             getList().remove(_index);
         }
         afterModif();
+    }
+
+    public GeneComponentModelEntryStringInteger getGeneComponentModelEntryStringInteger() {
+        return geneComponentModelEntryStringInteger;
     }
 }

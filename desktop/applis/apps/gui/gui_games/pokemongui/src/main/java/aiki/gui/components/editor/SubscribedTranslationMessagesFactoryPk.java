@@ -3,6 +3,7 @@ package aiki.gui.components.editor;
 import aiki.facade.*;
 import aiki.fight.pokemon.PokemonData;
 import code.gui.AbsCommonFrame;
+import code.gui.EditedCrudPair;
 import code.gui.GeneComponentModel;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.*;
@@ -37,7 +38,7 @@ public final class SubscribedTranslationMessagesFactoryPk extends SubscribedTran
     }
 
     @Override
-    public GeneComponentModel<PokemonData> build(AbsCommonFrame _frame, AbstractProgramInfos _core, CrudGeneFormSubContent _facade) {
+    public GeneComponentModel<EditedCrudPair<String,PokemonData>> build(AbsCommonFrame _frame, AbstractProgramInfos _core, CrudGeneFormSubContent _facade) {
         geneComponentModelPokemonData = new GeneComponentModelPokemonData(_frame, _core, _facade.getFacadeGame(), _facade.getSubscription());
         return geneComponentModelPokemonData;
     }

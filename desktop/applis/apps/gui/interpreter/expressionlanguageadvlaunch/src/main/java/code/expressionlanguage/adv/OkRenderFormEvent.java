@@ -1,9 +1,9 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.exec.dbg.ExcPointBlockKey;
-import code.expressionlanguage.exec.dbg.ExcPointBlockPair;
-import code.expressionlanguage.options.ResultContext;
-import code.gui.events.AbsActionListener;
+import code.expressionlanguage.exec.dbg.*;
+import code.expressionlanguage.options.*;
+import code.gui.*;
+import code.gui.events.*;
 
 public final class OkRenderFormEvent implements AbsActionListener {
     private final AbsDebuggerGui window;
@@ -39,7 +39,7 @@ public final class OkRenderFormEvent implements AbsActionListener {
         exc_.setExpandRenderFirst(frameExcFormContent.getExpandRenderChoice().isSelected());
         exc_.setGlobalEnabled(frameExcFormContent.getEnabledExcGlobal().isSelected());
         exc_.setPref(frameExcFormContent.getPref().getValue());
-        exc_.prefsMap(frameExcFormContent.getPrefs().getList());
+        exc_.prefsMap(GuiBaseUtil.retrieve(frameExcFormContent.getPrefs()));
         exc_.analyze(frameExcFormContent.getRenderText().getText(),frameExcFormContent.getExpandText().getText(),frameExcFormContent.getRenderExpandText().getText(),frameExcFormContent.getExpandRenderText().getText(), currentResult, window.getResultContextNext().generateAdv(currentResult.getContext().getInterrupt()));
 //        exc_.getValue().setThrown(frameExcFormContent.getThrown().isSelected());
 //        exc_.getValue().setCaught(frameExcFormContent.getCaught().isSelected());

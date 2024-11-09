@@ -12,14 +12,16 @@ public final class GeneComponentModelLsEnum<E> extends GeneComponentModelLs<E> i
     }
 
     @Override
+    public AbsCustComponent gene(int _select) {
+        return buildLs();
+    }
+    @Override
     public IdList<E> value() {
         return new IdList<E>(tryRet());
     }
 
     @Override
-    public IdList<E> value(IdList<E> _v) {
-        IdList<E> ls_ = new IdList<E>(tryRet());
+    public void value(IdList<E> _v) {
         setupValue(_v);
-        return ls_;
     }
 }

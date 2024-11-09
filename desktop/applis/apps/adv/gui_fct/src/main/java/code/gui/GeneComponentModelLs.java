@@ -52,9 +52,6 @@ public abstract class GeneComponentModelLs<T> extends GeneComponentModelEltCommo
         }
         setupValue(selected_);
     }
-    public AbsCustComponent gene() {
-        return buildLs();
-    }
 
     public AbsCustComponent geneCommon(CustList<T> _d) {
         AbsCustComponent a_ = buildLs();

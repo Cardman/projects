@@ -19,7 +19,6 @@ import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.comparators.NaturalComparator;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -562,8 +561,14 @@ public final class GuiBaseUtil {
         return _dialog.getLanguage();
     }
 
-    public static void initStringMapInt(CrudGeneForm<String,Integer> _f, StringMap<Integer> _m, StringList _aDictionary, AfterValidateText _after) {
-        _f.initForm(new StringIntDisplayEntryCust(),new GeneComponentModelString(_f.getFactory(), _aDictionary, _after),new GeneComponentModelInt(_f.getFactory()),new NaturalComparator(),_m);
+    public static void initStringMapInt(CrudGeneForm _f, StringMap<Integer> _m, StringList _aDictionary, AfterValidateText _after) {
+        _f.initForm(_m,_aDictionary,_after);
+    }
+
+    public static StringMap<Integer> retrieve(CrudGeneForm _f) {
+        StringMap<Integer> out_ = new StringMap<Integer>();
+        new MapToEntriesListUtil<String,Integer>().feedMap(_f.getList(), out_);
+        return out_;
     }
 
     public static void initStringList(CrudGeneFormList<String> _f, CustList<String> _m, StringList _aDictionary, AfterValidateText _after) {

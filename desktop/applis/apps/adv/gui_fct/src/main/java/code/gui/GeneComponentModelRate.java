@@ -11,7 +11,7 @@ public final class GeneComponentModelRate implements GeneComponentModel<Rate> {
     }
 
     @Override
-    public AbsCustComponent gene() {
+    public AbsCustComponent gene(int _select) {
         return geneRate(Rate.zero());
     }
 
@@ -27,8 +27,8 @@ public final class GeneComponentModelRate implements GeneComponentModel<Rate> {
         return Rate.newRate(getTextRate().getText());
     }
     @Override
-    public Rate value(Rate _v) {
-        return valueRate(_v);
+    public void value(Rate _v) {
+        valueRate(_v);
     }
     public Rate valueRate(Rate _v) {
         String p_ = getTextRate().getText();

@@ -4,6 +4,7 @@ import aiki.comparators.*;
 import aiki.db.*;
 import aiki.facade.*;
 import aiki.fight.pokemon.enums.*;
+import aiki.fight.pokemon.evolution.*;
 import aiki.fight.util.*;
 import aiki.map.pokemon.enums.*;
 import code.gui.*;
@@ -196,7 +197,11 @@ public final class ConverterCommonMapUtil {
         new ConverterCommonMap<WeatherType,Rate>().feed(c_,_m);
         return c_;
     }
-
+    public static StringMap<Evolution> buildStringMapEvolution(CustList<EditedCrudPair<String,Evolution>> _m) {
+        StringMap<Evolution> c_ = new StringMap<Evolution>(new CollCapacity(_m.size()));
+        new MapToEntriesListUtil<String,Evolution>().feedMap(_m, c_);
+        return c_;
+    }
     public static StringMap<StringMap<String>> backUp(StringMap<StringMap<String>> _tr) {
         StringMap<StringMap<String>> bk_ = new StringMap<StringMap<String>>();
         for (EntryCust<String, StringMap<String>> e: _tr.entryList()) {

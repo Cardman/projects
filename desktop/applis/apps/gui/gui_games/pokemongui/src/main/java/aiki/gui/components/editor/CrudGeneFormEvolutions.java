@@ -7,7 +7,6 @@ import code.gui.initialize.*;
 import code.util.*;
 
 public final class CrudGeneFormEvolutions extends CrudGeneFormBasicSub<String, Evolution> {
-    private GeneComponentModelEltStrSub geneComponentModelSelectKey;
     private GeneComponentModelEvolution geneComponentModelEvolution;
 
     public CrudGeneFormEvolutions(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub, AbsCommonFrame _fr) {
@@ -23,7 +22,7 @@ public final class CrudGeneFormEvolutions extends CrudGeneFormBasicSub<String, E
 //        setGeneKey(geneComponentModelSelectKey.getSelectUniq());
 //        getCrudGeneFormSubContent().subscribeAll();
         initForm();
-        initForm(messages_, getGeneKey(), geneComponentModelEvolution, _evos);
+        initForm(messages_, geneComponentModelEvolution, _evos);
     }
 
     public IdList<SubscribedTranslation> subscribeButtons() {
@@ -34,15 +33,8 @@ public final class CrudGeneFormEvolutions extends CrudGeneFormBasicSub<String, E
     }
 
     @Override
-    protected void build() {
-        geneComponentModelSelectKey = ConverterCommonMapUtil.buildPkFull(getFactory(), getCrudGeneFormSubContent().getFacadeGame(), subscription());
-        setGeneKey(geneComponentModelSelectKey.getSelectUniq());
-    }
-
-    @Override
     protected IdList<SubscribedTranslation> all() {
         IdList<SubscribedTranslation> all_ = new IdList<SubscribedTranslation>();
-        all_.addAllElts(geneComponentModelSelectKey.getSubs());
         all_.addAllElts(geneComponentModelEvolution.all());
         return all_;
     }

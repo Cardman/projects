@@ -29,9 +29,9 @@ public final class FrameRenderFormContent {
     private AbsButton remove;
     private AbsPanel contentPane;
     private AbsSpinner pref;
-    private final CrudGeneForm<String,Integer> prefs;
+    private final CrudGeneForm prefs;
     public FrameRenderFormContent(AbstractProgramInfos _list) {
-        prefs = new CrudGeneForm<String,Integer>(_list);
+        prefs = new CrudGeneForm(_list);
     }
 
     public void guiBuild(AbsDebuggerGui _d) {
@@ -128,7 +128,7 @@ public final class FrameRenderFormContent {
         }
         return values_;
     }
-    public void initPrefs(CustList<RenderPointPair> _bpc, CrudGeneForm<String, Integer> _f) {
+    public void initPrefs(CustList<RenderPointPair> _bpc, CrudGeneForm _f) {
         StringMap<String> mes_ = MessagesIde.valRendForm(_f.getFactory().currentLg());
         AbsButton pref_ = _f.getFactory().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_REND_FORM_PREF)));
         pref_.addActionListener(new ValuePrefRendEvent(_f, _bpc));
@@ -145,7 +145,7 @@ public final class FrameRenderFormContent {
         return pref;
     }
 
-    public CrudGeneForm<String, Integer> getPrefs() {
+    public CrudGeneForm getPrefs() {
         return prefs;
     }
 

@@ -11,6 +11,7 @@ public abstract class AbsCrudGeneFormList<E> extends AbsCrudGeneForm {
     private int selectedIndex = -1;
     private AbsSpinner indicator;
     private Comparing<E> cmp;
+    private IntValidateElementAdd<E> validator;
 
     protected AbsCrudGeneFormList(AbstractProgramInfos _fact, Comparing<E> _c) {
         super(_fact);
@@ -22,6 +23,10 @@ public abstract class AbsCrudGeneFormList<E> extends AbsCrudGeneForm {
         initForm(_disp, _k, _map, null);
     }
     public void initForm(DisplayEntryCust<Integer, E> _disp, GeneComponentModel<E> _k, CustList<E> _map, Comparing<E> _c) {
+        initForm(_disp,_k,_map,_c,null);
+    }
+    public void initForm(DisplayEntryCust<Integer, E> _disp, GeneComponentModel<E> _k, CustList<E> _map, Comparing<E> _c, IntValidateElementAdd<E> _val) {
+        validator = _val;
         indicator = getFactory().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
         indicator.setEnabled(false);
         gene = _k;
@@ -47,7 +52,7 @@ public abstract class AbsCrudGeneFormList<E> extends AbsCrudGeneForm {
         getElement().removeAll();
         indicator.setValue(_index);
         getElement().add(indicator);
-        AbsCustComponent elt_ = gene.gene();
+        AbsCustComponent elt_ = gene.gene(_index);
         gene.value(list.get(_index));
         getElement().add(elt_);
         selectOrAdd();
@@ -59,7 +64,7 @@ public abstract class AbsCrudGeneFormList<E> extends AbsCrudGeneForm {
         indicator.setValue(list.size());
         getElement().removeAll();
         getElement().add(indicator);
-        getElement().add(gene.gene());
+        getElement().add(gene.gene(-1));
         selectOrAdd();
         getValidRemove().setEnabled(false);
     }
@@ -68,6 +73,9 @@ public abstract class AbsCrudGeneFormList<E> extends AbsCrudGeneForm {
     public void validAddEdit() {
        E value_ = gene.value();
         if (selectedIndex < 0) {
+            if (validator != null && !validator.valid(list,value_)) {
+                return;
+            }
             list.add(value_);
         } else {
             list.set(selectedIndex, value_);

@@ -11,7 +11,7 @@ public final class GeneComponentModelInt implements GeneComponentModel<Integer> 
     }
 
     @Override
-    public AbsCustComponent gene() {
+    public AbsCustComponent gene(int _select) {
         return geneInt();
     }
 
@@ -30,8 +30,8 @@ public final class GeneComponentModelInt implements GeneComponentModel<Integer> 
     }
 
     @Override
-    public Integer value(Integer _v) {
-        return valueInt(_v);
+    public void value(Integer _v) {
+        valueInt(_v);
     }
 
     public int valueInt(int _v) {

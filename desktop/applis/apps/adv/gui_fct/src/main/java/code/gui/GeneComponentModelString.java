@@ -17,7 +17,7 @@ public final class GeneComponentModelString implements GeneComponentModel<String
     }
 
     @Override
-    public AbsCustComponent gene() {
+    public AbsCustComponent gene(int _select) {
         return geneString();
     }
 
@@ -37,8 +37,8 @@ public final class GeneComponentModelString implements GeneComponentModel<String
     }
 
     @Override
-    public String value(String _v) {
-        return valueString(_v);
+    public void value(String _v) {
+        valueString(_v);
     }
 
     public String valueString(String _v) {

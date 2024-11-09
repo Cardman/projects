@@ -10,7 +10,7 @@ public final class GeneComponentModelLong implements GeneComponentModel<Long> {
     }
 
     @Override
-    public AbsCustComponent gene() {
+    public AbsCustComponent gene(int _select) {
         return gene(0L);
     }
 
@@ -29,8 +29,8 @@ public final class GeneComponentModelLong implements GeneComponentModel<Long> {
     }
 
     @Override
-    public Long value(Long _v) {
-        return valueLong(_v);
+    public void value(Long _v) {
+        valueLong(_v);
     }
 
     public long valueLong(long _v) {

@@ -12,7 +12,7 @@ public final class GeneComponentModelLgInt implements GeneComponentModel<LgInt> 
     }
 
     @Override
-    public AbsCustComponent gene() {
+    public AbsCustComponent gene(int _select) {
         return gene(LgInt.zero());
     }
 
@@ -33,8 +33,8 @@ public final class GeneComponentModelLgInt implements GeneComponentModel<LgInt> 
     }
 
     @Override
-    public LgInt value(LgInt _v) {
-        return valueLgInt(_v);
+    public void value(LgInt _v) {
+        valueLgInt(_v);
     }
 
     public LgInt valueLgInt(LgInt _v) {

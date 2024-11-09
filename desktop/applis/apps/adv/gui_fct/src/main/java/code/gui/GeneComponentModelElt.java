@@ -12,7 +12,7 @@ public abstract class GeneComponentModelElt<T> extends GeneComponentModelEltComm
     }
 
     @Override
-    public AbsCustComponent gene() {
+    public AbsCustComponent gene(int _select) {
         select = buildSelect();
         feed();
         return getSelect().getElements();
@@ -60,6 +60,10 @@ public abstract class GeneComponentModelElt<T> extends GeneComponentModelEltComm
 
     @Override
     public T value() {
+        return valueElt();
+    }
+
+    public T valueElt() {
         return tryRet(defValue());
     }
 
@@ -69,10 +73,14 @@ public abstract class GeneComponentModelElt<T> extends GeneComponentModelEltComm
     }
 
     @Override
-    public T value(T _v) {
+    public void value(T _v) {
+        valueElt(_v);
+    }
+
+    public void valueElt(T _v) {
         int sel_ = getSelect().getSelectedIndex();
-        setupValue(getSelect(),_v);
-        return tryRet(sel_, defValue());
+        setupValue(getSelect(), _v);
+        tryRet(sel_, defValue());
     }
 
     public AbsStringScrollCustomCombo<T> getSelect() {

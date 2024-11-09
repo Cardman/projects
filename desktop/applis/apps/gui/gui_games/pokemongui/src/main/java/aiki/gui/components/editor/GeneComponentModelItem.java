@@ -1,44 +1,59 @@
 package aiki.gui.components.editor;
 
+import aiki.db.*;
+import aiki.facade.*;
 import aiki.fight.items.*;
 import aiki.instances.*;
 import code.gui.*;
 import code.gui.initialize.*;
+import code.util.*;
 
-public final class GeneComponentModelItem implements GeneComponentModel<Item> {
-    private final AbstractProgramInfos compoFactory;
+public final class GeneComponentModelItem extends GeneComponentModelEntity<Item> {
     private final GeneComponentModelInt price;
-    private Item element;
+//    private Item element;
 
-    public GeneComponentModelItem(AbstractProgramInfos _core) {
-        this.compoFactory = _core;
+    public GeneComponentModelItem(AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
+        super(_core, _facade, _sub);
         price = new GeneComponentModelInt(_core);
     }
     @Override
-    public AbsCustComponent gene() {
-        element = Instances.newBall();
-        AbsCompoFactory compoFactory_ = compoFactory.getCompoFactory();
+    public AbsCustComponent gene(int _select) {
+//        element = Instances.newBall();
+        SubscribedTranslationMessagesFactoryIt factoryIt_ = getSubscribedTranslationList().getFactoryIt();
+        buildKey(_select,factoryIt_,factoryIt_.all(getFacade()).getKeys());
+        AbsCompoFactory compoFactory_ = getCompoFactory().getCompoFactory();
         AbsScrollPane sc_ = compoFactory_.newAbsScrollPane();
+        AbsPanel page_ = compoFactory_.newPageBox();
+        page_.add(getGeneComponentModelSelectKey().geneEnum());
         AbsPanel form_ = compoFactory_.newLineBox();
         form_.add(price.geneInt());
         sc_.setViewportView(form_);
-        return sc_;
+        page_.add(sc_);
+        return page_;
     }
 
     @Override
-    public Item value() {
+    public EditedCrudPair<String,Item> value() {
         Item ent_ = Instances.newBall();
         ent_.setPrice(price.valueInt());
-        return ent_;
+        return new EditedCrudPair<String,Item>(getGeneComponentModelSelectKey().tryRet(DataBase.EMPTY_STRING),ent_);
     }
 
     @Override
-    public Item value(Item _v) {
-        price.valueInt(_v.getPrice());
-        return element;
+    public void value(EditedCrudPair<String,Item> _v) {
+        getGeneComponentModelSelectKey().setupValue(_v.getKey());
+        updateSelector();
+        Item item_ = _v.getValue();
+        price.valueInt(item_.getPrice());
     }
 
     public GeneComponentModelInt getPrice() {
         return price;
+    }
+
+    public IdList<SubscribedTranslation> all() {
+        IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
+        ids_.addAllElts(getGeneComponentModelSelectKey().getSubs());
+        return ids_;
     }
 }

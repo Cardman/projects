@@ -14,7 +14,7 @@ public final class EditorTyFormTest extends InitEditorPkForm {
         WindowPkEditor sub_ = window(pr_, facade_);
         CrudGeneFormTr cTr_ = crudTr(sub_);
         tryClick(cTr_.getAllButtons().get(1));
-        GeneComponentModelTr gTr_ = (GeneComponentModelTr) cTr_.getGeneValue();
+        GeneComponentModelTr gTr_ = (GeneComponentModelTr) cTr_.getGene();
         gTr_.getTranslations().getVal(pr_.getLanguage()).setText("p_2");
         tryClick(cTr_.getValidAddEdit());
         assertEq("p_2",facade_.getData().getTranslatedTypes().firstValue().getVal(T_2));

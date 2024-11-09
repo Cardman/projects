@@ -1,8 +1,9 @@
 package code.expressionlanguage.adv;
 
 import code.expressionlanguage.exec.dbg.*;
-import code.expressionlanguage.options.ResultContext;
-import code.gui.events.AbsActionListener;
+import code.expressionlanguage.options.*;
+import code.gui.*;
+import code.gui.events.*;
 
 public final class OkMpFormEvent implements AbsActionListener {
     private final AbsDebuggerGui window;
@@ -61,6 +62,6 @@ public final class OkMpFormEvent implements AbsActionListener {
         _condition.getStackResErrLog().set(_form.getStackResErrLog().isSelected());
         _condition.setAll(_form.getDependantPointsForm().getSelected());
         _condition.getPref().set(_form.getPref().getValue());
-        _condition.prefsMap(_form.getPrefs().getList());
+        _condition.prefsMap(GuiBaseUtil.retrieve(_form.getPrefs()));
     }
 }

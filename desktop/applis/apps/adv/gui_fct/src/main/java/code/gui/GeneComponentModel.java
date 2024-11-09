@@ -1,7 +1,7 @@
 package code.gui;
 
 public interface GeneComponentModel<T> {
-    AbsCustComponent gene();
+    AbsCustComponent gene(int _select);
     T value();
-    T value(T _v);
+    void value(T _v);
 }

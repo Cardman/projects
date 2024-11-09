@@ -1,17 +1,15 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.exec.dbg.BreakPointBlockList;
-import code.gui.CrudGeneForm;
-import code.gui.events.AbsActionListener;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.Ints;
+import code.expressionlanguage.exec.dbg.*;
+import code.gui.*;
+import code.gui.events.*;
+import code.util.*;
 
 public final class ValuePrefRendEvent implements AbsActionListener {
-    private final CrudGeneForm<String,Integer> crud;
+    private final CrudGeneForm crud;
     private final CustList<RenderPointPair> candidates;
 
-    public ValuePrefRendEvent(CrudGeneForm<String, Integer> _c, CustList<RenderPointPair> _bpc) {
+    public ValuePrefRendEvent(CrudGeneForm _c, CustList<RenderPointPair> _bpc) {
         this.crud = _c;
         this.candidates = _bpc;
     }
@@ -21,8 +19,8 @@ public final class ValuePrefRendEvent implements AbsActionListener {
         if (!crud.isVisibleSingle()) {
             return;
         }
-        String cl_ = crud.getGeneKey().value();
-        crud.getGeneValue().value(prefBpc(candidates, cl_));
+        String cl_ = crud.getGeneComponentModelEntryStringInteger().getKey().valueString();
+        crud.getGeneComponentModelEntryStringInteger().getValue().valueInt(prefBpc(candidates, cl_));
     }
 
     public static int prefBpc(CustList<RenderPointPair> _p, String _cl) {

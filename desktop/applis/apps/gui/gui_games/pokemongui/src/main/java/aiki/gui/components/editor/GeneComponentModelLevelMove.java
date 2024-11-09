@@ -21,7 +21,7 @@ public class GeneComponentModelLevelMove implements GeneComponentModel<LevelMove
     }
 
     @Override
-    public AbsCustComponent gene() {
+    public AbsCustComponent gene(int _select) {
         AbsPanel form_ = programInfos.getCompoFactory().newLineBox();
         form_.add(level.geneInt());
         move = ConverterCommonMapUtil.buildMvFull(programInfos, facade,subscribedTranslationList);
@@ -38,10 +38,9 @@ public class GeneComponentModelLevelMove implements GeneComponentModel<LevelMove
     }
 
     @Override
-    public LevelMove value(LevelMove _v) {
+    public void value(LevelMove _v) {
         level.valueInt(_v.getLevel());
         move.setupValue(_v.getMove());
-        return null;
     }
     public IdList<SubscribedTranslation> all() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();

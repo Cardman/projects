@@ -12,14 +12,17 @@ public final class GeneComponentModelLsStr extends GeneComponentModelLs<String> 
     }
 
     @Override
+    public AbsCustComponent gene(int _select) {
+        return buildLs();
+    }
+
+    @Override
     public StringList value() {
         return new StringList(tryRet());
     }
 
     @Override
-    public StringList value(StringList _v) {
-        StringList ls_ = new StringList(tryRet());
+    public void value(StringList _v) {
         setupValue(_v);
-        return ls_;
     }
 }

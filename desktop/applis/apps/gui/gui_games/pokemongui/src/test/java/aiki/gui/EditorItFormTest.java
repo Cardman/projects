@@ -17,14 +17,14 @@ public final class EditorItFormTest extends InitEditorPkForm {
         WindowPkEditor sub_ = window(pr_, facade_);
         CrudGeneFormEnt<Item> c_ = crud(sub_);
         tryClick(c_.getAdd());
-        GeneComponentModelItem g_ = (GeneComponentModelItem) c_.getGeneValue();
-        c_.getGeneKey().value(I_1);
+        GeneComponentModelItem g_ = (GeneComponentModelItem) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(I_1);
         g_.getPrice().valueInt(10);
         tryClick(c_.getValidAddEdit());
         assertEq(1,facade_.getData().getItems().size());
         assertEq(1,c_.getList().size());
-        assertEq(I_1,c_.getList().getKey(0));
-        assertEq(10,c_.getList().getValue(0).getPrice());
+        assertEq(I_1,c_.getList().get(0).getKey());
+        assertEq(10,c_.getList().get(0).getValue().getPrice());
     }
     @Test
     public void itForm2() {
@@ -33,12 +33,12 @@ public final class EditorItFormTest extends InitEditorPkForm {
         WindowPkEditor sub_ = window(pr_, facade_);
         CrudGeneFormEnt<Item> c_ = crud(sub_);
         tryClick(c_.getAdd());
-        GeneComponentModelItem g_ = (GeneComponentModelItem) c_.getGeneValue();
-        c_.getGeneKey().value(I_1);
+        GeneComponentModelItem g_ = (GeneComponentModelItem) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(I_1);
         g_.getPrice().valueInt(10);
         tryClick(c_.getValidAddEdit());
         tryClick(c_.getAllButtons().get(0));
-        GeneComponentModelItem gSec_ = (GeneComponentModelItem)c_.getGeneValue();
+        GeneComponentModelItem gSec_ = (GeneComponentModelItem)c_.getGene();
         assertEq(10,gSec_.getPrice().valueInt());
     }
     @Test
@@ -48,12 +48,12 @@ public final class EditorItFormTest extends InitEditorPkForm {
         WindowPkEditor sub_ = window(pr_, facade_);
         CrudGeneFormEnt<Item> c_ = crud(sub_);
         tryClick(c_.getAdd());
-        GeneComponentModelItem g_ = (GeneComponentModelItem) c_.getGeneValue();
-        c_.getGeneKey().value(I_1);
+        GeneComponentModelItem g_ = (GeneComponentModelItem) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(I_1);
         g_.getPrice().valueInt(10);
         tryClick(c_.getValidAddEdit());
         tryClick(c_.getAllButtons().get(0));
-        GeneComponentModelItem gSec_ = (GeneComponentModelItem)c_.getGeneValue();
+        GeneComponentModelItem gSec_ = (GeneComponentModelItem)c_.getGene();
         gSec_.getPrice().valueInt(20);
         tryClick(c_.getValidAddEdit());
         assertEq(1,facade_.getData().getItems().size());
@@ -66,7 +66,7 @@ public final class EditorItFormTest extends InitEditorPkForm {
         WindowPkEditor sub_ = window(pr_, facade_);
         CrudGeneFormEnt<Item> c_ = crud(sub_);
         tryClick(c_.getAdd());
-        c_.getGeneKey().value(I_1);
+        ((GeneComponentModelItem)c_.getGene()).getGeneComponentModelSelectKey().setupValue(I_1);
         tryClick(c_.getValidAddEdit());
         tryClick(c_.getAllButtons().get(0));
         tryClick(c_.getValidRemove());
@@ -80,19 +80,19 @@ public final class EditorItFormTest extends InitEditorPkForm {
         WindowPkEditor sub_ = window(pr_, facade_);
         CrudGeneFormEnt<Item> cm_ = crud(sub_);
         tryClick(cm_.getAdd());
-        cm_.getGeneKey().value(I_1);
+        ((GeneComponentModelItem)cm_.getGene()).getGeneComponentModelSelectKey().setupValue(I_1);
         tryClick(cm_.getValidAddEdit());
         CrudGeneFormEnt<PokemonData> c_ = crudPk(sub_);
         tryClick(c_.getAdd());
-        c_.getGeneKey().value(P_1);
+        ((GeneComponentModelPokemonData)c_.getGene()).getGeneComponentModelSelectKey().setupValue(P_1);
         tryClick(c_.getValidAddEdit());
         tryClick(c_.getAdd());
-        GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGeneValue();
-        c_.getGeneKey().value(P_2);
+        GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(P_2);
         CrudGeneFormEvolutions evolutions_ = g_.getEvolutions();
         tryClick(evolutions_.getAdd());
-        c_.getGeneKey().value(P_1);
-        GeneComponentModelEvolution gEvo_ = (GeneComponentModelEvolution) evolutions_.getGeneValue();
+        g_.getGeneComponentModelSelectKey().setupValue(P_1);
+        GeneComponentModelEvolution gEvo_ = (GeneComponentModelEvolution) evolutions_.getGene();
         gEvo_.getEvolutionKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EVO_STONE_SIMPLE));
         gEvo_.getEvolutionKind().getSelect().events(null);
         gEvo_.getItem().setupValue(I_1);
@@ -110,7 +110,7 @@ public final class EditorItFormTest extends InitEditorPkForm {
         WindowPkEditor sub_ = window(pr_, facade_);
         CrudGeneFormTr cTr_ = crudTr(sub_);
         tryClick(cTr_.getAllButtons().get(1));
-        GeneComponentModelTr gTr_ = (GeneComponentModelTr) cTr_.getGeneValue();
+        GeneComponentModelTr gTr_ = (GeneComponentModelTr) cTr_.getGene();
         gTr_.getTranslations().getVal(pr_.getLanguage()).setText("p_2");
         tryClick(cTr_.getValidAddEdit());
         assertEq("p_2",facade_.getData().getTranslatedItems().firstValue().getVal(I_2));

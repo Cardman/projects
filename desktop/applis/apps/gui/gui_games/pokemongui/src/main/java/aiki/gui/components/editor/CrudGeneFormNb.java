@@ -3,7 +3,7 @@ package aiki.gui.components.editor;
 import aiki.facade.*;
 import code.gui.*;
 import code.gui.initialize.*;
-import code.maths.LgInt;
+import code.maths.*;
 import code.util.*;
 
 public final class CrudGeneFormNb extends CrudGeneFormSub<Integer, String> {
@@ -11,9 +11,10 @@ public final class CrudGeneFormNb extends CrudGeneFormSub<Integer, String> {
     private AbsSpinner destination;
     private final SubscribedTranslationList subscribedTranslations;
     private final SubscribedTranslationMessagesNbFactory factoryMessage;
-    private GeneComponentModelEltStrSub geneComponentModelSelectKey;
     private GeneComponentModelLgInt price;
     private boolean tm;
+    private GeneComponentModelNb geneComponentModelNb;
+
     public CrudGeneFormNb(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub, AbsCommonFrame _fr, SubscribedTranslationMessagesNbFactory _facto) {
         super(_fact,_facade,_sub,_fr);
         factoryMessage = _facto;
@@ -25,11 +26,13 @@ public final class CrudGeneFormNb extends CrudGeneFormSub<Integer, String> {
         destination.addChangeListener(new RenameNbEvent(this));
         tm = _t;
         initForm();
-        IntMap<String> nbs_ = new IntMap<String>();
+        CustList<EditedCrudPair<Integer, String>> nbs_ = new CustList<EditedCrudPair<Integer, String>>();
         for (EntryCust<Short,String> e: factoryMessage.retrieveMap(getFactory(),facadeGame).entryList()) {
-            nbs_.addEntry((int)e.getKey(),e.getValue());
+            nbs_.add(new EditedCrudPair<Integer, String>((int)e.getKey(),e.getValue()));
         }
-        initForm(new IntStringDisplayEntryCust(), new GeneComponentModelInt(getFactory()), getGeneValue(), new IntIdComparator(), nbs_);
+        IntIdComparator cmp_ = new IntIdComparator();
+        geneComponentModelNb = new GeneComponentModelNb(getFactory(), facadeGame, subscription());
+        initForm(new DisplayKeyOnlyInt(), geneComponentModelNb, nbs_, cmp_, new ValidateElementPair<Integer, String>(cmp_));
         getButtons().add(destination);
         getFrame().setContentPane(getGroup());
         getFrame().setVisible(true);
@@ -37,8 +40,8 @@ public final class CrudGeneFormNb extends CrudGeneFormSub<Integer, String> {
     }
 
     @Override
-    protected void afterModif(int _index, Integer _key, String _value) {
-        int i_ = _key;
+    protected void afterModif(int _index, EditedCrudPair<Integer, String> _value) {
+        int i_ = _value.getKey();
         short k_ = (short) i_;
         if (_index > -1) {
             int old_ = factoryMessage.retrieveMap(getFactory(), facadeGame).size();
@@ -55,31 +58,35 @@ public final class CrudGeneFormNb extends CrudGeneFormSub<Integer, String> {
             return;
         }
         if (getSelectedIndex() < 0) {
-            factoryMessage.retrieveMap(getFactory(),facadeGame).addEntry(k_,_value);
+            factoryMessage.retrieveMap(getFactory(),facadeGame).addEntry(k_,_value.getValue());
             if (tm) {
-                getCrudGeneFormSubContent().getFacadeGame().getData().getTmPrice().addEntry(k_,price.value());
+                getCrudGeneFormSubContent().getFacadeGame().getData().getTmPrice().addEntry(k_,price.valueLgInt());
             }
             afterChange();
             update();
             return;
         }
-        factoryMessage.retrieveMap(getFactory(),facadeGame).set(k_,_value);
+        factoryMessage.retrieveMap(getFactory(),facadeGame).set(k_,_value.getValue());
         if (tm) {
-            getCrudGeneFormSubContent().getFacadeGame().getData().getTmPrice().set(k_,price.value());
+            getCrudGeneFormSubContent().getFacadeGame().getData().getTmPrice().set(k_,price.valueLgInt());
         }
         afterChange();
         update();
     }
 
     public void tryRename() {
-        if (getSelectedIndex() >= 0) {
+        int selectedIndex_ = getSelectedIndex();
+        if (selectedIndex_ >= 0) {
             short next_ = (short) destination.getValue();
-            int key_ = getList().getKey(getSelectedIndex());
+            EditedCrudPair<Integer, String> entry_ = getList().get(selectedIndex_);
+            int key_ = entry_.getKey();
             short old_ = (short) key_;
             factoryMessage.rename(facadeGame,old_,next_);
             ShortMap<String> after_ = factoryMessage.retrieveMap(getFactory(), facadeGame);
             if (!after_.contains(old_)) {
-                getList().move((int)old_,(int)next_);
+                getList().remove(selectedIndex_);
+                getList().add(new EditedCrudPair<Integer, String>((int) next_,entry_.getValue()));
+                possibleSort();
                 if (tm) {
                     getCrudGeneFormSubContent().getFacadeGame().getData().getTmPrice().move(old_,next_);
                 }
@@ -91,17 +98,11 @@ public final class CrudGeneFormNb extends CrudGeneFormSub<Integer, String> {
     }
 
     @Override
-    protected void build() {
-        geneComponentModelSelectKey = ConverterCommonMapUtil.buildMvFull(getFactory(), getCrudGeneFormSubContent().getFacadeGame(), subscription());
-        setGeneValue(geneComponentModelSelectKey.getSelectUniq());
-    }
-
-    @Override
     public void selectOrAdd() {
         price = new GeneComponentModelLgInt(getFactory());
         LgInt priceValue_;
         if (getSelectedIndex() > -1) {
-            int key_ = getList().getKey(getSelectedIndex());
+            int key_ = getList().get(getSelectedIndex()).getKey();
             priceValue_ = getCrudGeneFormSubContent().getFacadeGame().getData().getTmPrice().getVal((short) key_);
         } else {
             priceValue_ = null;
@@ -111,7 +112,7 @@ public final class CrudGeneFormNb extends CrudGeneFormSub<Integer, String> {
             gene_ = price.gene(priceValue_);
             getElement().add(gene_);
         } else {
-            gene_ = price.gene();
+            gene_ = price.gene(-1);
             getElement().add(gene_);
         }
         gene_.setVisible(tm);
@@ -121,7 +122,7 @@ public final class CrudGeneFormNb extends CrudGeneFormSub<Integer, String> {
     @Override
     protected IdList<SubscribedTranslation> all() {
         IdList<SubscribedTranslation> all_ = new IdList<SubscribedTranslation>();
-        all_.addAllElts(geneComponentModelSelectKey.getSubs());
+        all_.addAllElts(geneComponentModelNb.all());
         return all_;
     }
 

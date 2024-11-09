@@ -26,10 +26,10 @@ public final class GuiStackForm {
     private final StackConstraintsForm stackConstraintsForm;
     private AbsScrollPane staScIncExc;
     private AbsSpinner pref;
-    private final CrudGeneForm<String,Integer> prefs;
+    private final CrudGeneForm prefs;
     private final DependantPointsForm dependantPointsForm;
     public GuiStackForm(AbstractProgramInfos _c) {
-        prefs = new CrudGeneForm<String,Integer>(_c);
+        prefs = new CrudGeneForm(_c);
         dependantPointsForm = new DependantPointsForm(_c);
         stackConstraintsForm = new StackConstraintsForm(_c);
     }
@@ -79,7 +79,7 @@ public final class GuiStackForm {
         return staScIncExc;
     }
 
-    public static void initPrefs(CustList<BreakPointCondition> _bpc, CrudGeneForm<String, Integer> _f) {
+    public static void initPrefs(CustList<BreakPointCondition> _bpc, CrudGeneForm _f) {
         StringMap<String> mes_ = MessagesIde.valPointForm(_f.getFactory().currentLg());
         AbsButton pref_ = _f.getFactory().getCompoFactory().newPlainButton(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_POINT_FORM_PREF)));
         pref_.addActionListener(new ValuePrefEvent(_f, _bpc));
@@ -106,7 +106,7 @@ public final class GuiStackForm {
         return pref;
     }
 
-    public CrudGeneForm<String, Integer> getPrefs() {
+    public CrudGeneForm getPrefs() {
         return prefs;
     }
 
