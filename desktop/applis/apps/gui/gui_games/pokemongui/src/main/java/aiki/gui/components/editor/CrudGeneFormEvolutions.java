@@ -27,7 +27,7 @@ public final class CrudGeneFormEvolutions extends CrudGeneFormBasicSub<String, E
 
     public IdList<SubscribedTranslation> subscribeButtons() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
-        ids_.add(new SubscribedTranslationMessages(getMessages(),subscription().getFactoryPk()));
+        ids_.add(new SubscribedTranslationMessages(getMessages(),subscription().getFactoryPk(), new StringMap<String>()));
         ids_.add(new SubscribedTranslationPkKey(this));
         return ids_;
     }

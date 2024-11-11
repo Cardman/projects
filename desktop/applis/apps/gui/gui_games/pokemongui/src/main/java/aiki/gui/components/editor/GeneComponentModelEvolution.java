@@ -127,25 +127,25 @@ public final class GeneComponentModelEvolution implements GeneComponentModel<Edi
             ((EvolutionLevelGender)edited).setGender(evoGender.tryRet(Gender.NO_GENDER));
         }
         if (edited instanceof EvolutionStoneSimple) {
-            ((EvolutionStoneSimple)edited).setStone(item.tryRet(""));
+            ((EvolutionStoneSimple)edited).setStone(item.tryRet());
         }
         if (edited instanceof EvolutionStoneGender) {
-            ((EvolutionStoneGender)edited).setStone(item.tryRet(""));
+            ((EvolutionStoneGender)edited).setStone(item.tryRet());
             ((EvolutionStoneGender)edited).setGender(evoGender.tryRet(Gender.NO_GENDER));
         }
         if (edited instanceof EvolutionItem) {
-            ((EvolutionItem)edited).setItem(item.tryRet(""));
+            ((EvolutionItem)edited).setItem(item.tryRet());
         }
         if (edited instanceof EvolutionMove) {
-            ((EvolutionMove)edited).setMove(evoMove.tryRet(""));
+            ((EvolutionMove)edited).setMove(evoMove.tryRet());
         }
         if (edited instanceof EvolutionMoveType) {
-            ((EvolutionMoveType)edited).setType(evoMoveType.tryRet(""));
+            ((EvolutionMoveType)edited).setType(evoMoveType.tryRet());
         }
         if (edited instanceof EvolutionTeam) {
-            ((EvolutionTeam)edited).setPokemon(evoTeamPokemon.tryRet(""));
+            ((EvolutionTeam)edited).setPokemon(evoTeamPokemon.tryRet());
         }
-        return new EditedCrudPair<String, Evolution>(geneComponentModelSelectKey.tryRet(""),edited);
+        return new EditedCrudPair<String, Evolution>(geneComponentModelSelectKey.tryRet(),edited);
     }
 
     @Override

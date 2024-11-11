@@ -21,7 +21,7 @@ public final class CrudGeneFormEnt<T> extends CrudGeneFormSub<String, T> {
 //        geneComponentModelSelectKey = ConverterCommonMapUtil.buildPk(getFactory(), getCrudGeneFormSubContent().getFacadeGame(),subscription());
         GeneComponentModel<EditedCrudPair<String,T>> key_ = factoryCommonParam.build(getFrame(), _core, getCrudGeneFormSubContent());
 //        setGeneKey(geneComponentModelSelectKey.getSelectUniq());
-        getCrudGeneFormSubContent().addSubRoot(new SubscribedTranslationMessages(messages_,factoryCommonParam));
+        getCrudGeneFormSubContent().addSubRoot(new SubscribedTranslationMessages(messages_,factoryCommonParam, new StringMap<String>()));
         initForm(messages_, key_, factoryCommonParam.all(facadeGame_));
         getFrame().setContentPane(getGroup());
         getFrame().setVisible(true);

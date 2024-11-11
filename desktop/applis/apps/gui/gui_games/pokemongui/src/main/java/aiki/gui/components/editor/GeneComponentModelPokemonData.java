@@ -1,6 +1,5 @@
 package aiki.gui.components.editor;
 
-import aiki.db.*;
 import aiki.facade.*;
 import aiki.fight.enums.*;
 import aiki.fight.pokemon.*;
@@ -52,7 +51,6 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
     public AbsCustComponent gene(int _select) {
         SubscribedTranslationMessagesFactoryPk factoryPk_ = getSubscribedTranslationList().getFactoryPk();
         buildKey(_select,factoryPk_,factoryPk_.all(getFacade()).getKeys());
-        PokemonData element_ = Instances.newPokemonData();
         statistics.clear();
         genderRep =ConverterCommonMapUtil.buildGenderRepartition(getCompoFactory());
         expEvo =ConverterCommonMapUtil.buildExpType(getCompoFactory(),getFacade());
@@ -67,29 +65,29 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         page_.add(getGeneComponentModelSelectKey().geneEnum());
         AbsScrollPane sc_ = compoFactory_.newAbsScrollPane();
         AbsPanel form_ = compoFactory_.newLineBox();
-        form_.add(weight.geneRate(element_.getWeight()));
-        form_.add(height.geneRate(element_.getHeight()));
-        form_.add(types.geneCommon(element_.getTypes()));
+        form_.add(weight.geneRate(Rate.zero()));
+        form_.add(height.geneRate(Rate.zero()));
+        form_.add(types.geneEnum());
         AbsPanel stats_ = compoFactory_.newPageBox();
         for (Statistic s: Statistic.getStatisticsWithBase()) {
             FormStatBaseEv f_ = new FormStatBaseEv(getCompoFactory());
             statistics.addEntry(s, f_);
             stats_.add(f_.row(getFacade().getData().getTranslatedStatistics().getVal(getCompoFactory().getLanguage()).getVal(s)));
         }
-        updateStats(element_);
+        updateStats(new IdMap<Statistic, StatBaseEv>());
         form_.add(stats_);
-        form_.add(genderRep.geneEnum(element_.getGenderRep()));
-        form_.add(abilities.geneCommon(element_.getAbilities()));
-        form_.add(moveTutors.geneCommon(element_.getMoveTutors()));
+        form_.add(genderRep.geneEnum(GenderRepartition.MIXED));
+        form_.add(abilities.geneEnum());
+        form_.add(moveTutors.geneEnum());
         form_.add(baseEvo.geneEnum());
-        form_.add(expEvo.geneEnum(element_.getExpEvo()));
-        levMoves.initForm(getCompoFactory(), element_.getLevMoves());
+        form_.add(expEvo.geneEnum(ExpType.M));
+        levMoves.initForm(getCompoFactory(), new CustList<LevelMove>());
         form_.add(levMoves.getGroup());
         evolutions.initForm();
-        evolutions.initForm(getCompoFactory(), element_.getEvolutions());
+        evolutions.initForm(getCompoFactory(), new StringMap<Evolution>());
         form_.add(evolutions.getGroup());
-        form_.add(technicalMoves.geneCommon(element_.getTechnicalMoves()));
-        form_.add(hiddenMoves.geneCommon(element_.getHiddenMoves()));
+        form_.add(technicalMoves.geneEnum());
+        form_.add(hiddenMoves.geneEnum());
         form_.add(catchingRate.geneInt());
         form_.add(expRate.gene(0L));
         form_.add(hatchingSteps.gene(LgInt.zero()));
@@ -115,7 +113,7 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
             ent_.getStatistics().addEntry(e.getKey(),new StatBaseEv((short)e.getValue().getBase().getValue(),(short)e.getValue().getEv().getValue()));
         }
         ent_.setGenderRep(genderRep.tryRet(GenderRepartition.MIXED));
-        ent_.setBaseEvo(baseEvo.tryRet(DataBase.EMPTY_STRING));
+        ent_.setBaseEvo(baseEvo.tryRet());
         ent_.setExpEvo(expEvo.tryRet(ExpType.M));
         ent_.setLevMoves(levMoves.getList());
         ent_.setEvolutions(ConverterCommonMapUtil.buildStringMapEvolution(evolutions.getList()));
@@ -127,7 +125,7 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         ent_.setHappiness((short) happiness.valueInt());
         ent_.setHappinessHatch((short) happinessHatch.valueInt());
         ent_.setEggGroups(new StringList(eggGroups.getList()));
-        return new EditedCrudPair<String, PokemonData>(getGeneComponentModelSelectKey().tryRet(DataBase.EMPTY_STRING),ent_);
+        return new EditedCrudPair<String, PokemonData>(getGeneComponentModelSelectKey().tryRet(),ent_);
     }
 
     @Override
@@ -143,7 +141,7 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         getTypes().setupValue(_v.getTypes());
         getAbilities().setupValue(_v.getAbilities());
         getMoveTutors().setupValue(_v.getMoveTutors());
-        updateStats(_v);
+        updateStats(_v.getStatistics());
         getGenderRep().setupValue(_v.getGenderRep());
         getBaseEvo().setupValue(_v.getBaseEvo());
         getExpEvo().setupValue(_v.getExpEvo());
@@ -159,9 +157,9 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         getEggGroups().setupValues(_v.getEggGroups());
     }
 
-    private void updateStats(PokemonData _v) {
+    private void updateStats(IdMap<Statistic, StatBaseEv> _v) {
         for (EntryCust<Statistic,FormStatBaseEv> e: getStatistics().entryList()) {
-            StatBaseEv stat_ = _v.getStatistics().getVal(e.getKey());
+            StatBaseEv stat_ = _v.getVal(e.getKey());
             if (stat_ != null) {
                 e.getValue().getEv().setValue(stat_.getEv());
                 e.getValue().getBase().setValue(stat_.getBase());

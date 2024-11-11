@@ -1,6 +1,5 @@
 package aiki.gui.components.editor;
 
-import aiki.db.*;
 import aiki.facade.*;
 import code.gui.*;
 import code.gui.initialize.*;
@@ -30,7 +29,7 @@ public final class GeneComponentModelNb implements GeneComponentModel<EditedCrud
 
     @Override
     public EditedCrudPair<Integer, String> value() {
-        return new EditedCrudPair<Integer, String>(key.valueInt(), value.tryRet(DataBase.EMPTY_STRING));
+        return new EditedCrudPair<Integer, String>(key.valueInt(), value.tryRet());
     }
 
     @Override

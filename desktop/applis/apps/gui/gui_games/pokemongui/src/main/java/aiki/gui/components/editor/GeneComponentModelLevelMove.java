@@ -33,7 +33,7 @@ public class GeneComponentModelLevelMove implements GeneComponentModel<LevelMove
     public LevelMove value() {
         LevelMove lv_ = new LevelMove();
         lv_.setLevel((short) level.valueInt());
-        lv_.setMove(move.tryRet(""));
+        lv_.setMove(move.tryRet());
         return lv_;
     }
 

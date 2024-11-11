@@ -1,6 +1,5 @@
 package aiki.gui.components.editor;
 
-import aiki.db.*;
 import aiki.facade.*;
 import aiki.fight.items.*;
 import aiki.instances.*;
@@ -36,7 +35,7 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
     public EditedCrudPair<String,Item> value() {
         Item ent_ = Instances.newBall();
         ent_.setPrice(price.valueInt());
-        return new EditedCrudPair<String,Item>(getGeneComponentModelSelectKey().tryRet(DataBase.EMPTY_STRING),ent_);
+        return new EditedCrudPair<String,Item>(getGeneComponentModelSelectKey().tryRet(),ent_);
     }
 
     @Override

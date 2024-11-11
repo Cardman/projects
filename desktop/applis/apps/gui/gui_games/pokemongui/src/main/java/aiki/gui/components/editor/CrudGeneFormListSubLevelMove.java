@@ -29,7 +29,7 @@ public final class CrudGeneFormListSubLevelMove extends CrudGeneFormListSub<Leve
 
     public IdList<SubscribedTranslation> subscribeButtons() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
-        ids_.add(new SubscribedTranslationMessages(messages,subscription().getFactoryMv()));
+        ids_.add(new SubscribedTranslationMessages(messages,subscription().getFactoryMv(), new StringMap<String>()));
         ids_.add(new SubscribedTranslationPkKey(this));
         return ids_;
     }

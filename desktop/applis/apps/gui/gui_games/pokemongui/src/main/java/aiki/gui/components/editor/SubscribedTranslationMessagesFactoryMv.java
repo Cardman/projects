@@ -39,7 +39,7 @@ public final class SubscribedTranslationMessagesFactoryMv extends SubscribedTran
 
     @Override
     public GeneComponentModel<EditedCrudPair<String,MoveData>> build(AbsCommonFrame _frame, AbstractProgramInfos _core, CrudGeneFormSubContent _facade) {
-        geneComponentModelMoveData = new GeneComponentModelMoveData(_core, _facade.getFacadeGame(), _facade.getSubscription());
+        geneComponentModelMoveData = new GeneComponentModelMoveData(_frame,_core, _facade.getFacadeGame(), _facade.getSubscription());
         return geneComponentModelMoveData;
     }
 

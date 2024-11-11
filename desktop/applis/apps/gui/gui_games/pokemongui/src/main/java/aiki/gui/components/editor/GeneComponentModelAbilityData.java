@@ -1,6 +1,5 @@
 package aiki.gui.components.editor;
 
-import aiki.db.*;
 import aiki.facade.*;
 import aiki.fight.abilities.*;
 import aiki.instances.*;
@@ -41,7 +40,7 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         AbilityData ent_ = Instances.newAbilityData();
         ent_.setMultPower(multPower.valueString());
         ent_.setMultDamage(multDamage.valueString());
-        return new EditedCrudPair<String, AbilityData>(getGeneComponentModelSelectKey().tryRet(DataBase.EMPTY_STRING),ent_);
+        return new EditedCrudPair<String, AbilityData>(getGeneComponentModelSelectKey().tryRet(),ent_);
     }
 
     @Override

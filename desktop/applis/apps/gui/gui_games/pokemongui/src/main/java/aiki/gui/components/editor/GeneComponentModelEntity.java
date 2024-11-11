@@ -4,6 +4,7 @@ import aiki.facade.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.util.CustList;
+import code.util.StringMap;
 
 public abstract class GeneComponentModelEntity<E> implements GeneComponentModel<EditedCrudPair<String, E>> {
     private final SubscribedTranslationList subscribedTranslationList;
@@ -18,9 +19,9 @@ public abstract class GeneComponentModelEntity<E> implements GeneComponentModel<
     }
     protected void buildKey(int _select, SubscribedTranslationMessagesFactory _builder, CustList<String> _exc) {
         if (_select >= 0) {
-            geneComponentModelSelectKey = ConverterCommonMapUtil.merge(compoFactory, facade, _builder, new CustList<String>());
+            geneComponentModelSelectKey = ConverterCommonMapUtil.merge(compoFactory, facade, _builder, new CustList<String>(), new StringMap<String>());
         } else {
-            geneComponentModelSelectKey = ConverterCommonMapUtil.merge(compoFactory, facade, _builder, _exc);
+            geneComponentModelSelectKey = ConverterCommonMapUtil.merge(compoFactory, facade, _builder, _exc, new StringMap<String>());
         }
     }
 
