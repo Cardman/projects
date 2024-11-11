@@ -3,6 +3,7 @@ package aiki.gui;
 import aiki.db.*;
 import aiki.facade.*;
 import aiki.fight.enums.*;
+import aiki.fight.moves.enums.*;
 import aiki.gui.components.editor.*;
 import aiki.instances.*;
 import aiki.map.pokemon.enums.*;
@@ -85,6 +86,7 @@ public abstract class InitEditorPkForm extends EquallableAikiGuiUtil {
         IdMap<Gender, String> g_ = new IdMap<Gender, String>();
         g_.addEntry(Gender.NO_GENDER,"_");
         facade_.getData().getTranslatedGenders().addEntry(_m.getLanguage(), g_);
+        facade_.getData().getTranslatedTargets().addEntry(_m.getLanguage(), new IdMap<TargetChoice, String>());
         return facade_;
     }
 }

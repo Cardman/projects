@@ -525,6 +525,75 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         assertEq(T_2, facade_.getData().getMoves().getVal(M_1).getTypesByWeather().getVal(DataBase.EMPTY_STRING));
         assertEq(T_3, facade_.getData().getMoves().getVal(M_1).getTypesByWeather().getVal(M_2));
     }
+    @Test
+    public void mvForm15() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<MoveData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelMoveData g_ = (GeneComponentModelMoveData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(M_1);
+        tryClick(g_.getSecEffectsByItem().getAdd());
+        g_.getSecEffectsByItem().getGenePair().getKey().setupValue(DataBase.EMPTY_STRING);
+        tryClick(((GeneComponentModelSubscribeInts)g_.getSecEffectsByItem().getGenePair().getValue()).getCrud().getAdd());
+        ((GeneComponentModelSubscribeInts)g_.getSecEffectsByItem().getGenePair().getValue()).getCrud().getGeneComponentModelInt().valueInt(2);
+        tryClick(((GeneComponentModelSubscribeInts)g_.getSecEffectsByItem().getGenePair().getValue()).getCrud().getValidAddEdit());
+        tryClick(((GeneComponentModelSubscribeInts)g_.getSecEffectsByItem().getGenePair().getValue()).getCrud().getAdd());
+        ((GeneComponentModelSubscribeInts)g_.getSecEffectsByItem().getGenePair().getValue()).getCrud().getGeneComponentModelInt().valueInt(4);
+        tryClick(((GeneComponentModelSubscribeInts)g_.getSecEffectsByItem().getGenePair().getValue()).getCrud().getValidAddEdit());
+        tryClick(g_.getSecEffectsByItem().getValidAddEdit());
+        tryClick(g_.getSecEffectsByItem().getAdd());
+        g_.getSecEffectsByItem().getGenePair().getKey().setupValue(I_2);
+        tryClick(((GeneComponentModelSubscribeInts)g_.getSecEffectsByItem().getGenePair().getValue()).getCrud().getAdd());
+        ((GeneComponentModelSubscribeInts)g_.getSecEffectsByItem().getGenePair().getValue()).getCrud().getGeneComponentModelInt().valueInt(1);
+        tryClick(((GeneComponentModelSubscribeInts)g_.getSecEffectsByItem().getGenePair().getValue()).getCrud().getValidAddEdit());
+        tryClick(((GeneComponentModelSubscribeInts)g_.getSecEffectsByItem().getGenePair().getValue()).getCrud().getAdd());
+        ((GeneComponentModelSubscribeInts)g_.getSecEffectsByItem().getGenePair().getValue()).getCrud().getGeneComponentModelInt().valueInt(3);
+        tryClick(((GeneComponentModelSubscribeInts)g_.getSecEffectsByItem().getGenePair().getValue()).getCrud().getValidAddEdit());
+        tryClick(g_.getSecEffectsByItem().getValidAddEdit());
+        tryClick(c_.getValidAddEdit());
+        assertEq(1,facade_.getData().getMoves().size());
+        assertEq(2, facade_.getData().getMoves().getVal(M_1).getSecEffectsByItem().size());
+        assertEq(2, facade_.getData().getMoves().getVal(M_1).getSecEffectsByItem().getVal(DataBase.EMPTY_STRING).size());
+        assertEq(2, facade_.getData().getMoves().getVal(M_1).getSecEffectsByItem().getVal(DataBase.EMPTY_STRING).get(0));
+        assertEq(4, facade_.getData().getMoves().getVal(M_1).getSecEffectsByItem().getVal(DataBase.EMPTY_STRING).get(1));
+        assertEq(2, facade_.getData().getMoves().getVal(M_1).getSecEffectsByItem().getVal(I_2).size());
+        assertEq(1, facade_.getData().getMoves().getVal(M_1).getSecEffectsByItem().getVal(I_2).get(0));
+        assertEq(3, facade_.getData().getMoves().getVal(M_1).getSecEffectsByItem().getVal(I_2).get(1));
+    }
+    @Test
+    public void mvForm16() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<MoveData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelMoveData g_ = (GeneComponentModelMoveData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(M_1);
+        tryClick(g_.getSecEffectsByItem().getAdd());
+        g_.getSecEffectsByItem().getGenePair().getKey().setupValue(DataBase.EMPTY_STRING);
+        tryClick(((GeneComponentModelSubscribeInts)g_.getSecEffectsByItem().getGenePair().getValue()).getCrud().getAdd());
+        ((GeneComponentModelSubscribeInts)g_.getSecEffectsByItem().getGenePair().getValue()).getCrud().getGeneComponentModelInt().valueInt(2);
+        tryClick(((GeneComponentModelSubscribeInts)g_.getSecEffectsByItem().getGenePair().getValue()).getCrud().getValidAddEdit());
+        tryClick(((GeneComponentModelSubscribeInts)g_.getSecEffectsByItem().getGenePair().getValue()).getCrud().getAdd());
+        ((GeneComponentModelSubscribeInts)g_.getSecEffectsByItem().getGenePair().getValue()).getCrud().getGeneComponentModelInt().valueInt(4);
+        tryClick(((GeneComponentModelSubscribeInts)g_.getSecEffectsByItem().getGenePair().getValue()).getCrud().getValidAddEdit());
+        tryClick(g_.getSecEffectsByItem().getValidAddEdit());
+        tryClick(g_.getSecEffectsByItem().getAdd());
+        g_.getSecEffectsByItem().getGenePair().getKey().setupValue(I_2);
+        tryClick(((GeneComponentModelSubscribeInts)g_.getSecEffectsByItem().getGenePair().getValue()).getCrud().getAdd());
+        ((GeneComponentModelSubscribeInts)g_.getSecEffectsByItem().getGenePair().getValue()).getCrud().getGeneComponentModelInt().valueInt(1);
+        tryClick(((GeneComponentModelSubscribeInts)g_.getSecEffectsByItem().getGenePair().getValue()).getCrud().getValidAddEdit());
+        tryClick(((GeneComponentModelSubscribeInts)g_.getSecEffectsByItem().getGenePair().getValue()).getCrud().getAdd());
+        ((GeneComponentModelSubscribeInts)g_.getSecEffectsByItem().getGenePair().getValue()).getCrud().getGeneComponentModelInt().valueInt(3);
+        tryClick(((GeneComponentModelSubscribeInts)g_.getSecEffectsByItem().getGenePair().getValue()).getCrud().getValidAddEdit());
+        tryClick(g_.getSecEffectsByItem().getValidAddEdit());
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryClick(((GeneComponentModelMoveData) c_.getGene()).getSecEffectsByItem().getAllButtons().get(0));
+        assertEq(2,((GeneComponentModelSubscribeInts)g_.getSecEffectsByItem().getGenePair().getValue()).getCrud().getAllButtons().size());
+    }
     private FacadeGame facadeAdd(MockProgramInfos _m) {
         FacadeGame f_ = facade(_m);
         f_.getData().getTm().addEntry((short)1,M_1);

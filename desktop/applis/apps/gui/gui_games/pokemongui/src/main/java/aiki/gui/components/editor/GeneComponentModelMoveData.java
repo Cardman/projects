@@ -2,14 +2,13 @@ package aiki.gui.components.editor;
 
 import aiki.facade.*;
 import aiki.fight.moves.*;
-import aiki.fight.moves.enums.SwitchType;
+import aiki.fight.moves.enums.*;
 import aiki.instances.*;
 import code.gui.*;
-import code.gui.events.DefValidateText;
+import code.gui.events.*;
 import code.gui.initialize.*;
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.maths.montecarlo.MonteCarloNumber;
+import code.maths.*;
+import code.maths.montecarlo.*;
 import code.util.*;
 
 public final class GeneComponentModelMoveData extends GeneComponentModelEntity<MoveData> {
@@ -34,6 +33,8 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
     private final CrudGeneFormMonteCarlo<Rate> repeatRoundLaw;
     private final CrudGeneFormSimpleForm<String,String> typesByOwnedItem;
     private final CrudGeneFormSimpleForm<String,String> typesByWeather;
+    private final CrudGeneFormSimpleForm<String,Ints> secEffectsByItem;
+    private GeneComponentModelEltEnum<TargetChoice> targetChoice;
 //    private MoveData element;
 
 
@@ -43,10 +44,11 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         priority = new GeneComponentModelInt(_core);
         nbPrepaRound = new GeneComponentModelInt(_core);
         rankIncrementNbRound = new GeneComponentModelInt(_core);
-        repeatRoundLaw = new CrudGeneFormMonteCarlo<Rate>(getCompoFactory(),new ComparingRateKey<LgInt>());
+        repeatRoundLaw = new CrudGeneFormMonteCarlo<Rate>(_core,new ComparingRateKey<LgInt>());
         repeatRoundLaw.setFrame(_frame);
-        typesByOwnedItem = new CrudGeneFormSimpleForm<String, String>(getCompoFactory(),_facade,_sub,_frame);
-        typesByWeather = new CrudGeneFormSimpleForm<String, String>(getCompoFactory(),_facade,_sub,_frame);
+        typesByOwnedItem = new CrudGeneFormSimpleForm<String, String>(_core,_facade,_sub,_frame);
+        typesByWeather = new CrudGeneFormSimpleForm<String, String>(_core,_facade,_sub,_frame);
+        secEffectsByItem = new CrudGeneFormSimpleForm<String, Ints>(_core,_facade,_sub,_frame);
     }
     @Override
     public AbsCustComponent gene(int _select) {
@@ -73,6 +75,9 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         typesByOwnedItem.initForm(new DisplayEntryCustSubImpl(getSubscribedTranslationList().getFactoryIt(), ConverterCommonMapUtil.defKeyEmpty(" ")),getSubscribedTranslationList().getFactoryIt().buildMessages(getCompoFactory(),getFacade(),ConverterCommonMapUtil.defKeyEmpty(" ")),getCompoFactory(), buildPart(getSubscribedTranslationList().getFactoryIt(), ConverterCommonMapUtil.defKeyEmpty("")),buildPart(getSubscribedTranslationList().getFactoryTy(), new StringMap<String>()),new StringMap<String>());
         typesByWeather.initForm();
         typesByWeather.initForm(new DisplayEntryCustSubImpl(getSubscribedTranslationList().getFactoryMv(), ConverterCommonMapUtil.defKeyEmpty(" ")),getSubscribedTranslationList().getFactoryMv().buildMessages(getCompoFactory(),getFacade(),ConverterCommonMapUtil.defKeyEmpty(" ")),getCompoFactory(), buildPart(getSubscribedTranslationList().getFactoryMv(), ConverterCommonMapUtil.defKeyEmpty("")),buildPart(getSubscribedTranslationList().getFactoryTy(), new StringMap<String>()),new StringMap<String>());
+        secEffectsByItem.initForm();
+        secEffectsByItem.initForm(new DisplayEntryCustSubImpl(getSubscribedTranslationList().getFactoryIt(), ConverterCommonMapUtil.defKeyEmpty(" ")),getSubscribedTranslationList().getFactoryIt().buildMessages(getCompoFactory(),getFacade(),ConverterCommonMapUtil.defKeyEmpty(" ")),getCompoFactory(), buildPart(getSubscribedTranslationList().getFactoryIt(), ConverterCommonMapUtil.defKeyEmpty("")),new GeneComponentModelSubscribeFactoryInts(getCompoFactory(),getFacade(),getSubscribedTranslationList(),secEffectsByItem.getFrame()),new StringMap<Ints>());
+        targetChoice = ConverterCommonMapUtil.buildTargetChoice(getCompoFactory(), getFacade());
         AbsCompoFactory compoFactory_ = getCompoFactory().getCompoFactory();
         AbsScrollPane sc_ = compoFactory_.newAbsScrollPane();
         AbsPanel page_ = compoFactory_.newPageBox();
@@ -99,6 +104,8 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         form_.add(repeatRoundLaw.getGroup());
         form_.add(typesByOwnedItem.getGroup());
         form_.add(typesByWeather.getGroup());
+        form_.add(secEffectsByItem.getGroup());
+        form_.add(targetChoice.geneEnum(TargetChoice.NOTHING));
         sc_.setViewportView(form_);
         page_.add(sc_);
         return page_;
@@ -136,6 +143,8 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         new MapToEntriesListUtil<Rate,LgInt>().feedMap(repeatRoundLaw.getList(),ent_.getRepeatRoundLaw());
         new MapToEntriesListUtil<String,String>().feedMap(typesByOwnedItem.getList(),ent_.getTypesByOwnedItem());
         new MapToEntriesListUtil<String,String>().feedMap(typesByWeather.getList(),ent_.getTypesByWeather());
+        new MapToEntriesListUtil<String,Ints>().feedMap(secEffectsByItem.getList(),ent_.getSecEffectsByItem());
+        ent_.setTargetChoice(targetChoice.tryRet(TargetChoice.NOTHING));
         return new EditedCrudPair<String, MoveData>(getGeneComponentModelSelectKey().tryRet(),ent_);
     }
 
@@ -165,6 +174,8 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         repeatRoundLaw.setupValues(new MapToEntriesListUtil<Rate,LgInt>().build(move_.getRepeatRoundLaw()));
         typesByOwnedItem.setupValues(new MapToEntriesListUtil<String,String>().build(move_.getTypesByOwnedItem()));
         typesByWeather.setupValues(new MapToEntriesListUtil<String,String>().build(move_.getTypesByWeather()));
+        secEffectsByItem.setupValues(new MapToEntriesListUtil<String,Ints>().build(move_.getSecEffectsByItem()));
+        targetChoice.setupValue(move_.getTargetChoice());
     }
 
     public GeneComponentModelInt getPp() {
@@ -228,5 +239,9 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
 
     public CrudGeneFormSimpleForm<String, String> getTypesByWeather() {
         return typesByWeather;
+    }
+
+    public CrudGeneFormSimpleForm<String, Ints> getSecEffectsByItem() {
+        return secEffectsByItem;
     }
 }
