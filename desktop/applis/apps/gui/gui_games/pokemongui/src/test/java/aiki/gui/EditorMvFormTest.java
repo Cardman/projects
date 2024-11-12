@@ -8,6 +8,7 @@ import aiki.gui.components.editor.*;
 import aiki.instances.*;
 import code.maths.*;
 import code.mock.*;
+import code.util.core.*;
 import org.junit.Test;
 
 public final class EditorMvFormTest extends InitEditorPkForm {
@@ -594,6 +595,47 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         tryClick(((GeneComponentModelMoveData) c_.getGene()).getSecEffectsByItem().getAllButtons().get(0));
         assertEq(2,((GeneComponentModelSubscribeInts)g_.getSecEffectsByItem().getGenePair().getValue()).getCrud().getAllButtons().size());
     }
+    @Test
+    public void mvForm17() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<MoveData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelMoveData g_ = (GeneComponentModelMoveData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(M_1);
+        tryClick(g_.getMoves().getAdd());
+        GeneComponentModelEffect effForm_ = effects(g_.getMoves());
+        effForm_.getEvolutionKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EFF_DAMAGE));
+        effForm_.getEvolutionKind().getSelect().events(null);
+        effForm_.getFail().valueString(M_2);
+        tryClick(g_.getMoves().getValidAddEdit());
+        tryClick(g_.getMoves().getAllButtons().get(0));
+        tryClick(g_.getMoves().getCancel());
+        tryClick(c_.getValidAddEdit());
+        assertEq(1,facade_.getData().getMoves().getVal(M_1).getEffects().size());
+        assertEq(M_2,facade_.getData().getMoves().getVal(M_1).getEffects().get(0).getFail());
+    }
+    @Test
+    public void mvForm18() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<MoveData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelMoveData g_ = (GeneComponentModelMoveData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(M_1);
+        g_.getDamagingMove().setSelected(false);
+        tryClick(g_.getMoves().getAdd());
+        GeneComponentModelEffect evoForm_ = effects(g_.getMoves());
+        evoForm_.getEvolutionKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EFF_STATIS));
+        evoForm_.getEvolutionKind().getSelect().events(null);
+        evoForm_.getFail().valueString(M_2);
+        tryClick(g_.getMoves().getValidAddEdit());
+        tryClick(c_.getValidAddEdit());
+        assertEq(1,facade_.getData().getMoves().getVal(M_1).getEffects().size());
+        assertEq(M_2,facade_.getData().getMoves().getVal(M_1).getEffects().get(0).getFail());
+    }
     private FacadeGame facadeAdd(MockProgramInfos _m) {
         FacadeGame f_ = facade(_m);
         f_.getData().getTm().addEntry((short)1,M_1);
@@ -625,5 +667,8 @@ public final class EditorMvFormTest extends InitEditorPkForm {
     private CrudGeneFormNb crudHm(WindowPkEditor _crud) {
         tryClick(_crud.getHmMenu());
         return _crud.getCrudGeneFormHm();
+    }
+    private GeneComponentModelEffect effects(CrudGeneFormListSubEffect _evos) {
+        return (GeneComponentModelEffect) _evos.getGene();
     }
 }
