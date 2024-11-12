@@ -2,11 +2,11 @@ package code.gui;
 
 import code.gui.events.AbsActionListener;
 
-public final class SelectCrudGeneFormEvent implements AbsActionListener {
-    private final AbsCrudGeneForm crud;
+public final class SelectCrudGeneFormEvent<E> implements AbsActionListener {
+    private final AbsCrudGeneForm<E> crud;
     private final int index;
 
-    public SelectCrudGeneFormEvent(AbsCrudGeneForm _c, int _i) {
+    public SelectCrudGeneFormEvent(AbsCrudGeneForm<E> _c, int _i) {
         this.crud = _c;
         this.index = _i;
     }

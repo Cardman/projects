@@ -3,7 +3,7 @@ package code.gui;
 import code.gui.initialize.*;
 import code.util.CustList;
 
-public abstract class AbsCrudGeneForm {
+public abstract class AbsCrudGeneForm<E> {
     private final AbstractProgramInfos factory;
     private AbsPanel elements;
     private AbsPanel element;
@@ -43,21 +43,21 @@ public abstract class AbsCrudGeneForm {
 //            getAllButtons().add(but_);
 //        }
         add = factory.getCompoFactory().newPlainButton("+");
-        add.addActionListener(new AddCrudGeneFormEvent(this));
+        add.addActionListener(new AddCrudGeneFormEvent<E>(this));
         buttons_.add(add);
         validAddEdit = factory.getCompoFactory().newPlainButton("\u2611");
         validAddEdit.setForeground(GuiConstants.GREEN);
         validAddEdit.setEnabled(false);
-        validAddEdit.addActionListener(new ValidAddEditCrudGeneFormEvent(this));
+        validAddEdit.addActionListener(new ValidAddEditCrudGeneFormEvent<E>(this));
         buttons_.add(validAddEdit);
         validRemove = factory.getCompoFactory().newPlainButton("-");
         validRemove.setEnabled(false);
-        validRemove.addActionListener(new ValidRemoveCrudGeneFormEvent(this));
+        validRemove.addActionListener(new ValidRemoveCrudGeneFormEvent<E>(this));
         buttons_.add(validRemove);
         cancel = factory.getCompoFactory().newPlainButton("\u2716");
         cancel.setForeground(GuiConstants.RED);
         cancel.setEnabled(false);
-        cancel.addActionListener(new CancelCrudGeneFormEvent(this));
+        cancel.addActionListener(new CancelCrudGeneFormEvent<E>(this));
         buttons_.add(cancel);
         getGroup().removeAll();
         getGroup().add(buttons_);
@@ -71,7 +71,7 @@ public abstract class AbsCrudGeneForm {
         int len_ = size();
         for (int i = 0; i < len_; i++) {
             AbsButton but_ = factory.getCompoFactory().newPlainButton(display(i));
-            but_.addActionListener(new SelectCrudGeneFormEvent(this, i));
+            but_.addActionListener(new SelectCrudGeneFormEvent<E>(this, i));
             but_.setEnabled(enabledButtons);
             elements.add(but_);
             getAllButtons().add(but_);
@@ -93,6 +93,7 @@ public abstract class AbsCrudGeneForm {
 
     public abstract void validAddEdit();
     public abstract void validRemove();
+    protected abstract void afterModif(int _index, E _value);
 
     public void selectOrAdd() {
         validAddEdit.setEnabled(true);

@@ -4,10 +4,10 @@ import aiki.facade.*;
 import code.gui.AbsCrudGeneForm;
 import code.gui.initialize.*;
 
-public final class SubscribedTranslationPkKey implements SubscribedTranslation {
-    private final AbsCrudGeneForm crud;
+public final class SubscribedTranslationPkKey<E> implements SubscribedTranslation {
+    private final AbsCrudGeneForm<E> crud;
 
-    public SubscribedTranslationPkKey(AbsCrudGeneForm _c) {
+    public SubscribedTranslationPkKey(AbsCrudGeneForm<E> _c) {
         this.crud = _c;
     }
 

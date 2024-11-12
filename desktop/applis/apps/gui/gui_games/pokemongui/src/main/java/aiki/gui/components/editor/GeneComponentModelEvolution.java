@@ -9,9 +9,8 @@ import code.gui.initialize.*;
 import code.util.*;
 import code.util.core.*;
 
-public final class GeneComponentModelEvolution implements GeneComponentModel<EditedCrudPair<String, Evolution>> {
+public final class GeneComponentModelEvolution {
     private final AbstractProgramInfos programInfos;
-    private GeneComponentModelEltStrSub geneComponentModelSelectKey;
     private final FacadeGame fac;
     private GeneComponentModelEltEnum<String> evolutionKind;
     private final GeneComponentModelInt level;
@@ -37,9 +36,8 @@ public final class GeneComponentModelEvolution implements GeneComponentModel<Edi
         level = new GeneComponentModelInt(_core);
         subscribedTranslationList = _subscription;
     }
-    @Override
-    public AbsCustComponent gene(int _select) {
-        geneComponentModelSelectKey = ConverterCommonMapUtil.buildPkFull(programInfos, fac, subscribedTranslationList);
+
+    public AbsPanel geneEvo() {
         StringMap<String> messages_ = MessagesPkEditor.getMessagesEditorSelectEvoTr(MessagesPkEditor.getAppliTr(programInfos.currentLg())).getMapping();
         evolutionKind = new GeneComponentModelEltEnum<String>(programInfos, messages_);
         item = ConverterCommonMapUtil.buildItFull(programInfos, fac,subscribedTranslationList);
@@ -48,8 +46,6 @@ public final class GeneComponentModelEvolution implements GeneComponentModel<Edi
         evoMoveType = ConverterCommonMapUtil.buildTypeElt(programInfos,fac,subscribedTranslationList);
         evoGender = ConverterCommonMapUtil.buildGender(programInfos,fac);
         AbsCompoFactory compoFactory_ = programInfos.getCompoFactory();
-        AbsPanel page_ = compoFactory_.newPageBox();
-        page_.add(geneComponentModelSelectKey.geneEnum());
         AbsPanel evoForm_ = compoFactory_.newLineBox();
         AbsPanel selected_ = compoFactory_.newLineBox();
         evoForm_.add(evolutionKind.geneEnum(""));
@@ -75,8 +71,7 @@ public final class GeneComponentModelEvolution implements GeneComponentModel<Edi
         evolutionKind.getSelect().addListener(new ChangingEvolutionEvent(this));
         evolutionKind.getSelect().select(0);
         evolutionKind.getSelect().events(null);
-        page_.add(evoForm_);
-        return page_;
+        return evoForm_;
     }
 
     public void applyChange() {
@@ -117,8 +112,8 @@ public final class GeneComponentModelEvolution implements GeneComponentModel<Edi
         evolutionKind.getSelect().repaint();
         frame.pack();
     }
-    @Override
-    public EditedCrudPair<String, Evolution> value() {
+
+    public Evolution valueEvo() {
         if (edited instanceof EvolutionLevelSimple) {
             ((EvolutionLevelSimple)edited).setLevel((short) level.valueInt());
         }
@@ -145,74 +140,66 @@ public final class GeneComponentModelEvolution implements GeneComponentModel<Edi
         if (edited instanceof EvolutionTeam) {
             ((EvolutionTeam)edited).setPokemon(evoTeamPokemon.tryRet());
         }
-        return new EditedCrudPair<String, Evolution>(geneComponentModelSelectKey.tryRet(),edited);
+        return edited;
     }
 
-    @Override
-    public void value(EditedCrudPair<String, Evolution> _v) {
-        Evolution evo_ = _v.getValue();
-        if (evo_ instanceof EvolutionLevelSimple) {
+    public void valueEvo(Evolution _evo) {
+        if (_evo instanceof EvolutionLevelSimple) {
             evolutionKind.getSelect().select(0);
             evolutionKind.getSelect().events(null);
-            level.valueInt(((EvolutionLevelSimple)evo_).getLevel());
+            level.valueInt(((EvolutionLevelSimple) _evo).getLevel());
         }
-        if (evo_ instanceof EvolutionLevelGender) {
+        if (_evo instanceof EvolutionLevelGender) {
             evolutionKind.getSelect().select(1);
             evolutionKind.getSelect().events(null);
-            level.valueInt(((EvolutionLevelGender)evo_).getLevel());
-            evoGender.setupValue(((EvolutionLevelGender)evo_).getGender());
+            level.valueInt(((EvolutionLevelGender) _evo).getLevel());
+            evoGender.setupValue(((EvolutionLevelGender) _evo).getGender());
         }
-        if (evo_ instanceof EvolutionStoneSimple) {
+        if (_evo instanceof EvolutionStoneSimple) {
             evolutionKind.getSelect().select(2);
             evolutionKind.getSelect().events(null);
-            item.setupValue(((EvolutionStoneSimple)evo_).getStone());
+            item.setupValue(((EvolutionStoneSimple) _evo).getStone());
         }
-        if (evo_ instanceof EvolutionStoneGender) {
+        if (_evo instanceof EvolutionStoneGender) {
             evolutionKind.getSelect().select(3);
             evolutionKind.getSelect().events(null);
-            item.setupValue(((EvolutionStoneGender)evo_).getStone());
-            evoGender.setupValue(((EvolutionStoneGender)evo_).getGender());
+            item.setupValue(((EvolutionStoneGender) _evo).getStone());
+            evoGender.setupValue(((EvolutionStoneGender) _evo).getGender());
         }
-        if (evo_ instanceof EvolutionHappiness) {
+        if (_evo instanceof EvolutionHappiness) {
             evolutionKind.getSelect().select(4);
             evolutionKind.getSelect().events(null);
         }
-        if (evo_ instanceof EvolutionItem) {
+        if (_evo instanceof EvolutionItem) {
             evolutionKind.getSelect().select(5);
             evolutionKind.getSelect().events(null);
-            item.setupValue(((EvolutionItem)evo_).getItem());
+            item.setupValue(((EvolutionItem) _evo).getItem());
         }
-        if (evo_ instanceof EvolutionMove) {
+        if (_evo instanceof EvolutionMove) {
             evolutionKind.getSelect().select(6);
             evolutionKind.getSelect().events(null);
-            evoMove.setupValue(((EvolutionMove)evo_).getMove());
+            evoMove.setupValue(((EvolutionMove) _evo).getMove());
         }
-        if (evo_ instanceof EvolutionMoveType) {
+        if (_evo instanceof EvolutionMoveType) {
             evolutionKind.getSelect().select(7);
             evolutionKind.getSelect().events(null);
-            evoMoveType.setupValue(((EvolutionMoveType)evo_).getType());
+            evoMoveType.setupValue(((EvolutionMoveType) _evo).getType());
         }
-        if (evo_ instanceof EvolutionTeam) {
+        if (_evo instanceof EvolutionTeam) {
             evolutionKind.getSelect().select(8);
             evolutionKind.getSelect().events(null);
-            evoTeamPokemon.setupValue(((EvolutionTeam)evo_).getPokemon());
+            evoTeamPokemon.setupValue(((EvolutionTeam) _evo).getPokemon());
         }
-        edited = evo_;
-        geneComponentModelSelectKey.setupValue(_v.getKey());
-        geneComponentModelSelectKey.getSelectUniq().getSelect().setEnabled(false);
+        edited = _evo;
     }
+
     public IdList<SubscribedTranslation> all() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
-        ids_.addAllElts(geneComponentModelSelectKey.getSubs());
         ids_.addAllElts(evoTeamPokemon.getSubs());
         ids_.addAllElts(evoMove.getSubs());
         ids_.addAllElts(evoMoveType.getSubs());
         ids_.addAllElts(item.getSubs());
         return ids_;
-    }
-
-    public GeneComponentModelEltStrSub getGeneComponentModelSelectKey() {
-        return geneComponentModelSelectKey;
     }
 
     public GeneComponentModelEltEnum<Gender> getEvoGender() {

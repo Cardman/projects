@@ -14,12 +14,4 @@ public final class CrudGeneFormMonteCarlo<E> extends AbsCrudGeneFormList<EditedC
         CustList<EditedCrudPair<E, LgInt>> ls_ = new MapToEntriesListUtil<E, LgInt>().build(_map);
         initForm(_disp,_k,ls_,_c,new ValidateElementPair<E, LgInt>(_c));
     }
-
-    @Override
-    protected void afterModif(int _index, EditedCrudPair<E, LgInt> _value) {
-        if (_index > -1) {
-            getList().remove(_index);
-        }
-        afterModif();
-    }
 }

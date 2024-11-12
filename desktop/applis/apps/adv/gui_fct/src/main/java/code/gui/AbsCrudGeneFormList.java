@@ -4,7 +4,7 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 import code.util.ints.Comparing;
 
-public abstract class AbsCrudGeneFormList<E> extends AbsCrudGeneForm {
+public abstract class AbsCrudGeneFormList<E> extends AbsCrudGeneForm<E> {
     private DisplayEntryCust<Integer,E> displayEntry;
     private GeneComponentModel<E> gene;
     private CustList<E> list;
@@ -88,7 +88,13 @@ public abstract class AbsCrudGeneFormList<E> extends AbsCrudGeneForm {
     public void validRemove() {
         afterModif(getSelectedIndex(), list.get(getSelectedIndex()));
     }
-    protected abstract void afterModif(int _index, E _value);
+    @Override
+    protected void afterModif(int _index, E _value) {
+        if (_index > -1) {
+            getList().remove(_index);
+        }
+        afterModif();
+    }
 
     public void setupValues(CustList<E> _values) {
         list.clear();

@@ -18,13 +18,6 @@ public final class CrudGeneForm extends AbsCrudGeneFormList<EditedCrudPair<Strin
         geneComponentModelEntryStringInteger = new GeneComponentModelEntryStringInteger(getFactory(), _aDictionary, _after);
         initForm(new StringIntDisplayEntryCust(), geneComponentModelEntryStringInteger,new MapToEntriesListUtil<String,Integer>().build(_m), cmp_,new ValidateElementPair<String, Integer>(cmp_));
     }
-    @Override
-    protected void afterModif(int _index, EditedCrudPair<String,Integer> _value) {
-        if (_index > -1) {
-            getList().remove(_index);
-        }
-        afterModif();
-    }
 
     public GeneComponentModelEntryStringInteger getGeneComponentModelEntryStringInteger() {
         return geneComponentModelEntryStringInteger;

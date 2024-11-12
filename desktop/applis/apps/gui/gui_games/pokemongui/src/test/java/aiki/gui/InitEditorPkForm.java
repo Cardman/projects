@@ -4,6 +4,7 @@ import aiki.db.*;
 import aiki.facade.*;
 import aiki.fight.enums.*;
 import aiki.fight.moves.enums.*;
+import aiki.fight.pokemon.evolution.Evolution;
 import aiki.gui.components.editor.*;
 import aiki.instances.*;
 import aiki.map.pokemon.enums.*;
@@ -88,5 +89,13 @@ public abstract class InitEditorPkForm extends EquallableAikiGuiUtil {
         facade_.getData().getTranslatedGenders().addEntry(_m.getLanguage(), g_);
         facade_.getData().getTranslatedTargets().addEntry(_m.getLanguage(), new IdMap<TargetChoice, String>());
         return facade_;
+    }
+
+    protected GeneComponentModelEltStrSub keyEvos(CrudGeneFormSimpleForm<String, Evolution> _evos) {
+        return (GeneComponentModelEltStrSub) _evos.getGenePair().getKey();
+    }
+
+    protected GeneComponentModelEvolution valueEvos(CrudGeneFormSimpleForm<String,Evolution> _evos) {
+        return ((GeneComponentModelSubscribeEvolution)_evos.getGenePair().getValue()).getCrud();
     }
 }

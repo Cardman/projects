@@ -7,18 +7,18 @@ import code.util.IdList;
 import code.util.ints.*;
 
 public abstract class CrudGeneFormListSub<E> extends AbsCrudGeneFormList<E> {
-    private final CrudGeneFormSubContent crudGeneFormSubContent;
+    private final CrudGeneFormSubContent<E> crudGeneFormSubContent;
 
     protected CrudGeneFormListSub(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub, AbsCommonFrame _fr, Comparing<E> _c) {
         super(_fact, _c);
         setFrame(_fr);
-        crudGeneFormSubContent = new CrudGeneFormSubContent(_facade, _sub, this, _fr);
+        crudGeneFormSubContent = new CrudGeneFormSubContent<E>(_facade, _sub, this, _fr);
     }
 
     public SubscribedTranslationList subscription() {
         return getCrudGeneFormSubContent().getSubscription();
     }
-    public CrudGeneFormSubContent getCrudGeneFormSubContent() {
+    public CrudGeneFormSubContent<E> getCrudGeneFormSubContent() {
         return crudGeneFormSubContent;
     }
 
@@ -26,14 +26,11 @@ public abstract class CrudGeneFormListSub<E> extends AbsCrudGeneFormList<E> {
 
     @Override
     protected void afterModif(int _index, E _value) {
-        if (_index > -1) {
-            getList().remove(_index);
-        }
-        afterChange();
-    }
-
-    protected void afterChange() {
-        getCrudGeneFormSubContent().afterChange();
+        getCrudGeneFormSubContent().removeOpenSub();
+        super.afterModif(_index, _value);
+//        if (_index > -1) {
+//            getList().remove(_index);
+//        }
     }
 
     @Override
@@ -47,4 +44,7 @@ public abstract class CrudGeneFormListSub<E> extends AbsCrudGeneFormList<E> {
         super.cancel();
     }
 
+    public void cancelBase() {
+        super.cancel();
+    }
 }

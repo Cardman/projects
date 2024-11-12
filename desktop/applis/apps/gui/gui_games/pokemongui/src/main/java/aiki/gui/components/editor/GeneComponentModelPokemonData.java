@@ -31,7 +31,7 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
     private GeneComponentModelEltStrSub baseEvo;
     private GeneComponentModelEltEnum<ExpType> expEvo;
     private final CrudGeneFormListSubLevelMove levMoves;
-    private final CrudGeneFormEvolutions evolutions;
+    private final CrudGeneFormSimpleForm<String,Evolution> evolutions;
     private final CrudGeneFormList<String> eggGroups;
 
     public GeneComponentModelPokemonData(AbsCommonFrame _fr, AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
@@ -45,7 +45,7 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         happiness = new GeneComponentModelInt(getCompoFactory());
         happinessHatch = new GeneComponentModelInt(getCompoFactory());
         levMoves = new CrudGeneFormListSubLevelMove(getCompoFactory(),_facade,_sub,_fr);
-        evolutions = new CrudGeneFormEvolutions(_core,_facade,_sub,_fr);
+        evolutions = new CrudGeneFormSimpleForm<String,Evolution>(_core,_facade,_sub,_fr);
     }
     @Override
     public AbsCustComponent gene(int _select) {
@@ -84,7 +84,7 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         levMoves.initForm(getCompoFactory(), new CustList<LevelMove>());
         form_.add(levMoves.getGroup());
         evolutions.initForm();
-        evolutions.initForm(getCompoFactory(), new StringMap<Evolution>());
+        evolutions.initForm(new DisplayEntryCustSubImpl(getSubscribedTranslationList().getFactoryPk(), new StringMap<String>()),getSubscribedTranslationList().getFactoryPk().buildMessages(getCompoFactory(),getFacade()),getCompoFactory(),buildPart(getSubscribedTranslationList().getFactoryPk(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryEvolution(getCompoFactory(),getFacade(),getSubscribedTranslationList(),evolutions.getFrame()), new StringMap<Evolution>());
         form_.add(evolutions.getGroup());
         form_.add(technicalMoves.geneEnum());
         form_.add(hiddenMoves.geneEnum());
@@ -99,6 +99,10 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         sc_.setViewportView(form_);
         page_.add(sc_);
         return page_;
+    }
+
+    private GeneComponentModelSubscribeFactorySelElt buildPart(SubscribedTranslationMessagesFactory _facto, StringMap<String> _abs) {
+        return new GeneComponentModelSubscribeFactorySelElt(getCompoFactory(), getFacade(), _facto, _abs);
     }
 
     @Override
@@ -228,7 +232,7 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         return levMoves;
     }
 
-    public CrudGeneFormEvolutions getEvolutions() {
+    public CrudGeneFormSimpleForm<String,Evolution> getEvolutions() {
         return evolutions;
     }
 

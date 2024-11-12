@@ -4,13 +4,14 @@ import aiki.facade.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.util.*;
+import code.util.ints.Comparing;
 
-public final class CrudGeneFormEnt<T> extends CrudGeneFormSub<String, T> {
+public final class CrudGeneFormEnt<T> extends CrudGeneFormListSub<EditedCrudPair<String, T>> {
     private final SubscribedTranslationMessagesFactoryCommonParam<T> factoryCommonParam;
 //    private GeneComponentModelPokemonData geneComponentModelPokemonData;
 
     public CrudGeneFormEnt(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub, AbsCommonFrame _fr, SubscribedTranslationMessagesFactoryCommonParam<T> _factoMess) {
-        super(_fact,_facade,_sub, _fr);
+        super(_fact,_facade,_sub, _fr, null);
         factoryCommonParam = _factoMess;
     }
     public void initForm(AbstractProgramInfos _core) {
@@ -22,7 +23,8 @@ public final class CrudGeneFormEnt<T> extends CrudGeneFormSub<String, T> {
         GeneComponentModel<EditedCrudPair<String,T>> key_ = factoryCommonParam.build(getFrame(), _core, getCrudGeneFormSubContent());
 //        setGeneKey(geneComponentModelSelectKey.getSelectUniq());
         getCrudGeneFormSubContent().addSubRoot(new SubscribedTranslationMessages(messages_,factoryCommonParam, new StringMap<String>()));
-        initForm(messages_, key_, factoryCommonParam.all(facadeGame_));
+        Comparing<EditedCrudPair<String, T>> cmp_ = new ComparatorTrWrapperPairs<String, T>().wrap(messages_);
+        initForm(new DisplayKeyOnly<String, T>(messages_),key_,new MapToEntriesListUtil<String, T>().build(factoryCommonParam.all(facadeGame_)), cmp_,new ValidateElementPair<String, T>(cmp_));
         getFrame().setContentPane(getGroup());
         getFrame().setVisible(true);
         getFrame().pack();

@@ -6,7 +6,7 @@ import code.gui.initialize.*;
 import code.maths.*;
 import code.util.*;
 
-public final class CrudGeneFormNb extends CrudGeneFormSub<Integer, String> {
+public final class CrudGeneFormNb extends CrudGeneFormListSub<EditedCrudPair<Integer, String>> {
     private final FacadeGame facadeGame;
     private AbsSpinner destination;
     private final SubscribedTranslationList subscribedTranslations;
@@ -16,7 +16,7 @@ public final class CrudGeneFormNb extends CrudGeneFormSub<Integer, String> {
     private GeneComponentModelNb geneComponentModelNb;
 
     public CrudGeneFormNb(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub, AbsCommonFrame _fr, SubscribedTranslationMessagesNbFactory _facto) {
-        super(_fact,_facade,_sub,_fr);
+        super(_fact,_facade,_sub,_fr, null);
         factoryMessage = _facto;
         subscribedTranslations = _sub;
         facadeGame = _facade;
@@ -53,7 +53,7 @@ public final class CrudGeneFormNb extends CrudGeneFormSub<Integer, String> {
                 getCrudGeneFormSubContent().getFacadeGame().getData().getTmPrice().removeKey(k_);
             }
             getList().remove(_index);
-            afterChange();
+            getCrudGeneFormSubContent().afterChange();
             update();
             return;
         }
@@ -62,7 +62,7 @@ public final class CrudGeneFormNb extends CrudGeneFormSub<Integer, String> {
             if (tm) {
                 getCrudGeneFormSubContent().getFacadeGame().getData().getTmPrice().addEntry(k_,price.valueLgInt());
             }
-            afterChange();
+            getCrudGeneFormSubContent().afterChange();
             update();
             return;
         }
@@ -70,7 +70,7 @@ public final class CrudGeneFormNb extends CrudGeneFormSub<Integer, String> {
         if (tm) {
             getCrudGeneFormSubContent().getFacadeGame().getData().getTmPrice().set(k_,price.valueLgInt());
         }
-        afterChange();
+        getCrudGeneFormSubContent().afterChange();
         update();
     }
 
