@@ -90,8 +90,9 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         targetChoice = ConverterCommonMapUtil.buildTargetChoice(getCompoFactory(), getFacade());
         AbsCompoFactory compoFactory_ = getCompoFactory().getCompoFactory();
         damagingMove = compoFactory_.newCustCheckBox();
-        damagingMove.addActionListener(new ChangeMoveKindEvent(this));
         damagingMove.setSelected(true);
+        applyChanges();
+        damagingMove.addActionListener(new ChangeMoveKindEvent(this));
         AbsScrollPane sc_ = compoFactory_.newAbsScrollPane();
         AbsPanel page_ = compoFactory_.newPageBox();
         page_.add(getGeneComponentModelSelectKey().geneEnum());

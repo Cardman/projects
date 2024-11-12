@@ -1,6 +1,5 @@
 package aiki.gui.components.editor;
 
-import aiki.facade.*;
 import aiki.fight.moves.effects.*;
 import aiki.instances.*;
 import code.gui.*;
@@ -11,7 +10,7 @@ import code.util.core.*;
 
 public final class GeneComponentModelEffect implements GeneComponentModel<Effect> {
     private final AbstractProgramInfos programInfos;
-    private GeneComponentModelEltEnum<String> evolutionKind;
+    private GeneComponentModelEltEnum<String> effectKind;
     private GeneComponentModelString fail;
     private Effect edited;
     private final AbsCommonFrame frame;
@@ -24,23 +23,23 @@ public final class GeneComponentModelEffect implements GeneComponentModel<Effect
     @Override
     public AbsCustComponent gene(int _select) {
         StringMap<String> messages_ = MessagesPkEditor.getMessagesEditorSelectEffectTr(MessagesPkEditor.getAppliTr(programInfos.currentLg())).getMapping();
-        evolutionKind = new GeneComponentModelEltEnum<String>(programInfos, messages_);
+        effectKind = new GeneComponentModelEltEnum<String>(programInfos, messages_);
         fail = new GeneComponentModelString(programInfos,new StringList(),new DefValidateText());
         AbsCompoFactory compoFactory_ = programInfos.getCompoFactory();
         AbsPanel evoForm_ = compoFactory_.newLineBox();
         AbsPanel selected_ = compoFactory_.newLineBox();
-        evoForm_.add(evolutionKind.geneEnum(""));
+        evoForm_.add(effectKind.geneEnum(""));
         evoForm_.add(selected_);
         selected_.add(fail.geneString());
-        evolutionKind.getSelect().addListener(new ChangingEffectEvent(this));
-        evolutionKind.getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EFF_DAMAGE));
-        evolutionKind.getSelect().events(null);
+        effectKind.getSelect().addListener(new ChangingEffectEvent(this));
+        effectKind.getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EFF_DAMAGE));
+        effectKind.getSelect().events(null);
         return evoForm_;
     }
 
     public void applyChange() {
         edited = Instances.newEffectDamage();
-        evolutionKind.getSelect().repaint();
+        effectKind.getSelect().repaint();
         frame.pack();
     }
 
@@ -60,8 +59,8 @@ public final class GeneComponentModelEffect implements GeneComponentModel<Effect
         return fail;
     }
 
-    public GeneComponentModelEltEnum<String> getEvolutionKind() {
-        return evolutionKind;
+    public GeneComponentModelEltEnum<String> getEffectKind() {
+        return effectKind;
     }
 
 }

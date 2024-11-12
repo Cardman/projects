@@ -606,8 +606,8 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         g_.getGeneComponentModelSelectKey().setupValue(M_1);
         tryClick(g_.getMoves().getAdd());
         GeneComponentModelEffect effForm_ = effects(g_.getMoves());
-        effForm_.getEvolutionKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EFF_DAMAGE));
-        effForm_.getEvolutionKind().getSelect().events(null);
+        effForm_.getEffectKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EFF_DAMAGE));
+        effForm_.getEffectKind().getSelect().events(null);
         effForm_.getFail().valueString(M_2);
         tryClick(g_.getMoves().getValidAddEdit());
         tryClick(g_.getMoves().getAllButtons().get(0));
@@ -628,8 +628,8 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         g_.getDamagingMove().setSelected(false);
         tryClick(g_.getMoves().getAdd());
         GeneComponentModelEffect evoForm_ = effects(g_.getMoves());
-        evoForm_.getEvolutionKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EFF_STATIS));
-        evoForm_.getEvolutionKind().getSelect().events(null);
+        evoForm_.getEffectKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EFF_STATIS));
+        evoForm_.getEffectKind().getSelect().events(null);
         evoForm_.getFail().valueString(M_2);
         tryClick(g_.getMoves().getValidAddEdit());
         tryClick(c_.getValidAddEdit());
