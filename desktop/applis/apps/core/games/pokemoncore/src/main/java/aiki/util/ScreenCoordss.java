@@ -1,15 +1,17 @@
 package aiki.util;
 
 import aiki.map.util.ScreenCoords;
+import code.util.*;
 
-public abstract class ScreenCoordss<T> extends CommonMap<ScreenCoords,T> {
+public abstract class ScreenCoordss<T> extends AbsBasicMap<ScreenCoords,T> {
     protected ScreenCoordss() {
     }
-    protected ScreenCoordss(CommonMap<ScreenCoords,T> _other) {
-        super(_other);
+    protected ScreenCoordss(AbsBasicMap<ScreenCoords,T> _other) {
+        super(new CollCapacity(_other.size()));
+        addAllEntries(_other);
     }
     @Override
-    protected boolean eq(ScreenCoords _one, ScreenCoords _two) {
+    protected boolean matchKeys(ScreenCoords _one, ScreenCoords _two) {
         return _one.eq(_two);
     }
 }

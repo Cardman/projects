@@ -7,7 +7,7 @@ import aiki.map.pokemon.WildPk;
 import aiki.map.tree.util.Dims;
 import aiki.map.util.Limits;
 import aiki.util.*;
-import code.util.CustList;
+import code.util.*;
 import code.util.core.IndexConstants;
 
 public class LevelArea {
@@ -28,7 +28,7 @@ public class LevelArea {
         inacessiblePoints = new PointEqList();
         indexes = new PointsShort();
         dimsBlocks = new PointsDims();
-        for (CommonParam<Point,Block> e : _level.getBlocks().entryList()) {
+        for (EntryCust<Point,Block> e : _level.getBlocks().entryList()) {
             Block block_ = e.getValue();
             Point id_ = e.getKey();
             if (block_.getType() != EnvironmentType.NOTHING) {

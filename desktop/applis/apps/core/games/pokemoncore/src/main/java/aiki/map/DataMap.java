@@ -685,7 +685,7 @@ public final class DataMap {
     private CoordssCondition filterAccessibility() {
         Condition coords_ = coordsPossibleLeague();
         CoordssCondition filterAccessibility_ = new CoordssCondition();
-        for (CommonParam<Coords, Condition> c : accessibility.entryList()) {
+        for (EntryCust<Coords, Condition> c : accessibility.entryList()) {
             if (coords_.containsAllObj(c.getValue())) {
                 filterAccessibility_.addEntry(c.getKey(), c.getValue());
             }
@@ -1009,7 +1009,7 @@ public final class DataMap {
         for (EntryCust<Byte, Level> e : levels_.entryList()) {
             LevelWithWildPokemon wild_ = (LevelWithWildPokemon) e
                     .getValue();
-            for (CommonParam<Point,CharacterInRoadCave> c : wild_
+            for (EntryCust<Point,CharacterInRoadCave> c : wild_
                     .getCharacters().entryList()) {
                 if (!(c.getValue() instanceof TrainerMultiFights)) {
                     continue;
@@ -1028,7 +1028,7 @@ public final class DataMap {
     }
 
     private void utilBuildings(short _s, City _place) {
-        for (CommonParam<Point,Building> b : _place
+        for (EntryCust<Point,Building> b : _place
                 .getBuildings().entryList()) {
             if (b.getValue() instanceof PokemonCenter) {
                 Coords coordsCity_ = coords(_s, new LevelPoint());
@@ -1073,8 +1073,8 @@ public final class DataMap {
         }
     }
 
-    private void hosts(short _s, CommonParam<Point, Building> _b) {
-        for (CommonParam<Point,Person> g : ((PokemonCenter) _b
+    private void hosts(short _s, EntryCust<Point, Building> _b) {
+        for (EntryCust<Point,Person> g : ((PokemonCenter) _b
                 .getValue()).getIndoor().getGerants()
                 .entryList()) {
             if (g.getValue() instanceof GerantPokemon && ((GerantPokemon) g.getValue()).getGerance() == GeranceType.HOST) {
@@ -1089,7 +1089,7 @@ public final class DataMap {
     }
 
     private void gymTrainersLeader(short _s, City _place) {
-        for (CommonParam<Point,Building> b : _place
+        for (EntryCust<Point,Building> b : _place
                 .getBuildings().entryList()) {
             if (b.getValue() instanceof Gym) {
                 Coords c_ = coords(_s, new LevelPoint());
@@ -1202,7 +1202,7 @@ public final class DataMap {
             if (diff_.isEmpty()) {
                 break;
             }
-            for (CommonParam<Coords, Condition> e : neigh_.entryList()) {
+            for (EntryCust<Coords, Condition> e : neigh_.entryList()) {
                 Coords c_ = e.getKey();
                 if (accessConditionToBeTreated(c_, allTiles_)) {
                     coordsCondBis_.put(c_, e.getValue());
@@ -1230,7 +1230,7 @@ public final class DataMap {
     }
 
     private void feedAllTiles(CoordssCondition _coordsCond, CoordssCondition _allTiles, CoordssCondition _neigh, Condition _inext, Condition _ext) {
-        for (CommonParam<Coords, Condition> e : _neigh.entryList()) {
+        for (EntryCust<Coords, Condition> e : _neigh.entryList()) {
             Coords c_ = e.getKey();
             if (accessConditionToBeTreated(c_, _coordsCond)) {
                 _inext.add(c_);
@@ -1274,7 +1274,7 @@ public final class DataMap {
     private void coordsCondReset(Condition _leaders, CoordssCondition _coordsCond, CoordssCondition _coordsCondBis, CoordssCondition _allTiles) {
         _coordsCond.clear();
         Condition initCond_ = new Condition();
-        for (CommonParam<Coords, Condition> e : _coordsCondBis.entryList()) {
+        for (EntryCust<Coords, Condition> e : _coordsCondBis.entryList()) {
             Coords c_ = e.getKey();
             if (accessConditionToBeTreated(c_, _allTiles)) {
                 Condition cond_ = e.getValue();
@@ -1356,7 +1356,7 @@ public final class DataMap {
     private void neighbours(CoordssCondition _visitedGl, CoordssCondition _visitedTiles, Condition _newPlaces, Coords _i) {
         CoordssCondition neighbours_ = getNext(_i,
                 _visitedTiles.getVal(_i));
-        for (CommonParam<Coords, Condition> e : neighbours_.entryList()) {
+        for (EntryCust<Coords, Condition> e : neighbours_.entryList()) {
             Coords n_ = e.getKey();
             if (!_visitedTiles.contains(n_) && !_visitedGl.contains(n_)) {
                 _visitedTiles.put(n_, e.getValue());
@@ -1603,7 +1603,7 @@ public final class DataMap {
             Condition eq_ = eqs(_accessCoords, defaultCondition_, c);
             groups_.put(c, eq_);
         }
-        for (CommonParam<Coords, Condition> e : groups_.entryList()) {
+        for (EntryCust<Coords, Condition> e : groups_.entryList()) {
             Condition cond_ = _condition.getVal(e.getKey());
             for (Coords c2_ : e.getValue()) {
                 Condition condLoc_ = _condition.getVal(c2_);

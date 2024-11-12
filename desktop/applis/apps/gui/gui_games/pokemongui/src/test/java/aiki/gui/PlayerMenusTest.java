@@ -4202,7 +4202,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
     public void mapReturn4() {
         WindowAiki window_ = newProg();
         loadRomGameMapReturn(window_);
-        window_.getFacade().getGame().getVisitedPlaces().getList().get(1).setValue(BoolVal.FALSE);
+        window_.getFacade().getGame().getVisitedPlaces().setValue(1,BoolVal.FALSE);
         tryClick(window_.getScenePanel().getGoBack());
         tryClick(window_.getScenePanel().getMapPanel().getTiles().get(3));
         tryClick(window_.getScenePanel().getValidateMoveToPlace());
@@ -4253,8 +4253,8 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
     }
     private static void loadRomGameOneHost(WindowAiki _window) {
         loadRomGameHost(_window);
-        _window.getFacade().getGame().getHostedPk().getList().get(0).getValue().setFirstPokemon(pk(_window));
-        _window.getFacade().getGame().getHostedPk().getList().get(0).getValue().setSecondPokemon(pk(_window));
+        _window.getFacade().getGame().getHostedPk().getValue(0).setFirstPokemon(pk(_window));
+        _window.getFacade().getGame().getHostedPk().getValue(0).setSecondPokemon(pk(_window));
     }
     private static void loadRomGameItBase(WindowAiki _window) {
         loadRom(_window, coreDataBaseIt());

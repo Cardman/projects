@@ -1,9 +1,8 @@
 package aiki.fight.util;
 
-import aiki.util.*;
 import code.util.*;
 
-public abstract class StatisticCategoryList<T> extends CommonMap<StatisticCategory,T> {
+public abstract class StatisticCategoryList<T> extends AbsBasicMap<StatisticCategory,T> {
     protected StatisticCategoryList() {
     }
     protected StatisticCategoryList(CollCapacity _cap) {
@@ -11,7 +10,7 @@ public abstract class StatisticCategoryList<T> extends CommonMap<StatisticCatego
     }
 
     @Override
-    protected boolean eq(StatisticCategory _k, StatisticCategory _e) {
+    protected boolean matchKeys(StatisticCategory _k, StatisticCategory _e) {
         return _k.eq(_e);
     }
 

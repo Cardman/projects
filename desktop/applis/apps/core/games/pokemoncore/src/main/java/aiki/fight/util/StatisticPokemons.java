@@ -1,9 +1,8 @@
 package aiki.fight.util;
 
-import aiki.util.*;
 import code.util.*;
 
-public final class StatisticPokemons extends CommonMap<StatisticPokemon,Byte> {
+public final class StatisticPokemons extends AbsBasicMap<StatisticPokemon,Byte> {
     public StatisticPokemons() {
     }
     public StatisticPokemons(CollCapacity _cap) {
@@ -11,7 +10,7 @@ public final class StatisticPokemons extends CommonMap<StatisticPokemon,Byte> {
     }
 
     @Override
-    protected boolean eq(StatisticPokemon _k, StatisticPokemon _e) {
+    protected boolean matchKeys(StatisticPokemon _k, StatisticPokemon _e) {
         return _k.eq(_e);
     }
 

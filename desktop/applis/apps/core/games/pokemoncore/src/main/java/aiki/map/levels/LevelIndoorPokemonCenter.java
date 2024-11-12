@@ -6,6 +6,7 @@ import aiki.map.characters.Person;
 import aiki.map.characters.Seller;
 import aiki.map.tree.LevelArea;
 import aiki.util.*;
+import code.util.*;
 
 
 public final class LevelIndoorPokemonCenter extends Level {
@@ -20,7 +21,7 @@ public final class LevelIndoorPokemonCenter extends Level {
         PointEqList keys_ = new PointEqList();
         DataInfoChecker.checkKey(_data,_level,storageCoords,true);
         keys_.add(storageCoords);
-        for (CommonParam<Point,Person> e : gerants.entryList()) {
+        for (EntryCust<Point,Person> e : gerants.entryList()) {
             DataInfoChecker.checkKey(_data,_level,e.getKey(),true);
             if (!(e.getValue() instanceof GerantPokemon) && !(e.getValue() instanceof Seller)) {
                 _data.setError(true);

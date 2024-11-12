@@ -1,9 +1,8 @@
 package aiki.fight.util;
 
-import aiki.util.*;
 import code.util.*;
 
-public final class StatisticStatusList extends CommonMap<StatisticStatus,Byte> {
+public final class StatisticStatusList extends AbsBasicMap<StatisticStatus,Byte> {
     public StatisticStatusList() {
     }
     public StatisticStatusList(CollCapacity _cap) {
@@ -16,7 +15,7 @@ public final class StatisticStatusList extends CommonMap<StatisticStatus,Byte> {
     }
 
     @Override
-    protected boolean eq(StatisticStatus _k, StatisticStatus _e) {
+    protected boolean matchKeys(StatisticStatus _k, StatisticStatus _e) {
         return _k.eq(_e);
     }
 

@@ -9,8 +9,7 @@ import aiki.map.tree.LevelArea;
 import aiki.map.tree.PlaceArea;
 import aiki.map.tree.Tree;
 import aiki.util.*;
-import code.util.ByteMap;
-import code.util.CustList;
+import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 
@@ -35,7 +34,7 @@ public final class Cave extends Campaign {
         for (byte i = IndexConstants.FIRST_INDEX; i < nbLevels_; i++) {
             LevelCave level_ = levels.get(i);
             level_.validate(_data, _placeArea.getLevel(i));
-            for (CommonParam<Point,Link> e : level_.getLinksOtherLevels()
+            for (EntryCust<Point,Link> e : level_.getLinksOtherLevels()
                     .entryList()) {
                 validateLinkLevels(_data, _placeArea, level_, e);
             }
@@ -65,7 +64,7 @@ public final class Cave extends Campaign {
         }
     }
 
-    private void validateLinkLevels(DataBase _data, PlaceArea _placeArea, LevelCave _level, CommonParam<Point, Link> _e) {
+    private void validateLinkLevels(DataBase _data, PlaceArea _placeArea, LevelCave _level, EntryCust<Point, Link> _e) {
         Link link_ = _e.getValue();
         DataInfoChecker.checkLink(_data,link_);
         DataInfoChecker.checkEmptyForAdding(_data,_level,_e.getKey());
@@ -95,7 +94,7 @@ public final class Cave extends Campaign {
         boolean valid_ = true;
         for (byte i = IndexConstants.FIRST_INDEX; i < nbLevels_; i++) {
             LevelCave level_ = levels.get(i);
-            for (CommonParam<Point,Link> e : level_.getLinksOtherLevels()
+            for (EntryCust<Point,Link> e : level_.getLinksOtherLevels()
                     .entryList()) {
                 valid_ = checkIdOtherLevel(_place, ids_, valid_, i, e);
             }
@@ -113,7 +112,7 @@ public final class Cave extends Campaign {
         return valid_;
     }
 
-    private boolean checkIdOtherLevel(short _place, LevelPointEqList _ids, boolean _valid, byte _i, CommonParam<Point, Link> _e) {
+    private boolean checkIdOtherLevel(short _place, LevelPointEqList _ids, boolean _valid, byte _i, EntryCust<Point, Link> _e) {
         boolean valid_ = _valid;
         Link link_ = _e.getValue();
         Coords coords_ = link_.getCoords();
@@ -146,7 +145,7 @@ public final class Cave extends Campaign {
         return valid_;
     }
 
-    private void addKey(byte _i, CommonParam<Point, Link> _e, LevelPointEqList _ids) {
+    private void addKey(byte _i, EntryCust<Point, Link> _e, LevelPointEqList _ids) {
         LevelPoint id_ = new LevelPoint();
         id_.setLevelIndex(_i);
         id_.setPoint(_e.getKey());

@@ -8,7 +8,6 @@ import aiki.map.tree.Tree;
 import aiki.map.util.PlaceInterConnectCoords;
 import aiki.map.util.PlaceInterConnects;
 import aiki.util.*;
-import code.util.CustList;
 import code.util.*;
 
 public abstract class Place {
@@ -41,7 +40,7 @@ public abstract class Place {
                 return false;
             }
         }
-        for (CommonParam<Point,Link> e : _linksWithCaves.entryList()) {
+        for (EntryCust<Point,Link> e : _linksWithCaves.entryList()) {
             Link link_ = e.getValue();
             if (!_tree.isValid(link_.getCoords(), true)) {
                 return false;

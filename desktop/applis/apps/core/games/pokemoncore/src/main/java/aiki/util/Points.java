@@ -1,9 +1,8 @@
 package aiki.util;
 
-import code.util.CollCapacity;
-import code.util.CustList;
+import code.util.*;
 
-public abstract class Points<T> extends CommonMap<Point,T> {
+public abstract class Points<T> extends AbsBasicMap<Point,T> {
     protected Points() {
     }
     protected Points(CollCapacity _cap) {
@@ -70,7 +69,7 @@ public abstract class Points<T> extends CommonMap<Point,T> {
     }
 
     @Override
-    protected boolean eq(Point _one, Point _two) {
+    protected boolean matchKeys(Point _one, Point _two) {
         return _one.eq(_two);
     }
 }

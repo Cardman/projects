@@ -3,9 +3,9 @@ package aiki.util;
 import aiki.game.fight.Fighter;
 import aiki.game.fight.TargetCoords;
 import aiki.game.fight.util.MoveTarget;
-import code.util.CollCapacity;
+import code.util.*;
 
-public final class MoveTargets extends CommonMap<MoveTarget,MoveTarget> {
+public final class MoveTargets extends AbsBasicMap<MoveTarget,MoveTarget> {
     public MoveTargets() {
 
     }
@@ -19,7 +19,7 @@ public final class MoveTargets extends CommonMap<MoveTarget,MoveTarget> {
     }
 
     @Override
-    protected boolean eq(MoveTarget _one, MoveTarget _two) {
+    protected boolean matchKeys(MoveTarget _one, MoveTarget _two) {
         return _one.eq(_two);
     }
 

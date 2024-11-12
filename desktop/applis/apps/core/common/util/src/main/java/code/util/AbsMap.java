@@ -145,9 +145,12 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V>, IntIndexOfE
     public V getVal(K _key) {
         EntryCust<K,V> e_ = getEntryByKey(_key);
         if (e_ == null) {
-            return null;
+            return def();
         }
         return e_.getValue();
+    }
+    protected V def(){
+        return null;
     }
     @Override
     public void move(K _oldKey, K _newKey) {

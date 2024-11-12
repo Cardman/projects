@@ -6,7 +6,6 @@ import aiki.facade.FacadeGame;
 import aiki.gui.components.AbsMetaLabelPk;
 import aiki.map.enums.Direction;
 import aiki.map.util.ScreenCoords;
-import aiki.util.CommonParam;
 import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseButtons;
 import code.gui.AbsMouseLocation;
@@ -16,8 +15,7 @@ import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
-import code.util.CustList;
-import code.util.TreeMap;
+import code.util.*;
 
 public final class Scene extends AbsMetaLabelPk implements AbsMouseListenerIntRel {
 
@@ -131,7 +129,7 @@ public final class Scene extends AbsMetaLabelPk implements AbsMouseListenerIntRe
 //        }
 //        background.clear();
 //        foreground.clear();
-        for (CommonParam<ScreenCoords, int[][]> sc_: _facade.getBackgroundImages().entryList()) {
+        for (EntryCust<ScreenCoords, int[][]> sc_: _facade.getBackgroundImages().entryList()) {
             int[][] img_ = sc_.getValue();
 //            AbstractImage buff_ = ConverterGraphicBufferedImage.decodeToImage(_fact,img_);
 //            ConverterGraphicBufferedImage.transparentAllWhite(buff_);
@@ -140,7 +138,7 @@ public final class Scene extends AbsMetaLabelPk implements AbsMouseListenerIntRe
         }
 //        background_.putAllMap(oldLine_);
 //        _sideLength_ = _facade.getMap().getSideLength();
-        for (CommonParam<ScreenCoords, CustList<int[][]>> sc_: _facade.getForegroundImages().entryList()) {
+        for (EntryCust<ScreenCoords, CustList<int[][]>> sc_: _facade.getForegroundImages().entryList()) {
             CustList<AbstractImage> imgs_ = new CustList<AbstractImage>();
             for (int[][] b: sc_.getValue()) {
 //                if (b.length == 0) {

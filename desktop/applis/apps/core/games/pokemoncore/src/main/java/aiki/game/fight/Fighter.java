@@ -2352,7 +2352,7 @@ public final class Fighter {
 
     MoveTeamPositionsActivityOfMove enabledRelationsTraps() {
         MoveTeamPositionsActivityOfMove list_ = new MoveTeamPositionsActivityOfMove();
-        for(CommonParam<MoveTeamPosition, ActivityOfMove> m:trappingMoves.entryList()){
+        for(EntryCust<MoveTeamPosition, ActivityOfMove> m:trappingMoves.entryList()){
             if(!m.getValue().isEnabled()){
                 continue;
             }

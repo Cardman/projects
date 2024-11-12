@@ -1,10 +1,9 @@
 package aiki.fight.util;
 
-import aiki.util.*;
 import code.maths.*;
 import code.util.*;
 
-public final class WeatherTypes extends CommonMap<WeatherType,Rate> {
+public final class WeatherTypes extends AbsBasicMap<WeatherType,Rate> {
     public WeatherTypes() {
     }
     public WeatherTypes(CollCapacity _cap) {
@@ -17,7 +16,7 @@ public final class WeatherTypes extends CommonMap<WeatherType,Rate> {
     }
 
     @Override
-    protected boolean eq(WeatherType _k, WeatherType _e) {
+    protected boolean matchKeys(WeatherType _k, WeatherType _e) {
         return _k.eq(_e);
     }
 

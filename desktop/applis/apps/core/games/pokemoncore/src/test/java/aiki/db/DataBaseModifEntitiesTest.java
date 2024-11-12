@@ -838,7 +838,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         db_.renameMove(POKE_BALL,PIKACHU);
         assertEq(1,db_.getMoves().size());
         assertEq(PIKACHU,db_.getMoves().firstKey());
-        assertEq(PIKACHU,d_.getHealHpByTypeIfWeather().getList().first().getKey().getWeather());
+        assertEq(PIKACHU,d_.getHealHpByTypeIfWeather().firstKey().getWeather());
     }
     @Test
     public void renameMove6() {
@@ -2099,7 +2099,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         move_.getHealHpByTypeIfWeather().addEntry(new WeatherType(POKE_BALL,POKE_BALL),Rate.one());
         db_.completeMembers(POKE_BALL_2, move_);
         db_.renameType(POKE_BALL,PIKACHU);
-        assertEq(PIKACHU,move_.getHealHpByTypeIfWeather().entryList().first().getKey().getType());
+        assertEq(PIKACHU,move_.getHealHpByTypeIfWeather().firstKey().getType());
     }
     @Test
     public void renameType17() {
@@ -2124,8 +2124,8 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         DataBase db_ = newData();
         db_.getTableTypes().addEntry(new TypesDuo(POKE_BALL,POKE_BALL),Rate.one());
         db_.renameType(POKE_BALL,PIKACHU);
-        assertEq(PIKACHU,db_.getTableTypes().getList().first().getKey().getDamageType());
-        assertEq(PIKACHU,db_.getTableTypes().getList().first().getKey().getPokemonType());
+        assertEq(PIKACHU,db_.getTableTypes().firstKey().getDamageType());
+        assertEq(PIKACHU,db_.getTableTypes().firstKey().getPokemonType());
     }
     @Test
     public void deleteType0() {
@@ -2153,7 +2153,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         move_.getTypes().add(POKE_BALL);
         db_.completeMembers(POKE_BALL_2, move_);
         db_.deleteType(POKE_BALL);
-        assertEq(1,db_.getTableTypes().getList().size());
+        assertEq(1,db_.getTableTypes().size());
     }
     @Test
     public void deleteType3() {
@@ -2165,7 +2165,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         move_.getEffects().add(e_);
         db_.completeMembers(POKE_BALL_2, move_);
         db_.deleteType(POKE_BALL);
-        assertEq(1,db_.getTableTypes().getList().size());
+        assertEq(1,db_.getTableTypes().size());
     }
     @Test
     public void deleteType4() {
@@ -2177,7 +2177,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         move_.getEffects().add(e_);
         db_.completeMembers(POKE_BALL_2, move_);
         db_.deleteType(POKE_BALL);
-        assertEq(1,db_.getTableTypes().getList().size());
+        assertEq(1,db_.getTableTypes().size());
     }
     @Test
     public void deleteType5() {
@@ -2189,7 +2189,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         move_.getEffects().add(e_);
         db_.completeMembers(POKE_BALL_2, move_);
         db_.deleteType(POKE_BALL);
-        assertEq(1,db_.getTableTypes().getList().size());
+        assertEq(1,db_.getTableTypes().size());
     }
     @Test
     public void deleteType6() {
@@ -2201,7 +2201,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         move_.getEffects().add(e_);
         db_.completeMembers(POKE_BALL_2, move_);
         db_.deleteType(POKE_BALL);
-        assertEq(1,db_.getTableTypes().getList().size());
+        assertEq(1,db_.getTableTypes().size());
     }
     @Test
     public void deleteType7() {
@@ -2213,7 +2213,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         move_.getEffects().add(e_);
         db_.completeMembers(POKE_BALL_2, move_);
         db_.deleteType(POKE_BALL);
-        assertEq(1,db_.getTableTypes().getList().size());
+        assertEq(1,db_.getTableTypes().size());
     }
     @Test
     public void deleteType8() {
@@ -2225,7 +2225,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         move_.getEffects().add(e_);
         db_.completeMembers(POKE_BALL_2, move_);
         db_.deleteType(POKE_BALL);
-        assertEq(1,db_.getTableTypes().getList().size());
+        assertEq(1,db_.getTableTypes().size());
     }
     @Test
     public void deleteType9() {
@@ -2237,7 +2237,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         move_.getEffects().add(e_);
         db_.completeMembers(POKE_BALL_2, move_);
         db_.deleteType(POKE_BALL);
-        assertEq(1,db_.getTableTypes().getList().size());
+        assertEq(1,db_.getTableTypes().size());
     }
     @Test
     public void deleteType10() {
@@ -2249,7 +2249,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         move_.getEffects().add(e_);
         db_.completeMembers(POKE_BALL_2, move_);
         db_.deleteType(POKE_BALL);
-        assertEq(1,db_.getTableTypes().getList().size());
+        assertEq(1,db_.getTableTypes().size());
     }
     @Test
     public void deleteType11() {
@@ -2262,7 +2262,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         move_.getEffects().add(Instances.newEffectEndRoundFoe());
         db_.completeMembers(POKE_BALL_2, move_);
         db_.deleteType(POKE_BALL);
-        assertEq(1,db_.getTableTypes().getList().size());
+        assertEq(1,db_.getTableTypes().size());
     }
     @Test
     public void deleteType12() {
@@ -2274,7 +2274,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         move_.getEffectEndRound().add(e_);
         db_.completeMembers(POKE_BALL_2, move_);
         db_.deleteType(POKE_BALL);
-        assertEq(1,db_.getTableTypes().getList().size());
+        assertEq(1,db_.getTableTypes().size());
     }
     @Test
     public void deleteType13() {
@@ -2284,7 +2284,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         move_.getMultFoesDamage().addEntry(POKE_BALL,new EfficiencyRate(Rate.one(),Rate.one()));
         db_.completeMembers(POKE_BALL_2, move_);
         db_.deleteType(POKE_BALL);
-        assertEq(1,db_.getTableTypes().getList().size());
+        assertEq(1,db_.getTableTypes().size());
     }
     @Test
     public void deleteType14() {
@@ -2294,7 +2294,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         move_.getMultStatIfDamgeType().addEntry(new StatisticType(Statistic.SPEED,POKE_BALL),(byte)0);
         db_.completeMembers(POKE_BALL_2, move_);
         db_.deleteType(POKE_BALL);
-        assertEq(1,db_.getTableTypes().getList().size());
+        assertEq(1,db_.getTableTypes().size());
     }
     @Test
     public void deleteType15() {
@@ -2304,7 +2304,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         move_.getBreakFoeImmune().add(new TypesDuo(POKE_BALL,POKE_BALL));
         db_.completeMembers(POKE_BALL_2, move_);
         db_.deleteType(POKE_BALL);
-        assertEq(1,db_.getTableTypes().getList().size());
+        assertEq(1,db_.getTableTypes().size());
     }
     @Test
     public void deleteType16() {
@@ -2314,7 +2314,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         move_.getHealHpByTypeIfWeather().addEntry(new WeatherType(POKE_BALL,POKE_BALL),Rate.one());
         db_.completeMembers(POKE_BALL_2, move_);
         db_.deleteType(POKE_BALL);
-        assertEq(1,db_.getTableTypes().getList().size());
+        assertEq(1,db_.getTableTypes().size());
     }
     @Test
     public void deleteType17() {
@@ -2324,7 +2324,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         move_.getImmuMoveTypesByWeather().addEntry(NULL_REF,new StringList(POKE_BALL));
         db_.completeMembers(POKE_BALL_2, move_);
         db_.deleteType(POKE_BALL);
-        assertEq(1,db_.getTableTypes().getList().size());
+        assertEq(1,db_.getTableTypes().size());
     }
     @Test
     public void deleteType18() {
@@ -2334,14 +2334,14 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         move_.setTypeForMoves(POKE_BALL);
         db_.completeMembers(POKE_BALL_2, move_);
         db_.deleteType(POKE_BALL);
-        assertEq(1,db_.getTableTypes().getList().size());
+        assertEq(1,db_.getTableTypes().size());
     }
     @Test
     public void deleteType19() {
         DataBase db_ = newData();
         db_.getTableTypes().addEntry(new TypesDuo(POKE_BALL,POKE_BALL),Rate.one());
         db_.deleteType(POKE_BALL);
-        assertEq(0,db_.getTableTypes().getList().size());
+        assertEq(0,db_.getTableTypes().size());
     }
     @Test
     public void deleteType20() {
@@ -2351,7 +2351,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         db_.getTableTypes().addEntry(new TypesDuo(POKE_BALL_2,POKE_BALL),Rate.one());
         db_.getTableTypes().addEntry(new TypesDuo(POKE_BALL_2,POKE_BALL_2),Rate.one());
         db_.deleteType(POKE_BALL);
-        assertEq(1,db_.getTableTypes().getList().size());
+        assertEq(1,db_.getTableTypes().size());
     }
     @Test
     public void deleteType21() {
@@ -2363,7 +2363,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         move_.getEffects().add(eff_);
         db_.completeMembers(POKE_BALL_2, move_);
         db_.deleteType(POKE_BALL);
-        assertEq(1,db_.getTableTypes().getList().size());
+        assertEq(1,db_.getTableTypes().size());
     }
     @Test
     public void renameCategory0() {
@@ -2428,7 +2428,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         ab_.getEffects().add(Instances.newEffectEndRoundFoe());
         db_.completeMembers(POKE_BALL_2, ab_);
         db_.renameCategory(POKE_BALL,PIKACHU);
-        assertEq(PIKACHU,e_.getMultDamage().getList().first().getKey().getCategory());
+        assertEq(PIKACHU,e_.getMultDamage().firstKey().getCategory());
     }
     @Test
     public void renameCategory6() {
@@ -2601,7 +2601,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         db_.renameTm((short)1,(short)2);
         assertEq(1,db_.getTm().size());
         assertEq(2,db_.getTm().firstKey());
-        assertEq(2,r_.getLevelRoad().getTm().getList().first().getValue());
+        assertEq(2,r_.getLevelRoad().getTm().firstValue());
     }
     @Test
     public void renameTm5() {
@@ -2613,7 +2613,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         db_.renameTm((short)1,(short)2);
         assertEq(1,db_.getTm().size());
         assertEq(2,db_.getTm().firstKey());
-        assertEq(3,r_.getLevelRoad().getTm().getList().first().getValue());
+        assertEq(3,r_.getLevelRoad().getTm().firstValue());
     }
     @Test
     public void renameTm6() {
@@ -2794,7 +2794,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         db_.renameHm((short)1,(short)2);
         assertEq(1,db_.getHm().size());
         assertEq(2,db_.getHm().firstKey());
-        assertEq(2,r_.getLevelRoad().getHm().getList().first().getValue());
+        assertEq(2,r_.getLevelRoad().getHm().firstValue());
     }
     @Test
     public void renameHm5() {
@@ -2806,7 +2806,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         db_.renameHm((short)1,(short)2);
         assertEq(1,db_.getHm().size());
         assertEq(2,db_.getHm().firstKey());
-        assertEq(3,r_.getLevelRoad().getHm().getList().first().getValue());
+        assertEq(3,r_.getLevelRoad().getHm().firstValue());
     }
     @Test
     public void deleteHm1() {

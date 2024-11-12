@@ -41,7 +41,6 @@ import aiki.game.fight.util.NextUsers;
 import aiki.game.fight.util.RandomBoolResults;
 import aiki.game.params.Difficulty;
 import aiki.game.player.Player;
-import aiki.util.CommonParam;
 import aiki.util.TargetCoordsList;
 import aiki.util.TeamPositionList;
 import code.maths.LgInt;
@@ -98,7 +97,7 @@ final class FightRound {
     }
 
     private static boolean foundComboGeneTarget(Fight _fight, DataBase _import, TeamPosition _partner, TeamPositionList _playerList) {
-        for (CommonParam<MoveTarget, MoveTarget> p: _fight.getAllyChoice().entryList()) {
+        for (EntryCust<MoveTarget, MoveTarget> p: _fight.getAllyChoice().entryList()) {
             if (foundComboGeneTarget(_fight, _import, _partner, _playerList,p.getKey(), p.getValue())) {
                 return true;
             }
@@ -124,7 +123,7 @@ final class FightRound {
     }
 
     private static boolean foundComboSpecTarget(Fight _fight, DataBase _import, TeamPosition _partner, TeamPositionList _playerList) {
-        for (CommonParam<MoveTarget, MoveTarget> p: _fight.getAllyChoice().entryList()) {
+        for (EntryCust<MoveTarget, MoveTarget> p: _fight.getAllyChoice().entryList()) {
             if (foundComboSpecTarget(_fight, _import, _partner, _playerList,p.getKey(), p.getValue())) {
                 return true;
             }
@@ -963,7 +962,7 @@ final class FightRound {
 
     private static void effectWhileFailHealByWeather(Fight _fight, TeamPosition _target, DataBase _import, Fighter _creatureCible, StringList _typeAttaque, WeatherTypes _healHpByTypeIfWeather) {
         StringList activeWeathers_ = FightMoves.climatsActifs(_fight,_import);
-        for(CommonParam<WeatherType, Rate> k: _healHpByTypeIfWeather.entryList()){
+        for(EntryCust<WeatherType, Rate> k: _healHpByTypeIfWeather.entryList()){
             if (!StringUtil.contains(_typeAttaque, k.getKey().getType())) {
                 continue;
             }
@@ -971,7 +970,7 @@ final class FightRound {
         }
     }
 
-    private static void effectWhileFailHealByWeatherType(Fight _fight, TeamPosition _target, DataBase _import, Fighter _creatureCible, StringList _activeWeathers, CommonParam<WeatherType, Rate> _k) {
+    private static void effectWhileFailHealByWeatherType(Fight _fight, TeamPosition _target, DataBase _import, Fighter _creatureCible, StringList _activeWeathers, EntryCust<WeatherType, Rate> _k) {
         for (String w: _activeWeathers) {
             if(!StringUtil.quickEq(_k.getKey().getWeather(),w)){
                 continue;

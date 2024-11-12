@@ -11,12 +11,11 @@ import aiki.map.levels.Level;
 import aiki.map.levels.LevelWithWildPokemon;
 import aiki.map.places.*;
 import aiki.map.util.PlaceInterConnectCoords;
-import aiki.util.CommonParam;
 import aiki.util.Coords;
 import aiki.util.Point;
 import aiki.util.Points;
 import code.scripts.confs.PkScriptPages;
-import code.util.CustList;
+import code.util.*;
 import code.util.core.IndexConstants;
 
 public abstract class AbsLevelBean extends CommonBean {
@@ -89,7 +88,7 @@ public abstract class AbsLevelBean extends CommonBean {
         if (_addBorder) {
             DataBase.updateBorders(_map, _side);
         }
-        for (CommonParam<Point,int[][]> pt_: _map.entryList()) {
+        for (EntryCust<Point,int[][]> pt_: _map.entryList()) {
             _de.put(pt_.getKey(), pt_.getValue());
         }
     }

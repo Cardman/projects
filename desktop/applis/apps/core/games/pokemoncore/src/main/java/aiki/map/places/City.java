@@ -14,7 +14,6 @@ import aiki.map.tree.Tree;
 import aiki.map.util.PlaceInterConnect;
 import aiki.map.util.PlaceInterConnects;
 import aiki.util.*;
-import code.util.CustList;
 import code.util.*;
 
 import code.util.core.IndexConstants;
@@ -48,7 +47,7 @@ public final class City extends Place implements InitializedPlace {
         PointEqList ids_ = new PointEqList();
         ids_.addAllElts(linksWithCaves.getKeys());
         ids_.addAllElts(buildings.getKeys());
-        for (CommonParam<Point,Building> e : buildings.entryList()) {
+        for (EntryCust<Point,Building> e : buildings.entryList()) {
             if (levelArea_.isAccessible(e.getKey())) {
                 _data.setError(true);
             }

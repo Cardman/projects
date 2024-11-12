@@ -1,10 +1,9 @@
 package aiki.fight.util;
 
-import aiki.util.*;
 import code.maths.*;
 import code.util.*;
 
-public final class CategoryMults extends CommonMap<CategoryMult,Rate> {
+public final class CategoryMults extends AbsBasicMap<CategoryMult,Rate> {
     public CategoryMults() {
     }
     public CategoryMults(CollCapacity _cap) {
@@ -17,7 +16,7 @@ public final class CategoryMults extends CommonMap<CategoryMult,Rate> {
     }
 
     @Override
-    protected boolean eq(CategoryMult _k, CategoryMult _e) {
+    protected boolean matchKeys(CategoryMult _k, CategoryMult _e) {
         return _k.eq(_e);
     }
 

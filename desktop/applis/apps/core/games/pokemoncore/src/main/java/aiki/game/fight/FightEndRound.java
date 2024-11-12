@@ -32,7 +32,6 @@ import aiki.game.params.Difficulty;
 import aiki.game.player.Player;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
-import aiki.util.CommonParam;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
@@ -1019,7 +1018,7 @@ final class FightEndRound {
 
     static void effectEndRoundSingleRelation(Fight _fight,TeamPosition _combattant,EffectEndRoundSingleRelation _effet,String _attaque,Difficulty _diff,DataBase _import){
         Fighter creatureLanceur_=_fight.getFighter(_combattant);
-        for(CommonParam<MoveTeamPosition, ActivityOfMove> c:creatureLanceur_.enabledRelationsTraps().entryList()){
+        for(EntryCust<MoveTeamPosition, ActivityOfMove> c:creatureLanceur_.enabledRelationsTraps().entryList()){
             if (effectEndRoundSingleRelationMoveExit(_fight,_combattant,_effet,_attaque,_diff,_import,c)) {
                 return;
             }
@@ -1073,7 +1072,7 @@ final class FightEndRound {
 //            }
         }
     }
-    private static boolean effectEndRoundSingleRelationMoveExit(Fight _fight,TeamPosition _combattant,EffectEndRoundSingleRelation _effet,String _attaque,Difficulty _diff,DataBase _import,CommonParam<MoveTeamPosition, ActivityOfMove> _c) {
+    private static boolean effectEndRoundSingleRelationMoveExit(Fight _fight,TeamPosition _combattant,EffectEndRoundSingleRelation _effet,String _attaque,Difficulty _diff,DataBase _import,EntryCust<MoveTeamPosition, ActivityOfMove> _c) {
         MoveTeamPosition k_ = _c.getKey();
         if(!StringUtil.quickEq(k_.getMove(),_attaque)){
             return false;

@@ -18,7 +18,7 @@ import aiki.map.util.ScreenCoords;
 import aiki.util.*;
 import code.images.BaseSixtyFourUtil;
 import code.images.ConverterBufferedImage;
-import code.util.CustList;
+import code.util.*;
 
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
@@ -38,7 +38,7 @@ public abstract class Level {
     public void validate(DataBase _data, LevelArea _level) {
         long sum_ = 0;
         PointEqList used_ = new PointEqList();
-        for (CommonParam<Point,Block> e : blocks.entryList()) {
+        for (EntryCust<Point,Block> e : blocks.entryList()) {
             if (!e.getValue().isValid()) {
                 _data.setError(true);
                 continue;
@@ -69,7 +69,7 @@ public abstract class Level {
 
 
     public boolean hasValidImage(DataBase _data) {
-        for (CommonParam<Point,Block> e : blocks.entryList()) {
+        for (EntryCust<Point,Block> e : blocks.entryList()) {
             if (!e.getValue().hasValidImage(_data)) {
                 return false;
             }

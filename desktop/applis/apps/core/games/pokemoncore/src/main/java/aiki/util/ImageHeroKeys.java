@@ -2,8 +2,9 @@ package aiki.util;
 
 import aiki.db.ImageArrayBaseSixtyFour;
 import aiki.db.ImageHeroKey;
+import code.util.*;
 
-public final class ImageHeroKeys extends CommonMap<ImageHeroKey, ImageArrayBaseSixtyFour> {
+public final class ImageHeroKeys extends AbsBasicMap<ImageHeroKey, ImageArrayBaseSixtyFour> {
 
     @Override
     protected ImageArrayBaseSixtyFour def() {
@@ -11,7 +12,7 @@ public final class ImageHeroKeys extends CommonMap<ImageHeroKey, ImageArrayBaseS
     }
 
     @Override
-    protected boolean eq(ImageHeroKey _one, ImageHeroKey _two) {
+    protected boolean matchKeys(ImageHeroKey _one, ImageHeroKey _two) {
         return _one.eq(_two);
     }
 }

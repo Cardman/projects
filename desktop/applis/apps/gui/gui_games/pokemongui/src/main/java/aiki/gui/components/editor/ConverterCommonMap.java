@@ -1,11 +1,11 @@
 package aiki.gui.components.editor;
 
-import aiki.util.*;
+import code.gui.*;
 import code.util.*;
 
 public final class ConverterCommonMap<K,V> {
-    public void feed(CommonMap<K,V> _dest, AbsMap<K,V> _tree) {
-        for (EntryCust<K,V> e: _tree.entryList()) {
+    public void feed(AbsMap<K,V> _dest, CustList<EditedCrudPair<K,V>> _tree) {
+        for (EditedCrudPair<K, V> e: _tree) {
             _dest.addEntry(e.getKey(),e.getValue());
         }
     }

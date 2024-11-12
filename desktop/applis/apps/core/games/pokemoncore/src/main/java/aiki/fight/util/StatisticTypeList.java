@@ -1,10 +1,9 @@
 package aiki.fight.util;
 
 import aiki.fight.enums.*;
-import aiki.util.*;
 import code.util.*;
 
-public abstract class StatisticTypeList<T> extends CommonMap<StatisticType,T> {
+public abstract class StatisticTypeList<T> extends AbsBasicMap<StatisticType,T> {
     protected StatisticTypeList() {
     }
     protected StatisticTypeList(CollCapacity _cap) {
@@ -29,7 +28,7 @@ public abstract class StatisticTypeList<T> extends CommonMap<StatisticType,T> {
     }
 
     @Override
-    protected boolean eq(StatisticType _k, StatisticType _e) {
+    protected boolean matchKeys(StatisticType _k, StatisticType _e) {
         return _k.eq(_e);
     }
 

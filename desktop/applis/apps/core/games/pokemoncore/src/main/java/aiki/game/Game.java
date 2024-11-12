@@ -206,7 +206,7 @@ public final class Game {
     public void visitFirstPlaces(DataBase _d) {
         DataMap d_=_d.getMap();
         visitedPlacesNb.clear();
-        for (CommonParam<Coords,BoolVal> e: visitedPlaces.entryList()) {
+        for (EntryCust<Coords,BoolVal> e: visitedPlaces.entryList()) {
             visitedPlacesNb.put(e.getKey().getNumberPlace(),e.getValue());
         }
         for (Coords c: visitedPlaces.getKeys()) {
@@ -297,7 +297,7 @@ public final class Game {
 //        for (Coords c: visitedPlaces.getKeys(true))
         for (Coords c: getVisited()) {
             Condition cond_ = new Condition();
-            for (CommonParam<Coords,Condition> e: _map.getAccessibility().entryList()) {
+            for (EntryCust<Coords,Condition> e: _map.getAccessibility().entryList()) {
                 if (!Coords.eq(e.getKey(),c)) {
                     continue;
                 }
@@ -368,7 +368,7 @@ public final class Game {
             coords_.getLevel().setPoint(ext_);
             coords_.outside();
         }
-        for (CommonParam<Coords,Condition> e: _map.getAccessibility().entryList()) {
+        for (EntryCust<Coords,Condition> e: _map.getAccessibility().entryList()) {
             if (!Coords.eq(e.getKey(),coords_)) {
                 continue;
             }
@@ -403,7 +403,7 @@ public final class Game {
         }
         Condition cond_ = new Condition();
         if (correctCoords_) {
-            for (CommonParam<Coords,Condition> e: map_.getAccessibility().entryList()) {
+            for (EntryCust<Coords,Condition> e: map_.getAccessibility().entryList()) {
                 if (!Coords.eq(e.getKey(),coords_)) {
                     continue;
                 }
@@ -452,7 +452,7 @@ public final class Game {
 //                coords_.outside();
 //            }
             Condition cond_ = new Condition();
-            for (CommonParam<Coords,Condition> e: map_.getAccessibility().entryList()) {
+            for (EntryCust<Coords,Condition> e: map_.getAccessibility().entryList()) {
                 if (!Coords.eq(e.getKey(),coords_)) {
                     continue;
                 }
@@ -1066,7 +1066,7 @@ public final class Game {
             return;
         }
         LevelWithWildPokemon l_ = (LevelWithWildPokemon) pl_.getLevelByCoords(voisin_);
-        for (CommonParam<Point,DualFight> e: l_.getDualFights().entryList()) {
+        for (EntryCust<Point,DualFight> e: l_.getDualFights().entryList()) {
             DualFight dual_ = e.getValue();
             if (!Point.eq(e.getKey(), voisin_.getLevel().getPoint()) && !Point.eq(dual_.getPt(), voisin_.getLevel().getPoint())) {
                 continue;
@@ -1111,7 +1111,7 @@ public final class Game {
             return false;
         }
         LevelWithWildPokemon l_ = (LevelWithWildPokemon) pl_.getLevelByCoords(voisin_);
-        for (CommonParam<Point,DualFight> e: l_.getDualFights().entryList()) {
+        for (EntryCust<Point,DualFight> e: l_.getDualFights().entryList()) {
             DualFight dual_ = e.getValue();
             if (Point.eq(e.getKey(), voisin_.getLevel().getPoint()) || Point.eq(dual_.getPt(), voisin_.getLevel().getPoint())) {
                 return true;
@@ -1147,7 +1147,7 @@ public final class Game {
             return _d.getTrainer(gymTr_.getImageMaxiFileName());
         }
         LevelWithWildPokemon l_ = (LevelWithWildPokemon) pl_.getLevelByCoords(voisin_);
-        for (CommonParam<Point,DualFight> e: l_.getDualFights().entryList()) {
+        for (EntryCust<Point,DualFight> e: l_.getDualFights().entryList()) {
             DualFight dual_ = e.getValue();
             if (!Point.eq(e.getKey(), voisin_.getLevel().getPoint()) && !Point.eq(dual_.getPt(), voisin_.getLevel().getPoint())) {
                 continue;
@@ -1337,7 +1337,7 @@ public final class Game {
             return;
         }
         LevelWithWildPokemon l_ = (LevelWithWildPokemon) pl_.getLevelByCoords(coordsFoe_);
-        for (CommonParam<Point,DualFight> e: l_.getDualFights().entryList()) {
+        for (EntryCust<Point,DualFight> e: l_.getDualFights().entryList()) {
             DualFight dual_ = e.getValue();
             if (notInFrontOfDual(coordsFoe_, e, dual_)) {
                 continue;
@@ -1435,7 +1435,7 @@ public final class Game {
             return;
         }
         LevelWithWildPokemon l_ = (LevelWithWildPokemon) pl_.getLevelByCoords(coordsFoe_);
-        for (CommonParam<Point,DualFight> e: l_.getDualFights().entryList()) {
+        for (EntryCust<Point,DualFight> e: l_.getDualFights().entryList()) {
             DualFight dual_ = e.getValue();
             if (notInFrontOfDual(coordsFoe_, e, dual_)) {
                 continue;
@@ -1480,7 +1480,7 @@ public final class Game {
         directInteraction(closestTile(_import.getMap()), _import.getMap());
     }
 
-    private boolean notInFrontOfDual(Coords _coordsFoe, CommonParam<Point,DualFight> _e, DualFight _dual) {
+    private boolean notInFrontOfDual(Coords _coordsFoe, EntryCust<Point,DualFight> _e, DualFight _dual) {
         return !Point.eq(_e.getKey(), _coordsFoe.getLevel().getPoint()) && !Point.eq(_dual.getPt(), _coordsFoe.getLevel().getPoint());
     }
 
@@ -2234,7 +2234,7 @@ public final class Game {
             character(_voisin, level_);
             return;
         }
-        for (CommonParam<Point,DualFight> e: level_.getDualFights().entryList()) {
+        for (EntryCust<Point,DualFight> e: level_.getDualFights().entryList()) {
             DualFight dual_ = e.getValue();
             if (Point.eq(e.getKey(), pt_) || Point.eq(dual_.getPt(), pt_)) {
                 Coords coords_ = new Coords(_voisin);
@@ -2479,7 +2479,7 @@ public final class Game {
         if (levelWildPk_.getHm().contains(pt_)) {
             return takenObjects.getVal(_coords) == BoolVal.TRUE;
         }
-        for (CommonParam<Point,DualFight> e: levelWildPk_.getDualFights().entryList()) {
+        for (EntryCust<Point,DualFight> e: levelWildPk_.getDualFights().entryList()) {
             if (Point.eq(e.getKey(), pt_)) {
                 return beatGymLeader.getVal(_coords) == BoolVal.TRUE;
             }
@@ -2544,7 +2544,7 @@ public final class Game {
     }
     public Condition getBeatenGymLeader() {
         Condition k_ = new Condition();
-        for (CommonParam<Coords, BoolVal> e: beatGymLeader.entryList()) {
+        for (EntryCust<Coords, BoolVal> e: beatGymLeader.entryList()) {
             if (e.getValue() == BoolVal.TRUE) {
                 k_.add(e.getKey());
             }
@@ -2554,7 +2554,7 @@ public final class Game {
 
     public Condition getUnBeatenGymLeader() {
         Condition k_ = new Condition();
-        for (CommonParam<Coords, BoolVal> e: beatGymLeader.entryList()) {
+        for (EntryCust<Coords, BoolVal> e: beatGymLeader.entryList()) {
             if (e.getValue() != BoolVal.TRUE) {
                 k_.add(e.getKey());
             }
@@ -2580,7 +2580,7 @@ public final class Game {
 
     public Condition getVisited() {
         Condition k_ = new Condition();
-        for (CommonParam<Coords, BoolVal> e: visitedPlaces.entryList()) {
+        for (EntryCust<Coords, BoolVal> e: visitedPlaces.entryList()) {
             if (e.getValue() == BoolVal.TRUE) {
                 k_.add(e.getKey());
             }
@@ -2590,7 +2590,7 @@ public final class Game {
 
     public Condition getUnVisited() {
         Condition k_ = new Condition();
-        for (CommonParam<Coords, BoolVal> e: visitedPlaces.entryList()) {
+        for (EntryCust<Coords, BoolVal> e: visitedPlaces.entryList()) {
             if (e.getValue() != BoolVal.TRUE) {
                 k_.add(e.getKey());
             }

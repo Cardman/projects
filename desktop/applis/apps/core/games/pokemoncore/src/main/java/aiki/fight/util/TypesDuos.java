@@ -1,10 +1,9 @@
 package aiki.fight.util;
 
-import aiki.util.CommonMap;
 import code.maths.*;
 import code.util.*;
 
-public final class TypesDuos extends CommonMap<TypesDuo,Rate> {
+public final class TypesDuos extends AbsBasicMap<TypesDuo,Rate> {
     public TypesDuos() {
     }
     public TypesDuos(CollCapacity _cap) {
@@ -39,7 +38,7 @@ public final class TypesDuos extends CommonMap<TypesDuo,Rate> {
     }
 
     @Override
-    protected boolean eq(TypesDuo _k, TypesDuo _e) {
+    protected boolean matchKeys(TypesDuo _k, TypesDuo _e) {
         return _k.eq(_e);
     }
 

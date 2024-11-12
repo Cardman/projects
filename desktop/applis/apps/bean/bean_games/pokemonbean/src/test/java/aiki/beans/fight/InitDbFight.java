@@ -1438,12 +1438,12 @@ public abstract class InitDbFight extends InitDbBean {
         fac_.setGame(g_);
         Fight fight_ = g_.getFight();
         FightFacade.initFight(fight_, player_, diff_, trainer_, _data);
-        fight_.getUserTeam().getMembers().getValue(0).getTrackingMoves().getList().get(0).getValue().getActivity().setEnabled(true);
-        fight_.getUserTeam().getMembers().getValue(0).getTrackingMoves().getList().get(0).getValue().setMove(M_TEAM);
-        fight_.getUserTeam().getMembers().getValue(0).getPrivateMoves().getList().get(0).setValue(new StringList(M_TEAM));
+        fight_.getUserTeam().getMembers().getValue(0).getTrackingMoves().getValue(0).getActivity().setEnabled(true);
+        fight_.getUserTeam().getMembers().getValue(0).getTrackingMoves().getValue(0).setMove(M_TEAM);
+        fight_.getUserTeam().getMembers().getValue(0).getPrivateMoves().setValue(0,new StringList(M_TEAM));
         fight_.getUserTeam().getMembers().getValue(0).getCopiedMoves().getValue(0).setMove(M_TEAM);
         fight_.getUserTeam().getMembers().getValue(0).getCopiedMoves().getValue(0).setPp((short) 3);
-        fight_.getUserTeam().getMembers().getValue(0).getIncrUserAccuracy().getList().get(0).setValue(BoolVal.TRUE);
+        fight_.getUserTeam().getMembers().getValue(0).getIncrUserAccuracy().setValue(0,BoolVal.TRUE);
         fight_.getUserTeam().getMembers().getValue(0).getEnabledMovesForAlly().setValue(0, BoolVal.TRUE);
         fight_.getUserTeam().getMembers().getValue(0).getAlreadyInvokedMovesRound().add(M_TEAM);
         fight_.getUserTeam().getMembers().getValue(0).setLastSufferedMove(M_TEAM);
@@ -1457,7 +1457,7 @@ public abstract class InitDbFight extends InitDbBean {
         fight_.getUserTeam().getMembers().getValue(0).setExpItem(I_SAMPLE);
         fight_.getUserTeam().getMembers().getValue(0).setLastUsedItem(I_SAMPLE);
         fight_.getUserTeam().getMembers().getValue(0).setUsedBallCatching(I_SAMPLE);
-        fight_.getUserTeam().getMembers().getValue(0).getStatusRelat().getList().get(0).setValue((short) 1);
+        fight_.getUserTeam().getMembers().getValue(0).getStatusRelat().setValue(0,(short) 1);
         fight_.getUserTeam().getMembers().getValue(0).setChanged(true);
         fight_.getUserTeam().getMembers().getValue(0).setActed(true);
         fight_.getUserTeam().getMembers().getValue(0).setUsingItem(true);

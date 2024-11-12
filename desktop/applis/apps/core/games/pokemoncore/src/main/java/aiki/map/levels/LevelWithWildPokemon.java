@@ -10,7 +10,7 @@ import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.WildPk;
 import aiki.map.tree.LevelArea;
 import aiki.util.*;
-import code.util.CustList;
+import code.util.*;
 
 
 public abstract class LevelWithWildPokemon extends Level {
@@ -32,12 +32,12 @@ public abstract class LevelWithWildPokemon extends Level {
     protected final void validateLevelWithWildPokemon(DataBase _data, LevelArea _level) {
         checkAreasBlocks(_data);
         PointEqList keys_ = new PointEqList();
-        for (CommonParam<Point,CharacterInRoadCave> e : characters.entryList()) {
+        for (EntryCust<Point,CharacterInRoadCave> e : characters.entryList()) {
             DataInfoChecker.checkKey(_data, _level, e.getKey(),true);
             e.getValue().validate(_data);
             keys_.add(e.getKey());
         }
-        for (CommonParam<Point,DualFight> e : dualFights.entryList()) {
+        for (EntryCust<Point,DualFight> e : dualFights.entryList()) {
             Point id_ = e.getKey();
             DataInfoChecker.checkKey(_data, _level, id_,true);
             DualFight dual_ = e.getValue();
@@ -50,24 +50,24 @@ public abstract class LevelWithWildPokemon extends Level {
             keys_.add(e.getKey());
             keys_.add(dual_.getPt());
         }
-        for (CommonParam<Point,WildPk> e : legendaryPks.entryList()) {
+        for (EntryCust<Point,WildPk> e : legendaryPks.entryList()) {
             DataInfoChecker.checkKey(_data, _level, e.getKey(),true);
             e.getValue().validateAsNpc(_data);
             DataInfoChecker.checkStringListContains(_data.getLegPks(),e.getValue().getName(),_data);
             keys_.add(e.getKey());
         }
         DataInfoChecker.checkStringListContains(_data.getItems().getKeys(),items.values(),_data);
-        for (CommonParam<Point,String> e : items.entryList()) {
+        for (EntryCust<Point,String> e : items.entryList()) {
             DataInfoChecker.checkKey(_data, _level, e.getKey(),true);
             keys_.add(e.getKey());
         }
         DataInfoChecker.checkShortsContains(_data.getTm().getKeys(),tm.values(),_data);
-        for (CommonParam<Point,Short> e : tm.entryList()) {
+        for (EntryCust<Point,Short> e : tm.entryList()) {
             DataInfoChecker.checkKey(_data, _level, e.getKey(),true);
             keys_.add(e.getKey());
         }
         DataInfoChecker.checkShortsContains(_data.getHm().getKeys(),hm.values(),_data);
-        for (CommonParam<Point,Short> e : hm.entryList()) {
+        for (EntryCust<Point,Short> e : hm.entryList()) {
             DataInfoChecker.checkKey(_data, _level, e.getKey(),true);
             keys_.add(e.getKey());
         }
@@ -85,7 +85,7 @@ public abstract class LevelWithWildPokemon extends Level {
                 _data.setError(true);
             }
         }
-        for (CommonParam<Point,Block> e : getBlocks().entryList()) {
+        for (EntryCust<Point,Block> e : getBlocks().entryList()) {
             AbsAreaApparition a_ = getAreaByBlockId(e.getKey());
             if (!a_.isVirtual() && !a_.getWildPokemonFishing().isEmpty() && e.getValue().getType() != EnvironmentType.WATER) {
                 _data.setError(true);
@@ -146,12 +146,12 @@ public abstract class LevelWithWildPokemon extends Level {
     @Override
     public boolean hasValidImage(DataBase _data) {
         boolean val_ = super.hasValidImage(_data);
-        for (CommonParam<Point,DualFight> e : dualFights.entryList()) {
+        for (EntryCust<Point,DualFight> e : dualFights.entryList()) {
             if (!e.getValue().getFoeTrainer().hasValidImage(_data)) {
                 val_ = false;
             }
         }
-        for (CommonParam<Point,CharacterInRoadCave> e : characters.entryList()) {
+        for (EntryCust<Point,CharacterInRoadCave> e : characters.entryList()) {
             if (!e.getValue().hasValidImage(_data)) {
                 val_ = false;
             }
@@ -208,7 +208,7 @@ public abstract class LevelWithWildPokemon extends Level {
 
     public PointsTrainerMultiFights getTrainers() {
         PointsTrainerMultiFights trainers_ = new PointsTrainerMultiFights();
-        for (CommonParam<Point,CharacterInRoadCave> e: getCharacters().entryList()) {
+        for (EntryCust<Point,CharacterInRoadCave> e: getCharacters().entryList()) {
             CharacterInRoadCave val_ = e.getValue();
             if (val_ instanceof TrainerMultiFights) {
                 trainers_.addEntry(e.getKey(),(TrainerMultiFights) val_);

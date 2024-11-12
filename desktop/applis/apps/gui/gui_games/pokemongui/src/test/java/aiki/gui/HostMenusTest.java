@@ -59,7 +59,7 @@ public final class HostMenusTest extends InitDbGuiAiki {
         tryClick(window_.getScenePanel().getHostPk());
         tryClick(window_.getScenePanel().getReceiveEgg());
         assertEq(1,window_.getFacade().getGame().getPlayer().getTeam().size());
-        assertFalse(window_.getFacade().getGame().getHostedPk().getList().get(0).getValue().isFree());
+        assertFalse(window_.getFacade().getGame().getHostedPk().getValue(0).isFree());
     }
     @Test
     public void hostPk4() {
@@ -71,10 +71,10 @@ public final class HostMenusTest extends InitDbGuiAiki {
         window_.getScenePanel().getTeamPan().getListe().select(1);
         window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getHostPk());
-        window_.getFacade().getGame().getHostedPk().getList().get(0).getValue().setNbSteps(256);
+        window_.getFacade().getGame().getHostedPk().getValue(0).setNbSteps(256);
         tryClick(window_.getScenePanel().getReceiveEgg());
         assertEq(2,window_.getFacade().getGame().getPlayer().getTeam().size());
-        assertFalse(window_.getFacade().getGame().getHostedPk().getList().get(0).getValue().isFree());
+        assertFalse(window_.getFacade().getGame().getHostedPk().getValue(0).isFree());
     }
     @Test
     public void hostPk5() {
@@ -88,7 +88,7 @@ public final class HostMenusTest extends InitDbGuiAiki {
         tryClick(window_.getScenePanel().getHostPk());
         tryClick(window_.getScenePanel().getReceiveParents());
         assertEq(3,window_.getFacade().getGame().getPlayer().getTeam().size());
-        assertTrue(window_.getFacade().getGame().getHostedPk().getList().get(0).getValue().isFree());
+        assertTrue(window_.getFacade().getGame().getHostedPk().getValue(0).isFree());
     }
     @Test
     public void hostPk6() {
@@ -100,10 +100,10 @@ public final class HostMenusTest extends InitDbGuiAiki {
         window_.getScenePanel().getTeamPan().getListe().select(1);
         window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getHostPk());
-        window_.getFacade().getGame().getHostedPk().getList().get(0).getValue().setNbSteps(256);
+        window_.getFacade().getGame().getHostedPk().getValue(0).setNbSteps(256);
         tryClick(window_.getScenePanel().getReceiveParents());
         assertEq(4,window_.getFacade().getGame().getPlayer().getTeam().size());
-        assertTrue(window_.getFacade().getGame().getHostedPk().getList().get(0).getValue().isFree());
+        assertTrue(window_.getFacade().getGame().getHostedPk().getValue(0).isFree());
     }
     @Test
     public void hostPk7() {
@@ -124,7 +124,7 @@ public final class HostMenusTest extends InitDbGuiAiki {
         window_.getFacade().getGame().getPlayer().getTeam().add(pk(window_));
         tryClick(window_.getScenePanel().getReceiveParents());
         assertEq(8,window_.getFacade().getGame().getPlayer().getTeam().size());
-        assertFalse(window_.getFacade().getGame().getHostedPk().getList().get(0).getValue().isFree());
+        assertFalse(window_.getFacade().getGame().getHostedPk().getValue(0).isFree());
     }
     @Test
     public void revive() {

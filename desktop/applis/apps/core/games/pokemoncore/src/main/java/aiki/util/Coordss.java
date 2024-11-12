@@ -1,18 +1,19 @@
 package aiki.util;
 
-import code.util.CollCapacity;
+import code.util.*;
 
-public abstract class Coordss<T> extends CommonMap<Coords,T> {
+public abstract class Coordss<T> extends AbsBasicMap<Coords,T> {
     protected Coordss() {
     }
     protected Coordss(CollCapacity _cap) {
         super(_cap);
     }
-    protected Coordss(CommonMap<Coords,T> _cap) {
-        super(_cap);
+    protected Coordss(AbsBasicMap<Coords,T> _cap) {
+        super(new CollCapacity(_cap.size()));
+        addAllEntries(_cap);
     }
     @Override
-    protected boolean eq(Coords _one, Coords _two) {
+    protected boolean matchKeys(Coords _one, Coords _two) {
         return _one.eq(_two);
     }
 }

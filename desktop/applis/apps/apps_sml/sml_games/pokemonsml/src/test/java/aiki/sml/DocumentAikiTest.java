@@ -337,7 +337,7 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
         doc_.appendChild(e_);
         e_.appendChild(doc_.createElement(DocumentWriterCoreUtil.ANON_TAG));
         DocumentReaderAikiCoreUtil.heros(d_, doc_,new SexListImpl(),DocumentWriterAikiCoreUtil.KIND_IMG_HEROS_MIN, BASE);
-        assertEq(0,d_.getOverWorldHeros().getList().size());
+        assertEq(0,d_.getOverWorldHeros().size());
     }
     @Test
     public void t35() {
@@ -710,7 +710,7 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
         from_.addEntry(new TypesDuo("_2","_2"),new Rate(4));
         TypesDuos table_ = new TypesDuos();
         DocumentReaderAikiCoreUtil.tableTypes(table_, DocumentWriterAikiCoreUtil.tableTypes(from_));
-        assertEq(4,table_.getList().size());
+        assertEq(4,table_.size());
         assertEq(Rate.one(),table_.getVal(new TypesDuo("_1","_1")));
         assertEq(new Rate(2),table_.getVal(new TypesDuo("_2","_1")));
         assertEq(new Rate(3),table_.getVal(new TypesDuo("_1","_2")));

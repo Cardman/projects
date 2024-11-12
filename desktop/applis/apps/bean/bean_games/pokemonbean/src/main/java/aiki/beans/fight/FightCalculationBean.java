@@ -42,7 +42,7 @@ public class FightCalculationBean extends CommonFightBean {
         Fight fight_ = dataBaseFight_.getGame().getFight();
         DictionaryComparator<MoveTarget, MoveTarget> allyChoice_;
         allyChoice_ = DictionaryComparatorUtil.buildMoveTarget();
-        for (CommonParam<MoveTarget, MoveTarget> m: fight_.getAllyChoice().entryList()) {
+        for (EntryCust<MoveTarget, MoveTarget> m: fight_.getAllyChoice().entryList()) {
             String move_ = m.getKey().getMove();
             if (!move_.isEmpty()) {
                 move_ = translationsMoves_.getVal(move_);
@@ -105,7 +105,7 @@ public class FightCalculationBean extends CommonFightBean {
         all_ = DictionaryComparatorUtil.buildCalcAll(_dataBaseFight.getData(),getLanguage());
         Fight fight_ = _dataBaseFight.getFight();
         damage = new CustList<KeyHypothesis>();
-        for (CommonParam<TeamPosition, StringMap<TeamPositionsPairRatesPair>> p: resTh_.entryList()) {
+        for (EntryCust<TeamPosition, StringMap<TeamPositionsPairRatesPair>> p: resTh_.entryList()) {
             DictionaryComparator<String, IdMap<FighterNameId, KeyHypothesis>> moves_ = DictionaryComparatorUtil.buildCalcMoves(_dataBaseFight.getData(), getLanguage());
             String plName_ = fight_.getFighter(p.getKey()).getName();
             FighterNameId id_ = new FighterNameId(plName_, p.getKey().getPosition());
@@ -129,7 +129,7 @@ public class FightCalculationBean extends CommonFightBean {
     private static DictionaryComparator<FighterNameId, KeyHypothesis> build(FacadeGame _dataBaseFight, FighterNameId _idPl, String _m, boolean _bel, TeamPositionsPairRates _g, String _lg) {
         Fight fight_ = _dataBaseFight.getFight();
         DictionaryComparator<FighterNameId, KeyHypothesis> player_ = DictionaryComparatorUtil.buildCalcLoc(_dataBaseFight.getData(), _lg);
-        for (CommonParam<TeamPosition, PairRates> t: _g.entryList()) {
+        for (EntryCust<TeamPosition, PairRates> t: _g.entryList()) {
             String tarName_ = fight_.getFighter(t.getKey()).getName();
             FighterNameId idTar_ = new FighterNameId(tarName_, t.getKey().getPosition());
             player_.put(idTar_,new KeyHypothesis(_dataBaseFight, _idPl, _m, idTar_, _bel, t.getValue()));

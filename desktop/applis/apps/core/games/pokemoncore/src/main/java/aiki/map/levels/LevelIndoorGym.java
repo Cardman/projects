@@ -4,10 +4,8 @@ import aiki.db.DataBase;
 import aiki.map.characters.GymLeader;
 import aiki.map.characters.GymTrainer;
 import aiki.map.tree.LevelArea;
-import aiki.util.CommonParam;
-import aiki.util.DataInfoChecker;
-import aiki.util.Point;
-import aiki.util.Points;
+import aiki.util.*;
+import code.util.*;
 
 
 public final class LevelIndoorGym extends Level {
@@ -24,7 +22,7 @@ public final class LevelIndoorGym extends Level {
             _data.setError(true);
         }
         super.validate(_data, _level);
-        for (CommonParam<Point,GymTrainer> e : gymTrainers.entryList()) {
+        for (EntryCust<Point,GymTrainer> e : gymTrainers.entryList()) {
             DataInfoChecker.checkKey(_data,_level,e.getKey(),true);
             e.getValue().validate(_data);
         }

@@ -9,10 +9,7 @@ import aiki.fight.util.*;
 import aiki.util.*;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
-import code.util.CustList;
-import code.util.IdMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 import code.util.core.StringUtil;
 
 
@@ -80,7 +77,7 @@ public final class ItemForBattle extends Item {
         if (!effectSending.isEmpty()) {
             effectSending.first().validate(_data);
         }
-        for (CommonParam<StatisticPokemon, Byte> e : multStatPokemonRank
+        for (EntryCust<StatisticPokemon, Byte> e : multStatPokemonRank
                 .entryList()) {
             DataInfoChecker.checkStringListContains(_data.getPokedex().getKeys(),e.getKey().getPokemon(),_data);
         }

@@ -830,7 +830,7 @@ public class DataBase {
             setError(true);
         }
         TypeStatistics strongMovesTypeStat_ = strongMoves(power_);
-        for (CommonParam<TypeStatistic, BoolVal> e : strongMovesTypeStat_
+        for (EntryCust<TypeStatistic, BoolVal> e : strongMovesTypeStat_
                 .entryList()) {
             if (e.getValue() == BoolVal.TRUE) {
                 continue;
