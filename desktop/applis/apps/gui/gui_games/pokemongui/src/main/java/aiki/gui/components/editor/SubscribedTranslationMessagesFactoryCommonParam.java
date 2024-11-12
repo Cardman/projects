@@ -11,9 +11,9 @@ public abstract class SubscribedTranslationMessagesFactoryCommonParam<T> extends
         return all(_facade).contains(_key);
     }
     public abstract StringMap<T> all(FacadeGame _facade);
-    public abstract GeneComponentModel<EditedCrudPair<String,T>> build(AbsCommonFrame _frame, AbstractProgramInfos _core, CrudGeneFormSubContent _facade);
+    public abstract GeneComponentModel<EditedCrudPair<String,T>> build(AbsCommonFrame _frame, AbstractProgramInfos _core, CrudGeneFormSubContent<EditedCrudPair<String,T>> _facade);
 
-    public abstract void removeOpenSub(CrudGeneFormSubContent _base);
+    public abstract void removeOpenSub(CrudGeneFormSubContent<EditedCrudPair<String,T>> _base);
     public abstract IdList<SubscribedTranslation> all();
     public abstract void delete(FacadeGame _facade, String _key);
     public abstract void completeQuickMembers(FacadeGame _facade, String _key, T _value);

@@ -2,10 +2,11 @@ package aiki.gui.components.editor;
 
 //import aiki.gui.*;
 import aiki.facade.*;
-import aiki.fight.abilities.AbilityData;
-import aiki.fight.items.Item;
-import aiki.fight.moves.MoveData;
-import aiki.fight.pokemon.PokemonData;
+import aiki.fight.abilities.*;
+import aiki.fight.items.*;
+import aiki.fight.moves.*;
+import aiki.fight.pokemon.*;
+import aiki.fight.status.*;
 import code.gui.*;
 import code.gui.events.*;
 import code.gui.initialize.*;
@@ -18,6 +19,7 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
     private final CrudGeneFormTr crudGeneFormItTr;
     private final CrudGeneFormTr crudGeneFormMvTr;
     private final CrudGeneFormTr crudGeneFormPkTr;
+    private final CrudGeneFormTr crudGeneFormStTr;
     private final CrudGeneFormTr crudGeneFormTyTr;
     private final CrudGeneFormNb crudGeneFormTm;
     private final CrudGeneFormNb crudGeneFormHm;
@@ -25,17 +27,20 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
     private final CrudGeneFormEnt<Item> crudGeneFormIt;
     private final CrudGeneFormEnt<MoveData> crudGeneFormMv;
     private final CrudGeneFormEnt<PokemonData> crudGeneFormPk;
+    private final CrudGeneFormEnt<Status> crudGeneFormSt;
     private final EnabledMenu trsAbMenu = getFrames().getCompoFactory().newMenuItem("0");
     private final EnabledMenu trsItMenu = getFrames().getCompoFactory().newMenuItem("1");
     private final EnabledMenu trsMvMenu = getFrames().getCompoFactory().newMenuItem("2");
     private final EnabledMenu trsPkMenu = getFrames().getCompoFactory().newMenuItem("3");
-    private final EnabledMenu trsTyMenu = getFrames().getCompoFactory().newMenuItem("4");
-    private final EnabledMenu tmMenu = getFrames().getCompoFactory().newMenuItem("5");
-    private final EnabledMenu hmMenu = getFrames().getCompoFactory().newMenuItem("6");
-    private final EnabledMenu abMenu = getFrames().getCompoFactory().newMenuItem("7");
-    private final EnabledMenu itMenu = getFrames().getCompoFactory().newMenuItem("8");
-    private final EnabledMenu mvMenu = getFrames().getCompoFactory().newMenuItem("9");
-    private final EnabledMenu pkMenu = getFrames().getCompoFactory().newMenuItem("10");
+    private final EnabledMenu trsStMenu = getFrames().getCompoFactory().newMenuItem("4");
+    private final EnabledMenu trsTyMenu = getFrames().getCompoFactory().newMenuItem("5");
+    private final EnabledMenu tmMenu = getFrames().getCompoFactory().newMenuItem("6");
+    private final EnabledMenu hmMenu = getFrames().getCompoFactory().newMenuItem("7");
+    private final EnabledMenu abMenu = getFrames().getCompoFactory().newMenuItem("8");
+    private final EnabledMenu itMenu = getFrames().getCompoFactory().newMenuItem("9");
+    private final EnabledMenu mvMenu = getFrames().getCompoFactory().newMenuItem("10");
+    private final EnabledMenu pkMenu = getFrames().getCompoFactory().newMenuItem("11");
+    private final EnabledMenu stMenu = getFrames().getCompoFactory().newMenuItem("12");
 
     public WindowPkEditor(AbstractProgramInfos _list, FacadeGame _facade) {
         super(_list);
@@ -51,8 +56,9 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         subscriptions.getSubscribedTranslations().addEntry(frHm_, subsHm_);
         crudGeneFormAbTr = buildTr(_list, _facade,trsAbMenu,subscriptions.getFactoryAb());
         crudGeneFormItTr = buildTr(_list, _facade,trsItMenu,subscriptions.getFactoryIt());
-        crudGeneFormPkTr = buildTr(_list, _facade,trsPkMenu,subscriptions.getFactoryPk());
         crudGeneFormMvTr = buildTr(_list, _facade,trsMvMenu,subscriptions.getFactoryMv());
+        crudGeneFormPkTr = buildTr(_list, _facade,trsPkMenu,subscriptions.getFactoryPk());
+        crudGeneFormStTr = buildTr(_list, _facade,trsStMenu,subscriptions.getFactorySt());
         crudGeneFormTyTr = buildTr(_list, _facade,trsTyMenu,subscriptions.getFactoryTy());
         crudGeneFormTm = new CrudGeneFormNb(_list, _facade,subscriptions, frTm_,subscriptions.getFactoryTm());
         crudGeneFormHm = new CrudGeneFormNb(_list, _facade,subscriptions, frHm_,subscriptions.getFactoryHm());
@@ -60,12 +66,14 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         crudGeneFormIt = new CrudGeneFormEntBuilder<Item>().build(_list,_facade,subscriptions, itMenu, subscriptions.getFactoryIt());
         crudGeneFormMv = new CrudGeneFormEntBuilder<MoveData>().build(_list,_facade,subscriptions, mvMenu, subscriptions.getFactoryMv());
         crudGeneFormPk = new CrudGeneFormEntBuilder<PokemonData>().build(_list, _facade,subscriptions, pkMenu, subscriptions.getFactoryPk());
+        crudGeneFormSt = new CrudGeneFormEntBuilder<Status>().build(_list, _facade,subscriptions, stMenu, subscriptions.getFactorySt());
         AbsMenuBar bar_ = getFrames().getCompoFactory().newMenuBar();
         EnabledMenu file_ = getFrames().getCompoFactory().newMenu("0");
         file_.addMenuItem(trsAbMenu);
         file_.addMenuItem(trsItMenu);
         file_.addMenuItem(trsMvMenu);
         file_.addMenuItem(trsPkMenu);
+        file_.addMenuItem(trsStMenu);
         file_.addMenuItem(trsTyMenu);
         file_.addMenuItem(tmMenu);
         file_.addMenuItem(hmMenu);
@@ -73,6 +81,7 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         file_.addMenuItem(itMenu);
         file_.addMenuItem(mvMenu);
         file_.addMenuItem(pkMenu);
+        file_.addMenuItem(stMenu);
         bar_.add(file_);
         tmMenu.addActionListener(new PkEditorOpenCrudNbEvent(crudGeneFormTm,tmMenu, true));
         hmMenu.addActionListener(new PkEditorOpenCrudNbEvent(crudGeneFormHm,hmMenu, false));
@@ -133,6 +142,10 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         return pkMenu;
     }
 
+    public EnabledMenu getStMenu() {
+        return stMenu;
+    }
+
     public EnabledMenu getTrsAbMenu() {
         return trsAbMenu;
     }
@@ -147,6 +160,10 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
 
     public EnabledMenu getTrsPkMenu() {
         return trsPkMenu;
+    }
+
+    public EnabledMenu getTrsStMenu() {
+        return trsStMenu;
     }
 
     public EnabledMenu getTrsTyMenu() {
@@ -177,6 +194,10 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         return crudGeneFormPk;
     }
 
+    public CrudGeneFormEnt<Status> getCrudGeneFormSt() {
+        return crudGeneFormSt;
+    }
+
     public CrudGeneFormTr getCrudGeneFormAbTr() {
         return crudGeneFormAbTr;
     }
@@ -191,6 +212,10 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
 
     public CrudGeneFormTr getCrudGeneFormPkTr() {
         return crudGeneFormPkTr;
+    }
+
+    public CrudGeneFormTr getCrudGeneFormStTr() {
+        return crudGeneFormStTr;
     }
 
     public CrudGeneFormTr getCrudGeneFormTyTr() {

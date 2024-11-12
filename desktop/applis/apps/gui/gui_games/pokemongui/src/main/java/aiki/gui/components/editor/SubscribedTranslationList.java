@@ -13,6 +13,7 @@ public final class SubscribedTranslationList {
     private final SubscribedTranslationMessagesFactoryIt factoryIt = new SubscribedTranslationMessagesFactoryIt();
     private final SubscribedTranslationMessagesFactoryMv factoryMv = new SubscribedTranslationMessagesFactoryMv();
     private final SubscribedTranslationMessagesFactoryPk factoryPk = new SubscribedTranslationMessagesFactoryPk();
+    private final SubscribedTranslationMessagesFactorySt factorySt = new SubscribedTranslationMessagesFactorySt();
     private final SubscribedTranslationMessagesFactory factoryTy = new SubscribedTranslationMessagesFactoryTy();
     private final SubscribedTranslationMessagesNbFactory factoryTm = new SubscribedTranslationMessagesNbFactoryTm();
     private final SubscribedTranslationMessagesNbFactory factoryHm = new SubscribedTranslationMessagesNbFactoryHm();
@@ -49,6 +50,10 @@ public final class SubscribedTranslationList {
 
     public SubscribedTranslationMessagesFactoryPk getFactoryPk() {
         return factoryPk;
+    }
+
+    public SubscribedTranslationMessagesFactorySt getFactorySt() {
+        return factorySt;
     }
 
     public SubscribedTranslationMessagesFactory getFactoryTy() {

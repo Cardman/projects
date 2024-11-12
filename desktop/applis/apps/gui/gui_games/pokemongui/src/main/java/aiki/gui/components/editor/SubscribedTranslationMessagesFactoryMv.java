@@ -38,13 +38,13 @@ public final class SubscribedTranslationMessagesFactoryMv extends SubscribedTran
     }
 
     @Override
-    public GeneComponentModel<EditedCrudPair<String,MoveData>> build(AbsCommonFrame _frame, AbstractProgramInfos _core, CrudGeneFormSubContent _facade) {
+    public GeneComponentModel<EditedCrudPair<String,MoveData>> build(AbsCommonFrame _frame, AbstractProgramInfos _core, CrudGeneFormSubContent<EditedCrudPair<String,MoveData>> _facade) {
         geneComponentModelMoveData = new GeneComponentModelMoveData(_frame,_core, _facade.getFacadeGame(), _facade.getSubscription());
         return geneComponentModelMoveData;
     }
 
     @Override
-    public void removeOpenSub(CrudGeneFormSubContent _base) {
+    public void removeOpenSub(CrudGeneFormSubContent<EditedCrudPair<String,MoveData>> _base) {
         _base.removeOpenSub();
     }
 

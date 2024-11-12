@@ -19,6 +19,8 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
     private GeneComponentModelLsStrSub<String> types;
     private GeneComponentModelLsStrSub<String> boostedTypes;
     private GeneComponentModelLsStrSub<String> achieveDisappearedPkUsingMove;
+    private GeneComponentModelLsStrSub<String> deletedStatus;
+    private GeneComponentModelLsStrSub<String> requiredStatus;
     private GeneComponentModelString accuracy;
     private AbsCustCheckBox disappearBeforeUse;
     private AbsCustCheckBox rechargeRound;
@@ -58,6 +60,8 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         types = ConverterCommonMapUtil.buildTypeList(getCompoFactory(),getFacade(),getSubscribedTranslationList());
         boostedTypes = ConverterCommonMapUtil.buildTypeList(getCompoFactory(),getFacade(),getSubscribedTranslationList());
         achieveDisappearedPkUsingMove = ConverterCommonMapUtil.buildMoveList(getCompoFactory(),getFacade(),getSubscribedTranslationList());
+        deletedStatus = ConverterCommonMapUtil.buildStatusList(getCompoFactory(),getFacade(),getSubscribedTranslationList());
+        requiredStatus = ConverterCommonMapUtil.buildStatusList(getCompoFactory(),getFacade(),getSubscribedTranslationList());
         accuracy = new GeneComponentModelString(getCompoFactory(),new StringList(),new DefValidateText());
         disappearBeforeUse = getCompoFactory().getCompoFactory().newCustCheckBox();
         rechargeRound = getCompoFactory().getCompoFactory().newCustCheckBox();
@@ -90,6 +94,8 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         form_.add(types.geneEnum());
         form_.add(boostedTypes.geneEnum());
         form_.add(achieveDisappearedPkUsingMove.geneEnum());
+        form_.add(deletedStatus.geneEnum());
+        form_.add(requiredStatus.geneEnum());
         form_.add(accuracy.geneString());
         form_.add(disappearBeforeUse);
         form_.add(rechargeRound);
@@ -125,6 +131,8 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         ent_.setTypes(new StringList(types.tryRet()));
         ent_.setBoostedTypes(new StringList(boostedTypes.tryRet()));
         ent_.setAchieveDisappearedPkUsingMove(new StringList(achieveDisappearedPkUsingMove.tryRet()));
+        ent_.setDeletedStatus(new StringList(deletedStatus.tryRet()));
+        ent_.setRequiredStatus(new StringList(requiredStatus.tryRet()));
         ent_.setAccuracy(accuracy.valueString());
         ent_.setDisappearBeforeUse(disappearBeforeUse.isSelected());
         ent_.setRechargeRound(rechargeRound.isSelected());
@@ -160,6 +168,8 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         types.setupValue(move_.getTypes());
         boostedTypes.setupValue(move_.getBoostedTypes());
         achieveDisappearedPkUsingMove.setupValue(move_.getAchieveDisappearedPkUsingMove());
+        deletedStatus.setupValue(move_.getDeletedStatus());
+        requiredStatus.setupValue(move_.getRequiredStatus());
         accuracy.valueString(move_.getAccuracy());
         disappearBeforeUse.setSelected(move_.getDisappearBeforeUse());
         rechargeRound.setSelected(move_.getRechargeRound());
@@ -188,6 +198,8 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         ids_.addAllElts(types.getSubs());
         ids_.addAllElts(boostedTypes.getSubs());
         ids_.addAllElts(achieveDisappearedPkUsingMove.getSubs());
+        ids_.addAllElts(deletedStatus.getSubs());
+        ids_.addAllElts(requiredStatus.getSubs());
         ids_.addAllElts(typesByOwnedItem.subscribeButtons());
         ids_.addAllElts(typesByWeather.subscribeButtons());
         return ids_;
@@ -243,5 +255,13 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
 
     public CrudGeneFormSimpleForm<String, Ints> getSecEffectsByItem() {
         return secEffectsByItem;
+    }
+
+    public GeneComponentModelLsStrSub<String> getRequiredStatus() {
+        return requiredStatus;
+    }
+
+    public GeneComponentModelLsStrSub<String> getDeletedStatus() {
+        return deletedStatus;
     }
 }
