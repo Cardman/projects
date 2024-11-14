@@ -4,6 +4,7 @@ import aiki.db.DataBase;
 import aiki.facade.*;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
+import aiki.fight.moves.StatusMoveData;
 import aiki.fight.pokemon.*;
 import aiki.gui.components.editor.*;
 import aiki.instances.*;
@@ -651,6 +652,80 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         g_.getCategory().setupValue(C_1);
         tryClick(c_.getValidAddEdit());
         assertEq(C_1,((DamagingMoveData)facade_.getData().getMoves().getVal(M_1)).getCategory());
+    }
+    @Test
+    public void mvForm20() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<MoveData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelMoveData g_ = (GeneComponentModelMoveData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(M_1);
+        g_.getDamagingMove().setSelected(false);
+        g_.getThievableMove().setSelected(true);
+        g_.getCounterableMove().setSelected(true);
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryClick(c_.getCancel());
+        assertTrue(((StatusMoveData)facade_.getData().getMoves().getVal(M_1)).getCounterableMove());
+        assertTrue(((StatusMoveData)facade_.getData().getMoves().getVal(M_1)).getThievableMove());
+    }
+    @Test
+    public void mvForm21() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<MoveData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelMoveData g_ = (GeneComponentModelMoveData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(M_1);
+        g_.getDamagingMove().setSelected(false);
+        g_.getThievableMove().setSelected(false);
+        g_.getCounterableMove().setSelected(false);
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryClick(c_.getCancel());
+        assertFalse(((StatusMoveData)facade_.getData().getMoves().getVal(M_1)).getCounterableMove());
+        assertFalse(((StatusMoveData)facade_.getData().getMoves().getVal(M_1)).getThievableMove());
+    }
+    @Test
+    public void mvForm22() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<MoveData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelMoveData g_ = (GeneComponentModelMoveData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(M_1);
+        g_.getDirect().setSelected(true);
+        g_.getStoppableMoveKoSingle().setSelected(true);
+        g_.getCannotKo().setSelected(true);
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryClick(c_.getCancel());
+        assertTrue(((DamagingMoveData)facade_.getData().getMoves().getVal(M_1)).isDirect());
+        assertTrue(((DamagingMoveData)facade_.getData().getMoves().getVal(M_1)).getStoppableMoveKoSingle());
+        assertTrue(((DamagingMoveData)facade_.getData().getMoves().getVal(M_1)).getCannotKo());
+    }
+    @Test
+    public void mvForm23() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<MoveData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelMoveData g_ = (GeneComponentModelMoveData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(M_1);
+        g_.getDirect().setSelected(false);
+        g_.getStoppableMoveKoSingle().setSelected(false);
+        g_.getCannotKo().setSelected(false);
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryClick(c_.getCancel());
+        assertFalse(((DamagingMoveData)facade_.getData().getMoves().getVal(M_1)).isDirect());
+        assertFalse(((DamagingMoveData)facade_.getData().getMoves().getVal(M_1)).getStoppableMoveKoSingle());
+        assertFalse(((DamagingMoveData)facade_.getData().getMoves().getVal(M_1)).getCannotKo());
     }
     private FacadeGame facadeAdd(MockProgramInfos _m) {
         FacadeGame f_ = facade(_m);

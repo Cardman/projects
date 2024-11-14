@@ -41,8 +41,14 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
     private GeneComponentModelEltEnum<TargetChoice> targetChoice;
     private AbsCustCheckBox damagingMove;
     private GeneComponentModelEltStrSub category;
+    private AbsCustCheckBox direct;
+    private AbsCustCheckBox cannotKo;
+    private AbsCustCheckBox stoppableMoveKoSingle;
+    private AbsCustCheckBox thievableMove;
+    private AbsCustCheckBox counterableMove;
     private MoveData element;
-    private AbsCustComponent categoryCompo;
+    private AbsPanel damagingComponent;
+    private AbsPanel statusComponent;
     private final AbsCommonFrame window;
 
 
@@ -62,7 +68,6 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
     }
     @Override
     public AbsCustComponent gene(int _select) {
-        element = Instances.newDamagingMoveData();
         SubscribedTranslationMessagesFactoryMv factoryMv_ = getSubscribedTranslationList().getFactoryMv();
         buildKey(_select,factoryMv_,factoryMv_.all(getFacade()).getKeys());
         types = ConverterCommonMapUtil.buildTypeList(getCompoFactory(),getFacade(),getSubscribedTranslationList());
@@ -93,8 +98,21 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         effects.initForm(getCompoFactory(),new CustList<Effect>());
         targetChoice = ConverterCommonMapUtil.buildTargetChoice(getCompoFactory(), getFacade());
         category = ConverterCommonMapUtil.buildCatElt(getCompoFactory(),getFacade(),getSubscribedTranslationList());
-        categoryCompo = category.geneEnum();
-        categoryCompo.setVisible(false);
+        damagingComponent = getCompoFactory().getCompoFactory().newPageBox();
+        damagingComponent.add(category.geneEnum());
+        direct = getCompoFactory().getCompoFactory().newCustCheckBox();
+        damagingComponent.add(direct);
+        cannotKo = getCompoFactory().getCompoFactory().newCustCheckBox();
+        damagingComponent.add(cannotKo);
+        stoppableMoveKoSingle = getCompoFactory().getCompoFactory().newCustCheckBox();
+        damagingComponent.add(stoppableMoveKoSingle);
+        damagingComponent.setVisible(false);
+        statusComponent = getCompoFactory().getCompoFactory().newPageBox();
+        thievableMove = getCompoFactory().getCompoFactory().newCustCheckBox();
+        damagingComponent.add(thievableMove);
+        counterableMove = getCompoFactory().getCompoFactory().newCustCheckBox();
+        damagingComponent.add(counterableMove);
+        statusComponent.setVisible(false);
         AbsCompoFactory compoFactory_ = getCompoFactory().getCompoFactory();
         damagingMove = compoFactory_.newCustCheckBox();
         damagingMove.setSelected(true);
@@ -131,14 +149,16 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         form_.add(secEffectsByItem.getGroup());
         form_.add(targetChoice.geneEnum(TargetChoice.NOTHING));
         form_.add(effects.getGroup());
-        form_.add(categoryCompo);
+        form_.add(damagingComponent);
+        form_.add(statusComponent);
         sc_.setViewportView(form_);
         page_.add(sc_);
         return page_;
     }
 
     public void applyChanges() {
-        categoryCompo.setVisible(damagingMove.isSelected());
+        damagingComponent.setVisible(damagingMove.isSelected());
+        statusComponent.setVisible(!damagingMove.isSelected());
         if (damagingMove.isSelected()) {
             element = Instances.newDamagingMoveData();
         } else {
@@ -189,6 +209,13 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         ent_.setEffects(effects.getList());
         if (ent_ instanceof DamagingMoveData) {
             ((DamagingMoveData)ent_).setCategory(category.tryRet());
+            ((DamagingMoveData)ent_).setDirect(direct.isSelected());
+            ((DamagingMoveData)ent_).setCannotKo(cannotKo.isSelected());
+            ((DamagingMoveData)ent_).setStoppableMoveKoSingle(stoppableMoveKoSingle.isSelected());
+        }
+        if (ent_ instanceof StatusMoveData){
+            ((StatusMoveData)ent_).setThievableMove(thievableMove.isSelected());
+            ((StatusMoveData)ent_).setCounterableMove(counterableMove.isSelected());
         }
         return new EditedCrudPair<String, MoveData>(getGeneComponentModelSelectKey().tryRet(),ent_);
     }
@@ -227,6 +254,13 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         effects.setupValues(move_.getEffects());
         if (move_ instanceof DamagingMoveData) {
             category.setupValue(((DamagingMoveData)move_).getCategory());
+            direct.setSelected(((DamagingMoveData)move_).isDirect());
+            cannotKo.setSelected(((DamagingMoveData)move_).getCannotKo());
+            stoppableMoveKoSingle.setSelected(((DamagingMoveData)move_).getStoppableMoveKoSingle());
+        }
+        if (move_ instanceof StatusMoveData){
+            thievableMove.setSelected(((StatusMoveData)move_).getThievableMove());
+            counterableMove.setSelected(((StatusMoveData)move_).getCounterableMove());
         }
     }
 
@@ -311,6 +345,26 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
 
     public AbsCustCheckBox getDamagingMove() {
         return damagingMove;
+    }
+
+    public AbsCustCheckBox getDirect() {
+        return direct;
+    }
+
+    public AbsCustCheckBox getCannotKo() {
+        return cannotKo;
+    }
+
+    public AbsCustCheckBox getStoppableMoveKoSingle() {
+        return stoppableMoveKoSingle;
+    }
+
+    public AbsCustCheckBox getThievableMove() {
+        return thievableMove;
+    }
+
+    public AbsCustCheckBox getCounterableMove() {
+        return counterableMove;
     }
 
     public GeneComponentModelEltStrSub getCategory() {
