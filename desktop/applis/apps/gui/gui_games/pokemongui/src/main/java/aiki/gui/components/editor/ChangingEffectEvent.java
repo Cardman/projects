@@ -3,8 +3,8 @@ package aiki.gui.components.editor;
 import code.gui.*;
 
 public final class ChangingEffectEvent implements ListSelection {
-    private final GeneComponentModelEffect form;
-    public ChangingEffectEvent(GeneComponentModelEffect _g) {
+    private final AbsGeneComponentModelEffect form;
+    public ChangingEffectEvent(AbsGeneComponentModelEffect _g) {
         form = _g;
     }
 

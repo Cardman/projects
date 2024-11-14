@@ -48,6 +48,7 @@ public final class SubscribedTranslationMessagesFactoryMv extends SubscribedTran
         geneComponentModelMoveData.getTypesByOwnedItem().getCrudGeneFormSubContent().removeOpenSub();
         geneComponentModelMoveData.getTypesByWeather().getCrudGeneFormSubContent().removeOpenSub();
         geneComponentModelMoveData.getSecEffectsByItem().getCrudGeneFormSubContent().removeOpenSub();
+        geneComponentModelMoveData.getEffects().getCrudGeneFormSubContent().removeOpenSub();
         _base.removeOpenSub();
     }
 

@@ -1,66 +1,54 @@
 package aiki.gui.components.editor;
 
+import aiki.facade.*;
 import aiki.fight.moves.effects.*;
 import aiki.instances.*;
 import code.gui.*;
-import code.gui.events.*;
 import code.gui.initialize.*;
-import code.util.*;
 import code.util.core.*;
 
-public final class GeneComponentModelEffect implements GeneComponentModel<Effect> {
-    private final AbstractProgramInfos programInfos;
-    private GeneComponentModelEltEnum<String> effectKind;
-    private GeneComponentModelString fail;
+public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect implements GeneComponentModel<Effect> {
+    private final ContentComponentModelEffect contentEffect = new ContentComponentModelEffect();
     private Effect edited;
-    private final AbsCommonFrame frame;
 
-    public GeneComponentModelEffect(AbsCommonFrame _f, AbstractProgramInfos _core) {
-        frame = _f;
-        programInfos = _core;
+    public GeneComponentModelEffect(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
+        super(_f, _core, _fac, _fact);
     }
 
     @Override
     public AbsCustComponent gene(int _select) {
-        StringMap<String> messages_ = MessagesPkEditor.getMessagesEditorSelectEffectTr(MessagesPkEditor.getAppliTr(programInfos.currentLg())).getMapping();
-        effectKind = new GeneComponentModelEltEnum<String>(programInfos, messages_);
-        fail = new GeneComponentModelString(programInfos,new StringList(),new DefValidateText());
-        AbsCompoFactory compoFactory_ = programInfos.getCompoFactory();
-        AbsPanel evoForm_ = compoFactory_.newLineBox();
-        AbsPanel selected_ = compoFactory_.newLineBox();
-        evoForm_.add(effectKind.geneEnum(""));
-        evoForm_.add(selected_);
-        selected_.add(fail.geneString());
-        effectKind.getSelect().addListener(new ChangingEffectEvent(this));
-        effectKind.getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EFF_DAMAGE));
-        effectKind.getSelect().events(null);
-        return evoForm_;
+        init(MessagesPkEditor.getMessagesEditorSelectEffectTr(MessagesPkEditor.getAppliTr(getProgramInfos().currentLg())).getMapping());
+        AbsCompoFactory compoFactory_ = getProgramInfos().getCompoFactory();
+        AbsPanel form_ = compoFactory_.newLineBox();
+        form_.add(getEffectKind().geneEnum(""));
+        form_.add(contentEffect.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
+        getEffectKind().getSelect().addListener(new ChangingEffectEvent(this));
+        getEffectKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EFF_DAMAGE));
+        getEffectKind().getSelect().events(null);
+        return form_;
     }
 
+    @Override
     public void applyChange() {
         edited = Instances.newEffectDamage();
-        effectKind.getSelect().repaint();
-        frame.pack();
+        getEffectKind().getSelect().repaint();
+        getFrame().pack();
     }
 
     @Override
     public Effect value() {
-        edited.setFail(fail.valueString());
+        contentEffect.buildEntity(edited);
         return edited;
     }
 
     @Override
     public void value(Effect _v) {
-        fail.valueString(_v.getFail());
+        contentEffect.feedForm(_v);
         edited = _v;
     }
 
     public GeneComponentModelString getFail() {
-        return fail;
-    }
-
-    public GeneComponentModelEltEnum<String> getEffectKind() {
-        return effectKind;
+        return contentEffect.getFail();
     }
 
 }

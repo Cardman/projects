@@ -14,7 +14,7 @@ public final class CrudGeneFormListSubEffect extends CrudGeneFormListSub<Effect>
     public void initForm(AbstractProgramInfos _core, CustList<Effect> _moves) {
         getCrudGeneFormSubContent().clear();
         initForm();
-        initForm(new DisplayEntryCustEffect(), new GeneComponentModelEffect(getFrame(),_core), _moves);
+        initForm(new DisplayEntryCustEffect(), new GeneComponentModelEffect(getFrame(),_core, getCrudGeneFormSubContent().getFacadeGame(), getCrudGeneFormSubContent().getSubscription()), _moves);
     }
 
     @Override
