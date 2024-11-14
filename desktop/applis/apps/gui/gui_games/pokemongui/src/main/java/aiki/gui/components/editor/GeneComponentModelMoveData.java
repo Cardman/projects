@@ -109,9 +109,9 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         damagingComponent.setVisible(false);
         statusComponent = getCompoFactory().getCompoFactory().newPageBox();
         thievableMove = getCompoFactory().getCompoFactory().newCustCheckBox();
-        damagingComponent.add(thievableMove);
+        statusComponent.add(thievableMove);
         counterableMove = getCompoFactory().getCompoFactory().newCustCheckBox();
-        damagingComponent.add(counterableMove);
+        statusComponent.add(counterableMove);
         statusComponent.setVisible(false);
         AbsCompoFactory compoFactory_ = getCompoFactory().getCompoFactory();
         damagingMove = compoFactory_.newCustCheckBox();
