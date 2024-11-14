@@ -20,6 +20,7 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
     private final CrudGeneFormTr crudGeneFormMvTr;
     private final CrudGeneFormTr crudGeneFormPkTr;
     private final CrudGeneFormTr crudGeneFormStTr;
+    private final CrudGeneFormTr crudGeneFormCaTr;
     private final CrudGeneFormTr crudGeneFormTyTr;
     private final CrudGeneFormNb crudGeneFormTm;
     private final CrudGeneFormNb crudGeneFormHm;
@@ -33,14 +34,15 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
     private final EnabledMenu trsMvMenu = getFrames().getCompoFactory().newMenuItem("2");
     private final EnabledMenu trsPkMenu = getFrames().getCompoFactory().newMenuItem("3");
     private final EnabledMenu trsStMenu = getFrames().getCompoFactory().newMenuItem("4");
-    private final EnabledMenu trsTyMenu = getFrames().getCompoFactory().newMenuItem("5");
-    private final EnabledMenu tmMenu = getFrames().getCompoFactory().newMenuItem("6");
-    private final EnabledMenu hmMenu = getFrames().getCompoFactory().newMenuItem("7");
-    private final EnabledMenu abMenu = getFrames().getCompoFactory().newMenuItem("8");
-    private final EnabledMenu itMenu = getFrames().getCompoFactory().newMenuItem("9");
-    private final EnabledMenu mvMenu = getFrames().getCompoFactory().newMenuItem("10");
-    private final EnabledMenu pkMenu = getFrames().getCompoFactory().newMenuItem("11");
-    private final EnabledMenu stMenu = getFrames().getCompoFactory().newMenuItem("12");
+    private final EnabledMenu trsCaMenu = getFrames().getCompoFactory().newMenuItem("5");
+    private final EnabledMenu trsTyMenu = getFrames().getCompoFactory().newMenuItem("6");
+    private final EnabledMenu tmMenu = getFrames().getCompoFactory().newMenuItem("7");
+    private final EnabledMenu hmMenu = getFrames().getCompoFactory().newMenuItem("8");
+    private final EnabledMenu abMenu = getFrames().getCompoFactory().newMenuItem("9");
+    private final EnabledMenu itMenu = getFrames().getCompoFactory().newMenuItem("10");
+    private final EnabledMenu mvMenu = getFrames().getCompoFactory().newMenuItem("11");
+    private final EnabledMenu pkMenu = getFrames().getCompoFactory().newMenuItem("12");
+    private final EnabledMenu stMenu = getFrames().getCompoFactory().newMenuItem("13");
 
     public WindowPkEditor(AbstractProgramInfos _list, FacadeGame _facade) {
         super(_list);
@@ -59,6 +61,7 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         crudGeneFormMvTr = buildTr(_list, _facade,trsMvMenu,subscriptions.getFactoryMv());
         crudGeneFormPkTr = buildTr(_list, _facade,trsPkMenu,subscriptions.getFactoryPk());
         crudGeneFormStTr = buildTr(_list, _facade,trsStMenu,subscriptions.getFactorySt());
+        crudGeneFormCaTr = buildTr(_list, _facade,trsCaMenu,subscriptions.getFactoryCa());
         crudGeneFormTyTr = buildTr(_list, _facade,trsTyMenu,subscriptions.getFactoryTy());
         crudGeneFormTm = new CrudGeneFormNb(_list, _facade,subscriptions, frTm_,subscriptions.getFactoryTm());
         crudGeneFormHm = new CrudGeneFormNb(_list, _facade,subscriptions, frHm_,subscriptions.getFactoryHm());
@@ -74,6 +77,7 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         file_.addMenuItem(trsMvMenu);
         file_.addMenuItem(trsPkMenu);
         file_.addMenuItem(trsStMenu);
+        file_.addMenuItem(trsCaMenu);
         file_.addMenuItem(trsTyMenu);
         file_.addMenuItem(tmMenu);
         file_.addMenuItem(hmMenu);
@@ -166,6 +170,10 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         return trsStMenu;
     }
 
+    public EnabledMenu getTrsCaMenu() {
+        return trsCaMenu;
+    }
+
     public EnabledMenu getTrsTyMenu() {
         return trsTyMenu;
     }
@@ -216,6 +224,10 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
 
     public CrudGeneFormTr getCrudGeneFormStTr() {
         return crudGeneFormStTr;
+    }
+
+    public CrudGeneFormTr getCrudGeneFormCaTr() {
+        return crudGeneFormCaTr;
     }
 
     public CrudGeneFormTr getCrudGeneFormTyTr() {

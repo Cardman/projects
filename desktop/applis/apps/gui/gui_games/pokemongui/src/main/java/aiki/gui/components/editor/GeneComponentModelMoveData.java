@@ -37,14 +37,18 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
     private final CrudGeneFormSimpleForm<String,String> typesByOwnedItem;
     private final CrudGeneFormSimpleForm<String,String> typesByWeather;
     private final CrudGeneFormSimpleForm<String,Ints> secEffectsByItem;
-    private final CrudGeneFormListSubEffect moves;
+    private final CrudGeneFormListSubEffect effects;
     private GeneComponentModelEltEnum<TargetChoice> targetChoice;
     private AbsCustCheckBox damagingMove;
+    private GeneComponentModelEltStrSub category;
     private MoveData element;
+    private AbsCustComponent categoryCompo;
+    private final AbsCommonFrame window;
 
 
     public GeneComponentModelMoveData(AbsCommonFrame _frame, AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
         super(_core, _facade, _sub);
+        window = _frame;
         pp = new GeneComponentModelInt(_core);
         priority = new GeneComponentModelInt(_core);
         nbPrepaRound = new GeneComponentModelInt(_core);
@@ -54,7 +58,7 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         typesByOwnedItem = new CrudGeneFormSimpleForm<String, String>(_core,_facade,_sub,_frame);
         typesByWeather = new CrudGeneFormSimpleForm<String, String>(_core,_facade,_sub,_frame);
         secEffectsByItem = new CrudGeneFormSimpleForm<String, Ints>(_core,_facade,_sub,_frame);
-        moves = new CrudGeneFormListSubEffect(_core,_facade,_sub,_frame);
+        effects = new CrudGeneFormListSubEffect(_core,_facade,_sub,_frame);
     }
     @Override
     public AbsCustComponent gene(int _select) {
@@ -85,9 +89,12 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         typesByWeather.initForm(new DisplayEntryCustSubImpl(getSubscribedTranslationList().getFactoryMv(), ConverterCommonMapUtil.defKeyEmpty(" ")),getSubscribedTranslationList().getFactoryMv().buildMessages(getCompoFactory(),getFacade(),ConverterCommonMapUtil.defKeyEmpty(" ")),getCompoFactory(), buildPart(getSubscribedTranslationList().getFactoryMv(), ConverterCommonMapUtil.defKeyEmpty("")),buildPart(getSubscribedTranslationList().getFactoryTy(), new StringMap<String>()),new StringMap<String>());
         secEffectsByItem.initForm();
         secEffectsByItem.initForm(new DisplayEntryCustSubImpl(getSubscribedTranslationList().getFactoryIt(), ConverterCommonMapUtil.defKeyEmpty(" ")),getSubscribedTranslationList().getFactoryIt().buildMessages(getCompoFactory(),getFacade(),ConverterCommonMapUtil.defKeyEmpty(" ")),getCompoFactory(), buildPart(getSubscribedTranslationList().getFactoryIt(), ConverterCommonMapUtil.defKeyEmpty("")),new GeneComponentModelSubscribeFactoryInts(getCompoFactory(),getFacade(),getSubscribedTranslationList(),secEffectsByItem.getFrame()),new StringMap<Ints>());
-        moves.initForm();
-        moves.initForm(getCompoFactory(),new CustList<Effect>());
+        effects.initForm();
+        effects.initForm(getCompoFactory(),new CustList<Effect>());
         targetChoice = ConverterCommonMapUtil.buildTargetChoice(getCompoFactory(), getFacade());
+        category = ConverterCommonMapUtil.buildCatElt(getCompoFactory(),getFacade(),getSubscribedTranslationList());
+        categoryCompo = category.geneEnum();
+        categoryCompo.setVisible(false);
         AbsCompoFactory compoFactory_ = getCompoFactory().getCompoFactory();
         damagingMove = compoFactory_.newCustCheckBox();
         damagingMove.setSelected(true);
@@ -123,18 +130,21 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         form_.add(typesByWeather.getGroup());
         form_.add(secEffectsByItem.getGroup());
         form_.add(targetChoice.geneEnum(TargetChoice.NOTHING));
-        form_.add(moves.getGroup());
+        form_.add(effects.getGroup());
+        form_.add(categoryCompo);
         sc_.setViewportView(form_);
         page_.add(sc_);
         return page_;
     }
 
     public void applyChanges() {
+        categoryCompo.setVisible(damagingMove.isSelected());
         if (damagingMove.isSelected()) {
             element = Instances.newDamagingMoveData();
         } else {
             element = Instances.newStatusMoveData();
         }
+        window.pack();
     }
     private GeneComponentModelSubscribeFactorySelElt buildPart(SubscribedTranslationMessagesFactory _facto, StringMap<String> _abs) {
         return new GeneComponentModelSubscribeFactorySelElt(getCompoFactory(), getFacade(), _facto, _abs);
@@ -176,7 +186,10 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         ent_.setSecEffectsByItem(new StringMap<Ints>());
         new MapToEntriesListUtil<String,Ints>().feedMap(secEffectsByItem.getList(),ent_.getSecEffectsByItem());
         ent_.setTargetChoice(targetChoice.tryRet(TargetChoice.NOTHING));
-        ent_.setEffects(moves.getList());
+        ent_.setEffects(effects.getList());
+        if (ent_ instanceof DamagingMoveData) {
+            ((DamagingMoveData)ent_).setCategory(category.tryRet());
+        }
         return new EditedCrudPair<String, MoveData>(getGeneComponentModelSelectKey().tryRet(),ent_);
     }
 
@@ -211,7 +224,10 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         typesByWeather.setupValues(new MapToEntriesListUtil<String,String>().build(move_.getTypesByWeather()));
         secEffectsByItem.setupValues(new MapToEntriesListUtil<String,Ints>().build(move_.getSecEffectsByItem()));
         targetChoice.setupValue(move_.getTargetChoice());
-        moves.setupValues(move_.getEffects());
+        effects.setupValues(move_.getEffects());
+        if (move_ instanceof DamagingMoveData) {
+            category.setupValue(((DamagingMoveData)move_).getCategory());
+        }
     }
 
     public GeneComponentModelInt getPp() {
@@ -226,8 +242,10 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         ids_.addAllElts(achieveDisappearedPkUsingMove.getSubs());
         ids_.addAllElts(deletedStatus.getSubs());
         ids_.addAllElts(requiredStatus.getSubs());
+        ids_.addAllElts(category.getSubs());
         ids_.addAllElts(typesByOwnedItem.subscribeButtons());
         ids_.addAllElts(typesByWeather.subscribeButtons());
+        ids_.addAllElts(secEffectsByItem.subscribeButtons());
         return ids_;
     }
 
@@ -295,8 +313,12 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         return damagingMove;
     }
 
-    public CrudGeneFormListSubEffect getMoves() {
-        return moves;
+    public GeneComponentModelEltStrSub getCategory() {
+        return category;
+    }
+
+    public CrudGeneFormListSubEffect getEffects() {
+        return effects;
     }
 
 }

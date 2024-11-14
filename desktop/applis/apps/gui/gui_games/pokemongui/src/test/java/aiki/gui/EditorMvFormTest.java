@@ -2,6 +2,7 @@ package aiki.gui;
 
 import aiki.db.DataBase;
 import aiki.facade.*;
+import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
 import aiki.fight.pokemon.*;
 import aiki.gui.components.editor.*;
@@ -604,14 +605,14 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelMoveData g_ = (GeneComponentModelMoveData) c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(M_1);
-        tryClick(g_.getMoves().getAdd());
-        GeneComponentModelEffect effForm_ = effects(g_.getMoves());
+        tryClick(g_.getEffects().getAdd());
+        GeneComponentModelEffect effForm_ = effects(g_.getEffects());
         effForm_.getEffectKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EFF_DAMAGE));
         effForm_.getEffectKind().getSelect().events(null);
         effForm_.getFail().valueString(M_2);
-        tryClick(g_.getMoves().getValidAddEdit());
-        tryClick(g_.getMoves().getAllButtons().get(0));
-        tryClick(g_.getMoves().getCancel());
+        tryClick(g_.getEffects().getValidAddEdit());
+        tryClick(g_.getEffects().getAllButtons().get(0));
+        tryClick(g_.getEffects().getCancel());
         tryClick(c_.getValidAddEdit());
         assertEq(1,facade_.getData().getMoves().getVal(M_1).getEffects().size());
         assertEq(M_2,facade_.getData().getMoves().getVal(M_1).getEffects().get(0).getFail());
@@ -626,15 +627,30 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         GeneComponentModelMoveData g_ = (GeneComponentModelMoveData) c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(M_1);
         g_.getDamagingMove().setSelected(false);
-        tryClick(g_.getMoves().getAdd());
-        GeneComponentModelEffect evoForm_ = effects(g_.getMoves());
+        tryClick(g_.getEffects().getAdd());
+        GeneComponentModelEffect evoForm_ = effects(g_.getEffects());
         evoForm_.getEffectKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EFF_STATIS));
         evoForm_.getEffectKind().getSelect().events(null);
         evoForm_.getFail().valueString(M_2);
-        tryClick(g_.getMoves().getValidAddEdit());
+        tryClick(g_.getEffects().getValidAddEdit());
         tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryClick(c_.getCancel());
         assertEq(1,facade_.getData().getMoves().getVal(M_1).getEffects().size());
         assertEq(M_2,facade_.getData().getMoves().getVal(M_1).getEffects().get(0).getFail());
+    }
+    @Test
+    public void mvForm19() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<MoveData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelMoveData g_ = (GeneComponentModelMoveData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(M_1);
+        g_.getCategory().setupValue(C_1);
+        tryClick(c_.getValidAddEdit());
+        assertEq(C_1,((DamagingMoveData)facade_.getData().getMoves().getVal(M_1)).getCategory());
     }
     private FacadeGame facadeAdd(MockProgramInfos _m) {
         FacadeGame f_ = facade(_m);

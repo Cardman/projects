@@ -35,6 +35,9 @@ public abstract class InitEditorPkForm extends EquallableAikiGuiUtil {
     public static final String S_1 = "S1";
     public static final String S_2 = "S2";
     public static final String S_3 = "S3";
+    public static final String C_1 = "C1";
+    public static final String C_2 = "C2";
+    public static final String C_3 = "C3";
 
     protected WindowPkEditor window(AbstractProgramInfos _core, FacadeGame _facade) {
         return new WindowPkEditor(_core,_facade);
@@ -66,6 +69,11 @@ public abstract class InitEditorPkForm extends EquallableAikiGuiUtil {
         allTypes_.addEntry(T_2,"t2");
         allTypes_.addEntry(T_3,"t3");
         facade_.getData().getTranslatedTypes().addEntry(_m.getLanguage(), allTypes_);
+        StringMap<String> allCa_ = new StringMap<String>();
+        allCa_.addEntry(C_1,"c1");
+        allCa_.addEntry(C_2,"c2");
+        allCa_.addEntry(C_3,"c3");
+        facade_.getData().getTranslatedCategories().addEntry(_m.getLanguage(), allCa_);
         facade_.getData().getTranslatedStatistics().addEntry(_m.getLanguage(), new IdMap<Statistic, String>());
         StringMap<String> allPk_ = new StringMap<String>();
         allPk_.addEntry(P_1,"p1");
