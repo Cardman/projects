@@ -17,10 +17,14 @@ public final class GeneComponentModelEltStrSub extends GeneComponentModelEltStrC
     @Override
     public AbsCustComponent geneEnum(int _select, int _value) {
         AbsCustComponent panel_ = geneEnum();
-        if (_select >= 0 && _value == 0) {
+        if (disable(_select, _value)) {
             selectUniq.getSelect().setEnabled(false);
         }
         return panel_;
+    }
+
+    static boolean disable(int _select, int _value) {
+        return _select >= 0 && _value == 0;
     }
 
     public AbsCustComponent geneEnum() {

@@ -27,7 +27,7 @@ public final class CrudGeneFormSimpleForm<K, V> extends CrudGeneFormListSub<Edit
 
     public IdList<SubscribedTranslation> subscribeButtons() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
-        ids_.add(displayEntryCustSub.buildSub(messages));
+        ids_.addAllElts(displayEntryCustSub.buildSub(messages));
         ids_.add(new SubscribedTranslationPkKey<EditedCrudPair<K, V>>(this));
         return ids_;
     }

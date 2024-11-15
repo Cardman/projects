@@ -3,6 +3,7 @@ package aiki.gui;
 import aiki.db.DataBase;
 import aiki.db.ImageArrayBaseSixtyFour;
 import aiki.db.MessagesDataBaseConstants;
+import aiki.fight.enums.Statistic;
 import aiki.game.Game;
 import aiki.gui.components.*;
 import aiki.gui.listeners.MouseTask;
@@ -455,7 +456,9 @@ public abstract class EquallableAikiGuiUtil {
         assertTrue(_tr.containsObj(_pag.getSearchButton()));
         assertTrue(_tr.containsObj(_pag.getNewSearchButton()));
     }
-
+    public static void assertEq(Statistic _expected, Statistic _result) {
+        Assert.assertSame(_expected, _result);
+    }
     public static void assertNull(AbsCustComponent _compo) {
         Assert.assertNull(_compo);
     }

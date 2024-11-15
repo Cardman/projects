@@ -1,7 +1,8 @@
 package aiki.gui.components.editor;
 
 import code.util.AbsMap;
+import code.util.IdList;
 
 public interface DisplayEntryCustSub<K> {
-    SubscribedTranslation buildSub(AbsMap<K, String> _messages);
+    IdList<SubscribedTranslation> buildSub(AbsMap<K, String> _messages);
 }

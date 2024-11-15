@@ -3,6 +3,7 @@ package aiki.gui.components.editor;
 import aiki.comparators.*;
 import aiki.db.*;
 import aiki.facade.*;
+import aiki.fight.enums.*;
 import aiki.fight.moves.enums.*;
 import aiki.fight.pokemon.enums.*;
 import aiki.fight.pokemon.evolution.*;
@@ -125,6 +126,12 @@ public final class ConverterCommonMapUtil {
     }
     public static GeneComponentModelEltEnum<TargetChoice> buildTargetChoice(AbstractProgramInfos _api, FacadeGame _facade) {
         return new GeneComponentModelEltEnum<TargetChoice>(_api, _facade.getData().getTranslatedTargets().getVal(_api.getLanguage()));
+    }
+    public static GeneComponentModelEltEnum<Statistic> buildStatisticsElt(AbstractProgramInfos _api, FacadeGame _facade) {
+        return new GeneComponentModelEltEnum<Statistic>(_api, _facade.getData().getTranslatedStatistics().getVal(_api.getLanguage()));
+    }
+    public static GeneComponentModelLsStrSub<Statistic> buildStatisticsLs(AbstractProgramInfos _api, FacadeGame _facade) {
+        return new GeneComponentModelLsStrSub<Statistic>(new GeneComponentModelLsEnum<Statistic>(_api, _facade.getData().getTranslatedStatistics().getVal(_api.getLanguage())));
     }
     public static GeneComponentModelEltEnum<GenderRepartition> buildGenderRepartition(AbstractProgramInfos _api){
         return new GeneComponentModelEltEnum<GenderRepartition>(_api,messages(MessagesPkEditor.getMessagesEditorSelectGenderRepTr(MessagesPkEditor.getAppliTr(_api.currentLg())).getMapping()));

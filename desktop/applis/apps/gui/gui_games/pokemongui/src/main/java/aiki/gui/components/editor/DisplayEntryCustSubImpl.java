@@ -12,7 +12,9 @@ public final class DisplayEntryCustSubImpl implements DisplayEntryCustSub<String
     }
 
     @Override
-    public SubscribedTranslation buildSub(AbsMap<String, String> _messages) {
-        return new SubscribedTranslationMessages(_messages,content,withEmpty);
+    public IdList<SubscribedTranslation> buildSub(AbsMap<String, String> _messages) {
+        IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
+        ids_.add(new SubscribedTranslationMessages(_messages,content,withEmpty));
+        return ids_;
     }
 }

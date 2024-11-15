@@ -74,7 +74,14 @@ public abstract class InitEditorPkForm extends EquallableAikiGuiUtil {
         allCa_.addEntry(C_2,"c2");
         allCa_.addEntry(C_3,"c3");
         facade_.getData().getTranslatedCategories().addEntry(_m.getLanguage(), allCa_);
-        facade_.getData().getTranslatedStatistics().addEntry(_m.getLanguage(), new IdMap<Statistic, String>());
+        IdMap<Statistic, String> trsStat_ = new IdMap<Statistic, String>();
+        trsStat_.addEntry(Statistic.ATTACK, "a");
+        trsStat_.addEntry(Statistic.DEFENSE, "d");
+        trsStat_.addEntry(Statistic.SPECIAL_ATTACK, "_a");
+        trsStat_.addEntry(Statistic.SPECIAL_DEFENSE, "_d");
+        trsStat_.addEntry(Statistic.SPEED, "s");
+        trsStat_.addEntry(Statistic.HP, "h");
+        facade_.getData().getTranslatedStatistics().addEntry(_m.getLanguage(), trsStat_);
         StringMap<String> allPk_ = new StringMap<String>();
         allPk_.addEntry(P_1,"p1");
         allPk_.addEntry(P_2,"p2");
