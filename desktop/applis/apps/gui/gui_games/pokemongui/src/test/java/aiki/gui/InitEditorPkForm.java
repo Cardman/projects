@@ -110,7 +110,9 @@ public abstract class InitEditorPkForm extends EquallableAikiGuiUtil {
         IdMap<Gender, String> g_ = new IdMap<Gender, String>();
         g_.addEntry(Gender.NO_GENDER,"_");
         facade_.getData().getTranslatedGenders().addEntry(_m.getLanguage(), g_);
-        facade_.getData().getTranslatedTargets().addEntry(_m.getLanguage(), new IdMap<TargetChoice, String>());
+        IdMap<TargetChoice, String> t_ = new IdMap<TargetChoice, String>();
+        t_.addEntry(TargetChoice.ANY_FOE,"_");
+        facade_.getData().getTranslatedTargets().addEntry(_m.getLanguage(), t_);
         return facade_;
     }
 

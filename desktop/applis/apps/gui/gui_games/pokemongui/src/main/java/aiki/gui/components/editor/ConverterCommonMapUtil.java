@@ -109,11 +109,11 @@ public final class ConverterCommonMapUtil {
         }
         return tree_;
     }
-    public static GeneComponentModelEltEnum<Gender> buildGender(AbstractProgramInfos _api, FacadeGame _facade){
-        return new GeneComponentModelEltEnum<Gender>(_api,_facade.getData().getTranslatedGenders().getVal(_api.getLanguage()));
+    public static GeneComponentModelEltEnumSub<Gender> buildGender(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _fact){
+        return new SubscribeBuilderUtil<Gender>(_fact.getFactoryGender()).merge(_api,_facade,new CustList<Gender>(),new IdMap<Gender, String>());
     }
-    public static GeneComponentModelEltEnum<TargetChoice> buildTargetChoice(AbstractProgramInfos _api, FacadeGame _facade) {
-        return new GeneComponentModelEltEnum<TargetChoice>(_api, _facade.getData().getTranslatedTargets().getVal(_api.getLanguage()));
+    public static GeneComponentModelEltEnumSub<TargetChoice> buildTargetChoice(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _fact) {
+        return new SubscribeBuilderUtil<TargetChoice>(_fact.getFactoryTarget()).merge(_api, _facade, new CustList<TargetChoice>(), new IdMap<TargetChoice, String>());
     }
     public static GeneComponentModelEltEnumSub<Statistic> buildStatisticsElt(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _fact) {
         return new SubscribeBuilderUtil<Statistic>(_fact.getFactoryStat()).merge(_api, _facade, new CustList<Statistic>(), new IdMap<Statistic, String>());

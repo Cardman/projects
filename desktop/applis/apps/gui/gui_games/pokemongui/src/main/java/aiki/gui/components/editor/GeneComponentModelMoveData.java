@@ -38,7 +38,7 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
     private final CrudGeneFormSimpleForm<String,String> typesByWeather;
     private final CrudGeneFormSimpleForm<String,Ints> secEffectsByItem;
     private final CrudGeneFormListSubEffect effects;
-    private GeneComponentModelEltEnum<TargetChoice> targetChoice;
+    private GeneComponentModelEltEnumSub<TargetChoice> targetChoice;
     private AbsCustCheckBox damagingMove;
     private GeneComponentModelEltStrSub category;
     private AbsCustCheckBox direct;
@@ -96,7 +96,7 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         secEffectsByItem.initForm(new DisplayEntryCustSubImpl<String>(getSubscribedTranslationList().getFactoryIt(), ConverterCommonMapUtil.defKeyEmpty(" ")),getSubscribedTranslationList().getFactoryIt().buildMessages(getCompoFactory(),getFacade(),ConverterCommonMapUtil.defKeyEmpty(" ")),getCompoFactory(), buildPart(getSubscribedTranslationList().getFactoryIt(), ConverterCommonMapUtil.defKeyEmpty("")),new GeneComponentModelSubscribeFactoryInts(getCompoFactory(),getFacade(),getSubscribedTranslationList(),secEffectsByItem.getFrame()),new StringMap<Ints>());
         effects.initForm();
         effects.initForm(getCompoFactory(),new CustList<Effect>());
-        targetChoice = ConverterCommonMapUtil.buildTargetChoice(getCompoFactory(), getFacade());
+        targetChoice = ConverterCommonMapUtil.buildTargetChoice(getCompoFactory(), getFacade(),getSubscribedTranslationList());
         category = ConverterCommonMapUtil.buildCatElt(getCompoFactory(),getFacade(),getSubscribedTranslationList());
         damagingComponent = getCompoFactory().getCompoFactory().newPageBox();
         damagingComponent.add(category.geneEnum());
@@ -147,7 +147,7 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         form_.add(typesByOwnedItem.getGroup());
         form_.add(typesByWeather.getGroup());
         form_.add(secEffectsByItem.getGroup());
-        form_.add(targetChoice.geneEnum(TargetChoice.NOTHING));
+        form_.add(targetChoice.geneEnum());
         form_.add(effects.getGroup());
         form_.add(damagingComponent);
         form_.add(statusComponent);
@@ -205,7 +205,7 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         new MapToEntriesListUtil<String,String>().feedMap(typesByWeather.getList(),ent_.getTypesByWeather());
         ent_.setSecEffectsByItem(new StringMap<Ints>());
         new MapToEntriesListUtil<String,Ints>().feedMap(secEffectsByItem.getList(),ent_.getSecEffectsByItem());
-        ent_.setTargetChoice(targetChoice.tryRet(TargetChoice.NOTHING));
+        ent_.setTargetChoice(targetChoice.tryRet());
         ent_.setEffects(effects.getList());
         if (ent_ instanceof DamagingMoveData) {
             ((DamagingMoveData)ent_).setCategory(category.tryRet());
@@ -277,6 +277,7 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         ids_.addAllElts(deletedStatus.getSubs());
         ids_.addAllElts(requiredStatus.getSubs());
         ids_.addAllElts(category.getSubs());
+        ids_.addAllElts(targetChoice.getSubs());
         ids_.addAllElts(typesByOwnedItem.subscribeButtons());
         ids_.addAllElts(typesByWeather.subscribeButtons());
         ids_.addAllElts(secEffectsByItem.subscribeButtons());

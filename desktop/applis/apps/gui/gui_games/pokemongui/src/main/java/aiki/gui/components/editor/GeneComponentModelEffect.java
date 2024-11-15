@@ -73,6 +73,7 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
     }
     public IdList<SubscribedTranslation> all() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
+        ids_.addAllElts(getContentEffect().getTargetChoice().getSubs());
         ids_.addAllElts(getContentEffectDamage().getStatisAtt().getSubs());
         ids_.addAllElts(getContentEffectDamage().getStatisDef().getSubs());
         ids_.addAllElts(getContentEffectDamage().getIgnVarStatTargetPos().getSubs());

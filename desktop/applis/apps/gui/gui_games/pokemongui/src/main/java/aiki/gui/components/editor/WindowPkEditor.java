@@ -6,8 +6,10 @@ import aiki.fight.abilities.*;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.*;
 import aiki.fight.moves.*;
+import aiki.fight.moves.enums.*;
 import aiki.fight.pokemon.*;
 import aiki.fight.status.*;
+import aiki.map.pokemon.enums.Gender;
 import code.gui.*;
 import code.gui.events.*;
 import code.gui.initialize.*;
@@ -26,6 +28,8 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
     private final CrudGeneFormNb crudGeneFormTm;
     private final CrudGeneFormNb crudGeneFormHm;
     private final CrudGeneFormTrCst<Statistic> crudGeneFormCstStat;
+    private final CrudGeneFormTrCst<TargetChoice> crudGeneFormCstTarget;
+    private final CrudGeneFormTrCst<Gender> crudGeneFormCstGender;
     private final CrudGeneFormEnt<AbilityData> crudGeneFormAb;
     private final CrudGeneFormEnt<Item> crudGeneFormIt;
     private final CrudGeneFormEnt<MoveData> crudGeneFormMv;
@@ -46,6 +50,8 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
     private final EnabledMenu pkMenu = getFrames().getCompoFactory().newMenuItem("2_3");
     private final EnabledMenu stMenu = getFrames().getCompoFactory().newMenuItem("2_4");
     private final EnabledMenu trsCstStatMenu = getFrames().getCompoFactory().newMenuItem("3_0");
+    private final EnabledMenu trsCstTargetMenu = getFrames().getCompoFactory().newMenuItem("3_1");
+    private final EnabledMenu trsCstGenderMenu = getFrames().getCompoFactory().newMenuItem("3_2");
 
     public WindowPkEditor(AbstractProgramInfos _list, FacadeGame _facade) {
         super(_list);
@@ -68,6 +74,13 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         crudGeneFormTyTr = buildTr(_list, _facade,trsTyMenu,subscriptions.getFactoryTy());
         crudGeneFormCstStat = new CrudGeneFormTrCst<Statistic>(_list,_facade,subscriptions,subscriptions.getFactoryStat());
         trsCstStatMenu.addActionListener(new PkEditorOpenCrudTrCstEvent<Statistic>(crudGeneFormCstStat,trsCstStatMenu));
+        crudGeneFormCstStat.getFrame().addWindowListener(new ReinitMenu(trsCstStatMenu, new IdList<SubscribedTranslation>()));
+        crudGeneFormCstTarget = new CrudGeneFormTrCst<TargetChoice>(_list,_facade,subscriptions,subscriptions.getFactoryTarget());
+        trsCstTargetMenu.addActionListener(new PkEditorOpenCrudTrCstEvent<TargetChoice>(crudGeneFormCstTarget,trsCstTargetMenu));
+        crudGeneFormCstTarget.getFrame().addWindowListener(new ReinitMenu(trsCstTargetMenu, new IdList<SubscribedTranslation>()));
+        crudGeneFormCstGender = new CrudGeneFormTrCst<Gender>(_list,_facade,subscriptions,subscriptions.getFactoryGender());
+        trsCstGenderMenu.addActionListener(new PkEditorOpenCrudTrCstEvent<Gender>(crudGeneFormCstGender,trsCstGenderMenu));
+        crudGeneFormCstGender.getFrame().addWindowListener(new ReinitMenu(trsCstGenderMenu, new IdList<SubscribedTranslation>()));
         crudGeneFormTm = new CrudGeneFormNb(_list, _facade,subscriptions, frTm_,subscriptions.getFactoryTm());
         crudGeneFormHm = new CrudGeneFormNb(_list, _facade,subscriptions, frHm_,subscriptions.getFactoryHm());
         crudGeneFormAb = new CrudGeneFormEntBuilder<AbilityData>().build(_list,_facade,subscriptions, abMenu, subscriptions.getFactoryAb());
@@ -99,6 +112,8 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         file_.addMenuItem(ent_);
         EnabledMenu trsCst_ = getFrames().getCompoFactory().newMenu("3");
         trsCst_.addMenuItem(trsCstStatMenu);
+        trsCst_.addMenuItem(trsCstTargetMenu);
+        trsCst_.addMenuItem(trsCstGenderMenu);
         file_.addMenuItem(trsCst_);
         bar_.add(file_);
         tmMenu.addActionListener(new PkEditorOpenCrudNbEvent(crudGeneFormTm,tmMenu, true));
@@ -204,6 +219,14 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         return trsCstStatMenu;
     }
 
+    public EnabledMenu getTrsCstTargetMenu() {
+        return trsCstTargetMenu;
+    }
+
+    public EnabledMenu getTrsCstGenderMenu() {
+        return trsCstGenderMenu;
+    }
+
     public CrudGeneFormEnt<AbilityData> getCrudGeneFormAb() {
         return crudGeneFormAb;
     }
@@ -262,5 +285,13 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
 
     public CrudGeneFormTrCst<Statistic> getCrudGeneFormCstStat() {
         return crudGeneFormCstStat;
+    }
+
+    public CrudGeneFormTrCst<TargetChoice> getCrudGeneFormCstTarget() {
+        return crudGeneFormCstTarget;
+    }
+
+    public CrudGeneFormTrCst<Gender> getCrudGeneFormCstGender() {
+        return crudGeneFormCstGender;
     }
 }

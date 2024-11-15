@@ -65,4 +65,7 @@ public final class CrudGeneFormTrCst<T> {
         subscribedTranslations.update();
     }
 
+    public AbsCommonFrame getFrame() {
+        return frame;
+    }
 }

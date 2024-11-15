@@ -422,7 +422,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         evoForm_.getEvolutionKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EVO_LEVEL_GENDER));
         evoForm_.getEvolutionKind().getSelect().events(null);
         evoForm_.getLevel().valueInt(2);
-        evoForm_.getEvoGender().valueElt(Gender.NO_GENDER);
+        evoForm_.getEvoGender().setupValue(Gender.NO_GENDER);
         tryClick(levMoves_.getValidAddEdit());
         tryClick(levMoves_.getAllButtons().get(0));
         tryClick(levMoves_.getCancel());
@@ -469,7 +469,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         evoForm_.getEvolutionKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EVO_STONE_GENDER));
         evoForm_.getEvolutionKind().getSelect().events(null);
         evoForm_.getItem().setupValue(I_1);
-        evoForm_.getEvoGender().valueElt(Gender.NO_GENDER);
+        evoForm_.getEvoGender().setupValue(Gender.NO_GENDER);
         tryClick(levMoves_.getValidAddEdit());
         tryClick(levMoves_.getAllButtons().get(0));
         tryClick(levMoves_.getCancel());

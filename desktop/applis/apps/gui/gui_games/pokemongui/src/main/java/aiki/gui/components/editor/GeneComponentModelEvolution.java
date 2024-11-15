@@ -18,13 +18,13 @@ public final class GeneComponentModelEvolution {
     private GeneComponentModelEltStrSub evoTeamPokemon;
     private GeneComponentModelEltStrSub evoMove;
     private GeneComponentModelEltStrSub evoMoveType;
-    private GeneComponentModelEltEnum<Gender> evoGender;
+    private GeneComponentModelEltEnumSub<Gender> evoGender;
     private final SubscribedTranslationList subscribedTranslationList;
     private Evolution edited;
     private final AbsCommonFrame frame;
     private AbsSpinner compoLevel;
     private AbsCustComponent compoItem;
-    private AbsPanel compoGender;
+    private AbsCustComponent compoGender;
     private AbsCustComponent compoMove;
     private AbsCustComponent compoMoveType;
     private AbsCustComponent compoTeamPokemon;
@@ -44,7 +44,7 @@ public final class GeneComponentModelEvolution {
         evoTeamPokemon = ConverterCommonMapUtil.buildPkFull(programInfos,fac,subscribedTranslationList);
         evoMove = ConverterCommonMapUtil.buildMvFull(programInfos,fac,subscribedTranslationList);
         evoMoveType = ConverterCommonMapUtil.buildTypeElt(programInfos,fac,subscribedTranslationList);
-        evoGender = ConverterCommonMapUtil.buildGender(programInfos,fac);
+        evoGender = ConverterCommonMapUtil.buildGender(programInfos,fac,subscribedTranslationList);
         AbsCompoFactory compoFactory_ = programInfos.getCompoFactory();
         AbsPanel evoForm_ = compoFactory_.newLineBox();
         AbsPanel selected_ = compoFactory_.newLineBox();
@@ -56,7 +56,7 @@ public final class GeneComponentModelEvolution {
         compoItem = item.geneEnum();
         compoItem.setVisible(false);
         selected_.add(compoItem);
-        compoGender = evoGender.geneEnum(Gender.NO_GENDER);
+        compoGender = evoGender.geneEnum();
         compoGender.setVisible(false);
         selected_.add(compoGender);
         compoMove = evoMove.geneEnum();
@@ -119,14 +119,14 @@ public final class GeneComponentModelEvolution {
         }
         if (edited instanceof EvolutionLevelGender) {
             ((EvolutionLevelGender)edited).setLevel((short) level.valueInt());
-            ((EvolutionLevelGender)edited).setGender(evoGender.tryRet(Gender.NO_GENDER));
+            ((EvolutionLevelGender)edited).setGender(evoGender.tryRet());
         }
         if (edited instanceof EvolutionStoneSimple) {
             ((EvolutionStoneSimple)edited).setStone(item.tryRet());
         }
         if (edited instanceof EvolutionStoneGender) {
             ((EvolutionStoneGender)edited).setStone(item.tryRet());
-            ((EvolutionStoneGender)edited).setGender(evoGender.tryRet(Gender.NO_GENDER));
+            ((EvolutionStoneGender)edited).setGender(evoGender.tryRet());
         }
         if (edited instanceof EvolutionItem) {
             ((EvolutionItem)edited).setItem(item.tryRet());
@@ -199,10 +199,11 @@ public final class GeneComponentModelEvolution {
         ids_.addAllElts(evoMove.getSubs());
         ids_.addAllElts(evoMoveType.getSubs());
         ids_.addAllElts(item.getSubs());
+        ids_.addAllElts(evoGender.getSubs());
         return ids_;
     }
 
-    public GeneComponentModelEltEnum<Gender> getEvoGender() {
+    public GeneComponentModelEltEnumSub<Gender> getEvoGender() {
         return evoGender;
     }
 
