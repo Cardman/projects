@@ -40,6 +40,7 @@ public final class EffectStatus extends Effect {
             if (statusFromUser) {
                 _data.setError(true);
             }
+            DataInfoChecker.checkStringListContainsOrEmpty(_data.getStatus().getKeys(),lawStatus.events(),_data);
             return;
         }
         if (statusFromUser) {
