@@ -18,11 +18,11 @@ public final class CrudGeneFormEnt<T> extends CrudGeneFormListSub<EditedCrudPair
         initForm();
         getCrudGeneFormSubContent().clearSub();
         FacadeGame facadeGame_ = getCrudGeneFormSubContent().getFacadeGame();
-        StringMap<String> messages_ = factoryCommonParam.buildMessages(_core,getCrudGeneFormSubContent().getFacadeGame());
+        AbsMap<String, String> messages_ = factoryCommonParam.buildMessages(_core,getCrudGeneFormSubContent().getFacadeGame());
 //        geneComponentModelSelectKey = ConverterCommonMapUtil.buildPk(getFactory(), getCrudGeneFormSubContent().getFacadeGame(),subscription());
         GeneComponentModel<EditedCrudPair<String,T>> key_ = factoryCommonParam.build(getFrame(), _core, getCrudGeneFormSubContent());
 //        setGeneKey(geneComponentModelSelectKey.getSelectUniq());
-        getCrudGeneFormSubContent().addSubRoot(new SubscribedTranslationMessages(messages_,factoryCommonParam, new StringMap<String>()));
+        getCrudGeneFormSubContent().addSubRoot(new SubscribedTranslationMessages<String>(messages_,factoryCommonParam, new StringMap<String>()));
         Comparing<EditedCrudPair<String, T>> cmp_ = new ComparatorTrWrapperPairs<String, T>().wrap(messages_);
         initForm(new DisplayKeyOnly<String, T>(messages_),key_,new MapToEntriesListUtil<String, T>().build(factoryCommonParam.all(facadeGame_)), cmp_,new ValidateElementPair<String, T>(cmp_));
         getFrame().setContentPane(getGroup());

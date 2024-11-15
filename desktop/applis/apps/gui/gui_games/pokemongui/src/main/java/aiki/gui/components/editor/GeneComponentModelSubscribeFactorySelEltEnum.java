@@ -1,21 +1,23 @@
 package aiki.gui.components.editor;
 
-import code.gui.*;
+import aiki.facade.*;
 import code.gui.initialize.*;
 import code.util.*;
 
 public final class GeneComponentModelSubscribeFactorySelEltEnum<T> implements AbsGeneComponentModelSubscribeFactory<T> {
 
     private final AbstractProgramInfos core;
-    private final AbsMap<T,String> messages;
+    private final SubscribedTranslationMessagesFactoryCore<T> factory;
+    private final FacadeGame facadeGame;
 
-    public GeneComponentModelSubscribeFactorySelEltEnum(AbstractProgramInfos _c, AbsMap<T, String> _m) {
+    public GeneComponentModelSubscribeFactorySelEltEnum(AbstractProgramInfos _c, SubscribedTranslationMessagesFactoryCore<T> _facto, FacadeGame _fa) {
         this.core = _c;
-        messages = _m;
+        factory = _facto;
+        facadeGame = _fa;
     }
 
     @Override
     public AbsGeneComponentModelSubscribe<T> build() {
-        return new GeneComponentModelEltEnumSub<T>(new GeneComponentModelEltEnum<T>(core,messages));
+        return new SubscribeBuilderUtil<T>(factory).merge(core,facadeGame,new CustList<T>(),new IdMap<T, String>());
     }
 }

@@ -4,13 +4,13 @@ import aiki.db.*;
 import code.gui.*;
 
 public final class GeneComponentModelEltStrSub extends GeneComponentModelEltStrCom implements AbsGeneComponentModelSubscribe<String>{
-    private final GeneComponentModelEltStr selectUniq;
+    private final GeneComponentModelElt<String> selectUniq;
 
-    public GeneComponentModelEltStrSub(GeneComponentModelEltStr _s) {
+    public GeneComponentModelEltStrSub(GeneComponentModelElt<String> _s) {
         this.selectUniq = _s;
     }
 
-    public GeneComponentModelEltStr getSelectUniq() {
+    public GeneComponentModelElt<String> getSelectUniq() {
         return selectUniq;
     }
 

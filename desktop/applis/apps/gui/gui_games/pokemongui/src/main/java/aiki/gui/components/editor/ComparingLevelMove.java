@@ -1,16 +1,14 @@
 package aiki.gui.components.editor;
 
-import aiki.fight.util.LevelMove;
-import code.util.StringMap;
-import code.util.core.NumberUtil;
-import code.util.core.SortConstants;
-import code.util.core.StringUtil;
-import code.util.ints.Comparing;
+import aiki.fight.util.*;
+import code.util.*;
+import code.util.core.*;
+import code.util.ints.*;
 
 public final class ComparingLevelMove implements Comparing<LevelMove> {
-    private final StringMap<String> messages;
+    private final AbsMap<String, String> messages;
 
-    public ComparingLevelMove(StringMap<String> _m) {
+    public ComparingLevelMove(AbsMap<String, String> _m) {
         this.messages = _m;
     }
     @Override

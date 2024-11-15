@@ -1,15 +1,15 @@
 package aiki.gui.components.editor;
 
-import aiki.fight.enums.*;
-import code.gui.*;
-import code.gui.initialize.*;
-import code.util.*;
+import aiki.fight.enums.Statistic;
+import code.gui.AbsCustComponent;
+import code.gui.GeneComponentModelEvent;
+import code.gui.initialize.AbstractProgramInfos;
 
 public final class GeneComponentModelEventStatistic extends GeneComponentModelEvent<Statistic> {
     private final GeneComponentModelEltEnumSub<Statistic> event;
-    public GeneComponentModelEventStatistic(AbstractProgramInfos _c, AbsMap<Statistic, String> _m) {
+    public GeneComponentModelEventStatistic(AbstractProgramInfos _c, GeneComponentModelEltEnumSub<Statistic> _e) {
         super(_c);
-        event = new GeneComponentModelEltEnumSub<Statistic>(new GeneComponentModelEltEnum<Statistic>(_c, _m));
+        event = _e;
     }
 
     @Override

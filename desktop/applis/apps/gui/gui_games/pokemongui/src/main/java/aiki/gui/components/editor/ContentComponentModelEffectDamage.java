@@ -26,8 +26,8 @@ public final class ContentComponentModelEffectDamage {
     private CrudGeneFormSimpleForm<Statistic,Byte> boostStatisOnceKoFoe;
     private GeneComponentModelLsStrSub<Statistic> ignVarStatTargetPos;
     private GeneComponentModelLsStrSub<Statistic> ignVarStatUserNeg;
-    private GeneComponentModelEltEnum<Statistic> statisAtt;
-    private GeneComponentModelEltEnum<Statistic> statisDef;
+    private GeneComponentModelEltEnumSub<Statistic> statisAtt;
+    private GeneComponentModelEltEnumSub<Statistic> statisDef;
     private AbsPanel form;
 
     AbsPanel effectForm(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
@@ -36,13 +36,13 @@ public final class ContentComponentModelEffectDamage {
         selected_.add(power.geneString());
         chRate = new GeneComponentModelInt(_core);
         selected_.add(chRate.geneInt());
-        statisAtt = ConverterCommonMapUtil.buildStatisticsElt(_core,_fac);
-        selected_.add(statisAtt.geneEnum(Statistic.ATTACK));
-        statisDef = ConverterCommonMapUtil.buildStatisticsElt(_core,_fac);
-        selected_.add(statisDef.geneEnum(Statistic.DEFENSE));
-        ignVarStatTargetPos = ConverterCommonMapUtil.buildStatisticsLs(_core,_fac);
+        statisAtt = ConverterCommonMapUtil.buildStatisticsElt(_core,_fac,_fact);
+        selected_.add(statisAtt.geneEnum());
+        statisDef = ConverterCommonMapUtil.buildStatisticsElt(_core,_fac,_fact);
+        selected_.add(statisDef.geneEnum());
+        ignVarStatTargetPos = ConverterCommonMapUtil.buildStatisticsLs(_core,_fac,_fact);
         selected_.add(ignVarStatTargetPos.geneEnum());
-        ignVarStatUserNeg = ConverterCommonMapUtil.buildStatisticsLs(_core,_fac);
+        ignVarStatUserNeg = ConverterCommonMapUtil.buildStatisticsLs(_core,_fac,_fact);
         selected_.add(ignVarStatUserNeg.geneEnum());
         constDamage = _core.getCompoFactory().newCustCheckBox();
         selected_.add(constDamage);
@@ -62,12 +62,11 @@ public final class ContentComponentModelEffectDamage {
         selected_.add(damageLaw.getGroup());
         multDamageAgainst = new CrudGeneFormSimpleForm<String, Rate>(_core, _fac, _fact, _f);
         multDamageAgainst.initForm();
-        multDamageAgainst.initForm(new DisplayEntryCustSubImpl(_fact.getFactoryCa(), new StringMap<String>()),_fact.getFactoryCa().buildMessages(_core,_fac),_core, buildPart(_core,_fac,_fact.getFactoryCa(), new StringMap<String>()), new GeneComponentModelSubscribeFactoryRate(_core),new StringMap<Rate>());
+        multDamageAgainst.initForm(new DisplayEntryCustSubImpl<String>(_fact.getFactoryCa(), new StringMap<String>()),_fact.getFactoryCa().buildMessages(_core,_fac),_core, buildPart(_core,_fac,_fact.getFactoryCa(), new StringMap<String>()), new GeneComponentModelSubscribeFactoryRate(_core),new StringMap<Rate>());
         selected_.add(multDamageAgainst.getGroup());
         boostStatisOnceKoFoe = new CrudGeneFormSimpleForm<Statistic,Byte>(_core, _fac, _fact, _f);
         boostStatisOnceKoFoe.initForm();
-        IdMap<Statistic, String> trsStat_ = _fac.getData().getTranslatedStatistics().getVal(_core.getLanguage());
-        boostStatisOnceKoFoe.initForm(new DisplayEntryCustNoSubImpl<Statistic>(),trsStat_,_core, new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core,trsStat_), new GeneComponentModelSubscribeFactoryByte(_core),new IdMap<Statistic, Byte>());
+        boostStatisOnceKoFoe.initForm(new DisplayEntryCustSubImpl<Statistic>(_fact.getFactoryStat(), new IdMap<Statistic, String>()),_fact.getFactoryStat().buildMessages(_core,_fac),_core, new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac), new GeneComponentModelSubscribeFactoryByte(_core),new IdMap<Statistic, Byte>());
         selected_.add(boostStatisOnceKoFoe.getGroup());
         selected_.setVisible(false);
         form =selected_;
@@ -101,8 +100,8 @@ public final class ContentComponentModelEffectDamage {
         _edited.setSummingUserTeamOkFighter(summingUserTeamOkFighter.isSelected());
         _edited.setUserAttack(userAttack.isSelected());
         _edited.setTargetDefense(targetDefense.isSelected());
-        _edited.setStatisAtt(statisAtt.tryRet(Statistic.ATTACK));
-        _edited.setStatisDef(statisDef.tryRet(Statistic.DEFENSE));
+        _edited.setStatisAtt(statisAtt.tryRet());
+        _edited.setStatisDef(statisDef.tryRet());
         _edited.setIgnVarStatTargetPos(new IdList<Statistic>(ignVarStatTargetPos.tryRet()));
         _edited.setIgnVarStatUserNeg(new IdList<Statistic>(ignVarStatUserNeg.tryRet()));
         _edited.setChLaw(new MonteCarloNumber());
@@ -153,6 +152,22 @@ public final class ContentComponentModelEffectDamage {
 
     public AbsCustCheckBox getUserAttack() {
         return userAttack;
+    }
+
+    public GeneComponentModelEltEnumSub<Statistic> getStatisAtt() {
+        return statisAtt;
+    }
+
+    public GeneComponentModelEltEnumSub<Statistic> getStatisDef() {
+        return statisDef;
+    }
+
+    public GeneComponentModelLsStrSub<Statistic> getIgnVarStatTargetPos() {
+        return ignVarStatTargetPos;
+    }
+
+    public GeneComponentModelLsStrSub<Statistic> getIgnVarStatUserNeg() {
+        return ignVarStatUserNeg;
     }
 
     public CrudGeneFormMonteCarlo<String> getDamageLaw() {

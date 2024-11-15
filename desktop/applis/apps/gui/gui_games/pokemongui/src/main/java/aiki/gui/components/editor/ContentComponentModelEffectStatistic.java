@@ -20,38 +20,43 @@ public final class ContentComponentModelEffectStatistic {
     private CrudGeneFormMonteCarlo<Statistic> lawBoost;
     private GeneComponentModelLsStrSub<Statistic> cancelLowStat;
     private GeneComponentModelLsStrSub<Statistic> cancelChgtStat;
+    private final IdList<SubscribedTranslation> subscribedTranslations = new IdList<SubscribedTranslation>();
     private AbsPanel form;
+
     AbsPanel effectForm(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
         AbsPanel selected_ = _core.getCompoFactory().newLineBox();
         evtRate = new GeneComponentModelRate(_core);
         selected_.add(evtRate.geneRate(Rate.zero()));
-        copyBoost = ConverterCommonMapUtil.buildStatisticsLs(_core,_fac);
+        copyBoost = ConverterCommonMapUtil.buildStatisticsLs(_core,_fac,_fact);
         selected_.add(copyBoost.geneEnum());
-        swapBoostStatis = ConverterCommonMapUtil.buildStatisticsLs(_core,_fac);
+        swapBoostStatis = ConverterCommonMapUtil.buildStatisticsLs(_core,_fac,_fact);
         selected_.add(swapBoostStatis.geneEnum());
-        cancelLowStat = ConverterCommonMapUtil.buildStatisticsLs(_core,_fac);
+        cancelLowStat = ConverterCommonMapUtil.buildStatisticsLs(_core,_fac,_fact);
         selected_.add(cancelLowStat.geneEnum());
-        cancelChgtStat = ConverterCommonMapUtil.buildStatisticsLs(_core,_fac);
+        cancelChgtStat = ConverterCommonMapUtil.buildStatisticsLs(_core,_fac,_fact);
         selected_.add(cancelChgtStat.geneEnum());
         statisVarRank = new CrudGeneFormSimpleForm<Statistic,Byte>(_core, _fac, _fact, _f);
         statisVarRank.initForm();
-        IdMap<Statistic, String> trsStat_ = _fac.getData().getTranslatedStatistics().getVal(_core.getLanguage());
-        statisVarRank.initForm(new DisplayEntryCustNoSubImpl<Statistic>(),trsStat_,_core, new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core,trsStat_), new GeneComponentModelSubscribeFactoryByte(_core),new IdMap<Statistic, Byte>());
+        statisVarRank.initForm(new DisplayEntryCustSubImpl<Statistic>(_fact.getFactoryStat(), new IdMap<Statistic, String>()),_fact.getFactoryStat().buildMessages(_core,_fac),_core, new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac), new GeneComponentModelSubscribeFactoryByte(_core),new IdMap<Statistic, Byte>());
         selected_.add(statisVarRank.getGroup());
         localFailStatis = new CrudGeneFormSimpleForm<Statistic,String>(_core, _fac, _fact, _f);
         localFailStatis.initForm();
-        localFailStatis.initForm(new DisplayEntryCustNoSubImpl<Statistic>(),trsStat_,_core, new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core,trsStat_), new GeneComponentModelSubscribeFactoryString(_core),new IdMap<Statistic, String>());
+        localFailStatis.initForm(new DisplayEntryCustSubImpl<Statistic>(_fact.getFactoryStat(), new IdMap<Statistic, String>()),_fact.getFactoryStat().buildMessages(_core,_fac),_core, new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac), new GeneComponentModelSubscribeFactoryString(_core),new IdMap<Statistic, String>());
         selected_.add(localFailStatis.getGroup());
         localFailSwapBoostStatis = new CrudGeneFormSimpleForm<Statistic,String>(_core, _fac, _fact, _f);
         localFailSwapBoostStatis.initForm();
-        localFailSwapBoostStatis.initForm(new DisplayEntryCustNoSubImpl<Statistic>(),trsStat_,_core, new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core,trsStat_), new GeneComponentModelSubscribeFactoryString(_core),new IdMap<Statistic, String>());
+        localFailSwapBoostStatis.initForm(new DisplayEntryCustSubImpl<Statistic>(_fact.getFactoryStat(), new IdMap<Statistic, String>()),_fact.getFactoryStat().buildMessages(_core,_fac),_core, new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac), new GeneComponentModelSubscribeFactoryString(_core),new IdMap<Statistic, String>());
         selected_.add(localFailSwapBoostStatis.getGroup());
+        AbsMap<Statistic, String> trsStat_ = _fact.getFactoryStat().buildMessages(_core,_fac);
+        subscribedTranslations.clear();
         lawBoost = new CrudGeneFormMonteCarlo<Statistic>(_core,new ComparingEnumKey<Statistic,LgInt>(trsStat_));
         lawBoost.setFrame(_f);
         lawBoost.initForm();
-        lawBoost.initForm(new StatisticLgIntDisplayEntryCust(trsStat_),new GeneComponentModelEventStatistic(_core,trsStat_),new MonteCarloEnum<Statistic>(),new ComparingEnumKey<Statistic,LgInt>(trsStat_));
+        lawBoost.initForm(new StatisticLgIntDisplayEntryCust(trsStat_), new GeneComponentModelEventStatistic(_core, ConverterCommonMapUtil.buildStatisticsElt(_core, _fac, _fact)),new MonteCarloEnum<Statistic>(),new ComparingEnumKey<Statistic,LgInt>(trsStat_));
         selected_.add(lawBoost.getGroup());
         selected_.setVisible(false);
+        subscribedTranslations.add(new SubscribedTranslationMessages<Statistic>(trsStat_,_fact.getFactoryStat(),new IdMap<Statistic, String>()));
+        subscribedTranslations.add(new SubscribedTranslationPkKey<EditedCrudPair<Statistic,LgInt>>(lawBoost));
         form =selected_;
         return selected_;
     }
@@ -86,6 +91,22 @@ public final class ContentComponentModelEffectStatistic {
         lawBoost.setupValues(new MapToEntriesListUtil<Statistic,LgInt>().build(_edited.getLawBoost()));
     }
 
+    public GeneComponentModelLsStrSub<Statistic> getCancelChgtStat() {
+        return cancelChgtStat;
+    }
+
+    public GeneComponentModelLsStrSub<Statistic> getCancelLowStat() {
+        return cancelLowStat;
+    }
+
+    public GeneComponentModelLsStrSub<Statistic> getCopyBoost() {
+        return copyBoost;
+    }
+
+    public GeneComponentModelLsStrSub<Statistic> getSwapBoostStatis() {
+        return swapBoostStatis;
+    }
+
     public CrudGeneFormSimpleForm<Statistic, Byte> getStatisVarRank() {
         return statisVarRank;
     }
@@ -100,5 +121,9 @@ public final class ContentComponentModelEffectStatistic {
 
     public CrudGeneFormMonteCarlo<Statistic> getLawBoost() {
         return lawBoost;
+    }
+
+    public IdList<SubscribedTranslation> getSubscribedTranslations() {
+        return subscribedTranslations;
     }
 }

@@ -33,6 +33,7 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
     private final CrudGeneFormListSubLevelMove levMoves;
     private final CrudGeneFormSimpleForm<String,Evolution> evolutions;
     private final CrudGeneFormList<String> eggGroups;
+    private final IdList<SubscribedTranslation> subscribedTranslations = new IdList<SubscribedTranslation>();
 
     public GeneComponentModelPokemonData(AbsCommonFrame _fr, AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
         super(_core, _facade, _sub);
@@ -69,9 +70,11 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         form_.add(height.geneRate(Rate.zero()));
         form_.add(types.geneEnum());
         AbsPanel stats_ = compoFactory_.newPageBox();
+        subscribedTranslations.clear();
         for (Statistic s: Statistic.getStatisticsWithBase()) {
             FormStatBaseEv f_ = new FormStatBaseEv(getCompoFactory());
             statistics.addEntry(s, f_);
+            subscribedTranslations.add(new UpdateStatEvMessage(s, f_));
             stats_.add(f_.row(getFacade().getData().getTranslatedStatistics().getVal(getCompoFactory().getLanguage()).getVal(s)));
         }
         updateStats(new IdMap<Statistic, StatBaseEv>());
@@ -84,7 +87,7 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         levMoves.initForm(getCompoFactory(), new CustList<LevelMove>());
         form_.add(levMoves.getGroup());
         evolutions.initForm();
-        evolutions.initForm(new DisplayEntryCustSubImpl(getSubscribedTranslationList().getFactoryPk(), new StringMap<String>()),getSubscribedTranslationList().getFactoryPk().buildMessages(getCompoFactory(),getFacade()),getCompoFactory(),buildPart(getSubscribedTranslationList().getFactoryPk(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryEvolution(getCompoFactory(),getFacade(),getSubscribedTranslationList(),evolutions.getFrame()), new StringMap<Evolution>());
+        evolutions.initForm(new DisplayEntryCustSubImpl<String>(getSubscribedTranslationList().getFactoryPk(), new StringMap<String>()),getSubscribedTranslationList().getFactoryPk().buildMessages(getCompoFactory(),getFacade()),getCompoFactory(),buildPart(getSubscribedTranslationList().getFactoryPk(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryEvolution(getCompoFactory(),getFacade(),getSubscribedTranslationList(),evolutions.getFrame()), new StringMap<Evolution>());
         form_.add(evolutions.getGroup());
         form_.add(technicalMoves.geneEnum());
         form_.add(hiddenMoves.geneEnum());
@@ -181,6 +184,7 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         ids_.addAllElts(getLevMoves().subscribeButtons());
         ids_.addAllElts(getTechnicalMoves().getSubs());
         ids_.addAllElts(getHiddenMoves().getSubs());
+        ids_.addAllElts(subscribedTranslations);
         return ids_;
     }
 

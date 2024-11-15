@@ -73,11 +73,20 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
     }
     public IdList<SubscribedTranslation> all() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
+        ids_.addAllElts(getContentEffectDamage().getStatisAtt().getSubs());
+        ids_.addAllElts(getContentEffectDamage().getStatisDef().getSubs());
+        ids_.addAllElts(getContentEffectDamage().getIgnVarStatTargetPos().getSubs());
+        ids_.addAllElts(getContentEffectDamage().getIgnVarStatUserNeg().getSubs());
         ids_.addAllElts(getContentEffectDamage().getMultDamageAgainst().subscribeButtons());
         ids_.addAllElts(getContentEffectDamage().getBoostStatisOnceKoFoe().subscribeButtons());
+        ids_.addAllElts(getContentEffectStatistic().getCancelChgtStat().getSubs());
+        ids_.addAllElts(getContentEffectStatistic().getCancelLowStat().getSubs());
+        ids_.addAllElts(getContentEffectStatistic().getCopyBoost().getSubs());
+        ids_.addAllElts(getContentEffectStatistic().getSwapBoostStatis().getSubs());
         ids_.addAllElts(getContentEffectStatistic().getStatisVarRank().subscribeButtons());
         ids_.addAllElts(getContentEffectStatistic().getLocalFailStatis().subscribeButtons());
         ids_.addAllElts(getContentEffectStatistic().getLocalFailSwapBoostStatis().subscribeButtons());
+        ids_.addAllElts(getContentEffectStatistic().getSubscribedTranslations());
         return ids_;
     }
 

@@ -7,6 +7,7 @@ public final class FormStatBaseEv {
     private final AbstractProgramInfos api;
     private final AbsSpinner ev;
     private final AbsSpinner base;
+    private AbsPanel group;
     public FormStatBaseEv(AbstractProgramInfos _a) {
         api = _a;
         AbsCompoFactory c_ = api.getCompoFactory();
@@ -20,8 +21,14 @@ public final class FormStatBaseEv {
         l_.setTitledBorder(_title);
         l_.add(base);
         l_.add(ev);
+        group = l_;
         return l_;
     }
+
+    public AbsPanel getGroup() {
+        return group;
+    }
+
     public AbsSpinner getBase() {
         return base;
     }

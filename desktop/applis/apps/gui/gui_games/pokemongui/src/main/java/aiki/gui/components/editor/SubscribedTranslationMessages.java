@@ -1,16 +1,15 @@
 package aiki.gui.components.editor;
 
-import aiki.facade.FacadeGame;
-import code.gui.initialize.AbstractProgramInfos;
-import code.util.AbsMap;
-import code.util.StringMap;
+import aiki.facade.*;
+import code.gui.initialize.*;
+import code.util.*;
 
-public final class SubscribedTranslationMessages implements SubscribedTranslation {
-    private final AbsMap<String, String> input;
-    private final SubscribedTranslationMessagesFactory factory;
-    private final AbsMap<String,String> empty;
+public final class SubscribedTranslationMessages<T> implements SubscribedTranslation {
+    private final AbsMap<T, String> input;
+    private final SubscribedTranslationMessagesFactoryCore<T> factory;
+    private final AbsMap<T,String> empty;
 
-    public SubscribedTranslationMessages(AbsMap<String, String> _c, SubscribedTranslationMessagesFactory _sub, AbsMap<String,String> _withEmpty) {
+    public SubscribedTranslationMessages(AbsMap<T, String> _c, SubscribedTranslationMessagesFactoryCore<T> _sub, AbsMap<T,String> _withEmpty) {
         this.input = _c;
         this.factory = _sub;
         this.empty = _withEmpty;
@@ -18,7 +17,7 @@ public final class SubscribedTranslationMessages implements SubscribedTranslatio
 
     @Override
     public void update(AbstractProgramInfos _api, FacadeGame _facade) {
-        StringMap<String> messages_ = factory.buildMessages(_api, _facade, empty);
+        AbsMap<T, String> messages_ = factory.buildMessages(_api, _facade, empty);
         input.clear();
         input.addAllEntries(messages_);
     }

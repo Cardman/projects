@@ -2,13 +2,13 @@ package aiki.gui.components.editor;
 
 import aiki.fight.util.*;
 import code.gui.*;
-import code.util.StringMap;
-import code.util.core.StringUtil;
+import code.util.*;
+import code.util.core.*;
 
 public final class DisplayEntryCustLevelMove implements DisplayEntryCust<Integer, LevelMove> {
-    private final StringMap<String> messages;
+    private final AbsMap<String, String> messages;
 
-    public DisplayEntryCustLevelMove(StringMap<String> _m) {
+    public DisplayEntryCustLevelMove(AbsMap<String, String> _m) {
         this.messages = _m;
     }
 

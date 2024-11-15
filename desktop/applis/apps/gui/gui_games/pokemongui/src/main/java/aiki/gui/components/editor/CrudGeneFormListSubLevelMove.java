@@ -8,7 +8,7 @@ import code.util.*;
 
 public final class CrudGeneFormListSubLevelMove extends CrudGeneFormListSub<LevelMove> {
 
-    private StringMap<String> messages;
+    private AbsMap<String, String> messages;
     private GeneComponentModelLevelMove geneComponentModelLevelMove;
 
     public CrudGeneFormListSubLevelMove(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub, AbsCommonFrame _fr) {
@@ -29,7 +29,7 @@ public final class CrudGeneFormListSubLevelMove extends CrudGeneFormListSub<Leve
 
     public IdList<SubscribedTranslation> subscribeButtons() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
-        ids_.add(new SubscribedTranslationMessages(messages,subscription().getFactoryMv(), new StringMap<String>()));
+        ids_.add(new SubscribedTranslationMessages<String>(messages,subscription().getFactoryMv(), new StringMap<String>()));
         ids_.add(new SubscribedTranslationPkKey<LevelMove>(this));
         return ids_;
     }

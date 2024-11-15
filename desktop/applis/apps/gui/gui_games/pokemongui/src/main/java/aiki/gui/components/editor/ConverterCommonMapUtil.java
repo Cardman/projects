@@ -58,27 +58,27 @@ public final class ConverterCommonMapUtil {
         return mergeLsNb(_api, _facade, _sub.getFactoryMv(), _sub.getFactoryHm());
     }
     public static GeneComponentModelEltStrSub merge(AbstractProgramInfos _api, FacadeGame _sub, SubscribedTranslationMessagesFactory _builder, CustList<String> _excluded, AbsMap<String,String> _withEmptyStr) {
-        StringMap<String> sub_ = _builder.buildMessages(_api, _sub, _withEmptyStr);
+        AbsMap<String, String> sub_ = _builder.buildMessages(_api, _sub, _withEmptyStr);
         StringList rem_ = new StringList(sub_.getKeys());
         rem_.removeAllElements(_excluded);
-        TreeMap<String, String> treeFilter_ = feedTree(sub_, rem_);
-        GeneComponentModelEltStr sel_ = new GeneComponentModelEltStr(_api, treeFilter_);
+        TreeMap<String, String> treeFilter_ = new SubscribeBuilderUtil<String>(_builder).feedTree(sub_, rem_);
+        GeneComponentModelElt<String> sel_ = new GeneComponentModelEltStr(_api, treeFilter_);
         GeneComponentModelEltStrSub g_ = new GeneComponentModelEltStrSub(sel_);
-        feedSub(_builder, sub_, treeFilter_, sel_, g_.getSubs(), _withEmptyStr);
+        g_.getSubs().addAllElts(new SubscribeBuilderUtil<String>(_builder).feedSub(sub_, treeFilter_, sel_, _withEmptyStr));
         return g_;
     }
 
     private static GeneComponentModelLsStrSub<String> mergeLs(AbstractProgramInfos _api, FacadeGame _sub, SubscribedTranslationMessagesFactory _builder) {
-        StringMap<String> sub_ = _builder.buildMessages(_api, _sub);
-        TreeMap<String, String> treeFilter_ = feedTree(sub_, sub_.getKeys());
-        GeneComponentModelLsStr sel_ = new GeneComponentModelLsStr(_api, treeFilter_);
+        AbsMap<String, String> sub_ = _builder.buildMessages(_api, _sub);
+        TreeMap<String, String> treeFilter_ = new SubscribeBuilderUtil<String>(_builder).feedTree(sub_, sub_.getKeys());
+        GeneComponentModelLs<String> sel_ = new GeneComponentModelLsStr(_api, treeFilter_);
         GeneComponentModelLsStrSub<String> g_ = new GeneComponentModelLsStrSub<String>(sel_);
-        feedSub(_builder, sub_, treeFilter_, sel_, g_.getSubs(), new StringMap<String>());
+        g_.getSubs().addAllElts(new SubscribeBuilderUtil<String>(_builder).feedSub(sub_, treeFilter_, sel_, new StringMap<String>()));
         return g_;
     }
     private static GeneComponentModelLsStrSub<Short> mergeLsNb(AbstractProgramInfos _api, FacadeGame _sub, SubscribedTranslationMessagesFactory _builderMv, SubscribedTranslationMessagesNbFactory _builder) {
         ShortMap<String> map_ = _builder.retrieveMap(_api, _sub);
-        StringMap<String> messages_ = _builderMv.buildMessages(_api, _sub);
+        AbsMap<String, String> messages_ = _builderMv.buildMessages(_api, _sub);
         ShortMap<String> sub_ = map(map_, messages_);
         TreeMap<Short, String> treeFilter_ = feedTreeNb(sub_, sub_.getKeys());
         GeneComponentModelLsEnum<Short> sel_ = new GeneComponentModelLsEnum<Short>(_api, treeFilter_);
@@ -95,23 +95,11 @@ public final class ConverterCommonMapUtil {
         return messages_;
     }
 
-    private static void feedSub(SubscribedTranslationMessagesFactory _builder, StringMap<String> _sub, TreeMap<String, String> _treeFilter, GeneComponentModelStr _sel, IdList<SubscribedTranslation> _subs, AbsMap<String,String> _withEmpty) {
-        _subs.add(_builder.buildSub(_sub, _withEmpty));
-        _subs.add(_builder.buildSub(_treeFilter, _withEmpty));
-        _subs.add(new SubscribedTranslationSelect(_sel));
-    }
     private static void feedSubNb(SubscribedTranslationMessagesFactory _builderMv, SubscribedTranslationMessagesNbFactory _builder, ShortMap<String> _sub, TreeMap<Short, String> _treeFilter, GeneComponentModelStr _sel, IdList<SubscribedTranslation> _subs, AbsMap<String, String> _messages) {
         _subs.add(_builderMv.buildSub(_messages, new StringMap<String>()));
         _subs.add(_builder.buildSub(_sub, _messages));
         _subs.add(_builder.buildSub(_treeFilter, _messages));
         _subs.add(new SubscribedTranslationSelect(_sel));
-    }
-    public static TreeMap<String, String> feedTree(AbsMap<String, String> _messages, CustList<String> _rem) {
-        TreeMap<String, String> tree_ = new TreeMap<String, String>(new ComparatorTrWrapper<String>().wrap(_messages));
-        for (String s: _rem) {
-            tree_.put(s,_messages.getVal(s));
-        }
-        return tree_;
     }
 
     public static TreeMap<Short, String> feedTreeNb(AbsMap<Short, String> _messages, CustList<Short> _rem) {
@@ -127,11 +115,11 @@ public final class ConverterCommonMapUtil {
     public static GeneComponentModelEltEnum<TargetChoice> buildTargetChoice(AbstractProgramInfos _api, FacadeGame _facade) {
         return new GeneComponentModelEltEnum<TargetChoice>(_api, _facade.getData().getTranslatedTargets().getVal(_api.getLanguage()));
     }
-    public static GeneComponentModelEltEnum<Statistic> buildStatisticsElt(AbstractProgramInfos _api, FacadeGame _facade) {
-        return new GeneComponentModelEltEnum<Statistic>(_api, _facade.getData().getTranslatedStatistics().getVal(_api.getLanguage()));
+    public static GeneComponentModelEltEnumSub<Statistic> buildStatisticsElt(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _fact) {
+        return new SubscribeBuilderUtil<Statistic>(_fact.getFactoryStat()).merge(_api, _facade, new CustList<Statistic>(), new IdMap<Statistic, String>());
     }
-    public static GeneComponentModelLsStrSub<Statistic> buildStatisticsLs(AbstractProgramInfos _api, FacadeGame _facade) {
-        return new GeneComponentModelLsStrSub<Statistic>(new GeneComponentModelLsEnum<Statistic>(_api, _facade.getData().getTranslatedStatistics().getVal(_api.getLanguage())));
+    public static GeneComponentModelLsStrSub<Statistic> buildStatisticsLs(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _fact) {
+        return new SubscribeBuilderUtil<Statistic>(_fact.getFactoryStat()).mergeLs(_api,_facade);
     }
     public static GeneComponentModelEltEnum<GenderRepartition> buildGenderRepartition(AbstractProgramInfos _api){
         return new GeneComponentModelEltEnum<GenderRepartition>(_api,messages(MessagesPkEditor.getMessagesEditorSelectGenderRepTr(MessagesPkEditor.getAppliTr(_api.currentLg())).getMapping()));
