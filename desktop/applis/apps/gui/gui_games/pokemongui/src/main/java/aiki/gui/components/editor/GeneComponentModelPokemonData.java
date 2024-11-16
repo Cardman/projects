@@ -84,10 +84,10 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         form_.add(moveTutors.geneEnum());
         form_.add(baseEvo.geneEnum());
         form_.add(expEvo.geneEnum(ExpType.M));
-        levMoves.initForm(new DisplayEntryCustSubElementLevelMove(getCompoFactory(),getFacade(),getSubscribedTranslationList()),getCompoFactory(), new GeneComponentModelSubscribeFactoryLevelMove(getCompoFactory(),getFacade(),getSubscribedTranslationList()), new CustList<LevelMove>());
+        levMoves.initForm(new DisplayEntryCustSubElementLevelMove(getCompoFactory(),getFacade(),getSubscribedTranslationList()),getCompoFactory(), new GeneComponentModelSubscribeFactoryDirect<LevelMove>(new GeneComponentModelSubscribeLevelMove(getCompoFactory(),getFacade(),getSubscribedTranslationList())), new CustList<LevelMove>());
         form_.add(levMoves.getGroup());
         evolutions.initForm();
-        evolutions.initForm(new DisplayEntryCustSubImpl<String>(getSubscribedTranslationList().getFactoryPk(), new StringMap<String>()),getSubscribedTranslationList().getFactoryPk().buildMessages(getCompoFactory(),getFacade()),getCompoFactory(),buildPart(getSubscribedTranslationList().getFactoryPk(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryEvolution(getCompoFactory(),getFacade(),getSubscribedTranslationList(),evolutions.getFrame()), new StringMap<Evolution>());
+        evolutions.initForm(new DisplayEntryCustSubImpl<String>(getSubscribedTranslationList().getFactoryPk(), new StringMap<String>()),getSubscribedTranslationList().getFactoryPk().buildMessages(getCompoFactory(),getFacade()),getCompoFactory(),buildPart(getSubscribedTranslationList().getFactoryPk(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Evolution>(new GeneComponentModelSubscribeEvolution(getCompoFactory(),getFacade(),getSubscribedTranslationList(),evolutions.getFrame())), new StringMap<Evolution>());
         form_.add(evolutions.getGroup());
         form_.add(technicalMoves.geneEnum());
         form_.add(hiddenMoves.geneEnum());

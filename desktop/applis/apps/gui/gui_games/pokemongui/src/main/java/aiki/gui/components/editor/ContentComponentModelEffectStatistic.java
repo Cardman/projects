@@ -37,7 +37,7 @@ public final class ContentComponentModelEffectStatistic {
         selected_.add(cancelChgtStat.geneEnum());
         statisVarRank = new CrudGeneFormSimpleForm<Statistic,Byte>(_core, _fac, _fact, _f);
         statisVarRank.initForm();
-        statisVarRank.initForm(new DisplayEntryCustSubImpl<Statistic>(_fact.getFactoryStat(), new IdMap<Statistic, String>()),_fact.getFactoryStat().buildMessages(_core,_fac),_core, new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac), new GeneComponentModelSubscribeFactoryByte(_core),new IdMap<Statistic, Byte>());
+        statisVarRank.initForm(new DisplayEntryCustSubImpl<Statistic>(_fact.getFactoryStat(), new IdMap<Statistic, String>()),_fact.getFactoryStat().buildMessages(_core,_fac),_core, new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac), new GeneComponentModelSubscribeFactoryDirect<Byte>(new GeneComponentModelSubscribeByte(_core)),new IdMap<Statistic, Byte>());
         selected_.add(statisVarRank.getGroup());
         localFailStatis = new CrudGeneFormSimpleForm<Statistic,String>(_core, _fac, _fact, _f);
         localFailStatis.initForm();

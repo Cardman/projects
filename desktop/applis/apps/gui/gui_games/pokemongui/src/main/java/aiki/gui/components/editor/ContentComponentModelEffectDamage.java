@@ -62,11 +62,11 @@ public final class ContentComponentModelEffectDamage {
         selected_.add(damageLaw.getGroup());
         multDamageAgainst = new CrudGeneFormSimpleForm<String, Rate>(_core, _fac, _fact, _f);
         multDamageAgainst.initForm();
-        multDamageAgainst.initForm(new DisplayEntryCustSubImpl<String>(_fact.getFactoryCa(), new StringMap<String>()),_fact.getFactoryCa().buildMessages(_core,_fac),_core, buildPart(_core,_fac,_fact.getFactoryCa(), new StringMap<String>()), new GeneComponentModelSubscribeFactoryRate(_core),new StringMap<Rate>());
+        multDamageAgainst.initForm(new DisplayEntryCustSubImpl<String>(_fact.getFactoryCa(), new StringMap<String>()),_fact.getFactoryCa().buildMessages(_core,_fac),_core, buildPart(_core,_fac,_fact.getFactoryCa(), new StringMap<String>()), new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core)),new StringMap<Rate>());
         selected_.add(multDamageAgainst.getGroup());
         boostStatisOnceKoFoe = new CrudGeneFormSimpleForm<Statistic,Byte>(_core, _fac, _fact, _f);
         boostStatisOnceKoFoe.initForm();
-        boostStatisOnceKoFoe.initForm(new DisplayEntryCustSubImpl<Statistic>(_fact.getFactoryStat(), new IdMap<Statistic, String>()),_fact.getFactoryStat().buildMessages(_core,_fac),_core, new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac), new GeneComponentModelSubscribeFactoryByte(_core),new IdMap<Statistic, Byte>());
+        boostStatisOnceKoFoe.initForm(new DisplayEntryCustSubImpl<Statistic>(_fact.getFactoryStat(), new IdMap<Statistic, String>()),_fact.getFactoryStat().buildMessages(_core,_fac),_core, new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac), new GeneComponentModelSubscribeFactoryDirect<Byte>(new GeneComponentModelSubscribeByte(_core)),new IdMap<Statistic, Byte>());
         selected_.add(boostStatisOnceKoFoe.getGroup());
         selected_.setVisible(false);
         form =selected_;
