@@ -11,14 +11,14 @@ import code.util.*;
 public final class ContentComponentModelEffect {
     private GeneComponentModelString fail;
     private GeneComponentModelEltEnumSub<TargetChoice> targetChoice;
-    private AbsGeneComponentModelSubscribe<Ints> requiredSuccessfulEffects;
+    private GeneComponentModelSubscribeInts requiredSuccessfulEffects;
     AbsPanel effectForm(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
         AbsPanel selected_ = _core.getCompoFactory().newLineBox();
         fail = new GeneComponentModelString(_core,new StringList(),new DefValidateText());
         selected_.add(fail.geneString());
         targetChoice = ConverterCommonMapUtil.buildTargetChoice(_core, _fac, _fact);
         selected_.add(targetChoice.geneEnum());
-        requiredSuccessfulEffects = new GeneComponentModelSubscribeFactoryInts(_core,_fac, _fact,_f).build();
+        requiredSuccessfulEffects = new GeneComponentModelSubscribeInts(_core, _fac, _fact, _f);
         selected_.add(requiredSuccessfulEffects.geneEnum(0,0));
         return selected_;
     }

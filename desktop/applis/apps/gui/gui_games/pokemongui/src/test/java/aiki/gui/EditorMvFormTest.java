@@ -6,9 +6,11 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.StatusMoveData;
+import aiki.fight.moves.effects.Effect;
 import aiki.fight.moves.effects.EffectDamage;
 import aiki.fight.moves.effects.EffectStatistic;
 import aiki.fight.pokemon.*;
+import aiki.fight.util.LevelMove;
 import aiki.gui.components.editor.*;
 import aiki.instances.*;
 import code.maths.*;
@@ -326,9 +328,9 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
-        CrudGeneFormListSubLevelMove levMoves_ = g_.getLevMoves();
+        CrudGeneFormSimpleElement<LevelMove> levMoves_ = g_.getLevMoves();
         tryClick(levMoves_.getAdd());
-        GeneComponentModelLevelMove gm_ = (GeneComponentModelLevelMove)levMoves_.getGene();
+        GeneComponentModelLevelMove gm_ = ((GeneComponentModelSubscribeLevelMove)levMoves_.getGenePair().getKey()).getCrud();
         gm_.getLevel().valueInt(1);
         gm_.getMove().setupValue(M_1);
         tryClick(levMoves_.getValidAddEdit());
@@ -958,7 +960,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         tryClick(_crud.getHmMenu());
         return _crud.getCrudGeneFormHm();
     }
-    private GeneComponentModelEffect effects(CrudGeneFormListSubEffect _evos) {
-        return (GeneComponentModelEffect) _evos.getGene();
+    private GeneComponentModelEffect effects(CrudGeneFormSimpleElement<Effect> _evos) {
+        return ((GeneComponentModelSubscribeEffect)_evos.getGenePair().getKey()).getCrud();
     }
 }

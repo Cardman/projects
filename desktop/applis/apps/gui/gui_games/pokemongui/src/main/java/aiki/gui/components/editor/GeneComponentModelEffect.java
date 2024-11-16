@@ -8,7 +8,7 @@ import code.gui.initialize.*;
 import code.util.IdList;
 import code.util.core.*;
 
-public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect implements GeneComponentModel<Effect> {
+public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect {
     private final ContentComponentModelEffect contentEffect = new ContentComponentModelEffect();
     private final ContentComponentModelEffectDamage contentEffectDamage = new ContentComponentModelEffectDamage();
     private final ContentComponentModelEffectStatistic contentEffectStatistic = new ContentComponentModelEffectStatistic();
@@ -18,8 +18,7 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         super(_f, _core, _fac, _fact);
     }
 
-    @Override
-    public AbsCustComponent gene(int _select) {
+    public AbsPanel geneEffect() {
         init(MessagesPkEditor.getMessagesEditorSelectEffectTr(MessagesPkEditor.getAppliTr(getProgramInfos().currentLg())).getMapping());
         AbsCompoFactory compoFactory_ = getProgramInfos().getCompoFactory();
         AbsPanel form_ = compoFactory_.newLineBox();
@@ -48,8 +47,7 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         getFrame().pack();
     }
 
-    @Override
-    public Effect value() {
+    public Effect valueEffect() {
         contentEffect.buildEntity(edited);
         if (edited instanceof EffectDamage) {
             contentEffectDamage.buildEntity((EffectDamage) edited);
@@ -60,8 +58,7 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         return edited;
     }
 
-    @Override
-    public void value(Effect _v) {
+    public void valueEffect(Effect _v) {
         contentEffect.feedForm(_v);
         if (_v instanceof EffectDamage) {
             contentEffectDamage.feedForm((EffectDamage) _v);
@@ -71,6 +68,7 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         }
         edited = _v;
     }
+
     public IdList<SubscribedTranslation> all() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
         ids_.addAllElts(getContentEffect().getTargetChoice().getSubs());

@@ -6,7 +6,7 @@ import code.gui.*;
 import code.gui.initialize.*;
 import code.util.*;
 
-public class GeneComponentModelLevelMove implements GeneComponentModel<LevelMove> {
+public class GeneComponentModelLevelMove {
     private final AbstractProgramInfos programInfos;
     private final FacadeGame facade;
     private GeneComponentModelEltStrSub move;
@@ -20,8 +20,7 @@ public class GeneComponentModelLevelMove implements GeneComponentModel<LevelMove
         level = new GeneComponentModelInt(_core);
     }
 
-    @Override
-    public AbsCustComponent gene(int _select) {
+    public AbsPanel geneLevelMove() {
         AbsPanel form_ = programInfos.getCompoFactory().newLineBox();
         form_.add(level.geneInt());
         move = ConverterCommonMapUtil.buildMvFull(programInfos, facade,subscribedTranslationList);
@@ -29,19 +28,18 @@ public class GeneComponentModelLevelMove implements GeneComponentModel<LevelMove
         return form_;
     }
 
-    @Override
-    public LevelMove value() {
+    public LevelMove valueLevelMove() {
         LevelMove lv_ = new LevelMove();
         lv_.setLevel((short) level.valueInt());
         lv_.setMove(move.tryRet());
         return lv_;
     }
 
-    @Override
-    public void value(LevelMove _v) {
+    public void valueLevelMove(LevelMove _v) {
         level.valueInt(_v.getLevel());
         move.setupValue(_v.getMove());
     }
+
     public IdList<SubscribedTranslation> all() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
         ids_.addAllElts(move.getSubs());

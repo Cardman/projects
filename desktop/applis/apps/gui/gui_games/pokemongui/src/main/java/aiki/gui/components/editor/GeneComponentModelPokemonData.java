@@ -30,7 +30,7 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
     private GeneComponentModelEltEnum<GenderRepartition> genderRep;
     private GeneComponentModelEltStrSub baseEvo;
     private GeneComponentModelEltEnum<ExpType> expEvo;
-    private final CrudGeneFormListSubLevelMove levMoves;
+    private final CrudGeneFormSimpleElement<LevelMove> levMoves;
     private final CrudGeneFormSimpleForm<String,Evolution> evolutions;
     private final CrudGeneFormList<String> eggGroups;
     private final IdList<SubscribedTranslation> subscribedTranslations = new IdList<SubscribedTranslation>();
@@ -45,7 +45,7 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         eggGroups = new CrudGeneFormList<String>(getCompoFactory());
         happiness = new GeneComponentModelInt(getCompoFactory());
         happinessHatch = new GeneComponentModelInt(getCompoFactory());
-        levMoves = new CrudGeneFormListSubLevelMove(getCompoFactory(),_facade,_sub,_fr);
+        levMoves = new CrudGeneFormSimpleElement<LevelMove>(getCompoFactory(),_facade,_sub,_fr);
         evolutions = new CrudGeneFormSimpleForm<String,Evolution>(_core,_facade,_sub,_fr);
     }
     @Override
@@ -84,7 +84,7 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         form_.add(moveTutors.geneEnum());
         form_.add(baseEvo.geneEnum());
         form_.add(expEvo.geneEnum(ExpType.M));
-        levMoves.initForm(getCompoFactory(), new CustList<LevelMove>());
+        levMoves.initForm(new DisplayEntryCustSubElementLevelMove(getCompoFactory(),getFacade(),getSubscribedTranslationList()),getCompoFactory(), new GeneComponentModelSubscribeFactoryLevelMove(getCompoFactory(),getFacade(),getSubscribedTranslationList()), new CustList<LevelMove>());
         form_.add(levMoves.getGroup());
         evolutions.initForm();
         evolutions.initForm(new DisplayEntryCustSubImpl<String>(getSubscribedTranslationList().getFactoryPk(), new StringMap<String>()),getSubscribedTranslationList().getFactoryPk().buildMessages(getCompoFactory(),getFacade()),getCompoFactory(),buildPart(getSubscribedTranslationList().getFactoryPk(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryEvolution(getCompoFactory(),getFacade(),getSubscribedTranslationList(),evolutions.getFrame()), new StringMap<Evolution>());
@@ -232,7 +232,7 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         return expEvo;
     }
 
-    public CrudGeneFormListSubLevelMove getLevMoves() {
+    public CrudGeneFormSimpleElement<LevelMove> getLevMoves() {
         return levMoves;
     }
 

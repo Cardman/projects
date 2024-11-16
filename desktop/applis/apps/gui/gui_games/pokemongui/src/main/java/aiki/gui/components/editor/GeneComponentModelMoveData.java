@@ -37,7 +37,7 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
     private final CrudGeneFormSimpleForm<String,String> typesByOwnedItem;
     private final CrudGeneFormSimpleForm<String,String> typesByWeather;
     private final CrudGeneFormSimpleForm<String,Ints> secEffectsByItem;
-    private final CrudGeneFormListSubEffect effects;
+    private final CrudGeneFormSimpleElement<Effect> effects;
     private GeneComponentModelEltEnumSub<TargetChoice> targetChoice;
     private AbsCustCheckBox damagingMove;
     private GeneComponentModelEltStrSub category;
@@ -64,7 +64,7 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         typesByOwnedItem = new CrudGeneFormSimpleForm<String, String>(_core,_facade,_sub,_frame);
         typesByWeather = new CrudGeneFormSimpleForm<String, String>(_core,_facade,_sub,_frame);
         secEffectsByItem = new CrudGeneFormSimpleForm<String, Ints>(_core,_facade,_sub,_frame);
-        effects = new CrudGeneFormListSubEffect(_core,_facade,_sub,_frame);
+        effects = new CrudGeneFormSimpleElement<Effect>(_core,_facade,_sub,_frame);
     }
     @Override
     public AbsCustComponent gene(int _select) {
@@ -93,9 +93,10 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         typesByWeather.initForm();
         typesByWeather.initForm(new DisplayEntryCustSubImpl<String>(getSubscribedTranslationList().getFactoryMv(), ConverterCommonMapUtil.defKeyEmpty(" ")),getSubscribedTranslationList().getFactoryMv().buildMessages(getCompoFactory(),getFacade(),ConverterCommonMapUtil.defKeyEmpty(" ")),getCompoFactory(), buildPart(getSubscribedTranslationList().getFactoryMv(), ConverterCommonMapUtil.defKeyEmpty("")),buildPart(getSubscribedTranslationList().getFactoryTy(), new StringMap<String>()),new StringMap<String>());
         secEffectsByItem.initForm();
-        secEffectsByItem.initForm(new DisplayEntryCustSubImpl<String>(getSubscribedTranslationList().getFactoryIt(), ConverterCommonMapUtil.defKeyEmpty(" ")),getSubscribedTranslationList().getFactoryIt().buildMessages(getCompoFactory(),getFacade(),ConverterCommonMapUtil.defKeyEmpty(" ")),getCompoFactory(), buildPart(getSubscribedTranslationList().getFactoryIt(), ConverterCommonMapUtil.defKeyEmpty("")),new GeneComponentModelSubscribeFactoryInts(getCompoFactory(),getFacade(),getSubscribedTranslationList(),secEffectsByItem.getFrame()),new StringMap<Ints>());
+        secEffectsByItem.initForm(new DisplayEntryCustSubImpl<String>(getSubscribedTranslationList().getFactoryIt(), ConverterCommonMapUtil.defKeyEmpty(" ")),getSubscribedTranslationList().getFactoryIt().buildMessages(getCompoFactory(),getFacade(),ConverterCommonMapUtil.defKeyEmpty(" ")),getCompoFactory(), buildPart(getSubscribedTranslationList().getFactoryIt(), ConverterCommonMapUtil.defKeyEmpty("")),new GeneComponentModelSubscribeFactoryInts(new GeneComponentModelSubscribeInts(getCompoFactory(), getFacade(), getSubscribedTranslationList(), secEffectsByItem.getFrame())),new StringMap<Ints>());
         effects.initForm();
-        effects.initForm(getCompoFactory(),new CustList<Effect>());
+        GeneComponentModelEffect compEff_ = new GeneComponentModelEffect(effects.getFrame(), getCompoFactory(), getFacade(), getSubscribedTranslationList());
+        effects.initForm(new DisplayEntryCustSubElementEffect(),getCompoFactory(),new GeneComponentModelSubscribeFactoryEffect(compEff_),new CustList<Effect>());
         targetChoice = ConverterCommonMapUtil.buildTargetChoice(getCompoFactory(), getFacade(),getSubscribedTranslationList());
         category = ConverterCommonMapUtil.buildCatElt(getCompoFactory(),getFacade(),getSubscribedTranslationList());
         damagingComponent = getCompoFactory().getCompoFactory().newPageBox();
@@ -281,6 +282,7 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         ids_.addAllElts(typesByOwnedItem.subscribeButtons());
         ids_.addAllElts(typesByWeather.subscribeButtons());
         ids_.addAllElts(secEffectsByItem.subscribeButtons());
+        ids_.addAllElts(getEffects().subscribeButtons());
         return ids_;
     }
 
@@ -372,7 +374,7 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         return category;
     }
 
-    public CrudGeneFormListSubEffect getEffects() {
+    public CrudGeneFormSimpleElement<Effect> getEffects() {
         return effects;
     }
 
