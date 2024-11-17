@@ -116,11 +116,11 @@ public abstract class InitEditorPkForm extends EquallableAikiGuiUtil {
         return facade_;
     }
 
-    protected GeneComponentModelEltStrSub keyEvos(CrudGeneFormSimpleForm<String, Evolution> _evos) {
-        return (GeneComponentModelEltStrSub) _evos.getGenePair().getKey();
+    protected AbsGeneComponentModelSubscribe<String> keyEvos(CrudGeneFormSimpleForm<String, Evolution> _evos) {
+        return _evos.getKey();
     }
 
     protected GeneComponentModelEvolution valueEvos(CrudGeneFormSimpleForm<String,Evolution> _evos) {
-        return ((GeneComponentModelSubscribeEvolution)_evos.getGenePair().getValue()).getCrud();
+        return ((GeneComponentModelSubscribeEvolution)_evos.getValue()).getCrud();
     }
 }

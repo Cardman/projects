@@ -3,12 +3,21 @@ package code.gui;
 import code.gui.initialize.*;
 import code.util.*;
 
-public abstract class GeneComponentModelElt<T> extends GeneComponentModelEltCommon<T> implements GeneComponentModel<T>,GeneComponentModelStr {
+public final class GeneComponentModelElt<T> extends GeneComponentModelEltCommon<T> implements GeneComponentModel<T>,GeneComponentModelStr {
     private final AbsMap<T, String> messages;
     private AbsStringScrollCustomCombo<T> select;
-    protected GeneComponentModelElt(AbstractProgramInfos _c, AbsMap<T,String> _elts, DefCustCellRenderGeneImpl<T> _rend) {
+    private final AbsDefValue<T> defValue;
+
+    public GeneComponentModelElt(AbstractProgramInfos _c, AbsMap<T, String> _messages) {
+        this(_c, _messages, new DefCustCellRenderGeneImpl<T>(_c.getCompoFactory(), _c.getImageFactory(), _messages), new NullDefValue<T>());
+    }
+    public GeneComponentModelElt(AbstractProgramInfos _c, AbsMap<T, String> _messages, AbsDefValue<T> _abs) {
+        this(_c, _messages, new DefCustCellRenderGeneImpl<T>(_c.getCompoFactory(), _c.getImageFactory(), _messages), _abs);
+    }
+    public GeneComponentModelElt(AbstractProgramInfos _c, AbsMap<T,String> _elts, DefCustCellRenderGeneImpl<T> _rend, AbsDefValue<T> _abs) {
         super(_c, _elts);
         messages = _rend.getMessages();
+        defValue = _abs;
     }
 
     @Override
@@ -18,10 +27,10 @@ public abstract class GeneComponentModelElt<T> extends GeneComponentModelEltComm
         return getSelect().getElements();
     }
 
-    public AbsPanel geneEnum(T _d) {
+    public AbsPanel geneEnum() {
         select = buildSelect();
         feed();
-        setupValue(_d);
+        setupValue(defValue.defValue());
         return getSelect().getElements();
     }
 
@@ -29,7 +38,7 @@ public abstract class GeneComponentModelElt<T> extends GeneComponentModelEltComm
         setupValue(getSelect(), _d);
     }
 
-    protected void feed() {
+    public void feed() {
         for (T e: getElements().getKeys()) {
             select.add(e);
         }
@@ -41,7 +50,7 @@ public abstract class GeneComponentModelElt<T> extends GeneComponentModelEltComm
         if (select == null) {
             return;
         }
-        T selected_ = tryRet(defValue());
+        T selected_ = tryRet();
         getElements().reset();
         select.clear();
         for (T e: getElements().getKeys()) {
@@ -50,10 +59,10 @@ public abstract class GeneComponentModelElt<T> extends GeneComponentModelEltComm
         setupValue(selected_);
     }
 
-    protected AbsStringScrollCustomCombo<T> buildSelect() {
+    public AbsStringScrollCustomCombo<T> buildSelect() {
         return new EnumScrollCustomCombo<T>(getCompoFactory().getCompoFactory(), getCompoFactory().getImageFactory(), messages);
     }
-    protected void setupValue(AbsStringScrollCustomCombo<T> _t, T _v) {
+    public void setupValue(AbsStringScrollCustomCombo<T> _t, T _v) {
         _t.select(getElements().indexOfEntry(_v));
         _t.repaint();
     }
@@ -64,12 +73,12 @@ public abstract class GeneComponentModelElt<T> extends GeneComponentModelEltComm
     }
 
     public T valueElt() {
-        return tryRet(defValue());
+        return tryRet();
     }
 
-    public T tryRet(T _d) {
+    public T tryRet() {
         int sel_ = getSelect().getSelectedIndex();
-        return tryRet(sel_, _d);
+        return tryRet(sel_);
     }
 
     @Override
@@ -80,21 +89,19 @@ public abstract class GeneComponentModelElt<T> extends GeneComponentModelEltComm
     public void valueElt(T _v) {
         int sel_ = getSelect().getSelectedIndex();
         setupValue(getSelect(), _v);
-        tryRet(sel_, defValue());
+        tryRet(sel_);
     }
 
     public AbsStringScrollCustomCombo<T> getSelect() {
         return select;
     }
 
-    private T tryRet(int _sel, T _d) {
+    private T tryRet(int _sel) {
         CustList<T> ls_ = select.getList().getList();
         if (!ls_.isValidIndex(_sel)) {
-            return _d;
+            return defValue.defValue();
         }
         return ls_.get(_sel);
     }
-
-    protected abstract T defValue();
 
 }

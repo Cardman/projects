@@ -6,14 +6,13 @@ import code.gui.initialize.*;
 import code.util.*;
 
 public final class GeneComponentModelSubscribeInts implements AbsGeneComponentModelSubscribe<Ints> {
-    private final CrudGeneFormSimpleElement<Integer> crud;
+    private final CrudGeneFormSimpleElementSub<Integer> crud;
     public GeneComponentModelSubscribeInts(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub, AbsCommonFrame _fr) {
-        crud = new CrudGeneFormSimpleElement<Integer>(_fact, _facade, _sub, _fr);
+        crud = new CrudGeneFormSimpleElementSub<Integer>(_fact, _facade, _sub, _fr);
     }
     @Override
     public AbsCustComponent geneEnum(int _select, int _value) {
-        crud.initForm();
-        crud.initForm(new DisplayEntryCustSubElementInt(),crud.getFactory(),new GeneComponentModelSubscribeFactoryDirect<Integer>(new GeneComponentModelSubscribeInteger(crud.getFactory())), new CustList<Integer>());
+        crud.initForm(new DisplayEntryCustSubElementInt(),new GeneComponentModelSubscribeFactoryDirect<Integer>(new GeneComponentModelSubscribeInteger(crud.getFactory())));
         return crud.getGroup();
     }
 
@@ -33,6 +32,6 @@ public final class GeneComponentModelSubscribeInts implements AbsGeneComponentMo
     }
 
     public CrudGeneFormSimpleElement<Integer> getCrud() {
-        return crud;
+        return crud.getCrud();
     }
 }

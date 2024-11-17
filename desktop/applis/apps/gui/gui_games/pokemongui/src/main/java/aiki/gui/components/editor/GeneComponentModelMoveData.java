@@ -34,13 +34,13 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
     private AbsCustCheckBox ignVarEvasTargetPos;
     private AbsCustCheckBox switchType;
     private final CrudGeneFormMonteCarlo<Rate> repeatRoundLaw;
-    private final CrudGeneFormSimpleForm<String,String> typesByOwnedItem;
-    private final CrudGeneFormSimpleForm<String,String> typesByWeather;
-    private final CrudGeneFormSimpleForm<String,Ints> secEffectsByItem;
-    private final CrudGeneFormSimpleElement<Effect> effects;
+    private final CrudGeneFormSimpleFormSub<String,String> typesByOwnedItem;
+    private final CrudGeneFormSimpleFormSub<String,String> typesByWeather;
+    private final CrudGeneFormSimpleFormSub<String,Ints> secEffectsByItem;
+    private final CrudGeneFormSimpleElementSub<Effect> effects;
     private GeneComponentModelEltEnumSub<TargetChoice> targetChoice;
     private AbsCustCheckBox damagingMove;
-    private GeneComponentModelEltStrSub category;
+    private GeneComponentModelEltEnumSub<String> category;
     private AbsCustCheckBox direct;
     private AbsCustCheckBox cannotKo;
     private AbsCustCheckBox stoppableMoveKoSingle;
@@ -61,10 +61,10 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         rankIncrementNbRound = new GeneComponentModelInt(_core);
         repeatRoundLaw = new CrudGeneFormMonteCarlo<Rate>(_core,new ComparingRateKey<LgInt>());
         repeatRoundLaw.setFrame(_frame);
-        typesByOwnedItem = new CrudGeneFormSimpleForm<String, String>(_core,_facade,_sub,_frame);
-        typesByWeather = new CrudGeneFormSimpleForm<String, String>(_core,_facade,_sub,_frame);
-        secEffectsByItem = new CrudGeneFormSimpleForm<String, Ints>(_core,_facade,_sub,_frame);
-        effects = new CrudGeneFormSimpleElement<Effect>(_core,_facade,_sub,_frame);
+        typesByOwnedItem = new CrudGeneFormSimpleFormSub<String, String>(_core,_facade,_sub,_frame);
+        typesByWeather = new CrudGeneFormSimpleFormSub<String, String>(_core,_facade,_sub,_frame);
+        secEffectsByItem = new CrudGeneFormSimpleFormSub<String, Ints>(_core,_facade,_sub,_frame);
+        effects = new CrudGeneFormSimpleElementSub<Effect>(_core,_facade,_sub,_frame);
     }
     @Override
     public AbsCustComponent gene(int _select) {
@@ -87,15 +87,11 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         ignVarEvasTargetPos = getCompoFactory().getCompoFactory().newCustCheckBox();
         switchType = getCompoFactory().getCompoFactory().newCustCheckBox();
         repeatRoundLaw.initForm();
-        repeatRoundLaw.initForm(new RateLgIntDisplayEntryCust(),new GeneComponentModelEventRate(getCompoFactory()),new MonteCarloNumber(),new ComparingRateKey<LgInt>());
-        typesByOwnedItem.initForm();
-        typesByOwnedItem.initForm(new DisplayEntryCustSubImpl<String>(getSubscribedTranslationList().getFactoryIt(), ConverterCommonMapUtil.defKeyEmpty(" ")),getSubscribedTranslationList().getFactoryIt().buildMessages(getCompoFactory(),getFacade(),ConverterCommonMapUtil.defKeyEmpty(" ")),getCompoFactory(), buildPart(getSubscribedTranslationList().getFactoryIt(), ConverterCommonMapUtil.defKeyEmpty("")),buildPart(getSubscribedTranslationList().getFactoryTy(), new StringMap<String>()),new StringMap<String>());
-        typesByWeather.initForm();
-        typesByWeather.initForm(new DisplayEntryCustSubImpl<String>(getSubscribedTranslationList().getFactoryMv(), ConverterCommonMapUtil.defKeyEmpty(" ")),getSubscribedTranslationList().getFactoryMv().buildMessages(getCompoFactory(),getFacade(),ConverterCommonMapUtil.defKeyEmpty(" ")),getCompoFactory(), buildPart(getSubscribedTranslationList().getFactoryMv(), ConverterCommonMapUtil.defKeyEmpty("")),buildPart(getSubscribedTranslationList().getFactoryTy(), new StringMap<String>()),new StringMap<String>());
-        secEffectsByItem.initForm();
-        secEffectsByItem.initForm(new DisplayEntryCustSubImpl<String>(getSubscribedTranslationList().getFactoryIt(), ConverterCommonMapUtil.defKeyEmpty(" ")),getSubscribedTranslationList().getFactoryIt().buildMessages(getCompoFactory(),getFacade(),ConverterCommonMapUtil.defKeyEmpty(" ")),getCompoFactory(), buildPart(getSubscribedTranslationList().getFactoryIt(), ConverterCommonMapUtil.defKeyEmpty("")),new GeneComponentModelSubscribeFactoryDirect<Ints>(new GeneComponentModelSubscribeInts(getCompoFactory(), getFacade(), getSubscribedTranslationList(), secEffectsByItem.getFrame())),new StringMap<Ints>());
-        effects.initForm();
-        effects.initForm(new DisplayEntryCustSubElementEffect(),getCompoFactory(),new GeneComponentModelSubscribeFactoryDirect<Effect>(new GeneComponentModelSubscribeEffect(new GeneComponentModelEffect(effects.getFrame(), getCompoFactory(), getFacade(), getSubscribedTranslationList()))),new CustList<Effect>());
+        repeatRoundLaw.initFormKeys(new RateLgIntDisplayEntryCust(),new GeneComponentModelEventRate(getCompoFactory()), new ComparingRateKey<LgInt>());
+        typesByOwnedItem.initForm(new DisplayEntryCustSubImpl<String>(getSubscribedTranslationList().getFactoryIt(), ConverterCommonMapUtil.defKeyEmpty(" ")),getSubscribedTranslationList().getFactoryIt().buildMessages(getCompoFactory(),getFacade(),ConverterCommonMapUtil.defKeyEmpty(" ")), buildPart(getSubscribedTranslationList().getFactoryIt(), ConverterCommonMapUtil.defKeyEmpty("")),buildPart(getSubscribedTranslationList().getFactoryTy(), new StringMap<String>()));
+        typesByWeather.initForm(new DisplayEntryCustSubImpl<String>(getSubscribedTranslationList().getFactoryMv(), ConverterCommonMapUtil.defKeyEmpty(" ")),getSubscribedTranslationList().getFactoryMv().buildMessages(getCompoFactory(),getFacade(),ConverterCommonMapUtil.defKeyEmpty(" ")), buildPart(getSubscribedTranslationList().getFactoryMv(), ConverterCommonMapUtil.defKeyEmpty("")),buildPart(getSubscribedTranslationList().getFactoryTy(), new StringMap<String>()));
+        secEffectsByItem.initForm(new DisplayEntryCustSubImpl<String>(getSubscribedTranslationList().getFactoryIt(), ConverterCommonMapUtil.defKeyEmpty(" ")),getSubscribedTranslationList().getFactoryIt().buildMessages(getCompoFactory(),getFacade(),ConverterCommonMapUtil.defKeyEmpty(" ")), buildPart(getSubscribedTranslationList().getFactoryIt(), ConverterCommonMapUtil.defKeyEmpty("")),new GeneComponentModelSubscribeFactoryDirect<Ints>(new GeneComponentModelSubscribeInts(getCompoFactory(), getFacade(), getSubscribedTranslationList(), secEffectsByItem.getCommonFrame())));
+        effects.initForm(new DisplayEntryCustSubElementEffect(),new GeneComponentModelSubscribeFactoryDirect<Effect>(new GeneComponentModelSubscribeEffect(new GeneComponentModelEffect(effects.getCommonFrame(), getCompoFactory(), getFacade(), getSubscribedTranslationList()))));
         targetChoice = ConverterCommonMapUtil.buildTargetChoice(getCompoFactory(), getFacade(),getSubscribedTranslationList());
         category = ConverterCommonMapUtil.buildCatElt(getCompoFactory(),getFacade(),getSubscribedTranslationList());
         damagingComponent = getCompoFactory().getCompoFactory().newPageBox();
@@ -326,15 +322,15 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
     }
 
     public CrudGeneFormSimpleForm<String, String> getTypesByOwnedItem() {
-        return typesByOwnedItem;
+        return typesByOwnedItem.getCrud();
     }
 
     public CrudGeneFormSimpleForm<String, String> getTypesByWeather() {
-        return typesByWeather;
+        return typesByWeather.getCrud();
     }
 
     public CrudGeneFormSimpleForm<String, Ints> getSecEffectsByItem() {
-        return secEffectsByItem;
+        return secEffectsByItem.getCrud();
     }
 
     public GeneComponentModelLsStrSub<String> getRequiredStatus() {
@@ -369,12 +365,12 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         return counterableMove;
     }
 
-    public GeneComponentModelEltStrSub getCategory() {
+    public GeneComponentModelEltEnumSub<String> getCategory() {
         return category;
     }
 
     public CrudGeneFormSimpleElement<Effect> getEffects() {
-        return effects;
+        return effects.getCrud();
     }
 
 }

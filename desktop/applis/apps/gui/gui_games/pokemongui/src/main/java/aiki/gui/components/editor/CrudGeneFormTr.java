@@ -25,7 +25,8 @@ public final class CrudGeneFormTr extends AbsCrudGeneFormList<EditedCrudPair<Str
         ValidateElementPairId<StringMap<String>> val_ = new ValidateElementPairId<StringMap<String>>();
         ComparingStringKey<StringMap<String>> cmp_ = new ComparingStringKey<StringMap<String>>();
         CustList<EditedCrudPair<String, StringMap<String>>> ls_ = new MapToEntriesListUtil<String, StringMap<String>>().build(ConverterCommonMapUtil.toEntityLg(factoryMessage.buildMessages(facadeGame)));
-        initForm(new DisplayKeyOnlyDirect<StringMap<String>>(), new GeneComponentModelTr(_core,facadeGame), ls_, cmp_, val_);
+        initForm(new DisplayKeyOnlyDirect<StringMap<String>>(), new GeneComponentModelTr(_core,facadeGame), cmp_, val_);
+        setupValues(ls_);
         getButtons().add(destination);
         getFrame().setContentPane(getGroup());
         getFrame().setVisible(true);

@@ -10,7 +10,7 @@ public abstract class AbsGeneComponentModelEffect {
     private final FacadeGame facadeGame;
     private final SubscribedTranslationList factory;
     private final AbsCommonFrame frame;
-    private GeneComponentModelEltEnum<String> effectKind;
+    private GeneComponentModelElt<String> effectKind;
 
     protected AbsGeneComponentModelEffect(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
         frame = _f;
@@ -21,7 +21,7 @@ public abstract class AbsGeneComponentModelEffect {
 
     public abstract void applyChange();
     protected void init(StringMap<String> _messages) {
-        effectKind = new GeneComponentModelEltEnum<String>(programInfos, _messages);
+        effectKind = new GeneComponentModelElt<String>(programInfos, _messages, new EmptyDefValue());
     }
     public AbsCommonFrame getFrame() {
         return frame;
@@ -31,7 +31,7 @@ public abstract class AbsGeneComponentModelEffect {
         return programInfos;
     }
 
-    public GeneComponentModelEltEnum<String> getEffectKind() {
+    public GeneComponentModelElt<String> getEffectKind() {
         return effectKind;
     }
 

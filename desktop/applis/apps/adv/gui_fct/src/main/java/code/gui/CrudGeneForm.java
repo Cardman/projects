@@ -1,9 +1,8 @@
 package code.gui;
 
-import code.gui.events.AfterValidateText;
+import code.gui.events.*;
 import code.gui.initialize.*;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 public final class CrudGeneForm extends AbsCrudGeneFormList<EditedCrudPair<String,Integer>> {
 
@@ -13,10 +12,10 @@ public final class CrudGeneForm extends AbsCrudGeneFormList<EditedCrudPair<Strin
         super(_fact,null);
     }
 
-    public void initForm(StringMap<Integer> _m, StringList _aDictionary, AfterValidateText _after) {
+    public void initForm(StringList _aDictionary, AfterValidateText _after) {
         ComparingStringKey<Integer> cmp_ = new ComparingStringKey<Integer>();
         geneComponentModelEntryStringInteger = new GeneComponentModelEntryStringInteger(getFactory(), _aDictionary, _after);
-        initForm(new StringIntDisplayEntryCust(), geneComponentModelEntryStringInteger,new MapToEntriesListUtil<String,Integer>().build(_m), cmp_,new ValidateElementPair<String, Integer>(cmp_));
+        initForm(new StringIntDisplayEntryCust(), geneComponentModelEntryStringInteger, cmp_,new ValidateElementPair<String, Integer>(cmp_));
     }
 
     public GeneComponentModelEntryStringInteger getGeneComponentModelEntryStringInteger() {

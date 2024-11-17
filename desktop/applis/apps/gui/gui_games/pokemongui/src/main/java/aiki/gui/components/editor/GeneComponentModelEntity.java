@@ -10,7 +10,7 @@ public abstract class GeneComponentModelEntity<E> implements GeneComponentModel<
     private final SubscribedTranslationList subscribedTranslationList;
     private final AbstractProgramInfos compoFactory;
     private final FacadeGame facade;
-    private GeneComponentModelEltStrSub geneComponentModelSelectKey;
+    private GeneComponentModelEltEnumSub<String> geneComponentModelSelectKey;
 
     protected GeneComponentModelEntity(AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
         this.compoFactory = _core;
@@ -28,7 +28,7 @@ public abstract class GeneComponentModelEntity<E> implements GeneComponentModel<
     protected void updateSelector() {
         geneComponentModelSelectKey.getSelectUniq().getSelect().setEnabled(false);
     }
-    public GeneComponentModelEltStrSub getGeneComponentModelSelectKey() {
+    public GeneComponentModelEltEnumSub<String> getGeneComponentModelSelectKey() {
         return geneComponentModelSelectKey;
     }
 

@@ -12,6 +12,7 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
     private final ContentComponentModelEffect contentEffect = new ContentComponentModelEffect();
     private final ContentComponentModelEffectDamage contentEffectDamage = new ContentComponentModelEffectDamage();
     private final ContentComponentModelEffectStatistic contentEffectStatistic = new ContentComponentModelEffectStatistic();
+    private final ContentComponentModelEffectStatus contentEffectStatus = new ContentComponentModelEffectStatus();
     private Effect edited;
 
     public GeneComponentModelEffect(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
@@ -22,10 +23,11 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         init(MessagesPkEditor.getMessagesEditorSelectEffectTr(MessagesPkEditor.getAppliTr(getProgramInfos().currentLg())).getMapping());
         AbsCompoFactory compoFactory_ = getProgramInfos().getCompoFactory();
         AbsPanel form_ = compoFactory_.newLineBox();
-        form_.add(getEffectKind().geneEnum(""));
+        form_.add(getEffectKind().geneEnum());
         form_.add(contentEffect.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
         form_.add(contentEffectDamage.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
         form_.add(contentEffectStatistic.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
+        form_.add(contentEffectStatus.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
         getEffectKind().getSelect().addListener(new ChangingEffectEvent(this));
         getEffectKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EFF_DAMAGE));
         getEffectKind().getSelect().events(null);
@@ -34,14 +36,18 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
 
     @Override
     public void applyChange() {
-        String eff_ = getEffectKind().tryRet("");
+        String eff_ = getEffectKind().tryRet();
         contentEffectDamage.display(StringUtil.quickEq(eff_,MessagesEditorSelect.EFF_DAMAGE));
         contentEffectStatistic.display(StringUtil.quickEq(eff_,MessagesEditorSelect.EFF_STATIS));
+        contentEffectStatus.display(StringUtil.quickEq(eff_,MessagesEditorSelect.EFF_STATUS));
         if (StringUtil.quickEq(eff_,MessagesEditorSelect.EFF_DAMAGE)) {
             edited = Instances.newEffectDamage();
         }
         if (StringUtil.quickEq(eff_,MessagesEditorSelect.EFF_STATIS)) {
             edited = Instances.newEffectStatistic();
+        }
+        if (StringUtil.quickEq(eff_,MessagesEditorSelect.EFF_STATUS)) {
+            edited = Instances.newEffectStatus();
         }
         getEffectKind().getSelect().repaint();
         getFrame().pack();
@@ -55,6 +61,9 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         if (edited instanceof EffectStatistic) {
             contentEffectStatistic.buildEntity((EffectStatistic) edited);
         }
+        if (edited instanceof EffectStatus) {
+            contentEffectStatus.buildEntity((EffectStatus) edited);
+        }
         return edited;
     }
 
@@ -65,6 +74,9 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         }
         if (_v instanceof EffectStatistic) {
             contentEffectStatistic.feedForm((EffectStatistic) _v);
+        }
+        if (_v instanceof EffectStatus) {
+            contentEffectStatus.feedForm((EffectStatus) _v);
         }
         edited = _v;
     }
@@ -86,6 +98,9 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         ids_.addAllElts(getContentEffectStatistic().getLocalFailStatis().subscribeButtons());
         ids_.addAllElts(getContentEffectStatistic().getLocalFailSwapBoostStatis().subscribeButtons());
         ids_.addAllElts(getContentEffectStatistic().getSubscribedTranslations());
+        ids_.addAllElts(getContentEffectStatus().getDeletedStatus().getSubs());
+        ids_.addAllElts(getContentEffectStatus().getLocalFailStatus().subscribeButtons());
+        ids_.addAllElts(getContentEffectStatus().getSubscribedTranslations());
         return ids_;
     }
 
@@ -103,5 +118,9 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
 
     public ContentComponentModelEffectStatistic getContentEffectStatistic() {
         return contentEffectStatistic;
+    }
+
+    public ContentComponentModelEffectStatus getContentEffectStatus() {
+        return contentEffectStatus;
     }
 }

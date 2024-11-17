@@ -15,11 +15,14 @@ public final class SubscribeBuilderUtil<T> {
     }
 
     public GeneComponentModelEltEnumSub<T> merge(AbstractProgramInfos _api, FacadeGame _sub, CustList<T> _excluded, AbsMap<T,String> _withEmptyStr) {
+        return merge(_api, _sub, _excluded, _withEmptyStr, new NullDefValue<T>());
+    }
+    public GeneComponentModelEltEnumSub<T> merge(AbstractProgramInfos _api, FacadeGame _sub, CustList<T> _excluded, AbsMap<T,String> _withEmptyStr, AbsDefValue<T> _d) {
         AbsMap<T, String> sub_ = factory.buildMessages(_api, _sub, _withEmptyStr);
         IdList<T> rem_ = new IdList<T>(sub_.getKeys());
         rem_.removeAllElements(_excluded);
         TreeMap<T, String> treeFilter_ = feedTree(sub_, rem_);
-        GeneComponentModelEltEnum<T> sel_ = new GeneComponentModelEltEnum<T>(_api, treeFilter_);
+        GeneComponentModelElt<T> sel_ = new GeneComponentModelElt<T>(_api, treeFilter_, _d);
         GeneComponentModelEltEnumSub<T> g_ = new GeneComponentModelEltEnumSub<T>(sel_);
         g_.getSubs().addAllElts(feedSub(sub_, treeFilter_, sel_, _withEmptyStr));
         return g_;

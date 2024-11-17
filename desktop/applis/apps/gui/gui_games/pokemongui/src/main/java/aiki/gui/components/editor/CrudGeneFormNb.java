@@ -32,7 +32,8 @@ public final class CrudGeneFormNb extends CrudGeneFormListSub<EditedCrudPair<Int
         }
         IntIdComparator cmp_ = new IntIdComparator();
         geneComponentModelNb = new GeneComponentModelNb(getFactory(), facadeGame, subscription());
-        initForm(new DisplayKeyOnlyInt(), geneComponentModelNb, nbs_, cmp_, new ValidateElementPair<Integer, String>(cmp_));
+        initForm(new DisplayKeyOnlyInt(), geneComponentModelNb, cmp_, new ValidateElementPair<Integer, String>(cmp_));
+        setupValues(nbs_);
         getButtons().add(destination);
         getFrame().setContentPane(getGroup());
         getFrame().setVisible(true);

@@ -562,7 +562,8 @@ public final class GuiBaseUtil {
     }
 
     public static void initStringMapInt(CrudGeneForm _f, StringMap<Integer> _m, StringList _aDictionary, AfterValidateText _after) {
-        _f.initForm(_m,_aDictionary,_after);
+        _f.initForm(_aDictionary,_after);
+        _f.setupValues(new MapToEntriesListUtil<String,Integer>().build(_m));
     }
 
     public static StringMap<Integer> retrieve(CrudGeneForm _f) {
@@ -572,11 +573,13 @@ public final class GuiBaseUtil {
     }
 
     public static void initStringList(CrudGeneFormList<String> _f, CustList<String> _m, StringList _aDictionary, AfterValidateText _after) {
-        _f.initForm(new IntStringDisplayEntryCust(),new GeneComponentModelString(_f.getFactory(), _aDictionary, _after),_m);
+        _f.initForm(new IntStringDisplayEntryCust(),new GeneComponentModelString(_f.getFactory(), _aDictionary, _after));
+        _f.setupValues(_m);
     }
 
     public static void initStringList(CrudGeneFormList<String> _f, CustList<String> _m, StringList _aDictionary, AfterValidateText _after, Comparing<String> _cmp) {
-        _f.initForm(new IntStringDisplayEntryCust(),new GeneComponentModelString(_f.getFactory(), _aDictionary, _after),_m,_cmp);
+        _f.initForm(new IntStringDisplayEntryCust(),new GeneComponentModelString(_f.getFactory(), _aDictionary, _after), _cmp);
+        _f.setupValues(_m);
     }
 
     public static ScrollCustomGraphicList<String> standard(AbsCompoFactory _compo, AbstractImageFactory _img, boolean _simple, CustList<String> _elts, Ints _selected, int _rows) {

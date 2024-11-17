@@ -22,8 +22,8 @@ public final class ContentComponentModelEffectDamage {
     private CrudGeneFormMonteCarlo<Rate> hitsLaw;
     private CrudGeneFormMonteCarlo<String> damageLaw;
     private GeneComponentModelString power;
-    private CrudGeneFormSimpleForm<String,Rate> multDamageAgainst;
-    private CrudGeneFormSimpleForm<Statistic,Byte> boostStatisOnceKoFoe;
+    private CrudGeneFormSimpleFormSub<String,Rate> multDamageAgainst;
+    private CrudGeneFormSimpleFormSub<Statistic,Byte> boostStatisOnceKoFoe;
     private GeneComponentModelLsStrSub<Statistic> ignVarStatTargetPos;
     private GeneComponentModelLsStrSub<Statistic> ignVarStatUserNeg;
     private GeneComponentModelEltEnumSub<Statistic> statisAtt;
@@ -60,13 +60,11 @@ public final class ContentComponentModelEffectDamage {
         selected_.add(hitsLaw.getGroup());
         damageLaw = buildMcString(_f, _core);
         selected_.add(damageLaw.getGroup());
-        multDamageAgainst = new CrudGeneFormSimpleForm<String, Rate>(_core, _fac, _fact, _f);
-        multDamageAgainst.initForm();
-        multDamageAgainst.initForm(new DisplayEntryCustSubImpl<String>(_fact.getFactoryCa(), new StringMap<String>()),_fact.getFactoryCa().buildMessages(_core,_fac),_core, buildPart(_core,_fac,_fact.getFactoryCa(), new StringMap<String>()), new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core)),new StringMap<Rate>());
+        multDamageAgainst = new CrudGeneFormSimpleFormSub<String, Rate>(_core, _fac, _fact, _f);
+        multDamageAgainst.initForm(new DisplayEntryCustSubImpl<String>(_fact.getFactoryCa(), new StringMap<String>()),_fact.getFactoryCa().buildMessages(_core,_fac), buildPart(_core,_fac,_fact.getFactoryCa(), new StringMap<String>()), new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core)));
         selected_.add(multDamageAgainst.getGroup());
-        boostStatisOnceKoFoe = new CrudGeneFormSimpleForm<Statistic,Byte>(_core, _fac, _fact, _f);
-        boostStatisOnceKoFoe.initForm();
-        boostStatisOnceKoFoe.initForm(new DisplayEntryCustSubImpl<Statistic>(_fact.getFactoryStat(), new IdMap<Statistic, String>()),_fact.getFactoryStat().buildMessages(_core,_fac),_core, new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac), new GeneComponentModelSubscribeFactoryDirect<Byte>(new GeneComponentModelSubscribeByte(_core)),new IdMap<Statistic, Byte>());
+        boostStatisOnceKoFoe = new CrudGeneFormSimpleFormSub<Statistic,Byte>(_core, _fac, _fact, _f);
+        boostStatisOnceKoFoe.initForm(new DisplayEntryCustSubImpl<Statistic>(_fact.getFactoryStat(), new IdMap<Statistic, String>()),_fact.getFactoryStat().buildMessages(_core,_fac), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac), new GeneComponentModelSubscribeFactoryDirect<Byte>(new GeneComponentModelSubscribeByte(_core)));
         selected_.add(boostStatisOnceKoFoe.getGroup());
         selected_.setVisible(false);
         form =selected_;
@@ -82,14 +80,14 @@ public final class ContentComponentModelEffectDamage {
         CrudGeneFormMonteCarlo<Rate> out_ = new CrudGeneFormMonteCarlo<Rate>(_core, new ComparingRateKey<LgInt>());
         out_.setFrame(_f);
         out_.initForm();
-        out_.initForm(new RateLgIntDisplayEntryCust(),new GeneComponentModelEventRate(_core),new MonteCarloNumber(),new ComparingRateKey<LgInt>());
+        out_.initFormKeys(new RateLgIntDisplayEntryCust(),new GeneComponentModelEventRate(_core), new ComparingRateKey<LgInt>());
         return out_;
     }
     private CrudGeneFormMonteCarlo<String> buildMcString(AbsCommonFrame _f, AbstractProgramInfos _core) {
         CrudGeneFormMonteCarlo<String> out_ = new CrudGeneFormMonteCarlo<String>(_core, new ComparingStringKey<LgInt>());
         out_.setFrame(_f);
         out_.initForm();
-        out_.initForm(new StringLgIntDisplayEntryCust(),new GeneComponentModelEventString(_core),new MonteCarloString(),new ComparingStringKey<LgInt>());
+        out_.initFormKeys(new StringLgIntDisplayEntryCust(),new GeneComponentModelEventString(_core), new ComparingStringKey<LgInt>());
         return out_;
     }
     void buildEntity(EffectDamage _edited) {
@@ -175,10 +173,10 @@ public final class ContentComponentModelEffectDamage {
     }
 
     public CrudGeneFormSimpleForm<String, Rate> getMultDamageAgainst() {
-        return multDamageAgainst;
+        return multDamageAgainst.getCrud();
     }
 
     public CrudGeneFormSimpleForm<Statistic, Byte> getBoostStatisOnceKoFoe() {
-        return boostStatisOnceKoFoe;
+        return boostStatisOnceKoFoe.getCrud();
     }
 }

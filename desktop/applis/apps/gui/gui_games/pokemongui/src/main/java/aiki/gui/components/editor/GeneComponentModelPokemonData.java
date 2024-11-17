@@ -27,11 +27,11 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
     private GeneComponentModelLsStrSub<Short> technicalMoves;
     private GeneComponentModelLsStrSub<Short> hiddenMoves;
     private final IdMap<Statistic, FormStatBaseEv> statistics = new IdMap<Statistic, FormStatBaseEv>();
-    private GeneComponentModelEltEnum<GenderRepartition> genderRep;
-    private GeneComponentModelEltStrSub baseEvo;
-    private GeneComponentModelEltEnum<ExpType> expEvo;
-    private final CrudGeneFormSimpleElement<LevelMove> levMoves;
-    private final CrudGeneFormSimpleForm<String,Evolution> evolutions;
+    private GeneComponentModelElt<GenderRepartition> genderRep;
+    private GeneComponentModelEltEnumSub<String> baseEvo;
+    private GeneComponentModelElt<ExpType> expEvo;
+    private final CrudGeneFormSimpleElementSub<LevelMove> levMoves;
+    private final CrudGeneFormSimpleFormSub<String,Evolution> evolutions;
     private final CrudGeneFormList<String> eggGroups;
     private final IdList<SubscribedTranslation> subscribedTranslations = new IdList<SubscribedTranslation>();
 
@@ -45,8 +45,8 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         eggGroups = new CrudGeneFormList<String>(getCompoFactory());
         happiness = new GeneComponentModelInt(getCompoFactory());
         happinessHatch = new GeneComponentModelInt(getCompoFactory());
-        levMoves = new CrudGeneFormSimpleElement<LevelMove>(getCompoFactory(),_facade,_sub,_fr);
-        evolutions = new CrudGeneFormSimpleForm<String,Evolution>(_core,_facade,_sub,_fr);
+        levMoves = new CrudGeneFormSimpleElementSub<LevelMove>(getCompoFactory(),_facade,_sub,_fr);
+        evolutions = new CrudGeneFormSimpleFormSub<String,Evolution>(_core,_facade,_sub,_fr);
     }
     @Override
     public AbsCustComponent gene(int _select) {
@@ -79,15 +79,14 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         }
         updateStats(new IdMap<Statistic, StatBaseEv>());
         form_.add(stats_);
-        form_.add(genderRep.geneEnum(GenderRepartition.MIXED));
+        form_.add(genderRep.geneEnum());
         form_.add(abilities.geneEnum());
         form_.add(moveTutors.geneEnum());
         form_.add(baseEvo.geneEnum());
-        form_.add(expEvo.geneEnum(ExpType.M));
-        levMoves.initForm(new DisplayEntryCustSubElementLevelMove(getCompoFactory(),getFacade(),getSubscribedTranslationList()),getCompoFactory(), new GeneComponentModelSubscribeFactoryDirect<LevelMove>(new GeneComponentModelSubscribeLevelMove(getCompoFactory(),getFacade(),getSubscribedTranslationList())), new CustList<LevelMove>());
+        form_.add(expEvo.geneEnum());
+        levMoves.initForm(new DisplayEntryCustSubElementLevelMove(getCompoFactory(),getFacade(),getSubscribedTranslationList()), new GeneComponentModelSubscribeFactoryDirect<LevelMove>(new GeneComponentModelSubscribeLevelMove(getCompoFactory(),getFacade(),getSubscribedTranslationList())));
         form_.add(levMoves.getGroup());
-        evolutions.initForm();
-        evolutions.initForm(new DisplayEntryCustSubImpl<String>(getSubscribedTranslationList().getFactoryPk(), new StringMap<String>()),getSubscribedTranslationList().getFactoryPk().buildMessages(getCompoFactory(),getFacade()),getCompoFactory(),buildPart(getSubscribedTranslationList().getFactoryPk(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Evolution>(new GeneComponentModelSubscribeEvolution(getCompoFactory(),getFacade(),getSubscribedTranslationList(),evolutions.getFrame())), new StringMap<Evolution>());
+        evolutions.initForm(new DisplayEntryCustSubImpl<String>(getSubscribedTranslationList().getFactoryPk(), new StringMap<String>()),getSubscribedTranslationList().getFactoryPk().buildMessages(getCompoFactory(),getFacade()),buildPart(getSubscribedTranslationList().getFactoryPk(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Evolution>(new GeneComponentModelSubscribeEvolution(getCompoFactory(),getFacade(),getSubscribedTranslationList(),evolutions.getCommonFrame())));
         form_.add(evolutions.getGroup());
         form_.add(technicalMoves.geneEnum());
         form_.add(hiddenMoves.geneEnum());
@@ -97,7 +96,7 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         form_.add(happiness.geneInt());
         form_.add(happinessHatch.geneInt());
         eggGroups.initForm();
-        eggGroups.initForm(new IntStringDisplayEntryCust(),new GeneComponentModelString(getCompoFactory(),new StringList(),new DefValidateText()),new CustList<String>());
+        eggGroups.initForm(new IntStringDisplayEntryCust(),new GeneComponentModelString(getCompoFactory(),new StringList(),new DefValidateText()));
         form_.add(eggGroups.getGroup());
         sc_.setViewportView(form_);
         page_.add(sc_);
@@ -119,9 +118,9 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         for (EntryCust<Statistic,FormStatBaseEv> e: statistics.entryList()) {
             ent_.getStatistics().addEntry(e.getKey(),new StatBaseEv((short)e.getValue().getBase().getValue(),(short)e.getValue().getEv().getValue()));
         }
-        ent_.setGenderRep(genderRep.tryRet(GenderRepartition.MIXED));
+        ent_.setGenderRep(genderRep.tryRet());
         ent_.setBaseEvo(baseEvo.tryRet());
-        ent_.setExpEvo(expEvo.tryRet(ExpType.M));
+        ent_.setExpEvo(expEvo.tryRet());
         ent_.setLevMoves(levMoves.getList());
         ent_.setEvolutions(ConverterCommonMapUtil.buildStringMapEvolution(evolutions.getList()));
         ent_.setTechnicalMoves(new Shorts(technicalMoves.tryRet()));
@@ -220,24 +219,24 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         return statistics;
     }
 
-    public GeneComponentModelEltEnum<GenderRepartition> getGenderRep() {
+    public GeneComponentModelElt<GenderRepartition> getGenderRep() {
         return genderRep;
     }
 
-    public GeneComponentModelEltStrSub getBaseEvo() {
+    public GeneComponentModelEltEnumSub<String> getBaseEvo() {
         return baseEvo;
     }
 
-    public GeneComponentModelEltEnum<ExpType> getExpEvo() {
+    public GeneComponentModelElt<ExpType> getExpEvo() {
         return expEvo;
     }
 
     public CrudGeneFormSimpleElement<LevelMove> getLevMoves() {
-        return levMoves;
+        return levMoves.getCrud();
     }
 
     public CrudGeneFormSimpleForm<String,Evolution> getEvolutions() {
-        return evolutions;
+        return evolutions.getCrud();
     }
 
     public CrudGeneFormList<String> getEggGroups() {

@@ -13,12 +13,12 @@ public final class CrudGeneFormSimpleElement<K> extends CrudGeneFormListSub<K> {
         super(_fact, _facade, _sub, _fr, null);
 
     }
-    public void initForm(DisplayEntryCustSubElement<K> _d, AbstractProgramInfos _core, AbsGeneComponentModelSubscribeFactory<K> _k, CustList<K> _evos) {
+    public void initForm(DisplayEntryCustSubElement<K> _d, AbstractProgramInfos _core, AbsGeneComponentModelSubscribeFactory<K> _k) {
         getCrudGeneFormSubContent().clear();
         displayEntryCustSub = _d;
         genePair = new GeneComponentModelSimpleElement<K>(_core,_k);
         initForm();
-        initForm(_d.buildDisplay(), genePair, _evos, _d.buildCmp());
+        initForm(_d.buildDisplay(), genePair, _d.buildCmp());
     }
 
     public IdList<SubscribedTranslation> subscribeButtons() {

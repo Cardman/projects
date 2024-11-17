@@ -12,12 +12,12 @@ import code.util.core.*;
 public final class GeneComponentModelEvolution {
     private final AbstractProgramInfos programInfos;
     private final FacadeGame fac;
-    private GeneComponentModelEltEnum<String> evolutionKind;
+    private GeneComponentModelElt<String> evolutionKind;
     private final GeneComponentModelInt level;
-    private GeneComponentModelEltStrSub item;
-    private GeneComponentModelEltStrSub evoTeamPokemon;
-    private GeneComponentModelEltStrSub evoMove;
-    private GeneComponentModelEltStrSub evoMoveType;
+    private GeneComponentModelEltEnumSub<String> item;
+    private GeneComponentModelEltEnumSub<String> evoTeamPokemon;
+    private GeneComponentModelEltEnumSub<String> evoMove;
+    private GeneComponentModelEltEnumSub<String> evoMoveType;
     private GeneComponentModelEltEnumSub<Gender> evoGender;
     private final SubscribedTranslationList subscribedTranslationList;
     private Evolution edited;
@@ -39,7 +39,7 @@ public final class GeneComponentModelEvolution {
 
     public AbsPanel geneEvo() {
         StringMap<String> messages_ = MessagesPkEditor.getMessagesEditorSelectEvoTr(MessagesPkEditor.getAppliTr(programInfos.currentLg())).getMapping();
-        evolutionKind = new GeneComponentModelEltEnum<String>(programInfos, messages_);
+        evolutionKind = new GeneComponentModelElt<String>(programInfos, messages_,new EmptyDefValue());
         item = ConverterCommonMapUtil.buildItFull(programInfos, fac,subscribedTranslationList);
         evoTeamPokemon = ConverterCommonMapUtil.buildPkFull(programInfos,fac,subscribedTranslationList);
         evoMove = ConverterCommonMapUtil.buildMvFull(programInfos,fac,subscribedTranslationList);
@@ -48,7 +48,7 @@ public final class GeneComponentModelEvolution {
         AbsCompoFactory compoFactory_ = programInfos.getCompoFactory();
         AbsPanel evoForm_ = compoFactory_.newLineBox();
         AbsPanel selected_ = compoFactory_.newLineBox();
-        evoForm_.add(evolutionKind.geneEnum(""));
+        evoForm_.add(evolutionKind.geneEnum());
         evoForm_.add(selected_);
         compoLevel = level.geneInt();
         compoLevel.setVisible(false);
@@ -75,7 +75,7 @@ public final class GeneComponentModelEvolution {
     }
 
     public void applyChange() {
-        String evo_ = evolutionKind.tryRet("");
+        String evo_ = evolutionKind.tryRet();
         compoLevel.setVisible(StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_LEVEL_SIMPLE) || StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_LEVEL_GENDER));
         compoItem.setVisible(StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_STONE_SIMPLE) || StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_STONE_GENDER) || StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_ITEM));
         compoGender.setVisible(StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_LEVEL_GENDER) || StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_STONE_GENDER));
@@ -207,7 +207,7 @@ public final class GeneComponentModelEvolution {
         return evoGender;
     }
 
-    public GeneComponentModelEltEnum<String> getEvolutionKind() {
+    public GeneComponentModelElt<String> getEvolutionKind() {
         return evolutionKind;
     }
 
@@ -215,19 +215,19 @@ public final class GeneComponentModelEvolution {
         return level;
     }
 
-    public GeneComponentModelEltStrSub getItem() {
+    public GeneComponentModelEltEnumSub<String> getItem() {
         return item;
     }
 
-    public GeneComponentModelEltStrSub getEvoMove() {
+    public GeneComponentModelEltEnumSub<String> getEvoMove() {
         return evoMove;
     }
 
-    public GeneComponentModelEltStrSub getEvoMoveType() {
+    public GeneComponentModelEltEnumSub<String> getEvoMoveType() {
         return evoMoveType;
     }
 
-    public GeneComponentModelEltStrSub getEvoTeamPokemon() {
+    public GeneComponentModelEltEnumSub<String> getEvoTeamPokemon() {
         return evoTeamPokemon;
     }
 }

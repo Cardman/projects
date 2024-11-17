@@ -19,13 +19,13 @@ public abstract class AbsCrudGeneFormList<E> extends AbsCrudGeneForm<E> {
         cmp = _c;
     }
 
-    public void initForm(DisplayEntryCust<Integer, E> _disp, GeneComponentModel<E> _k, CustList<E> _map) {
-        initForm(_disp, _k, _map, null);
+    public void initForm(DisplayEntryCust<Integer, E> _disp, GeneComponentModel<E> _k) {
+        initForm(_disp, _k, null);
     }
-    public void initForm(DisplayEntryCust<Integer, E> _disp, GeneComponentModel<E> _k, CustList<E> _map, Comparing<E> _c) {
-        initForm(_disp,_k,_map,_c,null);
+    public void initForm(DisplayEntryCust<Integer, E> _disp, GeneComponentModel<E> _k, Comparing<E> _c) {
+        initForm(_disp,_k, _c,null);
     }
-    public void initForm(DisplayEntryCust<Integer, E> _disp, GeneComponentModel<E> _k, CustList<E> _map, Comparing<E> _c, IntValidateElementAdd<E> _val) {
+    public void initForm(DisplayEntryCust<Integer, E> _disp, GeneComponentModel<E> _k, Comparing<E> _c, IntValidateElementAdd<E> _val) {
         validator = _val;
         indicator = getFactory().getCompoFactory().newSpinner(0, 0, Integer.MAX_VALUE, 1);
         indicator.setEnabled(false);
@@ -33,7 +33,6 @@ public abstract class AbsCrudGeneFormList<E> extends AbsCrudGeneForm<E> {
         displayEntry = _disp;
         cmp = _c;
         list = new CustList<E>();
-        setupValues(_map);
     }
 
     @Override

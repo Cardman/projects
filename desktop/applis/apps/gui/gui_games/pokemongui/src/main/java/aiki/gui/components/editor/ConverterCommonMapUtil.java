@@ -19,24 +19,24 @@ public final class ConverterCommonMapUtil {
     private ConverterCommonMapUtil() {
     }
 
-    public static GeneComponentModelEltStrSub buildPkFull(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub) {
+    public static GeneComponentModelEltEnumSub<String> buildPkFull(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub) {
         return merge(_api, _facade, _sub.getFactoryPk(), new CustList<String>(), new StringMap<String>());
     }
 
-    public static GeneComponentModelEltStrSub buildMvFull(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub) {
+    public static GeneComponentModelEltEnumSub<String> buildMvFull(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub) {
         return buildMvFull(_api, _facade, _sub, new StringMap<String>());
     }
 
-    public static GeneComponentModelEltStrSub buildMvFull(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub, AbsMap<String,String> _empty) {
+    public static GeneComponentModelEltEnumSub<String> buildMvFull(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub, AbsMap<String,String> _empty) {
         return merge(_api, _facade, _sub.getFactoryMv(), new CustList<String>(), _empty);
     }
-    public static GeneComponentModelEltStrSub buildItFull(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub) {
+    public static GeneComponentModelEltEnumSub<String> buildItFull(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub) {
         return merge(_api, _facade, _sub.getFactoryIt(), new CustList<String>(), new StringMap<String>());
     }
-    public static GeneComponentModelEltStrSub buildTypeElt(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
+    public static GeneComponentModelEltEnumSub<String> buildTypeElt(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
         return merge(_api, _facade, _sub.getFactoryTy(), new CustList<String>(), new StringMap<String>());
     }
-    public static GeneComponentModelEltStrSub buildCatElt(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
+    public static GeneComponentModelEltEnumSub<String> buildCatElt(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
         return merge(_api, _facade, _sub.getFactoryCa(), new CustList<String>(), new StringMap<String>());
     }
     public static GeneComponentModelLsStrSub<String> buildAbilityList(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
@@ -57,13 +57,13 @@ public final class ConverterCommonMapUtil {
     public static GeneComponentModelLsStrSub<Short> buildHmList(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
         return mergeLsNb(_api, _facade, _sub.getFactoryMv(), _sub.getFactoryHm());
     }
-    public static GeneComponentModelEltStrSub merge(AbstractProgramInfos _api, FacadeGame _sub, SubscribedTranslationMessagesFactory _builder, CustList<String> _excluded, AbsMap<String,String> _withEmptyStr) {
+    public static GeneComponentModelEltEnumSub<String> merge(AbstractProgramInfos _api, FacadeGame _sub, SubscribedTranslationMessagesFactory _builder, CustList<String> _excluded, AbsMap<String,String> _withEmptyStr) {
         AbsMap<String, String> sub_ = _builder.buildMessages(_api, _sub, _withEmptyStr);
         StringList rem_ = new StringList(sub_.getKeys());
         rem_.removeAllElements(_excluded);
         TreeMap<String, String> treeFilter_ = new SubscribeBuilderUtil<String>(_builder).feedTree(sub_, rem_);
-        GeneComponentModelElt<String> sel_ = new GeneComponentModelEltStr(_api, treeFilter_);
-        GeneComponentModelEltStrSub g_ = new GeneComponentModelEltStrSub(sel_);
+        GeneComponentModelElt<String> sel_ = new GeneComponentModelElt<String>(_api, treeFilter_,new EmptyDefValue());
+        GeneComponentModelEltEnumSub<String> g_ = new GeneComponentModelEltEnumSub<String>(sel_);
         g_.getSubs().addAllElts(new SubscribeBuilderUtil<String>(_builder).feedSub(sub_, treeFilter_, sel_, _withEmptyStr));
         return g_;
     }
@@ -121,10 +121,10 @@ public final class ConverterCommonMapUtil {
     public static GeneComponentModelLsStrSub<Statistic> buildStatisticsLs(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _fact) {
         return new SubscribeBuilderUtil<Statistic>(_fact.getFactoryStat()).mergeLs(_api,_facade);
     }
-    public static GeneComponentModelEltEnum<GenderRepartition> buildGenderRepartition(AbstractProgramInfos _api){
-        return new GeneComponentModelEltEnum<GenderRepartition>(_api,messages(MessagesPkEditor.getMessagesEditorSelectGenderRepTr(MessagesPkEditor.getAppliTr(_api.currentLg())).getMapping()));
+    public static GeneComponentModelElt<GenderRepartition> buildGenderRepartition(AbstractProgramInfos _api){
+        return new GeneComponentModelElt<GenderRepartition>(_api,messages(MessagesPkEditor.getMessagesEditorSelectGenderRepTr(MessagesPkEditor.getAppliTr(_api.currentLg())).getMapping()));
     }
-    public static GeneComponentModelEltEnum<ExpType> buildExpType(AbstractProgramInfos _api, FacadeGame _facade){
+    public static GeneComponentModelElt<ExpType> buildExpType(AbstractProgramInfos _api, FacadeGame _facade){
         DataBase data_ = _facade.getData();
         IdMap<ExpType,String> messages_ = new IdMap<ExpType, String>();
         CustList<ExpType> all_ = ExpType.all();
@@ -136,7 +136,7 @@ public final class ConverterCommonMapUtil {
                 messages_.addEntry(e,data_.getFormula(litt_,data_.getLanguage()));
             }
         }
-        return new GeneComponentModelEltEnum<ExpType>(_api,messages_);
+        return new GeneComponentModelElt<ExpType>(_api,messages_);
     }
     public static StringMap<StringMap<String>> toEntityLg(StringMap<StringMap<String>> _map) {
         StringMap<StringMap<String>> inv_ = new StringMap<StringMap<String>>();

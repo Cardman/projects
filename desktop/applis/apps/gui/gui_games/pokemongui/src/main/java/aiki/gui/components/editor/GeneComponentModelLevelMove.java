@@ -9,7 +9,7 @@ import code.util.*;
 public class GeneComponentModelLevelMove {
     private final AbstractProgramInfos programInfos;
     private final FacadeGame facade;
-    private GeneComponentModelEltStrSub move;
+    private GeneComponentModelEltEnumSub<String> move;
     private final GeneComponentModelInt level;
     private final SubscribedTranslationList subscribedTranslationList;
 
@@ -50,7 +50,7 @@ public class GeneComponentModelLevelMove {
         return level;
     }
 
-    public GeneComponentModelEltStrSub getMove() {
+    public GeneComponentModelEltEnumSub<String> getMove() {
         return move;
     }
 }

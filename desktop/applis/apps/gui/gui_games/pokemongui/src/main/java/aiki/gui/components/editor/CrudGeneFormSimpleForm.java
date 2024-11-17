@@ -15,14 +15,14 @@ public final class CrudGeneFormSimpleForm<K, V> extends CrudGeneFormListSub<Edit
         super(_fact, _facade, _sub, _fr, null);
 
     }
-    public void initForm(DisplayEntryCustSub<K> _d,AbsMap<K, String> _disp, AbstractProgramInfos _core, AbsGeneComponentModelSubscribeFactory<K> _k, AbsGeneComponentModelSubscribeFactory<V> _v, AbsMap<K,V> _evos) {
+    public void initForm(DisplayEntryCustSub<K> _d, AbsMap<K, String> _disp, AbstractProgramInfos _core, AbsGeneComponentModelSubscribeFactory<K> _k, AbsGeneComponentModelSubscribeFactory<V> _v) {
         getCrudGeneFormSubContent().clear();
         displayEntryCustSub = _d;
         genePair = new GeneComponentModelSimplePair<K,V>(_core,_k,_v);
         initForm();
         messages = _disp;
         Comparing<EditedCrudPair<K, V>> cmp_ = new ComparatorTrWrapperPairs<K, V>().wrap(_disp);
-        initForm(new DisplayKeyOnly<K, V>(_disp), genePair, new MapToEntriesListUtil<K,V>().build(_evos), cmp_,new ValidateElementPair<K, V>(cmp_));
+        initForm(new DisplayKeyOnly<K, V>(_disp), genePair, cmp_,new ValidateElementPair<K, V>(cmp_));
     }
 
     public IdList<SubscribedTranslation> subscribeButtons() {
@@ -38,7 +38,12 @@ public final class CrudGeneFormSimpleForm<K, V> extends CrudGeneFormListSub<Edit
         all_.addAllElts(genePair.all());
         return all_;
     }
-
+    public AbsGeneComponentModelSubscribe<K> getKey() {
+        return genePair.getKey();
+    }
+    public AbsGeneComponentModelSubscribe<V> getValue() {
+        return genePair.getValue();
+    }
     public GeneComponentModelSimplePair<K, V> getGenePair() {
         return genePair;
     }

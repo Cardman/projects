@@ -10,7 +10,7 @@ public final class GeneComponentModelNb implements GeneComponentModel<EditedCrud
     private final AbstractProgramInfos compoFactory;
     private final FacadeGame facade;
     private final GeneComponentModelInt key;
-    private GeneComponentModelEltStrSub value;
+    private GeneComponentModelEltEnumSub<String> value;
     public GeneComponentModelNb(AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
         compoFactory = _core;
         facade = _facade;
@@ -48,7 +48,7 @@ public final class GeneComponentModelNb implements GeneComponentModel<EditedCrud
         return key;
     }
 
-    public GeneComponentModelEltStrSub getValue() {
+    public GeneComponentModelEltEnumSub<String> getValue() {
         return value;
     }
 }
