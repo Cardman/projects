@@ -12,6 +12,7 @@ import aiki.map.pokemon.enums.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.maths.*;
+import code.maths.montecarlo.*;
 import code.util.*;
 import code.util.core.*;
 
@@ -160,6 +161,46 @@ public final class ConverterCommonMapUtil {
             i_.addEntry(GenderRepartition.getGenderRepartitionByName(e.getKey()),e.getValue());
         }
         return i_;
+    }
+    public static MonteCarloString buildMonteCarloString(CustList<EditedCrudPair<String, LgInt>> _m) {
+        MonteCarloString c_ = new MonteCarloString(new CollCapacity(_m.size()));
+        new MapToEntriesListUtil<String,LgInt>().feedMap(_m, c_);
+        return c_;
+    }
+    public static MonteCarloNumber buildMonteCarloNumber(CustList<EditedCrudPair<Rate, LgInt>> _m) {
+        MonteCarloNumber c_ = new MonteCarloNumber(new CollCapacity(_m.size()));
+        new MapToEntriesListUtil<Rate,LgInt>().feedMap(_m, c_);
+        return c_;
+    }
+    public static MonteCarloEnum<Statistic> buildMonteCarloEnumStatistic(CustList<EditedCrudPair<Statistic, LgInt>> _m) {
+        MonteCarloEnum<Statistic> c_ = new MonteCarloEnum<Statistic>(new CollCapacity(_m.size()));
+        new MapToEntriesListUtil<Statistic,LgInt>().feedMap(_m, c_);
+        return c_;
+    }
+    public static StringMap<String> buildStringMapString(CustList<EditedCrudPair<String, String>> _m) {
+        StringMap<String> c_ = new StringMap<String>(new CollCapacity(_m.size()));
+        new MapToEntriesListUtil<String,String>().feedMap(_m, c_);
+        return c_;
+    }
+    public static StringMap<Rate> buildStringMapRate(CustList<EditedCrudPair<String, Rate>> _m) {
+        StringMap<Rate> c_ = new StringMap<Rate>(new CollCapacity(_m.size()));
+        new MapToEntriesListUtil<String,Rate>().feedMap(_m, c_);
+        return c_;
+    }
+    public static StringMap<Ints> buildStringMapInts(CustList<EditedCrudPair<String, Ints>> _m) {
+        StringMap<Ints> c_ = new StringMap<Ints>(new CollCapacity(_m.size()));
+        new MapToEntriesListUtil<String,Ints>().feedMap(_m, c_);
+        return c_;
+    }
+    public static IdMap<Statistic,Byte> buildIdMapStatisticByte(CustList<EditedCrudPair<Statistic, Byte>> _m) {
+        IdMap<Statistic,Byte> c_ = new IdMap<Statistic,Byte>(new CollCapacity(_m.size()));
+        new MapToEntriesListUtil<Statistic,Byte>().feedMap(_m, c_);
+        return c_;
+    }
+    public static IdMap<Statistic,String> buildIdMapStatisticString(CustList<EditedCrudPair<Statistic, String>> _m) {
+        IdMap<Statistic,String> c_ = new IdMap<Statistic,String>(new CollCapacity(_m.size()));
+        new MapToEntriesListUtil<Statistic,String>().feedMap(_m, c_);
+        return c_;
     }
     public static CategoryMults buildCategoryMults(CustList<EditedCrudPair<CategoryMult, Rate>> _m) {
         CategoryMults c_ = new CategoryMults(new CollCapacity(_m.size()));

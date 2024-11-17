@@ -6,7 +6,6 @@ import aiki.fight.moves.effects.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.maths.*;
-import code.maths.montecarlo.*;
 import code.util.*;
 
 public final class ContentComponentModelEffectStatistic {
@@ -20,7 +19,6 @@ public final class ContentComponentModelEffectStatistic {
     private CrudGeneFormMonteCarloSub<Statistic> lawBoost;
     private GeneComponentModelLsStrSub<Statistic> cancelLowStat;
     private GeneComponentModelLsStrSub<Statistic> cancelChgtStat;
-    private final IdList<SubscribedTranslation> subscribedTranslations = new IdList<SubscribedTranslation>();
     private AbsPanel form;
 
     AbsPanel effectForm(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
@@ -44,13 +42,9 @@ public final class ContentComponentModelEffectStatistic {
         localFailSwapBoostStatis = new CrudGeneFormSimpleFormSub<Statistic,String>(_core, _fac, _fact, _f);
         localFailSwapBoostStatis.initForm(new DisplayEntryCustSubImpl<Statistic>(_fact.getFactoryStat(), new IdMap<Statistic, String>()),_fact.getFactoryStat().buildMessages(_core,_fac), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac), new GeneComponentModelSubscribeFactoryString(_core));
         selected_.add(localFailSwapBoostStatis.getGroup());
-        AbsMap<Statistic, String> trsStat_ = _fact.getFactoryStat().buildMessages(_core,_fac);
-        subscribedTranslations.clear();
-        lawBoost = new CrudGeneFormMonteCarloSub<Statistic>(_f,_core,new ComparingEnumKey<Statistic,LgInt>(trsStat_),ConverterCommonMapUtil.buildStatisticsElt(_core, _fac, _fact),new StatisticLgIntDisplayEntryCust(trsStat_));
+        lawBoost = new CrudGeneFormMonteCarloSub<Statistic>(_f,_core, ConverterCommonMapUtil.buildStatisticsElt(_core, _fac, _fact), _fact.getFactoryStat().buildMessages(_core,_fac), new DisplayEntryCustSubImpl<Statistic>(_fact.getFactoryStat(), new IdMap<Statistic, String>()));
         selected_.add(lawBoost.getGroup());
         selected_.setVisible(false);
-        subscribedTranslations.add(new SubscribedTranslationMessages<Statistic>(trsStat_,_fact.getFactoryStat(),new IdMap<Statistic, String>()));
-        subscribedTranslations.add(new SubscribedTranslationPkKey<EditedCrudPair<Statistic,LgInt>>(lawBoost.getLaw()));
         form =selected_;
         return selected_;
     }
@@ -64,14 +58,10 @@ public final class ContentComponentModelEffectStatistic {
         _edited.setSwapBoostStatis(new IdList<Statistic>(swapBoostStatis.tryRet()));
         _edited.setCancelLowStat(new IdList<Statistic>(cancelLowStat.tryRet()));
         _edited.setCancelChgtStat(new IdList<Statistic>(cancelChgtStat.tryRet()));
-        _edited.setStatisVarRank(new IdMap<Statistic, Byte>());
-        new MapToEntriesListUtil<Statistic,Byte>().feedMap(statisVarRank.getList(), _edited.getStatisVarRank());
-        _edited.setLocalFailStatis(new IdMap<Statistic, String>());
-        new MapToEntriesListUtil<Statistic,String>().feedMap(localFailStatis.getList(), _edited.getLocalFailStatis());
-        _edited.setLocalFailSwapBoostStatis(new IdMap<Statistic, String>());
-        new MapToEntriesListUtil<Statistic,String>().feedMap(localFailSwapBoostStatis.getList(), _edited.getLocalFailSwapBoostStatis());
-        _edited.setLawBoost(new MonteCarloEnum<Statistic>());
-        new MapToEntriesListUtil<Statistic,LgInt>().feedMap(lawBoost.getList(), _edited.getLawBoost());
+        _edited.setStatisVarRank(ConverterCommonMapUtil.buildIdMapStatisticByte(statisVarRank.getList()));
+        _edited.setLocalFailStatis(ConverterCommonMapUtil.buildIdMapStatisticString(localFailStatis.getList()));
+        _edited.setLocalFailSwapBoostStatis(ConverterCommonMapUtil.buildIdMapStatisticString(localFailSwapBoostStatis.getList()));
+        _edited.setLawBoost(ConverterCommonMapUtil.buildMonteCarloEnumStatistic(lawBoost.getList()));
     }
     void feedForm(EffectStatistic _edited) {
         evtRate.valueRate(_edited.getEvtRate());
@@ -117,7 +107,4 @@ public final class ContentComponentModelEffectStatistic {
         return lawBoost;
     }
 
-    public IdList<SubscribedTranslation> getSubscribedTranslations() {
-        return subscribedTranslations;
-    }
 }

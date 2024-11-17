@@ -5,9 +5,7 @@ import aiki.fight.moves.effects.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.maths.*;
-import code.maths.montecarlo.*;
 import code.util.*;
-import code.util.ints.*;
 
 public final class ContentComponentModelEffectStatus {
     private AbsCustCheckBox koUserHealSubst;
@@ -16,7 +14,6 @@ public final class ContentComponentModelEffectStatus {
     private GeneComponentModelLsStrSub<String> deletedStatus;
     private CrudGeneFormSimpleFormSub<String,String> localFailStatus;
 
-    private final IdList<SubscribedTranslation> subscribedTranslations = new IdList<SubscribedTranslation>();
     private AbsPanel form;
 
     AbsPanel effectForm(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
@@ -29,7 +26,6 @@ public final class ContentComponentModelEffectStatus {
         selected_.add(deletedStatus.geneEnum());
         localFailStatus = buildLocalFail(_f, _core, _fac, _fact);
         selected_.add(localFailStatus.getGroup());
-        subscribedTranslations.clear();
         lawStatus = buildLaw(_f, _core, _fac, _fact);
         selected_.add(lawStatus.getGroup());
         selected_.setVisible(false);
@@ -37,13 +33,7 @@ public final class ContentComponentModelEffectStatus {
         return selected_;
     }
     private CrudGeneFormMonteCarloSub<String> buildLaw(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
-        AbsMap<String, String> messages_ = _fact.getFactorySt().buildMessages(_core,_fac,ConverterCommonMapUtil.defKeyEmpty(" "));
-        Comparing<EditedCrudPair<String, LgInt>> cmp_ = new ComparatorTrWrapperPairs<String, LgInt>().wrap(messages_);
-
-        CrudGeneFormMonteCarloSub<String> out_ = new CrudGeneFormMonteCarloSub<String>(_f, _core, cmp_, new SubscribeBuilderUtil<String>(_fact.getFactorySt()).merge(_core, _fac, new CustList<String>(), ConverterCommonMapUtil.defKeyEmpty(" "),new EmptyDefValue()), new DisplayKeyOnly<String, LgInt>(messages_));
-        subscribedTranslations.add(new SubscribedTranslationMessages<String>(messages_,_fact.getFactorySt(),ConverterCommonMapUtil.defKeyEmpty(" ")));
-        subscribedTranslations.add(new SubscribedTranslationPkKey<EditedCrudPair<String,LgInt>>(out_.getLaw()));
-        return out_;
+        return new CrudGeneFormMonteCarloSub<String>(_f, _core, new SubscribeBuilderUtil<String>(_fact.getFactorySt()).merge(_core, _fac, new CustList<String>(), ConverterCommonMapUtil.defKeyEmpty(" "),new EmptyDefValue()), _fact.getFactorySt().buildMessages(_core,_fac,ConverterCommonMapUtil.defKeyEmpty(" ")), new DisplayEntryCustSubImpl<String>(_fact.getFactorySt(),ConverterCommonMapUtil.defKeyEmpty(" ")));
     }
     private CrudGeneFormSimpleFormSub<String,String> buildLocalFail(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
         CrudGeneFormSimpleFormSub<String,String> out_ = new CrudGeneFormSimpleFormSub<String,String>(_core, _fac, _fact, _f);
@@ -62,10 +52,8 @@ public final class ContentComponentModelEffectStatus {
         _edited.setDeletedStatus(new StringList(deletedStatus.tryRet()));
         _edited.setKoUserHealSubst(koUserHealSubst.isSelected());
         _edited.setStatusFromUser(statusFromUser.isSelected());
-        _edited.setLocalFailStatus(new StringMap<String>());
-        new MapToEntriesListUtil<String,String>().feedMap(localFailStatus.getList(), _edited.getLocalFailStatus());
-        _edited.setLawStatus(new MonteCarloString());
-        new MapToEntriesListUtil<String,LgInt>().feedMap(lawStatus.getList(), _edited.getLawStatus());
+        _edited.setLocalFailStatus(ConverterCommonMapUtil.buildStringMapString(localFailStatus.getList()));
+        _edited.setLawStatus(ConverterCommonMapUtil.buildMonteCarloString(lawStatus.getList()));
     }
     void feedForm(EffectStatus _edited) {
         koUserHealSubst.setSelected(_edited.getKoUserHealSubst());
@@ -95,7 +83,4 @@ public final class ContentComponentModelEffectStatus {
         return lawStatus;
     }
 
-    public IdList<SubscribedTranslation> getSubscribedTranslations() {
-        return subscribedTranslations;
-    }
 }

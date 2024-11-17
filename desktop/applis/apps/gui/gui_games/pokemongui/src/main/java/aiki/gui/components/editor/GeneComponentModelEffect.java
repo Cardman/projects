@@ -97,10 +97,10 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         ids_.addAllElts(getContentEffectStatistic().getStatisVarRank().subscribeButtons());
         ids_.addAllElts(getContentEffectStatistic().getLocalFailStatis().subscribeButtons());
         ids_.addAllElts(getContentEffectStatistic().getLocalFailSwapBoostStatis().subscribeButtons());
-        ids_.addAllElts(getContentEffectStatistic().getSubscribedTranslations());
+        ids_.addAllElts(getContentEffectStatistic().getLawBoost().subscribeButtons());
         ids_.addAllElts(getContentEffectStatus().getDeletedStatus().getSubs());
         ids_.addAllElts(getContentEffectStatus().getLocalFailStatus().subscribeButtons());
-        ids_.addAllElts(getContentEffectStatus().getSubscribedTranslations());
+        ids_.addAllElts(getContentEffectStatus().getLawStatus().subscribeButtons());
         return ids_;
     }
 

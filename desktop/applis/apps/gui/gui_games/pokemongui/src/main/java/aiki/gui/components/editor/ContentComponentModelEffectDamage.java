@@ -7,7 +7,6 @@ import code.gui.*;
 import code.gui.events.*;
 import code.gui.initialize.*;
 import code.maths.*;
-import code.maths.montecarlo.*;
 import code.util.*;
 
 public final class ContentComponentModelEffectDamage {
@@ -102,16 +101,11 @@ public final class ContentComponentModelEffectDamage {
         _edited.setStatisDef(statisDef.tryRet());
         _edited.setIgnVarStatTargetPos(new IdList<Statistic>(ignVarStatTargetPos.tryRet()));
         _edited.setIgnVarStatUserNeg(new IdList<Statistic>(ignVarStatUserNeg.tryRet()));
-        _edited.setChLaw(new MonteCarloNumber());
-        new MapToEntriesListUtil<Rate,LgInt>().feedMap(chLaw.getList(),_edited.getChLaw());
-        _edited.setHitsLaw(new MonteCarloNumber());
-        new MapToEntriesListUtil<Rate,LgInt>().feedMap(hitsLaw.getList(),_edited.getHitsLaw());
-        _edited.setDamageLaw(new MonteCarloString());
-        new MapToEntriesListUtil<String,LgInt>().feedMap(damageLaw.getList(),_edited.getDamageLaw());
-        _edited.setMultDamageAgainst(new StringMap<Rate>());
-        new MapToEntriesListUtil<String,Rate>().feedMap(multDamageAgainst.getList(),_edited.getMultDamageAgainst());
-        _edited.setBoostStatisOnceKoFoe(new IdMap<Statistic, Byte>());
-        new MapToEntriesListUtil<Statistic,Byte>().feedMap(boostStatisOnceKoFoe.getList(),_edited.getBoostStatisOnceKoFoe());
+        _edited.setChLaw(ConverterCommonMapUtil.buildMonteCarloNumber(chLaw.getList()));
+        _edited.setHitsLaw(ConverterCommonMapUtil.buildMonteCarloNumber(hitsLaw.getList()));
+        _edited.setDamageLaw(ConverterCommonMapUtil.buildMonteCarloString(damageLaw.getList()));
+        _edited.setMultDamageAgainst(ConverterCommonMapUtil.buildStringMapRate(multDamageAgainst.getList()));
+        _edited.setBoostStatisOnceKoFoe(ConverterCommonMapUtil.buildIdMapStatisticByte(boostStatisOnceKoFoe.getList()));
     }
     void feedForm(EffectDamage _edited) {
         power.valueString(_edited.getPower());

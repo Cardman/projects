@@ -9,7 +9,6 @@ import code.gui.*;
 import code.gui.events.*;
 import code.gui.initialize.*;
 import code.maths.*;
-import code.maths.montecarlo.*;
 import code.util.*;
 
 public final class GeneComponentModelMoveData extends GeneComponentModelEntity<MoveData> {
@@ -193,14 +192,10 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         } else {
             ent_.setSwitchType(SwitchType.NOTHING);
         }
-        ent_.setRepeatRoundLaw(new MonteCarloNumber());
-        new MapToEntriesListUtil<Rate,LgInt>().feedMap(repeatRoundLaw.getList(),ent_.getRepeatRoundLaw());
-        ent_.setTypesByOwnedItem(new StringMap<String>());
-        new MapToEntriesListUtil<String,String>().feedMap(typesByOwnedItem.getList(),ent_.getTypesByOwnedItem());
-        ent_.setTypesByWeather(new StringMap<String>());
-        new MapToEntriesListUtil<String,String>().feedMap(typesByWeather.getList(),ent_.getTypesByWeather());
-        ent_.setSecEffectsByItem(new StringMap<Ints>());
-        new MapToEntriesListUtil<String,Ints>().feedMap(secEffectsByItem.getList(),ent_.getSecEffectsByItem());
+        ent_.setRepeatRoundLaw(ConverterCommonMapUtil.buildMonteCarloNumber(repeatRoundLaw.getList()));
+        ent_.setTypesByOwnedItem(ConverterCommonMapUtil.buildStringMapString(typesByOwnedItem.getList()));
+        ent_.setTypesByWeather(ConverterCommonMapUtil.buildStringMapString(typesByWeather.getList()));
+        ent_.setSecEffectsByItem(ConverterCommonMapUtil.buildStringMapInts(secEffectsByItem.getList()));
         ent_.setTargetChoice(targetChoice.tryRet());
         ent_.setEffects(effects.getList());
         if (ent_ instanceof DamagingMoveData) {
