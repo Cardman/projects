@@ -72,7 +72,7 @@ public final class ConverterCommonMapUtil {
     private static GeneComponentModelLsStrSub<String> mergeLs(AbstractProgramInfos _api, FacadeGame _sub, SubscribedTranslationMessagesFactory _builder) {
         AbsMap<String, String> sub_ = _builder.buildMessages(_api, _sub);
         TreeMap<String, String> treeFilter_ = new SubscribeBuilderUtil<String>(_builder).feedTree(sub_, sub_.getKeys());
-        GeneComponentModelLs<String> sel_ = new GeneComponentModelLsStr(_api, treeFilter_);
+        GeneComponentModelLs<String> sel_ = new GeneComponentModelLs<String>(_api, treeFilter_);
         GeneComponentModelLsStrSub<String> g_ = new GeneComponentModelLsStrSub<String>(sel_);
         g_.getSubs().addAllElts(new SubscribeBuilderUtil<String>(_builder).feedSub(sub_, treeFilter_, sel_, new StringMap<String>()));
         return g_;
@@ -82,7 +82,7 @@ public final class ConverterCommonMapUtil {
         AbsMap<String, String> messages_ = _builderMv.buildMessages(_api, _sub);
         ShortMap<String> sub_ = map(map_, messages_);
         TreeMap<Short, String> treeFilter_ = feedTreeNb(sub_, sub_.getKeys());
-        GeneComponentModelLsEnum<Short> sel_ = new GeneComponentModelLsEnum<Short>(_api, treeFilter_);
+        GeneComponentModelLs<Short> sel_ = new GeneComponentModelLs<Short>(_api, treeFilter_);
         GeneComponentModelLsStrSub<Short> g_ = new GeneComponentModelLsStrSub<Short>(sel_);
         feedSubNb(_builderMv,_builder, sub_, treeFilter_, sel_, g_.getSubs(), messages_);
         return g_;

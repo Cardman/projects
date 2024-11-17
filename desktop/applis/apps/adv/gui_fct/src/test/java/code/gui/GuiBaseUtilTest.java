@@ -858,7 +858,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         StringMap<String> mess_ = new StringMap<String>();
         mess_.addEntry("1","ONE");
         mess_.addEntry("2","TWO");
-        GeneComponentModelLsStr g_ = new GeneComponentModelLsStr(init(), mess_);
+        GeneComponentModelLs<String> g_ = new GeneComponentModelLs<String>(init(), mess_);
         g_.gene(-1);
         assertEq(0,g_.value().size());
     }
@@ -867,7 +867,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         StringMap<String> mess_ = new StringMap<String>();
         mess_.addEntry("1","ONE");
         mess_.addEntry("2","TWO");
-        GeneComponentModelLsStr g_ = new GeneComponentModelLsStr(init(), mess_);
+        GeneComponentModelLs<String> g_ = new GeneComponentModelLs<String>(init(), mess_);
         g_.geneCommon(new StringList("2"));
         CustList<String> ls_ = g_.value();
         assertEq(1, ls_.size());
@@ -878,9 +878,9 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         StringMap<String> mess_ = new StringMap<String>();
         mess_.addEntry("1","ONE");
         mess_.addEntry("2","TWO");
-        GeneComponentModelLsStr g_ = new GeneComponentModelLsStr(init(), mess_);
+        GeneComponentModelLs<String> g_ = new GeneComponentModelLs<String>(init(), mess_);
         g_.geneCommon(new StringList("2"));
-        g_.value(new StringList("1"));
+        g_.setupValue(new StringList("1"));
         CustList<String> ls_ = g_.value();
         assertEq(1, ls_.size());
         assertEq("1", ls_.get(0));
@@ -890,9 +890,9 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         StringMap<String> mess_ = new StringMap<String>();
         mess_.addEntry("1","ONE");
         mess_.addEntry("2","TWO");
-        GeneComponentModelLsStr g_ = new GeneComponentModelLsStr(init(), mess_);
+        GeneComponentModelLs<String> g_ = new GeneComponentModelLs<String>(init(), mess_);
         g_.geneCommon(new StringList("2"));
-        g_.value(new StringList("2","3"));
+        g_.setupValue(new StringList("2","3"));
         CustList<String> ls_ = g_.value();
         assertEq(1, ls_.size());
         assertEq("2", ls_.get(0));
@@ -900,7 +900,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
     @Test
     public void modelLs5() {
         StringMap<String> mess_ = new StringMap<String>();
-        GeneComponentModelLsStr g_ = new GeneComponentModelLsStr(init(), mess_);
+        GeneComponentModelLs<String> g_ = new GeneComponentModelLs<String>(init(), mess_);
         g_.reset();
         assertEq(0,g_.getElements().size());
     }
@@ -909,7 +909,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         StringMap<String> mess_ = new StringMap<String>();
         mess_.addEntry("1","ONE");
         mess_.addEntry("2","TWO");
-        GeneComponentModelLsStr g_ = new GeneComponentModelLsStr(init(), mess_);
+        GeneComponentModelLs<String> g_ = new GeneComponentModelLs<String>(init(), mess_);
         g_.gene(-1);
         mess_.addEntry("3","THREE");
         g_.reset();
@@ -922,7 +922,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         IdMap<ConcreteInteger,String> mess_ = new IdMap<ConcreteInteger,String>();
         mess_.addEntry(one_,"ONE");
         mess_.addEntry(two_,"TWO");
-        GeneComponentModelLsEnum<ConcreteInteger> g_ = new GeneComponentModelLsEnum<ConcreteInteger>(init(), mess_);
+        GeneComponentModelLs<ConcreteInteger> g_ = new GeneComponentModelLs<ConcreteInteger>(init(), mess_);
         g_.gene(-1);
         assertEq(0,g_.value().size());
     }
@@ -933,7 +933,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         IdMap<ConcreteInteger,String> mess_ = new IdMap<ConcreteInteger,String>();
         mess_.addEntry(one_,"ONE");
         mess_.addEntry(two_,"TWO");
-        GeneComponentModelLsEnum<ConcreteInteger> g_ = new GeneComponentModelLsEnum<ConcreteInteger>(init(), mess_);
+        GeneComponentModelLs<ConcreteInteger> g_ = new GeneComponentModelLs<ConcreteInteger>(init(), mess_);
         g_.geneCommon(new IdList<ConcreteInteger>(two_));
         CustList<ConcreteInteger> ls_ = g_.value();
         assertEq(1, ls_.size());
@@ -946,7 +946,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         IdMap<ConcreteInteger,String> mess_ = new IdMap<ConcreteInteger,String>();
         mess_.addEntry(one_,"ONE");
         mess_.addEntry(two_,"TWO");
-        GeneComponentModelLsEnum<ConcreteInteger> g_ = new GeneComponentModelLsEnum<ConcreteInteger>(init(), mess_);
+        GeneComponentModelLs<ConcreteInteger> g_ = new GeneComponentModelLs<ConcreteInteger>(init(), mess_);
         g_.geneCommon(new IdList<ConcreteInteger>(two_));
         g_.value(new IdList<ConcreteInteger>(one_));
         CustList<ConcreteInteger> ls_ = g_.value();
@@ -961,7 +961,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         IdMap<ConcreteInteger,String> mess_ = new IdMap<ConcreteInteger,String>();
         mess_.addEntry(one_,"ONE");
         mess_.addEntry(two_,"TWO");
-        GeneComponentModelLsEnum<ConcreteInteger> g_ = new GeneComponentModelLsEnum<ConcreteInteger>(init(), mess_);
+        GeneComponentModelLs<ConcreteInteger> g_ = new GeneComponentModelLs<ConcreteInteger>(init(), mess_);
         g_.geneCommon(new IdList<ConcreteInteger>(two_));
         g_.value(new IdList<ConcreteInteger>(two_,three_));
         CustList<ConcreteInteger> ls_ = g_.value();

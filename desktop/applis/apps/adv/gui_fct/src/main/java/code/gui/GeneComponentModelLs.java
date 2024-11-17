@@ -6,23 +6,25 @@ import code.util.*;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
-public abstract class GeneComponentModelLs<T> extends GeneComponentModelEltCommon<T> implements GeneComponentModelStr {
+public final class GeneComponentModelLs<T> extends GeneComponentModelEltCommon<T> implements GeneComponentModelStr, GeneComponentModel<CustList<T>> {
     private DefScrollCustomGraphicList<T> select;
     private final DefCustCellRenderGeneImpl<T> render;
-
-    protected GeneComponentModelLs(AbstractProgramInfos _c, DefCustCellRenderGeneImpl<T> _rend, AbsMap<T,String> _elts) {
+    public GeneComponentModelLs(AbstractProgramInfos _c, AbsMap<T, String> _messages) {
+        this(_c, new DefCustCellRenderGeneImpl<T>(_c.getCompoFactory(), _c.getImageFactory(), _messages), _messages);
+    }
+    public GeneComponentModelLs(AbstractProgramInfos _c, DefCustCellRenderGeneImpl<T> _rend, AbsMap<T,String> _elts) {
         super(_c, _elts);
         render = _rend;
     }
 
-    protected AbsCustComponent buildLs() {
+    public AbsCustComponent buildLs() {
         setSelect(new DefScrollCustomGraphicList<T>(getCompoFactory().getCompoFactory(), getCompoFactory().getImageFactory(), getRender(), false));
         computeWidth(getRender());
         feed();
         return getSelect().getScrollPane();
     }
 
-    protected void computeWidth(DefCustCellRenderGeneImpl<T> _r) {
+    public void computeWidth(DefCustCellRenderGeneImpl<T> _r) {
         int w_ = 0;
         MetaFont metaFont_ = getSelect().getElements().getMetaFont();
         for (T e: getElements().getKeys()) {
@@ -31,7 +33,7 @@ public abstract class GeneComponentModelLs<T> extends GeneComponentModelEltCommo
         _r.setMaxWidth(w_+2);
     }
 
-    protected void feed() {
+    public void feed() {
         for (T e: getElements().getKeys()) {
             select.add(e);
         }
@@ -39,6 +41,19 @@ public abstract class GeneComponentModelLs<T> extends GeneComponentModelEltCommo
         select.revalidate();
     }
 
+    @Override
+    public AbsCustComponent gene(int _select) {
+        return buildLs();
+    }
+    @Override
+    public CustList<T> value() {
+        return tryRet();
+    }
+
+    @Override
+    public void value(CustList<T> _v) {
+        setupValue(_v);
+    }
     @Override
     public void reset() {
         if (select == null) {
@@ -63,7 +78,7 @@ public abstract class GeneComponentModelLs<T> extends GeneComponentModelEltCommo
         setupValue(getSelect(), _d);
     }
 
-    protected void setupValue(DefScrollCustomGraphicList<T> _t, CustList<T> _v) {
+    public void setupValue(DefScrollCustomGraphicList<T> _t, CustList<T> _v) {
         Ints ind_ = new Ints();
         for (T s: _v) {
             int res_ = indexOf(s);
@@ -75,7 +90,7 @@ public abstract class GeneComponentModelLs<T> extends GeneComponentModelEltCommo
         _t.events();
         _t.revalidate();
     }
-    protected int indexOf(T _t) {
+    public int indexOf(T _t) {
         return getElements().indexOfEntry(_t);
     }
 
@@ -83,7 +98,7 @@ public abstract class GeneComponentModelLs<T> extends GeneComponentModelEltCommo
         Ints sel_ = getSelect().getSelectedIndexes();
         return tryRet(sel_);
     }
-    protected CustList<T> tryRet(Ints _sel) {
+    public CustList<T> tryRet(Ints _sel) {
         CustList<T> elts_ = new CustList<T>();
         CustList<T> ls_ = getSelect().getList();
         for (int i:_sel) {

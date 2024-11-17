@@ -47,7 +47,7 @@ public final class SubscribeBuilderUtil<T> {
     public GeneComponentModelLsStrSub<T> mergeLs(AbstractProgramInfos _api, FacadeGame _sub) {
         AbsMap<T, String> sub_ = factory.buildMessages(_api, _sub);
         TreeMap<T, String> treeFilter_ = feedTree(sub_, sub_.getKeys());
-        GeneComponentModelLs<T> sel_ = new GeneComponentModelLsEnum<T>(_api, treeFilter_);
+        GeneComponentModelLs<T> sel_ = new GeneComponentModelLs<T>(_api, treeFilter_);
         GeneComponentModelLsStrSub<T> g_ = new GeneComponentModelLsStrSub<T>(sel_);
         g_.getSubs().addAllElts(feedSub(sub_, treeFilter_, sel_, new IdMap<T, String>()));
         return g_;
