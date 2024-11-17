@@ -13,6 +13,7 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
     private final ContentComponentModelEffectDamage contentEffectDamage = new ContentComponentModelEffectDamage();
     private final ContentComponentModelEffectStatistic contentEffectStatistic = new ContentComponentModelEffectStatistic();
     private final ContentComponentModelEffectStatus contentEffectStatus = new ContentComponentModelEffectStatus();
+    private final ContentComponentModelGroupEffectEndRound contentGroupEffectEndRound = new ContentComponentModelGroupEffectEndRound();
     private Effect edited;
 
     public GeneComponentModelEffect(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
@@ -28,6 +29,7 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         form_.add(contentEffectDamage.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
         form_.add(contentEffectStatistic.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
         form_.add(contentEffectStatus.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
+        contentGroupEffectEndRound.effectForm(form_,this);
         getEffectKind().getSelect().addListener(new ChangingEffectEvent(this));
         getEffectKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EFF_DAMAGE));
         getEffectKind().getSelect().events(null);
@@ -40,6 +42,10 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         contentEffectDamage.display(StringUtil.quickEq(eff_,MessagesEditorSelect.EFF_DAMAGE));
         contentEffectStatistic.display(StringUtil.quickEq(eff_,MessagesEditorSelect.EFF_STATIS));
         contentEffectStatus.display(StringUtil.quickEq(eff_,MessagesEditorSelect.EFF_STATUS));
+        boolean display_ = contentGroupEffectEndRound.display(eff_);
+        if (display_) {
+            edited = ContentComponentModelGroupEffectEndRound.instance(eff_);
+        }
         if (StringUtil.quickEq(eff_,MessagesEditorSelect.EFF_DAMAGE)) {
             edited = Instances.newEffectDamage();
         }
@@ -64,6 +70,9 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         if (edited instanceof EffectStatus) {
             contentEffectStatus.buildEntity((EffectStatus) edited);
         }
+        if (edited instanceof EffectEndRound) {
+            contentGroupEffectEndRound.buildEntity((EffectEndRound)edited);
+        }
         return edited;
     }
 
@@ -77,6 +86,9 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         }
         if (_v instanceof EffectStatus) {
             contentEffectStatus.feedForm((EffectStatus) _v);
+        }
+        if (_v instanceof EffectEndRound) {
+            contentGroupEffectEndRound.feedForm((EffectEndRound) _v);
         }
         edited = _v;
     }
@@ -122,5 +134,9 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
 
     public ContentComponentModelEffectStatus getContentEffectStatus() {
         return contentEffectStatus;
+    }
+
+    public ContentComponentModelGroupEffectEndRound getContentGroupEffectEndRound() {
+        return contentGroupEffectEndRound;
     }
 }

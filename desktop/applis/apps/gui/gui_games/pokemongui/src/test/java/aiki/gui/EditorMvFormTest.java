@@ -958,7 +958,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         effects(g_.getEffects()).getContentEffectStatus().getStatusFromUser().setSelected(false);
         effects(g_.getEffects()).getContentEffectStatus().getKoUserHealSubst().setSelected(false);
         tryClick(g_.getEffects().getValidAddEdit());
-        tryClick(g_.getEffects().getAllButtons().get(0));
+        tryClick(g_.getEffects().getAllButtons().get(1));
         tryClick(g_.getEffects().getCancel());
         tryClick(c_.getValidAddEdit());
         assertEq(2,facade_.getData().getMoves().getVal(M_1).getEffects().size());
@@ -967,6 +967,52 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         assertEq(LgInt.one(),((EffectStatus)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getLawStatus().getFreq(0));
         assertEq(S_2,((EffectStatus)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getLawStatus().getEvent(1));
         assertEq(LgInt.one(),((EffectStatus)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getLawStatus().getFreq(1));
+    }
+    @Test
+    public void mvForm31() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<MoveData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelMoveData g_ = (GeneComponentModelMoveData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(M_1);
+        tryClick(g_.getEffects().getAdd());
+        GeneComponentModelEffect effForm_ = effects(g_.getEffects());
+        effForm_.getEffectKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EFF_END_ROUND_FOE));
+        effForm_.getEffectKind().getSelect().events(null);
+        effForm_.getContentGroupEffectEndRound().getContentEffectEndRoundFoe().getInflictedRateHpTarget().valueRate(Rate.one());
+        effForm_.getContentGroupEffectEndRound().getContentEffectEndRound().getEndRoundRank().valueInt(2);
+        tryClick(g_.getEffects().getValidAddEdit());
+        tryClick(g_.getEffects().getAllButtons().get(0));
+        tryClick(g_.getEffects().getCancel());
+        tryClick(c_.getValidAddEdit());
+        assertEq(Rate.one(),((EffectEndRoundFoe)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getInflictedRateHpTarget());
+        assertEq(2,((EffectEndRound)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getEndRoundRank());
+    }
+    @Test
+    public void mvForm32() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<MoveData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelMoveData g_ = (GeneComponentModelMoveData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(M_1);
+        tryClick(g_.getEffects().getAdd());
+        GeneComponentModelEffect effForm_ = effects(g_.getEffects());
+        effForm_.getEffectKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EFF_END_ROUND_TEAM));
+        effForm_.getEffectKind().getSelect().events(null);
+        effForm_.getContentGroupEffectEndRound().getContentEffectEndRoundTeam().getDeleteAllStatus().valueRate(Rate.one());
+        effForm_.getContentGroupEffectEndRound().getContentEffectEndRoundTeam().getDeleteAllStatusAlly().valueRate(new Rate(2));
+        effForm_.getContentGroupEffectEndRound().getContentEffectEndRound().getFailEndRound().valueString(C_1);
+        tryClick(g_.getEffects().getValidAddEdit());
+        tryClick(g_.getEffects().getAllButtons().get(0));
+        tryClick(g_.getEffects().getCancel());
+        tryClick(c_.getValidAddEdit());
+        assertEq(Rate.one(),((EffectEndRoundTeam)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getDeleteAllStatus());
+        assertEq(new Rate(2),((EffectEndRoundTeam)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getDeleteAllStatusAlly());
+        assertEq(C_1,((EffectEndRound)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getFailEndRound());
     }
     private FacadeGame facadeAdd(MockProgramInfos _m) {
         FacadeGame f_ = facade(_m);
