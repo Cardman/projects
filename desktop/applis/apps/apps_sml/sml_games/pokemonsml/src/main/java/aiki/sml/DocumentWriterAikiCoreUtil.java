@@ -1320,7 +1320,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setEffectWhileSending(EffectWhileSendingWithStatistic _object, String _fieldName, Document _document) {
-        if (_object.getEffect() != null) {
+        if (_object.isWithEffect()) {
             Element element_ = _document.createElement(TYPE_EFFECT_WHILE_SENDING_WITH_STATISTIC);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
             setEffectWhileSendingWithStatistic(_object,element_,_document);

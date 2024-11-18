@@ -735,6 +735,7 @@ final class InitializationAbilities extends EquallablePkUtil {
         effetStatistique_.setTargetChoice(TargetChoice.LANCEUR);
         effetStatistique_.setFail(F);
         effectWhileSendingWithStatistic_.setEffect(effetStatistique_);
+        effectWhileSendingWithStatistic_.setWithEffect(true);
         ficheCapacite_.getEffectSending().add(effectWhileSendingWithStatistic_);
         _data.completeQuickMembers(TELECHARGE,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
@@ -746,6 +747,7 @@ final class InitializationAbilities extends EquallablePkUtil {
         effetStatistique_.setTargetChoice(TargetChoice.LANCEUR);
         effetStatistique_.setFail(F);
         effectWhileSendingWithStatistic_.setEffect(effetStatistique_);
+        effectWhileSendingWithStatistic_.setWithEffect(true);
         ficheCapacite_.getEffectSending().add(effectWhileSendingWithStatistic_);
         _data.completeQuickMembers(ALEA_STAT,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
@@ -848,6 +850,7 @@ final class InitializationAbilities extends EquallablePkUtil {
 
     private static EffectWhileSendingWithStatistic defaultEffectWhileSending() {
         EffectWhileSendingWithStatistic object_ = new EffectWhileSendingWithStatistic();
+        object_.setEffect(defaultEffetStatistique());
         object_.setEnabledWeather(NULL_REF);
         object_.setMultWeight(Rate.zero());
         return object_;
@@ -943,6 +946,7 @@ final class InitializationAbilities extends EquallablePkUtil {
 
     private static EffectWhileSendingWithStatistic defaultEffectWhileSendingWithStatistic() {
         EffectWhileSendingWithStatistic object_ = new EffectWhileSendingWithStatistic();
+        object_.setWithEffect(true);
         object_.setEffect(defaultEffetStatistique());
         object_.setEnabledWeather(NULL_REF);
         object_.setMultWeight(Rate.zero());

@@ -1091,7 +1091,7 @@ public abstract class InitDbAbility extends InitDbAbilities {
         FacadeGame facade_ = facade();
         AbilityData it_ = ability();
         EffectWhileSendingWithStatistic e_ = Instances.newEffectWhileSendingWithStatistic();
-        e_.setEffect(null);
+        e_.setWithEffect(false);
         e_.setMultWeight(Rate.one());
         it_.getEffectSending().add(e_);
         facade_.getData().completeMembers(A_ABILITY, it_);

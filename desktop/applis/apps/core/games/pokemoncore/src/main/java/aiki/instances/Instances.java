@@ -185,6 +185,7 @@ public final class Instances {
 
     public static EffectWhileSendingWithStatistic newEffectWhileSendingSimple() {
         EffectWhileSendingWithStatistic object_ = new EffectWhileSendingWithStatistic();
+        object_.setEffect(newEffectStatistic());
         object_.setEnabledWeather(DataBase.EMPTY_STRING);
         object_.setMultWeight(Rate.zero());
         return object_;
@@ -193,6 +194,7 @@ public final class Instances {
     public static EffectWhileSendingWithStatistic newEffectWhileSendingWithStatistic() {
         EffectWhileSendingWithStatistic object_ = new EffectWhileSendingWithStatistic();
         object_.setEffect(newEffectStatistic());
+        object_.setWithEffect(true);
         object_.setEnabledWeather(DataBase.EMPTY_STRING);
         object_.setMultWeight(Rate.zero());
         return object_;

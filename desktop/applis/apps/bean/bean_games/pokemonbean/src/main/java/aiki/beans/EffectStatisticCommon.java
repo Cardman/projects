@@ -27,8 +27,8 @@ public final class EffectStatisticCommon {
     private int defaultBoost;
     private NatStringTreeMap<String> mapVarsStatistics;
 
-    public void init(DataBase _data, String _lg,EffectStatistic _statis) {
-        EffectStatistic adj_ = eff(_data, _statis);
+    public void init(DataBase _data, String _lg, EffectStatistic _statis, boolean _withEff) {
+        EffectStatistic adj_ = eff(_data, _statis, _withEff);
         AbsMap<Statistic,String> translatedStatistics_ = _data.getTranslatedStatistics().getVal(_lg);
         evtRate = adj_.getEvtRate();
 //        evtRatePerCent = Rate.multiply(evtRate, new Rate(CommonBean.CST_CENT)).evaluate(2);
@@ -101,8 +101,8 @@ public final class EffectStatisticCommon {
         copyBoost_.sort();
         copyBoost = copyBoost_;
     }
-    private EffectStatistic eff(DataBase _data, EffectStatistic _statis) {
-        if (_statis == null) {
+    private EffectStatistic eff(DataBase _data, EffectStatistic _statis, boolean _withEff) {
+        if (!_withEff) {
             defaultBoost = 0;
             return Instances.newEffectStatistic();
         }

@@ -30,9 +30,9 @@ public class EffectWhileSendingBean extends CommonBean {
         enabledWeather = effectSend_.getEnabledWeather();
         multWeight = effectSend_.getMultWeight();
         EffectStatistic effect_ = effectSend_.getEffect();
-        statistic = effect_ != null;
-        effectStatisticCommon.init(getDataBase(),getLanguage(),effect_);
-        if (effect_ != null) {
+        statistic = effectSend_.isWithEffect();
+        effectStatisticCommon.init(getDataBase(),getLanguage(),effect_, statistic);
+        if (statistic) {
             reasons = getFormattedReasons(getDataBase(), getReasons(effect_.getFail()), getLanguage());
             mapVarsFail = getMapVarsFail(getDataBase(), effect_.getFail(), getLanguage());
         } else {

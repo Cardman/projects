@@ -227,10 +227,10 @@ public final class CheckNumericStringsFight {
     private void processWhenSend(Difficulty _diff,
                                  EffectWhileSendingWithStatistic _e) {
         StringList fails_ = new StringList();
-        EffectStatistic e_ = _e.getEffect();
-        if (e_ == null) {
+        if (!_e.isWithEffect()) {
             return;
         }
+        EffectStatistic e_ = _e.getEffect();
         fails_.addAllElts(e_.getLocalFailStatis().values());
         fails_.addAllElts(e_.getLocalFailSwapBoostStatis()
                 .values());

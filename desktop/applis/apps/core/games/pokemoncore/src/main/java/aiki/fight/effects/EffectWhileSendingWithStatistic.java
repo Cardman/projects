@@ -6,11 +6,12 @@ import aiki.fight.moves.effects.EffectStatistic;
 public final class EffectWhileSendingWithStatistic extends EffectWhileSending {
 
     private EffectStatistic effect;
+    private boolean withEffect;
 
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        if (effect != null) {
+        if (withEffect) {
             effect.validate(_data);
         }
     }
@@ -21,5 +22,13 @@ public final class EffectWhileSendingWithStatistic extends EffectWhileSending {
 
     public void setEffect(EffectStatistic _effect) {
         effect = _effect;
+    }
+
+    public boolean isWithEffect() {
+        return withEffect;
+    }
+
+    public void setWithEffect(boolean _w) {
+        this.withEffect = _w;
     }
 }

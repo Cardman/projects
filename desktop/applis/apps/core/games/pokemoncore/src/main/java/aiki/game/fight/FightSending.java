@@ -504,13 +504,10 @@ final class FightSending {
             //y compris INTIMIDATION...
             effect_ = sendingEff(creatureCbt_,_import);
         }
-        if (effect_ == null) {
+        if (effect_ == null || !effect_.isWithEffect()) {
             return;
         }
         EffectStatistic effetStatis_ = effect_.getEffect();
-        if (effetStatis_ == null) {
-            return;
-        }
         for(TeamPosition c:FightOrder.targetsEffect(_fight,_cbtEnvoye,effetStatis_,_diff,_import)){
             IdList<Statistic> statistiques_=FightSuccess.successfulChangedStatistics(_fight,_cbtEnvoye,c,effetStatis_,_import);
             if(statistiques_.isEmpty()){

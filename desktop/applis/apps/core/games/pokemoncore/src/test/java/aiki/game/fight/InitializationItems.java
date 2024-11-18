@@ -20,8 +20,7 @@ import aiki.fight.items.HealingStatus;
 import aiki.fight.items.ItemForBattle;
 import aiki.fight.items.Repel;
 import aiki.fight.items.SellingItem;
-import aiki.fight.moves.effects.EffectEndRound;
-import aiki.fight.moves.effects.EffectEndRoundIndividual;
+import aiki.fight.moves.effects.*;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.util.BoostHpRate;
 import aiki.fight.util.EfficiencyRate;
@@ -30,7 +29,7 @@ import aiki.fight.util.StatisticPokemons;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.litteral.MbOperationNode;
-import code.maths.montecarlo.MonteCarloBoolean;
+import code.maths.montecarlo.*;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.*;
@@ -839,8 +838,26 @@ final class InitializationItems  extends EquallablePkUtil {
 
     private static EffectWhileSendingWithStatistic defaultEffectWhileSending() {
         EffectWhileSendingWithStatistic object_ = new EffectWhileSendingWithStatistic();
+        object_.setEffect(defaultEffetStatistique());
         object_.setEnabledWeather(NULL_REF);
         object_.setMultWeight(Rate.zero());
+        return object_;
+    }
+
+    private static EffectStatistic defaultEffetStatistique() {
+        EffectStatistic object_ = new EffectStatistic();
+        object_.setStatisVarRank(new IdMap<Statistic,Byte>());
+        object_.setLocalFailStatis(new IdMap<Statistic,String>());
+        object_.setEvtRate(Rate.zero());
+        object_.setCopyBoost(new IdList<Statistic>());
+        object_.setSwapBoostStatis(new IdList<Statistic>());
+        object_.setLocalFailSwapBoostStatis(new IdMap<Statistic,String>());
+        object_.setLawBoost(new MonteCarloEnum<Statistic>());
+        object_.setCancelLowStat(new IdList<Statistic>());
+        object_.setCancelChgtStat(new IdList<Statistic>());
+        object_.setTargetChoice(TargetChoice.NOTHING);
+        object_.setFail(NULL_REF);
+        object_.setRequiredSuccessfulEffects(new Ints());
         return object_;
     }
 }

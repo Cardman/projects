@@ -8234,6 +8234,9 @@ public class DataBase {
     private void renameExpSend(StringList _mids, String _oldName, String _newName, CustList<EffectWhileSendingWithStatistic> _ls) {
         if (!_ls.isEmpty()) {
             EffectWhileSendingWithStatistic e_ = _ls.first();
+            if (!e_.isWithEffect()) {
+                return;
+            }
             EffectStatistic eff_ = e_.getEffect();
             eff_.setFail(rename(eff_.getFail(), _mids, _oldName, _newName));
             new ChangeStringValueUtil<Statistic>(eff_.getLocalFailStatis()).replaceExp(this, _mids, _oldName, _newName);
@@ -8375,7 +8378,7 @@ public class DataBase {
     }
 
     private boolean containsItem(StringList _mids, String _name, Item _o) {
-        return _o instanceof Ball && containsWord(((Ball) _o).getCatchingRate(), _mids, _name) || _o instanceof ItemForBattle && (containsWord(((ItemForBattle) _o).getMultPower(), _mids, _name) || containsWord(((ItemForBattle) _o).getMultDamage(), _mids, _name) || new ChangeStringValueUtil<Statistic>(((ItemForBattle) _o).getMultStat()).containsWord(this, _mids, _name) || !((ItemForBattle) _o).getEffectSending().isEmpty() && containsWordStat(_mids, _name, ((ItemForBattle) _o).getEffectSending().first().getEffect()) || !((ItemForBattle) _o).getEffectEndRound().isEmpty() && containsEndRound(_mids, _name, ((ItemForBattle) _o).getEffectEndRound().first()));
+        return _o instanceof Ball && containsWord(((Ball) _o).getCatchingRate(), _mids, _name) || _o instanceof ItemForBattle && (containsWord(((ItemForBattle) _o).getMultPower(), _mids, _name) || containsWord(((ItemForBattle) _o).getMultDamage(), _mids, _name) || new ChangeStringValueUtil<Statistic>(((ItemForBattle) _o).getMultStat()).containsWord(this, _mids, _name) || !((ItemForBattle) _o).getEffectSending().isEmpty() && containsWordStat(_mids, _name, ((ItemForBattle) _o).getEffectSending().first()) || !((ItemForBattle) _o).getEffectEndRound().isEmpty() && containsEndRound(_mids, _name, ((ItemForBattle) _o).getEffectEndRound().first()));
     }
 
     private boolean containsAbility(StringList _mids, String _name, AbilityData _a) {
@@ -8391,7 +8394,7 @@ public class DataBase {
         if (new ChangeStringValueUtil<String>(_a.getFailStatus()).containsWord(this, _mids, _name)) {
             return true;
         }
-        if (!_a.getEffectSending().isEmpty() && containsWordStat(_mids, _name, _a.getEffectSending().first().getEffect())) {
+        if (!_a.getEffectSending().isEmpty() && containsWordStat(_mids, _name, _a.getEffectSending().first())) {
             return true;
         }
         return !_a.getEffectEndRound().isEmpty() && containsEndRound(_mids, _name, _a.getEffectEndRound().first());
@@ -8420,8 +8423,8 @@ public class DataBase {
         return _e instanceof EffectTeamWhileSendFoe && (containsWord(((EffectTeamWhileSendFoe) _e).getDamageRateAgainstFoe(), _mids, _name) || containsWord(((EffectTeamWhileSendFoe) _e).getFailSending(), _mids, _name)) || _e instanceof EffectCommonStatistics && new ChangeStringValueUtil<Statistic>(((EffectCommonStatistics) _e).getCommonValue()).containsWord(this, _mids, _name) || _e instanceof EffectStatistic && containsWordStatSpec(_mids, _name, (EffectStatistic) _e) || _e instanceof EffectStatus && new ChangeStringValueUtil<String>(((EffectStatus) _e).getLocalFailStatus()).containsWord(this, _mids, _name) || _e instanceof EffectFullHpRate && containsWord(((EffectFullHpRate) _e).getRestoredHp(), _mids, _name) || _e instanceof EffectEndRound && containsWord(((EffectEndRound) _e).getFailEndRound(), _mids, _name);
     }
 
-    private boolean containsWordStat(StringList _mids, String _name, EffectStatistic _eff) {
-        return containsWord(_eff.getFail(), _mids, _name) || containsWordStatSpec(_mids, _name, _eff);
+    private boolean containsWordStat(StringList _mids, String _name, EffectWhileSendingWithStatistic _eff) {
+        return _eff.isWithEffect() && (containsWord(_eff.getEffect().getFail(), _mids, _name) || containsWordStatSpec(_mids, _name, _eff.getEffect()));
     }
 
     private boolean containsWordStatSpec(StringList _mids, String _name, EffectStatistic _eff) {

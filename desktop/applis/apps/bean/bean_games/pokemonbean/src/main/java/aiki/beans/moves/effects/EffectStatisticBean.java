@@ -12,7 +12,7 @@ public class EffectStatisticBean extends EffectBean {
         super.beforeDisplaying();
         EffectStatistic effect_ = (EffectStatistic) getEffect();
         DataBase data_ = getDataBase();
-        effectStatisticCommon.init(data_,getLanguage(),effect_);
+        effectStatisticCommon.init(data_,getLanguage(),effect_, true);
     }
 
     public EffectStatisticCommon getEffectStatisticCommon() {

@@ -76,6 +76,16 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         assertTrue(db_.usedItInExp(PARATONNERRE));
     }
     @Test
+    public void used_7() {
+        ItemForBattle b_ = Instances.newItemForBattle();
+        EffectWhileSendingWithStatistic eff_ = Instances.newEffectWhileSendingSimple();
+        b_.getEffectSending().add(eff_);
+        eff_.getEffect().setFail(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
+        DataBase db_ = newData();
+        db_.completeMembers(POKE_BALL,b_);
+        assertFalse(db_.usedItInExp(PARATONNERRE));
+    }
+    @Test
     public void used8() {
         ItemForBattle b_ = Instances.newItemForBattle();
         EffectWhileSendingWithStatistic eff_ = Instances.newEffectWhileSendingWithStatistic();
@@ -206,6 +216,16 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
         assertTrue(db_.usedAbInExp(PARATONNERRE));
+    }
+    @Test
+    public void used_21() {
+        AbilityData b_ = Instances.newAbilityData();
+        EffectWhileSendingWithStatistic eff_ = Instances.newEffectWhileSendingSimple();
+        b_.getEffectSending().add(eff_);
+        eff_.getEffect().setFail(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
+        DataBase db_ = newData();
+        db_.completeMembers(POKE_BALL,b_);
+        assertFalse(db_.usedAbInExp(PARATONNERRE));
     }
     @Test
     public void used22() {
@@ -866,6 +886,17 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         db_.completeMembers(POKE_BALL,b_);
         db_.changeNameDefInExp(PARATONNERRE,PIKACHU);
         assertEq(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PIKACHU+RB+RP, e_.getEffect().getFail());
+    }
+    @Test
+    public void changeName_14() {
+        AbilityData b_ = Instances.newAbilityData();
+        EffectWhileSendingWithStatistic e_ = Instances.newEffectWhileSendingSimple();
+        b_.getEffectSending().add(e_);
+        e_.getEffect().setFail(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
+        DataBase db_ = newData();
+        db_.completeMembers(POKE_BALL,b_);
+        db_.changeNameDefInExp(PARATONNERRE,PIKACHU);
+        assertEq(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP, e_.getEffect().getFail());
     }
     @Test
     public void changeName15() {
