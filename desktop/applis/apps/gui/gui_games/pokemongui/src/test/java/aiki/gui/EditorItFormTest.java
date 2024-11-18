@@ -7,7 +7,6 @@ import aiki.fight.pokemon.evolution.Evolution;
 import aiki.gui.components.editor.*;
 import aiki.instances.*;
 import code.mock.*;
-import code.util.core.*;
 import org.junit.Test;
 
 public final class EditorItFormTest extends InitEditorPkForm {
@@ -94,8 +93,7 @@ public final class EditorItFormTest extends InitEditorPkForm {
         tryClick(evolutions_.getAdd());
         keyEvos(evolutions_).setupValue(P_1);
         GeneComponentModelEvolution gEvo_ = valueEvos(evolutions_);
-        gEvo_.getEvolutionKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EVO_STONE_SIMPLE));
-        gEvo_.getEvolutionKind().getSelect().events(null);
+        ConverterCommonMapUtil.trigger(gEvo_.getEvolutionKind(), MessagesEditorSelect.EVO_STONE_SIMPLE);
         gEvo_.getItem().setupValue(I_1);
         tryClick(evolutions_.getValidAddEdit());
         tryClick(c_.getValidAddEdit());

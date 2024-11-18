@@ -31,19 +31,15 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         form_.add(contentEffectStatus.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
         contentGroupEffectEndRound.effectForm(form_,this);
         getEffectKind().getSelect().addListener(new ChangingEffectEvent(this));
-        getEffectKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EFF_DAMAGE));
-        getEffectKind().getSelect().events(null);
+        ConverterCommonMapUtil.trigger(getEffectKind(),MessagesEditorSelect.EFF_DAMAGE);
         return form_;
     }
 
     @Override
     public void applyChange() {
         String eff_ = getEffectKind().tryRet();
-        contentEffectDamage.display(StringUtil.quickEq(eff_,MessagesEditorSelect.EFF_DAMAGE));
-        contentEffectStatistic.display(StringUtil.quickEq(eff_,MessagesEditorSelect.EFF_STATIS));
-        contentEffectStatus.display(StringUtil.quickEq(eff_,MessagesEditorSelect.EFF_STATUS));
-        boolean display_ = contentGroupEffectEndRound.display(eff_);
-        if (display_) {
+        String display_ = display(eff_);
+        if (!display_.isEmpty()) {
             edited = ContentComponentModelGroupEffectEndRound.instance(eff_);
         }
         if (StringUtil.quickEq(eff_,MessagesEditorSelect.EFF_DAMAGE)) {
@@ -80,19 +76,33 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         contentEffect.feedForm(_v);
         if (_v instanceof EffectDamage) {
             contentEffectDamage.feedForm((EffectDamage) _v);
+            displayRepaint(MessagesEditorSelect.EFF_DAMAGE);
         }
         if (_v instanceof EffectStatistic) {
             contentEffectStatistic.feedForm((EffectStatistic) _v);
+            displayRepaint(MessagesEditorSelect.EFF_STATIS);
         }
         if (_v instanceof EffectStatus) {
             contentEffectStatus.feedForm((EffectStatus) _v);
+            displayRepaint(MessagesEditorSelect.EFF_STATUS);
         }
         if (_v instanceof EffectEndRound) {
-            contentGroupEffectEndRound.feedForm((EffectEndRound) _v);
+            displayRepaint(contentGroupEffectEndRound.feedForm((EffectEndRound) _v));
         }
         edited = _v;
     }
+    private void displayRepaint(String _eff) {
+        display(_eff);
+        getEffectKind().setupValue(_eff);
+        getEffectKind().getSelect().repaint();
+    }
 
+    private String display(String _eff) {
+        contentEffectDamage.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_DAMAGE));
+        contentEffectStatistic.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_STATIS));
+        contentEffectStatus.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_STATUS));
+        return contentGroupEffectEndRound.display(_eff);
+    }
     public IdList<SubscribedTranslation> all() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
         ids_.addAllElts(getContentEffect().getTargetChoice().getSubs());

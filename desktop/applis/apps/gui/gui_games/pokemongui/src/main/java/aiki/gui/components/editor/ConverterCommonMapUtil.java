@@ -282,4 +282,8 @@ public final class ConverterCommonMapUtil {
         map_.addEntry(DataBase.EMPTY_STRING,_v);
         return map_;
     }
+    public static void trigger(GeneComponentModelElt<String> _sel, String _key) {
+        _sel.setupValue(_key);
+        _sel.getSelect().events(null);
+    }
 }

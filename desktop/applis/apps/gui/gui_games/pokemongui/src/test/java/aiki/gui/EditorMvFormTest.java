@@ -11,7 +11,6 @@ import aiki.gui.components.editor.*;
 import aiki.instances.*;
 import code.maths.*;
 import code.mock.*;
-import code.util.core.*;
 import org.junit.Test;
 
 public final class EditorMvFormTest extends InitEditorPkForm {
@@ -609,8 +608,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         g_.getGeneComponentModelSelectKey().setupValue(M_1);
         tryClick(g_.getEffects().getAdd());
         GeneComponentModelEffect effForm_ = effects(g_.getEffects());
-        effForm_.getEffectKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EFF_DAMAGE));
-        effForm_.getEffectKind().getSelect().events(null);
+        ConverterCommonMapUtil.trigger(effForm_.getEffectKind(),MessagesEditorSelect.EFF_DAMAGE);
         effForm_.getFail().valueString(M_2);
         tryClick(g_.getEffects().getValidAddEdit());
         tryClick(g_.getEffects().getAllButtons().get(0));
@@ -630,10 +628,9 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         g_.getGeneComponentModelSelectKey().setupValue(M_1);
         g_.getDamagingMove().setSelected(false);
         tryClick(g_.getEffects().getAdd());
-        GeneComponentModelEffect evoForm_ = effects(g_.getEffects());
-        evoForm_.getEffectKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EFF_STATIS));
-        evoForm_.getEffectKind().getSelect().events(null);
-        evoForm_.getFail().valueString(M_2);
+        GeneComponentModelEffect effForm_ = effects(g_.getEffects());
+        ConverterCommonMapUtil.trigger(effForm_.getEffectKind(),MessagesEditorSelect.EFF_STATIS);
+        effForm_.getFail().valueString(M_2);
         tryClick(g_.getEffects().getValidAddEdit());
         tryClick(c_.getValidAddEdit());
         tryClick(c_.getAllButtons().get(0));
@@ -739,8 +736,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         g_.getGeneComponentModelSelectKey().setupValue(M_1);
         tryClick(g_.getEffects().getAdd());
         GeneComponentModelEffect effForm_ = effects(g_.getEffects());
-        effForm_.getEffectKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EFF_DAMAGE));
-        effForm_.getEffectKind().getSelect().events(null);
+        ConverterCommonMapUtil.trigger(effForm_.getEffectKind(),MessagesEditorSelect.EFF_DAMAGE);
         tryClick(effForm_.getContentEffectDamage().getDamageLaw().getAdd());
         ((GeneComponentModelEventString)effForm_.getContentEffectDamage().getDamageLaw().getGene()).getEvent().valueString("_1");
         ((GeneComponentModelEventString)effForm_.getContentEffectDamage().getDamageLaw().getGene()).getProba().valueLgInt(LgInt.one());
@@ -777,8 +773,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         g_.getGeneComponentModelSelectKey().setupValue(M_1);
         tryClick(g_.getEffects().getAdd());
         GeneComponentModelEffect effForm_ = effects(g_.getEffects());
-        effForm_.getEffectKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EFF_DAMAGE));
-        effForm_.getEffectKind().getSelect().events(null);
+        ConverterCommonMapUtil.trigger(effForm_.getEffectKind(),MessagesEditorSelect.EFF_DAMAGE);
         tryClick(effForm_.getContentEffectDamage().getMultDamageAgainst().getAdd());
         effForm_.getContentEffectDamage().getMultDamageAgainst().getGenePair().getKey().setupValue(C_1);
         effForm_.getContentEffectDamage().getMultDamageAgainst().getGenePair().getValue().setupValue(Rate.one());
@@ -809,8 +804,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         g_.getGeneComponentModelSelectKey().setupValue(M_1);
         tryClick(g_.getEffects().getAdd());
         GeneComponentModelEffect effForm_ = effects(g_.getEffects());
-        effForm_.getEffectKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EFF_DAMAGE));
-        effForm_.getEffectKind().getSelect().events(null);
+        ConverterCommonMapUtil.trigger(effForm_.getEffectKind(),MessagesEditorSelect.EFF_DAMAGE);
         tryClick(effForm_.getContentEffectDamage().getBoostStatisOnceKoFoe().getAdd());
         effForm_.getContentEffectDamage().getBoostStatisOnceKoFoe().getGenePair().getKey().setupValue(Statistic.SPEED);
         effForm_.getContentEffectDamage().getBoostStatisOnceKoFoe().getGenePair().getValue().setupValue((byte) 1);
@@ -836,8 +830,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         g_.getGeneComponentModelSelectKey().setupValue(M_1);
         tryClick(g_.getEffects().getAdd());
         GeneComponentModelEffect effForm_ = effects(g_.getEffects());
-        effForm_.getEffectKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EFF_STATIS));
-        effForm_.getEffectKind().getSelect().events(null);
+        ConverterCommonMapUtil.trigger(effForm_.getEffectKind(),MessagesEditorSelect.EFF_STATIS);
         tryClick(effForm_.getContentEffectStatistic().getLawBoost().getLaw().getAdd());
         effForm_.getContentEffectStatistic().getLawBoost().getCompo().getEvent().setupValue(Statistic.SPEED);
         effForm_.getContentEffectStatistic().getLawBoost().getCompo().getProba().valueLgInt(LgInt.one());
@@ -869,8 +862,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         g_.getGeneComponentModelSelectKey().setupValue(M_1);
         tryClick(g_.getEffects().getAdd());
         GeneComponentModelEffect effForm_ = effects(g_.getEffects());
-        effForm_.getEffectKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EFF_STATIS));
-        effForm_.getEffectKind().getSelect().events(null);
+        ConverterCommonMapUtil.trigger(effForm_.getEffectKind(),MessagesEditorSelect.EFF_STATIS);
         tryClick(effForm_.getContentEffectStatistic().getStatisVarRank().getAdd());
         effForm_.getContentEffectStatistic().getStatisVarRank().getGenePair().getKey().setupValue(Statistic.SPEED);
         effForm_.getContentEffectStatistic().getStatisVarRank().getGenePair().getValue().setupValue((byte) 1);
@@ -902,8 +894,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         g_.getGeneComponentModelSelectKey().setupValue(M_1);
         tryClick(g_.getEffects().getAdd());
         GeneComponentModelEffect effForm_ = effects(g_.getEffects());
-        effForm_.getEffectKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EFF_STATIS));
-        effForm_.getEffectKind().getSelect().events(null);
+        ConverterCommonMapUtil.trigger(effForm_.getEffectKind(),MessagesEditorSelect.EFF_STATIS);
         tryClick(effForm_.getContentEffectStatistic().getLocalFailStatis().getAdd());
         effForm_.getContentEffectStatistic().getLocalFailStatis().getGenePair().getKey().setupValue(Statistic.SPEED);
         effForm_.getContentEffectStatistic().getLocalFailStatis().getGenePair().getValue().setupValue("_1");
@@ -935,8 +926,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         g_.getGeneComponentModelSelectKey().setupValue(M_1);
         tryClick(g_.getEffects().getAdd());
         GeneComponentModelEffect effForm_ = effects(g_.getEffects());
-        effForm_.getEffectKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EFF_STATUS));
-        effForm_.getEffectKind().getSelect().events(null);
+        ConverterCommonMapUtil.trigger(effForm_.getEffectKind(),MessagesEditorSelect.EFF_STATUS);
         tryClick(effForm_.getContentEffectStatus().getLawStatus().getLaw().getAdd());
         effForm_.getContentEffectStatus().getLawStatus().getCompo().getEvent().setupValue(S_1);
         effForm_.getContentEffectStatus().getLawStatus().getCompo().getProba().valueLgInt(LgInt.one());
@@ -953,8 +943,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         tryClick(g_.getEffects().getAllButtons().get(0));
         tryClick(g_.getEffects().getCancel());
         tryClick(g_.getEffects().getAdd());
-        effects(g_.getEffects()).getEffectKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EFF_STATUS));
-        effects(g_.getEffects()).getEffectKind().getSelect().events(null);
+        ConverterCommonMapUtil.trigger(effects(g_.getEffects()).getEffectKind(),MessagesEditorSelect.EFF_STATUS);
         effects(g_.getEffects()).getContentEffectStatus().getStatusFromUser().setSelected(false);
         effects(g_.getEffects()).getContentEffectStatus().getKoUserHealSubst().setSelected(false);
         tryClick(g_.getEffects().getValidAddEdit());
@@ -979,8 +968,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         g_.getGeneComponentModelSelectKey().setupValue(M_1);
         tryClick(g_.getEffects().getAdd());
         GeneComponentModelEffect effForm_ = effects(g_.getEffects());
-        effForm_.getEffectKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EFF_END_ROUND_FOE));
-        effForm_.getEffectKind().getSelect().events(null);
+        ConverterCommonMapUtil.trigger(effForm_.getEffectKind(),MessagesEditorSelect.EFF_END_ROUND_FOE);
         effForm_.getContentGroupEffectEndRound().getContentEffectEndRoundFoe().getInflictedRateHpTarget().valueRate(Rate.one());
         effForm_.getContentGroupEffectEndRound().getContentEffectEndRound().getEndRoundRank().valueInt(2);
         tryClick(g_.getEffects().getValidAddEdit());
@@ -1001,8 +989,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         g_.getGeneComponentModelSelectKey().setupValue(M_1);
         tryClick(g_.getEffects().getAdd());
         GeneComponentModelEffect effForm_ = effects(g_.getEffects());
-        effForm_.getEffectKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EFF_END_ROUND_TEAM));
-        effForm_.getEffectKind().getSelect().events(null);
+        ConverterCommonMapUtil.trigger(effForm_.getEffectKind(),MessagesEditorSelect.EFF_END_ROUND_TEAM);
         effForm_.getContentGroupEffectEndRound().getContentEffectEndRoundTeam().getDeleteAllStatus().valueRate(Rate.one());
         effForm_.getContentGroupEffectEndRound().getContentEffectEndRoundTeam().getDeleteAllStatusAlly().valueRate(new Rate(2));
         effForm_.getContentGroupEffectEndRound().getContentEffectEndRound().getFailEndRound().valueString(C_1);

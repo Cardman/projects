@@ -10,7 +10,6 @@ import aiki.gui.components.editor.*;
 import aiki.map.pokemon.enums.*;
 import code.mock.*;
 import code.util.*;
-import code.util.core.*;
 import org.junit.Test;
 
 public final class EditorPkFormTest extends InitEditorPkForm {
@@ -397,8 +396,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(levMoves_.getAdd());
         keyEvos(levMoves_).setupValue(P_2);
         GeneComponentModelEvolution evoForm_ = valueEvos(levMoves_);
-        evoForm_.getEvolutionKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EVO_LEVEL_SIMPLE));
-        evoForm_.getEvolutionKind().getSelect().events(null);
+        ConverterCommonMapUtil.trigger(evoForm_.getEvolutionKind(),MessagesEditorSelect.EVO_LEVEL_SIMPLE);
         evoForm_.getLevel().valueInt(2);
         tryClick(levMoves_.getValidAddEdit());
         tryClick(levMoves_.getAllButtons().get(0));
@@ -420,8 +418,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(levMoves_.getAdd());
         keyEvos(levMoves_).setupValue(P_2);
         GeneComponentModelEvolution evoForm_ = valueEvos(levMoves_);
-        evoForm_.getEvolutionKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EVO_LEVEL_GENDER));
-        evoForm_.getEvolutionKind().getSelect().events(null);
+        ConverterCommonMapUtil.trigger(evoForm_.getEvolutionKind(),MessagesEditorSelect.EVO_LEVEL_GENDER);
         evoForm_.getLevel().valueInt(2);
         evoForm_.getEvoGender().setupValue(Gender.NO_GENDER);
         tryClick(levMoves_.getValidAddEdit());
@@ -444,8 +441,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(levMoves_.getAdd());
         keyEvos(levMoves_).setupValue(P_2);
         GeneComponentModelEvolution evoForm_ = valueEvos(levMoves_);
-        evoForm_.getEvolutionKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EVO_STONE_SIMPLE));
-        evoForm_.getEvolutionKind().getSelect().events(null);
+        ConverterCommonMapUtil.trigger(evoForm_.getEvolutionKind(),MessagesEditorSelect.EVO_STONE_SIMPLE);
         evoForm_.getItem().setupValue(I_1);
         tryClick(levMoves_.getValidAddEdit());
         tryClick(levMoves_.getAllButtons().get(0));
@@ -467,8 +463,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(levMoves_.getAdd());
         keyEvos(levMoves_).setupValue(P_2);
         GeneComponentModelEvolution evoForm_ = valueEvos(levMoves_);
-        evoForm_.getEvolutionKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EVO_STONE_GENDER));
-        evoForm_.getEvolutionKind().getSelect().events(null);
+        ConverterCommonMapUtil.trigger(evoForm_.getEvolutionKind(),MessagesEditorSelect.EVO_STONE_GENDER);
         evoForm_.getItem().setupValue(I_1);
         evoForm_.getEvoGender().setupValue(Gender.NO_GENDER);
         tryClick(levMoves_.getValidAddEdit());
@@ -491,8 +486,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(levMoves_.getAdd());
         keyEvos(levMoves_).setupValue(P_2);
         GeneComponentModelEvolution evoForm_ = valueEvos(levMoves_);
-        evoForm_.getEvolutionKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EVO_HAPPINESS));
-        evoForm_.getEvolutionKind().getSelect().events(null);
+        ConverterCommonMapUtil.trigger(evoForm_.getEvolutionKind(),MessagesEditorSelect.EVO_HAPPINESS);
         tryClick(levMoves_.getValidAddEdit());
         tryClick(levMoves_.getAllButtons().get(0));
         tryClick(levMoves_.getCancel());
@@ -513,8 +507,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(levMoves_.getAdd());
         keyEvos(levMoves_).setupValue(P_2);
         GeneComponentModelEvolution evoForm_ = valueEvos(levMoves_);
-        evoForm_.getEvolutionKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EVO_ITEM));
-        evoForm_.getEvolutionKind().getSelect().events(null);
+        ConverterCommonMapUtil.trigger(evoForm_.getEvolutionKind(),MessagesEditorSelect.EVO_ITEM);
         evoForm_.getItem().setupValue(I_1);
         tryClick(levMoves_.getValidAddEdit());
         tryClick(levMoves_.getAllButtons().get(0));
@@ -536,8 +529,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(levMoves_.getAdd());
         keyEvos(levMoves_).setupValue(P_2);
         GeneComponentModelEvolution evoForm_ = valueEvos(levMoves_);
-        evoForm_.getEvolutionKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EVO_MOVE));
-        evoForm_.getEvolutionKind().getSelect().events(null);
+        ConverterCommonMapUtil.trigger(evoForm_.getEvolutionKind(),MessagesEditorSelect.EVO_MOVE);
         evoForm_.getEvoMove().setupValue(M_1);
         tryClick(levMoves_.getValidAddEdit());
         tryClick(levMoves_.getAllButtons().get(0));
@@ -559,8 +551,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(levMoves_.getAdd());
         keyEvos(levMoves_).setupValue(P_2);
         GeneComponentModelEvolution evoForm_ = valueEvos(levMoves_);
-        evoForm_.getEvolutionKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EVO_MOVE_TYPE));
-        evoForm_.getEvolutionKind().getSelect().events(null);
+        ConverterCommonMapUtil.trigger(evoForm_.getEvolutionKind(),MessagesEditorSelect.EVO_MOVE_TYPE);
         evoForm_.getEvoMoveType().setupValue(T_1);
         tryClick(levMoves_.getValidAddEdit());
         tryClick(levMoves_.getAllButtons().get(0));
@@ -582,8 +573,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(levMoves_.getAdd());
         keyEvos(levMoves_).setupValue(P_2);
         GeneComponentModelEvolution evoForm_ = valueEvos(levMoves_);
-        evoForm_.getEvolutionKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EVO_TEAM));
-        evoForm_.getEvolutionKind().getSelect().events(null);
+        ConverterCommonMapUtil.trigger(evoForm_.getEvolutionKind(),MessagesEditorSelect.EVO_TEAM);
         evoForm_.getEvoTeamPokemon().setupValue(P_3);
         tryClick(levMoves_.getValidAddEdit());
         tryClick(levMoves_.getAllButtons().get(0));
@@ -605,8 +595,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(levMoves_.getAdd());
         keyEvos(levMoves_).setupValue(P_2);
         GeneComponentModelEvolution evoForm_ = valueEvos(levMoves_);
-        evoForm_.getEvolutionKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EVO_TEAM));
-        evoForm_.getEvolutionKind().getSelect().events(null);
+        ConverterCommonMapUtil.trigger(evoForm_.getEvolutionKind(),MessagesEditorSelect.EVO_TEAM);
         evoForm_.getEvoTeamPokemon().setupValue(P_3);
         tryClick(levMoves_.getValidAddEdit());
         tryClick(levMoves_.getAllButtons().get(0));
@@ -677,8 +666,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(levMoves_.getAdd());
         keyEvos(levMoves_).setupValue(P_2);
         GeneComponentModelEvolution evoForm_ = valueEvos(levMoves_);
-        evoForm_.getEvolutionKind().getSelect().select(NumberUtil.parseInt(MessagesEditorSelect.EVO_ITEM));
-        evoForm_.getEvolutionKind().getSelect().events(null);
+        ConverterCommonMapUtil.trigger(evoForm_.getEvolutionKind(),MessagesEditorSelect.EVO_ITEM);
         evoForm_.getItem().setupValue(I_1);
         tryClick(cTr_.getAdd());
         ((GeneComponentModelTr)cTr_.getGene()).getKey().valueString(P_4);

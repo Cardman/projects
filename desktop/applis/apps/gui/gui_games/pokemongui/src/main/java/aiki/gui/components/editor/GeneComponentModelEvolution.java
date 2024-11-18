@@ -69,19 +69,13 @@ public final class GeneComponentModelEvolution {
         compoTeamPokemon.setVisible(false);
         selected_.add(compoTeamPokemon);
         evolutionKind.getSelect().addListener(new ChangingEvolutionEvent(this));
-        evolutionKind.getSelect().select(0);
-        evolutionKind.getSelect().events(null);
+        ConverterCommonMapUtil.trigger(evolutionKind,MessagesEditorSelect.EVO_LEVEL_SIMPLE);
         return evoForm_;
     }
 
     public void applyChange() {
         String evo_ = evolutionKind.tryRet();
-        compoLevel.setVisible(StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_LEVEL_SIMPLE) || StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_LEVEL_GENDER));
-        compoItem.setVisible(StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_STONE_SIMPLE) || StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_STONE_GENDER) || StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_ITEM));
-        compoGender.setVisible(StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_LEVEL_GENDER) || StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_STONE_GENDER));
-        compoMove.setVisible(StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_MOVE));
-        compoMoveType.setVisible(StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_MOVE_TYPE));
-        compoTeamPokemon.setVisible(StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_TEAM));
+        display(evo_);
         if (StringUtil.quickEq(evo_,MessagesEditorSelect.EVO_LEVEL_SIMPLE)) {
             edited = Instances.newEvolutionLevelSimple();
         }
@@ -145,54 +139,58 @@ public final class GeneComponentModelEvolution {
 
     public void valueEvo(Evolution _evo) {
         if (_evo instanceof EvolutionLevelSimple) {
-            evolutionKind.getSelect().select(0);
-            evolutionKind.getSelect().events(null);
             level.valueInt(((EvolutionLevelSimple) _evo).getLevel());
+            displayRepaint(MessagesEditorSelect.EVO_LEVEL_SIMPLE);
         }
         if (_evo instanceof EvolutionLevelGender) {
-            evolutionKind.getSelect().select(1);
-            evolutionKind.getSelect().events(null);
             level.valueInt(((EvolutionLevelGender) _evo).getLevel());
             evoGender.setupValue(((EvolutionLevelGender) _evo).getGender());
+            displayRepaint(MessagesEditorSelect.EVO_LEVEL_GENDER);
         }
         if (_evo instanceof EvolutionStoneSimple) {
-            evolutionKind.getSelect().select(2);
-            evolutionKind.getSelect().events(null);
             item.setupValue(((EvolutionStoneSimple) _evo).getStone());
+            displayRepaint(MessagesEditorSelect.EVO_STONE_SIMPLE);
         }
         if (_evo instanceof EvolutionStoneGender) {
-            evolutionKind.getSelect().select(3);
-            evolutionKind.getSelect().events(null);
             item.setupValue(((EvolutionStoneGender) _evo).getStone());
             evoGender.setupValue(((EvolutionStoneGender) _evo).getGender());
+            displayRepaint(MessagesEditorSelect.EVO_STONE_GENDER);
         }
         if (_evo instanceof EvolutionHappiness) {
-            evolutionKind.getSelect().select(4);
-            evolutionKind.getSelect().events(null);
+            displayRepaint(MessagesEditorSelect.EVO_HAPPINESS);
         }
         if (_evo instanceof EvolutionItem) {
-            evolutionKind.getSelect().select(5);
-            evolutionKind.getSelect().events(null);
             item.setupValue(((EvolutionItem) _evo).getItem());
+            displayRepaint(MessagesEditorSelect.EVO_ITEM);
         }
         if (_evo instanceof EvolutionMove) {
-            evolutionKind.getSelect().select(6);
-            evolutionKind.getSelect().events(null);
             evoMove.setupValue(((EvolutionMove) _evo).getMove());
+            displayRepaint(MessagesEditorSelect.EVO_MOVE);
         }
         if (_evo instanceof EvolutionMoveType) {
-            evolutionKind.getSelect().select(7);
-            evolutionKind.getSelect().events(null);
             evoMoveType.setupValue(((EvolutionMoveType) _evo).getType());
+            displayRepaint(MessagesEditorSelect.EVO_MOVE_TYPE);
         }
         if (_evo instanceof EvolutionTeam) {
-            evolutionKind.getSelect().select(8);
-            evolutionKind.getSelect().events(null);
             evoTeamPokemon.setupValue(((EvolutionTeam) _evo).getPokemon());
+            displayRepaint(MessagesEditorSelect.EVO_TEAM);
         }
         edited = _evo;
     }
 
+    private void displayRepaint(String _eff) {
+        display(_eff);
+        getEvolutionKind().setupValue(_eff);
+        getEvolutionKind().getSelect().repaint();
+    }
+    private void display(String _evo) {
+        compoLevel.setVisible(StringUtil.quickEq(_evo,MessagesEditorSelect.EVO_LEVEL_SIMPLE) || StringUtil.quickEq(_evo,MessagesEditorSelect.EVO_LEVEL_GENDER));
+        compoItem.setVisible(StringUtil.quickEq(_evo,MessagesEditorSelect.EVO_STONE_SIMPLE) || StringUtil.quickEq(_evo,MessagesEditorSelect.EVO_STONE_GENDER) || StringUtil.quickEq(_evo,MessagesEditorSelect.EVO_ITEM));
+        compoGender.setVisible(StringUtil.quickEq(_evo,MessagesEditorSelect.EVO_LEVEL_GENDER) || StringUtil.quickEq(_evo,MessagesEditorSelect.EVO_STONE_GENDER));
+        compoMove.setVisible(StringUtil.quickEq(_evo,MessagesEditorSelect.EVO_MOVE));
+        compoMoveType.setVisible(StringUtil.quickEq(_evo,MessagesEditorSelect.EVO_MOVE_TYPE));
+        compoTeamPokemon.setVisible(StringUtil.quickEq(_evo,MessagesEditorSelect.EVO_TEAM));
+    }
     public IdList<SubscribedTranslation> all() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
         ids_.addAllElts(evoTeamPokemon.getSubs());
