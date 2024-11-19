@@ -9,22 +9,27 @@ public final class ContentComponentModelGroupEffectEndRound {
     private final ContentComponentModelEffectEndRound contentEffectEndRound = new ContentComponentModelEffectEndRound();
     private final ContentComponentModelEffectEndRoundFoe contentEffectEndRoundFoe = new ContentComponentModelEffectEndRoundFoe();
     private final ContentComponentModelEffectEndRoundTeam contentEffectEndRoundTeam = new ContentComponentModelEffectEndRoundTeam();
+    private final ContentComponentModelGroupEffectEndRoundStatus groupEffectEndRoundStatus = new ContentComponentModelGroupEffectEndRoundStatus();
 
-    public static Effect instance(String _eff) {
+    public static EffectEndRound instance(String _eff) {
         if (StringUtil.quickEq(_eff, MessagesEditorSelect.EFF_END_ROUND_FOE)) {
             return Instances.newEffectEndRoundFoe();
         }
-        return Instances.newEffectEndRoundTeam();
+        if (StringUtil.quickEq(_eff, MessagesEditorSelect.EFF_END_ROUND_TEAM)) {
+            return Instances.newEffectEndRoundTeam();
+        }
+        return ContentComponentModelGroupEffectEndRoundStatus.instance(_eff);
     }
 
     void effectForm(AbsPanel _panel,AbsGeneComponentModelEffect _core) {
         _panel.add(contentEffectEndRound.effectForm(_core.getProgramInfos()));
         _panel.add(contentEffectEndRoundFoe.effectForm(_core.getProgramInfos()));
         _panel.add(contentEffectEndRoundTeam.effectForm(_core.getProgramInfos()));
+        groupEffectEndRoundStatus.effectForm(_panel,_core);
     }
 
     public String display(String _eff) {
-        boolean seen_ = StringUtil.quickEq(_eff, MessagesEditorSelect.EFF_END_ROUND_FOE) || StringUtil.quickEq(_eff, MessagesEditorSelect.EFF_END_ROUND_TEAM);
+        boolean seen_ = !groupEffectEndRoundStatus.display(_eff).isEmpty() || StringUtil.quickEq(_eff, MessagesEditorSelect.EFF_END_ROUND_FOE) || StringUtil.quickEq(_eff, MessagesEditorSelect.EFF_END_ROUND_TEAM);
         contentEffectEndRound.display(seen_);
         contentEffectEndRoundFoe.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_END_ROUND_FOE));
         contentEffectEndRoundTeam.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_END_ROUND_TEAM));
@@ -42,6 +47,9 @@ public final class ContentComponentModelGroupEffectEndRound {
         if (_edited instanceof EffectEndRoundTeam) {
             contentEffectEndRoundTeam.buildEntity((EffectEndRoundTeam) _edited);
         }
+        if (_edited instanceof EffectEndRoundStatus) {
+            groupEffectEndRoundStatus.buildEntity((EffectEndRoundStatus) _edited);
+        }
     }
 
     public String feedForm(EffectEndRound _v) {
@@ -54,6 +62,9 @@ public final class ContentComponentModelGroupEffectEndRound {
         if (_v instanceof EffectEndRoundTeam) {
             o_ = MessagesEditorSelect.EFF_END_ROUND_TEAM;
             contentEffectEndRoundTeam.feedForm((EffectEndRoundTeam) _v);
+        }
+        if (_v instanceof EffectEndRoundStatus) {
+            o_ = groupEffectEndRoundStatus.feedForm((EffectEndRoundStatus) _v);
         }
         return o_;
     }
@@ -68,5 +79,9 @@ public final class ContentComponentModelGroupEffectEndRound {
 
     public ContentComponentModelEffectEndRoundTeam getContentEffectEndRoundTeam() {
         return contentEffectEndRoundTeam;
+    }
+
+    public ContentComponentModelGroupEffectEndRoundStatus getGroupEffectEndRoundStatus() {
+        return groupEffectEndRoundStatus;
     }
 }
