@@ -26,6 +26,11 @@ public final class CrudGeneFormSimpleFormSub<K, V> {
         crud.initForm(_d, _disp, programInfos, _k, _v);
     }
 
+    public void initForm(DisplayEntryCustSubElement<EditedCrudPair<K, V>> _d, AbsGeneComponentModelSubscribeFactory<K> _k, AbsGeneComponentModelSubscribeFactory<V> _v) {
+        crud = new CrudGeneFormSimpleForm<K,V>(programInfos, facadeGame, subscribedTranslationList, commonFrame);
+        crud.initForm();
+        crud.initForm(_d, programInfos, _k, _v);
+    }
     public void initForm(DisplayEntryCust<Integer,EditedCrudPair<K, V>> _d, Comparing<EditedCrudPair<K, V>> _cmp, AbsGeneComponentModelSubscribeFactory<K> _k, AbsGeneComponentModelSubscribeFactory<V> _v) {
         crud = new CrudGeneFormSimpleForm<K,V>(programInfos, facadeGame, subscribedTranslationList, commonFrame);
         crud.initForm();

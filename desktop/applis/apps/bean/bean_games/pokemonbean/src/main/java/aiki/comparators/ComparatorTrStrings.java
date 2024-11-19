@@ -1,16 +1,15 @@
 package aiki.comparators;
 
-import aiki.fight.enums.Statistic;
-import code.util.AbsMap;
-import code.util.StringMap;
-import code.util.core.StringUtil;
+import aiki.fight.enums.*;
+import code.util.*;
+import code.util.core.*;
 
 public final class ComparatorTrStrings {
 
     private ComparatorTrStrings() {
     }
 
-    public static int compare(StringMap<String> _trStrings, String _e1, String _e2) {
+    public static int compare(AbsMap<String,String> _trStrings, String _e1, String _e2) {
         return StringUtil.compareStrings(StringUtil.nullToEmpty(_trStrings.getVal(_e1)), StringUtil.nullToEmpty(_trStrings.getVal(_e2)));
     }
 

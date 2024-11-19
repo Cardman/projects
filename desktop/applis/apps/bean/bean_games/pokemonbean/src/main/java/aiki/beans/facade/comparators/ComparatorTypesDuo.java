@@ -2,6 +2,7 @@ package aiki.beans.facade.comparators;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
 import aiki.fight.util.TypesDuo;
+import code.util.AbsMap;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 import code.util.ints.Comparing;
@@ -48,11 +49,15 @@ public final class ComparatorTypesDuo implements Comparing<TypesDuo> {
             return ComparatorTrStrings.compare(translatedTypesCmp_, _o1.getDamageType(), _o2.getDamageType());
         }
         StringMap<String> translatedTypesCmp_ = data.getTranslatedTypes().getVal(language);
-        int res_ = ComparatorTrStrings.compare(translatedTypesCmp_, _o1.getDamageType(), _o2.getDamageType());
+        return compareTr(_o1, _o2, translatedTypesCmp_);
+    }
+
+    public static int compareTr(TypesDuo _o1, TypesDuo _o2, AbsMap<String,String> _types) {
+        int res_ = ComparatorTrStrings.compare(_types, _o1.getDamageType(), _o2.getDamageType());
         if (res_ != 0) {
             return res_;
         }
-        return ComparatorTrStrings.compare(translatedTypesCmp_, _o1.getPokemonType(), _o2.getPokemonType());
+        return ComparatorTrStrings.compare(_types, _o1.getPokemonType(), _o2.getPokemonType());
     }
 
 }

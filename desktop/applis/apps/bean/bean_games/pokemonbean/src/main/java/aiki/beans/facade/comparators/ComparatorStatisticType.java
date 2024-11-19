@@ -20,14 +20,16 @@ public final class ComparatorStatisticType implements Comparing<StatisticType> {
 
     @Override
     public int compare(StatisticType _o1, StatisticType _o2) {
-        AbsMap<Statistic,String> translatedStatisticsCmp_;
-        translatedStatisticsCmp_ = data.getTranslatedStatistics().getVal(language);
-        int res_ = ComparatorTrStrings.compareStatistic(translatedStatisticsCmp_, _o1.getStatistic(), _o2.getStatistic());
+        AbsMap<Statistic, String> translatedStatisticsCmp_ = data.getTranslatedStatistics().getVal(language);
+        StringMap<String> translatedCategoriesCmp_ = data.getTranslatedTypes().getVal(language);
+        return comparePairs(_o1, _o2, translatedStatisticsCmp_, translatedCategoriesCmp_);
+    }
+
+    public static int comparePairs(StatisticType _o1, StatisticType _o2, AbsMap<Statistic, String> _stats, AbsMap<String,String> _cats) {
+        int res_ = ComparatorTrStrings.compareStatistic(_stats, _o1.getStatistic(), _o2.getStatistic());
         if (res_ != 0) {
             return res_;
         }
-        StringMap<String> translatedCategoriesCmp_;
-        translatedCategoriesCmp_ = data.getTranslatedTypes().getVal(language);
-        return ComparatorTrStrings.compare(translatedCategoriesCmp_, _o1.getType(), _o2.getType());
+        return ComparatorTrStrings.compare(_cats, _o1.getType(), _o2.getType());
     }
 }
