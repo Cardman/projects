@@ -33,7 +33,7 @@ public final class ContentComponentModelEffectStatus {
         return selected_;
     }
     private CrudGeneFormMonteCarloSub<String> buildLaw(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
-        return new CrudGeneFormMonteCarloSub<String>(_f, _core, new SubscribeBuilderUtil<String>(_fact.getFactorySt()).merge(_core, _fac, new CustList<String>(), ConverterCommonMapUtil.defKeyEmpty(" "),new EmptyDefValue()), _fact.getFactorySt().buildMessages(_core,_fac,ConverterCommonMapUtil.defKeyEmpty(" ")), new DisplayEntryCustSubImpl<String>(_fact.getFactorySt(),ConverterCommonMapUtil.defKeyEmpty(" ")));
+        return new CrudGeneFormMonteCarloSub<String>(_f, _core, new StringSubscribeBuilderUtil(_fact.getFactorySt()).merge(_core, _fac, new CustList<String>(), ConverterCommonMapUtil.defKeyEmpty(" ")), _fact.getFactorySt().buildMessages(_core,_fac,ConverterCommonMapUtil.defKeyEmpty(" ")), new DisplayEntryCustSubImpl<String>(_fact.getFactorySt(),ConverterCommonMapUtil.defKeyEmpty(" ")));
     }
     private CrudGeneFormSimpleFormSub<String,String> buildLocalFail(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
         CrudGeneFormSimpleFormSub<String,String> out_ = new CrudGeneFormSimpleFormSub<String,String>(_core, _fac, _fact, _f);

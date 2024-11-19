@@ -40,6 +40,9 @@ public final class ConverterCommonMapUtil {
     public static GeneComponentModelEltEnumSub<String> buildCatElt(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
         return merge(_api, _facade, _sub.getFactoryCa(), new CustList<String>(), new StringMap<String>());
     }
+    public static GeneComponentModelEltEnumSub<String> buildStatus(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub, AbsMap<String,String> _empty){
+        return merge(_api, _facade, _sub.getFactorySt(), new CustList<String>(), _empty);
+    }
     public static GeneComponentModelLsStrSub<String> buildAbilityList(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
         return mergeLs(_api, _facade, _sub.getFactoryAb());
     }
@@ -59,23 +62,11 @@ public final class ConverterCommonMapUtil {
         return mergeLsNb(_api, _facade, _sub.getFactoryMv(), _sub.getFactoryHm());
     }
     public static GeneComponentModelEltEnumSub<String> merge(AbstractProgramInfos _api, FacadeGame _sub, SubscribedTranslationMessagesFactory _builder, CustList<String> _excluded, AbsMap<String,String> _withEmptyStr) {
-        AbsMap<String, String> sub_ = _builder.buildMessages(_api, _sub, _withEmptyStr);
-        StringList rem_ = new StringList(sub_.getKeys());
-        rem_.removeAllElements(_excluded);
-        TreeMap<String, String> treeFilter_ = new SubscribeBuilderUtil<String>(_builder).feedTree(sub_, rem_);
-        GeneComponentModelElt<String> sel_ = new GeneComponentModelElt<String>(_api, treeFilter_,new EmptyDefValue());
-        GeneComponentModelEltEnumSub<String> g_ = new GeneComponentModelEltEnumSub<String>(sel_);
-        g_.getSubs().addAllElts(new SubscribeBuilderUtil<String>(_builder).feedSub(sub_, treeFilter_, sel_, _withEmptyStr));
-        return g_;
+        return new StringSubscribeBuilderUtil(_builder).merge(_api,_sub,_excluded,_withEmptyStr);
     }
 
     private static GeneComponentModelLsStrSub<String> mergeLs(AbstractProgramInfos _api, FacadeGame _sub, SubscribedTranslationMessagesFactory _builder) {
-        AbsMap<String, String> sub_ = _builder.buildMessages(_api, _sub);
-        TreeMap<String, String> treeFilter_ = new SubscribeBuilderUtil<String>(_builder).feedTree(sub_, sub_.getKeys());
-        GeneComponentModelLs<String> sel_ = new GeneComponentModelLs<String>(_api, treeFilter_);
-        GeneComponentModelLsStrSub<String> g_ = new GeneComponentModelLsStrSub<String>(sel_);
-        g_.getSubs().addAllElts(new SubscribeBuilderUtil<String>(_builder).feedSub(sub_, treeFilter_, sel_, new StringMap<String>()));
-        return g_;
+        return new StringSubscribeBuilderUtil(_builder).mergeLs(_api, _sub);
     }
     private static GeneComponentModelLsStrSub<Short> mergeLsNb(AbstractProgramInfos _api, FacadeGame _sub, SubscribedTranslationMessagesFactory _builderMv, SubscribedTranslationMessagesNbFactory _builder) {
         ShortMap<String> map_ = _builder.retrieveMap(_api, _sub);
