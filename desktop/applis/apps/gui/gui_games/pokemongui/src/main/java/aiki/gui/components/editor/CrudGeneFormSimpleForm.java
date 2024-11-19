@@ -24,9 +24,19 @@ public final class CrudGeneFormSimpleForm<K, V> extends CrudGeneFormListSub<Edit
         Comparing<EditedCrudPair<K, V>> cmp_ = new ComparatorTrWrapperPairs<K, V>().wrap(_disp);
         initForm(new DisplayKeyOnly<K, V>(_disp), genePair, cmp_,new ValidateElementPair<K, V>(cmp_));
     }
+    public void initForm(DisplayEntryCust<Integer,EditedCrudPair<K, V>> _d, Comparing<EditedCrudPair<K, V>> _disp, AbstractProgramInfos _core, AbsGeneComponentModelSubscribeFactory<K> _k, AbsGeneComponentModelSubscribeFactory<V> _v) {
+        getCrudGeneFormSubContent().clear();
+        displayEntryCustSub = null;
+        genePair = new GeneComponentModelSimplePair<K,V>(_core,_k,_v);
+        initForm();
+        initForm(_d, genePair, _disp,new ValidateElementPair<K, V>(_disp));
+    }
 
     public IdList<SubscribedTranslation> subscribeButtons() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
+        if (displayEntryCustSub == null) {
+            return ids_;
+        }
         ids_.addAllElts(displayEntryCustSub.buildSub(messages));
         ids_.add(new SubscribedTranslationPkKey<EditedCrudPair<K, V>>(this));
         return ids_;

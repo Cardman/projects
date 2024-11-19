@@ -61,4 +61,12 @@ public final class ContentComponentModelEffectEndRoundIndividual {
     public GeneComponentModelEltEnumSub<String> getUserStatusEndRound() {
         return userStatusEndRound;
     }
+
+    public CrudGeneFormSimpleFormSub<String, Rate> getHealHpByOwnerTypes() {
+        return healHpByOwnerTypes;
+    }
+
+    public CrudGeneFormSimpleFormSub<String, Rate> getMultDamageStatus() {
+        return multDamageStatus;
+    }
 }

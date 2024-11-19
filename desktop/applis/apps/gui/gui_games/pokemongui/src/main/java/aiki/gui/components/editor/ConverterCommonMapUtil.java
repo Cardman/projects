@@ -168,6 +168,11 @@ public final class ConverterCommonMapUtil {
         new MapToEntriesListUtil<Statistic,LgInt>().feedMap(_m, c_);
         return c_;
     }
+    public static LongMap<Rate> buildLongMapRate(CustList<EditedCrudPair<Long, Rate>> _m) {
+        LongMap<Rate> c_ = new LongMap<Rate>(new CollCapacity(_m.size()));
+        new MapToEntriesListUtil<Long,Rate>().feedMap(_m, c_);
+        return c_;
+    }
     public static StringMap<String> buildStringMapString(CustList<EditedCrudPair<String, String>> _m) {
         StringMap<String> c_ = new StringMap<String>(new CollCapacity(_m.size()));
         new MapToEntriesListUtil<String,String>().feedMap(_m, c_);
