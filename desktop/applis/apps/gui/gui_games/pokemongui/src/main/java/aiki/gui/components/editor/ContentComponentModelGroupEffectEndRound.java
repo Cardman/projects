@@ -19,6 +19,9 @@ public final class ContentComponentModelGroupEffectEndRound {
         if (StringUtil.quickEq(_eff, MessagesEditorSelect.EFF_END_ROUND_FOE)) {
             return Instances.newEffectEndRoundFoe();
         }
+        if (StringUtil.quickEq(_eff, MessagesEditorSelect.EFF_END_ROUND_GLOBAL)) {
+            return Instances.newEffectEndRoundGlobal();
+        }
         if (StringUtil.quickEq(_eff, MessagesEditorSelect.EFF_END_ROUND_INDIVIDUAL)) {
             return Instances.newEffectEndRoundIndividual();
         }
@@ -30,6 +33,9 @@ public final class ContentComponentModelGroupEffectEndRound {
         }
         if (StringUtil.quickEq(_eff, MessagesEditorSelect.EFF_END_ROUND_SINGLE_RELATION)) {
             return Instances.newEffectEndRoundSingleRelation();
+        }
+        if (StringUtil.quickEq(_eff, MessagesEditorSelect.EFF_END_ROUND_POSITION_TARGET)) {
+            return Instances.newEffectEndRoundPositionTargetRelation();
         }
         if (StringUtil.quickEq(_eff, MessagesEditorSelect.EFF_END_ROUND_TEAM)) {
             return Instances.newEffectEndRoundTeam();
@@ -49,7 +55,7 @@ public final class ContentComponentModelGroupEffectEndRound {
     }
 
     public String display(String _eff) {
-        boolean seen_ = !groupEffectEndRoundStatus.display(_eff).isEmpty() || StringUtil.quickEq(_eff, MessagesEditorSelect.EFF_END_ROUND_FOE) || StringUtil.quickEq(_eff, MessagesEditorSelect.EFF_END_ROUND_TEAM) || StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_END_ROUND_INDIVIDUAL) || StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_END_ROUND_MULTI_RELATION) || StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_END_ROUND_POSITION_RELATION) || StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_END_ROUND_SINGLE_RELATION);
+        boolean seen_ = !groupEffectEndRoundStatus.display(_eff).isEmpty() || StringUtil.quickEq(_eff, MessagesEditorSelect.EFF_END_ROUND_FOE) || StringUtil.quickEq(_eff, MessagesEditorSelect.EFF_END_ROUND_GLOBAL) || StringUtil.quickEq(_eff, MessagesEditorSelect.EFF_END_ROUND_POSITION_TARGET) || StringUtil.quickEq(_eff, MessagesEditorSelect.EFF_END_ROUND_TEAM) || StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_END_ROUND_INDIVIDUAL) || StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_END_ROUND_MULTI_RELATION) || StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_END_ROUND_POSITION_RELATION) || StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_END_ROUND_SINGLE_RELATION);
         contentEffectEndRound.display(seen_);
         contentEffectEndRoundFoe.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_END_ROUND_FOE));
         contentEffectEndRoundIndividual.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_END_ROUND_INDIVIDUAL));
@@ -117,6 +123,12 @@ public final class ContentComponentModelGroupEffectEndRound {
         }
         if (_v instanceof EffectEndRoundStatus) {
             o_ = groupEffectEndRoundStatus.feedForm((EffectEndRoundStatus) _v);
+        }
+        if (_v instanceof EffectEndRoundGlobal) {
+            o_ = MessagesEditorSelect.EFF_END_ROUND_GLOBAL;
+        }
+        if (_v instanceof EffectEndRoundPositionTargetRelation) {
+            o_ = MessagesEditorSelect.EFF_END_ROUND_POSITION_TARGET;
         }
         return o_;
     }
