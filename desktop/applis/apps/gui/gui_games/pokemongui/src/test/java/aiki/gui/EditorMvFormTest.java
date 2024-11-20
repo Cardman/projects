@@ -1286,6 +1286,40 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         assertEq(Statistic.SPEED,((EffectGlobal)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getMultStatIfContainsType().getKey(1).getStatistic());
         assertEq(new Rate(3),((EffectGlobal)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getMultStatIfContainsType().getValue(1));
     }
+    @Test
+    public void mvForm45() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<MoveData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelMoveData g_ = (GeneComponentModelMoveData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(M_1);
+        tryClick(g_.getEffects().getAdd());
+        ConverterCommonMapUtil.trigger(effects(g_.getEffects()).getEffectKind(),MessagesEditorSelect.EFF_INVOKE);
+        effects(g_.getEffects()).getContentEffectInvoke().getInvokingAllyMove().setSelected(false);
+        effects(g_.getEffects()).getContentEffectInvoke().getInvokingMoveButUser().setSelected(false);
+        effects(g_.getEffects()).getContentEffectInvoke().getInvokingSufferedMove().setSelected(false);
+        effects(g_.getEffects()).getContentEffectInvoke().getInvokingTargetChosenMove().setSelected(false);
+        effects(g_.getEffects()).getContentEffectInvoke().getInvokingTargetSuccesfulMove().setSelected(false);
+        effects(g_.getEffects()).getContentEffectInvoke().getInvokingUserMoveWhileSleep().setSelected(false);
+        tryClick(g_.getEffects().getValidAddEdit());
+        tryClick(g_.getEffects().getAdd());
+        ConverterCommonMapUtil.trigger(effects(g_.getEffects()).getEffectKind(),MessagesEditorSelect.EFF_INVOKE);
+        effects(g_.getEffects()).getContentEffectInvoke().getInvokingAllyMove().setSelected(true);
+        effects(g_.getEffects()).getContentEffectInvoke().getInvokingMoveButUser().setSelected(true);
+        effects(g_.getEffects()).getContentEffectInvoke().getInvokingSufferedMove().setSelected(true);
+        effects(g_.getEffects()).getContentEffectInvoke().getInvokingTargetChosenMove().setSelected(true);
+        effects(g_.getEffects()).getContentEffectInvoke().getInvokingTargetSuccesfulMove().setSelected(true);
+        effects(g_.getEffects()).getContentEffectInvoke().getInvokingUserMoveWhileSleep().setSelected(true);
+        tryClick(g_.getEffects().getValidAddEdit());
+        tryClick(g_.getEffects().getAllButtons().get(0));
+        tryClick(g_.getEffects().getCancel());
+        tryClick(g_.getEffects().getAllButtons().get(1));
+        tryClick(g_.getEffects().getCancel());
+        tryClick(c_.getValidAddEdit());
+        assertEq(2,facade_.getData().getMoves().getVal(M_1).getEffects().size());
+    }
     private FacadeGame facadeAdd(MockProgramInfos _m) {
         FacadeGame f_ = facade(_m);
         f_.getData().getTm().addEntry((short)1,M_1);

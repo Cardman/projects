@@ -21,6 +21,7 @@ public final class SubscribedTranslationList {
     private final SubscribedTranslationMessagesFactoryCstStat factoryStat = new SubscribedTranslationMessagesFactoryCstStat();
     private final SubscribedTranslationMessagesFactoryCstTargetChoice factoryTarget = new SubscribedTranslationMessagesFactoryCstTargetChoice();
     private final SubscribedTranslationMessagesFactoryCstGender factoryGender = new SubscribedTranslationMessagesFactoryCstGender();
+    private final SubscribedTranslationMessagesFactoryCstEnvironmentType factoryEnvironmentType = new SubscribedTranslationMessagesFactoryCstEnvironmentType();
 
     public SubscribedTranslationList(AbstractProgramInfos _p, FacadeGame _f) {
         this.programInfos = _p;
@@ -86,5 +87,9 @@ public final class SubscribedTranslationList {
 
     public SubscribedTranslationMessagesFactoryCstGender getFactoryGender() {
         return factoryGender;
+    }
+
+    public SubscribedTranslationMessagesFactoryCstEnvironmentType getFactoryEnvironmentType() {
+        return factoryEnvironmentType;
     }
 }

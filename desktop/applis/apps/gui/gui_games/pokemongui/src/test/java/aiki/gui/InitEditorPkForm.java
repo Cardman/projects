@@ -7,6 +7,7 @@ import aiki.fight.moves.enums.*;
 import aiki.fight.pokemon.evolution.Evolution;
 import aiki.gui.components.editor.*;
 import aiki.instances.*;
+import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.enums.*;
 import code.gui.initialize.*;
 import code.maths.montecarlo.*;
@@ -113,6 +114,10 @@ public abstract class InitEditorPkForm extends EquallableAikiGuiUtil {
         IdMap<TargetChoice, String> t_ = new IdMap<TargetChoice, String>();
         t_.addEntry(TargetChoice.ANY_FOE,"_");
         facade_.getData().getTranslatedTargets().addEntry(_m.getLanguage(), t_);
+        IdMap<EnvironmentType, String> e_ = new IdMap<EnvironmentType, String>();
+        e_.addEntry(EnvironmentType.NOTHING,"0");
+        e_.addEntry(EnvironmentType.ROAD,"1");
+        facade_.getData().getTranslatedEnvironment().addEntry(_m.getLanguage(), e_);
         return facade_;
     }
 

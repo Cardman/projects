@@ -8,6 +8,7 @@ import aiki.fight.moves.enums.*;
 import aiki.fight.pokemon.enums.*;
 import aiki.fight.pokemon.evolution.*;
 import aiki.fight.util.*;
+import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.enums.*;
 import code.gui.*;
 import code.gui.initialize.*;
@@ -196,6 +197,11 @@ public final class ConverterCommonMapUtil {
     public static IdMap<Statistic,String> buildIdMapStatisticString(CustList<EditedCrudPair<Statistic, String>> _m) {
         IdMap<Statistic,String> c_ = new IdMap<Statistic,String>(new CollCapacity(_m.size()));
         new MapToEntriesListUtil<Statistic,String>().feedMap(_m, c_);
+        return c_;
+    }
+    public static IdMap<EnvironmentType,String> buildIdMapEnvironmentTypeString(CustList<EditedCrudPair<EnvironmentType, String>> _m) {
+        IdMap<EnvironmentType,String> c_ = new IdMap<EnvironmentType,String>(new CollCapacity(_m.size()));
+        new MapToEntriesListUtil<EnvironmentType,String>().feedMap(_m, c_);
         return c_;
     }
     public static CategoryMults buildCategoryMults(CustList<EditedCrudPair<CategoryMult, Rate>> _m) {

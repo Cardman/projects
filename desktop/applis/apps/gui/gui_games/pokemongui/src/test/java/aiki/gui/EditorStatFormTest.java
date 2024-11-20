@@ -4,6 +4,7 @@ import aiki.facade.*;
 import aiki.fight.enums.*;
 import aiki.fight.moves.enums.*;
 import aiki.gui.components.editor.*;
+import aiki.map.levels.enums.*;
 import aiki.map.pokemon.enums.*;
 import code.mock.*;
 import code.util.*;
@@ -40,6 +41,16 @@ public final class EditorStatFormTest extends InitEditorPkForm {
         tryClick(cTr_.getChangeValues());
         assertEq("vit",facade_.getData().getTranslatedGenders().getVal(pr_.getLanguage()).getVal(Gender.NO_GENDER));
     }
+    @Test
+    public void statForm4() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormTrCst<EnvironmentType> cTr_ = crudTrEnvironmentType(sub_);
+        cTr_.getFields().getVal(EnvironmentType.NOTHING).getVal(pr_.getLanguage()).setText("vit");
+        tryClick(cTr_.getChangeValues());
+        assertEq("vit",facade_.getData().getTranslatedEnvironment().getVal(pr_.getLanguage()).getVal(EnvironmentType.NOTHING));
+    }
     private FacadeGame facadeAdd(MockProgramInfos _m) {
         FacadeGame f_ = facade(_m);
         f_.getData().setVarParamsMove(new StringMap<StringList>());
@@ -56,5 +67,9 @@ public final class EditorStatFormTest extends InitEditorPkForm {
     private CrudGeneFormTrCst<Gender> crudTrGender(WindowPkEditor _crud) {
         tryClick(_crud.getTrsCstGenderMenu());
         return _crud.getCrudGeneFormCstGender();
+    }
+    private CrudGeneFormTrCst<EnvironmentType> crudTrEnvironmentType(WindowPkEditor _crud) {
+        tryClick(_crud.getTrsCstEnvironmentTypeMenu());
+        return _crud.getCrudGeneFormCstEnvironmentType();
     }
 }

@@ -3,13 +3,14 @@ package aiki.gui.components.editor;
 //import aiki.gui.*;
 import aiki.facade.*;
 import aiki.fight.abilities.*;
-import aiki.fight.enums.Statistic;
+import aiki.fight.enums.*;
 import aiki.fight.items.*;
 import aiki.fight.moves.*;
 import aiki.fight.moves.enums.*;
 import aiki.fight.pokemon.*;
 import aiki.fight.status.*;
-import aiki.map.pokemon.enums.Gender;
+import aiki.map.levels.enums.*;
+import aiki.map.pokemon.enums.*;
 import code.gui.*;
 import code.gui.events.*;
 import code.gui.initialize.*;
@@ -30,6 +31,7 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
     private final CrudGeneFormTrCst<Statistic> crudGeneFormCstStat;
     private final CrudGeneFormTrCst<TargetChoice> crudGeneFormCstTarget;
     private final CrudGeneFormTrCst<Gender> crudGeneFormCstGender;
+    private final CrudGeneFormTrCst<EnvironmentType> crudGeneFormCstEnvironmentType;
     private final CrudGeneFormEnt<AbilityData> crudGeneFormAb;
     private final CrudGeneFormEnt<Item> crudGeneFormIt;
     private final CrudGeneFormEnt<MoveData> crudGeneFormMv;
@@ -52,6 +54,7 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
     private final EnabledMenu trsCstStatMenu = getFrames().getCompoFactory().newMenuItem("3_0");
     private final EnabledMenu trsCstTargetMenu = getFrames().getCompoFactory().newMenuItem("3_1");
     private final EnabledMenu trsCstGenderMenu = getFrames().getCompoFactory().newMenuItem("3_2");
+    private final EnabledMenu trsCstEnvironmentTypeMenu = getFrames().getCompoFactory().newMenuItem("3_3");
 
     public WindowPkEditor(AbstractProgramInfos _list, FacadeGame _facade) {
         super(_list);
@@ -81,6 +84,9 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         crudGeneFormCstGender = new CrudGeneFormTrCst<Gender>(_list,_facade,subscriptions,subscriptions.getFactoryGender());
         trsCstGenderMenu.addActionListener(new PkEditorOpenCrudTrCstEvent<Gender>(crudGeneFormCstGender,trsCstGenderMenu));
         crudGeneFormCstGender.getFrame().addWindowListener(new ReinitMenu(trsCstGenderMenu, new IdList<SubscribedTranslation>()));
+        crudGeneFormCstEnvironmentType = new CrudGeneFormTrCst<EnvironmentType>(_list,_facade,subscriptions,subscriptions.getFactoryEnvironmentType());
+        trsCstEnvironmentTypeMenu.addActionListener(new PkEditorOpenCrudTrCstEvent<EnvironmentType>(crudGeneFormCstEnvironmentType,trsCstEnvironmentTypeMenu));
+        crudGeneFormCstEnvironmentType.getFrame().addWindowListener(new ReinitMenu(trsCstEnvironmentTypeMenu, new IdList<SubscribedTranslation>()));
         crudGeneFormTm = new CrudGeneFormNb(_list, _facade,subscriptions, frTm_,subscriptions.getFactoryTm());
         crudGeneFormHm = new CrudGeneFormNb(_list, _facade,subscriptions, frHm_,subscriptions.getFactoryHm());
         crudGeneFormAb = new CrudGeneFormEntBuilder<AbilityData>().build(_list,_facade,subscriptions, abMenu, subscriptions.getFactoryAb());
@@ -114,6 +120,7 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         trsCst_.addMenuItem(trsCstStatMenu);
         trsCst_.addMenuItem(trsCstTargetMenu);
         trsCst_.addMenuItem(trsCstGenderMenu);
+        trsCst_.addMenuItem(trsCstEnvironmentTypeMenu);
         file_.addMenuItem(trsCst_);
         bar_.add(file_);
         tmMenu.addActionListener(new PkEditorOpenCrudNbEvent(crudGeneFormTm,tmMenu, true));
@@ -227,6 +234,10 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         return trsCstGenderMenu;
     }
 
+    public EnabledMenu getTrsCstEnvironmentTypeMenu() {
+        return trsCstEnvironmentTypeMenu;
+    }
+
     public CrudGeneFormEnt<AbilityData> getCrudGeneFormAb() {
         return crudGeneFormAb;
     }
@@ -293,5 +304,9 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
 
     public CrudGeneFormTrCst<Gender> getCrudGeneFormCstGender() {
         return crudGeneFormCstGender;
+    }
+
+    public CrudGeneFormTrCst<EnvironmentType> getCrudGeneFormCstEnvironmentType() {
+        return crudGeneFormCstEnvironmentType;
     }
 }
