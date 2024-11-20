@@ -102,9 +102,7 @@ public abstract class AbsCrudGeneFormList<E> extends AbsCrudGeneForm<E> {
         refresh();
     }
     public void possibleSort() {
-        if (cmp != null) {
-            list.sortElts(cmp);
-        }
+        selectedIndex = new ComparingCrudUtil<E>(cmp).shiftPair(list,selectedIndex);
     }
 
     public int getSelectedIndex() {

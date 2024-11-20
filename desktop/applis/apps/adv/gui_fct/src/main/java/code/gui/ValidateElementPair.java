@@ -1,7 +1,6 @@
 package code.gui;
 
 import code.util.*;
-import code.util.core.*;
 import code.util.ints.*;
 
 public final class ValidateElementPair<K,V> implements IntValidateElementAdd<EditedCrudPair<K,V>> {
@@ -13,15 +12,10 @@ public final class ValidateElementPair<K,V> implements IntValidateElementAdd<Edi
 
     @Override
     public boolean valid(CustList<EditedCrudPair<K, V>> _ls, EditedCrudPair<K, V> _elt) {
-        return inexistPair(_ls, _elt);
+        return indexPair(_ls, _elt) < 0;
     }
 
-    public boolean inexistPair(CustList<EditedCrudPair<K, V>> _ls, EditedCrudPair<K, V> _elt) {
-        for (EditedCrudPair<K, V> e: _ls) {
-            if (comparing.compare(_elt,e) == SortConstants.EQ_CMP) {
-                return false;
-            }
-        }
-        return true;
+    public int indexPair(CustList<EditedCrudPair<K, V>> _ls, EditedCrudPair<K, V> _elt) {
+        return new ComparingCrudUtil<EditedCrudPair<K,V>>(comparing).indexPair(_ls,_elt);
     }
 }

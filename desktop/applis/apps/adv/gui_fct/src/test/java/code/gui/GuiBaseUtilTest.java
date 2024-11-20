@@ -11,6 +11,7 @@ import code.stream.AbsClipStream;
 import code.threads.ConcreteBoolean;
 import code.threads.ConcreteInteger;
 import code.util.*;
+import code.util.comparators.ComparatorMapValue;
 import code.util.comparators.NaturalComparator;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -620,6 +621,27 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         assertEq(2,c_.getList().size());
         assertEq("ONE",c_.getList().get(0));
         assertEq("TWO",c_.getList().get(1));
+    }
+    @Test
+    public void crudList7() {
+        CustList<String> m_ = new CustList<String>();
+        m_.add("ONE");
+        m_.add("TWO");
+        m_.add("THREE");
+        StringMap<String> map_ = new StringMap<String>();
+        map_.addEntry("ONE","1");
+        map_.addEntry("TWO","2");
+        map_.addEntry("THREE","3");
+        CrudGeneFormList<String> c_ = crudListCmp(m_, new StringList("ONE","TWO"),new ComparatorMapValue<String>(map_));
+        c_.getAllButtons().get(1).getActionListeners().get(0).action();
+        assertEq(1,c_.getSelectedIndex());
+        map_.clear();
+        map_.addEntry("ONE","1");
+        map_.addEntry("THREE","2");
+        map_.addEntry("TWO","3");
+        c_.possibleSort();
+        c_.refresh();
+        assertEq(2,c_.getSelectedIndex());
     }
     @Test
     public void crudMc1() {
