@@ -1396,6 +1396,55 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         assertEq(2,((EffectTeamWhileSendFoe)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getStatusByNbUses().getKey(1));
         assertEq(S_2,((EffectTeamWhileSendFoe)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getStatusByNbUses().getValue(1));
     }
+    @Test
+    public void mvForm48() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<MoveData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelMoveData g_ = (GeneComponentModelMoveData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(M_1);
+        tryClick(g_.getEffects().getAdd());
+        GeneComponentModelEffect effForm_ = effects(g_.getEffects());
+        ConverterCommonMapUtil.trigger(effForm_.getEffectKind(),MessagesEditorSelect.EFF_UNPROTECT_FROM_TYPES);
+        tryClick(effForm_.getContentEffectUnprotectFromTypes().getTypes().getCrud().getAdd());
+        effForm_.getContentEffectUnprotectFromTypes().getTypes().getCrud().getGenePair().getKey().setupValue(new TypesDuo(T_1,T_2));
+        tryClick(effForm_.getContentEffectUnprotectFromTypes().getTypes().getCrud().getValidAddEdit());
+        tryClick(effForm_.getContentEffectUnprotectFromTypes().getTypes().getCrud().getAdd());
+        effForm_.getContentEffectUnprotectFromTypes().getTypes().getCrud().getGenePair().getKey().setupValue(new TypesDuo(T_2,T_1));
+        tryClick(effForm_.getContentEffectUnprotectFromTypes().getTypes().getCrud().getValidAddEdit());
+        tryClick(effForm_.getContentEffectUnprotectFromTypes().getTypes().getCrud().getAllButtons().get(0));
+        tryClick(effForm_.getContentEffectUnprotectFromTypes().getTypes().getCrud().getCancel());
+        tryClick(g_.getEffects().getValidAddEdit());
+        tryClick(g_.getEffects().getAllButtons().get(0));
+        tryClick(g_.getEffects().getCancel());
+        tryClick(c_.getValidAddEdit());
+        assertEq(2,((EffectUnprotectFromTypes)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getTypes().size());
+        assertEq(T_1,((EffectUnprotectFromTypes)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getTypes().get(0).getDamageType());
+        assertEq(T_2,((EffectUnprotectFromTypes)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getTypes().get(0).getPokemonType());
+        assertEq(T_2,((EffectUnprotectFromTypes)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getTypes().get(1).getDamageType());
+        assertEq(T_1,((EffectUnprotectFromTypes)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getTypes().get(1).getPokemonType());
+    }
+    @Test
+    public void mvForm49() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<MoveData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelMoveData g_ = (GeneComponentModelMoveData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(M_1);
+        tryClick(g_.getEffects().getAdd());
+        GeneComponentModelEffect effForm_ = effects(g_.getEffects());
+        ConverterCommonMapUtil.trigger(effForm_.getEffectKind(),MessagesEditorSelect.EFF_COUNTER_ATTACK);
+        effForm_.getContentEffectCounterAttack().getSufferingDamageDirectMove().valueRate(Rate.one());
+        tryClick(g_.getEffects().getValidAddEdit());
+        tryClick(g_.getEffects().getAllButtons().get(0));
+        tryClick(g_.getEffects().getCancel());
+        tryClick(c_.getValidAddEdit());
+        assertEq(Rate.one(),((EffectCounterAttack)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getSufferingDamageDirectMove());
+    }
     private FacadeGame facadeAdd(MockProgramInfos _m) {
         FacadeGame f_ = facade(_m);
         f_.getData().getTm().addEntry((short)1,M_1);

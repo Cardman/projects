@@ -10,6 +10,7 @@ import code.util.core.*;
 
 public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect {
     private final ContentComponentModelEffect contentEffect = new ContentComponentModelEffect();
+    private final ContentComponentModelEffectCounterAttack contentEffectCounterAttack = new ContentComponentModelEffectCounterAttack();
     private final ContentComponentModelEffectDamage contentEffectDamage = new ContentComponentModelEffectDamage();
     private final ContentComponentModelEffectGlobal contentEffectGlobal = new ContentComponentModelEffectGlobal();
     private final ContentComponentModelEffectInvoke contentEffectInvoke = new ContentComponentModelEffectInvoke();
@@ -17,6 +18,7 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
     private final ContentComponentModelEffectStatus contentEffectStatus = new ContentComponentModelEffectStatus();
     private final ContentComponentModelEffectTeam contentEffectTeam = new ContentComponentModelEffectTeam();
     private final ContentComponentModelEffectTeamWhileSendFoe contentEffectTeamWhileSendFoe = new ContentComponentModelEffectTeamWhileSendFoe();
+    private final ContentComponentModelEffectUnprotectFromTypes contentEffectUnprotectFromTypes = new ContentComponentModelEffectUnprotectFromTypes();
     private final ContentComponentModelGroupEffectEndRound contentGroupEffectEndRound = new ContentComponentModelGroupEffectEndRound();
     private Effect edited;
 
@@ -30,6 +32,7 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         AbsPanel form_ = compoFactory_.newLineBox();
         form_.add(getEffectKind().geneEnum());
         form_.add(contentEffect.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
+        form_.add(contentEffectCounterAttack.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
         form_.add(contentEffectDamage.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
         form_.add(contentEffectGlobal.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
         form_.add(contentEffectInvoke.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
@@ -37,6 +40,7 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         form_.add(contentEffectStatus.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
         form_.add(contentEffectTeam.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
         form_.add(contentEffectTeamWhileSendFoe.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
+        form_.add(contentEffectUnprotectFromTypes.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
         contentGroupEffectEndRound.effectForm(form_,this);
         getEffectKind().getSelect().addListener(new ChangingEffectEvent(this));
         ConverterCommonMapUtil.trigger(getEffectKind(),MessagesEditorSelect.EFF_DAMAGE);
@@ -49,6 +53,9 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         String display_ = display(eff_);
         if (!display_.isEmpty()) {
             edited = ContentComponentModelGroupEffectEndRound.instance(eff_);
+        }
+        if (StringUtil.quickEq(eff_,MessagesEditorSelect.EFF_COUNTER_ATTACK)) {
+            edited = Instances.newEffectCounterAttack();
         }
         if (StringUtil.quickEq(eff_,MessagesEditorSelect.EFF_DAMAGE)) {
             edited = Instances.newEffectDamage();
@@ -71,12 +78,18 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         if (StringUtil.quickEq(eff_,MessagesEditorSelect.EFF_TEAM_WHILE_SENDING_FOE)) {
             edited = Instances.newEffectTeamWhileSendFoe();
         }
+        if (StringUtil.quickEq(eff_,MessagesEditorSelect.EFF_UNPROTECT_FROM_TYPES)) {
+            edited = Instances.newEffectUnprotectFromTypes();
+        }
         getEffectKind().getSelect().repaint();
         getFrame().pack();
     }
 
     public Effect valueEffect() {
         contentEffect.buildEntity(edited);
+        if (edited instanceof EffectCounterAttack) {
+            contentEffectCounterAttack.buildEntity((EffectCounterAttack) edited);
+        }
         if (edited instanceof EffectDamage) {
             contentEffectDamage.buildEntity((EffectDamage) edited);
         }
@@ -98,6 +111,9 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         if (edited instanceof EffectTeamWhileSendFoe) {
             contentEffectTeamWhileSendFoe.buildEntity((EffectTeamWhileSendFoe) edited);
         }
+        if (edited instanceof EffectUnprotectFromTypes) {
+            contentEffectUnprotectFromTypes.buildEntity((EffectUnprotectFromTypes) edited);
+        }
         if (edited instanceof EffectEndRound) {
             contentGroupEffectEndRound.buildEntity((EffectEndRound)edited);
         }
@@ -106,6 +122,10 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
 
     public void valueEffect(Effect _v) {
         contentEffect.feedForm(_v);
+        if (_v instanceof EffectCounterAttack) {
+            contentEffectCounterAttack.feedForm((EffectCounterAttack) _v);
+            displayRepaint(MessagesEditorSelect.EFF_COUNTER_ATTACK);
+        }
         if (_v instanceof EffectDamage) {
             contentEffectDamage.feedForm((EffectDamage) _v);
             displayRepaint(MessagesEditorSelect.EFF_DAMAGE);
@@ -134,6 +154,10 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
             contentEffectTeamWhileSendFoe.feedForm((EffectTeamWhileSendFoe) _v);
             displayRepaint(MessagesEditorSelect.EFF_TEAM_WHILE_SENDING_FOE);
         }
+        if (_v instanceof EffectUnprotectFromTypes) {
+            contentEffectUnprotectFromTypes.feedForm((EffectUnprotectFromTypes) _v);
+            displayRepaint(MessagesEditorSelect.EFF_UNPROTECT_FROM_TYPES);
+        }
         if (_v instanceof EffectEndRound) {
             displayRepaint(contentGroupEffectEndRound.feedForm((EffectEndRound) _v));
         }
@@ -146,6 +170,7 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
     }
 
     private String display(String _eff) {
+        contentEffectCounterAttack.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_COUNTER_ATTACK));
         contentEffectDamage.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_DAMAGE));
         contentEffectGlobal.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_GLOBAL));
         contentEffectInvoke.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_INVOKE));
@@ -153,11 +178,14 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         contentEffectStatus.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_STATUS));
         contentEffectTeam.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_TEAM));
         contentEffectTeamWhileSendFoe.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_TEAM_WHILE_SENDING_FOE));
+        contentEffectUnprotectFromTypes.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_UNPROTECT_FROM_TYPES));
         return contentGroupEffectEndRound.display(_eff);
     }
     public IdList<SubscribedTranslation> all() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
         ids_.addAllElts(getContentEffect().getTargetChoice().getSubs());
+        ids_.addAllElts(getContentEffectCounterAttack().getSufferingDamageTypes().subscribeButtons());
+        ids_.addAllElts(getContentEffectCounterAttack().getDroppedStatDirectMove().subscribeButtons());
         ids_.addAllElts(getContentEffectDamage().getStatisAtt().getSubs());
         ids_.addAllElts(getContentEffectDamage().getStatisDef().getSubs());
         ids_.addAllElts(getContentEffectDamage().getIgnVarStatTargetPos().getSubs());
@@ -207,6 +235,10 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         ids_.addAllElts(getContentEffectTeamWhileSendFoe().getStatistics().subscribeButtons());
         ids_.addAllElts(getContentEffectTeamWhileSendFoe().getStatusByNbUses().subscribeButtons());
         ids_.addAllElts(getContentEffectTeamWhileSendFoe().getDeletedByFoeTypes().getSubs());
+        ids_.addAllElts(getContentEffectUnprotectFromTypes().getTypes().getCrud().subscribeButtons());
+        ids_.addAllElts(getContentEffectUnprotectFromTypes().getAttackTargetWithTypes().getSubs());
+        ids_.addAllElts(getContentEffectUnprotectFromTypes().getDisableImmuFromMoves().getSubs());
+        ids_.addAllElts(getContentEffectUnprotectFromTypes().getDisableImmuAgainstTypes().getSubs());
         ids_.addAllElts(getContentGroupEffectEndRound().getContentEffectEndRoundIndividual().getUserStatusEndRound().getSubs());
         ids_.addAllElts(getContentGroupEffectEndRound().getContentEffectEndRoundIndividual().getHealHpByOwnerTypes().subscribeButtons());
         ids_.addAllElts(getContentGroupEffectEndRound().getContentEffectEndRoundIndividual().getMultDamageStatus().subscribeButtons());
@@ -221,6 +253,10 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
 
     public ContentComponentModelEffect getContentEffect() {
         return contentEffect;
+    }
+
+    public ContentComponentModelEffectCounterAttack getContentEffectCounterAttack() {
+        return contentEffectCounterAttack;
     }
 
     public ContentComponentModelEffectDamage getContentEffectDamage() {
@@ -249,6 +285,10 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
 
     public ContentComponentModelEffectTeamWhileSendFoe getContentEffectTeamWhileSendFoe() {
         return contentEffectTeamWhileSendFoe;
+    }
+
+    public ContentComponentModelEffectUnprotectFromTypes getContentEffectUnprotectFromTypes() {
+        return contentEffectUnprotectFromTypes;
     }
 
     public ContentComponentModelGroupEffectEndRound getContentGroupEffectEndRound() {
