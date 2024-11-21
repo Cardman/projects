@@ -6,26 +6,23 @@ import code.maths.*;
 import code.util.*;
 
 public final class CrudGeneFormMonteCarloSub<E> {
+    private DisplayEntryCustSubElement<EditedCrudPair<E, LgInt>> displayEntryCustSub;
     private final CrudGeneFormMonteCarlo<E> law;
-    private final GeneComponentModelEventEnum<E> compo;
-    private final DisplayEntryCustSub<E> sub;
-    private final AbsMap<E, String> messages;
+    private GeneComponentModelEventEnum<E> compo;
 
-    public CrudGeneFormMonteCarloSub(AbsCommonFrame _f, AbstractProgramInfos _core, GeneComponentModelEltEnumSub<E> _sub, AbsMap<E, String> _mess, DisplayEntryCustSub<E> _subsLoc) {
-        sub = _subsLoc;
-        messages = _mess;
-        ComparingEnumKey<E, LgInt> cmp_ = new ComparingEnumKey<E, LgInt>(_mess);
-        this.law = new CrudGeneFormMonteCarlo<E>(_core, cmp_);
-        law.setFrame(_f);
-        law.initForm();
-        GeneComponentModelEventEnum<E> compo_ = new GeneComponentModelEventEnum<E>(_core, _sub);
-        law.initFormKeys(new StatisticLgIntDisplayEntryCust<E>(_mess), compo_, cmp_);
-        this.compo = compo_;
+    public CrudGeneFormMonteCarloSub(AbsCommonFrame _f, AbstractProgramInfos _core) {
+        this.law = new CrudGeneFormMonteCarlo<E>(_f, _core, null);
     }
 
+    public void initFormKeys(GeneComponentModelEltEnumSub<E> _sub, DisplayEntryCustSubElement<EditedCrudPair<E, LgInt>> _subsLoc) {
+        displayEntryCustSub = _subsLoc;
+        GeneComponentModelEventEnum<E> compo_ = new GeneComponentModelEventEnum<E>(law.getFactory(), _sub);
+        law.initFormKeys(_subsLoc.buildDisplay(), compo_, _subsLoc.buildCmp());
+        this.compo = compo_;
+    }
     public IdList<SubscribedTranslation> subscribeButtons() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
-        ids_.addAllElts(sub.buildSub(messages));
+        ids_.addAllElts(displayEntryCustSub.buildSub());
         ids_.add(new SubscribedTranslationPkKey<EditedCrudPair<E, LgInt>>(law));
         return ids_;
     }

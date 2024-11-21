@@ -33,11 +33,13 @@ public final class ContentComponentModelEffectStatus {
         return selected_;
     }
     private CrudGeneFormMonteCarloSub<String> buildLaw(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
-        return new CrudGeneFormMonteCarloSub<String>(_f, _core, new StringSubscribeBuilderUtil(_fact.getFactorySt()).merge(_core, _fac, new CustList<String>(), ConverterCommonMapUtil.defKeyEmpty(" ")), _fact.getFactorySt().buildMessages(_core,_fac,ConverterCommonMapUtil.defKeyEmpty(" ")), new DisplayEntryCustSubImpl<String>(_fact.getFactorySt(),ConverterCommonMapUtil.defKeyEmpty(" ")));
+        CrudGeneFormMonteCarloSub<String> law_ = new CrudGeneFormMonteCarloSub<String>(_f, _core);
+        law_.initFormKeys(ConverterCommonMapUtil.buildStatus(_core,_fac,_fact,ConverterCommonMapUtil.defKeyEmpty(" ")),new DisplayEntryCustSubElementLgIntImpl<String>(_fact.getFactorySt(), _core, _fac, ConverterCommonMapUtil.defKeyEmpty(" ")));
+        return law_;
     }
     private CrudGeneFormSimpleFormSub<String,String> buildLocalFail(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
         CrudGeneFormSimpleFormSub<String,String> out_ = new CrudGeneFormSimpleFormSub<String,String>(_core, _fac, _fact, _f);
-        out_.initForm(new DisplayEntryCustSubImpl<String>(_fact.getFactorySt(), new StringMap<String>()),_fact.getFactorySt().buildMessages(_core,_fac), buildPart(_core,_fac, _fact.getFactorySt(), new StringMap<String>()), new GeneComponentModelSubscribeFactoryString(_core));
+        out_.initFormNoVal(new DisplayEntryCustSubElementImpl<String,String>(_fact.getFactorySt(),_core,_fac, new StringMap<String>()), buildPart(_core,_fac, _fact.getFactorySt(), new StringMap<String>()), new GeneComponentModelSubscribeFactoryString(_core));
         return out_;
     }
     private GeneComponentModelSubscribeFactorySelElt buildPart(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationMessagesFactory _facto, StringMap<String> _abs) {

@@ -1255,7 +1255,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
     private CrudGeneFormMonteCarlo<Rate> crudMc(AbMonteCarlo<Rate> _map) {
         MockProgramInfosSecSample pr_ = init();
         AbsCommonFrame f_ = pr_.getFrameFactory().newCommonFrame();
-        CrudGeneFormMonteCarlo<Rate> c_ = new CrudGeneFormMonteCarlo<Rate>(pr_,new ComparingRateKey<LgInt>());
+        CrudGeneFormMonteCarlo<Rate> c_ = new CrudGeneFormMonteCarlo<Rate>(null, pr_,new ComparingRateKey<LgInt>());
         c_.setFrame(f_);
         c_.initForm();
         c_.initFormKeys(new RateLgIntDisplayEntryCust(),new GeneComponentModelEventRate(pr_), new ComparingRateKey<LgInt>());

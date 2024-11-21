@@ -86,7 +86,7 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         form_.add(expEvo.geneEnum());
         levMoves.initForm(new DisplayEntryCustSubElementLevelMove(getCompoFactory(),getFacade(),getSubscribedTranslationList()), new GeneComponentModelSubscribeFactoryDirect<LevelMove>(new GeneComponentModelSubscribeLevelMove(getCompoFactory(),getFacade(),getSubscribedTranslationList())));
         form_.add(levMoves.getGroup());
-        evolutions.initForm(new DisplayEntryCustSubImpl<String>(getSubscribedTranslationList().getFactoryPk(), new StringMap<String>()),getSubscribedTranslationList().getFactoryPk().buildMessages(getCompoFactory(),getFacade()),buildPart(getSubscribedTranslationList().getFactoryPk(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Evolution>(new GeneComponentModelSubscribeEvolution(getCompoFactory(),getFacade(),getSubscribedTranslationList(),evolutions.getCommonFrame())));
+        evolutions.initFormNoVal(new DisplayEntryCustSubElementImpl<String,Evolution>(getSubscribedTranslationList().getFactoryPk(),getCompoFactory(),getFacade(), new StringMap<String>()),buildPart(getSubscribedTranslationList().getFactoryPk(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Evolution>(new GeneComponentModelSubscribeEvolution(getCompoFactory(),getFacade(),getSubscribedTranslationList(),evolutions.getCommonFrame())));
         form_.add(evolutions.getGroup());
         form_.add(technicalMoves.geneEnum());
         form_.add(hiddenMoves.geneEnum());

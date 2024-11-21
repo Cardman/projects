@@ -1,8 +1,7 @@
 package aiki.gui.components.editor;
 
-import code.gui.AbsCustComponent;
-import code.gui.GeneComponentModelEvent;
-import code.gui.initialize.AbstractProgramInfos;
+import code.gui.*;
+import code.gui.initialize.*;
 
 public final class GeneComponentModelEventEnum<T> extends GeneComponentModelEvent<T> {
     private final GeneComponentModelEltEnumSub<T> event;

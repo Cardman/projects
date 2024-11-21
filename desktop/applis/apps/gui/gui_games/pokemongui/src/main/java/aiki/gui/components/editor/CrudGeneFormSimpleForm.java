@@ -7,35 +7,25 @@ import code.util.*;
 import code.util.ints.*;
 
 public final class CrudGeneFormSimpleForm<K, V> extends CrudGeneFormListSub<EditedCrudPair<K, V>> {
-    private DisplayEntryCustSub<K> displayEntryCustSub;
-    private DisplayEntryCustSubElement<EditedCrudPair<K, V>> displayEntryCustSubSec;
-    private AbsMap<K, String> messages;
+    private DisplayEntryCustSubElement<EditedCrudPair<K, V>> displayEntryCustSub;
     private GeneComponentModelSimplePair<K,V> genePair;
 
     public CrudGeneFormSimpleForm(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub, AbsCommonFrame _fr) {
         super(_fact, _facade, _sub, _fr, null);
 
     }
-    public void initForm(DisplayEntryCustSub<K> _d, AbsMap<K, String> _disp, AbstractProgramInfos _core, AbsGeneComponentModelSubscribeFactory<K> _k, AbsGeneComponentModelSubscribeFactory<V> _v) {
+
+    public void initForm(DisplayEntryCustSubElement<EditedCrudPair<K, V>> _d, AbstractProgramInfos _core, AbsGeneComponentModelSubscribeFactory<K> _k, AbsGeneComponentModelSubscribeFactory<V> _v, ValidateElementPairFactory<K,V> _facto) {
         getCrudGeneFormSubContent().clear();
         displayEntryCustSub = _d;
         genePair = new GeneComponentModelSimplePair<K,V>(_core,_k,_v);
         initForm();
-        messages = _disp;
-        Comparing<EditedCrudPair<K, V>> cmp_ = new ComparatorTrWrapperPairs<K, V>().wrap(_disp);
-        initForm(new DisplayKeyOnly<K, V>(_disp), genePair, cmp_,new ValidateElementPair<K, V>(cmp_));
-    }
-    public void initForm(DisplayEntryCustSubElement<EditedCrudPair<K, V>> _d, AbstractProgramInfos _core, AbsGeneComponentModelSubscribeFactory<K> _k, AbsGeneComponentModelSubscribeFactory<V> _v) {
-        getCrudGeneFormSubContent().clear();
-        displayEntryCustSubSec = _d;
-        genePair = new GeneComponentModelSimplePair<K,V>(_core,_k,_v);
-        initForm();
-        initForm(_d.buildDisplay(), genePair, _d.buildCmp());
+        Comparing<EditedCrudPair<K, V>> cmp_ = _d.buildCmp();
+        initForm(_d.buildDisplay(), genePair, cmp_,_facto.build(cmp_));
     }
     public void initForm(DisplayEntryCust<Integer,EditedCrudPair<K, V>> _d, Comparing<EditedCrudPair<K, V>> _disp, AbstractProgramInfos _core, AbsGeneComponentModelSubscribeFactory<K> _k, AbsGeneComponentModelSubscribeFactory<V> _v) {
         getCrudGeneFormSubContent().clear();
         displayEntryCustSub = null;
-        displayEntryCustSubSec = null;
         genePair = new GeneComponentModelSimplePair<K,V>(_core,_k,_v);
         initForm();
         initForm(_d, genePair, _disp,new ValidateElementPair<K, V>(_disp));
@@ -44,11 +34,7 @@ public final class CrudGeneFormSimpleForm<K, V> extends CrudGeneFormListSub<Edit
     public IdList<SubscribedTranslation> subscribeButtons() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
         if (displayEntryCustSub != null) {
-            ids_.addAllElts(displayEntryCustSub.buildSub(messages));
-            ids_.add(new SubscribedTranslationPkKey<EditedCrudPair<K, V>>(this));
-        }
-        if (displayEntryCustSubSec != null) {
-            ids_.addAllElts(displayEntryCustSubSec.buildSub());
+            ids_.addAllElts(displayEntryCustSub.buildSub());
             ids_.add(new SubscribedTranslationPkKey<EditedCrudPair<K, V>>(this));
         }
         return ids_;

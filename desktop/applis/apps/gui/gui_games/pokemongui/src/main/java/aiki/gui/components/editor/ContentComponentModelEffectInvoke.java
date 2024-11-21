@@ -29,10 +29,10 @@ public final class ContentComponentModelEffectInvoke {
         movesNotToBeInvoked = ConverterCommonMapUtil.buildMoveList(_core,_fac,_fact);
         selected_.add(movesNotToBeInvoked.geneEnum());
         moveFctEnv = new CrudGeneFormSimpleFormSub<EnvironmentType, String>(_core, _fac, _fact, _f);
-        moveFctEnv.initForm(new DisplayEntryCustSubImpl<EnvironmentType>(_fact.getFactoryEnvironmentType(), new IdMap<EnvironmentType, String>()),_fact.getFactoryEnvironmentType().buildMessages(_core,_fac),new GeneComponentModelSubscribeFactorySelEltEnum<EnvironmentType>(_core,_fact.getFactoryEnvironmentType(),_fac), buildPart(_core,_fac,_fact.getFactoryMv(),new StringMap<String>()));
+        moveFctEnv.initFormNoVal(new DisplayEntryCustSubElementImpl<EnvironmentType, String>(_fact.getFactoryEnvironmentType(),_core,_fac, new IdMap<EnvironmentType, String>()),new GeneComponentModelSubscribeFactorySelEltEnum<EnvironmentType>(_core,_fact.getFactoryEnvironmentType(),_fac), buildPart(_core,_fac,_fact.getFactoryMv(),new StringMap<String>()));
         selected_.add(moveFctEnv.getGroup());
         invokingMoveByUserTypes = new CrudGeneFormSimpleFormSub<String, String>(_core, _fac, _fact, _f);
-        invokingMoveByUserTypes.initForm(new DisplayEntryCustSubImpl<String>(_fact.getFactoryTy(),ConverterCommonMapUtil.defKeyEmpty(" ")),_fact.getFactoryTy().buildMessages(_core,_fac,ConverterCommonMapUtil.defKeyEmpty(" ")),buildPart(_core,_fac,_fact.getFactoryTy(),ConverterCommonMapUtil.defKeyEmpty(" ")),buildPart(_core,_fac,_fact.getFactoryMv(),new StringMap<String>()));
+        invokingMoveByUserTypes.initFormNoVal(new DisplayEntryCustSubElementImpl<String, String>(_fact.getFactoryTy(),_core,_fac,ConverterCommonMapUtil.defKeyEmpty(" ")),buildPart(_core,_fac,_fact.getFactoryTy(),ConverterCommonMapUtil.defKeyEmpty(" ")),buildPart(_core,_fac,_fact.getFactoryMv(),new StringMap<String>()));
         selected_.add(invokingMoveByUserTypes.getGroup());
         invokingMoveButUser = _core.getCompoFactory().newCustCheckBox();
         selected_.add(invokingMoveButUser);

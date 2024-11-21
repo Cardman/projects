@@ -21,9 +21,7 @@ public final class ContentComponentModelEffectEndRoundSingleRelation {
         return selected_;
     }
     private CrudGeneFormMonteCarlo<Rate> buildMcRate(AbsCommonFrame _f, AbstractProgramInfos _core) {
-        CrudGeneFormMonteCarlo<Rate> out_ = new CrudGeneFormMonteCarlo<Rate>(_core, new ComparingRateKey<LgInt>());
-        out_.setFrame(_f);
-        out_.initForm();
+        CrudGeneFormMonteCarlo<Rate> out_ = new CrudGeneFormMonteCarlo<Rate>(_f, _core, new ComparingRateKey<LgInt>());
         out_.initFormKeys(new RateLgIntDisplayEntryCust(),new GeneComponentModelEventRate(_core), new ComparingRateKey<LgInt>());
         return out_;
     }
