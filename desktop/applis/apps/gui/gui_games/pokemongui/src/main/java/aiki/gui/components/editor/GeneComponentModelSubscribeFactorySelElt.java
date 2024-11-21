@@ -4,7 +4,7 @@ import aiki.facade.*;
 import code.gui.initialize.*;
 import code.util.*;
 
-public class GeneComponentModelSubscribeFactorySelElt implements AbsGeneComponentModelSubscribeFactory<String> {
+public final class GeneComponentModelSubscribeFactorySelElt implements AbsGeneComponentModelSubscribeFactory<String> {
 
     private final AbstractProgramInfos core;
     private final FacadeGame facade;

@@ -13,7 +13,7 @@ public final class ContentComponentModelEffectEndRoundMultiRelation {
     AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
         AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
         damageByStatus = new CrudGeneFormSimpleFormSub<String, Rate>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
-        damageByStatus.initFormNoVal(new DisplayEntryCustSubElementImpl<String, Rate>(_core.getFactory().getFactorySt(), _core.getProgramInfos(),_core.getFacadeGame(),new StringMap<String>()), buildPart(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory().getFactorySt(), new StringMap<String>()), new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())));
+        damageByStatus.initFormWithVal(new DisplayEntryCustSubElementImpl<String, Rate>(_core.getFactory().getFactorySt(), _core.getProgramInfos(),_core.getFacadeGame(),new StringMap<String>()), buildPart(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory().getFactorySt(), new StringMap<String>()), new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())));
         selected_.add(damageByStatus.getGroup());
         form = selected_;
         selected_.setVisible(false);

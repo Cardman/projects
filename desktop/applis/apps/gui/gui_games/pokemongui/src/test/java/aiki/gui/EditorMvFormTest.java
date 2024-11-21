@@ -1320,6 +1320,82 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         tryClick(c_.getValidAddEdit());
         assertEq(2,facade_.getData().getMoves().getVal(M_1).getEffects().size());
     }
+    @Test
+    public void mvForm46() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<MoveData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelMoveData g_ = (GeneComponentModelMoveData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(M_1);
+        tryClick(g_.getEffects().getAdd());
+        ConverterCommonMapUtil.trigger(effects(g_.getEffects()).getEffectKind(),MessagesEditorSelect.EFF_TEAM);
+        tryClick(effects(g_.getEffects()).getContentEffectTeam().getMultDamage().getCrud().getAdd());
+        effects(g_.getEffects()).getContentEffectTeam().getMultDamage().getCrud().getKey().setupValue(new CategoryMult(C_1,(short) 1));
+        effects(g_.getEffects()).getContentEffectTeam().getMultDamage().getCrud().getValue().setupValue(new Rate(1));
+        tryClick(effects(g_.getEffects()).getContentEffectTeam().getMultDamage().getCrud().getValidAddEdit());
+        tryClick(effects(g_.getEffects()).getContentEffectTeam().getMultDamage().getCrud().getAdd());
+        effects(g_.getEffects()).getContentEffectTeam().getMultDamage().getCrud().getKey().setupValue(new CategoryMult(C_2,(short) 2));
+        effects(g_.getEffects()).getContentEffectTeam().getMultDamage().getCrud().getValue().setupValue(new Rate(2));
+        tryClick(effects(g_.getEffects()).getContentEffectTeam().getMultDamage().getCrud().getValidAddEdit());
+        tryClick(effects(g_.getEffects()).getContentEffectTeam().getMultDamage().getCrud().getAllButtons().get(0));
+        tryClick(effects(g_.getEffects()).getContentEffectTeam().getMultDamage().getCrud().getCancel());
+        tryClick(g_.getEffects().getValidAddEdit());
+        tryClick(g_.getEffects().getAdd());
+        ConverterCommonMapUtil.trigger(effects(g_.getEffects()).getEffectKind(),MessagesEditorSelect.EFF_TEAM);
+        effects(g_.getEffects()).getContentEffectTeam().getForbiddingHealing().setSelected(false);
+        effects(g_.getEffects()).getContentEffectTeam().getProtectAgainstCh().setSelected(false);
+        tryClick(g_.getEffects().getValidAddEdit());
+        tryClick(g_.getEffects().getAdd());
+        ConverterCommonMapUtil.trigger(effects(g_.getEffects()).getEffectKind(),MessagesEditorSelect.EFF_INVOKE);
+        effects(g_.getEffects()).getContentEffectTeam().getForbiddingHealing().setSelected(true);
+        effects(g_.getEffects()).getContentEffectTeam().getProtectAgainstCh().setSelected(true);
+        tryClick(g_.getEffects().getValidAddEdit());
+        tryClick(g_.getEffects().getAllButtons().get(0));
+        tryClick(g_.getEffects().getCancel());
+        tryClick(g_.getEffects().getAllButtons().get(1));
+        tryClick(g_.getEffects().getCancel());
+        tryClick(g_.getEffects().getAllButtons().get(2));
+        tryClick(g_.getEffects().getCancel());
+        tryClick(c_.getValidAddEdit());
+        assertEq(2,((EffectTeam)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getMultDamage().size());
+        assertEq(C_1,((EffectTeam)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getMultDamage().getKey(0).getCategory());
+        assertEq(1,((EffectTeam)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getMultDamage().getKey(0).getMult());
+        assertEq(new Rate(1),((EffectTeam)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getMultDamage().getValue(0));
+        assertEq(C_2,((EffectTeam)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getMultDamage().getKey(1).getCategory());
+        assertEq(2,((EffectTeam)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getMultDamage().getKey(1).getMult());
+        assertEq(new Rate(2),((EffectTeam)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getMultDamage().getValue(1));
+    }
+    @Test
+    public void mvForm47() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<MoveData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelMoveData g_ = (GeneComponentModelMoveData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(M_1);
+        tryClick(g_.getEffects().getAdd());
+        ConverterCommonMapUtil.trigger(effects(g_.getEffects()).getEffectKind(),MessagesEditorSelect.EFF_TEAM_WHILE_SENDING_FOE);
+        tryClick(effects(g_.getEffects()).getContentEffectTeamWhileSendFoe().getStatusByNbUses().getCrud().getAdd());
+        effects(g_.getEffects()).getContentEffectTeamWhileSendFoe().getStatusByNbUses().getCrud().getKey().setupValue((short) 1);
+        effects(g_.getEffects()).getContentEffectTeamWhileSendFoe().getStatusByNbUses().getCrud().getValue().setupValue(S_1);
+        tryClick(effects(g_.getEffects()).getContentEffectTeamWhileSendFoe().getStatusByNbUses().getCrud().getValidAddEdit());
+        tryClick(effects(g_.getEffects()).getContentEffectTeamWhileSendFoe().getStatusByNbUses().getCrud().getAdd());
+        effects(g_.getEffects()).getContentEffectTeamWhileSendFoe().getStatusByNbUses().getCrud().getKey().setupValue((short) 2);
+        effects(g_.getEffects()).getContentEffectTeamWhileSendFoe().getStatusByNbUses().getCrud().getValue().setupValue(S_2);
+        tryClick(effects(g_.getEffects()).getContentEffectTeamWhileSendFoe().getStatusByNbUses().getCrud().getValidAddEdit());
+        tryClick(g_.getEffects().getValidAddEdit());
+        tryClick(g_.getEffects().getAllButtons().get(0));
+        tryClick(g_.getEffects().getCancel());
+        tryClick(c_.getValidAddEdit());
+        assertEq(2,((EffectTeamWhileSendFoe)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getStatusByNbUses().size());
+        assertEq(1,((EffectTeamWhileSendFoe)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getStatusByNbUses().getKey(0));
+        assertEq(S_1,((EffectTeamWhileSendFoe)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getStatusByNbUses().getValue(0));
+        assertEq(2,((EffectTeamWhileSendFoe)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getStatusByNbUses().getKey(1));
+        assertEq(S_2,((EffectTeamWhileSendFoe)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getStatusByNbUses().getValue(1));
+    }
     private FacadeGame facadeAdd(MockProgramInfos _m) {
         FacadeGame f_ = facade(_m);
         f_.getData().getTm().addEntry((short)1,M_1);

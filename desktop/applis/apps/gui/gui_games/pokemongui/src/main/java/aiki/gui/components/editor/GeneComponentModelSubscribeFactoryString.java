@@ -2,7 +2,7 @@ package aiki.gui.components.editor;
 
 import code.gui.initialize.*;
 
-public class GeneComponentModelSubscribeFactoryString implements AbsGeneComponentModelSubscribeFactory<String> {
+public final class GeneComponentModelSubscribeFactoryString implements AbsGeneComponentModelSubscribeFactory<String> {
 
     private final AbstractProgramInfos core;
 

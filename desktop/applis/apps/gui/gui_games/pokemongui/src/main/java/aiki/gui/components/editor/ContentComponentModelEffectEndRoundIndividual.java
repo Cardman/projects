@@ -24,10 +24,10 @@ public final class ContentComponentModelEffectEndRoundIndividual {
         healHp = new GeneComponentModelRate(_core.getProgramInfos());
         selected_.add(healHp.geneRate(Rate.zero()));
         healHpByOwnerTypes = new CrudGeneFormSimpleFormSub<String, Rate>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
-        healHpByOwnerTypes.initFormNoVal(new DisplayEntryCustSubElementImpl<String, Rate>(_core.getFactory().getFactoryTy(), _core.getProgramInfos(), _core.getFacadeGame(),new StringMap<String>()), buildPart(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory().getFactoryTy(), new StringMap<String>()), new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())));
+        healHpByOwnerTypes.initFormWithVal(new DisplayEntryCustSubElementImpl<String, Rate>(_core.getFactory().getFactoryTy(), _core.getProgramInfos(), _core.getFacadeGame(),new StringMap<String>()), buildPart(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory().getFactoryTy(), new StringMap<String>()), new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())));
         selected_.add(healHpByOwnerTypes.getGroup());
         multDamageStatus = new CrudGeneFormSimpleFormSub<String,Rate>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
-        multDamageStatus.initFormNoVal(new DisplayEntryCustSubElementImpl<String, Rate>(_core.getFactory().getFactorySt(), _core.getProgramInfos(), _core.getFacadeGame(),new StringMap<String>()), buildPart(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory().getFactorySt(), new StringMap<String>()), new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())));
+        multDamageStatus.initFormWithVal(new DisplayEntryCustSubElementImpl<String, Rate>(_core.getFactory().getFactorySt(), _core.getProgramInfos(), _core.getFacadeGame(),new StringMap<String>()), buildPart(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory().getFactorySt(), new StringMap<String>()), new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())));
         selected_.add(multDamageStatus.getGroup());
         userStatusEndRound = ConverterCommonMapUtil.buildStatus(_core.getProgramInfos(), _core.getFacadeGame(),_core.getFactory(),ConverterCommonMapUtil.defKeyEmpty(" "));
         selected_.add(userStatusEndRound.geneEnum());

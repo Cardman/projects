@@ -6,7 +6,7 @@ import code.gui.*;
 import code.gui.initialize.*;
 import code.util.*;
 
-public class GeneComponentModelSubscribeTypesDuo implements AbsGeneComponentModelSubscribe<TypesDuo> {
+public final class GeneComponentModelSubscribeTypesDuo implements AbsGeneComponentModelSubscribe<TypesDuo> {
     private final AbstractProgramInfos programInfos;
     private final FacadeGame facade;
     private GeneComponentModelEltEnumSub<String> damageType;

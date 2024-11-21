@@ -7,7 +7,7 @@ import code.gui.*;
 import code.gui.initialize.*;
 import code.util.*;
 
-public class GeneComponentModelSubscribeStatisticType implements AbsGeneComponentModelSubscribe<StatisticType> {
+public final class GeneComponentModelSubscribeStatisticType implements AbsGeneComponentModelSubscribe<StatisticType> {
     private final AbstractProgramInfos programInfos;
     private final FacadeGame facade;
     private GeneComponentModelEltEnumSub<Statistic> statistic;

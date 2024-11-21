@@ -34,13 +34,13 @@ public final class ContentComponentModelEffectStatistic {
         cancelChgtStat = ConverterCommonMapUtil.buildStatisticsLs(_core,_fac,_fact);
         selected_.add(cancelChgtStat.geneEnum());
         statisVarRank = new CrudGeneFormSimpleFormSub<Statistic,Byte>(_core, _fac, _fact, _f);
-        statisVarRank.initFormNoVal(new DisplayEntryCustSubElementImpl<Statistic,Byte>(_fact.getFactoryStat(),_core,_fac, new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac), new GeneComponentModelSubscribeFactoryDirect<Byte>(new GeneComponentModelSubscribeByte(_core)));
+        statisVarRank.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Byte>(_fact.getFactoryStat(),_core,_fac, new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac), new GeneComponentModelSubscribeFactoryDirect<Byte>(new GeneComponentModelSubscribeByte(_core)));
         selected_.add(statisVarRank.getGroup());
         localFailStatis = new CrudGeneFormSimpleFormSub<Statistic,String>(_core, _fac, _fact, _f);
-        localFailStatis.initFormNoVal(new DisplayEntryCustSubElementImpl<Statistic,String>(_fact.getFactoryStat(),_core,_fac, new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac), new GeneComponentModelSubscribeFactoryString(_core));
+        localFailStatis.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,String>(_fact.getFactoryStat(),_core,_fac, new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac), new GeneComponentModelSubscribeFactoryString(_core));
         selected_.add(localFailStatis.getGroup());
         localFailSwapBoostStatis = new CrudGeneFormSimpleFormSub<Statistic,String>(_core, _fac, _fact, _f);
-        localFailSwapBoostStatis.initFormNoVal(new DisplayEntryCustSubElementImpl<Statistic,String>(_fact.getFactoryStat(),_core,_fac, new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac), new GeneComponentModelSubscribeFactoryString(_core));
+        localFailSwapBoostStatis.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,String>(_fact.getFactoryStat(),_core,_fac, new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac), new GeneComponentModelSubscribeFactoryString(_core));
         selected_.add(localFailSwapBoostStatis.getGroup());
         lawBoost = new CrudGeneFormMonteCarloSub<Statistic>(_f,_core);
         lawBoost.initFormKeys(ConverterCommonMapUtil.buildStatisticsElt(_core, _fac, _fact),new DisplayEntryCustSubElementLgIntImpl<Statistic>(_fact.getFactoryStat(),_core,_fac, new IdMap<Statistic, String>()));
