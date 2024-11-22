@@ -13,6 +13,7 @@ import aiki.instances.*;
 import aiki.map.levels.enums.*;
 import code.maths.*;
 import code.mock.*;
+import code.util.CustList;
 import org.junit.Test;
 
 public final class EditorMvFormTest extends InitEditorPkForm {
@@ -1648,6 +1649,77 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         tryClick(effectsCrud(g_).getCancel());
         tryClick(c_.getValidAddEdit());
         assertEq(Rate.one(),((EffectWinMoney)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getWinningRateBySumTargetUser());
+    }
+    @Test
+    public void mvForm60() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<MoveData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelMoveData g_ = (GeneComponentModelMoveData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(M_1);
+        tryClick(effectsCrud(g_).getAdd());
+        ConverterCommonMapUtil.trigger(effects(effectsCrud(g_)).getEffectKind(),MessagesEditorSelect.EFF_REMAINED_HP_RATE);
+        effects(effectsCrud(g_)).getContentEffectRemainedHpRate().getRateHp().valueRate(Rate.one());
+        tryClick(effectsCrud(g_).getValidAddEdit());
+        tryClick(effectsCrud(g_).getAllButtons().get(0));
+        tryClick(effectsCrud(g_).getCancel());
+        tryClick(c_.getValidAddEdit());
+        assertEq(Rate.one(),((EffectRemainedHpRate)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getRateHp());
+    }
+    @Test
+    public void mvForm61() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<MoveData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelMoveData g_ = (GeneComponentModelMoveData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(M_1);
+        tryClick(effectsCrud(g_).getAdd());
+        ConverterCommonMapUtil.trigger(effects(effectsCrud(g_)).getEffectKind(),MessagesEditorSelect.EFF_PROTECTION);
+        effects(effectsCrud(g_)).getContentEffectProtection().getProtSingle().setSelected(true);
+        effects(effectsCrud(g_)).getContentEffectProtection().getProtTeamAgainstDamageMoves().setSelected(true);
+        effects(effectsCrud(g_)).getContentEffectProtection().getProtTeamAgainstMultTargets().setSelected(true);
+        effects(effectsCrud(g_)).getContentEffectProtection().getProtTeamAgainstPrio().setSelected(true);
+        effects(effectsCrud(g_)).getContentEffectProtection().getProtTeamAgainstStatusMoves().setSelected(true);
+        effects(effectsCrud(g_)).getContentEffectProtection().getProtSingleAgainstKo().valueRate(Rate.one());
+        tryClick(effectsCrud(g_).getValidAddEdit());
+        tryClick(effectsCrud(g_).getAdd());
+        ConverterCommonMapUtil.trigger(effects(effectsCrud(g_)).getEffectKind(),MessagesEditorSelect.EFF_PROTECTION);
+        effects(effectsCrud(g_)).getContentEffectProtection().getProtSingle().setSelected(false);
+        effects(effectsCrud(g_)).getContentEffectProtection().getProtTeamAgainstDamageMoves().setSelected(false);
+        effects(effectsCrud(g_)).getContentEffectProtection().getProtTeamAgainstMultTargets().setSelected(false);
+        effects(effectsCrud(g_)).getContentEffectProtection().getProtTeamAgainstPrio().setSelected(false);
+        effects(effectsCrud(g_)).getContentEffectProtection().getProtTeamAgainstStatusMoves().setSelected(false);
+        effects(effectsCrud(g_)).getContentEffectProtection().getProtSingleAgainstKo().valueRate(new Rate(2));
+        tryClick(effectsCrud(g_).getValidAddEdit());
+        tryClick(effectsCrud(g_).getAllButtons().get(0));
+        tryClick(effectsCrud(g_).getCancel());
+        tryClick(effectsCrud(g_).getAllButtons().get(1));
+        tryClick(effectsCrud(g_).getCancel());
+        tryClick(c_.getValidAddEdit());
+        assertEq(Rate.one(),((EffectProtection)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getProtSingleAgainstKo());
+    }
+    @Test
+    public void mvForm62() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<MoveData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelMoveData g_ = (GeneComponentModelMoveData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(M_1);
+        tryClick(effectsCrud(g_).getAdd());
+        ConverterCommonMapUtil.trigger(effects(effectsCrud(g_)).getEffectKind(),MessagesEditorSelect.EFF_PROTECT_FROM_TYPES);
+        effects(effectsCrud(g_)).getContentEffectProtectFromTypes().getImmuAgainstTypes().setupValue(new CustList<String>(T_1));
+        tryClick(effectsCrud(g_).getValidAddEdit());
+        tryClick(effectsCrud(g_).getAllButtons().get(0));
+        tryClick(effectsCrud(g_).getCancel());
+        tryClick(c_.getValidAddEdit());
+        assertEq(1,((EffectProtectFromTypes)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getImmuAgainstTypes().size());
+        assertEq(T_1,((EffectProtectFromTypes)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getImmuAgainstTypes().get(0));
     }
     private CrudGeneFormSimpleElement<Effect> effectsCrud(GeneComponentModelMoveData _g) {
         return _g.getEffects().getCrud();
