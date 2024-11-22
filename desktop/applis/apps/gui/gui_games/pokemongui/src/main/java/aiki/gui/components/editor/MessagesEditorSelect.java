@@ -42,19 +42,20 @@ public final class MessagesEditorSelect {
     public static final String EFF_PROTECT_FROM_TYPES = "26";
     public static final String EFF_PROTECTION = "27";
     public static final String EFF_REMAINED_HP_RATE = "28";
-    public static final String EFF_STATIS = "29";
-    public static final String EFF_STATUS = "30";
-    public static final String EFF_SWITCH_ABILITIES = "31";
-    public static final String EFF_SWITCH_ITEMS = "32";
-    public static final String EFF_SWITCH_MOVES_TYPES = "33";
-    public static final String EFF_SWITCH_POINT_VIEW = "34";
-    public static final String EFF_SWITCH_POSITION = "35";
-    public static final String EFF_SWITCH_TYPES = "36";
-    public static final String EFF_TEAM = "37";
-    public static final String EFF_TEAM_WHILE_SENDING_FOE = "38";
-    public static final String EFF_UNPROTECT_FROM_TYPES = "39";
-    public static final String EFF_VAR_PP = "40";
-    public static final String EFF_WIN_MONEY = "41";
+    public static final String EFF_RESTRICTION = "29";
+    public static final String EFF_STATIS = "30";
+    public static final String EFF_STATUS = "31";
+    public static final String EFF_SWITCH_ABILITIES = "32";
+    public static final String EFF_SWITCH_ITEMS = "33";
+    public static final String EFF_SWITCH_MOVES_TYPES = "34";
+    public static final String EFF_SWITCH_POINT_VIEW = "35";
+    public static final String EFF_SWITCH_POSITION = "36";
+    public static final String EFF_SWITCH_TYPES = "37";
+    public static final String EFF_TEAM = "38";
+    public static final String EFF_TEAM_WHILE_SENDING_FOE = "39";
+    public static final String EFF_UNPROTECT_FROM_TYPES = "40";
+    public static final String EFF_VAR_PP = "41";
+    public static final String EFF_WIN_MONEY = "42";
     private MessagesEditorSelect() {
     }
     public static TranslationsFile enGenderRep(){
@@ -132,6 +133,7 @@ public final class MessagesEditorSelect {
         e_.add(EFF_PROTECT_FROM_TYPES,"Protects a fighter against a type of move.");
         e_.add(EFF_PROTECTION,"Protects a part of the team of the user.");
         e_.add(EFF_REMAINED_HP_RATE,"Makes vary the hp in function of a rate of remaining hp of the fighter.");
+        e_.add(EFF_RESTRICTION,"Restricts some usage.");
         e_.add(EFF_STATIS,"Changes levels or values of statistics for a fighter at least.");
         e_.add(EFF_STATUS,"Adds/Deletes a status at least.");
         e_.add(EFF_SWITCH_ABILITIES,"Changes an ability at least.");
@@ -178,6 +180,7 @@ public final class MessagesEditorSelect {
         f_.add(EFF_PROTECT_FROM_TYPES,"Immunise un combattant à un type d'attaque.");
         f_.add(EFF_PROTECTION,"Protège une partie de l'équipe du lanceur.");
         f_.add(EFF_REMAINED_HP_RATE,"Fait varier les pv en fonction d'un quota de pv restants du combattant.");
+        f_.add(EFF_RESTRICTION,"Restreint certains usages.");
         f_.add(EFF_STATIS,"Change des boosts ou des valeurs de statistiques pour au moins un combattant.");
         f_.add(EFF_STATUS,"Ajoute/supprime au moins un statut.");
         f_.add(EFF_SWITCH_ABILITIES,"Change au moins une capacité.");
@@ -261,6 +264,26 @@ public final class MessagesEditorSelect {
         f_.add(DataBase.DEF_CONST_VALUES_TYPE_LANCEUR_ATTAQUES_TYPES,"Le lanceur de cette attaque attend que sa cible lance une attaque \"saisissable\"");
         f_.add(DataBase.DEF_CONST_VALUES_TYPE_TYPES_ATTAQUES_RES,"Le possesseur de cet effet contre l'utilisateur initial");
         f_.add(DataBase.DEF_CONST_VALUES_TYPE_NOTHING,"");
+        return f_;
+    }
+    public static TranslationsFile enMoveChoiceRestrictionType(){
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(DataBase.DEF_MOVE_CHOICE_RESTRICTION_TYPE_FORCE,"The fighter must reuse the move having just been chosen during some rounds");
+        e_.add(DataBase.DEF_MOVE_CHOICE_RESTRICTION_TYPE_FORBIDDEN,"The fighter cannot reuse the move having just been chosen during some rounds");
+        e_.add(DataBase.DEF_MOVE_CHOICE_RESTRICTION_TYPE_LANCEUR_ATTAQUES,"The target cannot use the moves that the user owns");
+        e_.add(DataBase.DEF_MOVE_CHOICE_RESTRICTION_TYPE_DER,"The fighter cannot choose consecutively the same move");
+        e_.add(DataBase.DEF_MOVE_CHOICE_RESTRICTION_TYPE_CATEGORIE_AUTRE,"The fighter cannot use not damaging moves anymore");
+        e_.add(DataBase.DEF_MOVE_CHOICE_RESTRICTION_TYPE_NOTHING,"");
+        return e_;
+    }
+    public static TranslationsFile frMoveChoiceRestrictionType(){
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(DataBase.DEF_MOVE_CHOICE_RESTRICTION_TYPE_FORCE,"Le combattant doit réutiliser l'attaque venant d'être choisie pendant un certain nombre de tour");
+        f_.add(DataBase.DEF_MOVE_CHOICE_RESTRICTION_TYPE_FORBIDDEN,"Le combattant ne peut pas réutiliser l'attaque venant d'être choisie pendant un certain nombre de tour");
+        f_.add(DataBase.DEF_MOVE_CHOICE_RESTRICTION_TYPE_LANCEUR_ATTAQUES,"La cible ne peut pas utiliser les attaques que le lanceur possède");
+        f_.add(DataBase.DEF_MOVE_CHOICE_RESTRICTION_TYPE_DER,"Le combattant ne peut pas choisir consécutivement la même attaque");
+        f_.add(DataBase.DEF_MOVE_CHOICE_RESTRICTION_TYPE_CATEGORIE_AUTRE,"Le combattant ne peut plus utiliser les attaques non offensives");
+        f_.add(DataBase.DEF_MOVE_CHOICE_RESTRICTION_TYPE_NOTHING,"");
         return f_;
     }
 }

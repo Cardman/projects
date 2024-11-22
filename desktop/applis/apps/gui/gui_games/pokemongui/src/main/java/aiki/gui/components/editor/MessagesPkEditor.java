@@ -11,6 +11,7 @@ public final class MessagesPkEditor {
     public static final String MOVE_ITEM_TYPE = "move_it_type";
     public static final String SWITCH_POINT = "switch_pt";
     public static final String CONST_VALUES = "cst_values";
+    public static final String RESTRICT = "restrict";
     private MessagesPkEditor() {
     }
 
@@ -32,6 +33,7 @@ public final class MessagesPkEditor {
         appendMessagesEditorSelectMoveItemType(_lgs,MessagesEditorSelect.enMoveItemType());
         appendMessagesEditorSelectPointViewChangementType(_lgs,MessagesEditorSelect.enPointViewChangementType());
         appendMessagesEditorSelectConstValuesType(_lgs,MessagesEditorSelect.enConstValuesType());
+        appendMessagesEditorSelectMoveChoiceRestrictionType(_lgs,MessagesEditorSelect.enMoveChoiceRestrictionType());
     }
 
     public static void frTr(TranslationsAppli _lgs) {
@@ -42,6 +44,7 @@ public final class MessagesPkEditor {
         appendMessagesEditorSelectMoveItemType(_lgs,MessagesEditorSelect.frMoveItemType());
         appendMessagesEditorSelectPointViewChangementType(_lgs,MessagesEditorSelect.frPointViewChangementType());
         appendMessagesEditorSelectConstValuesType(_lgs,MessagesEditorSelect.frConstValuesType());
+        appendMessagesEditorSelectMoveChoiceRestrictionType(_lgs,MessagesEditorSelect.frMoveChoiceRestrictionType());
     }
 
     public static void appendMessagesEditorSelectGenderRep(TranslationsAppli _lgs, TranslationsFile _f) {
@@ -68,6 +71,9 @@ public final class MessagesPkEditor {
     public static void appendMessagesEditorSelectConstValuesType(TranslationsAppli _lgs, TranslationsFile _f) {
         _lgs.getMapping().addEntry(CONST_VALUES, _f);
     }
+    public static void appendMessagesEditorSelectMoveChoiceRestrictionType(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(RESTRICT, _f);
+    }
     public static TranslationsFile getMessagesEditorSelectGenderRepTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(GENDER_REP);
     }
@@ -88,5 +94,8 @@ public final class MessagesPkEditor {
     }
     public static TranslationsFile getMessagesEditorSelectConstValuesTypeTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(CONST_VALUES);
+    }
+    public static TranslationsFile getMessagesEditorSelectMoveChoiceRestrictionTypeTr(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(RESTRICT);
     }
 }

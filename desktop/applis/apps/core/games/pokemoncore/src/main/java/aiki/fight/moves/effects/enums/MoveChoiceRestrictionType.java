@@ -1,11 +1,12 @@
 package aiki.fight.moves.effects.enums;
 
 
-import code.util.CustList;
-import code.util.core.StringUtil;
+import aiki.db.*;
+import code.util.*;
+import code.util.core.*;
 
 public enum MoveChoiceRestrictionType {
-    NOTHING(""),FORCE("0"),FORBIDDEN("1"),LANCEUR_ATTAQUES("2"),DER("3"),CATEGORIE_AUTRE("4");
+    NOTHING(""),FORCE(DataBase.DEF_MOVE_CHOICE_RESTRICTION_TYPE_FORCE),FORBIDDEN(DataBase.DEF_MOVE_CHOICE_RESTRICTION_TYPE_FORBIDDEN),LANCEUR_ATTAQUES(DataBase.DEF_MOVE_CHOICE_RESTRICTION_TYPE_LANCEUR_ATTAQUES),DER(DataBase.DEF_MOVE_CHOICE_RESTRICTION_TYPE_DER),CATEGORIE_AUTRE(DataBase.DEF_MOVE_CHOICE_RESTRICTION_TYPE_CATEGORIE_AUTRE);
     private final String resType;
 
     MoveChoiceRestrictionType(String _p) {

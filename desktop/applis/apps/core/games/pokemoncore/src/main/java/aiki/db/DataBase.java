@@ -306,6 +306,13 @@ public class DataBase {
     public static final String DEF_CONST_VALUES_TYPE_TYPES_ATTAQUES_RES = "1";
     public static final String DEF_CONST_VALUES_TYPE_NOTHING = "2";
 
+    public static final String DEF_MOVE_CHOICE_RESTRICTION_TYPE_FORCE = "0";
+    public static final String DEF_MOVE_CHOICE_RESTRICTION_TYPE_FORBIDDEN = "1";
+    public static final String DEF_MOVE_CHOICE_RESTRICTION_TYPE_LANCEUR_ATTAQUES = "2";
+    public static final String DEF_MOVE_CHOICE_RESTRICTION_TYPE_DER = "3";
+    public static final String DEF_MOVE_CHOICE_RESTRICTION_TYPE_CATEGORIE_AUTRE = "4";
+    public static final String DEF_MOVE_CHOICE_RESTRICTION_TYPE_NOTHING = "5";
+
     public static final String DEF_SEL_BOOL_NO= "0";
     public static final String DEF_SEL_BOOL_YES= "1";
     public static final String DEF_SEL_BOOL_YES_AND_NO= "2";
