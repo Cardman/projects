@@ -231,12 +231,12 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         return expEvo;
     }
 
-    public CrudGeneFormSimpleElement<LevelMove> getLevMoves() {
-        return levMoves.getCrud();
+    public CrudGeneFormSimpleElementSub<LevelMove> getLevMoves() {
+        return levMoves;
     }
 
-    public CrudGeneFormSimpleForm<String,Evolution> getEvolutions() {
-        return evolutions.getCrud();
+    public CrudGeneFormSimpleFormSub<String,Evolution> getEvolutions() {
+        return evolutions;
     }
 
     public CrudGeneFormList<String> getEggGroups() {

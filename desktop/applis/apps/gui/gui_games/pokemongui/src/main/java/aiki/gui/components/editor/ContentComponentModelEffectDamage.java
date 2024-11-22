@@ -162,11 +162,11 @@ public final class ContentComponentModelEffectDamage {
         return damageLaw;
     }
 
-    public CrudGeneFormSimpleForm<String, Rate> getMultDamageAgainst() {
-        return multDamageAgainst.getCrud();
+    public CrudGeneFormSimpleFormSub<String, Rate> getMultDamageAgainst() {
+        return multDamageAgainst;
     }
 
-    public CrudGeneFormSimpleForm<Statistic, Byte> getBoostStatisOnceKoFoe() {
-        return boostStatisOnceKoFoe.getCrud();
+    public CrudGeneFormSimpleFormSub<Statistic, Byte> getBoostStatisOnceKoFoe() {
+        return boostStatisOnceKoFoe;
     }
 }

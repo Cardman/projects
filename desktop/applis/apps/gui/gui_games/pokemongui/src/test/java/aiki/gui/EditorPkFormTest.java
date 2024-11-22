@@ -365,7 +365,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
-        CrudGeneFormSimpleElement<LevelMove> levMoves_ = g_.getLevMoves();
+        CrudGeneFormSimpleElement<LevelMove> levMoves_ = g_.getLevMoves().getCrud();
         tryClick(levMoves_.getAdd());
         ((GeneComponentModelSubscribeLevelMove)levMoves_.getGenePair().getKey()).getLevel().valueInt(1);
         ((GeneComponentModelSubscribeLevelMove)levMoves_.getGenePair().getKey()).getMove().setupValue(M_1);
@@ -391,7 +391,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
-        CrudGeneFormSimpleForm<String, Evolution> levMoves_ = g_.getEvolutions();
+        CrudGeneFormSimpleForm<String, Evolution> levMoves_ = g_.getEvolutions().getCrud();
         tryClick(levMoves_.getAdd());
         keyEvos(levMoves_).setupValue(P_2);
         GeneComponentModelEvolution evoForm_ = valueEvos(levMoves_);
@@ -413,7 +413,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
-        CrudGeneFormSimpleForm<String,Evolution> levMoves_ = g_.getEvolutions();
+        CrudGeneFormSimpleForm<String,Evolution> levMoves_ = g_.getEvolutions().getCrud();
         tryClick(levMoves_.getAdd());
         keyEvos(levMoves_).setupValue(P_2);
         GeneComponentModelEvolution evoForm_ = valueEvos(levMoves_);
@@ -436,7 +436,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
-        CrudGeneFormSimpleForm<String,Evolution> levMoves_ = g_.getEvolutions();
+        CrudGeneFormSimpleForm<String,Evolution> levMoves_ = g_.getEvolutions().getCrud();
         tryClick(levMoves_.getAdd());
         keyEvos(levMoves_).setupValue(P_2);
         GeneComponentModelEvolution evoForm_ = valueEvos(levMoves_);
@@ -458,7 +458,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
-        CrudGeneFormSimpleForm<String,Evolution> levMoves_ = g_.getEvolutions();
+        CrudGeneFormSimpleForm<String,Evolution> levMoves_ = g_.getEvolutions().getCrud();
         tryClick(levMoves_.getAdd());
         keyEvos(levMoves_).setupValue(P_2);
         GeneComponentModelEvolution evoForm_ = valueEvos(levMoves_);
@@ -481,7 +481,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
-        CrudGeneFormSimpleForm<String,Evolution> levMoves_ = g_.getEvolutions();
+        CrudGeneFormSimpleForm<String,Evolution> levMoves_ = g_.getEvolutions().getCrud();
         tryClick(levMoves_.getAdd());
         keyEvos(levMoves_).setupValue(P_2);
         GeneComponentModelEvolution evoForm_ = valueEvos(levMoves_);
@@ -502,7 +502,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
-        CrudGeneFormSimpleForm<String,Evolution> levMoves_ = g_.getEvolutions();
+        CrudGeneFormSimpleForm<String,Evolution> levMoves_ = g_.getEvolutions().getCrud();
         tryClick(levMoves_.getAdd());
         keyEvos(levMoves_).setupValue(P_2);
         GeneComponentModelEvolution evoForm_ = valueEvos(levMoves_);
@@ -524,7 +524,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
-        CrudGeneFormSimpleForm<String,Evolution> levMoves_ = g_.getEvolutions();
+        CrudGeneFormSimpleForm<String,Evolution> levMoves_ = g_.getEvolutions().getCrud();
         tryClick(levMoves_.getAdd());
         keyEvos(levMoves_).setupValue(P_2);
         GeneComponentModelEvolution evoForm_ = valueEvos(levMoves_);
@@ -546,7 +546,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
-        CrudGeneFormSimpleForm<String,Evolution> levMoves_ = g_.getEvolutions();
+        CrudGeneFormSimpleForm<String,Evolution> levMoves_ = g_.getEvolutions().getCrud();
         tryClick(levMoves_.getAdd());
         keyEvos(levMoves_).setupValue(P_2);
         GeneComponentModelEvolution evoForm_ = valueEvos(levMoves_);
@@ -568,7 +568,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
-        CrudGeneFormSimpleForm<String,Evolution> levMoves_ = g_.getEvolutions();
+        CrudGeneFormSimpleForm<String,Evolution> levMoves_ = g_.getEvolutions().getCrud();
         tryClick(levMoves_.getAdd());
         keyEvos(levMoves_).setupValue(P_2);
         GeneComponentModelEvolution evoForm_ = valueEvos(levMoves_);
@@ -590,7 +590,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
-        CrudGeneFormSimpleForm<String,Evolution> levMoves_ = g_.getEvolutions();
+        CrudGeneFormSimpleForm<String,Evolution> levMoves_ = g_.getEvolutions().getCrud();
         tryClick(levMoves_.getAdd());
         keyEvos(levMoves_).setupValue(P_2);
         GeneComponentModelEvolution evoForm_ = valueEvos(levMoves_);
@@ -612,7 +612,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
-        CrudGeneFormSimpleElement<LevelMove> levMoves_ = g_.getLevMoves();
+        CrudGeneFormSimpleElement<LevelMove> levMoves_ = g_.getLevMoves().getCrud();
         tryClick(levMoves_.getAdd());
         ((GeneComponentModelSubscribeLevelMove)levMoves_.getGenePair().getKey()).getLevel().valueInt(1);
         ((GeneComponentModelSubscribeLevelMove)levMoves_.getGenePair().getKey()).getMove().setupValue(M_1);
@@ -633,7 +633,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
-        CrudGeneFormSimpleElement<LevelMove> levMoves_ = g_.getLevMoves();
+        CrudGeneFormSimpleElement<LevelMove> levMoves_ = g_.getLevMoves().getCrud();
         tryClick(levMoves_.getAdd());
         ((GeneComponentModelSubscribeLevelMove)levMoves_.getGenePair().getKey()).getLevel().valueInt(1);
         ((GeneComponentModelSubscribeLevelMove)levMoves_.getGenePair().getKey()).getMove().setupValue(M_1);
@@ -659,7 +659,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
-        CrudGeneFormSimpleForm<String,Evolution> levMoves_ = g_.getEvolutions();
+        CrudGeneFormSimpleForm<String,Evolution> levMoves_ = g_.getEvolutions().getCrud();
         tryClick(levMoves_.getAdd());
         keyEvos(levMoves_).setupValue(P_2);
         GeneComponentModelEvolution evoForm_ = valueEvos(levMoves_);

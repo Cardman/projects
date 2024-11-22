@@ -92,16 +92,16 @@ public final class ContentComponentModelEffectStatistic {
         return swapBoostStatis;
     }
 
-    public CrudGeneFormSimpleForm<Statistic, Byte> getStatisVarRank() {
-        return statisVarRank.getCrud();
+    public CrudGeneFormSimpleFormSub<Statistic, Byte> getStatisVarRank() {
+        return statisVarRank;
     }
 
-    public CrudGeneFormSimpleForm<Statistic, String> getLocalFailStatis() {
-        return localFailStatis.getCrud();
+    public CrudGeneFormSimpleFormSub<Statistic, String> getLocalFailStatis() {
+        return localFailStatis;
     }
 
-    public CrudGeneFormSimpleForm<Statistic, String> getLocalFailSwapBoostStatis() {
-        return localFailSwapBoostStatis.getCrud();
+    public CrudGeneFormSimpleFormSub<Statistic, String> getLocalFailSwapBoostStatis() {
+        return localFailSwapBoostStatis;
     }
 
     public CrudGeneFormMonteCarloSub<Statistic> getLawBoost() {

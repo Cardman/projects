@@ -122,6 +122,15 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
 
     public void valueEffect(Effect _v) {
         contentEffect.feedForm(_v);
+        value1(_v);
+        value2(_v);
+        if (_v instanceof EffectEndRound) {
+            displayRepaint(contentGroupEffectEndRound.feedForm((EffectEndRound) _v));
+        }
+        edited = _v;
+    }
+
+    private void value1(Effect _v) {
         if (_v instanceof EffectCounterAttack) {
             contentEffectCounterAttack.feedForm((EffectCounterAttack) _v);
             displayRepaint(MessagesEditorSelect.EFF_COUNTER_ATTACK);
@@ -138,6 +147,9 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
             contentEffectInvoke.feedForm((EffectInvoke) _v);
             displayRepaint(MessagesEditorSelect.EFF_INVOKE);
         }
+    }
+
+    private void value2(Effect _v) {
         if (_v instanceof EffectStatistic) {
             contentEffectStatistic.feedForm((EffectStatistic) _v);
             displayRepaint(MessagesEditorSelect.EFF_STATIS);
@@ -158,11 +170,8 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
             contentEffectUnprotectFromTypes.feedForm((EffectUnprotectFromTypes) _v);
             displayRepaint(MessagesEditorSelect.EFF_UNPROTECT_FROM_TYPES);
         }
-        if (_v instanceof EffectEndRound) {
-            displayRepaint(contentGroupEffectEndRound.feedForm((EffectEndRound) _v));
-        }
-        edited = _v;
     }
+
     private void displayRepaint(String _eff) {
         display(_eff);
         getEffectKind().setupValue(_eff);
@@ -235,7 +244,7 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         ids_.addAllElts(getContentEffectTeamWhileSendFoe().getStatistics().subscribeButtons());
         ids_.addAllElts(getContentEffectTeamWhileSendFoe().getStatusByNbUses().subscribeButtons());
         ids_.addAllElts(getContentEffectTeamWhileSendFoe().getDeletedByFoeTypes().getSubs());
-        ids_.addAllElts(getContentEffectUnprotectFromTypes().getTypes().getCrud().subscribeButtons());
+        ids_.addAllElts(getContentEffectUnprotectFromTypes().getTypes().subscribeButtons());
         ids_.addAllElts(getContentEffectUnprotectFromTypes().getAttackTargetWithTypes().getSubs());
         ids_.addAllElts(getContentEffectUnprotectFromTypes().getDisableImmuFromMoves().getSubs());
         ids_.addAllElts(getContentEffectUnprotectFromTypes().getDisableImmuAgainstTypes().getSubs());

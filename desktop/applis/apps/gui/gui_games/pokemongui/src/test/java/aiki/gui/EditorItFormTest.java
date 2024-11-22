@@ -89,7 +89,7 @@ public final class EditorItFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_2);
-        CrudGeneFormSimpleForm<String, Evolution> evolutions_ = g_.getEvolutions();
+        CrudGeneFormSimpleForm<String, Evolution> evolutions_ = g_.getEvolutions().getCrud();
         tryClick(evolutions_.getAdd());
         keyEvos(evolutions_).setupValue(P_1);
         GeneComponentModelEvolution gEvo_ = valueEvos(evolutions_);

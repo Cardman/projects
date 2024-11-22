@@ -314,16 +314,16 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         return switchType;
     }
 
-    public CrudGeneFormSimpleForm<String, String> getTypesByOwnedItem() {
-        return typesByOwnedItem.getCrud();
+    public CrudGeneFormSimpleFormSub<String, String> getTypesByOwnedItem() {
+        return typesByOwnedItem;
     }
 
-    public CrudGeneFormSimpleForm<String, String> getTypesByWeather() {
-        return typesByWeather.getCrud();
+    public CrudGeneFormSimpleFormSub<String, String> getTypesByWeather() {
+        return typesByWeather;
     }
 
-    public CrudGeneFormSimpleForm<String, Ints> getSecEffectsByItem() {
-        return secEffectsByItem.getCrud();
+    public CrudGeneFormSimpleFormSub<String, Ints> getSecEffectsByItem() {
+        return secEffectsByItem;
     }
 
     public GeneComponentModelLsStrSub<String> getRequiredStatus() {
@@ -362,8 +362,8 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         return category;
     }
 
-    public CrudGeneFormSimpleElement<Effect> getEffects() {
-        return effects.getCrud();
+    public CrudGeneFormSimpleElementSub<Effect> getEffects() {
+        return effects;
     }
 
 }
