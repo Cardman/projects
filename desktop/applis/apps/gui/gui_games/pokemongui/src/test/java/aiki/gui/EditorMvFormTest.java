@@ -5,10 +5,12 @@ import aiki.facade.*;
 import aiki.fight.enums.*;
 import aiki.fight.moves.*;
 import aiki.fight.moves.effects.*;
+import aiki.fight.moves.effects.enums.*;
 import aiki.fight.pokemon.*;
 import aiki.fight.util.*;
 import aiki.gui.components.editor.*;
 import aiki.instances.*;
+import aiki.map.levels.enums.*;
 import code.maths.*;
 import code.mock.*;
 import org.junit.Test;
@@ -1445,7 +1447,147 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         tryClick(c_.getValidAddEdit());
         assertEq(Rate.one(),((EffectCounterAttack)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getSufferingDamageDirectMove());
     }
-
+    @Test
+    public void mvForm50() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<MoveData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelMoveData g_ = (GeneComponentModelMoveData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(M_1);
+        tryClick(effectsCrud(g_).getAdd());
+        GeneComponentModelEffect effForm_ = effects(effectsCrud(g_));
+        ConverterCommonMapUtil.trigger(effForm_.getEffectKind(),MessagesEditorSelect.EFF_SWITCH_ABILITIES);
+        effForm_.getContentEffectSwitchAbilities().getExchangeAbility().setupValue(DataBase.DEF_EXCHANGE_TYPE_EXCHANGE);
+        tryClick(effectsCrud(g_).getValidAddEdit());
+        tryClick(effectsCrud(g_).getAllButtons().get(0));
+        tryClick(effectsCrud(g_).getCancel());
+        tryClick(c_.getValidAddEdit());
+        assertEq(ExchangeType.EXCHANGE,((EffectSwitchAbilities)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getExchangeAbility());
+    }
+    @Test
+    public void mvForm51() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<MoveData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelMoveData g_ = (GeneComponentModelMoveData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(M_1);
+        tryClick(effectsCrud(g_).getAdd());
+        GeneComponentModelEffect effForm_ = effects(effectsCrud(g_));
+        ConverterCommonMapUtil.trigger(effForm_.getEffectKind(),MessagesEditorSelect.EFF_SWITCH_ABILITIES);
+        tryClick(effectsCrud(g_).getValidAddEdit());
+        tryClick(effectsCrud(g_).getAllButtons().get(0));
+        tryClick(effectsCrud(g_).getCancel());
+        tryClick(c_.getValidAddEdit());
+        assertEq(ExchangeType.NOTHING,((EffectSwitchAbilities)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getExchangeAbility());
+    }
+    @Test
+    public void mvForm52() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<MoveData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelMoveData g_ = (GeneComponentModelMoveData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(M_1);
+        tryClick(effectsCrud(g_).getAdd());
+        GeneComponentModelEffect effForm_ = effects(effectsCrud(g_));
+        ConverterCommonMapUtil.trigger(effForm_.getEffectKind(),MessagesEditorSelect.EFF_SWITCH_ITEMS);
+        effForm_.getContentEffectSwitchItems().getMoveObject().setupValue(DataBase.DEF_MOVE_ITEM_TYPE_EXCHANGE_OBJECTS);
+        tryClick(effectsCrud(g_).getValidAddEdit());
+        tryClick(effectsCrud(g_).getAllButtons().get(0));
+        tryClick(effectsCrud(g_).getCancel());
+        tryClick(c_.getValidAddEdit());
+        assertEq(MoveItemType.EXCHANGE_OBJECTS,((EffectSwitchItems)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getMoveObject());
+    }
+    @Test
+    public void mvForm53() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<MoveData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelMoveData g_ = (GeneComponentModelMoveData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(M_1);
+        tryClick(effectsCrud(g_).getAdd());
+        GeneComponentModelEffect effForm_ = effects(effectsCrud(g_));
+        ConverterCommonMapUtil.trigger(effForm_.getEffectKind(),MessagesEditorSelect.EFF_SWITCH_MOVES_TYPES);
+        tryClick(effForm_.getContentEffectSwitchMoveTypes().getChangeTypes().getCrud().getAdd());
+        effForm_.getContentEffectSwitchMoveTypes().getChangeTypes().getCrud().getKey().setupValue(T_1);
+        effForm_.getContentEffectSwitchMoveTypes().getChangeTypes().getCrud().getValue().setupValue(T_2);
+        tryClick(effForm_.getContentEffectSwitchMoveTypes().getChangeTypes().getCrud().getValidAddEdit());
+        tryClick(effectsCrud(g_).getValidAddEdit());
+        tryClick(effectsCrud(g_).getAllButtons().get(0));
+        tryClick(effectsCrud(g_).getCancel());
+        tryClick(c_.getValidAddEdit());
+        assertEq(1,((EffectSwitchMoveTypes)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getChangeTypes().size());
+        assertEq(T_1,((EffectSwitchMoveTypes)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getChangeTypes().getKey(0));
+        assertEq(T_2,((EffectSwitchMoveTypes)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getChangeTypes().getValue(0));
+    }
+    @Test
+    public void mvForm54() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<MoveData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelMoveData g_ = (GeneComponentModelMoveData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(M_1);
+        tryClick(effectsCrud(g_).getAdd());
+        GeneComponentModelEffect effForm_ = effects(effectsCrud(g_));
+        ConverterCommonMapUtil.trigger(effForm_.getEffectKind(),MessagesEditorSelect.EFF_SWITCH_POINT_VIEW);
+        effForm_.getContentEffectSwitchPointView().getPointViewChangement().setupValue(DataBase.DEF_POINT_VIEW_CHANGEMENT_TYPE_ATTRACT_DAMAGES_MOVES);
+        tryClick(effectsCrud(g_).getValidAddEdit());
+        tryClick(effectsCrud(g_).getAllButtons().get(0));
+        tryClick(effectsCrud(g_).getCancel());
+        tryClick(c_.getValidAddEdit());
+        assertEq(PointViewChangementType.ATTRACT_DAMAGES_MOVES,((EffectSwitchPointView)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getPointViewChangement());
+    }
+    @Test
+    public void mvForm55() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<MoveData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelMoveData g_ = (GeneComponentModelMoveData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(M_1);
+        tryClick(effectsCrud(g_).getAdd());
+        GeneComponentModelEffect effForm_ = effects(effectsCrud(g_));
+        ConverterCommonMapUtil.trigger(effForm_.getEffectKind(),MessagesEditorSelect.EFF_SWITCH_TYPES);
+        tryClick(effForm_.getContentEffectSwitchTypes().getChgtTypeByEnv().getCrud().getAdd());
+        effForm_.getContentEffectSwitchTypes().getChgtTypeByEnv().getCrud().getKey().setupValue(EnvironmentType.ROAD);
+        effForm_.getContentEffectSwitchTypes().getChgtTypeByEnv().getCrud().getValue().setupValue(T_1);
+        tryClick(effForm_.getContentEffectSwitchTypes().getChgtTypeByEnv().getCrud().getValidAddEdit());
+        tryClick(effectsCrud(g_).getValidAddEdit());
+        tryClick(effectsCrud(g_).getAllButtons().get(0));
+        tryClick(effectsCrud(g_).getCancel());
+        tryClick(c_.getValidAddEdit());
+        assertEq(1,((EffectSwitchTypes)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getChgtTypeByEnv().size());
+        assertEq(EnvironmentType.ROAD,((EffectSwitchTypes)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getChgtTypeByEnv().getKey(0));
+        assertEq(T_1,((EffectSwitchTypes)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getChgtTypeByEnv().getValue(0));
+    }
+    @Test
+    public void mvForm56() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<MoveData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelMoveData g_ = (GeneComponentModelMoveData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(M_1);
+        tryClick(effectsCrud(g_).getAdd());
+        GeneComponentModelEffect effForm_ = effects(effectsCrud(g_));
+        ConverterCommonMapUtil.trigger(effForm_.getEffectKind(),MessagesEditorSelect.EFF_SWITCH_POSITION);
+        tryClick(effectsCrud(g_).getValidAddEdit());
+        tryClick(effectsCrud(g_).getAllButtons().get(0));
+        tryClick(effectsCrud(g_).getCancel());
+        tryClick(c_.getValidAddEdit());
+        assertEq(1,facade_.getData().getMoves().getVal(M_1).getEffects().size());
+    }
     private CrudGeneFormSimpleElement<Effect> effectsCrud(GeneComponentModelMoveData _g) {
         return _g.getEffects().getCrud();
     }

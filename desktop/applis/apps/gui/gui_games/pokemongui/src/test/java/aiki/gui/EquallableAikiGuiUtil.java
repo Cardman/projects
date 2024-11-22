@@ -3,12 +3,14 @@ package aiki.gui;
 import aiki.db.DataBase;
 import aiki.db.ImageArrayBaseSixtyFour;
 import aiki.db.MessagesDataBaseConstants;
-import aiki.fight.enums.Statistic;
+import aiki.fight.enums.*;
+import aiki.fight.moves.effects.enums.*;
 import aiki.game.Game;
 import aiki.gui.components.*;
 import aiki.gui.listeners.MouseTask;
 import aiki.main.AikiFactory;
 import aiki.main.AikiNatLgNamesNavigation;
+import aiki.map.levels.enums.*;
 import aiki.sml.*;
 import code.bean.nat.NatNavigation;
 import code.bean.nat.analyze.NatConfigurationCore;
@@ -455,6 +457,21 @@ public abstract class EquallableAikiGuiUtil {
         assertTrue(_tr.containsObj(_pag.getHealMove().self()));
         assertTrue(_tr.containsObj(_pag.getSearchButton()));
         assertTrue(_tr.containsObj(_pag.getNewSearchButton()));
+    }
+    public static void assertEq(ExchangeType _expected, ExchangeType _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertEq(MoveItemType _expected, MoveItemType _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertEq(ConstValuesType _expected, ConstValuesType _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertEq(PointViewChangementType _expected, PointViewChangementType _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertEq(EnvironmentType _expected, EnvironmentType _result) {
+        Assert.assertSame(_expected, _result);
     }
     public static void assertEq(Statistic _expected, Statistic _result) {
         Assert.assertSame(_expected, _result);

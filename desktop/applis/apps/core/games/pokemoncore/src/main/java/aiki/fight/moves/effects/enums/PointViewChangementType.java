@@ -1,11 +1,12 @@
 package aiki.fight.moves.effects.enums;
 
 
-import code.util.CustList;
-import code.util.core.StringUtil;
+import aiki.db.*;
+import code.util.*;
+import code.util.core.*;
 
 public enum PointViewChangementType {
-    NOTHING(""),THIEF_BONUSES("0"),MIRROR_AGAINST_THROWER("1"),ATTRACT_DAMAGES_MOVES("2");
+    NOTHING(""),THIEF_BONUSES(DataBase.DEF_POINT_VIEW_CHANGEMENT_TYPE_THIEF_BONUSES),MIRROR_AGAINST_THROWER(DataBase.DEF_POINT_VIEW_CHANGEMENT_TYPE_MIRROR_AGAINST_THROWER),ATTRACT_DAMAGES_MOVES(DataBase.DEF_POINT_VIEW_CHANGEMENT_TYPE_ATTRACT_DAMAGES_MOVES);
     private final String ptView;
 
     PointViewChangementType(String _p) {

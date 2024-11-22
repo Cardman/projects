@@ -1,11 +1,12 @@
 package aiki.fight.moves.effects.enums;
 
 
-import code.util.CustList;
-import code.util.core.StringUtil;
+import aiki.db.*;
+import code.util.*;
+import code.util.core.*;
 
 public enum ConstValuesType {
-    NOTHING(""),LANCEUR_ATTAQUES_TYPES("0"),TYPES_ATTAQUES_RES("1");
+    NOTHING(""),LANCEUR_ATTAQUES_TYPES(DataBase.DEF_CONST_VALUES_TYPE_LANCEUR_ATTAQUES_TYPES),TYPES_ATTAQUES_RES(DataBase.DEF_CONST_VALUES_TYPE_TYPES_ATTAQUES_RES);
     private final String cstValType;
 
     ConstValuesType(String _p) {

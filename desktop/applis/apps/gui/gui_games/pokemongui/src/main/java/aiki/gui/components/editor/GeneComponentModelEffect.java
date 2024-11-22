@@ -16,6 +16,11 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
     private final ContentComponentModelEffectInvoke contentEffectInvoke = new ContentComponentModelEffectInvoke();
     private final ContentComponentModelEffectStatistic contentEffectStatistic = new ContentComponentModelEffectStatistic();
     private final ContentComponentModelEffectStatus contentEffectStatus = new ContentComponentModelEffectStatus();
+    private final ContentComponentModelEffectSwitchAbilities contentEffectSwitchAbilities = new ContentComponentModelEffectSwitchAbilities();
+    private final ContentComponentModelEffectSwitchItems contentEffectSwitchItems = new ContentComponentModelEffectSwitchItems();
+    private final ContentComponentModelEffectSwitchMoveTypes contentEffectSwitchMoveTypes = new ContentComponentModelEffectSwitchMoveTypes();
+    private final ContentComponentModelEffectSwitchPointView contentEffectSwitchPointView = new ContentComponentModelEffectSwitchPointView();
+    private final ContentComponentModelEffectSwitchTypes contentEffectSwitchTypes = new ContentComponentModelEffectSwitchTypes();
     private final ContentComponentModelEffectTeam contentEffectTeam = new ContentComponentModelEffectTeam();
     private final ContentComponentModelEffectTeamWhileSendFoe contentEffectTeamWhileSendFoe = new ContentComponentModelEffectTeamWhileSendFoe();
     private final ContentComponentModelEffectUnprotectFromTypes contentEffectUnprotectFromTypes = new ContentComponentModelEffectUnprotectFromTypes();
@@ -38,6 +43,11 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         form_.add(contentEffectInvoke.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
         form_.add(contentEffectStatistic.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
         form_.add(contentEffectStatus.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
+        form_.add(contentEffectSwitchAbilities.effectForm(this));
+        form_.add(contentEffectSwitchItems.effectForm(this));
+        form_.add(contentEffectSwitchMoveTypes.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
+        form_.add(contentEffectSwitchPointView.effectForm(this));
+        form_.add(contentEffectSwitchTypes.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
         form_.add(contentEffectTeam.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
         form_.add(contentEffectTeamWhileSendFoe.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
         form_.add(contentEffectUnprotectFromTypes.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
@@ -54,39 +64,71 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         if (!display_.isEmpty()) {
             edited = ContentComponentModelGroupEffectEndRound.instance(eff_);
         }
-        if (StringUtil.quickEq(eff_,MessagesEditorSelect.EFF_COUNTER_ATTACK)) {
-            edited = Instances.newEffectCounterAttack();
-        }
-        if (StringUtil.quickEq(eff_,MessagesEditorSelect.EFF_DAMAGE)) {
-            edited = Instances.newEffectDamage();
-        }
-        if (StringUtil.quickEq(eff_,MessagesEditorSelect.EFF_GLOBAL)) {
-            edited = Instances.newEffectGlobal();
-        }
-        if (StringUtil.quickEq(eff_,MessagesEditorSelect.EFF_INVOKE)) {
-            edited = Instances.newEffectInvoke();
-        }
-        if (StringUtil.quickEq(eff_,MessagesEditorSelect.EFF_STATIS)) {
-            edited = Instances.newEffectStatistic();
-        }
-        if (StringUtil.quickEq(eff_,MessagesEditorSelect.EFF_STATUS)) {
-            edited = Instances.newEffectStatus();
-        }
-        if (StringUtil.quickEq(eff_,MessagesEditorSelect.EFF_TEAM)) {
-            edited = Instances.newEffectTeam();
-        }
-        if (StringUtil.quickEq(eff_,MessagesEditorSelect.EFF_TEAM_WHILE_SENDING_FOE)) {
-            edited = Instances.newEffectTeamWhileSendFoe();
-        }
-        if (StringUtil.quickEq(eff_,MessagesEditorSelect.EFF_UNPROTECT_FROM_TYPES)) {
-            edited = Instances.newEffectUnprotectFromTypes();
-        }
+        init1(eff_);
+        init2(eff_);
         getEffectKind().getSelect().repaint();
         getFrame().pack();
     }
 
+    private void init1(String _eff) {
+        if (StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_COUNTER_ATTACK)) {
+            edited = Instances.newEffectCounterAttack();
+        }
+        if (StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_DAMAGE)) {
+            edited = Instances.newEffectDamage();
+        }
+        if (StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_GLOBAL)) {
+            edited = Instances.newEffectGlobal();
+        }
+        if (StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_INVOKE)) {
+            edited = Instances.newEffectInvoke();
+        }
+    }
+
+    private void init2(String _eff) {
+        if (StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_STATIS)) {
+            edited = Instances.newEffectStatistic();
+        }
+        if (StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_STATUS)) {
+            edited = Instances.newEffectStatus();
+        }
+        if (StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_SWITCH_ABILITIES)) {
+            edited = Instances.newEffectSwitchAbilities();
+        }
+        if (StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_SWITCH_ITEMS)) {
+            edited = Instances.newEffectSwitchItems();
+        }
+        if (StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_SWITCH_MOVES_TYPES)) {
+            edited = Instances.newEffectSwitchMoveTypes();
+        }
+        if (StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_SWITCH_POINT_VIEW)) {
+            edited = Instances.newEffectSwitchPointView();
+        }
+        if (StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_SWITCH_POSITION)) {
+            edited = Instances.newEffectSwitchPosition();
+        }
+        if (StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_SWITCH_TYPES)) {
+            edited = Instances.newEffectSwitchTypes();
+        }
+        if (StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_TEAM)) {
+            edited = Instances.newEffectTeam();
+        }
+        if (StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_TEAM_WHILE_SENDING_FOE)) {
+            edited = Instances.newEffectTeamWhileSendFoe();
+        }
+        if (StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_UNPROTECT_FROM_TYPES)) {
+            edited = Instances.newEffectUnprotectFromTypes();
+        }
+    }
+
     public Effect valueEffect() {
         contentEffect.buildEntity(edited);
+        value1();
+        value2();
+        return edited;
+    }
+
+    private void value1() {
         if (edited instanceof EffectCounterAttack) {
             contentEffectCounterAttack.buildEntity((EffectCounterAttack) edited);
         }
@@ -99,11 +141,29 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         if (edited instanceof EffectInvoke) {
             contentEffectInvoke.buildEntity((EffectInvoke) edited);
         }
+    }
+
+    private void value2() {
         if (edited instanceof EffectStatistic) {
             contentEffectStatistic.buildEntity((EffectStatistic) edited);
         }
         if (edited instanceof EffectStatus) {
             contentEffectStatus.buildEntity((EffectStatus) edited);
+        }
+        if (edited instanceof EffectSwitchAbilities) {
+            contentEffectSwitchAbilities.buildEntity((EffectSwitchAbilities) edited);
+        }
+        if (edited instanceof EffectSwitchItems) {
+            contentEffectSwitchItems.buildEntity((EffectSwitchItems) edited);
+        }
+        if (edited instanceof EffectSwitchMoveTypes) {
+            contentEffectSwitchMoveTypes.buildEntity((EffectSwitchMoveTypes) edited);
+        }
+        if (edited instanceof EffectSwitchPointView) {
+            contentEffectSwitchPointView.buildEntity((EffectSwitchPointView) edited);
+        }
+        if (edited instanceof EffectSwitchTypes) {
+            contentEffectSwitchTypes.buildEntity((EffectSwitchTypes) edited);
         }
         if (edited instanceof EffectTeam) {
             contentEffectTeam.buildEntity((EffectTeam) edited);
@@ -117,7 +177,6 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         if (edited instanceof EffectEndRound) {
             contentGroupEffectEndRound.buildEntity((EffectEndRound)edited);
         }
-        return edited;
     }
 
     public void valueEffect(Effect _v) {
@@ -158,6 +217,29 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
             contentEffectStatus.feedForm((EffectStatus) _v);
             displayRepaint(MessagesEditorSelect.EFF_STATUS);
         }
+        if (_v instanceof EffectSwitchAbilities) {
+            contentEffectSwitchAbilities.feedForm((EffectSwitchAbilities) _v);
+            displayRepaint(MessagesEditorSelect.EFF_SWITCH_ABILITIES);
+        }
+        if (_v instanceof EffectSwitchItems) {
+            contentEffectSwitchItems.feedForm((EffectSwitchItems) _v);
+            displayRepaint(MessagesEditorSelect.EFF_SWITCH_ITEMS);
+        }
+        if (_v instanceof EffectSwitchMoveTypes) {
+            contentEffectSwitchMoveTypes.feedForm((EffectSwitchMoveTypes) _v);
+            displayRepaint(MessagesEditorSelect.EFF_SWITCH_MOVES_TYPES);
+        }
+        if (_v instanceof EffectSwitchPointView) {
+            contentEffectSwitchPointView.feedForm((EffectSwitchPointView) _v);
+            displayRepaint(MessagesEditorSelect.EFF_SWITCH_POINT_VIEW);
+        }
+        if (_v instanceof EffectSwitchPosition) {
+            displayRepaint(MessagesEditorSelect.EFF_SWITCH_POSITION);
+        }
+        if (_v instanceof EffectSwitchTypes) {
+            contentEffectSwitchTypes.feedForm((EffectSwitchTypes) _v);
+            displayRepaint(MessagesEditorSelect.EFF_SWITCH_TYPES);
+        }
         if (_v instanceof EffectTeam) {
             contentEffectTeam.feedForm((EffectTeam) _v);
             displayRepaint(MessagesEditorSelect.EFF_TEAM);
@@ -185,6 +267,11 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         contentEffectInvoke.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_INVOKE));
         contentEffectStatistic.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_STATIS));
         contentEffectStatus.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_STATUS));
+        contentEffectSwitchAbilities.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_SWITCH_ABILITIES));
+        contentEffectSwitchItems.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_SWITCH_ITEMS));
+        contentEffectSwitchMoveTypes.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_SWITCH_MOVES_TYPES));
+        contentEffectSwitchPointView.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_SWITCH_POINT_VIEW));
+        contentEffectSwitchTypes.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_SWITCH_TYPES));
         contentEffectTeam.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_TEAM));
         contentEffectTeamWhileSendFoe.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_TEAM_WHILE_SENDING_FOE));
         contentEffectUnprotectFromTypes.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_UNPROTECT_FROM_TYPES));
@@ -230,6 +317,12 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         ids_.addAllElts(getContentEffectStatus().getDeletedStatus().getSubs());
         ids_.addAllElts(getContentEffectStatus().getLocalFailStatus().subscribeButtons());
         ids_.addAllElts(getContentEffectStatus().getLawStatus().subscribeButtons());
+        ids_.addAllElts(getContentEffectSwitchAbilities().getConstAbility().getSubs());
+        ids_.addAllElts(getContentEffectSwitchMoveTypes().getChangeTypes().subscribeButtons());
+        ids_.addAllElts(getContentEffectSwitchMoveTypes().getReplacingTypes().getSubs());
+        ids_.addAllElts(getContentEffectSwitchTypes().getAddedTypes().getSubs());
+        ids_.addAllElts(getContentEffectSwitchTypes().getConstTypes().getSubs());
+        ids_.addAllElts(getContentEffectSwitchTypes().getChgtTypeByEnv().subscribeButtons());
         ids_.addAllElts(getContentEffectTeam().getMultStatistic().subscribeButtons());
         ids_.addAllElts(getContentEffectTeam().getMultStatisticFoe().subscribeButtons());
         ids_.addAllElts(getContentEffectTeam().getMultDamage().subscribeButtons());
@@ -286,6 +379,26 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
 
     public ContentComponentModelEffectStatus getContentEffectStatus() {
         return contentEffectStatus;
+    }
+
+    public ContentComponentModelEffectSwitchAbilities getContentEffectSwitchAbilities() {
+        return contentEffectSwitchAbilities;
+    }
+
+    public ContentComponentModelEffectSwitchItems getContentEffectSwitchItems() {
+        return contentEffectSwitchItems;
+    }
+
+    public ContentComponentModelEffectSwitchMoveTypes getContentEffectSwitchMoveTypes() {
+        return contentEffectSwitchMoveTypes;
+    }
+
+    public ContentComponentModelEffectSwitchPointView getContentEffectSwitchPointView() {
+        return contentEffectSwitchPointView;
+    }
+
+    public ContentComponentModelEffectSwitchTypes getContentEffectSwitchTypes() {
+        return contentEffectSwitchTypes;
     }
 
     public ContentComponentModelEffectTeam getContentEffectTeam() {

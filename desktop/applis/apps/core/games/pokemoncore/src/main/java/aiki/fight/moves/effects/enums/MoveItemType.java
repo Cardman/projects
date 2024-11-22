@@ -1,12 +1,13 @@
 package aiki.fight.moves.effects.enums;
 
 
-import code.util.CustList;
-import code.util.core.StringUtil;
+import aiki.db.*;
+import code.util.*;
+import code.util.core.*;
 
 public enum MoveItemType {
-    GIVE_OBJECT_TARGET("0"),EXCHANGE_OBJECTS("1"),TAKE_OBJET("2"),REMOVE_TARGET_OBJECT("3"),
-    REUSE_LAST_OBJECT(""),DELETE_DEF_TARGET_BERRY("4"),USE_OBJECT_AS_POSSIBLE("5");
+    GIVE_OBJECT_TARGET(DataBase.DEF_MOVE_ITEM_TYPE_GIVE_OBJECT_TARGET),EXCHANGE_OBJECTS(DataBase.DEF_MOVE_ITEM_TYPE_EXCHANGE_OBJECTS),TAKE_OBJET(DataBase.DEF_MOVE_ITEM_TYPE_TAKE_OBJET),REMOVE_TARGET_OBJECT(DataBase.DEF_MOVE_ITEM_TYPE_REMOVE_TARGET_OBJECT),
+    REUSE_LAST_OBJECT(""),DELETE_DEF_TARGET_BERRY(DataBase.DEF_MOVE_ITEM_TYPE_DELETE_DEF_TARGET_BERRY),USE_OBJECT_AS_POSSIBLE(DataBase.DEF_MOVE_ITEM_TYPE_USE_OBJECT_AS_POSSIBLE);
     private final String itType;
 
     MoveItemType(String _p) {

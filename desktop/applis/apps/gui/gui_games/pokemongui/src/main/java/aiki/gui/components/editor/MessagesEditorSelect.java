@@ -193,4 +193,74 @@ public final class MessagesEditorSelect {
         f_.add(EFF_WIN_MONEY,"Permet au joueur de gagner de l'argent.");
         return f_;
     }
+    public static TranslationsFile enExchangeType(){
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(DataBase.DEF_EXCHANGE_TYPE_GIVE_TO_TARGET,"The target takes from the user");
+        e_.add(DataBase.DEF_EXCHANGE_TYPE_GIVE_TO_THROWER,"The user takes from the target");
+        e_.add(DataBase.DEF_EXCHANGE_TYPE_EXCHANGE,"The user and the target switch one each other");
+        e_.add(DataBase.DEF_EXCHANGE_TYPE_GIVE_CONST,"The target takes an entity");
+        e_.add(DataBase.DEF_EXCHANGE_TYPE_NOTHING,"");
+        return e_;
+    }
+    public static TranslationsFile frExchangeType(){
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(DataBase.DEF_EXCHANGE_TYPE_GIVE_TO_TARGET,"La cible prend depuis le lanceur");
+        f_.add(DataBase.DEF_EXCHANGE_TYPE_GIVE_TO_THROWER,"Le lanceur prend depuis la cible");
+        f_.add(DataBase.DEF_EXCHANGE_TYPE_EXCHANGE,"Le lanceur et la cible s'échangent");
+        f_.add(DataBase.DEF_EXCHANGE_TYPE_GIVE_CONST,"La cible prend une entité");
+        f_.add(DataBase.DEF_EXCHANGE_TYPE_NOTHING,"");
+        return f_;
+    }
+    public static TranslationsFile enMoveItemType(){
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(DataBase.DEF_MOVE_ITEM_TYPE_GIVE_OBJECT_TARGET,"The user gives its item to the target");
+        e_.add(DataBase.DEF_MOVE_ITEM_TYPE_EXCHANGE_OBJECTS,"The user and the target switch one each other the items");
+        e_.add(DataBase.DEF_MOVE_ITEM_TYPE_TAKE_OBJET,"The user takes the item of the target");
+        e_.add(DataBase.DEF_MOVE_ITEM_TYPE_REMOVE_TARGET_OBJECT,"The target looses its item");
+        e_.add(DataBase.DEF_MOVE_ITEM_TYPE_DELETE_DEF_TARGET_BERRY,"The berry of the fighter is definitively deleted");
+        e_.add(DataBase.DEF_MOVE_ITEM_TYPE_USE_OBJECT_AS_POSSIBLE,"If possible, the user uses the item of the target");
+        e_.add(DataBase.DEF_MOVE_ITEM_TYPE_REUSE_LAST_OBJECT,"The user gets the last item that the user used");
+        return e_;
+    }
+    public static TranslationsFile frMoveItemType(){
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(DataBase.DEF_MOVE_ITEM_TYPE_GIVE_OBJECT_TARGET,"Le lanceur donne son objet à la cible");
+        f_.add(DataBase.DEF_MOVE_ITEM_TYPE_EXCHANGE_OBJECTS,"Le lanceur et la cible s'échangent les objets");
+        f_.add(DataBase.DEF_MOVE_ITEM_TYPE_TAKE_OBJET,"Le lanceur prend l'objet de la cible");
+        f_.add(DataBase.DEF_MOVE_ITEM_TYPE_REMOVE_TARGET_OBJECT,"La cible perd son objet");
+        f_.add(DataBase.DEF_MOVE_ITEM_TYPE_DELETE_DEF_TARGET_BERRY,"La baie du combattant est supprimé définitivement");
+        f_.add(DataBase.DEF_MOVE_ITEM_TYPE_USE_OBJECT_AS_POSSIBLE,"Si possible, le lanceur utilise l'objet de la cible");
+        f_.add(DataBase.DEF_MOVE_ITEM_TYPE_REUSE_LAST_OBJECT,"Le lanceur récupère le dernier objet qu'il a utilisé");
+        return f_;
+    }
+    public static TranslationsFile enPointViewChangementType(){
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(DataBase.DEF_POINT_VIEW_CHANGEMENT_TYPE_THIEF_BONUSES,"The user of this move waits that its target use a \"thievable\" move");
+        e_.add(DataBase.DEF_POINT_VIEW_CHANGEMENT_TYPE_MIRROR_AGAINST_THROWER,"The owner of this effect counters against the initial user");
+        e_.add(DataBase.DEF_POINT_VIEW_CHANGEMENT_TYPE_ATTRACT_DAMAGES_MOVES,"The user of this move suffers damage of moves with single choice instead of its partners");
+        e_.add(DataBase.DEF_POINT_VIEW_CHANGEMENT_TYPE_NOTHING,"");
+        return e_;
+    }
+    public static TranslationsFile frPointViewChangementType(){
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(DataBase.DEF_POINT_VIEW_CHANGEMENT_TYPE_THIEF_BONUSES,"Le lanceur de cette attaque attend que sa cible lance une attaque \"saisissable\"");
+        f_.add(DataBase.DEF_POINT_VIEW_CHANGEMENT_TYPE_MIRROR_AGAINST_THROWER,"Le possesseur de cet effet contre l'utilisateur initial");
+        f_.add(DataBase.DEF_POINT_VIEW_CHANGEMENT_TYPE_ATTRACT_DAMAGES_MOVES,"Le lanceur de cette attaque subit les dégâts des attaques à cible unique au lieu de ses partenaires");
+        f_.add(DataBase.DEF_POINT_VIEW_CHANGEMENT_TYPE_NOTHING,"");
+        return f_;
+    }
+    public static TranslationsFile enConstValuesType(){
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(DataBase.DEF_CONST_VALUES_TYPE_LANCEUR_ATTAQUES_TYPES,"The user of this move waits that its target use a \"thievable\" move");
+        e_.add(DataBase.DEF_CONST_VALUES_TYPE_TYPES_ATTAQUES_RES,"The owner of this effect counters against the initial user");
+        e_.add(DataBase.DEF_CONST_VALUES_TYPE_NOTHING,"");
+        return e_;
+    }
+    public static TranslationsFile frConstValuesType(){
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(DataBase.DEF_CONST_VALUES_TYPE_LANCEUR_ATTAQUES_TYPES,"Le lanceur de cette attaque attend que sa cible lance une attaque \"saisissable\"");
+        f_.add(DataBase.DEF_CONST_VALUES_TYPE_TYPES_ATTAQUES_RES,"Le possesseur de cet effet contre l'utilisateur initial");
+        f_.add(DataBase.DEF_CONST_VALUES_TYPE_NOTHING,"");
+        return f_;
+    }
 }

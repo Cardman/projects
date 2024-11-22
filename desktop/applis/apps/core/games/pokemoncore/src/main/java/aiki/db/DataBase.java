@@ -283,6 +283,29 @@ public class DataBase {
     public static final String DEF_GENDER_REP_NO_GENDER= "3";
     public static final String DEF_GENDER_REP_LEGENDARY= "4";
 
+    public static final String DEF_EXCHANGE_TYPE_GIVE_TO_TARGET = "0";
+    public static final String DEF_EXCHANGE_TYPE_GIVE_TO_THROWER = "1";
+    public static final String DEF_EXCHANGE_TYPE_EXCHANGE = "2";
+    public static final String DEF_EXCHANGE_TYPE_GIVE_CONST = "3";
+    public static final String DEF_EXCHANGE_TYPE_NOTHING = "4";
+
+    public static final String DEF_MOVE_ITEM_TYPE_GIVE_OBJECT_TARGET = "0";
+    public static final String DEF_MOVE_ITEM_TYPE_EXCHANGE_OBJECTS = "1";
+    public static final String DEF_MOVE_ITEM_TYPE_TAKE_OBJET = "2";
+    public static final String DEF_MOVE_ITEM_TYPE_REMOVE_TARGET_OBJECT = "3";
+    public static final String DEF_MOVE_ITEM_TYPE_DELETE_DEF_TARGET_BERRY = "4";
+    public static final String DEF_MOVE_ITEM_TYPE_USE_OBJECT_AS_POSSIBLE = "5";
+    public static final String DEF_MOVE_ITEM_TYPE_REUSE_LAST_OBJECT = "6";
+
+    public static final String DEF_POINT_VIEW_CHANGEMENT_TYPE_THIEF_BONUSES = "0";
+    public static final String DEF_POINT_VIEW_CHANGEMENT_TYPE_MIRROR_AGAINST_THROWER = "1";
+    public static final String DEF_POINT_VIEW_CHANGEMENT_TYPE_ATTRACT_DAMAGES_MOVES = "2";
+    public static final String DEF_POINT_VIEW_CHANGEMENT_TYPE_NOTHING = "3";
+
+    public static final String DEF_CONST_VALUES_TYPE_LANCEUR_ATTAQUES_TYPES = "0";
+    public static final String DEF_CONST_VALUES_TYPE_TYPES_ATTAQUES_RES = "1";
+    public static final String DEF_CONST_VALUES_TYPE_NOTHING = "2";
+
     public static final String DEF_SEL_BOOL_NO= "0";
     public static final String DEF_SEL_BOOL_YES= "1";
     public static final String DEF_SEL_BOOL_YES_AND_NO= "2";

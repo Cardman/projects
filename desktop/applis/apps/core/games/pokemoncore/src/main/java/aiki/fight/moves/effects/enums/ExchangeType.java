@@ -1,11 +1,12 @@
 package aiki.fight.moves.effects.enums;
 
 
-import code.util.CustList;
-import code.util.core.StringUtil;
+import aiki.db.*;
+import code.util.*;
+import code.util.core.*;
 
 public enum ExchangeType {
-    GIVE_TO_TARGET("0"),GIVE_TO_THROWER("1"),EXCHANGE("2"),GIVE_CONST("3"),NOTHING("");
+    GIVE_TO_TARGET(DataBase.DEF_EXCHANGE_TYPE_GIVE_TO_TARGET),GIVE_TO_THROWER(DataBase.DEF_EXCHANGE_TYPE_GIVE_TO_THROWER),EXCHANGE(DataBase.DEF_EXCHANGE_TYPE_EXCHANGE),GIVE_CONST(DataBase.DEF_EXCHANGE_TYPE_GIVE_CONST),NOTHING("");
     private final String excType;
 
     ExchangeType(String _p) {

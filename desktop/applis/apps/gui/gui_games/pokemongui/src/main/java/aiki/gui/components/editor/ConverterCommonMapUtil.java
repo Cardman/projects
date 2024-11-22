@@ -21,6 +21,9 @@ public final class ConverterCommonMapUtil {
     private ConverterCommonMapUtil() {
     }
 
+    public static GeneComponentModelEltEnumSub<String> buildAbFull(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub, AbsMap<String,String> _empty) {
+        return merge(_api, _facade, _sub.getFactoryAb(), new CustList<String>(), _empty);
+    }
     public static GeneComponentModelEltEnumSub<String> buildPkFull(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub) {
         return merge(_api, _facade, _sub.getFactoryPk(), new CustList<String>(), new StringMap<String>());
     }
