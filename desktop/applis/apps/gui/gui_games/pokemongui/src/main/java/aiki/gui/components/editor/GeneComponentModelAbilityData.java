@@ -13,6 +13,31 @@ import code.util.*;
 public final class GeneComponentModelAbilityData extends GeneComponentModelEntity<AbilityData> {
     private GeneComponentModelString multPower;
     private GeneComponentModelString multDamage;
+    private GeneComponentModelInt decreaseNecStepsHatch;
+    private GeneComponentModelInt nbUsedPp;
+    private AbsCustCheckBox forbidUseBerryAgainstFoes;
+    private AbsCustCheckBox chgtTypeByDamage;
+    private AbsCustCheckBox ignFoeStatisBoost;
+    private AbsCustCheckBox immuCh;
+    private AbsCustCheckBox immuDamageTrappingMoves;
+    private AbsCustCheckBox immuDamageAllyMoves;
+    private AbsCustCheckBox immuDamageRecoil;
+    private AbsCustCheckBox immuRechargeRound;
+    private AbsCustCheckBox slowing;
+    private AbsCustCheckBox immuSufferedDamageLowEff;
+    private AbsCustCheckBox cancelSecEffectOther;
+    private AbsCustCheckBox cancelSecEffectOwner;
+    private AbsCustCheckBox inflictingDamageInsteadOfSuffering;
+    private AbsCustCheckBox nbHits;
+    private AbsCustCheckBox breakProtection;
+    private AbsCustCheckBox plate;
+    private AbsCustCheckBox healedStatusBySwitch;
+    private AbsCustCheckBox achievedDisappearedPk;
+    private AbsCustCheckBox mumy;
+    private AbsCustCheckBox copyMovesTypes;
+    private AbsCustCheckBox reverseEffectsPowerMovesTypesGlobal;
+    private AbsCustCheckBox takeItemByDamagingMove;
+    private AbsCustCheckBox giveItemToAllyHavingUsed;
     private CrudGeneFormSimpleElementSub<EffectWhileSendingWithStatistic> effectSending;
     private CrudGeneFormSimpleElementSub<EffectEndRound> effectEndRound;
 
@@ -38,6 +63,56 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         effectEndRound = new CrudGeneFormSimpleElementSub<EffectEndRound>(getCompoFactory(),getFacade(),getSubscribedTranslationList(),getFrame());
         effectEndRound.initForm(new DisplayEntryCustSubElementEffect<EffectEndRound>(),new GeneComponentModelSubscribeFactoryDirect<EffectEndRound>(new GeneComponentModelSubscribeEffectEndRound(new GeneComponentModelEffectEndRound(getFrame(),getCompoFactory(),getFacade(),getSubscribedTranslationList()))));
         form_.add(effectEndRound.getGroup());
+        forbidUseBerryAgainstFoes=compoFactory_.newCustCheckBox();
+        form_.add(forbidUseBerryAgainstFoes);
+        chgtTypeByDamage=compoFactory_.newCustCheckBox();
+        form_.add(chgtTypeByDamage);
+        ignFoeStatisBoost=compoFactory_.newCustCheckBox();
+        form_.add(ignFoeStatisBoost);
+        immuCh=compoFactory_.newCustCheckBox();
+        form_.add(immuCh);
+        immuDamageTrappingMoves=compoFactory_.newCustCheckBox();
+        form_.add(immuDamageTrappingMoves);
+        immuDamageAllyMoves=compoFactory_.newCustCheckBox();
+        form_.add(immuDamageAllyMoves);
+        immuDamageRecoil=compoFactory_.newCustCheckBox();
+        form_.add(immuDamageRecoil);
+        immuRechargeRound=compoFactory_.newCustCheckBox();
+        form_.add(immuRechargeRound);
+        slowing=compoFactory_.newCustCheckBox();
+        form_.add(slowing);
+        immuSufferedDamageLowEff=compoFactory_.newCustCheckBox();
+        form_.add(immuSufferedDamageLowEff);
+        cancelSecEffectOther=compoFactory_.newCustCheckBox();
+        form_.add(cancelSecEffectOther);
+        cancelSecEffectOwner=compoFactory_.newCustCheckBox();
+        form_.add(cancelSecEffectOwner);
+        inflictingDamageInsteadOfSuffering=compoFactory_.newCustCheckBox();
+        form_.add(inflictingDamageInsteadOfSuffering);
+        nbHits=compoFactory_.newCustCheckBox();
+        form_.add(nbHits);
+        breakProtection=compoFactory_.newCustCheckBox();
+        form_.add(breakProtection);
+        plate=compoFactory_.newCustCheckBox();
+        form_.add(plate);
+        healedStatusBySwitch=compoFactory_.newCustCheckBox();
+        form_.add(healedStatusBySwitch);
+        achievedDisappearedPk=compoFactory_.newCustCheckBox();
+        form_.add(achievedDisappearedPk);
+        mumy=compoFactory_.newCustCheckBox();
+        form_.add(mumy);
+        copyMovesTypes=compoFactory_.newCustCheckBox();
+        form_.add(copyMovesTypes);
+        reverseEffectsPowerMovesTypesGlobal=compoFactory_.newCustCheckBox();
+        form_.add(reverseEffectsPowerMovesTypesGlobal);
+        takeItemByDamagingMove=compoFactory_.newCustCheckBox();
+        form_.add(takeItemByDamagingMove);
+        giveItemToAllyHavingUsed=compoFactory_.newCustCheckBox();
+        form_.add(giveItemToAllyHavingUsed);
+        decreaseNecStepsHatch = new GeneComponentModelInt(getCompoFactory());
+        form_.add(decreaseNecStepsHatch.geneInt());
+        nbUsedPp = new GeneComponentModelInt(getCompoFactory());
+        form_.add(nbUsedPp.geneInt());
         sc_.setViewportView(form_);
         page_.add(sc_);
         return page_;
@@ -50,6 +125,31 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         ent_.setMultDamage(multDamage.valueString());
         ent_.setEffectSending(effectSending.getList());
         ent_.setEffectEndRound(effectEndRound.getList());
+        ent_.setForbidUseBerryAgainstFoes(forbidUseBerryAgainstFoes.isSelected());
+        ent_.setChgtTypeByDamage(chgtTypeByDamage.isSelected());
+        ent_.setIgnFoeStatisBoost(ignFoeStatisBoost.isSelected());
+        ent_.setImmuCh(immuCh.isSelected());
+        ent_.setImmuDamageTrappingMoves(immuDamageTrappingMoves.isSelected());
+        ent_.setImmuDamageAllyMoves(immuDamageAllyMoves.isSelected());
+        ent_.setImmuDamageRecoil(immuDamageRecoil.isSelected());
+        ent_.setImmuRechargeRound(immuRechargeRound.isSelected());
+        ent_.setSlowing(slowing.isSelected());
+        ent_.setImmuSufferedDamageLowEff(immuSufferedDamageLowEff.isSelected());
+        ent_.setCancelSecEffectOther(cancelSecEffectOther.isSelected());
+        ent_.setCancelSecEffectOwner(cancelSecEffectOwner.isSelected());
+        ent_.setInflictingDamageInsteadOfSuffering(inflictingDamageInsteadOfSuffering.isSelected());
+        ent_.setNbHits(nbHits.isSelected());
+        ent_.setBreakProtection(breakProtection.isSelected());
+        ent_.setPlate(plate.isSelected());
+        ent_.setHealedStatusBySwitch(healedStatusBySwitch.isSelected());
+        ent_.setAchievedDisappearedPk(achievedDisappearedPk.isSelected());
+        ent_.setMumy(mumy.isSelected());
+        ent_.setCopyMovesTypes(copyMovesTypes.isSelected());
+        ent_.setReverseEffectsPowerMovesTypesGlobal(reverseEffectsPowerMovesTypesGlobal.isSelected());
+        ent_.setTakeItemByDamagingMove(takeItemByDamagingMove.isSelected());
+        ent_.setGiveItemToAllyHavingUsed(giveItemToAllyHavingUsed.isSelected());
+        ent_.setDecreaseNecStepsHatch(decreaseNecStepsHatch.valueInt());
+        ent_.setNbUsedPp(nbUsedPp.valueInt());
         return new EditedCrudPair<String, AbilityData>(getGeneComponentModelSelectKey().tryRet(),ent_);
     }
 
@@ -62,6 +162,31 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         multDamage.valueString(ability_.getMultDamage());
         effectSending.setupValues(ability_.getEffectSending());
         effectEndRound.setupValues(ability_.getEffectEndRound());
+        forbidUseBerryAgainstFoes.setSelected(ability_.isForbidUseBerryAgainstFoes());
+        chgtTypeByDamage.setSelected(ability_.isChgtTypeByDamage());
+        ignFoeStatisBoost.setSelected(ability_.isIgnFoeStatisBoost());
+        immuCh.setSelected(ability_.isImmuCh());
+        immuDamageTrappingMoves.setSelected(ability_.isImmuDamageTrappingMoves());
+        immuDamageAllyMoves.setSelected(ability_.isImmuDamageAllyMoves());
+        immuDamageRecoil.setSelected(ability_.isImmuDamageRecoil());
+        immuRechargeRound.setSelected(ability_.isImmuRechargeRound());
+        slowing.setSelected(ability_.isSlowing());
+        immuSufferedDamageLowEff.setSelected(ability_.isImmuSufferedDamageLowEff());
+        cancelSecEffectOther.setSelected(ability_.isCancelSecEffectOther());
+        cancelSecEffectOwner.setSelected(ability_.isCancelSecEffectOwner());
+        inflictingDamageInsteadOfSuffering.setSelected(ability_.isInflictingDamageInsteadOfSuffering());
+        nbHits.setSelected(ability_.isNbHits());
+        breakProtection.setSelected(ability_.isBreakProtection());
+        plate.setSelected(ability_.isPlate());
+        healedStatusBySwitch.setSelected(ability_.isHealedStatusBySwitch());
+        achievedDisappearedPk.setSelected(ability_.isAchievedDisappearedPk());
+        mumy.setSelected(ability_.isMumy());
+        copyMovesTypes.setSelected(ability_.isCopyMovesTypes());
+        reverseEffectsPowerMovesTypesGlobal.setSelected(ability_.isReverseEffectsPowerMovesTypesGlobal());
+        takeItemByDamagingMove.setSelected(ability_.isTakeItemByDamagingMove());
+        giveItemToAllyHavingUsed.setSelected(ability_.isGiveItemToAllyHavingUsed());
+        decreaseNecStepsHatch.valueInt(ability_.getDecreaseNecStepsHatch());
+        nbUsedPp.valueInt(ability_.getNbUsedPp());
     }
     public IdList<SubscribedTranslation> all() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
@@ -85,4 +210,96 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
     public CrudGeneFormSimpleElementSub<EffectEndRound> getEffectEndRound() {
         return effectEndRound;
     }
+    public AbsCustCheckBox getForbidUseBerryAgainstFoes(){
+        return forbidUseBerryAgainstFoes;
+    }
+
+    public AbsCustCheckBox getChgtTypeByDamage(){
+        return chgtTypeByDamage;
+    }
+
+    public AbsCustCheckBox getIgnFoeStatisBoost(){
+        return ignFoeStatisBoost;
+    }
+
+    public AbsCustCheckBox getImmuCh(){
+        return immuCh;
+    }
+
+    public AbsCustCheckBox getImmuDamageTrappingMoves(){
+        return immuDamageTrappingMoves;
+    }
+
+    public AbsCustCheckBox getImmuDamageAllyMoves(){
+        return immuDamageAllyMoves;
+    }
+
+    public AbsCustCheckBox getImmuDamageRecoil(){
+        return immuDamageRecoil;
+    }
+
+    public AbsCustCheckBox getImmuRechargeRound(){
+        return immuRechargeRound;
+    }
+
+    public AbsCustCheckBox getSlowing(){
+        return slowing;
+    }
+
+    public AbsCustCheckBox getImmuSufferedDamageLowEff(){
+        return immuSufferedDamageLowEff;
+    }
+
+    public AbsCustCheckBox getCancelSecEffectOther(){
+        return cancelSecEffectOther;
+    }
+
+    public AbsCustCheckBox getCancelSecEffectOwner(){
+        return cancelSecEffectOwner;
+    }
+
+    public AbsCustCheckBox getInflictingDamageInsteadOfSuffering(){
+        return inflictingDamageInsteadOfSuffering;
+    }
+
+    public AbsCustCheckBox getNbHits(){
+        return nbHits;
+    }
+
+    public AbsCustCheckBox getBreakProtection(){
+        return breakProtection;
+    }
+
+    public AbsCustCheckBox getPlate(){
+        return plate;
+    }
+
+    public AbsCustCheckBox getHealedStatusBySwitch(){
+        return healedStatusBySwitch;
+    }
+
+    public AbsCustCheckBox getAchievedDisappearedPk(){
+        return achievedDisappearedPk;
+    }
+
+    public AbsCustCheckBox getMumy(){
+        return mumy;
+    }
+
+    public AbsCustCheckBox getCopyMovesTypes(){
+        return copyMovesTypes;
+    }
+
+    public AbsCustCheckBox getReverseEffectsPowerMovesTypesGlobal(){
+        return reverseEffectsPowerMovesTypesGlobal;
+    }
+
+    public AbsCustCheckBox getTakeItemByDamagingMove(){
+        return takeItemByDamagingMove;
+    }
+
+    public AbsCustCheckBox getGiveItemToAllyHavingUsed(){
+        return giveItemToAllyHavingUsed;
+    }
+
 }
