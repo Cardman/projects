@@ -10,6 +10,10 @@ import code.util.core.*;
 
 public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect {
     private final ContentComponentModelEffect contentEffect = new ContentComponentModelEffect();
+    private final ContentComponentModelEffectClone contentEffectClone = new ContentComponentModelEffectClone();
+    private final ContentComponentModelEffectCommonStatistics contentEffectCommonStatistics = new ContentComponentModelEffectCommonStatistics();
+    private final ContentComponentModelEffectCopyFighter contentEffectCopyFighter = new ContentComponentModelEffectCopyFighter();
+    private final ContentComponentModelEffectCopyMove contentEffectCopyMove = new ContentComponentModelEffectCopyMove();
     private final ContentComponentModelEffectCounterAttack contentEffectCounterAttack = new ContentComponentModelEffectCounterAttack();
     private final ContentComponentModelEffectDamage contentEffectDamage = new ContentComponentModelEffectDamage();
     private final ContentComponentModelEffectDamageRate contentEffectDamageRate = new ContentComponentModelEffectDamageRate();
@@ -47,6 +51,10 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         AbsPanel form_ = compoFactory_.newLineBox();
         form_.add(getEffectKind().geneEnum());
         form_.add(contentEffect.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
+        form_.add(contentEffectClone.effectForm(this));
+        form_.add(contentEffectCommonStatistics.effectForm(getFrame(),getProgramInfos(),getFacadeGame(),getFactory()));
+        form_.add(contentEffectCopyFighter.effectForm(this));
+        form_.add(contentEffectCopyMove.effectForm(getProgramInfos(),getFacadeGame(),getFactory()));
         form_.add(contentEffectCounterAttack.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
         form_.add(contentEffectDamage.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
         form_.add(contentEffectDamageRate.effectForm(this));
@@ -91,6 +99,18 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
     }
 
     private void init1(String _eff) {
+        if (StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_CLONE)) {
+            edited = Instances.newEffectClone();
+        }
+        if (StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_COMMON_STATISTICS)) {
+            edited = Instances.newEffectCommonStatistics();
+        }
+        if (StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_COPY_FIGHTER)) {
+            edited = Instances.newEffectCopyFighter();
+        }
+        if (StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_COPY_MOVE)) {
+            edited = Instances.newEffectCopyMove();
+        }
         if (StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_COUNTER_ATTACK)) {
             edited = Instances.newEffectCounterAttack();
         }
@@ -185,6 +205,18 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
     }
 
     private void value1() {
+        if (edited instanceof EffectClone) {
+            contentEffectClone.buildEntity((EffectClone) edited);
+        }
+        if (edited instanceof EffectCommonStatistics) {
+            contentEffectCommonStatistics.buildEntity((EffectCommonStatistics) edited);
+        }
+        if (edited instanceof EffectCopyFighter) {
+            contentEffectCopyFighter.buildEntity((EffectCopyFighter) edited);
+        }
+        if (edited instanceof EffectCopyMove) {
+            contentEffectCopyMove.buildEntity((EffectCopyMove) edited);
+        }
         if (edited instanceof EffectCounterAttack) {
             contentEffectCounterAttack.buildEntity((EffectCounterAttack) edited);
         }
@@ -273,6 +305,22 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
     }
 
     private void value1(Effect _v) {
+        if (_v instanceof EffectClone) {
+            contentEffectClone.feedForm((EffectClone) _v);
+            displayRepaint(MessagesEditorSelect.EFF_CLONE);
+        }
+        if (_v instanceof EffectCommonStatistics) {
+            contentEffectCommonStatistics.feedForm((EffectCommonStatistics) _v);
+            displayRepaint(MessagesEditorSelect.EFF_COMMON_STATISTICS);
+        }
+        if (_v instanceof EffectCopyFighter) {
+            contentEffectCopyFighter.feedForm((EffectCopyFighter) _v);
+            displayRepaint(MessagesEditorSelect.EFF_COPY_FIGHTER);
+        }
+        if (_v instanceof EffectCopyMove) {
+            contentEffectCopyMove.feedForm((EffectCopyMove) _v);
+            displayRepaint(MessagesEditorSelect.EFF_COPY_MOVE);
+        }
         if (_v instanceof EffectCounterAttack) {
             contentEffectCounterAttack.feedForm((EffectCounterAttack) _v);
             displayRepaint(MessagesEditorSelect.EFF_COUNTER_ATTACK);
@@ -388,6 +436,10 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
     }
 
     private String display(String _eff) {
+        contentEffectClone.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_CLONE));
+        contentEffectCommonStatistics.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_COMMON_STATISTICS));
+        contentEffectCopyFighter.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_COPY_FIGHTER));
+        contentEffectCopyMove.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_COPY_MOVE));
         contentEffectCounterAttack.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_COUNTER_ATTACK));
         contentEffectDamage.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_DAMAGE));
         contentEffectDamageRate.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_DAMAGE_RATE));
@@ -417,6 +469,8 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
     public IdList<SubscribedTranslation> all() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
         ids_.addAllElts(getContentEffect().getTargetChoice().getSubs());
+        ids_.addAllElts(getContentEffectCommonStatistics().getCommonValue().subscribeButtons());
+        ids_.addAllElts(getContentEffectCopyMove().getMovesNotToBeCopied().getSubs());
         ids_.addAllElts(getContentEffectCounterAttack().getSufferingDamageTypes().subscribeButtons());
         ids_.addAllElts(getContentEffectCounterAttack().getDroppedStatDirectMove().subscribeButtons());
         ids_.addAllElts(getContentEffectDamage().getStatisAtt().getSubs());
@@ -494,6 +548,22 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
 
     public ContentComponentModelEffect getContentEffect() {
         return contentEffect;
+    }
+
+    public ContentComponentModelEffectClone getContentEffectClone() {
+        return contentEffectClone;
+    }
+
+    public ContentComponentModelEffectCommonStatistics getContentEffectCommonStatistics() {
+        return contentEffectCommonStatistics;
+    }
+
+    public ContentComponentModelEffectCopyFighter getContentEffectCopyFighter() {
+        return contentEffectCopyFighter;
+    }
+
+    public ContentComponentModelEffectCopyMove getContentEffectCopyMove() {
+        return contentEffectCopyMove;
     }
 
     public ContentComponentModelEffectCounterAttack getContentEffectCounterAttack() {
