@@ -11,8 +11,8 @@ import code.util.*;
 public final class GeneComponentModelStatus extends GeneComponentModelEntity<Status> {
     private final GeneComponentModelRate catchingRate;
 
-    public GeneComponentModelStatus(AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
-        super(_core, _facade, _sub);
+    public GeneComponentModelStatus(AbsCommonFrame _frame, AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
+        super(_frame,_core, _facade, _sub);
         catchingRate = new GeneComponentModelRate(_core);
     }
     @Override

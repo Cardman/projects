@@ -524,14 +524,7 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         ids_.addAllElts(getContentEffectInvoke().getMoveFctEnv().subscribeButtons());
         ids_.addAllElts(getContentEffectMultMovePower().getMultMovePowerFctType().subscribeButtons());
         ids_.addAllElts(getContentEffectProtectFromTypes().getImmuAgainstTypes().getSubs());
-        ids_.addAllElts(getContentEffectStatistic().getCancelChgtStat().getSubs());
-        ids_.addAllElts(getContentEffectStatistic().getCancelLowStat().getSubs());
-        ids_.addAllElts(getContentEffectStatistic().getCopyBoost().getSubs());
-        ids_.addAllElts(getContentEffectStatistic().getSwapBoostStatis().getSubs());
-        ids_.addAllElts(getContentEffectStatistic().getStatisVarRank().subscribeButtons());
-        ids_.addAllElts(getContentEffectStatistic().getLocalFailStatis().subscribeButtons());
-        ids_.addAllElts(getContentEffectStatistic().getLocalFailSwapBoostStatis().subscribeButtons());
-        ids_.addAllElts(getContentEffectStatistic().getLawBoost().subscribeButtons());
+        ids_.addAllElts(stats(getContentEffectStatistic()));
         ids_.addAllElts(getContentEffectStatus().getDeletedStatus().getSubs());
         ids_.addAllElts(getContentEffectStatus().getLocalFailStatus().subscribeButtons());
         ids_.addAllElts(getContentEffectStatus().getLawStatus().subscribeButtons());
@@ -549,11 +542,28 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         ids_.addAllElts(getContentEffectUnprotectFromTypes().getAttackTargetWithTypes().getSubs());
         ids_.addAllElts(getContentEffectUnprotectFromTypes().getDisableImmuFromMoves().getSubs());
         ids_.addAllElts(getContentEffectUnprotectFromTypes().getDisableImmuAgainstTypes().getSubs());
-        ids_.addAllElts(getContentGroupEffectEndRound().getContentEffectEndRoundIndividual().getUserStatusEndRound().getSubs());
-        ids_.addAllElts(getContentGroupEffectEndRound().getContentEffectEndRoundIndividual().getHealHpByOwnerTypes().subscribeButtons());
-        ids_.addAllElts(getContentGroupEffectEndRound().getContentEffectEndRoundIndividual().getMultDamageStatus().subscribeButtons());
-        ids_.addAllElts(getContentGroupEffectEndRound().getContentEffectEndRoundMultiRelation().getDamageByStatus().subscribeButtons());
-        ids_.addAllElts(getContentGroupEffectEndRound().getContentEffectEndRoundSingleRelation().getRateDamageFunctionOfNbRounds().subscribeButtons());
+        ids_.addAllElts(endRound(getContentGroupEffectEndRound()));
+        return ids_;
+    }
+    public static IdList<SubscribedTranslation> endRound(ContentComponentModelGroupEffectEndRound _cont) {
+        IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
+        ids_.addAllElts(_cont.getContentEffectEndRoundIndividual().getUserStatusEndRound().getSubs());
+        ids_.addAllElts(_cont.getContentEffectEndRoundIndividual().getHealHpByOwnerTypes().subscribeButtons());
+        ids_.addAllElts(_cont.getContentEffectEndRoundIndividual().getMultDamageStatus().subscribeButtons());
+        ids_.addAllElts(_cont.getContentEffectEndRoundMultiRelation().getDamageByStatus().subscribeButtons());
+        ids_.addAllElts(_cont.getContentEffectEndRoundSingleRelation().getRateDamageFunctionOfNbRounds().subscribeButtons());
+        return ids_;
+    }
+    public static IdList<SubscribedTranslation> stats(ContentComponentModelEffectStatistic _cont) {
+        IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
+        ids_.addAllElts(_cont.getCancelChgtStat().getSubs());
+        ids_.addAllElts(_cont.getCancelLowStat().getSubs());
+        ids_.addAllElts(_cont.getCopyBoost().getSubs());
+        ids_.addAllElts(_cont.getSwapBoostStatis().getSubs());
+        ids_.addAllElts(_cont.getStatisVarRank().subscribeButtons());
+        ids_.addAllElts(_cont.getLocalFailStatis().subscribeButtons());
+        ids_.addAllElts(_cont.getLocalFailSwapBoostStatis().subscribeButtons());
+        ids_.addAllElts(_cont.getLawBoost().subscribeButtons());
         return ids_;
     }
     public static IdList<SubscribedTranslation> team(ContentComponentModelEffectTeam _cont) {

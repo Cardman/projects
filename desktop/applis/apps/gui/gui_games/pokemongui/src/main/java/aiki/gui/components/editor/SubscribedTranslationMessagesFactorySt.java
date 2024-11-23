@@ -37,7 +37,7 @@ public final class SubscribedTranslationMessagesFactorySt extends SubscribedTran
 
     @Override
     public GeneComponentModel<EditedCrudPair<String,Status>> build(AbsCommonFrame _frame, AbstractProgramInfos _core, CrudGeneFormSubContent<EditedCrudPair<String,Status>> _facade) {
-        geneComponentModelStatus = new GeneComponentModelStatus(_core, _facade.getFacadeGame(), _facade.getSubscription());
+        geneComponentModelStatus = new GeneComponentModelStatus(_frame,_core, _facade.getFacadeGame(), _facade.getSubscription());
         return geneComponentModelStatus;
     }
 

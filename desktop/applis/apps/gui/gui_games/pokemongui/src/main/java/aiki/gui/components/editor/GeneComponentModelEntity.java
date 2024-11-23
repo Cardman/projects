@@ -10,9 +10,11 @@ public abstract class GeneComponentModelEntity<E> implements GeneComponentModel<
     private final SubscribedTranslationList subscribedTranslationList;
     private final AbstractProgramInfos compoFactory;
     private final FacadeGame facade;
+    private final AbsCommonFrame frame;
     private GeneComponentModelEltEnumSub<String> geneComponentModelSelectKey;
 
-    protected GeneComponentModelEntity(AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
+    protected GeneComponentModelEntity(AbsCommonFrame _fr, AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
+        frame = _fr;
         this.compoFactory = _core;
         facade = _facade;
         subscribedTranslationList = _sub;
@@ -30,6 +32,10 @@ public abstract class GeneComponentModelEntity<E> implements GeneComponentModel<
     }
     public GeneComponentModelEltEnumSub<String> getGeneComponentModelSelectKey() {
         return geneComponentModelSelectKey;
+    }
+
+    public AbsCommonFrame getFrame() {
+        return frame;
     }
 
     public FacadeGame getFacade() {

@@ -48,12 +48,10 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
     private MoveData element;
     private AbsPanel damagingComponent;
     private AbsPanel statusComponent;
-    private final AbsCommonFrame window;
 
 
     public GeneComponentModelMoveData(AbsCommonFrame _frame, AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
-        super(_core, _facade, _sub);
-        window = _frame;
+        super(_frame,_core, _facade, _sub);
         pp = new GeneComponentModelInt(_core);
         priority = new GeneComponentModelInt(_core);
         nbPrepaRound = new GeneComponentModelInt(_core);
@@ -157,7 +155,7 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         } else {
             element = Instances.newStatusMoveData();
         }
-        window.pack();
+        getFrame().pack();
     }
     private GeneComponentModelSubscribeFactorySelElt buildPart(SubscribedTranslationMessagesFactory _facto, StringMap<String> _abs) {
         return new GeneComponentModelSubscribeFactorySelElt(getCompoFactory(), getFacade(), _facto, _abs);

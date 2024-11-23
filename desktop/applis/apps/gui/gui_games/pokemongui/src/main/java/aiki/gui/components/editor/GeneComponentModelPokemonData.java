@@ -36,7 +36,7 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
     private final IdList<SubscribedTranslation> subscribedTranslations = new IdList<SubscribedTranslation>();
 
     public GeneComponentModelPokemonData(AbsCommonFrame _fr, AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
-        super(_core, _facade, _sub);
+        super(_fr,_core, _facade, _sub);
         weight = new GeneComponentModelRate(getCompoFactory());
         height = new GeneComponentModelRate(getCompoFactory());
         catchingRate = new GeneComponentModelInt(getCompoFactory());

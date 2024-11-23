@@ -11,8 +11,8 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
     private final GeneComponentModelInt price;
 //    private Item element;
 
-    public GeneComponentModelItem(AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
-        super(_core, _facade, _sub);
+    public GeneComponentModelItem(AbsCommonFrame _frame, AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
+        super(_frame,_core, _facade, _sub);
         price = new GeneComponentModelInt(_core);
     }
     @Override

@@ -2,6 +2,7 @@ package aiki.gui.components.editor;
 
 import aiki.facade.*;
 import aiki.fight.abilities.*;
+import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.instances.*;
 import code.gui.*;
 import code.gui.events.*;
@@ -11,25 +12,27 @@ import code.util.*;
 public final class GeneComponentModelAbilityData extends GeneComponentModelEntity<AbilityData> {
     private GeneComponentModelString multPower;
     private GeneComponentModelString multDamage;
-//    private AbilityData element;
+    private CrudGeneFormSimpleElementSub<EffectWhileSendingWithStatistic> effectSending;
 
-    public GeneComponentModelAbilityData(AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
-        super(_core, _facade, _sub);
+    public GeneComponentModelAbilityData(AbsCommonFrame _frame, AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
+        super(_frame,_core, _facade, _sub);
     }
     @Override
     public AbsCustComponent gene(int _select) {
         SubscribedTranslationMessagesFactoryAb factoryAb_ = getSubscribedTranslationList().getFactoryAb();
         buildKey(_select,factoryAb_,factoryAb_.all(getFacade()).getKeys());
-        multPower = new GeneComponentModelString(getCompoFactory(),new StringList(),new DefValidateText());
-        multDamage = new GeneComponentModelString(getCompoFactory(),new StringList(),new DefValidateText());
-//        element = Instances.newAbilityData();
         AbsCompoFactory compoFactory_ = getCompoFactory().getCompoFactory();
         AbsScrollPane sc_ = compoFactory_.newAbsScrollPane();
         AbsPanel page_ = compoFactory_.newPageBox();
         page_.add(getGeneComponentModelSelectKey().geneEnum());
         AbsPanel form_ = compoFactory_.newLineBox();
+        multPower = new GeneComponentModelString(getCompoFactory(),new StringList(),new DefValidateText());
         form_.add(multPower.geneString());
+        multDamage = new GeneComponentModelString(getCompoFactory(),new StringList(),new DefValidateText());
         form_.add(multDamage.geneString());
+        effectSending = new CrudGeneFormSimpleElementSub<EffectWhileSendingWithStatistic>(getCompoFactory(),getFacade(),getSubscribedTranslationList(),getFrame());
+        effectSending.initForm(new DisplayEntryCustSubElementEffect<EffectWhileSendingWithStatistic>(),new GeneComponentModelSubscribeFactoryDirect<EffectWhileSendingWithStatistic>(new GeneComponentModelSubscribeEffectWhileSending(new GeneComponentModelEffectWhileSending(getFrame(),getCompoFactory(),getFacade(),getSubscribedTranslationList()))));
+        form_.add(effectSending.getGroup());
         sc_.setViewportView(form_);
         page_.add(sc_);
         return page_;
@@ -40,6 +43,7 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         AbilityData ent_ = Instances.newAbilityData();
         ent_.setMultPower(multPower.valueString());
         ent_.setMultDamage(multDamage.valueString());
+        ent_.setEffectSending(effectSending.getList());
         return new EditedCrudPair<String, AbilityData>(getGeneComponentModelSelectKey().tryRet(),ent_);
     }
 
@@ -50,6 +54,7 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         AbilityData ability_ = _v.getValue();
         multPower.valueString(ability_.getMultPower());
         multDamage.valueString(ability_.getMultDamage());
+        effectSending.setupValues(ability_.getEffectSending());
     }
     public IdList<SubscribedTranslation> all() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
@@ -64,5 +69,9 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
 
     public GeneComponentModelString getMultPower() {
         return multPower;
+    }
+
+    public CrudGeneFormSimpleElementSub<EffectWhileSendingWithStatistic> getEffectSending() {
+        return effectSending;
     }
 }

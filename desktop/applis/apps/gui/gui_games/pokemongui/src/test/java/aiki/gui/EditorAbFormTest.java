@@ -136,6 +136,37 @@ public final class EditorAbFormTest extends InitEditorPkForm {
         assertTrue(facade_.getData().getAbilities().contains(A_1));
         assertTrue(facade_.getData().getAbilities().contains(A_2));
     }
+    @Test
+    public void abForm9() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<AbilityData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelAbilityData g_ = (GeneComponentModelAbilityData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(A_1);
+        tryClick(g_.getEffectSending().getCrud().getAdd());
+        ((GeneComponentModelSubscribeEffectWhileSending)g_.getEffectSending().getCrud().getGenePair().getKey()).getCrud().getWithEffect().setSelected(true);
+        ((GeneComponentModelSubscribeEffectWhileSending)g_.getEffectSending().getCrud().getGenePair().getKey()).getCrud().getCopyingAbility().setSelected(true);
+        ((GeneComponentModelSubscribeEffectWhileSending)g_.getEffectSending().getCrud().getGenePair().getKey()).getCrud().getDisableWeather().setSelected(true);
+        tryClick(g_.getEffectSending().getCrud().getValidAddEdit());
+        tryClick(g_.getEffectSending().getCrud().getAdd());
+        ((GeneComponentModelSubscribeEffectWhileSending)g_.getEffectSending().getCrud().getGenePair().getKey()).getCrud().getWithEffect().setSelected(false);
+        ((GeneComponentModelSubscribeEffectWhileSending)g_.getEffectSending().getCrud().getGenePair().getKey()).getCrud().getCopyingAbility().setSelected(false);
+        ((GeneComponentModelSubscribeEffectWhileSending)g_.getEffectSending().getCrud().getGenePair().getKey()).getCrud().getDisableWeather().setSelected(false);
+        tryClick(g_.getEffectSending().getCrud().getValidAddEdit());
+        tryClick(g_.getEffectSending().getCrud().getAllButtons().get(0));
+        tryClick(g_.getEffectSending().getCrud().getCancel());
+        tryClick(g_.getEffectSending().getCrud().getAllButtons().get(1));
+        tryClick(g_.getEffectSending().getCrud().getCancel());
+        tryClick(c_.getValidAddEdit());
+        assertTrue(facade_.getData().getAbilities().getVal(A_1).getEffectSending().get(0).isWithEffect());
+        assertTrue(facade_.getData().getAbilities().getVal(A_1).getEffectSending().get(0).getCopyingAbility());
+        assertTrue(facade_.getData().getAbilities().getVal(A_1).getEffectSending().get(0).getDisableWeather());
+        assertFalse(facade_.getData().getAbilities().getVal(A_1).getEffectSending().get(1).isWithEffect());
+        assertFalse(facade_.getData().getAbilities().getVal(A_1).getEffectSending().get(1).getCopyingAbility());
+        assertFalse(facade_.getData().getAbilities().getVal(A_1).getEffectSending().get(1).getDisableWeather());
+    }
     private FacadeGame facadeAdd(MockProgramInfos _m) {
         FacadeGame f_ = facade(_m);
         f_.getData().completeQuickMembers(A_1, Instances.newAbilityData());
