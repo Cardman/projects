@@ -10,6 +10,7 @@ import code.util.core.*;
 
 public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect {
     private final ContentComponentModelEffect contentEffect = new ContentComponentModelEffect();
+    private final ContentComponentModelEffectAlly contentEffectAlly = new ContentComponentModelEffectAlly();
     private final ContentComponentModelEffectClone contentEffectClone = new ContentComponentModelEffectClone();
     private final ContentComponentModelEffectCommonStatistics contentEffectCommonStatistics = new ContentComponentModelEffectCommonStatistics();
     private final ContentComponentModelEffectCopyFighter contentEffectCopyFighter = new ContentComponentModelEffectCopyFighter();
@@ -51,6 +52,7 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         AbsPanel form_ = compoFactory_.newLineBox();
         form_.add(getEffectKind().geneEnum());
         form_.add(contentEffect.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
+        form_.add(contentEffectAlly.effectForm(this));
         form_.add(contentEffectClone.effectForm(this));
         form_.add(contentEffectCommonStatistics.effectForm(getFrame(),getProgramInfos(),getFacadeGame(),getFactory()));
         form_.add(contentEffectCopyFighter.effectForm(this));
@@ -91,6 +93,15 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         String display_ = display(eff_);
         if (!display_.isEmpty()) {
             edited = ContentComponentModelGroupEffectEndRound.instance(eff_);
+        }
+        if (StringUtil.quickEq(eff_, MessagesEditorSelect.EFF_ACCURACY)) {
+            edited = Instances.newEffectAccuracy();
+        }
+        if (StringUtil.quickEq(eff_, MessagesEditorSelect.EFF_ALLY)) {
+            edited = Instances.newEffectAlly();
+        }
+        if (StringUtil.quickEq(eff_, MessagesEditorSelect.EFF_BATON_PASS)) {
+            edited = Instances.newEffectBatonPass();
         }
         init1(eff_);
         init2(eff_);
@@ -196,6 +207,9 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
 
     public Effect valueEffect() {
         contentEffect.buildEntity(edited);
+        if (edited instanceof EffectAlly) {
+            contentEffectAlly.buildEntity((EffectAlly) edited);
+        }
         value1();
         value2();
         if (edited instanceof EffectEndRound) {
@@ -296,6 +310,16 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
 
     public void valueEffect(Effect _v) {
         contentEffect.feedForm(_v);
+        if (_v instanceof EffectAccuracy) {
+            displayRepaint(MessagesEditorSelect.EFF_ACCURACY);
+        }
+        if (_v instanceof EffectAlly) {
+            contentEffectAlly.feedForm((EffectAlly) _v);
+            displayRepaint(MessagesEditorSelect.EFF_ALLY);
+        }
+        if (_v instanceof EffectBatonPass) {
+            displayRepaint(MessagesEditorSelect.EFF_BATON_PASS);
+        }
         value1(_v);
         value2(_v);
         if (_v instanceof EffectEndRound) {
@@ -436,6 +460,7 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
     }
 
     private String display(String _eff) {
+        contentEffectAlly.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_ALLY));
         contentEffectClone.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_CLONE));
         contentEffectCommonStatistics.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_COMMON_STATISTICS));
         contentEffectCopyFighter.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_COPY_FIGHTER));
@@ -548,6 +573,10 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
 
     public ContentComponentModelEffect getContentEffect() {
         return contentEffect;
+    }
+
+    public ContentComponentModelEffectAlly getContentEffectAlly() {
+        return contentEffectAlly;
     }
 
     public ContentComponentModelEffectClone getContentEffectClone() {
