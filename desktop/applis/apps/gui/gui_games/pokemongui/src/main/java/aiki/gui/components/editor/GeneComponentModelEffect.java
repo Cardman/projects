@@ -14,6 +14,8 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
     private final ContentComponentModelEffectDamage contentEffectDamage = new ContentComponentModelEffectDamage();
     private final ContentComponentModelEffectGlobal contentEffectGlobal = new ContentComponentModelEffectGlobal();
     private final ContentComponentModelEffectInvoke contentEffectInvoke = new ContentComponentModelEffectInvoke();
+    private final ContentComponentModelEffectMultMovePower contentEffectMultMovePower = new ContentComponentModelEffectMultMovePower();
+    private final ContentComponentModelEffectOrder contentEffectOrder = new ContentComponentModelEffectOrder();
     private final ContentComponentModelEffectProtectFromTypes contentEffectProtectFromTypes = new ContentComponentModelEffectProtectFromTypes();
     private final ContentComponentModelEffectProtection contentEffectProtection = new ContentComponentModelEffectProtection();
     private final ContentComponentModelEffectRemainedHpRate contentEffectRemainedHpRate = new ContentComponentModelEffectRemainedHpRate();
@@ -47,6 +49,8 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         form_.add(contentEffectDamage.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
         form_.add(contentEffectGlobal.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
         form_.add(contentEffectInvoke.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
+        form_.add(contentEffectMultMovePower.effectForm(this));
+        form_.add(contentEffectOrder.effectForm(this));
         form_.add(contentEffectProtectFromTypes.effectForm(getProgramInfos(), getFacadeGame(), getFactory()));
         form_.add(contentEffectProtection.effectForm(this));
         form_.add(contentEffectRemainedHpRate.effectForm(this));
@@ -94,6 +98,15 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         }
         if (StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_INVOKE)) {
             edited = Instances.newEffectInvoke();
+        }
+        if (StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_MULT_SUFFERED_MOVE_POWER)) {
+            edited = Instances.newEffectMultSufferedMovePower();
+        }
+        if (StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_MULT_USED_MOVE_POWER)) {
+            edited = Instances.newEffectMultUsedMovePower();
+        }
+        if (StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_ORDER)) {
+            edited = Instances.newEffectOrder();
         }
         if (StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_PROTECT_FROM_TYPES)) {
             edited = Instances.newEffectProtectFromTypes();
@@ -174,6 +187,12 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         if (edited instanceof EffectInvoke) {
             contentEffectInvoke.buildEntity((EffectInvoke) edited);
         }
+        if (edited instanceof EffectMultMovePower) {
+            contentEffectMultMovePower.buildEntity((EffectMultMovePower) edited);
+        }
+        if (edited instanceof EffectOrder) {
+            contentEffectOrder.buildEntity((EffectOrder) edited);
+        }
         if (edited instanceof EffectProtectFromTypes) {
             contentEffectProtectFromTypes.buildEntity((EffectProtectFromTypes) edited);
         }
@@ -253,6 +272,18 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         if (_v instanceof EffectInvoke) {
             contentEffectInvoke.feedForm((EffectInvoke) _v);
             displayRepaint(MessagesEditorSelect.EFF_INVOKE);
+        }
+        if (_v instanceof EffectMultSufferedMovePower) {
+            contentEffectMultMovePower.feedForm((EffectMultSufferedMovePower) _v);
+            displayRepaint(MessagesEditorSelect.EFF_MULT_SUFFERED_MOVE_POWER);
+        }
+        if (_v instanceof EffectMultUsedMovePower) {
+            contentEffectMultMovePower.feedForm((EffectMultUsedMovePower) _v);
+            displayRepaint(MessagesEditorSelect.EFF_MULT_USED_MOVE_POWER);
+        }
+        if (_v instanceof EffectOrder) {
+            contentEffectOrder.feedForm((EffectOrder) _v);
+            displayRepaint(MessagesEditorSelect.EFF_ORDER);
         }
         if (_v instanceof EffectProtectFromTypes) {
             contentEffectProtectFromTypes.feedForm((EffectProtectFromTypes) _v);
@@ -337,6 +368,8 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         contentEffectDamage.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_DAMAGE));
         contentEffectGlobal.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_GLOBAL));
         contentEffectInvoke.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_INVOKE));
+        contentEffectMultMovePower.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_MULT_SUFFERED_MOVE_POWER) || StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_MULT_USED_MOVE_POWER));
+        contentEffectOrder.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_ORDER));
         contentEffectProtectFromTypes.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_PROTECT_FROM_TYPES));
         contentEffectProtection.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_PROTECTION));
         contentEffectRemainedHpRate.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_REMAINED_HP_RATE));
@@ -384,6 +417,7 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         ids_.addAllElts(getContentEffectInvoke().getMovesNotToBeInvoked().getSubs());
         ids_.addAllElts(getContentEffectInvoke().getInvokingMoveByUserTypes().subscribeButtons());
         ids_.addAllElts(getContentEffectInvoke().getMoveFctEnv().subscribeButtons());
+        ids_.addAllElts(getContentEffectMultMovePower().getMultMovePowerFctType().subscribeButtons());
         ids_.addAllElts(getContentEffectProtectFromTypes().getImmuAgainstTypes().getSubs());
         ids_.addAllElts(getContentEffectStatistic().getCancelChgtStat().getSubs());
         ids_.addAllElts(getContentEffectStatistic().getCancelLowStat().getSubs());
@@ -450,6 +484,14 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
 
     public ContentComponentModelEffectInvoke getContentEffectInvoke() {
         return contentEffectInvoke;
+    }
+
+    public ContentComponentModelEffectMultMovePower getContentEffectMultMovePower() {
+        return contentEffectMultMovePower;
+    }
+
+    public ContentComponentModelEffectOrder getContentEffectOrder() {
+        return contentEffectOrder;
     }
 
     public ContentComponentModelEffectProtectFromTypes getContentEffectProtectFromTypes() {
