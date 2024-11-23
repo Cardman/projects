@@ -24,7 +24,7 @@ public final class ContentComponentModelGroupEffectEndRoundStatus {
     }
 
     public String display(String _eff) {
-        boolean seen_ = StringUtil.quickEq(_eff, MessagesEditorSelect.EFF_END_ROUND_STATUS) || StringUtil.quickEq(_eff, MessagesEditorSelect.EFF_END_ROUND_STATUS_RELATION);
+        boolean seen_ = matches(_eff);
         contentEffectEndRoundStatus.display(seen_);
         contentEffectEndRoundSingleStatus.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_END_ROUND_STATUS));
         contentEffectEndRoundStatusRelation.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_END_ROUND_STATUS_RELATION));
@@ -32,6 +32,10 @@ public final class ContentComponentModelGroupEffectEndRoundStatus {
             return _eff;
         }
         return "";
+    }
+
+    public static boolean matches(String _eff) {
+        return StringUtil.quickEq(_eff, MessagesEditorSelect.EFF_END_ROUND_STATUS) || StringUtil.quickEq(_eff, MessagesEditorSelect.EFF_END_ROUND_STATUS_RELATION);
     }
 
     public void buildEntity(EffectEndRoundStatus _edited) {

@@ -2,7 +2,8 @@ package aiki.gui.components.editor;
 
 import aiki.facade.*;
 import aiki.fight.abilities.*;
-import aiki.fight.effects.EffectWhileSendingWithStatistic;
+import aiki.fight.effects.*;
+import aiki.fight.moves.effects.*;
 import aiki.instances.*;
 import code.gui.*;
 import code.gui.events.*;
@@ -13,6 +14,7 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
     private GeneComponentModelString multPower;
     private GeneComponentModelString multDamage;
     private CrudGeneFormSimpleElementSub<EffectWhileSendingWithStatistic> effectSending;
+    private CrudGeneFormSimpleElementSub<EffectEndRound> effectEndRound;
 
     public GeneComponentModelAbilityData(AbsCommonFrame _frame, AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
         super(_frame,_core, _facade, _sub);
@@ -33,6 +35,9 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         effectSending = new CrudGeneFormSimpleElementSub<EffectWhileSendingWithStatistic>(getCompoFactory(),getFacade(),getSubscribedTranslationList(),getFrame());
         effectSending.initForm(new DisplayEntryCustSubElementEffect<EffectWhileSendingWithStatistic>(),new GeneComponentModelSubscribeFactoryDirect<EffectWhileSendingWithStatistic>(new GeneComponentModelSubscribeEffectWhileSending(new GeneComponentModelEffectWhileSending(getFrame(),getCompoFactory(),getFacade(),getSubscribedTranslationList()))));
         form_.add(effectSending.getGroup());
+        effectEndRound = new CrudGeneFormSimpleElementSub<EffectEndRound>(getCompoFactory(),getFacade(),getSubscribedTranslationList(),getFrame());
+        effectEndRound.initForm(new DisplayEntryCustSubElementEffect<EffectEndRound>(),new GeneComponentModelSubscribeFactoryDirect<EffectEndRound>(new GeneComponentModelSubscribeEffectEndRound(new GeneComponentModelEffectEndRound(getFrame(),getCompoFactory(),getFacade(),getSubscribedTranslationList()))));
+        form_.add(effectEndRound.getGroup());
         sc_.setViewportView(form_);
         page_.add(sc_);
         return page_;
@@ -44,6 +49,7 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         ent_.setMultPower(multPower.valueString());
         ent_.setMultDamage(multDamage.valueString());
         ent_.setEffectSending(effectSending.getList());
+        ent_.setEffectEndRound(effectEndRound.getList());
         return new EditedCrudPair<String, AbilityData>(getGeneComponentModelSelectKey().tryRet(),ent_);
     }
 
@@ -55,6 +61,7 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         multPower.valueString(ability_.getMultPower());
         multDamage.valueString(ability_.getMultDamage());
         effectSending.setupValues(ability_.getEffectSending());
+        effectEndRound.setupValues(ability_.getEffectEndRound());
     }
     public IdList<SubscribedTranslation> all() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
@@ -73,5 +80,9 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
 
     public CrudGeneFormSimpleElementSub<EffectWhileSendingWithStatistic> getEffectSending() {
         return effectSending;
+    }
+
+    public CrudGeneFormSimpleElementSub<EffectEndRound> getEffectEndRound() {
+        return effectEndRound;
     }
 }

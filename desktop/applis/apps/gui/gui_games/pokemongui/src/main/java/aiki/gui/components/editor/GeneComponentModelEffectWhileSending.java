@@ -47,7 +47,7 @@ public final class GeneComponentModelEffectWhileSending extends AbsGeneComponent
 
     @Override
     public void applyChange() {
-        edited = Instances.newEffectWhileSendingWithStatistic();
+        edited = Instances.newEffectWhileSendingSimple();
         contentEffectStatistic.display(true);
         getEffectKind().getSelect().getElements().setVisible(false);
         getFrame().pack();

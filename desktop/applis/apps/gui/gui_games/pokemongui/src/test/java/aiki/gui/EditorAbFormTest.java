@@ -167,6 +167,23 @@ public final class EditorAbFormTest extends InitEditorPkForm {
         assertFalse(facade_.getData().getAbilities().getVal(A_1).getEffectSending().get(1).getCopyingAbility());
         assertFalse(facade_.getData().getAbilities().getVal(A_1).getEffectSending().get(1).getDisableWeather());
     }
+    @Test
+    public void abForm10() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<AbilityData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelAbilityData g_ = (GeneComponentModelAbilityData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(A_1);
+        tryClick(g_.getEffectEndRound().getCrud().getAdd());
+        ((GeneComponentModelSubscribeEffectEndRound)g_.getEffectEndRound().getCrud().getGenePair().getKey()).getCrud().getContentGroupEffectEndRound().getContentEffectEndRound().getFailEndRound().valueString("_");
+        tryClick(g_.getEffectEndRound().getCrud().getValidAddEdit());
+        tryClick(g_.getEffectEndRound().getCrud().getAllButtons().get(0));
+        tryClick(g_.getEffectEndRound().getCrud().getCancel());
+        tryClick(c_.getValidAddEdit());
+        assertEq("_",facade_.getData().getAbilities().getVal(A_1).getEffectEndRound().get(0).getFailEndRound());
+    }
     private FacadeGame facadeAdd(MockProgramInfos _m) {
         FacadeGame f_ = facade(_m);
         f_.getData().completeQuickMembers(A_1, Instances.newAbilityData());
