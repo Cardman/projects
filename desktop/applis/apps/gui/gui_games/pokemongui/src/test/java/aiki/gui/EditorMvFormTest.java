@@ -1779,6 +1779,42 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         assertEq(T_1,((EffectMultUsedMovePower)facade_.getData().getMoves().getVal(M_1).getEffects().get(1)).getMultMovePowerFctType().getKey(0));
         assertEq(Rate.one(),((EffectMultUsedMovePower)facade_.getData().getMoves().getVal(M_1).getEffects().get(1)).getMultMovePowerFctType().getValue(0));
     }
+    @Test
+    public void mvForm65() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<MoveData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelMoveData g_ = (GeneComponentModelMoveData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(M_1);
+        tryClick(effectsCrud(g_).getAdd());
+        ConverterCommonMapUtil.trigger(effects(effectsCrud(g_)).getEffectKind(),MessagesEditorSelect.EFF_FULL_HP_RATE);
+        effects(effectsCrud(g_)).getContentEffectFullHpRate().getRestoredHp().valueString("_");
+        tryClick(effectsCrud(g_).getValidAddEdit());
+        tryClick(effectsCrud(g_).getAllButtons().get(0));
+        tryClick(effectsCrud(g_).getCancel());
+        tryClick(c_.getValidAddEdit());
+        assertEq("_",((EffectFullHpRate)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getRestoredHp());
+    }
+    @Test
+    public void mvForm66() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<MoveData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelMoveData g_ = (GeneComponentModelMoveData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(M_1);
+        tryClick(effectsCrud(g_).getAdd());
+        ConverterCommonMapUtil.trigger(effects(effectsCrud(g_)).getEffectKind(),MessagesEditorSelect.EFF_DAMAGE_RATE);
+        effects(effectsCrud(g_)).getContentEffectDamageRate().getRateDamage().valueRate(Rate.one());
+        tryClick(effectsCrud(g_).getValidAddEdit());
+        tryClick(effectsCrud(g_).getAllButtons().get(0));
+        tryClick(effectsCrud(g_).getCancel());
+        tryClick(c_.getValidAddEdit());
+        assertEq(Rate.one(),((EffectDamageRate)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getRateDamage());
+    }
     private CrudGeneFormSimpleElement<Effect> effectsCrud(GeneComponentModelMoveData _g) {
         return _g.getEffects().getCrud();
     }

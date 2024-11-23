@@ -12,6 +12,8 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
     private final ContentComponentModelEffect contentEffect = new ContentComponentModelEffect();
     private final ContentComponentModelEffectCounterAttack contentEffectCounterAttack = new ContentComponentModelEffectCounterAttack();
     private final ContentComponentModelEffectDamage contentEffectDamage = new ContentComponentModelEffectDamage();
+    private final ContentComponentModelEffectDamageRate contentEffectDamageRate = new ContentComponentModelEffectDamageRate();
+    private final ContentComponentModelEffectFullHpRate contentEffectFullHpRate = new ContentComponentModelEffectFullHpRate();
     private final ContentComponentModelEffectGlobal contentEffectGlobal = new ContentComponentModelEffectGlobal();
     private final ContentComponentModelEffectInvoke contentEffectInvoke = new ContentComponentModelEffectInvoke();
     private final ContentComponentModelEffectMultMovePower contentEffectMultMovePower = new ContentComponentModelEffectMultMovePower();
@@ -47,6 +49,8 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         form_.add(contentEffect.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
         form_.add(contentEffectCounterAttack.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
         form_.add(contentEffectDamage.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
+        form_.add(contentEffectDamageRate.effectForm(this));
+        form_.add(contentEffectFullHpRate.effectForm(this));
         form_.add(contentEffectGlobal.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
         form_.add(contentEffectInvoke.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
         form_.add(contentEffectMultMovePower.effectForm(this));
@@ -92,6 +96,12 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         }
         if (StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_DAMAGE)) {
             edited = Instances.newEffectDamage();
+        }
+        if (StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_DAMAGE_RATE)) {
+            edited = Instances.newEffectDamageRate();
+        }
+        if (StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_FULL_HP_RATE)) {
+            edited = Instances.newEffectFullHpRate();
         }
         if (StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_GLOBAL)) {
             edited = Instances.newEffectGlobal();
@@ -181,6 +191,12 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         if (edited instanceof EffectDamage) {
             contentEffectDamage.buildEntity((EffectDamage) edited);
         }
+        if (edited instanceof EffectDamageRate) {
+            contentEffectDamageRate.buildEntity((EffectDamageRate) edited);
+        }
+        if (edited instanceof EffectFullHpRate) {
+            contentEffectFullHpRate.buildEntity((EffectFullHpRate) edited);
+        }
         if (edited instanceof EffectGlobal) {
             contentEffectGlobal.buildEntity((EffectGlobal) edited);
         }
@@ -264,6 +280,14 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         if (_v instanceof EffectDamage) {
             contentEffectDamage.feedForm((EffectDamage) _v);
             displayRepaint(MessagesEditorSelect.EFF_DAMAGE);
+        }
+        if (_v instanceof EffectDamageRate) {
+            contentEffectDamageRate.feedForm((EffectDamageRate) _v);
+            displayRepaint(MessagesEditorSelect.EFF_DAMAGE_RATE);
+        }
+        if (_v instanceof EffectFullHpRate) {
+            contentEffectFullHpRate.feedForm((EffectFullHpRate) _v);
+            displayRepaint(MessagesEditorSelect.EFF_FULL_HP_RATE);
         }
         if (_v instanceof EffectGlobal) {
             contentEffectGlobal.feedForm((EffectGlobal) _v);
@@ -366,6 +390,8 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
     private String display(String _eff) {
         contentEffectCounterAttack.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_COUNTER_ATTACK));
         contentEffectDamage.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_DAMAGE));
+        contentEffectDamageRate.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_DAMAGE_RATE));
+        contentEffectFullHpRate.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_FULL_HP_RATE));
         contentEffectGlobal.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_GLOBAL));
         contentEffectInvoke.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_INVOKE));
         contentEffectMultMovePower.display(StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_MULT_SUFFERED_MOVE_POWER) || StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_MULT_USED_MOVE_POWER));
@@ -476,6 +502,14 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
 
     public ContentComponentModelEffectDamage getContentEffectDamage() {
         return contentEffectDamage;
+    }
+
+    public ContentComponentModelEffectDamageRate getContentEffectDamageRate() {
+        return contentEffectDamageRate;
+    }
+
+    public ContentComponentModelEffectFullHpRate getContentEffectFullHpRate() {
+        return contentEffectFullHpRate;
     }
 
     public ContentComponentModelEffectGlobal getContentEffectGlobal() {
