@@ -1,11 +1,10 @@
 package aiki.gui.components.editor;
 
-import aiki.fight.moves.effects.*;
 import code.gui.*;
 import code.util.*;
 import code.util.ints.*;
 
-public final class DisplayEntryCustSubElementEffect implements DisplayEntryCustSubElement<Effect> {
+public final class DisplayEntryCustSubElementEffect<E> implements DisplayEntryCustSubElement<E> {
 
     @Override
     public IdList<SubscribedTranslation> buildSub() {
@@ -13,12 +12,12 @@ public final class DisplayEntryCustSubElementEffect implements DisplayEntryCustS
     }
 
     @Override
-    public DisplayEntryCust<Integer, Effect> buildDisplay() {
-        return new DisplayEntryCustEffect();
+    public DisplayEntryCust<Integer, E> buildDisplay() {
+        return new DisplayEntryCustEffect<E>();
     }
 
     @Override
-    public Comparing<Effect> buildCmp() {
+    public Comparing<E> buildCmp() {
         return null;
     }
 }

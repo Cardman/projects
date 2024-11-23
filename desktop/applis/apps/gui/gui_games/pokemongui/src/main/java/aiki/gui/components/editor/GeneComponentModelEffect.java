@@ -541,17 +541,7 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         ids_.addAllElts(getContentEffectSwitchTypes().getAddedTypes().getSubs());
         ids_.addAllElts(getContentEffectSwitchTypes().getConstTypes().getSubs());
         ids_.addAllElts(getContentEffectSwitchTypes().getChgtTypeByEnv().subscribeButtons());
-        ids_.addAllElts(getContentEffectTeam().getMultStatistic().subscribeButtons());
-        ids_.addAllElts(getContentEffectTeam().getMultStatisticFoe().subscribeButtons());
-        ids_.addAllElts(getContentEffectTeam().getMultDamage().subscribeButtons());
-        ids_.addAllElts(getContentEffectTeam().getForbiddenBoost().getSubs());
-        ids_.addAllElts(getContentEffectTeam().getCancelChgtStatTeam().getSubs());
-        ids_.addAllElts(getContentEffectTeam().getCancelChgtStatFoeTeam().getSubs());
-        ids_.addAllElts(getContentEffectTeam().getProtectAgainstLowStat().getSubs());
-        ids_.addAllElts(getContentEffectTeam().getProtectAgainstStatus().getSubs());
-        ids_.addAllElts(getContentEffectTeam().getDisableFoeTeamStatus().getSubs());
-        ids_.addAllElts(getContentEffectTeam().getUnusableMoves().getSubs());
-        ids_.addAllElts(getContentEffectTeam().getDisableFoeTeamEffects().getSubs());
+        ids_.addAllElts(team(getContentEffectTeam()));
         ids_.addAllElts(getContentEffectTeamWhileSendFoe().getStatistics().subscribeButtons());
         ids_.addAllElts(getContentEffectTeamWhileSendFoe().getStatusByNbUses().subscribeButtons());
         ids_.addAllElts(getContentEffectTeamWhileSendFoe().getDeletedByFoeTypes().getSubs());
@@ -564,6 +554,21 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         ids_.addAllElts(getContentGroupEffectEndRound().getContentEffectEndRoundIndividual().getMultDamageStatus().subscribeButtons());
         ids_.addAllElts(getContentGroupEffectEndRound().getContentEffectEndRoundMultiRelation().getDamageByStatus().subscribeButtons());
         ids_.addAllElts(getContentGroupEffectEndRound().getContentEffectEndRoundSingleRelation().getRateDamageFunctionOfNbRounds().subscribeButtons());
+        return ids_;
+    }
+    public static IdList<SubscribedTranslation> team(ContentComponentModelEffectTeam _cont) {
+        IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
+        ids_.addAllElts(_cont.getMultStatistic().subscribeButtons());
+        ids_.addAllElts(_cont.getMultStatisticFoe().subscribeButtons());
+        ids_.addAllElts(_cont.getMultDamage().subscribeButtons());
+        ids_.addAllElts(_cont.getForbiddenBoost().getSubs());
+        ids_.addAllElts(_cont.getCancelChgtStatTeam().getSubs());
+        ids_.addAllElts(_cont.getCancelChgtStatFoeTeam().getSubs());
+        ids_.addAllElts(_cont.getProtectAgainstLowStat().getSubs());
+        ids_.addAllElts(_cont.getProtectAgainstStatus().getSubs());
+        ids_.addAllElts(_cont.getDisableFoeTeamStatus().getSubs());
+        ids_.addAllElts(_cont.getUnusableMoves().getSubs());
+        ids_.addAllElts(_cont.getDisableFoeTeamEffects().getSubs());
         return ids_;
     }
 

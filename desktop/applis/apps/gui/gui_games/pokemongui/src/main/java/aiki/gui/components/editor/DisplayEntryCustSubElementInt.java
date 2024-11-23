@@ -13,7 +13,7 @@ public final class DisplayEntryCustSubElementInt implements DisplayEntryCustSubE
 
     @Override
     public DisplayEntryCust<Integer, Integer> buildDisplay() {
-        return new DisplayKeyOnlyInteger();
+        return new DisplayKeyOnlyInteger<Integer>();
     }
 
     @Override
