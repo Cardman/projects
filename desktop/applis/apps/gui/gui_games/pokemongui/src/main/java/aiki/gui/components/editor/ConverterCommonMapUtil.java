@@ -39,7 +39,10 @@ public final class ConverterCommonMapUtil {
         return merge(_api, _facade, _sub.getFactoryIt(), new CustList<String>(), new StringMap<String>());
     }
     public static GeneComponentModelEltEnumSub<String> buildTypeElt(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
-        return merge(_api, _facade, _sub.getFactoryTy(), new CustList<String>(), new StringMap<String>());
+        return buildTypeElt(_api, _facade, _sub, new StringMap<String>());
+    }
+    public static GeneComponentModelEltEnumSub<String> buildTypeElt(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub, AbsMap<String,String> _empty){
+        return merge(_api, _facade, _sub.getFactoryTy(), new CustList<String>(), _empty);
     }
     public static GeneComponentModelEltEnumSub<String> buildCatElt(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
         return merge(_api, _facade, _sub.getFactoryCa(), new CustList<String>(), new StringMap<String>());

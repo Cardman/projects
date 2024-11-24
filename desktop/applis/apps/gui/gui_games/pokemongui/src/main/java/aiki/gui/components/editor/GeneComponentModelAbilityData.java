@@ -8,11 +8,24 @@ import aiki.instances.*;
 import code.gui.*;
 import code.gui.events.*;
 import code.gui.initialize.*;
+import code.maths.*;
 import code.util.*;
 
 public final class GeneComponentModelAbilityData extends GeneComponentModelEntity<AbilityData> {
     private GeneComponentModelString multPower;
     private GeneComponentModelString multDamage;
+    private GeneComponentModelEltEnumSub<String> typeForMoves;
+    private GeneComponentModelRate healHpWhileUsingBerry;
+    private GeneComponentModelRate healedHpRateBySwitch;
+    private GeneComponentModelRate maxHpForUsingBerry;
+    private GeneComponentModelRate multAllyDamage;
+    private GeneComponentModelRate multDamageCh;
+    private GeneComponentModelRate multEvtRateCh;
+    private GeneComponentModelRate multEvtRateSecEffectOwner;
+    private GeneComponentModelRate multStab;
+    private GeneComponentModelRate multSufferedDamageSuperEff;
+    private GeneComponentModelRate multVarBoost;
+    private GeneComponentModelRate recoilDamageFoe;
     private GeneComponentModelInt decreaseNecStepsHatch;
     private GeneComponentModelInt nbUsedPp;
     private AbsCustCheckBox forbidUseBerryAgainstFoes;
@@ -57,6 +70,8 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         form_.add(multPower.geneString());
         multDamage = new GeneComponentModelString(getCompoFactory(),new StringList(),new DefValidateText());
         form_.add(multDamage.geneString());
+        typeForMoves = ConverterCommonMapUtil.buildTypeElt(getCompoFactory(),getFacade(),getSubscribedTranslationList(),ConverterCommonMapUtil.defKeyEmpty(" "));
+        form_.add(typeForMoves.geneEnum());
         effectSending = new CrudGeneFormSimpleElementSub<EffectWhileSendingWithStatistic>(getCompoFactory(),getFacade(),getSubscribedTranslationList(),getFrame());
         effectSending.initForm(new DisplayEntryCustSubElementEffect<EffectWhileSendingWithStatistic>(),new GeneComponentModelSubscribeFactoryDirect<EffectWhileSendingWithStatistic>(new GeneComponentModelSubscribeEffectWhileSending(new GeneComponentModelEffectWhileSending(getFrame(),getCompoFactory(),getFacade(),getSubscribedTranslationList()))));
         form_.add(effectSending.getGroup());
@@ -113,6 +128,28 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         form_.add(decreaseNecStepsHatch.geneInt());
         nbUsedPp = new GeneComponentModelInt(getCompoFactory());
         form_.add(nbUsedPp.geneInt());
+        healHpWhileUsingBerry=new GeneComponentModelRate(getCompoFactory());
+        form_.add(healHpWhileUsingBerry.geneRate(Rate.zero()));
+        healedHpRateBySwitch=new GeneComponentModelRate(getCompoFactory());
+        form_.add(healedHpRateBySwitch.geneRate(Rate.zero()));
+        maxHpForUsingBerry=new GeneComponentModelRate(getCompoFactory());
+        form_.add(maxHpForUsingBerry.geneRate(Rate.zero()));
+        multAllyDamage=new GeneComponentModelRate(getCompoFactory());
+        form_.add(multAllyDamage.geneRate(Rate.zero()));
+        multDamageCh=new GeneComponentModelRate(getCompoFactory());
+        form_.add(multDamageCh.geneRate(Rate.zero()));
+        multEvtRateCh=new GeneComponentModelRate(getCompoFactory());
+        form_.add(multEvtRateCh.geneRate(Rate.zero()));
+        multEvtRateSecEffectOwner=new GeneComponentModelRate(getCompoFactory());
+        form_.add(multEvtRateSecEffectOwner.geneRate(Rate.zero()));
+        multStab=new GeneComponentModelRate(getCompoFactory());
+        form_.add(multStab.geneRate(Rate.zero()));
+        multSufferedDamageSuperEff=new GeneComponentModelRate(getCompoFactory());
+        form_.add(multSufferedDamageSuperEff.geneRate(Rate.zero()));
+        multVarBoost=new GeneComponentModelRate(getCompoFactory());
+        form_.add(multVarBoost.geneRate(Rate.zero()));
+        recoilDamageFoe=new GeneComponentModelRate(getCompoFactory());
+        form_.add(recoilDamageFoe.geneRate(Rate.zero()));
         sc_.setViewportView(form_);
         page_.add(sc_);
         return page_;
@@ -123,6 +160,7 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         AbilityData ent_ = Instances.newAbilityData();
         ent_.setMultPower(multPower.valueString());
         ent_.setMultDamage(multDamage.valueString());
+        ent_.setTypeForMoves(typeForMoves.tryRet());
         ent_.setEffectSending(effectSending.getList());
         ent_.setEffectEndRound(effectEndRound.getList());
         ent_.setForbidUseBerryAgainstFoes(forbidUseBerryAgainstFoes.isSelected());
@@ -150,6 +188,17 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         ent_.setGiveItemToAllyHavingUsed(giveItemToAllyHavingUsed.isSelected());
         ent_.setDecreaseNecStepsHatch(decreaseNecStepsHatch.valueInt());
         ent_.setNbUsedPp(nbUsedPp.valueInt());
+        ent_.setHealHpWhileUsingBerry(healHpWhileUsingBerry.valueRate());
+        ent_.setHealedHpRateBySwitch(healedHpRateBySwitch.valueRate());
+        ent_.setMaxHpForUsingBerry(maxHpForUsingBerry.valueRate());
+        ent_.setMultAllyDamage(multAllyDamage.valueRate());
+        ent_.setMultDamageCh(multDamageCh.valueRate());
+        ent_.setMultEvtRateCh(multEvtRateCh.valueRate());
+        ent_.setMultEvtRateSecEffectOwner(multEvtRateSecEffectOwner.valueRate());
+        ent_.setMultStab(multStab.valueRate());
+        ent_.setMultSufferedDamageSuperEff(multSufferedDamageSuperEff.valueRate());
+        ent_.setMultVarBoost(multVarBoost.valueRate());
+        ent_.setRecoilDamageFoe(recoilDamageFoe.valueRate());
         return new EditedCrudPair<String, AbilityData>(getGeneComponentModelSelectKey().tryRet(),ent_);
     }
 
@@ -160,6 +209,7 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         AbilityData ability_ = _v.getValue();
         multPower.valueString(ability_.getMultPower());
         multDamage.valueString(ability_.getMultDamage());
+        typeForMoves.setupValue(ability_.getTypeForMoves());
         effectSending.setupValues(ability_.getEffectSending());
         effectEndRound.setupValues(ability_.getEffectEndRound());
         forbidUseBerryAgainstFoes.setSelected(ability_.isForbidUseBerryAgainstFoes());
@@ -187,13 +237,28 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         giveItemToAllyHavingUsed.setSelected(ability_.isGiveItemToAllyHavingUsed());
         decreaseNecStepsHatch.valueInt(ability_.getDecreaseNecStepsHatch());
         nbUsedPp.valueInt(ability_.getNbUsedPp());
+        healHpWhileUsingBerry.valueRate(ability_.getHealHpWhileUsingBerry());
+        healedHpRateBySwitch.valueRate(ability_.getHealedHpRateBySwitch());
+        maxHpForUsingBerry.valueRate(ability_.getMaxHpForUsingBerry());
+        multAllyDamage.valueRate(ability_.getMultAllyDamage());
+        multDamageCh.valueRate(ability_.getMultDamageCh());
+        multEvtRateCh.valueRate(ability_.getMultEvtRateCh());
+        multEvtRateSecEffectOwner.valueRate(ability_.getMultEvtRateSecEffectOwner());
+        multStab.valueRate(ability_.getMultStab());
+        multSufferedDamageSuperEff.valueRate(ability_.getMultSufferedDamageSuperEff());
+        multVarBoost.valueRate(ability_.getMultVarBoost());
+        recoilDamageFoe.valueRate(ability_.getRecoilDamageFoe());
     }
     public IdList<SubscribedTranslation> all() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
         ids_.addAllElts(getGeneComponentModelSelectKey().getSubs());
+        ids_.addAllElts(getTypeForMoves().getSubs());
         return ids_;
     }
 
+    public GeneComponentModelEltEnumSub<String> getTypeForMoves() {
+        return typeForMoves;
+    }
 
     public GeneComponentModelString getMultDamage() {
         return multDamage;
