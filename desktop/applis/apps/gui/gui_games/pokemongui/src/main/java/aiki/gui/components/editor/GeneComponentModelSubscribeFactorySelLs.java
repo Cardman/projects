@@ -2,22 +2,23 @@ package aiki.gui.components.editor;
 
 import aiki.facade.*;
 import code.gui.initialize.*;
-import code.util.*;
 
-public final class GeneComponentModelSubscribeFactorySelLs implements AbsGeneComponentModelSubscribeFactory<StringList> {
+public final class GeneComponentModelSubscribeFactorySelLs<E,F> implements AbsGeneComponentModelSubscribeFactory<F> {
 
     private final AbstractProgramInfos core;
     private final FacadeGame facade;
-    private final SubscribedTranslationMessagesFactory content;
+    private final SubscribedTranslationMessagesFactoryCore<E> content;
+    private final AbsSubscribeBuilderUtilFactory<E,F> convert;
 
-    public GeneComponentModelSubscribeFactorySelLs(AbstractProgramInfos _c, FacadeGame _f, SubscribedTranslationMessagesFactory _fact) {
+    public GeneComponentModelSubscribeFactorySelLs(AbstractProgramInfos _c, FacadeGame _f, SubscribedTranslationMessagesFactoryCore<E> _fact, AbsSubscribeBuilderUtilFactory<E,F> _conv) {
         this.core = _c;
         this.facade = _f;
         content = _fact;
+        convert = _conv;
     }
 
     @Override
-    public AbsGeneComponentModelSubscribe<StringList> build() {
-        return ConverterCommonMapUtil.mergeLs(core, facade, content);
+    public AbsGeneComponentModelSubscribe<F> build() {
+        return convert.build(content).mergeLs(core, facade);
     }
 }

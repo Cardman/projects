@@ -2,6 +2,7 @@ package aiki.gui;
 
 import aiki.facade.*;
 import aiki.fight.abilities.AbilityData;
+import aiki.fight.enums.Statistic;
 import aiki.fight.pokemon.PokemonData;
 import aiki.gui.components.editor.*;
 import aiki.instances.*;
@@ -320,6 +321,25 @@ public final class EditorAbFormTest extends InitEditorPkForm {
         assertEq(T_1,facade_.getData().getAbilities().getVal(A_1).getImmuStatusTypes().getKey(0));
         assertEq(1,facade_.getData().getAbilities().getVal(A_1).getImmuStatusTypes().getValue(0).size());
         assertEq(S_1,facade_.getData().getAbilities().getVal(A_1).getImmuStatusTypes().getValue(0).get(0));
+    }
+    @Test
+    public void abForm14() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<AbilityData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelAbilityData g_ = (GeneComponentModelAbilityData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(A_1);
+        tryClick(g_.getImmuLowStatisTypes().getCrud().getAdd());
+        g_.getImmuLowStatisTypes().getCrud().getKey().setupValue(T_1);
+        g_.getImmuLowStatisTypes().getCrud().getValue().setupValue(new IdList<Statistic>(Statistic.SPEED));
+        tryClick(g_.getImmuLowStatisTypes().getCrud().getValidAddEdit());
+        tryClick(c_.getValidAddEdit());
+        assertEq(1,facade_.getData().getAbilities().getVal(A_1).getImmuLowStatisTypes().size());
+        assertEq(T_1,facade_.getData().getAbilities().getVal(A_1).getImmuLowStatisTypes().getKey(0));
+        assertEq(1,facade_.getData().getAbilities().getVal(A_1).getImmuLowStatisTypes().getValue(0).size());
+        assertEq(Statistic.SPEED,facade_.getData().getAbilities().getVal(A_1).getImmuLowStatisTypes().getValue(0).get(0));
     }
     private FacadeGame facadeAdd(MockProgramInfos _m) {
         FacadeGame f_ = facade(_m);
