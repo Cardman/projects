@@ -14,8 +14,8 @@ public final class ContentComponentModelEffectSwitchTypes {
     private CrudGeneFormSimpleFormSub<EnvironmentType, String> chgtTypeByEnv;
     private GeneComponentModelElt<String> constValuesType;
     private GeneComponentModelElt<String> exchangeTypes;
-    private GeneComponentModelLsStrSub<String> constTypes;
-    private GeneComponentModelLsStrSub<String> addedTypes;
+    private GeneComponentModelLsStrSub<String,StringList> constTypes;
+    private GeneComponentModelLsStrSub<String,StringList> addedTypes;
 
     private AbsPanel form;
     AbsPanel effectForm(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
@@ -41,8 +41,8 @@ public final class ContentComponentModelEffectSwitchTypes {
         return new GeneComponentModelSubscribeFactorySelElt(_core, _fac, _facto, _abs);
     }
     void buildEntity(EffectSwitchTypes _edited) {
-        _edited.setAddedTypes(new StringList(addedTypes.tryRet()));
-        _edited.setConstTypes(new StringList(constTypes.tryRet()));
+        _edited.setAddedTypes(addedTypes.tryRet());
+        _edited.setConstTypes(constTypes.tryRet());
         _edited.setExchangeTypes(ExchangeType.getExchangeTypeByName(exchangeTypes.tryRet()));
         _edited.setConstValuesType(ConstValuesType.getConstValuesTypeByName(constValuesType.tryRet()));
         _edited.setChgtTypeByEnv(ConverterCommonMapUtil.buildIdMapEnvironmentTypeString(chgtTypeByEnv.getList()));
@@ -63,11 +63,11 @@ public final class ContentComponentModelEffectSwitchTypes {
         return chgtTypeByEnv;
     }
 
-    public GeneComponentModelLsStrSub<String> getAddedTypes() {
+    public GeneComponentModelLsStrSub<String,StringList> getAddedTypes() {
         return addedTypes;
     }
 
-    public GeneComponentModelLsStrSub<String> getConstTypes() {
+    public GeneComponentModelLsStrSub<String,StringList> getConstTypes() {
         return constTypes;
     }
 }

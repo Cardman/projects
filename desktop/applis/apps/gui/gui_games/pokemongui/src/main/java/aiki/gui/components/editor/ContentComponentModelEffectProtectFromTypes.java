@@ -8,7 +8,7 @@ import code.util.*;
 
 public final class ContentComponentModelEffectProtectFromTypes {
 
-    private GeneComponentModelLsStrSub<String> immuAgainstTypes;
+    private GeneComponentModelLsStrSub<String,StringList> immuAgainstTypes;
 
     private AbsPanel form;
     AbsPanel effectForm(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
@@ -20,7 +20,7 @@ public final class ContentComponentModelEffectProtectFromTypes {
         return selected_;
     }
     void buildEntity(EffectProtectFromTypes _edited) {
-        _edited.setImmuAgainstTypes(new StringList(immuAgainstTypes.tryRet()));
+        _edited.setImmuAgainstTypes(immuAgainstTypes.tryRet());
     }
     void feedForm(EffectProtectFromTypes _edited) {
         immuAgainstTypes.setupValue(_edited.getImmuAgainstTypes());
@@ -29,7 +29,7 @@ public final class ContentComponentModelEffectProtectFromTypes {
         form.setVisible(_dis);
     }
 
-    public GeneComponentModelLsStrSub<String> getImmuAgainstTypes() {
+    public GeneComponentModelLsStrSub<String,StringList> getImmuAgainstTypes() {
         return immuAgainstTypes;
     }
 }

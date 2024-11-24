@@ -50,38 +50,38 @@ public final class ConverterCommonMapUtil {
     public static GeneComponentModelEltEnumSub<String> buildStatus(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub, AbsMap<String,String> _empty){
         return merge(_api, _facade, _sub.getFactorySt(), new CustList<String>(), _empty);
     }
-    public static GeneComponentModelLsStrSub<String> buildAbilityList(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
+    public static GeneComponentModelLsStrSub<String,StringList> buildAbilityList(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
         return mergeLs(_api, _facade, _sub.getFactoryAb());
     }
-    public static GeneComponentModelLsStrSub<String> buildMoveList(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
+    public static GeneComponentModelLsStrSub<String,StringList> buildMoveList(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
         return mergeLs(_api, _facade, _sub.getFactoryMv());
     }
-    public static GeneComponentModelLsStrSub<String> buildStatusList(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
+    public static GeneComponentModelLsStrSub<String,StringList> buildStatusList(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
         return mergeLs(_api, _facade, _sub.getFactorySt());
     }
-    public static GeneComponentModelLsStrSub<String> buildTypeList(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
+    public static GeneComponentModelLsStrSub<String,StringList> buildTypeList(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
         return mergeLs(_api, _facade, _sub.getFactoryTy());
     }
-    public static GeneComponentModelLsStrSub<Short> buildTmList(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
+    public static GeneComponentModelLsStrSub<Short,Shorts> buildTmList(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
         return mergeLsNb(_api, _facade, _sub.getFactoryMv(), _sub.getFactoryTm());
     }
-    public static GeneComponentModelLsStrSub<Short> buildHmList(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
+    public static GeneComponentModelLsStrSub<Short,Shorts> buildHmList(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
         return mergeLsNb(_api, _facade, _sub.getFactoryMv(), _sub.getFactoryHm());
     }
     public static GeneComponentModelEltEnumSub<String> merge(AbstractProgramInfos _api, FacadeGame _sub, SubscribedTranslationMessagesFactory _builder, CustList<String> _excluded, AbsMap<String,String> _withEmptyStr) {
         return new StringSubscribeBuilderUtil(_builder).merge(_api,_sub,_excluded,_withEmptyStr);
     }
 
-    private static GeneComponentModelLsStrSub<String> mergeLs(AbstractProgramInfos _api, FacadeGame _sub, SubscribedTranslationMessagesFactory _builder) {
+    public static GeneComponentModelLsStrSub<String,StringList> mergeLs(AbstractProgramInfos _api, FacadeGame _sub, SubscribedTranslationMessagesFactory _builder) {
         return new StringSubscribeBuilderUtil(_builder).mergeLs(_api, _sub);
     }
-    private static GeneComponentModelLsStrSub<Short> mergeLsNb(AbstractProgramInfos _api, FacadeGame _sub, SubscribedTranslationMessagesFactory _builderMv, SubscribedTranslationMessagesNbFactory _builder) {
+    private static GeneComponentModelLsStrSub<Short,Shorts> mergeLsNb(AbstractProgramInfos _api, FacadeGame _sub, SubscribedTranslationMessagesFactory _builderMv, SubscribedTranslationMessagesNbFactory _builder) {
         ShortMap<String> map_ = _builder.retrieveMap(_api, _sub);
         AbsMap<String, String> messages_ = _builderMv.buildMessages(_api, _sub);
         ShortMap<String> sub_ = map(map_, messages_);
         TreeMap<Short, String> treeFilter_ = feedTreeNb(sub_, sub_.getKeys());
         GeneComponentModelLs<Short> sel_ = new GeneComponentModelLs<Short>(_api, treeFilter_);
-        GeneComponentModelLsStrSub<Short> g_ = new GeneComponentModelLsStrSub<Short>(sel_);
+        GeneComponentModelLsStrSub<Short,Shorts> g_ = new GeneComponentModelLsStrSub<Short,Shorts>(sel_,new IntListConvertShort());
         feedSubNb(_builderMv,_builder, sub_, treeFilter_, sel_, g_.getSubs(), messages_);
         return g_;
     }
@@ -117,7 +117,7 @@ public final class ConverterCommonMapUtil {
     public static GeneComponentModelEltEnumSub<Statistic> buildStatisticsElt(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _fact) {
         return new SubscribeBuilderUtil<Statistic>(_fact.getFactoryStat()).merge(_api, _facade, new CustList<Statistic>(), new IdMap<Statistic, String>());
     }
-    public static GeneComponentModelLsStrSub<Statistic> buildStatisticsLs(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _fact) {
+    public static GeneComponentModelLsStrSub<Statistic,IdList<Statistic>> buildStatisticsLs(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _fact) {
         return new SubscribeBuilderUtil<Statistic>(_fact.getFactoryStat()).mergeLs(_api,_facade);
     }
     public static GeneComponentModelElt<GenderRepartition> buildGenderRepartition(AbstractProgramInfos _api){
@@ -183,6 +183,11 @@ public final class ConverterCommonMapUtil {
     public static StringMap<String> buildStringMapString(CustList<EditedCrudPair<String, String>> _m) {
         StringMap<String> c_ = new StringMap<String>(new CollCapacity(_m.size()));
         new MapToEntriesListUtil<String,String>().feedMap(_m, c_);
+        return c_;
+    }
+    public static StringMap<StringList> buildStringMapStringList(CustList<EditedCrudPair<String, StringList>> _m) {
+        StringMap<StringList> c_ = new StringMap<StringList>(new CollCapacity(_m.size()));
+        new MapToEntriesListUtil<String,StringList>().feedMap(_m, c_);
         return c_;
     }
     public static ShortMap<String> buildShortMapString(CustList<EditedCrudPair<Short, String>> _m) {

@@ -9,9 +9,9 @@ import code.util.*;
 
 public final class ContentComponentModelEffectUnprotectFromTypes {
 
-    private GeneComponentModelLsStrSub<String> disableImmuAgainstTypes;
-    private GeneComponentModelLsStrSub<String> disableImmuFromMoves;
-    private GeneComponentModelLsStrSub<String> attackTargetWithTypes;
+    private GeneComponentModelLsStrSub<String,StringList> disableImmuAgainstTypes;
+    private GeneComponentModelLsStrSub<String,StringList> disableImmuFromMoves;
+    private GeneComponentModelLsStrSub<String,StringList> attackTargetWithTypes;
     private CrudGeneFormSimpleElementSub<TypesDuo> types;
 
     private AbsPanel form;
@@ -31,9 +31,9 @@ public final class ContentComponentModelEffectUnprotectFromTypes {
         return selected_;
     }
     void buildEntity(EffectUnprotectFromTypes _edited) {
-        _edited.setDisableImmuAgainstTypes(new StringList(disableImmuAgainstTypes.tryRet()));
-        _edited.setDisableImmuFromMoves(new StringList(disableImmuFromMoves.tryRet()));
-        _edited.setAttackTargetWithTypes(new StringList(attackTargetWithTypes.tryRet()));
+        _edited.setDisableImmuAgainstTypes(disableImmuAgainstTypes.tryRet());
+        _edited.setDisableImmuFromMoves(disableImmuFromMoves.tryRet());
+        _edited.setAttackTargetWithTypes(attackTargetWithTypes.tryRet());
         _edited.setTypes(types.getList());
     }
     void feedForm(EffectUnprotectFromTypes _edited) {
@@ -51,15 +51,15 @@ public final class ContentComponentModelEffectUnprotectFromTypes {
         return types;
     }
 
-    public GeneComponentModelLsStrSub<String> getDisableImmuAgainstTypes() {
+    public GeneComponentModelLsStrSub<String,StringList> getDisableImmuAgainstTypes() {
         return disableImmuAgainstTypes;
     }
 
-    public GeneComponentModelLsStrSub<String> getAttackTargetWithTypes() {
+    public GeneComponentModelLsStrSub<String,StringList> getAttackTargetWithTypes() {
         return attackTargetWithTypes;
     }
 
-    public GeneComponentModelLsStrSub<String> getDisableImmuFromMoves() {
+    public GeneComponentModelLsStrSub<String,StringList> getDisableImmuFromMoves() {
         return disableImmuFromMoves;
     }
 }

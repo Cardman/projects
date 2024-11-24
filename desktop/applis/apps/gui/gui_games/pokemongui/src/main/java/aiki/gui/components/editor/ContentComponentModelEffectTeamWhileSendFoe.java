@@ -12,7 +12,7 @@ public final class ContentComponentModelEffectTeamWhileSendFoe {
 
     private GeneComponentModelString failSending;
     private GeneComponentModelString damageRateAgainstFoe;
-    private GeneComponentModelLsStrSub<String> deletedByFoeTypes;
+    private GeneComponentModelLsStrSub<String,StringList> deletedByFoeTypes;
 
     private CrudGeneFormSimpleFormSub<Short, String> statusByNbUses;
     private CrudGeneFormSimpleFormSub<Statistic, Byte> statistics;
@@ -42,7 +42,7 @@ public final class ContentComponentModelEffectTeamWhileSendFoe {
     void buildEntity(EffectTeamWhileSendFoe _edited) {
         _edited.setFailSending(failSending.valueString());
         _edited.setDamageRateAgainstFoe(damageRateAgainstFoe.valueString());
-        _edited.setDeletedByFoeTypes(new StringList(deletedByFoeTypes.tryRet()));
+        _edited.setDeletedByFoeTypes(deletedByFoeTypes.tryRet());
         _edited.setStatusByNbUses(ConverterCommonMapUtil.buildShortMapString(statusByNbUses.getList()));
         _edited.setStatistics(ConverterCommonMapUtil.buildIdMapStatisticByte(statistics.getList()));
     }
@@ -57,7 +57,7 @@ public final class ContentComponentModelEffectTeamWhileSendFoe {
         form.setVisible(_dis);
     }
 
-    public GeneComponentModelLsStrSub<String> getDeletedByFoeTypes() {
+    public GeneComponentModelLsStrSub<String,StringList> getDeletedByFoeTypes() {
         return deletedByFoeTypes;
     }
 

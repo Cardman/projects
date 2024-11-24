@@ -5,10 +5,10 @@ import code.gui.*;
 import code.gui.initialize.*;
 import code.util.*;
 
-public final class StringSubscribeBuilderUtil extends AbsSubscribeBuilderUtil<String> {
+public final class StringSubscribeBuilderUtil extends AbsSubscribeBuilderUtil<String,StringList> {
 
     public StringSubscribeBuilderUtil(SubscribedTranslationMessagesFactoryCore<String> _f) {
-        super(_f);
+        super(_f, new IntListConvertString());
     }
 
     @Override

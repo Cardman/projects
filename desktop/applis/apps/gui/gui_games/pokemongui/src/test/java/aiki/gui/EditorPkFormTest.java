@@ -23,7 +23,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
-        g_.getTypes().setupValue(new CustList<String>(T_1));
+        g_.getTypes().setupValue(new StringList(T_1));
         tryClick(c_.getValidAddEdit());
         assertEq(1,facade_.getData().getPokedex().size());
         assertEq(1,c_.getList().size());
@@ -40,7 +40,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
-        g_.getTypes().setupValue(new CustList<String>(T_1));
+        g_.getTypes().setupValue(new StringList(T_1));
         g_.getStatistics().getVal(Statistic.SPEED).getBase().setValue(50);
         g_.getStatistics().getVal(Statistic.SPEED).getEv().setValue(25);
         tryClick(c_.getValidAddEdit());
@@ -59,7 +59,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
-        g_.getTypes().setupValue(new CustList<String>(T_1));
+        g_.getTypes().setupValue(new StringList(T_1));
         g_.getStatistics().getVal(Statistic.SPEED).getBase().setValue(50);
         g_.getStatistics().getVal(Statistic.SPEED).getEv().setValue(25);
         tryClick(c_.getValidAddEdit());
@@ -77,7 +77,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
-        g_.getTypes().setupValue(new CustList<String>(T_1));
+        g_.getTypes().setupValue(new StringList(T_1));
         g_.getStatistics().getVal(Statistic.SPEED).getBase().setValue(50);
         g_.getStatistics().getVal(Statistic.SPEED).getEv().setValue(25);
         tryClick(c_.getValidAddEdit());
@@ -95,14 +95,14 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
-        g_.getTypes().setupValue(new CustList<String>(T_1));
+        g_.getTypes().setupValue(new StringList(T_1));
         g_.getStatistics().getVal(Statistic.SPEED).getBase().setValue(50);
         g_.getStatistics().getVal(Statistic.SPEED).getEv().setValue(25);
         g_.getBaseEvo().setupValue(P_1);
         tryClick(c_.getValidAddEdit());
         tryClick(c_.getAdd());
         g_.getGeneComponentModelSelectKey().setupValue(P_2);
-        g_.getTypes().setupValue(new CustList<String>(T_2));
+        g_.getTypes().setupValue(new StringList(T_2));
         g_.getStatistics().getVal(Statistic.SPEED).getBase().setValue(50);
         g_.getStatistics().getVal(Statistic.SPEED).getEv().setValue(25);
         g_.getBaseEvo().setupValue(P_1);
@@ -122,7 +122,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
-        g_.getTypes().setupValue(new CustList<String>(T_1));
+        g_.getTypes().setupValue(new StringList(T_1));
         g_.getStatistics().getVal(Statistic.SPEED).getBase().setValue(50);
         g_.getStatistics().getVal(Statistic.SPEED).getEv().setValue(25);
         g_.getBaseEvo().setupValue(P_2);
@@ -143,7 +143,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
-        g_.getTypes().setupValue(new CustList<String>(T_1));
+        g_.getTypes().setupValue(new StringList(T_1));
         g_.getStatistics().getVal(Statistic.SPEED).getBase().setValue(50);
         g_.getStatistics().getVal(Statistic.SPEED).getEv().setValue(25);
         g_.getBaseEvo().setupValue(P_2);
@@ -165,7 +165,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
-        g_.getTypes().setupValue(new CustList<String>(T_1));
+        g_.getTypes().setupValue(new StringList(T_1));
         g_.getStatistics().getVal(Statistic.SPEED).getBase().setValue(50);
         g_.getStatistics().getVal(Statistic.SPEED).getEv().setValue(25);
         g_.getBaseEvo().setupValue(P_2);
@@ -185,7 +185,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
-        g_.getTypes().setupValue(new CustList<String>(T_1));
+        g_.getTypes().setupValue(new StringList(T_1));
         g_.getStatistics().getVal(Statistic.SPEED).getBase().setValue(50);
         g_.getStatistics().getVal(Statistic.SPEED).getEv().setValue(25);
         g_.getBaseEvo().setupValue(P_2);
@@ -205,7 +205,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
-        g_.getTypes().setupValue(new CustList<String>(T_1));
+        g_.getTypes().setupValue(new StringList(T_1));
         g_.getStatistics().getVal(Statistic.SPEED).getBase().setValue(50);
         g_.getStatistics().getVal(Statistic.SPEED).getEv().setValue(25);
         g_.getBaseEvo().setupValue(P_2);
@@ -225,7 +225,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
-        g_.getTypes().setupValue(new CustList<String>(T_1));
+        g_.getTypes().setupValue(new StringList(T_1));
         g_.getStatistics().getVal(Statistic.SPEED).getBase().setValue(50);
         g_.getStatistics().getVal(Statistic.SPEED).getEv().setValue(25);
         g_.getBaseEvo().setupValue(P_2);
@@ -282,7 +282,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
-        g_.getTypes().setupValue(new CustList<String>(T_1));
+        g_.getTypes().setupValue(new StringList(T_1));
         g_.getStatistics().getVal(Statistic.SPEED).getBase().setValue(50);
         g_.getStatistics().getVal(Statistic.SPEED).getEv().setValue(25);
         g_.getBaseEvo().setupValue(P_2);
@@ -301,7 +301,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
-        g_.getTypes().setupValue(new CustList<String>(T_1));
+        g_.getTypes().setupValue(new StringList(T_1));
         g_.getStatistics().getVal(Statistic.SPEED).getBase().setValue(50);
         g_.getStatistics().getVal(Statistic.SPEED).getEv().setValue(25);
         g_.getBaseEvo().setupValue(P_2);
@@ -320,7 +320,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
-        g_.getTypes().setupValue(new CustList<String>(T_1));
+        g_.getTypes().setupValue(new StringList(T_1));
         g_.getStatistics().getVal(Statistic.SPEED).getBase().setValue(50);
         g_.getStatistics().getVal(Statistic.SPEED).getEv().setValue(25);
         g_.getBaseEvo().setupValue(P_2);
@@ -337,7 +337,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
-        g_.getTypes().setupValue(new CustList<String>(T_1));
+        g_.getTypes().setupValue(new StringList(T_1));
         g_.getStatistics().getVal(Statistic.SPEED).getBase().setValue(50);
         g_.getStatistics().getVal(Statistic.SPEED).getEv().setValue(25);
         g_.getBaseEvo().setupValue(P_2);
@@ -345,7 +345,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         GeneComponentModelPokemonData gs_ = (GeneComponentModelPokemonData)c_.getGene();
         tryClick(c_.getAdd());
         g_.getGeneComponentModelSelectKey().setupValue(P_2);
-        gs_.getTypes().setupValue(new CustList<String>(T_1));
+        gs_.getTypes().setupValue(new StringList(T_1));
         gs_.getStatistics().getVal(Statistic.SPEED).getBase().setValue(50);
         gs_.getStatistics().getVal(Statistic.SPEED).getEv().setValue(25);
         gs_.getBaseEvo().setupValue(P_2);

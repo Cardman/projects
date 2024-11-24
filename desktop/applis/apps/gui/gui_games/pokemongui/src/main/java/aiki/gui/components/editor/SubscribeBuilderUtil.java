@@ -6,10 +6,10 @@ import code.gui.initialize.*;
 import code.util.*;
 import code.util.core.*;
 
-public final class SubscribeBuilderUtil<T> extends AbsSubscribeBuilderUtil<T> {
+public final class SubscribeBuilderUtil<T> extends AbsSubscribeBuilderUtil<T,IdList<T>> {
 
     public SubscribeBuilderUtil(SubscribedTranslationMessagesFactoryCore<T> _f) {
-        super(_f);
+        super(_f, new IntListConvertId<T>());
     }
 
     @Override

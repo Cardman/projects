@@ -13,7 +13,7 @@ public final class ContentComponentModelEffectInvoke {
     private CrudGeneFormSimpleFormSub<EnvironmentType, String> moveFctEnv;
     private CrudGeneFormSimpleFormSub<String, String> invokingMoveByUserTypes;
     private GeneComponentModelRate rateInvokationMove;
-    private GeneComponentModelLsStrSub<String> movesNotToBeInvoked;
+    private GeneComponentModelLsStrSub<String,StringList> movesNotToBeInvoked;
     private AbsCustCheckBox invokingMoveButUser;
     private AbsCustCheckBox invokingTargetChosenMove;
     private AbsCustCheckBox invokingUserMoveWhileSleep;
@@ -61,7 +61,7 @@ public final class ContentComponentModelEffectInvoke {
         _edited.setRateInvokationMove(rateInvokationMove.valueRate());
         _edited.setMoveFctEnv(ConverterCommonMapUtil.buildIdMapEnvironmentTypeString(moveFctEnv.getList()));
         _edited.setInvokingMoveByUserTypes(ConverterCommonMapUtil.buildStringMapString(invokingMoveByUserTypes.getList()));
-        _edited.setMovesNotToBeInvoked(new StringList(movesNotToBeInvoked.tryRet()));
+        _edited.setMovesNotToBeInvoked(movesNotToBeInvoked.tryRet());
         _edited.setInvokingMoveButUser(invokingMoveButUser.isSelected());
         _edited.setInvokingTargetChosenMove(invokingTargetChosenMove.isSelected());
         _edited.setInvokingUserMoveWhileSleep(invokingUserMoveWhileSleep.isSelected());
@@ -114,7 +114,7 @@ public final class ContentComponentModelEffectInvoke {
         return invokingMoveByUserTypes;
     }
 
-    public GeneComponentModelLsStrSub<String> getMovesNotToBeInvoked() {
+    public GeneComponentModelLsStrSub<String,StringList> getMovesNotToBeInvoked() {
         return movesNotToBeInvoked;
     }
 }

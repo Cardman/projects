@@ -11,7 +11,7 @@ public final class ContentComponentModelEffectStatus {
     private AbsCustCheckBox koUserHealSubst;
     private AbsCustCheckBox statusFromUser;
     private CrudGeneFormMonteCarloSub<String> lawStatus;
-    private GeneComponentModelLsStrSub<String> deletedStatus;
+    private GeneComponentModelLsStrSub<String,StringList> deletedStatus;
     private CrudGeneFormSimpleFormSub<String,String> localFailStatus;
 
     private AbsPanel form;
@@ -47,7 +47,7 @@ public final class ContentComponentModelEffectStatus {
 
 
     void buildEntity(EffectStatus _edited) {
-        _edited.setDeletedStatus(new StringList(deletedStatus.tryRet()));
+        _edited.setDeletedStatus(deletedStatus.tryRet());
         _edited.setKoUserHealSubst(koUserHealSubst.isSelected());
         _edited.setStatusFromUser(statusFromUser.isSelected());
         _edited.setLocalFailStatus(ConverterCommonMapUtil.buildStringMapString(localFailStatus.getList()));
@@ -69,7 +69,7 @@ public final class ContentComponentModelEffectStatus {
         return statusFromUser;
     }
 
-    public GeneComponentModelLsStrSub<String> getDeletedStatus() {
+    public GeneComponentModelLsStrSub<String,StringList> getDeletedStatus() {
         return deletedStatus;
     }
 

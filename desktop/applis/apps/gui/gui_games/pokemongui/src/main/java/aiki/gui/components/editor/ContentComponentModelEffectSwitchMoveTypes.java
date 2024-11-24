@@ -8,7 +8,7 @@ import code.util.*;
 
 public final class ContentComponentModelEffectSwitchMoveTypes {
 
-    private GeneComponentModelLsStrSub<String> replacingTypes;
+    private GeneComponentModelLsStrSub<String,StringList> replacingTypes;
     private CrudGeneFormSimpleFormSub<String,String> changeTypes;
 
     private AbsPanel form;
@@ -27,7 +27,7 @@ public final class ContentComponentModelEffectSwitchMoveTypes {
         return new GeneComponentModelSubscribeFactorySelElt(_core, _fac, _facto, _abs);
     }
     void buildEntity(EffectSwitchMoveTypes _edited) {
-        _edited.setReplacingTypes(new StringList(replacingTypes.tryRet()));
+        _edited.setReplacingTypes(replacingTypes.tryRet());
         _edited.setChangeTypes(ConverterCommonMapUtil.buildStringMapString(changeTypes.getList()));
     }
     void feedForm(EffectSwitchMoveTypes _edited) {
@@ -38,7 +38,7 @@ public final class ContentComponentModelEffectSwitchMoveTypes {
         form.setVisible(_dis);
     }
 
-    public GeneComponentModelLsStrSub<String> getReplacingTypes() {
+    public GeneComponentModelLsStrSub<String,StringList> getReplacingTypes() {
         return replacingTypes;
     }
 

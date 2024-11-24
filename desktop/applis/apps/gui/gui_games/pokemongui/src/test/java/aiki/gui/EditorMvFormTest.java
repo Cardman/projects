@@ -13,7 +13,7 @@ import aiki.instances.*;
 import aiki.map.levels.enums.*;
 import code.maths.*;
 import code.mock.*;
-import code.util.CustList;
+import code.util.*;
 import org.junit.Test;
 
 public final class EditorMvFormTest extends InitEditorPkForm {
@@ -1713,7 +1713,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         g_.getGeneComponentModelSelectKey().setupValue(M_1);
         tryClick(effectsCrud(g_).getAdd());
         ConverterCommonMapUtil.trigger(effects(effectsCrud(g_)).getEffectKind(),MessagesEditorSelect.EFF_PROTECT_FROM_TYPES);
-        effects(effectsCrud(g_)).getContentEffectProtectFromTypes().getImmuAgainstTypes().setupValue(new CustList<String>(T_1));
+        effects(effectsCrud(g_)).getContentEffectProtectFromTypes().getImmuAgainstTypes().setupValue(new StringList(T_1));
         tryClick(effectsCrud(g_).getValidAddEdit());
         tryClick(effectsCrud(g_).getAllButtons().get(0));
         tryClick(effectsCrud(g_).getCancel());

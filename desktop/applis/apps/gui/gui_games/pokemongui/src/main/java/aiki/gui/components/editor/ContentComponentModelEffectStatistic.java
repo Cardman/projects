@@ -13,12 +13,12 @@ public final class ContentComponentModelEffectStatistic {
     private CrudGeneFormSimpleFormSub<Statistic, Byte> statisVarRank;
     private CrudGeneFormSimpleFormSub<Statistic, String> localFailStatis;
     private GeneComponentModelRate evtRate;
-    private GeneComponentModelLsStrSub<Statistic> copyBoost;
-    private GeneComponentModelLsStrSub<Statistic> swapBoostStatis;
+    private GeneComponentModelLsStrSub<Statistic,IdList<Statistic>> copyBoost;
+    private GeneComponentModelLsStrSub<Statistic,IdList<Statistic>> swapBoostStatis;
     private CrudGeneFormSimpleFormSub<Statistic, String> localFailSwapBoostStatis;
     private CrudGeneFormMonteCarloSub<Statistic> lawBoost;
-    private GeneComponentModelLsStrSub<Statistic> cancelLowStat;
-    private GeneComponentModelLsStrSub<Statistic> cancelChgtStat;
+    private GeneComponentModelLsStrSub<Statistic,IdList<Statistic>> cancelLowStat;
+    private GeneComponentModelLsStrSub<Statistic,IdList<Statistic>> cancelChgtStat;
     private AbsPanel form;
 
     AbsPanel effectForm(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
@@ -55,10 +55,10 @@ public final class ContentComponentModelEffectStatistic {
 
     void buildEntity(EffectStatistic _edited) {
         _edited.setEvtRate(evtRate.valueRate());
-        _edited.setCopyBoost(new IdList<Statistic>(copyBoost.tryRet()));
-        _edited.setSwapBoostStatis(new IdList<Statistic>(swapBoostStatis.tryRet()));
-        _edited.setCancelLowStat(new IdList<Statistic>(cancelLowStat.tryRet()));
-        _edited.setCancelChgtStat(new IdList<Statistic>(cancelChgtStat.tryRet()));
+        _edited.setCopyBoost(copyBoost.tryRet());
+        _edited.setSwapBoostStatis(swapBoostStatis.tryRet());
+        _edited.setCancelLowStat(cancelLowStat.tryRet());
+        _edited.setCancelChgtStat(cancelChgtStat.tryRet());
         _edited.setStatisVarRank(ConverterCommonMapUtil.buildIdMapStatisticByte(statisVarRank.getList()));
         _edited.setLocalFailStatis(ConverterCommonMapUtil.buildIdMapStatisticString(localFailStatis.getList()));
         _edited.setLocalFailSwapBoostStatis(ConverterCommonMapUtil.buildIdMapStatisticString(localFailSwapBoostStatis.getList()));
@@ -76,19 +76,19 @@ public final class ContentComponentModelEffectStatistic {
         lawBoost.setupValues(new MapToEntriesListUtil<Statistic,LgInt>().build(_edited.getLawBoost()));
     }
 
-    public GeneComponentModelLsStrSub<Statistic> getCancelChgtStat() {
+    public GeneComponentModelLsStrSub<Statistic,IdList<Statistic>> getCancelChgtStat() {
         return cancelChgtStat;
     }
 
-    public GeneComponentModelLsStrSub<Statistic> getCancelLowStat() {
+    public GeneComponentModelLsStrSub<Statistic,IdList<Statistic>> getCancelLowStat() {
         return cancelLowStat;
     }
 
-    public GeneComponentModelLsStrSub<Statistic> getCopyBoost() {
+    public GeneComponentModelLsStrSub<Statistic,IdList<Statistic>> getCopyBoost() {
         return copyBoost;
     }
 
-    public GeneComponentModelLsStrSub<Statistic> getSwapBoostStatis() {
+    public GeneComponentModelLsStrSub<Statistic,IdList<Statistic>> getSwapBoostStatis() {
         return swapBoostStatis;
     }
 

@@ -9,7 +9,7 @@ import code.util.*;
 public final class ContentComponentModelEffectCopyMove {
 
     private GeneComponentModelInt copyingMoveForUser;
-    private GeneComponentModelLsStrSub<String> movesNotToBeCopied;
+    private GeneComponentModelLsStrSub<String,StringList> movesNotToBeCopied;
     private AbsCustCheckBox copyingMoveForUserDef;
     private AbsPanel form;
 
@@ -31,7 +31,7 @@ public final class ContentComponentModelEffectCopyMove {
 
     void buildEntity(EffectCopyMove _edited) {
         _edited.setCopyingMoveForUser((short) copyingMoveForUser.valueInt());
-        _edited.setMovesNotToBeCopied(new StringList(movesNotToBeCopied.tryRet()));
+        _edited.setMovesNotToBeCopied(movesNotToBeCopied.tryRet());
         _edited.setCopyingMoveForUserDef(copyingMoveForUserDef.isSelected());
     }
     void feedForm(EffectCopyMove _edited) {
@@ -44,7 +44,7 @@ public final class ContentComponentModelEffectCopyMove {
         return copyingMoveForUserDef;
     }
 
-    public GeneComponentModelLsStrSub<String> getMovesNotToBeCopied() {
+    public GeneComponentModelLsStrSub<String,StringList> getMovesNotToBeCopied() {
         return movesNotToBeCopied;
     }
 }

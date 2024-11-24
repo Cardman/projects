@@ -9,10 +9,12 @@ import code.gui.GeneComponentModelStr;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.*;
 
-public abstract class AbsSubscribeBuilderUtil<T> {
+public abstract class AbsSubscribeBuilderUtil<T,U> {
     private final SubscribedTranslationMessagesFactoryCore<T> factory;
-    protected AbsSubscribeBuilderUtil(SubscribedTranslationMessagesFactoryCore<T> _f){
+    private final IntListConvert<T, U> converter;
+    protected AbsSubscribeBuilderUtil(SubscribedTranslationMessagesFactoryCore<T> _f, IntListConvert<T, U> _conv){
         this.factory = _f;
+        converter = _conv;
     }
 
     public GeneComponentModelEltEnumSub<T> merge(AbstractProgramInfos _api, FacadeGame _sub, CustList<T> _excluded, AbsMap<T,String> _withEmptyStr, AbsDefValue<T> _d) {
@@ -26,11 +28,11 @@ public abstract class AbsSubscribeBuilderUtil<T> {
         return g_;
     }
 
-    public GeneComponentModelLsStrSub<T> mergeLs(AbstractProgramInfos _api, FacadeGame _sub) {
+    public GeneComponentModelLsStrSub<T,U> mergeLs(AbstractProgramInfos _api, FacadeGame _sub) {
         AbsMap<T, String> sub_ = factory.buildMessages(_api, _sub);
         TreeMap<T, String> treeFilter_ = feedTree(sub_, sub_.getKeys());
         GeneComponentModelLs<T> sel_ = new GeneComponentModelLs<T>(_api, treeFilter_);
-        GeneComponentModelLsStrSub<T> g_ = new GeneComponentModelLsStrSub<T>(sel_);
+        GeneComponentModelLsStrSub<T,U> g_ = new GeneComponentModelLsStrSub<T,U>(sel_,converter);
         g_.getSubs().addAllElts(feedSub(sub_, treeFilter_, sel_, new IdMap<T, String>()));
         return g_;
     }

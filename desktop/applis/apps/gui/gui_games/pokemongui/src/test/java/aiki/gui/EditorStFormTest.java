@@ -7,7 +7,7 @@ import aiki.gui.components.editor.*;
 import aiki.instances.*;
 import code.maths.*;
 import code.mock.*;
-import code.util.CustList;
+import code.util.*;
 import org.junit.Test;
 
 public final class EditorStFormTest extends InitEditorPkForm {
@@ -88,8 +88,8 @@ public final class EditorStFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelMoveData g_ = (GeneComponentModelMoveData)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(M_1);
-        g_.getRequiredStatus().setupValue(new CustList<String>(S_1));
-        g_.getDeletedStatus().setupValue(new CustList<String>(S_1));
+        g_.getRequiredStatus().setupValue(new StringList(S_1));
+        g_.getDeletedStatus().setupValue(new StringList(S_1));
         tryClick(c_.getValidAddEdit());
         tryClick(cm_.getAllButtons().get(0));
         tryClick(cm_.getValidRemove());

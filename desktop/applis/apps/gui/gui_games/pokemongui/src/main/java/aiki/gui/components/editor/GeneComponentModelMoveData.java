@@ -16,11 +16,11 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
     private final GeneComponentModelInt priority;
     private final GeneComponentModelInt nbPrepaRound;
     private final GeneComponentModelInt rankIncrementNbRound;
-    private GeneComponentModelLsStrSub<String> types;
-    private GeneComponentModelLsStrSub<String> boostedTypes;
-    private GeneComponentModelLsStrSub<String> achieveDisappearedPkUsingMove;
-    private GeneComponentModelLsStrSub<String> deletedStatus;
-    private GeneComponentModelLsStrSub<String> requiredStatus;
+    private GeneComponentModelLsStrSub<String,StringList> types;
+    private GeneComponentModelLsStrSub<String,StringList> boostedTypes;
+    private GeneComponentModelLsStrSub<String,StringList> achieveDisappearedPkUsingMove;
+    private GeneComponentModelLsStrSub<String,StringList> deletedStatus;
+    private GeneComponentModelLsStrSub<String,StringList> requiredStatus;
     private GeneComponentModelString accuracy;
     private AbsCustCheckBox disappearBeforeUse;
     private AbsCustCheckBox rechargeRound;
@@ -167,11 +167,11 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         ent_.setPriority((byte) priority.valueInt());
         ent_.setNbPrepaRound((short) nbPrepaRound.valueInt());
         ent_.setRankIncrementNbRound((short) rankIncrementNbRound.valueInt());
-        ent_.setTypes(new StringList(types.tryRet()));
-        ent_.setBoostedTypes(new StringList(boostedTypes.tryRet()));
+        ent_.setTypes(types.tryRet());
+        ent_.setBoostedTypes(boostedTypes.tryRet());
         ent_.setAchieveDisappearedPkUsingMove(new StringList(achieveDisappearedPkUsingMove.tryRet()));
-        ent_.setDeletedStatus(new StringList(deletedStatus.tryRet()));
-        ent_.setRequiredStatus(new StringList(requiredStatus.tryRet()));
+        ent_.setDeletedStatus(deletedStatus.tryRet());
+        ent_.setRequiredStatus(requiredStatus.tryRet());
         ent_.setAccuracy(accuracy.valueString());
         ent_.setDisappearBeforeUse(disappearBeforeUse.isSelected());
         ent_.setRechargeRound(rechargeRound.isSelected());
@@ -323,11 +323,11 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         return secEffectsByItem;
     }
 
-    public GeneComponentModelLsStrSub<String> getRequiredStatus() {
+    public GeneComponentModelLsStrSub<String,StringList> getRequiredStatus() {
         return requiredStatus;
     }
 
-    public GeneComponentModelLsStrSub<String> getDeletedStatus() {
+    public GeneComponentModelLsStrSub<String,StringList> getDeletedStatus() {
         return deletedStatus;
     }
 

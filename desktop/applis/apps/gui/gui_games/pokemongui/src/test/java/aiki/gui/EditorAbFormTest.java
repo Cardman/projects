@@ -94,7 +94,7 @@ public final class EditorAbFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
-        g_.getAbilities().setupValue(new CustList<String>(A_1));
+        g_.getAbilities().setupValue(new StringList(A_1));
         tryClick(c_.getValidAddEdit());
         tryClick(cm_.getAllButtons().get(0));
         tryClick(cm_.getValidRemove());
@@ -301,6 +301,25 @@ public final class EditorAbFormTest extends InitEditorPkForm {
         assertFalse(facade_.getData().getAbilities().getVal(A_1).isReverseEffectsPowerMovesTypesGlobal());
         assertFalse(facade_.getData().getAbilities().getVal(A_1).isTakeItemByDamagingMove());
         assertFalse(facade_.getData().getAbilities().getVal(A_1).isGiveItemToAllyHavingUsed());
+    }
+    @Test
+    public void abForm13() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<AbilityData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelAbilityData g_ = (GeneComponentModelAbilityData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(A_1);
+        tryClick(g_.getImmuStatusTypes().getCrud().getAdd());
+        g_.getImmuStatusTypes().getCrud().getKey().setupValue(T_1);
+        g_.getImmuStatusTypes().getCrud().getValue().setupValue(new StringList(S_1));
+        tryClick(g_.getImmuStatusTypes().getCrud().getValidAddEdit());
+        tryClick(c_.getValidAddEdit());
+        assertEq(1,facade_.getData().getAbilities().getVal(A_1).getImmuStatusTypes().size());
+        assertEq(T_1,facade_.getData().getAbilities().getVal(A_1).getImmuStatusTypes().getKey(0));
+        assertEq(1,facade_.getData().getAbilities().getVal(A_1).getImmuStatusTypes().getValue(0).size());
+        assertEq(S_1,facade_.getData().getAbilities().getVal(A_1).getImmuStatusTypes().getValue(0).get(0));
     }
     private FacadeGame facadeAdd(MockProgramInfos _m) {
         FacadeGame f_ = facade(_m);

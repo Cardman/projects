@@ -24,18 +24,18 @@ public final class ContentComponentModelEffectGlobal {
 
     private GeneComponentModelRate healingEndRoundGround;
     private GeneComponentModelRate multEffectLovingAlly;
-    private GeneComponentModelLsStrSub<String> preventStatus;
+    private GeneComponentModelLsStrSub<String,StringList> preventStatus;
 
-    private GeneComponentModelLsStrSub<String> immuneTypes;
+    private GeneComponentModelLsStrSub<String,StringList> immuneTypes;
 
-    private GeneComponentModelLsStrSub<String> disableImmuAgainstTypes;
-    private GeneComponentModelLsStrSub<String> cancelProtectingAbilities;
-    private GeneComponentModelLsStrSub<String> unusableMoves;
+    private GeneComponentModelLsStrSub<String,StringList> disableImmuAgainstTypes;
+    private GeneComponentModelLsStrSub<String,StringList> cancelProtectingAbilities;
+    private GeneComponentModelLsStrSub<String,StringList> unusableMoves;
 
-    private GeneComponentModelLsStrSub<String> movesUsedByTargetedFighters;
+    private GeneComponentModelLsStrSub<String,StringList> movesUsedByTargetedFighters;
 
-    private GeneComponentModelLsStrSub<String> cancelEffects;
-    private GeneComponentModelLsStrSub<String> changedTypesTerrain;
+    private GeneComponentModelLsStrSub<String,StringList> cancelEffects;
+    private GeneComponentModelLsStrSub<String,StringList> changedTypesTerrain;
 
     private CrudGeneFormSimpleFormSub<String,Rate> multDamagePrepaRound;
 
@@ -44,7 +44,7 @@ public final class ContentComponentModelEffectGlobal {
     private CrudGeneFormSimpleFormSub<TypesDuo, Rate> efficiencyMoves;
 
     private CrudGeneFormSimpleFormSub<StatisticType,Rate> multStatIfContainsType;
-    private GeneComponentModelLsStrSub<Statistic> cancelChgtStat;
+    private GeneComponentModelLsStrSub<Statistic,IdList<Statistic>> cancelChgtStat;
 
     private GeneComponentModelEltEnumSub<String> invokedMoveTerrain;
 
@@ -124,16 +124,16 @@ public final class ContentComponentModelEffectGlobal {
         _edited.setHealingEndRound(healingEndRound.valueRate());
         _edited.setHealingEndRoundGround(healingEndRoundGround.valueRate());
         _edited.setMultEffectLovingAlly(multEffectLovingAlly.valueRate());
-        _edited.setPreventStatus(new StringList(preventStatus.tryRet()));
-        _edited.setImmuneTypes(new StringList(immuneTypes.tryRet()));
-        _edited.setDisableImmuAgainstTypes(new StringList(disableImmuAgainstTypes.tryRet()));
-        _edited.setCancelProtectingAbilities(new StringList(cancelProtectingAbilities.tryRet()));
-        _edited.setUnusableMoves(new StringList(unusableMoves.tryRet()));
-        _edited.setMovesUsedByTargetedFighters(new StringList(movesUsedByTargetedFighters.tryRet()));
-        _edited.setCancelEffects(new StringList(cancelEffects.tryRet()));
-        _edited.setChangedTypesTerrain(new StringList(changedTypesTerrain.tryRet()));
+        _edited.setPreventStatus(preventStatus.tryRet());
+        _edited.setImmuneTypes(immuneTypes.tryRet());
+        _edited.setDisableImmuAgainstTypes(disableImmuAgainstTypes.tryRet());
+        _edited.setCancelProtectingAbilities(cancelProtectingAbilities.tryRet());
+        _edited.setUnusableMoves(unusableMoves.tryRet());
+        _edited.setMovesUsedByTargetedFighters(movesUsedByTargetedFighters.tryRet());
+        _edited.setCancelEffects(cancelEffects.tryRet());
+        _edited.setChangedTypesTerrain(changedTypesTerrain.tryRet());
         _edited.setInvokedMoveTerrain(invokedMoveTerrain.tryRet());
-        _edited.setCancelChgtStat(new IdList<Statistic>(cancelChgtStat.tryRet()));
+        _edited.setCancelChgtStat(cancelChgtStat.tryRet());
         _edited.setMultDamagePrepaRound(ConverterCommonMapUtil.buildStringMapRate(multDamagePrepaRound.getList()));
         _edited.setMultPowerMoves(ConverterCommonMapUtil.buildStringMapRate(multPowerMoves.getList()));
         _edited.setMultDamageTypesMoves(ConverterCommonMapUtil.buildStringMapRate(multDamageTypesMoves.getList()));
@@ -191,7 +191,7 @@ public final class ContentComponentModelEffectGlobal {
         return unusableItem;
     }
 
-    public GeneComponentModelLsStrSub<Statistic> getCancelChgtStat() {
+    public GeneComponentModelLsStrSub<Statistic,IdList<Statistic>> getCancelChgtStat() {
         return cancelChgtStat;
     }
 
@@ -219,35 +219,35 @@ public final class ContentComponentModelEffectGlobal {
         return invokedMoveTerrain;
     }
 
-    public GeneComponentModelLsStrSub<String> getCancelEffects() {
+    public GeneComponentModelLsStrSub<String,StringList> getCancelEffects() {
         return cancelEffects;
     }
 
-    public GeneComponentModelLsStrSub<String> getCancelProtectingAbilities() {
+    public GeneComponentModelLsStrSub<String,StringList> getCancelProtectingAbilities() {
         return cancelProtectingAbilities;
     }
 
-    public GeneComponentModelLsStrSub<String> getChangedTypesTerrain() {
+    public GeneComponentModelLsStrSub<String,StringList> getChangedTypesTerrain() {
         return changedTypesTerrain;
     }
 
-    public GeneComponentModelLsStrSub<String> getDisableImmuAgainstTypes() {
+    public GeneComponentModelLsStrSub<String,StringList> getDisableImmuAgainstTypes() {
         return disableImmuAgainstTypes;
     }
 
-    public GeneComponentModelLsStrSub<String> getImmuneTypes() {
+    public GeneComponentModelLsStrSub<String,StringList> getImmuneTypes() {
         return immuneTypes;
     }
 
-    public GeneComponentModelLsStrSub<String> getMovesUsedByTargetedFighters() {
+    public GeneComponentModelLsStrSub<String,StringList> getMovesUsedByTargetedFighters() {
         return movesUsedByTargetedFighters;
     }
 
-    public GeneComponentModelLsStrSub<String> getPreventStatus() {
+    public GeneComponentModelLsStrSub<String,StringList> getPreventStatus() {
         return preventStatus;
     }
 
-    public GeneComponentModelLsStrSub<String> getUnusableMoves() {
+    public GeneComponentModelLsStrSub<String,StringList> getUnusableMoves() {
         return unusableMoves;
     }
 }

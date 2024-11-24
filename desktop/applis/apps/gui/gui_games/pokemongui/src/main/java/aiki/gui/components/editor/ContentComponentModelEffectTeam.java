@@ -13,21 +13,21 @@ public final class ContentComponentModelEffectTeam {
 
     private AbsCustCheckBox forbiddingHealing;
     private AbsCustCheckBox protectAgainstCh;
-    private GeneComponentModelLsStrSub<String> protectAgainstStatus;
+    private GeneComponentModelLsStrSub<String,StringList> protectAgainstStatus;
 
-    private GeneComponentModelLsStrSub<String> disableFoeTeamStatus;
-    private GeneComponentModelLsStrSub<String> unusableMoves;
+    private GeneComponentModelLsStrSub<String,StringList> disableFoeTeamStatus;
+    private GeneComponentModelLsStrSub<String,StringList> unusableMoves;
 
-    private GeneComponentModelLsStrSub<String> disableFoeTeamEffects;
+    private GeneComponentModelLsStrSub<String,StringList> disableFoeTeamEffects;
 
     private CrudGeneFormSimpleFormSub<Statistic,Rate> multStatistic;
     private CrudGeneFormSimpleFormSub<Statistic,Rate> multStatisticFoe;
     private CrudGeneFormSimpleFormSub<CategoryMult, Rate> multDamage;
 
-    private GeneComponentModelLsStrSub<Statistic> forbiddenBoost;
-    private GeneComponentModelLsStrSub<Statistic> cancelChgtStatFoeTeam;
-    private GeneComponentModelLsStrSub<Statistic> cancelChgtStatTeam;
-    private GeneComponentModelLsStrSub<Statistic> protectAgainstLowStat;
+    private GeneComponentModelLsStrSub<Statistic,IdList<Statistic>> forbiddenBoost;
+    private GeneComponentModelLsStrSub<Statistic,IdList<Statistic>> cancelChgtStatFoeTeam;
+    private GeneComponentModelLsStrSub<Statistic,IdList<Statistic>> cancelChgtStatTeam;
+    private GeneComponentModelLsStrSub<Statistic,IdList<Statistic>> protectAgainstLowStat;
 
 
     private AbsPanel form;
@@ -69,14 +69,14 @@ public final class ContentComponentModelEffectTeam {
     void buildEntity(EffectTeam _edited) {
         _edited.setForbiddingHealing(forbiddingHealing.isSelected());
         _edited.setProtectAgainstCh(protectAgainstCh.isSelected());
-        _edited.setForbiddenBoost(new IdList<Statistic>(forbiddenBoost.tryRet()));
-        _edited.setCancelChgtStatFoeTeam(new IdList<Statistic>(cancelChgtStatFoeTeam.tryRet()));
-        _edited.setCancelChgtStatTeam(new IdList<Statistic>(cancelChgtStatTeam.tryRet()));
-        _edited.setProtectAgainstLowStat(new IdList<Statistic>(protectAgainstLowStat.tryRet()));
-        _edited.setProtectAgainstStatus(new StringList(protectAgainstStatus.tryRet()));
-        _edited.setDisableFoeTeamStatus(new StringList(disableFoeTeamStatus.tryRet()));
-        _edited.setUnusableMoves(new StringList(unusableMoves.tryRet()));
-        _edited.setDisableFoeTeamEffects(new StringList(disableFoeTeamEffects.tryRet()));
+        _edited.setForbiddenBoost(forbiddenBoost.tryRet());
+        _edited.setCancelChgtStatFoeTeam(cancelChgtStatFoeTeam.tryRet());
+        _edited.setCancelChgtStatTeam(cancelChgtStatTeam.tryRet());
+        _edited.setProtectAgainstLowStat(protectAgainstLowStat.tryRet());
+        _edited.setProtectAgainstStatus(protectAgainstStatus.tryRet());
+        _edited.setDisableFoeTeamStatus(disableFoeTeamStatus.tryRet());
+        _edited.setUnusableMoves(unusableMoves.tryRet());
+        _edited.setDisableFoeTeamEffects(disableFoeTeamEffects.tryRet());
         _edited.setMultStatistic(ConverterCommonMapUtil.buildIdMapStatisticRate(multStatistic.getList()));
         _edited.setMultStatisticFoe(ConverterCommonMapUtil.buildIdMapStatisticRate(multStatisticFoe.getList()));
         _edited.setMultDamage(ConverterCommonMapUtil.buildCategoryMults(multDamage.getList()));
@@ -108,19 +108,19 @@ public final class ContentComponentModelEffectTeam {
         return protectAgainstCh;
     }
 
-    public GeneComponentModelLsStrSub<String> getProtectAgainstStatus() {
+    public GeneComponentModelLsStrSub<String,StringList> getProtectAgainstStatus() {
         return protectAgainstStatus;
     }
 
-    public GeneComponentModelLsStrSub<String> getDisableFoeTeamStatus() {
+    public GeneComponentModelLsStrSub<String,StringList> getDisableFoeTeamStatus() {
         return disableFoeTeamStatus;
     }
 
-    public GeneComponentModelLsStrSub<String> getUnusableMoves() {
+    public GeneComponentModelLsStrSub<String,StringList> getUnusableMoves() {
         return unusableMoves;
     }
 
-    public GeneComponentModelLsStrSub<String> getDisableFoeTeamEffects() {
+    public GeneComponentModelLsStrSub<String,StringList> getDisableFoeTeamEffects() {
         return disableFoeTeamEffects;
     }
 
@@ -136,19 +136,19 @@ public final class ContentComponentModelEffectTeam {
         return multDamage;
     }
 
-    public GeneComponentModelLsStrSub<Statistic> getForbiddenBoost() {
+    public GeneComponentModelLsStrSub<Statistic,IdList<Statistic>> getForbiddenBoost() {
         return forbiddenBoost;
     }
 
-    public GeneComponentModelLsStrSub<Statistic> getCancelChgtStatFoeTeam() {
+    public GeneComponentModelLsStrSub<Statistic,IdList<Statistic>> getCancelChgtStatFoeTeam() {
         return cancelChgtStatFoeTeam;
     }
 
-    public GeneComponentModelLsStrSub<Statistic> getCancelChgtStatTeam() {
+    public GeneComponentModelLsStrSub<Statistic,IdList<Statistic>> getCancelChgtStatTeam() {
         return cancelChgtStatTeam;
     }
 
-    public GeneComponentModelLsStrSub<Statistic> getProtectAgainstLowStat() {
+    public GeneComponentModelLsStrSub<Statistic,IdList<Statistic>> getProtectAgainstLowStat() {
         return protectAgainstLowStat;
     }
 }

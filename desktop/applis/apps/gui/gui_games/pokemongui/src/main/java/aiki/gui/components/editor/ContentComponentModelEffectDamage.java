@@ -23,8 +23,8 @@ public final class ContentComponentModelEffectDamage {
     private GeneComponentModelString power;
     private CrudGeneFormSimpleFormSub<String,Rate> multDamageAgainst;
     private CrudGeneFormSimpleFormSub<Statistic,Byte> boostStatisOnceKoFoe;
-    private GeneComponentModelLsStrSub<Statistic> ignVarStatTargetPos;
-    private GeneComponentModelLsStrSub<Statistic> ignVarStatUserNeg;
+    private GeneComponentModelLsStrSub<Statistic,IdList<Statistic>> ignVarStatTargetPos;
+    private GeneComponentModelLsStrSub<Statistic,IdList<Statistic>> ignVarStatUserNeg;
     private GeneComponentModelEltEnumSub<Statistic> statisAtt;
     private GeneComponentModelEltEnumSub<Statistic> statisDef;
     private AbsPanel form;
@@ -85,8 +85,8 @@ public final class ContentComponentModelEffectDamage {
         _edited.setTargetDefense(targetDefense.isSelected());
         _edited.setStatisAtt(statisAtt.tryRet());
         _edited.setStatisDef(statisDef.tryRet());
-        _edited.setIgnVarStatTargetPos(new IdList<Statistic>(ignVarStatTargetPos.tryRet()));
-        _edited.setIgnVarStatUserNeg(new IdList<Statistic>(ignVarStatUserNeg.tryRet()));
+        _edited.setIgnVarStatTargetPos(ignVarStatTargetPos.tryRet());
+        _edited.setIgnVarStatUserNeg(ignVarStatUserNeg.tryRet());
         _edited.setChLaw(ConverterCommonMapUtil.buildMonteCarloNumber(chLaw.getList()));
         _edited.setHitsLaw(ConverterCommonMapUtil.buildMonteCarloNumber(hitsLaw.getList()));
         _edited.setDamageLaw(ConverterCommonMapUtil.buildMonteCarloString(damageLaw.getList()));
@@ -140,11 +140,11 @@ public final class ContentComponentModelEffectDamage {
         return statisDef;
     }
 
-    public GeneComponentModelLsStrSub<Statistic> getIgnVarStatTargetPos() {
+    public GeneComponentModelLsStrSub<Statistic,IdList<Statistic>> getIgnVarStatTargetPos() {
         return ignVarStatTargetPos;
     }
 
-    public GeneComponentModelLsStrSub<Statistic> getIgnVarStatUserNeg() {
+    public GeneComponentModelLsStrSub<Statistic,IdList<Statistic>> getIgnVarStatUserNeg() {
         return ignVarStatUserNeg;
     }
 
