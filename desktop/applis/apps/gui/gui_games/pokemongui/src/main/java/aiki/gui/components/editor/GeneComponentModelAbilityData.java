@@ -33,6 +33,8 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
     private CrudGeneFormSimpleFormSub<String, String> chgtTypeByWeather;
     private CrudGeneFormSimpleFormSub<String, String> failStatus;
     private CrudGeneFormSimpleFormSub<String, String> forwardStatus;
+    private CrudGeneFormSimpleFormSub<String, TypeDamageBoost> changingBoostTypes;
+    private CrudGeneFormSimpleFormSub<WeatherType,Rate> healHpByTypeIfWeather;
     private CrudGeneFormSimpleFormSub<String, StringList> immuMoveTypesByWeather;
     private CrudGeneFormSimpleFormSub<String, StringList> immuStatus;
     private CrudGeneFormSimpleFormSub<String, StringList> immuStatusTypes;
@@ -162,6 +164,12 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         forwardStatus=new CrudGeneFormSimpleFormSub<String,String>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
         forwardStatus.initFormWithVal(new DisplayEntryCustSubElementImpl<String,String>(getSubscribedTranslationList().getFactorySt(),getCompoFactory(),getFacade(), new StringMap<String>()), buildPart(getCompoFactory(), getFacade(), getSubscribedTranslationList().getFactorySt(), new StringMap<String>()), new GeneComponentModelSubscribeFactorySelElt(getCompoFactory(),getFacade(),getSubscribedTranslationList().getFactorySt(),new StringMap<String>()));
         form_.add(forwardStatus.getGroup());
+        changingBoostTypes=new CrudGeneFormSimpleFormSub<String,TypeDamageBoost>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
+        changingBoostTypes.initFormWithVal(new DisplayEntryCustSubElementImpl<String,TypeDamageBoost>(getSubscribedTranslationList().getFactoryTy(),getCompoFactory(),getFacade(), new StringMap<String>()), buildPart(getCompoFactory(), getFacade(), getSubscribedTranslationList().getFactoryTy(), new StringMap<String>()), new GeneComponentModelSubscribeFactoryDirect<TypeDamageBoost>(new GeneComponentModelSubscribeTypeDamageBoost(getCompoFactory(),getFacade(),getSubscribedTranslationList())));
+        form_.add(changingBoostTypes.getGroup());
+        healHpByTypeIfWeather=new CrudGeneFormSimpleFormSub<WeatherType,Rate>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
+        healHpByTypeIfWeather.initFormWithVal(new DisplayEntryCustSubElementWeatherType<Rate>(getCompoFactory(),getFacade(),getSubscribedTranslationList()), new GeneComponentModelSubscribeFactoryDirect<WeatherType>(new GeneComponentModelSubscribeWeatherType(getCompoFactory(),getFacade(),getSubscribedTranslationList())), new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(getCompoFactory())));
+        form_.add(healHpByTypeIfWeather.getGroup());
         immuMoveTypesByWeather=new CrudGeneFormSimpleFormSub<String,StringList>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
         immuMoveTypesByWeather.initFormWithVal(new DisplayEntryCustSubElementImpl<String,StringList>(getSubscribedTranslationList().getFactoryMv(),getCompoFactory(),getFacade(), ConverterCommonMapUtil.defKeyEmpty(" ")), buildPart(getCompoFactory(), getFacade(), getSubscribedTranslationList().getFactoryMv(), ConverterCommonMapUtil.defKeyEmpty(" ")), new GeneComponentModelSubscribeFactorySelLs<String,StringList>(getCompoFactory(),getFacade(),getSubscribedTranslationList().getFactoryTy(),new StringSubscribeBuilderUtilFactory()));
         form_.add(immuMoveTypesByWeather.getGroup());
@@ -319,6 +327,8 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         ent_.setChgtTypeByWeather(ConverterCommonMapUtil.buildStringMapString(chgtTypeByWeather.getList()));
         ent_.setFailStatus(ConverterCommonMapUtil.buildStringMapString(failStatus.getList()));
         ent_.setForwardStatus(ConverterCommonMapUtil.buildStringMapString(forwardStatus.getList()));
+        ent_.setChangingBoostTypes(ConverterCommonMapUtil.buildStringMapTypeDamageBoost(changingBoostTypes.getList()));
+        ent_.setHealHpByTypeIfWeather(ConverterCommonMapUtil.buildWeatherTypes(healHpByTypeIfWeather.getList()));
         ent_.setImmuMoveTypesByWeather(ConverterCommonMapUtil.buildStringMapStringList(immuMoveTypesByWeather.getList()));
         ent_.setImmuStatus(ConverterCommonMapUtil.buildStringMapStringList(immuStatus.getList()));
         ent_.setImmuStatusTypes(ConverterCommonMapUtil.buildStringMapStringList(immuStatusTypes.getList()));
@@ -405,6 +415,8 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         chgtTypeByWeather.setupValues(new MapToEntriesListUtil<String,String>().build(ability_.getChgtTypeByWeather()));
         failStatus.setupValues(new MapToEntriesListUtil<String,String>().build(ability_.getFailStatus()));
         forwardStatus.setupValues(new MapToEntriesListUtil<String,String>().build(ability_.getForwardStatus()));
+        changingBoostTypes.setupValues(new MapToEntriesListUtil<String,TypeDamageBoost>().build(ability_.getChangingBoostTypes()));
+        healHpByTypeIfWeather.setupValues(new MapToEntriesListUtil<WeatherType,Rate>().build(ability_.getHealHpByTypeIfWeather()));
         immuMoveTypesByWeather.setupValues(new MapToEntriesListUtil<String,StringList>().build(ability_.getImmuMoveTypesByWeather()));
         immuStatus.setupValues(new MapToEntriesListUtil<String,StringList>().build(ability_.getImmuStatus()));
         immuStatusTypes.setupValues(new MapToEntriesListUtil<String,StringList>().build(ability_.getImmuStatusTypes()));
@@ -487,6 +499,8 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         ids_.addAllElts(chgtTypeByWeather.subscribeButtons());
         ids_.addAllElts(failStatus.subscribeButtons());
         ids_.addAllElts(forwardStatus.subscribeButtons());
+        ids_.addAllElts(changingBoostTypes.subscribeButtons());
+        ids_.addAllElts(healHpByTypeIfWeather.subscribeButtons());
         ids_.addAllElts(immuMoveTypesByWeather.subscribeButtons());
         ids_.addAllElts(immuStatus.subscribeButtons());
         ids_.addAllElts(immuStatusTypes.subscribeButtons());
@@ -523,6 +537,14 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
 
     public CrudGeneFormSimpleFormSub<StatisticCategory, Byte> getMultStatIfDamageCat() {
         return multStatIfDamageCat;
+    }
+
+    public CrudGeneFormSimpleFormSub<String, TypeDamageBoost> getChangingBoostTypes() {
+        return changingBoostTypes;
+    }
+
+    public CrudGeneFormSimpleFormSub<WeatherType, Rate> getHealHpByTypeIfWeather() {
+        return healHpByTypeIfWeather;
     }
 
     public GeneComponentModelString getMultDamage() {

@@ -6,8 +6,11 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.util.StatisticCategory;
 import aiki.fight.util.StatisticStatus;
+import aiki.fight.util.TypeDamageBoost;
+import aiki.fight.util.WeatherType;
 import aiki.gui.components.editor.*;
 import aiki.instances.*;
+import code.maths.Rate;
 import code.mock.*;
 import code.util.*;
 import org.junit.Test;
@@ -420,6 +423,55 @@ public final class EditorAbFormTest extends InitEditorPkForm {
         assertEq(C_2,facade_.getData().getAbilities().getVal(A_1).getMultStatIfDamageCat().getKey(1).getCategory());
         assertEq(Statistic.SPEED,facade_.getData().getAbilities().getVal(A_1).getMultStatIfDamageCat().getKey(1).getStatistic());
         assertEq(2,facade_.getData().getAbilities().getVal(A_1).getMultStatIfDamageCat().getValue(1));
+    }
+    @Test
+    public void abForm18() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<AbilityData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelAbilityData g_ = (GeneComponentModelAbilityData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(A_1);
+        tryClick(g_.getChangingBoostTypes().getCrud().getAdd());
+        g_.getChangingBoostTypes().getCrud().getGenePair().getKey().setupValue(T_1);
+        g_.getChangingBoostTypes().getCrud().getGenePair().getValue().setupValue(new TypeDamageBoost(T_2, Rate.one()));
+        tryClick(g_.getChangingBoostTypes().getCrud().getValidAddEdit());
+        tryClick(g_.getChangingBoostTypes().getCrud().getAllButtons().get(0));
+        tryClick(g_.getChangingBoostTypes().getCrud().getCancel());
+        tryClick(c_.getValidAddEdit());
+        assertEq(1,facade_.getData().getAbilities().getVal(A_1).getChangingBoostTypes().size());
+        assertEq(T_1,facade_.getData().getAbilities().getVal(A_1).getChangingBoostTypes().getKey(0));
+        assertEq(T_2,facade_.getData().getAbilities().getVal(A_1).getChangingBoostTypes().getValue(0).getType());
+        assertEq(Rate.one(),facade_.getData().getAbilities().getVal(A_1).getChangingBoostTypes().getValue(0).getBoost());
+    }
+    @Test
+    public void abForm19() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<AbilityData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelAbilityData g_ = (GeneComponentModelAbilityData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(A_1);
+        tryClick(g_.getHealHpByTypeIfWeather().getCrud().getAdd());
+        g_.getHealHpByTypeIfWeather().getCrud().getGenePair().getKey().setupValue(new WeatherType(M_1,T_1));
+        g_.getHealHpByTypeIfWeather().getCrud().getGenePair().getValue().setupValue(Rate.one());
+        tryClick(g_.getHealHpByTypeIfWeather().getCrud().getValidAddEdit());
+        tryClick(g_.getHealHpByTypeIfWeather().getCrud().getAdd());
+        g_.getHealHpByTypeIfWeather().getCrud().getGenePair().getKey().setupValue(new WeatherType(M_2,T_2));
+        g_.getHealHpByTypeIfWeather().getCrud().getGenePair().getValue().setupValue(new Rate(2));
+        tryClick(g_.getHealHpByTypeIfWeather().getCrud().getValidAddEdit());
+        tryClick(g_.getHealHpByTypeIfWeather().getCrud().getAllButtons().get(0));
+        tryClick(g_.getHealHpByTypeIfWeather().getCrud().getCancel());
+        tryClick(c_.getValidAddEdit());
+        assertEq(2,facade_.getData().getAbilities().getVal(A_1).getHealHpByTypeIfWeather().size());
+        assertEq(M_1,facade_.getData().getAbilities().getVal(A_1).getHealHpByTypeIfWeather().getKey(0).getWeather());
+        assertEq(T_1,facade_.getData().getAbilities().getVal(A_1).getHealHpByTypeIfWeather().getKey(0).getType());
+        assertEq(Rate.one(),facade_.getData().getAbilities().getVal(A_1).getHealHpByTypeIfWeather().getValue(0));
+        assertEq(M_2,facade_.getData().getAbilities().getVal(A_1).getHealHpByTypeIfWeather().getKey(1).getWeather());
+        assertEq(T_2,facade_.getData().getAbilities().getVal(A_1).getHealHpByTypeIfWeather().getKey(1).getType());
+        assertEq(new Rate(2),facade_.getData().getAbilities().getVal(A_1).getHealHpByTypeIfWeather().getValue(1));
     }
     private FacadeGame facadeAdd(MockProgramInfos _m) {
         FacadeGame f_ = facade(_m);

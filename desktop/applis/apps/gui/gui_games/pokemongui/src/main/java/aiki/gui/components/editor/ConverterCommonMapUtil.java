@@ -280,6 +280,11 @@ public final class ConverterCommonMapUtil {
         new ConverterCommonMap<WeatherType,Rate>().feed(c_,_m);
         return c_;
     }
+    public static StringMap<TypeDamageBoost> buildStringMapTypeDamageBoost(CustList<EditedCrudPair<String,TypeDamageBoost>> _m) {
+        StringMap<TypeDamageBoost> c_ = new StringMap<TypeDamageBoost>(new CollCapacity(_m.size()));
+        new ConverterCommonMap<String,TypeDamageBoost>().feed(c_,_m);
+        return c_;
+    }
     public static StringMap<Evolution> buildStringMapEvolution(CustList<EditedCrudPair<String,Evolution>> _m) {
         StringMap<Evolution> c_ = new StringMap<Evolution>(new CollCapacity(_m.size()));
         new MapToEntriesListUtil<String,Evolution>().feedMap(_m, c_);
