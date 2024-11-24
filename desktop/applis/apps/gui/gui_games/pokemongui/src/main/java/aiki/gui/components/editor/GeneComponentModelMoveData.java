@@ -110,7 +110,7 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         damagingMove.addActionListener(new ChangeMoveKindEvent(this));
         AbsScrollPane sc_ = compoFactory_.newAbsScrollPane();
         AbsPanel page_ = compoFactory_.newPageBox();
-        page_.add(getGeneComponentModelSelectKey().geneEnum());
+        page_.add(geneComponentModelSelectKey());
         AbsPanel form_ = compoFactory_.newLineBox();
         form_.add(damagingMove);
         form_.add(pp.geneInt());

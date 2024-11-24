@@ -30,6 +30,13 @@ public abstract class GeneComponentModelEntity<E> implements GeneComponentModel<
     protected void updateSelector() {
         geneComponentModelSelectKey.getSelectUniq().getSelect().setEnabled(false);
     }
+    public AbsCustComponent geneComponentModelSelectKey() {
+        GeneComponentModelEltEnumSub<String> ref_ = getGeneComponentModelSelectKey();
+        AbsCustComponent compo_ = ref_.geneEnum();
+        ref_.getSelectUniq().getSelect().select(0);
+        ref_.getSelectUniq().getSelect().text();
+        return compo_;
+    }
     public GeneComponentModelEltEnumSub<String> getGeneComponentModelSelectKey() {
         return geneComponentModelSelectKey;
     }
