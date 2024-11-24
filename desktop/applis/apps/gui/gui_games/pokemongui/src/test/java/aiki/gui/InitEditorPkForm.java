@@ -3,6 +3,7 @@ package aiki.gui;
 import aiki.db.*;
 import aiki.facade.*;
 import aiki.fight.enums.*;
+import aiki.fight.items.Item;
 import aiki.fight.moves.enums.*;
 import aiki.fight.pokemon.evolution.Evolution;
 import aiki.gui.components.editor.*;
@@ -118,6 +119,22 @@ public abstract class InitEditorPkForm extends EquallableAikiGuiUtil {
         e_.addEntry(EnvironmentType.NOTHING,"0");
         e_.addEntry(EnvironmentType.ROAD,"1");
         facade_.getData().getTranslatedEnvironment().addEntry(_m.getLanguage(), e_);
+        StringMap<String> itCl_ = new StringMap<String>();
+        itCl_.addEntry(Item.BALL,Item.BALL);
+        itCl_.addEntry(Item.BERRY,Item.BERRY);
+        itCl_.addEntry(Item.BOOST,Item.BOOST);
+        itCl_.addEntry(Item.EVOLVING_ITEM,Item.EVOLVING_ITEM);
+        itCl_.addEntry(Item.EVOLVING_STONE,Item.EVOLVING_STONE);
+        itCl_.addEntry(Item.FOSSIL,Item.FOSSIL);
+        itCl_.addEntry(Item.HEALING_HP,Item.HEALING_HP);
+        itCl_.addEntry(Item.HEALING_HP_STATUS,Item.HEALING_HP_STATUS);
+        itCl_.addEntry(Item.HEALING_ITEM,Item.HEALING_ITEM);
+        itCl_.addEntry(Item.HEALING_PP,Item.HEALING_PP);
+        itCl_.addEntry(Item.HEALING_STATUS,Item.HEALING_STATUS);
+        itCl_.addEntry(Item.ITEM_FOR_BATTLE,Item.ITEM_FOR_BATTLE);
+        itCl_.addEntry(Item.REPEL,Item.REPEL);
+        itCl_.addEntry(Item.SELLING_ITEM,Item.SELLING_ITEM);
+        facade_.getData().getTranslatedClassesDescriptions().addEntry(_m.getLanguage(), itCl_);
         return facade_;
     }
 

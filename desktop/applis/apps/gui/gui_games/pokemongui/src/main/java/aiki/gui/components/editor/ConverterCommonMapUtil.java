@@ -342,4 +342,14 @@ public final class ConverterCommonMapUtil {
         out_.initFormKeys(new StringLgIntDisplayEntryCust(),new GeneComponentModelEventString(_core), new ComparingStringKey<LgInt>());
         return out_;
     }
+
+    public static StringMap<AbsTextField> fields(AbsPanel _line, StringMap<String> _map, AbstractProgramInfos _api) {
+        StringMap<AbsTextField> fs_ = new StringMap<AbsTextField>();
+        for (EntryCust<String, String> l: _map.entryList()) {
+            AbsTextField txt_ = _api.getCompoFactory().newTextField(l.getValue());
+            _line.add(txt_);
+            fs_.addEntry(l.getKey(),txt_);
+        }
+        return fs_;
+    }
 }

@@ -5,18 +5,16 @@ import code.gui.*;
 import code.gui.initialize.*;
 import code.util.*;
 
-public final class CrudGeneFormTrCst<T> implements AbsCrudGeneFormTrCst {
+public final class CrudGeneFormTrItemType implements AbsCrudGeneFormTrCst {
     private final AbstractProgramInfos api;
     private final FacadeGame facadeGame;
     private final SubscribedTranslationList subscribedTranslations;
-    private final SubscribedTranslationMessagesFactoryCst<T> factoryMessage;
     private final AbsCommonFrame frame;
-    private final IdMap<T,StringMap<AbsTextField>> fields = new IdMap<T, StringMap<AbsTextField>>();
+    private final StringMap<StringMap<AbsTextField>> fields = new StringMap<StringMap<AbsTextField>>();
     private AbsButton changeValues;
 
-    public CrudGeneFormTrCst(AbstractProgramInfos _core,FacadeGame _facade, SubscribedTranslationList _sub, SubscribedTranslationMessagesFactoryCst<T> _facto) {
+    public CrudGeneFormTrItemType(AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
         api = _core;
-        factoryMessage = _facto;
         subscribedTranslations = _sub;
         facadeGame = _facade;
         frame = _core.getFrameFactory().newCommonFrame();
@@ -25,9 +23,9 @@ public final class CrudGeneFormTrCst<T> implements AbsCrudGeneFormTrCst {
     public void initForm() {
         AbsPanel content_ = api.getCompoFactory().newPageBox();
         AbsPanel page_ = api.getCompoFactory().newPageBox();
-        StringMap<IdMap<T, String>> all_ = factoryMessage.buildMessages(facadeGame);
+        StringMap<StringMap<String>> all_ = facadeGame.getData().getTranslatedClassesDescriptions();
         fields.clear();
-        for (EntryCust<T, StringMap<String>> e: new SubscribeBuilderUtil<T>(factoryMessage).toEntityLg(all_).entryList()) {
+        for (EntryCust<String, StringMap<String>> e: ConverterCommonMapUtil.toEntityLg(all_).entryList()) {
             AbsPanel line_ = api.getCompoFactory().newLineBox();
             StringMap<AbsTextField> fs_ = ConverterCommonMapUtil.fields(line_, e.getValue(), api);
             page_.add(line_);
@@ -43,7 +41,7 @@ public final class CrudGeneFormTrCst<T> implements AbsCrudGeneFormTrCst {
         frame.pack();
     }
 
-    public IdMap<T, StringMap<AbsTextField>> getFields() {
+    public StringMap<StringMap<AbsTextField>> getFields() {
         return fields;
     }
 
@@ -53,10 +51,10 @@ public final class CrudGeneFormTrCst<T> implements AbsCrudGeneFormTrCst {
 
     @Override
     public void update() {
-        StringMap<IdMap<T, String>> allId_ = factoryMessage.buildMessages(facadeGame);
-        for (EntryCust<T,StringMap<AbsTextField>> e: fields.entryList()) {
+        StringMap<StringMap<String>> all_ = facadeGame.getData().getTranslatedClassesDescriptions();
+        for (EntryCust<String,StringMap<AbsTextField>> e: fields.entryList()) {
             for (EntryCust<String, AbsTextField> l: e.getValue().entryList()) {
-                allId_.getVal(l.getKey()).set(e.getKey(),l.getValue().getText());
+                all_.getVal(l.getKey()).set(e.getKey(),l.getValue().getText());
             }
         }
         subscribedTranslations.update();
@@ -65,4 +63,5 @@ public final class CrudGeneFormTrCst<T> implements AbsCrudGeneFormTrCst {
     public AbsCommonFrame getFrame() {
         return frame;
     }
+
 }

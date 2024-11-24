@@ -2,6 +2,7 @@ package aiki.gui;
 
 import aiki.facade.*;
 import aiki.fight.enums.*;
+import aiki.fight.items.Item;
 import aiki.fight.moves.enums.*;
 import aiki.gui.components.editor.*;
 import aiki.map.levels.enums.*;
@@ -51,6 +52,16 @@ public final class EditorStatFormTest extends InitEditorPkForm {
         cTr_.getFields().getVal(EnvironmentType.NOTHING).getVal(pr_.getLanguage()).setText("vit");
         tryClick(cTr_.getChangeValues());
         assertEq("vit",facade_.getData().getTranslatedEnvironment().getVal(pr_.getLanguage()).getVal(EnvironmentType.NOTHING));
+    }
+    @Test
+    public void statForm5() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormTrItemType cTr_ = crudTrClType(sub_);
+        cTr_.getFields().getVal(Item.BALL).getVal(pr_.getLanguage()).setText("vit");
+        tryClick(cTr_.getChangeValues());
+        assertEq("vit",facade_.getData().getTranslatedClassesDescriptions().getVal(pr_.getLanguage()).getVal(Item.BALL));
     }
     @Test
     public void strList1() {
@@ -143,5 +154,9 @@ public final class EditorStatFormTest extends InitEditorPkForm {
     private CrudGeneFormTrCst<EnvironmentType> crudTrEnvironmentType(WindowPkEditor _crud) {
         tryClick(_crud.getTrsCstEnvironmentTypeMenu());
         return _crud.getCrudGeneFormCstEnvironmentType();
+    }
+    private CrudGeneFormTrItemType crudTrClType(WindowPkEditor _crud) {
+        tryClick(_crud.getTrsClMenu());
+        return _crud.getCrudGeneFormClTr();
     }
 }

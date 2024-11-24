@@ -26,6 +26,7 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
     private final CrudGeneFormTr crudGeneFormStTr;
     private final CrudGeneFormTr crudGeneFormCaTr;
     private final CrudGeneFormTr crudGeneFormTyTr;
+    private final CrudGeneFormTrItemType crudGeneFormClTr;
     private final CrudGeneFormNb crudGeneFormTm;
     private final CrudGeneFormNb crudGeneFormHm;
     private final CrudGeneFormTrCst<Statistic> crudGeneFormCstStat;
@@ -45,6 +46,7 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
     private final EnabledMenu trsStMenu = getFrames().getCompoFactory().newMenuItem("0_4");
     private final EnabledMenu trsCaMenu = getFrames().getCompoFactory().newMenuItem("0_5");
     private final EnabledMenu trsTyMenu = getFrames().getCompoFactory().newMenuItem("0_6");
+    private final EnabledMenu trsClMenu = getFrames().getCompoFactory().newMenuItem("0_7");
     private final EnabledMenu tmMenu = getFrames().getCompoFactory().newMenuItem("1_0");
     private final EnabledMenu hmMenu = getFrames().getCompoFactory().newMenuItem("1_1");
     private final EnabledMenu abMenu = getFrames().getCompoFactory().newMenuItem("2_0");
@@ -77,17 +79,20 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         crudGeneFormStTr = buildTr(_list, _facade,trsStMenu,subscriptions.getFactorySt());
         crudGeneFormCaTr = buildTr(_list, _facade,trsCaMenu,subscriptions.getFactoryCa());
         crudGeneFormTyTr = buildTr(_list, _facade,trsTyMenu,subscriptions.getFactoryTy());
+        crudGeneFormClTr = new CrudGeneFormTrItemType(_list, _facade,subscriptions);
+        trsClMenu.addActionListener(new PkEditorOpenCrudTrCstEvent(crudGeneFormClTr,trsClMenu));
+        crudGeneFormClTr.getFrame().addWindowListener(new ReinitMenu(trsClMenu, new IdList<SubscribedTranslation>()));
         crudGeneFormCstStat = new CrudGeneFormTrCst<Statistic>(_list,_facade,subscriptions,subscriptions.getFactoryStat());
-        trsCstStatMenu.addActionListener(new PkEditorOpenCrudTrCstEvent<Statistic>(crudGeneFormCstStat,trsCstStatMenu));
+        trsCstStatMenu.addActionListener(new PkEditorOpenCrudTrCstEvent(crudGeneFormCstStat,trsCstStatMenu));
         crudGeneFormCstStat.getFrame().addWindowListener(new ReinitMenu(trsCstStatMenu, new IdList<SubscribedTranslation>()));
         crudGeneFormCstTarget = new CrudGeneFormTrCst<TargetChoice>(_list,_facade,subscriptions,subscriptions.getFactoryTarget());
-        trsCstTargetMenu.addActionListener(new PkEditorOpenCrudTrCstEvent<TargetChoice>(crudGeneFormCstTarget,trsCstTargetMenu));
+        trsCstTargetMenu.addActionListener(new PkEditorOpenCrudTrCstEvent(crudGeneFormCstTarget,trsCstTargetMenu));
         crudGeneFormCstTarget.getFrame().addWindowListener(new ReinitMenu(trsCstTargetMenu, new IdList<SubscribedTranslation>()));
         crudGeneFormCstGender = new CrudGeneFormTrCst<Gender>(_list,_facade,subscriptions,subscriptions.getFactoryGender());
-        trsCstGenderMenu.addActionListener(new PkEditorOpenCrudTrCstEvent<Gender>(crudGeneFormCstGender,trsCstGenderMenu));
+        trsCstGenderMenu.addActionListener(new PkEditorOpenCrudTrCstEvent(crudGeneFormCstGender,trsCstGenderMenu));
         crudGeneFormCstGender.getFrame().addWindowListener(new ReinitMenu(trsCstGenderMenu, new IdList<SubscribedTranslation>()));
         crudGeneFormCstEnvironmentType = new CrudGeneFormTrCst<EnvironmentType>(_list,_facade,subscriptions,subscriptions.getFactoryEnvironmentType());
-        trsCstEnvironmentTypeMenu.addActionListener(new PkEditorOpenCrudTrCstEvent<EnvironmentType>(crudGeneFormCstEnvironmentType,trsCstEnvironmentTypeMenu));
+        trsCstEnvironmentTypeMenu.addActionListener(new PkEditorOpenCrudTrCstEvent(crudGeneFormCstEnvironmentType,trsCstEnvironmentTypeMenu));
         crudGeneFormCstEnvironmentType.getFrame().addWindowListener(new ReinitMenu(trsCstEnvironmentTypeMenu, new IdList<SubscribedTranslation>()));
         crudGeneFormTm = new CrudGeneFormNb(_list, _facade,subscriptions, frTm_,subscriptions.getFactoryTm());
         crudGeneFormHm = new CrudGeneFormNb(_list, _facade,subscriptions, frHm_,subscriptions.getFactoryHm());
@@ -231,6 +236,10 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         return trsTyMenu;
     }
 
+    public EnabledMenu getTrsClMenu() {
+        return trsClMenu;
+    }
+
     public EnabledMenu getTmMenu() {
         return tmMenu;
     }
@@ -305,6 +314,10 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
 
     public CrudGeneFormTr getCrudGeneFormTyTr() {
         return crudGeneFormTyTr;
+    }
+
+    public CrudGeneFormTrItemType getCrudGeneFormClTr() {
+        return crudGeneFormClTr;
     }
 
     public CrudGeneFormNb getCrudGeneFormTm() {

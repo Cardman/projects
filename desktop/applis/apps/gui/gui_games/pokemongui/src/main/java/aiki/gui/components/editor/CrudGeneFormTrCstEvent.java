@@ -2,10 +2,10 @@ package aiki.gui.components.editor;
 
 import code.gui.events.AbsActionListener;
 
-public final class CrudGeneFormTrCstEvent<T> implements AbsActionListener {
-    private final CrudGeneFormTrCst<T> crud;
+public final class CrudGeneFormTrCstEvent implements AbsActionListener {
+    private final AbsCrudGeneFormTrCst crud;
 
-    public CrudGeneFormTrCstEvent(CrudGeneFormTrCst<T> _c) {
+    public CrudGeneFormTrCstEvent(AbsCrudGeneFormTrCst _c) {
         this.crud = _c;
     }
 
