@@ -55,17 +55,7 @@ public abstract class InitEditorPkForm extends EquallableAikiGuiUtil {
         return pr_;
     }
     protected FacadeGame facade(MockProgramInfos _m) {
-        FacadeGame facade_ = new FacadeGame();
-        facade_.setLanguages(_m.getLanguages());
-        facade_.setDisplayLanguages(_m.getDisplayLanguages());
-        facade_.setSimplyLanguage(_m.getLanguage());
-        facade_.setData(new DataBase(new DefaultGenerator(new CustomSeedGene())));
-        facade_.getData().initTranslations();
-        facade_.getData().initializeMembers();
-        facade_.getData().setCombos(Instances.newCombos());
-        facade_.getData().setMap(Instances.newDataMap());
-        facade_.getData().setLanguages(_m.getLanguages());
-        facade_.getData().setVarParamsMove(new StringMap<StringList>());
+        FacadeGame facade_ = core(_m);
         StringMap<String> allTypes_ = new StringMap<String>();
         allTypes_.addEntry(T_1,"t1");
         allTypes_.addEntry(T_2,"t2");
@@ -135,6 +125,21 @@ public abstract class InitEditorPkForm extends EquallableAikiGuiUtil {
         itCl_.addEntry(Item.REPEL,Item.REPEL);
         itCl_.addEntry(Item.SELLING_ITEM,Item.SELLING_ITEM);
         facade_.getData().getTranslatedClassesDescriptions().addEntry(_m.getLanguage(), itCl_);
+        return facade_;
+    }
+
+    protected FacadeGame core(MockProgramInfos _m) {
+        FacadeGame facade_ = new FacadeGame();
+        facade_.setLanguages(_m.getLanguages());
+        facade_.setDisplayLanguages(_m.getDisplayLanguages());
+        facade_.setSimplyLanguage(_m.getLanguage());
+        facade_.setData(new DataBase(new DefaultGenerator(new CustomSeedGene())));
+        facade_.getData().initTranslations();
+        facade_.getData().initializeMembers();
+        facade_.getData().setCombos(Instances.newCombos());
+        facade_.getData().setMap(Instances.newDataMap());
+        facade_.getData().setLanguages(_m.getLanguages());
+        facade_.getData().setVarParamsMove(new StringMap<StringList>());
         return facade_;
     }
 

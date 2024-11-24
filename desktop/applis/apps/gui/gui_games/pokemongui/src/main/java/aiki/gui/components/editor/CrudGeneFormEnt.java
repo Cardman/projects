@@ -34,6 +34,10 @@ public final class CrudGeneFormEnt<T> extends CrudGeneFormListSub<EditedCrudPair
     @Override
     protected void afterModif(int _index, EditedCrudPair<String, T> _value) {
         String key_ = _value.getKey();
+        if (key_.isEmpty()) {
+            cancel();
+            return;
+        }
         FacadeGame facadeGame_ = getCrudGeneFormSubContent().getFacadeGame();
         if (_index > -1) {
             int old_ = factoryCommonParam.all(facadeGame_).size();

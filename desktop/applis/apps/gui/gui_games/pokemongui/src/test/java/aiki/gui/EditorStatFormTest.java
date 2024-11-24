@@ -4,6 +4,7 @@ import aiki.facade.*;
 import aiki.fight.enums.*;
 import aiki.fight.items.Item;
 import aiki.fight.moves.enums.*;
+import aiki.fight.pokemon.PokemonData;
 import aiki.gui.components.editor.*;
 import aiki.map.levels.enums.*;
 import aiki.map.pokemon.enums.*;
@@ -124,6 +125,23 @@ public final class EditorStatFormTest extends InitEditorPkForm {
         assertEq(1,ls_.size());
         assertEq(M_1,ls_.get(0));
         assertFalse(g_.getSubs().isEmpty());
+    }
+    @Test
+    public void noKey() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = core(pr_);
+        facade_.getData().getTranslatedPokemon().addEntry(pr_.getLanguage(),new StringMap<String>());
+        facade_.getData().getTranslatedTypes().addEntry(pr_.getLanguage(),new StringMap<String>());
+        facade_.getData().getTranslatedAbilities().addEntry(pr_.getLanguage(),new StringMap<String>());
+        facade_.getData().getTranslatedMoves().addEntry(pr_.getLanguage(),new StringMap<String>());
+        facade_.getData().getTranslatedStatus().addEntry(pr_.getLanguage(),new StringMap<String>());
+        facade_.getData().getTranslatedStatistics().addEntry(pr_.getLanguage(), new IdMap<Statistic, String>());
+        WindowPkEditor w_ = window(pr_, facade_);
+        tryClick(w_.getPkMenu());
+        CrudGeneFormEnt<PokemonData> c_ = w_.getCrudGeneFormPk();
+        tryClick(c_.getAdd());
+        tryClick(c_.getValidAddEdit());
+        assertEq(0,facade_.getData().getPokedex().size());
     }
     private GeneComponentModelSubscribeStringList gene() {
         MockProgramInfos pr_ = initForms();
