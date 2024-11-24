@@ -29,6 +29,9 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
     private CrudGeneFormSimpleFormSub<Statistic, Byte> lowStatFoeHit;
     private CrudGeneFormSimpleFormSub<Statistic, Byte> multStatIfKoFoe;
     private CrudGeneFormSimpleFormSub<Statistic, Byte> multStatIfLowStat;
+    private CrudGeneFormSimpleFormSub<String, String> chgtTypeByWeather;
+    private CrudGeneFormSimpleFormSub<String, String> failStatus;
+    private CrudGeneFormSimpleFormSub<String, String> forwardStatus;
     private CrudGeneFormMonteCarloSub<String> singleStatus;
     private GeneComponentModelString multPower;
     private GeneComponentModelString multDamage;
@@ -100,7 +103,7 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         divideStatusRound.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Rate>(getSubscribedTranslationList().getFactorySt(),getCompoFactory(),getFacade(), new StringMap<String>()),buildPart(getCompoFactory(),getFacade(),getSubscribedTranslationList().getFactorySt(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(getCompoFactory())));
         form_.add(divideStatusRound.getGroup());
         healHpByWeather = new CrudGeneFormSimpleFormSub<String, Rate>(getCompoFactory(), getFacade(), getSubscribedTranslationList(), getFrame());
-        healHpByWeather.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Rate>(getSubscribedTranslationList().getFactoryMv(),getCompoFactory(),getFacade(), new StringMap<String>()),buildPart(getCompoFactory(),getFacade(),getSubscribedTranslationList().getFactoryMv(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(getCompoFactory())));
+        healHpByWeather.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Rate>(getSubscribedTranslationList().getFactoryMv(),getCompoFactory(),getFacade(), ConverterCommonMapUtil.defKeyEmpty(" ")),buildPart(getCompoFactory(),getFacade(),getSubscribedTranslationList().getFactoryMv(),ConverterCommonMapUtil.defKeyEmpty(" ")),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(getCompoFactory())));
         form_.add(healHpByWeather.getGroup());
         multDamageFoe = new CrudGeneFormSimpleFormSub<String, Rate>(getCompoFactory(), getFacade(), getSubscribedTranslationList(), getFrame());
         multDamageFoe.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Rate>(getSubscribedTranslationList().getFactoryTy(),getCompoFactory(),getFacade(), new StringMap<String>()),buildPart(getCompoFactory(),getFacade(),getSubscribedTranslationList().getFactoryTy(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(getCompoFactory())));
@@ -138,6 +141,15 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         multStatIfLowStat=new CrudGeneFormSimpleFormSub<Statistic,Byte>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
         multStatIfLowStat.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Byte>(getSubscribedTranslationList().getFactoryStat(),getCompoFactory(),getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(getCompoFactory(), getSubscribedTranslationList().getFactoryStat(), getFacade()), new GeneComponentModelSubscribeFactoryDirect<Byte>(new GeneComponentModelSubscribeByte(getCompoFactory())));
         form_.add(multStatIfLowStat.getGroup());
+        chgtTypeByWeather=new CrudGeneFormSimpleFormSub<String,String>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
+        chgtTypeByWeather.initFormWithVal(new DisplayEntryCustSubElementImpl<String,String>(getSubscribedTranslationList().getFactoryMv(),getCompoFactory(),getFacade(), ConverterCommonMapUtil.defKeyEmpty(" ")), buildPart(getCompoFactory(), getFacade(), getSubscribedTranslationList().getFactoryMv(), ConverterCommonMapUtil.defKeyEmpty(" ")), new GeneComponentModelSubscribeFactorySelElt(getCompoFactory(),getFacade(),getSubscribedTranslationList().getFactoryTy(),new StringMap<String>()));
+        form_.add(chgtTypeByWeather.getGroup());
+        failStatus=new CrudGeneFormSimpleFormSub<String,String>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
+        failStatus.initFormWithVal(new DisplayEntryCustSubElementImpl<String,String>(getSubscribedTranslationList().getFactorySt(),getCompoFactory(),getFacade(), new StringMap<String>()), buildPart(getCompoFactory(), getFacade(), getSubscribedTranslationList().getFactorySt(), new StringMap<String>()), new GeneComponentModelSubscribeFactorySelElt(getCompoFactory(),getFacade(),getSubscribedTranslationList().getFactoryTy(),new StringMap<String>()));
+        form_.add(failStatus.getGroup());
+        forwardStatus=new CrudGeneFormSimpleFormSub<String,String>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
+        forwardStatus.initFormWithVal(new DisplayEntryCustSubElementImpl<String,String>(getSubscribedTranslationList().getFactorySt(),getCompoFactory(),getFacade(), new StringMap<String>()), buildPart(getCompoFactory(), getFacade(), getSubscribedTranslationList().getFactorySt(), new StringMap<String>()), new GeneComponentModelSubscribeFactorySelElt(getCompoFactory(),getFacade(),getSubscribedTranslationList().getFactorySt(),new StringMap<String>()));
+        form_.add(forwardStatus.getGroup());
         singleStatus = ConverterCommonMapUtil.buildStatusLaw(getFrame(), getCompoFactory(), getFacade(), getSubscribedTranslationList());
         form_.add(singleStatus.getGroup());
         multPower = new GeneComponentModelString(getCompoFactory(),new StringList(),new DefValidateText());
@@ -267,6 +279,9 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         ent_.setLowStatFoeHit(ConverterCommonMapUtil.buildIdMapStatisticByte(lowStatFoeHit.getList()));
         ent_.setMultStatIfKoFoe(ConverterCommonMapUtil.buildIdMapStatisticByte(multStatIfKoFoe.getList()));
         ent_.setMultStatIfLowStat(ConverterCommonMapUtil.buildIdMapStatisticByte(multStatIfLowStat.getList()));
+        ent_.setChgtTypeByWeather(ConverterCommonMapUtil.buildStringMapString(chgtTypeByWeather.getList()));
+        ent_.setFailStatus(ConverterCommonMapUtil.buildStringMapString(failStatus.getList()));
+        ent_.setForwardStatus(ConverterCommonMapUtil.buildStringMapString(forwardStatus.getList()));
         ent_.setSingleStatus(ConverterCommonMapUtil.buildMonteCarloString(singleStatus.getList()));
         ent_.setMultPower(multPower.valueString());
         ent_.setMultDamage(multDamage.valueString());
@@ -341,6 +356,9 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         lowStatFoeHit.setupValues(new MapToEntriesListUtil<Statistic,Byte>().build(ability_.getLowStatFoeHit()));
         multStatIfKoFoe.setupValues(new MapToEntriesListUtil<Statistic,Byte>().build(ability_.getMultStatIfKoFoe()));
         multStatIfLowStat.setupValues(new MapToEntriesListUtil<Statistic,Byte>().build(ability_.getMultStatIfLowStat()));
+        chgtTypeByWeather.setupValues(new MapToEntriesListUtil<String,String>().build(ability_.getChgtTypeByWeather()));
+        failStatus.setupValues(new MapToEntriesListUtil<String,String>().build(ability_.getFailStatus()));
+        forwardStatus.setupValues(new MapToEntriesListUtil<String,String>().build(ability_.getForwardStatus()));
         singleStatus.setupValues(new MapToEntriesListUtil<String,LgInt>().build(ability_.getSingleStatus()));
         multPower.valueString(ability_.getMultPower());
         multDamage.valueString(ability_.getMultDamage());
@@ -411,6 +429,9 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         ids_.addAllElts(lowStatFoeHit.subscribeButtons());
         ids_.addAllElts(multStatIfKoFoe.subscribeButtons());
         ids_.addAllElts(multStatIfLowStat.subscribeButtons());
+        ids_.addAllElts(chgtTypeByWeather.subscribeButtons());
+        ids_.addAllElts(failStatus.subscribeButtons());
+        ids_.addAllElts(forwardStatus.subscribeButtons());
         ids_.addAllElts(singleStatus.subscribeButtons());
         ids_.addAllElts(getTypeForMoves().getSubs());
         ids_.addAllElts(immuLowStat.getSubs());
