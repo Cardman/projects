@@ -82,7 +82,7 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         form_.add(contentEffectVarPP.effectForm(this));
         form_.add(contentEffectWinMoney.effectForm(this));
         contentGroupEffectEndRound.effectForm(form_,this);
-        getEffectKind().getSelect().addListener(new ChangingEffectEvent(this));
+        getEffectKind().getSelect().addListener(new ChangingTypeEvent(this));
         ConverterCommonMapUtil.trigger(getEffectKind(),MessagesEditorSelect.EFF_DAMAGE);
         return form_;
     }

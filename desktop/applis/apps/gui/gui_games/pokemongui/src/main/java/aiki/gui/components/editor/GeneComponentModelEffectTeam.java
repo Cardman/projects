@@ -23,7 +23,7 @@ public final class GeneComponentModelEffectTeam extends AbsGeneComponentModelEff
         form_.add(getEffectKind().geneEnum());
         form_.add(contentEffect.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
         form_.add(contentEffectTeam.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
-        getEffectKind().getSelect().addListener(new ChangingEffectEvent(this));
+        getEffectKind().getSelect().addListener(new ChangingTypeEvent(this));
         ConverterCommonMapUtil.trigger(getEffectKind(),MessagesEditorSelect.EFF_TEAM);
         return form_;
     }

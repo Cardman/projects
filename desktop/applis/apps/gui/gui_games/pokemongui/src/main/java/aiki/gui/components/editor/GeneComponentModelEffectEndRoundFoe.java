@@ -25,7 +25,7 @@ public final class GeneComponentModelEffectEndRoundFoe extends AbsGeneComponentM
         form_.add(contentEffect.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
         form_.add(contentEffectEndRound.effectForm(getProgramInfos()));
         form_.add(contentEffectEndRoundFoe.effectForm(getProgramInfos()));
-        getEffectKind().getSelect().addListener(new ChangingEffectEvent(this));
+        getEffectKind().getSelect().addListener(new ChangingTypeEvent(this));
         ConverterCommonMapUtil.trigger(getEffectKind(),MessagesEditorSelect.EFF_END_ROUND_FOE);
         getEffectKind().getSelect().getElements().setVisible(false);
         return form_;

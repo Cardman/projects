@@ -40,7 +40,7 @@ public final class GeneComponentModelEffectWhileSending extends AbsGeneComponent
         form_.add(enabledWeather.geneString());
         multWeight = new GeneComponentModelRate(getProgramInfos());
         form_.add(multWeight.geneRate(Rate.zero()));
-        getEffectKind().getSelect().addListener(new ChangingEffectEvent(this));
+        getEffectKind().getSelect().addListener(new ChangingTypeEvent(this));
         ConverterCommonMapUtil.trigger(getEffectKind(),MessagesEditorSelect.EFF_END_ROUND_FOE);
         return form_;
     }

@@ -137,6 +137,21 @@ public final class EditorItFormTest extends InitEditorPkForm {
         assertTrue(facade_.getData().getItems().contains(I_1));
         assertTrue(facade_.getData().getItems().contains(I_2));
     }
+    @Test
+    public void itForm9() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<Item> cm_ = crud(sub_);
+        tryClick(cm_.getAdd());
+        ((GeneComponentModelItem)cm_.getGene()).getGeneComponentModelSelectKey().setupValue(I_1);
+        ConverterCommonMapUtil.trigger(((GeneComponentModelItem)cm_.getGene()).getEffectKind(),Item.REPEL);
+        ((GeneComponentModelItem)cm_.getGene()).getSteps().valueLong(5);
+        tryClick(cm_.getValidAddEdit());
+        tryClick(cm_.getAllButtons().get(0));
+        tryClick(cm_.getCancel());
+        assertEq(5,((Repel)facade_.getData().getItem(I_1)).getSteps());
+    }
     private FacadeGame facadeAdd(MockProgramInfos _m) {
         FacadeGame f_ = facade(_m);
         f_.getData().completeQuickMembers(I_1, Instances.newBall());

@@ -5,7 +5,7 @@ import code.gui.*;
 import code.gui.initialize.*;
 import code.util.StringMap;
 
-public abstract class AbsGeneComponentModelEffect {
+public abstract class AbsGeneComponentModelEffect implements ChangeableFormType {
     private final AbstractProgramInfos programInfos;
     private final FacadeGame facadeGame;
     private final SubscribedTranslationList factory;
@@ -19,7 +19,6 @@ public abstract class AbsGeneComponentModelEffect {
         factory = _fact;
     }
 
-    public abstract void applyChange();
     protected void init(StringMap<String> _messages) {
         effectKind = new GeneComponentModelElt<String>(programInfos, _messages, new EmptyDefValue());
     }

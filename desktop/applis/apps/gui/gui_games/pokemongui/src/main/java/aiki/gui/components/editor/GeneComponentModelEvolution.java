@@ -9,7 +9,7 @@ import code.gui.initialize.*;
 import code.util.*;
 import code.util.core.*;
 
-public final class GeneComponentModelEvolution {
+public final class GeneComponentModelEvolution implements ChangeableFormType{
     private final AbstractProgramInfos programInfos;
     private final FacadeGame fac;
     private GeneComponentModelElt<String> evolutionKind;
@@ -68,11 +68,12 @@ public final class GeneComponentModelEvolution {
         compoTeamPokemon = evoTeamPokemon.geneEnum();
         compoTeamPokemon.setVisible(false);
         selected_.add(compoTeamPokemon);
-        evolutionKind.getSelect().addListener(new ChangingEvolutionEvent(this));
+        evolutionKind.getSelect().addListener(new ChangingTypeEvent(this));
         ConverterCommonMapUtil.trigger(evolutionKind,MessagesEditorSelect.EVO_LEVEL_SIMPLE);
         return evoForm_;
     }
 
+    @Override
     public void applyChange() {
         String evo_ = evolutionKind.tryRet();
         display(evo_);

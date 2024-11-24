@@ -3,9 +3,9 @@ package aiki.gui.components.editor;
 import code.gui.ListSelection;
 import code.gui.SelectionInfo;
 
-public final class ChangingEvolutionEvent implements ListSelection {
-    private final GeneComponentModelEvolution form;
-    public ChangingEvolutionEvent(GeneComponentModelEvolution _g) {
+public final class ChangingTypeEvent implements ListSelection {
+    private final ChangeableFormType form;
+    public ChangingTypeEvent(ChangeableFormType _g) {
         form = _g;
     }
 
