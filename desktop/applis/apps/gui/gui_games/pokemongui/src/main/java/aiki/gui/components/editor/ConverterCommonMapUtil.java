@@ -310,4 +310,16 @@ public final class ConverterCommonMapUtil {
         law_.initFormKeys(buildStatus(_core,_fac,_fact, defKeyEmpty(" ")),new DisplayEntryCustSubElementLgIntImpl<String>(_fact.getFactorySt(), _core, _fac, defKeyEmpty(" ")));
         return law_;
     }
+
+    public static CrudGeneFormMonteCarlo<Rate> buildMcRate(AbsCommonFrame _f, AbstractProgramInfos _core) {
+        CrudGeneFormMonteCarlo<Rate> out_ = new CrudGeneFormMonteCarlo<Rate>(_f, _core, new ComparingRateKey<LgInt>());
+        out_.initFormKeys(new RateLgIntDisplayEntryCust(),new GeneComponentModelEventRate(_core), new ComparingRateKey<LgInt>());
+        return out_;
+    }
+
+    public static CrudGeneFormMonteCarlo<String> buildMcString(AbsCommonFrame _f, AbstractProgramInfos _core) {
+        CrudGeneFormMonteCarlo<String> out_ = new CrudGeneFormMonteCarlo<String>(_f, _core, new ComparingStringKey<LgInt>());
+        out_.initFormKeys(new StringLgIntDisplayEntryCust(),new GeneComponentModelEventString(_core), new ComparingStringKey<LgInt>());
+        return out_;
+    }
 }

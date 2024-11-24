@@ -53,11 +53,11 @@ public final class ContentComponentModelEffectDamage {
         selected_.add(userAttack);
         targetDefense = _core.getCompoFactory().newCustCheckBox();
         selected_.add(targetDefense);
-        chLaw = buildMcRate(_f, _core);
+        chLaw = ConverterCommonMapUtil.buildMcRate(_f, _core);
         selected_.add(chLaw.getGroup());
-        hitsLaw = buildMcRate(_f, _core);
+        hitsLaw = ConverterCommonMapUtil.buildMcRate(_f, _core);
         selected_.add(hitsLaw.getGroup());
-        damageLaw = buildMcString(_f, _core);
+        damageLaw = ConverterCommonMapUtil.buildMcString(_f, _core);
         selected_.add(damageLaw.getGroup());
         multDamageAgainst = new CrudGeneFormSimpleFormSub<String, Rate>(_core, _fac, _fact, _f);
         multDamageAgainst.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Rate>(_fact.getFactoryCa(),_core,_fac, new StringMap<String>()), buildPart(_core,_fac,_fact.getFactoryCa(), new StringMap<String>()), new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core)));
@@ -74,16 +74,6 @@ public final class ContentComponentModelEffectDamage {
     }
     private GeneComponentModelSubscribeFactorySelElt buildPart(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationMessagesFactory _facto, StringMap<String> _abs) {
         return new GeneComponentModelSubscribeFactorySelElt(_core, _fac, _facto, _abs);
-    }
-    private CrudGeneFormMonteCarlo<Rate> buildMcRate(AbsCommonFrame _f, AbstractProgramInfos _core) {
-        CrudGeneFormMonteCarlo<Rate> out_ = new CrudGeneFormMonteCarlo<Rate>(_f, _core, new ComparingRateKey<LgInt>());
-        out_.initFormKeys(new RateLgIntDisplayEntryCust(),new GeneComponentModelEventRate(_core), new ComparingRateKey<LgInt>());
-        return out_;
-    }
-    private CrudGeneFormMonteCarlo<String> buildMcString(AbsCommonFrame _f, AbstractProgramInfos _core) {
-        CrudGeneFormMonteCarlo<String> out_ = new CrudGeneFormMonteCarlo<String>(_f, _core, new ComparingStringKey<LgInt>());
-        out_.initFormKeys(new StringLgIntDisplayEntryCust(),new GeneComponentModelEventString(_core), new ComparingStringKey<LgInt>());
-        return out_;
     }
     void buildEntity(EffectDamage _edited) {
         _edited.setPower(power.valueString());

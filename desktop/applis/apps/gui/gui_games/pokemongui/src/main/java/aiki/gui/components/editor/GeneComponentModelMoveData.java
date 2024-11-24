@@ -32,7 +32,7 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
     private AbsCustCheckBox ignVarAccurUserNeg;
     private AbsCustCheckBox ignVarEvasTargetPos;
     private AbsCustCheckBox switchType;
-    private final CrudGeneFormMonteCarlo<Rate> repeatRoundLaw;
+    private CrudGeneFormMonteCarlo<Rate> repeatRoundLaw;
     private final CrudGeneFormSimpleFormSub<String,String> typesByOwnedItem;
     private final CrudGeneFormSimpleFormSub<String,String> typesByWeather;
     private final CrudGeneFormSimpleFormSub<String,Ints> secEffectsByItem;
@@ -56,7 +56,6 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         priority = new GeneComponentModelInt(_core);
         nbPrepaRound = new GeneComponentModelInt(_core);
         rankIncrementNbRound = new GeneComponentModelInt(_core);
-        repeatRoundLaw = new CrudGeneFormMonteCarlo<Rate>(_frame, _core,new ComparingRateKey<LgInt>());
         typesByOwnedItem = new CrudGeneFormSimpleFormSub<String, String>(_core,_facade,_sub,_frame);
         typesByWeather = new CrudGeneFormSimpleFormSub<String, String>(_core,_facade,_sub,_frame);
         secEffectsByItem = new CrudGeneFormSimpleFormSub<String, Ints>(_core,_facade,_sub,_frame);
@@ -82,7 +81,7 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         ignVarAccurUserNeg = getCompoFactory().getCompoFactory().newCustCheckBox();
         ignVarEvasTargetPos = getCompoFactory().getCompoFactory().newCustCheckBox();
         switchType = getCompoFactory().getCompoFactory().newCustCheckBox();
-        repeatRoundLaw.initFormKeys(new RateLgIntDisplayEntryCust(),new GeneComponentModelEventRate(getCompoFactory()), new ComparingRateKey<LgInt>());
+        repeatRoundLaw = ConverterCommonMapUtil.buildMcRate(getFrame(),getCompoFactory());
         typesByOwnedItem.initFormWithVal(new DisplayEntryCustSubElementImpl<String,String>(getSubscribedTranslationList().getFactoryIt(),getCompoFactory(),getFacade(), ConverterCommonMapUtil.defKeyEmpty(" ")), buildPart(getSubscribedTranslationList().getFactoryIt(), ConverterCommonMapUtil.defKeyEmpty("")),buildPart(getSubscribedTranslationList().getFactoryTy(), new StringMap<String>()));
         typesByWeather.initFormWithVal(new DisplayEntryCustSubElementImpl<String,String>(getSubscribedTranslationList().getFactoryMv(),getCompoFactory(),getFacade(), ConverterCommonMapUtil.defKeyEmpty(" ")), buildPart(getSubscribedTranslationList().getFactoryMv(), ConverterCommonMapUtil.defKeyEmpty("")),buildPart(getSubscribedTranslationList().getFactoryTy(), new StringMap<String>()));
         secEffectsByItem.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Ints>(getSubscribedTranslationList().getFactoryIt(),getCompoFactory(),getFacade(), ConverterCommonMapUtil.defKeyEmpty(" ")), buildPart(getSubscribedTranslationList().getFactoryIt(), ConverterCommonMapUtil.defKeyEmpty("")),new GeneComponentModelSubscribeFactoryDirect<Ints>(new GeneComponentModelSubscribeInts(getCompoFactory(), getFacade(), getSubscribedTranslationList(), secEffectsByItem.getCommonFrame())));

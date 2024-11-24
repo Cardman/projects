@@ -34,8 +34,7 @@ public final class GeneComponentModelSubscribeEffectCombo implements AbsGeneComp
         form_.add(multEvtRateSecEff.geneRate(Rate.zero()));
         rankIncrementNbRound = new GeneComponentModelInt(api);
         form_.add(rankIncrementNbRound.geneInt());
-        repeatedRoundsLaw = new CrudGeneFormMonteCarlo<Rate>(frame, api, new ComparingRateKey<LgInt>());
-        repeatedRoundsLaw.initFormKeys(new RateLgIntDisplayEntryCust(),new GeneComponentModelEventRate(api), new ComparingRateKey<LgInt>());
+        repeatedRoundsLaw = ConverterCommonMapUtil.buildMcRate(frame,api);
         form_.add(repeatedRoundsLaw.getGroup());
         effectEndRound = new CrudGeneFormSimpleElementSub<EffectEndRoundFoe>(api,facadeGame,factory,frame);
         effectEndRound.initForm(new DisplayEntryCustSubElementEffect<EffectEndRoundFoe>(),new GeneComponentModelSubscribeFactoryDirect<EffectEndRoundFoe>(new GeneComponentModelSubscribeEffectEndRoundFoe(new GeneComponentModelEffectEndRoundFoe(frame,api,facadeGame,factory))));

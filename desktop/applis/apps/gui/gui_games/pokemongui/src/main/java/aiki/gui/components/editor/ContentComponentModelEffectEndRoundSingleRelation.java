@@ -2,7 +2,6 @@ package aiki.gui.components.editor;
 
 import aiki.fight.moves.effects.*;
 import code.gui.*;
-import code.gui.initialize.*;
 import code.maths.*;
 
 public final class ContentComponentModelEffectEndRoundSingleRelation {
@@ -14,16 +13,11 @@ public final class ContentComponentModelEffectEndRoundSingleRelation {
         rateDamageFunctionOfNbRounds = new CrudGeneFormSimpleFormSub<Long, Rate>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
         rateDamageFunctionOfNbRounds.initForm(new DisplayKeyOnlyLongRate(), new ComparingLongKey<Rate>(), new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(_core.getProgramInfos())), new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())));
         selected_.add(rateDamageFunctionOfNbRounds.getGroup());
-        lawForEnablingEffect = buildMcRate(_core.getFrame(), _core.getProgramInfos());
+        lawForEnablingEffect = ConverterCommonMapUtil.buildMcRate(_core.getFrame(), _core.getProgramInfos());
         selected_.add(lawForEnablingEffect.getGroup());
         form = selected_;
         selected_.setVisible(false);
         return selected_;
-    }
-    private CrudGeneFormMonteCarlo<Rate> buildMcRate(AbsCommonFrame _f, AbstractProgramInfos _core) {
-        CrudGeneFormMonteCarlo<Rate> out_ = new CrudGeneFormMonteCarlo<Rate>(_f, _core, new ComparingRateKey<LgInt>());
-        out_.initFormKeys(new RateLgIntDisplayEntryCust(),new GeneComponentModelEventRate(_core), new ComparingRateKey<LgInt>());
-        return out_;
     }
     void display(boolean _dis) {
         form.setVisible(_dis);
