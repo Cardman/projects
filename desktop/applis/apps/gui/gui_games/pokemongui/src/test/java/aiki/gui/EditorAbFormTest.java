@@ -4,6 +4,7 @@ import aiki.facade.*;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.enums.Statistic;
 import aiki.fight.pokemon.PokemonData;
+import aiki.fight.util.StatisticStatus;
 import aiki.gui.components.editor.*;
 import aiki.instances.*;
 import code.mock.*;
@@ -340,6 +341,56 @@ public final class EditorAbFormTest extends InitEditorPkForm {
         assertEq(T_1,facade_.getData().getAbilities().getVal(A_1).getImmuLowStatisTypes().getKey(0));
         assertEq(1,facade_.getData().getAbilities().getVal(A_1).getImmuLowStatisTypes().getValue(0).size());
         assertEq(Statistic.SPEED,facade_.getData().getAbilities().getVal(A_1).getImmuLowStatisTypes().getValue(0).get(0));
+    }
+    @Test
+    public void abForm15() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<AbilityData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelAbilityData g_ = (GeneComponentModelAbilityData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(A_1);
+        tryClick(g_.getImmuLowStatIfStatus().getCrud().getAdd());
+        g_.getImmuLowStatIfStatus().getCrud().getGenePair().getKey().setupValue(new StatisticStatus(Statistic.SPEED,S_1));
+        tryClick(g_.getImmuLowStatIfStatus().getCrud().getValidAddEdit());
+        tryClick(g_.getImmuLowStatIfStatus().getCrud().getAdd());
+        g_.getImmuLowStatIfStatus().getCrud().getGenePair().getKey().setupValue(new StatisticStatus(Statistic.SPEED,S_2));
+        tryClick(g_.getImmuLowStatIfStatus().getCrud().getValidAddEdit());
+        tryClick(c_.getValidAddEdit());
+        assertEq(2,facade_.getData().getAbilities().getVal(A_1).getImmuLowStatIfStatus().size());
+        assertEq(S_1,facade_.getData().getAbilities().getVal(A_1).getImmuLowStatIfStatus().get(0).getStatus());
+        assertEq(Statistic.SPEED,facade_.getData().getAbilities().getVal(A_1).getImmuLowStatIfStatus().get(0).getStatistic());
+        assertEq(S_2,facade_.getData().getAbilities().getVal(A_1).getImmuLowStatIfStatus().get(1).getStatus());
+        assertEq(Statistic.SPEED,facade_.getData().getAbilities().getVal(A_1).getImmuLowStatIfStatus().get(1).getStatistic());
+    }
+    @Test
+    public void abForm16() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<AbilityData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelAbilityData g_ = (GeneComponentModelAbilityData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(A_1);
+        tryClick(g_.getMultStatIfStatutRank().getCrud().getAdd());
+        g_.getMultStatIfStatutRank().getCrud().getGenePair().getKey().setupValue(new StatisticStatus(Statistic.SPEED,S_1));
+        g_.getMultStatIfStatutRank().getCrud().getGenePair().getValue().setupValue((byte)1);
+        tryClick(g_.getMultStatIfStatutRank().getCrud().getValidAddEdit());
+        tryClick(g_.getMultStatIfStatutRank().getCrud().getAdd());
+        g_.getMultStatIfStatutRank().getCrud().getGenePair().getKey().setupValue(new StatisticStatus(Statistic.SPEED,S_2));
+        g_.getMultStatIfStatutRank().getCrud().getGenePair().getValue().setupValue((byte)2);
+        tryClick(g_.getMultStatIfStatutRank().getCrud().getValidAddEdit());
+        tryClick(g_.getMultStatIfStatutRank().getCrud().getAllButtons().get(0));
+        tryClick(g_.getMultStatIfStatutRank().getCrud().getCancel());
+        tryClick(c_.getValidAddEdit());
+        assertEq(2,facade_.getData().getAbilities().getVal(A_1).getMultStatIfStatutRank().size());
+        assertEq(S_1,facade_.getData().getAbilities().getVal(A_1).getMultStatIfStatutRank().getKey(0).getStatus());
+        assertEq(Statistic.SPEED,facade_.getData().getAbilities().getVal(A_1).getMultStatIfStatutRank().getKey(0).getStatistic());
+        assertEq(1,facade_.getData().getAbilities().getVal(A_1).getMultStatIfStatutRank().getValue(0));
+        assertEq(S_2,facade_.getData().getAbilities().getVal(A_1).getMultStatIfStatutRank().getKey(1).getStatus());
+        assertEq(Statistic.SPEED,facade_.getData().getAbilities().getVal(A_1).getMultStatIfStatutRank().getKey(1).getStatistic());
+        assertEq(2,facade_.getData().getAbilities().getVal(A_1).getMultStatIfStatutRank().getValue(1));
     }
     private FacadeGame facadeAdd(MockProgramInfos _m) {
         FacadeGame f_ = facade(_m);
