@@ -22,9 +22,7 @@ public final class GeneComponentModelElt<T> extends GeneComponentModelEltCommon<
 
     @Override
     public AbsCustComponent gene(int _select) {
-        select = buildSelect();
-        feed();
-        return getSelect().getElements();
+        return geneEnum();
     }
 
     public AbsPanel geneEnum() {
@@ -63,7 +61,11 @@ public final class GeneComponentModelElt<T> extends GeneComponentModelEltCommon<
         return new EnumScrollCustomCombo<T>(getCompoFactory().getCompoFactory(), getCompoFactory().getImageFactory(), messages);
     }
     public void setupValue(AbsStringScrollCustomCombo<T> _t, T _v) {
-        _t.select(getElements().indexOfEntry(_v));
+        int index_ = getElements().indexOfEntry(_v);
+        if (index_ < 0) {
+            return;
+        }
+        _t.select(index_);
         _t.repaint();
     }
 
