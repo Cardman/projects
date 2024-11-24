@@ -26,17 +26,13 @@ public final class ContentComponentModelEffectStatus {
         selected_.add(deletedStatus.geneEnum());
         localFailStatus = buildLocalFail(_f, _core, _fac, _fact);
         selected_.add(localFailStatus.getGroup());
-        lawStatus = buildLaw(_f, _core, _fac, _fact);
+        lawStatus = ConverterCommonMapUtil.buildStatusLaw(_f, _core, _fac, _fact);
         selected_.add(lawStatus.getGroup());
         selected_.setVisible(false);
         form =selected_;
         return selected_;
     }
-    private CrudGeneFormMonteCarloSub<String> buildLaw(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
-        CrudGeneFormMonteCarloSub<String> law_ = new CrudGeneFormMonteCarloSub<String>(_f, _core);
-        law_.initFormKeys(ConverterCommonMapUtil.buildStatus(_core,_fac,_fact,ConverterCommonMapUtil.defKeyEmpty(" ")),new DisplayEntryCustSubElementLgIntImpl<String>(_fact.getFactorySt(), _core, _fac, ConverterCommonMapUtil.defKeyEmpty(" ")));
-        return law_;
-    }
+
     private CrudGeneFormSimpleFormSub<String,String> buildLocalFail(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
         CrudGeneFormSimpleFormSub<String,String> out_ = new CrudGeneFormSimpleFormSub<String,String>(_core, _fac, _fact, _f);
         out_.initFormWithVal(new DisplayEntryCustSubElementImpl<String,String>(_fact.getFactorySt(),_core,_fac, new StringMap<String>()), buildPart(_core,_fac, _fact.getFactorySt(), new StringMap<String>()), new GeneComponentModelSubscribeFactoryString(_core));

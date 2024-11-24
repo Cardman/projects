@@ -304,4 +304,10 @@ public final class ConverterCommonMapUtil {
         _sel.setupValue(_key);
         _sel.getSelect().events(null);
     }
+
+    public static CrudGeneFormMonteCarloSub<String> buildStatusLaw(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
+        CrudGeneFormMonteCarloSub<String> law_ = new CrudGeneFormMonteCarloSub<String>(_f, _core);
+        law_.initFormKeys(buildStatus(_core,_fac,_fact, defKeyEmpty(" ")),new DisplayEntryCustSubElementLgIntImpl<String>(_fact.getFactorySt(), _core, _fac, defKeyEmpty(" ")));
+        return law_;
+    }
 }
