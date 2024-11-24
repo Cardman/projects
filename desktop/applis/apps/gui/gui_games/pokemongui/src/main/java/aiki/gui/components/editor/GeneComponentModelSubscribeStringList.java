@@ -45,10 +45,14 @@ public final class GeneComponentModelSubscribeStringList implements AbsGeneCompo
 
     @Override
     public IdList<SubscribedTranslation> getSubs() {
-        return getCrud().subscribeButtons();
+        return crud().subscribeButtons();
     }
 
-    public CrudGeneFormSimpleElement<String> getCrud() {
+    public CrudGeneFormSimpleElement<String> crud() {
         return crud.getCrud();
+    }
+
+    public CrudGeneFormSimpleElementSub<String> getCrud() {
+        return crud;
     }
 }

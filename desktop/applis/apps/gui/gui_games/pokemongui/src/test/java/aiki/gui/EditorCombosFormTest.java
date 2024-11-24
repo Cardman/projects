@@ -15,7 +15,7 @@ public final class EditorCombosFormTest extends InitEditorPkForm {
         WindowPkEditor sub_ = window(pr_, facade_);
         CrudGeneFormCombos c_ = crud(sub_);
         tryClick(c_.getAdd());
-        c_.getKey().setupValue(new StringList(M_1));
+        c_.getValue().getKey().setupValue(new StringList(M_1));
         tryClick(c_.getValue().getEffectEndRound().getCrud().getAdd());
         ((GeneComponentModelSubscribeEffectEndRoundFoe)c_.getValue().getEffectEndRound().getCrud().getGenePair().getKey()).getCrud().getContentEffectEndRoundFoe().getInflictedRateHpTarget().valueRate(Rate.one());
         tryClick(c_.getValue().getEffectEndRound().getCrud().getValidAddEdit());
@@ -40,7 +40,7 @@ public final class EditorCombosFormTest extends InitEditorPkForm {
         WindowPkEditor sub_ = window(pr_, facade_);
         CrudGeneFormCombos c_ = crud(sub_);
         tryClick(c_.getAdd());
-        c_.getKey().setupValue(new StringList(M_1));
+        c_.getValue().getKey().setupValue(new StringList(M_1));
         tryClick(c_.getValue().getEffectEndRound().getCrud().getAdd());
         ((GeneComponentModelSubscribeEffectEndRoundFoe)c_.getValue().getEffectEndRound().getCrud().getGenePair().getKey()).getCrud().getContentEffectEndRoundFoe().getInflictedRateHpTarget().valueRate(Rate.one());
         tryClick(c_.getValue().getEffectEndRound().getCrud().getValidAddEdit());
@@ -70,7 +70,7 @@ public final class EditorCombosFormTest extends InitEditorPkForm {
         WindowPkEditor sub_ = window(pr_, facade_);
         CrudGeneFormCombos c_ = crud(sub_);
         tryClick(c_.getAdd());
-        c_.getKey().setupValue(new StringList(M_1));
+        c_.getValue().getKey().setupValue(new StringList(M_1));
         tryClick(c_.getValue().getEffectEndRound().getCrud().getAdd());
         ((GeneComponentModelSubscribeEffectEndRoundFoe)c_.getValue().getEffectEndRound().getCrud().getGenePair().getKey()).getCrud().getContentEffectEndRoundFoe().getInflictedRateHpTarget().valueRate(Rate.one());
         tryClick(c_.getValue().getEffectEndRound().getCrud().getValidAddEdit());
@@ -92,7 +92,7 @@ public final class EditorCombosFormTest extends InitEditorPkForm {
         WindowPkEditor sub_ = window(pr_, facade_);
         CrudGeneFormCombos c_ = crud(sub_);
         tryClick(c_.getAdd());
-        c_.getKey().setupValue(new StringList(M_1));
+        c_.getValue().getKey().setupValue(new StringList(M_1));
         tryClick(c_.getValue().getEffectEndRound().getCrud().getAdd());
         c_.getValue().getSubs();
         ((GeneComponentModelSubscribeEffectEndRoundFoe)c_.getValue().getEffectEndRound().getCrud().getGenePair().getKey()).getCrud().getContentEffectEndRoundFoe().getInflictedRateHpTarget().valueRate(Rate.one());

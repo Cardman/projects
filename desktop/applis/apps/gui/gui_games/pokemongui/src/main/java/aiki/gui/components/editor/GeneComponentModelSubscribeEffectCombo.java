@@ -2,23 +2,24 @@ package aiki.gui.components.editor;
 
 import aiki.facade.*;
 import aiki.fight.moves.effects.*;
+import aiki.fight.util.*;
 import aiki.instances.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.maths.*;
 import code.util.*;
 
-public final class GeneComponentModelSubscribeEffectCombo implements AbsGeneComponentModelSubscribe<EffectCombo> {
+public final class GeneComponentModelSubscribeEffectCombo implements GeneComponentModel<ListEffectCombo> {
     private final AbstractProgramInfos api;
     private final FacadeGame facadeGame;
     private final SubscribedTranslationList factory;
     private final AbsCommonFrame frame;
+    private GeneComponentModelSubscribeStringList key;
     private GeneComponentModelRate multEvtRateSecEff;
     private GeneComponentModelInt rankIncrementNbRound;
     private CrudGeneFormMonteCarlo<Rate> repeatedRoundsLaw;
     private CrudGeneFormSimpleElementSub<EffectEndRoundFoe> effectEndRound;
     private CrudGeneFormSimpleElementSub<EffectTeam> teamMove;
-    private EffectCombo edited;
 
     public GeneComponentModelSubscribeEffectCombo(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub, AbsCommonFrame _fr) {
         api = _fact;
@@ -26,9 +27,12 @@ public final class GeneComponentModelSubscribeEffectCombo implements AbsGeneComp
         frame = _fr;
         factory = _sub;
     }
+
     @Override
-    public AbsCustComponent geneEnum(int _select, int _value) {
-        edited = Instances.newEffectCombo();
+    public AbsCustComponent gene(int _select) {
+        SubscribedTranslationMessagesFactoryMv factoryMv_ = factory.getFactoryMv();
+        key = new GeneComponentModelSubscribeStringList(api, facadeGame, factory, frame, factoryMv_);
+        key.getCrud().initForm(new DisplayEntryCustSubElementSimpleImpl<String>(factoryMv_,api,facadeGame,new StringMap<String>()),buildPart(api,facadeGame,factoryMv_,new StringMap<String>()));
         AbsPanel form_ = api.getCompoFactory().newLineBox();
         multEvtRateSecEff = new GeneComponentModelRate(api);
         form_.add(multEvtRateSecEff.geneRate(Rate.zero()));
@@ -44,27 +48,35 @@ public final class GeneComponentModelSubscribeEffectCombo implements AbsGeneComp
         form_.add(teamMove.getGroup());
         return form_;
     }
+    private GeneComponentModelSubscribeFactorySelElt buildPart(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationMessagesFactory _facto, StringMap<String> _abs) {
+        return new GeneComponentModelSubscribeFactorySelElt(_core, _fac, _facto, _abs);
+    }
     @Override
-    public EffectCombo tryRet() {
-        edited.setMultEvtRateSecEff(multEvtRateSecEff.valueRate());
-        edited.setRankIncrementNbRound((short) rankIncrementNbRound.valueInt());
-        edited.setRepeatedRoundsLaw(ConverterCommonMapUtil.buildMonteCarloNumber(repeatedRoundsLaw.getList()));
-        edited.setEffectEndRound(effectEndRound.getList());
-        edited.setTeamMove(teamMove.getList());
-        return edited;
+    public ListEffectCombo value() {
+        EffectCombo edited_ = Instances.newEffectCombo();
+        edited_.setMultEvtRateSecEff(multEvtRateSecEff.valueRate());
+        edited_.setRankIncrementNbRound((short) rankIncrementNbRound.valueInt());
+        edited_.setRepeatedRoundsLaw(ConverterCommonMapUtil.buildMonteCarloNumber(repeatedRoundsLaw.getList()));
+        edited_.setEffectEndRound(effectEndRound.getList());
+        edited_.setTeamMove(teamMove.getList());
+        return new ListEffectCombo(key.tryRet(),edited_);
     }
 
     @Override
-    public void setupValue(EffectCombo _value) {
-        multEvtRateSecEff.valueRate(_value.getMultEvtRateSecEff());
-        rankIncrementNbRound.valueInt(_value.getRankIncrementNbRound());
-        repeatedRoundsLaw.setupValues(new MapToEntriesListUtil<Rate,LgInt>().build(_value.getRepeatedRoundsLaw()));
-        effectEndRound.setupValues(_value.getEffectEndRound());
-        teamMove.setupValues(_value.getTeamMove());
-        edited = _value;
+    public void value(ListEffectCombo _value) {
+        EffectCombo combo_ = _value.getCombo();
+        multEvtRateSecEff.valueRate(combo_.getMultEvtRateSecEff());
+        rankIncrementNbRound.valueInt(combo_.getRankIncrementNbRound());
+        repeatedRoundsLaw.setupValues(new MapToEntriesListUtil<Rate,LgInt>().build(combo_.getRepeatedRoundsLaw()));
+        effectEndRound.setupValues(combo_.getEffectEndRound());
+        teamMove.setupValues(combo_.getTeamMove());
+        key.setupValue(_value.getList());
     }
 
-    @Override
+    public GeneComponentModelSubscribeStringList getKey() {
+        return key;
+    }
+
     public IdList<SubscribedTranslation> getSubs() {
         return new IdList<SubscribedTranslation>();
     }

@@ -56,43 +56,43 @@ public final class EditorStatFormTest extends InitEditorPkForm {
     public void strList1() {
         GeneComponentModelSubscribeStringList g_ = gene();
         g_.geneEnum(-1,0);
-        tryClick(g_.getCrud().getAdd());
-        g_.getCrud().getGenePair().getKey().setupValue(M_1);
-        tryClick(g_.getCrud().getValidAddEdit());
-        assertEq(1,g_.getCrud().getList().size());
-        assertEq(M_1,g_.getCrud().getList().get(0));
+        tryClick(g_.crud().getAdd());
+        g_.crud().getGenePair().getKey().setupValue(M_1);
+        tryClick(g_.crud().getValidAddEdit());
+        assertEq(1,g_.crud().getList().size());
+        assertEq(M_1,g_.crud().getList().get(0));
     }
     @Test
     public void strList2() {
         GeneComponentModelSubscribeStringList g_ = gene();
         g_.geneEnum(-1,0);
-        tryClick(g_.getCrud().getAdd());
-        g_.getCrud().getGenePair().getKey().setupValue(M_1);
-        tryClick(g_.getCrud().getValidAddEdit());
-        tryClick(g_.getCrud().getAllButtons().get(0));
-        g_.getCrud().getGenePair().getKey().setupValue(M_2);
-        tryClick(g_.getCrud().getValidAddEdit());
-        assertEq(1,g_.getCrud().getList().size());
-        assertEq(M_2,g_.getCrud().getList().get(0));
+        tryClick(g_.crud().getAdd());
+        g_.crud().getGenePair().getKey().setupValue(M_1);
+        tryClick(g_.crud().getValidAddEdit());
+        tryClick(g_.crud().getAllButtons().get(0));
+        g_.crud().getGenePair().getKey().setupValue(M_2);
+        tryClick(g_.crud().getValidAddEdit());
+        assertEq(1,g_.crud().getList().size());
+        assertEq(M_2,g_.crud().getList().get(0));
     }
     @Test
     public void strList3() {
         GeneComponentModelSubscribeStringList g_ = gene();
         g_.geneEnum(-1,0);
-        tryClick(g_.getCrud().getAdd());
-        g_.getCrud().getGenePair().getKey().setupValue(M_1);
-        tryClick(g_.getCrud().getValidAddEdit());
-        tryClick(g_.getCrud().getAllButtons().get(0));
-        tryClick(g_.getCrud().getValidRemove());
-        assertEq(0,g_.getCrud().getList().size());
+        tryClick(g_.crud().getAdd());
+        g_.crud().getGenePair().getKey().setupValue(M_1);
+        tryClick(g_.crud().getValidAddEdit());
+        tryClick(g_.crud().getAllButtons().get(0));
+        tryClick(g_.crud().getValidRemove());
+        assertEq(0,g_.crud().getList().size());
     }
     @Test
     public void strList4() {
         GeneComponentModelSubscribeStringList g_ = gene();
         g_.geneEnum(-1,0);
         g_.setupValue(new StringList(M_1));
-        assertEq(1,g_.getCrud().getList().size());
-        assertEq(M_1,g_.getCrud().getList().get(0));
+        assertEq(1,g_.crud().getList().size());
+        assertEq(M_1,g_.crud().getList().get(0));
     }
 
     @Test
