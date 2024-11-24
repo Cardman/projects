@@ -195,6 +195,11 @@ public final class ConverterCommonMapUtil {
         new MapToEntriesListUtil<String,Rate>().feedMap(_m, c_);
         return c_;
     }
+    public static StringMap<Short> buildStringMapShort(CustList<EditedCrudPair<String, Short>> _m) {
+        StringMap<Short> c_ = new StringMap<Short>(new CollCapacity(_m.size()));
+        new MapToEntriesListUtil<String,Short>().feedMap(_m, c_);
+        return c_;
+    }
     public static StringMap<Ints> buildStringMapInts(CustList<EditedCrudPair<String, Ints>> _m) {
         StringMap<Ints> c_ = new StringMap<Ints>(new CollCapacity(_m.size()));
         new MapToEntriesListUtil<String,Ints>().feedMap(_m, c_);
