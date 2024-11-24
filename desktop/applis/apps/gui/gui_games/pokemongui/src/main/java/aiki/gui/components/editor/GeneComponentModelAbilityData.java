@@ -36,6 +36,7 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
     private CrudGeneFormSimpleFormSub<String, StringList> immuStatus;
     private CrudGeneFormSimpleFormSub<String, StringList> immuStatusTypes;
     private CrudGeneFormSimpleFormSub<String, IdList<Statistic>> immuLowStatisTypes;
+    private CrudGeneFormSimpleFormSub<StatisticType,Byte> multStatIfDamgeType;
     private CrudGeneFormMonteCarloSub<String> singleStatus;
     private GeneComponentModelString multPower;
     private GeneComponentModelString multDamage;
@@ -166,6 +167,9 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         immuLowStatisTypes=new CrudGeneFormSimpleFormSub<String,IdList<Statistic>>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
         immuLowStatisTypes.initFormWithVal(new DisplayEntryCustSubElementImpl<String,IdList<Statistic>>(getSubscribedTranslationList().getFactoryTy(),getCompoFactory(),getFacade(), new StringMap<String>()), buildPart(getCompoFactory(), getFacade(), getSubscribedTranslationList().getFactoryTy(), new StringMap<String>()), new GeneComponentModelSubscribeFactorySelLs<Statistic,IdList<Statistic>>(getCompoFactory(),getFacade(),getSubscribedTranslationList().getFactoryStat(),new IdSubscribeBuilderUtilFactory<Statistic>()));
         form_.add(immuLowStatisTypes.getGroup());
+        multStatIfDamgeType = new CrudGeneFormSimpleFormSub<StatisticType, Byte>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
+        multStatIfDamgeType.initFormWithVal(new DisplayEntryCustSubElementStatisticType<Byte>(getCompoFactory(),getFacade(),getSubscribedTranslationList()),new GeneComponentModelSubscribeFactoryDirect<StatisticType>(new GeneComponentModelSubscribeStatisticType(getCompoFactory(),getFacade(),getSubscribedTranslationList())),new GeneComponentModelSubscribeFactoryDirect<Byte>(new GeneComponentModelSubscribeByte(getCompoFactory())));
+        form_.add(multStatIfDamgeType.getGroup());
         singleStatus = ConverterCommonMapUtil.buildStatusLaw(getFrame(), getCompoFactory(), getFacade(), getSubscribedTranslationList());
         form_.add(singleStatus.getGroup());
         multPower = new GeneComponentModelString(getCompoFactory(),new StringList(),new DefValidateText());
@@ -302,6 +306,7 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         ent_.setImmuStatus(ConverterCommonMapUtil.buildStringMapStringList(immuStatus.getList()));
         ent_.setImmuStatusTypes(ConverterCommonMapUtil.buildStringMapStringList(immuStatusTypes.getList()));
         ent_.setImmuLowStatisTypes(ConverterCommonMapUtil.buildStringMapIdListStatistic(immuLowStatisTypes.getList()));
+        ent_.setMultStatIfDamgeType(ConverterCommonMapUtil.buildStatisticTypeByte(multStatIfDamgeType.getList()));
         ent_.setSingleStatus(ConverterCommonMapUtil.buildMonteCarloString(singleStatus.getList()));
         ent_.setMultPower(multPower.valueString());
         ent_.setMultDamage(multDamage.valueString());
@@ -383,6 +388,7 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         immuStatus.setupValues(new MapToEntriesListUtil<String,StringList>().build(ability_.getImmuStatus()));
         immuStatusTypes.setupValues(new MapToEntriesListUtil<String,StringList>().build(ability_.getImmuStatusTypes()));
         immuLowStatisTypes.setupValues(new MapToEntriesListUtil<String,IdList<Statistic>>().build(ability_.getImmuLowStatisTypes()));
+        multStatIfDamgeType.setupValues(new MapToEntriesListUtil<StatisticType,Byte>().build(ability_.getMultStatIfDamgeType()));
         singleStatus.setupValues(new MapToEntriesListUtil<String,LgInt>().build(ability_.getSingleStatus()));
         multPower.valueString(ability_.getMultPower());
         multDamage.valueString(ability_.getMultDamage());
@@ -460,6 +466,7 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         ids_.addAllElts(immuStatus.subscribeButtons());
         ids_.addAllElts(immuStatusTypes.subscribeButtons());
         ids_.addAllElts(immuLowStatisTypes.subscribeButtons());
+        ids_.addAllElts(multStatIfDamgeType.subscribeButtons());
         ids_.addAllElts(singleStatus.subscribeButtons());
         ids_.addAllElts(getTypeForMoves().getSubs());
         ids_.addAllElts(immuLowStat.getSubs());

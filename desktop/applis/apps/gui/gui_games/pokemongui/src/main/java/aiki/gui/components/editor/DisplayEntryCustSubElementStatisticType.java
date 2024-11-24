@@ -5,11 +5,10 @@ import aiki.fight.enums.*;
 import aiki.fight.util.*;
 import code.gui.*;
 import code.gui.initialize.*;
-import code.maths.*;
 import code.util.*;
 import code.util.ints.*;
 
-public final class DisplayEntryCustSubElementStatisticType implements DisplayEntryCustSubElement<EditedCrudPair<StatisticType, Rate>> {
+public final class DisplayEntryCustSubElementStatisticType<T> implements DisplayEntryCustSubElement<EditedCrudPair<StatisticType, T>> {
     private final AbsMap<Statistic, String> stats;
     private final AbsMap<String, String> types;
     private final SubscribedTranslationMessagesFactory factoryTy;
@@ -32,12 +31,12 @@ public final class DisplayEntryCustSubElementStatisticType implements DisplayEnt
     }
 
     @Override
-    public DisplayEntryCust<Integer, EditedCrudPair<StatisticType, Rate>> buildDisplay() {
-        return new DisplayEntryCustStatisticType(stats,types);
+    public DisplayEntryCust<Integer, EditedCrudPair<StatisticType, T>> buildDisplay() {
+        return new DisplayEntryCustStatisticType<T>(stats,types);
     }
 
     @Override
-    public Comparing<EditedCrudPair<StatisticType, Rate>> buildCmp() {
-        return new ComparingKeyStatisticType(stats,types);
+    public Comparing<EditedCrudPair<StatisticType, T>> buildCmp() {
+        return new ComparingKeyStatisticType<T>(stats,types);
     }
 }

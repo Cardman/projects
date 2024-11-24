@@ -4,11 +4,10 @@ import aiki.beans.facade.comparators.*;
 import aiki.fight.enums.*;
 import aiki.fight.util.*;
 import code.gui.*;
-import code.maths.*;
 import code.util.*;
 import code.util.ints.*;
 
-public final class ComparingKeyStatisticType implements Comparing<EditedCrudPair<StatisticType, Rate>> {
+public final class ComparingKeyStatisticType<T> implements Comparing<EditedCrudPair<StatisticType, T>> {
 
     private final AbsMap<Statistic, String> stats;
     private final AbsMap<String,String> types;
@@ -19,7 +18,7 @@ public final class ComparingKeyStatisticType implements Comparing<EditedCrudPair
     }
 
     @Override
-    public int compare(EditedCrudPair<StatisticType, Rate> _one, EditedCrudPair<StatisticType, Rate> _two) {
+    public int compare(EditedCrudPair<StatisticType, T> _one, EditedCrudPair<StatisticType, T> _two) {
         return ComparatorStatisticType.comparePairs(_one.getKey(),_two.getKey(), stats, types);
     }
 }

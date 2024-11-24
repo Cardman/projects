@@ -3,11 +3,10 @@ package aiki.gui.components.editor;
 import aiki.fight.enums.*;
 import aiki.fight.util.*;
 import code.gui.*;
-import code.maths.Rate;
 import code.util.*;
 import code.util.core.*;
 
-public final class DisplayEntryCustStatisticType implements DisplayEntryCust<Integer, EditedCrudPair<StatisticType, Rate>> {
+public final class DisplayEntryCustStatisticType<T> implements DisplayEntryCust<Integer, EditedCrudPair<StatisticType, T>> {
     private final AbsMap<Statistic, String> stats;
     private final AbsMap<String, String> types;
 
@@ -18,7 +17,7 @@ public final class DisplayEntryCustStatisticType implements DisplayEntryCust<Int
 
 
     @Override
-    public String display(Integer _k, EditedCrudPair<StatisticType, Rate> _v) {
+    public String display(Integer _k, EditedCrudPair<StatisticType, T> _v) {
         return StringUtil.nullToEmpty(stats.getVal(_v.getKey().getStatistic()))+" "+ StringUtil.nullToEmpty(types.getVal(_v.getKey().getType()));
     }
 }

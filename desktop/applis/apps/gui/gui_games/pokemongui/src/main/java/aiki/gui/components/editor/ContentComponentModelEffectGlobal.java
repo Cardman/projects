@@ -101,7 +101,7 @@ public final class ContentComponentModelEffectGlobal {
         multPowerMoves.initFormWithVal(new DisplayEntryCustSubElementImpl<String, Rate>(_fact.getFactoryMv(),_core,_fac, new StringMap<String>()),buildPart(_core,_fac,_fact.getFactoryMv(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core)));
         selected_.add(multPowerMoves.getGroup());
         multStatIfContainsType = new CrudGeneFormSimpleFormSub<StatisticType, Rate>(_core, _fac, _fact, _f);
-        multStatIfContainsType.initFormWithVal(new DisplayEntryCustSubElementStatisticType(_core,_fac,_fact),new GeneComponentModelSubscribeFactoryDirect<StatisticType>(new GeneComponentModelSubscribeStatisticType(_core,_fac,_fact)),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core)));
+        multStatIfContainsType.initFormWithVal(new DisplayEntryCustSubElementStatisticType<Rate>(_core,_fac,_fact),new GeneComponentModelSubscribeFactoryDirect<StatisticType>(new GeneComponentModelSubscribeStatisticType(_core,_fac,_fact)),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core)));
         selected_.add(multStatIfContainsType.getGroup());
         efficiencyMoves = new CrudGeneFormSimpleFormSub<TypesDuo, Rate>(_core, _fac, _fact, _f);
         efficiencyMoves.initFormWithVal(new DisplayEntryCustSubElementTypesDuo(_core,_fac,_fact),new GeneComponentModelSubscribeFactoryDirect<TypesDuo>(new GeneComponentModelSubscribeTypesDuo(_core,_fac,_fact)),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core)));
