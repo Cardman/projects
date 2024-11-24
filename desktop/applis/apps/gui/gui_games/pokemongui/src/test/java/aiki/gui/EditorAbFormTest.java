@@ -4,6 +4,7 @@ import aiki.facade.*;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.enums.Statistic;
 import aiki.fight.pokemon.PokemonData;
+import aiki.fight.util.StatisticCategory;
 import aiki.fight.util.StatisticStatus;
 import aiki.gui.components.editor.*;
 import aiki.instances.*;
@@ -391,6 +392,34 @@ public final class EditorAbFormTest extends InitEditorPkForm {
         assertEq(S_2,facade_.getData().getAbilities().getVal(A_1).getMultStatIfStatutRank().getKey(1).getStatus());
         assertEq(Statistic.SPEED,facade_.getData().getAbilities().getVal(A_1).getMultStatIfStatutRank().getKey(1).getStatistic());
         assertEq(2,facade_.getData().getAbilities().getVal(A_1).getMultStatIfStatutRank().getValue(1));
+    }
+    @Test
+    public void abForm17() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<AbilityData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelAbilityData g_ = (GeneComponentModelAbilityData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(A_1);
+        tryClick(g_.getMultStatIfDamageCat().getCrud().getAdd());
+        g_.getMultStatIfDamageCat().getCrud().getGenePair().getKey().setupValue(new StatisticCategory(Statistic.SPEED,C_1));
+        g_.getMultStatIfDamageCat().getCrud().getGenePair().getValue().setupValue((byte)1);
+        tryClick(g_.getMultStatIfDamageCat().getCrud().getValidAddEdit());
+        tryClick(g_.getMultStatIfDamageCat().getCrud().getAdd());
+        g_.getMultStatIfDamageCat().getCrud().getGenePair().getKey().setupValue(new StatisticCategory(Statistic.SPEED,C_2));
+        g_.getMultStatIfDamageCat().getCrud().getGenePair().getValue().setupValue((byte)2);
+        tryClick(g_.getMultStatIfDamageCat().getCrud().getValidAddEdit());
+        tryClick(g_.getMultStatIfDamageCat().getCrud().getAllButtons().get(0));
+        tryClick(g_.getMultStatIfDamageCat().getCrud().getCancel());
+        tryClick(c_.getValidAddEdit());
+        assertEq(2,facade_.getData().getAbilities().getVal(A_1).getMultStatIfDamageCat().size());
+        assertEq(C_1,facade_.getData().getAbilities().getVal(A_1).getMultStatIfDamageCat().getKey(0).getCategory());
+        assertEq(Statistic.SPEED,facade_.getData().getAbilities().getVal(A_1).getMultStatIfDamageCat().getKey(0).getStatistic());
+        assertEq(1,facade_.getData().getAbilities().getVal(A_1).getMultStatIfDamageCat().getValue(0));
+        assertEq(C_2,facade_.getData().getAbilities().getVal(A_1).getMultStatIfDamageCat().getKey(1).getCategory());
+        assertEq(Statistic.SPEED,facade_.getData().getAbilities().getVal(A_1).getMultStatIfDamageCat().getKey(1).getStatistic());
+        assertEq(2,facade_.getData().getAbilities().getVal(A_1).getMultStatIfDamageCat().getValue(1));
     }
     private FacadeGame facadeAdd(MockProgramInfos _m) {
         FacadeGame f_ = facade(_m);
