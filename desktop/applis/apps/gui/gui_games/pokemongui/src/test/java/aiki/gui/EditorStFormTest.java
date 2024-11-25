@@ -131,6 +131,42 @@ public final class EditorStFormTest extends InitEditorPkForm {
         assertTrue(facade_.getData().getStatus().contains(S_1));
         assertTrue(facade_.getData().getStatus().contains(S_2));
     }
+    @Test
+    public void stForm9() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<Status> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelStatus g_ = (GeneComponentModelStatus) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(S_1);
+        g_.getDisabledEffIfSwitch().setSelected(true);
+        g_.getIncrementingEndRound().setSelected(true);
+        g_.getStatusType().setSelected(true);
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryClick(c_.getCancel());
+        assertTrue(facade_.getData().getStatus().getVal(S_1).getDisabledEffIfSwitch());
+        assertTrue(facade_.getData().getStatus().getVal(S_1).getIncrementingEndRound());
+    }
+    @Test
+    public void stForm10() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<Status> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelStatus g_ = (GeneComponentModelStatus) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(S_1);
+        g_.getDisabledEffIfSwitch().setSelected(false);
+        g_.getIncrementingEndRound().setSelected(false);
+        g_.getStatusType().setSelected(false);
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryClick(c_.getCancel());
+        assertFalse(facade_.getData().getStatus().getVal(S_1).getDisabledEffIfSwitch());
+        assertFalse(facade_.getData().getStatus().getVal(S_1).getIncrementingEndRound());
+    }
     private FacadeGame facadeAdd(MockProgramInfos _m) {
         FacadeGame f_ = facade(_m);
         f_.getData().completeQuickMembers(S_1, Instances.newStatusSimple());
