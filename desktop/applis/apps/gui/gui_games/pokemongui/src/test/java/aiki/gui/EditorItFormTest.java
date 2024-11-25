@@ -178,6 +178,56 @@ public final class EditorItFormTest extends InitEditorPkForm {
         assertEq(Statistic.SPEED,((ItemForBattle)facade_.getData().getItem(I_1)).getBoostStatisTypes().getValue(0).getKey(0));
         assertEq(2,((ItemForBattle)facade_.getData().getItem(I_1)).getBoostStatisTypes().getValue(0).getValue(0));
     }
+    @Test
+    public void itForm11() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<Item> cm_ = crud(sub_);
+        tryClick(cm_.getAdd());
+        ((GeneComponentModelItem)cm_.getGene()).getGeneComponentModelSelectKey().setupValue(I_1);
+        ConverterCommonMapUtil.trigger(((GeneComponentModelItem)cm_.getGene()).getEffectKind().getSelectUniq(),Item.ITEM_FOR_BATTLE);
+        ((GeneComponentModelItem)cm_.getGene()).getAgainstEvo().setSelected(true);
+        ((GeneComponentModelItem)cm_.getGene()).getAttackLast().setSelected(true);
+        ((GeneComponentModelItem)cm_.getGene()).getAttacksSoon().setSelected(true);
+        ((GeneComponentModelItem)cm_.getGene()).getBoostExp().setSelected(true);
+        ((GeneComponentModelItem)cm_.getGene()).getCancelImmuType().setSelected(true);
+        ((GeneComponentModelItem)cm_.getGene()).getImmuLowStatis().setSelected(true);
+        tryClick(cm_.getValidAddEdit());
+        tryClick(cm_.getAllButtons().get(0));
+        tryClick(cm_.getCancel());
+        assertTrue(((ItemForBattle)facade_.getData().getItem(I_1)).getAgainstEvo());
+        assertTrue(((ItemForBattle)facade_.getData().getItem(I_1)).getAttackLast());
+        assertTrue(((ItemForBattle)facade_.getData().getItem(I_1)).getAttacksSoon());
+        assertTrue(((ItemForBattle)facade_.getData().getItem(I_1)).getBoostExp());
+        assertTrue(((ItemForBattle)facade_.getData().getItem(I_1)).getCancelImmuType());
+        assertTrue(((ItemForBattle)facade_.getData().getItem(I_1)).getImmuLowStatis());
+    }
+    @Test
+    public void itForm12() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<Item> cm_ = crud(sub_);
+        tryClick(cm_.getAdd());
+        ((GeneComponentModelItem)cm_.getGene()).getGeneComponentModelSelectKey().setupValue(I_1);
+        ConverterCommonMapUtil.trigger(((GeneComponentModelItem)cm_.getGene()).getEffectKind().getSelectUniq(),Item.ITEM_FOR_BATTLE);
+        ((GeneComponentModelItem)cm_.getGene()).getAgainstEvo().setSelected(false);
+        ((GeneComponentModelItem)cm_.getGene()).getAttackLast().setSelected(false);
+        ((GeneComponentModelItem)cm_.getGene()).getAttacksSoon().setSelected(false);
+        ((GeneComponentModelItem)cm_.getGene()).getBoostExp().setSelected(false);
+        ((GeneComponentModelItem)cm_.getGene()).getCancelImmuType().setSelected(false);
+        ((GeneComponentModelItem)cm_.getGene()).getImmuLowStatis().setSelected(false);
+        tryClick(cm_.getValidAddEdit());
+        tryClick(cm_.getAllButtons().get(0));
+        tryClick(cm_.getCancel());
+        assertFalse(((ItemForBattle)facade_.getData().getItem(I_1)).getAgainstEvo());
+        assertFalse(((ItemForBattle)facade_.getData().getItem(I_1)).getAttackLast());
+        assertFalse(((ItemForBattle)facade_.getData().getItem(I_1)).getAttacksSoon());
+        assertFalse(((ItemForBattle)facade_.getData().getItem(I_1)).getBoostExp());
+        assertFalse(((ItemForBattle)facade_.getData().getItem(I_1)).getCancelImmuType());
+        assertFalse(((ItemForBattle)facade_.getData().getItem(I_1)).getImmuLowStatis());
+    }
     private FacadeGame facadeAdd(MockProgramInfos _m) {
         FacadeGame f_ = facade(_m);
         f_.getData().completeQuickMembers(I_1, Instances.newBall());
