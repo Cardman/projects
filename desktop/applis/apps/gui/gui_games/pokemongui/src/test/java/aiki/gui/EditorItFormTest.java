@@ -371,6 +371,36 @@ public final class EditorItFormTest extends InitEditorPkForm {
         assertEq(new Rate(1),((Berry)facade_.getData().getItem(I_1)).getMultFoesDamage().getValue(0).getEff());
         assertEq(new Rate(2),((Berry)facade_.getData().getItem(I_1)).getMultFoesDamage().getValue(0).getHpRate());
     }
+    @Test
+    public void itForm19() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<Item> cm_ = crud(sub_);
+        tryClick(cm_.getAdd());
+        ((GeneComponentModelItem)cm_.getGene()).getGeneComponentModelSelectKey().setupValue(I_1);
+        ConverterCommonMapUtil.trigger(((GeneComponentModelItem)cm_.getGene()).getEffectKind().getSelectUniq(),Item.BOOST);
+        ((GeneComponentModelItem)cm_.getGene()).getBoostForm().getWinPp().valueRate(new Rate(2));
+        tryClick(cm_.getValidAddEdit());
+        tryClick(cm_.getAllButtons().get(0));
+        tryClick(cm_.getCancel());
+        assertEq(new Rate(2),((Boost)facade_.getData().getItem(I_1)).getWinPp());
+    }
+    @Test
+    public void itForm20() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<Item> cm_ = crud(sub_);
+        tryClick(cm_.getAdd());
+        ((GeneComponentModelItem)cm_.getGene()).getGeneComponentModelSelectKey().setupValue(I_1);
+        ConverterCommonMapUtil.trigger(((GeneComponentModelItem)cm_.getGene()).getEffectKind().getSelectUniq(),Item.FOSSIL);
+        ((GeneComponentModelItem)cm_.getGene()).getFossilForm().getLevel().valueInt(2);
+        tryClick(cm_.getValidAddEdit());
+        tryClick(cm_.getAllButtons().get(0));
+        tryClick(cm_.getCancel());
+        assertEq(2,((Fossil)facade_.getData().getItem(I_1)).getLevel());
+    }
     private FacadeGame facadeAdd(MockProgramInfos _m) {
         FacadeGame f_ = facade(_m);
         f_.getData().completeQuickMembers(I_1, Instances.newBall());

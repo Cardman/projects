@@ -17,6 +17,8 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
     private GeneComponentModelEltEnumSub<String> effectKind;
     private AbsPanel ballForm;
     private final ContentComponentModelBerry berryForm = new ContentComponentModelBerry();
+    private final ContentComponentModelBoost boostForm = new ContentComponentModelBoost();
+    private final ContentComponentModelFossil fossilForm = new ContentComponentModelFossil();
     private final ContentComponentModelItemForBattle itemForBattleForm = new ContentComponentModelItemForBattle();
     private AbsPanel repelForm;
 
@@ -42,6 +44,8 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         ballForm.setVisible(false);
         form_.add(ballForm);
         form_.add(berryForm.form(this));
+        form_.add(boostForm.form(this));
+        form_.add(fossilForm.form(this));
         form_.add(itemForBattleForm.form(this));
         repelForm = compoFactory_.newLineBox();
         steps = new GeneComponentModelLong(getCompoFactory());
@@ -64,6 +68,12 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         if (StringUtil.quickEq(eff_, Item.BERRY)) {
             element = Instances.newBerry();
         }
+        if (StringUtil.quickEq(eff_, Item.BOOST)) {
+            element = Instances.newBoost();
+        }
+        if (StringUtil.quickEq(eff_, Item.FOSSIL)) {
+            element = Instances.newFossil();
+        }
         if (StringUtil.quickEq(eff_, Item.ITEM_FOR_BATTLE)) {
             element = Instances.newItemForBattle();
         }
@@ -83,6 +93,12 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         }
         if (element instanceof Berry) {
             berryForm.buildEntity((Berry)element);
+        }
+        if (element instanceof Boost) {
+            boostForm.buildEntity((Boost)element);
+        }
+        if (element instanceof Fossil) {
+            fossilForm.buildEntity((Fossil)element);
         }
         if (element instanceof ItemForBattle) {
             itemForBattleForm.buildEntity((ItemForBattle)element);
@@ -105,6 +121,12 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         if (item_ instanceof Berry) {
             berryForm.feedForm((Berry) item_);
         }
+        if (item_ instanceof Boost) {
+            boostForm.feedForm((Boost) item_);
+        }
+        if (item_ instanceof Fossil) {
+            fossilForm.feedForm((Fossil) item_);
+        }
         if (item_ instanceof ItemForBattle) {
             itemForBattleForm.feedForm((ItemForBattle) item_);
         }
@@ -121,6 +143,8 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
     private void display(String _eff) {
         ballForm.setVisible(StringUtil.quickEq(_eff, Item.BALL));
         berryForm.display(_eff);
+        boostForm.display(_eff);
+        fossilForm.display(_eff);
         itemForBattleForm.display(_eff);
         repelForm.setVisible(StringUtil.quickEq(_eff, Item.REPEL));
     }
@@ -137,6 +161,8 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         ids_.addAllElts(getGeneComponentModelSelectKey().getSubs());
         ids_.addAllElts(getEffectKind().getSubs());
         ids_.addAllElts(berryForm.all());
+        ids_.addAllElts(boostForm.all());
+        ids_.addAllElts(fossilForm.all());
         ids_.addAllElts(itemForBattleForm.all());
         return ids_;
     }
@@ -147,6 +173,14 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
 
     public ContentComponentModelBerry getBerryForm() {
         return berryForm;
+    }
+
+    public ContentComponentModelBoost getBoostForm() {
+        return boostForm;
+    }
+
+    public ContentComponentModelFossil getFossilForm() {
+        return fossilForm;
     }
 
     public ContentComponentModelItemForBattle getItemForBattleForm() {
