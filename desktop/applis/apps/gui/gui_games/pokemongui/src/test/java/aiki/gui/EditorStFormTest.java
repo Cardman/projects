@@ -167,6 +167,24 @@ public final class EditorStFormTest extends InitEditorPkForm {
         assertFalse(facade_.getData().getStatus().getVal(S_1).getDisabledEffIfSwitch());
         assertFalse(facade_.getData().getStatus().getVal(S_1).getIncrementingEndRound());
     }
+    @Test
+    public void stForm11() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<Status> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelStatus g_ = (GeneComponentModelStatus) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(S_1);
+        tryClick(g_.getEffectEndRound().getCrud().getAdd());
+        tryClick(g_.getEffectEndRound().getCrud().getValidAddEdit());
+        tryClick(g_.getEffectEndRound().getCrud().getAllButtons().get(0));
+        tryClick(g_.getEffectEndRound().getCrud().getCancel());
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryClick(c_.getCancel());
+        assertEq(1,facade_.getData().getStatus().getVal(S_1).getEffectEndRound().size());
+    }
     private FacadeGame facadeAdd(MockProgramInfos _m) {
         FacadeGame f_ = facade(_m);
         f_.getData().completeQuickMembers(S_1, Instances.newStatusSimple());

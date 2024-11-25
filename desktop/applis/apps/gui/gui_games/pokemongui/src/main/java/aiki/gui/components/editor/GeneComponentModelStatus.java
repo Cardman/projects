@@ -2,6 +2,7 @@ package aiki.gui.components.editor;
 
 import aiki.facade.*;
 import aiki.fight.enums.*;
+import aiki.fight.moves.effects.*;
 import aiki.fight.status.*;
 import aiki.instances.*;
 import code.gui.*;
@@ -11,6 +12,7 @@ import code.maths.*;
 import code.util.*;
 
 public final class GeneComponentModelStatus extends GeneComponentModelEntity<Status> {
+    private CrudGeneFormSimpleElementSub<EffectEndRoundStatus> effectEndRound;
     private CrudGeneFormSimpleFormSub<Statistic, Rate> multStat;
     private GeneComponentModelString fail;
     private final GeneComponentModelRate catchingRate;
@@ -33,6 +35,9 @@ public final class GeneComponentModelStatus extends GeneComponentModelEntity<Sta
         AbsPanel page_ = compoFactory_.newPageBox();
         page_.add(geneComponentModelSelectKey());
         AbsPanel form_ = compoFactory_.newLineBox();
+        effectEndRound=new CrudGeneFormSimpleElementSub<EffectEndRoundStatus>(getCompoFactory(),getFacade(),getSubscribedTranslationList(),getFrame());
+        effectEndRound.initForm(new DisplayEntryCustSubElementEffect<EffectEndRoundStatus>(),new GeneComponentModelSubscribeFactoryDirect<EffectEndRoundStatus>(new GeneComponentModelSubscribeEffectEndRoundStatus(new GeneComponentModelEffectEndRoundStatus(getFrame(),getCompoFactory(),getFacade(),getSubscribedTranslationList()))));
+        form_.add(effectEndRound.getGroup());
         multStat=new CrudGeneFormSimpleFormSub<Statistic,Rate>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
         multStat.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Rate>(getSubscribedTranslationList().getFactoryStat(),getCompoFactory(),getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(getCompoFactory(), getSubscribedTranslationList().getFactoryStat(), getFacade()), new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(getCompoFactory())));
         form_.add(multStat.getGroup());
@@ -54,6 +59,7 @@ public final class GeneComponentModelStatus extends GeneComponentModelEntity<Sta
     @Override
     public EditedCrudPair<String,Status> value() {
         Status ent_ = Instances.newStatusSimple();
+        ent_.setEffectEndRound(effectEndRound.getList());
         ent_.setMultStat(ConverterCommonMapUtil.buildIdMapStatisticRate(multStat.getList()));
         ent_.setFail(fail.valueString());
         ent_.setCatchingRate(catchingRate.valueRate());
@@ -73,6 +79,7 @@ public final class GeneComponentModelStatus extends GeneComponentModelEntity<Sta
         getGeneComponentModelSelectKey().setupValue(_v.getKey());
         updateSelector();
         Status status_ = _v.getValue();
+        effectEndRound.setupValues(status_.getEffectEndRound());
         multStat.setupValues(new MapToEntriesListUtil<Statistic,Rate>().build(status_.getMultStat()));
         catchingRate.valueRate(status_.getCatchingRate());
         incrementEndRound.valueInt(status_.getIncrementEndRound());
@@ -86,6 +93,10 @@ public final class GeneComponentModelStatus extends GeneComponentModelEntity<Sta
         ids_.addAllElts(multStat.subscribeButtons());
         ids_.addAllElts(getGeneComponentModelSelectKey().getSubs());
         return ids_;
+    }
+
+    public CrudGeneFormSimpleElementSub<EffectEndRoundStatus> getEffectEndRound() {
+        return effectEndRound;
     }
 
     public AbsCustCheckBox getDisabledEffIfSwitch() {
