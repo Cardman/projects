@@ -424,7 +424,7 @@ public final class EditorItFormTest extends InitEditorPkForm {
         CrudGeneFormEnt<Item> cm_ = crud(sub_);
         tryClick(cm_.getAdd());
         ((GeneComponentModelItem)cm_.getGene()).getGeneComponentModelSelectKey().setupValue(I_1);
-        ConverterCommonMapUtil.trigger(((GeneComponentModelItem)cm_.getGene()).getEffectKind().getSelectUniq(),Item.HEALING_HP);
+        ConverterCommonMapUtil.trigger(((GeneComponentModelItem)cm_.getGene()).getEffectKind().getSelectUniq(),Item.HEALING_ITEM);
         ((GeneComponentModelItem)cm_.getGene()).getHealingItemForm().getHealingTeam().setSelected(false);
         tryClick(cm_.getValidAddEdit());
         tryClick(cm_.getAllButtons().get(0));
@@ -464,6 +464,36 @@ public final class EditorItFormTest extends InitEditorPkForm {
         tryClick(cm_.getCancel());
         assertFalse(((HealingPp)facade_.getData().getItem(I_1)).getHealingMoveFullpp());
         assertFalse(((HealingPp)facade_.getData().getItem(I_1)).isHealingAllMovesPp());
+    }
+    @Test
+    public void itForm25() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<Item> cm_ = crud(sub_);
+        tryClick(cm_.getAdd());
+        ((GeneComponentModelItem)cm_.getGene()).getGeneComponentModelSelectKey().setupValue(I_1);
+        ConverterCommonMapUtil.trigger(((GeneComponentModelItem)cm_.getGene()).getEffectKind().getSelectUniq(),Item.HEALING_STATUS);
+        ((GeneComponentModelItem)cm_.getGene()).getHealingStatusForm().getHealingKo().setSelected(true);
+        tryClick(cm_.getValidAddEdit());
+        tryClick(cm_.getAllButtons().get(0));
+        tryClick(cm_.getCancel());
+        assertTrue(((HealingStatus)facade_.getData().getItem(I_1)).getHealingKo());
+    }
+    @Test
+    public void itForm26() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<Item> cm_ = crud(sub_);
+        tryClick(cm_.getAdd());
+        ((GeneComponentModelItem)cm_.getGene()).getGeneComponentModelSelectKey().setupValue(I_1);
+        ConverterCommonMapUtil.trigger(((GeneComponentModelItem)cm_.getGene()).getEffectKind().getSelectUniq(),Item.HEALING_HP_STATUS);
+        ((GeneComponentModelItem)cm_.getGene()).getHealingStatusForm().getHealingKo().setSelected(false);
+        tryClick(cm_.getValidAddEdit());
+        tryClick(cm_.getAllButtons().get(0));
+        tryClick(cm_.getCancel());
+        assertFalse(((HealingStatus)facade_.getData().getItem(I_1)).getHealingKo());
     }
     private FacadeGame facadeAdd(MockProgramInfos _m) {
         FacadeGame f_ = facade(_m);

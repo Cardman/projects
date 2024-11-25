@@ -10,20 +10,20 @@ import code.util.core.*;
 public final class ContentComponentModelHealingItem {
     private CrudGeneFormSimpleFormSub<String,Short> happiness;
     private AbsCustCheckBox healingTeam;
-    private AbsPanel boostForm;
+    private AbsPanel healingItemForm;
     AbsPanel form(GeneComponentModelItem _parent) {
         AbsCompoFactory compoFactory_ = _parent.getCompoFactory().getCompoFactory();
-        boostForm = compoFactory_.newLineBox();
+        healingItemForm = compoFactory_.newLineBox();
         happiness = new CrudGeneFormSimpleFormSub<String, Short>(_parent.getCompoFactory(), _parent.getFacade(), _parent.getSubscribedTranslationList(), _parent.getFrame());
         happiness.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Short>(_parent.getSubscribedTranslationList().getFactoryIt(),_parent.getCompoFactory(),_parent.getFacade(), new StringMap<String>()),buildPart(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList().getFactoryIt(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Short>(new GeneComponentModelSubscribeShort(_parent.getCompoFactory())));
-        boostForm.add(happiness.getGroup());
+        healingItemForm.add(happiness.getGroup());
         healingTeam=compoFactory_.newCustCheckBox();
-        boostForm.add(healingTeam);
-        boostForm.setVisible(false);
-        return boostForm;
+        healingItemForm.add(healingTeam);
+        healingItemForm.setVisible(false);
+        return healingItemForm;
     }
     void display(String _eff) {
-        boostForm.setVisible(StringUtil.quickEq(_eff, Item.HEALING_HP) || StringUtil.quickEq(_eff, Item.HEALING_PP));
+        healingItemForm.setVisible(StringUtil.quickEq(_eff, Item.HEALING_HP) || StringUtil.quickEq(_eff, Item.HEALING_HP_STATUS) || StringUtil.quickEq(_eff, Item.HEALING_ITEM) || StringUtil.quickEq(_eff, Item.HEALING_PP) || StringUtil.quickEq(_eff, Item.HEALING_STATUS));
     }
     void buildEntity(HealingItem _item) {
         _item.setHappiness(ConverterCommonMapUtil.buildStringMapShort(happiness.getList()));
