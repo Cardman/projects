@@ -1,6 +1,7 @@
 package aiki.gui.components.editor;
 
 import aiki.facade.*;
+import aiki.fight.enums.*;
 import aiki.fight.items.*;
 import aiki.instances.*;
 import code.gui.*;
@@ -13,9 +14,11 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
     private final GeneComponentModelInt price;
     private GeneComponentModelString catchingRate;
     private GeneComponentModelLong steps;
+    private CrudGeneFormSimpleFormSub<String,IdMap<Statistic, Byte>> boostStatisTypes;
     private Item element;
-    private GeneComponentModelElt<String> effectKind;
+    private GeneComponentModelEltEnumSub<String> effectKind;
     private AbsPanel ballForm;
+    private AbsPanel itemForBattleForm;
     private AbsPanel repelForm;
 
     public GeneComponentModelItem(AbsCommonFrame _frame, AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
@@ -24,7 +27,7 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
     }
     @Override
     public AbsCustComponent gene(int _select) {
-        effectKind = new GeneComponentModelElt<String>(getCompoFactory(), getFacade().getData().getTranslatedClassesDescriptions().getVal(getCompoFactory().getLanguage()), new EmptyDefValue());
+        effectKind = new GeneComponentModelEltEnumSub<String>(new GeneComponentModelElt<String>(getCompoFactory(), getFacade().getData().getTranslatedClassesDescriptions().getVal(getCompoFactory().getLanguage()), new EmptyDefValue()));
         SubscribedTranslationMessagesFactoryIt factoryIt_ = getSubscribedTranslationList().getFactoryIt();
         buildKey(_select,factoryIt_,factoryIt_.all(getFacade()).getKeys());
         AbsCompoFactory compoFactory_ = getCompoFactory().getCompoFactory();
@@ -39,6 +42,14 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         ballForm.add(catchingRate.geneString());
         ballForm.setVisible(false);
         form_.add(ballForm);
+
+        itemForBattleForm = compoFactory_.newLineBox();
+        boostStatisTypes = new CrudGeneFormSimpleFormSub<String, IdMap<Statistic, Byte>>(getCompoFactory(),getFacade(),getSubscribedTranslationList(),getFrame());
+        boostStatisTypes.initFormWithVal(new DisplayEntryCustSubElementImpl<String, IdMap<Statistic, Byte>>(getSubscribedTranslationList().getFactoryTy(), getCompoFactory(),getFacade(),new StringMap<String>()),buildPart(getCompoFactory(), getFacade(), getSubscribedTranslationList().getFactoryTy(), new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<IdMap<Statistic, Byte>>(new GeneComponentModelSubscribeStatisticByte(getCompoFactory(),getFacade(),getSubscribedTranslationList(),getFrame())));
+        itemForBattleForm.add(boostStatisTypes.getGroup());
+        itemForBattleForm.setVisible(false);
+        form_.add(itemForBattleForm);
+
         repelForm = compoFactory_.newLineBox();
         steps = new GeneComponentModelLong(getCompoFactory());
         repelForm.add(steps.gene(0L));
@@ -46,11 +57,13 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         form_.add(repelForm);
         sc_.setViewportView(form_);
         page_.add(sc_);
-        effectKind.getSelect().addListener(new ChangingTypeEvent(this));
-        ConverterCommonMapUtil.trigger(effectKind,Item.BALL);
+        effectKind.getSelectUniq().getSelect().addListener(new ChangingTypeEvent(this));
+        ConverterCommonMapUtil.trigger(effectKind.getSelectUniq(),Item.BALL);
         return page_;
     }
-
+    private GeneComponentModelSubscribeFactorySelElt buildPart(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationMessagesFactory _facto, StringMap<String> _abs) {
+        return new GeneComponentModelSubscribeFactorySelElt(_core, _fac, _facto, _abs);
+    }
     @Override
     public void applyChange() {
         String eff_ = getEffectKind().tryRet();
@@ -58,10 +71,13 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         if (StringUtil.quickEq(eff_, Item.BALL)) {
             element = Instances.newBall();
         }
+        if (StringUtil.quickEq(eff_, Item.ITEM_FOR_BATTLE)) {
+            element = Instances.newItemForBattle();
+        }
         if (StringUtil.quickEq(eff_, Item.REPEL)) {
             element = Instances.newRepel();
         }
-        getEffectKind().getSelect().repaint();
+        getEffectKind().getSelectUniq().getSelect().repaint();
         getFrame().pack();
     }
 
@@ -71,6 +87,9 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         element.setPrice(price.valueInt());
         if (element instanceof Ball) {
             ((Ball)element).setCatchingRate(catchingRate.valueString());
+        }
+        if (element instanceof ItemForBattle) {
+            ((ItemForBattle)element).setBoostStatisTypes(ConverterCommonMapUtil.buildStringMapIdMapStatisticByte(boostStatisTypes.getList()));
         }
         if (element instanceof Repel) {
             ((Repel)element).setSteps(steps.valueLong());
@@ -87,6 +106,9 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         if (item_ instanceof Ball) {
             catchingRate.valueString(((Ball)item_).getCatchingRate());
         }
+        if (item_ instanceof ItemForBattle) {
+            boostStatisTypes.setupValues(new MapToEntriesListUtil<String, IdMap<Statistic, Byte>>().build(((ItemForBattle)item_).getBoostStatisTypes()));
+        }
         if (item_ instanceof Repel) {
             steps.valueLong(((Repel)item_).getSteps());
         }
@@ -94,28 +116,35 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         String type_ = item_.getItemType();
         display(type_);
         getEffectKind().setupValue(type_);
-        getEffectKind().getSelect().repaint();
+        getEffectKind().getSelectUniq().getSelect().repaint();
     }
 
     private void display(String _eff) {
         ballForm.setVisible(StringUtil.quickEq(_eff, Item.BALL));
+        itemForBattleForm.setVisible(StringUtil.quickEq(_eff, Item.ITEM_FOR_BATTLE));
         repelForm.setVisible(StringUtil.quickEq(_eff, Item.REPEL));
     }
     public GeneComponentModelInt getPrice() {
         return price;
     }
 
-    public GeneComponentModelElt<String> getEffectKind() {
+    public GeneComponentModelEltEnumSub<String> getEffectKind() {
         return effectKind;
     }
 
     public IdList<SubscribedTranslation> all() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
         ids_.addAllElts(getGeneComponentModelSelectKey().getSubs());
+        ids_.addAllElts(getEffectKind().getSubs());
+        ids_.addAllElts(getBoostStatisTypes().subscribeButtons());
         return ids_;
     }
 
     public GeneComponentModelLong getSteps() {
         return steps;
+    }
+
+    public CrudGeneFormSimpleFormSub<String, IdMap<Statistic, Byte>> getBoostStatisTypes() {
+        return boostStatisTypes;
     }
 }

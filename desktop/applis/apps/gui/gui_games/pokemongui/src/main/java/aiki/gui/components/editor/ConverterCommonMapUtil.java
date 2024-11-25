@@ -195,6 +195,11 @@ public final class ConverterCommonMapUtil {
         new MapToEntriesListUtil<String,IdList<Statistic>>().feedMap(_m, c_);
         return c_;
     }
+    public static StringMap<IdMap<Statistic, Byte>> buildStringMapIdMapStatisticByte(CustList<EditedCrudPair<String, IdMap<Statistic, Byte>>> _m) {
+        StringMap<IdMap<Statistic, Byte>> c_ = new StringMap<IdMap<Statistic, Byte>>(new CollCapacity(_m.size()));
+        new MapToEntriesListUtil<String,IdMap<Statistic, Byte>>().feedMap(_m, c_);
+        return c_;
+    }
     public static ShortMap<String> buildShortMapString(CustList<EditedCrudPair<Short, String>> _m) {
         ShortMap<String> c_ = new ShortMap<String>(new CollCapacity(_m.size()));
         new MapToEntriesListUtil<Short,String>().feedMap(_m, c_);

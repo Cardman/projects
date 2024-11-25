@@ -1,12 +1,14 @@
 package aiki.gui;
 
 import aiki.facade.*;
+import aiki.fight.enums.*;
 import aiki.fight.items.*;
 import aiki.fight.pokemon.*;
-import aiki.fight.pokemon.evolution.Evolution;
+import aiki.fight.pokemon.evolution.*;
 import aiki.gui.components.editor.*;
 import aiki.instances.*;
 import code.mock.*;
+import code.util.*;
 import org.junit.Test;
 
 public final class EditorItFormTest extends InitEditorPkForm {
@@ -145,12 +147,36 @@ public final class EditorItFormTest extends InitEditorPkForm {
         CrudGeneFormEnt<Item> cm_ = crud(sub_);
         tryClick(cm_.getAdd());
         ((GeneComponentModelItem)cm_.getGene()).getGeneComponentModelSelectKey().setupValue(I_1);
-        ConverterCommonMapUtil.trigger(((GeneComponentModelItem)cm_.getGene()).getEffectKind(),Item.REPEL);
+        ConverterCommonMapUtil.trigger(((GeneComponentModelItem)cm_.getGene()).getEffectKind().getSelectUniq(),Item.REPEL);
         ((GeneComponentModelItem)cm_.getGene()).getSteps().valueLong(5);
         tryClick(cm_.getValidAddEdit());
         tryClick(cm_.getAllButtons().get(0));
         tryClick(cm_.getCancel());
         assertEq(5,((Repel)facade_.getData().getItem(I_1)).getSteps());
+    }
+    @Test
+    public void itForm10() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<Item> cm_ = crud(sub_);
+        tryClick(cm_.getAdd());
+        ((GeneComponentModelItem)cm_.getGene()).getGeneComponentModelSelectKey().setupValue(I_1);
+        ConverterCommonMapUtil.trigger(((GeneComponentModelItem)cm_.getGene()).getEffectKind().getSelectUniq(),Item.ITEM_FOR_BATTLE);
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getBoostStatisTypes().getCrud().getAdd());
+        ((GeneComponentModelItem)cm_.getGene()).getBoostStatisTypes().getCrud().getKey().setupValue(T_1);
+        IdMap<Statistic, Byte> stats_ = new IdMap<Statistic, Byte>();
+        stats_.addEntry(Statistic.SPEED,(byte)2);
+        ((GeneComponentModelItem)cm_.getGene()).getBoostStatisTypes().getCrud().getValue().setupValue(stats_);
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getBoostStatisTypes().getCrud().getValidAddEdit());
+        tryClick(cm_.getValidAddEdit());
+        tryClick(cm_.getAllButtons().get(0));
+        tryClick(cm_.getCancel());
+        assertEq(1,((ItemForBattle)facade_.getData().getItem(I_1)).getBoostStatisTypes().size());
+        assertEq(T_1,((ItemForBattle)facade_.getData().getItem(I_1)).getBoostStatisTypes().getKey(0));
+        assertEq(1,((ItemForBattle)facade_.getData().getItem(I_1)).getBoostStatisTypes().getValue(0).size());
+        assertEq(Statistic.SPEED,((ItemForBattle)facade_.getData().getItem(I_1)).getBoostStatisTypes().getValue(0).getKey(0));
+        assertEq(2,((ItemForBattle)facade_.getData().getItem(I_1)).getBoostStatisTypes().getValue(0).getValue(0));
     }
     private FacadeGame facadeAdd(MockProgramInfos _m) {
         FacadeGame f_ = facade(_m);
