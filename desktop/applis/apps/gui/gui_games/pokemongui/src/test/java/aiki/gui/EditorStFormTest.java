@@ -185,6 +185,44 @@ public final class EditorStFormTest extends InitEditorPkForm {
         tryClick(c_.getCancel());
         assertEq(1,facade_.getData().getStatus().getVal(S_1).getEffectEndRound().size());
     }
+    @Test
+    public void stForm12() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<Status> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelStatus g_ = (GeneComponentModelStatus) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(S_1);
+        tryClick(g_.getEffectsPartner().getCrud().getAdd());
+        ((GeneComponentModelSubscribeEffectPartnerStatus)g_.getEffectsPartner().getCrud().getGenePair().getKey()).getWeddingAlly().setSelected(true);
+        tryClick(g_.getEffectsPartner().getCrud().getValidAddEdit());
+        tryClick(g_.getEffectsPartner().getCrud().getAllButtons().get(0));
+        tryClick(g_.getEffectsPartner().getCrud().getCancel());
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryClick(c_.getCancel());
+        assertTrue(facade_.getData().getStatus().getVal(S_1).getEffectsPartner().get(0).getWeddingAlly());
+    }
+    @Test
+    public void stForm13() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<Status> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelStatus g_ = (GeneComponentModelStatus) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(S_1);
+        tryClick(g_.getEffectsPartner().getCrud().getAdd());
+        ((GeneComponentModelSubscribeEffectPartnerStatus)g_.getEffectsPartner().getCrud().getGenePair().getKey()).getWeddingAlly().setSelected(false);
+        tryClick(g_.getEffectsPartner().getCrud().getValidAddEdit());
+        tryClick(g_.getEffectsPartner().getCrud().getAllButtons().get(0));
+        tryClick(g_.getEffectsPartner().getCrud().getCancel());
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryClick(c_.getCancel());
+        assertFalse(facade_.getData().getStatus().getVal(S_1).getEffectsPartner().get(0).getWeddingAlly());
+    }
     private FacadeGame facadeAdd(MockProgramInfos _m) {
         FacadeGame f_ = facade(_m);
         f_.getData().completeQuickMembers(S_1, Instances.newStatusSimple());
