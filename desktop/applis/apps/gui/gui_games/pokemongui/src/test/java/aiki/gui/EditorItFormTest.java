@@ -5,10 +5,10 @@ import aiki.fight.enums.*;
 import aiki.fight.items.*;
 import aiki.fight.pokemon.*;
 import aiki.fight.pokemon.evolution.*;
-import aiki.fight.util.StatisticPokemon;
+import aiki.fight.util.*;
 import aiki.gui.components.editor.*;
 import aiki.instances.*;
-import code.maths.LgInt;
+import code.maths.*;
 import code.mock.*;
 import code.util.*;
 import code.util.comparators.ComparatorBoolean;
@@ -328,6 +328,48 @@ public final class EditorItFormTest extends InitEditorPkForm {
         tryClick(cm_.getCancel());
         assertFalse(((Berry)facade_.getData().getItem(I_1)).getWithoutFail());
         assertFalse(((Berry)facade_.getData().getItem(I_1)).getLawForAttackFirst());
+    }
+    @Test
+    public void itForm17() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<Item> cm_ = crud(sub_);
+        tryClick(cm_.getAdd());
+        ((GeneComponentModelItem)cm_.getGene()).getGeneComponentModelSelectKey().setupValue(I_1);
+        ConverterCommonMapUtil.trigger(((GeneComponentModelItem)cm_.getGene()).getEffectKind().getSelectUniq(),Item.BERRY);
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getBerryForm().getMultStat().getCrud().getAdd());
+        ((GeneComponentModelItem)cm_.getGene()).getBerryForm().getMultStat().getCrud().getKey().setupValue(Statistic.SPEED);
+        ((GeneComponentModelItem)cm_.getGene()).getBerryForm().getMultStat().getCrud().getValue().setupValue(new BoostHpRate((byte) 1,new Rate(2)));
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getBerryForm().getMultStat().getCrud().getValidAddEdit());
+        tryClick(cm_.getValidAddEdit());
+        tryClick(cm_.getAllButtons().get(0));
+        tryClick(cm_.getCancel());
+        assertEq(1,((Berry)facade_.getData().getItem(I_1)).getMultStat().size());
+        assertEq(Statistic.SPEED,((Berry)facade_.getData().getItem(I_1)).getMultStat().getKey(0));
+        assertEq(1,((Berry)facade_.getData().getItem(I_1)).getMultStat().getValue(0).getBoost());
+        assertEq(new Rate(2),((Berry)facade_.getData().getItem(I_1)).getMultStat().getValue(0).getHpRate());
+    }
+    @Test
+    public void itForm18() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<Item> cm_ = crud(sub_);
+        tryClick(cm_.getAdd());
+        ((GeneComponentModelItem)cm_.getGene()).getGeneComponentModelSelectKey().setupValue(I_1);
+        ConverterCommonMapUtil.trigger(((GeneComponentModelItem)cm_.getGene()).getEffectKind().getSelectUniq(),Item.BERRY);
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getBerryForm().getMultFoesDamage().getCrud().getAdd());
+        ((GeneComponentModelItem)cm_.getGene()).getBerryForm().getMultFoesDamage().getCrud().getKey().setupValue(T_1);
+        ((GeneComponentModelItem)cm_.getGene()).getBerryForm().getMultFoesDamage().getCrud().getValue().setupValue(new EfficiencyRate(new Rate(1),new Rate(2)));
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getBerryForm().getMultFoesDamage().getCrud().getValidAddEdit());
+        tryClick(cm_.getValidAddEdit());
+        tryClick(cm_.getAllButtons().get(0));
+        tryClick(cm_.getCancel());
+        assertEq(1,((Berry)facade_.getData().getItem(I_1)).getMultFoesDamage().size());
+        assertEq(T_1,((Berry)facade_.getData().getItem(I_1)).getMultFoesDamage().getKey(0));
+        assertEq(new Rate(1),((Berry)facade_.getData().getItem(I_1)).getMultFoesDamage().getValue(0).getEff());
+        assertEq(new Rate(2),((Berry)facade_.getData().getItem(I_1)).getMultFoesDamage().getValue(0).getHpRate());
     }
     private FacadeGame facadeAdd(MockProgramInfos _m) {
         FacadeGame f_ = facade(_m);

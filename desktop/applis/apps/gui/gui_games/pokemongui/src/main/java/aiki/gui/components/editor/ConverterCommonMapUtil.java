@@ -216,6 +216,11 @@ public final class ConverterCommonMapUtil {
         new MapToEntriesListUtil<Short,String>().feedMap(_m, c_);
         return c_;
     }
+    public static StringMap<EfficiencyRate> buildStringMapEfficiencyRate(CustList<EditedCrudPair<String, EfficiencyRate>> _m) {
+        StringMap<EfficiencyRate> c_ = new StringMap<EfficiencyRate>(new CollCapacity(_m.size()));
+        new MapToEntriesListUtil<String,EfficiencyRate>().feedMap(_m, c_);
+        return c_;
+    }
     public static StringMap<Rate> buildStringMapRate(CustList<EditedCrudPair<String, Rate>> _m) {
         StringMap<Rate> c_ = new StringMap<Rate>(new CollCapacity(_m.size()));
         new MapToEntriesListUtil<String,Rate>().feedMap(_m, c_);
@@ -229,6 +234,11 @@ public final class ConverterCommonMapUtil {
     public static StringMap<Ints> buildStringMapInts(CustList<EditedCrudPair<String, Ints>> _m) {
         StringMap<Ints> c_ = new StringMap<Ints>(new CollCapacity(_m.size()));
         new MapToEntriesListUtil<String,Ints>().feedMap(_m, c_);
+        return c_;
+    }
+    public static IdMap<Statistic,BoostHpRate> buildIdMapStatisticBoostHpRate(CustList<EditedCrudPair<Statistic, BoostHpRate>> _m) {
+        IdMap<Statistic,BoostHpRate> c_ = new IdMap<Statistic,BoostHpRate>(new CollCapacity(_m.size()));
+        new MapToEntriesListUtil<Statistic,BoostHpRate>().feedMap(_m, c_);
         return c_;
     }
     public static IdMap<Statistic,Byte> buildIdMapStatisticByte(CustList<EditedCrudPair<Statistic, Byte>> _m) {
