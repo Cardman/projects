@@ -228,6 +228,11 @@ public final class ConverterCommonMapUtil {
         new MapToEntriesListUtil<Statistic,Byte>().feedMap(_m, c_);
         return c_;
     }
+    public static IdMap<Statistic,Short> buildIdMapStatisticShort(CustList<EditedCrudPair<Statistic, Short>> _m) {
+        IdMap<Statistic,Short> c_ = new IdMap<Statistic,Short>(new CollCapacity(_m.size()));
+        new MapToEntriesListUtil<Statistic,Short>().feedMap(_m, c_);
+        return c_;
+    }
     public static IdMap<Statistic,Rate> buildIdMapStatisticRate(CustList<EditedCrudPair<Statistic, Rate>> _m) {
         IdMap<Statistic,Rate> c_ = new IdMap<Statistic,Rate>(new CollCapacity(_m.size()));
         new MapToEntriesListUtil<Statistic,Rate>().feedMap(_m, c_);
