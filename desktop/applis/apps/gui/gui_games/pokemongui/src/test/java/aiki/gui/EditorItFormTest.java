@@ -295,6 +295,40 @@ public final class EditorItFormTest extends InitEditorPkForm {
         assertEq(Statistic.SPEED,((ItemForBattle)facade_.getData().getItem(I_1)).getMultStatPokemonRank().getKey(1).getStatistic());
         assertEq(2,((ItemForBattle)facade_.getData().getItem(I_1)).getMultStatPokemonRank().getValue(1));
     }
+    @Test
+    public void itForm15() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<Item> cm_ = crud(sub_);
+        tryClick(cm_.getAdd());
+        ((GeneComponentModelItem)cm_.getGene()).getGeneComponentModelSelectKey().setupValue(I_1);
+        ConverterCommonMapUtil.trigger(((GeneComponentModelItem)cm_.getGene()).getEffectKind().getSelectUniq(),Item.BERRY);
+        ((GeneComponentModelItem)cm_.getGene()).getBerryForm().getWithoutFail().setSelected(true);
+        ((GeneComponentModelItem)cm_.getGene()).getBerryForm().getLawForAttackFirst().setSelected(true);
+        tryClick(cm_.getValidAddEdit());
+        tryClick(cm_.getAllButtons().get(0));
+        tryClick(cm_.getCancel());
+        assertTrue(((Berry)facade_.getData().getItem(I_1)).getWithoutFail());
+        assertTrue(((Berry)facade_.getData().getItem(I_1)).getLawForAttackFirst());
+    }
+    @Test
+    public void itForm16() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<Item> cm_ = crud(sub_);
+        tryClick(cm_.getAdd());
+        ((GeneComponentModelItem)cm_.getGene()).getGeneComponentModelSelectKey().setupValue(I_1);
+        ConverterCommonMapUtil.trigger(((GeneComponentModelItem)cm_.getGene()).getEffectKind().getSelectUniq(),Item.BERRY);
+        ((GeneComponentModelItem)cm_.getGene()).getBerryForm().getWithoutFail().setSelected(false);
+        ((GeneComponentModelItem)cm_.getGene()).getBerryForm().getLawForAttackFirst().setSelected(false);
+        tryClick(cm_.getValidAddEdit());
+        tryClick(cm_.getAllButtons().get(0));
+        tryClick(cm_.getCancel());
+        assertFalse(((Berry)facade_.getData().getItem(I_1)).getWithoutFail());
+        assertFalse(((Berry)facade_.getData().getItem(I_1)).getLawForAttackFirst());
+    }
     private FacadeGame facadeAdd(MockProgramInfos _m) {
         FacadeGame f_ = facade(_m);
         f_.getData().completeQuickMembers(I_1, Instances.newBall());

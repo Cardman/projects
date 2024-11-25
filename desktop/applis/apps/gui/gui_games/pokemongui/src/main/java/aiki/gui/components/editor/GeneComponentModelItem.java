@@ -16,6 +16,7 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
     private Item element;
     private GeneComponentModelEltEnumSub<String> effectKind;
     private AbsPanel ballForm;
+    private final ContentComponentModelBerry berryForm = new ContentComponentModelBerry();
     private final ContentComponentModelItemForBattle itemForBattleForm = new ContentComponentModelItemForBattle();
     private AbsPanel repelForm;
 
@@ -40,6 +41,7 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         ballForm.add(catchingRate.geneString());
         ballForm.setVisible(false);
         form_.add(ballForm);
+        form_.add(berryForm.form(this));
         form_.add(itemForBattleForm.form(this));
         repelForm = compoFactory_.newLineBox();
         steps = new GeneComponentModelLong(getCompoFactory());
@@ -59,6 +61,9 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         if (StringUtil.quickEq(eff_, Item.BALL)) {
             element = Instances.newBall();
         }
+        if (StringUtil.quickEq(eff_, Item.BERRY)) {
+            element = Instances.newBerry();
+        }
         if (StringUtil.quickEq(eff_, Item.ITEM_FOR_BATTLE)) {
             element = Instances.newItemForBattle();
         }
@@ -75,6 +80,9 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         element.setPrice(price.valueInt());
         if (element instanceof Ball) {
             ((Ball)element).setCatchingRate(catchingRate.valueString());
+        }
+        if (element instanceof Berry) {
+            berryForm.buildEntity((Berry)element);
         }
         if (element instanceof ItemForBattle) {
             itemForBattleForm.buildEntity((ItemForBattle)element);
@@ -94,6 +102,9 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         if (item_ instanceof Ball) {
             catchingRate.valueString(((Ball)item_).getCatchingRate());
         }
+        if (item_ instanceof Berry) {
+            berryForm.feedForm((Berry) item_);
+        }
         if (item_ instanceof ItemForBattle) {
             itemForBattleForm.feedForm((ItemForBattle) item_);
         }
@@ -109,6 +120,7 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
 
     private void display(String _eff) {
         ballForm.setVisible(StringUtil.quickEq(_eff, Item.BALL));
+        berryForm.display(_eff);
         itemForBattleForm.display(_eff);
         repelForm.setVisible(StringUtil.quickEq(_eff, Item.REPEL));
     }
@@ -124,12 +136,17 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
         ids_.addAllElts(getGeneComponentModelSelectKey().getSubs());
         ids_.addAllElts(getEffectKind().getSubs());
+        ids_.addAllElts(berryForm.all());
         ids_.addAllElts(itemForBattleForm.all());
         return ids_;
     }
 
     public GeneComponentModelLong getSteps() {
         return steps;
+    }
+
+    public ContentComponentModelBerry getBerryForm() {
+        return berryForm;
     }
 
     public ContentComponentModelItemForBattle getItemForBattleForm() {
