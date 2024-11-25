@@ -56,6 +56,9 @@ public final class MessagesEditorSelect {
     public static final String EFF_UNPROTECT_FROM_TYPES = "40";
     public static final String EFF_VAR_PP = "41";
     public static final String EFF_WIN_MONEY = "42";
+    public static final String STAT_AUTO = "0";
+    public static final String STAT_BEGIN = "1";
+    public static final String STAT_SIMPLE = "2";
     private MessagesEditorSelect() {
     }
     public static TranslationsFile enGenderRep(){
@@ -194,6 +197,20 @@ public final class MessagesEditorSelect {
         f_.add(EFF_UNPROTECT_FROM_TYPES,"Permet au lanceur d'utiliser des attaques auxquelles la cible était immunisée.");
         f_.add(EFF_VAR_PP,"Touche aux pp d'un combattant.");
         f_.add(EFF_WIN_MONEY,"Permet au joueur de gagner de l'argent.");
+        return f_;
+    }
+    public static TranslationsFile enStatus(){
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(STAT_AUTO,"Auto");
+        e_.add(STAT_BEGIN,"Begin");
+        e_.add(STAT_SIMPLE,"Simple");
+        return e_;
+    }
+    public static TranslationsFile frStatus(){
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(STAT_AUTO,"Auto");
+        f_.add(STAT_BEGIN,"Début");
+        f_.add(STAT_SIMPLE,"Simple");
         return f_;
     }
     public static TranslationsFile enExchangeType(){

@@ -7,6 +7,7 @@ public final class MessagesPkEditor {
     public static final String GENDER_REP = "gender_rep";
     public static final String EVO = "evo";
     public static final String EFFECT = "effect";
+    public static final String STATUS = "status";
     public static final String EXCHANGE_TYPE = "exc_type";
     public static final String MOVE_ITEM_TYPE = "move_it_type";
     public static final String SWITCH_POINT = "switch_pt";
@@ -29,6 +30,7 @@ public final class MessagesPkEditor {
         appendMessagesEditorSelectGenderRep(_lgs,MessagesEditorSelect.enGenderRep());
         appendMessagesEditorSelectEvo(_lgs,MessagesEditorSelect.enEvo());
         appendMessagesEditorSelectEffect(_lgs,MessagesEditorSelect.enEff());
+        appendMessagesEditorSelectStatus(_lgs,MessagesEditorSelect.enStatus());
         appendMessagesEditorSelectExchangeType(_lgs,MessagesEditorSelect.enExchangeType());
         appendMessagesEditorSelectMoveItemType(_lgs,MessagesEditorSelect.enMoveItemType());
         appendMessagesEditorSelectPointViewChangementType(_lgs,MessagesEditorSelect.enPointViewChangementType());
@@ -40,6 +42,7 @@ public final class MessagesPkEditor {
         appendMessagesEditorSelectGenderRep(_lgs,MessagesEditorSelect.frGenderRep());
         appendMessagesEditorSelectEvo(_lgs,MessagesEditorSelect.frEvo());
         appendMessagesEditorSelectEffect(_lgs,MessagesEditorSelect.frEff());
+        appendMessagesEditorSelectStatus(_lgs,MessagesEditorSelect.frStatus());
         appendMessagesEditorSelectExchangeType(_lgs,MessagesEditorSelect.frExchangeType());
         appendMessagesEditorSelectMoveItemType(_lgs,MessagesEditorSelect.frMoveItemType());
         appendMessagesEditorSelectPointViewChangementType(_lgs,MessagesEditorSelect.frPointViewChangementType());
@@ -57,6 +60,10 @@ public final class MessagesPkEditor {
 
     public static void appendMessagesEditorSelectEffect(TranslationsAppli _lgs, TranslationsFile _f) {
         _lgs.getMapping().addEntry(EFFECT, _f);
+    }
+
+    public static void appendMessagesEditorSelectStatus(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(STATUS, _f);
     }
 
     public static void appendMessagesEditorSelectExchangeType(TranslationsAppli _lgs, TranslationsFile _f) {
@@ -82,6 +89,9 @@ public final class MessagesPkEditor {
     }
     public static TranslationsFile getMessagesEditorSelectEffectTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(EFFECT);
+    }
+    public static TranslationsFile getMessagesEditorSelectStatusTr(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(STATUS);
     }
     public static TranslationsFile getMessagesEditorSelectExchangeTypeTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(EXCHANGE_TYPE);
