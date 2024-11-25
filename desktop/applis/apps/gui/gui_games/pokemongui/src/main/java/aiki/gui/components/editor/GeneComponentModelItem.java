@@ -33,6 +33,7 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
     private GeneComponentModelLsStrSub<String,StringList> immuWeather;
     private GeneComponentModelLsStrSub<String,StringList> synchroStatus;
     private GeneComponentModelLsStrSub<String,StringList> typesPk;
+    private CrudGeneFormMonteCarlo<BoolVal> lawForAttackFirst;
     private GeneComponentModelString multPower;
     private GeneComponentModelString multDamage;
     private GeneComponentModelRate damageRecoil;
@@ -122,6 +123,8 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         itemForBattleForm.add(synchroStatus.geneEnum());
         typesPk=ConverterCommonMapUtil.buildTypeList(getCompoFactory(),getFacade(),getSubscribedTranslationList());
         itemForBattleForm.add(typesPk.geneEnum());
+        lawForAttackFirst = ConverterCommonMapUtil.buildMcBool(getFrame(),getCompoFactory());
+        itemForBattleForm.add(lawForAttackFirst.getGroup());
         multPower = new GeneComponentModelString(getCompoFactory(),new StringList(),new DefValidateText());
         itemForBattleForm.add(multPower.geneString());
         multDamage = new GeneComponentModelString(getCompoFactory(),new StringList(),new DefValidateText());
@@ -220,6 +223,7 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
             ((ItemForBattle)element).setImmuWeather(immuWeather.tryRet());
             ((ItemForBattle)element).setSynchroStatus(synchroStatus.tryRet());
             ((ItemForBattle)element).setTypesPk(typesPk.tryRet());
+            ((ItemForBattle)element).setLawForAttackFirst(ConverterCommonMapUtil.buildMonteCarloBool(lawForAttackFirst.getList()));
             ((ItemForBattle)element).setMultPower(multPower.valueString());
             ((ItemForBattle)element).setMultDamage(multDamage.valueString());
             ((ItemForBattle)element).setDamageRecoil(damageRecoil.valueRate());
@@ -272,6 +276,7 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
             immuWeather.setupValue(((ItemForBattle)item_).getImmuWeather());
             synchroStatus.setupValue(((ItemForBattle)item_).getSynchroStatus());
             typesPk.setupValue(((ItemForBattle)item_).getTypesPk());
+            lawForAttackFirst.setupValues(new MapToEntriesListUtil<BoolVal,LgInt>().build(((ItemForBattle)item_).getLawForAttackFirst()));
             multPower.valueString(((ItemForBattle)item_).getMultPower());
             multDamage.valueString(((ItemForBattle)item_).getMultDamage());
             damageRecoil.valueRate(((ItemForBattle)item_).getDamageRecoil());
@@ -363,6 +368,10 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
 
     public AbsCustCheckBox getImmuLowStatis(){
         return immuLowStatis;
+    }
+
+    public CrudGeneFormMonteCarlo<BoolVal> getLawForAttackFirst() {
+        return lawForAttackFirst;
     }
 
     public CrudGeneFormSimpleFormSub<String, IdMap<Statistic, Byte>> getBoostStatisTypes() {

@@ -7,8 +7,12 @@ import aiki.fight.pokemon.*;
 import aiki.fight.pokemon.evolution.*;
 import aiki.gui.components.editor.*;
 import aiki.instances.*;
+import code.maths.LgInt;
 import code.mock.*;
 import code.util.*;
+import code.util.comparators.ComparatorBoolean;
+import code.util.core.BoolVal;
+import code.util.core.SortConstants;
 import org.junit.Test;
 
 public final class EditorItFormTest extends InitEditorPkForm {
@@ -227,6 +231,38 @@ public final class EditorItFormTest extends InitEditorPkForm {
         assertFalse(((ItemForBattle)facade_.getData().getItem(I_1)).getBoostExp());
         assertFalse(((ItemForBattle)facade_.getData().getItem(I_1)).getCancelImmuType());
         assertFalse(((ItemForBattle)facade_.getData().getItem(I_1)).getImmuLowStatis());
+    }
+    @Test
+    public void itForm13() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<Item> cm_ = crud(sub_);
+        tryClick(cm_.getAdd());
+        ((GeneComponentModelItem)cm_.getGene()).getGeneComponentModelSelectKey().setupValue(I_1);
+        ConverterCommonMapUtil.trigger(((GeneComponentModelItem)cm_.getGene()).getEffectKind().getSelectUniq(),Item.ITEM_FOR_BATTLE);
+
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getLawForAttackFirst().getAdd());
+        ((GeneComponentModelEventBoolVal)((GeneComponentModelItem)cm_.getGene()).getLawForAttackFirst().getGene()).getEvent().setSelected(true);
+        ((GeneComponentModelEventBoolVal)((GeneComponentModelItem)cm_.getGene()).getLawForAttackFirst().getGene()).getProba().valueLgInt(new LgInt(3));
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getLawForAttackFirst().getValidAddEdit());
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getLawForAttackFirst().getAdd());
+        ((GeneComponentModelEventBoolVal)((GeneComponentModelItem)cm_.getGene()).getLawForAttackFirst().getGene()).getEvent().setSelected(false);
+        ((GeneComponentModelEventBoolVal)((GeneComponentModelItem)cm_.getGene()).getLawForAttackFirst().getGene()).getProba().valueLgInt(new LgInt(5));
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getLawForAttackFirst().getValidAddEdit());
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getLawForAttackFirst().getAllButtons().get(0));
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getLawForAttackFirst().getCancel());
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getLawForAttackFirst().getAllButtons().get(1));
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getLawForAttackFirst().getCancel());
+
+        tryClick(cm_.getValidAddEdit());
+        tryClick(cm_.getAllButtons().get(0));
+        tryClick(cm_.getCancel());
+        assertEq(2,((ItemForBattle)facade_.getData().getItem(I_1)).getLawForAttackFirst().size());
+        assertEq(SortConstants.EQ_CMP,ComparatorBoolean.cmp(BoolVal.FALSE,((ItemForBattle)facade_.getData().getItem(I_1)).getLawForAttackFirst().getKey(0)));
+        assertEq(new LgInt(5),((ItemForBattle)facade_.getData().getItem(I_1)).getLawForAttackFirst().getFreq(0));
+        assertEq(SortConstants.EQ_CMP,ComparatorBoolean.cmp(BoolVal.TRUE,((ItemForBattle)facade_.getData().getItem(I_1)).getLawForAttackFirst().getKey(1)));
+        assertEq(new LgInt(3),((ItemForBattle)facade_.getData().getItem(I_1)).getLawForAttackFirst().getFreq(1));
     }
     private FacadeGame facadeAdd(MockProgramInfos _m) {
         FacadeGame f_ = facade(_m);

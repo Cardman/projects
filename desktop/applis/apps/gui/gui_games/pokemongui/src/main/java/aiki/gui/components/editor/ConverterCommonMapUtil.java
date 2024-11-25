@@ -173,6 +173,11 @@ public final class ConverterCommonMapUtil {
         new MapToEntriesListUtil<Rate,LgInt>().feedMap(_m, c_);
         return c_;
     }
+    public static MonteCarloBoolean buildMonteCarloBool(CustList<EditedCrudPair<BoolVal, LgInt>> _m) {
+        MonteCarloBoolean c_ = new MonteCarloBoolean(new CollCapacity(_m.size()));
+        new MapToEntriesListUtil<BoolVal,LgInt>().feedMap(_m, c_);
+        return c_;
+    }
     public static MonteCarloEnum<Statistic> buildMonteCarloEnumStatistic(CustList<EditedCrudPair<Statistic, LgInt>> _m) {
         MonteCarloEnum<Statistic> c_ = new MonteCarloEnum<Statistic>(new CollCapacity(_m.size()));
         new MapToEntriesListUtil<Statistic,LgInt>().feedMap(_m, c_);
@@ -344,6 +349,12 @@ public final class ConverterCommonMapUtil {
         return law_;
     }
 
+
+    public static CrudGeneFormMonteCarlo<BoolVal> buildMcBool(AbsCommonFrame _f, AbstractProgramInfos _core) {
+        CrudGeneFormMonteCarlo<BoolVal> out_ = new CrudGeneFormMonteCarlo<BoolVal>(_f, _core, new ComparingBoolKey<LgInt>());
+        out_.initFormKeys(new BoolLgIntDisplayEntryCust(),new GeneComponentModelEventBoolVal(_core), new ComparingBoolKey<LgInt>());
+        return out_;
+    }
     public static CrudGeneFormMonteCarlo<Rate> buildMcRate(AbsCommonFrame _f, AbstractProgramInfos _core) {
         CrudGeneFormMonteCarlo<Rate> out_ = new CrudGeneFormMonteCarlo<Rate>(_f, _core, new ComparingRateKey<LgInt>());
         out_.initFormKeys(new RateLgIntDisplayEntryCust(),new GeneComponentModelEventRate(_core), new ComparingRateKey<LgInt>());
