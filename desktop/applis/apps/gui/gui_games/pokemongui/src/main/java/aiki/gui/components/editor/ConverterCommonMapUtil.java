@@ -56,6 +56,9 @@ public final class ConverterCommonMapUtil {
     public static GeneComponentModelLsStrSub<String,StringList> buildMoveList(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
         return mergeLs(_api, _facade, _sub.getFactoryMv());
     }
+    public static GeneComponentModelLsStrSub<String,StringList> buildPkList(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
+        return mergeLs(_api, _facade, _sub.getFactoryPk());
+    }
     public static GeneComponentModelLsStrSub<String,StringList> buildStatusList(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
         return mergeLs(_api, _facade, _sub.getFactorySt());
     }

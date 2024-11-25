@@ -18,6 +18,16 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
     private GeneComponentModelString catchingRate;
     private GeneComponentModelLong steps;
     private CrudGeneFormSimpleFormSub<String,IdMap<Statistic, Byte>> boostStatisTypes;
+    private CrudGeneFormSimpleFormSub<String,Short> increasingMaxNbRoundGlobalMove;
+    private CrudGeneFormSimpleFormSub<String,Short> increasingMaxNbRoundTeamMove;
+    private CrudGeneFormSimpleFormSub<String,Short> increasingMaxNbRoundTrap;
+    private GeneComponentModelLsStrSub<String,StringList> hatching;
+    private GeneComponentModelLsStrSub<String,StringList> immuMoves;
+    private GeneComponentModelLsStrSub<String,StringList> immuStatus;
+    private GeneComponentModelLsStrSub<String,StringList> immuTypes;
+    private GeneComponentModelLsStrSub<String,StringList> immuWeather;
+    private GeneComponentModelLsStrSub<String,StringList> synchroStatus;
+    private GeneComponentModelLsStrSub<String,StringList> typesPk;
     private GeneComponentModelString multPower;
     private GeneComponentModelString multDamage;
     private GeneComponentModelRate damageRecoil;
@@ -69,6 +79,29 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         boostStatisTypes = new CrudGeneFormSimpleFormSub<String, IdMap<Statistic, Byte>>(getCompoFactory(),getFacade(),getSubscribedTranslationList(),getFrame());
         boostStatisTypes.initFormWithVal(new DisplayEntryCustSubElementImpl<String, IdMap<Statistic, Byte>>(getSubscribedTranslationList().getFactoryTy(), getCompoFactory(),getFacade(),new StringMap<String>()),buildPart(getCompoFactory(), getFacade(), getSubscribedTranslationList().getFactoryTy(), new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<IdMap<Statistic, Byte>>(new GeneComponentModelSubscribeStatisticByte(getCompoFactory(),getFacade(),getSubscribedTranslationList(),getFrame())));
         itemForBattleForm.add(boostStatisTypes.getGroup());
+        increasingMaxNbRoundGlobalMove = new CrudGeneFormSimpleFormSub<String, Short>(getCompoFactory(), getFacade(), getSubscribedTranslationList(), getFrame());
+        increasingMaxNbRoundGlobalMove.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Short>(getSubscribedTranslationList().getFactoryMv(),getCompoFactory(),getFacade(), new StringMap<String>()),buildPart(getCompoFactory(),getFacade(),getSubscribedTranslationList().getFactoryMv(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Short>(new GeneComponentModelSubscribeShort(getCompoFactory())));
+        form_.add(increasingMaxNbRoundGlobalMove.getGroup());
+        increasingMaxNbRoundTeamMove = new CrudGeneFormSimpleFormSub<String, Short>(getCompoFactory(), getFacade(), getSubscribedTranslationList(), getFrame());
+        increasingMaxNbRoundTeamMove.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Short>(getSubscribedTranslationList().getFactoryMv(),getCompoFactory(),getFacade(), new StringMap<String>()),buildPart(getCompoFactory(),getFacade(),getSubscribedTranslationList().getFactoryMv(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Short>(new GeneComponentModelSubscribeShort(getCompoFactory())));
+        form_.add(increasingMaxNbRoundTeamMove.getGroup());
+        increasingMaxNbRoundTrap = new CrudGeneFormSimpleFormSub<String, Short>(getCompoFactory(), getFacade(), getSubscribedTranslationList(), getFrame());
+        increasingMaxNbRoundTrap.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Short>(getSubscribedTranslationList().getFactoryMv(),getCompoFactory(),getFacade(), new StringMap<String>()),buildPart(getCompoFactory(),getFacade(),getSubscribedTranslationList().getFactoryMv(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Short>(new GeneComponentModelSubscribeShort(getCompoFactory())));
+        form_.add(increasingMaxNbRoundTrap.getGroup());
+        hatching=ConverterCommonMapUtil.buildPkList(getCompoFactory(),getFacade(),getSubscribedTranslationList());
+        itemForBattleForm.add(hatching.geneEnum());
+        immuMoves=ConverterCommonMapUtil.buildMoveList(getCompoFactory(),getFacade(),getSubscribedTranslationList());
+        itemForBattleForm.add(immuMoves.geneEnum());
+        immuStatus=ConverterCommonMapUtil.buildStatusList(getCompoFactory(),getFacade(),getSubscribedTranslationList());
+        itemForBattleForm.add(immuStatus.geneEnum());
+        immuTypes=ConverterCommonMapUtil.buildTypeList(getCompoFactory(),getFacade(),getSubscribedTranslationList());
+        itemForBattleForm.add(immuTypes.geneEnum());
+        immuWeather=ConverterCommonMapUtil.buildMoveList(getCompoFactory(),getFacade(),getSubscribedTranslationList());
+        itemForBattleForm.add(immuWeather.geneEnum());
+        synchroStatus=ConverterCommonMapUtil.buildStatusList(getCompoFactory(),getFacade(),getSubscribedTranslationList());
+        itemForBattleForm.add(synchroStatus.geneEnum());
+        typesPk=ConverterCommonMapUtil.buildTypeList(getCompoFactory(),getFacade(),getSubscribedTranslationList());
+        itemForBattleForm.add(typesPk.geneEnum());
         multPower = new GeneComponentModelString(getCompoFactory(),new StringList(),new DefValidateText());
         itemForBattleForm.add(multPower.geneString());
         multDamage = new GeneComponentModelString(getCompoFactory(),new StringList(),new DefValidateText());
@@ -152,6 +185,16 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         }
         if (element instanceof ItemForBattle) {
             ((ItemForBattle)element).setBoostStatisTypes(ConverterCommonMapUtil.buildStringMapIdMapStatisticByte(boostStatisTypes.getList()));
+            ((ItemForBattle)element).setIncreasingMaxNbRoundGlobalMove(ConverterCommonMapUtil.buildStringMapShort(increasingMaxNbRoundGlobalMove.getList()));
+            ((ItemForBattle)element).setIncreasingMaxNbRoundTeamMove(ConverterCommonMapUtil.buildStringMapShort(increasingMaxNbRoundTeamMove.getList()));
+            ((ItemForBattle)element).setIncreasingMaxNbRoundTrap(ConverterCommonMapUtil.buildStringMapShort(increasingMaxNbRoundTrap.getList()));
+            ((ItemForBattle)element).setHatching(hatching.tryRet());
+            ((ItemForBattle)element).setImmuMoves(immuMoves.tryRet());
+            ((ItemForBattle)element).setImmuStatus(immuStatus.tryRet());
+            ((ItemForBattle)element).setImmuTypes(immuTypes.tryRet());
+            ((ItemForBattle)element).setImmuWeather(immuWeather.tryRet());
+            ((ItemForBattle)element).setSynchroStatus(synchroStatus.tryRet());
+            ((ItemForBattle)element).setTypesPk(typesPk.tryRet());
             ((ItemForBattle)element).setMultPower(multPower.valueString());
             ((ItemForBattle)element).setMultDamage(multDamage.valueString());
             ((ItemForBattle)element).setDamageRecoil(damageRecoil.valueRate());
@@ -189,6 +232,16 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         }
         if (item_ instanceof ItemForBattle) {
             boostStatisTypes.setupValues(new MapToEntriesListUtil<String, IdMap<Statistic, Byte>>().build(((ItemForBattle)item_).getBoostStatisTypes()));
+            increasingMaxNbRoundGlobalMove.setupValues(new MapToEntriesListUtil<String,Short>().build(((ItemForBattle)item_).getIncreasingMaxNbRoundGlobalMove()));
+            increasingMaxNbRoundTeamMove.setupValues(new MapToEntriesListUtil<String,Short>().build(((ItemForBattle)item_).getIncreasingMaxNbRoundTeamMove()));
+            increasingMaxNbRoundTrap.setupValues(new MapToEntriesListUtil<String,Short>().build(((ItemForBattle)item_).getIncreasingMaxNbRoundTrap()));
+            hatching.setupValue(((ItemForBattle)item_).getHatching());
+            immuMoves.setupValue(((ItemForBattle)item_).getImmuMoves());
+            immuStatus.setupValue(((ItemForBattle)item_).getImmuStatus());
+            immuTypes.setupValue(((ItemForBattle)item_).getImmuTypes());
+            immuWeather.setupValue(((ItemForBattle)item_).getImmuWeather());
+            synchroStatus.setupValue(((ItemForBattle)item_).getSynchroStatus());
+            typesPk.setupValue(((ItemForBattle)item_).getTypesPk());
             multPower.valueString(((ItemForBattle)item_).getMultPower());
             multDamage.valueString(((ItemForBattle)item_).getMultDamage());
             damageRecoil.valueRate(((ItemForBattle)item_).getDamageRecoil());
@@ -237,6 +290,16 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         ids_.addAllElts(getGeneComponentModelSelectKey().getSubs());
         ids_.addAllElts(getEffectKind().getSubs());
         ids_.addAllElts(getBoostStatisTypes().subscribeButtons());
+        ids_.addAllElts(increasingMaxNbRoundGlobalMove.subscribeButtons());
+        ids_.addAllElts(increasingMaxNbRoundTeamMove.subscribeButtons());
+        ids_.addAllElts(increasingMaxNbRoundTrap.subscribeButtons());
+        ids_.addAllElts(hatching.getSubs());
+        ids_.addAllElts(immuMoves.getSubs());
+        ids_.addAllElts(immuStatus.getSubs());
+        ids_.addAllElts(immuTypes.getSubs());
+        ids_.addAllElts(immuWeather.getSubs());
+        ids_.addAllElts(synchroStatus.getSubs());
+        ids_.addAllElts(typesPk.getSubs());
         return ids_;
     }
 
