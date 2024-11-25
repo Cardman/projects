@@ -5,6 +5,7 @@ import aiki.fight.enums.*;
 import aiki.fight.items.*;
 import aiki.fight.pokemon.*;
 import aiki.fight.pokemon.evolution.*;
+import aiki.fight.util.StatisticPokemon;
 import aiki.gui.components.editor.*;
 import aiki.instances.*;
 import code.maths.LgInt;
@@ -263,6 +264,36 @@ public final class EditorItFormTest extends InitEditorPkForm {
         assertEq(new LgInt(5),((ItemForBattle)facade_.getData().getItem(I_1)).getLawForAttackFirst().getFreq(0));
         assertEq(SortConstants.EQ_CMP,ComparatorBoolean.cmp(BoolVal.TRUE,((ItemForBattle)facade_.getData().getItem(I_1)).getLawForAttackFirst().getKey(1)));
         assertEq(new LgInt(3),((ItemForBattle)facade_.getData().getItem(I_1)).getLawForAttackFirst().getFreq(1));
+    }
+    @Test
+    public void itForm14() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<Item> cm_ = crud(sub_);
+        tryClick(cm_.getAdd());
+        ((GeneComponentModelItem)cm_.getGene()).getGeneComponentModelSelectKey().setupValue(I_1);
+        ConverterCommonMapUtil.trigger(((GeneComponentModelItem)cm_.getGene()).getEffectKind().getSelectUniq(),Item.ITEM_FOR_BATTLE);
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getMultStatPokemonRank().getCrud().getAdd());
+        ((GeneComponentModelItem)cm_.getGene()).getMultStatPokemonRank().getCrud().getKey().setupValue(new StatisticPokemon(Statistic.SPEED,P_1));
+        ((GeneComponentModelItem)cm_.getGene()).getMultStatPokemonRank().getCrud().getValue().setupValue((byte)1);
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getMultStatPokemonRank().getCrud().getValidAddEdit());
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getMultStatPokemonRank().getCrud().getAdd());
+        ((GeneComponentModelItem)cm_.getGene()).getMultStatPokemonRank().getCrud().getKey().setupValue(new StatisticPokemon(Statistic.SPEED,P_2));
+        ((GeneComponentModelItem)cm_.getGene()).getMultStatPokemonRank().getCrud().getValue().setupValue((byte)2);
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getMultStatPokemonRank().getCrud().getValidAddEdit());
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getMultStatPokemonRank().getCrud().getAllButtons().get(0));
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getMultStatPokemonRank().getCrud().getCancel());
+        tryClick(cm_.getValidAddEdit());
+        tryClick(cm_.getAllButtons().get(0));
+        tryClick(cm_.getCancel());
+        assertEq(2,((ItemForBattle)facade_.getData().getItem(I_1)).getMultStatPokemonRank().size());
+        assertEq(P_1,((ItemForBattle)facade_.getData().getItem(I_1)).getMultStatPokemonRank().getKey(0).getPokemon());
+        assertEq(Statistic.SPEED,((ItemForBattle)facade_.getData().getItem(I_1)).getMultStatPokemonRank().getKey(0).getStatistic());
+        assertEq(1,((ItemForBattle)facade_.getData().getItem(I_1)).getMultStatPokemonRank().getValue(0));
+        assertEq(P_2,((ItemForBattle)facade_.getData().getItem(I_1)).getMultStatPokemonRank().getKey(1).getPokemon());
+        assertEq(Statistic.SPEED,((ItemForBattle)facade_.getData().getItem(I_1)).getMultStatPokemonRank().getKey(1).getStatistic());
+        assertEq(2,((ItemForBattle)facade_.getData().getItem(I_1)).getMultStatPokemonRank().getValue(1));
     }
     private FacadeGame facadeAdd(MockProgramInfos _m) {
         FacadeGame f_ = facade(_m);

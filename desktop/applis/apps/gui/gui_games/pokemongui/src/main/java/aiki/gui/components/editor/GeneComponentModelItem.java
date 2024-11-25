@@ -5,6 +5,7 @@ import aiki.fight.effects.*;
 import aiki.fight.enums.*;
 import aiki.fight.items.*;
 import aiki.fight.moves.effects.*;
+import aiki.fight.util.*;
 import aiki.instances.*;
 import code.gui.*;
 import code.gui.events.*;
@@ -18,6 +19,7 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
     private GeneComponentModelString catchingRate;
     private GeneComponentModelLong steps;
     private CrudGeneFormSimpleFormSub<String,IdMap<Statistic, Byte>> boostStatisTypes;
+    private CrudGeneFormSimpleFormSub<StatisticPokemon,Byte> multStatPokemonRank;
     private CrudGeneFormSimpleFormSub<Statistic, Byte> boostStatisSuperEff;
     private CrudGeneFormSimpleFormSub<Statistic, Byte> multStatRank;
     private CrudGeneFormSimpleFormSub<Statistic, Short> winEvFight;
@@ -85,6 +87,9 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         boostStatisTypes = new CrudGeneFormSimpleFormSub<String, IdMap<Statistic, Byte>>(getCompoFactory(),getFacade(),getSubscribedTranslationList(),getFrame());
         boostStatisTypes.initFormWithVal(new DisplayEntryCustSubElementImpl<String, IdMap<Statistic, Byte>>(getSubscribedTranslationList().getFactoryTy(), getCompoFactory(),getFacade(),new StringMap<String>()),buildPart(getCompoFactory(), getFacade(), getSubscribedTranslationList().getFactoryTy(), new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<IdMap<Statistic, Byte>>(new GeneComponentModelSubscribeStatisticByte(getCompoFactory(),getFacade(),getSubscribedTranslationList(),getFrame())));
         itemForBattleForm.add(boostStatisTypes.getGroup());
+        multStatPokemonRank = new CrudGeneFormSimpleFormSub<StatisticPokemon, Byte>(getCompoFactory(),getFacade(),getSubscribedTranslationList(),getFrame());
+        multStatPokemonRank.initFormWithVal(new DisplayEntryCustSubElementStatisticPokemon<Byte>(getCompoFactory(),getFacade(),getSubscribedTranslationList()),new GeneComponentModelSubscribeFactoryDirect<StatisticPokemon>(new GeneComponentModelSubscribeStatisticPokemon(getCompoFactory(),getFacade(),getSubscribedTranslationList())),new GeneComponentModelSubscribeFactoryDirect<Byte>(new GeneComponentModelSubscribeByte(getCompoFactory())));
+        itemForBattleForm.add(multStatPokemonRank.getGroup());
         boostStatisSuperEff=new CrudGeneFormSimpleFormSub<Statistic,Byte>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
         boostStatisSuperEff.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Byte>(getSubscribedTranslationList().getFactoryStat(),getCompoFactory(),getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(getCompoFactory(), getSubscribedTranslationList().getFactoryStat(), getFacade()), new GeneComponentModelSubscribeFactoryDirect<Byte>(new GeneComponentModelSubscribeByte(getCompoFactory())));
         form_.add(boostStatisSuperEff.getGroup());
@@ -208,6 +213,7 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         }
         if (element instanceof ItemForBattle) {
             ((ItemForBattle)element).setBoostStatisTypes(ConverterCommonMapUtil.buildStringMapIdMapStatisticByte(boostStatisTypes.getList()));
+            ((ItemForBattle)element).setMultStatPokemonRank(ConverterCommonMapUtil.buildStatisticPokemons(multStatPokemonRank.getList()));
             ((ItemForBattle)element).setBoostStatisSuperEff(ConverterCommonMapUtil.buildIdMapStatisticByte(boostStatisSuperEff.getList()));
             ((ItemForBattle)element).setMultStatRank(ConverterCommonMapUtil.buildIdMapStatisticByte(multStatRank.getList()));
             ((ItemForBattle)element).setWinEvFight(ConverterCommonMapUtil.buildIdMapStatisticShort(winEvFight.getList()));
@@ -261,6 +267,7 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         }
         if (item_ instanceof ItemForBattle) {
             boostStatisTypes.setupValues(new MapToEntriesListUtil<String, IdMap<Statistic, Byte>>().build(((ItemForBattle)item_).getBoostStatisTypes()));
+            multStatPokemonRank.setupValues(new MapToEntriesListUtil<StatisticPokemon,Byte>().build(((ItemForBattle)item_).getMultStatPokemonRank()));
             boostStatisSuperEff.setupValues(new MapToEntriesListUtil<Statistic,Byte>().build(((ItemForBattle)item_).getBoostStatisSuperEff()));
             multStatRank.setupValues(new MapToEntriesListUtil<Statistic,Byte>().build(((ItemForBattle)item_).getMultStatRank()));
             winEvFight.setupValues(new MapToEntriesListUtil<Statistic,Short>().build(((ItemForBattle)item_).getWinEvFight()));
@@ -325,6 +332,7 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         ids_.addAllElts(getGeneComponentModelSelectKey().getSubs());
         ids_.addAllElts(getEffectKind().getSubs());
         ids_.addAllElts(getBoostStatisTypes().subscribeButtons());
+        ids_.addAllElts(getMultStatPokemonRank().subscribeButtons());
         ids_.addAllElts(boostStatisSuperEff.subscribeButtons());
         ids_.addAllElts(multStatRank.subscribeButtons());
         ids_.addAllElts(winEvFight.subscribeButtons());
@@ -376,5 +384,9 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
 
     public CrudGeneFormSimpleFormSub<String, IdMap<Statistic, Byte>> getBoostStatisTypes() {
         return boostStatisTypes;
+    }
+
+    public CrudGeneFormSimpleFormSub<StatisticPokemon, Byte> getMultStatPokemonRank() {
+        return multStatPokemonRank;
     }
 }

@@ -1,32 +1,36 @@
 package aiki.beans.facade.comparators;
-import aiki.comparators.ComparatorTrStrings;
-import aiki.db.DataBase;
-import aiki.fight.enums.Statistic;
-import aiki.fight.util.StatisticPokemon;
-import code.util.AbsMap;
-import code.util.StringMap;
-import code.util.ints.Comparing;
+import aiki.comparators.*;
+import aiki.db.*;
+import aiki.fight.enums.*;
+import aiki.fight.util.*;
+import code.util.*;
+import code.util.ints.*;
 
 public final class ComparatorStatisticPokemon implements Comparing<StatisticPokemon> {
 
-    private final DataBase data;
-
-    private final String language;
+    private final AbsMap<Statistic, String> val;
+    private final AbsMap<String, String> pk;
 
     public ComparatorStatisticPokemon(DataBase _data, String _language) {
-        data = _data;
-        language = _language;
+        this(_data.getTranslatedStatistics().getVal(_language), _data.getTranslatedPokemon().getVal(_language));
+    }
+
+    public ComparatorStatisticPokemon(AbsMap<Statistic, String> _s, AbsMap<String, String> _p) {
+        val = _s;
+        pk = _p;
     }
 
     @Override
     public int compare(StatisticPokemon _o1, StatisticPokemon _o2) {
-        AbsMap<Statistic,String> translatedStatisticsCmp_ = data.getTranslatedStatistics().getVal(language);
-        int res_ = ComparatorTrStrings.compareStatistic(translatedStatisticsCmp_, _o1.getStatistic(), _o2.getStatistic());
+        return comparePairs(_o1, _o2, val, pk);
+    }
+
+    public static int comparePairs(StatisticPokemon _o1, StatisticPokemon _o2, AbsMap<Statistic, String> _stats, AbsMap<String, String> _pk) {
+        int res_ = ComparatorTrStrings.compareStatistic(_stats, _o1.getStatistic(), _o2.getStatistic());
         if (res_ != 0) {
             return res_;
         }
-        StringMap<String> translatedPokemonCmp_ = data.getTranslatedPokemon().getVal(language);
-        return ComparatorTrStrings.compare(translatedPokemonCmp_, _o1.getPokemon(), _o2.getPokemon());
+        return ComparatorTrStrings.compare(_pk, _o1.getPokemon(), _o2.getPokemon());
     }
 
 }
