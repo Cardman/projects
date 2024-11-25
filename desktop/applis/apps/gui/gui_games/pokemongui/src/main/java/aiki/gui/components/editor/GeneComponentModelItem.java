@@ -92,6 +92,12 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         if (StringUtil.quickEq(eff_, Item.BOOST)) {
             element = Instances.newBoost();
         }
+        if (StringUtil.quickEq(eff_, Item.EVOLVING_ITEM)) {
+            element = Instances.newEvolvingItem();
+        }
+        if (StringUtil.quickEq(eff_, Item.EVOLVING_STONE)) {
+            element = Instances.newEvolvingStone();
+        }
         if (StringUtil.quickEq(eff_, Item.FOSSIL)) {
             element = Instances.newFossil();
         }
@@ -115,6 +121,9 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         }
         if (StringUtil.quickEq(eff_, Item.REPEL)) {
             element = Instances.newRepel();
+        }
+        if (StringUtil.quickEq(eff_, Item.SELLING_ITEM)) {
+            element = Instances.newSellingItem();
         }
         getEffectKind().getSelectUniq().getSelect().repaint();
         getFrame().pack();
