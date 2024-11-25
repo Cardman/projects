@@ -2,7 +2,6 @@ package aiki.gui.components.editor;
 
 import aiki.fight.moves.effects.*;
 import code.gui.*;
-import code.maths.*;
 
 public final class ContentComponentModelEffectWinMoney {
 
@@ -11,7 +10,7 @@ public final class ContentComponentModelEffectWinMoney {
     AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
         AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
         winningRateBySumTargetUser = new GeneComponentModelRate(_core.getProgramInfos());
-        selected_.add(winningRateBySumTargetUser.geneRate(Rate.zero()));
+        selected_.add(winningRateBySumTargetUser.geneRate());
         form = selected_;
         selected_.setVisible(false);
         return selected_;

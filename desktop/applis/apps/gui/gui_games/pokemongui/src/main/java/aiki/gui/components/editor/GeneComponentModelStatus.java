@@ -58,7 +58,7 @@ public final class GeneComponentModelStatus extends GeneComponentModelEntity<Sta
         auto.add(attack.geneEnum());
         defense = ConverterCommonMapUtil.buildStatisticsElt(getCompoFactory(),getFacade(),getSubscribedTranslationList());
         auto.add(defense.geneEnum());
-        auto.add(power.geneRate(Rate.zero()));
+        auto.add(power.geneRate());
         auto.setVisible(false);
         form_.add(auto);
 
@@ -85,7 +85,7 @@ public final class GeneComponentModelStatus extends GeneComponentModelEntity<Sta
         form_.add(multStat.getGroup());
         fail = new GeneComponentModelString(getCompoFactory(),new StringList(),new DefValidateText());
         form_.add(fail.geneString());
-        form_.add(catchingRate.geneRate(Rate.zero()));
+        form_.add(catchingRate.geneRate());
         form_.add(incrementEndRound.geneInt());
         disabledEffIfSwitch = compoFactory_.newCustCheckBox();
         form_.add(disabledEffIfSwitch);

@@ -2,7 +2,6 @@ package aiki.gui.components.editor;
 
 import aiki.fight.moves.effects.*;
 import code.gui.*;
-import code.maths.*;
 
 public final class ContentComponentModelEffectProtection {
 
@@ -26,7 +25,7 @@ public final class ContentComponentModelEffectProtection {
         protTeamAgainstDamageMoves = _core.getProgramInfos().getCompoFactory().newCustCheckBox();
         selected_.add(protTeamAgainstDamageMoves);
         protSingleAgainstKo = new GeneComponentModelRate(_core.getProgramInfos());
-        selected_.add(protSingleAgainstKo.geneRate(Rate.zero()));
+        selected_.add(protSingleAgainstKo.geneRate());
         form = selected_;
         selected_.setVisible(false);
         return selected_;

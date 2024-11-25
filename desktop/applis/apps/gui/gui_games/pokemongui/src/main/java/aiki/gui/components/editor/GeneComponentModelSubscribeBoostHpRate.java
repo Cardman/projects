@@ -3,7 +3,6 @@ package aiki.gui.components.editor;
 import aiki.fight.util.*;
 import code.gui.*;
 import code.gui.initialize.*;
-import code.maths.*;
 import code.util.*;
 
 public final class GeneComponentModelSubscribeBoostHpRate implements AbsGeneComponentModelSubscribe<BoostHpRate> {
@@ -21,7 +20,7 @@ public final class GeneComponentModelSubscribeBoostHpRate implements AbsGeneComp
         boost = new GeneComponentModelInt(programInfos);
         form_.add(boost.geneInt());
         hpRate = new GeneComponentModelRate(programInfos);
-        form_.add(hpRate.geneRate(Rate.zero()));
+        form_.add(hpRate.geneRate());
         return form_;
     }
 

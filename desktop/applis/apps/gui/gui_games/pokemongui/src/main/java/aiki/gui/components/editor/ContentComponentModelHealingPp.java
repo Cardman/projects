@@ -16,9 +16,9 @@ public final class ContentComponentModelHealingPp {
         AbsCompoFactory compoFactory_ = _parent.getCompoFactory().getCompoFactory();
         healPpForm = compoFactory_.newLineBox();
         healedMovePp = new GeneComponentModelLong(_parent.getCompoFactory());
-        healPpForm.add(healedMovePp.gene(0L));
+        healPpForm.add(healedMovePp.geneLong());
         healingAllMovesFullpp = new GeneComponentModelLong(_parent.getCompoFactory());
-        healPpForm.add(healingAllMovesFullpp.gene(0L));
+        healPpForm.add(healingAllMovesFullpp.geneLong());
         healingAllMovesPp=compoFactory_.newCustCheckBox();
         healPpForm.add(healingAllMovesPp);
         healingMoveFullpp=compoFactory_.newCustCheckBox();

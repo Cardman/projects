@@ -3,15 +3,14 @@ package code.gui;
 import code.gui.initialize.*;
 import code.maths.*;
 
-public final class GeneComponentModelRate implements GeneComponentModel<Rate> {
+public final class GeneComponentModelRate {
     private final AbstractProgramInfos compoFactory;
     private AbsTextField textRate;
     public GeneComponentModelRate(AbstractProgramInfos _c) {
         this.compoFactory = _c;
     }
 
-    @Override
-    public AbsCustComponent gene(int _select) {
+    public AbsCustComponent geneRate() {
         return geneRate(Rate.zero());
     }
 
@@ -19,14 +18,14 @@ public final class GeneComponentModelRate implements GeneComponentModel<Rate> {
         textRate = compoFactory.getCompoFactory().newTextField(_d.toNumberString());
         return getTextRate();
     }
-    @Override
+
     public Rate value() {
         return valueRate();
     }
     public Rate valueRate() {
         return Rate.newRate(getTextRate().getText());
     }
-    @Override
+
     public void value(Rate _v) {
         valueRate(_v);
     }

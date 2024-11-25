@@ -572,13 +572,13 @@ public final class GuiBaseUtil {
         return out_;
     }
 
-    public static void initStringList(CrudGeneFormList<String> _f, CustList<String> _m, StringList _aDictionary, AfterValidateText _after) {
-        _f.initForm(new IntStringDisplayEntryCust(),new GeneComponentModelString(_f.getFactory(), _aDictionary, _after));
+    public static void initStringList(CrudGeneFormList<EditedCrudPair<String,Integer>> _f, CustList<EditedCrudPair<String,Integer>> _m, StringList _aDictionary, AfterValidateText _after) {
+        _f.initForm(new StringIntDisplayEntryCust(),new GeneComponentModelEntryStringInteger(_f.getFactory(), _aDictionary, _after));
         _f.setupValues(_m);
     }
 
-    public static void initStringList(CrudGeneFormList<String> _f, CustList<String> _m, StringList _aDictionary, AfterValidateText _after, Comparing<String> _cmp) {
-        _f.initForm(new IntStringDisplayEntryCust(),new GeneComponentModelString(_f.getFactory(), _aDictionary, _after), _cmp);
+    public static void initStringList(CrudGeneFormList<EditedCrudPair<String,Integer>> _f, CustList<EditedCrudPair<String,Integer>> _m, StringList _aDictionary, AfterValidateText _after, Comparing<EditedCrudPair<String,Integer>> _cmp) {
+        _f.initForm(new StringIntDisplayEntryCust(),new GeneComponentModelEntryStringInteger(_f.getFactory(), _aDictionary, _after), _cmp);
         _f.setupValues(_m);
     }
 

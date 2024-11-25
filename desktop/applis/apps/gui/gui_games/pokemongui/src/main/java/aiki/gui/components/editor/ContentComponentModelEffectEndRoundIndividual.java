@@ -18,11 +18,11 @@ public final class ContentComponentModelEffectEndRoundIndividual {
     AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
         AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
         deleteAllStatus = new GeneComponentModelRate(_core.getProgramInfos());
-        selected_.add(deleteAllStatus.geneRate(Rate.zero()));
+        selected_.add(deleteAllStatus.geneRate());
         recoilDamage = new GeneComponentModelRate(_core.getProgramInfos());
-        selected_.add(recoilDamage.geneRate(Rate.zero()));
+        selected_.add(recoilDamage.geneRate());
         healHp = new GeneComponentModelRate(_core.getProgramInfos());
-        selected_.add(healHp.geneRate(Rate.zero()));
+        selected_.add(healHp.geneRate());
         healHpByOwnerTypes = new CrudGeneFormSimpleFormSub<String, Rate>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
         healHpByOwnerTypes.initFormWithVal(new DisplayEntryCustSubElementImpl<String, Rate>(_core.getFactory().getFactoryTy(), _core.getProgramInfos(), _core.getFacadeGame(),new StringMap<String>()), buildPart(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory().getFactoryTy(), new StringMap<String>()), new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())));
         selected_.add(healHpByOwnerTypes.getGroup());

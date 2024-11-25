@@ -1,10 +1,8 @@
 package aiki.gui.components.editor;
 
 import aiki.fight.moves.effects.*;
-import code.gui.AbsPanel;
 import code.gui.*;
 import code.gui.initialize.*;
-import code.maths.*;
 
 public final class ContentComponentModelEffectEndRoundStatus {
     private GeneComponentModelRate inflictedRateHpTarget;
@@ -12,7 +10,7 @@ public final class ContentComponentModelEffectEndRoundStatus {
     AbsPanel effectForm(AbstractProgramInfos _core) {
         AbsPanel selected_ = _core.getCompoFactory().newLineBox();
         inflictedRateHpTarget = new GeneComponentModelRate(_core);
-        selected_.add(inflictedRateHpTarget.geneRate(Rate.zero()));
+        selected_.add(inflictedRateHpTarget.geneRate());
         form = selected_;
         selected_.setVisible(false);
         return selected_;

@@ -25,7 +25,7 @@ public final class ContentComponentModelEffectCounterAttack {
         counterFail = new GeneComponentModelString(_core,new StringList(),new DefValidateText());
         selected_.add(counterFail.geneString());
         sufferingDamageDirectMove = new GeneComponentModelRate(_core);
-        selected_.add(sufferingDamageDirectMove.geneRate(Rate.zero()));
+        selected_.add(sufferingDamageDirectMove.geneRate());
         sufferingDamageTypes = new CrudGeneFormSimpleFormSub<String, Rate>(_core, _fac, _fact, _f);
         sufferingDamageTypes.initFormWithVal(new DisplayEntryCustSubElementImpl<String, Rate>(_fact.getFactoryTy(), _core, _fac, new StringMap<String>()),buildPart(_core,_fac,_fact.getFactoryTy(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core)));
         selected_.add(sufferingDamageTypes.getGroup());

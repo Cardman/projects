@@ -4,15 +4,14 @@ import code.gui.events.*;
 import code.gui.initialize.*;
 import code.maths.*;
 
-public final class GeneComponentModelLgInt implements GeneComponentModel<LgInt> {
+public final class GeneComponentModelLgInt {
     private final AbstractProgramInfos compoFactory;
     private AbsTextField textLgInt;
     public GeneComponentModelLgInt(AbstractProgramInfos _c) {
         this.compoFactory = _c;
     }
 
-    @Override
-    public AbsCustComponent gene(int _select) {
+    public AbsCustComponent geneLgInt() {
         return gene(LgInt.zero());
     }
 
@@ -23,7 +22,6 @@ public final class GeneComponentModelLgInt implements GeneComponentModel<LgInt> 
         return textLgInt;
     }
 
-    @Override
     public LgInt value() {
         return valueLgInt();
     }
@@ -32,7 +30,6 @@ public final class GeneComponentModelLgInt implements GeneComponentModel<LgInt> 
         return LgInt.newLgInt(getTextLgInt().getText());
     }
 
-    @Override
     public void value(LgInt _v) {
         valueLgInt(_v);
     }

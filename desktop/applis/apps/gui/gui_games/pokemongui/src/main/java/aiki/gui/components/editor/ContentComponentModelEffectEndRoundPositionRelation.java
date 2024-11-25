@@ -3,7 +3,6 @@ package aiki.gui.components.editor;
 import aiki.fight.moves.effects.*;
 import code.gui.*;
 import code.gui.initialize.*;
-import code.maths.*;
 
 public final class ContentComponentModelEffectEndRoundPositionRelation {
     private GeneComponentModelRate healHp;
@@ -11,7 +10,7 @@ public final class ContentComponentModelEffectEndRoundPositionRelation {
     AbsPanel effectForm(AbstractProgramInfos _core) {
         AbsPanel selected_ = _core.getCompoFactory().newLineBox();
         healHp = new GeneComponentModelRate(_core);
-        selected_.add(healHp.geneRate(Rate.zero()));
+        selected_.add(healHp.geneRate());
         form = selected_;
         selected_.setVisible(false);
         return selected_;

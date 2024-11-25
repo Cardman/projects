@@ -12,7 +12,7 @@ public final class GeneComponentModelSubscribeRate implements AbsGeneComponentMo
     }
     @Override
     public AbsCustComponent geneEnum(int _select, int _value) {
-        return crud.geneRate(Rate.zero());
+        return crud.geneRate();
     }
 
     @Override

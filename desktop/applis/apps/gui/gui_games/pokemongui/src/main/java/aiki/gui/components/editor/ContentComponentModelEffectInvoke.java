@@ -5,7 +5,6 @@ import aiki.fight.moves.effects.*;
 import aiki.map.levels.enums.*;
 import code.gui.*;
 import code.gui.initialize.*;
-import code.maths.*;
 import code.util.*;
 
 public final class ContentComponentModelEffectInvoke {
@@ -25,7 +24,7 @@ public final class ContentComponentModelEffectInvoke {
     AbsPanel effectForm(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
         AbsPanel selected_ = _core.getCompoFactory().newLineBox();
         rateInvokationMove = new GeneComponentModelRate(_core);
-        selected_.add(rateInvokationMove.geneRate(Rate.zero()));
+        selected_.add(rateInvokationMove.geneRate());
         movesNotToBeInvoked = ConverterCommonMapUtil.buildMoveList(_core,_fac,_fact);
         selected_.add(movesNotToBeInvoked.geneEnum());
         moveFctEnv = new CrudGeneFormSimpleFormSub<EnvironmentType, String>(_core, _fac, _fact, _f);

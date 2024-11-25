@@ -2,24 +2,18 @@ package code.gui;
 
 import code.gui.initialize.*;
 
-public final class GeneComponentModelLong implements GeneComponentModel<Long> {
+public final class GeneComponentModelLong {
     private final AbstractProgramInfos compoFactory;
     private AbsSpinner textLong;
     public GeneComponentModelLong(AbstractProgramInfos _c) {
         this.compoFactory = _c;
     }
 
-    @Override
-    public AbsCustComponent gene(int _select) {
-        return gene(0L);
-    }
-
-    public AbsCustComponent gene(long _d) {
-        textLong = compoFactory.getCompoFactory().newSpinner(_d, Long.MIN_VALUE,Long.MAX_VALUE,1);
+    public AbsCustComponent geneLong() {
+        textLong = compoFactory.getCompoFactory().newSpinner(0, Long.MIN_VALUE,Long.MAX_VALUE,1);
         return textLong;
     }
 
-    @Override
     public Long value() {
         return valueLong();
     }
@@ -28,7 +22,6 @@ public final class GeneComponentModelLong implements GeneComponentModel<Long> {
         return getTextLong().valueLong();
     }
 
-    @Override
     public void value(Long _v) {
         valueLong(_v);
     }

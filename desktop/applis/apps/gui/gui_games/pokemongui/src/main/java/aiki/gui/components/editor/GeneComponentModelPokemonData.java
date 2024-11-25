@@ -8,9 +8,7 @@ import aiki.fight.pokemon.evolution.*;
 import aiki.fight.util.*;
 import aiki.instances.*;
 import code.gui.*;
-import code.gui.events.*;
 import code.gui.initialize.*;
-import code.maths.*;
 import code.util.*;
 
 public final class GeneComponentModelPokemonData extends GeneComponentModelEntity<PokemonData> {
@@ -32,7 +30,7 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
     private GeneComponentModelElt<ExpType> expEvo;
     private final CrudGeneFormSimpleElementSub<LevelMove> levMoves;
     private final CrudGeneFormSimpleFormSub<String,Evolution> evolutions;
-    private final CrudGeneFormList<String> eggGroups;
+    private final CrudGeneFormSimpleElementSub<String> eggGroups;
     private final IdList<SubscribedTranslation> subscribedTranslations = new IdList<SubscribedTranslation>();
 
     public GeneComponentModelPokemonData(AbsCommonFrame _fr, AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
@@ -42,7 +40,7 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         catchingRate = new GeneComponentModelInt(getCompoFactory());
         expRate = new GeneComponentModelLong(getCompoFactory());
         hatchingSteps = new GeneComponentModelLgInt(getCompoFactory());
-        eggGroups = new CrudGeneFormList<String>(getCompoFactory());
+        eggGroups = new CrudGeneFormSimpleElementSub<String>(getCompoFactory(),getFacade(),getSubscribedTranslationList(),getFrame());
         happiness = new GeneComponentModelInt(getCompoFactory());
         happinessHatch = new GeneComponentModelInt(getCompoFactory());
         levMoves = new CrudGeneFormSimpleElementSub<LevelMove>(getCompoFactory(),_facade,_sub,_fr);
@@ -66,8 +64,8 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         page_.add(geneComponentModelSelectKey());
         AbsScrollPane sc_ = compoFactory_.newAbsScrollPane();
         AbsPanel form_ = compoFactory_.newLineBox();
-        form_.add(weight.geneRate(Rate.zero()));
-        form_.add(height.geneRate(Rate.zero()));
+        form_.add(weight.geneRate());
+        form_.add(height.geneRate());
         form_.add(types.geneEnum());
         AbsPanel stats_ = compoFactory_.newPageBox();
         subscribedTranslations.clear();
@@ -91,12 +89,11 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         form_.add(technicalMoves.geneEnum());
         form_.add(hiddenMoves.geneEnum());
         form_.add(catchingRate.geneInt());
-        form_.add(expRate.gene(0L));
-        form_.add(hatchingSteps.gene(LgInt.zero()));
+        form_.add(expRate.geneLong());
+        form_.add(hatchingSteps.geneLgInt());
         form_.add(happiness.geneInt());
         form_.add(happinessHatch.geneInt());
-        eggGroups.initForm();
-        eggGroups.initForm(new IntStringDisplayEntryCust(),new GeneComponentModelString(getCompoFactory(),new StringList(),new DefValidateText()));
+        eggGroups.initForm(new DisplayEntryCustSubElementString(),new GeneComponentModelSubscribeFactoryDirect<String>(new GeneComponentModelSubscribeString(getCompoFactory())));
         form_.add(eggGroups.getGroup());
         sc_.setViewportView(form_);
         page_.add(sc_);
@@ -183,6 +180,7 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         ids_.addAllElts(getLevMoves().subscribeButtons());
         ids_.addAllElts(getTechnicalMoves().getSubs());
         ids_.addAllElts(getHiddenMoves().getSubs());
+        ids_.addAllElts(getEggGroups().subscribeButtons());
         ids_.addAllElts(subscribedTranslations);
         return ids_;
     }
@@ -239,7 +237,7 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         return evolutions;
     }
 
-    public CrudGeneFormList<String> getEggGroups() {
+    public CrudGeneFormSimpleElementSub<String> getEggGroups() {
         return eggGroups;
     }
 

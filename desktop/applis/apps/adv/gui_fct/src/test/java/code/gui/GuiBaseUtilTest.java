@@ -12,7 +12,6 @@ import code.threads.ConcreteBoolean;
 import code.threads.ConcreteInteger;
 import code.util.*;
 import code.util.comparators.ComparatorMapValue;
-import code.util.comparators.NaturalComparator;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 import code.util.ints.*;
@@ -543,102 +542,105 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
     }
     @Test
     public void crudList1() {
-        CustList<String> m_ = new CustList<String>();
-        m_.add("ONE");
-        CrudGeneFormList<String> c_ = crudList(m_, new StringList("ONE"));
+        CustList<EditedCrudPair<String,Integer>> m_ = new CustList<EditedCrudPair<String,Integer>>();
+        m_.add(new EditedCrudPair<String, Integer>("ONE",1));
+        CrudGeneFormList<EditedCrudPair<String,Integer>> c_ = crudList(m_, new StringList("ONE"));
         assertEq(1,c_.getList().size());
-        assertEq("ONE",c_.getList().get(0));
+        assertEq("ONE",c_.getList().get(0).getKey());
         assertFalse(c_.isVisibleSingle());
         assertEq(4,c_.getButtons().getComponentCount());
     }
     @Test
     public void crudList2() {
-        CustList<String> m_ = new CustList<String>();
-        m_.add("ONE");
-        CrudGeneFormList<String> c_ = crudList(m_, new StringList("ONE","TWO"));
+        CustList<EditedCrudPair<String,Integer>> m_ = new CustList<EditedCrudPair<String,Integer>>();
+        m_.add(new EditedCrudPair<String, Integer>("ONE",1));
+        CrudGeneFormList<EditedCrudPair<String,Integer>> c_ = crudList(m_, new StringList("ONE","TWO"));
         c_.getAdd().getActionListeners().get(0).action();
         assertTrue(c_.isVisibleSingle());
-        c_.getGene().value("TWO");
+        c_.getGene().value(new EditedCrudPair<String, Integer>("TWO",2));
         c_.getValidAddEdit().getActionListeners().get(0).action();
         assertEq(2,c_.getList().size());
-        assertEq("ONE",c_.getList().get(0));
-        assertEq("TWO",c_.getList().get(1));
+        assertEq("ONE",c_.getList().get(0).getKey());
+        assertEq("TWO",c_.getList().get(1).getKey());
     }
     @Test
     public void crudList3() {
-        CustList<String> m_ = new CustList<String>();
-        m_.add("ONE");
-        CrudGeneFormList<String> c_ = crudList(m_, new StringList("ONE","TWO"));
+        CustList<EditedCrudPair<String,Integer>> m_ = new CustList<EditedCrudPair<String,Integer>>();
+        m_.add(new EditedCrudPair<String, Integer>("ONE",1));
+        CrudGeneFormList<EditedCrudPair<String,Integer>> c_ = crudList(m_, new StringList("ONE","TWO"));
         c_.getAdd().getActionListeners().get(0).action();
-        c_.getGene().value("TWO");
+        c_.getGene().value(new EditedCrudPair<String, Integer>("TWO",2));
         c_.getValidAddEdit().getActionListeners().get(0).action();
         ((AbsButton)c_.getElements().getComponent(0)).getActionListeners().get(0).action();
-        c_.getGene().value("ONE");
+        c_.getGene().value(new EditedCrudPair<String, Integer>("ONE",1));
         c_.getValidAddEdit().getActionListeners().get(0).action();
         assertEq(2,c_.getList().size());
-        assertEq("ONE",c_.getList().get(0));
-        assertEq("TWO",c_.getList().get(1));
+        assertEq("ONE",c_.getList().get(0).getKey());
+        assertEq("TWO",c_.getList().get(1).getKey());
     }
     @Test
     public void crudList4() {
-        CustList<String> m_ = new CustList<String>();
-        m_.add("ONE");
-        CrudGeneFormList<String> c_ = crudList(m_, new StringList("ONE","TWO"));
+        CustList<EditedCrudPair<String,Integer>> m_ = new CustList<EditedCrudPair<String,Integer>>();
+        m_.add(new EditedCrudPair<String, Integer>("ONE",1));
+        CrudGeneFormList<EditedCrudPair<String,Integer>> c_ = crudList(m_, new StringList("ONE","TWO"));
         c_.getAdd().getActionListeners().get(0).action();
-        c_.getGene().value("TWO");
+        c_.getGene().value(new EditedCrudPair<String, Integer>("TWO",2));
         c_.getValidAddEdit().getActionListeners().get(0).action();
         ((AbsButton)c_.getElements().getComponent(0)).getActionListeners().get(0).action();
         c_.getValidRemove().getActionListeners().get(0).action();
         assertEq(1,c_.getList().size());
-        assertEq("TWO",c_.getList().get(0));
+        assertEq("TWO",c_.getList().get(0).getKey());
     }
     @Test
     public void crudList5() {
-        CustList<String> m_ = new CustList<String>();
-        m_.add("ONE");
-        CrudGeneFormList<String> c_ = crudList(m_, new StringList("ONE","TWO"));
+        CustList<EditedCrudPair<String,Integer>> m_ = new CustList<EditedCrudPair<String,Integer>>();
+        m_.add(new EditedCrudPair<String, Integer>("ONE",1));
+        CrudGeneFormList<EditedCrudPair<String,Integer>> c_ = crudList(m_, new StringList("ONE","TWO"));
         c_.getAdd().getActionListeners().get(0).action();
-        c_.getGene().value("TWO");
+        c_.getGene().value(new EditedCrudPair<String, Integer>("TWO",2));
         c_.getValidAddEdit().getActionListeners().get(0).action();
         ((AbsButton)c_.getElements().getComponent(0)).getActionListeners().get(0).action();
-        c_.getGene().value("ONE");
+        c_.getGene().value(new EditedCrudPair<String, Integer>("ONE", 1));
         c_.getCancel().getActionListeners().get(0).action();
         assertEq(2,c_.getList().size());
-        assertEq("ONE",c_.getList().get(0));
-        assertEq("TWO",c_.getList().get(1));
+        assertEq("ONE",c_.getList().get(0).getKey());
+        assertEq("TWO",c_.getList().get(1).getKey());
     }
     @Test
     public void crudList6() {
-        CustList<String> m_ = new CustList<String>();
-        m_.add("ONE");
-        CrudGeneFormList<String> c_ = crudListCmp(m_, new StringList("ONE","TWO"),new NaturalComparator());
+        CustList<EditedCrudPair<String,Integer>> m_ = new CustList<EditedCrudPair<String,Integer>>();
+        m_.add(new EditedCrudPair<String, Integer>("ONE",1));
+        CrudGeneFormList<EditedCrudPair<String,Integer>> c_ = crudListCmp(m_, new StringList("ONE","TWO"),new ComparingStringKey<Integer>());
         c_.getAdd().getActionListeners().get(0).action();
-        c_.getGene().value("TWO");
+        c_.getGene().value(new EditedCrudPair<String, Integer>("TWO",2));
         c_.getValidAddEdit().getActionListeners().get(0).action();
         ((AbsButton)c_.getElements().getComponent(0)).getActionListeners().get(0).action();
-        c_.getGene().value("ONE");
+        c_.getGene().value(new EditedCrudPair<String, Integer>("ONE", 1));
         c_.getCancel().getActionListeners().get(0).action();
         assertEq(2,c_.getList().size());
-        assertEq("ONE",c_.getList().get(0));
-        assertEq("TWO",c_.getList().get(1));
+        assertEq("ONE",c_.getList().get(0).getKey());
+        assertEq("TWO",c_.getList().get(1).getKey());
     }
     @Test
     public void crudList7() {
-        CustList<String> m_ = new CustList<String>();
-        m_.add("ONE");
-        m_.add("TWO");
-        m_.add("THREE");
-        StringMap<String> map_ = new StringMap<String>();
-        map_.addEntry("ONE","1");
-        map_.addEntry("TWO","2");
-        map_.addEntry("THREE","3");
-        CrudGeneFormList<String> c_ = crudListCmp(m_, new StringList("ONE","TWO"),new ComparatorMapValue<String>(map_));
+        CustList<EditedCrudPair<String,Integer>> m_ = new CustList<EditedCrudPair<String,Integer>>();
+        EditedCrudPair<String, Integer> one_ = new EditedCrudPair<String, Integer>("ONE", 1);
+        m_.add(one_);
+        EditedCrudPair<String, Integer> two_ = new EditedCrudPair<String, Integer>("TWO", 2);
+        m_.add(two_);
+        EditedCrudPair<String, Integer> three_ = new EditedCrudPair<String, Integer>("THREE", 3);
+        m_.add(three_);
+        IdMap<EditedCrudPair<String,Integer>,String> map_ = new IdMap<EditedCrudPair<String,Integer>,String>();
+        map_.addEntry(one_,"1");
+        map_.addEntry(two_,"2");
+        map_.addEntry(three_,"3");
+        CrudGeneFormList<EditedCrudPair<String,Integer>> c_ = crudListCmp(m_, new StringList("ONE","TWO"),new ComparatorMapValue<EditedCrudPair<String,Integer>>(map_));
         c_.getAllButtons().get(1).getActionListeners().get(0).action();
         assertEq(1,c_.getSelectedIndex());
         map_.clear();
-        map_.addEntry("ONE","1");
-        map_.addEntry("THREE","2");
-        map_.addEntry("TWO","3");
+        map_.addEntry(one_,"1");
+        map_.addEntry(three_,"2");
+        map_.addEntry(two_,"3");
         c_.possibleSort();
         c_.refresh();
         assertEq(2,c_.getSelectedIndex());
@@ -739,14 +741,14 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
     @Test
     public void modelInt() {
         GeneComponentModelInt g_ = new GeneComponentModelInt(init());
-        g_.gene(-1);
+        g_.geneInt();
         g_.value(5);
         assertEq(5,g_.value());
     }
     @Test
     public void modelLong() {
         GeneComponentModelLong g_ = new GeneComponentModelLong(init());
-        g_.gene(-1);
+        g_.geneLong();
         g_.value(5L);
         assertEq(5L,g_.value());
     }
@@ -761,21 +763,21 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
     @Test
     public void modelLgInt() {
         GeneComponentModelLgInt g_ = new GeneComponentModelLgInt(init());
-        g_.gene(-1);
+        g_.geneLgInt();
         g_.value(new LgInt(5L));
         assertEq(new LgInt(5L), g_.value());
     }
     @Test
     public void modelRate() {
         GeneComponentModelRate g_ = new GeneComponentModelRate(init());
-        g_.gene(-1);
+        g_.geneRate();
         g_.value(new Rate(5L));
         assertEq(new Rate(5L), g_.value());
     }
     @Test
     public void modelStr() {
         GeneComponentModelString g_ = new GeneComponentModelString(init(),new StringList(),new DefValidateText());
-        g_.gene(-1);
+        g_.geneString();
         g_.value("5");
         assertEq("5",g_.value());
     }
@@ -783,7 +785,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
     public void modelElt0() {
         StringMap<String> mess_ = new StringMap<String>();
         GeneComponentModelElt<String> g_ = new GeneComponentModelElt<String>(init(), mess_, new EmptyDefValue());
-        g_.gene(-1);
+        g_.geneEnum();
         assertEq("",g_.value());
     }
     @Test
@@ -792,7 +794,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         mess_.addEntry("1","ONE");
         mess_.addEntry("2","TWO");
         GeneComponentModelElt<String> g_ = new GeneComponentModelElt<String>(init(), mess_, new EmptyDefValue());
-        g_.gene(-1);
+        g_.geneEnum();
         assertEq("1",g_.value());
     }
     @Test
@@ -828,7 +830,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         mess_.addEntry("1","ONE");
         mess_.addEntry("2","TWO");
         GeneComponentModelElt<String> g_ = new GeneComponentModelElt<String>(init(), mess_, new EmptyDefValue());
-        g_.gene(-1);
+        g_.geneEnum();
         mess_.addEntry("3","THREE");
         g_.reset();
         assertEq(3,g_.getElements().size());
@@ -837,7 +839,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
     public void modelEltId0() {
         IdMap<ConcreteInteger,String> mess_ = new IdMap<ConcreteInteger,String>();
         GeneComponentModelElt<ConcreteInteger> g_ = new GeneComponentModelElt<ConcreteInteger>(init(), mess_);
-        g_.gene(-1);
+        g_.geneEnum();
         assertSame(null,g_.valueElt());
     }
     @Test
@@ -848,7 +850,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         mess_.addEntry(one_,"ONE");
         mess_.addEntry(two_,"TWO");
         GeneComponentModelElt<ConcreteInteger> g_ = new GeneComponentModelElt<ConcreteInteger>(init(), mess_);
-        g_.gene(-1);
+        g_.geneEnum();
         assertSame(one_,g_.value());
     }
     @Test
@@ -881,7 +883,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         mess_.addEntry("1","ONE");
         mess_.addEntry("2","TWO");
         GeneComponentModelLs<String> g_ = new GeneComponentModelLs<String>(init(), mess_);
-        g_.gene(-1);
+        g_.buildLs();
         assertEq(0,g_.value().size());
     }
     @Test
@@ -932,7 +934,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         mess_.addEntry("1","ONE");
         mess_.addEntry("2","TWO");
         GeneComponentModelLs<String> g_ = new GeneComponentModelLs<String>(init(), mess_);
-        g_.gene(-1);
+        g_.buildLs();
         mess_.addEntry("3","THREE");
         g_.reset();
         assertEq(3,g_.getElements().size());
@@ -945,7 +947,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         mess_.addEntry(one_,"ONE");
         mess_.addEntry(two_,"TWO");
         GeneComponentModelLs<ConcreteInteger> g_ = new GeneComponentModelLs<ConcreteInteger>(init(), mess_);
-        g_.gene(-1);
+        g_.buildLs();
         assertEq(0,g_.value().size());
     }
     @Test
@@ -1234,19 +1236,19 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         GuiBaseUtil.initStringMapInt(c_, _map, _dico,new DefValidateText());
         return c_;
     }
-    private CrudGeneFormList<String> crudList(CustList<String> _map, StringList _dico) {
+    private CrudGeneFormList<EditedCrudPair<String,Integer>> crudList(CustList<EditedCrudPair<String,Integer>> _map, StringList _dico) {
         MockProgramInfosSecSample pr_ = init();
         AbsCommonFrame f_ = pr_.getFrameFactory().newCommonFrame();
-        CrudGeneFormList<String> c_ = new CrudGeneFormList<String>(pr_);
+        CrudGeneFormList<EditedCrudPair<String,Integer>> c_ = new CrudGeneFormList<EditedCrudPair<String,Integer>>(pr_);
         c_.setFrame(f_);
         c_.initForm();
         GuiBaseUtil.initStringList(c_, _map, _dico,new DefValidateText());
         return c_;
     }
-    private CrudGeneFormList<String> crudListCmp(CustList<String> _map, StringList _dico, Comparing<String> _str) {
+    private CrudGeneFormList<EditedCrudPair<String,Integer>> crudListCmp(CustList<EditedCrudPair<String,Integer>> _map, StringList _dico, Comparing<EditedCrudPair<String,Integer>> _str) {
         MockProgramInfosSecSample pr_ = init();
         AbsCommonFrame f_ = pr_.getFrameFactory().newCommonFrame();
-        CrudGeneFormList<String> c_ = new CrudGeneFormList<String>(pr_);
+        CrudGeneFormList<EditedCrudPair<String,Integer>> c_ = new CrudGeneFormList<EditedCrudPair<String,Integer>>(pr_);
         c_.setFrame(f_);
         c_.initForm();
         GuiBaseUtil.initStringList(c_, _map, _dico,new DefValidateText(),_str);

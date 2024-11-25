@@ -4,7 +4,6 @@ import aiki.facade.*;
 import aiki.fight.util.*;
 import code.gui.*;
 import code.gui.initialize.*;
-import code.maths.*;
 import code.util.*;
 
 public final class GeneComponentModelSubscribeTypeDamageBoost implements AbsGeneComponentModelSubscribe<TypeDamageBoost> {
@@ -26,7 +25,7 @@ public final class GeneComponentModelSubscribeTypeDamageBoost implements AbsGene
         type = ConverterCommonMapUtil.buildTypeElt(programInfos, facade,subscribedTranslationList);
         form_.add(type.geneEnum());
         rate = new GeneComponentModelRate(programInfos);
-        form_.add(rate.geneRate(Rate.zero()));
+        form_.add(rate.geneRate());
         return form_;
     }
 

@@ -6,7 +6,7 @@ import code.util.*;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
-public final class GeneComponentModelLs<T> extends GeneComponentModelEltCommon<T> implements GeneComponentModelStr, GeneComponentModel<CustList<T>> {
+public final class GeneComponentModelLs<T> extends GeneComponentModelEltCommon<T> implements GeneComponentModelStr {
     private DefScrollCustomGraphicList<T> select;
     private final DefCustCellRenderGeneImpl<T> render;
     public GeneComponentModelLs(AbstractProgramInfos _c, AbsMap<T, String> _messages) {
@@ -41,16 +41,10 @@ public final class GeneComponentModelLs<T> extends GeneComponentModelEltCommon<T
         select.revalidate();
     }
 
-    @Override
-    public AbsCustComponent gene(int _select) {
-        return buildLs();
-    }
-    @Override
     public CustList<T> value() {
         return tryRet();
     }
 
-    @Override
     public void value(CustList<T> _v) {
         setupValue(_v);
     }

@@ -3,7 +3,6 @@ package aiki.gui.components.editor;
 import aiki.fight.moves.effects.*;
 import code.gui.*;
 import code.gui.initialize.*;
-import code.maths.*;
 
 public final class ContentComponentModelEffectEndRoundTeam {
     private GeneComponentModelRate deleteAllStatus;
@@ -12,9 +11,9 @@ public final class ContentComponentModelEffectEndRoundTeam {
     AbsPanel effectForm(AbstractProgramInfos _core) {
         AbsPanel selected_ = _core.getCompoFactory().newLineBox();
         deleteAllStatus = new GeneComponentModelRate(_core);
-        selected_.add(deleteAllStatus.geneRate(Rate.zero()));
+        selected_.add(deleteAllStatus.geneRate());
         deleteAllStatusAlly = new GeneComponentModelRate(_core);
-        selected_.add(deleteAllStatusAlly.geneRate(Rate.zero()));
+        selected_.add(deleteAllStatusAlly.geneRate());
         form =selected_;
         selected_.setVisible(false);
         return selected_;

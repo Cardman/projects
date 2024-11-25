@@ -17,7 +17,7 @@ public abstract class GeneComponentModelEvent<E> implements GeneComponentModel<E
         AbsCompoFactory compoFactory_ = core.getCompoFactory();
         AbsPanel line_ = compoFactory_.newLineBox();
         line_.add(geneKey(_select));
-        line_.add(proba.gene(LgInt.zero()));
+        line_.add(proba.geneLgInt());
         return line_;
     }
 

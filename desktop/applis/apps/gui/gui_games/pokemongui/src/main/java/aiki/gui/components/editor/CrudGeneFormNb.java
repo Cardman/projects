@@ -108,14 +108,11 @@ public final class CrudGeneFormNb extends CrudGeneFormListSub<EditedCrudPair<Int
         } else {
             priceValue_ = null;
         }
-        AbsCustComponent gene_;
+        AbsCustComponent gene_ = price.geneLgInt();
         if (priceValue_ != null) {
-            gene_ = price.gene(priceValue_);
-            getElement().add(gene_);
-        } else {
-            gene_ = price.gene(-1);
-            getElement().add(gene_);
+            price.valueLgInt(priceValue_);
         }
+        getElement().add(gene_);
         gene_.setVisible(tm);
         super.selectOrAdd();
     }

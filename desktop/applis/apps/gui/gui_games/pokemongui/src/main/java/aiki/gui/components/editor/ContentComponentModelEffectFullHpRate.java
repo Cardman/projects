@@ -3,7 +3,6 @@ package aiki.gui.components.editor;
 import aiki.fight.moves.effects.*;
 import code.gui.*;
 import code.gui.events.*;
-import code.maths.*;
 import code.util.*;
 
 public final class ContentComponentModelEffectFullHpRate {
@@ -15,9 +14,9 @@ public final class ContentComponentModelEffectFullHpRate {
     AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
         AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
         leftUserHp = new GeneComponentModelRate(_core.getProgramInfos());
-        selected_.add(leftUserHp.geneRate(Rate.zero()));
+        selected_.add(leftUserHp.geneRate());
         closestFoeDamageRateHp = new GeneComponentModelRate(_core.getProgramInfos());
-        selected_.add(closestFoeDamageRateHp.geneRate(Rate.zero()));
+        selected_.add(closestFoeDamageRateHp.geneRate());
         restoredHp = new GeneComponentModelString(_core.getProgramInfos(), new StringList(), new DefValidateText());
         selected_.add(restoredHp.geneString());
         form = selected_;

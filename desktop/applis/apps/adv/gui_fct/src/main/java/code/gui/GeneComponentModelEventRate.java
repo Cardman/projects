@@ -12,7 +12,7 @@ public final class GeneComponentModelEventRate extends GeneComponentModelEvent<R
 
     @Override
     protected AbsCustComponent geneKey(int _select) {
-        return event.geneRate(Rate.zero());
+        return event.geneRate();
     }
 
     @Override

@@ -677,6 +677,23 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         assertEq(1,facade_.getData().getPokemon(P_1).getEvolutions().size());
     }
     @Test
+    public void pkForm33() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        facade_.getData().getExpGrowth().addEntry(ExpType.E,"1");
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<PokemonData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(P_1);
+        tryClick(g_.getEggGroups().getCrud().getAdd());
+        g_.getEggGroups().getCrud().getGenePair().getKey().setupValue("_");
+        tryClick(g_.getEggGroups().getCrud().getValidAddEdit());
+        tryClick(c_.getValidAddEdit());
+        assertEq(1,facade_.getData().getPokemon(P_1).getEggGroups().size());
+        assertEq("_",facade_.getData().getPokemon(P_1).getEggGroups().get(0));
+    }
+    @Test
     public void menus() {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facade(pr_);

@@ -3,7 +3,7 @@ package code.gui;
 import code.gui.initialize.*;
 import code.util.*;
 
-public final class GeneComponentModelElt<T> extends GeneComponentModelEltCommon<T> implements GeneComponentModel<T>,GeneComponentModelStr {
+public final class GeneComponentModelElt<T> extends GeneComponentModelEltCommon<T> implements GeneComponentModelStr {
     private final AbsMap<T, String> messages;
     private AbsStringScrollCustomCombo<T> select;
     private final AbsDefValue<T> defValue;
@@ -18,11 +18,6 @@ public final class GeneComponentModelElt<T> extends GeneComponentModelEltCommon<
         super(_c, _elts);
         messages = _rend.getMessages();
         defValue = _abs;
-    }
-
-    @Override
-    public AbsCustComponent gene(int _select) {
-        return geneEnum();
     }
 
     public AbsPanel geneEnum() {
@@ -69,7 +64,6 @@ public final class GeneComponentModelElt<T> extends GeneComponentModelEltCommon<
         _t.repaint();
     }
 
-    @Override
     public T value() {
         return valueElt();
     }
@@ -83,7 +77,6 @@ public final class GeneComponentModelElt<T> extends GeneComponentModelEltCommon<
         return tryRet(sel_);
     }
 
-    @Override
     public void value(T _v) {
         valueElt(_v);
     }

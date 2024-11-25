@@ -35,7 +35,7 @@ public final class GeneComponentModelSubscribeEffectCombo implements GeneCompone
         key.getCrud().initForm(new DisplayEntryCustSubElementSimpleImpl<String>(factoryMv_,api,facadeGame,new StringMap<String>()),buildPart(api,facadeGame,factoryMv_,new StringMap<String>()));
         AbsPanel form_ = api.getCompoFactory().newLineBox();
         multEvtRateSecEff = new GeneComponentModelRate(api);
-        form_.add(multEvtRateSecEff.geneRate(Rate.zero()));
+        form_.add(multEvtRateSecEff.geneRate());
         rankIncrementNbRound = new GeneComponentModelInt(api);
         form_.add(rankIncrementNbRound.geneInt());
         repeatedRoundsLaw = ConverterCommonMapUtil.buildMcRate(frame,api);

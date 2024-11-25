@@ -6,7 +6,6 @@ import aiki.instances.*;
 import code.gui.*;
 import code.gui.events.*;
 import code.gui.initialize.*;
-import code.maths.Rate;
 import code.util.*;
 
 public final class GeneComponentModelEffectWhileSending extends AbsGeneComponentModelEffect {
@@ -39,7 +38,7 @@ public final class GeneComponentModelEffectWhileSending extends AbsGeneComponent
         enabledWeather = new GeneComponentModelString(getProgramInfos(),new StringList(),new DefValidateText());
         form_.add(enabledWeather.geneString());
         multWeight = new GeneComponentModelRate(getProgramInfos());
-        form_.add(multWeight.geneRate(Rate.zero()));
+        form_.add(multWeight.geneRate());
         getEffectKind().getSelect().addListener(new ChangingTypeEvent(this));
         ConverterCommonMapUtil.trigger(getEffectKind(),MessagesEditorSelect.EFF_END_ROUND_FOE);
         return form_;

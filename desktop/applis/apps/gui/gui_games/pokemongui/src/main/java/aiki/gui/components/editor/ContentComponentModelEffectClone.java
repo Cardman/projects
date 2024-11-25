@@ -2,7 +2,6 @@ package aiki.gui.components.editor;
 
 import aiki.fight.moves.effects.*;
 import code.gui.*;
-import code.maths.*;
 
 public final class ContentComponentModelEffectClone {
 
@@ -11,7 +10,7 @@ public final class ContentComponentModelEffectClone {
     AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
         AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
         hpRateClone = new GeneComponentModelRate(_core.getProgramInfos());
-        selected_.add(hpRateClone.geneRate(Rate.zero()));
+        selected_.add(hpRateClone.geneRate());
         form = selected_;
         selected_.setVisible(false);
         return selected_;

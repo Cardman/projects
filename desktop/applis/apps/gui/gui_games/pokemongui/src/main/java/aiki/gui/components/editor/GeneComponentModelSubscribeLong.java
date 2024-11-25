@@ -11,7 +11,7 @@ public final class GeneComponentModelSubscribeLong implements AbsGeneComponentMo
     }
     @Override
     public AbsCustComponent geneEnum(int _select, int _value) {
-        return crud.gene(0L);
+        return crud.geneLong();
     }
 
     @Override

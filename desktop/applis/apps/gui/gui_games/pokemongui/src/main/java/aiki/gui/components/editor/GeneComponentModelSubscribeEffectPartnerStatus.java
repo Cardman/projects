@@ -3,7 +3,6 @@ package aiki.gui.components.editor;
 import aiki.fight.status.effects.*;
 import code.gui.*;
 import code.gui.initialize.*;
-import code.maths.Rate;
 import code.util.*;
 
 public final class GeneComponentModelSubscribeEffectPartnerStatus implements AbsGeneComponentModelSubscribe<EffectPartnerStatus> {
@@ -20,8 +19,8 @@ public final class GeneComponentModelSubscribeEffectPartnerStatus implements Abs
     @Override
     public AbsCustComponent geneEnum(int _select, int _value) {
         AbsPanel form_ = programInfos.getCompoFactory().newLineBox();
-        form_.add(multDamageAgainstFoe.geneRate(Rate.zero()));
-        form_.add(restoredHpRateLovedAlly.geneRate(Rate.zero()));
+        form_.add(multDamageAgainstFoe.geneRate());
+        form_.add(restoredHpRateLovedAlly.geneRate());
         weddingAlly = programInfos.getCompoFactory().newCustCheckBox();
         form_.add(weddingAlly);
         return form_;

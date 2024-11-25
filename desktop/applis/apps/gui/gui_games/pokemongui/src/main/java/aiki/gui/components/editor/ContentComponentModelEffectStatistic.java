@@ -24,7 +24,7 @@ public final class ContentComponentModelEffectStatistic {
     AbsPanel effectForm(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
         AbsPanel selected_ = _core.getCompoFactory().newLineBox();
         evtRate = new GeneComponentModelRate(_core);
-        selected_.add(evtRate.geneRate(Rate.zero()));
+        selected_.add(evtRate.geneRate());
         copyBoost = ConverterCommonMapUtil.buildStatisticsLs(_core,_fac,_fact);
         selected_.add(copyBoost.geneEnum());
         swapBoostStatis = ConverterCommonMapUtil.buildStatisticsLs(_core,_fac,_fact);

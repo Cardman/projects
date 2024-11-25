@@ -2,7 +2,6 @@ package aiki.gui.components.editor;
 
 import aiki.fight.moves.effects.*;
 import code.gui.*;
-import code.maths.*;
 
 public final class ContentComponentModelEffectAlly {
 
@@ -11,7 +10,7 @@ public final class ContentComponentModelEffectAlly {
     AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
         AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
         multAllyDamage = new GeneComponentModelRate(_core.getProgramInfos());
-        selected_.add(multAllyDamage.geneRate(Rate.zero()));
+        selected_.add(multAllyDamage.geneRate());
         form = selected_;
         selected_.setVisible(false);
         return selected_;

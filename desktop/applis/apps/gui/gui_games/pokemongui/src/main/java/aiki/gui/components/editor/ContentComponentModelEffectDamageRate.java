@@ -2,7 +2,6 @@ package aiki.gui.components.editor;
 
 import aiki.fight.moves.effects.*;
 import code.gui.*;
-import code.maths.*;
 
 public final class ContentComponentModelEffectDamageRate {
 
@@ -11,7 +10,7 @@ public final class ContentComponentModelEffectDamageRate {
     AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
         AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
         rateDamage = new GeneComponentModelRate(_core.getProgramInfos());
-        selected_.add(rateDamage.geneRate(Rate.zero()));
+        selected_.add(rateDamage.geneRate());
         form = selected_;
         selected_.setVisible(false);
         return selected_;

@@ -5,7 +5,6 @@ import aiki.fight.enums.*;
 import aiki.fight.items.*;
 import code.gui.*;
 import code.gui.initialize.*;
-import code.maths.*;
 import code.util.*;
 import code.util.core.*;
 
@@ -24,7 +23,7 @@ public final class ContentComponentModelBoost {
         happiness.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Short>(_parent.getSubscribedTranslationList().getFactoryIt(),_parent.getCompoFactory(),_parent.getFacade(), new StringMap<String>()),buildPart(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList().getFactoryIt(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Short>(new GeneComponentModelSubscribeShort(_parent.getCompoFactory())));
         boostForm.add(happiness.getGroup());
         winPp=new GeneComponentModelRate(_parent.getCompoFactory());
-        boostForm.add(winPp.geneRate(Rate.zero()));
+        boostForm.add(winPp.geneRate());
         boostForm.setVisible(false);
         return boostForm;
     }

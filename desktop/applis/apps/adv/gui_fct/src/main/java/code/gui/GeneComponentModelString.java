@@ -4,7 +4,7 @@ import code.gui.events.AfterValidateText;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringList;
 
-public final class GeneComponentModelString implements GeneComponentModel<String> {
+public final class GeneComponentModelString {
     private final AbstractProgramInfos compoFactory;
     private final StringList dico;
     private final AfterValidateText validateText;
@@ -16,18 +16,12 @@ public final class GeneComponentModelString implements GeneComponentModel<String
         this.validateText = _after;
     }
 
-    @Override
-    public AbsCustComponent gene(int _select) {
-        return geneString();
-    }
-
     public AbsTextField geneString() {
         textField = compoFactory.getCompoFactory().newTextField();
         textField.addAutoComplete(new AutoCompleteDocument(textField,dico,compoFactory,validateText));
         return textField;
     }
 
-    @Override
     public String value() {
         return valueString();
     }
@@ -36,7 +30,6 @@ public final class GeneComponentModelString implements GeneComponentModel<String
         return textField.getText();
     }
 
-    @Override
     public void value(String _v) {
         valueString(_v);
     }
