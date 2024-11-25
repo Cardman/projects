@@ -1,0 +1,50 @@
+package aiki.gui.components.editor;
+
+import aiki.facade.*;
+import aiki.fight.items.*;
+import code.gui.*;
+import code.gui.initialize.*;
+import code.util.*;
+import code.util.core.*;
+
+public final class ContentComponentModelHealingItem {
+    private CrudGeneFormSimpleFormSub<String,Short> happiness;
+    private AbsCustCheckBox healingTeam;
+    private AbsPanel boostForm;
+    AbsPanel form(GeneComponentModelItem _parent) {
+        AbsCompoFactory compoFactory_ = _parent.getCompoFactory().getCompoFactory();
+        boostForm = compoFactory_.newLineBox();
+        happiness = new CrudGeneFormSimpleFormSub<String, Short>(_parent.getCompoFactory(), _parent.getFacade(), _parent.getSubscribedTranslationList(), _parent.getFrame());
+        happiness.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Short>(_parent.getSubscribedTranslationList().getFactoryIt(),_parent.getCompoFactory(),_parent.getFacade(), new StringMap<String>()),buildPart(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList().getFactoryIt(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Short>(new GeneComponentModelSubscribeShort(_parent.getCompoFactory())));
+        boostForm.add(happiness.getGroup());
+        healingTeam=compoFactory_.newCustCheckBox();
+        boostForm.add(healingTeam);
+        boostForm.setVisible(false);
+        return boostForm;
+    }
+    void display(String _eff) {
+        boostForm.setVisible(StringUtil.quickEq(_eff, Item.HEALING_HP) || StringUtil.quickEq(_eff, Item.HEALING_PP));
+    }
+    void buildEntity(HealingItem _item) {
+        _item.setHappiness(ConverterCommonMapUtil.buildStringMapShort(happiness.getList()));
+        _item.setHealingTeam(healingTeam.isSelected());
+    }
+    void feedForm(HealingItem _item) {
+        happiness.setupValues(new MapToEntriesListUtil<String,Short>().build(_item.getHappiness()));
+        healingTeam.setSelected(_item.getHealingTeam());
+    }
+
+    public IdList<SubscribedTranslation> all() {
+        IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
+        ids_.addAllElts(happiness.subscribeButtons());
+        return ids_;
+    }
+
+    public AbsCustCheckBox getHealingTeam() {
+        return healingTeam;
+    }
+
+    private GeneComponentModelSubscribeFactorySelElt buildPart(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationMessagesFactory _facto, StringMap<String> _abs) {
+        return new GeneComponentModelSubscribeFactorySelElt(_core, _fac, _facto, _abs);
+    }
+}

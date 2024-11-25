@@ -6,12 +6,14 @@ import aiki.instances.*;
 import code.gui.*;
 import code.gui.events.*;
 import code.gui.initialize.*;
+import code.maths.*;
 import code.util.*;
 import code.util.core.*;
 
 public final class GeneComponentModelItem extends GeneComponentModelEntity<Item> implements ChangeableFormType {
     private final GeneComponentModelInt price;
     private GeneComponentModelString catchingRate;
+    private GeneComponentModelRate hp;
     private GeneComponentModelLong steps;
     private Item element;
     private GeneComponentModelEltEnumSub<String> effectKind;
@@ -19,7 +21,10 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
     private final ContentComponentModelBerry berryForm = new ContentComponentModelBerry();
     private final ContentComponentModelBoost boostForm = new ContentComponentModelBoost();
     private final ContentComponentModelFossil fossilForm = new ContentComponentModelFossil();
+    private final ContentComponentModelHealingItem healingItemForm = new ContentComponentModelHealingItem();
+    private final ContentComponentModelHealingPp healingPpForm = new ContentComponentModelHealingPp();
     private final ContentComponentModelItemForBattle itemForBattleForm = new ContentComponentModelItemForBattle();
+    private AbsPanel healHpForm;
     private AbsPanel repelForm;
 
     public GeneComponentModelItem(AbsCommonFrame _frame, AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
@@ -46,6 +51,13 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         form_.add(berryForm.form(this));
         form_.add(boostForm.form(this));
         form_.add(fossilForm.form(this));
+        form_.add(healingItemForm.form(this));
+        healHpForm = compoFactory_.newLineBox();
+        hp = new GeneComponentModelRate(getCompoFactory());
+        healHpForm.add(hp.geneRate(Rate.zero()));
+        healHpForm.setVisible(false);
+        form_.add(healHpForm);
+        form_.add(healingPpForm.form(this));
         form_.add(itemForBattleForm.form(this));
         repelForm = compoFactory_.newLineBox();
         steps = new GeneComponentModelLong(getCompoFactory());
@@ -74,6 +86,12 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         if (StringUtil.quickEq(eff_, Item.FOSSIL)) {
             element = Instances.newFossil();
         }
+        if (StringUtil.quickEq(eff_, Item.HEALING_HP)) {
+            element = Instances.newHealingHp();
+        }
+        if (StringUtil.quickEq(eff_, Item.HEALING_PP)) {
+            element = Instances.newHealingPp();
+        }
         if (StringUtil.quickEq(eff_, Item.ITEM_FOR_BATTLE)) {
             element = Instances.newItemForBattle();
         }
@@ -100,6 +118,10 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         if (element instanceof Fossil) {
             fossilForm.buildEntity((Fossil)element);
         }
+        if (element instanceof HealingItem) {
+            healingItemForm.buildEntity((HealingItem)element);
+            valueHeal();
+        }
         if (element instanceof ItemForBattle) {
             itemForBattleForm.buildEntity((ItemForBattle)element);
         }
@@ -107,6 +129,15 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
             ((Repel)element).setSteps(steps.valueLong());
         }
         return new EditedCrudPair<String,Item>(getGeneComponentModelSelectKey().tryRet(),element);
+    }
+
+    private void valueHeal() {
+        if (element instanceof HealingHp) {
+            ((HealingHp)element).setHp(hp.valueRate());
+        }
+        if (element instanceof HealingPp) {
+            healingPpForm.buildEntity((HealingPp)element);
+        }
     }
 
     @Override
@@ -127,6 +158,10 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         if (item_ instanceof Fossil) {
             fossilForm.feedForm((Fossil) item_);
         }
+        if (item_ instanceof HealingItem) {
+            healingItemForm.feedForm((HealingItem) item_);
+            valueHeal(item_);
+        }
         if (item_ instanceof ItemForBattle) {
             itemForBattleForm.feedForm((ItemForBattle) item_);
         }
@@ -140,10 +175,22 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         getEffectKind().getSelectUniq().getSelect().repaint();
     }
 
+    private void valueHeal(Item _item) {
+        if (_item instanceof HealingHp) {
+            hp.valueRate(((HealingHp)_item).getHp());
+        }
+        if (_item instanceof HealingPp) {
+            healingPpForm.feedForm((HealingPp)_item);
+        }
+    }
+
     private void display(String _eff) {
         ballForm.setVisible(StringUtil.quickEq(_eff, Item.BALL));
         berryForm.display(_eff);
         boostForm.display(_eff);
+        healingItemForm.display(_eff);
+        healHpForm.setVisible(StringUtil.quickEq(_eff, Item.HEALING_HP));
+        healingPpForm.display(_eff);
         fossilForm.display(_eff);
         itemForBattleForm.display(_eff);
         repelForm.setVisible(StringUtil.quickEq(_eff, Item.REPEL));
@@ -163,6 +210,7 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         ids_.addAllElts(berryForm.all());
         ids_.addAllElts(boostForm.all());
         ids_.addAllElts(fossilForm.all());
+        ids_.addAllElts(healingItemForm.all());
         ids_.addAllElts(itemForBattleForm.all());
         return ids_;
     }
@@ -181,6 +229,14 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
 
     public ContentComponentModelFossil getFossilForm() {
         return fossilForm;
+    }
+
+    public ContentComponentModelHealingItem getHealingItemForm() {
+        return healingItemForm;
+    }
+
+    public ContentComponentModelHealingPp getHealingPpForm() {
+        return healingPpForm;
     }
 
     public ContentComponentModelItemForBattle getItemForBattleForm() {
