@@ -1,8 +1,8 @@
 package code.gui.initialize;
 
 public interface AbstractSocket {
-    AbstractBufferedReader getInput();
 
+    String read();
     String println(String _string);
 
     void close();

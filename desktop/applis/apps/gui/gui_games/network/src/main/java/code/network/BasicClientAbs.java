@@ -1,7 +1,6 @@
 package code.network;
 
-import code.gui.initialize.AbstractBufferedReader;
-import code.gui.initialize.AbstractSocket;
+import code.gui.initialize.*;
 
 /**Thread safe class*/
 public abstract class BasicClientAbs extends SendReceive {
@@ -12,7 +11,7 @@ public abstract class BasicClientAbs extends SendReceive {
 
     @Override
     public void run() {
-        AbstractBufferedReader inputSock_ = getSocket().getInput();
+//        AbstractBufferedReader inputSock_ = getSocket().getInput();
         while (true) {
             //tourne toujours
 //            String input_ = inputSock_.readLine();
@@ -20,7 +19,7 @@ public abstract class BasicClientAbs extends SendReceive {
 //                return;
 //            }
             //on peut traiter les "timeout"
-            String input_ = inputSock_.readLine();
+            String input_ = getSocket().read();
             if (input_ == null || !iterate(getSocket(), input_)) {
                 return;
             }

@@ -137,7 +137,7 @@ public abstract class EquallableNetworkUtil {
     }
     protected static void loopServer(NetCommon _server) {
         BasicServer serv_ = _server.getConnectionsServer().firstValue();
-        String str_ = serv_.getSocket().getInput().readLine();
+        String str_ = serv_.getSocket().read();
         serv_.loopServer(str_);
     }
     protected static void sendClient(NetCommon _server, WindowNetWork _client) {

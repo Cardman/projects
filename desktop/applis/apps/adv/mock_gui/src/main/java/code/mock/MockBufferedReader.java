@@ -1,9 +1,8 @@
 package code.mock;
 
-import code.gui.initialize.AbstractBufferedReader;
 import code.util.StringList;
 
-public final class MockBufferedReader implements AbstractBufferedReader {
+public final class MockBufferedReader {
     private int index;
     private final StringList instrs;
     public MockBufferedReader() {
@@ -12,14 +11,18 @@ public final class MockBufferedReader implements AbstractBufferedReader {
     public MockBufferedReader(StringList _is) {
         instrs = _is;
     }
-    @Override
+
     public String readLine() {
         if (instrs.isValidIndex(index)) {
             String i_ = instrs.get(index);
-            index++;
+            incr();
             return i_;
         }
         return null;
+    }
+
+    public void incr() {
+        index++;
     }
 
     public StringList getInstrs() {

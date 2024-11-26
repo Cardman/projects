@@ -38,9 +38,11 @@ public final class NetGroupFrameSampleFalse extends NetGroupFrame {
         getSockets().getSockets().put(nb_, _newSocket);
         BasicServer serv_ = new BasicServerSample(_newSocket, this);
         MockSocket ms_ = (MockSocket) serv_.getSocket();
+        ms_.setLoopTrue();
         ms_.getInstr().add("_");
         MockSocket mc_ = (MockSocket) getSocket();
         mc_.getInstr().add("_");
+        mc_.setLoopTrue();
         ((MockThreadFactory)getThreadFactory()).getAllThreads().last().join();
         trySendString("_",_newSocket);
         serv_.run();

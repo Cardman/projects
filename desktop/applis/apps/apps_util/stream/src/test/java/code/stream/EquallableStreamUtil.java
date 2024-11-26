@@ -10,6 +10,9 @@ import code.util.core.SortConstants;
 import org.junit.Assert;
 
 public abstract class EquallableStreamUtil {
+    public static void assertNull(BytesInfo _expected) {
+        Assert.assertNull(_expected);
+    }
     public static void assertNull(byte[] _expected) {
         Assert.assertNull(_expected);
     }

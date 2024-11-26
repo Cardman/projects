@@ -1,13 +1,14 @@
 package code.vi.sys.impl;
 
 import code.gui.initialize.*;
+import code.stream.*;
 import code.util.core.*;
 import code.vi.prot.impl.*;
 
 import java.io.*;
-import java.net.Socket;
+import java.net.*;
 
-public class DefSocket implements AbstractSocket {
+public final class DefSocket implements AbstractSocket {
     private Socket socket;
     private boolean ko;
 
@@ -20,11 +21,19 @@ public class DefSocket implements AbstractSocket {
 
 
     @Override
-    public AbstractBufferedReader getInput() {
+    public String read() {
         try {
-            return new DefBufferedReader(socket.getInputStream());
+            return decode(StreamBinaryFile.readBytes(new DefBufferedReader(socket.getInputStream())));
         } catch (Exception e) {
-            return new DefBufferedReader();
+            return null;
+        }
+    }
+
+    private static String decode(BytesInfo _info) {
+        try {
+            return StringUtil.decode(_info.getBytes());
+        } catch (Exception e) {
+            return null;
         }
     }
 

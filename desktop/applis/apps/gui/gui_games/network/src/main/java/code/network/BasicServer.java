@@ -1,6 +1,5 @@
 package code.network;
-import code.gui.initialize.AbstractBufferedReader;
-import code.gui.initialize.AbstractSocket;
+import code.gui.initialize.*;
 import code.threads.AbstractThreadFactory;
 
 /**Thread safe class*/
@@ -19,9 +18,9 @@ public abstract class BasicServer extends SendReceive {
     @Override
     public void run() {
 
-        AbstractBufferedReader inputSock_ = getSocket().getInput();
+//        AbstractBufferedReader inputSock_ = getSocket().getInput();
         while (true) {
-            String input_ = inputSock_.readLine();
+            String input_ = getSocket().read();
             if (input_ == null) {
                 break;
             }

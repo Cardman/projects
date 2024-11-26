@@ -25,7 +25,11 @@ public final class MockNetworkTest extends EquallableMockGuiUtil {
         AbstractSocket so_ = server_.accept();
         assertFalse(so_.isKo());
         assertEq("_\n",so_.println("_"));
-        assertNull(so_.getInput().readLine());
+        assertNull(so_.read());
+        AbstractSocket se_ = server_.accept();
+        ((MockSocket)se_).setLoopTrue();
+        se_.read();
+        se_.read();
         so_.close();
         assertEq("",so_.println("_"));
         assertFalse(server_.isClosed());

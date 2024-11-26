@@ -1,7 +1,6 @@
 package code.stream;
 
 import code.stream.core.*;
-import code.util.core.*;
 
 public final class StreamBinaryFile {
 
@@ -14,7 +13,7 @@ public final class StreamBinaryFile {
         return new byte[]{(byte) _b};
     }
 
-    public static String readLine(AbstractBinStreamIn _abs) {
+    public static BytesInfo readBytes(AbstractBinStreamIn _abs) {
         while (true) {
             int read_ = _abs.read();
             if (read_ < 0) {
@@ -24,7 +23,7 @@ public final class StreamBinaryFile {
                 break;
             }
         }
-        return StringUtil.decode(_abs.getBytes());
+        return new BytesInfo(_abs.getBytes(),false);
     }
 
     public static BytesInfo loadFile(String _file, TechStreams _str) {

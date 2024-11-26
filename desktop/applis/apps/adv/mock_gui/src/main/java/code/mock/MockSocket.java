@@ -1,8 +1,7 @@
 package code.mock;
 
-import code.gui.initialize.AbstractBufferedReader;
-import code.gui.initialize.AbstractSocket;
-import code.util.StringList;
+import code.gui.initialize.*;
+import code.util.*;
 
 public final class MockSocket implements AbstractSocket {
     private boolean cl;
@@ -13,14 +12,23 @@ public final class MockSocket implements AbstractSocket {
     private String local = "";
     private String localSocket = "";
     private String remoteSocket = "";
+    private boolean loop;
+    private MockBufferedReader input;
 
     public MockSocket(boolean _k) {
         this.ko = _k;
     }
 
     @Override
-    public AbstractBufferedReader getInput() {
-        return new MockBufferedReader(getInstr());
+    public String read() {
+        if (loop) {
+            if (input == null) {
+                input = new MockBufferedReader(getInstr());
+            }
+            return input.readLine();
+        }
+        input = new MockBufferedReader(getInstr());
+        return input.readLine();
     }
 
     @Override
@@ -31,6 +39,10 @@ public final class MockSocket implements AbstractSocket {
         }
         getOutput().add(_st);
         return _st+"\n";
+    }
+
+    public void setLoopTrue() {
+        this.loop = true;
     }
 
     @Override
