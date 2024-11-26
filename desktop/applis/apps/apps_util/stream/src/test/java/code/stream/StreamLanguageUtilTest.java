@@ -14,7 +14,7 @@ public final class StreamLanguageUtilTest extends EquallableStreamUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), fileSet(0, new long[0], "/"));
         StreamFolderFile.makeParent("/folder/lg.txt",pr_.getFileCoreStream());
         StreamLanguageUtil.saveLanguage("/folder","0", pr_.getStreams());
-        assertEq("",StreamLanguageUtil.tryToGetXmlLanguage("/folder",pr_.getFileCoreStream(),pr_.getStreams(),new StringList()));
+        assertEq("",StreamLanguageUtil.tryToGetXmlLanguage("/folder", pr_.getStreams(),new StringList()));
     }
     @Test
     public void lg2() {
@@ -24,7 +24,7 @@ public final class StreamLanguageUtilTest extends EquallableStreamUtil {
         lgs_.add("0");
         lgs_.add("1");
         StreamLanguageUtil.saveLanguage("/folder","0", pr_.getStreams());
-        assertEq("0",StreamLanguageUtil.tryToGetXmlLanguage("/folder",pr_.getFileCoreStream(),pr_.getStreams(), lgs_));
+        assertEq("0",StreamLanguageUtil.tryToGetXmlLanguage("/folder", pr_.getStreams(), lgs_));
     }
     @Test
     public void lg3() {
@@ -34,7 +34,7 @@ public final class StreamLanguageUtilTest extends EquallableStreamUtil {
         lgs_.add("0");
         lgs_.add("1");
         StreamLanguageUtil.saveLanguage("/folder","1", pr_.getStreams());
-        assertEq("1",StreamLanguageUtil.tryToGetXmlLanguage("/folder",pr_.getFileCoreStream(),pr_.getStreams(), lgs_));
+        assertEq("1",StreamLanguageUtil.tryToGetXmlLanguage("/folder", pr_.getStreams(), lgs_));
     }
     @Test
     public void lg4() {
@@ -50,7 +50,7 @@ public final class StreamLanguageUtilTest extends EquallableStreamUtil {
         CustList<String> lgs_ = new CustList<String>();
         lgs_.add("0");
         lgs_.add("1");
-        assertEq("",StreamLanguageUtil.tryToGetXmlLanguage("/folder",pr_.getFileCoreStream(),pr_.getStreams(), lgs_));
+        assertEq("",StreamLanguageUtil.tryToGetXmlLanguage("/folder", pr_.getStreams(), lgs_));
     }
     @Test
     public void lg5() {
@@ -61,7 +61,7 @@ public final class StreamLanguageUtilTest extends EquallableStreamUtil {
         CustList<String> lgs_ = new CustList<String>();
         lgs_.add("0");
         lgs_.add("1");
-        assertEq("",StreamLanguageUtil.tryToGetXmlLanguage("/folder",pr_.getFileCoreStream(),pr_.getStreams(), lgs_));
+        assertEq("",StreamLanguageUtil.tryToGetXmlLanguage("/folder", pr_.getStreams(), lgs_));
     }
     @Test
     public void lg6() {

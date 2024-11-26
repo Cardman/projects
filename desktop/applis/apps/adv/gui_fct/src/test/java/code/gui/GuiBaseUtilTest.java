@@ -1184,7 +1184,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
     @Test
     public void interpretedFile2() {
         MockProgramInfosSecSample init_ = init();
-        init_.getStreams().getTextFact().write("/file", "<_/>", false);
+        MockBinFact.write(init_.getStreams().getBinFact(),"/file", "<_/>", false);
         InterpretedFile i_ = new InterpretedFile(init_,new String[]{"/file"});
         assertFalse(i_.getInput().isNul());
         assertEq("/file",i_.getFileNames().get(0));
@@ -1198,7 +1198,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         MockSoundRecord sr_ = new MockSoundRecord();
         sr_.appendHeader();
         sr_.append(new int[]{1});
-        init_.getStreams().getBinFact().writeFile("/file",sr_.recordSong());
+        init_.getStreams().getBinFact().writeFile("/file",sr_.recordSong(), false);
         InterpretedFile i_ = new InterpretedFile(init_,new String[]{"/file"});
         assertFalse(i_.getInput().isNul());
         assertEq(1,i_.getClipSimple().getMicrosecondLength());
@@ -1210,7 +1210,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         MockSoundRecord sr_ = new MockSoundRecord();
         sr_.append(new int[]{'I','D','3'});
         sr_.append(new int[]{1});
-        init_.getStreams().getBinFact().writeFile("/file",sr_.recordSong());
+        init_.getStreams().getBinFact().writeFile("/file",sr_.recordSong(), false);
         InterpretedFile i_ = new InterpretedFile(init_,new String[]{"/file"});
         assertFalse(i_.getInput().isNul());
         assertEq(1,i_.getClipMp3().getMicrosecondLength());

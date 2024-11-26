@@ -22,7 +22,7 @@ public final class CreateMainWindowConverter implements Runnable {
         window = new WindowConverter(list, pair);
         CustList<String> infos_;
         if (!ls.isEmpty()) {
-            infos_ = DocumentImagesUtil.parse(StreamTextFile.contentsOfFile(ls.first(), list.getFileCoreStream(), list.getStreams()));
+            infos_ = DocumentImagesUtil.parse(StreamTextFile.contentsOfFile(ls.first(), list.getStreams()));
         } else {
             infos_ = new CustList<String>();
         }

@@ -127,7 +127,7 @@ public final class WindowRenders extends GroupFrame implements AbsOpenQuit {
     }
 
     public void loadRenderConf(String _fichier) {
-        String content_ = StringUtil.nullToEmpty(StreamTextFile.contentsOfFile(_fichier,getFileCoreStream(),getStreams()));
+        String content_ = StringUtil.nullToEmpty(StreamTextFile.contentsOfFile(_fichier, getStreams()));
 //        String content_ = StreamTextFile.contentsOfFile(_fichier,getFileCoreStream(),getStreams());
 //        if (content_ == null) {
 //            return;

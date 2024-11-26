@@ -16,8 +16,6 @@ import cards.solitaire.sml.DocumentWriterSolitaireUtil;
 import cards.tarot.*;
 import cards.tarot.enumerations.*;
 import cards.tarot.sml.DocumentWriterTarotUtil;
-import code.maths.montecarlo.CustomSeedGene;
-import code.maths.montecarlo.DefaultGenerator;
 import code.mock.*;
 import code.scripts.messages.cards.*;
 import code.sml.DocumentBuilder;
@@ -210,7 +208,7 @@ public final class GamesTest extends EquallableCardsFileUtil {
         Games.setMessages(new ResultsGame(),fr_);
         MockFileSet set_ = new MockFileSet(0, new long[1], new String[]{"/"});
         MockBinFact binFact_ = new MockBinFact(new MockTrueRand(), set_);
-        TechStreams tech_ = new TechStreams(binFact_, new MockTextFact(binFact_), new MockZipFact());
+        TechStreams tech_ = new TechStreams(binFact_, new MockZipFact());
         new SoftParams().sauvegarder("_", tech_);
         assertTrue(new MockFileCoreStream(set_).newFile("_").exists());
     }

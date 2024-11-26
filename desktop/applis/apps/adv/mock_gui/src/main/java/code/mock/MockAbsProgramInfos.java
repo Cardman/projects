@@ -27,7 +27,7 @@ public abstract class MockAbsProgramInfos extends ProgramInfosBase implements Ab
         mockFileSet = _set;
         fileCoreStream = new MockFileCoreStream(_set);
         MockBinFact mockBinFact_ = new MockBinFact(_abs, _set);
-        techStreams = new TechStreams(mockBinFact_,new MockTextFact(mockBinFact_), new MockZipFact());
+        techStreams = new TechStreams(mockBinFact_, new MockZipFact());
     }
     @Override
     public StringList getExcludedFolders() {

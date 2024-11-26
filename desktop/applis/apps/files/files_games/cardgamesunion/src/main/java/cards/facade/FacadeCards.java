@@ -137,28 +137,28 @@ public final class FacadeCards {
         String beloteDis_ = mess_.getVal(MessagesCardGames.DISPLAY_BELOTE);
         String presidentDis_ = mess_.getVal(MessagesCardGames.DISPLAY_PRESIDENT);
         String tarotDis_ = mess_.getVal(MessagesCardGames.DISPLAY_TAROT);
-        reglesBelote = DocumentReaderBeloteUtil.getRulesBelote(StreamTextFile.contentsOfFile(StringUtil.concat(_tempFolder, belote_),_list.getFileCoreStream(),_list.getStreams()));
+        reglesBelote = DocumentReaderBeloteUtil.getRulesBelote(StreamTextFile.contentsOfFile(StringUtil.concat(_tempFolder, belote_), _list.getStreams()));
         if (!reglesBelote.isValidRules()) {
             reglesBelote = new RulesBelote();
             StreamTextFile.saveTextFile(StringUtil.concat(_tempFolder, belote_), DocumentWriterBeloteUtil.setRulesBelote(reglesBelote),_list.getStreams());
         }
-        setDisplayingBelote(DocumentReaderBeloteUtil.getDisplayingBelote(StreamTextFile.contentsOfFile(StringUtil.concat(_tempFolder,beloteDis_),_list.getFileCoreStream(),_list.getStreams())));
+        setDisplayingBelote(DocumentReaderBeloteUtil.getDisplayingBelote(StreamTextFile.contentsOfFile(StringUtil.concat(_tempFolder,beloteDis_), _list.getStreams())));
         getDisplayingBelote().validate();
-        reglesPresident = DocumentReaderPresidentUtil.getRulesPresident(StreamTextFile.contentsOfFile(StringUtil.concat(_tempFolder,president_),_list.getFileCoreStream(),_list.getStreams()));
+        reglesPresident = DocumentReaderPresidentUtil.getRulesPresident(StreamTextFile.contentsOfFile(StringUtil.concat(_tempFolder,president_), _list.getStreams()));
         if (!reglesPresident.isValidRules()) {
             reglesPresident = new RulesPresident();
             StreamTextFile.saveTextFile(StringUtil.concat(_tempFolder,president_), DocumentWriterPresidentUtil.setRulesPresident(reglesPresident),_list.getStreams());
         }
-        setDisplayingPresident(DocumentReaderPresidentUtil.getDisplayingPresident(StreamTextFile.contentsOfFile(StringUtil.concat(_tempFolder,presidentDis_),_list.getFileCoreStream(),_list.getStreams())));
+        setDisplayingPresident(DocumentReaderPresidentUtil.getDisplayingPresident(StreamTextFile.contentsOfFile(StringUtil.concat(_tempFolder,presidentDis_), _list.getStreams())));
         getDisplayingPresident().validate();
-        reglesTarot = DocumentReaderTarotUtil.getRulesTarot(StreamTextFile.contentsOfFile(StringUtil.concat(_tempFolder,tarot_),_list.getFileCoreStream(),_list.getStreams()));
+        reglesTarot = DocumentReaderTarotUtil.getRulesTarot(StreamTextFile.contentsOfFile(StringUtil.concat(_tempFolder,tarot_), _list.getStreams()));
         if (!reglesTarot.isValidRules()) {
             reglesTarot = new RulesTarot();
             StreamTextFile.saveTextFile(StringUtil.concat(_tempFolder,tarot_), DocumentWriterTarotUtil.setRulesTarot(reglesTarot),_list.getStreams());
         }
-        setDisplayingTarot(DocumentReaderTarotUtil.getDisplayingTarot(StreamTextFile.contentsOfFile(StringUtil.concat(_tempFolder,tarotDis_),_list.getFileCoreStream(),_list.getStreams())));
+        setDisplayingTarot(DocumentReaderTarotUtil.getDisplayingTarot(StreamTextFile.contentsOfFile(StringUtil.concat(_tempFolder,tarotDis_), _list.getStreams())));
         getDisplayingTarot().validate();
-        setParametres(DocumentReaderCardsUnionUtil.getSoftParams(StreamTextFile.contentsOfFile(StringUtil.concat(_tempFolder,mess_.getVal(MessagesCardGames.PARAMS)),_list.getFileCoreStream(),_list.getStreams())));
+        setParametres(DocumentReaderCardsUnionUtil.getSoftParams(StreamTextFile.contentsOfFile(StringUtil.concat(_tempFolder,mess_.getVal(MessagesCardGames.PARAMS)), _list.getStreams())));
         getParametres().setDelays();
 //        parametres.setLocale(_locale);
         pseudosJoueurs = getNicknamesCrud().getNicknamesCrud().value();
@@ -226,7 +226,7 @@ public final class FacadeCards {
 
     public static void changerNombreDeParties(GameEnum _game, long _nbGames, String _tmpFolder, AbstractProgramInfos _tmpUserFolderSl, int _nbStacks) {
         String fileName_ = FacadeCards.stack(_tmpFolder, _tmpUserFolderSl);
-        String content_ = StreamTextFile.contentsOfFile(fileName_,_tmpUserFolderSl.getFileCoreStream(),_tmpUserFolderSl.getStreams());
+        String content_ = StreamTextFile.contentsOfFile(fileName_, _tmpUserFolderSl.getStreams());
         StringList vl_= FacadeCards.retrieveLines(content_);
         //Si l'action de battre les cartes est faite a chaque lancement
         //de logiciel alors le nombre de parties est remis a zero lors
@@ -247,7 +247,7 @@ public final class FacadeCards {
     }
     public void changerNombreDePartiesEnQuittant(String _tempFolder, AbstractProgramInfos _inst) {
         String fileName_ = stack(_tempFolder, _inst);
-        String content_ = StreamTextFile.contentsOfFile(fileName_,_inst.getFileCoreStream(),_inst.getStreams());
+        String content_ = StreamTextFile.contentsOfFile(fileName_, _inst.getStreams());
         StringList vl_ = retrieveLines(content_);
         //Si l'action de battre les cartes est faite a chaque lancement
         //de logiciel alors le nombre de parties est remis a zero lors
@@ -267,7 +267,7 @@ public final class FacadeCards {
 
     public static long chargerNombreDeParties(GameEnum _jeu, String _tmpFolder, AbstractProgramInfos _tmpUserFolderSl, int _nbStacks) {
         String fileName_ = FacadeCards.stack(_tmpFolder, _tmpUserFolderSl);
-        String content_ = StreamTextFile.contentsOfFile(fileName_,_tmpUserFolderSl.getFileCoreStream(),_tmpUserFolderSl.getStreams());
+        String content_ = StreamTextFile.contentsOfFile(fileName_, _tmpUserFolderSl.getStreams());
         if (content_ == null) {
             return 0L;
         }

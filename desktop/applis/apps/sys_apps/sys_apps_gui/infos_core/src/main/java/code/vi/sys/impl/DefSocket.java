@@ -23,7 +23,7 @@ public class DefSocket implements AbstractSocket {
     @Override
     public AbstractBufferedReader getInput() {
         try {
-            return new DefBufferedReader(new BufferedReader(new InputStreamReader(socket.getInputStream(),StreamCoreUtil.utf())));
+            return new DefBufferedReader(socket.getInputStream());
         } catch (Exception e) {
             return new DefBufferedReader();
         }
@@ -32,7 +32,9 @@ public class DefSocket implements AbstractSocket {
     @Override
     public String println(String _string) {
         try {
-            new PrintWriter(new OutputStreamWriter(socket.getOutputStream(),StreamCoreUtil.utf()), true).println(_string);
+            PrintWriter pw_ = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), StreamCoreUtil.utf()), false);
+            pw_.print(_string+"\n");
+            pw_.flush();
             return _string+"\n";
         } catch (Exception e) {
             return "";

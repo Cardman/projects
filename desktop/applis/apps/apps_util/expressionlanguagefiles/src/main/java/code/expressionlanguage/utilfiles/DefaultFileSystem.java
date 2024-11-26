@@ -49,7 +49,7 @@ public final class DefaultFileSystem implements AbstractFileSystem {
     @Override
     public String contentsOfFile(String _file, String _rCont) {
         String file_ = prefix(_file, _rCont);
-        return StreamTextFile.contentsOfFile(file_, uniformingString,fileCoreStream,streams);
+        return StreamTextFile.contentsOfFile(file_, uniformingString, streams);
     }
 
     @Override

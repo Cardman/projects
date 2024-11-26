@@ -6,7 +6,6 @@ import code.gui.initialize.AbstractSocketFactory;
 import code.maths.litteralcom.MathExpUtil;
 import code.netw.MessagesNetWork;
 import code.network.enums.IpType;
-import code.stream.AbstractFileCoreStream;
 import code.stream.StreamTextFile;
 import code.stream.core.TechStreams;
 import code.util.StringList;
@@ -22,8 +21,8 @@ public final class NetCreate {
     private NetCreate(){
     }
 
-    public static int tryToGetPort(String _fileName, int _defaultPort, AbstractFileCoreStream _fact, TechStreams _tech) {
-        String content_ = StreamTextFile.contentsOfFile(_fileName,_fact,_tech);
+    public static int tryToGetPort(String _fileName, int _defaultPort, TechStreams _tech) {
+        String content_ = StreamTextFile.contentsOfFile(_fileName, _tech);
         return tryToGetPort(_defaultPort, content_);
     }
 

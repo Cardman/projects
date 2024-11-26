@@ -17,12 +17,12 @@ public final class DefGamePkStream implements IntGamePkStream {
 
     @Override
     public Game load(String _fileName, SexListInt _sexList) {
-        return DocumentReaderAikiCoreUtil.getGame(StreamTextFile.contentsOfFile(_fileName,programInfos.getFileCoreStream(),programInfos.getStreams()),_sexList);
+        return DocumentReaderAikiCoreUtil.getGame(StreamTextFile.contentsOfFile(_fileName, programInfos.getStreams()),_sexList);
     }
 
     @Override
     public Game loadThen(String _fileName, SexListInt _sexList) {
-        String file_ = StreamTextFile.contentsOfFile(_fileName, programInfos.getFileCoreStream(), programInfos.getStreams());
+        String file_ = StreamTextFile.contentsOfFile(_fileName, programInfos.getStreams());
         return DocumentReaderAikiCoreUtil.getGameOrNull(DocumentBuilder.parseNoTextDocument(file_),_sexList);
     }
 

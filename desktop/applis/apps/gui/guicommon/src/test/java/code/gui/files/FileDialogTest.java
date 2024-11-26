@@ -15,7 +15,7 @@ public final class FileDialogTest extends EquallableGuiCommonUtil {
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         FileDialog.saveCoords("/tmp","_",1,2,pr_.getStreams());
-        TopLeftFrame tl_ = FileDialog.loadCoords("/tmp", "_", pr_.getFileCoreStream(), pr_.getStreams());
+        TopLeftFrame tl_ = FileDialog.loadCoords("/tmp", "_", pr_.getStreams());
         assertEq(1,tl_.getWidth());
         assertEq(2,tl_.getHeight());
     }
@@ -24,7 +24,7 @@ public final class FileDialogTest extends EquallableGuiCommonUtil {
         MockProgramInfos pr_ = MockProgramInfos.inst("", "", new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
-        TopLeftFrame tl_ = FileDialog.loadCoords("/tmp", "_", pr_.getFileCoreStream(), pr_.getStreams());
+        TopLeftFrame tl_ = FileDialog.loadCoords("/tmp", "_", pr_.getStreams());
         assertEq(0,tl_.getWidth());
         assertEq(0,tl_.getHeight());
     }

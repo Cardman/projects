@@ -21,7 +21,7 @@ public final class DefCardGamesCrud extends AbsCardGamesCrudImpl {
     @Override
     public HandBelote belote() {
         return sanitize(DocumentReaderBeloteUtil.getHandBelote(StreamTextFile.contentsOfFile(
-                FacadeCards.beloteStack(getTempFolder(), getProgramInfos()), getProgramInfos().getFileCoreStream(), getProgramInfos().getStreams())));
+                FacadeCards.beloteStack(getTempFolder(), getProgramInfos()), getProgramInfos().getStreams())));
     }
 
     @Override
@@ -35,7 +35,7 @@ public final class DefCardGamesCrud extends AbsCardGamesCrudImpl {
     @Override
     public HandBelote belote24() {
         return sanitize(DocumentReaderBeloteUtil.getHandBelote(StreamTextFile.contentsOfFile(
-                FacadeCards.beloteStack24(getTempFolder(), getProgramInfos()), getProgramInfos().getFileCoreStream(), getProgramInfos().getStreams())));
+                FacadeCards.beloteStack24(getTempFolder(), getProgramInfos()), getProgramInfos().getStreams())));
     }
 
     @Override
@@ -49,7 +49,7 @@ public final class DefCardGamesCrud extends AbsCardGamesCrudImpl {
     @Override
     public HandPresident president(int _nbStack) {
         return sanitize(_nbStack,DocumentReaderPresidentUtil.getHandPresident(StreamTextFile.contentsOfFile(
-          FacadeCards.presidentStack(getTempFolder(),_nbStack, getProgramInfos()),getProgramInfos().getFileCoreStream(), getProgramInfos().getStreams())));
+          FacadeCards.presidentStack(getTempFolder(),_nbStack, getProgramInfos()), getProgramInfos().getStreams())));
     }
 
     @Override
@@ -63,7 +63,7 @@ public final class DefCardGamesCrud extends AbsCardGamesCrudImpl {
     @Override
     public HandTarot tarot() {
         return sanitize(DocumentReaderTarotUtil.getHandTarot(StreamTextFile.contentsOfFile(
-                FacadeCards.tarotStack(getTempFolder(), getProgramInfos()), getProgramInfos().getFileCoreStream(), getProgramInfos().getStreams())));
+                FacadeCards.tarotStack(getTempFolder(), getProgramInfos()), getProgramInfos().getStreams())));
     }
 
     @Override
@@ -96,7 +96,7 @@ public final class DefCardGamesCrud extends AbsCardGamesCrudImpl {
     }
     @Override
     public GameBelote belote(String _k) {
-        return belote(_k,DocumentBuilder.parseNoTextDocument(StreamTextFile.contentsOfFile(_k,getProgramInfos().getFileCoreStream(), getProgramInfos().getStreams())));
+        return belote(_k,DocumentBuilder.parseNoTextDocument(StreamTextFile.contentsOfFile(_k, getProgramInfos().getStreams())));
     }
 
     @Override
@@ -112,7 +112,7 @@ public final class DefCardGamesCrud extends AbsCardGamesCrudImpl {
 
     @Override
     public GamePresident president(String _k) {
-        return president(_k,DocumentBuilder.parseNoTextDocument(StreamTextFile.contentsOfFile(_k,getProgramInfos().getFileCoreStream(), getProgramInfos().getStreams())));
+        return president(_k,DocumentBuilder.parseNoTextDocument(StreamTextFile.contentsOfFile(_k, getProgramInfos().getStreams())));
     }
 
     @Override
@@ -128,7 +128,7 @@ public final class DefCardGamesCrud extends AbsCardGamesCrudImpl {
 
     @Override
     public GameTarot tarot(String _k) {
-        return tarot(_k,DocumentBuilder.parseNoTextDocument(StreamTextFile.contentsOfFile(_k,getProgramInfos().getFileCoreStream(), getProgramInfos().getStreams())));
+        return tarot(_k,DocumentBuilder.parseNoTextDocument(StreamTextFile.contentsOfFile(_k, getProgramInfos().getStreams())));
     }
 
     @Override
@@ -144,7 +144,7 @@ public final class DefCardGamesCrud extends AbsCardGamesCrudImpl {
 
     @Override
     public AbsDealSolitaire solitaire(String _k) {
-        return solitaire(_k,DocumentBuilder.parseNoTextDocument(StreamTextFile.contentsOfFile(_k,getProgramInfos().getFileCoreStream(), getProgramInfos().getStreams())));
+        return solitaire(_k,DocumentBuilder.parseNoTextDocument(StreamTextFile.contentsOfFile(_k, getProgramInfos().getStreams())));
     }
 
     @Override
@@ -160,7 +160,7 @@ public final class DefCardGamesCrud extends AbsCardGamesCrudImpl {
 
     @Override
     public String read(String _k) {
-        return StreamTextFile.contentsOfFile(_k, getProgramInfos().getFileCoreStream(), getProgramInfos().getStreams());
+        return StreamTextFile.contentsOfFile(_k, getProgramInfos().getStreams());
     }
 
     @Override

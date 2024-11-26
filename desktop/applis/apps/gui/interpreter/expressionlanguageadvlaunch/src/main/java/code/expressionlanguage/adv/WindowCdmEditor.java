@@ -170,7 +170,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         confGlobal = _fileConf;
         closeAllSubs();
         AbstractProgramInfos frs_ = getFrames();
-        String contentConf_ = StringUtil.nullToEmpty(StreamTextFile.contentsOfFile(_fileConf, frs_.getFileCoreStream(), frs_.getStreams()));
+        String contentConf_ = StringUtil.nullToEmpty(StreamTextFile.contentsOfFile(_fileConf, frs_.getStreams()));
         Document doc_ = DocumentBuilder.parseNoTextDocument(contentConf_);
         CdmParameterSoftModel params_ = allParams(doc_, getFrames().getLanguage());
         if (params_ != null) {
@@ -180,7 +180,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         }
         trySubmit();
         getCommonFrame().setTitle(softParams.getExecConf());
-        String flatConf_ = StreamTextFile.contentsOfFile(softParams.getExecConf(), frs_.getFileCoreStream(), frs_.getStreams());
+        String flatConf_ = StreamTextFile.contentsOfFile(softParams.getExecConf(), frs_.getStreams());
         StringList linesFiles_ = ExecutingOptions.lines(StringUtil.nullToEmpty(flatConf_));
         if (linesFiles_.size() < 2) {
             chgManagement(false);

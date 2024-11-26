@@ -6,6 +6,7 @@ import code.stream.core.AbstractBinFact;
 import code.threads.FileStruct;
 import code.util.StringList;
 import code.util.core.StringUtil;
+import code.util.ints.*;
 
 public final class MockBinFact implements AbstractBinFact {
     private final MockAbsRand mockRand;
@@ -15,7 +16,23 @@ public final class MockBinFact implements AbstractBinFact {
         mockRand = _gen;
         fileSet = _mfs;
     }
-
+    public static String contentsOfFile(AbstractBinFact _bin,String _nomFichier, UniformingString _apply) {
+        BytesInfo bs_ = _bin.loadFile(_nomFichier);
+        String dec_ = dec(bs_);
+        if (dec_ == null) {
+            return null;
+        }
+        return _apply.apply(dec_);
+    }
+    public static boolean write(AbstractBinFact _bin,String _nomFichier, String _text, boolean _append) {
+        return _bin.writeFile(_nomFichier,StringUtil.encode(_text),_append);
+    }
+    private static String dec(BytesInfo _bs) {
+        if (_bs.isNul()) {
+            return null;
+        }
+        return StringUtil.decode(_bs.getBytes());
+    }
     @Override
     public BytesInfo loadFile(String _s) {
         return load(_s, fileSet);
@@ -32,7 +49,7 @@ public final class MockBinFact implements AbstractBinFact {
 
 
     @Override
-    public boolean writeFile(String _nomFichier, byte[] _text) {
+    public boolean writeFile(String _nomFichier, byte[] _text, boolean _append) {
         String abs_ = MockFile.absolute(fileSet, _nomFichier);
         String link_ = fileSet.linkedRoot(abs_);
         if (!fileSet.getValidating().okPath(abs_.substring(link_.length()),'/')) {
@@ -49,13 +66,13 @@ public final class MockBinFact implements AbstractBinFact {
             return false;
         }
         if (mockRand.edit()) {
-            fileSet.getFiles().put(abs_,new FileStruct(_text,fileSet.getMockMillis().millis()));
+            MockBinFactory.writeOrAppend(abs_,_text,_append,fileSet);
             return true;
         }
         return false;
     }
 
-    private boolean notDir(FileStruct _folder) {
+    private static boolean notDir(FileStruct _folder) {
         return _folder == null || _folder.getContent() != null;
     }
 

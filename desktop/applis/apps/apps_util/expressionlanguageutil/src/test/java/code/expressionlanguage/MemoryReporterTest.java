@@ -149,7 +149,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     public void init3() {
         MockProgramInfos pr_ = prs();
         MemoryReporter r_ = new MemoryReporter(pr_, StringUtil.encode("_"), new BytesInfo(new byte[0], true), new BytesInfo(new byte[0], true), new DefaultNameValidating(new StringList()), new DefaultUniformingString());
-        pr_.getStreams().getTextFact().write("file","content",false);
+        MockBinFact.write(pr_.getStreams().getBinFact(),"file","content",false);
         assertEq("_",r_.conf(""));
         MockZipFact zipFact_ = new MockZipFact();
         BytesInfo bs_ = new BytesInfo(zipFact_.zipBinFiles(MockZipFact.wrapText(wrap(new MockNameFile("__/", (byte[]) null, 5), new MockNameFile("_", "-", 6), new MockNameFile("0", wrapInts(-1), 7)))), false);
@@ -252,10 +252,10 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
         assertTrue(f_.getInterceptor().newMapStringStruct().isEmpty());
         f_.getProgramInfos().getZipFact();
         new TechInfos(pr_.getThreadFactory(),pr_.getStreams()).getThreadFactory().sleep(0);
-        new TechInfos(pr_.getThreadFactory(),pr_.getStreams()).getTechStreams().getTextFact().write("","",false);
+//        new TechInfos(pr_.getThreadFactory(),pr_.getStreams()).getTechStreams().getTextFact().write("","",false);
         new TechInfos(pr_.getThreadFactory(),pr_.getStreams()).getZipFact().zipBinFiles(new StringMap<ContentTime>());
-        new TechInfos(pr_.getThreadFactory(),pr_.getStreams()).getBinFact().writeFile("",new byte[0]);
-        new TechInfos(pr_.getThreadFactory(),pr_.getStreams()).getTextFact().write("","",false);
+        new TechInfos(pr_.getThreadFactory(),pr_.getStreams()).getBinFact().writeFile("",new byte[0], false);
+//        new TechInfos(pr_.getThreadFactory(),pr_.getStreams()).getTextFact().write("","",false);
         ExecutingOptions e_ = exOpt(pr_);
         e_.setListGenerator(f_);
         e_.setCovering(true);

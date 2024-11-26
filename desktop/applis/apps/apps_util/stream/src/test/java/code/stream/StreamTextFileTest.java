@@ -48,7 +48,8 @@ public final class StreamTextFileTest extends EquallableStreamUtil {
         pr_.getMockFileSet().getFiles().addEntry("/tmp",new FileStruct(null,0));
         assertTrue(StreamTextFile.saveTextFile("/tmp/hello.txt","hello_",pr_.getStreams()));
         assertTrue(StreamTextFile.logToFile("/tmp/hello.txt","_world",pr_.getStreams()));
-        assertEq("hello__world",StreamTextFile.contentsOfFile("/tmp/hello.txt", pr_.getFileCoreStream(), pr_.getStreams()));
+        assertEq("hello__world",StreamTextFile.contentsOfFile("/tmp/hello.txt", pr_.getStreams()));
+        assertNull(StreamTextFile.contentsOfFile("/", pr_.getStreams()));
     }
     @Test
     public void contenuDocumentXmlExterne1() {
@@ -57,14 +58,14 @@ public final class StreamTextFileTest extends EquallableStreamUtil {
         assertTrue(StreamTextFile.saveTextFile("/tmp/hello.txt","<hello>",pr_.getStreams()));
         assertTrue(StreamTextFile.logToFile("/tmp/hello.txt","content",pr_.getStreams()));
         assertTrue(StreamTextFile.logToFile("/tmp/hello.txt","</hello>",pr_.getStreams()));
-        assertEq("<hello>content</hello>",StreamTextFile.contenuDocumentXmlExterne("/tmp/hello.txt", pr_.getFileCoreStream(),pr_.getStreams()).export());
+        assertEq("<hello>content</hello>",StreamTextFile.contenuDocumentXmlExterne("/tmp/hello.txt", pr_.getStreams()).export());
     }
     @Test
     public void contenuDocumentXmlExterne2() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), fileSet(0, new long[0], "/"));
         pr_.getMockFileSet().getFiles().addEntry("/tmp",new FileStruct(null,0));
         assertTrue(StreamTextFile.saveTextFile("/tmp/hello.txt","",pr_.getStreams()));
-        assertNull(StreamTextFile.contenuDocumentXmlExterne("/tmp/hello.txt", pr_.getFileCoreStream(),pr_.getStreams()));
+        assertNull(StreamTextFile.contenuDocumentXmlExterne("/tmp/hello.txt", pr_.getStreams()));
     }
     @Test
     public void files1() {

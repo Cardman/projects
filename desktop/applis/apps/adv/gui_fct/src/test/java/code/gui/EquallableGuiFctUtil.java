@@ -135,9 +135,7 @@ public abstract class EquallableGuiFctUtil {
     public static void assertNull(AbstractZipFact _expected) {
         Assert.assertNull(_expected);
     }
-    public static void assertNull(AbstractTextFact _expected) {
-        Assert.assertNull(_expected);
-    }
+
     public static void assertEq(String _expected, String _result) {
         Assert.assertNotNull(_result);
         Assert.assertEquals(_expected, _result);

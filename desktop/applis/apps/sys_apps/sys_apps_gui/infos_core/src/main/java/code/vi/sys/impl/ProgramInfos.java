@@ -38,7 +38,6 @@ import code.stream.AbsClipStream;
 import code.stream.AbsSoundRecord;
 import code.stream.AbstractFileCoreStream;
 import code.stream.core.DefBinFact;
-import code.stream.core.DefTextFact;
 import code.stream.core.DefZipFact;
 import code.stream.core.TechStreams;
 import code.util.StringList;
@@ -84,7 +83,7 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         DefFrameFactory frameFactory_ = new DefFrameFactory();
         this.frameFactory = frameFactory_;
         this.lightFrameFactory = frameFactory_;
-        streams = new TechStreams(new DefBinFact(new DefBinFactory(new DefaultInputStreamBuilder())),new DefTextFact(new DefTextFactory()),getZipFact());
+        streams = new TechStreams(new DefBinFact(new DefBinFactory(new DefaultInputStreamBuilder())), getZipFact());
         socketFactory = new DefSocketFactory();
         UpdateStyle updateStyle_ = new UpdateStyleImpl();
         updateStyle_.update();

@@ -605,7 +605,7 @@ public class ScenePanelMulti {
     public void manageNetwork() {
 //        window.getLanguageKey();
         String fileName_ = StringUtil.concat(StreamFolderFile.getCurrentPath(window.getFileCoreStream()), MessagesPkGame.getAppliFilesTr(window.getFrames().getTranslations()).val().getMapping().getVal(MessagesPkGame.PORT_INI));
-        int port_ = NetCreate.tryToGetPort(fileName_, NetAiki.getPort(), window.getFileCoreStream(), window.getStreams());
+        int port_ = NetCreate.tryToGetPort(fileName_, NetAiki.getPort(), window.getStreams());
         DialogServerContent.setDialogServer(window, GameEnum.NONE,port_);
 //        DialogServerAiki.setDialogServer(window);
 //        String ip_ = DialogServerAiki.getIpOrHostName(window.getDialogServerAiki());

@@ -28,7 +28,7 @@ public final class DefConfPkStream implements IntConfPkStream{
         //String pathConfig_ = DataBase.EMPTY_STRING;
         if (!_args.isEmpty()) {
             gameSavePath_ = _args.first();
-            String file_ = StreamTextFile.contentsOfFile(gameSavePath_, programInfos.getFileCoreStream(), programInfos.getStreams());
+            String file_ = StreamTextFile.contentsOfFile(gameSavePath_, programInfos.getStreams());
             Game g_ = DocumentReaderAikiCoreUtil.getGame(file_,_sexListInt);
             loadedGameConf_.setGame(g_);
             if (g_ != null) {
@@ -43,7 +43,7 @@ public final class DefConfPkStream implements IntConfPkStream{
         }
         if (fileConfig_.isEmpty()) {
             if (!_args.isEmpty()) {
-                String file_ = StreamTextFile.contentsOfFile(_args.first(), programInfos.getFileCoreStream(), programInfos.getStreams());
+                String file_ = StreamTextFile.contentsOfFile(_args.first(), programInfos.getStreams());
                 LoadingGame loadingGame_ = DocumentReaderAikiCoreUtil.getLoadingGame(file_);
                 fileConfig_ = _args.first();
                 param_ = loadingGame_;
@@ -57,7 +57,7 @@ public final class DefConfPkStream implements IntConfPkStream{
                 fileConfig_ = StringUtil.concat(_tmpFolder, MessagesPkGame.getAppliFilesTr(programInfos.getTranslations()).val().getMapping().getVal(MessagesPkGame.LOAD_CONFIG_FILE));
             }
         } else {
-            String xmlString_ = StreamTextFile.contentsOfFile(StringUtil.concat(StreamFolderFile.getCurrentPath(programInfos.getFileCoreStream()),fileConfig_), programInfos.getFileCoreStream(), programInfos.getStreams());
+            String xmlString_ = StreamTextFile.contentsOfFile(StringUtil.concat(StreamFolderFile.getCurrentPath(programInfos.getFileCoreStream()),fileConfig_), programInfos.getStreams());
             param_ = DocumentReaderAikiCoreUtil.getLoadingGame(xmlString_);
             param_.setLastSavedGame(gameSavePath_);
             param_.setLastRom(zip_);
@@ -71,7 +71,7 @@ public final class DefConfPkStream implements IntConfPkStream{
 
     private LoadingGame defValue(String _fileConfig) {
         LoadingGame param_;
-        String xmlString_ = StreamTextFile.contentsOfFile(_fileConfig, programInfos.getFileCoreStream(), programInfos.getStreams());
+        String xmlString_ = StreamTextFile.contentsOfFile(_fileConfig, programInfos.getStreams());
         param_ = DocumentReaderAikiCoreUtil.getLoadingGame(xmlString_);
         AbstractNameValidating def_ = programInfos.getValidator();
         if (!def_.okPath(PathsUtil.getRelativeRootPath(param_.getLastSavedGame(), programInfos.getFileCoreStream()),'/','\\')) {

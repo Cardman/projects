@@ -5,7 +5,6 @@ import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
 import code.maths.montecarlo.AbstractGenerator;
 import code.stream.core.AbstractBinFact;
-import code.stream.core.AbstractTextFact;
 import code.stream.core.AbstractZipFact;
 import code.threads.AbstractThreadFactory;
 import code.threads.ThState;
@@ -40,9 +39,7 @@ public abstract class EquallableIntGuiUtil {
     public static void assertNull(AbstractZipFact _expected) {
         Assert.assertNull(_expected);
     }
-    public static void assertNull(AbstractTextFact _expected) {
-        Assert.assertNull(_expected);
-    }
+
     public static void assertEq(String _expected, String _result) {
         Assert.assertNotNull(_result);
         Assert.assertEquals(_expected, _result);

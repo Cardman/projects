@@ -21,13 +21,13 @@ public final class DefBinFactory implements AbstractBinFactory {
     }
 
     @Override
-    public int writeFile(String _file, byte[] _content) {
-        return write(_content, tryCreateFileOutputStream(_file));
+    public int writeFile(String _file, byte[] _content, boolean _append) {
+        return write(_content, tryCreateFileOutputStream(_file, _append));
     }
 
-    public static OutputStream tryCreateFileOutputStream(String _file) {
+    public static OutputStream tryCreateFileOutputStream(String _file, boolean _append) {
         try {
-            return new FileOutputStream(StringUtil.nullToEmpty(_file));
+            return new FileOutputStream(StringUtil.nullToEmpty(_file),_append);
         } catch (Exception e) {
             return null;
         }

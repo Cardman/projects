@@ -1,7 +1,6 @@
 package code.expressionlanguage.utilcompo;
 
 import code.stream.core.AbstractBinFact;
-import code.stream.core.AbstractTextFact;
 import code.stream.core.AbstractZipFact;
 import code.stream.core.TechStreams;
 import code.threads.AbstractThreadFactory;
@@ -20,18 +19,14 @@ public final class TechInfos {
     }
 
     public AbstractZipFact getZipFact() {
-        return techStreams.getZipFact();
+        return getTechStreams().getZipFact();
     }
 
     public AbstractThreadFactory getThreadFactory() {
         return threadFactory;
     }
 
-    public AbstractTextFact getTextFact() {
-        return techStreams.getTextFact();
-    }
-
     public AbstractBinFact getBinFact() {
-        return techStreams.getBinFact();
+        return getTechStreams().getBinFact();
     }
 }

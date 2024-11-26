@@ -1943,7 +1943,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         }
         */
         String fileName_ = StringUtil.concat(StreamFolderFile.getCurrentPath(getFileCoreStream()), MessagesCardGames.getAppliFilesTr(getFrames().getTranslations()).val().getMapping().getVal(MessagesCardGames.PORT_INI));
-        int port_ = NetCreate.tryToGetPort(fileName_, Net.getPort(),getFileCoreStream(),getStreams());
+        int port_ = NetCreate.tryToGetPort(fileName_, Net.getPort(), getStreams());
         DialogServerContent.setDialogServer(this,_jeuBouton,port_);
 //        ResultCardsServer result_ = getResultCardsServerInteract().interact(this, _jeuBouton);
 //        if (result_ == null) {

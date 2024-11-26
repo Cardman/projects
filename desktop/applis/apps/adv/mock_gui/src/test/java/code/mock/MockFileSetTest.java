@@ -229,8 +229,8 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
         MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2,7), "/");
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
-        assertTrue(pr_.getStreams().getTextFact().write("txt","content",false));
-        assertEq("content",pr_.getStreams().getTextFact().contentsOfFile("txt",new DefaultUniformingString(),7));
+        assertTrue(MockBinFact.write(pr_.getStreams().getBinFact(),"txt","content",false));
+        assertEq("content",MockBinFact.contentsOfFile(pr_.getStreams().getBinFact(),"txt",new DefaultUniformingString()));
         assertEq("/tmp/txt",pr_.getFileCoreStream().newFile("txt").getAbsolutePath());
         FileStruct val_ = pr_.getMockFileSet().getFiles().getVal("/tmp/txt");
         assertEq(15, val_.getLastDate());
@@ -241,25 +241,25 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
         MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2,7), new MockFalseRand(),"/");
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
-        assertFalse(pr_.getStreams().getTextFact().write("txt","content",false));
-        assertNull(pr_.getStreams().getTextFact().contentsOfFile("txt",new DefaultUniformingString(),7));
+        assertFalse(MockBinFact.write(pr_.getStreams().getBinFact(),"txt","content",false));
+        assertNull(MockBinFact.contentsOfFile(pr_.getStreams().getBinFact(),"txt",new DefaultUniformingString()));
     }
     @Test
     public void f37() {
         MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2,7), "/");
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
-        assertFalse(pr_.getStreams().getTextFact().write("/tmp","content",false));
-        assertNull(pr_.getStreams().getTextFact().contentsOfFile("/tmp",new DefaultUniformingString(),7));
+        assertFalse(MockBinFact.write(pr_.getStreams().getBinFact(),"/tmp","content",false));
+        assertNull(MockBinFact.contentsOfFile(pr_.getStreams().getBinFact(),"/tmp",new DefaultUniformingString()));
     }
     @Test
     public void f38() {
         MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2,7,4), "/");
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
-        assertTrue(pr_.getStreams().getTextFact().write("txt","content",false));
-        assertTrue(pr_.getStreams().getTextFact().write("txt","content2",false));
-        assertEq("content2",pr_.getStreams().getTextFact().contentsOfFile("txt",new DefaultUniformingString(),7));
+        assertTrue(MockBinFact.write(pr_.getStreams().getBinFact(),"txt","content",false));
+        assertTrue(MockBinFact.write(pr_.getStreams().getBinFact(),"txt","content2",false));
+        assertEq("content2",MockBinFact.contentsOfFile(pr_.getStreams().getBinFact(),"txt",new DefaultUniformingString()));
         assertEq("/tmp/txt",pr_.getFileCoreStream().newFile("txt").getAbsolutePath());
         FileStruct val_ = pr_.getMockFileSet().getFiles().getVal("/tmp/txt");
         assertEq(19, val_.getLastDate());
@@ -271,31 +271,31 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
         pr_.getFileCoreStream().newFile("txt").mkdirs();
-        assertFalse(pr_.getStreams().getTextFact().write("txt","content",false));
+        assertFalse(MockBinFact.write(pr_.getStreams().getBinFact(),"txt","content",false));
     }
     @Test
     public void f40() {
         MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2,7,4), "/");
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
-        assertTrue(pr_.getStreams().getTextFact().write("txt","content",false));
-        assertFalse(pr_.getStreams().getTextFact().write("/tmp/txt/after","content2",false));
+        assertTrue(MockBinFact.write(pr_.getStreams().getBinFact(),"txt","content",false));
+        assertFalse(MockBinFact.write(pr_.getStreams().getBinFact(),"/tmp/txt/after","content2",false));
     }
     @Test
     public void f41() {
         MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2,7,4), "/");
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
-        assertFalse(pr_.getStreams().getTextFact().write("%","content",false));
+        assertFalse(MockBinFact.write(pr_.getStreams().getBinFact(),"%","content",false));
     }
     @Test
     public void f42() {
         MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2,7,6), "/");
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
-        assertTrue(pr_.getStreams().getTextFact().write("txt","content",false));
-        assertTrue(pr_.getStreams().getTextFact().write("txt"," after",true));
-        assertEq("content after",pr_.getStreams().getTextFact().contentsOfFile("txt",new DefaultUniformingString(),7));
+        assertTrue(MockBinFact.write(pr_.getStreams().getBinFact(),"txt","content",false));
+        assertTrue(MockBinFact.write(pr_.getStreams().getBinFact(),"txt"," after",true));
+        assertEq("content after",MockBinFact.contentsOfFile(pr_.getStreams().getBinFact(),"txt",new DefaultUniformingString()));
         assertEq("/tmp/txt",pr_.getFileCoreStream().newFile("txt").getAbsolutePath());
         FileStruct val_ = pr_.getMockFileSet().getFiles().getVal("/tmp/txt");
         assertEq(21, val_.getLastDate());
@@ -306,9 +306,9 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
         MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2,7,6), "/");
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
-        assertTrue(pr_.getStreams().getTextFact().write("txt","content",true));
-        assertTrue(pr_.getStreams().getTextFact().write("txt"," after",true));
-        assertEq("content after",pr_.getStreams().getTextFact().contentsOfFile("txt",new DefaultUniformingString(),7));
+        assertTrue(MockBinFact.write(pr_.getStreams().getBinFact(),"txt","content",true));
+        assertTrue(MockBinFact.write(pr_.getStreams().getBinFact(),"txt"," after",true));
+        assertEq("content after",MockBinFact.contentsOfFile(pr_.getStreams().getBinFact(),"txt",new DefaultUniformingString()));
         assertEq("/tmp/txt",pr_.getFileCoreStream().newFile("txt").getAbsolutePath());
         FileStruct val_ = pr_.getMockFileSet().getFiles().getVal("/tmp/txt");
         assertEq(21, val_.getLastDate());
@@ -319,7 +319,7 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
         MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2,7,6), "/");
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
-        pr_.getStreams().getTextFact().write("txt","content",true);
+        MockBinFact.write(pr_.getStreams().getBinFact(),"txt","content",true);
         assertFalse(pr_.getFileCoreStream().newFile("/tmp").delete());
     }
     @Test
@@ -328,7 +328,7 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.getFileCoreStream().newFile("tm").mkdirs();
         pr_.setCurrentPath("/tmp");
-        pr_.getStreams().getTextFact().write("txt","content",true);
+        MockBinFact.write(pr_.getStreams().getBinFact(),"txt","content",true);
         assertTrue(pr_.getFileCoreStream().newFile("/tm").delete());
         assertFalse(pr_.getFileCoreStream().newFile("/tm").delete());
     }
@@ -337,9 +337,9 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
         MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2,7,6), "/");
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
-        pr_.getStreams().getTextFact().write("txt","content",true);
+        MockBinFact.write(pr_.getStreams().getBinFact(),"txt","content",true);
         assertTrue(pr_.getFileCoreStream().newFile("txt").renameTo(pr_.getFileCoreStream().newFile("txt2")));
-        assertEq("content",pr_.getStreams().getTextFact().contentsOfFile("/tmp/txt2",new DefaultUniformingString(),7));
+        assertEq("content",MockBinFact.contentsOfFile(pr_.getStreams().getBinFact(),"/tmp/txt2",new DefaultUniformingString()));
         assertFalse(pr_.getFileCoreStream().newFile("txt").exists());
         assertTrue(pr_.getFileCoreStream().newFile("txt2").exists());
     }
@@ -348,9 +348,9 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
         MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2,7,6), "/");
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
-        pr_.getStreams().getTextFact().write("txt","content",true);
+        MockBinFact.write(pr_.getStreams().getBinFact(),"txt","content",true);
         assertFalse(pr_.getFileCoreStream().newFile("txt").renameTo(pr_.getFileCoreStream().newFile("%")));
-        assertEq("content",pr_.getStreams().getTextFact().contentsOfFile("/tmp/txt",new DefaultUniformingString(),7));
+        assertEq("content",MockBinFact.contentsOfFile(pr_.getStreams().getBinFact(),"/tmp/txt",new DefaultUniformingString()));
         assertTrue(pr_.getFileCoreStream().newFile("txt").exists());
     }
     @Test
@@ -358,9 +358,9 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
         MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2,7,6), "/");
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
-        pr_.getStreams().getTextFact().write("txt","content",true);
+        MockBinFact.write(pr_.getStreams().getBinFact(),"txt","content",true);
         assertFalse(pr_.getFileCoreStream().newFile("txt").renameTo(pr_.getFileCoreStream().newFile("txt")));
-        assertEq("content",pr_.getStreams().getTextFact().contentsOfFile("/tmp/txt",new DefaultUniformingString(),7));
+        assertEq("content",MockBinFact.contentsOfFile(pr_.getStreams().getBinFact(),"/tmp/txt",new DefaultUniformingString()));
         assertTrue(pr_.getFileCoreStream().newFile("txt").exists());
     }
     @Test
@@ -368,7 +368,7 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
         MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2,7,6), "/");
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
-        pr_.getStreams().getTextFact().write("txt","content",true);
+        MockBinFact.write(pr_.getStreams().getBinFact(),"txt","content",true);
         assertFalse(pr_.getFileCoreStream().newFile("txt2").renameTo(pr_.getFileCoreStream().newFile("txt3")));
     }
     @Test
@@ -376,7 +376,7 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
         MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2,7,6), "/");
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
-        pr_.getStreams().getTextFact().write("txt","content",true);
+        MockBinFact.write(pr_.getStreams().getBinFact(),"txt","content",true);
         assertEq("txt",pr_.getFileCoreStream().newFile("/tmp/txt").getName());
         assertEq("/tmp",pr_.getFileCoreStream().newFile("/tmp/txt").getParent());
         assertEq(7,pr_.getFileCoreStream().newFile("/tmp/txt").length());
@@ -394,12 +394,12 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
         pr_.getFileCoreStream().newFile("tmp2").mkdirs();
         pr_.getFileCoreStream().newFile("tmp/sub").mkdirs();
         pr_.getFileCoreStream().newFile("tmp2/sub").mkdirs();
-        pr_.getStreams().getTextFact().write("/tmp/txt","content",true);
-        pr_.getStreams().getTextFact().write("/tmp2/txt2","content",true);
-        pr_.getStreams().getTextFact().write("/tmp/sub/txt3","content",true);
-        pr_.getStreams().getTextFact().write("/tmp2/sub/txt4","content",true);
-        pr_.getStreams().getTextFact().write("/txt5","content",true);
-        pr_.getStreams().getTextFact().write("/txt6","content",true);
+        MockBinFact.write(pr_.getStreams().getBinFact(),"/tmp/txt","content",true);
+        MockBinFact.write(pr_.getStreams().getBinFact(),"/tmp2/txt2","content",true);
+        MockBinFact.write(pr_.getStreams().getBinFact(),"/tmp/sub/txt3","content",true);
+        MockBinFact.write(pr_.getStreams().getBinFact(),"/tmp2/sub/txt4","content",true);
+        MockBinFact.write(pr_.getStreams().getBinFact(),"/txt5","content",true);
+        MockBinFact.write(pr_.getStreams().getBinFact(),"/txt6","content",true);
         String[] l1_ = pr_.getFileCoreStream().newFile("/").list();
         assertEq(4, l1_.length);
         assertEq("tmp", l1_[0]);
@@ -421,8 +421,8 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
         MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2,7,6), "c:/","d:/");
         pr_.getFileCoreStream().newFile("c:/tmp").mkdirs();
         pr_.getFileCoreStream().newFile("d:/tmp2").mkdirs();
-        pr_.getStreams().getTextFact().write("c:/txt5","content",true);
-        pr_.getStreams().getTextFact().write("d:/txt6","content",true);
+        MockBinFact.write(pr_.getStreams().getBinFact(),"c:/txt5","content",true);
+        MockBinFact.write(pr_.getStreams().getBinFact(),"d:/txt6","content",true);
         String[] l1_ = pr_.getFileCoreStream().newFile("c:/").list();
         assertEq(2, l1_.length);
         assertEq("tmp", l1_[0]);
@@ -437,8 +437,8 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
         MockProgramInfosSample pr_ = new MockProgramInfosSample(5,wrapLongs(1,2,7,6), "/");
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
-        pr_.getStreams().getBinFact().writeFile("txt", SortConstants.wrapByteArray((byte)-17,(byte)-65));
-        assertNull(pr_.getStreams().getTextFact().contentsOfFile("/tmp/txt",new DefaultUniformingString(),7));
+        pr_.getStreams().getBinFact().writeFile("txt", SortConstants.wrapByteArray((byte)-17,(byte)-65), false);
+        assertNull(MockBinFact.contentsOfFile(pr_.getStreams().getBinFact(),"/tmp/txt",new DefaultUniformingString()));
         assertTrue(pr_.getFileCoreStream().newFile("txt").exists());
     }
     @Test

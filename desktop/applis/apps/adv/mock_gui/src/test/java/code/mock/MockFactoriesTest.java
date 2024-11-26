@@ -4,10 +4,8 @@ import code.gui.images.AbstractImage;
 import code.gui.initialize.AbsFrameFactory;
 import code.stream.AbstractListRoot;
 import code.stream.core.AbstractBinStreamIn;
-import code.stream.core.AbstractTextStreamIn;
 import code.threads.AbstractDateFactory;
 import code.threads.FileStruct;
-import code.util.StringMap;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -100,25 +98,8 @@ public final class MockFactoriesTest extends EquallableMockGuiUtil {
     @Test
     public void t2() {
         MockFileSet set_ = fileSet(0,new long[0],"/");
-        new MockBinFactory(set_, new MockTrueRand()).writeFile("abc", StringUtil.encode("abc"));
+        new MockBinFactory(set_, new MockTrueRand()).writeFile("abc", StringUtil.encode("abc"), false);
         assertEq("abc",StringUtil.decode(set_.getFiles().getVal("abc").getContent()));
-    }
-    @Test
-    public void t3() {
-        StringMap<String> f = new StringMap<String>();
-        f.put("abc","abc");
-        AbstractTextStreamIn build_ = new MockTextFactory(f, new MockTrueRand()).buildIn("abc");
-        StringBuilder res_ = new StringBuilder();
-        res_.append((char)build_.read());
-        res_.append((char)build_.read());
-        res_.append((char)build_.read());
-        assertEq("abc",res_.toString());
-    }
-    @Test
-    public void t4() {
-        StringMap<String> f = new StringMap<String>();
-        new MockTextFactory(f, new MockTrueRand()).write("abc","abc",false);
-        assertEq("abc",f.getVal("abc"));
     }
     @Test
     public void t5() {

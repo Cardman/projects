@@ -2,7 +2,6 @@ package code.stream;
 
 import code.gui.EquallableGuiFctUtil;
 import code.gui.events.MockProgramInfosSecSample;
-import code.maths.montecarlo.CustomSeedGene;
 import code.threads.FileStruct;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -13,7 +12,7 @@ public final class PathsUtilTest extends EquallableGuiFctUtil {
     @Test
     public void abs1() {
         MockProgramInfosSecSample pr_ = init();
-        pr_.getStreams().getBinFact().writeFile("/sample.txt", StringUtil.encode("hello"));
+        pr_.getStreams().getBinFact().writeFile("/sample.txt", StringUtil.encode("hello"), false);
         assertTrue(PathsUtil.abs(pr_.getFileCoreStream().newFile("/sample.txt"), pr_.getFileCoreStream()).isNul());
     }
 
@@ -21,7 +20,7 @@ public final class PathsUtilTest extends EquallableGuiFctUtil {
     public void abs2() {
         MockProgramInfosSecSample pr_ = init();
         pr_.getMockFileSet().getFiles().addEntry("/tmp",new FileStruct(null,0));
-        pr_.getStreams().getBinFact().writeFile("/tmp/sample.txt", new byte[0]);
+        pr_.getStreams().getBinFact().writeFile("/tmp/sample.txt", new byte[0], false);
         FileListInfo res_ = PathsUtil.abs(pr_.getFileCoreStream().newFile("/tmp"), pr_.getFileCoreStream());
         assertFalse(res_.isNul());
         assertEq(1,res_.getNames().length);

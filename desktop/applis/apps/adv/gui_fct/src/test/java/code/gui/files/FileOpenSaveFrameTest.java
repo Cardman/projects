@@ -16,7 +16,7 @@ public final class FileOpenSaveFrameTest extends EquallableGuiFctUtil {
         update(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
-        pr_.getStreams().getTextFact().write("txt","inner",false);
+        MockBinFact.write(pr_.getStreams().getBinFact(),"txt","inner",false);
         FileSaveFrame saver_ = new FileSaveFrame(pr_,new ConcreteBoolean());
         FileSaveFrame.setFileSaveDialogByFrame( true, "/tmp",saver_,new DefButtonsSavePanelAct(new SaveFileSample(),new ContinueFileSample()));
         assertTrue(saver_.getFrame().isVisible());
@@ -29,7 +29,7 @@ public final class FileOpenSaveFrameTest extends EquallableGuiFctUtil {
         updateFileOpenSave(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
-        pr_.getStreams().getTextFact().write("txt","inner",false);
+        MockBinFact.write(pr_.getStreams().getBinFact(),"txt","inner",false);
         FileSaveFrame saver_ = new FileSaveFrame(pr_,new ConcreteBoolean());
         FileSaveFrame.setFileSaveDialogByFrame( true, "/tmp",saver_,new DefButtonsSavePanelAct(new SaveFileSample(),new ContinueFileSample()));
         assertTrue(saver_.getFrame().isVisible());
@@ -43,7 +43,7 @@ public final class FileOpenSaveFrameTest extends EquallableGuiFctUtil {
         updateFileOpenSave(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
-        pr_.getStreams().getTextFact().write("txt","inner",false);
+        MockBinFact.write(pr_.getStreams().getBinFact(),"txt","inner",false);
         FileSaveFrame saver_ = new FileSaveFrame(pr_,new ConcreteBoolean());
         FileSaveFrame.setFileSaveDialogByFrame( true, "/tmp",saver_,new DefButtonsSavePanelAct(new SaveFileSample(),new ContinueFileSample()));
         assertTrue(saver_.getFrame().isVisible());
@@ -58,7 +58,7 @@ public final class FileOpenSaveFrameTest extends EquallableGuiFctUtil {
         updateFileOpenSave(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
-        pr_.getStreams().getTextFact().write("txt","inner",false);
+        MockBinFact.write(pr_.getStreams().getBinFact(),"txt","inner",false);
         FileSaveFrame saver_ = new FileSaveFrame(pr_,new ConcreteBoolean());
         FileSaveFrame.setFileSaveDialogByFrame( true, "/tmp",saver_,new DefButtonsSavePanelAct(new SaveFileSample(),new ContinueFileSample()));
         assertTrue(saver_.getFrame().isVisible());
@@ -73,7 +73,7 @@ public final class FileOpenSaveFrameTest extends EquallableGuiFctUtil {
         updateFileOpenSave(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
-        pr_.getStreams().getTextFact().write("txt","inner",false);
+        MockBinFact.write(pr_.getStreams().getBinFact(),"txt","inner",false);
         FileSaveFrame saver_ = new FileSaveFrame(pr_,new ConcreteBoolean());
         FileSaveFrame.setFileSaveDialogByFrame( true, "/tmp",saver_,new DefButtonsSavePanelAct(new SaveFileSample(),new ContinueFileSample()));
         assertTrue(saver_.getFrame().isVisible());
@@ -88,7 +88,7 @@ public final class FileOpenSaveFrameTest extends EquallableGuiFctUtil {
         updateFileOpenSave(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
-        pr_.getStreams().getTextFact().write("txt","inner",false);
+        MockBinFact.write(pr_.getStreams().getBinFact(),"txt","inner",false);
         FileSaveFrame saver_ = new FileSaveFrame(pr_,new ConcreteBoolean());
         FileSaveFrame.setFileSaveDialogByFrame(true, "/tmp",saver_,new DefButtonsSavePanelAct(new SaveFileSample(),new ContinueFileSample()));
         assertTrue(saver_.getFrame().isVisible());
@@ -103,7 +103,7 @@ public final class FileOpenSaveFrameTest extends EquallableGuiFctUtil {
         updateFileOpenSave(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
-        pr_.getStreams().getTextFact().write("txt","inner",false);
+        MockBinFact.write(pr_.getStreams().getBinFact(),"txt","inner",false);
         FileOpenSaveFrame saver_ = saver(pr_);
         FileOpenSaveFrame.setFileSaveDialogByFrame(true, "/tmp",saver_,new SaveFileSample(),new ContinueFileSample());
         assertTrue(saver_.getFrame().isVisible());
@@ -117,7 +117,7 @@ public final class FileOpenSaveFrameTest extends EquallableGuiFctUtil {
         updateFileOpenSave(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
-        pr_.getStreams().getTextFact().write("txt","inner",false);
+        MockBinFact.write(pr_.getStreams().getBinFact(),"txt","inner",false);
         FileOpenSaveFrame saver_ = saver(pr_);
         FileOpenSaveFrame.setFileSaveDialogByFrame(true, "/tmp",saver_,new SaveFileSample(),new ContinueFileSample());
         assertTrue(saver_.getFrame().isVisible());
@@ -130,7 +130,7 @@ public final class FileOpenSaveFrameTest extends EquallableGuiFctUtil {
         updateFileOpenSave(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
-        pr_.getStreams().getTextFact().write("txt","inner",false);
+        MockBinFact.write(pr_.getStreams().getBinFact(),"txt","inner",false);
         FileOpenSaveFrame saver_ = saver(pr_);
         FileOpenSaveFrame.setFileSaveDialogByFrame(true, "/tmp",saver_,new SaveFileSample(),new ContinueFileSample());
         assertTrue(saver_.getFrame().isVisible());
@@ -147,7 +147,7 @@ public final class FileOpenSaveFrameTest extends EquallableGuiFctUtil {
         updateFileOpenSave(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
-        pr_.getStreams().getTextFact().write("txt2","inner",false);
+        MockBinFact.write(pr_.getStreams().getBinFact(),"txt2","inner",false);
         FileOpenSaveFrame saver_ = saver(pr_);
         FileOpenSaveFrame.setFileSaveDialogByFrame(true, "/tmp",saver_,new SaveFileSample(),new ContinueFileSample());
         assertTrue(saver_.getFrame().isVisible());
@@ -165,7 +165,7 @@ public final class FileOpenSaveFrameTest extends EquallableGuiFctUtil {
         updateFileOpenSave(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
-        pr_.getStreams().getTextFact().write("txt2","inner",false);
+        MockBinFact.write(pr_.getStreams().getBinFact(),"txt2","inner",false);
         FileOpenSaveFrame saver_ = saver(pr_);
         FileOpenSaveFrame.setFileSaveDialogByFrame(true, "/tmp",saver_,new SaveFileSample(),new ContinueFileSample());
         assertTrue(saver_.getFrame().isVisible());
@@ -181,7 +181,7 @@ public final class FileOpenSaveFrameTest extends EquallableGuiFctUtil {
         pr_.getTranslations().getMapping().getVal(StringUtil.FR).getMapping().getVal(MessagesGuiFct.GUI).getMapping().addEntry(MessagesGuiFct.CONFIRM,MessagesConfirmDialog.fr());
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
-        pr_.getStreams().getTextFact().write("txt","inner",false);
+        MockBinFact.write(pr_.getStreams().getBinFact(),"txt","inner",false);
         FileSaveFrame saver_ = saverFrame(pr_);
         FileSaveFrame.setFileSaveDialogByFrame(true, "/tmp",saver_,new AdvButtonsSavePanel(new SaveFileSample(),new ContinueFileSample()));
         assertTrue(saver_.getFrame().isVisible());
@@ -198,7 +198,7 @@ public final class FileOpenSaveFrameTest extends EquallableGuiFctUtil {
         pr_.getTranslations().getMapping().getVal(StringUtil.FR).getMapping().getVal(MessagesGuiFct.GUI).getMapping().addEntry(MessagesGuiFct.CONFIRM,MessagesConfirmDialog.fr());
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
-        pr_.getStreams().getTextFact().write("txt","inner",false);
+        MockBinFact.write(pr_.getStreams().getBinFact(),"txt","inner",false);
         FileSaveFrame saver_ = saverFrame(pr_);
         FileSaveFrame.setFileSaveDialogByFrame(true, "/tmp",saver_,new AdvButtonsSavePanel(new SaveFileSample(),new ContinueFileSample()));
         assertTrue(saver_.getFrame().isVisible());
@@ -215,7 +215,7 @@ public final class FileOpenSaveFrameTest extends EquallableGuiFctUtil {
         pr_.getTranslations().getMapping().getVal(StringUtil.FR).getMapping().getVal(MessagesGuiFct.GUI).getMapping().addEntry(MessagesGuiFct.CONFIRM,MessagesConfirmDialog.fr());
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
-        pr_.getStreams().getTextFact().write("txt","inner",false);
+        MockBinFact.write(pr_.getStreams().getBinFact(),"txt","inner",false);
         FileSaveFrame saver_ = saverFrame(pr_);
         FileSaveFrame.setFileSaveDialogByFrame(true, "/tmp",saver_,new DefButtonsSavePanelAct(new SaveFileSample(),new ContinueFileSample()));
         assertTrue(saver_.getFrame().isVisible());
@@ -232,7 +232,7 @@ public final class FileOpenSaveFrameTest extends EquallableGuiFctUtil {
         pr_.getTranslations().getMapping().getVal(StringUtil.FR).getMapping().getVal(MessagesGuiFct.GUI).getMapping().addEntry(MessagesGuiFct.CONFIRM,MessagesConfirmDialog.fr());
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
-        pr_.getStreams().getTextFact().write("txt","inner",false);
+        MockBinFact.write(pr_.getStreams().getBinFact(),"txt","inner",false);
         FileSaveFrame saver_ = saverFrame(pr_);
         FileSaveFrame.setFileSaveDialogByFrame(true, "/tmp",saver_,new DefButtonsSavePanelAct(new SaveFileSample(),new ContinueFileSample()));
         assertTrue(saver_.getFrame().isVisible());
@@ -261,7 +261,7 @@ public final class FileOpenSaveFrameTest extends EquallableGuiFctUtil {
         updateFileSave(pr_);
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.setCurrentPath("/tmp");
-        pr_.getStreams().getTextFact().write("txt","inner",false);
+        MockBinFact.write(pr_.getStreams().getBinFact(),"txt","inner",false);
         FileSaveFrame saver_ = new FileSaveFrame(pr_,new ConcreteBoolean());
         FileSaveFrame.setFileSaveDialogByFrame(true, "/home",saver_, new DefButtonsSavePanelAct(new SaveFileSample(),new ContinueFileSample()));
         assertTrue(saver_.getFrame().isVisible());
@@ -361,7 +361,7 @@ public final class FileOpenSaveFrameTest extends EquallableGuiFctUtil {
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.getFileCoreStream().newFile("home").mkdirs();
         pr_.setCurrentPath("/home");
-        pr_.getStreams().getTextFact().write("txt","inner",false);
+        MockBinFact.write(pr_.getStreams().getBinFact(),"txt","inner",false);
         FileSaveFrame saver_ = new FileSaveFrame(pr_,new ConcreteBoolean());
         FileSaveFrame.setFileSaveDialogByFrame(true, "/home",saver_, new DefButtonsSavePanelAct(new SaveFileSample(),new ContinueFileSample()));
         assertTrue(saver_.getFrame().isVisible());
@@ -382,7 +382,7 @@ public final class FileOpenSaveFrameTest extends EquallableGuiFctUtil {
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.getFileCoreStream().newFile("home").mkdirs();
         pr_.setCurrentPath("/home");
-        pr_.getStreams().getTextFact().write("txt","inner",false);
+        MockBinFact.write(pr_.getStreams().getBinFact(),"txt","inner",false);
         FileSaveFrame saver_ = new FileSaveFrame(pr_,new ConcreteBoolean());
         FileSaveFrame.setFileSaveDialogByFrame(true, "/home",saver_, new DefButtonsSavePanelAct(new SaveFileSample(),new ContinueFileSample()));
         assertTrue(((MockCustComponent)saver_.getFileDialogContent().getFileTable()).isDeepAccessible());
@@ -397,7 +397,7 @@ public final class FileOpenSaveFrameTest extends EquallableGuiFctUtil {
         pr_.getFileCoreStream().newFile("tmp").mkdirs();
         pr_.getFileCoreStream().newFile("home").mkdirs();
         pr_.setCurrentPath("/home");
-        pr_.getStreams().getTextFact().write("txt","inner",false);
+        MockBinFact.write(pr_.getStreams().getBinFact(),"txt","inner",false);
         FileSaveFrame saver_ = new FileSaveFrame(pr_,new ConcreteBoolean());
         FileSaveFrame.setFileSaveDialogByFrame(true, "/home",saver_, new DefButtonsSavePanelAct(new SaveFileSample(),new ContinueFileSample()));
         assertTrue(((MockCustComponent)saver_.getFileDialogContent().getFileTable()).isDeepAccessible());

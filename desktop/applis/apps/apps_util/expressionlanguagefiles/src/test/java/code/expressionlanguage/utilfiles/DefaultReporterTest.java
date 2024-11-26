@@ -193,14 +193,14 @@ public final class DefaultReporterTest extends EquallableElUtFilesUtil {
         e_.setOutput("/");
         r_.errorFile(e_,"err","0");
         r_.coverFile(e_,"cov","1");
-        assertEq("0",StreamTextFile.contentsOfFile(e_.getOutput()+e_.getErrorsFolder()+"err", pr_.getFileCoreStream(), pr_.getStreams()));
-        assertEq("1",StreamTextFile.contentsOfFile(e_.getOutput()+e_.getCoverFolder()+"cov", pr_.getFileCoreStream(), pr_.getStreams()));
+        assertEq("0",StreamTextFile.contentsOfFile(e_.getOutput()+e_.getErrorsFolder()+"err", pr_.getStreams()));
+        assertEq("1",StreamTextFile.contentsOfFile(e_.getOutput()+e_.getCoverFolder()+"cov", pr_.getStreams()));
         assertTrue(r_.exportErrs(e_,null).isNul());
         assertTrue(r_.export(e_,null,null).isNul());
         log_.logErr("/other","log1","2");
         log_.log("/other","log2","3",null);
-        assertEq("2",StreamTextFile.contentsOfFile("/other/log1", pr_.getFileCoreStream(), pr_.getStreams()));
-        assertEq("3",StreamTextFile.contentsOfFile("/other/log2", pr_.getFileCoreStream(), pr_.getStreams()));
+        assertEq("2",StreamTextFile.contentsOfFile("/other/log1", pr_.getStreams()));
+        assertEq("3",StreamTextFile.contentsOfFile("/other/log2", pr_.getStreams()));
     }
 
     private DefaultReporter reporter1(MockProgramInfos _pr) {

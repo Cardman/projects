@@ -49,9 +49,9 @@ public final class FileDialog {
         return new IntPoint(width_, height_);
     }
 
-    public static TopLeftFrame loadCoords(String _folder, String _file, AbstractFileCoreStream _fact, TechStreams _tech) {
+    public static TopLeftFrame loadCoords(String _folder, String _file, TechStreams _tech) {
 //        return (TopLeftFrame) StreamTextFile.deserialiser(getFolderJarPath()+_file);
-        return DocumentReaderGuiUtil.getTopLeftFrame(StreamTextFile.contentsOfFile(StringUtil.concat(_folder,StreamTextFile.SEPARATEUR,_file),_fact,_tech));
+        return DocumentReaderGuiUtil.getTopLeftFrame(StreamTextFile.contentsOfFile(StringUtil.concat(_folder,StreamTextFile.SEPARATEUR,_file), _tech));
     }
 
     public static void saveCoords(String _folder, String _file, int _x, int _y, TechStreams _str) {
@@ -65,12 +65,12 @@ public final class FileDialog {
     /**@throws LangueException*/
     public static String loadLanguage(String _dir, AbstractFileCoreStream _fact, TechStreams _tech, StringList _lgs) {
 //        Node noeud_ = StreamTextFile.contenuDocumentXmlExterne(getFolderJarPath()+LANGUAGE);
-        String language_ = StreamLanguageUtil.tryToGetXmlLanguage(_dir,_fact,_tech, _lgs);
+        String language_ = StreamLanguageUtil.tryToGetXmlLanguage(_dir, _tech, _lgs);
         if (!language_.isEmpty()) {
             return language_;
         }
 //        String content_ = StreamTextFile.contentsOfFile(ConstFiles.getFolderJarPath()+LANGUAGE_TXT);
-        String content_ = StringUtil.nullToEmpty(StreamTextFile.contentsOfFile(StringUtil.concat(StreamFolderFile.getCurrentPath(_fact),LANGUAGE_TXT),_fact,_tech)).trim();
+        String content_ = StringUtil.nullToEmpty(StreamTextFile.contentsOfFile(StringUtil.concat(StreamFolderFile.getCurrentPath(_fact),LANGUAGE_TXT), _tech)).trim();
         return checkLgs(_lgs, content_);
     }
 

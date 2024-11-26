@@ -46,7 +46,7 @@ public final class StreamFolderFile {
                 if (_fact.newFile(f).isDirectory()) {
                     continue;
                 }
-                String contentOfFile_ = StreamTextFile.contentsOfFile(f, _app,_fact,_zip);
+                String contentOfFile_ = StreamTextFile.contentsOfFile(f, _app, _zip);
                 if (contentOfFile_ != null) {
                     zipFiles_.addEntry(f.substring(abs_.length() + 1), contentOfFile_);
                 }

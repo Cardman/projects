@@ -15,7 +15,7 @@ public final class DefNicknamesCrud extends AbsNicknamesCrudImpl {
     @Override
     public Nicknames value() {
         StringMap<String> mess_ = MessagesCardGames.getAppliTr(getProgramInfos().currentLg()).getMapping().getVal(MessagesCardGames.NICK_NAMES).getMapping();
-        return DocumentReaderCardsUnionUtil.getNicknames(mess_.getVal(MessagesCardGames.USER),mess_.getVal(MessagesCardGames.NICKNAME),StreamTextFile.contentsOfFile(StringUtil.concat(getTempFolder(), MessagesCardGames.getAppliFilesTr(getProgramInfos().getTranslations()).val().getMapping().getVal(MessagesCardGames.PLAYERS)), getProgramInfos().getFileCoreStream(), getProgramInfos().getStreams()));
+        return DocumentReaderCardsUnionUtil.getNicknames(mess_.getVal(MessagesCardGames.USER),mess_.getVal(MessagesCardGames.NICKNAME),StreamTextFile.contentsOfFile(StringUtil.concat(getTempFolder(), MessagesCardGames.getAppliFilesTr(getProgramInfos().getTranslations()).val().getMapping().getVal(MessagesCardGames.PLAYERS)), getProgramInfos().getStreams()));
     }
 
     @Override

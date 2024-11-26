@@ -88,21 +88,31 @@ public final class StreamTextFile {
         return files_;
     }
 
-    public static String contentsOfFile(String _nomFichier,AbstractFileCoreStream _fact, TechStreams _tech) {
-        return contentsOfFile(_nomFichier,new DefaultUniformingString(),_fact,_tech);
+    public static String contentsOfFile(String _nomFichier, TechStreams _tech) {
+        return contentsOfFile(_nomFichier,new DefaultUniformingString(), _tech);
     }
 
-    public static String contentsOfFile(String _nomFichier, UniformingString _apply,AbstractFileCoreStream _fact, TechStreams _tech) {
-        return readFile(_nomFichier,_apply,_fact,_tech);
+    public static String contentsOfFile(String _nomFichier, UniformingString _apply, TechStreams _tech) {
+        return readFile(_nomFichier,_apply, _tech);
     }
 
-    private static String readFile(String _filePath, UniformingString _apply, AbstractFileCoreStream _fact, TechStreams _tech) {
-        AbstractFile file_ = _fact.newFile(_filePath);
-        return _tech.getTextFact().contentsOfFile(_filePath,_apply, file_.length());
+    private static String readFile(String _filePath, UniformingString _apply, TechStreams _tech) {
+        BytesInfo bs_ = _tech.getBinFact().loadFile(_filePath);
+        String dec_ = dec(bs_);
+        if (dec_ == null) {
+            return null;
+        }
+        return _apply.apply(dec_);
+    }
+    private static String dec(BytesInfo _bs) {
+        if (_bs.isNul()) {
+            return null;
+        }
+        return StringUtil.decode(_bs.getBytes());
     }
 
-    public static Element contenuDocumentXmlExterne(String _nomFichier,AbstractFileCoreStream _fact, TechStreams _tech) {
-        Document doc_ = DocumentBuilder.parseSax(contentsOfFile(_nomFichier,_fact,_tech));
+    public static Element contenuDocumentXmlExterne(String _nomFichier, TechStreams _tech) {
+        Document doc_ = DocumentBuilder.parseSax(contentsOfFile(_nomFichier, _tech));
         if (doc_ == null) {
             return null;
         }
@@ -118,7 +128,7 @@ public final class StreamTextFile {
     }
 
     private static boolean write(String _nomFichier, String _text, boolean _append, TechStreams _tech) {
-        return _tech.getTextFact().write(_nomFichier, _text, _append);
+        return _tech.getBinFact().writeFile(_nomFichier, StringUtil.encode(_text), _append);
     }
 
 }

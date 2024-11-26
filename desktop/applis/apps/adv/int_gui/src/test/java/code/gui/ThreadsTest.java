@@ -64,9 +64,9 @@ public class ThreadsTest extends EquallableIntGuiUtil {
     }
     @Test
     public void ls3() {
-        TechStreams t_ = new TechStreams(null,null,null);
+        TechStreams t_ = new TechStreams(null, null);
         assertNull(t_.getBinFact());
-        assertNull(t_.getTextFact());
+//        assertNull(t_.getTextFact());
         assertNull(t_.getZipFact());
     }
     @Test

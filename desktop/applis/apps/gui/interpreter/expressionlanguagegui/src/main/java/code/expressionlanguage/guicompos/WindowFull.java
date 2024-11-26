@@ -131,7 +131,7 @@ public final class WindowFull extends GroupFrame implements AbsOpenQuit{
         if (light != null) {
             return;
         }
-        String content_ = StringUtil.nullToEmpty(StreamTextFile.contentsOfFile(_fichier,getFileCoreStream(),getStreams()));
+        String content_ = StringUtil.nullToEmpty(StreamTextFile.contentsOfFile(_fichier, getStreams()));
 //        if (content_ == null) {
 //            return;
 //        }

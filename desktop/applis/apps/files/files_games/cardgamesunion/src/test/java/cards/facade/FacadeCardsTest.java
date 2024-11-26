@@ -237,7 +237,7 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
         f_.getReglesPresident().getCommon().setMixedCards(MixCardsChoice.ONCE_ONLY);
         f_.getReglesTarot().getCommon().setMixedCards(MixCardsChoice.ONCE_ONLY);
         f_.changerNombreDePartiesEnQuittant("_/",pr_);
-        assertEq("8_0\n5_5_5_5_5_5_5_5_5_5_5_5_5_5_5_5_5_5_5\n7",StreamTextFile.contentsOfFile(fileName_,pr_.getFileCoreStream(),pr_.getStreams()));
+        assertEq("8_0\n5_5_5_5_5_5_5_5_5_5_5_5_5_5_5_5_5_5_5\n7",StreamTextFile.contentsOfFile(fileName_, pr_.getStreams()));
     }
     @Test
     public void changerNombreDePartiesEnQuittant2() {
@@ -252,7 +252,7 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
         f_.changerNombreDePartiesEnQuittant("_/",pr_);
         assertEq("0_0\n" +
                 "0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0\n" +
-                "0",StreamTextFile.contentsOfFile(fileName_,pr_.getFileCoreStream(),pr_.getStreams()));
+                "0",StreamTextFile.contentsOfFile(fileName_, pr_.getStreams()));
     }
     @Test
     public void changerNombreDeParties1() {
@@ -263,7 +263,7 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
         FacadeCards.changerNombreDeParties(GameEnum.BELOTE,8,"_/",pr_,1);
         assertEq("9_0\n" +
                 "5_5_5_5_5_5_5_5_5_5_5_5_5_5_5_5_5_5_5\n" +
-                "7",StreamTextFile.contentsOfFile(fileName_,pr_.getFileCoreStream(),pr_.getStreams()));
+                "7",StreamTextFile.contentsOfFile(fileName_, pr_.getStreams()));
     }
     @Test
     public void changerNombreDeParties2() {
@@ -274,7 +274,7 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
         FacadeCards.changerNombreDeParties(GameEnum.TAROT,9,"_/",pr_,0);
         assertEq("8_0\n" +
                 "5_5_5_5_5_5_5_5_5_5_5_5_5_5_5_5_5_5_5\n" +
-                "10",StreamTextFile.contentsOfFile(fileName_,pr_.getFileCoreStream(),pr_.getStreams()));
+                "10",StreamTextFile.contentsOfFile(fileName_, pr_.getStreams()));
     }
     @Test
     public void changerNombreDeParties3() {
@@ -285,7 +285,7 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
         FacadeCards.changerNombreDeParties(GameEnum.PRESIDENT,5,"_/",pr_,4);
         assertEq("8_0\n" +
                 "5_5_5_6_5_5_5_5_5_5_5_5_5_5_5_5_5_5_5\n" +
-                "9",StreamTextFile.contentsOfFile(fileName_,pr_.getFileCoreStream(),pr_.getStreams()));
+                "9",StreamTextFile.contentsOfFile(fileName_, pr_.getStreams()));
     }
     @Test
     public void changerNombreDeParties4() {
@@ -296,7 +296,7 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
         FacadeCards.changerNombreDeParties(GameEnum.BELOTE,3,"_/",pr_,2);
         assertEq("8_4\n" +
                 "5_5_5_5_5_5_5_5_5_5_5_5_5_5_5_5_5_5_5\n" +
-                "7",StreamTextFile.contentsOfFile(fileName_,pr_.getFileCoreStream(),pr_.getStreams()));
+                "7",StreamTextFile.contentsOfFile(fileName_, pr_.getStreams()));
     }
     @Test
     public void chargerNombreDeParties1() {

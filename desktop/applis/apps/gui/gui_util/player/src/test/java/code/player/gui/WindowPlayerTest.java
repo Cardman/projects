@@ -598,9 +598,9 @@ public final class WindowPlayerTest extends EquallableSoundPlayerUtil {
         w_.getFolderFromField().setText("/from");
         w_.getFolderToField().setText("/to");
         tryClick(w_.getMigrate());
-        assertEq("<_ 0=\"UklGRgAAAABXQVZFAQ==\" 1=\"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/\"/>",StreamTextFile.contentsOfFile("/to/sub1/file1",w_.getFileCoreStream(),w_.getStreams()));
-        assertEq("<_ 0=\"UklGRgAAAABXQVZFAg==\" 1=\"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/\"/>",StreamTextFile.contentsOfFile("/to/sub1/file2",w_.getFileCoreStream(),w_.getStreams()));
-        assertEq("<_ 0=\"SUQzAQ==\" 1=\"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/\"/>",StreamTextFile.contentsOfFile("/to/sub2/file1",w_.getFileCoreStream(),w_.getStreams()));
-        assertEq("<_ 0=\"SUQzAg==\" 1=\"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/\"/>",StreamTextFile.contentsOfFile("/to/sub2/file2",w_.getFileCoreStream(),w_.getStreams()));
+        assertEq("<_ 0=\"UklGRgAAAABXQVZFAQ==\" 1=\"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/\"/>",StreamTextFile.contentsOfFile("/to/sub1/file1", w_.getStreams()));
+        assertEq("<_ 0=\"UklGRgAAAABXQVZFAg==\" 1=\"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/\"/>",StreamTextFile.contentsOfFile("/to/sub1/file2", w_.getStreams()));
+        assertEq("<_ 0=\"SUQzAQ==\" 1=\"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/\"/>",StreamTextFile.contentsOfFile("/to/sub2/file1", w_.getStreams()));
+        assertEq("<_ 0=\"SUQzAg==\" 1=\"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/\"/>",StreamTextFile.contentsOfFile("/to/sub2/file2", w_.getStreams()));
     }
 }

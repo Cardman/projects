@@ -23,7 +23,6 @@ import code.stream.AbstractFile;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.stream.core.AbstractBinFact;
-import code.stream.core.AbstractTextFact;
 import code.stream.core.AbstractZipFact;
 import code.threads.AbstractBaseExecutorService;
 import code.threads.AbstractFuture;
@@ -66,9 +65,6 @@ public abstract class EquallableElAdvUtil {
         Assert.assertNull(_expected);
     }
     public static void assertNull(AbstractZipFact _expected) {
-        Assert.assertNull(_expected);
-    }
-    public static void assertNull(AbstractTextFact _expected) {
         Assert.assertNull(_expected);
     }
     public static void assertEq(String _expected, String _result) {
@@ -173,7 +169,7 @@ public abstract class EquallableElAdvUtil {
     }
     public static ManageOptions opt(AbsDebuggerGui _pr) {
         AbstractProgramInfos frs_ = _pr.getFrames();
-        String flatConf_ = StreamTextFile.contentsOfFile("/editor/conf.xml", frs_.getFileCoreStream(), frs_.getStreams());
+        String flatConf_ = StreamTextFile.contentsOfFile("/editor/conf.xml", frs_.getStreams());
         StringList linesFiles_ = ExecutingOptions.lines(StringUtil.nullToEmpty(flatConf_));
         return new ManageOptions(frs_.getLanguages(), linesFiles_, _pr.getFactory());
     }
@@ -1108,7 +1104,7 @@ public abstract class EquallableElAdvUtil {
         _editor.saveConf();
     }
     public static String contentsOfFile(String _nomFichier, WindowCdmEditor _tech) {
-        return StreamTextFile.contentsOfFile(_nomFichier,_tech.getFrames().getFileCoreStream(),_tech.getFrames().getStreams());
+        return StreamTextFile.contentsOfFile(_nomFichier, _tech.getFrames().getStreams());
     }
     public static boolean saveTextFile(String _nomFichier, String _content, WindowCdmEditor _tech) {
         return StreamTextFile.saveTextFile(_nomFichier,_content,_tech.getFrames().getStreams());

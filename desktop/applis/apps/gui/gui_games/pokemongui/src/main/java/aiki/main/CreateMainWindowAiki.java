@@ -52,7 +52,7 @@ public final class CreateMainWindowAiki implements Runnable {
         window_.getVideoBase().addAllEntries(videoBase);
 //        window_.getDataWeb().setEnabled(false);
         StringMap<String> mes_ = MessagesPkGame.getAppliFilesTr(list.getTranslations()).val().getMapping();
-        FileDialog.setLocation(window_.getCommonFrame(), FileDialog.loadCoords(WindowAiki.getTempFolder(list), mes_.getVal(MessagesPkGame.COORDS), list.getFileCoreStream(), list.getStreams()), list);
+        FileDialog.setLocation(window_.getCommonFrame(), FileDialog.loadCoords(WindowAiki.getTempFolder(list), mes_.getVal(MessagesPkGame.COORDS), list.getStreams()), list);
 //        fight_.run();
 //        pk_.run();
 //        pkNet_.run();

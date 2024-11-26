@@ -18,8 +18,8 @@ public final class StreamLanguageUtil {
     private StreamLanguageUtil() {
     }
 
-    public static String tryToGetXmlLanguage(String _dir, AbstractFileCoreStream _fact, TechStreams _tech, CustList<String> _lgs) {
-        Node noeud_ = StreamTextFile.contenuDocumentXmlExterne(lg(_dir),_fact,_tech);
+    public static String tryToGetXmlLanguage(String _dir, TechStreams _tech, CustList<String> _lgs) {
+        Node noeud_ = StreamTextFile.contenuDocumentXmlExterne(lg(_dir), _tech);
         if (noeud_ == null) {
             return "";
         }

@@ -147,7 +147,7 @@ public final class DefaultReporter implements AbstractReporter {
     }
     @Override
     public String conf(String _fileConfOrContent) {
-        return StreamTextFile.contentsOfFile(_fileConfOrContent,fileCoreStream, threadFactory.getTechStreams());
+        return StreamTextFile.contentsOfFile(_fileConfOrContent, threadFactory.getTechStreams());
     }
 
     @Override
