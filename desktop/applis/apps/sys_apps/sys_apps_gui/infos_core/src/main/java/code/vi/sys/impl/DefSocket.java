@@ -1,11 +1,10 @@
 package code.vi.sys.impl;
 
-import code.gui.initialize.AbstractBufferedReader;
-import code.gui.initialize.AbstractSocket;
+import code.gui.initialize.*;
 import code.util.core.*;
-import code.vi.prot.impl.DefBufferedReader;
-import code.vi.prot.impl.StreamCoreUtil;
+import code.vi.prot.impl.*;
 
+import java.io.*;
 import java.net.Socket;
 
 public class DefSocket implements AbstractSocket {
@@ -32,8 +31,9 @@ public class DefSocket implements AbstractSocket {
     @Override
     public String println(String _string) {
         try {
-            socket.getOutputStream().write(StringUtil.encode(_string+"\n"));
-            socket.getOutputStream().flush();
+            OutputStream out_ = socket.getOutputStream();
+            out_.write(StringUtil.encode(_string+"\n"));
+            out_.flush();
             return _string+"\n";
         } catch (Exception e) {
             return "";
