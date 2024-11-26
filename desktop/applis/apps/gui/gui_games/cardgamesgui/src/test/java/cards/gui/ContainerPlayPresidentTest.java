@@ -4,7 +4,7 @@ import cards.consts.*;
 import cards.facade.*;
 import cards.facade.enumerations.*;
 import cards.gui.containers.*;
-import cards.gui.events.AbstractListenerCard;
+import cards.main.CardsNonModalEvent;
 import cards.president.*;
 import cards.president.enumerations.*;
 import code.gui.*;
@@ -1327,12 +1327,12 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         ContainerSinglePresident csp_ = editPresident(r_,deal_,mock_);
         display(csp_);
         tryAnimate(csp_);
-        assertTrue(AbstractListenerCard.aliveEvents(null,csp_.window()));
+        assertTrue(CardsNonModalEvent.aliveEvents(null,csp_.window()));
         tryClick(csp_.window().getHelpGame());
         assertTrue(csp_.window().getHelpGame().isEnabled());
-        assertFalse(AbstractListenerCard.enabledEvents(csp_));
-        assertFalse(AbstractListenerCard.aliveEvents(null,csp_.window()));
-        assertTrue(AbstractListenerCard.aliveEvents(null,null));
+        assertFalse(CardsNonModalEvent.enabledEvents(csp_));
+        assertFalse(CardsNonModalEvent.aliveEvents(null,csp_.window()));
+        assertTrue(CardsNonModalEvent.aliveEvents(null,null));
         tryClickCard(csp_,mock_);
         assertEq(0,factory(csp_).size());
     }

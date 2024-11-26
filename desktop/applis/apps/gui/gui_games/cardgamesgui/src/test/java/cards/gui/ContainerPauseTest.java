@@ -5,7 +5,6 @@ import cards.belote.enumerations.*;
 import cards.consts.*;
 import cards.gui.containers.*;
 import cards.gui.dialogs.EditorCardsNonModalEvent;
-import cards.gui.events.AbstractListenerCard;
 import cards.main.CardsNonModalEvent;
 import cards.president.*;
 import cards.president.enumerations.*;
@@ -90,7 +89,7 @@ public final class ContainerPauseTest extends EquallableCardsGuiUtil {
         ContainerSinglePresident csp_ = editPresident(r_,deal_,mock_,new CardPresidentPausingCardsAnims());
         display(csp_);
         tryAnimate(csp_);
-        assertTrue(AbstractListenerCard.enabledEvents(null));
+        assertTrue(CardsNonModalEvent.enabledEvents(null));
         assertEq(2, csp_.getPaused().get());
         assertEq(1, csp_.partiePresident().getProgressingTrick().total());
         tryClick(csp_.window().getPause());

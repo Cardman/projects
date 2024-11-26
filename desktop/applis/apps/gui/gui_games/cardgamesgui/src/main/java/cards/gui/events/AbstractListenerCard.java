@@ -1,9 +1,7 @@
 package cards.gui.events;
 
-import cards.gui.WindowCards;
 import cards.gui.containers.ContainerPlayableGame;
-import cards.gui.containers.ContainerSin;
-import cards.gui.containers.ContainerSingleImpl;
+import cards.main.CardsNonModalEvent;
 import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseButtons;
 import code.gui.AbsMouseLocation;
@@ -75,7 +73,7 @@ public abstract class AbstractListenerCard<T> implements AbsMouseListenerIntRel 
 
     @Override
     public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
-        if (!enabledEvents(containerBase)) {
+        if (!CardsNonModalEvent.enabledEvents(containerBase)) {
             return;
         }
         verifierRegles();
@@ -94,27 +92,6 @@ public abstract class AbstractListenerCard<T> implements AbsMouseListenerIntRel 
 ////        return enabledEvents(_c)&&_a.canListen();
 //    }
 
-    public static boolean enabledEvents(ContainerPlayableGame _c) {
-        return aliveEvents(asContainerSingle(_c), null);
-        //return !(_c instanceof ContainerSingle) || aliveEvents((ContainerSingle)_c, ((ContainerSingle)_c).window());
-//        return !(_c instanceof ContainerSingle)||(aliveEvents((ContainerSingle)_c) &&!((ContainerSingle)_c).window().getModal().get());
-    }
-    private static ContainerSin asContainerSingle(ContainerPlayableGame _c) {
-        if (!(_c instanceof ContainerSin)) {
-            return null;
-        }
-        return (ContainerSin)_c;
-    }
-    public static boolean aliveEvents(ContainerSin _c, WindowCards _wc) {
-        if (_c == null) {
-            return _wc == null || !_wc.getModal().get();
-        }
-        if (_c.window().getPausingCardsAnims().stateChecked(_c) != ContainerSingleImpl.PAUSE_STOPPED) {
-            return !_c.window().getModal().get();
-        }
-        _c.getEvents().append("||");
-        return false;
-    }
 //    @Override
 //    public void mouseClicked(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
 //        //
