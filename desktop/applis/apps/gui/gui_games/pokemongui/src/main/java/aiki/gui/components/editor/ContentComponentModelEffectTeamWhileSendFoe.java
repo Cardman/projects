@@ -4,14 +4,13 @@ import aiki.facade.*;
 import aiki.fight.enums.*;
 import aiki.fight.moves.effects.*;
 import code.gui.*;
-import code.gui.events.*;
 import code.gui.initialize.*;
 import code.util.*;
 
 public final class ContentComponentModelEffectTeamWhileSendFoe {
 
-    private GeneComponentModelString failSending;
-    private GeneComponentModelString damageRateAgainstFoe;
+    private GeneComponentModelText failSending;
+    private GeneComponentModelText damageRateAgainstFoe;
     private GeneComponentModelLsStrSub<String,StringList> deletedByFoeTypes;
 
     private CrudGeneFormSimpleFormSub<Short, String> statusByNbUses;
@@ -20,9 +19,9 @@ public final class ContentComponentModelEffectTeamWhileSendFoe {
     private AbsPanel form;
     AbsPanel effectForm(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
         AbsPanel selected_ = _core.getCompoFactory().newLineBox();
-        failSending = new GeneComponentModelString(_core,new StringList(),new DefValidateText());
+        failSending = new GeneComponentModelText(_core);
         selected_.add(failSending.geneString());
-        damageRateAgainstFoe = new GeneComponentModelString(_core,new StringList(),new DefValidateText());
+        damageRateAgainstFoe = new GeneComponentModelText(_core);
         selected_.add(damageRateAgainstFoe.geneString());
         deletedByFoeTypes = ConverterCommonMapUtil.buildTypeList(_core,_fac,_fact);
         selected_.add(deletedByFoeTypes.geneEnum());

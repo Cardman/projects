@@ -2,16 +2,15 @@ package aiki.gui.components.editor;
 
 import aiki.facade.*;
 import code.gui.*;
-import code.gui.events.DefValidateText;
 import code.gui.initialize.*;
 import code.util.*;
-import code.util.core.StringUtil;
+import code.util.core.*;
 
 public final class GeneComponentModelTr implements GeneComponentModel<EditedCrudPair<String, StringMap<String>>> {
     private final AbstractProgramInfos compoFactory;
     private final FacadeGame facade;
     private final StringMap<AbsTextField> translations = new StringMap<AbsTextField>();
-    private GeneComponentModelString key;
+    private GeneComponentModelText key;
 
     public GeneComponentModelTr(AbstractProgramInfos _core, FacadeGame _facade) {
         this.compoFactory = _core;
@@ -19,7 +18,7 @@ public final class GeneComponentModelTr implements GeneComponentModel<EditedCrud
     }
     @Override
     public AbsCustComponent gene(int _select) {
-        key = new GeneComponentModelString(compoFactory, new StringList(), new DefValidateText());
+        key = new GeneComponentModelText(compoFactory);
         getTranslations().clear();
         AbsCompoFactory compoFactory_ = compoFactory.getCompoFactory();
         AbsPanel page_ = compoFactory_.newPageBox();
@@ -50,13 +49,13 @@ public final class GeneComponentModelTr implements GeneComponentModel<EditedCrud
     @Override
     public void value(EditedCrudPair<String, StringMap<String>> _v) {
         key.valueString(_v.getKey());
-        key.getTextField().setEditable(false);
+        key.getTextPane().setEditable(false);
         for (EntryCust<String,AbsTextField> e:getTranslations().entryList()) {
             e.getValue().setText(StringUtil.nullToEmpty(_v.getValue().getVal(e.getKey())));
         }
     }
 
-    public GeneComponentModelString getKey() {
+    public GeneComponentModelText getKey() {
         return key;
     }
 

@@ -1,15 +1,13 @@
 package aiki.gui.components.editor;
 
 import code.gui.*;
-import code.gui.events.*;
 import code.gui.initialize.*;
-import code.util.*;
 
 public final class GeneComponentModelEventString extends GeneComponentModelEvent<String> {
-    private final GeneComponentModelString event;
+    private final GeneComponentModelText event;
     public GeneComponentModelEventString(AbstractProgramInfos _c) {
         super(_c);
-        event = new GeneComponentModelString(_c, new StringList(), new DefValidateText());
+        event = new GeneComponentModelText(_c);
     }
 
     @Override
@@ -25,10 +23,10 @@ public final class GeneComponentModelEventString extends GeneComponentModelEvent
     @Override
     protected void updateEvent(String _e) {
         event.valueString(_e);
-        event.getTextField().setEditable(false);
+        event.getTextPane().setEditable(false);
     }
 
-    public GeneComponentModelString getEvent() {
+    public GeneComponentModelText getEvent() {
         return event;
     }
 }

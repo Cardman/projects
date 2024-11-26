@@ -15,7 +15,7 @@ public final class GeneComponentModelRate {
     }
 
     public AbsCustComponent geneRate(Rate _d) {
-        textRate = compoFactory.getCompoFactory().newTextField(_d.toNumberString());
+        textRate = compoFactory.getCompoFactory().newTextField(_d.toNumberString(), 32);
         return getTextRate();
     }
 

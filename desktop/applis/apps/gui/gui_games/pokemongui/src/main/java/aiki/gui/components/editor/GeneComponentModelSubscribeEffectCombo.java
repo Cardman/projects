@@ -14,7 +14,7 @@ public final class GeneComponentModelSubscribeEffectCombo implements GeneCompone
     private final FacadeGame facadeGame;
     private final SubscribedTranslationList factory;
     private final AbsCommonFrame frame;
-    private GeneComponentModelSubscribeStringList key;
+    private CrudGeneFormSimpleElementSub<String> key;
     private GeneComponentModelRate multEvtRateSecEff;
     private GeneComponentModelInt rankIncrementNbRound;
     private CrudGeneFormMonteCarlo<Rate> repeatedRoundsLaw;
@@ -31,8 +31,8 @@ public final class GeneComponentModelSubscribeEffectCombo implements GeneCompone
     @Override
     public AbsCustComponent gene(int _select) {
         SubscribedTranslationMessagesFactoryMv factoryMv_ = factory.getFactoryMv();
-        key = new GeneComponentModelSubscribeStringList(api, facadeGame, factory, frame, factoryMv_);
-        key.getCrud().initForm(new DisplayEntryCustSubElementSimpleImpl<String>(factoryMv_,api,facadeGame,new StringMap<String>()),buildPart(api,facadeGame,factoryMv_,new StringMap<String>()));
+        key = new CrudGeneFormSimpleElementSub<String>(api, facadeGame, factory, frame);
+        key.initForm(new DisplayEntryCustSubElementSimpleImpl<String>(factoryMv_,api,facadeGame,new StringMap<String>()),buildPart(api,facadeGame,factoryMv_,new StringMap<String>()));
         AbsPanel form_ = api.getCompoFactory().newLineBox();
         multEvtRateSecEff = new GeneComponentModelRate(api);
         form_.add(multEvtRateSecEff.geneRate());
@@ -59,7 +59,7 @@ public final class GeneComponentModelSubscribeEffectCombo implements GeneCompone
         edited_.setRepeatedRoundsLaw(ConverterCommonMapUtil.buildMonteCarloNumber(repeatedRoundsLaw.getList()));
         edited_.setEffectEndRound(effectEndRound.getList());
         edited_.setTeamMove(teamMove.getList());
-        return new ListEffectCombo(key.tryRet(),edited_);
+        return new ListEffectCombo(new StringList(key.getList()),edited_);
     }
 
     @Override
@@ -70,15 +70,15 @@ public final class GeneComponentModelSubscribeEffectCombo implements GeneCompone
         repeatedRoundsLaw.setupValues(new MapToEntriesListUtil<Rate,LgInt>().build(combo_.getRepeatedRoundsLaw()));
         effectEndRound.setupValues(combo_.getEffectEndRound());
         teamMove.setupValues(combo_.getTeamMove());
-        key.setupValue(_value.getList());
+        key.setupValues(_value.getList());
     }
 
-    public GeneComponentModelSubscribeStringList getKey() {
+    public CrudGeneFormSimpleElementSub<String> getKey() {
         return key;
     }
 
-    public IdList<SubscribedTranslation> getSubs() {
-        return new IdList<SubscribedTranslation>();
+    public IdList<SubscribedTranslation> all() {
+        return key.subscribeButtons();
     }
 
     public CrudGeneFormSimpleElementSub<EffectEndRoundFoe> getEffectEndRound() {

@@ -4,7 +4,6 @@ import aiki.facade.*;
 import aiki.fight.effects.*;
 import aiki.instances.*;
 import code.gui.*;
-import code.gui.events.*;
 import code.gui.initialize.*;
 import code.util.*;
 
@@ -14,7 +13,7 @@ public final class GeneComponentModelEffectWhileSending extends AbsGeneComponent
     private AbsCustCheckBox withEffect;
     private AbsCustCheckBox disableWeather;
     private AbsCustCheckBox copyingAbility;
-    private GeneComponentModelString enabledWeather;
+    private GeneComponentModelText enabledWeather;
     private GeneComponentModelRate multWeight;
     private EffectWhileSendingWithStatistic edited;
 
@@ -35,7 +34,7 @@ public final class GeneComponentModelEffectWhileSending extends AbsGeneComponent
         form_.add(disableWeather);
         copyingAbility = compoFactory_.newCustCheckBox();
         form_.add(copyingAbility);
-        enabledWeather = new GeneComponentModelString(getProgramInfos(),new StringList(),new DefValidateText());
+        enabledWeather = new GeneComponentModelText(getProgramInfos());
         form_.add(enabledWeather.geneString());
         multWeight = new GeneComponentModelRate(getProgramInfos());
         form_.add(multWeight.geneRate());

@@ -2,17 +2,15 @@ package aiki.gui.components.editor;
 
 import aiki.fight.moves.effects.*;
 import code.gui.*;
-import code.gui.events.*;
 import code.gui.initialize.*;
-import code.util.*;
 
 public final class ContentComponentModelEffectEndRound {
-    private GeneComponentModelString failEndRound;
+    private GeneComponentModelText failEndRound;
     private GeneComponentModelInt endRoundRank;
     private AbsPanel form;
     AbsPanel effectForm(AbstractProgramInfos _core) {
         AbsPanel selected_ = _core.getCompoFactory().newLineBox();
-        failEndRound = new GeneComponentModelString(_core,new StringList(),new DefValidateText());
+        failEndRound = new GeneComponentModelText(_core);
         selected_.add(failEndRound.geneString());
         endRoundRank = new GeneComponentModelInt(_core);
         selected_.add(endRoundRank.geneInt());
@@ -32,7 +30,7 @@ public final class ContentComponentModelEffectEndRound {
         endRoundRank.valueInt(_edited.getEndRoundRank());
     }
 
-    public GeneComponentModelString getFailEndRound() {
+    public GeneComponentModelText getFailEndRound() {
         return failEndRound;
     }
 

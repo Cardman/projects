@@ -1,14 +1,13 @@
 package aiki.gui.components.editor;
 
 import code.gui.*;
-import code.gui.events.DefValidateText;
 import code.gui.initialize.*;
 import code.util.*;
 
 public final class GeneComponentModelSubscribeString implements AbsGeneComponentModelSubscribe<String> {
-    private final GeneComponentModelString crud;
+    private final GeneComponentModelText crud;
     public GeneComponentModelSubscribeString(AbstractProgramInfos _fact) {
-        crud = new GeneComponentModelString(_fact, new StringList(), new DefValidateText());
+        crud = new GeneComponentModelText(_fact);
     }
     @Override
     public AbsCustComponent geneEnum(int _select, int _value) {

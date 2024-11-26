@@ -46,7 +46,7 @@ public final class CrudGeneFormCombos extends CrudGeneFormListSub<ListEffectComb
 
     @Override
     protected IdList<SubscribedTranslation> all() {
-        return new IdList<SubscribedTranslation>();
+        return value.all();
     }
 
     public GeneComponentModelSubscribeEffectCombo getValue() {

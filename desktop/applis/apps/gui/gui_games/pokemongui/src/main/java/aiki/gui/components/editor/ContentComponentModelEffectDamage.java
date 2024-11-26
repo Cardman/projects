@@ -4,7 +4,6 @@ import aiki.facade.*;
 import aiki.fight.enums.*;
 import aiki.fight.moves.effects.*;
 import code.gui.*;
-import code.gui.events.*;
 import code.gui.initialize.*;
 import code.maths.*;
 import code.util.*;
@@ -20,7 +19,7 @@ public final class ContentComponentModelEffectDamage {
     private CrudGeneFormMonteCarlo<Rate> chLaw;
     private CrudGeneFormMonteCarlo<Rate> hitsLaw;
     private CrudGeneFormMonteCarlo<String> damageLaw;
-    private GeneComponentModelString power;
+    private GeneComponentModelText power;
     private CrudGeneFormSimpleFormSub<String,Rate> multDamageAgainst;
     private CrudGeneFormSimpleFormSub<Statistic,Byte> boostStatisOnceKoFoe;
     private GeneComponentModelLsStrSub<Statistic,IdList<Statistic>> ignVarStatTargetPos;
@@ -31,7 +30,7 @@ public final class ContentComponentModelEffectDamage {
 
     AbsPanel effectForm(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
         AbsPanel selected_ = _core.getCompoFactory().newLineBox();
-        power = new GeneComponentModelString(_core,new StringList(),new DefValidateText());
+        power = new GeneComponentModelText(_core);
         selected_.add(power.geneString());
         chRate = new GeneComponentModelInt(_core);
         selected_.add(chRate.geneInt());

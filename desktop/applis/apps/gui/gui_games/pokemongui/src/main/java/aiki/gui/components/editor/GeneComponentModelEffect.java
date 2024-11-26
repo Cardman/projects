@@ -582,7 +582,7 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         return ids_;
     }
 
-    public GeneComponentModelString getFail() {
+    public GeneComponentModelText getFail() {
         return getContentEffect().getFail();
     }
 

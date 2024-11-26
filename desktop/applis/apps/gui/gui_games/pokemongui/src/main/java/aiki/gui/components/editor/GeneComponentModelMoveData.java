@@ -2,11 +2,10 @@ package aiki.gui.components.editor;
 
 import aiki.facade.*;
 import aiki.fight.moves.*;
-import aiki.fight.moves.effects.Effect;
+import aiki.fight.moves.effects.*;
 import aiki.fight.moves.enums.*;
 import aiki.instances.*;
 import code.gui.*;
-import code.gui.events.*;
 import code.gui.initialize.*;
 import code.maths.*;
 import code.util.*;
@@ -21,7 +20,7 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
     private GeneComponentModelLsStrSub<String,StringList> achieveDisappearedPkUsingMove;
     private GeneComponentModelLsStrSub<String,StringList> deletedStatus;
     private GeneComponentModelLsStrSub<String,StringList> requiredStatus;
-    private GeneComponentModelString accuracy;
+    private GeneComponentModelText accuracy;
     private AbsCustCheckBox disappearBeforeUse;
     private AbsCustCheckBox rechargeRound;
     private AbsCustCheckBox constUserChoice;
@@ -70,7 +69,7 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         achieveDisappearedPkUsingMove = ConverterCommonMapUtil.buildMoveList(getCompoFactory(),getFacade(),getSubscribedTranslationList());
         deletedStatus = ConverterCommonMapUtil.buildStatusList(getCompoFactory(),getFacade(),getSubscribedTranslationList());
         requiredStatus = ConverterCommonMapUtil.buildStatusList(getCompoFactory(),getFacade(),getSubscribedTranslationList());
-        accuracy = new GeneComponentModelString(getCompoFactory(),new StringList(),new DefValidateText());
+        accuracy = new GeneComponentModelText(getCompoFactory());
         disappearBeforeUse = getCompoFactory().getCompoFactory().newCustCheckBox();
         rechargeRound = getCompoFactory().getCompoFactory().newCustCheckBox();
         constUserChoice = getCompoFactory().getCompoFactory().newCustCheckBox();

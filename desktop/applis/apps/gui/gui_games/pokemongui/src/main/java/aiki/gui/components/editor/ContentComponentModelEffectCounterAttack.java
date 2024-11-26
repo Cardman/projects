@@ -4,7 +4,6 @@ import aiki.facade.*;
 import aiki.fight.enums.*;
 import aiki.fight.moves.effects.*;
 import code.gui.*;
-import code.gui.events.*;
 import code.gui.initialize.*;
 import code.maths.*;
 import code.util.*;
@@ -14,15 +13,15 @@ public final class ContentComponentModelEffectCounterAttack {
     private CrudGeneFormSimpleFormSub<String, Rate> sufferingDamageTypes;
     private CrudGeneFormSimpleFormSub<Statistic, Byte> droppedStatDirectMove;
     private GeneComponentModelRate sufferingDamageDirectMove;
-    private GeneComponentModelString protectFail;
-    private GeneComponentModelString counterFail;
+    private GeneComponentModelText protectFail;
+    private GeneComponentModelText counterFail;
 
     private AbsPanel form;
     AbsPanel effectForm(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
         AbsPanel selected_ = _core.getCompoFactory().newLineBox();
-        protectFail = new GeneComponentModelString(_core,new StringList(),new DefValidateText());
+        protectFail = new GeneComponentModelText(_core);
         selected_.add(protectFail.geneString());
-        counterFail = new GeneComponentModelString(_core,new StringList(),new DefValidateText());
+        counterFail = new GeneComponentModelText(_core);
         selected_.add(counterFail.geneString());
         sufferingDamageDirectMove = new GeneComponentModelRate(_core);
         selected_.add(sufferingDamageDirectMove.geneRate());

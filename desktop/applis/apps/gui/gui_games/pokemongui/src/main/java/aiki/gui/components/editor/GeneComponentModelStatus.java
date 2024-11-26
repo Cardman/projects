@@ -7,7 +7,6 @@ import aiki.fight.status.*;
 import aiki.fight.status.effects.*;
 import aiki.instances.*;
 import code.gui.*;
-import code.gui.events.*;
 import code.gui.initialize.*;
 import code.maths.*;
 import code.util.*;
@@ -24,7 +23,7 @@ public final class GeneComponentModelStatus extends GeneComponentModelEntity<Sta
     private CrudGeneFormSimpleElementSub<EffectEndRoundStatus> effectEndRound;
     private CrudGeneFormSimpleElementSub<EffectPartnerStatus> effectsPartner;
     private CrudGeneFormSimpleFormSub<Statistic, Rate> multStat;
-    private GeneComponentModelString fail;
+    private GeneComponentModelText fail;
     private final GeneComponentModelRate catchingRate;
     private final GeneComponentModelInt incrementEndRound;
     private AbsCustCheckBox disabledEffIfSwitch;
@@ -83,7 +82,7 @@ public final class GeneComponentModelStatus extends GeneComponentModelEntity<Sta
         multStat=new CrudGeneFormSimpleFormSub<Statistic,Rate>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
         multStat.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Rate>(getSubscribedTranslationList().getFactoryStat(),getCompoFactory(),getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(getCompoFactory(), getSubscribedTranslationList().getFactoryStat(), getFacade()), new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(getCompoFactory())));
         form_.add(multStat.getGroup());
-        fail = new GeneComponentModelString(getCompoFactory(),new StringList(),new DefValidateText());
+        fail = new GeneComponentModelText(getCompoFactory());
         form_.add(fail.geneString());
         form_.add(catchingRate.geneRate());
         form_.add(incrementEndRound.geneInt());

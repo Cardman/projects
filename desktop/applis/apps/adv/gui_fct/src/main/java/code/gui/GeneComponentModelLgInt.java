@@ -16,7 +16,7 @@ public final class GeneComponentModelLgInt {
     }
 
     public AbsCustComponent gene(LgInt _d) {
-        textLgInt = compoFactory.getCompoFactory().newTextField(_d.toNumberString());
+        textLgInt = compoFactory.getCompoFactory().newTextField(_d.toNumberString(), 20);
         textLgInt.registerKeyboardAction(compoFactory.getCompoFactory().wrap(new ChgLgTextInput(1,textLgInt)), GuiConstants.VK_UP,0);
         textLgInt.registerKeyboardAction(compoFactory.getCompoFactory().wrap(new ChgLgTextInput(-1,textLgInt)),GuiConstants.VK_DOWN,0);
         return textLgInt;

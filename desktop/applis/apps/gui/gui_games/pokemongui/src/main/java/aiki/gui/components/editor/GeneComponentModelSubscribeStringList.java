@@ -49,7 +49,7 @@ public final class GeneComponentModelSubscribeStringList implements AbsGeneCompo
     }
 
     public CrudGeneFormSimpleElement<String> crud() {
-        return crud.getCrud();
+        return getCrud().getCrud();
     }
 
     public CrudGeneFormSimpleElementSub<String> getCrud() {

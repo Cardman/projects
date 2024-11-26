@@ -2,14 +2,12 @@ package aiki.gui.components.editor;
 
 import aiki.fight.moves.effects.*;
 import code.gui.*;
-import code.gui.events.*;
-import code.util.*;
 
 public final class ContentComponentModelEffectFullHpRate {
 
     private GeneComponentModelRate leftUserHp;
     private GeneComponentModelRate closestFoeDamageRateHp;
-    private GeneComponentModelString restoredHp;
+    private GeneComponentModelText restoredHp;
     private AbsPanel form;
     AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
         AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
@@ -17,7 +15,7 @@ public final class ContentComponentModelEffectFullHpRate {
         selected_.add(leftUserHp.geneRate());
         closestFoeDamageRateHp = new GeneComponentModelRate(_core.getProgramInfos());
         selected_.add(closestFoeDamageRateHp.geneRate());
-        restoredHp = new GeneComponentModelString(_core.getProgramInfos(), new StringList(), new DefValidateText());
+        restoredHp = new GeneComponentModelText(_core.getProgramInfos());
         selected_.add(restoredHp.geneString());
         form = selected_;
         selected_.setVisible(false);
@@ -37,7 +35,7 @@ public final class ContentComponentModelEffectFullHpRate {
         restoredHp.valueString(_edited.getRestoredHp());
     }
 
-    public GeneComponentModelString getRestoredHp() {
+    public GeneComponentModelText getRestoredHp() {
         return restoredHp;
     }
 }

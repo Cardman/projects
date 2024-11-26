@@ -4,14 +4,13 @@ import aiki.facade.*;
 import aiki.fight.items.*;
 import aiki.instances.*;
 import code.gui.*;
-import code.gui.events.*;
 import code.gui.initialize.*;
 import code.util.*;
 import code.util.core.*;
 
 public final class GeneComponentModelItem extends GeneComponentModelEntity<Item> implements ChangeableFormType {
     private final GeneComponentModelInt price;
-    private GeneComponentModelString catchingRate;
+    private GeneComponentModelText catchingRate;
     private GeneComponentModelRate hp;
     private GeneComponentModelRate healedHpRate;
     private GeneComponentModelLong steps;
@@ -46,7 +45,7 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         form_.add(getEffectKind().geneEnum());
         form_.add(price.geneInt());
         ballForm = compoFactory_.newLineBox();
-        catchingRate = new GeneComponentModelString(getCompoFactory(),new StringList(),new DefValidateText());
+        catchingRate = new GeneComponentModelText(getCompoFactory());
         ballForm.add(catchingRate.geneString());
         ballForm.setVisible(false);
         form_.add(ballForm);

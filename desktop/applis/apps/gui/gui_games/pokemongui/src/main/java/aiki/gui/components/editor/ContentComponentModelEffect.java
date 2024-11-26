@@ -4,17 +4,15 @@ import aiki.facade.*;
 import aiki.fight.moves.effects.*;
 import aiki.fight.moves.enums.*;
 import code.gui.*;
-import code.gui.events.*;
 import code.gui.initialize.*;
-import code.util.*;
 
 public final class ContentComponentModelEffect {
-    private GeneComponentModelString fail;
+    private GeneComponentModelText fail;
     private GeneComponentModelEltEnumSub<TargetChoice> targetChoice;
     private GeneComponentModelSubscribeInts requiredSuccessfulEffects;
     AbsPanel effectForm(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
         AbsPanel selected_ = _core.getCompoFactory().newLineBox();
-        fail = new GeneComponentModelString(_core,new StringList(),new DefValidateText());
+        fail = new GeneComponentModelText(_core);
         selected_.add(fail.geneString());
         targetChoice = ConverterCommonMapUtil.buildTargetChoice(_core, _fac, _fact);
         selected_.add(targetChoice.geneEnum());
@@ -37,7 +35,7 @@ public final class ContentComponentModelEffect {
         return targetChoice;
     }
 
-    GeneComponentModelString getFail() {
+    GeneComponentModelText getFail() {
         return fail;
     }
 }

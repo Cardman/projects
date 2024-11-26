@@ -8,7 +8,6 @@ import aiki.fight.moves.effects.*;
 import aiki.fight.util.*;
 import aiki.instances.*;
 import code.gui.*;
-import code.gui.events.*;
 import code.gui.initialize.*;
 import code.maths.*;
 import code.util.*;
@@ -44,8 +43,8 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
     private CrudGeneFormSimpleFormSub<StatisticCategory,Byte> multStatIfDamageCat;
     private CrudGeneFormSimpleFormSub<StatisticCategory,Rate> multStatIfCat;
     private CrudGeneFormMonteCarloSub<String> singleStatus;
-    private GeneComponentModelString multPower;
-    private GeneComponentModelString multDamage;
+    private GeneComponentModelText multPower;
+    private GeneComponentModelText multDamage;
     private GeneComponentModelLsStrSub<Statistic,IdList<Statistic>> immuLowStat;
     private GeneComponentModelLsStrSub<Statistic,IdList<Statistic>> maxStatisticsIfCh;
     private GeneComponentModelLsStrSub<String,StringList> ignAbility;
@@ -196,9 +195,9 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         form_.add(multStatIfCat.getGroup());
         singleStatus = ConverterCommonMapUtil.buildStatusLaw(getFrame(), getCompoFactory(), getFacade(), getSubscribedTranslationList());
         form_.add(singleStatus.getGroup());
-        multPower = new GeneComponentModelString(getCompoFactory(),new StringList(),new DefValidateText());
+        multPower = new GeneComponentModelText(getCompoFactory());
         form_.add(multPower.geneString());
-        multDamage = new GeneComponentModelString(getCompoFactory(),new StringList(),new DefValidateText());
+        multDamage = new GeneComponentModelText(getCompoFactory());
         form_.add(multDamage.geneString());
         immuLowStat=ConverterCommonMapUtil.buildStatisticsLs(getCompoFactory(),getFacade(),getSubscribedTranslationList());
         form_.add(immuLowStat.geneEnum());
@@ -547,11 +546,11 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         return healHpByTypeIfWeather;
     }
 
-    public GeneComponentModelString getMultDamage() {
+    public GeneComponentModelText getMultDamage() {
         return multDamage;
     }
 
-    public GeneComponentModelString getMultPower() {
+    public GeneComponentModelText getMultPower() {
         return multPower;
     }
 
