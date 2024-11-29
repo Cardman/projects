@@ -8319,7 +8319,7 @@ public class DataBase {
         return usedInExp(statusPart(),_name, KIND_ST);
     }
 
-    private StringList typesPart() {
+    public StringList typesPart() {
         return new StringList(StringUtil.concat(immuTypeAttCombattantEntrant(), SEP_BETWEEN_KEYS),
                 StringUtil.concat(coeffEffBaseTypesCible(), SEP_BETWEEN_KEYS),
                 StringUtil.concat(coeffEffBaseTypesCombattantEntrant(), SEP_BETWEEN_KEYS),
@@ -8327,7 +8327,7 @@ public class DataBase {
                 StringUtil.concat(coeffEffBaseTypesLanceur(), SEP_BETWEEN_KEYS),
                 StringUtil.concat(immuTypeAttCible(), SEP_BETWEEN_KEYS));
     }
-    private StringList categoriesPart() {
+    public StringList categoriesPart() {
         return new StringList(StringUtil.concat(cibleDegatsRecus(),SEP_BETWEEN_KEYS),
                 StringUtil.concat(cibleDegatsRecusTour(),SEP_BETWEEN_KEYS),
                 StringUtil.concat(fighterDegatsRecus(),SEP_BETWEEN_KEYS),
@@ -8335,13 +8335,14 @@ public class DataBase {
                 StringUtil.concat(lanceurDegatsRecus(),SEP_BETWEEN_KEYS),
                 StringUtil.concat(lanceurDegatsRecusTour(),SEP_BETWEEN_KEYS));
     }
-    private StringList movesPart() {
+    public StringList movesPart() {
         return new StringList(StringUtil.concat(cibleNbUtilisation(),SEP_BETWEEN_KEYS),
                 StringUtil.concat(fighterNbUtilisation(),SEP_BETWEEN_KEYS),
                 StringUtil.concat(lanceurNbUtilisation(),SEP_BETWEEN_KEYS),
                 StringUtil.concat(ciblePp(),SEP_BETWEEN_KEYS),
                 StringUtil.concat(fighterPp(),SEP_BETWEEN_KEYS),
                 StringUtil.concat(lanceurPp(),SEP_BETWEEN_KEYS),
+                StringUtil.concat(lanceurEffet(),SEP_BETWEEN_KEYS),
                 StringUtil.concat(cibleEffet(),SEP_BETWEEN_KEYS),
                 StringUtil.concat(nbTour(),SEP_BETWEEN_KEYS),
                 StringUtil.concat(nbTourGlobal(),SEP_BETWEEN_KEYS),
@@ -8350,7 +8351,7 @@ public class DataBase {
                 StringUtil.concat(equipeAdvCombattantEntrantNbUtilisation(),SEP_BETWEEN_KEYS),
                 StringUtil.concat(nbUtiliAttEqTour(),SEP_BETWEEN_KEYS));
     }
-    private StringList statusPart() {
+    public StringList statusPart() {
         return new StringList(StringUtil.concat(ciblePossedeStatutRelation(),SEP_BETWEEN_KEYS));
     }
 
