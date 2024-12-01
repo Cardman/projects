@@ -195,6 +195,30 @@ public class EvolvedMathFactoryTest extends EquallableMathUtil {
     }
     @Test
     public void rename4() {
-        assertEq("OTHER*(1+2)",EvolvedMathFactory.rename("ID*(1+2)","VAR__",new StringList("INTER__"),"ID","OTHER"));
+        assertEq("ID*(1+2)",EvolvedMathFactory.rename("ID*(1+2)","VAR__",new StringList("INTER__"),"ID","OTHER"));
+    }
+    @Test
+    public void rename5() {
+        assertEq("{VAR__INTER__OTHER}",EvolvedMathFactory.rename("{VAR__INTER__ID}","VAR__",new StringList("INTER__"),"ID","OTHER"));
+    }
+    @Test
+    public void rename6() {
+        assertEq("{VAR__INTER__ID}",EvolvedMathFactory.rename("{VAR__INTER__ID}","VAR__",new StringList("INTER__"),"OTHER","ID"));
+    }
+    @Test
+    public void rename7() {
+        assertEq("{OTHER}*(1+2)",EvolvedMathFactory.rename("{ID}*(1+2)","VAR__",new StringList("INTER__"),"ID","OTHER"));
+    }
+    @Test
+    public void rename8() {
+        assertEq("VAR__INTER__ID()",EvolvedMathFactory.rename("VAR__INTER__ID()","VAR__",new StringList("INTER__"),"ID","OTHER"));
+    }
+    @Test
+    public void rename9() {
+        assertEq("1+VAR__INTER__OTHER",EvolvedMathFactory.rename("1+VAR__INTER__ID","VAR__",new StringList("INTER__"),"ID","OTHER"));
+    }
+    @Test
+    public void rename10() {
+        assertEq("VAR__INTER__OTHER+1",EvolvedMathFactory.rename("VAR__INTER__ID+1","VAR__",new StringList("INTER__"),"ID","OTHER"));
     }
 }

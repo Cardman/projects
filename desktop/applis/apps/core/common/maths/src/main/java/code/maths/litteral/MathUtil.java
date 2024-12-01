@@ -27,12 +27,46 @@ final class MathUtil {
         return false;
     }
     static String rename(String _el, String _prefix, StringList _mids, String _id, String _target) {
-        StringMap<String> replace_ = build(_prefix, _mids, _id, _target);
-        return replaceWordsJoin(_el,replace_);
+        MbDelimiters d_ = MathResolver.checkSyntax(_el, new ErrorStatus());
+        Ints dels_ = d_.getDelStringsChars();
+        StringList parts_ = new StringList();
+        StringBuilder part_ = new StringBuilder();
+        int len_ = _el.length();
+        for (int i = 0; i < len_; i++) {
+            int index_ = dels_.indexOfNb(i);
+            if (index_ < 0) {
+                part_.append(_el.charAt(i));
+                continue;
+            }
+            char cur_ = _el.charAt(i);
+            if (index_ % 2 == 0) {
+                parts_.add(part_.toString());
+                part_.delete(0,part_.length());
+                part_.append(cur_);
+            } else {
+                part_.append(cur_);
+                parts_.add(part_.toString());
+                part_.delete(0,part_.length());
+            }
+        }
+        parts_.add(part_.toString());
+        int nbParts_ = parts_.size();
+        for (int i = 0; i < nbParts_; i++) {
+            if (i % 2 == 0) {
+                parts_.set(i, replaceWordsJoin(parts_.get(i), buildList(_prefix, _mids, _id, _target)));
+            } else {
+                parts_.set(i, replaceWordsSetJoin(parts_.get(i), build(_prefix, _mids, _id, _target)));
+            }
+        }
+        return StringUtil.join(parts_, "");
     }
 
     static String replaceWordsJoin(String _str, StringMap<String> _map) {
         return StringUtil.join(replaceWords(_str, _map),"");
+    }
+
+    static String replaceWordsSetJoin(String _str, StringMap<String> _map) {
+        return StringUtil.join(replaceWordsSet(_str, _map),"");
     }
 
     static StringList replaceWords(String _str, StringMap<String> _map) {
@@ -50,6 +84,21 @@ final class MathUtil {
         }
         return newList_;
     }
+
+    static StringList replaceWordsSet(String _str, StringMap<String> _map) {
+        StringList list_ = MathExpUtil.getWordsSeparators(_str);
+        StringList newList_ = new StringList();
+        int size_ = list_.size();
+        for (int i = 0; i < size_; i++) {
+            String t_ = list_.get(i);
+            if (_map.contains(t_)) {
+                newList_.add(_map.getVal(t_));
+            } else {
+                newList_.add(t_);
+            }
+        }
+        return newList_;
+    }
     static StringMap<String> build(String _prefix, StringList _mids, String _id, String _target) {
         StringMap<String> replace_ = new StringMap<String>();
         replace_.addEntry(_id,_target);
@@ -58,7 +107,13 @@ final class MathUtil {
         }
         return replace_;
     }
-
+    static StringMap<String> buildList(String _prefix, StringList _mids, String _id, String _target) {
+        StringMap<String> replace_ = new StringMap<String>();
+        for (String m: _mids) {
+            replace_.addEntry(_prefix+m+_id,_prefix+m+_target);
+        }
+        return replace_;
+    }
     static MbArgument processEl(String _el, boolean _onlycheckSyntax, StringMap<String> _conf) {
         ErrorStatus err_ = new ErrorStatus();
 //        MbDelimiters d_ = MathResolver.checkSyntax(_el, err_);
