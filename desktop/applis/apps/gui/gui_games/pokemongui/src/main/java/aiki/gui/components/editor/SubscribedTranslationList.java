@@ -15,8 +15,8 @@ public final class SubscribedTranslationList {
     private final SubscribedTranslationMessagesFactoryMv factoryMv = new SubscribedTranslationMessagesFactoryMv();
     private final SubscribedTranslationMessagesFactoryPk factoryPk = new SubscribedTranslationMessagesFactoryPk();
     private final SubscribedTranslationMessagesFactorySt factorySt = new SubscribedTranslationMessagesFactorySt();
-    private final SubscribedTranslationMessagesFactory factoryCa = new SubscribedTranslationMessagesFactoryCa();
-    private final SubscribedTranslationMessagesFactory factoryTy = new SubscribedTranslationMessagesFactoryTy();
+    private final SubscribedTranslationMessagesFactoryCa factoryCa = new SubscribedTranslationMessagesFactoryCa();
+    private final SubscribedTranslationMessagesFactoryTy factoryTy = new SubscribedTranslationMessagesFactoryTy();
     private final SubscribedTranslationMessagesNbFactory factoryTm = new SubscribedTranslationMessagesNbFactoryTm();
     private final SubscribedTranslationMessagesNbFactory factoryHm = new SubscribedTranslationMessagesNbFactoryHm();
     private final SubscribedTranslationMessagesFactoryCstStat factoryStat = new SubscribedTranslationMessagesFactoryCstStat();
@@ -48,6 +48,17 @@ public final class SubscribedTranslationList {
         return subscribedTranslations;
     }
 
+    /*
+
+    private void cancel() {
+        getFactory().getFactoryAb().setEffect(_v);
+        getFactory().getFactoryCa().setEffect(_v);
+        getFactory().getFactoryIt().setEffect(_v);
+        getFactory().getFactoryMv().setEffect(_v);
+        getFactory().getFactoryPk().setEffect(_v);
+        getFactory().getFactorySt().setEffect(_v);
+        getFactory().getFactoryTy().setEffect(_v);
+    }*/
     public SubscribedTranslationMessagesFactoryAb getFactoryAb() {
         return factoryAb;
     }
@@ -68,11 +79,11 @@ public final class SubscribedTranslationList {
         return factorySt;
     }
 
-    public SubscribedTranslationMessagesFactory getFactoryCa() {
+    public SubscribedTranslationMessagesFactoryCa getFactoryCa() {
         return factoryCa;
     }
 
-    public SubscribedTranslationMessagesFactory getFactoryTy() {
+    public SubscribedTranslationMessagesFactoryTy getFactoryTy() {
         return factoryTy;
     }
 

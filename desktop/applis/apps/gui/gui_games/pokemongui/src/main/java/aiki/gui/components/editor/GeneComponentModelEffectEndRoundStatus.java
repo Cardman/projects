@@ -41,6 +41,7 @@ public final class GeneComponentModelEffectEndRoundStatus extends AbsGeneCompone
         String eff_ = getEffectKind().tryRet();
         display(eff_);
         edited = ContentComponentModelGroupEffectEndRoundStatus.instance(eff_);
+        effectSub(edited);
         getEffectKind().getSelect().repaint();
         getFrame().pack();
     }
@@ -57,6 +58,16 @@ public final class GeneComponentModelEffectEndRoundStatus extends AbsGeneCompone
         contentGroupEffectEndRound.feedForm(_v);
         displayRepaint(contentGroupEffectEndRoundStatus.feedForm(_v));
         edited = _v;
+        effectSub(_v);
+    }
+    private void effectSub(EffectEndRoundStatus _v) {
+        getFactory().getFactoryAb().setEffectEndRoundStatus(_v);
+        getFactory().getFactoryCa().setEffectEndRoundStatus(_v);
+        getFactory().getFactoryIt().setEffectEndRoundStatus(_v);
+        getFactory().getFactoryMv().setEffectEndRoundStatus(_v);
+        getFactory().getFactoryPk().setEffectEndRoundStatus(_v);
+        getFactory().getFactorySt().setEffectEndRoundStatus(_v);
+        getFactory().getFactoryTy().setEffectEndRoundStatus(_v);
     }
 
     private void displayRepaint(String _eff) {
@@ -72,6 +83,7 @@ public final class GeneComponentModelEffectEndRoundStatus extends AbsGeneCompone
     public IdList<SubscribedTranslation> all() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
         ids_.addAllElts(getContentEffect().getTargetChoice().getSubs());
+        ids_.addAllElts(getContentEffect().getFail().getSubs());
         ids_.addAllElts(GeneComponentModelEffect.endRound(getContentGroupEffectEndRound()));
         return ids_;
     }

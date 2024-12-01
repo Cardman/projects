@@ -16,9 +16,11 @@ public final class GeneComponentModelEffectWhileSending extends AbsGeneComponent
     private GeneComponentModelSubscribeString enabledWeather;
     private GeneComponentModelRate multWeight;
     private EffectWhileSendingWithStatistic edited;
+    private final boolean procAbility;
 
-    public GeneComponentModelEffectWhileSending(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
+    public GeneComponentModelEffectWhileSending(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact, boolean _ability) {
         super(_f, _core, _fac, _fact);
+        procAbility = _ability;
     }
 
     public AbsPanel geneEffect() {
@@ -46,6 +48,7 @@ public final class GeneComponentModelEffectWhileSending extends AbsGeneComponent
     @Override
     public void applyChange() {
         edited = Instances.newEffectWhileSendingSimple();
+        effectSub(edited);
         contentEffectStatistic.display(true);
         getEffectKind().getSelect().getElements().setVisible(false);
         getFrame().pack();
@@ -71,11 +74,33 @@ public final class GeneComponentModelEffectWhileSending extends AbsGeneComponent
         contentEffect.feedForm(_v.getEffect());
         contentEffectStatistic.feedForm(_v.getEffect());
         edited = _v;
+        effectSub(_v);
+    }
+
+    private void effectSub(EffectWhileSendingWithStatistic _v) {
+        if (procAbility) {
+            getFactory().getFactoryAb().setEffectSendingAbility(_v);
+            getFactory().getFactoryCa().setEffectSendingAbility(_v);
+            getFactory().getFactoryIt().setEffectSendingAbility(_v);
+            getFactory().getFactoryMv().setEffectSendingAbility(_v);
+            getFactory().getFactoryPk().setEffectSendingAbility(_v);
+            getFactory().getFactorySt().setEffectSendingAbility(_v);
+            getFactory().getFactoryTy().setEffectSendingAbility(_v);
+        } else {
+            getFactory().getFactoryAb().setEffectSendingItem(_v);
+            getFactory().getFactoryCa().setEffectSendingItem(_v);
+            getFactory().getFactoryIt().setEffectSendingItem(_v);
+            getFactory().getFactoryMv().setEffectSendingItem(_v);
+            getFactory().getFactoryPk().setEffectSendingItem(_v);
+            getFactory().getFactorySt().setEffectSendingItem(_v);
+            getFactory().getFactoryTy().setEffectSendingItem(_v);
+        }
     }
 
     public IdList<SubscribedTranslation> all() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
         ids_.addAllElts(getContentEffect().getTargetChoice().getSubs());
+        ids_.addAllElts(getContentEffect().getFail().getSubs());
         ids_.addAllElts(enabledWeather.getSubs());
         ids_.addAllElts(GeneComponentModelEffect.stats(getContentEffectStatistic()));
         return ids_;

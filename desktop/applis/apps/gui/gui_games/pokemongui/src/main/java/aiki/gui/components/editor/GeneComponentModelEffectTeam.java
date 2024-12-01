@@ -52,6 +52,7 @@ public final class GeneComponentModelEffectTeam extends AbsGeneComponentModelEff
     public IdList<SubscribedTranslation> all() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
         ids_.addAllElts(getContentEffect().getTargetChoice().getSubs());
+        ids_.addAllElts(getContentEffect().getFail().getSubs());
         ids_.addAllElts(GeneComponentModelEffect.team(getContentEffectTeam()));
         return ids_;
     }

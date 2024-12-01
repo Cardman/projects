@@ -11,9 +11,8 @@ import aiki.instances.*;
 import code.maths.*;
 import code.mock.*;
 import code.util.*;
-import code.util.comparators.ComparatorBoolean;
-import code.util.core.BoolVal;
-import code.util.core.SortConstants;
+import code.util.comparators.*;
+import code.util.core.*;
 import org.junit.Test;
 
 public final class EditorItFormTest extends InitEditorPkForm {
@@ -537,6 +536,118 @@ public final class EditorItFormTest extends InitEditorPkForm {
         tryClick(cm_.getCancel());
         assertEq(Item.SELLING_ITEM,facade_.getData().getItem(I_1).getItemType());
     }
+    @Test
+    public void itForm30() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<Item> cm_ = crud(sub_);
+        tryClick(cm_.getAdd());
+        GeneComponentModelItem g_ = (GeneComponentModelItem) cm_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(I_1);
+        ConverterCommonMapUtil.trigger(((GeneComponentModelItem)cm_.getGene()).getEffectKind().getSelectUniq(),Item.ITEM_FOR_BATTLE);
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectSending().getCrud().getAdd());
+        ((GeneComponentModelSubscribeEffectWhileSending)((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectSending().getCrud().getGenePair().getKey()).getCrud().getWithEffect().setSelected(true);
+        ((GeneComponentModelSubscribeEffectWhileSending)((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectSending().getCrud().getGenePair().getKey()).getCrud().getCopyingAbility().setSelected(true);
+        ((GeneComponentModelSubscribeEffectWhileSending)((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectSending().getCrud().getGenePair().getKey()).getCrud().getDisableWeather().setSelected(true);
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectSending().getCrud().getValidAddEdit());
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectSending().getCrud().getAdd());
+        ((GeneComponentModelSubscribeEffectWhileSending)((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectSending().getCrud().getGenePair().getKey()).getCrud().getWithEffect().setSelected(false);
+        ((GeneComponentModelSubscribeEffectWhileSending)((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectSending().getCrud().getGenePair().getKey()).getCrud().getCopyingAbility().setSelected(false);
+        ((GeneComponentModelSubscribeEffectWhileSending)((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectSending().getCrud().getGenePair().getKey()).getCrud().getDisableWeather().setSelected(false);
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectSending().getCrud().getValidAddEdit());
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectSending().getCrud().getAllButtons().get(0));
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectSending().getCrud().getCancel());
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectSending().getCrud().getAllButtons().get(1));
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectSending().getCrud().getCancel());
+        tryClick(cm_.getValidAddEdit());
+        assertTrue(((ItemForBattle)facade_.getData().getItem(I_1)).getEffectSending().get(0).isWithEffect());
+        assertTrue(((ItemForBattle)facade_.getData().getItem(I_1)).getEffectSending().get(0).getCopyingAbility());
+        assertTrue(((ItemForBattle)facade_.getData().getItem(I_1)).getEffectSending().get(0).getDisableWeather());
+        assertFalse(((ItemForBattle)facade_.getData().getItem(I_1)).getEffectSending().get(1).isWithEffect());
+        assertFalse(((ItemForBattle)facade_.getData().getItem(I_1)).getEffectSending().get(1).getCopyingAbility());
+        assertFalse(((ItemForBattle)facade_.getData().getItem(I_1)).getEffectSending().get(1).getDisableWeather());
+    }
+    @Test
+    public void itForm31() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<Item> cm_ = crud(sub_);
+        tryClick(cm_.getAdd());
+        GeneComponentModelItem g_ = (GeneComponentModelItem) cm_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(I_1);
+        ConverterCommonMapUtil.trigger(((GeneComponentModelItem)cm_.getGene()).getEffectKind().getSelectUniq(),Item.ITEM_FOR_BATTLE);
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectEndRound().getCrud().getAdd());
+        ((GeneComponentModelSubscribeEffectEndRound)((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectEndRound().getCrud().getGenePair().getKey()).getCrud().getContentGroupEffectEndRound().getContentEffectEndRound().getFailEndRound().setupValue("_");
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectEndRound().getCrud().getValidAddEdit());
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectEndRound().getCrud().getAllButtons().get(0));
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectEndRound().getCrud().getCancel());
+        tryClick(cm_.getValidAddEdit());
+        assertEq("_",((ItemForBattle)facade_.getData().getItem(I_1)).getEffectEndRound().get(0).getFailEndRound());
+    }
+    @Test
+    public void itForm32() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<Item> cm_ = crud(sub_);
+        tryClick(cm_.getAdd());
+        GeneComponentModelItem g_ = (GeneComponentModelItem) cm_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(I_1);
+        ConverterCommonMapUtil.trigger(((GeneComponentModelItem)cm_.getGene()).getEffectKind().getSelectUniq(),Item.ITEM_FOR_BATTLE);
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectSending().getCrud().getAdd());
+        CrudGeneFormTr cTr_ = crudTrMv(sub_);
+        tryClick(cTr_.getAllButtons().get(1));
+        String move_ = "move";
+        cTr_.getDestination().setText(move_);
+        ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
+        ((GeneComponentModelSubscribeEffectWhileSending)((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectSending().getCrud().getGenePair().getKey()).getCrud().getWithEffect().setSelected(true);
+        ((GeneComponentModelSubscribeEffectWhileSending)((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectSending().getCrud().getGenePair().getKey()).getCrud().getCopyingAbility().setSelected(true);
+        ((GeneComponentModelSubscribeEffectWhileSending)((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectSending().getCrud().getGenePair().getKey()).getCrud().getDisableWeather().setSelected(true);
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectSending().getCrud().getValidAddEdit());
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectSending().getCrud().getAdd());
+        ((GeneComponentModelSubscribeEffectWhileSending)((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectSending().getCrud().getGenePair().getKey()).getCrud().getWithEffect().setSelected(false);
+        ((GeneComponentModelSubscribeEffectWhileSending)((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectSending().getCrud().getGenePair().getKey()).getCrud().getCopyingAbility().setSelected(false);
+        ((GeneComponentModelSubscribeEffectWhileSending)((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectSending().getCrud().getGenePair().getKey()).getCrud().getDisableWeather().setSelected(false);
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectSending().getCrud().getValidAddEdit());
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectSending().getCrud().getAllButtons().get(0));
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectSending().getCrud().getCancel());
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectSending().getCrud().getAllButtons().get(1));
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectSending().getCrud().getCancel());
+        tryClick(cm_.getValidAddEdit());
+        assertTrue(((ItemForBattle)facade_.getData().getItem(I_1)).getEffectSending().get(0).isWithEffect());
+        assertTrue(((ItemForBattle)facade_.getData().getItem(I_1)).getEffectSending().get(0).getCopyingAbility());
+        assertTrue(((ItemForBattle)facade_.getData().getItem(I_1)).getEffectSending().get(0).getDisableWeather());
+        assertFalse(((ItemForBattle)facade_.getData().getItem(I_1)).getEffectSending().get(1).isWithEffect());
+        assertFalse(((ItemForBattle)facade_.getData().getItem(I_1)).getEffectSending().get(1).getCopyingAbility());
+        assertFalse(((ItemForBattle)facade_.getData().getItem(I_1)).getEffectSending().get(1).getDisableWeather());
+    }
+    @Test
+    public void itForm33() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        facade_.getData().prefixVar("VAR");
+        facade_.getData().nbTour("NB_TOUR");
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<Item> cm_ = crud(sub_);
+        tryClick(cm_.getAdd());
+        GeneComponentModelItem g_ = (GeneComponentModelItem) cm_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(I_1);
+        ConverterCommonMapUtil.trigger(((GeneComponentModelItem)cm_.getGene()).getEffectKind().getSelectUniq(),Item.ITEM_FOR_BATTLE);
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectEndRound().getCrud().getAdd());
+        ((GeneComponentModelSubscribeEffectEndRound)((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectEndRound().getCrud().getGenePair().getKey()).getCrud().getContentGroupEffectEndRound().getContentEffectEndRound().getFailEndRound().setupValue(facade_.getData().prefixNbTour(M_2));
+        CrudGeneFormTr cTr_ = crudTrMv(sub_);
+        tryClick(cTr_.getAllButtons().get(1));
+        String move_ = "move";
+        cTr_.getDestination().setText(move_);
+        ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectEndRound().getCrud().getValidAddEdit());
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectEndRound().getCrud().getAllButtons().get(0));
+        tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectEndRound().getCrud().getCancel());
+        tryClick(cm_.getValidAddEdit());
+        assertEq(facade_.getData().prefixNbTour(move_),((ItemForBattle)facade_.getData().getItem(I_1)).getEffectEndRound().get(0).getFailEndRound());
+    }
     private FacadeGame facadeAdd(MockProgramInfos _m) {
         FacadeGame f_ = facade(_m);
         f_.getData().completeQuickMembers(I_1, Instances.newBall());
@@ -554,5 +665,10 @@ public final class EditorItFormTest extends InitEditorPkForm {
     private CrudGeneFormTr crudTr(WindowPkEditor _crud) {
         tryClick(_crud.getTrsItMenu());
         return _crud.getCrudGeneFormItTr();
+    }
+
+    private CrudGeneFormTr crudTrMv(WindowPkEditor _crud) {
+        tryClick(_crud.getTrsMvMenu());
+        return _crud.getCrudGeneFormMvTr();
     }
 }

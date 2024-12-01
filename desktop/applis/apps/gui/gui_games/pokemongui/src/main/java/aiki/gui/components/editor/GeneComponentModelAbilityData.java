@@ -1,5 +1,6 @@
 package aiki.gui.components.editor;
 
+import aiki.db.DataBase;
 import aiki.facade.*;
 import aiki.fight.abilities.*;
 import aiki.fight.effects.*;
@@ -13,6 +14,7 @@ import code.maths.*;
 import code.util.*;
 
 public final class GeneComponentModelAbilityData extends GeneComponentModelEntity<AbilityData> {
+    private AbilityData element;
     private CrudGeneFormSimpleElementSub<TypesDuo> breakFoeImmune;
     private CrudGeneFormSimpleElementSub<StatisticStatus> immuLowStatIfStatus;
     private CrudGeneFormSimpleFormSub<String,Rate> divideStatusRound;
@@ -220,10 +222,10 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         typeForMoves = ConverterCommonMapUtil.buildTypeElt(getCompoFactory(),getFacade(),getSubscribedTranslationList(),ConverterCommonMapUtil.defKeyEmpty(" "));
         form_.add(typeForMoves.geneEnum());
         effectSending = new CrudGeneFormSimpleElementSub<EffectWhileSendingWithStatistic>(getCompoFactory(),getFacade(),getSubscribedTranslationList(),getFrame());
-        effectSending.initForm(new DisplayEntryCustSubElementEffect<EffectWhileSendingWithStatistic>(),new GeneComponentModelSubscribeFactoryDirect<EffectWhileSendingWithStatistic>(new GeneComponentModelSubscribeEffectWhileSending(new GeneComponentModelEffectWhileSending(getFrame(),getCompoFactory(),getFacade(),getSubscribedTranslationList()))));
+        effectSending.initForm(new DisplayEntryCustSubElementEffect<EffectWhileSendingWithStatistic>(),new GeneComponentModelSubscribeFactoryDirect<EffectWhileSendingWithStatistic>(new GeneComponentModelSubscribeEffectWhileSending(new GeneComponentModelEffectWhileSending(getFrame(),getCompoFactory(),getFacade(),getSubscribedTranslationList(), true))));
         form_.add(effectSending.getGroup());
         effectEndRound = new CrudGeneFormSimpleElementSub<EffectEndRound>(getCompoFactory(),getFacade(),getSubscribedTranslationList(),getFrame());
-        effectEndRound.initForm(new DisplayEntryCustSubElementEffect<EffectEndRound>(),new GeneComponentModelSubscribeFactoryDirect<EffectEndRound>(new GeneComponentModelSubscribeEffectEndRound(new GeneComponentModelEffectEndRound(getFrame(),getCompoFactory(),getFacade(),getSubscribedTranslationList()))));
+        effectEndRound.initForm(new DisplayEntryCustSubElementEffect<EffectEndRound>(),new GeneComponentModelSubscribeFactoryDirect<EffectEndRound>(new GeneComponentModelSubscribeEffectEndRound(new GeneComponentModelEffectEndRound(getFrame(),getCompoFactory(),getFacade(),getSubscribedTranslationList(), true))));
         form_.add(effectEndRound.getGroup());
         forbidUseBerryAgainstFoes=compoFactory_.newCustCheckBox();
         form_.add(forbidUseBerryAgainstFoes);
@@ -299,6 +301,8 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         form_.add(recoilDamageFoe.geneRate());
         sc_.setViewportView(form_);
         page_.add(sc_);
+        element = Instances.newAbilityData();
+        getFacade().getData().getAbilities().put(DataBase.EMPTY_STRING, element);
         return page_;
     }
     private GeneComponentModelSubscribeFactorySelElt buildPart(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationMessagesFactory _facto, StringMap<String> _abs) {
@@ -306,7 +310,7 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
     }
     @Override
     public EditedCrudPair<String,AbilityData> value() {
-        AbilityData ent_ = Instances.newAbilityData();
+        AbilityData ent_ = element;
         ent_.setBreakFoeImmune(breakFoeImmune.getList());
         ent_.setImmuLowStatIfStatus(immuLowStatIfStatus.getList());
         ent_.setDivideStatusRound(ConverterCommonMapUtil.buildStringMapRate(divideStatusRound.getList()));
@@ -394,7 +398,9 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
     public void value(EditedCrudPair<String,AbilityData> _v) {
         getGeneComponentModelSelectKey().setupValue(_v.getKey());
         updateSelector();
+        getFacade().getData().getAbilities().removeKey(DataBase.EMPTY_STRING);
         AbilityData ability_ = _v.getValue();
+        element = ability_;
         breakFoeImmune.setupValues(ability_.getBreakFoeImmune());
         immuLowStatIfStatus.setupValues(ability_.getImmuLowStatIfStatus());
         divideStatusRound.setupValues(new MapToEntriesListUtil<String,Rate>().build(ability_.getDivideStatusRound()));
@@ -488,6 +494,7 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         ids_.addAllElts(increasedPrio.subscribeButtons());
         ids_.addAllElts(increasedPrioTypes.subscribeButtons());
         ids_.addAllElts(multStatAlly.subscribeButtons());
+        ids_.add(new SubscribedTranslationRenamingValCrud<Statistic>(multStat.getCrud()));
         ids_.addAllElts(multStat.subscribeButtons());
         ids_.addAllElts(bonusStatRank.subscribeButtons());
         ids_.addAllElts(boostStatRankEndRound.subscribeButtons());
@@ -496,6 +503,7 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         ids_.addAllElts(multStatIfKoFoe.subscribeButtons());
         ids_.addAllElts(multStatIfLowStat.subscribeButtons());
         ids_.addAllElts(chgtTypeByWeather.subscribeButtons());
+        ids_.add(new SubscribedTranslationRenamingValCrud<String>(failStatus.getCrud()));
         ids_.addAllElts(failStatus.subscribeButtons());
         ids_.addAllElts(forwardStatus.subscribeButtons());
         ids_.addAllElts(changingBoostTypes.subscribeButtons());
@@ -522,6 +530,10 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         ids_.addAllElts(multDamage.getSubs());
         ids_.addAllElts(multPower.getSubs());
         return ids_;
+    }
+
+    public CrudGeneFormSimpleFormSub<String, String> getFailStatus() {
+        return failStatus;
     }
 
     public GeneComponentModelEltEnumSub<String> getTypeForMoves() {

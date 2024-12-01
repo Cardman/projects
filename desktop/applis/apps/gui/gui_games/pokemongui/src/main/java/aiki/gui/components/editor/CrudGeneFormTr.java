@@ -71,6 +71,7 @@ public final class CrudGeneFormTr extends AbsCrudGeneFormList<EditedCrudPair<Str
             String old_ = entry_.getKey();
             factoryMessage.rename(facadeGame,old_,next_);
             if (!factoryMessage.contains(facadeGame,old_)) {
+                factoryMessage.renameExp(facadeGame, old_, next_);
                 getList().remove(getSelectedIndex());
                 getList().add(new EditedCrudPair<String, StringMap<String>>(next_, entry_.getValue()));
                 possibleSort();

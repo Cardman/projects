@@ -107,8 +107,40 @@ public final class EditorCombosFormTest extends InitEditorPkForm {
         CrudGeneFormCombos sec_ = crud(sub_);
         assertEq(1,sec_.getList().size());
     }
+    @Test
+    public void comboForm5() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormCombos c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        c_.getValue().getKey().setupValues(new StringList(M_1));
+        tryClick(c_.getValue().getEffectEndRound().getCrud().getAdd());
+        ((GeneComponentModelSubscribeEffectEndRoundFoe)c_.getValue().getEffectEndRound().getCrud().getGenePair().getKey()).getCrud().getContentEffectEndRoundFoe().getInflictedRateHpTarget().valueRate(Rate.one());
+        CrudGeneFormTr cTr_ = crudTrMv(sub_);
+        tryClick(cTr_.getAllButtons().get(1));
+        String move_ = "move";
+        cTr_.getDestination().setText(move_);
+        ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
+        tryClick(c_.getValue().getEffectEndRound().getCrud().getValidAddEdit());
+        tryClick(c_.getValue().getEffectEndRound().getCrud().getAllButtons().get(0));
+        tryClick(c_.getValue().getEffectEndRound().getCrud().getCancel());
+        tryClick(c_.getValue().getTeamMove().getCrud().getAdd());
+        tryClick(c_.getValue().getTeamMove().getCrud().getValidAddEdit());
+        tryClick(c_.getValue().getTeamMove().getCrud().getAllButtons().get(0));
+        tryClick(c_.getValue().getTeamMove().getCrud().getCancel());
+        tryClick(c_.getValidAddEdit());
+        c_.getFrame().getWindowListenersDef().get(0).windowClosing();
+        CrudGeneFormCombos sec_ = crud(sub_);
+        assertEq(1,sec_.getList().size());
+    }
     private CrudGeneFormCombos crud(WindowPkEditor _crud) {
         tryClick(_crud.getCombosMenu());
         return _crud.getCrudGeneFormCombos();
+    }
+
+    private CrudGeneFormTr crudTrMv(WindowPkEditor _crud) {
+        tryClick(_crud.getTrsMvMenu());
+        return _crud.getCrudGeneFormMvTr();
     }
 }

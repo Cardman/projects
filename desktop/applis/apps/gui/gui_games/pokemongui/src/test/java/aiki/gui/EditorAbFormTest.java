@@ -473,6 +473,91 @@ public final class EditorAbFormTest extends InitEditorPkForm {
         assertEq(T_2,facade_.getData().getAbilities().getVal(A_1).getHealHpByTypeIfWeather().getKey(1).getType());
         assertEq(new Rate(2),facade_.getData().getAbilities().getVal(A_1).getHealHpByTypeIfWeather().getValue(1));
     }
+    @Test
+    public void abForm20() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        facade_.getData().prefixVar("VAR");
+        facade_.getData().nbTour("NB_TOUR");
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<AbilityData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelAbilityData g_ = (GeneComponentModelAbilityData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(A_1);
+        tryClick(g_.getFailStatus().getCrud().getAdd());
+        g_.getFailStatus().getCrud().getKey().setupValue(S_1);
+        g_.getFailStatus().getCrud().getValue().setupValue(facade_.getData().prefixNbTour(M_2));
+        tryClick(g_.getFailStatus().getCrud().getValidAddEdit());
+        CrudGeneFormTr cTr_ = crudTrMv(sub_);
+        tryClick(cTr_.getAllButtons().get(1));
+        String move_ = "move";
+        cTr_.getDestination().setText(move_);
+        ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
+        tryClick(c_.getValidAddEdit());
+        assertEq(1,facade_.getData().getAbilities().getVal(A_1).getFailStatus().size());
+        assertEq(S_1,facade_.getData().getAbilities().getVal(A_1).getFailStatus().getKey(0));
+        assertEq(facade_.getData().prefixNbTour(move_),facade_.getData().getAbilities().getVal(A_1).getFailStatus().getValue(0));
+    }
+    @Test
+    public void abForm21() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<AbilityData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelAbilityData g_ = (GeneComponentModelAbilityData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(A_1);
+        tryClick(g_.getEffectSending().getCrud().getAdd());
+        ((GeneComponentModelSubscribeEffectWhileSending)g_.getEffectSending().getCrud().getGenePair().getKey()).getCrud().getWithEffect().setSelected(true);
+        ((GeneComponentModelSubscribeEffectWhileSending)g_.getEffectSending().getCrud().getGenePair().getKey()).getCrud().getCopyingAbility().setSelected(true);
+        ((GeneComponentModelSubscribeEffectWhileSending)g_.getEffectSending().getCrud().getGenePair().getKey()).getCrud().getDisableWeather().setSelected(true);
+        CrudGeneFormTr cTr_ = crudTrMv(sub_);
+        tryClick(cTr_.getAllButtons().get(1));
+        String move_ = "move";
+        cTr_.getDestination().setText(move_);
+        ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
+        tryClick(g_.getEffectSending().getCrud().getValidAddEdit());
+        tryClick(g_.getEffectSending().getCrud().getAdd());
+        ((GeneComponentModelSubscribeEffectWhileSending)g_.getEffectSending().getCrud().getGenePair().getKey()).getCrud().getWithEffect().setSelected(false);
+        ((GeneComponentModelSubscribeEffectWhileSending)g_.getEffectSending().getCrud().getGenePair().getKey()).getCrud().getCopyingAbility().setSelected(false);
+        ((GeneComponentModelSubscribeEffectWhileSending)g_.getEffectSending().getCrud().getGenePair().getKey()).getCrud().getDisableWeather().setSelected(false);
+        tryClick(g_.getEffectSending().getCrud().getValidAddEdit());
+        tryClick(g_.getEffectSending().getCrud().getAllButtons().get(0));
+        tryClick(g_.getEffectSending().getCrud().getCancel());
+        tryClick(g_.getEffectSending().getCrud().getAllButtons().get(1));
+        tryClick(g_.getEffectSending().getCrud().getCancel());
+        tryClick(c_.getValidAddEdit());
+        assertTrue(facade_.getData().getAbilities().getVal(A_1).getEffectSending().get(0).isWithEffect());
+        assertTrue(facade_.getData().getAbilities().getVal(A_1).getEffectSending().get(0).getCopyingAbility());
+        assertTrue(facade_.getData().getAbilities().getVal(A_1).getEffectSending().get(0).getDisableWeather());
+        assertFalse(facade_.getData().getAbilities().getVal(A_1).getEffectSending().get(1).isWithEffect());
+        assertFalse(facade_.getData().getAbilities().getVal(A_1).getEffectSending().get(1).getCopyingAbility());
+        assertFalse(facade_.getData().getAbilities().getVal(A_1).getEffectSending().get(1).getDisableWeather());
+    }
+    @Test
+    public void abForm22() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        facade_.getData().prefixVar("VAR");
+        facade_.getData().nbTour("NB_TOUR");
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<AbilityData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelAbilityData g_ = (GeneComponentModelAbilityData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(A_1);
+        tryClick(g_.getEffectEndRound().getCrud().getAdd());
+        ((GeneComponentModelSubscribeEffectEndRound)g_.getEffectEndRound().getCrud().getGenePair().getKey()).getCrud().getContentGroupEffectEndRound().getContentEffectEndRound().getFailEndRound().setupValue(facade_.getData().prefixNbTour(M_2));
+        CrudGeneFormTr cTr_ = crudTrMv(sub_);
+        tryClick(cTr_.getAllButtons().get(1));
+        String move_ = "move";
+        cTr_.getDestination().setText(move_);
+        ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
+        tryClick(g_.getEffectEndRound().getCrud().getValidAddEdit());
+        tryClick(g_.getEffectEndRound().getCrud().getAllButtons().get(0));
+        tryClick(g_.getEffectEndRound().getCrud().getCancel());
+        tryClick(c_.getValidAddEdit());
+        assertEq(facade_.getData().prefixNbTour(move_),facade_.getData().getAbilities().getVal(A_1).getEffectEndRound().get(0).getFailEndRound());
+    }
     private FacadeGame facadeAdd(MockProgramInfos _m) {
         FacadeGame f_ = facade(_m);
         f_.getData().completeQuickMembers(A_1, Instances.newAbilityData());
@@ -490,5 +575,9 @@ public final class EditorAbFormTest extends InitEditorPkForm {
     private CrudGeneFormTr crudTr(WindowPkEditor _crud) {
         tryClick(_crud.getTrsAbMenu());
         return _crud.getCrudGeneFormAbTr();
+    }
+    private CrudGeneFormTr crudTrMv(WindowPkEditor _crud) {
+        tryClick(_crud.getTrsMvMenu());
+        return _crud.getCrudGeneFormMvTr();
     }
 }

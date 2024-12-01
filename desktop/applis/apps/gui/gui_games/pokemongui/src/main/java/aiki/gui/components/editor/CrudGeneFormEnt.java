@@ -41,6 +41,7 @@ public final class CrudGeneFormEnt<T> extends CrudGeneFormListSub<EditedCrudPair
         }
         FacadeGame facadeGame_ = getCrudGeneFormSubContent().getFacadeGame();
         factoryCommonParam.all(facadeGame_).removeKey(DataBase.EMPTY_STRING);
+        factoryCommonParam.cancel();
         if (_index > -1) {
             int old_ = factoryCommonParam.all(facadeGame_).size();
             StringMap<StringMap<String>> trs_ = factoryCommonParam.buildMessages(facadeGame_);
@@ -70,6 +71,7 @@ public final class CrudGeneFormEnt<T> extends CrudGeneFormListSub<EditedCrudPair
     public void cancel() {
         FacadeGame facadeGame_ = getCrudGeneFormSubContent().getFacadeGame();
         factoryCommonParam.all(facadeGame_).removeKey(DataBase.EMPTY_STRING);
+        factoryCommonParam.cancel();
         factoryCommonParam.removeOpenSub(getCrudGeneFormSubContent());
         cancelBase();
     }

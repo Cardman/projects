@@ -38,6 +38,7 @@ public final class GeneComponentModelEffectEndRoundFoe extends AbsGeneComponentM
         contentEffectEndRoundFoe.display(true);
         getEffectKind().getSelect().getElements().setVisible(false);
         getFrame().pack();
+        effectSub(edited);
     }
 
     public EffectEndRoundFoe valueEffect() {
@@ -52,11 +53,22 @@ public final class GeneComponentModelEffectEndRoundFoe extends AbsGeneComponentM
         contentEffectEndRound.feedForm(_v);
         contentEffectEndRoundFoe.feedForm(_v);
         edited = _v;
+        effectSub(_v);
     }
 
+    private void effectSub(EffectEndRoundFoe _v) {
+        getFactory().getFactoryAb().setEffectEndRoundCombo(_v);
+        getFactory().getFactoryCa().setEffectEndRoundCombo(_v);
+        getFactory().getFactoryIt().setEffectEndRoundCombo(_v);
+        getFactory().getFactoryMv().setEffectEndRoundCombo(_v);
+        getFactory().getFactoryPk().setEffectEndRoundCombo(_v);
+        getFactory().getFactorySt().setEffectEndRoundCombo(_v);
+        getFactory().getFactoryTy().setEffectEndRoundCombo(_v);
+    }
     public IdList<SubscribedTranslation> all() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
         ids_.addAllElts(getContentEffect().getTargetChoice().getSubs());
+        ids_.addAllElts(getContentEffect().getFail().getSubs());
         ids_.addAllElts(getContentEffectEndRound().getFailEndRound().getSubs());
         return ids_;
     }

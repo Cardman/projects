@@ -1,6 +1,5 @@
 package aiki.gui.components.editor;
 
-import aiki.db.DataBase;
 import aiki.facade.*;
 import aiki.fight.moves.*;
 import aiki.fight.moves.effects.*;
@@ -154,7 +153,6 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         } else {
             element = Instances.newStatusMoveData();
         }
-        getFacade().getData().getMoves().put(DataBase.EMPTY_STRING,element);
         getFrame().pack();
     }
     private GeneComponentModelSubscribeFactorySelElt buildPart(SubscribedTranslationMessagesFactory _facto, StringMap<String> _abs) {
@@ -211,7 +209,6 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
     public void value(EditedCrudPair<String,MoveData> _v) {
         getGeneComponentModelSelectKey().setupValue(_v.getKey());
         updateSelector();
-        getFacade().getData().getMoves().removeKey(DataBase.EMPTY_STRING);
         MoveData move_ = _v.getValue();
         element = move_;
         pp.valueInt(move_.getPp());

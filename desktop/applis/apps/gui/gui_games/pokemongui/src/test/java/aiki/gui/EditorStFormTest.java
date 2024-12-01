@@ -268,6 +268,29 @@ public final class EditorStFormTest extends InitEditorPkForm {
         tryClick(c_.getCancel());
         assertEq(1,facade_.getData().getStatus().size());
     }
+    @Test
+    public void stForm17() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<Status> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelStatus g_ = (GeneComponentModelStatus) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(S_1);
+        tryClick(g_.getEffectEndRound().getCrud().getAdd());
+        CrudGeneFormTr cTr_ = crudTrMv(sub_);
+        tryClick(cTr_.getAllButtons().get(1));
+        String move_ = "move";
+        cTr_.getDestination().setText(move_);
+        ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
+        tryClick(g_.getEffectEndRound().getCrud().getValidAddEdit());
+        tryClick(g_.getEffectEndRound().getCrud().getAllButtons().get(0));
+        tryClick(g_.getEffectEndRound().getCrud().getCancel());
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryClick(c_.getCancel());
+        assertEq(1,facade_.getData().getStatus().getVal(S_1).getEffectEndRound().size());
+    }
     private FacadeGame facadeAdd(MockProgramInfos _m) {
         FacadeGame f_ = facade(_m);
         f_.getData().completeQuickMembers(S_1, Instances.newStatusSimple());
@@ -285,5 +308,10 @@ public final class EditorStFormTest extends InitEditorPkForm {
     private CrudGeneFormTr crudTr(WindowPkEditor _crud) {
         tryClick(_crud.getTrsStMenu());
         return _crud.getCrudGeneFormStTr();
+    }
+
+    private CrudGeneFormTr crudTrMv(WindowPkEditor _crud) {
+        tryClick(_crud.getTrsMvMenu());
+        return _crud.getCrudGeneFormMvTr();
     }
 }

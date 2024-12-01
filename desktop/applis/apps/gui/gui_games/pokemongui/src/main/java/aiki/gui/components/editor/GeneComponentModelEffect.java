@@ -1,6 +1,5 @@
 package aiki.gui.components.editor;
 
-import aiki.db.*;
 import aiki.facade.*;
 import aiki.fight.moves.effects.*;
 import aiki.instances.*;
@@ -91,7 +90,6 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
     @Override
     public void applyChange() {
         String eff_ = getEffectKind().tryRet();
-        getFactory().getFactoryMv().setEffectDamage(null);
         String display_ = display(eff_);
         if (!display_.isEmpty()) {
             edited = ContentComponentModelGroupEffectEndRound.instance(eff_);
@@ -107,6 +105,7 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         }
         init1(eff_);
         init2(eff_);
+        effectSub(edited);
         getEffectKind().getSelect().repaint();
         getFrame().pack();
     }
@@ -128,9 +127,7 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
             edited = Instances.newEffectCounterAttack();
         }
         if (StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_DAMAGE)) {
-            EffectDamage damage_ = Instances.newEffectDamage();
-            getFactory().getFactoryMv().setEffectDamage(damage_);
-            edited = damage_;
+            edited = Instances.newEffectDamage();
         }
         if (StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_DAMAGE_RATE)) {
             edited = Instances.newEffectDamageRate();
@@ -313,7 +310,6 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
     }
 
     public void valueEffect(Effect _v) {
-        getFactory().getFactoryMv().setEffectDamage(null);
         contentEffect.feedForm(_v);
         if (_v instanceof EffectAccuracy) {
             displayRepaint(MessagesEditorSelect.EFF_ACCURACY);
@@ -330,6 +326,7 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         if (_v instanceof EffectEndRound) {
             displayRepaint(contentGroupEffectEndRound.feedForm((EffectEndRound) _v));
         }
+        effectSub(_v);
         edited = _v;
     }
 
@@ -356,7 +353,6 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         }
         if (_v instanceof EffectDamage) {
             contentEffectDamage.feedForm((EffectDamage) _v);
-            effDamage((EffectDamage) _v);
             displayRepaint(MessagesEditorSelect.EFF_DAMAGE);
         }
         if (_v instanceof EffectDamageRate) {
@@ -397,10 +393,14 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         }
     }
 
-    private void effDamage(EffectDamage _v) {
-        if (getFacadeGame().getData().getMoves().contains(DataBase.EMPTY_STRING)) {
-            getFactory().getFactoryMv().setEffectDamage(_v);
-        }
+    private void effectSub(Effect _v) {
+        getFactory().getFactoryAb().setEffect(_v);
+        getFactory().getFactoryCa().setEffect(_v);
+        getFactory().getFactoryIt().setEffect(_v);
+        getFactory().getFactoryMv().setEffect(_v);
+        getFactory().getFactoryPk().setEffect(_v);
+        getFactory().getFactorySt().setEffect(_v);
+        getFactory().getFactoryTy().setEffect(_v);
     }
 
     private void value2(Effect _v) {

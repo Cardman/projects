@@ -123,6 +123,7 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         if (StringUtil.quickEq(eff_, Item.SELLING_ITEM)) {
             element = Instances.newSellingItem();
         }
+        effectSub(element);
         getEffectKind().getSelectUniq().getSelect().repaint();
         getFrame().pack();
     }
@@ -200,6 +201,7 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
             steps.valueLong(((Repel)item_).getSteps());
         }
         element = item_;
+        effectSub(item_);
         String type_ = item_.getItemType();
         display(type_);
         getEffectKind().setupValue(type_);
@@ -220,7 +222,15 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
             }
         }
     }
-
+    private void effectSub(Item _v) {
+        getSubscribedTranslationList().getFactoryAb().setItemForBattle(_v);
+        getSubscribedTranslationList().getFactoryCa().setItemForBattle(_v);
+        getSubscribedTranslationList().getFactoryIt().setItemForBattle(_v);
+        getSubscribedTranslationList().getFactoryMv().setItemForBattle(_v);
+        getSubscribedTranslationList().getFactoryPk().setItemForBattle(_v);
+        getSubscribedTranslationList().getFactorySt().setItemForBattle(_v);
+        getSubscribedTranslationList().getFactoryTy().setItemForBattle(_v);
+    }
     private void display(String _eff) {
         ballForm.setVisible(StringUtil.quickEq(_eff, Item.BALL));
         berryForm.display(_eff);

@@ -135,10 +135,10 @@ public final class ContentComponentModelItemForBattle {
         immuLowStatis=compoFactory_.newCustCheckBox();
         itemForBattleForm.add(immuLowStatis);
         effectSending = new CrudGeneFormSimpleElementSub<EffectWhileSendingWithStatistic>(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList(),_parent.getFrame());
-        effectSending.initForm(new DisplayEntryCustSubElementEffect<EffectWhileSendingWithStatistic>(),new GeneComponentModelSubscribeFactoryDirect<EffectWhileSendingWithStatistic>(new GeneComponentModelSubscribeEffectWhileSending(new GeneComponentModelEffectWhileSending(_parent.getFrame(),_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList()))));
+        effectSending.initForm(new DisplayEntryCustSubElementEffect<EffectWhileSendingWithStatistic>(),new GeneComponentModelSubscribeFactoryDirect<EffectWhileSendingWithStatistic>(new GeneComponentModelSubscribeEffectWhileSending(new GeneComponentModelEffectWhileSending(_parent.getFrame(),_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList(), false))));
         itemForBattleForm.add(effectSending.getGroup());
         effectEndRound = new CrudGeneFormSimpleElementSub<EffectEndRound>(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList(),_parent.getFrame());
-        effectEndRound.initForm(new DisplayEntryCustSubElementEffect<EffectEndRound>(),new GeneComponentModelSubscribeFactoryDirect<EffectEndRound>(new GeneComponentModelSubscribeEffectEndRound(new GeneComponentModelEffectEndRound(_parent.getFrame(),_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList()))));
+        effectEndRound.initForm(new DisplayEntryCustSubElementEffect<EffectEndRound>(),new GeneComponentModelSubscribeFactoryDirect<EffectEndRound>(new GeneComponentModelSubscribeEffectEndRound(new GeneComponentModelEffectEndRound(_parent.getFrame(),_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList(), false))));
         itemForBattleForm.add(effectEndRound.getGroup());
         itemForBattleForm.setVisible(false);
         return itemForBattleForm;
@@ -232,7 +232,9 @@ public final class ContentComponentModelItemForBattle {
         ids_.addAllElts(boostStatisSuperEff.subscribeButtons());
         ids_.addAllElts(multStatRank.subscribeButtons());
         ids_.addAllElts(winEvFight.subscribeButtons());
+        ids_.add(new SubscribedTranslationRenamingValCrud<Statistic>(multStat.getCrud()));
         ids_.addAllElts(multStat.subscribeButtons());
+        ids_.add(new SubscribedTranslationRenamingValCrud<String>(failStatus.getCrud()));
         ids_.addAllElts(failStatus.subscribeButtons());
         ids_.addAllElts(increasingMaxNbRoundGlobalMove.subscribeButtons());
         ids_.addAllElts(increasingMaxNbRoundTeamMove.subscribeButtons());
@@ -279,6 +281,14 @@ public final class ContentComponentModelItemForBattle {
 
     public CrudGeneFormSimpleFormSub<String, IdMap<Statistic, Byte>> getBoostStatisTypes() {
         return boostStatisTypes;
+    }
+
+    public CrudGeneFormSimpleElementSub<EffectEndRound> getEffectEndRound() {
+        return effectEndRound;
+    }
+
+    public CrudGeneFormSimpleElementSub<EffectWhileSendingWithStatistic> getEffectSending() {
+        return effectSending;
     }
 
     public CrudGeneFormSimpleFormSub<StatisticPokemon, Byte> getMultStatPokemonRank() {

@@ -10,9 +10,11 @@ public final class GeneComponentModelEffectEndRound extends AbsGeneComponentMode
     private final ContentComponentModelEffect contentEffect = new ContentComponentModelEffect();
     private final ContentComponentModelGroupEffectEndRound contentGroupEffectEndRound = new ContentComponentModelGroupEffectEndRound();
     private EffectEndRound edited;
+    private final boolean procAbility;
 
-    public GeneComponentModelEffectEndRound(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
+    public GeneComponentModelEffectEndRound(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact, boolean _ability) {
         super(_f, _core, _fac, _fact);
+        procAbility = _ability;
     }
 
     public AbsPanel geneEffect() {
@@ -44,6 +46,7 @@ public final class GeneComponentModelEffectEndRound extends AbsGeneComponentMode
         edited = ContentComponentModelGroupEffectEndRound.instance(eff_);
         getEffectKind().getSelect().repaint();
         getFrame().pack();
+        effectSub(edited);
     }
 
     public EffectEndRound valueEffect() {
@@ -56,8 +59,28 @@ public final class GeneComponentModelEffectEndRound extends AbsGeneComponentMode
         contentEffect.feedForm(_v);
         displayRepaint(contentGroupEffectEndRound.feedForm(_v));
         edited = _v;
+        effectSub(_v);
     }
 
+    private void effectSub(EffectEndRound _v) {
+        if (procAbility) {
+            getFactory().getFactoryAb().setEffectEndRoundAbility(_v);
+            getFactory().getFactoryCa().setEffectEndRoundAbility(_v);
+            getFactory().getFactoryIt().setEffectEndRoundAbility(_v);
+            getFactory().getFactoryMv().setEffectEndRoundAbility(_v);
+            getFactory().getFactoryPk().setEffectEndRoundAbility(_v);
+            getFactory().getFactorySt().setEffectEndRoundAbility(_v);
+            getFactory().getFactoryTy().setEffectEndRoundAbility(_v);
+        } else {
+            getFactory().getFactoryAb().setEffectEndRoundItem(_v);
+            getFactory().getFactoryCa().setEffectEndRoundItem(_v);
+            getFactory().getFactoryIt().setEffectEndRoundItem(_v);
+            getFactory().getFactoryMv().setEffectEndRoundItem(_v);
+            getFactory().getFactoryPk().setEffectEndRoundItem(_v);
+            getFactory().getFactorySt().setEffectEndRoundItem(_v);
+            getFactory().getFactoryTy().setEffectEndRoundItem(_v);
+        }
+    }
     private void displayRepaint(String _eff) {
         display(_eff);
         getEffectKind().setupValue(_eff);
@@ -70,6 +93,7 @@ public final class GeneComponentModelEffectEndRound extends AbsGeneComponentMode
     public IdList<SubscribedTranslation> all() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
         ids_.addAllElts(getContentEffect().getTargetChoice().getSubs());
+        ids_.addAllElts(getContentEffect().getFail().getSubs());
         ids_.addAllElts(GeneComponentModelEffect.endRound(getContentGroupEffectEndRound()));
         return ids_;
     }

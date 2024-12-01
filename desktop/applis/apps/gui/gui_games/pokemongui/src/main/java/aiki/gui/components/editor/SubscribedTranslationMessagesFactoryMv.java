@@ -1,19 +1,14 @@
 package aiki.gui.components.editor;
 
 import aiki.facade.*;
-import aiki.fight.moves.MoveData;
-import aiki.fight.moves.effects.EffectDamage;
-import code.gui.AbsCommonFrame;
-import code.gui.EditedCrudPair;
-import code.gui.GeneComponentModel;
-import code.gui.initialize.AbstractProgramInfos;
+import aiki.fight.moves.*;
+import code.gui.*;
+import code.gui.initialize.*;
 import code.util.*;
 
 public final class SubscribedTranslationMessagesFactoryMv extends SubscribedTranslationMessagesFactoryCommonParam<MoveData> {
 
     private GeneComponentModelMoveData geneComponentModelMoveData;
-
-    private EffectDamage effectDamage;
 
     @Override
     public StringMap<StringMap<String>> buildMessages(FacadeGame _facade) {
@@ -23,9 +18,6 @@ public final class SubscribedTranslationMessagesFactoryMv extends SubscribedTran
     @Override
     public void rename(FacadeGame _facade, String _previous, String _next) {
         _facade.getData().renameMove(_previous,_next);
-        if (!contains(_facade,_previous) && effectDamage != null){
-            _facade.getData().renameDamageLaw(_facade.getData().movesPart(),_previous,_next,effectDamage);
-        }
     }
 
     @Override
@@ -56,10 +48,6 @@ public final class SubscribedTranslationMessagesFactoryMv extends SubscribedTran
         geneComponentModelMoveData.getSecEffectsByItem().getCrudGeneFormSubContent().removeOpenSub();
         geneComponentModelMoveData.getEffects().getCrudGeneFormSubContent().removeOpenSub();
         _base.removeOpenSub();
-    }
-
-    public void setEffectDamage(EffectDamage _e) {
-        this.effectDamage = _e;
     }
 
     @Override

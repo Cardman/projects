@@ -23,7 +23,7 @@ public final class CrudGeneFormMonteCarloStrSub extends AbsCrudGeneFormMonteCarl
 
     @Override
     protected SubscribedTranslation geneLaw() {
-        return new SubscribedTranslationRenamingIdCrud(crud);
+        return new SubscribedTranslationRenamingIdCrud<LgInt>(crud);
     }
     public AbsButton getAdd() {
         return crud.getCrud().getAdd();

@@ -8181,26 +8181,33 @@ public class DataBase {
             renameExpAbility(_mids, _oldName, _newName, a);
         }
         for (MoveData m: moves.values()) {
-            m.setAccuracy(rename(m.getAccuracy(), _mids, _oldName, _newName));
+            renameExpAccuracy(_mids, _oldName, _newName, m);
             for (Effect e: m.getEffects()) {
                 renameExpEffect(_mids, _oldName, _newName, e);
             }
         }
         for (Status s: status.values()) {
             for (EffectEndRoundStatus e: s.getEffectEndRound()) {
-                e.setFail(rename(e.getFail(), _mids, _oldName, _newName));
-                e.setFailEndRound(rename(e.getFailEndRound(), _mids, _oldName, _newName));
+                renameExpEndRound(_mids, _oldName, _newName, e);
             }
         }
         for (EffectCombo e: combos.getEffects().values()) {
             for (EffectEndRoundFoe e2_: e.getEffectEndRound()) {
-                e2_.setFail(rename(e2_.getFail(), _mids, _oldName, _newName));
-                e2_.setFailEndRound(rename(e2_.getFailEndRound(), _mids, _oldName, _newName));
+                renameExpEndRound(_mids, _oldName, _newName, e2_);
             }
         }
     }
 
-    private void renameExpAbility(StringList _mids, String _oldName, String _newName, AbilityData _a) {
+    public void renameExpEndRound(StringList _mids, String _oldName, String _newName, EffectEndRound _e) {
+        _e.setFail(rename(_e.getFail(), _mids, _oldName, _newName));
+        _e.setFailEndRound(rename(_e.getFailEndRound(), _mids, _oldName, _newName));
+    }
+
+    public void renameExpAccuracy(StringList _mids, String _oldName, String _newName, MoveData _m) {
+        _m.setAccuracy(rename(_m.getAccuracy(), _mids, _oldName, _newName));
+    }
+
+    public void renameExpAbility(StringList _mids, String _oldName, String _newName, AbilityData _a) {
         _a.setMultPower(rename(_a.getMultPower(), _mids, _oldName, _newName));
         _a.setMultDamage(rename(_a.getMultDamage(), _mids, _oldName, _newName));
         new ChangeStringValueUtil<Statistic>(_a.getMultStat()).replaceExp(this, _mids, _oldName, _newName);
@@ -8209,12 +8216,13 @@ public class DataBase {
         endRound(_mids, _oldName, _newName, _a.getEffectEndRound());
     }
 
-    private void renameExpEffect(StringList _mids, String _oldName, String _newName, Effect _e) {
+    public void renameExpEffect(StringList _mids, String _oldName, String _newName, Effect _e) {
         _e.setFail(rename(_e.getFail(), _mids, _oldName, _newName));
         if (_e instanceof EffectDamage) {
             EffectDamage eff_ = (EffectDamage) _e;
             eff_.setPower(rename(eff_.getPower(), _mids, _oldName, _newName));
-            renameDamageLaw(_mids, _oldName, _newName, eff_);
+            MonteCarloString newLaw_ = patchLaw(_mids, _oldName, _newName, eff_.getDamageLaw());
+            eff_.setDamageLaw(newLaw_);
         }
         if (_e instanceof EffectTeamWhileSendFoe) {
             EffectTeamWhileSendFoe eff_ = (EffectTeamWhileSendFoe) _e;
@@ -8244,25 +8252,24 @@ public class DataBase {
         }
     }
 
-    public void renameDamageLaw(StringList _mids, String _oldName, String _newName, EffectDamage _eff) {
-        MonteCarloString newLaw_ = patchLaw(_mids, _oldName, _newName, _eff.getDamageLaw());
-        _eff.setDamageLaw(newLaw_);
-    }
-
-    private void renameExpItem(StringList _mids, String _oldName, String _newName, Item _o) {
+    public void renameExpItem(StringList _mids, String _oldName, String _newName, Item _o) {
         if (_o instanceof Ball) {
             Ball b_ = (Ball) _o;
             b_.setCatchingRate(rename(b_.getCatchingRate(), _mids, _oldName, _newName));
         }
         if (_o instanceof ItemForBattle) {
             ItemForBattle i_ = (ItemForBattle) _o;
-            i_.setMultPower(rename(i_.getMultPower(), _mids, _oldName, _newName));
-            i_.setMultDamage(rename(i_.getMultDamage(), _mids, _oldName, _newName));
-            new ChangeStringValueUtil<String>(i_.getFailStatus()).replaceExp(this, _mids, _oldName, _newName);
-            new ChangeStringValueUtil<Statistic>(i_.getMultStat()).replaceExp(this, _mids, _oldName, _newName);
-            renameExpSend(_mids, _oldName, _newName, i_.getEffectSending());
-            endRound(_mids, _oldName, _newName, i_.getEffectEndRound());
+            renameExpItemForBattle(_mids, _oldName, _newName, i_);
         }
+    }
+
+    public void renameExpItemForBattle(StringList _mids, String _oldName, String _newName, ItemForBattle _i) {
+        _i.setMultPower(rename(_i.getMultPower(), _mids, _oldName, _newName));
+        _i.setMultDamage(rename(_i.getMultDamage(), _mids, _oldName, _newName));
+        new ChangeStringValueUtil<String>(_i.getFailStatus()).replaceExp(this, _mids, _oldName, _newName);
+        new ChangeStringValueUtil<Statistic>(_i.getMultStat()).replaceExp(this, _mids, _oldName, _newName);
+        renameExpSend(_mids, _oldName, _newName, _i.getEffectSending());
+        endRound(_mids, _oldName, _newName, _i.getEffectEndRound());
     }
 
     private void renameExpSend(StringList _mids, String _oldName, String _newName, CustList<EffectWhileSendingWithStatistic> _ls) {
@@ -8271,18 +8278,21 @@ public class DataBase {
             if (!e_.isWithEffect()) {
                 return;
             }
-            EffectStatistic eff_ = e_.getEffect();
-            eff_.setFail(rename(eff_.getFail(), _mids, _oldName, _newName));
-            new ChangeStringValueUtil<Statistic>(eff_.getLocalFailStatis()).replaceExp(this, _mids, _oldName, _newName);
-            new ChangeStringValueUtil<Statistic>(eff_.getLocalFailSwapBoostStatis()).replaceExp(this, _mids, _oldName, _newName);
+            renameExpSend(_mids, _oldName, _newName, e_);
         }
+    }
+
+    public void renameExpSend(StringList _mids, String _oldName, String _newName, EffectWhileSendingWithStatistic _e) {
+        EffectStatistic eff_ = _e.getEffect();
+        eff_.setFail(rename(eff_.getFail(), _mids, _oldName, _newName));
+        new ChangeStringValueUtil<Statistic>(eff_.getLocalFailStatis()).replaceExp(this, _mids, _oldName, _newName);
+        new ChangeStringValueUtil<Statistic>(eff_.getLocalFailSwapBoostStatis()).replaceExp(this, _mids, _oldName, _newName);
     }
 
     private void endRound(StringList _mids, String _oldName, String _newName, CustList<EffectEndRound> _ls) {
         if (!_ls.isEmpty()) {
             EffectEndRound e_ = _ls.first();
-            e_.setFail(rename(e_.getFail(), _mids, _oldName, _newName));
-            e_.setFailEndRound(rename(e_.getFailEndRound(), _mids, _oldName, _newName));
+            renameExpEndRound(_mids, _oldName, _newName, e_);
         }
     }
 
