@@ -25,8 +25,8 @@ public final class EditorAbFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelAbilityData g_ = (GeneComponentModelAbilityData) c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(A_1);
-        g_.getMultDamage().valueString(A_2);
-        g_.getMultPower().valueString(A_3);
+        g_.getMultDamage().setupValue(A_2);
+        g_.getMultPower().setupValue(A_3);
         tryClick(c_.getValidAddEdit());
         assertEq(1,facade_.getData().getAbilities().size());
         assertEq(1,c_.getList().size());
@@ -43,13 +43,13 @@ public final class EditorAbFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelAbilityData g_ = (GeneComponentModelAbilityData) c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(A_1);
-        g_.getMultDamage().valueString(A_2);
-        g_.getMultPower().valueString(A_3);
+        g_.getMultDamage().setupValue(A_2);
+        g_.getMultPower().setupValue(A_3);
         tryClick(c_.getValidAddEdit());
         tryClick(c_.getAllButtons().get(0));
         GeneComponentModelAbilityData gSec_ = (GeneComponentModelAbilityData)c_.getGene();
-        assertEq(A_2,gSec_.getMultDamage().valueString());
-        assertEq(A_3,gSec_.getMultPower().valueString());
+        assertEq(A_2,gSec_.getMultDamage().tryRet());
+        assertEq(A_3,gSec_.getMultPower().tryRet());
     }
     @Test
     public void abForm3() {
@@ -60,13 +60,13 @@ public final class EditorAbFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelAbilityData g_ = (GeneComponentModelAbilityData) c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(A_1);
-        g_.getMultDamage().valueString(A_2);
-        g_.getMultPower().valueString(A_3);
+        g_.getMultDamage().setupValue(A_2);
+        g_.getMultPower().setupValue(A_3);
         tryClick(c_.getValidAddEdit());
         tryClick(c_.getAllButtons().get(0));
         GeneComponentModelAbilityData gSec_ = (GeneComponentModelAbilityData)c_.getGene();
-        gSec_.getMultDamage().valueString(A_3);
-        gSec_.getMultPower().valueString(A_2);
+        gSec_.getMultDamage().setupValue(A_3);
+        gSec_.getMultPower().setupValue(A_2);
         tryClick(c_.getValidAddEdit());
         assertEq(1,facade_.getData().getAbilities().size());
         assertEq(A_2, facade_.getData().getAbilities().getVal(A_1).getMultPower());
@@ -183,7 +183,7 @@ public final class EditorAbFormTest extends InitEditorPkForm {
         GeneComponentModelAbilityData g_ = (GeneComponentModelAbilityData) c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(A_1);
         tryClick(g_.getEffectEndRound().getCrud().getAdd());
-        ((GeneComponentModelSubscribeEffectEndRound)g_.getEffectEndRound().getCrud().getGenePair().getKey()).getCrud().getContentGroupEffectEndRound().getContentEffectEndRound().getFailEndRound().valueString("_");
+        ((GeneComponentModelSubscribeEffectEndRound)g_.getEffectEndRound().getCrud().getGenePair().getKey()).getCrud().getContentGroupEffectEndRound().getContentEffectEndRound().getFailEndRound().setupValue("_");
         tryClick(g_.getEffectEndRound().getCrud().getValidAddEdit());
         tryClick(g_.getEffectEndRound().getCrud().getAllButtons().get(0));
         tryClick(g_.getEffectEndRound().getCrud().getCancel());

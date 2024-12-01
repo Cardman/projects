@@ -374,12 +374,6 @@ public final class ConverterCommonMapUtil {
         return out_;
     }
 
-    public static CrudGeneFormMonteCarlo<String> buildMcString(AbsCommonFrame _f, AbstractProgramInfos _core) {
-        CrudGeneFormMonteCarlo<String> out_ = new CrudGeneFormMonteCarlo<String>(_f, _core, new ComparingStringKey<LgInt>());
-        out_.initFormKeys(new StringLgIntDisplayEntryCust(),new GeneComponentModelEventString(_core), new ComparingStringKey<LgInt>());
-        return out_;
-    }
-
     public static StringMap<AbsTextField> fields(AbsPanel _line, StringMap<String> _map, AbstractProgramInfos _api) {
         StringMap<AbsTextField> fs_ = new StringMap<AbsTextField>();
         for (EntryCust<String, String> l: _map.entryList()) {

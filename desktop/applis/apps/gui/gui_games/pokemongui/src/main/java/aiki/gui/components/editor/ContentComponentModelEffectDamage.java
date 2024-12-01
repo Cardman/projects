@@ -3,6 +3,7 @@ package aiki.gui.components.editor;
 import aiki.facade.*;
 import aiki.fight.enums.*;
 import aiki.fight.moves.effects.*;
+import aiki.util.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.maths.*;
@@ -18,8 +19,8 @@ public final class ContentComponentModelEffectDamage {
     private AbsCustCheckBox targetDefense;
     private CrudGeneFormMonteCarlo<Rate> chLaw;
     private CrudGeneFormMonteCarlo<Rate> hitsLaw;
-    private CrudGeneFormMonteCarlo<String> damageLaw;
-    private GeneComponentModelText power;
+    private CrudGeneFormMonteCarloStrSub damageLaw;
+    private GeneComponentModelSubscribeString power;
     private CrudGeneFormSimpleFormSub<String,Rate> multDamageAgainst;
     private CrudGeneFormSimpleFormSub<Statistic,Byte> boostStatisOnceKoFoe;
     private GeneComponentModelLsStrSub<Statistic,IdList<Statistic>> ignVarStatTargetPos;
@@ -30,8 +31,8 @@ public final class ContentComponentModelEffectDamage {
 
     AbsPanel effectForm(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
         AbsPanel selected_ = _core.getCompoFactory().newLineBox();
-        power = new GeneComponentModelText(_core);
-        selected_.add(power.geneString());
+        power = new GeneComponentModelSubscribeString(_core);
+        selected_.add(power.geneEnum());
         chRate = new GeneComponentModelInt(_core);
         selected_.add(chRate.geneInt());
         statisAtt = ConverterCommonMapUtil.buildStatisticsElt(_core,_fac,_fact);
@@ -56,8 +57,9 @@ public final class ContentComponentModelEffectDamage {
         selected_.add(chLaw.getGroup());
         hitsLaw = ConverterCommonMapUtil.buildMcRate(_f, _core);
         selected_.add(hitsLaw.getGroup());
-        damageLaw = ConverterCommonMapUtil.buildMcString(_f, _core);
-        selected_.add(damageLaw.getGroup());
+        damageLaw = new CrudGeneFormMonteCarloStrSub(_core, _fac, _fact, _f);
+        damageLaw.initFormKeys();
+        selected_.add(damageLaw.getCrud().getGroup());
         multDamageAgainst = new CrudGeneFormSimpleFormSub<String, Rate>(_core, _fac, _fact, _f);
         multDamageAgainst.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Rate>(_fact.getFactoryCa(),_core,_fac, new StringMap<String>()), buildPart(_core,_fac,_fact.getFactoryCa(), new StringMap<String>()), new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core)));
         selected_.add(multDamageAgainst.getGroup());
@@ -75,7 +77,7 @@ public final class ContentComponentModelEffectDamage {
         return new GeneComponentModelSubscribeFactorySelElt(_core, _fac, _facto, _abs);
     }
     void buildEntity(EffectDamage _edited) {
-        _edited.setPower(power.valueString());
+        _edited.setPower(power.tryRet());
         _edited.setChRate((byte) chRate.valueInt());
         _edited.setConstDamage(constDamage.isSelected());
         _edited.setRandMax(randMax.isSelected());
@@ -88,12 +90,12 @@ public final class ContentComponentModelEffectDamage {
         _edited.setIgnVarStatUserNeg(ignVarStatUserNeg.tryRet());
         _edited.setChLaw(ConverterCommonMapUtil.buildMonteCarloNumber(chLaw.getList()));
         _edited.setHitsLaw(ConverterCommonMapUtil.buildMonteCarloNumber(hitsLaw.getList()));
-        _edited.setDamageLaw(ConverterCommonMapUtil.buildMonteCarloString(damageLaw.getList()));
+        _edited.setDamageLaw(PatchPkLawStringUtil.patch(ConverterCommonMapUtil.buildMonteCarloString(damageLaw.getCrud().getList())));
         _edited.setMultDamageAgainst(ConverterCommonMapUtil.buildStringMapRate(multDamageAgainst.getList()));
         _edited.setBoostStatisOnceKoFoe(ConverterCommonMapUtil.buildIdMapStatisticByte(boostStatisOnceKoFoe.getList()));
     }
     void feedForm(EffectDamage _edited) {
-        power.valueString(_edited.getPower());
+        power.setupValue(_edited.getPower());
         chRate.valueInt(_edited.getChRate());
         constDamage.setSelected(_edited.getConstDamage());
         randMax.setSelected(_edited.getRandMax());
@@ -131,6 +133,10 @@ public final class ContentComponentModelEffectDamage {
         return userAttack;
     }
 
+    public GeneComponentModelSubscribeString getPower() {
+        return power;
+    }
+
     public GeneComponentModelEltEnumSub<Statistic> getStatisAtt() {
         return statisAtt;
     }
@@ -147,7 +153,7 @@ public final class ContentComponentModelEffectDamage {
         return ignVarStatUserNeg;
     }
 
-    public CrudGeneFormMonteCarlo<String> getDamageLaw() {
+    public CrudGeneFormMonteCarloStrSub getDamageLaw() {
         return damageLaw;
     }
 

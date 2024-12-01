@@ -13,16 +13,16 @@ public final class ContentComponentModelEffectCounterAttack {
     private CrudGeneFormSimpleFormSub<String, Rate> sufferingDamageTypes;
     private CrudGeneFormSimpleFormSub<Statistic, Byte> droppedStatDirectMove;
     private GeneComponentModelRate sufferingDamageDirectMove;
-    private GeneComponentModelText protectFail;
-    private GeneComponentModelText counterFail;
+    private GeneComponentModelSubscribeString protectFail;
+    private GeneComponentModelSubscribeString counterFail;
 
     private AbsPanel form;
     AbsPanel effectForm(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
         AbsPanel selected_ = _core.getCompoFactory().newLineBox();
-        protectFail = new GeneComponentModelText(_core);
-        selected_.add(protectFail.geneString());
-        counterFail = new GeneComponentModelText(_core);
-        selected_.add(counterFail.geneString());
+        protectFail = new GeneComponentModelSubscribeString(_core);
+        selected_.add(protectFail.geneEnum());
+        counterFail = new GeneComponentModelSubscribeString(_core);
+        selected_.add(counterFail.geneEnum());
         sufferingDamageDirectMove = new GeneComponentModelRate(_core);
         selected_.add(sufferingDamageDirectMove.geneRate());
         sufferingDamageTypes = new CrudGeneFormSimpleFormSub<String, Rate>(_core, _fac, _fact, _f);
@@ -39,15 +39,15 @@ public final class ContentComponentModelEffectCounterAttack {
         return new GeneComponentModelSubscribeFactorySelElt(_core, _fac, _facto, _abs);
     }
     void buildEntity(EffectCounterAttack _edited) {
-        _edited.setProtectFail(protectFail.valueString());
-        _edited.setCounterFail(counterFail.valueString());
+        _edited.setProtectFail(protectFail.tryRet());
+        _edited.setCounterFail(counterFail.tryRet());
         _edited.setSufferingDamageDirectMove(sufferingDamageDirectMove.valueRate());
         _edited.setSufferingDamageTypes(ConverterCommonMapUtil.buildStringMapRate(sufferingDamageTypes.getList()));
         _edited.setDroppedStatDirectMove(ConverterCommonMapUtil.buildIdMapStatisticByte(droppedStatDirectMove.getList()));
     }
     void feedForm(EffectCounterAttack _edited) {
-        protectFail.valueString(_edited.getProtectFail());
-        counterFail.valueString(_edited.getCounterFail());
+        protectFail.setupValue(_edited.getProtectFail());
+        counterFail.setupValue(_edited.getCounterFail());
         sufferingDamageDirectMove.valueRate(_edited.getSufferingDamageDirectMove());
         sufferingDamageTypes.setupValues(new MapToEntriesListUtil<String,Rate>().build(_edited.getSufferingDamageTypes()));
         droppedStatDirectMove.setupValues(new MapToEntriesListUtil<Statistic,Byte>().build(_edited.getDroppedStatDirectMove()));
@@ -56,6 +56,14 @@ public final class ContentComponentModelEffectCounterAttack {
         form.setVisible(_dis);
     }
 
+
+    public GeneComponentModelSubscribeString getProtectFail() {
+        return protectFail;
+    }
+
+    public GeneComponentModelSubscribeString getCounterFail() {
+        return counterFail;
+    }
 
     public GeneComponentModelRate getSufferingDamageDirectMove() {
         return sufferingDamageDirectMove;

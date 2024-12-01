@@ -50,4 +50,9 @@ public final class SubscribedTranslationMessagesFactorySt extends SubscribedTran
     public IdList<SubscribedTranslation> all() {
         return geneComponentModelStatus.all();
     }
+
+    @Override
+    public StringList mids(FacadeGame _facade) {
+        return _facade.getData().statusPart();
+    }
 }

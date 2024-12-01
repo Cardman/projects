@@ -8214,8 +8214,7 @@ public class DataBase {
         if (_e instanceof EffectDamage) {
             EffectDamage eff_ = (EffectDamage) _e;
             eff_.setPower(rename(eff_.getPower(), _mids, _oldName, _newName));
-            MonteCarloString newLaw_ = patchLaw(_mids, _oldName, _newName, eff_.getDamageLaw());
-            eff_.setDamageLaw(newLaw_);
+            renameDamageLaw(_mids, _oldName, _newName, eff_);
         }
         if (_e instanceof EffectTeamWhileSendFoe) {
             EffectTeamWhileSendFoe eff_ = (EffectTeamWhileSendFoe) _e;
@@ -8243,6 +8242,11 @@ public class DataBase {
             EffectEndRound eff_ = (EffectEndRound) _e;
             eff_.setFailEndRound(rename(eff_.getFailEndRound(), _mids, _oldName, _newName));
         }
+    }
+
+    public void renameDamageLaw(StringList _mids, String _oldName, String _newName, EffectDamage _eff) {
+        MonteCarloString newLaw_ = patchLaw(_mids, _oldName, _newName, _eff.getDamageLaw());
+        _eff.setDamageLaw(newLaw_);
     }
 
     private void renameExpItem(StringList _mids, String _oldName, String _newName, Item _o) {

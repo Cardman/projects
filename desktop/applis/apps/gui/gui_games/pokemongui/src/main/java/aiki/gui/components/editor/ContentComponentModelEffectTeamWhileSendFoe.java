@@ -9,8 +9,8 @@ import code.util.*;
 
 public final class ContentComponentModelEffectTeamWhileSendFoe {
 
-    private GeneComponentModelText failSending;
-    private GeneComponentModelText damageRateAgainstFoe;
+    private GeneComponentModelSubscribeString failSending;
+    private GeneComponentModelSubscribeString damageRateAgainstFoe;
     private GeneComponentModelLsStrSub<String,StringList> deletedByFoeTypes;
 
     private CrudGeneFormSimpleFormSub<Short, String> statusByNbUses;
@@ -19,10 +19,10 @@ public final class ContentComponentModelEffectTeamWhileSendFoe {
     private AbsPanel form;
     AbsPanel effectForm(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
         AbsPanel selected_ = _core.getCompoFactory().newLineBox();
-        failSending = new GeneComponentModelText(_core);
-        selected_.add(failSending.geneString());
-        damageRateAgainstFoe = new GeneComponentModelText(_core);
-        selected_.add(damageRateAgainstFoe.geneString());
+        failSending = new GeneComponentModelSubscribeString(_core);
+        selected_.add(failSending.geneEnum());
+        damageRateAgainstFoe = new GeneComponentModelSubscribeString(_core);
+        selected_.add(damageRateAgainstFoe.geneEnum());
         deletedByFoeTypes = ConverterCommonMapUtil.buildTypeList(_core,_fac,_fact);
         selected_.add(deletedByFoeTypes.geneEnum());
         statusByNbUses = new CrudGeneFormSimpleFormSub<Short, String>(_core, _fac, _fact, _f);
@@ -39,21 +39,29 @@ public final class ContentComponentModelEffectTeamWhileSendFoe {
         return new GeneComponentModelSubscribeFactorySelElt(_core, _fac, _facto, _abs);
     }
     void buildEntity(EffectTeamWhileSendFoe _edited) {
-        _edited.setFailSending(failSending.valueString());
-        _edited.setDamageRateAgainstFoe(damageRateAgainstFoe.valueString());
+        _edited.setFailSending(failSending.tryRet());
+        _edited.setDamageRateAgainstFoe(damageRateAgainstFoe.tryRet());
         _edited.setDeletedByFoeTypes(deletedByFoeTypes.tryRet());
         _edited.setStatusByNbUses(ConverterCommonMapUtil.buildShortMapString(statusByNbUses.getList()));
         _edited.setStatistics(ConverterCommonMapUtil.buildIdMapStatisticByte(statistics.getList()));
     }
     void feedForm(EffectTeamWhileSendFoe _edited) {
-        failSending.valueString(_edited.getFailSending());
-        damageRateAgainstFoe.valueString(_edited.getDamageRateAgainstFoe());
+        failSending.setupValue(_edited.getFailSending());
+        damageRateAgainstFoe.setupValue(_edited.getDamageRateAgainstFoe());
         deletedByFoeTypes.setupValue(_edited.getDeletedByFoeTypes());
         statusByNbUses.setupValues(new MapToEntriesListUtil<Short,String>().build(_edited.getStatusByNbUses()));
         statistics.setupValues(new MapToEntriesListUtil<Statistic,Byte>().build(_edited.getStatistics()));
     }
     void display(boolean _dis) {
         form.setVisible(_dis);
+    }
+
+    public GeneComponentModelSubscribeString getFailSending() {
+        return failSending;
+    }
+
+    public GeneComponentModelSubscribeString getDamageRateAgainstFoe() {
+        return damageRateAgainstFoe;
     }
 
     public GeneComponentModelLsStrSub<String,StringList> getDeletedByFoeTypes() {

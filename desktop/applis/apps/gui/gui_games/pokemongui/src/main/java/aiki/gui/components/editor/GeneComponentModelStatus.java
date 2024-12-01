@@ -23,7 +23,7 @@ public final class GeneComponentModelStatus extends GeneComponentModelEntity<Sta
     private CrudGeneFormSimpleElementSub<EffectEndRoundStatus> effectEndRound;
     private CrudGeneFormSimpleElementSub<EffectPartnerStatus> effectsPartner;
     private CrudGeneFormSimpleFormSub<Statistic, Rate> multStat;
-    private GeneComponentModelText fail;
+    private GeneComponentModelSubscribeString fail;
     private final GeneComponentModelRate catchingRate;
     private final GeneComponentModelInt incrementEndRound;
     private AbsCustCheckBox disabledEffIfSwitch;
@@ -82,8 +82,8 @@ public final class GeneComponentModelStatus extends GeneComponentModelEntity<Sta
         multStat=new CrudGeneFormSimpleFormSub<Statistic,Rate>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
         multStat.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Rate>(getSubscribedTranslationList().getFactoryStat(),getCompoFactory(),getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(getCompoFactory(), getSubscribedTranslationList().getFactoryStat(), getFacade()), new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(getCompoFactory())));
         form_.add(multStat.getGroup());
-        fail = new GeneComponentModelText(getCompoFactory());
-        form_.add(fail.geneString());
+        fail = new GeneComponentModelSubscribeString(getCompoFactory());
+        form_.add(fail.geneEnum());
         form_.add(catchingRate.geneRate());
         form_.add(incrementEndRound.geneInt());
         disabledEffIfSwitch = compoFactory_.newCustCheckBox();
@@ -121,7 +121,7 @@ public final class GeneComponentModelStatus extends GeneComponentModelEntity<Sta
         edited.setEffectEndRound(effectEndRound.getList());
         edited.setEffectsPartner(effectsPartner.getList());
         edited.setMultStat(ConverterCommonMapUtil.buildIdMapStatisticRate(multStat.getList()));
-        edited.setFail(fail.valueString());
+        edited.setFail(fail.tryRet());
         edited.setCatchingRate(catchingRate.valueRate());
         edited.setIncrementEndRound(incrementEndRound.valueInt());
         edited.setDisabledEffIfSwitch(disabledEffIfSwitch.isSelected());
@@ -155,7 +155,7 @@ public final class GeneComponentModelStatus extends GeneComponentModelEntity<Sta
         multStat.setupValues(new MapToEntriesListUtil<Statistic,Rate>().build(status_.getMultStat()));
         catchingRate.valueRate(status_.getCatchingRate());
         incrementEndRound.valueInt(status_.getIncrementEndRound());
-        fail.valueString(status_.getFail());
+        fail.setupValue(status_.getFail());
         disabledEffIfSwitch.setSelected(status_.getDisabledEffIfSwitch());
         incrementingEndRound.setSelected(status_.getIncrementingEndRound());
         statusType.setSelected(status_.getStatusType() == StatusType.INDIVIDUEL);
@@ -194,6 +194,7 @@ public final class GeneComponentModelStatus extends GeneComponentModelEntity<Sta
         ids_.addAllElts(getGeneComponentModelSelectKey().getSubs());
         ids_.addAllElts(attack.getSubs());
         ids_.addAllElts(defense.getSubs());
+        ids_.addAllElts(fail.getSubs());
         return ids_;
     }
 

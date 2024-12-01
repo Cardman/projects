@@ -19,4 +19,9 @@ public final class SubscribedTranslationMessagesFactoryTy extends SubscribedTran
     public void rename(FacadeGame _facade, String _previous, String _next) {
         _facade.getData().renameType(_previous,_next);
     }
+
+    @Override
+    public StringList mids(FacadeGame _facade) {
+        return _facade.getData().typesPart();
+    }
 }

@@ -53,4 +53,8 @@ public final class SubscribedTranslationMessagesFactoryAb extends SubscribedTran
         return geneComponentModelAbilityData.all();
     }
 
+    @Override
+    public StringList mids(FacadeGame _facade) {
+        return new StringList();
+    }
 }

@@ -16,7 +16,7 @@ public final class SubscribedTranslationMessages<T> implements SubscribedTransla
     }
 
     @Override
-    public void update(AbstractProgramInfos _api, FacadeGame _facade) {
+    public void update(AbstractProgramInfos _api, FacadeGame _facade, RenamingIdPhase _phase) {
         AbsMap<T, String> messages_ = factory.buildMessages(_api, _facade, empty);
         input.clear();
         input.addAllEntries(messages_);

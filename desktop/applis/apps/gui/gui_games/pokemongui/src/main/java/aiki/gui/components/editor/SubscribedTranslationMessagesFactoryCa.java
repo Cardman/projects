@@ -1,6 +1,7 @@
 package aiki.gui.components.editor;
 
 import aiki.facade.FacadeGame;
+import code.util.StringList;
 import code.util.StringMap;
 
 public final class SubscribedTranslationMessagesFactoryCa extends SubscribedTranslationMessagesFactoryCommon {
@@ -18,5 +19,10 @@ public final class SubscribedTranslationMessagesFactoryCa extends SubscribedTran
     @Override
     public void rename(FacadeGame _facade, String _previous, String _next) {
         _facade.getData().renameCategory(_previous,_next);
+    }
+
+    @Override
+    public StringList mids(FacadeGame _facade) {
+        return _facade.getData().categoriesPart();
     }
 }

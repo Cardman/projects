@@ -31,8 +31,8 @@ public final class ContentComponentModelItemForBattle {
     private GeneComponentModelLsStrSub<String,StringList> synchroStatus;
     private GeneComponentModelLsStrSub<String,StringList> typesPk;
     private CrudGeneFormMonteCarlo<BoolVal> lawForAttackFirst;
-    private GeneComponentModelText multPower;
-    private GeneComponentModelText multDamage;
+    private GeneComponentModelSubscribeString multPower;
+    private GeneComponentModelSubscribeString multDamage;
     private GeneComponentModelRate damageRecoil;
     private GeneComponentModelRate drainedHpByDamageRate;
     private GeneComponentModelRate multDrainedHp;
@@ -100,10 +100,10 @@ public final class ContentComponentModelItemForBattle {
         itemForBattleForm.add(typesPk.geneEnum());
         lawForAttackFirst = ConverterCommonMapUtil.buildMcBool(_parent.getFrame(),_parent.getCompoFactory());
         itemForBattleForm.add(lawForAttackFirst.getGroup());
-        multPower = new GeneComponentModelText(_parent.getCompoFactory());
-        itemForBattleForm.add(multPower.geneString());
-        multDamage = new GeneComponentModelText(_parent.getCompoFactory());
-        itemForBattleForm.add(multDamage.geneString());
+        multPower = new GeneComponentModelSubscribeString(_parent.getCompoFactory());
+        itemForBattleForm.add(multPower.geneEnum());
+        multDamage = new GeneComponentModelSubscribeString(_parent.getCompoFactory());
+        itemForBattleForm.add(multDamage.geneEnum());
         damageRecoil=new GeneComponentModelRate(_parent.getCompoFactory());
         itemForBattleForm.add(damageRecoil.geneRate());
         drainedHpByDamageRate=new GeneComponentModelRate(_parent.getCompoFactory());
@@ -165,8 +165,8 @@ public final class ContentComponentModelItemForBattle {
         _item.setSynchroStatus(synchroStatus.tryRet());
         _item.setTypesPk(typesPk.tryRet());
         _item.setLawForAttackFirst(ConverterCommonMapUtil.buildMonteCarloBool(lawForAttackFirst.getList()));
-        _item.setMultPower(multPower.valueString());
-        _item.setMultDamage(multDamage.valueString());
+        _item.setMultPower(multPower.tryRet());
+        _item.setMultDamage(multDamage.tryRet());
         _item.setDamageRecoil(damageRecoil.valueRate());
         _item.setDrainedHpByDamageRate(drainedHpByDamageRate.valueRate());
         _item.setMultDrainedHp(multDrainedHp.valueRate());
@@ -204,8 +204,8 @@ public final class ContentComponentModelItemForBattle {
         synchroStatus.setupValue(_item.getSynchroStatus());
         typesPk.setupValue(_item.getTypesPk());
         lawForAttackFirst.setupValues(new MapToEntriesListUtil<BoolVal, LgInt>().build(_item.getLawForAttackFirst()));
-        multPower.valueString(_item.getMultPower());
-        multDamage.valueString(_item.getMultDamage());
+        multPower.setupValue(_item.getMultPower());
+        multDamage.setupValue(_item.getMultDamage());
         damageRecoil.valueRate(_item.getDamageRecoil());
         drainedHpByDamageRate.valueRate(_item.getDrainedHpByDamageRate());
         multDrainedHp.valueRate(_item.getMultDrainedHp());
@@ -244,6 +244,8 @@ public final class ContentComponentModelItemForBattle {
         ids_.addAllElts(immuWeather.getSubs());
         ids_.addAllElts(synchroStatus.getSubs());
         ids_.addAllElts(typesPk.getSubs());
+        ids_.addAllElts(multDamage.getSubs());
+        ids_.addAllElts(multPower.getSubs());
         return ids_;
     }
 

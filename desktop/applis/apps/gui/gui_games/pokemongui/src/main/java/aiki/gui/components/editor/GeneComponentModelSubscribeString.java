@@ -11,6 +11,10 @@ public final class GeneComponentModelSubscribeString implements AbsGeneComponent
     }
     @Override
     public AbsCustComponent geneEnum(int _select, int _value) {
+        return geneEnum();
+    }
+
+    public AbsCustComponent geneEnum() {
         return crud.geneString();
     }
 
@@ -26,7 +30,9 @@ public final class GeneComponentModelSubscribeString implements AbsGeneComponent
 
     @Override
     public IdList<SubscribedTranslation> getSubs() {
-        return new IdList<SubscribedTranslation>();
+        IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
+        ids_.add(new SubscribedTranslationRenamingId(crud.getTextPane()));
+        return ids_;
     }
 
 }

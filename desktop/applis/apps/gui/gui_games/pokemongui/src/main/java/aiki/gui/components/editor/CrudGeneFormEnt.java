@@ -1,5 +1,6 @@
 package aiki.gui.components.editor;
 
+import aiki.db.DataBase;
 import aiki.facade.*;
 import code.gui.*;
 import code.gui.initialize.*;
@@ -39,6 +40,7 @@ public final class CrudGeneFormEnt<T> extends CrudGeneFormListSub<EditedCrudPair
             return;
         }
         FacadeGame facadeGame_ = getCrudGeneFormSubContent().getFacadeGame();
+        factoryCommonParam.all(facadeGame_).removeKey(DataBase.EMPTY_STRING);
         if (_index > -1) {
             int old_ = factoryCommonParam.all(facadeGame_).size();
             StringMap<StringMap<String>> trs_ = factoryCommonParam.buildMessages(facadeGame_);
@@ -66,6 +68,8 @@ public final class CrudGeneFormEnt<T> extends CrudGeneFormListSub<EditedCrudPair
 
     @Override
     public void cancel() {
+        FacadeGame facadeGame_ = getCrudGeneFormSubContent().getFacadeGame();
+        factoryCommonParam.all(facadeGame_).removeKey(DataBase.EMPTY_STRING);
         factoryCommonParam.removeOpenSub(getCrudGeneFormSubContent());
         cancelBase();
     }

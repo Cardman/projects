@@ -7,13 +7,13 @@ import code.gui.*;
 import code.gui.initialize.*;
 
 public final class ContentComponentModelEffect {
-    private GeneComponentModelText fail;
+    private GeneComponentModelSubscribeString fail;
     private GeneComponentModelEltEnumSub<TargetChoice> targetChoice;
     private GeneComponentModelSubscribeInts requiredSuccessfulEffects;
     AbsPanel effectForm(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
         AbsPanel selected_ = _core.getCompoFactory().newLineBox();
-        fail = new GeneComponentModelText(_core);
-        selected_.add(fail.geneString());
+        fail = new GeneComponentModelSubscribeString(_core);
+        selected_.add(fail.geneEnum());
         targetChoice = ConverterCommonMapUtil.buildTargetChoice(_core, _fac, _fact);
         selected_.add(targetChoice.geneEnum());
         requiredSuccessfulEffects = new GeneComponentModelSubscribeInts(_core, _fac, _fact, _f);
@@ -21,12 +21,12 @@ public final class ContentComponentModelEffect {
         return selected_;
     }
     void buildEntity(Effect _edited) {
-        _edited.setFail(fail.valueString());
+        _edited.setFail(fail.tryRet());
         _edited.setTargetChoice(targetChoice.tryRet());
         _edited.setRequiredSuccessfulEffects(requiredSuccessfulEffects.tryRet());
     }
     void feedForm(Effect _edited) {
-        fail.valueString(_edited.getFail());
+        fail.setupValue(_edited.getFail());
         targetChoice.setupValue(_edited.getTargetChoice());
         requiredSuccessfulEffects.setupValue(_edited.getRequiredSuccessfulEffects());
     }
@@ -35,7 +35,7 @@ public final class ContentComponentModelEffect {
         return targetChoice;
     }
 
-    GeneComponentModelText getFail() {
+    GeneComponentModelSubscribeString getFail() {
         return fail;
     }
 }

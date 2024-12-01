@@ -10,7 +10,7 @@ import code.util.core.*;
 
 public final class GeneComponentModelItem extends GeneComponentModelEntity<Item> implements ChangeableFormType {
     private final GeneComponentModelInt price;
-    private GeneComponentModelText catchingRate;
+    private GeneComponentModelSubscribeString catchingRate;
     private GeneComponentModelRate hp;
     private GeneComponentModelRate healedHpRate;
     private GeneComponentModelLong steps;
@@ -45,8 +45,8 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         form_.add(getEffectKind().geneEnum());
         form_.add(price.geneInt());
         ballForm = compoFactory_.newLineBox();
-        catchingRate = new GeneComponentModelText(getCompoFactory());
-        ballForm.add(catchingRate.geneString());
+        catchingRate = new GeneComponentModelSubscribeString(getCompoFactory());
+        ballForm.add(catchingRate.geneEnum());
         ballForm.setVisible(false);
         form_.add(ballForm);
         form_.add(berryForm.form(this));
@@ -132,7 +132,7 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
     public EditedCrudPair<String,Item> value() {
         element.setPrice(price.valueInt());
         if (element instanceof Ball) {
-            ((Ball)element).setCatchingRate(catchingRate.valueString());
+            ((Ball)element).setCatchingRate(catchingRate.tryRet());
         }
         if (element instanceof Berry) {
             berryForm.buildEntity((Berry)element);
@@ -178,7 +178,7 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         Item item_ = _v.getValue();
         price.valueInt(item_.getPrice());
         if (item_ instanceof Ball) {
-            catchingRate.valueString(((Ball)item_).getCatchingRate());
+            catchingRate.setupValue(((Ball)item_).getCatchingRate());
         }
         if (item_ instanceof Berry) {
             berryForm.feedForm((Berry) item_);
@@ -246,6 +246,7 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
         ids_.addAllElts(getGeneComponentModelSelectKey().getSubs());
         ids_.addAllElts(getEffectKind().getSubs());
+        ids_.addAllElts(catchingRate.getSubs());
         ids_.addAllElts(berryForm.all());
         ids_.addAllElts(boostForm.all());
         ids_.addAllElts(fossilForm.all());

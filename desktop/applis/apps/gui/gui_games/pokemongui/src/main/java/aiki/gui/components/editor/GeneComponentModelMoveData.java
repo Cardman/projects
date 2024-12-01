@@ -1,5 +1,6 @@
 package aiki.gui.components.editor;
 
+import aiki.db.DataBase;
 import aiki.facade.*;
 import aiki.fight.moves.*;
 import aiki.fight.moves.effects.*;
@@ -20,7 +21,7 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
     private GeneComponentModelLsStrSub<String,StringList> achieveDisappearedPkUsingMove;
     private GeneComponentModelLsStrSub<String,StringList> deletedStatus;
     private GeneComponentModelLsStrSub<String,StringList> requiredStatus;
-    private GeneComponentModelText accuracy;
+    private GeneComponentModelSubscribeString accuracy;
     private AbsCustCheckBox disappearBeforeUse;
     private AbsCustCheckBox rechargeRound;
     private AbsCustCheckBox constUserChoice;
@@ -69,7 +70,7 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         achieveDisappearedPkUsingMove = ConverterCommonMapUtil.buildMoveList(getCompoFactory(),getFacade(),getSubscribedTranslationList());
         deletedStatus = ConverterCommonMapUtil.buildStatusList(getCompoFactory(),getFacade(),getSubscribedTranslationList());
         requiredStatus = ConverterCommonMapUtil.buildStatusList(getCompoFactory(),getFacade(),getSubscribedTranslationList());
-        accuracy = new GeneComponentModelText(getCompoFactory());
+        accuracy = new GeneComponentModelSubscribeString(getCompoFactory());
         disappearBeforeUse = getCompoFactory().getCompoFactory().newCustCheckBox();
         rechargeRound = getCompoFactory().getCompoFactory().newCustCheckBox();
         constUserChoice = getCompoFactory().getCompoFactory().newCustCheckBox();
@@ -121,7 +122,7 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         form_.add(achieveDisappearedPkUsingMove.geneEnum());
         form_.add(deletedStatus.geneEnum());
         form_.add(requiredStatus.geneEnum());
-        form_.add(accuracy.geneString());
+        form_.add(accuracy.geneEnum());
         form_.add(disappearBeforeUse);
         form_.add(rechargeRound);
         form_.add(constUserChoice);
@@ -153,6 +154,7 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         } else {
             element = Instances.newStatusMoveData();
         }
+        getFacade().getData().getMoves().put(DataBase.EMPTY_STRING,element);
         getFrame().pack();
     }
     private GeneComponentModelSubscribeFactorySelElt buildPart(SubscribedTranslationMessagesFactory _facto, StringMap<String> _abs) {
@@ -171,7 +173,7 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         ent_.setAchieveDisappearedPkUsingMove(new StringList(achieveDisappearedPkUsingMove.tryRet()));
         ent_.setDeletedStatus(deletedStatus.tryRet());
         ent_.setRequiredStatus(requiredStatus.tryRet());
-        ent_.setAccuracy(accuracy.valueString());
+        ent_.setAccuracy(accuracy.tryRet());
         ent_.setDisappearBeforeUse(disappearBeforeUse.isSelected());
         ent_.setRechargeRound(rechargeRound.isSelected());
         ent_.setConstUserChoice(constUserChoice.isSelected());
@@ -209,6 +211,7 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
     public void value(EditedCrudPair<String,MoveData> _v) {
         getGeneComponentModelSelectKey().setupValue(_v.getKey());
         updateSelector();
+        getFacade().getData().getMoves().removeKey(DataBase.EMPTY_STRING);
         MoveData move_ = _v.getValue();
         element = move_;
         pp.valueInt(move_.getPp());
@@ -220,7 +223,7 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         achieveDisappearedPkUsingMove.setupValue(move_.getAchieveDisappearedPkUsingMove());
         deletedStatus.setupValue(move_.getDeletedStatus());
         requiredStatus.setupValue(move_.getRequiredStatus());
-        accuracy.valueString(move_.getAccuracy());
+        accuracy.setupValue(move_.getAccuracy());
         disappearBeforeUse.setSelected(move_.getDisappearBeforeUse());
         rechargeRound.setSelected(move_.getRechargeRound());
         constUserChoice.setSelected(move_.getConstUserChoice());
@@ -256,6 +259,7 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
     public IdList<SubscribedTranslation> all() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
         ids_.addAllElts(getGeneComponentModelSelectKey().getSubs());
+        ids_.addAllElts(accuracy.getSubs());
         ids_.addAllElts(types.getSubs());
         ids_.addAllElts(boostedTypes.getSubs());
         ids_.addAllElts(achieveDisappearedPkUsingMove.getSubs());

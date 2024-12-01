@@ -39,6 +39,7 @@ public final class CrudGeneFormTrItemType extends CrudGeneFormTrCommon {
                 all_.getVal(l.getKey()).set(e.getKey(),l.getValue().getText());
             }
         }
+        getSubscribedTranslations().updateRenaming("","",new StringList());
         getSubscribedTranslations().update();
     }
 

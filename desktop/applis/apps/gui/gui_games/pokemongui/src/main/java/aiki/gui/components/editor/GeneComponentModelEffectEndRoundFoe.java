@@ -57,11 +57,16 @@ public final class GeneComponentModelEffectEndRoundFoe extends AbsGeneComponentM
     public IdList<SubscribedTranslation> all() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
         ids_.addAllElts(getContentEffect().getTargetChoice().getSubs());
+        ids_.addAllElts(getContentEffectEndRound().getFailEndRound().getSubs());
         return ids_;
     }
 
     public ContentComponentModelEffect getContentEffect() {
         return contentEffect;
+    }
+
+    public ContentComponentModelEffectEndRound getContentEffectEndRound() {
+        return contentEffectEndRound;
     }
 
     public ContentComponentModelEffectEndRoundFoe getContentEffectEndRoundFoe() {

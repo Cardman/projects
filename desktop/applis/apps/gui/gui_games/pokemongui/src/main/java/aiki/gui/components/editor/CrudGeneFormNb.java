@@ -129,6 +129,7 @@ public final class CrudGeneFormNb extends CrudGeneFormListSub<EditedCrudPair<Int
     }
 
     private void update() {
+        subscribedTranslations.updateRenaming("","",new StringList());
         subscribedTranslations.update();
     }
 

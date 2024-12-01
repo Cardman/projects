@@ -42,18 +42,18 @@ public final class CrudGeneFormTr extends AbsCrudGeneFormList<EditedCrudPair<Str
             getList().remove(_index);
             ConverterCommonMapUtil.removeKey(key_, factoryMessage.buildMessages(facadeGame));
             afterModif();
-            update();
+            update("","");
             return;
         }
         if (getSelectedIndex() < 0) {
             ConverterCommonMapUtil.addKey(key_, _value.getValue(), factoryMessage.buildMessages(facadeGame));
             afterModif();
-            update();
+            update("","");
             return;
         }
         ConverterCommonMapUtil.setKey(key_, _value.getValue(), factoryMessage.buildMessages(facadeGame));
         afterModif();
-        update();
+        update("","");
     }
 
 //    @Override
@@ -76,7 +76,7 @@ public final class CrudGeneFormTr extends AbsCrudGeneFormList<EditedCrudPair<Str
                 possibleSort();
                 refresh();
                 afterModif();
-                update();
+                update(old_,next_);
             }
         }
     }
@@ -85,7 +85,8 @@ public final class CrudGeneFormTr extends AbsCrudGeneFormList<EditedCrudPair<Str
         return destination;
     }
 
-    private void update() {
+    private void update(String _oldId, String _newId) {
+        subscribedTranslations.updateRenaming(_oldId,_newId,factoryMessage.mids(facadeGame));
         subscribedTranslations.update();
     }
 

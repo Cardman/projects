@@ -13,7 +13,7 @@ public final class GeneComponentModelEffectWhileSending extends AbsGeneComponent
     private AbsCustCheckBox withEffect;
     private AbsCustCheckBox disableWeather;
     private AbsCustCheckBox copyingAbility;
-    private GeneComponentModelText enabledWeather;
+    private GeneComponentModelSubscribeString enabledWeather;
     private GeneComponentModelRate multWeight;
     private EffectWhileSendingWithStatistic edited;
 
@@ -34,8 +34,8 @@ public final class GeneComponentModelEffectWhileSending extends AbsGeneComponent
         form_.add(disableWeather);
         copyingAbility = compoFactory_.newCustCheckBox();
         form_.add(copyingAbility);
-        enabledWeather = new GeneComponentModelText(getProgramInfos());
-        form_.add(enabledWeather.geneString());
+        enabledWeather = new GeneComponentModelSubscribeString(getProgramInfos());
+        form_.add(enabledWeather.geneEnum());
         multWeight = new GeneComponentModelRate(getProgramInfos());
         form_.add(multWeight.geneRate());
         getEffectKind().getSelect().addListener(new ChangingTypeEvent(this));
@@ -55,7 +55,7 @@ public final class GeneComponentModelEffectWhileSending extends AbsGeneComponent
         edited.setWithEffect(withEffect.isSelected());
         edited.setDisableWeather(disableWeather.isSelected());
         edited.setCopyingAbility(copyingAbility.isSelected());
-        edited.setEnabledWeather(enabledWeather.valueString());
+        edited.setEnabledWeather(enabledWeather.tryRet());
         edited.setMultWeight(multWeight.valueRate());
         contentEffect.buildEntity(edited.getEffect());
         contentEffectStatistic.buildEntity(edited.getEffect());
@@ -66,7 +66,7 @@ public final class GeneComponentModelEffectWhileSending extends AbsGeneComponent
         withEffect.setSelected(_v.isWithEffect());
         disableWeather.setSelected(_v.getDisableWeather());
         copyingAbility.setSelected(_v.getCopyingAbility());
-        enabledWeather.valueString(_v.getEnabledWeather());
+        enabledWeather.setupValue(_v.getEnabledWeather());
         multWeight.valueRate(_v.getMultWeight());
         contentEffect.feedForm(_v.getEffect());
         contentEffectStatistic.feedForm(_v.getEffect());
@@ -76,6 +76,7 @@ public final class GeneComponentModelEffectWhileSending extends AbsGeneComponent
     public IdList<SubscribedTranslation> all() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
         ids_.addAllElts(getContentEffect().getTargetChoice().getSubs());
+        ids_.addAllElts(enabledWeather.getSubs());
         ids_.addAllElts(GeneComponentModelEffect.stats(getContentEffectStatistic()));
         return ids_;
     }

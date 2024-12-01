@@ -43,8 +43,8 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
     private CrudGeneFormSimpleFormSub<StatisticCategory,Byte> multStatIfDamageCat;
     private CrudGeneFormSimpleFormSub<StatisticCategory,Rate> multStatIfCat;
     private CrudGeneFormMonteCarloSub<String> singleStatus;
-    private GeneComponentModelText multPower;
-    private GeneComponentModelText multDamage;
+    private GeneComponentModelSubscribeString multPower;
+    private GeneComponentModelSubscribeString multDamage;
     private GeneComponentModelLsStrSub<Statistic,IdList<Statistic>> immuLowStat;
     private GeneComponentModelLsStrSub<Statistic,IdList<Statistic>> maxStatisticsIfCh;
     private GeneComponentModelLsStrSub<String,StringList> ignAbility;
@@ -195,10 +195,10 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         form_.add(multStatIfCat.getGroup());
         singleStatus = ConverterCommonMapUtil.buildStatusLaw(getFrame(), getCompoFactory(), getFacade(), getSubscribedTranslationList());
         form_.add(singleStatus.getGroup());
-        multPower = new GeneComponentModelText(getCompoFactory());
-        form_.add(multPower.geneString());
-        multDamage = new GeneComponentModelText(getCompoFactory());
-        form_.add(multDamage.geneString());
+        multPower = new GeneComponentModelSubscribeString(getCompoFactory());
+        form_.add(multPower.geneEnum());
+        multDamage = new GeneComponentModelSubscribeString(getCompoFactory());
+        form_.add(multDamage.geneEnum());
         immuLowStat=ConverterCommonMapUtil.buildStatisticsLs(getCompoFactory(),getFacade(),getSubscribedTranslationList());
         form_.add(immuLowStat.geneEnum());
         maxStatisticsIfCh=ConverterCommonMapUtil.buildStatisticsLs(getCompoFactory(),getFacade(),getSubscribedTranslationList());
@@ -337,8 +337,8 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         ent_.setMultStatIfDamageCat(ConverterCommonMapUtil.buildStatisticCategoryByte(multStatIfDamageCat.getList()));
         ent_.setMultStatIfCat(ConverterCommonMapUtil.buildStatisticCategoryRate(multStatIfCat.getList()));
         ent_.setSingleStatus(ConverterCommonMapUtil.buildMonteCarloString(singleStatus.getList()));
-        ent_.setMultPower(multPower.valueString());
-        ent_.setMultDamage(multDamage.valueString());
+        ent_.setMultPower(multPower.tryRet());
+        ent_.setMultDamage(multDamage.tryRet());
         ent_.setImmuLowStat(immuLowStat.tryRet());
         ent_.setMaxStatisticsIfCh(maxStatisticsIfCh.tryRet());
         ent_.setIgnAbility(ignAbility.tryRet());
@@ -425,8 +425,8 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         multStatIfDamageCat.setupValues(new MapToEntriesListUtil<StatisticCategory,Byte>().build(ability_.getMultStatIfDamageCat()));
         multStatIfCat.setupValues(new MapToEntriesListUtil<StatisticCategory,Rate>().build(ability_.getMultStatIfCat()));
         singleStatus.setupValues(new MapToEntriesListUtil<String,LgInt>().build(ability_.getSingleStatus()));
-        multPower.valueString(ability_.getMultPower());
-        multDamage.valueString(ability_.getMultDamage());
+        multPower.setupValue(ability_.getMultPower());
+        multDamage.setupValue(ability_.getMultDamage());
         immuLowStat.setupValue(ability_.getImmuLowStat());
         maxStatisticsIfCh.setupValue(ability_.getMaxStatisticsIfCh());
         ignAbility.setupValue(ability_.getIgnAbility());
@@ -519,6 +519,8 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         ids_.addAllElts(immuMove.getSubs());
         ids_.addAllElts(immuStatusBeginRound.getSubs());
         ids_.addAllElts(immuWeather.getSubs());
+        ids_.addAllElts(multDamage.getSubs());
+        ids_.addAllElts(multPower.getSubs());
         return ids_;
     }
 
@@ -546,11 +548,11 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         return healHpByTypeIfWeather;
     }
 
-    public GeneComponentModelText getMultDamage() {
+    public GeneComponentModelSubscribeString getMultDamage() {
         return multDamage;
     }
 
-    public GeneComponentModelText getMultPower() {
+    public GeneComponentModelSubscribeString getMultPower() {
         return multPower;
     }
 

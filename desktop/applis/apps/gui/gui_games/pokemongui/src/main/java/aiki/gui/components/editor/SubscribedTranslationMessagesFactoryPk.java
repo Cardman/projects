@@ -54,4 +54,9 @@ public final class SubscribedTranslationMessagesFactoryPk extends SubscribedTran
     public IdList<SubscribedTranslation> all() {
         return geneComponentModelPokemonData.all();
     }
+
+    @Override
+    public StringList mids(FacadeGame _facade) {
+        return new StringList();
+    }
 }

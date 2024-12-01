@@ -1,11 +1,12 @@
 package aiki.gui.components.editor;
 
+import aiki.db.*;
 import aiki.facade.*;
 import aiki.fight.moves.effects.*;
 import aiki.instances.*;
 import code.gui.*;
 import code.gui.initialize.*;
-import code.util.IdList;
+import code.util.*;
 import code.util.core.*;
 
 public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect {
@@ -90,6 +91,7 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
     @Override
     public void applyChange() {
         String eff_ = getEffectKind().tryRet();
+        getFactory().getFactoryMv().setEffectDamage(null);
         String display_ = display(eff_);
         if (!display_.isEmpty()) {
             edited = ContentComponentModelGroupEffectEndRound.instance(eff_);
@@ -126,7 +128,9 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
             edited = Instances.newEffectCounterAttack();
         }
         if (StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_DAMAGE)) {
-            edited = Instances.newEffectDamage();
+            EffectDamage damage_ = Instances.newEffectDamage();
+            getFactory().getFactoryMv().setEffectDamage(damage_);
+            edited = damage_;
         }
         if (StringUtil.quickEq(_eff,MessagesEditorSelect.EFF_DAMAGE_RATE)) {
             edited = Instances.newEffectDamageRate();
@@ -309,6 +313,7 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
     }
 
     public void valueEffect(Effect _v) {
+        getFactory().getFactoryMv().setEffectDamage(null);
         contentEffect.feedForm(_v);
         if (_v instanceof EffectAccuracy) {
             displayRepaint(MessagesEditorSelect.EFF_ACCURACY);
@@ -351,6 +356,7 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         }
         if (_v instanceof EffectDamage) {
             contentEffectDamage.feedForm((EffectDamage) _v);
+            effDamage((EffectDamage) _v);
             displayRepaint(MessagesEditorSelect.EFF_DAMAGE);
         }
         if (_v instanceof EffectDamageRate) {
@@ -388,6 +394,12 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         if (_v instanceof EffectProtection) {
             contentEffectProtection.feedForm((EffectProtection) _v);
             displayRepaint(MessagesEditorSelect.EFF_PROTECTION);
+        }
+    }
+
+    private void effDamage(EffectDamage _v) {
+        if (getFacadeGame().getData().getMoves().contains(DataBase.EMPTY_STRING)) {
+            getFactory().getFactoryMv().setEffectDamage(_v);
         }
     }
 
@@ -493,17 +505,23 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
     }
     public IdList<SubscribedTranslation> all() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
+        ids_.addAllElts(getContentEffect().getFail().getSubs());
         ids_.addAllElts(getContentEffect().getTargetChoice().getSubs());
         ids_.addAllElts(getContentEffectCommonStatistics().getCommonValue().subscribeButtons());
         ids_.addAllElts(getContentEffectCopyMove().getMovesNotToBeCopied().getSubs());
+        ids_.addAllElts(getContentEffectCounterAttack().getCounterFail().getSubs());
+        ids_.addAllElts(getContentEffectCounterAttack().getProtectFail().getSubs());
         ids_.addAllElts(getContentEffectCounterAttack().getSufferingDamageTypes().subscribeButtons());
         ids_.addAllElts(getContentEffectCounterAttack().getDroppedStatDirectMove().subscribeButtons());
+        ids_.addAllElts(getContentEffectDamage().getPower().getSubs());
         ids_.addAllElts(getContentEffectDamage().getStatisAtt().getSubs());
         ids_.addAllElts(getContentEffectDamage().getStatisDef().getSubs());
         ids_.addAllElts(getContentEffectDamage().getIgnVarStatTargetPos().getSubs());
         ids_.addAllElts(getContentEffectDamage().getIgnVarStatUserNeg().getSubs());
         ids_.addAllElts(getContentEffectDamage().getMultDamageAgainst().subscribeButtons());
         ids_.addAllElts(getContentEffectDamage().getBoostStatisOnceKoFoe().subscribeButtons());
+        ids_.addAllElts(getContentEffectDamage().getDamageLaw().subscribeButtons());
+        ids_.addAllElts(getContentEffectFullHpRate().getRestoredHp().getSubs());
         ids_.addAllElts(getContentEffectGlobal().getEfficiencyMoves().subscribeButtons());
         ids_.addAllElts(getContentEffectGlobal().getMultStatIfContainsType().subscribeButtons());
         ids_.addAllElts(getContentEffectGlobal().getMultDamagePrepaRound().subscribeButtons());
@@ -538,6 +556,8 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         ids_.addAllElts(getContentEffectTeamWhileSendFoe().getStatistics().subscribeButtons());
         ids_.addAllElts(getContentEffectTeamWhileSendFoe().getStatusByNbUses().subscribeButtons());
         ids_.addAllElts(getContentEffectTeamWhileSendFoe().getDeletedByFoeTypes().getSubs());
+        ids_.addAllElts(getContentEffectTeamWhileSendFoe().getFailSending().getSubs());
+        ids_.addAllElts(getContentEffectTeamWhileSendFoe().getDamageRateAgainstFoe().getSubs());
         ids_.addAllElts(getContentEffectUnprotectFromTypes().getTypes().subscribeButtons());
         ids_.addAllElts(getContentEffectUnprotectFromTypes().getAttackTargetWithTypes().getSubs());
         ids_.addAllElts(getContentEffectUnprotectFromTypes().getDisableImmuFromMoves().getSubs());
@@ -547,6 +567,7 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
     }
     public static IdList<SubscribedTranslation> endRound(ContentComponentModelGroupEffectEndRound _cont) {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
+        ids_.addAllElts(_cont.getContentEffectEndRound().getFailEndRound().getSubs());
         ids_.addAllElts(_cont.getContentEffectEndRoundIndividual().getUserStatusEndRound().getSubs());
         ids_.addAllElts(_cont.getContentEffectEndRoundIndividual().getHealHpByOwnerTypes().subscribeButtons());
         ids_.addAllElts(_cont.getContentEffectEndRoundIndividual().getMultDamageStatus().subscribeButtons());
@@ -582,7 +603,7 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         return ids_;
     }
 
-    public GeneComponentModelText getFail() {
+    public GeneComponentModelSubscribeString getFail() {
         return getContentEffect().getFail();
     }
 

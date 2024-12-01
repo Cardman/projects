@@ -5,26 +5,31 @@ import code.gui.initialize.*;
 import code.maths.*;
 import code.util.*;
 
-public final class CrudGeneFormMonteCarloSub<E> {
-    private DisplayEntryCustSubElement<EditedCrudPair<E, LgInt>> displayEntryCustSub;
-    private final CrudGeneFormMonteCarlo<E> law;
+public final class CrudGeneFormMonteCarloSub<E> extends AbsCrudGeneFormMonteCarloSub<E> {
     private GeneComponentModelEventEnum<E> compo;
+    private final CrudGeneFormMonteCarlo<E> law;
 
     public CrudGeneFormMonteCarloSub(AbsCommonFrame _f, AbstractProgramInfos _core) {
-        this.law = new CrudGeneFormMonteCarlo<E>(_f, _core, null);
+        law = new CrudGeneFormMonteCarlo<E>(_f, _core, null);
     }
 
+    public void initFormKeys(GeneComponentModel<EditedCrudPair<E, LgInt>> _sub, DisplayEntryCustSubElement<EditedCrudPair<E, LgInt>> _subsLoc) {
+        display(_subsLoc);
+        law.initFormKeys(_subsLoc.buildDisplay(), _sub, _subsLoc.buildCmp());
+    }
     public void initFormKeys(GeneComponentModelEltEnumSub<E> _sub, DisplayEntryCustSubElement<EditedCrudPair<E, LgInt>> _subsLoc) {
-        displayEntryCustSub = _subsLoc;
-        GeneComponentModelEventEnum<E> compo_ = new GeneComponentModelEventEnum<E>(law.getFactory(), _sub);
-        law.initFormKeys(_subsLoc.buildDisplay(), compo_, _subsLoc.buildCmp());
+        GeneComponentModelEventEnum<E> compo_ = new GeneComponentModelEventEnum<E>(getLaw().getFactory(), _sub);
+        initFormKeys(compo_,_subsLoc);
         this.compo = compo_;
     }
-    public IdList<SubscribedTranslation> subscribeButtons() {
-        IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
-        ids_.addAllElts(displayEntryCustSub.buildSub());
-        ids_.add(new SubscribedTranslationPkKey<EditedCrudPair<E, LgInt>>(law));
-        return ids_;
+
+    @Override
+    protected SubscribedTranslation geneLaw() {
+        return new SubscribedTranslationPkKey<EditedCrudPair<E, LgInt>>(law);
+    }
+
+    public GeneComponentModelEventEnum<E> getCompo() {
+        return compo;
     }
     public AbsPanel getGroup() {
         return getLaw().getGroup();
@@ -39,9 +44,4 @@ public final class CrudGeneFormMonteCarloSub<E> {
     public CrudGeneFormMonteCarlo<E> getLaw() {
         return law;
     }
-
-    public GeneComponentModelEventEnum<E> getCompo() {
-        return compo;
-    }
-
 }

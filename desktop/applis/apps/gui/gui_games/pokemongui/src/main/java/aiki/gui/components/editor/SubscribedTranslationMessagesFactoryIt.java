@@ -52,4 +52,9 @@ public final class SubscribedTranslationMessagesFactoryIt extends SubscribedTran
     public IdList<SubscribedTranslation> all() {
         return geneComponentModelItem.all();
     }
+
+    @Override
+    public StringList mids(FacadeGame _facade) {
+        return new StringList();
+    }
 }

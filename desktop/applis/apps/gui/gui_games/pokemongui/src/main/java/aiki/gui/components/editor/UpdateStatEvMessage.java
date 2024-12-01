@@ -14,7 +14,7 @@ public final class UpdateStatEvMessage implements SubscribedTranslation{
     }
 
     @Override
-    public void update(AbstractProgramInfos _api, FacadeGame _facade) {
+    public void update(AbstractProgramInfos _api, FacadeGame _facade, RenamingIdPhase _phase) {
         form.getGroup().setTitledBorder(_facade.getData().getTranslatedStatistics().getVal(_api.getLanguage()).getVal(stat));
     }
 }
