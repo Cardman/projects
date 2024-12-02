@@ -671,49 +671,44 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
     }
     @Test
     public void isUsed1() {
-        Ball b_ = Instances.newBall();
         DataBase db_ = newData();
-        db_.completeMembers(POKE_BALL,b_);
+        initTr(db_.getTranslatedItems());
         assertTrue(db_.isUsed(POKE_BALL));
     }
     @Test
     public void isUsed2() {
-        AbilityData b_ = Instances.newAbilityData();
         DataBase db_ = newData();
-        db_.completeMembers(POKE_BALL,b_);
+        initTr(db_.getTranslatedAbilities());
         assertTrue(db_.isUsed(POKE_BALL));
     }
     @Test
     public void isUsed3() {
-        MoveData b_ = Instances.newDamagingMoveData();
         DataBase db_ = newData();
-        db_.completeMembers(POKE_BALL,b_);
+        initTr(db_.getTranslatedMoves());
         assertTrue(db_.isUsed(POKE_BALL));
     }
     @Test
     public void isUsed4() {
-        PokemonData b_ = Instances.newPokemonData();
         DataBase db_ = newData();
-        db_.completeMembers(POKE_BALL,b_);
+        initTr(db_.getTranslatedPokemon());
         assertTrue(db_.isUsed(POKE_BALL));
     }
     @Test
     public void isUsed5() {
-        Status b_ = Instances.newStatusSimple();
         DataBase db_ = newData();
-        db_.completeMembers(POKE_BALL,b_);
+        initTr(db_.getTranslatedStatus());
         assertTrue(db_.isUsed(POKE_BALL));
     }
     @Test
     public void isUsed6() {
         DataBase db_ = newData();
-        db_.getTypes().add(POKE_BALL);
+        initTr(db_.getTranslatedTypes());
         assertTrue(db_.isUsed(POKE_BALL));
     }
     @Test
     public void isUsed7() {
         DataBase db_ = newData();
-        db_.getAllCategories().add(POKE_BALL);
+        initTr(db_.getTranslatedCategories());
         assertTrue(db_.isUsed(POKE_BALL));
     }
     @Test
@@ -975,6 +970,13 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         db_.changeNameCategoryInExp(PARATONNERRE,PIKACHU);
         assertEq(ES+V_NB_TOUR_GLOBAL+SE+PARATONNERRE, eff_.getFailEndRound());
     }
+
+    private void initTr(StringMap<StringMap<String>> _tr) {
+        StringMap<String> map_ = new StringMap<String>();
+        map_.addEntry(POKE_BALL,POKE_BALL);
+        _tr.addEntry(NULL_REF, map_);
+    }
+
     private static DataBase newData() {
         DataBase db_ = new DataBase(DefaultGenerator.oneElt());
         db_.initializeMembers();

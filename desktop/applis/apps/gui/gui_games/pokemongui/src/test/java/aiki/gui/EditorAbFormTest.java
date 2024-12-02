@@ -126,9 +126,9 @@ public final class EditorAbFormTest extends InitEditorPkForm {
         WindowPkEditor sub_ = window(pr_, facade_);
         CrudGeneFormTr cTr_ = crudTr(sub_);
         tryClick(cTr_.getAllButtons().get(1));
-        cTr_.getDestination().setText(A_3);
+        cTr_.getDestination().setText(A_4);
         ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
-        assertTrue(facade_.getData().getAbilities().contains(A_3));
+        assertTrue(facade_.getData().getAbilities().contains(A_4));
     }
     @Test
     public void abForm8() {

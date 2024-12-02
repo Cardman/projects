@@ -42,6 +42,9 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         b_.setCatchingRate(ES+A_CARDINAL+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+PARATONNERRE+RB+RP);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
+        StringMap<String> tr_ = new StringMap<String>();
+        tr_.addEntry(POKE_BALL,NULL_REF);
+        db_.getTranslatedItems().addEntry(NULL_REF, tr_);
         db_.renameItem(POKE_BALL,POKE_BALL);
         assertEq(1,db_.getItems().size());
         assertEq(POKE_BALL,db_.getItems().firstKey());
@@ -548,6 +551,9 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         PokemonData b_ = Instances.newPokemonData();
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
+        StringMap<String> tr_ = new StringMap<String>();
+        tr_.addEntry(POKE_BALL,NULL_REF);
+        db_.getTranslatedPokemon().addEntry(NULL_REF, tr_);
         db_.renamePokemon(POKE_BALL,POKE_BALL);
         assertEq(1,db_.getPokedex().size());
         assertEq(POKE_BALL,db_.getPokedex().firstKey());
@@ -785,6 +791,9 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     public void renameMove1() {
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,Instances.newDamagingMoveData());
+        StringMap<String> tr_ = new StringMap<String>();
+        tr_.addEntry(POKE_BALL,NULL_REF);
+        db_.getTranslatedMoves().addEntry(NULL_REF, tr_);
         db_.renameMove(POKE_BALL,POKE_BALL);
         assertEq(1,db_.getMoves().size());
         assertEq(POKE_BALL,db_.getMoves().firstKey());
@@ -998,8 +1007,6 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         assertEq(1,db_.getMoves().size());
         assertEq(PIKACHU,db_.getMoves().firstKey());
         assertEq(PIKACHU,p_.getMoves().first());
-        assertEq(1,db_.getVarParamsMove(db_.fighterPp()).size());
-        assertEq(PIKACHU,db_.getVarParamsMove(db_.fighterPp()).first());
     }
     @Test
     public void renameMove17() {
@@ -1021,25 +1028,24 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         assertEq(1,db_.getMoves().size());
         assertEq(PIKACHU,db_.getMoves().firstKey());
         assertEq(PIKACHU,p_.getMoves().first());
-        assertEq(0,db_.getVarParamsMove(db_.fighterPp()).size());
     }
-    @Test
-    public void editMove() {
-        DataBase db_ = newData();
-        DamagingMoveData da_ = Instances.newDamagingMoveData();
-        da_.setCategory(TREMPETTE);
-        db_.completeMembers(POKE_BALL, da_);
-        da_.setCategory(PIKACHU);
-        assertEq(1,db_.getAllCategories().size());
-        assertEq(1,db_.getCategories().size());
-        assertEq(TREMPETTE,db_.getAllCategories().first());
-        assertEq(TREMPETTE,db_.getCategories().first());
-        db_.editMove(POKE_BALL,db_.getMove(POKE_BALL));
-        assertEq(1,db_.getAllCategories().size());
-        assertEq(1,db_.getCategories().size());
-        assertEq(PIKACHU,db_.getAllCategories().first());
-        assertEq(PIKACHU,db_.getCategories().first());
-    }
+//    @Test
+//    public void editMove() {
+//        DataBase db_ = newData();
+//        DamagingMoveData da_ = Instances.newDamagingMoveData();
+//        da_.setCategory(TREMPETTE);
+//        db_.completeMembers(POKE_BALL, da_);
+//        da_.setCategory(PIKACHU);
+//        assertEq(1,db_.getAllCategories().size());
+//        assertEq(1,db_.getCategories().size());
+//        assertEq(TREMPETTE,db_.getAllCategories().first());
+//        assertEq(TREMPETTE,db_.getCategories().first());
+//        db_.editMove(POKE_BALL,db_.getMove(POKE_BALL));
+//        assertEq(1,db_.getAllCategories().size());
+//        assertEq(1,db_.getCategories().size());
+//        assertEq(PIKACHU,db_.getAllCategories().first());
+//        assertEq(PIKACHU,db_.getCategories().first());
+//    }
     @Test
     public void deleteMove0() {
         DataBase db_ = newData();
@@ -1256,7 +1262,6 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         db_.completeVariables();
         db_.deleteMove(POKE_BALL);
         assertEq(0,db_.getMoves().size());
-        assertEq(0,db_.getVarParamsMove(db_.fighterPp()).size());
     }
     @Test
     public void deleteMove19() {
@@ -1267,7 +1272,6 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         db_.completeVariables();
         db_.deleteMove(POKE_BALL);
         assertEq(0,db_.getMoves().size());
-        assertEq(0,db_.getVarParamsMove(db_.fighterPp()).size());
     }
     @Test
     public void renameAbility0() {
@@ -1285,6 +1289,9 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     public void renameAbility1() {
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,Instances.newAbilityData());
+        StringMap<String> tr_ = new StringMap<String>();
+        tr_.addEntry(POKE_BALL,NULL_REF);
+        db_.getTranslatedAbilities().addEntry(NULL_REF, tr_);
         db_.renameAbility(POKE_BALL,POKE_BALL);
         assertEq(1,db_.getAbilities().size());
         assertEq(POKE_BALL,db_.getAbilities().firstKey());
@@ -1513,6 +1520,9 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     public void renameStatus1() {
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,Instances.newStatusSimple());
+        StringMap<String> tr_ = new StringMap<String>();
+        tr_.addEntry(POKE_BALL,NULL_REF);
+        db_.getTranslatedStatus().addEntry(NULL_REF, tr_);
         db_.renameStatus(POKE_BALL,POKE_BALL);
         assertEq(1,db_.getStatus().size());
         assertEq(POKE_BALL,db_.getStatus().firstKey());
@@ -1922,25 +1932,20 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void renameType0() {
         DataBase db_ = newData();
-        db_.getTypes().add(POKE_BALL);
-        StringMap<String> tr_ = new StringMap<String>();
-        tr_.addEntry(POKE_BALL,NULL_REF);
-        db_.getTranslatedTypes().addEntry(NULL_REF, tr_);
+        StringMap<String> tr_ = defTrType(db_);
         db_.renameType(POKE_BALL,PIKACHU);
-        assertEq(1,db_.getTypes().size());
-        assertEq(PIKACHU,db_.getTypes().first());
+        assertEq(1,tr_.size());
         assertEq(PIKACHU,tr_.firstKey());
     }
     @Test
     public void renameType1() {
         DataBase db_ = newData();
-        db_.getTypes().add(POKE_BALL);
         StringMap<String> tr_ = new StringMap<String>();
         tr_.addEntry(POKE_BALL,NULL_REF);
         db_.getTranslatedTypes().addEntry(NULL_REF, tr_);
         db_.renameType(POKE_BALL,POKE_BALL);
-        assertEq(1,db_.getTypes().size());
-        assertEq(POKE_BALL,db_.getTypes().first());
+        assertEq(1,tr_.size());
+        assertEq(POKE_BALL,tr_.firstKey());
     }
     @Test
     public void renameType2() {
@@ -2130,20 +2135,16 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void deleteType0() {
         DataBase db_ = newData();
-        db_.getTypes().add(POKE_BALL);
-        StringMap<String> tr_ = new StringMap<String>();
-        tr_.addEntry(POKE_BALL,NULL_REF);
-        db_.getTranslatedTypes().addEntry(NULL_REF, tr_);
+        StringMap<String> tr_ = defTrType(db_);
         db_.deleteType(POKE_BALL);
-        assertEq(0,db_.getTypes().size());
         assertEq(0,tr_.size());
     }
     @Test
     public void deleteType1() {
         DataBase db_ = newData();
-        db_.getTypes().add(POKE_BALL);
+        StringMap<String> tr_ = defTrType(db_);
         db_.deleteType(POKE_BALL);
-        assertEq(0,db_.getTypes().size());
+        assertEq(0,tr_.size());
     }
     @Test
     public void deleteType2() {
@@ -2368,29 +2369,23 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void renameCategory0() {
         DataBase db_ = newData();
-        db_.getAllCategories().add(POKE_BALL);
         StringMap<String> tr_ = defTrCat(db_);
         db_.renameCategory(POKE_BALL,PIKACHU);
-        assertEq(1,db_.getAllCategories().size());
         assertEq(1,tr_.size());
-        assertEq(PIKACHU,db_.getAllCategories().first());
         assertEq(PIKACHU,tr_.firstKey());
     }
     @Test
     public void renameCategory1() {
         DataBase db_ = newData();
-        db_.getAllCategories().add(POKE_BALL);
-        StringMap<String> tr_ = new StringMap<String>();
-        tr_.addEntry(POKE_BALL,NULL_REF);
-        db_.getTranslatedCategories().addEntry(NULL_REF, tr_);
+        StringMap<String> tr_ = defTrCat(db_);
         db_.renameCategory(POKE_BALL,POKE_BALL);
-        assertEq(1,db_.getAllCategories().size());
-        assertEq(POKE_BALL,db_.getAllCategories().first());
+        assertEq(1,tr_.size());
+        assertEq(POKE_BALL,tr_.firstKey());
     }
     @Test
     public void renameCategory2() {
         DataBase db_ = newData();
-        db_.getAllCategories().add(POKE_BALL);
+        defTrCat(db_);
         AbilityData ab_ = Instances.newAbilityData();
         ab_.getMultStatIfDamageCat().addEntry(new StatisticCategory(Statistic.SPEED,POKE_BALL),(byte)1);
         db_.completeMembers(POKE_BALL_2, ab_);
@@ -2400,7 +2395,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void renameCategory3() {
         DataBase db_ = newData();
-        db_.getAllCategories().add(POKE_BALL);
+        defTrCat(db_);
         AbilityData ab_ = Instances.newAbilityData();
         ab_.getMultStatIfCat().addEntry(new StatisticCategory(Statistic.SPEED,POKE_BALL),Rate.one());
         db_.completeMembers(POKE_BALL_2, ab_);
@@ -2410,7 +2405,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void renameCategory4() {
         DataBase db_ = newData();
-        db_.getAllCategories().add(POKE_BALL);
+        defTrCat(db_);
         DamagingMoveData ab_ = Instances.newDamagingMoveData();
         ab_.setCategory(POKE_BALL);
         db_.completeMembers(POKE_BALL_2, ab_);
@@ -2420,7 +2415,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void renameCategory5() {
         DataBase db_ = newData();
-        db_.getAllCategories().add(POKE_BALL);
+        defTrCat(db_);
         StatusMoveData ab_ = Instances.newStatusMoveData();
         EffectTeam e_ = Instances.newEffectTeam();
         e_.getMultDamage().addEntry(new CategoryMult(POKE_BALL,(short) 1),Rate.one());
@@ -2433,7 +2428,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void renameCategory6() {
         DataBase db_ = newData();
-        db_.getAllCategories().add(POKE_BALL);
+        defTrCat(db_);
         Berry ab_ = Instances.newBerry();
         ab_.getDamageRateRecoilFoe().addEntry(POKE_BALL,Rate.one());
         db_.completeMembers(POKE_BALL_2, ab_);
@@ -2444,34 +2439,32 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void renameCategory7() {
         DataBase db_ = newData();
-        db_.getAllCategories().add(POKE_BALL);
+        StringMap<String> tr_ = defTrCat(db_);
         Berry ab_ = Instances.newBerry();
         ab_.getDamageRateRecoilFoe().addEntry(POKE_BALL,Rate.one());
         db_.completeMembers(POKE_BALL_2, ab_);
         db_.completeMembers(TREMPETTE, Instances.newItemForBattle());
         db_.renameCategory(db_.getDefCategory(),PIKACHU);
-        assertEq(1,db_.getAllCategories().size());
-        assertTrue(db_.getAllCategories().containsObj(POKE_BALL));
+        assertEq(1,tr_.size());
+        assertTrue(tr_.contains(POKE_BALL));
     }
     @Test
     public void renameCategory8() {
         DataBase db_ = newData();
-        db_.getAllCategories().add(POKE_BALL);
+        StringMap<String> tr_ = defTrCat(db_);
         Berry ab_ = Instances.newBerry();
         ab_.getDamageRateRecoilFoe().addEntry(POKE_BALL,Rate.one());
         db_.completeMembers(POKE_BALL_2, ab_);
         db_.completeMembers(TREMPETTE, Instances.newItemForBattle());
         db_.renameCategory(PIKACHU,db_.getDefCategory());
-        assertEq(1,db_.getAllCategories().size());
-        assertTrue(db_.getAllCategories().containsObj(POKE_BALL));
+        assertEq(1,tr_.size());
+        assertTrue(tr_.contains(POKE_BALL));
     }
     @Test
     public void deleteCategory0() {
         DataBase db_ = newData();
-        db_.getAllCategories().add(POKE_BALL);
         StringMap<String> tr_ = defTrCat(db_);
         db_.deleteCategory(POKE_BALL);
-        assertEq(0,db_.getAllCategories().size());
         assertEq(0,tr_.size());
     }
     @Test
@@ -2861,6 +2854,14 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         db_.deleteHm((short)1);
         assertEq(0,db_.getHm().size());
     }
+
+    private StringMap<String> defTrType(DataBase _db) {
+        StringMap<String> tr_ = new StringMap<String>();
+        tr_.addEntry(POKE_BALL,NULL_REF);
+        _db.getTranslatedTypes().addEntry(NULL_REF, tr_);
+        return tr_;
+    }
+
     private StringMap<String> defTrCat(DataBase _db) {
         StringMap<String> tr_ = new StringMap<String>();
         tr_.addEntry(POKE_BALL,NULL_REF);

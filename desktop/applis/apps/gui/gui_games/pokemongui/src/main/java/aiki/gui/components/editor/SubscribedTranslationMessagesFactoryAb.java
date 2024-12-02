@@ -33,11 +33,6 @@ public final class SubscribedTranslationMessagesFactoryAb extends SubscribedTran
     }
 
     @Override
-    public void completeQuickMembers(FacadeGame _facade, String _key, AbilityData _value) {
-        _facade.getData().completeQuickMembers(_key,_value);
-    }
-
-    @Override
     public GeneComponentModel<EditedCrudPair<String,AbilityData>> build(AbsCommonFrame _frame, AbstractProgramInfos _core, CrudGeneFormSubContent<EditedCrudPair<String,AbilityData>> _facade) {
         geneComponentModelAbilityData = new GeneComponentModelAbilityData(_frame,_core, _facade.getFacadeGame(), _facade.getSubscription());
         return geneComponentModelAbilityData;

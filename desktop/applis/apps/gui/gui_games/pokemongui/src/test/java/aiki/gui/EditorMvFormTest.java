@@ -357,9 +357,9 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         WindowPkEditor sub_ = window(pr_, facade_);
         CrudGeneFormTr cTr_ = crudTr(sub_);
         tryClick(cTr_.getAllButtons().get(1));
-        cTr_.getDestination().setText(M_3);
+        cTr_.getDestination().setText(M_4);
         ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
-        assertTrue(facade_.getData().getMoves().contains(M_3));
+        assertTrue(facade_.getData().getMoves().contains(M_4));
     }
     @Test
     public void mvForm8() {

@@ -57,7 +57,7 @@ public final class CrudGeneFormEnt<T> extends CrudGeneFormListSub<EditedCrudPair
             return;
         }
         if (getSelectedIndex() < 0) {
-            factoryCommonParam.completeQuickMembers(facadeGame_,key_,_value.getValue());
+            factoryCommonParam.all(facadeGame_).addEntry(key_,_value.getValue());
             factoryCommonParam.removeOpenSub(getCrudGeneFormSubContent());
             afterModif();
             return;

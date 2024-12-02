@@ -127,9 +127,9 @@ public final class EditorItFormTest extends InitEditorPkForm {
         WindowPkEditor sub_ = window(pr_, facade_);
         CrudGeneFormTr cTr_ = crudTr(sub_);
         tryClick(cTr_.getAllButtons().get(1));
-        cTr_.getDestination().setText(I_3);
+        cTr_.getDestination().setText(I_4);
         ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
-        assertTrue(facade_.getData().getItems().contains(I_3));
+        assertTrue(facade_.getData().getItems().contains(I_4));
     }
     @Test
     public void itForm8() {

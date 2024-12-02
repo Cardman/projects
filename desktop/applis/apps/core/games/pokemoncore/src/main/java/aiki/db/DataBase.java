@@ -4980,32 +4980,32 @@ public class DataBase {
 
         return defaultEggGroup;
     }
-    public void removeMoveFromLists(String _moveName) {
-        movesCopyingTemp.removeObj(_moveName);
-        movesProtAgainstPrio.removeObj(_moveName);
-        movesProtAgainstMultiTarget.removeObj(_moveName);
-        movesProtSingleTarget.removeObj(_moveName);
-        movesProtSingleTargetAgainstKo.removeObj(_moveName);
-        movesAccuracy.removeObj(_moveName);
-        movesEffectAlly.removeObj(_moveName);
-        trappingMoves.removeObj(_moveName);
-        movesEffEndRoundIndiv.removeObj(_moveName);
-        movesEffEndRoundIndivIncr.removeObj(_moveName);
-        movesAnticipation.removeObj(_moveName);
-        movesHealingAfter.removeObj(_moveName);
-        movesEffectUnprot.removeObj(_moveName);
-        movesEffectProt.removeObj(_moveName);
-        movesEffectIndivIncr.removeObj(_moveName);
-        movesActingMoveUses.removeObj(_moveName);
-        movesForbidding.removeObj(_moveName);
-        movesEffectIndiv.removeObj(_moveName);
-        movesEffectIndivIncr.removeObj(_moveName);
-        movesEffectTeam.removeObj(_moveName);
-        movesEffectGlobalWeather.removeObj(_moveName);
-        movesEffectGlobal.removeObj(_moveName);
-        movesFullHeal.removeObj(_moveName);
-        movesEffectWhileSending.removeObj(_moveName);
-    }
+//    public void removeMoveFromLists(String _moveName) {
+//        movesCopyingTemp.removeObj(_moveName);
+//        movesProtAgainstPrio.removeObj(_moveName);
+//        movesProtAgainstMultiTarget.removeObj(_moveName);
+//        movesProtSingleTarget.removeObj(_moveName);
+//        movesProtSingleTargetAgainstKo.removeObj(_moveName);
+//        movesAccuracy.removeObj(_moveName);
+//        movesEffectAlly.removeObj(_moveName);
+//        trappingMoves.removeObj(_moveName);
+//        movesEffEndRoundIndiv.removeObj(_moveName);
+//        movesEffEndRoundIndivIncr.removeObj(_moveName);
+//        movesAnticipation.removeObj(_moveName);
+//        movesHealingAfter.removeObj(_moveName);
+//        movesEffectUnprot.removeObj(_moveName);
+//        movesEffectProt.removeObj(_moveName);
+//        movesEffectIndivIncr.removeObj(_moveName);
+//        movesActingMoveUses.removeObj(_moveName);
+//        movesForbidding.removeObj(_moveName);
+//        movesEffectIndiv.removeObj(_moveName);
+//        movesEffectIndivIncr.removeObj(_moveName);
+//        movesEffectTeam.removeObj(_moveName);
+//        movesEffectGlobalWeather.removeObj(_moveName);
+//        movesEffectGlobal.removeObj(_moveName);
+//        movesFullHeal.removeObj(_moveName);
+//        movesEffectWhileSending.removeObj(_moveName);
+//    }
     public void renamePokemon(String _oldName, String _newName) {
         if (isUsed(_newName)) {
             return;
@@ -5030,10 +5030,10 @@ public class DataBase {
         for (StringMap<String> t: getTranslatedPokemon().values()) {
             t.move(_oldName, _newName);
         }
-        miniPk.move(_oldName, _newName);
-        maxiPkBack.move(_oldName, _newName);
-        maxiPkFront.move(_oldName, _newName);
-        legPks.replace(_oldName, _newName);
+//        miniPk.move(_oldName, _newName);
+//        maxiPkBack.move(_oldName, _newName);
+//        maxiPkFront.move(_oldName, _newName);
+//        legPks.replace(_oldName, _newName);
     }
     public void deletePokemon(String _oldName) {
         if (usedPkInExp(_oldName)) {
@@ -5064,10 +5064,10 @@ public class DataBase {
         for (StringMap<String> t: getTranslatedPokemon().values()) {
             t.removeKey(_oldName);
         }
-        miniPk.removeKey(_oldName);
-        maxiPkBack.removeKey(_oldName);
-        maxiPkFront.removeKey(_oldName);
-        legPks.removeObj(_oldName);
+//        miniPk.removeKey(_oldName);
+//        maxiPkBack.removeKey(_oldName);
+//        maxiPkFront.removeKey(_oldName);
+//        legPks.removeObj(_oldName);
     }
     public void renameTm(short _oldName, short _newName) {
         if (tm.contains(_newName)) {
@@ -5262,37 +5262,37 @@ public class DataBase {
                 new ChangeStringFieldLevelMoves().change(l,_oldName,_newName);
             }
         }
-        movesCopyingTemp.replace(_oldName, _newName);
-        movesProtAgainstPrio.replace(_oldName, _newName);
-        movesProtAgainstMultiTarget.replace(_oldName, _newName);
-        movesProtSingleTarget.replace(_oldName, _newName);
-        movesProtSingleTargetAgainstKo.replace(_oldName, _newName);
-        movesAccuracy.replace(_oldName, _newName);
-        movesEffectAlly.replace(_oldName, _newName);
-        trappingMoves.replace(_oldName, _newName);
-        movesEffEndRoundIndiv.replace(_oldName, _newName);
-        movesEffEndRoundIndivIncr.replace(_oldName, _newName);
-        movesAnticipation.replace(_oldName, _newName);
-        movesHealingAfter.replace(_oldName, _newName);
-        movesEffectUnprot.replace(_oldName, _newName);
-        movesEffectProt.replace(_oldName, _newName);
-        movesEffectIndivIncr.replace(_oldName, _newName);
-        movesActingMoveUses.replace(_oldName, _newName);
-        movesForbidding.replace(_oldName, _newName);
-        movesEffectIndiv.replace(_oldName, _newName);
-        movesEffectIndivIncr.replace(_oldName, _newName);
-        movesEffectTeam.replace(_oldName, _newName);
-        movesEffectGlobalWeather.replace(_oldName, _newName);
-        movesEffectGlobal.replace(_oldName, _newName);
-        movesFullHeal.replace(_oldName, _newName);
-        movesEffectWhileSending.replace(_oldName, _newName);
+//        movesCopyingTemp.replace(_oldName, _newName);
+//        movesProtAgainstPrio.replace(_oldName, _newName);
+//        movesProtAgainstMultiTarget.replace(_oldName, _newName);
+//        movesProtSingleTarget.replace(_oldName, _newName);
+//        movesProtSingleTargetAgainstKo.replace(_oldName, _newName);
+//        movesAccuracy.replace(_oldName, _newName);
+//        movesEffectAlly.replace(_oldName, _newName);
+//        trappingMoves.replace(_oldName, _newName);
+//        movesEffEndRoundIndiv.replace(_oldName, _newName);
+//        movesEffEndRoundIndivIncr.replace(_oldName, _newName);
+//        movesAnticipation.replace(_oldName, _newName);
+//        movesHealingAfter.replace(_oldName, _newName);
+//        movesEffectUnprot.replace(_oldName, _newName);
+//        movesEffectProt.replace(_oldName, _newName);
+//        movesEffectIndivIncr.replace(_oldName, _newName);
+//        movesActingMoveUses.replace(_oldName, _newName);
+//        movesForbidding.replace(_oldName, _newName);
+//        movesEffectIndiv.replace(_oldName, _newName);
+//        movesEffectIndivIncr.replace(_oldName, _newName);
+//        movesEffectTeam.replace(_oldName, _newName);
+//        movesEffectGlobalWeather.replace(_oldName, _newName);
+//        movesEffectGlobal.replace(_oldName, _newName);
+//        movesFullHeal.replace(_oldName, _newName);
+//        movesEffectWhileSending.replace(_oldName, _newName);
         new ChangeStringValueUtil<Short>(hm).replace(_oldName, _newName);
         new ChangeStringValueUtil<Short>(tm).replace(_oldName, _newName);
         moves.move(_oldName, _newName);
         for (StringMap<String> t: getTranslatedMoves().values()) {
             t.move(_oldName, _newName);
         }
-        changeParams(_oldName, _newName, movesPart());
+//        changeParams(_oldName, _newName, movesPart());
     }
 
     private void move(String _oldName, String _newName, MoveData _m) {
@@ -5301,20 +5301,20 @@ public class DataBase {
             moveEffect(_oldName, _newName, e);
         }
     }
-    public void editMove(String _name, MoveData _modifiedMove) {
-        removeMoveFromLists(_name);
-        completeMembers(_name, _modifiedMove);
-        StringList nextCat_ = new StringList();
-        StringList nextAllCat_ = new StringList();
-        for (EntryCust<String, MoveData> m: moves.entryList()) {
-            addCat(m.getValue(), nextCat_, nextAllCat_, defCategory);
-        }
-        categories.clear();
-        allCategories.clear();
-        categories.addAllElts(nextCat_);
-        allCategories.addAllElts(nextAllCat_);
-        removeDuplicatesCategoriesMoves();
-    }
+//    public void editMove(String _name, MoveData _modifiedMove) {
+//        removeMoveFromLists(_name);
+//        completeMembers(_name, _modifiedMove);
+//        StringList nextCat_ = new StringList();
+//        StringList nextAllCat_ = new StringList();
+//        for (EntryCust<String, MoveData> m: moves.entryList()) {
+//            addCat(m.getValue(), nextCat_, nextAllCat_, defCategory);
+//        }
+//        categories.clear();
+//        allCategories.clear();
+//        categories.addAllElts(nextCat_);
+//        allCategories.addAllElts(nextAllCat_);
+//        removeDuplicatesCategoriesMoves();
+//    }
     public void deleteMove(String _oldName) {
         if (usedMoveInExp(_oldName)) {
             return;
@@ -5359,17 +5359,17 @@ public class DataBase {
         if (ls_.contains(_oldName)) {
             return;
         }
-        categories.clear();
-        allCategories.clear();
-        categories.addAllElts(nextCat_);
-        allCategories.addAllElts(nextAllCat_);
-        removeDuplicatesCategoriesMoves();
-        removeMoveFromLists(_oldName);
+//        categories.clear();
+//        allCategories.clear();
+//        categories.addAllElts(nextCat_);
+//        allCategories.addAllElts(nextAllCat_);
+//        removeDuplicatesCategoriesMoves();
+//        removeMoveFromLists(_oldName);
         moves.removeKey(_oldName);
         for (StringMap<String> t: getTranslatedMoves().values()) {
             t.removeKey(_oldName);
         }
-        removeParams(_oldName, movesPart());
+//        removeParams(_oldName, movesPart());
     }
 
     private void move(String _oldName, ChangeStringKeyUtil _ls, String _key, MoveData _value, StringList _nextCat, StringList _nextAllCat) {
@@ -5555,7 +5555,7 @@ public class DataBase {
         for (StringMap<String> t: getTranslatedItems().values()) {
             t.move(_oldName, _newName);
         }
-        miniItems.move(_oldName, _newName);
+//        miniItems.move(_oldName, _newName);
     }
 
     private void place(String _oldName, String _newName, Place _p) {
@@ -5600,7 +5600,7 @@ public class DataBase {
         for (StringMap<String> t: getTranslatedItems().values()) {
             t.removeKey(_oldName);
         }
-        miniItems.removeKey(_oldName);
+//        miniItems.removeKey(_oldName);
     }
     private CustList<ChangeStringFieldMatch> place(Place _p) {
         CustList<ChangeStringFieldMatch> matches_ = new CustList<ChangeStringFieldMatch>();
@@ -5830,8 +5830,8 @@ public class DataBase {
         for (StringMap<String> t: getTranslatedStatus().values()) {
             t.move(_oldName, _newName);
         }
-        animStatus.move(_oldName,_newName);
-        changeParams(_oldName, _newName, statusPart());
+//        animStatus.move(_oldName,_newName);
+//        changeParams(_oldName, _newName, statusPart());
     }
 
     public void deleteStatus(String _oldName) {
@@ -5868,8 +5868,8 @@ public class DataBase {
         for (StringMap<String> t: getTranslatedStatus().values()) {
             t.removeKey(_oldName);
         }
-        animStatus.removeKey(_oldName);
-        removeParams(_oldName, statusPart());
+//        animStatus.removeKey(_oldName);
+//        removeParams(_oldName, statusPart());
     }
 
     private ChangeStringKeyUtil statusMatches() {
@@ -6069,13 +6069,13 @@ public class DataBase {
             table_.addEntry(pair_, value_);
         }
         tableTypes = table_;
-        types.replace(_oldName, _newName);
+//        types.replace(_oldName, _newName);
         for (StringMap<String> t: getTranslatedTypes().values()) {
             t.move(_oldName, _newName);
         }
-        typesImages.move(_oldName, _newName);
-        typesColors.move(_oldName, _newName);
-        changeParams(_oldName, _newName, typesPart());
+//        typesImages.move(_oldName, _newName);
+//        typesColors.move(_oldName, _newName);
+//        changeParams(_oldName, _newName, typesPart());
     }
     private boolean usedInTr(String _name, StringMap<StringMap<String>> _trs) {
         int nb_ = 0;
@@ -6099,13 +6099,13 @@ public class DataBase {
             }
         }
         tableTypes = table_;
-        types.removeObj(_oldName);
+//        types.removeObj(_oldName);
         for (StringMap<String> t: getTranslatedTypes().values()) {
             t.removeKey(_oldName);
         }
-        typesImages.removeKey(_oldName);
-        typesColors.removeKey(_oldName);
-        removeParams(_oldName, typesPart());
+//        typesImages.removeKey(_oldName);
+//        typesColors.removeKey(_oldName);
+//        removeParams(_oldName, typesPart());
     }
     public boolean usedType(String _oldName) {
         if (usedTypeInExp(_oldName)) {
@@ -6396,33 +6396,36 @@ public class DataBase {
         for (Item o: items.values()) {
             damageRateRecoilFoe(_oldName, _newName, o);
         }
-        changeCategory(_oldName,_newName);
+//        changeCategory(_oldName,_newName);
         for (StringMap<String> t: getTranslatedCategories().values()) {
             t.move(_oldName, _newName);
         }
-        changeParams(_oldName, _newName, categoriesPart());
+//        changeParams(_oldName, _newName, categoriesPart());
 //        getAllCategories().replace(_oldName, _newName);
 //        getCategories().replace(_oldName, _newName);
     }
 
-    void changeCategory(String _oldName, String _newName) {
-        if (StringUtil.quickEq(_oldName, getDefCategory()) || StringUtil.quickEq(_newName, getDefCategory())) {
-            return;
-        }
-        getAllCategories().replace(_oldName, _newName);
-        getCategories().replace(_oldName, _newName);
-    }
+//    void changeCategory(String _oldName, String _newName) {
+//        if (StringUtil.quickEq(_oldName, getDefCategory()) || StringUtil.quickEq(_newName, getDefCategory())) {
+//            return;
+//        }
+//        for (StringMap<String> t: getTranslatedCategories().values()) {
+//            t.move(_oldName, _newName);
+//        }
+//        getAllCategories().replace(_oldName, _newName);
+//        getCategories().replace(_oldName, _newName);
+//    }
 
     public void deleteCategory(String _oldName) {
         if (usedCategory(_oldName)) {
             return;
         }
-        getCategories().removeObj(_oldName);
-        getAllCategories().removeObj(_oldName);
+//        getCategories().removeObj(_oldName);
+//        getAllCategories().removeObj(_oldName);
         for (StringMap<String> t: getTranslatedCategories().values()) {
             t.removeKey(_oldName);
         }
-        removeParams(_oldName, categoriesPart());
+//        removeParams(_oldName, categoriesPart());
 //        getAllCategories().replace(_oldName, _newName);
 //        getCategories().replace(_oldName, _newName);
     }
@@ -6519,21 +6522,21 @@ public class DataBase {
         return pair_;
     }
 
-    private void changeParams(String _oldName, String _newName, StringList _parts) {
-        for (EntryCust<String,StringList> e: getVarParamsMove().entryList()) {
-            if (_parts.containsObj(StringUtil.concat(e.getKey(),SEP_BETWEEN_KEYS))) {
-                e.getValue().replace(_oldName,_newName);
-            }
-        }
-    }
+//    private void changeParams(String _oldName, String _newName, StringList _parts) {
+//        for (EntryCust<String,StringList> e: getVarParamsMove().entryList()) {
+//            if (_parts.containsObj(StringUtil.concat(e.getKey(),SEP_BETWEEN_KEYS))) {
+//                e.getValue().replace(_oldName,_newName);
+//            }
+//        }
+//    }
 
-    private void removeParams(String _oldName, StringList _parts) {
-        for (EntryCust<String,StringList> e: getVarParamsMove().entryList()) {
-            if (_parts.containsObj(StringUtil.concat(e.getKey(),SEP_BETWEEN_KEYS))) {
-                e.getValue().removeObj(_oldName);
-            }
-        }
-    }
+//    private void removeParams(String _oldName, StringList _parts) {
+//        for (EntryCust<String,StringList> e: getVarParamsMove().entryList()) {
+//            if (_parts.containsObj(StringUtil.concat(e.getKey(),SEP_BETWEEN_KEYS))) {
+//                e.getValue().removeObj(_oldName);
+//            }
+//        }
+//    }
 
     public static void changeValue(ChangeStringField _i, String _oldName, String _newName) {
         if (_i == null) {
@@ -6871,7 +6874,15 @@ public class DataBase {
         return EvolvedMathFactory.usedId(_el,prefixedVar(), _mids, _id);
     }
     public boolean isUsed(String _id) {
-        return moves.contains(_id) || items.contains(_id) || pokedex.contains(_id) || status.contains(_id) || abilities.contains(_id) || getTypes().containsObj(_id) || getAllCategories().containsObj(_id);
+        return isUsed(translatedMoves,_id) || isUsed(translatedItems, _id) || isUsed(translatedPokemon, _id) || isUsed(translatedStatus, _id) || isUsed(translatedAbilities, _id) || isUsed(translatedTypes, _id) || isUsed(translatedCategories, _id);
+    }
+    private static boolean isUsed(StringMap<StringMap<String>> _trs, String _id) {
+        for (StringMap<String> m: _trs.values()) {
+            if (m.contains(_id)) {
+                return true;
+            }
+        }
+        return false;
     }
     public StringList getVarParamsMove(String _var) {
         StringList elements_ = new StringList();

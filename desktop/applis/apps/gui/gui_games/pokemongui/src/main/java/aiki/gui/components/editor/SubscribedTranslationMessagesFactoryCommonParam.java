@@ -16,5 +16,4 @@ public abstract class SubscribedTranslationMessagesFactoryCommonParam<T> extends
     public abstract void removeOpenSub(CrudGeneFormSubContent<EditedCrudPair<String,T>> _base);
     public abstract IdList<SubscribedTranslation> all();
     public abstract void delete(FacadeGame _facade, String _key);
-    public abstract void completeQuickMembers(FacadeGame _facade, String _key, T _value);
 }
