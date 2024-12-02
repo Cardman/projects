@@ -10,15 +10,16 @@ final class MathUtil {
 
     static boolean usedId(String _el, String _prefix, StringList _mids, String _id) {
         MbDelimiters d_ = MathResolver.checkSyntax(_el, new ErrorStatus());
-        for (String m: _mids) {
-            for (MatVariableInfo v: d_.getVariables()) {
-                if (StringUtil.quickEq(v.getName(),_prefix+m+_id)) {
-                    return true;
-                }
+        for (MatVariableInfo v: d_.getVariables()) {
+            if (contains(_mids, v.getName(), _prefix, _id)) {
+                return true;
             }
         }
         for (StringList v: d_.getStringInfo()) {
             for (String e: v) {
+                if (contains(_mids, e, _prefix, _id)) {
+                    return true;
+                }
                 if (StringUtil.quickEq(e,_id)) {
                     return true;
                 }
@@ -26,6 +27,16 @@ final class MathUtil {
         }
         return false;
     }
+
+    private static boolean contains(StringList _mids, String _e, String _prefix, String _id) {
+        for (String m: _mids) {
+            if (StringUtil.quickEq(_e, _prefix +m+ _id)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     static String rename(String _el, String _prefix, StringList _mids, String _id, String _target) {
         MbDelimiters d_ = MathResolver.checkSyntax(_el, new ErrorStatus());
         Ints dels_ = d_.getDelStringsChars();

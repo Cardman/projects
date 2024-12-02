@@ -182,6 +182,10 @@ public class EvolvedMathFactoryTest extends EquallableMathUtil {
         assertTrue(!EvolvedMathFactory.usedId("VAR__INTER","VAR__",new StringList("INTER"),"ID"));
     }
     @Test
+    public void usedId7() {
+        assertTrue(EvolvedMathFactory.usedId("{VAR__INTER__ID}","VAR__",new StringList("INTER__"),"ID"));
+    }
+    @Test
     public void rename1() {
         assertEq("VAR__INTER__OTHER",EvolvedMathFactory.rename("VAR__INTER__ID","VAR__",new StringList("INTER__"),"ID","OTHER"));
     }
