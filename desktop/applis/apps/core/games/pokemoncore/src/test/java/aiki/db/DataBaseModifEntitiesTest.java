@@ -2149,113 +2149,113 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void deleteType2() {
         DataBase db_ = newData();
-        db_.getTableTypes().addEntry(new TypesDuo(POKE_BALL,POKE_BALL),Rate.one());
+        StringMap<String> tr_ = defTrType(db_);
         PokemonData move_ = Instances.newPokemonData();
         move_.getTypes().add(POKE_BALL);
         db_.completeMembers(POKE_BALL_2, move_);
         db_.deleteType(POKE_BALL);
-        assertEq(1,db_.getTableTypes().size());
+        assertEq(1,tr_.size());
     }
     @Test
     public void deleteType3() {
         DataBase db_ = newData();
-        db_.getTableTypes().addEntry(new TypesDuo(POKE_BALL,POKE_BALL),Rate.one());
+        StringMap<String> tr_ = defTrType(db_);
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectUnprotectFromTypes e_ = Instances.newEffectUnprotectFromTypes();
         e_.getTypes().add(new TypesDuo(POKE_BALL,POKE_BALL));
         move_.getEffects().add(e_);
         db_.completeMembers(POKE_BALL_2, move_);
         db_.deleteType(POKE_BALL);
-        assertEq(1,db_.getTableTypes().size());
+        assertEq(1,tr_.size());
     }
     @Test
     public void deleteType4() {
         DataBase db_ = newData();
-        db_.getTableTypes().addEntry(new TypesDuo(POKE_BALL,POKE_BALL),Rate.one());
+        StringMap<String> tr_ = defTrType(db_);
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectSwitchTypes e_ = Instances.newEffectSwitchTypes();
         e_.getConstTypes().add(POKE_BALL);
         move_.getEffects().add(e_);
         db_.completeMembers(POKE_BALL_2, move_);
         db_.deleteType(POKE_BALL);
-        assertEq(1,db_.getTableTypes().size());
+        assertEq(1,tr_.size());
     }
     @Test
     public void deleteType5() {
         DataBase db_ = newData();
-        db_.getTableTypes().addEntry(new TypesDuo(POKE_BALL,POKE_BALL),Rate.one());
+        StringMap<String> tr_ = defTrType(db_);
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectTeamWhileSendFoe e_ = Instances.newEffectTeamWhileSendFoe();
         e_.getDeletedByFoeTypes().add(POKE_BALL);
         move_.getEffects().add(e_);
         db_.completeMembers(POKE_BALL_2, move_);
         db_.deleteType(POKE_BALL);
-        assertEq(1,db_.getTableTypes().size());
+        assertEq(1,tr_.size());
     }
     @Test
     public void deleteType6() {
         DataBase db_ = newData();
-        db_.getTableTypes().addEntry(new TypesDuo(POKE_BALL,POKE_BALL),Rate.one());
+        StringMap<String> tr_ = defTrType(db_);
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectGlobal e_ = Instances.newEffectGlobal();
         e_.getEfficiencyMoves().addEntry(new TypesDuo(POKE_BALL,POKE_BALL),Rate.one());
         move_.getEffects().add(e_);
         db_.completeMembers(POKE_BALL_2, move_);
         db_.deleteType(POKE_BALL);
-        assertEq(1,db_.getTableTypes().size());
+        assertEq(1,tr_.size());
     }
     @Test
     public void deleteType7() {
         DataBase db_ = newData();
-        db_.getTableTypes().addEntry(new TypesDuo(POKE_BALL,POKE_BALL),Rate.one());
+        StringMap<String> tr_ = defTrType(db_);
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectGlobal e_ = Instances.newEffectGlobal();
         e_.getMultStatIfContainsType().addEntry(new StatisticType(Statistic.SPEED,POKE_BALL),Rate.one());
         move_.getEffects().add(e_);
         db_.completeMembers(POKE_BALL_2, move_);
         db_.deleteType(POKE_BALL);
-        assertEq(1,db_.getTableTypes().size());
+        assertEq(1,tr_.size());
     }
     @Test
     public void deleteType8() {
         DataBase db_ = newData();
-        db_.getTableTypes().addEntry(new TypesDuo(POKE_BALL,POKE_BALL),Rate.one());
+        StringMap<String> tr_ = defTrType(db_);
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectProtectFromTypes e_ = Instances.newEffectProtectFromTypes();
         e_.getImmuAgainstTypes().add(POKE_BALL);
         move_.getEffects().add(e_);
         db_.completeMembers(POKE_BALL_2, move_);
         db_.deleteType(POKE_BALL);
-        assertEq(1,db_.getTableTypes().size());
+        assertEq(1,tr_.size());
     }
     @Test
     public void deleteType9() {
         DataBase db_ = newData();
-        db_.getTableTypes().addEntry(new TypesDuo(POKE_BALL,POKE_BALL),Rate.one());
+        StringMap<String> tr_ = defTrType(db_);
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectMultUsedMovePower e_ = Instances.newEffectMultUsedMovePower();
         e_.getMultMovePowerFctType().addEntry(POKE_BALL,Rate.one());
         move_.getEffects().add(e_);
         db_.completeMembers(POKE_BALL_2, move_);
         db_.deleteType(POKE_BALL);
-        assertEq(1,db_.getTableTypes().size());
+        assertEq(1,tr_.size());
     }
     @Test
     public void deleteType10() {
         DataBase db_ = newData();
-        db_.getTableTypes().addEntry(new TypesDuo(POKE_BALL,POKE_BALL),Rate.one());
+        StringMap<String> tr_ = defTrType(db_);
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectMultSufferedMovePower e_ = Instances.newEffectMultSufferedMovePower();
         e_.getMultMovePowerFctType().addEntry(POKE_BALL,Rate.one());
         move_.getEffects().add(e_);
         db_.completeMembers(POKE_BALL_2, move_);
         db_.deleteType(POKE_BALL);
-        assertEq(1,db_.getTableTypes().size());
+        assertEq(1,tr_.size());
     }
     @Test
     public void deleteType11() {
         DataBase db_ = newData();
-        db_.getTableTypes().addEntry(new TypesDuo(POKE_BALL,POKE_BALL),Rate.one());
+        StringMap<String> tr_ = defTrType(db_);
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectEndRoundIndividual e_ = Instances.newEffectEndRoundIndividual();
         e_.getHealHpByOwnerTypes().addEntry(POKE_BALL,Rate.one());
@@ -2263,100 +2263,105 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         move_.getEffects().add(Instances.newEffectEndRoundFoe());
         db_.completeMembers(POKE_BALL_2, move_);
         db_.deleteType(POKE_BALL);
-        assertEq(1,db_.getTableTypes().size());
+        assertEq(1,tr_.size());
     }
     @Test
     public void deleteType12() {
         DataBase db_ = newData();
-        db_.getTableTypes().addEntry(new TypesDuo(POKE_BALL,POKE_BALL),Rate.one());
+        StringMap<String> tr_ = defTrType(db_);
         ItemForBattle move_ = Instances.newItemForBattle();
         EffectEndRoundIndividual e_ = Instances.newEffectEndRoundIndividual();
         e_.getHealHpByOwnerTypes().addEntry(POKE_BALL,Rate.one());
         move_.getEffectEndRound().add(e_);
         db_.completeMembers(POKE_BALL_2, move_);
         db_.deleteType(POKE_BALL);
-        assertEq(1,db_.getTableTypes().size());
+        assertEq(1,tr_.size());
     }
     @Test
     public void deleteType13() {
         DataBase db_ = newData();
-        db_.getTableTypes().addEntry(new TypesDuo(POKE_BALL,POKE_BALL),Rate.one());
+        StringMap<String> tr_ = defTrType(db_);
         Berry move_ = Instances.newBerry();
         move_.getMultFoesDamage().addEntry(POKE_BALL,new EfficiencyRate(Rate.one(),Rate.one()));
         db_.completeMembers(POKE_BALL_2, move_);
         db_.deleteType(POKE_BALL);
-        assertEq(1,db_.getTableTypes().size());
+        assertEq(1,tr_.size());
     }
     @Test
     public void deleteType14() {
         DataBase db_ = newData();
-        db_.getTableTypes().addEntry(new TypesDuo(POKE_BALL,POKE_BALL),Rate.one());
+        StringMap<String> tr_ = defTrType(db_);
         AbilityData move_ = Instances.newAbilityData();
         move_.getMultStatIfDamgeType().addEntry(new StatisticType(Statistic.SPEED,POKE_BALL),(byte)0);
         db_.completeMembers(POKE_BALL_2, move_);
         db_.deleteType(POKE_BALL);
-        assertEq(1,db_.getTableTypes().size());
+        assertEq(1,tr_.size());
     }
     @Test
     public void deleteType15() {
         DataBase db_ = newData();
-        db_.getTableTypes().addEntry(new TypesDuo(POKE_BALL,POKE_BALL),Rate.one());
+        StringMap<String> tr_ = defTrType(db_);
         AbilityData move_ = Instances.newAbilityData();
         move_.getBreakFoeImmune().add(new TypesDuo(POKE_BALL,POKE_BALL));
         db_.completeMembers(POKE_BALL_2, move_);
         db_.deleteType(POKE_BALL);
-        assertEq(1,db_.getTableTypes().size());
+        assertEq(1,tr_.size());
     }
     @Test
     public void deleteType16() {
         DataBase db_ = newData();
-        db_.getTableTypes().addEntry(new TypesDuo(POKE_BALL,POKE_BALL),Rate.one());
+        StringMap<String> tr_ = defTrType(db_);
         AbilityData move_ = Instances.newAbilityData();
         move_.getHealHpByTypeIfWeather().addEntry(new WeatherType(POKE_BALL,POKE_BALL),Rate.one());
         db_.completeMembers(POKE_BALL_2, move_);
         db_.deleteType(POKE_BALL);
-        assertEq(1,db_.getTableTypes().size());
+        assertEq(1,tr_.size());
     }
     @Test
     public void deleteType17() {
         DataBase db_ = newData();
-        db_.getTableTypes().addEntry(new TypesDuo(POKE_BALL,POKE_BALL),Rate.one());
+        StringMap<String> tr_ = defTrType(db_);
         AbilityData move_ = Instances.newAbilityData();
         move_.getImmuMoveTypesByWeather().addEntry(NULL_REF,new StringList(POKE_BALL));
         db_.completeMembers(POKE_BALL_2, move_);
         db_.deleteType(POKE_BALL);
-        assertEq(1,db_.getTableTypes().size());
+        assertEq(1,tr_.size());
     }
     @Test
     public void deleteType18() {
         DataBase db_ = newData();
-        db_.getTableTypes().addEntry(new TypesDuo(POKE_BALL,POKE_BALL),Rate.one());
+        StringMap<String> tr_ = defTrType(db_);
         AbilityData move_ = Instances.newAbilityData();
         move_.setTypeForMoves(POKE_BALL);
         db_.completeMembers(POKE_BALL_2, move_);
         db_.deleteType(POKE_BALL);
-        assertEq(1,db_.getTableTypes().size());
+        assertEq(1,tr_.size());
     }
     @Test
     public void deleteType19() {
         DataBase db_ = newData();
+        StringMap<String> tr_ = defTrType(db_);
         db_.getTableTypes().addEntry(new TypesDuo(POKE_BALL,POKE_BALL),Rate.one());
         db_.deleteType(POKE_BALL);
-        assertEq(0,db_.getTableTypes().size());
+        assertEq(1,tr_.size());
+        assertEq(1,db_.getTableTypes().size());
     }
     @Test
     public void deleteType20() {
         DataBase db_ = newData();
+        StringMap<String> tr_ = defTrType(db_);
         db_.getTableTypes().addEntry(new TypesDuo(POKE_BALL,POKE_BALL),Rate.one());
         db_.getTableTypes().addEntry(new TypesDuo(POKE_BALL,POKE_BALL_2),Rate.one());
         db_.getTableTypes().addEntry(new TypesDuo(POKE_BALL_2,POKE_BALL),Rate.one());
         db_.getTableTypes().addEntry(new TypesDuo(POKE_BALL_2,POKE_BALL_2),Rate.one());
         db_.deleteType(POKE_BALL);
-        assertEq(1,db_.getTableTypes().size());
+        assertEq(1,tr_.size());
+        assertEq(4,db_.getTableTypes().size());
     }
     @Test
     public void deleteType21() {
         DataBase db_ = newData();
+        StringMap<String> tr_ = defTrType(db_);
         db_.getTableTypes().addEntry(new TypesDuo(POKE_BALL,POKE_BALL),Rate.one());
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectSwitchAbilities eff_ = Instances.newEffectSwitchAbilities();
@@ -2364,6 +2369,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         move_.getEffects().add(eff_);
         db_.completeMembers(POKE_BALL_2, move_);
         db_.deleteType(POKE_BALL);
+        assertEq(1,tr_.size());
         assertEq(1,db_.getTableTypes().size());
     }
     @Test

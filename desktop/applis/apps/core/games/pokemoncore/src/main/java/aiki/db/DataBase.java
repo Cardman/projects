@@ -6034,7 +6034,7 @@ public class DataBase {
     }
 
     public void renameType(String _oldName, String _newName) {
-        if (usedInTr(_newName, getTranslatedTypes())) {
+        if (isUsed(_newName)) {
             return;
         }
         changeNameTypeInExp(_oldName, _newName);
@@ -6077,28 +6077,19 @@ public class DataBase {
 //        typesColors.move(_oldName, _newName);
 //        changeParams(_oldName, _newName, typesPart());
     }
-    private boolean usedInTr(String _name, StringMap<StringMap<String>> _trs) {
-        int nb_ = 0;
-        for (StringMap<String> t: _trs.values()) {
-            if (t.contains(_name)) {
-                nb_++;
-            }
-        }
-        return nb_>0;
-    }
 
     public void deleteType(String _oldName) {
         if (usedType(_oldName)) {
             return;
         }
-        TypesDuos table_ = new TypesDuos();
-        for (TypesDuo p: tableTypes.getKeys()) {
-            if (!StringUtil.quickEq(p.getDamageType(),_oldName)&&!StringUtil.quickEq(p.getPokemonType(),_oldName)) {
-                Rate value_ = tableTypes.getVal(p);
-                table_.addEntry(p, value_);
-            }
-        }
-        tableTypes = table_;
+//        TypesDuos table_ = new TypesDuos();
+//        for (TypesDuo p: tableTypes.getKeys()) {
+//            if (!StringUtil.quickEq(p.getDamageType(),_oldName)&&!StringUtil.quickEq(p.getPokemonType(),_oldName)) {
+//                Rate value_ = tableTypes.getVal(p);
+//                table_.addEntry(p, value_);
+//            }
+//        }
+//        tableTypes = table_;
 //        types.removeObj(_oldName);
         for (StringMap<String> t: getTranslatedTypes().values()) {
             t.removeKey(_oldName);
@@ -6135,6 +6126,9 @@ public class DataBase {
         }
         for (AbilityData a: abilities.values()) {
             matches_.addAllElts(typeAbility(a));
+        }
+        for (TypesDuo p: tableTypes.getKeys()) {
+            matches_.addAllElts(convertDuo(p));
         }
         return matches_.contains(_oldName);
     }
@@ -6369,7 +6363,7 @@ public class DataBase {
     }
 
     public void renameCategory(String _oldName, String _newName) {
-        if (usedInTr(_newName,getTranslatedCategories())) {
+        if (isUsed(_newName)) {
             return;
         }
         changeNameCategoryInExp(_oldName, _newName);
