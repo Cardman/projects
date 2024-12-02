@@ -2,8 +2,166 @@ package aiki.db;
 
 import code.maths.litteralcom.*;
 import code.util.*;
+import code.util.core.*;
 
 public final class DataBaseConstants {
+    public static final String PREFIX_KEY = "0";
+    public static final String KEY_NIVEAU = "1";
+    public static final String KEY_LEVEL_LOOSER = "2";
+    public static final String KEY_LEVEL_WINNER = "3";
+    public static final String KEY_FIGHTER_NIVEAU = "4";
+    public static final String KEY_CIBLE_NIVEAU = "5";
+    public static final String KEY_LANCEUR_NIVEAU = "6";
+    public static final String KEY_PK_SAUVAGE_NIVEAU = "7";
+    public static final String KEY_PK_UT_NIVEAU = "8";
+    public static final String KEY_BOOST = "9";
+    public static final String KEY_POWER = "10";
+    public static final String KEY_ATTACK = "11";
+    public static final String KEY_DEFENSE = "12";
+    public static final String KEY_BASE_CAPT_PK = "13";
+    public static final String KEY_RATE_BALL_STATUS = "14";
+    public static final String KEY_FOE_PK_MAX_HP = "15";
+    public static final String KEY_FOE_PK_REMOTE_HP = "16";
+    public static final String KEY_CIBLE_NB_UTILISATION = "17";
+    public static final String KEY_LANCEUR_NB_UTILISATION = "18";
+    public static final String KEY_FIGHTER_NB_UTILISATION = "19";
+    public static final String KEY_EQUIPE_NB_UTILISATION = "20";
+    public static final String KEY_EQUIPE_ADV_NB_UTILISATION = "21";
+    public static final String KEY_NB_UTILI_ATT_EQ_TOUR = "22";
+    public static final String KEY_LANCEUR_PV_RESTANTS = "23";
+    public static final String KEY_CIBLE_PV_RESTANTS = "24";
+    public static final String KEY_LANCEUR_PV_MAX = "25";
+    public static final String KEY_CIBLE_PV_MAX = "26";
+    public static final String KEY_LANCEUR_STATIS = "27";
+    public static final String KEY_CIBLE_STATIS = "28";
+    public static final String KEY_LANCEUR_BOOST = "29";
+    public static final String KEY_CIBLE_BOOST = "30";
+    public static final String KEY_SOMME_BOOST_POS_CIBLE ="31";
+    public static final String KEY_CIBLE_ATTAQUES ="32";
+    public static final String KEY_CIBLE_ATTAQUE_CHOISIE ="33";
+    public static final String KEY_CIBLE_ATTAQUES_TYPES ="34";
+    public static final String KEY_CIBLE_CLONE ="35";
+    public static final String KEY_CIBLE_DEGATS_RECUS ="36";
+    public static final String KEY_CIBLE_DEGATS_RECUS_TOTAL ="37";
+    public static final String KEY_CIBLE_DEGATS_RECUS_TOUR ="38";
+    public static final String KEY_CIBLE_DEGATS_RECUS_TOTAL_TOUR ="39";
+    public static final String KEY_CIBLE_DISPARAIT ="40";
+    public static final String KEY_CIBLE_DER_JOUE ="41";
+    public static final String KEY_CIBLE_JOUE ="42";
+    public static final String KEY_CIBLE_MASSE ="43";
+    public static final String KEY_CIBLE_TAILLE ="44";
+    public static final String KEY_CIBLE_CAPACITE ="45";
+    public static final String KEY_CIBLE_OBJET ="46";
+    public static final String KEY_CIBLE_STATUTS ="47";
+    public static final String KEY_CIBLE_TYPES ="48";
+    public static final String KEY_CIBLE_NOM ="49";
+    public static final String KEY_CIBLE_PP ="50";
+    public static final String KEY_NB_KO_EQUIPE_CIBLE ="51";
+    public static final String KEY_NB_KO_EQUIPE_ADV_CIBLE ="52";
+    public static final String KEY_COEFF_EFF_BASE_TYPES_CIBLE ="53";
+    public static final String KEY_NB_TOUR ="54";
+    public static final String KEY_SOMME_BOOST_POS_LANCEUR ="55";
+    public static final String KEY_NB_TOUR_GLOBAL ="56";
+    public static final String KEY_LANCEUR_ATTAQUES ="57";
+    public static final String KEY_LANCEUR_ATTAQUE_CHOISIE ="58";
+    public static final String KEY_LANCEUR_ATTAQUES_TYPES ="59";
+    public static final String KEY_LANCEUR_CLONE ="60";
+    public static final String KEY_LANCEUR_DEGATS_RECUS ="61";
+    public static final String KEY_LANCEUR_DEGATS_RECUS_TOTAL ="62";
+    public static final String KEY_LANCEUR_DEGATS_RECUS_TOUR ="63";
+    public static final String KEY_LANCEUR_DEGATS_RECUS_TOTAL_TOUR ="64";
+    public static final String KEY_LANCEUR_DISPARAIT ="65";
+    public static final String KEY_LANCEUR_DER_JOUE ="66";
+    public static final String KEY_LANCEUR_JOUE ="67";
+    public static final String KEY_LANCEUR_MASSE ="68";
+    public static final String KEY_LANCEUR_TAILLE ="69";
+    public static final String KEY_LANCEUR_CAPACITE ="70";
+    public static final String KEY_LANCEUR_OBJET ="71";
+    public static final String KEY_LANCEUR_STATUTS ="72";
+    public static final String KEY_LANCEUR_TYPES ="73";
+    public static final String KEY_LANCEUR_NOM ="74";
+    public static final String KEY_COEFF_EFF_BASE_TYPES_LANCEUR ="75";
+    public static final String KEY_LANCEUR_PP ="76";
+    public static final String KEY_CIBLE_GENRE = "77";
+    public static final String KEY_LANCEUR_GENRE = "78";
+    public static final String KEY_COEFF_EFF_BASE_TYPES_FIGHTER ="79";
+    public static final String KEY_FIGHTER_BONHEUR ="80";
+    public static final String KEY_FIGHTER_PP ="81";
+    public static final String KEY_FIGHTER_GENRE = "82";
+    public static final String KEY_FIGHTER_PV_RESTANTS = "83";
+    public static final String KEY_FIGHTER_PV_MAX = "84";
+    public static final String KEY_FIGHTER_STATIS = "85";
+    public static final String KEY_FIGHTER_BOOST = "86";
+    public static final String KEY_SOMME_BOOST_POS_FIGHTER ="87";
+    public static final String KEY_FIGHTER_ATTAQUES ="88";
+    public static final String KEY_FIGHTER_ATTAQUE_CHOISIE ="89";
+    public static final String KEY_FIGHTER_ATTAQUES_TYPES ="90";
+    public static final String KEY_FIGHTER_CLONE ="91";
+    public static final String KEY_FIGHTER_DEGATS_RECUS ="92";
+    public static final String KEY_FIGHTER_DEGATS_RECUS_TOTAL ="93";
+    public static final String KEY_FIGHTER_DEGATS_RECUS_TOUR ="94";
+    public static final String KEY_FIGHTER_DEGATS_RECUS_TOTAL_TOUR ="95";
+    public static final String KEY_FIGHTER_DISPARAIT ="96";
+    public static final String KEY_FIGHTER_DER_JOUE ="97";
+    public static final String KEY_FIGHTER_JOUE ="98";
+    public static final String KEY_FIGHTER_MASSE ="99";
+    public static final String KEY_FIGHTER_TAILLE ="100";
+    public static final String KEY_FIGHTER_CAPACITE ="101";
+    public static final String KEY_FIGHTER_OBJET ="102";
+    public static final String KEY_FIGHTER_STATUTS ="103";
+    public static final String KEY_FIGHTER_TYPES ="104";
+    public static final String KEY_FIGHTER_NOM ="105";
+    public static final String KEY_ATTAQUE_CATEGORIE ="106";
+    public static final String KEY_ATTAQUE_TYPES ="107";
+    public static final String KEY_ATTAQUE_NOM ="108";
+    public static final String KEY_PUISSANCE_BASE ="109";
+    public static final String KEY_COEFF_EFF ="110";
+    public static final String KEY_NB_UTILISATION_CONSECUTIF ="111";
+    public static final String KEY_CLIMATS ="112";
+    public static final String KEY_LIEU_COMBAT ="113";
+    public static final String KEY_NB_FLEES ="114";
+    public static final String KEY_CIBLE_BONHEUR ="115";
+    public static final String KEY_LANCEUR_BONHEUR ="116";
+    public static final String KEY_TEMPS_TOUR ="117";
+    public static final String KEY_RATE_EFF_MOVE_AGAINST_TARGET ="118";
+    public static final String KEY_NB_COMBATTANTS_TERRAIN ="119";
+    public static final String KEY_NB_KO_EQUIPE_LANCEUR ="120";
+    public static final String KEY_NB_KO_EQUIPE_ADV_LANCEUR ="121";
+    public static final String KEY_NB_KO_EQUIPE_FIGHTER ="122";
+    public static final String KEY_NB_KO_EQUIPE_ADV_FIGHTER ="123";
+    public static final String KEY_CIBLE_POSSEDE_STATUT_RELATION ="124";
+    public static final String KEY_IMMU_TYPE_ATT_COMBATTANT_ENTRANT ="125";
+    public static final String KEY_CIBLE_EFFET ="126";
+    public static final String KEY_PAS_PP_ATTAQUE_CIBLE ="127";
+    public static final String KEY_PAS_UTILIS_ATTAQUE_CIBLE ="128";
+    public static final String KEY_IMMU_TYPE_ATT_CIBLE ="129";
+    public static final String KEY_AUCUN_BOOST_POSSIBLE ="130";
+    public static final String KEY_LANCEUR_EFFET ="131";
+    public static final String KEY_TYPES_ATTAQUES_RES_VIDE ="132";
+    public static final String KEY_PAS_ATTAQUE_INVOC ="133";
+    public static final String KEY_PAS_ATTAQUES_COPIABLES ="134";
+    public static final String KEY_PAS_PARTENAIRE ="135";
+    public static final String KEY_PAS_PARTENAIRE_ARRIERE ="136";
+    public static final String KEY_PAS_PARTENAIRE_TERRAIN ="137";
+    public static final String KEY_PAS_TOUR_TERRAIN ="138";
+    public static final String KEY_EXISTE_GENRE_ASSEXUE ="139";
+    public static final String KEY_GENRES_EGAUX ="140";
+    public static final String KEY_DEJA_CAPTURE ="141";
+    public static final String KEY_MASSE_MOYENNE_PK ="142";
+    public static final String KEY_PK_UT_GENRE ="143";
+    public static final String KEY_PK_UT_MASSE ="144";
+    public static final String KEY_PK_UT_VITESSE ="145";
+    public static final String KEY_PK_UT_TYPES_BASE ="146";
+    public static final String KEY_PK_UT_PIERRES_EVOS ="147";
+    public static final String KEY_PK_SAUVAGE_GENRE ="148";
+    public static final String KEY_PK_SAUVAGE_MASSE ="149";
+    public static final String KEY_PK_SAUVAGE_VITESSE ="150";
+    public static final String KEY_PK_SAUVAGE_TYPES_BASE ="151";
+    public static final String KEY_PK_SAUVAGE_PIERRES_EVOS ="152";
+    public static final String KEY_COMBATTANT_ENTRANT_CLONE ="153";
+    public static final String KEY_COMBATTANT_ENTRANT_TYPES ="154";
+    public static final String KEY_COEFF_EFF_BASE_TYPES_COMBATTANT_ENTRANT ="155";
+    public static final String KEY_EQUIPE_ADV_COMBATTANT_ENTRANT_NB_UTILISATION ="156";
 
     private String prefixVar;
     private String niveau;
@@ -162,6 +320,553 @@ public final class DataBaseConstants {
     private String nbCombattantsTerrain;
     private String lieuCombat;
     private String tempsTour;
+
+    public void initValueOther(String _key, String _value) {
+        if (StringUtil.quickEq(_key, PREFIX_KEY)) {
+            prefixVar=_value;
+        }
+        initValueOther1(_key, _value);
+        initValueOther2(_key, _value);
+        initValueOther3(_key, _value);
+        initValueOtherCible(_key, _value);
+        initValueOtherLanceur(_key, _value);
+        initValueOtherFighter(_key, _value);
+        initValueOther4(_key, _value);
+    }
+
+    private void initValueOther1(String _key, String _value) {
+        if (StringUtil.quickEq(_key, KEY_NIVEAU)) {
+            niveau=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_LEVEL_LOOSER)) {
+            levelLooser=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_LEVEL_WINNER)) {
+            levelWinner=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_NIVEAU)) {
+            fighterNiveau=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_NIVEAU)) {
+            cibleNiveau=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_NIVEAU)) {
+            lanceurNiveau=_value;
+        }
+        initValueUtSauvage(_key, _value);
+        if (StringUtil.quickEq(_key, KEY_BOOST)) {
+            boost=_value;
+        }
+    }
+
+    private void initValueUtSauvage(String _key, String _value) {
+        if (StringUtil.quickEq(_key, KEY_PK_SAUVAGE_NIVEAU)) {
+            pkSauvageNiveau=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_PK_UT_NIVEAU)) {
+            pkUtNiveau=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_PK_UT_GENRE)){
+            pkUtGenre=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_PK_UT_MASSE)){
+            pkUtMasse=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_PK_UT_VITESSE)){
+            pkUtVitesse=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_PK_UT_TYPES_BASE)){
+            pkUtTypesBase=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_PK_UT_PIERRES_EVOS)){
+            pkUtPierresEvos=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_PK_SAUVAGE_GENRE)){
+            pkSauvageGenre=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_PK_SAUVAGE_MASSE)){
+            pkSauvageMasse=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_PK_SAUVAGE_VITESSE)){
+            pkSauvageVitesse=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_PK_SAUVAGE_TYPES_BASE)){
+            pkSauvageTypesBase=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_PK_SAUVAGE_PIERRES_EVOS)){
+            pkSauvagePierresEvos=_value;
+        }
+    }
+
+    private void initValueOther2(String _key, String _value) {
+        if (StringUtil.quickEq(_key, KEY_POWER)) {
+            power=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_ATTACK)) {
+            attack=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_DEFENSE)) {
+            defense=_value;
+        }
+    }
+
+    private void initValueOther3(String _key, String _value) {
+        if (StringUtil.quickEq(_key, KEY_BASE_CAPT_PK)) {
+            baseCaptPk=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_RATE_BALL_STATUS)) {
+            rateBallStatus=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_FOE_PK_MAX_HP)) {
+            foePkMaxHp=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_FOE_PK_REMOTE_HP)) {
+            foePkRemoteHp=_value;
+        }
+    }
+    private void initValueOtherCible(String _key, String _value) {
+        initValueOtherCible1(_key, _value);
+        initValueOtherCible2(_key, _value);
+        if (StringUtil.quickEq(_key, KEY_CIBLE_TAILLE)){
+            cibleTaille=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_CAPACITE)){
+            cibleCapacite=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_OBJET)){
+            cibleObjet=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_STATUTS)){
+            cibleStatuts=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_TYPES)){
+            cibleTypes=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_PP)){
+            ciblePp=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_NIVEAU)){
+            cibleNiveau=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_BONHEUR)){
+            cibleBonheur=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_NB_KO_EQUIPE_CIBLE)){
+            nbKoEquipeCible=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_NB_KO_EQUIPE_ADV_CIBLE)){
+            nbKoEquipeAdvCible=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_COEFF_EFF_BASE_TYPES_CIBLE)){
+            coeffEffBaseTypesCible=_value;
+        }
+    }
+
+    private void initValueOtherCible2(String _key, String _value) {
+        if (StringUtil.quickEq(_key, KEY_CIBLE_CLONE)){
+            cibleClone=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_DEGATS_RECUS)){
+            cibleDegatsRecus=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_DEGATS_RECUS_TOTAL)){
+            cibleDegatsRecusTotal=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_DEGATS_RECUS_TOUR)){
+            cibleDegatsRecusTour=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_DEGATS_RECUS_TOTAL_TOUR)){
+            cibleDegatsRecusTotalTour=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_DISPARAIT)){
+            cibleDisparait=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_JOUE)){
+            cibleJoue=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_DER_JOUE)){
+            cibleDerJoue=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_NOM)){
+            cibleNom=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_MASSE)){
+            cibleMasse=_value;
+        }
+    }
+
+    private void initValueOtherCible1(String _key, String _value) {
+        if (StringUtil.quickEq(_key, KEY_CIBLE_POSSEDE_STATUT_RELATION)){
+            ciblePossedeStatutRelation=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_EFFET)){
+            cibleEffet=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_PAS_PP_ATTAQUE_CIBLE)){
+            pasPpAttaqueCible=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_PAS_UTILIS_ATTAQUE_CIBLE)){
+            pasUtilisAttaqueCible=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_IMMU_TYPE_ATT_CIBLE)){
+            immuTypeAttCible=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_GENRE)){
+            cibleGenre=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_PV_RESTANTS)){
+            ciblePvRestants=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_PV_MAX)){
+            ciblePvMax=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_NB_UTILISATION)){
+            cibleNbUtilisation=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_STATIS)){
+            cibleStatis=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_BOOST)){
+            cibleBoost=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_SOMME_BOOST_POS_CIBLE)){
+            sommeBoostPosCible=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_ATTAQUE_CHOISIE)){
+            cibleAttaqueChoisie=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_ATTAQUES)){
+            cibleAttaques=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_ATTAQUES_TYPES)){
+            cibleAttaquesTypes=_value;
+        }
+    }
+
+    private void initValueOtherLanceur(String _key, String _value) {
+        initValueOtherLanceur1(_key, _value);
+        initValueOtherLanceur2(_key, _value);
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_STATUTS)){
+            lanceurStatuts=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_TYPES)){
+            lanceurTypes=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_PP)){
+            lanceurPp=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_NIVEAU)){
+            lanceurNiveau=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_BONHEUR)){
+            lanceurBonheur=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_NB_KO_EQUIPE_LANCEUR)){
+            nbKoEquipeLanceur=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_NB_KO_EQUIPE_ADV_LANCEUR)){
+            nbKoEquipeAdvLanceur=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_COEFF_EFF_BASE_TYPES_LANCEUR)){
+            coeffEffBaseTypesLanceur=_value;
+        }
+    }
+
+    private void initValueOtherLanceur2(String _key, String _value) {
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_DEGATS_RECUS_TOTAL_TOUR)){
+            lanceurDegatsRecusTotalTour=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_DISPARAIT)){
+            lanceurDisparait=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_JOUE)){
+            lanceurJoue=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_DER_JOUE)){
+            lanceurDerJoue=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_NOM)){
+            lanceurNom=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_MASSE)){
+            lanceurMasse=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_TAILLE)){
+            lanceurTaille=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_CAPACITE)){
+            lanceurCapacite=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_OBJET)){
+            lanceurObjet=_value;
+        }
+    }
+
+    private void initValueOtherLanceur1(String _key, String _value) {
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_EFFET)){
+            lanceurEffet=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_GENRE)){
+            lanceurGenre=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_PV_RESTANTS)){
+            lanceurPvRestants=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_PV_MAX)){
+            lanceurPvMax=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_NB_UTILISATION)){
+            lanceurNbUtilisation=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_STATIS)){
+            lanceurStatis=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_BOOST)){
+            lanceurBoost=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_SOMME_BOOST_POS_LANCEUR)){
+            sommeBoostPosLanceur=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_ATTAQUE_CHOISIE)){
+            lanceurAttaqueChoisie=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_ATTAQUES)){
+            lanceurAttaques=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_ATTAQUES_TYPES)){
+            lanceurAttaquesTypes=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_CLONE)){
+            lanceurClone=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_DEGATS_RECUS)){
+            lanceurDegatsRecus=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_DEGATS_RECUS_TOTAL)){
+            lanceurDegatsRecusTotal=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_DEGATS_RECUS_TOUR)){
+            lanceurDegatsRecusTour=_value;
+        }
+    }
+
+    private void initValueOtherFighter(String _key, String _value) {
+        initValueOtherFighter1(_key, _value);
+        initValueOtherFighter2(_key, _value);
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_PP)){
+            fighterPp=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_NIVEAU)){
+            fighterNiveau=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_BONHEUR)){
+            fighterBonheur=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_NB_KO_EQUIPE_FIGHTER)){
+            nbKoEquipeFighter=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_NB_KO_EQUIPE_ADV_FIGHTER)){
+            nbKoEquipeAdvFighter=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_COEFF_EFF_BASE_TYPES_FIGHTER)){
+            coeffEffBaseTypesFighter=_value;
+        }
+    }
+
+    private void initValueOtherFighter2(String _key, String _value) {
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_DISPARAIT)){
+            fighterDisparait=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_JOUE)){
+            fighterJoue=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_DER_JOUE)){
+            fighterDerJoue=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_NOM)){
+            fighterNom=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_MASSE)){
+            fighterMasse=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_TAILLE)){
+            fighterTaille=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_CAPACITE)){
+            fighterCapacite=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_OBJET)){
+            fighterObjet=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_STATUTS)){
+            fighterStatuts=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_TYPES)){
+            fighterTypes=_value;
+        }
+    }
+
+    private void initValueOtherFighter1(String _key, String _value) {
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_GENRE)){
+            fighterGenre=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_PV_RESTANTS)){
+            fighterPvRestants=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_PV_MAX)){
+            fighterPvMax=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_NB_UTILISATION)){
+            fighterNbUtilisation=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_STATIS)){
+            fighterStatis=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_BOOST)){
+            fighterBoost=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_SOMME_BOOST_POS_FIGHTER)){
+            sommeBoostPosFighter=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_ATTAQUE_CHOISIE)){
+            fighterAttaqueChoisie=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_ATTAQUES)){
+            fighterAttaques=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_ATTAQUES_TYPES)){
+            fighterAttaquesTypes=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_CLONE)){
+            fighterClone=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_DEGATS_RECUS)){
+            fighterDegatsRecus=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_DEGATS_RECUS_TOTAL)){
+            fighterDegatsRecusTotal=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_DEGATS_RECUS_TOUR)){
+            fighterDegatsRecusTour=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_DEGATS_RECUS_TOTAL_TOUR)){
+            fighterDegatsRecusTotalTour=_value;
+        }
+    }
+
+    private void initValueOther4(String _key, String _value) {
+        initValueOther5(_key, _value);
+        initValueOther6(_key, _value);
+        if (StringUtil.quickEq(_key, KEY_COEFF_EFF_BASE_TYPES_COMBATTANT_ENTRANT)){
+            coeffEffBaseTypesCombattantEntrant=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_EQUIPE_ADV_COMBATTANT_ENTRANT_NB_UTILISATION)){
+            equipeAdvCombattantEntrantNbUtilisation=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_ATTAQUE_CATEGORIE)){
+            attaqueCategorie=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_ATTAQUE_TYPES)){
+            attaqueTypes=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_ATTAQUE_NOM)){
+            attaqueNom=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_PUISSANCE_BASE)){
+            puissanceBase=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_COEFF_EFF)){
+            coeffEff=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_NB_UTILISATION_CONSECUTIF)){
+            nbUtilisationConsecutif=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_EQUIPE_NB_UTILISATION)){
+            equipeNbUtilisation=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_EQUIPE_ADV_NB_UTILISATION)){
+            equipeAdvNbUtilisation=_value;
+        }
+    }
+
+    private void initValueOther6(String _key, String _value) {
+        if (StringUtil.quickEq(_key, KEY_TEMPS_TOUR)){
+            tempsTour=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_NB_TOUR)){
+            nbTour=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_RATE_EFF_MOVE_AGAINST_TARGET)){
+            rateEffMoveAgainstTarget=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_NB_COMBATTANTS_TERRAIN)){
+            nbCombattantsTerrain=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_LIEU_COMBAT)){
+            lieuCombat=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_CLIMATS)){
+            climats=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_NB_TOUR_GLOBAL)){
+            nbTourGlobal=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_COMBATTANT_ENTRANT_CLONE)){
+            combattantEntrantClone=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_COMBATTANT_ENTRANT_TYPES)){
+            combattantEntrantTypes=_value;
+        }
+    }
+
+    private void initValueOther5(String _key, String _value) {
+        if (StringUtil.quickEq(_key, KEY_DEJA_CAPTURE)){
+            dejaCapture=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_NB_FLEES)){
+            nbFlees=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_MASSE_MOYENNE_PK)){
+            masseMoyennePk=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_IMMU_TYPE_ATT_COMBATTANT_ENTRANT)){
+            immuTypeAttCombattantEntrant=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_PAS_ATTAQUE_INVOC)){
+            pasAttaqueInvoc=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_PAS_ATTAQUES_COPIABLES)){
+            pasAttaquesCopiables=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_AUCUN_BOOST_POSSIBLE)){
+            aucunBoostPossible=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_TYPES_ATTAQUES_RES_VIDE)){
+            typesAttaquesResVide=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_PAS_PARTENAIRE)){
+            pasPartenaire=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_PAS_PARTENAIRE_ARRIERE)){
+            pasPartenaireArriere=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_PAS_PARTENAIRE_TERRAIN)){
+            pasPartenaireTerrain=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_PAS_TOUR_TERRAIN)){
+            pasTourTerrain=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_EXISTE_GENRE_ASSEXUE)){
+            existeGenreAssexue=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_GENRES_EGAUX)){
+            genresEgaux=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_NB_UTILI_ATT_EQ_TOUR)){
+            nbUtiliAttEqTour=_value;
+        }
+    }
+
     public void validateOtherConstants() {
         if (incorrectPrefix(prefixVar)) {
             prefixVar=MessagesDataBaseConstants.VAR_DEF;
