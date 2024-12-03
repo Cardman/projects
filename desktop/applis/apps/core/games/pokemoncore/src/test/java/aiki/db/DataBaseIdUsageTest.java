@@ -970,7 +970,32 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         db_.changeNameCategoryInExp(PARATONNERRE,PIKACHU);
         assertEq(ES+V_NB_TOUR_GLOBAL+SE+PARATONNERRE, eff_.getFailEndRound());
     }
-
+    @Test
+    public void changeMidInNumericExpressions() {
+        DataBase db_ = newData();
+        db_.initValueOther(DataBaseConstants.PREFIX_KEY,"v");
+        db_.initValueOther(DataBaseConstants.KEY_NB_TOUR,"nb_tr");
+        EffectCombo b_ = Instances.newEffectCombo();
+        EffectEndRoundFoe eff_ = Instances.newEffectEndRoundFoe();
+        b_.getEffectEndRound().add(eff_);
+        eff_.setFailEndRound(ES+"v"+SE+"nb_tr"+SE+PARATONNERRE);
+        db_.getCombos().getEffects().add(new ListEffectCombo(new StringList(POKE_BALL),b_));
+        db_.changeMidInNumericExpressions("nb_tr","nbtr");
+        assertEq(ES+"v"+SE+"nbtr"+SE+PARATONNERRE, eff_.getFailEndRound());
+    }
+    @Test
+    public void changePrefInNumericExpressions() {
+        DataBase db_ = newData();
+        db_.initValueOther(DataBaseConstants.PREFIX_KEY,"v");
+        db_.initValueOther(DataBaseConstants.KEY_NB_TOUR,"nb_tr");
+        EffectCombo b_ = Instances.newEffectCombo();
+        EffectEndRoundFoe eff_ = Instances.newEffectEndRoundFoe();
+        b_.getEffectEndRound().add(eff_);
+        eff_.setFailEndRound(ES+"v"+SE+"nb_tr"+SE+PARATONNERRE);
+        db_.getCombos().getEffects().add(new ListEffectCombo(new StringList(POKE_BALL),b_));
+        db_.changePrefInNumericExpressions("w");
+        assertEq(ES+"w"+SE+"nb_tr"+SE+PARATONNERRE, eff_.getFailEndRound());
+    }
     private void initTr(StringMap<StringMap<String>> _tr) {
         StringMap<String> map_ = new StringMap<String>();
         map_.addEntry(POKE_BALL,POKE_BALL);

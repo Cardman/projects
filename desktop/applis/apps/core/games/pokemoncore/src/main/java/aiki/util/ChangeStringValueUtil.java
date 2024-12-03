@@ -1,7 +1,6 @@
 package aiki.util;
 
-import aiki.db.ChangeStringFieldMatch;
-import aiki.db.DataBase;
+import aiki.db.*;
 import code.util.*;
 import code.util.core.*;
 
@@ -28,9 +27,9 @@ public final class ChangeStringValueUtil<K> implements ChangeStringFieldMatch {
             }
         }
     }
-    public void replaceExp(DataBase _db, StringList _mids, String _o, String _n) {
+    public void replaceExp(DataBase _db, AbsRenamingDataBase _abs) {
         for (EntryCust<K,String> e: collection.entryList()) {
-            e.setValue(_db.rename(e.getValue(),_mids,_o,_n));
+            e.setValue(_abs.rename(_db,e.getValue()));
         }
     }
     public boolean containsWord(DataBase _db, StringList _mids, String _id) {
