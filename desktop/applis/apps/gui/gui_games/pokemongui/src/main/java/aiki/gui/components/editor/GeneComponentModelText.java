@@ -20,6 +20,8 @@ public final class GeneComponentModelText {
     public AbsCustComponent geneString() {
         textPane = compoFactory.getCompoFactory().newTextPane();
         popupMenu = compoFactory.getCompoFactory().newAbsPopupMenu();
+        popupMenu.setFocusable(false);
+        popupMenu.setVisible(false);
         element = new DefScrollCustomGraphicList<String>(compoFactory.getCompoFactory(), compoFactory.getImageFactory(), new CustCellRenderString(compoFactory.getCompoFactory(), compoFactory.getImageFactory()),true);
         popupMenu.add(element.getScrollPane());
         words.clear();
@@ -29,8 +31,20 @@ public final class GeneComponentModelText {
     }
 
     public void addComplete(FacadeGame _facade) {
-        textPane.registerKeyboardAction(compoFactory.getCompoFactory().wrap(new PkCompleteEvent(this,_facade,element,popupMenu)), GuiConstants.VK_SPACE,GuiConstants.CTRL_DOWN_MASK);
+        textPane.registerKeyboardAction(compoFactory.getCompoFactory().wrap(new PkCompleteEnterEvent(this)), GuiConstants.VK_ENTER,0);
+        textPane.registerKeyboardAction(compoFactory.getCompoFactory().wrap(new PkCompleteEvent(this,_facade)), GuiConstants.VK_SPACE,GuiConstants.CTRL_DOWN_MASK);
+        textPane.registerKeyboardAction(compoFactory.getCompoFactory().wrap(new PkCompleteNavigateEvent(element,1)), GuiConstants.VK_PAGE_DOWN,GuiConstants.CTRL_DOWN_MASK);
+        textPane.registerKeyboardAction(compoFactory.getCompoFactory().wrap(new PkCompleteNavigateEvent(element,-1)), GuiConstants.VK_PAGE_UP,GuiConstants.CTRL_DOWN_MASK);
     }
+
+    public ScrollCustomGraphicList<String> getElement() {
+        return element;
+    }
+
+    public AbsPopupMenu getPopupMenu() {
+        return popupMenu;
+    }
+
     public StringList getWords() {
         return words;
     }

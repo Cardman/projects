@@ -19,7 +19,7 @@ public final class EditorPkCompletingTxtFormTest extends InitEditorPkForm {
         g_.getTextPane().setText("1+2");
         g_.getTextPane().setSelectionStart(1);
         g_.getTextPane().setSelectionEnd(1);
-        ((MockAbstractAction) GuiBaseUtil.getAction(g_.getTextPane(), GuiConstants.VK_SPACE, GuiConstants.CTRL_DOWN_MASK)).action();
+        action(g_);
         assertFalse(g_.getWords().containsObj(M_1));
     }
     @Test
@@ -34,7 +34,7 @@ public final class EditorPkCompletingTxtFormTest extends InitEditorPkForm {
         g_.getTextPane().setText("1+{}");
         g_.getTextPane().setSelectionStart(3);
         g_.getTextPane().setSelectionEnd(3);
-        ((MockAbstractAction) GuiBaseUtil.getAction(g_.getTextPane(), GuiConstants.VK_SPACE, GuiConstants.CTRL_DOWN_MASK)).action();
+        action(g_);
         assertTrue(g_.getWords().containsObj(M_1));
     }
     @Test
@@ -49,7 +49,7 @@ public final class EditorPkCompletingTxtFormTest extends InitEditorPkForm {
         g_.getTextPane().setText("1+{V}");
         g_.getTextPane().setSelectionStart(4);
         g_.getTextPane().setSelectionEnd(4);
-        ((MockAbstractAction) GuiBaseUtil.getAction(g_.getTextPane(), GuiConstants.VK_SPACE, GuiConstants.CTRL_DOWN_MASK)).action();
+        action(g_);
         assertTrue(g_.getWords().containsObj(M_1));
     }
     @Test
@@ -64,7 +64,85 @@ public final class EditorPkCompletingTxtFormTest extends InitEditorPkForm {
         g_.getTextPane().setText("1+{_}");
         g_.getTextPane().setSelectionStart(4);
         g_.getTextPane().setSelectionEnd(4);
-        ((MockAbstractAction) GuiBaseUtil.getAction(g_.getTextPane(), GuiConstants.VK_SPACE, GuiConstants.CTRL_DOWN_MASK)).action();
+        action(g_);
         assertTrue(g_.getWords().containsObj(M_1));
+    }
+    @Test
+    public void auto5() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        facade_.getData().defValues();
+        window(pr_, facade_);
+        GeneComponentModelText g_ = new GeneComponentModelText(pr_);
+        g_.geneString();
+        g_.addComplete(facade_);
+        g_.getTextPane().setText("1+{V}");
+        g_.getTextPane().setSelectionStart(4);
+        g_.getTextPane().setSelectionEnd(4);
+        action(g_);
+        down(g_);
+        assertEq(1,g_.getElement().getSelectedIndex());
+    }
+    @Test
+    public void auto6() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        facade_.getData().defValues();
+        window(pr_, facade_);
+        GeneComponentModelText g_ = new GeneComponentModelText(pr_);
+        g_.geneString();
+        g_.addComplete(facade_);
+        g_.getTextPane().setText("1+{_}");
+        g_.getTextPane().setSelectionStart(4);
+        g_.getTextPane().setSelectionEnd(4);
+        action(g_);
+        down(g_);
+        assertEq(-1,g_.getElement().getSelectedIndex());
+    }
+    @Test
+    public void auto7() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        facade_.getData().defValues();
+        window(pr_, facade_);
+        GeneComponentModelText g_ = new GeneComponentModelText(pr_);
+        g_.geneString();
+        g_.addComplete(facade_);
+        g_.getTextPane().setText("");
+        g_.getTextPane().setSelectionStart(0);
+        g_.getTextPane().setSelectionEnd(0);
+        enter(g_);
+        assertEq("\n",g_.getTextPane().getText());
+    }
+    @Test
+    public void auto8() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        facade_.getData().defValues();
+        window(pr_, facade_);
+        GeneComponentModelText g_ = new GeneComponentModelText(pr_);
+        g_.geneString();
+        g_.addComplete(facade_);
+        g_.getTextPane().setText("1+{M}");
+        g_.getTextPane().setSelectionStart(4);
+        g_.getTextPane().setSelectionEnd(4);
+        action(g_);
+        enter(g_);
+        assertEq("1+{M1}",g_.getTextPane().getText());
+    }
+    private void action(GeneComponentModelText _g) {
+        ((MockAbstractAction) GuiBaseUtil.getAction(_g.getTextPane(), GuiConstants.VK_SPACE, GuiConstants.CTRL_DOWN_MASK)).action();
+    }
+
+    private void down(GeneComponentModelText _g) {
+        ((MockAbstractAction) GuiBaseUtil.getAction(_g.getTextPane(), GuiConstants.VK_PAGE_DOWN,GuiConstants.CTRL_DOWN_MASK)).action();
+    }
+
+    private void up(GeneComponentModelText _g) {
+        ((MockAbstractAction) GuiBaseUtil.getAction(_g.getTextPane(), GuiConstants.VK_PAGE_UP,GuiConstants.CTRL_DOWN_MASK)).action();
+    }
+
+    private void enter(GeneComponentModelText _g) {
+        ((MockAbstractAction) GuiBaseUtil.getAction(_g.getTextPane(), GuiConstants.VK_ENTER,0)).action();
     }
 }

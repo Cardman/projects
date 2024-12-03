@@ -12,14 +12,10 @@ import code.util.core.*;
 public final class PkCompleteEvent implements AbsActionListener {
     private final GeneComponentModelText input;
     private final FacadeGame facadeGame;
-    private final ScrollCustomGraphicList<String> element;
-    private final AbsPopupMenu popupMenu;
 
-    public PkCompleteEvent(GeneComponentModelText _i, FacadeGame _f, ScrollCustomGraphicList<String> _s, AbsPopupMenu _p) {
+    public PkCompleteEvent(GeneComponentModelText _i, FacadeGame _f) {
         this.input = _i;
         this.facadeGame = _f;
-        this.element = _s;
-        this.popupMenu = _p;
     }
 
     @Override
@@ -31,17 +27,19 @@ public final class PkCompleteEvent implements AbsActionListener {
         input.getWords().addAllElts(ConverterCommonMapUtil.complete(facadeGame.getData(), compoFactory_, textPane_.getText(), caretPosition_));
         StringList res_ = words(textPane_, input.getWords(), 0);
         if (res_.isEmpty()) {
-            popupMenu.setVisible(false);
+            input.getPopupMenu().setVisible(false);
             return;
         }
-        element.clear();
+        input.getElement().clear();
         for (String w: res_) {
-            element.add(w);
+            input.getElement().add(w);
         }
-        element.revalidate();
-        element.repaint();
+        input.getElement().select(0);
+        input.getElement().applyRows();
+        input.getElement().revalidate();
+        input.getElement().repaint();
         MetaRect metaRect_ = textPane_.modelToView(caretPosition_);
-        popupMenu.show(textPane_,metaRect_.getPoint().getXcoord(),metaRect_.getPoint().getYcoord()+textPane_.getMetaFont().getRealSize());
+        input.getPopupMenu().show(textPane_,metaRect_.getPoint().getXcoord(),metaRect_.getPoint().getYcoord()+textPane_.getMetaFont().getRealSize());
     }
     public static StringList words(AbsTextPane _txt, StringList _words, int _diff) {
         String text_ = _txt.getText();
@@ -49,7 +47,7 @@ public final class PkCompleteEvent implements AbsActionListener {
         int pr_ = previousChar(text_, adj_);
         StringList filtered_ = new StringList();
         for (String w: _words) {
-            if (text_.startsWith(w.substring(0,adj_-pr_),pr_)) {
+            if (text_.startsWith(w.substring(0,NumberUtil.max(0, NumberUtil.min(adj_-pr_,w.length()))),pr_)) {
                 filtered_.add(w);
             }
         }
