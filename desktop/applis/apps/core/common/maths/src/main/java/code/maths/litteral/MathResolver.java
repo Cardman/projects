@@ -17,7 +17,7 @@ public final class MathResolver {
     private MathResolver(){
     }
 
-    static MbDelimiters checkSyntax(String _string, ErrorStatus _error) {
+    public static MbDelimiters checkSyntax(String _string, ErrorStatus _error) {
         MbDelimiters d_ = new MbDelimiters();
         int len_ = _string.length();
         int i_ = MaParser.skipWhite(_string,len_,0);
