@@ -1,7 +1,6 @@
 package code.gui;
 
 public interface AbsTextArea extends AbsTxtComponent {
-    void insert(String _text, int _offset);
 
     void replaceRange(String _text, int _start, int _end);
 

@@ -7,7 +7,8 @@ import code.gui.images.MetaRect;
 import code.util.CustList;
 
 public interface AbsTxtComponent extends AbsCustComponent, TranslatableComponent{
-
+    int insert(String _text, int _offset);
+    int remove(int _off, int _len);
     void moveCaretPosition(int _pos);
     int getSelectionStart();
     int getSelectionEnd();

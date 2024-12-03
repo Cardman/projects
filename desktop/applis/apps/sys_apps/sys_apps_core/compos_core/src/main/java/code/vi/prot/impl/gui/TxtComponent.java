@@ -84,6 +84,27 @@ public abstract class TxtComponent extends CustComponent implements AbsTxtCompon
         }
     }
 
+    public int insert(String _text, int _offset) {
+        try {
+            AbstractDocument doc_ = (AbstractDocument) getTextComponent().getDocument();
+            doc_.insertString(_offset,_text,null);
+            return 1;
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    @Override
+    public int remove(int _off, int _len) {
+        try {
+            AbstractDocument doc_ = (AbstractDocument) getTextComponent().getDocument();
+            doc_.remove(_off, _len);
+            return 1;
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
     public String getText() {
         try {
             AbstractDocument doc_ = (AbstractDocument) getTextComponent().getDocument();

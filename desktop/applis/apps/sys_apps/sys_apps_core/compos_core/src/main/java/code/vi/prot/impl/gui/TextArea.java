@@ -55,10 +55,6 @@ public final class TextArea extends TxtComponent implements AbsTextArea {
         return area.getLineCount();
     }
 
-    public void insert(String _str, int _pos) {
-        area.insert(_str, _pos);
-    }
-
     public void append(String _str) {
         area.append(_str);
     }

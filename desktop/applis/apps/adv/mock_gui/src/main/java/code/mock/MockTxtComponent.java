@@ -49,8 +49,16 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
         caretUpdate();
     }
 
-    public void insert(String _s, int _i) {
+    @Override
+    public int insert(String _s, int _i) {
         builder.insert(_i,_s);
+        return 1;
+    }
+
+    @Override
+    public int remove(int _off, int _len) {
+        builder.delete(_off, _off+_len);
+        return 1;
     }
 
     public void replaceRange(String _s, int _start, int _end) {

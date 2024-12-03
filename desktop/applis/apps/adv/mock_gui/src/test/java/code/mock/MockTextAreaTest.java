@@ -253,4 +253,13 @@ public final class MockTextAreaTest extends EquallableMockGuiUtil {
         assertEq(0,r_.getHeight());
         assertEq(0,r_.getWidth());
     }
+    @Test
+    public void t34() {
+        MockTextArea t_ = new MockTextArea(16,16);
+        t_.setText("hello");
+        t_.insert("m",1);
+        t_.insert("n",1);
+        t_.remove(1,2);
+        assertEq("hello",t_.getText());
+    }
 }
