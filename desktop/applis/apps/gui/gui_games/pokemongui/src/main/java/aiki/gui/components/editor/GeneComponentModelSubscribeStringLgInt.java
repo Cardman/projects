@@ -40,7 +40,6 @@ public final class GeneComponentModelSubscribeStringLgInt implements AbsGeneComp
     public IdList<SubscribedTranslation> getSubs() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
         ids_.add(new SubscribedTranslationRenamingId(key.getTextPane()));
-        ids_.add(new SubscribedTranslationRenamingMid(key.getTextPane()));
         return ids_;
     }
 

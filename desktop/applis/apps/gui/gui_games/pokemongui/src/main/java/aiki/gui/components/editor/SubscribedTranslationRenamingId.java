@@ -12,7 +12,17 @@ public final class SubscribedTranslationRenamingId extends AbsSubscribedTranslat
     }
 
     @Override
-    public void expression(AbstractProgramInfos _api, FacadeGame _facade, RenamingIdPhase _phase) {
+    protected void prefix(AbstractProgramInfos _api, FacadeGame _facade, RenamingIdPhase _phase) {
+        textPane.setText(_facade.getData().renamePref(textPane.getText(),_phase.getOldPref(),_phase.getNewPref()));
+    }
+
+    @Override
+    protected void middle(AbstractProgramInfos _api, FacadeGame _facade, RenamingIdPhase _phase) {
+        textPane.setText(_facade.getData().renameMid(textPane.getText(),_phase.getOldMid(),_phase.getNewMid()));
+    }
+
+    @Override
+    public void suffix(AbstractProgramInfos _api, FacadeGame _facade, RenamingIdPhase _phase) {
         textPane.setText(_facade.getData().rename(textPane.getText(),_phase.getMids(),_phase.getOldId(),_phase.getNewId()));
     }
 }

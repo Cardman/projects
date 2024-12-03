@@ -16,8 +16,6 @@ public final class DisplayEntryCustSubElementEventString implements DisplayEntry
     public IdList<SubscribedTranslation> buildSub() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
         ids_.add(new SubscribedTranslationRenamingIdCrud<LgInt>(crud));
-        ids_.add(new SubscribedTranslationRenamingMidCrud<LgInt>(crud));
-        ids_.add(new SubscribedTranslationRenamingPrefCrud<LgInt>(crud));
         return ids_;
     }
 

@@ -50,12 +50,19 @@ public final class CrudGeneFormTrCstList implements AbsCrudGeneFormTrCstOpen {
     }
 
     public void apply(String _k, AbsTextField _f) {
+        StringMap<String> bk_ = new StringMap<String>();
+        for (int i = 0; i < 157; i++) {
+            bk_.addEntry(Long.toString(i), facadeGame.getData().retValueOther(Long.toString(i)));
+        }
         String old_ = facadeGame.getData().retValueOther(_k);
         String typed_ = _f.getText();
         facadeGame.getData().initValueOther(_k, typed_);
         facadeGame.getData().validateOtherConstants();
         String next_ = facadeGame.getData().retValueOther(_k);
         if (!StringUtil.quickEq(next_, typed_)) {
+            for (EntryCust<String,String> e: bk_.entryList()) {
+                facadeGame.getData().initValueOther(e.getKey(), e.getValue());
+            }
             return;
         }
         if (StringUtil.quickEq(_k, DataBaseConstants.PREFIX_KEY)) {

@@ -233,12 +233,8 @@ public final class ContentComponentModelItemForBattle {
         ids_.addAllElts(multStatRank.subscribeButtons());
         ids_.addAllElts(winEvFight.subscribeButtons());
         ids_.add(new SubscribedTranslationRenamingValCrud<Statistic>(multStat.getCrud()));
-        ids_.add(new SubscribedTranslationRenamingValMidCrud<Statistic>(multStat.getCrud()));
-        ids_.add(new SubscribedTranslationRenamingValPrefCrud<Statistic>(multStat.getCrud()));
         ids_.addAllElts(multStat.subscribeButtons());
         ids_.add(new SubscribedTranslationRenamingValCrud<String>(failStatus.getCrud()));
-        ids_.add(new SubscribedTranslationRenamingValMidCrud<String>(failStatus.getCrud()));
-        ids_.add(new SubscribedTranslationRenamingValPrefCrud<String>(failStatus.getCrud()));
         ids_.addAllElts(failStatus.subscribeButtons());
         ids_.addAllElts(increasingMaxNbRoundGlobalMove.subscribeButtons());
         ids_.addAllElts(increasingMaxNbRoundTeamMove.subscribeButtons());

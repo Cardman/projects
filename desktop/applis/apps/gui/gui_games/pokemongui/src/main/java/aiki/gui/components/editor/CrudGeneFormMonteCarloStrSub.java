@@ -26,8 +26,6 @@ public final class CrudGeneFormMonteCarloStrSub extends AbsCrudGeneFormMonteCarl
     protected IdList<SubscribedTranslation> geneLaw() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
         ids_.add(new SubscribedTranslationRenamingIdCrud<LgInt>(crud));
-        ids_.add(new SubscribedTranslationRenamingMidCrud<LgInt>(crud));
-        ids_.add(new SubscribedTranslationRenamingPrefCrud<LgInt>(crud));
         return ids_;
     }
     public AbsButton getAdd() {
