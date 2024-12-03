@@ -125,6 +125,39 @@ final class MathUtil {
         }
         return replace_;
     }
+    static String renameMid(String _el, String _prefix, String _mid, String _after, String _target) {
+        StringList list_ = MathExpUtil.getWordsSeparators(_el);
+        StringList newList_ = new StringList();
+        int size_ = list_.size();
+        String strMid_ = _prefix + _mid + _after;
+        for (int i = 0; i < size_; i++) {
+            String t_ = list_.get(i);
+            if (StringUtil.quickEq(t_, _prefix + _mid)) {
+                newList_.add(_prefix + _target);
+            } else if (t_.startsWith(strMid_)) {
+                newList_.add(_prefix + _target + _after + t_.substring(strMid_.length()));
+            } else {
+                newList_.add(t_);
+            }
+        }
+        return StringUtil.join(newList_,"");
+    }
+
+    static String renamePref(String _el, String _prefix, String _after, String _target) {
+        StringList list_ = MathExpUtil.getWordsSeparators(_el);
+        StringList newList_ = new StringList();
+        int size_ = list_.size();
+        for (int i = 0; i < size_; i++) {
+            String t_ = list_.get(i);
+            if (t_.startsWith(_prefix)) {
+                newList_.add(_target + _after + t_.substring(_prefix.length()));
+            } else {
+                newList_.add(t_);
+            }
+        }
+        return StringUtil.join(newList_,"");
+    }
+
     static MbArgument processEl(String _el, boolean _onlycheckSyntax, StringMap<String> _conf) {
         ErrorStatus err_ = new ErrorStatus();
 //        MbDelimiters d_ = MathResolver.checkSyntax(_el, err_);
