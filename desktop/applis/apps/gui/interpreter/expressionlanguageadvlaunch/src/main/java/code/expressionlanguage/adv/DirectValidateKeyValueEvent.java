@@ -11,12 +11,12 @@ public final class DirectValidateKeyValueEvent implements AbsAutoCompleteListene
     }
 
     @Override
-    public void insertUpdate() {
+    public void insertUpdate(int _off, int _len) {
         matching.action();
     }
 
     @Override
-    public void removeUpdate() {
+    public void removeUpdate(int _off, int _len) {
         matching.action();
     }
 

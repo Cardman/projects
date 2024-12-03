@@ -12,12 +12,12 @@ public final class MockAutoCompleteListener implements AbsAutoCompleteListener {
     }
 
     @Override
-    public void insertUpdate() {
+    public void insertUpdate(int _off, int _len) {
         textField.setCaretPosition(textField.getText().length());
     }
 
     @Override
-    public void removeUpdate() {
+    public void removeUpdate(int _off, int _len) {
         textField.setCaretPosition(textField.getText().length());
     }
 

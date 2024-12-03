@@ -9,12 +9,12 @@ public final class DocumentTextChange implements AbsAutoCompleteListener {
         editor = _editor;
     }
     @Override
-    public void insertUpdate() {
+    public void insertUpdate(int _off, int _len) {
         update(false);
     }
 
     @Override
-    public void removeUpdate() {
+    public void removeUpdate(int _off, int _len) {
         update(false);
     }
 

@@ -52,12 +52,14 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
     @Override
     public int insert(String _s, int _i) {
         builder.insert(_i,_s);
+        applyInsert(_s, _i);
         return 1;
     }
 
     @Override
     public int remove(int _off, int _len) {
         builder.delete(_off, _off+_len);
+        applyRemove(_len,_off);
         return 1;
     }
 
@@ -70,10 +72,10 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
             return;
         }
         builder.delete(getSelectionStart(),getSelectionEnd());
-        applyRemove(getSelectionEnd()-getSelectionStart());
+        applyRemove(getSelectionEnd()-getSelectionStart(), getSelectionStart());
         selectionEnd = getSelectionStart();
         builder.insert(getSelectionStart(),_s);
-        applyInsert(_s);
+        applyInsert(_s, getSelectionStart());
         selected = "";
         selectionStart += _s.length();
         selectionEnd += _s.length();
@@ -86,9 +88,9 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
     public void setText(String _s) {
         int old_ = builder.length();
         builder.delete(0, old_);
-        applyRemove(old_);
+        applyRemove(old_, 0);
         builder.append(_s);
-        applyInsert(_s);
+        applyInsert(_s, 0);
     }
 
     protected void applyChange(int _s) {
@@ -97,15 +99,15 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
         }
     }
 
-    private void applyInsert(String _s) {
+    private void applyInsert(String _s, int _off) {
         for (AbsAutoCompleteListener a: apply(_s.length())) {
-            a.insertUpdate();
+            a.insertUpdate(_off, _s.length());
         }
     }
 
-    private void applyRemove(int _old) {
+    private void applyRemove(int _old, int _off) {
         for (AbsAutoCompleteListener a: apply(_old)) {
-            a.removeUpdate();
+            a.removeUpdate(_off, _old);
         }
     }
 

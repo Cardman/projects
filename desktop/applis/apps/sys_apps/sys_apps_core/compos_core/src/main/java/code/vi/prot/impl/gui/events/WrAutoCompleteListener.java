@@ -14,12 +14,12 @@ public final class WrAutoCompleteListener implements DocumentListener {
 
     @Override
     public void insertUpdate(DocumentEvent _e) {
-        autoCompleteListener.insertUpdate();
+        autoCompleteListener.insertUpdate(_e.getOffset(), _e.getLength());
     }
 
     @Override
     public void removeUpdate(DocumentEvent _e) {
-        autoCompleteListener.removeUpdate();
+        autoCompleteListener.removeUpdate(_e.getOffset(), _e.getLength());
     }
 
     @Override

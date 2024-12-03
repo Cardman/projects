@@ -9,12 +9,12 @@ public final class FinderTextChange implements AbsAutoCompleteListener {
         editor = _editor;
     }
     @Override
-    public void insertUpdate() {
+    public void insertUpdate(int _off, int _len) {
         update();
     }
 
     @Override
-    public void removeUpdate() {
+    public void removeUpdate(int _off, int _len) {
         update();
     }
 

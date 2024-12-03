@@ -2,9 +2,9 @@ package code.gui.events;
 
 public interface AbsAutoCompleteListener {
 
-    void insertUpdate();
+    void insertUpdate(int _off, int _len);
 
-    void removeUpdate();
+    void removeUpdate(int _off, int _len);
 
     void changedUpdate();
 }
