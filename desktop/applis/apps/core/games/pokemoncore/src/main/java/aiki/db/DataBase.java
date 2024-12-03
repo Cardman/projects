@@ -1131,6 +1131,10 @@ public class DataBase {
         getConstNonNum().initValueOther(_key, _value);
     }
 
+    public String retValueOther(String _key) {
+        return getConstNonNum().retValueOther(_key);
+    }
+
     public void validateConstants() {
         if (getDefaultMoney().isZero()) {
             setError(true);

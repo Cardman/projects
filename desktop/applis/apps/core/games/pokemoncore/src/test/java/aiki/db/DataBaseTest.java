@@ -115,10 +115,12 @@ public class DataBaseTest extends EquallablePkUtil {
         assertEq("",data_.getDefCategory());
     }
 
+
     @Test
     public void initBase11() {
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.PREFIX_KEY,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.PREFIX_KEY));
         assertEq("0",data_.prefixVar());
     }
 
@@ -126,6 +128,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase12() {
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_NIVEAU,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_NIVEAU));
         assertEq("0",data_.niveau());
     }
 
@@ -133,6 +136,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase13() {
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_LEVEL_LOOSER,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_LEVEL_LOOSER));
         assertEq("0",data_.levelLooser());
     }
 
@@ -140,6 +144,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase14() {
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_LEVEL_WINNER,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_LEVEL_WINNER));
         assertEq("0",data_.levelWinner());
     }
 
@@ -147,6 +152,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase15() {
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_FIGHTER_NIVEAU,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_FIGHTER_NIVEAU));
         assertEq("0",data_.fighterNiveau());
     }
 
@@ -154,6 +160,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase16() {
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_LANCEUR_NIVEAU,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_LANCEUR_NIVEAU));
         assertEq("0",data_.lanceurNiveau());
     }
 
@@ -161,6 +168,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase17() {
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_CIBLE_NIVEAU,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_CIBLE_NIVEAU));
         assertEq("0",data_.cibleNiveau());
     }
 
@@ -168,6 +176,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase18() {
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_PK_SAUVAGE_NIVEAU,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_PK_SAUVAGE_NIVEAU));
         assertEq("0",data_.pkSauvageNiveau());
     }
 
@@ -175,6 +184,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase19() {
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_PK_UT_NIVEAU,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_PK_UT_NIVEAU));
         assertEq("0",data_.pkUtNiveau());
     }
 
@@ -182,6 +192,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase20() {
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_BOOST,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_BOOST));
         assertEq("0",data_.boost());
     }
 
@@ -189,6 +200,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase21() {
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_POWER,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_POWER));
         assertEq("0",data_.power());
     }
 
@@ -196,6 +208,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase22() {
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_ATTACK,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_ATTACK));
         assertEq("0",data_.attack());
     }
 
@@ -203,6 +216,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase23() {
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_DEFENSE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_DEFENSE));
         assertEq("0",data_.defense());
     }
 
@@ -210,6 +224,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase24() {
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_BASE_CAPT_PK,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_BASE_CAPT_PK));
         assertEq("0",data_.baseCaptPk());
     }
 
@@ -217,6 +232,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase25() {
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_RATE_BALL_STATUS,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_RATE_BALL_STATUS));
         assertEq("0",data_.rateBallStatus());
     }
 
@@ -224,6 +240,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase26() {
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_FOE_PK_MAX_HP,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_FOE_PK_MAX_HP));
         assertEq("0",data_.foePkMaxHp());
     }
 
@@ -231,12 +248,14 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase27() {
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_FOE_PK_REMOTE_HP,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_FOE_PK_REMOTE_HP));
         assertEq("0",data_.foePkRemoteHp());
     }
     @Test
     public void initBase28(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_CIBLE_NB_UTILISATION,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_CIBLE_NB_UTILISATION));
         assertEq("0",data_.cibleNbUtilisation());
     }
 
@@ -244,6 +263,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase29(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_LANCEUR_NB_UTILISATION,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_LANCEUR_NB_UTILISATION));
         assertEq("0",data_.lanceurNbUtilisation());
     }
 
@@ -251,6 +271,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase30(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_FIGHTER_NB_UTILISATION,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_FIGHTER_NB_UTILISATION));
         assertEq("0",data_.fighterNbUtilisation());
     }
 
@@ -258,6 +279,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase31(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_EQUIPE_NB_UTILISATION,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_EQUIPE_NB_UTILISATION));
         assertEq("0",data_.equipeNbUtilisation());
     }
 
@@ -265,6 +287,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase32(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_EQUIPE_ADV_NB_UTILISATION,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_EQUIPE_ADV_NB_UTILISATION));
         assertEq("0",data_.equipeAdvNbUtilisation());
     }
 
@@ -272,6 +295,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase33(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_NB_UTILI_ATT_EQ_TOUR,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_NB_UTILI_ATT_EQ_TOUR));
         assertEq("0",data_.nbUtiliAttEqTour());
     }
 
@@ -279,6 +303,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase34(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_LANCEUR_PV_RESTANTS,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_LANCEUR_PV_RESTANTS));
         assertEq("0",data_.lanceurPvRestants());
     }
 
@@ -286,6 +311,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase35(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_CIBLE_PV_RESTANTS,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_CIBLE_PV_RESTANTS));
         assertEq("0",data_.ciblePvRestants());
     }
 
@@ -293,6 +319,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase36(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_LANCEUR_PV_MAX,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_LANCEUR_PV_MAX));
         assertEq("0",data_.lanceurPvMax());
     }
 
@@ -300,6 +327,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase37(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_CIBLE_PV_MAX,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_CIBLE_PV_MAX));
         assertEq("0",data_.ciblePvMax());
     }
 
@@ -307,6 +335,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase38(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_LANCEUR_STATIS,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_LANCEUR_STATIS));
         assertEq("0",data_.lanceurStatis());
     }
 
@@ -314,6 +343,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase39(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_CIBLE_STATIS,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_CIBLE_STATIS));
         assertEq("0",data_.cibleStatis());
     }
 
@@ -321,6 +351,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase40(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_LANCEUR_BOOST,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_LANCEUR_BOOST));
         assertEq("0",data_.lanceurBoost());
     }
 
@@ -328,6 +359,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase41(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_CIBLE_BOOST,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_CIBLE_BOOST));
         assertEq("0",data_.cibleBoost());
     }
 
@@ -335,6 +367,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase42(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_SOMME_BOOST_POS_CIBLE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_SOMME_BOOST_POS_CIBLE));
         assertEq("0",data_.sommeBoostPosCible());
     }
 
@@ -342,6 +375,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase43(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_CIBLE_ATTAQUES,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_CIBLE_ATTAQUES));
         assertEq("0",data_.cibleAttaques());
     }
 
@@ -349,6 +383,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase44(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_CIBLE_ATTAQUE_CHOISIE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_CIBLE_ATTAQUE_CHOISIE));
         assertEq("0",data_.cibleAttaqueChoisie());
     }
 
@@ -356,6 +391,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase45(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_CIBLE_ATTAQUES_TYPES,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_CIBLE_ATTAQUES_TYPES));
         assertEq("0",data_.cibleAttaquesTypes());
     }
 
@@ -363,6 +399,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase46(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_CIBLE_CLONE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_CIBLE_CLONE));
         assertEq("0",data_.cibleClone());
     }
 
@@ -370,6 +407,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase47(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_CIBLE_DEGATS_RECUS,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_CIBLE_DEGATS_RECUS));
         assertEq("0",data_.cibleDegatsRecus());
     }
 
@@ -377,6 +415,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase48(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_CIBLE_DEGATS_RECUS_TOTAL,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_CIBLE_DEGATS_RECUS_TOTAL));
         assertEq("0",data_.cibleDegatsRecusTotal());
     }
 
@@ -384,6 +423,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase49(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_CIBLE_DEGATS_RECUS_TOUR,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_CIBLE_DEGATS_RECUS_TOUR));
         assertEq("0",data_.cibleDegatsRecusTour());
     }
 
@@ -391,6 +431,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase50(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_CIBLE_DEGATS_RECUS_TOTAL_TOUR,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_CIBLE_DEGATS_RECUS_TOTAL_TOUR));
         assertEq("0",data_.cibleDegatsRecusTotalTour());
     }
 
@@ -398,6 +439,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase51(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_CIBLE_DISPARAIT,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_CIBLE_DISPARAIT));
         assertEq("0",data_.cibleDisparait());
     }
 
@@ -405,6 +447,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase52(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_CIBLE_DER_JOUE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_CIBLE_DER_JOUE));
         assertEq("0",data_.cibleDerJoue());
     }
 
@@ -412,6 +455,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase53(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_CIBLE_JOUE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_CIBLE_JOUE));
         assertEq("0",data_.cibleJoue());
     }
 
@@ -419,6 +463,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase54(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_CIBLE_MASSE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_CIBLE_MASSE));
         assertEq("0",data_.cibleMasse());
     }
 
@@ -426,6 +471,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase55(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_CIBLE_TAILLE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_CIBLE_TAILLE));
         assertEq("0",data_.cibleTaille());
     }
 
@@ -433,6 +479,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase56(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_CIBLE_CAPACITE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_CIBLE_CAPACITE));
         assertEq("0",data_.cibleCapacite());
     }
 
@@ -440,6 +487,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase57(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_CIBLE_OBJET,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_CIBLE_OBJET));
         assertEq("0",data_.cibleObjet());
     }
 
@@ -447,6 +495,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase58(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_CIBLE_STATUTS,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_CIBLE_STATUTS));
         assertEq("0",data_.cibleStatuts());
     }
 
@@ -454,6 +503,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase59(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_CIBLE_TYPES,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_CIBLE_TYPES));
         assertEq("0",data_.cibleTypes());
     }
 
@@ -461,6 +511,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase60(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_CIBLE_NOM,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_CIBLE_NOM));
         assertEq("0",data_.cibleNom());
     }
 
@@ -468,6 +519,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase61(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_CIBLE_PP,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_CIBLE_PP));
         assertEq("0",data_.ciblePp());
     }
 
@@ -475,6 +527,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase62(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_NB_KO_EQUIPE_CIBLE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_NB_KO_EQUIPE_CIBLE));
         assertEq("0",data_.nbKoEquipeCible());
     }
 
@@ -482,6 +535,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase63(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_NB_KO_EQUIPE_ADV_CIBLE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_NB_KO_EQUIPE_ADV_CIBLE));
         assertEq("0",data_.nbKoEquipeAdvCible());
     }
 
@@ -489,6 +543,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase64(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_COEFF_EFF_BASE_TYPES_CIBLE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_COEFF_EFF_BASE_TYPES_CIBLE));
         assertEq("0",data_.coeffEffBaseTypesCible());
     }
 
@@ -496,6 +551,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase65(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_NB_TOUR,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_NB_TOUR));
         assertEq("0",data_.nbTour());
     }
 
@@ -503,6 +559,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase66(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_SOMME_BOOST_POS_LANCEUR,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_SOMME_BOOST_POS_LANCEUR));
         assertEq("0",data_.sommeBoostPosLanceur());
     }
 
@@ -510,6 +567,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase67(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_NB_TOUR_GLOBAL,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_NB_TOUR_GLOBAL));
         assertEq("0",data_.nbTourGlobal());
     }
 
@@ -517,6 +575,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase68(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_LANCEUR_ATTAQUES,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_LANCEUR_ATTAQUES));
         assertEq("0",data_.lanceurAttaques());
     }
 
@@ -524,6 +583,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase69(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_LANCEUR_ATTAQUE_CHOISIE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_LANCEUR_ATTAQUE_CHOISIE));
         assertEq("0",data_.lanceurAttaqueChoisie());
     }
 
@@ -531,6 +591,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase70(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_LANCEUR_ATTAQUES_TYPES,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_LANCEUR_ATTAQUES_TYPES));
         assertEq("0",data_.lanceurAttaquesTypes());
     }
 
@@ -538,6 +599,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase71(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_LANCEUR_CLONE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_LANCEUR_CLONE));
         assertEq("0",data_.lanceurClone());
     }
 
@@ -545,6 +607,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase72(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_LANCEUR_DEGATS_RECUS,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_LANCEUR_DEGATS_RECUS));
         assertEq("0",data_.lanceurDegatsRecus());
     }
 
@@ -552,6 +615,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase73(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_LANCEUR_DEGATS_RECUS_TOTAL,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_LANCEUR_DEGATS_RECUS_TOTAL));
         assertEq("0",data_.lanceurDegatsRecusTotal());
     }
 
@@ -559,6 +623,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase74(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_LANCEUR_DEGATS_RECUS_TOUR,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_LANCEUR_DEGATS_RECUS_TOUR));
         assertEq("0",data_.lanceurDegatsRecusTour());
     }
 
@@ -566,6 +631,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase75(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_LANCEUR_DEGATS_RECUS_TOTAL_TOUR,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_LANCEUR_DEGATS_RECUS_TOTAL_TOUR));
         assertEq("0",data_.lanceurDegatsRecusTotalTour());
     }
 
@@ -573,6 +639,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase76(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_LANCEUR_DISPARAIT,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_LANCEUR_DISPARAIT));
         assertEq("0",data_.lanceurDisparait());
     }
 
@@ -580,6 +647,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase77(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_LANCEUR_DER_JOUE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_LANCEUR_DER_JOUE));
         assertEq("0",data_.lanceurDerJoue());
     }
 
@@ -587,6 +655,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase78(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_LANCEUR_JOUE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_LANCEUR_JOUE));
         assertEq("0",data_.lanceurJoue());
     }
 
@@ -594,6 +663,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase79(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_LANCEUR_MASSE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_LANCEUR_MASSE));
         assertEq("0",data_.lanceurMasse());
     }
 
@@ -601,6 +671,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase80(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_LANCEUR_TAILLE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_LANCEUR_TAILLE));
         assertEq("0",data_.lanceurTaille());
     }
 
@@ -608,6 +679,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase81(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_LANCEUR_CAPACITE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_LANCEUR_CAPACITE));
         assertEq("0",data_.lanceurCapacite());
     }
 
@@ -615,6 +687,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase82(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_LANCEUR_OBJET,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_LANCEUR_OBJET));
         assertEq("0",data_.lanceurObjet());
     }
 
@@ -622,6 +695,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase83(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_LANCEUR_STATUTS,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_LANCEUR_STATUTS));
         assertEq("0",data_.lanceurStatuts());
     }
 
@@ -629,6 +703,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase84(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_LANCEUR_TYPES,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_LANCEUR_TYPES));
         assertEq("0",data_.lanceurTypes());
     }
 
@@ -636,6 +711,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase85(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_LANCEUR_NOM,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_LANCEUR_NOM));
         assertEq("0",data_.lanceurNom());
     }
 
@@ -643,6 +719,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase86(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_COEFF_EFF_BASE_TYPES_LANCEUR,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_COEFF_EFF_BASE_TYPES_LANCEUR));
         assertEq("0",data_.coeffEffBaseTypesLanceur());
     }
 
@@ -650,6 +727,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase87(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_LANCEUR_PP,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_LANCEUR_PP));
         assertEq("0",data_.lanceurPp());
     }
 
@@ -657,6 +735,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase88(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_CIBLE_GENRE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_CIBLE_GENRE));
         assertEq("0",data_.cibleGenre());
     }
 
@@ -664,6 +743,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase89(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_LANCEUR_GENRE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_LANCEUR_GENRE));
         assertEq("0",data_.lanceurGenre());
     }
 
@@ -671,6 +751,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase90(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_COEFF_EFF_BASE_TYPES_FIGHTER,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_COEFF_EFF_BASE_TYPES_FIGHTER));
         assertEq("0",data_.coeffEffBaseTypesFighter());
     }
 
@@ -678,6 +759,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase91(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_FIGHTER_BONHEUR,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_FIGHTER_BONHEUR));
         assertEq("0",data_.fighterBonheur());
     }
 
@@ -685,6 +767,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase92(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_FIGHTER_PP,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_FIGHTER_PP));
         assertEq("0",data_.fighterPp());
     }
 
@@ -692,6 +775,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase93(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_FIGHTER_GENRE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_FIGHTER_GENRE));
         assertEq("0",data_.fighterGenre());
     }
 
@@ -699,6 +783,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase94(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_FIGHTER_PV_RESTANTS,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_FIGHTER_PV_RESTANTS));
         assertEq("0",data_.fighterPvRestants());
     }
 
@@ -706,6 +791,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase95(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_FIGHTER_PV_MAX,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_FIGHTER_PV_MAX));
         assertEq("0",data_.fighterPvMax());
     }
 
@@ -713,6 +799,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase96(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_FIGHTER_STATIS,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_FIGHTER_STATIS));
         assertEq("0",data_.fighterStatis());
     }
 
@@ -720,6 +807,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase97(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_FIGHTER_BOOST,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_FIGHTER_BOOST));
         assertEq("0",data_.fighterBoost());
     }
 
@@ -727,6 +815,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase98(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_SOMME_BOOST_POS_FIGHTER,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_SOMME_BOOST_POS_FIGHTER));
         assertEq("0",data_.sommeBoostPosFighter());
     }
 
@@ -734,6 +823,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase99(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_FIGHTER_ATTAQUES,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_FIGHTER_ATTAQUES));
         assertEq("0",data_.fighterAttaques());
     }
 
@@ -741,6 +831,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase100(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_FIGHTER_ATTAQUE_CHOISIE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_FIGHTER_ATTAQUE_CHOISIE));
         assertEq("0",data_.fighterAttaqueChoisie());
     }
 
@@ -748,6 +839,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase101(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_FIGHTER_ATTAQUES_TYPES,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_FIGHTER_ATTAQUES_TYPES));
         assertEq("0",data_.fighterAttaquesTypes());
     }
 
@@ -755,6 +847,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase102(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_FIGHTER_CLONE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_FIGHTER_CLONE));
         assertEq("0",data_.fighterClone());
     }
 
@@ -762,6 +855,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase103(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_FIGHTER_DEGATS_RECUS,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_FIGHTER_DEGATS_RECUS));
         assertEq("0",data_.fighterDegatsRecus());
     }
 
@@ -769,6 +863,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase104(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_FIGHTER_DEGATS_RECUS_TOTAL,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_FIGHTER_DEGATS_RECUS_TOTAL));
         assertEq("0",data_.fighterDegatsRecusTotal());
     }
 
@@ -776,6 +871,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase105(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_FIGHTER_DEGATS_RECUS_TOUR,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_FIGHTER_DEGATS_RECUS_TOUR));
         assertEq("0",data_.fighterDegatsRecusTour());
     }
 
@@ -783,6 +879,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase106(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_FIGHTER_DEGATS_RECUS_TOTAL_TOUR,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_FIGHTER_DEGATS_RECUS_TOTAL_TOUR));
         assertEq("0",data_.fighterDegatsRecusTotalTour());
     }
 
@@ -790,6 +887,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase107(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_FIGHTER_DISPARAIT,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_FIGHTER_DISPARAIT));
         assertEq("0",data_.fighterDisparait());
     }
 
@@ -797,6 +895,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase108(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_FIGHTER_DER_JOUE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_FIGHTER_DER_JOUE));
         assertEq("0",data_.fighterDerJoue());
     }
 
@@ -804,6 +903,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase109(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_FIGHTER_JOUE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_FIGHTER_JOUE));
         assertEq("0",data_.fighterJoue());
     }
 
@@ -811,6 +911,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase110(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_FIGHTER_MASSE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_FIGHTER_MASSE));
         assertEq("0",data_.fighterMasse());
     }
 
@@ -818,6 +919,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase111(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_FIGHTER_TAILLE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_FIGHTER_TAILLE));
         assertEq("0",data_.fighterTaille());
     }
 
@@ -825,6 +927,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase112(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_FIGHTER_CAPACITE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_FIGHTER_CAPACITE));
         assertEq("0",data_.fighterCapacite());
     }
 
@@ -832,6 +935,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase113(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_FIGHTER_OBJET,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_FIGHTER_OBJET));
         assertEq("0",data_.fighterObjet());
     }
 
@@ -839,6 +943,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase114(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_FIGHTER_STATUTS,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_FIGHTER_STATUTS));
         assertEq("0",data_.fighterStatuts());
     }
 
@@ -846,6 +951,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase115(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_FIGHTER_TYPES,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_FIGHTER_TYPES));
         assertEq("0",data_.fighterTypes());
     }
 
@@ -853,6 +959,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase116(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_FIGHTER_NOM,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_FIGHTER_NOM));
         assertEq("0",data_.fighterNom());
     }
 
@@ -860,6 +967,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase117(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_ATTAQUE_CATEGORIE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_ATTAQUE_CATEGORIE));
         assertEq("0",data_.attaqueCategorie());
     }
 
@@ -867,6 +975,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase118(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_ATTAQUE_TYPES,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_ATTAQUE_TYPES));
         assertEq("0",data_.attaqueTypes());
     }
 
@@ -874,6 +983,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase119(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_ATTAQUE_NOM,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_ATTAQUE_NOM));
         assertEq("0",data_.attaqueNom());
     }
 
@@ -881,6 +991,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase120(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_PUISSANCE_BASE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_PUISSANCE_BASE));
         assertEq("0",data_.puissanceBase());
     }
 
@@ -888,6 +999,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase121(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_COEFF_EFF,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_COEFF_EFF));
         assertEq("0",data_.coeffEff());
     }
 
@@ -895,6 +1007,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase122(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_NB_UTILISATION_CONSECUTIF,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_NB_UTILISATION_CONSECUTIF));
         assertEq("0",data_.nbUtilisationConsecutif());
     }
 
@@ -902,6 +1015,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase123(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_CLIMATS,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_CLIMATS));
         assertEq("0",data_.climats());
     }
 
@@ -909,6 +1023,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase124(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_LIEU_COMBAT,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_LIEU_COMBAT));
         assertEq("0",data_.lieuCombat());
     }
 
@@ -916,6 +1031,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase125(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_NB_FLEES,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_NB_FLEES));
         assertEq("0",data_.nbFlees());
     }
 
@@ -923,6 +1039,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase126(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_CIBLE_BONHEUR,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_CIBLE_BONHEUR));
         assertEq("0",data_.cibleBonheur());
     }
 
@@ -930,6 +1047,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase127(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_LANCEUR_BONHEUR,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_LANCEUR_BONHEUR));
         assertEq("0",data_.lanceurBonheur());
     }
 
@@ -937,6 +1055,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase128(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_TEMPS_TOUR,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_TEMPS_TOUR));
         assertEq("0",data_.tempsTour());
     }
 
@@ -944,6 +1063,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase129(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_RATE_EFF_MOVE_AGAINST_TARGET,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_RATE_EFF_MOVE_AGAINST_TARGET));
         assertEq("0",data_.rateEffMoveAgainstTarget());
     }
 
@@ -951,6 +1071,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase130(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_NB_COMBATTANTS_TERRAIN,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_NB_COMBATTANTS_TERRAIN));
         assertEq("0",data_.nbCombattantsTerrain());
     }
 
@@ -958,6 +1079,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase131(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_NB_KO_EQUIPE_LANCEUR,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_NB_KO_EQUIPE_LANCEUR));
         assertEq("0",data_.nbKoEquipeLanceur());
     }
 
@@ -965,6 +1087,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase132(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_NB_KO_EQUIPE_ADV_LANCEUR,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_NB_KO_EQUIPE_ADV_LANCEUR));
         assertEq("0",data_.nbKoEquipeAdvLanceur());
     }
 
@@ -972,6 +1095,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase133(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_NB_KO_EQUIPE_FIGHTER,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_NB_KO_EQUIPE_FIGHTER));
         assertEq("0",data_.nbKoEquipeFighter());
     }
 
@@ -979,6 +1103,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase134(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_NB_KO_EQUIPE_ADV_FIGHTER,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_NB_KO_EQUIPE_ADV_FIGHTER));
         assertEq("0",data_.nbKoEquipeAdvFighter());
     }
 
@@ -986,6 +1111,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase135(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_CIBLE_POSSEDE_STATUT_RELATION,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_CIBLE_POSSEDE_STATUT_RELATION));
         assertEq("0",data_.ciblePossedeStatutRelation());
     }
 
@@ -993,6 +1119,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase136(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_IMMU_TYPE_ATT_COMBATTANT_ENTRANT,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_IMMU_TYPE_ATT_COMBATTANT_ENTRANT));
         assertEq("0",data_.immuTypeAttCombattantEntrant());
     }
 
@@ -1000,6 +1127,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase137(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_CIBLE_EFFET,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_CIBLE_EFFET));
         assertEq("0",data_.cibleEffet());
     }
 
@@ -1007,6 +1135,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase138(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_PAS_PP_ATTAQUE_CIBLE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_PAS_PP_ATTAQUE_CIBLE));
         assertEq("0",data_.pasPpAttaqueCible());
     }
 
@@ -1014,6 +1143,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase139(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_PAS_UTILIS_ATTAQUE_CIBLE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_PAS_UTILIS_ATTAQUE_CIBLE));
         assertEq("0",data_.pasUtilisAttaqueCible());
     }
 
@@ -1021,6 +1151,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase140(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_IMMU_TYPE_ATT_CIBLE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_IMMU_TYPE_ATT_CIBLE));
         assertEq("0",data_.immuTypeAttCible());
     }
 
@@ -1028,6 +1159,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase141(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_AUCUN_BOOST_POSSIBLE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_AUCUN_BOOST_POSSIBLE));
         assertEq("0",data_.aucunBoostPossible());
     }
 
@@ -1035,6 +1167,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase142(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_LANCEUR_EFFET,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_LANCEUR_EFFET));
         assertEq("0",data_.lanceurEffet());
     }
 
@@ -1042,6 +1175,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase143(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_TYPES_ATTAQUES_RES_VIDE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_TYPES_ATTAQUES_RES_VIDE));
         assertEq("0",data_.typesAttaquesResVide());
     }
 
@@ -1049,6 +1183,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase144(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_PAS_ATTAQUE_INVOC,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_PAS_ATTAQUE_INVOC));
         assertEq("0",data_.pasAttaqueInvoc());
     }
 
@@ -1056,6 +1191,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase145(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_PAS_ATTAQUES_COPIABLES,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_PAS_ATTAQUES_COPIABLES));
         assertEq("0",data_.pasAttaquesCopiables());
     }
 
@@ -1063,6 +1199,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase146(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_PAS_PARTENAIRE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_PAS_PARTENAIRE));
         assertEq("0",data_.pasPartenaire());
     }
 
@@ -1070,6 +1207,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase147(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_PAS_PARTENAIRE_ARRIERE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_PAS_PARTENAIRE_ARRIERE));
         assertEq("0",data_.pasPartenaireArriere());
     }
 
@@ -1077,6 +1215,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase148(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_PAS_PARTENAIRE_TERRAIN,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_PAS_PARTENAIRE_TERRAIN));
         assertEq("0",data_.pasPartenaireTerrain());
     }
 
@@ -1084,6 +1223,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase149(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_PAS_TOUR_TERRAIN,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_PAS_TOUR_TERRAIN));
         assertEq("0",data_.pasTourTerrain());
     }
 
@@ -1091,6 +1231,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase150(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_EXISTE_GENRE_ASSEXUE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_EXISTE_GENRE_ASSEXUE));
         assertEq("0",data_.existeGenreAssexue());
     }
 
@@ -1098,6 +1239,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase151(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_GENRES_EGAUX,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_GENRES_EGAUX));
         assertEq("0",data_.genresEgaux());
     }
 
@@ -1105,6 +1247,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase152(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_DEJA_CAPTURE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_DEJA_CAPTURE));
         assertEq("0",data_.dejaCapture());
     }
 
@@ -1112,6 +1255,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase153(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_MASSE_MOYENNE_PK,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_MASSE_MOYENNE_PK));
         assertEq("0",data_.masseMoyennePk());
     }
 
@@ -1119,6 +1263,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase154(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_PK_UT_GENRE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_PK_UT_GENRE));
         assertEq("0",data_.pkUtGenre());
     }
 
@@ -1126,6 +1271,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase155(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_PK_UT_MASSE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_PK_UT_MASSE));
         assertEq("0",data_.pkUtMasse());
     }
 
@@ -1133,6 +1279,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase156(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_PK_UT_VITESSE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_PK_UT_VITESSE));
         assertEq("0",data_.pkUtVitesse());
     }
 
@@ -1140,6 +1287,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase157(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_PK_UT_TYPES_BASE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_PK_UT_TYPES_BASE));
         assertEq("0",data_.pkUtTypesBase());
     }
 
@@ -1147,6 +1295,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase158(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_PK_UT_PIERRES_EVOS,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_PK_UT_PIERRES_EVOS));
         assertEq("0",data_.pkUtPierresEvos());
     }
 
@@ -1154,6 +1303,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase159(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_PK_SAUVAGE_GENRE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_PK_SAUVAGE_GENRE));
         assertEq("0",data_.pkSauvageGenre());
     }
 
@@ -1161,6 +1311,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase160(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_PK_SAUVAGE_MASSE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_PK_SAUVAGE_MASSE));
         assertEq("0",data_.pkSauvageMasse());
     }
 
@@ -1168,6 +1319,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase161(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_PK_SAUVAGE_VITESSE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_PK_SAUVAGE_VITESSE));
         assertEq("0",data_.pkSauvageVitesse());
     }
 
@@ -1175,6 +1327,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase162(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_PK_SAUVAGE_TYPES_BASE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_PK_SAUVAGE_TYPES_BASE));
         assertEq("0",data_.pkSauvageTypesBase());
     }
 
@@ -1182,6 +1335,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase163(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_PK_SAUVAGE_PIERRES_EVOS,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_PK_SAUVAGE_PIERRES_EVOS));
         assertEq("0",data_.pkSauvagePierresEvos());
     }
 
@@ -1189,6 +1343,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase164(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_COMBATTANT_ENTRANT_CLONE,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_COMBATTANT_ENTRANT_CLONE));
         assertEq("0",data_.combattantEntrantClone());
     }
 
@@ -1196,6 +1351,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase165(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_COMBATTANT_ENTRANT_TYPES,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_COMBATTANT_ENTRANT_TYPES));
         assertEq("0",data_.combattantEntrantTypes());
     }
 
@@ -1203,6 +1359,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase166(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_COEFF_EFF_BASE_TYPES_COMBATTANT_ENTRANT,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_COEFF_EFF_BASE_TYPES_COMBATTANT_ENTRANT));
         assertEq("0",data_.coeffEffBaseTypesCombattantEntrant());
     }
 
@@ -1210,6 +1367,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void initBase167(){
         DataBase data_ = newData();
         data_.initValue(DataBaseConstants.KEY_EQUIPE_ADV_COMBATTANT_ENTRANT_NB_UTILISATION,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_EQUIPE_ADV_COMBATTANT_ENTRANT_NB_UTILISATION));
         assertEq("0",data_.equipeAdvCombattantEntrantNbUtilisation());
     }
 

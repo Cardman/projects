@@ -321,6 +321,777 @@ public final class DataBaseConstants {
     private String lieuCombat;
     private String tempsTour;
 
+    private boolean found;
+
+    public String retValueOther(String _key) {
+        found = false;
+        String out_ = initValueOther1(_key);
+        if (found) {
+            return out_;
+        }
+        out_ = initValueOther2(_key);
+        if (found) {
+            return out_;
+        }
+        out_ = initValueOther3(_key);
+        if (found) {
+            return out_;
+        }
+        out_ = initValueOtherCible(_key);
+        if (found) {
+            return out_;
+        }
+        out_ = initValueOtherLanceur(_key);
+        if (found) {
+            return out_;
+        }
+        out_ = initValueOtherFighter(_key);
+        if (found) {
+            return out_;
+        }
+        out_ = initValueOther4(_key);
+        if (found) {
+            return out_;
+        }
+        return prefixVar;
+    }
+
+
+    private String initValueOther1(String _key) {
+        if (StringUtil.quickEq(_key, KEY_NIVEAU)) {
+            found = true;
+            return niveau;
+        }
+        if (StringUtil.quickEq(_key, KEY_LEVEL_LOOSER)) {
+            found = true;
+            return levelLooser;
+        }
+        if (StringUtil.quickEq(_key, KEY_LEVEL_WINNER)) {
+            found = true;
+            return levelWinner;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_NIVEAU)) {
+            found = true;
+            return fighterNiveau;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_NIVEAU)) {
+            found = true;
+            return cibleNiveau;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_NIVEAU)) {
+            found = true;
+            return lanceurNiveau;
+        }
+        String out_ = initValueUtSauvage(_key);
+        if (found) {
+            return out_;
+        }
+        if (StringUtil.quickEq(_key, KEY_BOOST)) {
+            found = true;
+            return boost;
+        }
+        return "";
+    }
+
+    private String initValueUtSauvage(String _key) {
+        if (StringUtil.quickEq(_key, KEY_PK_SAUVAGE_NIVEAU)) {
+            found = true;
+            return pkSauvageNiveau;
+        }
+        if (StringUtil.quickEq(_key, KEY_PK_UT_NIVEAU)) {
+            found = true;
+            return pkUtNiveau;
+        }
+        if (StringUtil.quickEq(_key, KEY_PK_UT_GENRE)){
+            found = true;
+            return pkUtGenre;
+        }
+        if (StringUtil.quickEq(_key, KEY_PK_UT_MASSE)){
+            found = true;
+            return pkUtMasse;
+        }
+        if (StringUtil.quickEq(_key, KEY_PK_UT_VITESSE)){
+            found = true;
+            return pkUtVitesse;
+        }
+        if (StringUtil.quickEq(_key, KEY_PK_UT_TYPES_BASE)){
+            found = true;
+            return pkUtTypesBase;
+        }
+        if (StringUtil.quickEq(_key, KEY_PK_UT_PIERRES_EVOS)){
+            found = true;
+            return pkUtPierresEvos;
+        }
+        if (StringUtil.quickEq(_key, KEY_PK_SAUVAGE_GENRE)){
+            found = true;
+            return pkSauvageGenre;
+        }
+        if (StringUtil.quickEq(_key, KEY_PK_SAUVAGE_MASSE)){
+            found = true;
+            return pkSauvageMasse;
+        }
+        if (StringUtil.quickEq(_key, KEY_PK_SAUVAGE_VITESSE)){
+            found = true;
+            return pkSauvageVitesse;
+        }
+        if (StringUtil.quickEq(_key, KEY_PK_SAUVAGE_TYPES_BASE)){
+            found = true;
+            return pkSauvageTypesBase;
+        }
+        if (StringUtil.quickEq(_key, KEY_PK_SAUVAGE_PIERRES_EVOS)){
+            found = true;
+            return pkSauvagePierresEvos;
+        }
+        return "";
+    }
+
+    private String initValueOther2(String _key) {
+        if (StringUtil.quickEq(_key, KEY_POWER)) {
+            found = true;
+            return power;
+        }
+        if (StringUtil.quickEq(_key, KEY_ATTACK)) {
+            found = true;
+            return attack;
+        }
+        if (StringUtil.quickEq(_key, KEY_DEFENSE)) {
+            found = true;
+            return defense;
+        }
+        return "";
+    }
+
+    private String initValueOther3(String _key) {
+        if (StringUtil.quickEq(_key, KEY_BASE_CAPT_PK)) {
+            found = true;
+            return baseCaptPk;
+        }
+        if (StringUtil.quickEq(_key, KEY_RATE_BALL_STATUS)) {
+            found = true;
+            return rateBallStatus;
+        }
+        if (StringUtil.quickEq(_key, KEY_FOE_PK_MAX_HP)) {
+            found = true;
+            return foePkMaxHp;
+        }
+        if (StringUtil.quickEq(_key, KEY_FOE_PK_REMOTE_HP)) {
+            found = true;
+            return foePkRemoteHp;
+        }
+        return "";
+    }
+    private String initValueOtherCible(String _key) {
+        String out_ = initValueOtherCible1(_key);
+        if (found) {
+            return out_;
+        }
+        out_ = initValueOtherCible2(_key);
+        if (found) {
+            return out_;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_TAILLE)){
+            found = true;
+            return cibleTaille;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_CAPACITE)){
+            found = true;
+            return cibleCapacite;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_OBJET)){
+            found = true;
+            return cibleObjet;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_STATUTS)){
+            found = true;
+            return cibleStatuts;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_TYPES)){
+            found = true;
+            return cibleTypes;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_PP)){
+            found = true;
+            return ciblePp;
+        }
+//        if (StringUtil.quickEq(_key, KEY_CIBLE_NIVEAU)){
+//            found = true;
+//            return cibleNiveau;
+//        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_BONHEUR)){
+            found = true;
+            return cibleBonheur;
+        }
+        if (StringUtil.quickEq(_key, KEY_NB_KO_EQUIPE_CIBLE)){
+            found = true;
+            return nbKoEquipeCible;
+        }
+        if (StringUtil.quickEq(_key, KEY_NB_KO_EQUIPE_ADV_CIBLE)){
+            found = true;
+            return nbKoEquipeAdvCible;
+        }
+        if (StringUtil.quickEq(_key, KEY_COEFF_EFF_BASE_TYPES_CIBLE)){
+            found = true;
+            return coeffEffBaseTypesCible;
+        }
+        return "";
+    }
+
+    private String initValueOtherCible2(String _key) {
+        if (StringUtil.quickEq(_key, KEY_CIBLE_CLONE)){
+            found = true;
+            return cibleClone;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_DEGATS_RECUS)){
+            found = true;
+            return cibleDegatsRecus;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_DEGATS_RECUS_TOTAL)){
+            found = true;
+            return cibleDegatsRecusTotal;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_DEGATS_RECUS_TOUR)){
+            found = true;
+            return cibleDegatsRecusTour;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_DEGATS_RECUS_TOTAL_TOUR)){
+            found = true;
+            return cibleDegatsRecusTotalTour;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_DISPARAIT)){
+            found = true;
+            return cibleDisparait;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_JOUE)){
+            found = true;
+            return cibleJoue;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_DER_JOUE)){
+            found = true;
+            return cibleDerJoue;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_NOM)){
+            found = true;
+            return cibleNom;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_MASSE)){
+            found = true;
+            return cibleMasse;
+        }
+        return "";
+    }
+
+    private String initValueOtherCible1(String _key) {
+        if (StringUtil.quickEq(_key, KEY_CIBLE_POSSEDE_STATUT_RELATION)){
+            found = true;
+            return ciblePossedeStatutRelation;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_EFFET)){
+            found = true;
+            return cibleEffet;
+        }
+        if (StringUtil.quickEq(_key, KEY_PAS_PP_ATTAQUE_CIBLE)){
+            found = true;
+            return pasPpAttaqueCible;
+        }
+        if (StringUtil.quickEq(_key, KEY_PAS_UTILIS_ATTAQUE_CIBLE)){
+            found = true;
+            return pasUtilisAttaqueCible;
+        }
+        if (StringUtil.quickEq(_key, KEY_IMMU_TYPE_ATT_CIBLE)){
+            found = true;
+            return immuTypeAttCible;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_GENRE)){
+            found = true;
+            return cibleGenre;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_PV_RESTANTS)){
+            found = true;
+            return ciblePvRestants;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_PV_MAX)){
+            found = true;
+            return ciblePvMax;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_NB_UTILISATION)){
+            found = true;
+            return cibleNbUtilisation;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_STATIS)){
+            found = true;
+            return cibleStatis;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_BOOST)){
+            found = true;
+            return cibleBoost;
+        }
+        if (StringUtil.quickEq(_key, KEY_SOMME_BOOST_POS_CIBLE)){
+            found = true;
+            return sommeBoostPosCible;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_ATTAQUE_CHOISIE)){
+            found = true;
+            return cibleAttaqueChoisie;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_ATTAQUES)){
+            found = true;
+            return cibleAttaques;
+        }
+        if (StringUtil.quickEq(_key, KEY_CIBLE_ATTAQUES_TYPES)){
+            found = true;
+            return cibleAttaquesTypes;
+        }
+        return "";
+    }
+
+    private String initValueOtherLanceur(String _key) {
+        String out_ = initValueOtherLanceur1(_key);
+        if (found) {
+            return out_;
+        }
+        out_ = initValueOtherLanceur2(_key);
+        if (found) {
+            return out_;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_STATUTS)){
+            found = true;
+            return lanceurStatuts;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_TYPES)){
+            found = true;
+            return lanceurTypes;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_PP)){
+            found = true;
+            return lanceurPp;
+        }
+//        if (StringUtil.quickEq(_key, KEY_LANCEUR_NIVEAU)){
+//            found = true;
+//            return lanceurNiveau;
+//        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_BONHEUR)){
+            found = true;
+            return lanceurBonheur;
+        }
+        if (StringUtil.quickEq(_key, KEY_NB_KO_EQUIPE_LANCEUR)){
+            found = true;
+            return nbKoEquipeLanceur;
+        }
+        if (StringUtil.quickEq(_key, KEY_NB_KO_EQUIPE_ADV_LANCEUR)){
+            found = true;
+            return nbKoEquipeAdvLanceur;
+        }
+        if (StringUtil.quickEq(_key, KEY_COEFF_EFF_BASE_TYPES_LANCEUR)){
+            found = true;
+            return coeffEffBaseTypesLanceur;
+        }
+        return "";
+    }
+
+    private String initValueOtherLanceur2(String _key) {
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_DEGATS_RECUS_TOTAL_TOUR)){
+            found = true;
+            return lanceurDegatsRecusTotalTour;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_DISPARAIT)){
+            found = true;
+            return lanceurDisparait;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_JOUE)){
+            found = true;
+            return lanceurJoue;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_DER_JOUE)){
+            found = true;
+            return lanceurDerJoue;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_NOM)){
+            found = true;
+            return lanceurNom;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_MASSE)){
+            found = true;
+            return lanceurMasse;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_TAILLE)){
+            found = true;
+            return lanceurTaille;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_CAPACITE)){
+            found = true;
+            return lanceurCapacite;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_OBJET)){
+            found = true;
+            return lanceurObjet;
+        }
+        return "";
+    }
+
+    private String initValueOtherLanceur1(String _key) {
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_EFFET)){
+            found = true;
+            return lanceurEffet;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_GENRE)){
+            found = true;
+            return lanceurGenre;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_PV_RESTANTS)){
+            found = true;
+            return lanceurPvRestants;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_PV_MAX)){
+            found = true;
+            return lanceurPvMax;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_NB_UTILISATION)){
+            found = true;
+            return lanceurNbUtilisation;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_STATIS)){
+            found = true;
+            return lanceurStatis;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_BOOST)){
+            found = true;
+            return lanceurBoost;
+        }
+        if (StringUtil.quickEq(_key, KEY_SOMME_BOOST_POS_LANCEUR)){
+            found = true;
+            return sommeBoostPosLanceur;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_ATTAQUE_CHOISIE)){
+            found = true;
+            return lanceurAttaqueChoisie;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_ATTAQUES)){
+            found = true;
+            return lanceurAttaques;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_ATTAQUES_TYPES)){
+            found = true;
+            return lanceurAttaquesTypes;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_CLONE)){
+            found = true;
+            return lanceurClone;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_DEGATS_RECUS)){
+            found = true;
+            return lanceurDegatsRecus;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_DEGATS_RECUS_TOTAL)){
+            found = true;
+            return lanceurDegatsRecusTotal;
+        }
+        if (StringUtil.quickEq(_key, KEY_LANCEUR_DEGATS_RECUS_TOUR)){
+            found = true;
+            return lanceurDegatsRecusTour;
+        }
+        return "";
+    }
+
+    private String initValueOtherFighter(String _key) {
+        String out_ = initValueOtherFighter1(_key);
+        if (found) {
+            return out_;
+        }
+        out_ = initValueOtherFighter2(_key);
+        if (found) {
+            return out_;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_PP)){
+            found = true;
+            return fighterPp;
+        }
+//        if (StringUtil.quickEq(_key, KEY_FIGHTER_NIVEAU)){
+//            found = true;
+//            return fighterNiveau;
+//        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_BONHEUR)){
+            found = true;
+            return fighterBonheur;
+        }
+        if (StringUtil.quickEq(_key, KEY_NB_KO_EQUIPE_FIGHTER)){
+            found = true;
+            return nbKoEquipeFighter;
+        }
+        if (StringUtil.quickEq(_key, KEY_NB_KO_EQUIPE_ADV_FIGHTER)){
+            found = true;
+            return nbKoEquipeAdvFighter;
+        }
+        if (StringUtil.quickEq(_key, KEY_COEFF_EFF_BASE_TYPES_FIGHTER)){
+            found = true;
+            return coeffEffBaseTypesFighter;
+        }
+        return "";
+    }
+
+    private String initValueOtherFighter2(String _key) {
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_DISPARAIT)){
+            found = true;
+            return fighterDisparait;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_JOUE)){
+            found = true;
+            return fighterJoue;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_DER_JOUE)){
+            found = true;
+            return fighterDerJoue;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_NOM)){
+            found = true;
+            return fighterNom;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_MASSE)){
+            found = true;
+            return fighterMasse;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_TAILLE)){
+            found = true;
+            return fighterTaille;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_CAPACITE)){
+            found = true;
+            return fighterCapacite;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_OBJET)){
+            found = true;
+            return fighterObjet;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_STATUTS)){
+            found = true;
+            return fighterStatuts;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_TYPES)){
+            found = true;
+            return fighterTypes;
+        }
+        return "";
+    }
+
+    private String initValueOtherFighter1(String _key) {
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_GENRE)){
+            found = true;
+            return fighterGenre;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_PV_RESTANTS)){
+            found = true;
+            return fighterPvRestants;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_PV_MAX)){
+            found = true;
+            return fighterPvMax;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_NB_UTILISATION)){
+            found = true;
+            return fighterNbUtilisation;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_STATIS)){
+            found = true;
+            return fighterStatis;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_BOOST)){
+            found = true;
+            return fighterBoost;
+        }
+        if (StringUtil.quickEq(_key, KEY_SOMME_BOOST_POS_FIGHTER)){
+            found = true;
+            return sommeBoostPosFighter;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_ATTAQUE_CHOISIE)){
+            found = true;
+            return fighterAttaqueChoisie;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_ATTAQUES)){
+            found = true;
+            return fighterAttaques;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_ATTAQUES_TYPES)){
+            found = true;
+            return fighterAttaquesTypes;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_CLONE)){
+            found = true;
+            return fighterClone;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_DEGATS_RECUS)){
+            found = true;
+            return fighterDegatsRecus;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_DEGATS_RECUS_TOTAL)){
+            found = true;
+            return fighterDegatsRecusTotal;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_DEGATS_RECUS_TOUR)){
+            found = true;
+            return fighterDegatsRecusTour;
+        }
+        if (StringUtil.quickEq(_key, KEY_FIGHTER_DEGATS_RECUS_TOTAL_TOUR)){
+            found = true;
+            return fighterDegatsRecusTotalTour;
+        }
+        return "";
+    }
+
+    private String initValueOther4(String _key) {
+        String out_ = initValueOther5(_key);
+        if (found) {
+            return out_;
+        }
+        out_ = initValueOther6(_key);
+        if (found) {
+            return out_;
+        }
+        if (StringUtil.quickEq(_key, KEY_COEFF_EFF_BASE_TYPES_COMBATTANT_ENTRANT)){
+            found = true;
+            return coeffEffBaseTypesCombattantEntrant;
+        }
+        if (StringUtil.quickEq(_key, KEY_EQUIPE_ADV_COMBATTANT_ENTRANT_NB_UTILISATION)){
+            found = true;
+            return equipeAdvCombattantEntrantNbUtilisation;
+        }
+        if (StringUtil.quickEq(_key, KEY_ATTAQUE_CATEGORIE)){
+            found = true;
+            return attaqueCategorie;
+        }
+        if (StringUtil.quickEq(_key, KEY_ATTAQUE_TYPES)){
+            found = true;
+            return attaqueTypes;
+        }
+        if (StringUtil.quickEq(_key, KEY_ATTAQUE_NOM)){
+            found = true;
+            return attaqueNom;
+        }
+        if (StringUtil.quickEq(_key, KEY_PUISSANCE_BASE)){
+            found = true;
+            return puissanceBase;
+        }
+        if (StringUtil.quickEq(_key, KEY_COEFF_EFF)){
+            found = true;
+            return coeffEff;
+        }
+        if (StringUtil.quickEq(_key, KEY_NB_UTILISATION_CONSECUTIF)){
+            found = true;
+            return nbUtilisationConsecutif;
+        }
+        if (StringUtil.quickEq(_key, KEY_EQUIPE_NB_UTILISATION)){
+            found = true;
+            return equipeNbUtilisation;
+        }
+        if (StringUtil.quickEq(_key, KEY_EQUIPE_ADV_NB_UTILISATION)){
+            found = true;
+            return equipeAdvNbUtilisation;
+        }
+        return "";
+    }
+
+    private String initValueOther6(String _key) {
+        if (StringUtil.quickEq(_key, KEY_TEMPS_TOUR)){
+            found = true;
+            return tempsTour;
+        }
+        if (StringUtil.quickEq(_key, KEY_NB_TOUR)){
+            found = true;
+            return nbTour;
+        }
+        if (StringUtil.quickEq(_key, KEY_RATE_EFF_MOVE_AGAINST_TARGET)){
+            found = true;
+            return rateEffMoveAgainstTarget;
+        }
+        if (StringUtil.quickEq(_key, KEY_NB_COMBATTANTS_TERRAIN)){
+            found = true;
+            return nbCombattantsTerrain;
+        }
+        if (StringUtil.quickEq(_key, KEY_LIEU_COMBAT)){
+            found = true;
+            return lieuCombat;
+        }
+        if (StringUtil.quickEq(_key, KEY_CLIMATS)){
+            found = true;
+            return climats;
+        }
+        if (StringUtil.quickEq(_key, KEY_NB_TOUR_GLOBAL)){
+            found = true;
+            return nbTourGlobal;
+        }
+        if (StringUtil.quickEq(_key, KEY_COMBATTANT_ENTRANT_CLONE)){
+            found = true;
+            return combattantEntrantClone;
+        }
+        if (StringUtil.quickEq(_key, KEY_COMBATTANT_ENTRANT_TYPES)){
+            found = true;
+            return combattantEntrantTypes;
+        }
+        return "";
+    }
+
+    private String initValueOther5(String _key) {
+        if (StringUtil.quickEq(_key, KEY_DEJA_CAPTURE)){
+            found = true;
+            return dejaCapture;
+        }
+        if (StringUtil.quickEq(_key, KEY_NB_FLEES)){
+            found = true;
+            return nbFlees;
+        }
+        if (StringUtil.quickEq(_key, KEY_MASSE_MOYENNE_PK)){
+            found = true;
+            return masseMoyennePk;
+        }
+        if (StringUtil.quickEq(_key, KEY_IMMU_TYPE_ATT_COMBATTANT_ENTRANT)){
+            found = true;
+            return immuTypeAttCombattantEntrant;
+        }
+        if (StringUtil.quickEq(_key, KEY_PAS_ATTAQUE_INVOC)){
+            found = true;
+            return pasAttaqueInvoc;
+        }
+        if (StringUtil.quickEq(_key, KEY_PAS_ATTAQUES_COPIABLES)){
+            found = true;
+            return pasAttaquesCopiables;
+        }
+        if (StringUtil.quickEq(_key, KEY_AUCUN_BOOST_POSSIBLE)){
+            found = true;
+            return aucunBoostPossible;
+        }
+        if (StringUtil.quickEq(_key, KEY_TYPES_ATTAQUES_RES_VIDE)){
+            found = true;
+            return typesAttaquesResVide;
+        }
+        if (StringUtil.quickEq(_key, KEY_PAS_PARTENAIRE)){
+            found = true;
+            return pasPartenaire;
+        }
+        if (StringUtil.quickEq(_key, KEY_PAS_PARTENAIRE_ARRIERE)){
+            found = true;
+            return pasPartenaireArriere;
+        }
+        if (StringUtil.quickEq(_key, KEY_PAS_PARTENAIRE_TERRAIN)){
+            found = true;
+            return pasPartenaireTerrain;
+        }
+        if (StringUtil.quickEq(_key, KEY_PAS_TOUR_TERRAIN)){
+            found = true;
+            return pasTourTerrain;
+        }
+        if (StringUtil.quickEq(_key, KEY_EXISTE_GENRE_ASSEXUE)){
+            found = true;
+            return existeGenreAssexue;
+        }
+        if (StringUtil.quickEq(_key, KEY_GENRES_EGAUX)){
+            found = true;
+            return genresEgaux;
+        }
+        if (StringUtil.quickEq(_key, KEY_NB_UTILI_ATT_EQ_TOUR)){
+            found = true;
+            return nbUtiliAttEqTour;
+        }
+        return "";
+    }
+
     public void initValueOther(String _key, String _value) {
         if (StringUtil.quickEq(_key, PREFIX_KEY)) {
             prefixVar=_value;
