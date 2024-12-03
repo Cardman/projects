@@ -31,6 +31,7 @@ public final class GeneComponentModelText {
     }
 
     public void addComplete(FacadeGame _facade) {
+        element.addListener(new PkCompleteEnterEvent(this));
         textPane.registerKeyboardAction(compoFactory.getCompoFactory().wrap(new PkCompleteEnterEvent(this)), GuiConstants.VK_ENTER,0);
         textPane.registerKeyboardAction(compoFactory.getCompoFactory().wrap(new PkCompleteEvent(this,_facade)), GuiConstants.VK_SPACE,GuiConstants.CTRL_DOWN_MASK);
         textPane.registerKeyboardAction(compoFactory.getCompoFactory().wrap(new PkCompleteNavigateEvent(element,1)), GuiConstants.VK_PAGE_DOWN,GuiConstants.CTRL_DOWN_MASK);

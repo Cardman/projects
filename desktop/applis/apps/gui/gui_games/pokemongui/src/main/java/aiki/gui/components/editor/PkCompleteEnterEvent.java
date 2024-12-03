@@ -3,7 +3,7 @@ package aiki.gui.components.editor;
 import code.gui.*;
 import code.gui.events.*;
 
-public final class PkCompleteEnterEvent implements AbsActionListener {
+public final class PkCompleteEnterEvent implements AbsActionListener, ListSelection {
     private final GeneComponentModelText input;
 
     public PkCompleteEnterEvent(GeneComponentModelText _i) {
@@ -12,16 +12,25 @@ public final class PkCompleteEnterEvent implements AbsActionListener {
 
     @Override
     public void action() {
-        AbsTextPane textPane_ = input.getTextPane();
+        tryInsert(input);
+    }
+
+    @Override
+    public void valueChanged(SelectionInfo _e) {
+        tryInsert(input);
+    }
+
+    static void tryInsert(GeneComponentModelText _input) {
+        AbsTextPane textPane_ = _input.getTextPane();
         int caretPosition_ = textPane_.getCaretPosition();
-        int sel_ = input.getElement().getSelectedIndex();
+        int sel_ = _input.getElement().getSelectedIndex();
         if (sel_ == -1) {
-            input.getTextPane().insert("\n",caretPosition_);
-            input.getPopupMenu().setVisible(false);
+            _input.getTextPane().insert("\n",caretPosition_);
+            _input.getPopupMenu().setVisible(false);
             return;
         }
         int previous_ = PkCompleteEvent.previousChar(textPane_.getText(), caretPosition_);
-        input.getPopupMenu().setVisible(false);
-        textPane_.insert(input.getElement().get(sel_).substring(caretPosition_-previous_), caretPosition_);
+        _input.getPopupMenu().setVisible(false);
+        textPane_.insert(_input.getElement().get(sel_).substring(caretPosition_-previous_), caretPosition_);
     }
 }

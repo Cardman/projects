@@ -130,6 +130,23 @@ public final class EditorPkCompletingTxtFormTest extends InitEditorPkForm {
         enter(g_);
         assertEq("1+{M1}",g_.getTextPane().getText());
     }
+    @Test
+    public void auto9() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        facade_.getData().defValues();
+        window(pr_, facade_);
+        GeneComponentModelText g_ = new GeneComponentModelText(pr_);
+        g_.geneString();
+        g_.addComplete(facade_);
+        g_.getTextPane().setText("1+{M}");
+        g_.getTextPane().setSelectionStart(4);
+        g_.getTextPane().setSelectionEnd(4);
+        action(g_);
+        g_.getElement().select(0);
+        g_.getElement().events();
+        assertEq("1+{M1}",g_.getTextPane().getText());
+    }
     private void action(GeneComponentModelText _g) {
         ((MockAbstractAction) GuiBaseUtil.getAction(_g.getTextPane(), GuiConstants.VK_SPACE, GuiConstants.CTRL_DOWN_MASK)).action();
     }
