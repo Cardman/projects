@@ -1,5 +1,6 @@
 package aiki.gui.components.editor;
 
+import aiki.db.IdRenamingDataBase;
 import aiki.facade.*;
 import aiki.fight.effects.*;
 import aiki.fight.items.*;
@@ -22,28 +23,28 @@ public abstract class SubscribedTranslationMessagesFactoryCommon implements Subs
     public void renameExp(FacadeGame _facade, String _previous, String _next) {
         StringList mids_ = mids(_facade);
         if (effect != null) {
-            _facade.getData().renameExpEffect(mids_, _previous, _next, effect);
+            _facade.getData().renameExpEffect(effect, new IdRenamingDataBase(mids_, _previous, _next));
         }
         if (effectEndRoundAbility != null) {
-            _facade.getData().renameExpEndRound(mids_, _previous, _next, effectEndRoundAbility);
+            _facade.getData().renameExpEndRound(effectEndRoundAbility, new IdRenamingDataBase(mids_, _previous, _next));
         }
         if (effectEndRoundCombo != null) {
-            _facade.getData().renameExpEndRound(mids_, _previous, _next, effectEndRoundCombo);
+            _facade.getData().renameExpEndRound(effectEndRoundCombo, new IdRenamingDataBase(mids_, _previous, _next));
         }
         if (effectEndRoundItem != null) {
-            _facade.getData().renameExpEndRound(mids_, _previous, _next, effectEndRoundItem);
+            _facade.getData().renameExpEndRound(effectEndRoundItem, new IdRenamingDataBase(mids_, _previous, _next));
         }
         if (effectEndRoundStatus != null) {
-            _facade.getData().renameExpEndRound(mids_, _previous, _next, effectEndRoundStatus);
+            _facade.getData().renameExpEndRound(effectEndRoundStatus, new IdRenamingDataBase(mids_, _previous, _next));
         }
         if (effectSendingAbility != null) {
-            _facade.getData().renameExpSend(mids_, _previous, _next, effectSendingAbility);
+            _facade.getData().renameExpSend(effectSendingAbility, new IdRenamingDataBase(mids_, _previous, _next));
         }
         if (effectSendingItem != null) {
-            _facade.getData().renameExpSend(mids_, _previous, _next, effectSendingItem);
+            _facade.getData().renameExpSend(effectSendingItem, new IdRenamingDataBase(mids_, _previous, _next));
         }
         if (itemForBattle instanceof ItemForBattle) {
-            _facade.getData().renameExpItemForBattle(mids_, _previous, _next, (ItemForBattle) itemForBattle);
+            _facade.getData().renameExpItemForBattle((ItemForBattle) itemForBattle, new IdRenamingDataBase(mids_, _previous, _next));
         }
     }
     @Override
