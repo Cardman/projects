@@ -24,8 +24,10 @@ public final class CrudGeneFormMonteCarloSub<E> extends AbsCrudGeneFormMonteCarl
     }
 
     @Override
-    protected SubscribedTranslation geneLaw() {
-        return new SubscribedTranslationPkKey<EditedCrudPair<E, LgInt>>(law);
+    protected IdList<SubscribedTranslation> geneLaw() {
+        IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
+        ids_.add(new SubscribedTranslationPkKey<EditedCrudPair<E, LgInt>>(law));
+        return ids_;
     }
 
     public GeneComponentModelEventEnum<E> getCompo() {

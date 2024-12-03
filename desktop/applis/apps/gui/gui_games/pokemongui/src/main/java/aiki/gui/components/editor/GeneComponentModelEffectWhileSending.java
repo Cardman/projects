@@ -79,6 +79,8 @@ public final class GeneComponentModelEffectWhileSending extends AbsGeneComponent
 
     private void effectSub(EffectWhileSendingWithStatistic _v) {
         if (procAbility) {
+            getFactory().getModifiedEntitiesRenameMid().setEffectSendingAbility(_v);
+            getFactory().getModifiedEntitiesRenamePref().setEffectSendingAbility(_v);
             getFactory().getFactoryAb().setEffectSendingAbility(_v);
             getFactory().getFactoryCa().setEffectSendingAbility(_v);
             getFactory().getFactoryIt().setEffectSendingAbility(_v);
@@ -87,6 +89,8 @@ public final class GeneComponentModelEffectWhileSending extends AbsGeneComponent
             getFactory().getFactorySt().setEffectSendingAbility(_v);
             getFactory().getFactoryTy().setEffectSendingAbility(_v);
         } else {
+            getFactory().getModifiedEntitiesRenameMid().setEffectSendingItem(_v);
+            getFactory().getModifiedEntitiesRenamePref().setEffectSendingItem(_v);
             getFactory().getFactoryAb().setEffectSendingItem(_v);
             getFactory().getFactoryCa().setEffectSendingItem(_v);
             getFactory().getFactoryIt().setEffectSendingItem(_v);

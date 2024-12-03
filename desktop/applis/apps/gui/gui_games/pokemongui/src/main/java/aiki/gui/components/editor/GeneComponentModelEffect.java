@@ -394,6 +394,8 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
     }
 
     private void effectSub(Effect _v) {
+        getFactory().getModifiedEntitiesRenameMid().setEffect(_v);
+        getFactory().getModifiedEntitiesRenamePref().setEffect(_v);
         getFactory().getFactoryAb().setEffect(_v);
         getFactory().getFactoryCa().setEffect(_v);
         getFactory().getFactoryIt().setEffect(_v);

@@ -993,7 +993,7 @@ public final class DataBaseIdUsageTest extends DataBaseValidationCommon {
         b_.getEffectEndRound().add(eff_);
         eff_.setFailEndRound(ES+"v"+SE+"nb_tr"+SE+PARATONNERRE);
         db_.getCombos().getEffects().add(new ListEffectCombo(new StringList(POKE_BALL),b_));
-        db_.changePrefInNumericExpressions("w");
+        db_.changePrefInNumericExpressions("v","w");
         assertEq(ES+"w"+SE+"nb_tr"+SE+PARATONNERRE, eff_.getFailEndRound());
     }
     private void initTr(StringMap<StringMap<String>> _tr) {

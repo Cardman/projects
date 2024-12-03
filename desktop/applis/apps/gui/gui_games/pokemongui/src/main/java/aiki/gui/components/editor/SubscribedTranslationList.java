@@ -9,6 +9,10 @@ public final class SubscribedTranslationList {
     private final AbstractProgramInfos programInfos;
     private final FacadeGame facadeGame;
     private final RenamingIdPhase renamingIdPhase = new RenamingIdPhase();
+
+    private final ModifiedEntitiesRename modifiedEntitiesRenameMid = new ModifiedEntitiesRename();
+    private final ModifiedEntitiesRename modifiedEntitiesRenamePref = new ModifiedEntitiesRename();
+
     private final IdMap<AbsCommonFrame,IdList<SubscribedTranslation>> subscribedTranslations = new IdMap<AbsCommonFrame, IdList<SubscribedTranslation>>();
     private final SubscribedTranslationMessagesFactoryAb factoryAb = new SubscribedTranslationMessagesFactoryAb();
     private final SubscribedTranslationMessagesFactoryIt factoryIt = new SubscribedTranslationMessagesFactoryIt();
@@ -38,10 +42,42 @@ public final class SubscribedTranslationList {
         }
     }
 
-    public void updateRenaming(String _oldId, String _newId, StringList _mids) {
+    public void updateRenamingId(String _oldId, String _newId, StringList _mids) {
         renamingIdPhase.setOldId(_oldId);
         renamingIdPhase.setNewId(_newId);
+        renamingIdPhase.setOldMid("");
+        renamingIdPhase.setNewMid("");
+        renamingIdPhase.setOldPref("");
+        renamingIdPhase.setNewPref("");
         renamingIdPhase.setMids(_mids);
+    }
+
+    public void updateRenamingMid(String _oldId, String _newId, StringList _mids) {
+        renamingIdPhase.setOldId("");
+        renamingIdPhase.setNewId("");
+        renamingIdPhase.setOldPref("");
+        renamingIdPhase.setNewPref("");
+        renamingIdPhase.setOldMid(_oldId);
+        renamingIdPhase.setNewMid(_newId);
+        renamingIdPhase.setMids(_mids);
+    }
+
+    public void updateRenamingPref(String _oldId, String _newId, StringList _mids) {
+        renamingIdPhase.setOldId("");
+        renamingIdPhase.setNewId("");
+        renamingIdPhase.setOldPref(_oldId);
+        renamingIdPhase.setNewPref(_newId);
+        renamingIdPhase.setOldMid("");
+        renamingIdPhase.setNewMid("");
+        renamingIdPhase.setMids(_mids);
+    }
+
+    public ModifiedEntitiesRename getModifiedEntitiesRenameMid() {
+        return modifiedEntitiesRenameMid;
+    }
+
+    public ModifiedEntitiesRename getModifiedEntitiesRenamePref() {
+        return modifiedEntitiesRenamePref;
     }
 
     public IdMap<AbsCommonFrame,IdList<SubscribedTranslation>> getSubscribedTranslations() {

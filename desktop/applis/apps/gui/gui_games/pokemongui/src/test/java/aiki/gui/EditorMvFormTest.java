@@ -2070,6 +2070,186 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         assertEq("_2",((EffectDamage)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getDamageLaw().getEvent(1));
         assertEq(LgInt.one(),((EffectDamage)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getDamageLaw().getFreq(1));
     }
+    @Test
+    public void mvForm76() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        facade_.getData().defValues();
+        facade_.getData().validateOtherConstants();
+        facade_.getData().prefixVar("VAR");
+        facade_.getData().nbTour("NB_TOUR");
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<MoveData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelMoveData g_ = (GeneComponentModelMoveData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(M_1);
+        tryClick(effectsCrud(g_).getAdd());
+        GeneComponentModelEffect effForm_ = effects(effectsCrud(g_));
+        ConverterCommonMapUtil.trigger(effForm_.getEffectKind(),MessagesEditorSelect.EFF_DAMAGE);
+        tryClick(effForm_.getContentEffectDamage().getDamageLaw().getAdd());
+        effForm_.getContentEffectDamage().getDamageLaw().setupValue(new EditedCrudPair<String, LgInt>(facade_.getData().prefixNbTour(M_2),LgInt.one()));
+//        effForm_.getContentEffectDamage().getDamageLaw().getCompo().getEvent().valueString(facade_.getData().prefixNbTour(M_2));
+//        effForm_.getContentEffectDamage().getDamageLaw().getCompo().getProba().valueLgInt(LgInt.one());
+        tryClick(effForm_.getContentEffectDamage().getDamageLaw().getValidAddEdit());
+        tryClick(effForm_.getContentEffectDamage().getDamageLaw().getAllButtons().get(0));
+        tryClick(effForm_.getContentEffectDamage().getDamageLaw().getCancel());
+        tryClick(effForm_.getContentEffectDamage().getDamageLaw().getAdd());
+        effForm_.getContentEffectDamage().getDamageLaw().setupValue(new EditedCrudPair<String, LgInt>("_2",LgInt.one()));
+//        effForm_.getContentEffectDamage().getDamageLaw().getCompo().getEvent().valueString("_2");
+//        effForm_.getContentEffectDamage().getDamageLaw().getCompo().getProba().valueLgInt(LgInt.one());
+        tryClick(effForm_.getContentEffectDamage().getDamageLaw().getValidAddEdit());
+        tryClick(effectsCrud(g_).getValidAddEdit());
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryClick(effectsCrud(g_).getAllButtons().get(0));
+        CrudGeneFormTrCstList cTr_ = crudConst(sub_);
+        String move_ = "move";
+        cTr_.getFields().getVal(DataBaseConstants.KEY_NB_TOUR).setText(move_);
+        ((MockTextField)cTr_.getFields().getVal(DataBaseConstants.KEY_NB_TOUR)).getAbsAdvActionListeners().get(0).action(null,null);
+        tryClick(effectsCrud(g_).getCancel());
+        tryClick(c_.getCancel());
+        assertEq(2,((EffectDamage)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getDamageLaw().size());
+        assertEq(facade_.getData().prefixNbTour(M_2),((EffectDamage)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getDamageLaw().getEvent(0));
+        assertEq("VAR__move__"+M_2,facade_.getData().prefixNbTour(M_2));
+        assertEq(LgInt.one(),((EffectDamage)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getDamageLaw().getFreq(0));
+        assertEq("_2",((EffectDamage)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getDamageLaw().getEvent(1));
+        assertEq(LgInt.one(),((EffectDamage)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getDamageLaw().getFreq(1));
+    }
+    @Test
+    public void mvForm77() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        facade_.getData().defValues();
+        facade_.getData().validateOtherConstants();
+        facade_.getData().prefixVar("VAR");
+        facade_.getData().nbTour("NB_TOUR");
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<MoveData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelMoveData g_ = (GeneComponentModelMoveData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(M_1);
+        tryClick(effectsCrud(g_).getAdd());
+        GeneComponentModelEffect effForm_ = effects(effectsCrud(g_));
+        ConverterCommonMapUtil.trigger(effForm_.getEffectKind(),MessagesEditorSelect.EFF_DAMAGE);
+        tryClick(effForm_.getContentEffectDamage().getDamageLaw().getAdd());
+        effForm_.getContentEffectDamage().getDamageLaw().setupValue(new EditedCrudPair<String, LgInt>(facade_.getData().prefixNbTour(M_2),LgInt.one()));
+//        effForm_.getContentEffectDamage().getDamageLaw().getCompo().getEvent().valueString(facade_.getData().prefixNbTour(M_2));
+//        effForm_.getContentEffectDamage().getDamageLaw().getCompo().getProba().valueLgInt(LgInt.one());
+        tryClick(effForm_.getContentEffectDamage().getDamageLaw().getValidAddEdit());
+        tryClick(effForm_.getContentEffectDamage().getDamageLaw().getAllButtons().get(0));
+        tryClick(effForm_.getContentEffectDamage().getDamageLaw().getCancel());
+        tryClick(effForm_.getContentEffectDamage().getDamageLaw().getAdd());
+        effForm_.getContentEffectDamage().getDamageLaw().setupValue(new EditedCrudPair<String, LgInt>("_2",LgInt.one()));
+//        effForm_.getContentEffectDamage().getDamageLaw().getCompo().getEvent().valueString("_2");
+//        effForm_.getContentEffectDamage().getDamageLaw().getCompo().getProba().valueLgInt(LgInt.one());
+        tryClick(effForm_.getContentEffectDamage().getDamageLaw().getValidAddEdit());
+        tryClick(effectsCrud(g_).getValidAddEdit());
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryClick(effectsCrud(g_).getAllButtons().get(0));
+        CrudGeneFormTrCstList cTr_ = crudConst(sub_);
+        String move_ = "move";
+        cTr_.getFields().getVal(DataBaseConstants.PREFIX_KEY).setText(move_);
+        ((MockTextField)cTr_.getFields().getVal(DataBaseConstants.PREFIX_KEY)).getAbsAdvActionListeners().get(0).action(null,null);
+        tryClick(effectsCrud(g_).getCancel());
+        tryClick(c_.getCancel());
+        assertEq(2,((EffectDamage)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getDamageLaw().size());
+        assertEq(facade_.getData().prefixNbTour(M_2),((EffectDamage)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getDamageLaw().getEvent(0));
+        assertEq("move__NB_TOUR__"+M_2,facade_.getData().prefixNbTour(M_2));
+        assertEq(LgInt.one(),((EffectDamage)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getDamageLaw().getFreq(0));
+        assertEq("_2",((EffectDamage)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getDamageLaw().getEvent(1));
+        assertEq(LgInt.one(),((EffectDamage)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getDamageLaw().getFreq(1));
+    }
+    @Test
+    public void mvForm78() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        facade_.getData().defValues();
+        facade_.getData().validateOtherConstants();
+        facade_.getData().prefixVar("VAR");
+        facade_.getData().nbTour("NB_TOUR");
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<MoveData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelMoveData g_ = (GeneComponentModelMoveData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(M_1);
+        tryClick(effectsCrud(g_).getAdd());
+        GeneComponentModelEffect effForm_ = effects(effectsCrud(g_));
+        ConverterCommonMapUtil.trigger(effForm_.getEffectKind(),MessagesEditorSelect.EFF_DAMAGE);
+        tryClick(effForm_.getContentEffectDamage().getDamageLaw().getAdd());
+        effForm_.getContentEffectDamage().getDamageLaw().setupValue(new EditedCrudPair<String, LgInt>(facade_.getData().prefixNbTour(M_2),LgInt.one()));
+//        effForm_.getContentEffectDamage().getDamageLaw().getCompo().getEvent().valueString(facade_.getData().prefixNbTour(M_2));
+//        effForm_.getContentEffectDamage().getDamageLaw().getCompo().getProba().valueLgInt(LgInt.one());
+        tryClick(effForm_.getContentEffectDamage().getDamageLaw().getValidAddEdit());
+        tryClick(effForm_.getContentEffectDamage().getDamageLaw().getAllButtons().get(0));
+        tryClick(effForm_.getContentEffectDamage().getDamageLaw().getCancel());
+        tryClick(effForm_.getContentEffectDamage().getDamageLaw().getAdd());
+        effForm_.getContentEffectDamage().getDamageLaw().setupValue(new EditedCrudPair<String, LgInt>("_2",LgInt.one()));
+//        effForm_.getContentEffectDamage().getDamageLaw().getCompo().getEvent().valueString("_2");
+//        effForm_.getContentEffectDamage().getDamageLaw().getCompo().getProba().valueLgInt(LgInt.one());
+        tryClick(effForm_.getContentEffectDamage().getDamageLaw().getValidAddEdit());
+        tryClick(effectsCrud(g_).getValidAddEdit());
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryClick(effectsCrud(g_).getAllButtons().get(0));
+        CrudGeneFormTrCstList cTr_ = crudConst(sub_);
+        String move_ = "";
+        cTr_.getFields().getVal(DataBaseConstants.KEY_NB_TOUR).setText(move_);
+        ((MockTextField)cTr_.getFields().getVal(DataBaseConstants.KEY_NB_TOUR)).getAbsAdvActionListeners().get(0).action(null,null);
+        tryClick(effectsCrud(g_).getCancel());
+        tryClick(c_.getCancel());
+        assertEq(2,((EffectDamage)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getDamageLaw().size());
+        assertEq(facade_.getData().prefixNbTour(M_2),((EffectDamage)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getDamageLaw().getEvent(0));
+        assertEq("VAR__NB_TOUR__"+M_2,facade_.getData().prefixNbTour(M_2));
+        assertEq(LgInt.one(),((EffectDamage)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getDamageLaw().getFreq(0));
+        assertEq("_2",((EffectDamage)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getDamageLaw().getEvent(1));
+        assertEq(LgInt.one(),((EffectDamage)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getDamageLaw().getFreq(1));
+    }
+    @Test
+    public void mvForm79() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        facade_.getData().defValues();
+        facade_.getData().validateOtherConstants();
+        facade_.getData().prefixVar("VAR");
+        facade_.getData().nbTour("NB_TOUR");
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<MoveData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelMoveData g_ = (GeneComponentModelMoveData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(M_1);
+        tryClick(effectsCrud(g_).getAdd());
+        GeneComponentModelEffect effForm_ = effects(effectsCrud(g_));
+        ConverterCommonMapUtil.trigger(effForm_.getEffectKind(),MessagesEditorSelect.EFF_DAMAGE);
+        tryClick(effForm_.getContentEffectDamage().getDamageLaw().getAdd());
+        effForm_.getContentEffectDamage().getDamageLaw().setupValue(new EditedCrudPair<String, LgInt>(facade_.getData().prefixNbTour(M_2),LgInt.one()));
+//        effForm_.getContentEffectDamage().getDamageLaw().getCompo().getEvent().valueString(facade_.getData().prefixNbTour(M_2));
+//        effForm_.getContentEffectDamage().getDamageLaw().getCompo().getProba().valueLgInt(LgInt.one());
+        tryClick(effForm_.getContentEffectDamage().getDamageLaw().getValidAddEdit());
+        tryClick(effForm_.getContentEffectDamage().getDamageLaw().getAllButtons().get(0));
+        tryClick(effForm_.getContentEffectDamage().getDamageLaw().getCancel());
+        tryClick(effForm_.getContentEffectDamage().getDamageLaw().getAdd());
+        effForm_.getContentEffectDamage().getDamageLaw().setupValue(new EditedCrudPair<String, LgInt>("_2",LgInt.one()));
+//        effForm_.getContentEffectDamage().getDamageLaw().getCompo().getEvent().valueString("_2");
+//        effForm_.getContentEffectDamage().getDamageLaw().getCompo().getProba().valueLgInt(LgInt.one());
+        tryClick(effForm_.getContentEffectDamage().getDamageLaw().getValidAddEdit());
+        tryClick(effectsCrud(g_).getValidAddEdit());
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryClick(effectsCrud(g_).getAllButtons().get(0));
+        CrudGeneFormTrCstList cTr_ = crudConst(sub_);
+        String move_ = "NB_TOUR";
+        cTr_.getFields().getVal(DataBaseConstants.KEY_NB_TOUR).setText(move_);
+        ((MockTextField)cTr_.getFields().getVal(DataBaseConstants.KEY_NB_TOUR)).getAbsAdvActionListeners().get(0).action(null,null);
+        tryClick(effectsCrud(g_).getCancel());
+        tryClick(c_.getCancel());
+        assertEq(2,((EffectDamage)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getDamageLaw().size());
+        assertEq(facade_.getData().prefixNbTour(M_2),((EffectDamage)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getDamageLaw().getEvent(0));
+        assertEq("VAR__NB_TOUR__"+M_2,facade_.getData().prefixNbTour(M_2));
+        assertEq(LgInt.one(),((EffectDamage)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getDamageLaw().getFreq(0));
+        assertEq("_2",((EffectDamage)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getDamageLaw().getEvent(1));
+        assertEq(LgInt.one(),((EffectDamage)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getDamageLaw().getFreq(1));
+    }
     private CrudGeneFormSimpleElement<Effect> effectsCrud(GeneComponentModelMoveData _g) {
         return _g.getEffects().getCrud();
     }
@@ -2097,6 +2277,11 @@ public final class EditorMvFormTest extends InitEditorPkForm {
     private CrudGeneFormTr crudTr(WindowPkEditor _crud) {
         tryClick(_crud.getTrsMvMenu());
         return _crud.getCrudGeneFormMvTr();
+    }
+
+    private CrudGeneFormTrCstList crudConst(WindowPkEditor _crud) {
+        tryClick(_crud.getTrsConstMenu());
+        return _crud.getCrudGeneFormTrCstList();
     }
     private CrudGeneFormNb crudTm(WindowPkEditor _crud) {
         tryClick(_crud.getTmMenu());

@@ -1,13 +1,11 @@
 package aiki.gui;
 
+import aiki.db.*;
 import aiki.facade.*;
-import aiki.fight.abilities.AbilityData;
-import aiki.fight.enums.Statistic;
-import aiki.fight.pokemon.PokemonData;
-import aiki.fight.util.StatisticCategory;
-import aiki.fight.util.StatisticStatus;
-import aiki.fight.util.TypeDamageBoost;
-import aiki.fight.util.WeatherType;
+import aiki.fight.abilities.*;
+import aiki.fight.enums.*;
+import aiki.fight.pokemon.*;
+import aiki.fight.util.*;
 import aiki.gui.components.editor.*;
 import aiki.instances.*;
 import code.maths.Rate;
@@ -558,6 +556,58 @@ public final class EditorAbFormTest extends InitEditorPkForm {
         tryClick(c_.getValidAddEdit());
         assertEq(facade_.getData().prefixNbTour(move_),facade_.getData().getAbilities().getVal(A_1).getEffectEndRound().get(0).getFailEndRound());
     }
+    @Test
+    public void abForm23() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        facade_.getData().defValues();
+        facade_.getData().validateOtherConstants();
+        facade_.getData().prefixVar("VAR");
+        facade_.getData().nbTour("NB_TOUR");
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<AbilityData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelAbilityData g_ = (GeneComponentModelAbilityData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(A_1);
+        tryClick(g_.getFailStatus().getCrud().getAdd());
+        g_.getFailStatus().getCrud().getKey().setupValue(S_1);
+        g_.getFailStatus().getCrud().getValue().setupValue(facade_.getData().prefixNbTour(M_2));
+        tryClick(g_.getFailStatus().getCrud().getValidAddEdit());
+        CrudGeneFormTrCstList cTr_ = crudConst(sub_);
+        String move_ = "move";
+        cTr_.getFields().getVal(DataBaseConstants.KEY_NB_TOUR).setText(move_);
+        ((MockTextField)cTr_.getFields().getVal(DataBaseConstants.KEY_NB_TOUR)).getAbsAdvActionListeners().get(0).action(null,null);
+        tryClick(c_.getValidAddEdit());
+        assertEq(1,facade_.getData().getAbilities().getVal(A_1).getFailStatus().size());
+        assertEq(S_1,facade_.getData().getAbilities().getVal(A_1).getFailStatus().getKey(0));
+        assertEq(facade_.getData().prefixNbTour(M_2),facade_.getData().getAbilities().getVal(A_1).getFailStatus().getValue(0));
+    }
+    @Test
+    public void abForm24() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        facade_.getData().defValues();
+        facade_.getData().validateOtherConstants();
+        facade_.getData().prefixVar("VAR");
+        facade_.getData().nbTour("NB_TOUR");
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<AbilityData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelAbilityData g_ = (GeneComponentModelAbilityData) c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(A_1);
+        tryClick(g_.getFailStatus().getCrud().getAdd());
+        g_.getFailStatus().getCrud().getKey().setupValue(S_1);
+        g_.getFailStatus().getCrud().getValue().setupValue(facade_.getData().prefixNbTour(M_2));
+        tryClick(g_.getFailStatus().getCrud().getValidAddEdit());
+        CrudGeneFormTrCstList cTr_ = crudConst(sub_);
+        String move_ = "move";
+        cTr_.getFields().getVal(DataBaseConstants.PREFIX_KEY).setText(move_);
+        ((MockTextField)cTr_.getFields().getVal(DataBaseConstants.PREFIX_KEY)).getAbsAdvActionListeners().get(0).action(null,null);
+        tryClick(c_.getValidAddEdit());
+        assertEq(1,facade_.getData().getAbilities().getVal(A_1).getFailStatus().size());
+        assertEq(S_1,facade_.getData().getAbilities().getVal(A_1).getFailStatus().getKey(0));
+        assertEq(facade_.getData().prefixNbTour(M_2),facade_.getData().getAbilities().getVal(A_1).getFailStatus().getValue(0));
+    }
     private FacadeGame facadeAdd(MockProgramInfos _m) {
         FacadeGame f_ = facade(_m);
         f_.getData().completeQuickMembers(A_1, Instances.newAbilityData());
@@ -579,5 +629,10 @@ public final class EditorAbFormTest extends InitEditorPkForm {
     private CrudGeneFormTr crudTrMv(WindowPkEditor _crud) {
         tryClick(_crud.getTrsMvMenu());
         return _crud.getCrudGeneFormMvTr();
+    }
+
+    private CrudGeneFormTrCstList crudConst(WindowPkEditor _crud) {
+        tryClick(_crud.getTrsConstMenu());
+        return _crud.getCrudGeneFormTrCstList();
     }
 }

@@ -32,6 +32,8 @@ public final class GeneComponentModelSubscribeString implements AbsGeneComponent
     public IdList<SubscribedTranslation> getSubs() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
         ids_.add(new SubscribedTranslationRenamingId(crud.getTextPane()));
+        ids_.add(new SubscribedTranslationRenamingMid(crud.getTextPane()));
+        ids_.add(new SubscribedTranslationRenamingPref(crud.getTextPane()));
         return ids_;
     }
 

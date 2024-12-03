@@ -57,6 +57,8 @@ public final class GeneComponentModelEffectEndRoundFoe extends AbsGeneComponentM
     }
 
     private void effectSub(EffectEndRoundFoe _v) {
+        getFactory().getModifiedEntitiesRenameMid().setEffectEndRoundCombo(_v);
+        getFactory().getModifiedEntitiesRenamePref().setEffectEndRoundCombo(_v);
         getFactory().getFactoryAb().setEffectEndRoundCombo(_v);
         getFactory().getFactoryCa().setEffectEndRoundCombo(_v);
         getFactory().getFactoryIt().setEffectEndRoundCombo(_v);

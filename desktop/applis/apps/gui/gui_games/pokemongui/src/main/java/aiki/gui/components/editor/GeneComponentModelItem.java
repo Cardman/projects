@@ -223,6 +223,8 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         }
     }
     private void effectSub(Item _v) {
+        getSubscribedTranslationList().getModifiedEntitiesRenameMid().setItemForBattle(_v);
+        getSubscribedTranslationList().getModifiedEntitiesRenamePref().setItemForBattle(_v);
         getSubscribedTranslationList().getFactoryAb().setItemForBattle(_v);
         getSubscribedTranslationList().getFactoryCa().setItemForBattle(_v);
         getSubscribedTranslationList().getFactoryIt().setItemForBattle(_v);

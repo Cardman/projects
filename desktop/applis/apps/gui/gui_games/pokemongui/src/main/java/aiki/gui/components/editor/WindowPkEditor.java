@@ -27,6 +27,7 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
     private final CrudGeneFormTr crudGeneFormCaTr;
     private final CrudGeneFormTr crudGeneFormTyTr;
     private final CrudGeneFormTrItemType crudGeneFormClTr;
+    private final CrudGeneFormTrCstList crudGeneFormTrCstList;
     private final CrudGeneFormNb crudGeneFormTm;
     private final CrudGeneFormNb crudGeneFormHm;
     private final CrudGeneFormTrCst<Statistic> crudGeneFormCstStat;
@@ -48,6 +49,7 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
     private final EnabledMenu trsCaMenu = getFrames().getCompoFactory().newMenuItem("0_5");
     private final EnabledMenu trsTyMenu = getFrames().getCompoFactory().newMenuItem("0_6");
     private final EnabledMenu trsClMenu = getFrames().getCompoFactory().newMenuItem("0_7");
+    private final EnabledMenu trsConstMenu = getFrames().getCompoFactory().newMenuItem("0_8");
     private final EnabledMenu tmMenu = getFrames().getCompoFactory().newMenuItem("1_0");
     private final EnabledMenu hmMenu = getFrames().getCompoFactory().newMenuItem("1_1");
     private final EnabledMenu abMenu = getFrames().getCompoFactory().newMenuItem("2_0");
@@ -84,6 +86,9 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         crudGeneFormClTr = new CrudGeneFormTrItemType(_list, _facade,subscriptions);
         trsClMenu.addActionListener(new PkEditorOpenCrudTrCstEvent(crudGeneFormClTr,trsClMenu));
         crudGeneFormClTr.getFrame().addWindowListener(new ReinitMenu(trsClMenu, new IdList<SubscribedTranslation>()));
+        crudGeneFormTrCstList = new CrudGeneFormTrCstList(_list, _facade, subscriptions);
+        trsConstMenu.addActionListener(new PkEditorOpenCrudTrCstEvent(crudGeneFormTrCstList,trsConstMenu));
+        crudGeneFormTrCstList.getFrame().addWindowListener(new ReinitMenu(trsConstMenu, new IdList<SubscribedTranslation>()));
         crudGeneFormCstStat = new CrudGeneFormTrCst<Statistic>(_list,_facade,subscriptions,subscriptions.getFactoryStat());
         trsCstStatMenu.addActionListener(new PkEditorOpenCrudTrCstEvent(crudGeneFormCstStat,trsCstStatMenu));
         crudGeneFormCstStat.getFrame().addWindowListener(new ReinitMenu(trsCstStatMenu, new IdList<SubscribedTranslation>()));
@@ -115,6 +120,8 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         trs_.addMenuItem(trsStMenu);
         trs_.addMenuItem(trsCaMenu);
         trs_.addMenuItem(trsTyMenu);
+        trs_.addMenuItem(trsClMenu);
+        trs_.addMenuItem(trsConstMenu);
         file_.addMenuItem(trs_);
         EnabledMenu tmHm_ = getFrames().getCompoFactory().newMenu("1");
         tmHm_.addMenuItem(tmMenu);
@@ -257,6 +264,10 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         return trsClMenu;
     }
 
+    public EnabledMenu getTrsConstMenu() {
+        return trsConstMenu;
+    }
+
     public EnabledMenu getTmMenu() {
         return tmMenu;
     }
@@ -339,6 +350,10 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
 
     public CrudGeneFormTrItemType getCrudGeneFormClTr() {
         return crudGeneFormClTr;
+    }
+
+    public CrudGeneFormTrCstList getCrudGeneFormTrCstList() {
+        return crudGeneFormTrCstList;
     }
 
     public CrudGeneFormNb getCrudGeneFormTm() {

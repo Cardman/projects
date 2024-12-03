@@ -87,7 +87,7 @@ public final class CrudGeneFormTr extends AbsCrudGeneFormList<EditedCrudPair<Str
     }
 
     private void update(String _oldId, String _newId) {
-        subscribedTranslations.updateRenaming(_oldId,_newId,factoryMessage.mids(facadeGame));
+        subscribedTranslations.updateRenamingId(_oldId,_newId,factoryMessage.mids(facadeGame));
         subscribedTranslations.update();
     }
 

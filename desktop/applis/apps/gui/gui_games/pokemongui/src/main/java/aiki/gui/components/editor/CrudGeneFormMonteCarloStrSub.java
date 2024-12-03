@@ -5,6 +5,7 @@ import code.gui.*;
 import code.gui.initialize.*;
 import code.maths.*;
 import code.util.CustList;
+import code.util.IdList;
 
 public final class CrudGeneFormMonteCarloStrSub extends AbsCrudGeneFormMonteCarloSub<String> {
     private final AbstractProgramInfos api;
@@ -22,8 +23,12 @@ public final class CrudGeneFormMonteCarloStrSub extends AbsCrudGeneFormMonteCarl
     }
 
     @Override
-    protected SubscribedTranslation geneLaw() {
-        return new SubscribedTranslationRenamingIdCrud<LgInt>(crud);
+    protected IdList<SubscribedTranslation> geneLaw() {
+        IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
+        ids_.add(new SubscribedTranslationRenamingIdCrud<LgInt>(crud));
+        ids_.add(new SubscribedTranslationRenamingMidCrud<LgInt>(crud));
+        ids_.add(new SubscribedTranslationRenamingPrefCrud<LgInt>(crud));
+        return ids_;
     }
     public AbsButton getAdd() {
         return crud.getCrud().getAdd();

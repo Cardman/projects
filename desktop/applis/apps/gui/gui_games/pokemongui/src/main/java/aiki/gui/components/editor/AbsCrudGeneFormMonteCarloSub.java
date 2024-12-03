@@ -14,9 +14,9 @@ public abstract class AbsCrudGeneFormMonteCarloSub<E> {
     public IdList<SubscribedTranslation> subscribeButtons() {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
         ids_.addAllElts(displayEntryCustSub.buildSub());
-        ids_.add(geneLaw());
+        ids_.addAllElts(geneLaw());
         return ids_;
     }
-    protected abstract SubscribedTranslation geneLaw();
+    protected abstract IdList<SubscribedTranslation> geneLaw();
 
 }

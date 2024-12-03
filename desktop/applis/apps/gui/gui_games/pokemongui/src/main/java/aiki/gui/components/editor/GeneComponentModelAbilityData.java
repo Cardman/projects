@@ -495,6 +495,8 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         ids_.addAllElts(increasedPrioTypes.subscribeButtons());
         ids_.addAllElts(multStatAlly.subscribeButtons());
         ids_.add(new SubscribedTranslationRenamingValCrud<Statistic>(multStat.getCrud()));
+        ids_.add(new SubscribedTranslationRenamingValMidCrud<Statistic>(multStat.getCrud()));
+        ids_.add(new SubscribedTranslationRenamingValPrefCrud<Statistic>(multStat.getCrud()));
         ids_.addAllElts(multStat.subscribeButtons());
         ids_.addAllElts(bonusStatRank.subscribeButtons());
         ids_.addAllElts(boostStatRankEndRound.subscribeButtons());
@@ -504,6 +506,8 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         ids_.addAllElts(multStatIfLowStat.subscribeButtons());
         ids_.addAllElts(chgtTypeByWeather.subscribeButtons());
         ids_.add(new SubscribedTranslationRenamingValCrud<String>(failStatus.getCrud()));
+        ids_.add(new SubscribedTranslationRenamingValMidCrud<String>(failStatus.getCrud()));
+        ids_.add(new SubscribedTranslationRenamingValPrefCrud<String>(failStatus.getCrud()));
         ids_.addAllElts(failStatus.subscribeButtons());
         ids_.addAllElts(forwardStatus.subscribeButtons());
         ids_.addAllElts(changingBoostTypes.subscribeButtons());

@@ -64,6 +64,8 @@ public final class GeneComponentModelEffectEndRound extends AbsGeneComponentMode
 
     private void effectSub(EffectEndRound _v) {
         if (procAbility) {
+            getFactory().getModifiedEntitiesRenameMid().setEffectEndRoundAbility(_v);
+            getFactory().getModifiedEntitiesRenamePref().setEffectEndRoundAbility(_v);
             getFactory().getFactoryAb().setEffectEndRoundAbility(_v);
             getFactory().getFactoryCa().setEffectEndRoundAbility(_v);
             getFactory().getFactoryIt().setEffectEndRoundAbility(_v);
@@ -72,6 +74,8 @@ public final class GeneComponentModelEffectEndRound extends AbsGeneComponentMode
             getFactory().getFactorySt().setEffectEndRoundAbility(_v);
             getFactory().getFactoryTy().setEffectEndRoundAbility(_v);
         } else {
+            getFactory().getModifiedEntitiesRenameMid().setEffectEndRoundItem(_v);
+            getFactory().getModifiedEntitiesRenamePref().setEffectEndRoundItem(_v);
             getFactory().getFactoryAb().setEffectEndRoundItem(_v);
             getFactory().getFactoryCa().setEffectEndRoundItem(_v);
             getFactory().getFactoryIt().setEffectEndRoundItem(_v);

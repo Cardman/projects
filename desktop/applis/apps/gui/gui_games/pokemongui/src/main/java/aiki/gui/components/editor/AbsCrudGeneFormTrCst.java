@@ -1,6 +1,5 @@
 package aiki.gui.components.editor;
 
-public interface AbsCrudGeneFormTrCst {
-    void initForm();
+public interface AbsCrudGeneFormTrCst extends AbsCrudGeneFormTrCstOpen {
     void update();
 }

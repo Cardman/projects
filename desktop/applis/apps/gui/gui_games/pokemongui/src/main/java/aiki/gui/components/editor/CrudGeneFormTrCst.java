@@ -40,7 +40,7 @@ public final class CrudGeneFormTrCst<T> extends CrudGeneFormTrCommon {
                 allId_.getVal(l.getKey()).set(e.getKey(),l.getValue().getText());
             }
         }
-        getSubscribedTranslations().updateRenaming("","",new StringList());
+        getSubscribedTranslations().updateRenamingId("","",new StringList());
         getSubscribedTranslations().update();
     }
 }

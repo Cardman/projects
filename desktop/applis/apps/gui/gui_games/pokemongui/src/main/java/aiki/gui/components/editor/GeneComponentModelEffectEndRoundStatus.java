@@ -61,6 +61,8 @@ public final class GeneComponentModelEffectEndRoundStatus extends AbsGeneCompone
         effectSub(_v);
     }
     private void effectSub(EffectEndRoundStatus _v) {
+        getFactory().getModifiedEntitiesRenameMid().setEffectEndRoundStatus(_v);
+        getFactory().getModifiedEntitiesRenamePref().setEffectEndRoundStatus(_v);
         getFactory().getFactoryAb().setEffectEndRoundStatus(_v);
         getFactory().getFactoryCa().setEffectEndRoundStatus(_v);
         getFactory().getFactoryIt().setEffectEndRoundStatus(_v);

@@ -1,6 +1,6 @@
 package aiki.gui.components.editor;
 
-import aiki.db.IdRenamingDataBase;
+import aiki.db.*;
 import aiki.facade.*;
 import aiki.fight.effects.*;
 import aiki.fight.items.*;
@@ -10,85 +10,48 @@ import code.util.*;
 
 public abstract class SubscribedTranslationMessagesFactoryCommon implements SubscribedTranslationMessagesFactory {
 
-    private Effect effect;
-    private EffectEndRound effectEndRoundAbility;
-    private EffectEndRound effectEndRoundItem;
-    private EffectEndRound effectEndRoundStatus;
-    private EffectEndRound effectEndRoundCombo;
-    private EffectWhileSendingWithStatistic effectSendingAbility;
-    private EffectWhileSendingWithStatistic effectSendingItem;
-    private Item itemForBattle;
+    private final ModifiedEntitiesRename modifiedEntitiesRename = new ModifiedEntitiesRename();
 
     @Override
     public void renameExp(FacadeGame _facade, String _previous, String _next) {
         StringList mids_ = mids(_facade);
-        if (effect != null) {
-            _facade.getData().renameExpEffect(effect, new IdRenamingDataBase(mids_, _previous, _next));
-        }
-        if (effectEndRoundAbility != null) {
-            _facade.getData().renameExpEndRound(effectEndRoundAbility, new IdRenamingDataBase(mids_, _previous, _next));
-        }
-        if (effectEndRoundCombo != null) {
-            _facade.getData().renameExpEndRound(effectEndRoundCombo, new IdRenamingDataBase(mids_, _previous, _next));
-        }
-        if (effectEndRoundItem != null) {
-            _facade.getData().renameExpEndRound(effectEndRoundItem, new IdRenamingDataBase(mids_, _previous, _next));
-        }
-        if (effectEndRoundStatus != null) {
-            _facade.getData().renameExpEndRound(effectEndRoundStatus, new IdRenamingDataBase(mids_, _previous, _next));
-        }
-        if (effectSendingAbility != null) {
-            _facade.getData().renameExpSend(effectSendingAbility, new IdRenamingDataBase(mids_, _previous, _next));
-        }
-        if (effectSendingItem != null) {
-            _facade.getData().renameExpSend(effectSendingItem, new IdRenamingDataBase(mids_, _previous, _next));
-        }
-        if (itemForBattle instanceof ItemForBattle) {
-            _facade.getData().renameExpItemForBattle((ItemForBattle) itemForBattle, new IdRenamingDataBase(mids_, _previous, _next));
-        }
+        modifiedEntitiesRename.renameExp(_facade,new IdRenamingDataBase(mids_, _previous, _next));
     }
     @Override
     public void cancel() {
-        effect = null;
-        effectEndRoundAbility = null;
-        effectEndRoundCombo = null;
-        effectEndRoundItem = null;
-        effectEndRoundStatus = null;
-        effectSendingAbility = null;
-        effectSendingItem = null;
-        itemForBattle = null;
+        modifiedEntitiesRename.cancel();
     }
 
     public void setEffect(Effect _e) {
-        this.effect = _e;
+        this.modifiedEntitiesRename.setEffect(_e);
     }
 
     public void setEffectEndRoundAbility(EffectEndRound _e) {
-        this.effectEndRoundAbility = _e;
+        this.modifiedEntitiesRename.setEffectEndRoundAbility(_e);
     }
 
     public void setEffectEndRoundCombo(EffectEndRound _e) {
-        this.effectEndRoundCombo = _e;
+        this.modifiedEntitiesRename.setEffectEndRoundCombo(_e);
     }
 
     public void setEffectEndRoundItem(EffectEndRound _e) {
-        this.effectEndRoundItem = _e;
+        this.modifiedEntitiesRename.setEffectEndRoundItem(_e);
     }
 
     public void setEffectEndRoundStatus(EffectEndRound _e) {
-        this.effectEndRoundStatus = _e;
+        this.modifiedEntitiesRename.setEffectEndRoundStatus(_e);
     }
 
     public void setEffectSendingAbility(EffectWhileSendingWithStatistic _e) {
-        this.effectSendingAbility = _e;
+        this.modifiedEntitiesRename.setEffectSendingAbility(_e);
     }
 
     public void setEffectSendingItem(EffectWhileSendingWithStatistic _e) {
-        this.effectSendingItem = _e;
+        this.modifiedEntitiesRename.setEffectSendingItem(_e);
     }
 
     public void setItemForBattle(Item _i) {
-        this.itemForBattle = _i;
+        this.modifiedEntitiesRename.setItemForBattle(_i);
     }
 
     @Override

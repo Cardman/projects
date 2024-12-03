@@ -6569,8 +6569,8 @@ public class DataBase {
         AbsRenamingDataBase abs_ = new MidRenamingDataBase(_oldName,_newName);
         changeNameInNumericExpressions(abs_);
     }
-    public void changePrefInNumericExpressions(String _newName) {
-        AbsRenamingDataBase abs_ = new PrefixRenamingDataBase(_newName);
+    public void changePrefInNumericExpressions(String _oldName, String _newName) {
+        AbsRenamingDataBase abs_ = new PrefixRenamingDataBase(_oldName,_newName);
         changeNameInNumericExpressions(abs_);
     }
     private void changeNameInNumericExpressions(AbsRenamingDataBase _abs) {
@@ -6713,8 +6713,8 @@ public class DataBase {
         return EvolvedMathFactory.renameMid(_el, prefixedVar(), _oldName, SEP_BETWEEN_KEYS, _newName);
     }
 
-    public String renamePref(String _el, String _newName) {
-        return EvolvedMathFactory.renamePref(_el, prefixedVar(), SEP_BETWEEN_KEYS, _newName);
+    public String renamePref(String _el, String _oldName, String _newName) {
+        return EvolvedMathFactory.renamePref(_el, _oldName + SEP_BETWEEN_KEYS, SEP_BETWEEN_KEYS, _newName);
     }
 
     public boolean usedAbInExp(String _name) {
