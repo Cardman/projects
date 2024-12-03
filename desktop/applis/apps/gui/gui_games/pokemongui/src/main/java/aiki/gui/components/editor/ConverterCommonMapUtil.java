@@ -13,6 +13,7 @@ import aiki.map.pokemon.enums.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.maths.*;
+import code.maths.litteral.*;
 import code.maths.montecarlo.*;
 import code.util.*;
 import code.util.core.*;
@@ -382,5 +383,186 @@ public final class ConverterCommonMapUtil {
             fs_.addEntry(l.getKey(),txt_);
         }
         return fs_;
+    }
+    public static StringList complete(DataBase _db, AbstractProgramInfos _api, String _text, int _caret) {
+        MbDelimiters dels_ = MathResolver.checkSyntax(_text, new ErrorStatus());
+        int count_ = 0;
+        for (int i = 0; i < _caret; i++) {
+            if (dels_.getDelStringsChars().contains(i)) {
+                count_++;
+            }
+        }
+        StringList infos_ = new StringList();
+        infos_.addAllElts(variables(_db, _api));
+        if (count_ % 2 == 1) {
+            infos_.addAllElts(elements(_db, _api));
+        }
+        return infos_;
+    }
+    public static StringList elements(DataBase _db, AbstractProgramInfos _api) {
+        StringList str_ = new StringList();
+        appendSetVars(_db.getTranslatedAbilities(), _api, str_);
+        appendSetVars(_db.getTranslatedCategories(), _api, str_);
+        appendSetVars(_db.getTranslatedItems(), _api, str_);
+        appendSetVars(_db.getTranslatedMoves(), _api, str_);
+        appendSetVars(_db.getTranslatedPokemon(), _api, str_);
+        appendSetVars(_db.getTranslatedStatus(), _api, str_);
+        appendSetVars(_db.getTranslatedTypes(), _api, str_);
+        return str_;
+    }
+    public static StringList variables(DataBase _db, AbstractProgramInfos _api) {
+        StringList str_ = new StringList();
+        str_.add(_db.prefixNiveau());
+        str_.add(_db.prefixLevelLooser());
+        str_.add(_db.prefixLevelWinner());
+        str_.add(_db.prefixFighterNiveau());
+        str_.add(_db.prefixCibleNiveau());
+        str_.add(_db.prefixLanceurNiveau());
+        str_.add(_db.prefixPkSauvageNiveau());
+        str_.add(_db.prefixPkUtNiveau());
+        str_.add(_db.prefixBoost());
+        str_.add(_db.prefixPower());
+        str_.add(_db.prefixAttack());
+        str_.add(_db.prefixDefense());
+        str_.add(_db.prefixBaseCaptPk());
+        str_.add(_db.prefixRateBallStatus());
+        str_.add(_db.prefixFoePkMaxHp());
+        str_.add(_db.prefixFoePkRemoteHp());
+        str_.add(_db.prefixCiblePvRestants());
+        str_.add(_db.prefixFighterPvRestants());
+        str_.add(_db.prefixLanceurPvRestants());
+        str_.add(_db.prefixCiblePvMax());
+        str_.add(_db.prefixFighterPvMax());
+        str_.add(_db.prefixLanceurPvMax());
+        str_.add(_db.prefixSommeBoostPosCible());
+        str_.add(_db.prefixSommeBoostPosLanceur());
+        str_.add(_db.prefixSommeBoostPosFighter());
+        str_.add(_db.prefixCibleAttaques());
+        str_.add(_db.prefixCibleAttaqueChoisie());
+        str_.add(_db.prefixCibleAttaquesTypes());
+        str_.add(_db.prefixCibleClone());
+        str_.add(_db.prefixCibleDegatsRecusTotal());
+        str_.add(_db.prefixCibleDegatsRecusTotalTour());
+        str_.add(_db.prefixCibleDisparait());
+        str_.add(_db.prefixCibleJoue());
+        str_.add(_db.prefixCibleMasse());
+        str_.add(_db.prefixCibleTaille());
+        str_.add(_db.prefixCibleCapacite());
+        str_.add(_db.prefixCibleObjet());
+        str_.add(_db.prefixCibleStatuts());
+        str_.add(_db.prefixCibleTypes());
+        str_.add(_db.prefixCibleGenre());
+        str_.add(_db.prefixCibleBonheur());
+        str_.add(_db.prefixCibleNom());
+        str_.add(_db.prefixCibleDerJoue());
+        str_.add(_db.prefixNbKoEquipeCible());
+        str_.add(_db.prefixNbKoEquipeAdvCible());
+        str_.add(_db.prefixPasPpAttaqueCible());
+        str_.add(_db.prefixPasUtilisAttaqueCible());
+        str_.add(_db.prefixLanceurAttaques());
+        str_.add(_db.prefixLanceurAttaqueChoisie());
+        str_.add(_db.prefixLanceurAttaquesTypes());
+        str_.add(_db.prefixLanceurClone());
+        str_.add(_db.prefixLanceurDegatsRecusTotal());
+        str_.add(_db.prefixLanceurDegatsRecusTotalTour());
+        str_.add(_db.prefixLanceurDisparait());
+        str_.add(_db.prefixLanceurJoue());
+        str_.add(_db.prefixLanceurMasse());
+        str_.add(_db.prefixLanceurTaille());
+        str_.add(_db.prefixLanceurCapacite());
+        str_.add(_db.prefixLanceurObjet());
+        str_.add(_db.prefixLanceurStatuts());
+        str_.add(_db.prefixLanceurTypes());
+        str_.add(_db.prefixLanceurGenre());
+        str_.add(_db.prefixLanceurBonheur());
+        str_.add(_db.prefixLanceurNom());
+        str_.add(_db.prefixLanceurDerJoue());
+        str_.add(_db.prefixNbKoEquipeLanceur());
+        str_.add(_db.prefixNbKoEquipeAdvLanceur());
+        str_.add(_db.prefixFighterAttaques());
+        str_.add(_db.prefixFighterAttaqueChoisie());
+        str_.add(_db.prefixFighterAttaquesTypes());
+        str_.add(_db.prefixFighterClone());
+        str_.add(_db.prefixFighterDegatsRecusTotal());
+        str_.add(_db.prefixFighterDegatsRecusTotalTour());
+        str_.add(_db.prefixFighterDisparait());
+        str_.add(_db.prefixFighterJoue());
+        str_.add(_db.prefixFighterMasse());
+        str_.add(_db.prefixFighterTaille());
+        str_.add(_db.prefixFighterCapacite());
+        str_.add(_db.prefixFighterObjet());
+        str_.add(_db.prefixFighterStatuts());
+        str_.add(_db.prefixFighterTypes());
+        str_.add(_db.prefixFighterGenre());
+        str_.add(_db.prefixFighterBonheur());
+        str_.add(_db.prefixFighterNom());
+        str_.add(_db.prefixFighterDerJoue());
+        str_.add(_db.prefixNbKoEquipeFighter());
+        str_.add(_db.prefixNbKoEquipeAdvFighter());
+        str_.add(_db.prefixPkSauvageGenre());
+        str_.add(_db.prefixPkSauvageMasse());
+        str_.add(_db.prefixPkSauvageVitesse());
+        str_.add(_db.prefixPkSauvageTypesBase());
+        str_.add(_db.prefixPkSauvagePierresEvos());
+        str_.add(_db.prefixPkUtGenre());
+        str_.add(_db.prefixPkUtMasse());
+        str_.add(_db.prefixPkUtVitesse());
+        str_.add(_db.prefixPkUtTypesBase());
+        str_.add(_db.prefixPkUtPierresEvos());
+        str_.add(_db.prefixCombattantEntrantClone());
+        str_.add(_db.prefixCombattantEntrantTypes());
+        str_.add(_db.prefixAucunBoostPossible());
+        str_.add(_db.prefixTypesAttaquesResVide());
+        str_.add(_db.prefixPasPartenaire());
+        str_.add(_db.prefixPasPartenaireArriere());
+        str_.add(_db.prefixPasPartenaireTerrain());
+        str_.add(_db.prefixPasTourTerrain());
+        str_.add(_db.prefixExisteGenreAssexue());
+        str_.add(_db.prefixGenresEgaux());
+        str_.add(_db.prefixRateEffMoveAgainstTarget());
+        str_.add(_db.prefixCoeffEff());
+        str_.add(_db.prefixNbUtilisationConsecutif());
+        str_.add(_db.prefixAttaqueCategorie());
+        str_.add(_db.prefixAttaqueTypes());
+        str_.add(_db.prefixAttaqueNom());
+        str_.add(_db.prefixPuissanceBase());
+        str_.add(_db.prefixPasAttaqueInvoc());
+        str_.add(_db.prefixPasAttaquesCopiables());
+        str_.add(_db.prefixDejaCapture());
+        str_.add(_db.prefixNbFlees());
+        str_.add(_db.prefixMasseMoyennePk());
+        str_.add(_db.prefixClimats());
+        str_.add(_db.prefixNbCombattantsTerrain());
+        str_.add(_db.prefixLieuCombat());
+        str_.add(_db.prefixTempsTour());
+        appendVars(_db, _api, str_, StringUtil.concat(_db.cibleStatis(),DataBase.SEP_BETWEEN_KEYS));
+        appendVars(_db, _api, str_, StringUtil.concat(_db.fighterStatis(),DataBase.SEP_BETWEEN_KEYS));
+        appendVars(_db, _api, str_, StringUtil.concat(_db.lanceurStatis(),DataBase.SEP_BETWEEN_KEYS));
+        appendVars(_db, _api, str_, StringUtil.concat(_db.cibleBoost(),DataBase.SEP_BETWEEN_KEYS));
+        appendVars(_db, _api, str_, StringUtil.concat(_db.fighterBoost(),DataBase.SEP_BETWEEN_KEYS));
+        appendVars(_db, _api, str_, StringUtil.concat(_db.lanceurBoost(),DataBase.SEP_BETWEEN_KEYS));
+        appendVars(_db, _api, str_, _db.typesPart(), _db.getTranslatedTypes());
+        appendVars(_db, _api, str_, _db.movesPart(), _db.getTranslatedMoves());
+        appendVars(_db, _api, str_, _db.categoriesPart(), _db.getTranslatedCategories());
+        appendVars(_db, _api, str_, _db.statusPart(), _db.getTranslatedStatus());
+        return str_;
+    }
+
+    private static void appendVars(DataBase _db, AbstractProgramInfos _api, StringList _str, String _p) {
+        for (Statistic t: _db.getTranslatedStatistics().getVal(_api.getLanguage()).getKeys()) {
+            _str.add(_db.prefixVar()+DataBase.SEP_BETWEEN_KEYS+ _p +t.getStatName());
+        }
+    }
+
+    private static void appendSetVars(StringMap<StringMap<String>> _trs, AbstractProgramInfos _api, StringList _str) {
+        _str.addAllElts(_trs.getVal(_api.getLanguage()).getKeys());
+    }
+
+    private static void appendVars(DataBase _db, AbstractProgramInfos _api, StringList _str, StringList _prefixes, StringMap<StringMap<String>> _trs) {
+        for (String p: _prefixes) {
+            for (String t: _trs.getVal(_api.getLanguage()).getKeys()) {
+                _str.add(_db.getConstNonNum().getPrefixVar()+DataBase.SEP_BETWEEN_KEYS+p+t);
+            }
+        }
     }
 }

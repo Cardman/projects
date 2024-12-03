@@ -31,8 +31,9 @@ public final class ContentComponentModelEffectDamage {
 
     AbsPanel effectForm(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
         AbsPanel selected_ = _core.getCompoFactory().newLineBox();
-        power = new GeneComponentModelSubscribeString(_core);
+        power = new GeneComponentModelSubscribeString(_core,_fac);
         selected_.add(power.geneEnum());
+        power.addComplete();
         chRate = new GeneComponentModelInt(_core);
         selected_.add(chRate.geneInt());
         statisAtt = ConverterCommonMapUtil.buildStatisticsElt(_core,_fac,_fact);
@@ -58,7 +59,7 @@ public final class ContentComponentModelEffectDamage {
         hitsLaw = ConverterCommonMapUtil.buildMcRate(_f, _core);
         selected_.add(hitsLaw.getGroup());
         damageLaw = new CrudGeneFormMonteCarloStrSub(_core, _fac, _fact, _f);
-        damageLaw.initFormKeys();
+        damageLaw.initFormKeys(_fac);
         selected_.add(damageLaw.getCrud().getGroup());
         multDamageAgainst = new CrudGeneFormSimpleFormSub<String, Rate>(_core, _fac, _fact, _f);
         multDamageAgainst.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Rate>(_fact.getFactoryCa(),_core,_fac, new StringMap<String>()), buildPart(_core,_fac,_fact.getFactoryCa(), new StringMap<String>()), new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core)));

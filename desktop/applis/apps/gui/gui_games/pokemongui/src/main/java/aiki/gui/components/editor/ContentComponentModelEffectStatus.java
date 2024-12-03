@@ -35,7 +35,7 @@ public final class ContentComponentModelEffectStatus {
 
     private CrudGeneFormSimpleFormSub<String,String> buildLocalFail(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
         CrudGeneFormSimpleFormSub<String,String> out_ = new CrudGeneFormSimpleFormSub<String,String>(_core, _fac, _fact, _f);
-        out_.initFormWithVal(new DisplayEntryCustSubElementImpl<String,String>(_fact.getFactorySt(),_core,_fac, new StringMap<String>()), buildPart(_core,_fac, _fact.getFactorySt(), new StringMap<String>()), new GeneComponentModelSubscribeFactoryString(_core));
+        out_.initFormWithVal(new DisplayEntryCustSubElementImpl<String,String>(_fact.getFactorySt(),_core,_fac, new StringMap<String>()), buildPart(_core,_fac, _fact.getFactorySt(), new StringMap<String>()), new GeneComponentModelSubscribeFactoryString(_core,_fac));
         return out_;
     }
     private GeneComponentModelSubscribeFactorySelElt buildPart(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationMessagesFactory _facto, StringMap<String> _abs) {

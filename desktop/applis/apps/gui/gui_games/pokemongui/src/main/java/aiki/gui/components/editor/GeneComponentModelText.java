@@ -1,12 +1,17 @@
 package aiki.gui.components.editor;
 
+import aiki.facade.FacadeGame;
 import code.gui.*;
 import code.gui.images.*;
 import code.gui.initialize.*;
+import code.util.StringList;
 
 public final class GeneComponentModelText {
     private final AbstractProgramInfos compoFactory;
     private AbsTextPane textPane;
+    private final StringList words = new StringList();
+    private ScrollCustomGraphicList<String> element;
+    private AbsPopupMenu popupMenu;
 
     public GeneComponentModelText(AbstractProgramInfos _c) {
         this.compoFactory = _c;
@@ -14,9 +19,24 @@ public final class GeneComponentModelText {
 
     public AbsCustComponent geneString() {
         textPane = compoFactory.getCompoFactory().newTextPane();
+        popupMenu = compoFactory.getCompoFactory().newAbsPopupMenu();
+        element = new DefScrollCustomGraphicList<String>(compoFactory.getCompoFactory(), compoFactory.getImageFactory(), new CustCellRenderString(compoFactory.getCompoFactory(), compoFactory.getImageFactory()),true);
+        popupMenu.add(element.getScrollPane());
+        words.clear();
         AbsScrollPane sc_ = compoFactory.getCompoFactory().newAbsScrollPane(textPane);
         sc_.setPreferredSize(new MetaDimension(320, 32));
         return sc_;
+    }
+
+    public void addComplete(FacadeGame _facade) {
+        textPane.registerKeyboardAction(compoFactory.getCompoFactory().wrap(new PkCompleteEvent(this,_facade,element,popupMenu)), GuiConstants.VK_SPACE,GuiConstants.CTRL_DOWN_MASK);
+    }
+    public StringList getWords() {
+        return words;
+    }
+
+    public AbstractProgramInfos getCompoFactory() {
+        return compoFactory;
     }
 
     public String valueString() {

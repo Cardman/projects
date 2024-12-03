@@ -70,10 +70,10 @@ public final class ContentComponentModelItemForBattle {
         winEvFight.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Short>(_parent.getSubscribedTranslationList().getFactoryStat(),_parent.getCompoFactory(),_parent.getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_parent.getCompoFactory(), _parent.getSubscribedTranslationList().getFactoryStat(), _parent.getFacade()), new GeneComponentModelSubscribeFactoryDirect<Short>(new GeneComponentModelSubscribeShort(_parent.getCompoFactory())));
         itemForBattleForm.add(winEvFight.getGroup());
         multStat=new CrudGeneFormSimpleFormSub<Statistic,String>(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList(), _parent.getFrame());
-        multStat.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,String>(_parent.getSubscribedTranslationList().getFactoryStat(),_parent.getCompoFactory(),_parent.getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_parent.getCompoFactory(), _parent.getSubscribedTranslationList().getFactoryStat(), _parent.getFacade()), new GeneComponentModelSubscribeFactoryDirect<String>(new GeneComponentModelSubscribeString(_parent.getCompoFactory())));
+        multStat.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,String>(_parent.getSubscribedTranslationList().getFactoryStat(),_parent.getCompoFactory(),_parent.getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_parent.getCompoFactory(), _parent.getSubscribedTranslationList().getFactoryStat(), _parent.getFacade()), new GeneComponentModelSubscribeFactoryDirect<String>(new GeneComponentModelSubscribeString(_parent.getCompoFactory(),_parent.getFacade())));
         itemForBattleForm.add(multStat.getGroup());
         failStatus=new CrudGeneFormSimpleFormSub<String,String>(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList(), _parent.getFrame());
-        failStatus.initFormWithVal(new DisplayEntryCustSubElementImpl<String,String>(_parent.getSubscribedTranslationList().getFactorySt(),_parent.getCompoFactory(),_parent.getFacade(), new StringMap<String>()), buildPart(_parent.getCompoFactory(), _parent.getFacade(), _parent.getSubscribedTranslationList().getFactorySt(), new StringMap<String>()), new GeneComponentModelSubscribeFactoryString(_parent.getCompoFactory()));
+        failStatus.initFormWithVal(new DisplayEntryCustSubElementImpl<String,String>(_parent.getSubscribedTranslationList().getFactorySt(),_parent.getCompoFactory(),_parent.getFacade(), new StringMap<String>()), buildPart(_parent.getCompoFactory(), _parent.getFacade(), _parent.getSubscribedTranslationList().getFactorySt(), new StringMap<String>()), new GeneComponentModelSubscribeFactoryString(_parent.getCompoFactory(),_parent.getFacade()));
         itemForBattleForm.add(failStatus.getGroup());
         increasingMaxNbRoundGlobalMove = new CrudGeneFormSimpleFormSub<String, Short>(_parent.getCompoFactory(), _parent.getFacade(), _parent.getSubscribedTranslationList(), _parent.getFrame());
         increasingMaxNbRoundGlobalMove.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Short>(_parent.getSubscribedTranslationList().getFactoryMv(),_parent.getCompoFactory(),_parent.getFacade(), new StringMap<String>()),buildPart(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList().getFactoryMv(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Short>(new GeneComponentModelSubscribeShort(_parent.getCompoFactory())));
@@ -100,10 +100,12 @@ public final class ContentComponentModelItemForBattle {
         itemForBattleForm.add(typesPk.geneEnum());
         lawForAttackFirst = ConverterCommonMapUtil.buildMcBool(_parent.getFrame(),_parent.getCompoFactory());
         itemForBattleForm.add(lawForAttackFirst.getGroup());
-        multPower = new GeneComponentModelSubscribeString(_parent.getCompoFactory());
+        multPower = new GeneComponentModelSubscribeString(_parent.getCompoFactory(),_parent.getFacade());
         itemForBattleForm.add(multPower.geneEnum());
-        multDamage = new GeneComponentModelSubscribeString(_parent.getCompoFactory());
+        multPower.addComplete();
+        multDamage = new GeneComponentModelSubscribeString(_parent.getCompoFactory(),_parent.getFacade());
         itemForBattleForm.add(multDamage.geneEnum());
+        multDamage.addComplete();
         damageRecoil=new GeneComponentModelRate(_parent.getCompoFactory());
         itemForBattleForm.add(damageRecoil.geneRate());
         drainedHpByDamageRate=new GeneComponentModelRate(_parent.getCompoFactory());

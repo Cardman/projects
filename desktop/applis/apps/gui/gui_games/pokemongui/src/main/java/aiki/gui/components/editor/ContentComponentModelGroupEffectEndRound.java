@@ -44,7 +44,7 @@ public final class ContentComponentModelGroupEffectEndRound {
     }
 
     void effectForm(AbsPanel _panel,AbsGeneComponentModelEffect _core) {
-        _panel.add(contentEffectEndRound.effectForm(_core.getProgramInfos()));
+        _panel.add(contentEffectEndRound.effectForm(_core));
         _panel.add(contentEffectEndRoundFoe.effectForm(_core.getProgramInfos()));
         _panel.add(contentEffectEndRoundIndividual.effectForm(_core));
         _panel.add(contentEffectEndRoundMultiRelation.effectForm(_core));

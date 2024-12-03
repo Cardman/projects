@@ -12,8 +12,9 @@ public final class ContentComponentModelEffect {
     private GeneComponentModelSubscribeInts requiredSuccessfulEffects;
     AbsPanel effectForm(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
         AbsPanel selected_ = _core.getCompoFactory().newLineBox();
-        fail = new GeneComponentModelSubscribeString(_core);
+        fail = new GeneComponentModelSubscribeString(_core,_fac);
         selected_.add(fail.geneEnum());
+        fail.addComplete();
         targetChoice = ConverterCommonMapUtil.buildTargetChoice(_core, _fac, _fact);
         selected_.add(targetChoice.geneEnum());
         requiredSuccessfulEffects = new GeneComponentModelSubscribeInts(_core, _fac, _fact, _f);

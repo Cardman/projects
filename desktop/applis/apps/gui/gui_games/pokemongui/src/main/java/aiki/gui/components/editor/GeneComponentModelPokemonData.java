@@ -93,7 +93,7 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         form_.add(hatchingSteps.geneLgInt());
         form_.add(happiness.geneInt());
         form_.add(happinessHatch.geneInt());
-        eggGroups.initForm(new DisplayEntryCustSubElementString(),new GeneComponentModelSubscribeFactoryDirect<String>(new GeneComponentModelSubscribeString(getCompoFactory())));
+        eggGroups.initForm(new DisplayEntryCustSubElementString(),new GeneComponentModelSubscribeFactoryDirect<String>(new GeneComponentModelSubscribeString(getCompoFactory(),getFacade())));
         form_.add(eggGroups.getGroup());
         sc_.setViewportView(form_);
         page_.add(sc_);

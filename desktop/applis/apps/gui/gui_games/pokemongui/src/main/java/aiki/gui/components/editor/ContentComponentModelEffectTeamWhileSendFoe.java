@@ -19,10 +19,12 @@ public final class ContentComponentModelEffectTeamWhileSendFoe {
     private AbsPanel form;
     AbsPanel effectForm(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
         AbsPanel selected_ = _core.getCompoFactory().newLineBox();
-        failSending = new GeneComponentModelSubscribeString(_core);
+        failSending = new GeneComponentModelSubscribeString(_core,_fac);
         selected_.add(failSending.geneEnum());
-        damageRateAgainstFoe = new GeneComponentModelSubscribeString(_core);
+        failSending.addComplete();
+        damageRateAgainstFoe = new GeneComponentModelSubscribeString(_core,_fac);
         selected_.add(damageRateAgainstFoe.geneEnum());
+        damageRateAgainstFoe.addComplete();
         deletedByFoeTypes = ConverterCommonMapUtil.buildTypeList(_core,_fac,_fact);
         selected_.add(deletedByFoeTypes.geneEnum());
         statusByNbUses = new CrudGeneFormSimpleFormSub<Short, String>(_core, _fac, _fact, _f);

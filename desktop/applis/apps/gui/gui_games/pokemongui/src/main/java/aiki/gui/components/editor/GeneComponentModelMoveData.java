@@ -69,7 +69,7 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         achieveDisappearedPkUsingMove = ConverterCommonMapUtil.buildMoveList(getCompoFactory(),getFacade(),getSubscribedTranslationList());
         deletedStatus = ConverterCommonMapUtil.buildStatusList(getCompoFactory(),getFacade(),getSubscribedTranslationList());
         requiredStatus = ConverterCommonMapUtil.buildStatusList(getCompoFactory(),getFacade(),getSubscribedTranslationList());
-        accuracy = new GeneComponentModelSubscribeString(getCompoFactory());
+        accuracy = new GeneComponentModelSubscribeString(getCompoFactory(),getFacade());
         disappearBeforeUse = getCompoFactory().getCompoFactory().newCustCheckBox();
         rechargeRound = getCompoFactory().getCompoFactory().newCustCheckBox();
         constUserChoice = getCompoFactory().getCompoFactory().newCustCheckBox();
@@ -122,6 +122,7 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         form_.add(deletedStatus.geneEnum());
         form_.add(requiredStatus.geneEnum());
         form_.add(accuracy.geneEnum());
+        accuracy.addComplete();
         form_.add(disappearBeforeUse);
         form_.add(rechargeRound);
         form_.add(constUserChoice);

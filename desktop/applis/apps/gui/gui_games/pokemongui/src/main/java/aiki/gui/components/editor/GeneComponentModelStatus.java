@@ -82,8 +82,9 @@ public final class GeneComponentModelStatus extends GeneComponentModelEntity<Sta
         multStat=new CrudGeneFormSimpleFormSub<Statistic,Rate>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
         multStat.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Rate>(getSubscribedTranslationList().getFactoryStat(),getCompoFactory(),getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(getCompoFactory(), getSubscribedTranslationList().getFactoryStat(), getFacade()), new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(getCompoFactory())));
         form_.add(multStat.getGroup());
-        fail = new GeneComponentModelSubscribeString(getCompoFactory());
+        fail = new GeneComponentModelSubscribeString(getCompoFactory(),getFacade());
         form_.add(fail.geneEnum());
+        fail.addComplete();
         form_.add(catchingRate.geneRate());
         form_.add(incrementEndRound.geneInt());
         disabledEffIfSwitch = compoFactory_.newCustCheckBox();

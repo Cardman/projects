@@ -2,17 +2,17 @@ package aiki.gui.components.editor;
 
 import aiki.fight.moves.effects.*;
 import code.gui.*;
-import code.gui.initialize.*;
 
 public final class ContentComponentModelEffectEndRound {
     private GeneComponentModelSubscribeString failEndRound;
     private GeneComponentModelInt endRoundRank;
     private AbsPanel form;
-    AbsPanel effectForm(AbstractProgramInfos _core) {
-        AbsPanel selected_ = _core.getCompoFactory().newLineBox();
-        failEndRound = new GeneComponentModelSubscribeString(_core);
+    AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
+        AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
+        failEndRound = new GeneComponentModelSubscribeString(_core.getProgramInfos(),_core.getFacadeGame());
         selected_.add(failEndRound.geneEnum());
-        endRoundRank = new GeneComponentModelInt(_core);
+        failEndRound.addComplete();
+        endRoundRank = new GeneComponentModelInt(_core.getProgramInfos());
         selected_.add(endRoundRank.geneInt());
         form = selected_;
         selected_.setVisible(false);

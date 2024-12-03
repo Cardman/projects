@@ -15,7 +15,7 @@ public final class ContentComponentModelEffectCommonStatistics {
     AbsPanel effectForm(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
         AbsPanel selected_ = _core.getCompoFactory().newLineBox();
         commonValue = new CrudGeneFormSimpleFormSub<Statistic,String>(_core, _fac, _fact, _f);
-        commonValue.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,String>(_fact.getFactoryStat(),_core,_fac, new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac), new GeneComponentModelSubscribeFactoryString(_core));
+        commonValue.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,String>(_fact.getFactoryStat(),_core,_fac, new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac), new GeneComponentModelSubscribeFactoryString(_core,_fac));
         selected_.add(commonValue.getGroup());
         selected_.setVisible(false);
         form =selected_;

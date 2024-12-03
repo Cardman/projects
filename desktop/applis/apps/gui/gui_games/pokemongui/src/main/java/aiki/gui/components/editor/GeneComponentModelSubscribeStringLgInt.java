@@ -1,5 +1,6 @@
 package aiki.gui.components.editor;
 
+import aiki.facade.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.maths.*;
@@ -7,10 +8,12 @@ import code.util.*;
 
 public final class GeneComponentModelSubscribeStringLgInt implements AbsGeneComponentModelSubscribe<EditedCrudPair<String,LgInt>> {
     private final AbstractProgramInfos api;
+    private final FacadeGame facadeGame;
     private final GeneComponentModelText key;
     private final GeneComponentModelLgInt value;
-    public GeneComponentModelSubscribeStringLgInt(AbstractProgramInfos _fact) {
+    public GeneComponentModelSubscribeStringLgInt(AbstractProgramInfos _fact, FacadeGame _fac) {
         api = _fact;
+        facadeGame = _fac;
         key = new GeneComponentModelText(_fact);
         value = new GeneComponentModelLgInt(_fact);
     }
@@ -18,6 +21,7 @@ public final class GeneComponentModelSubscribeStringLgInt implements AbsGeneComp
     public AbsCustComponent geneEnum(int _select, int _value) {
         AbsPanel form_ = api.getCompoFactory().newLineBox();
         form_.add(key.geneString());
+        key.addComplete(facadeGame);
         form_.add(value.geneLgInt());
         if (GeneComponentModelEltStrCom.disable(_select, _value)) {
             key.getTextPane().setEditable(false);

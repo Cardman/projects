@@ -45,8 +45,9 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         form_.add(getEffectKind().geneEnum());
         form_.add(price.geneInt());
         ballForm = compoFactory_.newLineBox();
-        catchingRate = new GeneComponentModelSubscribeString(getCompoFactory());
+        catchingRate = new GeneComponentModelSubscribeString(getCompoFactory(),getFacade());
         ballForm.add(catchingRate.geneEnum());
+        catchingRate.addComplete();
         ballForm.setVisible(false);
         form_.add(ballForm);
         form_.add(berryForm.form(this));

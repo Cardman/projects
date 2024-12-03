@@ -1,21 +1,30 @@
 package aiki.gui.components.editor;
 
+import aiki.facade.FacadeGame;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.util.*;
 
 public final class GeneComponentModelSubscribeString implements AbsGeneComponentModelSubscribe<String> {
     private final GeneComponentModelText crud;
-    public GeneComponentModelSubscribeString(AbstractProgramInfos _fact) {
+    private final FacadeGame facadeGame;
+    public GeneComponentModelSubscribeString(AbstractProgramInfos _fact, FacadeGame _fac) {
         crud = new GeneComponentModelText(_fact);
+        facadeGame = _fac;
     }
     @Override
     public AbsCustComponent geneEnum(int _select, int _value) {
-        return geneEnum();
+        AbsCustComponent c_ = geneEnum();
+        addComplete();
+        return c_;
     }
 
     public AbsCustComponent geneEnum() {
         return crud.geneString();
+    }
+
+    public void addComplete() {
+        crud.addComplete(facadeGame);
     }
 
     @Override

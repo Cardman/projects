@@ -19,10 +19,12 @@ public final class ContentComponentModelEffectCounterAttack {
     private AbsPanel form;
     AbsPanel effectForm(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
         AbsPanel selected_ = _core.getCompoFactory().newLineBox();
-        protectFail = new GeneComponentModelSubscribeString(_core);
+        protectFail = new GeneComponentModelSubscribeString(_core,_fac);
         selected_.add(protectFail.geneEnum());
-        counterFail = new GeneComponentModelSubscribeString(_core);
+        protectFail.addComplete();
+        counterFail = new GeneComponentModelSubscribeString(_core,_fac);
         selected_.add(counterFail.geneEnum());
+        counterFail.addComplete();
         sufferingDamageDirectMove = new GeneComponentModelRate(_core);
         selected_.add(sufferingDamageDirectMove.geneRate());
         sufferingDamageTypes = new CrudGeneFormSimpleFormSub<String, Rate>(_core, _fac, _fact, _f);

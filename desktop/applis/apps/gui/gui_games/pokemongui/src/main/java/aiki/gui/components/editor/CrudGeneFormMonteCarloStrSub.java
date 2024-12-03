@@ -16,10 +16,10 @@ public final class CrudGeneFormMonteCarloStrSub extends AbsCrudGeneFormMonteCarl
         crud = new CrudGeneFormSimpleElementSub<EditedCrudPair<String, LgInt>>(_core, _fac, _fact, _f);
     }
 
-    public void initFormKeys() {
+    public void initFormKeys(FacadeGame _fac) {
         DisplayEntryCustSubElementEventString dis_ = new DisplayEntryCustSubElementEventString(crud);
         display(dis_);
-        crud.initForm(dis_,new GeneComponentModelSubscribeFactoryStringLgInt(api));
+        crud.initForm(dis_,new GeneComponentModelSubscribeFactoryStringLgInt(api,_fac));
     }
 
     @Override

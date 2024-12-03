@@ -15,8 +15,9 @@ public final class ContentComponentModelEffectFullHpRate {
         selected_.add(leftUserHp.geneRate());
         closestFoeDamageRateHp = new GeneComponentModelRate(_core.getProgramInfos());
         selected_.add(closestFoeDamageRateHp.geneRate());
-        restoredHp = new GeneComponentModelSubscribeString(_core.getProgramInfos());
+        restoredHp = new GeneComponentModelSubscribeString(_core.getProgramInfos(),_core.getFacadeGame());
         selected_.add(restoredHp.geneEnum());
+        restoredHp.addComplete();
         form = selected_;
         selected_.setVisible(false);
         return selected_;

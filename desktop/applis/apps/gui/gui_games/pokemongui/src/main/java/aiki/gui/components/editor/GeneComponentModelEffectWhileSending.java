@@ -36,8 +36,9 @@ public final class GeneComponentModelEffectWhileSending extends AbsGeneComponent
         form_.add(disableWeather);
         copyingAbility = compoFactory_.newCustCheckBox();
         form_.add(copyingAbility);
-        enabledWeather = new GeneComponentModelSubscribeString(getProgramInfos());
+        enabledWeather = new GeneComponentModelSubscribeString(getProgramInfos(),getFacadeGame());
         form_.add(enabledWeather.geneEnum());
+        enabledWeather.addComplete();
         multWeight = new GeneComponentModelRate(getProgramInfos());
         form_.add(multWeight.geneRate());
         getEffectKind().getSelect().addListener(new ChangingTypeEvent(this));
