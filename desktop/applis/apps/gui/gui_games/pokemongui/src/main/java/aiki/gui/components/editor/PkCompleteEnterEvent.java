@@ -25,7 +25,7 @@ public final class PkCompleteEnterEvent implements AbsActionListener, ListSelect
         int caretPosition_ = textPane_.getCaretPosition();
         int sel_ = _input.getElement().getSelectedIndex();
         if (sel_ == -1) {
-            _input.getTextPane().insert("\n",caretPosition_);
+            _input.getTextPane().replaceSelection("\n");
             _input.getPopupMenu().setVisible(false);
             return;
         }
