@@ -67,6 +67,28 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
         builder.replace(_start,_end,_s);
     }
 
+    @Override
+    public int enter() {
+        replaceSelection("\n");
+        return 0;
+    }
+
+    @Override
+    public int down() {
+        MetaRect r_ = modelToView(getCaretPosition());
+        int next_ = viewToModel(new MetaPoint(r_.getPoint().getXcoord(), r_.getPoint().getYcoord() + heightFont()));
+        select(next_,next_);
+        return 0;
+    }
+
+    @Override
+    public int up() {
+        MetaRect r_ = modelToView(getCaretPosition());
+        int next_ = viewToModel(new MetaPoint(r_.getPoint().getXcoord(), r_.getPoint().getYcoord() - heightFont()));
+        select(next_,next_);
+        return 0;
+    }
+
     public void replaceSelection(String _s) {
         if (this instanceof MockTextPane && !isEditable()) {
             return;

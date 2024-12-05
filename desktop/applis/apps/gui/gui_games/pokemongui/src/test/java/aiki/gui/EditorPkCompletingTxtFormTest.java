@@ -147,16 +147,50 @@ public final class EditorPkCompletingTxtFormTest extends InitEditorPkForm {
         g_.getElement().events();
         assertEq("1+{M1}",g_.getTextPane().getText());
     }
+    @Test
+    public void auto10() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        facade_.getData().defValues();
+        window(pr_, facade_);
+        GeneComponentModelText g_ = new GeneComponentModelText(pr_);
+        g_.geneString();
+        g_.addComplete(facade_);
+        g_.getTextPane().setText("1+{V}");
+        g_.getTextPane().setSelectionStart(4);
+        g_.getTextPane().setSelectionEnd(4);
+        action(g_);
+        down(g_);
+        up(g_);
+        assertEq(0,g_.getElement().getSelectedIndex());
+    }
+    @Test
+    public void auto11() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        facade_.getData().defValues();
+        window(pr_, facade_);
+        GeneComponentModelText g_ = new GeneComponentModelText(pr_);
+        g_.geneString();
+        g_.addComplete(facade_);
+        g_.getTextPane().setText("1+{_}");
+        g_.getTextPane().setSelectionStart(4);
+        g_.getTextPane().setSelectionEnd(4);
+        action(g_);
+        down(g_);
+        up(g_);
+        assertEq(-1,g_.getElement().getSelectedIndex());
+    }
     private void action(GeneComponentModelText _g) {
         ((MockAbstractAction) GuiBaseUtil.getAction(_g.getTextPane(), GuiConstants.VK_SPACE, GuiConstants.CTRL_DOWN_MASK)).action();
     }
 
     private void down(GeneComponentModelText _g) {
-        ((MockAbstractAction) GuiBaseUtil.getAction(_g.getTextPane(), GuiConstants.VK_PAGE_DOWN,GuiConstants.CTRL_DOWN_MASK)).action();
+        ((MockAbstractAction) GuiBaseUtil.getAction(_g.getTextPane(), GuiConstants.VK_DOWN,0)).action();
     }
 
     private void up(GeneComponentModelText _g) {
-        ((MockAbstractAction) GuiBaseUtil.getAction(_g.getTextPane(), GuiConstants.VK_PAGE_UP,GuiConstants.CTRL_DOWN_MASK)).action();
+        ((MockAbstractAction) GuiBaseUtil.getAction(_g.getTextPane(), GuiConstants.VK_UP,0)).action();
     }
 
     private void enter(GeneComponentModelText _g) {

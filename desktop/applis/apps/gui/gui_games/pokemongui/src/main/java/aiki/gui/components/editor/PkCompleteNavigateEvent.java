@@ -1,25 +1,34 @@
 package aiki.gui.components.editor;
 
-import code.gui.*;
 import code.gui.events.*;
 import code.util.core.*;
 
 public final class PkCompleteNavigateEvent implements AbsActionListener {
-    private final ScrollCustomGraphicList<String> element;
+    private final GeneComponentModelText textPane;
     private final int diff;
 
-    public PkCompleteNavigateEvent(ScrollCustomGraphicList<String> _s, int _d) {
-        this.element = _s;
+    public PkCompleteNavigateEvent(GeneComponentModelText _s, int _d) {
+        this.textPane = _s;
         this.diff = _d;
     }
 
     @Override
     public void action() {
-        int count_ = element.size();
+        int count_;
+        if (!textPane.getPopupMenu().isVisible()) {
+            count_ = 0;
+        } else {
+            count_ = textPane.getElement().size();
+        }
         if (count_ == 0) {
+            if (diff == 1) {
+                textPane.getTextPane().down();
+            } else {
+                textPane.getTextPane().up();
+            }
             return;
         }
-        element.select(NumberUtil.mod(element.getSelectedIndex()+diff, count_));
-        element.repaint();
+        textPane.getElement().select(NumberUtil.mod(textPane.getElement().getSelectedIndex()+diff, count_));
+        textPane.getElement().repaint();
     }
 }

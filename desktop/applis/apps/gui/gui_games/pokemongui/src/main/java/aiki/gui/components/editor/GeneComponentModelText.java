@@ -34,8 +34,8 @@ public final class GeneComponentModelText {
         element.addListener(new PkCompleteEnterEvent(this));
         textPane.registerKeyboardAction(compoFactory.getCompoFactory().wrap(new PkCompleteEnterEvent(this)), GuiConstants.VK_ENTER,0);
         textPane.registerKeyboardAction(compoFactory.getCompoFactory().wrap(new PkCompleteEvent(this,_facade)), GuiConstants.VK_SPACE,GuiConstants.CTRL_DOWN_MASK);
-        textPane.registerKeyboardAction(compoFactory.getCompoFactory().wrap(new PkCompleteNavigateEvent(element,1)), GuiConstants.VK_PAGE_DOWN,GuiConstants.CTRL_DOWN_MASK);
-        textPane.registerKeyboardAction(compoFactory.getCompoFactory().wrap(new PkCompleteNavigateEvent(element,-1)), GuiConstants.VK_PAGE_UP,GuiConstants.CTRL_DOWN_MASK);
+        textPane.registerKeyboardAction(compoFactory.getCompoFactory().wrap(new PkCompleteNavigateEvent(this,1)), GuiConstants.VK_DOWN,0);
+        textPane.registerKeyboardAction(compoFactory.getCompoFactory().wrap(new PkCompleteNavigateEvent(this,-1)), GuiConstants.VK_UP,0);
     }
 
     public ScrollCustomGraphicList<String> getElement() {

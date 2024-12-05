@@ -15,6 +15,9 @@ public interface AbsTxtComponent extends AbsCustComponent, TranslatableComponent
     int getCaretPosition();
     void setCaretPosition(int _position);
     void replaceSelection(String _content);
+    int enter();
+    int down();
+    int up();
     int getCaretColor();
 
     void setCaretColor(int _c);

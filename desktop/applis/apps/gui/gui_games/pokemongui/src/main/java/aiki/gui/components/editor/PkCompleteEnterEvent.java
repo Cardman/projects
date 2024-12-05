@@ -23,9 +23,14 @@ public final class PkCompleteEnterEvent implements AbsActionListener, ListSelect
     static void tryInsert(GeneComponentModelText _input) {
         AbsTextPane textPane_ = _input.getTextPane();
         int caretPosition_ = textPane_.getCaretPosition();
-        int sel_ = _input.getElement().getSelectedIndex();
+        int sel_;
+        if (!_input.getPopupMenu().isVisible()) {
+            sel_ = -1;
+        } else {
+            sel_ = _input.getElement().getSelectedIndex();
+        }
         if (sel_ == -1) {
-            _input.getTextPane().replaceSelection("\n");
+            _input.getTextPane().enter();
             _input.getPopupMenu().setVisible(false);
             return;
         }

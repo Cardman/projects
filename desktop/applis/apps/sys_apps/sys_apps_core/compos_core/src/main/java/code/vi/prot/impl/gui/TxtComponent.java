@@ -1,6 +1,7 @@
 package code.vi.prot.impl.gui;
 
 import code.gui.AbsTxtComponent;
+import code.gui.GuiConstants;
 import code.gui.events.AbsAutoCompleteListener;
 import code.gui.events.AbsCaretListener;
 import code.gui.images.MetaPoint;
@@ -11,12 +12,22 @@ import code.vi.prot.impl.DefImage;
 import code.vi.prot.impl.gui.events.WrAutoCompleteListener;
 import code.vi.prot.impl.gui.events.WrCaretListener;
 
+import javax.swing.*;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
+import java.awt.event.*;
 
 public abstract class TxtComponent extends CustComponent implements AbsTxtComponent {
     private final IdMap<AbsCaretListener, WrCaretListener> mapCaret = new IdMap<AbsCaretListener, WrCaretListener>();
+    private ActionListener enterAction;
+    private ActionListener upAction;
+    private ActionListener downAction;
+    protected void buildStdActions() {
+        enterAction = getTextComponent().getActionForKeyStroke(KeyStroke.getKeyStroke(GuiConstants.VK_ENTER, 0));
+        upAction = getTextComponent().getActionForKeyStroke(KeyStroke.getKeyStroke(GuiConstants.VK_UP, 0));
+        downAction = getTextComponent().getActionForKeyStroke(KeyStroke.getKeyStroke(GuiConstants.VK_DOWN, 0));
+    }
     public void moveCaretPosition(int _pos) {
         getTextComponent().moveCaretPosition(_pos);
     }
@@ -32,6 +43,37 @@ public abstract class TxtComponent extends CustComponent implements AbsTxtCompon
     public void setCaretPosition(int _position) {
         getTextComponent().setCaretPosition(_position);
     }
+
+    @Override
+    public int enter() {
+        try {
+            enterAction.actionPerformed(new ActionEvent(getTextComponent(), ActionEvent.ACTION_PERFORMED, "", EventQueue.getMostRecentEventTime(), 0));
+            return 1;
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    @Override
+    public int up() {
+        try {
+            upAction.actionPerformed(new ActionEvent(getTextComponent(), ActionEvent.ACTION_PERFORMED, "", EventQueue.getMostRecentEventTime(), 0));
+            return 1;
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    @Override
+    public int down() {
+        try {
+            downAction.actionPerformed(new ActionEvent(getTextComponent(), ActionEvent.ACTION_PERFORMED, "", EventQueue.getMostRecentEventTime(), 0));
+            return 1;
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
     public void replaceSelection(String _content) {
         getTextComponent().replaceSelection(_content);
     }
