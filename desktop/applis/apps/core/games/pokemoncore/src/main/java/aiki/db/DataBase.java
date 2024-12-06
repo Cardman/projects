@@ -5034,9 +5034,9 @@ public class DataBase {
         for (StringMap<String> t: getTranslatedPokemon().values()) {
             t.move(_oldName, _newName);
         }
-//        miniPk.move(_oldName, _newName);
-//        maxiPkBack.move(_oldName, _newName);
-//        maxiPkFront.move(_oldName, _newName);
+        miniPk.move(_oldName, _newName);
+        maxiPkBack.move(_oldName, _newName);
+        maxiPkFront.move(_oldName, _newName);
 //        legPks.replace(_oldName, _newName);
     }
     public void deletePokemon(String _oldName) {
@@ -5061,6 +5061,9 @@ public class DataBase {
                 ls_.addAllElts(new ChangeStringFieldLevelWildName().change(l));
             }
         }
+        ls_.add(new ChangeStringFieldMatchMapContains<ImageArrayBaseSixtyFour>(miniPk));
+        ls_.add(new ChangeStringFieldMatchMapContains<ImageArrayBaseSixtyFour>(maxiPkBack));
+        ls_.add(new ChangeStringFieldMatchMapContains<ImageArrayBaseSixtyFour>(maxiPkFront));
         if (ls_.contains(_oldName)) {
             return;
         }
@@ -5559,7 +5562,7 @@ public class DataBase {
         for (StringMap<String> t: getTranslatedItems().values()) {
             t.move(_oldName, _newName);
         }
-//        miniItems.move(_oldName, _newName);
+        miniItems.move(_oldName, _newName);
     }
 
     private void place(String _oldName, String _newName, Place _p) {
@@ -5597,6 +5600,7 @@ public class DataBase {
         for (Place p: map.getPlaces()) {
             matches_.addAllElts(place(p));
         }
+        matches_.add(new ChangeStringFieldMatchMapContains<ImageArrayBaseSixtyFour>(miniItems));
         if (matches_.contains(_oldName)) {
             return;
         }
@@ -5834,7 +5838,7 @@ public class DataBase {
         for (StringMap<String> t: getTranslatedStatus().values()) {
             t.move(_oldName, _newName);
         }
-//        animStatus.move(_oldName,_newName);
+        animStatus.move(_oldName,_newName);
 //        changeParams(_oldName, _newName, statusPart());
     }
 
@@ -5865,6 +5869,7 @@ public class DataBase {
                 matches_.add(new ChangeStringFieldMatchStringListContains(e2_.getProtectAgainstStatus()));
             }
         }
+        matches_.add(new ChangeStringFieldMatchMapContains<ImageArrayBaseSixtyFour>(animStatus));
         if (matches_.contains(_oldName)) {
             return;
         }
@@ -6077,8 +6082,8 @@ public class DataBase {
         for (StringMap<String> t: getTranslatedTypes().values()) {
             t.move(_oldName, _newName);
         }
-//        typesImages.move(_oldName, _newName);
-//        typesColors.move(_oldName, _newName);
+        typesImages.move(_oldName, _newName);
+        typesColors.move(_oldName, _newName);
 //        changeParams(_oldName, _newName, typesPart());
     }
 
@@ -6134,6 +6139,8 @@ public class DataBase {
         for (TypesDuo p: tableTypes.getKeys()) {
             matches_.addAllElts(convertDuo(p));
         }
+        matches_.add(new ChangeStringFieldMatchMapContains<ImageArrayBaseSixtyFour>(typesImages));
+        matches_.add(new ChangeStringFieldMatchMapContains<String>(typesColors));
         return matches_.contains(_oldName);
     }
     private void typeAbility(String _oldName, String _newName, AbilityData _a) {
