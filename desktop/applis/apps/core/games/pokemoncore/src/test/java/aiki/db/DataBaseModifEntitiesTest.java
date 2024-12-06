@@ -657,6 +657,20 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         assertEq(PIKACHU,p_.getName());
     }
     @Test
+    public void renamePokemon8() {
+        PokemonData b_ = Instances.newPokemonData();
+        DataBase db_ = newData();
+        db_.completeMembers(POKE_BALL,b_);
+        ItemForBattle f_ = Instances.newItemForBattle();
+        f_.getMultStatPokemonRank().addEntry(new StatisticPokemon(Statistic.SPEED, POKE_BALL), (byte)1);
+        db_.completeMembers(TREMPETTE, f_);
+        db_.completeMembers(POKE_BALL_2,Instances.newBall());
+        db_.renamePokemon(POKE_BALL,PIKACHU);
+        assertEq(1,db_.getPokedex().size());
+        assertEq(PIKACHU,db_.getPokedex().firstKey());
+        assertEq(PIKACHU,f_.getMultStatPokemonRank().getKey(0).getPokemon());
+    }
+    @Test
     public void deletePokemon0() {
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,Instances.newPokemonData());
@@ -774,6 +788,19 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         db_.completeMembers(POKE_BALL_2,d_);
         db_.deletePokemon(POKE_BALL);
         assertEq(2,db_.getPokedex().size());
+    }
+    @Test
+    public void deletePokemon9() {
+        PokemonData b_ = Instances.newPokemonData();
+        DataBase db_ = newData();
+        db_.completeMembers(POKE_BALL,b_);
+        ItemForBattle f_ = Instances.newItemForBattle();
+        f_.getMultStatPokemonRank().addEntry(new StatisticPokemon(Statistic.SPEED, POKE_BALL), (byte)1);
+        db_.completeMembers(TREMPETTE, f_);
+        db_.completeMembers(POKE_BALL_2,Instances.newBall());
+        db_.deletePokemon(POKE_BALL);
+        assertEq(1,db_.getPokedex().size());
+        assertEq(POKE_BALL,db_.getPokedex().firstKey());
     }
     @Test
     public void renameMove0() {
@@ -1716,6 +1743,30 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         assertEq(POKE_BALL_2,move_.getForwardStatus().firstValue());
     }
     @Test
+    public void renameStatus16() {
+        DataBase db_ = newData();
+        AbilityData move_ = Instances.newAbilityData();
+        move_.getImmuLowStatIfStatus().add(new StatisticStatus(Statistic.SPEED,POKE_BALL));
+        db_.completeMembers(POKE_BALL_2, move_);
+        db_.completeMembers(POKE_BALL,Instances.newStatusSimple());
+        db_.renameStatus(POKE_BALL,PIKACHU);
+        assertEq(1,db_.getStatus().size());
+        assertEq(PIKACHU,db_.getStatus().firstKey());
+        assertEq(PIKACHU,move_.getImmuLowStatIfStatus().first().getStatus());
+    }
+    @Test
+    public void renameStatus17() {
+        DataBase db_ = newData();
+        AbilityData move_ = Instances.newAbilityData();
+        move_.getMultStatIfStatutRank().addEntry(new StatisticStatus(Statistic.SPEED,POKE_BALL),(byte)1);
+        db_.completeMembers(POKE_BALL_2, move_);
+        db_.completeMembers(POKE_BALL,Instances.newStatusSimple());
+        db_.renameStatus(POKE_BALL,PIKACHU);
+        assertEq(1,db_.getStatus().size());
+        assertEq(PIKACHU,db_.getStatus().firstKey());
+        assertEq(PIKACHU,move_.getMultStatIfStatutRank().firstKey().getStatus());
+    }
+    @Test
     public void deleteStatus0() {
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,Instances.newStatusSimple());
@@ -1930,6 +1981,27 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         assertEq(1,db_.getStatus().size());
     }
     @Test
+    public void deleteStatus19() {
+        DataBase db_ = newData();
+        AbilityData move_ = Instances.newAbilityData();
+        move_.getImmuLowStatIfStatus().add(new StatisticStatus(Statistic.SPEED,POKE_BALL_2));
+        db_.completeMembers(POKE_BALL_2, move_);
+        db_.completeMembers(POKE_BALL,Instances.newStatusSimple());
+        db_.deleteStatus(POKE_BALL);
+        assertEq(0,db_.getStatus().size());
+        assertEq(POKE_BALL_2,move_.getImmuLowStatIfStatus().first().getStatus());
+    }
+    @Test
+    public void deleteStatus20() {
+        DataBase db_ = newData();
+        AbilityData move_ = Instances.newAbilityData();
+        move_.getImmuLowStatIfStatus().add(new StatisticStatus(Statistic.SPEED,POKE_BALL));
+        db_.completeMembers(POKE_BALL_2, move_);
+        db_.completeMembers(POKE_BALL,Instances.newStatusSimple());
+        db_.deleteStatus(POKE_BALL);
+        assertEq(1,db_.getStatus().size());
+    }
+    @Test
     public void renameType0() {
         DataBase db_ = newData();
         StringMap<String> tr_ = defTrType(db_);
@@ -2131,6 +2203,15 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         db_.renameType(POKE_BALL,PIKACHU);
         assertEq(PIKACHU,db_.getTableTypes().firstKey().getDamageType());
         assertEq(PIKACHU,db_.getTableTypes().firstKey().getPokemonType());
+    }
+    @Test
+    public void renameType20() {
+        DataBase db_ = newData();
+        AbilityData move_ = Instances.newAbilityData();
+        move_.getChangingBoostTypes().addEntry(POKE_BALL_2,new TypeDamageBoost(POKE_BALL,Rate.one()));
+        db_.completeMembers(POKE_BALL_2, move_);
+        db_.renameType(POKE_BALL,PIKACHU);
+        assertEq(PIKACHU,move_.getChangingBoostTypes().firstValue().getType());
     }
     @Test
     public void deleteType0() {
@@ -2371,6 +2452,17 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         db_.deleteType(POKE_BALL);
         assertEq(1,tr_.size());
         assertEq(1,db_.getTableTypes().size());
+    }
+    @Test
+    public void deleteType22() {
+        DataBase db_ = newData();
+        StringMap<String> tr_ = defTrType(db_);
+        db_.getTableTypes().addEntry(new TypesDuo(POKE_BALL,POKE_BALL),Rate.one());
+        AbilityData move_ = Instances.newAbilityData();
+        move_.getChangingBoostTypes().addEntry(POKE_BALL_2,new TypeDamageBoost(POKE_BALL,Rate.one()));
+        db_.completeMembers(POKE_BALL_2, move_);
+        db_.deleteType(POKE_BALL);
+        assertEq(1,tr_.size());
     }
     @Test
     public void renameCategory0() {

@@ -8,7 +8,7 @@ public final class TypeDamageBoost implements Displayable {
 
     private static final char SEPARATOR = ';';
 
-    private final String type;
+    private String type;
 
     private final Rate boost;
 
@@ -30,6 +30,10 @@ public final class TypeDamageBoost implements Displayable {
 
     public String getType() {
         return type;
+    }
+
+    public void setType(String _t) {
+        this.type = _t;
     }
 
     public Rate getBoost() {

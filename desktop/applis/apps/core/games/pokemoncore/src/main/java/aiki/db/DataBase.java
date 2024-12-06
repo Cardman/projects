@@ -63,7 +63,7 @@ import code.util.core.StringUtil;
 import code.util.ints.Listable;
 import aiki.facade.enums.SelectedBoolean;
 
-public class DataBase {
+public final class DataBase {
 
     public static final String EMPTY_STRING = "";
     public static final String MIN_BOOST = "6";
@@ -5016,10 +5016,7 @@ public class DataBase {
         }
         changeNameDefInExp(_oldName, _newName);
         for (Item o: items.values()) {
-            if (o instanceof Fossil) {
-                Fossil f_ = (Fossil) o;
-                changeValue(new ChangeStringFieldFossil(f_),_oldName,_newName);
-            }
+            item(_oldName, _newName, o);
         }
         for (PokemonData p: pokedex.values()) {
             changeValue(new ChangeStringFieldPokemonDataBaseEvo(p),_oldName,_newName);
@@ -5039,16 +5036,27 @@ public class DataBase {
         maxiPkFront.move(_oldName, _newName);
 //        legPks.replace(_oldName, _newName);
     }
+
+    private void item(String _oldName, String _newName, Item _o) {
+        if (_o instanceof Fossil) {
+            Fossil f_ = (Fossil) _o;
+            changeValue(new ChangeStringFieldFossil(f_), _oldName, _newName);
+        }
+        if (_o instanceof ItemForBattle) {
+            ItemForBattle i_ = (ItemForBattle) _o;
+            for (StatisticPokemon k: i_.getMultStatPokemonRank().getKeys()) {
+                changeValue(new ChangeStringFieldStatisticPokemon(k), _oldName, _newName);
+            }
+        }
+    }
+
     public void deletePokemon(String _oldName) {
         if (usedPkInExp(_oldName)) {
             return;
         }
         ChangeStringKeyUtil ls_ = new ChangeStringKeyUtil();
         for (Item o: items.values()) {
-            if (o instanceof Fossil) {
-                Fossil f_ = (Fossil) o;
-                ls_.add(new ChangeStringFieldMatchDef(new ChangeStringFieldFossil(f_)));
-            }
+            item(ls_, o);
         }
         for (EntryCust<String, PokemonData> p: pokedex.entryList()) {
             if (!StringUtil.quickEq(p.getKey(),_oldName)) {
@@ -5076,6 +5084,20 @@ public class DataBase {
 //        maxiPkFront.removeKey(_oldName);
 //        legPks.removeObj(_oldName);
     }
+
+    private void item(ChangeStringKeyUtil _ls, Item _o) {
+        if (_o instanceof Fossil) {
+            Fossil f_ = (Fossil) _o;
+            _ls.add(new ChangeStringFieldMatchDef(new ChangeStringFieldFossil(f_)));
+        }
+        if (_o instanceof ItemForBattle) {
+            ItemForBattle i_ = (ItemForBattle) _o;
+            for (StatisticPokemon k: i_.getMultStatPokemonRank().getKeys()) {
+                _ls.add(new ChangeStringFieldMatchDef(new ChangeStringFieldStatisticPokemon(k)));
+            }
+        }
+    }
+
     public void renameTm(short _oldName, short _newName) {
         if (tm.contains(_newName)) {
             return;
@@ -5398,13 +5420,9 @@ public class DataBase {
         _a.getChgtTypeByWeather().move(_oldName, _newName);
         _a.getHealHpByWeather().move(_oldName, _newName);
         changeEnabledWeatherList(_oldName, _newName, _a.getEffectSending());
-        WeatherTypes map_ = new WeatherTypes();
         for (WeatherType p: _a.getHealHpByTypeIfWeather().getKeys()) {
-            WeatherType w_ = new WeatherType(p.getWeather(),p.getType());
-            changeValue(new ChangeStringFieldWeatherTypeMove(w_), _oldName, _newName);
-            map_.addEntry(w_, _a.getHealHpByTypeIfWeather().getVal(p));
+            changeValue(new ChangeStringFieldWeatherTypeMove(p), _oldName, _newName);
         }
-        _a.setHealHpByTypeIfWeather(map_);
     }
 
     private CustList<ChangeStringFieldMatch> abilityMove(AbilityData _a) {
@@ -5817,6 +5835,8 @@ public class DataBase {
             statusItem(_oldName, _newName, o);
         }
         for (AbilityData a: abilities.values()) {
+            immuLowStatIfStatus(_oldName, _newName, a);
+            multStatIfStatutRank(_oldName, _newName, a);
             a.getFailStatus().move(_oldName, _newName);
             MonteCarloString law_ = renameLawKeys(_oldName, _newName, a.getSingleStatus());
             a.setSingleStatus(law_);
@@ -5842,6 +5862,23 @@ public class DataBase {
 //        changeParams(_oldName, _newName, statusPart());
     }
 
+    private void multStatIfStatutRank(String _oldName, String _newName, AbilityData _a) {
+        StatisticStatusList map_ = _a.getMultStatIfStatutRank();
+        int len_ = map_.size();
+        for (int i = 0; i < len_; i++) {
+            StatisticStatus key_ = map_.getKey(i);
+            changeValue(new ChangeStringFieldStatisticStatus(key_),_oldName,_newName);
+        }
+    }
+
+    private void immuLowStatIfStatus(String _oldName, String _newName, AbilityData _a) {
+        CustList<StatisticStatus> im_ = _a.getImmuLowStatIfStatus();
+        int len_ = im_.size();
+        for (int i = 0; i < len_; i++) {
+            changeValue(new ChangeStringFieldStatisticStatus(im_.get(i)),_oldName,_newName);
+        }
+    }
+
     public void deleteStatus(String _oldName) {
         if (usedStatusInExp(_oldName)) {
             return;
@@ -5851,6 +5888,12 @@ public class DataBase {
             matches_.addAllElts(statusItem(o));
         }
         for (AbilityData a: abilities.values()) {
+            CustList<StatisticStatus> all_ = new CustList<StatisticStatus>();
+            all_.addAllElts(a.getImmuLowStatIfStatus());
+            all_.addAllElts(a.getMultStatIfStatutRank().getKeys());
+            for (StatisticStatus t: all_) {
+                matches_.add(new ChangeStringFieldMatchDef(new ChangeStringFieldStatisticStatus(t)));
+            }
             matches_.add(new ChangeStringFieldMatchMapContains<String>(a.getFailStatus()));
             matches_.add(new ChangeStringFieldMatchMapContains<LgInt>(a.getSingleStatus().getLaw()));
             matches_.add(new ChangeStringFieldMatchMapContains<String>(a.getForwardStatus()));
@@ -6071,13 +6114,9 @@ public class DataBase {
         for (AbilityData a: abilities.values()) {
             typeAbility(_oldName, _newName, a);
         }
-        TypesDuos table_ = new TypesDuos();
         for (TypesDuo p: tableTypes.getKeys()) {
-            Rate value_ = tableTypes.getVal(p);
-            TypesDuo pair_ = convertDuo(p, _oldName, _newName);
-            table_.addEntry(pair_, value_);
+            convertDuo(p, _oldName, _newName);
         }
-        tableTypes = table_;
 //        types.replace(_oldName, _newName);
         for (StringMap<String> t: getTranslatedTypes().values()) {
             t.move(_oldName, _newName);
@@ -6144,28 +6183,20 @@ public class DataBase {
         return matches_.contains(_oldName);
     }
     private void typeAbility(String _oldName, String _newName, AbilityData _a) {
-        StatisticTypeByte mult_ = new StatisticTypeByte();
         for (StatisticType t: _a.getMultStatIfDamgeType().getKeys()) {
-            byte value_ = _a.getMultStatIfDamgeType().getVal(t);
-            StatisticType pair_ = convertStatisticType(t, _oldName, _newName);
-            mult_.addEntry(pair_, value_);
+            changeValue(new ChangeStringFieldStatisticType(t),_oldName,_newName);
         }
-        _a.setMultStatIfDamgeType(mult_);
-        CustList<TypesDuo> newList_ = new CustList<TypesDuo>();
+        _a.getChangingBoostTypes().move(_oldName,_newName);
+        for (TypeDamageBoost t: _a.getChangingBoostTypes().values()) {
+            changeValue(new ChangeStringFieldTypeDamageBoost(t), _oldName, _newName);
+        }
         for (TypesDuo t: _a.getBreakFoeImmune()) {
-            TypesDuo pair_ = convertDuo(t, _oldName, _newName);
-            newList_.add(pair_);
+            convertDuo(t, _oldName, _newName);
         }
-        _a.setBreakFoeImmune(newList_);
 
-        WeatherTypes restore_ = new WeatherTypes();
         for (WeatherType t: _a.getHealHpByTypeIfWeather().getKeys()) {
-            Rate value_ = _a.getHealHpByTypeIfWeather().getVal(t);
-            WeatherType pair_ = new WeatherType(t.getWeather(),t.getType());
-            changeValue(new ChangeStringFieldWeatherType(pair_), _oldName, _newName);
-            restore_.addEntry(pair_, value_);
+            changeValue(new ChangeStringFieldWeatherType(t), _oldName, _newName);
         }
-        _a.setHealHpByTypeIfWeather(restore_);
         new ChangeStringValueUtil<String>(_a.getChgtTypeByWeather()).replace(_oldName, _newName);
         for (StringList l: _a.getImmuMoveTypesByWeather().values()) {
             l.replace(_oldName, _newName);
@@ -6177,7 +6208,11 @@ public class DataBase {
     private CustList<ChangeStringFieldMatch> typeAbility(AbilityData _a) {
         CustList<ChangeStringFieldMatch> matches_ = new CustList<ChangeStringFieldMatch>();
         for (StatisticType t: _a.getMultStatIfDamgeType().getKeys()) {
-            matches_.addAllElts(convertStatisticType(t));
+            matches_.add(new ChangeStringFieldMatchDef(new ChangeStringFieldStatisticType(t)));
+        }
+        matches_.add(new ChangeStringFieldMatchMapContains<TypeDamageBoost>(_a.getChangingBoostTypes()));
+        for (TypeDamageBoost t: _a.getChangingBoostTypes().values()) {
+            matches_.add(new ChangeStringFieldMatchDef(new ChangeStringFieldTypeDamageBoost(t)));
         }
         for (TypesDuo t: _a.getBreakFoeImmune()) {
             matches_.addAllElts(convertDuo(t));
@@ -6200,12 +6235,9 @@ public class DataBase {
             EffectUnprotectFromTypes eff_ = (EffectUnprotectFromTypes) _e;
             eff_.getAttackTargetWithTypes().replace(_oldName, _newName);
             eff_.getDisableImmuAgainstTypes().replace(_oldName, _newName);
-            CustList<TypesDuo> newList_ = new CustList<TypesDuo>();
             for (TypesDuo t: eff_.getTypes()) {
-                TypesDuo pair_ = convertDuo(t, _oldName, _newName);
-                newList_.add(pair_);
+                convertDuo(t, _oldName, _newName);
             }
-            eff_.setTypes(newList_);
         }
         if (_e instanceof EffectSwitchTypes) {
             EffectSwitchTypes eff_ = (EffectSwitchTypes) _e;
@@ -6222,20 +6254,12 @@ public class DataBase {
             eff_.getMultDamagePrepaRound().move(_oldName, _newName);
             eff_.getMultDamageTypesMoves().move(_oldName, _newName);
             eff_.getDisableImmuAgainstTypes().replace(_oldName, _newName);
-            TypesDuos table_ = new TypesDuos();
             for (TypesDuo t: eff_.getEfficiencyMoves().getKeys()) {
-                Rate value_ = eff_.getEfficiencyMoves().getVal(t);
-                TypesDuo pair_ = convertDuo(t, _oldName, _newName);
-                table_.addEntry(pair_, value_);
+                convertDuo(t, _oldName, _newName);
             }
-            eff_.setEfficiencyMoves(table_);
-            StatisticTypeRate mult_ = new StatisticTypeRate();
             for (StatisticType t: eff_.getMultStatIfContainsType().getKeys()) {
-                Rate value_ = eff_.getMultStatIfContainsType().getVal(t);
-                StatisticType pair_ = convertStatisticType(t, _oldName, _newName);
-                mult_.addEntry(pair_, value_);
+                changeValue(new ChangeStringFieldStatisticType(t),_oldName,_newName);
             }
-            eff_.setMultStatIfContainsType(mult_);
         }
         if (_e instanceof EffectProtectFromTypes) {
             EffectProtectFromTypes eff_ = (EffectProtectFromTypes) _e;
@@ -6283,7 +6307,7 @@ public class DataBase {
                 matches_.addAllElts(convertDuo(t));
             }
             for (StatisticType t: eff_.getMultStatIfContainsType().getKeys()) {
-                matches_.addAllElts(convertStatisticType(t));
+                matches_.add(new ChangeStringFieldMatchDef(new ChangeStringFieldStatisticType(t)));
             }
         }
         if (_e instanceof EffectProtectFromTypes) {
@@ -6319,18 +6343,6 @@ public class DataBase {
         return ls_;
     }
 
-    private StatisticType convertStatisticType(StatisticType _t, String _oldName, String _newName) {
-        StatisticType pair_ = new StatisticType(_t.getStatistic(),_t.getType());
-        changeValue(new ChangeStringFieldStatisticType(pair_),_oldName,_newName);
-        return pair_;
-    }
-
-    private CustList<ChangeStringFieldMatch> convertStatisticType(StatisticType _t) {
-        CustList<ChangeStringFieldMatch> ls_ = new CustList<ChangeStringFieldMatch>();
-        ls_.add(new ChangeStringFieldMatchDef(new ChangeStringFieldStatisticType(_t)));
-        return ls_;
-    }
-
     private void renameTypeEffectEndRoundList(String _oldName, String _newName, CustList<EffectEndRound> _ls) {
         if (!_ls.isEmpty()) {
             renameTypeEffectEndRound(_ls.first(), _oldName, _newName);
@@ -6344,11 +6356,9 @@ public class DataBase {
         return new CustList<ChangeStringFieldMatch>();
     }
 
-    private TypesDuo convertDuo(TypesDuo _t, String _oldName, String _newName) {
-        TypesDuo pair_ = new TypesDuo(_t.getDamageType(),_t.getPokemonType());
-        changeValue(new ChangeStringFieldDamageType(pair_),_oldName,_newName);
-        changeValue(new ChangeStringFieldPokemonType(pair_),_oldName,_newName);
-        return pair_;
+    private void convertDuo(TypesDuo _t, String _oldName, String _newName) {
+        changeValue(new ChangeStringFieldDamageType(_t),_oldName,_newName);
+        changeValue(new ChangeStringFieldPokemonType(_t),_oldName,_newName);
     }
 
     private CustList<ChangeStringFieldMatch> convertDuo(TypesDuo _t) {
@@ -6379,21 +6389,13 @@ public class DataBase {
         }
         changeNameCategoryInExp(_oldName, _newName);
         for (AbilityData a: abilities.values()) {
-            StatisticCategoryByte mult_ = new StatisticCategoryByte();
             for (StatisticCategory t: a.getMultStatIfDamageCat().getKeys()) {
-                byte value_ = a.getMultStatIfDamageCat().getVal(t);
-                StatisticCategory pair_ = convertStatisticCategory(t, _oldName, _newName);
-                mult_.addEntry(pair_, value_);
+                changeValue(new ChangeStringFieldStatisticCategory(t), _oldName, _newName);
             }
-            a.setMultStatIfDamageCat(mult_);
             a.getIncreasedPrio().move(_oldName, _newName);
-            StatisticCategoryRate mult2_ = new StatisticCategoryRate();
             for (StatisticCategory t: a.getMultStatIfCat().getKeys()) {
-                Rate value_ = a.getMultStatIfCat().getVal(t);
-                StatisticCategory pair_ = convertStatisticCategory(t, _oldName, _newName);
-                mult2_.addEntry(pair_, value_);
+                changeValue(new ChangeStringFieldStatisticCategory(t), _oldName, _newName);
             }
-            a.setMultStatIfCat(mult2_);
         }
         for (MoveData m: moves.values()) {
             moveCategory(_oldName, _newName, m);
@@ -6519,12 +6521,6 @@ public class DataBase {
             chg_ = null;
         }
         return chg_;
-    }
-
-    private StatisticCategory convertStatisticCategory(StatisticCategory _t, String _oldName, String _newName) {
-        StatisticCategory pair_ = new StatisticCategory(_t.getStatistic(),_t.getCategory());
-        changeValue(new ChangeStringFieldStatisticCategory(pair_),_oldName,_newName);
-        return pair_;
     }
 
 //    private void changeParams(String _oldName, String _newName, StringList _parts) {

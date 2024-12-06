@@ -4,22 +4,20 @@ import code.util.StringList;
 import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 
-public final class StatisticStatus implements Displayable {
+public final class StatisticStatus extends AbsStatisticKey implements Displayable {
 
     private static final char SEPARATOR = ';';
 
-    private final Statistic statistic;
-
-    private final String status;
+    private String status;
 
     public StatisticStatus(String _str) {
         StringList elements_ = StringUtil.splitChars(_str, SEPARATOR);
-        statistic = Statistic.getStatisticByName(elements_.first());
+        setStatistic(Statistic.getStatisticByName(elements_.first()));
         status = elements_.last();
     }
 
     public StatisticStatus(Statistic _statistic, String _status) {
-        statistic = _statistic;
+        setStatistic(_statistic);
         status = _status;
     }
 
@@ -29,25 +27,23 @@ public final class StatisticStatus implements Displayable {
     }
 
     public boolean eq(StatisticStatus _obj) {
-        if (statistic != _obj.statistic) {
+        if (getStatistic() != _obj.getStatistic()) {
             return false;
         }
         return StringUtil.quickEq(status, _obj.status);
-    }
-
-    public Statistic getStatistic() {
-        return statistic;
     }
 
     public String getStatus() {
         return status;
     }
 
-    
+    public void setStatus(String _s) {
+        this.status = _s;
+    }
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();
-        str_.append(statistic.getStatName());
+        str_.append(getStatistic().getStatName());
         str_.append(SEPARATOR);
         str_.append(status);
         return str_.toString();

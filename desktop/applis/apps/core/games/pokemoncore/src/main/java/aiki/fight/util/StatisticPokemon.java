@@ -4,22 +4,20 @@ import code.util.StringList;
 import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 
-public final class StatisticPokemon implements Displayable {
+public final class StatisticPokemon extends AbsStatisticKey implements Displayable {
 
     private static final char SEPARATOR = ';';
 
-    private final Statistic statistic;
-
-    private final String pokemon;
+    private String pokemon;
 
     public StatisticPokemon(String _str) {
         StringList elements_ = StringUtil.splitChars(_str, SEPARATOR);
-        statistic = Statistic.getStatisticByName(elements_.first());
+        setStatistic(Statistic.getStatisticByName(elements_.first()));
         pokemon = elements_.last();
     }
 
     public StatisticPokemon(Statistic _statistic, String _pokemon) {
-        statistic = _statistic;
+        setStatistic(_statistic);
         pokemon = _pokemon;
     }
 
@@ -29,25 +27,24 @@ public final class StatisticPokemon implements Displayable {
     }
 
     public boolean eq(StatisticPokemon _obj) {
-        if (statistic != _obj.statistic) {
+        if (getStatistic() != _obj.getStatistic()) {
             return false;
         }
         return StringUtil.quickEq(pokemon, _obj.pokemon);
-    }
-
-    public Statistic getStatistic() {
-        return statistic;
     }
 
     public String getPokemon() {
         return pokemon;
     }
 
-    
+    public void setPokemon(String _p) {
+        this.pokemon = _p;
+    }
+
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();
-        str_.append(statistic.getStatName());
+        str_.append(getStatistic().getStatName());
         str_.append(SEPARATOR);
         str_.append(pokemon);
         return str_.toString();

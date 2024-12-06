@@ -4,11 +4,9 @@ import code.util.StringList;
 import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 
-public final class StatisticCategory implements Displayable {
+public final class StatisticCategory extends AbsStatisticKey implements Displayable {
 
     private static final char SEPARATOR = ';';
-
-    private Statistic statistic;
 
     private String category;
 
@@ -17,12 +15,12 @@ public final class StatisticCategory implements Displayable {
 
     public StatisticCategory(String _str) {
         StringList elements_ = StringUtil.splitChars(_str, SEPARATOR);
-        statistic = Statistic.getStatisticByName(elements_.first());
+        setStatistic(Statistic.getStatisticByName(elements_.first()));
         category = elements_.last();
     }
 
     public StatisticCategory(Statistic _statistic, String _category) {
-        statistic = _statistic;
+        setStatistic(_statistic);
         category = _category;
     }
 
@@ -32,18 +30,10 @@ public final class StatisticCategory implements Displayable {
     }
 
     public boolean eq(StatisticCategory _obj) {
-        if (statistic != _obj.statistic) {
+        if (getStatistic() != _obj.getStatistic()) {
             return false;
         }
         return StringUtil.quickEq(category, _obj.category);
-    }
-
-    public Statistic getStatistic() {
-        return statistic;
-    }
-
-    public void setStatistic(Statistic _statistic) {
-        statistic = _statistic;
     }
 
     public String getCategory() {
@@ -58,7 +48,7 @@ public final class StatisticCategory implements Displayable {
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();
-        str_.append(statistic.getStatName());
+        str_.append(getStatistic().getStatName());
         str_.append(SEPARATOR);
         str_.append(category);
         return str_.toString();
