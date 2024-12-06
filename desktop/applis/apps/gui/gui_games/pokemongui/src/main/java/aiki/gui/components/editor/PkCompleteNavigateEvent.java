@@ -22,9 +22,9 @@ public final class PkCompleteNavigateEvent implements AbsActionListener {
         }
         if (count_ == 0) {
             if (diff == 1) {
-                textPane.getTextPane().down();
+                textPane.getTextPane().downAction();
             } else {
-                textPane.getTextPane().up();
+                textPane.getTextPane().upAction();
             }
             return;
         }

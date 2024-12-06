@@ -267,7 +267,7 @@ public final class MockTextAreaTest extends EquallableMockGuiUtil {
         MockTextArea t_ = new MockTextArea(16,16);
         t_.setText("hello\nworld");
         t_.select(1,1);
-        t_.down();
+        t_.downAction();
         assertEq(7,t_.getCaretPosition());
     }
     @Test
@@ -275,7 +275,7 @@ public final class MockTextAreaTest extends EquallableMockGuiUtil {
         MockTextArea t_ = new MockTextArea(16,16);
         t_.setText("hello\nworld");
         t_.select(7,7);
-        t_.up();
+        t_.upAction();
         assertEq(1,t_.getCaretPosition());
     }
     @Test
@@ -285,7 +285,23 @@ public final class MockTextAreaTest extends EquallableMockGuiUtil {
         t_.setSelectionStart(1);
         t_.setSelectionEnd(4);
         t_.select(1,4);
-        t_.enter();
+        t_.enterAction();
         assertEq("h\no",t_.getText());
+    }
+    @Test
+    public void t38() {
+        MockTextArea t_ = new MockTextArea(16,16);
+        t_.setText("hello\nworld");
+        t_.select(2,2);
+        t_.leftAction();
+        assertEq(1,t_.getCaretPosition());
+    }
+    @Test
+    public void t39() {
+        MockTextArea t_ = new MockTextArea(16,16);
+        t_.setText("hello\nworld");
+        t_.select(1,1);
+        t_.rightAction();
+        assertEq(2,t_.getCaretPosition());
     }
 }

@@ -30,7 +30,7 @@ public final class PkCompleteEnterEvent implements AbsActionListener, ListSelect
             sel_ = _input.getElement().getSelectedIndex();
         }
         if (sel_ == -1) {
-            _input.getTextPane().enter();
+            _input.getTextPane().enterAction();
             _input.getPopupMenu().setVisible(false);
             return;
         }

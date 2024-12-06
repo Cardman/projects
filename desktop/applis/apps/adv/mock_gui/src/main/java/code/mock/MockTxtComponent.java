@@ -68,13 +68,13 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
     }
 
     @Override
-    public int enter() {
+    public int enterAction() {
         replaceSelection("\n");
         return 0;
     }
 
     @Override
-    public int down() {
+    public int downAction() {
         MetaRect r_ = modelToView(getCaretPosition());
         int next_ = viewToModel(new MetaPoint(r_.getPoint().getXcoord(), r_.getPoint().getYcoord() + heightFont()));
         select(next_,next_);
@@ -82,9 +82,23 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
     }
 
     @Override
-    public int up() {
+    public int upAction() {
         MetaRect r_ = modelToView(getCaretPosition());
         int next_ = viewToModel(new MetaPoint(r_.getPoint().getXcoord(), r_.getPoint().getYcoord() - heightFont()));
+        select(next_,next_);
+        return 0;
+    }
+
+    @Override
+    public int leftAction() {
+        int next_ = getCaretPosition() - 1;
+        select(next_,next_);
+        return 0;
+    }
+
+    @Override
+    public int rightAction() {
+        int next_ = getCaretPosition() + 1;
         select(next_,next_);
         return 0;
     }

@@ -12,6 +12,7 @@ public final class GeneComponentModelText {
     private final StringList words = new StringList();
     private ScrollCustomGraphicList<String> element;
     private AbsPopupMenu popupMenu;
+    private int completeOffset;
 
     public GeneComponentModelText(AbstractProgramInfos _c) {
         this.compoFactory = _c;
@@ -36,6 +37,9 @@ public final class GeneComponentModelText {
         textPane.registerKeyboardAction(compoFactory.getCompoFactory().wrap(new PkCompleteEvent(this,_facade)), GuiConstants.VK_SPACE,GuiConstants.CTRL_DOWN_MASK);
         textPane.registerKeyboardAction(compoFactory.getCompoFactory().wrap(new PkCompleteNavigateEvent(this,1)), GuiConstants.VK_DOWN,0);
         textPane.registerKeyboardAction(compoFactory.getCompoFactory().wrap(new PkCompleteNavigateEvent(this,-1)), GuiConstants.VK_UP,0);
+        textPane.registerKeyboardAction(compoFactory.getCompoFactory().wrap(new PkCompleteNavigateCaretEvent(this,1)), GuiConstants.VK_RIGHT,0);
+        textPane.registerKeyboardAction(compoFactory.getCompoFactory().wrap(new PkCompleteNavigateCaretEvent(this,-1)), GuiConstants.VK_LEFT,0);
+        textPane.addAutoComplete(new PkCompleteTextEvent(this));
     }
 
     public ScrollCustomGraphicList<String> getElement() {
@@ -66,5 +70,13 @@ public final class GeneComponentModelText {
 
     public AbsTextPane getTextPane() {
         return textPane;
+    }
+
+    public int getCompleteOffset() {
+        return completeOffset;
+    }
+
+    public void setCompleteOffset(int _c) {
+        this.completeOffset = _c;
     }
 }

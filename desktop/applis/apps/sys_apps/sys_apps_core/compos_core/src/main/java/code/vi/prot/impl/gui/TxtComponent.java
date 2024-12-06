@@ -23,10 +23,14 @@ public abstract class TxtComponent extends CustComponent implements AbsTxtCompon
     private ActionListener enterAction;
     private ActionListener upAction;
     private ActionListener downAction;
+    private ActionListener leftAction;
+    private ActionListener rightAction;
     protected void buildStdActions() {
         enterAction = getTextComponent().getActionForKeyStroke(KeyStroke.getKeyStroke(GuiConstants.VK_ENTER, 0));
         upAction = getTextComponent().getActionForKeyStroke(KeyStroke.getKeyStroke(GuiConstants.VK_UP, 0));
         downAction = getTextComponent().getActionForKeyStroke(KeyStroke.getKeyStroke(GuiConstants.VK_DOWN, 0));
+        leftAction = getTextComponent().getActionForKeyStroke(KeyStroke.getKeyStroke(GuiConstants.VK_LEFT, 0));
+        rightAction = getTextComponent().getActionForKeyStroke(KeyStroke.getKeyStroke(GuiConstants.VK_RIGHT, 0));
     }
     public void moveCaretPosition(int _pos) {
         getTextComponent().moveCaretPosition(_pos);
@@ -45,29 +49,33 @@ public abstract class TxtComponent extends CustComponent implements AbsTxtCompon
     }
 
     @Override
-    public int enter() {
-        try {
-            enterAction.actionPerformed(new ActionEvent(getTextComponent(), ActionEvent.ACTION_PERFORMED, "", EventQueue.getMostRecentEventTime(), 0));
-            return 1;
-        } catch (Exception e) {
-            return 0;
-        }
+    public int enterAction() {
+        return action(enterAction, getTextComponent(), 0);
     }
 
     @Override
-    public int up() {
-        try {
-            upAction.actionPerformed(new ActionEvent(getTextComponent(), ActionEvent.ACTION_PERFORMED, "", EventQueue.getMostRecentEventTime(), 0));
-            return 1;
-        } catch (Exception e) {
-            return 0;
-        }
+    public int upAction() {
+        return action(upAction, getTextComponent(), 0);
     }
 
     @Override
-    public int down() {
+    public int downAction() {
+        return action(downAction, getTextComponent(), 0);
+    }
+
+    @Override
+    public int leftAction() {
+        return action(leftAction, getTextComponent(), 0);
+    }
+
+    @Override
+    public int rightAction() {
+        return action(rightAction, getTextComponent(), 0);
+    }
+
+    public static int action(ActionListener _act, JTextComponent _compo, int _modifiers) {
         try {
-            downAction.actionPerformed(new ActionEvent(getTextComponent(), ActionEvent.ACTION_PERFORMED, "", EventQueue.getMostRecentEventTime(), 0));
+            _act.actionPerformed(new ActionEvent(_compo, ActionEvent.ACTION_PERFORMED, "", EventQueue.getMostRecentEventTime(), _modifiers));
             return 1;
         } catch (Exception e) {
             return 0;
