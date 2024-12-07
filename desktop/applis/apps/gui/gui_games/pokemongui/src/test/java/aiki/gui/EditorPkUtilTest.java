@@ -11,15 +11,15 @@ import org.junit.Test;
 public final class EditorPkUtilTest extends EquallableAikiGuiUtil {
     @Test
     public void buildCategoryMults() {
-        CustList<EditedCrudPair<CategoryMult, Rate>> tr_ = new CustList<EditedCrudPair<CategoryMult, Rate>>();
-        tr_.add(new EditedCrudPair<CategoryMult, Rate>(new CategoryMult("",(short)0), Rate.zero()));
-        assertEq(1,ConverterCommonMapUtil.buildCategoryMults(tr_).size());
+        CategoryMults tr_ = new CategoryMults();
+        tr_.addEntry(new CategoryMult("",(short)0), Rate.zero());
+        assertEq(1,ConverterCommonMapUtil.copyCategoryMults(tr_).size());
     }
     @Test
     public void buildStatisticCategoryByte() {
-        CustList<EditedCrudPair<StatisticCategory, Byte>> tr_ = new CustList<EditedCrudPair<StatisticCategory, Byte>>();
-        tr_.add(new EditedCrudPair<StatisticCategory, Byte>(new StatisticCategory(Statistic.SPEED,""), (byte)0));
-        assertEq(1,ConverterCommonMapUtil.buildStatisticCategoryByte(tr_).size());
+        StatisticCategoryByte tr_ = new StatisticCategoryByte();
+        tr_.addEntry(new StatisticCategory(Statistic.SPEED,""), (byte)0);
+        assertEq(1,ConverterCommonMapUtil.copyStatisticCategoryByte(tr_).size());
     }
     @Test
     public void buildStatisticCategoryRate() {

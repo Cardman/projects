@@ -64,7 +64,7 @@ public final class GeneComponentModelSubscribeEffectCombo implements GeneCompone
 
     @Override
     public void value(ListEffectCombo _value) {
-        EffectCombo combo_ = _value.getCombo();
+        EffectCombo combo_ = ConverterCommonMapUtil.copyEffectCombo(_value.getCombo());
         multEvtRateSecEff.valueRate(combo_.getMultEvtRateSecEff());
         rankIncrementNbRound.valueInt(combo_.getRankIncrementNbRound());
         repeatedRoundsLaw.setupValues(new MapToEntriesListUtil<Rate,LgInt>().build(combo_.getRepeatedRoundsLaw()));

@@ -379,6 +379,8 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         ((GeneComponentModelSubscribeLevelMove)levMoves_.getGenePair().getKey()).getMove().setupValue(M_3);
         tryClick(levMoves_.getValidAddEdit());
         tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryClick(c_.getCancel());
         assertEq(3,facade_.getData().getPokemon(P_1).getLevMoves().size());
     }
     @Test
@@ -401,6 +403,8 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(levMoves_.getAllButtons().get(0));
         tryClick(levMoves_.getCancel());
         tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryClick(c_.getCancel());
         assertEq(1,facade_.getData().getPokemon(P_1).getEvolutions().size());
     }
     @Test

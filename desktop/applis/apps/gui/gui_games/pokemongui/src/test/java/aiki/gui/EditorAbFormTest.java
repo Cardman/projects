@@ -164,6 +164,8 @@ public final class EditorAbFormTest extends InitEditorPkForm {
         tryClick(g_.getEffectSending().getCrud().getAllButtons().get(1));
         tryClick(g_.getEffectSending().getCrud().getCancel());
         tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryClick(c_.getCancel());
         assertTrue(facade_.getData().getAbilities().getVal(A_1).getEffectSending().get(0).isWithEffect());
         assertTrue(facade_.getData().getAbilities().getVal(A_1).getEffectSending().get(0).getCopyingAbility());
         assertTrue(facade_.getData().getAbilities().getVal(A_1).getEffectSending().get(0).getDisableWeather());
@@ -186,6 +188,8 @@ public final class EditorAbFormTest extends InitEditorPkForm {
         tryClick(g_.getEffectEndRound().getCrud().getAllButtons().get(0));
         tryClick(g_.getEffectEndRound().getCrud().getCancel());
         tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryClick(c_.getCancel());
         assertEq("_",facade_.getData().getAbilities().getVal(A_1).getEffectEndRound().get(0).getFailEndRound());
     }
     @Test
@@ -320,6 +324,8 @@ public final class EditorAbFormTest extends InitEditorPkForm {
         g_.getImmuStatusTypes().getCrud().getValue().setupValue(new StringList(S_1));
         tryClick(g_.getImmuStatusTypes().getCrud().getValidAddEdit());
         tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryClick(c_.getCancel());
         assertEq(1,facade_.getData().getAbilities().getVal(A_1).getImmuStatusTypes().size());
         assertEq(T_1,facade_.getData().getAbilities().getVal(A_1).getImmuStatusTypes().getKey(0));
         assertEq(1,facade_.getData().getAbilities().getVal(A_1).getImmuStatusTypes().getValue(0).size());
@@ -339,6 +345,8 @@ public final class EditorAbFormTest extends InitEditorPkForm {
         g_.getImmuLowStatisTypes().getCrud().getValue().setupValue(new IdList<Statistic>(Statistic.SPEED));
         tryClick(g_.getImmuLowStatisTypes().getCrud().getValidAddEdit());
         tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryClick(c_.getCancel());
         assertEq(1,facade_.getData().getAbilities().getVal(A_1).getImmuLowStatisTypes().size());
         assertEq(T_1,facade_.getData().getAbilities().getVal(A_1).getImmuLowStatisTypes().getKey(0));
         assertEq(1,facade_.getData().getAbilities().getVal(A_1).getImmuLowStatisTypes().getValue(0).size());
@@ -386,6 +394,8 @@ public final class EditorAbFormTest extends InitEditorPkForm {
         tryClick(g_.getMultStatIfStatutRank().getCrud().getAllButtons().get(0));
         tryClick(g_.getMultStatIfStatutRank().getCrud().getCancel());
         tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryClick(c_.getCancel());
         assertEq(2,facade_.getData().getAbilities().getVal(A_1).getMultStatIfStatutRank().size());
         assertEq(S_1,facade_.getData().getAbilities().getVal(A_1).getMultStatIfStatutRank().getKey(0).getStatus());
         assertEq(Statistic.SPEED,facade_.getData().getAbilities().getVal(A_1).getMultStatIfStatutRank().getKey(0).getStatistic());
@@ -438,6 +448,8 @@ public final class EditorAbFormTest extends InitEditorPkForm {
         tryClick(g_.getChangingBoostTypes().getCrud().getAllButtons().get(0));
         tryClick(g_.getChangingBoostTypes().getCrud().getCancel());
         tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryClick(c_.getCancel());
         assertEq(1,facade_.getData().getAbilities().getVal(A_1).getChangingBoostTypes().size());
         assertEq(T_1,facade_.getData().getAbilities().getVal(A_1).getChangingBoostTypes().getKey(0));
         assertEq(T_2,facade_.getData().getAbilities().getVal(A_1).getChangingBoostTypes().getValue(0).getType());
@@ -463,6 +475,8 @@ public final class EditorAbFormTest extends InitEditorPkForm {
         tryClick(g_.getHealHpByTypeIfWeather().getCrud().getAllButtons().get(0));
         tryClick(g_.getHealHpByTypeIfWeather().getCrud().getCancel());
         tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryClick(c_.getCancel());
         assertEq(2,facade_.getData().getAbilities().getVal(A_1).getHealHpByTypeIfWeather().size());
         assertEq(M_1,facade_.getData().getAbilities().getVal(A_1).getHealHpByTypeIfWeather().getKey(0).getWeather());
         assertEq(T_1,facade_.getData().getAbilities().getVal(A_1).getHealHpByTypeIfWeather().getKey(0).getType());

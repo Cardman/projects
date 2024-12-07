@@ -135,7 +135,7 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
     public void value(EditedCrudPair<String,PokemonData> _v) {
         getGeneComponentModelSelectKey().setupValue(_v.getKey());
         updateSelector();
-        updateForm(_v.getValue());
+        updateForm(ConverterCommonMapUtil.copyPokemonData(_v.getValue()));
     }
 
     private void updateForm(PokemonData _v) {

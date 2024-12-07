@@ -21,7 +21,7 @@ public final class GeneComponentModelSubscribeEffectEndRoundStatus implements Ab
 
     @Override
     public void setupValue(EffectEndRoundStatus _value) {
-        crud.valueEffect(_value);
+        crud.valueEffect(ConverterCommonMapUtil.copyEffectEndRoundStatus(_value));
     }
 
     @Override

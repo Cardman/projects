@@ -3,12 +3,20 @@ package aiki.gui.components.editor;
 import aiki.comparators.*;
 import aiki.db.*;
 import aiki.facade.*;
+import aiki.fight.abilities.*;
+import aiki.fight.effects.*;
 import aiki.fight.enums.*;
+import aiki.fight.items.*;
+import aiki.fight.moves.*;
+import aiki.fight.moves.effects.*;
 import aiki.fight.moves.enums.*;
+import aiki.fight.pokemon.*;
 import aiki.fight.pokemon.enums.*;
 import aiki.fight.pokemon.evolution.*;
+import aiki.fight.status.*;
+import aiki.fight.status.effects.*;
 import aiki.fight.util.*;
-import aiki.map.levels.enums.EnvironmentType;
+import aiki.map.levels.enums.*;
 import aiki.map.pokemon.enums.*;
 import code.gui.*;
 import code.gui.initialize.*;
@@ -167,9 +175,1160 @@ public final class ConverterCommonMapUtil {
         }
         return i_;
     }
+    public static AbilityData copyAbilityData(AbilityData _e){
+        AbilityData cp_ = new AbilityData();
+        cp_.setBreakFoeImmune(copyListTypesDuo(_e.getBreakFoeImmune()));
+        cp_.setForbidUseBerryAgainstFoes(_e.isForbidUseBerryAgainstFoes());
+        cp_.setChgtTypeByWeather(new StringMap<String>(_e.getChgtTypeByWeather()));
+        cp_.setChgtTypeByDamage(_e.isChgtTypeByDamage());
+        cp_.setRecoilDamageFoe(new Rate(_e.getRecoilDamageFoe()));
+        cp_.setDecreaseNecStepsHatch(_e.getDecreaseNecStepsHatch());
+        cp_.setDivideStatusRound(copyStringMapRate(_e.getDivideStatusRound()));
+        cp_.setHealHpByWeather(copyStringMapRate(_e.getHealHpByWeather()));
+        cp_.setIgnAbility(new StringList(_e.getIgnAbility()));
+        cp_.setIgnFoeTeamMove(new StringList(_e.getIgnFoeTeamMove()));
+        cp_.setIgnFoeStatisBoost(_e.isIgnFoeStatisBoost());
+        cp_.setImmuMove(new StringList(_e.getImmuMove()));
+        cp_.setImmuLowStat(new IdList<Statistic>(_e.getImmuLowStat()));
+        cp_.setImmuLowStatIfStatus(copyListStatisticStatus(_e.getImmuLowStatIfStatus()));
+        cp_.setImmuCh(_e.isImmuCh());
+        cp_.setImmuWeather(new StringList(_e.getImmuWeather()));
+        cp_.setImmuDamageTrappingMoves(_e.isImmuDamageTrappingMoves());
+        cp_.setImmuDamageAllyMoves(_e.isImmuDamageAllyMoves());
+        cp_.setImmuDamageRecoil(_e.isImmuDamageRecoil());
+        cp_.setImmuAbility(new StringList(_e.getImmuAbility()));
+        cp_.setImmuStatusBeginRound(new StringList(_e.getImmuStatusBeginRound()));
+        cp_.setImmuRechargeRound(_e.isImmuRechargeRound());
+        cp_.setImmuStatus(copyStringMapStringList(_e.getImmuStatus()));
+        cp_.setSlowing(_e.isSlowing());
+        cp_.setMultDamageFoe(copyStringMapRate(_e.getMultDamageFoe()));
+        cp_.setMultDamageCh(new Rate(_e.getMultDamageCh()));
+        cp_.setMultAllyDamage(new Rate(_e.getMultAllyDamage()));
+        cp_.setMultSufferedDamageSuperEff(new Rate(_e.getMultSufferedDamageSuperEff()));
+        cp_.setImmuSufferedDamageLowEff(_e.isImmuSufferedDamageLowEff());
+        cp_.setMultEvtRateCh(new Rate(_e.getMultEvtRateCh()));
+        cp_.setCancelSecEffectOther(_e.isCancelSecEffectOther());
+        cp_.setCancelSecEffectOwner(_e.isCancelSecEffectOwner());
+        cp_.setMultEvtRateSecEffectOwner(new Rate(_e.getMultEvtRateSecEffectOwner()));
+        cp_.setMultPower(_e.getMultPower());
+        cp_.setMultDamage(_e.getMultDamage());
+        cp_.setMultStab(new Rate(_e.getMultStab()));
+        cp_.setBonusStatRank(new IdMap<Statistic,Byte>(_e.getBonusStatRank()));
+        cp_.setBoostStatRankProtected(new IdMap<Statistic,Byte>(_e.getBoostStatRankProtected()));
+        cp_.setBoostStatRankEndRound(new IdMap<Statistic,Byte>(_e.getBoostStatRankEndRound()));
+        cp_.setMultStatAlly(new IdMap<Statistic,Rate>(_e.getMultStatAlly()));
+        cp_.setMultStatIfKoFoe(new IdMap<Statistic,Byte>(_e.getMultStatIfKoFoe()));
+        cp_.setMultStatIfLowStat(new IdMap<Statistic,Byte>(_e.getMultStatIfLowStat()));
+        cp_.setMultStatIfCat(copyStatisticCategoryRate(_e.getMultStatIfCat()));
+        cp_.setMultStatIfStatutRank(copyStatisticStatusList(_e.getMultStatIfStatutRank()));
+        cp_.setMultStatIfDamageCat(copyStatisticCategoryByte(_e.getMultStatIfDamageCat()));
+        cp_.setMultStatIfDamgeType(copyStatisticTypeByte(_e.getMultStatIfDamgeType()));
+        cp_.setMultStat(new IdMap<Statistic,String>(_e.getMultStat()));
+        cp_.setInflictingDamageInsteadOfSuffering(_e.isInflictingDamageInsteadOfSuffering());
+        cp_.setMultVarBoost(new Rate(_e.getMultVarBoost()));
+        cp_.setNbUsedPp(_e.getNbUsedPp());
+        cp_.setNbHits(_e.isNbHits());
+        cp_.setBreakProtection(_e.isBreakProtection());
+        cp_.setPlate(_e.isPlate());
+        cp_.setHealedStatusBySwitch(_e.isHealedStatusBySwitch());
+        cp_.setHealedHpRateBySwitch(new Rate(_e.getHealedHpRateBySwitch()));
+        cp_.setIncreasedPrio(new StringMap<Short>(_e.getIncreasedPrio()));
+        cp_.setIncreasedPrioTypes(new StringMap<Short>(_e.getIncreasedPrioTypes()));
+        cp_.setMaxStatisticsIfCh(new IdList<Statistic>(_e.getMaxStatisticsIfCh()));
+        cp_.setSingleStatus(copyMonteCarloString(_e.getSingleStatus()));
+        cp_.setAchievedDisappearedPk(_e.isAchievedDisappearedPk());
+        cp_.setForwardStatus(new StringMap<String>(_e.getForwardStatus()));
+        cp_.setFailStatus(new StringMap<String>(_e.getFailStatus()));
+        cp_.setTypeForMoves(_e.getTypeForMoves());
+        cp_.setMaxHpForUsingBerry(new Rate(_e.getMaxHpForUsingBerry()));
+        cp_.setMumy(_e.isMumy());
+        cp_.setHealHpByTypeIfWeather(copyWeatherTypes(_e.getHealHpByTypeIfWeather()));
+        cp_.setImmuMoveTypesByWeather(copyStringMapStringList(_e.getImmuMoveTypesByWeather()));
+        cp_.setEffectEndRound(copyEffectEndRoundList(_e.getEffectEndRound()));
+        cp_.setEffectSending(copyEffectWhileSendingWithStatisticList(_e.getEffectSending()));
+        cp_.setChangingBoostTypes(copyStringMapTypeDamageBoost(_e.getChangingBoostTypes()));
+        cp_.setImmuAllyFromMoves(new StringList(_e.getImmuAllyFromMoves()));
+        cp_.setImmuStatusTypes(copyStringMapStringList(_e.getImmuStatusTypes()));
+        cp_.setImmuLowStatisTypes(copyStringMapListStatistic(_e.getImmuLowStatisTypes()));
+        cp_.setLowStatFoeHit(new IdMap<Statistic,Byte>(_e.getLowStatFoeHit()));
+        cp_.setCopyMovesTypes(_e.isCopyMovesTypes());
+        cp_.setMultPowerMovesTypesGlobal(copyStringMapRate(_e.getMultPowerMovesTypesGlobal()));
+        cp_.setReverseEffectsPowerMovesTypesGlobal(_e.isReverseEffectsPowerMovesTypesGlobal());
+        cp_.setHealHpWhileUsingBerry(new Rate(_e.getHealHpWhileUsingBerry()));
+        cp_.setTakeItemByDamagingMove(_e.isTakeItemByDamagingMove());
+        cp_.setGiveItemToAllyHavingUsed(_e.isGiveItemToAllyHavingUsed());
+        return cp_;
+    }
+    public static CustList<EffectEndRound> copyEffectEndRoundList(CustList<EffectEndRound> _ls) {
+        CustList<EffectEndRound> cp_= new CustList<EffectEndRound>();
+        for (EffectEndRound f:_ls){
+            cp_.add(copyEffectEndRound(f));
+        }
+        return cp_;
+    }
+    public static CustList<EffectWhileSendingWithStatistic> copyEffectWhileSendingWithStatisticList(CustList<EffectWhileSendingWithStatistic> _ls) {
+        CustList<EffectWhileSendingWithStatistic> cp_= new CustList<EffectWhileSendingWithStatistic>();
+        for (EffectWhileSendingWithStatistic f:_ls){
+            cp_.add(copyEffectWhileSendingWithStatistic(f));
+        }
+        return cp_;
+    }
+
+//    public static Combos copyCombos(Combos _e){
+//        Combos cp_ = new Combos();
+//        cp_.setEffects(new ListEffectCombos());
+//        for (ListEffectCombo f:_e.getEffects()){
+//            cp_.getEffects().add(new ListEffectCombo(f.getList(),copyEffectCombo(f.getCombo())));
+//        }
+//        return cp_;
+//    }
+
+    public static EffectWhileSendingWithStatistic copyEffectWhileSendingWithStatistic(EffectWhileSendingWithStatistic _e){
+        EffectWhileSendingWithStatistic cp_ = new EffectWhileSendingWithStatistic();
+        cp_.setEffect(copyEffectStatistic(_e.getEffect()));
+        cp_.setWithEffect(_e.isWithEffect());
+        cp_.setDisableWeather(_e.getDisableWeather());
+        cp_.setEnabledWeather(_e.getEnabledWeather());
+        cp_.setCopyingAbility(_e.getCopyingAbility());
+        cp_.setMultWeight(new Rate(_e.getMultWeight()));
+        return cp_;
+    }
+
+    public static Ball copyBall(Ball _e){
+        Ball cp_ = new Ball();
+        cp_.setCatchingRate(_e.getCatchingRate());
+        copyItem(cp_,_e);
+        return cp_;
+    }
+
+    public static Berry copyBerry(Berry _e){
+        Berry cp_ = new Berry();
+        cp_.setHealHpBySuperEffMove(new Rate(_e.getHealHpBySuperEffMove()));
+        cp_.setLawForAttackFirst(_e.getLawForAttackFirst());
+        cp_.setMultFoesDamage(copyStringMapEfficiencyRate(_e.getMultFoesDamage()));
+        cp_.setMultStat(copyIdMapStatisticBoostHpRate(_e.getMultStat()));
+        cp_.setWithoutFail(_e.getWithoutFail());
+        cp_.setHealPp(_e.getHealPp());
+        cp_.setHealHp(new Rate(_e.getHealHp()));
+        cp_.setMaxHpHealingHp(new Rate(_e.getMaxHpHealingHp()));
+        cp_.setHealStatus(new StringList(_e.getHealStatus()));
+        cp_.setHealHpRate(new Rate(_e.getHealHpRate()));
+        cp_.setMaxHpHealingHpRate(new Rate(_e.getMaxHpHealingHpRate()));
+        cp_.setDamageRateRecoilFoe(copyStringMapRate(_e.getDamageRateRecoilFoe()));
+        cp_.setCategoryBoosting(_e.getCategoryBoosting());
+        cp_.setBoostStatis(new IdMap<Statistic,Byte>(_e.getBoostStatis()));
+        copyItem(cp_,_e);
+        return cp_;
+    }
+
+    public static Boost copyBoost(Boost _e){
+        Boost cp_ = new Boost();
+        cp_.setWinPp(new Rate(_e.getWinPp()));
+        cp_.setHappiness(new StringMap<Short>(_e.getHappiness()));
+        cp_.setEvs(new IdMap<Statistic,Short>(_e.getEvs()));
+        copyItem(cp_,_e);
+        return cp_;
+    }
+
+    public static EvolvingItem copyEvolvingItem(EvolvingItem _e){
+        EvolvingItem cp_ = new EvolvingItem();
+        copyItem(cp_,_e);
+        return cp_;
+    }
+
+    public static EvolvingStone copyEvolvingStone(EvolvingStone _e){
+        EvolvingStone cp_ = new EvolvingStone();
+        copyItem(cp_,_e);
+        return cp_;
+    }
+
+    public static Fossil copyFossil(Fossil _e){
+        Fossil cp_ = new Fossil();
+        cp_.setPokemon(_e.getPokemon());
+        cp_.setLevel(_e.getLevel());
+        copyItem(cp_,_e);
+        return cp_;
+    }
+
+    public static HealingHp copyHealingHp(HealingHp _e){
+        HealingHp cp_ = new HealingHp();
+        cp_.setHp(new Rate(_e.getHp()));
+        copyHealingItem(cp_,_e);
+        return cp_;
+    }
+
+    public static HealingHpStatus copyHealingHpStatus(HealingHpStatus _e){
+        HealingHpStatus cp_ = new HealingHpStatus();
+        cp_.setHealedHpRate(new Rate(_e.getHealedHpRate()));
+        copyHealingStatus(cp_,_e);
+        return cp_;
+    }
+
+    public static void copyHealingItem(HealingItem _cp,HealingItem _e){
+        _cp.setHappiness(new StringMap<Short>(_e.getHappiness()));
+        _cp.setHealingTeam(_e.getHealingTeam());
+        copyItem(_cp,_e);
+    }
+
+    public static HealingPp copyHealingPp(HealingPp _e){
+        HealingPp cp_ = new HealingPp();
+        cp_.setHealedMovePp(_e.getHealedMovePp());
+        cp_.setHealingAllMovesFullpp(_e.getHealingAllMovesFullpp());
+        cp_.setHealingAllMovesPp(_e.isHealingAllMovesPp());
+        cp_.setHealingMoveFullpp(_e.getHealingMoveFullpp());
+        copyHealingItem(cp_,_e);
+        return cp_;
+    }
+
+    public static HealingSimpleItem copyHealingSimpleItem(HealingSimpleItem _e){
+        HealingSimpleItem cp_ = new HealingSimpleItem();
+        copyHealingItem(cp_,_e);
+        return cp_;
+    }
+
+    public static HealingSimpleStatus copyHealingSimpleStatus(HealingSimpleStatus _e){
+        HealingSimpleStatus cp_ = new HealingSimpleStatus();
+        copyHealingStatus(cp_,_e);
+        return cp_;
+    }
+
+    public static void copyHealingStatus(HealingStatus _cp,HealingStatus _e){
+        _cp.setStatus(new StringList(_e.getStatus()));
+        _cp.setHealingKo(_e.getHealingKo());
+        copyHealingItem(_cp,_e);
+    }
+
+    public static void copyItem(Item _cp,Item _e){
+        _cp.setPrice(_e.getPrice());
+    }
+    public static Item copyItem(Item _e){
+        if (_e instanceof Ball){
+            return copyBall((Ball)_e);
+        }
+        if (_e instanceof Berry){
+            return copyBerry((Berry)_e);
+        }
+        if (_e instanceof Boost){
+            return copyBoost((Boost)_e);
+        }
+        if (_e instanceof EvolvingItem){
+            return copyEvolvingItem((EvolvingItem)_e);
+        }
+        if (_e instanceof EvolvingStone){
+            return copyEvolvingStone((EvolvingStone)_e);
+        }
+        if (_e instanceof Fossil){
+            return copyFossil((Fossil)_e);
+        }
+        if (_e instanceof HealingHp){
+            return copyHealingHp((HealingHp)_e);
+        }
+        if (_e instanceof HealingHpStatus){
+            return copyHealingHpStatus((HealingHpStatus)_e);
+        }
+        if (_e instanceof HealingPp){
+            return copyHealingPp((HealingPp)_e);
+        }
+        if (_e instanceof HealingSimpleItem){
+            return copyHealingSimpleItem((HealingSimpleItem)_e);
+        }
+        if (_e instanceof HealingSimpleStatus){
+            return copyHealingSimpleStatus((HealingSimpleStatus)_e);
+        }
+        if (_e instanceof ItemForBattle){
+            return copyItemForBattle((ItemForBattle)_e);
+        }
+        if (_e instanceof Repel){
+            return copyRepel((Repel)_e);
+        }
+        return copySellingItem((SellingItem)_e);
+    }
+
+    public static ItemForBattle copyItemForBattle(ItemForBattle _e){
+        ItemForBattle cp_ = new ItemForBattle();
+        cp_.setTypesPk(new StringList(_e.getTypesPk()));
+        cp_.setCancelImmuType(_e.getCancelImmuType());
+        cp_.setAgainstEvo(_e.getAgainstEvo());
+        cp_.setAttackLast(_e.getAttackLast());
+        cp_.setBoostExp(_e.getBoostExp());
+        cp_.setImmuStatus(new StringList(_e.getImmuStatus()));
+        cp_.setImmuLowStatis(_e.getImmuLowStatis());
+        cp_.setIncreasingMaxNbRoundTrap(new StringMap<Short>(_e.getIncreasingMaxNbRoundTrap()));
+        cp_.setAttacksSoon(_e.getAttacksSoon());
+        cp_.setSynchroStatus(new StringList(_e.getSynchroStatus()));
+        cp_.setFailStatus(new StringMap<String>(_e.getFailStatus()));
+        cp_.setProtectAgainstKo(new Rate(_e.getProtectAgainstKo()));
+        cp_.setProtectAgainstKoIfFullHp(new Rate(_e.getProtectAgainstKoIfFullHp()));
+        cp_.setDrainedHpByDamageRate(new Rate(_e.getDrainedHpByDamageRate()));
+        cp_.setWinEvFight(new IdMap<Statistic,Short>(_e.getWinEvFight()));
+        cp_.setLawForAttackFirst(copyMonteCarloBool(_e.getLawForAttackFirst()));
+        cp_.setMultTrappingDamage(new Rate(_e.getMultTrappingDamage()));
+        cp_.setMultWinningHappiness(new Rate(_e.getMultWinningHappiness()));
+        cp_.setMultWinningEv(new Rate(_e.getMultWinningEv()));
+        cp_.setMultWinningExp(new Rate(_e.getMultWinningExp()));
+        cp_.setMultPower(_e.getMultPower());
+        cp_.setMultDamage(_e.getMultDamage());
+        cp_.setMultDrainedHp(new Rate(_e.getMultDrainedHp()));
+        cp_.setDamageRecoil(new Rate(_e.getDamageRecoil()));
+        cp_.setMultStatRank(new IdMap<Statistic,Byte>(_e.getMultStatRank()));
+        cp_.setMultStatPokemonRank(copyStatisticPokemons(_e.getMultStatPokemonRank()));
+        cp_.setMultStat(new IdMap<Statistic,String>(_e.getMultStat()));
+        cp_.setIncreasingMaxNbRoundGlobalMove(new StringMap<Short>(_e.getIncreasingMaxNbRoundGlobalMove()));
+        cp_.setIncreasingMaxNbRoundTeamMove(new StringMap<Short>(_e.getIncreasingMaxNbRoundTeamMove()));
+        cp_.setImmuMoves(new StringList(_e.getImmuMoves()));
+        cp_.setHatching(new StringList(_e.getHatching()));
+        cp_.setImmuTypes(new StringList(_e.getImmuTypes()));
+        cp_.setImmuWeather(new StringList(_e.getImmuWeather()));
+        cp_.setBoostStatisSuperEff(new IdMap<Statistic,Byte>(_e.getBoostStatisSuperEff()));
+        cp_.setBoostStatisTypes(copyStringMapMapStatistic(_e.getBoostStatisTypes()));
+        cp_.setEffectEndRound(copyEffectEndRoundList(_e.getEffectEndRound()));
+        cp_.setEffectSending(copyEffectWhileSendingWithStatisticList(_e.getEffectSending()));
+        copyItem(cp_,_e);
+        return cp_;
+    }
+
+    public static Repel copyRepel(Repel _e){
+        Repel cp_ = new Repel();
+        cp_.setSteps(_e.getSteps());
+        copyItem(cp_,_e);
+        return cp_;
+    }
+
+    public static SellingItem copySellingItem(SellingItem _e){
+        SellingItem cp_ = new SellingItem();
+        copyItem(cp_,_e);
+        return cp_;
+    }
+
+    public static DamagingMoveData copyDamagingMoveData(DamagingMoveData _e){
+        DamagingMoveData cp_ = new DamagingMoveData();
+        cp_.setCategory(_e.getCategory());
+        cp_.setDirect(_e.isDirect());
+        cp_.setCannotKo(_e.getCannotKo());
+        cp_.setStoppableMoveKoSingle(_e.getStoppableMoveKoSingle());
+        copyMoveData(cp_,_e);
+        return cp_;
+    }
+
+    public static void copyEffect(Effect _cp,Effect _e){
+        _cp.setTargetChoice(_e.getTargetChoice());
+        _cp.setFail(_e.getFail());
+        _cp.setRequiredSuccessfulEffects(new Ints(_e.getRequiredSuccessfulEffects()));
+    }
+    public static Effect copyEffect(Effect _e){
+        if (_e instanceof EffectAccuracy){
+            return copyEffectAccuracy((EffectAccuracy)_e);
+        }
+        if (_e instanceof EffectAlly){
+            return copyEffectAlly((EffectAlly)_e);
+        }
+        if (_e instanceof EffectBatonPass){
+            return copyEffectBatonPass((EffectBatonPass)_e);
+        }
+        if (_e instanceof EffectClone){
+            return copyEffectClone((EffectClone)_e);
+        }
+        if (_e instanceof EffectCommonStatistics){
+            return copyEffectCommonStatistics((EffectCommonStatistics)_e);
+        }
+        if (_e instanceof EffectCopyFighter){
+            return copyEffectCopyFighter((EffectCopyFighter)_e);
+        }
+        if (_e instanceof EffectCopyMove){
+            return copyEffectCopyMove((EffectCopyMove)_e);
+        }
+        if (_e instanceof EffectCounterAttack){
+            return copyEffectCounterAttack((EffectCounterAttack)_e);
+        }
+        if (_e instanceof EffectDamage){
+            return copyEffectDamage((EffectDamage)_e);
+        }
+        if (_e instanceof EffectDamageRate){
+            return copyEffectDamageRate((EffectDamageRate)_e);
+        }
+        return copyEffect2(_e);
+    }
+
+    private static Effect copyEffect2(Effect _e) {
+        if (_e instanceof EffectEndRound){
+            return copyEffectEndRound((EffectEndRound) _e);
+        }
+        if (_e instanceof EffectFullHpRate){
+            return copyEffectFullHpRate((EffectFullHpRate) _e);
+        }
+        if (_e instanceof EffectGlobal){
+            return copyEffectGlobal((EffectGlobal) _e);
+        }
+        if (_e instanceof EffectInvoke){
+            return copyEffectInvoke((EffectInvoke) _e);
+        }
+        if (_e instanceof EffectMultSufferedMovePower){
+            return copyEffectMultSufferedMovePower((EffectMultSufferedMovePower) _e);
+        }
+        if (_e instanceof EffectMultUsedMovePower){
+            return copyEffectMultUsedMovePower((EffectMultUsedMovePower) _e);
+        }
+        if (_e instanceof EffectOrder){
+            return copyEffectOrder((EffectOrder) _e);
+        }
+        if (_e instanceof EffectProtectFromTypes){
+            return copyEffectProtectFromTypes((EffectProtectFromTypes) _e);
+        }
+        if (_e instanceof EffectProtection){
+            return copyEffectProtection((EffectProtection) _e);
+        }
+        if (_e instanceof EffectRemainedHpRate){
+            return copyEffectRemainedHpRate((EffectRemainedHpRate) _e);
+        }
+        if (_e instanceof EffectRestriction){
+            return copyEffectRestriction((EffectRestriction) _e);
+        }
+        if (_e instanceof EffectStatistic){
+            return copyEffectStatistic((EffectStatistic) _e);
+        }
+        return copyEffect1(_e);
+    }
+
+    private static Effect copyEffect1(Effect _e) {
+        if (_e instanceof EffectStatus){
+            return copyEffectStatus((EffectStatus) _e);
+        }
+        if (_e instanceof EffectSwitchAbilities){
+            return copyEffectSwitchAbilities((EffectSwitchAbilities) _e);
+        }
+        if (_e instanceof EffectSwitchItems){
+            return copyEffectSwitchItems((EffectSwitchItems) _e);
+        }
+        if (_e instanceof EffectSwitchMoveTypes){
+            return copyEffectSwitchMoveTypes((EffectSwitchMoveTypes) _e);
+        }
+        if (_e instanceof EffectSwitchPointView){
+            return copyEffectSwitchPointView((EffectSwitchPointView) _e);
+        }
+        if (_e instanceof EffectSwitchPosition){
+            return copyEffectSwitchPosition((EffectSwitchPosition) _e);
+        }
+        if (_e instanceof EffectSwitchTypes){
+            return copyEffectSwitchTypes((EffectSwitchTypes) _e);
+        }
+        if (_e instanceof EffectTeam){
+            return copyEffectTeam((EffectTeam) _e);
+        }
+        if (_e instanceof EffectTeamWhileSendFoe){
+            return copyEffectTeamWhileSendFoe((EffectTeamWhileSendFoe) _e);
+        }
+        if (_e instanceof EffectUnprotectFromTypes){
+            return copyEffectUnprotectFromTypes((EffectUnprotectFromTypes) _e);
+        }
+        if (_e instanceof EffectVarPP){
+            return copyEffectVarPP((EffectVarPP) _e);
+        }
+        return copyEffectWinMoney((EffectWinMoney) _e);
+    }
+
+    public static EffectAccuracy copyEffectAccuracy(EffectAccuracy _e){
+        EffectAccuracy cp_ = new EffectAccuracy();
+        copyEffect(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectAlly copyEffectAlly(EffectAlly _e){
+        EffectAlly cp_ = new EffectAlly();
+        cp_.setMultAllyDamage(new Rate(_e.getMultAllyDamage()));
+        copyEffect(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectBatonPass copyEffectBatonPass(EffectBatonPass _e){
+        EffectBatonPass cp_ = new EffectBatonPass();
+        copyEffect(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectClone copyEffectClone(EffectClone _e){
+        EffectClone cp_ = new EffectClone();
+        cp_.setHpRateClone(new Rate(_e.getHpRateClone()));
+        copyEffect(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectCombo copyEffectCombo(EffectCombo _e){
+        EffectCombo cp_ = new EffectCombo();
+        cp_.setMultEvtRateSecEff(new Rate(_e.getMultEvtRateSecEff()));
+        cp_.setRepeatedRoundsLaw(_e.getRepeatedRoundsLaw().copy());
+        cp_.setRankIncrementNbRound(_e.getRankIncrementNbRound());
+        cp_.setEffectEndRound(new CustList<EffectEndRoundFoe>());
+        for (EffectEndRoundFoe f:_e.getEffectEndRound()){
+            cp_.getEffectEndRound().add(copyEffectEndRoundFoe(f));
+        }
+        cp_.setTeamMove(new CustList<EffectTeam>());
+        for (EffectTeam f:_e.getTeamMove()){
+            cp_.getTeamMove().add(copyEffectTeam(f));
+        }
+        return cp_;
+    }
+
+    public static EffectCommonStatistics copyEffectCommonStatistics(EffectCommonStatistics _e){
+        EffectCommonStatistics cp_ = new EffectCommonStatistics();
+        cp_.setCommonValue(new IdMap<Statistic,String>(_e.getCommonValue()));
+        copyEffect(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectCopyFighter copyEffectCopyFighter(EffectCopyFighter _e){
+        EffectCopyFighter cp_ = new EffectCopyFighter();
+        cp_.setPpForMoves(_e.getPpForMoves());
+        copyEffect(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectCopyMove copyEffectCopyMove(EffectCopyMove _e){
+        EffectCopyMove cp_ = new EffectCopyMove();
+        cp_.setCopyingMoveForUser(_e.getCopyingMoveForUser());
+        cp_.setCopyingMoveForUserDef(_e.getCopyingMoveForUserDef());
+        cp_.setMovesNotToBeCopied(new StringList(_e.getMovesNotToBeCopied()));
+        copyEffect(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectCounterAttack copyEffectCounterAttack(EffectCounterAttack _e){
+        EffectCounterAttack cp_ = new EffectCounterAttack();
+        cp_.setSufferingDamageTypes(copyStringMapRate(_e.getSufferingDamageTypes()));
+        cp_.setDroppedStatDirectMove(new IdMap<Statistic,Byte>(_e.getDroppedStatDirectMove()));
+        cp_.setSufferingDamageDirectMove(new Rate(_e.getSufferingDamageDirectMove()));
+        cp_.setProtectFail(_e.getProtectFail());
+        cp_.setCounterFail(_e.getCounterFail());
+        copyEffect(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectDamage copyEffectDamage(EffectDamage _e){
+        EffectDamage cp_ = new EffectDamage();
+        cp_.setChRate(_e.getChRate());
+        cp_.setConstDamage(_e.getConstDamage());
+        cp_.setDamageLaw(copyMonteCarloString(_e.getDamageLaw()));
+        cp_.setMultDamageAgainst(copyStringMapRate(_e.getMultDamageAgainst()));
+        cp_.setChLaw(_e.getChLaw().copy());
+        cp_.setHitsLaw(_e.getHitsLaw().copy());
+        cp_.setPower(_e.getPower());
+        cp_.setRandMax(_e.getRandMax());
+        cp_.setSummingUserTeamOkFighter(_e.getSummingUserTeamOkFighter());
+        cp_.setIgnVarStatTargetPos(new IdList<Statistic>(_e.getIgnVarStatTargetPos()));
+        cp_.setIgnVarStatUserNeg(new IdList<Statistic>(_e.getIgnVarStatUserNeg()));
+        cp_.setUserAttack(_e.isUserAttack());
+        cp_.setStatisAtt(_e.getStatisAtt());
+        cp_.setTargetDefense(_e.isTargetDefense());
+        cp_.setStatisDef(_e.getStatisDef());
+        cp_.setBoostStatisOnceKoFoe(new IdMap<Statistic,Byte>(_e.getBoostStatisOnceKoFoe()));
+        copyEffect(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectDamageRate copyEffectDamageRate(EffectDamageRate _e){
+        EffectDamageRate cp_ = new EffectDamageRate();
+        cp_.setRateDamage(new Rate(_e.getRateDamage()));
+        copyEffect(cp_,_e);
+        return cp_;
+    }
+
+    public static void copyEffectEndRound(EffectEndRound _cp,EffectEndRound _e){
+        _cp.setFailEndRound(_e.getFailEndRound());
+        _cp.setEndRoundRank(_e.getEndRoundRank());
+        copyEffect(_cp,_e);
+    }
+    public static EffectEndRound copyEffectEndRound(EffectEndRound _e){
+        if (_e instanceof EffectEndRoundFoe){
+            return copyEffectEndRoundFoe((EffectEndRoundFoe)_e);
+        }
+        if (_e instanceof EffectEndRoundGlobal){
+            return copyEffectEndRoundGlobal((EffectEndRoundGlobal)_e);
+        }
+        if (_e instanceof EffectEndRoundIndividual){
+            return copyEffectEndRoundIndividual((EffectEndRoundIndividual)_e);
+        }
+        if (_e instanceof EffectEndRoundMultiRelation){
+            return copyEffectEndRoundMultiRelation((EffectEndRoundMultiRelation)_e);
+        }
+        if (_e instanceof EffectEndRoundPositionRelation){
+            return copyEffectEndRoundPositionRelation((EffectEndRoundPositionRelation)_e);
+        }
+        if (_e instanceof EffectEndRoundPositionTargetRelation){
+            return copyEffectEndRoundPositionTargetRelation((EffectEndRoundPositionTargetRelation)_e);
+        }
+        if (_e instanceof EffectEndRoundSingleRelation){
+            return copyEffectEndRoundSingleRelation((EffectEndRoundSingleRelation)_e);
+        }
+        if (_e instanceof EffectEndRoundStatus){
+            return copyEffectEndRoundStatus((EffectEndRoundStatus)_e);
+        }
+        return copyEffectEndRoundTeam((EffectEndRoundTeam)_e);
+    }
+
+    public static EffectEndRoundFoe copyEffectEndRoundFoe(EffectEndRoundFoe _e){
+        EffectEndRoundFoe cp_ = new EffectEndRoundFoe();
+        cp_.setInflictedRateHpTarget(new Rate(_e.getInflictedRateHpTarget()));
+        copyEffectEndRound(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectEndRoundGlobal copyEffectEndRoundGlobal(EffectEndRoundGlobal _e){
+        EffectEndRoundGlobal cp_ = new EffectEndRoundGlobal();
+        copyEffectEndRound(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectEndRoundIndividual copyEffectEndRoundIndividual(EffectEndRoundIndividual _e){
+        EffectEndRoundIndividual cp_ = new EffectEndRoundIndividual();
+        cp_.setDeleteAllStatus(new Rate(_e.getDeleteAllStatus()));
+        cp_.setRecoilDamage(new Rate(_e.getRecoilDamage()));
+        cp_.setHealHp(new Rate(_e.getHealHp()));
+        cp_.setHealHpByOwnerTypes(copyStringMapRate(_e.getHealHpByOwnerTypes()));
+        cp_.setMultDamageStatus(copyStringMapRate(_e.getMultDamageStatus()));
+        cp_.setUserStatusEndRound(_e.getUserStatusEndRound());
+        copyEffectEndRound(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectEndRoundMultiRelation copyEffectEndRoundMultiRelation(EffectEndRoundMultiRelation _e){
+        EffectEndRoundMultiRelation cp_ = new EffectEndRoundMultiRelation();
+        cp_.setDamageByStatus(copyStringMapRate(_e.getDamageByStatus()));
+        copyEffectEndRound(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectEndRoundPositionRelation copyEffectEndRoundPositionRelation(EffectEndRoundPositionRelation _e){
+        EffectEndRoundPositionRelation cp_ = new EffectEndRoundPositionRelation();
+        cp_.setHealHp(new Rate(_e.getHealHp()));
+        copyEffectEndRound(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectEndRoundPositionTargetRelation copyEffectEndRoundPositionTargetRelation(EffectEndRoundPositionTargetRelation _e){
+        EffectEndRoundPositionTargetRelation cp_ = new EffectEndRoundPositionTargetRelation();
+        copyEffectEndRound(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectEndRoundSingleRelation copyEffectEndRoundSingleRelation(EffectEndRoundSingleRelation _e){
+        EffectEndRoundSingleRelation cp_ = new EffectEndRoundSingleRelation();
+        cp_.setRateDamageFunctionOfNbRounds(copyLongMapRate(_e.getRateDamageFunctionOfNbRounds()));
+        cp_.setLawForEnablingEffect(_e.getLawForEnablingEffect().copy());
+        copyEffectEndRound(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectEndRoundSingleStatus copyEffectEndRoundSingleStatus(EffectEndRoundSingleStatus _e){
+        EffectEndRoundSingleStatus cp_ = new EffectEndRoundSingleStatus();
+        cp_.setIncrementingDamageByRounds(_e.isIncrementingDamageByRounds());
+        copyEffectEndRoundStatus(cp_,_e);
+        return cp_;
+    }
+
+    public static void copyEffectEndRoundStatus(EffectEndRoundStatus _cp,EffectEndRoundStatus _e){
+        _cp.setInflictedRateHpTarget(new Rate(_e.getInflictedRateHpTarget()));
+        copyEffectEndRound(_cp,_e);
+    }
+    public static EffectEndRoundStatus copyEffectEndRoundStatus(EffectEndRoundStatus _e){
+        if (_e instanceof EffectEndRoundSingleStatus){
+            return copyEffectEndRoundSingleStatus((EffectEndRoundSingleStatus)_e);
+        }
+        return copyEffectEndRoundStatusRelation((EffectEndRoundStatusRelation)_e);
+    }
+
+    public static EffectEndRoundStatusRelation copyEffectEndRoundStatusRelation(EffectEndRoundStatusRelation _e){
+        EffectEndRoundStatusRelation cp_ = new EffectEndRoundStatusRelation();
+        cp_.setThievedHpRateTargetToUser(new Rate(_e.getThievedHpRateTargetToUser()));
+        copyEffectEndRoundStatus(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectEndRoundTeam copyEffectEndRoundTeam(EffectEndRoundTeam _e){
+        EffectEndRoundTeam cp_ = new EffectEndRoundTeam();
+        cp_.setDeleteAllStatus(new Rate(_e.getDeleteAllStatus()));
+        cp_.setDeleteAllStatusAlly(new Rate(_e.getDeleteAllStatusAlly()));
+        copyEffectEndRound(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectFullHpRate copyEffectFullHpRate(EffectFullHpRate _e){
+        EffectFullHpRate cp_ = new EffectFullHpRate();
+        cp_.setLeftUserHp(new Rate(_e.getLeftUserHp()));
+        cp_.setRestoredHp(_e.getRestoredHp());
+        cp_.setClosestFoeDamageRateHp(new Rate(_e.getClosestFoeDamageRateHp()));
+        copyEffect(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectGlobal copyEffectGlobal(EffectGlobal _e){
+        EffectGlobal cp_ = new EffectGlobal();
+        cp_.setWeather(_e.getWeather());
+        cp_.setCanceledIfUsed(_e.getCanceledIfUsed());
+        cp_.setReverseOrderOfSortBySpeed(_e.getReverseOrderOfSortBySpeed());
+        cp_.setPuttingKo(_e.getPuttingKo());
+        cp_.setMultAccuracy(new Rate(_e.getMultAccuracy()));
+        cp_.setUnusableItem(_e.getUnusableItem());
+        cp_.setPreventStatus(new StringList(_e.getPreventStatus()));
+        cp_.setImmuneTypes(new StringList(_e.getImmuneTypes()));
+        cp_.setDamageEndRound(new Rate(_e.getDamageEndRound()));
+        cp_.setHealingEndRound(new Rate(_e.getHealingEndRound()));
+        cp_.setHealingEndRoundGround(new Rate(_e.getHealingEndRoundGround()));
+        cp_.setEfficiencyMoves(copyTypesDuos(_e.getEfficiencyMoves()));
+        cp_.setDisableImmuAgainstTypes(new StringList(_e.getDisableImmuAgainstTypes()));
+        cp_.setCancelProtectingAbilities(new StringList(_e.getCancelProtectingAbilities()));
+        cp_.setUnusableMoves(new StringList(_e.getUnusableMoves()));
+        cp_.setMultDamagePrepaRound(copyStringMapRate(_e.getMultDamagePrepaRound()));
+        cp_.setMovesUsedByTargetedFighters(new StringList(_e.getMovesUsedByTargetedFighters()));
+        cp_.setMultEffectLovingAlly(new Rate(_e.getMultEffectLovingAlly()));
+        cp_.setMultPowerMoves(copyStringMapRate(_e.getMultPowerMoves()));
+        cp_.setMultStatIfContainsType(copyStatisticTypeRate(_e.getMultStatIfContainsType()));
+        cp_.setCancelEffects(new StringList(_e.getCancelEffects()));
+        cp_.setMultDamageTypesMoves(copyStringMapRate(_e.getMultDamageTypesMoves()));
+        cp_.setCancelChgtStat(new IdList<Statistic>(_e.getCancelChgtStat()));
+        cp_.setInvokedMoveTerrain(_e.getInvokedMoveTerrain());
+        cp_.setChangedTypesTerrain(new StringList(_e.getChangedTypesTerrain()));
+        copyEffect(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectInvoke copyEffectInvoke(EffectInvoke _e){
+        EffectInvoke cp_ = new EffectInvoke();
+        cp_.setMoveFctEnv(new IdMap<EnvironmentType,String>(_e.getMoveFctEnv()));
+        cp_.setInvokingMoveButUser(_e.getInvokingMoveButUser());
+        cp_.setInvokingTargetChosenMove(_e.getInvokingTargetChosenMove());
+        cp_.setInvokingUserMoveWhileSleep(_e.getInvokingUserMoveWhileSleep());
+        cp_.setInvokingAllyMove(_e.getInvokingAllyMove());
+        cp_.setInvokingTargetSuccesfulMove(_e.getInvokingTargetSuccesfulMove());
+        cp_.setInvokingSufferedMove(_e.getInvokingSufferedMove());
+        cp_.setInvokingMoveByUserTypes(new StringMap<String>(_e.getInvokingMoveByUserTypes()));
+        cp_.setMovesNotToBeInvoked(new StringList(_e.getMovesNotToBeInvoked()));
+        cp_.setRateInvokationMove(new Rate(_e.getRateInvokationMove()));
+        copyEffect(cp_,_e);
+        return cp_;
+    }
+
+    public static void copyEffectMultMovePower(EffectMultMovePower _cp, EffectMultMovePower _e){
+        _cp.setMultMovePowerFctType(copyStringMapRate(_e.getMultMovePowerFctType()));
+        copyEffect(_cp,_e);
+    }
+
+    public static EffectMultSufferedMovePower copyEffectMultSufferedMovePower(EffectMultSufferedMovePower _e){
+        EffectMultSufferedMovePower cp_ = new EffectMultSufferedMovePower();
+        copyEffectMultMovePower(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectMultUsedMovePower copyEffectMultUsedMovePower(EffectMultUsedMovePower _e){
+        EffectMultUsedMovePower cp_ = new EffectMultUsedMovePower();
+        copyEffectMultMovePower(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectOrder copyEffectOrder(EffectOrder _e){
+        EffectOrder cp_ = new EffectOrder();
+        cp_.setTargetAttacksLast(_e.getTargetAttacksLast());
+        copyEffect(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectProtectFromTypes copyEffectProtectFromTypes(EffectProtectFromTypes _e){
+        EffectProtectFromTypes cp_ = new EffectProtectFromTypes();
+        cp_.setImmuAgainstTypes(new StringList(_e.getImmuAgainstTypes()));
+        copyEffect(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectProtection copyEffectProtection(EffectProtection _e){
+        EffectProtection cp_ = new EffectProtection();
+        cp_.setProtSingle(_e.getProtSingle());
+        cp_.setProtSingleAgainstKo(new Rate(_e.getProtSingleAgainstKo()));
+        cp_.setProtTeamAgainstMultTargets(_e.getProtTeamAgainstMultTargets());
+        cp_.setProtTeamAgainstPrio(_e.getProtTeamAgainstPrio());
+        cp_.setProtTeamAgainstStatusMoves(_e.isProtTeamAgainstStatusMoves());
+        cp_.setProtTeamAgainstDamageMoves(_e.isProtTeamAgainstDamageMoves());
+        copyEffect(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectRemainedHpRate copyEffectRemainedHpRate(EffectRemainedHpRate _e){
+        EffectRemainedHpRate cp_ = new EffectRemainedHpRate();
+        cp_.setRateHp(new Rate(_e.getRateHp()));
+        copyEffect(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectRestriction copyEffectRestriction(EffectRestriction _e){
+        EffectRestriction cp_ = new EffectRestriction();
+        cp_.setForbidTargetUsingItem(_e.getForbidTargetUsingItem());
+        cp_.setChoiceRestriction(_e.getChoiceRestriction());
+        copyEffect(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectStatistic copyEffectStatistic(EffectStatistic _e){
+        EffectStatistic cp_ = new EffectStatistic();
+        cp_.setStatisVarRank(new IdMap<Statistic,Byte>(_e.getStatisVarRank()));
+        cp_.setLocalFailStatis(new IdMap<Statistic,String>(_e.getLocalFailStatis()));
+        cp_.setEvtRate(new Rate(_e.getEvtRate()));
+        cp_.setCopyBoost(new IdList<Statistic>(_e.getCopyBoost()));
+        cp_.setSwapBoostStatis(new IdList<Statistic>(_e.getSwapBoostStatis()));
+        cp_.setLocalFailSwapBoostStatis(new IdMap<Statistic,String>(_e.getLocalFailSwapBoostStatis()));
+        cp_.setLawBoost(copyMonteCarloEnumStatistic(_e.getLawBoost()));
+        cp_.setCancelLowStat(new IdList<Statistic>(_e.getCancelLowStat()));
+        cp_.setCancelChgtStat(new IdList<Statistic>(_e.getCancelChgtStat()));
+        copyEffect(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectStatus copyEffectStatus(EffectStatus _e){
+        EffectStatus cp_ = new EffectStatus();
+        cp_.setLawStatus(copyMonteCarloString(_e.getLawStatus()));
+        cp_.setDeletedStatus(new StringList(_e.getDeletedStatus()));
+        cp_.setLocalFailStatus(new StringMap<String>(_e.getLocalFailStatus()));
+        cp_.setKoUserHealSubst(_e.getKoUserHealSubst());
+        cp_.setStatusFromUser(_e.getStatusFromUser());
+        copyEffect(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectSwitchAbilities copyEffectSwitchAbilities(EffectSwitchAbilities _e){
+        EffectSwitchAbilities cp_ = new EffectSwitchAbilities();
+        cp_.setExchangeAbility(_e.getExchangeAbility());
+        cp_.setConstAbility(_e.getConstAbility());
+        copyEffect(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectSwitchItems copyEffectSwitchItems(EffectSwitchItems _e){
+        EffectSwitchItems cp_ = new EffectSwitchItems();
+        cp_.setMoveObject(_e.getMoveObject());
+        copyEffect(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectSwitchMoveTypes copyEffectSwitchMoveTypes(EffectSwitchMoveTypes _e){
+        EffectSwitchMoveTypes cp_ = new EffectSwitchMoveTypes();
+        cp_.setChangeTypes(new StringMap<String>(_e.getChangeTypes()));
+        cp_.setReplacingTypes(new StringList(_e.getReplacingTypes()));
+        copyEffect(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectSwitchPointView copyEffectSwitchPointView(EffectSwitchPointView _e){
+        EffectSwitchPointView cp_ = new EffectSwitchPointView();
+        cp_.setPointViewChangement(_e.getPointViewChangement());
+        copyEffect(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectSwitchPosition copyEffectSwitchPosition(EffectSwitchPosition _e){
+        EffectSwitchPosition cp_ = new EffectSwitchPosition();
+        copyEffect(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectSwitchTypes copyEffectSwitchTypes(EffectSwitchTypes _e){
+        EffectSwitchTypes cp_ = new EffectSwitchTypes();
+        cp_.setChgtTypeByEnv(new IdMap<EnvironmentType,String>(_e.getChgtTypeByEnv()));
+        cp_.setConstValuesType(_e.getConstValuesType());
+        cp_.setExchangeTypes(_e.getExchangeTypes());
+        cp_.setConstTypes(new StringList(_e.getConstTypes()));
+        cp_.setAddedTypes(new StringList(_e.getAddedTypes()));
+        copyEffect(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectTeam copyEffectTeam(EffectTeam _e){
+        EffectTeam cp_ = new EffectTeam();
+        cp_.setForbiddingHealing(_e.getForbiddingHealing());
+        cp_.setForbiddenBoost(new IdList<Statistic>(_e.getForbiddenBoost()));
+        cp_.setUnusableMoves(new StringList(_e.getUnusableMoves()));
+        cp_.setCancelChgtStatFoeTeam(new IdList<Statistic>(_e.getCancelChgtStatFoeTeam()));
+        cp_.setCancelChgtStatTeam(new IdList<Statistic>(_e.getCancelChgtStatTeam()));
+        cp_.setMultDamage(copyCategoryMults(_e.getMultDamage()));
+        cp_.setMultStatistic(new IdMap<Statistic,Rate>(_e.getMultStatistic()));
+        cp_.setMultStatisticFoe(new IdMap<Statistic,Rate>(_e.getMultStatisticFoe()));
+        cp_.setProtectAgainstLowStat(new IdList<Statistic>(_e.getProtectAgainstLowStat()));
+        cp_.setProtectAgainstCh(_e.getProtectAgainstCh());
+        cp_.setProtectAgainstStatus(new StringList(_e.getProtectAgainstStatus()));
+        cp_.setDisableFoeTeamEffects(new StringList(_e.getDisableFoeTeamEffects()));
+        cp_.setDisableFoeTeamStatus(new StringList(_e.getDisableFoeTeamStatus()));
+        copyEffect(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectTeamWhileSendFoe copyEffectTeamWhileSendFoe(EffectTeamWhileSendFoe _e){
+        EffectTeamWhileSendFoe cp_ = new EffectTeamWhileSendFoe();
+        cp_.setFailSending(_e.getFailSending());
+        ShortMap<String> s_ = new ShortMap<String>();
+        s_.addAllEntries(_e.getStatusByNbUses());
+        cp_.setStatusByNbUses(s_);
+        cp_.setDeletedByFoeTypes(new StringList(_e.getDeletedByFoeTypes()));
+        cp_.setDamageRateAgainstFoe(_e.getDamageRateAgainstFoe());
+        cp_.setStatistics(new IdMap<Statistic,Byte>(_e.getStatistics()));
+        copyEffect(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectUnprotectFromTypes copyEffectUnprotectFromTypes(EffectUnprotectFromTypes _e){
+        EffectUnprotectFromTypes cp_ = new EffectUnprotectFromTypes();
+        cp_.setTypes(copyListTypesDuo(_e.getTypes()));
+        cp_.setDisableImmuAgainstTypes(new StringList(_e.getDisableImmuAgainstTypes()));
+        cp_.setDisableImmuFromMoves(new StringList(_e.getDisableImmuFromMoves()));
+        cp_.setAttackTargetWithTypes(new StringList(_e.getAttackTargetWithTypes()));
+        copyEffect(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectVarPP copyEffectVarPP(EffectVarPP _e){
+        EffectVarPP cp_ = new EffectVarPP();
+        cp_.setDeletePp(_e.getDeletePp());
+        copyEffect(cp_,_e);
+        return cp_;
+    }
+
+    public static EffectWinMoney copyEffectWinMoney(EffectWinMoney _e){
+        EffectWinMoney cp_ = new EffectWinMoney();
+        cp_.setWinningRateBySumTargetUser(new Rate(_e.getWinningRateBySumTargetUser()));
+        copyEffect(cp_,_e);
+        return cp_;
+    }
+
+    public static void copyMoveData(MoveData _cp,MoveData _e){
+        _cp.setPp(_e.getPp());
+        _cp.setTypes(new StringList(_e.getTypes()));
+        _cp.setBoostedTypes(new StringList(_e.getBoostedTypes()));
+        _cp.setPriority(_e.getPriority());
+        _cp.setAccuracy(_e.getAccuracy());
+        _cp.setEffects(new CustList<Effect>());
+        for (Effect f:_e.getEffects()){
+            _cp.getEffects().add(copyEffect(f));
+        }
+        _cp.setNbPrepaRound(_e.getNbPrepaRound());
+        _cp.setDisappearBeforeUse(_e.getDisappearBeforeUse());
+        _cp.setRepeatRoundLaw(_e.getRepeatRoundLaw().copy());
+        _cp.setRankIncrementNbRound(_e.getRankIncrementNbRound());
+        _cp.setRechargeRound(_e.getRechargeRound());
+        _cp.setConstUserChoice(_e.getConstUserChoice());
+        _cp.setStoppableMoveSolo(_e.getStoppableMoveSolo());
+        _cp.setStoppableMoveMulti(_e.getStoppableMoveMulti());
+        _cp.setStoppableMovePrio(_e.getStoppableMovePrio());
+        _cp.setSecEffectIfNoDamage(_e.getSecEffectIfNoDamage());
+        _cp.setSecEffectsByItem(copyStringMapInts(_e.getSecEffectsByItem()));
+        _cp.setIgnVarAccurUserNeg(_e.getIgnVarAccurUserNeg());
+        _cp.setIgnVarEvasTargetPos(_e.getIgnVarEvasTargetPos());
+        _cp.setAchieveDisappearedPkUsingMove(new StringList(_e.getAchieveDisappearedPkUsingMove()));
+        _cp.setSwitchType(_e.getSwitchType());
+        _cp.setTypesByOwnedItem(new StringMap<String>(_e.getTypesByOwnedItem()));
+        _cp.setTypesByWeather(new StringMap<String>(_e.getTypesByWeather()));
+        _cp.setTargetChoice(_e.getTargetChoice());
+        _cp.setDeletedStatus(new StringList(_e.getDeletedStatus()));
+        _cp.setRequiredStatus(new StringList(_e.getRequiredStatus()));
+    }
+    public static MoveData copyMoveData(MoveData _e){
+        if (_e instanceof DamagingMoveData){
+            return copyDamagingMoveData((DamagingMoveData)_e);
+        }
+        return copyStatusMoveData((StatusMoveData)_e);
+    }
+
+    public static StatusMoveData copyStatusMoveData(StatusMoveData _e){
+        StatusMoveData cp_ = new StatusMoveData();
+        cp_.setThievableMove(_e.getThievableMove());
+        cp_.setCounterableMove(_e.getCounterableMove());
+        copyMoveData(cp_,_e);
+        return cp_;
+    }
+
+    public static Evolution copyEvolution(Evolution _e){
+        if (_e instanceof EvolutionItem){
+            return copyEvolutionItem((EvolutionItem)_e);
+        }
+        if (_e instanceof EvolutionLevelGender){
+            return copyEvolutionLevelGender((EvolutionLevelGender)_e);
+        }
+        if (_e instanceof EvolutionLevelSimple){
+            return copyEvolutionLevelSimple((EvolutionLevelSimple)_e);
+        }
+        if (_e instanceof EvolutionMove){
+            return copyEvolutionMove((EvolutionMove)_e);
+        }
+        if (_e instanceof EvolutionMoveType){
+            return copyEvolutionMoveType((EvolutionMoveType)_e);
+        }
+        if (_e instanceof EvolutionStoneGender){
+            return copyEvolutionStoneGender((EvolutionStoneGender)_e);
+        }
+        if (_e instanceof EvolutionStoneSimple){
+            return copyEvolutionStoneSimple((EvolutionStoneSimple)_e);
+        }
+        if (_e instanceof EvolutionTeam){
+            return copyEvolutionTeam((EvolutionTeam)_e);
+        }
+        return copyEvolutionHappiness();
+    }
+
+    public static EvolutionHappiness copyEvolutionHappiness(){
+        return new EvolutionHappiness();
+    }
+
+    public static EvolutionItem copyEvolutionItem(EvolutionItem _e){
+        EvolutionItem cp_ = new EvolutionItem();
+        cp_.setItem(_e.getItem());
+        return cp_;
+    }
+
+    public static void copyEvolutionLevel(EvolutionLevel _cp,EvolutionLevel _e){
+        _cp.setLevel(_e.getLevel());
+    }
+
+    public static EvolutionLevelGender copyEvolutionLevelGender(EvolutionLevelGender _e){
+        EvolutionLevelGender cp_ = new EvolutionLevelGender();
+        cp_.setGender(_e.getGender());
+        copyEvolutionLevel(cp_,_e);
+        return cp_;
+    }
+
+    public static EvolutionLevelSimple copyEvolutionLevelSimple(EvolutionLevelSimple _e){
+        EvolutionLevelSimple cp_ = new EvolutionLevelSimple();
+        copyEvolutionLevel(cp_,_e);
+        return cp_;
+    }
+
+    public static EvolutionMove copyEvolutionMove(EvolutionMove _e){
+        EvolutionMove cp_ = new EvolutionMove();
+        cp_.setMove(_e.getMove());
+        return cp_;
+    }
+
+    public static EvolutionMoveType copyEvolutionMoveType(EvolutionMoveType _e){
+        EvolutionMoveType cp_ = new EvolutionMoveType();
+        cp_.setType(_e.getType());
+        return cp_;
+    }
+
+    public static void copyEvolutionStone(EvolutionStone _cp,EvolutionStone _e){
+        _cp.setStone(_e.getStone());
+    }
+
+    public static EvolutionStoneGender copyEvolutionStoneGender(EvolutionStoneGender _e){
+        EvolutionStoneGender cp_ = new EvolutionStoneGender();
+        cp_.setGender(_e.getGender());
+        copyEvolutionStone(cp_,_e);
+        return cp_;
+    }
+
+    public static EvolutionStoneSimple copyEvolutionStoneSimple(EvolutionStoneSimple _e){
+        EvolutionStoneSimple cp_ = new EvolutionStoneSimple();
+        copyEvolutionStone(cp_,_e);
+        return cp_;
+    }
+
+    public static EvolutionTeam copyEvolutionTeam(EvolutionTeam _e){
+        EvolutionTeam cp_ = new EvolutionTeam();
+        cp_.setPokemon(_e.getPokemon());
+        return cp_;
+    }
+
+    public static PokemonData copyPokemonData(PokemonData _e){
+        PokemonData cp_ = new PokemonData();
+        cp_.setWeight(new Rate(_e.getWeight()));
+        cp_.setTypes(new StringList(_e.getTypes()));
+        cp_.setStatistics(new IdMap<Statistic,StatBaseEv>(_e.getStatistics()));
+        cp_.setLevMoves(copyListLevelMove(_e.getLevMoves()));
+        cp_.setGenderRep(_e.getGenderRep());
+        cp_.setAbilities(new StringList(_e.getAbilities()));
+        cp_.setMoveTutors(new StringList(_e.getMoveTutors()));
+        cp_.setHiddenMoves(new Shorts(_e.getHiddenMoves()));
+        cp_.setTechnicalMoves(new Shorts(_e.getTechnicalMoves()));
+        cp_.setBaseEvo(_e.getBaseEvo());
+        cp_.setEvolutions(new StringMap<Evolution>());
+        for (EntryCust<String,Evolution> f:_e.getEvolutions().entryList()){
+            cp_.getEvolutions().addEntry(f.getKey(),copyEvolution(f.getValue()));
+        }
+        cp_.setCatchingRate(_e.getCatchingRate());
+        cp_.setHeight(new Rate(_e.getHeight()));
+        cp_.setExpEvo(_e.getExpEvo());
+        cp_.setExpRate(_e.getExpRate());
+        cp_.setEggGroups(new StringList(_e.getEggGroups()));
+        cp_.setHatchingSteps(new LgInt(_e.getHatchingSteps()));
+        cp_.setHappiness(_e.getHappiness());
+        cp_.setHappinessHatch(_e.getHappinessHatch());
+        return cp_;
+    }
+
+    public static EffectPartnerStatus copyEffectPartnerStatus(EffectPartnerStatus _e){
+        EffectPartnerStatus cp_ = new EffectPartnerStatus();
+        cp_.setMultDamageAgainstFoe(new Rate(_e.getMultDamageAgainstFoe()));
+        cp_.setWeddingAlly(_e.getWeddingAlly());
+        cp_.setRestoredHpRateLovedAlly(new Rate(_e.getRestoredHpRateLovedAlly()));
+        return cp_;
+    }
+
+    public static void copyStatus(Status _cp,Status _e){
+        _cp.setStatusType(_e.getStatusType());
+        _cp.setCatchingRate(new Rate(_e.getCatchingRate()));
+        _cp.setEffectEndRound(new CustList<EffectEndRoundStatus>());
+        for (EffectEndRoundStatus f:_e.getEffectEndRound()){
+            _cp.getEffectEndRound().add(copyEffectEndRoundStatus(f));
+        }
+        _cp.setEffectsPartner(new CustList<EffectPartnerStatus>());
+        for (EffectPartnerStatus f:_e.getEffectsPartner()){
+            _cp.getEffectsPartner().add(copyEffectPartnerStatus(f));
+        }
+        _cp.setDisabledEffIfSwitch(_e.getDisabledEffIfSwitch());
+        _cp.setIncrementEndRound(_e.getIncrementEndRound());
+        _cp.setIncrementingEndRound(_e.getIncrementingEndRound());
+        _cp.setMultStat(new IdMap<Statistic,Rate>(_e.getMultStat()));
+        _cp.setFail(_e.getFail());
+    }
+    public static Status copyStatus(Status _e){
+        if (_e instanceof StatusBeginRoundAutoDamage){
+            return copyStatusBeginRoundAutoDamage((StatusBeginRoundAutoDamage)_e);
+        }
+        if (_e instanceof StatusBeginRoundSimple){
+            return copyStatusBeginRoundSimple((StatusBeginRoundSimple)_e);
+        }
+        return copyStatusSimple((StatusSimple)_e);
+    }
+
+    public static void copyStatusBeginRound(StatusBeginRound _cp,StatusBeginRound _e){
+        _cp.setLawForUsingAMove(copyMonteCarloBool(_e.getLawForUsingAMove()));
+        _cp.setLawForUsingAMoveNbRound(_e.getLawForUsingAMoveNbRound().copy());
+        _cp.setLawForUsingAMoveIfFoe(copyMonteCarloBool(_e.getLawForUsingAMoveIfFoe()));
+        _cp.setLawForFullHealIfMove(copyMonteCarloBool(_e.getLawForFullHealIfMove()));
+        copyStatus(_cp,_e);
+    }
+
+    public static StatusBeginRoundAutoDamage copyStatusBeginRoundAutoDamage(StatusBeginRoundAutoDamage _e){
+        StatusBeginRoundAutoDamage cp_ = new StatusBeginRoundAutoDamage();
+        cp_.setPower(new Rate(_e.getPower()));
+        cp_.setAttack(_e.getAttack());
+        cp_.setDefense(_e.getDefense());
+        copyStatusBeginRound(cp_,_e);
+        return cp_;
+    }
+
+    public static StatusBeginRoundSimple copyStatusBeginRoundSimple(StatusBeginRoundSimple _e){
+        StatusBeginRoundSimple cp_ = new StatusBeginRoundSimple();
+        copyStatusBeginRound(cp_,_e);
+        return cp_;
+    }
+
+    public static StatusSimple copyStatusSimple(StatusSimple _e){
+        StatusSimple cp_ = new StatusSimple();
+        copyStatus(cp_,_e);
+        return cp_;
+    }
+
+
     public static MonteCarloString buildMonteCarloString(CustList<EditedCrudPair<String, LgInt>> _m) {
         MonteCarloString c_ = new MonteCarloString(new CollCapacity(_m.size()));
         new MapToEntriesListUtil<String,LgInt>().feedMap(_m, c_);
+        return c_;
+    }
+    public static MonteCarloString copyMonteCarloString(MonteCarloString _m) {
+        MonteCarloString c_ = new MonteCarloString(new CollCapacity(_m.size()));
+        new ConverterCommonMap<String,LgInt>().copy(new IdTechnicalCopier<String>(),new LgIntTechnicalCopier(), c_.getLaw(),_m.getLaw());
         return c_;
     }
     public static MonteCarloNumber buildMonteCarloNumber(CustList<EditedCrudPair<Rate, LgInt>> _m) {
@@ -182,9 +1341,21 @@ public final class ConverterCommonMapUtil {
         new MapToEntriesListUtil<BoolVal,LgInt>().feedMap(_m, c_);
         return c_;
     }
+    public static MonteCarloBoolean copyMonteCarloBool(MonteCarloBoolean _m) {
+        MonteCarloBoolean c_ = new MonteCarloBoolean(new CollCapacity(_m.size()));
+        for (EventFreq<BoolVal> e: _m.getEvents()) {
+            c_.addQuickEvent(e.getEvent(),new LgInt(e.getFreq()));
+        }
+        return c_;
+    }
     public static MonteCarloEnum<Statistic> buildMonteCarloEnumStatistic(CustList<EditedCrudPair<Statistic, LgInt>> _m) {
         MonteCarloEnum<Statistic> c_ = new MonteCarloEnum<Statistic>(new CollCapacity(_m.size()));
         new MapToEntriesListUtil<Statistic,LgInt>().feedMap(_m, c_);
+        return c_;
+    }
+    public static MonteCarloEnum<Statistic> copyMonteCarloEnumStatistic(MonteCarloEnum<Statistic> _m) {
+        MonteCarloEnum<Statistic> c_ = new MonteCarloEnum<Statistic>(new CollCapacity(_m.size()));
+        new ConverterCommonMap<Statistic,LgInt>().copy(new IdTechnicalCopier<Statistic>(),new LgIntTechnicalCopier(), c_.getLaw(), _m.getLaw());
         return c_;
     }
     public static LongMap<Rate> buildLongMapRate(CustList<EditedCrudPair<Long, Rate>> _m) {
@@ -200,6 +1371,16 @@ public final class ConverterCommonMapUtil {
     public static StringMap<StringList> buildStringMapStringList(CustList<EditedCrudPair<String, StringList>> _m) {
         StringMap<StringList> c_ = new StringMap<StringList>(new CollCapacity(_m.size()));
         new MapToEntriesListUtil<String,StringList>().feedMap(_m, c_);
+        return c_;
+    }
+    public static StringMap<StringList> copyStringMapStringList(StringMap<StringList> _m) {
+        StringMap<StringList> c_ = new StringMap<StringList>(new CollCapacity(_m.size()));
+        new ConverterCommonMap<String,StringList>().copy(new IdTechnicalCopier<String>(),new StringListTechnicalCopier(),c_, _m);
+        return c_;
+    }
+    public static StringMap<Ints> copyStringMapInts(StringMap<Ints> _m) {
+        StringMap<Ints> c_ = new StringMap<Ints>(new CollCapacity(_m.size()));
+        new ConverterCommonMap<String,Ints>().copy(new IdTechnicalCopier<String>(),new IntsTechnicalCopier(),c_, _m);
         return c_;
     }
     public static StringMap<IdList<Statistic>> buildStringMapIdListStatistic(CustList<EditedCrudPair<String, IdList<Statistic>>> _m) {
@@ -222,9 +1403,19 @@ public final class ConverterCommonMapUtil {
         new MapToEntriesListUtil<String,EfficiencyRate>().feedMap(_m, c_);
         return c_;
     }
+    public static StringMap<EfficiencyRate> copyStringMapEfficiencyRate(StringMap<EfficiencyRate> _m) {
+        StringMap<EfficiencyRate> c_ = new StringMap<EfficiencyRate>(new CollCapacity(_m.size()));
+        new ConverterCommonMap<String,EfficiencyRate>().copy(new IdTechnicalCopier<String>(),new EfficiencyRateTechnicalCopier(),c_, _m);
+        return c_;
+    }
     public static StringMap<Rate> buildStringMapRate(CustList<EditedCrudPair<String, Rate>> _m) {
         StringMap<Rate> c_ = new StringMap<Rate>(new CollCapacity(_m.size()));
         new MapToEntriesListUtil<String,Rate>().feedMap(_m, c_);
+        return c_;
+    }
+    public static StringMap<Rate> copyStringMapRate(StringMap<Rate> _m) {
+        StringMap<Rate> c_ = new StringMap<Rate>(new CollCapacity(_m.size()));
+        new ConverterCommonMap<String,Rate>().copy(new IdTechnicalCopier<String>(),new RateTechnicalCopier(), c_, _m);
         return c_;
     }
     public static StringMap<Short> buildStringMapShort(CustList<EditedCrudPair<String, Short>> _m) {
@@ -240,6 +1431,11 @@ public final class ConverterCommonMapUtil {
     public static IdMap<Statistic,BoostHpRate> buildIdMapStatisticBoostHpRate(CustList<EditedCrudPair<Statistic, BoostHpRate>> _m) {
         IdMap<Statistic,BoostHpRate> c_ = new IdMap<Statistic,BoostHpRate>(new CollCapacity(_m.size()));
         new MapToEntriesListUtil<Statistic,BoostHpRate>().feedMap(_m, c_);
+        return c_;
+    }
+    public static IdMap<Statistic,BoostHpRate> copyIdMapStatisticBoostHpRate(IdMap<Statistic,BoostHpRate> _m) {
+        IdMap<Statistic,BoostHpRate> c_ = new IdMap<Statistic,BoostHpRate>(new CollCapacity(_m.size()));
+        new ConverterCommonMap<Statistic,BoostHpRate>().copy(new IdTechnicalCopier<Statistic>(),new BoostHpRateTechnicalCopier(), c_,_m);
         return c_;
     }
     public static IdMap<Statistic,Byte> buildIdMapStatisticByte(CustList<EditedCrudPair<Statistic, Byte>> _m) {
@@ -272,9 +1468,19 @@ public final class ConverterCommonMapUtil {
         new ConverterCommonMap<CategoryMult, Rate>().feed(c_,_m);
         return c_;
     }
+    public static CategoryMults copyCategoryMults(CategoryMults _m) {
+        CategoryMults c_ = new CategoryMults(new CollCapacity(_m.size()));
+        new ConverterCommonMap<CategoryMult, Rate>().copy(new CategoryMultTechnicalCopier(),new RateTechnicalCopier(),c_,_m);
+        return c_;
+    }
     public static StatisticCategoryByte buildStatisticCategoryByte(CustList<EditedCrudPair<StatisticCategory, Byte>> _m) {
         StatisticCategoryByte c_ = new StatisticCategoryByte(new CollCapacity(_m.size()));
         new ConverterCommonMap<StatisticCategory, Byte>().feed(c_,_m);
+        return c_;
+    }
+    public static StatisticCategoryByte copyStatisticCategoryByte(StatisticCategoryList<Byte> _m) {
+        StatisticCategoryByte c_ = new StatisticCategoryByte(new CollCapacity(_m.size()));
+        new ConverterCommonMap<StatisticCategory, Byte>().copy(new StatisticCategoryTechnicalCopier(),new IdTechnicalCopier<Byte>(),c_,_m);
         return c_;
     }
     public static StatisticCategoryRate buildStatisticCategoryRate(CustList<EditedCrudPair<StatisticCategory, Rate>> _m) {
@@ -282,9 +1488,19 @@ public final class ConverterCommonMapUtil {
         new ConverterCommonMap<StatisticCategory, Rate>().feed(c_,_m);
         return c_;
     }
+    public static StatisticCategoryRate copyStatisticCategoryRate(StatisticCategoryList<Rate> _m) {
+        StatisticCategoryRate c_ = new StatisticCategoryRate(new CollCapacity(_m.size()));
+        new ConverterCommonMap<StatisticCategory, Rate>().copy(new StatisticCategoryTechnicalCopier(),new RateTechnicalCopier(),c_,_m);
+        return c_;
+    }
     public static StatisticPokemons buildStatisticPokemons(CustList<EditedCrudPair<StatisticPokemon,Byte>> _m) {
         StatisticPokemons c_ = new StatisticPokemons(new CollCapacity(_m.size()));
         new ConverterCommonMap<StatisticPokemon,Byte>().feed(c_,_m);
+        return c_;
+    }
+    public static StatisticPokemons copyStatisticPokemons(StatisticPokemons _m) {
+        StatisticPokemons c_ = new StatisticPokemons(new CollCapacity(_m.size()));
+        new ConverterCommonMap<StatisticPokemon,Byte>().copy(new StatisticPokemonTechnicalCopier(),new IdTechnicalCopier<Byte>(),c_, _m);
         return c_;
     }
     public static StatisticStatusList buildStatisticStatusList(CustList<EditedCrudPair<StatisticStatus,Byte>> _m) {
@@ -292,9 +1508,19 @@ public final class ConverterCommonMapUtil {
         new ConverterCommonMap<StatisticStatus,Byte>().feed(c_,_m);
         return c_;
     }
+    public static StatisticStatusList copyStatisticStatusList(StatisticStatusList _m) {
+        StatisticStatusList c_ = new StatisticStatusList(new CollCapacity(_m.size()));
+        new ConverterCommonMap<StatisticStatus,Byte>().copy(new StatisticStatusTechnicalCopier(),new IdTechnicalCopier<Byte>(),c_,_m);
+        return c_;
+    }
     public static StatisticTypeByte buildStatisticTypeByte(CustList<EditedCrudPair<StatisticType,Byte>> _m) {
         StatisticTypeByte c_ = new StatisticTypeByte(new CollCapacity(_m.size()));
         new ConverterCommonMap<StatisticType,Byte>().feed(c_,_m);
+        return c_;
+    }
+    public static StatisticTypeByte copyStatisticTypeByte(StatisticTypeList<Byte> _m) {
+        StatisticTypeByte c_ = new StatisticTypeByte(new CollCapacity(_m.size()));
+        new ConverterCommonMap<StatisticType,Byte>().copy(new StatisticTypeTechnicalCopier(),new IdTechnicalCopier<Byte>(),c_,_m);
         return c_;
     }
     public static StatisticTypeRate buildStatisticTypeRate(CustList<EditedCrudPair<StatisticType,Rate>> _m) {
@@ -302,9 +1528,19 @@ public final class ConverterCommonMapUtil {
         new ConverterCommonMap<StatisticType,Rate>().feed(c_,_m);
         return c_;
     }
+    public static StatisticTypeRate copyStatisticTypeRate(StatisticTypeList<Rate> _m) {
+        StatisticTypeRate c_ = new StatisticTypeRate(new CollCapacity(_m.size()));
+        new ConverterCommonMap<StatisticType,Rate>().copy(new StatisticTypeTechnicalCopier(),new RateTechnicalCopier(),c_,_m);
+        return c_;
+    }
     public static TypesDuos buildTypesDuos(CustList<EditedCrudPair<TypesDuo,Rate>> _m) {
         TypesDuos c_ = new TypesDuos(new CollCapacity(_m.size()));
         new ConverterCommonMap<TypesDuo,Rate>().feed(c_,_m);
+        return c_;
+    }
+    public static TypesDuos copyTypesDuos(TypesDuos _m) {
+        TypesDuos c_ = new TypesDuos(new CollCapacity(_m.size()));
+        new ConverterCommonMap<TypesDuo,Rate>().copy(new TypesDuoTechnicalCopier(),new RateTechnicalCopier(),c_,_m);
         return c_;
     }
     public static WeatherTypes buildWeatherTypes(CustList<EditedCrudPair<WeatherType,Rate>> _m) {
@@ -312,15 +1548,49 @@ public final class ConverterCommonMapUtil {
         new ConverterCommonMap<WeatherType,Rate>().feed(c_,_m);
         return c_;
     }
+    public static WeatherTypes copyWeatherTypes(WeatherTypes _m) {
+        WeatherTypes c_ = new WeatherTypes(new CollCapacity(_m.size()));
+        new ConverterCommonMap<WeatherType,Rate>().copy(new WeatherTypeTechnicalCopier(),new RateTechnicalCopier(),c_,_m);
+        return c_;
+    }
     public static StringMap<TypeDamageBoost> buildStringMapTypeDamageBoost(CustList<EditedCrudPair<String,TypeDamageBoost>> _m) {
         StringMap<TypeDamageBoost> c_ = new StringMap<TypeDamageBoost>(new CollCapacity(_m.size()));
         new ConverterCommonMap<String,TypeDamageBoost>().feed(c_,_m);
+        return c_;
+    }
+    public static StringMap<TypeDamageBoost> copyStringMapTypeDamageBoost(StringMap<TypeDamageBoost> _m) {
+        StringMap<TypeDamageBoost> c_ = new StringMap<TypeDamageBoost>(new CollCapacity(_m.size()));
+        new ConverterCommonMap<String,TypeDamageBoost>().copy(new IdTechnicalCopier<String>(),new TypeDamageBoostTechnicalCopier(),c_,_m);
         return c_;
     }
     public static StringMap<Evolution> buildStringMapEvolution(CustList<EditedCrudPair<String,Evolution>> _m) {
         StringMap<Evolution> c_ = new StringMap<Evolution>(new CollCapacity(_m.size()));
         new MapToEntriesListUtil<String,Evolution>().feedMap(_m, c_);
         return c_;
+    }
+    public static LongMap<Rate> copyLongMapRate(LongMap<Rate> _m) {
+        LongMap<Rate> c_ = new LongMap<Rate>(new CollCapacity(_m.size()));
+        new ConverterCommonMap<Long,Rate>().copy(new IdTechnicalCopier<Long>(),new RateTechnicalCopier(),c_,_m);
+        return c_;
+    }
+    public static StringMap<IdList<Statistic>> copyStringMapListStatistic(StringMap<IdList<Statistic>> _m) {
+        StringMap<IdList<Statistic>> c_ = new StringMap<IdList<Statistic>>(new CollCapacity(_m.size()));
+        new ConverterCommonMap<String,IdList<Statistic>>().copy(new IdTechnicalCopier<String>(),new ListStatisticTechnicalCopier(),c_,_m);
+        return c_;
+    }
+    public static StringMap<IdMap<Statistic,Byte>> copyStringMapMapStatistic(StringMap<IdMap<Statistic,Byte>> _m) {
+        StringMap<IdMap<Statistic,Byte>> c_ = new StringMap<IdMap<Statistic,Byte>>(new CollCapacity(_m.size()));
+        new ConverterCommonMap<String,IdMap<Statistic,Byte>>().copy(new IdTechnicalCopier<String>(),new MapStatisticTechnicalCopier(),c_,_m);
+        return c_;
+    }
+    public static CustList<TypesDuo> copyListTypesDuo(CustList<TypesDuo> _m) {
+        return new IdTechnicalCopier<TypesDuo>().copy(new TypesDuoTechnicalCopier(),_m);
+    }
+    public static CustList<StatisticStatus> copyListStatisticStatus(CustList<StatisticStatus> _m) {
+        return new IdTechnicalCopier<StatisticStatus>().copy(new StatisticStatusTechnicalCopier(),_m);
+    }
+    public static CustList<LevelMove> copyListLevelMove(CustList<LevelMove> _m) {
+        return new IdTechnicalCopier<LevelMove>().copy(new LevelMoveTechnicalCopier(),_m);
     }
     public static StringMap<StringMap<String>> backUp(StringMap<StringMap<String>> _tr) {
         StringMap<StringMap<String>> bk_ = new StringMap<StringMap<String>>();

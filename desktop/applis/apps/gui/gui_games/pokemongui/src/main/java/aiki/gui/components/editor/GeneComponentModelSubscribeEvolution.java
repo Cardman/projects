@@ -23,7 +23,7 @@ public final class GeneComponentModelSubscribeEvolution implements AbsGeneCompon
 
     @Override
     public void setupValue(Evolution _value) {
-        crud.valueEvo(_value);
+        crud.valueEvo(ConverterCommonMapUtil.copyEvolution(_value));
     }
 
     @Override

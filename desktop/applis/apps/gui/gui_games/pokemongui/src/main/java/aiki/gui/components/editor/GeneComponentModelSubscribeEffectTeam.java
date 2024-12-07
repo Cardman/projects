@@ -21,7 +21,7 @@ public final class GeneComponentModelSubscribeEffectTeam implements AbsGeneCompo
 
     @Override
     public void setupValue(EffectTeam _value) {
-        crud.valueEffect(_value);
+        crud.valueEffect(ConverterCommonMapUtil.copyEffectTeam(_value));
     }
 
     @Override

@@ -210,7 +210,7 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
     public void value(EditedCrudPair<String,MoveData> _v) {
         getGeneComponentModelSelectKey().setupValue(_v.getKey());
         updateSelector();
-        MoveData move_ = _v.getValue();
+        MoveData move_ = ConverterCommonMapUtil.copyMoveData(_v.getValue());
         element = move_;
         pp.valueInt(move_.getPp());
         priority.valueInt(move_.getPriority());

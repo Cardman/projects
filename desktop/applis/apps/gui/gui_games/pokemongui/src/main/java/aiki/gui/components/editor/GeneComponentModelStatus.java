@@ -150,7 +150,7 @@ public final class GeneComponentModelStatus extends GeneComponentModelEntity<Sta
     public void value(EditedCrudPair<String,Status> _v) {
         getGeneComponentModelSelectKey().setupValue(_v.getKey());
         updateSelector();
-        Status status_ = _v.getValue();
+        Status status_ = ConverterCommonMapUtil.copyStatus(_v.getValue());
         effectEndRound.setupValues(status_.getEffectEndRound());
         effectsPartner.setupValues(status_.getEffectsPartner());
         multStat.setupValues(new MapToEntriesListUtil<Statistic,Rate>().build(status_.getMultStat()));

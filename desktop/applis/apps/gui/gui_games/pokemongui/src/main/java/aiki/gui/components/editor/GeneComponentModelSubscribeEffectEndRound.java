@@ -21,7 +21,7 @@ public final class GeneComponentModelSubscribeEffectEndRound implements AbsGeneC
 
     @Override
     public void setupValue(EffectEndRound _value) {
-        crud.valueEffect(_value);
+        crud.valueEffect(ConverterCommonMapUtil.copyEffectEndRound(_value));
     }
 
     @Override

@@ -21,7 +21,7 @@ public final class GeneComponentModelSubscribeEffectEndRoundFoe implements AbsGe
 
     @Override
     public void setupValue(EffectEndRoundFoe _value) {
-        crud.valueEffect(_value);
+        crud.valueEffect(ConverterCommonMapUtil.copyEffectEndRoundFoe(_value));
     }
 
     @Override

@@ -177,7 +177,7 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
     public void value(EditedCrudPair<String,Item> _v) {
         getGeneComponentModelSelectKey().setupValue(_v.getKey());
         updateSelector();
-        Item item_ = _v.getValue();
+        Item item_ = ConverterCommonMapUtil.copyItem(_v.getValue());
         price.valueInt(item_.getPrice());
         if (item_ instanceof Ball) {
             catchingRate.setupValue(((Ball)item_).getCatchingRate());

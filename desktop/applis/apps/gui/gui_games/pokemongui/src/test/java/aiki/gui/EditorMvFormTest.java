@@ -1284,6 +1284,8 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         tryClick(effForm_.getContentEffectGlobal().getMultStatIfContainsType().getCrud().getCancel());
         tryClick(effectsCrud(g_).getValidAddEdit());
         tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryClick(c_.getCancel());
         assertEq(2,((EffectGlobal)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getMultStatIfContainsType().size());
         assertEq(T_1,((EffectGlobal)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getMultStatIfContainsType().getKey(0).getType());
         assertEq(Statistic.SPEED,((EffectGlobal)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getMultStatIfContainsType().getKey(0).getStatistic());

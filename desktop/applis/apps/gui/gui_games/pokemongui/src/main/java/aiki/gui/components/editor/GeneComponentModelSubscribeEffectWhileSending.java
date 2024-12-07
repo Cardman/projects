@@ -21,7 +21,7 @@ public final class GeneComponentModelSubscribeEffectWhileSending implements AbsG
 
     @Override
     public void setupValue(EffectWhileSendingWithStatistic _value) {
-        crud.valueEffect(_value);
+        crud.valueEffect(ConverterCommonMapUtil.copyEffectWhileSendingWithStatistic(_value));
     }
 
     @Override
