@@ -400,9 +400,9 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
     public void value(EditedCrudPair<String,AbilityData> _v) {
         getGeneComponentModelSelectKey().setupValue(_v.getKey());
         updateSelector();
-        getFacade().getData().getAbilities().removeKey(DataBase.EMPTY_STRING);
         AbilityData ability_ = ConverterCommonMapUtil.copyAbilityData(_v.getValue());
         element = ability_;
+        getFacade().getData().getAbilities().put(DataBase.EMPTY_STRING, ability_);
         breakFoeImmune.setupValues(ability_.getBreakFoeImmune());
         immuLowStatIfStatus.setupValues(ability_.getImmuLowStatIfStatus());
         divideStatusRound.setupValues(new MapToEntriesListUtil<String,Rate>().build(ability_.getDivideStatusRound()));

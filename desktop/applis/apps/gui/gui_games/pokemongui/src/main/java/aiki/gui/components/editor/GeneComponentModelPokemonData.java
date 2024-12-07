@@ -1,5 +1,6 @@
 package aiki.gui.components.editor;
 
+import aiki.db.*;
 import aiki.facade.*;
 import aiki.fight.enums.*;
 import aiki.fight.pokemon.*;
@@ -139,6 +140,7 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
     }
 
     private void updateForm(PokemonData _v) {
+        getFacade().getData().getPokedex().put(DataBase.EMPTY_STRING,_v);
         getWeight().valueRate(_v.getWeight());
         getHeight().valueRate(_v.getHeight());
         getTypes().setupValue(_v.getTypes());

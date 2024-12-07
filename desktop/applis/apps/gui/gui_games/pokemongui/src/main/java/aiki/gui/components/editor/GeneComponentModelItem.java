@@ -1,5 +1,6 @@
 package aiki.gui.components.editor;
 
+import aiki.db.*;
 import aiki.facade.*;
 import aiki.fight.items.*;
 import aiki.instances.*;
@@ -125,6 +126,7 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
             element = Instances.newSellingItem();
         }
         effectSub(element);
+        getFacade().getData().getItems().put(DataBase.EMPTY_STRING,element);
         getEffectKind().getSelectUniq().getSelect().repaint();
         getFrame().pack();
     }
@@ -178,6 +180,7 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         getGeneComponentModelSelectKey().setupValue(_v.getKey());
         updateSelector();
         Item item_ = ConverterCommonMapUtil.copyItem(_v.getValue());
+        getFacade().getData().getItems().put(DataBase.EMPTY_STRING, item_);
         price.valueInt(item_.getPrice());
         if (item_ instanceof Ball) {
             catchingRate.setupValue(((Ball)item_).getCatchingRate());

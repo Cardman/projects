@@ -1,5 +1,6 @@
 package aiki.gui.components.editor;
 
+import aiki.db.DataBase;
 import aiki.facade.*;
 import aiki.fight.enums.*;
 import aiki.fight.moves.effects.*;
@@ -113,6 +114,7 @@ public final class GeneComponentModelStatus extends GeneComponentModelEntity<Sta
         if (StringUtil.quickEq(eff_, MessagesEditorSelect.STAT_SIMPLE)) {
             edited = Instances.newStatusSimple();
         }
+        getFacade().getData().getStatus().put(DataBase.EMPTY_STRING,edited);
         getEffectKind().getSelect().repaint();
         getFrame().pack();
     }
@@ -151,6 +153,7 @@ public final class GeneComponentModelStatus extends GeneComponentModelEntity<Sta
         getGeneComponentModelSelectKey().setupValue(_v.getKey());
         updateSelector();
         Status status_ = ConverterCommonMapUtil.copyStatus(_v.getValue());
+        getFacade().getData().getStatus().put(DataBase.EMPTY_STRING,status_);
         effectEndRound.setupValues(status_.getEffectEndRound());
         effectsPartner.setupValues(status_.getEffectsPartner());
         multStat.setupValues(new MapToEntriesListUtil<Statistic,Rate>().build(status_.getMultStat()));
