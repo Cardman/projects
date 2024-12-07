@@ -6126,26 +6126,26 @@ public final class DataBase {
 //        changeParams(_oldName, _newName, typesPart());
     }
 
-    public void deleteType(String _oldName) {
-        if (usedType(_oldName)) {
-            return;
-        }
-//        TypesDuos table_ = new TypesDuos();
-//        for (TypesDuo p: tableTypes.getKeys()) {
-//            if (!StringUtil.quickEq(p.getDamageType(),_oldName)&&!StringUtil.quickEq(p.getPokemonType(),_oldName)) {
-//                Rate value_ = tableTypes.getVal(p);
-//                table_.addEntry(p, value_);
-//            }
+//    public void deleteType(String _oldName) {
+//        if (usedType(_oldName)) {
+//            return;
 //        }
-//        tableTypes = table_;
-//        types.removeObj(_oldName);
-        for (StringMap<String> t: getTranslatedTypes().values()) {
-            t.removeKey(_oldName);
-        }
-//        typesImages.removeKey(_oldName);
-//        typesColors.removeKey(_oldName);
-//        removeParams(_oldName, typesPart());
-    }
+////        TypesDuos table_ = new TypesDuos();
+////        for (TypesDuo p: tableTypes.getKeys()) {
+////            if (!StringUtil.quickEq(p.getDamageType(),_oldName)&&!StringUtil.quickEq(p.getPokemonType(),_oldName)) {
+////                Rate value_ = tableTypes.getVal(p);
+////                table_.addEntry(p, value_);
+////            }
+////        }
+////        tableTypes = table_;
+////        types.removeObj(_oldName);
+//        for (StringMap<String> t: getTranslatedTypes().values()) {
+//            t.removeKey(_oldName);
+//        }
+////        typesImages.removeKey(_oldName);
+////        typesColors.removeKey(_oldName);
+////        removeParams(_oldName, typesPart());
+//    }
     public boolean usedType(String _oldName) {
         if (usedTypeInExp(_oldName)) {
             return true;
@@ -6423,22 +6423,22 @@ public final class DataBase {
 //        getCategories().replace(_oldName, _newName);
 //    }
 
-    public void deleteCategory(String _oldName) {
-        if (usedCategory(_oldName)) {
-            return;
-        }
-//        getCategories().removeObj(_oldName);
-//        getAllCategories().removeObj(_oldName);
-        for (StringMap<String> t: getTranslatedCategories().values()) {
-            t.removeKey(_oldName);
-        }
-//        removeParams(_oldName, categoriesPart());
-//        getAllCategories().replace(_oldName, _newName);
-//        getCategories().replace(_oldName, _newName);
-    }
+//    public void deleteCategory(String _oldName) {
+//        if (usedCategory(_oldName)) {
+//            return;
+//        }
+////        getCategories().removeObj(_oldName);
+////        getAllCategories().removeObj(_oldName);
+//        for (StringMap<String> t: getTranslatedCategories().values()) {
+//            t.removeKey(_oldName);
+//        }
+////        removeParams(_oldName, categoriesPart());
+////        getAllCategories().replace(_oldName, _newName);
+////        getCategories().replace(_oldName, _newName);
+//    }
 
     public boolean usedCategory(String _oldName) {
-        if (usedCategoryInExp(_oldName) || StringUtil.quickEq(_oldName,getDefCategory())) {
+        if (usedCategoryInExp(_oldName)) {
             return true;
         }
         ChangeStringKeyUtil ls_ = new ChangeStringKeyUtil();

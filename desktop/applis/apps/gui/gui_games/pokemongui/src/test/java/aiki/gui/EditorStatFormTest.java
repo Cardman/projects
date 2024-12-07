@@ -1,5 +1,6 @@
 package aiki.gui;
 
+import aiki.db.*;
 import aiki.facade.*;
 import aiki.fight.enums.*;
 import aiki.fight.items.Item;
@@ -127,6 +128,20 @@ public final class EditorStatFormTest extends InitEditorPkForm {
         assertFalse(g_.getSubs().isEmpty());
     }
     @Test
+    public void otherCst() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        facade_.getData().defValues();
+        facade_.getData().validateOtherConstants();
+        facade_.getData().prefixVar("VAR");
+        facade_.getData().nbTour("NB_TOUR");
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormTrOtherCstList c_ = crudConst(sub_);
+        c_.getFields().getVal(DataBase.DEF_CAT).setText("category");
+        tryClick(c_.getButtons().getVal(DataBase.DEF_CAT));
+        assertEq("category",facade_.getData().getDefCategory());
+    }
+    @Test
     public void noKey() {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = core(pr_);
@@ -176,5 +191,10 @@ public final class EditorStatFormTest extends InitEditorPkForm {
     private CrudGeneFormTrItemType crudTrClType(WindowPkEditor _crud) {
         tryClick(_crud.getTrsClMenu());
         return _crud.getCrudGeneFormClTr();
+    }
+
+    private CrudGeneFormTrOtherCstList crudConst(WindowPkEditor _crud) {
+        tryClick(_crud.getTrsOtherConstMenu());
+        return _crud.getCrudGeneFormTrOtherCstList();
     }
 }

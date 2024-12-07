@@ -424,6 +424,8 @@ public final class EditorAbFormTest extends InitEditorPkForm {
         tryClick(g_.getMultStatIfDamageCat().getCrud().getAllButtons().get(0));
         tryClick(g_.getMultStatIfDamageCat().getCrud().getCancel());
         tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryClick(c_.getCancel());
         assertEq(2,facade_.getData().getAbilities().getVal(A_1).getMultStatIfDamageCat().size());
         assertEq(C_1,facade_.getData().getAbilities().getVal(A_1).getMultStatIfDamageCat().getKey(0).getCategory());
         assertEq(Statistic.SPEED,facade_.getData().getAbilities().getVal(A_1).getMultStatIfDamageCat().getKey(0).getStatistic());
