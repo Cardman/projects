@@ -11,10 +11,6 @@ public abstract class SubscribedTranslationMessagesFactoryImgPk extends Subscrib
     public GeneComponentModelImg buildQuick(AbsCommonFrame _frame, AbstractProgramInfos _core, CrudGeneFormSubContent<EditedCrudPair<String, ImageArrayBaseSixtyFour>> _facade) {
         return new GeneComponentModelImg(_frame,_core,_facade.getFacadeGame(),_facade.getSubscription(), _facade.getSubscription().getFactoryPk(), this);
     }
-    @Override
-    public void removeOpenSub(CrudGeneFormSubContent<EditedCrudPair<String, ImageArrayBaseSixtyFour>> _base) {
-        _base.removeOpenSub();
-    }
 
     @Override
     public StringMap<StringMap<String>> buildMessages(FacadeGame _facade) {

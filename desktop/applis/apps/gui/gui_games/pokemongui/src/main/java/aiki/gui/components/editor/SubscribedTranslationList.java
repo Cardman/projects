@@ -30,6 +30,9 @@ public final class SubscribedTranslationList {
     private final SubscribedTranslationMessagesFactoryMiniPk factoryMiniPk = new SubscribedTranslationMessagesFactoryMiniPk();
     private final SubscribedTranslationMessagesFactoryMaxiBackPk factoryMaxiBackPk = new SubscribedTranslationMessagesFactoryMaxiBackPk();
     private final SubscribedTranslationMessagesFactoryMaxiFrontPk factoryMaxiFrontPk = new SubscribedTranslationMessagesFactoryMaxiFrontPk();
+    private final SubscribedTranslationMessagesFactoryImgIt factoryMiniIt = new SubscribedTranslationMessagesFactoryImgIt();
+    private final SubscribedTranslationMessagesFactoryImgSt factoryMiniSt = new SubscribedTranslationMessagesFactoryImgSt();
+    private final SubscribedTranslationMessagesFactoryImgTy factoryMiniTy = new SubscribedTranslationMessagesFactoryImgTy();
 
     public SubscribedTranslationList(AbstractProgramInfos _p, FacadeGame _f) {
         this.programInfos = _p;
@@ -160,5 +163,17 @@ public final class SubscribedTranslationList {
 
     public SubscribedTranslationMessagesFactoryMaxiFrontPk getFactoryMaxiFrontPk() {
         return factoryMaxiFrontPk;
+    }
+
+    public SubscribedTranslationMessagesFactoryImgIt getFactoryMiniIt() {
+        return factoryMiniIt;
+    }
+
+    public SubscribedTranslationMessagesFactoryImgSt getFactoryMiniSt() {
+        return factoryMiniSt;
+    }
+
+    public SubscribedTranslationMessagesFactoryImgTy getFactoryMiniTy() {
+        return factoryMiniTy;
     }
 }

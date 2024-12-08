@@ -46,6 +46,9 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
     private final CrudGeneFormEntImg crudGeneFormMiniPk;
     private final CrudGeneFormEntImg crudGeneFormMaxiBackPk;
     private final CrudGeneFormEntImg crudGeneFormMaxiFrontPk;
+    private final CrudGeneFormEntImg crudGeneFormMiniIt;
+    private final CrudGeneFormEntImg crudGeneFormMiniSt;
+    private final CrudGeneFormEntImg crudGeneFormMiniTy;
     private final EnabledMenu trsAbMenu = getFrames().getCompoFactory().newMenuItem("0_0");
     private final EnabledMenu trsItMenu = getFrames().getCompoFactory().newMenuItem("0_1");
     private final EnabledMenu trsMvMenu = getFrames().getCompoFactory().newMenuItem("0_2");
@@ -72,6 +75,9 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
     private final EnabledMenu imgMiniPkMenu = getFrames().getCompoFactory().newMenuItem("4_0");
     private final EnabledMenu imgMaxiBackPkMenu = getFrames().getCompoFactory().newMenuItem("4_1");
     private final EnabledMenu imgMaxiFrontPkMenu = getFrames().getCompoFactory().newMenuItem("4_2");
+    private final EnabledMenu imgMiniItMenu = getFrames().getCompoFactory().newMenuItem("4_3");
+    private final EnabledMenu imgMiniStMenu = getFrames().getCompoFactory().newMenuItem("4_4");
+    private final EnabledMenu imgMiniTyMenu = getFrames().getCompoFactory().newMenuItem("4_5");
 
     public WindowPkEditor(AbstractProgramInfos _list, FacadeGame _facade) {
         super(_list);
@@ -125,6 +131,9 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         crudGeneFormMiniPk = buildImg(_list, _facade,subscriptions,imgMiniPkMenu,subscriptions.getFactoryMiniPk());
         crudGeneFormMaxiBackPk = buildImg(_list, _facade,subscriptions,imgMaxiBackPkMenu,subscriptions.getFactoryMaxiBackPk());
         crudGeneFormMaxiFrontPk = buildImg(_list, _facade,subscriptions,imgMaxiFrontPkMenu,subscriptions.getFactoryMaxiFrontPk());
+        crudGeneFormMiniIt = buildImg(_list, _facade,subscriptions,imgMiniItMenu,subscriptions.getFactoryMiniIt());
+        crudGeneFormMiniSt = buildImg(_list, _facade,subscriptions,imgMiniStMenu,subscriptions.getFactoryMiniSt());
+        crudGeneFormMiniTy = buildImg(_list, _facade,subscriptions,imgMiniTyMenu,subscriptions.getFactoryMiniTy());
         AbsMenuBar bar_ = getFrames().getCompoFactory().newMenuBar();
         EnabledMenu file_ = getFrames().getCompoFactory().newMenu("0");
         EnabledMenu trs_ = getFrames().getCompoFactory().newMenu("0");
@@ -162,6 +171,9 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         img_.addMenuItem(imgMiniPkMenu);
         img_.addMenuItem(imgMaxiBackPkMenu);
         img_.addMenuItem(imgMaxiFrontPkMenu);
+        img_.addMenuItem(imgMiniItMenu);
+        img_.addMenuItem(imgMiniStMenu);
+        img_.addMenuItem(imgMiniTyMenu);
         file_.addMenuItem(img_);
         bar_.add(file_);
         tmMenu.addActionListener(new PkEditorOpenCrudTrCstEvent(crudGeneFormTm,tmMenu));
@@ -338,6 +350,18 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         return imgMaxiFrontPkMenu;
     }
 
+    public EnabledMenu getImgMiniItMenu() {
+        return imgMiniItMenu;
+    }
+
+    public EnabledMenu getImgMiniStMenu() {
+        return imgMiniStMenu;
+    }
+
+    public EnabledMenu getImgMiniTyMenu() {
+        return imgMiniTyMenu;
+    }
+
     public CrudGeneFormEnt<AbilityData> getCrudGeneFormAb() {
         return crudGeneFormAb;
     }
@@ -440,5 +464,17 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
 
     public CrudGeneFormEntImg getCrudGeneFormMaxiFrontPk() {
         return crudGeneFormMaxiFrontPk;
+    }
+
+    public CrudGeneFormEntImg getCrudGeneFormMiniIt() {
+        return crudGeneFormMiniIt;
+    }
+
+    public CrudGeneFormEntImg getCrudGeneFormMiniSt() {
+        return crudGeneFormMiniSt;
+    }
+
+    public CrudGeneFormEntImg getCrudGeneFormMiniTy() {
+        return crudGeneFormMiniTy;
     }
 }

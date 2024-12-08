@@ -37,7 +37,10 @@ public abstract class SubscribedTranslationMessagesFactoryImg implements Subscri
     public void delete(FacadeGame _facade, String _key) {
         all(_facade).removeKey(_key);
     }
-
+    @Override
+    public void removeOpenSub(CrudGeneFormSubContent<EditedCrudPair<String, ImageArrayBaseSixtyFour>> _base) {
+        _base.removeOpenSub();
+    }
     @Override
     public AbsMap<String, String> buildMessagesCopy(FacadeGame _facade, String _lg) {
         return new StringMap<String>(buildMessages(_facade).getVal(_lg));
