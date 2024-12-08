@@ -28,6 +28,8 @@ public final class SubscribedTranslationList {
     private final SubscribedTranslationMessagesFactoryCstGender factoryGender = new SubscribedTranslationMessagesFactoryCstGender();
     private final SubscribedTranslationMessagesFactoryCstEnvironmentType factoryEnvironmentType = new SubscribedTranslationMessagesFactoryCstEnvironmentType();
     private final SubscribedTranslationMessagesFactoryMiniPk factoryMiniPk = new SubscribedTranslationMessagesFactoryMiniPk();
+    private final SubscribedTranslationMessagesFactoryMaxiBackPk factoryMaxiBackPk = new SubscribedTranslationMessagesFactoryMaxiBackPk();
+    private final SubscribedTranslationMessagesFactoryMaxiFrontPk factoryMaxiFrontPk = new SubscribedTranslationMessagesFactoryMaxiFrontPk();
 
     public SubscribedTranslationList(AbstractProgramInfos _p, FacadeGame _f) {
         this.programInfos = _p;
@@ -150,5 +152,13 @@ public final class SubscribedTranslationList {
 
     public SubscribedTranslationMessagesFactoryMiniPk getFactoryMiniPk() {
         return factoryMiniPk;
+    }
+
+    public SubscribedTranslationMessagesFactoryMaxiBackPk getFactoryMaxiBackPk() {
+        return factoryMaxiBackPk;
+    }
+
+    public SubscribedTranslationMessagesFactoryMaxiFrontPk getFactoryMaxiFrontPk() {
+        return factoryMaxiFrontPk;
     }
 }

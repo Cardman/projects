@@ -4,9 +4,9 @@ import aiki.db.*;
 import aiki.facade.*;
 import code.util.*;
 
-public final class SubscribedTranslationMessagesFactoryMiniPk extends SubscribedTranslationMessagesFactoryImgPk {
+public final class SubscribedTranslationMessagesFactoryMaxiBackPk extends SubscribedTranslationMessagesFactoryImgPk {
     @Override
     public StringMap<ImageArrayBaseSixtyFour> all(FacadeGame _facade) {
-        return _facade.getData().getMiniPk();
+        return _facade.getData().getMaxiPkBack();
     }
 }

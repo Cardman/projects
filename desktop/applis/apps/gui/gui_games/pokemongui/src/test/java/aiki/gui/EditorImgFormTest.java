@@ -21,7 +21,7 @@ public final class EditorImgFormTest extends InitEditorPkForm {
         WindowPkEditor sub_ = window(pr_, facade_);
         CrudGeneFormEntImg c_ = crudMiniPk(sub_);
         tryClick(c_.getAdd());
-        GeneComponentModelMiniPk g_ = (GeneComponentModelMiniPk)c_.getGene();
+        GeneComponentModelImg g_ = (GeneComponentModelImg)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
         tryLoad(g_);
         tryClick(c_.getValidAddEdit());
@@ -37,12 +37,12 @@ public final class EditorImgFormTest extends InitEditorPkForm {
         WindowPkEditor sub_ = window(pr_, facade_);
         CrudGeneFormEntImg c_ = crudMiniPk(sub_);
         tryClick(c_.getAdd());
-        GeneComponentModelMiniPk g_ = (GeneComponentModelMiniPk)c_.getGene();
+        GeneComponentModelImg g_ = (GeneComponentModelImg)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
         tryLoad(g_);
         tryClick(c_.getValidAddEdit());
         tryClick(c_.getAllButtons().get(0));
-        GeneComponentModelMiniPk gSec_ = (GeneComponentModelMiniPk)c_.getGene();
+        GeneComponentModelImg gSec_ = (GeneComponentModelImg)c_.getGene();
         assertEq(1,gSec_.getEdited().getImage().length);
     }
     @Test
@@ -52,7 +52,7 @@ public final class EditorImgFormTest extends InitEditorPkForm {
         WindowPkEditor sub_ = window(pr_, facade_);
         CrudGeneFormEntImg c_ = crudMiniPk(sub_);
         tryClick(c_.getAdd());
-        GeneComponentModelMiniPk g_ = (GeneComponentModelMiniPk)c_.getGene();
+        GeneComponentModelImg g_ = (GeneComponentModelImg)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
         tryLoad(g_);
         tryClick(c_.getValidAddEdit());
@@ -68,7 +68,7 @@ public final class EditorImgFormTest extends InitEditorPkForm {
         WindowPkEditor sub_ = window(pr_, facade_);
         CrudGeneFormEntImg c_ = crudMiniPk(sub_);
         tryClick(c_.getAdd());
-        GeneComponentModelMiniPk g_ = (GeneComponentModelMiniPk)c_.getGene();
+        GeneComponentModelImg g_ = (GeneComponentModelImg)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
         tryLoad(g_);
         tryClick(c_.getValidAddEdit());
@@ -84,7 +84,7 @@ public final class EditorImgFormTest extends InitEditorPkForm {
         WindowPkEditor sub_ = window(pr_, facade_);
         CrudGeneFormEntImg c_ = crudMiniPk(sub_);
         tryClick(c_.getAdd());
-        GeneComponentModelMiniPk g_ = (GeneComponentModelMiniPk)c_.getGene();
+        GeneComponentModelImg g_ = (GeneComponentModelImg)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
         tryLoad(g_);
         tryClick(c_.getValidAddEdit());
@@ -100,7 +100,7 @@ public final class EditorImgFormTest extends InitEditorPkForm {
         WindowPkEditor sub_ = window(pr_, facade_);
         CrudGeneFormEntImg c_ = crudMiniPk(sub_);
         tryClick(c_.getAdd());
-        GeneComponentModelMiniPk g_ = (GeneComponentModelMiniPk)c_.getGene();
+        GeneComponentModelImg g_ = (GeneComponentModelImg)c_.getGene();
         tryLoad(g_);
         tryClick(c_.getValidAddEdit());
         assertEq(0,facade_.getData().getMiniPk().size());
@@ -113,7 +113,7 @@ public final class EditorImgFormTest extends InitEditorPkForm {
         WindowPkEditor sub_ = window(pr_, facade_);
         CrudGeneFormEntImg c_ = crudMiniPk(sub_);
         tryClick(c_.getAdd());
-        GeneComponentModelMiniPk g_ = (GeneComponentModelMiniPk)c_.getGene();
+        GeneComponentModelImg g_ = (GeneComponentModelImg)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
         tryLoad(g_);
         tryClick(c_.getValidAddEdit());
@@ -127,12 +127,42 @@ public final class EditorImgFormTest extends InitEditorPkForm {
         WindowPkEditor sub_ = window(pr_, facade_);
         CrudGeneFormEntImg c_ = crudMiniPk(sub_);
         tryClick(c_.getAdd());
-        GeneComponentModelMiniPk g_ = (GeneComponentModelMiniPk)c_.getGene();
+        GeneComponentModelImg g_ = (GeneComponentModelImg)c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(P_1);
         tryLoad(g_);
         tryClick(c_.getCancel());
         assertEq(0,facade_.getData().getMiniPk().size());
         assertEq(0,c_.getList().size());
+    }
+    @Test
+    public void imgForm9() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEntImg c_ = crudMaxiBackPk(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelImg g_ = (GeneComponentModelImg)c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(P_1);
+        tryLoad(g_);
+        tryClick(c_.getValidAddEdit());
+        assertEq(1,facade_.getData().getMaxiPkBack().size());
+        assertEq(1,c_.getList().size());
+        assertEq(P_1,c_.getList().get(0).getKey());
+    }
+    @Test
+    public void imgForm10() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEntImg c_ = crudMaxiFrontPk(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelImg g_ = (GeneComponentModelImg)c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(P_1);
+        tryLoad(g_);
+        tryClick(c_.getValidAddEdit());
+        assertEq(1,facade_.getData().getMaxiPkFront().size());
+        assertEq(1,c_.getList().size());
+        assertEq(P_1,c_.getList().get(0).getKey());
     }
     private void tryLoad(GeneComponentModelImg _g) {
         _g.getFileDialogContent().getFileName().setText("_");
@@ -184,5 +214,15 @@ public final class EditorImgFormTest extends InitEditorPkForm {
     private CrudGeneFormEntImg crudMiniPk(WindowPkEditor _crud) {
         tryClick(_crud.getImgMiniPkMenu());
         return _crud.getCrudGeneFormMiniPk();
+    }
+
+    private CrudGeneFormEntImg crudMaxiBackPk(WindowPkEditor _crud) {
+        tryClick(_crud.getImgMaxiBackPkMenu());
+        return _crud.getCrudGeneFormMaxiBackPk();
+    }
+
+    private CrudGeneFormEntImg crudMaxiFrontPk(WindowPkEditor _crud) {
+        tryClick(_crud.getImgMaxiFrontPkMenu());
+        return _crud.getCrudGeneFormMaxiFrontPk();
     }
 }
