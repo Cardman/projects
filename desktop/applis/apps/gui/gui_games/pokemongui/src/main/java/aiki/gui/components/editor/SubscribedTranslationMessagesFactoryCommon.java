@@ -5,13 +5,24 @@ import aiki.facade.*;
 import aiki.fight.effects.*;
 import aiki.fight.items.*;
 import aiki.fight.moves.effects.*;
-import code.gui.initialize.*;
 import code.util.*;
 
 public abstract class SubscribedTranslationMessagesFactoryCommon implements SubscribedTranslationMessagesFactory {
 
+    private final SubscribedTranslationMessagesFactoryCoreContainer<String> container = new SubscribedTranslationMessagesFactoryCoreContainer<String>(this);
+
     private final ModifiedEntitiesRename modifiedEntitiesRename = new ModifiedEntitiesRename();
 
+    public SubscribedTranslationMessagesFactoryCoreContainer<String> getContainer() {
+        return container;
+    }
+
+    @Override
+    public AbsMap<String, String> buildMessagesCopy(FacadeGame _facade, String _lg) {
+        return new StringMap<String>(buildMessages(_facade).getVal(_lg));
+    }
+
+    public abstract StringMap<StringMap<String>> buildMessages(FacadeGame _facade);
     @Override
     public void renameExp(FacadeGame _facade, String _previous, String _next) {
         StringList mids_ = mids(_facade);
@@ -54,20 +65,4 @@ public abstract class SubscribedTranslationMessagesFactoryCommon implements Subs
         this.modifiedEntitiesRename.setItemForBattle(_i);
     }
 
-    @Override
-    public SubscribedTranslation buildSub(AbsMap<String, String> _map, AbsMap<String,String> _withEmpty) {
-        return new SubscribedTranslationMessages<String>(_map,this, _withEmpty);
-    }
-
-    @Override
-    public AbsMap<String,String> buildMessages(AbstractProgramInfos _api, FacadeGame _facade) {
-        return new StringMap<String>(buildMessages(_facade).getVal(_api.getLanguage()));
-    }
-
-    @Override
-    public AbsMap<String,String> buildMessages(AbstractProgramInfos _api, FacadeGame _facade, AbsMap<String,String> _withEmpty) {
-        StringMap<String> out_ = new StringMap<String>(buildMessages(_facade).getVal(_api.getLanguage()));
-        out_.addAllEntries(_withEmpty);
-        return out_;
-    }
 }

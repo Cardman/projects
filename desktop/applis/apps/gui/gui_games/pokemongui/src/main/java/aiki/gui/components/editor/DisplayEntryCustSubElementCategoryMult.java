@@ -17,7 +17,7 @@ public final class DisplayEntryCustSubElementCategoryMult implements DisplayEntr
 
     public DisplayEntryCustSubElementCategoryMult(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub) {
         factoryCa = _sub.getFactoryCa();
-        this.categories = factoryCa.buildMessages(_fact,_facade);
+        this.categories = factoryCa.getContainer().buildMessages(_fact,_facade);
     }
 
 

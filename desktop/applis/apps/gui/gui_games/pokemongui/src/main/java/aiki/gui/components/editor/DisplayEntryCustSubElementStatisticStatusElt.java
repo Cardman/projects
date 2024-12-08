@@ -17,9 +17,9 @@ public final class DisplayEntryCustSubElementStatisticStatusElt implements Displ
 
     public DisplayEntryCustSubElementStatisticStatusElt(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub) {
         factoryTy = _sub.getFactoryTy();
-        this.types = factoryTy.buildMessages(_fact,_facade);
+        this.types = factoryTy.getContainer().buildMessages(_fact,_facade);
         factoryStat = _sub.getFactoryStat();
-        this.stats = factoryStat.buildMessages(_fact,_facade);
+        this.stats = factoryStat.getContainer().buildMessages(_fact,_facade);
     }
 
 

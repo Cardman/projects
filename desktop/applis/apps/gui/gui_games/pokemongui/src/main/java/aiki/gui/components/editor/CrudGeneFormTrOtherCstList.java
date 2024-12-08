@@ -20,7 +20,7 @@ public final class CrudGeneFormTrOtherCstList implements AbsCrudGeneFormTrCstOpe
     }
 
     @Override
-    public void initForm() {
+    public void initFormAll() {
         AbsPanel content_ = api.getCompoFactory().newPageBox();
         AbsPanel page_ = api.getCompoFactory().newPageBox();
         fields.clear();

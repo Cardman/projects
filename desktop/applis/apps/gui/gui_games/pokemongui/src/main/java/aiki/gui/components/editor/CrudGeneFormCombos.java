@@ -6,13 +6,19 @@ import code.gui.*;
 import code.gui.initialize.*;
 import code.util.*;
 
-public final class CrudGeneFormCombos extends CrudGeneFormListSub<ListEffectCombo> {
+public final class CrudGeneFormCombos extends CrudGeneFormListSub<ListEffectCombo> implements AbsCrudGeneFormTrCstOpen {
 
     private GeneComponentModelSubscribeEffectCombo value;
 
     public CrudGeneFormCombos(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub, AbsCommonFrame _fr) {
         super(_fact,_facade,_sub, _fr, null);
     }
+
+    @Override
+    public void initFormAll() {
+        initForm(getFactory());
+    }
+
     public void initForm(AbstractProgramInfos _core) {
         initForm();
         getCrudGeneFormSubContent().clearSub();

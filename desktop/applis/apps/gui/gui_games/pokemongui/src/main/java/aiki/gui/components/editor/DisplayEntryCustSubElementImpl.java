@@ -8,11 +8,11 @@ import code.util.ints.*;
 
 public final class DisplayEntryCustSubElementImpl<K,V> implements DisplayEntryCustSubElement<EditedCrudPair<K, V>> {
     private final AbsMap<K, String> messages;
-    private final SubscribedTranslationMessagesFactoryCore<K> content;
+    private final SubscribedTranslationMessagesFactoryCoreMessages<K> content;
     private final AbsMap<K, String> withEmpty;
 
-    public DisplayEntryCustSubElementImpl(SubscribedTranslationMessagesFactoryCore<K> _c, AbstractProgramInfos _core, FacadeGame _fac, AbsMap<K, String> _w) {
-        this.messages = _c.buildMessages(_core,_fac,_w);
+    public DisplayEntryCustSubElementImpl(SubscribedTranslationMessagesFactoryCoreMessages<K> _c, AbstractProgramInfos _core, FacadeGame _fac, AbsMap<K, String> _w) {
+        this.messages = _c.getContainer().buildMessages(_core,_fac,_w);
         content = _c;
         withEmpty = _w;
     }

@@ -6,25 +6,31 @@ import code.gui.initialize.*;
 import code.maths.*;
 import code.util.*;
 
-public final class CrudGeneFormNb extends CrudGeneFormListSub<EditedCrudPair<Integer, String>> {
+public final class CrudGeneFormNb extends CrudGeneFormListSub<EditedCrudPair<Integer, String>> implements AbsCrudGeneFormTrCstOpen{
     private final FacadeGame facadeGame;
     private AbsSpinner destination;
     private final SubscribedTranslationList subscribedTranslations;
     private final SubscribedTranslationMessagesNbFactory factoryMessage;
     private GeneComponentModelLgInt price;
-    private boolean tm;
+    private final boolean tm;
     private GeneComponentModelNb geneComponentModelNb;
 
-    public CrudGeneFormNb(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub, AbsCommonFrame _fr, SubscribedTranslationMessagesNbFactory _facto) {
+    public CrudGeneFormNb(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub, AbsCommonFrame _fr, SubscribedTranslationMessagesNbFactory _facto, boolean _t) {
         super(_fact,_facade,_sub,_fr, null);
         factoryMessage = _facto;
         subscribedTranslations = _sub;
         facadeGame = _facade;
+        tm = _t;
     }
-    public void initFormTr(boolean _t) {
+
+    @Override
+    public void initFormAll() {
+        initFormTr();
+    }
+
+    public void initFormTr() {
         destination = getFactory().getCompoFactory().newSpinner(0,0,Integer.MAX_VALUE,1);
         destination.addChangeListener(new RenameNbEvent(this));
-        tm = _t;
         initForm();
         CustList<EditedCrudPair<Integer, String>> nbs_ = new CustList<EditedCrudPair<Integer, String>>();
         for (EntryCust<Short,String> e: factoryMessage.retrieveMap(getFactory(),facadeGame).entryList()) {

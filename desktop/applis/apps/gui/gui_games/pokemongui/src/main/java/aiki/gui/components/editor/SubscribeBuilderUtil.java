@@ -8,7 +8,7 @@ import code.util.core.*;
 
 public final class SubscribeBuilderUtil<T> extends AbsSubscribeBuilderUtil<T,IdList<T>> {
 
-    public SubscribeBuilderUtil(SubscribedTranslationMessagesFactoryCore<T> _f) {
+    public SubscribeBuilderUtil(SubscribedTranslationMessagesFactoryCoreMessages<T> _f) {
         super(_f, new IntListConvertId<T>());
     }
 

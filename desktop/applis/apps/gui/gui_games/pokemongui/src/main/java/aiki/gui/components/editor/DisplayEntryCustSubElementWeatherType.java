@@ -15,9 +15,9 @@ public final class DisplayEntryCustSubElementWeatherType<T> implements DisplayEn
 
     public DisplayEntryCustSubElementWeatherType(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub) {
         factoryMv = _sub.getFactoryMv();
-        this.moves = factoryMv.buildMessages(_fact,_facade);
+        this.moves = factoryMv.getContainer().buildMessages(_fact,_facade);
         factoryTy = _sub.getFactoryTy();
-        this.types = factoryTy.buildMessages(_fact,_facade);
+        this.types = factoryTy.getContainer().buildMessages(_fact,_facade);
     }
 
 

@@ -6,15 +6,15 @@ import code.gui.initialize.*;
 import code.util.*;
 
 public final class CrudGeneFormTrCst<T> extends CrudGeneFormTrCommon {
-    private final SubscribedTranslationMessagesFactoryCst<T> factoryMessage;
+    private final SubscribedTranslationMessagesFactoryCommonCst<T> factoryMessage;
     private final IdMap<T,StringMap<AbsTextField>> fields = new IdMap<T, StringMap<AbsTextField>>();
 
-    public CrudGeneFormTrCst(AbstractProgramInfos _core,FacadeGame _facade, SubscribedTranslationList _sub, SubscribedTranslationMessagesFactoryCst<T> _facto) {
+    public CrudGeneFormTrCst(AbstractProgramInfos _core,FacadeGame _facade, SubscribedTranslationList _sub, SubscribedTranslationMessagesFactoryCommonCst<T> _facto) {
         super(_core, _facade, _sub);
         factoryMessage = _facto;
     }
     @Override
-    public void initForm() {
+    public void initFormAll() {
         AbsPanel content_ = getApi().getCompoFactory().newPageBox();
         AbsPanel page_ = getApi().getCompoFactory().newPageBox();
         StringMap<IdMap<T, String>> all_ = factoryMessage.buildMessages(getFacadeGame());

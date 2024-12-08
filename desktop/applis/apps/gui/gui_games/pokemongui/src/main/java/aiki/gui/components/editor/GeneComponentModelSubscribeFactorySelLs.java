@@ -7,10 +7,10 @@ public final class GeneComponentModelSubscribeFactorySelLs<E,F> implements AbsGe
 
     private final AbstractProgramInfos core;
     private final FacadeGame facade;
-    private final SubscribedTranslationMessagesFactoryCore<E> content;
+    private final SubscribedTranslationMessagesFactoryCoreMessages<E> content;
     private final AbsSubscribeBuilderUtilFactory<E,F> convert;
 
-    public GeneComponentModelSubscribeFactorySelLs(AbstractProgramInfos _c, FacadeGame _f, SubscribedTranslationMessagesFactoryCore<E> _fact, AbsSubscribeBuilderUtilFactory<E,F> _conv) {
+    public GeneComponentModelSubscribeFactorySelLs(AbstractProgramInfos _c, FacadeGame _f, SubscribedTranslationMessagesFactoryCoreMessages<E> _fact, AbsSubscribeBuilderUtilFactory<E,F> _conv) {
         this.core = _c;
         this.facade = _f;
         content = _fact;

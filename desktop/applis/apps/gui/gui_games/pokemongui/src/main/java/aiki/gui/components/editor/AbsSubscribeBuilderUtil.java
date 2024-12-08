@@ -10,15 +10,15 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.util.*;
 
 public abstract class AbsSubscribeBuilderUtil<T,U> {
-    private final SubscribedTranslationMessagesFactoryCore<T> factory;
+    private final SubscribedTranslationMessagesFactoryCoreMessages<T> factory;
     private final IntListConvert<T, U> converter;
-    protected AbsSubscribeBuilderUtil(SubscribedTranslationMessagesFactoryCore<T> _f, IntListConvert<T, U> _conv){
+    protected AbsSubscribeBuilderUtil(SubscribedTranslationMessagesFactoryCoreMessages<T> _f, IntListConvert<T, U> _conv){
         this.factory = _f;
         converter = _conv;
     }
 
     public GeneComponentModelEltEnumSub<T> merge(AbstractProgramInfos _api, FacadeGame _sub, CustList<T> _excluded, AbsMap<T,String> _withEmptyStr, AbsDefValue<T> _d) {
-        AbsMap<T, String> sub_ = factory.buildMessages(_api, _sub, _withEmptyStr);
+        AbsMap<T, String> sub_ = factory.getContainer().buildMessages(_api, _sub, _withEmptyStr);
         AbEqList<T> rem_ = copy(sub_.getKeys());
         rem_.removeAllElements(_excluded);
         TreeMap<T, String> treeFilter_ = feedTree(sub_, rem_);
@@ -29,7 +29,7 @@ public abstract class AbsSubscribeBuilderUtil<T,U> {
     }
 
     public GeneComponentModelLsStrSub<T,U> mergeLs(AbstractProgramInfos _api, FacadeGame _sub) {
-        AbsMap<T, String> sub_ = factory.buildMessages(_api, _sub);
+        AbsMap<T, String> sub_ = factory.getContainer().buildMessages(_api, _sub);
         TreeMap<T, String> treeFilter_ = feedTree(sub_, sub_.getKeys());
         GeneComponentModelLs<T> sel_ = new GeneComponentModelLs<T>(_api, treeFilter_);
         GeneComponentModelLsStrSub<T,U> g_ = new GeneComponentModelLsStrSub<T,U>(sel_,converter);
@@ -45,8 +45,8 @@ public abstract class AbsSubscribeBuilderUtil<T,U> {
     }
     public IdList<SubscribedTranslation> feedSub(AbsMap<T, String> _sub, TreeMap<T, String> _treeFilter, GeneComponentModelStr _sel, AbsMap<T, String> _withEmpty) {
         IdList<SubscribedTranslation> subs_ = new IdList<SubscribedTranslation>();
-        subs_.add(factory.buildSub(_sub, _withEmpty));
-        subs_.add(factory.buildSub(_treeFilter, _withEmpty));
+        subs_.add(factory.getContainer().buildSub(_sub, _withEmpty));
+        subs_.add(factory.getContainer().buildSub(_treeFilter, _withEmpty));
         subs_.add(new SubscribedTranslationSelect(_sel));
         return subs_;
     }

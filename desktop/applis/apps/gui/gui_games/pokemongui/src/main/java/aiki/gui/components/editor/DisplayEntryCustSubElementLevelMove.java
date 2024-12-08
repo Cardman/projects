@@ -12,7 +12,7 @@ public final class DisplayEntryCustSubElementLevelMove implements DisplayEntryCu
     private final SubscribedTranslationList subscribedTranslationList;
 
     public DisplayEntryCustSubElementLevelMove(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub) {
-        messages = _sub.getFactoryMv().buildMessages(_fact,_facade);
+        messages = _sub.getFactoryMv().getContainer().buildMessages(_fact,_facade);
         subscribedTranslationList = _sub;
     }
     @Override

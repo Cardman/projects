@@ -16,9 +16,9 @@ public final class DisplayEntryCustSubElementStatisticType<T> implements Display
 
     public DisplayEntryCustSubElementStatisticType(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub) {
         factoryStat = _sub.getFactoryStat();
-        this.stats = factoryStat.buildMessages(_fact,_facade);
+        this.stats = factoryStat.getContainer().buildMessages(_fact,_facade);
         factoryTy = _sub.getFactoryTy();
-        this.types = factoryTy.buildMessages(_fact,_facade);
+        this.types = factoryTy.getContainer().buildMessages(_fact,_facade);
     }
 
 

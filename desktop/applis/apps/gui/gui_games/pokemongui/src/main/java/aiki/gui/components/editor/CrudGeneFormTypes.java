@@ -8,13 +8,19 @@ import code.maths.*;
 import code.util.*;
 import code.util.ints.*;
 
-public final class CrudGeneFormTypes extends CrudGeneFormListSub<EditedCrudPair<TypesDuo, Rate>> {
+public final class CrudGeneFormTypes extends CrudGeneFormListSub<EditedCrudPair<TypesDuo, Rate>> implements AbsCrudGeneFormTrCstOpen {
 
     private GeneComponentModelSubscribeTypesDuoRate value;
 
     public CrudGeneFormTypes(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub, AbsCommonFrame _fr) {
         super(_fact,_facade,_sub, _fr, null);
     }
+
+    @Override
+    public void initFormAll() {
+        initForm(getFactory());
+    }
+
     public void initForm(AbstractProgramInfos _core) {
         initForm();
         getCrudGeneFormSubContent().clearSub();

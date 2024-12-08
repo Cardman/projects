@@ -13,7 +13,7 @@ public final class PkEditorOpenCrudTrCstEvent implements AbsActionListener {
     }
     @Override
     public void action() {
-        window.initForm();
+        window.initFormAll();
         menu.setEnabled(false);
     }
 }

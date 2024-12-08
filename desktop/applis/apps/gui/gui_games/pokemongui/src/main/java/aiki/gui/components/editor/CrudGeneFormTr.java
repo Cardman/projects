@@ -6,18 +6,24 @@ import code.gui.*;
 import code.gui.initialize.*;
 import code.util.*;
 
-public final class CrudGeneFormTr extends AbsCrudGeneFormList<EditedCrudPair<String, StringMap<String>>> {
+public final class CrudGeneFormTr extends AbsCrudGeneFormList<EditedCrudPair<String, StringMap<String>>> implements AbsCrudGeneFormTrCstOpen {
     private final FacadeGame facadeGame;
     private AbsTextField destination;
     private final SubscribedTranslationList subscribedTranslations;
-    private final SubscribedTranslationMessagesFactory factoryMessage;
-    public CrudGeneFormTr(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub, AbsCommonFrame _fr, SubscribedTranslationMessagesFactory _facto) {
+    private final SubscribedTranslationMessagesFactoryCommon factoryMessage;
+    public CrudGeneFormTr(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub, AbsCommonFrame _fr, SubscribedTranslationMessagesFactoryCommon _facto) {
         super(_fact, null);
         factoryMessage = _facto;
         subscribedTranslations = _sub;
         facadeGame = _facade;
         setFrame(_fr);
     }
+
+    @Override
+    public void initFormAll() {
+        initForm(getFactory());
+    }
+
     public void initForm(AbstractProgramInfos _core) {
         destination = getFactory().getCompoFactory().newTextField();
         destination.addActionListener(new RenameEntPkEvent(this));

@@ -16,9 +16,9 @@ public final class DisplayEntryCustSubElementStatisticCategory<T> implements Dis
 
     public DisplayEntryCustSubElementStatisticCategory(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub) {
         factoryStat = _sub.getFactoryStat();
-        this.stats = factoryStat.buildMessages(_fact,_facade);
+        this.stats = factoryStat.getContainer().buildMessages(_fact,_facade);
         factoryCa = _sub.getFactoryCa();
-        this.cats = factoryCa.buildMessages(_fact,_facade);
+        this.cats = factoryCa.getContainer().buildMessages(_fact,_facade);
     }
 
 

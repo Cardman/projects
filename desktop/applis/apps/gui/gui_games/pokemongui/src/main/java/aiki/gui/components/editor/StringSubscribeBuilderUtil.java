@@ -7,7 +7,7 @@ import code.util.*;
 
 public final class StringSubscribeBuilderUtil extends AbsSubscribeBuilderUtil<String,StringList> {
 
-    public StringSubscribeBuilderUtil(SubscribedTranslationMessagesFactoryCore<String> _f) {
+    public StringSubscribeBuilderUtil(SubscribedTranslationMessagesFactoryCoreMessages<String> _f) {
         super(_f, new IntListConvertString());
     }
 

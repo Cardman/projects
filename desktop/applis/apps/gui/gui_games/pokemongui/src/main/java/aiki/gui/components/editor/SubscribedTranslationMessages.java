@@ -6,10 +6,10 @@ import code.util.*;
 
 public final class SubscribedTranslationMessages<T> implements SubscribedTranslation {
     private final AbsMap<T, String> input;
-    private final SubscribedTranslationMessagesFactoryCore<T> factory;
+    private final SubscribedTranslationMessagesFactoryCoreMessages<T> factory;
     private final AbsMap<T,String> empty;
 
-    public SubscribedTranslationMessages(AbsMap<T, String> _c, SubscribedTranslationMessagesFactoryCore<T> _sub, AbsMap<T,String> _withEmpty) {
+    public SubscribedTranslationMessages(AbsMap<T, String> _c, SubscribedTranslationMessagesFactoryCoreMessages<T> _sub, AbsMap<T,String> _withEmpty) {
         this.input = _c;
         this.factory = _sub;
         this.empty = _withEmpty;
@@ -17,7 +17,7 @@ public final class SubscribedTranslationMessages<T> implements SubscribedTransla
 
     @Override
     public void update(AbstractProgramInfos _api, FacadeGame _facade, RenamingIdPhase _phase) {
-        AbsMap<T, String> messages_ = factory.buildMessages(_api, _facade, empty);
+        AbsMap<T, String> messages_ = factory.getContainer().buildMessages(_api, _facade, empty);
         input.clear();
         input.addAllEntries(messages_);
     }

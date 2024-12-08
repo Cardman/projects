@@ -33,6 +33,7 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
     private final CrudGeneFormSimpleFormSub<String,Evolution> evolutions;
     private final CrudGeneFormSimpleElementSub<String> eggGroups;
     private final IdList<SubscribedTranslation> subscribedTranslations = new IdList<SubscribedTranslation>();
+    private PokemonData edited;
 
     public GeneComponentModelPokemonData(AbsCommonFrame _fr, AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
         super(_fr,_core, _facade, _sub);
@@ -98,6 +99,8 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         form_.add(eggGroups.getGroup());
         sc_.setViewportView(form_);
         page_.add(sc_);
+        edited = Instances.newPokemonData();
+        getFacade().getData().getPokedex().put(DataBase.EMPTY_STRING,edited);
         return page_;
     }
 
@@ -107,29 +110,29 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
 
     @Override
     public EditedCrudPair<String,PokemonData> value() {
-        PokemonData ent_ = Instances.newPokemonData();
-        ent_.setWeight(weight.valueRate());
-        ent_.setHeight(height.valueRate());
-        ent_.setTypes(types.tryRet());
-        ent_.setAbilities(abilities.tryRet());
-        ent_.setMoveTutors(moveTutors.tryRet());
+        edited.setWeight(weight.valueRate());
+        edited.setHeight(height.valueRate());
+        edited.setTypes(types.tryRet());
+        edited.setAbilities(abilities.tryRet());
+        edited.setMoveTutors(moveTutors.tryRet());
+        edited.setStatistics(new IdMap<Statistic, StatBaseEv>());
         for (EntryCust<Statistic,FormStatBaseEv> e: statistics.entryList()) {
-            ent_.getStatistics().addEntry(e.getKey(),new StatBaseEv((short)e.getValue().getBase().getValue(),(short)e.getValue().getEv().getValue()));
+            edited.getStatistics().addEntry(e.getKey(),new StatBaseEv((short)e.getValue().getBase().getValue(),(short)e.getValue().getEv().getValue()));
         }
-        ent_.setGenderRep(genderRep.tryRet());
-        ent_.setBaseEvo(baseEvo.tryRet());
-        ent_.setExpEvo(expEvo.tryRet());
-        ent_.setLevMoves(levMoves.getList());
-        ent_.setEvolutions(ConverterCommonMapUtil.buildStringMapEvolution(evolutions.getList()));
-        ent_.setTechnicalMoves(technicalMoves.tryRet());
-        ent_.setHiddenMoves(hiddenMoves.tryRet());
-        ent_.setCatchingRate((short) catchingRate.valueInt());
-        ent_.setExpRate(expRate.valueLong());
-        ent_.setHatchingSteps(hatchingSteps.valueLgInt());
-        ent_.setHappiness((short) happiness.valueInt());
-        ent_.setHappinessHatch((short) happinessHatch.valueInt());
-        ent_.setEggGroups(new StringList(eggGroups.getList()));
-        return new EditedCrudPair<String, PokemonData>(getGeneComponentModelSelectKey().tryRet(),ent_);
+        edited.setGenderRep(genderRep.tryRet());
+        edited.setBaseEvo(baseEvo.tryRet());
+        edited.setExpEvo(expEvo.tryRet());
+        edited.setLevMoves(levMoves.getList());
+        edited.setEvolutions(ConverterCommonMapUtil.buildStringMapEvolution(evolutions.getList()));
+        edited.setTechnicalMoves(technicalMoves.tryRet());
+        edited.setHiddenMoves(hiddenMoves.tryRet());
+        edited.setCatchingRate((short) catchingRate.valueInt());
+        edited.setExpRate(expRate.valueLong());
+        edited.setHatchingSteps(hatchingSteps.valueLgInt());
+        edited.setHappiness((short) happiness.valueInt());
+        edited.setHappinessHatch((short) happinessHatch.valueInt());
+        edited.setEggGroups(new StringList(eggGroups.getList()));
+        return new EditedCrudPair<String, PokemonData>(getGeneComponentModelSelectKey().tryRet(),edited);
     }
 
     @Override
@@ -141,6 +144,7 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
 
     private void updateForm(PokemonData _v) {
         getFacade().getData().getPokedex().put(DataBase.EMPTY_STRING,_v);
+        edited = _v;
         getWeight().valueRate(_v.getWeight());
         getHeight().valueRate(_v.getHeight());
         getTypes().setupValue(_v.getTypes());

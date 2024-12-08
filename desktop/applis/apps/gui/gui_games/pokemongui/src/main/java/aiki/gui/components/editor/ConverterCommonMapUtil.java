@@ -83,7 +83,7 @@ public final class ConverterCommonMapUtil {
     public static GeneComponentModelLsStrSub<Short,Shorts> buildHmList(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
         return mergeLsNb(_api, _facade, _sub.getFactoryMv(), _sub.getFactoryHm());
     }
-    public static GeneComponentModelEltEnumSub<String> merge(AbstractProgramInfos _api, FacadeGame _sub, SubscribedTranslationMessagesFactory _builder, CustList<String> _excluded, AbsMap<String,String> _withEmptyStr) {
+    public static GeneComponentModelEltEnumSub<String> merge(AbstractProgramInfos _api, FacadeGame _sub, SubscribedTranslationMessagesFactoryCoreMessages<String> _builder, CustList<String> _excluded, AbsMap<String,String> _withEmptyStr) {
         return new StringSubscribeBuilderUtil(_builder).merge(_api,_sub,_excluded,_withEmptyStr);
     }
 
@@ -92,7 +92,7 @@ public final class ConverterCommonMapUtil {
     }
     private static GeneComponentModelLsStrSub<Short,Shorts> mergeLsNb(AbstractProgramInfos _api, FacadeGame _sub, SubscribedTranslationMessagesFactory _builderMv, SubscribedTranslationMessagesNbFactory _builder) {
         ShortMap<String> map_ = _builder.retrieveMap(_api, _sub);
-        AbsMap<String, String> messages_ = _builderMv.buildMessages(_api, _sub);
+        AbsMap<String, String> messages_ = _builderMv.getContainer().buildMessages(_api, _sub);
         ShortMap<String> sub_ = map(map_, messages_);
         TreeMap<Short, String> treeFilter_ = feedTreeNb(sub_, sub_.getKeys());
         GeneComponentModelLs<Short> sel_ = new GeneComponentModelLs<Short>(_api, treeFilter_);
@@ -110,7 +110,7 @@ public final class ConverterCommonMapUtil {
     }
 
     private static void feedSubNb(SubscribedTranslationMessagesFactory _builderMv, SubscribedTranslationMessagesNbFactory _builder, ShortMap<String> _sub, TreeMap<Short, String> _treeFilter, GeneComponentModelStr _sel, IdList<SubscribedTranslation> _subs, AbsMap<String, String> _messages) {
-        _subs.add(_builderMv.buildSub(_messages, new StringMap<String>()));
+        _subs.add(_builderMv.getContainer().buildSub(_messages, new StringMap<String>()));
         _subs.add(_builder.buildSub(_sub, _messages));
         _subs.add(_builder.buildSub(_treeFilter, _messages));
         _subs.add(new SubscribedTranslationSelect(_sel));
@@ -657,13 +657,23 @@ public final class ConverterCommonMapUtil {
         cp_.setMultEvtRateSecEff(new Rate(_e.getMultEvtRateSecEff()));
         cp_.setRepeatedRoundsLaw(_e.getRepeatedRoundsLaw().copy());
         cp_.setRankIncrementNbRound(_e.getRankIncrementNbRound());
-        cp_.setEffectEndRound(new CustList<EffectEndRoundFoe>());
-        for (EffectEndRoundFoe f:_e.getEffectEndRound()){
-            cp_.getEffectEndRound().add(copyEffectEndRoundFoe(f));
+        cp_.setEffectEndRound(copyListEffectEndRoundFoe(_e.getEffectEndRound()));
+        cp_.setTeamMove(copyListEffectTeam(_e.getTeamMove()));
+        return cp_;
+    }
+
+    public static CustList<EffectEndRoundFoe> copyListEffectEndRoundFoe(CustList<EffectEndRoundFoe> _e) {
+        CustList<EffectEndRoundFoe> cp_= new CustList<EffectEndRoundFoe>();
+        for (EffectEndRoundFoe f:_e){
+            cp_.add(copyEffectEndRoundFoe(f));
         }
-        cp_.setTeamMove(new CustList<EffectTeam>());
-        for (EffectTeam f:_e.getTeamMove()){
-            cp_.getTeamMove().add(copyEffectTeam(f));
+        return cp_;
+    }
+
+    public static CustList<EffectTeam> copyListEffectTeam(CustList<EffectTeam> _e) {
+        CustList<EffectTeam> cp_= new CustList<EffectTeam>();
+        for (EffectTeam f:_e){
+            cp_.add(copyEffectTeam(f));
         }
         return cp_;
     }
@@ -1099,10 +1109,7 @@ public final class ConverterCommonMapUtil {
         _cp.setBoostedTypes(new StringList(_e.getBoostedTypes()));
         _cp.setPriority(_e.getPriority());
         _cp.setAccuracy(_e.getAccuracy());
-        _cp.setEffects(new CustList<Effect>());
-        for (Effect f:_e.getEffects()){
-            _cp.getEffects().add(copyEffect(f));
-        }
+        _cp.setEffects(copyListEffect(_e.getEffects()));
         _cp.setNbPrepaRound(_e.getNbPrepaRound());
         _cp.setDisappearBeforeUse(_e.getDisappearBeforeUse());
         _cp.setRepeatRoundLaw(_e.getRepeatRoundLaw().copy());
@@ -1123,6 +1130,13 @@ public final class ConverterCommonMapUtil {
         _cp.setTargetChoice(_e.getTargetChoice());
         _cp.setDeletedStatus(new StringList(_e.getDeletedStatus()));
         _cp.setRequiredStatus(new StringList(_e.getRequiredStatus()));
+    }
+    public static CustList<Effect> copyListEffect(CustList<Effect> _e) {
+        CustList<Effect> cp_= new CustList<Effect>();
+        for (Effect f:_e){
+            cp_.add(copyEffect(f));
+        }
+        return cp_;
     }
     public static MoveData copyMoveData(MoveData _e){
         if (_e instanceof DamagingMoveData){
@@ -1241,10 +1255,7 @@ public final class ConverterCommonMapUtil {
         cp_.setHiddenMoves(new Shorts(_e.getHiddenMoves()));
         cp_.setTechnicalMoves(new Shorts(_e.getTechnicalMoves()));
         cp_.setBaseEvo(_e.getBaseEvo());
-        cp_.setEvolutions(new StringMap<Evolution>());
-        for (EntryCust<String,Evolution> f:_e.getEvolutions().entryList()){
-            cp_.getEvolutions().addEntry(f.getKey(),copyEvolution(f.getValue()));
-        }
+        cp_.setEvolutions(copyMapEvolution(_e.getEvolutions()));
         cp_.setCatchingRate(_e.getCatchingRate());
         cp_.setHeight(new Rate(_e.getHeight()));
         cp_.setExpEvo(_e.getExpEvo());
@@ -1255,7 +1266,13 @@ public final class ConverterCommonMapUtil {
         cp_.setHappinessHatch(_e.getHappinessHatch());
         return cp_;
     }
-
+    public static StringMap<Evolution> copyMapEvolution(StringMap<Evolution> _e) {
+        StringMap<Evolution> cp_= new StringMap<Evolution>();
+        for (EntryCust<String,Evolution> f: _e.entryList()){
+            cp_.addEntry(f.getKey(),copyEvolution(f.getValue()));
+        }
+        return cp_;
+    }
     public static EffectPartnerStatus copyEffectPartnerStatus(EffectPartnerStatus _e){
         EffectPartnerStatus cp_ = new EffectPartnerStatus();
         cp_.setMultDamageAgainstFoe(new Rate(_e.getMultDamageAgainstFoe()));
@@ -1267,19 +1284,27 @@ public final class ConverterCommonMapUtil {
     public static void copyStatus(Status _cp,Status _e){
         _cp.setStatusType(_e.getStatusType());
         _cp.setCatchingRate(new Rate(_e.getCatchingRate()));
-        _cp.setEffectEndRound(new CustList<EffectEndRoundStatus>());
-        for (EffectEndRoundStatus f:_e.getEffectEndRound()){
-            _cp.getEffectEndRound().add(copyEffectEndRoundStatus(f));
-        }
-        _cp.setEffectsPartner(new CustList<EffectPartnerStatus>());
-        for (EffectPartnerStatus f:_e.getEffectsPartner()){
-            _cp.getEffectsPartner().add(copyEffectPartnerStatus(f));
-        }
+        _cp.setEffectEndRound(copyListEffectEndRoundStatus(_e.getEffectEndRound()));
+        _cp.setEffectsPartner(copyListEffectPartnerStatus(_e.getEffectsPartner()));
         _cp.setDisabledEffIfSwitch(_e.getDisabledEffIfSwitch());
         _cp.setIncrementEndRound(_e.getIncrementEndRound());
         _cp.setIncrementingEndRound(_e.getIncrementingEndRound());
         _cp.setMultStat(new IdMap<Statistic,Rate>(_e.getMultStat()));
         _cp.setFail(_e.getFail());
+    }
+    public static CustList<EffectEndRoundStatus> copyListEffectEndRoundStatus(CustList<EffectEndRoundStatus> _e) {
+        CustList<EffectEndRoundStatus> cp_= new CustList<EffectEndRoundStatus>();
+        for (EffectEndRoundStatus f: _e){
+            cp_.add(copyEffectEndRoundStatus(f));
+        }
+        return cp_;
+    }
+    public static CustList<EffectPartnerStatus> copyListEffectPartnerStatus(CustList<EffectPartnerStatus> _e) {
+        CustList<EffectPartnerStatus> cp_= new CustList<EffectPartnerStatus>();
+        for (EffectPartnerStatus f: _e){
+            cp_.add(copyEffectPartnerStatus(f));
+        }
+        return cp_;
     }
     public static Status copyStatus(Status _e){
         if (_e instanceof StatusBeginRoundAutoDamage){
@@ -1580,7 +1605,7 @@ public final class ConverterCommonMapUtil {
     }
     public static StringMap<IdMap<Statistic,Byte>> copyStringMapMapStatistic(StringMap<IdMap<Statistic,Byte>> _m) {
         StringMap<IdMap<Statistic,Byte>> c_ = new StringMap<IdMap<Statistic,Byte>>(new CollCapacity(_m.size()));
-        new ConverterCommonMap<String,IdMap<Statistic,Byte>>().copy(new IdTechnicalCopier<String>(),new MapStatisticTechnicalCopier(),c_,_m);
+        new ConverterCommonMap<String,IdMap<Statistic,Byte>>().copy(new IdTechnicalCopier<String>(),new IdMapImmutableTechnicalCopier<Statistic,Byte>(),c_,_m);
         return c_;
     }
     public static CustList<TypesDuo> copyListTypesDuo(CustList<TypesDuo> _m) {

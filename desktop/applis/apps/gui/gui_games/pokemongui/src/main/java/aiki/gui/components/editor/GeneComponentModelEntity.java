@@ -19,7 +19,7 @@ public abstract class GeneComponentModelEntity<E> implements GeneComponentModel<
         facade = _facade;
         subscribedTranslationList = _sub;
     }
-    protected void buildKey(int _select, SubscribedTranslationMessagesFactory _builder, CustList<String> _exc) {
+    protected void buildKey(int _select, SubscribedTranslationMessagesFactoryCoreMessages<String> _builder, CustList<String> _exc) {
         if (_select >= 0) {
             geneComponentModelSelectKey = ConverterCommonMapUtil.merge(compoFactory, facade, _builder, new CustList<String>(), new StringMap<String>());
         } else {

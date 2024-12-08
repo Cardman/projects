@@ -13,7 +13,7 @@ public final class CrudGeneFormTrItemType extends CrudGeneFormTrCommon {
         super(_core, _facade, _sub);
     }
     @Override
-    public void initForm() {
+    public void initFormAll() {
         AbsPanel content_ = getApi().getCompoFactory().newPageBox();
         AbsPanel page_ = getApi().getCompoFactory().newPageBox();
         StringMap<StringMap<String>> all_ = getFacadeGame().getData().getTranslatedClassesDescriptions();

@@ -12,7 +12,7 @@ public final class CrudGeneFormEntBuilder<T> {
         _subscriptions.getSubscribedTranslations().addEntry(frPk_, subsTm_);
         CrudGeneFormEnt<T> crud_ = new CrudGeneFormEnt<T>(_list, _facade, _subscriptions, frPk_, _factory);
         crud_.getFrame().addWindowListener(new ReinitMenu(_menu, subsTm_));
-        _menu.addActionListener(new PkEditorOpenCrudPkEvent<T>(crud_,_menu));
+        _menu.addActionListener(new PkEditorOpenCrudTrCstEvent(crud_,_menu));
         return crud_;
     }
 }

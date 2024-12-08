@@ -1,24 +1,19 @@
 package aiki.gui.components.editor;
 
 import aiki.facade.*;
-import code.gui.initialize.*;
 import code.util.*;
 
-public abstract class SubscribedTranslationMessagesFactoryCommonCst<T> implements SubscribedTranslationMessagesFactoryCst<T> {
-    @Override
-    public SubscribedTranslation buildSub(AbsMap<T, String> _map, AbsMap<T,String> _withEmpty) {
-        return new SubscribedTranslationMessages<T>(_map,this, _withEmpty);
+public abstract class SubscribedTranslationMessagesFactoryCommonCst<T> implements SubscribedTranslationMessagesFactoryCoreMessages<T> {
+
+    private final SubscribedTranslationMessagesFactoryCoreContainer<T> container = new SubscribedTranslationMessagesFactoryCoreContainer<T>(this);
+
+    public SubscribedTranslationMessagesFactoryCoreContainer<T> getContainer() {
+        return container;
     }
 
     @Override
-    public AbsMap<T,String> buildMessages(AbstractProgramInfos _api, FacadeGame _facade) {
-        return new IdMap<T, String>(buildMessages(_facade).getVal(_api.getLanguage()));
+    public AbsMap<T, String> buildMessagesCopy(FacadeGame _facade, String _lg) {
+        return new IdMap<T, String>(buildMessages(_facade).getVal(_lg));
     }
-
-    @Override
-    public AbsMap<T,String> buildMessages(AbstractProgramInfos _api, FacadeGame _facade, AbsMap<T,String> _withEmpty) {
-        IdMap<T, String> out_ = new IdMap<T, String>(buildMessages(_facade).getVal(_api.getLanguage()));
-        out_.addAllEntries(_withEmpty);
-        return out_;
-    }
+    public abstract StringMap<IdMap<T,String>> buildMessages(FacadeGame _facade);
 }

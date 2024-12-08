@@ -9,11 +9,11 @@ import code.util.ints.*;
 
 public final class DisplayEntryCustSubElementLgIntImpl<K> implements DisplayEntryCustSubElement<EditedCrudPair<K, LgInt>> {
     private final AbsMap<K, String> messages;
-    private final SubscribedTranslationMessagesFactoryCore<K> content;
+    private final SubscribedTranslationMessagesFactoryCoreMessages<K> content;
     private final AbsMap<K, String> withEmpty;
 
-    public DisplayEntryCustSubElementLgIntImpl(SubscribedTranslationMessagesFactoryCore<K> _c, AbstractProgramInfos _core, FacadeGame _fac, AbsMap<K, String> _w) {
-        this.messages = _c.buildMessages(_core,_fac,_w);
+    public DisplayEntryCustSubElementLgIntImpl(SubscribedTranslationMessagesFactoryCoreMessages<K> _c, AbstractProgramInfos _core, FacadeGame _fac, AbsMap<K, String> _w) {
+        this.messages = _c.getContainer().buildMessages(_core,_fac,_w);
         content = _c;
         withEmpty = _w;
     }

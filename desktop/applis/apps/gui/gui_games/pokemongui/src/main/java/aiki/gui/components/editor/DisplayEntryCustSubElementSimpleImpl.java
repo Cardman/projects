@@ -9,11 +9,11 @@ import code.util.ints.*;
 
 public final class DisplayEntryCustSubElementSimpleImpl<E> implements DisplayEntryCustSubElement<E> {
     private final AbsMap<E, String> messages;
-    private final SubscribedTranslationMessagesFactoryCore<E> content;
+    private final SubscribedTranslationMessagesFactoryCoreMessages<E> content;
     private final AbsMap<E, String> withEmpty;
 
-    public DisplayEntryCustSubElementSimpleImpl(SubscribedTranslationMessagesFactoryCore<E> _c, AbstractProgramInfos _core, FacadeGame _fac, AbsMap<E, String> _w) {
-        this.messages = _c.buildMessages(_core,_fac,_w);
+    public DisplayEntryCustSubElementSimpleImpl(SubscribedTranslationMessagesFactoryCoreMessages<E> _c, AbstractProgramInfos _core, FacadeGame _fac, AbsMap<E, String> _w) {
+        this.messages = _c.getContainer().buildMessages(_core,_fac,_w);
         content = _c;
         withEmpty = _w;
     }

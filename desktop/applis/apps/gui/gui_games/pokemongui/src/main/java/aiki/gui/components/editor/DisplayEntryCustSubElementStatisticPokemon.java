@@ -16,9 +16,9 @@ public final class DisplayEntryCustSubElementStatisticPokemon<T> implements Disp
 
     public DisplayEntryCustSubElementStatisticPokemon(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub) {
         factoryStat = _sub.getFactoryStat();
-        this.stats = factoryStat.buildMessages(_fact,_facade);
+        this.stats = factoryStat.getContainer().buildMessages(_fact,_facade);
         factoryPk = _sub.getFactoryPk();
-        this.pks = factoryPk.buildMessages(_fact,_facade);
+        this.pks = factoryPk.getContainer().buildMessages(_fact,_facade);
     }
 
 

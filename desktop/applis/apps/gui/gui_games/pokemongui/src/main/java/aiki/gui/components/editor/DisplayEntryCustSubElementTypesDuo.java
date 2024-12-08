@@ -14,7 +14,7 @@ public final class DisplayEntryCustSubElementTypesDuo implements DisplayEntryCus
 
     public DisplayEntryCustSubElementTypesDuo(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub) {
         factoryTy = _sub.getFactoryTy();
-        this.types = factoryTy.buildMessages(_fact,_facade);
+        this.types = factoryTy.getContainer().buildMessages(_fact,_facade);
     }
 
 
