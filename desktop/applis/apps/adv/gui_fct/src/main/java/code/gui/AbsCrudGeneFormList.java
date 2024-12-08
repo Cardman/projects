@@ -71,10 +71,10 @@ public abstract class AbsCrudGeneFormList<E> extends AbsCrudGeneForm<E> {
     @Override
     public void validAddEdit() {
        E value_ = gene.value();
+        if (validator != null && !validator.valid(list,selectedIndex,value_)) {
+            return;
+        }
         if (selectedIndex < 0) {
-            if (validator != null && !validator.valid(list,value_)) {
-                return;
-            }
             list.add(value_);
         } else {
             list.set(selectedIndex, value_);
