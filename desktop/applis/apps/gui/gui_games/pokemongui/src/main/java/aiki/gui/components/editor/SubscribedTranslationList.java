@@ -34,6 +34,8 @@ public final class SubscribedTranslationList {
     private final SubscribedTranslationMessagesFactoryImgSt factoryMiniSt = new SubscribedTranslationMessagesFactoryImgSt();
     private final SubscribedTranslationMessagesFactoryImgTy factoryMiniTy = new SubscribedTranslationMessagesFactoryImgTy();
     private final ImgRetrieverLinks imgRetrieverLinks = new ImgRetrieverLinks();
+    private final ImgRetrieverPeople imgRetrieverPeople = new ImgRetrieverPeople();
+    private final ImgRetrieverTrainers imgRetrieverTrainers = new ImgRetrieverTrainers();
 
     public SubscribedTranslationList(AbstractProgramInfos _p, FacadeGame _f) {
         this.programInfos = _p;
@@ -180,5 +182,13 @@ public final class SubscribedTranslationList {
 
     public ImgRetrieverLinks getImgRetrieverLinks() {
         return imgRetrieverLinks;
+    }
+
+    public ImgRetrieverPeople getImgRetrieverPeople() {
+        return imgRetrieverPeople;
+    }
+
+    public ImgRetrieverTrainers getImgRetrieverTrainers() {
+        return imgRetrieverTrainers;
     }
 }
