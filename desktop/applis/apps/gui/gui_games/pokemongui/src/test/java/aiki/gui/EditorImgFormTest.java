@@ -209,7 +209,186 @@ public final class EditorImgFormTest extends InitEditorPkForm {
         assertEq(1,c_.getList().size());
         assertEq(T_1,c_.getList().get(0).getKey());
     }
+    @Test
+    public void imgForm14() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEntImgFree c_ = crudLinks(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelImgFree g_ = (GeneComponentModelImgFree)c_.getGene();
+        g_.getKey().setText(P_1);
+        tryLoad(g_);
+        tryClick(c_.getValidAddEdit());
+        assertEq(1,facade_.getData().getLinks().size());
+        assertEq(1,c_.getList().size());
+        assertEq(P_1,c_.getList().get(0).getKey());
+    }
+
+    @Test
+    public void imgForm15() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEntImgFree c_ = crudLinks(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelImgFree g_ = (GeneComponentModelImgFree)c_.getGene();
+        g_.getKey().setText(P_1);
+        tryLoad(g_);
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        GeneComponentModelImgFree gSec_ = (GeneComponentModelImgFree)c_.getGene();
+        assertEq(1,gSec_.getContent().getEdited().getImage().length);
+    }
+    @Test
+    public void imgForm16() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEntImgFree c_ = crudLinks(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelImgFree g_ = (GeneComponentModelImgFree)c_.getGene();
+        g_.getKey().setText(P_1);
+        tryLoad(g_);
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryLoad(g_);
+        tryClick(c_.getValidAddEdit());
+        assertEq(1, facade_.getData().getLinks().getVal(P_1).getImage().length);
+    }
+    @Test
+    public void imgForm17() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEntImgFree c_ = crudLinks(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelImgFree g_ = (GeneComponentModelImgFree)c_.getGene();
+        g_.getKey().setText(P_1);
+        tryLoad(g_);
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryClick(c_.getValidRemove());
+        assertEq(0, facade_.getData().getMiniPk().size());
+        assertEq(0, c_.getList().size());
+    }
+    @Test
+    public void imgForm18() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAddEmptyDoc(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEntImgFree c_ = crudLinks(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelImgFree g_ = (GeneComponentModelImgFree)c_.getGene();
+        g_.getKey().setText(P_1);
+        tryLoad(g_);
+        tryClick(c_.getValidAddEdit());
+        assertEq(0,facade_.getData().getMiniPk().size());
+        assertEq(0,c_.getList().size());
+    }
+    @Test
+    public void imgForm19() {
+        MockProgramInfos pr_ = initForms();
+        messages(pr_);
+        FacadeGame facade_ = core(pr_);
+        facade_.getData().getTranslatedPokemon().addEntry(pr_.getLanguage(),new StringMap<String>());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEntImgFree c_ = crudLinks(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelImgFree g_ = (GeneComponentModelImgFree)c_.getGene();
+        tryLoad(g_);
+        tryClick(c_.getValidAddEdit());
+        assertEq(0,facade_.getData().getMiniPk().size());
+        assertEq(0,c_.getList().size());
+    }
+    @Test
+    public void imgForm20() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAddEmpty(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEntImgFree c_ = crudLinks(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelImgFree g_ = (GeneComponentModelImgFree)c_.getGene();
+        g_.getKey().setText(P_1);
+        tryLoad(g_);
+        tryClick(c_.getValidAddEdit());
+        assertEq(0,facade_.getData().getMiniPk().size());
+        assertEq(0,c_.getList().size());
+    }
+    @Test
+    public void imgForm21() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEntImgFree c_ = crudLinks(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelImgFree g_ = (GeneComponentModelImgFree)c_.getGene();
+        g_.getKey().setText(P_1);
+        tryLoad(g_);
+        tryClick(c_.getCancel());
+        assertEq(0,facade_.getData().getMiniPk().size());
+        assertEq(0,c_.getList().size());
+    }
+    @Test
+    public void imgForm22() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEntImgFree c_ = crudLinks(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelImgFree g_ = (GeneComponentModelImgFree)c_.getGene();
+        g_.getKey().setText(P_1);
+        tryLoad(g_);
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        ((GeneComponentModelImgFree)c_.getGene()).getKey().setText(P_2);
+        tryClick(c_.getValidAddEdit());
+        assertEq(1, facade_.getData().getLinks().size());
+        assertEq(1, facade_.getData().getLinks().getVal(P_2).getImage().length);
+    }
+    @Test
+    public void imgForm23() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEntImgFree c_ = crudLinks(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelImgFree g_ = (GeneComponentModelImgFree)c_.getGene();
+        g_.getKey().setText(P_1);
+        tryLoad(g_);
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAdd());
+        ((GeneComponentModelImgFree)c_.getGene()).getKey().setText(P_1);
+        tryLoad(g_);
+        tryClick(c_.getValidAddEdit());
+        assertEq(1, facade_.getData().getLinks().size());
+    }
+    @Test
+    public void imgForm24() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEntImgFree c_ = crudLinks(sub_);
+        tryClick(c_.getAdd());
+        ((GeneComponentModelImgFree)c_.getGene()).getKey().setText(P_1);
+        tryLoad((GeneComponentModelImgFree)c_.getGene());
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAdd());
+        ((GeneComponentModelImgFree)c_.getGene()).getKey().setText(P_2);
+        tryLoad((GeneComponentModelImgFree)c_.getGene());
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(1));
+        ((GeneComponentModelImgFree)c_.getGene()).getKey().setText(P_1);
+        tryLoad(((GeneComponentModelImgFree)c_.getGene()));
+        tryClick(c_.getValidAddEdit());
+        assertEq(2, facade_.getData().getLinks().size());
+    }
     private void tryLoad(GeneComponentModelImg _g) {
+        _g.getContent().getFileDialogContent().getFileName().setText("_");
+        ((MockAbstractAction) GuiBaseUtil.getAction(_g.getContent().getFileDialogContent().getFileName(), GuiConstants.VK_ENTER,0)).action();
+        ((MockPlainButton) _g.getContent().getFileDialogContent().getButtons().getComponent(0)).getActionListeners().first().action();
+    }
+    private void tryLoad(GeneComponentModelImgFree _g) {
         _g.getContent().getFileDialogContent().getFileName().setText("_");
         ((MockAbstractAction) GuiBaseUtil.getAction(_g.getContent().getFileDialogContent().getFileName(), GuiConstants.VK_ENTER,0)).action();
         ((MockPlainButton) _g.getContent().getFileDialogContent().getButtons().getComponent(0)).getActionListeners().first().action();
@@ -284,5 +463,10 @@ public final class EditorImgFormTest extends InitEditorPkForm {
     private CrudGeneFormEntImg crudMiniTy(WindowPkEditor _crud) {
         tryClick(_crud.getImgMiniTyMenu());
         return _crud.getCrudGeneFormMiniTy();
+    }
+
+    private CrudGeneFormEntImgFree crudLinks(WindowPkEditor _crud) {
+        tryClick(_crud.getImgLinksMenu());
+        return _crud.getCrudGeneFormLinks();
     }
 }

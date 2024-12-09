@@ -49,6 +49,7 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
     private final CrudGeneFormEntImg crudGeneFormMiniIt;
     private final CrudGeneFormEntImg crudGeneFormMiniSt;
     private final CrudGeneFormEntImg crudGeneFormMiniTy;
+    private final CrudGeneFormEntImgFree crudGeneFormLinks;
     private final EnabledMenu trsAbMenu = getFrames().getCompoFactory().newMenuItem("0_0");
     private final EnabledMenu trsItMenu = getFrames().getCompoFactory().newMenuItem("0_1");
     private final EnabledMenu trsMvMenu = getFrames().getCompoFactory().newMenuItem("0_2");
@@ -78,6 +79,7 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
     private final EnabledMenu imgMiniItMenu = getFrames().getCompoFactory().newMenuItem("4_3");
     private final EnabledMenu imgMiniStMenu = getFrames().getCompoFactory().newMenuItem("4_4");
     private final EnabledMenu imgMiniTyMenu = getFrames().getCompoFactory().newMenuItem("4_5");
+    private final EnabledMenu imgLinksMenu = getFrames().getCompoFactory().newMenuItem("4_6");
 
     public WindowPkEditor(AbstractProgramInfos _list, FacadeGame _facade) {
         super(_list);
@@ -134,6 +136,7 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         crudGeneFormMiniIt = buildImg(_list, _facade,subscriptions,imgMiniItMenu,subscriptions.getFactoryMiniIt());
         crudGeneFormMiniSt = buildImg(_list, _facade,subscriptions,imgMiniStMenu,subscriptions.getFactoryMiniSt());
         crudGeneFormMiniTy = buildImg(_list, _facade,subscriptions,imgMiniTyMenu,subscriptions.getFactoryMiniTy());
+        crudGeneFormLinks = buildImgFree(_list, _facade,subscriptions,imgLinksMenu,subscriptions.getImgRetrieverLinks());
         AbsMenuBar bar_ = getFrames().getCompoFactory().newMenuBar();
         EnabledMenu file_ = getFrames().getCompoFactory().newMenu("0");
         EnabledMenu trs_ = getFrames().getCompoFactory().newMenu("0");
@@ -174,6 +177,7 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         img_.addMenuItem(imgMiniItMenu);
         img_.addMenuItem(imgMiniStMenu);
         img_.addMenuItem(imgMiniTyMenu);
+        img_.addMenuItem(imgLinksMenu);
         file_.addMenuItem(img_);
         bar_.add(file_);
         tmMenu.addActionListener(new PkEditorOpenCrudTrCstEvent(crudGeneFormTm,tmMenu));
@@ -209,6 +213,15 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         _subscriptions.getSubscribedTranslations().addEntry(frPk_, subsTm_);
         CrudGeneFormEntImg crud_ = new CrudGeneFormEntImg(_list, _facade, _subscriptions, frPk_, _factory);
         crud_.getFrame().addWindowListener(new ReinitMenu(_menu, subsTm_));
+        _menu.addActionListener(new PkEditorOpenCrudTrCstEvent(crud_,_menu));
+        return crud_;
+    }
+    public CrudGeneFormEntImgFree buildImgFree(AbstractProgramInfos _list, FacadeGame _facade, SubscribedTranslationList _subscriptions, EnabledMenu _menu, ImgRetriever _factory) {
+        AbsCommonFrame frPk_ = _list.getFrameFactory().newCommonFrame();
+        IdList<SubscribedTranslation> subsFree_ = new IdList<SubscribedTranslation>();
+        _subscriptions.getSubscribedTranslations().addEntry(frPk_, subsFree_);
+        CrudGeneFormEntImgFree crud_ = new CrudGeneFormEntImgFree(_list, _facade, _subscriptions, frPk_, _factory);
+        crud_.getFrame().addWindowListener(new ReinitMenu(_menu, subsFree_));
         _menu.addActionListener(new PkEditorOpenCrudTrCstEvent(crud_,_menu));
         return crud_;
     }
@@ -362,6 +375,10 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         return imgMiniTyMenu;
     }
 
+    public EnabledMenu getImgLinksMenu() {
+        return imgLinksMenu;
+    }
+
     public CrudGeneFormEnt<AbilityData> getCrudGeneFormAb() {
         return crudGeneFormAb;
     }
@@ -476,5 +493,9 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
 
     public CrudGeneFormEntImg getCrudGeneFormMiniTy() {
         return crudGeneFormMiniTy;
+    }
+
+    public CrudGeneFormEntImgFree getCrudGeneFormLinks() {
+        return crudGeneFormLinks;
     }
 }
