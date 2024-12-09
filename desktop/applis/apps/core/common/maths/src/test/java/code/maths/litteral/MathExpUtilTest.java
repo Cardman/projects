@@ -1,9 +1,8 @@
 package code.maths.litteral;
 
-import code.maths.EquallableMathUtil;
-import code.maths.litteralcom.MathExpUtil;
-import code.util.StringList;
-import code.util.StringMap;
+import code.maths.*;
+import code.maths.litteralcom.*;
+import code.util.*;
 import org.junit.Test;
 
 public class MathExpUtilTest extends EquallableMathUtil {
@@ -266,6 +265,62 @@ public class MathExpUtilTest extends EquallableMathUtil {
         assertEq(";", parts_.get(4));
         assertEq("word_three", parts_.get(5));
         assertEq(";world", parts_.get(6));
+    }
+    @Test
+    public void previousPart1() {
+        assertEq(0,new DefaultWordSplit().previous("",0));
+    }
+    @Test
+    public void previousPart2() {
+        assertEq(0,new DefaultWordSplit().previous("_",0));
+    }
+    @Test
+    public void previousPart3() {
+        assertEq(0,new DefaultWordSplit().previous(" _",1));
+    }
+    @Test
+    public void previousPart4() {
+        assertEq(1,new DefaultWordSplit().previous(" _",2));
+    }
+    @Test
+    public void previousPart5() {
+        assertEq(1,new DefaultWordSplit().previous(" __",3));
+    }
+    @Test
+    public void previousPart6() {
+        assertEq(0,new DefaultWordSplit().previous("  __",2));
+    }
+    @Test
+    public void previousPart7() {
+        assertEq(4,new DefaultWordSplit().previous("  __  ",6));
+    }
+    @Test
+    public void nextPart1() {
+        assertEq(0,new DefaultWordSplit().next("",0));
+    }
+    @Test
+    public void nextPart2() {
+        assertEq(1,new DefaultWordSplit().next("_",0));
+    }
+    @Test
+    public void nextPart3() {
+        assertEq(1,new DefaultWordSplit().next(" _",0));
+    }
+    @Test
+    public void nextPart4() {
+        assertEq(2,new DefaultWordSplit().next(" _",1));
+    }
+    @Test
+    public void nextPart5() {
+        assertEq(3,new DefaultWordSplit().next(" __",1));
+    }
+    @Test
+    public void nextPart6() {
+        assertEq(2,new DefaultWordSplit().next("  __",0));
+    }
+    @Test
+    public void nextPart7() {
+        assertEq(6,new DefaultWordSplit().next("  __  ",4));
     }
     @Test
     public void replaceWordsJoin1Test(){

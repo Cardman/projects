@@ -1,9 +1,39 @@
 package code.maths.litteralcom;
 
-import code.util.StringList;
-import code.util.core.IndexConstants;
+import code.util.*;
+import code.util.core.*;
 
 public abstract class AbstractWordSplit {
+    public int previous(String _txt, int _index) {
+        int pr_ = _index-1;
+        while (lookingForIndex(_txt, pr_)) {
+            pr_--;
+        }
+        return NumberUtil.max(pr_,0);
+    }
+    public int next(String _txt, int _index) {
+        int ne_ = _index+1;
+        while (lookingForIndex(_txt, ne_)) {
+            ne_++;
+        }
+        return NumberUtil.min(ne_,_txt.length());
+    }
+
+    public boolean lookingForIndex(String _txt, int _i) {
+        return valid(_txt, _i) && !breakPart(_txt, _i);
+    }
+
+    public boolean breakPart(String _txt, int _index) {
+        if (_index == 0) {
+            return true;
+        }
+        return isWordChar(_txt.charAt(_index - 1)) != isWordChar(_txt.charAt(_index));
+    }
+
+    public static boolean valid(String _txt, int _index) {
+        return _index >= 0 && _index < _txt.length();
+    }
+
     public StringList loop(String _str) {
         if (_str.isEmpty()) {
             return new StringList();
