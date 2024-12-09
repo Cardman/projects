@@ -51,6 +51,12 @@ public final class CrudGeneFormCombos extends CrudGeneFormListSub<ListEffectComb
     }
 
     @Override
+    public void cancel() {
+        subscription().effectEndRoundCombo(null);
+        cancelBase();
+    }
+
+    @Override
     protected IdList<SubscribedTranslation> all() {
         return value.all();
     }

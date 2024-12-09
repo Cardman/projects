@@ -134,6 +134,33 @@ public final class EditorCombosFormTest extends InitEditorPkForm {
         CrudGeneFormCombos sec_ = crud(sub_);
         assertEq(1,sec_.getList().size());
     }
+    @Test
+    public void comboForm6() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormCombos c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        c_.getValue().getKey().setupValues(new StringList(M_1));
+        tryClick(c_.getValue().getEffectEndRound().getCrud().getAdd());
+        ((GeneComponentModelSubscribeEffectEndRoundFoe)c_.getValue().getEffectEndRound().getCrud().getGenePair().getKey()).getCrud().getContentEffectEndRoundFoe().getInflictedRateHpTarget().valueRate(Rate.one());
+        tryClick(c_.getValue().getEffectEndRound().getCrud().getValidAddEdit());
+        tryClick(c_.getValue().getEffectEndRound().getCrud().getAllButtons().get(0));
+        tryClick(c_.getValue().getEffectEndRound().getCrud().getCancel());
+        tryClick(c_.getValue().getTeamMove().getCrud().getAdd());
+        tryClick(c_.getValue().getTeamMove().getCrud().getValidAddEdit());
+        tryClick(c_.getValue().getTeamMove().getCrud().getAllButtons().get(0));
+        tryClick(c_.getValue().getTeamMove().getCrud().getCancel());
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryClick(c_.getCancel());
+        assertEq(1,facade_.getData().getCombos().getEffects().size());
+        assertEq(1,facade_.getData().getCombos().getEffects().get(0).getList().size());
+        assertEq(M_1,facade_.getData().getCombos().getEffects().get(0).getList().get(0));
+        assertEq(1,facade_.getData().getCombos().getEffects().get(0).getCombo().getEffectEndRound().size());
+        assertEq(Rate.one(),facade_.getData().getCombos().getEffects().get(0).getCombo().getEffectEndRound().get(0).getInflictedRateHpTarget());
+        assertEq(1,facade_.getData().getCombos().getEffects().get(0).getCombo().getTeamMove().size());
+    }
     private CrudGeneFormCombos crud(WindowPkEditor _crud) {
         tryClick(_crud.getCombosMenu());
         return _crud.getCrudGeneFormCombos();

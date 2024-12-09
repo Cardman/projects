@@ -80,25 +80,9 @@ public final class GeneComponentModelEffectWhileSending extends AbsGeneComponent
 
     private void effectSub(EffectWhileSendingWithStatistic _v) {
         if (procAbility) {
-            getFactory().getModifiedEntitiesRenameMid().setEffectSendingAbility(_v);
-            getFactory().getModifiedEntitiesRenamePref().setEffectSendingAbility(_v);
-            getFactory().getFactoryAb().setEffectSendingAbility(_v);
-            getFactory().getFactoryCa().setEffectSendingAbility(_v);
-            getFactory().getFactoryIt().setEffectSendingAbility(_v);
-            getFactory().getFactoryMv().setEffectSendingAbility(_v);
-            getFactory().getFactoryPk().setEffectSendingAbility(_v);
-            getFactory().getFactorySt().setEffectSendingAbility(_v);
-            getFactory().getFactoryTy().setEffectSendingAbility(_v);
+            getFactory().effectSendingAbility(_v);
         } else {
-            getFactory().getModifiedEntitiesRenameMid().setEffectSendingItem(_v);
-            getFactory().getModifiedEntitiesRenamePref().setEffectSendingItem(_v);
-            getFactory().getFactoryAb().setEffectSendingItem(_v);
-            getFactory().getFactoryCa().setEffectSendingItem(_v);
-            getFactory().getFactoryIt().setEffectSendingItem(_v);
-            getFactory().getFactoryMv().setEffectSendingItem(_v);
-            getFactory().getFactoryPk().setEffectSendingItem(_v);
-            getFactory().getFactorySt().setEffectSendingItem(_v);
-            getFactory().getFactoryTy().setEffectSendingItem(_v);
+            getFactory().effectSendingItem(_v);
         }
     }
 

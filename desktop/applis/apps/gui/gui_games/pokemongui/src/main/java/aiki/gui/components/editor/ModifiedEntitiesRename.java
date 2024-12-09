@@ -43,16 +43,6 @@ public final class ModifiedEntitiesRename {
             _facade.getData().renameExpItemForBattle((ItemForBattle) itemForBattle, _abs);
         }
     }
-    public void cancel() {
-        effect = null;
-        effectEndRoundAbility = null;
-        effectEndRoundCombo = null;
-        effectEndRoundItem = null;
-        effectEndRoundStatus = null;
-        effectSendingAbility = null;
-        effectSendingItem = null;
-        itemForBattle = null;
-    }
 
     public void setEffect(Effect _e) {
         this.effect = _e;

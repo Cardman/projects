@@ -1,6 +1,9 @@
 package aiki.gui.components.editor;
 
 import aiki.facade.*;
+import aiki.fight.effects.*;
+import aiki.fight.items.*;
+import aiki.fight.moves.effects.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.util.*;
@@ -10,8 +13,7 @@ public final class SubscribedTranslationList {
     private final FacadeGame facadeGame;
     private final RenamingIdPhase renamingIdPhase = new RenamingIdPhase();
 
-    private final ModifiedEntitiesRename modifiedEntitiesRenameMid = new ModifiedEntitiesRename();
-    private final ModifiedEntitiesRename modifiedEntitiesRenamePref = new ModifiedEntitiesRename();
+    private final ModifiedEntitiesRename modifiedEntitiesRename = new ModifiedEntitiesRename();
 
     private final IdMap<AbsCommonFrame,IdList<SubscribedTranslation>> subscribedTranslations = new IdMap<AbsCommonFrame, IdList<SubscribedTranslation>>();
     private final SubscribedTranslationMessagesFactoryAb factoryAb = new SubscribedTranslationMessagesFactoryAb();
@@ -83,12 +85,91 @@ public final class SubscribedTranslationList {
         renamingIdPhase.setMids(_mids);
     }
 
-    public ModifiedEntitiesRename getModifiedEntitiesRenameMid() {
-        return modifiedEntitiesRenameMid;
+    public void effect(Effect _v) {
+        getModifiedEntitiesRename().setEffect(_v);
+        getFactoryAb().setEffect(_v);
+        getFactoryCa().setEffect(_v);
+        getFactoryIt().setEffect(_v);
+        getFactoryMv().setEffect(_v);
+        getFactoryPk().setEffect(_v);
+        getFactorySt().setEffect(_v);
+        getFactoryTy().setEffect(_v);
     }
 
-    public ModifiedEntitiesRename getModifiedEntitiesRenamePref() {
-        return modifiedEntitiesRenamePref;
+    public void effectEndRoundAbility(EffectEndRound _v) {
+        getModifiedEntitiesRename().setEffectEndRoundAbility(_v);
+        getFactoryAb().setEffectEndRoundAbility(_v);
+        getFactoryCa().setEffectEndRoundAbility(_v);
+        getFactoryIt().setEffectEndRoundAbility(_v);
+        getFactoryMv().setEffectEndRoundAbility(_v);
+        getFactoryPk().setEffectEndRoundAbility(_v);
+        getFactorySt().setEffectEndRoundAbility(_v);
+        getFactoryTy().setEffectEndRoundAbility(_v);
+    }
+    public void effectEndRoundCombo(EffectEndRound _v) {
+        getModifiedEntitiesRename().setEffectEndRoundCombo(_v);
+        getFactoryAb().setEffectEndRoundCombo(_v);
+        getFactoryCa().setEffectEndRoundCombo(_v);
+        getFactoryIt().setEffectEndRoundCombo(_v);
+        getFactoryMv().setEffectEndRoundCombo(_v);
+        getFactoryPk().setEffectEndRoundCombo(_v);
+        getFactorySt().setEffectEndRoundCombo(_v);
+        getFactoryTy().setEffectEndRoundCombo(_v);
+    }
+    public void effectEndRoundItem(EffectEndRound _v) {
+        getModifiedEntitiesRename().setEffectEndRoundItem(_v);
+        getFactoryAb().setEffectEndRoundItem(_v);
+        getFactoryCa().setEffectEndRoundItem(_v);
+        getFactoryIt().setEffectEndRoundItem(_v);
+        getFactoryMv().setEffectEndRoundItem(_v);
+        getFactoryPk().setEffectEndRoundItem(_v);
+        getFactorySt().setEffectEndRoundItem(_v);
+        getFactoryTy().setEffectEndRoundItem(_v);
+    }
+    public void effectEndRoundStatus(EffectEndRound _v) {
+        getModifiedEntitiesRename().setEffectEndRoundStatus(_v);
+        getFactoryAb().setEffectEndRoundStatus(_v);
+        getFactoryCa().setEffectEndRoundStatus(_v);
+        getFactoryIt().setEffectEndRoundStatus(_v);
+        getFactoryMv().setEffectEndRoundStatus(_v);
+        getFactoryPk().setEffectEndRoundStatus(_v);
+        getFactorySt().setEffectEndRoundStatus(_v);
+        getFactoryTy().setEffectEndRoundStatus(_v);
+    }
+    public void effectSendingAbility(EffectWhileSendingWithStatistic _v) {
+        getModifiedEntitiesRename().setEffectSendingAbility(_v);
+        getFactoryAb().setEffectSendingAbility(_v);
+        getFactoryCa().setEffectSendingAbility(_v);
+        getFactoryIt().setEffectSendingAbility(_v);
+        getFactoryMv().setEffectSendingAbility(_v);
+        getFactoryPk().setEffectSendingAbility(_v);
+        getFactorySt().setEffectSendingAbility(_v);
+        getFactoryTy().setEffectSendingAbility(_v);
+    }
+
+    public void effectSendingItem(EffectWhileSendingWithStatistic _v) {
+        getModifiedEntitiesRename().setEffectSendingItem(_v);
+        getFactoryAb().setEffectSendingItem(_v);
+        getFactoryCa().setEffectSendingItem(_v);
+        getFactoryIt().setEffectSendingItem(_v);
+        getFactoryMv().setEffectSendingItem(_v);
+        getFactoryPk().setEffectSendingItem(_v);
+        getFactorySt().setEffectSendingItem(_v);
+        getFactoryTy().setEffectSendingItem(_v);
+    }
+
+    public void itemForBattle(Item _v) {
+        getModifiedEntitiesRename().setItemForBattle(_v);
+        getFactoryAb().setItemForBattle(_v);
+        getFactoryCa().setItemForBattle(_v);
+        getFactoryIt().setItemForBattle(_v);
+        getFactoryMv().setItemForBattle(_v);
+        getFactoryPk().setItemForBattle(_v);
+        getFactorySt().setItemForBattle(_v);
+        getFactoryTy().setItemForBattle(_v);
+    }
+    public ModifiedEntitiesRename getModifiedEntitiesRename() {
+        return modifiedEntitiesRename;
     }
 
     public IdMap<AbsCommonFrame,IdList<SubscribedTranslation>> getSubscribedTranslations() {

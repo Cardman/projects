@@ -47,7 +47,7 @@ public final class CrudGeneFormEnt<T> extends CrudGeneFormListSub<EditedCrudPair
         }
         FacadeGame facadeGame_ = getCrudGeneFormSubContent().getFacadeGame();
         factoryCommonParam.all(facadeGame_).removeKey(DataBase.EMPTY_STRING);
-        factoryCommonParam.cancel();
+        stopEffect();
         if (_index > -1) {
             int old_ = factoryCommonParam.all(facadeGame_).size();
             StringMap<StringMap<String>> trs_ = factoryCommonParam.buildMessages(facadeGame_);
@@ -77,9 +77,27 @@ public final class CrudGeneFormEnt<T> extends CrudGeneFormListSub<EditedCrudPair
     public void cancel() {
         FacadeGame facadeGame_ = getCrudGeneFormSubContent().getFacadeGame();
         factoryCommonParam.all(facadeGame_).removeKey(DataBase.EMPTY_STRING);
-        factoryCommonParam.cancel();
+        stopEffect();
         factoryCommonParam.removeOpenSub(getCrudGeneFormSubContent());
         cancelBase();
+    }
+
+    private void stopEffect() {
+        if (factoryCommonParam instanceof SubscribedTranslationMessagesFactoryMv) {
+            subscription().effect(null);
+        }
+        if (factoryCommonParam instanceof SubscribedTranslationMessagesFactoryAb) {
+            subscription().effectEndRoundAbility(null);
+            subscription().effectSendingAbility(null);
+        }
+        if (factoryCommonParam instanceof SubscribedTranslationMessagesFactoryIt) {
+            subscription().effectEndRoundItem(null);
+            subscription().effectSendingItem(null);
+            subscription().itemForBattle(null);
+        }
+        if (factoryCommonParam instanceof SubscribedTranslationMessagesFactorySt) {
+            subscription().effectEndRoundStatus(null);
+        }
     }
 
     @Override

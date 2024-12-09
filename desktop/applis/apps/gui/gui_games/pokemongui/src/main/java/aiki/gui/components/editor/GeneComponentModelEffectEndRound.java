@@ -64,25 +64,9 @@ public final class GeneComponentModelEffectEndRound extends AbsGeneComponentMode
 
     private void effectSub(EffectEndRound _v) {
         if (procAbility) {
-            getFactory().getModifiedEntitiesRenameMid().setEffectEndRoundAbility(_v);
-            getFactory().getModifiedEntitiesRenamePref().setEffectEndRoundAbility(_v);
-            getFactory().getFactoryAb().setEffectEndRoundAbility(_v);
-            getFactory().getFactoryCa().setEffectEndRoundAbility(_v);
-            getFactory().getFactoryIt().setEffectEndRoundAbility(_v);
-            getFactory().getFactoryMv().setEffectEndRoundAbility(_v);
-            getFactory().getFactoryPk().setEffectEndRoundAbility(_v);
-            getFactory().getFactorySt().setEffectEndRoundAbility(_v);
-            getFactory().getFactoryTy().setEffectEndRoundAbility(_v);
+            getFactory().effectEndRoundAbility(_v);
         } else {
-            getFactory().getModifiedEntitiesRenameMid().setEffectEndRoundItem(_v);
-            getFactory().getModifiedEntitiesRenamePref().setEffectEndRoundItem(_v);
-            getFactory().getFactoryAb().setEffectEndRoundItem(_v);
-            getFactory().getFactoryCa().setEffectEndRoundItem(_v);
-            getFactory().getFactoryIt().setEffectEndRoundItem(_v);
-            getFactory().getFactoryMv().setEffectEndRoundItem(_v);
-            getFactory().getFactoryPk().setEffectEndRoundItem(_v);
-            getFactory().getFactorySt().setEffectEndRoundItem(_v);
-            getFactory().getFactoryTy().setEffectEndRoundItem(_v);
+            getFactory().effectEndRoundItem(_v);
         }
     }
     private void displayRepaint(String _eff) {

@@ -227,15 +227,7 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         }
     }
     private void effectSub(Item _v) {
-        getSubscribedTranslationList().getModifiedEntitiesRenameMid().setItemForBattle(_v);
-        getSubscribedTranslationList().getModifiedEntitiesRenamePref().setItemForBattle(_v);
-        getSubscribedTranslationList().getFactoryAb().setItemForBattle(_v);
-        getSubscribedTranslationList().getFactoryCa().setItemForBattle(_v);
-        getSubscribedTranslationList().getFactoryIt().setItemForBattle(_v);
-        getSubscribedTranslationList().getFactoryMv().setItemForBattle(_v);
-        getSubscribedTranslationList().getFactoryPk().setItemForBattle(_v);
-        getSubscribedTranslationList().getFactorySt().setItemForBattle(_v);
-        getSubscribedTranslationList().getFactoryTy().setItemForBattle(_v);
+        getSubscribedTranslationList().itemForBattle(_v);
     }
     private void display(String _eff) {
         ballForm.setVisible(StringUtil.quickEq(_eff, Item.BALL));

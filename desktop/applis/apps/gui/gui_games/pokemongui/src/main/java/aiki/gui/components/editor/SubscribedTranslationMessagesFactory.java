@@ -7,6 +7,6 @@ public interface SubscribedTranslationMessagesFactory extends SubscribedTranslat
     boolean contains(FacadeGame _facade,String _key);
     void rename(FacadeGame _facade,String _previous, String _next);
     void renameExp(FacadeGame _facade, String _previous, String _next);
-    void cancel();
+
     StringList mids(FacadeGame _facade);
 }

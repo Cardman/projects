@@ -28,10 +28,6 @@ public abstract class SubscribedTranslationMessagesFactoryCommon implements Subs
         StringList mids_ = mids(_facade);
         modifiedEntitiesRename.renameExp(_facade,new IdRenamingDataBase(mids_, _previous, _next));
     }
-    @Override
-    public void cancel() {
-        modifiedEntitiesRename.cancel();
-    }
 
     public void setEffect(Effect _e) {
         this.modifiedEntitiesRename.setEffect(_e);

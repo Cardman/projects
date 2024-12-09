@@ -67,13 +67,13 @@ public final class CrudGeneFormTrCstList implements AbsCrudGeneFormTrCstOpen {
         }
         if (StringUtil.quickEq(_k, DataBaseConstants.PREFIX_KEY)) {
             facadeGame.getData().changePrefInNumericExpressions(old_,next_);
-            subscribedTranslations.getModifiedEntitiesRenameMid().renameExp(facadeGame, new PrefixRenamingDataBase(old_,next_));
+            subscribedTranslations.getModifiedEntitiesRename().renameExp(facadeGame, new PrefixRenamingDataBase(old_,next_));
             subscribedTranslations.updateRenamingPref(old_,next_,new StringList());
             subscribedTranslations.update();
             return;
         }
         facadeGame.getData().changeMidInNumericExpressions(old_, next_);
-        subscribedTranslations.getModifiedEntitiesRenameMid().renameExp(facadeGame, new MidRenamingDataBase(old_, next_));
+        subscribedTranslations.getModifiedEntitiesRename().renameExp(facadeGame, new MidRenamingDataBase(old_, next_));
         subscribedTranslations.updateRenamingMid(old_,next_,new StringList());
         subscribedTranslations.update();
     }
