@@ -1,5 +1,6 @@
 package aiki.gui;
 
+import aiki.db.DataBase;
 import aiki.facade.*;
 import aiki.gui.components.editor.*;
 import aiki.sml.*;
@@ -424,6 +425,132 @@ public final class EditorImgFormTest extends InitEditorPkForm {
         assertEq(1,c_.getList().size());
         assertEq(P_1,c_.getList().get(0).getKey());
     }
+    @Test
+    public void imgForm27() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEntImgFree c_ = crudBlocks(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelImgFree g_ = (GeneComponentModelImgFree)c_.getGene();
+        g_.getKey().setText(P_1);
+        tryLoad(g_);
+        tryClick(c_.getValidAddEdit());
+        assertEq(1,facade_.getData().getImages().size());
+        assertEq(1,c_.getList().size());
+        assertEq(P_1,c_.getList().get(0).getKey());
+    }
+    @Test
+    public void imgForm28() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEntImgFree c_ = crudMiniMap(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelImgFree g_ = (GeneComponentModelImgFree)c_.getGene();
+        g_.getKey().setText(P_1);
+        tryLoad(g_);
+        tryClick(c_.getValidAddEdit());
+        assertEq(1,facade_.getData().getMiniMap().size());
+        assertEq(1,c_.getList().size());
+        assertEq(P_1,c_.getList().get(0).getKey());
+    }
+    @Test
+    public void imgForm29() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEntImgType c_ = crudTypeColor(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelImgType g_ = (GeneComponentModelImgType)c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(T_1);
+        tryLoad(g_);
+        tryClick(c_.getValidAddEdit());
+        assertEq(1,facade_.getData().getTypesColors().size());
+        assertEq(51+ DataBase.SEPARATOR_RGB+117+DataBase.SEPARATOR_RGB+167,facade_.getData().getTypesColors().getVal(T_1));
+        assertEq(1,c_.getList().size());
+        assertEq(T_1,c_.getList().get(0).getKey());
+    }
+
+    @Test
+    public void imgForm30() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEntImgType c_ = crudTypeColor(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelImgType g_ = (GeneComponentModelImgType)c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(T_1);
+        tryLoad(g_);
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        GeneComponentModelImgType gSec_ = (GeneComponentModelImgType)c_.getGene();
+        assertEq(51,gSec_.getRed().getValue());
+        assertEq(117,gSec_.getGreen().getValue());
+        assertEq(167,gSec_.getBlue().getValue());
+    }
+    @Test
+    public void imgForm31() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEntImgType c_ = crudTypeColor(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelImgType g_ = (GeneComponentModelImgType)c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(T_1);
+        tryLoad(g_);
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        ((GeneComponentModelImgType)c_.getGene()).getBlue().setValue(180);
+        tryClick(c_.getValidAddEdit());
+        assertEq(1,facade_.getData().getTypesColors().size());
+        assertEq(51+ DataBase.SEPARATOR_RGB+117+DataBase.SEPARATOR_RGB+180,facade_.getData().getTypesColors().getVal(T_1));
+    }
+    @Test
+    public void imgForm32() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEntImgType c_ = crudTypeColor(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelImgType g_ = (GeneComponentModelImgType)c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(P_1);
+        tryLoad(g_);
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryClick(c_.getValidRemove());
+        assertEq(0, facade_.getData().getTypesColors().size());
+        assertEq(0, c_.getList().size());
+    }
+    @Test
+    public void imgForm33() {
+        MockProgramInfos pr_ = initForms();
+        messages(pr_);
+        FacadeGame facade_ = core(pr_);
+        facade_.getData().getTranslatedTypes().addEntry(pr_.getLanguage(),new StringMap<String>());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEntImgType c_ = crudTypeColor(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelImgType g_ = (GeneComponentModelImgType)c_.getGene();
+        tryLoad(g_);
+        tryClick(c_.getValidAddEdit());
+        assertEq(0,facade_.getData().getTypesColors().size());
+        assertEq(0,c_.getList().size());
+    }
+    @Test
+    public void imgForm34() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEntImgType c_ = crudTypeColor(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelImgType g_ = (GeneComponentModelImgType)c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(P_1);
+        tryLoad(g_);
+        tryClick(c_.getCancel());
+        assertEq(0,facade_.getData().getTypesColors().size());
+        assertEq(0,c_.getList().size());
+    }
     private void tryLoad(GeneComponentModelImg _g) {
         tryLoad(_g, "_1");
     }
@@ -445,6 +572,11 @@ public final class EditorImgFormTest extends InitEditorPkForm {
         _g.getContent().getFileDialogContent().getFileName().setText(_f);
         ((MockAbstractAction) GuiBaseUtil.getAction(_g.getContent().getFileDialogContent().getFileName(), GuiConstants.VK_ENTER,0)).action();
         ((MockPlainButton) _g.getContent().getFileDialogContent().getButtons().getComponent(0)).getActionListeners().first().action();
+    }
+    private void tryLoad(GeneComponentModelImgType _g) {
+        _g.getRed().setValue(51);
+        _g.getGreen().setValue(117);
+        _g.getBlue().setValue(167);
     }
     private FacadeGame facadeAdd(MockProgramInfos _m) {
         messages(_m);
@@ -533,5 +665,20 @@ public final class EditorImgFormTest extends InitEditorPkForm {
     private CrudGeneFormEntImgFree crudTrainers(WindowPkEditor _crud) {
         tryClick(_crud.getImgTrainersMenu());
         return _crud.getCrudGeneFormTrainers();
+    }
+
+    private CrudGeneFormEntImgFree crudBlocks(WindowPkEditor _crud) {
+        tryClick(_crud.getImgBlocksMenu());
+        return _crud.getCrudGeneFormBlocks();
+    }
+
+    private CrudGeneFormEntImgFree crudMiniMap(WindowPkEditor _crud) {
+        tryClick(_crud.getImgMiniMapMenu());
+        return _crud.getCrudGeneFormMiniMap();
+    }
+
+    private CrudGeneFormEntImgType crudTypeColor(WindowPkEditor _crud) {
+        tryClick(_crud.getImgTypeColorMenu());
+        return _crud.getCrudGeneFormTypeColor();
     }
 }

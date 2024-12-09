@@ -36,6 +36,8 @@ public final class SubscribedTranslationList {
     private final ImgRetrieverLinks imgRetrieverLinks = new ImgRetrieverLinks();
     private final ImgRetrieverPeople imgRetrieverPeople = new ImgRetrieverPeople();
     private final ImgRetrieverTrainers imgRetrieverTrainers = new ImgRetrieverTrainers();
+    private final ImgRetrieverBlocks imgRetrieverBlocks = new ImgRetrieverBlocks();
+    private final ImgRetrieverMiniMap imgRetrieverMiniMap = new ImgRetrieverMiniMap();
 
     public SubscribedTranslationList(AbstractProgramInfos _p, FacadeGame _f) {
         this.programInfos = _p;
@@ -190,5 +192,13 @@ public final class SubscribedTranslationList {
 
     public ImgRetrieverTrainers getImgRetrieverTrainers() {
         return imgRetrieverTrainers;
+    }
+
+    public ImgRetrieverBlocks getImgRetrieverBlocks() {
+        return imgRetrieverBlocks;
+    }
+
+    public ImgRetrieverMiniMap getImgRetrieverMiniMap() {
+        return imgRetrieverMiniMap;
     }
 }
