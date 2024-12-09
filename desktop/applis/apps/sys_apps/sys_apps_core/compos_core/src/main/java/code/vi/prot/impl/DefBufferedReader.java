@@ -8,6 +8,7 @@ import java.io.*;
 public final class DefBufferedReader implements AbstractBinStreamIn {
 
     private final InputStream reader;
+    private final byte[] arr = new byte[8192];
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
 
     public DefBufferedReader(InputStream _read) {
@@ -21,10 +22,11 @@ public final class DefBufferedReader implements AbstractBinStreamIn {
     @Override
     public int read() {
         try {
-            int read_ = reader.read();
-            byte[] arr_ = StreamBinaryFile.wrap(read_);
+            int read_ = reader.read(arr);
+            int n_ = StreamBinaryFile.next(arr, read_);
+            byte[] arr_ = StreamBinaryFile.ext(arr,read_);
             out.write(arr_,0,arr_.length);
-            return arr_.length;
+            return n_;
         } catch (Exception e) {
             return -2;
         }

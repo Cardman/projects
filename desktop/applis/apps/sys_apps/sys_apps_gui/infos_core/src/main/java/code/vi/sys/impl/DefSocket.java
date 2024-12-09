@@ -3,9 +3,11 @@ package code.vi.sys.impl;
 import code.gui.initialize.*;
 //import code.stream.*;
 //import code.util.core.*;
+import code.stream.*;
+import code.util.core.*;
 import code.vi.prot.impl.*;
 
-import java.io.*;
+import java.io.OutputStream;
 import java.net.*;
 
 public final class DefSocket implements AbstractSocket {
@@ -23,8 +25,7 @@ public final class DefSocket implements AbstractSocket {
     @Override
     public String read() {
         try {
-            BufferedReader br_ = new BufferedReader(new InputStreamReader(socket.getInputStream(),StreamCoreUtil.utf()));
-            return br_.readLine();
+            return decode(StreamBinaryFile.readBytes(new DefBufferedReader(socket.getInputStream())));
         } catch (Exception e) {
             return null;
         }
@@ -39,21 +40,23 @@ public final class DefSocket implements AbstractSocket {
 //        }
 //    }
 
-//    private static String decode(BytesInfo _info) {
-//        try {
-//            return StringUtil.decode(_info.getBytes());
-//        } catch (Exception e) {
-//            return null;
-//        }
-//    }
+    private static String decode(BytesInfo _info) {
+        try {
+            return StringUtil.decode(_info.getBytes());
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
     @Override
     public String println(String _string) {
         try {
-            BufferedWriter out_ = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(),StreamCoreUtil.utf()));
-            out_.write(_string+"\n");
-            out_.flush();
-            return _string+"\n";
+            String str_ = _string + "\n";
+            byte[] enc_ = StringUtil.encode(str_);
+            OutputStream ou_ = socket.getOutputStream();
+            ou_.write(enc_);
+            ou_.flush();
+            return str_;
         } catch (Exception e) {
             return "";
         }

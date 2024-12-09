@@ -30,9 +30,15 @@ public final class StreamBinaryFileTest extends EquallableStreamUtil {
     }
     @Test
     public void read1() {
-        assertEq(1,StreamBinaryFile.wrap('_').length);
-        assertEq(0,StreamBinaryFile.wrap('\n').length);
-        assertEq(0,StreamBinaryFile.wrap(-1).length);
+        assertEq(1,StreamBinaryFile.next(new byte[]{'_'},1));
+        assertEq(0,StreamBinaryFile.next(new byte[]{'\n'},1));
+        assertEq(-1,StreamBinaryFile.next(new byte[]{},-1));
+        assertEq(1,StreamBinaryFile.next(new byte[]{},0));
+        assertEq(1,StreamBinaryFile.ext(new byte[]{'_'},1).length);
+        assertEq(0,StreamBinaryFile.ext(new byte[]{'\n'},1).length);
+        assertEq(0,StreamBinaryFile.ext(new byte[]{},-1).length);
+        assertEq(0,StreamBinaryFile.ext(new byte[]{},0).length);
+        assertEq('_',StreamBinaryFile.ext(new byte[]{'_'},1)[0]);
         assertEq("_\n",StringUtil.decode(StreamBinaryFile.readBytes(new MockBinStreamInImpl(StringUtil.encode("_\n"),1)).getBytes()));
     }
     @Test
