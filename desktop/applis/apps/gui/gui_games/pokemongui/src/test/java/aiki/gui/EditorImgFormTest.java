@@ -1,7 +1,9 @@
 package aiki.gui;
 
 import aiki.db.DataBase;
+import aiki.db.ImageArrayBaseSixtyFour;
 import aiki.facade.*;
+import aiki.fight.enums.Statistic;
 import aiki.gui.components.editor.*;
 import aiki.sml.*;
 import code.gui.*;
@@ -591,6 +593,24 @@ public final class EditorImgFormTest extends InitEditorPkForm {
         tryClick(c_.getButtons().getValue(3));
         assertEq(1,facade_.getData().getImageTmHm().getImage()[0][0]);
     }
+    @Test
+    public void imgForm39() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getAnimStatis().put(Statistic.ATTACK.getStatName(), ImageArrayBaseSixtyFour.instance());
+        facade_.getData().getAnimStatis().put(Statistic.DEFENSE.getStatName(), ImageArrayBaseSixtyFour.instance());
+        facade_.getData().getAnimStatis().put(Statistic.SPECIAL_ATTACK.getStatName(), ImageArrayBaseSixtyFour.instance());
+        facade_.getData().getAnimStatis().put(Statistic.SPECIAL_DEFENSE.getStatName(), ImageArrayBaseSixtyFour.instance());
+        facade_.getData().getAnimStatis().put(Statistic.SPEED.getStatName(), ImageArrayBaseSixtyFour.instance());
+        facade_.getData().getAnimStatis().put(Statistic.ACCURACY.getStatName(), ImageArrayBaseSixtyFour.instance());
+        facade_.getData().getAnimStatis().put(Statistic.EVASINESS.getStatName(), ImageArrayBaseSixtyFour.instance());
+        facade_.getData().getAnimStatis().put(Statistic.CRITICAL_HIT.getStatName(), ImageArrayBaseSixtyFour.instance());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEntImgCstList c_ = crudCstListImg(sub_);
+        tryLoad(c_.getFields().getVal(Statistic.SPEED), "_1");
+        tryClick(c_.getButtons().getVal(Statistic.SPEED));
+        assertEq(1,facade_.getData().getAnimStatis().getVal(Statistic.SPEED.getStatName()).getImage()[0][0]);
+    }
     private void tryLoad(GeneComponentModelImg _g) {
         tryLoad(_g, "_1");
     }
@@ -727,5 +747,10 @@ public final class EditorImgFormTest extends InitEditorPkForm {
     private CrudGeneFormEntImgUniq crudOtherImg(WindowPkEditor _crud) {
         tryClick(_crud.getImgOtherMenu());
         return _crud.getCrudGeneFormImgOther();
+    }
+
+    private CrudGeneFormEntImgCstList crudCstListImg(WindowPkEditor _crud) {
+        tryClick(_crud.getImgCstListMenu());
+        return _crud.getCrudGeneFormCstList();
     }
 }
