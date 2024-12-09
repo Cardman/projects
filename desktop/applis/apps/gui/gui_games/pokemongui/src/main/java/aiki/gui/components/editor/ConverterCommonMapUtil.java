@@ -1617,6 +1617,28 @@ public final class ConverterCommonMapUtil {
     public static CustList<LevelMove> copyListLevelMove(CustList<LevelMove> _m) {
         return new IdTechnicalCopier<LevelMove>().copy(new LevelMoveTechnicalCopier(),_m);
     }
+    public static ImageArrayBaseSixtyFour copyImageArrayBaseSixtyFour(ImageArrayBaseSixtyFour _m) {
+        return ImageArrayBaseSixtyFour.instance(copyImg(_m.getImage()), _m.getBase());
+    }
+    public static int[][] copyImg(int[][] _a) {
+        int len_ = _a.length;
+        int[][] cp_ = new int[len_][];
+        for (int i = 0; i < len_; i++) {
+            cp_[i] = copy(_a[i]);
+        }
+        return cp_;
+    }
+    public static int[] copy(int[] _a) {
+        int len_ = _a.length;
+        int[] cp_ = new int[len_];
+        for (int i = 0; i < len_; i++) {
+            setElt(cp_,_a,i);
+        }
+        return cp_;
+    }
+    private static void setElt(int[] _a, int[] _b, int _i){
+        _a[_i] = _b[_i];
+    }
     public static StringMap<StringMap<String>> backUp(StringMap<StringMap<String>> _tr) {
         StringMap<StringMap<String>> bk_ = new StringMap<StringMap<String>>();
         for (EntryCust<String, StringMap<String>> e: _tr.entryList()) {

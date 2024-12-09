@@ -43,7 +43,7 @@ public final class EditorImgFormTest extends InitEditorPkForm {
         tryClick(c_.getValidAddEdit());
         tryClick(c_.getAllButtons().get(0));
         GeneComponentModelImg gSec_ = (GeneComponentModelImg)c_.getGene();
-        assertEq(1,gSec_.getEdited().getImage().length);
+        assertEq(1,gSec_.getContent().getEdited().getImage().length);
     }
     @Test
     public void imgForm3() {
@@ -210,9 +210,9 @@ public final class EditorImgFormTest extends InitEditorPkForm {
         assertEq(T_1,c_.getList().get(0).getKey());
     }
     private void tryLoad(GeneComponentModelImg _g) {
-        _g.getFileDialogContent().getFileName().setText("_");
-        ((MockAbstractAction) GuiBaseUtil.getAction(_g.getFileDialogContent().getFileName(), GuiConstants.VK_ENTER,0)).action();
-        ((MockPlainButton) _g.getFileDialogContent().getButtons().getComponent(0)).getActionListeners().first().action();
+        _g.getContent().getFileDialogContent().getFileName().setText("_");
+        ((MockAbstractAction) GuiBaseUtil.getAction(_g.getContent().getFileDialogContent().getFileName(), GuiConstants.VK_ENTER,0)).action();
+        ((MockPlainButton) _g.getContent().getFileDialogContent().getButtons().getComponent(0)).getActionListeners().first().action();
     }
     private FacadeGame facadeAdd(MockProgramInfos _m) {
         messages(_m);
