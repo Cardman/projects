@@ -55,6 +55,7 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
     private final CrudGeneFormEntImgFree crudGeneFormBlocks;
     private final CrudGeneFormEntImgFree crudGeneFormMiniMap;
     private final CrudGeneFormEntImgType crudGeneFormTypeColor;
+    private final CrudGeneFormEntImgUniq crudGeneFormImgOther;
     private final EnabledMenu trsAbMenu = getFrames().getCompoFactory().newMenuItem("0_0");
     private final EnabledMenu trsItMenu = getFrames().getCompoFactory().newMenuItem("0_1");
     private final EnabledMenu trsMvMenu = getFrames().getCompoFactory().newMenuItem("0_2");
@@ -90,6 +91,7 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
     private final EnabledMenu imgBlocksMenu = getFrames().getCompoFactory().newMenuItem("4_9");
     private final EnabledMenu imgMiniMapMenu = getFrames().getCompoFactory().newMenuItem("4_10");
     private final EnabledMenu imgTypeColorMenu = getFrames().getCompoFactory().newMenuItem("4_11");
+    private final EnabledMenu imgOtherMenu = getFrames().getCompoFactory().newMenuItem("4_12");
 
     public WindowPkEditor(AbstractProgramInfos _list, FacadeGame _facade) {
         super(_list);
@@ -152,6 +154,7 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         crudGeneFormBlocks = buildImgFree(_list, _facade,subscriptions,imgBlocksMenu,subscriptions.getImgRetrieverBlocks());
         crudGeneFormMiniMap = buildImgFree(_list, _facade,subscriptions,imgMiniMapMenu,subscriptions.getImgRetrieverMiniMap());
         crudGeneFormTypeColor = buildImgTypeColor(_list, _facade,subscriptions,imgTypeColorMenu);
+        crudGeneFormImgOther = buildImgOther(_list, _facade, subscriptions, imgOtherMenu);
         AbsMenuBar bar_ = getFrames().getCompoFactory().newMenuBar();
         EnabledMenu file_ = getFrames().getCompoFactory().newMenu("0");
         EnabledMenu trs_ = getFrames().getCompoFactory().newMenu("0");
@@ -198,6 +201,7 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         img_.addMenuItem(imgBlocksMenu);
         img_.addMenuItem(imgMiniMapMenu);
         img_.addMenuItem(imgTypeColorMenu);
+        img_.addMenuItem(imgOtherMenu);
         file_.addMenuItem(img_);
         bar_.add(file_);
         tmMenu.addActionListener(new PkEditorOpenCrudTrCstEvent(crudGeneFormTm,tmMenu));
@@ -251,6 +255,16 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         IdList<SubscribedTranslation> subsFree_ = new IdList<SubscribedTranslation>();
         _subscriptions.getSubscribedTranslations().addEntry(frPk_, subsFree_);
         CrudGeneFormEntImgType crud_ = new CrudGeneFormEntImgType(_list, _facade, _subscriptions, frPk_);
+        crud_.getFrame().addWindowListener(new ReinitMenu(_menu, subsFree_));
+        _menu.addActionListener(new PkEditorOpenCrudTrCstEvent(crud_,_menu));
+        return crud_;
+    }
+
+    public CrudGeneFormEntImgUniq buildImgOther(AbstractProgramInfos _list, FacadeGame _facade, SubscribedTranslationList _subscriptions, EnabledMenu _menu) {
+        AbsCommonFrame frPk_ = _list.getFrameFactory().newCommonFrame();
+        IdList<SubscribedTranslation> subsFree_ = new IdList<SubscribedTranslation>();
+        _subscriptions.getSubscribedTranslations().addEntry(frPk_, subsFree_);
+        CrudGeneFormEntImgUniq crud_ = new CrudGeneFormEntImgUniq(_list, _facade, _subscriptions, frPk_);
         crud_.getFrame().addWindowListener(new ReinitMenu(_menu, subsFree_));
         _menu.addActionListener(new PkEditorOpenCrudTrCstEvent(crud_,_menu));
         return crud_;
@@ -429,6 +443,10 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         return imgTypeColorMenu;
     }
 
+    public EnabledMenu getImgOtherMenu() {
+        return imgOtherMenu;
+    }
+
     public CrudGeneFormEnt<AbilityData> getCrudGeneFormAb() {
         return crudGeneFormAb;
     }
@@ -567,5 +585,9 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
 
     public CrudGeneFormEntImgType getCrudGeneFormTypeColor() {
         return crudGeneFormTypeColor;
+    }
+
+    public CrudGeneFormEntImgUniq getCrudGeneFormImgOther() {
+        return crudGeneFormImgOther;
     }
 }

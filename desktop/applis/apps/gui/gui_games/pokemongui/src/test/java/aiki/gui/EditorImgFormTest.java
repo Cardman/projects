@@ -551,6 +551,46 @@ public final class EditorImgFormTest extends InitEditorPkForm {
         assertEq(0,facade_.getData().getTypesColors().size());
         assertEq(0,c_.getList().size());
     }
+    @Test
+    public void imgForm35() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEntImgUniq c_ = crudOtherImg(sub_);
+        tryLoad(c_.getFields().getValue(0), "_1");
+        tryClick(c_.getButtons().getValue(0));
+        assertEq(1,facade_.getData().getAnimAbsorb().getImage()[0][0]);
+    }
+    @Test
+    public void imgForm36() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEntImgUniq c_ = crudOtherImg(sub_);
+        tryLoad(c_.getFields().getValue(1), "_1");
+        tryClick(c_.getButtons().getValue(1));
+        assertEq(1,facade_.getData().getEndGameImage().getImage()[0][0]);
+    }
+    @Test
+    public void imgForm37() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEntImgUniq c_ = crudOtherImg(sub_);
+        tryLoad(c_.getFields().getValue(2), "_1");
+        tryClick(c_.getButtons().getValue(2));
+        assertEq(1,facade_.getData().getStorage().getImage()[0][0]);
+    }
+    @Test
+    public void imgForm38() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEntImgUniq c_ = crudOtherImg(sub_);
+        tryLoad(c_.getFields().getValue(3), "_1");
+        tryClick(c_.getButtons().getValue(3));
+        assertEq(1,facade_.getData().getImageTmHm().getImage()[0][0]);
+    }
     private void tryLoad(GeneComponentModelImg _g) {
         tryLoad(_g, "_1");
     }
@@ -558,9 +598,7 @@ public final class EditorImgFormTest extends InitEditorPkForm {
         tryLoad(_g, "_");
     }
     private void tryLoad(GeneComponentModelImg _g, String _f) {
-        _g.getContent().getFileDialogContent().getFileName().setText(_f);
-        ((MockAbstractAction) GuiBaseUtil.getAction(_g.getContent().getFileDialogContent().getFileName(), GuiConstants.VK_ENTER,0)).action();
-        ((MockPlainButton) _g.getContent().getFileDialogContent().getButtons().getComponent(0)).getActionListeners().first().action();
+        tryLoad(_g.getContent(), _f);
     }
     private void tryLoad(GeneComponentModelImgFree _g) {
         tryLoad(_g, "_1");
@@ -569,9 +607,13 @@ public final class EditorImgFormTest extends InitEditorPkForm {
         tryLoad(_g, "_");
     }
     private void tryLoad(GeneComponentModelImgFree _g, String _f) {
-        _g.getContent().getFileDialogContent().getFileName().setText(_f);
-        ((MockAbstractAction) GuiBaseUtil.getAction(_g.getContent().getFileDialogContent().getFileName(), GuiConstants.VK_ENTER,0)).action();
-        ((MockPlainButton) _g.getContent().getFileDialogContent().getButtons().getComponent(0)).getActionListeners().first().action();
+        tryLoad(_g.getContent(), _f);
+    }
+
+    private void tryLoad(ContentGeneComponentModelImg _g, String _f) {
+        _g.getFileDialogContent().getFileName().setText(_f);
+        ((MockAbstractAction) GuiBaseUtil.getAction(_g.getFileDialogContent().getFileName(), GuiConstants.VK_ENTER,0)).action();
+        ((MockPlainButton) _g.getFileDialogContent().getButtons().getComponent(0)).getActionListeners().first().action();
     }
     private void tryLoad(GeneComponentModelImgType _g) {
         _g.getRed().setValue(51);
@@ -680,5 +722,10 @@ public final class EditorImgFormTest extends InitEditorPkForm {
     private CrudGeneFormEntImgType crudTypeColor(WindowPkEditor _crud) {
         tryClick(_crud.getImgTypeColorMenu());
         return _crud.getCrudGeneFormTypeColor();
+    }
+
+    private CrudGeneFormEntImgUniq crudOtherImg(WindowPkEditor _crud) {
+        tryClick(_crud.getImgOtherMenu());
+        return _crud.getCrudGeneFormImgOther();
     }
 }

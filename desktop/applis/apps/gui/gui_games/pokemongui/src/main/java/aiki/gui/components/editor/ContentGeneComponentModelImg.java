@@ -22,7 +22,9 @@ public final class ContentGeneComponentModelImg {
         fileDialogContent.setFileOpenDialog(true,_core.getHomePath(),new DefPostFileFrameEventImg(fileDialogContent),new DefButtonsOpenPanelAct(new LoadDocImgEvent(_core,this)));
         AbsCompoFactory compoFactory_ = _core.getCompoFactory();
         AbsPanel page_ = compoFactory_.newPageBox();
-        page_.add(_key);
+        if (_key != null) {
+            page_.add(_key);
+        }
         AbsScrollPane sc_ = compoFactory_.newAbsScrollPane();
         AbsPanel form_ = compoFactory_.newLineBox();
         form_.add(fileDialogContent.getContentPane());

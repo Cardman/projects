@@ -1104,6 +1104,11 @@ public final class DataBase {
     }
 
     public void initValue(String _key, String _value) {
+        initValueDef(_key, _value);
+        initValueOther(_key, _value);
+    }
+
+    public void initValueDef(String _key, String _value) {
         if (StringUtil.quickEq(_key, DEF_MOVE)) {
             setDefMove(_value);
         } else if (StringUtil.quickEq(_key, RATE_BOOST)) {
@@ -1124,7 +1129,6 @@ public final class DataBase {
         } else if (StringUtil.quickEq(_key, DEF_CAT)) {
             setDefCategory(_value);
         }
-        initValueOther(_key, _value);
     }
 
     public void initValueOther(String _key, String _value) {

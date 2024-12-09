@@ -67,6 +67,6 @@ public final class CrudGeneFormTrOtherCstList implements AbsCrudGeneFormTrCstOpe
 
     public void apply(String _k, AbsTextField _f) {
         String typed_ = _f.getText();
-        facadeGame.getData().initValue(_k, typed_);
+        facadeGame.getData().initValueDef(_k, typed_);
     }
 }

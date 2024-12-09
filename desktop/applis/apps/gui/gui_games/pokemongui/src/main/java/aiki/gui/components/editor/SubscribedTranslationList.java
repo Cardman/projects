@@ -40,6 +40,10 @@ public final class SubscribedTranslationList {
     private final ImgRetrieverTrainers imgRetrieverTrainers = new ImgRetrieverTrainers();
     private final ImgRetrieverBlocks imgRetrieverBlocks = new ImgRetrieverBlocks();
     private final ImgRetrieverMiniMap imgRetrieverMiniMap = new ImgRetrieverMiniMap();
+    private final ImgFieldRetrieverAnimAbsorb imgFieldRetrieverAnimAbsorb = new ImgFieldRetrieverAnimAbsorb();
+    private final ImgFieldRetrieverEndGame imgFieldRetrieverEndGame = new ImgFieldRetrieverEndGame();
+    private final ImgFieldRetrieverStorage imgFieldRetrieverStorage = new ImgFieldRetrieverStorage();
+    private final ImgFieldRetrieverTmHm imgFieldRetrieverTmHm = new ImgFieldRetrieverTmHm();
 
     public SubscribedTranslationList(AbstractProgramInfos _p, FacadeGame _f) {
         this.programInfos = _p;
@@ -281,5 +285,21 @@ public final class SubscribedTranslationList {
 
     public ImgRetrieverMiniMap getImgRetrieverMiniMap() {
         return imgRetrieverMiniMap;
+    }
+
+    public ImgFieldRetrieverAnimAbsorb getImgFieldRetrieverAnimAbsorb() {
+        return imgFieldRetrieverAnimAbsorb;
+    }
+
+    public ImgFieldRetrieverEndGame getImgFieldRetrieverEndGame() {
+        return imgFieldRetrieverEndGame;
+    }
+
+    public ImgFieldRetrieverStorage getImgFieldRetrieverStorage() {
+        return imgFieldRetrieverStorage;
+    }
+
+    public ImgFieldRetrieverTmHm getImgFieldRetrieverTmHm() {
+        return imgFieldRetrieverTmHm;
     }
 }
