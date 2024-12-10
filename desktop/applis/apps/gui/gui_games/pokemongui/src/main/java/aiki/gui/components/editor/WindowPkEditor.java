@@ -117,29 +117,21 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         crudGeneFormCaTr = buildTr(_list, _facade,trsCaMenu,subscriptions.getFactoryCa());
         crudGeneFormTyTr = buildTr(_list, _facade,trsTyMenu,subscriptions.getFactoryTy());
         crudGeneFormClTr = new CrudGeneFormTrItemType(_list, _facade,subscriptions);
-        trsClMenu.addActionListener(new PkEditorOpenCrudTrCstEvent(crudGeneFormClTr,trsClMenu));
-        crudGeneFormClTr.getFrame().addWindowListener(new ReinitMenu(trsClMenu, new IdList<SubscribedTranslation>()));
+        events(crudGeneFormClTr.getFrame(), trsClMenu, crudGeneFormClTr, new IdList<SubscribedTranslation>());
         crudGeneFormTrCstList = new CrudGeneFormTrCstList(_list, _facade, subscriptions);
-        trsConstMenu.addActionListener(new PkEditorOpenCrudTrCstEvent(crudGeneFormTrCstList,trsConstMenu));
-        crudGeneFormTrCstList.getFrame().addWindowListener(new ReinitMenu(trsConstMenu, new IdList<SubscribedTranslation>()));
+        events(crudGeneFormTrCstList.getFrame(), trsConstMenu, crudGeneFormTrCstList, new IdList<SubscribedTranslation>());
         crudGeneFormTrOtherCstList = new CrudGeneFormTrOtherCstList(_list, _facade);
-        trsOtherConstMenu.addActionListener(new PkEditorOpenCrudTrCstEvent(crudGeneFormTrOtherCstList,trsOtherConstMenu));
-        crudGeneFormTrOtherCstList.getFrame().addWindowListener(new ReinitMenu(trsOtherConstMenu, new IdList<SubscribedTranslation>()));
+        events(crudGeneFormTrOtherCstList.getFrame(), trsOtherConstMenu, crudGeneFormTrOtherCstList, new IdList<SubscribedTranslation>());
         crudGeneFormTrCstNumList = new CrudGeneFormTrCstNumList(_list, _facade);
-        trsNumConstMenu.addActionListener(new PkEditorOpenCrudTrCstEvent(crudGeneFormTrCstNumList,trsNumConstMenu));
-        crudGeneFormTrCstNumList.getFrame().addWindowListener(new ReinitMenu(trsNumConstMenu, new IdList<SubscribedTranslation>()));
+        events(crudGeneFormTrCstNumList.getFrame(), trsNumConstMenu, crudGeneFormTrCstNumList, new IdList<SubscribedTranslation>());
         crudGeneFormCstStat = new CrudGeneFormTrCst<Statistic>(_list,_facade,subscriptions,subscriptions.getFactoryStat());
-        trsCstStatMenu.addActionListener(new PkEditorOpenCrudTrCstEvent(crudGeneFormCstStat,trsCstStatMenu));
-        crudGeneFormCstStat.getFrame().addWindowListener(new ReinitMenu(trsCstStatMenu, new IdList<SubscribedTranslation>()));
+        events(crudGeneFormCstStat.getFrame(), trsCstStatMenu, crudGeneFormCstStat, new IdList<SubscribedTranslation>());
         crudGeneFormCstTarget = new CrudGeneFormTrCst<TargetChoice>(_list,_facade,subscriptions,subscriptions.getFactoryTarget());
-        trsCstTargetMenu.addActionListener(new PkEditorOpenCrudTrCstEvent(crudGeneFormCstTarget,trsCstTargetMenu));
-        crudGeneFormCstTarget.getFrame().addWindowListener(new ReinitMenu(trsCstTargetMenu, new IdList<SubscribedTranslation>()));
+        events(crudGeneFormCstTarget.getFrame(), trsCstTargetMenu, crudGeneFormCstTarget, new IdList<SubscribedTranslation>());
         crudGeneFormCstGender = new CrudGeneFormTrCst<Gender>(_list,_facade,subscriptions,subscriptions.getFactoryGender());
-        trsCstGenderMenu.addActionListener(new PkEditorOpenCrudTrCstEvent(crudGeneFormCstGender,trsCstGenderMenu));
-        crudGeneFormCstGender.getFrame().addWindowListener(new ReinitMenu(trsCstGenderMenu, new IdList<SubscribedTranslation>()));
+        events(crudGeneFormCstGender.getFrame(), trsCstGenderMenu, crudGeneFormCstGender, new IdList<SubscribedTranslation>());
         crudGeneFormCstEnvironmentType = new CrudGeneFormTrCst<EnvironmentType>(_list,_facade,subscriptions,subscriptions.getFactoryEnvironmentType());
-        trsCstEnvironmentTypeMenu.addActionListener(new PkEditorOpenCrudTrCstEvent(crudGeneFormCstEnvironmentType,trsCstEnvironmentTypeMenu));
-        crudGeneFormCstEnvironmentType.getFrame().addWindowListener(new ReinitMenu(trsCstEnvironmentTypeMenu, new IdList<SubscribedTranslation>()));
+        events(crudGeneFormCstEnvironmentType.getFrame(), trsCstEnvironmentTypeMenu, crudGeneFormCstEnvironmentType, new IdList<SubscribedTranslation>());
         crudGeneFormTm = new CrudGeneFormNb(_list, _facade,subscriptions, frTm_,subscriptions.getFactoryTm(), true);
         crudGeneFormHm = new CrudGeneFormNb(_list, _facade,subscriptions, frHm_,subscriptions.getFactoryHm(), false);
         crudGeneFormAb = new CrudGeneFormEntBuilder<AbilityData>().build(_list,_facade,subscriptions, abMenu, subscriptions.getFactoryAb());
@@ -147,22 +139,22 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         crudGeneFormMv = new CrudGeneFormEntBuilder<MoveData>().build(_list,_facade,subscriptions, mvMenu, subscriptions.getFactoryMv());
         crudGeneFormPk = new CrudGeneFormEntBuilder<PokemonData>().build(_list, _facade,subscriptions, pkMenu, subscriptions.getFactoryPk());
         crudGeneFormSt = new CrudGeneFormEntBuilder<Status>().build(_list, _facade,subscriptions, stMenu, subscriptions.getFactorySt());
-        crudGeneFormCombos = buildCombos(_list, _facade,subscriptions,combosMenu);
-        crudGeneFormTypes = buildTypes(_list, _facade,subscriptions,typesMenu);
-        crudGeneFormMiniPk = buildImg(_list, _facade,subscriptions,imgMiniPkMenu,subscriptions.getFactoryMiniPk());
-        crudGeneFormMaxiBackPk = buildImg(_list, _facade,subscriptions,imgMaxiBackPkMenu,subscriptions.getFactoryMaxiBackPk());
-        crudGeneFormMaxiFrontPk = buildImg(_list, _facade,subscriptions,imgMaxiFrontPkMenu,subscriptions.getFactoryMaxiFrontPk());
-        crudGeneFormMiniIt = buildImg(_list, _facade,subscriptions,imgMiniItMenu,subscriptions.getFactoryMiniIt());
-        crudGeneFormMiniSt = buildImg(_list, _facade,subscriptions,imgMiniStMenu,subscriptions.getFactoryMiniSt());
-        crudGeneFormMiniTy = buildImg(_list, _facade,subscriptions,imgMiniTyMenu,subscriptions.getFactoryMiniTy());
-        crudGeneFormLinks = buildImgFree(_list, _facade,subscriptions,imgLinksMenu,subscriptions.getImgRetrieverLinks());
-        crudGeneFormPeople = buildImgFree(_list, _facade,subscriptions,imgPeopleMenu,subscriptions.getImgRetrieverPeople());
-        crudGeneFormTrainers = buildImgFree(_list, _facade,subscriptions,imgTrainersMenu,subscriptions.getImgRetrieverTrainers());
-        crudGeneFormBlocks = buildImgFree(_list, _facade,subscriptions,imgBlocksMenu,subscriptions.getImgRetrieverBlocks());
-        crudGeneFormMiniMap = buildImgFree(_list, _facade,subscriptions,imgMiniMapMenu,subscriptions.getImgRetrieverMiniMap());
-        crudGeneFormTypeColor = buildImgTypeColor(_list, _facade,subscriptions,imgTypeColorMenu);
-        crudGeneFormImgOther = buildImgOther(_list, _facade, subscriptions, imgOtherMenu);
-        crudGeneFormCstList = buildImgCstList(_list, _facade, subscriptions, imgCstListMenu);
+        crudGeneFormCombos = buildCombos(_list, _facade, combosMenu);
+        crudGeneFormTypes = buildTypes(_list, _facade, typesMenu);
+        crudGeneFormMiniPk = buildImg(_list, _facade, imgMiniPkMenu,subscriptions.getFactoryMiniPk());
+        crudGeneFormMaxiBackPk = buildImg(_list, _facade, imgMaxiBackPkMenu,subscriptions.getFactoryMaxiBackPk());
+        crudGeneFormMaxiFrontPk = buildImg(_list, _facade, imgMaxiFrontPkMenu,subscriptions.getFactoryMaxiFrontPk());
+        crudGeneFormMiniIt = buildImg(_list, _facade, imgMiniItMenu,subscriptions.getFactoryMiniIt());
+        crudGeneFormMiniSt = buildImg(_list, _facade, imgMiniStMenu,subscriptions.getFactoryMiniSt());
+        crudGeneFormMiniTy = buildImg(_list, _facade, imgMiniTyMenu,subscriptions.getFactoryMiniTy());
+        crudGeneFormLinks = buildImgFree(_list, _facade, imgLinksMenu,subscriptions.getImgRetrieverLinks());
+        crudGeneFormPeople = buildImgFree(_list, _facade, imgPeopleMenu,subscriptions.getImgRetrieverPeople());
+        crudGeneFormTrainers = buildImgFree(_list, _facade, imgTrainersMenu,subscriptions.getImgRetrieverTrainers());
+        crudGeneFormBlocks = buildImgFree(_list, _facade, imgBlocksMenu,subscriptions.getImgRetrieverBlocks());
+        crudGeneFormMiniMap = buildImgFree(_list, _facade, imgMiniMapMenu,subscriptions.getImgRetrieverMiniMap());
+        crudGeneFormTypeColor = buildImgTypeColor(_list, _facade, imgTypeColorMenu);
+        crudGeneFormImgOther = buildImgOther(_list, _facade, imgOtherMenu);
+        crudGeneFormCstList = buildImgCstList(_list, _facade, imgCstListMenu);
         AbsMenuBar bar_ = getFrames().getCompoFactory().newMenuBar();
         EnabledMenu file_ = getFrames().getCompoFactory().newMenu("0");
         EnabledMenu trs_ = getFrames().getCompoFactory().newMenu("0");
@@ -223,80 +215,68 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         getCommonFrame().setVisible(true);
         getCommonFrame().pack();
     }
-    public CrudGeneFormCombos buildCombos(AbstractProgramInfos _list, FacadeGame _facade, SubscribedTranslationList _subscriptions, EnabledMenu _menu) {
-        AbsCommonFrame fr_ = _list.getFrameFactory().newCommonFrame();
-        IdList<SubscribedTranslation> subsCombos_ = new IdList<SubscribedTranslation>();
-        _subscriptions.getSubscribedTranslations().addEntry(fr_, subsCombos_);
-        CrudGeneFormCombos crud_ = new CrudGeneFormCombos(_list, _facade, _subscriptions, fr_);
-        crud_.getFrame().addWindowListener(new ReinitMenu(_menu, subsCombos_));
-        _menu.addActionListener(new PkEditorOpenCrudTrCstEvent(crud_,_menu));
+
+    public CrudGeneFormCombos buildCombos(AbstractProgramInfos _list, FacadeGame _facade, EnabledMenu _menu) {
+        EditedCrudPair<AbsCommonFrame, IdList<SubscribedTranslation>> e_ = build(_list);
+        CrudGeneFormCombos crud_ = new CrudGeneFormCombos(_list, _facade, subscriptions, e_.getKey());
+        events(crud_.getFrame(), _menu, crud_, e_.getValue());
         return crud_;
     }
-    public CrudGeneFormTypes buildTypes(AbstractProgramInfos _list, FacadeGame _facade, SubscribedTranslationList _subscriptions, EnabledMenu _menu) {
-        AbsCommonFrame fr_ = _list.getFrameFactory().newCommonFrame();
-        IdList<SubscribedTranslation> subsTypes_ = new IdList<SubscribedTranslation>();
-        _subscriptions.getSubscribedTranslations().addEntry(fr_, subsTypes_);
-        CrudGeneFormTypes crud_ = new CrudGeneFormTypes(_list, _facade, _subscriptions, fr_);
-        crud_.getFrame().addWindowListener(new ReinitMenu(_menu, subsTypes_));
-        _menu.addActionListener(new PkEditorOpenCrudTrCstEvent(crud_,_menu));
+    public CrudGeneFormTypes buildTypes(AbstractProgramInfos _list, FacadeGame _facade, EnabledMenu _menu) {
+        EditedCrudPair<AbsCommonFrame, IdList<SubscribedTranslation>> e_ = build(_list);
+        CrudGeneFormTypes crud_ = new CrudGeneFormTypes(_list, _facade, subscriptions, e_.getKey());
+        events(crud_.getFrame(), _menu, crud_, e_.getValue());
         return crud_;
     }
-    public CrudGeneFormEntImg buildImg(AbstractProgramInfos _list, FacadeGame _facade, SubscribedTranslationList _subscriptions, EnabledMenu _menu, SubscribedTranslationMessagesFactoryCommonInt<ImageArrayBaseSixtyFour> _factory) {
-        AbsCommonFrame frPk_ = _list.getFrameFactory().newCommonFrame();
-        IdList<SubscribedTranslation> subsTm_ = new IdList<SubscribedTranslation>();
-        _subscriptions.getSubscribedTranslations().addEntry(frPk_, subsTm_);
-        CrudGeneFormEntImg crud_ = new CrudGeneFormEntImg(_list, _facade, _subscriptions, frPk_, _factory);
-        crud_.getFrame().addWindowListener(new ReinitMenu(_menu, subsTm_));
-        _menu.addActionListener(new PkEditorOpenCrudTrCstEvent(crud_,_menu));
+    public CrudGeneFormEntImg buildImg(AbstractProgramInfos _list, FacadeGame _facade, EnabledMenu _menu, SubscribedTranslationMessagesFactoryCommonInt<ImageArrayBaseSixtyFour> _factory) {
+        EditedCrudPair<AbsCommonFrame, IdList<SubscribedTranslation>> e_ = build(_list);
+        CrudGeneFormEntImg crud_ = new CrudGeneFormEntImg(_list, _facade, subscriptions, e_.getKey(), _factory);
+        events(crud_.getFrame(), _menu, crud_, e_.getValue());
         return crud_;
     }
-    public CrudGeneFormEntImgFree buildImgFree(AbstractProgramInfos _list, FacadeGame _facade, SubscribedTranslationList _subscriptions, EnabledMenu _menu, ImgRetriever _factory) {
-        AbsCommonFrame frPk_ = _list.getFrameFactory().newCommonFrame();
-        IdList<SubscribedTranslation> subsFree_ = new IdList<SubscribedTranslation>();
-        _subscriptions.getSubscribedTranslations().addEntry(frPk_, subsFree_);
-        CrudGeneFormEntImgFree crud_ = new CrudGeneFormEntImgFree(_list, _facade, _subscriptions, frPk_, _factory);
-        crud_.getFrame().addWindowListener(new ReinitMenu(_menu, subsFree_));
-        _menu.addActionListener(new PkEditorOpenCrudTrCstEvent(crud_,_menu));
+    public CrudGeneFormEntImgFree buildImgFree(AbstractProgramInfos _list, FacadeGame _facade, EnabledMenu _menu, ImgRetriever _factory) {
+        EditedCrudPair<AbsCommonFrame, IdList<SubscribedTranslation>> e_ = build(_list);
+        CrudGeneFormEntImgFree crud_ = new CrudGeneFormEntImgFree(_list, _facade, subscriptions, e_.getKey(), _factory);
+        events(crud_.getFrame(), _menu, crud_, e_.getValue());
         return crud_;
     }
 
-    public CrudGeneFormEntImgType buildImgTypeColor(AbstractProgramInfos _list, FacadeGame _facade, SubscribedTranslationList _subscriptions, EnabledMenu _menu) {
-        AbsCommonFrame frPk_ = _list.getFrameFactory().newCommonFrame();
-        IdList<SubscribedTranslation> subsFree_ = new IdList<SubscribedTranslation>();
-        _subscriptions.getSubscribedTranslations().addEntry(frPk_, subsFree_);
-        CrudGeneFormEntImgType crud_ = new CrudGeneFormEntImgType(_list, _facade, _subscriptions, frPk_);
-        crud_.getFrame().addWindowListener(new ReinitMenu(_menu, subsFree_));
-        _menu.addActionListener(new PkEditorOpenCrudTrCstEvent(crud_,_menu));
+    public CrudGeneFormEntImgType buildImgTypeColor(AbstractProgramInfos _list, FacadeGame _facade, EnabledMenu _menu) {
+        EditedCrudPair<AbsCommonFrame, IdList<SubscribedTranslation>> e_ = build(_list);
+        CrudGeneFormEntImgType crud_ = new CrudGeneFormEntImgType(_list, _facade, subscriptions, e_.getKey());
+        events(crud_.getFrame(), _menu, crud_, e_.getValue());
         return crud_;
     }
 
-    public CrudGeneFormEntImgUniq buildImgOther(AbstractProgramInfos _list, FacadeGame _facade, SubscribedTranslationList _subscriptions, EnabledMenu _menu) {
-        AbsCommonFrame frPk_ = _list.getFrameFactory().newCommonFrame();
-        IdList<SubscribedTranslation> subsFree_ = new IdList<SubscribedTranslation>();
-        _subscriptions.getSubscribedTranslations().addEntry(frPk_, subsFree_);
-        CrudGeneFormEntImgUniq crud_ = new CrudGeneFormEntImgUniq(_list, _facade, _subscriptions, frPk_);
-        crud_.getFrame().addWindowListener(new ReinitMenu(_menu, subsFree_));
-        _menu.addActionListener(new PkEditorOpenCrudTrCstEvent(crud_,_menu));
+    public CrudGeneFormEntImgUniq buildImgOther(AbstractProgramInfos _list, FacadeGame _facade, EnabledMenu _menu) {
+        EditedCrudPair<AbsCommonFrame, IdList<SubscribedTranslation>> e_ = build(_list);
+        CrudGeneFormEntImgUniq crud_ = new CrudGeneFormEntImgUniq(_list, _facade, subscriptions, e_.getKey());
+        events(crud_.getFrame(), _menu, crud_, e_.getValue());
         return crud_;
     }
 
-    public CrudGeneFormEntImgCstList buildImgCstList(AbstractProgramInfos _list, FacadeGame _facade, SubscribedTranslationList _subscriptions, EnabledMenu _menu) {
-        AbsCommonFrame frPk_ = _list.getFrameFactory().newCommonFrame();
-        IdList<SubscribedTranslation> subsFree_ = new IdList<SubscribedTranslation>();
-        _subscriptions.getSubscribedTranslations().addEntry(frPk_, subsFree_);
-        CrudGeneFormEntImgCstList crud_ = new CrudGeneFormEntImgCstList(_list, _facade, frPk_);
-        crud_.getFrame().addWindowListener(new ReinitMenu(_menu, subsFree_));
-        _menu.addActionListener(new PkEditorOpenCrudTrCstEvent(crud_,_menu));
+    public CrudGeneFormEntImgCstList buildImgCstList(AbstractProgramInfos _list, FacadeGame _facade, EnabledMenu _menu) {
+        EditedCrudPair<AbsCommonFrame, IdList<SubscribedTranslation>> e_ = build(_list);
+        CrudGeneFormEntImgCstList crud_ = new CrudGeneFormEntImgCstList(_list, _facade, e_.getKey());
+        events(crud_.getFrame(), _menu, crud_, e_.getValue());
         return crud_;
     }
     private CrudGeneFormTr buildTr(AbstractProgramInfos _list, FacadeGame _facade, EnabledMenu _menu, SubscribedTranslationMessagesFactoryCommon _factor) {
-        IdList<SubscribedTranslation> subsTrs_ = new IdList<SubscribedTranslation>();
-        AbsCommonFrame frTrs_ = _list.getFrameFactory().newCommonFrame();
-        subscriptions.getSubscribedTranslations().addEntry(frTrs_, subsTrs_);
-        CrudGeneFormTr out_ = new CrudGeneFormTr(_list, _facade, subscriptions, frTrs_, _factor);
-        _menu.addActionListener(new PkEditorOpenCrudTrCstEvent(out_,_menu));
-        out_.getFrame().addWindowListener(new ReinitMenu(_menu, subsTrs_));
+        EditedCrudPair<AbsCommonFrame, IdList<SubscribedTranslation>> e_ = build(_list);
+        CrudGeneFormTr out_ = new CrudGeneFormTr(_list, _facade, subscriptions, e_.getKey(), _factor);
+        events(out_.getFrame(), _menu, out_, e_.getValue());
         return out_;
+    }
+    private EditedCrudPair<AbsCommonFrame, IdList<SubscribedTranslation>> build(AbstractProgramInfos _list) {
+        IdList<SubscribedTranslation> subs_ = new IdList<SubscribedTranslation>();
+        AbsCommonFrame frTrs_ = _list.getFrameFactory().newCommonFrame();
+        subscriptions.getSubscribedTranslations().addEntry(frTrs_, subs_);
+        return new EditedCrudPair<AbsCommonFrame, IdList<SubscribedTranslation>>(frTrs_,subs_);
+    }
+
+    private static void events(AbsCommonFrame _frame, EnabledMenu _menu, AbsCrudGeneFormTrCstOpen _crud, IdList<SubscribedTranslation> _ls) {
+        _frame.addWindowListener(new ReinitMenu(_menu, _ls));
+        _menu.addActionListener(new PkEditorOpenCrudTrCstEvent(_crud, _menu));
     }
 
     @Override
