@@ -116,7 +116,7 @@ public final class EditorStFormTest extends InitEditorPkForm {
         CrudGeneFormTr cTr_ = crudTr(sub_);
         tryClick(cTr_.getAllButtons().get(1));
         cTr_.getDestination().setText(S_4);
-        ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
+        enterTextField(cTr_.getDestination());
         assertTrue(facade_.getData().getStatus().contains(S_4));
     }
     @Test
@@ -127,7 +127,7 @@ public final class EditorStFormTest extends InitEditorPkForm {
         CrudGeneFormTr cTr_ = crudTr(sub_);
         tryClick(cTr_.getAllButtons().get(1));
         cTr_.getDestination().setText(S_1);
-        ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
+        enterTextField(cTr_.getDestination());
         assertTrue(facade_.getData().getStatus().contains(S_1));
         assertTrue(facade_.getData().getStatus().contains(S_2));
     }
@@ -282,7 +282,7 @@ public final class EditorStFormTest extends InitEditorPkForm {
         tryClick(cTr_.getAllButtons().get(1));
         String move_ = "move";
         cTr_.getDestination().setText(move_);
-        ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
+        enterTextField(cTr_.getDestination());
         tryClick(g_.getEffectEndRound().getCrud().getValidAddEdit());
         tryClick(g_.getEffectEndRound().getCrud().getAllButtons().get(0));
         tryClick(g_.getEffectEndRound().getCrud().getCancel());

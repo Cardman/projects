@@ -10,6 +10,7 @@ import aiki.gui.components.editor.*;
 import aiki.map.levels.enums.*;
 import aiki.map.pokemon.enums.*;
 import code.gui.*;
+import code.maths.*;
 import code.mock.*;
 import code.util.*;
 import org.junit.Test;
@@ -142,6 +143,18 @@ public final class EditorStatFormTest extends InitEditorPkForm {
         assertEq("category",facade_.getData().getDefCategory());
     }
     @Test
+    public void numCst() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        facade_.getData().getConstNum().put(DataBase.DEF_BASE_MOVE,new Rate(2));
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormTrCstNumList c_ = crudNumConst(sub_);
+        c_.getFields().getVal(DataBase.DEF_BASE_MOVE).valueRate(new Rate(3));
+        enterTextField(c_.getFields().getVal(DataBase.DEF_BASE_MOVE).getTextRate());
+        assertEq(new Rate(3),facade_.getData().getDefBaseMove());
+    }
+
+    @Test
     public void noKey() {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = core(pr_);
@@ -196,5 +209,10 @@ public final class EditorStatFormTest extends InitEditorPkForm {
     private CrudGeneFormTrOtherCstList crudConst(WindowPkEditor _crud) {
         tryClick(_crud.getTrsOtherConstMenu());
         return _crud.getCrudGeneFormTrOtherCstList();
+    }
+
+    private CrudGeneFormTrCstNumList crudNumConst(WindowPkEditor _crud) {
+        tryClick(_crud.getTrsNumConstMenu());
+        return _crud.getCrudGeneFormTrCstNumList();
     }
 }

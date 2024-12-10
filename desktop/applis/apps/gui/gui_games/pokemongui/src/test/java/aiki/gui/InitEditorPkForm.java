@@ -10,6 +10,7 @@ import aiki.gui.components.editor.*;
 import aiki.instances.*;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.enums.*;
+import code.gui.AbsTextField;
 import code.gui.initialize.*;
 import code.maths.montecarlo.*;
 import code.mock.*;
@@ -44,6 +45,10 @@ public abstract class InitEditorPkForm extends EquallableAikiGuiUtil {
     public static final String C_1 = "C1";
     public static final String C_2 = "C2";
     public static final String C_3 = "C3";
+
+    public static void enterTextField(AbsTextField _t) {
+        ((MockTextField)_t).getAbsAdvActionListeners().get(0).action(null,null);
+    }
 
     protected WindowPkEditor window(AbstractProgramInfos _core, FacadeGame _facade) {
         return new WindowPkEditor(_core,_facade);

@@ -172,7 +172,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(c_.getValidAddEdit());
         tryClick(cTr_.getAllButtons().get(1));
         cTr_.getDestination().setText(P_4);
-        ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
+        enterTextField(cTr_.getDestination());
         assertEq(P_4,facade_.getData().getPokemon(P_1).getBaseEvo());
     }
     @Test
@@ -192,7 +192,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(c_.getValidAddEdit());
         tryClick(cTr_.getAllButtons().get(1));
         cTr_.getDestination().setText(P_2);
-        ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
+        enterTextField(cTr_.getDestination());
         assertEq(P_2,facade_.getData().getPokemon(P_1).getBaseEvo());
     }
     @Test
@@ -212,7 +212,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(c_.getValidAddEdit());
         tryClick(cTr_.getAllButtons().get(1));
         cTr_.getDestination().setText("");
-        ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
+        enterTextField(cTr_.getDestination());
         assertEq(P_2,facade_.getData().getPokemon(P_1).getBaseEvo());
     }
     @Test
@@ -231,7 +231,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         g_.getBaseEvo().setupValue(P_2);
         tryClick(c_.getValidAddEdit());
         cTr_.getDestination().setText("");
-        ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
+        enterTextField(cTr_.getDestination());
         assertEq(P_2,facade_.getData().getPokemon(P_1).getBaseEvo());
     }
     @Test
@@ -352,7 +352,7 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(c_.getValidAddEdit());
         tryClick(cTr_.getAllButtons().get(1));
         cTr_.getDestination().setText(P_2);
-        ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
+        enterTextField(cTr_.getDestination());
         assertEq(P_2,facade_.getData().getPokemon(P_1).getBaseEvo());
     }
     @Test

@@ -121,7 +121,7 @@ public final class EditorCombosFormTest extends InitEditorPkForm {
         tryClick(cTr_.getAllButtons().get(1));
         String move_ = "move";
         cTr_.getDestination().setText(move_);
-        ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
+        enterTextField(cTr_.getDestination());
         tryClick(c_.getValue().getEffectEndRound().getCrud().getValidAddEdit());
         tryClick(c_.getValue().getEffectEndRound().getCrud().getAllButtons().get(0));
         tryClick(c_.getValue().getEffectEndRound().getCrud().getCancel());

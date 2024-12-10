@@ -125,7 +125,7 @@ public final class EditorAbFormTest extends InitEditorPkForm {
         CrudGeneFormTr cTr_ = crudTr(sub_);
         tryClick(cTr_.getAllButtons().get(1));
         cTr_.getDestination().setText(A_4);
-        ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
+        enterTextField(cTr_.getDestination());
         assertTrue(facade_.getData().getAbilities().contains(A_4));
     }
     @Test
@@ -136,7 +136,7 @@ public final class EditorAbFormTest extends InitEditorPkForm {
         CrudGeneFormTr cTr_ = crudTr(sub_);
         tryClick(cTr_.getAllButtons().get(1));
         cTr_.getDestination().setText(A_1);
-        ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
+        enterTextField(cTr_.getDestination());
         assertTrue(facade_.getData().getAbilities().contains(A_1));
         assertTrue(facade_.getData().getAbilities().contains(A_2));
     }
@@ -506,7 +506,7 @@ public final class EditorAbFormTest extends InitEditorPkForm {
         tryClick(cTr_.getAllButtons().get(1));
         String move_ = "move";
         cTr_.getDestination().setText(move_);
-        ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
+        enterTextField(cTr_.getDestination());
         tryClick(c_.getValidAddEdit());
         assertEq(1,facade_.getData().getAbilities().getVal(A_1).getFailStatus().size());
         assertEq(S_1,facade_.getData().getAbilities().getVal(A_1).getFailStatus().getKey(0));
@@ -529,7 +529,7 @@ public final class EditorAbFormTest extends InitEditorPkForm {
         tryClick(cTr_.getAllButtons().get(1));
         String move_ = "move";
         cTr_.getDestination().setText(move_);
-        ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
+        enterTextField(cTr_.getDestination());
         tryClick(g_.getEffectSending().getCrud().getValidAddEdit());
         tryClick(g_.getEffectSending().getCrud().getAdd());
         ((GeneComponentModelSubscribeEffectWhileSending)g_.getEffectSending().getCrud().getGenePair().getKey()).getCrud().getWithEffect().setSelected(false);
@@ -565,7 +565,7 @@ public final class EditorAbFormTest extends InitEditorPkForm {
         tryClick(cTr_.getAllButtons().get(1));
         String move_ = "move";
         cTr_.getDestination().setText(move_);
-        ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
+        enterTextField(cTr_.getDestination());
         tryClick(g_.getEffectEndRound().getCrud().getValidAddEdit());
         tryClick(g_.getEffectEndRound().getCrud().getAllButtons().get(0));
         tryClick(g_.getEffectEndRound().getCrud().getCancel());
@@ -592,7 +592,7 @@ public final class EditorAbFormTest extends InitEditorPkForm {
         CrudGeneFormTrCstList cTr_ = crudConst(sub_);
         String move_ = "move";
         cTr_.getFields().getVal(DataBaseConstants.KEY_NB_TOUR).setText(move_);
-        ((MockTextField)cTr_.getFields().getVal(DataBaseConstants.KEY_NB_TOUR)).getAbsAdvActionListeners().get(0).action(null,null);
+        enterTextField(cTr_.getFields().getVal(DataBaseConstants.KEY_NB_TOUR));
         tryClick(c_.getValidAddEdit());
         assertEq(1,facade_.getData().getAbilities().getVal(A_1).getFailStatus().size());
         assertEq(S_1,facade_.getData().getAbilities().getVal(A_1).getFailStatus().getKey(0));
@@ -618,7 +618,7 @@ public final class EditorAbFormTest extends InitEditorPkForm {
         CrudGeneFormTrCstList cTr_ = crudConst(sub_);
         String move_ = "move";
         cTr_.getFields().getVal(DataBaseConstants.PREFIX_KEY).setText(move_);
-        ((MockTextField)cTr_.getFields().getVal(DataBaseConstants.PREFIX_KEY)).getAbsAdvActionListeners().get(0).action(null,null);
+        enterTextField(cTr_.getFields().getVal(DataBaseConstants.PREFIX_KEY));
         tryClick(c_.getValidAddEdit());
         assertEq(1,facade_.getData().getAbilities().getVal(A_1).getFailStatus().size());
         assertEq(S_1,facade_.getData().getAbilities().getVal(A_1).getFailStatus().getKey(0));

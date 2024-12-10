@@ -358,7 +358,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         CrudGeneFormTr cTr_ = crudTr(sub_);
         tryClick(cTr_.getAllButtons().get(1));
         cTr_.getDestination().setText(M_4);
-        ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
+        enterTextField(cTr_.getDestination());
         assertTrue(facade_.getData().getMoves().contains(M_4));
     }
     @Test
@@ -369,7 +369,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         CrudGeneFormTr cTr_ = crudTr(sub_);
         tryClick(cTr_.getAllButtons().get(1));
         cTr_.getDestination().setText(M_1);
-        ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
+        enterTextField(cTr_.getDestination());
         assertTrue(facade_.getData().getMoves().contains(M_1));
         assertTrue(facade_.getData().getMoves().contains(M_2));
     }
@@ -1977,7 +1977,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         tryClick(cTr_.getAllButtons().get(1));
         String move_ = "move";
         cTr_.getDestination().setText(move_);
-        ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
+        enterTextField(cTr_.getDestination());
         tryClick(effectsCrud(g_).getCancel());
         tryClick(c_.getCancel());
         assertEq(2,((EffectDamage)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getDamageLaw().size());
@@ -2008,7 +2008,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         tryClick(cTr_.getAllButtons().get(1));
         String move_ = "move";
         cTr_.getDestination().setText(move_);
-        ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
+        enterTextField(cTr_.getDestination());
         tryClick(effForm_.getContentEffectDamage().getDamageLaw().getValidAddEdit());
         tryClick(effForm_.getContentEffectDamage().getDamageLaw().getAllButtons().get(0));
         tryClick(effForm_.getContentEffectDamage().getDamageLaw().getCancel());
@@ -2107,7 +2107,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         CrudGeneFormTrCstList cTr_ = crudConst(sub_);
         String move_ = "move";
         cTr_.getFields().getVal(DataBaseConstants.KEY_NB_TOUR).setText(move_);
-        ((MockTextField)cTr_.getFields().getVal(DataBaseConstants.KEY_NB_TOUR)).getAbsAdvActionListeners().get(0).action(null,null);
+        enterTextField(cTr_.getFields().getVal(DataBaseConstants.KEY_NB_TOUR));
         tryClick(effectsCrud(g_).getCancel());
         tryClick(c_.getCancel());
         assertEq(2,((EffectDamage)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getDamageLaw().size());
@@ -2152,7 +2152,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         CrudGeneFormTrCstList cTr_ = crudConst(sub_);
         String move_ = "move";
         cTr_.getFields().getVal(DataBaseConstants.PREFIX_KEY).setText(move_);
-        ((MockTextField)cTr_.getFields().getVal(DataBaseConstants.PREFIX_KEY)).getAbsAdvActionListeners().get(0).action(null,null);
+        enterTextField(cTr_.getFields().getVal(DataBaseConstants.PREFIX_KEY));
         tryClick(effectsCrud(g_).getCancel());
         tryClick(c_.getCancel());
         assertEq(2,((EffectDamage)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getDamageLaw().size());
@@ -2197,7 +2197,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         CrudGeneFormTrCstList cTr_ = crudConst(sub_);
         String move_ = "";
         cTr_.getFields().getVal(DataBaseConstants.KEY_NB_TOUR).setText(move_);
-        ((MockTextField)cTr_.getFields().getVal(DataBaseConstants.KEY_NB_TOUR)).getAbsAdvActionListeners().get(0).action(null,null);
+        enterTextField(cTr_.getFields().getVal(DataBaseConstants.KEY_NB_TOUR));
         tryClick(effectsCrud(g_).getCancel());
         tryClick(c_.getCancel());
         assertEq(2,((EffectDamage)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getDamageLaw().size());
@@ -2242,7 +2242,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         CrudGeneFormTrCstList cTr_ = crudConst(sub_);
         String move_ = "NB_TOUR";
         cTr_.getFields().getVal(DataBaseConstants.KEY_NB_TOUR).setText(move_);
-        ((MockTextField)cTr_.getFields().getVal(DataBaseConstants.KEY_NB_TOUR)).getAbsAdvActionListeners().get(0).action(null,null);
+        enterTextField(cTr_.getFields().getVal(DataBaseConstants.KEY_NB_TOUR));
         tryClick(effectsCrud(g_).getCancel());
         tryClick(c_.getCancel());
         assertEq(2,((EffectDamage)facade_.getData().getMoves().getVal(M_1).getEffects().get(0)).getDamageLaw().size());

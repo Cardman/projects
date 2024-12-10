@@ -29,7 +29,7 @@ public final class EditorTyFormTest extends InitEditorPkForm {
         CrudGeneFormTr cTr_ = crudTr(sub_);
         tryClick(cTr_.getAllButtons().get(1));
         cTr_.getDestination().setText(T_3);
-        ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
+        enterTextField(cTr_.getDestination());
         assertTrue(facade_.getData().getTranslatedTypes().firstValue().contains(T_3));
     }
     @Test
@@ -40,7 +40,7 @@ public final class EditorTyFormTest extends InitEditorPkForm {
         CrudGeneFormTr cTr_ = crudTr(sub_);
         tryClick(cTr_.getAllButtons().get(1));
         cTr_.getDestination().setText(T_1);
-        ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
+        enterTextField(cTr_.getDestination());
         assertTrue(facade_.getData().getTranslatedTypes().firstValue().contains(T_1));
         assertTrue(facade_.getData().getTranslatedTypes().firstValue().contains(T_2));
     }

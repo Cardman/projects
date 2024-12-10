@@ -128,7 +128,7 @@ public final class EditorItFormTest extends InitEditorPkForm {
         CrudGeneFormTr cTr_ = crudTr(sub_);
         tryClick(cTr_.getAllButtons().get(1));
         cTr_.getDestination().setText(I_4);
-        ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
+        enterTextField(cTr_.getDestination());
         assertTrue(facade_.getData().getItems().contains(I_4));
     }
     @Test
@@ -139,7 +139,7 @@ public final class EditorItFormTest extends InitEditorPkForm {
         CrudGeneFormTr cTr_ = crudTr(sub_);
         tryClick(cTr_.getAllButtons().get(1));
         cTr_.getDestination().setText(I_1);
-        ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
+        enterTextField(cTr_.getDestination());
         assertTrue(facade_.getData().getItems().contains(I_1));
         assertTrue(facade_.getData().getItems().contains(I_2));
     }
@@ -601,7 +601,7 @@ public final class EditorItFormTest extends InitEditorPkForm {
         tryClick(cTr_.getAllButtons().get(1));
         String move_ = "move";
         cTr_.getDestination().setText(move_);
-        ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
+        enterTextField(cTr_.getDestination());
         ((GeneComponentModelSubscribeEffectWhileSending)((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectSending().getCrud().getGenePair().getKey()).getCrud().getWithEffect().setSelected(true);
         ((GeneComponentModelSubscribeEffectWhileSending)((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectSending().getCrud().getGenePair().getKey()).getCrud().getCopyingAbility().setSelected(true);
         ((GeneComponentModelSubscribeEffectWhileSending)((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectSending().getCrud().getGenePair().getKey()).getCrud().getDisableWeather().setSelected(true);
@@ -641,7 +641,7 @@ public final class EditorItFormTest extends InitEditorPkForm {
         tryClick(cTr_.getAllButtons().get(1));
         String move_ = "move";
         cTr_.getDestination().setText(move_);
-        ((MockTextField)cTr_.getDestination()).getAbsAdvActionListeners().get(0).action(null,null);
+        enterTextField(cTr_.getDestination());
         tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectEndRound().getCrud().getValidAddEdit());
         tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectEndRound().getCrud().getAllButtons().get(0));
         tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getEffectEndRound().getCrud().getCancel());

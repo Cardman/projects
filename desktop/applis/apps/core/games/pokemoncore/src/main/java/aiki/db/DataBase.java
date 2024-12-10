@@ -4868,7 +4868,7 @@ public final class DataBase {
         return evtEndRound;
     }
 
-    private Rate constNum(String _key) {
+    public Rate constNum(String _key) {
         Rate rate_ = constNum.getVal(_key);
         if (rate_ == null) {
             return Rate.zero();
