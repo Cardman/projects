@@ -13,6 +13,7 @@ public final class MessagesPkEditor {
     public static final String SWITCH_POINT = "switch_pt";
     public static final String CONST_VALUES = "cst_values";
     public static final String RESTRICT = "restrict";
+    public static final String HEROS_SEX = "heros";
     private MessagesPkEditor() {
     }
 
@@ -36,6 +37,7 @@ public final class MessagesPkEditor {
         appendMessagesEditorSelectPointViewChangementType(_lgs,MessagesEditorSelect.enPointViewChangementType());
         appendMessagesEditorSelectConstValuesType(_lgs,MessagesEditorSelect.enConstValuesType());
         appendMessagesEditorSelectMoveChoiceRestrictionType(_lgs,MessagesEditorSelect.enMoveChoiceRestrictionType());
+        appendMessagesEditorSelectHerosSex(_lgs,MessagesEditorSelect.enHerosSex());
     }
 
     public static void frTr(TranslationsAppli _lgs) {
@@ -48,6 +50,7 @@ public final class MessagesPkEditor {
         appendMessagesEditorSelectPointViewChangementType(_lgs,MessagesEditorSelect.frPointViewChangementType());
         appendMessagesEditorSelectConstValuesType(_lgs,MessagesEditorSelect.frConstValuesType());
         appendMessagesEditorSelectMoveChoiceRestrictionType(_lgs,MessagesEditorSelect.frMoveChoiceRestrictionType());
+        appendMessagesEditorSelectHerosSex(_lgs,MessagesEditorSelect.frHerosSex());
     }
 
     public static void appendMessagesEditorSelectGenderRep(TranslationsAppli _lgs, TranslationsFile _f) {
@@ -81,6 +84,9 @@ public final class MessagesPkEditor {
     public static void appendMessagesEditorSelectMoveChoiceRestrictionType(TranslationsAppli _lgs, TranslationsFile _f) {
         _lgs.getMapping().addEntry(RESTRICT, _f);
     }
+    public static void appendMessagesEditorSelectHerosSex(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(HEROS_SEX, _f);
+    }
     public static TranslationsFile getMessagesEditorSelectGenderRepTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(GENDER_REP);
     }
@@ -107,5 +113,8 @@ public final class MessagesPkEditor {
     }
     public static TranslationsFile getMessagesEditorSelectMoveChoiceRestrictionTypeTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(RESTRICT);
+    }
+    public static TranslationsFile getMessagesEditorSelectHerosSexTr(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(HEROS_SEX);
     }
 }

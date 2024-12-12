@@ -4,7 +4,10 @@ import aiki.db.DataBase;
 import aiki.db.ImageArrayBaseSixtyFour;
 import aiki.facade.*;
 import aiki.fight.enums.Statistic;
+import aiki.game.player.enums.Sex;
 import aiki.gui.components.editor.*;
+import aiki.map.enums.Direction;
+import aiki.map.levels.enums.EnvironmentType;
 import aiki.sml.*;
 import code.gui.*;
 import code.gui.files.*;
@@ -611,6 +614,195 @@ public final class EditorImgFormTest extends InitEditorPkForm {
         tryClick(c_.getButtons().getVal(Statistic.SPEED));
         assertEq(1,facade_.getData().getAnimStatis().getVal(Statistic.SPEED.getStatName()).getImage()[0][0]);
     }
+    @Test
+    public void imgForm40() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.setSexList(new MockLSexList());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEntImgHeros c_ = crudHerosMiniImg(sub_);
+        tryClick(c_.getAdd());
+        c_.getGeneComponentModelImgHeros().getDirection().setupValue(Direction.UP);
+        c_.getGeneComponentModelImgHeros().getSex().setupValue(Sex.NO);
+        c_.getGeneComponentModelImgHeros().getEnvironment().setupValue(EnvironmentType.ROAD);
+        tryLoad(c_.getGeneComponentModelImgHeros().getContent(),"_1");
+        tryClick(c_.getValidAddEdit());
+        assertEq(1,facade_.getData().getOverWorldHeros().size());
+    }
+    @Test
+    public void imgForm41() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.setSexList(new MockLSexList());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEntImgHeros c_ = crudHerosMiniImg(sub_);
+        tryClick(c_.getAdd());
+        c_.getGeneComponentModelImgHeros().getDirection().setupValue(Direction.UP);
+        c_.getGeneComponentModelImgHeros().getSex().setupValue(Sex.NO);
+        c_.getGeneComponentModelImgHeros().getEnvironment().setupValue(EnvironmentType.ROAD);
+        tryClick(c_.getValidAddEdit());
+        assertEq(0,facade_.getData().getOverWorldHeros().size());
+    }
+    @Test
+    public void imgForm42() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.setSexList(new MockLSexList());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEntImgHeros c_ = crudHerosMiniImg(sub_);
+        tryClick(c_.getAdd());
+        c_.getGeneComponentModelImgHeros().getDirection().setupValue(Direction.UP);
+        c_.getGeneComponentModelImgHeros().getSex().setupValue(Sex.NO);
+        c_.getGeneComponentModelImgHeros().getEnvironment().setupValue(EnvironmentType.ROAD);
+        tryLoad(c_.getGeneComponentModelImgHeros().getContent(),"_1");
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAdd());
+        c_.getGeneComponentModelImgHeros().getDirection().setupValue(Direction.UP);
+        c_.getGeneComponentModelImgHeros().getSex().setupValue(Sex.NO);
+        c_.getGeneComponentModelImgHeros().getEnvironment().setupValue(EnvironmentType.ROAD);
+        tryLoad(c_.getGeneComponentModelImgHeros().getContent(),"_1");
+        tryClick(c_.getValidAddEdit());
+        assertEq(1,facade_.getData().getOverWorldHeros().size());
+    }
+    @Test
+    public void imgForm43() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.setSexList(new MockLSexList());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEntImgHeros c_ = crudHerosMiniImg(sub_);
+        tryClick(c_.getAdd());
+        c_.getGeneComponentModelImgHeros().getDirection().setupValue(Direction.UP);
+        c_.getGeneComponentModelImgHeros().getSex().setupValue(Sex.NO);
+        c_.getGeneComponentModelImgHeros().getEnvironment().setupValue(EnvironmentType.ROAD);
+        tryLoad(c_.getGeneComponentModelImgHeros().getContent(),"_1");
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryLoad(c_.getGeneComponentModelImgHeros().getContent(),"_2");
+        tryClick(c_.getValidAddEdit());
+        assertEq(1,facade_.getData().getOverWorldHeros().size());
+    }
+    @Test
+    public void imgForm44() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.setSexList(new MockLSexList());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEntImgHeros c_ = crudHerosMiniImg(sub_);
+        tryClick(c_.getAdd());
+        c_.getGeneComponentModelImgHeros().getDirection().setupValue(Direction.UP);
+        c_.getGeneComponentModelImgHeros().getSex().setupValue(Sex.NO);
+        c_.getGeneComponentModelImgHeros().getEnvironment().setupValue(EnvironmentType.ROAD);
+        tryLoad(c_.getGeneComponentModelImgHeros().getContent(),"_1");
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryClick(c_.getValidRemove());
+        assertEq(0,facade_.getData().getOverWorldHeros().size());
+    }
+    @Test
+    public void imgForm45() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.setSexList(new MockLSexList());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEntImgHeros c_ = crudHerosFrontImg(sub_);
+        tryClick(c_.getAdd());
+        c_.getGeneComponentModelImgHeros().getSex().setupValue(Sex.NO);
+        c_.getGeneComponentModelImgHeros().getEnvironment().setupValue(EnvironmentType.ROAD);
+        tryLoad(c_.getGeneComponentModelImgHeros().getContent(),"_1");
+        tryClick(c_.getValidAddEdit());
+        assertEq(1,facade_.getData().getFrontHeros().size());
+    }
+    @Test
+    public void imgForm46() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.setSexList(new MockLSexList());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEntImgHeros c_ = crudHerosFrontImg(sub_);
+        tryClick(c_.getAdd());
+        c_.getGeneComponentModelImgHeros().getSex().setupValue(Sex.NO);
+        c_.getGeneComponentModelImgHeros().getEnvironment().setupValue(EnvironmentType.ROAD);
+        tryLoad(c_.getGeneComponentModelImgHeros().getContent(),"_1");
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryLoad(c_.getGeneComponentModelImgHeros().getContent(),"_2");
+        tryClick(c_.getValidAddEdit());
+        assertEq(1,facade_.getData().getFrontHeros().size());
+    }
+    @Test
+    public void imgForm47() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.setSexList(new MockLSexList());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEntImgHeros c_ = crudHerosBackImg(sub_);
+        tryClick(c_.getAdd());
+        c_.getGeneComponentModelImgHeros().getSex().setupValue(Sex.NO);
+        c_.getGeneComponentModelImgHeros().getEnvironment().setupValue(EnvironmentType.ROAD);
+        tryLoad(c_.getGeneComponentModelImgHeros().getContent(),"_1");
+        tryClick(c_.getValidAddEdit());
+        assertEq(1,facade_.getData().getBackHeros().size());
+    }
+    @Test
+    public void imgForm48() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.setSexList(new MockLSexList());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEntImgHeros c_ = crudHerosBackImg(sub_);
+        tryClick(c_.getAdd());
+        c_.getGeneComponentModelImgHeros().getSex().setupValue(Sex.NO);
+        c_.getGeneComponentModelImgHeros().getEnvironment().setupValue(EnvironmentType.ROAD);
+        tryLoad(c_.getGeneComponentModelImgHeros().getContent(),"_1");
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryLoad(c_.getGeneComponentModelImgHeros().getContent(),"_2");
+        tryClick(c_.getValidAddEdit());
+        assertEq(1,facade_.getData().getBackHeros().size());
+    }
+    @Test
+    public void imgForm49() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.setSexList(new MockLSexList());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEntImgHeros c_ = crudHerosMiniImg(sub_);
+        tryClick(c_.getAdd());
+        c_.getGeneComponentModelImgHeros().getDirection().setupValue(Direction.UP);
+        c_.getGeneComponentModelImgHeros().getSex().setupValue(Sex.NO);
+        c_.getGeneComponentModelImgHeros().getEnvironment().setupValue(EnvironmentType.ROAD);
+        tryLoad(c_.getGeneComponentModelImgHeros().getContent(),"_1");
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAdd());
+        c_.getGeneComponentModelImgHeros().getDirection().setupValue(Direction.DOWN);
+        c_.getGeneComponentModelImgHeros().getSex().setupValue(Sex.NO);
+        c_.getGeneComponentModelImgHeros().getEnvironment().setupValue(EnvironmentType.ROAD);
+        tryLoad(c_.getGeneComponentModelImgHeros().getContent(),"_1");
+        tryClick(c_.getValidAddEdit());
+        assertEq(2,facade_.getData().getOverWorldHeros().size());
+    }
+    @Test
+    public void imgForm50() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.setSexList(new MockLSexList());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEntImgHeros c_ = crudHerosMiniImg(sub_);
+        tryClick(c_.getAdd());
+        c_.getGeneComponentModelImgHeros().getDirection().setupValue(Direction.UP);
+        c_.getGeneComponentModelImgHeros().getSex().setupValue(Sex.NO);
+        c_.getGeneComponentModelImgHeros().getEnvironment().setupValue(EnvironmentType.ROAD);
+        tryLoad(c_.getGeneComponentModelImgHeros().getContent(),"_1");
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAdd());
+        c_.getGeneComponentModelImgHeros().getDirection().setupValue(Direction.DOWN);
+        c_.getGeneComponentModelImgHeros().getSex().setupValue(Sex.NO);
+        c_.getGeneComponentModelImgHeros().getEnvironment().setupValue(EnvironmentType.ROAD);
+        tryLoad(c_.getGeneComponentModelImgHeros().getContent(),"_1");
+        tryClick(c_.getCancel());
+        assertEq(1,facade_.getData().getOverWorldHeros().size());
+    }
     private void tryLoad(GeneComponentModelImg _g) {
         tryLoad(_g, "_1");
     }
@@ -752,5 +944,17 @@ public final class EditorImgFormTest extends InitEditorPkForm {
     private CrudGeneFormEntImgCstList crudCstListImg(WindowPkEditor _crud) {
         tryClick(_crud.getImgCstListMenu());
         return _crud.getCrudGeneFormCstList();
+    }
+    private CrudGeneFormEntImgHeros crudHerosMiniImg(WindowPkEditor _crud) {
+        tryClick(_crud.getImgHerosMiniMenu());
+        return _crud.getCrudGeneFormEntImgHerosMini();
+    }
+    private CrudGeneFormEntImgHeros crudHerosFrontImg(WindowPkEditor _crud) {
+        tryClick(_crud.getImgHerosFrontMenu());
+        return _crud.getCrudGeneFormEntImgHerosFront();
+    }
+    private CrudGeneFormEntImgHeros crudHerosBackImg(WindowPkEditor _crud) {
+        tryClick(_crud.getImgHerosBackMenu());
+        return _crud.getCrudGeneFormEntImgHerosBack();
     }
 }

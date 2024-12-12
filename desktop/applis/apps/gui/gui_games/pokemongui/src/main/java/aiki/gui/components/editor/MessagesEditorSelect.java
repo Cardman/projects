@@ -59,6 +59,8 @@ public final class MessagesEditorSelect {
     public static final String STAT_AUTO = "0";
     public static final String STAT_BEGIN = "1";
     public static final String STAT_SIMPLE = "2";
+    public static final String GIRL = "0";
+    public static final String BOY = "1";
     private MessagesEditorSelect() {
     }
     public static TranslationsFile enGenderRep(){
@@ -301,6 +303,18 @@ public final class MessagesEditorSelect {
         f_.add(DataBase.DEF_MOVE_CHOICE_RESTRICTION_TYPE_DER,"Le combattant ne peut pas choisir consécutivement la même attaque");
         f_.add(DataBase.DEF_MOVE_CHOICE_RESTRICTION_TYPE_CATEGORIE_AUTRE,"Le combattant ne peut plus utiliser les attaques non offensives");
         f_.add(DataBase.DEF_MOVE_CHOICE_RESTRICTION_TYPE_NOTHING,"");
+        return f_;
+    }
+    public static TranslationsFile enHerosSex(){
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(GIRL,"girl");
+        e_.add(BOY,"boy");
+        return e_;
+    }
+    public static TranslationsFile frHerosSex(){
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(GIRL,"fille");
+        f_.add(BOY,"garçon");
         return f_;
     }
 }

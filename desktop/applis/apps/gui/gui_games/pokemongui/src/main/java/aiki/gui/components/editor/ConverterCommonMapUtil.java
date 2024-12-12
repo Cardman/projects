@@ -123,6 +123,9 @@ public final class ConverterCommonMapUtil {
         }
         return tree_;
     }
+    public static GeneComponentModelEltEnumSub<EnvironmentType> buildEnvironmentType(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _fact){
+        return new SubscribeBuilderUtil<EnvironmentType>(_fact.getFactoryEnvironmentType()).merge(_api,_facade,new CustList<EnvironmentType>(),new IdMap<EnvironmentType, String>());
+    }
     public static GeneComponentModelEltEnumSub<Gender> buildGender(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _fact){
         return new SubscribeBuilderUtil<Gender>(_fact.getFactoryGender()).merge(_api,_facade,new CustList<Gender>(),new IdMap<Gender, String>());
     }

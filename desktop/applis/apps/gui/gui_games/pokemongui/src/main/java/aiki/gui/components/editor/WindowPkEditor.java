@@ -58,6 +58,9 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
     private final CrudGeneFormEntImgType crudGeneFormTypeColor;
     private final CrudGeneFormEntImgUniq crudGeneFormImgOther;
     private final CrudGeneFormEntImgCstList crudGeneFormCstList;
+    private final CrudGeneFormEntImgHeros crudGeneFormEntImgHerosMini;
+    private final CrudGeneFormEntImgHeros crudGeneFormEntImgHerosFront;
+    private final CrudGeneFormEntImgHeros crudGeneFormEntImgHerosBack;
     private final EnabledMenu trsAbMenu = getFrames().getCompoFactory().newMenuItem("0_0");
     private final EnabledMenu trsItMenu = getFrames().getCompoFactory().newMenuItem("0_1");
     private final EnabledMenu trsMvMenu = getFrames().getCompoFactory().newMenuItem("0_2");
@@ -96,6 +99,9 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
     private final EnabledMenu imgTypeColorMenu = getFrames().getCompoFactory().newMenuItem("4_11");
     private final EnabledMenu imgOtherMenu = getFrames().getCompoFactory().newMenuItem("4_12");
     private final EnabledMenu imgCstListMenu = getFrames().getCompoFactory().newMenuItem("4_13");
+    private final EnabledMenu imgHerosMiniMenu = getFrames().getCompoFactory().newMenuItem("4_14");
+    private final EnabledMenu imgHerosFrontMenu = getFrames().getCompoFactory().newMenuItem("4_15");
+    private final EnabledMenu imgHerosBackMenu = getFrames().getCompoFactory().newMenuItem("4_16");
 
     public WindowPkEditor(AbstractProgramInfos _list, FacadeGame _facade) {
         super(_list);
@@ -155,6 +161,9 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         crudGeneFormTypeColor = buildImgTypeColor(_list, _facade, imgTypeColorMenu);
         crudGeneFormImgOther = buildImgOther(_list, _facade, imgOtherMenu);
         crudGeneFormCstList = buildImgCstList(_list, _facade, imgCstListMenu);
+        crudGeneFormEntImgHerosMini = buildImgHeros(_list, _facade, imgHerosMiniMenu,true,false);
+        crudGeneFormEntImgHerosFront = buildImgHeros(_list, _facade, imgHerosFrontMenu, false, true);
+        crudGeneFormEntImgHerosBack = buildImgHeros(_list, _facade, imgHerosBackMenu, false, false);
         AbsMenuBar bar_ = getFrames().getCompoFactory().newMenuBar();
         EnabledMenu file_ = getFrames().getCompoFactory().newMenu("0");
         EnabledMenu trs_ = getFrames().getCompoFactory().newMenu("0");
@@ -204,6 +213,9 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         img_.addMenuItem(imgTypeColorMenu);
         img_.addMenuItem(imgOtherMenu);
         img_.addMenuItem(imgCstListMenu);
+        img_.addMenuItem(imgHerosMiniMenu);
+        img_.addMenuItem(imgHerosFrontMenu);
+        img_.addMenuItem(imgHerosBackMenu);
         file_.addMenuItem(img_);
         bar_.add(file_);
         tmMenu.addActionListener(new PkEditorOpenCrudTrCstEvent(crudGeneFormTm,tmMenu));
@@ -258,6 +270,13 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
     public CrudGeneFormEntImgCstList buildImgCstList(AbstractProgramInfos _list, FacadeGame _facade, EnabledMenu _menu) {
         EditedCrudPair<AbsCommonFrame, IdList<SubscribedTranslation>> e_ = build(_list);
         CrudGeneFormEntImgCstList crud_ = new CrudGeneFormEntImgCstList(_list, _facade, e_.getKey());
+        events(crud_.getFrame(), _menu, crud_, e_.getValue());
+        return crud_;
+    }
+
+    public CrudGeneFormEntImgHeros buildImgHeros(AbstractProgramInfos _list, FacadeGame _facade, EnabledMenu _menu, boolean _withDir, boolean _front) {
+        EditedCrudPair<AbsCommonFrame, IdList<SubscribedTranslation>> e_ = build(_list);
+        CrudGeneFormEntImgHeros crud_ = new CrudGeneFormEntImgHeros(_list, _facade, subscriptions, e_.getKey(), _withDir, _front);
         events(crud_.getFrame(), _menu, crud_, e_.getValue());
         return crud_;
     }
@@ -455,6 +474,18 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         return imgCstListMenu;
     }
 
+    public EnabledMenu getImgHerosMiniMenu() {
+        return imgHerosMiniMenu;
+    }
+
+    public EnabledMenu getImgHerosFrontMenu() {
+        return imgHerosFrontMenu;
+    }
+
+    public EnabledMenu getImgHerosBackMenu() {
+        return imgHerosBackMenu;
+    }
+
     public CrudGeneFormEnt<AbilityData> getCrudGeneFormAb() {
         return crudGeneFormAb;
     }
@@ -605,5 +636,17 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
 
     public CrudGeneFormEntImgCstList getCrudGeneFormCstList() {
         return crudGeneFormCstList;
+    }
+
+    public CrudGeneFormEntImgHeros getCrudGeneFormEntImgHerosMini() {
+        return crudGeneFormEntImgHerosMini;
+    }
+
+    public CrudGeneFormEntImgHeros getCrudGeneFormEntImgHerosFront() {
+        return crudGeneFormEntImgHerosFront;
+    }
+
+    public CrudGeneFormEntImgHeros getCrudGeneFormEntImgHerosBack() {
+        return crudGeneFormEntImgHerosBack;
     }
 }
