@@ -14,10 +14,12 @@ import aiki.map.levels.enums.*;
 import aiki.map.pokemon.enums.*;
 import code.gui.*;
 import code.gui.initialize.*;
+import code.maths.litteral.*;
 import code.maths.montecarlo.*;
 import code.mock.*;
 import code.sml.util.*;
 import code.util.*;
+import code.util.core.*;
 
 public abstract class InitEditorPkForm extends EquallableAikiGuiUtil {
 
@@ -145,6 +147,13 @@ public abstract class InitEditorPkForm extends EquallableAikiGuiUtil {
         itCl_.addEntry(Item.REPEL,Item.REPEL);
         itCl_.addEntry(Item.SELLING_ITEM,Item.SELLING_ITEM);
         facade_.getData().getTranslatedClassesDescriptions().addEntry(_m.getLanguage(), itCl_);
+        StringMap<String> litteral_ = new StringMap<String>();
+        litteral_.addEntry(MessagesDataBaseConstants.DEF_NIVEAU, StringUtil.concat("level","\t","l","\t","The level of the Pokemon"));
+        litteral_.addEntry(MessagesDataBaseConstants.DEF_BOOST, StringUtil.concat("boost","\t","b","\t","The boost of the Pokemon"));
+        facade_.getData().getLitterals().addEntry(_m.getLanguage(),litteral_);
+        StringMap<String> fct_ = new StringMap<String>();
+        fct_.addEntry(MbOperationNode.PUIS,"_");
+        facade_.getData().getTranslatedFctMath().addEntry(_m.getLanguage(),fct_);
         return facade_;
     }
 

@@ -1697,6 +1697,27 @@ public final class ConverterCommonMapUtil {
         }
         return fs_;
     }
+
+    public static StringMap<CustList<AbsTextPane>> areasList(AbsPanel _line, StringMap<String> _map, AbstractProgramInfos _api) {
+        StringMap<CustList<AbsTextPane>> fs_ = new StringMap<CustList<AbsTextPane>>();
+        for (EntryCust<String, String> l: _map.entryList()) {
+            CustList<AbsTextPane> ls_ = new CustList<AbsTextPane>();
+            StringList parts_ = StringUtil.splitChar(l.getValue(), '\t');
+            int len_ = NumberUtil.min(parts_.size(),3);
+            for (int i = 0; i < len_; i++) {
+                AbsTextPane txt_ = _api.getCompoFactory().newTextPane();
+                if (i <= 1) {
+                    txt_.setText(parts_.get(i));
+                } else {
+                    txt_.setText(StringUtil.join(parts_.mid(2),'\t'));
+                }
+                _line.add(txt_);
+                ls_.add(txt_);
+            }
+            fs_.addEntry(l.getKey(),ls_);
+        }
+        return fs_;
+    }
     public static StringList complete(DataBase _db, AbstractProgramInfos _api, String _text, int _caret) {
         MbDelimiters dels_ = MathResolver.checkSyntax(_text, new ErrorStatus());
         int count_ = 0;

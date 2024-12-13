@@ -13,6 +13,7 @@ import aiki.map.levels.enums.*;
 import aiki.map.pokemon.enums.*;
 import code.gui.*;
 import code.maths.*;
+import code.maths.litteral.*;
 import code.mock.*;
 import code.util.*;
 import org.junit.Test;
@@ -97,6 +98,28 @@ public final class EditorStatFormTest extends InitEditorPkForm {
         cTr_.getFields().getVal(SelectedBoolean.YES_AND_NO).getVal(pr_.getLanguage()).setText("vit");
         tryClick(cTr_.getChangeValues());
         assertEq("vit",facade_.getData().getTranslatedBooleans().getVal(pr_.getLanguage()).getVal(SelectedBoolean.YES_AND_NO));
+    }
+    @Test
+    public void statForm9() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormTrItemType cTr_ = crudTrFctType(sub_);
+        cTr_.getFields().getVal(MbOperationNode.PUIS).getVal(pr_.getLanguage()).setText("vit");
+        tryClick(cTr_.getChangeValues());
+        assertEq("vit",facade_.getData().getTranslatedFctMath().getVal(pr_.getLanguage()).getVal(MbOperationNode.PUIS));
+    }
+    @Test
+    public void statForm10() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormTrLitteral cTr_ = crudTrLittType(sub_);
+        cTr_.getFields().getVal(MessagesDataBaseConstants.DEF_NIVEAU).getVal(pr_.getLanguage()).get(0).setText("vit");
+        cTr_.getFields().getVal(MessagesDataBaseConstants.DEF_NIVEAU).getVal(pr_.getLanguage()).get(1).setText("v");
+        cTr_.getFields().getVal(MessagesDataBaseConstants.DEF_NIVEAU).getVal(pr_.getLanguage()).get(2).setText("desc");
+        tryClick(cTr_.getChangeValues());
+        assertEq("vit\tv\tdesc",facade_.getData().getLitterals().getVal(pr_.getLanguage()).getVal(MessagesDataBaseConstants.DEF_NIVEAU));
     }
     @Test
     public void strList1() {
@@ -248,6 +271,14 @@ public final class EditorStatFormTest extends InitEditorPkForm {
     private CrudGeneFormTrItemType crudTrClType(WindowPkEditor _crud) {
         tryClick(_crud.getTrsClMenu());
         return _crud.getCrudGeneFormClTr();
+    }
+    private CrudGeneFormTrItemType crudTrFctType(WindowPkEditor _crud) {
+        tryClick(_crud.getTrsFctMenu());
+        return _crud.getCrudGeneFormFctTr();
+    }
+    private CrudGeneFormTrLitteral crudTrLittType(WindowPkEditor _crud) {
+        tryClick(_crud.getTrsLittMenu());
+        return _crud.getCrudGeneFormLittTr();
     }
 
     private CrudGeneFormTrOtherCstList crudConst(WindowPkEditor _crud) {
