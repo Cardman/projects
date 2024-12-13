@@ -1,8 +1,9 @@
 package aiki.gui.components.editor;
 
 //import aiki.gui.*;
-import aiki.db.ImageArrayBaseSixtyFour;
+import aiki.db.*;
 import aiki.facade.*;
+import aiki.facade.enums.*;
 import aiki.fight.abilities.*;
 import aiki.fight.enums.*;
 import aiki.fight.items.*;
@@ -10,6 +11,7 @@ import aiki.fight.moves.*;
 import aiki.fight.moves.enums.*;
 import aiki.fight.pokemon.*;
 import aiki.fight.status.*;
+import aiki.game.params.enums.*;
 import aiki.map.levels.enums.*;
 import aiki.map.pokemon.enums.*;
 import code.gui.*;
@@ -37,6 +39,9 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
     private final CrudGeneFormTrCst<TargetChoice> crudGeneFormCstTarget;
     private final CrudGeneFormTrCst<Gender> crudGeneFormCstGender;
     private final CrudGeneFormTrCst<EnvironmentType> crudGeneFormCstEnvironmentType;
+    private final CrudGeneFormTrCst<DifficultyModelLaw> crudGeneFormCstDifficultyModelLaw;
+    private final CrudGeneFormTrCst<DifficultyWinPointsFight> crudGeneFormCstDifficultyWinPointsFight;
+    private final CrudGeneFormTrCst<SelectedBoolean> crudGeneFormCstSelectedBoolean;
     private final CrudGeneFormEnt<AbilityData> crudGeneFormAb;
     private final CrudGeneFormEnt<Item> crudGeneFormIt;
     private final CrudGeneFormEnt<MoveData> crudGeneFormMv;
@@ -85,6 +90,9 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
     private final EnabledMenu trsCstTargetMenu = getFrames().getCompoFactory().newMenuItem("3_1");
     private final EnabledMenu trsCstGenderMenu = getFrames().getCompoFactory().newMenuItem("3_2");
     private final EnabledMenu trsCstEnvironmentTypeMenu = getFrames().getCompoFactory().newMenuItem("3_3");
+    private final EnabledMenu trsCstDifficultyModelLawMenu = getFrames().getCompoFactory().newMenuItem("3_4");
+    private final EnabledMenu trsCstDifficultyWinPointsFightMenu = getFrames().getCompoFactory().newMenuItem("3_5");
+    private final EnabledMenu trsCstSelectedBooleanMenu = getFrames().getCompoFactory().newMenuItem("3_6");
     private final EnabledMenu imgMiniPkMenu = getFrames().getCompoFactory().newMenuItem("4_0");
     private final EnabledMenu imgMaxiBackPkMenu = getFrames().getCompoFactory().newMenuItem("4_1");
     private final EnabledMenu imgMaxiFrontPkMenu = getFrames().getCompoFactory().newMenuItem("4_2");
@@ -138,6 +146,12 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         events(crudGeneFormCstGender.getFrame(), trsCstGenderMenu, crudGeneFormCstGender, new IdList<SubscribedTranslation>());
         crudGeneFormCstEnvironmentType = new CrudGeneFormTrCst<EnvironmentType>(_list,_facade,subscriptions,subscriptions.getFactoryEnvironmentType());
         events(crudGeneFormCstEnvironmentType.getFrame(), trsCstEnvironmentTypeMenu, crudGeneFormCstEnvironmentType, new IdList<SubscribedTranslation>());
+        crudGeneFormCstDifficultyModelLaw = new CrudGeneFormTrCst<DifficultyModelLaw>(_list,_facade,subscriptions,subscriptions.getFactoryDifficultyModelLaw());
+        events(crudGeneFormCstDifficultyModelLaw.getFrame(), trsCstDifficultyModelLawMenu, crudGeneFormCstDifficultyModelLaw, new IdList<SubscribedTranslation>());
+        crudGeneFormCstDifficultyWinPointsFight = new CrudGeneFormTrCst<DifficultyWinPointsFight>(_list,_facade,subscriptions,subscriptions.getFactoryDifficultyWinPointsFight());
+        events(crudGeneFormCstDifficultyWinPointsFight.getFrame(), trsCstDifficultyWinPointsFightMenu, crudGeneFormCstDifficultyWinPointsFight, new IdList<SubscribedTranslation>());
+        crudGeneFormCstSelectedBoolean = new CrudGeneFormTrCst<SelectedBoolean>(_list,_facade,subscriptions,subscriptions.getFactorySelectedBoolean());
+        events(crudGeneFormCstSelectedBoolean.getFrame(), trsCstSelectedBooleanMenu, crudGeneFormCstSelectedBoolean, new IdList<SubscribedTranslation>());
         crudGeneFormTm = new CrudGeneFormNb(_list, _facade,subscriptions, frTm_,subscriptions.getFactoryTm(), true);
         crudGeneFormHm = new CrudGeneFormNb(_list, _facade,subscriptions, frHm_,subscriptions.getFactoryHm(), false);
         crudGeneFormAb = new CrudGeneFormEntBuilder<AbilityData>().build(_list,_facade,subscriptions, abMenu, subscriptions.getFactoryAb());
@@ -197,6 +211,9 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         trsCst_.addMenuItem(trsCstTargetMenu);
         trsCst_.addMenuItem(trsCstGenderMenu);
         trsCst_.addMenuItem(trsCstEnvironmentTypeMenu);
+        trsCst_.addMenuItem(trsCstDifficultyModelLawMenu);
+        trsCst_.addMenuItem(trsCstDifficultyWinPointsFightMenu);
+        trsCst_.addMenuItem(trsCstSelectedBooleanMenu);
         file_.addMenuItem(trsCst_);
         EnabledMenu img_ = getFrames().getCompoFactory().newMenu("4");
         img_.addMenuItem(imgMiniPkMenu);
@@ -418,6 +435,18 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         return trsCstEnvironmentTypeMenu;
     }
 
+    public EnabledMenu getTrsCstDifficultyModelLawMenu() {
+        return trsCstDifficultyModelLawMenu;
+    }
+
+    public EnabledMenu getTrsCstDifficultyWinPointsFightMenu() {
+        return trsCstDifficultyWinPointsFightMenu;
+    }
+
+    public EnabledMenu getTrsCstSelectedBooleanMenu() {
+        return trsCstSelectedBooleanMenu;
+    }
+
     public EnabledMenu getImgMiniPkMenu() {
         return imgMiniPkMenu;
     }
@@ -580,6 +609,18 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
 
     public CrudGeneFormTrCst<EnvironmentType> getCrudGeneFormCstEnvironmentType() {
         return crudGeneFormCstEnvironmentType;
+    }
+
+    public CrudGeneFormTrCst<DifficultyModelLaw> getCrudGeneFormCstDifficultyModelLaw() {
+        return crudGeneFormCstDifficultyModelLaw;
+    }
+
+    public CrudGeneFormTrCst<DifficultyWinPointsFight> getCrudGeneFormCstDifficultyWinPointsFight() {
+        return crudGeneFormCstDifficultyWinPointsFight;
+    }
+
+    public CrudGeneFormTrCst<SelectedBoolean> getCrudGeneFormCstSelectedBoolean() {
+        return crudGeneFormCstSelectedBoolean;
     }
 
     public CrudGeneFormEntImg getCrudGeneFormMiniPk() {

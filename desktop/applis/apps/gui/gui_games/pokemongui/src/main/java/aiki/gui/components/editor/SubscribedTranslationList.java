@@ -29,6 +29,9 @@ public final class SubscribedTranslationList {
     private final SubscribedTranslationMessagesFactoryCstTargetChoice factoryTarget = new SubscribedTranslationMessagesFactoryCstTargetChoice();
     private final SubscribedTranslationMessagesFactoryCstGender factoryGender = new SubscribedTranslationMessagesFactoryCstGender();
     private final SubscribedTranslationMessagesFactoryCstEnvironmentType factoryEnvironmentType = new SubscribedTranslationMessagesFactoryCstEnvironmentType();
+    private final SubscribedTranslationMessagesFactoryCstDifficultyModelLaw factoryDifficultyModelLaw = new SubscribedTranslationMessagesFactoryCstDifficultyModelLaw();
+    private final SubscribedTranslationMessagesFactoryCstDifficultyWinPointsFight factoryDifficultyWinPointsFight = new SubscribedTranslationMessagesFactoryCstDifficultyWinPointsFight();
+    private final SubscribedTranslationMessagesFactoryCstSelectedBoolean factorySelectedBoolean = new SubscribedTranslationMessagesFactoryCstSelectedBoolean();
     private final SubscribedTranslationMessagesFactoryMiniPk factoryMiniPk = new SubscribedTranslationMessagesFactoryMiniPk();
     private final SubscribedTranslationMessagesFactoryMaxiBackPk factoryMaxiBackPk = new SubscribedTranslationMessagesFactoryMaxiBackPk();
     private final SubscribedTranslationMessagesFactoryMaxiFrontPk factoryMaxiFrontPk = new SubscribedTranslationMessagesFactoryMaxiFrontPk();
@@ -241,6 +244,18 @@ public final class SubscribedTranslationList {
 
     public SubscribedTranslationMessagesFactoryCstEnvironmentType getFactoryEnvironmentType() {
         return factoryEnvironmentType;
+    }
+
+    public SubscribedTranslationMessagesFactoryCstDifficultyModelLaw getFactoryDifficultyModelLaw() {
+        return factoryDifficultyModelLaw;
+    }
+
+    public SubscribedTranslationMessagesFactoryCstDifficultyWinPointsFight getFactoryDifficultyWinPointsFight() {
+        return factoryDifficultyWinPointsFight;
+    }
+
+    public SubscribedTranslationMessagesFactoryCstSelectedBoolean getFactorySelectedBoolean() {
+        return factorySelectedBoolean;
     }
 
     public SubscribedTranslationMessagesFactoryMiniPk getFactoryMiniPk() {

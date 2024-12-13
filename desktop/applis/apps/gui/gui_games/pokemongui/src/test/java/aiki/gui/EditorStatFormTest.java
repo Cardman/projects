@@ -2,10 +2,12 @@ package aiki.gui;
 
 import aiki.db.*;
 import aiki.facade.*;
+import aiki.facade.enums.*;
 import aiki.fight.enums.*;
-import aiki.fight.items.Item;
+import aiki.fight.items.*;
 import aiki.fight.moves.enums.*;
-import aiki.fight.pokemon.PokemonData;
+import aiki.fight.pokemon.*;
+import aiki.game.params.enums.*;
 import aiki.gui.components.editor.*;
 import aiki.map.levels.enums.*;
 import aiki.map.pokemon.enums.*;
@@ -65,6 +67,36 @@ public final class EditorStatFormTest extends InitEditorPkForm {
         cTr_.getFields().getVal(Item.BALL).getVal(pr_.getLanguage()).setText("vit");
         tryClick(cTr_.getChangeValues());
         assertEq("vit",facade_.getData().getTranslatedClassesDescriptions().getVal(pr_.getLanguage()).getVal(Item.BALL));
+    }
+    @Test
+    public void statForm6() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormTrCst<DifficultyModelLaw> cTr_ = crudTrDifficultyModelLaw(sub_);
+        cTr_.getFields().getVal(DifficultyModelLaw.UNIFORME).getVal(pr_.getLanguage()).setText("vit");
+        tryClick(cTr_.getChangeValues());
+        assertEq("vit",facade_.getData().getTranslatedDiffModelLaw().getVal(pr_.getLanguage()).getVal(DifficultyModelLaw.UNIFORME));
+    }
+    @Test
+    public void statForm7() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormTrCst<DifficultyWinPointsFight> cTr_ = crudTrDifficultyWinPointsFight(sub_);
+        cTr_.getFields().getVal(DifficultyWinPointsFight.DIFFICILE).getVal(pr_.getLanguage()).setText("vit");
+        tryClick(cTr_.getChangeValues());
+        assertEq("vit",facade_.getData().getTranslatedDiffWinPts().getVal(pr_.getLanguage()).getVal(DifficultyWinPointsFight.DIFFICILE));
+    }
+    @Test
+    public void statForm8() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormTrCst<SelectedBoolean> cTr_ = crudTrSelectedBoolean(sub_);
+        cTr_.getFields().getVal(SelectedBoolean.YES_AND_NO).getVal(pr_.getLanguage()).setText("vit");
+        tryClick(cTr_.getChangeValues());
+        assertEq("vit",facade_.getData().getTranslatedBooleans().getVal(pr_.getLanguage()).getVal(SelectedBoolean.YES_AND_NO));
     }
     @Test
     public void strList1() {
@@ -200,6 +232,18 @@ public final class EditorStatFormTest extends InitEditorPkForm {
     private CrudGeneFormTrCst<EnvironmentType> crudTrEnvironmentType(WindowPkEditor _crud) {
         tryClick(_crud.getTrsCstEnvironmentTypeMenu());
         return _crud.getCrudGeneFormCstEnvironmentType();
+    }
+    private CrudGeneFormTrCst<DifficultyModelLaw> crudTrDifficultyModelLaw(WindowPkEditor _crud) {
+        tryClick(_crud.getTrsCstDifficultyModelLawMenu());
+        return _crud.getCrudGeneFormCstDifficultyModelLaw();
+    }
+    private CrudGeneFormTrCst<DifficultyWinPointsFight> crudTrDifficultyWinPointsFight(WindowPkEditor _crud) {
+        tryClick(_crud.getTrsCstDifficultyWinPointsFightMenu());
+        return _crud.getCrudGeneFormCstDifficultyWinPointsFight();
+    }
+    private CrudGeneFormTrCst<SelectedBoolean> crudTrSelectedBoolean(WindowPkEditor _crud) {
+        tryClick(_crud.getTrsCstSelectedBooleanMenu());
+        return _crud.getCrudGeneFormCstSelectedBoolean();
     }
     private CrudGeneFormTrItemType crudTrClType(WindowPkEditor _crud) {
         tryClick(_crud.getTrsClMenu());
