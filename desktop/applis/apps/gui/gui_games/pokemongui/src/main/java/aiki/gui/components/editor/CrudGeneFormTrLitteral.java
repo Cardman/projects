@@ -8,7 +8,7 @@ import code.util.core.*;
 
 public final class CrudGeneFormTrLitteral extends CrudGeneFormTrCommon {
 
-    private final StringMap<StringMap<CustList<AbsTextPane>>> fields = new StringMap<StringMap<CustList<AbsTextPane>>>();
+    private final StringMap<StringMap<CustList<AbsTxtComponent>>> fields = new StringMap<StringMap<CustList<AbsTxtComponent>>>();
 
     public CrudGeneFormTrLitteral(AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
         super(_core, _facade, _sub);
@@ -21,24 +21,24 @@ public final class CrudGeneFormTrLitteral extends CrudGeneFormTrCommon {
         fields.clear();
         for (EntryCust<String, StringMap<String>> e: ConverterCommonMapUtil.toEntityLg(all_).entryList()) {
             AbsPanel line_ = getApi().getCompoFactory().newLineBox();
-            StringMap<CustList<AbsTextPane>> fs_ = ConverterCommonMapUtil.areasList(line_, e.getValue(), getApi());
+            StringMap<CustList<AbsTxtComponent>> fs_ = ConverterCommonMapUtil.areasList(line_, e.getValue(), getApi());
             page_.add(line_);
             fields.addEntry(e.getKey(),fs_);
         }
         footer(content_, page_);
     }
 
-    public StringMap<StringMap<CustList<AbsTextPane>>> getFields() {
+    public StringMap<StringMap<CustList<AbsTxtComponent>>> getFields() {
         return fields;
     }
 
     @Override
     public void update() {
         StringMap<StringMap<String>> all_ = getFacadeGame().getData().getLitterals();
-        for (EntryCust<String,StringMap<CustList<AbsTextPane>>> e: fields.entryList()) {
-            for (EntryCust<String, CustList<AbsTextPane>> l: e.getValue().entryList()) {
+        for (EntryCust<String,StringMap<CustList<AbsTxtComponent>>> e: fields.entryList()) {
+            for (EntryCust<String, CustList<AbsTxtComponent>> l: e.getValue().entryList()) {
                 CustList<String> text_ = new CustList<String>();
-                for (AbsTextPane t: l.getValue()) {
+                for (AbsTxtComponent t: l.getValue()) {
                     text_.add(t.getText());
                 }
                 all_.getVal(l.getKey()).set(e.getKey(), StringUtil.join(text_,'\t'));

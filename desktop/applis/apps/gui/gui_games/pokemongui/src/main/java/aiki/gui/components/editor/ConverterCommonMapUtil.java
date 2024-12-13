@@ -1698,17 +1698,19 @@ public final class ConverterCommonMapUtil {
         return fs_;
     }
 
-    public static StringMap<CustList<AbsTextPane>> areasList(AbsPanel _line, StringMap<String> _map, AbstractProgramInfos _api) {
-        StringMap<CustList<AbsTextPane>> fs_ = new StringMap<CustList<AbsTextPane>>();
+    public static StringMap<CustList<AbsTxtComponent>> areasList(AbsPanel _line, StringMap<String> _map, AbstractProgramInfos _api) {
+        StringMap<CustList<AbsTxtComponent>> fs_ = new StringMap<CustList<AbsTxtComponent>>();
         for (EntryCust<String, String> l: _map.entryList()) {
-            CustList<AbsTextPane> ls_ = new CustList<AbsTextPane>();
+            CustList<AbsTxtComponent> ls_ = new CustList<AbsTxtComponent>();
             StringList parts_ = StringUtil.splitChar(l.getValue(), '\t');
             int len_ = NumberUtil.min(parts_.size(),3);
             for (int i = 0; i < len_; i++) {
-                AbsTextPane txt_ = _api.getCompoFactory().newTextPane();
+                AbsTxtComponent txt_;
                 if (i <= 1) {
+                    txt_ = _api.getCompoFactory().newTextField(32);
                     txt_.setText(parts_.get(i));
                 } else {
+                    txt_ = _api.getCompoFactory().newTextPane();
                     txt_.setText(StringUtil.join(parts_.mid(2),'\t'));
                 }
                 _line.add(txt_);
