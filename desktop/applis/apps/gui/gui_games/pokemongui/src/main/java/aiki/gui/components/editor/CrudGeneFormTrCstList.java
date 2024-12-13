@@ -30,6 +30,7 @@ public final class CrudGeneFormTrCstList implements AbsCrudGeneFormTrCstOpen {
             AbsPanel line_ = api.getCompoFactory().newLineBox();
             AbsTextField field_ = api.getCompoFactory().newTextField(16);
             String key_ = Long.toString(i);
+            field_.setText(facadeGame.getData().retValueOther(key_));
             field_.addActionListener(new RenameCstEvent(this, key_, field_));
             line_.add(field_);
             page_.add(line_);

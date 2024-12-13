@@ -7,13 +7,16 @@ import aiki.fight.enums.*;
 import aiki.fight.items.*;
 import aiki.fight.moves.enums.*;
 import aiki.fight.pokemon.*;
+import aiki.fight.pokemon.enums.*;
 import aiki.game.params.enums.*;
 import aiki.gui.components.editor.*;
 import aiki.map.levels.enums.*;
 import aiki.map.pokemon.enums.*;
+import aiki.util.LawNumber;
 import code.gui.*;
 import code.maths.*;
 import code.maths.litteral.*;
+import code.maths.montecarlo.*;
 import code.mock.*;
 import code.util.*;
 import org.junit.Test;
@@ -120,6 +123,44 @@ public final class EditorStatFormTest extends InitEditorPkForm {
         cTr_.getFields().getVal(MessagesDataBaseConstants.DEF_NIVEAU).getVal(pr_.getLanguage()).get(2).setText("desc");
         tryClick(cTr_.getChangeValues());
         assertEq("vit\tv\tdesc",facade_.getData().getLitterals().getVal(pr_.getLanguage()).getVal(MessagesDataBaseConstants.DEF_NIVEAU));
+    }
+    @Test
+    public void statForm11() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getExpGrowth().addEntry(ExpType.M,"");
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormTrCstParamListString<ExpType> cTr_ = crudTrExpTypeType(sub_);
+        cTr_.getFields().getVal(ExpType.M).valueString("vit");
+        tryClick(cTr_.getButtons().getVal(ExpType.M));
+        assertEq("vit",facade_.getData().getExpGrowth().getVal(ExpType.M));
+    }
+    @Test
+    public void statForm12() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getLawsDamageRate().addEntry(DifficultyModelLaw.UNIFORME,new LawNumber(new MonteCarloNumber(),(short)0));
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormTrCstLaw cTr_ = crudTrDifficultyModelLawType(sub_);
+        tryClick(cTr_.getFields().getVal(DifficultyModelLaw.UNIFORME).getAdd());
+        ((GeneComponentModelEventRate)cTr_.getFields().getVal(DifficultyModelLaw.UNIFORME).getGene()).getEvent().valueRate(new Rate(2));
+        ((GeneComponentModelEventRate)cTr_.getFields().getVal(DifficultyModelLaw.UNIFORME).getGene()).getProba().valueLgInt(LgInt.one());
+        tryClick(cTr_.getFields().getVal(DifficultyModelLaw.UNIFORME).getValidAddEdit());
+        tryClick(cTr_.getButtons().getVal(DifficultyModelLaw.UNIFORME));
+        assertEq(1,facade_.getData().getLawsDamageRate().getVal(DifficultyModelLaw.UNIFORME).getLaw().size());
+        assertEq(new Rate(2),facade_.getData().getLawsDamageRate().getVal(DifficultyModelLaw.UNIFORME).getLaw().getKey(0));
+        assertEq(LgInt.one(),facade_.getData().getLawsDamageRate().getVal(DifficultyModelLaw.UNIFORME).getLaw().getFreq(0));
+    }
+    @Test
+    public void statForm13() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getRates().addEntry(DifficultyWinPointsFight.DIFFICILE,"");
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormTrCstParamListString<DifficultyWinPointsFight> cTr_ = crudTrDifficultyWinPointsFightType(sub_);
+        cTr_.getFields().getVal(DifficultyWinPointsFight.DIFFICILE).valueString("vit");
+        tryClick(cTr_.getButtons().getVal(DifficultyWinPointsFight.DIFFICILE));
+        assertEq("vit",facade_.getData().getRates().getVal(DifficultyWinPointsFight.DIFFICILE));
     }
     @Test
     public void strList1() {
@@ -279,6 +320,21 @@ public final class EditorStatFormTest extends InitEditorPkForm {
     private CrudGeneFormTrLitteral crudTrLittType(WindowPkEditor _crud) {
         tryClick(_crud.getTrsLittMenu());
         return _crud.getCrudGeneFormLittTr();
+    }
+
+    private CrudGeneFormTrCstParamListString<ExpType> crudTrExpTypeType(WindowPkEditor _crud) {
+        tryClick(_crud.getTrsExpTypeMenu());
+        return _crud.getCrudGeneFormExpTypeTr();
+    }
+
+    private CrudGeneFormTrCstLaw crudTrDifficultyModelLawType(WindowPkEditor _crud) {
+        tryClick(_crud.getTrsDifficultyModelLawMenu());
+        return _crud.getCrudGeneFormDifficultyModelLawTr();
+    }
+
+    private CrudGeneFormTrCstParamListString<DifficultyWinPointsFight> crudTrDifficultyWinPointsFightType(WindowPkEditor _crud) {
+        tryClick(_crud.getTrsDifficultyWinPointsFightMenu());
+        return _crud.getCrudGeneFormDifficultyWinPointsFightTr();
     }
 
     private CrudGeneFormTrOtherCstList crudConst(WindowPkEditor _crud) {

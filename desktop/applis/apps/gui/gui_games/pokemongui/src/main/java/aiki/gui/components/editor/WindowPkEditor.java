@@ -10,6 +10,7 @@ import aiki.fight.items.*;
 import aiki.fight.moves.*;
 import aiki.fight.moves.enums.*;
 import aiki.fight.pokemon.*;
+import aiki.fight.pokemon.enums.*;
 import aiki.fight.status.*;
 import aiki.game.params.enums.*;
 import aiki.map.levels.enums.*;
@@ -32,6 +33,9 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
     private final CrudGeneFormTrItemType crudGeneFormClTr;
     private final CrudGeneFormTrItemType crudGeneFormFctTr;
     private final CrudGeneFormTrLitteral crudGeneFormLittTr;
+    private final CrudGeneFormTrCstParamListString<ExpType> crudGeneFormExpTypeTr;
+    private final CrudGeneFormTrCstLaw crudGeneFormDifficultyModelLawTr;
+    private final CrudGeneFormTrCstParamListString<DifficultyWinPointsFight> crudGeneFormDifficultyWinPointsFightTr;
     private final CrudGeneFormTrCstList crudGeneFormTrCstList;
     private final CrudGeneFormTrOtherCstList crudGeneFormTrOtherCstList;
     private final CrudGeneFormTrCstNumList crudGeneFormTrCstNumList;
@@ -78,9 +82,12 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
     private final EnabledMenu trsClMenu = getFrames().getCompoFactory().newMenuItem("0_7");
     private final EnabledMenu trsFctMenu = getFrames().getCompoFactory().newMenuItem("0_8");
     private final EnabledMenu trsLittMenu = getFrames().getCompoFactory().newMenuItem("0_9");
-    private final EnabledMenu trsConstMenu = getFrames().getCompoFactory().newMenuItem("0_10");
-    private final EnabledMenu trsOtherConstMenu = getFrames().getCompoFactory().newMenuItem("0_11");
-    private final EnabledMenu trsNumConstMenu = getFrames().getCompoFactory().newMenuItem("0_12");
+    private final EnabledMenu trsExpTypeMenu = getFrames().getCompoFactory().newMenuItem("0_10");
+    private final EnabledMenu trsDifficultyModelLawMenu = getFrames().getCompoFactory().newMenuItem("0_11");
+    private final EnabledMenu trsDifficultyWinPointsFightMenu = getFrames().getCompoFactory().newMenuItem("0_12");
+    private final EnabledMenu trsConstMenu = getFrames().getCompoFactory().newMenuItem("0_13");
+    private final EnabledMenu trsOtherConstMenu = getFrames().getCompoFactory().newMenuItem("0_14");
+    private final EnabledMenu trsNumConstMenu = getFrames().getCompoFactory().newMenuItem("0_15");
     private final EnabledMenu tmMenu = getFrames().getCompoFactory().newMenuItem("1_0");
     private final EnabledMenu hmMenu = getFrames().getCompoFactory().newMenuItem("1_1");
     private final EnabledMenu abMenu = getFrames().getCompoFactory().newMenuItem("2_0");
@@ -140,6 +147,12 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         events(crudGeneFormFctTr.getFrame(), trsFctMenu, crudGeneFormFctTr, new IdList<SubscribedTranslation>());
         crudGeneFormLittTr = new CrudGeneFormTrLitteral(_list, _facade,subscriptions);
         events(crudGeneFormLittTr.getFrame(), trsLittMenu, crudGeneFormLittTr, new IdList<SubscribedTranslation>());
+        crudGeneFormExpTypeTr = new CrudGeneFormTrCstParamListString<ExpType>(_list, _facade, new NumStrIdRetrieverExpType());
+        events(crudGeneFormExpTypeTr.getFrame(), trsExpTypeMenu, crudGeneFormExpTypeTr, new IdList<SubscribedTranslation>());
+        crudGeneFormDifficultyModelLawTr = new CrudGeneFormTrCstLaw(_list, _facade);
+        events(crudGeneFormDifficultyModelLawTr.getFrame(), trsDifficultyModelLawMenu, crudGeneFormDifficultyModelLawTr, new IdList<SubscribedTranslation>());
+        crudGeneFormDifficultyWinPointsFightTr = new CrudGeneFormTrCstParamListString<DifficultyWinPointsFight>(_list, _facade,new NumStrIdRetrieverDifficultyWinPointsFight());
+        events(crudGeneFormDifficultyWinPointsFightTr.getFrame(), trsDifficultyWinPointsFightMenu, crudGeneFormDifficultyWinPointsFightTr, new IdList<SubscribedTranslation>());
         crudGeneFormTrCstList = new CrudGeneFormTrCstList(_list, _facade, subscriptions);
         events(crudGeneFormTrCstList.getFrame(), trsConstMenu, crudGeneFormTrCstList, new IdList<SubscribedTranslation>());
         crudGeneFormTrOtherCstList = new CrudGeneFormTrOtherCstList(_list, _facade);
@@ -199,6 +212,9 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         trs_.addMenuItem(trsClMenu);
         trs_.addMenuItem(trsFctMenu);
         trs_.addMenuItem(trsLittMenu);
+        trs_.addMenuItem(trsExpTypeMenu);
+        trs_.addMenuItem(trsDifficultyModelLawMenu);
+        trs_.addMenuItem(trsDifficultyWinPointsFightMenu);
         trs_.addMenuItem(trsConstMenu);
         trs_.addMenuItem(trsOtherConstMenu);
         trs_.addMenuItem(trsNumConstMenu);
@@ -417,6 +433,18 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         return trsLittMenu;
     }
 
+    public EnabledMenu getTrsExpTypeMenu() {
+        return trsExpTypeMenu;
+    }
+
+    public EnabledMenu getTrsDifficultyModelLawMenu() {
+        return trsDifficultyModelLawMenu;
+    }
+
+    public EnabledMenu getTrsDifficultyWinPointsFightMenu() {
+        return trsDifficultyWinPointsFightMenu;
+    }
+
     public EnabledMenu getTrsConstMenu() {
         return trsConstMenu;
     }
@@ -599,6 +627,18 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
 
     public CrudGeneFormTrLitteral getCrudGeneFormLittTr() {
         return crudGeneFormLittTr;
+    }
+
+    public CrudGeneFormTrCstParamListString<ExpType> getCrudGeneFormExpTypeTr() {
+        return crudGeneFormExpTypeTr;
+    }
+
+    public CrudGeneFormTrCstLaw getCrudGeneFormDifficultyModelLawTr() {
+        return crudGeneFormDifficultyModelLawTr;
+    }
+
+    public CrudGeneFormTrCstParamListString<DifficultyWinPointsFight> getCrudGeneFormDifficultyWinPointsFightTr() {
+        return crudGeneFormDifficultyWinPointsFightTr;
     }
 
     public CrudGeneFormTrCstList getCrudGeneFormTrCstList() {
