@@ -141,17 +141,10 @@ public final class ConverterCommonMapUtil {
     public static GeneComponentModelElt<GenderRepartition> buildGenderRepartition(AbstractProgramInfos _api){
         return new GeneComponentModelElt<GenderRepartition>(_api,messages(MessagesPkEditor.getMessagesEditorSelectGenderRepTr(MessagesPkEditor.getAppliTr(_api.currentLg())).getMapping()));
     }
-    public static GeneComponentModelElt<ExpType> buildExpType(AbstractProgramInfos _api, FacadeGame _facade){
-        DataBase data_ = _facade.getData();
+    public static GeneComponentModelElt<ExpType> buildExpType(AbstractProgramInfos _api){
         IdMap<ExpType,String> messages_ = new IdMap<ExpType, String>();
-        CustList<ExpType> all_ = ExpType.all();
-        for (ExpType e: all_) {
-            String litt_ = StringUtil.nullToEmpty(data_.getExpGrowth(e));
-            if (litt_.isEmpty()) {
-                messages_.addEntry(e,data_.getFormula("1",data_.getLanguage()));
-            } else {
-                messages_.addEntry(e,data_.getFormula(litt_,data_.getLanguage()));
-            }
+        for (EntryCust<String,String> e: MessagesPkEditor.getMessagesEditorExpTypeTr(MessagesPkEditor.getAppliTr(_api.currentLg())).getMapping().entryList()) {
+            messages_.addEntry(ExpType.getExpTypeByName(e.getKey()),e.getValue());
         }
         return new GeneComponentModelElt<ExpType>(_api,messages_);
     }

@@ -59,8 +59,6 @@ public final class MessagesEditorSelect {
     public static final String STAT_AUTO = "0";
     public static final String STAT_BEGIN = "1";
     public static final String STAT_SIMPLE = "2";
-    public static final String GIRL = "0";
-    public static final String BOY = "1";
     private MessagesEditorSelect() {
     }
     public static TranslationsFile enGenderRep(){
@@ -79,6 +77,26 @@ public final class MessagesEditorSelect {
         f_.add(DataBase.DEF_GENDER_REP_MIXED, "Mixte");
         f_.add(DataBase.DEF_GENDER_REP_LEGENDARY, "Légendaire");
         f_.add(DataBase.DEF_GENDER_REP_NO_GENDER, "Pas de genre");
+        return f_;
+    }
+    public static TranslationsFile enExpType(){
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(DataBase.DEF_EXP_E,"erratic");
+        e_.add(DataBase.DEF_EXP_F,"fluctuating");
+        e_.add(DataBase.DEF_EXP_L,"slow");
+        e_.add(DataBase.DEF_EXP_M,"medium fast");
+        e_.add(DataBase.DEF_EXP_P,"medium slow");
+        e_.add(DataBase.DEF_EXP_R,"fast");
+        return e_;
+    }
+    public static TranslationsFile frExpType(){
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(DataBase.DEF_EXP_E,"erratique");
+        f_.add(DataBase.DEF_EXP_F,"fluctuante");
+        f_.add(DataBase.DEF_EXP_L,"lente");
+        f_.add(DataBase.DEF_EXP_M,"moyenne");
+        f_.add(DataBase.DEF_EXP_P,"parabolique");
+        f_.add(DataBase.DEF_EXP_R,"rapide");
         return f_;
     }
     public static TranslationsFile enEvo(){
@@ -307,14 +325,14 @@ public final class MessagesEditorSelect {
     }
     public static TranslationsFile enHerosSex(){
         TranslationsFile e_ = new TranslationsFile();
-        e_.add(GIRL,"girl");
-        e_.add(BOY,"boy");
+        e_.add(DataBase.DEF_SEX_GIRL,"girl");
+        e_.add(DataBase.DEF_SEX_BOY,"boy");
         return e_;
     }
     public static TranslationsFile frHerosSex(){
         TranslationsFile f_ = new TranslationsFile();
-        f_.add(GIRL,"fille");
-        f_.add(BOY,"garçon");
+        f_.add(DataBase.DEF_SEX_GIRL,"fille");
+        f_.add(DataBase.DEF_SEX_BOY,"garçon");
         return f_;
     }
 }

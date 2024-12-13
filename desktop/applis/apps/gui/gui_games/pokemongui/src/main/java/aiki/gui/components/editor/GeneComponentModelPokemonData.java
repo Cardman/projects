@@ -54,7 +54,7 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         buildKey(_select,factoryPk_,factoryPk_.all(getFacade()).getKeys());
         statistics.clear();
         genderRep =ConverterCommonMapUtil.buildGenderRepartition(getCompoFactory());
-        expEvo =ConverterCommonMapUtil.buildExpType(getCompoFactory(),getFacade());
+        expEvo =ConverterCommonMapUtil.buildExpType(getCompoFactory());
         types = ConverterCommonMapUtil.buildTypeList(getCompoFactory(),getFacade(),getSubscribedTranslationList());
         abilities = ConverterCommonMapUtil.buildAbilityList(getCompoFactory(),getFacade(),getSubscribedTranslationList());
         moveTutors = ConverterCommonMapUtil.buildMoveList(getCompoFactory(),getFacade(),getSubscribedTranslationList());

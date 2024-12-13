@@ -5,6 +5,7 @@ import code.sml.util.*;
 public final class MessagesPkEditor {
     public static final String PK_EDITOR = "pk_editor";
     public static final String GENDER_REP = "gender_rep";
+    public static final String EXP_TYPE = "exp_type";
     public static final String EVO = "evo";
     public static final String EFFECT = "effect";
     public static final String STATUS = "status";
@@ -29,6 +30,7 @@ public final class MessagesPkEditor {
 
     public static void enTr(TranslationsAppli _lgs) {
         appendMessagesEditorSelectGenderRep(_lgs,MessagesEditorSelect.enGenderRep());
+        appendMessagesEditorSelectExpType(_lgs,MessagesEditorSelect.enExpType());
         appendMessagesEditorSelectEvo(_lgs,MessagesEditorSelect.enEvo());
         appendMessagesEditorSelectEffect(_lgs,MessagesEditorSelect.enEff());
         appendMessagesEditorSelectStatus(_lgs,MessagesEditorSelect.enStatus());
@@ -42,6 +44,7 @@ public final class MessagesPkEditor {
 
     public static void frTr(TranslationsAppli _lgs) {
         appendMessagesEditorSelectGenderRep(_lgs,MessagesEditorSelect.frGenderRep());
+        appendMessagesEditorSelectExpType(_lgs,MessagesEditorSelect.frExpType());
         appendMessagesEditorSelectEvo(_lgs,MessagesEditorSelect.frEvo());
         appendMessagesEditorSelectEffect(_lgs,MessagesEditorSelect.frEff());
         appendMessagesEditorSelectStatus(_lgs,MessagesEditorSelect.frStatus());
@@ -55,6 +58,10 @@ public final class MessagesPkEditor {
 
     public static void appendMessagesEditorSelectGenderRep(TranslationsAppli _lgs, TranslationsFile _f) {
         _lgs.getMapping().addEntry(GENDER_REP, _f);
+    }
+
+    public static void appendMessagesEditorSelectExpType(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(EXP_TYPE, _f);
     }
 
     public static void appendMessagesEditorSelectEvo(TranslationsAppli _lgs, TranslationsFile _f) {
@@ -89,6 +96,9 @@ public final class MessagesPkEditor {
     }
     public static TranslationsFile getMessagesEditorSelectGenderRepTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(GENDER_REP);
+    }
+    public static TranslationsFile getMessagesEditorExpTypeTr(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(EXP_TYPE);
     }
     public static TranslationsFile getMessagesEditorSelectEvoTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(EVO);
