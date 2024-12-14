@@ -37,27 +37,24 @@ import org.junit.Test;
 
 public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
 
-    @Test
-    public void link1Test() {
-        Link l_ = Link.newLink("l'"+DataBase.DEF_DIR_UP+"'5;10_8,4");
-        assertEq("l'"+DataBase.DEF_DIR_UP+"'5;10_8,4",l_.display());
-    }
+//    @Test
+//    public void link1Test() {
+//        Link l_ = Link.newLink("l'"+DataBase.DEF_DIR_UP+"'5;10_8,4");
+//        assertEq("l'"+DataBase.DEF_DIR_UP+"'5;10_8,4",l_.display());
+//    }
+//
+//    @Test
+//    public void link2Test() {
+//        Link l_ = Link.newLink("l'U'5;10_8,4");
+//        assertEq("l'"+DataBase.DEF_DIR_UP+"'5;10_8,4",l_.display());
+//    }
 
     @Test
-    public void link2Test() {
-        Link l_ = Link.newLink("l'U'5;10_8,4");
-        assertEq("l'"+DataBase.DEF_DIR_UP+"'5;10_8,4",l_.display());
-        new PokemonCenter().validate(newData(),null);
-    }
-
-    private static DataBase newData() {
-        return new DataBase(DefaultGenerator.oneElt());
-    }
-
-    @Test
-    public void link3Test() {
+    public void linkTest() {
         Link l_ = Link.newLink("l'5;10_8,4");
         assertEq("l'5;10_8,4",l_.display());
+        assertEq(Direction.UP,Direction.getDirectionByName(Direction.UP.getDirName()));
+        new PokemonCenter().validate(newData(),null);
     }
     @Test
     public void fail1Test() {
@@ -1046,8 +1043,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         block_.setHeight((short) 1);
         block_.setWidth((short) 2);
         city_.getLevel().getBlocks().addEntry(new Point((short)0,(short)0), block_);
-        Link lk_ = new Link(ELECTRICK, newCoords(2, 0, 0, 0));
-        lk_.setDir(Direction.RIGHT);
+        Link lk_ = new Link(ELECTRICK, newCoords(2, 0, 1, 0));
         city_.getLinksWithCaves().addEntry(new Point((short)0,(short)0), lk_);
         city_.setPointsWithCitiesAndOtherRoads(new PlaceInterConnects());
         city_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)2,(short)2),Direction.RIGHT),newCoords(2,0,5,5));
@@ -1112,8 +1108,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         block_.setHeight((short) 1);
         block_.setWidth((short) 2);
         city_.getLevel().getBlocks().addEntry(new Point((short)0,(short)0), block_);
-        Link lk_ = new Link(ELECTRICK, newCoords(0, 0, 1, 1));
-        lk_.setDir(Direction.RIGHT);
+        Link lk_ = new Link(ELECTRICK, newCoords(10, 0, 1, 1));
         city_.getLinksWithCaves().addEntry(new Point((short)0,(short)0), lk_);
         city_.setPointsWithCitiesAndOtherRoads(new PlaceInterConnects());
         city_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)2,(short)2),Direction.RIGHT),newCoords(2,0,5,5));
@@ -2592,6 +2587,10 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     public void getImageTileTest() {
         DataBase data_ = newData();
         assertEq(0, data_.getImageTile("tile",new ScreenCoords()).length);
+    }
+
+    private static DataBase newData() {
+        return new DataBase(DefaultGenerator.oneElt());
     }
 
     private void validateImages(DataBase _data) {

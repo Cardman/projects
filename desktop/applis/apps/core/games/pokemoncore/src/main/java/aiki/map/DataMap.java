@@ -797,7 +797,7 @@ public final class DataMap {
     }
 
     private void basicCheckLinksOtherPlaces(DataBase _d, short _p, LevelPoints _links, LevelPoint _l) {
-        Coords link_ = closestTile(_links.getVal(_l));
+        Coords link_ = _links.getVal(_l).getCoords();
         DataInfoChecker.checkKey(_d,tree,_links.getVal(_l).getCoords(), true);
         short numberPlace_ = link_.getNumberPlace();
         if (!places.isValidIndex(numberPlace_)) {
@@ -813,8 +813,8 @@ public final class DataMap {
                     _d.setError(true);
                 } else {
 
-                    Coords other_ = closestTile(cave_.getLinksWithCaves()
-                            .getVal(point_));
+                    Coords other_ = cave_.getLinksWithCaves()
+                            .getVal(point_).getCoords();
                     Coords current_ = coords(_p, _l);
                     checkCoordsEq(_d, other_, current_);
                 }
@@ -830,7 +830,7 @@ public final class DataMap {
     }
 
     private void basicCheckLinksWithCave(DataBase _d, short _p, Points<Link> _links, Point _pt) {
-        Coords link_ = closestTile(_links.getVal(_pt));
+        Coords link_ = _links.getVal(_pt).getCoords();
         DataInfoChecker.checkKey(_d,tree,_links.getVal(_pt).getCoords(), true);
         short numberPlace_ = link_.getNumberPlace();
         if (!places.isValidIndex(numberPlace_)) {
@@ -846,8 +846,8 @@ public final class DataMap {
                     _d.setError(true);
                 } else {
 
-                    Coords other_ = closestTile(cave_.getLinksWithOtherPlaces()
-                            .getVal(lPoint_));
+                    Coords other_ = cave_.getLinksWithOtherPlaces()
+                            .getVal(lPoint_).getCoords();
                     Coords current_ = coords(_p, new LevelPoint());
                     current_.getLevel().setLevelIndex((byte) 0);
                     current_.getLevel().setPoint(_pt);
@@ -2214,12 +2214,12 @@ public final class DataMap {
         tree = _tree;
     }
 
-    public Coords closestTile(Link _link) {
-        if (!_link.isValidDir()) {
-            return new Coords(_link.getCoords());
-        }
-        return closestTile(_link.getCoords(), _link.getDir());
-    }
+//    public Coords closestTile(Link _link) {
+//        if (!_link.isValidDir()) {
+//            return new Coords(_link.getCoords());
+//        }
+//        return closestTile(_link.getCoords(), _link.getDir());
+//    }
 
     public Coords closestTile(Coords _currentCoords, Direction _direction) {
         if (!existLevel(_currentCoords)) {

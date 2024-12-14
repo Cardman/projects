@@ -1,27 +1,13 @@
 package aiki.sml.init;
-import aiki.map.characters.enums.*;
-import aiki.map.characters.*;
 import aiki.map.places.*;
 import aiki.map.buildings.*;
 import aiki.instances.*;
-import aiki.fight.util.*;
 import aiki.map.util.*;
 import aiki.map.enums.*;
 import aiki.util.*;
-import aiki.fight.*;
-import aiki.fight.effects.*;
-import aiki.fight.moves.effects.*;
-import aiki.fight.status.effects.*;
-import aiki.fight.moves.enums.*;
-import aiki.fight.status.*;
-import aiki.fight.enums.*;
-import code.maths.*;
-import code.maths.montecarlo.*;
 import code.util.*;
-import aiki.map.pokemon.*;
 import aiki.map.levels.*;
-import aiki.map.levels.enums.*;
-import aiki.map.pokemon.enums.*;
+
 public final class Pl extends CstIgame{
 private Pl(){}
 public static City p0(){
@@ -116,7 +102,7 @@ Road m2007road_=Instances.newRoad();
 m2007road_.setName(P_R_3);
 m2007road_.setLevel(Lv.p5());
 PointsLink m2007objectMapPointLink_=new PointsLink(new CollCapacity(1));
-m2007objectMapPointLink_.addEntry(new Point((short)7,(short)6),LvUt.newLink(F_LINK_OUTSIDE_TXT,LvUt.newCoords(6,0,new Point((short)6,(short)4)),null));
+m2007objectMapPointLink_.addEntry(new Point((short)7,(short)6),LvUt.newLink(F_LINK_OUTSIDE_TXT,LvUt.newCoords(6,0,new Point((short)6,(short)4))));
 m2007road_.setLinksWithCaves(m2007objectMapPointLink_);
 PlaceInterConnects m2007objectMapPlaceInterConnectCoords_=new PlaceInterConnects(new CollCapacity(1));
 m2007objectMapPlaceInterConnectCoords_.addEntry(new PlaceInterConnect(new Point((short)4,(short)0),Direction.UP),LvUt.newCoords(4,0,new Point((short)9,(short)18)));
@@ -131,8 +117,8 @@ m2008custListLevelCave_.add(Lv.p6l0());
 m2008custListLevelCave_.add(Lv.p6l1());
 m2008cave_.setLevels(m2008custListLevelCave_);
 LevelPoints m2008objectMapLevelPointLink_=new LevelPoints(new CollCapacity(2));
-m2008objectMapLevelPointLink_.addEntry(LvUt.newLevelPoint(0,new Point((short)6,(short)23)),LvUt.newLink(F_LINK_INSIDE_TXT,LvUt.newCoords(7,0,new Point((short)6,(short)4)),Direction.UP));
-m2008objectMapLevelPointLink_.addEntry(LvUt.newLevelPoint(0,new Point((short)6,(short)4)),LvUt.newLink(F_LINK_INSIDE_TXT,LvUt.newCoords(5,0,new Point((short)7,(short)5)),Direction.DOWN));
+m2008objectMapLevelPointLink_.addEntry(LvUt.newLevelPoint(0,new Point((short)6,(short)23)),LvUt.newLink(F_LINK_INSIDE_TXT,LvUt.newCoords(7,0,new Point((short)6,(short)3))));
+m2008objectMapLevelPointLink_.addEntry(LvUt.newLevelPoint(0,new Point((short)6,(short)4)),LvUt.newLink(F_LINK_INSIDE_TXT,LvUt.newCoords(5,0,new Point((short)7,(short)6))));
 m2008cave_.setLinksWithOtherPlaces(m2008objectMapLevelPointLink_);
 return m2008cave_;
 }
@@ -141,7 +127,7 @@ Road m2009road_=Instances.newRoad();
 m2009road_.setName(P_R_4);
 m2009road_.setLevel(Lv.p7());
 PointsLink m2009objectMapPointLink_=new PointsLink(new CollCapacity(1));
-m2009objectMapPointLink_.addEntry(new Point((short)6,(short)3),LvUt.newLink(F_LINK_OUTSIDE_2_TXT,LvUt.newCoords(6,0,new Point((short)6,(short)23)),null));
+m2009objectMapPointLink_.addEntry(new Point((short)6,(short)3),LvUt.newLink(F_LINK_OUTSIDE_2_TXT,LvUt.newCoords(6,0,new Point((short)6,(short)23))));
 m2009road_.setLinksWithCaves(m2009objectMapPointLink_);
 PlaceInterConnects m2009objectMapPlaceInterConnectCoords_=new PlaceInterConnects(new CollCapacity(1));
 m2009objectMapPlaceInterConnectCoords_.addEntry(new PlaceInterConnect(new Point((short)4,(short)9),Direction.DOWN),LvUt.newCoords(8,0,new Point((short)9,(short)0)));

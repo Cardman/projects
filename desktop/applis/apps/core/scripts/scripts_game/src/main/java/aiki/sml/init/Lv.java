@@ -2,22 +2,11 @@ package aiki.sml.init;
 import aiki.map.characters.enums.*;
 import aiki.map.characters.*;
 import aiki.instances.*;
-import aiki.fight.util.*;
 import aiki.util.*;
-import aiki.fight.*;
-import aiki.fight.effects.*;
-import aiki.fight.moves.effects.*;
-import aiki.fight.status.effects.*;
-import aiki.fight.moves.enums.*;
-import aiki.fight.status.*;
-import aiki.fight.enums.*;
-import code.maths.*;
-import code.maths.montecarlo.*;
 import code.util.*;
-import aiki.map.pokemon.*;
 import aiki.map.levels.*;
 import aiki.map.levels.enums.*;
-import aiki.map.pokemon.enums.*;
+
 public final class Lv extends CstIgame{
 private static final short X0 = (short)0;
 private static final short X1 = (short)1;
@@ -925,8 +914,8 @@ return m527levelRoad_;
 public static LevelCave p6l0(){
 LevelCave m528levelCave_ = Instances.newLevelCave();
 PointsLink m528objectMapPointLink_=new PointsLink(new CollCapacity(2));
-m528objectMapPointLink_.addEntry(new Point(X5,Y17),LvUt.newLink(F_UP_CAVE_TXT,LvUt.newCoords(6,1,new Point(X5,Y17)),null));
-m528objectMapPointLink_.addEntry(new Point(X5,Y6),LvUt.newLink(F_UP_CAVE_TXT,LvUt.newCoords(6,1,new Point(X5,Y6)),null));
+m528objectMapPointLink_.addEntry(new Point(X5,Y17),LvUt.newLink(F_UP_CAVE_TXT,LvUt.newCoords(6,1,new Point(X5,Y17))));
+m528objectMapPointLink_.addEntry(new Point(X5,Y6),LvUt.newLink(F_UP_CAVE_TXT,LvUt.newCoords(6,1,new Point(X5,Y6))));
 m528levelCave_.setLinksOtherLevels(m528objectMapPointLink_);
  CustList<AbsAreaApparition> m528custListAreaApparition_=new  CustList<AbsAreaApparition>(new CollCapacity(1));
 m528custListAreaApparition_.add(Ar.p6l0a0());
@@ -982,8 +971,8 @@ return m528levelCave_;
 public static LevelCave p6l1(){
 LevelCave m529levelCave_ = Instances.newLevelCave();
 PointsLink m529objectMapPointLink_=new PointsLink(new CollCapacity(2));
-m529objectMapPointLink_.addEntry(new Point(X5,Y6),LvUt.newLink(F_DOWN_CAVE_TXT,LvUt.newCoords(6,0,new Point(X5,Y6)),null));
-m529objectMapPointLink_.addEntry(new Point(X5,Y17),LvUt.newLink(F_DOWN_CAVE_TXT,LvUt.newCoords(6,0,new Point(X5,Y17)),null));
+m529objectMapPointLink_.addEntry(new Point(X5,Y6),LvUt.newLink(F_DOWN_CAVE_TXT,LvUt.newCoords(6,0,new Point(X5,Y6))));
+m529objectMapPointLink_.addEntry(new Point(X5,Y17),LvUt.newLink(F_DOWN_CAVE_TXT,LvUt.newCoords(6,0,new Point(X5,Y17))));
 m529levelCave_.setLinksOtherLevels(m529objectMapPointLink_);
  CustList<AbsAreaApparition> m529custListAreaApparition_=new  CustList<AbsAreaApparition>(new CollCapacity(2));
 m529custListAreaApparition_.add(Ar.p6l1a0());

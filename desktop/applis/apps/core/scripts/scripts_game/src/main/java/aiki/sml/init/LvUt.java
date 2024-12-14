@@ -1,16 +1,10 @@
 package aiki.sml.init;
-import aiki.instances.*;
-import aiki.fight.util.*;
 import aiki.util.*;
-import aiki.map.enums.*;
-import aiki.fight.*;
 import aiki.map.levels.*;
 public final class LvUt extends CstIgame{
 private LvUt(){}
-static Link newLink(String _lk,Coords _c,Direction _dir){
- Link m539lk_ = new Link(_lk,_c);
- m539lk_.setDir(_dir);
- return m539lk_;
+static Link newLink(String _lk, Coords _c){
+return new Link(_lk,_c);
 }
 static Coords newCoords(int _p,int _l,Point _in, Point _pt){
  Coords m540c_ = new Coords();
