@@ -17,8 +17,8 @@ public final class AfterLoadingThread implements Runnable {
 
     @Override
     public void run() {
-        window.progressDial().getAbsDialog().setVisible(false);
-        window.getModal().set(false);
+//        window.progressDial().getAbsDialog().setVisible(false);
+//        window.getModal().set(false);
 //        window.afterLoading();
         window.showSuccessfulMessageDialogThenLoadHelp(fileName);
     }
