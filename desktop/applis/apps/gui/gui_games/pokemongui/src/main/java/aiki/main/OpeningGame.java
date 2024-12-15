@@ -35,6 +35,7 @@ public final class OpeningGame implements Runnable {
         _window.progressDial().stopAnimation();
         _window.progressDial().getAbsDialog().setVisible(false);
         _window.progressDial().getAbsDialog().getPane().removeAll();
+        _window.getModal().set(false);
         _window.progressDial().stopTimer();
     }
 

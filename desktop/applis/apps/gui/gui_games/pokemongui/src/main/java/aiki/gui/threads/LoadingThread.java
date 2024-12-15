@@ -39,7 +39,6 @@ public final class LoadingThread implements Runnable {
         sch_.shutdown();
         OpeningGame.end(window);
         if (!wasLoading_) {
-            window.progressDial().getAbsDialog().setVisible(false);
             return;
         }
         window.getFrames().getCompoFactory().invokeNow(new AfterLoadingThread(window, fileName));
