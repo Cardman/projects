@@ -322,7 +322,7 @@ public class ScenePanel {
         sceneInteract = compoFactory.newBorder();
         resultScene = ReportingFrame.newInstance(_window.getFrames());
         pkDetailContent = new PkDetailContent(_window.getFrames());
-        attract = compoFactory.newPlainButton(messages.getVal(MessagesRenderScenePanel.OK));
+        attract = compoFactory.newPlainButton();
         attract.addActionListener(new PkNonModalEvent(_window.getModal()),new AttractEvent(this));
         endGame = compoFactory.newPlainLabel("");
         component = compoFactory.newLineBox();
@@ -376,6 +376,7 @@ public class ScenePanel {
 
     public void setMessages() {
         endGame.setText(facade.getEndGameMessage());
+        attract.setText(messages.getVal(MessagesRenderScenePanel.OK));
         useKeyPad.setText(messages.getVal(MessagesRenderScenePanel.CLICK_SCENE));
         team.setText(messages.getVal(MessagesRenderScenePanel.CST_TEAM));
         items.setText(messages.getVal(MessagesRenderScenePanel.CST_ITEMS));
