@@ -28,6 +28,7 @@ import aiki.map.characters.enums.*;
 import aiki.map.enums.*;
 import aiki.map.levels.*;
 import aiki.map.levels.enums.*;
+import aiki.map.places.*;
 import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.*;
 import aiki.map.tree.*;
@@ -314,7 +315,12 @@ public abstract class EquallablePkUtil {
     public static void assertNotNull(String _value) {
         Assert.assertNotNull(_value);
     }
-
+    public static void assertNotNull(Place _value) {
+        Assert.assertNotNull(_value);
+    }
+    public static void assertNotNull(Level _value) {
+        Assert.assertNotNull(_value);
+    }
     public static void assertNull(Countable _value) {
         Assert.assertNull(_value);
     }
@@ -331,6 +337,12 @@ public abstract class EquallablePkUtil {
         Assert.assertNull(_value);
     }
     public static void assertNull(LevelPoint _value) {
+        Assert.assertNull(_value);
+    }
+    public static void assertNull(Place _value) {
+        Assert.assertNull(_value);
+    }
+    public static void assertNull(Level _value) {
         Assert.assertNull(_value);
     }
 

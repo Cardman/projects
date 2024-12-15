@@ -167,6 +167,58 @@ public final class DataMap {
         return !_dataMap.isEmptyForAdding(_one) || !_dataMap.isEmptyForAdding(_two);
     }
 
+    public Place deletePlace(int _place) {
+        ChangeNbPlaceLevelUtil chg_ = new ChangeNbPlaceLevelUtil(_place,-1);
+        elements(chg_);
+        return chg_.containedPlace(places);
+    }
+
+    public Level deleteLevelPlace(int _place, int _level) {
+        ChangeNbPlaceLevelUtil chg_ = new ChangeNbPlaceLevelUtil(_place, _level);
+        elements(chg_);
+        return chg_.containedLevel(places);
+    }
+
+    private void elements(ChangeNbPlaceLevelUtil _chg) {
+        for (MiniMapCoordsTile m : miniMap.entryList()) {
+            _chg.add(new ChangeNbPlaceFieldActTileMiniMap(m.getTileMap()));
+        }
+        _chg.add(new ChangeNbPlaceFieldActPlace(begin));
+        for (CoordsListCoords e: accessCondition.entryList()) {
+            _chg.add(new ChangeNbPlaceFieldActPlace(e.getKey()));
+            for (Coords v: e.getValue()) {
+                _chg.add(new ChangeNbPlaceFieldActPlace(v));
+            }
+        }
+        for (Place p: places) {
+            procRefPlaceLevel(_chg,p);
+        }
+    }
+
+    private void procRefPlaceLevel(ChangeNbPlaceLevelUtil _ref, Place _p) {
+        if (_p instanceof Cave) {
+            for (LevelCave l_: ((Cave)_p).getLevels()) {
+                for (Link v: l_.getLinksOtherLevels().values()) {
+                    _ref.add(new ChangeNbPlaceFieldActPlace(v.getCoords()));
+                }
+            }
+            for (LevelPointLink e: ((Cave)_p).getLinksWithOtherPlaces().entryList()) {
+                _ref.add(new ChangeNbPlaceFieldActPlace(e.getLink().getCoords()));
+            }
+        }
+        if (_p instanceof InitializedPlace) {
+            for (PlaceInterConnectCoords c: ((InitializedPlace)_p).getSavedlinks().entryList()) {
+                _ref.add(new ChangeNbPlaceFieldActPlace(c.getCoords()));
+            }
+            for (EntryCust<Point, Link> c: ((InitializedPlace)_p).getLinksWithCaves().entryList()) {
+                _ref.add(new ChangeNbPlaceFieldActPlace(c.getValue().getCoords()));
+            }
+        }
+        if (_p instanceof League) {
+            _ref.add(new ChangeNbPlaceFieldActPlace(((League)_p).getAccessCoords()));
+        }
+    }
+
     public void validate(DataBase _d) {
         if (screenWidth < 0 || screenHeight < 0 || spaceBetweenLeftAndHeros <= 0 || spaceBetweenTopAndHeros <= 0 || screenWidth <= spaceBetweenLeftAndHeros + 1
                 || screenHeight <= spaceBetweenTopAndHeros + 1 || sideLength <= 0 || places.isEmpty()) {
