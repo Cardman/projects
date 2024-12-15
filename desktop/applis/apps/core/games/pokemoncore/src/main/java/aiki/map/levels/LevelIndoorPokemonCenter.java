@@ -18,24 +18,23 @@ public final class LevelIndoorPokemonCenter extends Level {
     @Override
     public void validate(DataBase _data, LevelArea _level) {
         super.validate(_data, _level);
-        PointEqList keys_ = new PointEqList();
-        DataInfoChecker.checkKey(_data,_level,storageCoords,true);
-        keys_.add(storageCoords);
         for (EntryCust<Point,Person> e : gerants.entryList()) {
-            DataInfoChecker.checkKey(_data,_level,e.getKey(),true);
             if (!(e.getValue() instanceof GerantPokemon) && !(e.getValue() instanceof Seller)) {
                 _data.setError(true);
             }
             if (e.getValue() instanceof Seller) {
                 ((Seller) e.getValue()).validate(_data);
             }
-            keys_.add(e.getKey());
-        }
-        if (keys_.hasDuplicates()) {
-            _data.setError(true);
         }
     }
-
+    public PointEqList validateLinks() {
+        PointEqList keys_ = new PointEqList();
+        for (EntryCust<Point, Person> e : gerants.entryList()) {
+            keys_.add(e.getKey());
+        }
+        keys_.add(storageCoords);
+        return keys_;
+    }
 
     @Override
     public boolean isEmpty(Point _point) {

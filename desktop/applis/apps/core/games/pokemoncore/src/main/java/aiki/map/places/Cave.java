@@ -52,7 +52,7 @@ public final class Cave extends Campaign {
                 .getLevelIndex())) {
             _data.setError(true);
         } else {
-            DataInfoChecker.checkKey(_data,_placeArea.getLevel(k_.getLevelIndex()),k_.getPoint(), false);
+            DataInfoChecker.checkKey(_data,_placeArea.getLevel(k_.getLevelIndex()),k_.getPoint(), true);
             Coords c_ = link_.getCoords();
             if (!_data.getMap().existCoords(c_)) {
                 _data.setError(true);

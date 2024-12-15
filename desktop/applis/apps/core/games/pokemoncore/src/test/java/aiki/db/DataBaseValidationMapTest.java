@@ -54,7 +54,6 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         Link l_ = Link.newLink("l'5;10_8,4");
         assertEq("l'5;10_8,4",l_.display());
         assertEq(Direction.UP,Direction.getDirectionByName(Direction.UP.getDirName()));
-        new PokemonCenter().validate(newData(),null);
     }
     @Test
     public void fail1Test() {

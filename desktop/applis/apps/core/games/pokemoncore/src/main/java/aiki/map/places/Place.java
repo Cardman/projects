@@ -23,7 +23,7 @@ public abstract class Place {
 
     protected void validateLinksWithCaves(DataBase _data, LevelArea _levelArea, Points<Link> _linksWithCaves) {
         for (Point p : _linksWithCaves.getKeys()) {
-            DataInfoChecker.checkKey(_data,_levelArea,p,false);
+            DataInfoChecker.checkKey(_data,_levelArea,p,true);
             Coords c_ = _linksWithCaves.getVal(p).getCoords();
             if (!_data.getMap().existCoords(c_)) {
                 _data.setError(true);

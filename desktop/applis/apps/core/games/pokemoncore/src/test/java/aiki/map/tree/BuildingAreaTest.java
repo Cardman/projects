@@ -6,18 +6,14 @@ import aiki.util.*;
 import org.junit.Test;
 
 import aiki.map.DataMap;
-import aiki.map.buildings.Building;
 import aiki.map.buildings.Gym;
-import aiki.map.characters.GymTrainer;
 import aiki.map.levels.Block;
 import aiki.map.levels.LevelIndoorGym;
 import aiki.map.levels.LevelOutdoor;
-import aiki.map.levels.Link;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.City;
 import aiki.map.places.Place;
 import aiki.map.tree.util.Dims;
-import aiki.map.util.PlaceInterConnect;
 import code.util.*;
 
 
@@ -98,12 +94,12 @@ public class BuildingAreaTest extends EquallablePkUtil {
         dataMap_.getPlaces().add(city_);
         BuildingArea area_ = new BuildingArea();
         area_.initialize(city_.getBuildings().getVal(point(4,5)));
-        assertTrue(!area_.isValid(point(9,9), false));
-        assertTrue(!area_.isValid(point(8,9), false));
-        assertTrue(!area_.isValid(point(-1,-1), false));
-        assertTrue(!area_.isValid(point(0,-1), false));
-        assertTrue(area_.isValid(point(0,0), false));
-        assertTrue(area_.isValid(point(3,3), false));
+        assertTrue(!area_.isValid(point(9,9)));
+        assertTrue(!area_.isValid(point(8,9)));
+        assertTrue(!area_.isValid(point(-1,-1)));
+        assertTrue(!area_.isValid(point(0,-1)));
+        assertTrue(area_.isValid(point(0,0)));
+        assertTrue(area_.isValid(point(3,3)));
     }
 
     @Test
@@ -115,10 +111,10 @@ public class BuildingAreaTest extends EquallablePkUtil {
         dataMap_.getPlaces().add(city_);
         BuildingArea area_ = new BuildingArea();
         area_.initialize(city_.getBuildings().getVal(point(4,5)));
-        assertTrue(!area_.isValid(point(9,9), true));
-        assertTrue(!area_.isValid(point(8,9), true));
-        assertTrue(!area_.isValid(point(-1,-1), true));
-        assertTrue(!area_.isValid(point(0,-1), true));
-        assertTrue(area_.isValid(point(0,0), true));
+        assertTrue(!area_.isValid(point(9,9)));
+        assertTrue(!area_.isValid(point(8,9)));
+        assertTrue(!area_.isValid(point(-1,-1)));
+        assertTrue(!area_.isValid(point(0,-1)));
+        assertTrue(area_.isValid(point(0,0)));
     }
 }

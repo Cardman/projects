@@ -773,7 +773,7 @@ public final class DataMap {
         }
         for (Coords c : accessCondition.getKeys()) {
             for (Coords c2_ : accessCondition.getVal(c)) {
-                DataInfoChecker.checkKey(_d,tree,c2_,true);
+                DataInfoChecker.checkKey(_d,tree,c2_);
             }
         }
     }
@@ -855,7 +855,7 @@ public final class DataMap {
 
     private void basicCheckLinksOtherPlaces(DataBase _d, short _p, LevelPoints _links, LevelPoint _l) {
         Coords link_ = _links.getVal(_l).getCoords();
-        DataInfoChecker.checkKey(_d,tree,_links.getVal(_l).getCoords(), true);
+        DataInfoChecker.checkKey(_d,tree,_links.getVal(_l).getCoords());
         short numberPlace_ = link_.getNumberPlace();
         if (!places.isValidIndex(numberPlace_)) {
             _d.setError(true);
@@ -888,7 +888,7 @@ public final class DataMap {
 
     private void basicCheckLinksWithCave(DataBase _d, short _p, Points<Link> _links, Point _pt) {
         Coords link_ = _links.getVal(_pt).getCoords();
-        DataInfoChecker.checkKey(_d,tree,_links.getVal(_pt).getCoords(), true);
+        DataInfoChecker.checkKey(_d,tree,_links.getVal(_pt).getCoords());
         short numberPlace_ = link_.getNumberPlace();
         if (!places.isValidIndex(numberPlace_)) {
             _d.setError(true);

@@ -11,8 +11,8 @@ public class BuildingArea {
         level.initialize(_building.getLevel());
     }
 
-    public boolean isValid(Point _pt,boolean _accessible) {
-        return level.isValid(_pt,_accessible);
+    public boolean isValid(Point _pt) {
+        return level.isValid(_pt,true);
     }
 
     public LevelArea getLevel() {

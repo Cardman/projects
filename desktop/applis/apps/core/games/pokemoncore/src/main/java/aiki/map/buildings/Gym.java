@@ -13,6 +13,7 @@ public final class Gym extends Building {
     public void validate(DataBase _data,BuildingArea _buildingArea) {
         super.validate(_data, _buildingArea);
         level.validate(_data, _buildingArea.getLevel());
+        validatePoints(_data, _buildingArea, level.validateLinks());
     }
 
     @Override

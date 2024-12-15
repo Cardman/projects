@@ -367,8 +367,8 @@ public final class DataInfoChecker {
         }
     }
 
-    public static void checkKey(DataBase _data, Tree _tree, Coords _key, boolean _accessible) {
-        if (!_tree.isValid(_key, _accessible)) {
+    public static void checkKey(DataBase _data, Tree _tree, Coords _key) {
+        if (!_tree.isValid(_key, true)) {
             _data.setError(true);
         }
     }
@@ -379,9 +379,12 @@ public final class DataInfoChecker {
         }
     }
 
-    public static void checkKey(DataBase _data, BuildingArea _building, Point _key, boolean _accessible) {
-        if (_building == null||!_building.isValid(_key, _accessible)) {
+    public static void checkKey(DataBase _data, BuildingArea _building, Point _key) {
+        if (!_building.isValid(_key)) {
             _data.setError(true);
         }
+//        if (_building == null||!_building.isValid(_key, _accessible)) {
+//            _data.setError(true);
+//        }
     }
 }

@@ -18,21 +18,20 @@ public final class LevelIndoorGym extends Level {
 
     @Override
     public void validate(DataBase _data, LevelArea _level) {
-        if (!_level.allAccessible()) {
-            _data.setError(true);
-        }
         super.validate(_data, _level);
         for (EntryCust<Point,GymTrainer> e : gymTrainers.entryList()) {
-            DataInfoChecker.checkKey(_data,_level,e.getKey(),true);
             e.getValue().validate(_data);
         }
-        DataInfoChecker.checkKey(_data,_level,gymLeaderCoords,true);
         gymLeader.validate(_data);
-        if (gymTrainers.contains(gymLeaderCoords)) {
-            _data.setError(true);
-        }
     }
-
+    public PointEqList validateLinks() {
+        PointEqList keys_ = new PointEqList();
+        for (EntryCust<Point,GymTrainer> e : gymTrainers.entryList()) {
+            keys_.add(e.getKey());
+        }
+        keys_.add(gymLeaderCoords);
+        return keys_;
+    }
     @Override
     public boolean isEmpty(Point _point) {
         return isEmptyForAdding(_point);

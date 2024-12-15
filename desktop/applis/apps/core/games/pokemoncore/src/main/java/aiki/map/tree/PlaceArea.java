@@ -39,7 +39,7 @@ public class PlaceArea {
             Point ptInside_ = _coords.getInsideBuilding();
             for (EntryCust<Point,BuildingArea> p : buildings.entryList()) {
                 if (Point.eq(p.getKey(), ptInside_)) {
-                    return p.getValue().isValid(point_, _accessible);
+                    return p.getValue().isValid(point_);
                 }
             }
             return false;
