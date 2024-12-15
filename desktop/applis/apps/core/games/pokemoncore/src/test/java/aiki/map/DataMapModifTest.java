@@ -179,7 +179,6 @@ public final class DataMapModifTest extends EquallablePkUtil {
         dataMap_.getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 0), tile_);
         assertNotNull(dataMap_.deleteLevelPlace(11,0));
         assertEq(11,tile_.getPlace());
-        new ChangeNbPlaceFieldActTileMiniMap(tile_).value(0);
     }
     @Test
     public void deleteLevelPlace8() {
@@ -199,6 +198,39 @@ public final class DataMapModifTest extends EquallablePkUtil {
         dataMap_.getPlaces().add(cave());
         dataMap_.setBegin(begin());
         assertNull(dataMap_.deleteLevelPlace(11,-1));
+    }
+    @Test
+    public void deleteLevelPlace10() {
+        DataMap dataMap_ = initDataMap();
+        dataMap_.setSideLength(2);
+        dataMap_.getPlaces().add(cave());
+        dataMap_.getPlaces().add(cave());
+        ((Cave)dataMap_.getPlace(11)).getLinksWithOtherPlaces().addEntry(newLevelPoint(1,0,0),new Link("",newCoords(3,0,0,0)));
+        dataMap_.setBegin(begin());
+        assertNotNull(dataMap_.deleteLevelPlace(11,0));
+        assertEq(0, ((Cave)dataMap_.getPlace(11)).getLinksWithOtherPlaces().getList().get(0).getLevelPoint().getLevelIndex());
+    }
+    @Test
+    public void deleteLevelPlace11() {
+        DataMap dataMap_ = initDataMap();
+        dataMap_.setSideLength(2);
+        dataMap_.getPlaces().add(cave());
+        dataMap_.getPlaces().add(cave());
+        ((Cave)dataMap_.getPlace(12)).getLinksWithOtherPlaces().addEntry(newLevelPoint(1,0,0),new Link("",newCoords(3,0,0,0)));
+        dataMap_.setBegin(begin());
+        assertNotNull(dataMap_.deleteLevelPlace(11,0));
+        assertEq(1, ((Cave)dataMap_.getPlace(12)).getLinksWithOtherPlaces().getList().get(0).getLevelPoint().getLevelIndex());
+    }
+    @Test
+    public void deleteLevelPlace12() {
+        DataMap dataMap_ = initDataMap();
+        dataMap_.setSideLength(2);
+        dataMap_.getPlaces().add(cave());
+        dataMap_.getPlaces().add(cave());
+        ((Cave)dataMap_.getPlace(11)).getLinksWithOtherPlaces().addEntry(newLevelPoint(0,0,0),new Link("",newCoords(3,0,0,0)));
+        dataMap_.setBegin(begin());
+        assertNotNull(dataMap_.deleteLevelPlace(11,1));
+        assertEq(0, ((Cave)dataMap_.getPlace(11)).getLinksWithOtherPlaces().getList().get(0).getLevelPoint().getLevelIndex());
     }
     private Coords begin() {
         Coords begin_ = new Coords();

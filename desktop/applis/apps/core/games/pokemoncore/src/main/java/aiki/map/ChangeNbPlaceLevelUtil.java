@@ -31,7 +31,7 @@ public final class ChangeNbPlaceLevelUtil {
             return null;
         }
         for (ChangeNbPlaceFieldAct e:collection) {
-            if (e.place() == place && e.value() == level) {
+            if (e.matchLevel(place, level)) {
                 return null;
             }
         }
@@ -56,9 +56,7 @@ public final class ChangeNbPlaceLevelUtil {
     }
     public void renameLevel() {
         for (ChangeNbPlaceFieldAct e:collection) {
-            if (e.place() == place && e.value() > level) {
-                e.value(e.value() - 1);
-            }
+            e.decr(place,level);
         }
     }
     public void renamePlace() {

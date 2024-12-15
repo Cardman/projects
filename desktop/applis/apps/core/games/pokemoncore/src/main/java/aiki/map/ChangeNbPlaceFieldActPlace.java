@@ -21,13 +21,23 @@ public final class ChangeNbPlaceFieldActPlace implements ChangeNbPlaceFieldAct {
     }
 
     @Override
-    public int value() {
+    public boolean matchLevel(int _p, int _l) {
+        return place() == _p && value() == _l;
+    }
+
+    private int value() {
         return coords.getLevel().getLevelIndex();
     }
 
-    @Override
-    public int value(int _v) {
+    private void value(int _v) {
         coords.getLevel().setLevelIndex((byte) _v);
-        return _v;
+    }
+
+    @Override
+    public int decr(int _l, int _v) {
+        if (place() == _l && value() > _v) {
+            value(value() - 1);
+        }
+        return 0;
     }
 }

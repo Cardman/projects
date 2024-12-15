@@ -190,12 +190,13 @@ public final class DataMap {
                 _chg.add(new ChangeNbPlaceFieldActPlace(v));
             }
         }
-        for (Place p: places) {
-            procRefPlaceLevel(_chg,p);
+        int len_ = places.size();
+        for (int i = 0; i < len_; i++) {
+            procRefPlaceLevel(_chg,i,places.get(i));
         }
     }
 
-    private void procRefPlaceLevel(ChangeNbPlaceLevelUtil _ref, Place _p) {
+    private void procRefPlaceLevel(ChangeNbPlaceLevelUtil _ref, int _i, Place _p) {
         if (_p instanceof Cave) {
             for (LevelCave l_: ((Cave)_p).getLevels()) {
                 for (Link v: l_.getLinksOtherLevels().values()) {
@@ -203,6 +204,10 @@ public final class DataMap {
                 }
             }
             for (LevelPointLink e: ((Cave)_p).getLinksWithOtherPlaces().entryList()) {
+                Coords c_ = new Coords();
+                c_.setNumberPlace((short) _i);
+                c_.setLevel(e.getLevelPoint());
+                _ref.add(new ChangeNbPlaceFieldActPlace(c_));
                 _ref.add(new ChangeNbPlaceFieldActPlace(e.getLink().getCoords()));
             }
         }

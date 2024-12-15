@@ -21,12 +21,12 @@ public final class ChangeNbPlaceFieldActTileMiniMap implements ChangeNbPlaceFiel
     }
 
     @Override
-    public int value() {
-        return -1;
+    public boolean matchLevel(int _p, int _l) {
+        return false;
     }
 
     @Override
-    public int value(int _v) {
-        return _v;
+    public int decr(int _l, int _v) {
+        return -1;
     }
 }
