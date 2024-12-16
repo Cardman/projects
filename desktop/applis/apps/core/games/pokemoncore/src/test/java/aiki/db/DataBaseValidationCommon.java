@@ -3,10 +3,7 @@ package aiki.db;
 import aiki.fight.pokemon.enums.ExpType;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
-import aiki.util.Coords;
-import aiki.util.LawNumber;
-import aiki.util.LevelPoint;
-import aiki.util.Point;
+import aiki.util.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.litteral.MbOperationNode;
@@ -76,29 +73,6 @@ public abstract class DataBaseValidationCommon extends EquallablePkUtil {
         _data.getRates().put(DifficultyWinPointsFight.FACILE, "2");
         _data.getRates().put(DifficultyWinPointsFight.DIFFICILE, "1");
         _data.getRates().put(DifficultyWinPointsFight.TRES_DIFFICILE, "1/2");
-    }
-
-    protected static Coords newCoords(int _place, int _level, int _x, int _y) {
-        Coords begin_ = new Coords();
-        begin_.setNumberPlace((short) _place);
-        begin_.setLevel(new LevelPoint());
-        begin_.getLevel().setLevelIndex((byte) _level);
-        begin_.getLevel().setPoint(newPoint(_x, _y));
-        return begin_;
-    }
-
-    protected static Coords newCoords(int _place, int _level, int _xi, int _yi, int _x, int _y) {
-        Coords begin_ = new Coords();
-        begin_.setNumberPlace((short) _place);
-        begin_.affectInside(newPoint(_xi, _yi));
-        begin_.setLevel(new LevelPoint());
-        begin_.getLevel().setLevelIndex((byte) _level);
-        begin_.getLevel().setPoint(newPoint(_x, _y));
-        return begin_;
-    }
-
-    protected static Point newPoint(int _x, int _y) {
-        return new Point((short)_x, (short)_y);
     }
 
     protected static void initRandomLaws(DataBase _data) {

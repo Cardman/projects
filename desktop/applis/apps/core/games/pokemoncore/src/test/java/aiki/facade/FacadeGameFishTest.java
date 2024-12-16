@@ -4,11 +4,7 @@ import aiki.db.DataBase;
 import aiki.game.Game;
 import aiki.game.fight.InitializationDataBase;
 import aiki.game.params.Difficulty;
-import aiki.game.player.enums.Sex;
 import aiki.map.enums.Direction;
-import aiki.util.Coords;
-import aiki.util.LevelPoint;
-import aiki.util.Point;
 import org.junit.Test;
 
 public final class FacadeGameFishTest extends InitializationDataBase {
@@ -47,13 +43,4 @@ public final class FacadeGameFishTest extends InitializationDataBase {
         assertTrue(facadeGame_.getFight().getFightType().isExisting());
         assertTrue(facadeGame_.getFight().getFightType().isWild());
     }
-    private static Coords newCoords(int _place, int _level, int _x, int _y) {
-        Coords begin_ = new Coords();
-        begin_.setNumberPlace((short) _place);
-        begin_.setLevel(new LevelPoint());
-        begin_.getLevel().setLevelIndex((byte) _level);
-        begin_.getLevel().setPoint(new Point((short)_x, (short)_y));
-        return begin_;
-    }
-
 }

@@ -1,6 +1,5 @@
 package aiki.game;
 
-import aiki.game.player.enums.Sex;
 import aiki.map.Condition;
 import aiki.map.levels.*;
 import aiki.map.util.PlaceInterConnects;
@@ -11,11 +10,7 @@ import aiki.db.DataBase;
 import aiki.game.fight.InitializationDataBase;
 import aiki.game.params.Difficulty;
 import aiki.map.DataMap;
-import aiki.map.buildings.Building;
 import aiki.map.buildings.Gym;
-import aiki.map.characters.CharacterInRoadCave;
-import aiki.map.characters.DualFight;
-import aiki.map.characters.GymTrainer;
 import aiki.map.enums.Direction;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.City;
@@ -24,7 +19,6 @@ import aiki.map.places.Place;
 import aiki.map.places.Road;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
-import aiki.map.util.PlaceInterConnect;
 import code.util.CustList;
 
 
@@ -113,10 +107,10 @@ public class GameUnlockPlacesTest extends InitializationDataBase {
         dataMap_.join((short)10, (short)0, new Point((short)5,(short)1), new Point((short)0,(short)5), Direction.RIGHT);
         dataMap_.join((short)10, (short)11, new Point((short)0,(short)1), new Point((short)8,(short)4), Direction.LEFT);
         Condition leaders_ = new Condition();
-        leaders_.add(coords(0,4,5,1,1));
-        leaders_.add(coords(2,4,5,1,1));
-        leaders_.add(coords(4,4,5,1,1));
-        leaders_.add(coords(6,4,5,1,1));
+        leaders_.add(newCoords(0,4,5,1,1));
+        leaders_.add(newCoords(2,4,5,1,1));
+        leaders_.add(newCoords(4,4,5,1,1));
+        leaders_.add(newCoords(6,4,5,1,1));
         dataMap_.getAccessCondition().put(coordsAccessLeague_, leaders_);
         Coords coordsBlock_ = new Coords();
         coordsBlock_.setNumberPlace((short) 7);
@@ -137,7 +131,7 @@ public class GameUnlockPlacesTest extends InitializationDataBase {
         coordsBlock_.getLevel().setPoint(new Point((short)3,(short)2));
         dataMap_.getAccessCondition().put(coordsBlock_, new Condition(leaders_));
         leaders_ = new Condition();
-        leaders_.add(coords(0,4,5,1,1));
+        leaders_.add(newCoords(0,4,5,1,1));
         Coords coords_;
         coords_ = new Coords();
         coords_.setNumberPlace((short) 3);
@@ -158,7 +152,7 @@ public class GameUnlockPlacesTest extends InitializationDataBase {
         coords_.getLevel().setPoint(new Point((short)2,(short)2));
         dataMap_.getAccessCondition().put(coords_, leaders_);
         leaders_ = new Condition();
-        leaders_.add(coords(2,4,5,1,1));
+        leaders_.add(newCoords(2,4,5,1,1));
         coords_ = new Coords();
         coords_.setNumberPlace((short) 3);
         coords_.setLevel(new LevelPoint());
@@ -178,7 +172,7 @@ public class GameUnlockPlacesTest extends InitializationDataBase {
         coords_.getLevel().setPoint(new Point((short)3,(short)2));
         dataMap_.getAccessCondition().put(coords_, leaders_);
         leaders_ = new Condition();
-        leaders_.add(coords(4,4,5,1,1));
+        leaders_.add(newCoords(4,4,5,1,1));
         coords_ = new Coords();
         coords_.setNumberPlace((short) 5);
         coords_.setLevel(new LevelPoint());
@@ -198,8 +192,8 @@ public class GameUnlockPlacesTest extends InitializationDataBase {
         coords_.getLevel().setPoint(new Point((short)2,(short)1));
         dataMap_.getAccessCondition().put(coords_, leaders_);
         Condition leagues_ = new Condition();
-//        leagues_.add(coords(9,0,2,2));
-        leagues_.add(coords(9,0,2,4));
+//        leagues_.add(newCoords(9,0,2,2));
+        leagues_.add(newCoords(9,0,2,4));
         coords_ = new Coords();
         coords_.setNumberPlace((short) 10);
         coords_.setLevel(new LevelPoint());
@@ -336,31 +330,15 @@ public class GameUnlockPlacesTest extends InitializationDataBase {
         league_.setBegin(new Point((short)2,(short)4));
         return league_;
     }
-    private static Coords coords(int _pl, int _level, int _x,int _y) {
-        Coords c_ = new Coords();
-        c_.setNumberPlace((short) _pl);
-        c_.setLevel(new LevelPoint());
-        c_.getLevel().setLevelIndex((byte) _level);
-        c_.getLevel().setPoint(new Point((short)_x,(short)_y));
-        return c_;
-    }
-    private static Coords coords(int _pl,int _xi,int _yi,int _x,int _y) {
-        Coords c_ = new Coords();
-        c_.setNumberPlace((short) _pl);
-        c_.affectInside(new Point((short)_xi,(short)_yi));
-        c_.setLevel(new LevelPoint());
-        c_.getLevel().setLevelIndex((byte) 0);
-        c_.getLevel().setPoint(new Point((short)_x,(short)_y));
-        return c_;
-    }
+    
 
     @Test
     public void addBeatenTrainer1Test() {
         DataBase dataCore_ = initLocalDataBase();
         Game game_ = new Game(dataCore_);
         game_.initUtilisateur(NICKNAME, new Difficulty(), dataCore_);
-        game_.beatGymLeader(coords(0,4,5,1,1));
-        game_.addBeatenTrainer(coords(0,4,5,1,1), dataCore_);
+        game_.beatGymLeader(newCoords(0,4,5,1,1));
+        game_.addBeatenTrainer(newCoords(0,4,5,1,1), dataCore_);
         assertEq(1, game_.getPartiallyAccessiblePlaces().size());
         assertEq(ROAD_2, game_.getPartiallyAccessiblePlaces().get(0));
         assertEq(0, game_.getFullAccessiblePlaces().size());
@@ -371,8 +349,8 @@ public class GameUnlockPlacesTest extends InitializationDataBase {
         DataBase dataCore_ = initLocalDataBase();
         Game game_ = new Game(dataCore_);
         game_.initUtilisateur(NICKNAME, new Difficulty(), dataCore_);
-        game_.beatGymLeader(coords(0,4,5,1,1));
-        game_.addBeatenTrainer(coords(0,4,5,1,2), dataCore_);
+        game_.beatGymLeader(newCoords(0,4,5,1,1));
+        game_.addBeatenTrainer(newCoords(0,4,5,1,2), dataCore_);
         assertEq(0, game_.getPartiallyAccessiblePlaces().size());
         assertEq(0, game_.getFullAccessiblePlaces().size());
     }
@@ -382,9 +360,9 @@ public class GameUnlockPlacesTest extends InitializationDataBase {
         DataBase dataCore_ = initLocalDataBase();
         Game game_ = new Game(dataCore_);
         game_.initUtilisateur(NICKNAME, new Difficulty(), dataCore_);
-        game_.beatGymLeader(coords(0,4,5,1,1));
-        game_.beatGymLeader(coords(2,4,5,1,1));
-        game_.addBeatenTrainer(coords(2,4,5,1,1), dataCore_);
+        game_.beatGymLeader(newCoords(0,4,5,1,1));
+        game_.beatGymLeader(newCoords(2,4,5,1,1));
+        game_.addBeatenTrainer(newCoords(2,4,5,1,1), dataCore_);
         assertEq(1, game_.getPartiallyAccessiblePlaces().size());
         assertEq(ROAD_3, game_.getPartiallyAccessiblePlaces().get(0));
         assertEq(2, game_.getFullAccessiblePlaces().size());
@@ -397,7 +375,7 @@ public class GameUnlockPlacesTest extends InitializationDataBase {
         DataBase dataCore_ = initLocalDataBase();
         Game game_ = new Game(dataCore_);
         game_.initUtilisateur(NICKNAME, new Difficulty(), dataCore_);
-        game_.addBeatenTrainer(coords(0,4,5,1,2), dataCore_);
+        game_.addBeatenTrainer(newCoords(0,4,5,1,2), dataCore_);
         assertEq(0, game_.getPartiallyAccessiblePlaces().size());
         assertEq(0, game_.getFullAccessiblePlaces().size());
     }
@@ -407,11 +385,11 @@ public class GameUnlockPlacesTest extends InitializationDataBase {
         DataBase dataCore_ = initLocalDataBase();
         Game game_ = new Game(dataCore_);
         game_.initUtilisateur(NICKNAME, new Difficulty(), dataCore_);
-        game_.beatGymLeader(coords(0,4,5,1,1));
-        game_.beatGymLeader(coords(2,4,5,1,1));
-        game_.beatGymLeader(coords(4,4,5,1,1));
-        game_.beatGymLeader(coords(6,4,5,1,1));
-        game_.addBeatenTrainer(coords(6,4,5,1,1), dataCore_);
+        game_.beatGymLeader(newCoords(0,4,5,1,1));
+        game_.beatGymLeader(newCoords(2,4,5,1,1));
+        game_.beatGymLeader(newCoords(4,4,5,1,1));
+        game_.beatGymLeader(newCoords(6,4,5,1,1));
+        game_.addBeatenTrainer(newCoords(6,4,5,1,1), dataCore_);
         assertEq(0, game_.getPartiallyAccessiblePlaces().size());
         assertEq(3, game_.getFullAccessiblePlaces().size());
         assertEq(CST_L, game_.getFullAccessiblePlaces().get(0));
@@ -424,12 +402,12 @@ public class GameUnlockPlacesTest extends InitializationDataBase {
         DataBase dataCore_ = initLocalDataBase();
         Game game_ = new Game(dataCore_);
         game_.initUtilisateur(NICKNAME, new Difficulty(), dataCore_);
-        game_.beatGymLeader(coords(0,4,5,1,1));
-        game_.beatGymLeader(coords(2,4,5,1,1));
-        game_.beatGymLeader(coords(4,4,5,1,1));
-        game_.beatGymLeader(coords(6,4,5,1,1));
-        game_.beatGymLeader(coords(9,0,2,4));
-        game_.addBeatenTrainer(coords(9,0,2,4), dataCore_);
+        game_.beatGymLeader(newCoords(0,4,5,1,1));
+        game_.beatGymLeader(newCoords(2,4,5,1,1));
+        game_.beatGymLeader(newCoords(4,4,5,1,1));
+        game_.beatGymLeader(newCoords(6,4,5,1,1));
+        game_.beatGymLeader(newCoords(9,0,2,4));
+        game_.addBeatenTrainer(newCoords(9,0,2,4), dataCore_);
         assertEq(0, game_.getPartiallyAccessiblePlaces().size());
         assertEq(2, game_.getFullAccessiblePlaces().size());
         assertEq(C_5, game_.getFullAccessiblePlaces().get(0));
@@ -441,10 +419,10 @@ public class GameUnlockPlacesTest extends InitializationDataBase {
         DataBase dataCore_ = initLocalDataBase();
         Game game_ = new Game(dataCore_);
         game_.initUtilisateur(NICKNAME, new Difficulty(), dataCore_);
-        game_.beatGymLeader(coords(0,4,5,1,1));
-        game_.beatGymLeader(coords(2,4,5,1,1));
-        game_.beatGymLeader(coords(4,4,5,1,1));
-        game_.addBeatenTrainer(coords(4,4,5,1,1), dataCore_);
+        game_.beatGymLeader(newCoords(0,4,5,1,1));
+        game_.beatGymLeader(newCoords(2,4,5,1,1));
+        game_.beatGymLeader(newCoords(4,4,5,1,1));
+        game_.addBeatenTrainer(newCoords(4,4,5,1,1), dataCore_);
         assertEq(2, game_.getPartiallyAccessiblePlaces().size());
         assertEq(ROAD_4, game_.getPartiallyAccessiblePlaces().get(0));
         assertEq(ROAD_5, game_.getPartiallyAccessiblePlaces().get(1));
@@ -458,9 +436,9 @@ public class GameUnlockPlacesTest extends InitializationDataBase {
         DataBase dataCore_ = initLocalDataBase();
         Game game_ = new Game(dataCore_);
         game_.initUtilisateur(NICKNAME, new Difficulty(), dataCore_);
-        game_.beatGymLeader(coords(0,4,5,1,1));
-        game_.beatGymLeader(coords(2,4,5,1,1));
-        game_.beatGymLeader(coords(4,4,5,1,1));
+        game_.beatGymLeader(newCoords(0,4,5,1,1));
+        game_.beatGymLeader(newCoords(2,4,5,1,1));
+        game_.beatGymLeader(newCoords(4,4,5,1,1));
         game_.addBeatenTrainer(new Coords(), dataCore_);
         assertEq(0, game_.getPartiallyAccessiblePlaces().size());
         assertEq(0, game_.getFullAccessiblePlaces().size());

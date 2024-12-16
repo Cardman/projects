@@ -19,9 +19,7 @@ import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
-import aiki.util.Coords;
-import aiki.util.LevelPoint;
-import aiki.util.Point;
+import aiki.util.*;
 import code.maths.LgInt;
 
 
@@ -753,28 +751,6 @@ public class GameInitializeFightTest extends InitializationDataBase {
         _game.newRandomPokemon(_area.getWildPokemonRand(), _data);
     }
 
-    private static Coords newCoords(int _place, int _level, int _x, int _y) {
-        Coords begin_ = new Coords();
-        begin_.setNumberPlace((short) _place);
-        begin_.setLevel(new LevelPoint());
-        begin_.getLevel().setLevelIndex((byte) _level);
-        begin_.getLevel().setPoint(new Point((short)_x, (short)_y));
-        return begin_;
-    }
-
-    private static Coords newCoords(int _place, int _level, int _xi, int _yi, int _x, int _y) {
-        Coords begin_ = new Coords();
-        begin_.setNumberPlace((short) _place);
-        begin_.affectInside(newPoint(_xi, _yi));
-        begin_.setLevel(new LevelPoint());
-        begin_.getLevel().setLevelIndex((byte) _level);
-        begin_.getLevel().setPoint(new Point((short)_x, (short)_y));
-        return begin_;
-    }
-
-    private static Point newPoint(int _x,int _y) {
-        return new Point((short)_x, (short)_y);
-    }
     private static int nbPk(MonteCarloWilPkList _monte) {
 //        CustList<WildPk> wp_ = new CustList<WildPk>();
 //        for (WildPk e: _monte.events()) {

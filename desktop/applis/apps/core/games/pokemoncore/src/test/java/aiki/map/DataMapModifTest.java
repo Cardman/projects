@@ -398,36 +398,6 @@ public final class DataMapModifTest extends EquallablePkUtil {
         return road_;
     }
 
-    private static Coords newCoords(int _place, int _level, int _x, int _y) {
-        Coords begin_ = new Coords();
-        begin_.setNumberPlace((short) _place);
-        begin_.setLevel(new LevelPoint());
-        begin_.getLevel().setLevelIndex((byte) _level);
-        begin_.getLevel().setPoint(new Point((short)_x, (short)_y));
-        return begin_;
-    }
-
-    private static Coords newCoords(int _place, int _level, int _xi, int _yi, int _x, int _y) {
-        Coords begin_ = new Coords();
-        begin_.setNumberPlace((short) _place);
-        begin_.affectInside(newPoint(_xi, _yi));
-        begin_.setLevel(new LevelPoint());
-        begin_.getLevel().setLevelIndex((byte) _level);
-        begin_.getLevel().setPoint(new Point((short)_x, (short)_y));
-        return begin_;
-    }
-
-    private static LevelPoint newLevelPoint(int _level, int _x,int _y) {
-        LevelPoint l_ = new LevelPoint();
-        l_.setLevelIndex((byte) _level);
-        l_.setPoint(newPoint(_x, _y));
-        return l_;
-    }
-
-    private static Point newPoint(int _x,int _y) {
-        return new Point((short)_x, (short)_y);
-    }
-
     private StringMap<ImageArrayBaseSixtyFour> imgages() {
         StringMap<ImageArrayBaseSixtyFour> images_ = new StringMap<ImageArrayBaseSixtyFour>();
         images_.put(VOIE, instance(new int[][]{shortRow1(), shortRow2(), shortRow1(), shortRow2(), shortRow1(), shortRow2()}));

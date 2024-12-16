@@ -5,18 +5,12 @@ import aiki.game.Game;
 import aiki.game.fight.EvolutionChoiceMap;
 import aiki.game.fight.InitializationDataBase;
 import aiki.game.params.Difficulty;
-import aiki.game.player.enums.Sex;
 import aiki.map.enums.Direction;
 import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
-import aiki.util.Coords;
-import aiki.util.LevelPoint;
-import aiki.util.Point;
-import code.util.NatStringTreeMap;
-import code.util.StringList;
-import code.util.TreeMap;
+import code.util.*;
 import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 import org.junit.Test;
@@ -90,18 +84,6 @@ public final class FacadeGameFightKoThreeTest extends InitializationDataBase {
         assertTrue(StringUtil.contains(abilities_, FERMETE));
         assertTrue(StringUtil.contains(abilities_, MAGNEPIEGE));
         assertEq(MAGNEPIEGE, facadeGame_.getAbility());
-    }
-
-    private static Coords newCoords(int _place, int _level, int _x, int _y) {
-        Coords begin_ = new Coords();
-        begin_.setNumberPlace((short) _place);
-        begin_.setLevel(new LevelPoint());
-        begin_.getLevel().setLevelIndex((byte) _level);
-        begin_.getLevel().setPoint(new Point((short)_x, (short)_y));
-        return begin_;
-    }
-    private static Point newPoint(int _x,int _y) {
-        return new Point((short)_x, (short)_y);
     }
 
 }

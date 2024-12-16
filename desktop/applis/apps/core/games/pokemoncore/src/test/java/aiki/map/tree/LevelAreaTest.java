@@ -85,10 +85,6 @@ public class LevelAreaTest extends EquallablePkUtil {
         return road_;
     }
 
-    private static Point point(int _x, int _y) {
-        return new Point((short) _x,(short) _y);
-    }
-
     @Test
     public void initialize1Test() {
         DataMap dataMap_ = new DataMap();
@@ -102,26 +98,26 @@ public class LevelAreaTest extends EquallablePkUtil {
         assertEq(9, area_.getWidth());
         assertEq(0, area_.getPokemon().size());
         assertEq(0, area_.getIndexes().size());
-        assertEq(point(0,0), area_.getLeftTop());
+        assertEq(newPoint(0,0), area_.getLeftTop());
         assertEq(9, area_.getInacessiblePoints().size());
-        assertTrue(area_.getInacessiblePoints().containsObj(point(3,3)));
-        assertTrue(area_.getInacessiblePoints().containsObj(point(3,4)));
-        assertTrue(area_.getInacessiblePoints().containsObj(point(3,5)));
-        assertTrue(area_.getInacessiblePoints().containsObj(point(4,3)));
-        assertTrue(area_.getInacessiblePoints().containsObj(point(4,4)));
-        assertTrue(area_.getInacessiblePoints().containsObj(point(4,5)));
-        assertTrue(area_.getInacessiblePoints().containsObj(point(5,3)));
-        assertTrue(area_.getInacessiblePoints().containsObj(point(5,4)));
-        assertTrue(area_.getInacessiblePoints().containsObj(point(5,5)));
+        assertTrue(area_.getInacessiblePoints().containsObj(newPoint(3,3)));
+        assertTrue(area_.getInacessiblePoints().containsObj(newPoint(3,4)));
+        assertTrue(area_.getInacessiblePoints().containsObj(newPoint(3,5)));
+        assertTrue(area_.getInacessiblePoints().containsObj(newPoint(4,3)));
+        assertTrue(area_.getInacessiblePoints().containsObj(newPoint(4,4)));
+        assertTrue(area_.getInacessiblePoints().containsObj(newPoint(4,5)));
+        assertTrue(area_.getInacessiblePoints().containsObj(newPoint(5,3)));
+        assertTrue(area_.getInacessiblePoints().containsObj(newPoint(5,4)));
+        assertTrue(area_.getInacessiblePoints().containsObj(newPoint(5,5)));
         assertEq(8, area_.getDimsBlocks().size());
-        assertEq(new Dims(3,3), area_.getDimsBlocks().getVal(point(0, 0)));
-        assertEq(new Dims(3,3), area_.getDimsBlocks().getVal(point(0, 3)));
-        assertEq(new Dims(3,3), area_.getDimsBlocks().getVal(point(0, 6)));
-        assertEq(new Dims(3,3), area_.getDimsBlocks().getVal(point(3, 0)));
-        assertEq(new Dims(3,3), area_.getDimsBlocks().getVal(point(3, 6)));
-        assertEq(new Dims(3,3), area_.getDimsBlocks().getVal(point(6, 0)));
-        assertEq(new Dims(3,3), area_.getDimsBlocks().getVal(point(6, 3)));
-        assertEq(new Dims(3,3), area_.getDimsBlocks().getVal(point(6, 6)));
+        assertEq(new Dims(3,3), area_.getDimsBlocks().getVal(newPoint(0, 0)));
+        assertEq(new Dims(3,3), area_.getDimsBlocks().getVal(newPoint(0, 3)));
+        assertEq(new Dims(3,3), area_.getDimsBlocks().getVal(newPoint(0, 6)));
+        assertEq(new Dims(3,3), area_.getDimsBlocks().getVal(newPoint(3, 0)));
+        assertEq(new Dims(3,3), area_.getDimsBlocks().getVal(newPoint(3, 6)));
+        assertEq(new Dims(3,3), area_.getDimsBlocks().getVal(newPoint(6, 0)));
+        assertEq(new Dims(3,3), area_.getDimsBlocks().getVal(newPoint(6, 3)));
+        assertEq(new Dims(3,3), area_.getDimsBlocks().getVal(newPoint(6, 6)));
     }
 
     @Test
@@ -151,7 +147,7 @@ public class LevelAreaTest extends EquallablePkUtil {
         areaApp_.getWildPokemon().add(pk_);
         areaApp_.initializeWildPokemon();
         road_.getLevelRoad().getWildPokemonAreas().add(areaApp_);
-        road_.getLevel().getBlocks().getVal(point(0,0)).setIndexApparition((short) 0);
+        road_.getLevel().getBlocks().getVal(newPoint(0,0)).setIndexApparition((short) 0);
         dataMap_.getPlaces().add( road_);
         LevelArea area_ = new LevelArea();
         area_.initialize(road_.getLevel());
@@ -164,11 +160,11 @@ public class LevelAreaTest extends EquallablePkUtil {
         assertEq("PIKACHU", area_.getPokemon().first().last().getName());
         assertEq(Gender.MALE, area_.getPokemon().first().last().getGender());
         assertEq(1, area_.getIndexes().size());
-        assertEq(0, area_.getIndexes().getVal(point(0,0)));
-        assertEq(point(0,0), area_.getLeftTop());
+        assertEq(0, area_.getIndexes().getVal(newPoint(0,0)));
+        assertEq(newPoint(0,0), area_.getLeftTop());
         assertEq(0, area_.getInacessiblePoints().size());
         assertEq(1, area_.getDimsBlocks().size());
-        assertEq(new Dims(3,6), area_.getDimsBlocks().getVal(point(0, 0)));
+        assertEq(new Dims(3,6), area_.getDimsBlocks().getVal(newPoint(0, 0)));
     }
 
     @Test
@@ -201,7 +197,7 @@ public class LevelAreaTest extends EquallablePkUtil {
         assertTrue(WildPk.eq(first_,areaApp_.getWildPokemon(0)));
         assertTrue(WildPk.eq(pk_,areaApp_.getPokemonFishing(0)));
         road_.getLevelRoad().getWildPokemonAreas().add(areaApp_);
-        road_.getLevel().getBlocks().getVal(point(0,0)).setIndexApparition((short) 0);
+        road_.getLevel().getBlocks().getVal(newPoint(0,0)).setIndexApparition((short) 0);
         dataMap_.getPlaces().add( road_);
         LevelArea area_ = new LevelArea();
         area_.initialize(road_.getLevel());
@@ -214,11 +210,11 @@ public class LevelAreaTest extends EquallablePkUtil {
         assertEq("PTITARD", area_.getPokemon().first().last().getName());
         assertEq(Gender.MALE, area_.getPokemon().first().last().getGender());
         assertEq(1, area_.getIndexes().size());
-        assertEq(0, area_.getIndexes().getVal(point(0,0)));
-        assertEq(point(0,0), area_.getLeftTop());
+        assertEq(0, area_.getIndexes().getVal(newPoint(0,0)));
+        assertEq(newPoint(0,0), area_.getLeftTop());
         assertEq(0, area_.getInacessiblePoints().size());
         assertEq(1, area_.getDimsBlocks().size());
-        assertEq(new Dims(3,6), area_.getDimsBlocks().getVal(point(0, 0)));
+        assertEq(new Dims(3,6), area_.getDimsBlocks().getVal(newPoint(0, 0)));
     }
 
     @Test
@@ -230,10 +226,10 @@ public class LevelAreaTest extends EquallablePkUtil {
         dataMap_.getPlaces().add( city_);
         LevelArea area_ = new LevelArea();
         area_.initialize(city_.getLevel());
-        assertEq(0, area_.getPokemon(point(0,0)).size());
-        assertEq(0, area_.getPokemon(point(3,3)).size());
-        assertEq(0, area_.getPokemon(point(6,6)).size());
-        assertEq(0, area_.getPokemon(point(9,9)).size());
+        assertEq(0, area_.getPokemon(newPoint(0,0)).size());
+        assertEq(0, area_.getPokemon(newPoint(3,3)).size());
+        assertEq(0, area_.getPokemon(newPoint(6,6)).size());
+        assertEq(0, area_.getPokemon(newPoint(9,9)).size());
     }
 
     @Test
@@ -263,12 +259,12 @@ public class LevelAreaTest extends EquallablePkUtil {
         areaApp_.getWildPokemon().add(pk_);
         areaApp_.initializeWildPokemon();
         road_.getLevelRoad().getWildPokemonAreas().add(areaApp_);
-        road_.getLevel().getBlocks().getVal(point(0,0)).setIndexApparition((short) 0);
+        road_.getLevel().getBlocks().getVal(newPoint(0,0)).setIndexApparition((short) 0);
         dataMap_.getPlaces().add( road_);
         LevelArea area_ = new LevelArea();
         area_.initialize(road_.getLevel());
         CustList<GenderName> list_;
-        list_ = area_.getPokemon(point(0,0));
+        list_ = area_.getPokemon(newPoint(0,0));
         assertEq(2, list_.size());
         assertEq("PIKACHU", list_.first().getName());
         assertEq(Gender.FEMALE, list_.first().getGender());
@@ -285,12 +281,12 @@ public class LevelAreaTest extends EquallablePkUtil {
         dataMap_.getPlaces().add( city_);
         LevelArea area_ = new LevelArea();
         area_.initialize(city_.getLevel());
-        assertTrue(!area_.isValid(point(9,9), false));
-        assertTrue(!area_.isValid(point(8,9), false));
-        assertTrue(!area_.isValid(point(-1,-1), false));
-        assertTrue(!area_.isValid(point(0,-1), false));
-        assertTrue(area_.isValid(point(0,0), false));
-        assertTrue(area_.isValid(point(3,3), false));
+        assertTrue(!area_.isValid(newPoint(9,9), false));
+        assertTrue(!area_.isValid(newPoint(8,9), false));
+        assertTrue(!area_.isValid(newPoint(-1,-1), false));
+        assertTrue(!area_.isValid(newPoint(0,-1), false));
+        assertTrue(area_.isValid(newPoint(0,0), false));
+        assertTrue(area_.isValid(newPoint(3,3), false));
     }
 
     @Test
@@ -302,12 +298,12 @@ public class LevelAreaTest extends EquallablePkUtil {
         dataMap_.getPlaces().add( city_);
         LevelArea area_ = new LevelArea();
         area_.initialize(city_.getLevel());
-        assertTrue(!area_.isValid(point(9,9), true));
-        assertTrue(!area_.isValid(point(8,9), true));
-        assertTrue(!area_.isValid(point(-1,-1), true));
-        assertTrue(!area_.isValid(point(0,-1), true));
-        assertTrue(area_.isValid(point(0,0), true));
-        assertTrue(!area_.isValid(point(3,3), true));
+        assertTrue(!area_.isValid(newPoint(9,9), true));
+        assertTrue(!area_.isValid(newPoint(8,9), true));
+        assertTrue(!area_.isValid(newPoint(-1,-1), true));
+        assertTrue(!area_.isValid(newPoint(0,-1), true));
+        assertTrue(area_.isValid(newPoint(0,0), true));
+        assertTrue(!area_.isValid(newPoint(3,3), true));
     }
 
     @Test
@@ -365,7 +361,7 @@ public class LevelAreaTest extends EquallablePkUtil {
         areaApp_.getWildPokemon().add(pk_);
         areaApp_.initializeWildPokemon();
         road_.getLevelRoad().getWildPokemonAreas().add(areaApp_);
-        road_.getLevel().getBlocks().getVal(point(0,0)).setIndexApparition((short) 0);
+        road_.getLevel().getBlocks().getVal(newPoint(0,0)).setIndexApparition((short) 0);
         dataMap_.getPlaces().add( road_);
         LevelArea area_ = new LevelArea();
         area_.initialize(road_.getLevel());
@@ -381,7 +377,7 @@ public class LevelAreaTest extends EquallablePkUtil {
         dataMap_.getPlaces().add( city_);
         LevelArea area_ = new LevelArea();
         area_.initialize(city_.getLevel());
-        assertTrue(!area_.isAccessible(point(3, 3)));
+        assertTrue(!area_.isAccessible(newPoint(3, 3)));
     }
 
     @Test
@@ -393,6 +389,6 @@ public class LevelAreaTest extends EquallablePkUtil {
         dataMap_.getPlaces().add( city_);
         LevelArea area_ = new LevelArea();
         area_.initialize(city_.getLevel());
-        assertTrue(area_.isAccessible(point(2, 3)));
+        assertTrue(area_.isAccessible(newPoint(2, 3)));
     }
 }

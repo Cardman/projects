@@ -13,9 +13,6 @@ import aiki.map.enums.Direction;
 import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
-import aiki.util.Coords;
-import aiki.util.LevelPoint;
-import aiki.util.Point;
 import org.junit.Test;
 
 public final class FacadeGameFightKoTwoTest extends InitializationDataBase {
@@ -156,18 +153,6 @@ public final class FacadeGameFightKoTwoTest extends InitializationDataBase {
         facadeGame_.chooseMove(BULLES_D_O);
         facadeGame_.setFirstChosenMoveFoeTarget((byte) 0);
         assertEq(2,facadeGame_.sortedFightersBeginRound().size());
-    }
-
-    private static Coords newCoords(int _place, int _level, int _x, int _y) {
-        Coords begin_ = new Coords();
-        begin_.setNumberPlace((short) _place);
-        begin_.setLevel(new LevelPoint());
-        begin_.getLevel().setLevelIndex((byte) _level);
-        begin_.getLevel().setPoint(new Point((short)_x, (short)_y));
-        return begin_;
-    }
-    private static Point newPoint(int _x,int _y) {
-        return new Point((short)_x, (short)_y);
     }
 
 }

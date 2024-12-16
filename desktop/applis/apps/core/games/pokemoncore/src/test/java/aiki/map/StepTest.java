@@ -4,15 +4,11 @@ import aiki.db.EquallablePkUtil;
 import aiki.map.levels.*;
 import aiki.map.util.PlaceInterConnects;
 import aiki.util.*;
-import code.util.core.StringUtil;
 import org.junit.Test;
 
 import aiki.fight.pokemon.GenderName;
-import aiki.map.buildings.Building;
 import aiki.map.buildings.Gym;
-import aiki.map.characters.CharacterInRoadCave;
 import aiki.map.characters.DualFight;
-import aiki.map.characters.GymTrainer;
 import aiki.map.enums.Direction;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.City;
@@ -22,7 +18,6 @@ import aiki.map.places.Road;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.tree.Tree;
-import aiki.map.util.PlaceInterConnect;
 import aiki.map.util.PlaceLevel;
 import code.util.CustList;
 
@@ -131,26 +126,6 @@ public class StepTest extends EquallablePkUtil {
         league_.setBegin(new Point((short)2,(short)4));
         return league_;
     }
-    private static Coords coords(int _pl, int _level, int _x,int _y) {
-        Coords c_ = new Coords();
-        c_.setNumberPlace((short) _pl);
-        c_.setLevel(new LevelPoint());
-        c_.getLevel().setLevelIndex((byte) _level);
-        c_.getLevel().setPoint(new Point((short)_x,(short)_y));
-        return c_;
-    }
-    private static Coords coords(int _pl,int _xi,int _yi,int _x,int _y) {
-        Coords c_ = new Coords();
-        c_.setNumberPlace((short) _pl);
-        c_.affectInside(new Point((short)_xi,(short)_yi));
-        c_.setLevel(new LevelPoint());
-        c_.getLevel().setLevelIndex((byte) 0);
-        c_.getLevel().setPoint(new Point((short)_x,(short)_y));
-        return c_;
-    }
-    private static Point point(int _x, int _y) {
-        return new Point((short) _x,(short) _y);
-    }
     private static DataMap dataMap() {
         City cityOne_ = city();
         City cityTwo_ = city();
@@ -179,7 +154,7 @@ public class StepTest extends EquallablePkUtil {
         areaApp_.getWildPokemon().add(pk_);
         areaApp_.initializeWildPokemon();
         roadOne_.getLevelRoad().getWildPokemonAreas().add(areaApp_);
-        roadOne_.getLevel().getBlocks().getVal(point(0,0)).setIndexApparition((short) 0);
+        roadOne_.getLevel().getBlocks().getVal(newPoint(0,0)).setIndexApparition((short) 0);
         Road roadTwo_ = hroad();
         Road roadThree_ = vroad();
         Road roadFour_ = hroad();
@@ -189,12 +164,12 @@ public class StepTest extends EquallablePkUtil {
         pk_.setAbility("STATIK");
         pk_.setGender(Gender.NO_GENDER);
         pk_.setLevel((short) 2);
-        roadFour_.getLevelRoad().getLegendaryPks().put(point(5, 0), pk_);
+        roadFour_.getLevelRoad().getLegendaryPks().put(newPoint(5, 0), pk_);
         Road roadFive_ = hroad();
         DualFight dual_ = new DualFight();
         dual_.setNames(new StringList("TRAINER_ONE","TRAINER_TWO"));
-        dual_.setPt(point(1, 1));
-        roadFive_.getLevelRoad().getDualFights().put(point(2, 1), dual_);
+        dual_.setPt(newPoint(1, 1));
+        roadFive_.getLevelRoad().getDualFights().put(newPoint(2, 1), dual_);
         Road roadSix_ = hroad();
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new CoordsLists());
@@ -228,10 +203,10 @@ public class StepTest extends EquallablePkUtil {
         dataMap_.join((short)10, (short)0, new Point((short)5,(short)1), new Point((short)0,(short)5), Direction.RIGHT);
         dataMap_.join((short)10, (short)11, new Point((short)0,(short)1), new Point((short)8,(short)4), Direction.LEFT);
         Condition leaders_ = new Condition();
-        leaders_.add(coords(0,4,5,1,1));
-        leaders_.add(coords(2,4,5,1,1));
-        leaders_.add(coords(4,4,5,1,1));
-        leaders_.add(coords(6,4,5,1,1));
+        leaders_.add(newCoords(0,4,5,1,1));
+        leaders_.add(newCoords(2,4,5,1,1));
+        leaders_.add(newCoords(4,4,5,1,1));
+        leaders_.add(newCoords(6,4,5,1,1));
         dataMap_.getAccessCondition().put(coordsAccessLeague_, leaders_);
         Coords coordsBlock_ = new Coords();
         coordsBlock_.setNumberPlace((short) 7);
@@ -252,7 +227,7 @@ public class StepTest extends EquallablePkUtil {
         coordsBlock_.getLevel().setPoint(new Point((short)3,(short)2));
         dataMap_.getAccessCondition().put(coordsBlock_, new Condition(leaders_));
         leaders_ = new Condition();
-        leaders_.add(coords(0,4,5,1,1));
+        leaders_.add(newCoords(0,4,5,1,1));
         Coords coords_;
         coords_ = new Coords();
         coords_.setNumberPlace((short) 3);
@@ -273,7 +248,7 @@ public class StepTest extends EquallablePkUtil {
         coords_.getLevel().setPoint(new Point((short)2,(short)2));
         dataMap_.getAccessCondition().put(coords_, leaders_);
         leaders_ = new Condition();
-        leaders_.add(coords(2,4,5,1,1));
+        leaders_.add(newCoords(2,4,5,1,1));
         coords_ = new Coords();
         coords_.setNumberPlace((short) 3);
         coords_.setLevel(new LevelPoint());
@@ -293,7 +268,7 @@ public class StepTest extends EquallablePkUtil {
         coords_.getLevel().setPoint(new Point((short)3,(short)2));
         dataMap_.getAccessCondition().put(coords_, leaders_);
         leaders_ = new Condition();
-        leaders_.add(coords(4,4,5,1,1));
+        leaders_.add(newCoords(4,4,5,1,1));
         coords_ = new Coords();
         coords_.setNumberPlace((short) 5);
         coords_.setLevel(new LevelPoint());
@@ -313,7 +288,7 @@ public class StepTest extends EquallablePkUtil {
         coords_.getLevel().setPoint(new Point((short)2,(short)1));
         dataMap_.getAccessCondition().put(coords_, leaders_);
         leaders_ = new Condition();
-        leaders_.add(coords(8,0,2,1));
+        leaders_.add(newCoords(8,0,2,1));
         coords_ = new Coords();
         coords_.setNumberPlace((short) 8);
         coords_.setLevel(new LevelPoint());
@@ -333,7 +308,7 @@ public class StepTest extends EquallablePkUtil {
         coords_.getLevel().setPoint(new Point((short)3,(short)2));
         dataMap_.getAccessCondition().put(coords_, leaders_);
         Condition leagues_ = new Condition();
-        leagues_.add(coords(9,0,2,4));
+        leagues_.add(newCoords(9,0,2,4));
         coords_ = new Coords();
         coords_.setNumberPlace((short) 10);
         coords_.setLevel(new LevelPoint());
@@ -370,31 +345,31 @@ public class StepTest extends EquallablePkUtil {
         map_.initializeAccessibility();
         Step step_ = new Step(map_.getAccessibility(), map_.getPlaces(), tree_);
         assertEq(2, step_.getImportantsTrainers().size());
-        assertTrue(step_.getImportantsTrainers().containsObj(coords(0, 4, 5, 1, 1)));
-        assertTrue(step_.getImportantsTrainers().containsObj(coords(2, 4, 5, 1, 1)));
+        assertTrue(step_.getImportantsTrainers().containsObj(newCoords(0, 4, 5, 1, 1)));
+        assertTrue(step_.getImportantsTrainers().containsObj(newCoords(2, 4, 5, 1, 1)));
         assertEq(1, step_.getCaughtPokemonPlaceLevel().size());
         assertTrue(step_.getCaughtPokemonPlaceLevel().contains(new PlaceLevel((short)1,(byte)0)));
         assertEq(2, count(step_.getCaughtPokemonPlaceLevel().getVal(new PlaceLevel((short)1,(byte)0))));
         assertTrue(containsGenderName(step_.getCaughtPokemonPlaceLevel().getVal(new PlaceLevel((short)1,(byte)0)),new GenderName(Gender.FEMALE,"PIKACHU")));
         assertTrue(containsGenderName(step_.getCaughtPokemonPlaceLevel().getVal(new PlaceLevel((short)1,(byte)0)),new GenderName(Gender.MALE,"PIKACHU")));
         assertEq(18, step_.getCaughtPokemon().size());
-        assertTrue(step_.getCaughtPokemon().contains(coords(1, 0, 0, 0)));
-        assertTrue(step_.getCaughtPokemon().contains(coords(1, 0, 0, 1)));
-        assertTrue(step_.getCaughtPokemon().contains(coords(1, 0, 0, 2)));
-        assertTrue(step_.getCaughtPokemon().contains(coords(1, 0, 0, 3)));
-        assertTrue(step_.getCaughtPokemon().contains(coords(1, 0, 0, 4)));
-        assertTrue(step_.getCaughtPokemon().contains(coords(1, 0, 1, 0)));
-        assertTrue(step_.getCaughtPokemon().contains(coords(1, 0, 1, 1)));
-        assertTrue(step_.getCaughtPokemon().contains(coords(1, 0, 1, 2)));
-        assertTrue(step_.getCaughtPokemon().contains(coords(1, 0, 1, 3)));
-        assertTrue(step_.getCaughtPokemon().contains(coords(1, 0, 1, 4)));
-        assertTrue(step_.getCaughtPokemon().contains(coords(1, 0, 1, 5)));
-        assertTrue(step_.getCaughtPokemon().contains(coords(1, 0, 2, 0)));
-        assertTrue(step_.getCaughtPokemon().contains(coords(1, 0, 2, 1)));
-        assertTrue(step_.getCaughtPokemon().contains(coords(1, 0, 2, 2)));
-        assertTrue(step_.getCaughtPokemon().contains(coords(1, 0, 2, 3)));
-        assertTrue(step_.getCaughtPokemon().contains(coords(1, 0, 2, 4)));
-        assertTrue(step_.getCaughtPokemon().contains(coords(1, 0, 2, 5)));
+        assertTrue(step_.getCaughtPokemon().contains(newCoords(1, 0, 0, 0)));
+        assertTrue(step_.getCaughtPokemon().contains(newCoords(1, 0, 0, 1)));
+        assertTrue(step_.getCaughtPokemon().contains(newCoords(1, 0, 0, 2)));
+        assertTrue(step_.getCaughtPokemon().contains(newCoords(1, 0, 0, 3)));
+        assertTrue(step_.getCaughtPokemon().contains(newCoords(1, 0, 0, 4)));
+        assertTrue(step_.getCaughtPokemon().contains(newCoords(1, 0, 1, 0)));
+        assertTrue(step_.getCaughtPokemon().contains(newCoords(1, 0, 1, 1)));
+        assertTrue(step_.getCaughtPokemon().contains(newCoords(1, 0, 1, 2)));
+        assertTrue(step_.getCaughtPokemon().contains(newCoords(1, 0, 1, 3)));
+        assertTrue(step_.getCaughtPokemon().contains(newCoords(1, 0, 1, 4)));
+        assertTrue(step_.getCaughtPokemon().contains(newCoords(1, 0, 1, 5)));
+        assertTrue(step_.getCaughtPokemon().contains(newCoords(1, 0, 2, 0)));
+        assertTrue(step_.getCaughtPokemon().contains(newCoords(1, 0, 2, 1)));
+        assertTrue(step_.getCaughtPokemon().contains(newCoords(1, 0, 2, 2)));
+        assertTrue(step_.getCaughtPokemon().contains(newCoords(1, 0, 2, 3)));
+        assertTrue(step_.getCaughtPokemon().contains(newCoords(1, 0, 2, 4)));
+        assertTrue(step_.getCaughtPokemon().contains(newCoords(1, 0, 2, 5)));
         assertEq(179, step_.getAccessibleCoords().size());
         assertTrue(step_.keepSteps());
     }
@@ -409,7 +384,7 @@ public class StepTest extends EquallablePkUtil {
         Step step_ = new Step(map_.getAccessibility(), map_.getPlaces(), tree_);
         step_ = step_.nextStep(map_.getAccessibility(), map_.getPlaces(), tree_);
         assertEq(1, step_.getImportantsTrainers().size());
-        assertTrue(step_.getImportantsTrainers().containsObj(coords(4, 4, 5, 1, 1)));
+        assertTrue(step_.getImportantsTrainers().containsObj(newCoords(4, 4, 5, 1, 1)));
         assertEq(0, step_.getCaughtPokemonPlaceLevel().size());
         assertEq(0, step_.getCaughtPokemon().size());
         assertEq(267, step_.getAccessibleCoords().size());
@@ -427,14 +402,14 @@ public class StepTest extends EquallablePkUtil {
         step_ = step_.nextStep(map_.getAccessibility(), map_.getPlaces(), tree_);
         step_ = step_.nextStep(map_.getAccessibility(), map_.getPlaces(), tree_);
         assertEq(2, step_.getImportantsTrainers().size());
-        assertTrue(step_.getImportantsTrainers().containsObj(coords(6, 4, 5, 1, 1)));
-        assertTrue(step_.getImportantsTrainers().containsObj(coords(8, 0, 2, 1)));
+        assertTrue(step_.getImportantsTrainers().containsObj(newCoords(6, 4, 5, 1, 1)));
+        assertTrue(step_.getImportantsTrainers().containsObj(newCoords(8, 0, 2, 1)));
         assertEq(1, step_.getCaughtPokemonPlaceLevel().size());
         assertTrue(step_.getCaughtPokemonPlaceLevel().contains(new PlaceLevel((short)7,(byte)0)));
         assertEq(1, step_.getCaughtPokemonPlaceLevel().getVal(new PlaceLevel((short)7,(byte)0)).size());
         assertTrue(containsGenderName(step_.getCaughtPokemonPlaceLevel().getVal(new PlaceLevel((short)7,(byte)0)),new GenderName(Gender.NO_GENDER,"ELECTHOR")));
         assertEq(1, step_.getCaughtPokemon().size());
-        assertTrue(step_.getCaughtPokemon().contains(coords(7, 0, 5, 0)));
+        assertTrue(step_.getCaughtPokemon().contains(newCoords(7, 0, 5, 0)));
         assertEq(370, step_.getAccessibleCoords().size());
         assertTrue(step_.keepSteps());
     }
@@ -451,7 +426,7 @@ public class StepTest extends EquallablePkUtil {
         step_ = step_.nextStep(map_.getAccessibility(), map_.getPlaces(), tree_);
         step_ = step_.nextStep(map_.getAccessibility(), map_.getPlaces(), tree_);
         assertEq(1, step_.getImportantsTrainers().size());
-        assertTrue(step_.getImportantsTrainers().containsObj(coords(9, 0, 2, 4)));
+        assertTrue(step_.getImportantsTrainers().containsObj(newCoords(9, 0, 2, 4)));
         assertEq(0, step_.getCaughtPokemonPlaceLevel().size());
         assertEq(0, step_.getCaughtPokemon().size());
         assertEq(430, step_.getAccessibleCoords().size());
@@ -471,7 +446,7 @@ public class StepTest extends EquallablePkUtil {
         step_ = step_.nextStep(map_.getAccessibility(), map_.getPlaces(), tree_);
         step_ = step_.nextStep(map_.getAccessibility(), map_.getPlaces(), tree_);
         assertEq(1, step_.getImportantsTrainers().size());
-        assertTrue(step_.getImportantsTrainers().containsObj(coords(11, 4, 5, 1, 1)));
+        assertTrue(step_.getImportantsTrainers().containsObj(newCoords(11, 4, 5, 1, 1)));
         assertEq(0, step_.getCaughtPokemonPlaceLevel().size());
         assertEq(0, step_.getCaughtPokemon().size());
         assertEq(521, step_.getAccessibleCoords().size());

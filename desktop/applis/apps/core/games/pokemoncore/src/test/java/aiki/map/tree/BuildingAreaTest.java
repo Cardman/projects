@@ -58,10 +58,6 @@ public class BuildingAreaTest extends EquallablePkUtil {
         return c_;
     }
 
-    private static Point point(int _x, int _y) {
-        return new Point((short) _x,(short) _y);
-    }
-
     @Test
     public void initialize1Test() {
         DataMap dataMap_ = new DataMap();
@@ -70,15 +66,15 @@ public class BuildingAreaTest extends EquallablePkUtil {
         City city_ = city();
         dataMap_.getPlaces().add(city_);
         BuildingArea area_ = new BuildingArea();
-        area_.initialize(city_.getBuildings().getVal(point(4,5)));
+        area_.initialize(city_.getBuildings().getVal(newPoint(4,5)));
         assertEq(6, area_.getLevel().getHeight());
         assertEq(6, area_.getLevel().getWidth());
         assertEq(0, area_.getLevel().getPokemon().size());
         assertEq(0, area_.getLevel().getIndexes().size());
-        assertEq(point(0,0), area_.getLevel().getLeftTop());
+        assertEq(newPoint(0,0), area_.getLevel().getLeftTop());
         assertEq(0, area_.getLevel().getInacessiblePoints().size());
         assertEq(1, area_.getLevel().getDimsBlocks().size());
-        assertEq(new Dims(6, 6), area_.getLevel().getDimsBlocks().getVal(point(0, 0)));
+        assertEq(new Dims(6, 6), area_.getLevel().getDimsBlocks().getVal(newPoint(0, 0)));
     }
 
     private static void initPlaces(DataMap _dataMap) {
@@ -93,13 +89,13 @@ public class BuildingAreaTest extends EquallablePkUtil {
         City city_ = city();
         dataMap_.getPlaces().add(city_);
         BuildingArea area_ = new BuildingArea();
-        area_.initialize(city_.getBuildings().getVal(point(4,5)));
-        assertTrue(!area_.isValid(point(9,9)));
-        assertTrue(!area_.isValid(point(8,9)));
-        assertTrue(!area_.isValid(point(-1,-1)));
-        assertTrue(!area_.isValid(point(0,-1)));
-        assertTrue(area_.isValid(point(0,0)));
-        assertTrue(area_.isValid(point(3,3)));
+        area_.initialize(city_.getBuildings().getVal(newPoint(4,5)));
+        assertTrue(!area_.isValid(newPoint(9,9)));
+        assertTrue(!area_.isValid(newPoint(8,9)));
+        assertTrue(!area_.isValid(newPoint(-1,-1)));
+        assertTrue(!area_.isValid(newPoint(0,-1)));
+        assertTrue(area_.isValid(newPoint(0,0)));
+        assertTrue(area_.isValid(newPoint(3,3)));
     }
 
     @Test
@@ -110,11 +106,11 @@ public class BuildingAreaTest extends EquallablePkUtil {
         City city_ = city();
         dataMap_.getPlaces().add(city_);
         BuildingArea area_ = new BuildingArea();
-        area_.initialize(city_.getBuildings().getVal(point(4,5)));
-        assertTrue(!area_.isValid(point(9,9)));
-        assertTrue(!area_.isValid(point(8,9)));
-        assertTrue(!area_.isValid(point(-1,-1)));
-        assertTrue(!area_.isValid(point(0,-1)));
-        assertTrue(area_.isValid(point(0,0)));
+        area_.initialize(city_.getBuildings().getVal(newPoint(4,5)));
+        assertTrue(!area_.isValid(newPoint(9,9)));
+        assertTrue(!area_.isValid(newPoint(8,9)));
+        assertTrue(!area_.isValid(newPoint(-1,-1)));
+        assertTrue(!area_.isValid(newPoint(0,-1)));
+        assertTrue(area_.isValid(newPoint(0,0)));
     }
 }

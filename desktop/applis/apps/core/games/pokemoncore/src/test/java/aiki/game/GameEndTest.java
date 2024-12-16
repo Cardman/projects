@@ -1,7 +1,6 @@
 package aiki.game;
 
 import aiki.db.DataBase;
-import aiki.game.player.enums.Sex;
 import org.junit.Test;
 
 import aiki.game.fight.InitializationDataBase;
@@ -9,9 +8,6 @@ import aiki.game.params.Difficulty;
 import aiki.map.enums.Direction;
 import aiki.map.pokemon.Egg;
 import aiki.map.pokemon.PokemonPlayer;
-import aiki.util.Coords;
-import aiki.util.LevelPoint;
-import aiki.util.Point;
 
 
 public class GameEndTest extends InitializationDataBase {
@@ -326,28 +322,5 @@ public class GameEndTest extends InitializationDataBase {
         first_.setLevel((short) data_.getMaxLevel());
         first_.setHappiness((short) data_.getHappinessMax());
         assertTrue(game_.endGame(data_));
-    }
-
-    private static Coords newCoords(int _place, int _level, int _x, int _y) {
-        Coords begin_ = new Coords();
-        begin_.setNumberPlace((short) _place);
-        begin_.setLevel(new LevelPoint());
-        begin_.getLevel().setLevelIndex((byte) _level);
-        begin_.getLevel().setPoint(new Point((short)_x, (short)_y));
-        return begin_;
-    }
-
-    private static Coords newCoords(int _place, int _level, int _xi, int _yi, int _x, int _y) {
-        Coords begin_ = new Coords();
-        begin_.setNumberPlace((short) _place);
-        begin_.affectInside(newPoint(_xi, _yi));
-        begin_.setLevel(new LevelPoint());
-        begin_.getLevel().setLevelIndex((byte) _level);
-        begin_.getLevel().setPoint(new Point((short)_x, (short)_y));
-        return begin_;
-    }
-
-    private static Point newPoint(int _x,int _y) {
-        return new Point((short)_x, (short)_y);
     }
 }

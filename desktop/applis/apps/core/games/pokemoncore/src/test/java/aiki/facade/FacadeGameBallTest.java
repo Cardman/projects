@@ -10,9 +10,7 @@ import aiki.map.DataMap;
 import aiki.map.levels.AbsAreaApparition;
 import aiki.map.levels.LevelWithWildPokemon;
 import aiki.map.places.Campaign;
-import aiki.util.Coords;
-import aiki.util.LevelPoint;
-import aiki.util.Point;
+import aiki.util.*;
 import code.maths.LgInt;
 import org.junit.Test;
 
@@ -61,15 +59,6 @@ public final class FacadeGameBallTest extends InitializationDataBase {
         assertEq(LgInt.zero(), facadeGame_.getPlayer().getInventory().getNumber(HYPER_BALL));
         assertTrue(facadeGame_.getFight().getFightType().isWild());
         assertEq(FightState.ATTAQUES, facadeGame_.getFight().getState());
-    }
-
-    private static Coords newCoords(int _place, int _level, int _x, int _y) {
-        Coords begin_ = new Coords();
-        begin_.setNumberPlace((short) _place);
-        begin_.setLevel(new LevelPoint());
-        begin_.getLevel().setLevelIndex((byte) _level);
-        begin_.getLevel().setPoint(new Point((short)_x, (short)_y));
-        return begin_;
     }
 
 }

@@ -593,6 +593,45 @@ public abstract class EquallablePkUtil {
         Assert.assertSame(_expected, _result);
     }
 
+    public static Coords newCoords(int _pl, int _xi, int _yi, int _x, int _y) {
+        Coords c_ = new Coords();
+        c_.setNumberPlace((short) _pl);
+        c_.affectInside(new Point((short)_xi,(short)_yi));
+        c_.setLevel(new LevelPoint());
+        c_.getLevel().setLevelIndex((byte) 0);
+        c_.getLevel().setPoint(new Point((short)_x,(short)_y));
+        return c_;
+    }
+    public static Coords newCoords(int _place, int _level, int _x, int _y) {
+        Coords begin_ = new Coords();
+        begin_.setNumberPlace((short) _place);
+        begin_.setLevel(new LevelPoint());
+        begin_.getLevel().setLevelIndex((byte) _level);
+        begin_.getLevel().setPoint(new Point((short)_x, (short)_y));
+        return begin_;
+    }
+
+    public static Coords newCoords(int _place, int _level, int _xi, int _yi, int _x, int _y) {
+        Coords begin_ = new Coords();
+        begin_.setNumberPlace((short) _place);
+        begin_.affectInside(newPoint(_xi, _yi));
+        begin_.setLevel(new LevelPoint());
+        begin_.getLevel().setLevelIndex((byte) _level);
+        begin_.getLevel().setPoint(new Point((short)_x, (short)_y));
+        return begin_;
+    }
+
+    public static LevelPoint newLevelPoint(int _level, int _x,int _y) {
+        LevelPoint l_ = new LevelPoint();
+        l_.setLevelIndex((byte) _level);
+        l_.setPoint(newPoint(_x, _y));
+        return l_;
+    }
+
+    public static Point newPoint(int _x,int _y) {
+        return new Point((short)_x, (short)_y);
+    }
+
     public static TeamPosition tp(int _t, int _p) {
         return new TeamPosition((byte) _t,(byte) _p);
     }

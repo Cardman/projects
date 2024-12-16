@@ -12,9 +12,6 @@ import aiki.game.player.enums.Sex;
 import aiki.map.enums.Direction;
 import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.WildPk;
-import aiki.util.Coords;
-import aiki.util.LevelPoint;
-import aiki.util.Point;
 import code.maths.LgInt;
 import code.util.*;
 import code.util.StringList;
@@ -22,18 +19,7 @@ import code.util.StringList;
 
 public class TeamValidationTest extends InitializationDataBase {
 
-    private static Coords newCoords(int _place, int _level, int _x, int _y) {
-        Coords begin_ = new Coords();
-        begin_.setNumberPlace((short) _place);
-        begin_.setLevel(new LevelPoint());
-        begin_.getLevel().setLevelIndex((byte) _level);
-        begin_.getLevel().setPoint(newPoint(_x, _y));
-        return begin_;
-    }
-
-    private static Point newPoint(int _x,int _y) {
-        return new Point((short)_x, (short)_y);
-    }    @Test
+    @Test
     public void validate1Test(){
         DataBase data_ = initDbFacade();
         Game game_ = newGameInFight(Sex.GIRL, data_);

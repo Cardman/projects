@@ -4,9 +4,6 @@ import aiki.db.DataBase;
 import aiki.db.MessagesDataBaseConstants;
 import aiki.game.fight.InitializationDataBase;
 import aiki.game.player.enums.Sex;
-import aiki.util.Coords;
-import aiki.util.LevelPoint;
-import aiki.util.Point;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -76,14 +73,6 @@ public final class FacadeGameBeginTest extends InitializationDataBase {
     }
     public static StringList indexes(){
         return new StringList(LANGUAGE);
-    }
-    private static Coords newCoords(int _place, int _level, int _x, int _y) {
-        Coords begin_ = new Coords();
-        begin_.setNumberPlace((short) _place);
-        begin_.setLevel(new LevelPoint());
-        begin_.getLevel().setLevelIndex((byte) _level);
-        begin_.getLevel().setPoint(new Point((short)_x, (short)_y));
-        return begin_;
     }
 
 }

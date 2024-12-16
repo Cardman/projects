@@ -9,15 +9,11 @@ import aiki.game.fight.enums.FightState;
 import aiki.game.params.Difficulty;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.player.Player;
-import aiki.game.player.enums.Sex;
 import aiki.map.characters.Ally;
 import aiki.map.characters.DualFight;
 import aiki.map.characters.TempTrainer;
 import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.Gender;
-import aiki.util.Coords;
-import aiki.util.LevelPoint;
-import aiki.util.Point;
 import code.util.CustList;
 import code.util.StringList;
 import org.junit.Test;
@@ -108,17 +104,6 @@ public final class FacadeGameFightSpecTest extends InitializationDataBase {
         facadeGame_.endRoundFightKoUser();
         assertEq(FightState.SWITCH_WHILE_KO_USER, facadeGame_.getFight().getState());
         assertTrue(FightFacade.koTeam(facadeGame_.getFight()));
-    }
-    private static Coords newCoords(int _place, int _level, int _x, int _y) {
-        Coords begin_ = new Coords();
-        begin_.setNumberPlace((short) _place);
-        begin_.setLevel(new LevelPoint());
-        begin_.getLevel().setLevelIndex((byte) _level);
-        begin_.getLevel().setPoint(new Point((short)_x, (short)_y));
-        return begin_;
-    }
-    private static Point newPoint(int _x,int _y) {
-        return new Point((short)_x, (short)_y);
     }
 
 }

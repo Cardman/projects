@@ -5,12 +5,8 @@ import aiki.facade.enums.SearchingMode;
 import aiki.game.Game;
 import aiki.game.fight.InitializationDataBase;
 import aiki.game.params.Difficulty;
-import aiki.game.player.enums.Sex;
 import aiki.map.enums.Direction;
 import aiki.map.pokemon.PokemonPlayer;
-import aiki.util.Coords;
-import aiki.util.LevelPoint;
-import aiki.util.Point;
 import code.maths.LgInt;
 import org.junit.Test;
 
@@ -157,19 +153,6 @@ public final class FacadeGameBuyItemsTest extends InitializationDataBase {
         facadeGame_.buyOrSellItems(false);
         assertEq(LgInt.newLgInt("3000"),facadeGame_.getGame().getPlayer().getMoney());
         assertEq(LgInt.newLgInt("0"),facadeGame_.getGame().getPlayer().getInventory().getNumber(HYPER_BALL));
-    }
-    private static Coords newCoords(int _place, int _level, int _xi, int _yi, int _x, int _y) {
-        Coords begin_ = new Coords();
-        begin_.setNumberPlace((short) _place);
-        begin_.affectInside(newPoint(_xi, _yi));
-        begin_.setLevel(new LevelPoint());
-        begin_.getLevel().setLevelIndex((byte) _level);
-        begin_.getLevel().setPoint(new Point((short)_x, (short)_y));
-        return begin_;
-    }
-
-    private static Point newPoint(int _x,int _y) {
-        return new Point((short)_x, (short)_y);
     }
 
 }

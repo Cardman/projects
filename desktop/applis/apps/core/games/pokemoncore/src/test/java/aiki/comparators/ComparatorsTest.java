@@ -6,9 +6,7 @@ import aiki.fight.pokemon.TrainerPlaceNames;
 import aiki.game.fight.InitializationDataBase;
 import aiki.map.util.PlaceLevel;
 import aiki.map.util.ScreenCoords;
-import aiki.util.Coords;
-import aiki.util.LevelPoint;
-import aiki.util.Point;
+import aiki.util.*;
 import code.util.CustList;
 import org.junit.Test;
 
@@ -84,18 +82,6 @@ public final class ComparatorsTest extends EquallablePkUtil {
         assertEq("0",coords_.get(2).getPlace());
         assertEq("1",coords_.get(3).getTrainer());
         assertEq("1",coords_.get(3).getPlace());
-    }
-    private static Coords newCoords(int _place, int _level, int _x, int _y) {
-        Coords begin_ = new Coords();
-        begin_.setNumberPlace((short) _place);
-        begin_.setLevel(new LevelPoint());
-        begin_.getLevel().setLevelIndex((byte) _level);
-        begin_.getLevel().setPoint(newPoint(_x, _y));
-        return begin_;
-    }
-
-    private static Point newPoint(int _x, int _y) {
-        return new Point((short)_x, (short)_y);
     }
 
 }

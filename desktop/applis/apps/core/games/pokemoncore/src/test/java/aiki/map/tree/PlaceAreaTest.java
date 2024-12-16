@@ -7,11 +7,7 @@ import aiki.util.*;
 import org.junit.Test;
 
 import aiki.map.DataMap;
-import aiki.map.buildings.Building;
 import aiki.map.buildings.Gym;
-import aiki.map.characters.CharacterInRoadCave;
-import aiki.map.characters.DualFight;
-import aiki.map.characters.GymTrainer;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.City;
 import aiki.map.places.Place;
@@ -19,10 +15,7 @@ import aiki.map.places.Road;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.tree.util.Dims;
-import aiki.map.util.PlaceInterConnect;
 import code.util.CustList;
-import code.util.*;
-
 
 
 public class PlaceAreaTest extends EquallablePkUtil {
@@ -84,28 +77,6 @@ public class PlaceAreaTest extends EquallablePkUtil {
         return road_;
     }
 
-    private static Coords coords(int _pl, int _level, int _x,int _y) {
-        Coords c_ = new Coords();
-        c_.setNumberPlace((short) _pl);
-        c_.setLevel(new LevelPoint());
-        c_.getLevel().setLevelIndex((byte) _level);
-        c_.getLevel().setPoint(new Point((short)_x,(short)_y));
-        return c_;
-    }
-    private static Coords coords(int _pl,int _xi,int _yi,int _x,int _y) {
-        Coords c_ = new Coords();
-        c_.setNumberPlace((short) _pl);
-        c_.affectInside(new Point((short)_xi,(short)_yi));
-        c_.setLevel(new LevelPoint());
-        c_.getLevel().setLevelIndex((byte) 0);
-        c_.getLevel().setPoint(new Point((short)_x,(short)_y));
-        return c_;
-    }
-
-    private static Point point(int _x, int _y) {
-        return new Point((short) _x,(short) _y);
-    }
-
     @Test
     public void initialize1Test() {
         DataMap dataMap_ = new DataMap();
@@ -116,41 +87,41 @@ public class PlaceAreaTest extends EquallablePkUtil {
         PlaceArea areaPl_ = new PlaceArea();
         areaPl_.initialize(city_);
         assertEq(1, areaPl_.getBuildings().size());
-        BuildingArea building_ = areaPl_.getBuildings().getVal(point(4,5));
+        BuildingArea building_ = areaPl_.getBuildings().getVal(newPoint(4,5));
         assertEq(6, building_.getLevel().getHeight());
         assertEq(6, building_.getLevel().getWidth());
         assertEq(0, building_.getLevel().getPokemon().size());
         assertEq(0, building_.getLevel().getIndexes().size());
-        assertEq(point(0,0), building_.getLevel().getLeftTop());
+        assertEq(newPoint(0,0), building_.getLevel().getLeftTop());
         assertEq(0, building_.getLevel().getInacessiblePoints().size());
         assertEq(1, building_.getLevel().getDimsBlocks().size());
-        assertEq(new Dims(6, 6), building_.getLevel().getDimsBlocks().getVal(point(0, 0)));
+        assertEq(new Dims(6, 6), building_.getLevel().getDimsBlocks().getVal(newPoint(0, 0)));
         assertEq(1, areaPl_.getLevels().size());
         LevelArea area_ = areaPl_.getLevel((byte) 0);
         assertEq(9, area_.getHeight());
         assertEq(9, area_.getWidth());
         assertEq(0, area_.getPokemon().size());
         assertEq(0, area_.getIndexes().size());
-        assertEq(point(0,0), area_.getLeftTop());
+        assertEq(newPoint(0,0), area_.getLeftTop());
         assertEq(9, area_.getInacessiblePoints().size());
-        assertTrue(area_.getInacessiblePoints().containsObj(point(3,3)));
-        assertTrue(area_.getInacessiblePoints().containsObj(point(3,4)));
-        assertTrue(area_.getInacessiblePoints().containsObj(point(3,5)));
-        assertTrue(area_.getInacessiblePoints().containsObj(point(4,3)));
-        assertTrue(area_.getInacessiblePoints().containsObj(point(4,4)));
-        assertTrue(area_.getInacessiblePoints().containsObj(point(4,5)));
-        assertTrue(area_.getInacessiblePoints().containsObj(point(5,3)));
-        assertTrue(area_.getInacessiblePoints().containsObj(point(5,4)));
-        assertTrue(area_.getInacessiblePoints().containsObj(point(5,5)));
+        assertTrue(area_.getInacessiblePoints().containsObj(newPoint(3,3)));
+        assertTrue(area_.getInacessiblePoints().containsObj(newPoint(3,4)));
+        assertTrue(area_.getInacessiblePoints().containsObj(newPoint(3,5)));
+        assertTrue(area_.getInacessiblePoints().containsObj(newPoint(4,3)));
+        assertTrue(area_.getInacessiblePoints().containsObj(newPoint(4,4)));
+        assertTrue(area_.getInacessiblePoints().containsObj(newPoint(4,5)));
+        assertTrue(area_.getInacessiblePoints().containsObj(newPoint(5,3)));
+        assertTrue(area_.getInacessiblePoints().containsObj(newPoint(5,4)));
+        assertTrue(area_.getInacessiblePoints().containsObj(newPoint(5,5)));
         assertEq(8, area_.getDimsBlocks().size());
-        assertEq(new Dims(3,3), area_.getDimsBlocks().getVal(point(0, 0)));
-        assertEq(new Dims(3,3), area_.getDimsBlocks().getVal(point(0, 3)));
-        assertEq(new Dims(3,3), area_.getDimsBlocks().getVal(point(0, 6)));
-        assertEq(new Dims(3,3), area_.getDimsBlocks().getVal(point(3, 0)));
-        assertEq(new Dims(3,3), area_.getDimsBlocks().getVal(point(3, 6)));
-        assertEq(new Dims(3,3), area_.getDimsBlocks().getVal(point(6, 0)));
-        assertEq(new Dims(3,3), area_.getDimsBlocks().getVal(point(6, 3)));
-        assertEq(new Dims(3,3), area_.getDimsBlocks().getVal(point(6, 6)));
+        assertEq(new Dims(3,3), area_.getDimsBlocks().getVal(newPoint(0, 0)));
+        assertEq(new Dims(3,3), area_.getDimsBlocks().getVal(newPoint(0, 3)));
+        assertEq(new Dims(3,3), area_.getDimsBlocks().getVal(newPoint(0, 6)));
+        assertEq(new Dims(3,3), area_.getDimsBlocks().getVal(newPoint(3, 0)));
+        assertEq(new Dims(3,3), area_.getDimsBlocks().getVal(newPoint(3, 6)));
+        assertEq(new Dims(3,3), area_.getDimsBlocks().getVal(newPoint(6, 0)));
+        assertEq(new Dims(3,3), area_.getDimsBlocks().getVal(newPoint(6, 3)));
+        assertEq(new Dims(3,3), area_.getDimsBlocks().getVal(newPoint(6, 6)));
     }
 
     private static void initPlaces(DataMap _dataMap) {
@@ -184,7 +155,7 @@ public class PlaceAreaTest extends EquallablePkUtil {
         areaApp_.getWildPokemon().add(pk_);
         areaApp_.initializeWildPokemon();
         road_.getLevelRoad().getWildPokemonAreas().add(areaApp_);
-        road_.getLevel().getBlocks().getVal(point(0,0)).setIndexApparition((short) 0);
+        road_.getLevel().getBlocks().getVal(newPoint(0,0)).setIndexApparition((short) 0);
         dataMap_.getPlaces().add( road_);
         PlaceArea areaPl_ = new PlaceArea();
         areaPl_.initialize(road_);
@@ -200,11 +171,11 @@ public class PlaceAreaTest extends EquallablePkUtil {
         assertEq("PIKACHU", area_.getPokemon().first().last().getName());
         assertEq(Gender.MALE, area_.getPokemon().first().last().getGender());
         assertEq(1, area_.getIndexes().size());
-        assertEq(0, area_.getIndexes().getVal(point(0,0)));
-        assertEq(point(0,0), area_.getLeftTop());
+        assertEq(0, area_.getIndexes().getVal(newPoint(0,0)));
+        assertEq(newPoint(0,0), area_.getLeftTop());
         assertEq(0, area_.getInacessiblePoints().size());
         assertEq(1, area_.getDimsBlocks().size());
-        assertEq(new Dims(3,6), area_.getDimsBlocks().getVal(point(0, 0)));
+        assertEq(new Dims(3,6), area_.getDimsBlocks().getVal(newPoint(0, 0)));
     }
 
     @Test
@@ -216,7 +187,7 @@ public class PlaceAreaTest extends EquallablePkUtil {
         dataMap_.getPlaces().add( city_);
         PlaceArea areaPl_ = new PlaceArea();
         areaPl_.initialize(city_);
-        assertTrue(areaPl_.isValid(coords(0, 4, 5, 0, 0), true));
+        assertTrue(areaPl_.isValid(newCoords(0, 4, 5, 0, 0), true));
     }
 
     @Test
@@ -228,7 +199,7 @@ public class PlaceAreaTest extends EquallablePkUtil {
         dataMap_.getPlaces().add( city_);
         PlaceArea areaPl_ = new PlaceArea();
         areaPl_.initialize(city_);
-        assertTrue(!areaPl_.isValid(coords(0, 4, 6, 0, 0), true));
+        assertTrue(!areaPl_.isValid(newCoords(0, 4, 6, 0, 0), true));
     }
 
     @Test
@@ -258,10 +229,10 @@ public class PlaceAreaTest extends EquallablePkUtil {
         areaApp_.getWildPokemon().add(pk_);
         areaApp_.initializeWildPokemon();
         road_.getLevelRoad().getWildPokemonAreas().add(areaApp_);
-        road_.getLevel().getBlocks().getVal(point(0,0)).setIndexApparition((short) 0);
+        road_.getLevel().getBlocks().getVal(newPoint(0,0)).setIndexApparition((short) 0);
         dataMap_.getPlaces().add( road_);
         PlaceArea areaPl_ = new PlaceArea();
         areaPl_.initialize(road_);
-        assertTrue(areaPl_.isValid(coords(0, 0, 0, 0), true));
+        assertTrue(areaPl_.isValid(newCoords(0, 0, 0, 0), true));
     }
 }
