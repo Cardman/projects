@@ -121,6 +121,7 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
     private final EnabledMenu imgHerosMiniMenu = getFrames().getCompoFactory().newMenuItem("4_14");
     private final EnabledMenu imgHerosFrontMenu = getFrames().getCompoFactory().newMenuItem("4_15");
     private final EnabledMenu imgHerosBackMenu = getFrames().getCompoFactory().newMenuItem("4_16");
+    private final FormDataMap formDataMap;
 
     public WindowPkEditor(AbstractProgramInfos _list, FacadeGame _facade) {
         super(_list);
@@ -267,6 +268,9 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         crudGeneFormTm.getFrame().addWindowListener(new ReinitMenu(tmMenu, subsTm_));
         crudGeneFormHm.getFrame().addWindowListener(new ReinitMenu(hmMenu, subsHm_));
         addWindowListener(new QuittingEvent(this));
+        formDataMap = new FormDataMap(this,_facade);
+        formDataMap.updateValues();
+        getCommonFrame().setContentPane(formDataMap.getForm());
         getCommonFrame().setVisible(true);
         getCommonFrame().pack();
     }
@@ -755,5 +759,9 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
 
     public CrudGeneFormEntImgHeros getCrudGeneFormEntImgHerosBack() {
         return crudGeneFormEntImgHerosBack;
+    }
+
+    public FormDataMap getFormDataMap() {
+        return formDataMap;
     }
 }
