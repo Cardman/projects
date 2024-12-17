@@ -7,7 +7,7 @@ import code.util.core.*;
 public abstract class AbsSubscribedTranslationRenamingId implements SubscribedTranslation {
 
     @Override
-    public void update(AbstractProgramInfos _api, FacadeGame _facade, RenamingIdPhase _phase) {
+    public void update(AbstractProgramInfos _api, FacadeGame _facade, RenamingIdPhase _phase, RenamingImgNamePhase _renamingImgNamePhase) {
         if (!StringUtil.quickEq(_phase.getNewId(), _phase.getOldId())) {
             suffix(_api, _facade, _phase);
         }

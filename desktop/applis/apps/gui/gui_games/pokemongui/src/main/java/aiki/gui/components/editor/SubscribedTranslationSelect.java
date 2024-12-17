@@ -12,7 +12,7 @@ public final class SubscribedTranslationSelect implements SubscribedTranslation 
     }
 
     @Override
-    public void update(AbstractProgramInfos _api, FacadeGame _facade, RenamingIdPhase _phase) {
+    public void update(AbstractProgramInfos _api, FacadeGame _facade, RenamingIdPhase _phase, RenamingImgNamePhase _renamingImgNamePhase) {
         input.reset();
     }
 }

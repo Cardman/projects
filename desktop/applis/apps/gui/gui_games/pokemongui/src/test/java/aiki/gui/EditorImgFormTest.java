@@ -10,12 +10,8 @@ import aiki.map.enums.Direction;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.enums.Gender;
 import aiki.sml.*;
-import code.gui.*;
 import code.gui.files.*;
-import code.images.*;
 import code.mock.*;
-import code.sml.*;
-import code.sml.core.*;
 import code.stream.*;
 import code.util.IdMap;
 import code.util.StringMap;
@@ -821,24 +817,14 @@ public final class EditorImgFormTest extends InitEditorPkForm {
     private void tryLoadEmpty(GeneComponentModelImg _g) {
         tryLoad(_g, "_");
     }
-    private void tryLoad(GeneComponentModelImg _g, String _f) {
-        tryLoad(_g.getContent(), _f);
-    }
+
     private void tryLoad(GeneComponentModelImgFree _g) {
         tryLoad(_g, "_1");
     }
     private void tryLoadEmpty(GeneComponentModelImgFree _g) {
         tryLoad(_g, "_");
     }
-    private void tryLoad(GeneComponentModelImgFree _g, String _f) {
-        tryLoad(_g.getContent(), _f);
-    }
 
-    private void tryLoad(ContentGeneComponentModelImg _g, String _f) {
-        _g.getFileDialogContent().getFileName().setText(_f);
-        ((MockAbstractAction) GuiBaseUtil.getAction(_g.getFileDialogContent().getFileName(), GuiConstants.VK_ENTER,0)).action();
-        ((MockPlainButton) _g.getFileDialogContent().getButtons().getComponent(0)).getActionListeners().first().action();
-    }
     private void tryLoad(GeneComponentModelImgType _g) {
         _g.getRed().setValue(51);
         _g.getGreen().setValue(117);
@@ -872,20 +858,6 @@ public final class EditorImgFormTest extends InitEditorPkForm {
         MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(_m.getTranslations()));
         MessagesGuiFct.enTr(MessagesGuiFct.initAppliTr(_m.getTranslations().getMapping().getVal(EN)));
         MessagesGuiFct.frTr(MessagesGuiFct.initAppliTr(_m.getTranslations().getMapping().getVal(FR)));
-    }
-
-    private static String imgDoc(int[][] _img, MockProgramInfos _pr) {
-//    private static String imgDoc(ImageArrayBaseSixtyFour _img, String _kind, String _name)
-        String base_ = GamesPk.baseEncode(_pr.getTranslations());
-        String res_ = BaseSixtyFourUtil.getStringByImage(_img, base_);
-        Document doc_ = DocumentBuilder.newXmlDocument();
-        Element element_ = doc_.createElement(DocumentWriterCoreUtil.ANON_TAG);
-//        element_.setAttribute(DocumentWriterCoreUtil.FIELD,_kind);
-//        element_.setAttribute(DocumentWriterCoreUtil.VALUE,_name);
-        element_.setAttribute(DocumentWriterAikiCoreUtil.ATTR_IMG,res_);
-        element_.setAttribute(DocumentWriterAikiCoreUtil.ATTR_IMG_BASE, base_);
-        doc_.appendChild(element_);
-        return doc_.export();
     }
 
     private CrudGeneFormEntImg crudMiniPk(WindowPkEditor _crud) {

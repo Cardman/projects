@@ -44,12 +44,16 @@ public final class GeneComponentModelElt<T> extends GeneComponentModelEltCommon<
             return;
         }
         T selected_ = tryRet();
+        updateVal(selected_);
+    }
+
+    public void updateVal(T _selected) {
         getElements().reset();
         select.clear();
         for (T e: getElements().getKeys()) {
             select.add(e);
         }
-        setupValue(selected_);
+        setupValue(_selected);
     }
 
     public AbsStringScrollCustomCombo<T> buildSelect() {

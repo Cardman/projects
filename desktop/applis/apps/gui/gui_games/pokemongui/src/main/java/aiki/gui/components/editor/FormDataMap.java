@@ -15,10 +15,12 @@ public final class FormDataMap {
     private final AbsSpinner spaceBetweenTopAndHeros;
     private final AbsSpinner sideLength;
     private final AbsScrollPane wildPkContent;
+    private final AbsScrollPane unlockedCityContent;
     private final AbsButton applyMapModif;
     private final AbsPanel form;
     private final IdList<SubscribedTranslation> translations = new IdList<SubscribedTranslation>();
     private final FormWildPk formWildPk;
+    private final GeneComponentModelImgSelect unlockedCity;
 
     public FormDataMap(WindowPkEditor _ed, FacadeGame _facade, SubscribedTranslationList _subscriptions) {
         formWildPk = new FormWildPk(_ed, _facade, _subscriptions);
@@ -41,6 +43,9 @@ public final class FormDataMap {
         form.add(applyMapModif);
         wildPkContent = frames_.getCompoFactory().newAbsScrollPane();
         form.add(wildPkContent);
+        unlockedCityContent = frames_.getCompoFactory().newAbsScrollPane();
+        form.add(unlockedCityContent);
+        unlockedCity = new GeneComponentModelImgSelect(frames_,_facade,_subscriptions.getImgRetrieverMiniMapSub());
     }
 
     public void updateValues() {
@@ -53,6 +58,10 @@ public final class FormDataMap {
         formWildPk.feedForm(dm_.getFirstPokemon());
         formWildPk.feedSubs(translations);
         wildPkContent.setViewportView(formWildPk.getForm());
+        unlockedCityContent.setViewportView(unlockedCity.gene());
+        unlockedCity.getName().getSelectUniq().getSelect().addListener(new GeneComponentModelImgSelectEvent(unlockedCity));
+        unlockedCity.updateValue(dm_.getUnlockedCity());
+        translations.addAllElts(unlockedCity.subs());
     }
     public void update() {
         DataMap dm_ = getFacadeGame().getData().getMap();
@@ -62,6 +71,7 @@ public final class FormDataMap {
         dm_.setSpaceBetweenTopAndHeros(spaceBetweenTopAndHeros.getValue());
         dm_.setSideLength(sideLength.getValue());
         dm_.setFirstPokemon(formWildPk.buildEntity());
+        dm_.setUnlockedCity(unlockedCity.getName().tryRet());
     }
     public AbsSpinner getScreenWidth() {
         return screenWidth;
@@ -85,6 +95,10 @@ public final class FormDataMap {
 
     public FormWildPk getFormWildPk() {
         return formWildPk;
+    }
+
+    public GeneComponentModelImgSelect getUnlockedCity() {
+        return unlockedCity;
     }
 
     public AbsButton getApplyMapModif() {

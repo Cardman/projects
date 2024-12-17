@@ -87,6 +87,9 @@ public final class ConverterCommonMapUtil {
     public static GeneComponentModelLsStrSub<Short,Shorts> buildHmList(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
         return mergeLsNb(_api, _facade, _sub.getFactoryMv(), _sub.getFactoryHm());
     }
+    public static GeneComponentModelEltEnumSub<String> buildImg(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationMessagesFactoryImgName _img) {
+        return new StringSubscribeBuilderUtil(_img).mergeQuick(_api, _facade, new CustList<String>(), new StringMap<String>(), new EmptyDefValue());
+    }
     public static GeneComponentModelEltEnumSub<String> merge(AbstractProgramInfos _api, FacadeGame _sub, SubscribedTranslationMessagesFactoryCoreMessages<String> _builder, CustList<String> _excluded, AbsMap<String,String> _withEmptyStr) {
         return new StringSubscribeBuilderUtil(_builder).merge(_api,_sub,_excluded,_withEmptyStr);
     }

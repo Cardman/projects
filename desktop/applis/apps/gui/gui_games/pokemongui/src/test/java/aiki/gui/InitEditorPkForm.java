@@ -12,11 +12,15 @@ import aiki.gui.components.editor.*;
 import aiki.instances.*;
 import aiki.map.levels.enums.*;
 import aiki.map.pokemon.enums.*;
+import aiki.sml.*;
 import code.gui.*;
 import code.gui.initialize.*;
+import code.images.*;
 import code.maths.litteral.*;
 import code.maths.montecarlo.*;
 import code.mock.*;
+import code.sml.*;
+import code.sml.core.*;
 import code.sml.util.*;
 import code.util.*;
 import code.util.core.*;
@@ -52,6 +56,34 @@ public abstract class InitEditorPkForm extends EquallableAikiGuiUtil {
 
     public static void enterTextField(AbsTextField _t) {
         ((MockTextField)_t).getAbsAdvActionListeners().get(0).action(null,null);
+    }
+
+    public static String imgDoc(int[][] _img, MockProgramInfos _pr) {
+//    private static String imgDoc(ImageArrayBaseSixtyFour _img, String _kind, String _name)
+        String base_ = GamesPk.baseEncode(_pr.getTranslations());
+        String res_ = BaseSixtyFourUtil.getStringByImage(_img, base_);
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        Element element_ = doc_.createElement(DocumentWriterCoreUtil.ANON_TAG);
+//        element_.setAttribute(DocumentWriterCoreUtil.FIELD,_kind);
+//        element_.setAttribute(DocumentWriterCoreUtil.VALUE,_name);
+        element_.setAttribute(DocumentWriterAikiCoreUtil.ATTR_IMG,res_);
+        element_.setAttribute(DocumentWriterAikiCoreUtil.ATTR_IMG_BASE, base_);
+        doc_.appendChild(element_);
+        return doc_.export();
+    }
+
+    public static void tryLoad(GeneComponentModelImg _g, String _f) {
+        tryLoad(_g.getContent(), _f);
+    }
+
+    public static void tryLoad(GeneComponentModelImgFree _g, String _f) {
+        tryLoad(_g.getContent(), _f);
+    }
+
+    public static void tryLoad(ContentGeneComponentModelImg _g, String _f) {
+        _g.getFileDialogContent().getFileName().setText(_f);
+        ((MockAbstractAction) GuiBaseUtil.getAction(_g.getFileDialogContent().getFileName(), GuiConstants.VK_ENTER,0)).action();
+        ((MockPlainButton) _g.getFileDialogContent().getButtons().getComponent(0)).getActionListeners().first().action();
     }
 
     protected WindowPkEditor window(AbstractProgramInfos _core, FacadeGame _facade) {
