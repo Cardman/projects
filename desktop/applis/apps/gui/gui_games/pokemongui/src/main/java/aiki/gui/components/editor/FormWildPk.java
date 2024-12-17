@@ -15,6 +15,7 @@ public final class FormWildPk {
     private GeneComponentModelEltEnumSub<String> item;
     private GeneComponentModelEltEnumSub<Gender> gender;
     private final GeneComponentModelInt level;
+    private WildPk wildPk;
     private AbsPanel form;
     public FormWildPk(WindowPkEditor _ed, FacadeGame _facade, SubscribedTranslationList _sub) {
         window = _ed;
@@ -24,21 +25,22 @@ public final class FormWildPk {
     }
 
     public void feedForm(WildPk _wp) {
+        wildPk = ConverterCommonMapUtil.copyWildPk(_wp);
         form = window.getFrames().getCompoFactory().newPageBox();
         form.add(level.geneInt());
-        level.valueInt(_wp.getLevel());
+        level.valueInt(wildPk.getLevel());
         name = ConverterCommonMapUtil.buildPkFull(window.getFrames(), facadeGame, subscribedTranslationList);
         form.add(name.geneEnum());
-        name.setupValue(_wp.getName());
+        name.setupValue(wildPk.getName());
         ability = ConverterCommonMapUtil.buildAbFull(window.getFrames(), facadeGame, subscribedTranslationList, new IdMap<String, String>());
         form.add(ability.geneEnum());
-        ability.setupValue(_wp.getName());
-        item = ConverterCommonMapUtil.buildItFull(window.getFrames(), facadeGame, subscribedTranslationList, new IdMap<String, String>());
+        ability.setupValue(wildPk.getName());
+        item = ConverterCommonMapUtil.buildItFull(window.getFrames(), facadeGame, subscribedTranslationList, ConverterCommonMapUtil.defKeyEmpty(" "));
         form.add(item.geneEnum());
-        item.setupValue(_wp.getName());
+        item.setupValue(wildPk.getName());
         gender = ConverterCommonMapUtil.buildGender(window.getFrames(), facadeGame, subscribedTranslationList);
         form.add(gender.geneEnum());
-        gender.setupValue(_wp.getGender());
+        gender.setupValue(wildPk.getGender());
     }
 
     public void feedSubs(IdList<SubscribedTranslation> _subs) {
@@ -48,12 +50,17 @@ public final class FormWildPk {
         _subs.addAllElts(gender.getSubs());
     }
 
-    public void buildEntity(WildPk _wp) {
-        _wp.setLevel((short) level.valueInt());
-        _wp.setName(name.tryRet());
-        _wp.setAbility(ability.tryRet());
-        _wp.setItem(item.tryRet());
-        _wp.setGender(gender.tryRet());
+    public WildPk buildEntity() {
+        wildPk.setLevel((short) level.valueInt());
+        wildPk.setName(name.tryRet());
+        wildPk.setAbility(ability.tryRet());
+        wildPk.setItem(item.tryRet());
+        wildPk.setGender(gender.tryRet());
+        return getWildPk();
+    }
+
+    public WildPk getWildPk() {
+        return wildPk;
     }
 
     public AbsPanel getForm() {

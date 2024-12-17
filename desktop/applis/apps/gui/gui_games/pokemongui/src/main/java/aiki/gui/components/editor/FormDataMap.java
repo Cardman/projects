@@ -1,9 +1,7 @@
 package aiki.gui.components.editor;
 
 import aiki.facade.*;
-import aiki.instances.*;
 import aiki.map.*;
-import aiki.map.pokemon.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.util.*;
@@ -63,9 +61,7 @@ public final class FormDataMap {
         dm_.setSpaceBetweenLeftAndHeros(spaceBetweenLeftAndHeros.getValue());
         dm_.setSpaceBetweenTopAndHeros(spaceBetweenTopAndHeros.getValue());
         dm_.setSideLength(sideLength.getValue());
-        WildPk f_ = Instances.newWildPk();
-        formWildPk.buildEntity(f_);
-        dm_.setFirstPokemon(f_);
+        dm_.setFirstPokemon(formWildPk.buildEntity());
     }
     public AbsSpinner getScreenWidth() {
         return screenWidth;

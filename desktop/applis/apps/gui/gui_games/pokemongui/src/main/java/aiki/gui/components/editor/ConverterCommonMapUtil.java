@@ -17,6 +17,7 @@ import aiki.fight.status.*;
 import aiki.fight.status.effects.*;
 import aiki.fight.util.*;
 import aiki.map.levels.enums.*;
+import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.*;
 import code.gui.*;
 import code.gui.initialize.*;
@@ -173,6 +174,18 @@ public final class ConverterCommonMapUtil {
             i_.addEntry(GenderRepartition.getGenderRepartitionByName(e.getKey()),e.getValue());
         }
         return i_;
+    }
+    public static WildPk copyWildPk(WildPk _e) {
+        WildPk cp_ = new WildPk();
+        copyPokemon(cp_,_e);
+        return cp_;
+    }
+    public static void copyPokemon(Pokemon _cp,Pokemon _e) {
+        _cp.setName(_e.getName());
+        _cp.setAbility(_e.getAbility());
+        _cp.setItem(_e.getItem());
+        _cp.setGender(_e.getGender());
+        _cp.setLevel(_e.getLevel());
     }
     public static AbilityData copyAbilityData(AbilityData _e){
         AbilityData cp_ = new AbilityData();
