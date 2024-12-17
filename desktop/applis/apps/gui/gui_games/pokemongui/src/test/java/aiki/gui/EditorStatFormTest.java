@@ -259,7 +259,9 @@ public final class EditorStatFormTest extends InitEditorPkForm {
         facade_.getData().getTranslatedAbilities().addEntry(pr_.getLanguage(),new StringMap<String>());
         facade_.getData().getTranslatedMoves().addEntry(pr_.getLanguage(),new StringMap<String>());
         facade_.getData().getTranslatedStatus().addEntry(pr_.getLanguage(),new StringMap<String>());
+        facade_.getData().getTranslatedItems().addEntry(pr_.getLanguage(), new StringMap<String>());
         facade_.getData().getTranslatedStatistics().addEntry(pr_.getLanguage(), new IdMap<Statistic, String>());
+        facade_.getData().getTranslatedGenders().addEntry(pr_.getLanguage(), new IdMap<Gender, String>());
         WindowPkEditor w_ = window(pr_, facade_);
         tryClick(w_.getPkMenu());
         CrudGeneFormEnt<PokemonData> c_ = w_.getCrudGeneFormPk();

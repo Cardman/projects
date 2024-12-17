@@ -1,9 +1,12 @@
 package aiki.gui.components.editor;
 
 import aiki.facade.*;
+import aiki.instances.*;
 import aiki.map.*;
+import aiki.map.pokemon.*;
 import code.gui.*;
 import code.gui.initialize.*;
+import code.util.*;
 
 public final class FormDataMap {
     private final WindowPkEditor window;
@@ -13,9 +16,14 @@ public final class FormDataMap {
     private final AbsSpinner spaceBetweenLeftAndHeros;
     private final AbsSpinner spaceBetweenTopAndHeros;
     private final AbsSpinner sideLength;
+    private final AbsScrollPane wildPkContent;
     private final AbsButton applyMapModif;
     private final AbsPanel form;
-    public FormDataMap(WindowPkEditor _ed, FacadeGame _facade) {
+    private final IdList<SubscribedTranslation> translations = new IdList<SubscribedTranslation>();
+    private final FormWildPk formWildPk;
+
+    public FormDataMap(WindowPkEditor _ed, FacadeGame _facade, SubscribedTranslationList _subscriptions) {
+        formWildPk = new FormWildPk(_ed, _facade, _subscriptions);
         window = _ed;
         facadeGame = _facade;
         AbstractProgramInfos frames_ = getWindow().getFrames();
@@ -33,6 +41,8 @@ public final class FormDataMap {
         form.add(spaceBetweenTopAndHeros);
         form.add(sideLength);
         form.add(applyMapModif);
+        wildPkContent = frames_.getCompoFactory().newAbsScrollPane();
+        form.add(wildPkContent);
     }
 
     public void updateValues() {
@@ -42,6 +52,9 @@ public final class FormDataMap {
         spaceBetweenLeftAndHeros.setValue(dm_.getSpaceBetweenLeftAndHeros());
         spaceBetweenTopAndHeros.setValue(dm_.getSpaceBetweenTopAndHeros());
         sideLength.setValue(dm_.getSideLength());
+        formWildPk.feedForm(dm_.getFirstPokemon());
+        formWildPk.feedSubs(translations);
+        wildPkContent.setViewportView(formWildPk.getForm());
     }
     public void update() {
         DataMap dm_ = getFacadeGame().getData().getMap();
@@ -50,6 +63,9 @@ public final class FormDataMap {
         dm_.setSpaceBetweenLeftAndHeros(spaceBetweenLeftAndHeros.getValue());
         dm_.setSpaceBetweenTopAndHeros(spaceBetweenTopAndHeros.getValue());
         dm_.setSideLength(sideLength.getValue());
+        WildPk f_ = Instances.newWildPk();
+        formWildPk.buildEntity(f_);
+        dm_.setFirstPokemon(f_);
     }
     public AbsSpinner getScreenWidth() {
         return screenWidth;
@@ -71,6 +87,10 @@ public final class FormDataMap {
         return sideLength;
     }
 
+    public FormWildPk getFormWildPk() {
+        return formWildPk;
+    }
+
     public AbsButton getApplyMapModif() {
         return applyMapModif;
     }
@@ -87,4 +107,7 @@ public final class FormDataMap {
         return facadeGame;
     }
 
+    public IdList<SubscribedTranslation> getTranslations() {
+        return translations;
+    }
 }

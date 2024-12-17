@@ -8,6 +8,7 @@ import aiki.game.player.enums.Sex;
 import aiki.gui.components.editor.*;
 import aiki.map.enums.Direction;
 import aiki.map.levels.enums.EnvironmentType;
+import aiki.map.pokemon.enums.Gender;
 import aiki.sml.*;
 import code.gui.*;
 import code.gui.files.*;
@@ -16,6 +17,7 @@ import code.mock.*;
 import code.sml.*;
 import code.sml.core.*;
 import code.stream.*;
+import code.util.IdMap;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -103,6 +105,9 @@ public final class EditorImgFormTest extends InitEditorPkForm {
         messages(pr_);
         FacadeGame facade_ = core(pr_);
         facade_.getData().getTranslatedPokemon().addEntry(pr_.getLanguage(),new StringMap<String>());
+        facade_.getData().getTranslatedAbilities().addEntry(pr_.getLanguage(),new StringMap<String>());
+        facade_.getData().getTranslatedItems().addEntry(pr_.getLanguage(),new StringMap<String>());
+        facade_.getData().getTranslatedGenders().addEntry(pr_.getLanguage(),new IdMap<Gender, String>());
         WindowPkEditor sub_ = window(pr_, facade_);
         CrudGeneFormEntImg c_ = crudMiniPk(sub_);
         tryClick(c_.getAdd());
@@ -301,6 +306,9 @@ public final class EditorImgFormTest extends InitEditorPkForm {
         MockProgramInfos pr_ = initForms();
         messages(pr_);
         FacadeGame facade_ = core(pr_);
+        facade_.getData().getTranslatedAbilities().addEntry(pr_.getLanguage(),new StringMap<String>());
+        facade_.getData().getTranslatedItems().addEntry(pr_.getLanguage(),new StringMap<String>());
+        facade_.getData().getTranslatedGenders().addEntry(pr_.getLanguage(),new IdMap<Gender, String>());
         facade_.getData().getTranslatedPokemon().addEntry(pr_.getLanguage(),new StringMap<String>());
         WindowPkEditor sub_ = window(pr_, facade_);
         CrudGeneFormEntImgFree c_ = crudLinks(sub_);
@@ -532,6 +540,10 @@ public final class EditorImgFormTest extends InitEditorPkForm {
         MockProgramInfos pr_ = initForms();
         messages(pr_);
         FacadeGame facade_ = core(pr_);
+        facade_.getData().getTranslatedAbilities().addEntry(pr_.getLanguage(),new StringMap<String>());
+        facade_.getData().getTranslatedItems().addEntry(pr_.getLanguage(),new StringMap<String>());
+        facade_.getData().getTranslatedPokemon().addEntry(pr_.getLanguage(),new StringMap<String>());
+        facade_.getData().getTranslatedGenders().addEntry(pr_.getLanguage(),new IdMap<Gender, String>());
         facade_.getData().getTranslatedTypes().addEntry(pr_.getLanguage(),new StringMap<String>());
         WindowPkEditor sub_ = window(pr_, facade_);
         CrudGeneFormEntImgType c_ = crudTypeColor(sub_);
