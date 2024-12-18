@@ -65,12 +65,17 @@ public final class FormDataMap {
         formWildPk.feedSubs(translations);
         wildPkContent.setViewportView(formWildPk.getForm());
         unlockedCityContent.setViewportView(unlockedCity.gene());
-        unlockedCity.getName().getSelectUniq().getSelect().addListener(new GeneComponentModelImgSelectEvent(unlockedCity));
+        baseSelectImage(unlockedCity);
         unlockedCity.updateValue(dm_.getUnlockedCity());
         translations.addAllElts(unlockedCity.subs());
         crudPlace.initFormAll();
         placesContent.setViewportView(crudPlace.getGroup());
     }
+
+    static void baseSelectImage(GeneComponentModelImgSelect _sel) {
+        _sel.getName().getSelectUniq().getSelect().addListener(new GeneComponentModelImgSelectEvent(_sel));
+    }
+
     public void update() {
         DataMap dm_ = getFacadeGame().getData().getMap();
         dm_.setScreenWidth(screenWidth.getValue());

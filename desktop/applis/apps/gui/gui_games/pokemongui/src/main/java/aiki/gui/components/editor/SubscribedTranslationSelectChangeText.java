@@ -17,6 +17,8 @@ public final class SubscribedTranslationSelectChangeText implements SubscribedTr
         if (!StringUtil.quickEq(_renamingImgNamePhase.getOldId(), _renamingImgNamePhase.getNewId())) {
             if (StringUtil.quickEq(input.tryRet(), _renamingImgNamePhase.getOldId())) {
                 input.updateVal(_renamingImgNamePhase.getNewId());
+            } else {
+                input.reset();
             }
         } else {
             input.reset();
