@@ -15,6 +15,7 @@ public final class MessagesPkEditor {
     public static final String CONST_VALUES = "cst_values";
     public static final String RESTRICT = "restrict";
     public static final String HEROS_SEX = "heros";
+    public static final String PLACE = "place";
     private MessagesPkEditor() {
     }
 
@@ -40,6 +41,7 @@ public final class MessagesPkEditor {
         appendMessagesEditorSelectConstValuesType(_lgs,MessagesEditorSelect.enConstValuesType());
         appendMessagesEditorSelectMoveChoiceRestrictionType(_lgs,MessagesEditorSelect.enMoveChoiceRestrictionType());
         appendMessagesEditorSelectHerosSex(_lgs,MessagesEditorSelect.enHerosSex());
+        appendMessagesEditorSelectPlace(_lgs,MessagesEditorSelect.enPlace());
     }
 
     public static void frTr(TranslationsAppli _lgs) {
@@ -54,6 +56,7 @@ public final class MessagesPkEditor {
         appendMessagesEditorSelectConstValuesType(_lgs,MessagesEditorSelect.frConstValuesType());
         appendMessagesEditorSelectMoveChoiceRestrictionType(_lgs,MessagesEditorSelect.frMoveChoiceRestrictionType());
         appendMessagesEditorSelectHerosSex(_lgs,MessagesEditorSelect.frHerosSex());
+        appendMessagesEditorSelectPlace(_lgs,MessagesEditorSelect.frPlace());
     }
 
     public static void appendMessagesEditorSelectGenderRep(TranslationsAppli _lgs, TranslationsFile _f) {
@@ -94,6 +97,9 @@ public final class MessagesPkEditor {
     public static void appendMessagesEditorSelectHerosSex(TranslationsAppli _lgs, TranslationsFile _f) {
         _lgs.getMapping().addEntry(HEROS_SEX, _f);
     }
+    public static void appendMessagesEditorSelectPlace(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(PLACE, _f);
+    }
     public static TranslationsFile getMessagesEditorSelectGenderRepTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(GENDER_REP);
     }
@@ -126,5 +132,8 @@ public final class MessagesPkEditor {
     }
     public static TranslationsFile getMessagesEditorSelectHerosSexTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(HEROS_SEX);
+    }
+    public static TranslationsFile getMessagesEditorSelectPlaceTr(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(PLACE);
     }
 }

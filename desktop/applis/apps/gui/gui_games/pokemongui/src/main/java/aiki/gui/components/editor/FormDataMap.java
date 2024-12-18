@@ -16,14 +16,17 @@ public final class FormDataMap {
     private final AbsSpinner sideLength;
     private final AbsScrollPane wildPkContent;
     private final AbsScrollPane unlockedCityContent;
+    private final AbsScrollPane placesContent;
     private final AbsButton applyMapModif;
     private final AbsPanel form;
-    private final IdList<SubscribedTranslation> translations = new IdList<SubscribedTranslation>();
+    private final IdList<SubscribedTranslation> translations;
     private final FormWildPk formWildPk;
     private final GeneComponentModelImgSelect unlockedCity;
+    private final CrudGeneFormEntPlace crudPlace;
 
-    public FormDataMap(WindowPkEditor _ed, FacadeGame _facade, SubscribedTranslationList _subscriptions) {
+    public FormDataMap(WindowPkEditor _ed, FacadeGame _facade, SubscribedTranslationList _subscriptions, IdList<SubscribedTranslation> _trs) {
         formWildPk = new FormWildPk(_ed, _facade, _subscriptions);
+        translations = _trs;
         window = _ed;
         facadeGame = _facade;
         AbstractProgramInfos frames_ = getWindow().getFrames();
@@ -34,6 +37,7 @@ public final class FormDataMap {
         sideLength = frames_.getCompoFactory().newSpinner(1,1,Integer.MAX_VALUE, 1);
         applyMapModif = frames_.getCompoFactory().newPlainButton("_");
         applyMapModif.addActionListener(new ApplyModifDataMapDimsEvent(this));
+        crudPlace = new CrudGeneFormEntPlace(_ed.getFrames(),_facade,_subscriptions,window.getCommonFrame());
         form = frames_.getCompoFactory().newPageBox();
         form.add(screenWidth);
         form.add(screenHeight);
@@ -45,6 +49,8 @@ public final class FormDataMap {
         form.add(wildPkContent);
         unlockedCityContent = frames_.getCompoFactory().newAbsScrollPane();
         form.add(unlockedCityContent);
+        placesContent = frames_.getCompoFactory().newAbsScrollPane();
+        form.add(placesContent);
         unlockedCity = new GeneComponentModelImgSelect(frames_,_facade,_subscriptions.getImgRetrieverMiniMapSub());
     }
 
@@ -62,6 +68,8 @@ public final class FormDataMap {
         unlockedCity.getName().getSelectUniq().getSelect().addListener(new GeneComponentModelImgSelectEvent(unlockedCity));
         unlockedCity.updateValue(dm_.getUnlockedCity());
         translations.addAllElts(unlockedCity.subs());
+        crudPlace.initFormAll();
+        placesContent.setViewportView(crudPlace.getGroup());
     }
     public void update() {
         DataMap dm_ = getFacadeGame().getData().getMap();
@@ -72,6 +80,7 @@ public final class FormDataMap {
         dm_.setSideLength(sideLength.getValue());
         dm_.setFirstPokemon(formWildPk.buildEntity());
         dm_.setUnlockedCity(unlockedCity.getName().tryRet());
+        dm_.setPlaces(crudPlace.getList());
     }
     public AbsSpinner getScreenWidth() {
         return screenWidth;
@@ -101,6 +110,10 @@ public final class FormDataMap {
         return unlockedCity;
     }
 
+    public CrudGeneFormEntPlace getCrudPlace() {
+        return crudPlace;
+    }
+
     public AbsButton getApplyMapModif() {
         return applyMapModif;
     }
@@ -117,7 +130,4 @@ public final class FormDataMap {
         return facadeGame;
     }
 
-    public IdList<SubscribedTranslation> getTranslations() {
-        return translations;
-    }
 }

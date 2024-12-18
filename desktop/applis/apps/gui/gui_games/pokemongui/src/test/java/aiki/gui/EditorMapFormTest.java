@@ -2,7 +2,11 @@ package aiki.gui;
 
 import aiki.facade.*;
 import aiki.gui.components.editor.*;
+import aiki.instances.*;
+import aiki.map.enums.*;
+import aiki.map.places.*;
 import aiki.map.pokemon.enums.*;
+import aiki.map.util.*;
 import aiki.sml.*;
 import code.gui.files.*;
 import code.mock.*;
@@ -85,6 +89,102 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         tryClick(n_.getValidAddEdit());
         tryClick(sub_.getFormDataMap().getApplyMapModif());
         assertEq(P_1,facade_.getData().getMap().getUnlockedCity());
+    }
+    @Test
+    public void place1() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAdd());
+        ConverterCommonMapUtil.trigger(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getPlaceKind(),MessagesEditorSelect.PLACE_CITY);
+        ((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getName().valueString("_");
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        assertEq("_",facade_.getData().getMap().getPlace(0).getName());
+    }
+    @Test
+    public void place2() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAdd());
+        ConverterCommonMapUtil.trigger(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getPlaceKind(),MessagesEditorSelect.PLACE_ROAD);
+        ((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getName().valueString("_");
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        assertEq("_",facade_.getData().getMap().getPlace(0).getName());
+    }
+    @Test
+    public void place3() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAdd());
+        ConverterCommonMapUtil.trigger(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getPlaceKind(),MessagesEditorSelect.PLACE_CAVE);
+        ((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getName().valueString("_");
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        assertEq("_",facade_.getData().getMap().getPlace(0).getName());
+    }
+    @Test
+    public void place4() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAdd());
+        ConverterCommonMapUtil.trigger(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getPlaceKind(),MessagesEditorSelect.PLACE_LEAGUE);
+        ((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getName().valueString("_");
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        assertEq("_",facade_.getData().getMap().getPlace(0).getName());
+    }
+    @Test
+    public void place5() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        City f_ = Instances.newCity();
+        f_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(0,0), Direction.RIGHT),newCoords(1,0,0,0));
+        facade_.getData().getMap().addPlace(f_);
+        facade_.getData().getMap().addPlace(Instances.newCity());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(1));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidRemove());
+        assertEq(2,facade_.getData().getMap().getPlaces().size());
+    }
+    @Test
+    public void place6() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMap().addPlace(Instances.newCity());
+        facade_.getData().getMap().addPlace(Instances.newCity());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(1));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidRemove());
+        assertEq(1,facade_.getData().getMap().getPlaces().size());
+    }
+    @Test
+    public void place7() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAdd());
+        ConverterCommonMapUtil.trigger(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getPlaceKind(),MessagesEditorSelect.PLACE_CITY);
+        ((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getName().valueString("_");
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        ((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getName().valueString("__");
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        assertEq("__",facade_.getData().getMap().getPlace(0).getName());
+    }
+    @Test
+    public void place8() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAdd());
+        ConverterCommonMapUtil.trigger(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getPlaceKind(),MessagesEditorSelect.PLACE_CITY);
+        ((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getName().valueString("_");
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        ((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getName().valueString("__");
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCancel());
+        assertEq("_",facade_.getData().getMap().getPlace(0).getName());
     }
     private void addPair(WindowPkEditor _sub, String _k, String _v) {
         CrudGeneFormEntImgFree c_ = crudMiniMap(_sub);

@@ -59,6 +59,10 @@ public final class MessagesEditorSelect {
     public static final String STAT_AUTO = "0";
     public static final String STAT_BEGIN = "1";
     public static final String STAT_SIMPLE = "2";
+    public static final String PLACE_CITY = "0";
+    public static final String PLACE_ROAD = "1";
+    public static final String PLACE_CAVE = "2";
+    public static final String PLACE_LEAGUE = "3";
     private MessagesEditorSelect() {
     }
     public static TranslationsFile enGenderRep(){
@@ -333,6 +337,22 @@ public final class MessagesEditorSelect {
         TranslationsFile f_ = new TranslationsFile();
         f_.add(DataBase.DEF_SEX_GIRL,"fille");
         f_.add(DataBase.DEF_SEX_BOY,"garçon");
+        return f_;
+    }
+    public static TranslationsFile enPlace(){
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(PLACE_CITY,"city");
+        e_.add(PLACE_ROAD,"road");
+        e_.add(PLACE_CAVE,"cave");
+        e_.add(PLACE_LEAGUE,"league");
+        return e_;
+    }
+    public static TranslationsFile frPlace(){
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(PLACE_CITY,"ville");
+        f_.add(PLACE_ROAD,"route");
+        f_.add(PLACE_CAVE,"cave");
+        f_.add(PLACE_LEAGUE,"ligue");
         return f_;
     }
 }

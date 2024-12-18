@@ -268,8 +268,9 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         crudGeneFormTm.getFrame().addWindowListener(new ReinitMenu(tmMenu, subsTm_));
         crudGeneFormHm.getFrame().addWindowListener(new ReinitMenu(hmMenu, subsHm_));
         addWindowListener(new QuittingEvent(this));
-        formDataMap = new FormDataMap(this,_facade,subscriptions);
-        subscriptions.getSubscribedTranslations().addEntry(getCommonFrame(),formDataMap.getTranslations());
+        IdList<SubscribedTranslation> main_ = new IdList<SubscribedTranslation>();
+        subscriptions.getSubscribedTranslations().addEntry(getCommonFrame(),main_);
+        formDataMap = new FormDataMap(this,_facade,subscriptions, main_);
         formDataMap.updateValues();
         getCommonFrame().setContentPane(formDataMap.getForm());
         getCommonFrame().setVisible(true);
