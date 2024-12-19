@@ -270,9 +270,12 @@ public abstract class EquallableAikiGuiUtil {
         _m.getActionListeners().get(0).action();
     }
     public static void tryClick(AbsMetaLabelPk _m) {
-        assertTrue(_m.getPaintableLabel().isVisible());
-        assertTrue(_m.getPaintableLabel().isEnabled());
-        _m.getPaintableLabel().getMouseListenersRel().get(0).mouseReleased(null, null, null);
+        tryClick(_m.getPaintableLabel());
+    }
+    public static void tryClick(AbsPaintableLabel _m) {
+        assertTrue(_m.isVisible());
+        assertTrue(_m.isEnabled());
+        _m.getMouseListenersRel().get(0).mouseReleased(null, null, null);
     }
     public static void tryPress(AbsMetaLabelPk _m) {
         assertTrue(_m.getPaintableLabel().isVisible());

@@ -12,6 +12,7 @@ import aiki.gui.components.editor.*;
 import aiki.instances.*;
 import aiki.map.levels.enums.*;
 import aiki.map.pokemon.enums.*;
+import aiki.map.util.*;
 import aiki.sml.*;
 import aiki.util.*;
 import code.gui.*;
@@ -246,6 +247,10 @@ public abstract class InitEditorPkForm extends EquallableAikiGuiUtil {
         l_.setLevelIndex((byte) _level);
         l_.setPoint(newPoint(_x, _y));
         return l_;
+    }
+
+    public MiniMapCoords mini(int _x, int _y) {
+        return new MiniMapCoords((short) _x, (short) _y);
     }
 
     public static Point newPoint(int _x,int _y) {

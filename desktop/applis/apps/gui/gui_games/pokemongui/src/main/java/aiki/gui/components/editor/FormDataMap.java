@@ -22,6 +22,7 @@ public final class FormDataMap {
     private final IdList<SubscribedTranslation> translations;
     private final FormWildPk formWildPk;
     private final GeneComponentModelImgSelect unlockedCity;
+    private final FormMiniMapGrid miniMapGrid;
     private final CrudGeneFormEntPlace crudPlace;
 
     public FormDataMap(WindowPkEditor _ed, FacadeGame _facade, SubscribedTranslationList _subscriptions, IdList<SubscribedTranslation> _trs) {
@@ -51,7 +52,10 @@ public final class FormDataMap {
         form.add(unlockedCityContent);
         placesContent = frames_.getCompoFactory().newAbsScrollPane();
         form.add(placesContent);
+        AbsScrollPane miniMapGridContent_ = frames_.getCompoFactory().newAbsScrollPane();
+        form.add(miniMapGridContent_);
         unlockedCity = new GeneComponentModelImgSelect(frames_,_facade,_subscriptions.getImgRetrieverMiniMapSub());
+        miniMapGrid = new FormMiniMapGrid(frames_,_facade, miniMapGridContent_, _ed.getCommonFrame(),_subscriptions);
     }
 
     public void updateValues() {
@@ -70,6 +74,8 @@ public final class FormDataMap {
         translations.addAllElts(unlockedCity.subs());
         crudPlace.initFormAll();
         placesContent.setViewportView(crudPlace.getGroup());
+        miniMapGrid.setupGridDims();
+        miniMapGrid.setupGrid(false);
     }
 
     static void baseSelectImage(GeneComponentModelImgSelect _sel) {
@@ -113,6 +119,10 @@ public final class FormDataMap {
 
     public GeneComponentModelImgSelect getUnlockedCity() {
         return unlockedCity;
+    }
+
+    public FormMiniMapGrid getMiniMapGrid() {
+        return miniMapGrid;
     }
 
     public CrudGeneFormEntPlace getCrudPlace() {

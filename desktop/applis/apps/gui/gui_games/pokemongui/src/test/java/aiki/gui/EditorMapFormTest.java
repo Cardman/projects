@@ -186,6 +186,160 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         tryClick(sub_.getFormDataMap().getCrudPlace().getCancel());
         assertEq("_",facade_.getData().getMap().getPlace(0).getName());
     }
+    @Test
+    public void miniMap1() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        addPair(sub_, P_1, "_1");
+        addPair(sub_, P_2, "_2");
+        addPair(sub_, P_3, "_3");
+        sub_.getFormDataMap().getMiniMapGrid().getCols().setValue(1);
+        sub_.getFormDataMap().getMiniMapGrid().getRows().setValue(1);
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getApply());
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getTiles().get(3));
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getFile().updateValue(P_1);
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getHeros().setSelected(true);
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getPlace().setValue(1);
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getMatch());
+        assertEq(P_1,facade_.getData().getMap().getMiniMap().getVal(mini(1, 1)).getFile());
+        assertTrue(facade_.getData().getMap().getMiniMap().getVal(mini(1, 1)).isHeros());
+        assertEq(1,facade_.getData().getMap().getMiniMap().getVal(mini(1, 1)).getPlace());
+    }
+    @Test
+    public void miniMap2() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        addPair(sub_, P_1, "_1");
+        addPair(sub_, P_2, "_2");
+        addPair(sub_, P_3, "_3");
+        sub_.getFormDataMap().getMiniMapGrid().getCols().setValue(1);
+        sub_.getFormDataMap().getMiniMapGrid().getRows().setValue(1);
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getApply());
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getTiles().get(3));
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getFile().updateValue(P_1);
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getHeros().setSelected(true);
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getPlace().setValue(1);
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getMatch());
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getTiles().get(3));
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getFile().updateValue(P_1);
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getHeros().setSelected(true);
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getPlace().setValue(2);
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getMatch());
+        assertEq(P_1,facade_.getData().getMap().getMiniMap().getVal(mini(1, 1)).getFile());
+        assertTrue(facade_.getData().getMap().getMiniMap().getVal(mini(1, 1)).isHeros());
+        assertEq(2,facade_.getData().getMap().getMiniMap().getVal(mini(1, 1)).getPlace());
+    }
+    @Test
+    public void miniMap3() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        addPair(sub_, P_1, "_1");
+        addPair(sub_, P_2, "_2");
+        addPair(sub_, P_3, "_3");
+        sub_.getFormDataMap().getMiniMapGrid().getCols().setValue(1);
+        sub_.getFormDataMap().getMiniMapGrid().getRows().setValue(1);
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getApply());
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getTiles().get(3));
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getFile().updateValue(P_1);
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getHeros().setSelected(true);
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getPlace().setValue(1);
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getMatch());
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getTiles().get(3));
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getFile().updateValue(P_1);
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getHeros().setSelected(true);
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getPlace().setValue(2);
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getRemove());
+        assertEq(0,facade_.getData().getMap().getMiniMap().getList().size());
+    }
+    @Test
+    public void miniMap4() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        addPair(sub_, P_1, "_1");
+        addPair(sub_, P_2, "_2");
+        addPair(sub_, P_3, "_3");
+        sub_.getFormDataMap().getMiniMapGrid().getCols().setValue(1);
+        sub_.getFormDataMap().getMiniMapGrid().getRows().setValue(1);
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getApply());
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getTiles().get(3));
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getFile().updateValue(P_1);
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getHeros().setSelected(false);
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getPlace().setValue(1);
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getMatch());
+        assertEq(P_1,facade_.getData().getMap().getMiniMap().getVal(mini(1, 1)).getFile());
+        assertFalse(facade_.getData().getMap().getMiniMap().getVal(mini(1, 1)).isHeros());
+        assertEq(1,facade_.getData().getMap().getMiniMap().getVal(mini(1, 1)).getPlace());
+    }
+    @Test
+    public void miniMap5() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        addPair(sub_, P_1, "_1");
+        addPair(sub_, P_2, "_2");
+        addPair(sub_, P_3, "_3");
+        sub_.getFormDataMap().getMiniMapGrid().getCols().setValue(1);
+        sub_.getFormDataMap().getMiniMapGrid().getRows().setValue(1);
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getApply());
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getTiles().get(3));
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getFile().updateValue(P_1);
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getHeros().setSelected(false);
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getPlace().setValue(1);
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getMatch());
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getTiles().get(3));
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getFile().updateValue(P_1);
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getHeros().setSelected(false);
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getPlace().setValue(2);
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getMatch());
+        assertEq(P_1,facade_.getData().getMap().getMiniMap().getVal(mini(1, 1)).getFile());
+        assertFalse(facade_.getData().getMap().getMiniMap().getVal(mini(1, 1)).isHeros());
+        assertEq(2,facade_.getData().getMap().getMiniMap().getVal(mini(1, 1)).getPlace());
+    }
+    @Test
+    public void miniMap6() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        addPair(sub_, P_1, "_1");
+        addPair(sub_, P_2, "_2");
+        addPair(sub_, P_3, "_3");
+        sub_.getFormDataMap().getMiniMapGrid().getCols().setValue(1);
+        sub_.getFormDataMap().getMiniMapGrid().getRows().setValue(1);
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getApply());
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getTiles().get(3));
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getFile().updateValue(P_1);
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getHeros().setSelected(true);
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getPlace().setValue(1);
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getMatch());
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getTiles().get(3));
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getFile().updateValue(P_1);
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getHeros().setSelected(true);
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getPlace().setValue(2);
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getRemove());
+        assertEq(0,facade_.getData().getMap().getMiniMap().getList().size());
+    }
+    @Test
+    public void miniMap7() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        addPair(sub_, P_1, "_1");
+        addPair(sub_, P_2, "_2");
+        addPair(sub_, P_3, "_3");
+        sub_.getFormDataMap().getMiniMapGrid().getCols().setValue(1);
+        sub_.getFormDataMap().getMiniMapGrid().getRows().setValue(1);
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getApply());
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getTiles().get(3));
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getFile().updateValue(P_1);
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getHeros().setSelected(true);
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getPlace().setValue(1);
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getRemove());
+        assertEq(0,facade_.getData().getMap().getMiniMap().getList().size());
+    }
     private void addPair(WindowPkEditor _sub, String _k, String _v) {
         CrudGeneFormEntImgFree c_ = crudMiniMap(_sub);
         tryClick(c_.getAdd());
