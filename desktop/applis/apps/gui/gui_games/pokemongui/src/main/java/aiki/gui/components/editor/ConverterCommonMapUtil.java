@@ -19,6 +19,7 @@ import aiki.fight.util.*;
 import aiki.map.levels.enums.*;
 import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.*;
+import aiki.map.util.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.maths.*;
@@ -189,6 +190,13 @@ public final class ConverterCommonMapUtil {
         _cp.setItem(_e.getItem());
         _cp.setGender(_e.getGender());
         _cp.setLevel(_e.getLevel());
+    }
+    public static TileMiniMap copyTileMiniMap(TileMiniMap _e){
+        TileMiniMap cp_ = new TileMiniMap();
+        cp_.setFile(_e.getFile());
+        cp_.setPlace(_e.getPlace());
+        cp_.setHeros(_e.isHeros());
+        return cp_;
     }
     public static AbilityData copyAbilityData(AbilityData _e){
         AbilityData cp_ = new AbilityData();

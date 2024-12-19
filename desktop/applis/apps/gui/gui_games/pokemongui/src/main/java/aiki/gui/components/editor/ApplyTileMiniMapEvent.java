@@ -1,7 +1,6 @@
 package aiki.gui.components.editor;
 
 import aiki.facade.*;
-import aiki.instances.*;
 import aiki.map.util.*;
 import code.gui.events.*;
 
@@ -29,19 +28,12 @@ public class ApplyTileMiniMapEvent implements AbsActionListener {
             if (remove) {
                 return;
             }
-            TileMiniMap value_ = Instances.newTileMiniMap();
-            value_.setPlace((short) form.getPlace().getValue());
-            value_.setHeros(form.getHeros().isSelected());
-            value_.setFile(form.getFile().getName().tryRet());
-            facadeGame.getData().getMap().getMiniMap().addEntry(key_,value_);
+            facadeGame.getData().getMap().getMiniMap().addEntry(key_,form.buildEntity());
         } else {
             if (remove) {
                 facadeGame.getData().getMap().getMiniMap().getList().remove(e_);
             } else {
-                TileMiniMap value_ = facadeGame.getData().getMap().getMiniMap().getList().get(e_).getTileMap();
-                value_.setPlace((short) form.getPlace().getValue());
-                value_.setHeros(form.getHeros().isSelected());
-                value_.setFile(form.getFile().getName().tryRet());
+                facadeGame.getData().getMap().getMiniMap().getList().set(e_, new MiniMapCoordsTile(key_,form.buildEntity()));
             }
         }
         grid.setupGrid(true);
