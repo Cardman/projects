@@ -28,6 +28,8 @@ public final class CrudGeneFormEntPlace extends CrudGeneFormListSub<Place> imple
         if (_index > -1) {
             if (facadeGame_.getData().getMap().deletePlace(_index) != null) {
                 getList().remove(_index);
+                getCrudGeneFormSubContent().getSubscription().getRemovingPlacePhase().setPlace(_index);
+                getCrudGeneFormSubContent().getSubscription().update();
             }
             getCrudGeneFormSubContent().removeOpenSub();
             afterModif();

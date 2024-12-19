@@ -13,6 +13,7 @@ public final class SubscribedTranslationList {
     private final FacadeGame facadeGame;
     private final RenamingIdPhase renamingIdPhase = new RenamingIdPhase();
     private final RenamingImgNamePhase renamingImgNamePhase = new RenamingImgNamePhase();
+    private final RemovingPlacePhase removingPlacePhase = new RemovingPlacePhase();
 
     private final ModifiedEntitiesRename modifiedEntitiesRename = new ModifiedEntitiesRename();
 
@@ -58,7 +59,7 @@ public final class SubscribedTranslationList {
     public void update() {
         for (EntryCust<AbsCommonFrame,IdList<SubscribedTranslation>> f: subscribedTranslations.entryList()) {
             for (SubscribedTranslation s: f.getValue()) {
-                s.update(programInfos,facadeGame,renamingIdPhase,renamingImgNamePhase);
+                s.update(programInfos,facadeGame, this);
             }
             f.getKey().pack();
         }
@@ -194,6 +195,19 @@ public final class SubscribedTranslationList {
         getFactorySt().setItemForBattle(_v);
         getFactoryTy().setItemForBattle(_v);
     }
+
+    public RenamingIdPhase getRenamingIdPhase() {
+        return renamingIdPhase;
+    }
+
+    public RenamingImgNamePhase getRenamingImgNamePhase() {
+        return renamingImgNamePhase;
+    }
+
+    public RemovingPlacePhase getRemovingPlacePhase() {
+        return removingPlacePhase;
+    }
+
     public ModifiedEntitiesRename getModifiedEntitiesRename() {
         return modifiedEntitiesRename;
     }

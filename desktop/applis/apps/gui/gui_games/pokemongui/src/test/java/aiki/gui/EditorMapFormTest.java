@@ -340,6 +340,56 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         tryClick(sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getRemove());
         assertEq(0,facade_.getData().getMap().getMiniMap().getList().size());
     }
+    @Test
+    public void miniMap8() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMap().addPlace(Instances.newCity());
+        facade_.getData().getMap().addPlace(Instances.newRoad());
+        facade_.getData().getMap().addPlace(Instances.newCity());
+        facade_.getData().getMap().addPlace(Instances.newRoad());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        addPair(sub_, P_1, "_1");
+        addPair(sub_, P_2, "_2");
+        addPair(sub_, P_3, "_3");
+        sub_.getFormDataMap().getMiniMapGrid().getCols().setValue(1);
+        sub_.getFormDataMap().getMiniMapGrid().getRows().setValue(1);
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getApply());
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getTiles().getVal(mini(1,1)));
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getFile().updateValue(P_1);
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getPlace().setValue(3);
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getMatch());
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getTiles().getVal(mini(1,1)));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidRemove());
+        assertEq(2,sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getPlace().getValue());
+        assertEq(2,facade_.getData().getMap().getMiniMap().getVal(mini(1, 1)).getPlace());
+    }
+    @Test
+    public void miniMap9() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMap().addPlace(Instances.newCity());
+        facade_.getData().getMap().addPlace(Instances.newRoad());
+        facade_.getData().getMap().addPlace(Instances.newCity());
+        facade_.getData().getMap().addPlace(Instances.newRoad());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        addPair(sub_, P_1, "_1");
+        addPair(sub_, P_2, "_2");
+        addPair(sub_, P_3, "_3");
+        sub_.getFormDataMap().getMiniMapGrid().getCols().setValue(1);
+        sub_.getFormDataMap().getMiniMapGrid().getRows().setValue(1);
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getApply());
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getTiles().getVal(mini(1,1)));
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getFile().updateValue(P_1);
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getPlace().setValue(1);
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getMatch());
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getTiles().getVal(mini(1,1)));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(2));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidRemove());
+        assertEq(1,sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getPlace().getValue());
+        assertEq(1,facade_.getData().getMap().getMiniMap().getVal(mini(1, 1)).getPlace());
+    }
     private void addPair(WindowPkEditor _sub, String _k, String _v) {
         CrudGeneFormEntImgFree c_ = crudMiniMap(_sub);
         tryClick(c_.getAdd());

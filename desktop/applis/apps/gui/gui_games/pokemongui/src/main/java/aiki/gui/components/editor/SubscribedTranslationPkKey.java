@@ -12,7 +12,7 @@ public final class SubscribedTranslationPkKey<E> implements SubscribedTranslatio
     }
 
     @Override
-    public void update(AbstractProgramInfos _api, FacadeGame _facade, RenamingIdPhase _phase, RenamingImgNamePhase _renamingImgNamePhase) {
+    public void update(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _current) {
         crud.possibleSort();
         crud.refresh();
     }

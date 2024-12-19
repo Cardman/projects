@@ -7,15 +7,16 @@ import code.util.core.*;
 public abstract class AbsSubscribedTranslationRenamingId implements SubscribedTranslation {
 
     @Override
-    public void update(AbstractProgramInfos _api, FacadeGame _facade, RenamingIdPhase _phase, RenamingImgNamePhase _renamingImgNamePhase) {
-        if (!StringUtil.quickEq(_phase.getNewId(), _phase.getOldId())) {
-            suffix(_api, _facade, _phase);
+    public void update(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _current) {
+        RenamingIdPhase c_ = _current.getRenamingIdPhase();
+        if (!StringUtil.quickEq(c_.getNewId(), c_.getOldId())) {
+            suffix(_api, _facade, c_);
         }
-        if (!StringUtil.quickEq(_phase.getNewMid(), _phase.getOldMid())) {
-            middle(_api, _facade, _phase);
+        if (!StringUtil.quickEq(c_.getNewMid(), c_.getOldMid())) {
+            middle(_api, _facade, c_);
         }
-        if (!StringUtil.quickEq(_phase.getNewPref(), _phase.getOldPref())) {
-            prefix(_api, _facade, _phase);
+        if (!StringUtil.quickEq(c_.getNewPref(), c_.getOldPref())) {
+            prefix(_api, _facade, c_);
         }
     }
 

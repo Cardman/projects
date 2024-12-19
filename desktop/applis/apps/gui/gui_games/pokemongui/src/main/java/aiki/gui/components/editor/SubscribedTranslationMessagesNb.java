@@ -16,7 +16,7 @@ public final class SubscribedTranslationMessagesNb implements SubscribedTranslat
     }
 
     @Override
-    public void update(AbstractProgramInfos _api, FacadeGame _facade, RenamingIdPhase _phase, RenamingImgNamePhase _renamingImgNamePhase) {
+    public void update(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _current) {
         ShortMap<String> map_ = factory.retrieveMap(_api, _facade);
         input.clear();
         input.addAllEntries(ConverterCommonMapUtil.map(map_,messages));

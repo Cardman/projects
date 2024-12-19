@@ -13,10 +13,11 @@ public final class SubscribedTranslationSelectChangeText implements SubscribedTr
     }
 
     @Override
-    public void update(AbstractProgramInfos _api, FacadeGame _facade, RenamingIdPhase _phase, RenamingImgNamePhase _renamingImgNamePhase) {
-        if (!StringUtil.quickEq(_renamingImgNamePhase.getOldId(), _renamingImgNamePhase.getNewId())) {
-            if (StringUtil.quickEq(input.tryRet(), _renamingImgNamePhase.getOldId())) {
-                input.updateVal(_renamingImgNamePhase.getNewId());
+    public void update(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _current) {
+        RenamingImgNamePhase i_ = _current.getRenamingImgNamePhase();
+        if (!StringUtil.quickEq(i_.getOldId(), i_.getNewId())) {
+            if (StringUtil.quickEq(input.tryRet(), i_.getOldId())) {
+                input.updateVal(i_.getNewId());
             } else {
                 input.reset();
             }
