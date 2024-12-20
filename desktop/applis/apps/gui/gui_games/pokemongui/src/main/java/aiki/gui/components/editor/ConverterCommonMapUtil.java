@@ -191,12 +191,14 @@ public final class ConverterCommonMapUtil {
         cp_.setWildPokemon(copyListWildPk(_e.getWildPokemon()));
         cp_.setWildPokemonFishing(copyListWildPk(_e.getWildPokemonFishing()));
         cp_.setMultFight(_e.getMultFight());
+        cp_.setAvgNbSteps(_e.getAvgNbSteps());
         return cp_;
     }
     public static MultAreaApparition copyMultAreaApparition(MultAreaApparition _e) {
         MultAreaApparition cp_ = new MultAreaApparition();
         cp_.setWildPokemonList(copyListListWildPk(_e.getWildPokemonList()));
         cp_.setWildPokemonFishingList(copyListListWildPk(_e.getWildPokemonFishingList()));
+        cp_.setAvgNbSteps(_e.getAvgNbSteps());
         return cp_;
     }
     public static CustList<CustList<WildPk>> copyListListWildPk(CustList<CustList<WildPk>> _e) {
