@@ -16,6 +16,7 @@ import aiki.fight.pokemon.evolution.*;
 import aiki.fight.status.*;
 import aiki.fight.status.effects.*;
 import aiki.fight.util.*;
+import aiki.map.levels.*;
 import aiki.map.levels.enums.*;
 import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.*;
@@ -178,6 +179,39 @@ public final class ConverterCommonMapUtil {
             i_.addEntry(GenderRepartition.getGenderRepartitionByName(e.getKey()),e.getValue());
         }
         return i_;
+    }
+    public static AbsAreaApparition copyArea(AbsAreaApparition _e) {
+        if (_e instanceof AreaApparition) {
+            return copyAreaApparition((AreaApparition)_e);
+        }
+        return copyMultAreaApparition((MultAreaApparition)_e);
+    }
+    public static AreaApparition copyAreaApparition(AreaApparition _e) {
+        AreaApparition cp_ = new AreaApparition();
+        cp_.setWildPokemon(copyListWildPk(_e.getWildPokemon()));
+        cp_.setWildPokemonFishing(copyListWildPk(_e.getWildPokemonFishing()));
+        cp_.setMultFight(_e.getMultFight());
+        return cp_;
+    }
+    public static MultAreaApparition copyMultAreaApparition(MultAreaApparition _e) {
+        MultAreaApparition cp_ = new MultAreaApparition();
+        cp_.setWildPokemonList(copyListListWildPk(_e.getWildPokemonList()));
+        cp_.setWildPokemonFishingList(copyListListWildPk(_e.getWildPokemonFishingList()));
+        return cp_;
+    }
+    public static CustList<CustList<WildPk>> copyListListWildPk(CustList<CustList<WildPk>> _e) {
+        CustList<CustList<WildPk>> cp_ = new CustList<CustList<WildPk>>(new CollCapacity(_e.size()));
+        for (CustList<WildPk> f:_e) {
+            cp_.add(copyListWildPk(f));
+        }
+        return cp_;
+    }
+    public static CustList<WildPk> copyListWildPk(CustList<WildPk> _e) {
+        CustList<WildPk> cp_ = new CustList<WildPk>(new CollCapacity(_e.size()));
+        for (WildPk f:_e) {
+            cp_.add(copyWildPk(f));
+        }
+        return cp_;
     }
     public static WildPk copyWildPk(WildPk _e) {
         WildPk cp_ = new WildPk();

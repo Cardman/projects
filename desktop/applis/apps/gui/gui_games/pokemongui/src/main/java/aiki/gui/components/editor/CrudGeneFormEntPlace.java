@@ -17,7 +17,7 @@ public final class CrudGeneFormEntPlace extends CrudGeneFormListSub<Place> imple
         initForm();
         getCrudGeneFormSubContent().clearSub();
         FacadeGame facadeGame_ = getCrudGeneFormSubContent().getFacadeGame();
-        GeneComponentModel<Place> key_ = new GeneComponentModelPlace(getFactory(), getFrame());
+        GeneComponentModel<Place> key_ = new GeneComponentModelPlace(getFactory(),facadeGame_,getCrudGeneFormSubContent().getSubscription(), getFrame());
         initForm(new DisplayEntryCustPlace(), key_);
         setupValues(facadeGame_.getData().getMap().getPlaces());
     }

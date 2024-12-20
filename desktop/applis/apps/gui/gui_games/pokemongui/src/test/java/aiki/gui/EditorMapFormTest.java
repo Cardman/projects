@@ -4,6 +4,7 @@ import aiki.facade.*;
 import aiki.gui.components.editor.*;
 import aiki.instances.*;
 import aiki.map.enums.*;
+import aiki.map.levels.*;
 import aiki.map.places.*;
 import aiki.map.pokemon.enums.*;
 import aiki.map.util.*;
@@ -390,6 +391,75 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         assertEq(1,sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getPlace().getValue());
         assertEq(1,facade_.getData().getMap().getMiniMap().getVal(mini(1, 1)).getPlace());
     }
+    @Test
+    public void wild1() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMap().addPlace(Instances.newRoad());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getCrud().getAdd());
+        area(sub_).getSingle().setSelected(false);
+        area(sub_).applyChange();
+        tryClick(area(sub_).getMult().getWalk().getCrud().getAdd());
+        tryClick(listMult(sub_).getForm().getCrud().getAdd());
+        sub(sub_).getFormWildPk().getName().setupValue(P_2);
+        tryClick(listMult(sub_).getForm().getCrud().getValidAddEdit());
+        tryClick(area(sub_).getMult().getWalk().getCrud().getValidAddEdit());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getCrud().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        Road pl_ = (Road) facade_.getData().getMap().getPlace(0);
+        assertEq(1,pl_.getLevelRoad().getWildPokemonAreas().size());
+        assertEq(1,pl_.getLevelRoad().getWildPokemonAreas().get(0).getWildPokemonList().size());
+        assertEq(0,pl_.getLevelRoad().getWildPokemonAreas().get(0).getWildPokemonFishingList().size());
+        assertEq(1,pl_.getLevelRoad().getWildPokemonAreas().get(0).getWildPokemonList().get(0).size());
+        assertEq(P_2,pl_.getLevelRoad().getWildPokemonAreas().get(0).getWildPokemonList().get(0).get(0).getName());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getCrud().getAllButtons().get(0));
+        tryClick(area(sub_).getMult().getWalk().getCrud().getAllButtons().get(0));
+        tryClick(listMult(sub_).getForm().getCrud().getAllButtons().get(0));
+    }
+    @Test
+    public void wild2() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMap().addPlace(Instances.newRoad());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getCrud().getAdd());
+        area(sub_).getSingle().setSelected(true);
+        area(sub_).applyChange();
+        tryClick(area(sub_).getSimple().getWalk().getCrud().getAdd());
+        listSimple(sub_).getFormWildPk().getName().setupValue(P_2);
+        tryClick(area(sub_).getSimple().getWalk().getCrud().getValidAddEdit());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getCrud().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        Road pl_ = (Road) facade_.getData().getMap().getPlace(0);
+        assertEq(1,pl_.getLevelRoad().getWildPokemonAreas().size());
+        AreaApparition a_ = (AreaApparition) pl_.getLevelRoad().getWildPokemonAreas().get(0);
+        assertEq(1,a_.getWildPokemon().size());
+        assertEq(0,a_.getWildPokemonFishing().size());
+        assertEq(P_2,a_.getWildPokemon().get(0).getName());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getCrud().getAllButtons().get(0));
+        tryClick(area(sub_).getSimple().getWalk().getCrud().getAllButtons().get(0));
+    }
+    private GeneComponentModelSubscribeWildPk sub(WindowPkEditor _w) {
+        return (GeneComponentModelSubscribeWildPk) listMult(_w).getForm().getCrud().getGenePair().getKey();
+    }
+
+    private GeneComponentModelSubscribeWildPkList listMult(WindowPkEditor _w) {
+        return (GeneComponentModelSubscribeWildPkList) area(_w).getMult().getWalk().getCrud().getGenePair().getKey();
+    }
+
+    private GeneComponentModelSubscribeWildPk listSimple(WindowPkEditor _w) {
+        return (GeneComponentModelSubscribeWildPk) area(_w).getSimple().getWalk().getCrud().getGenePair().getKey();
+    }
+
+    private GeneComponentModelSubscribeArea area(WindowPkEditor _w) {
+        return (GeneComponentModelSubscribeArea) ((GeneComponentModelPlace) _w.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getCrud().getGenePair().getKey();
+    }
+
     private void addPair(WindowPkEditor _sub, String _k, String _v) {
         CrudGeneFormEntImgFree c_ = crudMiniMap(_sub);
         tryClick(c_.getAdd());

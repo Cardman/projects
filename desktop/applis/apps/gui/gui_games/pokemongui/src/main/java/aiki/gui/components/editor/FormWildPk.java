@@ -1,13 +1,15 @@
 package aiki.gui.components.editor;
 
 import aiki.facade.*;
+import aiki.instances.*;
 import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.*;
 import code.gui.*;
+import code.gui.initialize.*;
 import code.util.*;
 
 public final class FormWildPk {
-    private final WindowPkEditor window;
+    private final AbstractProgramInfos api;
     private final FacadeGame facadeGame;
     private final SubscribedTranslationList subscribedTranslationList;
     private GeneComponentModelEltEnumSub<String> name;
@@ -17,29 +19,33 @@ public final class FormWildPk {
     private final GeneComponentModelInt level;
     private WildPk wildPk;
     private AbsPanel form;
-    public FormWildPk(WindowPkEditor _ed, FacadeGame _facade, SubscribedTranslationList _sub) {
-        window = _ed;
+    public FormWildPk(AbstractProgramInfos _ed, FacadeGame _facade, SubscribedTranslationList _sub) {
+        api = _ed;
         facadeGame = _facade;
         subscribedTranslationList = _sub;
-        level = new GeneComponentModelInt(window.getFrames());
+        level = new GeneComponentModelInt(api);
+    }
+
+    public void feedForm() {
+        wildPk = Instances.newWildPk();
+        form = api.getCompoFactory().newPageBox();
+        form.add(level.geneInt());
+        name = ConverterCommonMapUtil.buildPkFull(api, facadeGame, subscribedTranslationList);
+        form.add(name.geneEnum());
+        ability = ConverterCommonMapUtil.buildAbFull(api, facadeGame, subscribedTranslationList, new IdMap<String, String>());
+        form.add(ability.geneEnum());
+        item = ConverterCommonMapUtil.buildItFull(api, facadeGame, subscribedTranslationList, ConverterCommonMapUtil.defKeyEmpty(" "));
+        form.add(item.geneEnum());
+        gender = ConverterCommonMapUtil.buildGender(api, facadeGame, subscribedTranslationList);
+        form.add(gender.geneEnum());
     }
 
     public void feedForm(WildPk _wp) {
         wildPk = ConverterCommonMapUtil.copyWildPk(_wp);
-        form = window.getFrames().getCompoFactory().newPageBox();
-        form.add(level.geneInt());
         level.valueInt(wildPk.getLevel());
-        name = ConverterCommonMapUtil.buildPkFull(window.getFrames(), facadeGame, subscribedTranslationList);
-        form.add(name.geneEnum());
         name.setupValue(wildPk.getName());
-        ability = ConverterCommonMapUtil.buildAbFull(window.getFrames(), facadeGame, subscribedTranslationList, new IdMap<String, String>());
-        form.add(ability.geneEnum());
-        ability.setupValue(wildPk.getName());
-        item = ConverterCommonMapUtil.buildItFull(window.getFrames(), facadeGame, subscribedTranslationList, ConverterCommonMapUtil.defKeyEmpty(" "));
-        form.add(item.geneEnum());
-        item.setupValue(wildPk.getName());
-        gender = ConverterCommonMapUtil.buildGender(window.getFrames(), facadeGame, subscribedTranslationList);
-        form.add(gender.geneEnum());
+        ability.setupValue(wildPk.getAbility());
+        item.setupValue(wildPk.getItem());
         gender.setupValue(wildPk.getGender());
     }
 

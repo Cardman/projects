@@ -26,7 +26,7 @@ public final class FormDataMap {
     private final CrudGeneFormEntPlace crudPlace;
 
     public FormDataMap(WindowPkEditor _ed, FacadeGame _facade, SubscribedTranslationList _subscriptions, IdList<SubscribedTranslation> _trs) {
-        formWildPk = new FormWildPk(_ed, _facade, _subscriptions);
+        formWildPk = new FormWildPk(_ed.getFrames(), _facade, _subscriptions);
         translations = _trs;
         window = _ed;
         facadeGame = _facade;
@@ -65,6 +65,7 @@ public final class FormDataMap {
         spaceBetweenLeftAndHeros.setValue(dm_.getSpaceBetweenLeftAndHeros());
         spaceBetweenTopAndHeros.setValue(dm_.getSpaceBetweenTopAndHeros());
         sideLength.setValue(dm_.getSideLength());
+        formWildPk.feedForm();
         formWildPk.feedForm(dm_.getFirstPokemon());
         formWildPk.feedSubs(translations);
         wildPkContent.setViewportView(formWildPk.getForm());

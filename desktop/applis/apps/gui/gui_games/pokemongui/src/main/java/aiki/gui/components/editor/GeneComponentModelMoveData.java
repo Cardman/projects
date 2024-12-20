@@ -11,7 +11,7 @@ import code.gui.initialize.*;
 import code.maths.*;
 import code.util.*;
 
-public final class GeneComponentModelMoveData extends GeneComponentModelEntity<MoveData> {
+public final class GeneComponentModelMoveData extends GeneComponentModelEntity<MoveData> implements ChangeableFormType {
     private final GeneComponentModelInt pp;
     private final GeneComponentModelInt priority;
     private final GeneComponentModelInt nbPrepaRound;
@@ -106,7 +106,7 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         AbsCompoFactory compoFactory_ = getCompoFactory().getCompoFactory();
         damagingMove = compoFactory_.newCustCheckBox();
         damagingMove.setSelected(true);
-        applyChanges();
+        applyChange();
         damagingMove.addActionListener(new ChangeMoveKindEvent(this));
         AbsScrollPane sc_ = compoFactory_.newAbsScrollPane();
         AbsPanel page_ = compoFactory_.newPageBox();
@@ -147,7 +147,8 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         return page_;
     }
 
-    public void applyChanges() {
+    @Override
+    public void applyChange() {
         damagingComponent.setVisible(damagingMove.isSelected());
         statusComponent.setVisible(!damagingMove.isSelected());
         if (damagingMove.isSelected()) {
