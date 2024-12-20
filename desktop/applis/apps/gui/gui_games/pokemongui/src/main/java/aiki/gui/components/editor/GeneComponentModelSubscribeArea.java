@@ -14,6 +14,7 @@ public final class GeneComponentModelSubscribeArea implements AbsGeneComponentMo
     private final AbsCommonFrame frame;
     private AbsAreaApparition area;
     private AbsCustCheckBox single;
+    private GeneComponentModelInt avgNbSteps;
     private final ContentComponentModelSubscribeAreaSimple simple = new ContentComponentModelSubscribeAreaSimple();
     private final ContentComponentModelSubscribeAreaMult mult = new ContentComponentModelSubscribeAreaMult();
     public GeneComponentModelSubscribeArea(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
@@ -29,6 +30,8 @@ public final class GeneComponentModelSubscribeArea implements AbsGeneComponentMo
         AbsScrollPane sc_ = compoFactory_.newAbsScrollPane();
         AbsPanel page_ = compoFactory_.newPageBox();
         AbsPanel form_ = compoFactory_.newLineBox();
+        avgNbSteps = new GeneComponentModelInt(api);
+        form_.add(avgNbSteps.geneInt());
         form_.add(single);
         form_.add(simple.form(api,facadeGame,factory,frame));
         form_.add(mult.form(api,facadeGame,factory,frame));
@@ -60,12 +63,14 @@ public final class GeneComponentModelSubscribeArea implements AbsGeneComponentMo
         if (area instanceof AreaApparition) {
             simple.buildEntity((AreaApparition)area);
         }
+        area.setAvgNbSteps((short) avgNbSteps.valueInt());
         return area;
     }
 
     @Override
     public void setupValue(AbsAreaApparition _value) {
         area = ConverterCommonMapUtil.copyArea(_value);
+        avgNbSteps.valueInt(area.getAvgNbSteps());
         if (area instanceof MultAreaApparition) {
             mult.feedForm((MultAreaApparition)area);
         }
