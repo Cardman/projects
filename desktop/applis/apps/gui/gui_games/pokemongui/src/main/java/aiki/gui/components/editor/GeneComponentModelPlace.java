@@ -1,6 +1,6 @@
 package aiki.gui.components.editor;
 
-import aiki.facade.FacadeGame;
+import aiki.facade.*;
 import aiki.instances.*;
 import aiki.map.places.*;
 import code.gui.*;
@@ -73,7 +73,7 @@ public final class GeneComponentModelPlace implements GeneComponentModel<Place>,
         edited = _v;
         name.valueString(edited.getName());
         if (edited instanceof Road) {
-            road.getLevelWithWild().getAreas().setupValues(((Road)edited).getLevelRoad().getWildPokemonAreas());
+            road.getLevelWithWild().getAreas().setupValues(ConverterCommonMapUtil.copyListArea(((Road)edited).getLevelRoad().getWildPokemonAreas()));
             displayRepaint(MessagesEditorSelect.PLACE_ROAD);
         }
     }

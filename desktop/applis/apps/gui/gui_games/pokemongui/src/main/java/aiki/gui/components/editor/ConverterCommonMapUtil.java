@@ -180,6 +180,13 @@ public final class ConverterCommonMapUtil {
         }
         return i_;
     }
+    public static CustList<AbsAreaApparition> copyListArea(CustList<AbsAreaApparition> _e) {
+        CustList<AbsAreaApparition> cp_ = new CustList<AbsAreaApparition>(new CollCapacity(_e.size()));
+        for (AbsAreaApparition f:_e) {
+            cp_.add(copyArea(f));
+        }
+        return cp_;
+    }
     public static AbsAreaApparition copyArea(AbsAreaApparition _e) {
         if (_e instanceof AreaApparition) {
             return copyAreaApparition((AreaApparition)_e);

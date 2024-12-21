@@ -30,7 +30,7 @@ public final class GeneComponentModelSubscribeWildPkList implements AbsGeneCompo
 
     @Override
     public void setupValue(CustList<WildPk> _value) {
-        form.setupValues(_value);
+        form.setupValues(ConverterCommonMapUtil.copyListWildPk(_value));
     }
 
     @Override

@@ -30,8 +30,8 @@ public final class ContentComponentModelSubscribeAreaMult {
         _edited.setWildPokemonFishingList(fish.getList());
     }
     void feedForm(MultAreaApparition _edited) {
-        walk.setupValues(_edited.getWildPokemonList());
-        fish.setupValues(_edited.getWildPokemonFishingList());
+        walk.setupValues(ConverterCommonMapUtil.copyListListWildPk(_edited.getWildPokemonList()));
+        fish.setupValues(ConverterCommonMapUtil.copyListListWildPk(_edited.getWildPokemonFishingList()));
     }
 
     public CrudGeneFormSimpleElementSub<CustList<WildPk>> getWalk() {

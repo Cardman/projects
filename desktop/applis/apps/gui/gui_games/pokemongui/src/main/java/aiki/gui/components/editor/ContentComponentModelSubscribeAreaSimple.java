@@ -33,8 +33,8 @@ public final class ContentComponentModelSubscribeAreaSimple {
         _edited.setMultFight((byte) multFight.valueInt());
     }
     void feedForm(AreaApparition _edited) {
-        walk.setupValues(_edited.getWildPokemon());
-        fish.setupValues(_edited.getWildPokemonFishing());
+        walk.setupValues(ConverterCommonMapUtil.copyListWildPk(_edited.getWildPokemon()));
+        fish.setupValues(ConverterCommonMapUtil.copyListWildPk(_edited.getWildPokemonFishing()));
         multFight.valueInt(_edited.getMultFight());
     }
 
