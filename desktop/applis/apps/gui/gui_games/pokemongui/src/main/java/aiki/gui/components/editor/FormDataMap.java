@@ -89,10 +89,14 @@ public final class FormDataMap {
         dm_.setScreenHeight(screenHeight.getValue());
         dm_.setSpaceBetweenLeftAndHeros(spaceBetweenLeftAndHeros.getValue());
         dm_.setSpaceBetweenTopAndHeros(spaceBetweenTopAndHeros.getValue());
+        int old_ = dm_.getSideLength();
         dm_.setSideLength(sideLength.getValue());
         dm_.setFirstPokemon(formWildPk.buildEntity());
         dm_.setUnlockedCity(unlockedCity.getName().tryRet());
         dm_.setPlaces(crudPlace.getList());
+        if (old_ != dm_.getSideLength()) {
+            miniMapGrid.setupGrid(true);
+        }
     }
     public AbsSpinner getScreenWidth() {
         return screenWidth;
