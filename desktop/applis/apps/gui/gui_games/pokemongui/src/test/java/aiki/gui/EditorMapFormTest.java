@@ -198,7 +198,7 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         sub_.getFormDataMap().getMiniMapGrid().getCols().setValue(1);
         sub_.getFormDataMap().getMiniMapGrid().getRows().setValue(1);
         tryClick(sub_.getFormDataMap().getMiniMapGrid().getApply());
-        tryClick(sub_.getFormDataMap().getMiniMapGrid().getTiles().getVal(mini(1,1)));
+        tryClickTile(sub_);
         sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getFile().updateValue(P_1);
         sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getHeros().setSelected(true);
         sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getPlace().setValue(1);
@@ -218,12 +218,12 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         sub_.getFormDataMap().getMiniMapGrid().getCols().setValue(1);
         sub_.getFormDataMap().getMiniMapGrid().getRows().setValue(1);
         tryClick(sub_.getFormDataMap().getMiniMapGrid().getApply());
-        tryClick(sub_.getFormDataMap().getMiniMapGrid().getTiles().getVal(mini(1,1)));
+        tryClickTile(sub_);
         sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getFile().updateValue(P_1);
         sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getHeros().setSelected(true);
         sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getPlace().setValue(1);
         tryClick(sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getMatch());
-        tryClick(sub_.getFormDataMap().getMiniMapGrid().getTiles().getVal(mini(1,1)));
+        tryClickTile(sub_);
         sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getFile().updateValue(P_1);
         sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getHeros().setSelected(true);
         sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getPlace().setValue(2);
@@ -243,12 +243,12 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         sub_.getFormDataMap().getMiniMapGrid().getCols().setValue(1);
         sub_.getFormDataMap().getMiniMapGrid().getRows().setValue(1);
         tryClick(sub_.getFormDataMap().getMiniMapGrid().getApply());
-        tryClick(sub_.getFormDataMap().getMiniMapGrid().getTiles().getVal(mini(1,1)));
+        tryClickTile(sub_);
         sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getFile().updateValue(P_1);
         sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getHeros().setSelected(true);
         sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getPlace().setValue(1);
         tryClick(sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getMatch());
-        tryClick(sub_.getFormDataMap().getMiniMapGrid().getTiles().getVal(mini(1,1)));
+        tryClickTile(sub_);
         sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getFile().updateValue(P_1);
         sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getHeros().setSelected(true);
         sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getPlace().setValue(2);
@@ -266,7 +266,7 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         sub_.getFormDataMap().getMiniMapGrid().getCols().setValue(1);
         sub_.getFormDataMap().getMiniMapGrid().getRows().setValue(1);
         tryClick(sub_.getFormDataMap().getMiniMapGrid().getApply());
-        tryClick(sub_.getFormDataMap().getMiniMapGrid().getTiles().getVal(mini(1,1)));
+        tryClickTile(sub_);
         sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getFile().updateValue(P_1);
         sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getHeros().setSelected(false);
         sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getPlace().setValue(1);
@@ -286,12 +286,12 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         sub_.getFormDataMap().getMiniMapGrid().getCols().setValue(1);
         sub_.getFormDataMap().getMiniMapGrid().getRows().setValue(1);
         tryClick(sub_.getFormDataMap().getMiniMapGrid().getApply());
-        tryClick(sub_.getFormDataMap().getMiniMapGrid().getTiles().getVal(mini(1,1)));
+        tryClickTile(sub_);
         sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getFile().updateValue(P_1);
         sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getHeros().setSelected(false);
         sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getPlace().setValue(1);
         tryClick(sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getMatch());
-        tryClick(sub_.getFormDataMap().getMiniMapGrid().getTiles().getVal(mini(1,1)));
+        tryClickTile(sub_);
         sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getFile().updateValue(P_1);
         sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getHeros().setSelected(false);
         sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getPlace().setValue(2);
@@ -311,12 +311,12 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         sub_.getFormDataMap().getMiniMapGrid().getCols().setValue(1);
         sub_.getFormDataMap().getMiniMapGrid().getRows().setValue(1);
         tryClick(sub_.getFormDataMap().getMiniMapGrid().getApply());
-        tryClick(sub_.getFormDataMap().getMiniMapGrid().getTiles().getVal(mini(1,1)));
+        tryClickTile(sub_);
         sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getFile().updateValue(P_1);
         sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getHeros().setSelected(true);
         sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getPlace().setValue(1);
         tryClick(sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getMatch());
-        tryClick(sub_.getFormDataMap().getMiniMapGrid().getTiles().getVal(mini(1,1)));
+        tryClickTile(sub_);
         sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getFile().updateValue(P_1);
         sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getHeros().setSelected(true);
         sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getPlace().setValue(2);
@@ -334,7 +334,7 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         sub_.getFormDataMap().getMiniMapGrid().getCols().setValue(1);
         sub_.getFormDataMap().getMiniMapGrid().getRows().setValue(1);
         tryClick(sub_.getFormDataMap().getMiniMapGrid().getApply());
-        tryClick(sub_.getFormDataMap().getMiniMapGrid().getTiles().getVal(mini(1,1)));
+        tryClickTile(sub_);
         sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getFile().updateValue(P_1);
         sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getHeros().setSelected(true);
         sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getPlace().setValue(1);
@@ -356,11 +356,11 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         sub_.getFormDataMap().getMiniMapGrid().getCols().setValue(1);
         sub_.getFormDataMap().getMiniMapGrid().getRows().setValue(1);
         tryClick(sub_.getFormDataMap().getMiniMapGrid().getApply());
-        tryClick(sub_.getFormDataMap().getMiniMapGrid().getTiles().getVal(mini(1,1)));
+        tryClickTile(sub_);
         sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getFile().updateValue(P_1);
         sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getPlace().setValue(3);
         tryClick(sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getMatch());
-        tryClick(sub_.getFormDataMap().getMiniMapGrid().getTiles().getVal(mini(1,1)));
+        tryClickTile(sub_);
         tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
         tryClick(sub_.getFormDataMap().getCrudPlace().getValidRemove());
         assertEq(2,sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getPlace().getValue());
@@ -381,14 +381,35 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         sub_.getFormDataMap().getMiniMapGrid().getCols().setValue(1);
         sub_.getFormDataMap().getMiniMapGrid().getRows().setValue(1);
         tryClick(sub_.getFormDataMap().getMiniMapGrid().getApply());
-        tryClick(sub_.getFormDataMap().getMiniMapGrid().getTiles().getVal(mini(1,1)));
+        tryClickTile(sub_);
         sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getFile().updateValue(P_1);
         sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getPlace().setValue(1);
         tryClick(sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getMatch());
-        tryClick(sub_.getFormDataMap().getMiniMapGrid().getTiles().getVal(mini(1,1)));
+        tryClickTile(sub_);
         tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(2));
         tryClick(sub_.getFormDataMap().getCrudPlace().getValidRemove());
         assertEq(1,sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getPlace().getValue());
+        assertEq(1,facade_.getData().getMap().getMiniMap().getVal(mini(1, 1)).getPlace());
+    }
+    @Test
+    public void miniMap10() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMap().getMiniMap().addEntry(mini(0,0),Instances.newTileMiniMap());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        addPair(sub_, P_1, "_1");
+        addPair(sub_, P_2, "_2");
+        addPair(sub_, P_3, "_3");
+        sub_.getFormDataMap().getMiniMapGrid().getCols().setValue(1);
+        sub_.getFormDataMap().getMiniMapGrid().getRows().setValue(1);
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getApply());
+        tryClickTile(sub_);
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getFile().updateValue(P_1);
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getHeros().setSelected(true);
+        sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getPlace().setValue(1);
+        tryClick(sub_.getFormDataMap().getMiniMapGrid().getFormMiniMapTile().getMatch());
+        assertEq(P_1,facade_.getData().getMap().getMiniMap().getVal(mini(1, 1)).getFile());
+        assertTrue(facade_.getData().getMap().getMiniMap().getVal(mini(1, 1)).isHeros());
         assertEq(1,facade_.getData().getMap().getMiniMap().getVal(mini(1, 1)).getPlace());
     }
     @Test
@@ -444,6 +465,12 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getCrud().getAllButtons().get(0));
         tryClick(area(sub_).getSimple().getWalk().getCrud().getAllButtons().get(0));
     }
+
+    private void tryClickTile(WindowPkEditor _sub) {
+        int side_ = _sub.getFormDataMap().getMiniMapGrid().sideTile();
+        tryClick(_sub.getFormDataMap().getMiniMapGrid().getGrid(),side_+1,side_+1);
+    }
+
     private GeneComponentModelSubscribeWildPk sub(WindowPkEditor _w) {
         return (GeneComponentModelSubscribeWildPk) listMult(_w).getForm().getCrud().getGenePair().getKey();
     }

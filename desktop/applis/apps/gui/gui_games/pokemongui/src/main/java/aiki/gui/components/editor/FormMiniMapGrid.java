@@ -1,6 +1,5 @@
 package aiki.gui.components.editor;
 
-import aiki.comparators.ComparatorMiniMapCoords;
 import aiki.db.*;
 import aiki.facade.*;
 import aiki.map.util.*;
@@ -19,12 +18,12 @@ public final class FormMiniMapGrid {
     private final FormMiniMapTile formMiniMapTile = new FormMiniMapTile();
     private AbsSpinner rows;
     private AbsSpinner cols;
+    private AbsPaintableLabel grid;
     private AbsScrollPane element;
     private AbsButton apply;
     private int rowsCount;
     private int colsCount;
     private final IdList<SubscribedTranslation> translations = new IdList<SubscribedTranslation>();
-    private final TreeMap<MiniMapCoords,AbsPaintableLabel> tiles = new TreeMap<MiniMapCoords,AbsPaintableLabel>(new ComparatorMiniMapCoords());
     public FormMiniMapGrid(AbstractProgramInfos _a, FacadeGame _f, AbsScrollPane _c, AbsCommonFrame _fr, SubscribedTranslationList _i) {
         api = _a;
         facadeGame = _f;
@@ -52,22 +51,16 @@ public final class FormMiniMapGrid {
         apply = c_.newPlainButton("_");
         apply.addActionListener(new AddCellsMiniMapCoordsListEvent(this));
         form_.add(apply);
-        tiles.clear();
-        AbsPanel grid_ = c_.newGrid(rowsCount, colsCount);
+        grid = c_.newAbsPaintableLabel();
+        AbstractImageFactory imgFact_ = api.getImageFactory();
         int max_ = sideTile();
-        for (int i = 0; i < rowsCount; i++) {
-            for (int j = 0; j < colsCount; j++) {
-                MiniMapCoords key_ = new MiniMapCoords((short) j, (short) i);
-                TileMiniMap info_ = facadeGame.getData().getMap().getMiniMap().getVal(key_);
-                AbsPaintableLabel tile_ = c_.newAbsPaintableLabel();
-                tile_.addMouseListener(new FormTileMiniMapEvent(this,j,i));
-                AbstractImage icon_ = tryCenter(info_,max_);
-                tile_.setIcon(api.getImageFactory(), icon_);
-                grid_.add(tile_);
-                tiles.put(key_,tile_);
-            }
+        AbstractImage img_ = imgFact_.newImageArgb(colsCount * max_, rowsCount * max_);
+        for (MiniMapCoordsTile e: facadeGame.getData().getMap().getMiniMap().getList()) {
+            img_.drawImage(tryCenter(e.getTileMap(),max_),max_*e.getMiniMapCoords().getXcoords(),max_*e.getMiniMapCoords().getYcoords());
         }
-        form_.add(grid_);
+        grid.addMouseListener(new FormTileMiniMapEvent(this));
+        grid.setIcon(imgFact_,img_);
+        form_.add(grid);
         element = c_.newAbsScrollPane();
         form_.add(element);
         container.setViewportView(form_);
@@ -84,7 +77,10 @@ public final class FormMiniMapGrid {
         return ConverterGraphicBufferedImage.centerImage(api.getImageFactory(), img_, _max);
     }
     public void view(int _x, int _y) {
-        formMiniMapTile.build(api,facadeGame,translationList.getImgRetrieverMiniMapSub(),this,_x,_y);
+        int max_ = sideTile();
+        int i_ = NumberUtil.quot(_x, max_);
+        int j_ = NumberUtil.quot(_y, max_);
+        formMiniMapTile.build(api,facadeGame,translationList.getImgRetrieverMiniMapSub(),this,i_,j_);
         FormDataMap.baseSelectImage(formMiniMapTile.getFile());
         IdList<SubscribedTranslation> subs_ = translationList.getSubscribedTranslations().getVal(frame);
         subs_.removeAllElements(translations);
@@ -92,7 +88,7 @@ public final class FormMiniMapGrid {
         next_.add(new SubscribedTranslationRemovePlace(formMiniMapTile.getPlace()));
         subs_.addAllElts(next_);
         translations.addAllElts(next_);
-        MiniMapCoordsTile e_ = facadeGame.getData().getMap().getMiniMap().getEntryByKey(new MiniMapCoords((short) _x, (short) _y));
+        MiniMapCoordsTile e_ = facadeGame.getData().getMap().getMiniMap().getEntryByKey(new MiniMapCoords((short) i_, (short) j_));
         if (e_ != null) {
             formMiniMapTile.feedForm(e_.getTileMap());
             formMiniMapTile.getFile().updateValue(e_.getTileMap().getFile());
@@ -130,7 +126,8 @@ public final class FormMiniMapGrid {
         return apply;
     }
 
-    public TreeMap<MiniMapCoords,AbsPaintableLabel> getTiles() {
-        return tiles;
+    public AbsPaintableLabel getGrid() {
+        return grid;
     }
+
 }

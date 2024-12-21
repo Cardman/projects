@@ -277,6 +277,11 @@ public abstract class EquallableAikiGuiUtil {
         assertTrue(_m.isEnabled());
         _m.getMouseListenersRel().get(0).mouseReleased(null, null, null);
     }
+    public static void tryClick(AbsPaintableLabel _m,int _x, int _y) {
+        assertTrue(_m.isVisible());
+        assertTrue(_m.isEnabled());
+        _m.getMouseListenersRel().get(0).mouseReleased(new CoreMouseLocation(_x, _y), null, null);
+    }
     public static void tryPress(AbsMetaLabelPk _m) {
         assertTrue(_m.getPaintableLabel().isVisible());
         assertTrue(_m.getPaintableLabel().isEnabled());
