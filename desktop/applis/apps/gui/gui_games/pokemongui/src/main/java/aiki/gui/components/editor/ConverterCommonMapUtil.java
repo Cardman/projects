@@ -21,7 +21,9 @@ import aiki.map.levels.enums.*;
 import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.*;
 import aiki.map.util.*;
+import aiki.util.*;
 import code.gui.*;
+import code.gui.images.*;
 import code.gui.initialize.*;
 import code.maths.*;
 import code.maths.litteral.*;
@@ -179,6 +181,46 @@ public final class ConverterCommonMapUtil {
             i_.addEntry(GenderRepartition.getGenderRepartitionByName(e.getKey()),e.getValue());
         }
         return i_;
+    }
+    public static AbstractImage buildImg(AbstractProgramInfos _api,FacadeGame _f,Points<Block> _bk, Point _tl, int _r, int _c) {
+        int side_ = _f.getMap().getSideLength();
+        Limits limits_ = Level.limits(_bk);
+        Point topLeft_ = limits_.getTopLeft();
+        int height_ = _r*side_;
+        int width_ = _c*side_;
+        AbstractImage img_ = _api.getImageFactory().newImageArgb(width_, height_);
+        for (EntryCust<Point,Block> e: _bk.entryList()) {
+            img_.drawImage(buildImg(_api,_f,e.getValue()),(e.getKey().getx() - topLeft_.getx() - _tl.getx()) * side_, (e.getKey().gety() - topLeft_.gety() - _tl.gety()) * side_);
+        }
+        return img_;
+    }
+    public static AbstractImage buildImg(AbstractProgramInfos _api,FacadeGame _f,Block _bk) {
+        int side_ = _f.getMap().getSideLength();
+        int height_ = _bk.getHeight() * side_;
+        int width_ = _bk.getWidth() * side_;
+        AbstractImage img_ = _api.getImageFactory().newImageArgb(width_, height_);
+        int[][] pixels_ = _f.getData().getImage(_bk.getTileFileName());
+        if (pixels_.length == 0) {
+            return img_;
+        }
+        img_.drawImage(ConverterGraphicBufferedImage.decodeToImage(_api.getImageFactory(), pixels_),NumberUtil.quot(width_ - pixels_[0].length, 2),NumberUtil.quot(height_ - pixels_.length, 2));
+        return img_;
+    }
+    public static PointsBlock copyPointsBlock(Points<Block> _e){
+        PointsBlock cp_ = new PointsBlock(new CollCapacity(_e.size()));
+        for (EntryCust<Point,Block> f: _e.entryList()) {
+            cp_.addEntry(new Point(f.getKey().getx(), f.getKey().gety()),copyBlock(f.getValue()));
+        }
+        return cp_;
+    }
+    public static Block copyBlock(Block _e){
+        Block cp_ = new Block();
+        cp_.setTileFileName(_e.getTileFileName());
+        cp_.setIndexApparition(_e.getIndexApparition());
+        cp_.setWidth(_e.getWidth());
+        cp_.setHeight(_e.getHeight());
+        cp_.setType(_e.getType());
+        return cp_;
     }
     public static CustList<AbsAreaApparition> copyListArea(CustList<AbsAreaApparition> _e) {
         CustList<AbsAreaApparition> cp_ = new CustList<AbsAreaApparition>(new CollCapacity(_e.size()));

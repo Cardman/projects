@@ -50,6 +50,7 @@ public final class SubscribedTranslationList {
     private final ImgFieldRetrieverStorage imgFieldRetrieverStorage = new ImgFieldRetrieverStorage();
     private final ImgFieldRetrieverTmHm imgFieldRetrieverTmHm = new ImgFieldRetrieverTmHm();
     private final SubscribedTranslationMessagesFactoryImgName imgRetrieverMiniMapSub = new SubscribedTranslationMessagesFactoryImgName(imgRetrieverMiniMap);
+    private final SubscribedTranslationMessagesFactoryImgName imgRetrieverBlocksSub = new SubscribedTranslationMessagesFactoryImgName(imgRetrieverBlocks);
 
     public SubscribedTranslationList(AbstractProgramInfos _p, FacadeGame _f) {
         this.programInfos = _p;
@@ -75,6 +76,7 @@ public final class SubscribedTranslationList {
         renamingIdPhase.setMids(_mids);
         renamingImgNamePhase.setOldId("");
         renamingImgNamePhase.setNewId("");
+        renamingImgNamePhase.setRetriever(null);
     }
 
     public void updateRenamingMid(String _oldId, String _newId, StringList _mids) {
@@ -87,6 +89,7 @@ public final class SubscribedTranslationList {
         renamingIdPhase.setMids(_mids);
         renamingImgNamePhase.setOldId("");
         renamingImgNamePhase.setNewId("");
+        renamingImgNamePhase.setRetriever(null);
     }
 
     public void updateRenamingPref(String _oldId, String _newId, StringList _mids) {
@@ -99,9 +102,10 @@ public final class SubscribedTranslationList {
         renamingIdPhase.setMids(_mids);
         renamingImgNamePhase.setOldId("");
         renamingImgNamePhase.setNewId("");
+        renamingImgNamePhase.setRetriever(null);
     }
 
-    public void updateRenamingFileName(String _oldId, String _newId) {
+    public void updateRenamingFileName(String _oldId, String _newId, ImgRetriever _ir) {
         renamingIdPhase.setOldId("");
         renamingIdPhase.setNewId("");
         renamingIdPhase.setOldMid("");
@@ -111,6 +115,7 @@ public final class SubscribedTranslationList {
         renamingIdPhase.setMids(new StringList());
         renamingImgNamePhase.setOldId(_oldId);
         renamingImgNamePhase.setNewId(_newId);
+        renamingImgNamePhase.setRetriever(_ir);
     }
     public void effect(Effect _v) {
         getModifiedEntitiesRename().setEffect(_v);
@@ -353,5 +358,9 @@ public final class SubscribedTranslationList {
 
     public SubscribedTranslationMessagesFactoryImgName getImgRetrieverMiniMapSub() {
         return imgRetrieverMiniMapSub;
+    }
+
+    public SubscribedTranslationMessagesFactoryImgName getImgRetrieverBlocksSub() {
+        return imgRetrieverBlocksSub;
     }
 }

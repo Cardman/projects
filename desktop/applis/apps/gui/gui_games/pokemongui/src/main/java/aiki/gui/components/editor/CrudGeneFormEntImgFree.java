@@ -75,7 +75,7 @@ public final class CrudGeneFormEntImgFree extends CrudGeneFormListSub<EditedCrud
     }
 
     private void update(String _oldId, String _newId) {
-        getCrudGeneFormSubContent().getSubscription().updateRenamingFileName(_oldId,_newId);
+        getCrudGeneFormSubContent().getSubscription().updateRenamingFileName(_oldId,_newId,factoryCommonParam);
         getCrudGeneFormSubContent().getSubscription().update();
     }
 }

@@ -92,6 +92,23 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         assertEq(P_1,facade_.getData().getMap().getUnlockedCity());
     }
     @Test
+    public void unlockCityUp3() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        addPair(sub_, P_1, "_1");
+        addPair(sub_, P_2, "_2");
+        addPairBlock(sub_, P_1, "_2");
+        sub_.getFormDataMap().getUnlockedCity().updateValue(P_1);
+        CrudGeneFormEntImgFree n_ = crudBlocks(sub_);
+        tryClick(n_.getAllButtons().get(0));
+        GeneComponentModelImgFree g_ = (GeneComponentModelImgFree)n_.getGene();
+        g_.getKey().setText(P_3);
+        tryClick(n_.getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getApplyMapModif());
+        assertEq(P_1,facade_.getData().getMap().getUnlockedCity());
+    }
+    @Test
     public void place1() {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facadeAdd(pr_);
@@ -419,7 +436,7 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         facade_.getData().getMap().addPlace(Instances.newRoad());
         WindowPkEditor sub_ = window(pr_, facade_);
         tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
-        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getCrud().getAdd());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getAdd());
         area(sub_).getSingle().setSelected(false);
         area(sub_).applyChange();
         tryClick(area(sub_).getMult().getWalk().getCrud().getAdd());
@@ -427,7 +444,7 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         sub(sub_).getFormWildPk().getName().setupValue(P_2);
         tryClick(listMult(sub_).getForm().getCrud().getValidAddEdit());
         tryClick(area(sub_).getMult().getWalk().getCrud().getValidAddEdit());
-        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getCrud().getValidAddEdit());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getValidAddEdit());
         tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
         Road pl_ = (Road) facade_.getData().getMap().getPlace(0);
         assertEq(1,pl_.getLevelRoad().getWildPokemonAreas().size());
@@ -436,7 +453,7 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         assertEq(1,pl_.getLevelRoad().getWildPokemonAreas().get(0).getWildPokemonList().get(0).size());
         assertEq(P_2,pl_.getLevelRoad().getWildPokemonAreas().get(0).getWildPokemonList().get(0).get(0).getName());
         tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
-        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getCrud().getAllButtons().get(0));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getAllButtons().get(0));
         tryClick(area(sub_).getMult().getWalk().getCrud().getAllButtons().get(0));
         tryClick(listMult(sub_).getForm().getCrud().getAllButtons().get(0));
     }
@@ -447,13 +464,13 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         facade_.getData().getMap().addPlace(Instances.newRoad());
         WindowPkEditor sub_ = window(pr_, facade_);
         tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
-        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getCrud().getAdd());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getAdd());
         area(sub_).getSingle().setSelected(true);
         area(sub_).applyChange();
         tryClick(area(sub_).getSimple().getWalk().getCrud().getAdd());
         listSimple(sub_).getFormWildPk().getName().setupValue(P_2);
         tryClick(area(sub_).getSimple().getWalk().getCrud().getValidAddEdit());
-        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getCrud().getValidAddEdit());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getValidAddEdit());
         tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
         Road pl_ = (Road) facade_.getData().getMap().getPlace(0);
         assertEq(1,pl_.getLevelRoad().getWildPokemonAreas().size());
@@ -462,10 +479,324 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         assertEq(0,a_.getWildPokemonFishing().size());
         assertEq(P_2,a_.getWildPokemon().get(0).getName());
         tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
-        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getCrud().getAllButtons().get(0));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getAllButtons().get(0));
         tryClick(area(sub_).getSimple().getWalk().getCrud().getAllButtons().get(0));
     }
-
+    @Test
+    public void wild3() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMap().addPlace(Instances.newRoad());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getAdd());
+        area(sub_).getSingle().setSelected(true);
+        area(sub_).applyChange();
+        tryClick(area(sub_).getSimple().getWalk().getCrud().getAdd());
+        listSimple(sub_).getFormWildPk().getName().setupValue(P_2);
+        tryClick(area(sub_).getSimple().getWalk().getCrud().getValidAddEdit());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getAllButtons().get(0));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getValidRemove());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        Road pl_ = (Road) facade_.getData().getMap().getPlace(0);
+        assertEq(0,pl_.getLevelRoad().getWildPokemonAreas().size());
+    }
+    @Test
+    public void wild4() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMap().addPlace(Instances.newRoad());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getGrid(),0,0);
+        ((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getFormBlockTile().getIndexApparition().setValue(0);
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getFormBlockTile().getMatch());
+        assertEq(1,((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getEdited().size());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getAdd());
+        area(sub_).getSingle().setSelected(true);
+        area(sub_).applyChange();
+        tryClick(area(sub_).getSimple().getWalk().getCrud().getAdd());
+        listSimple(sub_).getFormWildPk().getName().setupValue(P_2);
+        tryClick(area(sub_).getSimple().getWalk().getCrud().getValidAddEdit());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getAllButtons().get(0));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getValidRemove());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        Road pl_ = (Road) facade_.getData().getMap().getPlace(0);
+        assertEq(1,pl_.getLevelRoad().getWildPokemonAreas().size());
+    }
+    @Test
+    public void wild5() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMap().addPlace(Instances.newRoad());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getGrid(),0,0);
+        ((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getFormBlockTile().getIndexApparition().setValue(0);
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getFormBlockTile().getMatch());
+        assertEq(1,((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getEdited().size());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getAdd());
+        area(sub_).getSingle().setSelected(true);
+        area(sub_).applyChange();
+        tryClick(area(sub_).getSimple().getWalk().getCrud().getAdd());
+        listSimple(sub_).getFormWildPk().getName().setupValue(P_2);
+        tryClick(area(sub_).getSimple().getWalk().getCrud().getValidAddEdit());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getValidAddEdit());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getAdd());
+        area(sub_).getSingle().setSelected(true);
+        area(sub_).applyChange();
+        tryClick(area(sub_).getSimple().getWalk().getCrud().getAdd());
+        listSimple(sub_).getFormWildPk().getName().setupValue(P_2);
+        tryClick(area(sub_).getSimple().getWalk().getCrud().getValidAddEdit());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getAllButtons().get(1));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getValidRemove());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        Road pl_ = (Road) facade_.getData().getMap().getPlace(0);
+        assertEq(1,pl_.getLevelRoad().getWildPokemonAreas().size());
+    }
+    @Test
+    public void wild6() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMap().addPlace(Instances.newRoad());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getGrid(),0,0);
+        ((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getFormBlockTile().getIndexApparition().setValue(1);
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getFormBlockTile().getMatch());
+        assertEq(1,((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getEdited().size());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getAdd());
+        area(sub_).getSingle().setSelected(true);
+        area(sub_).applyChange();
+        tryClick(area(sub_).getSimple().getWalk().getCrud().getAdd());
+        listSimple(sub_).getFormWildPk().getName().setupValue(P_2);
+        tryClick(area(sub_).getSimple().getWalk().getCrud().getValidAddEdit());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getValidAddEdit());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getAdd());
+        area(sub_).getSingle().setSelected(true);
+        area(sub_).applyChange();
+        tryClick(area(sub_).getSimple().getWalk().getCrud().getAdd());
+        listSimple(sub_).getFormWildPk().getName().setupValue(P_2);
+        tryClick(area(sub_).getSimple().getWalk().getCrud().getValidAddEdit());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getAllButtons().get(0));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getValidRemove());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        Road pl_ = (Road) facade_.getData().getMap().getPlace(0);
+        assertEq(1,pl_.getLevelRoad().getWildPokemonAreas().size());
+    }
+    @Test
+    public void wild7() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMap().addPlace(Instances.newRoad());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getGrid(),0,0);
+        ((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getFormBlockTile().getIndexApparition().setValue(0);
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getFormBlockTile().getMatch());
+        assertEq(1,((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getEdited().size());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getAdd());
+        area(sub_).getSingle().setSelected(true);
+        area(sub_).applyChange();
+        tryClick(area(sub_).getSimple().getWalk().getCrud().getAdd());
+        listSimple(sub_).getFormWildPk().getName().setupValue(P_2);
+        tryClick(area(sub_).getSimple().getWalk().getCrud().getValidAddEdit());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getValidAddEdit());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getAdd());
+        area(sub_).getSingle().setSelected(true);
+        area(sub_).applyChange();
+        tryClick(area(sub_).getSimple().getWalk().getCrud().getAdd());
+        listSimple(sub_).getFormWildPk().getName().setupValue(P_2);
+        tryClick(area(sub_).getSimple().getWalk().getCrud().getValidAddEdit());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getAllButtons().get(1));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getGrid(),0,0);
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getValidRemove());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        Road pl_ = (Road) facade_.getData().getMap().getPlace(0);
+        assertEq(1,pl_.getLevelRoad().getWildPokemonAreas().size());
+    }
+    @Test
+    public void wild8() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMap().addPlace(Instances.newRoad());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getGrid(),0,0);
+        ((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getFormBlockTile().getIndexApparition().setValue(1);
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getFormBlockTile().getMatch());
+        assertEq(1,((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getEdited().size());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getAdd());
+        area(sub_).getSingle().setSelected(true);
+        area(sub_).applyChange();
+        tryClick(area(sub_).getSimple().getWalk().getCrud().getAdd());
+        listSimple(sub_).getFormWildPk().getName().setupValue(P_2);
+        tryClick(area(sub_).getSimple().getWalk().getCrud().getValidAddEdit());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getValidAddEdit());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getAdd());
+        area(sub_).getSingle().setSelected(true);
+        area(sub_).applyChange();
+        tryClick(area(sub_).getSimple().getWalk().getCrud().getAdd());
+        listSimple(sub_).getFormWildPk().getName().setupValue(P_2);
+        tryClick(area(sub_).getSimple().getWalk().getCrud().getValidAddEdit());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getAllButtons().get(0));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getGrid(),0,0);
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getValidRemove());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        Road pl_ = (Road) facade_.getData().getMap().getPlace(0);
+        assertEq(1,pl_.getLevelRoad().getWildPokemonAreas().size());
+    }
+    @Test
+    public void blocks1() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMap().addPlace(Instances.newRoad());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getGrid(),0,0);
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getFormBlockTile().getMatch());
+        assertEq(1,((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getEdited().size());
+    }
+    @Test
+    public void blocks2() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMap().addPlace(Instances.newRoad());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getGrid(),0,0);
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getFormBlockTile().getMatch());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getGrid(),0,0);
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getFormBlockTile().getRemove());
+        assertEq(0,((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getEdited().size());
+    }
+    @Test
+    public void blocks3() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMap().addPlace(Instances.newRoad());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getGrid(),0,0);
+        ((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getFormBlockTile().getDims().setText("2:2");
+        enterTextField(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getFormBlockTile().getDims());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getFormBlockTile().getMatch());
+        assertEq(1,((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getEdited().size());
+        assertEq(2,((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getEdited().getValue(0).getHeight());
+        assertEq(2,((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getEdited().getValue(0).getWidth());
+    }
+    @Test
+    public void blocks4() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMap().addPlace(Instances.newRoad());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getGrid(),0,0);
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getFormBlockTile().getMatch());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getGrid(),0,0);
+        ((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getFormBlockTile().getDims().setText("2:2");
+        enterTextField(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getFormBlockTile().getDims());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getFormBlockTile().getMatch());
+        assertEq(1,((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getEdited().size());
+        assertEq(2,((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getEdited().getValue(0).getHeight());
+        assertEq(2,((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getEdited().getValue(0).getWidth());
+    }
+    @Test
+    public void blocks5() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMap().addPlace(Instances.newRoad());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getGrid(),0,0);
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getFormBlockTile().getMatch());
+        ((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getRows().setValue(1);
+        ((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getCols().setValue(1);
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getApplyPrepend());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getGrid(),0,0);
+        ((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getFormBlockTile().getDims().setText("2:2");
+        enterTextField(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getFormBlockTile().getDims());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getFormBlockTile().getMatch());
+        assertEq(1,((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getEdited().getVal(newPoint(-1,-1)).getWidth());
+        assertEq(1,((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getEdited().getVal(newPoint(-1,-1)).getHeight());
+    }
+    @Test
+    public void blocks6() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMap().addPlace(Instances.newRoad());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getGrid(),0,0);
+        ((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getFormBlockTile().getDims().setText("-1:-1");
+        enterTextField(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getFormBlockTile().getDims());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getFormBlockTile().getMatch());
+        assertEq(1,((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getEdited().getVal(newPoint(0,0)).getWidth());
+        assertEq(1,((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getEdited().getVal(newPoint(0,0)).getHeight());
+    }
+    @Test
+    public void blocks7() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMap().addPlace(Instances.newRoad());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getGrid(),0,0);
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getFormBlockTile().getMatch());
+        ((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getRows().setValue(1);
+        ((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getCols().setValue(1);
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getApplyAppend());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getGrid(),sub_.getFormDataMap().getMiniMapGrid().sideTile(),sub_.getFormDataMap().getMiniMapGrid().sideTile());
+        ((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getFormBlockTile().getDims().setText("2:2");
+        enterTextField(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getFormBlockTile().getDims());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getFormBlockTile().getMatch());
+        assertEq(2,((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getEdited().getVal(newPoint(1,1)).getWidth());
+        assertEq(2,((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getEdited().getVal(newPoint(1,1)).getHeight());
+    }
+    @Test
+    public void blocks8() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMap().addPlace(Instances.newRoad());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        addPairBlock(sub_, P_1, "_1");
+        addPairBlock(sub_, P_2, "_2");
+        addPairBlock(sub_, P_3, "_3");
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getGrid(),0,0);
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getFormBlockTile().getMatch());
+        assertEq(1,((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getEdited().size());
+    }
+    @Test
+    public void blocks9() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMap().addPlace(Instances.newRoad());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getGrid(),0,0);
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getFormBlockTile().getRemove());
+        assertEq(0,((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevel().getEdited().size());
+    }
     private void tryClickTile(WindowPkEditor _sub) {
         int side_ = _sub.getFormDataMap().getMiniMapGrid().sideTile();
         tryClick(_sub.getFormDataMap().getMiniMapGrid().getGrid(),side_+1,side_+1);
@@ -484,7 +815,7 @@ public final class EditorMapFormTest extends InitEditorPkForm {
     }
 
     private GeneComponentModelSubscribeArea area(WindowPkEditor _w) {
-        return (GeneComponentModelSubscribeArea) ((GeneComponentModelPlace) _w.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getCrud().getGenePair().getKey();
+        return (GeneComponentModelSubscribeArea) ((GeneComponentModelPlace) _w.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getAreas().getGenePair().getKey();
     }
 
     private void addPair(WindowPkEditor _sub, String _k, String _v) {
@@ -497,9 +828,23 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         c_.getFrame().getWindowListenersDef().get(0).windowClosing();
     }
 
+    private void addPairBlock(WindowPkEditor _sub, String _k, String _v) {
+        CrudGeneFormEntImgFree c_ = crudBlocks(_sub);
+        tryClick(c_.getAdd());
+        GeneComponentModelImgFree g_ = (GeneComponentModelImgFree)c_.getGene();
+        g_.getKey().setText(_k);
+        tryLoad(g_, _v);
+        tryClick(c_.getValidAddEdit());
+        c_.getFrame().getWindowListenersDef().get(0).windowClosing();
+    }
     private CrudGeneFormEntImgFree crudMiniMap(WindowPkEditor _crud) {
         tryClick(_crud.getImgMiniMapMenu());
         return _crud.getCrudGeneFormMiniMap();
+    }
+
+    private CrudGeneFormEntImgFree crudBlocks(WindowPkEditor _crud) {
+        tryClick(_crud.getImgBlocksMenu());
+        return _crud.getCrudGeneFormBlocks();
     }
     private FacadeGame facadeAdd(MockProgramInfos _m) {
         messages(_m);

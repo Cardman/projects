@@ -91,9 +91,6 @@ public final class FormMiniMapGrid {
         MiniMapCoordsTile e_ = facadeGame.getData().getMap().getMiniMap().getEntryByKey(new MiniMapCoords((short) i_, (short) j_));
         if (e_ != null) {
             formMiniMapTile.feedForm(e_.getTileMap());
-            formMiniMapTile.getFile().updateValue(e_.getTileMap().getFile());
-            formMiniMapTile.getHeros().setSelected(e_.getTileMap().isHeros());
-            formMiniMapTile.getPlace().setValue(e_.getTileMap().getPlace());
         } else {
             formMiniMapTile.feedForm();
         }

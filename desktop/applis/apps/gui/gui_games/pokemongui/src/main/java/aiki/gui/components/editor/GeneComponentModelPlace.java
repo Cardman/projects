@@ -2,7 +2,9 @@ package aiki.gui.components.editor;
 
 import aiki.facade.*;
 import aiki.instances.*;
+import aiki.map.levels.*;
 import aiki.map.places.*;
+import aiki.util.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.util.core.*;
@@ -54,6 +56,7 @@ public final class GeneComponentModelPlace implements GeneComponentModel<Place>,
         if (StringUtil.quickEq(eff_, MessagesEditorSelect.PLACE_LEAGUE)) {
             edited = Instances.newLeague();
         }
+        road();
         road.display(eff_);
         placeKind.getSelect().repaint();
         frame.pack();
@@ -63,6 +66,7 @@ public final class GeneComponentModelPlace implements GeneComponentModel<Place>,
     public Place value() {
         edited.setName(name.valueString());
         if (edited instanceof Road) {
+            ((Road)edited).getLevelRoad().setBlocks(road.getLevel().getEdited());
             ((Road)edited).getLevelRoad().setWildPokemonAreas(road.getLevelWithWild().getAreas().getList());
         }
         return edited;
@@ -72,8 +76,15 @@ public final class GeneComponentModelPlace implements GeneComponentModel<Place>,
     public void value(Place _v) {
         edited = _v;
         name.valueString(edited.getName());
+        road();
+    }
+
+    private void road() {
         if (edited instanceof Road) {
             road.getLevelWithWild().getAreas().setupValues(ConverterCommonMapUtil.copyListArea(((Road)edited).getLevelRoad().getWildPokemonAreas()));
+            Points<Block> blocks_ = ConverterCommonMapUtil.copyPointsBlock(((Road) edited).getLevelRoad().getBlocks());
+            road.getLevel().setupGridDims(blocks_);
+            road.getLevelWithWild().getAreas().setBlocks(blocks_);
             displayRepaint(MessagesEditorSelect.PLACE_ROAD);
         }
     }

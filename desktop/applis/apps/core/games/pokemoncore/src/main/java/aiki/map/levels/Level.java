@@ -293,16 +293,27 @@ public abstract class Level {
     }
 
     public Block getBlockByPoint(Point _point) {
-        for (Point i : blocks.getKeys()) {
-            Block block_ = blocks.getVal(i);
-            if (inRangeBlock(_point, i, block_)) {
-                return block_;
-            }
+        EntryCust<Point, Block> e_ = getEntryBlockByPoint(_point);
+        if (e_ == null) {
+            return new Block();
         }
-        return new Block();
+        return e_.getValue();
+    }
+    public EntryCust<Point,Block> getEntryBlockByPoint(Point _point) {
+        return getEntryBlockByPoint(_point, blocks);
     }
 
-    private boolean inRangeBlock(Point _point, Point _i, Block _block) {
+    public static EntryCust<Point, Block> getEntryBlockByPoint(Point _point, Points<Block> _blocks) {
+        for (EntryCust<Point, Block> i : _blocks.entryList()) {
+            Block block_ = i.getValue();
+            if (inRangeBlock(_point, i.getKey(), block_)) {
+                return i;
+            }
+        }
+        return null;
+    }
+
+    private static boolean inRangeBlock(Point _point, Point _i, Block _block) {
         short w_ = _block.getWidth();
         short h_ = _block.getHeight();
         short xi_ = _i.getx();
@@ -318,9 +329,13 @@ public abstract class Level {
         return _xp >= _min && _xp < _max;
     }
     public Limits limits() {
+        return limits(blocks);
+    }
+
+    public static Limits limits(Points<Block> _blocks) {
         Point leftTopPoint_ = new Point((short) 0, (short) 0);
         Point rightBottomPoint_ = new Point((short) 0, (short) 0);
-        CustList<Point> cles_ = blocks.getKeys();
+        CustList<Point> cles_ = _blocks.getKeys();
         if (!cles_.isEmpty()) {
             Point p_ = cles_.first();
             leftTopPoint_.affect(p_);
@@ -333,7 +348,7 @@ public abstract class Level {
             if (p.gety() < leftTopPoint_.gety()) {
                 leftTopPoint_.sety(p.gety());
             }
-            Block block_ = blocks.getVal(p);
+            Block block_ = _blocks.getVal(p);
             short tmp_ = (short) (p.getx() + block_.getWidth() - 1);
             if (tmp_ > rightBottomPoint_.getx()) {
                 rightBottomPoint_.setx(tmp_);

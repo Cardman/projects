@@ -27,7 +27,7 @@ public final class FormMiniMapTile {
         match.setForeground(GuiConstants.GREEN);
         match.addActionListener(new ApplyTileMiniMapEvent(_grid,this,_f,_x,_y, false));
         form.add(match);
-        remove = c_.newPlainButton("\u2611");
+        remove = c_.newPlainButton("-");
         remove.addActionListener(new ApplyTileMiniMapEvent(_grid,this,_f,_x,_y, true));
         form.add(remove);
     }

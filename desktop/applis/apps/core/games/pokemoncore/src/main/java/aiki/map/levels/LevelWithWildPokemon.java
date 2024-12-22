@@ -107,8 +107,12 @@ public abstract class LevelWithWildPokemon extends Level {
     }
 
     private boolean existBlock(int _index) {
+        return existBlock(_index, getBlocks());
+    }
+
+    public static boolean existBlock(int _index, Points<Block> _bk) {
         boolean existBlock_ = false;
-        for (Block b : getBlocks().values()) {
+        for (Block b : _bk.values()) {
             if (b.getIndexApparition() == _index) {
                 existBlock_ = true;
                 break;
