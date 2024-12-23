@@ -3,7 +3,7 @@ package aiki.gui.components.editor;
 import aiki.instances.*;
 import aiki.map.levels.*;
 import aiki.map.levels.enums.*;
-import aiki.util.Point;
+import aiki.util.*;
 import code.gui.*;
 import code.gui.initialize.*;
 
@@ -71,10 +71,6 @@ public final class FormBlockTile {
 
     public Block getEdited() {
         return edited;
-    }
-
-    public void setEdited(Block _e) {
-        this.edited = _e;
     }
 
     public AbsSpinner getIndexApparition() {

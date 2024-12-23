@@ -25,6 +25,6 @@ public final class RefreshGridSubscription implements SubscribedTranslation {
     public void update(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _current) {
         Points<int[][]> frontTiles_ = Level.getLevelForegroundImage(facadeGame.getData(),coords, placeGrid,levelGrid);
         grid.setupForeground(frontTiles_);
-        grid.refreshImg();
+        grid.refreshImg(grid.getFormBlockTile().getEdited().getWidth(), grid.getFormBlockTile().getEdited().getHeight());
     }
 }

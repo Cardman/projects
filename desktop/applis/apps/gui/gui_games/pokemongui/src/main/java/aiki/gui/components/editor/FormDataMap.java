@@ -99,7 +99,7 @@ public final class FormDataMap {
         if (old_ != dm_.getSideLength()) {
             FormLevelGrid formLevelGrid_ = translationList.getFormLevelGridUniq();
             if (formLevelGrid_ != null) {
-                formLevelGrid_.refreshImg();
+                formLevelGrid_.refreshImg(formLevelGrid_.getFormBlockTile().getEdited().getWidth(), formLevelGrid_.getFormBlockTile().getEdited().getHeight());
             }
             miniMapGrid.setupGrid(true);
         }

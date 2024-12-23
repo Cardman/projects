@@ -2,9 +2,8 @@ package aiki.gui.components.editor;
 
 import aiki.db.*;
 import aiki.facade.*;
-import aiki.instances.Instances;
 import aiki.map.levels.*;
-import aiki.map.tree.util.Dims;
+import aiki.map.tree.util.*;
 import aiki.map.util.*;
 import aiki.util.*;
 import code.gui.*;
@@ -68,12 +67,12 @@ public final class FormLevelGrid {
         int deltaCols_ = cols.getValue();
         colsCount += deltaCols_;
         topLeftRel.setx((short) (topLeftRel.getx()-deltaCols_));
-        refreshImg();
+        refreshImg(getFormBlockTile().getEdited().getWidth(), getFormBlockTile().getEdited().getHeight());
     }
     public void append() {
         rowsCount += rows.getValue();
         colsCount += cols.getValue();
-        refreshImg();
+        refreshImg(getFormBlockTile().getEdited().getWidth(), getFormBlockTile().getEdited().getHeight());
     }
     public void readjust(Limits _previous, Limits _next) {
         int deltaRows_ = _previous.getTopLeft().gety() - _next.getTopLeft().gety();
@@ -97,8 +96,7 @@ public final class FormLevelGrid {
         grid = c_.newAbsPaintableLabel();
 
         grid.addMouseListener(new FormBlockTileEvent(this));
-        formBlockTile.setEdited(Instances.newBlock());
-        refreshImg();
+        refreshImg(0, 0);
         grid.setLineBorder(GuiConstants.BLACK);
         form_.add(getGrid());
         element = c_.newAbsScrollPane();
@@ -157,16 +155,16 @@ public final class FormLevelGrid {
         }
         formBlockTile.getEdited().setHeight(ds_.getHeight());
         formBlockTile.getEdited().setWidth(ds_.getWidth());
-        refreshImg();
+        refreshImg(getFormBlockTile().getEdited().getWidth(), getFormBlockTile().getEdited().getHeight());
     }
 
-    public void refreshImg() {
+    public void refreshImg(int _w, int _h) {
         int side_ = facadeGame.getMap().getSideLength();
         Limits limits_ = Level.limits(edited);
         Point topLeft_ = limits_.getTopLeft();
         AbstractImageFactory imgFact_ = api.getImageFactory();
         AbstractImage img_ = ConverterCommonMapUtil.buildImg(api,facadeGame,edited,topLeftRel,rowsCount,colsCount);
-        if (NumberUtil.signum(formBlockTile.getEdited().getWidth()) + NumberUtil.signum(formBlockTile.getEdited().getHeight()) == 2) {
+        if (NumberUtil.signum(_w) + NumberUtil.signum(_h) == 2) {
             ImageArrayBaseSixtyFour imgArr_ = translationList.getImgRetrieverBlocks().all(facadeGame).getVal(formBlockTile.getTileFileName().getName().tryRet());
             int[][] pixels_;
             if (imgArr_ != null) {
@@ -175,14 +173,14 @@ public final class FormLevelGrid {
                 pixels_ = new int[0][];
             }
             if (pixels_.length > 0) {
-                int height_ = formBlockTile.getEdited().getHeight() * side_;
-                int width_ = formBlockTile.getEdited().getWidth() * side_;
+                int height_ = _h * side_;
+                int width_ = _w * side_;
                 img_.drawImage(ConverterGraphicBufferedImage.decodeToImage(api.getImageFactory(), pixels_),(screen.getx() - topLeft_.getx() - topLeftRel.getx()) * side_+NumberUtil.quot(width_ - pixels_[0].length, 2),(screen.gety() - topLeft_.gety() - topLeftRel.gety()) * side_+NumberUtil.quot(height_ - pixels_.length, 2));
             }
             img_.drawImage(ConverterCommonMapUtil.buildImgFore(api,facadeGame,limits_,foreground,topLeftRel,rowsCount,colsCount),-topLeftRel.getx() * side_, -topLeftRel.gety() * side_);
             img_.drawImage(ConverterCommonMapUtil.buildImgFore(api,facadeGame,limits_,foregroundEdited,topLeftRel,rowsCount,colsCount),-topLeftRel.getx() * side_, -topLeftRel.gety() * side_);
             img_.setColor(GuiConstants.BLACK);
-            img_.drawRect((screen.getx() - topLeft_.getx() - topLeftRel.getx()) * side_,(screen.gety() - topLeft_.gety() - topLeftRel.gety()) * side_,formBlockTile.getEdited().getWidth()*side_,formBlockTile.getEdited().getHeight()*side_);
+            img_.drawRect((screen.getx() - topLeft_.getx() - topLeftRel.getx()) * side_,(screen.gety() - topLeft_.gety() - topLeftRel.gety()) * side_, _w *side_, _h *side_);
         } else {
             img_.drawImage(ConverterCommonMapUtil.buildImgFore(api,facadeGame,limits_,foreground,topLeftRel,rowsCount,colsCount),-topLeftRel.getx() * side_, -topLeftRel.gety() * side_);
             img_.drawImage(ConverterCommonMapUtil.buildImgFore(api,facadeGame,limits_,foregroundEdited,topLeftRel,rowsCount,colsCount),-topLeftRel.getx() * side_, -topLeftRel.gety() * side_);

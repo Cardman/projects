@@ -1,6 +1,5 @@
 package aiki.gui.components.editor;
 
-import aiki.instances.*;
 import aiki.map.levels.*;
 import aiki.map.util.*;
 import aiki.util.*;
@@ -43,7 +42,6 @@ public class ApplyTileBlockEvent implements AbsActionListener {
         }
         Limits next_ = Level.limits(grid.getEdited());
         grid.readjust(previous_,next_);
-        grid.getFormBlockTile().setEdited(Instances.newBlock());
-        grid.refreshImg();
+        grid.refreshImg(0, 0);
     }
 }

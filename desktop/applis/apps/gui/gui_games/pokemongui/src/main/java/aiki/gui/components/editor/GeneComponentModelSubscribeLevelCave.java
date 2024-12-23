@@ -3,6 +3,7 @@ package aiki.gui.components.editor;
 import aiki.facade.*;
 import aiki.instances.*;
 import aiki.map.levels.*;
+import aiki.util.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.util.*;
@@ -29,6 +30,10 @@ public final class GeneComponentModelSubscribeLevelCave implements AbsGeneCompon
         AbsPanel page_ = compoFactory_.newPageBox();
         AbsCustComponent compo_ = wild.form(api, facadeGame, factory, frame);
         compo_.setVisible(true);
+        edited = Instances.newLevelCave();
+        Points<Block> blocks_ = edited.getBlocks();
+        wild.setupGridDims(blocks_,(short) cave.getIndexCave(), (byte) cave.getSelectedIndex(),cave.getCave(),edited);
+        wild.getAreas().setBlocks(blocks_);
         sc_.setViewportView(compo_);
         page_.add(sc_);
         return page_;
@@ -43,7 +48,9 @@ public final class GeneComponentModelSubscribeLevelCave implements AbsGeneCompon
 
     @Override
     public void setupValue(LevelCave _value) {
-        wild.setupGridDims(_value.getBlocks(), (short) cave.getIndexCave(), (byte) cave.getSelectedIndex(), cave.getCave(),_value);
+        Points<Block> blocks_ = ConverterCommonMapUtil.copyPointsBlock(_value.getBlocks());
+        wild.setupGridDims(blocks_,(short) cave.getIndexCave(), (byte) cave.getSelectedIndex(),cave.getCave(),_value);
+        wild.getAreas().setBlocks(blocks_);
         edited = _value;
     }
 

@@ -194,7 +194,7 @@ public final class ContentComponentModelLevelWithWild {
         if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_LEG_PK)) {
             trySet(level.getFacadeGame().getData().getMiniPk().getVal(legendaryPks.getName().tryRet()));
         }
-        level.refreshImg();
+        level.refreshImg(level.getFormBlockTile().getEdited().getWidth(), level.getFormBlockTile().getEdited().getHeight());
     }
 
     private void trySet(ImageArrayBaseSixtyFour _img) {
@@ -223,7 +223,7 @@ public final class ContentComponentModelLevelWithWild {
             validate();
         }
         key = "";
-        level.refreshImg();
+        level.refreshImg(level.getFormBlockTile().getEdited().getWidth(), level.getFormBlockTile().getEdited().getHeight());
     }
 
     private void validate() {
@@ -249,7 +249,7 @@ public final class ContentComponentModelLevelWithWild {
             edited.getLegendaryPks().removeKey(selected);
             removeFore();
         }
-        level.refreshImg();
+        level.refreshImg(level.getFormBlockTile().getEdited().getWidth(), level.getFormBlockTile().getEdited().getHeight());
     }
 
     private void removeFore() {

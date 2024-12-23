@@ -10,6 +10,6 @@ public class RefreshBlockTileSelection implements ListSelection {
 
     @Override
     public void valueChanged(SelectionInfo _e) {
-        formLevelGrid.refreshImg();
+        formLevelGrid.refreshImg(formLevelGrid.getFormBlockTile().getEdited().getWidth(), formLevelGrid.getFormBlockTile().getEdited().getHeight());
     }
 }
