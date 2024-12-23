@@ -1026,6 +1026,82 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getRemoveTile());
         assertEq(0,((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getRoad().getLevelWithWild().getEdited().getLegendaryPks().size());
     }
+    @Test
+    public void cave1() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAdd());
+        ConverterCommonMapUtil.trigger(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getPlaceKind(),MessagesEditorSelect.PLACE_CAVE);
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getCave().getCrudGeneFormLevelCave().getAdd());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getCave().getCrudGeneFormLevelCave().getValidAddEdit());
+        ((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getName().valueString("_");
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        assertEq(1, facade_.getData().getMap().getPlace(0).getLevelsList().size());
+    }
+    @Test
+    public void cave2() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAdd());
+        ConverterCommonMapUtil.trigger(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getPlaceKind(),MessagesEditorSelect.PLACE_CAVE);
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getCave().getCrudGeneFormLevelCave().getAdd());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getCave().getCrudGeneFormLevelCave().getValidAddEdit());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getCave().getCrudGeneFormLevelCave().getAllButtons().get(0));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getCave().getCrudGeneFormLevelCave().getValidRemove());
+        ((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getName().valueString("_");
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        assertEq(0, facade_.getData().getMap().getPlace(0).getLevelsList().size());
+    }
+    @Test
+    public void cave3() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAdd());
+        ConverterCommonMapUtil.trigger(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getPlaceKind(),MessagesEditorSelect.PLACE_CAVE);
+        ((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getName().valueString("_");
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getCave().getCrudGeneFormLevelCave().getAdd());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getCave().getCrudGeneFormLevelCave().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        assertEq(1, facade_.getData().getMap().getPlace(0).getLevelsList().size());
+    }
+    @Test
+    public void cave4() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAdd());
+        ConverterCommonMapUtil.trigger(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getPlaceKind(),MessagesEditorSelect.PLACE_CAVE);
+        ((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getName().valueString("_");
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getCave().getCrudGeneFormLevelCave().getAdd());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getCave().getCrudGeneFormLevelCave().getValidAddEdit());
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getCave().getCrudGeneFormLevelCave().getAllButtons().get(0));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getCave().getCrudGeneFormLevelCave().getValidRemove());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        assertEq(0, facade_.getData().getMap().getPlace(0).getLevelsList().size());
+    }
+    @Test
+    public void cave5() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        Road place_ = Instances.newRoad();
+        place_.getLinksWithCaves().put(newPoint(0,0),new Link("",newCoords(1,0,0,0)));
+        facade_.getData().getMap().addPlace(place_);
+        Cave cave_ = Instances.newCave();
+        cave_.getLevels().add(Instances.newLevelCave());
+        facade_.getData().getMap().addPlace(cave_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(1));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getCave().getCrudGeneFormLevelCave().getAllButtons().get(0));
+        tryClick(((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getCave().getCrudGeneFormLevelCave().getValidRemove());
+        assertEq(1,((GeneComponentModelPlace)sub_.getFormDataMap().getCrudPlace().getGene()).getCave().getCrudGeneFormLevelCave().getList().size());
+    }
     private void tryClickTile(WindowPkEditor _sub) {
         int side_ = _sub.getFormDataMap().getMiniMapGrid().sideTile();
         tryClick(_sub.getFormDataMap().getMiniMapGrid().getGrid(),side_+1,side_+1);

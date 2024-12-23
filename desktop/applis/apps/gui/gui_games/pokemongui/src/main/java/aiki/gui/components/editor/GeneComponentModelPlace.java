@@ -17,6 +17,7 @@ public final class GeneComponentModelPlace implements GeneComponentModel<Place>,
     private GeneComponentModelElt<String> placeKind;
     private Place edited;
     private GeneComponentModelText name;
+    private final ContentComponentModelCave cave = new ContentComponentModelCave();
     private final ContentComponentModelRoad road = new ContentComponentModelRoad();
     private short nbPlace = -1;
     private final CrudGeneFormEntPlace crud;
@@ -36,6 +37,7 @@ public final class GeneComponentModelPlace implements GeneComponentModel<Place>,
         form_.add(placeKind.geneEnum());
         name = new GeneComponentModelText(compoFactory);
         form_.add(name.geneString());
+        form_.add(cave.form(compoFactory,facade,translationList,frame));
         form_.add(road.form(compoFactory,facade,translationList,frame));
         if (!GeneComponentModelEltStrCom.disable(_select, 0)) {
             placeKind.getSelect().addListener(new ChangingTypeEvent(this));
@@ -60,7 +62,8 @@ public final class GeneComponentModelPlace implements GeneComponentModel<Place>,
         if (StringUtil.quickEq(eff_, MessagesEditorSelect.PLACE_LEAGUE)) {
             edited = Instances.newLeague();
         }
-        road();
+        place();
+        cave.display(eff_);
         road.display(eff_);
         placeKind.getSelect().repaint();
         frame.pack();
@@ -69,6 +72,9 @@ public final class GeneComponentModelPlace implements GeneComponentModel<Place>,
     @Override
     public Place value() {
         edited.setName(name.valueString());
+        if (edited instanceof Cave) {
+            ((Cave)edited).setLevels(cave.getCrudGeneFormLevelCave().getList());
+        }
         if (edited instanceof Road) {
             translationList.setFormLevelGridUniq(null);
             ((Road)edited).getLevelRoad().setBlocks(road.getLevelWithWild().getLevel().getEdited());
@@ -82,10 +88,15 @@ public final class GeneComponentModelPlace implements GeneComponentModel<Place>,
         nbPlace = (short) crud.getSelectedIndex();
         edited = _v;
         name.valueString(edited.getName());
-        road();
+        place();
     }
 
-    private void road() {
+    private void place() {
+        if (edited instanceof Cave) {
+            cave.setupRefs((Cave)edited,nbPlace);
+            cave.getCrudGeneFormLevelCave().setupValues(((Cave)edited).getLevels());
+            displayRepaint(MessagesEditorSelect.PLACE_CAVE);
+        }
         if (edited instanceof Road) {
             road.getLevelWithWild().getAreas().setupValues(ConverterCommonMapUtil.copyListArea(((Road)edited).getLevelRoad().getWildPokemonAreas()));
             Points<Block> blocks_ = ConverterCommonMapUtil.copyPointsBlock(((Road) edited).getLevelRoad().getBlocks());
@@ -96,6 +107,7 @@ public final class GeneComponentModelPlace implements GeneComponentModel<Place>,
     }
 
     private void displayRepaint(String _eff) {
+        cave.display(_eff);
         road.display(_eff);
         placeKind.setupValue(_eff);
         placeKind.getSelect().repaint();
@@ -106,6 +118,10 @@ public final class GeneComponentModelPlace implements GeneComponentModel<Place>,
 
     public GeneComponentModelText getName() {
         return name;
+    }
+
+    public ContentComponentModelCave getCave() {
+        return cave;
     }
 
     public ContentComponentModelRoad getRoad() {
