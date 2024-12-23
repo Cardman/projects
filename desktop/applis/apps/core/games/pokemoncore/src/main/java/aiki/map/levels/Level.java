@@ -134,21 +134,25 @@ public abstract class Level {
             DataBase _data, Coords _coords) {
         Place pl_ = _data.getMap().getPlace(_coords.getNumberPlace());
         Level lev_ = _data.getMap().getLevelByCoords(_coords);
+        return getLevelForegroundImage(_data, _coords, pl_, lev_);
+    }
+
+    public static Points<int[][]> getLevelForegroundImage(DataBase _data, Coords _coords, Place _pl, Level _lev) {
         Points< int[][]> frontTiles_ = new PointsArr();
         feedLeague(_data, _coords, frontTiles_);
-        if (lev_ instanceof LevelLeague) {
-            LevelLeague lv_ = (LevelLeague) lev_;
+        if (_lev instanceof LevelLeague) {
+            LevelLeague lv_ = (LevelLeague) _lev;
             Person person_ = lv_.getTrainer();
             frontTiles_.put(new Point(lv_.getTrainerCoords()),
                     _data.getPerson(person_.getImageMiniFileName()));
             frontTiles_.put(new Point(lv_.getAccessPoint()),
                     _data.getLink(lv_.getFileName()));
         }
-        feedLevelWithWildPokemon(_data, lev_, frontTiles_);
-        feedCity(_data, _coords, pl_, lev_, frontTiles_);
-        feedCave(_data, _coords, pl_, frontTiles_);
-        if (pl_ instanceof InitializedPlace) {
-            InitializedPlace init_ = (InitializedPlace) pl_;
+        feedLevelWithWildPokemon(_data, _lev, frontTiles_);
+        feedCity(_data, _coords, _pl, _lev, frontTiles_);
+        feedCave(_data, _coords, _pl, frontTiles_);
+        if (_pl instanceof InitializedPlace && !_coords.isInside()) {
+            InitializedPlace init_ = (InitializedPlace) _pl;
             for (Point p : init_.getLinksWithCaves().getKeys()) {
                 Link link_ = init_.getLinksWithCaves().getVal(p);
                 frontTiles_.put(new Point(p),
@@ -191,21 +195,28 @@ public abstract class Level {
 
     private static void feedCave(DataBase _data, Coords _coords, Place _pl, Points<int[][]> _frontTiles) {
         if (_pl instanceof Cave) {
+            int index_ = _coords.getLevel().getLevelIndex();
             Cave cave_ = (Cave) _pl;
             for (LevelPoint lp_ : cave_.getLinksWithOtherPlaces().getKeys()) {
-                if (!NumberUtil.eq(lp_.getLevelIndex(), _coords.getLevel()
-                        .getLevelIndex())) {
+                if (!NumberUtil.eq(lp_.getLevelIndex(), index_)) {
                     continue;
                 }
                 Link link_ = cave_.getLinksWithOtherPlaces().getVal(lp_);
                 _frontTiles.put(new Point(lp_.getPoint()),
                         _data.getLink(link_.getFileName()));
             }
-            LevelCave lv_ = cave_.getLevelCave(_coords.getLevel());
-            for (Point p : lv_.getLinksOtherLevels().getKeys()) {
-                Link link_ = lv_.getLinksOtherLevels().getVal(p);
-                _frontTiles.put(new Point(p),
-                        _data.getLink(link_.getFileName()));
+            CustList<LevelCave> levels_ = cave_.getLevels();
+            int len_ = levels_.size();
+            for (int i = 0; i < len_; i++) {
+                if (!NumberUtil.eq(i, index_)) {
+                    continue;
+                }
+                LevelCave lv_ = levels_.get(index_);
+                for (Point p : lv_.getLinksOtherLevels().getKeys()) {
+                    Link link_ = lv_.getLinksOtherLevels().getVal(p);
+                    _frontTiles.put(new Point(p),
+                            _data.getLink(link_.getFileName()));
+                }
             }
         }
     }

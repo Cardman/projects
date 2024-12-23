@@ -18,7 +18,10 @@ public final class GeneComponentModelPlace implements GeneComponentModel<Place>,
     private Place edited;
     private GeneComponentModelText name;
     private final ContentComponentModelRoad road = new ContentComponentModelRoad();
-    public GeneComponentModelPlace(AbstractProgramInfos _core, FacadeGame _facadeGame, SubscribedTranslationList _subscription, AbsCommonFrame _fr) {
+    private short nbPlace = -1;
+    private final CrudGeneFormEntPlace crud;
+    public GeneComponentModelPlace(CrudGeneFormEntPlace _c, AbstractProgramInfos _core, FacadeGame _facadeGame, SubscribedTranslationList _subscription, AbsCommonFrame _fr) {
+        crud = _c;
         compoFactory = _core;
         facade = _facadeGame;
         translationList = _subscription;
@@ -43,6 +46,7 @@ public final class GeneComponentModelPlace implements GeneComponentModel<Place>,
 
     @Override
     public void applyChange() {
+        nbPlace = -1;
         String eff_ = placeKind.tryRet();
         if (StringUtil.quickEq(eff_, MessagesEditorSelect.PLACE_CITY)) {
             edited = Instances.newCity();
@@ -66,7 +70,8 @@ public final class GeneComponentModelPlace implements GeneComponentModel<Place>,
     public Place value() {
         edited.setName(name.valueString());
         if (edited instanceof Road) {
-            ((Road)edited).getLevelRoad().setBlocks(road.getLevel().getEdited());
+            translationList.setFormLevelGridUniq(null);
+            ((Road)edited).getLevelRoad().setBlocks(road.getLevelWithWild().getLevel().getEdited());
             ((Road)edited).getLevelRoad().setWildPokemonAreas(road.getLevelWithWild().getAreas().getList());
         }
         return edited;
@@ -74,6 +79,7 @@ public final class GeneComponentModelPlace implements GeneComponentModel<Place>,
 
     @Override
     public void value(Place _v) {
+        nbPlace = (short) crud.getSelectedIndex();
         edited = _v;
         name.valueString(edited.getName());
         road();
@@ -83,7 +89,7 @@ public final class GeneComponentModelPlace implements GeneComponentModel<Place>,
         if (edited instanceof Road) {
             road.getLevelWithWild().getAreas().setupValues(ConverterCommonMapUtil.copyListArea(((Road)edited).getLevelRoad().getWildPokemonAreas()));
             Points<Block> blocks_ = ConverterCommonMapUtil.copyPointsBlock(((Road) edited).getLevelRoad().getBlocks());
-            road.getLevel().setupGridDims(blocks_);
+            road.getLevelWithWild().setupGridDims(blocks_,nbPlace,(byte) 0,edited,((Road) edited).getLevelRoad());
             road.getLevelWithWild().getAreas().setBlocks(blocks_);
             displayRepaint(MessagesEditorSelect.PLACE_ROAD);
         }

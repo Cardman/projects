@@ -17,7 +17,7 @@ public final class CrudGeneFormEntPlace extends CrudGeneFormListSub<Place> imple
         initForm();
         getCrudGeneFormSubContent().clearSub();
         FacadeGame facadeGame_ = getCrudGeneFormSubContent().getFacadeGame();
-        GeneComponentModel<Place> key_ = new GeneComponentModelPlace(getFactory(),facadeGame_,getCrudGeneFormSubContent().getSubscription(), getFrame());
+        GeneComponentModel<Place> key_ = new GeneComponentModelPlace(this,getFactory(),facadeGame_,getCrudGeneFormSubContent().getSubscription(), getFrame());
         initForm(new DisplayEntryCustPlace(), key_);
         setupValues(facadeGame_.getData().getMap().getPlaces());
     }
@@ -26,21 +26,25 @@ public final class CrudGeneFormEntPlace extends CrudGeneFormListSub<Place> imple
     protected void afterModif(int _index, Place _value) {
         FacadeGame facadeGame_ = getCrudGeneFormSubContent().getFacadeGame();
         if (_index > -1) {
-            if (facadeGame_.getData().getMap().deletePlace(_index) != null) {
-                getList().remove(_index);
-                getCrudGeneFormSubContent().getSubscription().getRemovingPlacePhase().setPlace(_index);
-                getCrudGeneFormSubContent().getSubscription().update();
+            if (facadeGame_.getData().getMap().deletePlace(_index) == null) {
+                return;
             }
+            getCrudGeneFormSubContent().getSubscription().setFormLevelGridUniq(null);
+            getList().remove(_index);
+            getCrudGeneFormSubContent().getSubscription().getRemovingPlacePhase().setPlace(_index);
+            getCrudGeneFormSubContent().getSubscription().update();
             getCrudGeneFormSubContent().removeOpenSub();
             afterModif();
             return;
         }
         if (getSelectedIndex() < 0) {
+            getCrudGeneFormSubContent().getSubscription().setFormLevelGridUniq(null);
             facadeGame_.getData().getMap().addPlace(_value);
             getCrudGeneFormSubContent().removeOpenSub();
             afterModif();
             return;
         }
+        getCrudGeneFormSubContent().getSubscription().setFormLevelGridUniq(null);
         facadeGame_.getData().getMap().getPlaces().set(getSelectedIndex(), _value);
         getCrudGeneFormSubContent().removeOpenSub();
         afterModif();
@@ -48,6 +52,7 @@ public final class CrudGeneFormEntPlace extends CrudGeneFormListSub<Place> imple
 
     @Override
     public void cancel() {
+        getCrudGeneFormSubContent().getSubscription().setFormLevelGridUniq(null);
         getCrudGeneFormSubContent().removeOpenSub();
         cancelBase();
     }

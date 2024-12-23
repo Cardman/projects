@@ -26,11 +26,14 @@ public final class FormLevelGrid {
     private AbsScrollPane element;
     private AbsButton applyPrepend;
     private AbsButton applyAppend;
+    private AbsPanel form;
     private int rowsCount;
     private int colsCount;
     private final IdList<SubscribedTranslation> translations = new IdList<SubscribedTranslation>();
     private Points<Block> edited = new PointsBlock();
     private final Point topLeftRel = new Point((short) 0,(short) 0);
+    private final Points<int[][]> foreground = new PointsArr();
+    private final Points<int[][]> foregroundEdited = new PointsArr();
     private Point screen;
 
     public FormLevelGrid(AbstractProgramInfos _a, FacadeGame _f, AbsScrollPane _c, AbsCommonFrame _fr, SubscribedTranslationList _i) {
@@ -40,7 +43,9 @@ public final class FormLevelGrid {
         frame = _fr;
         translationList = _i;
     }
-    public void setupGridDims(Points<Block> _bk) {
+    public void setupGridDims(Points<Block> _bk, Points<int[][]> _f) {
+        foreground.clear();
+        foreground.addAllEntries(_f);
         edited = _bk;
         Limits limits_ = Level.limits(_bk);
         Point topLeft_ = limits_.getTopLeft();
@@ -49,7 +54,7 @@ public final class FormLevelGrid {
         colsCount = NumberUtil.max(1,bottomRight_.getx() - topLeft_.getx());
         topLeftRel.sety((short) 0);
         topLeftRel.setx((short) 0);
-        setupGrid(false);
+        setupGrid();
     }
     public void prepend() {
         int deltaRows_ = rows.getValue();
@@ -58,12 +63,12 @@ public final class FormLevelGrid {
         int deltaCols_ = cols.getValue();
         colsCount += deltaCols_;
         topLeftRel.setx((short) (topLeftRel.getx()-deltaCols_));
-        setupGrid(true);
+        refreshImg();
     }
     public void append() {
         rowsCount += rows.getValue();
         colsCount += cols.getValue();
-        setupGrid(true);
+        refreshImg();
     }
     public void readjust(Limits _previous, Limits _next) {
         int deltaRows_ = _previous.getTopLeft().gety() - _next.getTopLeft().gety();
@@ -71,7 +76,7 @@ public final class FormLevelGrid {
         topLeftRel.sety((short) (topLeftRel.gety()+deltaRows_));
         topLeftRel.setx((short) (topLeftRel.getx()+deltaCols_));
     }
-    public void setupGrid(boolean _p) {
+    public void setupGrid() {
         AbsCompoFactory c_ = api.getCompoFactory();
         AbsPanel form_ = c_.newPageBox();
         rows = c_.newSpinner(0,0,Integer.MAX_VALUE,1);
@@ -93,20 +98,13 @@ public final class FormLevelGrid {
         form_.add(getGrid());
         element = c_.newAbsScrollPane();
         form_.add(element);
-        container.setViewportView(form_);
-        if (_p) {
-            frame.pack();
-        }
+        form = form_;
     }
 
 
     public void view(int _x, int _y) {
-        Limits limits_ = Level.limits(edited);
-        Point topLeft_ = limits_.getTopLeft();
-        int max_ = facadeGame.getData().getMap().getSideLength();
-        int i_ = NumberUtil.quot(_x, max_) + topLeft_.getx() + topLeftRel.getx();
-        int j_ = NumberUtil.quot(_y, max_) + topLeft_.gety() + topLeftRel.gety();
-        screen = new Point((short) i_, (short) j_);
+        screen = toPt(_x, _y);
+        foregroundEdited.clear();
         EntryCust<Point, Block> e_ = Level.getEntryBlockByPoint(screen, edited);
         if (e_ == null) {
             formBlockTile.build(this, screen);
@@ -121,6 +119,14 @@ public final class FormLevelGrid {
         }
         element.setViewportView(formBlockTile.getForm());
         frame.pack();
+    }
+    public Point toPt(int _x, int _y) {
+        Limits limits_ = Level.limits(edited);
+        Point topLeft_ = limits_.getTopLeft();
+        int max_ = facadeGame.getData().getMap().getSideLength();
+        int i_ = NumberUtil.quot(_x, max_) + topLeft_.getx() + topLeftRel.getx();
+        int j_ = NumberUtil.quot(_y, max_) + topLeft_.gety() + topLeftRel.gety();
+        return new Point((short) i_, (short) j_);
     }
 
     public void checkDims() {
@@ -168,8 +174,13 @@ public final class FormLevelGrid {
                 int width_ = formBlockTile.getEdited().getWidth() * side_;
                 img_.drawImage(ConverterGraphicBufferedImage.decodeToImage(api.getImageFactory(), pixels_),(screen.getx() - topLeft_.getx() - topLeftRel.getx()) * side_+NumberUtil.quot(width_ - pixels_[0].length, 2),(screen.gety() - topLeft_.gety() - topLeftRel.gety()) * side_+NumberUtil.quot(height_ - pixels_.length, 2));
             }
+            img_.drawImage(ConverterCommonMapUtil.buildImgFore(api,facadeGame,limits_,foreground,topLeftRel,rowsCount,colsCount),-topLeftRel.getx() * side_, -topLeftRel.gety() * side_);
+            img_.drawImage(ConverterCommonMapUtil.buildImgFore(api,facadeGame,limits_,foregroundEdited,topLeftRel,rowsCount,colsCount),-topLeftRel.getx() * side_, -topLeftRel.gety() * side_);
             img_.setColor(GuiConstants.BLACK);
             img_.drawRect((screen.getx() - topLeft_.getx() - topLeftRel.getx()) * side_,(screen.gety() - topLeft_.gety() - topLeftRel.gety()) * side_,formBlockTile.getEdited().getWidth()*side_,formBlockTile.getEdited().getHeight()*side_);
+        } else {
+            img_.drawImage(ConverterCommonMapUtil.buildImgFore(api,facadeGame,limits_,foreground,topLeftRel,rowsCount,colsCount),-topLeftRel.getx() * side_, -topLeftRel.gety() * side_);
+            img_.drawImage(ConverterCommonMapUtil.buildImgFore(api,facadeGame,limits_,foregroundEdited,topLeftRel,rowsCount,colsCount),-topLeftRel.getx() * side_, -topLeftRel.gety() * side_);
         }
         grid.setIcon(imgFact_,img_);
     }
@@ -191,6 +202,10 @@ public final class FormLevelGrid {
         return api;
     }
 
+    public AbsCommonFrame getFrame() {
+        return frame;
+    }
+
     public FacadeGame getFacadeGame() {
         return facadeGame;
     }
@@ -201,6 +216,22 @@ public final class FormLevelGrid {
 
     public FormBlockTile getFormBlockTile() {
         return formBlockTile;
+    }
+
+    public AbsPanel getForm() {
+        return form;
+    }
+
+    public AbsScrollPane getContainer() {
+        return container;
+    }
+
+    public Points<int[][]> getForeground() {
+        return foreground;
+    }
+
+    public Points<int[][]> getForegroundEdited() {
+        return foregroundEdited;
     }
 
     public AbsSpinner getCols() {

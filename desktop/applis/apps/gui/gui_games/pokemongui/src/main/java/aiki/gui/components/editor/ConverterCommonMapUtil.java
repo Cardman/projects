@@ -20,6 +20,7 @@ import aiki.map.levels.*;
 import aiki.map.levels.enums.*;
 import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.*;
+import aiki.map.tree.util.Dims;
 import aiki.map.util.*;
 import aiki.util.*;
 import code.gui.*;
@@ -91,6 +92,12 @@ public final class ConverterCommonMapUtil {
     public static GeneComponentModelLsStrSub<Short,Shorts> buildHmList(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
         return mergeLsNb(_api, _facade, _sub.getFactoryMv(), _sub.getFactoryHm());
     }
+    public static GeneComponentModelEltEnumSub<Short> buildTm(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
+        return mergeNb(_api, _facade, _sub.getFactoryMv(), _sub.getFactoryTm());
+    }
+    public static GeneComponentModelEltEnumSub<Short> buildHm(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
+        return mergeNb(_api, _facade, _sub.getFactoryMv(), _sub.getFactoryHm());
+    }
     public static GeneComponentModelEltEnumSub<String> buildImg(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationMessagesFactoryImgName _img) {
         return new StringSubscribeBuilderUtil(_img).mergeQuick(_api, _facade, new CustList<String>(), new StringMap<String>(), new EmptyDefValue());
     }
@@ -111,7 +118,16 @@ public final class ConverterCommonMapUtil {
         feedSubNb(_builderMv,_builder, sub_, treeFilter_, sel_, g_.getSubs(), messages_);
         return g_;
     }
-
+    private static GeneComponentModelEltEnumSub<Short> mergeNb(AbstractProgramInfos _api, FacadeGame _sub, SubscribedTranslationMessagesFactory _builderMv, SubscribedTranslationMessagesNbFactory _builder) {
+        ShortMap<String> map_ = _builder.retrieveMap(_api, _sub);
+        AbsMap<String, String> messages_ = _builderMv.getContainer().buildMessages(_api, _sub);
+        ShortMap<String> sub_ = map(map_, messages_);
+        TreeMap<Short, String> treeFilter_ = feedTreeNb(sub_, sub_.getKeys());
+        GeneComponentModelElt<Short> sel_ = new GeneComponentModelElt<Short>(_api, treeFilter_,new NbDefValue<Short>((short)0));
+        GeneComponentModelEltEnumSub<Short> g_ = new GeneComponentModelEltEnumSub<Short>(sel_);
+        feedSubNb(_builderMv,_builder, sub_, treeFilter_, sel_, g_.getSubs(), messages_);
+        return g_;
+    }
     public static ShortMap<String> map(ShortMap<String> _map, AbsMap<String,String> _messages) {
         ShortMap<String> messages_ = new ShortMap<String>();
         for (EntryCust<Short,String> e: _map.entryList()) {
@@ -194,17 +210,41 @@ public final class ConverterCommonMapUtil {
         }
         return img_;
     }
+    public static AbstractImage buildImgFore(AbstractProgramInfos _api,FacadeGame _f, Limits _lims,Points<int[][]> _bk, Point _tl, int _r, int _c) {
+        int side_ = _f.getMap().getSideLength();
+        Point topLeft_ = _lims.getTopLeft();
+        int height_ = _r*side_;
+        int width_ = _c*side_;
+        AbstractImage img_ = _api.getImageFactory().newImageArgb(width_, height_);
+        for (EntryCust<Point,int[][]> e: _bk.entryList()) {
+            drawImage(_api,img_,true,e.getValue(),(e.getKey().getx() - topLeft_.getx() - _tl.getx()) * side_, (e.getKey().gety() - topLeft_.gety() - _tl.gety()) * side_);
+        }
+        return img_;
+    }
     public static AbstractImage buildImg(AbstractProgramInfos _api,FacadeGame _f,Block _bk) {
         int side_ = _f.getMap().getSideLength();
         int height_ = _bk.getHeight() * side_;
         int width_ = _bk.getWidth() * side_;
         AbstractImage img_ = _api.getImageFactory().newImageArgb(width_, height_);
         int[][] pixels_ = _f.getData().getImage(_bk.getTileFileName());
-        if (pixels_.length == 0) {
-            return img_;
-        }
-        img_.drawImage(ConverterGraphicBufferedImage.decodeToImage(_api.getImageFactory(), pixels_),NumberUtil.quot(width_ - pixels_[0].length, 2),NumberUtil.quot(height_ - pixels_.length, 2));
+        Dims dims_ = dims(pixels_);
+        drawImage(_api,img_,false,pixels_,NumberUtil.quot(width_ - dims_.getWidth(), 2),NumberUtil.quot(height_ - dims_.getHeight(), 2));
         return img_;
+    }
+    public static void drawImage(AbstractProgramInfos _api, AbstractImage _target, boolean _tr, int[][] _pixels, int _x, int _y) {
+        if (_pixels.length > 0) {
+            AbstractImage image_ = ConverterGraphicBufferedImage.decodeToImage(_api.getImageFactory(), _pixels);
+            if (_tr) {
+                ConverterGraphicBufferedImage.transparentAllWhite(image_);
+            }
+            _target.drawImage(image_,_x,_y);
+        }
+    }
+    public static Dims dims(int[][] _pixels) {
+        if (_pixels.length == 0) {
+            return new Dims();
+        }
+        return new Dims(_pixels[0].length, _pixels.length);
     }
     public static PointsBlock copyPointsBlock(Points<Block> _e){
         PointsBlock cp_ = new PointsBlock(new CollCapacity(_e.size()));

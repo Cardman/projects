@@ -1,9 +1,11 @@
 package aiki.gui.components.editor;
 
+import aiki.instances.*;
 import aiki.map.levels.*;
 import aiki.map.util.*;
 import aiki.util.*;
 import code.gui.events.*;
+import code.util.*;
 
 public class ApplyTileBlockEvent implements AbsActionListener {
     private final FormLevelGrid grid;
@@ -28,6 +30,12 @@ public class ApplyTileBlockEvent implements AbsActionListener {
             grid.getEdited().addEntry(pt,form.buildEntity());
         } else {
             if (remove) {
+                EntryCust<Point, Block> ref_ = Level.getEntryBlockByPoint(pt, grid.getEdited());
+                for (EntryCust<Point,int[][]> f: grid.getForeground().entryList()) {
+                    if (Level.getEntryBlockByPoint(f.getKey(),grid.getEdited()) == ref_) {
+                        return;
+                    }
+                }
                 grid.getEdited().remove(e_);
             } else {
                 grid.getEdited().setValue(e_,form.buildEntity());
@@ -35,6 +43,7 @@ public class ApplyTileBlockEvent implements AbsActionListener {
         }
         Limits next_ = Level.limits(grid.getEdited());
         grid.readjust(previous_,next_);
-        grid.setupGrid(true);
+        grid.getFormBlockTile().setEdited(Instances.newBlock());
+        grid.refreshImg();
     }
 }

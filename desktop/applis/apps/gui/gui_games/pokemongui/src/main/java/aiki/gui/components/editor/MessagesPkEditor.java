@@ -16,6 +16,7 @@ public final class MessagesPkEditor {
     public static final String RESTRICT = "restrict";
     public static final String HEROS_SEX = "heros";
     public static final String PLACE = "place";
+    public static final String TILE = "tile";
     private MessagesPkEditor() {
     }
 
@@ -42,6 +43,7 @@ public final class MessagesPkEditor {
         appendMessagesEditorSelectMoveChoiceRestrictionType(_lgs,MessagesEditorSelect.enMoveChoiceRestrictionType());
         appendMessagesEditorSelectHerosSex(_lgs,MessagesEditorSelect.enHerosSex());
         appendMessagesEditorSelectPlace(_lgs,MessagesEditorSelect.enPlace());
+        appendMessagesEditorSelectTileKindWild(_lgs,MessagesEditorSelect.enTileKindWild());
     }
 
     public static void frTr(TranslationsAppli _lgs) {
@@ -57,6 +59,7 @@ public final class MessagesPkEditor {
         appendMessagesEditorSelectMoveChoiceRestrictionType(_lgs,MessagesEditorSelect.frMoveChoiceRestrictionType());
         appendMessagesEditorSelectHerosSex(_lgs,MessagesEditorSelect.frHerosSex());
         appendMessagesEditorSelectPlace(_lgs,MessagesEditorSelect.frPlace());
+        appendMessagesEditorSelectTileKindWild(_lgs,MessagesEditorSelect.frTileKindWild());
     }
 
     public static void appendMessagesEditorSelectGenderRep(TranslationsAppli _lgs, TranslationsFile _f) {
@@ -100,6 +103,9 @@ public final class MessagesPkEditor {
     public static void appendMessagesEditorSelectPlace(TranslationsAppli _lgs, TranslationsFile _f) {
         _lgs.getMapping().addEntry(PLACE, _f);
     }
+    public static void appendMessagesEditorSelectTileKindWild(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(TILE, _f);
+    }
     public static TranslationsFile getMessagesEditorSelectGenderRepTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(GENDER_REP);
     }
@@ -135,5 +141,8 @@ public final class MessagesPkEditor {
     }
     public static TranslationsFile getMessagesEditorSelectPlaceTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(PLACE);
+    }
+    public static TranslationsFile getMessagesEditorSelectTileKindWildTr(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(TILE);
     }
 }

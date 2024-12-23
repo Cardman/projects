@@ -51,6 +51,7 @@ public final class SubscribedTranslationList {
     private final ImgFieldRetrieverTmHm imgFieldRetrieverTmHm = new ImgFieldRetrieverTmHm();
     private final SubscribedTranslationMessagesFactoryImgName imgRetrieverMiniMapSub = new SubscribedTranslationMessagesFactoryImgName(imgRetrieverMiniMap);
     private final SubscribedTranslationMessagesFactoryImgName imgRetrieverBlocksSub = new SubscribedTranslationMessagesFactoryImgName(imgRetrieverBlocks);
+    private FormLevelGrid formLevelGridUniq;
 
     public SubscribedTranslationList(AbstractProgramInfos _p, FacadeGame _f) {
         this.programInfos = _p;
@@ -199,6 +200,14 @@ public final class SubscribedTranslationList {
         getFactoryPk().setItemForBattle(_v);
         getFactorySt().setItemForBattle(_v);
         getFactoryTy().setItemForBattle(_v);
+    }
+
+    public FormLevelGrid getFormLevelGridUniq() {
+        return formLevelGridUniq;
+    }
+
+    public void setFormLevelGridUniq(FormLevelGrid _f) {
+        this.formLevelGridUniq = _f;
     }
 
     public RenamingIdPhase getRenamingIdPhase() {

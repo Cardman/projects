@@ -63,6 +63,13 @@ public final class MessagesEditorSelect {
     public static final String PLACE_ROAD = "1";
     public static final String PLACE_CAVE = "2";
     public static final String PLACE_LEAGUE = "3";
+    public static final String TILE_ITEMS = "0";
+    public static final String TILE_TM = "1";
+    public static final String TILE_HM = "2";
+    public static final String TILE_LEG_PK = "3";
+    public static final String TILE_DEALER = "4";
+    public static final String TILE_TRAINER = "5";
+    public static final String TILE_DUAL = "6";
     private MessagesEditorSelect() {
     }
     public static TranslationsFile enGenderRep(){
@@ -353,6 +360,28 @@ public final class MessagesEditorSelect {
         f_.add(PLACE_ROAD,"route");
         f_.add(PLACE_CAVE,"cave");
         f_.add(PLACE_LEAGUE,"ligue");
+        return f_;
+    }
+    public static TranslationsFile enTileKindWild(){
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(TILE_ITEMS,"items");
+        e_.add(TILE_TM,"technical move");
+        e_.add(TILE_HM,"hidden move");
+        e_.add(TILE_LEG_PK,"legendary");
+        e_.add(TILE_DEALER,"dealer item");
+        e_.add(TILE_TRAINER,"trainer");
+        e_.add(TILE_DUAL,"fight with ally");
+        return e_;
+    }
+    public static TranslationsFile frTileKindWild(){
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(TILE_ITEMS,"objets");
+        f_.add(TILE_TM,"capsule technique");
+        f_.add(TILE_HM,"capsule secrète");
+        f_.add(TILE_LEG_PK,"légendaire");
+        f_.add(TILE_DEALER,"donneur d'objet");
+        f_.add(TILE_TRAINER,"dresseur");
+        f_.add(TILE_DUAL,"combat avec allié");
         return f_;
     }
 }

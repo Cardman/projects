@@ -26,6 +26,5 @@ public final class SubscribedTranslationSelectChangeText implements SubscribedTr
         } else {
             input.reset();
         }
-        input.getSelect().events(null);
     }
 }

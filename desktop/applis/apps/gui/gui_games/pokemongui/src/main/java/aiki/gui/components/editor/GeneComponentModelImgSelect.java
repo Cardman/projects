@@ -50,6 +50,7 @@ public final class GeneComponentModelImgSelect {
         IdList<SubscribedTranslation> ids_ = new IdList<SubscribedTranslation>();
         ids_.addAllElts(getName().getSubs());
         ids_.add(new SubscribedTranslationSelectChangeText(getName().getSelectUniq(), imgRetrieverSub.getImgRetriever()));
+        ids_.add(new SubscribedTranslationSelectChangeEvtsText<String>(getName().getSelectUniq()));
         return ids_;
     }
 }

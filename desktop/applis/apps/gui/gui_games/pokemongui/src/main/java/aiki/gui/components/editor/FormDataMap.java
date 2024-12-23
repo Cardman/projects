@@ -8,6 +8,7 @@ import code.util.*;
 
 public final class FormDataMap {
     private final WindowPkEditor window;
+    private final SubscribedTranslationList translationList;
     private final FacadeGame facadeGame;
     private final AbsSpinner screenWidth;
     private final AbsSpinner screenHeight;
@@ -27,6 +28,7 @@ public final class FormDataMap {
 
     public FormDataMap(WindowPkEditor _ed, FacadeGame _facade, SubscribedTranslationList _subscriptions, IdList<SubscribedTranslation> _trs) {
         formWildPk = new FormWildPk(_ed.getFrames(), _facade, _subscriptions);
+        translationList = _subscriptions;
         translations = _trs;
         window = _ed;
         facadeGame = _facade;
@@ -95,6 +97,10 @@ public final class FormDataMap {
         dm_.setUnlockedCity(unlockedCity.getName().tryRet());
         dm_.setPlaces(crudPlace.getList());
         if (old_ != dm_.getSideLength()) {
+            FormLevelGrid formLevelGrid_ = translationList.getFormLevelGridUniq();
+            if (formLevelGrid_ != null) {
+                formLevelGrid_.refreshImg();
+            }
             miniMapGrid.setupGrid(true);
         }
     }
