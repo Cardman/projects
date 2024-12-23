@@ -19,10 +19,13 @@ public final class FormWildPk {
     private final GeneComponentModelInt level;
     private WildPk wildPk;
     private AbsPanel form;
-    public FormWildPk(AbstractProgramInfos _ed, FacadeGame _facade, SubscribedTranslationList _sub) {
+    private AbsScrollPane view;
+    private final AbsCommonFrame frame;
+    public FormWildPk(AbstractProgramInfos _ed, FacadeGame _facade, SubscribedTranslationList _sub, AbsCommonFrame _f) {
         api = _ed;
         facadeGame = _facade;
         subscribedTranslationList = _sub;
+        frame = _f;
         level = new GeneComponentModelInt(api);
     }
 
@@ -30,14 +33,18 @@ public final class FormWildPk {
         wildPk = Instances.newWildPk();
         form = api.getCompoFactory().newPageBox();
         form.add(level.geneInt());
+        level.getSpinner().addChangeListener(new RefreshWildPkMoves(facadeGame,this));
         name = ConverterCommonMapUtil.buildPkFull(api, facadeGame, subscribedTranslationList);
         form.add(name.geneEnum());
+        name.getSelectUniq().getSelect().addListener(new RefreshWildPkMoves(facadeGame,this));
         ability = ConverterCommonMapUtil.buildAbFull(api, facadeGame, subscribedTranslationList, new IdMap<String, String>());
         form.add(ability.geneEnum());
         item = ConverterCommonMapUtil.buildItFull(api, facadeGame, subscribedTranslationList, ConverterCommonMapUtil.defKeyEmpty(" "));
         form.add(item.geneEnum());
         gender = ConverterCommonMapUtil.buildGender(api, facadeGame, subscribedTranslationList);
         form.add(gender.geneEnum());
+        view = api.getCompoFactory().newAbsScrollPane();
+        form.add(view);
     }
 
     public void feedForm(WildPk _wp) {
@@ -47,13 +54,16 @@ public final class FormWildPk {
         ability.setupValue(wildPk.getAbility());
         item.setupValue(wildPk.getItem());
         gender.setupValue(wildPk.getGender());
+        RefreshWildPkMoves.act(api,facadeGame,this);
     }
 
     public void feedSubs(IdList<SubscribedTranslation> _subs) {
         _subs.addAllElts(name.getSubs());
+        _subs.add(new SubscribedTranslationSelectChangeEvtsText<String>(name.getSelectUniq()));
         _subs.addAllElts(ability.getSubs());
         _subs.addAllElts(item.getSubs());
         _subs.addAllElts(gender.getSubs());
+        _subs.add(new RefreshWildPkMoves(facadeGame,this));
     }
 
     public WildPk buildEntity() {
@@ -63,6 +73,14 @@ public final class FormWildPk {
         wildPk.setItem(item.tryRet());
         wildPk.setGender(gender.tryRet());
         return getWildPk();
+    }
+
+    public AbstractProgramInfos getApi() {
+        return api;
+    }
+
+    public AbsCommonFrame getFrame() {
+        return frame;
     }
 
     public WildPk getWildPk() {
@@ -91,5 +109,9 @@ public final class FormWildPk {
 
     public GeneComponentModelEltEnumSub<String> getItem() {
         return item;
+    }
+
+    public AbsScrollPane getView() {
+        return view;
     }
 }

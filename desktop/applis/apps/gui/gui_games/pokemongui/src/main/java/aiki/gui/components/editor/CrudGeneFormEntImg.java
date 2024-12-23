@@ -55,6 +55,8 @@ public final class CrudGeneFormEntImg extends CrudGeneFormListSub<EditedCrudPair
             return;
         }
         factoryCommonParam.all(facadeGame_).set(key_, _value.getValue());
+        getCrudGeneFormSubContent().getSubscription().updateRenamingId("","",new StringList());
+        getCrudGeneFormSubContent().getSubscription().update();
         factoryCommonParam.removeOpenSub(getCrudGeneFormSubContent());
         afterModif();
     }

@@ -158,7 +158,7 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         events(crudGeneFormTrCstList.getFrame(), trsConstMenu, crudGeneFormTrCstList, new IdList<SubscribedTranslation>());
         crudGeneFormTrOtherCstList = new CrudGeneFormTrOtherCstList(_list, _facade);
         events(crudGeneFormTrOtherCstList.getFrame(), trsOtherConstMenu, crudGeneFormTrOtherCstList, new IdList<SubscribedTranslation>());
-        crudGeneFormTrCstNumList = new CrudGeneFormTrCstNumList(_list, _facade);
+        crudGeneFormTrCstNumList = new CrudGeneFormTrCstNumList(_list, _facade,subscriptions);
         events(crudGeneFormTrCstNumList.getFrame(), trsNumConstMenu, crudGeneFormTrCstNumList, new IdList<SubscribedTranslation>());
         crudGeneFormCstStat = new CrudGeneFormTrCst<Statistic>(_list,_facade,subscriptions,subscriptions.getFactoryStat());
         events(crudGeneFormCstStat.getFrame(), trsCstStatMenu, crudGeneFormCstStat, new IdList<SubscribedTranslation>());

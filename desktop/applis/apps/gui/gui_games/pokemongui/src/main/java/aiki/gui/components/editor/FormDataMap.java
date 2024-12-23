@@ -27,7 +27,7 @@ public final class FormDataMap {
     private final CrudGeneFormEntPlace crudPlace;
 
     public FormDataMap(WindowPkEditor _ed, FacadeGame _facade, SubscribedTranslationList _subscriptions, IdList<SubscribedTranslation> _trs) {
-        formWildPk = new FormWildPk(_ed.getFrames(), _facade, _subscriptions);
+        formWildPk = new FormWildPk(_ed.getFrames(), _facade, _subscriptions,_ed.getCommonFrame());
         translationList = _subscriptions;
         translations = _trs;
         window = _ed;

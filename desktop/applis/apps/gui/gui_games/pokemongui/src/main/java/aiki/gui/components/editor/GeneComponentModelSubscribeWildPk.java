@@ -8,8 +8,8 @@ import code.util.*;
 
 public final class GeneComponentModelSubscribeWildPk implements AbsGeneComponentModelSubscribe<WildPk> {
     private final FormWildPk formWildPk;
-    public GeneComponentModelSubscribeWildPk(AbstractProgramInfos _ed, FacadeGame _facade, SubscribedTranslationList _sub) {
-        formWildPk = new FormWildPk(_ed, _facade, _sub);
+    public GeneComponentModelSubscribeWildPk(AbstractProgramInfos _ed, FacadeGame _facade, SubscribedTranslationList _sub, AbsCommonFrame _f) {
+        formWildPk = new FormWildPk(_ed, _facade, _sub,_f);
     }
     @Override
     public AbsCustComponent geneEnum(int _select, int _value) {

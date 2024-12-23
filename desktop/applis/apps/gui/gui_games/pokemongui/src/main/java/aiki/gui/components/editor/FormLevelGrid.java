@@ -44,8 +44,7 @@ public final class FormLevelGrid {
         translationList = _i;
     }
     public void setupGridDims(Points<Block> _bk, Points<int[][]> _f) {
-        foreground.clear();
-        foreground.addAllEntries(_f);
+        setupForeground(_f);
         edited = _bk;
         Limits limits_ = Level.limits(_bk);
         Point topLeft_ = limits_.getTopLeft();
@@ -56,6 +55,12 @@ public final class FormLevelGrid {
         topLeftRel.setx((short) 0);
         setupGrid();
     }
+
+    public void setupForeground(Points<int[][]> _f) {
+        foreground.clear();
+        foreground.addAllEntries(_f);
+    }
+
     public void prepend() {
         int deltaRows_ = rows.getValue();
         rowsCount += deltaRows_;

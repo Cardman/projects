@@ -1,5 +1,6 @@
 package aiki.gui;
 
+import aiki.db.DataBase;
 import aiki.facade.*;
 import aiki.fight.enums.*;
 import aiki.fight.pokemon.*;
@@ -8,6 +9,7 @@ import aiki.fight.pokemon.evolution.Evolution;
 import aiki.fight.util.LevelMove;
 import aiki.gui.components.editor.*;
 import aiki.map.pokemon.enums.*;
+import code.maths.Rate;
 import code.mock.*;
 import code.util.*;
 import org.junit.Test;
@@ -696,6 +698,35 @@ public final class EditorPkFormTest extends InitEditorPkForm {
         tryClick(c_.getValidAddEdit());
         assertEq(1,facade_.getData().getPokemon(P_1).getEggGroups().size());
         assertEq("_",facade_.getData().getPokemon(P_1).getEggGroups().get(0));
+    }
+    @Test
+    public void pkForm34() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        facade_.getData().getConstNum().addEntry(DataBase.DEF_MAX_ATT,new Rate(4));
+        facade_.getData().getExpGrowth().addEntry(ExpType.E,"1");
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormEnt<PokemonData> c_ = crud(sub_);
+        tryClick(c_.getAdd());
+        GeneComponentModelPokemonData g_ = (GeneComponentModelPokemonData)c_.getGene();
+        g_.getGeneComponentModelSelectKey().setupValue(P_1);
+        CrudGeneFormSimpleElement<LevelMove> levMoves_ = g_.getLevMoves().getCrud();
+        tryClick(levMoves_.getAdd());
+        ((GeneComponentModelSubscribeLevelMove)levMoves_.getGenePair().getKey()).getLevel().valueInt(1);
+        ((GeneComponentModelSubscribeLevelMove)levMoves_.getGenePair().getKey()).getMove().setupValue(M_1);
+        tryClick(levMoves_.getValidAddEdit());
+        tryClick(levMoves_.getAdd());
+        ((GeneComponentModelSubscribeLevelMove)levMoves_.getGenePair().getKey()).getLevel().valueInt(1);
+        ((GeneComponentModelSubscribeLevelMove)levMoves_.getGenePair().getKey()).getMove().setupValue(M_2);
+        tryClick(levMoves_.getValidAddEdit());
+        tryClick(levMoves_.getAdd());
+        ((GeneComponentModelSubscribeLevelMove)levMoves_.getGenePair().getKey()).getLevel().valueInt(2);
+        ((GeneComponentModelSubscribeLevelMove)levMoves_.getGenePair().getKey()).getMove().setupValue(M_3);
+        tryClick(levMoves_.getValidAddEdit());
+        tryClick(c_.getValidAddEdit());
+        tryClick(c_.getAllButtons().get(0));
+        tryClick(c_.getValidAddEdit());
+        assertEq(3,facade_.getData().getPokemon(P_1).getLevMoves().size());
     }
     @Test
     public void menus() {

@@ -14,6 +14,7 @@ public final class ContentComponentModelLevelWithWild {
     private GeneComponentModelEltEnumSub<String> items;
     private GeneComponentModelEltEnumSub<Short> hm;
     private GeneComponentModelEltEnumSub<Short> tm;
+    private FormWildPk legendaryPks;
     private final StringMap<AbsButton> tiles = new StringMap<AbsButton>();
     private FormLevelGrid level;
     private CrudGeneFormAbsAreaApparition areas;
@@ -21,6 +22,7 @@ public final class ContentComponentModelLevelWithWild {
     private AbsScrollPane fore;
     private LevelWithWildPokemon edited;
     private final IdList<SubscribedTranslation> translations = new IdList<SubscribedTranslation>();
+    private final IdList<SubscribedTranslation> translationsGrid = new IdList<SubscribedTranslation>();
     private Point selected = new Point((short) 0,(short) 0);
     private String key = "";
     private AbsButton removeTile;
@@ -40,8 +42,15 @@ public final class ContentComponentModelLevelWithWild {
     }
     public void setupGridDims(Points<Block> _bk, short _nbPlace, byte _nbLevel, Place _pl, LevelWithWildPokemon _wild) {
         edited = _wild;
-        Points<int[][]> frontTiles_ = Level.getLevelForegroundImage(level.getFacadeGame().getData(),coords(_nbPlace,_nbLevel,null), _pl,_wild);
+        Coords coords_ = coords(_nbPlace, _nbLevel, null);
+        Points<int[][]> frontTiles_ = Level.getLevelForegroundImage(level.getFacadeGame().getData(), coords_, _pl,_wild);
         level.setupGridDims(_bk, frontTiles_);
+        IdList<SubscribedTranslation> subs_ = level.getTranslationList().getSubscribedTranslations().getVal(level.getFrame());
+        subs_.removeAllElements(translationsGrid);
+        IdList<SubscribedTranslation> next_ = new IdList<SubscribedTranslation>();
+        next_.add(new RefreshGridSubscription(level.getFacadeGame(),level,coords_,_pl,_wild));
+        subs_.addAllElts(next_);
+        translationsGrid.addAllElts(next_);
         fore = level.getApi().getCompoFactory().newAbsScrollPane();
         level.getForm().add(fore);
         level.getGrid().addMouseListener(new TileKindEvent(this));
@@ -77,6 +86,9 @@ public final class ContentComponentModelLevelWithWild {
         } else if (edited.getHm().contains(pt_)) {
             choose(MessagesEditorSelect.TILE_HM);
             hm.setupValue(edited.getHm().getVal(pt_));
+        } else if (edited.getLegendaryPks().contains(pt_)) {
+            choose(MessagesEditorSelect.TILE_LEG_PK);
+            legendaryPks.feedForm(edited.getLegendaryPks().getVal(pt_));
         } else {
             key = "";
             StringMap<String> messages_ = MessagesPkEditor.getMessagesEditorSelectTileKindWildTr(MessagesPkEditor.getAppliTr(level.getApi().currentLg())).getMapping();
@@ -121,6 +133,24 @@ public final class ContentComponentModelLevelWithWild {
             hm = ConverterCommonMapUtil.buildHm(level.getApi(), level.getFacadeGame(), level.getTranslationList());
             techHidden(hm);
         }
+        if (StringUtil.quickEq(_k, MessagesEditorSelect.TILE_LEG_PK)) {
+            AbsCompoFactory compoFactory_ = level.getApi().getCompoFactory();
+            legendaryPks = new FormWildPk(level.getApi(), level.getFacadeGame(), level.getTranslationList(), level.getFrame());
+            legendaryPks.feedForm();
+            AbsPanel form_ = compoFactory_.newLineBox();
+            form_.add(legendaryPks.getForm());
+            IdList<SubscribedTranslation> subs_ = level.getTranslationList().getSubscribedTranslations().getVal(level.getFrame());
+            subs_.removeAllElements(translations);
+            IdList<SubscribedTranslation> next_ = new IdList<SubscribedTranslation>();
+            legendaryPks.feedSubs(next_);
+            subs_.addAllElts(next_);
+            translations.addAllElts(next_);
+            legendaryPks.getName().getSelectUniq().getSelect().addListener(new ChangeItemTileEvent(this));
+            removeTile = compoFactory_.newPlainButton("-");
+            removeTile.addActionListener(new RemoveForeTileEvent(this));
+            form_.add(removeTile);
+            fore.setViewportView(form_);
+        }
     }
 
     private void techHidden(GeneComponentModelEltEnumSub<Short> _sel) {
@@ -150,6 +180,9 @@ public final class ContentComponentModelLevelWithWild {
         if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_HM)) {
             hm.getSelectUniq().getSelect().events(null);
         }
+        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_LEG_PK)) {
+            legendaryPks.getName().getSelectUniq().getSelect().events(null);
+        }
     }
     public void applySelectItem() {
         if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_ITEMS)) {
@@ -157,6 +190,9 @@ public final class ContentComponentModelLevelWithWild {
         }
         if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_TM) || StringUtil.quickEq(key, MessagesEditorSelect.TILE_HM)) {
             trySet(level.getFacadeGame().getData().getImageTmHm());
+        }
+        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_LEG_PK)) {
+            trySet(level.getFacadeGame().getData().getMiniPk().getVal(legendaryPks.getName().tryRet()));
         }
         level.refreshImg();
     }
@@ -182,6 +218,10 @@ public final class ContentComponentModelLevelWithWild {
             edited.getHm().put(selected,hm.tryRet());
             validate();
         }
+        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_LEG_PK)) {
+            edited.getLegendaryPks().put(selected,legendaryPks.buildEntity());
+            validate();
+        }
         key = "";
         level.refreshImg();
     }
@@ -195,21 +235,28 @@ public final class ContentComponentModelLevelWithWild {
     public void removeTile() {
         if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_ITEMS)) {
             edited.getItems().removeKey(selected);
-            level.getForegroundEdited().removeKey(selected);
-            level.getForeground().removeKey(selected);
+            removeFore();
         }
         if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_TM)) {
             edited.getTm().removeKey(selected);
-            level.getForegroundEdited().removeKey(selected);
-            level.getForeground().removeKey(selected);
+            removeFore();
         }
         if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_HM)) {
             edited.getHm().removeKey(selected);
-            level.getForegroundEdited().removeKey(selected);
-            level.getForeground().removeKey(selected);
+            removeFore();
+        }
+        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_LEG_PK)) {
+            edited.getLegendaryPks().removeKey(selected);
+            removeFore();
         }
         level.refreshImg();
     }
+
+    private void removeFore() {
+        level.getForegroundEdited().removeKey(selected);
+        level.getForeground().removeKey(selected);
+    }
+
     public StringMap<AbsButton> getTiles() {
         return tiles;
     }
@@ -228,6 +275,10 @@ public final class ContentComponentModelLevelWithWild {
 
     public GeneComponentModelEltEnumSub<String> getItems() {
         return items;
+    }
+
+    public FormWildPk getLegendaryPks() {
+        return legendaryPks;
     }
 
     public GeneComponentModelEltEnumSub<Short> getTm() {

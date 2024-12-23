@@ -14,10 +14,10 @@ public final class ContentComponentModelSubscribeAreaSimple {
     public AbsPanel form(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact, AbsCommonFrame _f) {
         form = _core.getCompoFactory().newPageBox();
         walk = new CrudGeneFormSimpleElementSub<WildPk>(_core, _fac, _fact, _f);
-        walk.initForm(new DisplayEntryCustSubElementEffect<WildPk>(),new GeneComponentModelSubscribeFactoryDirect<WildPk>(new GeneComponentModelSubscribeWildPk(_core,_fac,_fact)));
+        walk.initForm(new DisplayEntryCustSubElementEffect<WildPk>(),new GeneComponentModelSubscribeFactoryDirect<WildPk>(new GeneComponentModelSubscribeWildPk(_core,_fac,_fact, _f)));
         form.add(walk.getGroup());
         fish = new CrudGeneFormSimpleElementSub<WildPk>(_core, _fac, _fact, _f);
-        fish.initForm(new DisplayEntryCustSubElementEffect<WildPk>(),new GeneComponentModelSubscribeFactoryDirect<WildPk>(new GeneComponentModelSubscribeWildPk(_core,_fac,_fact)));
+        fish.initForm(new DisplayEntryCustSubElementEffect<WildPk>(),new GeneComponentModelSubscribeFactoryDirect<WildPk>(new GeneComponentModelSubscribeWildPk(_core,_fac,_fact, _f)));
         form.add(fish.getGroup());
         multFight = new GeneComponentModelInt(_core);
         form.add(multFight.geneInt());

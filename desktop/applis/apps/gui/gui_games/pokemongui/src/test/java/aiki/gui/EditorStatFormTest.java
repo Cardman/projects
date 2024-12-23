@@ -249,7 +249,27 @@ public final class EditorStatFormTest extends InitEditorPkForm {
         enterTextField(c_.getFields().getVal(DataBase.DEF_BASE_MOVE).getTextRate());
         assertEq(new Rate(3),facade_.getData().getDefBaseMove());
     }
-
+    @Test
+    public void numMoves1() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        facade_.getData().getConstNum().put(DataBase.DEF_MAX_ATT,new Rate(4));
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormTrCstNumList c_ = crudNumConst(sub_);
+        c_.getFields().getVal(DataBase.DEF_MAX_ATT).valueRate(new Rate(8));
+        enterTextField(c_.getFields().getVal(DataBase.DEF_MAX_ATT).getTextRate());
+        assertEq(8, facade_.getData().getNbMaxMoves());
+    }
+    @Test
+    public void numMoves2() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facade(pr_);
+        facade_.getData().getConstNum().put(DataBase.DEF_MAX_ATT,new Rate(4));
+        WindowPkEditor sub_ = window(pr_, facade_);
+        CrudGeneFormTrCstNumList c_ = crudNumConst(sub_);
+        enterTextField(c_.getFields().getVal(DataBase.DEF_MAX_ATT).getTextRate());
+        assertEq(4,facade_.getData().getNbMaxMoves());
+    }
     @Test
     public void noKey() {
         MockProgramInfos pr_ = initForms();

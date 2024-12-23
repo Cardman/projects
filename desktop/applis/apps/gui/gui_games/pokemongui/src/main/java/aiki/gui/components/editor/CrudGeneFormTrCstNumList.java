@@ -1,19 +1,23 @@
 package aiki.gui.components.editor;
 
+import aiki.db.DataBase;
 import aiki.facade.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class CrudGeneFormTrCstNumList implements AbsCrudGeneFormTrCstOpen {
     private final AbstractProgramInfos api;
     private final FacadeGame facadeGame;
     private final AbsCommonFrame frame;
+    private final SubscribedTranslationList subscriptions;
     private final StringMap<GeneComponentModelRate> fields = new StringMap<GeneComponentModelRate>();
 
-    public CrudGeneFormTrCstNumList(AbstractProgramInfos _core, FacadeGame _facade) {
+    public CrudGeneFormTrCstNumList(AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
         api = _core;
         facadeGame = _facade;
+        subscriptions = _sub;
         frame = _core.getFrameFactory().newCommonFrame();
     }
 
@@ -46,6 +50,11 @@ public final class CrudGeneFormTrCstNumList implements AbsCrudGeneFormTrCstOpen 
     }
 
     public void apply(String _k, GeneComponentModelRate _f) {
+        int nb_ = facadeGame.getData().getNbMaxMoves();
         facadeGame.getData().getConstNum().put(_k, _f.valueRate());
+        if (StringUtil.quickEq(_k, DataBase.DEF_MAX_ATT) && nb_ != facadeGame.getData().getNbMaxMoves()) {
+            subscriptions.updateRenamingId("","",new StringList());
+            subscriptions.update();
+        }
     }
 }
