@@ -39,11 +39,13 @@ public final class ContentComponentModelLevelWithWild {
         level.getTranslationList().setFormLevelGridUniq(null);
         return splitter;
     }
-    public void setupGridDims(Points<Block> _bk, short _nbPlace, byte _nbLevel, Place _pl, LevelWithWildPokemon _wild) {
+    public void setupGridDims(short _nbPlace, byte _nbLevel, Place _pl, LevelWithWildPokemon _wild) {
+        getAreas().setupValues(ConverterCommonMapUtil.copyListArea(_wild.getWildPokemonAreas()));
+        Points<Block> blocks_ = ConverterCommonMapUtil.copyPointsBlock(_wild.getBlocks());
         edited = _wild;
         Coords coords_ = coords(_nbPlace, _nbLevel, null);
         Points<int[][]> frontTiles_ = Level.getLevelForegroundImage(level.getFacadeGame().getData(), coords_, _pl,_wild);
-        level.setupGridDims(_bk, frontTiles_);
+        level.setupGridDims(blocks_, frontTiles_);
         IdList<SubscribedTranslation> subs_ = level.getTranslationList().getSubscribedTranslations().getVal(level.getFrame());
         subs_.removeAllElements(translationsGrid);
         IdList<SubscribedTranslation> next_ = new IdList<SubscribedTranslation>();
@@ -54,6 +56,11 @@ public final class ContentComponentModelLevelWithWild {
         level.getForm().add(fore);
         level.getGrid().addMouseListener(new TileKindEvent(this));
         level.getContainer().setViewportView(level.getForm());
+        getAreas().setBlocks(blocks_);
+    }
+    public void buildEntity() {
+        edited.setBlocks(getLevel().getEdited());
+        edited.setWildPokemonAreas(getAreas().getList());
     }
 
     public AbsCustComponent getSplitter() {

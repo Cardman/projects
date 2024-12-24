@@ -13,11 +13,13 @@ public abstract class CrudGeneFormLevel extends AbsCrudGeneForm {
     private int selectedPlace = -1;
     private int selectedLevel = -1;
     private final CustList<AbsButton> allButtons = new CustList<AbsButton>();
+    private final CrudGeneFormEntPlace parent;
 
-    protected CrudGeneFormLevel(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub, AbsCommonFrame _fr) {
+    protected CrudGeneFormLevel(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub, AbsCommonFrame _fr, CrudGeneFormEntPlace _crud) {
         super(_fact);
         setFrame(_fr);
         crudGeneFormSubContent = new CrudGeneFormSubContent(_facade, _sub, this, _fr);
+        parent = _crud;
     }
 
     public void selectLevel(int _i) {
@@ -25,25 +27,28 @@ public abstract class CrudGeneFormLevel extends AbsCrudGeneForm {
         getElement().removeAll();
         getElement().add(gene(false));
         selectOrAdd();
-        enable(false);
+        parent.enable(false);
     }
     @Override
     public void refresh() {
-        refLevels();
+        parent.refPlaces();
     }
 
-    public void refLevels() {
+    public CustList<AbsButton> refLevels() {
         CustList<Level> levels_ = getPlace().getLevelsList();
         getElements().removeAll();
         getAllButtons().clear();
         int len_ = levels_.size();
+        CustList<AbsButton> buts_ = new CustList<AbsButton>();
         for (int i = 0; i < len_; i++) {
             AbsButton but_ = getFactory().getCompoFactory().newPlainButton(Long.toString(i));
             but_.addActionListener(new SelectCrudLevelFormEvent(this, i));
             but_.setEnabled(isEnabledButtons());
             getElements().add(but_);
             getAllButtons().add(but_);
+            buts_.add(but_);
         }
+        return buts_;
     }
 
 
@@ -91,12 +96,7 @@ public abstract class CrudGeneFormLevel extends AbsCrudGeneForm {
     @Override
     public void cancel() {
         super.cancel();
-        enable(true);
-    }
-    private void enable(boolean _e) {
-        for (AbsButton b: getAllButtons()) {
-            b.setEnabled(_e);
-        }
+        parent.enable(true);
     }
 
     public abstract Place getPlace();

@@ -1,9 +1,7 @@
 package aiki.gui.components.editor;
 
 import aiki.facade.*;
-import aiki.map.levels.*;
 import aiki.map.places.*;
-import aiki.util.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.util.*;
@@ -13,6 +11,7 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
     private GeneComponentModelPlace gene;
     private ContentComponentModelRoad road;
     private int selectedPlace = -1;
+    private final CustList<AbsButton> allButtonsMerge = new CustList<AbsButton>();
     private final CustList<AbsButton> allButtons = new CustList<AbsButton>();
     private final CustList<CrudGeneFormLevelCave> levelsCaves = new CustList<CrudGeneFormLevelCave>();
     private final CustList<CrudGeneFormLevel> levels = new CustList<CrudGeneFormLevel>();
@@ -44,22 +43,24 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
         if (place_ instanceof Road) {
             road = new ContentComponentModelRoad();
             road.form(getFactory(),getCrudGeneFormSubContent().getFacadeGame(),getCrudGeneFormSubContent().getSubscription(),getFrame());
-            road.getLevelWithWild().getAreas().setupValues(ConverterCommonMapUtil.copyListArea(((Road)place_).getLevelRoad().getWildPokemonAreas()));
-            Points<Block> blocks_ = ConverterCommonMapUtil.copyPointsBlock(((Road) place_).getLevelRoad().getBlocks());
-            road.getLevelWithWild().setupGridDims(blocks_, (short) _i,(byte) 0,place_,((Road) place_).getLevelRoad());
-            road.getLevelWithWild().getAreas().setBlocks(blocks_);
+            road.setupGridDims((short) _i,(byte) 0,place_,((Road) place_).getLevelRoad());
             getElement().add(road.getLevelWithWild().getSplitter());
-            getCrudGeneFormSubContent().getSubscription().setFormLevelGridUniq(road.getLevelWithWild().getLevel());
+            getCrudGeneFormSubContent().getSubscription().setFormLevelGridUniq(road.getLevel());
         }
         selectOrAdd();
         enable(false);
     }
     @Override
     public void refresh() {
+        refPlaces();
+    }
+
+    public void refPlaces() {
         FacadeGame facadeGame_ = getCrudGeneFormSubContent().getFacadeGame();
         CustList<Place> places_ = facadeGame_.getData().getMap().getPlaces();
         getElements().removeAll();
         getAllButtons().clear();
+        getAllButtonsMerge().clear();
         int len_ = places_.size();
         levelsCaves.clear();
         levels.clear();
@@ -70,17 +71,17 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
             but_.setEnabled(isEnabledButtons());
             getElements().add(but_);
             getAllButtons().add(but_);
+            getAllButtonsMerge().add(but_);
             if (place_ instanceof Cave) {
-                CrudGeneFormLevelCave c_ = new CrudGeneFormLevelCave(getFactory(), getCrudGeneFormSubContent().getFacadeGame(), getCrudGeneFormSubContent().getSubscription(), getFrame());
+                CrudGeneFormLevelCave c_ = new CrudGeneFormLevelCave(getFactory(), getCrudGeneFormSubContent().getFacadeGame(), getCrudGeneFormSubContent().getSubscription(), getFrame(), this);
                 c_.initForm();
                 c_.setCave((Cave)place_);
-                c_.refLevels();
+                getAllButtonsMerge().addAllElts(c_.refLevels());
                 c_.setSelectedPlace(i);
                 c_.setEnabledButtons(isEnabledButtons());
                 levelsCaves.add(c_);
                 levels.add(c_);
                 getElements().add(c_.getGroup());
-                getAllButtons().addAllElts(c_.getAllButtons());
             }
         }
     }
@@ -102,8 +103,7 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
             getCrudGeneFormSubContent().getFacadeGame().getData().getMap().addPlace(value_);
         } else {
             if (value_ instanceof Road) {
-                ((Road)value_).getLevelRoad().setBlocks(road.getLevelWithWild().getLevel().getEdited());
-                ((Road)value_).getLevelRoad().setWildPokemonAreas(road.getLevelWithWild().getAreas().getList());
+                road.getLevelWithWild().buildEntity();
             }
             getCrudGeneFormSubContent().getFacadeGame().getData().getMap().getPlaces().set(selectedPlace, value_);
         }
@@ -130,8 +130,8 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
         super.cancel();
         enable(true);
     }
-    private void enable(boolean _e) {
-        for (AbsButton b: getAllButtons()) {
+    public void enable(boolean _e) {
+        for (AbsButton b: getAllButtonsMerge()) {
             b.setEnabled(_e);
         }
     }
@@ -145,6 +145,10 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
 
     public CustList<AbsButton> getAllButtons() {
         return allButtons;
+    }
+
+    public CustList<AbsButton> getAllButtonsMerge() {
+        return allButtonsMerge;
     }
 
     public CustList<CrudGeneFormLevelCave> getLevelsCaves() {

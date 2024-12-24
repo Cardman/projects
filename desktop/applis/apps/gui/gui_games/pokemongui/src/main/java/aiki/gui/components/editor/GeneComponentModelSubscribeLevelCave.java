@@ -3,7 +3,6 @@ package aiki.gui.components.editor;
 import aiki.facade.*;
 import aiki.instances.*;
 import aiki.map.levels.*;
-import aiki.util.*;
 import code.gui.*;
 import code.gui.initialize.*;
 
@@ -28,24 +27,19 @@ public final class GeneComponentModelSubscribeLevelCave {
         AbsPanel page_ = compoFactory_.newPageBox();
         AbsCustComponent compo_ = wild.form(api, facadeGame, factory, frame);
         edited = Instances.newLevelCave();
-        Points<Block> blocks_ = edited.getBlocks();
-        wild.setupGridDims(blocks_,(short) cave.getSelectedPlace(), (byte) cave.getSelectedLevel(),cave.getPlace(),edited);
-        wild.getAreas().setBlocks(blocks_);
+        wild.setupGridDims((short) cave.getSelectedPlace(), (byte) cave.getSelectedLevel(),cave.getPlace(),edited);
         sc_.setViewportView(compo_);
         page_.add(sc_);
         return page_;
     }
 
     public LevelCave tryRet() {
-        edited.setBlocks(wild.getLevel().getEdited());
-        edited.setWildPokemonAreas(wild.getAreas().getList());
+        wild.buildEntity();
         return edited;
     }
 
     public void setupValue(LevelCave _value) {
-        Points<Block> blocks_ = ConverterCommonMapUtil.copyPointsBlock(_value.getBlocks());
-        wild.setupGridDims(blocks_,(short) cave.getSelectedPlace(), (byte) cave.getSelectedLevel(),cave.getPlace(),_value);
-        wild.getAreas().setBlocks(blocks_);
+        wild.setupGridDims((short) cave.getSelectedPlace(), (byte) cave.getSelectedLevel(),cave.getPlace(),_value);
         edited = _value;
     }
 

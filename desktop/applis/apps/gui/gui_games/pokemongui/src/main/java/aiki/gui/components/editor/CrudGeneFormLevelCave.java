@@ -9,8 +9,8 @@ public final class CrudGeneFormLevelCave extends CrudGeneFormLevel {
     private final GeneComponentModelSubscribeLevelCave genePair;
     private Cave cave;
 
-    public CrudGeneFormLevelCave(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub, AbsCommonFrame _fr) {
-        super(_fact,_facade,_sub,_fr);
+    public CrudGeneFormLevelCave(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub, AbsCommonFrame _fr, CrudGeneFormEntPlace _crud) {
+        super(_fact,_facade,_sub,_fr,_crud);
         genePair = new GeneComponentModelSubscribeLevelCave(_fr,_fact,_facade,_sub,this);
     }
 
