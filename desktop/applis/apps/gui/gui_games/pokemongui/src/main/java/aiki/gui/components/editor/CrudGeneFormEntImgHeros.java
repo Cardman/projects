@@ -33,7 +33,7 @@ public final class CrudGeneFormEntImgHeros extends CrudGeneFormListSub<EditedCru
     }
 
     @Override
-    protected void afterModif(int _index, EditedCrudPair<ImageHeroKey, ImageArrayBaseSixtyFour> _value) {
+    public void afterModif(int _index, EditedCrudPair<ImageHeroKey, ImageArrayBaseSixtyFour> _value) {
         ImageHeroKey key_ = _value.getKey();
         if (_index > -1) {
             info().removeKey(key_);

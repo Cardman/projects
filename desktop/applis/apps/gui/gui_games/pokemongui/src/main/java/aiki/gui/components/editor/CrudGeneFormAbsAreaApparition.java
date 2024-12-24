@@ -24,7 +24,7 @@ public final class CrudGeneFormAbsAreaApparition extends CrudGeneFormListSub<Abs
     }
 
     @Override
-    protected void afterModif(int _index, AbsAreaApparition _value) {
+    public void afterModif(int _index, AbsAreaApparition _value) {
         if (_index > -1) {
             if (LevelWithWildPokemon.existBlock(_index,blocks)) {
                 return;

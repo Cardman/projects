@@ -1,12 +1,12 @@
 package code.gui;
 
-import code.gui.events.AbsActionListener;
+import code.gui.events.*;
 
 public final class SelectCrudGeneFormEvent<E> implements AbsActionListener {
-    private final AbsCrudGeneForm<E> crud;
+    private final AbsCrudGeneFormList<E> crud;
     private final int index;
 
-    public SelectCrudGeneFormEvent(AbsCrudGeneForm<E> _c, int _i) {
+    public SelectCrudGeneFormEvent(AbsCrudGeneFormList<E> _c, int _i) {
         this.crud = _c;
         this.index = _i;
     }

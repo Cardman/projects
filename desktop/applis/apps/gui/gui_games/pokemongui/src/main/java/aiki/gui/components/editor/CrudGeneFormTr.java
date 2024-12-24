@@ -39,7 +39,7 @@ public final class CrudGeneFormTr extends AbsCrudGeneFormList<EditedCrudPair<Str
         getFrame().pack();
     }
     @Override
-    protected void afterModif(int _index, EditedCrudPair<String, StringMap<String>> _value) {
+    public void afterModif(int _index, EditedCrudPair<String, StringMap<String>> _value) {
         String key_ = _value.getKey();
         if (_index > -1) {
             if (factoryMessage.contains(facadeGame,key_)) {

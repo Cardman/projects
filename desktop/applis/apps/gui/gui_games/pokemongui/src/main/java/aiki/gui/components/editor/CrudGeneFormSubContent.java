@@ -1,18 +1,17 @@
 package aiki.gui.components.editor;
 
 import aiki.facade.*;
-import code.gui.AbsCommonFrame;
-import code.gui.AbsCrudGeneForm;
+import code.gui.*;
 import code.util.*;
 
-public final class CrudGeneFormSubContent<E> {
+public final class CrudGeneFormSubContent {
     private final FacadeGame facadeGame;
     private final SubscribedTranslationList subscription;
     private final IdList<SubscribedTranslation> subscribedTranslations;
     private final IdList<SubscribedTranslation> subscribedTranslationsForm;
-    private final AbsCrudGeneForm<E> visited;
+    private final AbsCrudGeneForm visited;
 
-    public CrudGeneFormSubContent(FacadeGame _facade, SubscribedTranslationList _sub, AbsCrudGeneForm<E> _current, AbsCommonFrame _fr) {
+    public CrudGeneFormSubContent(FacadeGame _facade, SubscribedTranslationList _sub, AbsCrudGeneForm _current, AbsCommonFrame _fr) {
         facadeGame = _facade;
         subscription = _sub;
         subscribedTranslations = _sub.getSubscribedTranslations().getVal(_fr);

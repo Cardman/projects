@@ -30,7 +30,7 @@ public final class CrudGeneFormEntImgFree extends CrudGeneFormListSub<EditedCrud
     }
 
     @Override
-    protected void afterModif(int _index, EditedCrudPair<String, ImageArrayBaseSixtyFour> _value) {
+    public void afterModif(int _index, EditedCrudPair<String, ImageArrayBaseSixtyFour> _value) {
         String old_ = validateElementPairIdImgFree.getOldValue();
         String key_ = _value.getKey();
         FacadeGame facadeGame_ = getCrudGeneFormSubContent().getFacadeGame();

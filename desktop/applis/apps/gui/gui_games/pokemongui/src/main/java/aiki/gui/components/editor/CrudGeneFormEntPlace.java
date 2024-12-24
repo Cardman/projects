@@ -23,7 +23,7 @@ public final class CrudGeneFormEntPlace extends CrudGeneFormListSub<Place> imple
     }
 
     @Override
-    protected void afterModif(int _index, Place _value) {
+    public void afterModif(int _index, Place _value) {
         FacadeGame facadeGame_ = getCrudGeneFormSubContent().getFacadeGame();
         if (_index > -1) {
             if (facadeGame_.getData().getMap().deletePlace(_index) == null) {

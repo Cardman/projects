@@ -4,7 +4,7 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 import code.util.ints.Comparing;
 
-public abstract class AbsCrudGeneFormList<E> extends AbsCrudGeneForm<E> {
+public abstract class AbsCrudGeneFormList<E> extends AbsCrudGeneForm implements AbsCrudGeneFormInt<E> {
     private DisplayEntryCust<Integer,E> displayEntry;
     private GeneComponentModel<E> gene;
     private CustList<E> list;
@@ -12,7 +12,7 @@ public abstract class AbsCrudGeneFormList<E> extends AbsCrudGeneForm<E> {
     private AbsSpinner indicator;
     private Comparing<E> cmp;
     private IntValidateElementAdd<E> validator;
-
+    private final CustList<AbsButton> allButtons = new CustList<AbsButton>();
     protected AbsCrudGeneFormList(AbstractProgramInfos _fact, Comparing<E> _c) {
         super(_fact);
         list = new CustList<E>();
@@ -36,16 +36,25 @@ public abstract class AbsCrudGeneFormList<E> extends AbsCrudGeneForm<E> {
     }
 
     @Override
+    public void initForm() {
+        getAllButtons().clear();
+        super.initForm();
+    }
+
     protected int size() {
         return list.size();
     }
 
-    @Override
     public String display(int _index) {
         return displayEntry.display(_index, list.get(_index));
     }
 
     @Override
+    public void selectOrAdd() {
+        super.selectOrAdd();
+        enable(false);
+    }
+
     public void select(int _index) {
         selectedIndex = _index;
         getElement().removeAll();
@@ -88,13 +97,40 @@ public abstract class AbsCrudGeneFormList<E> extends AbsCrudGeneForm<E> {
         afterModif(getSelectedIndex(), list.get(getSelectedIndex()));
     }
     @Override
-    protected void afterModif(int _index, E _value) {
+    public void afterModif(int _index, E _value) {
         if (_index > -1) {
             getList().remove(_index);
         }
         afterModif();
     }
+    @Override
+    public void refresh() {
+        getElements().removeAll();
+        getAllButtons().clear();
+        int len_ = size();
+        for (int i = 0; i < len_; i++) {
+            AbsButton but_ = getFactory().getCompoFactory().newPlainButton(display(i));
+            but_.addActionListener(new SelectCrudGeneFormEvent<E>(this, i));
+            but_.setEnabled(isEnabledButtons());
+            getElements().add(but_);
+            getAllButtons().add(but_);
+        }
+    }
 
+    @Override
+    public void cancel() {
+        super.cancel();
+        enable(true);
+    }
+
+    private void enable(boolean _e) {
+        for (AbsButton b: getAllButtons()) {
+            b.setEnabled(_e);
+        }
+    }
+    public CustList<AbsButton> getAllButtons() {
+        return allButtons;
+    }
     public void setupValues(CustList<E> _values) {
         list.clear();
         list.addAllElts(_values);

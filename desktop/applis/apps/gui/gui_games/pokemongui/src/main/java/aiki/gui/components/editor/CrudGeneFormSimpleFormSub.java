@@ -39,7 +39,7 @@ public final class CrudGeneFormSimpleFormSub<K, V> {
     public CustList<EditedCrudPair<K, V>> getList() {
         return getCrud().getList();
     }
-    public CrudGeneFormSubContent<EditedCrudPair<K, V>> getCrudGeneFormSubContent() {
+    public CrudGeneFormSubContent getCrudGeneFormSubContent() {
         return getCrud().getCrudGeneFormSubContent();
     }
     public IdList<SubscribedTranslation> subscribeButtons() {

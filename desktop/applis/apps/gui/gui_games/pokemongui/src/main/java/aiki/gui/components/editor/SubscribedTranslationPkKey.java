@@ -1,13 +1,13 @@
 package aiki.gui.components.editor;
 
 import aiki.facade.*;
-import code.gui.AbsCrudGeneForm;
+import code.gui.*;
 import code.gui.initialize.*;
 
 public final class SubscribedTranslationPkKey<E> implements SubscribedTranslation {
-    private final AbsCrudGeneForm<E> crud;
+    private final AbsCrudGeneFormList<E> crud;
 
-    public SubscribedTranslationPkKey(AbsCrudGeneForm<E> _c) {
+    public SubscribedTranslationPkKey(AbsCrudGeneFormList<E> _c) {
         this.crud = _c;
     }
 

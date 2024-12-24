@@ -41,7 +41,7 @@ public final class CrudGeneFormTypes extends CrudGeneFormListSub<EditedCrudPair<
     }
 
     @Override
-    protected void afterModif(int _index, EditedCrudPair<TypesDuo, Rate> _value) {
+    public void afterModif(int _index, EditedCrudPair<TypesDuo, Rate> _value) {
         FacadeGame facadeGame_ = getCrudGeneFormSubContent().getFacadeGame();
         if (_index > -1) {
             facadeGame_.getData().getTableTypes().remove(_index);

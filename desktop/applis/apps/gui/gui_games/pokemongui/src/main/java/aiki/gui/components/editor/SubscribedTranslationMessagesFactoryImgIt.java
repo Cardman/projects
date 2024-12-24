@@ -13,7 +13,7 @@ public final class SubscribedTranslationMessagesFactoryImgIt extends SubscribedT
     }
 
     @Override
-    public GeneComponentModelImg buildQuick(AbsCommonFrame _frame, AbstractProgramInfos _core, CrudGeneFormSubContent<EditedCrudPair<String, ImageArrayBaseSixtyFour>> _facade) {
+    public GeneComponentModelImg buildQuick(AbsCommonFrame _frame, AbstractProgramInfos _core, CrudGeneFormSubContent _facade) {
         return new GeneComponentModelImg(_frame,_core,_facade.getFacadeGame(),_facade.getSubscription(), _facade.getSubscription().getFactoryIt(), this);
     }
     @Override

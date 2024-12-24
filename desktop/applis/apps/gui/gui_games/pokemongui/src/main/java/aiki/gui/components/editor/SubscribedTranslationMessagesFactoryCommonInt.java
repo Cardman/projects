@@ -7,9 +7,9 @@ import code.util.*;
 
 public interface SubscribedTranslationMessagesFactoryCommonInt<T> extends SubscribedTranslationMessagesFactoryCoreMessages<String> {
     StringMap<T> all(FacadeGame _facade);
-    GeneComponentModel<EditedCrudPair<String,T>> build(AbsCommonFrame _frame, AbstractProgramInfos _core, CrudGeneFormSubContent<EditedCrudPair<String,T>> _facade);
+    GeneComponentModel<EditedCrudPair<String,T>> build(AbsCommonFrame _frame, AbstractProgramInfos _core, CrudGeneFormSubContent _facade);
 
-    void removeOpenSub(CrudGeneFormSubContent<EditedCrudPair<String,T>> _base);
+    void removeOpenSub(CrudGeneFormSubContent _base);
     IdList<SubscribedTranslation> all();
     void delete(FacadeGame _facade, String _key);
 }

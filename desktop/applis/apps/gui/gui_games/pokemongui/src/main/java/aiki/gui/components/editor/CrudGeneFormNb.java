@@ -47,7 +47,7 @@ public final class CrudGeneFormNb extends CrudGeneFormListSub<EditedCrudPair<Int
     }
 
     @Override
-    protected void afterModif(int _index, EditedCrudPair<Integer, String> _value) {
+    public void afterModif(int _index, EditedCrudPair<Integer, String> _value) {
         int i_ = _value.getKey();
         short k_ = (short) i_;
         if (_index > -1) {

@@ -38,7 +38,7 @@ public final class CrudGeneFormEntImg extends CrudGeneFormListSub<EditedCrudPair
     }
 
     @Override
-    protected void afterModif(int _index, EditedCrudPair<String, ImageArrayBaseSixtyFour> _value) {
+    public void afterModif(int _index, EditedCrudPair<String, ImageArrayBaseSixtyFour> _value) {
         String key_ = _value.getKey();
         FacadeGame facadeGame_ = getCrudGeneFormSubContent().getFacadeGame();
         if (_index > -1) {

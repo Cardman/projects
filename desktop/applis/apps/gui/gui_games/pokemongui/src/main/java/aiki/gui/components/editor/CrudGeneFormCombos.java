@@ -33,7 +33,7 @@ public final class CrudGeneFormCombos extends CrudGeneFormListSub<ListEffectComb
     }
 
     @Override
-    protected void afterModif(int _index, ListEffectCombo _value) {
+    public void afterModif(int _index, ListEffectCombo _value) {
         FacadeGame facadeGame_ = getCrudGeneFormSubContent().getFacadeGame();
         if (_index > -1) {
             facadeGame_.getData().getCombos().getEffects().remove(_index);

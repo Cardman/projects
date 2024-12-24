@@ -36,7 +36,7 @@ public final class CrudGeneFormSimpleElementSub<K> {
     public void setupValues(CustList<K> _v) {
         getCrud().setupValues(_v);
     }
-    public CrudGeneFormSubContent<K> getCrudGeneFormSubContent() {
+    public CrudGeneFormSubContent getCrudGeneFormSubContent() {
         return getCrud().getCrudGeneFormSubContent();
     }
     public IdList<SubscribedTranslation> subscribeButtons() {

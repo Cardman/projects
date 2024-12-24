@@ -26,7 +26,7 @@ public final class CrudGeneFormLevelCave extends CrudGeneFormListSub<LevelCave> 
     }
 
     @Override
-    protected void afterModif(int _index, LevelCave _value) {
+    public void afterModif(int _index, LevelCave _value) {
         if (_index > -1) {
             if (dataMap().deleteLevelPlace(indexCaveAdj(),_index) == null) {
                 return;

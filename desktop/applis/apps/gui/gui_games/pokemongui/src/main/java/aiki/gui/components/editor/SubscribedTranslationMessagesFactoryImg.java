@@ -21,7 +21,7 @@ public abstract class SubscribedTranslationMessagesFactoryImg implements Subscri
     }
 
     @Override
-    public GeneComponentModel<EditedCrudPair<String, ImageArrayBaseSixtyFour>> build(AbsCommonFrame _frame, AbstractProgramInfos _core, CrudGeneFormSubContent<EditedCrudPair<String, ImageArrayBaseSixtyFour>> _facade) {
+    public GeneComponentModel<EditedCrudPair<String, ImageArrayBaseSixtyFour>> build(AbsCommonFrame _frame, AbstractProgramInfos _core, CrudGeneFormSubContent _facade) {
         geneComponentModelImg = buildQuick(_frame,_core,_facade);
         return geneComponentModelImg;
     }
@@ -30,7 +30,7 @@ public abstract class SubscribedTranslationMessagesFactoryImg implements Subscri
     public IdList<SubscribedTranslation> all() {
         return geneComponentModelImg.getGeneComponentModelSelectKey().getSubs();
     }
-    public abstract GeneComponentModelImg buildQuick(AbsCommonFrame _frame, AbstractProgramInfos _core, CrudGeneFormSubContent<EditedCrudPair<String, ImageArrayBaseSixtyFour>> _facade);
+    public abstract GeneComponentModelImg buildQuick(AbsCommonFrame _frame, AbstractProgramInfos _core, CrudGeneFormSubContent _facade);
     public abstract StringMap<StringMap<String>> buildMessages(FacadeGame _facade);
 
     @Override
@@ -38,7 +38,7 @@ public abstract class SubscribedTranslationMessagesFactoryImg implements Subscri
         all(_facade).removeKey(_key);
     }
     @Override
-    public void removeOpenSub(CrudGeneFormSubContent<EditedCrudPair<String, ImageArrayBaseSixtyFour>> _base) {
+    public void removeOpenSub(CrudGeneFormSubContent _base) {
         _base.removeOpenSub();
     }
     @Override

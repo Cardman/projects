@@ -2,10 +2,10 @@ package code.gui;
 
 import code.gui.events.AbsActionListener;
 
-public final class CancelCrudGeneFormEvent<E> implements AbsActionListener {
-    private final AbsCrudGeneForm<E> crud;
+public final class CancelCrudGeneFormEvent implements AbsActionListener {
+    private final AbsCrudGeneForm crud;
 
-    public CancelCrudGeneFormEvent(AbsCrudGeneForm<E> _c) {
+    public CancelCrudGeneFormEvent(AbsCrudGeneForm _c) {
         this.crud = _c;
     }
 
