@@ -13,6 +13,7 @@ public abstract class AbsCrudGeneFormList<E> extends AbsCrudGeneForm implements 
     private Comparing<E> cmp;
     private IntValidateElementAdd<E> validator;
     private final CustList<AbsButton> allButtons = new CustList<AbsButton>();
+    private boolean enabledButtons;
     protected AbsCrudGeneFormList(AbstractProgramInfos _fact, Comparing<E> _c) {
         super(_fact);
         list = new CustList<E>();
@@ -39,6 +40,7 @@ public abstract class AbsCrudGeneFormList<E> extends AbsCrudGeneForm implements 
     public void initForm() {
         getAllButtons().clear();
         super.initForm();
+        setEnabledButtons(true);
     }
 
     protected int size() {
@@ -51,6 +53,7 @@ public abstract class AbsCrudGeneFormList<E> extends AbsCrudGeneForm implements 
 
     @Override
     public void selectOrAdd() {
+        setEnabledButtons(false);
         super.selectOrAdd();
         enable(false);
     }
@@ -118,7 +121,14 @@ public abstract class AbsCrudGeneFormList<E> extends AbsCrudGeneForm implements 
     }
 
     @Override
+    public void afterModif() {
+        setEnabledButtons(true);
+        super.afterModif();
+    }
+
+    @Override
     public void cancel() {
+        setEnabledButtons(true);
         super.cancel();
         enable(true);
     }
@@ -152,4 +162,13 @@ public abstract class AbsCrudGeneFormList<E> extends AbsCrudGeneForm implements 
     public GeneComponentModel<E> getGene() {
         return gene;
     }
+
+    public boolean isEnabledButtons() {
+        return enabledButtons;
+    }
+
+    public void setEnabledButtons(boolean _e) {
+        this.enabledButtons = _e;
+    }
+
 }

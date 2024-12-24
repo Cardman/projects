@@ -15,6 +15,7 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
     private final CustList<AbsButton> allButtons = new CustList<AbsButton>();
     private final CustList<CrudGeneFormLevelCave> levelsCaves = new CustList<CrudGeneFormLevelCave>();
     private final CustList<CrudGeneFormLevel> levels = new CustList<CrudGeneFormLevel>();
+    private boolean enabledButtons;
 
     public CrudGeneFormEntPlace(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub, AbsCommonFrame _fr) {
         super(_fact);
@@ -25,11 +26,11 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
     @Override
     public void initFormAll() {
         initForm();
+        setEnabledButtons(true);
         getCrudGeneFormSubContent().clearSub();
         gene = new GeneComponentModelPlace(getFactory(), getFrame());
         refresh();
     }
-
 
     public void selectPlace(int _i) {
         selectedPlace = _i;
@@ -78,7 +79,6 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
                 c_.setCave((Cave)place_);
                 getAllButtonsMerge().addAllElts(c_.refLevels());
                 c_.setSelectedPlace(i);
-                c_.setEnabledButtons(isEnabledButtons());
                 levelsCaves.add(c_);
                 levels.add(c_);
                 getElements().add(c_.getGroup());
@@ -125,8 +125,22 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
         refresh();
         selectedPlace = -1;
     }
+
+    @Override
+    public void selectOrAdd() {
+        setEnabledButtons(false);
+        super.selectOrAdd();
+    }
+
+    @Override
+    public void afterModif() {
+        setEnabledButtons(true);
+        super.afterModif();
+    }
+
     @Override
     public void cancel() {
+        setEnabledButtons(true);
         super.cancel();
         enable(true);
     }
@@ -157,5 +171,13 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
 
     public ContentComponentModelRoad getRoad() {
         return road;
+    }
+
+    public boolean isEnabledButtons() {
+        return enabledButtons;
+    }
+
+    public void setEnabledButtons(boolean _e) {
+        this.enabledButtons = _e;
     }
 }

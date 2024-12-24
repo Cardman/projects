@@ -43,7 +43,7 @@ public abstract class CrudGeneFormLevel extends AbsCrudGeneForm {
         for (int i = 0; i < len_; i++) {
             AbsButton but_ = getFactory().getCompoFactory().newPlainButton(Long.toString(i));
             but_.addActionListener(new SelectCrudLevelFormEvent(this, i));
-            but_.setEnabled(isEnabledButtons());
+            but_.setEnabled(parent.isEnabledButtons());
             getElements().add(but_);
             getAllButtons().add(but_);
             buts_.add(but_);
@@ -93,8 +93,21 @@ public abstract class CrudGeneFormLevel extends AbsCrudGeneForm {
         refresh();
         selectedPlace = -1;
     }
+
+    @Override
+    public void selectOrAdd() {
+        parent.setEnabledButtons(false);
+        super.selectOrAdd();
+    }
+
+    @Override
+    public void afterModif() {
+        parent.setEnabledButtons(true);
+        super.afterModif();
+    }
     @Override
     public void cancel() {
+        parent.setEnabledButtons(true);
         super.cancel();
         parent.enable(true);
     }

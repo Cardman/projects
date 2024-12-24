@@ -13,7 +13,6 @@ public abstract class AbsCrudGeneForm {
     private AbsButton cancel;
     private AbsPanel buttons;
     private boolean visibleSingle;
-    private boolean enabledButtons;
     private AbsCommonFrame frame;
 
     protected AbsCrudGeneForm(AbstractProgramInfos _fact) {
@@ -60,7 +59,6 @@ public abstract class AbsCrudGeneForm {
         getGroup().add(buttons_);
         getGroup().add(elements);
         getGroup().add(element);
-        setEnabledButtons(true);
     }
     public abstract void refresh();
 
@@ -83,7 +81,6 @@ public abstract class AbsCrudGeneForm {
         cancel.setEnabled(true);
         add.setEnabled(false);
         visibleSingle = true;
-        setEnabledButtons(false);
         getFrame().pack();
     }
 
@@ -93,7 +90,6 @@ public abstract class AbsCrudGeneForm {
         validRemove.setEnabled(false);
         cancel.setEnabled(false);
         add.setEnabled(true);
-        setEnabledButtons(true);
         refresh();
         visibleSingle = false;
         getFrame().pack();
@@ -104,17 +100,8 @@ public abstract class AbsCrudGeneForm {
         validRemove.setEnabled(false);
         cancel.setEnabled(false);
         add.setEnabled(true);
-        setEnabledButtons(true);
         visibleSingle = false;
         getFrame().pack();
-    }
-
-    public boolean isEnabledButtons() {
-        return enabledButtons;
-    }
-
-    public void setEnabledButtons(boolean _e) {
-        this.enabledButtons = _e;
     }
 
     public AbsPanel getElement() {

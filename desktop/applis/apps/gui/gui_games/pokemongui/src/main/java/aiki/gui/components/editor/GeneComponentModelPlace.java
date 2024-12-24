@@ -63,6 +63,7 @@ public final class GeneComponentModelPlace implements ChangeableFormType {
 
     public void setEdited(Place _e) {
         this.edited = _e;
+        name.valueString(_e.getName());
     }
 
     public GeneComponentModelElt<String> getPlaceKind() {
