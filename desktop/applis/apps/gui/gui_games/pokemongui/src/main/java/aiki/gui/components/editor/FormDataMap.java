@@ -95,7 +95,6 @@ public final class FormDataMap {
         dm_.setSideLength(sideLength.getValue());
         dm_.setFirstPokemon(formWildPk.buildEntity());
         dm_.setUnlockedCity(unlockedCity.getName().tryRet());
-        dm_.setPlaces(crudPlace.getList());
         if (old_ != dm_.getSideLength()) {
             FormLevelGrid formLevelGrid_ = translationList.getFormLevelGridUniq();
             if (formLevelGrid_ != null) {

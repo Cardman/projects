@@ -6,57 +6,51 @@ import aiki.map.levels.*;
 import aiki.util.*;
 import code.gui.*;
 import code.gui.initialize.*;
-import code.util.*;
 
-public final class GeneComponentModelSubscribeLevelCave implements AbsGeneComponentModelSubscribe<LevelCave> {
+public final class GeneComponentModelSubscribeLevelCave {
     private final AbstractProgramInfos api;
     private final FacadeGame facadeGame;
     private final SubscribedTranslationList factory;
     private final AbsCommonFrame frame;
-    private final CrudGeneFormLevelCave cave;
+    private final CrudGeneFormLevel cave;
     private LevelCave edited = Instances.newLevelCave();
     private final ContentComponentModelLevelWithWild wild = new ContentComponentModelLevelWithWild();
-    public GeneComponentModelSubscribeLevelCave(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact, CrudGeneFormLevelCave _c) {
+    public GeneComponentModelSubscribeLevelCave(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact, CrudGeneFormLevel _c) {
         api = _core;
         facadeGame = _fac;
         factory = _fact;
         frame = _f;
         cave = _c;
     }
-    @Override
-    public AbsCustComponent geneEnum(int _select, int _value) {
+    public AbsCustComponent geneEnum() {
         AbsCompoFactory compoFactory_ = api.getCompoFactory();
         AbsScrollPane sc_ = compoFactory_.newAbsScrollPane();
         AbsPanel page_ = compoFactory_.newPageBox();
         AbsCustComponent compo_ = wild.form(api, facadeGame, factory, frame);
-        compo_.setVisible(true);
         edited = Instances.newLevelCave();
         Points<Block> blocks_ = edited.getBlocks();
-        wild.setupGridDims(blocks_,(short) cave.getIndexCave(), (byte) cave.getSelectedIndex(),cave.getCave(),edited);
+        wild.setupGridDims(blocks_,(short) cave.getSelectedPlace(), (byte) cave.getSelectedLevel(),cave.getPlace(),edited);
         wild.getAreas().setBlocks(blocks_);
         sc_.setViewportView(compo_);
         page_.add(sc_);
         return page_;
     }
 
-    @Override
     public LevelCave tryRet() {
         edited.setBlocks(wild.getLevel().getEdited());
         edited.setWildPokemonAreas(wild.getAreas().getList());
         return edited;
     }
 
-    @Override
     public void setupValue(LevelCave _value) {
         Points<Block> blocks_ = ConverterCommonMapUtil.copyPointsBlock(_value.getBlocks());
-        wild.setupGridDims(blocks_,(short) cave.getIndexCave(), (byte) cave.getSelectedIndex(),cave.getCave(),_value);
+        wild.setupGridDims(blocks_,(short) cave.getSelectedPlace(), (byte) cave.getSelectedLevel(),cave.getPlace(),_value);
         wild.getAreas().setBlocks(blocks_);
         edited = _value;
     }
 
-    @Override
-    public IdList<SubscribedTranslation> getSubs() {
-        return new IdList<SubscribedTranslation>();
-    }
 
+    public ContentComponentModelLevelWithWild getWild() {
+        return wild;
+    }
 }

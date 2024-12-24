@@ -36,7 +36,6 @@ public final class ContentComponentModelLevelWithWild {
         form_.add(areas.getGroup());
         getAreas().setFormBlockTile(level.getFormBlockTile());
         splitter = _core.getCompoFactory().newHorizontalSplitPane(map_,_core.getCompoFactory().newAbsScrollPane(form_));
-        splitter.setVisible(false);
         level.getTranslationList().setFormLevelGridUniq(null);
         return splitter;
     }
@@ -56,15 +55,11 @@ public final class ContentComponentModelLevelWithWild {
         level.getGrid().addMouseListener(new TileKindEvent(this));
         level.getContainer().setViewportView(level.getForm());
     }
-    public void display(String _res) {
-        if (StringUtil.quickEq(_res, MessagesEditorSelect.PLACE_ROAD)) {
-            level.getTranslationList().setFormLevelGridUniq(level);
-            splitter.setVisible(true);
-        } else {
-            level.getTranslationList().setFormLevelGridUniq(null);
-            splitter.setVisible(false);
-        }
+
+    public AbsCustComponent getSplitter() {
+        return splitter;
     }
+
     public static Coords coords(short _nbPlace, byte _nbLevel, Point _inside) {
         Coords curCoords_ = new Coords();
         curCoords_.setNumberPlace(_nbPlace);
