@@ -355,8 +355,8 @@ public final class DataInfoChecker {
         }
     }
 
-    public static void checkEmpty(DataBase _data, Level _level, Point _key) {
-        if (!_level.isEmpty(_key)) {
+    public static void checkEmpty(DataBase _data, Level _level, NullablePoint _key) {
+        if (!_key.patchValid()||!_level.isEmpty(_key.getPoint())) {
             _data.setError(true);
         }
     }
@@ -374,13 +374,16 @@ public final class DataInfoChecker {
     }
 
     public static void checkKey(DataBase _data, LevelArea _level, Point _key, boolean _accessible) {
-        if (!_level.isValid(_key, _accessible)) {
+        checkKey(_data, _level, new NullablePoint(_key), _accessible);
+    }
+    public static void checkKey(DataBase _data, LevelArea _level, NullablePoint _key, boolean _accessible) {
+        if (!_key.patchValid()||!_level.isValid(_key.getPoint(), _accessible)) {
             _data.setError(true);
         }
     }
 
-    public static void checkKey(DataBase _data, BuildingArea _building, Point _key) {
-        if (!_building.isValid(_key)) {
+    public static void checkKey(DataBase _data, BuildingArea _building, NullablePoint _key) {
+        if (!_key.patchValid()||!_building.isValid(_key.getPoint())) {
             _data.setError(true);
         }
 //        if (_building == null||!_building.isValid(_key, _accessible)) {

@@ -1229,7 +1229,7 @@ public final class Instances {
         Gym object_ = new Gym();
         object_.setLevel(newLevelIndoorGym());
         object_.setImageFileName(DataBase.EMPTY_STRING);
-        object_.setExitCity(new Point());
+        object_.setExitCity(new NullablePoint());
         return object_;
     }
 
@@ -1237,7 +1237,7 @@ public final class Instances {
         PokemonCenter object_ = new PokemonCenter();
         object_.setLevel(newLevelIndoorPokemonCenter());
         object_.setImageFileName(DataBase.EMPTY_STRING);
-        object_.setExitCity(new Point());
+        object_.setExitCity(new NullablePoint());
         return object_;
     }
 
@@ -1263,7 +1263,7 @@ public final class Instances {
         object_.setAlly(newAlly());
         object_.setFoeTrainer(newTempTrainer());
         object_.setNames(new StringList(cap_));
-        object_.setPt(new Point());
+        object_.setPt(new NullablePoint());
         return object_;
     }
 
@@ -1366,7 +1366,7 @@ public final class Instances {
         LevelIndoorGym object_ = new LevelIndoorGym();
         CollCapacity cap_ = new CollCapacity(0);
         object_.setGymTrainers(new PointsGymTrainer(cap_));
-        object_.setGymLeaderCoords(new Point());
+        object_.setGymLeaderCoords(new NullablePoint());
         object_.setGymLeader(newGymLeader());
         object_.setBlocks(new PointsBlock(cap_));
         return object_;
@@ -1376,7 +1376,7 @@ public final class Instances {
         LevelIndoorPokemonCenter object_ = new LevelIndoorPokemonCenter();
         CollCapacity cap_ = new CollCapacity(0);
         object_.setGerants(new PointsPerson(cap_));
-        object_.setStorageCoords(new Point());
+        object_.setStorageCoords(new NullablePoint());
         object_.setBlocks(new PointsBlock(cap_));
         return object_;
     }
@@ -1384,10 +1384,10 @@ public final class Instances {
     public static LevelLeague newLevelLeague() {
         LevelLeague object_ = new LevelLeague();
         CollCapacity cap_ = new CollCapacity(0);
-        object_.setTrainerCoords(new Point());
+        object_.setTrainerCoords(new NullablePoint());
         object_.setTrainer(newTrainerLeague());
-        object_.setAccessPoint(new Point());
-        object_.setNextLevelTarget(new Point());
+        object_.setAccessPoint(new NullablePoint());
+        object_.setNextLevelTarget(new NullablePoint());
         object_.setFileName(DataBase.EMPTY_STRING);
         object_.setBlocks(new PointsBlock(cap_));
         return object_;
@@ -1441,7 +1441,7 @@ public final class Instances {
         object_.setRooms(new CustList<LevelLeague>(cap_));
         object_.setAccessCoords(new Coords());
         object_.setFileName(DataBase.EMPTY_STRING);
-        object_.setBegin(new Point());
+        object_.setBegin(new NullablePoint());
         return object_;
     }
 

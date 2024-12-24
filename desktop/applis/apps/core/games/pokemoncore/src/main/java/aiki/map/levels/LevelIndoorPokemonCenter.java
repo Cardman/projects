@@ -13,7 +13,7 @@ public final class LevelIndoorPokemonCenter extends Level {
 
     private Points< Person> gerants;
 
-    private Point storageCoords;
+    private NullablePoint storageCoords;
 
     @Override
     public void validate(DataBase _data, LevelArea _level) {
@@ -27,10 +27,10 @@ public final class LevelIndoorPokemonCenter extends Level {
             }
         }
     }
-    public PointEqList validateLinks() {
-        PointEqList keys_ = new PointEqList();
+    public CustList<NullablePoint> validateLinks() {
+        CustList<NullablePoint> keys_ = new CustList<NullablePoint>();
         for (EntryCust<Point, Person> e : gerants.entryList()) {
-            keys_.add(e.getKey());
+            keys_.add(new NullablePoint(e.getKey()));
         }
         keys_.add(storageCoords);
         return keys_;
@@ -67,11 +67,15 @@ public final class LevelIndoorPokemonCenter extends Level {
         gerants = _gerants;
     }
 
-    public Point getStorageCoords() {
+    public NullablePoint getStorageCoords() {
         return storageCoords;
     }
 
     public void setStorageCoords(Point _storageCoords) {
-        storageCoords = _storageCoords;
+        setStorageCoords(new NullablePoint(_storageCoords));
+    }
+
+    public void setStorageCoords(NullablePoint _storageCoords) {
+        this.storageCoords = _storageCoords;
     }
 }

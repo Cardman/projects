@@ -120,7 +120,7 @@ public class SolutionTest extends EquallablePkUtil {
         block_ = new Block((short)5,(short)5, EnvironmentType.ROAD, VOIE);
         level_.getBlocks().put(new Point((short)0,(short)0), block_);
         level_.setAccessPoint(new Point((short)2,(short)0));
-        level_.setNextLevelTarget(new Point());
+        level_.setNextLevelTarget(new NullablePoint());
         level_.setTrainerCoords(new Point((short)2,(short)2));
         league_.getRooms().add(level_);
         league_.setBegin(new Point((short)2,(short)4));

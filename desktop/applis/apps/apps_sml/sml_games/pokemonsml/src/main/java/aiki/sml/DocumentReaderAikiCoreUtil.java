@@ -5337,7 +5337,7 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setImageFileName(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        _object.setExitCity(getPoint(_element));
+        _object.setExitCity(getNullablePoint(_element));
     }
 
     private static void getGym(Gym _object, String _fieldName, Element _element) {
@@ -5420,7 +5420,7 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setNames(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
-        _object.setPt(getPoint(_element));
+        _object.setPt(getNullablePoint(_element));
     }
 
     private static void getGerantPokemon(GerantPokemon _object, String _fieldName, Element _element) {
@@ -5742,7 +5742,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_GYM_LEADER_COORDS)) {
-            _object.setGymLeaderCoords(getPoint(_element));
+            _object.setGymLeaderCoords(getNullablePoint(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_GYM_LEADER)) {
@@ -5767,7 +5767,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_STORAGE_COORDS)) {
-            _object.setStorageCoords(getPoint(_element));
+            _object.setStorageCoords(getNullablePoint(_element));
             return;
         }
         getLevel(_object, _element);
@@ -5784,7 +5784,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static void getLevelLeague(LevelLeague _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_TRAINER_COORDS)) {
-            _object.setTrainerCoords(getPoint(_element));
+            _object.setTrainerCoords(getNullablePoint(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_TRAINER)) {
@@ -5792,11 +5792,11 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_ACCESS_POINT)) {
-            _object.setAccessPoint(getPoint(_element));
+            _object.setAccessPoint(getNullablePoint(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_NEXT_LEVEL_TARGET)) {
-            _object.setNextLevelTarget(getPoint(_element));
+            _object.setNextLevelTarget(getNullablePoint(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_FILE_NAME)) {
@@ -5921,7 +5921,7 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setFileName(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        _object.setBegin(getPoint(_element));
+        _object.setBegin(getNullablePoint(_element));
     }
 
     private static Place getPlace(Element _element) {
@@ -6145,6 +6145,10 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static Point getPoint(Element _elt) {
         return Point.newPoint(_elt.getAttribute(DocumentReaderCoreUtil.VALUE));
+    }
+
+    private static NullablePoint getNullablePoint(Element _elt) {
+        return new NullablePoint(_elt.getAttribute(DocumentReaderCoreUtil.VALUE));
     }
 
     private static MonteCarloEnum<Statistic> getMonteCarloEnumStatistic(Element _element) {

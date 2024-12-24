@@ -42,6 +42,13 @@ public final class Point {
         sety(_p.gety());
     }
 
+    public static boolean eq(NullablePoint _pt1,Point _pt2) {
+        if (!_pt1.isDefined()) {
+            return false;
+        }
+        return _pt1.getPoint().eq(_pt2);
+    }
+
     public static boolean eq(Point _pt1,Point _pt2) {
         return _pt1.eq(_pt2);
     }

@@ -3,19 +3,18 @@ package aiki.map.levels;
 import aiki.db.DataBase;
 import aiki.map.characters.TrainerLeague;
 import aiki.map.tree.LevelArea;
-import aiki.util.DataInfoChecker;
-import aiki.util.Point;
+import aiki.util.*;
 
 
 public final class LevelLeague extends Level {
 
-    private Point trainerCoords;
+    private NullablePoint trainerCoords;
 
     private TrainerLeague trainer;
 
-    private Point accessPoint;
+    private NullablePoint accessPoint;
 
-    private Point nextLevelTarget;
+    private NullablePoint nextLevelTarget;
 
     private String fileName;
 
@@ -53,12 +52,15 @@ public final class LevelLeague extends Level {
         return val_;
     }
 
-
-    public Point getTrainerCoords() {
+    public NullablePoint getTrainerCoords() {
         return trainerCoords;
     }
 
     public void setTrainerCoords(Point _trainer) {
+        setTrainerCoords(new NullablePoint(_trainer));
+    }
+
+    public void setTrainerCoords(NullablePoint _trainer) {
         trainerCoords = _trainer;
     }
 
@@ -70,19 +72,27 @@ public final class LevelLeague extends Level {
         trainer = _trainer;
     }
 
-    public Point getAccessPoint() {
+    public NullablePoint getAccessPoint() {
         return accessPoint;
     }
 
     public void setAccessPoint(Point _accessPoint) {
+        setAccessPoint(new NullablePoint(_accessPoint));
+    }
+
+    public void setAccessPoint(NullablePoint _accessPoint) {
         accessPoint = _accessPoint;
     }
 
-    public Point getNextLevelTarget() {
+    public NullablePoint getNextLevelTarget() {
         return nextLevelTarget;
     }
 
     public void setNextLevelTarget(Point _nextLevelTarget) {
+        setNextLevelTarget(new NullablePoint(_nextLevelTarget));
+    }
+
+    public void setNextLevelTarget(NullablePoint _nextLevelTarget) {
         nextLevelTarget = _nextLevelTarget;
     }
 

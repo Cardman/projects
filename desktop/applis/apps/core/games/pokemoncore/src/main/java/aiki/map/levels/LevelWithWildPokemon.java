@@ -48,7 +48,7 @@ public abstract class LevelWithWildPokemon extends Level {
             }
             dual_.validate(_data);
             keys_.add(e.getKey());
-            keys_.add(dual_.getPt());
+            NullablePoint.tryAdd(keys_,dual_.getPt());
         }
         for (EntryCust<Point,WildPk> e : legendaryPks.entryList()) {
             DataInfoChecker.checkKey(_data, _level, e.getKey(),true);
@@ -98,7 +98,7 @@ public abstract class LevelWithWildPokemon extends Level {
         for (Direction d : Direction.all()) {
             Point next_ = new Point(_id);
             next_.moveTo(d);
-            if (Point.eq(next_, _dual.getPt())) {
+            if (Point.eq(_dual.getPt(), next_)) {
                 isNext_ = true;
                 break;
             }

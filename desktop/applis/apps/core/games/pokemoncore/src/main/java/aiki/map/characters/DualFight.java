@@ -1,6 +1,6 @@
 package aiki.map.characters;
 import aiki.db.DataBase;
-import aiki.util.Point;
+import aiki.util.*;
 import code.util.StringList;
 
 
@@ -12,7 +12,7 @@ public final class DualFight {
 
     private StringList names;
 
-    private Point pt;
+    private NullablePoint pt;
 
     public void validate(DataBase _data) {
         ally.validate(_data);
@@ -36,11 +36,15 @@ public final class DualFight {
         foeTrainer = _foeTrainer;
     }
 
-    public Point getPt() {
+    public NullablePoint getPt() {
         return pt;
     }
 
     public void setPt(Point _pt) {
+        setPt(new NullablePoint(_pt));
+    }
+
+    public void setPt(NullablePoint _pt) {
         pt = _pt;
     }
 

@@ -12,7 +12,7 @@ public final class LevelIndoorGym extends Level {
 
     private Points< GymTrainer> gymTrainers;
 
-    private Point gymLeaderCoords;
+    private NullablePoint gymLeaderCoords;
 
     private GymLeader gymLeader;
 
@@ -24,10 +24,10 @@ public final class LevelIndoorGym extends Level {
         }
         gymLeader.validate(_data);
     }
-    public PointEqList validateLinks() {
-        PointEqList keys_ = new PointEqList();
+    public CustList<NullablePoint> validateLinks() {
+        CustList<NullablePoint> keys_ = new CustList<NullablePoint>();
         for (EntryCust<Point,GymTrainer> e : gymTrainers.entryList()) {
-            keys_.add(e.getKey());
+            keys_.add(new NullablePoint(e.getKey()));
         }
         keys_.add(gymLeaderCoords);
         return keys_;
@@ -67,12 +67,16 @@ public final class LevelIndoorGym extends Level {
         gymTrainers = _gymTrainers;
     }
 
-    public Point getGymLeaderCoords() {
+    public NullablePoint getGymLeaderCoords() {
         return gymLeaderCoords;
     }
 
     public void setGymLeaderCoords(Point _gymLeader) {
-        gymLeaderCoords = _gymLeader;
+        setGymLeaderCoords(new NullablePoint(_gymLeader));
+    }
+
+    public void setGymLeaderCoords(NullablePoint _gymLeaderCoords) {
+        this.gymLeaderCoords = _gymLeaderCoords;
     }
 
     public GymLeader getGymLeader() {

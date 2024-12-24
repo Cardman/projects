@@ -586,7 +586,7 @@ public final class Game {
                 Person person_ = lv_.getGymTrainers().getVal(_pt);
                 _images.add(_data.getPerson(person_.getImageMiniFileName()));
             }
-            if (Point.eq(_pt, lv_.getGymLeaderCoords())) {
+            if (Point.eq(lv_.getGymLeaderCoords(), _pt)) {
                 Person person_ = lv_.getGymLeader();
                 _images.add(_data.getPerson(person_.getImageMiniFileName()));
             }
@@ -666,11 +666,11 @@ public final class Game {
     private void possibleLevelLeague(DataBase _data, Level _level, CustList<int[][]> _images, Point _pt) {
         if (_level instanceof LevelLeague) {
             LevelLeague lv_ = (LevelLeague) _level;
-            if (Point.eq(_pt, lv_.getTrainerCoords())) {
+            if (Point.eq(lv_.getTrainerCoords(), _pt)) {
                 Person person_ = lv_.getTrainer();
                 _images.add(_data.getPerson(person_.getImageMiniFileName()));
             }
-            if (Point.eq(_pt, lv_.getAccessPoint())) {
+            if (Point.eq(lv_.getAccessPoint(), _pt)) {
                 _images.add(_data.getLink(lv_.getFileName()));
             }
         }
@@ -1300,7 +1300,7 @@ public final class Game {
             coords_.setNumberPlace(coordsFoe_.getNumberPlace());
             coords_.setLevel(new LevelPoint());
             coords_.getLevel().setLevelIndex((byte) 0);
-            coords_.getLevel().setPoint(((League) pl_).getBegin());
+            coords_.getLevel().setPoint(((League) pl_).getBegin().value());
             beatGymLeader.put(coords_, BoolVal.TRUE);
             addBeatenTrainer(coords_, _import);
             player.healTeamWithoutUsingObject(_import);
@@ -1395,7 +1395,7 @@ public final class Game {
                 coords_.setNumberPlace(coordsFoe_.getNumberPlace());
                 coords_.setLevel(new LevelPoint());
                 coords_.getLevel().setLevelIndex((byte) 0);
-                coords_.getLevel().setPoint(((League) pl_).getBegin());
+                coords_.getLevel().setPoint(((League) pl_).getBegin().value());
                 beatGymLeader.put(coords_, BoolVal.TRUE);
                 beatenImportantTrainer_ = coords_;
                 player.healTeamWithoutUsingObject(_import);
@@ -2081,7 +2081,7 @@ public final class Game {
                 nbSteps++;
                 playerCoords.setNumberPlace(p);
                 playerCoords.getLevel().setLevelIndex((byte) 0);
-                playerCoords.getLevel().getPoint().affect(((League)place_).getBegin());
+                playerCoords.getLevel().getPoint().affect(((League)place_).getBegin().value());
                 placeChanged = true;
                 return;
             }
@@ -2095,7 +2095,7 @@ public final class Game {
             Points<Building> buildings_ = ((City) _nextPl).getBuildings();
             if (buildings_.contains(nextPt_)) {
                 nbSteps++;
-                playerCoords.getLevel().getPoint().affect(buildings_.getVal(nextPt_).getExitCity());
+                playerCoords.getLevel().getPoint().affect(buildings_.getVal(nextPt_).getExitCity().value());
                 playerCoords.affectInside(nextPt_);
                 playerCoords.getLevel().setLevelIndex((byte) 0);
                 placeChanged = true;
@@ -2190,13 +2190,13 @@ public final class Game {
         if (Point.eq(nextLevel_.getAccessPoint(), _voisin.getLevel().getPoint()) && rankLeague > _voisin.getLevel().getLevelIndex()) {
             placeChanged = true;
             nbSteps++;
-            if (rankLeague == _nextPl.getRooms().size()) {
+            if (!nextLevel_.getNextLevelTarget().isDefined()) {
                 playerCoords.affect(_map.getBegin());
                 rankLeague = 0;
                 return;
             }
             playerCoords.getLevel().setLevelIndex((byte) (playerCoords.getLevel().getLevelIndex() + 1));
-            playerCoords.getLevel().getPoint().affect(nextLevel_.getNextLevelTarget());
+            playerCoords.getLevel().getPoint().affect(nextLevel_.getNextLevelTarget().getPoint());
             return;
         }
         nbSteps++;

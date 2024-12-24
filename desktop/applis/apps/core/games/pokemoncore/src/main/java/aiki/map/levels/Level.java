@@ -143,10 +143,8 @@ public abstract class Level {
         if (_lev instanceof LevelLeague) {
             LevelLeague lv_ = (LevelLeague) _lev;
             Person person_ = lv_.getTrainer();
-            frontTiles_.put(new Point(lv_.getTrainerCoords()),
-                    _data.getPerson(person_.getImageMiniFileName()));
-            frontTiles_.put(new Point(lv_.getAccessPoint()),
-                    _data.getLink(lv_.getFileName()));
+            NullablePoint.tryAdd(frontTiles_, lv_.getTrainerCoords(), _data.getPerson(person_.getImageMiniFileName()));
+            NullablePoint.tryAdd(frontTiles_, lv_.getAccessPoint(), _data.getLink(lv_.getFileName()));
         }
         feedLevelWithWildPokemon(_data, _lev, frontTiles_);
         feedCity(_data, _coords, _pl, _lev, frontTiles_);
@@ -167,8 +165,7 @@ public abstract class Level {
             City city_ = (City) _pl;
             Building building_ = city_.getBuildings().getVal(
                     _coords.getInsideBuilding());
-            _frontTiles.put(new Point(building_.getExitCity()),
-                    _data.getLink(building_.getImageFileName()));
+            NullablePoint.tryAdd(_frontTiles, building_.getExitCity(), _data.getLink(building_.getImageFileName()));
         }
         if (_lev instanceof LevelIndoorPokemonCenter) {
             LevelIndoorPokemonCenter lv_ = (LevelIndoorPokemonCenter) _lev;
@@ -177,8 +174,7 @@ public abstract class Level {
                 _frontTiles.put(new Point(p),
                         _data.getPerson(person_.getImageMiniFileName()));
             }
-            _frontTiles.put(new Point(lv_.getStorageCoords()),
-                    _data.getStorage().getImage());
+            NullablePoint.tryAdd(_frontTiles, lv_.getStorageCoords(), _data.getStorage().getImage());
         }
         if (_lev instanceof LevelIndoorGym) {
             LevelIndoorGym lv_ = (LevelIndoorGym) _lev;
@@ -188,8 +184,7 @@ public abstract class Level {
                         _data.getPerson(person_.getImageMiniFileName()));
             }
             Person person_ = lv_.getGymLeader();
-            _frontTiles.put(new Point(lv_.getGymLeaderCoords()),
-                    _data.getPerson(person_.getImageMiniFileName()));
+            NullablePoint.tryAdd(_frontTiles, lv_.getGymLeaderCoords(), _data.getPerson(person_.getImageMiniFileName()));
         }
     }
 
@@ -270,7 +265,7 @@ public abstract class Level {
             }
             for (DualFight d : lv_.getDualFights().values()) {
                 TempTrainer tmp_ = d.getFoeTrainer();
-                _frontTiles.put(new Point(d.getPt()), _data.getPerson(tmp_
+                NullablePoint.tryAdd(_frontTiles, d.getPt(), _data.getPerson(tmp_
                         .getImageMiniSecondTrainerFileName()));
             }
         }

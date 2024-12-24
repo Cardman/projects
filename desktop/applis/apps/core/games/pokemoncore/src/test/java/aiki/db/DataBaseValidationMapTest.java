@@ -324,7 +324,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         block_.setWidth((short) 1);
         block_.setType(EnvironmentType.NOTHING);
         room_.getBlocks().addEntry(new Point((short)0,(short)0), block_);
-        room_.setAccessPoint(new Point((short)1,(short)1));
+        room_.setAccessPoint(new NullablePoint());
         room_.setTrainerCoords(new Point((short)1,(short)1));
         room_.setNextLevelTarget(new Point((short)1,(short)1));
         league_.getRooms().add(room_);

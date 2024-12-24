@@ -5,10 +5,7 @@ import aiki.map.levels.Level;
 import aiki.map.levels.LevelLeague;
 import aiki.map.tree.PlaceArea;
 import aiki.map.tree.Tree;
-import aiki.util.Coords;
-import aiki.util.DataInfoChecker;
-import aiki.util.Point;
-import code.util.CustList;
+import aiki.util.*;
 import code.util.*;
 import code.util.core.IndexConstants;
 
@@ -23,7 +20,7 @@ public final class League extends Place {
 
     private String fileName;
 
-    private Point begin;
+    private NullablePoint begin;
 
     @Override
     public void validate(DataBase _data, PlaceArea _placeArea) {
@@ -38,10 +35,11 @@ public final class League extends Place {
         int nbRooms_ = rooms.size();
         for (byte i = IndexConstants.SECOND_INDEX; i < nbRooms_; i++) {
             getLevelLeague(i).validate(_data, _placeArea.getLevel(i));
-            Point next_ = getLevelLeague((byte) (i - 1)).getNextLevelTarget();
+            NullablePoint next_ = getLevelLeague((byte) (i - 1)).getNextLevelTarget();
             DataInfoChecker.checkEmpty(_data,getLevelLeague(i),next_);
             DataInfoChecker.checkKey(_data,_placeArea.getLevel(i),next_,true);
         }
+        rooms.last().setNextLevelTarget(new NullablePoint());
         if (_data.getLink(fileName).length == 0) {
             _data.setError(true);
         }
@@ -119,11 +117,15 @@ public final class League extends Place {
         fileName = _fileName;
     }
 
-    public Point getBegin() {
+    public NullablePoint getBegin() {
         return begin;
     }
 
     public void setBegin(Point _begin) {
-        begin = _begin;
+        setBegin(new NullablePoint(_begin));
+    }
+
+    public void setBegin(NullablePoint _b) {
+        this.begin = _b;
     }
 }

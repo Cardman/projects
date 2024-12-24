@@ -204,7 +204,7 @@ public class FightSimulation {
         Place place_ = place(_index, _import);
         if (place_ instanceof League) {
             LevelLeague l_ = (LevelLeague) place_.getLevelsList().get(foeCoords.getLevel().getLevelIndex());
-            foeCoords.getLevel().getPoint().affect(l_.getTrainerCoords());
+            foeCoords.getLevel().getPoint().affect(l_.getTrainerCoords().value());
             initializeFightLeague(l_);
             environmentAll.add(_import.envType(foeCoordsAll.last()));
             for (LevelLeague l: ((League) place_).getRooms().mid(foeCoords.getLevel().getLevelIndex()+1)) {
@@ -212,7 +212,7 @@ public class FightSimulation {
                 byte mult_ = t_.getMultiplicityFight();
                 Coords co_ = new Coords(_foeCoords);
                 co_.getLevel().setLevelIndex((byte) (foeCoords.getLevel().getLevelIndex()+foeCoordsAll.size()));
-                co_.getLevel().getPoint().affect(l.getTrainerCoords());
+                co_.getLevel().getPoint().affect(l.getTrainerCoords().value());
                 store(mult_,mult_,t_.getTeam(), co_);
                 environmentAll.add(_import.envType(foeCoordsAll.last()));
             }
@@ -230,7 +230,7 @@ public class FightSimulation {
         mult.add(mult_);
         foeTeams.add(new CustList<PkTrainer>(_l.getTrainer().getTeam()));
         Coords co_ = new Coords(foeCoords);
-        co_.getLevel().getPoint().affect(_l.getTrainerCoords());
+        co_.getLevel().getPoint().affect(_l.getTrainerCoords().value());
         store(maxActions.last(), mult.last(), foeTeams.last(), co_);
     }
 

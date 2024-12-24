@@ -1303,7 +1303,6 @@ LevelLeague m535levelLeague_=Instances.newLevelLeague();
 m535levelLeague_.setTrainerCoords(new Point(X4,Y4));
 m535levelLeague_.setTrainer(TrLeague.p10t1());
 m535levelLeague_.setAccessPoint(new Point(X4,Y0));
-m535levelLeague_.setNextLevelTarget(new Point(X4,Y9));
 m535levelLeague_.setFileName(F_LINK_LEAGUE_LEVELS_TXT);
 PointsBlock m535objectMapPointBlock_=new PointsBlock(new CollCapacity(1));
 Block m535block_=Instances.newBlock();

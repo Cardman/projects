@@ -105,13 +105,13 @@ public class Step {
             Level level_ = DataMap.getLevelByCoords(_places,c);
             if (level_ instanceof LevelIndoorGym) {
                 LevelIndoorGym lev_ = (LevelIndoorGym) level_;
-                c_.getLevel().getPoint().affect(lev_.getGymLeaderCoords());
+                c_.getLevel().getPoint().affect(lev_.getGymLeaderCoords().value());
                 importantsTrainers.add(c_);
             }
             if (pl_ instanceof League) {
                 League league_ = (League) pl_;
                 c_.getLevel().setLevelIndex((byte) 0);
-                c_.getLevel().getPoint().affect(league_.getBegin());
+                c_.getLevel().getPoint().affect(league_.getBegin().value());
                 importantsTrainers.add(c_);
             }
             if (level_ instanceof LevelWithWildPokemon) {

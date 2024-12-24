@@ -3727,6 +3727,13 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
+    private static Element setPoint(NullablePoint _object, String _fieldName, Document _document) {
+        Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
+        DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
+        elt_.setAttribute(DocumentWriterCoreUtil.VALUE, _object.display());
+        return elt_;
+    }
+
     private static Element setPoint(Point _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);

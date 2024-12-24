@@ -789,7 +789,7 @@ public final class DataMap {
                         invalidCoords_.add(c2_);
                         Coords c_ = coords(c2_.getNumberPlace(), new LevelPoint());
                         c_.getLevel().setLevelIndex((byte) 0);
-                        c_.getLevel().setPoint(((League) pl_).getBegin());
+                        c_.getLevel().setPoint(((League) pl_).getBegin().value());
                         addedCoords_.add(c_);
                     }
                 } else {
@@ -1033,7 +1033,7 @@ public final class DataMap {
             if (place_ instanceof League) {
                 Coords c_ = coords(s, new LevelPoint());
                 c_.getLevel().setLevelIndex((byte) 0);
-                c_.getLevel().setPoint(((League) place_).getBegin());
+                c_.getLevel().setPoint(((League) place_).getBegin().value());
                 beatGymLeader.add(c_);
             }
         }
@@ -1154,7 +1154,7 @@ public final class DataMap {
                 c_.getLevel().setLevelIndex((byte) 0);
                 c_.getLevel().setPoint(
                         ((Gym) b.getValue()).getIndoor()
-                                .getGymLeaderCoords());
+                                .getGymLeaderCoords().value());
                 beatGymLeader.add(c_);
                 beatGymTrainer
                         .put(_s, new PointEqList(((Gym) b.getValue())
@@ -1437,7 +1437,7 @@ public final class DataMap {
                     Coords coords_ = new Coords(c);
 
                     coords_.getLevel().setLevelIndex((byte) 0);
-                    coords_.getLevel().setPoint(new Point(league_.getBegin()));
+                    coords_.getLevel().setPoint(new Point(league_.getBegin().value()));
                     list_.put(coords_, league_.getAccessCoords());
                 }
                 continue;
@@ -1451,12 +1451,12 @@ public final class DataMap {
             if (l_ instanceof LevelIndoorGym) {
                 Coords coords_ = new Coords(c);
                 coords_.getLevel().setPoint(
-                        ((LevelIndoorGym) l_).getGymLeaderCoords());
+                        ((LevelIndoorGym) l_).getGymLeaderCoords().value());
                 City city_ = (City) place_;
                 Coords coordsValue_ = new Coords(c);
                 coordsValue_.getLevel().setPoint(
                         city_.getBuildings().getVal(c.getInsideBuilding())
-                                .getExitCity());
+                                .getExitCity().value());
                 list_.put(coords_, coordsValue_);
             }
         }
@@ -1495,7 +1495,7 @@ public final class DataMap {
         League league_ = (League) place_;
         byte levelIndex_ = _id.getLevel().getLevelIndex();
         LevelLeague level_ = league_.getRooms().get(levelIndex_);
-        nextRoom(_id, _condition, return_, league_, level_);
+        nextRoom(_id, _condition, return_, level_);
         for (Direction d : Direction.all()) {
             Point ptNext_ = new Point(pt_);
             ptNext_.moveTo(d);
@@ -1509,14 +1509,17 @@ public final class DataMap {
         return return_;
     }
 
-    private void nextRoom(Coords _id, Condition _condition, CoordssCondition _ret, League _league, LevelLeague _level) {
+    private void nextRoom(Coords _id, Condition _condition, CoordssCondition _ret, LevelLeague _level) {
         byte levelIndex_ = _id.getLevel().getLevelIndex();
-        if (Point.eq(_level.getAccessPoint(), _id.getLevel().getPoint()) && _league.getRooms().isValidIndex(levelIndex_ + 1)) {
-            Coords coords_ = new Coords(_id);
-            coords_.getLevel().setLevelIndex((byte) (levelIndex_ + 1));
-            coords_.getLevel().setPoint(_level.getNextLevelTarget());
-            Condition cond_ = initCondition(coords_, _condition);
-            _ret.put(coords_, cond_);
+        if (Point.eq(_level.getAccessPoint(), _id.getLevel().getPoint())) {
+            NullablePoint nextLevelTarget_ = _level.getNextLevelTarget();
+            if (nextLevelTarget_.isDefined()) {
+                Coords coords_ = new Coords(_id);
+                coords_.getLevel().setLevelIndex((byte) (levelIndex_ + 1));
+                coords_.getLevel().setPoint(nextLevelTarget_.getPoint());
+                Condition cond_ = initCondition(coords_, _condition);
+                _ret.put(coords_, cond_);
+            }
         }
     }
 
@@ -1565,7 +1568,7 @@ public final class DataMap {
                 Coords coords_ = new Coords(_id);
                 coords_.affectInside(ptNext_);
                 coords_.getLevel().setPoint(
-                        building_.getExitCity());
+                        building_.getExitCity().value());
                 Condition cond_ = initCondition(coords_,
                         _condition);
                 _ret.put(coords_, cond_);
@@ -1630,7 +1633,7 @@ public final class DataMap {
                 Coords coords_ = coords(p, new LevelPoint());
                 coords_.getLevel().setLevelIndex((byte) 0);
                 coords_.getLevel().setPoint(
-                        new Point(((League) pl_).getBegin()));
+                        new Point(((League) pl_).getBegin().value()));
                 Condition condition_ = initCondition(coords_, _condition);
                 _ret.put(coords_, condition_);
                 break;
@@ -1987,7 +1990,7 @@ public final class DataMap {
         if (_coords.isInside()) {
             Building building_ = ((City) place_).getBuildings().getVal(
                     _coords.getInsideBuilding());
-            return !Point.eq(pt_, building_.getExitCity());
+            return !Point.eq(building_.getExitCity(), pt_);
         }
         if (place_ instanceof League && filledForAddingInLeague(_coords, (League) place_, pt_)) {
             return false;
@@ -2051,7 +2054,7 @@ public final class DataMap {
         LevelLeague level_ = new LevelLeague();
         level_.setBlocks(new PointsBlock());
         level_.setAccessPoint(new Point());
-        level_.setNextLevelTarget(new Point());
+        level_.setNextLevelTarget(new NullablePoint());
         level_.setTrainerCoords(new Point());
         TrainerLeague trainer_ = new TrainerLeague();
         trainer_.setImageMaxiFileName(DataBase.EMPTY_STRING);
