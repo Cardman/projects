@@ -23,11 +23,9 @@ import aiki.game.params.enums.DifficultyWinPointsFight;
 import aiki.game.player.enums.Sex;
 import aiki.instances.Instances;
 import aiki.map.DataMap;
+import aiki.map.buildings.Gym;
 import aiki.map.buildings.PokemonCenter;
-import aiki.map.characters.GerantPokemon;
-import aiki.map.characters.Person;
-import aiki.map.characters.Seller;
-import aiki.map.characters.TrainerMultiFights;
+import aiki.map.characters.*;
 import aiki.map.characters.enums.GeranceType;
 import aiki.map.characters.enums.SellType;
 import aiki.map.enums.Direction;
@@ -320,6 +318,52 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         initBegin(data_);
 
         City city_ = withBlocksPkCenter(withBlocks(Instances.newCity()), newGerantPokemon(GeranceType.HOST));
+        data_.getMap().addPlace(city_);
+        Road road_ = withBlocks(Instances.newRoad());
+        data_.getMap().addPlace(road_);
+
+
+//        initMiniMap(data_);
+        data_.getTm().addEntry((short)2,ECLAIR);
+        data_.getTm().addEntry((short)3,ECLAIR_4);
+        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
+        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        city_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(2,0),Direction.RIGHT),newCoords(1,0,0,0));
+        road_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(0,0),Direction.LEFT),newCoords(0,0,2,0));
+        compute(data_);
+
+        return ball_;
+    }
+
+    public static DataBase coreDataBaseTwoJoinPlacesGymTrainer() {
+        DataBase data_ = init();
+        initDefaultConsts(POKE_BALL,"1","1","1","1","1", ECLAIR_2, PIKACHU, data_);
+        StringMap<String> trsIt_ = new StringMap<String>();
+        StringMap<String> trsPk_ = new StringMap<String>();
+        StringMap<String> trsMv_ = new StringMap<String>();
+        StringMap<String> trsAb_ = new StringMap<String>();
+        StringMap<String> trsTypes_ = new StringMap<String>();
+        data_.getTranslatedPokemon().addEntry(LANGUAGE, trsPk_);
+        data_.getTranslatedMoves().addEntry(LANGUAGE, trsMv_);
+        data_.getTranslatedAbilities().addEntry(LANGUAGE, trsAb_);
+        data_.getTranslatedItems().addEntry(LANGUAGE, trsIt_);
+        data_.getTranslatedTypes().addEntry(LANGUAGE, trsTypes_);
+        trsTypes_.put(ELECTRICK,"elec");
+        DataBase ab_ = withAb(data_, PARATONNERRE, trsAb_, "parra");
+        DataBase mv_ = withMv(withMv(withMv(ab_, ECLAIR_4, trsMv_, "biz 4"), ECLAIR_2, trsMv_, "biz 2"), ECLAIR, trsMv_, "biz");
+        DataBase res_ = withPk(mv_, PIKACHU, trsPk_, PIKACHU_TR);
+        DataBase ball_ = withIt(res_, POKE_BALL, trsIt_, "ball");
+        initBegin(data_);
+
+        GymTrainer gt_ = Instances.newGymTrainer();
+        PkTrainer pk_ = Instances.newPkTrainer();
+        pk_.setName(PIKACHU);
+        pk_.setAbility(PARATONNERRE);
+        pk_.getMoves().add(ECLAIR);
+        pk_.getMoves().add(ECLAIR_2);
+        pk_.getMoves().add(ECLAIR_4);
+        gt_.getTeam().add(pk_);
+        City city_ = withBlocksGym(withBlocks(Instances.newCity()), gt_);
         data_.getMap().addPlace(city_);
         Road road_ = withBlocks(Instances.newRoad());
         data_.getMap().addPlace(road_);
@@ -711,6 +755,28 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         center_.setExitCity(newPoint(-1,-1));
         center_.getIndoor().setStorageCoords(newPoint(2,2));
         center_.getIndoor().getGerants().addEntry(newPoint(1, 1),_gerant);
+        center_.getIndoor().getBlocks().addEntry(newPoint(0, 0), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        center_.getIndoor().getBlocks().addEntry(newPoint(0, 1), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        center_.getIndoor().getBlocks().addEntry(newPoint(0, 2), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        center_.getIndoor().getBlocks().addEntry(newPoint(1, 0), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        center_.getIndoor().getBlocks().addEntry(newPoint(1, 1), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        center_.getIndoor().getBlocks().addEntry(newPoint(1, 2), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        center_.getIndoor().getBlocks().addEntry(newPoint(2, 0), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        center_.getIndoor().getBlocks().addEntry(newPoint(2, 1), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        center_.getIndoor().getBlocks().addEntry(newPoint(2, 2), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
+        return _city;
+    }
+
+    public static City withBlocksGym(City _city, GymTrainer _gerant) {
+        return withBlocksGym(newPoint(0,0),_city,_gerant);
+    }
+    public static City withBlocksGym(Point _pt,City _city, GymTrainer _gerant) {
+        _city.setName("___");
+        Gym center_ = Instances.newGym();
+        _city.getBuildings().addEntry(_pt, center_);
+        center_.setExitCity(newPoint(0,0));
+        center_.getIndoor().setGymLeaderCoords(newPoint(2,2));
+        center_.getIndoor().getGymTrainers().addEntry(newPoint(1, 1),_gerant);
         center_.getIndoor().getBlocks().addEntry(newPoint(0, 0), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
         center_.getIndoor().getBlocks().addEntry(newPoint(0, 1), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));
         center_.getIndoor().getBlocks().addEntry(newPoint(0, 2), newBlock(1, 1, EnvironmentType.ROAD, ROAD, -1));

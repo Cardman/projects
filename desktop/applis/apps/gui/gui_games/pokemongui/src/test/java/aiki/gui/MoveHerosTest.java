@@ -1,14 +1,17 @@
 package aiki.gui;
 
 import aiki.game.Game;
+import aiki.game.fight.Fight;
 import aiki.gui.threads.Painting;
 import aiki.map.characters.enums.GeranceType;
 import aiki.map.enums.Direction;
+import code.gui.AbsButton;
 import code.gui.AbsCustComponent;
 import code.gui.GuiConstants;
 import code.mock.MockCustComponent;
 import code.mock.MockThreadFactory;
 import code.util.IdList;
+import code.util.core.BoolVal;
 import org.junit.Test;
 
 public final class MoveHerosTest extends InitDbGuiAiki {
@@ -50,11 +53,12 @@ public final class MoveHerosTest extends InitDbGuiAiki {
         tryPress(window_.getScenePanel().getScene(), GuiConstants.VK_UP);
         tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
         IdList<AbsCustComponent> tree_ = ((MockCustComponent) window_.getCommonFrame().getPane()).getTreeAccessible();
-        assertEq(14, tree_.size());
+        assertEq(15, tree_.size());
         assertTrue(tree_.containsObj(window_.getScenePanel().getPad().getUp().getPaintableLabel()));
         assertTrue(tree_.containsObj(window_.getScenePanel().getPad().getDown().getPaintableLabel()));
         assertTrue(tree_.containsObj(window_.getScenePanel().getPad().getLeft().getPaintableLabel()));
         assertTrue(tree_.containsObj(window_.getScenePanel().getPad().getRight().getPaintableLabel()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getPad().getMiddle().getPaintableLabel()));
         assertTrue(tree_.containsObj(window_.getScenePanel().getScene().getPaintableLabel()));
         assertTrue(tree_.containsObj(window_.getScenePanel().getSeeBoxes()));
         assertTrue(tree_.containsObj(window_.getScenePanel().getSeeEggs()));
@@ -72,11 +76,12 @@ public final class MoveHerosTest extends InitDbGuiAiki {
         loadRomGameStore(window_);
         tryPress(window_.getScenePanel().getPad().getUp());
         IdList<AbsCustComponent> tree_ = ((MockCustComponent) window_.getCommonFrame().getPane()).getTreeAccessible();
-        assertEq(14, tree_.size());
+        assertEq(15, tree_.size());
         assertTrue(tree_.containsObj(window_.getScenePanel().getPad().getUp().getPaintableLabel()));
         assertTrue(tree_.containsObj(window_.getScenePanel().getPad().getDown().getPaintableLabel()));
         assertTrue(tree_.containsObj(window_.getScenePanel().getPad().getLeft().getPaintableLabel()));
         assertTrue(tree_.containsObj(window_.getScenePanel().getPad().getRight().getPaintableLabel()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getPad().getMiddle().getPaintableLabel()));
         assertTrue(tree_.containsObj(window_.getScenePanel().getScene().getPaintableLabel()));
         assertTrue(tree_.containsObj(window_.getScenePanel().getSeeBoxes()));
         assertTrue(tree_.containsObj(window_.getScenePanel().getSeeEggs()));
@@ -97,11 +102,12 @@ public final class MoveHerosTest extends InitDbGuiAiki {
         tryPress(window_.getScenePanel().getScene(), GuiConstants.VK_UP);
         tryAn((MockThreadFactory) window_.getFrames().getThreadFactory());
         IdList<AbsCustComponent> tree_ = ((MockCustComponent) window_.getCommonFrame().getPane()).getTreeAccessible();
-        assertEq(14, tree_.size());
+        assertEq(15, tree_.size());
         assertTrue(tree_.containsObj(window_.getScenePanel().getPad().getUp().getPaintableLabel()));
         assertTrue(tree_.containsObj(window_.getScenePanel().getPad().getDown().getPaintableLabel()));
         assertTrue(tree_.containsObj(window_.getScenePanel().getPad().getLeft().getPaintableLabel()));
         assertTrue(tree_.containsObj(window_.getScenePanel().getPad().getRight().getPaintableLabel()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getPad().getMiddle().getPaintableLabel()));
         assertTrue(tree_.containsObj(window_.getScenePanel().getScene().getPaintableLabel()));
         assertTrue(tree_.containsObj(window_.getScenePanel().getSeeBoxes()));
         assertTrue(tree_.containsObj(window_.getScenePanel().getSeeEggs()));
@@ -120,11 +126,12 @@ public final class MoveHerosTest extends InitDbGuiAiki {
         tryPress(window_.getScenePanel().getPad().getUp());
         tryPress(window_.getScenePanel().getPad().getUp());
         IdList<AbsCustComponent> tree_ = ((MockCustComponent) window_.getCommonFrame().getPane()).getTreeAccessible();
-        assertEq(14, tree_.size());
+        assertEq(15, tree_.size());
         assertTrue(tree_.containsObj(window_.getScenePanel().getPad().getUp().getPaintableLabel()));
         assertTrue(tree_.containsObj(window_.getScenePanel().getPad().getDown().getPaintableLabel()));
         assertTrue(tree_.containsObj(window_.getScenePanel().getPad().getLeft().getPaintableLabel()));
         assertTrue(tree_.containsObj(window_.getScenePanel().getPad().getRight().getPaintableLabel()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getPad().getMiddle().getPaintableLabel()));
         assertTrue(tree_.containsObj(window_.getScenePanel().getScene().getPaintableLabel()));
         assertTrue(tree_.containsObj(window_.getScenePanel().getSeeBoxes()));
         assertTrue(tree_.containsObj(window_.getScenePanel().getSeeEggs()));
@@ -243,6 +250,26 @@ public final class MoveHerosTest extends InitDbGuiAiki {
         assertTrue(window_.getFacade().getFight().getFightType().isWild());
     }
     @Test
+    public void move17() {
+        WindowAiki window_ = newProg();
+        loadRomGameTwoJoinPlacesGymTrainer(window_);
+        assertEq(0,window_.getFacade().getGame().getPlayerCoords().getNumberPlace());
+        tryPress(window_.getScenePanel().getPad().getMiddle());
+        tryPress(window_.getScenePanel().getPad().getMiddle());
+        assertEq(0,window_.getFacade().getGame().getPlayerCoords().getNumberPlace());
+    }
+    @Test
+    public void move18() {
+        WindowAiki window_ = newProg();
+        loadRomGameTwoJoinPlacesGymTrainer(window_);
+        tryClick((AbsButton) window_.getScenePanel().getGymTrainer().getComponent(0));
+        assertTrue(window_.getFacade().getGame().getGymTrainer().isValid());
+        window_.getFacade().getGame().getFight().getTemp().getKos().put(Fight.CST_FOE, BoolVal.TRUE);
+        window_.getFacade().getGame().endFight(window_.getFacade().getData());
+        window_.getBattle().getBattle().endFight();
+        assertEq(0,window_.getScenePanel().getGymTrainer().getComponentCount());
+    }
+    @Test
     public void noMove1() {
         WindowAiki window_ = newProg();
         loadRomGameStore(window_);
@@ -358,6 +385,15 @@ public final class MoveHerosTest extends InitDbGuiAiki {
     private static void loadRomGameTwoJoinPlaces(WindowAiki _window) {
         loadRom(_window, coreDataBaseTwoJoinPlaces());
         Game game_ = build(_window.getFacade());
+        loadGame(_window, game_);
+        game_.getPlayer().getTeam().add(pk(_window));
+        game_.getPlayer().getTeam().add(pk(_window));
+    }
+
+    private static void loadRomGameTwoJoinPlacesGymTrainer(WindowAiki _window) {
+        loadRom(_window, coreDataBaseTwoJoinPlacesGymTrainer());
+        Game game_ = build(_window.getFacade());
+        game_.setPlayerCoords(newCoords(0,0,0,0,0,0));
         loadGame(_window, game_);
         game_.getPlayer().getTeam().add(pk(_window));
         game_.getPlayer().getTeam().add(pk(_window));

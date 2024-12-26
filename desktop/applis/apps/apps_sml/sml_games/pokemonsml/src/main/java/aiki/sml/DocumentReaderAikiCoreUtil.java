@@ -4327,6 +4327,10 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setPlayerCoords(getCoords(_element));
             return;
         }
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_GYM_TRAINER)) {
+            _object.setGymTrainer(getCoords(_element));
+            return;
+        }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_PLAYER_ORIENTATION)) {
             _object.setPlayerOrientation(getDirection(_element));
             return;

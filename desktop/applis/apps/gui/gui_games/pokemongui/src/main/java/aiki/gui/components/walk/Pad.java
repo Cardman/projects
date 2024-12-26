@@ -13,6 +13,7 @@ public class Pad {
     private KeyPad left;
     private KeyPad down;
     private KeyPad right;
+    private KeyPad middle;
 
     private AbsPanel container;
 
@@ -35,8 +36,8 @@ public class Pad {
         left = new KeyPad(Direction.LEFT, _compoFactory);
         container.add(left.getPaintableLabel());
 
-        AbsPlainLabel lblNewLabelThird_ = _compoFactory.newPlainLabel(DataBase.EMPTY_STRING);
-        container.add(lblNewLabelThird_);
+        middle = new KeyPad(null, _compoFactory);
+        container.add(middle.getPaintableLabel());
 
         right = new KeyPad(Direction.RIGHT, _compoFactory);
         container.add(right.getPaintableLabel());
@@ -62,6 +63,10 @@ public class Pad {
 
     public KeyPad getRight() {
         return right;
+    }
+
+    public KeyPad getMiddle() {
+        return middle;
     }
 
     public AbsPanel getContainer() {

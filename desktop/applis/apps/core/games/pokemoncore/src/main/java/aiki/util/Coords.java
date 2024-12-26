@@ -35,6 +35,7 @@ public final class Coords {
     public Coords(String _string) {
         if (StringUtil.quickEq(_string, INVALID)) {
             numberPlace = INVALID_NUMBER;
+            level = new LevelPoint();
             return;
         }
         StringList elements_ = StringUtil.splitChars(_string,SEPARATOR);

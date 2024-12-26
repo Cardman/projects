@@ -51,7 +51,7 @@ import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
-public class FacadeGame {
+public final class FacadeGame {
 
     private DataBase data;
 
@@ -228,7 +228,7 @@ public class FacadeGame {
         setupMovingHeros();
     }
 
-    void setupMovingHeros() {
+    public void setupMovingHeros() {
         changeToFightScene = game.getFight().getFightType().isExisting();
         enabledMovingHero = !changeToFightScene;
     }
@@ -2603,7 +2603,7 @@ public class FacadeGame {
         enabledMovingHero = !game.getFight().getFightType().isExisting();
         if (enabledMovingHero) {
             changeToFightScene = false;
-            game.directInteraction(game.closestTile(getMap()), getMap());
+            game.directInteraction(getMap());
         }
     }
     public String getNicknameOrDefault(String _pseudo) {

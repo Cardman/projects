@@ -58,11 +58,12 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         assertFalse(window_.getModal().get());
         assertEq("__",window_.getFacade().getPlayer().getNickname());
         IdList<AbsCustComponent> tree_ = ((MockCustComponent) window_.getCommonFrame().getPane()).getTreeAccessible();
-        assertEq(14, tree_.size());
+        assertEq(15, tree_.size());
         assertTrue(tree_.containsObj(window_.getScenePanel().getPad().getUp().getPaintableLabel()));
         assertTrue(tree_.containsObj(window_.getScenePanel().getPad().getDown().getPaintableLabel()));
         assertTrue(tree_.containsObj(window_.getScenePanel().getPad().getLeft().getPaintableLabel()));
         assertTrue(tree_.containsObj(window_.getScenePanel().getPad().getRight().getPaintableLabel()));
+        assertTrue(tree_.containsObj(window_.getScenePanel().getPad().getMiddle().getPaintableLabel()));
         assertTrue(tree_.containsObj(window_.getScenePanel().getScene().getPaintableLabel()));
         assertTrue(tree_.containsObj(window_.getScenePanel().getSeeBoxes()));
         assertTrue(tree_.containsObj(window_.getScenePanel().getSeeEggs()));

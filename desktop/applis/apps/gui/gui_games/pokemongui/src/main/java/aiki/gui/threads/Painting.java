@@ -98,7 +98,7 @@ public final class Painting implements Runnable {
     }
 
     public void moveAnim() {
-        if (facade.getGame().isPlaceChanged()) {
+        if (facade.getGame().isPlaceChanged() || dir == null) {
             scene.keepTiles();
             facade.changeCamera();
             scene.load(window.getImageFactory(),facade, false);

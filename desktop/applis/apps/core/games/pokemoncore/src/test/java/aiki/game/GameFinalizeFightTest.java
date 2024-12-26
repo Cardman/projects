@@ -345,6 +345,9 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.initTrainerFight(data_);
         game_.getFight().getTemp().getKos().put(Fight.CST_FOE, BoolVal.TRUE);
         game_.endFight(data_);
+        data_.getMap().calculateIntersectWithScreen(game_.getPlayerCoords());
+        data_.getMap().calculateBackgroundImagesFromTiles(data_);
+        game_.calculateImagesFromTiles(data_, 0, 0);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(2, game_.getBeatGymTrainer().size());
         assertEq(1, game_.getBeatGymTrainer().getVal((short) 1).size());

@@ -48,7 +48,6 @@ public class CoordsTest extends EquallablePkUtil {
     public void new_Coords_String_1Test() {
         Coords pt_ = new Coords(Coords.INVALID);
         assertTrue(!pt_.isValid());
-        assertNull(pt_.getLevel());
     }
 
     @Test
@@ -79,7 +78,6 @@ public class CoordsTest extends EquallablePkUtil {
     public void new_Coords_String_4Test() {
         Coords pt_ = Coords.newCoords(Coords.INVALID);
         assertTrue(!pt_.isValid());
-        assertNull(pt_.getLevel());
     }
 
     @Test

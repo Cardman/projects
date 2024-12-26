@@ -620,6 +620,7 @@ public final class DocumentWriterAikiCoreUtil {
     public static final String FIELD_CATCH_PLAYER = "563";
     public static final String FIELD_CATCH_CAUGHT = "564";
     public static final String FIELD_CATCH_TEAM = "565";
+    public static final String FIELD_GYM_TRAINER = "566";
     public static final String TYPE_BALL = "0";
     public static final String TYPE_BERRY = "1";
     public static final String TYPE_BOOST = "2";
@@ -2670,6 +2671,7 @@ public final class DocumentWriterAikiCoreUtil {
         _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getIndexPeriod(),FIELD_INDEX_PERIOD,_document));
         _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getIndexStep(),FIELD_INDEX_STEP,_document));
         _element.appendChild(setMapCoordsBoolean(_object.getVisitedPlaces(),FIELD_VISITED_PLACES,_document));
+        _element.appendChild(setCoords(_object.getGymTrainer(),FIELD_GYM_TRAINER,_document));
     }
 
     private static Element setHostPokemonDuo(HostPokemonDuo _object, String _fieldName, Document _document) {

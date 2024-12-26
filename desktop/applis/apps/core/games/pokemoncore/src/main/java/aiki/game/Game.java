@@ -116,6 +116,7 @@ public final class Game {
 
     private int indexStep;
 
+    private Coords gymTrainer;
     //private String comment;
 
     private Comment commentGame = new Comment();
@@ -151,6 +152,7 @@ public final class Game {
         setHostedPk(new CoordssHostPokemonDuo());
         setFight(new Fight());
         playerCoords = new Coords();
+        gymTrainer = new Coords();
     }
 
     public Game(DataBase _d){
@@ -201,6 +203,7 @@ public final class Game {
         indexPeriod=0;
         indexPeriodFishing = 0;
         rankLeague=0;
+        gymTrainer = new Coords();
     }
 
     public void visitFirstPlaces(DataBase _d) {
@@ -249,6 +252,7 @@ public final class Game {
             return false;
         }
         DataMap map_ = _data.getMap();
+        patchCoords(_data);
         Condition accessCond_ = koVisited(map_);
         if (accessCond_ == null) {
             return false;
@@ -286,6 +290,21 @@ public final class Game {
             return rankLeague <= playerCoords.getLevel().getLevelIndex() + 1;
         } else {
             return rankLeague == 0;
+        }
+    }
+    private void patchCoords(DataBase _d) {
+        Coords gy_ = new Coords(gymTrainer);
+        gy_.getLevel().setPoint(new Point((short) 0,(short) 0));
+        Coords pl_ = new Coords(playerCoords);
+        pl_.getLevel().setPoint(new Point((short) 0,(short) 0));
+        if (!Coords.eq(gy_,pl_)) {
+            setGymTrainer(new Coords());
+        }
+        if (gymTrainer.isValid()) {
+            Level levelByCoords_ = _d.getMap().getLevelByCoords(gymTrainer);
+            if (!frontOfGymTrainer(levelByCoords_,gymTrainer.getLevel().getPoint()) || frontOfBeatenGymTrainer(gymTrainer).containsObj(gymTrainer.getLevel().getPoint())) {
+                gymTrainer = new Coords();
+            }
         }
     }
 
@@ -548,7 +567,7 @@ public final class Game {
         possibleLevelWithWildPokemon(_data, _coords, level_, images_);
         possibleInside(_data, _coords, place_, images_);
         possibleLevelIndoorPokemonCenter(_data, level_, images_, pt_);
-        possibleLevelIndoorGym(_data, level_, images_, pt_);
+        possibleLevelIndoorGym(_data, level_, images_, _coords);
         possibleCave(_data, _coords, place_, level_, images_);
         if (place_ instanceof InitializedPlace) {
             InitializedPlace init_ = (InitializedPlace) place_;
@@ -579,14 +598,15 @@ public final class Game {
         }
     }
 
-    private void possibleLevelIndoorGym(DataBase _data, Level _level, CustList<int[][]> _images, Point _pt) {
+    private void possibleLevelIndoorGym(DataBase _data, Level _level, CustList<int[][]> _images, Coords _coords) {
         if (_level instanceof LevelIndoorGym) {
             LevelIndoorGym lv_ = (LevelIndoorGym) _level;
-            if (lv_.getGymTrainers().contains(_pt)) {
-                Person person_ = lv_.getGymTrainers().getVal(_pt);
+            Point pt_ = _coords.getLevel().getPoint();
+            if (lv_.getGymTrainers().contains(pt_) && !isEmpty(_data.getMap(), _coords)) {
+                Person person_ = lv_.getGymTrainers().getVal(pt_);
                 _images.add(_data.getPerson(person_.getImageMiniFileName()));
             }
-            if (Point.eq(lv_.getGymLeaderCoords(), _pt)) {
+            if (Point.eq(lv_.getGymLeaderCoords(), pt_)) {
                 Person person_ = lv_.getGymLeader();
                 _images.add(_data.getPerson(person_.getImageMiniFileName()));
             }
@@ -1038,7 +1058,7 @@ public final class Game {
 
     public void initTrainerFight(DataBase _d) {
         DataMap d_=_d.getMap();
-        Coords voisin_= closestTile(d_);
+        Coords voisin_= closestTileOrGymTrainer(d_);
         Place pl_ = d_.getPlace(voisin_.getNumberPlace());
         if (pl_ instanceof League) {
             TrainerLeague tr_ = ((League)pl_).getRooms().get(voisin_.getLevel().getLevelIndex()).getTrainer();
@@ -1053,9 +1073,7 @@ public final class Game {
             //l_ instanceof LevelIndoorGym
             LevelIndoorGym gym_ = (LevelIndoorGym) l_;
             if(gym_.getGymTrainers().contains(voisin_.getLevel().getPoint())) {
-                GymTrainer gymTr_ = gym_.getGymTrainers().getVal(voisin_.getLevel().getPoint());
-                FightFacade.initFight(fight,player,difficulty,gymTr_,_d);
-                FightFacade.initTypeEnv(fight,playerCoords,difficulty,_d);
+                initGymTrainerFight(_d, voisin_, gym_);
             } else {
                 //if(Point.eq(gym_.getGymLeaderCoords(),voisin_.getLevel().getPoint()))
                 GymLeader gymTr_ = gym_.getGymLeader();
@@ -1088,9 +1106,16 @@ public final class Game {
         commentGame.addComment(fight.getComment());
     }
 
+    public void initGymTrainerFight(DataBase _d, Coords _voisin, LevelIndoorGym _gym) {
+        GymTrainer gymTr_ = _gym.getGymTrainers().getVal(_voisin.getLevel().getPoint());
+        FightFacade.initFight(fight,player,difficulty,gymTr_, _d);
+        FightFacade.initTypeEnv(fight,playerCoords,difficulty, _d);
+        gymTrainer = new Coords(_voisin);
+    }
+
     boolean isFrontOfTrainer(DataBase _d) {
         DataMap d_=_d.getMap();
-        Coords voisin_= closestTile(d_);
+        Coords voisin_= closestTileOrGymTrainer(d_);
         if (!voisin_.isValid()) {
             return false;
         }
@@ -1129,7 +1154,7 @@ public final class Game {
             return new int[0][0];
         }
         DataMap d_=_d.getMap();
-        Coords voisin_= closestTile(d_);
+        Coords voisin_ = closestTileOrGymTrainer(d_);
         Place pl_ = d_.getPlace(voisin_.getNumberPlace());
         if (pl_ instanceof League) {
             TrainerLeague tr_ = ((League)pl_).getRooms().get(voisin_.getLevel().getLevelIndex()).getTrainer();
@@ -1156,6 +1181,16 @@ public final class Game {
         }
         TrainerMultiFights ch_ = l_.getTrainers().getVal(voisin_.getLevel().getPoint());
         return _d.getTrainer(ch_.getImageMaxiFileName());
+    }
+
+    private Coords closestTileOrGymTrainer(DataMap _d) {
+        Coords voisin_;
+        if (gymTrainer.isValid()) {
+            voisin_ = gymTrainer;
+        } else {
+            voisin_= closestTile(_d);
+        }
+        return voisin_;
     }
 
     public void initFishing(DataBase _d) {
@@ -1278,18 +1313,19 @@ public final class Game {
         if (!isFrontOfTrainer(_import)) {
             player.healTeamWithoutUsingObject(_import);
             FightFacade.endFight(fight);
-            directInteraction(closestTile(_import.getMap()), _import.getMap());
+            directInteraction(_import.getMap());
+            return;
+        }
+        if(FightFacade.win(fight)){
+            winFight(_import);
+            gymTrainer = new Coords();
             return;
         }
         DataMap d_=_import.getMap();
-        Coords coordsFoe_ = closestTile(d_);
+        Coords coordsFoe_ = closestTileOrGymTrainer(d_);
         Place pl_ = d_.getPlace(coordsFoe_.getNumberPlace());
         int sommeNiveau_ = sommeNiveau();
         LgInt money_ = new LgInt(player.getMoney());
-        if(FightFacade.win(fight)){
-            winFight(_import);
-            return;
-        }
         if (FightFacade.equality(fight) && pl_ instanceof League && rankLeague + 1 == ((League) pl_).getRooms().size()) {
             Rewardable tr_ = ((League) pl_).getRooms().get(coordsFoe_.getLevel().getLevelIndex()).getTrainer();
             rankLeague++;
@@ -1305,7 +1341,8 @@ public final class Game {
             addBeatenTrainer(coords_, _import);
             player.healTeamWithoutUsingObject(_import);
             FightFacade.endFight(fight);
-            directInteraction(closestTile(_import.getMap()), _import.getMap());
+            directInteraction(_import.getMap());
+            gymTrainer = new Coords();
             return;
         }
         //FightFacade.equality(fight) or FightFacade.loose(fight)
@@ -1318,7 +1355,8 @@ public final class Game {
             //begin of league => just before league
             playerCoords.affect(((League)pl_).getAccessCoords());
             player.healTeamWithoutUsingObject(_import);
-            directInteraction(closestTile(_import.getMap()), _import.getMap());
+            directInteraction(_import.getMap());
+            gymTrainer = new Coords();
             return;
         }
         if (pl_ instanceof City) {
@@ -1333,7 +1371,8 @@ public final class Game {
             FightFacade.endFight(fight);
             playerCoords.affect(d_.getBegin());
             player.healTeamWithoutUsingObject(_import);
-            directInteraction(closestTile(_import.getMap()), _import.getMap());
+            directInteraction(_import.getMap());
+            gymTrainer = new Coords();
             return;
         }
         LevelWithWildPokemon l_ = (LevelWithWildPokemon) pl_.getLevelByCoords(coordsFoe_);
@@ -1349,7 +1388,8 @@ public final class Game {
             //begin of the game
             playerCoords.affect(d_.getBegin());
             player.healTeamWithoutUsingObject(_import);
-            directInteraction(closestTile(_import.getMap()), _import.getMap());
+            directInteraction(_import.getMap());
+            gymTrainer = new Coords();
             return;
         }
         TrainerMultiFights ch_ = l_.getTrainers().getVal(coordsFoe_.getLevel().getPoint());
@@ -1362,7 +1402,8 @@ public final class Game {
         //begin of the game
         playerCoords.affect(d_.getBegin());
         player.healTeamWithoutUsingObject(_import);
-        directInteraction(closestTile(_import.getMap()), _import.getMap());
+        directInteraction(_import.getMap());
+        gymTrainer = new Coords();
     }
 
     private Rewardable gymTr(Coords _coordsFoe, LevelIndoorGym _gym) {
@@ -1377,7 +1418,7 @@ public final class Game {
 
     private void winFight(DataBase _import) {
         DataMap d_=_import.getMap();
-        Coords coordsFoe_ = closestTile(d_);
+        Coords coordsFoe_ = closestTileOrGymTrainer(d_);
         Place pl_ = d_.getPlace(coordsFoe_.getNumberPlace());
         int sommeNiveau_ = sommeNiveau();
         LgInt money_ = new LgInt(player.getMoney());
@@ -1402,7 +1443,7 @@ public final class Game {
             }
             addBeatenTrainer(beatenImportantTrainer_, _import);
             FightFacade.endFight(fight);
-            directInteraction(closestTile(_import.getMap()), _import.getMap());
+            directInteraction(_import.getMap());
             return;
         }
         if (pl_ instanceof City) {
@@ -1418,7 +1459,7 @@ public final class Game {
                 beatGymTrainer.getVal(coordsFoe_.getNumberPlace()).add(coordsFoe_.getLevel().getPoint());
                 addPossibleBeatLeader(_import);
                 FightFacade.endFight(fight);
-                directInteraction(closestTile(_import.getMap()), _import.getMap());
+                directInteraction(_import.getMap());
                 return;
             }
             //if(Point.eq(gym_.getGymLeaderCoords(),coordsFoe_.getLevel().getPoint()))
@@ -1431,7 +1472,7 @@ public final class Game {
             //player.obtentionCs(gymTr_.getCs());
             player.getTm(gym_.getGymLeader().getTm());
             FightFacade.endFight(fight);
-            directInteraction(closestTile(_import.getMap()), _import.getMap());
+            directInteraction(_import.getMap());
             return;
         }
         LevelWithWildPokemon l_ = (LevelWithWildPokemon) pl_.getLevelByCoords(coordsFoe_);
@@ -1449,7 +1490,7 @@ public final class Game {
             beatGymLeader.put(key_, BoolVal.TRUE);
             addBeatenTrainer(key_, _import);
             FightFacade.endFight(fight);
-            directInteraction(closestTile(_import.getMap()), _import.getMap());
+            directInteraction(_import.getMap());
             return;
         }
         TrainerMultiFights ch_ = l_.getTrainers().getVal(coordsFoe_.getLevel().getPoint());
@@ -1461,7 +1502,7 @@ public final class Game {
         beatTrainer.put(new NbFightCoords(coordsFoe_,nb_), BoolVal.TRUE);
         //player.obtentionCs(gymTr_.getCs());
         FightFacade.endFight(fight);
-        directInteraction(closestTile(_import.getMap()), _import.getMap());
+        directInteraction(_import.getMap());
     }
 
     private void wildFight(DataBase _import) {
@@ -1477,7 +1518,7 @@ public final class Game {
             player.healTeamWithoutUsingObject(_import);
         }
         FightFacade.endFight(fight);
-        directInteraction(closestTile(_import.getMap()), _import.getMap());
+        directInteraction(_import.getMap());
     }
 
     private boolean notInFrontOfDual(Coords _coordsFoe, EntryCust<Point,DualFight> _e, DualFight _dual) {
@@ -1577,7 +1618,7 @@ public final class Game {
     }
 
     void addPossibleBeatLeader(DataBase _import) {
-        Coords next_ = closestTile(_import.getMap());
+        Coords next_ = closestTileOrGymTrainer(_import.getMap());
         City city_ = (City) _import.getMap().getPlace(next_.getNumberPlace());
         Gym building_ = (Gym) city_.getBuildings().getVal(next_.getInsideBuilding());
         LevelIndoorGym lev_ = (LevelIndoorGym) city_.getLevelByCoords(next_);
@@ -1788,7 +1829,7 @@ public final class Game {
             player.affectEndFight(fight,difficulty,_import);
             takeFighters(_import);
             FightFacade.endFight(fight);
-            directInteraction(closestTile(_import.getMap()), _import.getMap());
+            directInteraction(_import.getMap());
         } else if (FightFacade.koTeam(fight)) {
             endFight(_import);
         }
@@ -1844,7 +1885,7 @@ public final class Game {
     public void notCatchKoWildPokemon(DataBase _import){
         player.affectEndFight(fight,difficulty,_import);
         FightFacade.endFight(fight);
-        directInteraction(closestTile(_import.getMap()), _import.getMap());
+        directInteraction(_import.getMap());
     }
 
     public void catchKoWildPokemon(DataBase _import){
@@ -1863,7 +1904,7 @@ public final class Game {
         player.affectEndFight(fight,difficulty,_import);
         takeFighters(_import);
         FightFacade.endFight(fight);
-        directInteraction(closestTile(_import.getMap()), _import.getMap());
+        directInteraction(_import.getMap());
     }
 
     private void takeFighters(DataBase _import) {
@@ -1969,6 +2010,10 @@ public final class Game {
     }
 
     public void moving(Direction _direction,DataBase _d){
+        if (_direction == null) {
+            stayingHero(_d);
+            return;
+        }
         commentGame.clearMessages();
         placeChanged = false;
         incrementStepsToLayEggs(_d);
@@ -1980,6 +2025,11 @@ public final class Game {
             return;
         }
         movingHero(_d);
+        afterMoving(_d);
+    }
+
+    private void afterMoving(DataBase _d) {
+        DataMap d_=_d.getMap();
         if (visitedPlaces.contains(playerCoords)) {
             visitedPlaces.put(playerCoords, BoolVal.TRUE);
             visitedPlacesNb.put(playerCoords.getNumberPlace(),BoolVal.TRUE);
@@ -1995,19 +2045,14 @@ public final class Game {
         showEndGame = !fight.getFightType().isExisting() && endGame(_d);
     }
 
-    void directInteraction(DataMap _d) {
-        Coords voisin_ = closestTile(_d);
-        if (voisin_.isValid()) {
-            directInteraction(voisin_, _d);
-            return;
-        }
-        interfaceType=InterfaceType.RIEN;
+    public void directInteraction(DataMap _d) {
+        directInteraction(closestTile(_d), _d);
     }
 
     void processWalkingAreaApparition(Coords _coords, DataBase _d) {
         DataMap d_ = _d.getMap();
         if (player.getRepousseActif()) {
-            directInteractionValid(_coords, d_);
+            directInteraction(_coords, d_);
             return;
         }
         attract(_coords, _d);
@@ -2021,7 +2066,7 @@ public final class Game {
         DataMap d_ = _d.getMap();
         AbsAreaApparition area_ = d_.getAreaByCoords(playerCoords);
         if (area_.isVirtual()) {
-            directInteractionValid(_coords, d_);
+            directInteraction(_coords, d_);
             return;
         }
         if(!difficulty.getRandomWildFight()){
@@ -2032,17 +2077,10 @@ public final class Game {
             newRandomPokemon(area_.getWildPokemonRand(), _d);
         }
         if (!fight.getFightType().isExisting()) {
-            directInteractionValid(_coords, d_);
+            directInteraction(_coords, d_);
         }
     }
 
-    private void directInteractionValid(Coords _coords, DataMap _d) {
-        if (_coords.isValid()) {
-            directInteraction(_coords, _d);
-            return;
-        }
-        interfaceType=InterfaceType.RIEN;
-    }
     void incrementPeriod(AbsAreaApparition _area, DataBase _d) {
         indexStep++;
         if(indexStep >= _area.getAvgNbSteps()){
@@ -2054,18 +2092,32 @@ public final class Game {
     void movingHero(DataBase _db) {
         DataMap map_ = _db.getMap();
         Coords voisin_= closestTile(map_);
-        if(!voisin_.isValid()){
+        movingHero(_db, voisin_);
+    }
+
+    void stayingHero(DataBase _db) {
+        commentGame.clearMessages();
+        placeChanged = false;
+        incrementStepsToLayEggs(_db);
+        nbSteps = 0;
+        movingHero(_db, playerCoords);
+        afterMoving(_db);
+    }
+
+    private void movingHero(DataBase _db, Coords _voisin) {
+        DataMap map_ = _db.getMap();
+        if(!_voisin.isValid()){
             return;
         }
-        Place nextPl_ = map_.getPlace(voisin_.getNumberPlace());
+        Place nextPl_ = map_.getPlace(_voisin.getNumberPlace());
         if (nextPl_ instanceof League) {
-            movingHeroLeague(map_, voisin_, (League) nextPl_);
+            movingHeroLeague(map_, _voisin, (League) nextPl_);
             return;
         }
-        if(map_.getAccessCondition().contains(voisin_)){
+        if(map_.getAccessCondition().contains(_voisin)){
             Condition leaders_ = getBeatenGymLeader();
-            if (!leaders_.containsAllObj(map_.getAccessCondition().getVal(voisin_))) {
-                noBeatenTrainers(_db, voisin_, leaders_);
+            if (!leaders_.containsAllObj(map_.getAccessCondition().getVal(_voisin))) {
+                noBeatenTrainers(_db, _voisin, leaders_);
                 return;
             }
         }
@@ -2076,7 +2128,7 @@ public final class Game {
                 continue;
             }
             Coords coords_ = ((League)place_).getAccessCoords();
-            if (Coords.eq(coords_, voisin_)) {
+            if (Coords.eq(coords_, _voisin)) {
                 rankLeague = 0;
                 nbSteps++;
                 playerCoords.setNumberPlace(p);
@@ -2086,7 +2138,7 @@ public final class Game {
                 return;
             }
         }
-        movingHeroOtherThanLeague(map_, voisin_, nextPl_);
+        movingHeroOtherThanLeague(map_, _voisin, nextPl_);
     }
 
     private void movingHeroOtherThanLeague(DataMap _map, Coords _voisin, Place _nextPl) {
@@ -2463,7 +2515,7 @@ public final class Game {
         Level level_ = _map.getLevelByCoords(_coords);
         Point pt_ = _coords.getLevel().getPoint();
         if (!(level_ instanceof LevelWithWildPokemon)) {
-            return level_.isEmpty(pt_);
+            return frontOfGymTrainer(level_, pt_) && frontOfBeatenGymTrainer(_coords).containsObj(pt_) || level_.isEmpty(pt_);
         }
         LevelWithWildPokemon levelWildPk_ = (LevelWithWildPokemon) level_;
         if (levelWildPk_.containsPokemon(pt_)) {
@@ -2490,6 +2542,18 @@ public final class Game {
             }
         }
         return level_.isEmpty(pt_);
+    }
+
+    private boolean frontOfGymTrainer(Level _level, Point _pt) {
+        return _level instanceof LevelIndoorGym && ((LevelIndoorGym) _level).getGymTrainers().contains(_pt);
+    }
+
+    private PointEqList frontOfBeatenGymTrainer(Coords _coords) {
+        PointEqList res_ = beatGymTrainer.getVal(_coords.getNumberPlace());
+        if (res_ != null) {
+            return res_;
+        }
+        return new PointEqList();
     }
 
     public void initIv(DataBase _data) {
@@ -2649,6 +2713,14 @@ public final class Game {
 
     public void setPlayerCoords(Coords _playerCoords) {
         playerCoords = _playerCoords;
+    }
+
+    public Coords getGymTrainer() {
+        return gymTrainer;
+    }
+
+    public void setGymTrainer(Coords _gymTrainer) {
+        this.gymTrainer = _gymTrainer;
     }
 
     public CoordssHostPokemonDuo getHostedPk() {

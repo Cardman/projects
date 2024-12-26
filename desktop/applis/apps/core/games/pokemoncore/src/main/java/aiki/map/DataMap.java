@@ -287,8 +287,9 @@ public final class DataMap {
                 League league_ = (League) plVal_;
                 Coords accessLeague_ = league_.getAccessCoords();
                 checkFighterAccess(_d, accessLeague_);
-            } else {
-                checkFighterAccess(_d, c);
+            }
+            if (plVal_ instanceof Campaign) {
+                checkFighterAccessDual(_d,c, (Campaign) plVal_);
             }
         }
         for (NbFightCoords c : beatTrainer) {
@@ -298,12 +299,48 @@ public final class DataMap {
     }
 
     private void checkFighterAccess(DataBase _d, Coords _acc) {
+        CustList<Coords[]> conds_ = new CustList<Coords[]>();
+        conds_.add(new Coords[]{_acc,new Coords()});
+        checkFighterAccess(_d,conds_);
+    }
+
+
+    private void checkFighterAccessDual(DataBase _d, Coords _acc, Campaign _pl) {
+        Coords sec_ = new Coords(_acc);
+        sec_.getLevel().setPoint(_pl.getLevelCompaignByCoords(_acc).getDualFights().getVal(sec_.getLevel().getPoint()).getPt().value());
+        CustList<Coords[]> conds_ = new CustList<Coords[]>();
+        conds_.add(new Coords[]{_acc,sec_});
+        conds_.add(new Coords[]{sec_,_acc});
+        checkFighterAccess(_d,conds_);
+    }
+
+    private void checkFighterAccess(DataBase _d, CustList<Coords[]> _acc) {
         boolean existAccess_ = existAccess(_acc);
         if (!existAccess_) {
             _d.setError(true);
         }
     }
+    boolean existAccess(CustList<Coords[]> _c) {
+        for (Coords[] a:_c) {
+            if (existAccessDual(a[0],a[1])) {
+                return true;
+            }
+        }
+        return false;
+    }
 
+    boolean existAccessDual(Coords _coords, Coords _exc) {
+        boolean existAccess_ = false;
+        for (Direction d : Direction.all()) {
+            Coords key_ = closestTile(
+                    _coords, d);
+            if (!Coords.eq(_exc,key_)&&accessibility.contains(key_)) {
+                existAccess_ = true;
+                break;
+            }
+        }
+        return existAccess_;
+    }
     private void checkCitiesAccess(DataBase _d) {
         boolean firstCities_ = false;
         for (Coords c : cities) {
@@ -943,18 +980,6 @@ public final class DataMap {
                         p.getGender());
             }
         }
-    }
-
-    boolean existAccess(Coords _coords) {
-        boolean existAccess_ = false;
-        for (Direction d : Direction.all()) {
-            if (accessibility.contains(closestTile(
-                    _coords, d))) {
-                existAccess_ = true;
-                break;
-            }
-        }
-        return existAccess_;
     }
 
     public boolean existCoords(Coords _c) {

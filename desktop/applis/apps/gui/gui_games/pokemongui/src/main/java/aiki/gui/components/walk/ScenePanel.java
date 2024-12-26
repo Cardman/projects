@@ -10,6 +10,7 @@ import aiki.gui.components.walk.events.*;
 import aiki.gui.dialogs.*;
 import aiki.gui.listeners.*;
 import aiki.main.PkNonModalEvent;
+import aiki.map.levels.*;
 import aiki.sml.MessagesPkGame;
 import aiki.sml.MessagesRenderScenePanel;
 import aiki.facade.FacadeGame;
@@ -25,6 +26,7 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
 //import aiki.network.NetAiki;
 //import aiki.network.stream.SentPokemon;
+import aiki.util.*;
 import code.gui.*;
 import code.gui.files.MessagesGuiFct;
 import code.gui.images.MetaDimension;
@@ -46,7 +48,7 @@ import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
-public class ScenePanel {
+public final class ScenePanel {
 
 //    private static final String SCENE_PANEL = "aiki.gui.components.walk.scenepanel";
 
@@ -264,6 +266,7 @@ public class ScenePanel {
 //    private KeyPadListener keyPadListener;
 
     private AbsPanel interaction;
+    private AbsPanel gymTrainer;
 
     private AbsButton buttonInteract;
 
@@ -441,10 +444,12 @@ public class ScenePanel {
             pad.getDown().addMouseListener(new PkNonModalEvent(window.getModal()), new MouseTask(Direction.DOWN, task_, t_));
             pad.getLeft().addMouseListener(new PkNonModalEvent(window.getModal()), new MouseTask(Direction.LEFT, task_, t_));
             pad.getRight().addMouseListener(new PkNonModalEvent(window.getModal()), new MouseTask(Direction.RIGHT, task_, t_));
+            pad.getMiddle().addMouseListener(new PkNonModalEvent(window.getModal()), new MouseTask(null, task_, t_));
             AbsMetaLabelPk.paintPk(window.getImageFactory(),pad.getUp());
             AbsMetaLabelPk.paintPk(window.getImageFactory(),pad.getDown());
             AbsMetaLabelPk.paintPk(window.getImageFactory(),pad.getLeft());
             AbsMetaLabelPk.paintPk(window.getImageFactory(),pad.getRight());
+            AbsMetaLabelPk.paintPk(window.getImageFactory(),pad.getMiddle());
         }
 //        keyPadListener.setSceneKepPad(scene);
         facade.directInteraction();
@@ -831,8 +836,17 @@ public class ScenePanel {
         fish.addActionListener(new PkNonModalEvent(window.getModal()),new FishingEvent(this));
         interaction.add(fish);
         interaction.add(attract);
+        gymTrainer = compoFactory.newLineBox();
+        interaction.add(gymTrainer);
     }
 
+    public void initGymTrainerFight(LevelIndoorGym _l, Coords _c) {
+        facade.getGame().initGymTrainerFight(facade.getData(),_c,_l);
+        facade.getComment().addComment(facade.getGame().getCommentGame());
+        facade.setupMovingHeros();
+        showOptions();
+        window.pack();
+    }
     public void interactScene() {
 //        if (!buttonInteract.isEnabled()) {
 //            return;
@@ -1014,6 +1028,13 @@ public class ScenePanel {
 //        }
         fish.setEnabled(false);
         attract.setEnabled(false);
+        possibleRemoveAll();
+    }
+
+    private void possibleRemoveAll() {
+        if (gymTrainer != null) {
+            gymTrainer.removeAll();
+        }
     }
 
 //    private StringList getMessagesStorage() {
@@ -1533,6 +1554,8 @@ public class ScenePanel {
 //        }
         fish.setEnabled(facade.isFishArea());
         attract.setEnabled(true);
+        possibleRemoveAll();
+        refreshButtons(false);
     }
 
 //    private void showHtmlDialog(WindowAiki _parent, FacadeGame _dataBase, AikiNatLgNamesNavigation _pre, String _lg) {
@@ -1919,9 +1942,39 @@ public class ScenePanel {
         game.setEnabled(enabled2_);
         boolean enabled1_ = !_paintingScene;
         goBack.setEnabled(enabled1_);
+        possibleRemoveAll();
+        refreshButtons(_paintingScene);
+        if (!_paintingScene) {
+            window.pack();
+        }
 //        boolean enabled_ = !_paintingScene;
 //        server.setEnabled(enabled_);
 //        panelMenu.repaintSecondChildren(window.getImageFactory());
+    }
+
+    private void refreshButtons(boolean _paintingScene) {
+        if (gymTrainer == null) {
+            return;
+        }
+        if (_paintingScene) {
+            return;
+        }
+        Level levelByCoords_ = facade.getMap().getLevelByCoords(facade.getGame().getPlayerCoords());
+        if (levelByCoords_ instanceof LevelIndoorGym) {
+            PointEqList pts_ = new PointEqList(((LevelIndoorGym)levelByCoords_).getGymTrainers().getKeys());
+            pts_.removeAllElements(facade.getGame().getBeatGymTrainer().getVal(facade.getGame().getPlayerCoords().getNumberPlace()));
+            for (Point p: pts_) {
+                Coords c_ = new Coords(facade.getGame().getPlayerCoords());
+                c_.getLevel().setPoint(p);
+                AbsButton but_ = window.getCompoFactory().newPlainButton(p.display());
+                but_.addActionListener(new PkNonModalEvent(window.getModal()),new InitGymTrainerFightEvent(this,(LevelIndoorGym)levelByCoords_,c_));
+                gymTrainer.add(but_);
+            }
+        }
+    }
+
+    public AbsPanel getGymTrainer() {
+        return gymTrainer;
     }
 
     public Pad getPad() {

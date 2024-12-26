@@ -5578,6 +5578,19 @@ public class GameTest extends InitializationDataBase {
     }
 
     @Test
+    public void moving9Test() {
+        DataBase data_ = initDb();
+        Game game_ = new Game(data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
+        game_.getDifficulty().setRandomWildFight(false);
+        game_.setPlayerCoords(newCoords(0, 0, 0, 0));
+        game_.setPlayerOrientation(Direction.LEFT);
+        game_.moving(null, data_);
+        assertEq(Direction.LEFT,game_.getPlayerOrientation());
+        assertEq(newCoords(0, 0, 0, 0),game_.getPlayerCoords());
+    }
+
+    @Test
     public void isFrontOfTrainer1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);

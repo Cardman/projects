@@ -16,9 +16,6 @@ import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
-import aiki.util.Coords;
-import aiki.util.LevelPoint;
-import aiki.util.Point;
 import code.maths.Rate;
 
 
@@ -207,6 +204,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.LEFT, data_);
         game_.moving(Direction.UP, data_);
         game_.moving(Direction.UP, data_);
+        game_.setGymTrainer(newCoords(1, 0, 1, 1, 4, 8));
         assertTrue(validate(game_, data_));
         assertEq(newCoords(1, 0, 1, 1, 4, 8), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
@@ -235,6 +233,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.LEFT, data_);
         game_.moving(Direction.UP, data_);
         game_.moving(Direction.UP, data_);
+        game_.setGymTrainer(newCoords(1, 0, 1, 1, 4, 8));
         assertTrue(validate(game_, data_));
         assertEq(newCoords(1, 0, 1, 1, 4, 8), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
@@ -2064,6 +2063,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.initTrainerFight(data_);
         assertTrue(validate(game_, data_));
         assertEq(newCoords(1, 0, 5, 1, 2, 7), game_.getPlayerCoords());
+        assertEq(newCoords(1, 0, 5, 1, 1, 7), game_.getGymTrainer());
         assertEq(0, game_.getRankLeague());
         assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
         assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
@@ -2099,6 +2099,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.initTrainerFight(data_);
         assertTrue(validate(game_, data_));
         assertEq(newCoords(1, 0, 5, 1, 2, 7), game_.getPlayerCoords());
+        assertEq(newCoords(1, 0, 5, 1, 1, 7), game_.getGymTrainer());
         assertEq(0, game_.getRankLeague());
         assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
         assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
@@ -2135,6 +2136,7 @@ public class GameValidationTest extends InitializationDataBase {
         //beat quickly a trainer
         game_.getFight().getTemp().getKos().put(Fight.CST_FOE, BoolVal.TRUE);
         game_.endFight(data_);
+        game_.setGymTrainer(newCoords(1, 0, 5, 1, 1, 7));
         assertTrue(validate(game_, data_));
         assertEq(newCoords(1, 0, 5, 1, 2, 7), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
@@ -2174,6 +2176,7 @@ public class GameValidationTest extends InitializationDataBase {
         //beat quickly a trainer
         game_.getFight().getTemp().getKos().put(Fight.CST_FOE, BoolVal.TRUE);
         game_.endFight(data_);
+        game_.setGymTrainer(newCoords(1, 0, 5, 1, 1, 7));
         assertTrue(validate(game_, data_));
         assertEq(newCoords(1, 0, 5, 1, 2, 7), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
