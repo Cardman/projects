@@ -131,6 +131,28 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         assertEq(P_1,facade_.getData().getMap().getUnlockedCity());
     }
     @Test
+    public void unlockCityUp5() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        Cave cave_ = Instances.newCave();
+        cave_.getLevels().add(blockLinksLevelCave());
+        cave_.getLevels().add(blockLinksLevelCave());
+        facade_.getData().getMap().addPlace(cave_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        addPair(sub_, P_1, "_1");
+        addPair(sub_, P_2, "_2");
+        addPairBlock(sub_, P_1, "_2");
+        sub_.getFormDataMap().getUnlockedCity().updateValue(P_1);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(1));
+        CrudGeneFormEntImgFree n_ = crudBlocks(sub_);
+        tryClick(n_.getAllButtons().get(0));
+        GeneComponentModelImgFree g_ = (GeneComponentModelImgFree)n_.getGene();
+        g_.getKey().setText(P_3);
+        tryClick(n_.getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getApplyMapModif());
+        assertEq(P_1,facade_.getData().getMap().getUnlockedCity());
+    }
+    @Test
     public void place1() {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facadeAdd(pr_);
@@ -1033,12 +1055,11 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         WindowPkEditor sub_ = window(pr_, facade_);
         tryClick(sub_.getFormDataMap().getCrudPlace().getAdd());
         ConverterCommonMapUtil.trigger(sub_.getFormDataMap().getCrudPlace().getGene().getPlaceKind(),MessagesEditorSelect.PLACE_CAVE);
-        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
-        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
-        tryClick(sub_.getFormDataMap().getCrudPlace().getLevelsCaves().get(0).getAdd());
-        tryClick(sub_.getFormDataMap().getCrudPlace().getLevelsCaves().get(0).getValidAddEdit());
         sub_.getFormDataMap().getCrudPlace().getGene().getName().valueString("_");
         tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAdd());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getValidAddEdit());
         assertEq(1, facade_.getData().getMap().getPlace(0).getLevelsList().size());
     }
     @Test
@@ -1048,14 +1069,13 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         WindowPkEditor sub_ = window(pr_, facade_);
         tryClick(sub_.getFormDataMap().getCrudPlace().getAdd());
         ConverterCommonMapUtil.trigger(sub_.getFormDataMap().getCrudPlace().getGene().getPlaceKind(),MessagesEditorSelect.PLACE_CAVE);
-        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
-        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
-        tryClick(sub_.getFormDataMap().getCrudPlace().getLevelsCaves().get(0).getAdd());
-        tryClick(sub_.getFormDataMap().getCrudPlace().getLevelsCaves().get(0).getValidAddEdit());
-        tryClick(sub_.getFormDataMap().getCrudPlace().getLevelsCaves().get(0).getAllButtons().get(0));
-        tryClick(sub_.getFormDataMap().getCrudPlace().getLevelsCaves().get(0).getValidRemove());
         sub_.getFormDataMap().getCrudPlace().getGene().getName().valueString("_");
         tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAdd());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(0));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getValidRemove());
         assertEq(0, facade_.getData().getMap().getPlace(0).getLevelsList().size());
     }
     @Test
@@ -1068,9 +1088,8 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         sub_.getFormDataMap().getCrudPlace().getGene().getName().valueString("_");
         tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
         tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
-        tryClick(sub_.getFormDataMap().getCrudPlace().getLevelsCaves().get(0).getAdd());
-        tryClick(sub_.getFormDataMap().getCrudPlace().getLevelsCaves().get(0).getValidAddEdit());
-        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAdd());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getValidAddEdit());
         assertEq(1, facade_.getData().getMap().getPlace(0).getLevelsList().size());
     }
     @Test
@@ -1083,11 +1102,10 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         sub_.getFormDataMap().getCrudPlace().getGene().getName().valueString("_");
         tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
         tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
-        tryClick(sub_.getFormDataMap().getCrudPlace().getLevelsCaves().get(0).getAdd());
-        tryClick(sub_.getFormDataMap().getCrudPlace().getLevelsCaves().get(0).getValidAddEdit());
-        tryClick(sub_.getFormDataMap().getCrudPlace().getLevelsCaves().get(0).getAllButtons().get(0));
-        tryClick(sub_.getFormDataMap().getCrudPlace().getLevelsCaves().get(0).getValidRemove());
-        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAdd());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(0));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getValidRemove());
         assertEq(0, facade_.getData().getMap().getPlace(0).getLevelsList().size());
     }
     @Test
@@ -1101,9 +1119,9 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         cave_.getLevels().add(Instances.newLevelCave());
         facade_.getData().getMap().addPlace(cave_);
         WindowPkEditor sub_ = window(pr_, facade_);
-        tryClick(sub_.getFormDataMap().getCrudPlace().getLevelsCaves().get(0).getAllButtons().get(0));
-        tryClick(sub_.getFormDataMap().getCrudPlace().getLevelsCaves().get(0).getValidRemove());
-        assertEq(1,sub_.getFormDataMap().getCrudPlace().getLevelsCaves().get(0).getAllButtons().size());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(0));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getValidRemove());
+        assertEq(1,facade_.getData().getMap().getPlace(1).getLevelsList().size());
     }
     @Test
     public void cave6() {
@@ -1115,13 +1133,12 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         ConverterCommonMapUtil.trigger(sub_.getFormDataMap().getCrudPlace().getGene().getPlaceKind(),MessagesEditorSelect.PLACE_CAVE);
         tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
         tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
-        tryClick(sub_.getFormDataMap().getCrudPlace().getLevelsCaves().get(0).getAdd());
-        tryClick(sub_.getFormDataMap().getCrudPlace().getLevelsCaves().get(0).getValidAddEdit());
-        tryClick(sub_.getFormDataMap().getCrudPlace().getLevelsCaves().get(0).getAllButtons().get(0));
-        tryClicks(sub_.getFormDataMap().getCrudPlace().getLevelsCaves().get(0).getGenePair().getWild().getLevel().getGrid(),0,0);
-        tryClicks(sub_.getFormDataMap().getCrudPlace().getLevelsCaves().get(0).getGenePair().getWild().getLevel().getFormBlockTile().getMatch());
-        tryClick(sub_.getFormDataMap().getCrudPlace().getLevelsCaves().get(0).getValidAddEdit());
-        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAdd());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(0));
+        tryClicks(((CrudGeneFormLevelCave)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getGrid(),0,0);
+        tryClicks(((CrudGeneFormLevelCave)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile().getMatch());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getValidAddEdit());
         assertEq(1, facade_.getData().getMap().getPlace(0).getLevelsList().get(0).getBlocks().size());
     }
     @Test
@@ -1134,14 +1151,409 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         ConverterCommonMapUtil.trigger(sub_.getFormDataMap().getCrudPlace().getGene().getPlaceKind(),MessagesEditorSelect.PLACE_CAVE);
         tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
         tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
-        tryClick(sub_.getFormDataMap().getCrudPlace().getLevelsCaves().get(0).getAdd());
-        tryClick(sub_.getFormDataMap().getCrudPlace().getLevelsCaves().get(0).getValidAddEdit());
-        tryClick(sub_.getFormDataMap().getCrudPlace().getLevelsCaves().get(0).getAllButtons().get(0));
-        tryClicks(sub_.getFormDataMap().getCrudPlace().getLevelsCaves().get(0).getGenePair().getWild().getLevel().getGrid(),0,0);
-        tryClicks(sub_.getFormDataMap().getCrudPlace().getLevelsCaves().get(0).getGenePair().getWild().getLevel().getFormBlockTile().getMatch());
-        tryClick(sub_.getFormDataMap().getCrudPlace().getLevelsCaves().get(0).getCancel());
-        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAdd());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(0));
+        tryClicks(((CrudGeneFormLevelCave)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getGrid(),0,0);
+        tryClicks(((CrudGeneFormLevelCave)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile().getMatch());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getCancel());
         assertEq(0, facade_.getData().getMap().getPlace(0).getLevelsList().get(0).getBlocks().size());
+    }
+    @Test
+    public void linkCave1() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        Cave cave_ = Instances.newCave();
+        cave_.getLevels().add(blockLinksLevelCave());
+        cave_.getLevels().add(blockLinksLevelCave());
+        facade_.getData().getMap().addPlace(cave_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(1));
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevel().getGrid(),0,0);
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevels().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getAddTileLeft());
+        assertEq(1,cave_.getLevels().get(0).getLinksOtherLevels().size());
+        assertEq(0,cave_.getLevels().get(0).getLinksOtherLevels().getKey(0).getx());
+        assertEq(0,cave_.getLevels().get(0).getLinksOtherLevels().getKey(0).gety());
+        assertEq(1,cave_.getLevels().get(0).getLinksOtherLevels().getValue(0).getCoords().getLevel().getLevelIndex());
+        assertEq(1,cave_.getLevels().get(0).getLinksOtherLevels().getValue(0).getCoords().getLevel().getPoint().getx());
+        assertEq(1,cave_.getLevels().get(0).getLinksOtherLevels().getValue(0).getCoords().getLevel().getPoint().gety());
+        assertEq(0,cave_.getLevels().get(1).getLinksOtherLevels().size());
+    }
+    @Test
+    public void linkCave2() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        Cave cave_ = Instances.newCave();
+        cave_.getLevels().add(blockLinksLevelCave());
+        cave_.getLevels().add(blockLinksLevelCave());
+        facade_.getData().getMap().addPlace(cave_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(1));
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevel().getGrid(),0,0);
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevels().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getAddTileRight());
+        assertEq(1,cave_.getLevels().get(1).getLinksOtherLevels().size());
+        assertEq(1,cave_.getLevels().get(1).getLinksOtherLevels().getKey(0).getx());
+        assertEq(1,cave_.getLevels().get(1).getLinksOtherLevels().getKey(0).gety());
+        assertEq(0,cave_.getLevels().get(1).getLinksOtherLevels().getValue(0).getCoords().getLevel().getLevelIndex());
+        assertEq(0,cave_.getLevels().get(1).getLinksOtherLevels().getValue(0).getCoords().getLevel().getPoint().getx());
+        assertEq(0,cave_.getLevels().get(1).getLinksOtherLevels().getValue(0).getCoords().getLevel().getPoint().gety());
+        assertEq(0,cave_.getLevels().get(0).getLinksOtherLevels().size());
+    }
+    @Test
+    public void linkCave3() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        Cave cave_ = Instances.newCave();
+        cave_.getLevels().add(blockLinksLevelCave());
+        cave_.getLevels().add(blockLinksLevelCave());
+        facade_.getData().getMap().addPlace(cave_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(1));
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevel().getGrid(),0,0);
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevels().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getAddTileBoth());
+        assertEq(1,cave_.getLevels().get(0).getLinksOtherLevels().size());
+        assertEq(0,cave_.getLevels().get(0).getLinksOtherLevels().getKey(0).getx());
+        assertEq(0,cave_.getLevels().get(0).getLinksOtherLevels().getKey(0).gety());
+        assertEq(1,cave_.getLevels().get(0).getLinksOtherLevels().getValue(0).getCoords().getLevel().getLevelIndex());
+        assertEq(1,cave_.getLevels().get(0).getLinksOtherLevels().getValue(0).getCoords().getLevel().getPoint().getx());
+        assertEq(1,cave_.getLevels().get(0).getLinksOtherLevels().getValue(0).getCoords().getLevel().getPoint().gety());
+        assertEq(1,cave_.getLevels().get(1).getLinksOtherLevels().size());
+        assertEq(1,cave_.getLevels().get(1).getLinksOtherLevels().getKey(0).getx());
+        assertEq(1,cave_.getLevels().get(1).getLinksOtherLevels().getKey(0).gety());
+        assertEq(0,cave_.getLevels().get(1).getLinksOtherLevels().getValue(0).getCoords().getLevel().getLevelIndex());
+        assertEq(0,cave_.getLevels().get(1).getLinksOtherLevels().getValue(0).getCoords().getLevel().getPoint().getx());
+        assertEq(0,cave_.getLevels().get(1).getLinksOtherLevels().getValue(0).getCoords().getLevel().getPoint().gety());
+    }
+    @Test
+    public void linkCave4() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        Cave cave_ = Instances.newCave();
+        cave_.getLevels().add(blockLinksLevelCave());
+        cave_.getLevels().add(blockLinksLevelCave());
+        facade_.getData().getMap().addPlace(cave_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(1));
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevel().getGrid(),0,0);
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevels().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getAddTileLeft());
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevel().getGrid(),0,0);
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevels().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getAddTileRight());
+        assertEq(1,cave_.getLevels().get(0).getLinksOtherLevels().size());
+        assertEq(0,cave_.getLevels().get(0).getLinksOtherLevels().getKey(0).getx());
+        assertEq(0,cave_.getLevels().get(0).getLinksOtherLevels().getKey(0).gety());
+        assertEq(1,cave_.getLevels().get(0).getLinksOtherLevels().getValue(0).getCoords().getLevel().getLevelIndex());
+        assertEq(1,cave_.getLevels().get(0).getLinksOtherLevels().getValue(0).getCoords().getLevel().getPoint().getx());
+        assertEq(1,cave_.getLevels().get(0).getLinksOtherLevels().getValue(0).getCoords().getLevel().getPoint().gety());
+        assertEq(1,cave_.getLevels().get(1).getLinksOtherLevels().size());
+        assertEq(1,cave_.getLevels().get(1).getLinksOtherLevels().getKey(0).getx());
+        assertEq(1,cave_.getLevels().get(1).getLinksOtherLevels().getKey(0).gety());
+        assertEq(0,cave_.getLevels().get(1).getLinksOtherLevels().getValue(0).getCoords().getLevel().getLevelIndex());
+        assertEq(0,cave_.getLevels().get(1).getLinksOtherLevels().getValue(0).getCoords().getLevel().getPoint().getx());
+        assertEq(0,cave_.getLevels().get(1).getLinksOtherLevels().getValue(0).getCoords().getLevel().getPoint().gety());
+    }
+    @Test
+    public void linkCave5() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        Cave cave_ = Instances.newCave();
+        cave_.getLevels().add(blockLinksLevelCave());
+        cave_.getLevels().add(blockLinksLevelCave());
+        facade_.getData().getMap().addPlace(cave_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(1));
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevel().getGrid(),0,0);
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevels().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getAddTileRight());
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevel().getGrid(),0,0);
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevels().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getAddTileLeft());
+        assertEq(1,cave_.getLevels().get(0).getLinksOtherLevels().size());
+        assertEq(0,cave_.getLevels().get(0).getLinksOtherLevels().getKey(0).getx());
+        assertEq(0,cave_.getLevels().get(0).getLinksOtherLevels().getKey(0).gety());
+        assertEq(1,cave_.getLevels().get(0).getLinksOtherLevels().getValue(0).getCoords().getLevel().getLevelIndex());
+        assertEq(1,cave_.getLevels().get(0).getLinksOtherLevels().getValue(0).getCoords().getLevel().getPoint().getx());
+        assertEq(1,cave_.getLevels().get(0).getLinksOtherLevels().getValue(0).getCoords().getLevel().getPoint().gety());
+        assertEq(1,cave_.getLevels().get(1).getLinksOtherLevels().size());
+        assertEq(1,cave_.getLevels().get(1).getLinksOtherLevels().getKey(0).getx());
+        assertEq(1,cave_.getLevels().get(1).getLinksOtherLevels().getKey(0).gety());
+        assertEq(0,cave_.getLevels().get(1).getLinksOtherLevels().getValue(0).getCoords().getLevel().getLevelIndex());
+        assertEq(0,cave_.getLevels().get(1).getLinksOtherLevels().getValue(0).getCoords().getLevel().getPoint().getx());
+        assertEq(0,cave_.getLevels().get(1).getLinksOtherLevels().getValue(0).getCoords().getLevel().getPoint().gety());
+    }
+    @Test
+    public void linkCave6() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        Cave cave_ = Instances.newCave();
+        cave_.getLevels().add(blockLinksLevelCave());
+        cave_.getLevels().add(blockLinksLevelCave());
+        facade_.getData().getMap().addPlace(cave_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(1));
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevel().getGrid(),0,0);
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevels().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getAddTileBoth());
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevel().getGrid(),0,0);
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevels().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getRemoveTileLeft());
+        assertEq(1,cave_.getLevels().get(1).getLinksOtherLevels().size());
+        assertEq(1,cave_.getLevels().get(1).getLinksOtherLevels().getKey(0).getx());
+        assertEq(1,cave_.getLevels().get(1).getLinksOtherLevels().getKey(0).gety());
+        assertEq(0,cave_.getLevels().get(1).getLinksOtherLevels().getValue(0).getCoords().getLevel().getLevelIndex());
+        assertEq(0,cave_.getLevels().get(1).getLinksOtherLevels().getValue(0).getCoords().getLevel().getPoint().getx());
+        assertEq(0,cave_.getLevels().get(1).getLinksOtherLevels().getValue(0).getCoords().getLevel().getPoint().gety());
+        assertEq(0,cave_.getLevels().get(0).getLinksOtherLevels().size());
+    }
+    @Test
+    public void linkCave7() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        Cave cave_ = Instances.newCave();
+        cave_.getLevels().add(blockLinksLevelCave());
+        cave_.getLevels().add(blockLinksLevelCave());
+        facade_.getData().getMap().addPlace(cave_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(1));
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevel().getGrid(),0,0);
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevels().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getAddTileBoth());
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevel().getGrid(),0,0);
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevels().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getRemoveTileRight());
+        assertEq(1,cave_.getLevels().get(0).getLinksOtherLevels().size());
+        assertEq(0,cave_.getLevels().get(0).getLinksOtherLevels().getKey(0).getx());
+        assertEq(0,cave_.getLevels().get(0).getLinksOtherLevels().getKey(0).gety());
+        assertEq(1,cave_.getLevels().get(0).getLinksOtherLevels().getValue(0).getCoords().getLevel().getLevelIndex());
+        assertEq(1,cave_.getLevels().get(0).getLinksOtherLevels().getValue(0).getCoords().getLevel().getPoint().getx());
+        assertEq(1,cave_.getLevels().get(0).getLinksOtherLevels().getValue(0).getCoords().getLevel().getPoint().gety());
+        assertEq(0,cave_.getLevels().get(1).getLinksOtherLevels().size());
+    }
+    @Test
+    public void linkCave8() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        Cave cave_ = Instances.newCave();
+        cave_.getLevels().add(blockLinksLevelCave());
+        cave_.getLevels().add(blockLinksLevelCave());
+        facade_.getData().getMap().addPlace(cave_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(1));
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevel().getGrid(),0,0);
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevels().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getAddTileLeft());
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevel().getGrid(),0,0);
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevels().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getRemoveTileLeft());
+        assertEq(0,cave_.getLevels().get(0).getLinksOtherLevels().size());
+        assertEq(0,cave_.getLevels().get(1).getLinksOtherLevels().size());
+    }
+    @Test
+    public void linkCave9() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        Cave cave_ = Instances.newCave();
+        cave_.getLevels().add(blockLinksLevelCave());
+        cave_.getLevels().add(blockLinksLevelCave());
+        facade_.getData().getMap().addPlace(cave_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(1));
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevel().getGrid(),0,0);
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevels().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getAddTileRight());
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevel().getGrid(),0,0);
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevels().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getRemoveTileRight());
+        assertEq(0,cave_.getLevels().get(1).getLinksOtherLevels().size());
+        assertEq(0,cave_.getLevels().get(0).getLinksOtherLevels().size());
+    }
+    @Test
+    public void linkCave10() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        Cave cave_ = Instances.newCave();
+        cave_.getLevels().add(blockLinksLevelCave());
+        cave_.getLevels().add(blockLinksLevelCave());
+        facade_.getData().getMap().addPlace(cave_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(1));
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevel().getGrid(),0,0);
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevels().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getAddTileBoth());
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevel().getGrid(),0,0);
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevels().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getRemoveTileBoth());
+        assertEq(0,cave_.getLevels().get(0).getLinksOtherLevels().size());
+        assertEq(0,cave_.getLevels().get(1).getLinksOtherLevels().size());
+    }
+    @Test
+    public void linkCave11() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMiniItems().addEntry(I_1, instance(new int[1][1]));
+        Cave cave_ = Instances.newCave();
+        LevelCave first_ = blockLinksLevelCave();
+        first_.getItems().addEntry(newPoint(0,0),I_1);
+        cave_.getLevels().add(first_);
+        cave_.getLevels().add(blockLinksLevelCave());
+        facade_.getData().getMap().addPlace(cave_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(1));
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevel().getGrid(),0,0);
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevels().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
+        assertFalse(link(sub_.getFormDataMap().getCrudPlace(),0).getAddTileLeft().isEnabled());
+        assertFalse(link(sub_.getFormDataMap().getCrudPlace(),0).getAddTileRight().isEnabled());
+        assertFalse(link(sub_.getFormDataMap().getCrudPlace(),0).getAddTileBoth().isEnabled());
+    }
+    @Test
+    public void linkCave12() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMiniItems().addEntry(I_1, instance(new int[1][1]));
+        Cave cave_ = Instances.newCave();
+        cave_.getLevels().add(blockLinksLevelCave());
+        LevelCave second_ = blockLinksLevelCave();
+        second_.getItems().addEntry(newPoint(1,1),I_1);
+        cave_.getLevels().add(second_);
+        facade_.getData().getMap().addPlace(cave_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(1));
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevel().getGrid(),0,0);
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevels().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
+        assertFalse(link(sub_.getFormDataMap().getCrudPlace(),0).getAddTileLeft().isEnabled());
+        assertFalse(link(sub_.getFormDataMap().getCrudPlace(),0).getAddTileRight().isEnabled());
+        assertFalse(link(sub_.getFormDataMap().getCrudPlace(),0).getAddTileBoth().isEnabled());
+    }
+    @Test
+    public void linkCave13() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        Cave cave_ = Instances.newCave();
+        cave_.getLevels().add(blockLinksLevelCave());
+        cave_.getLevels().add(blockLinksLevelCave());
+        facade_.getData().getMap().addPlace(cave_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(1));
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getClose());
+        assertTrue(sub_.getFormDataMap().getCrudPlace().getAdd().isEnabled());
+        assertTrue(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAdd().isEnabled());
+    }
+    @Test
+    public void linkCave14() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        Cave cave_ = Instances.newCave();
+        cave_.getLevels().add(blockLinksLevelCave());
+        cave_.getLevels().add(blockLinksLevelCave());
+        facade_.getData().getMap().addPlace(cave_);
+        facade_.getData().getLinks().addEntry("_",instance(new int[1][1]));
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(1));
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevel().getGrid(),0,0);
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevels().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getAddTileLeft());
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevel().getGrid(),0,0);
+        link(sub_.getFormDataMap().getCrudPlace(),0).getLinkFileNameFirst().updateValue("_");
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getMatchLinkLeft());
+        assertEq("_",cave_.getLevels().get(0).getLinksOtherLevels().getValue(0).getFileName());
+    }
+    @Test
+    public void linkCave15() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        Cave cave_ = Instances.newCave();
+        cave_.getLevels().add(blockLinksLevelCave());
+        cave_.getLevels().add(blockLinksLevelCave());
+        facade_.getData().getMap().addPlace(cave_);
+        facade_.getData().getLinks().addEntry("_",instance(new int[1][1]));
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(1));
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevel().getGrid(),0,0);
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevels().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getAddTileRight());
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevels().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
+        link(sub_.getFormDataMap().getCrudPlace(),0).getLinkFileNameSecond().updateValue("_");
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getMatchLinkRight());
+        assertEq("_",cave_.getLevels().get(1).getLinksOtherLevels().getValue(0).getFileName());
+    }
+    @Test
+    public void linkCave16() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        Cave cave_ = Instances.newCave();
+        cave_.getLevels().add(blockLinksLevelCave());
+        cave_.getLevels().add(blockLinksLevelCave());
+        facade_.getData().getMap().addPlace(cave_);
+        facade_.getData().getLinks().addEntry("_",instance(new int[1][1]));
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(1));
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevel().getGrid(),0,0);
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevels().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getAddTileBoth());
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevels().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
+        link(sub_.getFormDataMap().getCrudPlace(),0).getLinkFileNameFirst().updateValue("_");
+        link(sub_.getFormDataMap().getCrudPlace(),0).getLinkFileNameSecond().updateValue("_");
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getMatchLinkBoth());
+        assertEq("_",cave_.getLevels().get(0).getLinksOtherLevels().getValue(0).getFileName());
+        assertEq("_",cave_.getLevels().get(1).getLinksOtherLevels().getValue(0).getFileName());
+    }
+    @Test
+    public void linkCave17() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        Cave cave_ = Instances.newCave();
+        cave_.getLevels().add(blockLinksLevelCave());
+        cave_.getLevels().add(blockLinksLevelCave());
+        facade_.getData().getMap().addPlace(cave_);
+        facade_.getData().getLinks().addEntry("_",instance(new int[1][1]));
+        facade_.getData().getLinks().addEntry("__",instance(new int[1][1]));
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(1));
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevel().getGrid(),0,0);
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevels().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
+        link(sub_.getFormDataMap().getCrudPlace(),0).getLinkFileNameFirst().updateValue("_");
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getAddTileLeft());
+        link(sub_.getFormDataMap().getCrudPlace(),0).getLinkFileNameFirst().updateValue("__");
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getMatchLinkLeft());
+        assertEq("_",cave_.getLevels().get(0).getLinksOtherLevels().getValue(0).getFileName());
+    }
+    @Test
+    public void linkCave18() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        Cave cave_ = Instances.newCave();
+        cave_.getLevels().add(blockLinksLevelCave());
+        cave_.getLevels().add(blockLinksLevelCave());
+        facade_.getData().getMap().addPlace(cave_);
+        facade_.getData().getLinks().addEntry("_",instance(new int[1][1]));
+        facade_.getData().getLinks().addEntry("__",instance(new int[1][1]));
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(1));
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevel().getGrid(),0,0);
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevels().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
+        link(sub_.getFormDataMap().getCrudPlace(),0).getLinkFileNameSecond().updateValue("_");
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getAddTileRight());
+        link(sub_.getFormDataMap().getCrudPlace(),0).getLinkFileNameSecond().updateValue("__");
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getMatchLinkRight());
+        assertEq("_",cave_.getLevels().get(1).getLinksOtherLevels().getValue(0).getFileName());
+    }
+    public static ContentComponentModelLevelCaveLinks link(CrudGeneFormEntPlace _c, int _i) {
+        return ((CrudGeneFormLevelCave)_c.getLevels().get(_i)).getLinks();
+    }
+    private static LevelCave blockLinksLevelCave() {
+        LevelCave lc_ = Instances.newLevelCave();
+        blockLinks(lc_);
+        return lc_;
+    }
+    private static void blockLinks(Level _lv) {
+        Block bk_ = Instances.newBlock();
+        bk_.setHeight((short) 2);
+        bk_.setWidth((short) 2);
+        _lv.getBlocks().put(newPoint(0,0), bk_);
     }
     private void tryClickTile(WindowPkEditor _sub) {
         int side_ = _sub.getFormDataMap().getMiniMapGrid().sideTile();

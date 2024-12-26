@@ -39,11 +39,11 @@ public final class ContentComponentModelLevelWithWild {
         level.getTranslationList().setFormLevelGridUniq(null);
         return splitter;
     }
-    public void setupGridDims(short _nbPlace, byte _nbLevel, Place _pl, LevelWithWildPokemon _wild) {
+    public void setupGridDims(int _nbPlace, int _nbLevel, Place _pl, LevelWithWildPokemon _wild) {
         getAreas().setupValues(ConverterCommonMapUtil.copyListArea(_wild.getWildPokemonAreas()));
         Points<Block> blocks_ = ConverterCommonMapUtil.copyPointsBlock(_wild.getBlocks());
         edited = _wild;
-        Coords coords_ = coords(_nbPlace, _nbLevel, null);
+        Coords coords_ = ContentComponentModelLevelCaveLinks.coords(_nbPlace, _nbLevel, null);
         Points<int[][]> frontTiles_ = Level.getLevelForegroundImage(level.getFacadeGame().getData(), coords_, _pl,_wild);
         level.setupGridDims(blocks_, frontTiles_);
         IdList<SubscribedTranslation> subs_ = level.getTranslationList().getSubscribedTranslations().getVal(level.getFrame());
@@ -65,14 +65,6 @@ public final class ContentComponentModelLevelWithWild {
 
     public AbsCustComponent getSplitter() {
         return splitter;
-    }
-
-    public static Coords coords(short _nbPlace, byte _nbLevel, Point _inside) {
-        Coords curCoords_ = new Coords();
-        curCoords_.setNumberPlace(_nbPlace);
-        curCoords_.setInsideBuilding(_inside);
-        curCoords_.getLevel().setLevelIndex(_nbLevel);
-        return curCoords_;
     }
 
     public void viewForeground(int _x, int _y) {
@@ -188,22 +180,22 @@ public final class ContentComponentModelLevelWithWild {
     }
     public void applySelectItem() {
         if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_ITEMS)) {
-            trySet(level.getFacadeGame().getData().getMiniItems().getVal(items.tryRet()));
+            trySet(level.getFacadeGame().getData().getMiniItems().getVal(items.tryRet()), level.getForegroundEdited(), selected);
         }
         if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_TM) || StringUtil.quickEq(key, MessagesEditorSelect.TILE_HM)) {
-            trySet(level.getFacadeGame().getData().getImageTmHm());
+            trySet(level.getFacadeGame().getData().getImageTmHm(), level.getForegroundEdited(), selected);
         }
         if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_LEG_PK)) {
-            trySet(level.getFacadeGame().getData().getMiniPk().getVal(legendaryPks.getName().tryRet()));
+            trySet(level.getFacadeGame().getData().getMiniPk().getVal(legendaryPks.getName().tryRet()), level.getForegroundEdited(), selected);
         }
         level.refreshImg(level.getFormBlockTile().getEdited().getWidth(), level.getFormBlockTile().getEdited().getHeight());
     }
 
-    private void trySet(ImageArrayBaseSixtyFour _img) {
+    public static void trySet(ImageArrayBaseSixtyFour _img, Points<int[][]> _level, Point _selected) {
         if (_img == null) {
-            level.getForegroundEdited().put(selected,new int[0][]);
+            _level.put(_selected,new int[0][]);
         } else {
-            level.getForegroundEdited().put(selected, _img.getImage());
+            _level.put(_selected, _img.getImage());
         }
     }
 

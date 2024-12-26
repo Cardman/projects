@@ -13,7 +13,6 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
     private int selectedPlace = -1;
     private final CustList<AbsButton> allButtonsMerge = new CustList<AbsButton>();
     private final CustList<AbsButton> allButtons = new CustList<AbsButton>();
-    private final CustList<CrudGeneFormLevelCave> levelsCaves = new CustList<CrudGeneFormLevelCave>();
     private final CustList<CrudGeneFormLevel> levels = new CustList<CrudGeneFormLevel>();
     private boolean enabledButtons;
 
@@ -44,7 +43,7 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
         if (place_ instanceof Road) {
             road = new ContentComponentModelRoad();
             road.form(getFactory(),getCrudGeneFormSubContent().getFacadeGame(),getCrudGeneFormSubContent().getSubscription(),getFrame());
-            road.setupGridDims((short) _i,(byte) 0,place_,((Road) place_).getLevelRoad());
+            road.setupGridDims(_i, 0,place_,((Road) place_).getLevelRoad());
             getElement().add(road.getLevelWithWild().getSplitter());
             getCrudGeneFormSubContent().getSubscription().setFormLevelGridUniq(road.getLevel());
         }
@@ -63,7 +62,6 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
         getAllButtons().clear();
         getAllButtonsMerge().clear();
         int len_ = places_.size();
-        levelsCaves.clear();
         levels.clear();
         for (int i = 0; i < len_; i++) {
             Place place_ = places_.get(i);
@@ -79,7 +77,6 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
                 c_.setCave((Cave)place_);
                 getAllButtonsMerge().addAllElts(c_.refLevels());
                 c_.setSelectedPlace(i);
-                levelsCaves.add(c_);
                 levels.add(c_);
                 getElements().add(c_.getGroup());
             }
@@ -149,6 +146,11 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
             b.setEnabled(_e);
         }
     }
+
+    public CustList<CrudGeneFormLevel> getLevels() {
+        return levels;
+    }
+
     public CrudGeneFormSubContent getCrudGeneFormSubContent() {
         return crudGeneFormSubContent;
     }
@@ -163,10 +165,6 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
 
     public CustList<AbsButton> getAllButtonsMerge() {
         return allButtonsMerge;
-    }
-
-    public CustList<CrudGeneFormLevelCave> getLevelsCaves() {
-        return levelsCaves;
     }
 
     public ContentComponentModelRoad getRoad() {

@@ -4,6 +4,7 @@ import aiki.facade.*;
 import aiki.map.levels.*;
 import aiki.map.places.*;
 import code.gui.*;
+import code.gui.events.*;
 import code.gui.initialize.*;
 import code.util.*;
 
@@ -41,16 +42,25 @@ public abstract class CrudGeneFormLevel extends AbsCrudGeneForm {
         int len_ = levels_.size();
         CustList<AbsButton> buts_ = new CustList<AbsButton>();
         for (int i = 0; i < len_; i++) {
+            AbsPanel line_ = getFactory().getCompoFactory().newLineBox();
             AbsButton but_ = getFactory().getCompoFactory().newPlainButton(Long.toString(i));
             but_.addActionListener(new SelectCrudLevelFormEvent(this, i));
             but_.setEnabled(parent.isEnabledButtons());
-            getElements().add(but_);
+            line_.add(but_);
             getAllButtons().add(but_);
             buts_.add(but_);
+            AbsButton link_ = getFactory().getCompoFactory().newPlainButton("<->");
+            link_.addActionListener(buildLink(i));
+            link_.setEnabled(parent.isEnabledButtons());
+            line_.add(link_);
+            getAllButtons().add(link_);
+            buts_.add(link_);
+            getElements().add(line_);
         }
         return buts_;
     }
 
+    public abstract AbsActionListener buildLink(int _i);
 
     @Override
     public void formAdd() {
@@ -104,12 +114,18 @@ public abstract class CrudGeneFormLevel extends AbsCrudGeneForm {
     public void afterModif() {
         parent.setEnabledButtons(true);
         super.afterModif();
+        parent.getAdd().setEnabled(true);
     }
     @Override
     public void cancel() {
         parent.setEnabledButtons(true);
         super.cancel();
         parent.enable(true);
+        parent.getAdd().setEnabled(true);
+    }
+
+    public CrudGeneFormEntPlace getParent() {
+        return parent;
     }
 
     public abstract Place getPlace();

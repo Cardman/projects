@@ -13,7 +13,7 @@ public final class ContentComponentModelRoad {
     public AbsCustComponent form(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact, AbsCommonFrame _f) {
         return getLevelWithWild().form(_core, _fac, _fact, _f);
     }
-    public void setupGridDims(short _nbPlace, byte _nbLevel, Place _pl, LevelWithWildPokemon _wild) {
+    public void setupGridDims(int _nbPlace, int _nbLevel, Place _pl, LevelWithWildPokemon _wild) {
         getLevelWithWild().setupGridDims(_nbPlace, _nbLevel, _pl, _wild);
     }
 
