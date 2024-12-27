@@ -255,11 +255,19 @@ public final class ConverterCommonMapUtil {
         copyLevelWithWildPokemon(cp_,_e);
         Points<Link> links_ = new PointsLink(new CollCapacity(_e.getLinksOtherLevels().size()));
         for (EntryCust<Point,Link> f:_e.getLinksOtherLevels().entryList()) {
-            links_.addEntry(new Point(f.getKey()),new Link(f.getValue().getFileName(),new Coords(f.getValue().getCoords())));
+            links_.addEntry(new Point(f.getKey()),copyLink(f.getValue()));
         }
         cp_.setLinksOtherLevels(links_);
         return cp_;
     }
+
+    public static Link copyLink(Link _e){
+        Link cp_ = new Link();
+        cp_.setFileName(_e.getFileName());
+        cp_.setCoords(new Coords(_e.getCoords()));
+        return cp_;
+    }
+
     public static LevelRoad copyLevelRoad(LevelRoad _e) {
         LevelRoad cp_ = new LevelRoad();
         copyLevelWithWildPokemon(cp_,_e);
@@ -321,11 +329,7 @@ public final class ConverterCommonMapUtil {
     }
     public static DualFight copyDualFight(DualFight _e) {
         DualFight cp_ = new DualFight();
-        if (_e.getPt().isDefined()) {
-            cp_.setPt(new NullablePoint(new Point(_e.getPt().getPoint())));
-        } else {
-            cp_.setPt(new NullablePoint());
-        }
+        cp_.setPt(copyNullablePoint(_e.getPt()));
         cp_.setNames(new StringList(_e.getNames()));
         Ally a_ = new Ally();
         a_.setTeam(copyListPkTrainer(_e.getAlly().getTeam()));
@@ -337,6 +341,12 @@ public final class ConverterCommonMapUtil {
         copyTrainer(t_,_e.getFoeTrainer());
         cp_.setFoeTrainer(t_);
         return cp_;
+    }
+    public static NullablePoint copyNullablePoint(NullablePoint _e) {
+        if (_e.isDefined()) {
+            return new NullablePoint(new Point(_e.getPoint()));
+        }
+        return new NullablePoint();
     }
 
     public static DealerItem copyDealerItem(DealerItem _e) {
