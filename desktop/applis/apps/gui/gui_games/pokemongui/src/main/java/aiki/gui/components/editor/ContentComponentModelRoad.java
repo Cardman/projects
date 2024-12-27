@@ -41,6 +41,10 @@ public final class ContentComponentModelRoad {
         return getLevelWithWild().getTrainerMultiFights();
     }
 
+    public ContentComponentModelDualFight getDualFight() {
+        return getLevelWithWild().getDualFight();
+    }
+
     public StringMap<AbsButton> getTiles() {
         return getLevelWithWild().getTiles();
     }

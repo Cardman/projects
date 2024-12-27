@@ -266,6 +266,26 @@ public final class ConverterCommonMapUtil {
         cp_.setType(_e.getType());
         return cp_;
     }
+    public static DualFight copyDualFight(DualFight _e) {
+        DualFight cp_ = new DualFight();
+        if (_e.getPt().isDefined()) {
+            cp_.setPt(new NullablePoint(new Point(_e.getPt().getPoint())));
+        } else {
+            cp_.setPt(new NullablePoint());
+        }
+        cp_.setNames(new StringList(_e.getNames()));
+        Ally a_ = new Ally();
+        a_.setTeam(copyListPkTrainer(_e.getAlly().getTeam()));
+        cp_.setAlly(a_);
+        TempTrainer t_ = new TempTrainer();
+        t_.setTeam(copyListPkTrainer(_e.getFoeTrainer().getTeam()));
+        t_.setReward(_e.getFoeTrainer().getReward());
+        t_.setImageMiniSecondTrainerFileName(_e.getFoeTrainer().getImageMiniSecondTrainerFileName());
+        copyTrainer(t_,_e.getFoeTrainer());
+        cp_.setFoeTrainer(t_);
+        return cp_;
+    }
+
     public static DealerItem copyDealerItem(DealerItem _e) {
         DealerItem cp_ = new DealerItem();
         cp_.setItems(new StringList(_e.getItems()));

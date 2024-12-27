@@ -17,6 +17,7 @@ public final class ContentComponentModelLevelWithWild {
     private GeneComponentModelEltEnumSub<Short> tm;
     private final ContentComponentModelDealerItem dealerItem = new ContentComponentModelDealerItem();
     private final ContentComponentModelTrainerMultiFights trainerMultiFights = new ContentComponentModelTrainerMultiFights();
+    private final ContentComponentModelDualFight dualFight = new ContentComponentModelDualFight();
     private FormWildPk legendaryPks;
     private final StringMap<AbsButton> tiles = new StringMap<AbsButton>();
     private FormLevelGrid level;
@@ -95,21 +96,28 @@ public final class ContentComponentModelLevelWithWild {
                 choose(MessagesEditorSelect.TILE_DEALER);
                 dealerItem.feedForm((DealerItem) ch_);
             }
+        } else if (edited.getDualFights().contains(pt_)) {
+            choose(MessagesEditorSelect.TILE_DUAL);
+            dualFight.feedForm(edited.getDualFights().getVal(pt_));
         } else {
-            key = "";
-            StringMap<String> messages_ = MessagesPkEditor.getMessagesEditorSelectTileKindWildTr(MessagesPkEditor.getAppliTr(level.getApi().currentLg())).getMapping();
-            AbsCompoFactory compoFactory_ = level.getApi().getCompoFactory();
-            AbsPanel form_ = compoFactory_.newPageBox();
-            tiles.clear();
-            for (EntryCust<String,String> e: messages_.entryList()) {
-                AbsButton but_ = compoFactory_.newPlainButton(e.getValue());
-                but_.addActionListener(new TileKindChoiceEvent(this,e.getKey()));
-                form_.add(but_);
-                tiles.addEntry(e.getKey(),but_);
-            }
-            fore.setViewportView(form_);
+            initFormChoices();
         }
         getLevel().getFrame().pack();
+    }
+
+    private void initFormChoices() {
+        key = "";
+        StringMap<String> messages_ = MessagesPkEditor.getMessagesEditorSelectTileKindWildTr(MessagesPkEditor.getAppliTr(level.getApi().currentLg())).getMapping();
+        AbsCompoFactory compoFactory_ = level.getApi().getCompoFactory();
+        AbsPanel form_ = compoFactory_.newPageBox();
+        tiles.clear();
+        for (EntryCust<String,String> e: messages_.entryList()) {
+            AbsButton but_ = compoFactory_.newPlainButton(e.getValue());
+            but_.addActionListener(new TileKindChoiceEvent(this,e.getKey()));
+            form_.add(but_);
+            tiles.addEntry(e.getKey(),but_);
+        }
+        fore.setViewportView(form_);
     }
 
     public void choose(String _k) {
@@ -177,6 +185,16 @@ public final class ContentComponentModelLevelWithWild {
             form_.add(removeTile);
             fore.setViewportView(form_);
         }
+        if (StringUtil.quickEq(_k, MessagesEditorSelect.TILE_DUAL)) {
+            AbsCompoFactory compoFactory_ = level.getApi().getCompoFactory();
+            AbsPanel form_ = compoFactory_.newLineBox();
+            form_.add(dualFight.effectForm(level.getApi(), level.getFacadeGame(), level.getTranslationList(), level.getFrame(),level));
+            dualFight.getTrainer().getMiniFileName().getName().getSelectUniq().getSelect().addListener(new ChangeItemTileEvent(this));
+            removeTile = compoFactory_.newPlainButton("-");
+            removeTile.addActionListener(new RemoveForeTileEvent(this));
+            form_.add(removeTile);
+            fore.setViewportView(form_);
+        }
     }
 
     private void techHidden(GeneComponentModelEltEnumSub<Short> _sel) {
@@ -215,6 +233,9 @@ public final class ContentComponentModelLevelWithWild {
         if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_DEALER)) {
             dealerItem.getMiniFileName().getName().getSelectUniq().getSelect().events(null);
         }
+        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_DUAL)) {
+            dualFight.getTrainer().getMiniFileName().getName().getSelectUniq().getSelect().events(null);
+        }
     }
     public void applySelectItem() {
         if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_ITEMS)) {
@@ -231,6 +252,11 @@ public final class ContentComponentModelLevelWithWild {
         }
         if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_DEALER)) {
             trySet(level.getFacadeGame().getData().getPeople().getVal(dealerItem.getMiniFileName().getName().tryRet()), level.getForegroundEdited(), selected);
+        }
+        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_DUAL)) {
+            trySet(level.getFacadeGame().getData().getPeople().getVal(dualFight.getTrainer().getMiniFileName().getName().tryRet()), level.getForegroundEdited(), selected);
+            trySet(level.getFacadeGame().getData().getPeople().getVal(dualFight.getTrainer().getMiniFileName().getName().tryRet()), dualFight.getSecondPt().getForegroundEdited(), selected);
+            dualFight.getSecondPt().refreshImg();
         }
         level.refreshImg(level.getFormBlockTile().getEdited().getWidth(), level.getFormBlockTile().getEdited().getHeight());
     }
@@ -268,6 +294,16 @@ public final class ContentComponentModelLevelWithWild {
             edited.getCharacters().put(selected,dealerItem.buildEntity());
             validate();
         }
+        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_DUAL)) {
+            DualFight e_ = dualFight.buildEntity();
+            edited.getDualFights().put(selected, e_);
+            validate();
+            NullablePoint sec_ = e_.getPt();
+            if (sec_.isDefined()) {
+                int[][] val_ = dualFight.getSecondPt().getForegroundEdited().getVal(sec_.getPoint());
+                level.getForeground().put(sec_.getPoint(), val_);
+            }
+        }
         key = "";
         level.refreshImg(level.getFormBlockTile().getEdited().getWidth(), level.getFormBlockTile().getEdited().getHeight());
     }
@@ -299,7 +335,12 @@ public final class ContentComponentModelLevelWithWild {
             edited.getCharacters().removeKey(selected);
             removeFore();
         }
+        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_DUAL)) {
+            edited.getDualFights().removeKey(selected);
+            removeFore();
+        }
         level.refreshImg(level.getFormBlockTile().getEdited().getWidth(), level.getFormBlockTile().getEdited().getHeight());
+        initFormChoices();
     }
 
     private void removeFore() {
@@ -349,5 +390,9 @@ public final class ContentComponentModelLevelWithWild {
 
     public ContentComponentModelTrainerMultiFights getTrainerMultiFights() {
         return trainerMultiFights;
+    }
+
+    public ContentComponentModelDualFight getDualFight() {
+        return dualFight;
     }
 }
