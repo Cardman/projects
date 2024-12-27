@@ -16,6 +16,7 @@ import aiki.fight.pokemon.evolution.*;
 import aiki.fight.status.*;
 import aiki.fight.status.effects.*;
 import aiki.fight.util.*;
+import aiki.map.buildings.Gym;
 import aiki.map.characters.*;
 import aiki.map.levels.*;
 import aiki.map.levels.enums.*;
@@ -249,6 +250,40 @@ public final class ConverterCommonMapUtil {
             return new Dims();
         }
         return new Dims(_pixels[0].length, _pixels.length);
+    }
+    public static Gym copyGym(Gym _e) {
+        Gym cp_ = new Gym();
+        LevelIndoorGym in_ = new LevelIndoorGym();
+        in_.setGymLeaderCoords(copyNullablePoint(_e.getIndoor().getGymLeaderCoords()));
+        in_.setGymLeader(copyGymLeader(_e.getIndoor().getGymLeader()));
+        Points<GymTrainer> gt_ = new PointsGymTrainer(new CollCapacity(_e.getIndoor().getGymTrainers().size()));
+        for (EntryCust<Point,GymTrainer> f:_e.getIndoor().getGymTrainers().entryList()) {
+            gt_.addEntry(new Point(f.getKey()),copyGymTrainer(f.getValue()));
+        }
+        in_.setGymTrainers(gt_);
+        in_.setBlocks(copyPointsBlock(_e.getIndoor().getBlocks()));
+        cp_.setLevel(in_);
+        cp_.setImageFileName(_e.getImageFileName());
+        cp_.setExitCity(copyNullablePoint(_e.getExitCity()));
+        return cp_;
+    }
+
+    public static GymLeader copyGymLeader(GymLeader _e) {
+        GymLeader cp_ = new GymLeader();
+        cp_.setTm(_e.getTm());
+        cp_.setName(_e.getName());
+        cp_.setTeam(copyListPkTrainer(_e.getTeam()));
+        cp_.setReward(_e.getReward());
+        copyTrainer(cp_,_e);
+        return cp_;
+    }
+
+    public static GymTrainer copyGymTrainer(GymTrainer _e) {
+        GymTrainer cp_ = new GymTrainer();
+        cp_.setTeam(copyListPkTrainer(_e.getTeam()));
+        cp_.setReward(_e.getReward());
+        copyTrainer(cp_,_e);
+        return cp_;
     }
     public static LevelCave copyLevelCave(LevelCave _e) {
         LevelCave cp_ = new LevelCave();

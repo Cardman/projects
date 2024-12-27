@@ -10,6 +10,7 @@ import aiki.util.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.util.*;
+import code.util.core.*;
 
 public final class ContentComponentModelCity {
     private AbsCustCheckBox gym;
@@ -28,12 +29,16 @@ public final class ContentComponentModelCity {
     private Point selected = new Point((short) 0,(short) 0);
     private Point selectedBuilding = new Point((short) 0,(short) 0);
     private final NullablePoint exitBuilding = new NullablePoint();
+    private final NullablePoint gymLeaderCoords = new NullablePoint();
+    private final StringMap<AbsButton> tiles = new StringMap<AbsButton>();
     private AbsButton removeTile;
     private AbsButton removeTileBuilding;
     private AbsScrollPane scrollPane;
     private GeneComponentModelImgSelect imageFileName;
+    private final ContentComponentModelGymTrainer gymTrainer = new ContentComponentModelGymTrainer();
+    private final ContentComponentModelGymLeader gymLeader = new ContentComponentModelGymLeader();
     private int nbPlace;
-
+    private String key = "";
 
     public AbsCustComponent setupGridDims(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact, AbsCommonFrame _f,Coords _coords, City _pl) {
         AbsCustComponent form_ = form(_core, _fac, _fact, _f);
@@ -55,12 +60,7 @@ public final class ContentComponentModelCity {
         editedBuildings = new PointsBuilding();
         for (EntryCust<Point,Building> f:_pl.getBuildings().entryList()) {
             if (f.getValue() instanceof Gym) {
-                Gym g_ = new Gym();
-                g_.setLevel(Instances.newLevelIndoorGym());
-                g_.setExitCity(ConverterCommonMapUtil.copyNullablePoint(f.getValue().getExitCity()));
-                g_.setImageFileName(f.getValue().getImageFileName());
-                g_.getLevel().setBlocks(ConverterCommonMapUtil.copyPointsBlock(f.getValue().getLevel().getBlocks()));
-                editedBuildings.addEntry(new Point(f.getKey()),g_);
+                editedBuildings.addEntry(new Point(f.getKey()),ConverterCommonMapUtil.copyGym((Gym) f.getValue()));
             } else {
                 PokemonCenter pc_ = new PokemonCenter();
                 pc_.setLevel(Instances.newLevelIndoorPokemonCenter());
@@ -110,6 +110,7 @@ public final class ContentComponentModelCity {
             createBuilding.addActionListener(new BuildingKindChoiceEvent(this));
             form_.add(createBuilding);
             fore.setViewportView(form_);
+            editedBuilding = null;
         }
         if (foreBuilding != null) {
             foreBuilding.setNullViewportView();
@@ -140,6 +141,17 @@ public final class ContentComponentModelCity {
         subs_.addAllElts(next_);
         translationsGridSec.addAllElts(next_);
         AbsPanel form_ = compoFactory_.newLineBox();
+        imageFileName = new GeneComponentModelImgSelect(level.getApi(), level.getFacadeGame(), level.getTranslationList().getImgRetrieverLinksSub());
+        form_.add(imageFileName.gene());
+        FormDataMap.baseSelectImage(imageFileName);
+        imageFileName.getName().getSelectUniq().getSelect().addListener(new ChangeItemBuildingTileEvent(this));
+        imageFileName.updateValue(editedBuilding.getImageFileName());
+        if (editedBuilding instanceof Gym) {
+            form_.add(gymLeader.effectFormLeader(level.getApi(), level.getFacadeGame(),level.getTranslationList(),level.getFrame(),levelBuilding));
+            gymLeader.feedFormSub(((Gym)editedBuilding).getIndoor().getGymLeader());
+            gymLeader.getTrainerImg().getMiniFileName().getName().getSelectUniq().getSelect().addListener(new ChangeItemBuildingTileEvent(this));
+            gymLeader.getTrainerImg().getMiniFileName().updateValue(((Gym)editedBuilding).getIndoor().getGymLeader().getImageMiniFileName());
+        }
         translations.addAllElts(next_);
         removeTile = compoFactory_.newPlainButton("-");
         removeTile.addActionListener(new RemoveBuildingTileEvent(this));
@@ -155,42 +167,171 @@ public final class ContentComponentModelCity {
         Point pt_ = level.toPt(_x, _y);
         selectedBuilding = pt_;
         getLevelBuilding().getFormBlockTile().getMatch().addActionListener(new ApplyBuildingEltTileEvent(this));
-        AbsCompoFactory compoFactory_ = level.getApi().getCompoFactory();
-        AbsPanel form_ = compoFactory_.newPageBox();
-        imageFileName = new GeneComponentModelImgSelect(level.getApi(), level.getFacadeGame(), level.getTranslationList().getImgRetrieverLinksSub());
-        form_.add(imageFileName.gene());
-        FormDataMap.baseSelectImage(imageFileName);
-        imageFileName.getName().getSelectUniq().getSelect().addListener(new ChangeItemBuildingTileEvent(this));
-        imageFileName.updateValue(editedBuilding.getImageFileName());
-        removeTileBuilding = compoFactory_.newPlainButton("-");
-        removeTileBuilding.addActionListener(new RemoveBuildingEltTileEvent(this));
-        form_.add(removeTileBuilding);
-        foreBuilding.setViewportView(form_);
+        if (editedBuilding instanceof Gym) {
+            Gym g_ = (Gym) editedBuilding;
+            if (g_.getIndoor().getGymTrainers().contains(pt_)) {
+                choose(MessagesEditorSelect.GYM_TILE_TRAINER);
+                gymTrainer.feedFormSub(g_.getIndoor().getGymTrainers().getVal(pt_));
+            } else if (Point.eq(g_.getIndoor().getGymLeaderCoords(), pt_)){
+                choose(MessagesEditorSelect.GYM_TILE_LEADER);
+            } else if (Point.eq(g_.getExitCity(), pt_)){
+                choose(MessagesEditorSelect.GYM_TILE_EXIT);
+            } else {
+                initFormChoices();
+            }
+        }
+        if (editedBuilding instanceof PokemonCenter) {
+            AbsCompoFactory compoFactory_ = level.getApi().getCompoFactory();
+            AbsPanel form_ = compoFactory_.newPageBox();
+            removeTileBuilding = compoFactory_.newPlainButton("-");
+            removeTileBuilding.addActionListener(new RemoveBuildingEltTileEvent(this));
+            form_.add(removeTileBuilding);
+            foreBuilding.setViewportView(form_);
+        }
         getLevel().getFrame().pack();
     }
+
+    private void initFormChoices() {
+        key = "";
+        StringMap<String> messages_ = MessagesPkEditor.getMessagesEditorSelectTileKindGymTr(MessagesPkEditor.getAppliTr(level.getApi().currentLg())).getMapping();
+        AbsCompoFactory compoFactory_ = level.getApi().getCompoFactory();
+        AbsPanel form_ = compoFactory_.newPageBox();
+        tiles.clear();
+        for (EntryCust<String,String> e: messages_.entryList()) {
+            AbsButton but_ = compoFactory_.newPlainButton(e.getValue());
+            but_.addActionListener(new TileKindBuildingChoiceEvent(this,e.getKey()));
+            form_.add(but_);
+            tiles.addEntry(e.getKey(),but_);
+        }
+        fore.setViewportView(form_);
+        foreBuilding.setNullViewportView();
+    }
+    public void choose(String _k) {
+        key = _k;
+        if (StringUtil.quickEq(_k, MessagesEditorSelect.GYM_TILE_TRAINER)) {
+            AbsCompoFactory compoFactory_ = level.getApi().getCompoFactory();
+            AbsPanel form_ = compoFactory_.newLineBox();
+            form_.add(gymTrainer.effectForm(level.getApi(), level.getFacadeGame(), level.getTranslationList(), level.getFrame(),levelBuilding));
+            gymTrainer.getTrainerImg().getMiniFileName().getName().getSelectUniq().getSelect().addListener(new ChangeItemBuildingTileEvent(this));
+            removeTileBuilding = compoFactory_.newPlainButton("-");
+            removeTileBuilding.addActionListener(new RemoveBuildingEltTileEvent(this));
+            form_.add(removeTileBuilding);
+            foreBuilding.setViewportView(form_);
+        }
+        if (StringUtil.quickEq(_k, MessagesEditorSelect.GYM_TILE_LEADER) || StringUtil.quickEq(_k, MessagesEditorSelect.GYM_TILE_EXIT)) {
+            AbsCompoFactory compoFactory_ = level.getApi().getCompoFactory();
+            AbsPanel form_ = compoFactory_.newLineBox();
+            removeTileBuilding = compoFactory_.newPlainButton("-");
+            removeTileBuilding.addActionListener(new RemoveBuildingEltTileEvent(this));
+            form_.add(removeTileBuilding);
+            foreBuilding.setViewportView(form_);
+        }
+    }
+
+    public void events() {
+//        if (editedBuilding instanceof Gym) {
+            if (StringUtil.quickEq(key, MessagesEditorSelect.GYM_TILE_TRAINER)) {
+                gymTrainer.getTrainerImg().getMiniFileName().getName().getSelectUniq().getSelect().events(null);
+            }
+            if (StringUtil.quickEq(key, MessagesEditorSelect.GYM_TILE_LEADER)) {
+                gymLeader.getTrainerImg().getMiniFileName().getName().getSelectUniq().getSelect().events(null);
+            }
+            if (StringUtil.quickEq(key, MessagesEditorSelect.GYM_TILE_EXIT)) {
+                imageFileName.getName().getSelectUniq().getSelect().events(null);
+            }
+//        }
+//        if (editedBuilding instanceof PokemonCenter) {
+//            imageFileName.getName().getSelectUniq().getSelect().events(null);
+//        }
+    }
     public void applyTile() {
-        editedBuilding.getLevel().setBlocks(levelBuilding.getEdited());
-        editedBuildings.put(selected,editedBuilding);
+        if (editedBuilding instanceof Gym) {
+            ((Gym)editedBuilding).getIndoor().setGymLeader(gymLeader.buildEntity());
+            editedBuilding.getLevel().setBlocks(levelBuilding.getEdited());
+            editedBuildings.put(selected,editedBuilding);
+        }
+        if (editedBuilding instanceof PokemonCenter) {
+            editedBuilding.getLevel().setBlocks(levelBuilding.getEdited());
+            editedBuildings.put(selected,editedBuilding);
+        }
         level.refreshImg(level.getFormBlockTile().getEdited().getWidth(), level.getFormBlockTile().getEdited().getHeight());
     }
 
     public void removeTile() {
         editedBuildings.removeKey(selected);
         level.refreshImg(level.getFormBlockTile().getEdited().getWidth(), level.getFormBlockTile().getEdited().getHeight());
+        editedBuilding = null;
+        foreBuilding.setNullViewportView();
     }
 
+    public void applySelectItem() {
+        if (editedBuilding instanceof Gym) {
+            if (StringUtil.quickEq(key, MessagesEditorSelect.GYM_TILE_TRAINER)) {
+                ContentComponentModelLevelWithWild.trySet(level.getFacadeGame().getData().getPeople().getVal(gymTrainer.getTrainerImg().getMiniFileName().getName().tryRet()), levelBuilding.getForegroundEdited(), selectedBuilding);
+            }
+            if (StringUtil.quickEq(key, MessagesEditorSelect.GYM_TILE_LEADER)) {
+                ContentComponentModelLevelWithWild.trySet(level.getFacadeGame().getData().getPeople().getVal(gymLeader.getTrainerImg().getMiniFileName().getName().tryRet()), levelBuilding.getForegroundEdited(), selectedBuilding);
+            }
+            if (StringUtil.quickEq(key, MessagesEditorSelect.GYM_TILE_EXIT)) {
+                ContentComponentModelLevelWithWild.trySet(level.getFacadeGame().getData().getLinks().getVal(imageFileName.getName().tryRet()), levelBuilding.getForegroundEdited(), selectedBuilding);
+            }
+        }
+        if (editedBuilding instanceof PokemonCenter) {
+            ContentComponentModelLevelWithWild.trySet(level.getFacadeGame().getData().getLinks().getVal(imageFileName.getName().tryRet()),levelBuilding.getForegroundEdited(),selectedBuilding);
+        }
+        levelBuilding.refreshImg(levelBuilding.getFormBlockTile().getEdited().getWidth(), levelBuilding.getFormBlockTile().getEdited().getHeight());
+    }
     public void applyBuildingTile() {
-        exitBuilding.setPoint(selectedBuilding);
-        editedBuilding.setExitCity(exitBuilding);
-        validate();
+        if (editedBuilding instanceof Gym) {
+            if (StringUtil.quickEq(key, MessagesEditorSelect.GYM_TILE_TRAINER)) {
+                ((Gym)editedBuilding).getIndoor().getGymTrainers().put(selectedBuilding,gymTrainer.buildEntity());
+                validate();
+            }
+            if (StringUtil.quickEq(key, MessagesEditorSelect.GYM_TILE_LEADER)) {
+                gymLeaderCoords.setPoint(selectedBuilding);
+                ((Gym)editedBuilding).getIndoor().setGymLeaderCoords(ConverterCommonMapUtil.copyNullablePoint(gymLeaderCoords));
+                validate();
+            }
+            if (StringUtil.quickEq(key, MessagesEditorSelect.GYM_TILE_EXIT)) {
+                exitBuilding.setPoint(selectedBuilding);
+                editedBuilding.setExitCity(ConverterCommonMapUtil.copyNullablePoint(exitBuilding));
+                validate();
+            }
+            key = "";
+        }
+        if (editedBuilding instanceof PokemonCenter) {
+            exitBuilding.setPoint(selectedBuilding);
+            editedBuilding.setExitCity(ConverterCommonMapUtil.copyNullablePoint(exitBuilding));
+            validate();
+        }
         levelBuilding.refreshImg(levelBuilding.getFormBlockTile().getEdited().getWidth(), levelBuilding.getFormBlockTile().getEdited().getHeight());
     }
 
     public void removeBuildingTile() {
-        exitBuilding.setPoint(null);
-        editedBuilding.setExitCity(exitBuilding);
-        removeFore();
+        if (editedBuilding instanceof Gym) {
+            if (StringUtil.quickEq(key, MessagesEditorSelect.GYM_TILE_TRAINER)) {
+                ((Gym)editedBuilding).getIndoor().getGymTrainers().removeKey(selectedBuilding);
+                validate();
+            }
+            if (StringUtil.quickEq(key, MessagesEditorSelect.GYM_TILE_LEADER)) {
+                gymLeaderCoords.setPoint(null);
+                ((Gym)editedBuilding).getIndoor().setGymLeaderCoords(ConverterCommonMapUtil.copyNullablePoint(gymLeaderCoords));
+                validate();
+            }
+            if (StringUtil.quickEq(key, MessagesEditorSelect.GYM_TILE_EXIT)) {
+                exitBuilding.setPoint(null);
+                editedBuilding.setExitCity(ConverterCommonMapUtil.copyNullablePoint(exitBuilding));
+                removeFore();
+            }
+            key = "";
+        }
+        if (editedBuilding instanceof PokemonCenter) {
+            exitBuilding.setPoint(null);
+            editedBuilding.setExitCity(ConverterCommonMapUtil.copyNullablePoint(exitBuilding));
+            removeFore();
+        }
         levelBuilding.refreshImg(levelBuilding.getFormBlockTile().getEdited().getWidth(), levelBuilding.getFormBlockTile().getEdited().getHeight());
+        initFormChoices();
     }
 
     private void removeFore() {
@@ -201,10 +342,6 @@ public final class ContentComponentModelCity {
         int[][] val_ = levelBuilding.getForegroundEdited().getVal(selectedBuilding);
         levelBuilding.getForegroundEdited().removeKey(selectedBuilding);
         levelBuilding.getForeground().put(selectedBuilding,val_);
-    }
-    public void applySelectItem() {
-        ContentComponentModelLevelWithWild.trySet(level.getFacadeGame().getData().getLinks().getVal(imageFileName.getName().tryRet()),levelBuilding.getForegroundEdited(),selectedBuilding);
-        levelBuilding.refreshImg(levelBuilding.getFormBlockTile().getEdited().getWidth(), levelBuilding.getFormBlockTile().getEdited().getHeight());
     }
     public AbsButton getRemoveTile() {
         return removeTile;
@@ -228,5 +365,9 @@ public final class ContentComponentModelCity {
 
     public AbsButton getRemoveTileBuilding() {
         return removeTileBuilding;
+    }
+
+    public StringMap<AbsButton> getTiles() {
+        return tiles;
     }
 }

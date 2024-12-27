@@ -17,6 +17,7 @@ public final class MessagesPkEditor {
     public static final String HEROS_SEX = "heros";
     public static final String PLACE = "place";
     public static final String TILE = "tile";
+    public static final String GYM_TILE = "gym_tile";
     private MessagesPkEditor() {
     }
 
@@ -44,6 +45,7 @@ public final class MessagesPkEditor {
         appendMessagesEditorSelectHerosSex(_lgs,MessagesEditorSelect.enHerosSex());
         appendMessagesEditorSelectPlace(_lgs,MessagesEditorSelect.enPlace());
         appendMessagesEditorSelectTileKindWild(_lgs,MessagesEditorSelect.enTileKindWild());
+        appendMessagesEditorSelectTileKindGym(_lgs,MessagesEditorSelect.enGymTileKindWild());
     }
 
     public static void frTr(TranslationsAppli _lgs) {
@@ -60,6 +62,7 @@ public final class MessagesPkEditor {
         appendMessagesEditorSelectHerosSex(_lgs,MessagesEditorSelect.frHerosSex());
         appendMessagesEditorSelectPlace(_lgs,MessagesEditorSelect.frPlace());
         appendMessagesEditorSelectTileKindWild(_lgs,MessagesEditorSelect.frTileKindWild());
+        appendMessagesEditorSelectTileKindGym(_lgs,MessagesEditorSelect.frGymTileKindWild());
     }
 
     public static void appendMessagesEditorSelectGenderRep(TranslationsAppli _lgs, TranslationsFile _f) {
@@ -106,6 +109,9 @@ public final class MessagesPkEditor {
     public static void appendMessagesEditorSelectTileKindWild(TranslationsAppli _lgs, TranslationsFile _f) {
         _lgs.getMapping().addEntry(TILE, _f);
     }
+    public static void appendMessagesEditorSelectTileKindGym(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(GYM_TILE, _f);
+    }
     public static TranslationsFile getMessagesEditorSelectGenderRepTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(GENDER_REP);
     }
@@ -144,5 +150,8 @@ public final class MessagesPkEditor {
     }
     public static TranslationsFile getMessagesEditorSelectTileKindWildTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(TILE);
+    }
+    public static TranslationsFile getMessagesEditorSelectTileKindGymTr(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(GYM_TILE);
     }
 }

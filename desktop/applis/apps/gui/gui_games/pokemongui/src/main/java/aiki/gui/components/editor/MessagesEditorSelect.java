@@ -70,6 +70,9 @@ public final class MessagesEditorSelect {
     public static final String TILE_DEALER = "4";
     public static final String TILE_TRAINER = "5";
     public static final String TILE_DUAL = "6";
+    public static final String GYM_TILE_EXIT = "0";
+    public static final String GYM_TILE_TRAINER = "1";
+    public static final String GYM_TILE_LEADER = "2";
     private MessagesEditorSelect() {
     }
     public static TranslationsFile enGenderRep(){
@@ -382,6 +385,20 @@ public final class MessagesEditorSelect {
         f_.add(TILE_DEALER,"donneur d'objet");
         f_.add(TILE_TRAINER,"dresseur");
         f_.add(TILE_DUAL,"combat avec allié");
+        return f_;
+    }
+    public static TranslationsFile enGymTileKindWild(){
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(GYM_TILE_EXIT,"exit");
+        e_.add(GYM_TILE_TRAINER,"ordinary");
+        e_.add(GYM_TILE_LEADER,"leader");
+        return e_;
+    }
+    public static TranslationsFile frGymTileKindWild(){
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(GYM_TILE_EXIT,"sortie");
+        f_.add(GYM_TILE_TRAINER,"ordinaire");
+        f_.add(GYM_TILE_LEADER,"meneur");
         return f_;
     }
 }
