@@ -14,7 +14,6 @@ import code.util.core.*;
 
 public final class FormLevelGrid extends FormLevelGridCommon {
     private final FormBlockTile formBlockTile = new FormBlockTile();
-    private final AbsScrollPane container;
     private AbsSpinner rows;
     private AbsSpinner cols;
     private AbsPaintableLabel grid;
@@ -27,9 +26,8 @@ public final class FormLevelGrid extends FormLevelGridCommon {
     private final IdList<SubscribedTranslation> translations = new IdList<SubscribedTranslation>();
     private Point screen;
 
-    public FormLevelGrid(AbstractProgramInfos _a, FacadeGame _f, AbsScrollPane _c, AbsCommonFrame _fr, SubscribedTranslationList _i) {
+    public FormLevelGrid(AbstractProgramInfos _a, FacadeGame _f, AbsCommonFrame _fr, SubscribedTranslationList _i) {
         super(_a, _f, _fr, _i);
-        container = _c;
     }
     public void setupGridDims(Points<Block> _bk, Points<int[][]> _f) {
         setupForeground(_f);
@@ -180,9 +178,6 @@ public final class FormLevelGrid extends FormLevelGridCommon {
         translations.addAllElts(_ls);
     }
 
-    public AbsScrollPane getContainer() {
-        return container;
-    }
     public FormBlockTile getFormBlockTile() {
         return formBlockTile;
     }

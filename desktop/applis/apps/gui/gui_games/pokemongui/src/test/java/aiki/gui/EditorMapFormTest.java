@@ -855,6 +855,90 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         assertEq(6,facade_.getData().getMap().getSideLength());
     }
     @Test
+    public void building1() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMap().addPlace(Instances.newCity());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getGrid(),0,0);
+        sub_.getFormDataMap().getCrudPlace().getCity().getGym().setSelected(false);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getCreateBuilding());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getGrid(),0,0);
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getFormBlockTile().getMatch());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getMatch());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        assertEq(1,((City)facade_.getData().getMap().getPlace(0)).getBuildings().size());
+        assertEq(1,((City)facade_.getData().getMap().getPlace(0)).getLevel().getBlocks().size());
+        assertEq(1,((City)facade_.getData().getMap().getPlace(0)).getBuildings().getVal(newPoint(0,0)).getLevel().getBlocks().size());
+    }
+    @Test
+    public void building2() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMap().addPlace(Instances.newCity());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getGrid(),0,0);
+        sub_.getFormDataMap().getCrudPlace().getCity().getGym().setSelected(true);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getCreateBuilding());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getGrid(),0,0);
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getFormBlockTile().getMatch());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getMatch());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        assertEq(1,((City)facade_.getData().getMap().getPlace(0)).getBuildings().size());
+        assertEq(1,((City)facade_.getData().getMap().getPlace(0)).getLevel().getBlocks().size());
+        assertEq(1,((City)facade_.getData().getMap().getPlace(0)).getBuildings().getVal(newPoint(0,0)).getLevel().getBlocks().size());
+    }
+    @Test
+    public void building3() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMap().addPlace(Instances.newCity());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getGrid(),0,0);
+        sub_.getFormDataMap().getCrudPlace().getCity().getGym().setSelected(false);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getCreateBuilding());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getGrid(),0,0);
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getFormBlockTile().getMatch());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getMatch());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getGrid(),0,0);
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getGrid(),0,0);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getRemoveTileBuilding());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getGrid(),0,0);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getRemoveTile());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        assertEq(0,((City)facade_.getData().getMap().getPlace(0)).getBuildings().size());
+        assertEq(1,((City)facade_.getData().getMap().getPlace(0)).getLevel().getBlocks().size());
+    }
+    @Test
+    public void building4() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMap().addPlace(Instances.newCity());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getGrid(),0,0);
+        sub_.getFormDataMap().getCrudPlace().getCity().getGym().setSelected(true);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getCreateBuilding());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getGrid(),0,0);
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getFormBlockTile().getMatch());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getMatch());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getGrid(),0,0);
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getGrid(),0,0);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getRemoveTileBuilding());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getGrid(),0,0);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getRemoveTile());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        assertEq(0,((City)facade_.getData().getMap().getPlace(0)).getBuildings().size());
+        assertEq(1,((City)facade_.getData().getMap().getPlace(0)).getLevel().getBlocks().size());
+    }
+    @Test
     public void tile1() {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facadeAdd(pr_);

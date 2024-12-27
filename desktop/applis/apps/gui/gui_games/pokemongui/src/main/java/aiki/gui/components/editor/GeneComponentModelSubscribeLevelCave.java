@@ -25,9 +25,9 @@ public final class GeneComponentModelSubscribeLevelCave {
         AbsCompoFactory compoFactory_ = api.getCompoFactory();
         AbsScrollPane sc_ = compoFactory_.newAbsScrollPane();
         AbsPanel page_ = compoFactory_.newPageBox();
-        AbsCustComponent compo_ = wild.form(api, facadeGame, factory, frame);
         edited = Instances.newLevelCave();
-        wild.setupGridDims(cave.getSelectedPlace(), cave.getSelectedLevel(),cave.getPlace(),edited);
+        AbsCustComponent compo_ = wild.form(api, facadeGame, factory, frame);
+        wild.setupGridDims(ContentComponentModelLevelCaveLinks.coords(cave.getSelectedPlace(), cave.getSelectedLevel(), null), cave.getPlace(),edited);
         sc_.setViewportView(compo_);
         page_.add(sc_);
         return page_;
@@ -40,7 +40,7 @@ public final class GeneComponentModelSubscribeLevelCave {
 
     public void setupValue(LevelCave _value) {
         LevelCave lc_ = ConverterCommonMapUtil.copyLevelCave(_value);
-        wild.setupGridDims(cave.getSelectedPlace(), cave.getSelectedLevel(),cave.getPlace(), lc_);
+        wild.setupGridDims(ContentComponentModelLevelCaveLinks.coords(cave.getSelectedPlace(), cave.getSelectedLevel(), null), cave.getPlace(), lc_);
         edited = lc_;
     }
 

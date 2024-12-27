@@ -32,38 +32,38 @@ public final class ContentComponentModelLevelWithWild {
     private AbsButton removeTile;
     private int nbPlace;
     private int nbLevel;
+    private AbsScrollPane scrollPane;
 
     public AbsCustComponent form(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact, AbsCommonFrame _f) {
-        AbsScrollPane map_ = _core.getCompoFactory().newAbsScrollPane();
-        level = new FormLevelGrid(_core,_fac,map_,_f,_fact);
+        scrollPane = _core.getCompoFactory().newAbsScrollPane();
+        level = new FormLevelGrid(_core,_fac, _f,_fact);
         AbsPanel form_ = _core.getCompoFactory().newPageBox();
         areas = new CrudGeneFormAbsAreaApparition(_core, _fac, _fact, _f);
         areas.initForm(_core,new GeneComponentModelSubscribeFactoryDirect<AbsAreaApparition>(new GeneComponentModelSubscribeArea(_f, _core, _fac, _fact)));
         form_.add(areas.getGroup());
         getAreas().setFormBlockTile(level.getFormBlockTile());
-        splitter = _core.getCompoFactory().newHorizontalSplitPane(map_,_core.getCompoFactory().newAbsScrollPane(form_));
+        splitter = _core.getCompoFactory().newHorizontalSplitPane(scrollPane,_core.getCompoFactory().newAbsScrollPane(form_));
         level.getTranslationList().setFormLevelGridUniq(null);
         return splitter;
     }
-    public void setupGridDims(int _nbPlace, int _nbLevel, Place _pl, LevelWithWildPokemon _wild) {
+    public void setupGridDims(Coords _coords, Place _pl, LevelWithWildPokemon _wild) {
         getAreas().setupValues(_wild.getWildPokemonAreas());
         Points<Block> blocks_ = _wild.getBlocks();
         edited = _wild;
-        nbPlace = _nbPlace;
-        nbLevel = _nbLevel;
-        Coords coords_ = ContentComponentModelLevelCaveLinks.coords(_nbPlace, _nbLevel, null);
-        Points<int[][]> frontTiles_ = Level.getLevelForegroundImage(level.getFacadeGame().getData(), coords_, _pl,_wild);
+        nbPlace = _coords.getNumberPlace();
+        nbLevel = _coords.getLevel().getLevelIndex();
+        Points<int[][]> frontTiles_ = Level.getLevelForegroundImage(level.getFacadeGame().getData(), _coords, _pl,_wild);
         level.setupGridDims(blocks_, frontTiles_);
         IdList<SubscribedTranslation> subs_ = level.getTranslationList().getSubscribedTranslations().getVal(level.getFrame());
         subs_.removeAllElements(translationsGrid);
         IdList<SubscribedTranslation> next_ = new IdList<SubscribedTranslation>();
-        next_.add(new RefreshGridSubscription(level.getFacadeGame(),level,coords_,_pl,_wild));
+        next_.add(new RefreshGridSubscription(level.getFacadeGame(),level,_coords,_pl,_wild));
         subs_.addAllElts(next_);
         translationsGrid.addAllElts(next_);
         fore = level.getApi().getCompoFactory().newAbsScrollPane();
         level.getForm().add(fore);
         level.getGrid().addMouseListener(new TileKindEvent(this));
-        level.getContainer().setViewportView(level.getForm());
+        scrollPane.setViewportView(level.getForm());
         getAreas().setBlocks(blocks_);
     }
     public void buildEntity(LevelWithWildPokemon _lev) {

@@ -10,6 +10,7 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
     private final CrudGeneFormSubContent crudGeneFormSubContent;
     private GeneComponentModelPlace gene;
     private ContentComponentModelRoad road;
+    private ContentComponentModelCity city;
     private int selectedPlace = -1;
     private final CustList<AbsButton> allButtonsMerge = new CustList<AbsButton>();
     private final CustList<AbsButton> allButtons = new CustList<AbsButton>();
@@ -42,10 +43,15 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
         getCrudGeneFormSubContent().getSubscription().setFormLevelGridUniq(null);
         if (place_ instanceof Road) {
             road = new ContentComponentModelRoad();
-            road.form(getFactory(),getCrudGeneFormSubContent().getFacadeGame(),getCrudGeneFormSubContent().getSubscription(),getFrame());
-            road.setupGridDims(_i, 0,place_,ConverterCommonMapUtil.copyLevelRoad(((Road) place_).getLevelRoad()));
+            road.setupGridDims(getFactory(),getCrudGeneFormSubContent().getFacadeGame(),getCrudGeneFormSubContent().getSubscription(),getFrame(),ContentComponentModelLevelCaveLinks.coords(_i, 0, null), place_,ConverterCommonMapUtil.copyLevelRoad(((Road) place_).getLevelRoad()));
             getElement().add(road.getLevelWithWild().getSplitter());
             getCrudGeneFormSubContent().getSubscription().setFormLevelGridUniq(road.getLevel());
+        }
+        if (place_ instanceof City) {
+            city = new ContentComponentModelCity();
+            city.setupGridDims(getFactory(),getCrudGeneFormSubContent().getFacadeGame(),getCrudGeneFormSubContent().getSubscription(),getFrame(),ContentComponentModelLevelCaveLinks.coords(_i, 0, null), (City)place_);
+            getElement().add(city.getSplitter());
+            getCrudGeneFormSubContent().getSubscription().setFormLevelGridUniq(city.getLevel());
         }
         selectOrAdd();
         enable(false);
@@ -101,6 +107,9 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
         } else {
             if (value_ instanceof Road) {
                 road.getLevelWithWild().buildEntity(((Road)value_).getLevelRoad());
+            }
+            if (value_ instanceof City) {
+                city.buildEntity();
             }
             getCrudGeneFormSubContent().getFacadeGame().getData().getMap().getPlaces().set(selectedPlace, value_);
         }
@@ -169,6 +178,10 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
 
     public ContentComponentModelRoad getRoad() {
         return road;
+    }
+
+    public ContentComponentModelCity getCity() {
+        return city;
     }
 
     public boolean isEnabledButtons() {

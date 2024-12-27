@@ -4,17 +4,18 @@ package aiki.gui.components.editor;
 import aiki.facade.*;
 import aiki.map.levels.*;
 import aiki.map.places.*;
+import aiki.util.Coords;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.util.*;
 
 public final class ContentComponentModelRoad {
     private final ContentComponentModelLevelWithWild levelWithWild = new ContentComponentModelLevelWithWild();
-    public AbsCustComponent form(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact, AbsCommonFrame _f) {
-        return getLevelWithWild().form(_core, _fac, _fact, _f);
-    }
-    public void setupGridDims(int _nbPlace, int _nbLevel, Place _pl, LevelWithWildPokemon _wild) {
-        getLevelWithWild().setupGridDims(_nbPlace, _nbLevel, _pl, _wild);
+
+    public AbsCustComponent setupGridDims(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact, AbsCommonFrame _f,Coords _coords, Place _pl, LevelWithWildPokemon _wild) {
+        AbsCustComponent form_ = getLevelWithWild().form(_core, _fac, _fact, _f);
+        getLevelWithWild().setupGridDims(_coords, _pl, _wild);
+        return form_;
     }
 
     public GeneComponentModelEltEnumSub<String> getItems() {
