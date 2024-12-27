@@ -111,6 +111,8 @@ public final class ContentComponentModelLevelWithWild {
             dualFight.feedForm(edited.getDualFights().getVal(pt_));
         } else if (level.getFacadeGame().getMap().isEmptyForAdding(ContentComponentModelLevelCaveLinks.coords(nbPlace,nbLevel,null,pt_))){
             initFormChoices();
+        } else {
+            fore.setNullViewportView();
         }
         getLevel().getFrame().pack();
     }
