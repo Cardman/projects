@@ -311,12 +311,12 @@ public final class ContentComponentModelCity {
         if (editedBuilding instanceof Gym) {
             if (StringUtil.quickEq(key, MessagesEditorSelect.GYM_TILE_TRAINER)) {
                 ((Gym)editedBuilding).getIndoor().getGymTrainers().removeKey(selectedBuilding);
-                validate();
+                removeFore();
             }
             if (StringUtil.quickEq(key, MessagesEditorSelect.GYM_TILE_LEADER)) {
                 gymLeaderCoords.setPoint(null);
                 ((Gym)editedBuilding).getIndoor().setGymLeaderCoords(ConverterCommonMapUtil.copyNullablePoint(gymLeaderCoords));
-                validate();
+                removeFore();
             }
             if (StringUtil.quickEq(key, MessagesEditorSelect.GYM_TILE_EXIT)) {
                 exitBuilding.setPoint(null);
