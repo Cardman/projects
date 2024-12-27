@@ -250,6 +250,59 @@ public final class ConverterCommonMapUtil {
         }
         return new Dims(_pixels[0].length, _pixels.length);
     }
+    public static LevelCave copyLevelCave(LevelCave _e) {
+        LevelCave cp_ = new LevelCave();
+        copyLevelWithWildPokemon(cp_,_e);
+        Points<Link> links_ = new PointsLink(new CollCapacity(_e.getLinksOtherLevels().size()));
+        for (EntryCust<Point,Link> f:_e.getLinksOtherLevels().entryList()) {
+            links_.addEntry(new Point(f.getKey()),new Link(f.getValue().getFileName(),new Coords(f.getValue().getCoords())));
+        }
+        cp_.setLinksOtherLevels(links_);
+        return cp_;
+    }
+    public static LevelRoad copyLevelRoad(LevelRoad _e) {
+        LevelRoad cp_ = new LevelRoad();
+        copyLevelWithWildPokemon(cp_,_e);
+        return cp_;
+    }
+    public static void copyLevelWithWildPokemon(LevelWithWildPokemon _cp, LevelWithWildPokemon _e) {
+        _cp.setBlocks(copyPointsBlock(_e.getBlocks()));
+        _cp.setWildPokemonAreas(copyListArea(_e.getWildPokemonAreas()));
+        Points<DualFight> duals_ = new PointsDualFight(new CollCapacity(_e.getDualFights().size()));
+        for (EntryCust<Point,DualFight> f:_e.getDualFights().entryList()) {
+            duals_.addEntry(new Point(f.getKey()),copyDualFight(f.getValue()));
+        }
+        _cp.setDualFights(duals_);
+        Points<CharacterInRoadCave> chars_ = new PointsCharacterInRoadCave(new CollCapacity(_e.getCharacters().size()));
+        for (EntryCust<Point,CharacterInRoadCave> f:_e.getCharacters().entryList()) {
+            if (f.getValue() instanceof TrainerMultiFights) {
+                chars_.addEntry(new Point(f.getKey()),copyTrainerMultiFights((TrainerMultiFights) f.getValue()));
+            } else {
+                chars_.addEntry(new Point(f.getKey()),copyDealerItem((DealerItem) f.getValue()));
+            }
+        }
+        _cp.setCharacters(chars_);
+        Points<WildPk> legs_ = new PointsWildPk(new CollCapacity(_e.getLegendaryPks().size()));
+        for (EntryCust<Point,WildPk> f:_e.getLegendaryPks().entryList()) {
+            legs_.addEntry(new Point(f.getKey()),copyWildPk(f.getValue()));
+        }
+        _cp.setLegendaryPks(legs_);
+        Points<Short> hm_ = new PointsShort(new CollCapacity(_e.getHm().size()));
+        for (EntryCust<Point,Short> f:_e.getHm().entryList()) {
+            hm_.addEntry(new Point(f.getKey()),f.getValue());
+        }
+        _cp.setHm(hm_);
+        Points<Short> tm_ = new PointsShort(new CollCapacity(_e.getTm().size()));
+        for (EntryCust<Point,Short> f:_e.getTm().entryList()) {
+            tm_.addEntry(new Point(f.getKey()),f.getValue());
+        }
+        _cp.setTm(tm_);
+        Points<String> items_ = new PointsString(new CollCapacity(_e.getItems().size()));
+        for (EntryCust<Point,String> f:_e.getItems().entryList()) {
+            items_.addEntry(new Point(f.getKey()),f.getValue());
+        }
+        _cp.setItems(items_);
+    }
     public static PointsBlock copyPointsBlock(Points<Block> _e){
         PointsBlock cp_ = new PointsBlock(new CollCapacity(_e.size()));
         for (EntryCust<Point,Block> f: _e.entryList()) {

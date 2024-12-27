@@ -30,6 +30,8 @@ public final class ContentComponentModelLevelWithWild {
     private Point selected = new Point((short) 0,(short) 0);
     private String key = "";
     private AbsButton removeTile;
+    private int nbPlace;
+    private int nbLevel;
 
     public AbsCustComponent form(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact, AbsCommonFrame _f) {
         AbsScrollPane map_ = _core.getCompoFactory().newAbsScrollPane();
@@ -44,9 +46,11 @@ public final class ContentComponentModelLevelWithWild {
         return splitter;
     }
     public void setupGridDims(int _nbPlace, int _nbLevel, Place _pl, LevelWithWildPokemon _wild) {
-        getAreas().setupValues(ConverterCommonMapUtil.copyListArea(_wild.getWildPokemonAreas()));
-        Points<Block> blocks_ = ConverterCommonMapUtil.copyPointsBlock(_wild.getBlocks());
+        getAreas().setupValues(_wild.getWildPokemonAreas());
+        Points<Block> blocks_ = _wild.getBlocks();
         edited = _wild;
+        nbPlace = _nbPlace;
+        nbLevel = _nbLevel;
         Coords coords_ = ContentComponentModelLevelCaveLinks.coords(_nbPlace, _nbLevel, null);
         Points<int[][]> frontTiles_ = Level.getLevelForegroundImage(level.getFacadeGame().getData(), coords_, _pl,_wild);
         level.setupGridDims(blocks_, frontTiles_);
@@ -62,9 +66,15 @@ public final class ContentComponentModelLevelWithWild {
         level.getContainer().setViewportView(level.getForm());
         getAreas().setBlocks(blocks_);
     }
-    public void buildEntity() {
-        edited.setBlocks(getLevel().getEdited());
-        edited.setWildPokemonAreas(getAreas().getList());
+    public void buildEntity(LevelWithWildPokemon _lev) {
+        _lev.setBlocks(getLevel().getEdited());
+        _lev.setWildPokemonAreas(getAreas().getList());
+        _lev.setItems(edited.getItems());
+        _lev.setTm(edited.getTm());
+        _lev.setHm(edited.getHm());
+        _lev.setLegendaryPks(edited.getLegendaryPks());
+        _lev.setDualFights(edited.getDualFights());
+        _lev.setCharacters(edited.getCharacters());
     }
 
     public AbsCustComponent getSplitter() {
@@ -99,7 +109,7 @@ public final class ContentComponentModelLevelWithWild {
         } else if (edited.getDualFights().contains(pt_)) {
             choose(MessagesEditorSelect.TILE_DUAL);
             dualFight.feedForm(edited.getDualFights().getVal(pt_));
-        } else {
+        } else if (level.getFacadeGame().getMap().isEmptyForAdding(ContentComponentModelLevelCaveLinks.coords(nbPlace,nbLevel,null,pt_))){
             initFormChoices();
         }
         getLevel().getFrame().pack();

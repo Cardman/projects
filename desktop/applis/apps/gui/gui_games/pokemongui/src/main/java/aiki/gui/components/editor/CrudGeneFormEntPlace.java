@@ -43,7 +43,7 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
         if (place_ instanceof Road) {
             road = new ContentComponentModelRoad();
             road.form(getFactory(),getCrudGeneFormSubContent().getFacadeGame(),getCrudGeneFormSubContent().getSubscription(),getFrame());
-            road.setupGridDims(_i, 0,place_,((Road) place_).getLevelRoad());
+            road.setupGridDims(_i, 0,place_,ConverterCommonMapUtil.copyLevelRoad(((Road) place_).getLevelRoad()));
             getElement().add(road.getLevelWithWild().getSplitter());
             getCrudGeneFormSubContent().getSubscription().setFormLevelGridUniq(road.getLevel());
         }
@@ -100,7 +100,7 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
             getCrudGeneFormSubContent().getFacadeGame().getData().getMap().addPlace(value_);
         } else {
             if (value_ instanceof Road) {
-                road.getLevelWithWild().buildEntity();
+                road.getLevelWithWild().buildEntity(((Road)value_).getLevelRoad());
             }
             getCrudGeneFormSubContent().getFacadeGame().getData().getMap().getPlaces().set(selectedPlace, value_);
         }

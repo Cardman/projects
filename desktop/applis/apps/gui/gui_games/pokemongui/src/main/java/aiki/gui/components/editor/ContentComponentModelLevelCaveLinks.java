@@ -124,7 +124,7 @@ public final class ContentComponentModelLevelCaveLinks {
     private FormLevelGridLink build(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact, AbsCommonFrame _f, Cave _cave, int _nbPlace, int _nbLevel) {
         FormLevelGridLink level_ = new FormLevelGridLink(_core,_fac, _f,_fact);
         LevelCave levelCave_ = _cave.getLevels().get(_nbLevel);
-        Points<Block> blocks_ = ConverterCommonMapUtil.copyPointsBlock(levelCave_.getBlocks());
+        Points<Block> blocks_ = levelCave_.getBlocks();
         level_.getTranslationList().setFormLevelGridUniq(null);
         Coords coords_ = coords(_nbPlace, _nbLevel, null);
         Points<int[][]> frontTiles_ = Level.getLevelForegroundImage(level_.getFacadeGame().getData(), coords_, _cave,levelCave_);

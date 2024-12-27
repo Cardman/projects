@@ -34,13 +34,14 @@ public final class GeneComponentModelSubscribeLevelCave {
     }
 
     public LevelCave tryRet() {
-        wild.buildEntity();
+        wild.buildEntity(edited);
         return edited;
     }
 
     public void setupValue(LevelCave _value) {
-        wild.setupGridDims(cave.getSelectedPlace(), cave.getSelectedLevel(),cave.getPlace(),_value);
-        edited = _value;
+        LevelCave lc_ = ConverterCommonMapUtil.copyLevelCave(_value);
+        wild.setupGridDims(cave.getSelectedPlace(), cave.getSelectedLevel(),cave.getPlace(), lc_);
+        edited = lc_;
     }
 
 

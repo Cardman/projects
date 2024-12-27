@@ -859,12 +859,16 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facadeAdd(pr_);
         facade_.getData().getMap().addPlace(Instances.newRoad());
+        facade_.getData().getMiniItems().addEntry(I_1,instance(new int[1][1]));
         WindowPkEditor sub_ = window(pr_, facade_);
         tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getGrid(),0,0);
         tryClick(sub_.getFormDataMap().getCrudPlace().getRoad().getTiles().getVal(MessagesEditorSelect.TILE_ITEMS));
         sub_.getFormDataMap().getCrudPlace().getRoad().getItems().setupValue(I_1);
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getMatch());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCancel());
         assertEq(I_1,sub_.getFormDataMap().getCrudPlace().getRoad().getEdited().getItems().getVal(newPoint(0,0)));
     }
     @Test
@@ -896,6 +900,9 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         tryClick(sub_.getFormDataMap().getCrudPlace().getRoad().getTiles().getVal(MessagesEditorSelect.TILE_TM));
         sub_.getFormDataMap().getCrudPlace().getRoad().getTm().setupValue((short) 1);
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getMatch());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCancel());
         assertEq(1,sub_.getFormDataMap().getCrudPlace().getRoad().getEdited().getTm().getVal(newPoint(0,0)));
     }
     @Test
@@ -930,6 +937,9 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         tryClick(sub_.getFormDataMap().getCrudPlace().getRoad().getTiles().getVal(MessagesEditorSelect.TILE_HM));
         sub_.getFormDataMap().getCrudPlace().getRoad().getHm().setupValue((short) 1);
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getMatch());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCancel());
         assertEq(1,sub_.getFormDataMap().getCrudPlace().getRoad().getEdited().getHm().getVal(newPoint(0,0)));
     }
     @Test
@@ -965,6 +975,9 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         tryClick(sub_.getFormDataMap().getCrudPlace().getRoad().getTiles().getVal(MessagesEditorSelect.TILE_TM));
         sub_.getFormDataMap().getCrudPlace().getRoad().getTm().setupValue((short) 1);
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getMatch());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCancel());
         assertEq(1,sub_.getFormDataMap().getCrudPlace().getRoad().getEdited().getTm().getVal(newPoint(0,0)));
     }
     @Test
@@ -1027,12 +1040,16 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facadeAdd(pr_);
         facade_.getData().getMap().addPlace(Instances.newRoad());
+        facade_.getData().getMiniPk().addEntry(P_1,instance(new int[1][1]));
         WindowPkEditor sub_ = window(pr_, facade_);
         tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getGrid(),0,0);
         tryClick(sub_.getFormDataMap().getCrudPlace().getRoad().getTiles().getVal(MessagesEditorSelect.TILE_LEG_PK));
         sub_.getFormDataMap().getCrudPlace().getRoad().getLegendaryPks().getName().setupValue(P_1);
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getMatch());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCancel());
         assertEq(P_1,sub_.getFormDataMap().getCrudPlace().getRoad().getEdited().getLegendaryPks().getVal(newPoint(0,0)).getName());
     }
     @Test
@@ -1062,6 +1079,9 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         tryClick(sub_.getFormDataMap().getCrudPlace().getRoad().getTiles().getVal(MessagesEditorSelect.TILE_DEALER));
         sub_.getFormDataMap().getCrudPlace().getRoad().getDealerItem().getMiniFileName().getName().setupValue(P_1);
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getMatch());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCancel());
         assertEq(P_1,((DealerItem)sub_.getFormDataMap().getCrudPlace().getRoad().getEdited().getCharacters().getVal(newPoint(0,0))).getImageMiniFileName());
     }
     @Test
@@ -1100,6 +1120,9 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         tryClick(sub_.getFormDataMap().getCrudPlace().getRoad().getTrainerMultiFights().getTeams().getAllButtons().get(0));
         tryClick(sub_.getFormDataMap().getCrudPlace().getRoad().getTrainerMultiFights().getTeams().getCancel());
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getMatch());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCancel());
         assertEq(P_1,((TrainerMultiFights)sub_.getFormDataMap().getCrudPlace().getRoad().getEdited().getCharacters().getVal(newPoint(0,0))).getTeamsRewards().get(0).getTeam().get(0).getName());
     }
     @Test
@@ -1139,6 +1162,9 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         sub_.getFormDataMap().getCrudPlace().getRoad().getDualFight().getTrainer().getMiniFileName().getName().setupValue(P_2);
         tryClick(sub_.getFormDataMap().getCrudPlace().getRoad().getDualFight().getSecondPt().getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getMatch());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCancel());
         assertEq(1,sub_.getFormDataMap().getCrudPlace().getRoad().getEdited().getDualFight(newPoint(0,0)).getPt().getPoint().getx());
         assertEq(1,sub_.getFormDataMap().getCrudPlace().getRoad().getEdited().getDualFight(newPoint(0,0)).getPt().getPoint().gety());
     }
@@ -1369,6 +1395,9 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevel().getGrid(),0,0);
         tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevels().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
         tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getAddTileLeft());
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getClose());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(0));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getCancel());
         assertEq(1,cave_.getLevels().get(0).getLinksOtherLevels().size());
         assertEq(0,cave_.getLevels().get(0).getLinksOtherLevels().getKey(0).getx());
         assertEq(0,cave_.getLevels().get(0).getLinksOtherLevels().getKey(0).gety());
@@ -1390,6 +1419,9 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevel().getGrid(),0,0);
         tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevels().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
         tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getAddTileRight());
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getClose());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(0));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getCancel());
         assertEq(1,cave_.getLevels().get(1).getLinksOtherLevels().size());
         assertEq(1,cave_.getLevels().get(1).getLinksOtherLevels().getKey(0).getx());
         assertEq(1,cave_.getLevels().get(1).getLinksOtherLevels().getKey(0).gety());
@@ -1411,6 +1443,10 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevel().getGrid(),0,0);
         tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevels().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
         tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getAddTileBoth());
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getClose());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(0));
+        tryClicks(((CrudGeneFormLevelCave)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getGrid(),0,0);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getCancel());
         assertEq(1,cave_.getLevels().get(0).getLinksOtherLevels().size());
         assertEq(0,cave_.getLevels().get(0).getLinksOtherLevels().getKey(0).getx());
         assertEq(0,cave_.getLevels().get(0).getLinksOtherLevels().getKey(0).gety());
