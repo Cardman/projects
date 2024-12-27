@@ -16,7 +16,7 @@ import aiki.fight.pokemon.evolution.*;
 import aiki.fight.status.*;
 import aiki.fight.status.effects.*;
 import aiki.fight.util.*;
-import aiki.map.buildings.Gym;
+import aiki.map.buildings.*;
 import aiki.map.characters.*;
 import aiki.map.levels.*;
 import aiki.map.levels.enums.*;
@@ -251,6 +251,31 @@ public final class ConverterCommonMapUtil {
         }
         return new Dims(_pixels[0].length, _pixels.length);
     }
+
+    public static PointsBuilding copyPointsBuilding(Points<Building> _e) {
+        PointsBuilding cp_ = new PointsBuilding(new CollCapacity(_e.size()));
+        for (EntryCust<Point,Building> f:_e.entryList()) {
+            if (f.getValue() instanceof Gym) {
+                cp_.addEntry(new Point(f.getKey()),ConverterCommonMapUtil.copyGym((Gym) f.getValue()));
+            } else {
+                cp_.addEntry(new Point(f.getKey()),ConverterCommonMapUtil.copyPkCenter((PokemonCenter) f.getValue()));
+            }
+        }
+        return cp_;
+    }
+    public static PokemonCenter copyPkCenter(PokemonCenter _e) {
+        PokemonCenter cp_ = new PokemonCenter();
+        LevelIndoorPokemonCenter in_ = new LevelIndoorPokemonCenter();
+        in_.setStorageCoords(copyNullablePoint(_e.getIndoor().getStorageCoords()));
+        Points<Person> gt_ = LevelIndoorPokemonCenter.tryAdd(_e.getIndoor().getGerants(),new PointPersonMapper(),new GerantPersonMapper(),new SellerPersonMapper());
+        in_.setGerants(gt_);
+        in_.setBlocks(copyPointsBlock(_e.getIndoor().getBlocks()));
+        cp_.setLevel(in_);
+        cp_.setImageFileName(_e.getImageFileName());
+        cp_.setExitCity(copyNullablePoint(_e.getExitCity()));
+        return cp_;
+    }
+
     public static Gym copyGym(Gym _e) {
         Gym cp_ = new Gym();
         LevelIndoorGym in_ = new LevelIndoorGym();

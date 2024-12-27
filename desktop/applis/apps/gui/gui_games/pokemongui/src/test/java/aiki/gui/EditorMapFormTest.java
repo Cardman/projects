@@ -4,6 +4,7 @@ import aiki.facade.*;
 import aiki.gui.components.editor.*;
 import aiki.instances.*;
 import aiki.map.buildings.Gym;
+import aiki.map.buildings.PokemonCenter;
 import aiki.map.characters.DealerItem;
 import aiki.map.characters.TrainerMultiFights;
 import aiki.map.enums.*;
@@ -903,6 +904,7 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         sub_.getFormDataMap().getCrudPlace().getCity().getGym().setSelected(false);
         tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getCreateBuilding());
         tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getGrid(),0,0);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getTiles().getVal(MessagesEditorSelect.PC_TILE_EXIT));
         tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getFormBlockTile().getMatch());
         tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getMatch());
         tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
@@ -1012,6 +1014,86 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         assertFalse(((City)facade_.getData().getMap().getPlace(0)).getBuildings().getVal(newPoint(0,0)).getExitCity().isDefined());
         assertFalse(((Gym)((City)facade_.getData().getMap().getPlace(0)).getBuildings().getVal(newPoint(0,0))).getIndoor().getGymLeaderCoords().isDefined());
         assertEq(0,((Gym)((City)facade_.getData().getMap().getPlace(0)).getBuildings().getVal(newPoint(0,0))).getIndoor().getGymTrainers().size());
+    }
+    @Test
+    public void pkCenter1() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMap().addPlace(Instances.newCity());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getGrid(),0,0);
+        sub_.getFormDataMap().getCrudPlace().getCity().getGym().setSelected(false);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getCreateBuilding());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getGrid(),0,0);
+        sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getFormBlockTile().getDims().setText("2:2");
+        enterTextField(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getFormBlockTile().getDims());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getTiles().getVal(MessagesEditorSelect.PC_TILE_EXIT));
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getFormBlockTile().getMatch());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getTiles().getVal(MessagesEditorSelect.PC_TILE_STORAGE));
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getFormBlockTile().getMatch());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getGrid(),0,facade_.getData().getMap().getSideLength());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getTiles().getVal(MessagesEditorSelect.PC_TILE_GERANT));
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getFormBlockTile().getMatch());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getGrid(),facade_.getData().getMap().getSideLength(),0);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getTiles().getVal(MessagesEditorSelect.PC_TILE_SELLER));
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getFormBlockTile().getMatch());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getMatch());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        assertEq(1,((City)facade_.getData().getMap().getPlace(0)).getBuildings().size());
+        assertEq(1,((City)facade_.getData().getMap().getPlace(0)).getLevel().getBlocks().size());
+        assertEq(1,((City)facade_.getData().getMap().getPlace(0)).getBuildings().getVal(newPoint(0,0)).getLevel().getBlocks().size());
+        assertEq(0,((City)facade_.getData().getMap().getPlace(0)).getBuildings().getVal(newPoint(0,0)).getExitCity().getPoint().getx());
+        assertEq(0,((City)facade_.getData().getMap().getPlace(0)).getBuildings().getVal(newPoint(0,0)).getExitCity().getPoint().gety());
+        assertEq(1,((PokemonCenter)((City)facade_.getData().getMap().getPlace(0)).getBuildings().getVal(newPoint(0,0))).getIndoor().getStorageCoords().getPoint().getx());
+        assertEq(1,((PokemonCenter)((City)facade_.getData().getMap().getPlace(0)).getBuildings().getVal(newPoint(0,0))).getIndoor().getStorageCoords().getPoint().gety());
+        assertEq(2,((PokemonCenter)((City)facade_.getData().getMap().getPlace(0)).getBuildings().getVal(newPoint(0,0))).getIndoor().getGerants().size());
+    }
+    @Test
+    public void pkCenter2() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMap().addPlace(Instances.newCity());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getGrid(),0,0);
+        sub_.getFormDataMap().getCrudPlace().getCity().getGym().setSelected(false);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getCreateBuilding());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getGrid(),0,0);
+        sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getFormBlockTile().getDims().setText("2:2");
+        enterTextField(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getFormBlockTile().getDims());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getTiles().getVal(MessagesEditorSelect.PC_TILE_EXIT));
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getFormBlockTile().getMatch());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getTiles().getVal(MessagesEditorSelect.PC_TILE_STORAGE));
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getFormBlockTile().getMatch());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getGrid(),0,facade_.getData().getMap().getSideLength());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getTiles().getVal(MessagesEditorSelect.PC_TILE_GERANT));
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getFormBlockTile().getMatch());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getGrid(),facade_.getData().getMap().getSideLength(),0);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getTiles().getVal(MessagesEditorSelect.PC_TILE_SELLER));
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getFormBlockTile().getMatch());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getMatch());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getGrid(),0,0);
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getGrid(),0,0);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getRemoveTileBuilding());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getRemoveTileBuilding());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getGrid(),0,facade_.getData().getMap().getSideLength());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getRemoveTileBuilding());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getGrid(),facade_.getData().getMap().getSideLength(), 0);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getRemoveTileBuilding());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getMatch());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        assertEq(1,((City)facade_.getData().getMap().getPlace(0)).getBuildings().size());
+        assertEq(1,((City)facade_.getData().getMap().getPlace(0)).getLevel().getBlocks().size());
+        assertEq(1,((City)facade_.getData().getMap().getPlace(0)).getBuildings().getVal(newPoint(0,0)).getLevel().getBlocks().size());
+        assertFalse(((City)facade_.getData().getMap().getPlace(0)).getBuildings().getVal(newPoint(0,0)).getExitCity().isDefined());
+        assertFalse(((PokemonCenter)((City)facade_.getData().getMap().getPlace(0)).getBuildings().getVal(newPoint(0,0))).getIndoor().getStorageCoords().isDefined());
+        assertEq(0,((PokemonCenter)((City)facade_.getData().getMap().getPlace(0)).getBuildings().getVal(newPoint(0,0))).getIndoor().getGerants().size());
     }
     @Test
     public void tile1() {

@@ -18,6 +18,9 @@ public final class MessagesPkEditor {
     public static final String PLACE = "place";
     public static final String TILE = "tile";
     public static final String GYM_TILE = "gym_tile";
+    public static final String PC_SELL_TYPE = "pc_sell";
+    public static final String PC_GERANT_TYPE = "pc_gerant";
+    public static final String PC_TILE = "pc_tile";
     private MessagesPkEditor() {
     }
 
@@ -46,6 +49,9 @@ public final class MessagesPkEditor {
         appendMessagesEditorSelectPlace(_lgs,MessagesEditorSelect.enPlace());
         appendMessagesEditorSelectTileKindWild(_lgs,MessagesEditorSelect.enTileKindWild());
         appendMessagesEditorSelectTileKindGym(_lgs,MessagesEditorSelect.enGymTileKindWild());
+        appendMessagesEditorSelectTileSellType(_lgs,MessagesEditorSelect.enSellType());
+        appendMessagesEditorSelectTileGerantType(_lgs,MessagesEditorSelect.enGeranceType());
+        appendMessagesEditorSelectTileKindPc(_lgs,MessagesEditorSelect.enPcTileKindWild());
     }
 
     public static void frTr(TranslationsAppli _lgs) {
@@ -63,6 +69,9 @@ public final class MessagesPkEditor {
         appendMessagesEditorSelectPlace(_lgs,MessagesEditorSelect.frPlace());
         appendMessagesEditorSelectTileKindWild(_lgs,MessagesEditorSelect.frTileKindWild());
         appendMessagesEditorSelectTileKindGym(_lgs,MessagesEditorSelect.frGymTileKindWild());
+        appendMessagesEditorSelectTileSellType(_lgs,MessagesEditorSelect.frSellType());
+        appendMessagesEditorSelectTileGerantType(_lgs,MessagesEditorSelect.frGeranceType());
+        appendMessagesEditorSelectTileKindPc(_lgs,MessagesEditorSelect.frPcTileKindWild());
     }
 
     public static void appendMessagesEditorSelectGenderRep(TranslationsAppli _lgs, TranslationsFile _f) {
@@ -112,6 +121,15 @@ public final class MessagesPkEditor {
     public static void appendMessagesEditorSelectTileKindGym(TranslationsAppli _lgs, TranslationsFile _f) {
         _lgs.getMapping().addEntry(GYM_TILE, _f);
     }
+    public static void appendMessagesEditorSelectTileSellType(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(PC_SELL_TYPE, _f);
+    }
+    public static void appendMessagesEditorSelectTileGerantType(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(PC_GERANT_TYPE, _f);
+    }
+    public static void appendMessagesEditorSelectTileKindPc(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(PC_TILE, _f);
+    }
     public static TranslationsFile getMessagesEditorSelectGenderRepTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(GENDER_REP);
     }
@@ -153,5 +171,14 @@ public final class MessagesPkEditor {
     }
     public static TranslationsFile getMessagesEditorSelectTileKindGymTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(GYM_TILE);
+    }
+    public static TranslationsFile getMessagesEditorSelectTileKindSellTypeTr(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(PC_SELL_TYPE);
+    }
+    public static TranslationsFile getMessagesEditorSelectTileKindGerantTypeTr(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(PC_GERANT_TYPE);
+    }
+    public static TranslationsFile getMessagesEditorSelectTileKindPcTr(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(PC_TILE);
     }
 }

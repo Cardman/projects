@@ -73,6 +73,16 @@ public final class MessagesEditorSelect {
     public static final String GYM_TILE_EXIT = "0";
     public static final String GYM_TILE_TRAINER = "1";
     public static final String GYM_TILE_LEADER = "2";
+    public static final String PC_TILE_EXIT = "0";
+    public static final String PC_TILE_GERANT = "1";
+    public static final String PC_TILE_SELLER = "2";
+    public static final String PC_TILE_STORAGE = "3";
+    public static final String SELL_TYPE_TM = "0";
+    public static final String SELL_TYPE_MOVE = "1";
+    public static final String SELL_TYPE_ITEM = "2";
+    public static final String GERANCE_TYPE_FOSSILE = "0";
+    public static final String GERANCE_TYPE_HOST = "1";
+    public static final String GERANCE_TYPE_HEAL = "2";
     private MessagesEditorSelect() {
     }
     public static TranslationsFile enGenderRep(){
@@ -399,6 +409,50 @@ public final class MessagesEditorSelect {
         f_.add(GYM_TILE_EXIT,"sortie");
         f_.add(GYM_TILE_TRAINER,"ordinaire");
         f_.add(GYM_TILE_LEADER,"meneur");
+        return f_;
+    }
+    public static TranslationsFile enPcTileKindWild(){
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(PC_TILE_EXIT,"exit");
+        e_.add(PC_TILE_GERANT,"gerant");
+        e_.add(PC_TILE_SELLER,"seller");
+        e_.add(PC_TILE_STORAGE,"storage");
+        return e_;
+    }
+    public static TranslationsFile frPcTileKindWild(){
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(PC_TILE_EXIT,"sortie");
+        f_.add(PC_TILE_GERANT,"gérant");
+        f_.add(PC_TILE_SELLER,"vendeur");
+        f_.add(PC_TILE_STORAGE,"stockage");
+        return f_;
+    }
+    public static TranslationsFile enSellType(){
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(SELL_TYPE_TM,"technical move");
+        e_.add(SELL_TYPE_MOVE,"move tutor");
+        e_.add(SELL_TYPE_ITEM,"item");
+        return e_;
+    }
+    public static TranslationsFile frSellType(){
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(SELL_TYPE_TM,"capsule technique");
+        f_.add(SELL_TYPE_MOVE,"tuteur d'attaque");
+        f_.add(SELL_TYPE_ITEM,"objet");
+        return f_;
+    }
+    public static TranslationsFile enGeranceType(){
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(GERANCE_TYPE_FOSSILE,"fossil");
+        e_.add(GERANCE_TYPE_HOST,"host");
+        e_.add(GERANCE_TYPE_HEAL,"heal");
+        return e_;
+    }
+    public static TranslationsFile frGeranceType(){
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(GERANCE_TYPE_FOSSILE,"fossile");
+        f_.add(GERANCE_TYPE_HOST,"pension");
+        f_.add(GERANCE_TYPE_HEAL,"soin");
         return f_;
     }
 }

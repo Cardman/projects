@@ -1,9 +1,7 @@
 package aiki.map.levels;
 
 import aiki.db.DataBase;
-import aiki.map.characters.GerantPokemon;
-import aiki.map.characters.Person;
-import aiki.map.characters.Seller;
+import aiki.map.characters.*;
 import aiki.map.tree.LevelArea;
 import aiki.util.*;
 import code.util.*;
@@ -18,14 +16,36 @@ public final class LevelIndoorPokemonCenter extends Level {
     @Override
     public void validate(DataBase _data, LevelArea _level) {
         super.validate(_data, _level);
+        gerants = tryAdd(gerants, new IdPersonMapper<Point>(),new IdPersonMapper<GerantPokemon>(),new IdPersonMapper<Seller>());
         for (EntryCust<Point,Person> e : gerants.entryList()) {
-            if (!(e.getValue() instanceof GerantPokemon) && !(e.getValue() instanceof Seller)) {
-                _data.setError(true);
-            }
             if (e.getValue() instanceof Seller) {
                 ((Seller) e.getValue()).validate(_data);
             }
         }
+    }
+    public static Points< Person> tryAdd(Points<Person> _from, AbsPersonMapper<Point> _c, AbsPersonMapper<GerantPokemon> _g, AbsPersonMapper<Seller> _s) {
+        int count_ = 0;
+        for (EntryCust<Point,Person> e : _from.entryList()) {
+            Person v_ = e.getValue();
+            if (v_ instanceof GerantPokemon) {
+                count_++;
+            }
+            if (v_ instanceof Seller) {
+                count_++;
+            }
+        }
+        Points< Person> n_= new PointsPerson(new CollCapacity(count_));
+        for (EntryCust<Point,Person> e : _from.entryList()) {
+            Point k_ = e.getKey();
+            Person v_ = e.getValue();
+            if (v_ instanceof GerantPokemon) {
+                n_.addEntry(_c.map(k_),_g.map((GerantPokemon) v_));
+            }
+            if (v_ instanceof Seller) {
+                n_.addEntry(_c.map(k_),_s.map((Seller) v_));
+            }
+        }
+        return n_;
     }
     public CustList<NullablePoint> validateLinks() {
         CustList<NullablePoint> keys_ = new CustList<NullablePoint>();
