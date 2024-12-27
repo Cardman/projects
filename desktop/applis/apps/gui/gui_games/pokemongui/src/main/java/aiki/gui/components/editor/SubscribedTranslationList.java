@@ -52,6 +52,8 @@ public final class SubscribedTranslationList {
     private final SubscribedTranslationMessagesFactoryImgName imgRetrieverMiniMapSub = new SubscribedTranslationMessagesFactoryImgName(imgRetrieverMiniMap);
     private final SubscribedTranslationMessagesFactoryImgName imgRetrieverBlocksSub = new SubscribedTranslationMessagesFactoryImgName(imgRetrieverBlocks);
     private final SubscribedTranslationMessagesFactoryImgName imgRetrieverLinksSub = new SubscribedTranslationMessagesFactoryImgName(imgRetrieverLinks);
+    private final SubscribedTranslationMessagesFactoryImgName imgRetrieverMiniSub = new SubscribedTranslationMessagesFactoryImgName(imgRetrieverPeople);
+    private final SubscribedTranslationMessagesFactoryImgName imgRetrieverMaxiSub = new SubscribedTranslationMessagesFactoryImgName(imgRetrieverTrainers);
     private FormLevelGrid formLevelGridUniq;
 
     public SubscribedTranslationList(AbstractProgramInfos _p, FacadeGame _f) {
@@ -376,5 +378,13 @@ public final class SubscribedTranslationList {
 
     public SubscribedTranslationMessagesFactoryImgName getImgRetrieverLinksSub() {
         return imgRetrieverLinksSub;
+    }
+
+    public SubscribedTranslationMessagesFactoryImgName getImgRetrieverMiniSub() {
+        return imgRetrieverMiniSub;
+    }
+
+    public SubscribedTranslationMessagesFactoryImgName getImgRetrieverMaxiSub() {
+        return imgRetrieverMaxiSub;
     }
 }

@@ -2,6 +2,7 @@ package aiki.gui.components.editor;
 
 import aiki.db.*;
 import aiki.facade.*;
+import aiki.map.characters.*;
 import aiki.map.levels.*;
 import aiki.map.places.*;
 import aiki.util.*;
@@ -14,6 +15,8 @@ public final class ContentComponentModelLevelWithWild {
     private GeneComponentModelEltEnumSub<String> items;
     private GeneComponentModelEltEnumSub<Short> hm;
     private GeneComponentModelEltEnumSub<Short> tm;
+    private final ContentComponentModelDealerItem dealerItem = new ContentComponentModelDealerItem();
+    private final ContentComponentModelTrainerMultiFights trainerMultiFights = new ContentComponentModelTrainerMultiFights();
     private FormWildPk legendaryPks;
     private final StringMap<AbsButton> tiles = new StringMap<AbsButton>();
     private FormLevelGrid level;
@@ -83,6 +86,15 @@ public final class ContentComponentModelLevelWithWild {
         } else if (edited.getLegendaryPks().contains(pt_)) {
             choose(MessagesEditorSelect.TILE_LEG_PK);
             legendaryPks.feedForm(edited.getLegendaryPks().getVal(pt_));
+        } else if (edited.getCharacters().contains(pt_)) {
+            CharacterInRoadCave ch_ = edited.getCharacters().getVal(pt_);
+            if (ch_ instanceof TrainerMultiFights) {
+                choose(MessagesEditorSelect.TILE_TRAINER);
+                trainerMultiFights.feedForm((TrainerMultiFights) ch_);
+            } else {
+                choose(MessagesEditorSelect.TILE_DEALER);
+                dealerItem.feedForm((DealerItem) ch_);
+            }
         } else {
             key = "";
             StringMap<String> messages_ = MessagesPkEditor.getMessagesEditorSelectTileKindWildTr(MessagesPkEditor.getAppliTr(level.getApi().currentLg())).getMapping();
@@ -145,6 +157,26 @@ public final class ContentComponentModelLevelWithWild {
             form_.add(removeTile);
             fore.setViewportView(form_);
         }
+        if (StringUtil.quickEq(_k, MessagesEditorSelect.TILE_TRAINER)) {
+            AbsCompoFactory compoFactory_ = level.getApi().getCompoFactory();
+            AbsPanel form_ = compoFactory_.newLineBox();
+            form_.add(trainerMultiFights.effectForm(level.getApi(), level.getFacadeGame(), level.getTranslationList(), level.getFrame(),level));
+            trainerMultiFights.getTrainer().getMiniFileName().getName().getSelectUniq().getSelect().addListener(new ChangeItemTileEvent(this));
+            removeTile = compoFactory_.newPlainButton("-");
+            removeTile.addActionListener(new RemoveForeTileEvent(this));
+            form_.add(removeTile);
+            fore.setViewportView(form_);
+        }
+        if (StringUtil.quickEq(_k, MessagesEditorSelect.TILE_DEALER)) {
+            AbsCompoFactory compoFactory_ = level.getApi().getCompoFactory();
+            AbsPanel form_ = compoFactory_.newLineBox();
+            form_.add(dealerItem.effectForm(level.getApi(), level.getFacadeGame(), level.getTranslationList(), level));
+            dealerItem.getMiniFileName().getName().getSelectUniq().getSelect().addListener(new ChangeItemTileEvent(this));
+            removeTile = compoFactory_.newPlainButton("-");
+            removeTile.addActionListener(new RemoveForeTileEvent(this));
+            form_.add(removeTile);
+            fore.setViewportView(form_);
+        }
     }
 
     private void techHidden(GeneComponentModelEltEnumSub<Short> _sel) {
@@ -177,6 +209,12 @@ public final class ContentComponentModelLevelWithWild {
         if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_LEG_PK)) {
             legendaryPks.getName().getSelectUniq().getSelect().events(null);
         }
+        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_TRAINER)) {
+            trainerMultiFights.getTrainer().getMiniFileName().getName().getSelectUniq().getSelect().events(null);
+        }
+        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_DEALER)) {
+            dealerItem.getMiniFileName().getName().getSelectUniq().getSelect().events(null);
+        }
     }
     public void applySelectItem() {
         if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_ITEMS)) {
@@ -187,6 +225,12 @@ public final class ContentComponentModelLevelWithWild {
         }
         if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_LEG_PK)) {
             trySet(level.getFacadeGame().getData().getMiniPk().getVal(legendaryPks.getName().tryRet()), level.getForegroundEdited(), selected);
+        }
+        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_TRAINER)) {
+            trySet(level.getFacadeGame().getData().getPeople().getVal(trainerMultiFights.getTrainer().getMiniFileName().getName().tryRet()), level.getForegroundEdited(), selected);
+        }
+        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_DEALER)) {
+            trySet(level.getFacadeGame().getData().getPeople().getVal(dealerItem.getMiniFileName().getName().tryRet()), level.getForegroundEdited(), selected);
         }
         level.refreshImg(level.getFormBlockTile().getEdited().getWidth(), level.getFormBlockTile().getEdited().getHeight());
     }
@@ -216,6 +260,14 @@ public final class ContentComponentModelLevelWithWild {
             edited.getLegendaryPks().put(selected,legendaryPks.buildEntity());
             validate();
         }
+        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_TRAINER)) {
+            edited.getCharacters().put(selected,trainerMultiFights.buildEntity());
+            validate();
+        }
+        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_DEALER)) {
+            edited.getCharacters().put(selected,dealerItem.buildEntity());
+            validate();
+        }
         key = "";
         level.refreshImg(level.getFormBlockTile().getEdited().getWidth(), level.getFormBlockTile().getEdited().getHeight());
     }
@@ -241,6 +293,10 @@ public final class ContentComponentModelLevelWithWild {
         }
         if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_LEG_PK)) {
             edited.getLegendaryPks().removeKey(selected);
+            removeFore();
+        }
+        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_TRAINER) || StringUtil.quickEq(key, MessagesEditorSelect.TILE_DEALER)) {
+            edited.getCharacters().removeKey(selected);
             removeFore();
         }
         level.refreshImg(level.getFormBlockTile().getEdited().getWidth(), level.getFormBlockTile().getEdited().getHeight());
@@ -285,5 +341,13 @@ public final class ContentComponentModelLevelWithWild {
 
     public CrudGeneFormAbsAreaApparition getAreas() {
         return areas;
+    }
+
+    public ContentComponentModelDealerItem getDealerItem() {
+        return dealerItem;
+    }
+
+    public ContentComponentModelTrainerMultiFights getTrainerMultiFights() {
+        return trainerMultiFights;
     }
 }

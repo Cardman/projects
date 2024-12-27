@@ -170,11 +170,14 @@ public final class FormLevelGrid extends FormLevelGridCommon {
     private void common() {
         FormDataMap.baseSelectImage(formBlockTile.getTileFileName());
         formBlockTile.getTileFileName().getName().getSelectUniq().getSelect().addListener(new RefreshBlockTileSelection(this));
+        subs(formBlockTile.getTileFileName().subs());
+    }
+
+    public void subs(IdList<SubscribedTranslation> _ls) {
         IdList<SubscribedTranslation> subs_ = getTranslationList().getSubscribedTranslations().getVal(getFrame());
         subs_.removeAllElements(translations);
-        IdList<SubscribedTranslation> next_ = formBlockTile.getTileFileName().subs();
-        subs_.addAllElts(next_);
-        translations.addAllElts(next_);
+        subs_.addAllElts(_ls);
+        translations.addAllElts(_ls);
     }
 
     public AbsScrollPane getContainer() {

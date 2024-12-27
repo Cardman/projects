@@ -16,11 +16,12 @@ import aiki.fight.pokemon.evolution.*;
 import aiki.fight.status.*;
 import aiki.fight.status.effects.*;
 import aiki.fight.util.*;
+import aiki.map.characters.*;
 import aiki.map.levels.*;
 import aiki.map.levels.enums.*;
 import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.*;
-import aiki.map.tree.util.Dims;
+import aiki.map.tree.util.*;
 import aiki.map.util.*;
 import aiki.util.*;
 import code.gui.*;
@@ -73,6 +74,9 @@ public final class ConverterCommonMapUtil {
     }
     public static GeneComponentModelLsStrSub<String,StringList> buildAbilityList(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
         return mergeLs(_api, _facade, _sub.getFactoryAb());
+    }
+    public static GeneComponentModelLsStrSub<String,StringList> buildItemList(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
+        return mergeLs(_api, _facade, _sub.getFactoryIt());
     }
     public static GeneComponentModelLsStrSub<String,StringList> buildMoveList(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
         return mergeLs(_api, _facade, _sub.getFactoryMv());
@@ -262,6 +266,42 @@ public final class ConverterCommonMapUtil {
         cp_.setType(_e.getType());
         return cp_;
     }
+    public static DealerItem copyDealerItem(DealerItem _e) {
+        DealerItem cp_ = new DealerItem();
+        cp_.setItems(new StringList(_e.getItems()));
+        cp_.setTechnicalMoves(new Shorts(_e.getTechnicalMoves()));
+        cp_.setImageMiniFileName(_e.getImageMiniFileName());
+        return cp_;
+    }
+    public static TrainerMultiFights copyTrainerMultiFights(TrainerMultiFights _e) {
+        TrainerMultiFights cp_ = new TrainerMultiFights();
+        CustList<PokemonTeam> l_ = new CustList<PokemonTeam>();
+        for (PokemonTeam f:_e.getTeamsRewards()) {
+            l_.add(copyPokemonTeam(f));
+        }
+        cp_.setTeamsRewards(l_);
+        copyTrainer(cp_,_e);
+        return cp_;
+    }
+
+    public static void copyTrainer(Trainer _cp,Trainer _e) {
+        _cp.setImageMaxiFileName(_e.getImageMaxiFileName());
+        _cp.setImageMiniFileName(_e.getImageMiniFileName());
+        _cp.setMultiplicityFight(_e.getMultiplicityFight());
+    }
+    public static PokemonTeam copyPokemonTeam(PokemonTeam _e) {
+        PokemonTeam cp_ = new PokemonTeam();
+        cp_.setTeam(copyListPkTrainer(_e.getTeam()));
+        cp_.setReward(_e.getReward());
+        return cp_;
+    }
+    public static CustList<PkTrainer> copyListPkTrainer(CustList<PkTrainer> _e) {
+        CustList<PkTrainer> cp_ = new CustList<PkTrainer>(new CollCapacity(_e.size()));
+        for (PkTrainer f: _e) {
+            cp_.add(copyPkTrainer(f));
+        }
+        return cp_;
+    }
     public static CustList<AbsAreaApparition> copyListArea(CustList<AbsAreaApparition> _e) {
         CustList<AbsAreaApparition> cp_ = new CustList<AbsAreaApparition>(new CollCapacity(_e.size()));
         for (AbsAreaApparition f:_e) {
@@ -302,6 +342,12 @@ public final class ConverterCommonMapUtil {
         for (WildPk f:_e) {
             cp_.add(copyWildPk(f));
         }
+        return cp_;
+    }
+    public static PkTrainer copyPkTrainer(PkTrainer _e) {
+        PkTrainer cp_ = new PkTrainer();
+        cp_.setMoves(new StringList(_e.getMoves()));
+        copyPokemon(cp_,_e);
         return cp_;
     }
     public static WildPk copyWildPk(WildPk _e) {

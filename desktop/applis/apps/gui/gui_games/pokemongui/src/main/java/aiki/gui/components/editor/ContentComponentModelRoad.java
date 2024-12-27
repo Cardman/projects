@@ -33,6 +33,13 @@ public final class ContentComponentModelRoad {
         return getLevelWithWild().getHm();
     }
 
+    public ContentComponentModelDealerItem getDealerItem() {
+        return getLevelWithWild().getDealerItem();
+    }
+
+    public ContentComponentModelTrainerMultiFights getTrainerMultiFights() {
+        return getLevelWithWild().getTrainerMultiFights();
+    }
 
     public StringMap<AbsButton> getTiles() {
         return getLevelWithWild().getTiles();

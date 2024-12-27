@@ -3,6 +3,8 @@ package aiki.gui;
 import aiki.facade.*;
 import aiki.gui.components.editor.*;
 import aiki.instances.*;
+import aiki.map.characters.DealerItem;
+import aiki.map.characters.TrainerMultiFights;
 import aiki.map.enums.*;
 import aiki.map.levels.*;
 import aiki.map.places.*;
@@ -1049,6 +1051,78 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         assertEq(0,sub_.getFormDataMap().getCrudPlace().getRoad().getEdited().getLegendaryPks().size());
     }
     @Test
+    public void tile13() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMap().addPlace(Instances.newRoad());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        addPairPerson(sub_,P_1,"_1");
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getGrid(),0,0);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getRoad().getTiles().getVal(MessagesEditorSelect.TILE_DEALER));
+        sub_.getFormDataMap().getCrudPlace().getRoad().getDealerItem().getMiniFileName().getName().setupValue(P_1);
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getMatch());
+        assertEq(P_1,((DealerItem)sub_.getFormDataMap().getCrudPlace().getRoad().getEdited().getCharacters().getVal(newPoint(0,0))).getImageMiniFileName());
+    }
+    @Test
+    public void tile14() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMap().addPlace(Instances.newRoad());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getGrid(),0,0);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getRoad().getTiles().getVal(MessagesEditorSelect.TILE_DEALER));
+        sub_.getFormDataMap().getCrudPlace().getRoad().getDealerItem().getMiniFileName().getName().setupValue(P_1);
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getMatch());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getGrid(),0,0);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getRoad().getRemoveTile());
+        assertEq(0,sub_.getFormDataMap().getCrudPlace().getRoad().getEdited().getCharacters().size());
+    }
+    @Test
+    public void tile15() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMap().addPlace(Instances.newRoad());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        addPairPerson(sub_,P_2,"_1");
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getGrid(),0,0);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getRoad().getTiles().getVal(MessagesEditorSelect.TILE_TRAINER));
+        sub_.getFormDataMap().getCrudPlace().getRoad().getTrainerMultiFights().getTrainer().getMiniFileName().getName().setupValue(P_2);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getRoad().getTrainerMultiFights().getTeams().getAdd());
+        tryClick(((GeneComponentModelSubscribePokemonTeam)sub_.getFormDataMap().getCrudPlace().getRoad().getTrainerMultiFights().getTeams().getGenePair().getKey()).getSimple().getWalk().getCrud().getAdd());
+        ((GeneComponentModelSubscribePkTrainer)((GeneComponentModelSubscribePokemonTeam)sub_.getFormDataMap().getCrudPlace().getRoad().getTrainerMultiFights().getTeams().getGenePair().getKey()).getSimple().getWalk().getCrud().getGenePair().getKey()).getFormTrainerPk().getName().setupValue(P_1);
+        tryClick(((GeneComponentModelSubscribePokemonTeam)sub_.getFormDataMap().getCrudPlace().getRoad().getTrainerMultiFights().getTeams().getGenePair().getKey()).getSimple().getWalk().getCrud().getValidAddEdit());
+        tryClick(((GeneComponentModelSubscribePokemonTeam)sub_.getFormDataMap().getCrudPlace().getRoad().getTrainerMultiFights().getTeams().getGenePair().getKey()).getSimple().getWalk().getCrud().getAllButtons().get(0));
+        tryClick(((GeneComponentModelSubscribePokemonTeam)sub_.getFormDataMap().getCrudPlace().getRoad().getTrainerMultiFights().getTeams().getGenePair().getKey()).getSimple().getWalk().getCrud().getCancel());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getRoad().getTrainerMultiFights().getTeams().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getRoad().getTrainerMultiFights().getTeams().getAllButtons().get(0));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getRoad().getTrainerMultiFights().getTeams().getCancel());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getMatch());
+        assertEq(P_1,((TrainerMultiFights)sub_.getFormDataMap().getCrudPlace().getRoad().getEdited().getCharacters().getVal(newPoint(0,0))).getTeamsRewards().get(0).getTeam().get(0).getName());
+    }
+    @Test
+    public void tile16() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMap().addPlace(Instances.newRoad());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getGrid(),0,0);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getRoad().getTiles().getVal(MessagesEditorSelect.TILE_TRAINER));
+        sub_.getFormDataMap().getCrudPlace().getRoad().getTrainerMultiFights().getTrainer().getMiniFileName().getName().setupValue(P_2);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getRoad().getTrainerMultiFights().getTeams().getAdd());
+        tryClick(((GeneComponentModelSubscribePokemonTeam)sub_.getFormDataMap().getCrudPlace().getRoad().getTrainerMultiFights().getTeams().getGenePair().getKey()).getSimple().getWalk().getCrud().getAdd());
+        ((GeneComponentModelSubscribePkTrainer)((GeneComponentModelSubscribePokemonTeam)sub_.getFormDataMap().getCrudPlace().getRoad().getTrainerMultiFights().getTeams().getGenePair().getKey()).getSimple().getWalk().getCrud().getGenePair().getKey()).getFormTrainerPk().getName().setupValue(P_1);
+        tryClick(((GeneComponentModelSubscribePokemonTeam)sub_.getFormDataMap().getCrudPlace().getRoad().getTrainerMultiFights().getTeams().getGenePair().getKey()).getSimple().getWalk().getCrud().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getRoad().getTrainerMultiFights().getTeams().getValidAddEdit());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getMatch());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getGrid(),0,0);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getRoad().getRemoveTile());
+        assertEq(0,sub_.getFormDataMap().getCrudPlace().getRoad().getEdited().getCharacters().size());
+    }
+    @Test
     public void cave1() {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facadeAdd(pr_);
@@ -1451,15 +1525,17 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         cave_.getLevels().add(blockLinksLevelCave());
         facade_.getData().getMap().addPlace(cave_);
         facade_.getData().getLinks().addEntry("_",instance(new int[1][1]));
+        facade_.getData().getLinks().addEntry("__",instance(new int[1][1]));
         WindowPkEditor sub_ = window(pr_, facade_);
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(1));
         tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevel().getGrid(),0,0);
         tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevels().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
         tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getAddTileLeft());
-        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevel().getGrid(),0,0);
-        link(sub_.getFormDataMap().getCrudPlace(),0).getLinkFileNameFirst().updateValue("_");
-        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getMatchLinkLeft());
         assertEq("_",cave_.getLevels().get(0).getLinksOtherLevels().getValue(0).getFileName());
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevel().getGrid(),0,0);
+        link(sub_.getFormDataMap().getCrudPlace(),0).getLinkFileNameFirst().updateValue("__");
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getMatchLinkLeft());
+        assertEq("__",cave_.getLevels().get(0).getLinksOtherLevels().getValue(0).getFileName());
     }
     @Test
     public void linkCave15() {
@@ -1470,15 +1546,17 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         cave_.getLevels().add(blockLinksLevelCave());
         facade_.getData().getMap().addPlace(cave_);
         facade_.getData().getLinks().addEntry("_",instance(new int[1][1]));
+        facade_.getData().getLinks().addEntry("__",instance(new int[1][1]));
         WindowPkEditor sub_ = window(pr_, facade_);
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(1));
         tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevel().getGrid(),0,0);
         tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevels().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
         tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getAddTileRight());
-        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevels().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
-        link(sub_.getFormDataMap().getCrudPlace(),0).getLinkFileNameSecond().updateValue("_");
-        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getMatchLinkRight());
         assertEq("_",cave_.getLevels().get(1).getLinksOtherLevels().getValue(0).getFileName());
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevels().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
+        link(sub_.getFormDataMap().getCrudPlace(),0).getLinkFileNameSecond().updateValue("__");
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getMatchLinkRight());
+        assertEq("__",cave_.getLevels().get(1).getLinksOtherLevels().getValue(0).getFileName());
     }
     @Test
     public void linkCave16() {
@@ -1489,17 +1567,22 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         cave_.getLevels().add(blockLinksLevelCave());
         facade_.getData().getMap().addPlace(cave_);
         facade_.getData().getLinks().addEntry("_",instance(new int[1][1]));
+        facade_.getData().getLinks().addEntry("__",instance(new int[1][1]));
+        facade_.getData().getLinks().addEntry("___",instance(new int[1][1]));
         WindowPkEditor sub_ = window(pr_, facade_);
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(1));
         tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevel().getGrid(),0,0);
         tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevels().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
         tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getAddTileBoth());
-        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevels().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
-        link(sub_.getFormDataMap().getCrudPlace(),0).getLinkFileNameFirst().updateValue("_");
-        link(sub_.getFormDataMap().getCrudPlace(),0).getLinkFileNameSecond().updateValue("_");
-        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getMatchLinkBoth());
         assertEq("_",cave_.getLevels().get(0).getLinksOtherLevels().getValue(0).getFileName());
         assertEq("_",cave_.getLevels().get(1).getLinksOtherLevels().getValue(0).getFileName());
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevel().getGrid(),0,0);
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getLevels().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
+        link(sub_.getFormDataMap().getCrudPlace(),0).getLinkFileNameFirst().updateValue("__");
+        link(sub_.getFormDataMap().getCrudPlace(),0).getLinkFileNameSecond().updateValue("___");
+        tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getMatchLinkBoth());
+        assertEq("__",cave_.getLevels().get(0).getLinksOtherLevels().getValue(0).getFileName());
+        assertEq("___",cave_.getLevels().get(1).getLinksOtherLevels().getValue(0).getFileName());
     }
     @Test
     public void linkCave17() {
@@ -1608,6 +1691,16 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         tryClick(c_.getValidAddEdit());
         c_.getFrame().getWindowListenersDef().get(0).windowClosing();
     }
+
+    private void addPairPerson(WindowPkEditor _sub, String _k, String _v) {
+        CrudGeneFormEntImgFree c_ = crudPeople(_sub);
+        tryClick(c_.getAdd());
+        GeneComponentModelImgFree g_ = (GeneComponentModelImgFree)c_.getGene();
+        g_.getKey().setText(_k);
+        tryLoad(g_, _v);
+        tryClick(c_.getValidAddEdit());
+        c_.getFrame().getWindowListenersDef().get(0).windowClosing();
+    }
     private CrudGeneFormEntImgFree crudMiniMap(WindowPkEditor _crud) {
         tryClick(_crud.getImgMiniMapMenu());
         return _crud.getCrudGeneFormMiniMap();
@@ -1616,6 +1709,11 @@ public final class EditorMapFormTest extends InitEditorPkForm {
     private CrudGeneFormEntImgFree crudBlocks(WindowPkEditor _crud) {
         tryClick(_crud.getImgBlocksMenu());
         return _crud.getCrudGeneFormBlocks();
+    }
+
+    private CrudGeneFormEntImgFree crudPeople(WindowPkEditor _crud) {
+        tryClick(_crud.getImgPeopleMenu());
+        return _crud.getCrudGeneFormPeople();
     }
     private FacadeGame facadeAdd(MockProgramInfos _m) {
         messages(_m);
