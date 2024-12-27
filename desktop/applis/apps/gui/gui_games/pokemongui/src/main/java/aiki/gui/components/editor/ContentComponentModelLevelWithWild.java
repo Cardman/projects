@@ -112,6 +112,7 @@ public final class ContentComponentModelLevelWithWild {
         } else if (level.getFacadeGame().getMap().isEmptyForAdding(ContentComponentModelLevelCaveLinks.coords(nbPlace,nbLevel,null,pt_))){
             initFormChoices();
         } else {
+            key = "";
             fore.setNullViewportView();
         }
         getLevel().getFrame().pack();
