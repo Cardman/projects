@@ -3,6 +3,8 @@ package aiki.gui.components.editor;
 import aiki.comparators.*;
 import aiki.db.*;
 import aiki.facade.*;
+import aiki.facade.enums.*;
+import aiki.fight.*;
 import aiki.fight.abilities.*;
 import aiki.fight.effects.*;
 import aiki.fight.enums.*;
@@ -16,14 +18,18 @@ import aiki.fight.pokemon.evolution.*;
 import aiki.fight.status.*;
 import aiki.fight.status.effects.*;
 import aiki.fight.util.*;
+import aiki.game.params.enums.*;
+import aiki.map.*;
 import aiki.map.buildings.*;
 import aiki.map.characters.*;
 import aiki.map.levels.*;
 import aiki.map.levels.enums.*;
+import aiki.map.places.*;
 import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.*;
 import aiki.map.tree.util.*;
 import aiki.map.util.*;
+import aiki.sml.GamesPk;
 import aiki.util.*;
 import code.gui.*;
 import code.gui.images.*;
@@ -31,6 +37,8 @@ import code.gui.initialize.*;
 import code.maths.*;
 import code.maths.litteral.*;
 import code.maths.montecarlo.*;
+import code.threads.AbstractAtomicBooleanCore;
+import code.threads.AbstractAtomicIntegerCoreAdd;
 import code.util.*;
 import code.util.core.*;
 
@@ -251,6 +259,241 @@ public final class ConverterCommonMapUtil {
         }
         return new Dims(_pixels[0].length, _pixels.length);
     }
+    public static DataBase validateData(DataBase _db, AbstractAtomicIntegerCoreAdd _perCentLoading, AbstractAtomicBooleanCore _loading, SexListInt _i) {
+        DataBase data_ = new DataBase(_db.getGenerator());
+        MessagesDataBaseConstants.initEmpty(data_);
+        data_.setLanguages(_db.getLanguages());
+        data_.setDisplayLanguages(_db.getDisplayLanguages());
+        data_.setLanguage(_db.getLanguage());
+        data_.initializeMembers();
+        data_.initTranslations();
+        data_.setCombos(copyCombos(_db.getCombos()));
+        data_.setMap(copyMap(_db.getMap()));
+        data_.setImages(copyImgs(_db.getImages()));
+        data_.setImagesTiles(new StringMap<ScreenCoordssInt>());
+        data_.setMiniMap(copyImgs(_db.getMiniMap()));
+        data_.setLinks(copyImgs(_db.getLinks()));
+        data_.setPeople(copyImgs(_db.getPeople()));
+        data_.setTrainers(copyImgs(_db.getTrainers()));
+        data_.setMaxiPkBack(copyImgs(_db.getMaxiPkBack()));
+        data_.setMaxiPkFront(copyImgs(_db.getMaxiPkFront()));
+        data_.setMiniPk(copyImgs(_db.getMiniPk()));
+        data_.setMiniItems(copyImgs(_db.getMiniItems()));
+        data_.setTypesImages(copyImgs(_db.getTypesImages()));
+        data_.setAnimStatis(copyImgs(_db.getAnimStatis()));
+        data_.setAnimStatus(copyImgs(_db.getAnimStatus()));
+        data_.setTableTypes(copyTypesDuos(_db.getTableTypes()));
+        IdMap<DifficultyModelLaw, LawNumber> laws_ = new IdMap<DifficultyModelLaw, LawNumber>();
+        for (EntryCust<DifficultyModelLaw, LawNumber> f:_db.getLawsDamageRate().entryList()) {
+            laws_.addEntry(f.getKey(),new LawNumber(f.getValue().getLaw().copy(), f.getValue().getNumber()));
+        }
+        data_.setLawsDamageRate(laws_);
+        data_.setExpGrowth(new IdMap<ExpType, String>(_db.getExpGrowth()));
+        data_.setRates(new IdMap<DifficultyWinPointsFight, String>(_db.getRates()));
+        data_.setEndGameImage(copyImageArrayBaseSixtyFour(_db.getEndGameImage()));
+        data_.setStorage(copyImageArrayBaseSixtyFour(_db.getStorage()));
+        data_.setAnimAbsorb(copyImageArrayBaseSixtyFour(_db.getAnimAbsorb()));
+        data_.setImageTmHm(copyImageArrayBaseSixtyFour(_db.getImageTmHm()));
+        data_.setTypesColors(new StringMap<String>(_db.getTypesColors()));
+        data_.setBackHeros(copyImageHeroKeys(_db.getBackHeros()));
+        data_.setFrontHeros(copyImageHeroKeys(_db.getFrontHeros()));
+        data_.setOverWorldHeros(copyImageHeroKeys(_db.getOverWorldHeros()));
+        for (EntryCust<String,AbilityData> f:_db.getAbilities().entryList()) {
+            data_.completeQuickMembers(f.getKey(),copyAbilityData(f.getValue()));
+        }
+        for (EntryCust<String, Item> f:_db.getItems().entryList()) {
+            data_.completeQuickMembers(f.getKey(),copyItem(f.getValue()));
+        }
+        for (EntryCust<String, MoveData> f:_db.getMoves().entryList()) {
+            data_.completeQuickMembers(f.getKey(),copyMoveData(f.getValue()));
+        }
+        for (EntryCust<String, PokemonData> f:_db.getPokedex().entryList()) {
+            data_.completeQuickMembers(f.getKey(),copyPokemonData(f.getValue()));
+        }
+        for (EntryCust<String, Status> f:_db.getStatus().entryList()) {
+            data_.completeQuickMembers(f.getKey(),copyStatus(f.getValue()));
+        }
+        for (int i = 0; i < 157; i++) {
+            data_.initValueOther(Long.toString(i), _db.retValueOther(Long.toString(i)));
+        }
+        data_.setDefMove(_db.getDefMove());
+        data_.setRateBoost(_db.getRateBoost());
+        data_.setRateBoostCriticalHit(_db.getRateBoostCriticalHit());
+        data_.setRateFleeing(_db.getRateFleeing());
+        data_.setRateCatching(_db.getRateCatching());
+        data_.setBallDef(_db.getBallDef());
+        data_.setDefaultEggGroup(_db.getDefaultEggGroup());
+        data_.setDamageFormula(_db.getDamageFormula());
+        data_.setDefCategory(_db.getDefCategory());
+        data_.setConstNum(copyStringMapRate(_db.getConstNum()));
+        data_.getTm().addAllEntries(_db.getTm());
+        data_.getTmPrice().addAllEntries(copyStringMapLgInt(_db.getTmPrice()));
+        data_.getHm().addAllEntries(_db.getHm());
+        data_.getLitterals().addAllEntries(backUp(_db.getLitterals()));
+        data_.getTranslatedAbilities().addAllEntries(backUp(_db.getTranslatedAbilities()));
+        data_.getTranslatedCategories().addAllEntries(backUp(_db.getTranslatedCategories()));
+        data_.getTranslatedItems().addAllEntries(backUp(_db.getTranslatedItems()));
+        data_.getTranslatedMoves().addAllEntries(backUp(_db.getTranslatedMoves()));
+        data_.getTranslatedPokemon().addAllEntries(backUp(_db.getTranslatedPokemon()));
+        data_.getTranslatedStatus().addAllEntries(backUp(_db.getTranslatedStatus()));
+        data_.getTranslatedTypes().addAllEntries(backUp(_db.getTranslatedTypes()));
+        data_.getTranslatedFctMath().addAllEntries(backUp(_db.getTranslatedFctMath()));
+        for (EntryCust<String,IdMap<Gender, String>> f: _db.getTranslatedGenders().entryList()) {
+            data_.getTranslatedGenders().addEntry(f.getKey(),new IdMap<Gender, String>(f.getValue()));
+        }
+        for (EntryCust<String,IdMap<SelectedBoolean, String>> f: _db.getTranslatedBooleans().entryList()) {
+            data_.getTranslatedBooleans().addEntry(f.getKey(),new IdMap<SelectedBoolean, String>(f.getValue()));
+        }
+        for (EntryCust<String, IdMap<DifficultyModelLaw, String>> f: _db.getTranslatedDiffModelLaw().entryList()) {
+            data_.getTranslatedDiffModelLaw().addEntry(f.getKey(),new IdMap<DifficultyModelLaw, String>(f.getValue()));
+        }
+        for (EntryCust<String, IdMap<DifficultyWinPointsFight, String>> f: _db.getTranslatedDiffWinPts().entryList()) {
+            data_.getTranslatedDiffWinPts().addEntry(f.getKey(),new IdMap<DifficultyWinPointsFight, String>(f.getValue()));
+        }
+        for (EntryCust<String, IdMap<EnvironmentType, String>> f: _db.getTranslatedEnvironment().entryList()) {
+            data_.getTranslatedEnvironment().addEntry(f.getKey(),new IdMap<EnvironmentType, String>(f.getValue()));
+        }
+        for (EntryCust<String, IdMap<Statistic, String>> f: _db.getTranslatedStatistics().entryList()) {
+            data_.getTranslatedStatistics().addEntry(f.getKey(),new IdMap<Statistic, String>(f.getValue()));
+        }
+        for (EntryCust<String, IdMap<TargetChoice, String>> f: _db.getTranslatedTargets().entryList()) {
+            data_.getTranslatedTargets().addEntry(f.getKey(),new IdMap<TargetChoice, String>(f.getValue()));
+        }
+        data_.calculateAvgPound();
+        data_.completeVariables();
+        data_.completeMembersCombos();
+        data_.sortEndRound();
+        return check(_perCentLoading, _loading, _i, data_);
+    }
+
+    private static DataBase check(AbstractAtomicIntegerCoreAdd _perCentLoading, AbstractAtomicBooleanCore _loading, SexListInt _i, DataBase _data) {
+        FacadeGame fac_ = new FacadeGame();
+        fac_.setSexList(_i);
+        GamesPk.postLoad(fac_,"",_perCentLoading,_loading,GamesPk.tryInitLinks(_data));
+        return _data;
+    }
+
+    private static ImageHeroKeys copyImageHeroKeys(ImageHeroKeys _e) {
+        ImageHeroKeys cp_ = new ImageHeroKeys();
+        for (EntryCust<ImageHeroKey, ImageArrayBaseSixtyFour> f:_e.entryList()) {
+            cp_.addEntry(f.getKey(),copyImageArrayBaseSixtyFour(f.getValue()));
+        }
+        return cp_;
+    }
+    private static StringMap<ImageArrayBaseSixtyFour> copyImgs(StringMap<ImageArrayBaseSixtyFour> _e) {
+        StringMap<ImageArrayBaseSixtyFour> cp_ = new StringMap<ImageArrayBaseSixtyFour>();
+        for (EntryCust<String, ImageArrayBaseSixtyFour> f:_e.entryList()) {
+            cp_.addEntry(f.getKey(),copyImageArrayBaseSixtyFour(f.getValue()));
+        }
+        return cp_;
+    }
+
+    private static DataMap copyMap(DataMap _e) {
+        DataMap cp_ = new DataMap();
+        CustList<Place> pls_ = new CustList<Place>();
+        for (Place f: _e.getPlaces()) {
+            if (f instanceof City) {
+                City city_ = new City();
+                city_.setBuildings(copyPointsBuilding(((City)f).getBuildings()));
+                city_.setName(f.getName());
+                LevelOutdoor lo_ = new LevelOutdoor();
+                lo_.setBlocks(copyPointsBlock(((City) f).getLevel().getBlocks()));
+                city_.setLevel(lo_);
+                city_.setSavedlinks(copyPlaceInterConnects(((City) f).getSavedlinks()));
+                city_.setPointsWithCitiesAndOtherRoads(new PlaceInterConnects());
+                city_.setLinksWithCaves(copyPointsLink(((City) f).getLinksWithCaves()));
+                pls_.add(city_);
+            }
+            if (f instanceof Road) {
+                Road road_ = new Road();
+                road_.setName(f.getName());
+                road_.setLevel(copyLevelRoad(((Road) f).getLevelRoad()));
+                road_.setSavedlinks(copyPlaceInterConnects(((Road) f).getSavedlinks()));
+                road_.setPointsWithCitiesAndOtherRoads(new PlaceInterConnects());
+                road_.setLinksWithCaves(copyPointsLink(((Road) f).getLinksWithCaves()));
+                pls_.add(road_);
+            }
+            if (f instanceof Cave) {
+                Cave cave_ = new Cave();
+                cave_.setName(f.getName());
+                cave_.setLinksWithOtherPlaces(copyLevelPoints(((Cave) f).getLinksWithOtherPlaces()));
+                CustList<LevelCave> lc_ = new CustList<LevelCave>();
+                for (LevelCave l: ((Cave) f).getLevels()) {
+                    lc_.add(copyLevelCave(l));
+                }
+                cave_.setLevels(lc_);
+                pls_.add(cave_);
+            }
+            if (f instanceof League) {
+                League league_ = new League();
+                league_.setName(f.getName());
+                league_.setBegin(copyNullablePoint(((League) f).getBegin()));
+                league_.setAccessCoords(new Coords(((League) f).getAccessCoords()));
+                CustList<LevelLeague> lc_ = new CustList<LevelLeague>();
+                for (LevelLeague l: ((League) f).getRooms()) {
+                    lc_.add(copyLevelLeague(l));
+                }
+                league_.setRooms(lc_);
+                league_.setFileName(((League) f).getFileName());
+                pls_.add(league_);
+            }
+        }
+        cp_.setPlaces(pls_);
+        cp_.setBegin(new Coords(_e.getBegin()));
+        cp_.setFirstPokemon(copyWildPk(_e.getFirstPokemon()));
+        cp_.setSideLength(_e.getSideLength());
+        cp_.setScreenWidth(_e.getScreenWidth());
+        cp_.setScreenHeight(_e.getScreenHeight());
+        cp_.setSpaceBetweenTopAndHeros(_e.getSpaceBetweenTopAndHeros());
+        cp_.setSpaceBetweenLeftAndHeros(_e.getSpaceBetweenLeftAndHeros());
+        cp_.setUnlockedCity(_e.getUnlockedCity());
+        cp_.setMiniMap(copyMiniMap(_e.getMiniMap()));
+        cp_.setAccessCondition(copyCoordsLists(_e.getAccessCondition()));
+        return cp_;
+    }
+
+    private static CoordsLists copyCoordsLists(CoordsLists _e) {
+        CoordsLists cp_ = new CoordsLists();
+        for (CoordsListCoords f: _e.getList()) {
+            Condition cs_ = new Condition();
+            for (Coords g: f.getValue()) {
+                cs_.add(new Coords(g));
+            }
+            cp_.addEntry(new Coords(f.getKey()),cs_);
+        }
+        return cp_;
+    }
+
+    private static MiniMapCoordsList copyMiniMap(MiniMapCoordsList _e) {
+        MiniMapCoordsList miniMap_ = new MiniMapCoordsList();
+        for (MiniMapCoordsTile f: _e.getList()) {
+            miniMap_.addEntry(f.getMiniMapCoords(),copyTileMiniMap(f.getTileMap()));
+        }
+        return miniMap_;
+    }
+
+    public static LevelPoints copyLevelPoints(LevelPoints _e) {
+        LevelPoints cp_ = new LevelPoints();
+        for (LevelPointLink f:_e.entryList()) {
+            cp_.addEntry(new LevelPoint(f.getLevelPoint()),copyLink(f.getLink()));
+        }
+        return cp_;
+    }
+    public static PointsLink copyPointsLink(Points< Link> _e) {
+        PointsLink cp_ = new PointsLink();
+        for (EntryCust<Point,Link> f:_e.entryList()) {
+            cp_.addEntry(new Point(f.getKey()),copyLink(f.getValue()));
+        }
+        return cp_;
+    }
+    public static PlaceInterConnects copyPlaceInterConnects(PlaceInterConnects _e) {
+        PlaceInterConnects cp_ = new PlaceInterConnects();
+        for (PlaceInterConnectCoords f:_e.entryList()) {
+            cp_.addEntry(new PlaceInterConnect(new Point(f.getPlaceInterConnect().getSource()),f.getPlaceInterConnect().getDir()),new Coords(f.getCoords()));
+        }
+        return cp_;
+    }
+
     public static LevelLeague copyLevelLeague(LevelLeague _e) {
         LevelLeague cp_ = new LevelLeague();
         cp_.setBlocks(copyPointsBlock(_e.getBlocks()));
@@ -630,14 +873,14 @@ public final class ConverterCommonMapUtil {
         return cp_;
     }
 
-//    public static Combos copyCombos(Combos _e){
-//        Combos cp_ = new Combos();
-//        cp_.setEffects(new ListEffectCombos());
-//        for (ListEffectCombo f:_e.getEffects()){
-//            cp_.getEffects().add(new ListEffectCombo(f.getList(),copyEffectCombo(f.getCombo())));
-//        }
-//        return cp_;
-//    }
+    public static Combos copyCombos(Combos _e){
+        Combos cp_ = new Combos();
+        cp_.setEffects(new ListEffectCombos());
+        for (ListEffectCombo f:_e.getEffects()){
+            cp_.getEffects().add(new ListEffectCombo(f.getList(),copyEffectCombo(f.getCombo())));
+        }
+        return cp_;
+    }
 
     public static EffectWhileSendingWithStatistic copyEffectWhileSendingWithStatistic(EffectWhileSendingWithStatistic _e){
         EffectWhileSendingWithStatistic cp_ = new EffectWhileSendingWithStatistic();
@@ -1797,6 +2040,11 @@ public final class ConverterCommonMapUtil {
     public static StringMap<Rate> copyStringMapRate(StringMap<Rate> _m) {
         StringMap<Rate> c_ = new StringMap<Rate>(new CollCapacity(_m.size()));
         new ConverterCommonMap<String,Rate>().copy(new IdTechnicalCopier<String>(),new RateTechnicalCopier(), c_, _m);
+        return c_;
+    }
+    public static ShortMap<LgInt> copyStringMapLgInt(ShortMap<LgInt> _m) {
+        ShortMap<LgInt> c_ = new ShortMap<LgInt>(new CollCapacity(_m.size()));
+        new ConverterCommonMap<Short,LgInt>().copy(new IdTechnicalCopier<Short>(),new LgIntTechnicalCopier(), c_, _m);
         return c_;
     }
     public static StringMap<Short> buildStringMapShort(CustList<EditedCrudPair<String, Short>> _m) {

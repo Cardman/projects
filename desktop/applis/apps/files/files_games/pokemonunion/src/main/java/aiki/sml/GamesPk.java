@@ -43,14 +43,10 @@ public final class GamesPk {
     public static void loadRomAndCheck(AbstractGenerator _gene, FacadeGame _f, String _fileName,
                                        StringMap<String> _files, AbstractAtomicIntegerCoreAdd _p, AbstractAtomicBooleanCore _l, String _baseParse) {
         DataBase data_ = loadedRom(_gene,_f,_files,_p,_l, _baseParse);
-        if (data_.isError()) {
-            postLoad(_f, _fileName, _p, _l, null);
-            return;
-        }
         postLoad(_f, _fileName, _p, _l, data_);
     }
 
-    static void postLoad(FacadeGame _f, String _fileName, AbstractAtomicIntegerCoreAdd _p, AbstractAtomicBooleanCore _l, DataBase _data) {
+    public static void postLoad(FacadeGame _f, String _fileName, AbstractAtomicIntegerCoreAdd _p, AbstractAtomicBooleanCore _l, DataBase _data) {
         if (!_l.get()) {
             return;
         }
@@ -100,12 +96,16 @@ public final class GamesPk {
         _l.set(true);
         data_.setLanguage(_f.getLanguage());
         DocumentReaderAikiCoreUtil.loadRom(data_,_files,_p,_f.getSexList(), _baseParse);
-        if (!data_.getMap().validSavedLink()) {
-            data_.setError(true);
-            return data_;
+        return tryInitLinks(data_);
+    }
+
+    public static DataBase tryInitLinks(DataBase _data) {
+        if (!_data.getMap().validSavedLink()) {
+            _data.setError(true);
+            return null;
 
         }
-        data_.getMap().initializeLinks();
-        return data_;
+        _data.getMap().initializeLinks();
+        return _data;
     }
 }
