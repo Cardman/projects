@@ -10,6 +10,7 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
     private final CrudGeneFormSubContent crudGeneFormSubContent;
     private final ContentComponentModelPlaceCaveLinks links = new ContentComponentModelPlaceCaveLinks();
     private final ContentComponentModelCavePlaceLinks linksRev = new ContentComponentModelCavePlaceLinks();
+    private final ContentComponentModelLeagueLinks leagueLink = new ContentComponentModelLeagueLinks();
     private GeneComponentModelPlace gene;
     private ContentComponentModelRoad road;
     private ContentComponentModelCity city;
@@ -79,6 +80,10 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
             city.setupGridDims(getFactory(),getCrudGeneFormSubContent().getFacadeGame(),getCrudGeneFormSubContent().getSubscription(),getFrame(),AbsContentComponentModelLevelLinks.coords(_i, 0, null), (City)place_);
             getElement().add(city.getSplitter());
             getCrudGeneFormSubContent().getSubscription().setFormLevelGridUniq(city.getLevel());
+        }
+        if (place_ instanceof League) {
+            leagueLink.selectIndexes((League) place_, _i);
+            getElement().add(leagueLink.form(getFactory(),getCrudGeneFormSubContent().getFacadeGame(),getCrudGeneFormSubContent().getSubscription(),getFrame(), this));
         }
         selectOrAdd();
         enable(false);
@@ -234,5 +239,9 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
 
     public ContentComponentModelCavePlaceLinks getLinksRev() {
         return linksRev;
+    }
+
+    public ContentComponentModelLeagueLinks getLeagueLink() {
+        return leagueLink;
     }
 }

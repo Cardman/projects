@@ -75,15 +75,12 @@ public final class ContentComponentModelLevelCaveLinks extends AbsContentCompone
 
     @Override
     protected boolean partialFillForAdding(Point _first, Point _second) {
-        return DataMap.partialFillForAdding(getLevel().getFacadeGame().getMap(),coords(selectedPlace, selectedFirstLevelIndex, null, _first),coords(selectedPlace, getSelectedSecondLevel().getKey().getLevel().getLevelIndex(), null, _second));
+        return DataMap.partialFillForAdding(getLevel().getFacadeGame().getMap(),level.build(_first),getSelectedSecondLevel().build(_second));
     }
 
     protected void refreshLevels() {
         level.refreshImg();
-        int len_ = cave.getLevels().size();
-        for (int i = 0; i < len_; i++) {
-            levels.get(i).refreshImg();
-        }
+        ContentComponentModelPlaceCaveLinks.refreshList(levels);
     }
 
     @Override

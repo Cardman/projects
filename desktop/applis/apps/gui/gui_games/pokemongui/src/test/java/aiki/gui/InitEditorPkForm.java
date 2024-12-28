@@ -933,7 +933,7 @@ public abstract class InitEditorPkForm extends EquallableAikiGuiUtil {
         return dealer_;
     }
 
-    private static Block newBlock(int _h, int _w, EnvironmentType _type, String _tileFileName, int _index) {
+    public static Block newBlock(int _h, int _w, EnvironmentType _type, String _tileFileName, int _index) {
         //black
         Block block_;
         block_ = new Block();

@@ -9,6 +9,7 @@ import aiki.map.characters.DealerItem;
 import aiki.map.characters.TrainerMultiFights;
 import aiki.map.enums.*;
 import aiki.map.levels.*;
+import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.*;
 import aiki.map.pokemon.enums.*;
 import aiki.map.util.*;
@@ -2985,6 +2986,109 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         tryClick(sub_.getFormDataMap().getCrudPlace().getLinksRev().getMatchLinkRight());
         InitializedPlace road_ = (InitializedPlace) facade_.getMap().getPlace(0);
         assertEq("_",road_.getLinksWithCaves().getValue(0).getFileName());
+    }
+    @Test
+    public void linkLeague1() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        League l_ = Instances.newLeague();
+        LevelLeague f_ = Instances.newLevelLeague();
+        f_.getBlocks().addEntry(newPoint(0,0), newBlock(2,2, EnvironmentType.ROAD,"",-1));
+        l_.getRooms().add(f_);
+        LevelLeague s_ = Instances.newLevelLeague();
+        s_.getBlocks().addEntry(newPoint(0,0), newBlock(2,2, EnvironmentType.ROAD,"",-1));
+        l_.getRooms().add(s_);
+        facade_.getData().getMap().addPlace(l_);
+        facade_.getData().getMap().addPlace(Instances.newRoad());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLeagueLink().getLevel().getGrid(),0,0);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLeagueLink().getLevels().get(2).getGrid(),0,0);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLeagueLink().getClose());
+        assertEq(0,((League)facade_.getData().getMap().getPlace(0)).getBegin().getPoint().getx());
+        assertEq(0,((League)facade_.getData().getMap().getPlace(0)).getBegin().getPoint().gety());
+        assertEq(1,((League)facade_.getData().getMap().getPlace(0)).getAccessCoords().getNumberPlace());
+        assertEq(0,((League)facade_.getData().getMap().getPlace(0)).getAccessCoords().getLevel().getLevelIndex());
+        assertEq(0,((League)facade_.getData().getMap().getPlace(0)).getAccessCoords().getLevel().getPoint().getx());
+        assertEq(0,((League)facade_.getData().getMap().getPlace(0)).getAccessCoords().getLevel().getPoint().gety());
+    }
+    @Test
+    public void linkLeague2() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMiniItems().addEntry(I_1, instance(new int[1][1]));
+        League l_ = Instances.newLeague();
+        LevelLeague f_ = Instances.newLevelLeague();
+        f_.getBlocks().addEntry(newPoint(0,0), newBlock(2,2, EnvironmentType.ROAD,"",-1));
+        f_.setTrainerCoords(newPoint(0,0));
+        l_.getRooms().add(f_);
+        LevelLeague s_ = Instances.newLevelLeague();
+        s_.getBlocks().addEntry(newPoint(0,0), newBlock(2,2, EnvironmentType.ROAD,"",-1));
+        l_.getRooms().add(s_);
+//        l_.setBegin(newPoint(0,0));
+//        l_.setAccessCoords(newCoords(1,0,0,0));
+        facade_.getData().getMap().addPlace(l_);
+        Road road_ = Instances.newRoad();
+        road_.getLevelRoad().getItems().addEntry(newPoint(0,0),I_1);
+        facade_.getData().getMap().addPlace(road_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLeagueLink().getLevel().getGrid(),0,0);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLeagueLink().getLevels().get(2).getGrid(),0,0);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLeagueLink().getClose());
+        assertFalse(((League)facade_.getData().getMap().getPlace(0)).getBegin().isDefined());
+        assertFalse(((League)facade_.getData().getMap().getPlace(0)).getAccessCoords().isValid());
+    }
+    @Test
+    public void linkLeague3() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        League l_ = Instances.newLeague();
+        LevelLeague f_ = Instances.newLevelLeague();
+        f_.getBlocks().addEntry(newPoint(0,0), newBlock(2,2, EnvironmentType.ROAD,"",-1));
+        l_.getRooms().add(f_);
+        LevelLeague s_ = Instances.newLevelLeague();
+        s_.getBlocks().addEntry(newPoint(0,0), newBlock(2,2, EnvironmentType.ROAD,"",-1));
+        l_.getRooms().add(s_);
+        facade_.getData().getMap().addPlace(l_);
+        facade_.getData().getMap().addPlace(Instances.newRoad());
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLeagueLink().getLevel().getGrid(),0,0);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLeagueLink().getLevels().get(2).getGrid(),0,0);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLeagueLink().getClose());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLeagueLink().getLevel().getGrid(),0,0);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLeagueLink().getLevels().get(2).getGrid(),0,0);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLeagueLink().getClose());
+        assertFalse(((League)facade_.getData().getMap().getPlace(0)).getBegin().isDefined());
+        assertFalse(((League)facade_.getData().getMap().getPlace(0)).getAccessCoords().isValid());
+    }
+    @Test
+    public void linkLeague4() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMiniItems().addEntry(I_1, instance(new int[1][1]));
+        League l_ = Instances.newLeague();
+        LevelLeague f_ = Instances.newLevelLeague();
+        f_.getBlocks().addEntry(newPoint(0,0), newBlock(2,2, EnvironmentType.ROAD,"",-1));
+        f_.setTrainerCoords(newPoint(0,0));
+        l_.getRooms().add(f_);
+        LevelLeague s_ = Instances.newLevelLeague();
+        s_.getBlocks().addEntry(newPoint(0,0), newBlock(2,2, EnvironmentType.ROAD,"",-1));
+        l_.getRooms().add(s_);
+        l_.setBegin(newPoint(0,0));
+        l_.setAccessCoords(newCoords(1,0,0,0));
+        facade_.getData().getMap().addPlace(l_);
+        Road road_ = Instances.newRoad();
+        road_.getLevelRoad().getItems().addEntry(newPoint(0,0),I_1);
+        facade_.getData().getMap().addPlace(road_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLeagueLink().getLevel().getGrid(),0,0);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLeagueLink().getLevels().get(2).getGrid(),0,0);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLeagueLink().getClose());
+        assertFalse(((League)facade_.getData().getMap().getPlace(0)).getBegin().isDefined());
+        assertFalse(((League)facade_.getData().getMap().getPlace(0)).getAccessCoords().isValid());
     }
     private Cave basic(FacadeGame _facade) {
         Road road_ = Instances.newRoad();

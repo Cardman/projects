@@ -120,10 +120,11 @@ public final class ContentComponentModelPlaceCaveLinks extends AbsContentCompone
     }
 
     public static void refreshAll(CustList<FormLevelGridLink> _levelsPlace, CustList<FormLevelGridLink> _levelsCave) {
-        int lenLeft_ = _levelsPlace.size();
-        for (int i = 0; i < lenLeft_; i++) {
-            _levelsPlace.get(i).refreshImg();
-        }
+        refreshList(_levelsPlace);
+        refreshList(_levelsCave);
+    }
+
+    public static void refreshList(CustList<FormLevelGridLink> _levelsCave) {
         int lenRight_ = _levelsCave.size();
         for (int i = 0; i < lenRight_; i++) {
             _levelsCave.get(i).refreshImg();
