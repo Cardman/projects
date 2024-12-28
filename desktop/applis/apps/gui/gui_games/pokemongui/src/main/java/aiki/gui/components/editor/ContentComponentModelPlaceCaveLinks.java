@@ -17,26 +17,46 @@ public final class ContentComponentModelPlaceCaveLinks extends AbsContentCompone
     @Override
     protected AbsCustComponent viewLeft(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact, AbsCommonFrame _fr) {
         levelsPlace.clear();
-        AbsCompoFactory c_ = _core.getCompoFactory();
-        AbsPanel form_ = c_.newPageBox();
-        CustList<Place> pl_ = getFacadeGame().getMap().getPlaces();
+        CustList<FormLevelGridLink> parts_ = place(this, _core, _fac, _fact, _fr, true);
+        levelsPlace.addAllElts(parts_);
+        AbsPanel form_ = _core.getCompoFactory().newPageBox();
+        appendPlace(parts_, form_);
+        return form_;
+    }
+
+
+    public static CustList<FormLevelGridLink> place(AbsContentComponentModelLevelLinks _curr, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact, AbsCommonFrame _fr, boolean _left){
+        CustList<FormLevelGridLink> list_ = new CustList<FormLevelGridLink>();
+        CustList<Place> pl_ = _fac.getMap().getPlaces();
         int len_ = pl_.size();
         for (int i = 0; i < len_; i++) {
             Place place_ = pl_.get(i);
             if (place_ instanceof InitializedPlace) {
-                FormLevelGridLink g_ = build(_core, _fac, _fact, _fr, place_, coords(i, 0, null), getTranslationsGrid());
-                levelsPlace.add(g_);
-                g_.getGrid().addMouseListener(new LinkTileEvent(this, g_, true));
-                form_.add(g_.getForm());
+                FormLevelGridLink g_ = build(_core, _fac, _fact, _fr, place_, coords(i, 0, null), _curr.getTranslationsGrid());
+                list_.add(g_);
+                g_.getGrid().addMouseListener(new LinkTileEvent(_curr, g_, _left));
             }
         }
-        return form_;
+        return list_;
     }
 
     @Override
     protected void buildParts(AbsPanel _form, AbstractProgramInfos _c, FacadeGame _fac, SubscribedTranslationList _fact, AbsCommonFrame _fr) {
         levelsCave.clear();
-        CustList<Place> pl_ = getFacadeGame().getMap().getPlaces();
+        CustList<FormLevelGridLink> parts_ = cave(this, _c, _fac, _fact, _fr, false);
+        levelsCave.addAllElts(parts_);
+        appendPlace(parts_,_form);
+    }
+
+    public static void appendPlace(CustList<FormLevelGridLink> _parts, AbsPanel _form) {
+        int len_ = _parts.size();
+        for (int i = 0; i < len_; i++) {
+            _form.add(_parts.get(i).getForm());
+        }
+    }
+    public static CustList<FormLevelGridLink> cave(AbsContentComponentModelLevelLinks _curr, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact, AbsCommonFrame _fr, boolean _left){
+        CustList<FormLevelGridLink> list_ = new CustList<FormLevelGridLink>();
+        CustList<Place> pl_ = _fac.getMap().getPlaces();
         int len_ = pl_.size();
         for (int i = 0; i < len_; i++) {
             Place place_ = pl_.get(i);
@@ -45,25 +65,27 @@ public final class ContentComponentModelPlaceCaveLinks extends AbsContentCompone
                 CustList<LevelCave> levels_ = c_.getLevels();
                 int lenLev_ = levels_.size();
                 for (int j = 0; j < lenLev_; j++) {
-                    FormLevelGridLink g_ = build(_c, _fac, _fact, _fr, place_, coords(i, j, null), getTranslationsGrid());
-                    levelsCave.add(g_);
-                    g_.getGrid().addMouseListener(new LinkTileEvent(this, g_, false));
-                    _form.add(g_.getForm());
+                    FormLevelGridLink g_ = build(_core, _fac, _fact, _fr, place_, coords(i, j, null), _curr.getTranslationsGrid());
+                    list_.add(g_);
+                    g_.getGrid().addMouseListener(new LinkTileEvent(_curr, g_, _left));
                 }
             }
         }
+        return list_;
     }
 
     @Override
     protected void clearLeft() {
-        for (FormLevelGridLink f: levelsPlace) {
-            f.getForegroundEdited().clear();
-        }
+        clearList(levelsPlace);
     }
 
     @Override
     protected void clearRight() {
-        for (FormLevelGridLink f: levelsCave) {
+        clearList(levelsCave);
+    }
+
+    public static void clearList(CustList<FormLevelGridLink> _ls) {
+        for (FormLevelGridLink f: _ls) {
             f.getForegroundEdited().clear();
         }
     }
@@ -94,13 +116,17 @@ public final class ContentComponentModelPlaceCaveLinks extends AbsContentCompone
     }
 
     protected void refreshLevels() {
-        int lenLeft_ = levelsPlace.size();
+        refreshAll(levelsPlace, levelsCave);
+    }
+
+    public static void refreshAll(CustList<FormLevelGridLink> _levelsPlace, CustList<FormLevelGridLink> _levelsCave) {
+        int lenLeft_ = _levelsPlace.size();
         for (int i = 0; i < lenLeft_; i++) {
-            levelsPlace.get(i).refreshImg();
+            _levelsPlace.get(i).refreshImg();
         }
-        int lenRight_ = levelsCave.size();
+        int lenRight_ = _levelsCave.size();
         for (int i = 0; i < lenRight_; i++) {
-            levelsCave.get(i).refreshImg();
+            _levelsCave.get(i).refreshImg();
         }
     }
 
@@ -156,12 +182,16 @@ public final class ContentComponentModelPlaceCaveLinks extends AbsContentCompone
 
     @Override
     protected void tryChangeLinkPlace(FormLevelGridLink _l, Point _p, String _f) {
-        Place pl_ = getFacadeGame().getMap().getPlace(_l.getKey().getNumberPlace());
+        trCh(_l, _p, _f, getFacadeGame());
+    }
+
+    public static void trCh(FormLevelGridLink _l, Point _p, String _f, FacadeGame _fac) {
+        Place pl_ = _fac.getMap().getPlace(_l.getKey().getNumberPlace());
         if (pl_ instanceof InitializedPlace) {
             ((InitializedPlace)pl_).getLinksWithCaves().getVal(_p).setFileName(_f);
         }
         if (pl_ instanceof Cave) {
-            ((Cave)pl_).getLinksWithOtherPlaces().getVal(getSelectedSecondLevel().build(_p).getLevel()).setFileName(_f);
+            ((Cave)pl_).getLinksWithOtherPlaces().getVal(_l.build(_p).getLevel()).setFileName(_f);
         }
     }
 
@@ -173,7 +203,7 @@ public final class ContentComponentModelPlaceCaveLinks extends AbsContentCompone
 
     @Override
     protected void removeFore(Point _l, Point _r) {
-        removeFore(_l, levelsCave.get(getSelectedFirstLevel().getKey().getLevel().getLevelIndex()));
+        removeFore(_l, levelsPlace.get(getSelectedFirstLevel().getKey().getLevel().getLevelIndex()));
         removeFore(_r, levelsCave.get(getSelectedSecondLevel().getKey().getLevel().getLevelIndex()));
     }
 

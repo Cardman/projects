@@ -9,6 +9,7 @@ import code.util.*;
 public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCrudGeneFormTrCstOpen {
     private final CrudGeneFormSubContent crudGeneFormSubContent;
     private final ContentComponentModelPlaceCaveLinks links = new ContentComponentModelPlaceCaveLinks();
+    private final ContentComponentModelCavePlaceLinks linksRev = new ContentComponentModelCavePlaceLinks();
     private GeneComponentModelPlace gene;
     private ContentComponentModelRoad road;
     private ContentComponentModelCity city;
@@ -37,6 +38,12 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
         getButtons().add(but_);
         getAllButtons().add(but_);
         getAllButtonsMerge().add(but_);
+        AbsButton butRev_ = getFactory().getCompoFactory().newPlainButton("<->");
+        butRev_.addActionListener(new SelectCrudCavePlaceFormEvent(this));
+        butRev_.setEnabled(isEnabledButtons());
+        getButtons().add(butRev_);
+        getAllButtons().add(butRev_);
+        getAllButtonsMerge().add(butRev_);
     }
     public void displayAllLinksPlaceCave() {
         getElement().removeAll();
@@ -45,7 +52,13 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
         CrudGeneFormLevelCave.disable(this);
         getFrame().pack();
     }
-
+    public void displayAllLinksCavePlace() {
+        getElement().removeAll();
+        getElement().add(linksRev.form(getFactory(),getCrudGeneFormSubContent().getFacadeGame(),getCrudGeneFormSubContent().getSubscription(),getFrame()));
+        linksRev.getClose().addActionListener(new CloseLinksFormEvent(this));
+        CrudGeneFormLevelCave.disable(this);
+        getFrame().pack();
+    }
     public void selectPlace(int _i) {
         selectedPlace = _i;
         getElement().removeAll();
@@ -217,5 +230,9 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
 
     public ContentComponentModelPlaceCaveLinks getLinks() {
         return links;
+    }
+
+    public ContentComponentModelCavePlaceLinks getLinksRev() {
+        return linksRev;
     }
 }
