@@ -528,7 +528,7 @@ public final class ContainerMultiPresident extends ContainerPresident implements
 //        ready.addActionListener(new ReadyEvent(this));
 //        panel_.add(ready);
         containerMultiContent.endReady(this,panel_);
-        panel_.add(getWindow().getClock());
+        panel_.add(getWindow().getClock().getComponent());
         panel_.add(getWindow().getLastSavedGameDate());
         setContentPane(panel_);
     }

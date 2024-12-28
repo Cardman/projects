@@ -2481,55 +2481,51 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         assertEq(0,road_.getLinksWithCaves().size());
         assertEq(0,cave_.getLinksWithOtherPlaces().getList().size());
     }
-//    @Test
-//    public void linkPlaceClave11() {
-//        MockProgramInfos pr_ = initForms();
-//        FacadeGame facade_ = facadeAdd(pr_);
-//        facade_.getData().getMiniItems().addEntry(I_1, instance(new int[1][1]));
-//        Cave cave_ = Instances.newCave();
-//        LevelCave first_ = blockLinksLevelCave();
-//        first_.getItems().addEntry(newPoint(0,0),I_1);
-//        cave_.getLevels().add(first_);
-//        cave_.getLevels().add(blockLinksLevelCave());
-//        facade_.getData().getMap().addPlace(cave_);
-//        WindowPkEditor sub_ = window(pr_, facade_);
-//        tryClick(last(sub_));
-//        tryClick(sub_.getFormDataMap().getCrudPlace().getLinks().getLevelsPlace().get(0).getGrid(),0,0);
-//        tryClick(sub_.getFormDataMap().getCrudPlace().getLinks().getLevelsCave().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
-//        assertFalse(sub_.getFormDataMap().getCrudPlace().getLinks().getAddTileLeft().isEnabled());
-//        assertFalse(sub_.getFormDataMap().getCrudPlace().getLinks().getAddTileRight().isEnabled());
-//        assertFalse(sub_.getFormDataMap().getCrudPlace().getLinks().getAddTileBoth().isEnabled());
-//    }
-//    @Test
-//    public void linkPlaceClave12() {
-//        MockProgramInfos pr_ = initForms();
-//        FacadeGame facade_ = facadeAdd(pr_);
-//        facade_.getData().getMiniItems().addEntry(I_1, instance(new int[1][1]));
-//        Cave cave_ = Instances.newCave();
-//        cave_.getLevels().add(blockLinksLevelCave());
-//        LevelCave second_ = blockLinksLevelCave();
-//        second_.getItems().addEntry(newPoint(1,1),I_1);
-//        cave_.getLevels().add(second_);
-//        facade_.getData().getMap().addPlace(cave_);
-//        WindowPkEditor sub_ = window(pr_, facade_);
-//        tryClick(last(sub_));
-//        tryClick(sub_.getFormDataMap().getCrudPlace().getLinks().getLevelsPlace().get(0).getGrid(),0,0);
-//        tryClick(sub_.getFormDataMap().getCrudPlace().getLinks().getLevelsCave().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
-//        assertFalse(sub_.getFormDataMap().getCrudPlace().getLinks().getAddTileLeft().isEnabled());
-//        assertFalse(sub_.getFormDataMap().getCrudPlace().getLinks().getAddTileRight().isEnabled());
-//        assertFalse(sub_.getFormDataMap().getCrudPlace().getLinks().getAddTileBoth().isEnabled());
-//    }
-//    @Test
-//    public void linkPlaceClave13() {
-//        MockProgramInfos pr_ = initForms();
-//        FacadeGame facade_ = facadeAdd(pr_);
-//         Cave cave_ = basic(facade_);
-//        WindowPkEditor sub_ = window(pr_, facade_);
-//        tryClick(last(sub_));
-//        tryClick(sub_.getFormDataMap().getCrudPlace().getLinks().getClose());
-//        assertTrue(sub_.getFormDataMap().getCrudPlace().getAdd().isEnabled());
-//        assertTrue(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAdd().isEnabled());
-//    }
+    @Test
+    public void linkPlaceClave11() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMiniItems().addEntry(I_1, instance(new int[1][1]));
+        basic(facade_);
+        Cave cave_ = ((Cave) facade_.getMap().getPlace(1));
+        LevelCave first_ = cave_.getLevels().get(1);
+        first_.getItems().addEntry(newPoint(1,1),I_1);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(last(sub_));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLinks().getLevelsPlace().get(0).getGrid(),0,0);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLinks().getLevelsCave().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
+        assertFalse(sub_.getFormDataMap().getCrudPlace().getLinks().getAddTileLeft().isEnabled());
+        assertFalse(sub_.getFormDataMap().getCrudPlace().getLinks().getAddTileRight().isEnabled());
+        assertFalse(sub_.getFormDataMap().getCrudPlace().getLinks().getAddTileBoth().isEnabled());
+    }
+    @Test
+    public void linkPlaceClave12() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMiniItems().addEntry(I_1, instance(new int[1][1]));
+        basic(facade_);
+        Road road_ = ((Road) facade_.getMap().getPlace(0));
+        LevelRoad first_ = road_.getLevelRoad();
+        first_.getItems().addEntry(newPoint(0,0),I_1);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(last(sub_));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLinks().getLevelsPlace().get(0).getGrid(),0,0);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLinks().getLevelsCave().get(1).getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
+        assertFalse(sub_.getFormDataMap().getCrudPlace().getLinks().getAddTileLeft().isEnabled());
+        assertFalse(sub_.getFormDataMap().getCrudPlace().getLinks().getAddTileRight().isEnabled());
+        assertFalse(sub_.getFormDataMap().getCrudPlace().getLinks().getAddTileBoth().isEnabled());
+    }
+    @Test
+    public void linkPlaceClave13() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        basic(facade_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(last(sub_));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLinks().getClose());
+        assertTrue(sub_.getFormDataMap().getCrudPlace().getAdd().isEnabled());
+        assertTrue(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAdd().isEnabled());
+    }
     @Test
     public void linkPlaceClave14() {
         MockProgramInfos pr_ = initForms();

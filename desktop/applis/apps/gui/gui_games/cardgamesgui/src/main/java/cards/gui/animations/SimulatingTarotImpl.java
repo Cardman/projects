@@ -280,7 +280,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         container_.add(panneau2_, MessagesGuiFct.BORDER_LAYOUT_EAST);
         container.tapisTarot().setTalonTarot(lg_,partie_.getDistribution().derniereMain(), container.getOwner());
         contentPane_.add(container_);
-        contentPane_.add(container.getWindow().getClock());
+        contentPane_.add(container.getWindow().getClock().getComponent());
         contentPane_.add(container.getWindow().getLastSavedGameDate());
         container.setContentPane(contentPane_);
 //        AbsPanel panneau_=container.getPanneauBoutonsJeu();
@@ -388,7 +388,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
 //        panneau_.add(stopButton_);
         AbsPanel panneau_=container.getOwner().getCompoFactory().newPageBox();
         panneau_.add(ContainerSingleImpl.stopButton(container,stopEvent));
-        panneau_.add(container.getOwner().getClock());
+        panneau_.add(container.getOwner().getClock().getComponent());
         panneau_.add(container.getOwner().getLastSavedGameDate());
         TricksHandsTarot tricksHands_ = new TricksHandsTarot();
         tricksHands_.tricks(currentGame_);

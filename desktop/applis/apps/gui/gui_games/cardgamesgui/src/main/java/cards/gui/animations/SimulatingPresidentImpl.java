@@ -215,7 +215,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         container.setActionsHistory(panneau2_);
         container_.add(panneau2_, MessagesGuiFct.BORDER_LAYOUT_EAST);
         contentPane_.add(container_);
-        contentPane_.add(container.getWindow().getClock());
+        contentPane_.add(container.getWindow().getClock().getComponent());
         contentPane_.add(container.getWindow().getLastSavedGameDate());
         container.setContentPane(contentPane_);
         AbsPanel panneau_=container.getPanneauBoutonsJeu();
@@ -396,7 +396,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
             onglets_.add(container.file().getVal(MessagesGuiCards.MAIN_DETAIL_RESULTS_PAGE),container.getOwner().getCompoFactory().newAbsScrollPane(ContainerSingleImpl.readOnly(container,container.getEvents().getText())));
             panneau_.add(getDealsTricks().self());
             panneau_.add(ContainerSingleImpl.stopButton(container,stopEvent));
-            panneau_.add(container.getOwner().getClock());
+            panneau_.add(container.getOwner().getClock().getComponent());
             panneau_.add(container.getOwner().getLastSavedGameDate());
             containerPresident_.add(onglets_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
             containerPresident_.add(panneau_, MessagesGuiFct.BORDER_LAYOUT_SOUTH);
@@ -414,7 +414,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
 //        stopButton_.addActionListener(stopEvent);
 //        panneau_.add(stopButton_);
         panneau_.add(ContainerSingleImpl.stopButton(container,stopEvent));
-        panneau_.add(container.getOwner().getClock());
+        panneau_.add(container.getOwner().getClock().getComponent());
         panneau_.add(container.getOwner().getLastSavedGameDate());
         container.setContentPane(panneau_);
         container.pack();

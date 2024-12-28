@@ -365,7 +365,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
 //        tapisPresident().repaintValidate();
         AbsPanel panel_ = getOwner().getCompoFactory().newPageBox();
         panel_.add(getOwner().getCompoFactory().newAbsScrollPane(container_));
-        panel_.add(getWindow().getClock());
+        panel_.add(getWindow().getClock().getComponent());
         panel_.add(getWindow().getLastSavedGameDate());
         setContentPane(panel_);
     }
@@ -652,7 +652,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         addButtonReplayDealPresident(buttons_, file().getVal(MessagesGuiCards.MAIN_REPLAY_DEAL));
         addButtonStopPlayingPresident(buttons_, file().getVal(MessagesGuiCards.MAIN_STOP));
         panneau_.add(buttons_);
-        panneau_.add(getWindow().getClock());
+        panneau_.add(getWindow().getClock().getComponent());
         panneau_.add(getWindow().getLastSavedGameDate());
         container_.add(panneau_, MessagesGuiFct.BORDER_LAYOUT_SOUTH);
 //        if(type_!=GameType.EDIT) {

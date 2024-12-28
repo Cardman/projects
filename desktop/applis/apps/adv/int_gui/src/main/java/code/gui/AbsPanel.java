@@ -3,7 +3,6 @@ package code.gui;
 public interface AbsPanel extends AbsCustComponent, AbsContainer {
     int getComponentCount();
     AbsCustComponent getComponent(int _n);
-    void add(AbsClock _comp);
     void add(AbsCustComponent _comp);
     void innerAdd(AbsCustComponent _comp);
     void add(AbsCustComponent _comp, int _index);

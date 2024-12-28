@@ -385,7 +385,7 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
 //        panneau_.add(stopButton_);
         AbsPanel panneau_=container.getOwner().getCompoFactory().newPageBox();
         panneau_.add(ContainerSingleImpl.stopButton(container,stopEvent));
-        panneau_.add(container.getOwner().getClock());
+        panneau_.add(container.getOwner().getClock().getComponent());
         panneau_.add(container.getOwner().getLastSavedGameDate());
         TricksHandsBelote tricksHands_ = new TricksHandsBelote();
         tricksHands_.tricks(currentGame_);

@@ -117,7 +117,7 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
         buttonNet.addActionListener(new NetWorkEvent(this, buttonNet, new LanguagesButtonsPair(null,buttonNet,buttons_)));
         lineNet_.add(buttonNet);
         panel_.add(lineNet_);
-        panel_.add(new Clock(_list.getProgramInfos()));
+        panel_.add(new Clock(_list.getProgramInfos()).getComponent());
 //        for (String l: Constants.getAvailableLanguages()) {
 //            RadioButton radio_ = new RadioButton(Constants.getDisplayLanguage(l));
 //            radio_.addActionListener(new SetLanguage(l, getFrames()));

@@ -25,11 +25,6 @@ public final class MockPanel extends MockCustComponent implements AbsPanel {
     }
 
     @Override
-    public void add(AbsClock _cl) {
-        add(_cl.getComponent());
-    }
-
-    @Override
     public void add(AbsCustComponent _c) {
         if (_c.getParent() == null) {
             innerAdd(_c);

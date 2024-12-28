@@ -37,7 +37,7 @@ public final class MockPanelTest extends EquallableMockGuiUtil {
         MockProgramInfosSample pr_ = init();
         AbsPanel p_ = pr_.getCompoFactory().newAbsolute();
         MockClock comp_ = new MockClock();
-        p_.add(comp_);
+        p_.add(comp_.getComponent());
         comp_.setTimeText(pr_.getThreadFactory());
         assertEq(1,p_.getComponentCount());
     }

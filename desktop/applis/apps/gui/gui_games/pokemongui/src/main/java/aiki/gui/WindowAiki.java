@@ -283,7 +283,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         mainPanel_.add(battle.getPaintableLabel());
         mainPanel_.add(scenePanel.getComponent());
 //        time = new Clock(_list);
-        mainPanel_.add(new Clock(_list));
+        mainPanel_.add(new Clock(_list).getComponent());
 //        lastSavedGameDate = getCompoFactory().newPlainLabel("");
         mainPanel_.add(core.getLastSavedGameDate());
         helpInfo = getCompoFactory().newPlainLabel("");

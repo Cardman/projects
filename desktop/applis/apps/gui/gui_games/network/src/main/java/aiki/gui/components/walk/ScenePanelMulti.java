@@ -405,7 +405,7 @@ public class ScenePanelMulti {
         window.getPane().removeAll();
         AbsPanel pane_ = window.getCompoFactory().newPageBox();
         pane_.add(component);
-        pane_.add(new Clock(window.getFrames()));
+        pane_.add(new Clock(window.getFrames()).getComponent());
         pane_.add(window.getAiki().getLastSavedGameDate());
         server.setText(messages.getVal(MessagesRenderScenePanel.CST_SERVER));
         window.setContentPane(pane_);
@@ -752,7 +752,7 @@ public class ScenePanelMulti {
         window.getPane().removeAll();
         AbsPanel pane_ = window.getCompoFactory().newPageBox();
         pane_.add(component);
-        pane_.add(new Clock(window.getFrames()));
+        pane_.add(new Clock(window.getFrames()).getComponent());
         pane_.add(window.getAiki().getLastSavedGameDate());
         window.setContentPane(pane_);
     }

@@ -1036,7 +1036,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        MenuItemUtils.setEnabledMenu(getLoad(),false);
 //        MenuItemUtils.setEnabledMenu(getSave(),false);
 //        MenuItemUtils.setEnabledMenu(getChange(),false);
-        container_.add(netg.getClock());
+        container_.add(netg.getClock().getComponent());
         container_.add(aiki.getLastSavedGameDate());
         setContentPane(container_);
         pack();
@@ -1126,7 +1126,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //            goHelpMenu = getCompoFactory().newPlainLabel(getMessages().getVal(CST_GO_HELP_MENU));
 //        }
 //        pane_.add(goHelpMenu);
-        pane_.add(netg.getClock());
+        pane_.add(netg.getClock().getComponent());
         pane_.add(aiki.getLastSavedGameDate());
         setContentPane(pane_);
 //        MenuItemUtils.setEnabledMenu(getSave(),false);

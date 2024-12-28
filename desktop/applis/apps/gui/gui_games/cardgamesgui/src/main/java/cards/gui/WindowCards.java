@@ -965,7 +965,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         container_.add(goHelpMenu);
         MenuItemUtils.setEnabledMenu(getSave(),false);
         MenuItemUtils.setEnabledMenu(getChange(),false);
-        container_.add(core.getClock());
+        container_.add(core.getClock().getComponent());
         container_.add(lastSavedGameDate);
         setContentPane(container_);
         pack();
@@ -1017,7 +1017,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //            goHelpMenu = getCompoFactory().newPlainLabel(getMenusMessages().getVal(MessagesGuiCards.CST_GO_HELP_MENU));
 //        }
         pane_.add(goHelpMenu);
-        pane_.add(core.getClock());
+        pane_.add(core.getClock().getComponent());
         pane_.add(lastSavedGameDate);
         setContentPane(pane_);
         MenuItemUtils.setEnabledMenu(getSave(),false);

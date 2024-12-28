@@ -143,7 +143,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
         pane_.add(currentNoSong);
         pane_.add(currentSong);
         pane_.add(elapsedTime);
-        pane_.add(new Clock(_list));
+        pane_.add(new Clock(_list).getComponent());
 //        for (String l: Constants.getAvailableLanguages()) {
 //            RadioButton radio_ = new RadioButton(Constants.getDisplayLanguage(l));
 //            radio_.addActionListener(new SetLanguage(l, getFrames()));

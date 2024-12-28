@@ -143,7 +143,7 @@ public final class ContainerMultiContent {
             _panel.add(playGameButton);
         }
 
-        _panel.add(window().getClock());
+        _panel.add(window().getClock().getComponent());
         _panel.add(window().getLastSavedGameDate());
         window().setContentPane(_panel);
         window().pack();
@@ -255,7 +255,7 @@ public final class ContainerMultiContent {
             playGameButton.addActionListener(new PlayNextDealEvent(_cont));
             panneau_.add(playGameButton);
         }
-        panneau_.add(window().getClock());
+        panneau_.add(window().getClock().getComponent());
         panneau_.add(window().getLastSavedGameDate());
         _panel.add(panneau_, MessagesGuiFct.BORDER_LAYOUT_SOUTH);
 
