@@ -2,7 +2,6 @@ package aiki.gui.components.editor;
 
 import aiki.db.*;
 import aiki.facade.*;
-import aiki.map.*;
 import aiki.map.levels.*;
 import aiki.map.places.*;
 import aiki.util.*;
@@ -261,18 +260,12 @@ public abstract class AbsContentComponentModelLevelLinks {
     protected abstract void trySetLeft(ImageArrayBaseSixtyFour _img, Point _pt);
 
     public void applyTile(int _option) {
-        FacadeGame facadeGame_ = facadeGame;
-        Coords coordsFirst_ = selectedFirstLevel.build(selectedFirst.value());
-        Coords coordsSecond_ = selectedSecondLevel.build(selectedSecond.value());
         if (_option == LEFT) {
             appendLeft();
-            DataMap.joinLevelCave(facadeGame_.getMap(),coordsFirst_.getNumberPlace(),coordsFirst_.getLevel(),coordsSecond_.getLevel(),linkFileNameFirst.getName().tryRet());
         } else if (_option == RIGHT) {
             appendRight();
-            DataMap.joinLevelCave(facadeGame_.getMap(),coordsFirst_.getNumberPlace(),coordsSecond_.getLevel(),coordsFirst_.getLevel(),linkFileNameSecond.getName().tryRet());
         } else {
             appendBoth();
-            DataMap.joinLevelCave(facadeGame_.getMap(),coordsFirst_.getNumberPlace(),coordsFirst_.getLevel(),coordsSecond_.getLevel(),linkFileNameFirst.getName().tryRet(),linkFileNameSecond.getName().tryRet());
         }
         trySet(facadeGame.getData().getLinks().getVal(linkFileNameFirst.getName().tryRet()),true,selectedFirst);
         trySet(facadeGame.getData().getLinks().getVal(linkFileNameSecond.getName().tryRet()),false,selectedSecond);

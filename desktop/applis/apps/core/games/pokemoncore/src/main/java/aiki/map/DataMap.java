@@ -148,14 +148,22 @@ public final class DataMap {
         if (partialFillForAdding(_dataMap, _coordsCave, _coordsPlace)) {
             return;
         }
+        joinCave(_dataMap, _coordsCave, _coordsPlace, _imgName1);
+        joinPlace(_dataMap,_coordsCave, _coordsPlace, _imgName2);
+    }
+
+    public static void joinCave(DataMap _dataMap, Coords _coordsCave, Coords _coordsPlace, String _imgName1) {
         Cave cave_ = (Cave) _dataMap.getPlace(_coordsCave.getNumberPlace());
-        InitializedPlace place_ = (InitializedPlace) _dataMap.getPlace(_coordsPlace
-                .getNumberPlace());
         LevelPoints links1_ = cave_.getLinksWithOtherPlaces();
         Link link1_ = new Link();
         link1_.setCoords(_coordsPlace);
         link1_.setFileName(_imgName1);
-        links1_.addEntry(_coordsCave.getLevel(), link1_);
+        links1_.put(_coordsCave.getLevel(), link1_);
+    }
+
+    public static void joinPlace(DataMap _dataMap, Coords _coordsCave, Coords _coordsPlace, String _imgName2) {
+        InitializedPlace place_ = (InitializedPlace) _dataMap.getPlace(_coordsPlace
+                .getNumberPlace());
         Points< Link> links2_ = place_.getLinksWithCaves();
         Link link2_ = new Link();
         link2_.setCoords(_coordsCave);

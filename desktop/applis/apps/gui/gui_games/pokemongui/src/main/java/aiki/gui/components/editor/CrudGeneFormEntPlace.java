@@ -8,6 +8,7 @@ import code.util.*;
 
 public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCrudGeneFormTrCstOpen {
     private final CrudGeneFormSubContent crudGeneFormSubContent;
+    private final ContentComponentModelPlaceCaveLinks links = new ContentComponentModelPlaceCaveLinks();
     private GeneComponentModelPlace gene;
     private ContentComponentModelRoad road;
     private ContentComponentModelCity city;
@@ -30,6 +31,19 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
         getCrudGeneFormSubContent().clearSub();
         gene = new GeneComponentModelPlace(getFactory(), getFrame());
         refresh();
+        AbsButton but_ = getFactory().getCompoFactory().newPlainButton("<->");
+        but_.addActionListener(new SelectCrudPlaceCaveFormEvent(this));
+        but_.setEnabled(isEnabledButtons());
+        getButtons().add(but_);
+        getAllButtons().add(but_);
+        getAllButtonsMerge().add(but_);
+    }
+    public void displayAllLinksPlaceCave() {
+        getElement().removeAll();
+        getElement().add(links.form(getFactory(),getCrudGeneFormSubContent().getFacadeGame(),getCrudGeneFormSubContent().getSubscription(),getFrame()));
+        links.getClose().addActionListener(new CloseLinksFormEvent(this));
+        CrudGeneFormLevelCave.disable(this);
+        getFrame().pack();
     }
 
     public void selectPlace(int _i) {
@@ -199,5 +213,9 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
 
     public void setEnabledButtons(boolean _e) {
         this.enabledButtons = _e;
+    }
+
+    public ContentComponentModelPlaceCaveLinks getLinks() {
+        return links;
     }
 }

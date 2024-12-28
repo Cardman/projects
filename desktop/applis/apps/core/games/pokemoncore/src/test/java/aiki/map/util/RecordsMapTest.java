@@ -5,6 +5,7 @@ import aiki.db.EquallablePkUtil;
 import aiki.fight.util.*;
 import aiki.map.Condition;
 import aiki.map.enums.Direction;
+import aiki.map.levels.Link;
 import aiki.util.*;
 import code.maths.Rate;
 import code.util.CollCapacity;
@@ -122,7 +123,14 @@ public final class RecordsMapTest extends EquallablePkUtil {
     public void test16() {
         LevelPoints c_ = new LevelPoints();
         assertNotNull(c_.getVal(new LevelPoint("")));
+        c_.removeKey(new LevelPoint());
         assertTrue(c_.isEmpty());
+        c_.addEntry(new LevelPoint(),new Link());
+        c_.removeKey(new LevelPoint());
+        assertTrue(c_.isEmpty());
+        c_.put(new LevelPoint(),new Link());
+        c_.put(new LevelPoint(),new Link());
+        assertFalse(c_.isEmpty());
     }
     @Test
     public void test17() {

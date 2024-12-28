@@ -45,6 +45,12 @@ public final class LevelPoints {
         return getList().get(index_);
     }
 
+    public void removeKey(LevelPoint _key) {
+        int index_ = indexOfEntry(_key);
+        if (index_ > IndexConstants.INDEX_NOT_FOUND_ELT) {
+            getList().remove(index_);
+        }
+    }
 
     public boolean contains(LevelPoint _key) {
         return getEntryByKey(_key) != null;
@@ -66,6 +72,15 @@ public final class LevelPoints {
             }
         }
         return -1;
+    }
+
+    public void put(LevelPoint _k, Link _v) {
+        int ind_ = indexOfEntry(_k);
+        if (ind_ > IndexConstants.INDEX_NOT_FOUND_ELT) {
+            list.set(ind_, new LevelPointLink(_k, _v));
+            return;
+        }
+        list.add(new LevelPointLink(_k, _v));
     }
 
     public void addEntry(LevelPoint _k, Link _v) {
