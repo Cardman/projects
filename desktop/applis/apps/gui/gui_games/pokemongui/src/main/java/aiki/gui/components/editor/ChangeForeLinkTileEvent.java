@@ -3,10 +3,10 @@ package aiki.gui.components.editor;
 import code.gui.events.*;
 
 public final class ChangeForeLinkTileEvent implements AbsActionListener {
-    private final ContentComponentModelLevelCaveLinks form;
+    private final AbsContentComponentModelLevelLinks form;
     private final int option;
 
-    public ChangeForeLinkTileEvent(ContentComponentModelLevelCaveLinks _g, int _o) {
+    public ChangeForeLinkTileEvent(AbsContentComponentModelLevelLinks _g, int _o) {
         form = _g;
         option = _o;
     }

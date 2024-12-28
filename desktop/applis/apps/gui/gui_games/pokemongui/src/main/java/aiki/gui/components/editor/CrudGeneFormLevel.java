@@ -26,7 +26,7 @@ public abstract class CrudGeneFormLevel extends AbsCrudGeneForm {
     public void selectLevel(int _i) {
         selectedLevel = _i;
         getElement().removeAll();
-        getElement().add(gene(false));
+        getElement().add(gene());
         selectOrAdd();
         parent.enable(false);
     }
@@ -64,23 +64,27 @@ public abstract class CrudGeneFormLevel extends AbsCrudGeneForm {
 
     @Override
     public void formAdd() {
-        selectedLevel = -1;
-        getElement().removeAll();
-        getElement().add(gene(true));
-        selectOrAdd();
-        getValidRemove().setEnabled(false);
+        addLevel();
+        afterModif();
+        refresh();
+//        selectedLevel = -1;
+//        getElement().removeAll();
+//        getElement().add(gene(true));
+//        selectOrAdd();
+//        getValidRemove().setEnabled(false);
     }
 
-    public abstract AbsCustComponent gene(boolean _s);
+    public abstract AbsCustComponent gene();
 
     @Override
     public void validAddEdit() {
         getCrudGeneFormSubContent().getSubscription().setFormLevelGridUniq(null);
-        if (selectedLevel < 0) {
-            addLevel();
-        } else {
-            setupLevel(selectedLevel);
-        }
+//        if (selectedLevel < 0) {
+//            addLevel();
+//        } else {
+//            setupLevel(selectedLevel);
+//        }
+        setupLevel(selectedLevel);
         getCrudGeneFormSubContent().removeOpenSub();
         afterModif();
         refresh();
@@ -149,4 +153,6 @@ public abstract class CrudGeneFormLevel extends AbsCrudGeneForm {
     public CrudGeneFormSubContent getCrudGeneFormSubContent() {
         return crudGeneFormSubContent;
     }
+
+    public abstract void displayGrid(int _index);
 }

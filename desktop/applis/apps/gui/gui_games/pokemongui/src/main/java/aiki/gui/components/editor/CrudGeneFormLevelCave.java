@@ -1,6 +1,7 @@
 package aiki.gui.components.editor;
 
 import aiki.facade.*;
+import aiki.instances.Instances;
 import aiki.map.places.*;
 import code.gui.*;
 import code.gui.events.*;
@@ -27,11 +28,9 @@ public final class CrudGeneFormLevelCave extends CrudGeneFormLevel {
     }
 
     @Override
-    public AbsCustComponent gene(boolean _s) {
+    public AbsCustComponent gene() {
         AbsCustComponent compo_ = genePair.geneEnum();
-        if (cave.getLevels().isValidIndex(getSelectedLevel())) {
-            genePair.setupValue(cave.getLevels().get(getSelectedLevel()));
-        }
+        genePair.setupValue(cave.getLevels().get(getSelectedLevel()));
         disable(getParent());
         return compo_;
     }
@@ -41,10 +40,12 @@ public final class CrudGeneFormLevelCave extends CrudGeneFormLevel {
         return new DisplayLinksCaveEvent(this,_i);
     }
 
+    @Override
     public void displayGrid(int _index) {
         getElement().removeAll();
-        getElement().add(links.form(getFactory(),getCrudGeneFormSubContent().getFacadeGame(),getCrudGeneFormSubContent().getSubscription(),getFrame(),getCave(),getSelectedPlace(),_index));
-        links.getClose().addActionListener(new CloseLinksFormEvent(this));
+        links.selectIndexes(getCave(),getSelectedPlace(),_index);
+        getElement().add(links.form(getFactory(),getCrudGeneFormSubContent().getFacadeGame(),getCrudGeneFormSubContent().getSubscription(),getFrame()));
+        links.getClose().addActionListener(new CloseLinksFormEvent(getParent()));
         disable(getParent());
         getFrame().pack();
     }
@@ -71,7 +72,7 @@ public final class CrudGeneFormLevelCave extends CrudGeneFormLevel {
 
     @Override
     public void addLevel() {
-        cave.getLevels().add(genePair.tryRet());
+        cave.getLevels().add(Instances.newLevelCave());
     }
 
     public Cave getCave() {

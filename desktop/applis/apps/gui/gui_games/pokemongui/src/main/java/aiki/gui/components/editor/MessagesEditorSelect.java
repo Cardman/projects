@@ -83,6 +83,8 @@ public final class MessagesEditorSelect {
     public static final String GERANCE_TYPE_FOSSILE = "0";
     public static final String GERANCE_TYPE_HOST = "1";
     public static final String GERANCE_TYPE_HEAL = "2";
+    public static final String LEAGUE_TRAINER = "0";
+    public static final String LEAGUE_ACCESS = "1";
     private MessagesEditorSelect() {
     }
     public static TranslationsFile enGenderRep(){
@@ -453,6 +455,18 @@ public final class MessagesEditorSelect {
         f_.add(GERANCE_TYPE_FOSSILE,"fossile");
         f_.add(GERANCE_TYPE_HOST,"pension");
         f_.add(GERANCE_TYPE_HEAL,"soin");
+        return f_;
+    }
+    public static TranslationsFile enLeagueTile(){
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(LEAGUE_TRAINER,"trainer");
+        e_.add(LEAGUE_ACCESS,"access");
+        return e_;
+    }
+    public static TranslationsFile frLeagueTile(){
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(LEAGUE_TRAINER,"dresseur");
+        f_.add(LEAGUE_ACCESS,"accès");
         return f_;
     }
 }

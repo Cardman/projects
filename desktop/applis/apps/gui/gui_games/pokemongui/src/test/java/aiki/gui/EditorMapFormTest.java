@@ -1523,7 +1523,6 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
         tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAdd());
-        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getValidAddEdit());
         assertEq(1, facade_.getData().getMap().getPlace(0).getLevelsList().size());
     }
     @Test
@@ -1537,7 +1536,6 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
         tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAdd());
-        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getValidAddEdit());
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(0));
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getValidRemove());
         assertEq(0, facade_.getData().getMap().getPlace(0).getLevelsList().size());
@@ -1553,7 +1551,6 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
         tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAdd());
-        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getValidAddEdit());
         assertEq(1, facade_.getData().getMap().getPlace(0).getLevelsList().size());
     }
     @Test
@@ -1567,7 +1564,6 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
         tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAdd());
-        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getValidAddEdit());
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(0));
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getValidRemove());
         assertEq(0, facade_.getData().getMap().getPlace(0).getLevelsList().size());
@@ -1598,7 +1594,6 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
         tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAdd());
-        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getValidAddEdit());
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(0));
         tryClicks(((CrudGeneFormLevelCave)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getGrid(),0,0);
         tryClicks(((CrudGeneFormLevelCave)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile().getMatch());
@@ -1616,7 +1611,6 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
         tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAdd());
-        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getValidAddEdit());
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(0));
         tryClicks(((CrudGeneFormLevelCave)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getGrid(),0,0);
         tryClicks(((CrudGeneFormLevelCave)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile().getMatch());
@@ -2023,6 +2017,252 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         link(sub_.getFormDataMap().getCrudPlace(),0).getLinkFileNameSecond().updateValue("__");
         tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getMatchLinkRight());
         assertEq("_",cave_.getLevels().get(1).getLinksOtherLevels().getValue(0).getFileName());
+    }
+    @Test
+    public void league1() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAdd());
+        ConverterCommonMapUtil.trigger(sub_.getFormDataMap().getCrudPlace().getGene().getPlaceKind(),MessagesEditorSelect.PLACE_LEAGUE);
+        sub_.getFormDataMap().getCrudPlace().getGene().getName().valueString("_");
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAdd());
+        assertEq(1, facade_.getData().getMap().getPlace(0).getLevelsList().size());
+    }
+    @Test
+    public void league2() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAdd());
+        ConverterCommonMapUtil.trigger(sub_.getFormDataMap().getCrudPlace().getGene().getPlaceKind(),MessagesEditorSelect.PLACE_LEAGUE);
+        sub_.getFormDataMap().getCrudPlace().getGene().getName().valueString("_");
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAdd());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(0));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getValidRemove());
+        assertEq(0, facade_.getData().getMap().getPlace(0).getLevelsList().size());
+    }
+    @Test
+    public void league3() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAdd());
+        ConverterCommonMapUtil.trigger(sub_.getFormDataMap().getCrudPlace().getGene().getPlaceKind(),MessagesEditorSelect.PLACE_LEAGUE);
+        sub_.getFormDataMap().getCrudPlace().getGene().getName().valueString("_");
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAdd());
+        assertEq(1, facade_.getData().getMap().getPlace(0).getLevelsList().size());
+    }
+    @Test
+    public void league4() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAdd());
+        ConverterCommonMapUtil.trigger(sub_.getFormDataMap().getCrudPlace().getGene().getPlaceKind(),MessagesEditorSelect.PLACE_LEAGUE);
+        sub_.getFormDataMap().getCrudPlace().getGene().getName().valueString("_");
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAdd());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(0));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getValidRemove());
+        assertEq(0, facade_.getData().getMap().getPlace(0).getLevelsList().size());
+    }
+    @Test
+    public void league5() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        Road place_ = Instances.newRoad();
+        place_.getLinksWithCaves().put(newPoint(0,0),new Link("",newCoords(1,0,0,0)));
+        facade_.getData().getMap().addPlace(place_);
+        League cave_ = Instances.newLeague();
+        cave_.getRooms().add(Instances.newLevelLeague());
+        facade_.getData().getMap().addPlace(cave_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(0));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getValidRemove());
+        assertEq(1,facade_.getData().getMap().getPlace(1).getLevelsList().size());
+    }
+    @Test
+    public void league6() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAdd());
+        sub_.getFormDataMap().getCrudPlace().getGene().getName().valueString("_");
+        ConverterCommonMapUtil.trigger(sub_.getFormDataMap().getCrudPlace().getGene().getPlaceKind(),MessagesEditorSelect.PLACE_LEAGUE);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAdd());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(0));
+        tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getGrid(),0,0);
+        tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile().getMatch());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getValidAddEdit());
+        assertEq(1, facade_.getData().getMap().getPlace(0).getLevelsList().get(0).getBlocks().size());
+    }
+    @Test
+    public void league7() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAdd());
+        sub_.getFormDataMap().getCrudPlace().getGene().getName().valueString("_");
+        ConverterCommonMapUtil.trigger(sub_.getFormDataMap().getCrudPlace().getGene().getPlaceKind(),MessagesEditorSelect.PLACE_LEAGUE);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAdd());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(0));
+        tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getGrid(),0,0);
+        tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile().getMatch());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getCancel());
+        assertEq(0, facade_.getData().getMap().getPlace(0).getLevelsList().get(0).getBlocks().size());
+    }
+    @Test
+    public void tileLeague1() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        League l_ = Instances.newLeague();
+        l_.getRooms().add(Instances.newLevelLeague());
+        facade_.getData().getMap().addPlace(l_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(0));
+        tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getGrid(),0,0);
+        ((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile().getDims().setText("2:2");
+        enterTextField(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile().getDims());
+        tryClick(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getTiles().getVal(MessagesEditorSelect.LEAGUE_TRAINER));
+        tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile().getMatch());
+        tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getGrid(),facade_.getMap().getSideLength(),facade_.getMap().getSideLength());
+        tryClick(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getTiles().getVal(MessagesEditorSelect.LEAGUE_ACCESS));
+        tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile().getMatch());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(0));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getCancel());
+        assertEq(0,((League)facade_.getData().getMap().getPlace(0)).getRooms().get(0).getTrainerCoords().getPoint().getx());
+        assertEq(0,((League)facade_.getData().getMap().getPlace(0)).getRooms().get(0).getTrainerCoords().getPoint().gety());
+        assertEq(1,((League)facade_.getData().getMap().getPlace(0)).getRooms().get(0).getAccessPoint().getPoint().getx());
+        assertEq(1,((League)facade_.getData().getMap().getPlace(0)).getRooms().get(0).getAccessPoint().getPoint().gety());
+    }
+    @Test
+    public void tileLeague2() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        League l_ = Instances.newLeague();
+        l_.getRooms().add(Instances.newLevelLeague());
+        facade_.getData().getMap().addPlace(l_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(0));
+        tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getGrid(),0,0);
+        ((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile().getDims().setText("2:2");
+        enterTextField(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile().getDims());
+        tryClick(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getTiles().getVal(MessagesEditorSelect.LEAGUE_TRAINER));
+        tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile().getMatch());
+        tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getGrid(),facade_.getMap().getSideLength(),facade_.getMap().getSideLength());
+        tryClick(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getTiles().getVal(MessagesEditorSelect.LEAGUE_ACCESS));
+        tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile().getMatch());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(0));
+        tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getGrid(),0,0);
+        tryClick(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getRemoveTile());
+        tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getGrid(),facade_.getMap().getSideLength(),facade_.getMap().getSideLength());
+        tryClick(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getRemoveTile());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getValidAddEdit());
+        assertFalse(((League)facade_.getData().getMap().getPlace(0)).getRooms().get(0).getTrainerCoords().isDefined());
+        assertFalse(((League)facade_.getData().getMap().getPlace(0)).getRooms().get(0).getAccessPoint().isDefined());
+    }
+    @Test
+    public void tileLeague3() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        League l_ = Instances.newLeague();
+        LevelLeague f_ = Instances.newLevelLeague();
+        f_.setNextLevelTarget(newPoint(0,0));
+        l_.getRooms().add(f_);
+        LevelLeague s_ = Instances.newLevelLeague();
+        Block sBloc_ = Instances.newBlock();
+        sBloc_.setHeight((short) 1);
+        sBloc_.setWidth((short) 1);
+        s_.getBlocks().addEntry(newPoint(0,0), sBloc_);
+        l_.getRooms().add(s_);
+        facade_.getData().getMap().addPlace(l_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(2));
+        tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getGrid(),0,0);
+        ((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile().getDims().setText("2:2");
+        enterTextField(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile().getDims());
+        tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile().getMatch());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getValidAddEdit());
+        assertEq(1,((League)facade_.getData().getMap().getPlace(0)).getRooms().get(1).getBlocks().size());
+    }
+    @Test
+    public void linkNext1() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        League l_ = Instances.newLeague();
+        LevelLeague f_ = Instances.newLevelLeague();
+        l_.getRooms().add(f_);
+        LevelLeague s_ = Instances.newLevelLeague();
+        Block sBloc_ = Instances.newBlock();
+        sBloc_.setHeight((short) 1);
+        sBloc_.setWidth((short) 1);
+        s_.getBlocks().addEntry(newPoint(0,0), sBloc_);
+        l_.getRooms().add(s_);
+        facade_.getData().getMap().addPlace(l_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(1));
+        tryClick(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getLinks().getLevel().getGrid(),0,0);
+        tryClick(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getLinks().getClose());
+        assertEq(0,((League)facade_.getData().getMap().getPlace(0)).getRooms().get(0).getNextLevelTarget().getPoint().getx());
+        assertEq(0,((League)facade_.getData().getMap().getPlace(0)).getRooms().get(0).getNextLevelTarget().getPoint().gety());
+    }
+    @Test
+    public void linkNext2() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        League l_ = Instances.newLeague();
+        LevelLeague f_ = Instances.newLevelLeague();
+        l_.getRooms().add(f_);
+        LevelLeague s_ = Instances.newLevelLeague();
+        Block sBloc_ = Instances.newBlock();
+        sBloc_.setHeight((short) 1);
+        sBloc_.setWidth((short) 1);
+        s_.setTrainerCoords(newPoint(0,0));
+        s_.getBlocks().addEntry(newPoint(0,0), sBloc_);
+        l_.getRooms().add(s_);
+        facade_.getData().getMap().addPlace(l_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(1));
+        tryClick(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getLinks().getLevel().getGrid(),0,0);
+        tryClick(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getLinks().getClose());
+        assertFalse(((League)facade_.getData().getMap().getPlace(0)).getRooms().get(0).getNextLevelTarget().isDefined());
+    }
+    @Test
+    public void linkNext3() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        League l_ = Instances.newLeague();
+        LevelLeague f_ = Instances.newLevelLeague();
+        l_.getRooms().add(f_);
+        LevelLeague s_ = Instances.newLevelLeague();
+        Block sBloc_ = Instances.newBlock();
+        sBloc_.setHeight((short) 1);
+        sBloc_.setWidth((short) 1);
+        s_.getBlocks().addEntry(newPoint(0,0), sBloc_);
+        l_.getRooms().add(s_);
+        facade_.getData().getMap().addPlace(l_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(1));
+        tryClick(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getLinks().getLevel().getGrid(),0,0);
+        tryClick(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getLinks().getClose());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(1));
+        tryClick(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getLinks().getLevel().getGrid(),0,0);
+        tryClick(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getLinks().getClose());
+        assertFalse(((League)facade_.getData().getMap().getPlace(0)).getRooms().get(0).getNextLevelTarget().isDefined());
     }
     public static ContentComponentModelLevelCaveLinks link(CrudGeneFormEntPlace _c, int _i) {
         return ((CrudGeneFormLevelCave)_c.getLevels().get(_i)).getLinks();

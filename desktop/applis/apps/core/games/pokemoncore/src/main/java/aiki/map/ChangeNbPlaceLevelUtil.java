@@ -22,23 +22,44 @@ public final class ChangeNbPlaceLevelUtil {
             return null;
         }
         Place pl_ = _places.get(place);
-        if (!(pl_ instanceof Cave)) {
-            return null;
+        Level rem_ = null;
+        if (pl_ instanceof Cave) {
+            Cave cave_ = (Cave) pl_;
+            CustList<LevelCave> levels_ = cave_.getLevels();
+            if (!levels_.isValidIndex(level)) {
+                return null;
+            }
+            Place r_ = tryRemove(pl_);
+            if (r_ == null) {
+                return null;
+            }
+            rem_ = levels_.get(level);
+            cave_.getLevels().remove(level);
+            renameLevel();
         }
-        Cave cave_ = (Cave) pl_;
-        CustList<LevelCave> levels_ = cave_.getLevels();
-        if (!levels_.isValidIndex(level)) {
-            return null;
+        if (pl_ instanceof League) {
+            League cave_ = (League) pl_;
+            CustList<LevelLeague> levels_ = cave_.getRooms();
+            if (!levels_.isValidIndex(level)) {
+                return null;
+            }
+            Place r_ = tryRemove(pl_);
+            if (r_ == null) {
+                return null;
+            }
+            rem_ = levels_.get(level);
+            cave_.getRooms().remove(level);
+            renameLevel();
         }
+        return rem_;
+    }
+    private Place tryRemove(Place _pl) {
         for (ChangeNbPlaceFieldAct e:collection) {
             if (e.matchLevel(place, level)) {
                 return null;
             }
         }
-        LevelCave l_ = levels_.get(level);
-        cave_.getLevels().remove(level);
-        renameLevel();
-        return l_;
+        return _pl;
     }
     public Place containedPlace(CustList<Place> _places) {
         if (!_places.isValidIndex(place)) {

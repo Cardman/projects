@@ -109,7 +109,7 @@ public final class ContentComponentModelLevelWithWild {
         } else if (edited.getDualFights().contains(pt_)) {
             choose(MessagesEditorSelect.TILE_DUAL);
             dualFight.feedForm(edited.getDualFights().getVal(pt_));
-        } else if (level.getFacadeGame().getMap().isEmptyForAdding(ContentComponentModelLevelCaveLinks.coords(nbPlace,nbLevel,null,pt_))){
+        } else if (level.getFacadeGame().getMap().isEmptyForAdding(AbsContentComponentModelLevelLinks.coords(nbPlace,nbLevel,null,pt_))){
             initFormChoices();
         } else {
             key = "";

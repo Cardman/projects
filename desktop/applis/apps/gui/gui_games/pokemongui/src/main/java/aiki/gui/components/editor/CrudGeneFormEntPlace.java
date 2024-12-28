@@ -43,13 +43,13 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
         getCrudGeneFormSubContent().getSubscription().setFormLevelGridUniq(null);
         if (place_ instanceof Road) {
             road = new ContentComponentModelRoad();
-            road.setupGridDims(getFactory(),getCrudGeneFormSubContent().getFacadeGame(),getCrudGeneFormSubContent().getSubscription(),getFrame(),ContentComponentModelLevelCaveLinks.coords(_i, 0, null), place_,ConverterCommonMapUtil.copyLevelRoad(((Road) place_).getLevelRoad()));
+            road.setupGridDims(getFactory(),getCrudGeneFormSubContent().getFacadeGame(),getCrudGeneFormSubContent().getSubscription(),getFrame(),AbsContentComponentModelLevelLinks.coords(_i, 0, null), place_,ConverterCommonMapUtil.copyLevelRoad(((Road) place_).getLevelRoad()));
             getElement().add(road.getLevelWithWild().getSplitter());
             getCrudGeneFormSubContent().getSubscription().setFormLevelGridUniq(road.getLevel());
         }
         if (place_ instanceof City) {
             city = new ContentComponentModelCity();
-            city.setupGridDims(getFactory(),getCrudGeneFormSubContent().getFacadeGame(),getCrudGeneFormSubContent().getSubscription(),getFrame(),ContentComponentModelLevelCaveLinks.coords(_i, 0, null), (City)place_);
+            city.setupGridDims(getFactory(),getCrudGeneFormSubContent().getFacadeGame(),getCrudGeneFormSubContent().getSubscription(),getFrame(),AbsContentComponentModelLevelLinks.coords(_i, 0, null), (City)place_);
             getElement().add(city.getSplitter());
             getCrudGeneFormSubContent().getSubscription().setFormLevelGridUniq(city.getLevel());
         }
@@ -81,6 +81,15 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
                 CrudGeneFormLevelCave c_ = new CrudGeneFormLevelCave(getFactory(), getCrudGeneFormSubContent().getFacadeGame(), getCrudGeneFormSubContent().getSubscription(), getFrame(), this);
                 c_.initForm();
                 c_.setCave((Cave)place_);
+                getAllButtonsMerge().addAllElts(c_.refLevels());
+                c_.setSelectedPlace(i);
+                levels.add(c_);
+                getElements().add(c_.getGroup());
+            }
+            if (place_ instanceof League) {
+                CrudGeneFormLevelLeague c_ = new CrudGeneFormLevelLeague(getFactory(), getCrudGeneFormSubContent().getFacadeGame(), getCrudGeneFormSubContent().getSubscription(), getFrame(), this);
+                c_.initForm();
+                c_.setCave((League)place_);
                 getAllButtonsMerge().addAllElts(c_.refLevels());
                 c_.setSelectedPlace(i);
                 levels.add(c_);

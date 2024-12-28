@@ -12,6 +12,7 @@ import code.util.core.*;
 public final class FormLevelGridLink extends FormLevelGridCommon {
     private AbsPaintableLabel grid;
     private AbsPanel form;
+    private Coords key = new Coords();
 
     public FormLevelGridLink(AbstractProgramInfos _a, FacadeGame _f, AbsCommonFrame _fr, SubscribedTranslationList _i) {
         super(_a,_f, _fr,_i);
@@ -44,6 +45,11 @@ public final class FormLevelGridLink extends FormLevelGridCommon {
         img_.drawImage(ConverterCommonMapUtil.buildImgFore(getApi(), getFacadeGame(),limits_, getForegroundEdited(), getTopLeftRel(), rowsCount_, colsCount_),0, 0);
         grid.setIcon(imgFact_,img_);
     }
+    public Coords build(Point _pt) {
+        Coords c_ = new Coords(key);
+        c_.getLevel().setPoint(_pt);
+        return c_;
+    }
 
     public AbsPanel getForm() {
         return form;
@@ -53,5 +59,11 @@ public final class FormLevelGridLink extends FormLevelGridCommon {
         return grid;
     }
 
+    public Coords getKey() {
+        return key;
+    }
 
+    public void setKey(Coords _k) {
+        this.key = _k;
+    }
 }

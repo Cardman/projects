@@ -251,7 +251,26 @@ public final class ConverterCommonMapUtil {
         }
         return new Dims(_pixels[0].length, _pixels.length);
     }
-
+    public static LevelLeague copyLevelLeague(LevelLeague _e) {
+        LevelLeague cp_ = new LevelLeague();
+        cp_.setBlocks(copyPointsBlock(_e.getBlocks()));
+        cp_.setNextLevelTarget(copyNullablePoint(_e.getNextLevelTarget()));
+        cp_.setAccessPoint(copyNullablePoint(_e.getAccessPoint()));
+        cp_.setTrainerCoords(copyNullablePoint(_e.getTrainerCoords()));
+        cp_.setTrainer(copyTrainerLeague(_e.getTrainer()));
+        cp_.setFileName(_e.getFileName());
+        return cp_;
+    }
+    public static TrainerLeague copyTrainerLeague(TrainerLeague _e) {
+        TrainerLeague cp_ = new TrainerLeague();
+        cp_.setName(_e.getName());
+        cp_.setMultiplicityFight(_e.getMultiplicityFight());
+        cp_.setImageMaxiFileName(_e.getImageMaxiFileName());
+        cp_.setImageMiniFileName(_e.getImageMiniFileName());
+        cp_.setReward(_e.getReward());
+        cp_.setTeam(copyListPkTrainer(_e.getTeam()));
+        return cp_;
+    }
     public static PointsBuilding copyPointsBuilding(Points<Building> _e) {
         PointsBuilding cp_ = new PointsBuilding(new CollCapacity(_e.size()));
         for (EntryCust<Point,Building> f:_e.entryList()) {

@@ -50,7 +50,7 @@ public final class ContentComponentModelDualFight {
         if (!Point.eq(bk_, pt_)) {
             selectSecond = new NullablePoint(pt_);
         }
-        if (selectSecond.isDefined() && secondPt.getForegroundEdited().contains(selectSecond.getPoint())) {
+        if (selectSecond.isDefined() && edited(selectSecond.getPoint(), secondPt)) {
             selectSecond = bk_;
             return;
         }
@@ -61,6 +61,11 @@ public final class ContentComponentModelDualFight {
         }
         secondPt.refreshImg();
     }
+
+    static boolean edited(Point _pt, FormLevelGridLink _lk) {
+        return _lk.getForeground().contains(_pt) || _lk.getForegroundEdited().contains(_pt);
+    }
+
     DualFight buildEntity() {
         TempTrainer tmp_ = new TempTrainer();
         tmp_.setImageMiniSecondTrainerFileName(miniFileName.getName().tryRet());

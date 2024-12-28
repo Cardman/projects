@@ -63,7 +63,7 @@ public final class ContentComponentModelCity {
         edited = _pl;
         editedBuildings = ConverterCommonMapUtil.copyPointsBuilding(_pl.getBuildings());
         nbPlace = _nbPlace;
-        Coords coords_ = ContentComponentModelLevelCaveLinks.coords(_nbPlace, 0, null);
+        Coords coords_ = AbsContentComponentModelLevelLinks.coords(_nbPlace, 0, null);
         Points<int[][]> frontTiles_ = Level.getLevelForegroundImage(level.getFacadeGame().getData(), coords_, _pl,_pl.getLevelOutdoor());
         level.setupGridDims(blocks_, frontTiles_);
         IdList<SubscribedTranslation> subs_ = level.getTranslationList().getSubscribedTranslations().getVal(level.getFrame());
@@ -122,7 +122,7 @@ public final class ContentComponentModelCity {
         AbsCompoFactory compoFactory_ = level.getApi().getCompoFactory();
         levelBuilding = new FormLevelGrid(level.getApi(), level.getFacadeGame(), level.getFrame(), level.getTranslationList());
         Points<Block> blocks_ = ConverterCommonMapUtil.copyPointsBlock(editedBuilding.getLevel().getBlocks());
-        Coords coords_ = ContentComponentModelLevelCaveLinks.coords(nbPlace, 0, selected);
+        Coords coords_ = AbsContentComponentModelLevelLinks.coords(nbPlace, 0, selected);
         Points<int[][]> frontTiles_ = Level.getLevelForegroundImage(level.getFacadeGame().getData(), coords_, edited,editedBuilding.getLevel());
         levelBuilding.setupGridDims(blocks_, frontTiles_);
         levelBuilding.getGrid().addMouseListener(new BuildingTileKindEvent(this));
