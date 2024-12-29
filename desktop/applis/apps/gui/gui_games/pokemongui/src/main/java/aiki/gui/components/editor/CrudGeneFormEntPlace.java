@@ -8,6 +8,7 @@ import code.util.*;
 
 public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCrudGeneFormTrCstOpen {
     private final CrudGeneFormSubContent crudGeneFormSubContent;
+    private final ContentComponentModelUniqLevelLinks joinPlaces = new ContentComponentModelUniqLevelLinks();
     private final ContentComponentModelPlaceCaveLinks links = new ContentComponentModelPlaceCaveLinks();
     private final ContentComponentModelCavePlaceLinks linksRev = new ContentComponentModelCavePlaceLinks();
     private final ContentComponentModelLeagueLinks leagueLink = new ContentComponentModelLeagueLinks();
@@ -33,6 +34,12 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
         getCrudGeneFormSubContent().clearSub();
         gene = new GeneComponentModelPlace(getFactory(), getFrame());
         refresh();
+        AbsButton butJoin_ = getFactory().getCompoFactory().newPlainButton("<->");
+        butJoin_.addActionListener(new SelectCrudJoinFormEvent(this));
+        butJoin_.setEnabled(isEnabledButtons());
+        getButtons().add(butJoin_);
+        getAllButtons().add(butJoin_);
+        getAllButtonsMerge().add(butJoin_);
         AbsButton but_ = getFactory().getCompoFactory().newPlainButton("<->");
         but_.addActionListener(new SelectCrudPlaceCaveFormEvent(this));
         but_.setEnabled(isEnabledButtons());
@@ -45,6 +52,12 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
         getButtons().add(butRev_);
         getAllButtons().add(butRev_);
         getAllButtonsMerge().add(butRev_);
+    }
+    public void displayJoinPlaces() {
+        getElement().removeAll();
+        getElement().add(joinPlaces.form(getFactory(),getCrudGeneFormSubContent().getFacadeGame(),getCrudGeneFormSubContent().getSubscription(),getFrame(),this));
+        CrudGeneFormLevelCave.disable(this);
+        getFrame().pack();
     }
     public void displayAllLinksPlaceCave() {
         getElement().removeAll();
@@ -231,6 +244,10 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
 
     public void setEnabledButtons(boolean _e) {
         this.enabledButtons = _e;
+    }
+
+    public ContentComponentModelUniqLevelLinks getJoinPlaces() {
+        return joinPlaces;
     }
 
     public ContentComponentModelPlaceCaveLinks getLinks() {
