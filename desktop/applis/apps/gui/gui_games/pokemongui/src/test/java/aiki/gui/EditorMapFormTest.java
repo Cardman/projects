@@ -3962,6 +3962,67 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         assertEq(3,saved(facade_,2).getList().get(0).getCoords().getLevel().getPoint().getx());
         assertEq(3,saved(facade_,2).getList().get(0).getCoords().getLevel().getPoint().gety());
     }
+
+    @Test
+    public void accessCondition1() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        buildAccess(facade_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(crudAccessButton(sub_));
+        tryClick(crudAccess(sub_).getLevels().get(0).getGrid(),0,0);
+        tryToggle((AbsCustCheckBox) crudAccess(sub_).getTrainersForm().getComponent(0));
+        tryClick(crudAccess(sub_).getValidateAccess());
+        tryClick(crudAccess(sub_).getClose());
+        assertEq(1,facade_.getMap().getAccessCondition().size());
+        assertEq(1,facade_.getMap().getAccessCondition().getVal(newCoords(0,0,0,0)).size());
+        assertTrue(crudAccessButton(sub_).isEnabled());
+    }
+
+    @Test
+    public void accessCondition2() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        buildAccess(facade_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(crudAccessButton(sub_));
+        tryClick(crudAccess(sub_).getLevels().get(0).getGrid(),0,0);
+        tryToggle((AbsCustCheckBox) crudAccess(sub_).getTrainersForm().getComponent(0));
+        tryClick(crudAccess(sub_).getValidateAccess());
+        tryClick(crudAccess(sub_).getClose());
+        tryClick(crudAccessButton(sub_));
+        tryClick(crudAccess(sub_).getClearAccess());
+        tryClick(crudAccess(sub_).getClose());
+        assertEq(0,facade_.getMap().getAccessCondition().size());
+        assertTrue(crudAccessButton(sub_).isEnabled());
+    }
+
+    @Test
+    public void accessCondition3() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        buildAccess(facade_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(crudAccessButton(sub_));
+        tryClick(crudAccess(sub_).getLevels().get(0).getGrid(),0,0);
+        tryToggle((AbsCustCheckBox) crudAccess(sub_).getTrainersForm().getComponent(0));
+        tryClick(crudAccess(sub_).getValidateAccess());
+        tryClick(crudAccess(sub_).getClose());
+        tryClick(crudAccessButton(sub_));
+        tryClick(crudAccess(sub_).getLevels().get(0).getGrid(),0,0);
+        tryToggle((AbsCustCheckBox) crudAccess(sub_).getTrainersForm().getComponent(0));
+        tryClick(crudAccess(sub_).getValidateAccess());
+        tryClick(crudAccess(sub_).getClose());
+        assertEq(0,facade_.getMap().getAccessCondition().size());
+        assertTrue(crudAccessButton(sub_).isEnabled());
+    }
+    private ContentComponentModelAccessCondition crudAccess(WindowPkEditor _sub) {
+        return _sub.getFormDataMap().getCrudPlace().getAccessCondition();
+    }
+
+    private AbsButton crudAccessButton(WindowPkEditor _sub) {
+        return _sub.getFormDataMap().getCrudPlace().getAccessConditionButton();
+    }
     private static PlaceInterConnects saved(FacadeGame _fac, int _i) {
         return ((InitializedPlace)_fac.getMap().getPlace(_i)).getSavedlinks();
     }
@@ -3974,6 +4035,50 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         return _sub.getFormDataMap().getCrudPlace().getJoinPlaces();
     }
 
+    private void buildAccess(FacadeGame _facade) {
+        Road road_ = Instances.newRoad();
+        road_.getLevelRoad().getBlocks().addEntry(newPoint(0,0),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        road_.getLevelRoad().getBlocks().addEntry(newPoint(0,2),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        road_.getLevelRoad().getBlocks().addEntry(newPoint(2,0),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        road_.getLevelRoad().getBlocks().addEntry(newPoint(2,2),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        DualFight firstDual_ = Instances.newDualFight();
+        firstDual_.setPt(newPoint(0,2));
+        road_.getLevelRoad().getDualFights().addEntry(newPoint(0,3), firstDual_);
+        _facade.getMap().addPlace(road_);
+        City city_ = Instances.newCity();
+        city_.getLevelOutdoor().getBlocks().addEntry(newPoint(0,0),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        city_.getLevelOutdoor().getBlocks().addEntry(newPoint(0,2),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        city_.getLevelOutdoor().getBlocks().addEntry(newPoint(2,0),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        city_.getLevelOutdoor().getBlocks().addEntry(newPoint(2,2),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        Gym firstLeader_ = Instances.newGym();
+        firstLeader_.getIndoor().getBlocks().addEntry(newPoint(0,0),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        firstLeader_.getIndoor().setGymLeaderCoords(newPoint(1,1));
+        city_.getBuildings().addEntry(newPoint(0,0), firstLeader_);
+        city_.getBuildings().addEntry(newPoint(1,1),Instances.newGym());
+        city_.getBuildings().addEntry(newPoint(2,2),Instances.newPokemonCenter());
+        _facade.getMap().addPlace(city_);
+        Cave cave_ = Instances.newCave();
+        LevelCave levelCave_ = Instances.newLevelCave();
+        levelCave_.getBlocks().addEntry(newPoint(0,0),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        levelCave_.getBlocks().addEntry(newPoint(0,2),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        levelCave_.getBlocks().addEntry(newPoint(2,0),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        levelCave_.getBlocks().addEntry(newPoint(2,2),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        DualFight dual_ = Instances.newDualFight();
+        dual_.setPt(newPoint(2,0));
+        levelCave_.getDualFights().addEntry(newPoint(3,0), dual_);
+        cave_.getLevels().add(levelCave_);
+        _facade.getMap().addPlace(cave_);
+        League league_ = Instances.newLeague();
+        league_.setBegin(newPoint(1,1));
+        LevelLeague levelLeague_ = Instances.newLevelLeague();
+        levelLeague_.getBlocks().addEntry(newPoint(0,0),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        levelLeague_.getBlocks().addEntry(newPoint(0,2),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        levelLeague_.getBlocks().addEntry(newPoint(2,0),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        levelLeague_.getBlocks().addEntry(newPoint(2,2),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        league_.getRooms().add(levelLeague_);
+        _facade.getMap().addPlace(league_);
+        _facade.getMap().addPlace(Instances.newLeague());
+    }
     private void buildJoin(FacadeGame _facade) {
         Road road_ = Instances.newRoad();
         road_.getLevelRoad().getBlocks().addEntry(newPoint(0,0),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));

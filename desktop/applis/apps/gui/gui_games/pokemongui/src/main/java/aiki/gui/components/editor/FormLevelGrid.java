@@ -75,9 +75,8 @@ public final class FormLevelGrid extends FormLevelGridCommon {
         int deltaCols_ = _previous.getTopLeft().getx() - _next.getTopLeft().getx();
         getTopLeftRel().sety((short) (getTopLeftRel().gety()+deltaRows_));
         getTopLeftRel().setx((short) (getTopLeftRel().getx()+deltaCols_));
-        if (getSelectedPlace().isInside()) {
-            return;
-        }
+        Coords target_ = new Coords(getSelectedPlace());
+        target_.getLevel().setPoint(new Point((short) 0,(short) 0));
         for (EditedCrudPair<Coords, EditedCrudPair<InitializedPlace, PlaceInterConnects>> e: links) {
             if (Coords.eq(e.getKey(),getSelectedPlace())) {
                 for (PlaceInterConnectCoords p:e.getValue().getValue().getList()) {
@@ -85,7 +84,9 @@ public final class FormLevelGrid extends FormLevelGridCommon {
                 }
             } else {
                 for (PlaceInterConnectCoords p:e.getValue().getValue().getList()) {
-                    if (p.getCoords().getNumberPlace() == getSelectedPlace().getNumberPlace()) {
+                    Coords v_ = new Coords(p.getCoords());
+                    v_.getLevel().setPoint(new Point((short) 0,(short) 0));
+                    if (Coords.eq(target_,v_)) {
                         move(_previous,_next, p.getCoords().getLevel().getPoint(), p.getPlaceInterConnect().getDir().getOpposite());
                     }
                 }

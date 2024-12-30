@@ -452,7 +452,7 @@ public final class ConverterCommonMapUtil {
         return cp_;
     }
 
-    private static CoordsLists copyCoordsLists(CoordsLists _e) {
+    public static CoordsLists copyCoordsLists(CoordsLists _e) {
         CoordsLists cp_ = new CoordsLists();
         for (CoordsListCoords f: _e.getList()) {
             Condition cs_ = new Condition();
