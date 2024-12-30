@@ -28,7 +28,7 @@ public final class ContentComponentModelUniqLevelLinks {
     private FacadeGame facadeGame;
     private FormLevelGridLink levelLeft;
     private FormLevelGridLink levelRight;
-    private final CustList<CustList<BoolVal>> linked = new CustList<CustList<BoolVal>>();
+    private final CustList<CustList<IdMap<Direction,BoolVal>>> linked = new CustList<CustList<IdMap<Direction,BoolVal>>>();
     private GeneComponentModelLs<EditedCrudPair<Coords, InitializedPlace>> left;
     private GeneComponentModelLs<EditedCrudPair<Coords, InitializedPlace>> right;
     private AbsScrollPane leftScroll;
@@ -62,20 +62,22 @@ public final class ContentComponentModelUniqLevelLinks {
         CustList<Place> places_ = _fac.getMap().getPlaces();
         int len_ = places_.size();
         for (int i = 0; i < len_; i++) {
-            CustList<BoolVal> s_ = new CustList<BoolVal>();
+            CustList<IdMap<Direction,BoolVal>> s_ = new CustList<IdMap<Direction,BoolVal>>();
             Place pl_ = places_.get(i);
             if (pl_ instanceof InitializedPlace) {
                 messages.addEntry(new EditedCrudPair<Coords, InitializedPlace>(AbsContentComponentModelLevelLinks.coords(i,0,null),(InitializedPlace) pl_), i+":"+pl_.getName());
                 for (int j = 0; j < len_; j++) {
-                    if (linked((InitializedPlace) pl_, j)) {
-                        s_.add(BoolVal.TRUE);
-                    } else {
-                        s_.add(BoolVal.FALSE);
-                    }
+                    IdMap<Direction, BoolVal> dirs_ = dirs((InitializedPlace) pl_, j);
+                    s_.add(dirs_);
                 }
             } else {
                 for (int j = 0; j < len_; j++) {
-                    s_.add(BoolVal.FALSE);
+                    IdMap<Direction,BoolVal> dirs_ = new IdMap<Direction, BoolVal>();
+                    dirs_.addEntry(Direction.UP,BoolVal.FALSE);
+                    dirs_.addEntry(Direction.RIGHT,BoolVal.FALSE);
+                    dirs_.addEntry(Direction.LEFT,BoolVal.FALSE);
+                    dirs_.addEntry(Direction.DOWN,BoolVal.FALSE);
+                    s_.add(dirs_);
                 }
             }
             linked.add(s_);
@@ -107,10 +109,22 @@ public final class ContentComponentModelUniqLevelLinks {
         return _core.getCompoFactory().newAbsScrollPane(form_);
     }
 
-    private boolean linked(InitializedPlace _pl, int _j) {
+    private IdMap<Direction, BoolVal> dirs(InitializedPlace _pl, int _j) {
+        IdMap<Direction,BoolVal> dirs_ = new IdMap<Direction, BoolVal>();
+        for (Direction d: Direction.all()) {
+            if (linked(_pl, _j, d)) {
+                dirs_.addEntry(d,BoolVal.TRUE);
+            } else {
+                dirs_.addEntry(d,BoolVal.FALSE);
+            }
+        }
+        return dirs_;
+    }
+
+    private boolean linked(InitializedPlace _pl, int _j, Direction _dir) {
         boolean link_ = false;
         for (PlaceInterConnectCoords p: _pl.getSavedlinks().entryList()) {
-            if (p.getCoords().getNumberPlace() == _j) {
+            if (p.getCoords().getNumberPlace() == _j && p.getPlaceInterConnect().getDir() == _dir) {
                 link_ = true;
                 break;
             }
@@ -130,28 +144,6 @@ public final class ContentComponentModelUniqLevelLinks {
             selOther_ = selLeft_;
         }
         if (sel_.size() != 1 || selOther_.size() != 1) {
-            leftScroll.setNullViewportView();
-            rightScroll.setNullViewportView();
-            firstSelected = new NullablePoint();
-            secondSelected = new NullablePoint();
-            return;
-        }
-        EditedCrudPair<Coords, InitializedPlace> elt_ = sel_.get(0);
-        EditedCrudPair<Coords, InitializedPlace> eltOther_ = selOther_.get(0);
-        if (eltOther_.getKey().getNumberPlace() == elt_.getKey().getNumberPlace()) {
-            leftScroll.setNullViewportView();
-            rightScroll.setNullViewportView();
-            firstSelected = new NullablePoint();
-            secondSelected = new NullablePoint();
-            return;
-        }
-        BoolVal lk_;
-        if (_left) {
-            lk_ = linked.get(elt_.getKey().getNumberPlace()).get(eltOther_.getKey().getNumberPlace());
-        } else {
-            lk_ = linked.get(eltOther_.getKey().getNumberPlace()).get(elt_.getKey().getNumberPlace());
-        }
-        if (lk_ == BoolVal.TRUE) {
             leftScroll.setNullViewportView();
             rightScroll.setNullViewportView();
             firstSelected = new NullablePoint();
@@ -253,7 +245,7 @@ public final class ContentComponentModelUniqLevelLinks {
             setDirs(selDirRightButtons,buttonsRight, possibleRight, false);
             secondDirection = null;
         }
-        if (atLeatNull()) {
+        if (atLeatNull(_left)) {
             joinPlacesButton.setEnabled(false);
             return;
         }
@@ -278,14 +270,24 @@ public final class ContentComponentModelUniqLevelLinks {
         } else {
             secondDirection = _dir;
         }
-        if (atLeatNull()) {
+        if (atLeatNull(_left)) {
+            joinPlacesButton.setEnabled(false);
             return;
         }
         changeJoinEnable();
     }
 
-    private boolean atLeatNull() {
-        return firstDirection == null || secondDirection == null;
+    private boolean atLeatNull(boolean _left) {
+        if (firstDirection == null || secondDirection == null) {
+            return true;
+        }
+        BoolVal lk_;
+        if (_left) {
+            lk_ = linked.get(levelLeft.getKey().getNumberPlace()).get(levelRight.getKey().getNumberPlace()).getVal(firstDirection);
+        } else {
+            lk_ = linked.get(levelRight.getKey().getNumberPlace()).get(levelLeft.getKey().getNumberPlace()).getVal(secondDirection);
+        }
+        return lk_ == BoolVal.TRUE;
     }
 
     private void changeJoinEnable() {
@@ -312,8 +314,8 @@ public final class ContentComponentModelUniqLevelLinks {
             selLeft_.getValue().getSavedlinks().put(new PlaceInterConnect(convert(limitsFirst_.getBottomRight().getx(), firstSelected.getPoint().gety()),firstDirection),levelRight.build(convert(limitsSecond_.getTopLeft().getx(), secondSelected.getPoint().gety())));
             selRight_.getValue().getSavedlinks().put(new PlaceInterConnect(convert(limitsSecond_.getTopLeft().getx(), secondSelected.getPoint().gety()),secondDirection),levelLeft.build(convert(limitsFirst_.getBottomRight().getx(), firstSelected.getPoint().gety())));
         }
-        linked.get(selLeft_.getKey().getNumberPlace()).set(selRight_.getKey().getNumberPlace(),BoolVal.TRUE);
-        linked.get(selRight_.getKey().getNumberPlace()).set(selLeft_.getKey().getNumberPlace(),BoolVal.TRUE);
+        linked.get(selLeft_.getKey().getNumberPlace()).get(selRight_.getKey().getNumberPlace()).set(firstDirection,BoolVal.TRUE);
+        linked.get(selRight_.getKey().getNumberPlace()).get(selLeft_.getKey().getNumberPlace()).set(secondDirection,BoolVal.TRUE);
         leftScroll.setNullViewportView();
         rightScroll.setNullViewportView();
         firstSelected = new NullablePoint();
@@ -332,8 +334,12 @@ public final class ContentComponentModelUniqLevelLinks {
         EditedCrudPair<Coords, InitializedPlace> selRight_ = selListRight_.get(0);
         selLeft_.getValue().setSavedlinks(filter(selLeft_.getValue().getSavedlinks(),selRight_.getKey().getNumberPlace()));
         selRight_.getValue().setSavedlinks(filter(selRight_.getValue().getSavedlinks(),selLeft_.getKey().getNumberPlace()));
-        linked.get(selLeft_.getKey().getNumberPlace()).set(selRight_.getKey().getNumberPlace(),BoolVal.FALSE);
-        linked.get(selRight_.getKey().getNumberPlace()).set(selLeft_.getKey().getNumberPlace(),BoolVal.FALSE);
+        for (EntryCust<Direction,BoolVal> e:linked.get(selLeft_.getKey().getNumberPlace()).get(selRight_.getKey().getNumberPlace()).entryList()) {
+            e.setValue(BoolVal.FALSE);
+        }
+        for (EntryCust<Direction,BoolVal> e:linked.get(selRight_.getKey().getNumberPlace()).get(selLeft_.getKey().getNumberPlace()).entryList()) {
+            e.setValue(BoolVal.FALSE);
+        }
         leftScroll.setNullViewportView();
         rightScroll.setNullViewportView();
         firstSelected = new NullablePoint();

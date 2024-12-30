@@ -3624,6 +3624,38 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         assertFalse(crudJoin(sub_).getJoinPlacesButton().isEnabled());
     }
     @Test
+    public void joinPlaces22() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        buildJoin(facade_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(joinPlaces(sub_));
+        selectEvent(0, crudJoin(sub_).getLeft());
+        selectEvent(1, crudJoin(sub_).getRight());
+        tryClick(crudJoin(sub_).getLevelLeft().getGrid(),2*side(facade_),side(facade_));
+        tryClick(crudJoin(sub_).getLevelRight().getGrid(),2*side(facade_),3*side(facade_));
+        tryClick(crudJoin(sub_).getJoinPlacesButton());
+        selectEvent(0, crudJoin(sub_).getLeft());
+        selectEvent(1, crudJoin(sub_).getRight());
+        tryClick(crudJoin(sub_).getLevelLeft().getGrid(),2*side(facade_),side(facade_));
+        tryClick(crudJoin(sub_).getLevelRight().getGrid(),2*side(facade_),3*side(facade_));
+        assertFalse(crudJoin(sub_).getJoinPlacesButton().isEnabled());
+        assertEq(1,saved(facade_,0).size());
+        assertEq(2,saved(facade_,0).getList().get(0).getPlaceInterConnect().getSource().getx());
+        assertEq(0,saved(facade_,0).getList().get(0).getPlaceInterConnect().getSource().gety());
+        assertEq(DataBase.DEF_DIR_UP,saved(facade_,0).getList().get(0).getPlaceInterConnect().getDir().getDirName());
+        assertEq(1,saved(facade_,0).getList().get(0).getCoords().getNumberPlace());
+        assertEq(2,saved(facade_,0).getList().get(0).getCoords().getLevel().getPoint().getx());
+        assertEq(3,saved(facade_,0).getList().get(0).getCoords().getLevel().getPoint().gety());
+        assertEq(1,saved(facade_,1).size());
+        assertEq(2,saved(facade_,1).getList().get(0).getPlaceInterConnect().getSource().getx());
+        assertEq(3,saved(facade_,1).getList().get(0).getPlaceInterConnect().getSource().gety());
+        assertEq(DataBase.DEF_DIR_DOWN,saved(facade_,1).getList().get(0).getPlaceInterConnect().getDir().getDirName());
+        assertEq(0,saved(facade_,1).getList().get(0).getCoords().getNumberPlace());
+        assertEq(2,saved(facade_,1).getList().get(0).getCoords().getLevel().getPoint().getx());
+        assertEq(0,saved(facade_,1).getList().get(0).getCoords().getLevel().getPoint().gety());
+    }
+    @Test
     public void unjoinPlaces1() {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facadeAdd(pr_);
