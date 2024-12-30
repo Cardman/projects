@@ -237,10 +237,8 @@ public final class ContentComponentModelUniqLevelLinks {
         if (_poss.size() == 1) {
             if (_left) {
                 firstDirection = _poss.get(0);
-                secondDirection = firstDirection.getOpposite();
             } else {
                 secondDirection = _poss.get(0);
-                firstDirection = secondDirection.getOpposite();
             }
         }
         if (!firstSelected.isDefined() || !secondSelected.isDefined()) {

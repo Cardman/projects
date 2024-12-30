@@ -43,6 +43,7 @@ public final class ContentComponentModelLevelLeague {
         nbLevel = _coords.getLevel().getLevelIndex();
         Points<int[][]> frontTiles_ = Level.getLevelForegroundImage(level.getFacadeGame().getData(), _coords, _pl,_wild);
         level.setupGridDims(blocks_, frontTiles_);
+        level.setSelectedPlace(_coords);
         IdList<SubscribedTranslation> subs_ = level.getTranslationList().getSubscribedTranslations().getVal(level.getFrame());
         subs_.removeAllElements(translationsGrid);
         IdList<SubscribedTranslation> next_ = new IdList<SubscribedTranslation>();

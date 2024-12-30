@@ -3653,6 +3653,315 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         assertEq(1,saved(facade_,1).size());
         assertEq(1,saved(facade_,2).size());
     }
+    @Test
+    public void editAfterJoin1() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        buildJoinTwice(facade_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(1));
+        sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getCols().setValue(2);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getApplyAppend());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getGrid(),4*side(facade_),0);
+        sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims().setText("2:2");
+        enterTextField(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getMatch());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getGrid(),4*side(facade_),2*side(facade_));
+        sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims().setText("2:2");
+        enterTextField(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getMatch());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        assertEq(1,saved(facade_,0).size());
+        assertEq(3,saved(facade_,0).getList().get(0).getPlaceInterConnect().getSource().getx());
+        assertEq(3,saved(facade_,0).getList().get(0).getPlaceInterConnect().getSource().gety());
+        assertEq(DataBase.DEF_DIR_RIGHT,saved(facade_,0).getList().get(0).getPlaceInterConnect().getDir().getDirName());
+        assertEq(1,saved(facade_,0).getList().get(0).getCoords().getNumberPlace());
+        assertEq(0,saved(facade_,0).getList().get(0).getCoords().getLevel().getPoint().getx());
+        assertEq(0,saved(facade_,0).getList().get(0).getCoords().getLevel().getPoint().gety());
+        assertEq(2,saved(facade_,1).size());
+        assertEq(0,saved(facade_,1).getList().get(0).getPlaceInterConnect().getSource().getx());
+        assertEq(0,saved(facade_,1).getList().get(0).getPlaceInterConnect().getSource().gety());
+        assertEq(DataBase.DEF_DIR_LEFT,saved(facade_,1).getList().get(0).getPlaceInterConnect().getDir().getDirName());
+        assertEq(0,saved(facade_,1).getList().get(0).getCoords().getNumberPlace());
+        assertEq(3,saved(facade_,1).getList().get(0).getCoords().getLevel().getPoint().getx());
+        assertEq(3,saved(facade_,1).getList().get(0).getCoords().getLevel().getPoint().gety());
+        assertEq(5,saved(facade_,1).getList().get(1).getPlaceInterConnect().getSource().getx());
+        assertEq(3,saved(facade_,1).getList().get(1).getPlaceInterConnect().getSource().gety());
+        assertEq(DataBase.DEF_DIR_RIGHT,saved(facade_,1).getList().get(1).getPlaceInterConnect().getDir().getDirName());
+        assertEq(2,saved(facade_,1).getList().get(1).getCoords().getNumberPlace());
+        assertEq(0,saved(facade_,1).getList().get(1).getCoords().getLevel().getPoint().getx());
+        assertEq(0,saved(facade_,1).getList().get(1).getCoords().getLevel().getPoint().gety());
+        assertEq(1,saved(facade_,2).size());
+        assertEq(0,saved(facade_,2).getList().get(0).getPlaceInterConnect().getSource().getx());
+        assertEq(0,saved(facade_,2).getList().get(0).getPlaceInterConnect().getSource().gety());
+        assertEq(DataBase.DEF_DIR_LEFT,saved(facade_,2).getList().get(0).getPlaceInterConnect().getDir().getDirName());
+        assertEq(1,saved(facade_,2).getList().get(0).getCoords().getNumberPlace());
+        assertEq(5,saved(facade_,2).getList().get(0).getCoords().getLevel().getPoint().getx());
+        assertEq(3,saved(facade_,2).getList().get(0).getCoords().getLevel().getPoint().gety());
+    }
+    @Test
+    public void editAfterJoin2() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        buildJoinTwiceVert(facade_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(1));
+        sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getCols().setValue(2);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getApplyAppend());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getGrid(),side(facade_),0);
+        sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims().setText("2:2");
+        enterTextField(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getMatch());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getGrid(),side(facade_),2*side(facade_));
+        sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims().setText("2:2");
+        enterTextField(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getMatch());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        assertEq(1,saved(facade_,0).size());
+        assertEq(3,saved(facade_,0).getList().get(0).getPlaceInterConnect().getSource().getx());
+        assertEq(3,saved(facade_,0).getList().get(0).getPlaceInterConnect().getSource().gety());
+        assertEq(DataBase.DEF_DIR_RIGHT,saved(facade_,0).getList().get(0).getPlaceInterConnect().getDir().getDirName());
+        assertEq(1,saved(facade_,0).getList().get(0).getCoords().getNumberPlace());
+        assertEq(0,saved(facade_,0).getList().get(0).getCoords().getLevel().getPoint().getx());
+        assertEq(0,saved(facade_,0).getList().get(0).getCoords().getLevel().getPoint().gety());
+        assertEq(2,saved(facade_,1).size());
+        assertEq(0,saved(facade_,1).getList().get(0).getPlaceInterConnect().getSource().getx());
+        assertEq(0,saved(facade_,1).getList().get(0).getPlaceInterConnect().getSource().gety());
+        assertEq(DataBase.DEF_DIR_LEFT,saved(facade_,1).getList().get(0).getPlaceInterConnect().getDir().getDirName());
+        assertEq(0,saved(facade_,1).getList().get(0).getCoords().getNumberPlace());
+        assertEq(3,saved(facade_,1).getList().get(0).getCoords().getLevel().getPoint().getx());
+        assertEq(3,saved(facade_,1).getList().get(0).getCoords().getLevel().getPoint().gety());
+        assertEq(2,saved(facade_,1).getList().get(1).getPlaceInterConnect().getSource().getx());
+        assertEq(3,saved(facade_,1).getList().get(1).getPlaceInterConnect().getSource().gety());
+        assertEq(DataBase.DEF_DIR_RIGHT,saved(facade_,1).getList().get(1).getPlaceInterConnect().getDir().getDirName());
+        assertEq(2,saved(facade_,1).getList().get(1).getCoords().getNumberPlace());
+        assertEq(0,saved(facade_,1).getList().get(1).getCoords().getLevel().getPoint().getx());
+        assertEq(0,saved(facade_,1).getList().get(1).getCoords().getLevel().getPoint().gety());
+        assertEq(1,saved(facade_,2).size());
+        assertEq(0,saved(facade_,2).getList().get(0).getPlaceInterConnect().getSource().getx());
+        assertEq(0,saved(facade_,2).getList().get(0).getPlaceInterConnect().getSource().gety());
+        assertEq(DataBase.DEF_DIR_LEFT,saved(facade_,2).getList().get(0).getPlaceInterConnect().getDir().getDirName());
+        assertEq(1,saved(facade_,2).getList().get(0).getCoords().getNumberPlace());
+        assertEq(2,saved(facade_,2).getList().get(0).getCoords().getLevel().getPoint().getx());
+        assertEq(3,saved(facade_,2).getList().get(0).getCoords().getLevel().getPoint().gety());
+    }
+    @Test
+    public void editAfterJoin3() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        buildJoinTwiceHoriz(facade_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(1));
+        sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getCols().setValue(2);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getApplyAppend());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getGrid(),0,side(facade_));
+        sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims().setText("2:2");
+        enterTextField(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getMatch());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getGrid(),2*side(facade_),side(facade_));
+        sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims().setText("2:2");
+        enterTextField(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getMatch());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        assertEq(1,saved(facade_,0).size());
+        assertEq(3,saved(facade_,0).getList().get(0).getPlaceInterConnect().getSource().getx());
+        assertEq(3,saved(facade_,0).getList().get(0).getPlaceInterConnect().getSource().gety());
+        assertEq(DataBase.DEF_DIR_DOWN,saved(facade_,0).getList().get(0).getPlaceInterConnect().getDir().getDirName());
+        assertEq(1,saved(facade_,0).getList().get(0).getCoords().getNumberPlace());
+        assertEq(0,saved(facade_,0).getList().get(0).getCoords().getLevel().getPoint().getx());
+        assertEq(0,saved(facade_,0).getList().get(0).getCoords().getLevel().getPoint().gety());
+        assertEq(2,saved(facade_,1).size());
+        assertEq(0,saved(facade_,1).getList().get(0).getPlaceInterConnect().getSource().getx());
+        assertEq(0,saved(facade_,1).getList().get(0).getPlaceInterConnect().getSource().gety());
+        assertEq(DataBase.DEF_DIR_UP,saved(facade_,1).getList().get(0).getPlaceInterConnect().getDir().getDirName());
+        assertEq(0,saved(facade_,1).getList().get(0).getCoords().getNumberPlace());
+        assertEq(3,saved(facade_,1).getList().get(0).getCoords().getLevel().getPoint().getx());
+        assertEq(3,saved(facade_,1).getList().get(0).getCoords().getLevel().getPoint().gety());
+        assertEq(3,saved(facade_,1).getList().get(1).getPlaceInterConnect().getSource().getx());
+        assertEq(2,saved(facade_,1).getList().get(1).getPlaceInterConnect().getSource().gety());
+        assertEq(DataBase.DEF_DIR_DOWN,saved(facade_,1).getList().get(1).getPlaceInterConnect().getDir().getDirName());
+        assertEq(2,saved(facade_,1).getList().get(1).getCoords().getNumberPlace());
+        assertEq(0,saved(facade_,1).getList().get(1).getCoords().getLevel().getPoint().getx());
+        assertEq(0,saved(facade_,1).getList().get(1).getCoords().getLevel().getPoint().gety());
+        assertEq(1,saved(facade_,2).size());
+        assertEq(0,saved(facade_,2).getList().get(0).getPlaceInterConnect().getSource().getx());
+        assertEq(0,saved(facade_,2).getList().get(0).getPlaceInterConnect().getSource().gety());
+        assertEq(DataBase.DEF_DIR_UP,saved(facade_,2).getList().get(0).getPlaceInterConnect().getDir().getDirName());
+        assertEq(1,saved(facade_,2).getList().get(0).getCoords().getNumberPlace());
+        assertEq(3,saved(facade_,2).getList().get(0).getCoords().getLevel().getPoint().getx());
+        assertEq(2,saved(facade_,2).getList().get(0).getCoords().getLevel().getPoint().gety());
+    }
+    @Test
+    public void editAfterJoin4() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        buildJoinTwice(facade_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(1));
+        sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getCols().setValue(2);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getApplyPrepend());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getGrid(),0,0);
+        sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims().setText("2:2");
+        enterTextField(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getMatch());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getGrid(),0,2*side(facade_));
+        sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims().setText("2:2");
+        enterTextField(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getMatch());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        assertEq(1,saved(facade_,0).size());
+        assertEq(3,saved(facade_,0).getList().get(0).getPlaceInterConnect().getSource().getx());
+        assertEq(3,saved(facade_,0).getList().get(0).getPlaceInterConnect().getSource().gety());
+        assertEq(DataBase.DEF_DIR_RIGHT,saved(facade_,0).getList().get(0).getPlaceInterConnect().getDir().getDirName());
+        assertEq(1,saved(facade_,0).getList().get(0).getCoords().getNumberPlace());
+        assertEq(-2,saved(facade_,0).getList().get(0).getCoords().getLevel().getPoint().getx());
+        assertEq(0,saved(facade_,0).getList().get(0).getCoords().getLevel().getPoint().gety());
+        assertEq(2,saved(facade_,1).size());
+        assertEq(-2,saved(facade_,1).getList().get(0).getPlaceInterConnect().getSource().getx());
+        assertEq(0,saved(facade_,1).getList().get(0).getPlaceInterConnect().getSource().gety());
+        assertEq(DataBase.DEF_DIR_LEFT,saved(facade_,1).getList().get(0).getPlaceInterConnect().getDir().getDirName());
+        assertEq(0,saved(facade_,1).getList().get(0).getCoords().getNumberPlace());
+        assertEq(3,saved(facade_,1).getList().get(0).getCoords().getLevel().getPoint().getx());
+        assertEq(3,saved(facade_,1).getList().get(0).getCoords().getLevel().getPoint().gety());
+        assertEq(3,saved(facade_,1).getList().get(1).getPlaceInterConnect().getSource().getx());
+        assertEq(3,saved(facade_,1).getList().get(1).getPlaceInterConnect().getSource().gety());
+        assertEq(DataBase.DEF_DIR_RIGHT,saved(facade_,1).getList().get(1).getPlaceInterConnect().getDir().getDirName());
+        assertEq(2,saved(facade_,1).getList().get(1).getCoords().getNumberPlace());
+        assertEq(0,saved(facade_,1).getList().get(1).getCoords().getLevel().getPoint().getx());
+        assertEq(0,saved(facade_,1).getList().get(1).getCoords().getLevel().getPoint().gety());
+        assertEq(1,saved(facade_,2).size());
+        assertEq(0,saved(facade_,2).getList().get(0).getPlaceInterConnect().getSource().getx());
+        assertEq(0,saved(facade_,2).getList().get(0).getPlaceInterConnect().getSource().gety());
+        assertEq(DataBase.DEF_DIR_LEFT,saved(facade_,2).getList().get(0).getPlaceInterConnect().getDir().getDirName());
+        assertEq(1,saved(facade_,2).getList().get(0).getCoords().getNumberPlace());
+        assertEq(3,saved(facade_,2).getList().get(0).getCoords().getLevel().getPoint().getx());
+        assertEq(3,saved(facade_,2).getList().get(0).getCoords().getLevel().getPoint().gety());
+    }
+    @Test
+    public void editAfterJoin5() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        buildJoinFourth(facade_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(1));
+        sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getCols().setValue(2);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getApplyAppend());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getGrid(),4*side(facade_),0);
+        sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims().setText("2:2");
+        enterTextField(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getMatch());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getGrid(),4*side(facade_),2*side(facade_));
+        sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims().setText("2:2");
+        enterTextField(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getMatch());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        assertEq(1,saved(facade_,0).size());
+        assertEq(3,saved(facade_,0).getList().get(0).getPlaceInterConnect().getSource().getx());
+        assertEq(3,saved(facade_,0).getList().get(0).getPlaceInterConnect().getSource().gety());
+        assertEq(DataBase.DEF_DIR_RIGHT,saved(facade_,0).getList().get(0).getPlaceInterConnect().getDir().getDirName());
+        assertEq(1,saved(facade_,0).getList().get(0).getCoords().getNumberPlace());
+        assertEq(0,saved(facade_,0).getList().get(0).getCoords().getLevel().getPoint().getx());
+        assertEq(0,saved(facade_,0).getList().get(0).getCoords().getLevel().getPoint().gety());
+        assertEq(4,saved(facade_,1).size());
+        assertEq(0,saved(facade_,1).getList().get(0).getPlaceInterConnect().getSource().getx());
+        assertEq(0,saved(facade_,1).getList().get(0).getPlaceInterConnect().getSource().gety());
+        assertEq(DataBase.DEF_DIR_LEFT,saved(facade_,1).getList().get(0).getPlaceInterConnect().getDir().getDirName());
+        assertEq(0,saved(facade_,1).getList().get(0).getCoords().getNumberPlace());
+        assertEq(3,saved(facade_,1).getList().get(0).getCoords().getLevel().getPoint().getx());
+        assertEq(3,saved(facade_,1).getList().get(0).getCoords().getLevel().getPoint().gety());
+        assertEq(5,saved(facade_,1).getList().get(1).getPlaceInterConnect().getSource().getx());
+        assertEq(2,saved(facade_,1).getList().get(1).getPlaceInterConnect().getSource().gety());
+        assertEq(DataBase.DEF_DIR_RIGHT,saved(facade_,1).getList().get(1).getPlaceInterConnect().getDir().getDirName());
+        assertEq(2,saved(facade_,1).getList().get(1).getCoords().getNumberPlace());
+        assertEq(0,saved(facade_,1).getList().get(1).getCoords().getLevel().getPoint().getx());
+        assertEq(0,saved(facade_,1).getList().get(1).getCoords().getLevel().getPoint().gety());
+
+
+        assertEq(1,saved(facade_,1).getList().get(2).getPlaceInterConnect().getSource().getx());
+        assertEq(0,saved(facade_,1).getList().get(2).getPlaceInterConnect().getSource().gety());
+        assertEq(DataBase.DEF_DIR_UP,saved(facade_,1).getList().get(2).getPlaceInterConnect().getDir().getDirName());
+        assertEq(3,saved(facade_,1).getList().get(2).getCoords().getNumberPlace());
+        assertEq(3,saved(facade_,1).getList().get(2).getCoords().getLevel().getPoint().getx());
+        assertEq(3,saved(facade_,1).getList().get(2).getCoords().getLevel().getPoint().gety());
+
+        assertEq(2,saved(facade_,1).getList().get(3).getPlaceInterConnect().getSource().getx());
+        assertEq(3,saved(facade_,1).getList().get(3).getPlaceInterConnect().getSource().gety());
+        assertEq(DataBase.DEF_DIR_DOWN,saved(facade_,1).getList().get(3).getPlaceInterConnect().getDir().getDirName());
+        assertEq(4,saved(facade_,1).getList().get(3).getCoords().getNumberPlace());
+        assertEq(0,saved(facade_,1).getList().get(3).getCoords().getLevel().getPoint().getx());
+        assertEq(0,saved(facade_,1).getList().get(3).getCoords().getLevel().getPoint().gety());
+
+        assertEq(1,saved(facade_,2).size());
+        assertEq(0,saved(facade_,2).getList().get(0).getPlaceInterConnect().getSource().getx());
+        assertEq(0,saved(facade_,2).getList().get(0).getPlaceInterConnect().getSource().gety());
+        assertEq(DataBase.DEF_DIR_LEFT,saved(facade_,2).getList().get(0).getPlaceInterConnect().getDir().getDirName());
+        assertEq(1,saved(facade_,2).getList().get(0).getCoords().getNumberPlace());
+        assertEq(5,saved(facade_,2).getList().get(0).getCoords().getLevel().getPoint().getx());
+        assertEq(2,saved(facade_,2).getList().get(0).getCoords().getLevel().getPoint().gety());
+
+        assertEq(1,saved(facade_,3).size());
+        assertEq(3,saved(facade_,3).getList().get(0).getPlaceInterConnect().getSource().getx());
+        assertEq(3,saved(facade_,3).getList().get(0).getPlaceInterConnect().getSource().gety());
+        assertEq(DataBase.DEF_DIR_DOWN,saved(facade_,3).getList().get(0).getPlaceInterConnect().getDir().getDirName());
+        assertEq(1,saved(facade_,3).getList().get(0).getCoords().getNumberPlace());
+        assertEq(1,saved(facade_,3).getList().get(0).getCoords().getLevel().getPoint().getx());
+        assertEq(0,saved(facade_,3).getList().get(0).getCoords().getLevel().getPoint().gety());
+
+        assertEq(1,saved(facade_,4).size());
+        assertEq(0,saved(facade_,4).getList().get(0).getPlaceInterConnect().getSource().getx());
+        assertEq(0,saved(facade_,4).getList().get(0).getPlaceInterConnect().getSource().gety());
+        assertEq(DataBase.DEF_DIR_UP,saved(facade_,4).getList().get(0).getPlaceInterConnect().getDir().getDirName());
+        assertEq(1,saved(facade_,4).getList().get(0).getCoords().getNumberPlace());
+        assertEq(2,saved(facade_,4).getList().get(0).getCoords().getLevel().getPoint().getx());
+        assertEq(3,saved(facade_,4).getList().get(0).getCoords().getLevel().getPoint().gety());
+
+    }
+    @Test
+    public void editAfterJoin6() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        buildJoinTwice(facade_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(2));
+        sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getCols().setValue(2);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getApplyPrepend());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getGrid(),0,0);
+        sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getDims().setText("2:2");
+        enterTextField(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getDims());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getMatch());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getGrid(),0,2*side(facade_));
+        sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getDims().setText("2:2");
+        enterTextField(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getDims());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getMatch());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        assertEq(1,saved(facade_,0).size());
+        assertEq(3,saved(facade_,0).getList().get(0).getPlaceInterConnect().getSource().getx());
+        assertEq(3,saved(facade_,0).getList().get(0).getPlaceInterConnect().getSource().gety());
+        assertEq(DataBase.DEF_DIR_RIGHT,saved(facade_,0).getList().get(0).getPlaceInterConnect().getDir().getDirName());
+        assertEq(1,saved(facade_,0).getList().get(0).getCoords().getNumberPlace());
+        assertEq(0,saved(facade_,0).getList().get(0).getCoords().getLevel().getPoint().getx());
+        assertEq(0,saved(facade_,0).getList().get(0).getCoords().getLevel().getPoint().gety());
+        assertEq(2,saved(facade_,1).size());
+        assertEq(0,saved(facade_,1).getList().get(0).getPlaceInterConnect().getSource().getx());
+        assertEq(0,saved(facade_,1).getList().get(0).getPlaceInterConnect().getSource().gety());
+        assertEq(DataBase.DEF_DIR_LEFT,saved(facade_,1).getList().get(0).getPlaceInterConnect().getDir().getDirName());
+        assertEq(0,saved(facade_,1).getList().get(0).getCoords().getNumberPlace());
+        assertEq(3,saved(facade_,1).getList().get(0).getCoords().getLevel().getPoint().getx());
+        assertEq(3,saved(facade_,1).getList().get(0).getCoords().getLevel().getPoint().gety());
+        assertEq(3,saved(facade_,1).getList().get(1).getPlaceInterConnect().getSource().getx());
+        assertEq(3,saved(facade_,1).getList().get(1).getPlaceInterConnect().getSource().gety());
+        assertEq(DataBase.DEF_DIR_RIGHT,saved(facade_,1).getList().get(1).getPlaceInterConnect().getDir().getDirName());
+        assertEq(2,saved(facade_,1).getList().get(1).getCoords().getNumberPlace());
+        assertEq(-2,saved(facade_,1).getList().get(1).getCoords().getLevel().getPoint().getx());
+        assertEq(0,saved(facade_,1).getList().get(1).getCoords().getLevel().getPoint().gety());
+        assertEq(1,saved(facade_,2).size());
+        assertEq(-2,saved(facade_,2).getList().get(0).getPlaceInterConnect().getSource().getx());
+        assertEq(0,saved(facade_,2).getList().get(0).getPlaceInterConnect().getSource().gety());
+        assertEq(DataBase.DEF_DIR_LEFT,saved(facade_,2).getList().get(0).getPlaceInterConnect().getDir().getDirName());
+        assertEq(1,saved(facade_,2).getList().get(0).getCoords().getNumberPlace());
+        assertEq(3,saved(facade_,2).getList().get(0).getCoords().getLevel().getPoint().getx());
+        assertEq(3,saved(facade_,2).getList().get(0).getCoords().getLevel().getPoint().gety());
+    }
     private static PlaceInterConnects saved(FacadeGame _fac, int _i) {
         return ((InitializedPlace)_fac.getMap().getPlace(_i)).getSavedlinks();
     }
@@ -3728,12 +4037,105 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         road2_.getLevelRoad().getBlocks().addEntry(newPoint(2,2),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
         _facade.getMap().addPlace(road2_);
         _facade.getMap().addPlace(Instances.newCave());
-        road_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(2,2),Direction.RIGHT),newCoords(1,0,0,0));
-        city_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(0,0),Direction.LEFT),newCoords(0,0,2,2));
-        city_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(2,2),Direction.RIGHT),newCoords(2,0,0,0));
-        road2_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(0,0),Direction.LEFT),newCoords(1,0,2,2));
+        road_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(3,3),Direction.RIGHT),newCoords(1,0,0,0));
+        city_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(0,0),Direction.LEFT),newCoords(0,0,3,3));
+        city_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(3,3),Direction.RIGHT),newCoords(2,0,0,0));
+        road2_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(0,0),Direction.LEFT),newCoords(1,0,3,3));
     }
 
+    private void buildJoinTwiceVert(FacadeGame _facade) {
+        Road road_ = Instances.newRoad();
+        road_.getLevelRoad().getBlocks().addEntry(newPoint(0,0),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        road_.getLevelRoad().getBlocks().addEntry(newPoint(0,2),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        road_.getLevelRoad().getBlocks().addEntry(newPoint(2,0),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        road_.getLevelRoad().getBlocks().addEntry(newPoint(2,2),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        _facade.getMap().addPlace(road_);
+        City city_ = Instances.newCity();
+        city_.getLevelOutdoor().getBlocks().addEntry(newPoint(0,0),newBlock(2, 1,EnvironmentType.ROAD,ROAD, -1));
+        city_.getLevelOutdoor().getBlocks().addEntry(newPoint(0,2),newBlock(2, 1,EnvironmentType.ROAD,ROAD, -1));
+        _facade.getMap().addPlace(city_);
+        Road road2_ = Instances.newRoad();
+        road2_.getLevelRoad().getBlocks().addEntry(newPoint(0,0),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        road2_.getLevelRoad().getBlocks().addEntry(newPoint(0,2),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        road2_.getLevelRoad().getBlocks().addEntry(newPoint(2,0),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        road2_.getLevelRoad().getBlocks().addEntry(newPoint(2,2),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        _facade.getMap().addPlace(road2_);
+        _facade.getMap().addPlace(Instances.newCave());
+        road_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(3,3),Direction.RIGHT),newCoords(1,0,0,0));
+        city_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(0,0),Direction.LEFT),newCoords(0,0,3,3));
+        city_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(0,3),Direction.RIGHT),newCoords(2,0,0,0));
+        road2_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(0,0),Direction.LEFT),newCoords(1,0,0,3));
+    }
+
+    private void buildJoinTwiceHoriz(FacadeGame _facade) {
+        Road road_ = Instances.newRoad();
+        road_.getLevelRoad().getBlocks().addEntry(newPoint(0,0),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        road_.getLevelRoad().getBlocks().addEntry(newPoint(0,2),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        road_.getLevelRoad().getBlocks().addEntry(newPoint(2,0),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        road_.getLevelRoad().getBlocks().addEntry(newPoint(2,2),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        _facade.getMap().addPlace(road_);
+        City city_ = Instances.newCity();
+        city_.getLevelOutdoor().getBlocks().addEntry(newPoint(0,0),newBlock(1, 2,EnvironmentType.ROAD,ROAD, -1));
+        city_.getLevelOutdoor().getBlocks().addEntry(newPoint(2,0),newBlock(1, 2,EnvironmentType.ROAD,ROAD, -1));
+        _facade.getMap().addPlace(city_);
+        Road road2_ = Instances.newRoad();
+        road2_.getLevelRoad().getBlocks().addEntry(newPoint(0,0),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        road2_.getLevelRoad().getBlocks().addEntry(newPoint(0,2),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        road2_.getLevelRoad().getBlocks().addEntry(newPoint(2,0),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        road2_.getLevelRoad().getBlocks().addEntry(newPoint(2,2),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        _facade.getMap().addPlace(road2_);
+        _facade.getMap().addPlace(Instances.newCave());
+        road_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(3,3),Direction.DOWN),newCoords(1,0,0,0));
+        city_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(0,0),Direction.UP),newCoords(0,0,3,3));
+        city_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(3,0),Direction.DOWN),newCoords(2,0,0,0));
+        road2_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(0,0),Direction.UP),newCoords(1,0,3,0));
+    }
+
+    private void buildJoinFourth(FacadeGame _facade) {
+        Road road_ = Instances.newRoad();
+        road_.getLevelRoad().getBlocks().addEntry(newPoint(0,0),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        road_.getLevelRoad().getBlocks().addEntry(newPoint(0,2),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        road_.getLevelRoad().getBlocks().addEntry(newPoint(2,0),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        road_.getLevelRoad().getBlocks().addEntry(newPoint(2,2),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        _facade.getMap().addPlace(road_);
+        City city_ = Instances.newCity();
+        city_.getLevelOutdoor().getBlocks().addEntry(newPoint(0,0),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        city_.getLevelOutdoor().getBlocks().addEntry(newPoint(0,2),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        city_.getLevelOutdoor().getBlocks().addEntry(newPoint(2,0),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        city_.getLevelOutdoor().getBlocks().addEntry(newPoint(2,2),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        _facade.getMap().addPlace(city_);
+        Road road2_ = Instances.newRoad();
+        road2_.getLevelRoad().getBlocks().addEntry(newPoint(0,0),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        road2_.getLevelRoad().getBlocks().addEntry(newPoint(0,2),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        road2_.getLevelRoad().getBlocks().addEntry(newPoint(2,0),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        road2_.getLevelRoad().getBlocks().addEntry(newPoint(2,2),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        _facade.getMap().addPlace(road2_);
+
+        Road road3_ = Instances.newRoad();
+        road3_.getLevelRoad().getBlocks().addEntry(newPoint(0,0),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        road3_.getLevelRoad().getBlocks().addEntry(newPoint(0,2),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        road3_.getLevelRoad().getBlocks().addEntry(newPoint(2,0),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        road3_.getLevelRoad().getBlocks().addEntry(newPoint(2,2),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        _facade.getMap().addPlace(road3_);
+
+        Road road4_ = Instances.newRoad();
+        road4_.getLevelRoad().getBlocks().addEntry(newPoint(0,0),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        road4_.getLevelRoad().getBlocks().addEntry(newPoint(0,2),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        road4_.getLevelRoad().getBlocks().addEntry(newPoint(2,0),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        road4_.getLevelRoad().getBlocks().addEntry(newPoint(2,2),newBlock(2, 2,EnvironmentType.ROAD,ROAD, -1));
+        _facade.getMap().addPlace(road4_);
+
+        _facade.getMap().addPlace(Instances.newCave());
+        road_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(3,3),Direction.RIGHT),newCoords(1,0,0,0));
+        city_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(0,0),Direction.LEFT),newCoords(0,0,3,3));
+        city_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(3,2),Direction.RIGHT),newCoords(2,0,0,0));
+        road2_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(0,0),Direction.LEFT),newCoords(1,0,3,2));
+
+        city_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(1,0),Direction.UP),newCoords(3,0,3,3));
+        city_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(2,3),Direction.DOWN),newCoords(4,0,0,0));
+        road3_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(3,3),Direction.DOWN),newCoords(1,0,1,0));
+        road4_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(0,0),Direction.UP),newCoords(1,0,2,3));
+    }
     private Cave basic(FacadeGame _facade) {
         Road road_ = Instances.newRoad();
         _facade.getData().getMap().addPlace(road_);

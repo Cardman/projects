@@ -66,6 +66,7 @@ public final class ContentComponentModelCity {
         Coords coords_ = AbsContentComponentModelLevelLinks.coords(_nbPlace, 0, null);
         Points<int[][]> frontTiles_ = Level.getLevelForegroundImage(level.getFacadeGame().getData(), coords_, _pl,_pl.getLevelOutdoor());
         level.setupGridDims(blocks_, frontTiles_);
+        level.setSelectedPlace(coords_);
         IdList<SubscribedTranslation> subs_ = level.getTranslationList().getSubscribedTranslations().getVal(level.getFrame());
         subs_.removeAllElements(translationsGrid);
         IdList<SubscribedTranslation> next_ = new IdList<SubscribedTranslation>();
@@ -125,6 +126,7 @@ public final class ContentComponentModelCity {
         Coords coords_ = AbsContentComponentModelLevelLinks.coords(nbPlace, 0, selected);
         Points<int[][]> frontTiles_ = Level.getLevelForegroundImage(level.getFacadeGame().getData(), coords_, edited,editedBuilding.getLevel());
         levelBuilding.setupGridDims(blocks_, frontTiles_);
+        levelBuilding.setSelectedPlace(coords_);
         levelBuilding.getGrid().addMouseListener(new BuildingTileKindEvent(this));
         IdList<SubscribedTranslation> subs_ = level.getTranslationList().getSubscribedTranslations().getVal(level.getFrame());
         subs_.removeAllElements(translationsGridSec);

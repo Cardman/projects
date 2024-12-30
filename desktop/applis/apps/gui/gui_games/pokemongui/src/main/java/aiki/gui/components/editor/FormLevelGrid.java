@@ -2,7 +2,10 @@ package aiki.gui.components.editor;
 
 import aiki.db.*;
 import aiki.facade.*;
+import aiki.map.enums.Direction;
 import aiki.map.levels.*;
+import aiki.map.places.InitializedPlace;
+import aiki.map.places.Place;
 import aiki.map.tree.util.*;
 import aiki.map.util.*;
 import aiki.util.*;
@@ -25,11 +28,22 @@ public final class FormLevelGrid extends FormLevelGridCommon {
     private int colsCount;
     private final IdList<SubscribedTranslation> translations = new IdList<SubscribedTranslation>();
     private Point screen;
+    private final CustList<EditedCrudPair<Coords,EditedCrudPair<InitializedPlace,PlaceInterConnects>>> links = new CustList<EditedCrudPair<Coords, EditedCrudPair<InitializedPlace,PlaceInterConnects>>>();
+    private Coords selectedPlace = new Coords();
 
     public FormLevelGrid(AbstractProgramInfos _a, FacadeGame _f, AbsCommonFrame _fr, SubscribedTranslationList _i) {
         super(_a, _f, _fr, _i);
     }
     public void setupGridDims(Points<Block> _bk, Points<int[][]> _f) {
+        links.clear();
+        CustList<Place> psl_ = getFacadeGame().getMap().getPlaces();
+        int nbPl_ = psl_.size();
+        for (int i = 0; i < nbPl_; i++) {
+            Place pl_ = psl_.get(i);
+            if (pl_ instanceof InitializedPlace) {
+                links.add(new EditedCrudPair<Coords, EditedCrudPair<InitializedPlace,PlaceInterConnects>>(AbsContentComponentModelLevelLinks.coords(i,0,null),new EditedCrudPair<InitializedPlace, PlaceInterConnects>((InitializedPlace) pl_,ConverterCommonMapUtil.copyPlaceInterConnects(((InitializedPlace) pl_).getSavedlinks()))));
+            }
+        }
         setupForeground(_f);
         setEdited(_bk);
         Limits limits_ = Level.limits(_bk);
@@ -61,7 +75,51 @@ public final class FormLevelGrid extends FormLevelGridCommon {
         int deltaCols_ = _previous.getTopLeft().getx() - _next.getTopLeft().getx();
         getTopLeftRel().sety((short) (getTopLeftRel().gety()+deltaRows_));
         getTopLeftRel().setx((short) (getTopLeftRel().getx()+deltaCols_));
+        if (getSelectedPlace().isInside()) {
+            return;
+        }
+        for (EditedCrudPair<Coords, EditedCrudPair<InitializedPlace, PlaceInterConnects>> e: links) {
+            if (Coords.eq(e.getKey(),getSelectedPlace())) {
+                for (PlaceInterConnectCoords p:e.getValue().getValue().getList()) {
+                    move(_previous,_next, p.getPlaceInterConnect().getSource(), p.getPlaceInterConnect().getDir());
+                }
+            } else {
+                for (PlaceInterConnectCoords p:e.getValue().getValue().getList()) {
+                    if (p.getCoords().getNumberPlace() == getSelectedPlace().getNumberPlace()) {
+                        move(_previous,_next, p.getCoords().getLevel().getPoint(), p.getPlaceInterConnect().getDir().getOpposite());
+                    }
+                }
+            }
+        }
     }
+
+    private void move(Limits _previous, Limits _next, Point _src, Direction _dir) {
+        if (_previous.getTopLeft().getx() == _previous.getBottomRight().getx()) {
+            if (_dir == Direction.LEFT) {
+                _src.setx(_next.getTopLeft().getx());
+            }
+            if (_dir == Direction.RIGHT) {
+                _src.setx(_next.getBottomRight().getx());
+            }
+        } else if (_src.getx() == _previous.getTopLeft().getx()) {
+            _src.setx(_next.getTopLeft().getx());
+        } else if (_src.getx() == _previous.getBottomRight().getx()) {
+            _src.setx(_next.getBottomRight().getx());
+        }
+        if (_previous.getTopLeft().gety() == _previous.getBottomRight().gety()) {
+            if (_dir == Direction.UP) {
+                _src.sety(_next.getTopLeft().gety());
+            }
+            if (_dir == Direction.DOWN) {
+                _src.sety(_next.getBottomRight().gety());
+            }
+        } else if (_src.gety() == _previous.getTopLeft().gety()) {
+            _src.sety(_next.getTopLeft().gety());
+        } else if (_src.gety() == _previous.getBottomRight().gety()) {
+            _src.sety(_next.getBottomRight().gety());
+        }
+    }
+
     public void setupGrid() {
         AbsCompoFactory c_ = getApi().getCompoFactory();
         AbsPanel form_ = c_.newPageBox();
@@ -206,4 +264,15 @@ public final class FormLevelGrid extends FormLevelGridCommon {
         return grid;
     }
 
+    public Coords getSelectedPlace() {
+        return selectedPlace;
+    }
+
+    public void setSelectedPlace(Coords _s) {
+        this.selectedPlace = _s;
+    }
+
+    public CustList<EditedCrudPair<Coords, EditedCrudPair<InitializedPlace, PlaceInterConnects>>> getLinks() {
+        return links;
+    }
 }

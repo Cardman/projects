@@ -2,6 +2,8 @@ package aiki.gui.components.editor;
 
 import aiki.facade.*;
 import aiki.map.places.*;
+import aiki.map.util.*;
+import aiki.util.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.util.*;
@@ -159,11 +161,17 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
         if (selectedPlace < 0) {
             getCrudGeneFormSubContent().getFacadeGame().getData().getMap().addPlace(value_);
         } else {
+            CustList<EditedCrudPair<Coords, EditedCrudPair<InitializedPlace, PlaceInterConnects>>> ls_ = new CustList<EditedCrudPair<Coords, EditedCrudPair<InitializedPlace, PlaceInterConnects>>>();
             if (value_ instanceof Road) {
                 road.getLevelWithWild().buildEntity(((Road)value_).getLevelRoad());
+                ls_ = road.getLevelWithWild().getLevel().getLinks();
             }
             if (value_ instanceof City) {
                 city.buildEntity();
+                ls_ = city.getLevel().getLinks();
+            }
+            for (EditedCrudPair<Coords, EditedCrudPair<InitializedPlace, PlaceInterConnects>> e:ls_) {
+                e.getValue().getKey().setSavedlinks(e.getValue().getValue());
             }
             getCrudGeneFormSubContent().getFacadeGame().getData().getMap().getPlaces().set(selectedPlace, value_);
         }
