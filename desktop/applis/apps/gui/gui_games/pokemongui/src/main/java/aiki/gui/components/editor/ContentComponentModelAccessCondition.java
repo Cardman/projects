@@ -25,6 +25,11 @@ public final class ContentComponentModelAccessCondition {
     private final CustList<FormLevelGridLink> levels = new CustList<FormLevelGridLink>();
     private final CoordssBoolVal trainers = new CoordssBoolVal();
     private AbsPanel trainersForm;
+    private final boolean beginGame;
+
+    public ContentComponentModelAccessCondition(boolean _b) {
+        this.beginGame = _b;
+    }
 
     public AbsCustComponent form(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact, AbsCommonFrame _f, CrudGeneFormEntPlace _parent, AbsButton _open) {
         api = _core;
@@ -34,13 +39,23 @@ public final class ContentComponentModelAccessCondition {
         validateAccess = _core.getCompoFactory().newPlainButton("_");
         validateAccess.addActionListener(new ValidateAccessConditionEvent(this));
         form_.add(validateAccess);
-        validateAccess.setEnabled(false);
-        clearAccess = _core.getCompoFactory().newPlainButton("_");
-        clearAccess.addActionListener(new ClearAccessConditionEvent(this));
-        form_.add(clearAccess);
+        if (!beginGame) {
+            validateAccess.setEnabled(false);
+            clearAccess = _core.getCompoFactory().newPlainButton("_");
+            clearAccess.addActionListener(new ClearAccessConditionEvent(this));
+            form_.add(clearAccess);
+        }
         close = _core.getCompoFactory().newPlainButton("\u23F9");
-        close.addActionListener(new CloseLinksAccessFormEvent(_fac,_parent,_open));
+        if (beginGame) {
+            close.addActionListener(new CloseLinksFormEvent(_parent));
+        } else {
+            close.addActionListener(new CloseLinksAccessFormEvent(_fac,_parent,_open));
+        }
         form_.add(getClose());
+        if (beginGame) {
+            buildParts(form_,_core, _fac, _fact, _f);
+            return _core.getCompoFactory().newAbsScrollPane(form_);
+        }
         AbsScrollPane map_ = _core.getCompoFactory().newAbsScrollPane();
         trainersForm = _core.getCompoFactory().newPageBox();
         viewRight();
@@ -105,6 +120,10 @@ public final class ContentComponentModelAccessCondition {
     public void selectOrDeselectAccess(FormLevelGridLink _g,int _x, int _y) {
         Point pt_ = _g.toPt(_x, _y);
         Coords key_ = _g.build(pt_);
+        if (beginGame) {
+            facadeGame.getMap().setBegin(key_);
+            return;
+        }
         selected = key_;
         for (EntryCust<Coords, BoolVal> c:trainers.entryList()) {
             c.setValue(BoolVal.FALSE);

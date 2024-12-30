@@ -4048,6 +4048,27 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         assertEq(0,facade_.getMap().getAccessCondition().size());
         assertTrue(crudAccessButton(sub_).isEnabled());
     }
+    @Test
+    public void beginGame() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        buildAccess(facade_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(crudBeginButton(sub_));
+        tryClick(crudBegin(sub_).getLevels().get(0).getGrid(),0,0);
+        tryClick(crudBegin(sub_).getClose());
+        assertEq(0,facade_.getMap().getBegin().getNumberPlace());
+        assertEq(0,facade_.getMap().getBegin().getLevel().getLevelIndex());
+        assertEq(0,facade_.getMap().getBegin().getLevel().getPoint().getx());
+        assertEq(0,facade_.getMap().getBegin().getLevel().getPoint().gety());
+    }
+    private ContentComponentModelAccessCondition crudBegin(WindowPkEditor _sub) {
+        return _sub.getFormDataMap().getCrudPlace().getBeginGame();
+    }
+
+    private AbsButton crudBeginButton(WindowPkEditor _sub) {
+        return _sub.getFormDataMap().getCrudPlace().getBeginGameButton();
+    }
     private ContentComponentModelAccessCondition crudAccess(WindowPkEditor _sub) {
         return _sub.getFormDataMap().getCrudPlace().getAccessCondition();
     }

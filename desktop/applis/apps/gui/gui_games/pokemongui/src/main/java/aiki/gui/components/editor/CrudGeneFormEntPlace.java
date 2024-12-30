@@ -14,7 +14,8 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
     private final ContentComponentModelPlaceCaveLinks links = new ContentComponentModelPlaceCaveLinks();
     private final ContentComponentModelCavePlaceLinks linksRev = new ContentComponentModelCavePlaceLinks();
     private final ContentComponentModelLeagueLinks leagueLink = new ContentComponentModelLeagueLinks();
-    private final ContentComponentModelAccessCondition accessCondition = new ContentComponentModelAccessCondition();
+    private final ContentComponentModelAccessCondition accessCondition = new ContentComponentModelAccessCondition(false);
+    private final ContentComponentModelAccessCondition beginGame = new ContentComponentModelAccessCondition(true);
     private GeneComponentModelPlace gene;
     private ContentComponentModelRoad road;
     private ContentComponentModelCity city;
@@ -24,6 +25,7 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
     private final CustList<CrudGeneFormLevel> levels = new CustList<CrudGeneFormLevel>();
     private boolean enabledButtons;
     private AbsButton accessConditionButton;
+    private AbsButton beginGameButton;
 
     public CrudGeneFormEntPlace(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub, AbsCommonFrame _fr) {
         super(_fact);
@@ -39,11 +41,17 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
         gene = new GeneComponentModelPlace(getFactory(), getFrame());
         refresh();
         accessConditionButton = getFactory().getCompoFactory().newPlainButton("?");
-        accessConditionButton.addActionListener(new SelectCrudAccessConditionFormEvent(this));
+        accessConditionButton.addActionListener(new SelectCrudAccessConditionFormEvent(this, false));
         accessConditionButton.setEnabled(isEnabledButtons());
         getButtons().add(accessConditionButton);
         getAllButtons().add(accessConditionButton);
         getAllButtonsMerge().add(accessConditionButton);
+        beginGameButton = getFactory().getCompoFactory().newPlainButton("******");
+        beginGameButton.addActionListener(new SelectCrudAccessConditionFormEvent(this, true));
+        beginGameButton.setEnabled(isEnabledButtons());
+        getButtons().add(beginGameButton);
+        getAllButtons().add(beginGameButton);
+        getAllButtonsMerge().add(beginGameButton);
         AbsButton butJoin_ = getFactory().getCompoFactory().newPlainButton("<->");
         butJoin_.addActionListener(new SelectCrudJoinFormEvent(this));
         butJoin_.setEnabled(isEnabledButtons());
@@ -63,9 +71,13 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
         getAllButtons().add(butRev_);
         getAllButtonsMerge().add(butRev_);
     }
-    public void displayAccessCondition() {
+    public void displayAccessCondition(boolean _begin) {
         getElement().removeAll();
-        getElement().add(accessCondition.form(getFactory(),getCrudGeneFormSubContent().getFacadeGame(),getCrudGeneFormSubContent().getSubscription(),getFrame(),this,accessConditionButton));
+        if (_begin) {
+            getElement().add(beginGame.form(getFactory(),getCrudGeneFormSubContent().getFacadeGame(),getCrudGeneFormSubContent().getSubscription(),getFrame(),this,beginGameButton));
+        } else {
+            getElement().add(accessCondition.form(getFactory(),getCrudGeneFormSubContent().getFacadeGame(),getCrudGeneFormSubContent().getSubscription(),getFrame(),this,accessConditionButton));
+        }
         CrudGeneFormLevelCave.disable(this);
         getFrame().pack();
     }
@@ -290,5 +302,13 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
 
     public AbsButton getAccessConditionButton() {
         return accessConditionButton;
+    }
+
+    public ContentComponentModelAccessCondition getBeginGame() {
+        return beginGame;
+    }
+
+    public AbsButton getBeginGameButton() {
+        return beginGameButton;
     }
 }
