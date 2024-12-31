@@ -294,7 +294,7 @@ public abstract class WithFilterBean extends CommonBean {
         String name_ = getPokedex().get(_number).getName();
         DataBase data_ = getDataBase();
 //        return ConverterBufferedImage.toBaseSixtyFour(data_.getMiniPk().getVal(name_));
-        return data_.getMiniPk().getVal(name_).getImage();
+        return data_.getMiniPk(name_);
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMiniPk().getVal(name_));
     }
     public void setTypedAbility(String _typedAbility) {

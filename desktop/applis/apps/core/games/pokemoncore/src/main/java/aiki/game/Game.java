@@ -650,10 +650,10 @@ public final class Game {
         }
         if (lv_.containsPokemon(pt_) && !isEmpty(map_, _coords)) {
             WildPk pk_ = lv_.getPokemon(pt_);
-            _images.add(_data.getMiniPk().getVal(pk_.getName()).getImage());
+            _images.add(_data.getMiniPk(pk_.getName()));
         }
         if (lv_.getItems().contains(pt_) && !isEmpty(map_, _coords)) {
-            _images.add(_data.getMiniItems().getVal(lv_.getItems().getVal(pt_)).getImage());
+            _images.add(_data.getMiniItem(lv_.getItems().getVal(pt_)));
         }
         if (lv_.getTm().contains(pt_) && !isEmpty(map_, _coords)) {
             _images.add(_data.getImageTmHm().getImage());

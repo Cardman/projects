@@ -1207,7 +1207,7 @@ public final class FrontBattle extends AbsMetaLabelPk {
         yEnd_ = foe_.getPoint().getyPoint();
         xEnd_ += maxWidth / 2;
         yEnd_ += maxHeight / 2;
-        int[][] img_ = facade.getData().getMiniItems().getVal(_ball).getImage();
+        int[][] img_ = facade.getData().getMiniItem(_ball);
         image = battle.getWindow().getTileRender().centerImage(_fact,img_, facade.getMap().getSideLength());
         int remainImages_ = NB_IMAGES - imageNumber;
         if (remainImages_ > 0) {

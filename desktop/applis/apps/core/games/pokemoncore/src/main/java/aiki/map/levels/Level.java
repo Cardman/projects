@@ -245,11 +245,11 @@ public abstract class Level {
             for (Point p : lv_.getLegendaryPks().getKeys()) {
                 WildPk pk_ = lv_.getPokemon(p);
                 _frontTiles.put(new Point(p),
-                        _data.getMiniPk().getVal(pk_.getName()).getImage());
+                        _data.getMiniPk(pk_.getName()));
             }
             for (Point p : lv_.getItems().getKeys()) {
                 _frontTiles.put(new Point(p),
-                        _data.getMiniItems().getVal(lv_.getItems().getVal(p)).getImage());
+                        _data.getMiniItem(lv_.getItems().getVal(p)));
             }
             for (Point p : lv_.getTm().getKeys()) {
                 _frontTiles.put(new Point(p), _data.getImageTmHm().getImage());

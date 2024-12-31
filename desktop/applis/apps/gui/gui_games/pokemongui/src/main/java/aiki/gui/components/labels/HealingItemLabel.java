@@ -76,7 +76,7 @@ public final class HealingItemLabel extends SelectableLabel {
         fourthColumn = _fourthColumn;
         fifthColumn = _fifthColumn;
         sideLength = _facade.getMap().getSideLength();
-        int[][] miniItem_ = _facade.getData().getMiniItems().getVal(item.getKeyName()).getImage();
+        int[][] miniItem_ = _facade.getData().getMiniItem(item.getKeyName());
         miniImageItem = _rend.render(_fact,miniItem_,sideLength,sideLength);
         int h_ = sideLength;
 //        if (h_ < FOURTH_LINE) {

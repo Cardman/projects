@@ -201,7 +201,7 @@ public class PokemonBean extends CommonBean {
             }
         }
         if (appear_) {
-            int[][] miniImg_ = data_.getMiniPk().getVal(name).getImage();
+            int[][] miniImg_ = data_.getMiniPk(name);
             image_ = ConverterBufferedImage.stackImages(image_, miniImg_);
         }
         return image_;

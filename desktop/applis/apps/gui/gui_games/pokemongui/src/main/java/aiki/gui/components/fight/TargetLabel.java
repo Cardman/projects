@@ -80,7 +80,7 @@ public class TargetLabel {
             int imgWidth_ = 0;
             if (!ball.isEmpty()) {
                 AbstractImage img_;
-                int[][] b_ = _facade.getData().getMiniItems().getVal(ball).getImage();
+                int[][] b_ = _facade.getData().getMiniItem(ball);
                 img_ = _parent.getBattle().getWindow().getTileRender().render(_parent.getBattle().getWindow().getImageFactory(), b_,sideLength_,sideLength_);
                 imgWidth_ = img_.getWidth();
             }
@@ -124,7 +124,7 @@ public class TargetLabel {
         int delta_ = height_ - heightIni_;
         if (!ball.isEmpty()) {
             AbstractImage img_;
-            int[][] b_ = _facade.getData().getMiniItems().getVal(ball).getImage();
+            int[][] b_ = _facade.getData().getMiniItem(ball);
             img_ = _parent.getBattle().getWindow().getTileRender().render(_parent.getBattle().getWindow().getImageFactory(), b_,sideLength_,sideLength_);
 //            if (delta_ < img_.getHeight()) {
 //                delta_ = img_.getHeight();
@@ -164,7 +164,7 @@ public class TargetLabel {
             image.drawString(fighterTranslatedName_, 0, h_);
             if (!ball.isEmpty()) {
                 AbstractImage img_;
-                int[][] b_ = _facade.getData().getMiniItems().getVal(ball).getImage();
+                int[][] b_ = _facade.getData().getMiniItem(ball);
                 img_ = _parent.getBattle().getWindow().getTileRender().render(_parent.getBattle().getWindow().getImageFactory(), b_,sideLength_,sideLength_);
                 image.drawImage(img_, width_ - img_.getWidth(), 0);
                 //h_ += img_.getHeight();

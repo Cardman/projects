@@ -50,7 +50,7 @@ public class PokemonDataRenderer implements AbsCustCellRenderGene<String> {
         selected = _isSelected;
         if (!_info.isEmpty()) {
             name = facade.translatePokemon(_info);
-            int[][] img_ = facade.getData().getMiniPk().getVal(_info).getImage();
+            int[][] img_ = facade.getData().getMiniPk(_info);
 //            pkImage = ConverterGraphicBufferedImage.decodeToImage(fact,img_);
             pkImage = render.render(fact,img_, sideLength, sideLength);
         } else {

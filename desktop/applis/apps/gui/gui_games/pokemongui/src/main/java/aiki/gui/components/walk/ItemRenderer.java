@@ -48,7 +48,7 @@ public class ItemRenderer implements AbsCustCellRenderGene<String> {
         name = _info;
         displayName = facade.translateItem(name);
         price = facade.getData().getItem(name).getPrice();
-        int[][] img_ = facade.getData().getMiniItems().getVal(name).getImage();
+        int[][] img_ = facade.getData().getMiniItem(name);
         miniItem = render.render(fact,img_,sideLength,sideLength);
         maxPriceLen = DefTileRender.widthLgMax(compo,_lab);
         int h_ = NumberUtil.max(sideLength, _lab.getRealSize() + 2);

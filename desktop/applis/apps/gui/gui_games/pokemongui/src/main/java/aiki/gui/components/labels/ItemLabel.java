@@ -35,7 +35,7 @@ public final class ItemLabel extends SelectableLabel {
     }
 
     public void setImagesResults(AbstractImageFactory _fact, FacadeGame _facade, IntTileRender _rend) {
-        int[][] miniItem_ = _facade.getData().getMiniItems().getVal(item.getKeyName()).getImage();
+        int[][] miniItem_ = _facade.getData().getMiniItem(item.getKeyName());
         sideLength = _facade.getMap().getSideLength();
         miniImageItem = _rend.render(_fact,miniItem_,sideLength,sideLength);
         int h_ = NumberUtil.max(sideLength, FOURTH_LINE);

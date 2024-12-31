@@ -26,7 +26,7 @@ public abstract class ItemBean extends CommonBean {
         StringMap<String> translationsItems_;
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
         name = getForms().getValStr(CST_ITEM);
-        itemImage = data_.getMiniItems().getVal(name).getImage();
+        itemImage = data_.getMiniItem(name);
         displayName = translationsItems_.getVal(name);
         Item item_ = data_.getItem(name);
         price = item_.getPrice();

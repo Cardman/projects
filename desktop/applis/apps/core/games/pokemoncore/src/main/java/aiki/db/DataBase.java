@@ -4726,6 +4726,9 @@ public final class DataBase {
         return lawsDamageRate;
     }
 
+    public int[][] getMiniPk(String _name) {
+        return getValueCaseInsensitive(miniPk,_name);
+    }
     public StringMap<ImageArrayBaseSixtyFour> getMiniPk() {
         return miniPk;
     }
@@ -4754,6 +4757,9 @@ public final class DataBase {
         maxWidthPk = _maxWidthPk;
     }
 
+    public int[][] getMiniItem(String _name) {
+        return getValueCaseInsensitive(miniItems,_name);
+    }
     public StringMap<ImageArrayBaseSixtyFour> getMiniItems() {
         return miniItems;
     }

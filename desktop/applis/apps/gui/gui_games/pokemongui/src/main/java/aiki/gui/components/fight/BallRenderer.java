@@ -55,7 +55,7 @@ public class BallRenderer implements AbsCustCellRenderGene<BallNumberRate> {
     public AbstractImage getListCellRendererComponent(int _index, BallNumberRate _info, boolean _isSelected, boolean _cellHasFocus, boolean _cellIsAnchored, MetaFont _lab, ColorsGroupList _colors) {
         selected = _isSelected;
         ball = _info;
-        int[][] img_ = facade.getData().getMiniItems().getVal(ball.getName()).getImage();
+        int[][] img_ = facade.getData().getMiniItem(ball.getName());
 //        ballImage = ConverterGraphicBufferedImage.decodeToImage(fact,img_);
         ballImage = render.render(fact,img_,facade.getMap().getSideLength(),facade.getMap().getSideLength());
         int w_ = NumberUtil.max(100, sideLength+20+ maxWidthNumber+maxWidthRate+maxPercent);

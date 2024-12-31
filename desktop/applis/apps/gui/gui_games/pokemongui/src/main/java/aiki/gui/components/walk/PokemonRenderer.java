@@ -76,7 +76,7 @@ public class PokemonRenderer implements AbsCustCellRenderGene<UsablePokemon> {
         selected = _isSelected;
         if (pokemon instanceof PokemonPlayer) {
             PokemonPlayer pk_ = (PokemonPlayer) pokemon;
-            int[][] img_ = facade.getData().getMiniPk().getVal(pk_.getName()).getImage();
+            int[][] img_ = facade.getData().getMiniPk(pk_.getName());
             miniImagePk = render.render(fact.getImageFactory(),img_,sideLength,sideLength);
             remainHp = pk_.getRemainingHp().toNumberString();
             intRate = pk_.rateRemainHp(facade.getData());
@@ -84,7 +84,7 @@ public class PokemonRenderer implements AbsCustCellRenderGene<UsablePokemon> {
             gender = facade.translateGenders(pk_.getGender());
             withItem = !pk_.getItem().isEmpty();
             if (withItem) {
-                img_ = facade.getData().getMiniItems().getVal(pk_.getItem()).getImage();
+                img_ = facade.getData().getMiniItem(pk_.getItem());
                 miniImageItem = render.render(fact.getImageFactory(),img_,sideLength,sideLength);
             }
             oldSelected = false;
@@ -100,7 +100,7 @@ public class PokemonRenderer implements AbsCustCellRenderGene<UsablePokemon> {
         }
         if (pokemon instanceof Egg) {
             Egg egg_ = (Egg) pokemon;
-            int[][] img_ = facade.getData().getMiniPk().getVal(egg_.getName()).getImage();
+            int[][] img_ = facade.getData().getMiniPk(egg_.getName());
             miniImagePk = render.render(fact.getImageFactory(),img_,sideLength,sideLength);
             remainSteps = (int) (facade.getData().getPokemon(egg_.getName()).getHatchingSteps().ll() - egg_.getSteps());
         }
