@@ -10,7 +10,9 @@ import code.gui.initialize.*;
 public final class FormBlockTile {
     private GeneComponentModelImgSelect tileFileName;
     private AbsSpinner indexApparition;
-    private AbsTextField dims;
+    private AbsSpinner width;
+    private AbsSpinner height;
+    private AbsButton dims;
     private GeneComponentModelEltEnumSub<EnvironmentType> type;
     private AbsButton match;
     private AbsButton remove;
@@ -25,7 +27,11 @@ public final class FormBlockTile {
         form.add(tileFileName.gene());
         indexApparition = c_.newSpinner(-1,-1,Integer.MAX_VALUE,1);
         form.add(indexApparition);
-        dims = c_.newTextField();
+        width = c_.newSpinner(1,1,Integer.MAX_VALUE,1);
+        form.add(width);
+        height = c_.newSpinner(1,1,Integer.MAX_VALUE,1);
+        form.add(height);
+        dims = c_.newPlainButton("|=|");
         dims.addActionListener(new DimsBlockEvent(_grid));
         form.add(dims);
         feedForm();
@@ -44,14 +50,16 @@ public final class FormBlockTile {
         tileFileName.updateValue(edited.getTileFileName());
         indexApparition.setValue(edited.getIndexApparition());
         type.setupValue(edited.getType());
-        dims.setText(edited.getWidth()+":"+edited.getHeight());
+        width.setValue(edited.getWidth());
+        height.setValue(edited.getHeight());
     }
     public void feedForm() {
         edited = Instances.newBlock();
         edited.setWidth(1);
         edited.setHeight(1);
         tileFileName.updateValue(edited.getTileFileName());
-        dims.setText("1:1");
+        width.setValue(1);
+        height.setValue(1);
     }
 
     public Block buildEntity() {
@@ -65,7 +73,15 @@ public final class FormBlockTile {
         return tileFileName;
     }
 
-    public AbsTextField getDims() {
+    public AbsSpinner getWidth() {
+        return width;
+    }
+
+    public AbsSpinner getHeight() {
+        return height;
+    }
+
+    public AbsButton getDims() {
         return dims;
     }
 

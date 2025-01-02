@@ -166,13 +166,8 @@ public final class FormLevelGrid extends FormLevelGridCommon {
     }
 
     public void checkDims() {
-        String txt_ = formBlockTile.getDims().getText();
-        StringList parts_ = StringUtil.splitChar(txt_, ':');
-        int parseWidth_ = NumberUtil.parseInt(parts_.first());
-        int parseHeight_ = NumberUtil.parseInt(parts_.last());
-        if (NumberUtil.signum(parseWidth_) + NumberUtil.signum(parseHeight_) < 2) {
-            return;
-        }
+        int parseWidth_ = formBlockTile.getWidth().getValue();
+        int parseHeight_ = formBlockTile.getHeight().getValue();
         Dims ds_ = new Dims(parseWidth_, parseHeight_);
         int x_ = screen.getx();
         int y_ = screen.gety();

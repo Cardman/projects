@@ -745,8 +745,7 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         WindowPkEditor sub_ = window(pr_, facade_);
         tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getGrid(),0,0);
-        sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getDims().setText("2:2");
-        enterTextField(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getDims());
+        selectDims(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile(), 2,2);
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getMatch());
         assertEq(1,sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getEdited().size());
         assertEq(2,sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getEdited().getValue(0).getHeight());
@@ -762,8 +761,7 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getGrid(),0,0);
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getMatch());
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getGrid(),0,0);
-        sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getDims().setText("2:2");
-        enterTextField(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getDims());
+        selectDims(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile(), 2,2);
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getMatch());
         assertEq(1,sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getEdited().size());
         assertEq(2,sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getEdited().getValue(0).getHeight());
@@ -782,8 +780,7 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getCols().setValue(1);
         tryClick(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getApplyPrepend());
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getGrid(),0,0);
-        sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getDims().setText("2:2");
-        enterTextField(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getDims());
+        selectDims(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile(), 2,2);
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getMatch());
         assertEq(1,sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getEdited().getVal(newPoint(-1,-1)).getWidth());
         assertEq(1,sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getEdited().getVal(newPoint(-1,-1)).getHeight());
@@ -796,8 +793,7 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         WindowPkEditor sub_ = window(pr_, facade_);
         tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getGrid(),0,0);
-        sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getDims().setText("-1:-1");
-        enterTextField(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getDims());
+        selectDims(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile(), -1,-1);
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getMatch());
         assertEq(1,sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getEdited().getVal(newPoint(0,0)).getWidth());
         assertEq(1,sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getEdited().getVal(newPoint(0,0)).getHeight());
@@ -815,8 +811,7 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getCols().setValue(1);
         tryClick(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getApplyAppend());
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getGrid(),sub_.getFormDataMap().getMiniMapGrid().sideTile(),sub_.getFormDataMap().getMiniMapGrid().sideTile());
-        sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getDims().setText("2:2");
-        enterTextField(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getDims());
+        selectDims(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile(), 2,2);
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getMatch());
         assertEq(2,sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getEdited().getVal(newPoint(1,1)).getWidth());
         assertEq(2,sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getEdited().getVal(newPoint(1,1)).getHeight());
@@ -955,8 +950,7 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         sub_.getFormDataMap().getCrudPlace().getCity().getGym().setSelected(true);
         tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getCreateBuilding());
         tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getGrid(),0,0);
-        sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getFormBlockTile().getDims().setText("2:2");
-        enterTextField(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getFormBlockTile().getDims());
+        selectDims(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getFormBlockTile(), 2,2);
         tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getTiles().getVal(MessagesEditorSelect.GYM_TILE_EXIT));
         tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getFormBlockTile().getMatch());
         tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
@@ -987,8 +981,7 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         sub_.getFormDataMap().getCrudPlace().getCity().getGym().setSelected(true);
         tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getCreateBuilding());
         tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getGrid(),0,0);
-        sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getFormBlockTile().getDims().setText("2:2");
-        enterTextField(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getFormBlockTile().getDims());
+        selectDims(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getFormBlockTile(), 2,2);
         tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getTiles().getVal(MessagesEditorSelect.GYM_TILE_EXIT));
         tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getFormBlockTile().getMatch());
         tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
@@ -1027,8 +1020,7 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         sub_.getFormDataMap().getCrudPlace().getCity().getGym().setSelected(false);
         tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getCreateBuilding());
         tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getGrid(),0,0);
-        sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getFormBlockTile().getDims().setText("2:2");
-        enterTextField(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getFormBlockTile().getDims());
+        selectDims(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getFormBlockTile(), 2,2);
         tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getTiles().getVal(MessagesEditorSelect.PC_TILE_EXIT));
         tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getFormBlockTile().getMatch());
         tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
@@ -1062,8 +1054,7 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         sub_.getFormDataMap().getCrudPlace().getCity().getGym().setSelected(false);
         tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getCreateBuilding());
         tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getGrid(),0,0);
-        sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getFormBlockTile().getDims().setText("2:2");
-        enterTextField(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getFormBlockTile().getDims());
+        selectDims(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getFormBlockTile(), 2,2);
         tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getTiles().getVal(MessagesEditorSelect.PC_TILE_EXIT));
         tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getFormBlockTile().getMatch());
         tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getGrid(),facade_.getData().getMap().getSideLength(),facade_.getData().getMap().getSideLength());
@@ -1396,8 +1387,7 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         addPairPerson(sub_,P_2,"_1");
         tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getGrid(),0,0);
-        sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getDims().setText("2:2");
-        enterTextField(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getDims());
+        selectDims(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile(), 2,2);
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getMatch());
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getGrid(),0,0);
         tryClick(sub_.getFormDataMap().getCrudPlace().getRoad().getTiles().getVal(MessagesEditorSelect.TILE_DUAL));
@@ -1419,8 +1409,7 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         addPairPerson(sub_,P_2,"_1");
         tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getGrid(),0,0);
-        sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getDims().setText("2:2");
-        enterTextField(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getDims());
+        selectDims(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile(), 2,2);
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getMatch());
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getGrid(),0,0);
         tryClick(sub_.getFormDataMap().getCrudPlace().getRoad().getTiles().getVal(MessagesEditorSelect.TILE_DUAL));
@@ -1439,8 +1428,7 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         addPairPerson(sub_,P_2,"_1");
         tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getGrid(),0,0);
-        sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getDims().setText("2:2");
-        enterTextField(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getDims());
+        selectDims(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile(), 2,2);
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getMatch());
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getGrid(),0,0);
         tryClick(sub_.getFormDataMap().getCrudPlace().getRoad().getTiles().getVal(MessagesEditorSelect.TILE_DUAL));
@@ -1460,8 +1448,7 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         addPairPerson(sub_,P_2,"_1");
         tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getGrid(),0,0);
-        sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getDims().setText("2:2");
-        enterTextField(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getDims());
+        selectDims(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile(), 2,2);
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getMatch());
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getGrid(),0,0);
         tryClick(sub_.getFormDataMap().getCrudPlace().getRoad().getTiles().getVal(MessagesEditorSelect.TILE_DUAL));
@@ -1481,8 +1468,7 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         addPairPerson(sub_,P_2,"_1");
         tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getGrid(),0,0);
-        sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getDims().setText("2:2");
-        enterTextField(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getDims());
+        selectDims(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile(), 2,2);
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getMatch());
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getGrid(),0,0);
         tryClick(sub_.getFormDataMap().getCrudPlace().getRoad().getTiles().getVal(MessagesEditorSelect.TILE_DUAL));
@@ -1502,8 +1488,7 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         addPairPerson(sub_,P_2,"_1");
         tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getGrid(),0,0);
-        sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getDims().setText("2:2");
-        enterTextField(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getDims());
+        selectDims(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile(), 2,2);
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getMatch());
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getGrid(),0,0);
         tryClick(sub_.getFormDataMap().getCrudPlace().getRoad().getTiles().getVal(MessagesEditorSelect.TILE_DUAL));
@@ -2134,8 +2119,7 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         WindowPkEditor sub_ = window(pr_, facade_);
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(0));
         tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getGrid(),0,0);
-        ((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile().getDims().setText("2:2");
-        enterTextField(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile().getDims());
+        selectDims(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile(), 2,2);
         tryClick(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getTiles().getVal(MessagesEditorSelect.LEAGUE_TRAINER));
         tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile().getMatch());
         tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getGrid(),facade_.getMap().getSideLength(),facade_.getMap().getSideLength());
@@ -2159,8 +2143,7 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         WindowPkEditor sub_ = window(pr_, facade_);
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(0));
         tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getGrid(),0,0);
-        ((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile().getDims().setText("2:2");
-        enterTextField(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile().getDims());
+        selectDims(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile(), 2,2);
         tryClick(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getTiles().getVal(MessagesEditorSelect.LEAGUE_TRAINER));
         tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile().getMatch());
         tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getGrid(),facade_.getMap().getSideLength(),facade_.getMap().getSideLength());
@@ -2194,8 +2177,7 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         WindowPkEditor sub_ = window(pr_, facade_);
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(2));
         tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getGrid(),0,0);
-        ((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile().getDims().setText("2:2");
-        enterTextField(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile().getDims());
+        selectDims(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile(), 2,2);
         tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile().getMatch());
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getValidAddEdit());
         assertEq(1,((League)facade_.getData().getMap().getPlace(0)).getRooms().get(1).getBlocks().size());
@@ -3695,12 +3677,10 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getCols().setValue(2);
         tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getApplyAppend());
         tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getGrid(),4*side(facade_),0);
-        sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims().setText("2:2");
-        enterTextField(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims());
+        selectDims(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile(), 2,2);
         tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getMatch());
         tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getGrid(),4*side(facade_),2*side(facade_));
-        sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims().setText("2:2");
-        enterTextField(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims());
+        selectDims(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile(), 2,2);
         tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getMatch());
         tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
         assertEq(1,saved(facade_,0).size());
@@ -3741,12 +3721,10 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getCols().setValue(2);
         tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getApplyAppend());
         tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getGrid(),side(facade_),0);
-        sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims().setText("2:2");
-        enterTextField(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims());
+        selectDims(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile(), 2,2);
         tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getMatch());
         tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getGrid(),side(facade_),2*side(facade_));
-        sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims().setText("2:2");
-        enterTextField(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims());
+        selectDims(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile(), 2,2);
         tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getMatch());
         tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
         assertEq(1,saved(facade_,0).size());
@@ -3787,12 +3765,10 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getCols().setValue(2);
         tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getApplyAppend());
         tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getGrid(),0,side(facade_));
-        sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims().setText("2:2");
-        enterTextField(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims());
+        selectDims(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile(), 2,2);
         tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getMatch());
         tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getGrid(),2*side(facade_),side(facade_));
-        sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims().setText("2:2");
-        enterTextField(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims());
+        selectDims(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile(), 2,2);
         tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getMatch());
         tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
         assertEq(1,saved(facade_,0).size());
@@ -3833,12 +3809,10 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getCols().setValue(2);
         tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getApplyPrepend());
         tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getGrid(),0,0);
-        sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims().setText("2:2");
-        enterTextField(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims());
+        selectDims(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile(), 2,2);
         tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getMatch());
         tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getGrid(),0,2*side(facade_));
-        sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims().setText("2:2");
-        enterTextField(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims());
+        selectDims(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile(), 2,2);
         tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getMatch());
         tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
         assertEq(1,saved(facade_,0).size());
@@ -3879,12 +3853,10 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getCols().setValue(2);
         tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getApplyAppend());
         tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getGrid(),4*side(facade_),0);
-        sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims().setText("2:2");
-        enterTextField(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims());
+        selectDims(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile(), 2,2);
         tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getMatch());
         tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getGrid(),4*side(facade_),2*side(facade_));
-        sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims().setText("2:2");
-        enterTextField(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getDims());
+        selectDims(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile(), 2,2);
         tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getMatch());
         tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
         assertEq(1,saved(facade_,0).size());
@@ -3958,12 +3930,10 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getCols().setValue(2);
         tryClick(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getApplyPrepend());
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getGrid(),0,0);
-        sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getDims().setText("2:2");
-        enterTextField(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getDims());
+        selectDims(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile(), 2,2);
         tryClick(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getMatch());
         tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getGrid(),0,2*side(facade_));
-        sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getDims().setText("2:2");
-        enterTextField(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getDims());
+        selectDims(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile(), 2,2);
         tryClick(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getMatch());
         tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
         assertEq(1,saved(facade_,0).size());
@@ -4426,6 +4396,12 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(_m.getTranslations()));
         MessagesGuiFct.enTr(MessagesGuiFct.initAppliTr(_m.getTranslations().getMapping().getVal(EN)));
         MessagesGuiFct.frTr(MessagesGuiFct.initAppliTr(_m.getTranslations().getMapping().getVal(FR)));
+    }
+
+    private void selectDims(FormBlockTile _dims, int _w, int _h) {
+        _dims.getWidth().setValue(_w);
+        _dims.getHeight().setValue(_h);
+        tryClick(_dims.getDims());
     }
 
 }

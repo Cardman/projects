@@ -148,9 +148,7 @@ public final class ContentComponentModelLevelWithWild {
             subs_.addAllElts(next_);
             translations.addAllElts(next_);
             items.getSelectUniq().getSelect().addListener(new ChangeItemTileEvent(this));
-            removeTile = compoFactory_.newPlainButton("-");
-            removeTile.addActionListener(new RemoveForeTileEvent(this));
-            form_.add(removeTile);
+            initRemove(form_);
             fore.setViewportView(form_);
         }
         if (StringUtil.quickEq(_k, MessagesEditorSelect.TILE_TM)) {
@@ -174,9 +172,7 @@ public final class ContentComponentModelLevelWithWild {
             subs_.addAllElts(next_);
             translations.addAllElts(next_);
             legendaryPks.getName().getSelectUniq().getSelect().addListener(new ChangeItemTileEvent(this));
-            removeTile = compoFactory_.newPlainButton("-");
-            removeTile.addActionListener(new RemoveForeTileEvent(this));
-            form_.add(removeTile);
+            initRemove(form_);
             fore.setViewportView(form_);
         }
         if (StringUtil.quickEq(_k, MessagesEditorSelect.TILE_TRAINER)) {
@@ -184,9 +180,7 @@ public final class ContentComponentModelLevelWithWild {
             AbsPanel form_ = compoFactory_.newLineBox();
             form_.add(trainerMultiFights.effectForm(level.getApi(), level.getFacadeGame(), level.getTranslationList(), level.getFrame(),level));
             trainerMultiFights.getTrainer().getMiniFileName().getName().getSelectUniq().getSelect().addListener(new ChangeItemTileEvent(this));
-            removeTile = compoFactory_.newPlainButton("-");
-            removeTile.addActionListener(new RemoveForeTileEvent(this));
-            form_.add(removeTile);
+            initRemove(form_);
             fore.setViewportView(form_);
         }
         if (StringUtil.quickEq(_k, MessagesEditorSelect.TILE_DEALER)) {
@@ -194,9 +188,7 @@ public final class ContentComponentModelLevelWithWild {
             AbsPanel form_ = compoFactory_.newLineBox();
             form_.add(dealerItem.effectForm(level.getApi(), level.getFacadeGame(), level.getTranslationList(), level));
             dealerItem.getMiniFileName().getName().getSelectUniq().getSelect().addListener(new ChangeItemTileEvent(this));
-            removeTile = compoFactory_.newPlainButton("-");
-            removeTile.addActionListener(new RemoveForeTileEvent(this));
-            form_.add(removeTile);
+            initRemove(form_);
             fore.setViewportView(form_);
         }
         if (StringUtil.quickEq(_k, MessagesEditorSelect.TILE_DUAL)) {
@@ -204,9 +196,7 @@ public final class ContentComponentModelLevelWithWild {
             AbsPanel form_ = compoFactory_.newLineBox();
             form_.add(dualFight.effectForm(level.getApi(), level.getFacadeGame(), level.getTranslationList(), level.getFrame(),level));
             dualFight.getTrainer().getMiniFileName().getName().getSelectUniq().getSelect().addListener(new ChangeItemTileEvent(this));
-            removeTile = compoFactory_.newPlainButton("-");
-            removeTile.addActionListener(new RemoveForeTileEvent(this));
-            form_.add(removeTile);
+            initRemove(form_);
             fore.setViewportView(form_);
         }
     }
@@ -222,10 +212,15 @@ public final class ContentComponentModelLevelWithWild {
         subs_.addAllElts(next_);
         translations.addAllElts(next_);
         _sel.getSelectUniq().getSelect().addListener(new ChangeItemTileEvent(this));
+        initRemove(form_);
+        fore.setViewportView(form_);
+    }
+
+    private void initRemove(AbsPanel _form) {
+        AbsCompoFactory compoFactory_ = level.getApi().getCompoFactory();
         removeTile = compoFactory_.newPlainButton("-");
         removeTile.addActionListener(new RemoveForeTileEvent(this));
-        form_.add(removeTile);
-        fore.setViewportView(form_);
+        _form.add(removeTile);
     }
 
     public void events() {
