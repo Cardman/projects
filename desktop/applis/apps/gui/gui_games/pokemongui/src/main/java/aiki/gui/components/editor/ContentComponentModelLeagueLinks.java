@@ -85,7 +85,7 @@ public final class ContentComponentModelLeagueLinks {
         if (!Point.eq(bk_, pt_)) {
             begin = new NullablePoint(pt_);
         }
-        if (begin.isDefined() && ContentComponentModelDualFight.edited(begin.getPoint(), level)) {
+        if (begin.isDefined() && FormLevelGridCommon.edited(begin.getPoint(), level.getForeground(), level.getForegroundEdited())) {
             begin = bk_;
             return;
         }
@@ -104,7 +104,7 @@ public final class ContentComponentModelLeagueLinks {
         if (!Point.eq(bk_, pt_)) {
             access = new NullablePoint(pt_);
         }
-        if (access.isDefined() && ContentComponentModelDualFight.edited(access.getPoint(), _selected)) {
+        if (access.isDefined() && FormLevelGridCommon.edited(access.getPoint(), _selected.getForeground(), _selected.getForegroundEdited())) {
             access = bk_;
             return;
         }

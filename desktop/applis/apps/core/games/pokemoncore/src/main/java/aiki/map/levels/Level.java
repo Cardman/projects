@@ -319,7 +319,7 @@ public abstract class Level {
         return null;
     }
 
-    private static boolean inRangeBlock(Point _point, Point _i, Block _block) {
+    public static boolean inRangeBlock(Point _point, Point _i, Block _block) {
         int w_ = _block.getWidth();
         int h_ = _block.getHeight();
         int xi_ = _i.getx();

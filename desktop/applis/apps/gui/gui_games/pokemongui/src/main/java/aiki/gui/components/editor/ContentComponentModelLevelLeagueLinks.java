@@ -58,7 +58,7 @@ public final class ContentComponentModelLevelLeagueLinks {
         if (!Point.eq(bk_, pt_)) {
             selectSecond = new NullablePoint(pt_);
         }
-        if (selectSecond.isDefined() && ContentComponentModelDualFight.edited(selectSecond.getPoint(), level)) {
+        if (selectSecond.isDefined() && FormLevelGridCommon.edited(selectSecond.getPoint(), level.getForeground(), level.getForegroundEdited())) {
             selectSecond = bk_;
             return;
         }

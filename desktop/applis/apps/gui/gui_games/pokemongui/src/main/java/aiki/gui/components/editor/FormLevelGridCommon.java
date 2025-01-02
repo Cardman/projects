@@ -25,6 +25,10 @@ public abstract class FormLevelGridCommon {
         translationList = _i;
     }
 
+    static boolean edited(Point _pt, Points<int[][]> _foreground, Points<int[][]> _foregroundEdited) {
+        return _foreground.contains(_pt) || _foregroundEdited.contains(_pt);
+    }
+
     public void setupForeground(Points<int[][]> _f) {
         foreground.clear();
         foreground.addAllEntries(_f);

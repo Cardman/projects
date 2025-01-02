@@ -18,54 +18,36 @@ public final class ContentComponentModelLevelWithWild {
     private final ContentComponentModelDealerItem dealerItem = new ContentComponentModelDealerItem();
     private final ContentComponentModelTrainerMultiFights trainerMultiFights = new ContentComponentModelTrainerMultiFights();
     private final ContentComponentModelDualFight dualFight = new ContentComponentModelDualFight();
+    private final ContentComponentModelLevel contentLevel = new ContentComponentModelLevel();
     private FormWildPk legendaryPks;
-    private final StringMap<AbsButton> tiles = new StringMap<AbsButton>();
-    private FormLevelGrid level;
     private CrudGeneFormAbsAreaApparition areas;
     private AbsCustComponent splitter;
-    private AbsScrollPane fore;
     private LevelWithWildPokemon edited;
-    private final IdList<SubscribedTranslation> translations = new IdList<SubscribedTranslation>();
-    private final IdList<SubscribedTranslation> translationsGrid = new IdList<SubscribedTranslation>();
-    private Point selected = new Point(0, 0);
-    private String key = "";
-    private AbsButton removeTile;
     private int nbPlace;
     private int nbLevel;
     private AbsScrollPane scrollPane;
 
     public AbsCustComponent form(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact, AbsCommonFrame _f) {
         scrollPane = _core.getCompoFactory().newAbsScrollPane();
-        level = new FormLevelGrid(_core,_fac, _f,_fact);
+        contentLevel.setLevel(new FormLevelGrid(_core, _fac, _f, _fact));
         AbsPanel form_ = _core.getCompoFactory().newPageBox();
         areas = new CrudGeneFormAbsAreaApparition(_core, _fac, _fact, _f);
         areas.initForm(_core,new GeneComponentModelSubscribeFactoryDirect<AbsAreaApparition>(new GeneComponentModelSubscribeArea(_f, _core, _fac, _fact)));
         form_.add(areas.getGroup());
-        getAreas().setFormBlockTile(level.getFormBlockTile());
+        getAreas().setFormBlockTile(contentLevel.getLevel().getFormBlockTile());
         splitter = _core.getCompoFactory().newHorizontalSplitPane(scrollPane,_core.getCompoFactory().newAbsScrollPane(form_));
-        level.getTranslationList().setFormLevelGridUniq(null);
+        contentLevel.getLevel().getTranslationList().setFormLevelGridUniq(null);
         return splitter;
     }
     public void setupGridDims(Coords _coords, Place _pl, LevelWithWildPokemon _wild) {
         getAreas().setupValues(_wild.getWildPokemonAreas());
-        Points<Block> blocks_ = _wild.getBlocks();
         edited = _wild;
         nbPlace = _coords.getNumberPlace();
         nbLevel = _coords.getLevel().getLevelIndex();
-        Points<int[][]> frontTiles_ = Level.getLevelForegroundImage(level.getFacadeGame().getData(), _coords, _pl,_wild);
-        level.setupGridDims(blocks_, frontTiles_);
-        level.setSelectedPlace(_coords);
-        IdList<SubscribedTranslation> subs_ = level.getTranslationList().getSubscribedTranslations().getVal(level.getFrame());
-        subs_.removeAllElements(translationsGrid);
-        IdList<SubscribedTranslation> next_ = new IdList<SubscribedTranslation>();
-        next_.add(new RefreshGridSubscription(level.getFacadeGame(),level,_coords,_pl,_wild));
-        subs_.addAllElts(next_);
-        translationsGrid.addAllElts(next_);
-        fore = level.getApi().getCompoFactory().newAbsScrollPane();
-        level.getForm().add(fore);
-        level.getGrid().addMouseListener(new TileKindEvent(this));
-        scrollPane.setViewportView(level.getForm());
-        getAreas().setBlocks(blocks_);
+        contentLevel.setupGridDims(_coords, _pl, _wild);
+        contentLevel.getLevel().getGrid().addMouseListener(new TileKindEvent(this));
+        scrollPane.setViewportView(contentLevel.getLevel().getForm());
+        getAreas().setBlocks(contentLevel.getLevel().getEdited());
     }
     public void buildEntity(LevelWithWildPokemon _lev) {
         _lev.setBlocks(getLevel().getEdited());
@@ -83,8 +65,7 @@ public final class ContentComponentModelLevelWithWild {
     }
 
     public void viewForeground(int _x, int _y) {
-        Point pt_ = level.toPt(_x, _y);
-        selected = pt_;
+        Point pt_ = contentLevel.viewForeground(_x, _y);
         getLevel().getFormBlockTile().getMatch().addActionListener(new ApplyForeTileEvent(this));
         if (edited.getItems().contains(pt_)) {
             choose(MessagesEditorSelect.TILE_ITEMS);
@@ -110,263 +91,240 @@ public final class ContentComponentModelLevelWithWild {
         } else if (edited.getDualFights().contains(pt_)) {
             choose(MessagesEditorSelect.TILE_DUAL);
             dualFight.feedForm(edited.getDualFights().getVal(pt_));
-        } else if (level.getFacadeGame().getMap().isEmptyForAdding(AbsContentComponentModelLevelLinks.coords(nbPlace,nbLevel,null,pt_))){
+        } else if (contentLevel.getLevel().getFacadeGame().getMap().isEmptyForAdding(AbsContentComponentModelLevelLinks.coords(nbPlace,nbLevel,null,pt_))){
             initFormChoices();
         } else {
-            key = "";
-            fore.setNullViewportView();
+            contentLevel.choose("");
+            contentLevel.getFore().setNullViewportView();
         }
         getLevel().getFrame().pack();
     }
 
     private void initFormChoices() {
-        key = "";
-        StringMap<String> messages_ = MessagesPkEditor.getMessagesEditorSelectTileKindWildTr(MessagesPkEditor.getAppliTr(level.getApi().currentLg())).getMapping();
-        AbsCompoFactory compoFactory_ = level.getApi().getCompoFactory();
+        contentLevel.choose("");
+        StringMap<String> messages_ = MessagesPkEditor.getMessagesEditorSelectTileKindWildTr(MessagesPkEditor.getAppliTr(contentLevel.getLevel().getApi().currentLg())).getMapping();
+        AbsCompoFactory compoFactory_ = contentLevel.getLevel().getApi().getCompoFactory();
         AbsPanel form_ = compoFactory_.newPageBox();
-        tiles.clear();
+        contentLevel.getTiles().clear();
         for (EntryCust<String,String> e: messages_.entryList()) {
             AbsButton but_ = compoFactory_.newPlainButton(e.getValue());
             but_.addActionListener(new TileKindChoiceEvent(this,e.getKey()));
             form_.add(but_);
-            tiles.addEntry(e.getKey(),but_);
+            contentLevel.getTiles().addEntry(e.getKey(),but_);
         }
-        fore.setViewportView(form_);
+        contentLevel.getFore().setViewportView(form_);
     }
 
     public void choose(String _k) {
-        key = _k;
+        contentLevel.choose(_k);
         if (StringUtil.quickEq(_k, MessagesEditorSelect.TILE_ITEMS)) {
-            AbsCompoFactory compoFactory_ = level.getApi().getCompoFactory();
-            items = ConverterCommonMapUtil.buildItFull(level.getApi(), level.getFacadeGame(), level.getTranslationList());
+            AbsCompoFactory compoFactory_ = contentLevel.getLevel().getApi().getCompoFactory();
+            items = ConverterCommonMapUtil.buildItFull(contentLevel.getLevel().getApi(), contentLevel.getLevel().getFacadeGame(), contentLevel.getLevel().getTranslationList());
             AbsPanel form_ = compoFactory_.newLineBox();
             form_.add(items.geneEnum());
-            IdList<SubscribedTranslation> subs_ = level.getTranslationList().getSubscribedTranslations().getVal(level.getFrame());
-            subs_.removeAllElements(translations);
-            IdList<SubscribedTranslation> next_ = new IdList<SubscribedTranslation>(items.getSubs());
-            next_.add(new SubscribedTranslationSelectChangeEvtsText<String>(items.getSelectUniq()));
-            subs_.addAllElts(next_);
-            translations.addAllElts(next_);
+            contentLevel.refreshSubs(items.getSubs(),items.getSelectUniq().getSelect());
             items.getSelectUniq().getSelect().addListener(new ChangeItemTileEvent(this));
             initRemove(form_);
-            fore.setViewportView(form_);
+            contentLevel.getFore().setViewportView(form_);
         }
         if (StringUtil.quickEq(_k, MessagesEditorSelect.TILE_TM)) {
-            tm = ConverterCommonMapUtil.buildTm(level.getApi(), level.getFacadeGame(), level.getTranslationList());
+            tm = ConverterCommonMapUtil.buildTm(contentLevel.getLevel().getApi(), contentLevel.getLevel().getFacadeGame(), contentLevel.getLevel().getTranslationList());
             techHidden(tm);
         }
         if (StringUtil.quickEq(_k, MessagesEditorSelect.TILE_HM)) {
-            hm = ConverterCommonMapUtil.buildHm(level.getApi(), level.getFacadeGame(), level.getTranslationList());
+            hm = ConverterCommonMapUtil.buildHm(contentLevel.getLevel().getApi(), contentLevel.getLevel().getFacadeGame(), contentLevel.getLevel().getTranslationList());
             techHidden(hm);
         }
         if (StringUtil.quickEq(_k, MessagesEditorSelect.TILE_LEG_PK)) {
-            AbsCompoFactory compoFactory_ = level.getApi().getCompoFactory();
-            legendaryPks = new FormWildPk(level.getApi(), level.getFacadeGame(), level.getTranslationList(), level.getFrame());
+            AbsCompoFactory compoFactory_ = contentLevel.getLevel().getApi().getCompoFactory();
+            legendaryPks = new FormWildPk(contentLevel.getLevel().getApi(), contentLevel.getLevel().getFacadeGame(), contentLevel.getLevel().getTranslationList(), contentLevel.getLevel().getFrame());
             legendaryPks.feedForm();
             AbsPanel form_ = compoFactory_.newLineBox();
             form_.add(legendaryPks.getForm());
-            IdList<SubscribedTranslation> subs_ = level.getTranslationList().getSubscribedTranslations().getVal(level.getFrame());
-            subs_.removeAllElements(translations);
             IdList<SubscribedTranslation> next_ = new IdList<SubscribedTranslation>();
             legendaryPks.feedSubs(next_);
-            subs_.addAllElts(next_);
-            translations.addAllElts(next_);
+            contentLevel.refreshSubs(next_,legendaryPks.getName().getSelectUniq().getSelect());
             legendaryPks.getName().getSelectUniq().getSelect().addListener(new ChangeItemTileEvent(this));
             initRemove(form_);
-            fore.setViewportView(form_);
+            contentLevel.getFore().setViewportView(form_);
         }
         if (StringUtil.quickEq(_k, MessagesEditorSelect.TILE_TRAINER)) {
-            AbsCompoFactory compoFactory_ = level.getApi().getCompoFactory();
+            AbsCompoFactory compoFactory_ = contentLevel.getLevel().getApi().getCompoFactory();
             AbsPanel form_ = compoFactory_.newLineBox();
-            form_.add(trainerMultiFights.effectForm(level.getApi(), level.getFacadeGame(), level.getTranslationList(), level.getFrame(),level));
+            form_.add(trainerMultiFights.effectForm(contentLevel.getLevel().getApi(), contentLevel.getLevel().getFacadeGame(), contentLevel.getLevel().getTranslationList(), contentLevel.getLevel().getFrame(),contentLevel.getLevel()));
             trainerMultiFights.getTrainer().getMiniFileName().getName().getSelectUniq().getSelect().addListener(new ChangeItemTileEvent(this));
             initRemove(form_);
-            fore.setViewportView(form_);
+            contentLevel.getFore().setViewportView(form_);
         }
         if (StringUtil.quickEq(_k, MessagesEditorSelect.TILE_DEALER)) {
-            AbsCompoFactory compoFactory_ = level.getApi().getCompoFactory();
+            AbsCompoFactory compoFactory_ = contentLevel.getLevel().getApi().getCompoFactory();
             AbsPanel form_ = compoFactory_.newLineBox();
-            form_.add(dealerItem.effectForm(level.getApi(), level.getFacadeGame(), level.getTranslationList(), level));
+            form_.add(dealerItem.effectForm(contentLevel.getLevel().getApi(), contentLevel.getLevel().getFacadeGame(), contentLevel.getLevel().getTranslationList(), contentLevel.getLevel()));
             dealerItem.getMiniFileName().getName().getSelectUniq().getSelect().addListener(new ChangeItemTileEvent(this));
             initRemove(form_);
-            fore.setViewportView(form_);
+            contentLevel.getFore().setViewportView(form_);
         }
         if (StringUtil.quickEq(_k, MessagesEditorSelect.TILE_DUAL)) {
-            AbsCompoFactory compoFactory_ = level.getApi().getCompoFactory();
+            AbsCompoFactory compoFactory_ = contentLevel.getLevel().getApi().getCompoFactory();
             AbsPanel form_ = compoFactory_.newLineBox();
-            form_.add(dualFight.effectForm(level.getApi(), level.getFacadeGame(), level.getTranslationList(), level.getFrame(),level));
+            form_.add(dualFight.effectForm(contentLevel.getLevel().getApi(), contentLevel.getLevel().getFacadeGame(), contentLevel.getLevel().getTranslationList(), contentLevel.getLevel().getFrame(),contentLevel.getLevel()));
             dualFight.getTrainer().getMiniFileName().getName().getSelectUniq().getSelect().addListener(new ChangeItemTileEvent(this));
             initRemove(form_);
-            fore.setViewportView(form_);
+            contentLevel.getFore().setViewportView(form_);
         }
     }
 
     private void techHidden(GeneComponentModelEltEnumSub<Short> _sel) {
-        AbsCompoFactory compoFactory_ = level.getApi().getCompoFactory();
+        AbsCompoFactory compoFactory_ = contentLevel.getLevel().getApi().getCompoFactory();
         AbsPanel form_ = compoFactory_.newLineBox();
         form_.add(_sel.geneEnum());
-        IdList<SubscribedTranslation> subs_ = level.getTranslationList().getSubscribedTranslations().getVal(level.getFrame());
-        subs_.removeAllElements(translations);
-        IdList<SubscribedTranslation> next_ = new IdList<SubscribedTranslation>(_sel.getSubs());
-        next_.add(new SubscribedTranslationSelectChangeEvtsText<Short>(_sel.getSelectUniq()));
-        subs_.addAllElts(next_);
-        translations.addAllElts(next_);
+        contentLevel.refreshSubs(_sel.getSubs(),_sel.getSelectUniq().getSelect());
         _sel.getSelectUniq().getSelect().addListener(new ChangeItemTileEvent(this));
         initRemove(form_);
-        fore.setViewportView(form_);
+        contentLevel.getFore().setViewportView(form_);
     }
 
     private void initRemove(AbsPanel _form) {
-        AbsCompoFactory compoFactory_ = level.getApi().getCompoFactory();
-        removeTile = compoFactory_.newPlainButton("-");
-        removeTile.addActionListener(new RemoveForeTileEvent(this));
-        _form.add(removeTile);
+        contentLevel.initRemove(_form);
+        contentLevel.getRemoveTile().addActionListener(new RemoveForeTileEvent(this));
     }
 
     public void events() {
-        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_ITEMS)) {
+        if (StringUtil.quickEq(contentLevel.getKey(), MessagesEditorSelect.TILE_ITEMS)) {
             items.getSelectUniq().getSelect().events(null);
         }
-        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_TM)) {
+        if (StringUtil.quickEq(contentLevel.getKey(), MessagesEditorSelect.TILE_TM)) {
             tm.getSelectUniq().getSelect().events(null);
         }
-        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_HM)) {
+        if (StringUtil.quickEq(contentLevel.getKey(), MessagesEditorSelect.TILE_HM)) {
             hm.getSelectUniq().getSelect().events(null);
         }
-        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_LEG_PK)) {
+        if (StringUtil.quickEq(contentLevel.getKey(), MessagesEditorSelect.TILE_LEG_PK)) {
             legendaryPks.getName().getSelectUniq().getSelect().events(null);
         }
-        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_TRAINER)) {
+        if (StringUtil.quickEq(contentLevel.getKey(), MessagesEditorSelect.TILE_TRAINER)) {
             trainerMultiFights.getTrainer().getMiniFileName().getName().getSelectUniq().getSelect().events(null);
         }
-        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_DEALER)) {
+        if (StringUtil.quickEq(contentLevel.getKey(), MessagesEditorSelect.TILE_DEALER)) {
             dealerItem.getMiniFileName().getName().getSelectUniq().getSelect().events(null);
         }
-        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_DUAL)) {
+        if (StringUtil.quickEq(contentLevel.getKey(), MessagesEditorSelect.TILE_DUAL)) {
             dualFight.getTrainer().getMiniFileName().getName().getSelectUniq().getSelect().events(null);
         }
     }
     public void applySelectItem() {
-        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_ITEMS)) {
-            trySet(level.getFacadeGame().getData().getMiniItems().getVal(items.tryRet()), level.getForegroundEdited(), selected);
+        if (StringUtil.quickEq(contentLevel.getKey(), MessagesEditorSelect.TILE_ITEMS)) {
+            trySet(contentLevel.getLevel().getFacadeGame().getData().getMiniItems().getVal(items.tryRet()), contentLevel.getLevel().getForegroundEdited(), contentLevel.getSelected());
         }
-        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_TM) || StringUtil.quickEq(key, MessagesEditorSelect.TILE_HM)) {
-            trySet(level.getFacadeGame().getData().getImageTmHm(), level.getForegroundEdited(), selected);
+        if (StringUtil.quickEq(contentLevel.getKey(), MessagesEditorSelect.TILE_TM) || StringUtil.quickEq(contentLevel.getKey(), MessagesEditorSelect.TILE_HM)) {
+            trySet(contentLevel.getLevel().getFacadeGame().getData().getImageTmHm(), contentLevel.getLevel().getForegroundEdited(), contentLevel.getSelected());
         }
-        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_LEG_PK)) {
-            trySet(level.getFacadeGame().getData().getMiniPk().getVal(legendaryPks.getName().tryRet()), level.getForegroundEdited(), selected);
+        if (StringUtil.quickEq(contentLevel.getKey(), MessagesEditorSelect.TILE_LEG_PK)) {
+            trySet(contentLevel.getLevel().getFacadeGame().getData().getMiniPk().getVal(legendaryPks.getName().tryRet()), contentLevel.getLevel().getForegroundEdited(), contentLevel.getSelected());
         }
-        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_TRAINER)) {
-            trySet(level.getFacadeGame().getData().getPeople().getVal(trainerMultiFights.getTrainer().getMiniFileName().getName().tryRet()), level.getForegroundEdited(), selected);
+        if (StringUtil.quickEq(contentLevel.getKey(), MessagesEditorSelect.TILE_TRAINER)) {
+            trySet(contentLevel.getLevel().getFacadeGame().getData().getPeople().getVal(trainerMultiFights.getTrainer().getMiniFileName().getName().tryRet()), contentLevel.getLevel().getForegroundEdited(), contentLevel.getSelected());
         }
-        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_DEALER)) {
-            trySet(level.getFacadeGame().getData().getPeople().getVal(dealerItem.getMiniFileName().getName().tryRet()), level.getForegroundEdited(), selected);
+        if (StringUtil.quickEq(contentLevel.getKey(), MessagesEditorSelect.TILE_DEALER)) {
+            trySet(contentLevel.getLevel().getFacadeGame().getData().getPeople().getVal(dealerItem.getMiniFileName().getName().tryRet()), contentLevel.getLevel().getForegroundEdited(), contentLevel.getSelected());
         }
-        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_DUAL)) {
-            trySet(level.getFacadeGame().getData().getPeople().getVal(dualFight.getTrainer().getMiniFileName().getName().tryRet()), level.getForegroundEdited(), selected);
-            trySet(level.getFacadeGame().getData().getPeople().getVal(dualFight.getTrainer().getMiniFileName().getName().tryRet()), dualFight.getSecondPt().getForegroundEdited(), selected);
+        if (StringUtil.quickEq(contentLevel.getKey(), MessagesEditorSelect.TILE_DUAL)) {
+            trySet(contentLevel.getLevel().getFacadeGame().getData().getPeople().getVal(dualFight.getTrainer().getMiniFileName().getName().tryRet()), contentLevel.getLevel().getForegroundEdited(), contentLevel.getSelected());
+            trySet(contentLevel.getLevel().getFacadeGame().getData().getPeople().getVal(dualFight.getTrainer().getMiniFileName().getName().tryRet()), dualFight.getSecondPt().getForegroundEdited(), contentLevel.getSelected());
             dualFight.getSecondPt().refreshImg();
         }
-        level.refreshImg(level.getFormBlockTile().getEdited().getWidth(), level.getFormBlockTile().getEdited().getHeight());
+        contentLevel.applySelectItem();
     }
 
     public static void trySet(ImageArrayBaseSixtyFour _img, Points<int[][]> _level, Point _selected) {
-        if (_img == null) {
-            _level.put(_selected,new int[0][]);
-        } else {
-            _level.put(_selected, _img.getImage());
-        }
+        ContentComponentModelLevel.trySet(_img, _level, _selected);
     }
 
     public void applyTile() {
-        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_ITEMS)) {
-            edited.getItems().put(selected,items.tryRet());
+        if (StringUtil.quickEq(contentLevel.getKey(), MessagesEditorSelect.TILE_ITEMS)) {
+            edited.getItems().put(contentLevel.getSelected(),items.tryRet());
             validate();
         }
-        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_TM)) {
-            edited.getTm().put(selected,tm.tryRet());
+        if (StringUtil.quickEq(contentLevel.getKey(), MessagesEditorSelect.TILE_TM)) {
+            edited.getTm().put(contentLevel.getSelected(),tm.tryRet());
             validate();
         }
-        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_HM)) {
-            edited.getHm().put(selected,hm.tryRet());
+        if (StringUtil.quickEq(contentLevel.getKey(), MessagesEditorSelect.TILE_HM)) {
+            edited.getHm().put(contentLevel.getSelected(),hm.tryRet());
             validate();
         }
-        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_LEG_PK)) {
-            edited.getLegendaryPks().put(selected,legendaryPks.buildEntity());
+        if (StringUtil.quickEq(contentLevel.getKey(), MessagesEditorSelect.TILE_LEG_PK)) {
+            edited.getLegendaryPks().put(contentLevel.getSelected(),legendaryPks.buildEntity());
             validate();
         }
-        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_TRAINER)) {
-            edited.getCharacters().put(selected,trainerMultiFights.buildEntity());
+        if (StringUtil.quickEq(contentLevel.getKey(), MessagesEditorSelect.TILE_TRAINER)) {
+            edited.getCharacters().put(contentLevel.getSelected(),trainerMultiFights.buildEntity());
             validate();
         }
-        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_DEALER)) {
-            edited.getCharacters().put(selected,dealerItem.buildEntity());
+        if (StringUtil.quickEq(contentLevel.getKey(), MessagesEditorSelect.TILE_DEALER)) {
+            edited.getCharacters().put(contentLevel.getSelected(),dealerItem.buildEntity());
             validate();
         }
-        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_DUAL)) {
+        if (StringUtil.quickEq(contentLevel.getKey(), MessagesEditorSelect.TILE_DUAL)) {
             DualFight e_ = dualFight.buildEntity();
-            edited.getDualFights().put(selected, e_);
+            edited.getDualFights().put(contentLevel.getSelected(), e_);
             validate();
             NullablePoint sec_ = e_.getPt();
             if (sec_.isDefined()) {
                 int[][] val_ = dualFight.getSecondPt().getForegroundEdited().getVal(sec_.getPoint());
-                level.getForeground().put(sec_.getPoint(), val_);
+                contentLevel.getLevel().getForeground().put(sec_.getPoint(), val_);
             }
         }
-        key = "";
-        level.refreshImg(level.getFormBlockTile().getEdited().getWidth(), level.getFormBlockTile().getEdited().getHeight());
+        contentLevel.applyTile();
     }
 
     private void validate() {
-        int[][] val_ = level.getForegroundEdited().getVal(selected);
-        level.getForegroundEdited().removeKey(selected);
-        level.getForeground().put(selected,val_);
+        contentLevel.validate();
     }
 
     public void removeTile() {
-        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_ITEMS)) {
-            edited.getItems().removeKey(selected);
+        if (StringUtil.quickEq(contentLevel.getKey(), MessagesEditorSelect.TILE_ITEMS)) {
+            edited.getItems().removeKey(contentLevel.getSelected());
             removeFore();
         }
-        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_TM)) {
-            edited.getTm().removeKey(selected);
+        if (StringUtil.quickEq(contentLevel.getKey(), MessagesEditorSelect.TILE_TM)) {
+            edited.getTm().removeKey(contentLevel.getSelected());
             removeFore();
         }
-        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_HM)) {
-            edited.getHm().removeKey(selected);
+        if (StringUtil.quickEq(contentLevel.getKey(), MessagesEditorSelect.TILE_HM)) {
+            edited.getHm().removeKey(contentLevel.getSelected());
             removeFore();
         }
-        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_LEG_PK)) {
-            edited.getLegendaryPks().removeKey(selected);
+        if (StringUtil.quickEq(contentLevel.getKey(), MessagesEditorSelect.TILE_LEG_PK)) {
+            edited.getLegendaryPks().removeKey(contentLevel.getSelected());
             removeFore();
         }
-        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_TRAINER) || StringUtil.quickEq(key, MessagesEditorSelect.TILE_DEALER)) {
-            edited.getCharacters().removeKey(selected);
+        if (StringUtil.quickEq(contentLevel.getKey(), MessagesEditorSelect.TILE_TRAINER) || StringUtil.quickEq(contentLevel.getKey(), MessagesEditorSelect.TILE_DEALER)) {
+            edited.getCharacters().removeKey(contentLevel.getSelected());
             removeFore();
         }
-        if (StringUtil.quickEq(key, MessagesEditorSelect.TILE_DUAL)) {
-            edited.getDualFights().removeKey(selected);
+        if (StringUtil.quickEq(contentLevel.getKey(), MessagesEditorSelect.TILE_DUAL)) {
+            edited.getDualFights().removeKey(contentLevel.getSelected());
             removeFore();
         }
-        level.refreshImg(level.getFormBlockTile().getEdited().getWidth(), level.getFormBlockTile().getEdited().getHeight());
+        contentLevel.removeTile();
         initFormChoices();
     }
 
     private void removeFore() {
-        level.getForegroundEdited().removeKey(selected);
-        level.getForeground().removeKey(selected);
+        contentLevel.removeFore();
     }
 
     public StringMap<AbsButton> getTiles() {
-        return tiles;
+        return contentLevel.getTiles();
     }
 
     public AbsButton getRemoveTile() {
-        return removeTile;
+        return contentLevel.getRemoveTile();
     }
 
     public FormLevelGrid getLevel() {
-        return level;
+        return contentLevel.getLevel();
     }
 
     public LevelWithWildPokemon getEdited() {

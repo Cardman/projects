@@ -49,7 +49,7 @@ public abstract class FormAbsPk {
 
     public void feedSubsQuick(IdList<SubscribedTranslation> _subs) {
         _subs.addAllElts(name.getSubs());
-        _subs.add(new SubscribedTranslationSelectChangeEvtsText<String>(name.getSelectUniq()));
+        _subs.add(new SubscribedTranslationSelectChangeEvtsText(name.getSelectUniq().getSelect()));
         _subs.addAllElts(ability.getSubs());
         _subs.addAllElts(item.getSubs());
         _subs.addAllElts(gender.getSubs());

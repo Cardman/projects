@@ -1499,6 +1499,49 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         assertEq(0,sub_.getFormDataMap().getCrudPlace().getRoad().getEdited().getDualFights().size());
     }
     @Test
+    public void tile23() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMap().addPlace(Instances.newRoad());
+        facade_.getData().getMiniItems().addEntry(I_1,instance(new int[1][1]));
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getGrid(),0,0);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getRoad().getTiles().getVal(MessagesEditorSelect.TILE_ITEMS));
+        sub_.getFormDataMap().getCrudPlace().getRoad().getItems().setupValue(I_1);
+        selectDims(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile(),2,2);
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getMatch());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCancel());
+        assertEq(I_1,sub_.getFormDataMap().getCrudPlace().getRoad().getEdited().getItems().getVal(newPoint(0,0)));
+        assertEq(2,sub_.getFormDataMap().getCrudPlace().getRoad().getEdited().getBlocks().getValue(0).getHeight());
+        assertEq(2,sub_.getFormDataMap().getCrudPlace().getRoad().getEdited().getBlocks().getValue(0).getWidth());
+    }
+    @Test
+    public void tile24() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().getMap().addPlace(Instances.newRoad());
+        facade_.getData().getMiniItems().addEntry(I_1,instance(new int[1][1]));
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getGrid(),0,0);
+        selectDims(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile(),2,2);
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getMatch());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getGrid(),side(facade_),side(facade_));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getRoad().getTiles().getVal(MessagesEditorSelect.TILE_ITEMS));
+        sub_.getFormDataMap().getCrudPlace().getRoad().getItems().setupValue(I_1);
+        selectDims(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile(),1,1);
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getRoad().getLevel().getFormBlockTile().getMatch());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCancel());
+        assertEq(I_1,sub_.getFormDataMap().getCrudPlace().getRoad().getEdited().getItems().getVal(newPoint(1,1)));
+        assertEq(2,sub_.getFormDataMap().getCrudPlace().getRoad().getEdited().getBlocks().getValue(0).getHeight());
+        assertEq(2,sub_.getFormDataMap().getCrudPlace().getRoad().getEdited().getBlocks().getValue(0).getWidth());
+    }
+    @Test
     public void cave1() {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facadeAdd(pr_);

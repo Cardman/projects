@@ -181,6 +181,21 @@ public final class FormLevelGrid extends FormLevelGridCommon {
                 }
             }
         }
+        int oldWidth_ = formBlockTile.getEdited().getWidth();
+        int oldHeight_ = formBlockTile.getEdited().getHeight();
+        int xbOld_ = x_ + oldWidth_;
+        int ybOld_ = y_ + oldHeight_;
+        Block cp_ = ConverterCommonMapUtil.copyBlock(formBlockTile.getEdited());
+        cp_.setHeight(ds_.getHeight());
+        cp_.setWidth(ds_.getWidth());
+        for (int i = x_; i < xbOld_; i++) {
+            for (int j = y_; j < ybOld_; j++) {
+                Point candidate_ = new Point(i,j);
+                if (edited(candidate_,getForeground(),getForegroundEdited()) && !Level.inRangeBlock(candidate_,screen,cp_)) {
+                    return;
+                }
+            }
+        }
         formBlockTile.getEdited().setHeight(ds_.getHeight());
         formBlockTile.getEdited().setWidth(ds_.getWidth());
         refreshImg(getFormBlockTile().getEdited().getWidth(), getFormBlockTile().getEdited().getHeight());
