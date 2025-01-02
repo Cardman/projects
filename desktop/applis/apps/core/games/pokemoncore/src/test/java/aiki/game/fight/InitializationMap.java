@@ -648,7 +648,7 @@ final class InitializationMap  extends EquallablePkUtil {
         InitializationDataBase.addLevelCave(map_, (short) 5);
         LevelCave level_;
         Block block_;
-        level_ = (LevelCave)cave_.getLevelsMap().getVal((byte) 0);
+        level_ = (LevelCave)cave_.getLevelsMap().getVal(0);
         block_ = newRockBlock(2, 2);
         level_.getBlocks().addEntry(newPoint(0,0), block_);
         block_ = newRockBlock(2, 2);
@@ -673,7 +673,7 @@ final class InitializationMap  extends EquallablePkUtil {
         level_.getBlocks().addEntry(newPoint(4,4), block_);
         block_ = newRockBlock(2, 2);
         level_.getBlocks().addEntry(newPoint(6,4), block_);
-        level_ = (LevelCave)cave_.getLevelsMap().getVal((byte) 1);
+        level_ = (LevelCave)cave_.getLevelsMap().getVal(1);
         block_ = newRockBlock(2, 2, 0);
         level_.getBlocks().addEntry(newPoint(0,0), block_);
         block_ = newRockBlock(2, 2, 1);
@@ -705,7 +705,7 @@ final class InitializationMap  extends EquallablePkUtil {
         Cave road_ = (Cave) map_.getPlace((short) 5);
         LevelCave level_;
         //map level_ = road_.getLevels().getVal((byte) 0);
-        level_ = (LevelCave)road_.getLevelsMap().getVal((byte) 1);
+        level_ = (LevelCave)road_.getLevelsMap().getVal(1);
         MultAreaApparition area_;
         WildPk wild_;
         area_ = new MultAreaApparition();
@@ -883,7 +883,7 @@ final class InitializationMap  extends EquallablePkUtil {
         dual_ = nvDualFight((short) 300, teamAl_, team_);
         dual_.setNames(new StringList(DUAL_THREE_TR_ONE,DUAL_THREE_TR_TWO));
         dual_.setPt(newPoint(3, 0));
-        ((LevelCave)cave_.getLevelsMap().getVal((byte) 0)).getDualFights().addEntry(newPoint(2, 0), dual_);
+        ((LevelCave)cave_.getLevelsMap().getVal(0)).getDualFights().addEntry(newPoint(2, 0), dual_);
         //map_.getBeatGymLeader().add(newCoords(5, 0, 2, 0));
         foeTeamsList_ = new CustList<PokemonTeam>();
         CustList<PkTrainer> teamTwo_ = new CustList<PkTrainer>();
@@ -892,7 +892,7 @@ final class InitializationMap  extends EquallablePkUtil {
         foeTeamList_ = nvTeam((short) 200, teamTwo_);
         foeTeamsList_.add(foeTeamList_);
         trainer_ = newTrainer(foeTeamsList_, 1);
-        ((LevelCave)cave_.getLevelsMap().getVal((byte) 0)).getCharacters().addEntry(newPoint(1, 5), trainer_);
+        ((LevelCave)cave_.getLevelsMap().getVal(0)).getCharacters().addEntry(newPoint(1, 5), trainer_);
         //map_.getBeatTrainer().add(new NbFightCoords(newCoords(5, 0, 1, 5),0));
         foeTeamsList_ = new CustList<PokemonTeam>();
         CustList<PkTrainer> teamThree_ = new CustList<PkTrainer>();
@@ -901,7 +901,7 @@ final class InitializationMap  extends EquallablePkUtil {
         foeTeamList_ = nvTeam((short) 200, teamThree_);
         foeTeamsList_.add(foeTeamList_);
         trainer_ = newTrainer(foeTeamsList_, 1);
-        ((LevelCave)cave_.getLevelsMap().getVal((byte) 1)).getCharacters().addEntry(newPoint(5, 1), trainer_);
+        ((LevelCave)cave_.getLevelsMap().getVal(1)).getCharacters().addEntry(newPoint(5, 1), trainer_);
         //map_.getBeatTrainer().add(new NbFightCoords(newCoords(5, 1, 5, 1),0));
     }
 
@@ -926,17 +926,17 @@ final class InitializationMap  extends EquallablePkUtil {
         League road_ = (League) map_.getPlace((short) 6);
         LevelLeague level_;
         Block block_;
-        level_ = (LevelLeague) road_.getLevelsMap().getVal((byte) 0);
+        level_ = (LevelLeague) road_.getLevelsMap().getVal(0);
         block_ = newBuildingBlock(9, 9);
         level_.getBlocks().addEntry(newPoint(0,0), block_);
-        level_ = (LevelLeague) road_.getLevelsMap().getVal((byte) 1);
+        level_ = (LevelLeague) road_.getLevelsMap().getVal(1);
         block_ = newBuildingBlock(9, 9);
         level_.getBlocks().addEntry(newPoint(0,0), block_);
         road_.setBegin(newPoint(4,8));
-        level_ = (LevelLeague) road_.getLevelsMap().getVal((byte) 0);
+        level_ = (LevelLeague) road_.getLevelsMap().getVal(0);
         level_.setAccessPoint(newPoint(4, 0));
         level_.setNextLevelTarget(newPoint(4, 8));
-        level_ = (LevelLeague) road_.getLevelsMap().getVal((byte) 1);
+        level_ = (LevelLeague) road_.getLevelsMap().getVal(1);
         level_.setAccessPoint(newPoint(4, 0));
     }
 
@@ -1434,48 +1434,48 @@ final class InitializationMap  extends EquallablePkUtil {
         map_.setMiniMap(new MiniMapCoordsList());
         tile_ = new TileMiniMap();
         tile_.setFile(MINI);
-        tile_.setPlace((short) 0);
-        map_.getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 0), tile_);
+        tile_.setPlace(0);
+        map_.getMiniMap().addEntry(new MiniMapCoords(0,0), tile_);
         tile_ = new TileMiniMap();
         tile_.setFile(MINI1);
-        tile_.setPlace((short) 1);
-        map_.getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 1), tile_);
+        tile_.setPlace(1);
+        map_.getMiniMap().addEntry(new MiniMapCoords(0,1), tile_);
         tile_ = new TileMiniMap();
         tile_.setFile(MINI);
-        tile_.setPlace((short) 2);
-        map_.getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 2), tile_);
+        tile_.setPlace(2);
+        map_.getMiniMap().addEntry(new MiniMapCoords(0,2), tile_);
         tile_ = new TileMiniMap();
         tile_.setFile(MINI1);
-        tile_.setPlace((short) 3);
-        map_.getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 3), tile_);
+        tile_.setPlace(3);
+        map_.getMiniMap().addEntry(new MiniMapCoords(0,3), tile_);
         tile_ = new TileMiniMap();
         tile_.setFile(MINI);
-        tile_.setPlace((short) 4);
-        map_.getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 4), tile_);
+        tile_.setPlace(4);
+        map_.getMiniMap().addEntry(new MiniMapCoords(0,4), tile_);
         tile_ = new TileMiniMap();
         tile_.setFile(MINI2);
-        tile_.setPlace((short) 5);
-        map_.getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 5), tile_);
+        tile_.setPlace(5);
+        map_.getMiniMap().addEntry(new MiniMapCoords(0,5), tile_);
         tile_ = new TileMiniMap();
         tile_.setFile(MINI3);
-        tile_.setPlace((short) 6);
-        map_.getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 6), tile_);
+        tile_.setPlace(6);
+        map_.getMiniMap().addEntry(new MiniMapCoords(0,6), tile_);
         tile_ = new TileMiniMap();
         tile_.setFile(MINI1);
-        tile_.setPlace((short) 7);
-        map_.getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 7), tile_);
+        tile_.setPlace(7);
+        map_.getMiniMap().addEntry(new MiniMapCoords(0,7), tile_);
         tile_ = new TileMiniMap();
         tile_.setFile(MINI1);
-        tile_.setPlace((short) 8);
-        map_.getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 8), tile_);
+        tile_.setPlace(8);
+        map_.getMiniMap().addEntry(new MiniMapCoords(0,8), tile_);
         tile_ = new TileMiniMap();
         tile_.setFile(MINI4);
-        tile_.setPlace((short) -1);
-        map_.getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 9), tile_);
+        tile_.setPlace(-1);
+        map_.getMiniMap().addEntry(new MiniMapCoords(0,9), tile_);
         tile_ = new TileMiniMap();
         tile_.setFile(MINI6);
-        tile_.setPlace((short) 9);
-        map_.getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 10), tile_);
+        tile_.setPlace(9);
+        map_.getMiniMap().addEntry(new MiniMapCoords(0,10), tile_);
         map_.setUnlockedCity(MINI5);
     }
 
@@ -1562,15 +1562,15 @@ final class InitializationMap  extends EquallablePkUtil {
 
     private static Block newRoadBlock(int _h, int _w, int _index) {
         Block block_ = newRoadBlock(_h, _w);
-        block_.setIndexApparition((short) _index);
+        block_.setIndexApparition( _index);
         return block_;
     }
 
     private static Block newRoadBlock(int _h, int _w) {
         Block block_;
         block_ = new Block();
-        block_.setHeight((short) _h);
-        block_.setWidth((short) _w);
+        block_.setHeight(_h);
+        block_.setWidth(_w);
         block_.setType(EnvironmentType.ROAD);
         //grey
         block_.setTileFileName(ROAD);
@@ -1578,7 +1578,7 @@ final class InitializationMap  extends EquallablePkUtil {
     }
     private static Block newWaterBlock(int _h, int _w, int _index) {
         Block block_ = newWaterBlock(_h, _w);
-        block_.setIndexApparition((short) _index);
+        block_.setIndexApparition( _index);
         return block_;
     }
 
@@ -1586,8 +1586,8 @@ final class InitializationMap  extends EquallablePkUtil {
         //blue
         Block block_;
         block_ = new Block();
-        block_.setHeight((short) _h);
-        block_.setWidth((short) _w);
+        block_.setHeight(_h);
+        block_.setWidth(_w);
         block_.setType(EnvironmentType.WATER);
         block_.setTileFileName(WATER);
         return block_;
@@ -1597,8 +1597,8 @@ final class InitializationMap  extends EquallablePkUtil {
         //brown
         Block block_;
         block_ = new Block();
-        block_.setHeight((short) _h);
-        block_.setWidth((short) _w);
+        block_.setHeight(_h);
+        block_.setWidth(_w);
         block_.setType(EnvironmentType.ROCK);
         block_.setTileFileName(ROCK);
         return block_;
@@ -1606,7 +1606,7 @@ final class InitializationMap  extends EquallablePkUtil {
 
     private static Block newRockBlock(int _h, int _w, int _index) {
         Block block_ = newRockBlock(_h, _w);
-        block_.setIndexApparition((short) _index);
+        block_.setIndexApparition( _index);
         return block_;
     }
 
@@ -1614,8 +1614,8 @@ final class InitializationMap  extends EquallablePkUtil {
         //yellow
         Block block_;
         block_ = new Block();
-        block_.setHeight((short) _h);
-        block_.setWidth((short) _w);
+        block_.setHeight(_h);
+        block_.setWidth(_w);
         block_.setType(EnvironmentType.DESERT);
         block_.setTileFileName(DESERT);
         return block_;
@@ -1625,8 +1625,8 @@ final class InitializationMap  extends EquallablePkUtil {
         //orange
         Block block_;
         block_ = new Block();
-        block_.setHeight((short) _h);
-        block_.setWidth((short) _w);
+        block_.setHeight(_h);
+        block_.setWidth(_w);
         block_.setType(EnvironmentType.BUILDING);
         block_.setTileFileName(BUILDING);
         return block_;
@@ -1636,8 +1636,8 @@ final class InitializationMap  extends EquallablePkUtil {
         //black
         Block block_;
         block_ = new Block();
-        block_.setHeight((short) _h);
-        block_.setWidth((short) _w);
+        block_.setHeight(_h);
+        block_.setWidth(_w);
         block_.setType(EnvironmentType.NOTHING);
         block_.setTileFileName(NOTHING);
         return block_;

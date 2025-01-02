@@ -53,7 +53,7 @@ public abstract class Level {
             int yMax_ = y_ + h_;
             for (int x = x_; x < xMax_; x++) {
                 for (int y = y_; y < yMax_; y++) {
-                    Point pt_ = new Point((short) x, (short) y);
+                    Point pt_ = new Point(x, y);
                     if (used_.containsObj(pt_)) {
                         _data.setError(true);
                     }
@@ -84,14 +84,14 @@ public abstract class Level {
         Points< int[][]> tiles_ = new PointsArr();
         for (Point p : lev_.getBlocks().getKeys()) {
             Block bl_ = lev_.getBlocks().getVal(p);
-            short w_ = bl_.getWidth();
-            short h_ = bl_.getHeight();
-            for (short x = IndexConstants.FIRST_INDEX; x < w_; x++) {
-                for (short y = IndexConstants.FIRST_INDEX; y < h_; y++) {
+            int w_ = bl_.getWidth();
+            int h_ = bl_.getHeight();
+            for (int x = IndexConstants.FIRST_INDEX; x < w_; x++) {
+                for (int y = IndexConstants.FIRST_INDEX; y < h_; y++) {
                     int[][] img_ = whiteCell(sideLen_);
                     tiles_.put(
-                            new Point((short) (x + p.getx()), (short) (y + p
-                                    .gety())), img_);
+                            new Point(x + p.getx(), y + p
+                                    .gety()), img_);
                 }
             }
         }
@@ -115,15 +115,15 @@ public abstract class Level {
         for (Point p : lev_.getBlocks().getKeys()) {
             Block bl_ = lev_.getBlocks().getVal(p);
             int[][] image_ = _data.getImage(bl_.getTileFileName());
-            short w_ = bl_.getWidth();
-            short h_ = bl_.getHeight();
-            for (short x = IndexConstants.FIRST_INDEX; x < w_; x++) {
-                for (short y = IndexConstants.FIRST_INDEX; y < h_; y++) {
+            int w_ = bl_.getWidth();
+            int h_ = bl_.getHeight();
+            for (int x = IndexConstants.FIRST_INDEX; x < w_; x++) {
+                for (int y = IndexConstants.FIRST_INDEX; y < h_; y++) {
                     int[][] img_ = BaseSixtyFourUtil.clipSixtyFour(image_, x * sideLen_, y
                             * sideLen_, sideLen_, sideLen_);
                     tiles_.put(
-                            new Point((short) (x + p.getx()), (short) (y + p
-                                    .gety())), img_);
+                            new Point(x + p.getx(), y + p
+                                    .gety()), img_);
                 }
             }
         }
@@ -218,14 +218,14 @@ public abstract class Level {
 
     private static void feedLeague(DataBase _data, Coords _coords, Points<int[][]> _frontTiles) {
         Coords curCoords_ = new Coords(_coords);
-        curCoords_.getLevel().setPoint(new Point((short)0,(short)0));
+        curCoords_.getLevel().setPoint(new Point(0,0));
         for (Place p : _data.getMap().getPlaces()) {
             if (!(p instanceof League)) {
                 continue;
             }
             Coords access_ = ((League) p).getAccessCoords();
             Coords accessCoords_ = new Coords(access_);
-            accessCoords_.getLevel().setPoint(new Point((short)0,(short)0));
+            accessCoords_.getLevel().setPoint(new Point(0,0));
             if (Coords.eq(accessCoords_, curCoords_)) {
                 Point pt_ = access_.getLevel().getPoint();
                 _frontTiles.put(new Point(pt_),
@@ -320,18 +320,18 @@ public abstract class Level {
     }
 
     private static boolean inRangeBlock(Point _point, Point _i, Block _block) {
-        short w_ = _block.getWidth();
-        short h_ = _block.getHeight();
-        short xi_ = _i.getx();
-        short yi_ = _i.gety();
+        int w_ = _block.getWidth();
+        int h_ = _block.getHeight();
+        int xi_ = _i.getx();
+        int yi_ = _i.gety();
         int xr_ = xi_ + w_;
         int yb_ = yi_ + h_;
-        short xp_ = _point.getx();
-        short yp_ = _point.gety();
+        int xp_ = _point.getx();
+        int yp_ = _point.gety();
         return inRange(xi_, xr_, xp_) && inRange(yi_, yb_, yp_);
     }
 
-    public static boolean inRange(short _min, int _max, short _xp) {
+    public static boolean inRange(int _min, int _max, int _xp) {
         return _xp >= _min && _xp < _max;
     }
     public Limits limits() {
@@ -339,8 +339,8 @@ public abstract class Level {
     }
 
     public static Limits limits(Points<Block> _blocks) {
-        Point leftTopPoint_ = new Point((short) 0, (short) 0);
-        Point rightBottomPoint_ = new Point((short) 0, (short) 0);
+        Point leftTopPoint_ = new Point(0, 0);
+        Point rightBottomPoint_ = new Point(0, 0);
         CustList<Point> cles_ = _blocks.getKeys();
         if (!cles_.isEmpty()) {
             Point p_ = cles_.first();
@@ -355,11 +355,11 @@ public abstract class Level {
                 leftTopPoint_.sety(p.gety());
             }
             Block block_ = _blocks.getVal(p);
-            short tmp_ = (short) (p.getx() + block_.getWidth() - 1);
+            int tmp_ = p.getx() + block_.getWidth() - 1;
             if (tmp_ > rightBottomPoint_.getx()) {
                 rightBottomPoint_.setx(tmp_);
             }
-            tmp_ = (short) (p.gety() + block_.getHeight() - 1);
+            tmp_ = p.gety() + block_.getHeight() - 1;
             if (tmp_ > rightBottomPoint_.gety()) {
                 rightBottomPoint_.sety(tmp_);
             }

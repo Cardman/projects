@@ -123,11 +123,11 @@ public class GameFightTest extends InitializationDataBase {
         DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
-        game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(1, 7));
-        game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(7, 7));
+        game_.getBeatGymTrainer().getVal(1).add(newPoint(1, 7));
+        game_.getBeatGymTrainer().getVal(1).add(newPoint(7, 7));
         game_.beatGymLeader(newCoords(1, 0, 5, 1, 4, 1));
-        game_.getBeatGymTrainer().getVal((short) 3).add(newPoint(1, 7));
-        game_.getBeatGymTrainer().getVal((short) 3).add(newPoint(7, 7));
+        game_.getBeatGymTrainer().getVal(3).add(newPoint(1, 7));
+        game_.getBeatGymTrainer().getVal(3).add(newPoint(7, 7));
         game_.beatGymLeader(newCoords(3, 0, 4, 1, 4, 1));
         game_.setPlayerCoords(newCoords(6, 0, 4, 5));
         game_.setPlayerOrientation(Direction.UP);

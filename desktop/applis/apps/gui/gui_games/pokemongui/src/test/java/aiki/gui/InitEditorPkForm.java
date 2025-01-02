@@ -673,16 +673,16 @@ public abstract class InitEditorPkForm extends EquallableAikiGuiUtil {
         map_.setMiniMap(new MiniMapCoordsList());
         tile_ = new TileMiniMap();
         tile_.setFile(MINI);
-        tile_.setPlace((short) 0);
-        map_.getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 0), tile_);
+        tile_.setPlace(0);
+        map_.getMiniMap().addEntry(new MiniMapCoords(0,0), tile_);
         tile_ = new TileMiniMap();
         tile_.setFile(MINI1);
-        tile_.setPlace((short) 1);
-        map_.getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 1), tile_);
+        tile_.setPlace(1);
+        map_.getMiniMap().addEntry(new MiniMapCoords(0,1), tile_);
         tile_ = new TileMiniMap();
         tile_.setFile(MINI2);
-        tile_.setPlace((short) 2);
-        map_.getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 2), tile_);
+        tile_.setPlace(2);
+        map_.getMiniMap().addEntry(new MiniMapCoords(0,2), tile_);
         map_.setUnlockedCity(MINI5);
     }
 
@@ -792,11 +792,11 @@ public abstract class InitEditorPkForm extends EquallableAikiGuiUtil {
         League road_ = (League) map_.getPlaces().last();
         LevelLeague level_;
         Block block_;
-        level_ = (LevelLeague) road_.getLevelsMap().getVal((byte) 0);
+        level_ = (LevelLeague) road_.getLevelsMap().getVal(0);
         block_ = newBlock(9, 9,EnvironmentType.BUILDING,BUILDING,-1);
         level_.getBlocks().addEntry(newPoint(0,0), block_);
         road_.setBegin(newPoint(4,8));
-        level_ = (LevelLeague) road_.getLevelsMap().getVal((byte) 0);
+        level_ = (LevelLeague) road_.getLevelsMap().getVal(0);
         level_.setAccessPoint(newPoint(4, 0));
     }
 
@@ -937,54 +937,54 @@ public abstract class InitEditorPkForm extends EquallableAikiGuiUtil {
         //black
         Block block_;
         block_ = new Block();
-        block_.setHeight((short) _h);
-        block_.setWidth((short) _w);
+        block_.setHeight(_h);
+        block_.setWidth(_w);
         block_.setType(_type);
         block_.setTileFileName(_tileFileName);
-        block_.setIndexApparition((short) _index);
+        block_.setIndexApparition( _index);
         return block_;
     }
 
     public static Coords newCoords(int _pl, int _xi, int _yi, int _x, int _y) {
         Coords c_ = new Coords();
-        c_.setNumberPlace((short) _pl);
-        c_.affectInside(new Point((short)_xi,(short)_yi));
+        c_.setNumberPlace(_pl);
+        c_.affectInside(newPoint(_xi,_yi));
         c_.setLevel(new LevelPoint());
-        c_.getLevel().setLevelIndex((byte) 0);
-        c_.getLevel().setPoint(new Point((short)_x,(short)_y));
+        c_.getLevel().setLevelIndex(0);
+        c_.getLevel().setPoint(newPoint(_x,_y));
         return c_;
     }
     public static Coords newCoords(int _place, int _level, int _x, int _y) {
         Coords begin_ = new Coords();
-        begin_.setNumberPlace((short) _place);
+        begin_.setNumberPlace(_place);
         begin_.setLevel(new LevelPoint());
-        begin_.getLevel().setLevelIndex((byte) _level);
-        begin_.getLevel().setPoint(new Point((short)_x, (short)_y));
+        begin_.getLevel().setLevelIndex(_level);
+        begin_.getLevel().setPoint(newPoint(_x,_y));
         return begin_;
     }
 
     public static Coords newCoords(int _place, int _level, int _xi, int _yi, int _x, int _y) {
         Coords begin_ = new Coords();
-        begin_.setNumberPlace((short) _place);
+        begin_.setNumberPlace(_place);
         begin_.affectInside(newPoint(_xi, _yi));
         begin_.setLevel(new LevelPoint());
-        begin_.getLevel().setLevelIndex((byte) _level);
-        begin_.getLevel().setPoint(new Point((short)_x, (short)_y));
+        begin_.getLevel().setLevelIndex(_level);
+        begin_.getLevel().setPoint(newPoint(_x,_y));
         return begin_;
     }
 
     public static LevelPoint newLevelPoint(int _level, int _x,int _y) {
         LevelPoint l_ = new LevelPoint();
-        l_.setLevelIndex((byte) _level);
+        l_.setLevelIndex(_level);
         l_.setPoint(newPoint(_x, _y));
         return l_;
     }
 
     public MiniMapCoords mini(int _x, int _y) {
-        return new MiniMapCoords((short) _x, (short) _y);
+        return new MiniMapCoords(_x, _y);
     }
 
     public static Point newPoint(int _x,int _y) {
-        return new Point((short)_x, (short)_y);
+        return new Point(_x,_y);
     }
 }

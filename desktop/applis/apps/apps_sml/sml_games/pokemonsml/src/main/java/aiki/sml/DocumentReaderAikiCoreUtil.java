@@ -4304,7 +4304,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_BEAT_GYM_TRAINER)) {
-            _object.setBeatGymTrainer(getMapShortListPoint(_element));
+            _object.setBeatGymTrainer(getMapIntListPoint(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_BEAT_GYM_LEADER)) {
@@ -5692,15 +5692,15 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static void getBlock(Block _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_WIDTH)) {
-            _object.setWidth(DocumentReaderCoreUtil.getShort(_element));
+            _object.setWidth(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_HEIGHT)) {
-            _object.setHeight(DocumentReaderCoreUtil.getShort(_element));
+            _object.setHeight(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_INDEX_APPARITION)) {
-            _object.setIndexApparition(DocumentReaderCoreUtil.getShort(_element));
+            _object.setIndexApparition(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_TILE_FILE_NAME)) {
@@ -6133,7 +6133,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_PLACE)) {
-            _object.setPlace(DocumentReaderCoreUtil.getShort(_element));
+            _object.setPlace(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         _object.setHeros(DocumentReaderCoreUtil.getBoolean(_element));
@@ -6685,16 +6685,16 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return values_;
     }
-    private static ShortMap<PointEqList> getMapShortListPoint(Element _elt) {
+    private static IntMap<PointEqList> getMapIntListPoint(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ShortMap<PointEqList> map_ = new ShortMap<PointEqList>(cap_);
-        CustList<Short> keys_ = new CustList<Short>(cap_);
+        IntMap<PointEqList> map_ = new IntMap<PointEqList>(cap_);
+        CustList<Integer> keys_ = new CustList<Integer>(cap_);
         CustList<PointEqList> values_ = new CustList<PointEqList>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
-                keys_.add(DocumentReaderCoreUtil.getShort(c));
+                keys_.add(DocumentReaderCoreUtil.getInteger(c));
             } else {
                 values_.add(getListPoint(c));
             }

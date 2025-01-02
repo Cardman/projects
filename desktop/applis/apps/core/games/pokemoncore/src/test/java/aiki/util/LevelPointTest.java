@@ -26,11 +26,11 @@ public class LevelPointTest extends EquallablePkUtil {
     @Test
     public void toString1Test() {
         Point pt_ = new Point();
-        pt_.setx((short) 3);
-        pt_.sety((short) 1);
+        pt_.setx(3);
+        pt_.sety(1);
         LevelPoint lpt_ = new LevelPoint();
         lpt_.setPoint(pt_);
-        lpt_.setLevelIndex((byte) 2);
+        lpt_.setLevelIndex(2);
         assertEq(StringUtil.concat("2",Character.toString(LevelPoint.SEPARATOR),"3",Character.toString(Point.SEPARATOR),"1"), lpt_.display());
     }
 }

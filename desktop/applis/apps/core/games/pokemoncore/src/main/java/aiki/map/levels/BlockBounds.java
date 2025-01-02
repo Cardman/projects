@@ -3,15 +3,15 @@ import code.util.core.IndexConstants;
 
 public class BlockBounds {
 
-    public static final short CST_INVALIDATE = IndexConstants.INDEX_NOT_FOUND_ELT;
-    private short xLeftTop;
-    private short yLeftTop;
-    private short xRightTop;
-    private short yRightTop;
-    private short xLeftBottom;
-    private short yLeftBottom;
-    private short xRightBottom;
-    private short yRightBottom;
+    public static final int CST_INVALIDATE = IndexConstants.INDEX_NOT_FOUND_ELT;
+    private int xLeftTop;
+    private int yLeftTop;
+    private int xRightTop;
+    private int yRightTop;
+    private int xLeftBottom;
+    private int yLeftBottom;
+    private int xRightBottom;
+    private int yRightBottom;
     public void invalidate() {
         boolean invalidate_ = xLeftTop > xRightTop;
         if (yLeftTop>yLeftBottom) {
@@ -31,52 +31,52 @@ public class BlockBounds {
     public boolean isValid() {
         return xLeftTop != CST_INVALIDATE;
     }
-    public short getxLeftTop() {
+    public int getxLeftTop() {
         return xLeftTop;
     }
-    public void setxLeftTop(short _xLeftTop) {
+    public void setxLeftTop(int _xLeftTop) {
         xLeftTop = _xLeftTop;
     }
-    public short getyLeftTop() {
+    public int getyLeftTop() {
         return yLeftTop;
     }
-    public void setyLeftTop(short _yLeftTop) {
+    public void setyLeftTop(int _yLeftTop) {
         yLeftTop = _yLeftTop;
     }
-    public short getxRightTop() {
+    public int getxRightTop() {
         return xRightTop;
     }
-    public void setxRightTop(short _xRightTop) {
+    public void setxRightTop(int _xRightTop) {
         xRightTop = _xRightTop;
     }
-    public short getyRightTop() {
+    public int getyRightTop() {
         return yRightTop;
     }
-    public void setyRightTop(short _yRightTop) {
+    public void setyRightTop(int _yRightTop) {
         yRightTop = _yRightTop;
     }
-    public short getxLeftBottom() {
+    public int getxLeftBottom() {
         return xLeftBottom;
     }
-    public void setxLeftBottom(short _xLeftBottom) {
+    public void setxLeftBottom(int _xLeftBottom) {
         xLeftBottom = _xLeftBottom;
     }
-    public short getyLeftBottom() {
+    public int getyLeftBottom() {
         return yLeftBottom;
     }
-    public void setyLeftBottom(short _yLeftBottom) {
+    public void setyLeftBottom(int _yLeftBottom) {
         yLeftBottom = _yLeftBottom;
     }
-    public short getxRightBottom() {
+    public int getxRightBottom() {
         return xRightBottom;
     }
-    public void setxRightBottom(short _xRightBottom) {
+    public void setxRightBottom(int _xRightBottom) {
         xRightBottom = _xRightBottom;
     }
-    public short getyRightBottom() {
+    public int getyRightBottom() {
         return yRightBottom;
     }
-    public void setyRightBottom(short _yRightBottom) {
+    public void setyRightBottom(int _yRightBottom) {
         yRightBottom = _yRightBottom;
     }
 

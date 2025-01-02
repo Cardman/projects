@@ -96,7 +96,7 @@ public final class DataMap {
 
     private Condition beatGymLeader = new Condition();
 
-    private ShortMap< PointEqList> beatGymTrainer = new ShortMap< PointEqList>();
+    private IntMap< PointEqList> beatGymTrainer = new IntMap< PointEqList>();
 
     private Condition hostPokemons = new Condition();
 
@@ -113,7 +113,7 @@ public final class DataMap {
     private ScreenCoords herosScreen = new ScreenCoords();
     private int[][] herosImages = new int[0][0];
 
-    public static void joinLevelCave(DataMap _dataMap, short _place, LevelPoint _l1, LevelPoint _l2,
+    public static void joinLevelCave(DataMap _dataMap, int _place, LevelPoint _l1, LevelPoint _l2,
                                      String _imgName1, String _imgName2) {
         if (partialFillForAdding(_dataMap, coords(_place, _l1), coords(_place, _l2))) {
             return;
@@ -122,7 +122,7 @@ public final class DataMap {
         joinLevelCave(_dataMap, _place, _l2, _l1, _imgName2);
     }
 
-    public static void joinLevelCave(DataMap _dataMap, short _place, LevelPoint _l1, LevelPoint _l2,
+    public static void joinLevelCave(DataMap _dataMap, int _place, LevelPoint _l1, LevelPoint _l2,
                                      String _imgName) {
         Cave cave_ = (Cave) _dataMap.getPlace(_place);
         LevelCave l1_ = (LevelCave) cave_.getLevelsMap().getVal(
@@ -213,7 +213,7 @@ public final class DataMap {
             }
             for (LevelPointLink e: ((Cave)_p).getLinksWithOtherPlaces().entryList()) {
                 Coords c_ = new Coords();
-                c_.setNumberPlace((short) _i);
+                c_.setNumberPlace(_i);
                 c_.setLevel(e.getLevelPoint());
                 _ref.add(new ChangeNbPlaceFieldActPlace(c_));
                 _ref.add(new ChangeNbPlaceFieldActPlace(e.getLink().getCoords()));
@@ -246,7 +246,7 @@ public final class DataMap {
             _d.setError(true);
             return;
         }
-        Shorts placesNumbers_ = placesNumbersValid(_d);
+        Ints placesNumbers_ = placesNumbersValid(_d);
         basicValidateLinks(_d);
         accessConditionAdjust();
         accessConditionCheck(_d);
@@ -270,10 +270,10 @@ public final class DataMap {
         legPkCheck(_d);
         CustList<MiniMapCoords> list_ = miniMap.getKeys();
         checkDims(_d, list_);
-        Shorts placesMiniMap_ = placesMiniMap(list_);
+        Ints placesMiniMap_ = placesMiniMap(list_);
         CustList<CustList<int[][]>> images_ = allImages(_d, list_);
         imagesCheck(_d, images_);
-        if (!NumberUtil.equalsSetShorts(placesMiniMap_, placesNumbers_)) {
+        if (!NumberUtil.equalsSetInts(placesMiniMap_, placesNumbers_)) {
             _d.setError(true);
         }
         if (_d.getMiniMap(getUnlockedCity()).length == 0) {
@@ -428,7 +428,7 @@ public final class DataMap {
         for (MiniMapCoords m : _list) {
             TileMiniMap tile_ = miniMap.getVal(m);
             int[][] image_ = _d.getMiniMap(tile_.getFile());
-            short place_ = tile_.getPlace();
+            int place_ = tile_.getPlace();
             if (NumberUtil.eq(place_, IndexConstants.INDEX_NOT_FOUND_ELT)) {
                 imagesOutside_.add(image_);
                 continue;
@@ -456,8 +456,8 @@ public final class DataMap {
         return images_;
     }
 
-    private Shorts placesMiniMap(CustList<MiniMapCoords> _list) {
-        Shorts placesMiniMap_ = new Shorts();
+    private Ints placesMiniMap(CustList<MiniMapCoords> _list) {
+        Ints placesMiniMap_ = new Ints();
         for (MiniMapCoords m : _list) {
             TileMiniMap tile_ = miniMap.getVal(m);
             if (NumberUtil.eq(tile_.getPlace(), IndexConstants.INDEX_NOT_FOUND_ELT)) {
@@ -499,7 +499,7 @@ public final class DataMap {
             if (!(pl_ instanceof Campaign)) {
                 continue;
             }
-            ByteMap< Level> levels_;
+            IntMap<Level> levels_;
             levels_ = pl_.getLevelsMap();
             LevelWithWildPokemon level_ = (LevelWithWildPokemon) levels_
                     .getVal(c.getLevel().getLevelIndex());
@@ -580,19 +580,19 @@ public final class DataMap {
         int nbPlaces_ = places.size();
         for (short p = IndexConstants.FIRST_INDEX; p < nbPlaces_; p++) {
             Place pl_ = places.get(p);
-            for (byte l : pl_.getLevelsMap().getKeys()) {
-                Level level_ = pl_.getLevelsMap().getVal(l);
+            for (EntryCust<Integer, Level> l : pl_.getLevelsMap().entryList()) {
+                Level level_ = l.getValue();
                 if (!(level_ instanceof LevelWithWildPokemon)) {
                     continue;
                 }
                 LevelWithWildPokemon levelWild_ = (LevelWithWildPokemon) level_;
-                directCatchPkLevel(_wildPokemonBeforeFirstLeague, directCatchPk_, p, l, levelWild_);
+                directCatchPkLevel(_wildPokemonBeforeFirstLeague, directCatchPk_, p, l.getKey(), levelWild_);
             }
         }
         return directCatchPk_;
     }
 
-    private void directCatchPkLevel(PlaceLevelsInts _wildPokemonBeforeFirstLeague, StringMap<IdList<Gender>> _directCatchPk, short _p, byte _l, LevelWithWildPokemon _levelWild) {
+    private void directCatchPkLevel(PlaceLevelsInts _wildPokemonBeforeFirstLeague, StringMap<IdList<Gender>> _directCatchPk, short _p, int _l, LevelWithWildPokemon _levelWild) {
         PlaceLevel keyPlaceLevel_ = new PlaceLevel(_p, _l);
         if (!_wildPokemonBeforeFirstLeague.contains(keyPlaceLevel_)) {
             return;
@@ -833,7 +833,7 @@ public final class DataMap {
                     if (!beatGymLeader.containsObj(c2_)) {
                         invalidCoords_.add(c2_);
                         Coords c_ = coords(c2_.getNumberPlace(), new LevelPoint());
-                        c_.getLevel().setLevelIndex((byte) 0);
+                        c_.getLevel().setLevelIndex(0);
                         c_.getLevel().setPoint(((League) pl_).getBegin().value());
                         addedCoords_.add(c_);
                     }
@@ -901,7 +901,7 @@ public final class DataMap {
     private void basicCheckLinksOtherPlaces(DataBase _d, short _p, LevelPoints _links, LevelPoint _l) {
         Coords link_ = _links.getVal(_l).getCoords();
         DataInfoChecker.checkKey(_d,tree,_links.getVal(_l).getCoords());
-        short numberPlace_ = link_.getNumberPlace();
+        int numberPlace_ = link_.getNumberPlace();
         if (!places.isValidIndex(numberPlace_)) {
             _d.setError(true);
         } else {
@@ -924,7 +924,7 @@ public final class DataMap {
         }
     }
 
-    private static Coords coords(short _p, LevelPoint _l) {
+    private static Coords coords(int _p, LevelPoint _l) {
         Coords current_ = new Coords();
         current_.setNumberPlace(_p);
         current_.setLevel(_l);
@@ -934,7 +934,7 @@ public final class DataMap {
     private void basicCheckLinksWithCave(DataBase _d, short _p, Points<Link> _links, Point _pt) {
         Coords link_ = _links.getVal(_pt).getCoords();
         DataInfoChecker.checkKey(_d,tree,_links.getVal(_pt).getCoords());
-        short numberPlace_ = link_.getNumberPlace();
+        int numberPlace_ = link_.getNumberPlace();
         if (!places.isValidIndex(numberPlace_)) {
             _d.setError(true);
         } else {
@@ -951,7 +951,7 @@ public final class DataMap {
                     Coords other_ = cave_.getLinksWithOtherPlaces()
                             .getVal(lPoint_).getCoords();
                     Coords current_ = coords(_p, new LevelPoint());
-                    current_.getLevel().setLevelIndex((byte) 0);
+                    current_.getLevel().setLevelIndex(0);
                     current_.getLevel().setPoint(_pt);
                     checkCoordsEq(_d, other_, current_);
                 }
@@ -965,10 +965,10 @@ public final class DataMap {
         }
     }
 
-    private Shorts placesNumbersValid(DataBase _d) {
-        Shorts placesNumbers_ = new Shorts();
+    private Ints placesNumbersValid(DataBase _d) {
+        Ints placesNumbers_ = new Ints();
         int nbPlaces_ = places.size();
-        for (short p = IndexConstants.FIRST_INDEX; p < nbPlaces_; p++) {
+        for (int p = IndexConstants.FIRST_INDEX; p < nbPlaces_; p++) {
             placesNumbers_.add(p);
             places.get(p).validate(_d, tree.getPlace(p));
             if (!(places.get(p).validLinks(p, tree))) {
@@ -1008,7 +1008,7 @@ public final class DataMap {
     }
 
     private boolean existLevel(Coords _c) {
-        short numberPlace_ = _c.getNumberPlace();
+        int numberPlace_ = _c.getNumberPlace();
         if (!places.isValidIndex(numberPlace_)) {
             return false;
         }
@@ -1049,7 +1049,7 @@ public final class DataMap {
     public void initInteractiveElements() {
         beatTrainer = new CustList<NbFightCoords>();
         beatGymLeader = new Condition();
-        beatGymTrainer = new ShortMap< PointEqList>();
+        beatGymTrainer = new IntMap< PointEqList>();
         hostPokemons = new Condition();
         takenPokemon = new Condition();
         takenObjects = new Condition();
@@ -1065,7 +1065,7 @@ public final class DataMap {
             }
             if (place_ instanceof League) {
                 Coords c_ = coords(s, new LevelPoint());
-                c_.getLevel().setLevelIndex((byte) 0);
+                c_.getLevel().setLevelIndex(0);
                 c_.getLevel().setPoint(((League) place_).getBegin().value());
                 beatGymLeader.add(c_);
             }
@@ -1073,19 +1073,18 @@ public final class DataMap {
     }
 
     private void campaign(short _s, Place _place) {
-        for (byte k : _place.getLevelsMap().getKeys()) {
-            LevelWithWildPokemon levelCave_ = (LevelWithWildPokemon) _place
-                    .getLevelsMap().getVal(k);
+        for (EntryCust<Integer, Level> k : _place.getLevelsMap().entryList()) {
+            LevelWithWildPokemon levelCave_ = (LevelWithWildPokemon) k.getValue();
             for (Point p : levelCave_.getLegendaryPks().getKeys()) {
                 Coords c_ = coords(_s, new LevelPoint());
-                c_.getLevel().setLevelIndex(k);
+                c_.getLevel().setLevelIndex(k.getKey());
                 c_.getLevel().setPoint(p);
                 takenPokemon.add(c_);
             }
-            takenLookup(_s, k, levelCave_);
+            takenLookup(_s, k.getKey(), levelCave_);
             for (Point p : levelCave_.getDualFights().getKeys()) {
                 Coords c_ = coords(_s, new LevelPoint());
-                c_.getLevel().setLevelIndex(k);
+                c_.getLevel().setLevelIndex(k.getKey());
                 c_.getLevel().setPoint(p);
                 beatGymLeader.add(c_);
             }
@@ -1094,9 +1093,9 @@ public final class DataMap {
     }
 
     private void normalTrainers(short _s, Place _place) {
-        ByteMap< Level> levels_ = _place
+        IntMap<Level> levels_ = _place
                 .getLevelsMap();
-        for (EntryCust<Byte, Level> e : levels_.entryList()) {
+        for (EntryCust<Integer, Level> e : levels_.entryList()) {
             LevelWithWildPokemon wild_ = (LevelWithWildPokemon) e
                     .getValue();
             for (EntryCust<Point,CharacterInRoadCave> c : wild_
@@ -1122,7 +1121,7 @@ public final class DataMap {
                 .getBuildings().entryList()) {
             if (b.getValue() instanceof PokemonCenter) {
                 Coords coordsCity_ = coords(_s, new LevelPoint());
-                coordsCity_.getLevel().setLevelIndex((byte) 0);
+                coordsCity_.getLevel().setLevelIndex(0);
                 coordsCity_.outside();
                 coordsCity_.getLevel().setPoint(new Point(b.getKey()));
                 coordsCity_.getLevel().getPoint()
@@ -1133,7 +1132,7 @@ public final class DataMap {
         }
     }
 
-    private void takenLookup(short _s, byte _k, LevelWithWildPokemon _levelCave) {
+    private void takenLookup(short _s, int _k, LevelWithWildPokemon _levelCave) {
         for (Point p : _levelCave.getCharacters().getKeys()) {
             if (!(_levelCave.getCharacters().getVal(p) instanceof DealerItem)) {
                 continue;
@@ -1170,7 +1169,7 @@ public final class DataMap {
             if (g.getValue() instanceof GerantPokemon && ((GerantPokemon) g.getValue()).getGerance() == GeranceType.HOST) {
                 Coords c_ = coords(_s, new LevelPoint());
                 c_.affectInside(_b.getKey());
-                c_.getLevel().setLevelIndex((byte) 0);
+                c_.getLevel().setLevelIndex(0);
                 c_.getLevel().setPoint(g.getKey());
                 hostPokemons.add(c_);
                 break;
@@ -1178,13 +1177,13 @@ public final class DataMap {
         }
     }
 
-    private void gymTrainersLeader(short _s, City _place) {
+    private void gymTrainersLeader(int _s, City _place) {
         for (EntryCust<Point,Building> b : _place
                 .getBuildings().entryList()) {
             if (b.getValue() instanceof Gym) {
                 Coords c_ = coords(_s, new LevelPoint());
                 c_.affectInside(b.getKey());
-                c_.getLevel().setLevelIndex((byte) 0);
+                c_.getLevel().setLevelIndex(0);
                 c_.getLevel().setPoint(
                         ((Gym) b.getValue()).getIndoor()
                                 .getGymLeaderCoords().value());
@@ -1218,7 +1217,7 @@ public final class DataMap {
 
     public Coords getCity(MiniMapCoords _m) {
         if (miniMap.contains(_m)) {
-            short place_ = miniMap.getVal(_m).getPlace();
+            int place_ = miniMap.getVal(_m).getPlace();
             for (Coords c : cities) {
                 if (NumberUtil.eq(c.getNumberPlace(), place_)) {
                     return c;
@@ -1229,9 +1228,9 @@ public final class DataMap {
     }
 
     public String getName(int _x, int _y) {
-        MiniMapCoords m_ = new MiniMapCoords((byte) _x, (byte) _y);
+        MiniMapCoords m_ = new MiniMapCoords(_x, _y);
         if (miniMap.contains(m_)) {
-            short place_ = miniMap.getVal(m_).getPlace();
+            int place_ = miniMap.getVal(m_).getPlace();
             if (!NumberUtil.eq(place_, IndexConstants.INDEX_NOT_FOUND_ELT)) {
                 return places.get(place_).getName();
             }
@@ -1240,7 +1239,7 @@ public final class DataMap {
     }
 
     public int[][] getImage(DataBase _data, int _x, int _y) {
-        MiniMapCoords m_ = new MiniMapCoords((byte) _x, (byte) _y);
+        MiniMapCoords m_ = new MiniMapCoords(_x,_y);
         if (miniMap.contains(m_)) {
             String place_ = miniMap.getVal(m_).getFile();
             return _data.getMiniMap(place_);
@@ -1465,11 +1464,11 @@ public final class DataMap {
             Place place_ = getPlace(c.getNumberPlace());
             if (place_ instanceof League) {
                 League league_ = (League) place_;
-                byte ind_ = c.getLevel().getLevelIndex();
+                int ind_ = c.getLevel().getLevelIndex();
                 if (NumberUtil.eq(ind_ + 1L, league_.getRooms().size())) {
                     Coords coords_ = new Coords(c);
 
-                    coords_.getLevel().setLevelIndex((byte) 0);
+                    coords_.getLevel().setLevelIndex(0);
                     coords_.getLevel().setPoint(new Point(league_.getBegin().value()));
                     list_.put(coords_, league_.getAccessCoords());
                 }
@@ -1526,7 +1525,7 @@ public final class DataMap {
         }
 
         League league_ = (League) place_;
-        byte levelIndex_ = _id.getLevel().getLevelIndex();
+        int levelIndex_ = _id.getLevel().getLevelIndex();
         LevelLeague level_ = league_.getRooms().get(levelIndex_);
         nextRoom(_id, _condition, return_, level_);
         for (Direction d : Direction.all()) {
@@ -1543,12 +1542,12 @@ public final class DataMap {
     }
 
     private void nextRoom(Coords _id, Condition _condition, CoordssCondition _ret, LevelLeague _level) {
-        byte levelIndex_ = _id.getLevel().getLevelIndex();
+        int levelIndex_ = _id.getLevel().getLevelIndex();
         if (Point.eq(_level.getAccessPoint(), _id.getLevel().getPoint())) {
             NullablePoint nextLevelTarget_ = _level.getNextLevelTarget();
             if (nextLevelTarget_.isDefined()) {
                 Coords coords_ = new Coords(_id);
-                coords_.getLevel().setLevelIndex((byte) (levelIndex_ + 1));
+                coords_.getLevel().setLevelIndex(levelIndex_ + 1);
                 coords_.getLevel().setPoint(nextLevelTarget_.getPoint());
                 Condition cond_ = initCondition(coords_, _condition);
                 _ret.put(coords_, cond_);
@@ -1664,7 +1663,7 @@ public final class DataMap {
             Place pl_ = places.get(p);
             if (pl_ instanceof League && Coords.eq(((League) pl_).getAccessCoords(), _id)) {
                 Coords coords_ = coords(p, new LevelPoint());
-                coords_.getLevel().setLevelIndex((byte) 0);
+                coords_.getLevel().setLevelIndex(0);
                 coords_.getLevel().setPoint(
                         new Point(((League) pl_).getBegin().value()));
                 Condition condition_ = initCondition(coords_, _condition);
@@ -1748,7 +1747,7 @@ public final class DataMap {
         if (pl_ instanceof League) {
             League l_ = (League) pl_;
             Coords c_ = new Coords(_coords);
-            c_.getLevel().setLevelIndex((byte) l_.getRooms().getLastIndex());
+            c_.getLevel().setLevelIndex(l_.getRooms().getLastIndex());
             return getTrainerName(c_);
         }
         return getTrainerName(_coords);
@@ -1845,7 +1844,7 @@ public final class DataMap {
             valid_ = false;
         }
         Coords coords_ = _pl.getSavedlinks().getVal(_k);
-        short numberPlace_ = coords_.getNumberPlace();
+        int numberPlace_ = coords_.getNumberPlace();
         InitializedPlace other_ = asInitializedPlace(numberPlace_);
         if (other_ == null) {
             return false;
@@ -1865,7 +1864,7 @@ public final class DataMap {
         }
         return valid_;
     }
-    private InitializedPlace asInitializedPlace(short _i) {
+    private InitializedPlace asInitializedPlace(int _i) {
         if (!places.isValidIndex(_i)) {
             return null;
         }
@@ -1877,9 +1876,9 @@ public final class DataMap {
     }
 
     public void initializeLinks() {
-        ShortMap< CustList<PlaceInterConnect>> visited_ = new ShortMap< CustList<PlaceInterConnect>>();
+        IntMap< CustList<PlaceInterConnect>> visited_ = new IntMap< CustList<PlaceInterConnect>>();
         int nbPlaces_ = places.size();
-        for (short i = IndexConstants.FIRST_INDEX; i < nbPlaces_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nbPlaces_; i++) {
             Place place_ = places.get(i);
             if (!(place_ instanceof InitializedPlace)) {
                 continue;
@@ -1887,7 +1886,7 @@ public final class DataMap {
             InitializedPlace pl_ = (InitializedPlace) place_;
             pl_.setPointsWithCitiesAndOtherRoads(new PlaceInterConnects());
         }
-        for (short i = IndexConstants.FIRST_INDEX; i < nbPlaces_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nbPlaces_; i++) {
             Place place_ = places.get(i);
             if (!(place_ instanceof InitializedPlace)) {
                 continue;
@@ -1899,7 +1898,7 @@ public final class DataMap {
                 }
                 Coords coords_ = pl_.getSavedlinks().getVal(k);
                 Point pt_ = coords_.getLevel().getPoint();
-                short i_ = coords_.getNumberPlace();
+                int i_ = coords_.getNumberPlace();
                 merge(visited_, k, pt_, i_);
                 join(i, coords_.getNumberPlace(), k.getSource(), pt_,
                         k.getDir());
@@ -1907,7 +1906,7 @@ public final class DataMap {
         }
     }
 
-    public static void merge(ShortMap<CustList<PlaceInterConnect>> _visited, PlaceInterConnect _k, Point _pt, short _i) {
+    public static void merge(IntMap<CustList<PlaceInterConnect>> _visited, PlaceInterConnect _k, Point _pt, int _i) {
         if (!_visited.contains(_i)) {
             CustList<PlaceInterConnect> v_ = new CustList<PlaceInterConnect>();
             v_.add(new PlaceInterConnect(_pt, _k.getDir().getOpposite()));
@@ -1918,7 +1917,7 @@ public final class DataMap {
         }
     }
 
-    public void join(short _pl1, short _pl2, Point _p1, Point _p2,
+    public void join(int _pl1, int _pl2, Point _p1, Point _p2,
             Direction _dir1) {
         Place place1_ = places.get(_pl1);
         Place place2_ = places.get(_pl2);
@@ -1953,9 +1952,9 @@ public final class DataMap {
             length_ = u_ + d_ + 1;
             for (short i = IndexConstants.FIRST_INDEX; i < length_; i++) {
                 keys1_.add(new PlaceInterConnect(new Point(
-                        (short) (xtop1_ + i), p1_.gety()), _dir1));
+                        xtop1_ + i, p1_.gety()), _dir1));
                 keys2_.add(new PlaceInterConnect(new Point(
-                        (short) (xtop2_ + i), p2_.gety()), _dir1.getOpposite()));
+                        xtop2_ + i, p2_.gety()), _dir1.getOpposite()));
             }
         } else {
             if (_dir1 == Direction.LEFT) {
@@ -1975,18 +1974,18 @@ public final class DataMap {
             length_ = u_ + d_ + 1;
             for (short i = IndexConstants.FIRST_INDEX; i < length_; i++) {
                 keys1_.add(new PlaceInterConnect(new Point(p1_.getx(),
-                        (short) (ytop1_ + i)), _dir1));
+                        ytop1_ + i), _dir1));
                 keys2_.add(new PlaceInterConnect(new Point(p2_.getx(),
-                        (short) (ytop2_ + i)), _dir1.getOpposite()));
+                        ytop2_ + i), _dir1.getOpposite()));
             }
         }
         Coords coords1_ = coords(_pl2, new LevelPoint());
-        coords1_.getLevel().setLevelIndex((byte) 0);
+        coords1_.getLevel().setLevelIndex(0);
         coords1_.getLevel().setPoint(new Point(p2_));
         ((InitializedPlace) place1_).addSavedLink(new PlaceInterConnect(p1_,
                 _dir1), coords1_);
         Coords coords2_ = coords(_pl1, new LevelPoint());
-        coords2_.getLevel().setLevelIndex((byte) 0);
+        coords2_.getLevel().setLevelIndex(0);
         coords2_.getLevel().setPoint(new Point(p1_));
         ((InitializedPlace) place2_).addSavedLink(new PlaceInterConnect(p2_,
                 _dir1.getOpposite()), coords2_);
@@ -1996,13 +1995,13 @@ public final class DataMap {
             Coords c1_ = new Coords();
             c1_.setNumberPlace(_pl1);
             LevelPoint lp1_ = new LevelPoint();
-            lp1_.setLevelIndex((byte) 0);
+            lp1_.setLevelIndex(0);
             lp1_.setPoint(keys1_.get(i).getSource());
             c1_.setLevel(lp1_);
             Coords c2_ = new Coords();
             c2_.setNumberPlace(_pl2);
             LevelPoint lp2_ = new LevelPoint();
-            lp2_.setLevelIndex((byte) 0);
+            lp2_.setLevelIndex(0);
             lp2_.setPoint(keys2_.get(i).getSource());
             c2_.setLevel(lp2_);
             join1_.put(keys1_.get(i), c2_);
@@ -2058,7 +2057,7 @@ public final class DataMap {
         } else {
             LevelLeague levelLeagueBack_ = (LevelLeague) _place
                     .getLevelsMap().getVal(
-                            (byte) (lPoint_.getLevelIndex() - 1));
+                            lPoint_.getLevelIndex() - 1);
             if (Point.eq(levelLeagueBack_.getNextLevelTarget(), _pt)) {
                 return true;
             }
@@ -2377,7 +2376,7 @@ public final class DataMap {
         return beatGymLeader;
     }
 
-    public ShortMap< PointEqList> getBeatGymTrainer() {
+    public IntMap< PointEqList> getBeatGymTrainer() {
         return beatGymTrainer;
     }
 

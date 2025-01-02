@@ -17,7 +17,7 @@ public final class ChangeNbPlaceFieldActPlace implements ChangeNbPlaceFieldAct {
 
     @Override
     public void place(int _p) {
-        coords.setNumberPlace((short) _p);
+        coords.setNumberPlace(_p);
     }
 
     @Override
@@ -30,7 +30,7 @@ public final class ChangeNbPlaceFieldActPlace implements ChangeNbPlaceFieldAct {
     }
 
     private void value(int _v) {
-        coords.getLevel().setLevelIndex((byte) _v);
+        coords.getLevel().setLevelIndex(_v);
     }
 
     @Override

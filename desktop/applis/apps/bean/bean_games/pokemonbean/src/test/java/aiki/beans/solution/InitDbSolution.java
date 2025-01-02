@@ -170,10 +170,10 @@ public abstract class InitDbSolution extends InitDbConstr {
         c_.setName(ROAD1);
         Block one_ = Instances.newBlock();
         one_.setType(EnvironmentType.ROAD);
-        one_.setHeight((short) 1);
-        one_.setWidth((short) 1);
+        one_.setHeight(1);
+        one_.setWidth(1);
         one_.setTileFileName("");
-        one_.setIndexApparition((short)0);
+        one_.setIndexApparition(0);
         c_.getLevelRoad().getBlocks().addEntry(newPoint(0,0),one_);
         c_.getLevelRoad().getBlocks().addEntry(newPoint(0,1),one_);
         c_.getLevelRoad().getBlocks().addEntry(newPoint(1,0),one_);
@@ -203,8 +203,8 @@ public abstract class InitDbSolution extends InitDbConstr {
         g_.getIndoor().setGymLeader(trGymLeader());
         Block bl_ = Instances.newBlock();
         bl_.setType(EnvironmentType.BUILDING);
-        bl_.setHeight((short) 1);
-        bl_.setWidth((short) 1);
+        bl_.setHeight(1);
+        bl_.setWidth(1);
         bl_.setTileFileName("");
         g_.getIndoor().getBlocks().addEntry(newPoint(1,0),bl_);
         g_.getIndoor().getBlocks().addEntry(newPoint(1,1),bl_);
@@ -229,16 +229,16 @@ public abstract class InitDbSolution extends InitDbConstr {
         c_.setName(ROAD2);
         Block one_ = Instances.newBlock();
         one_.setType(EnvironmentType.ROAD);
-        one_.setHeight((short) 1);
-        one_.setWidth((short) 1);
+        one_.setHeight(1);
+        one_.setWidth(1);
         one_.setTileFileName("");
-        one_.setIndexApparition((short)0);
+        one_.setIndexApparition(0);
         Block two_ = Instances.newBlock();
         two_.setType(EnvironmentType.ROAD);
-        two_.setHeight((short) 1);
-        two_.setWidth((short) 1);
+        two_.setHeight(1);
+        two_.setWidth(1);
         two_.setTileFileName("");
-        two_.setIndexApparition((short)-1);
+        two_.setIndexApparition(-1);
         c_.getLevelRoad().getBlocks().addEntry(newPoint(0,0),two_);
         c_.getLevelRoad().getBlocks().addEntry(newPoint(0,1),two_);
         c_.getLevelRoad().getBlocks().addEntry(newPoint(0,2),two_);
@@ -301,7 +301,7 @@ public abstract class InitDbSolution extends InitDbConstr {
         LevelCave sec_ = Instances.newLevelCave();
         sqThree(sec_);
         sec_.getWildPokemonAreas().add(area(P_POK_05));
-        sec_.getBlocks().getVal(newPoint(1,0)).setIndexApparition((short) 0);
+        sec_.getBlocks().getVal(newPoint(1,0)).setIndexApparition( 0);
         c_.getLevels().add(sec_);
         first_.getLinksOtherLevels().addEntry(newPoint(0,0),new Link("",newCoords(5,1,0,0)));
         sec_.getLinksOtherLevels().addEntry(newPoint(0,0),new Link("",newCoords(5,0,0,0)));
@@ -400,13 +400,13 @@ public abstract class InitDbSolution extends InitDbConstr {
 
     private static void sqThree(Level _l) {
         Block bl_ = Instances.newBlock();
-        bl_.setHeight((short) 1);
-        bl_.setWidth((short) 1);
+        bl_.setHeight(1);
+        bl_.setWidth(1);
         bl_.setTileFileName("");
         bl_.setType(EnvironmentType.ROAD);
         Block not_ = Instances.newBlock();
-        not_.setHeight((short) 1);
-        not_.setWidth((short) 1);
+        not_.setHeight(1);
+        not_.setWidth(1);
         not_.setTileFileName("");
         not_.setType(EnvironmentType.ROAD);
         _l.getBlocks().addEntry(newPoint(0,0),bl_);

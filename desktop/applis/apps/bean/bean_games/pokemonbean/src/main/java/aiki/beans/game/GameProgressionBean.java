@@ -29,7 +29,7 @@ public class GameProgressionBean extends CommonSingleBean {
     private NatStringTreeMap<CustList<StringList>> fullFamiliesBase;
     private CustList<TrainerPlaceNames> beatenImportantTrainers;
     private CustList<TrainerPlaceNames> unBeatenImportantTrainers;
-    private DictionaryComparator<Short,Integer> remainingOtherTrainerPlaces;
+    private DictionaryComparator<Integer,Integer> remainingOtherTrainerPlaces;
     private StringList visitedPlaces;
     private StringList unVisitedPlaces;
     private LgInt money;
@@ -152,7 +152,7 @@ public class GameProgressionBean extends CommonSingleBean {
     }
     public String getRemainingOtherTrainersPlaceName(int _index) {
         FacadeGame facade_ = facade();
-        short key_ = remainingOtherTrainerPlaces.getKey(_index);
+        int key_ = remainingOtherTrainerPlaces.getKey(_index);
         DataMap dataMap_ = facade_.getMap();
         return dataMap_.getPlace(key_).getName();
     }
@@ -235,7 +235,7 @@ public class GameProgressionBean extends CommonSingleBean {
         return beatenImportantTrainers;
     }
 
-    public DictionaryComparator<Short,Integer> getRemainingOtherTrainerPlaces() {
+    public DictionaryComparator<Integer,Integer> getRemainingOtherTrainerPlaces() {
         return remainingOtherTrainerPlaces;
     }
 

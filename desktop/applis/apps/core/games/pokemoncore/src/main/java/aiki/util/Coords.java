@@ -13,7 +13,7 @@ public final class Coords {
 
     private static final byte INVALID_NUMBER = IndexConstants.INDEX_NOT_FOUND_ELT - 1;
 
-    private short numberPlace;
+    private int numberPlace;
 
     private Point insideBuilding;
 
@@ -132,11 +132,11 @@ public final class Coords {
         return LevelPoint.eq(level, _g.level);
     }
 
-    public short getNumberPlace() {
+    public int getNumberPlace() {
         return numberPlace;
     }
 
-    public void setNumberPlace(short _numberPlace) {
+    public void setNumberPlace(int _numberPlace) {
         numberPlace = _numberPlace;
     }
 

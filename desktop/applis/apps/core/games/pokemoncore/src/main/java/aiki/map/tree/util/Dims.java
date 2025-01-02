@@ -4,31 +4,31 @@ public final class Dims {
 
     private static final String SEPARATOR = ",";
 
-    private short width;
+    private int width;
 
-    private short height;
+    private int height;
 
     public Dims() {
     }
 
     public Dims(int _width, int _height) {
-        width = (short) _width;
-        height = (short) _height;
+        width = _width;
+        height = _height;
     }
 
-    public short getWidth() {
+    public int getWidth() {
         return width;
     }
 
-    public void setWidth(short _width) {
+    public void setWidth(int _width) {
         width = _width;
     }
 
-    public short getHeight() {
+    public int getHeight() {
         return height;
     }
 
-    public void setHeight(short _height) {
+    public void setHeight(int _height) {
         height = _height;
     }
 

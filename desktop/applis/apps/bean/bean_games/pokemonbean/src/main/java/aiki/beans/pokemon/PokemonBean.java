@@ -191,7 +191,7 @@ public class PokemonBean extends CommonBean {
         int[][] image_ = images.getValue(_index);
         MiniMapCoords key_ = images.getKey(_index);
         DataBase data_ = getDataBase();
-        short pl_ = data_.getMap().getMiniMap().getVal(key_).getPlace();
+        int pl_ = data_.getMap().getMiniMap().getVal(key_).getPlace();
         boolean appear_ = false;
         for (short p: placesAppears) {
             PlaceIndex plInd_ = places.get(p);
@@ -360,7 +360,7 @@ public class PokemonBean extends CommonBean {
     }
     public boolean isAppearing(int _indexOne, int _indexTwo) {
         Place pl_ = places.get(_indexOne).getPlace();
-        Level level_ = pl_.getLevelsMap().getVal((byte) _indexTwo);
+        Level level_ = pl_.getLevelsMap().getVal(_indexTwo);
         if (!(level_ instanceof LevelWithWildPokemon)) {
             return false;
         }

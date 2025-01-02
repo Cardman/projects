@@ -5,7 +5,7 @@ public final class TileMiniMap {
 
     private String file;
 
-    private short place;
+    private int place;
 
     private boolean heros;
 
@@ -17,11 +17,11 @@ public final class TileMiniMap {
         file = _file;
     }
 
-    public short getPlace() {
+    public int getPlace() {
         return place;
     }
 
-    public void setPlace(short _place) {
+    public void setPlace(int _place) {
         place = _place;
     }
 

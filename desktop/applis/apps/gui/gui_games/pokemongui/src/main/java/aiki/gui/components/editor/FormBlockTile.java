@@ -48,15 +48,15 @@ public final class FormBlockTile {
     }
     public void feedForm() {
         edited = Instances.newBlock();
-        edited.setWidth((short) 1);
-        edited.setHeight((short) 1);
+        edited.setWidth(1);
+        edited.setHeight(1);
         tileFileName.updateValue(edited.getTileFileName());
         dims.setText("1:1");
     }
 
     public Block buildEntity() {
         edited.setTileFileName(tileFileName.getName().tryRet());
-        edited.setIndexApparition((short) indexApparition.getValue());
+        edited.setIndexApparition(indexApparition.getValue());
         edited.setType(type.tryRet());
         return edited;
     }

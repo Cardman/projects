@@ -14,8 +14,8 @@ public class LevelArea {
 
     private Point leftTop;
     private PointEqList inacessiblePoints;
-    private Points< Dims> dimsBlocks;
-    private Points< Short> indexes;
+    private IdMap<Point, Dims> dimsBlocks;
+    private IdMap<Point, Integer> indexes;
     private CustList<CustList<GenderName>> pokemon;
     private int height;
     private int width;
@@ -26,27 +26,27 @@ public class LevelArea {
         height = limits_.getBottomRight().gety() - leftTop.gety() + 1;
         width = limits_.getBottomRight().getx() - leftTop.getx() + 1;
         inacessiblePoints = new PointEqList();
-        indexes = new PointsShort();
-        dimsBlocks = new PointsDims();
+        indexes = new IdMap<Point, Integer>();
+        dimsBlocks = new IdMap<Point, Dims>();
         for (EntryCust<Point,Block> e : _level.getBlocks().entryList()) {
             Block block_ = e.getValue();
             Point id_ = e.getKey();
             if (block_.getType() != EnvironmentType.NOTHING) {
                 if (block_.getIndexApparition() != IndexConstants.INDEX_NOT_FOUND_ELT) {
-                    indexes.put(id_, block_.getIndexApparition());
+                    indexes.addEntry(id_, block_.getIndexApparition());
                 }
-                dimsBlocks.put(id_,
+                dimsBlocks.addEntry(id_,
                         new Dims(block_.getWidth(), block_.getHeight()));
                 continue;
             }
-            short x_ = id_.getx();
-            short y_ = id_.gety();
+            int x_ = id_.getx();
+            int y_ = id_.gety();
             int w_ = block_.getWidth();
             int h_ = block_.getHeight();
             int xMax_ = w_ + x_;
             int yMax_ = h_ + y_;
-            for (short x = x_; x < xMax_; x++) {
-                for (short y = y_; y < yMax_; y++) {
+            for (int x = x_; x < xMax_; x++) {
+                for (int y = y_; y < yMax_; y++) {
                     inacessiblePoints.add(new Point(x, y));
                 }
             }
@@ -108,9 +108,12 @@ public class LevelArea {
     }
 
     public int getIndex(Point _pt) {
-        for (Point k : dimsBlocks.getKeys()) {
-            if (_pt.getx() >= k.getx() && _pt.gety() >= k.gety() && _pt.getx() < k.getx() + dimsBlocks.getVal(k).getWidth() && _pt.gety() < k.gety() + dimsBlocks.getVal(k).getHeight() && indexes.contains(k)) {
-                return indexes.getVal(k);
+        for (EntryCust<Point, Dims> k : dimsBlocks.entryList()) {
+            if (_pt.getx() >= k.getKey().getx() && _pt.gety() >= k.getKey().gety() && _pt.getx() < k.getKey().getx() + k.getValue().getWidth() && _pt.gety() < k.getKey().gety() + k.getValue().getHeight()) {
+                int ind_ = indexOfEntry(k.getKey());
+                if (indexes.isValidIndex(ind_)) {
+                    return indexes.getValue(ind_);
+                }
             }
             // _pt.getx() >= k.getx()
             // _pt.gety() >= k.gety()
@@ -118,6 +121,15 @@ public class LevelArea {
             // _pt.gety() < k.gety() + height
         }
         return IndexConstants.INDEX_NOT_FOUND_ELT;
+    }
+    public int indexOfEntry(Point _pt) {
+        int size_ = indexes.size();
+        for (int i = 0; i < size_; i++) {
+            if (_pt.eq(indexes.getKey(i))) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public Point getLeftTop() {
@@ -128,11 +140,11 @@ public class LevelArea {
         return inacessiblePoints;
     }
 
-    public Points< Dims> getDimsBlocks() {
+    public IdMap<Point, Dims> getDimsBlocks() {
         return dimsBlocks;
     }
 
-    public Points< Short> getIndexes() {
+    public IdMap<Point, Integer> getIndexes() {
         return indexes;
     }
 

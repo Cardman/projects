@@ -399,7 +399,7 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
         Condition i_ = Instances.newCondition();
         i_.add(Coords.newCoords(""));
         c_.getAccessCondition().addEntry(Coords.newCoords(""), i_);
-        c_.getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 0),Instances.newTileMiniMap());
+        c_.getMiniMap().addEntry(new MiniMapCoords(0,0),Instances.newTileMiniMap());
         Road r_ = Instances.newRoad();
         AreaApparition a_ = Instances.newAreaApparition();
         WildPk w_ = Instances.newWildPk();
@@ -519,7 +519,7 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
         game_.getBeatGymLeader().addEntry(new Coords(""),BoolVal.FALSE);
         PointEqList pts_ = new PointEqList();
         pts_.add(new Point(""));
-        game_.getBeatGymTrainer().addEntry((short)0, pts_);
+        game_.getBeatGymTrainer().addEntry(0, pts_);
         Game s_ = save(game_);
         assertEq("_",s_.getPlayer().getNickname());
     }
@@ -774,7 +774,7 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
         Condition i_ = Instances.newCondition();
         i_.add(Coords.newCoords(""));
         c_.getAccessCondition().addEntry(Coords.newCoords(""), i_);
-        c_.getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 0),Instances.newTileMiniMap());
+        c_.getMiniMap().addEntry(new MiniMapCoords(0,0),Instances.newTileMiniMap());
         Road r_ = Instances.newRoad();
         MultAreaApparition a_ = new MultAreaApparition();
         WildPk w_ = Instances.newWildPk();

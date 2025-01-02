@@ -52,7 +52,7 @@ public final class League extends Place {
     }
 
     @Override
-    public boolean validLinks(short _p, Tree _tree) {
+    public boolean validLinks(int _p, Tree _tree) {
         return _tree.isValid(accessCoords, true);
     }
 
@@ -61,15 +61,15 @@ public final class League extends Place {
         return getLevelLeague(_coords.getLevel().getLevelIndex());
     }
 
-    public LevelLeague getLevelLeague(byte _levelIndex) {
+    public LevelLeague getLevelLeague(int _levelIndex) {
         return rooms.get(_levelIndex);
     }
 
     @Override
-    public ByteMap< Level> getLevelsMap() {
-        ByteMap< Level> levels_ = new ByteMap< Level>();
+    public IntMap< Level> getLevelsMap() {
+        IntMap< Level> levels_ = new IntMap< Level>();
         for (LevelLeague l : rooms) {
-            levels_.put((byte) levels_.size(), l);
+            levels_.put(levels_.size(), l);
         }
         return levels_;
     }

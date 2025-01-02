@@ -12406,9 +12406,9 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = initTypeEnv1(data_, diff_, player_, new StringList(DETECTION));
         Coords c_ = new Coords();
-        c_.setNumberPlace((byte)1);
+        c_.setNumberPlace(1);
         c_.setLevel(new LevelPoint());
-        c_.getLevel().setPoint(new Point((byte)-1,(byte)0));
+        c_.getLevel().setPoint(newPoint(-1,0));
         FightFacade.initTypeEnv(fight_, c_, diff_, data_);
         assertEq(EnvironmentType.ROAD, fight_.getEnvType());
         assertTrue(fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getAction() instanceof ActionMove);

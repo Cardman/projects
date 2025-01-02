@@ -27,34 +27,34 @@ public class BuildingAreaTest extends EquallablePkUtil {
         LevelOutdoor city_ = new LevelOutdoor();
         city_.setBlocks(new PointsBlock());
         Block block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, "voie");
-        city_.getBlocks().put(new Point((short)0,(short)0), block_);
+        city_.getBlocks().put(newPoint(0,0), block_);
         block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, "voie");
-        city_.getBlocks().put(new Point((short)0,(short)3), block_);
+        city_.getBlocks().put(newPoint(0,3), block_);
         block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, "voie");
-        city_.getBlocks().put(new Point((short)0,(short)6), block_);
+        city_.getBlocks().put(newPoint(0,6), block_);
         block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, "voie");
-        city_.getBlocks().put(new Point((short)3,(short)0), block_);
+        city_.getBlocks().put(newPoint(3,0), block_);
         block_ = new Block((short)3,(short)3, EnvironmentType.NOTHING, "voie");
-        city_.getBlocks().put(new Point((short)3,(short)3), block_);
+        city_.getBlocks().put(newPoint(3,3), block_);
         block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, "voie");
-        city_.getBlocks().put(new Point((short)3,(short)6), block_);
+        city_.getBlocks().put(newPoint(3,6), block_);
         block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, "voie");
-        city_.getBlocks().put(new Point((short)6,(short)0), block_);
+        city_.getBlocks().put(newPoint(6,0), block_);
         block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, "voie");
-        city_.getBlocks().put(new Point((short)6,(short)3), block_);
+        city_.getBlocks().put(newPoint(6,3), block_);
         block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, "voie");
-        city_.getBlocks().put(new Point((short)6,(short)6), block_);
+        city_.getBlocks().put(newPoint(6,6), block_);
         c_.setLevel(city_);
         c_.setBuildings(new PointsBuilding());
         Gym gym_ = new Gym();
-        gym_.setExitCity(new Point((short)1,(short)0));
+        gym_.setExitCity(newPoint(1,0));
         gym_.setLevel(new LevelIndoorGym());
         gym_.getLevel().setBlocks(new PointsBlock());
         block_ = new Block((short)6,(short)6, EnvironmentType.BUILDING, "voie");
-        gym_.getLevel().getBlocks().put(new Point((short)0,(short)0), block_);
-        gym_.getIndoor().setGymLeaderCoords(new Point((short)1,(short)1));
+        gym_.getLevel().getBlocks().put(newPoint(0,0), block_);
+        gym_.getIndoor().setGymLeaderCoords(newPoint(1,1));
         gym_.getIndoor().setGymTrainers(new PointsGymTrainer());
-        c_.getBuildings().put(new Point((short)4,(short)5), gym_);
+        c_.getBuildings().put(newPoint(4,5), gym_);
         return c_;
     }
 
@@ -74,7 +74,8 @@ public class BuildingAreaTest extends EquallablePkUtil {
         assertEq(newPoint(0,0), area_.getLevel().getLeftTop());
         assertEq(0, area_.getLevel().getInacessiblePoints().size());
         assertEq(1, area_.getLevel().getDimsBlocks().size());
-        assertEq(new Dims(6, 6), area_.getLevel().getDimsBlocks().getVal(newPoint(0, 0)));
+        assertEq(newPoint(0, 0), area_.getLevel().getDimsBlocks().getKey(0));
+        assertEq(new Dims(6, 6), area_.getLevel().getDimsBlocks().getValue(0));
     }
 
     private static void initPlaces(DataMap _dataMap) {

@@ -8,11 +8,11 @@ import code.util.core.NumberUtil;
 
 public final class Block {
 
-    private short width;
+    private int width;
 
-    private short height;
+    private int height;
 
-    private short indexApparition = IndexConstants.INDEX_NOT_FOUND_ELT;
+    private int indexApparition = IndexConstants.INDEX_NOT_FOUND_ELT;
 
     private String tileFileName;
 
@@ -54,50 +54,50 @@ public final class Block {
         BlockBounds bounds_ = new BlockBounds();
         bounds_.setxLeftTop(_leftTop.getx());
         bounds_.setyLeftTop(_leftTop.gety());
-        bounds_.setxRightTop((short) (_leftTop.getx()+width-1));
+        bounds_.setxRightTop(_leftTop.getx()+width-1);
         bounds_.setyRightTop(_leftTop.gety());
         bounds_.setxLeftBottom(_leftTop.getx());
-        bounds_.setyLeftBottom((short) (_leftTop.gety()+height-1));
-        bounds_.setxRightBottom((short) (_leftTop.getx()+width-1));
-        bounds_.setyRightBottom((short) (_leftTop.gety()+height-1));
+        bounds_.setyLeftBottom(_leftTop.gety()+height-1);
+        bounds_.setxRightBottom(_leftTop.getx()+width-1);
+        bounds_.setyRightBottom(_leftTop.gety()+height-1);
         return bounds_;
     }
 
     public static BlockBounds intersection(BlockBounds _currentBounds,BlockBounds _otherBounds) {
         BlockBounds intersection_ = new BlockBounds();
-        intersection_.setxLeftTop((short) NumberUtil.max(_currentBounds.getxLeftTop(), _otherBounds.getxLeftTop()));
-        intersection_.setyLeftTop((short) NumberUtil.max(_currentBounds.getyLeftTop(), _otherBounds.getyLeftTop()));
-        intersection_.setxLeftBottom((short) NumberUtil.max(_currentBounds.getxLeftBottom(), _otherBounds.getxLeftBottom()));
-        intersection_.setyLeftBottom((short) NumberUtil.min(_currentBounds.getyLeftBottom(), _otherBounds.getyLeftBottom()));
-        intersection_.setxRightTop((short) NumberUtil.min(_currentBounds.getxRightTop(), _otherBounds.getxRightTop()));
-        intersection_.setyRightTop((short) NumberUtil.max(_currentBounds.getyRightTop(), _otherBounds.getyRightTop()));
-        intersection_.setxRightBottom((short) NumberUtil.min(_currentBounds.getxRightBottom(), _otherBounds.getxRightBottom()));
-        intersection_.setyRightBottom((short) NumberUtil.min(_currentBounds.getyRightBottom(), _otherBounds.getyRightBottom()));
+        intersection_.setxLeftTop(NumberUtil.max(_currentBounds.getxLeftTop(), _otherBounds.getxLeftTop()));
+        intersection_.setyLeftTop(NumberUtil.max(_currentBounds.getyLeftTop(), _otherBounds.getyLeftTop()));
+        intersection_.setxLeftBottom(NumberUtil.max(_currentBounds.getxLeftBottom(), _otherBounds.getxLeftBottom()));
+        intersection_.setyLeftBottom(NumberUtil.min(_currentBounds.getyLeftBottom(), _otherBounds.getyLeftBottom()));
+        intersection_.setxRightTop(NumberUtil.min(_currentBounds.getxRightTop(), _otherBounds.getxRightTop()));
+        intersection_.setyRightTop(NumberUtil.max(_currentBounds.getyRightTop(), _otherBounds.getyRightTop()));
+        intersection_.setxRightBottom(NumberUtil.min(_currentBounds.getxRightBottom(), _otherBounds.getxRightBottom()));
+        intersection_.setyRightBottom(NumberUtil.min(_currentBounds.getyRightBottom(), _otherBounds.getyRightBottom()));
         intersection_.invalidate();
         return intersection_;
     }
 
-    public short getWidth() {
+    public int getWidth() {
         return width;
     }
 
-    public void setWidth(short _width) {
+    public void setWidth(int _width) {
         width = _width;
     }
 
-    public short getHeight() {
+    public int getHeight() {
         return height;
     }
 
-    public void setHeight(short _height) {
+    public void setHeight(int _height) {
         height = _height;
     }
 
-    public short getIndexApparition() {
+    public int getIndexApparition() {
         return indexApparition;
     }
 
-    public void setIndexApparition(short _indexApparition) {
+    public void setIndexApparition(int _indexApparition) {
         indexApparition = _indexApparition;
     }
 

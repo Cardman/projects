@@ -9,7 +9,7 @@ public abstract class Points<T> extends AbsBasicMap<Point,T> {
         super(_cap);
     }
 
-    public void translateLineData(short _y, short _dir) {
+    public void translateLineData(int _y, int _dir) {
         CustList<Point> links_ = getKeys();
         Points< Point> deplLinks_ = new PointsPoint();
         for (Point c : links_) {
@@ -17,12 +17,12 @@ public abstract class Points<T> extends AbsBasicMap<Point,T> {
                 deplLinks_.put(c, c);
                 continue;
             }
-            deplLinks_.put(c, new Point(c.getx(), (short) (c.gety() + _dir)));
+            deplLinks_.put(c, new Point(c.getx(), c.gety() + _dir));
         }
         translate(links_, deplLinks_);
     }
 
-    public void translateColumnData(short _x, short _dir) {
+    public void translateColumnData(int _x, int _dir) {
         CustList<Point> links_ = getKeys();
         Points< Point> deplLinks_ = new PointsPoint();
         for (Point c : links_) {
@@ -30,7 +30,7 @@ public abstract class Points<T> extends AbsBasicMap<Point,T> {
                 deplLinks_.put(c, c);
                 continue;
             }
-            deplLinks_.put(c, new Point((short) (c.getx() + _dir), c.gety()));
+            deplLinks_.put(c, new Point(c.getx() + _dir, c.gety()));
         }
         translate(links_, deplLinks_);
     }

@@ -9,14 +9,14 @@ public final class Point {
 
     static final char SEPARATOR = ',';
 
-    private short xCoord;
+    private int xCoord;
 
-    private short yCoord;
+    private int yCoord;
 
     public Point() {
     }
 
-    public Point(short _xCoord, short _yCoord) {
+    public Point(int _xCoord, int _yCoord) {
         xCoord = _xCoord;
         yCoord = _yCoord;
     }
@@ -28,8 +28,8 @@ public final class Point {
 
     public Point(String _string) {
         StringList elements_ = StringUtil.splitChars(_string, SEPARATOR);
-        setx((short) NumberUtil.parseInt(elements_.first()));
-        sety((short) NumberUtil.parseInt(elements_.last()));
+        setx(NumberUtil.parseInt(elements_.first()));
+        sety(NumberUtil.parseInt(elements_.last()));
     }
 
     
@@ -60,24 +60,24 @@ public final class Point {
         return NumberUtil.eq(yCoord, _obj.yCoord);
     }
 
-    public short getx() {
+    public int getx() {
         return xCoord;
     }
 
     public void moveTo(Direction _pt) {
-        setx((short) (getx()+_pt.getx()));
-        sety((short) (gety()+_pt.gety()));
+        setx(getx()+_pt.getx());
+        sety(gety()+_pt.gety());
     }
 
-    public void setx(short _x) {
+    public void setx(int _x) {
         xCoord = _x;
     }
 
-    public short gety() {
+    public int gety() {
         return yCoord;
     }
 
-    public void sety(short _y) {
+    public void sety(int _y) {
         yCoord = _y;
     }
 

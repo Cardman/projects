@@ -536,7 +536,7 @@ public final class DataBase {
                 _default);
     }
 
-    public Points< int[][]> getWhiteLevelImage(short _pl, byte _level) {
+    public Points< int[][]> getWhiteLevelImage(int _pl, int _level) {
         Coords coords_ = new Coords();
         coords_.setNumberPlace(_pl);
         coords_.setLevel(new LevelPoint());
@@ -544,7 +544,7 @@ public final class DataBase {
         return getWhiteLevelImage(coords_);
     }
 
-    public Points< int[][]> getWhiteLevelImage(short _pl, byte _level,
+    public Points< int[][]> getWhiteLevelImage(int _pl, int _level,
                                           Point _inside) {
         Coords coords_ = new Coords();
         coords_.setNumberPlace(_pl);
@@ -554,7 +554,7 @@ public final class DataBase {
         return getWhiteLevelImage(coords_);
     }
 
-    public Points< int[][]> getLevelImage(short _pl, byte _level) {
+    public Points< int[][]> getLevelImage(int _pl, int _level) {
         Coords coords_ = new Coords();
         coords_.setNumberPlace(_pl);
         coords_.setLevel(new LevelPoint());
@@ -562,7 +562,7 @@ public final class DataBase {
         return getLevelImage(coords_);
     }
 
-    public Points< int[][]> getLevelImage(short _pl, byte _level,
+    public Points< int[][]> getLevelImage(int _pl, int _level,
                                           Point _inside) {
         Coords coords_ = new Coords();
         coords_.setNumberPlace(_pl);
@@ -572,7 +572,7 @@ public final class DataBase {
         return getLevelImage(coords_);
     }
 
-    public Points< int[][]> getBackLevelImage(short _pl, byte _level) {
+    public Points< int[][]> getBackLevelImage(int _pl, int _level) {
         Coords coords_ = new Coords();
         coords_.setNumberPlace(_pl);
         coords_.setLevel(new LevelPoint());
@@ -580,7 +580,7 @@ public final class DataBase {
         return Level.getLevelBackgroundImage(this,coords_);
     }
 
-    public Points< int[][]> getBackLevelImage(short _pl, byte _level,
+    public Points< int[][]> getBackLevelImage(int _pl, int _level,
                                           Point _inside) {
         Coords coords_ = new Coords();
         coords_.setNumberPlace(_pl);
@@ -615,27 +615,27 @@ public final class DataBase {
         if (_tiles.isEmpty()) {
             return;
         }
-        Shorts x_ = new Shorts();
-        Shorts y_ = new Shorts();
+        Ints x_ = new Ints();
+        Ints y_ = new Ints();
         for (Point p : _tiles.getKeys()) {
             x_.add(p.getx());
             y_.add(p.gety());
         }
-        short minx_ = (short) x_.getMinimum(0);
-        short miny_ = (short) y_.getMinimum(0);
-        short maxx_ = (short) x_.getMaximum(0);
-        short maxy_ = (short) y_.getMaximum(0);
-        _tiles.addEntry(new Point((short)(minx_-1),(short)(miny_-1)),Level.whiteCell(_side));
-        _tiles.addEntry(new Point((short)(minx_-1),(short)(maxy_+1)),Level.whiteCell(_side));
-        _tiles.addEntry(new Point((short)(maxx_+1),(short)(maxy_+1)),Level.whiteCell(_side));
-        _tiles.addEntry(new Point((short)(maxx_+1),(short)(miny_-1)),Level.whiteCell(_side));
-        for (short i = minx_; i <= maxx_; i++) {
-            _tiles.addEntry(new Point(i,(short)(miny_-1)),Level.whiteCell(_side));
-            _tiles.addEntry(new Point(i,(short)(maxy_+1)),Level.whiteCell(_side));
+        int minx_ = (int) x_.getMinimum(0);
+        int miny_ = (int) y_.getMinimum(0);
+        int maxx_ = (int) x_.getMaximum(0);
+        int maxy_ = (int) y_.getMaximum(0);
+        _tiles.addEntry(new Point(minx_-1, miny_-1),Level.whiteCell(_side));
+        _tiles.addEntry(new Point(minx_-1, maxy_+1),Level.whiteCell(_side));
+        _tiles.addEntry(new Point(maxx_+1, maxy_+1),Level.whiteCell(_side));
+        _tiles.addEntry(new Point(maxx_+1, miny_-1),Level.whiteCell(_side));
+        for (int i = minx_; i <= maxx_; i++) {
+            _tiles.addEntry(new Point(i, miny_-1),Level.whiteCell(_side));
+            _tiles.addEntry(new Point(i, maxy_+1),Level.whiteCell(_side));
         }
-        for (short i = miny_; i <= maxy_; i++) {
-            _tiles.addEntry(new Point((short)(minx_-1),i),Level.whiteCell(_side));
-            _tiles.addEntry(new Point((short)(maxx_+1),i),Level.whiteCell(_side));
+        for (int i = miny_; i <= maxy_; i++) {
+            _tiles.addEntry(new Point(minx_-1,i),Level.whiteCell(_side));
+            _tiles.addEntry(new Point(maxx_+1,i),Level.whiteCell(_side));
         }
     }
 
@@ -3675,12 +3675,12 @@ public final class DataBase {
             int[][] img_ = i.getValue().getImage();
             String name_ = i.getKey();
             Dims d_ = new Dims();
-            d_.setWidth((short) (img_[0].length / side_));
-            d_.setHeight((short) (img_.length / side_));
+            d_.setWidth(img_[0].length / side_);
+            d_.setHeight(img_.length / side_);
             ScreenCoordssInt tiles_;
             tiles_ = new ScreenCoordssInt();
-            for (short x = 0; x < d_.getWidth(); x++) {
-                for (short y = 0; y < d_.getHeight(); y++) {
+            for (int x = 0; x < d_.getWidth(); x++) {
+                for (int y = 0; y < d_.getHeight(); y++) {
                     ScreenCoords sc_ = new ScreenCoords(x, y);
                     tiles_.addEntry(sc_, BaseSixtyFourUtil.clipSixtyFour(img_, x * side_, y
                             * side_, side_, side_));

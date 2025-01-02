@@ -49,13 +49,13 @@ public abstract class Place {
         return true;
     }
 
-    public abstract boolean validLinks(short _place, Tree _tree);
+    public abstract boolean validLinks(int _place, Tree _tree);
 
     public abstract void validate(DataBase _data,PlaceArea _placeArea);
     public abstract boolean isEmptyForAdding(Coords _coords);
 
     public abstract Level getLevelByCoords(Coords _coords);
-    public abstract ByteMap<Level> getLevelsMap();
+    public abstract IntMap<Level> getLevelsMap();
     public abstract CustList<Level> getLevelsList();
 
     public abstract void setName(String _name);

@@ -8,7 +8,7 @@ public final class LevelPoint {
 
     static final char SEPARATOR = '_';
 
-    private byte levelIndex;
+    private int levelIndex;
 
     private Point point;
 
@@ -47,11 +47,11 @@ public final class LevelPoint {
         }
         return Point.eq(point, _obj.point);
     }
-    public byte getLevelIndex() {
+    public int getLevelIndex() {
         return levelIndex;
     }
 
-    public void setLevelIndex(byte _levelIndex) {
+    public void setLevelIndex(int _levelIndex) {
         levelIndex = _levelIndex;
     }
 

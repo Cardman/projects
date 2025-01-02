@@ -141,8 +141,8 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
 
     public static void feedForms(int _indexOne, int _indexTwo, StringMapObject _forms) {
         Coords c_ = new Coords();
-        c_.setNumberPlace((short)_indexOne);
-        c_.getLevel().setLevelIndex((byte)_indexTwo);
+        c_.setNumberPlace(_indexOne);
+        c_.getLevel().setLevelIndex(_indexTwo);
         _forms.put(CST_COORDS, c_);
 //        _forms.put(CST_PROPONE_LINK, false);
 //        _forms.put(CST_PROPONE_TILE, false);

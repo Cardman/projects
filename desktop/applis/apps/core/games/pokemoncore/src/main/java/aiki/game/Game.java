@@ -82,7 +82,7 @@ public final class Game {
     /**nombre de dresseurs de la ligue battus (remis a zero une fois la ligue battue)*/
     private byte rankLeague;
 
-    private ShortMap<PointEqList> beatGymTrainer;
+    private IntMap<PointEqList> beatGymTrainer;
 
     private CoordssBoolVal beatGymLeader;
 
@@ -124,7 +124,7 @@ public final class Game {
     private boolean reinitInteraction;
 
     private CoordssBoolVal visitedPlaces;
-    private ShortMap<BoolVal> visitedPlacesNb;
+    private IntMap<BoolVal> visitedPlacesNb;
 
     private int nbSteps;
 
@@ -140,10 +140,10 @@ public final class Game {
 
     public Game(){
         difficulty = new Difficulty();
-        setBeatGymTrainer(new ShortMap<PointEqList>());
+        setBeatGymTrainer(new IntMap<PointEqList>());
         reinitInteraction=false;
         setInterfaceType(InterfaceType.RIEN);
-        setVisitedPlacesNb(new ShortMap<BoolVal>());
+        setVisitedPlacesNb(new IntMap<BoolVal>());
         setVisitedPlaces(new CoordssBoolVal());
         setBeatGymLeader(new CoordssBoolVal());
         setTakenObjects(new CoordssBoolVal());
@@ -157,13 +157,13 @@ public final class Game {
 
     public Game(DataBase _d){
         fight = FightFacade.newFight();
-        beatGymTrainer = new ShortMap<PointEqList>();
+        beatGymTrainer = new IntMap<PointEqList>();
         difficulty = new Difficulty();
         reinitInteraction=false;
         interfaceType=InterfaceType.RIEN;
         DataMap d_=_d.getMap();
         visitedPlaces = new CoordssBoolVal();
-        visitedPlacesNb = new ShortMap<BoolVal>();
+        visitedPlacesNb = new IntMap<BoolVal>();
         playerCoords= new Coords(d_.getBegin());
         playerOrientation=Direction.UP;
         takenPokemon = new CoordssBoolVal();
@@ -182,8 +182,8 @@ public final class Game {
         for (NbFightCoords c: d_.getBeatTrainer()) {
             beatTrainer.put(c, BoolVal.FALSE);
         }
-        beatGymTrainer = new ShortMap<PointEqList>();
-        for (Short c: d_.getBeatGymTrainer().getKeys()){
+        beatGymTrainer = new IntMap<PointEqList>();
+        for (Integer c: d_.getBeatGymTrainer().getKeys()){
             beatGymTrainer.put(c, new PointEqList());
         }
         hostedPk = new CoordssHostPokemonDuo();
@@ -194,7 +194,7 @@ public final class Game {
             hostedPk.put(c, h_);
         }
         visitedPlaces = new CoordssBoolVal();
-        visitedPlacesNb = new ShortMap<BoolVal>();
+        visitedPlacesNb = new IntMap<BoolVal>();
         for (Coords c: d_.getCities()) {
             visitedPlaces.put(c, BoolVal.FALSE);
             visitedPlacesNb.put(c.getNumberPlace(), BoolVal.FALSE);
@@ -294,9 +294,9 @@ public final class Game {
     }
     private void patchCoords(DataBase _d) {
         Coords gy_ = new Coords(gymTrainer);
-        gy_.getLevel().setPoint(new Point((short) 0,(short) 0));
+        gy_.getLevel().setPoint(new Point(0, 0));
         Coords pl_ = new Coords(playerCoords);
-        pl_.getLevel().setPoint(new Point((short) 0,(short) 0));
+        pl_.getLevel().setPoint(new Point(0, 0));
         if (!Coords.eq(gy_,pl_)) {
             setGymTrainer(new Coords());
         }
@@ -343,10 +343,10 @@ public final class Game {
     }
 
     private boolean koTrainer(DataMap _map, Condition _accessCond) {
-        if (!NumberUtil.equalsSetShorts(beatGymTrainer.getKeys(), _map.getBeatGymTrainer().getKeys())) {
+        if (!NumberUtil.equalsSetInts(beatGymTrainer.getKeys(), _map.getBeatGymTrainer().getKeys())) {
             return true;
         }
-        for (Short k: beatGymTrainer.getKeys()) {
+        for (Integer k: beatGymTrainer.getKeys()) {
             if (!_map.getBeatGymTrainer().getVal(k).containsAllObj(beatGymTrainer.getVal(k))) {
                 return true;
             }
@@ -494,7 +494,7 @@ public final class Game {
 
     private boolean correctCoords(DataBase _data) {
         boolean correctCoords_;
-        short numberPlace_ = playerCoords.getNumberPlace();
+        int numberPlace_ = playerCoords.getNumberPlace();
         Place curPlace_ = null;
         if (_data.getMap().getPlaces().isValidIndex(numberPlace_)) {
             curPlace_ = _data.getMap().getPlace(numberPlace_);
@@ -1335,7 +1335,7 @@ public final class Game {
             Coords coords_ = new Coords();
             coords_.setNumberPlace(coordsFoe_.getNumberPlace());
             coords_.setLevel(new LevelPoint());
-            coords_.getLevel().setLevelIndex((byte) 0);
+            coords_.getLevel().setLevelIndex(0);
             coords_.getLevel().setPoint(((League) pl_).getBegin().value());
             beatGymLeader.put(coords_, BoolVal.TRUE);
             addBeatenTrainer(coords_, _import);
@@ -1435,7 +1435,7 @@ public final class Game {
                 Coords coords_ = new Coords();
                 coords_.setNumberPlace(coordsFoe_.getNumberPlace());
                 coords_.setLevel(new LevelPoint());
-                coords_.getLevel().setLevelIndex((byte) 0);
+                coords_.getLevel().setLevelIndex(0);
                 coords_.getLevel().setPoint(((League) pl_).getBegin().value());
                 beatGymLeader.put(coords_, BoolVal.TRUE);
                 beatenImportantTrainer_ = coords_;
@@ -1584,19 +1584,19 @@ public final class Game {
                 inaccessible_.add(c);
             }
         }
-        Shorts accessiblePlaces_ = new Shorts();
+        Ints accessiblePlaces_ = new Ints();
         for (Coords c: accessible_) {
             accessiblePlaces_.add(c.getNumberPlace());
         }
         accessiblePlaces_.removeDuplicates();
-        Shorts inaccessiblePlaces_ = new Shorts();
+        Ints inaccessiblePlaces_ = new Ints();
         for (Coords c: inaccessible_) {
             inaccessiblePlaces_.add(c.getNumberPlace());
         }
         inaccessiblePlaces_.removeDuplicates();
         StringList partiallyAccessiblePlaces_ = new StringList();
         StringList fullAccessiblePlaces_ = new StringList();
-        for (Short c: accessiblePlaces_) {
+        for (Integer c: accessiblePlaces_) {
             Place pl_ = map_.getPlace(c);
             if (inaccessiblePlaces_.containsObj(c)) {
                 partiallyAccessiblePlaces_.add(pl_.getName());
@@ -2122,7 +2122,7 @@ public final class Game {
             }
         }
         int nbPlaces_ = map_.getPlaces().size();
-        for (short p = IndexConstants.FIRST_INDEX; p<nbPlaces_; p++) {
+        for (int p = IndexConstants.FIRST_INDEX; p<nbPlaces_; p++) {
             Place place_ = map_.getPlace(p);
             if (!(place_ instanceof League)) {
                 continue;
@@ -2132,7 +2132,7 @@ public final class Game {
                 rankLeague = 0;
                 nbSteps++;
                 playerCoords.setNumberPlace(p);
-                playerCoords.getLevel().setLevelIndex((byte) 0);
+                playerCoords.getLevel().setLevelIndex(0);
                 playerCoords.getLevel().getPoint().affect(((League)place_).getBegin().value());
                 placeChanged = true;
                 return;
@@ -2149,7 +2149,7 @@ public final class Game {
                 nbSteps++;
                 playerCoords.getLevel().getPoint().affect(buildings_.getVal(nextPt_).getExitCity().value());
                 playerCoords.affectInside(nextPt_);
-                playerCoords.getLevel().setLevelIndex((byte) 0);
+                playerCoords.getLevel().setLevelIndex(0);
                 placeChanged = true;
                 return;
             }
@@ -2194,7 +2194,7 @@ public final class Game {
             //not on the door of the building
             nbSteps++;
             playerCoords.getLevel().getPoint().affect(inside_);
-            playerCoords.getLevel().setLevelIndex((byte) 0);
+            playerCoords.getLevel().setLevelIndex(0);
             playerCoords.outside();
             placeChanged = true;
             return;
@@ -2247,7 +2247,7 @@ public final class Game {
                 rankLeague = 0;
                 return;
             }
-            playerCoords.getLevel().setLevelIndex((byte) (playerCoords.getLevel().getLevelIndex() + 1));
+            playerCoords.getLevel().setLevelIndex((playerCoords.getLevel().getLevelIndex() + 1));
             playerCoords.getLevel().getPoint().affect(nextLevel_.getNextLevelTarget().getPoint());
             return;
         }
@@ -2787,11 +2787,11 @@ public final class Game {
         visitedPlaces = _visitedPlaces;
     }
 
-    public ShortMap<BoolVal> getVisitedPlacesNb() {
+    public IntMap<BoolVal> getVisitedPlacesNb() {
         return visitedPlacesNb;
     }
 
-    public void setVisitedPlacesNb(ShortMap<BoolVal> _visitedPlacesNb) {
+    public void setVisitedPlacesNb(IntMap<BoolVal> _visitedPlacesNb) {
         visitedPlacesNb = _visitedPlacesNb;
     }
 
@@ -2811,7 +2811,7 @@ public final class Game {
         interfaceType = _interfaceType;
     }
 
-    public void setBeatGymTrainer(ShortMap<PointEqList> _beatGymTrainer) {
+    public void setBeatGymTrainer(IntMap<PointEqList> _beatGymTrainer) {
         beatGymTrainer = _beatGymTrainer;
     }
 
@@ -2835,7 +2835,7 @@ public final class Game {
         return fullAccessiblePlaces;
     }
 
-    public ShortMap<PointEqList> getBeatGymTrainer() {
+    public IntMap<PointEqList> getBeatGymTrainer() {
         return beatGymTrainer;
     }
 

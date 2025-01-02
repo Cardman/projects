@@ -97,14 +97,14 @@ public final class City extends Place implements InitializedPlace {
     }
 
     @Override
-    public boolean validLinks(short _place, Tree _tree) {
+    public boolean validLinks(int _place, Tree _tree) {
         return checkLinks(_tree, linksPointsWithCitiesAndOtherRoads, linksWithCaves);
     }
 
     @Override
-    public ByteMap< Level> getLevelsMap() {
-        ByteMap< Level> levels_ = new ByteMap< Level>();
-        levels_.put(IndexConstants.FIRST_INDEX, getLevelOutdoor());
+    public IntMap< Level> getLevelsMap() {
+        IntMap< Level> levels_ = new IntMap< Level>();
+        levels_.put((int)IndexConstants.FIRST_INDEX, getLevelOutdoor());
         return levels_;
     }
 

@@ -14,7 +14,7 @@ public abstract class FormLevelGridCommon {
     private final AbsCommonFrame frame;
     private final SubscribedTranslationList translationList;
     private Points<Block> edited = new PointsBlock();
-    private final Point topLeftRel = new Point((short) 0,(short) 0);
+    private final Point topLeftRel = new Point(0, 0);
     private final Points<int[][]> foreground = new PointsArr();
     private final Points<int[][]> foregroundEdited = new PointsArr();
 
@@ -36,7 +36,7 @@ public abstract class FormLevelGridCommon {
         int max_ = facadeGame.getData().getMap().getSideLength();
         int i_ = NumberUtil.quot(_x, max_) + topLeft_.getx() + topLeftRel.getx();
         int j_ = NumberUtil.quot(_y, max_) + topLeft_.gety() + topLeftRel.gety();
-        return new Point((short) i_, (short) j_);
+        return new Point(i_, j_);
     }
 
     public AbstractProgramInfos getApi() {

@@ -287,10 +287,10 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         data_.getMiniMap().addEntry("2",instance(new int[][]{new int[1]}));
         data_.getMiniMap().addEntry("3",instance(new int[][]{new int[1]}));
         data_.getMiniMap().addEntry("4",instance(new int[][]{new int[1]}));
-        data_.getMap().getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 0), tile(0, true, "0"));
-        data_.getMap().getMiniMap().addEntry(new MiniMapCoords((short) 1,(short) 0), tile(-1, false, "1"));
-        data_.getMap().getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 1), tile(1, true, "2"));
-        data_.getMap().getMiniMap().addEntry(new MiniMapCoords((short) 1,(short) 1), tile(2, true, "3"));
+        data_.getMap().getMiniMap().addEntry(new MiniMapCoords(0,0), tile(0, true, "0"));
+        data_.getMap().getMiniMap().addEntry(new MiniMapCoords(1,0), tile(-1, false, "1"));
+        data_.getMap().getMiniMap().addEntry(new MiniMapCoords(0,1), tile(1, true, "2"));
+        data_.getMap().getMiniMap().addEntry(new MiniMapCoords(1,1), tile(2, true, "3"));
         compute(data_);
 
 
@@ -588,7 +588,7 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
     }
     private static TileMiniMap tile(int _pl, boolean _heros, String _file) {
         TileMiniMap tile_ = new TileMiniMap();
-        tile_.setPlace((short) _pl);
+        tile_.setPlace(_pl);
         tile_.setHeros(_heros);
         tile_.setFile(_file);
         return tile_;
@@ -1059,11 +1059,11 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         //black
         Block block_;
         block_ = new Block();
-        block_.setHeight((short) _h);
-        block_.setWidth((short) _w);
+        block_.setHeight(_h);
+        block_.setWidth(_w);
         block_.setType(_type);
         block_.setTileFileName(_tileFileName);
-        block_.setIndexApparition((short) _index);
+        block_.setIndexApparition(_index);
         return block_;
     }
 
@@ -1106,32 +1106,32 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
     }
     public static LevelPoint newLevelPoint(int _level, int _x, int _y) {
         LevelPoint begin_ = new LevelPoint();
-        begin_.setLevelIndex((byte) _level);
+        begin_.setLevelIndex(_level);
         begin_.setPoint(newPoint(_x, _y));
         return begin_;
     }
 
     public static Coords newCoords(int _place, int _level, int _x, int _y) {
         Coords begin_ = new Coords();
-        begin_.setNumberPlace((short) _place);
+        begin_.setNumberPlace(_place);
         begin_.setLevel(new LevelPoint());
-        begin_.getLevel().setLevelIndex((byte) _level);
+        begin_.getLevel().setLevelIndex(_level);
         begin_.getLevel().setPoint(newPoint(_x, _y));
         return begin_;
     }
 
     public static Coords newCoords(int _place, int _level, int _xi, int _yi, int _x, int _y) {
         Coords begin_ = new Coords();
-        begin_.setNumberPlace((short) _place);
+        begin_.setNumberPlace(_place);
         begin_.affectInside(newPoint(_xi, _yi));
         begin_.setLevel(new LevelPoint());
-        begin_.getLevel().setLevelIndex((byte) _level);
+        begin_.getLevel().setLevelIndex(_level);
         begin_.getLevel().setPoint(newPoint(_x, _y));
         return begin_;
     }
 
     public static Point newPoint(int _x, int _y) {
-        return new Point((short)_x, (short)_y);
+        return new Point(_x,_y);
     }
 
 }

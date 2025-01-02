@@ -16,7 +16,7 @@ public class BlockTest extends EquallablePkUtil {
     @Test
     public void bounds1Test() {
         Block block_ = new Block((short)5, (short)3, EnvironmentType.ROAD, "");
-        BlockBounds bounds_ = block_.bounds(new Point((short)2,(short)3));
+        BlockBounds bounds_ = block_.bounds(newPoint(2,3));
         assertEq(2, bounds_.getxLeftTop());
         assertEq(3, bounds_.getyLeftTop());
         assertEq(6, bounds_.getxRightTop());
@@ -31,7 +31,7 @@ public class BlockTest extends EquallablePkUtil {
     public void intersection1Test() {
         Block blockOne_ = new Block((short)5, (short)3, EnvironmentType.ROAD, "");
         Block blockTwo_ = new Block((short)3, (short)5, EnvironmentType.ROAD, "");
-        BlockBounds intersection_ = Block.intersection(blockOne_.bounds(new Point((short)2,(short)3)), blockTwo_.bounds(new Point((short)4,(short)4)));
+        BlockBounds intersection_ = Block.intersection(blockOne_.bounds(newPoint(2,3)), blockTwo_.bounds(newPoint(4,4)));
         assertEq(4, intersection_.getxLeftTop());
         assertEq(4, intersection_.getyLeftTop());
         assertEq(6, intersection_.getxRightTop());
@@ -46,7 +46,7 @@ public class BlockTest extends EquallablePkUtil {
     public void intersection2Test() {
         Block blockOne_ = new Block((short)5, (short)3, EnvironmentType.ROAD, "");
         Block blockTwo_ = new Block((short)3, (short)5, EnvironmentType.ROAD, "");
-        BlockBounds intersection_ = Block.intersection(blockOne_.bounds(new Point((short)2,(short)3)), blockTwo_.bounds(new Point((short)4,(short)6)));
+        BlockBounds intersection_ = Block.intersection(blockOne_.bounds(newPoint(2,3)), blockTwo_.bounds(newPoint(4,6)));
         assertTrue(!intersection_.isValid());
     }
 

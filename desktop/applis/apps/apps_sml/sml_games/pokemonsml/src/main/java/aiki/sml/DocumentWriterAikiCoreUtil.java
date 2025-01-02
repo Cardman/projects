@@ -2657,7 +2657,7 @@ public final class DocumentWriterAikiCoreUtil {
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getZippedRom(),FIELD_ZIPPED_ROM,_document));
         _element.appendChild(setPlayer(_object.getPlayer(),FIELD_PLAYER,_document));
         _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getRankLeague(),FIELD_RANK_LEAGUE,_document));
-        _element.appendChild(setMapShortListPoint(_object.getBeatGymTrainer(),FIELD_BEAT_GYM_TRAINER,_document));
+        _element.appendChild(setMapIntListPoint(_object.getBeatGymTrainer(),FIELD_BEAT_GYM_TRAINER,_document));
         _element.appendChild(setMapCoordsBoolean(_object.getBeatGymLeader(),FIELD_BEAT_GYM_LEADER,_document));
         _element.appendChild(setMapNbFightCoordsBoolean(_object.getBeatTrainer(),FIELD_BEAT_TRAINER,_document));
         _element.appendChild(setMapCoordsBoolean(_object.getTakenObjects(),FIELD_TAKEN_OBJECTS,_document));
@@ -3415,9 +3415,9 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static void setBlock(Block _object, Element _element, Document _document) {
-        _element.appendChild(DocumentWriterCoreUtil.setShort(_object.getWidth(),FIELD_WIDTH,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setShort(_object.getHeight(),FIELD_HEIGHT,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setShort(_object.getIndexApparition(),FIELD_INDEX_APPARITION,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getWidth(),FIELD_WIDTH,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getHeight(),FIELD_HEIGHT,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getIndexApparition(),FIELD_INDEX_APPARITION,_document));
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getTileFileName(),FIELD_TILE_FILE_NAME,_document));
         _element.appendChild(setEnvironmentType(_object.getType(),FIELD_TYPE,_document));
     }
@@ -3711,7 +3711,7 @@ public final class DocumentWriterAikiCoreUtil {
 
     private static void setTileMiniMap(TileMiniMap _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getFile(),FIELD_FILE,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setShort(_object.getPlace(),FIELD_PLACE,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getPlace(),FIELD_PLACE,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isHeros(),FIELD_HEROS,_document));
     }
 
@@ -4138,11 +4138,11 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapShortListPoint(ShortMap<PointEqList> _object, String _fieldName, Document _document) {
+    private static Element setMapIntListPoint(IntMap<PointEqList> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<Short, PointEqList> s: _object.entryList()) {
-            Element sub_ = DocumentWriterCoreUtil.setShort(s.getKey(), EMPTY_STRING, _document);
+        for (EntryCust<Integer, PointEqList> s: _object.entryList()) {
+            Element sub_ = DocumentWriterCoreUtil.setInteger(s.getKey(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
             sub_ = setListPoint(s.getValue(), EMPTY_STRING, _document);

@@ -1012,7 +1012,7 @@ public final class Instances {
         CollCapacity cap_ = new CollCapacity(0);
         object_.setZippedRom(DataBase.EMPTY_STRING);
         object_.setPlayer(newPlayer());
-        object_.setBeatGymTrainer(new ShortMap<PointEqList>(cap_));
+        object_.setBeatGymTrainer(new IntMap<PointEqList>(cap_));
         object_.setBeatGymLeader(new CoordssBoolVal(cap_));
         object_.setBeatTrainer(new NbFightCoordss(cap_));
         object_.setTakenObjects(new CoordssBoolVal(cap_));
@@ -1022,7 +1022,7 @@ public final class Instances {
         object_.setHostedPk(new CoordssHostPokemonDuo(cap_));
         object_.setFight(newFight());
         object_.setDifficulty(newDifficulty());
-        object_.setVisitedPlacesNb(new ShortMap<BoolVal>());
+        object_.setVisitedPlacesNb(new IntMap<BoolVal>());
         object_.setVisitedPlaces(new CoordssBoolVal(cap_));
         return object_;
     }

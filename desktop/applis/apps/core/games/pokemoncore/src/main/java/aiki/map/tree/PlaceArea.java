@@ -51,11 +51,11 @@ public class PlaceArea {
                 _accessible);
     }
 
-    public boolean isValidLevel(byte _ind) {
+    public boolean isValidLevel(int _ind) {
         return levels.isValidIndex(_ind);
     }
 
-    public LevelArea getLevel(byte _ind) {
+    public LevelArea getLevel(int _ind) {
         return levels.get(_ind);
     }
 

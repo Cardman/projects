@@ -495,7 +495,7 @@ public final class CmpsPkBeanTest extends InitDbConstr {
         f_.getData().getMap().addPlace(place("ONE"));
         f_.getData().getMap().addPlace(place("TWO"));
         ComparatorPlaceNumber c_ = new ComparatorPlaceNumber(f_.getData().getMap());
-        Shorts pls_ = Shorts.newList((short)0,(short)1,(short) 2,(short) 3);
+        Ints pls_ = Ints.newList(0,1,2,3);
         pls_.sortElts(c_);
         assertEq(4,pls_.size());
         assertEq(0,pls_.get(0));

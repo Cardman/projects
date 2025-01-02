@@ -2,19 +2,8 @@ package aiki.sml.init;
 import aiki.map.characters.*;
 import aiki.instances.*;
 import aiki.util.*;
-import aiki.fight.util.*;
-import aiki.fight.*;
-import aiki.fight.effects.*;
-import aiki.fight.moves.effects.*;
-import aiki.fight.status.effects.*;
-import aiki.fight.moves.enums.*;
-import aiki.fight.status.*;
-import aiki.fight.enums.*;
-import code.maths.*;
-import code.maths.montecarlo.*;
 import code.util.*;
 import aiki.map.pokemon.*;
-import aiki.map.levels.*;
 import aiki.map.pokemon.enums.*;
 public final class TrDual extends CstIgame{
 private TrDual(){}
@@ -90,7 +79,7 @@ m2038tempTrainer_.setImageMaxiFileName(F_COUPLE_1_TXT);
 m2038tempTrainer_.setImageMiniFileName(F_BIANCA_TXT);
 m2038dualFight_.setFoeTrainer(m2038tempTrainer_);
 m2038dualFight_.setNames(new StringList(I_BIANCA,I_TCHEREN));
-m2038dualFight_.setPt(new Point((short)9,(short)6));
+m2038dualFight_.setPt(new Point(9,6));
 return m2038dualFight_;
 }
 }

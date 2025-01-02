@@ -41,7 +41,7 @@ public final class FormMiniMapTile {
         edited = Instances.newTileMiniMap();
     }
     public TileMiniMap buildEntity() {
-        edited.setPlace((short) getPlace().getValue());
+        edited.setPlace(getPlace().getValue());
         edited.setHeros(getHeros().isSelected());
         edited.setFile(getFile().getName().tryRet());
         return edited;

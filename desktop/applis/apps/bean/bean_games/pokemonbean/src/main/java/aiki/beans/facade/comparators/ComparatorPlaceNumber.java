@@ -6,7 +6,7 @@ import code.util.core.SortConstants;
 import code.util.core.StringUtil;
 import code.util.ints.Comparing;
 
-public final class ComparatorPlaceNumber implements Comparing<Short> {
+public final class ComparatorPlaceNumber implements Comparing<Integer> {
 
     private final DataMap dataMap;
 
@@ -15,7 +15,7 @@ public final class ComparatorPlaceNumber implements Comparing<Short> {
     }
 
     @Override
-    public int compare(Short _o1, Short _o2) {
+    public int compare(Integer _o1, Integer _o2) {
         Place plOne_ = dataMap.getPlace(_o1);
         Place plTwo_ = dataMap.getPlace(_o2);
         int res_ = StringUtil.compareStrings(plOne_.getName(),plTwo_.getName());

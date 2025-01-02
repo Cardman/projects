@@ -26,7 +26,7 @@ public class Tree {
                 _accessible);
     }
 
-    public PlaceArea getPlace(short _pl) {
+    public PlaceArea getPlace(int _pl) {
         return places.get(_pl);
     }
 

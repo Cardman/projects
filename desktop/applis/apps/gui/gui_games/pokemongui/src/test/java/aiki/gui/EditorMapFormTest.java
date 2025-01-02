@@ -2186,8 +2186,8 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         l_.getRooms().add(f_);
         LevelLeague s_ = Instances.newLevelLeague();
         Block sBloc_ = Instances.newBlock();
-        sBloc_.setHeight((short) 1);
-        sBloc_.setWidth((short) 1);
+        sBloc_.setHeight(1);
+        sBloc_.setWidth(1);
         s_.getBlocks().addEntry(newPoint(0,0), sBloc_);
         l_.getRooms().add(s_);
         facade_.getData().getMap().addPlace(l_);
@@ -2209,8 +2209,8 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         l_.getRooms().add(f_);
         LevelLeague s_ = Instances.newLevelLeague();
         Block sBloc_ = Instances.newBlock();
-        sBloc_.setHeight((short) 1);
-        sBloc_.setWidth((short) 1);
+        sBloc_.setHeight(1);
+        sBloc_.setWidth(1);
         s_.getBlocks().addEntry(newPoint(0,0), sBloc_);
         l_.getRooms().add(s_);
         facade_.getData().getMap().addPlace(l_);
@@ -2230,8 +2230,8 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         l_.getRooms().add(f_);
         LevelLeague s_ = Instances.newLevelLeague();
         Block sBloc_ = Instances.newBlock();
-        sBloc_.setHeight((short) 1);
-        sBloc_.setWidth((short) 1);
+        sBloc_.setHeight(1);
+        sBloc_.setWidth(1);
         s_.setTrainerCoords(newPoint(0,0));
         s_.getBlocks().addEntry(newPoint(0,0), sBloc_);
         l_.getRooms().add(s_);
@@ -2251,8 +2251,8 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         l_.getRooms().add(f_);
         LevelLeague s_ = Instances.newLevelLeague();
         Block sBloc_ = Instances.newBlock();
-        sBloc_.setHeight((short) 1);
-        sBloc_.setWidth((short) 1);
+        sBloc_.setHeight(1);
+        sBloc_.setWidth(1);
         s_.getBlocks().addEntry(newPoint(0,0), sBloc_);
         l_.getRooms().add(s_);
         facade_.getData().getMap().addPlace(l_);
@@ -4328,8 +4328,8 @@ public final class EditorMapFormTest extends InitEditorPkForm {
     }
     private static void blockLinks(Level _lv) {
         Block bk_ = Instances.newBlock();
-        bk_.setHeight((short) 2);
-        bk_.setWidth((short) 2);
+        bk_.setHeight(2);
+        bk_.setWidth(2);
         _lv.getBlocks().put(newPoint(0,0), bk_);
     }
     private void tryClickTile(WindowPkEditor _sub) {

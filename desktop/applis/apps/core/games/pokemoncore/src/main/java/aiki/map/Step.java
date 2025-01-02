@@ -110,7 +110,7 @@ public class Step {
             }
             if (pl_ instanceof League) {
                 League league_ = (League) pl_;
-                c_.getLevel().setLevelIndex((byte) 0);
+                c_.getLevel().setLevelIndex(0);
                 c_.getLevel().getPoint().affect(league_.getBegin().value());
                 importantsTrainers.add(c_);
             }

@@ -495,10 +495,10 @@ public abstract class InitDbPk extends InitDbConstr {
         lctwo_.getLegendaryPks().addEntry(newPoint(0,0),wpk(P_POK_15));
         ca_.getLevels().add(lctwo_);
         map_.getPlaces().add(ca_);
-        map_.getMiniMap().addEntry(new MiniMapCoords((short)0,(short)0),tm("0", -1));
-        map_.getMiniMap().addEntry(new MiniMapCoords((short)0,(short)1),tm("1", 0));
-        map_.getMiniMap().addEntry(new MiniMapCoords((short)1,(short)0),tm("2", 1));
-        map_.getMiniMap().addEntry(new MiniMapCoords((short)1,(short)1),tm("3", 2));
+        map_.getMiniMap().addEntry(new MiniMapCoords(0,0),tm("0", -1));
+        map_.getMiniMap().addEntry(new MiniMapCoords(0,1),tm("1", 0));
+        map_.getMiniMap().addEntry(new MiniMapCoords(1,0),tm("2", 1));
+        map_.getMiniMap().addEntry(new MiniMapCoords(1,1),tm("3", 2));
         facade_.getData().getMiniMap().addEntry("0",instance(miniMap(IMG_0)));
         facade_.getData().getMiniMap().addEntry("1",instance(miniMap(IMG_1)));
         facade_.getData().getMiniMap().addEntry("2",instance(miniMap(IMG_2)));
@@ -510,7 +510,7 @@ public abstract class InitDbPk extends InitDbConstr {
     private static TileMiniMap tm(String _file, int _pl) {
         TileMiniMap t_ = Instances.newTileMiniMap();
         t_.setFile(_file);
-        t_.setPlace((short) _pl);
+        t_.setPlace(_pl);
         return t_;
     }
 

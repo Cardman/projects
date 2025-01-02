@@ -25,8 +25,8 @@ public class PointTest extends EquallablePkUtil {
     @Test
     public void toString1Test() {
         Point pt_ = new Point();
-        pt_.setx((short) 3);
-        pt_.sety((short) 1);
+        pt_.setx(3);
+        pt_.sety(1);
         assertEq(StringUtil.concat("3",Character.toString(Point.SEPARATOR),"1"), pt_.display());
     }
     @Test

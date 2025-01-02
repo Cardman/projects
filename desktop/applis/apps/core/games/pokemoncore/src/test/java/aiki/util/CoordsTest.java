@@ -16,31 +16,31 @@ public class CoordsTest extends EquallablePkUtil {
     @Test
     public void isValid2Test() {
         Coords pt_ = new Coords();
-        pt_.setNumberPlace((short) 0);
+        pt_.setNumberPlace(0);
         pt_.setLevel(new LevelPoint());
-        pt_.getLevel().setLevelIndex((byte) 0);
-        pt_.getLevel().setPoint(new Point((byte)0,(byte)0));
+        pt_.getLevel().setLevelIndex(0);
+        pt_.getLevel().setPoint(newPoint(0,0));
         assertTrue(pt_.isValid());
     }
 
     @Test
     public void isInside1Test() {
         Coords pt_ = new Coords();
-        pt_.setNumberPlace((short) 0);
+        pt_.setNumberPlace(0);
         pt_.setLevel(new LevelPoint());
-        pt_.getLevel().setLevelIndex((byte) 0);
-        pt_.getLevel().setPoint(new Point((byte)0,(byte)0));
+        pt_.getLevel().setLevelIndex(0);
+        pt_.getLevel().setPoint(newPoint(0,0));
         assertTrue(!pt_.isInside());
     }
 
     @Test
     public void isInside2Test() {
         Coords pt_ = new Coords();
-        pt_.setNumberPlace((short) 0);
-        pt_.affectInside(new Point((byte)0,(byte)0));
+        pt_.setNumberPlace(0);
+        pt_.affectInside(newPoint(0,0));
         pt_.setLevel(new LevelPoint());
-        pt_.getLevel().setLevelIndex((byte) 0);
-        pt_.getLevel().setPoint(new Point((byte)0,(byte)0));
+        pt_.getLevel().setLevelIndex(0);
+        pt_.getLevel().setPoint(newPoint(0,0));
         assertTrue(pt_.isInside());
     }
 
@@ -89,29 +89,29 @@ public class CoordsTest extends EquallablePkUtil {
     @Test
     public void toString2Test() {
         Point pt_ = new Point();
-        pt_.setx((short) 3);
-        pt_.sety((short) 1);
+        pt_.setx(3);
+        pt_.sety(1);
         LevelPoint lpt_ = new LevelPoint();
         lpt_.setPoint(pt_);
-        lpt_.setLevelIndex((byte) 2);
+        lpt_.setLevelIndex(2);
         Coords coords_ = new Coords();
         coords_.setLevel(lpt_);
-        coords_.setNumberPlace((short) 4);
+        coords_.setNumberPlace(4);
         assertEq(StringUtil.concat("4",Character.toString(Coords.SEPARATOR),"2",Character.toString(LevelPoint.SEPARATOR),"3",Character.toString(Point.SEPARATOR),"1"), coords_.display());
     }
 
     @Test
     public void toString3Test() {
         Point pt_ = new Point();
-        pt_.setx((short) 3);
-        pt_.sety((short) 1);
+        pt_.setx(3);
+        pt_.sety(1);
         LevelPoint lpt_ = new LevelPoint();
         lpt_.setPoint(pt_);
-        lpt_.setLevelIndex((byte) 2);
+        lpt_.setLevelIndex(2);
         Coords coords_ = new Coords();
         coords_.setLevel(lpt_);
-        coords_.setNumberPlace((short) 4);
-        coords_.affectInside(new Point((short)5,(short)6));
+        coords_.setNumberPlace(4);
+        coords_.affectInside(newPoint(5,6));
         assertEq(StringUtil.concat("4",Character.toString(Coords.SEPARATOR),"5",Character.toString(Point.SEPARATOR),"6",Character.toString(Coords.SEPARATOR),"2",Character.toString(LevelPoint.SEPARATOR),"3",Character.toString(Point.SEPARATOR),"1"), coords_.display());
     }
 }

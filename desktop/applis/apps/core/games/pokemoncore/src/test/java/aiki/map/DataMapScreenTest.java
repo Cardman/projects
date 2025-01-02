@@ -36,29 +36,29 @@ public class DataMapScreenTest extends EquallablePkUtil {
         LevelOutdoor city_ = new LevelOutdoor();
         city_.setBlocks(new PointsBlock());
         Block block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
-        city_.getBlocks().put(new Point((short)0,(short)0), block_);
+        city_.getBlocks().put(newPoint(0,0), block_);
         block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
-        city_.getBlocks().put(new Point((short)0,(short)3), block_);
+        city_.getBlocks().put(newPoint(0,3), block_);
         block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
-        city_.getBlocks().put(new Point((short)0,(short)6), block_);
+        city_.getBlocks().put(newPoint(0,6), block_);
         block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
-        city_.getBlocks().put(new Point((short)3,(short)0), block_);
+        city_.getBlocks().put(newPoint(3,0), block_);
         block_ = new Block((short)3,(short)3, EnvironmentType.NOTHING, VOIE);
-        city_.getBlocks().put(new Point((short)3,(short)3), block_);
+        city_.getBlocks().put(newPoint(3,3), block_);
         block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
-        city_.getBlocks().put(new Point((short)3,(short)6), block_);
+        city_.getBlocks().put(newPoint(3,6), block_);
         block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
-        city_.getBlocks().put(new Point((short)6,(short)0), block_);
+        city_.getBlocks().put(newPoint(6,0), block_);
         block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
-        city_.getBlocks().put(new Point((short)6,(short)3), block_);
+        city_.getBlocks().put(newPoint(6,3), block_);
         block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
-        city_.getBlocks().put(new Point((short)6,(short)6), block_);
+        city_.getBlocks().put(newPoint(6,6), block_);
         c_.setLevel(city_);
         Gym gym_ = new Gym();
-        gym_.setExitCity(new Point((short)1,(short)1));
+        gym_.setExitCity(newPoint(1,1));
         gym_.setLevel(new LevelIndoorGym());
-        gym_.getIndoor().setGymLeaderCoords(new Point((short)1,(short)1));
-        c_.getBuildings().put(new Point((short)4,(short)5), gym_);
+        gym_.getIndoor().setGymLeaderCoords(newPoint(1,1));
+        c_.getBuildings().put(newPoint(4,5), gym_);
         return c_;
     }
     private static Road hroad() {
@@ -67,7 +67,7 @@ public class DataMapScreenTest extends EquallablePkUtil {
         LevelRoad level_ = new LevelRoad();
         level_.setBlocks(new PointsBlock());
         Block block_ = new Block((short)6,(short)3, EnvironmentType.ROAD, VOIE2);
-        level_.getBlocks().put(new Point((short)0,(short)0), block_);
+        level_.getBlocks().put(newPoint(0,0), block_);
         road_.setLevel(level_);
         return road_;
     }
@@ -77,7 +77,7 @@ public class DataMapScreenTest extends EquallablePkUtil {
         LevelRoad level_ = new LevelRoad();
         level_.setBlocks(new PointsBlock());
         Block block_ = new Block((short)3,(short)6, EnvironmentType.ROAD, VOIE3);
-        level_.getBlocks().put(new Point((short)0,(short)0), block_);
+        level_.getBlocks().put(newPoint(0,0), block_);
         road_.setLevel(level_);
         return road_;
     }
@@ -106,14 +106,14 @@ public class DataMapScreenTest extends EquallablePkUtil {
         dataMap_.getPlaces().add(roadFour_);
         dataMap_.getPlaces().add(roadFive_);
         Coords coordsAccessLeague_ = new Coords();
-        coordsAccessLeague_.setNumberPlace((short) 8);
+        coordsAccessLeague_.setNumberPlace(8);
         coordsAccessLeague_.setLevel(new LevelPoint());
-        coordsAccessLeague_.getLevel().setLevelIndex((byte) 0);
-        coordsAccessLeague_.getLevel().setPoint(new Point((short)5,(short)1));
+        coordsAccessLeague_.getLevel().setLevelIndex(0);
+        coordsAccessLeague_.getLevel().setPoint(newPoint(5,1));
         dataMap_.getPlaces().add(roadSix_);
         dataMap_.getPlaces().add(cityFive_);
-        dataMap_.join((short)0, (short)1, new Point((short)4,(short)0), new Point((short)1,(short)5), Direction.UP);
-        dataMap_.join((short)7, (short)0, new Point((short)0,(short)1), new Point((short)8,(short)4), Direction.LEFT);
+        dataMap_.join((short)0, (short)1, newPoint(4,0), newPoint(1,5), Direction.UP);
+        dataMap_.join((short)7, (short)0, newPoint(0,1), newPoint(8,4), Direction.LEFT);
         return dataMap_;
     }
 
@@ -125,10 +125,10 @@ public class DataMapScreenTest extends EquallablePkUtil {
         dataMap_.setSpaceBetweenLeftAndHeros(1);
         dataMap_.setSpaceBetweenTopAndHeros(1);
         Coords begin_ = new Coords();
-        begin_.setNumberPlace((short) 0);
+        begin_.setNumberPlace(0);
         begin_.setLevel(new LevelPoint());
-        begin_.getLevel().setLevelIndex((byte) 0);
-        begin_.getLevel().setPoint(new Point((short)1,(short)1));
+        begin_.getLevel().setLevelIndex(0);
+        begin_.getLevel().setPoint(newPoint(1,1));
         ScreenCoordssCoords intersect_ = dataMap_.intersectWithScreen(begin_);
         assertEq(9, intersect_.size());
         assertTrue(intersect_.contains(new ScreenCoords(0,0)));
@@ -158,15 +158,15 @@ public class DataMapScreenTest extends EquallablePkUtil {
         assertEq(0, intersect_.getVal(new ScreenCoords(2,0)).getLevel().getLevelIndex());
         assertEq(0, intersect_.getVal(new ScreenCoords(2,1)).getLevel().getLevelIndex());
         assertEq(0, intersect_.getVal(new ScreenCoords(2,2)).getLevel().getLevelIndex());
-        assertEq(new Point((short)0,(short)0), intersect_.getVal(new ScreenCoords(0,0)).getLevel().getPoint());
-        assertEq(new Point((short)0,(short)1), intersect_.getVal(new ScreenCoords(0,1)).getLevel().getPoint());
-        assertEq(new Point((short)0,(short)2), intersect_.getVal(new ScreenCoords(0,2)).getLevel().getPoint());
-        assertEq(new Point((short)1,(short)0), intersect_.getVal(new ScreenCoords(1,0)).getLevel().getPoint());
-        assertEq(new Point((short)1,(short)1), intersect_.getVal(new ScreenCoords(1,1)).getLevel().getPoint());
-        assertEq(new Point((short)1,(short)2), intersect_.getVal(new ScreenCoords(1,2)).getLevel().getPoint());
-        assertEq(new Point((short)2,(short)0), intersect_.getVal(new ScreenCoords(2,0)).getLevel().getPoint());
-        assertEq(new Point((short)2,(short)1), intersect_.getVal(new ScreenCoords(2,1)).getLevel().getPoint());
-        assertEq(new Point((short)2,(short)2), intersect_.getVal(new ScreenCoords(2,2)).getLevel().getPoint());
+        assertEq(newPoint(0,0), intersect_.getVal(new ScreenCoords(0,0)).getLevel().getPoint());
+        assertEq(newPoint(0,1), intersect_.getVal(new ScreenCoords(0,1)).getLevel().getPoint());
+        assertEq(newPoint(0,2), intersect_.getVal(new ScreenCoords(0,2)).getLevel().getPoint());
+        assertEq(newPoint(1,0), intersect_.getVal(new ScreenCoords(1,0)).getLevel().getPoint());
+        assertEq(newPoint(1,1), intersect_.getVal(new ScreenCoords(1,1)).getLevel().getPoint());
+        assertEq(newPoint(1,2), intersect_.getVal(new ScreenCoords(1,2)).getLevel().getPoint());
+        assertEq(newPoint(2,0), intersect_.getVal(new ScreenCoords(2,0)).getLevel().getPoint());
+        assertEq(newPoint(2,1), intersect_.getVal(new ScreenCoords(2,1)).getLevel().getPoint());
+        assertEq(newPoint(2,2), intersect_.getVal(new ScreenCoords(2,2)).getLevel().getPoint());
         assertEq(3,dataMap_.getScreenHeight());
         assertEq(3,dataMap_.getScreenWidth());
     }
@@ -179,10 +179,10 @@ public class DataMapScreenTest extends EquallablePkUtil {
         dataMap_.setSpaceBetweenLeftAndHeros(1);
         dataMap_.setSpaceBetweenTopAndHeros(1);
         Coords begin_ = new Coords();
-        begin_.setNumberPlace((short) 0);
+        begin_.setNumberPlace(0);
         begin_.setLevel(new LevelPoint());
-        begin_.getLevel().setLevelIndex((byte) 0);
-        begin_.getLevel().setPoint(new Point((short)0,(short)0));
+        begin_.getLevel().setLevelIndex(0);
+        begin_.getLevel().setPoint(newPoint(0,0));
         ScreenCoordssCoords intersect_ = dataMap_.intersectWithScreen(begin_);
         assertEq(9, intersect_.size());
         assertTrue(intersect_.contains(new ScreenCoords(0,0)));
@@ -207,10 +207,10 @@ public class DataMapScreenTest extends EquallablePkUtil {
         assertEq(0, intersect_.getVal(new ScreenCoords(1,2)).getLevel().getLevelIndex());
         assertEq(0, intersect_.getVal(new ScreenCoords(2,1)).getLevel().getLevelIndex());
         assertEq(0, intersect_.getVal(new ScreenCoords(2,2)).getLevel().getLevelIndex());
-        assertEq(new Point((short)0,(short)0), intersect_.getVal(new ScreenCoords(1,1)).getLevel().getPoint());
-        assertEq(new Point((short)0,(short)1), intersect_.getVal(new ScreenCoords(1,2)).getLevel().getPoint());
-        assertEq(new Point((short)1,(short)0), intersect_.getVal(new ScreenCoords(2,1)).getLevel().getPoint());
-        assertEq(new Point((short)1,(short)1), intersect_.getVal(new ScreenCoords(2,2)).getLevel().getPoint());
+        assertEq(newPoint(0,0), intersect_.getVal(new ScreenCoords(1,1)).getLevel().getPoint());
+        assertEq(newPoint(0,1), intersect_.getVal(new ScreenCoords(1,2)).getLevel().getPoint());
+        assertEq(newPoint(1,0), intersect_.getVal(new ScreenCoords(2,1)).getLevel().getPoint());
+        assertEq(newPoint(1,1), intersect_.getVal(new ScreenCoords(2,2)).getLevel().getPoint());
     }
 
     @Test
@@ -221,10 +221,10 @@ public class DataMapScreenTest extends EquallablePkUtil {
         dataMap_.setSpaceBetweenLeftAndHeros(1);
         dataMap_.setSpaceBetweenTopAndHeros(1);
         Coords begin_ = new Coords();
-        begin_.setNumberPlace((short) 0);
+        begin_.setNumberPlace(0);
         begin_.setLevel(new LevelPoint());
-        begin_.getLevel().setLevelIndex((byte) 0);
-        begin_.getLevel().setPoint(new Point((short)4,(short)0));
+        begin_.getLevel().setLevelIndex(0);
+        begin_.getLevel().setPoint(newPoint(4,0));
         ScreenCoordssCoords intersect_ = dataMap_.intersectWithScreen(begin_);
         assertEq(9, intersect_.size());
         assertTrue(intersect_.contains(new ScreenCoords(0,0)));
@@ -254,15 +254,15 @@ public class DataMapScreenTest extends EquallablePkUtil {
         assertEq(0, intersect_.getVal(new ScreenCoords(2,0)).getLevel().getLevelIndex());
         assertEq(0, intersect_.getVal(new ScreenCoords(2,1)).getLevel().getLevelIndex());
         assertEq(0, intersect_.getVal(new ScreenCoords(2,2)).getLevel().getLevelIndex());
-        assertEq(new Point((short)0,(short)5), intersect_.getVal(new ScreenCoords(0,0)).getLevel().getPoint());
-        assertEq(new Point((short)3,(short)0), intersect_.getVal(new ScreenCoords(0,1)).getLevel().getPoint());
-        assertEq(new Point((short)3,(short)1), intersect_.getVal(new ScreenCoords(0,2)).getLevel().getPoint());
-        assertEq(new Point((short)1,(short)5), intersect_.getVal(new ScreenCoords(1,0)).getLevel().getPoint());
-        assertEq(new Point((short)4,(short)0), intersect_.getVal(new ScreenCoords(1,1)).getLevel().getPoint());
-        assertEq(new Point((short)4,(short)1), intersect_.getVal(new ScreenCoords(1,2)).getLevel().getPoint());
-        assertEq(new Point((short)2,(short)5), intersect_.getVal(new ScreenCoords(2,0)).getLevel().getPoint());
-        assertEq(new Point((short)5,(short)0), intersect_.getVal(new ScreenCoords(2,1)).getLevel().getPoint());
-        assertEq(new Point((short)5,(short)1), intersect_.getVal(new ScreenCoords(2,2)).getLevel().getPoint());
+        assertEq(newPoint(0,5), intersect_.getVal(new ScreenCoords(0,0)).getLevel().getPoint());
+        assertEq(newPoint(3,0), intersect_.getVal(new ScreenCoords(0,1)).getLevel().getPoint());
+        assertEq(newPoint(3,1), intersect_.getVal(new ScreenCoords(0,2)).getLevel().getPoint());
+        assertEq(newPoint(1,5), intersect_.getVal(new ScreenCoords(1,0)).getLevel().getPoint());
+        assertEq(newPoint(4,0), intersect_.getVal(new ScreenCoords(1,1)).getLevel().getPoint());
+        assertEq(newPoint(4,1), intersect_.getVal(new ScreenCoords(1,2)).getLevel().getPoint());
+        assertEq(newPoint(2,5), intersect_.getVal(new ScreenCoords(2,0)).getLevel().getPoint());
+        assertEq(newPoint(5,0), intersect_.getVal(new ScreenCoords(2,1)).getLevel().getPoint());
+        assertEq(newPoint(5,1), intersect_.getVal(new ScreenCoords(2,2)).getLevel().getPoint());
     }
     @Test
     public void moveCamera1Test() {
@@ -272,10 +272,10 @@ public class DataMapScreenTest extends EquallablePkUtil {
         dataMap_.setSpaceBetweenLeftAndHeros(1);
         dataMap_.setSpaceBetweenTopAndHeros(1);
         Coords begin_ = new Coords();
-        begin_.setNumberPlace((short) 0);
+        begin_.setNumberPlace(0);
         begin_.setLevel(new LevelPoint());
-        begin_.getLevel().setLevelIndex((byte) 0);
-        begin_.getLevel().setPoint(new Point((short)1,(short)1));
+        begin_.getLevel().setLevelIndex(0);
+        begin_.getLevel().setPoint(newPoint(1,1));
         dataMap_.calculateIntersectWithScreen(begin_);
         dataMap_.moveCamera(Direction.RIGHT);
         ScreenCoordssCoords intersect_ = dataMap_.getTiles();
@@ -307,15 +307,15 @@ public class DataMapScreenTest extends EquallablePkUtil {
         assertEq(0, intersect_.getVal(new ScreenCoords(2,0)).getLevel().getLevelIndex());
         assertEq(0, intersect_.getVal(new ScreenCoords(2,1)).getLevel().getLevelIndex());
         assertEq(0, intersect_.getVal(new ScreenCoords(2,2)).getLevel().getLevelIndex());
-        assertEq(new Point((short)1,(short)0), intersect_.getVal(new ScreenCoords(0,0)).getLevel().getPoint());
-        assertEq(new Point((short)1,(short)1), intersect_.getVal(new ScreenCoords(0,1)).getLevel().getPoint());
-        assertEq(new Point((short)1,(short)2), intersect_.getVal(new ScreenCoords(0,2)).getLevel().getPoint());
-        assertEq(new Point((short)2,(short)0), intersect_.getVal(new ScreenCoords(1,0)).getLevel().getPoint());
-        assertEq(new Point((short)2,(short)1), intersect_.getVal(new ScreenCoords(1,1)).getLevel().getPoint());
-        assertEq(new Point((short)2,(short)2), intersect_.getVal(new ScreenCoords(1,2)).getLevel().getPoint());
-        assertEq(new Point((short)3,(short)0), intersect_.getVal(new ScreenCoords(2,0)).getLevel().getPoint());
-        assertEq(new Point((short)3,(short)1), intersect_.getVal(new ScreenCoords(2,1)).getLevel().getPoint());
-        assertEq(new Point((short)3,(short)2), intersect_.getVal(new ScreenCoords(2,2)).getLevel().getPoint());
+        assertEq(newPoint(1,0), intersect_.getVal(new ScreenCoords(0,0)).getLevel().getPoint());
+        assertEq(newPoint(1,1), intersect_.getVal(new ScreenCoords(0,1)).getLevel().getPoint());
+        assertEq(newPoint(1,2), intersect_.getVal(new ScreenCoords(0,2)).getLevel().getPoint());
+        assertEq(newPoint(2,0), intersect_.getVal(new ScreenCoords(1,0)).getLevel().getPoint());
+        assertEq(newPoint(2,1), intersect_.getVal(new ScreenCoords(1,1)).getLevel().getPoint());
+        assertEq(newPoint(2,2), intersect_.getVal(new ScreenCoords(1,2)).getLevel().getPoint());
+        assertEq(newPoint(3,0), intersect_.getVal(new ScreenCoords(2,0)).getLevel().getPoint());
+        assertEq(newPoint(3,1), intersect_.getVal(new ScreenCoords(2,1)).getLevel().getPoint());
+        assertEq(newPoint(3,2), intersect_.getVal(new ScreenCoords(2,2)).getLevel().getPoint());
     }
 
     @Test
@@ -326,10 +326,10 @@ public class DataMapScreenTest extends EquallablePkUtil {
         dataMap_.setSpaceBetweenLeftAndHeros(1);
         dataMap_.setSpaceBetweenTopAndHeros(1);
         Coords begin_ = new Coords();
-        begin_.setNumberPlace((short) 0);
+        begin_.setNumberPlace(0);
         begin_.setLevel(new LevelPoint());
-        begin_.getLevel().setLevelIndex((byte) 0);
-        begin_.getLevel().setPoint(new Point((short)1,(short)1));
+        begin_.getLevel().setLevelIndex(0);
+        begin_.getLevel().setPoint(newPoint(1,1));
         dataMap_.calculateIntersectWithScreen(begin_);
         dataMap_.moveCamera(Direction.LEFT);
         ScreenCoordssCoords intersect_ = dataMap_.getTiles();
@@ -358,12 +358,12 @@ public class DataMapScreenTest extends EquallablePkUtil {
         assertEq(0, intersect_.getVal(new ScreenCoords(2,0)).getLevel().getLevelIndex());
         assertEq(0, intersect_.getVal(new ScreenCoords(2,1)).getLevel().getLevelIndex());
         assertEq(0, intersect_.getVal(new ScreenCoords(2,2)).getLevel().getLevelIndex());
-        assertEq(new Point((short)0,(short)0), intersect_.getVal(new ScreenCoords(1,0)).getLevel().getPoint());
-        assertEq(new Point((short)0,(short)1), intersect_.getVal(new ScreenCoords(1,1)).getLevel().getPoint());
-        assertEq(new Point((short)0,(short)2), intersect_.getVal(new ScreenCoords(1,2)).getLevel().getPoint());
-        assertEq(new Point((short)1,(short)0), intersect_.getVal(new ScreenCoords(2,0)).getLevel().getPoint());
-        assertEq(new Point((short)1,(short)1), intersect_.getVal(new ScreenCoords(2,1)).getLevel().getPoint());
-        assertEq(new Point((short)1,(short)2), intersect_.getVal(new ScreenCoords(2,2)).getLevel().getPoint());
+        assertEq(newPoint(0,0), intersect_.getVal(new ScreenCoords(1,0)).getLevel().getPoint());
+        assertEq(newPoint(0,1), intersect_.getVal(new ScreenCoords(1,1)).getLevel().getPoint());
+        assertEq(newPoint(0,2), intersect_.getVal(new ScreenCoords(1,2)).getLevel().getPoint());
+        assertEq(newPoint(1,0), intersect_.getVal(new ScreenCoords(2,0)).getLevel().getPoint());
+        assertEq(newPoint(1,1), intersect_.getVal(new ScreenCoords(2,1)).getLevel().getPoint());
+        assertEq(newPoint(1,2), intersect_.getVal(new ScreenCoords(2,2)).getLevel().getPoint());
     }
 
     @Test
@@ -374,10 +374,10 @@ public class DataMapScreenTest extends EquallablePkUtil {
         dataMap_.setSpaceBetweenLeftAndHeros(1);
         dataMap_.setSpaceBetweenTopAndHeros(1);
         Coords begin_ = new Coords();
-        begin_.setNumberPlace((short) 0);
+        begin_.setNumberPlace(0);
         begin_.setLevel(new LevelPoint());
-        begin_.getLevel().setLevelIndex((byte) 0);
-        begin_.getLevel().setPoint(new Point((short)0,(short)0));
+        begin_.getLevel().setLevelIndex(0);
+        begin_.getLevel().setPoint(newPoint(0,0));
         dataMap_.calculateIntersectWithScreen(begin_);
         dataMap_.moveCamera(Direction.DOWN);
         ScreenCoordssCoords intersect_ = dataMap_.getTiles();
@@ -406,12 +406,12 @@ public class DataMapScreenTest extends EquallablePkUtil {
         assertEq(0, intersect_.getVal(new ScreenCoords(2,0)).getLevel().getLevelIndex());
         assertEq(0, intersect_.getVal(new ScreenCoords(2,1)).getLevel().getLevelIndex());
         assertEq(0, intersect_.getVal(new ScreenCoords(2,2)).getLevel().getLevelIndex());
-        assertEq(new Point((short)0,(short)0), intersect_.getVal(new ScreenCoords(1,0)).getLevel().getPoint());
-        assertEq(new Point((short)0,(short)1), intersect_.getVal(new ScreenCoords(1,1)).getLevel().getPoint());
-        assertEq(new Point((short)0,(short)2), intersect_.getVal(new ScreenCoords(1,2)).getLevel().getPoint());
-        assertEq(new Point((short)1,(short)0), intersect_.getVal(new ScreenCoords(2,0)).getLevel().getPoint());
-        assertEq(new Point((short)1,(short)1), intersect_.getVal(new ScreenCoords(2,1)).getLevel().getPoint());
-        assertEq(new Point((short)1,(short)2), intersect_.getVal(new ScreenCoords(2,2)).getLevel().getPoint());
+        assertEq(newPoint(0,0), intersect_.getVal(new ScreenCoords(1,0)).getLevel().getPoint());
+        assertEq(newPoint(0,1), intersect_.getVal(new ScreenCoords(1,1)).getLevel().getPoint());
+        assertEq(newPoint(0,2), intersect_.getVal(new ScreenCoords(1,2)).getLevel().getPoint());
+        assertEq(newPoint(1,0), intersect_.getVal(new ScreenCoords(2,0)).getLevel().getPoint());
+        assertEq(newPoint(1,1), intersect_.getVal(new ScreenCoords(2,1)).getLevel().getPoint());
+        assertEq(newPoint(1,2), intersect_.getVal(new ScreenCoords(2,2)).getLevel().getPoint());
     }
 
     @Test
@@ -422,10 +422,10 @@ public class DataMapScreenTest extends EquallablePkUtil {
         dataMap_.setSpaceBetweenLeftAndHeros(1);
         dataMap_.setSpaceBetweenTopAndHeros(1);
         Coords begin_ = new Coords();
-        begin_.setNumberPlace((short) 0);
+        begin_.setNumberPlace(0);
         begin_.setLevel(new LevelPoint());
-        begin_.getLevel().setLevelIndex((byte) 0);
-        begin_.getLevel().setPoint(new Point((short)4,(short)1));
+        begin_.getLevel().setLevelIndex(0);
+        begin_.getLevel().setPoint(newPoint(4,1));
         dataMap_.calculateIntersectWithScreen(begin_);
         dataMap_.moveCamera(Direction.UP);
         ScreenCoordssCoords intersect_ = dataMap_.getTiles();
@@ -457,15 +457,15 @@ public class DataMapScreenTest extends EquallablePkUtil {
         assertEq(0, intersect_.getVal(new ScreenCoords(2,0)).getLevel().getLevelIndex());
         assertEq(0, intersect_.getVal(new ScreenCoords(2,1)).getLevel().getLevelIndex());
         assertEq(0, intersect_.getVal(new ScreenCoords(2,2)).getLevel().getLevelIndex());
-        assertEq(new Point((short)0,(short)5), intersect_.getVal(new ScreenCoords(0,0)).getLevel().getPoint());
-        assertEq(new Point((short)3,(short)0), intersect_.getVal(new ScreenCoords(0,1)).getLevel().getPoint());
-        assertEq(new Point((short)3,(short)1), intersect_.getVal(new ScreenCoords(0,2)).getLevel().getPoint());
-        assertEq(new Point((short)1,(short)5), intersect_.getVal(new ScreenCoords(1,0)).getLevel().getPoint());
-        assertEq(new Point((short)4,(short)0), intersect_.getVal(new ScreenCoords(1,1)).getLevel().getPoint());
-        assertEq(new Point((short)4,(short)1), intersect_.getVal(new ScreenCoords(1,2)).getLevel().getPoint());
-        assertEq(new Point((short)2,(short)5), intersect_.getVal(new ScreenCoords(2,0)).getLevel().getPoint());
-        assertEq(new Point((short)5,(short)0), intersect_.getVal(new ScreenCoords(2,1)).getLevel().getPoint());
-        assertEq(new Point((short)5,(short)1), intersect_.getVal(new ScreenCoords(2,2)).getLevel().getPoint());
+        assertEq(newPoint(0,5), intersect_.getVal(new ScreenCoords(0,0)).getLevel().getPoint());
+        assertEq(newPoint(3,0), intersect_.getVal(new ScreenCoords(0,1)).getLevel().getPoint());
+        assertEq(newPoint(3,1), intersect_.getVal(new ScreenCoords(0,2)).getLevel().getPoint());
+        assertEq(newPoint(1,5), intersect_.getVal(new ScreenCoords(1,0)).getLevel().getPoint());
+        assertEq(newPoint(4,0), intersect_.getVal(new ScreenCoords(1,1)).getLevel().getPoint());
+        assertEq(newPoint(4,1), intersect_.getVal(new ScreenCoords(1,2)).getLevel().getPoint());
+        assertEq(newPoint(2,5), intersect_.getVal(new ScreenCoords(2,0)).getLevel().getPoint());
+        assertEq(newPoint(5,0), intersect_.getVal(new ScreenCoords(2,1)).getLevel().getPoint());
+        assertEq(newPoint(5,1), intersect_.getVal(new ScreenCoords(2,2)).getLevel().getPoint());
     }
 
     @Test
@@ -478,10 +478,10 @@ public class DataMapScreenTest extends EquallablePkUtil {
         data_.setMap(dataMap_);
         data_.setupPseudoImages();
         Coords begin_ = new Coords();
-        begin_.setNumberPlace((short) 0);
+        begin_.setNumberPlace(0);
         begin_.setLevel(new LevelPoint());
-        begin_.getLevel().setLevelIndex((byte) 0);
-        begin_.getLevel().setPoint(new Point((short)1,(short)1));
+        begin_.getLevel().setLevelIndex(0);
+        begin_.getLevel().setPoint(newPoint(1,1));
         dataMap_.calculateIntersectWithScreen(begin_);
         dataMap_.calculateBackgroundImagesFromTiles(data_);
         ScreenCoordssInt backGroundImages_ = dataMap_.getBackgroundImages();
@@ -544,10 +544,10 @@ public class DataMapScreenTest extends EquallablePkUtil {
         DataBase data_ = newData();
         StringMap<ImageArrayBaseSixtyFour> images_ = imgages();
         Coords begin_ = new Coords();
-        begin_.setNumberPlace((short) 0);
+        begin_.setNumberPlace(0);
         begin_.setLevel(new LevelPoint());
-        begin_.getLevel().setLevelIndex((byte) 0);
-        begin_.getLevel().setPoint(new Point((short)1,(short)0));
+        begin_.getLevel().setLevelIndex(0);
+        begin_.getLevel().setPoint(newPoint(1,0));
         data_.getImages().putAllMap(images_);
         data_.setMap(dataMap_);
         data_.setupPseudoImages();
@@ -606,10 +606,10 @@ public class DataMapScreenTest extends EquallablePkUtil {
         DataBase data_ = newData();
         StringMap<ImageArrayBaseSixtyFour> images_ = imgages();
         Coords begin_ = new Coords();
-        begin_.setNumberPlace((short) 0);
+        begin_.setNumberPlace(0);
         begin_.setLevel(new LevelPoint());
-        begin_.getLevel().setLevelIndex((byte) 0);
-        begin_.getLevel().setPoint(new Point((short)0,(short)1));
+        begin_.getLevel().setLevelIndex(0);
+        begin_.getLevel().setPoint(newPoint(0,1));
         data_.getImages().putAllMap(images_);
         data_.setMap(dataMap_);
         data_.setupPseudoImages();
@@ -662,10 +662,10 @@ public class DataMapScreenTest extends EquallablePkUtil {
         DataBase data_ = newData();
         StringMap<ImageArrayBaseSixtyFour> images_ = imgages();
         Coords begin_ = new Coords();
-        begin_.setNumberPlace((short) 0);
+        begin_.setNumberPlace(0);
         begin_.setLevel(new LevelPoint());
-        begin_.getLevel().setLevelIndex((byte) 0);
-        begin_.getLevel().setPoint(new Point((short)8,(short)8));
+        begin_.getLevel().setLevelIndex(0);
+        begin_.getLevel().setPoint(newPoint(8,8));
         data_.getImages().putAllMap(images_);
         data_.setMap(dataMap_);
         data_.setupPseudoImages();

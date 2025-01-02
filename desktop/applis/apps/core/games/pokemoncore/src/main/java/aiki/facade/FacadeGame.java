@@ -239,7 +239,7 @@ public final class FacadeGame {
     }
 
     public String getCurrentPlace() {
-        short noPlace_ = game.getPlayerCoords().getNumberPlace();
+        int noPlace_ = game.getPlayerCoords().getNumberPlace();
         Place pl_ = data.getMap().getPlace(noPlace_);
         return pl_.getName();
     }
@@ -2656,12 +2656,12 @@ public final class FacadeGame {
         return data.translateGenders(_gender);
     }
 
-    public ShortTreeMap<Condition> groupedHost() {
+    public IntTreeMap<Condition> groupedHost() {
         return group(getMap().getHostPokemons());
     }
 
-    public static ShortTreeMap<Condition> group(Condition _host) {
-        ShortTreeMap<Condition> hostsByPlace_ = new ShortTreeMap<Condition>();
+    public static IntTreeMap<Condition> group(Condition _host) {
+        IntTreeMap<Condition> hostsByPlace_ = new IntTreeMap<Condition>();
         for (Coords c: _host) {
             if (hostsByPlace_.contains(c.getNumberPlace())) {
                 hostsByPlace_.getVal(c.getNumberPlace()).add(c);
@@ -2744,7 +2744,7 @@ public final class FacadeGame {
     }
 
     public void setMiniMapCoords(int _x, int _y) {
-        miniMapCoords = new MiniMapCoords((byte) _x, (byte) _y);
+        miniMapCoords = new MiniMapCoords(_x, _y);
     }
 
     public MiniMapCoords getMiniMapCoords() {

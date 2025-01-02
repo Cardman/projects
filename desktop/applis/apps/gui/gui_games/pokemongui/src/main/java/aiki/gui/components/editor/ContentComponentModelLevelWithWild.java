@@ -27,7 +27,7 @@ public final class ContentComponentModelLevelWithWild {
     private LevelWithWildPokemon edited;
     private final IdList<SubscribedTranslation> translations = new IdList<SubscribedTranslation>();
     private final IdList<SubscribedTranslation> translationsGrid = new IdList<SubscribedTranslation>();
-    private Point selected = new Point((short) 0,(short) 0);
+    private Point selected = new Point(0, 0);
     private String key = "";
     private AbsButton removeTile;
     private int nbPlace;

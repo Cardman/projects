@@ -1059,10 +1059,10 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         }
         return arr_;
     }
-    public static NatArrayStruct getShortInt(AbsMap<Short, Integer> _map) {
+    public static NatArrayStruct getIntInt(AbsMap<Integer, Integer> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
-        for (EntryCust<Short, Integer> e: _map.entryList()){
+        for (EntryCust<Integer, Integer> e: _map.entryList()){
             PairStruct p_ = new PairStruct(new NaNbSt(e.getKey()),new NaNbSt(e.getValue()));
             arr_.set(i_,p_);
             i_++;

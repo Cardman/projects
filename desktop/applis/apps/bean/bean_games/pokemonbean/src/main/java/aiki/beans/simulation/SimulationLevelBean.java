@@ -43,7 +43,7 @@ public class SimulationLevelBean extends AbsLevelBean {
             Gym g_ = (Gym) b_;
             if (g_.getIndoor().getGymTrainers().contains(pt_)) {
                 Coords coords_ = new Coords();
-                coords_.setNumberPlace((short) pl_);
+                coords_.setNumberPlace(pl_);
                 coords_.setLevel(new LevelPoint());
                 coords_.affectInside(new Point(ptInside_));
                 coords_.getLevel().setPoint(new Point(pt_));
@@ -53,7 +53,7 @@ public class SimulationLevelBean extends AbsLevelBean {
             }
             if (Point.eq(g_.getIndoor().getGymLeaderCoords(), pt_)) {
                 Coords coords_ = new Coords();
-                coords_.setNumberPlace((short) pl_);
+                coords_.setNumberPlace(pl_);
                 coords_.setLevel(new LevelPoint());
                 coords_.affectInside(new Point(ptInside_));
                 coords_.getLevel().setPoint(new Point(pt_));
@@ -66,12 +66,12 @@ public class SimulationLevelBean extends AbsLevelBean {
             return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATIONLEVEL_HTML;
         }
         Campaign c_ = (Campaign) p_;
-        LevelWithWildPokemon l_ = (LevelWithWildPokemon) c_.getLevelsMap().getVal((byte) lev_);
+        LevelWithWildPokemon l_ = (LevelWithWildPokemon) c_.getLevelsMap().getVal(lev_);
         if (l_.getDualFights().contains(pt_)) {
             Coords coords_ = new Coords();
-            coords_.setNumberPlace((short) pl_);
+            coords_.setNumberPlace(pl_);
             coords_.setLevel(new LevelPoint());
-            coords_.getLevel().setLevelIndex((byte) lev_);
+            coords_.getLevel().setLevelIndex(lev_);
             coords_.getLevel().setPoint(new Point(pt_));
             getForms().put(CST_COORDS, coords_);
             getForms().put(CST_NO_FIGHT, noFight);
@@ -84,9 +84,9 @@ public class SimulationLevelBean extends AbsLevelBean {
                 updateNbFight(tr_);
                 getForms().put(CST_NO_FIGHT, noFight);
                 Coords coords_ = new Coords();
-                coords_.setNumberPlace((short) pl_);
+                coords_.setNumberPlace(pl_);
                 coords_.setLevel(new LevelPoint());
-                coords_.getLevel().setLevelIndex((byte) lev_);
+                coords_.getLevel().setLevelIndex(lev_);
                 coords_.getLevel().setPoint(new Point(pt_));
                 getForms().put(CST_COORDS, coords_);
                 //noFight
@@ -97,9 +97,9 @@ public class SimulationLevelBean extends AbsLevelBean {
             DualFight d_ = l_.getDualFights().getVal(ptKey_);
             if (Point.eq(d_.getPt(), pt_)) {
                 Coords coords_ = new Coords();
-                coords_.setNumberPlace((short) pl_);
+                coords_.setNumberPlace(pl_);
                 coords_.setLevel(new LevelPoint());
-                coords_.getLevel().setLevelIndex((byte) lev_);
+                coords_.getLevel().setLevelIndex(lev_);
                 coords_.getLevel().setPoint(new Point(ptKey_));
                 getForms().put(CST_NO_FIGHT, noFight);
                 getForms().put(CST_COORDS, coords_);

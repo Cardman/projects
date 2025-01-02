@@ -867,6 +867,34 @@ public class NumbersTest extends EquallableExUtil {
         assertEq(1, out_.get(0));
     }
     @Test
+    public void eqSe01Test(){
+        Ints nbs_ = new Ints();
+        nbs_.add(5);
+        nbs_.add(1);
+        Ints nbsTwo_ = new Ints();
+        nbsTwo_.add(5);
+        nbsTwo_.add(1);
+        assertTrue(NumberUtil.equalsSetInts(nbs_,nbsTwo_));
+    }
+    @Test
+    public void eqSet02Test(){
+        Ints nbs_ = new Ints();
+        nbs_.add(5);
+        Ints nbsTwo_ = new Ints();
+        nbsTwo_.add(5);
+        nbsTwo_.add(1);
+        assertTrue(!NumberUtil.equalsSetInts(nbs_,nbsTwo_));
+    }
+    @Test
+    public void eqSet03Test(){
+        Ints nbs_ = new Ints();
+        nbs_.add(5);
+        nbs_.add(1);
+        Ints nbsTwo_ = new Ints();
+        nbsTwo_.add(5);
+        assertTrue(!NumberUtil.equalsSetInts(nbs_,nbsTwo_));
+    }
+    @Test
     public void eqSet1Test(){
         Bytes nbs_ = new Bytes();
         nbs_.add((byte) 5);

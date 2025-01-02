@@ -88,7 +88,7 @@ public final class Cave extends Campaign {
     }
 
     @Override
-    public boolean validLinks(short _place, Tree _tree) {
+    public boolean validLinks(int _place, Tree _tree) {
         int nbLevels_ = levels.size();
         LevelPointEqList ids_ = new LevelPointEqList();
         boolean valid_ = true;
@@ -112,7 +112,7 @@ public final class Cave extends Campaign {
         return valid_;
     }
 
-    private boolean checkIdOtherLevel(short _place, LevelPointEqList _ids, boolean _valid, byte _i, EntryCust<Point, Link> _e) {
+    private boolean checkIdOtherLevel(int _place, LevelPointEqList _ids, boolean _valid, int _i, EntryCust<Point, Link> _e) {
         boolean valid_ = _valid;
         Link link_ = _e.getValue();
         Coords coords_ = link_.getCoords();
@@ -120,7 +120,7 @@ public final class Cave extends Campaign {
             valid_ = false;
         }
         LevelPoint lPoint_ = coords_.getLevel();
-        byte levelIndex_ = lPoint_.getLevelIndex();
+        int levelIndex_ = lPoint_.getLevelIndex();
         if (!levels.isValidIndex(levelIndex_)) {
             addKey(_i, _e, _ids);
             return false;
@@ -145,7 +145,7 @@ public final class Cave extends Campaign {
         return valid_;
     }
 
-    private void addKey(byte _i, EntryCust<Point, Link> _e, LevelPointEqList _ids) {
+    private void addKey(int _i, EntryCust<Point, Link> _e, LevelPointEqList _ids) {
         LevelPoint id_ = new LevelPoint();
         id_.setLevelIndex(_i);
         id_.setPoint(_e.getKey());
@@ -167,9 +167,9 @@ public final class Cave extends Campaign {
     }
 
     @Override
-    public ByteMap< Level> getLevelsMap() {
-        ByteMap< Level> levels_ = new ByteMap< Level>();
-        byte i_ = 0;
+    public IntMap< Level> getLevelsMap() {
+        IntMap< Level> levels_ = new IntMap< Level>();
+        int i_ = 0;
         for (LevelCave l : levels) {
             levels_.addEntry(i_, l);
             i_++;

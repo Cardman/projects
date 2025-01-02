@@ -27,8 +27,8 @@ public final class ContentComponentModelCity {
     private final IdList<SubscribedTranslation> translations = new IdList<SubscribedTranslation>();
     private final IdList<SubscribedTranslation> translationsGrid = new IdList<SubscribedTranslation>();
     private final IdList<SubscribedTranslation> translationsGridSec = new IdList<SubscribedTranslation>();
-    private Point selected = new Point((short) 0,(short) 0);
-    private Point selectedBuilding = new Point((short) 0,(short) 0);
+    private Point selected = new Point(0, 0);
+    private Point selectedBuilding = new Point( 0, 0);
     private final NullablePoint exitBuilding = new NullablePoint();
     private final NullablePoint storage = new NullablePoint();
     private final NullablePoint gymLeaderCoords = new NullablePoint();

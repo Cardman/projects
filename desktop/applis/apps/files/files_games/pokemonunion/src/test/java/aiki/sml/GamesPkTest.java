@@ -107,17 +107,17 @@ public final class GamesPkTest extends EquallablePkFileUtil {
         map_.setMiniMap(new MiniMapCoordsList());
         City city_ = Instances.newCity();
         Block block_ = Instances.newBlock();
-        block_.setHeight((short) 2);
-        block_.setWidth((short) 2);
-        city_.getLevel().getBlocks().addEntry(new Point((short)0,(short)0), block_);
-        city_.getSavedlinks().addEntry(new PlaceInterConnect(new Point((short)0,(short)0), Direction.RIGHT),newCoords(1,0,0,0));
+        block_.setHeight(2);
+        block_.setWidth(2);
+        city_.getLevel().getBlocks().addEntry(newPoint(0,0), block_);
+        city_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(0,0), Direction.RIGHT),newCoords(1,0,0,0));
         map_.getPlaces().add( city_);
         Road road_ = Instances.newRoad();
         block_ = Instances.newBlock();
-        block_.setHeight((short) 2);
-        block_.setWidth((short) 2);
-        road_.getLevel().getBlocks().addEntry(new Point((short)0,(short)0), block_);
-        road_.getSavedlinks().addEntry(new PlaceInterConnect(new Point((short)0,(short)0),Direction.LEFT),newCoords(2,0,1,1));
+        block_.setHeight(2);
+        block_.setWidth(2);
+        road_.getLevel().getBlocks().addEntry(newPoint(0,0), block_);
+        road_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(0,0),Direction.LEFT),newCoords(2,0,1,1));
         map_.getPlaces().add( road_);
         StringMap<String> fs_ = new StringMap<String>();
         fs_.addEntry("_",DocumentWriterAikiCoreUtil.setDataMap(map_));
@@ -176,15 +176,15 @@ public final class GamesPkTest extends EquallablePkFileUtil {
     }
     protected static Coords newCoords(int _place, int _level, int _x, int _y) {
         Coords begin_ = new Coords();
-        begin_.setNumberPlace((short) _place);
+        begin_.setNumberPlace(_place);
         begin_.setLevel(new LevelPoint());
-        begin_.getLevel().setLevelIndex((byte) _level);
+        begin_.getLevel().setLevelIndex(_level);
         begin_.getLevel().setPoint(newPoint(_x, _y));
         return begin_;
     }
 
     protected static Point newPoint(int _x, int _y) {
-        return new Point((short)_x, (short)_y);
+        return new Point(_x,_y);
     }
     private DataBase core() {
         DataBase d_ = new DataBase(new DefaultGenerator(new CustomSeedGene()));

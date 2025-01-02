@@ -8,17 +8,17 @@ public final class MiniMapCoords implements Displayable {
 
     private static final char SEPARATOR = ' ';
 
-    private final short xCoords;
+    private final int xCoords;
 
-    private final short yCoords;
+    private final int yCoords;
 
     MiniMapCoords(String _value) {
         StringList list_ = StringUtil.splitChars(_value, SEPARATOR);
-        xCoords = (short) NumberUtil.parseInt(list_.first());
-        yCoords = (short) NumberUtil.parseInt(list_.last());
+        xCoords = NumberUtil.parseInt(list_.first());
+        yCoords = NumberUtil.parseInt(list_.last());
     }
 
-    public MiniMapCoords(short _x, short _y) {
+    public MiniMapCoords(int _x, int _y) {
         xCoords = _x;
         yCoords = _y;
     }
@@ -35,11 +35,11 @@ public final class MiniMapCoords implements Displayable {
         return NumberUtil.eq(yCoords, _obj.yCoords);
     }
 
-    public short getXcoords() {
+    public int getXcoords() {
         return xCoords;
     }
 
-    public short getYcoords() {
+    public int getYcoords() {
         return yCoords;
     }
 

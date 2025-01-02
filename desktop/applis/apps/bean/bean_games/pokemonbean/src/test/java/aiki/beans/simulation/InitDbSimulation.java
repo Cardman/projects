@@ -4375,8 +4375,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
     private static void sqThree(Level _l) {
         Block bl_ = Instances.newBlock();
-        bl_.setHeight((short) 1);
-        bl_.setWidth((short) 1);
+        bl_.setHeight(1);
+        bl_.setWidth(1);
         bl_.setTileFileName("");
         _l.getBlocks().addEntry(newPoint(0,0),bl_);
         _l.getBlocks().addEntry(newPoint(0,1),bl_);

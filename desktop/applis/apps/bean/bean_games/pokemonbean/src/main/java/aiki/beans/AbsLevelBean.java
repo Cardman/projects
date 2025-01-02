@@ -29,7 +29,7 @@ public abstract class AbsLevelBean extends CommonBean {
     private boolean gym;
     private boolean possibleMultiLayer;
     private CustList<AbsAreaApparition> wildPokemonAreas = new CustList<AbsAreaApparition>();
-    private DictionaryComparator<Short,String> neighbours;
+    private DictionaryComparator<Integer,String> neighbours;
 
     protected void initTiles(boolean _addBorder) {
         wildPokemonAreas = new CustList<AbsAreaApparition>();
@@ -170,7 +170,7 @@ public abstract class AbsLevelBean extends CommonBean {
         return whiteTiles;
     }
 
-    public DictionaryComparator<Short, String> getNeighbours() {
+    public DictionaryComparator<Integer, String> getNeighbours() {
         return neighbours;
     }
 }

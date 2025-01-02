@@ -211,7 +211,7 @@ public class FightSimulation {
                 TrainerLeague t_ = l.getTrainer();
                 byte mult_ = t_.getMultiplicityFight();
                 Coords co_ = new Coords(_foeCoords);
-                co_.getLevel().setLevelIndex((byte) (foeCoords.getLevel().getLevelIndex()+foeCoordsAll.size()));
+                co_.getLevel().setLevelIndex(foeCoords.getLevel().getLevelIndex()+foeCoordsAll.size());
                 co_.getLevel().getPoint().affect(l.getTrainerCoords().value());
                 store(mult_,mult_,t_.getTeam(), co_);
                 environmentAll.add(_import.envType(foeCoordsAll.last()));

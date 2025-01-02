@@ -44,7 +44,7 @@ public final class CrudGeneFormAbsAreaApparition extends CrudGeneFormListSub<Abs
     public void renameAreas(int _index) {
         for (Block b: blocks.values()) {
             if (b.getIndexApparition() > _index) {
-                b.setIndexApparition((short) (b.getIndexApparition()-1));
+                b.setIndexApparition(b.getIndexApparition()-1);
             }
         }
     }

@@ -133,17 +133,17 @@ public abstract class AbsContentComponentModelLevelLinks {
 
     public static Coords coords(int _nbPlace, int _nbLevel, Point _inside) {
         Coords curCoords_ = new Coords();
-        curCoords_.setNumberPlace((short) _nbPlace);
+        curCoords_.setNumberPlace(_nbPlace);
         curCoords_.setInsideBuilding(_inside);
-        curCoords_.getLevel().setLevelIndex((byte) _nbLevel);
+        curCoords_.getLevel().setLevelIndex(_nbLevel);
         return curCoords_;
     }
 
     public static Coords coords(int _nbPlace, int _nbLevel, Point _inside, Point _pt) {
         Coords curCoords_ = new Coords();
-        curCoords_.setNumberPlace((short) _nbPlace);
+        curCoords_.setNumberPlace(_nbPlace);
         curCoords_.setInsideBuilding(_inside);
-        curCoords_.getLevel().setLevelIndex((byte) _nbLevel);
+        curCoords_.getLevel().setLevelIndex(_nbLevel);
         curCoords_.getLevel().setPoint(_pt);
         return curCoords_;
     }

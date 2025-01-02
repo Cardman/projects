@@ -330,12 +330,12 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<StringList, ActivityOfMove>(new ComparatorStringList(_data, _lg, true));
     }
 
-    public static DictionaryComparator<Short, Integer> buildPlaces(DataMap _map) {
-        return new DictionaryComparator<Short, Integer>(new ComparatorPlaceNumber(_map));
+    public static DictionaryComparator<Integer, Integer> buildPlaces(DataMap _map) {
+        return new DictionaryComparator<Integer, Integer>(new ComparatorPlaceNumber(_map));
     }
 
-    public static DictionaryComparator<Short, String> buildStringPlaces(DataMap _map) {
-        return new DictionaryComparator<Short, String>(new ComparatorPlaceNumber(_map));
+    public static DictionaryComparator<Integer, String> buildStringPlaces(DataMap _map) {
+        return new DictionaryComparator<Integer, String>(new ComparatorPlaceNumber(_map));
     }
 
     public static DictionaryComparator<StatisticPokemon, Byte> buildStatPk(DataBase _data, String _lg) {

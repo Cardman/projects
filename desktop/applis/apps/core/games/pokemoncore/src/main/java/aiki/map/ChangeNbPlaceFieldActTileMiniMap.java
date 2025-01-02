@@ -17,7 +17,7 @@ public final class ChangeNbPlaceFieldActTileMiniMap implements ChangeNbPlaceFiel
 
     @Override
     public void place(int _p) {
-        coords.setPlace((short) _p);
+        coords.setPlace(_p);
     }
 
     @Override

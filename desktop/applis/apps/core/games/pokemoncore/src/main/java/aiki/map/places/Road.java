@@ -16,8 +16,7 @@ import aiki.map.util.PlaceInterConnects;
 import aiki.util.Coords;
 import aiki.util.DataInfoChecker;
 import aiki.util.Points;
-import code.util.ByteMap;
-import code.util.CustList;
+import code.util.*;
 import code.util.core.IndexConstants;
 
 
@@ -55,14 +54,14 @@ public final class Road extends Campaign implements InitializedPlace {
     }
 
     @Override
-    public boolean validLinks(short _place, Tree _tree) {
+    public boolean validLinks(int _place, Tree _tree) {
         return checkLinks(_tree,linksWithCitiesAndOtherRoads,linksWithCaves);
     }
 
     @Override
-    public ByteMap< Level> getLevelsMap() {
-        ByteMap< Level> levels_ = new ByteMap< Level>();
-        levels_.put(IndexConstants.FIRST_INDEX, getLevelRoad());
+    public IntMap< Level> getLevelsMap() {
+        IntMap< Level> levels_ = new IntMap< Level>();
+        levels_.put((int) IndexConstants.FIRST_INDEX, getLevelRoad());
         return levels_;
     }
 

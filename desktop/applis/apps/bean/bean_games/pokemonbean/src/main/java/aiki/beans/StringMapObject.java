@@ -106,8 +106,8 @@ public final class StringMapObject extends StringMapObjectBase {
 
     public void put(String _key, int _pl, int _lev) {
         Coords c_ = new Coords();
-        c_.setNumberPlace((short)_pl);
-        c_.getLevel().setLevelIndex((byte)_lev);
+        c_.setNumberPlace(_pl);
+        c_.getLevel().setLevelIndex(_lev);
         put(_key,c_);
     }
 

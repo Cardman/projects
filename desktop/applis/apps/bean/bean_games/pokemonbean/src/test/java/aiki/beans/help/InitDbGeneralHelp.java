@@ -422,10 +422,10 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
         Cave ca_ = Instances.newCave();
         ca_.setName(CAVE);
         map_.getPlaces().add(ca_);
-        map_.getMiniMap().addEntry(new MiniMapCoords((short)0,(short)0),tm("0", -1));
-        map_.getMiniMap().addEntry(new MiniMapCoords((short)0,(short)1),tm("1", 0));
-        map_.getMiniMap().addEntry(new MiniMapCoords((short)1,(short)0),tm("2", 1));
-        map_.getMiniMap().addEntry(new MiniMapCoords((short)1,(short)1),tm("3", 2));
+        map_.getMiniMap().addEntry(new MiniMapCoords(0,0),tm("0", -1));
+        map_.getMiniMap().addEntry(new MiniMapCoords(0,1),tm("1", 0));
+        map_.getMiniMap().addEntry(new MiniMapCoords(1,0),tm("2", 1));
+        map_.getMiniMap().addEntry(new MiniMapCoords(1,1),tm("3", 2));
         map_.setUnlockedCity("4");
         map_.setFirstPokemon(wp(_it));
         map_.setBegin(newCoords(0,0,0,0));
@@ -436,7 +436,7 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
     private static TileMiniMap tm(String _file, int _pl) {
         TileMiniMap t_ = Instances.newTileMiniMap();
         t_.setFile(_file);
-        t_.setPlace((short) _pl);
+        t_.setPlace(_pl);
         return t_;
     }
     protected static WildPk wp(String _it) {

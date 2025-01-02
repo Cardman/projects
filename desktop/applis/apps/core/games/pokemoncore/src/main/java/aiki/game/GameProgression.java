@@ -26,7 +26,7 @@ public final class GameProgression {
     private final StringMap<CustList<StringList>> fullFamiliesBase;
     private final CustList<TrainerPlaceNames> beatenImportantTrainers;
     private final CustList<TrainerPlaceNames> unBeatenImportantTrainers;
-    private final ShortMap<Integer> remainingOtherTrainerPlaces;
+    private final IntMap<Integer> remainingOtherTrainerPlaces;
     private final StringList visitedPlaces;
     private final StringList unVisitedPlaces;
     private final LgInt money;
@@ -55,7 +55,7 @@ public final class GameProgression {
             Place pl_ = _data.getMap().getPlace(c.getNumberPlace());
             unBeatenImportantTrainers.add(new TrainerPlaceNames(_data.getMap().getTrainerNameBeat(c), pl_.getName()));
         }
-        remainingOtherTrainerPlaces = new ShortMap<Integer>();
+        remainingOtherTrainerPlaces = new IntMap<Integer>();
         for (NbFightCoords k: _game.getBeatTrainer().getKeys()) {
             Coords coords_ = k.getCoords();
             Campaign place_ = (Campaign) _data.getMap().getPlace(coords_.getNumberPlace());
@@ -182,7 +182,7 @@ public final class GameProgression {
         return unBeatenImportantTrainers;
     }
 
-    public ShortMap<Integer> getRemainingOtherTrainerPlaces() {
+    public IntMap<Integer> getRemainingOtherTrainerPlaces() {
         return remainingOtherTrainerPlaces;
     }
 

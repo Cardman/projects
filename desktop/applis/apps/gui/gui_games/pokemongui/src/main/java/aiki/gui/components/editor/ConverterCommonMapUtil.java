@@ -636,7 +636,7 @@ public final class ConverterCommonMapUtil {
     public static PointsBlock copyPointsBlock(Points<Block> _e){
         PointsBlock cp_ = new PointsBlock(new CollCapacity(_e.size()));
         for (EntryCust<Point,Block> f: _e.entryList()) {
-            cp_.addEntry(new Point(f.getKey().getx(), f.getKey().gety()),copyBlock(f.getValue()));
+            cp_.addEntry(new Point(f.getKey()),copyBlock(f.getValue()));
         }
         return cp_;
     }

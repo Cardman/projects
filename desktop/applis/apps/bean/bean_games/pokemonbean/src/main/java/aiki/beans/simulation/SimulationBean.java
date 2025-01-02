@@ -468,9 +468,9 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
         if (pl_ instanceof League) {
             League l_ = (League) pl_;
             coords = new Coords();
-            coords.setNumberPlace((short)_indexOne);
+            coords.setNumberPlace(_indexOne);
             coords.setLevel(new LevelPoint());
-            coords.getLevel().setLevelIndex((byte)_indexTwo);
+            coords.getLevel().setLevelIndex(_indexTwo);
             coords.getLevel().setPoint(new Point(((LevelLeague)l_.getLevelsList().get(_indexTwo)).getTrainerCoords().value()));
             getForms().put(CST_COORDS, coords);
             noFight = IndexConstants.FIRST_INDEX;
@@ -482,8 +482,8 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
                 Building b_ = c_.getBuildings().getVal(p);
                 if (b_ instanceof Gym) {
                     Coords co_ = new Coords();
-                    co_.setNumberPlace((short)_indexOne);
-                    co_.getLevel().setLevelIndex((byte)_indexTwo);
+                    co_.setNumberPlace(_indexOne);
+                    co_.getLevel().setLevelIndex(_indexTwo);
                     co_.affectInside(new Point(p));
                     getForms().put(CST_COORDS,co_);
                     return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATIONLEVEL_HTML;
@@ -491,8 +491,8 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
             }
         }
         Coords co_ = new Coords();
-        co_.setNumberPlace((short)_indexOne);
-        co_.getLevel().setLevelIndex((byte)_indexTwo);
+        co_.setNumberPlace(_indexOne);
+        co_.getLevel().setLevelIndex(_indexTwo);
         getForms().put(CST_COORDS,co_);
         return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATIONLEVEL_HTML;
     }

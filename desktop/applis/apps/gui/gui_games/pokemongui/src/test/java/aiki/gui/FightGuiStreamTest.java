@@ -1378,16 +1378,16 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         map_.setMiniMap(new MiniMapCoordsList());
         tile_ = new TileMiniMap();
         tile_.setFile(MINI);
-        tile_.setPlace((short) 0);
-        map_.getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 0), tile_);
+        tile_.setPlace(0);
+        map_.getMiniMap().addEntry(new MiniMapCoords(0,0), tile_);
         tile_ = new TileMiniMap();
         tile_.setFile(MINI1);
-        tile_.setPlace((short) 1);
-        map_.getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 1), tile_);
+        tile_.setPlace(1);
+        map_.getMiniMap().addEntry(new MiniMapCoords(0,1), tile_);
         tile_ = new TileMiniMap();
         tile_.setFile(MINI2);
-        tile_.setPlace((short) 2);
-        map_.getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 2), tile_);
+        tile_.setPlace(2);
+        map_.getMiniMap().addEntry(new MiniMapCoords(0,2), tile_);
         map_.setUnlockedCity(MINI5);
     }
 
@@ -1497,11 +1497,11 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         League road_ = (League) map_.getPlaces().last();
         LevelLeague level_;
         Block block_;
-        level_ = (LevelLeague) road_.getLevelsMap().getVal((byte) 0);
+        level_ = (LevelLeague) road_.getLevelsMap().getVal(0);
         block_ = newBlock(9, 9,EnvironmentType.BUILDING,BUILDING,-1);
         level_.getBlocks().addEntry(newPoint(0,0), block_);
         road_.setBegin(newPoint(4,8));
-        level_ = (LevelLeague) road_.getLevelsMap().getVal((byte) 0);
+        level_ = (LevelLeague) road_.getLevelsMap().getVal(0);
         level_.setAccessPoint(newPoint(4, 0));
     }
 

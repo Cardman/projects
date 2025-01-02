@@ -18,8 +18,7 @@ import code.gui.files.MessagesGuiFct;
 import code.gui.initialize.AbstractProgramInfos;
 import code.sml.util.TranslationsLg;
 import code.util.EntryCust;
-import code.util.ShortTreeMap;
-import code.util.StringMap;
+import code.util.*;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
@@ -66,8 +65,8 @@ public final class ConsultHosts {
         absDialog.setTitle(messages_.getVal(MessagesRenderConsultHost.TITLE));
         facade = _facade;
         AbsPanel contentPane_ = window.getCompoFactory().newGrid(0,1);
-        ShortTreeMap<Condition> hostsByPlace_ = facade.groupedHost();
-        for (EntryCust<Short, Condition> p: hostsByPlace_.entryList()) {
+        IntTreeMap<Condition> hostsByPlace_ = facade.groupedHost();
+        for (EntryCust<Integer, Condition> p: hostsByPlace_.entryList()) {
             Place pl_ = facade.getMap().getPlace(p.getKey());
             AbsPanel hosting_ = window.getCompoFactory().newGrid(0,1);
             AbsPlainLabel place_ = window.getCompoFactory().newPlainLabel(pl_.getName());

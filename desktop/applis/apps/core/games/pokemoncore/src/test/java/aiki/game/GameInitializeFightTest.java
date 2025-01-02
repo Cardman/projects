@@ -58,7 +58,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         DataMap map_ = data_.getMap();
         Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
-        current_.getLevel().getPoint().affect(new Point((short)2,(short)0));
+        current_.getLevel().getPoint().affect(newPoint(2,0));
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AbsAreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
@@ -77,7 +77,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         DataMap map_ = data_.getMap();
         Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
-        current_.getLevel().getPoint().affect(new Point((short)0,(short)2));
+        current_.getLevel().getPoint().affect(newPoint(0,2));
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AbsAreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
@@ -109,7 +109,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         DataMap map_ = data_.getMap();
         Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
-        current_.getLevel().getPoint().affect(new Point((short)0,(short)2));
+        current_.getLevel().getPoint().affect(newPoint(0,2));
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AbsAreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
@@ -147,7 +147,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         DataMap map_ = data_.getMap();
         Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
-        current_.getLevel().getPoint().affect(new Point((short)2,(short)2));
+        current_.getLevel().getPoint().affect(newPoint(2,2));
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AbsAreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
@@ -225,7 +225,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         DataMap map_ = data_.getMap();
         Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
-        current_.getLevel().getPoint().affect(new Point((short)2,(short)2));
+        current_.getLevel().getPoint().affect(newPoint(2,2));
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AbsAreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
@@ -241,7 +241,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         DataMap map_ = data_.getMap();
         Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
-        current_.getLevel().getPoint().affect(new Point((short)2,(short)0));
+        current_.getLevel().getPoint().affect(newPoint(2,0));
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AbsAreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
@@ -313,7 +313,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         DataMap map_ = data_.getMap();
         Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
-        current_.getLevel().getPoint().affect(new Point((short)2,(short)0));
+        current_.getLevel().getPoint().affect(newPoint(2,0));
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AbsAreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
@@ -343,7 +343,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         DataMap map_ = data_.getMap();
         Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
-        current_.getLevel().getPoint().affect(new Point((short)0,(short)2));
+        current_.getLevel().getPoint().affect(newPoint(0,2));
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AbsAreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
@@ -371,7 +371,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         DataMap map_ = data_.getMap();
         Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
-        current_.getLevel().getPoint().affect(new Point((short)3,(short)2));
+        current_.getLevel().getPoint().affect(newPoint(3,2));
         game_.setPlayerOrientation(Direction.RIGHT);
         Coords next_ = game_.closestTile(map_);
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(next_);
@@ -404,7 +404,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         DataMap map_ = data_.getMap();
         Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
-        current_.getLevel().getPoint().affect(new Point((short)3,(short)2));
+        current_.getLevel().getPoint().affect(newPoint(3,2));
         game_.setPlayerOrientation(Direction.RIGHT);
         Coords next_ = game_.closestTile(map_);
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(next_);
@@ -445,7 +445,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         DataMap map_ = data_.getMap();
         Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
-        current_.getLevel().getPoint().affect(new Point((short)0,(short)2));
+        current_.getLevel().getPoint().affect(newPoint(0,2));
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AbsAreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
@@ -668,8 +668,8 @@ public class GameInitializeFightTest extends InitializationDataBase {
         game_.setPlayerCoords(newCoords(1, 0, 5, 1, 4, 2));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
-        game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(1, 7));
-        game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(7, 7));
+        game_.getBeatGymTrainer().getVal(1).add(newPoint(1, 7));
+        game_.getBeatGymTrainer().getVal(1).add(newPoint(7, 7));
         game_.initTrainerFight(data_);
         assertTrue(game_.getFight().getFightType().isExisting());
         assertEq(FightType.GYM_LEADER, game_.getFight().getFightType());
@@ -681,11 +681,11 @@ public class GameInitializeFightTest extends InitializationDataBase {
         DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
-        game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(1, 7));
-        game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(7, 7));
+        game_.getBeatGymTrainer().getVal(1).add(newPoint(1, 7));
+        game_.getBeatGymTrainer().getVal(1).add(newPoint(7, 7));
         game_.beatGymLeader(newCoords(1, 0, 5, 1, 4, 1));
-        game_.getBeatGymTrainer().getVal((short) 3).add(newPoint(1, 7));
-        game_.getBeatGymTrainer().getVal((short) 3).add(newPoint(7, 7));
+        game_.getBeatGymTrainer().getVal(3).add(newPoint(1, 7));
+        game_.getBeatGymTrainer().getVal(3).add(newPoint(7, 7));
         game_.beatGymLeader(newCoords(3, 0, 4, 1, 4, 1));
         game_.setPlayerCoords(newCoords(6, 0, 4, 5));
         game_.setPlayerOrientation(Direction.UP);
@@ -700,11 +700,11 @@ public class GameInitializeFightTest extends InitializationDataBase {
         DataBase data_ = initDbAccessSimple();
         Game game_ = new Game(data_);
         game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
-        game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(1, 7));
-        game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(7, 7));
+        game_.getBeatGymTrainer().getVal(1).add(newPoint(1, 7));
+        game_.getBeatGymTrainer().getVal(1).add(newPoint(7, 7));
         game_.beatGymLeader(newCoords(1, 0, 5, 1, 4, 1));
-        game_.getBeatGymTrainer().getVal((short) 3).add(newPoint(1, 7));
-        game_.getBeatGymTrainer().getVal((short) 3).add(newPoint(7, 7));
+        game_.getBeatGymTrainer().getVal(3).add(newPoint(1, 7));
+        game_.getBeatGymTrainer().getVal(3).add(newPoint(7, 7));
         game_.beatGymLeader(newCoords(3, 0, 4, 1, 4, 1));
         game_.setPlayerCoords(newCoords(6, 1, 4, 5));
         game_.setPlayerOrientation(Direction.UP);

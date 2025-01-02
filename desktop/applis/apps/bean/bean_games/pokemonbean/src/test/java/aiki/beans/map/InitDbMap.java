@@ -665,10 +665,10 @@ public abstract class InitDbMap extends InitDbConstr {
         Road c_ = Instances.newRoad();
         c_.setName(_n);
         Block one_ = Instances.newBlock();
-        one_.setHeight((short) 1);
-        one_.setWidth((short) 1);
+        one_.setHeight(1);
+        one_.setWidth(1);
         one_.setTileFileName("");
-        one_.setIndexApparition((short)0);
+        one_.setIndexApparition(0);
         c_.getLevelRoad().getBlocks().addEntry(newPoint(0,0),one_);
         c_.getLevelRoad().getBlocks().addEntry(newPoint(0,1),one_);
         c_.getLevelRoad().getBlocks().addEntry(newPoint(1,0),one_);
@@ -700,8 +700,8 @@ public abstract class InitDbMap extends InitDbConstr {
         g_.getIndoor().getGymTrainers().addEntry(newPoint(1,1),trGymTrainer());
         g_.getIndoor().setGymLeader(trGymLeader());
         Block bl_ = Instances.newBlock();
-        bl_.setHeight((short) 1);
-        bl_.setWidth((short) 1);
+        bl_.setHeight(1);
+        bl_.setWidth(1);
         bl_.setTileFileName("");
         g_.getIndoor().getBlocks().addEntry(newPoint(1,0),bl_);
         g_.getIndoor().getBlocks().addEntry(newPoint(1,1),bl_);
@@ -741,8 +741,8 @@ public abstract class InitDbMap extends InitDbConstr {
 
     private static void sqThree(Level _l) {
         Block bl_ = Instances.newBlock();
-        bl_.setHeight((short) 1);
-        bl_.setWidth((short) 1);
+        bl_.setHeight(1);
+        bl_.setWidth(1);
         bl_.setTileFileName("");
         _l.getBlocks().addEntry(newPoint(0,0),bl_);
         _l.getBlocks().addEntry(newPoint(0,1),bl_);
@@ -760,20 +760,20 @@ public abstract class InitDbMap extends InitDbConstr {
         r_.setName(_n);
         LevelRoad lr_ = Instances.newLevelRoad();
         Block one_ = Instances.newBlock();
-        one_.setHeight((short) 1);
-        one_.setWidth((short) 1);
+        one_.setHeight(1);
+        one_.setWidth(1);
         one_.setTileFileName("");
-        one_.setIndexApparition((short)0);
+        one_.setIndexApparition(0);
         Block two_ = Instances.newBlock();
-        two_.setHeight((short) 1);
-        two_.setWidth((short) 1);
+        two_.setHeight(1);
+        two_.setWidth(1);
         two_.setTileFileName("");
-        two_.setIndexApparition((short)1);
+        two_.setIndexApparition(1);
         Block three_ = Instances.newBlock();
-        three_.setHeight((short) 1);
-        three_.setWidth((short) 1);
+        three_.setHeight(1);
+        three_.setWidth(1);
         three_.setTileFileName("");
-        three_.setIndexApparition((short)-1);
+        three_.setIndexApparition(-1);
         lr_.getWildPokemonAreas().add(areaOne());
         lr_.getWildPokemonAreas().add(areaTwo());
         lr_.getBlocks().addEntry(newPoint(0,0),one_);

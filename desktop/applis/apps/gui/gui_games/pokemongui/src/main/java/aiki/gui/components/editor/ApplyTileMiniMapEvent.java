@@ -22,7 +22,7 @@ public class ApplyTileMiniMapEvent implements AbsActionListener {
 
     @Override
     public void action() {
-        MiniMapCoords key_ = new MiniMapCoords((short) first, (short) second);
+        MiniMapCoords key_ = new MiniMapCoords(first, second);
         int e_ = facadeGame.getData().getMap().getMiniMap().indexOfEntry(key_);
         if (e_ < 0) {
             if (remove) {

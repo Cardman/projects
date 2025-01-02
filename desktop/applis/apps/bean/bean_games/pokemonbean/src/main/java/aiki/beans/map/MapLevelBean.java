@@ -92,7 +92,7 @@ public class MapLevelBean extends AbsLevelBean {
         if (_p instanceof League) {
             League l_ = (League) _p;
             LevelPoint lp_ = _co.getLevel();
-            byte lev_ = lp_.getLevelIndex();
+            int lev_ = lp_.getLevelIndex();
             Point pt_ = lp_.getPoint();
             if (Point.eq(l_.getRooms().get(lev_).getAccessPoint(), pt_)) {
                 return league(_co,l_);
@@ -120,7 +120,7 @@ public class MapLevelBean extends AbsLevelBean {
     }
 
     private String league(Coords _co, League _l) {
-        byte lev_ = _co.getLevel().getLevelIndex();
+        int lev_ = _co.getLevel().getLevelIndex();
         if (lev_ < _l.getRooms().size() - 1) {
             getForms().put(CST_COORDS,_co.getNumberPlace(), lev_ + 1);
         } else {

@@ -68,8 +68,8 @@ public final class ContentComponentModelLeagueLinks {
                 g_.getGrid().addMouseListener(new SelectOrDeselectAccessLeagueEvent(this, g_));
                 _form.add(g_.getForm());
                 Coords acc_ = new Coords(cave.getAccessCoords());
-                acc_.getLevel().setPoint(new Point((short) 0,(short) 0));
-                if (Coords.eq(acc_,g_.build(new Point((short) 0,(short) 0)))) {
+                acc_.getLevel().setPoint(new Point(0, 0));
+                if (Coords.eq(acc_,g_.build(new Point(0, 0)))) {
                     Point pt_ = cave.getAccessCoords().getLevel().getPoint();
                     access = new NullablePoint(pt_);
                 }

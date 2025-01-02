@@ -113,6 +113,32 @@ public final class NumberUtil {
         return contains_;
     }
 
+    public static boolean equalsSetInts(Listable<Integer> _list1, Listable<Integer> _list2) {
+        for (Integer c: _list2) {
+            boolean contains_ = containsInt(_list1, c);
+            if (!contains_) {
+                return false;
+            }
+        }
+        for (Integer c: _list1) {
+            boolean contains_ = containsInt(_list2, c);
+            if (!contains_) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static boolean containsInt(Listable<Integer> _list1, Integer _c) {
+        boolean contains_ = false;
+        for (Integer d: _list1) {
+            if (eq(_c, d)) {
+                contains_ = true;
+                break;
+            }
+        }
+        return contains_;
+    }
     public static int mod(int _one, int _two) {
         return (int) mod(_one,(long)_two);
     }

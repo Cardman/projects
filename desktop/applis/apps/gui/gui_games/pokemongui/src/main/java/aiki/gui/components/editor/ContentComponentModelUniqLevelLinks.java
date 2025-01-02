@@ -217,7 +217,7 @@ public final class ContentComponentModelUniqLevelLinks {
     }
 
     private static Point convert(int _x, int _y) {
-        return new Point((short) _x, (short) _y);
+        return new Point(_x, _y);
     }
 
     private void changeEnableLink(CustList<Direction> _poss, boolean _left) {

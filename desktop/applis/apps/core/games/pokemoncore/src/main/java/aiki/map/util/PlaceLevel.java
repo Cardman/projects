@@ -4,14 +4,14 @@ public final class PlaceLevel {
 
     private static final String SEPARATOR = "/";
 
-    private short place;
+    private int place;
 
-    private byte level;
+    private int level;
 
     public PlaceLevel() {
     }
 
-    public PlaceLevel(short _place, byte _level) {
+    public PlaceLevel(int _place, int _level) {
         place = _place;
         level = _level;
     }
@@ -23,19 +23,19 @@ public final class PlaceLevel {
         return _obj.level == level;
     }
 
-    public short getPlace() {
+    public int getPlace() {
         return place;
     }
 
-    public void setPlace(short _place) {
+    public void setPlace(int _place) {
         place = _place;
     }
 
-    public byte getLevel() {
+    public int getLevel() {
         return level;
     }
 
-    public void setLevel(byte _level) {
+    public void setLevel(int _level) {
         level = _level;
     }
 

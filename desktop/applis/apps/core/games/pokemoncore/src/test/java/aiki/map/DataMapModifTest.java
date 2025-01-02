@@ -56,8 +56,8 @@ public final class DataMapModifTest extends EquallablePkUtil {
         dataMap_.getPlaces().add(cave());
         dataMap_.setBegin(begin());
         TileMiniMap tile_ = Instances.newTileMiniMap();
-        tile_.setPlace((short) 12);
-        dataMap_.getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 0), tile_);
+        tile_.setPlace(12);
+        dataMap_.getMiniMap().addEntry(new MiniMapCoords(0,0), tile_);
         assertNotNull(dataMap_.deletePlace(11));
         assertEq(11,tile_.getPlace());
     }
@@ -142,8 +142,8 @@ public final class DataMapModifTest extends EquallablePkUtil {
         dataMap_.getPlaces().add(cave());
         dataMap_.setBegin(begin());
         TileMiniMap tile_ = Instances.newTileMiniMap();
-        tile_.setPlace((short) 12);
-        dataMap_.getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 0), tile_);
+        tile_.setPlace(12);
+        dataMap_.getMiniMap().addEntry(new MiniMapCoords(0,0), tile_);
         assertNotNull(dataMap_.deleteLevelPlace(11,0));
         assertEq(12,tile_.getPlace());
     }
@@ -175,8 +175,8 @@ public final class DataMapModifTest extends EquallablePkUtil {
         dataMap_.getPlaces().add(cave());
         dataMap_.setBegin(begin());
         TileMiniMap tile_ = Instances.newTileMiniMap();
-        tile_.setPlace((short) 11);
-        dataMap_.getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 0), tile_);
+        tile_.setPlace(11);
+        dataMap_.getMiniMap().addEntry(new MiniMapCoords(0,0), tile_);
         assertNotNull(dataMap_.deleteLevelPlace(11,0));
         assertEq(11,tile_.getPlace());
     }
@@ -240,8 +240,8 @@ public final class DataMapModifTest extends EquallablePkUtil {
         dataMap_.getPlaces().add(cave());
         dataMap_.setBegin(begin());
         TileMiniMap tile_ = Instances.newTileMiniMap();
-        tile_.setPlace((short) 12);
-        dataMap_.getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 0), tile_);
+        tile_.setPlace(12);
+        dataMap_.getMiniMap().addEntry(new MiniMapCoords(0,0), tile_);
         assertNotNull(dataMap_.deleteLevelPlace(11,0));
         assertEq(12,tile_.getPlace());
     }
@@ -263,8 +263,8 @@ public final class DataMapModifTest extends EquallablePkUtil {
         dataMap_.getPlaces().add(cave());
         dataMap_.setBegin(begin());
         TileMiniMap tile_ = Instances.newTileMiniMap();
-        tile_.setPlace((short) 11);
-        dataMap_.getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 0), tile_);
+        tile_.setPlace(11);
+        dataMap_.getMiniMap().addEntry(new MiniMapCoords(0,0), tile_);
         assertNotNull(dataMap_.deleteLevelPlace(11,0));
         assertEq(11,tile_.getPlace());
     }
@@ -290,10 +290,10 @@ public final class DataMapModifTest extends EquallablePkUtil {
     }
     private Coords begin() {
         Coords begin_ = new Coords();
-        begin_.setNumberPlace((short) 0);
+        begin_.setNumberPlace(0);
         begin_.setLevel(new LevelPoint());
-        begin_.getLevel().setLevelIndex((byte) 0);
-        begin_.getLevel().setPoint(new Point((short)8,(short)8));
+        begin_.getLevel().setLevelIndex(0);
+        begin_.getLevel().setPoint(newPoint(8,8));
         return begin_;
     }
 
@@ -325,14 +325,14 @@ public final class DataMapModifTest extends EquallablePkUtil {
         dataMap_.getPlaces().add(roadFour_);
         dataMap_.getPlaces().add(roadFive_);
         Coords coordsAccessLeague_ = new Coords();
-        coordsAccessLeague_.setNumberPlace((short) 8);
+        coordsAccessLeague_.setNumberPlace(8);
         coordsAccessLeague_.setLevel(new LevelPoint());
-        coordsAccessLeague_.getLevel().setLevelIndex((byte) 0);
-        coordsAccessLeague_.getLevel().setPoint(new Point((short)5,(short)1));
+        coordsAccessLeague_.getLevel().setLevelIndex(0);
+        coordsAccessLeague_.getLevel().setPoint(newPoint(5,1));
         dataMap_.getPlaces().add(roadSix_);
         dataMap_.getPlaces().add(cityFive_);
-        dataMap_.join((short)0, (short)1, new Point((short)4,(short)0), new Point((short)1,(short)5), Direction.UP);
-        dataMap_.join((short)7, (short)0, new Point((short)0,(short)1), new Point((short)8,(short)4), Direction.LEFT);
+        dataMap_.join((short)0, (short)1, newPoint(4,0), newPoint(1,5), Direction.UP);
+        dataMap_.join((short)7, (short)0, newPoint(0,1), newPoint(8,4), Direction.LEFT);
         return dataMap_;
     }
 
@@ -357,7 +357,7 @@ public final class DataMapModifTest extends EquallablePkUtil {
         levelCave_.setTm(new PointsShort());
         levelCave_.setWildPokemonAreas(new CustList<AbsAreaApparition>());
         Block block_ = new Block((short)3,(short)6, EnvironmentType.ROCK, VOIE);
-        levelCave_.getBlocks().put(new Point((short)0,(short)0), block_);
+        levelCave_.getBlocks().put(newPoint(0,0), block_);
         return levelCave_;
     }
     private static LevelCave levelCaveTwo() {
@@ -373,9 +373,9 @@ public final class DataMapModifTest extends EquallablePkUtil {
         levelCave_.setTm(new PointsShort());
         levelCave_.setWildPokemonAreas(new CustList<AbsAreaApparition>());
         Block block_ = new Block((short)3,(short)3, EnvironmentType.ROCK, VOIE);
-        levelCave_.getBlocks().put(new Point((short)0,(short)0), block_);
+        levelCave_.getBlocks().put(newPoint(0,0), block_);
         block_ = new Block((short)3,(short)3, EnvironmentType.NOTHING, VOIE);
-        levelCave_.getBlocks().put(new Point((short)0,(short)3), block_);
+        levelCave_.getBlocks().put(newPoint(0,3), block_);
         return levelCave_;
     }
     private static League league(Coords _access) {
@@ -385,20 +385,20 @@ public final class DataMapModifTest extends EquallablePkUtil {
         LevelLeague level_ = new LevelLeague();
         level_.setBlocks(new PointsBlock());
         Block block_ = new Block((short)5,(short)5, EnvironmentType.ROAD, VOIE);
-        level_.getBlocks().put(new Point((short)0,(short)0), block_);
-        level_.setAccessPoint(new Point((short)2,(short)0));
-        level_.setNextLevelTarget(new Point((short)2,(short)4));
-        level_.setTrainerCoords(new Point((short)2,(short)2));
+        level_.getBlocks().put(newPoint(0,0), block_);
+        level_.setAccessPoint(newPoint(2,0));
+        level_.setNextLevelTarget(newPoint(2,4));
+        level_.setTrainerCoords(newPoint(2,2));
         league_.getRooms().add(level_);
         level_ = new LevelLeague();
         level_.setBlocks(new PointsBlock());
         block_ = new Block((short)5,(short)5, EnvironmentType.ROAD, VOIE);
-        level_.getBlocks().put(new Point((short)0,(short)0), block_);
-        level_.setAccessPoint(new Point((short)2,(short)0));
+        level_.getBlocks().put(newPoint(0,0), block_);
+        level_.setAccessPoint(newPoint(2,0));
         level_.setNextLevelTarget(new NullablePoint());
-        level_.setTrainerCoords(new Point((short)2,(short)2));
+        level_.setTrainerCoords(newPoint(2,2));
         league_.getRooms().add(level_);
-        league_.setBegin(new Point((short)2,(short)4));
+        league_.setBegin(newPoint(2,4));
         return league_;
     }
     private static City city() {
@@ -408,29 +408,29 @@ public final class DataMapModifTest extends EquallablePkUtil {
         LevelOutdoor city_ = new LevelOutdoor();
         city_.setBlocks(new PointsBlock());
         Block block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
-        city_.getBlocks().put(new Point((short)0,(short)0), block_);
+        city_.getBlocks().put(newPoint(0,0), block_);
         block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
-        city_.getBlocks().put(new Point((short)0,(short)3), block_);
+        city_.getBlocks().put(newPoint(0,3), block_);
         block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
-        city_.getBlocks().put(new Point((short)0,(short)6), block_);
+        city_.getBlocks().put(newPoint(0,6), block_);
         block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
-        city_.getBlocks().put(new Point((short)3,(short)0), block_);
+        city_.getBlocks().put(newPoint(3,0), block_);
         block_ = new Block((short)3,(short)3, EnvironmentType.NOTHING, VOIE);
-        city_.getBlocks().put(new Point((short)3,(short)3), block_);
+        city_.getBlocks().put(newPoint(3,3), block_);
         block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
-        city_.getBlocks().put(new Point((short)3,(short)6), block_);
+        city_.getBlocks().put(newPoint(3,6), block_);
         block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
-        city_.getBlocks().put(new Point((short)6,(short)0), block_);
+        city_.getBlocks().put(newPoint(6,0), block_);
         block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
-        city_.getBlocks().put(new Point((short)6,(short)3), block_);
+        city_.getBlocks().put(newPoint(6,3), block_);
         block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
-        city_.getBlocks().put(new Point((short)6,(short)6), block_);
+        city_.getBlocks().put(newPoint(6,6), block_);
         c_.setLevel(city_);
         Gym gym_ = new Gym();
-        gym_.setExitCity(new Point((short)1,(short)1));
+        gym_.setExitCity(newPoint(1,1));
         gym_.setLevel(new LevelIndoorGym());
-        gym_.getIndoor().setGymLeaderCoords(new Point((short)1,(short)1));
-        c_.getBuildings().put(new Point((short)4,(short)5), gym_);
+        gym_.getIndoor().setGymLeaderCoords(newPoint(1,1));
+        c_.getBuildings().put(newPoint(4,5), gym_);
         return c_;
     }
     private static Road hroad() {
@@ -439,7 +439,7 @@ public final class DataMapModifTest extends EquallablePkUtil {
         LevelRoad level_ = new LevelRoad();
         level_.setBlocks(new PointsBlock());
         Block block_ = new Block((short)6,(short)3, EnvironmentType.ROAD, VOIE2);
-        level_.getBlocks().put(new Point((short)0,(short)0), block_);
+        level_.getBlocks().put(newPoint(0,0), block_);
         road_.setLevel(level_);
         return road_;
     }
@@ -449,7 +449,7 @@ public final class DataMapModifTest extends EquallablePkUtil {
         LevelRoad level_ = new LevelRoad();
         level_.setBlocks(new PointsBlock());
         Block block_ = new Block((short)3,(short)6, EnvironmentType.ROAD, VOIE3);
-        level_.getBlocks().put(new Point((short)0,(short)0), block_);
+        level_.getBlocks().put(newPoint(0,0), block_);
         road_.setLevel(level_);
         return road_;
     }

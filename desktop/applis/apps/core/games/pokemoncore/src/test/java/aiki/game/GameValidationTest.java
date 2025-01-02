@@ -32,8 +32,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate2Test(){
@@ -43,8 +43,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate3Test(){
@@ -58,8 +58,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 1, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate4Test(){
@@ -73,8 +73,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 1, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate5Test(){
@@ -100,8 +100,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(2, 0, 1, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate6Test(){
@@ -127,8 +127,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(2, 0, 1, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate7Test(){
@@ -153,8 +153,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(1, 0, 1, 2), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate8Test(){
@@ -179,8 +179,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(1, 0, 1, 2), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate9Test(){
@@ -208,8 +208,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(1, 0, 1, 1, 4, 8), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate10Test(){
@@ -237,8 +237,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(1, 0, 1, 1, 4, 8), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate11Test(){
@@ -299,8 +299,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(3, 0, 2, 1, 7, 4), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate12Test(){
@@ -361,8 +361,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(3, 0, 2, 1, 7, 4), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate13Test(){
@@ -411,8 +411,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(6, 0, 6, 8), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate14Test(){
@@ -461,8 +461,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(6, 0, 6, 8), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate15Test(){
@@ -511,8 +511,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(6, 0, 4, 8), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate16Test(){
@@ -561,8 +561,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(6, 0, 4, 8), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate17Test(){
@@ -616,8 +616,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(6, 0, 4, 5), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate18Test(){
@@ -671,8 +671,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(6, 0, 4, 5), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate19Test(){
@@ -729,8 +729,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(6, 0, 4, 5), game_.getPlayerCoords());
         assertEq(1, game_.getRankLeague());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate20Test(){
@@ -787,8 +787,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(6, 0, 4, 5), game_.getPlayerCoords());
         assertEq(1, game_.getRankLeague());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate21Test(){
@@ -856,8 +856,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(6, 1, 4, 8), game_.getPlayerCoords());
         assertEq(1, game_.getRankLeague());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate22Test(){
@@ -925,8 +925,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(6, 1, 4, 8), game_.getPlayerCoords());
         assertEq(1, game_.getRankLeague());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate23Test(){
@@ -998,8 +998,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(6, 1, 4, 5), game_.getPlayerCoords());
         assertEq(1, game_.getRankLeague());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate24Test(){
@@ -1071,8 +1071,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(6, 1, 4, 5), game_.getPlayerCoords());
         assertEq(1, game_.getRankLeague());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate25Test(){
@@ -1147,8 +1147,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(6, 1, 4, 5), game_.getPlayerCoords());
         assertEq(2, game_.getRankLeague());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate26Test(){
@@ -1223,8 +1223,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(6, 1, 4, 5), game_.getPlayerCoords());
         assertEq(2, game_.getRankLeague());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate27Test(){
@@ -1310,8 +1310,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate28Test(){
@@ -1397,8 +1397,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate29Test(){
@@ -1415,8 +1415,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate30Test(){
@@ -1433,8 +1433,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate31Test(){
@@ -1451,8 +1451,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate32Test(){
@@ -1469,8 +1469,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate33Test(){
@@ -1487,8 +1487,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate34Test(){
@@ -1505,8 +1505,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate35Test(){
@@ -1523,8 +1523,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate36Test(){
@@ -1541,8 +1541,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate37Test(){
@@ -1560,8 +1560,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(2, 0, 2, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate38Test(){
@@ -1579,8 +1579,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(2, 0, 2, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate39Test(){
@@ -1611,8 +1611,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate40Test(){
@@ -1643,8 +1643,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate41Test(){
@@ -1657,8 +1657,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate42Test(){
@@ -1671,8 +1671,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate43Test(){
@@ -1692,8 +1692,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate44Test(){
@@ -1713,8 +1713,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate45Test(){
@@ -1736,8 +1736,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate46Test(){
@@ -1759,8 +1759,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate47Test(){
@@ -1771,8 +1771,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate48Test(){
@@ -1783,8 +1783,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate49Test(){
@@ -1803,8 +1803,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 1, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate50Test(){
@@ -1823,8 +1823,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 1, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate51Test(){
@@ -1846,8 +1846,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 1, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate52Test(){
@@ -1869,8 +1869,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 1, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate53Test(){
@@ -1892,8 +1892,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 1, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate54Test(){
@@ -1915,8 +1915,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 1, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate55Test(){
@@ -1942,8 +1942,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 1, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate56Test(){
@@ -1969,8 +1969,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 1, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate57Test(){
@@ -1999,8 +1999,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(1, 0, 5, 1, 4, 8), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate58Test(){
@@ -2029,8 +2029,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(1, 0, 5, 1, 4, 8), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate59Test(){
@@ -2065,8 +2065,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertEq(newCoords(1, 0, 5, 1, 2, 7), game_.getPlayerCoords());
         assertEq(newCoords(1, 0, 5, 1, 1, 7), game_.getGymTrainer());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate60Test(){
@@ -2101,8 +2101,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertEq(newCoords(1, 0, 5, 1, 2, 7), game_.getPlayerCoords());
         assertEq(newCoords(1, 0, 5, 1, 1, 7), game_.getGymTrainer());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate61Test(){
@@ -2140,9 +2140,9 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(1, 0, 5, 1, 2, 7), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(1, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(newPoint(1, 7), game_.getBeatGymTrainer().getVal((short) 1).first());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(1, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(newPoint(1, 7), game_.getBeatGymTrainer().getVal(1).first());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate62Test(){
@@ -2180,9 +2180,9 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(1, 0, 5, 1, 2, 7), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(1, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(newPoint(1, 7), game_.getBeatGymTrainer().getVal((short) 1).first());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(1, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(newPoint(1, 7), game_.getBeatGymTrainer().getVal(1).first());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate63Test(){
@@ -2352,7 +2352,7 @@ public class GameValidationTest extends InitializationDataBase {
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         //invalid data
-        game_.getBeatGymTrainer().put((short) 0, new PointEqList());
+        game_.getBeatGymTrainer().put(0, new PointEqList());
         assertTrue(!validate(game_, data_));
     }
     @Test
@@ -2361,7 +2361,7 @@ public class GameValidationTest extends InitializationDataBase {
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         //invalid data
-        game_.getBeatGymTrainer().put((short) 0, new PointEqList());
+        game_.getBeatGymTrainer().put(0, new PointEqList());
         assertTrue(!validate(game_, data_));
     }
     @Test
@@ -2370,7 +2370,7 @@ public class GameValidationTest extends InitializationDataBase {
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         //invalid data
-        game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(0, 0));
+        game_.getBeatGymTrainer().getVal(1).add(newPoint(0, 0));
         assertTrue(!validate(game_, data_));
     }
     @Test
@@ -2379,7 +2379,7 @@ public class GameValidationTest extends InitializationDataBase {
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         //invalid data
-        game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(0, 0));
+        game_.getBeatGymTrainer().getVal(1).add(newPoint(0, 0));
         assertTrue(!validate(game_, data_));
     }
     @Test
@@ -2940,8 +2940,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate112Test(){
@@ -2971,8 +2971,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate113Test(){
@@ -3001,8 +3001,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate114Test(){
@@ -3031,8 +3031,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate115Test(){
@@ -3061,8 +3061,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate116Test(){
@@ -3091,8 +3091,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate117Test(){
@@ -3121,8 +3121,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate118Test(){
@@ -3151,8 +3151,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate119Test(){
@@ -3165,8 +3165,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate120Test(){
@@ -3179,8 +3179,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate121Test(){
@@ -3193,8 +3193,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void validate122Test(){
@@ -3207,8 +3207,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
     }
     @Test
     public void checkAndInitialize1Test(){
@@ -3219,8 +3219,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(InterfaceType.RIEN, game_.getInterfaceType());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
         assertEq(NULL_REF, game_.getZippedRom());
         assertTrue(!game_.isShowEndGame());
     }
@@ -3233,8 +3233,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(InterfaceType.RIEN, game_.getInterfaceType());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
         assertEq(NULL_REF, game_.getZippedRom());
         assertTrue(!game_.isShowEndGame());
     }
@@ -3249,8 +3249,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(InterfaceType.RIEN, game_.getInterfaceType());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
         assertEq(ZIPPED_ROM, game_.getZippedRom());
         assertTrue(!game_.isShowEndGame());
     }
@@ -3265,8 +3265,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(InterfaceType.RIEN, game_.getInterfaceType());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
         assertEq(ZIPPED_ROM, game_.getZippedRom());
         assertTrue(!game_.isShowEndGame());
     }
@@ -3281,8 +3281,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(InterfaceType.DON_OBJET, game_.getInterfaceType());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
         assertEq(ZIPPED_ROM, game_.getZippedRom());
         assertTrue(!game_.isShowEndGame());
     }
@@ -3297,8 +3297,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(InterfaceType.DON_OBJET, game_.getInterfaceType());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
         assertEq(ZIPPED_ROM, game_.getZippedRom());
         assertTrue(!game_.isShowEndGame());
     }
@@ -3321,8 +3321,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertEq(newCoords(0, 0, 1, 0), game_.getPlayerCoords());
         assertEq(InterfaceType.DRESSEUR, game_.getInterfaceType());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
         assertEq(ZIPPED_ROM, game_.getZippedRom());
         assertTrue(!game_.isShowEndGame());
     }
@@ -3345,8 +3345,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertEq(newCoords(0, 0, 1, 0), game_.getPlayerCoords());
         assertEq(InterfaceType.DRESSEUR, game_.getInterfaceType());
         assertEq(0, game_.getRankLeague());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal(3).size());
         assertEq(ZIPPED_ROM, game_.getZippedRom());
         assertTrue(!game_.isShowEndGame());
     }
@@ -3706,8 +3706,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertEq(newCoords(8, 0, 3, 4), game_.getPlayerCoords());
         assertEq(InterfaceType.RIEN, game_.getInterfaceType());
         assertEq(0, game_.getRankLeague());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(3).size());
         assertEq(ZIPPED_ROM, game_.getZippedRom());
         assertTrue(game_.isShowEndGame());
     }
@@ -4067,8 +4067,8 @@ public class GameValidationTest extends InitializationDataBase {
         assertEq(newCoords(8, 0, 3, 4), game_.getPlayerCoords());
         assertEq(InterfaceType.RIEN, game_.getInterfaceType());
         assertEq(0, game_.getRankLeague());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 1).size());
-        assertEq(2, game_.getBeatGymTrainer().getVal((short) 3).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(1).size());
+        assertEq(2, game_.getBeatGymTrainer().getVal(3).size());
         assertEq(ZIPPED_ROM, game_.getZippedRom());
         assertTrue(game_.isShowEndGame());
     }

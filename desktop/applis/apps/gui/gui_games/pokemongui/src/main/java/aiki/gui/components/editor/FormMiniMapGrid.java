@@ -88,7 +88,7 @@ public final class FormMiniMapGrid {
         next_.add(new SubscribedTranslationRemovePlace(formMiniMapTile.getPlace()));
         subs_.addAllElts(next_);
         translations.addAllElts(next_);
-        MiniMapCoordsTile e_ = facadeGame.getData().getMap().getMiniMap().getEntryByKey(new MiniMapCoords((short) i_, (short) j_));
+        MiniMapCoordsTile e_ = facadeGame.getData().getMap().getMiniMap().getEntryByKey(new MiniMapCoords(i_, j_));
         if (e_ != null) {
             formMiniMapTile.feedForm(e_.getTileMap());
         } else {
