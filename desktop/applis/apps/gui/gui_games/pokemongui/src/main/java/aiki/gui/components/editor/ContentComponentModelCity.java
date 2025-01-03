@@ -94,6 +94,7 @@ public final class ContentComponentModelCity {
             } else {
                 editedBuilding = Instances.newPokemonCenter();
             }
+            contentLevelOutdoor.getLevel().getForegroundEdited().put(contentLevelOutdoor.getSelected(),new int[0][]);
         }
 
         AbsCompoFactory compoFactory_ = contentLevelOutdoor.getLevel().getApi().getCompoFactory();
@@ -293,11 +294,15 @@ public final class ContentComponentModelCity {
             editedBuilding.getLevel().setBlocks(contentLevelBuilding.getLevel().getEdited());
             editedBuildings.put(contentLevelOutdoor.getSelected(),editedBuilding);
         }
+        contentLevelOutdoor.getLevel().getForeground().put(contentLevelOutdoor.getSelected(),new int[0][]);
+        contentLevelOutdoor.getLevel().getForegroundEdited().removeKey(contentLevelOutdoor.getSelected());
         contentLevelOutdoor.getLevel().refreshImg(contentLevelOutdoor.getLevel().getFormBlockTile().getEdited().getWidth(), contentLevelOutdoor.getLevel().getFormBlockTile().getEdited().getHeight());
     }
 
     public void removeTile() {
         editedBuildings.removeKey(contentLevelOutdoor.getSelected());
+        contentLevelOutdoor.getLevel().getForeground().removeKey(contentLevelOutdoor.getSelected());
+        contentLevelOutdoor.getLevel().getForegroundEdited().removeKey(contentLevelOutdoor.getSelected());
         contentLevelOutdoor.removeTile();
         editedBuilding = null;
         contentLevelBuilding.getFore().setNullViewportView();
@@ -306,6 +311,7 @@ public final class ContentComponentModelCity {
     public void moveTile() {
         editedBuildings.move(contentLevelOutdoor.getSelected(),contentLevelOutdoor.nextPoint());
         contentLevelOutdoor.getLevel().getForeground().put(contentLevelOutdoor.nextPoint(),contentLevelOutdoor.getLevel().getForegroundEdited().getVal(contentLevelOutdoor.nextPoint()));
+        contentLevelOutdoor.getLevel().getForeground().removeKey(contentLevelOutdoor.getSelected());
         contentLevelOutdoor.removeFore();
         contentLevelOutdoor.applyTile();
         editedBuilding = null;
