@@ -93,6 +93,7 @@ public final class ContentComponentModelLevelLeague {
         AbsPanel form_ = compoFactory_.newLineBox();
         contentLevel.initRemove(form_);
         contentLevel.getRemoveTile().addActionListener(new RemoveLeagueTileEvent(this));
+        contentLevel.getMoveTile().addActionListener(new MoveLeagueTileEvent(this));
         contentLevel.getFore().setViewportView(form_);
     }
 
@@ -127,6 +128,15 @@ public final class ContentComponentModelLevelLeague {
         }
         contentLevel.applyTile();
     }
+    public void moveTile() {
+        AbsMoveForeTileEvent.moveNullablePoint(trainerCoords,contentLevel.getSelected(),contentLevel.nextPoint());
+        AbsMoveForeTileEvent.moveNullablePoint(accessPoint,contentLevel.getSelected(),contentLevel.nextPoint());
+        edited.setTrainerCoords(ConverterCommonMapUtil.copyNullablePoint(trainerCoords));
+        edited.setAccessPoint(ConverterCommonMapUtil.copyNullablePoint(accessPoint));
+        contentLevel.getLevel().getForeground().put(contentLevel.nextPoint(),contentLevel.getLevel().getForegroundEdited().getVal(contentLevel.nextPoint()));
+        contentLevel.removeFore();
+        contentLevel.applyTile();
+    }
 
     private void validate() {
         contentLevel.validate();
@@ -148,12 +158,20 @@ public final class ContentComponentModelLevelLeague {
         initFormChoices();
     }
 
+    public ContentComponentModelLevel getContentLevel() {
+        return contentLevel;
+    }
+
     private void removeFore() {
         contentLevel.removeFore();
     }
 
     public StringMap<AbsButton> getTiles() {
         return contentLevel.getTiles();
+    }
+
+    public AbsButton getMoveTile() {
+        return contentLevel.getMoveTile();
     }
 
     public AbsButton getRemoveTile() {

@@ -17,6 +17,9 @@ public final class ContentComponentModelLevel {
     private Point selected = new Point(0, 0);
     private String key = "";
     private AbsButton removeTile;
+    private AbsSpinner deltaWidth;
+    private AbsSpinner deltaHeight;
+    private AbsButton moveTile;
 
     public void setupGridDims(Coords _coords, Place _pl, Level _wild) {
         setupTranslationsGrid(_coords, _pl, _wild);
@@ -36,6 +39,20 @@ public final class ContentComponentModelLevel {
         subs_.addAllElts(next_);
         translationsGrid.addAllElts(next_);
         return subs_;
+    }
+
+    public boolean canContains() {
+        Point next_ = nextPoint();
+        if (Level.getEntryBlockByPoint(next_,level.getEdited()) == null) {
+            return false;
+        }
+        return !FormLevelGridCommon.edited(next_,level.getForeground(),level.getForegroundEdited());
+    }
+
+    public Point nextPoint() {
+        int w_ = deltaWidth.getValue();
+        int h_ = deltaHeight.getValue();
+        return new Point(w_+selected.getx(),h_+selected.gety());
     }
 
     public Point viewForeground(int _x, int _y) {
@@ -59,6 +76,12 @@ public final class ContentComponentModelLevel {
         AbsCompoFactory compoFactory_ = level.getApi().getCompoFactory();
         removeTile = compoFactory_.newPlainButton("-");
         _form.add(removeTile);
+        deltaWidth = compoFactory_.newSpinner(0,Integer.MIN_VALUE,Integer.MAX_VALUE,1);
+        _form.add(deltaWidth);
+        deltaHeight = compoFactory_.newSpinner(0,Integer.MIN_VALUE,Integer.MAX_VALUE,1);
+        _form.add(deltaHeight);
+        moveTile = compoFactory_.newPlainButton("=>");
+        _form.add(moveTile);
     }
 
     public void applySelectItem() {
@@ -129,4 +152,15 @@ public final class ContentComponentModelLevel {
         return translations;
     }
 
+    public AbsSpinner getDeltaHeight() {
+        return deltaHeight;
+    }
+
+    public AbsSpinner getDeltaWidth() {
+        return deltaWidth;
+    }
+
+    public AbsButton getMoveTile() {
+        return moveTile;
+    }
 }

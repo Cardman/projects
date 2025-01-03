@@ -118,6 +118,7 @@ public final class ContentComponentModelCity {
         contentLevelBuilding.getLevel().getForm().add(contentLevelBuilding.getFore());
         form_.add(contentLevelBuilding.getLevel().getForm());
         contentLevelOutdoor.initRemove(form_);
+        contentLevelOutdoor.getMoveTile().addActionListener(new MoveBuildingTileEvent(this));
         contentLevelOutdoor.getRemoveTile().addActionListener(new RemoveBuildingTileEvent(this));
         contentLevelOutdoor.getFore().setViewportView(form_);
         contentLevelBuilding.getFore().setNullViewportView();
@@ -204,6 +205,7 @@ public final class ContentComponentModelCity {
                 form_.add(gymTrainer.effectForm(contentLevelOutdoor.getLevel().getApi(), contentLevelOutdoor.getLevel().getFacadeGame(), contentLevelOutdoor.getLevel().getTranslationList(), contentLevelOutdoor.getLevel().getFrame(),contentLevelBuilding.getLevel()));
                 gymTrainer.getTrainerImg().getMiniFileName().getName().getSelectUniq().getSelect().addListener(new ChangeItemBuildingTileEvent(this));
                 contentLevelBuilding.initRemove(form_);
+                contentLevelBuilding.getMoveTile().addActionListener(new MoveBuildingEltTileEvent(this));
                 contentLevelBuilding.getRemoveTile().addActionListener(new RemoveBuildingEltTileEvent(this));
                 contentLevelBuilding.getFore().setViewportView(form_);
             }
@@ -211,6 +213,7 @@ public final class ContentComponentModelCity {
                 AbsCompoFactory compoFactory_ = contentLevelOutdoor.getLevel().getApi().getCompoFactory();
                 AbsPanel form_ = compoFactory_.newLineBox();
                 contentLevelBuilding.initRemove(form_);
+                contentLevelBuilding.getMoveTile().addActionListener(new MoveBuildingEltTileEvent(this));
                 contentLevelBuilding.getRemoveTile().addActionListener(new RemoveBuildingEltTileEvent(this));
                 contentLevelBuilding.getFore().setViewportView(form_);
             }
@@ -222,6 +225,7 @@ public final class ContentComponentModelCity {
                 form_.add(gerant.effectForm(contentLevelOutdoor.getLevel().getApi(), contentLevelOutdoor.getLevel().getFacadeGame(), contentLevelOutdoor.getLevel().getTranslationList(), contentLevelBuilding.getLevel()));
                 gerant.getMiniFileName().getName().getSelectUniq().getSelect().addListener(new ChangeItemBuildingTileEvent(this));
                 contentLevelBuilding.initRemove(form_);
+                contentLevelBuilding.getMoveTile().addActionListener(new MoveBuildingEltTileEvent(this));
                 contentLevelBuilding.getRemoveTile().addActionListener(new RemoveBuildingEltTileEvent(this));
                 contentLevelBuilding.getFore().setViewportView(form_);
             }
@@ -231,6 +235,7 @@ public final class ContentComponentModelCity {
                 form_.add(seller.effectForm(contentLevelOutdoor.getLevel().getApi(), contentLevelOutdoor.getLevel().getFacadeGame(), contentLevelOutdoor.getLevel().getTranslationList(), contentLevelBuilding.getLevel()));
                 seller.getMiniFileName().getName().getSelectUniq().getSelect().addListener(new ChangeItemBuildingTileEvent(this));
                 contentLevelBuilding.initRemove(form_);
+                contentLevelBuilding.getMoveTile().addActionListener(new MoveBuildingEltTileEvent(this));
                 contentLevelBuilding.getRemoveTile().addActionListener(new RemoveBuildingEltTileEvent(this));
                 contentLevelBuilding.getFore().setViewportView(form_);
             }
@@ -238,6 +243,7 @@ public final class ContentComponentModelCity {
                 AbsCompoFactory compoFactory_ = contentLevelOutdoor.getLevel().getApi().getCompoFactory();
                 AbsPanel form_ = compoFactory_.newLineBox();
                 contentLevelBuilding.initRemove(form_);
+                contentLevelBuilding.getMoveTile().addActionListener(new MoveBuildingEltTileEvent(this));
                 contentLevelBuilding.getRemoveTile().addActionListener(new RemoveBuildingEltTileEvent(this));
                 contentLevelBuilding.getFore().setViewportView(form_);
             }
@@ -293,6 +299,15 @@ public final class ContentComponentModelCity {
     public void removeTile() {
         editedBuildings.removeKey(contentLevelOutdoor.getSelected());
         contentLevelOutdoor.removeTile();
+        editedBuilding = null;
+        contentLevelBuilding.getFore().setNullViewportView();
+    }
+
+    public void moveTile() {
+        editedBuildings.move(contentLevelOutdoor.getSelected(),contentLevelOutdoor.nextPoint());
+        contentLevelOutdoor.getLevel().getForeground().put(contentLevelOutdoor.nextPoint(),contentLevelOutdoor.getLevel().getForegroundEdited().getVal(contentLevelOutdoor.nextPoint()));
+        contentLevelOutdoor.removeFore();
+        contentLevelOutdoor.applyTile();
         editedBuilding = null;
         contentLevelBuilding.getFore().setNullViewportView();
     }
@@ -429,11 +444,33 @@ public final class ContentComponentModelCity {
         }
     }
 
+    public void moveBuildingTile() {
+        if (editedBuilding instanceof PokemonCenter) {
+            ((PokemonCenter)editedBuilding).getIndoor().getGerants().move(contentLevelBuilding.getSelected(),contentLevelBuilding.nextPoint());
+            AbsMoveForeTileEvent.moveNullablePoint(exitBuilding,contentLevelBuilding.getSelected(),contentLevelBuilding.nextPoint());
+            AbsMoveForeTileEvent.moveNullablePoint(storage,contentLevelBuilding.getSelected(),contentLevelBuilding.nextPoint());
+            editedBuilding.setExitCity(ConverterCommonMapUtil.copyNullablePoint(exitBuilding));
+            ((PokemonCenter)editedBuilding).getIndoor().setStorageCoords(ConverterCommonMapUtil.copyNullablePoint(storage));
+        }
+        if (editedBuilding instanceof Gym) {
+            ((Gym)editedBuilding).getIndoor().getGymTrainers().move(contentLevelBuilding.getSelected(),contentLevelBuilding.nextPoint());
+            AbsMoveForeTileEvent.moveNullablePoint(exitBuilding,contentLevelBuilding.getSelected(),contentLevelBuilding.nextPoint());
+            AbsMoveForeTileEvent.moveNullablePoint(gymLeaderCoords,contentLevelBuilding.getSelected(),contentLevelBuilding.nextPoint());
+            editedBuilding.setExitCity(ConverterCommonMapUtil.copyNullablePoint(exitBuilding));
+            ((Gym)editedBuilding).getIndoor().setGymLeaderCoords(ConverterCommonMapUtil.copyNullablePoint(gymLeaderCoords));
+        }
+        contentLevelBuilding.getLevel().getForeground().put(contentLevelBuilding.nextPoint(),contentLevelBuilding.getLevel().getForegroundEdited().getVal(contentLevelBuilding.nextPoint()));
+        contentLevelBuilding.removeFore();
+        contentLevelBuilding.applyTile();
+    }
     private void removeFore() {
         contentLevelBuilding.removeFore();
     }
     private void validate() {
         contentLevelBuilding.validate();
+    }
+    public AbsButton getMoveTile() {
+        return contentLevelOutdoor.getMoveTile();
     }
     public AbsButton getRemoveTile() {
         return contentLevelOutdoor.getRemoveTile();
@@ -441,6 +478,14 @@ public final class ContentComponentModelCity {
 
     public AbsCustCheckBox getGym() {
         return gym;
+    }
+
+    public ContentComponentModelLevel getContentLevelOutdoor() {
+        return contentLevelOutdoor;
+    }
+
+    public ContentComponentModelLevel getContentLevelBuilding() {
+        return contentLevelBuilding;
     }
 
     public FormLevelGrid getLevel() {
@@ -453,6 +498,10 @@ public final class ContentComponentModelCity {
 
     public AbsButton getCreateBuilding() {
         return createBuilding;
+    }
+
+    public AbsButton getMoveTileBuilding() {
+        return contentLevelBuilding.getMoveTile();
     }
 
     public AbsButton getRemoveTileBuilding() {

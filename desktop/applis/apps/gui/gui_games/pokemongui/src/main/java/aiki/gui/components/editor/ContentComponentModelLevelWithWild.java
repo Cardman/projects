@@ -187,6 +187,7 @@ public final class ContentComponentModelLevelWithWild {
     private void initRemove(AbsPanel _form) {
         contentLevel.initRemove(_form);
         contentLevel.getRemoveTile().addActionListener(new RemoveForeTileEvent(this));
+        contentLevel.getMoveTile().addActionListener(new MoveForeTileEvent(this));
     }
 
     public void events() {
@@ -277,6 +278,17 @@ public final class ContentComponentModelLevelWithWild {
         }
         contentLevel.applyTile();
     }
+    public void moveTile() {
+        edited.getItems().move(contentLevel.getSelected(),contentLevel.nextPoint());
+        edited.getTm().move(contentLevel.getSelected(),contentLevel.nextPoint());
+        edited.getHm().move(contentLevel.getSelected(),contentLevel.nextPoint());
+        edited.getLegendaryPks().move(contentLevel.getSelected(),contentLevel.nextPoint());
+        edited.getCharacters().move(contentLevel.getSelected(),contentLevel.nextPoint());
+        edited.getDualFights().move(contentLevel.getSelected(),contentLevel.nextPoint());
+        contentLevel.getLevel().getForeground().put(contentLevel.nextPoint(),contentLevel.getLevel().getForegroundEdited().getVal(contentLevel.nextPoint()));
+        contentLevel.removeFore();
+        contentLevel.applyTile();
+    }
 
     private void validate() {
         contentLevel.validate();
@@ -325,6 +337,14 @@ public final class ContentComponentModelLevelWithWild {
 
     public FormLevelGrid getLevel() {
         return contentLevel.getLevel();
+    }
+
+    public AbsButton getMoveTile() {
+        return contentLevel.getMoveTile();
+    }
+
+    public ContentComponentModelLevel getContentLevel() {
+        return contentLevel;
     }
 
     public LevelWithWildPokemon getEdited() {

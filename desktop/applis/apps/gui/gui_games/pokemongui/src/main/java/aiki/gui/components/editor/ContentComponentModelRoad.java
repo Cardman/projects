@@ -62,6 +62,10 @@ public final class ContentComponentModelRoad {
     public AbsButton getRemoveTile() {
         return getLevelWithWild().getRemoveTile();
     }
+
+    public AbsButton getMoveTile() {
+        return getLevelWithWild().getMoveTile();
+    }
     public ContentComponentModelLevelWithWild getLevelWithWild() {
         return levelWithWild;
     }
