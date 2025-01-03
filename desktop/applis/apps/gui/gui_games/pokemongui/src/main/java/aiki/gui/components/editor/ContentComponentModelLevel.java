@@ -20,11 +20,21 @@ public final class ContentComponentModelLevel {
     private AbsSpinner deltaWidth;
     private AbsSpinner deltaHeight;
     private AbsButton moveTile;
+    private CoordsLists accessCondition = new CoordsLists();
 
     public void setupGridDims(Coords _coords, Place _pl, Level _wild) {
+        accessCondition = ConverterCommonMapUtil.copyCoordsLists(level.getFacadeGame().getMap().getAccessCondition());
         setupTranslationsGrid(_coords, _pl, _wild);
         fore = level.getApi().getCompoFactory().newAbsScrollPane();
         level.getForm().add(fore);
+    }
+
+    public CoordsLists getAccessCondition() {
+        return accessCondition;
+    }
+
+    public void setAccessCondition(CoordsLists _a) {
+        this.accessCondition = _a;
     }
 
     public IdList<SubscribedTranslation> setupTranslationsGrid(Coords _coords, Place _pl, Level _wild) {

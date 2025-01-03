@@ -94,6 +94,16 @@ public final class ContentComponentModelLeagueLinks {
         } else {
             level.getForegroundEdited().removeKey(bk_.getPoint());
         }
+        if (cave.getBegin().isDefined()) {
+            Coords prev_ = AbsContentComponentModelLevelLinks.coords(selectedPlace,0,null, new Point(cave.getBegin().getPoint()));
+            if (begin.isDefined()) {
+                Coords next_ = new Coords(prev_);
+                next_.getLevel().setPoint(new Point(begin.getPoint()));
+                ConverterCommonMapUtil.replaceValues(facadeGame.getMap().getAccessCondition(),prev_,next_);
+            } else {
+                ConverterCommonMapUtil.removeValues(facadeGame.getMap().getAccessCondition(),prev_);
+            }
+        }
         cave.setBegin(begin);
     }
 

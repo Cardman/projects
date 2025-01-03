@@ -74,9 +74,9 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
     public void displayAccessCondition(boolean _begin) {
         getElement().removeAll();
         if (_begin) {
-            getElement().add(beginGame.form(getFactory(),getCrudGeneFormSubContent().getFacadeGame(),getCrudGeneFormSubContent().getSubscription(),getFrame(),this,beginGameButton));
+            getElement().add(beginGame.form(getFactory(),getCrudGeneFormSubContent().getFacadeGame(),getCrudGeneFormSubContent().getSubscription(),getFrame(),this));
         } else {
-            getElement().add(accessCondition.form(getFactory(),getCrudGeneFormSubContent().getFacadeGame(),getCrudGeneFormSubContent().getSubscription(),getFrame(),this,accessConditionButton));
+            getElement().add(accessCondition.form(getFactory(),getCrudGeneFormSubContent().getFacadeGame(),getCrudGeneFormSubContent().getSubscription(),getFrame(),this));
         }
         CrudGeneFormLevelCave.disable(this);
         getFrame().pack();

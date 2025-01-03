@@ -31,7 +31,7 @@ public final class ContentComponentModelAccessCondition {
         this.beginGame = _b;
     }
 
-    public AbsCustComponent form(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact, AbsCommonFrame _f, CrudGeneFormEntPlace _parent, AbsButton _open) {
+    public AbsCustComponent form(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact, AbsCommonFrame _f, CrudGeneFormEntPlace _parent) {
         api = _core;
         frame = _f;
         AbsPanel form_ = _core.getCompoFactory().newPageBox();
@@ -46,11 +46,7 @@ public final class ContentComponentModelAccessCondition {
             form_.add(clearAccess);
         }
         close = _core.getCompoFactory().newPlainButton("\u23F9");
-        if (beginGame) {
-            close.addActionListener(new CloseLinksFormEvent(_parent));
-        } else {
-            close.addActionListener(new CloseLinksAccessFormEvent(_fac,_parent,_open));
-        }
+        close.addActionListener(new CloseLinksFormEvent(_parent));
         form_.add(getClose());
         if (beginGame) {
             buildParts(form_,_core, _fac, _fact, _f);

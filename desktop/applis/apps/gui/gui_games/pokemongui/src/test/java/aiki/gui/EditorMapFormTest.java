@@ -4,6 +4,7 @@ import aiki.db.*;
 import aiki.facade.*;
 import aiki.gui.components.editor.*;
 import aiki.instances.*;
+import aiki.map.Condition;
 import aiki.map.buildings.*;
 import aiki.map.characters.*;
 import aiki.map.enums.*;
@@ -985,6 +986,108 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         assertEq(1,((City)facade_.getData().getMap().getPlace(0)).getBuildings().size());
         assertEq(1,((City)facade_.getData().getMap().getPlace(0)).getLevel().getBlocks().size());
         assertEq(1,((City)facade_.getData().getMap().getPlace(0)).getBuildings().getVal(newPoint(1,1)).getLevel().getBlocks().size());
+    }
+    @Test
+    public void building7() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        City ci_ = Instances.newCity();
+        ci_.getLevel().getBlocks().addEntry(newPoint(0,0),newBlock(1,1,EnvironmentType.NOTHING,BUILDING,-1));
+        ci_.getLevel().getBlocks().addEntry(newPoint(1,0),newBlock(1,1,EnvironmentType.BUILDING,BUILDING,-1));
+        ci_.getLevel().getBlocks().addEntry(newPoint(0,1),newBlock(1,1,EnvironmentType.BUILDING,BUILDING,-1));
+        ci_.getLevel().getBlocks().addEntry(newPoint(1,1),newBlock(1,1,EnvironmentType.BUILDING,BUILDING,-1));
+        Gym g_ = Instances.newGym();
+        g_.getIndoor().getBlocks().addEntry(newPoint(0,0),newBlock(2,2,EnvironmentType.BUILDING,BUILDING,-1));
+        g_.getIndoor().setGymLeaderCoords(newPoint(1,1));
+        ci_.getBuildings().addEntry(newPoint(0,0), g_);
+        facade_.getData().getMap().addPlace(ci_);
+        Condition cond_ = new Condition();
+        cond_.add(newCoords(0,0,0,0,1,1));
+        facade_.getData().getMap().getAccessCondition().addEntry(newCoords(0,0,1,1), cond_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getGrid(),0,0);
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getGrid(),side(facade_),side(facade_));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getRemoveTileBuilding());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getMatch());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getGrid(),0,0);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getRemoveTile());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        assertEq(0,((City)facade_.getData().getMap().getPlace(0)).getBuildings().size());
+        assertEq(4,((City)facade_.getData().getMap().getPlace(0)).getLevel().getBlocks().size());
+        assertEq(0,facade_.getData().getMap().getAccessCondition().getVal(newCoords(0,0,1,1)).size());
+    }
+    @Test
+    public void building8() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        City ci_ = Instances.newCity();
+        ci_.getLevel().getBlocks().addEntry(newPoint(0,0),newBlock(1,1,EnvironmentType.NOTHING,BUILDING,-1));
+        ci_.getLevel().getBlocks().addEntry(newPoint(1,0),newBlock(1,1,EnvironmentType.BUILDING,BUILDING,-1));
+        ci_.getLevel().getBlocks().addEntry(newPoint(0,1),newBlock(1,1,EnvironmentType.BUILDING,BUILDING,-1));
+        ci_.getLevel().getBlocks().addEntry(newPoint(1,1),newBlock(1,1,EnvironmentType.BUILDING,BUILDING,-1));
+        Gym g_ = Instances.newGym();
+        g_.getIndoor().getBlocks().addEntry(newPoint(0,0),newBlock(2,2,EnvironmentType.BUILDING,BUILDING,-1));
+        g_.getIndoor().setGymLeaderCoords(newPoint(1,1));
+        ci_.getBuildings().addEntry(newPoint(0,0), g_);
+        facade_.getData().getMap().addPlace(ci_);
+        Condition cond_ = new Condition();
+        cond_.add(newCoords(0,0,0,0,1,1));
+        facade_.getData().getMap().getAccessCondition().addEntry(newCoords(0,0,1,1), cond_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getGrid(),0,0);
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getGrid(),side(facade_),side(facade_));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getRemoveTile());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        assertEq(0,((City)facade_.getData().getMap().getPlace(0)).getBuildings().size());
+        assertEq(4,((City)facade_.getData().getMap().getPlace(0)).getLevel().getBlocks().size());
+        assertEq(0,facade_.getData().getMap().getAccessCondition().getVal(newCoords(0,0,1,1)).size());
+    }
+    @Test
+    public void building9() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        City ci_ = Instances.newCity();
+        ci_.getLevel().getBlocks().addEntry(newPoint(0,0),newBlock(1,1,EnvironmentType.NOTHING,BUILDING,-1));
+        ci_.getLevel().getBlocks().addEntry(newPoint(1,0),newBlock(1,1,EnvironmentType.BUILDING,BUILDING,-1));
+        ci_.getLevel().getBlocks().addEntry(newPoint(0,1),newBlock(1,1,EnvironmentType.BUILDING,BUILDING,-1));
+        ci_.getLevel().getBlocks().addEntry(newPoint(1,1),newBlock(1,1,EnvironmentType.BUILDING,BUILDING,-1));
+        Gym g_ = Instances.newGym();
+        g_.getIndoor().getBlocks().addEntry(newPoint(0,0),newBlock(3,3,EnvironmentType.BUILDING,BUILDING,-1));
+        g_.getIndoor().setGymLeaderCoords(newPoint(1,1));
+        ci_.getBuildings().addEntry(newPoint(0,0), g_);
+        facade_.getData().getMap().addPlace(ci_);
+        City ty_ = Instances.newCity();
+        ty_.getLevel().getBlocks().addEntry(newPoint(0,0),newBlock(1,1,EnvironmentType.NOTHING,BUILDING,-1));
+        ty_.getLevel().getBlocks().addEntry(newPoint(1,0),newBlock(1,1,EnvironmentType.BUILDING,BUILDING,-1));
+        ty_.getLevel().getBlocks().addEntry(newPoint(0,1),newBlock(1,1,EnvironmentType.BUILDING,BUILDING,-1));
+        ty_.getLevel().getBlocks().addEntry(newPoint(1,1),newBlock(1,1,EnvironmentType.BUILDING,BUILDING,-1));
+        Gym h_ = Instances.newGym();
+        h_.getIndoor().getBlocks().addEntry(newPoint(0,0),newBlock(3,3,EnvironmentType.BUILDING,BUILDING,-1));
+        h_.getIndoor().setGymLeaderCoords(newPoint(1,1));
+        ty_.getBuildings().addEntry(newPoint(0,0), h_);
+        facade_.getData().getMap().addPlace(ty_);
+        Condition cond_ = new Condition();
+        cond_.add(newCoords(0,0,0,0,1,1));
+        cond_.add(newCoords(1,0,0,0,1,1));
+        facade_.getData().getMap().getAccessCondition().addEntry(newCoords(0,0,1,1), cond_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getGrid(),0,0);
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevelBuilding().getGrid(),side(facade_),side(facade_));
+        sub_.getFormDataMap().getCrudPlace().getCity().getContentLevelBuilding().getDeltaWidth().setValue(1);
+        sub_.getFormDataMap().getCrudPlace().getCity().getContentLevelBuilding().getDeltaHeight().setValue(1);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getCity().getMoveTileBuilding());
+        tryClicks(sub_.getFormDataMap().getCrudPlace().getCity().getLevel().getFormBlockTile().getMatch());
+        tryClick(sub_.getFormDataMap().getCrudPlace().getValidAddEdit());
+        assertEq(1,((City)facade_.getData().getMap().getPlace(0)).getBuildings().size());
+        assertEq(4,((City)facade_.getData().getMap().getPlace(0)).getLevel().getBlocks().size());
+        assertEq(1,((City)facade_.getData().getMap().getPlace(0)).getBuildings().getVal(newPoint(0,0)).getLevel().getBlocks().size());
+        Condition next_ = facade_.getData().getMap().getAccessCondition().getVal(newCoords(0, 0, 1, 1));
+        assertEq(2, next_.size());
+        assertTrue(next_.containsObj(newCoords(0,0,0,0,2,2)));
+        assertTrue(next_.containsObj(newCoords(1,0,0,0,1,1)));
     }
     @Test
     public void gym1() {
@@ -3341,6 +3444,40 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         tryClick(sub_.getFormDataMap().getCrudPlace().getLeagueLink().getClose());
         assertFalse(((League)facade_.getData().getMap().getPlace(0)).getBegin().isDefined());
         assertFalse(((League)facade_.getData().getMap().getPlace(0)).getAccessCoords().isValid());
+    }
+    @Test
+    public void linkLeague5() {
+        MockProgramInfos pr_ = initForms();
+        FacadeGame facade_ = facadeAdd(pr_);
+        League l_ = Instances.newLeague();
+        l_.setBegin(newPoint(0,0));
+        LevelLeague f_ = Instances.newLevelLeague();
+        f_.getBlocks().addEntry(newPoint(0,0), newBlock(2,2, EnvironmentType.ROAD,"",-1));
+        l_.getRooms().add(f_);
+        LevelLeague s_ = Instances.newLevelLeague();
+        s_.getBlocks().addEntry(newPoint(0,0), newBlock(2,2, EnvironmentType.ROAD,"",-1));
+        l_.getRooms().add(s_);
+        facade_.getData().getMap().addPlace(l_);
+        Road r_ = Instances.newRoad();
+        r_.getLevelRoad().getBlocks().addEntry(newPoint(0,0), newBlock(2,2, EnvironmentType.ROAD,"",-1));
+        facade_.getData().getMap().addPlace(r_);
+        Condition cond_ = new Condition();
+        cond_.add(newCoords(0,0,0,0));
+        facade_.getData().getMap().getAccessCondition().addEntry(newCoords(1,0,0,0), cond_);
+        WindowPkEditor sub_ = window(pr_, facade_);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLeagueLink().getLevel().getGrid(),side(facade_),side(facade_));
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLeagueLink().getLevels().get(2).getGrid(),0,0);
+        tryClick(sub_.getFormDataMap().getCrudPlace().getLeagueLink().getClose());
+        assertEq(1,((League)facade_.getData().getMap().getPlace(0)).getBegin().getPoint().getx());
+        assertEq(1,((League)facade_.getData().getMap().getPlace(0)).getBegin().getPoint().gety());
+        assertEq(1,((League)facade_.getData().getMap().getPlace(0)).getAccessCoords().getNumberPlace());
+        assertEq(0,((League)facade_.getData().getMap().getPlace(0)).getAccessCoords().getLevel().getLevelIndex());
+        assertEq(0,((League)facade_.getData().getMap().getPlace(0)).getAccessCoords().getLevel().getPoint().getx());
+        assertEq(0,((League)facade_.getData().getMap().getPlace(0)).getAccessCoords().getLevel().getPoint().gety());
+        Condition next_ = facade_.getData().getMap().getAccessCondition().getVal(newCoords(1, 0, 0, 0));
+        assertEq(1, next_.size());
+        assertTrue(next_.containsObj(newCoords(0,0,1,1)));
     }
     @Test
     public void joinPlaces1() {

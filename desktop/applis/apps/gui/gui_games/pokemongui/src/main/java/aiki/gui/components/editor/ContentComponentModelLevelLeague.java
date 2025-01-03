@@ -34,6 +34,7 @@ public final class ContentComponentModelLevelLeague {
         edited = _wild;
         nbPlace = _coords.getNumberPlace();
         nbLevel = _coords.getLevel().getLevelIndex();
+        contentLevel.setAccessCondition(ConverterCommonMapUtil.copyCoordsLists(contentLevel.getLevel().getFacadeGame().getMap().getAccessCondition()));
         contentLevel.setupGridDims(_coords,_pl,_wild);
         imageFileName = new GeneComponentModelImgSelect(contentLevel.getLevel().getApi(), contentLevel.getLevel().getFacadeGame(), contentLevel.getLevel().getTranslationList().getImgRetrieverLinksSub());
         contentLevel.getLevel().getForm().add(imageFileName.gene());
@@ -54,6 +55,7 @@ public final class ContentComponentModelLevelLeague {
         _lev.setAccessPoint(edited.getAccessPoint());
         _lev.setTrainerCoords(edited.getTrainerCoords());
         _lev.setFileName(imageFileName.getName().tryRet());
+        contentLevel.getLevel().getFacadeGame().getMap().setAccessCondition(contentLevel.getAccessCondition());
     }
 
     public void viewForeground(int _x, int _y) {

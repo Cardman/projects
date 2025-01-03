@@ -21,9 +21,9 @@ public final class ContentComponentModelCity {
     private City edited;
     private Building editedBuilding;
     private Points<Building> editedBuildings;
-    private final NullablePoint exitBuilding = new NullablePoint();
-    private final NullablePoint storage = new NullablePoint();
-    private final NullablePoint gymLeaderCoords = new NullablePoint();
+    private NullablePoint exitBuilding = new NullablePoint();
+    private NullablePoint storage = new NullablePoint();
+    private NullablePoint gymLeaderCoords = new NullablePoint();
     private AbsScrollPane scrollPane;
     private GeneComponentModelImgSelect imageFileName;
     private final ContentComponentModelGymTrainer gymTrainer = new ContentComponentModelGymTrainer();
@@ -51,6 +51,7 @@ public final class ContentComponentModelCity {
         editedBuildings = ConverterCommonMapUtil.copyPointsBuilding(_pl.getBuildings());
         nbPlace = _nbPlace;
         Coords coords_ = AbsContentComponentModelLevelLinks.coords(_nbPlace, 0, null);
+        contentLevelOutdoor.setAccessCondition(ConverterCommonMapUtil.copyCoordsLists(contentLevelOutdoor.getLevel().getFacadeGame().getMap().getAccessCondition()));
         contentLevelOutdoor.setupGridDims(coords_,_pl,_pl.getLevelOutdoor());
         contentLevelOutdoor.getLevel().getGrid().addMouseListener(new BuildingKindEvent(this));
         scrollPane.setViewportView(contentLevelOutdoor.getLevel().getForm());
@@ -58,6 +59,7 @@ public final class ContentComponentModelCity {
     public void buildEntity() {
         edited.getLevelOutdoor().setBlocks(getLevel().getEdited());
         edited.setBuildings(editedBuildings);
+        contentLevelOutdoor.getLevel().getFacadeGame().getMap().setAccessCondition(contentLevelOutdoor.getAccessCondition());
     }
 
     public AbsCustComponent getSplitter() {
@@ -101,6 +103,7 @@ public final class ContentComponentModelCity {
         contentLevelBuilding.setLevel(new FormLevelGrid(contentLevelOutdoor.getLevel().getApi(), contentLevelOutdoor.getLevel().getFacadeGame(), contentLevelOutdoor.getLevel().getFrame(), contentLevelOutdoor.getLevel().getTranslationList()));
         Coords coords_ = AbsContentComponentModelLevelLinks.coords(nbPlace, 0, contentLevelOutdoor.getSelected());
         IdList<SubscribedTranslation> next_ = contentLevelBuilding.setupTranslationsGrid(coords_,edited,editedBuilding.getLevel());
+        contentLevelBuilding.setAccessCondition(ConverterCommonMapUtil.copyCoordsLists(contentLevelOutdoor.getAccessCondition()));
         contentLevelBuilding.getLevel().getGrid().addMouseListener(new BuildingTileKindEvent(this));
         AbsPanel form_ = compoFactory_.newLineBox();
         imageFileName = new GeneComponentModelImgSelect(contentLevelOutdoor.getLevel().getApi(), contentLevelOutdoor.getLevel().getFacadeGame(), contentLevelOutdoor.getLevel().getTranslationList().getImgRetrieverLinksSub());
@@ -113,6 +116,12 @@ public final class ContentComponentModelCity {
             gymLeader.feedFormSub(((Gym)editedBuilding).getIndoor().getGymLeader());
             gymLeader.getTrainerImg().getMiniFileName().getName().getSelectUniq().getSelect().addListener(new ChangeItemBuildingTileEvent(this));
             gymLeader.getTrainerImg().getMiniFileName().updateValue(((Gym)editedBuilding).getIndoor().getGymLeader().getImageMiniFileName());
+            gymLeaderCoords = ConverterCommonMapUtil.copyNullablePoint(((Gym)editedBuilding).getIndoor().getGymLeaderCoords());
+            exitBuilding = ConverterCommonMapUtil.copyNullablePoint(editedBuilding.getExitCity());
+        }
+        if (editedBuilding instanceof PokemonCenter) {
+            storage = ConverterCommonMapUtil.copyNullablePoint(((PokemonCenter)editedBuilding).getIndoor().getStorageCoords());
+            exitBuilding = ConverterCommonMapUtil.copyNullablePoint(editedBuilding.getExitCity());
         }
         contentLevelOutdoor.getTranslations().addAllElts(next_);
         contentLevelBuilding.setFore(contentLevelOutdoor.getLevel().getApi().getCompoFactory().newAbsScrollPane());
@@ -294,6 +303,7 @@ public final class ContentComponentModelCity {
             editedBuilding.getLevel().setBlocks(contentLevelBuilding.getLevel().getEdited());
             editedBuildings.put(contentLevelOutdoor.getSelected(),editedBuilding);
         }
+        contentLevelOutdoor.setAccessCondition(contentLevelBuilding.getAccessCondition());
         contentLevelOutdoor.getLevel().getForeground().put(contentLevelOutdoor.getSelected(),new int[0][]);
         contentLevelOutdoor.getLevel().getForegroundEdited().removeKey(contentLevelOutdoor.getSelected());
         contentLevelOutdoor.getLevel().refreshImg(contentLevelOutdoor.getLevel().getFormBlockTile().getEdited().getWidth(), contentLevelOutdoor.getLevel().getFormBlockTile().getEdited().getHeight());
@@ -301,6 +311,12 @@ public final class ContentComponentModelCity {
 
     public void removeTile() {
         editedBuildings.removeKey(contentLevelOutdoor.getSelected());
+        Coords prev_ = new Coords(contentLevelOutdoor.getLevel().getSelectedPlace());
+        prev_.setInsideBuilding(contentLevelOutdoor.getSelected());
+        if (editedBuilding instanceof Gym) {
+            removeValues(((Gym)editedBuilding).getIndoor().getGymLeaderCoords(), prev_);
+        }
+        contentLevelOutdoor.setAccessCondition(contentLevelBuilding.getAccessCondition());
         contentLevelOutdoor.getLevel().getForeground().removeKey(contentLevelOutdoor.getSelected());
         contentLevelOutdoor.getLevel().getForegroundEdited().removeKey(contentLevelOutdoor.getSelected());
         contentLevelOutdoor.removeTile();
@@ -310,6 +326,15 @@ public final class ContentComponentModelCity {
 
     public void moveTile() {
         editedBuildings.move(contentLevelOutdoor.getSelected(),contentLevelOutdoor.nextPoint());
+        if (editedBuilding instanceof Gym) {
+            Coords prev_ = new Coords(contentLevelOutdoor.getLevel().getSelectedPlace());
+            prev_.setInsideBuilding(contentLevelOutdoor.getSelected());
+            updatePt(((Gym)editedBuilding).getIndoor().getGymLeaderCoords(),prev_);
+            Coords next_ = new Coords(prev_);
+            next_.setInsideBuilding(contentLevelOutdoor.nextPoint());
+            replaceValues(((Gym)editedBuilding).getIndoor().getGymLeaderCoords(),prev_,next_);
+        }
+        contentLevelOutdoor.setAccessCondition(contentLevelBuilding.getAccessCondition());
         contentLevelOutdoor.getLevel().getForeground().put(contentLevelOutdoor.nextPoint(),contentLevelOutdoor.getLevel().getForegroundEdited().getVal(contentLevelOutdoor.nextPoint()));
         contentLevelOutdoor.getLevel().getForeground().removeKey(contentLevelOutdoor.getSelected());
         contentLevelOutdoor.removeFore();
@@ -389,8 +414,10 @@ public final class ContentComponentModelCity {
                 validate();
             }
             if (StringUtil.quickEq(contentLevelBuilding.getKey(), MessagesEditorSelect.GYM_TILE_LEADER)) {
+                NullablePoint prevCoords_ = ConverterCommonMapUtil.copyNullablePoint(gymLeaderCoords);
                 gymLeaderCoords.setPoint(contentLevelBuilding.getSelected());
                 ((Gym)editedBuilding).getIndoor().setGymLeaderCoords(ConverterCommonMapUtil.copyNullablePoint(gymLeaderCoords));
+                replaceValues(prevCoords_, contentLevelBuilding.getSelected());
                 validate();
             }
             if (StringUtil.quickEq(contentLevelBuilding.getKey(), MessagesEditorSelect.GYM_TILE_EXIT)) {
@@ -436,8 +463,11 @@ public final class ContentComponentModelCity {
                 removeFore();
             }
             if (StringUtil.quickEq(contentLevelBuilding.getKey(), MessagesEditorSelect.GYM_TILE_LEADER)) {
+                NullablePoint prevCoords_ = ConverterCommonMapUtil.copyNullablePoint(gymLeaderCoords);
                 gymLeaderCoords.setPoint(null);
                 ((Gym)editedBuilding).getIndoor().setGymLeaderCoords(ConverterCommonMapUtil.copyNullablePoint(gymLeaderCoords));
+                Coords prev_ = new Coords(contentLevelBuilding.getLevel().getSelectedPlace());
+                removeValues(prevCoords_, prev_);
                 removeFore();
             }
             if (StringUtil.quickEq(contentLevelBuilding.getKey(), MessagesEditorSelect.GYM_TILE_EXIT)) {
@@ -450,6 +480,13 @@ public final class ContentComponentModelCity {
         }
     }
 
+    private void removeValues(NullablePoint _pt, Coords _prev) {
+        if (_pt.isDefined()) {
+            _prev.getLevel().setPoint(_pt.getPoint());
+            ConverterCommonMapUtil.removeValues(contentLevelBuilding.getAccessCondition(), _prev);
+        }
+    }
+
     public void moveBuildingTile() {
         if (editedBuilding instanceof PokemonCenter) {
             ((PokemonCenter)editedBuilding).getIndoor().getGerants().move(contentLevelBuilding.getSelected(),contentLevelBuilding.nextPoint());
@@ -459,11 +496,13 @@ public final class ContentComponentModelCity {
             ((PokemonCenter)editedBuilding).getIndoor().setStorageCoords(ConverterCommonMapUtil.copyNullablePoint(storage));
         }
         if (editedBuilding instanceof Gym) {
+            NullablePoint prevCoords_ = ConverterCommonMapUtil.copyNullablePoint(gymLeaderCoords);
             ((Gym)editedBuilding).getIndoor().getGymTrainers().move(contentLevelBuilding.getSelected(),contentLevelBuilding.nextPoint());
             AbsMoveForeTileEvent.moveNullablePoint(exitBuilding,contentLevelBuilding.getSelected(),contentLevelBuilding.nextPoint());
             AbsMoveForeTileEvent.moveNullablePoint(gymLeaderCoords,contentLevelBuilding.getSelected(),contentLevelBuilding.nextPoint());
             editedBuilding.setExitCity(ConverterCommonMapUtil.copyNullablePoint(exitBuilding));
             ((Gym)editedBuilding).getIndoor().setGymLeaderCoords(ConverterCommonMapUtil.copyNullablePoint(gymLeaderCoords));
+            replaceValues(prevCoords_, contentLevelBuilding.nextPoint());
         }
         contentLevelBuilding.getLevel().getForeground().put(contentLevelBuilding.nextPoint(),contentLevelBuilding.getLevel().getForegroundEdited().getVal(contentLevelBuilding.nextPoint()));
         contentLevelBuilding.removeFore();
@@ -477,6 +516,27 @@ public final class ContentComponentModelCity {
             initFormChoicesPc();
         }
     }
+
+    private void replaceValues(NullablePoint _r, Point _n) {
+        Coords prev_ = new Coords(contentLevelBuilding.getLevel().getSelectedPlace());
+        updatePt(_r,prev_);
+        Coords next_ = new Coords(prev_);
+        next_.getLevel().setPoint(_n);
+        replaceValues(_r, prev_, next_);
+    }
+
+    private void replaceValues(NullablePoint _r, Coords _prev, Coords _next) {
+        if (_r.isDefined()) {
+            ConverterCommonMapUtil.replaceValues(contentLevelBuilding.getAccessCondition(), _prev, _next);
+        }
+    }
+
+    private void updatePt(NullablePoint _r, Coords _prev) {
+        if (_r.isDefined()) {
+            _prev.getLevel().setPoint(_r.getPoint());
+        }
+    }
+
     private void removeFore() {
         contentLevelBuilding.removeFore();
     }

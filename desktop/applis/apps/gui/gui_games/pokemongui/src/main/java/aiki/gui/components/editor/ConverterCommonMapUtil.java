@@ -259,6 +259,26 @@ public final class ConverterCommonMapUtil {
         }
         return new Dims(_pixels[0].length, _pixels.length);
     }
+    public static void replaceValues(CoordsLists _e, Coords _o, Coords _n) {
+        for (Condition c: _e.values()) {
+            replaceValue(c,_o,_n);
+        }
+    }
+
+    public static void replaceValue(Condition _e, Coords _o, Coords _n) {
+        int len_ = _e.size();
+        for (int i = 0; i < len_; i++) {
+            Coords l_ = _e.get(i);
+            if (Coords.eq(l_,_o)) {
+                _e.set(i,_n);
+            }
+        }
+    }
+    public static void removeValues(CoordsLists _e, Coords _o) {
+        for (Condition c: _e.values()) {
+            c.removeAllObj(_o);
+        }
+    }
     public static DataBase validateData(DataBase _db, AbstractAtomicIntegerCoreAdd _perCentLoading, AbstractAtomicBooleanCore _loading, SexListInt _i) {
         DataBase data_ = new DataBase(_db.getGenerator());
         MessagesDataBaseConstants.initEmpty(data_);

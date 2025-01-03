@@ -44,6 +44,7 @@ public final class ContentComponentModelLevelWithWild {
         edited = _wild;
         nbPlace = _coords.getNumberPlace();
         nbLevel = _coords.getLevel().getLevelIndex();
+        contentLevel.setAccessCondition(ConverterCommonMapUtil.copyCoordsLists(contentLevel.getLevel().getFacadeGame().getMap().getAccessCondition()));
         contentLevel.setupGridDims(_coords, _pl, _wild);
         contentLevel.getLevel().getGrid().addMouseListener(new TileKindEvent(this));
         scrollPane.setViewportView(contentLevel.getLevel().getForm());
@@ -58,6 +59,7 @@ public final class ContentComponentModelLevelWithWild {
         _lev.setLegendaryPks(edited.getLegendaryPks());
         _lev.setDualFights(edited.getDualFights());
         _lev.setCharacters(edited.getCharacters());
+        contentLevel.getLevel().getFacadeGame().getMap().setAccessCondition(contentLevel.getAccessCondition());
     }
 
     public AbsCustComponent getSplitter() {
@@ -285,6 +287,11 @@ public final class ContentComponentModelLevelWithWild {
         edited.getLegendaryPks().move(contentLevel.getSelected(),contentLevel.nextPoint());
         edited.getCharacters().move(contentLevel.getSelected(),contentLevel.nextPoint());
         edited.getDualFights().move(contentLevel.getSelected(),contentLevel.nextPoint());
+        Coords prev_ = new Coords(contentLevel.getLevel().getSelectedPlace());
+        prev_.getLevel().setPoint(contentLevel.getSelected());
+        Coords next_ = new Coords(prev_);
+        next_.getLevel().setPoint(contentLevel.nextPoint());
+        ConverterCommonMapUtil.replaceValues(contentLevel.getAccessCondition(),prev_,next_);
         contentLevel.getLevel().getForeground().put(contentLevel.nextPoint(),contentLevel.getLevel().getForegroundEdited().getVal(contentLevel.nextPoint()));
         contentLevel.removeFore();
         contentLevel.applyTile();
@@ -317,6 +324,9 @@ public final class ContentComponentModelLevelWithWild {
         }
         if (StringUtil.quickEq(contentLevel.getKey(), MessagesEditorSelect.TILE_DUAL)) {
             edited.getDualFights().removeKey(contentLevel.getSelected());
+            Coords prev_ = new Coords(contentLevel.getLevel().getSelectedPlace());
+            prev_.getLevel().setPoint(contentLevel.getSelected());
+            ConverterCommonMapUtil.removeValues(contentLevel.getAccessCondition(),prev_);
             removeFore();
         }
         contentLevel.removeTile();
