@@ -319,19 +319,19 @@ public final class ConverterCommonMapUtil {
         data_.setFrontHeros(copyImageHeroKeys(_db.getFrontHeros()));
         data_.setOverWorldHeros(copyImageHeroKeys(_db.getOverWorldHeros()));
         for (EntryCust<String,AbilityData> f:_db.getAbilities().entryList()) {
-            data_.completeQuickMembers(f.getKey(),copyAbilityData(f.getValue()));
+            data_.getAbilities().addEntry(f.getKey(),copyAbilityData(f.getValue()));
         }
         for (EntryCust<String, Item> f:_db.getItems().entryList()) {
-            data_.completeQuickMembers(f.getKey(),copyItem(f.getValue()));
+            data_.getItems().addEntry(f.getKey(),copyItem(f.getValue()));
         }
         for (EntryCust<String, MoveData> f:_db.getMoves().entryList()) {
-            data_.completeQuickMembers(f.getKey(),copyMoveData(f.getValue()));
+            data_.getMoves().addEntry(f.getKey(),copyMoveData(f.getValue()));
         }
         for (EntryCust<String, PokemonData> f:_db.getPokedex().entryList()) {
-            data_.completeQuickMembers(f.getKey(),copyPokemonData(f.getValue()));
+            data_.getPokedex().addEntry(f.getKey(),copyPokemonData(f.getValue()));
         }
         for (EntryCust<String, Status> f:_db.getStatus().entryList()) {
-            data_.completeQuickMembers(f.getKey(),copyStatus(f.getValue()));
+            data_.getStatus().addEntry(f.getKey(),copyStatus(f.getValue()));
         }
         for (int i = 0; i < 157; i++) {
             data_.initValueOther(Long.toString(i), _db.retValueOther(Long.toString(i)));
@@ -379,6 +379,7 @@ public final class ConverterCommonMapUtil {
         for (EntryCust<String, IdMap<TargetChoice, String>> f: _db.getTranslatedTargets().entryList()) {
             data_.getTranslatedTargets().addEntry(f.getKey(),new IdMap<TargetChoice, String>(f.getValue()));
         }
+        data_.updateInfos();
         data_.calculateAvgPound();
         data_.completeVariables();
         data_.completeMembersCombos();

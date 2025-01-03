@@ -106,6 +106,7 @@ public final class DocumentReaderAikiCoreUtil {
             i++;
         }
         _perCentLoading.set(50);
+        _d.updateInfos();
         _d.calculateAvgPound();
         _d.completeVariables();
         _d.completeMembersCombos();
@@ -394,23 +395,23 @@ public final class DocumentReaderAikiCoreUtil {
         String kindImg_ = kind(e_);
         if (StringUtil.quickEq(kindImg_, DocumentWriterAikiCoreUtil.KIND_AB)) {
             PkFileElement<AbilityData> ab_ = new PkFileElement<AbilityData>(e_.getAttribute(DocumentReaderCoreUtil.VALUE), getAbilityData(e_));
-            _d.completeMembers(check(ab_.getKey(),_d), ab_.getData());
+            _d.getAbilities().put(check(ab_.getKey(),_d), ab_.getData());
         }
         if (StringUtil.quickEq(kindImg_, DocumentWriterAikiCoreUtil.KIND_IT)) {
             PkFileElement<Item> it_ = new PkFileElement<Item>(e_.getAttribute(DocumentReaderCoreUtil.VALUE), getItem(e_));
-            _d.completeMembers(check(it_.getKey(),_d), it_.getData());
+            _d.getItems().put(check(it_.getKey(),_d), it_.getData());
         }
         if (StringUtil.quickEq(kindImg_, DocumentWriterAikiCoreUtil.KIND_MV)) {
             PkFileElement<MoveData> mv_ = new PkFileElement<MoveData>(e_.getAttribute(DocumentReaderCoreUtil.VALUE), getMoveData(e_));
-            _d.completeMembers(check(mv_.getKey(),_d), mv_.getData());
+            _d.getMoves().put(check(mv_.getKey(),_d), mv_.getData());
         }
         if (StringUtil.quickEq(kindImg_, DocumentWriterAikiCoreUtil.KIND_PK)) {
             PkFileElement<PokemonData> pk_ = new PkFileElement<PokemonData>(e_.getAttribute(DocumentReaderCoreUtil.VALUE), getPokemonData(e_));
-            _d.completeMembers(check(pk_.getKey(),_d), pk_.getData());
+            _d.getPokedex().put(check(pk_.getKey(),_d), pk_.getData());
         }
         if (StringUtil.quickEq(kindImg_, DocumentWriterAikiCoreUtil.KIND_ST)) {
             PkFileElement<Status> st_ = new PkFileElement<Status>(e_.getAttribute(DocumentReaderCoreUtil.VALUE), getStatus(e_));
-            _d.completeMembers(check(st_.getKey(),_d), st_.getData());
+            _d.getStatus().put(check(st_.getKey(),_d), st_.getData());
         }
         if (StringUtil.quickEq(kindImg_, DocumentWriterAikiCoreUtil.KIND_MAP)) {
             _d.setMap(DocumentReaderAikiCoreUtil.getDataMap(e_));

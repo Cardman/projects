@@ -3766,6 +3766,23 @@ public final class DataBase {
         }
     }
 
+    public void updateInfos() {
+        for (EntryCust<String,AbilityData> a: abilities.entryList()) {
+            updateInfo(a.getKey(),a.getValue());
+        }
+        for (EntryCust<String,Item> i: items.entryList()) {
+            updateInfo(i.getKey(),i.getValue());
+        }
+        for (EntryCust<String,MoveData> m: moves.entryList()) {
+            updateInfo(m.getKey(),m.getValue());
+        }
+        for (EntryCust<String,PokemonData> p: pokedex.entryList()) {
+            updateInfo(p.getKey(),p.getValue());
+        }
+        for (EntryCust<String, Status> s: status.entryList()) {
+            updateInfo(s.getKey(),s.getValue());
+        }
+    }
     public void completeMembers(String _pokemonName, PokemonData _pokemon) {
         updateInfo(_pokemonName,_pokemon);
         pokedex.put(_pokemonName, _pokemon);

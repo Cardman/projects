@@ -1,37 +1,24 @@
 package aiki.db;
 
-import aiki.fight.Combos;
-import aiki.fight.abilities.AbilityData;
-import aiki.fight.enums.EndTurnType;
-import aiki.fight.enums.Statistic;
-import aiki.fight.items.Berry;
-import aiki.fight.items.ItemForBattle;
-import aiki.fight.moves.DamagingMoveData;
-import aiki.fight.moves.StatusMoveData;
+import aiki.fight.*;
+import aiki.fight.abilities.*;
+import aiki.fight.enums.*;
+import aiki.fight.items.*;
+import aiki.fight.moves.*;
 import aiki.fight.moves.effects.*;
-import aiki.fight.moves.effects.enums.MoveChoiceRestrictionType;
-import aiki.fight.moves.effects.enums.RelationType;
-import aiki.fight.pokemon.PokemonData;
-import aiki.fight.pokemon.enums.ExpType;
-import aiki.fight.status.Status;
-import aiki.fight.status.StatusSimple;
-import aiki.fight.status.StatusType;
-import aiki.fight.util.ListEffectCombo;
-import aiki.fight.util.TypesDuos;
-import aiki.game.fight.InitializationDataBase;
-import aiki.game.params.enums.DifficultyModelLaw;
-import aiki.game.params.enums.DifficultyWinPointsFight;
-import aiki.instances.Instances;
-import aiki.util.ImageHeroKeys;
-import aiki.util.LawNumber;
-import aiki.util.ScreenCoordssInt;
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.maths.montecarlo.DefaultGenerator;
-import code.maths.montecarlo.MonteCarloNumber;
-import code.maths.montecarlo.MonteCarloString;
+import aiki.fight.moves.effects.enums.*;
+import aiki.fight.pokemon.*;
+import aiki.fight.pokemon.enums.*;
+import aiki.fight.status.*;
+import aiki.fight.util.*;
+import aiki.game.fight.*;
+import aiki.game.params.enums.*;
+import aiki.instances.*;
+import aiki.util.*;
+import code.maths.*;
+import code.maths.montecarlo.*;
 import code.util.*;
-import code.util.core.StringUtil;
+import code.util.core.*;
 import org.junit.Test;
 
 
@@ -1687,7 +1674,7 @@ public class DataBaseTest extends EquallablePkUtil {
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("ECLAIR", moveDamage_);
+        completeMembersMoveTwo(data_, "ECLAIR", moveDamage_);
         assertEq(1, data_.getCategories().size());
         assertTrue(StringUtil.contains(data_.getCategories(), "SPECIAL"));
         assertEq(1, data_.getAllCategories().size());
@@ -1707,7 +1694,7 @@ public class DataBaseTest extends EquallablePkUtil {
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("TONNERRE", moveDamage_);
+        completeMembersMoveTwo(data_, "TONNERRE", moveDamage_);
         assertEq(1, data_.getCategories().size());
         assertTrue(StringUtil.contains(data_.getCategories(), "PHYSIQUE"));
         assertEq(1, data_.getAllCategories().size());
@@ -1726,7 +1713,7 @@ public class DataBaseTest extends EquallablePkUtil {
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(0, data_.getCategories().size());
         assertEq(1, data_.getAllCategories().size());
         assertTrue(StringUtil.contains(data_.getAllCategories(), data_.getDefCategory()));
@@ -1743,7 +1730,7 @@ public class DataBaseTest extends EquallablePkUtil {
         moveDamage_.setAccuracy(StringUtil.concat("1+",VAR_PREFIX,"NB_TURN*100"));
         moveDamage_.setEffects(new CustList<Effect>());
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(0, data_.getCategories().size());
         assertEq(1, data_.getVariables().size());
         assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(VAR_PREFIX, "NB_TURN")));
@@ -1760,7 +1747,7 @@ public class DataBaseTest extends EquallablePkUtil {
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(0, data_.getCategories().size());
         assertEq(0, data_.getVariables().size());
     }
@@ -1783,7 +1770,7 @@ public class DataBaseTest extends EquallablePkUtil {
         damage_.setDamageLaw(new MonteCarloString());
         moveDamage_.getEffects().add(damage_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("CHARGE", moveDamage_);
+        completeMembersMoveTwo(data_, "CHARGE", moveDamage_);
         assertEq(0, data_.getVariables().size());
     }
 
@@ -1805,7 +1792,7 @@ public class DataBaseTest extends EquallablePkUtil {
         damage_.setDamageLaw(new MonteCarloString());
         moveDamage_.getEffects().add(damage_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("CHARGE", moveDamage_);
+        completeMembersMoveTwo(data_, "CHARGE", moveDamage_);
         assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(VAR_PREFIX, "NB_TURN")));
     }
 
@@ -1827,7 +1814,7 @@ public class DataBaseTest extends EquallablePkUtil {
         damage_.setDamageLaw(new MonteCarloString());
         moveDamage_.getEffects().add(damage_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("CHARGE", moveDamage_);
+        completeMembersMoveTwo(data_, "CHARGE", moveDamage_);
         assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(VAR_PREFIX, "NB_TURN")));
     }
 
@@ -1850,7 +1837,7 @@ public class DataBaseTest extends EquallablePkUtil {
         damage_.getDamageLaw().addQuickEvent(StringUtil.concat("1+",VAR_PREFIX,"NB_TURN*100"), LgInt.one());
         moveDamage_.getEffects().add(damage_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("CHARGE", moveDamage_);
+        completeMembersMoveTwo(data_, "CHARGE", moveDamage_);
         assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(VAR_PREFIX, "NB_TURN")));
     }
 
@@ -1871,7 +1858,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatis_.setLocalFailSwapBoostStatis(new IdMap<Statistic,String>());
         moveDamage_.getEffects().add(effStatis_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(0, data_.getVariables().size());
     }
 
@@ -1893,7 +1880,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatis_.setLocalFailSwapBoostStatis(new IdMap<Statistic,String>());
         moveDamage_.getEffects().add(effStatis_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(VAR_PREFIX, "NB_TURN")));
     }
 
@@ -1915,7 +1902,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatis_.getLocalFailSwapBoostStatis().put(Statistic.ATTACK, StringUtil.concat("1+",VAR_PREFIX,"NB_TURN*100"));
         moveDamage_.getEffects().add(effStatis_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(VAR_PREFIX, "NB_TURN")));
     }
 
@@ -1935,7 +1922,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatus_.setLocalFailStatus(new StringMap<String>());
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(0, data_.getVariables().size());
     }
 
@@ -1956,7 +1943,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatus_.getLocalFailStatus().put("PSN", StringUtil.concat("1+",VAR_PREFIX,"NB_TURN*100"));
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(VAR_PREFIX, "NB_TURN")));
     }
 
@@ -1976,7 +1963,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatus_.setCommonValue(new IdMap<Statistic,String>());
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(0, data_.getVariables().size());
     }
 
@@ -1997,7 +1984,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatus_.getCommonValue().put(Statistic.ATTACK, StringUtil.concat("1+",VAR_PREFIX,"NB_TURN*100"));
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(VAR_PREFIX, "NB_TURN")));
     }
 
@@ -2017,7 +2004,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatus_.setRestoredHp("");
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(0, data_.getVariables().size());
     }
 
@@ -2037,7 +2024,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatus_.setRestoredHp(StringUtil.concat("1+",VAR_PREFIX,"NB_TURN*100"));
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(VAR_PREFIX, "NB_TURN")));
     }
 
@@ -2058,7 +2045,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatus_.setFailSending("");
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(0, data_.getVariables().size());
         assertEq(1, data_.getMovesEffectWhileSending().size());
         assertTrue(StringUtil.contains(data_.getMovesEffectWhileSending(), "QUEUE_DE_CHEVAL"));
@@ -2081,7 +2068,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatus_.setDamageRateAgainstFoe(StringUtil.concat("1+",VAR_PREFIX,"NB_TURN*100"));
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(VAR_PREFIX, "NB_TURN")));
         assertEq(1, data_.getMovesEffectWhileSending().size());
         assertTrue(StringUtil.contains(data_.getMovesEffectWhileSending(), "QUEUE_DE_CHEVAL"));
@@ -2104,7 +2091,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatus_.setCopyingMoveForUser((short) 0);
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(0, data_.getMovesCopyingTemp().size());
         assertEq(0, data_.ppCopiedMove("QUEUE_DE_CHEVAL"));
     }
@@ -2125,7 +2112,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatus_.setCopyingMoveForUser((short) 1);
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(1, data_.getMovesCopyingTemp().size());
         assertEq(1, data_.ppCopiedMove("QUEUE_DE_CHEVAL"));
     }
@@ -2146,7 +2133,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatus_.setProtSingleAgainstKo(Rate.zero());
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(0, data_.getMovesProtAgainstPrio().size());
         assertEq(0, data_.getMovesProtSingleTarget().size());
         assertEq(0, data_.getMovesProtSingleTargetAgainstKo().size());
@@ -2172,7 +2159,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatus_.setFail("");
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(1, data_.getMovesProtAgainstPrio().size());
         assertEq(0, data_.getMovesProtSingleTarget().size());
         assertEq(0, data_.getMovesProtSingleTargetAgainstKo().size());
@@ -2198,7 +2185,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatus_.setFail("");
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(0, data_.getMovesProtAgainstPrio().size());
         assertEq(1, data_.getMovesProtSingleTarget().size());
         assertEq(0, data_.getMovesProtSingleTargetAgainstKo().size());
@@ -2224,7 +2211,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatus_.setFail("");
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(0, data_.getMovesProtAgainstPrio().size());
         assertEq(0, data_.getMovesProtSingleTarget().size());
         assertEq(0, data_.getMovesProtSingleTargetAgainstKo().size());
@@ -2249,7 +2236,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatus_.setFail("");
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(0, data_.getMovesProtAgainstPrio().size());
         assertEq(0, data_.getMovesProtSingleTarget().size());
         assertEq(1, data_.getMovesProtSingleTargetAgainstKo().size());
@@ -2273,7 +2260,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatus_.setFail("");
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(1, data_.getMovesAccuracy().size());
     }
 
@@ -2292,7 +2279,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatus_.setFail("");
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(1, data_.getMovesEffectAlly().size());
     }
 
@@ -2311,7 +2298,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatus_.setFail("");
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(1, data_.getMovesEffectTeam().size());
     }
 
@@ -2330,7 +2317,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatus_.setFail("");
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(1, data_.getMovesEffectUnprot().size());
     }
 
@@ -2349,7 +2336,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatus_.setFail("");
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(1, data_.getMovesEffectProt().size());
     }
 
@@ -2368,7 +2355,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatus_.setFail("");
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(1, data_.getMovesEffectGlobal().size());
         assertEq(0, data_.getMovesEffectGlobalWeather().size());
     }
@@ -2389,7 +2376,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatus_.setWeather(true);
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(1, data_.getMovesEffectGlobal().size());
         assertEq(1, data_.getMovesEffectGlobalWeather().size());
     }
@@ -2410,7 +2397,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatus_.setChoiceRestriction(MoveChoiceRestrictionType.FORCE);
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(0, data_.getMovesEffectIndiv().size());
         assertEq(1, data_.getMovesActingMoveUses().size());
         assertEq(0, data_.getMovesForbidding().size());
@@ -2432,7 +2419,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatus_.setChoiceRestriction(MoveChoiceRestrictionType.FORBIDDEN);
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(0, data_.getMovesEffectIndiv().size());
         assertEq(1, data_.getMovesActingMoveUses().size());
         assertEq(0, data_.getMovesForbidding().size());
@@ -2454,7 +2441,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatus_.setChoiceRestriction(MoveChoiceRestrictionType.LANCEUR_ATTAQUES);
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(0, data_.getMovesEffectIndiv().size());
         assertEq(0, data_.getMovesActingMoveUses().size());
         assertEq(1, data_.getMovesForbidding().size());
@@ -2476,7 +2463,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatus_.setChoiceRestriction(MoveChoiceRestrictionType.DER);
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(0, data_.getMovesEffectIndivIncr().size());
         assertEq(1, data_.getMovesEffectIndiv().size());
         assertEq(0, data_.getMovesActingMoveUses().size());
@@ -2500,7 +2487,7 @@ public class DataBaseTest extends EquallablePkUtil {
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         moveDamage_.getRepeatRoundLaw().addQuickEvent(Rate.one(), LgInt.one());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(1, data_.getMovesEffectIndivIncr().size());
         assertEq(1, data_.getMovesEffectIndiv().size());
         assertEq(0, data_.getMovesActingMoveUses().size());
@@ -2523,7 +2510,7 @@ public class DataBaseTest extends EquallablePkUtil {
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         moveDamage_.getRepeatRoundLaw().addQuickEvent(Rate.one(), LgInt.one());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(1, data_.getMovesEffectIndivIncr().size());
         assertEq(1, data_.getMovesEffectProt().size());
     }
@@ -2540,7 +2527,7 @@ public class DataBaseTest extends EquallablePkUtil {
         moveDamage_.setEffects(new CustList<Effect>());
         moveDamage_.setRankIncrementNbRound((short) 1);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(1, data_.getEvtEndRound().size());
         assertEq(1, data_.getEvtEndRound().first().getNumberIncrement());
         assertEq("QUEUE_DE_CHEVAL", data_.getEvtEndRound().first().getElement());
@@ -2565,7 +2552,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effect_.setEndRoundRank(2);
         moveDamage_.getEffects().add(effect_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(1, data_.getEvtEndRound().size());
         assertEq(2, data_.getEvtEndRound().first().getNumberIncrement());
         assertEq("QUEUE_DE_CHEVAL", data_.getEvtEndRound().first().getElement());
@@ -2598,7 +2585,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effect_.setEndRoundRank(2);
         moveDamage_.getEffects().add(effect_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(0, data_.getMovesConstChoices().size());
         assertEq(0, data_.getTrappingMoves().size());
         assertEq(0, data_.getMovesEffEndRoundIndiv().size());
@@ -2626,7 +2613,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effect_.setEndRoundRank(2);
         moveDamage_.getEffects().add(effect_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(0, data_.getMovesConstChoices().size());
         assertEq(0, data_.getTrappingMoves().size());
         assertEq(0, data_.getMovesEffEndRoundIndiv().size());
@@ -2654,7 +2641,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effect_.setEndRoundRank(2);
         moveDamage_.getEffects().add(effect_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(0, data_.getMovesConstChoices().size());
         assertEq(0, data_.getTrappingMoves().size());
         assertEq(1, data_.getMovesEffEndRoundIndiv().size());
@@ -2683,7 +2670,7 @@ public class DataBaseTest extends EquallablePkUtil {
         moveDamage_.getEffects().add(effect_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         moveDamage_.getRepeatRoundLaw().addQuickEvent(Rate.one(), LgInt.one());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(0, data_.getMovesConstChoices().size());
         assertEq(0, data_.getTrappingMoves().size());
         assertEq(1, data_.getMovesEffEndRoundIndiv().size());
@@ -2712,7 +2699,7 @@ public class DataBaseTest extends EquallablePkUtil {
         moveDamage_.getEffects().add(effect_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         moveDamage_.getRepeatRoundLaw().addQuickEvent(Rate.one(), LgInt.one());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(0, data_.getMovesConstChoices().size());
         assertEq(0, data_.getTrappingMoves().size());
         assertEq(1, data_.getMovesEffEndRoundIndiv().size());
@@ -2745,7 +2732,7 @@ public class DataBaseTest extends EquallablePkUtil {
         moveDamage_.getEffects().add(effect_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         moveDamage_.getRepeatRoundLaw().addQuickEvent(Rate.one(), LgInt.one());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(0, data_.getMovesConstChoices().size());
         assertEq(1, data_.getTrappingMoves().size());
         assertEq(0, data_.getMovesEffEndRoundIndiv().size());
@@ -2769,7 +2756,7 @@ public class DataBaseTest extends EquallablePkUtil {
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         moveDamage_.setConstUserChoice(true);
         moveDamage_.getRepeatRoundLaw().addQuickEvent(Rate.one(), LgInt.one());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(1, data_.getMovesConstChoices().size());
         assertEq(0, data_.getMovesEffEndRoundIndiv().size());
         assertEq(0, data_.getMovesEffEndRoundIndivIncr().size());
@@ -2794,7 +2781,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effect_.setLocalFailStatus(new StringMap<String>());
         moveDamage_.getEffects().add(effect_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(0, data_.getMovesConstChoices().size());
         assertEq(0, data_.getMovesEffEndRoundIndiv().size());
         assertEq(0, data_.getMovesEffEndRoundIndivIncr().size());
@@ -2820,7 +2807,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effect_.setKoUserHealSubst(true);
         moveDamage_.getEffects().add(effect_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(0, data_.getMovesConstChoices().size());
         assertEq(0, data_.getMovesEffEndRoundIndiv().size());
         assertEq(0, data_.getMovesEffEndRoundIndivIncr().size());
@@ -2844,7 +2831,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effect_.setFail("");
         moveDamage_.getEffects().add(effect_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(0, data_.getMovesConstChoices().size());
         assertEq(0, data_.getMovesEffEndRoundIndiv().size());
         assertEq(0, data_.getMovesEffEndRoundIndivIncr().size());
@@ -2860,7 +2847,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         Berry berry_;
         berry_ = new Berry();
-        data_.completeMembers("STRAW_BERRY", berry_);
+        completeMembersItem(data_, berry_);
         assertEq(0, data_.getEvtEndRound().size());
     }
 
@@ -2875,7 +2862,7 @@ public class DataBaseTest extends EquallablePkUtil {
         berry_.setMultPower("");
         berry_.setMultStat(new IdMap<Statistic,String>());
         berry_.setFailStatus(new StringMap<String>());
-        data_.completeMembers("STRAW_BERRY", berry_);
+        completeMembersItem(data_, berry_);
         assertEq(0, data_.getEvtEndRound().size());
     }
 
@@ -2895,7 +2882,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effect_.setEndRoundRank(3);
         effect_.setHealHp(new Rate(1,2));
         berry_.getEffectEndRound().add(effect_);
-        data_.completeMembers("STRAW_BERRY", berry_);
+        completeMembersItem(data_, berry_);
         assertEq(1, data_.getEvtEndRound().size());
         assertEq(3, data_.getEvtEndRound().first().getNumberIncrement());
         assertEq(EndTurnType.OBJET, data_.getEvtEndRound().first().getEndRoundType());
@@ -2915,7 +2902,7 @@ public class DataBaseTest extends EquallablePkUtil {
         ability_.setMultPower("");
         ability_.setMultStat(new IdMap<Statistic,String>());
         ability_.setFailStatus(new StringMap<String>());
-        data_.completeMembers("FLYING", ability_);
+        completeAbility(data_, ability_);
         assertEq(0, data_.getEvtEndRound().size());
     }
 
@@ -2935,7 +2922,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effect_.setEndRoundRank(3);
         effect_.setDeleteAllStatusAlly(new Rate(1,2));
         ability_.getEffectEndRound().add(effect_);
-        data_.completeMembers("FLYING", ability_);
+        completeAbility(data_, ability_);
         assertEq(1, data_.getEvtEndRound().size());
         assertEq(3, data_.getEvtEndRound().first().getNumberIncrement());
         assertEq(EndTurnType.CAPACITE, data_.getEvtEndRound().first().getEndRoundType());
@@ -2951,7 +2938,7 @@ public class DataBaseTest extends EquallablePkUtil {
         Status status_;
         status_ = new StatusSimple();
         status_.setEffectEndRound(new CustList<EffectEndRoundStatus>());
-        data_.completeMembers("PAR", status_);
+        completeMembersStatus(data_,status_);
         assertEq(0, data_.getEvtEndRound().size());
     }
 
@@ -2965,7 +2952,7 @@ public class DataBaseTest extends EquallablePkUtil {
         EffectEndRoundSingleStatus eff_ = new EffectEndRoundSingleStatus();
         eff_.setEndRoundRank(2);
         status_.getEffectEndRound().add(eff_);
-        data_.completeMembers("PAR", status_);
+        completeMembersStatus(data_, status_);
         assertEq(1, data_.getEvtEndRound().size());
         assertEq(2, data_.getEvtEndRound().first().getNumberIncrement());
         assertEq(EndTurnType.STATUT, data_.getEvtEndRound().first().getEndRoundType());
@@ -2984,7 +2971,7 @@ public class DataBaseTest extends EquallablePkUtil {
         EffectEndRoundStatusRelation eff_ = new EffectEndRoundStatusRelation();
         eff_.setEndRoundRank(2);
         status_.getEffectEndRound().add(eff_);
-        data_.completeMembers("PAR", status_);
+        completeMembersStatus(data_, status_);
         assertEq(1, data_.getEvtEndRound().size());
         assertEq(2, data_.getEvtEndRound().first().getNumberIncrement());
         assertEq(EndTurnType.STATUT, data_.getEvtEndRound().first().getEndRoundType());
@@ -3003,7 +2990,7 @@ public class DataBaseTest extends EquallablePkUtil {
         status_.setIncrementingEndRound(true);
         status_.setIncrementEndRound(4);
         status_.setStatusType(StatusType.INDIVIDUEL);
-        data_.completeMembers("PAR", status_);
+        completeMembersStatus(data_, status_);
         assertEq(1, data_.getEvtEndRound().size());
         assertEq(4, data_.getEvtEndRound().first().getNumberIncrement());
         assertEq(EndTurnType.STATUT, data_.getEvtEndRound().first().getEndRoundType());
@@ -3022,7 +3009,7 @@ public class DataBaseTest extends EquallablePkUtil {
         status_.setIncrementingEndRound(true);
         status_.setIncrementEndRound(4);
         status_.setStatusType(StatusType.RELATION_UNIQUE);
-        data_.completeMembers("PAR", status_);
+        completeMembersStatus(data_, status_);
         assertEq(1, data_.getEvtEndRound().size());
         assertEq(4, data_.getEvtEndRound().first().getNumberIncrement());
         assertEq(EndTurnType.STATUT, data_.getEvtEndRound().first().getEndRoundType());
@@ -3095,7 +3082,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatus_.setDamageRateAgainstFoe("");
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(VAR_PREFIX, "NB_TURN")));
         assertEq(1, data_.getMovesEffectWhileSending().size());
         assertTrue(StringUtil.contains(data_.getMovesEffectWhileSending(), "QUEUE_DE_CHEVAL"));
@@ -3118,7 +3105,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatus_.setProtectFail(StringUtil.concat(VAR_PREFIX,"USED_MOVE=TACKLE"));
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(VAR_PREFIX, "NB_TURN")));
         assertTrue(StringUtil.contains(data_.getVariables(), StringUtil.concat(VAR_PREFIX, "USED_MOVE")));
         assertEq(1, data_.getMovesCountering().size());
@@ -3140,7 +3127,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatus_.setFail("");
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(1, data_.getMovesChangingTypes().size());
         assertTrue(StringUtil.contains(data_.getMovesChangingTypes(), "QUEUE_DE_CHEVAL"));
     }
@@ -3162,7 +3149,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatus_.setFail("");
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(1, data_.getMovesProtAgainstStatusMoves().size());
         assertEq(0, data_.getMovesProtAgainstDamageMoves().size());
         assertEq(0, data_.getMovesProtAgainstPrio().size());
@@ -3188,7 +3175,7 @@ public class DataBaseTest extends EquallablePkUtil {
         effStatus_.setFail("");
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
+        completeMembersMoveOne(data_, moveDamage_);
         assertEq(1, data_.getMovesProtAgainstDamageMoves().size());
         assertEq(0, data_.getMovesProtAgainstStatusMoves().size());
         assertEq(0, data_.getMovesProtAgainstPrio().size());
@@ -3235,7 +3222,8 @@ public class DataBaseTest extends EquallablePkUtil {
         damage_.setDamageLaw(new MonteCarloString());
         moveDamage_.getEffects().add(damage_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        data_.completeMembers("CHARGE", moveDamage_);
+        data_.getMoves().addEntry("CHARGE", moveDamage_);
+        data_.updateInfos();
         data_.completeVariables();
         assertEq(1, data_.getVarParamsMove().size());
         assertTrue(data_.getVarParamsMove().contains("NB_TURN"));
@@ -3256,9 +3244,35 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         PokemonData pokemon_ = Instances.newPokemonData();
         pokemon_.setWeight(Rate.one());
-        data_.completeMembers("QUEUE_DE_CHEVAL", pokemon_);
+        data_.getPokedex().addEntry("QUEUE_DE_CHEVAL", pokemon_);
+        data_.updateInfos();
         data_.calculateAvgPound();
         assertEq(Rate.newRate("1"),data_.getAvgWeight());
+    }
+
+    private void completeMembersMoveTwo(DataBase _data, String _n, MoveData _m) {
+        _data.getMoves().addEntry(_n, _m);
+        _data.updateInfos();
+    }
+
+    private void completeMembersMoveOne(DataBase _data, MoveData _m) {
+        _data.getMoves().addEntry("QUEUE_DE_CHEVAL", _m);
+        _data.updateInfos();
+    }
+
+    private void completeMembersItem(DataBase _data, Item _i) {
+        _data.getItems().addEntry("STRAW_BERRY", _i);
+        _data.updateInfos();
+    }
+
+    private void completeAbility(DataBase _data, AbilityData _a) {
+        _data.getAbilities().addEntry("FLYING", _a);
+        _data.updateInfos();
+    }
+
+    private void completeMembersStatus(DataBase _data, Status _s) {
+        _data.getStatus().addEntry("PAR", _s);
+        _data.updateInfos();
     }
 
     private static DataBase newData() {
