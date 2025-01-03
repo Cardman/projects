@@ -2,6 +2,7 @@ package aiki.gui.components.editor;
 
 import aiki.facade.*;
 import aiki.map.levels.*;
+import aiki.map.places.*;
 import aiki.map.util.*;
 import aiki.util.*;
 import code.gui.*;
@@ -29,6 +30,28 @@ public abstract class FormLevelGridCommon {
         return _foreground.contains(_pt) || _foregroundEdited.contains(_pt);
     }
 
+    public void setupGridDims(Points<Block> _bk, Coords _coords, Place _pl, Level _lev) {
+        Points<int[][]> frontTiles_ = Level.getLevelForegroundImage(getFacadeGame().getData(), _coords, _pl,_lev);
+        if (_pl instanceof City && !_coords.isInside()) {
+            for (Point b: ((City)_pl).getBuildings().getKeys()) {
+                frontTiles_.put(new Point(b),new int[0][]);
+            }
+        }
+        if (_pl instanceof League && ((League)_pl).getBegin().isDefined() && _coords.getLevel().getLevelIndex() == 0) {
+            frontTiles_.put(new Point(((League)_pl).getBegin().getPoint()),new int[0][]);
+        }
+        LevelLeague prev_;
+        if (_pl instanceof League && _coords.getLevel().getLevelIndex() > 0){
+            prev_ = ((League)_pl).getRooms().get(_coords.getLevel().getLevelIndex()-1);
+        } else {
+            prev_ = null;
+        }
+        if (prev_ != null && prev_.getNextLevelTarget().isDefined()) {
+            frontTiles_.put(new Point(prev_.getNextLevelTarget().getPoint()),new int[0][]);
+        }
+        setupGridDims(_bk, frontTiles_);
+    }
+    public abstract void setupGridDims(Points<Block> _bk, Points<int[][]> _f);
     public void setupForeground(Points<int[][]> _f) {
         foreground.clear();
         foreground.addAllEntries(_f);

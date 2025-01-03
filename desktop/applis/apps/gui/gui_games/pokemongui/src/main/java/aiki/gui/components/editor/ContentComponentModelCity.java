@@ -462,6 +462,14 @@ public final class ContentComponentModelCity {
         contentLevelBuilding.getLevel().getForeground().put(contentLevelBuilding.nextPoint(),contentLevelBuilding.getLevel().getForegroundEdited().getVal(contentLevelBuilding.nextPoint()));
         contentLevelBuilding.removeFore();
         contentLevelBuilding.applyTile();
+        if (editedBuilding instanceof Gym) {
+            contentLevelBuilding.choose("");
+            initFormChoicesGym();
+        }
+        if (editedBuilding instanceof PokemonCenter) {
+            contentLevelBuilding.choose("");
+            initFormChoicesPc();
+        }
     }
     private void removeFore() {
         contentLevelBuilding.removeFore();

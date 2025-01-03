@@ -116,8 +116,7 @@ public abstract class AbsContentComponentModelLevelLinks {
         Level levelCave_ = _cave.getLevelsList().get(_coords.getLevel().getLevelIndex());
         Points<Block> blocks_ = levelCave_.getBlocks();
         level_.getTranslationList().setFormLevelGridUniq(null);
-        Points<int[][]> frontTiles_ = Level.getLevelForegroundImage(level_.getFacadeGame().getData(), _coords, _cave,levelCave_);
-        level_.setupGridDims(blocks_, frontTiles_);
+        level_.setupGridDims(blocks_, _coords, _cave,levelCave_);
         IdList<SubscribedTranslation> subs_ = level_.getTranslationList().getSubscribedTranslations().getVal(level_.getFrame());
         subs_.removeAllElements(_translationsGrid);
         IdList<SubscribedTranslation> next_ = new IdList<SubscribedTranslation>();

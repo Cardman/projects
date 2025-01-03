@@ -29,8 +29,7 @@ public final class ContentComponentModelLevel {
 
     public IdList<SubscribedTranslation> setupTranslationsGrid(Coords _coords, Place _pl, Level _wild) {
         Points<Block> blocks_ = ConverterCommonMapUtil.copyPointsBlock(_wild.getBlocks());
-        Points<int[][]> frontTiles_ = Level.getLevelForegroundImage(level.getFacadeGame().getData(), _coords, _pl, _wild);
-        level.setupGridDims(blocks_, frontTiles_);
+        level.setupGridDims(blocks_, _coords, _pl, _wild);
         level.setSelectedPlace(_coords);
         IdList<SubscribedTranslation> subs_ = level.getTranslationList().getSubscribedTranslations().getVal(level.getFrame());
         subs_.removeAllElements(translationsGrid);
