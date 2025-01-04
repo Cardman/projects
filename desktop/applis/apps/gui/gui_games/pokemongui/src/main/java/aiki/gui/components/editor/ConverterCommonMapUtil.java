@@ -406,17 +406,7 @@ public final class ConverterCommonMapUtil {
         allTypes_.addAllElts(_db.getTypesColors().getKeys());
         allTypes_.removeDuplicates();
         patchReplace(_db.getTranslatedTypes(),allTypes_, _api);
-        StringList allVars_ = new StringList();
-        for (int i = 1; i < 157; i++) {
-            String val_ = _db.retValueOther(Long.toString(i));
-            if (!DataBase.isCorrectIdentifier(val_)) {
-                _db.initValueOther(Long.toString(i),Long.toString(i));
-            }
-        }
-        for (int i = 1; i < 157; i++) {
-            allVars_.add(_db.retValueOther(Long.toString(i)));
-        }
-        patchReplace(_db.getLitterals(),allVars_, _api, _db);
+        patchLitt(_api, _db);
         StringList ls_ = new StringList();
         ls_.add(Item.BALL);
         ls_.add(Item.BERRY);
@@ -442,6 +432,15 @@ public final class ConverterCommonMapUtil {
         new IntListConvertId<TargetChoice>().patchReplace(_db.getTranslatedTargets(),TargetChoice.all(), _api);
         new IntListConvertId<Statistic>().patchReplace(_db.getTranslatedStatistics(),Statistic.all(), _api);
         return _db;
+    }
+
+    public static void patchLitt(AbstractProgramInfos _api, DataBase _db) {
+        _db.validateOtherConstants();
+        StringList allVars_ = new StringList();
+        for (int i = 1; i < 157; i++) {
+            allVars_.add(_db.retValueOther(Long.toString(i)));
+        }
+        patchReplace(_db.getLitterals(),allVars_, _api, _db);
     }
 
     public static DataBase newData(AbstractProgramInfos _api, FacadeGame _f) {
