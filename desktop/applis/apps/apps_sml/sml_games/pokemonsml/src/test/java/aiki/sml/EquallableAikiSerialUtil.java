@@ -143,7 +143,11 @@ public abstract class EquallableAikiSerialUtil {
         DocumentReaderAikiCoreUtil.loadRom(_a.getData(),txt_,new ConcreteInteger(),new SexListImpl(), BASE);
         return _a;
     }
-
+    public static FacadeGame saveQuick(FacadeGame _a) {
+        StringMap<String> txt_ = DocumentWriterAikiCoreUtil.getTextFiles(_a.getData());
+        _a.setData(DocumentReaderAikiCoreUtil.loadRomQuick(_a.getData().getGenerator(),_a,txt_, BASE));
+        return _a;
+    }
     public static void assertTrue(boolean _value) {
         Assert.assertTrue(_value);
     }

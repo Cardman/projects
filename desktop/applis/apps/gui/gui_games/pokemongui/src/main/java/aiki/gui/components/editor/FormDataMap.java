@@ -61,6 +61,11 @@ public final class FormDataMap {
     }
 
     public void updateValues() {
+        crudPlace.initFormAll();
+        placesContent.setViewportView(crudPlace.getGroup());
+        displayFirstPk();
+    }
+    public void displayFirstPk() {
         DataMap dm_ = getFacadeGame().getData().getMap();
         screenWidth.setValue(dm_.getScreenWidth());
         screenHeight.setValue(dm_.getScreenHeight());
@@ -71,12 +76,11 @@ public final class FormDataMap {
         formWildPk.feedForm(dm_.getFirstPokemon());
         formWildPk.feedSubs(translations);
         wildPkContent.setViewportView(formWildPk.getForm());
+        crudPlace.refresh();
         unlockedCityContent.setViewportView(unlockedCity.gene());
         baseSelectImage(unlockedCity);
         unlockedCity.updateValue(dm_.getUnlockedCity());
         translations.addAllElts(unlockedCity.subs());
-        crudPlace.initFormAll();
-        placesContent.setViewportView(crudPlace.getGroup());
         miniMapGrid.setupGridDims();
         miniMapGrid.setupGrid(false);
     }

@@ -19,18 +19,22 @@ public final class DefDataBaseStream implements IntDataBaseStream {
     public StringMap<ContentTime> exportRom(AbstractProgramInfos _api, FacadeGame _f, LoadingGame _loadingGame) {
         String export_ = _loadingGame.getExport();
         if (!export_.isEmpty()) {
-            String path_ = _api.getFileCoreStream().newFile(export_).getAbsolutePath();
-            path_ = StringUtil.replaceBackSlash(path_);
-            StringMap<String> textFiles_ = DocumentWriterAikiCoreUtil.getTextFiles(_f.getData());
-            StringMap<ContentTime> meta_ = new StringMap<ContentTime>();
-            for (EntryCust<String,String> e: textFiles_.entryList()) {
-                meta_.addEntry(e.getKey(),new ContentTime(StringUtil.encode(e.getValue()),_api.getThreadFactory().millis()));
-            }
-            StreamFolderFile.makeParent(path_,_api.getFileCoreStream());
-            StreamBinaryFile.writeFile(path_,_api.getZipFact().zipBinFiles(meta_),_api.getStreams());
-            return meta_;
+            return exportRom(_api, _f, export_);
         }
         return new StringMap<ContentTime>();
+    }
+
+    public static StringMap<ContentTime> exportRom(AbstractProgramInfos _api, FacadeGame _f, String _export) {
+        String path_ = _api.getFileCoreStream().newFile(_export).getAbsolutePath();
+        path_ = StringUtil.replaceBackSlash(path_);
+        StringMap<String> textFiles_ = DocumentWriterAikiCoreUtil.getTextFiles(_f.getData());
+        StringMap<ContentTime> meta_ = new StringMap<ContentTime>();
+        for (EntryCust<String,String> e: textFiles_.entryList()) {
+            meta_.addEntry(e.getKey(),new ContentTime(StringUtil.encode(e.getValue()), _api.getThreadFactory().millis()));
+        }
+        StreamFolderFile.makeParent(path_, _api.getFileCoreStream());
+        StreamBinaryFile.writeFile(path_, _api.getZipFact().zipBinFiles(meta_), _api.getStreams());
+        return meta_;
     }
 
     @Override

@@ -44,7 +44,7 @@ import code.util.*;
 import code.util.core.*;
 
 public abstract class InitEditorPkForm extends EquallableAikiGuiUtil {
-
+    public static final String BASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
     public static final String P_1 = "P1";
     public static final String T_1 = "T1";
     public static final String T_2 = "T2";
@@ -141,7 +141,9 @@ public abstract class InitEditorPkForm extends EquallableAikiGuiUtil {
     }
 
     protected WindowPkEditor window(AbstractProgramInfos _core, FacadeGame _facade) {
-        return new WindowPkEditor(_core,_facade);
+        WindowPkEditor w_ = new WindowPkEditor(_core);
+        w_.dataBase(_facade.getData());
+        return w_;
     }
     protected MockProgramInfos initForms() {
         MockProgramInfos pr_ = build("/__/", "/_/", dbs(0.75));
@@ -244,10 +246,7 @@ public abstract class InitEditorPkForm extends EquallableAikiGuiUtil {
     }
 
     protected FacadeGame core(MockProgramInfos _m) {
-        FacadeGame facade_ = new FacadeGame();
-        facade_.setLanguages(_m.getLanguages());
-        facade_.setDisplayLanguages(_m.getDisplayLanguages());
-        facade_.setSimplyLanguage(_m.getLanguage());
+        FacadeGame facade_ = ConverterCommonMapUtil.facadeInit(_m);
         facade_.setData(new DataBase(new DefaultGenerator(new CustomSeedGene())));
         facade_.getData().initTranslations();
         facade_.getData().initializeMembers();
@@ -271,45 +270,45 @@ public abstract class InitEditorPkForm extends EquallableAikiGuiUtil {
         data_.getMap().setMiniMap(new MiniMapCoordsList());
         data_.getMap().setUnlockedCity(NULL_REF);
         data_.getMap().setSideLength(1);
-        data_.addLink(LINK, instance(new int[][]{new int[]{-255}}));
-        data_.setImageTmHm(instance(new int[][]{new int[]{-800}}));
-        data_.setAnimAbsorb(instance(new int[][]{new int[]{-700}}));
-        data_.setStorage(instance(new int[][]{new int[]{-3}}));
-        data_.addImage(BUILDING, instance(new int[][]{new int[]{-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985},new int[]{-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985},new int[]{-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985},new int[]{-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985},new int[]{-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985},new int[]{-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985},new int[]{-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985},new int[]{-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985},new int[]{-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985}}));
-        data_.addImage(NOTHING, instance(new int[][]{new int[]{-16777216,-16777216},new int[]{-16777216,-16777216}}));
-        data_.addImage(ROAD, instance(new int[][]{new int[]{-7369361,-7369361},new int[]{-7369361,-7369361}}));
-        data_.addImage(WATER, instance(new int[][]{new int[]{-16776961,-16776961},new int[]{-16776961,-16776961}}));
-        data_.addPerson(TRAINER, instance(new int[][]{new int[]{-18000}}));
-        data_.addPerson(PERSON, instance(new int[][]{new int[]{-1800}}));
-        data_.addPerson(TRAINER_ONE, instance(new int[][]{new int[]{-19000}}));
-        data_.addPerson(TRAINER_TWO, instance(new int[][]{new int[]{-19008}}));
-        data_.addPerson(ALLY, instance(new int[][]{new int[]{-19508}}));
-        data_.addPerson(GERANT, instance(new int[][]{new int[]{-20508}}));
-        data_.addTrainerImage(TRAINER, instance(new int[][]{new int[]{-18000}}));
-        data_.addTrainerImage(TRAINER_ONE, instance(new int[][]{new int[]{-19000}}));
-        data_.addTrainerImage(TRAINER_TWO, instance(new int[][]{new int[]{-19008}}));
-        data_.addTrainerImage(ALLY, instance(new int[][]{new int[]{-19508}}));
-        data_.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Direction.DOWN, Sex.NO), instance(new int[][]{new int[]{1}}));
-        data_.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Direction.UP,Sex.NO), instance(new int[][]{new int[]{1}}));
-        data_.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Direction.LEFT,Sex.NO), instance(new int[][]{new int[]{1}}));
-        data_.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Direction.RIGHT,Sex.NO), instance(new int[][]{new int[]{1}}));
-        data_.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Sex.NO), instance(new int[][]{new int[]{1}}));
-        data_.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Sex.NO), instance(new int[][]{new int[]{1}}));
-        data_.getMiniPk().addEntry(PIKACHU,instance(new int[][]{new int[]{2}}));
-        data_.getMaxiPkBack().addEntry(PIKACHU,instance(new int[][]{new int[]{2}}));
-        data_.getMaxiPkFront().addEntry(PIKACHU,instance(new int[][]{new int[]{2}}));
-        data_.getMiniItems().addEntry(POKE_BALL,instance(new int[][]{new int[]{2}}));
-        data_.getAnimStatis().addEntry(Statistic.ATTACK.getStatName(), instance(new int[][]{new int[]{3}}));
-        data_.getAnimStatis().addEntry(Statistic.SPECIAL_ATTACK.getStatName(), instance(new int[][]{new int[]{3}}));
-        data_.getAnimStatis().addEntry(Statistic.DEFENSE.getStatName(), instance(new int[][]{new int[]{3}}));
-        data_.getAnimStatis().addEntry(Statistic.SPECIAL_DEFENSE.getStatName(), instance(new int[][]{new int[]{3}}));
-        data_.getAnimStatis().addEntry(Statistic.SPEED.getStatName(), instance(new int[][]{new int[]{3}}));
-        data_.getAnimStatis().addEntry(Statistic.ACCURACY.getStatName(), instance(new int[][]{new int[]{3}}));
-        data_.getAnimStatis().addEntry(Statistic.EVASINESS.getStatName(), instance(new int[][]{new int[]{3}}));
-        data_.getAnimStatis().addEntry(Statistic.CRITICAL_HIT.getStatName(), instance(new int[][]{new int[]{3}}));
-        data_.getTypesImages().addEntry(ELECTRICK,instance(new int[][]{new int[]{4}}));
+        data_.addLink(LINK, inst(new int[][]{new int[]{-255}}));
+        data_.setImageTmHm(inst(new int[][]{new int[]{-800}}));
+        data_.setAnimAbsorb(inst(new int[][]{new int[]{-700}}));
+        data_.setStorage(inst(new int[][]{new int[]{-3}}));
+        data_.addImage(BUILDING, inst(new int[][]{new int[]{-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985},new int[]{-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985},new int[]{-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985},new int[]{-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985},new int[]{-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985},new int[]{-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985},new int[]{-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985},new int[]{-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985},new int[]{-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985,-32985}}));
+        data_.addImage(NOTHING, inst(new int[][]{new int[]{-16777216,-16777216},new int[]{-16777216,-16777216}}));
+        data_.addImage(ROAD, inst(new int[][]{new int[]{-7369361,-7369361},new int[]{-7369361,-7369361}}));
+        data_.addImage(WATER, inst(new int[][]{new int[]{-16776961,-16776961},new int[]{-16776961,-16776961}}));
+        data_.addPerson(TRAINER, inst(new int[][]{new int[]{-18000}}));
+        data_.addPerson(PERSON, inst(new int[][]{new int[]{-1800}}));
+        data_.addPerson(TRAINER_ONE, inst(new int[][]{new int[]{-19000}}));
+        data_.addPerson(TRAINER_TWO, inst(new int[][]{new int[]{-19008}}));
+        data_.addPerson(ALLY, inst(new int[][]{new int[]{-19508}}));
+        data_.addPerson(GERANT, inst(new int[][]{new int[]{-20508}}));
+        data_.addTrainerImage(TRAINER, inst(new int[][]{new int[]{-18000}}));
+        data_.addTrainerImage(TRAINER_ONE, inst(new int[][]{new int[]{-19000}}));
+        data_.addTrainerImage(TRAINER_TWO, inst(new int[][]{new int[]{-19008}}));
+        data_.addTrainerImage(ALLY, inst(new int[][]{new int[]{-19508}}));
+        data_.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Direction.DOWN, Sex.NO), inst(new int[][]{new int[]{1}}));
+        data_.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Direction.UP,Sex.NO), inst(new int[][]{new int[]{1}}));
+        data_.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Direction.LEFT,Sex.NO), inst(new int[][]{new int[]{1}}));
+        data_.getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Direction.RIGHT,Sex.NO), inst(new int[][]{new int[]{1}}));
+        data_.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Sex.NO), inst(new int[][]{new int[]{1}}));
+        data_.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Sex.NO), inst(new int[][]{new int[]{1}}));
+        data_.getMiniPk().addEntry(PIKACHU, inst(new int[][]{new int[]{2}}));
+        data_.getMaxiPkBack().addEntry(PIKACHU, inst(new int[][]{new int[]{2}}));
+        data_.getMaxiPkFront().addEntry(PIKACHU, inst(new int[][]{new int[]{2}}));
+        data_.getMiniItems().addEntry(POKE_BALL, inst(new int[][]{new int[]{2}}));
+        data_.getAnimStatis().addEntry(Statistic.ATTACK.getStatName(), inst(new int[][]{new int[]{3}}));
+        data_.getAnimStatis().addEntry(Statistic.SPECIAL_ATTACK.getStatName(), inst(new int[][]{new int[]{3}}));
+        data_.getAnimStatis().addEntry(Statistic.DEFENSE.getStatName(), inst(new int[][]{new int[]{3}}));
+        data_.getAnimStatis().addEntry(Statistic.SPECIAL_DEFENSE.getStatName(), inst(new int[][]{new int[]{3}}));
+        data_.getAnimStatis().addEntry(Statistic.SPEED.getStatName(), inst(new int[][]{new int[]{3}}));
+        data_.getAnimStatis().addEntry(Statistic.ACCURACY.getStatName(), inst(new int[][]{new int[]{3}}));
+        data_.getAnimStatis().addEntry(Statistic.EVASINESS.getStatName(), inst(new int[][]{new int[]{3}}));
+        data_.getAnimStatis().addEntry(Statistic.CRITICAL_HIT.getStatName(), inst(new int[][]{new int[]{3}}));
+        data_.getTypesImages().addEntry(ELECTRICK, inst(new int[][]{new int[]{4}}));
         data_.getTypesColors().addEntry(ELECTRICK,"1;3;5");
-        data_.setEndGameImage(instance(new int[][]{new int[1]}));
+        data_.setEndGameImage(inst(new int[][]{new int[1]}));
         initBegin(data_);
 
         initBlockFirstCity(data_);
@@ -349,6 +348,13 @@ public abstract class InitEditorPkForm extends EquallableAikiGuiUtil {
         data_.initFamilies();
         return data_;
     }
+
+    private static ImageArrayBaseSixtyFour inst(int[][] _a) {
+        ImageArrayBaseSixtyFour in_ = instance(_a);
+        in_.setBase(BASE);
+        return in_;
+    }
+
     public static void initBegin(DataBase _data) {
         DataMap map_ = _data.getMap();
         WildPk pkm_ = new WildPk();
@@ -661,13 +667,13 @@ public abstract class InitEditorPkForm extends EquallableAikiGuiUtil {
     }
 
     public static void initMiniMap(DataBase _data) {
-        _data.getMiniMap().addEntry(MINI, instance(new int[][]{new int[]{118}}));
-        _data.getMiniMap().addEntry(MINI1, instance(new int[][]{new int[]{218}}));
-        _data.getMiniMap().addEntry(MINI2, instance(new int[][]{new int[]{112}}));
-        _data.getMiniMap().addEntry(MINI3, instance(new int[][]{new int[]{200}}));
-        _data.getMiniMap().addEntry(MINI4, instance(new int[][]{new int[]{128}}));
-        _data.getMiniMap().addEntry(MINI5, instance(new int[][]{new int[]{211}}));
-        _data.getMiniMap().addEntry(MINI6, instance(new int[][]{new int[]{221}}));
+        _data.getMiniMap().addEntry(MINI, inst(new int[][]{new int[]{118}}));
+        _data.getMiniMap().addEntry(MINI1, inst(new int[][]{new int[]{218}}));
+        _data.getMiniMap().addEntry(MINI2, inst(new int[][]{new int[]{112}}));
+        _data.getMiniMap().addEntry(MINI3, inst(new int[][]{new int[]{200}}));
+        _data.getMiniMap().addEntry(MINI4, inst(new int[][]{new int[]{128}}));
+        _data.getMiniMap().addEntry(MINI5, inst(new int[][]{new int[]{211}}));
+        _data.getMiniMap().addEntry(MINI6, inst(new int[][]{new int[]{221}}));
         DataMap map_ = _data.getMap();
         TileMiniMap tile_;
         map_.setMiniMap(new MiniMapCoordsList());

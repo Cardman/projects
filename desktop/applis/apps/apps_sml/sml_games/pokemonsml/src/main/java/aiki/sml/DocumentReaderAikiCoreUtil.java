@@ -59,6 +59,41 @@ public final class DocumentReaderAikiCoreUtil {
 
     public static void loadRom(DataBase _d, StringMap<String> _files, AbstractAtomicIntegerCoreAdd _perCentLoading, SexListInt _sexList, String _base) {
         _perCentLoading.set(0);
+        prepare(_d);
+        int percent_ = NumberUtil.max(_files.size() / 50, 1);
+        int i = 0;
+
+        for (String v: _files.values()) {
+            feedByContent(_d,DocumentBuilder.parseNoTextDocument(v),_sexList,_base);
+            incr(_perCentLoading,percent_,i);
+            i++;
+        }
+        _perCentLoading.set(50);
+        _d.updateInfos();
+        _d.calculateAvgPound();
+        _d.completeVariables();
+        _d.completeMembersCombos();
+        _d.sortEndRound();
+    }
+    public static DataBase loadRomQuick(AbstractGenerator _gene, FacadeGame _f, StringMap<String> _files, String _base) {
+        DataBase data_ = initData(_gene, _f);
+        for (String v: _files.values()) {
+            feedByContent(data_,DocumentBuilder.parseNoTextDocument(v),_f.getSexList(),_base);
+        }
+        return data_;
+    }
+
+    public static DataBase initData(AbstractGenerator _gene, FacadeGame _f) {
+        DataBase data_ = new DataBase(_gene);
+        MessagesDataBaseConstants.initEmpty(data_);
+        data_.setLanguages(_f.getLanguages());
+        data_.setDisplayLanguages(_f.getDisplayLanguages());
+        data_.setLanguage(_f.getLanguage());
+        prepare(data_);
+        return data_;
+    }
+
+    private static void prepare(DataBase _d) {
         _d.initializeMembers();
         _d.initTranslations();
         _d.setCombos(Instances.newCombos());
@@ -97,21 +132,8 @@ public final class DocumentReaderAikiCoreUtil {
         _d.setAnimAbsorb(ImageArrayBaseSixtyFour.instance());
         _d.setImageTmHm(ImageArrayBaseSixtyFour.instance());
         allTrs(_d);
-        int percent_ = NumberUtil.max(_files.size() / 50, 1);
-        int i = 0;
-
-        for (String v: _files.values()) {
-            feedByContent(_d,DocumentBuilder.parseNoTextDocument(v),_sexList,_base);
-            incr(_perCentLoading,percent_,i);
-            i++;
-        }
-        _perCentLoading.set(50);
-        _d.updateInfos();
-        _d.calculateAvgPound();
-        _d.completeVariables();
-        _d.completeMembersCombos();
-        _d.sortEndRound();
     }
+
     static void incr(AbstractAtomicIntegerCoreAdd _i, int _percent, int _current) {
         if (_current % _percent == 0) {
             _i.addAndGet(1);

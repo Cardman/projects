@@ -4684,17 +4684,15 @@ public final class EditorMapFormTest extends InitEditorPkForm {
     }
 
     private AbsButton joinPlaces(WindowPkEditor _sub) {
-        CustList<AbsButton> allButtons_ = _sub.getFormDataMap().getCrudPlace().getAllButtons();
-        return allButtons_.get(allButtons_.size() - 3);
+        return _sub.getFormDataMap().getCrudPlace().getJoinPlacesButton();
     }
 
     private AbsButton last(WindowPkEditor _sub) {
-        CustList<AbsButton> allButtons_ = _sub.getFormDataMap().getCrudPlace().getAllButtons();
-        return allButtons_.get(allButtons_.size() - 2);
+        return _sub.getFormDataMap().getCrudPlace().getJoinPlaceCaveButton();
     }
 
     private AbsButton lastRev(WindowPkEditor _sub) {
-        return _sub.getFormDataMap().getCrudPlace().getAllButtons().last();
+        return _sub.getFormDataMap().getCrudPlace().getJoinCavePlaceButton();
     }
 
     public static ContentComponentModelLevelCaveLinks link(CrudGeneFormEntPlace _c, int _i) {

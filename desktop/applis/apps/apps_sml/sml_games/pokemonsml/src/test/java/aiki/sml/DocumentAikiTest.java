@@ -839,6 +839,29 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
         assertEq("P2", wa_.get(0).getWildPokemonList().get(1).get(0).getName());
         assertEq("P3", wa_.get(0).getWildPokemonList().get(1).get(1).getName());
     }
+    @Test
+    public void t69() {
+        FacadeGame f_ = new FacadeGame();
+        f_.setData(new DataBase(new DefaultGenerator(DefaultGenerator.oneEltGene())));
+        updateLg(f_.getData());
+        f_.getData().getPokedex().addEntry("P",Instances.newPokemonData());
+        f_.getData().getMoves().addEntry("",Instances.newDamagingMoveData());
+        f_.getData().getMoves().addEntry("M",Instances.newDamagingMoveData());
+        f_.getData().getStatus().addEntry("",Instances.newStatusSimple());
+        f_.getData().getStatus().addEntry("S",Instances.newStatusSimple());
+        f_.getData().getItems().addEntry("",Instances.newItemForBattle());
+        f_.getData().getItems().addEntry("I",Instances.newItemForBattle());
+        f_.getData().getAbilities().addEntry("",Instances.newAbilityData());
+        f_.getData().getAbilities().addEntry("A",Instances.newAbilityData());
+        f_.getData().getCombos().setEffects(new ListEffectCombos());
+        f_.getData().setMap(Instances.newDataMap());
+        f_.getData().setAnimAbsorb(instance(new int[1][1]));
+        f_.getData().setImageTmHm(instance(new int[1][1]));
+        f_.getData().setStorage(instance(new int[1][1]));
+        f_.getData().setEndGameImage(instance(new int[1][1]));
+        FacadeGame s_ = saveQuick(f_);
+        assertEq(1,s_.getData().getPokedex().size());
+    }
     private StringMap<String> one() {
         StringMap<String> o_ = new StringMap<String>();
         o_.addEntry("_","_");

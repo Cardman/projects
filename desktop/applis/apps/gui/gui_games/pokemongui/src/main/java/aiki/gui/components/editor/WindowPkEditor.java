@@ -122,84 +122,83 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
     private final EnabledMenu imgHerosFrontMenu = getFrames().getCompoFactory().newMenuItem("4_15");
     private final EnabledMenu imgHerosBackMenu = getFrames().getCompoFactory().newMenuItem("4_16");
     private final FormDataMap formDataMap;
+    private final FacadeGame facade = ConverterCommonMapUtil.facadeInit(getFrames());
 
-    public WindowPkEditor(AbstractProgramInfos _list, FacadeGame _facade) {
+    public WindowPkEditor(AbstractProgramInfos _list) {
         super(_list);
-        _facade.setLanguages(_list.getLanguages());
-        _facade.setDisplayLanguages(_list.getDisplayLanguages());
-        _facade.setSimplyLanguage(_list.getLanguage());
-        subscriptions = new SubscribedTranslationList(_list, _facade);
+        facade.setData(ConverterCommonMapUtil.newData(_list,facade));
+        subscriptions = new SubscribedTranslationList(_list, facade);
         IdList<SubscribedTranslation> subsTm_ = new IdList<SubscribedTranslation>();
         AbsCommonFrame frTm_ = _list.getFrameFactory().newCommonFrame();
         subscriptions.getSubscribedTranslations().addEntry(frTm_, subsTm_);
         IdList<SubscribedTranslation> subsHm_ = new IdList<SubscribedTranslation>();
         AbsCommonFrame frHm_ = _list.getFrameFactory().newCommonFrame();
         subscriptions.getSubscribedTranslations().addEntry(frHm_, subsHm_);
-        crudGeneFormAbTr = buildTr(_list, _facade,trsAbMenu,subscriptions.getFactoryAb());
-        crudGeneFormItTr = buildTr(_list, _facade,trsItMenu,subscriptions.getFactoryIt());
-        crudGeneFormMvTr = buildTr(_list, _facade,trsMvMenu,subscriptions.getFactoryMv());
-        crudGeneFormPkTr = buildTr(_list, _facade,trsPkMenu,subscriptions.getFactoryPk());
-        crudGeneFormStTr = buildTr(_list, _facade,trsStMenu,subscriptions.getFactorySt());
-        crudGeneFormCaTr = buildTr(_list, _facade,trsCaMenu,subscriptions.getFactoryCa());
-        crudGeneFormTyTr = buildTr(_list, _facade,trsTyMenu,subscriptions.getFactoryTy());
-        crudGeneFormClTr = new CrudGeneFormTrItemType(_list, _facade,subscriptions, false);
+        crudGeneFormAbTr = buildTr(_list, facade,trsAbMenu,subscriptions.getFactoryAb());
+        crudGeneFormItTr = buildTr(_list, facade,trsItMenu,subscriptions.getFactoryIt());
+        crudGeneFormMvTr = buildTr(_list, facade,trsMvMenu,subscriptions.getFactoryMv());
+        crudGeneFormPkTr = buildTr(_list, facade,trsPkMenu,subscriptions.getFactoryPk());
+        crudGeneFormStTr = buildTr(_list, facade,trsStMenu,subscriptions.getFactorySt());
+        crudGeneFormCaTr = buildTr(_list, facade,trsCaMenu,subscriptions.getFactoryCa());
+        crudGeneFormTyTr = buildTr(_list, facade,trsTyMenu,subscriptions.getFactoryTy());
+        crudGeneFormClTr = new CrudGeneFormTrItemType(_list, facade,subscriptions, false);
         events(crudGeneFormClTr.getFrame(), trsClMenu, crudGeneFormClTr, new IdList<SubscribedTranslation>());
-        crudGeneFormFctTr = new CrudGeneFormTrItemType(_list, _facade,subscriptions, true);
+        crudGeneFormFctTr = new CrudGeneFormTrItemType(_list, facade,subscriptions, true);
         events(crudGeneFormFctTr.getFrame(), trsFctMenu, crudGeneFormFctTr, new IdList<SubscribedTranslation>());
-        crudGeneFormLittTr = new CrudGeneFormTrLitteral(_list, _facade,subscriptions);
+        crudGeneFormLittTr = new CrudGeneFormTrLitteral(_list, facade,subscriptions);
         events(crudGeneFormLittTr.getFrame(), trsLittMenu, crudGeneFormLittTr, new IdList<SubscribedTranslation>());
-        crudGeneFormExpTypeTr = new CrudGeneFormTrCstParamListString<ExpType>(_list, _facade, new NumStrIdRetrieverExpType());
+        crudGeneFormExpTypeTr = new CrudGeneFormTrCstParamListString<ExpType>(_list, facade, new NumStrIdRetrieverExpType());
         events(crudGeneFormExpTypeTr.getFrame(), trsExpTypeMenu, crudGeneFormExpTypeTr, new IdList<SubscribedTranslation>());
-        crudGeneFormDifficultyModelLawTr = new CrudGeneFormTrCstLaw(_list, _facade);
+        crudGeneFormDifficultyModelLawTr = new CrudGeneFormTrCstLaw(_list, facade);
         events(crudGeneFormDifficultyModelLawTr.getFrame(), trsDifficultyModelLawMenu, crudGeneFormDifficultyModelLawTr, new IdList<SubscribedTranslation>());
-        crudGeneFormDifficultyWinPointsFightTr = new CrudGeneFormTrCstParamListString<DifficultyWinPointsFight>(_list, _facade,new NumStrIdRetrieverDifficultyWinPointsFight());
+        crudGeneFormDifficultyWinPointsFightTr = new CrudGeneFormTrCstParamListString<DifficultyWinPointsFight>(_list, facade,new NumStrIdRetrieverDifficultyWinPointsFight());
         events(crudGeneFormDifficultyWinPointsFightTr.getFrame(), trsDifficultyWinPointsFightMenu, crudGeneFormDifficultyWinPointsFightTr, new IdList<SubscribedTranslation>());
-        crudGeneFormTrCstList = new CrudGeneFormTrCstList(_list, _facade, subscriptions);
+        crudGeneFormTrCstList = new CrudGeneFormTrCstList(_list, facade, subscriptions);
         events(crudGeneFormTrCstList.getFrame(), trsConstMenu, crudGeneFormTrCstList, new IdList<SubscribedTranslation>());
-        crudGeneFormTrOtherCstList = new CrudGeneFormTrOtherCstList(_list, _facade);
+        crudGeneFormTrOtherCstList = new CrudGeneFormTrOtherCstList(_list, facade);
         events(crudGeneFormTrOtherCstList.getFrame(), trsOtherConstMenu, crudGeneFormTrOtherCstList, new IdList<SubscribedTranslation>());
-        crudGeneFormTrCstNumList = new CrudGeneFormTrCstNumList(_list, _facade,subscriptions);
+        crudGeneFormTrCstNumList = new CrudGeneFormTrCstNumList(_list, facade,subscriptions);
         events(crudGeneFormTrCstNumList.getFrame(), trsNumConstMenu, crudGeneFormTrCstNumList, new IdList<SubscribedTranslation>());
-        crudGeneFormCstStat = new CrudGeneFormTrCst<Statistic>(_list,_facade,subscriptions,subscriptions.getFactoryStat());
+        crudGeneFormCstStat = new CrudGeneFormTrCst<Statistic>(_list,facade,subscriptions,subscriptions.getFactoryStat());
         events(crudGeneFormCstStat.getFrame(), trsCstStatMenu, crudGeneFormCstStat, new IdList<SubscribedTranslation>());
-        crudGeneFormCstTarget = new CrudGeneFormTrCst<TargetChoice>(_list,_facade,subscriptions,subscriptions.getFactoryTarget());
+        crudGeneFormCstTarget = new CrudGeneFormTrCst<TargetChoice>(_list,facade,subscriptions,subscriptions.getFactoryTarget());
         events(crudGeneFormCstTarget.getFrame(), trsCstTargetMenu, crudGeneFormCstTarget, new IdList<SubscribedTranslation>());
-        crudGeneFormCstGender = new CrudGeneFormTrCst<Gender>(_list,_facade,subscriptions,subscriptions.getFactoryGender());
+        crudGeneFormCstGender = new CrudGeneFormTrCst<Gender>(_list,facade,subscriptions,subscriptions.getFactoryGender());
         events(crudGeneFormCstGender.getFrame(), trsCstGenderMenu, crudGeneFormCstGender, new IdList<SubscribedTranslation>());
-        crudGeneFormCstEnvironmentType = new CrudGeneFormTrCst<EnvironmentType>(_list,_facade,subscriptions,subscriptions.getFactoryEnvironmentType());
+        crudGeneFormCstEnvironmentType = new CrudGeneFormTrCst<EnvironmentType>(_list,facade,subscriptions,subscriptions.getFactoryEnvironmentType());
         events(crudGeneFormCstEnvironmentType.getFrame(), trsCstEnvironmentTypeMenu, crudGeneFormCstEnvironmentType, new IdList<SubscribedTranslation>());
-        crudGeneFormCstDifficultyModelLaw = new CrudGeneFormTrCst<DifficultyModelLaw>(_list,_facade,subscriptions,subscriptions.getFactoryDifficultyModelLaw());
+        crudGeneFormCstDifficultyModelLaw = new CrudGeneFormTrCst<DifficultyModelLaw>(_list,facade,subscriptions,subscriptions.getFactoryDifficultyModelLaw());
         events(crudGeneFormCstDifficultyModelLaw.getFrame(), trsCstDifficultyModelLawMenu, crudGeneFormCstDifficultyModelLaw, new IdList<SubscribedTranslation>());
-        crudGeneFormCstDifficultyWinPointsFight = new CrudGeneFormTrCst<DifficultyWinPointsFight>(_list,_facade,subscriptions,subscriptions.getFactoryDifficultyWinPointsFight());
+        crudGeneFormCstDifficultyWinPointsFight = new CrudGeneFormTrCst<DifficultyWinPointsFight>(_list,facade,subscriptions,subscriptions.getFactoryDifficultyWinPointsFight());
         events(crudGeneFormCstDifficultyWinPointsFight.getFrame(), trsCstDifficultyWinPointsFightMenu, crudGeneFormCstDifficultyWinPointsFight, new IdList<SubscribedTranslation>());
-        crudGeneFormCstSelectedBoolean = new CrudGeneFormTrCst<SelectedBoolean>(_list,_facade,subscriptions,subscriptions.getFactorySelectedBoolean());
+        crudGeneFormCstSelectedBoolean = new CrudGeneFormTrCst<SelectedBoolean>(_list,facade,subscriptions,subscriptions.getFactorySelectedBoolean());
         events(crudGeneFormCstSelectedBoolean.getFrame(), trsCstSelectedBooleanMenu, crudGeneFormCstSelectedBoolean, new IdList<SubscribedTranslation>());
-        crudGeneFormTm = new CrudGeneFormNb(_list, _facade,subscriptions, frTm_,subscriptions.getFactoryTm(), true);
-        crudGeneFormHm = new CrudGeneFormNb(_list, _facade,subscriptions, frHm_,subscriptions.getFactoryHm(), false);
-        crudGeneFormAb = new CrudGeneFormEntBuilder<AbilityData>().build(_list,_facade,subscriptions, abMenu, subscriptions.getFactoryAb());
-        crudGeneFormIt = new CrudGeneFormEntBuilder<Item>().build(_list,_facade,subscriptions, itMenu, subscriptions.getFactoryIt());
-        crudGeneFormMv = new CrudGeneFormEntBuilder<MoveData>().build(_list,_facade,subscriptions, mvMenu, subscriptions.getFactoryMv());
-        crudGeneFormPk = new CrudGeneFormEntBuilder<PokemonData>().build(_list, _facade,subscriptions, pkMenu, subscriptions.getFactoryPk());
-        crudGeneFormSt = new CrudGeneFormEntBuilder<Status>().build(_list, _facade,subscriptions, stMenu, subscriptions.getFactorySt());
-        crudGeneFormCombos = buildCombos(_list, _facade, combosMenu);
-        crudGeneFormTypes = buildTypes(_list, _facade, typesMenu);
-        crudGeneFormMiniPk = buildImg(_list, _facade, imgMiniPkMenu,subscriptions.getFactoryMiniPk());
-        crudGeneFormMaxiBackPk = buildImg(_list, _facade, imgMaxiBackPkMenu,subscriptions.getFactoryMaxiBackPk());
-        crudGeneFormMaxiFrontPk = buildImg(_list, _facade, imgMaxiFrontPkMenu,subscriptions.getFactoryMaxiFrontPk());
-        crudGeneFormMiniIt = buildImg(_list, _facade, imgMiniItMenu,subscriptions.getFactoryMiniIt());
-        crudGeneFormMiniSt = buildImg(_list, _facade, imgMiniStMenu,subscriptions.getFactoryMiniSt());
-        crudGeneFormMiniTy = buildImg(_list, _facade, imgMiniTyMenu,subscriptions.getFactoryMiniTy());
-        crudGeneFormLinks = buildImgFree(_list, _facade, imgLinksMenu,subscriptions.getImgRetrieverLinks());
-        crudGeneFormPeople = buildImgFree(_list, _facade, imgPeopleMenu,subscriptions.getImgRetrieverPeople());
-        crudGeneFormTrainers = buildImgFree(_list, _facade, imgTrainersMenu,subscriptions.getImgRetrieverTrainers());
-        crudGeneFormBlocks = buildImgFree(_list, _facade, imgBlocksMenu,subscriptions.getImgRetrieverBlocks());
-        crudGeneFormMiniMap = buildImgFree(_list, _facade, imgMiniMapMenu,subscriptions.getImgRetrieverMiniMap());
-        crudGeneFormTypeColor = buildImgTypeColor(_list, _facade, imgTypeColorMenu);
-        crudGeneFormImgOther = buildImgOther(_list, _facade, imgOtherMenu);
-        crudGeneFormCstList = buildImgCstList(_list, _facade, imgCstListMenu);
-        crudGeneFormEntImgHerosMini = buildImgHeros(_list, _facade, imgHerosMiniMenu,true,false);
-        crudGeneFormEntImgHerosFront = buildImgHeros(_list, _facade, imgHerosFrontMenu, false, true);
-        crudGeneFormEntImgHerosBack = buildImgHeros(_list, _facade, imgHerosBackMenu, false, false);
+        crudGeneFormTm = new CrudGeneFormNb(_list, facade,subscriptions, frTm_,subscriptions.getFactoryTm(), true);
+        crudGeneFormHm = new CrudGeneFormNb(_list, facade,subscriptions, frHm_,subscriptions.getFactoryHm(), false);
+        crudGeneFormAb = new CrudGeneFormEntBuilder<AbilityData>().build(_list,facade,subscriptions, abMenu, subscriptions.getFactoryAb());
+        crudGeneFormIt = new CrudGeneFormEntBuilder<Item>().build(_list,facade,subscriptions, itMenu, subscriptions.getFactoryIt());
+        crudGeneFormMv = new CrudGeneFormEntBuilder<MoveData>().build(_list,facade,subscriptions, mvMenu, subscriptions.getFactoryMv());
+        crudGeneFormPk = new CrudGeneFormEntBuilder<PokemonData>().build(_list, facade,subscriptions, pkMenu, subscriptions.getFactoryPk());
+        crudGeneFormSt = new CrudGeneFormEntBuilder<Status>().build(_list, facade,subscriptions, stMenu, subscriptions.getFactorySt());
+        crudGeneFormCombos = buildCombos(_list, facade, combosMenu);
+        crudGeneFormTypes = buildTypes(_list, facade, typesMenu);
+        crudGeneFormMiniPk = buildImg(_list, facade, imgMiniPkMenu,subscriptions.getFactoryMiniPk());
+        crudGeneFormMaxiBackPk = buildImg(_list, facade, imgMaxiBackPkMenu,subscriptions.getFactoryMaxiBackPk());
+        crudGeneFormMaxiFrontPk = buildImg(_list, facade, imgMaxiFrontPkMenu,subscriptions.getFactoryMaxiFrontPk());
+        crudGeneFormMiniIt = buildImg(_list, facade, imgMiniItMenu,subscriptions.getFactoryMiniIt());
+        crudGeneFormMiniSt = buildImg(_list, facade, imgMiniStMenu,subscriptions.getFactoryMiniSt());
+        crudGeneFormMiniTy = buildImg(_list, facade, imgMiniTyMenu,subscriptions.getFactoryMiniTy());
+        crudGeneFormLinks = buildImgFree(_list, facade, imgLinksMenu,subscriptions.getImgRetrieverLinks());
+        crudGeneFormPeople = buildImgFree(_list, facade, imgPeopleMenu,subscriptions.getImgRetrieverPeople());
+        crudGeneFormTrainers = buildImgFree(_list, facade, imgTrainersMenu,subscriptions.getImgRetrieverTrainers());
+        crudGeneFormBlocks = buildImgFree(_list, facade, imgBlocksMenu,subscriptions.getImgRetrieverBlocks());
+        crudGeneFormMiniMap = buildImgFree(_list, facade, imgMiniMapMenu,subscriptions.getImgRetrieverMiniMap());
+        crudGeneFormTypeColor = buildImgTypeColor(_list, facade, imgTypeColorMenu);
+        crudGeneFormImgOther = buildImgOther(_list, facade, imgOtherMenu);
+        crudGeneFormCstList = buildImgCstList(_list, facade, imgCstListMenu);
+        crudGeneFormEntImgHerosMini = buildImgHeros(_list, facade, imgHerosMiniMenu,true,false);
+        crudGeneFormEntImgHerosFront = buildImgHeros(_list, facade, imgHerosFrontMenu, false, true);
+        crudGeneFormEntImgHerosBack = buildImgHeros(_list, facade, imgHerosBackMenu, false, false);
         AbsMenuBar bar_ = getFrames().getCompoFactory().newMenuBar();
         EnabledMenu file_ = getFrames().getCompoFactory().newMenu("0");
         EnabledMenu trs_ = getFrames().getCompoFactory().newMenu("0");
@@ -270,10 +269,15 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         addWindowListener(new QuittingEvent(this));
         IdList<SubscribedTranslation> main_ = new IdList<SubscribedTranslation>();
         subscriptions.getSubscribedTranslations().addEntry(getCommonFrame(),main_);
-        formDataMap = new FormDataMap(this,_facade,subscriptions, main_);
+        formDataMap = new FormDataMap(this,facade,subscriptions, main_);
         formDataMap.updateValues();
         getCommonFrame().setContentPane(formDataMap.getForm());
         getCommonFrame().setVisible(true);
+        getCommonFrame().pack();
+    }
+    public void dataBase(DataBase _db) {
+        facade.setData(_db);
+        formDataMap.displayFirstPk();
         getCommonFrame().pack();
     }
 
@@ -765,5 +769,9 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
 
     public FormDataMap getFormDataMap() {
         return formDataMap;
+    }
+
+    public FacadeGame getFacade() {
+        return facade;
     }
 }

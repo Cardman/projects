@@ -273,21 +273,12 @@ public final class EditorStatFormTest extends InitEditorPkForm {
     @Test
     public void noKey() {
         MockProgramInfos pr_ = initForms();
-        FacadeGame facade_ = core(pr_);
-        facade_.getData().getTranslatedPokemon().addEntry(pr_.getLanguage(),new StringMap<String>());
-        facade_.getData().getTranslatedTypes().addEntry(pr_.getLanguage(),new StringMap<String>());
-        facade_.getData().getTranslatedAbilities().addEntry(pr_.getLanguage(),new StringMap<String>());
-        facade_.getData().getTranslatedMoves().addEntry(pr_.getLanguage(),new StringMap<String>());
-        facade_.getData().getTranslatedStatus().addEntry(pr_.getLanguage(),new StringMap<String>());
-        facade_.getData().getTranslatedItems().addEntry(pr_.getLanguage(), new StringMap<String>());
-        facade_.getData().getTranslatedStatistics().addEntry(pr_.getLanguage(), new IdMap<Statistic, String>());
-        facade_.getData().getTranslatedGenders().addEntry(pr_.getLanguage(), new IdMap<Gender, String>());
-        WindowPkEditor w_ = window(pr_, facade_);
+        WindowPkEditor w_ = new WindowPkEditor(pr_);
         tryClick(w_.getPkMenu());
         CrudGeneFormEnt<PokemonData> c_ = w_.getCrudGeneFormPk();
         tryClick(c_.getAdd());
         tryClick(c_.getValidAddEdit());
-        assertEq(0,facade_.getData().getPokedex().size());
+        assertEq(0,w_.getFacade().getData().getPokedex().size());
     }
     private GeneComponentModelSubscribeStringList gene() {
         MockProgramInfos pr_ = initForms();

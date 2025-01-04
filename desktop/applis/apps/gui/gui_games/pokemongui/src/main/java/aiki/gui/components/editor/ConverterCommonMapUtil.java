@@ -29,6 +29,7 @@ import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.*;
 import aiki.map.tree.util.*;
 import aiki.map.util.*;
+import aiki.sml.*;
 import aiki.sml.GamesPk;
 import aiki.util.*;
 import code.gui.*;
@@ -37,8 +38,8 @@ import code.gui.initialize.*;
 import code.maths.*;
 import code.maths.litteral.*;
 import code.maths.montecarlo.*;
-import code.threads.AbstractAtomicBooleanCore;
-import code.threads.AbstractAtomicIntegerCoreAdd;
+import code.stream.*;
+import code.threads.*;
 import code.util.*;
 import code.util.core.*;
 
@@ -279,7 +280,29 @@ public final class ConverterCommonMapUtil {
             c.removeAllObj(_o);
         }
     }
+    public static FacadeGame facadeInit(AbstractProgramInfos _api) {
+        FacadeGame facade_ = new FacadeGame();
+        facade_.setLanguages(_api.getLanguages());
+        facade_.setDisplayLanguages(_api.getDisplayLanguages());
+        facade_.setSimplyLanguage(_api.getLanguage());
+        return facade_;
+    }
+    public static DataBase loadData(AbstractProgramInfos _api, String _fileName, FacadeGame _f) {
+        StringMap<String> files_ = StreamFolderFile.getFiles(_fileName,_api.getFileCoreStream(),_api.getStreams());
+        return DocumentReaderAikiCoreUtil.loadRomQuick(_api.getGenerator(),_f,files_,GamesPk.baseEncode(_api.getTranslations()));
+    }
+    public static DataBase newData(AbstractProgramInfos _api, FacadeGame _f) {
+        return DocumentReaderAikiCoreUtil.initData(_api.getGenerator(), _f);
+    }
+    public static void saveData(AbstractProgramInfos _api, String _fileName, FacadeGame _f) {
+        DefDataBaseStream.exportRom(_api,_f,_fileName);
+    }
     public static DataBase validateData(DataBase _db, AbstractAtomicIntegerCoreAdd _perCentLoading, AbstractAtomicBooleanCore _loading, SexListInt _i) {
+        DataBase data_ = copyData(_db);
+        return endValidate(_perCentLoading, _loading, _i, data_);
+    }
+
+    public static DataBase copyData(DataBase _db) {
         DataBase data_ = new DataBase(_db.getGenerator());
         MessagesDataBaseConstants.initEmpty(data_);
         data_.setLanguages(_db.getLanguages());
@@ -379,12 +402,16 @@ public final class ConverterCommonMapUtil {
         for (EntryCust<String, IdMap<TargetChoice, String>> f: _db.getTranslatedTargets().entryList()) {
             data_.getTranslatedTargets().addEntry(f.getKey(),new IdMap<TargetChoice, String>(f.getValue()));
         }
-        data_.updateInfos();
-        data_.calculateAvgPound();
-        data_.completeVariables();
-        data_.completeMembersCombos();
-        data_.sortEndRound();
-        return check(_perCentLoading, _loading, _i, data_);
+        return data_;
+    }
+
+    public static DataBase endValidate(AbstractAtomicIntegerCoreAdd _perCentLoading, AbstractAtomicBooleanCore _loading, SexListInt _i, DataBase _data) {
+        _data.updateInfos();
+        _data.calculateAvgPound();
+        _data.completeVariables();
+        _data.completeMembersCombos();
+        _data.sortEndRound();
+        return check(_perCentLoading, _loading, _i, _data);
     }
 
     private static DataBase check(AbstractAtomicIntegerCoreAdd _perCentLoading, AbstractAtomicBooleanCore _loading, SexListInt _i, DataBase _data) {

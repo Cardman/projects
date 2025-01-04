@@ -5,6 +5,7 @@ import aiki.map.places.*;
 import aiki.map.util.*;
 import aiki.util.*;
 import code.gui.*;
+import code.gui.events.*;
 import code.gui.initialize.*;
 import code.util.*;
 
@@ -22,10 +23,14 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
     private int selectedPlace = -1;
     private final CustList<AbsButton> allButtonsMerge = new CustList<AbsButton>();
     private final CustList<AbsButton> allButtons = new CustList<AbsButton>();
+    private final CustList<AbsButton> allHeaders = new CustList<AbsButton>();
     private final CustList<CrudGeneFormLevel> levels = new CustList<CrudGeneFormLevel>();
     private boolean enabledButtons;
     private AbsButton accessConditionButton;
     private AbsButton beginGameButton;
+    private AbsButton joinPlacesButton;
+    private AbsButton joinPlaceCaveButton;
+    private AbsButton joinCavePlaceButton;
 
     public CrudGeneFormEntPlace(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub, AbsCommonFrame _fr) {
         super(_fact);
@@ -39,38 +44,28 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
         setEnabledButtons(true);
         getCrudGeneFormSubContent().clearSub();
         gene = new GeneComponentModelPlace(getFactory(), getFrame());
-        refresh();
+        allHeaders.clear();
         accessConditionButton = getFactory().getCompoFactory().newPlainButton("?");
-        accessConditionButton.addActionListener(new SelectCrudAccessConditionFormEvent(this, false));
-        accessConditionButton.setEnabled(isEnabledButtons());
-        getButtons().add(accessConditionButton);
-        getAllButtons().add(accessConditionButton);
-        getAllButtonsMerge().add(accessConditionButton);
+        eventAdd(accessConditionButton, new SelectCrudAccessConditionFormEvent(this, false));
         beginGameButton = getFactory().getCompoFactory().newPlainButton("******");
-        beginGameButton.addActionListener(new SelectCrudAccessConditionFormEvent(this, true));
-        beginGameButton.setEnabled(isEnabledButtons());
-        getButtons().add(beginGameButton);
-        getAllButtons().add(beginGameButton);
-        getAllButtonsMerge().add(beginGameButton);
-        AbsButton butJoin_ = getFactory().getCompoFactory().newPlainButton("<->");
-        butJoin_.addActionListener(new SelectCrudJoinFormEvent(this));
-        butJoin_.setEnabled(isEnabledButtons());
-        getButtons().add(butJoin_);
-        getAllButtons().add(butJoin_);
-        getAllButtonsMerge().add(butJoin_);
-        AbsButton but_ = getFactory().getCompoFactory().newPlainButton("<->");
-        but_.addActionListener(new SelectCrudPlaceCaveFormEvent(this));
-        but_.setEnabled(isEnabledButtons());
-        getButtons().add(but_);
-        getAllButtons().add(but_);
-        getAllButtonsMerge().add(but_);
-        AbsButton butRev_ = getFactory().getCompoFactory().newPlainButton("<->");
-        butRev_.addActionListener(new SelectCrudCavePlaceFormEvent(this));
-        butRev_.setEnabled(isEnabledButtons());
-        getButtons().add(butRev_);
-        getAllButtons().add(butRev_);
-        getAllButtonsMerge().add(butRev_);
+        eventAdd(beginGameButton, new SelectCrudAccessConditionFormEvent(this, true));
+        joinPlacesButton = getFactory().getCompoFactory().newPlainButton("<->");
+        eventAdd(joinPlacesButton, new SelectCrudJoinFormEvent(this));
+        joinPlaceCaveButton = getFactory().getCompoFactory().newPlainButton("<->");
+        eventAdd(joinPlaceCaveButton, new SelectCrudPlaceCaveFormEvent(this));
+        joinCavePlaceButton = getFactory().getCompoFactory().newPlainButton("<->");
+        eventAdd(joinCavePlaceButton, new SelectCrudCavePlaceFormEvent(this));
     }
+
+    private void eventAdd(AbsButton _but, AbsActionListener _evt) {
+        _but.addActionListener(_evt);
+        _but.setEnabled(isEnabledButtons());
+        getButtons().add(_but);
+        getAllButtons().add(_but);
+        getAllButtonsMerge().add(_but);
+        allHeaders.add(_but);
+    }
+
     public void displayAccessCondition(boolean _begin) {
         getElement().removeAll();
         if (_begin) {
@@ -169,6 +164,7 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
                 getElements().add(c_.getGroup());
             }
         }
+        getAllButtonsMerge().addAllElts(allHeaders);
     }
 
     @Override
@@ -310,5 +306,17 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
 
     public AbsButton getBeginGameButton() {
         return beginGameButton;
+    }
+
+    public AbsButton getJoinPlacesButton() {
+        return joinPlacesButton;
+    }
+
+    public AbsButton getJoinPlaceCaveButton() {
+        return joinPlaceCaveButton;
+    }
+
+    public AbsButton getJoinCavePlaceButton() {
+        return joinCavePlaceButton;
     }
 }
