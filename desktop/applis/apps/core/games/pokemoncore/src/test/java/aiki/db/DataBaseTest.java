@@ -17,6 +17,7 @@ import aiki.instances.*;
 import aiki.util.*;
 import code.maths.*;
 import code.maths.montecarlo.*;
+import code.sml.util.TranslationsFile;
 import code.util.*;
 import code.util.core.*;
 import org.junit.Test;
@@ -1364,6 +1365,13 @@ public class DataBaseTest extends EquallablePkUtil {
         assertTrue(!data_.isError());
         assertEq(0,data_.getSafeAbility("").getEffectEndRound().size());
         assertEq(0,data_.getSafeAbility("").getEffectSending().size());
+        assertEq(1,MessagesDataBaseConstants.trTargets(tr(DataBase.DEF_TARGET_NOTHING,"")).size());
+        assertEq(1,MessagesDataBaseConstants.trStat(tr(DataBase.DEF_STAT_SPEED,"")).size());
+        assertEq(1,MessagesDataBaseConstants.trEnv(tr(DataBase.DEF_ENV_NOTHING,"")).size());
+        assertEq(1,MessagesDataBaseConstants.trDiffLaw(tr(DataBase.DEF_UNIFORME,"")).size());
+        assertEq(1,MessagesDataBaseConstants.trDiffWinPts(tr(DataBase.DEF_FACILE,"")).size());
+        assertEq(1,MessagesDataBaseConstants.trBooleans(tr(DataBase.DEF_SEL_BOOL_YES_AND_NO,"")).size());
+        assertEq(1,MessagesDataBaseConstants.trGenders(tr(DataBase.DEF_GENDER_NO_GENDER,"")).size());
     }
 
     @Test
@@ -3281,4 +3289,9 @@ public class DataBaseTest extends EquallablePkUtil {
         return db_;
     }
 
+    private static TranslationsFile tr(String _k, String _v) {
+        TranslationsFile tf_ = new TranslationsFile();
+        tf_.add(_k, _v);
+        return tf_;
+    }
 }

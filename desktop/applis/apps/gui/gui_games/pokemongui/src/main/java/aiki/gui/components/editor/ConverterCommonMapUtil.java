@@ -38,6 +38,7 @@ import code.gui.initialize.*;
 import code.maths.*;
 import code.maths.litteral.*;
 import code.maths.montecarlo.*;
+import code.sml.util.*;
 import code.stream.*;
 import code.threads.*;
 import code.util.*;
@@ -205,6 +206,81 @@ public final class ConverterCommonMapUtil {
         }
         return inv_;
     }
+    public static void patchReplace(StringMap<StringMap<String>> _map, CustList<String> _entities, AbstractProgramInfos _api) {
+        patchReplace(_map, _entities, _api, null);
+    }
+    public static void patchReplace(StringMap<StringMap<String>> _map, CustList<String> _entities, AbstractProgramInfos _api, DataBase _litt) {
+        StringMap<StringMap<String>> bk_ = new StringMap<StringMap<String>>(_map);
+        _map.clear();
+        _map.addAllEntries(patch(bk_,_entities,_api,_litt));
+    }
+    public static StringMap<StringMap<String>> patch(StringMap<StringMap<String>> _map, CustList<String> _entities, AbstractProgramInfos _api, DataBase _litt) {
+        CustList<String> mustLgs_ = _api.getTranslations().getMapping().getKeys();
+        StringList allEnt_ = correctEnt(_entities);
+        if (_map.isEmpty()) {
+            for (String l: mustLgs_) {
+                StringMap<String> map_ = new StringMap<String>();
+                feedId(allEnt_, map_,_litt);
+                _map.addEntry(l, map_);
+            }
+            return _map;
+        }
+        for (EntryCust<String,StringMap<String>> e: _map.entryList()) {
+            allEnt_.addAllElts(correctEnt(e.getValue().getKeys()));
+        }
+        allEnt_.removeDuplicates();
+        for (EntryCust<String,StringMap<String>> e: _map.entryList()) {
+            patchMap(allEnt_, e.getValue(),_litt);
+        }
+        StringList absent_ = new StringList(mustLgs_);
+        CustList<String> present_ = _map.getKeys();
+        absent_.removeAllElements(present_);
+        for (String l: absent_) {
+            _map.addEntry(l,new StringMap<String>(_map.getValue(0)));
+        }
+        return _map;
+    }
+
+    private static StringList correctEnt(CustList<String> _keys) {
+        StringList allEntLg_ = new StringList();
+        for (String k: _keys) {
+            if (DataBase.isCorrectIdentifier(k)) {
+                allEntLg_.add(k);
+            }
+        }
+        return allEntLg_;
+    }
+
+    private static void patchMap(StringList _allEnt, StringMap<String> _map, DataBase _litt) {
+        CustList<String> values_ = _map.getKeys();
+        boolean missing_ = false;
+        for (String f: _allEnt) {
+            if (!StringUtil.contains(values_,f)) {
+                missing_ = true;
+                break;
+            }
+        }
+        if (missing_) {
+            if (_litt == null) {
+                _map.clear();
+            }
+            feedId(_allEnt, _map,_litt);
+        }
+    }
+
+    private static void feedId(StringList _allEnt, StringMap<String> _map, DataBase _litt) {
+        if (_litt != null) {
+            for (int i = 1; i < 157; i++) {
+                String key_ = _litt.retValueOther(Long.toString(i));
+                _map.tryAdd(key_,"\t\t"+key_);
+            }
+            return;
+        }
+        for (String f: _allEnt) {
+            _map.addEntry(f,f);
+        }
+    }
+
     private static IdMap<GenderRepartition,String> messages(StringMap<String> _m) {
         IdMap<GenderRepartition,String> i_ = new IdMap<GenderRepartition, String>();
         for (EntryCust<String,String> e: _m.entryList()) {
@@ -289,10 +365,128 @@ public final class ConverterCommonMapUtil {
     }
     public static DataBase loadData(AbstractProgramInfos _api, String _fileName, FacadeGame _f) {
         StringMap<String> files_ = StreamFolderFile.getFiles(_fileName,_api.getFileCoreStream(),_api.getStreams());
-        return DocumentReaderAikiCoreUtil.loadRomQuick(_api.getGenerator(),_f,files_,GamesPk.baseEncode(_api.getTranslations()));
+        DataBase db_ = DocumentReaderAikiCoreUtil.loadRomQuick(_api.getGenerator(), _f, files_, GamesPk.baseEncode(_api.getTranslations()));
+        return patchData(_api, db_);
     }
+
+    public static DataBase patchData(AbstractProgramInfos _api, DataBase _db) {
+        patchReplace(_db.getTranslatedAbilities(), _db.getAbilities().getKeys(), _api);
+        StringList items_ = new StringList();
+        items_.addAllElts(_db.getItems().getKeys());
+        items_.addAllElts(_db.getMiniItems().getKeys());
+        items_.removeDuplicates();
+        patchReplace(_db.getTranslatedItems(),items_, _api);
+        patchReplace(_db.getTranslatedMoves(), _db.getMoves().getKeys(), _api);
+        StringList pks_ = new StringList();
+        pks_.addAllElts(_db.getPokedex().getKeys());
+        pks_.addAllElts(_db.getMiniPk().getKeys());
+        pks_.addAllElts(_db.getMaxiPkFront().getKeys());
+        pks_.addAllElts(_db.getMaxiPkBack().getKeys());
+        pks_.removeDuplicates();
+        patchReplace(_db.getTranslatedPokemon(),pks_, _api);
+        StringList status_ = new StringList();
+        status_.addAllElts(_db.getStatus().getKeys());
+        status_.addAllElts(_db.getAnimStatus().getKeys());
+        status_.removeDuplicates();
+        patchReplace(_db.getTranslatedStatus(),status_, _api);
+        StringList allCats_ = new StringList();
+        for (MoveData m: _db.getMoves().values()) {
+            allCats_.add(_db.getCategory(m));
+        }
+        allCats_.removeDuplicates();
+        patchReplace(_db.getTranslatedCategories(),allCats_, _api);
+        StringList allTypes_ = new StringList();
+        for (MoveData m: _db.getMoves().values()) {
+            allTypes_.addAllElts(m.getTypes());
+        }
+        for (PokemonData m: _db.getPokedex().values()) {
+            allTypes_.addAllElts(m.getTypes());
+        }
+        allTypes_.addAllElts(_db.getTypesImages().getKeys());
+        allTypes_.addAllElts(_db.getTypesColors().getKeys());
+        allTypes_.removeDuplicates();
+        patchReplace(_db.getTranslatedTypes(),allTypes_, _api);
+        StringList allVars_ = new StringList();
+        for (int i = 1; i < 157; i++) {
+            String val_ = _db.retValueOther(Long.toString(i));
+            if (!DataBase.isCorrectIdentifier(val_)) {
+                _db.initValueOther(Long.toString(i),Long.toString(i));
+            }
+        }
+        for (int i = 1; i < 157; i++) {
+            allVars_.add(_db.retValueOther(Long.toString(i)));
+        }
+        patchReplace(_db.getLitterals(),allVars_, _api, _db);
+        StringList ls_ = new StringList();
+        ls_.add(Item.BALL);
+        ls_.add(Item.BERRY);
+        ls_.add(Item.BOOST);
+        ls_.add(Item.EVOLVING_ITEM);
+        ls_.add(Item.EVOLVING_STONE);
+        ls_.add(Item.FOSSIL);
+        ls_.add(Item.HEALING_HP);
+        ls_.add(Item.HEALING_HP_STATUS);
+        ls_.add(Item.HEALING_ITEM);
+        ls_.add(Item.HEALING_PP);
+        ls_.add(Item.HEALING_STATUS);
+        ls_.add(Item.ITEM_FOR_BATTLE);
+        ls_.add(Item.REPEL);
+        ls_.add(Item.SELLING_ITEM);
+        patchReplace(_db.getTranslatedClassesDescriptions(),ls_, _api);
+        patchReplace(_db.getTranslatedFctMath(),EvolvedMathFactory.getFunctions(), _api);
+        new IntListConvertId<Gender>().patchReplace(_db.getTranslatedGenders(),Gender.all(), _api);
+        new IntListConvertId<SelectedBoolean>().patchReplace(_db.getTranslatedBooleans(),SelectedBoolean.all(), _api);
+        new IntListConvertId<DifficultyWinPointsFight>().patchReplace(_db.getTranslatedDiffWinPts(),DifficultyWinPointsFight.all(), _api);
+        new IntListConvertId<DifficultyModelLaw>().patchReplace(_db.getTranslatedDiffModelLaw(),DifficultyModelLaw.all(), _api);
+        new IntListConvertId<EnvironmentType>().patchReplace(_db.getTranslatedEnvironment(),EnvironmentType.all(), _api);
+        new IntListConvertId<TargetChoice>().patchReplace(_db.getTranslatedTargets(),TargetChoice.all(), _api);
+        new IntListConvertId<Statistic>().patchReplace(_db.getTranslatedStatistics(),Statistic.all(), _api);
+        return _db;
+    }
+
     public static DataBase newData(AbstractProgramInfos _api, FacadeGame _f) {
-        return DocumentReaderAikiCoreUtil.initData(_api.getGenerator(), _f);
+        DataBase db_ = DocumentReaderAikiCoreUtil.initData(_api.getGenerator(), _f);
+        StringMap<TranslationsAppli> files_ = _api.getTranslations().byAppl(MessagesDataBaseConstants.SC_APP);
+        for (EntryCust<String,TranslationsAppli> e:files_.entryList()) {
+            db_.getTranslatedGenders().put(e.getKey(), MessagesDataBaseConstants.trGenders(files_.getVal(e.getKey()).getMapping().getVal(MessagesDataBaseConstants.TRANSLATION_GENDERS)));
+        }
+        for (EntryCust<String,TranslationsAppli> e:files_.entryList()) {
+            db_.getTranslatedBooleans().put(e.getKey(), MessagesDataBaseConstants.trBooleans(files_.getVal(e.getKey()).getMapping().getVal(MessagesDataBaseConstants.TRANSLATION_BOOLEANS)));
+        }
+        for (EntryCust<String,TranslationsAppli> e:files_.entryList()) {
+            db_.getTranslatedDiffWinPts().put(e.getKey(), MessagesDataBaseConstants.trDiffWinPts(files_.getVal(e.getKey()).getMapping().getVal(MessagesDataBaseConstants.TRANSLATION_WINPTS)));
+        }
+        for (EntryCust<String,TranslationsAppli> e:files_.entryList()) {
+            db_.getTranslatedDiffModelLaw().put(e.getKey(), MessagesDataBaseConstants.trDiffLaw(files_.getVal(e.getKey()).getMapping().getVal(MessagesDataBaseConstants.TRANSLATION_MODELLAW)));
+        }
+        for (EntryCust<String,TranslationsAppli> e:files_.entryList()) {
+            db_.getTranslatedEnvironment().put(e.getKey(), MessagesDataBaseConstants.trEnv(files_.getVal(e.getKey()).getMapping().getVal(MessagesDataBaseConstants.TRANSLATION_ENVIRONMENTS)));
+        }
+        for (EntryCust<String,TranslationsAppli> e:files_.entryList()) {
+            db_.getTranslatedTargets().put(e.getKey(), MessagesDataBaseConstants.trTargets(files_.getVal(e.getKey()).getMapping().getVal(MessagesDataBaseConstants.TRANSLATION_TARGETS)));
+        }
+        for (EntryCust<String,TranslationsAppli> e:files_.entryList()) {
+            db_.getTranslatedStatistics().put(e.getKey(), MessagesDataBaseConstants.trStat(files_.getVal(e.getKey()).getMapping().getVal(MessagesDataBaseConstants.TRANSLATION_STATISTICS)));
+        }
+        for (EntryCust<String,TranslationsAppli> e:files_.entryList()) {
+            db_.getTranslatedClassesDescriptions().put(e.getKey(), files_.getVal(e.getKey()).getMapping().getVal(MessagesDataBaseConstants.TRANSLATION_CLASSES).getMapping());
+        }
+        for (EntryCust<String,TranslationsAppli> e:files_.entryList()) {
+            db_.getTranslatedFctMath().put(e.getKey(), files_.getVal(e.getKey()).getMapping().getVal(MessagesDataBaseConstants.TRANSLATION_MATH).getMapping());
+        }
+        StringList allVars_ = new StringList();
+        for (int i = 1; i < 157; i++) {
+            db_.initValueOther(Long.toString(i),Long.toString(i));
+            allVars_.add(Long.toString(i));
+        }
+        for (EntryCust<String,TranslationsAppli> e:files_.entryList()) {
+            StringMap<String> trs_ = new StringMap<String>();
+            for (String k: allVars_) {
+                trs_.addEntry(k,"\t\t"+k);
+            }
+            db_.getLitterals().put(e.getKey(),trs_);
+        }
+        return db_;
     }
     public static void saveData(AbstractProgramInfos _api, String _fileName, FacadeGame _f) {
         DefDataBaseStream.exportRom(_api,_f,_fileName);

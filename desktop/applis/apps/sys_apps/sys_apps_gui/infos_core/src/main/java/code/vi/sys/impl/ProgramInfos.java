@@ -1,6 +1,7 @@
 package code.vi.sys.impl;
 
 import aiki.db.DataBase;
+import aiki.db.MessagesDataBaseConstants;
 import aiki.gui.components.editor.MessagesPkEditor;
 import aiki.main.AikiFactory;
 import aiki.main.AikiNatLgNamesNavigation;
@@ -145,8 +146,8 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         fr_.getMapping().addEntry(MessagesInit.APP_BEAN_DATA,MessagesInit.frData());
         en_.getMapping().addEntry(MessagesInit.APP_BEAN_FIGHT,MessagesInit.enFight());
         fr_.getMapping().addEntry(MessagesInit.APP_BEAN_FIGHT,MessagesInit.frFight());
-        en_.getMapping().addEntry(MessagesTrs.SC_APP,MessagesTrs.enPart());
-        fr_.getMapping().addEntry(MessagesTrs.SC_APP,MessagesTrs.frPart());
+        en_.getMapping().addEntry(MessagesDataBaseConstants.SC_APP,MessagesTrs.enPart());
+        fr_.getMapping().addEntry(MessagesDataBaseConstants.SC_APP,MessagesTrs.frPart());
         MessagesApplications.tr(MessagesApplications.initAppliTr(en_));
         MessagesApplications.tr(MessagesApplications.initAppliTr(fr_));
         MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(_pr.getTranslations()));

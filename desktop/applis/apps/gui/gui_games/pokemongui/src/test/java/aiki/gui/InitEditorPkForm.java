@@ -152,8 +152,23 @@ public abstract class InitEditorPkForm extends EquallableAikiGuiUtil {
         TranslationsLg fr_ = pr_.lg(FR);
         MessagesPkEditor.enTr(MessagesPkEditor.initAppliTr(en_));
         MessagesPkEditor.frTr(MessagesPkEditor.initAppliTr(fr_));
+        en_.getMapping().addEntry(MessagesDataBaseConstants.SC_APP,appli());
+        fr_.getMapping().addEntry(MessagesDataBaseConstants.SC_APP,appli());
         pr_.setLanguage(EN);
         return pr_;
+    }
+    private static TranslationsAppli appli() {
+        TranslationsAppli ta_ = new TranslationsAppli();
+        ta_.getMapping().addEntry(MessagesDataBaseConstants.TRANSLATION_STATISTICS,stats());
+        ta_.getMapping().addEntry(MessagesDataBaseConstants.TRANSLATION_TARGETS,target());
+        ta_.getMapping().addEntry(MessagesDataBaseConstants.TRANSLATION_ENVIRONMENTS,environment());
+        ta_.getMapping().addEntry(MessagesDataBaseConstants.TRANSLATION_GENDERS,gender());
+        ta_.getMapping().addEntry(MessagesDataBaseConstants.TRANSLATION_BOOLEANS,booleans());
+        ta_.getMapping().addEntry(MessagesDataBaseConstants.TRANSLATION_MODELLAW,variat());
+        ta_.getMapping().addEntry(MessagesDataBaseConstants.TRANSLATION_WINPTS,diff());
+        ta_.getMapping().addEntry(MessagesDataBaseConstants.TRANSLATION_CLASSES,clDesc());
+        ta_.getMapping().addEntry(MessagesDataBaseConstants.TRANSLATION_MATH,fctMath());
+        return ta_;
     }
     protected FacadeGame facade(MockProgramInfos _m) {
         FacadeGame facade_ = core(_m);
@@ -219,32 +234,94 @@ public abstract class InitEditorPkForm extends EquallableAikiGuiUtil {
         IdMap<SelectedBoolean, String> sel_ = new IdMap<SelectedBoolean, String>();
         sel_.addEntry(SelectedBoolean.YES_AND_NO,"0");
         facade_.getData().getTranslatedBooleans().addEntry(_m.getLanguage(), sel_);
-        StringMap<String> itCl_ = new StringMap<String>();
-        itCl_.addEntry(Item.BALL,Item.BALL);
-        itCl_.addEntry(Item.BERRY,Item.BERRY);
-        itCl_.addEntry(Item.BOOST,Item.BOOST);
-        itCl_.addEntry(Item.EVOLVING_ITEM,Item.EVOLVING_ITEM);
-        itCl_.addEntry(Item.EVOLVING_STONE,Item.EVOLVING_STONE);
-        itCl_.addEntry(Item.FOSSIL,Item.FOSSIL);
-        itCl_.addEntry(Item.HEALING_HP,Item.HEALING_HP);
-        itCl_.addEntry(Item.HEALING_HP_STATUS,Item.HEALING_HP_STATUS);
-        itCl_.addEntry(Item.HEALING_ITEM,Item.HEALING_ITEM);
-        itCl_.addEntry(Item.HEALING_PP,Item.HEALING_PP);
-        itCl_.addEntry(Item.HEALING_STATUS,Item.HEALING_STATUS);
-        itCl_.addEntry(Item.ITEM_FOR_BATTLE,Item.ITEM_FOR_BATTLE);
-        itCl_.addEntry(Item.REPEL,Item.REPEL);
-        itCl_.addEntry(Item.SELLING_ITEM,Item.SELLING_ITEM);
-        facade_.getData().getTranslatedClassesDescriptions().addEntry(_m.getLanguage(), itCl_);
+        facade_.getData().getTranslatedClassesDescriptions().addEntry(_m.getLanguage(), clDesc().getMapping());
         StringMap<String> litteral_ = new StringMap<String>();
         litteral_.addEntry(MessagesDataBaseConstants.DEF_NIVEAU, StringUtil.concat("level","\t","l","\t","The level of the Pokemon"));
         litteral_.addEntry(MessagesDataBaseConstants.DEF_BOOST, StringUtil.concat("boost","\t","b","\t","The boost of the Pokemon"));
         facade_.getData().getLitterals().addEntry(_m.getLanguage(),litteral_);
-        StringMap<String> fct_ = new StringMap<String>();
-        fct_.addEntry(MbOperationNode.PUIS,"_");
-        facade_.getData().getTranslatedFctMath().addEntry(_m.getLanguage(),fct_);
+        facade_.getData().getTranslatedFctMath().addEntry(_m.getLanguage(),fctMath().getMapping());
         return facade_;
     }
 
+    private static TranslationsFile fctMath() {
+        TranslationsFile fct_ = new TranslationsFile();
+        fct_.add(MbOperationNode.PUIS,"_");
+        return fct_;
+    }
+
+    private static TranslationsFile clDesc() {
+        TranslationsFile itCl_ = new TranslationsFile();
+        itCl_.add(Item.BALL,Item.BALL);
+        itCl_.add(Item.BERRY,Item.BERRY);
+        itCl_.add(Item.BOOST,Item.BOOST);
+        itCl_.add(Item.EVOLVING_ITEM,Item.EVOLVING_ITEM);
+        itCl_.add(Item.EVOLVING_STONE,Item.EVOLVING_STONE);
+        itCl_.add(Item.FOSSIL,Item.FOSSIL);
+        itCl_.add(Item.HEALING_HP,Item.HEALING_HP);
+        itCl_.add(Item.HEALING_HP_STATUS,Item.HEALING_HP_STATUS);
+        itCl_.add(Item.HEALING_ITEM,Item.HEALING_ITEM);
+        itCl_.add(Item.HEALING_PP,Item.HEALING_PP);
+        itCl_.add(Item.HEALING_STATUS,Item.HEALING_STATUS);
+        itCl_.add(Item.ITEM_FOR_BATTLE,Item.ITEM_FOR_BATTLE);
+        itCl_.add(Item.REPEL,Item.REPEL);
+        itCl_.add(Item.SELLING_ITEM,Item.SELLING_ITEM);
+        return itCl_;
+    }
+
+    private static TranslationsFile stats() {
+        TranslationsFile trsStat_ = new TranslationsFile();
+        trsStat_.add(DataBase.DEF_STAT_ATTACK, "a");
+        trsStat_.add(DataBase.DEF_STAT_DEFENSE, "d");
+        trsStat_.add(DataBase.DEF_STAT_SPECIAL_ATTACK, "_a");
+        trsStat_.add(DataBase.DEF_STAT_SPECIAL_DEFENSE, "_d");
+        trsStat_.add(DataBase.DEF_STAT_SPEED, "s");
+        trsStat_.add(DataBase.DEF_STAT_HP, "h");
+        return trsStat_;
+    }
+
+    private static TranslationsFile gender() {
+        TranslationsFile trsStat_ = new TranslationsFile();
+        trsStat_.add(DataBase.DEF_GENDER_NO_GENDER,"_");
+        return trsStat_;
+    }
+
+    private static TranslationsFile target() {
+        TranslationsFile trsStat_ = new TranslationsFile();
+        trsStat_.add(DataBase.DEF_TARGET_ANY_FOE,"_");
+        return trsStat_;
+    }
+
+    private static TranslationsFile environment() {
+        TranslationsFile trsStat_ = new TranslationsFile();
+        trsStat_.add(DataBase.DEF_ENV_NOTHING,"0");
+        trsStat_.add(DataBase.DEF_ENV_ROAD,"1");
+        return trsStat_;
+    }
+
+    private static TranslationsFile booleans() {
+        TranslationsFile trsStat_ = new TranslationsFile();
+        trsStat_.add(DataBase.DEF_SEL_BOOL_YES_AND_NO,"0");
+        return trsStat_;
+    }
+
+    private static TranslationsFile variat() {
+        TranslationsFile trsStat_ = new TranslationsFile();
+        trsStat_.add(DataBase.DEF_UNIFORME,"0");
+        return trsStat_;
+    }
+
+    private static TranslationsFile diff() {
+        TranslationsFile trsStat_ = new TranslationsFile();
+        trsStat_.add(DataBase.DEF_DIFFICILE,"0");
+        return trsStat_;
+    }
+
+    /*IdMap<DifficultyModelLaw, String> dm_ = new IdMap<DifficultyModelLaw, String>();
+        dm_.addEntry(DifficultyModelLaw.UNIFORME,"0");
+        facade_.getData().getTranslatedDiffModelLaw().addEntry(_m.getLanguage(), dm_);
+        IdMap<DifficultyWinPointsFight, String> dw_ = new IdMap<DifficultyWinPointsFight, String>();
+        dw_.addEntry(DifficultyWinPointsFight.DIFFICILE,"0");
+        facade_.getData().getTranslatedDiffWinPts().addEntry(_m.getLanguage(), dw_);*/
     protected FacadeGame core(MockProgramInfos _m) {
         FacadeGame facade_ = ConverterCommonMapUtil.facadeInit(_m);
         facade_.setData(new DataBase(new DefaultGenerator(new CustomSeedGene())));

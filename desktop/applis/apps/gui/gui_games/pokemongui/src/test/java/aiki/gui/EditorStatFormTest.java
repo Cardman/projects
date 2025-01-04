@@ -116,12 +116,14 @@ public final class EditorStatFormTest extends InitEditorPkForm {
     public void statForm10() {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facadeAdd(pr_);
+        facade_.getData().defValues();
+        facade_.getData().validateOtherConstants();
         WindowPkEditor sub_ = window(pr_, facade_);
-        CrudGeneFormTrLitteral cTr_ = crudTrLittType(sub_);
-        cTr_.getFields().getVal(MessagesDataBaseConstants.DEF_NIVEAU).getVal(pr_.getLanguage()).get(0).setText("vit");
-        cTr_.getFields().getVal(MessagesDataBaseConstants.DEF_NIVEAU).getVal(pr_.getLanguage()).get(1).setText("v");
-        cTr_.getFields().getVal(MessagesDataBaseConstants.DEF_NIVEAU).getVal(pr_.getLanguage()).get(2).setText("desc");
-        tryClick(cTr_.getChangeValues());
+        CrudGeneFormTrCstList cTr_ = crudConstLitt(sub_);
+        cTr_.getFieldsLitt().getVal(DataBaseConstants.KEY_NIVEAU).getVal(pr_.getLanguage()).get(0).setText("vit");
+        cTr_.getFieldsLitt().getVal(DataBaseConstants.KEY_NIVEAU).getVal(pr_.getLanguage()).get(1).setText("v");
+        cTr_.getFieldsLitt().getVal(DataBaseConstants.KEY_NIVEAU).getVal(pr_.getLanguage()).get(2).setText("desc");
+        enterTextField(cTr_.getFields().getVal(DataBaseConstants.KEY_NIVEAU));
         assertEq("vit\tv\tdesc",facade_.getData().getLitterals().getVal(pr_.getLanguage()).getVal(MessagesDataBaseConstants.DEF_NIVEAU));
     }
     @Test
@@ -330,11 +332,11 @@ public final class EditorStatFormTest extends InitEditorPkForm {
         tryClick(_crud.getTrsFctMenu());
         return _crud.getCrudGeneFormFctTr();
     }
-    private CrudGeneFormTrLitteral crudTrLittType(WindowPkEditor _crud) {
-        tryClick(_crud.getTrsLittMenu());
-        return _crud.getCrudGeneFormLittTr();
-    }
 
+    private CrudGeneFormTrCstList crudConstLitt(WindowPkEditor _crud) {
+        tryClick(_crud.getTrsConstMenu());
+        return _crud.getCrudGeneFormTrCstList();
+    }
     private CrudGeneFormTrCstParamListString<ExpType> crudTrExpTypeType(WindowPkEditor _crud) {
         tryClick(_crud.getTrsExpTypeMenu());
         return _crud.getCrudGeneFormExpTypeTr();

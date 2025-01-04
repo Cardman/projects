@@ -1,6 +1,33 @@
 package aiki.db;
 
+import aiki.facade.enums.*;
+import aiki.fight.enums.*;
+import aiki.fight.moves.enums.*;
+import aiki.game.params.enums.*;
+import aiki.map.levels.enums.*;
+import aiki.map.pokemon.enums.*;
+import code.sml.util.*;
+import code.util.*;
+
 public final class MessagesDataBaseConstants {
+    public static final String SC_APP = "sc_app";
+    public static final String TRANSLATION_CATEGORIES = "categories.txt";
+    public static final String TRANSLATION_GENDERS = "genders.txt";
+    public static final String TRANSLATION_ENVIRONMENTS = "environments.txt";
+    public static final String TRANSLATION_BOOLEANS = "booleans.txt";
+    public static final String TRANSLATION_WINPTS = "winpts.txt";
+    public static final String TRANSLATION_MODELLAW = "modellaw.txt";
+    public static final String TRANSLATION_STATISTICS = "statistics.txt";
+    public static final String TRANSLATION_TARGETS = "targets.txt";
+    public static final String TRANSLATION_TYPES = "types.txt";
+    public static final String TRANSLATION_POKEMON = "pokemon.txt";
+    public static final String TRANSLATION_MOVES = "moves.txt";
+    public static final String TRANSLATION_ITEMS = "items.txt";
+    public static final String TRANSLATION_ABILITIES = "abilities.txt";
+    public static final String TRANSLATION_STATUS = "status.txt";
+    public static final String TRANSLATION_MATH = "math.txt";
+    public static final String TRANSLATION_CLASSES = "classes.txt";
+    public static final String TRANSLATION_LITTERAL = "litteral.txt";
     public static final String BASE_KEY = "0";
     public static final String BASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
     public static final String VAR_DEF = "VAR";
@@ -482,5 +509,69 @@ public final class MessagesDataBaseConstants {
         _bdd.nbCombattantsTerrain(DataBase.EMPTY_STRING);
         _bdd.lieuCombat(DataBase.EMPTY_STRING);
         _bdd.tempsTour(DataBase.EMPTY_STRING);
+    }
+
+    public static IdMap<TargetChoice, String> trTargets(TranslationsFile _str) {
+        IdMap<TargetChoice, String> targets_ = new IdMap<TargetChoice, String>();
+        for (EntryCust<String, String> l2_ : _str.getMapping().entryList()) {
+            targets_.addEntry(
+                    TargetChoice.getTargetChoiceByName(l2_.getKey()),
+                    l2_.getValue());
+        }
+        return targets_;
+    }
+
+    public static IdMap<Statistic, String> trStat(TranslationsFile _str) {
+        IdMap<Statistic, String> statistics_ = new IdMap<Statistic, String>();
+        for (EntryCust<String, String> l2_ : _str.getMapping().entryList()) {
+            statistics_.addEntry(Statistic.getStatisticByName(l2_.getKey()),
+                    l2_.getValue());
+        }
+        return statistics_;
+    }
+
+    public static IdMap<EnvironmentType, String> trEnv(TranslationsFile _str) {
+        IdMap<EnvironmentType, String> environments_ = new IdMap<EnvironmentType, String>();
+        for (EntryCust<String, String> l2_ : _str.getMapping().entryList()) {
+            environments_.addEntry(EnvironmentType.getEnvByName(l2_.getKey()),
+                    l2_.getValue());
+        }
+        return environments_;
+    }
+
+    public static IdMap<DifficultyModelLaw, String> trDiffLaw(TranslationsFile _str) {
+        IdMap<DifficultyModelLaw, String> diffLaw_ = new IdMap<DifficultyModelLaw, String>();
+        for (EntryCust<String, String> l2_ : _str.getMapping().entryList()) {
+            diffLaw_.addEntry(DifficultyModelLaw.getModelByName(l2_.getKey()),
+                    l2_.getValue());
+        }
+        return diffLaw_;
+    }
+
+    public static IdMap<DifficultyWinPointsFight, String> trDiffWinPts(TranslationsFile _str) {
+        IdMap<DifficultyWinPointsFight, String> diffWinPts_ = new IdMap<DifficultyWinPointsFight, String>();
+        for (EntryCust<String, String> l2_ : _str.getMapping().entryList()) {
+            diffWinPts_.addEntry(
+                    DifficultyWinPointsFight.getDiffWonPtsByName(l2_.getKey()), l2_.getValue());
+        }
+        return diffWinPts_;
+    }
+
+    public static IdMap<SelectedBoolean, String> trBooleans(TranslationsFile _str) {
+        IdMap<SelectedBoolean, String> booleans_ = new IdMap<SelectedBoolean, String>();
+        for (EntryCust<String, String> l2_ : _str.getMapping().entryList()) {
+            booleans_.addEntry(SelectedBoolean.getBoolByName(l2_.getKey()),
+                    l2_.getValue());
+        }
+        return booleans_;
+    }
+
+    public static IdMap<Gender, String> trGenders(TranslationsFile _str) {
+        IdMap<Gender, String> genders_ = new IdMap<Gender, String>();
+        for (EntryCust<String, String> l2_ : _str.getMapping().entryList()) {
+            genders_.addEntry(Gender.getGenderByName(l2_.getKey()),
+                    l2_.getValue());
+        }
+        return genders_;
     }
 }

@@ -32,7 +32,6 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
     private final CrudGeneFormTr crudGeneFormTyTr;
     private final CrudGeneFormTrItemType crudGeneFormClTr;
     private final CrudGeneFormTrItemType crudGeneFormFctTr;
-    private final CrudGeneFormTrLitteral crudGeneFormLittTr;
     private final CrudGeneFormTrCstParamListString<ExpType> crudGeneFormExpTypeTr;
     private final CrudGeneFormTrCstLaw crudGeneFormDifficultyModelLawTr;
     private final CrudGeneFormTrCstParamListString<DifficultyWinPointsFight> crudGeneFormDifficultyWinPointsFightTr;
@@ -81,13 +80,12 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
     private final EnabledMenu trsTyMenu = getFrames().getCompoFactory().newMenuItem("0_6");
     private final EnabledMenu trsClMenu = getFrames().getCompoFactory().newMenuItem("0_7");
     private final EnabledMenu trsFctMenu = getFrames().getCompoFactory().newMenuItem("0_8");
-    private final EnabledMenu trsLittMenu = getFrames().getCompoFactory().newMenuItem("0_9");
-    private final EnabledMenu trsExpTypeMenu = getFrames().getCompoFactory().newMenuItem("0_10");
-    private final EnabledMenu trsDifficultyModelLawMenu = getFrames().getCompoFactory().newMenuItem("0_11");
-    private final EnabledMenu trsDifficultyWinPointsFightMenu = getFrames().getCompoFactory().newMenuItem("0_12");
-    private final EnabledMenu trsConstMenu = getFrames().getCompoFactory().newMenuItem("0_13");
-    private final EnabledMenu trsOtherConstMenu = getFrames().getCompoFactory().newMenuItem("0_14");
-    private final EnabledMenu trsNumConstMenu = getFrames().getCompoFactory().newMenuItem("0_15");
+    private final EnabledMenu trsExpTypeMenu = getFrames().getCompoFactory().newMenuItem("0_9");
+    private final EnabledMenu trsDifficultyModelLawMenu = getFrames().getCompoFactory().newMenuItem("0_10");
+    private final EnabledMenu trsDifficultyWinPointsFightMenu = getFrames().getCompoFactory().newMenuItem("0_11");
+    private final EnabledMenu trsConstMenu = getFrames().getCompoFactory().newMenuItem("0_12");
+    private final EnabledMenu trsOtherConstMenu = getFrames().getCompoFactory().newMenuItem("0_13");
+    private final EnabledMenu trsNumConstMenu = getFrames().getCompoFactory().newMenuItem("0_14");
     private final EnabledMenu tmMenu = getFrames().getCompoFactory().newMenuItem("1_0");
     private final EnabledMenu hmMenu = getFrames().getCompoFactory().newMenuItem("1_1");
     private final EnabledMenu abMenu = getFrames().getCompoFactory().newMenuItem("2_0");
@@ -145,8 +143,6 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         events(crudGeneFormClTr.getFrame(), trsClMenu, crudGeneFormClTr, new IdList<SubscribedTranslation>());
         crudGeneFormFctTr = new CrudGeneFormTrItemType(_list, facade,subscriptions, true);
         events(crudGeneFormFctTr.getFrame(), trsFctMenu, crudGeneFormFctTr, new IdList<SubscribedTranslation>());
-        crudGeneFormLittTr = new CrudGeneFormTrLitteral(_list, facade,subscriptions);
-        events(crudGeneFormLittTr.getFrame(), trsLittMenu, crudGeneFormLittTr, new IdList<SubscribedTranslation>());
         crudGeneFormExpTypeTr = new CrudGeneFormTrCstParamListString<ExpType>(_list, facade, new NumStrIdRetrieverExpType());
         events(crudGeneFormExpTypeTr.getFrame(), trsExpTypeMenu, crudGeneFormExpTypeTr, new IdList<SubscribedTranslation>());
         crudGeneFormDifficultyModelLawTr = new CrudGeneFormTrCstLaw(_list, facade);
@@ -211,7 +207,6 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         trs_.addMenuItem(trsTyMenu);
         trs_.addMenuItem(trsClMenu);
         trs_.addMenuItem(trsFctMenu);
-        trs_.addMenuItem(trsLittMenu);
         trs_.addMenuItem(trsExpTypeMenu);
         trs_.addMenuItem(trsDifficultyModelLawMenu);
         trs_.addMenuItem(trsDifficultyWinPointsFightMenu);
@@ -439,10 +434,6 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         return trsFctMenu;
     }
 
-    public EnabledMenu getTrsLittMenu() {
-        return trsLittMenu;
-    }
-
     public EnabledMenu getTrsExpTypeMenu() {
         return trsExpTypeMenu;
     }
@@ -633,10 +624,6 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
 
     public CrudGeneFormTrItemType getCrudGeneFormFctTr() {
         return crudGeneFormFctTr;
-    }
-
-    public CrudGeneFormTrLitteral getCrudGeneFormLittTr() {
-        return crudGeneFormLittTr;
     }
 
     public CrudGeneFormTrCstParamListString<ExpType> getCrudGeneFormExpTypeTr() {
