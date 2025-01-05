@@ -416,12 +416,6 @@ public final class ConverterCommonMapUtil {
         allCats_.add(_db.getDefCategory());
         allCats_.removeDuplicates();
         patchReplace(_db.getTranslatedCategories(),correctEnt(allCats_), _api);
-        for (MoveData m: _db.getMoves().values()) {
-            resetTypes(_db.getTranslatedTypes(),m.getTypes());
-        }
-        for (PokemonData m: _db.getPokedex().values()) {
-            resetTypes(_db.getTranslatedTypes(),m.getTypes());
-        }
         StringList allTypes_ = new StringList();
         for (MoveData m: _db.getMoves().values()) {
             allTypes_.addAllElts(correctEnt(m.getTypes()));
@@ -433,6 +427,12 @@ public final class ConverterCommonMapUtil {
         allTypes_.addAllElts(_db.getTypesColors().getKeys());
         allTypes_.removeDuplicates();
         patchReplace(_db.getTranslatedTypes(),allTypes_, _api);
+        for (MoveData m: _db.getMoves().values()) {
+            resetTypes(_db.getTranslatedTypes(),m.getTypes());
+        }
+        for (PokemonData m: _db.getPokedex().values()) {
+            resetTypes(_db.getTranslatedTypes(),m.getTypes());
+        }
         patchLitt(_api, _db);
         StringList ls_ = new StringList();
         ls_.add(Item.BALL);
