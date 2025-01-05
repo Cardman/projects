@@ -2,6 +2,7 @@ package aiki.gui;
 
 import aiki.db.*;
 import aiki.facade.*;
+import aiki.fight.pokemon.*;
 import aiki.gui.components.editor.*;
 import aiki.instances.Instances;
 import aiki.sml.*;
@@ -77,7 +78,12 @@ public final class EditorAppFormTest extends InitEditorPkForm {
         db_.getAbilities().addEntry(DataBase.EMPTY_STRING, Instances.newAbilityData());
         db_.getItems().addEntry(DataBase.EMPTY_STRING, Instances.newSellingItem());
         db_.getMoves().addEntry(DataBase.EMPTY_STRING, Instances.newDamagingMoveData());
+        db_.getMoves().addEntry(M_1, Instances.newDamagingMoveData());
+        db_.getMoves().addEntry(M_2, Instances.newStatusMoveData());
         db_.getPokedex().addEntry(DataBase.EMPTY_STRING, Instances.newPokemonData());
+        PokemonData pk_ = Instances.newPokemonData();
+        pk_.getTypes().add(DataBase.EMPTY_STRING);
+        db_.getPokedex().addEntry(P_1, pk_);
         db_.getStatus().addEntry(DataBase.EMPTY_STRING, Instances.newStatusSimple());
         db_.getMiniPk().addEntry(DataBase.EMPTY_STRING,instance(new int[0][0]));
         db_.getTranslatedCategories().getValue(0).addEntry(DataBase.EMPTY_STRING,DataBase.EMPTY_STRING);
@@ -85,8 +91,8 @@ public final class EditorAppFormTest extends InitEditorPkForm {
         db_.getTypesColors().addEntry(DataBase.EMPTY_STRING,DataBase.EMPTY_STRING);
         DataBase res_ = ConverterCommonMapUtil.patchData(api_, db_);
         assertEq(2,res_.getTranslatedPokemon().size());
-        assertTrue(res_.getTranslatedPokemon().getValue(0).isEmpty());
-        assertTrue(res_.getTranslatedPokemon().getValue(1).isEmpty());
+        assertEq(1,res_.getTranslatedPokemon().getValue(0).size());
+        assertEq(1,res_.getTranslatedPokemon().getValue(1).size());
     }
     @Test
     public void patchData5() {

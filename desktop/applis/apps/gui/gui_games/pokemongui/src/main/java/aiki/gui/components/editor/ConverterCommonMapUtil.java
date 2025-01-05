@@ -370,6 +370,8 @@ public final class ConverterCommonMapUtil {
     }
 
     public static DataBase patchData(AbstractProgramInfos _api, DataBase _db) {
+        removeInvalidKeyTr(_db.getTranslatedCategories());
+        removeInvalidKeyTr(_db.getTranslatedTypes());
         removeInvalidKeyAb(_db.getAbilities());
         removeInvalidKeyIt(_db.getItems());
         removeInvalidKeyMv(_db.getMoves());
@@ -381,13 +383,12 @@ public final class ConverterCommonMapUtil {
         removeInvalidKeyImg(_db.getMaxiPkBack());
         removeInvalidKeyImg(_db.getAnimStatus());
         removeInvalidKeyImg(_db.getTypesImages());
+        removeInvalidKeyColor(_db.getTypesColors());
         removeInvalidKeyTr(_db.getTranslatedAbilities());
         removeInvalidKeyTr(_db.getTranslatedItems());
         removeInvalidKeyTr(_db.getTranslatedMoves());
         removeInvalidKeyTr(_db.getTranslatedPokemon());
         removeInvalidKeyTr(_db.getTranslatedStatus());
-        removeInvalidKeyTr(_db.getTranslatedCategories());
-        removeInvalidKeyTr(_db.getTranslatedTypes());
         patchReplace(_db.getTranslatedAbilities(), _db.getAbilities().getKeys(), _api);
         StringList items_ = new StringList();
         items_.addAllElts(_db.getItems().getKeys());
@@ -407,12 +408,20 @@ public final class ConverterCommonMapUtil {
         status_.addAllElts(_db.getAnimStatus().getKeys());
         status_.removeDuplicates();
         patchReplace(_db.getTranslatedStatus(),status_, _api);
+        resetCategory(_db);
         StringList allCats_ = new StringList();
         for (MoveData m: _db.getMoves().values()) {
             allCats_.add(_db.getCategory(m));
         }
+        allCats_.add(_db.getDefCategory());
         allCats_.removeDuplicates();
         patchReplace(_db.getTranslatedCategories(),correctEnt(allCats_), _api);
+        for (MoveData m: _db.getMoves().values()) {
+            resetTypes(_db.getTranslatedTypes(),m.getTypes());
+        }
+        for (PokemonData m: _db.getPokedex().values()) {
+            resetTypes(_db.getTranslatedTypes(),m.getTypes());
+        }
         StringList allTypes_ = new StringList();
         for (MoveData m: _db.getMoves().values()) {
             allTypes_.addAllElts(correctEnt(m.getTypes()));
@@ -421,7 +430,7 @@ public final class ConverterCommonMapUtil {
             allTypes_.addAllElts(correctEnt(m.getTypes()));
         }
         allTypes_.addAllElts(_db.getTypesImages().getKeys());
-        allTypes_.addAllElts(correctEnt(_db.getTypesColors().getKeys()));
+        allTypes_.addAllElts(_db.getTypesColors().getKeys());
         allTypes_.removeDuplicates();
         patchReplace(_db.getTranslatedTypes(),allTypes_, _api);
         patchLitt(_api, _db);
@@ -450,6 +459,48 @@ public final class ConverterCommonMapUtil {
         new IntListConvertId<TargetChoice>().patchReplace(_db.getTranslatedTargets(),TargetChoice.all(), _api);
         new IntListConvertId<Statistic>().patchReplace(_db.getTranslatedStatistics(),Statistic.all(), _api);
         return _db;
+    }
+
+    private static void resetTypes(StringMap<StringMap<String>> _t, StringList _y) {
+        StringList n_ = new StringList();
+        int len_ = _y.size();
+        for (int j = 0; j < len_; j++) {
+            int countAbsent_ = 0;
+            String key_ = _y.get(j);
+            for (EntryCust<String,StringMap<String>> e: _t.entryList()) {
+                if (!e.getValue().contains(key_)) {
+                    countAbsent_++;
+                }
+            }
+            if (countAbsent_ == 0) {
+                n_.add(key_);
+            }
+        }
+        _y.clear();
+        _y.addAllElts(n_);
+    }
+
+    private static void resetCategory(DataBase _db) {
+        for (MoveData m: _db.getMoves().values()) {
+            for (EntryCust<String,StringMap<String>> e: _db.getTranslatedCategories().entryList()) {
+                if (m instanceof DamagingMoveData && !e.getValue().contains(((DamagingMoveData)m).getCategory())) {
+                    ((DamagingMoveData)m).setCategory(DataBase.EMPTY_STRING);
+                }
+            }
+        }
+    }
+
+    private static void removeInvalidKeyColor(StringMap<String> _l) {
+        int len_ = _l.size();
+        StringMap<String> ti_ = new StringMap<String>();
+        for (int j = 0; j < len_; j++) {
+            String k_ = _l.getKey(j);
+            if (DataBase.isCorrectIdentifier(k_)) {
+                ti_.addEntry(k_,_l.getValue(j));
+            }
+        }
+        _l.clear();
+        _l.addAllEntries(ti_);
     }
 
     private static void removeInvalidKeyTr(StringMap<StringMap<String>> _l) {
