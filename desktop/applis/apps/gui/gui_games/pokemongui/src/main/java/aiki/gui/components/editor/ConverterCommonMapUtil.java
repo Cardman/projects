@@ -216,7 +216,7 @@ public final class ConverterCommonMapUtil {
     }
     public static StringMap<StringMap<String>> patch(StringMap<StringMap<String>> _map, CustList<String> _entities, AbstractProgramInfos _api, DataBase _litt) {
         CustList<String> mustLgs_ = _api.getTranslations().getMapping().getKeys();
-        StringList allEnt_ = correctEnt(_entities);
+        StringList allEnt_ = new StringList(_entities);
         if (_map.isEmpty()) {
             for (String l: mustLgs_) {
                 StringMap<String> map_ = new StringMap<String>();
@@ -226,7 +226,7 @@ public final class ConverterCommonMapUtil {
             return _map;
         }
         for (EntryCust<String,StringMap<String>> e: _map.entryList()) {
-            allEnt_.addAllElts(correctEnt(e.getValue().getKeys()));
+            allEnt_.addAllElts(e.getValue().getKeys());
         }
         allEnt_.removeDuplicates();
         for (EntryCust<String,StringMap<String>> e: _map.entryList()) {
@@ -270,7 +270,7 @@ public final class ConverterCommonMapUtil {
 
     private static void feedId(StringList _allEnt, StringMap<String> _map, DataBase _litt) {
         if (_litt != null) {
-            for (int i = 1; i < 157; i++) {
+            for (int i = 1; i < DataBaseConstants.MAX_EXCLUSIVE; i++) {
                 String key_ = _litt.retValueOther(Long.toString(i));
                 _map.tryAdd(key_,"\t\t"+key_);
             }
@@ -370,6 +370,24 @@ public final class ConverterCommonMapUtil {
     }
 
     public static DataBase patchData(AbstractProgramInfos _api, DataBase _db) {
+        removeInvalidKeyAb(_db.getAbilities());
+        removeInvalidKeyIt(_db.getItems());
+        removeInvalidKeyMv(_db.getMoves());
+        removeInvalidKeyPk(_db.getPokedex());
+        removeInvalidKeySt(_db.getStatus());
+        removeInvalidKeyImg(_db.getMiniItems());
+        removeInvalidKeyImg(_db.getMiniPk());
+        removeInvalidKeyImg(_db.getMaxiPkFront());
+        removeInvalidKeyImg(_db.getMaxiPkBack());
+        removeInvalidKeyImg(_db.getAnimStatus());
+        removeInvalidKeyImg(_db.getTypesImages());
+        removeInvalidKeyTr(_db.getTranslatedAbilities());
+        removeInvalidKeyTr(_db.getTranslatedItems());
+        removeInvalidKeyTr(_db.getTranslatedMoves());
+        removeInvalidKeyTr(_db.getTranslatedPokemon());
+        removeInvalidKeyTr(_db.getTranslatedStatus());
+        removeInvalidKeyTr(_db.getTranslatedCategories());
+        removeInvalidKeyTr(_db.getTranslatedTypes());
         patchReplace(_db.getTranslatedAbilities(), _db.getAbilities().getKeys(), _api);
         StringList items_ = new StringList();
         items_.addAllElts(_db.getItems().getKeys());
@@ -394,16 +412,16 @@ public final class ConverterCommonMapUtil {
             allCats_.add(_db.getCategory(m));
         }
         allCats_.removeDuplicates();
-        patchReplace(_db.getTranslatedCategories(),allCats_, _api);
+        patchReplace(_db.getTranslatedCategories(),correctEnt(allCats_), _api);
         StringList allTypes_ = new StringList();
         for (MoveData m: _db.getMoves().values()) {
-            allTypes_.addAllElts(m.getTypes());
+            allTypes_.addAllElts(correctEnt(m.getTypes()));
         }
         for (PokemonData m: _db.getPokedex().values()) {
-            allTypes_.addAllElts(m.getTypes());
+            allTypes_.addAllElts(correctEnt(m.getTypes()));
         }
         allTypes_.addAllElts(_db.getTypesImages().getKeys());
-        allTypes_.addAllElts(_db.getTypesColors().getKeys());
+        allTypes_.addAllElts(correctEnt(_db.getTypesColors().getKeys()));
         allTypes_.removeDuplicates();
         patchReplace(_db.getTranslatedTypes(),allTypes_, _api);
         patchLitt(_api, _db);
@@ -434,10 +452,107 @@ public final class ConverterCommonMapUtil {
         return _db;
     }
 
+    private static void removeInvalidKeyTr(StringMap<StringMap<String>> _l) {
+        int len_ = _l.size();
+        StringMap<StringMap<String>> t_ = new StringMap<StringMap<String>>();
+        for (int j = 0; j < len_; j++) {
+            StringMap<String> read_ = _l.getValue(j);
+            int lenTr_ = read_.size();
+            StringMap<String> lg_ = new StringMap<String>();
+            for (int m = 0; m < lenTr_; m++) {
+                String k_ = read_.getKey(m);
+                if (DataBase.isCorrectIdentifier(k_)) {
+                    lg_.addEntry(k_, read_.getValue(m));
+                }
+            }
+            t_.addEntry(_l.getKey(j),lg_);
+        }
+        _l.clear();
+        _l.addAllEntries(t_);
+    }
+
+    private static void removeInvalidKeyImg(StringMap<ImageArrayBaseSixtyFour> _l) {
+        int len_ = _l.size();
+        StringMap<ImageArrayBaseSixtyFour> g_ = new StringMap<ImageArrayBaseSixtyFour>();
+        for (int j = 0; j < len_; j++) {
+            String k_ = _l.getKey(j);
+            if (DataBase.isCorrectIdentifier(k_)) {
+                g_.addEntry(k_,_l.getValue(j));
+            }
+        }
+        _l.clear();
+        _l.addAllEntries(g_);
+    }
+
+    private static void removeInvalidKeySt(StringMap<Status> _l) {
+        int len_ = _l.size();
+        StringMap<Status> s_ = new StringMap<Status>();
+        for (int j = 0; j < len_; j++) {
+            String k_ = _l.getKey(j);
+            if (DataBase.isCorrectIdentifier(k_)) {
+                s_.addEntry(k_,_l.getValue(j));
+            }
+        }
+        _l.clear();
+        _l.addAllEntries(s_);
+    }
+
+    private static void removeInvalidKeyPk(StringMap<PokemonData> _l) {
+        int len_ = _l.size();
+        StringMap<PokemonData> p_ = new StringMap<PokemonData>();
+        for (int j = 0; j < len_; j++) {
+            String k_ = _l.getKey(j);
+            if (DataBase.isCorrectIdentifier(k_)) {
+                p_.addEntry(k_,_l.getValue(j));
+            }
+        }
+        _l.clear();
+        _l.addAllEntries(p_);
+    }
+
+    private static void removeInvalidKeyMv(StringMap<MoveData> _l) {
+        int len_ = _l.size();
+        StringMap<MoveData> m_ = new StringMap<MoveData>();
+        for (int j = 0; j < len_; j++) {
+            String k_ = _l.getKey(j);
+            if (DataBase.isCorrectIdentifier(k_)) {
+                m_.addEntry(k_,_l.getValue(j));
+            }
+        }
+        _l.clear();
+        _l.addAllEntries(m_);
+    }
+
+    private static void removeInvalidKeyIt(StringMap<Item> _l) {
+        int len_ = _l.size();
+        StringMap<Item> i_ = new StringMap<Item>();
+        for (int j = 0; j < len_; j++) {
+            String k_ = _l.getKey(j);
+            if (DataBase.isCorrectIdentifier(k_)) {
+                i_.addEntry(k_,_l.getValue(j));
+            }
+        }
+        _l.clear();
+        _l.addAllEntries(i_);
+    }
+
+    private static void removeInvalidKeyAb(StringMap<AbilityData> _l) {
+        int len_ = _l.size();
+        StringMap<AbilityData> a_ = new StringMap<AbilityData>();
+        for (int j = 0; j < len_; j++) {
+            String k_ = _l.getKey(j);
+            if (DataBase.isCorrectIdentifier(k_)) {
+                a_.addEntry(k_,_l.getValue(j));
+            }
+        }
+        _l.clear();
+        _l.addAllEntries(a_);
+    }
+
     public static void patchLitt(AbstractProgramInfos _api, DataBase _db) {
         _db.validateOtherConstants();
         StringList allVars_ = new StringList();
-        for (int i = 1; i < 157; i++) {
+        for (int i = 1; i < DataBaseConstants.MAX_EXCLUSIVE; i++) {
             allVars_.add(_db.retValueOther(Long.toString(i)));
         }
         patchReplace(_db.getLitterals(),allVars_, _api, _db);
@@ -474,7 +589,7 @@ public final class ConverterCommonMapUtil {
             db_.getTranslatedFctMath().put(e.getKey(), files_.getVal(e.getKey()).getMapping().getVal(MessagesDataBaseConstants.TRANSLATION_MATH).getMapping());
         }
         StringList allVars_ = new StringList();
-        for (int i = 1; i < 157; i++) {
+        for (int i = 1; i < DataBaseConstants.MAX_EXCLUSIVE; i++) {
             db_.initValueOther(Long.toString(i),Long.toString(i));
             allVars_.add(Long.toString(i));
         }
@@ -549,7 +664,7 @@ public final class ConverterCommonMapUtil {
         for (EntryCust<String, Status> f:_db.getStatus().entryList()) {
             data_.getStatus().addEntry(f.getKey(),copyStatus(f.getValue()));
         }
-        for (int i = 0; i < 157; i++) {
+        for (int i = 0; i < DataBaseConstants.MAX_EXCLUSIVE; i++) {
             data_.initValueOther(Long.toString(i), _db.retValueOther(Long.toString(i)));
         }
         data_.setDefMove(_db.getDefMove());

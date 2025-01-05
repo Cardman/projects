@@ -34,7 +34,9 @@ public final class EditorAppFormTest extends InitEditorPkForm {
         DataBase db_ = DocumentReaderAikiCoreUtil.initData(api_.getGenerator(), f_);
         db_.getLitterals().clear();
         DataBase res_ = ConverterCommonMapUtil.patchData(api_, db_);
-        assertFalse(res_.getLitterals().isEmpty());
+        assertEq(2,res_.getLitterals().size());
+        assertEq(DataBaseConstants.MAX_EXCLUSIVE-1,res_.getLitterals().getValue(0).size());
+        assertEq(DataBaseConstants.MAX_EXCLUSIVE-1,res_.getLitterals().getValue(1).size());
     }
     @Test
     public void patchData2() {
@@ -46,7 +48,9 @@ public final class EditorAppFormTest extends InitEditorPkForm {
         db_.getLitterals().getValue(0).clear();
         db_.getLitterals().getValue(1).clear();
         DataBase res_ = ConverterCommonMapUtil.patchData(api_, db_);
-        assertFalse(res_.getLitterals().isEmpty());
+        assertEq(2,res_.getLitterals().size());
+        assertEq(DataBaseConstants.MAX_EXCLUSIVE-1,res_.getLitterals().getValue(0).size());
+        assertEq(DataBaseConstants.MAX_EXCLUSIVE-1,res_.getLitterals().getValue(1).size());
     }
     @Test
     public void patchData3() {
@@ -59,7 +63,9 @@ public final class EditorAppFormTest extends InitEditorPkForm {
         db_.getLitterals().getValue(0).clear();
         db_.getLitterals().getValue(1).clear();
         DataBase res_ = ConverterCommonMapUtil.patchData(api_, db_);
-        assertFalse(res_.getLitterals().isEmpty());
+        assertEq(2,res_.getLitterals().size());
+        assertEq(DataBaseConstants.MAX_EXCLUSIVE-1,res_.getLitterals().getValue(0).size());
+        assertEq(DataBaseConstants.MAX_EXCLUSIVE-1,res_.getLitterals().getValue(1).size());
     }
     @Test
     public void patchData4() {
@@ -68,8 +74,17 @@ public final class EditorAppFormTest extends InitEditorPkForm {
         f_.setSexList(new MockLSexList());
         MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(api_.getTranslations()));
         DataBase db_ = DocumentReaderAikiCoreUtil.initData(api_.getGenerator(), f_);
-        db_.getPokedex().addEntry("", Instances.newPokemonData());
+        db_.getAbilities().addEntry(DataBase.EMPTY_STRING, Instances.newAbilityData());
+        db_.getItems().addEntry(DataBase.EMPTY_STRING, Instances.newSellingItem());
+        db_.getMoves().addEntry(DataBase.EMPTY_STRING, Instances.newDamagingMoveData());
+        db_.getPokedex().addEntry(DataBase.EMPTY_STRING, Instances.newPokemonData());
+        db_.getStatus().addEntry(DataBase.EMPTY_STRING, Instances.newStatusSimple());
+        db_.getMiniPk().addEntry(DataBase.EMPTY_STRING,instance(new int[0][0]));
+        db_.getTranslatedCategories().getValue(0).addEntry(DataBase.EMPTY_STRING,DataBase.EMPTY_STRING);
+        db_.getTranslatedCategories().getValue(1).addEntry(DataBase.EMPTY_STRING,DataBase.EMPTY_STRING);
+        db_.getTypesColors().addEntry(DataBase.EMPTY_STRING,DataBase.EMPTY_STRING);
         DataBase res_ = ConverterCommonMapUtil.patchData(api_, db_);
+        assertEq(2,res_.getTranslatedPokemon().size());
         assertTrue(res_.getTranslatedPokemon().getValue(0).isEmpty());
         assertTrue(res_.getTranslatedPokemon().getValue(1).isEmpty());
     }
@@ -82,6 +97,8 @@ public final class EditorAppFormTest extends InitEditorPkForm {
         DataBase db_ = DocumentReaderAikiCoreUtil.initData(api_.getGenerator(), f_);
         db_.getTranslatedStatistics().clear();
         DataBase res_ = ConverterCommonMapUtil.patchData(api_, db_);
-        assertFalse(res_.getTranslatedStatistics().isEmpty());
+        assertEq(2,res_.getTranslatedStatistics().size());
+        assertEq(10,res_.getTranslatedStatistics().getValue(0).size());
+        assertEq(10,res_.getTranslatedStatistics().getValue(1).size());
     }
 }

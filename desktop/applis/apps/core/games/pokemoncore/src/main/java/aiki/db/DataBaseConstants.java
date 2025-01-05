@@ -162,6 +162,7 @@ public final class DataBaseConstants {
     public static final String KEY_COMBATTANT_ENTRANT_TYPES ="154";
     public static final String KEY_COEFF_EFF_BASE_TYPES_COMBATTANT_ENTRANT ="155";
     public static final String KEY_EQUIPE_ADV_COMBATTANT_ENTRANT_NB_UTILISATION ="156";
+    public static final int MAX_EXCLUSIVE = 157;
 
     private String prefixVar;
     private String niveau;

@@ -29,7 +29,7 @@ public final class CrudGeneFormTrCstList implements AbsCrudGeneFormTrCstOpen {
         fields.clear();
         fieldsLitt.clear();
         StringMap<StringMap<String>> cstLg_ = ConverterCommonMapUtil.toEntityLg(facadeGame.getData().getLitterals());
-        for (int i = 0; i < 157; i++) {
+        for (int i = 0; i < DataBaseConstants.MAX_EXCLUSIVE; i++) {
             AbsPanel line_ = api.getCompoFactory().newLineBox();
             AbsTextField field_ = api.getCompoFactory().newTextField(16);
             String key_ = Long.toString(i);
@@ -64,7 +64,7 @@ public final class CrudGeneFormTrCstList implements AbsCrudGeneFormTrCstOpen {
 
     public void apply(String _k, AbsTextField _f) {
         StringMap<String> bk_ = new StringMap<String>();
-        for (int i = 0; i < 157; i++) {
+        for (int i = 0; i < DataBaseConstants.MAX_EXCLUSIVE; i++) {
             bk_.addEntry(Long.toString(i), facadeGame.getData().retValueOther(Long.toString(i)));
         }
         String old_ = facadeGame.getData().retValueOther(_k);
