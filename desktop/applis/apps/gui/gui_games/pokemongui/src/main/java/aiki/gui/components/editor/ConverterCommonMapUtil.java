@@ -465,13 +465,8 @@ public final class ConverterCommonMapUtil {
         StringList n_ = new StringList();
         int len_ = _y.size();
         for (int j = 0; j < len_; j++) {
-            int countAbsent_ = 0;
             String key_ = _y.get(j);
-            for (EntryCust<String,StringMap<String>> e: _t.entryList()) {
-                if (!e.getValue().contains(key_)) {
-                    countAbsent_++;
-                }
-            }
+            int countAbsent_ = countAbsent(_t, key_);
             if (countAbsent_ == 0) {
                 n_.add(key_);
             }
@@ -482,14 +477,28 @@ public final class ConverterCommonMapUtil {
 
     private static void resetCategory(DataBase _db) {
         for (MoveData m: _db.getMoves().values()) {
-            for (EntryCust<String,StringMap<String>> e: _db.getTranslatedCategories().entryList()) {
-                if (m instanceof DamagingMoveData && !e.getValue().contains(((DamagingMoveData)m).getCategory())) {
-                    ((DamagingMoveData)m).setCategory(DataBase.EMPTY_STRING);
-                }
+            if (m instanceof DamagingMoveData) {
+                ((DamagingMoveData)m).setCategory(resetType(_db.getTranslatedCategories(),((DamagingMoveData)m).getCategory()));
             }
         }
     }
 
+    private static String resetType(StringMap<StringMap<String>> _t, String _k) {
+        if (countAbsent(_t, _k) == 0) {
+            return _k;
+        }
+        return DataBase.EMPTY_STRING;
+    }
+
+    private static int countAbsent(StringMap<StringMap<String>> _t, String _k) {
+        int countAbsent_ = 0;
+        for (EntryCust<String,StringMap<String>> e: _t.entryList()) {
+            if (!e.getValue().contains(_k)) {
+                countAbsent_++;
+            }
+        }
+        return countAbsent_;
+    }
     private static void removeInvalidKeyColor(StringMap<String> _l) {
         int len_ = _l.size();
         StringMap<String> ti_ = new StringMap<String>();
