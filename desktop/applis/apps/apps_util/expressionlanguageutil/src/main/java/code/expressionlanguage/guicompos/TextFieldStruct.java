@@ -1,16 +1,14 @@
 package code.expressionlanguage.guicompos;
 
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.*;
+import code.expressionlanguage.exec.*;
 import code.expressionlanguage.structs.*;
-import code.gui.AbsCustComponent;
-import code.gui.AbsTextField;
-import code.gui.events.AbsAdvActionListener;
-import code.gui.initialize.AbsCompoFactory;
-import code.util.IdList;
+import code.gui.*;
+import code.gui.events.*;
+import code.gui.initialize.*;
+import code.util.*;
 
-public final class TextFieldStruct extends CustComponentStruct {
+public final class TextFieldStruct extends TxtComponentStruct {
     private final AbsTextField textField;
     private final IdList<Struct> actionsField = new IdList<Struct>();
     public TextFieldStruct(String _className, AbsCompoFactory _compo) {
@@ -30,20 +28,8 @@ public final class TextFieldStruct extends CustComponentStruct {
         textField = _compo.newTextField(getText(_txt),((NumberStruct)_cols).intStruct());
     }
 
-    public void setText(Struct _t) {
-        textField.setText(getText(_t));
-    }
-
-    private static String getText(Struct _txt) {
-        return NumParsers.getString(_txt).getInstance();
-    }
-    public Struct getText() {
-        String txt_ = textField.getText();
-        return new StringStruct(txt_);
-    }
-
     @Override
-    protected AbsCustComponent getComponent() {
+    protected AbsTxtComponent component() {
         return textField;
     }
 

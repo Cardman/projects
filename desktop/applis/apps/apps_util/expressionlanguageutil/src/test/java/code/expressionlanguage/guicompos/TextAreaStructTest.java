@@ -70,8 +70,8 @@ public final class TextAreaStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct r_ = call(new FctTextArea1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
-        call(new FctTextAreaSetText(),null,ctx_,r_,one(new StringStruct("_")),st_);
-        assertEq("_",call(new FctTextAreaGetText(),null,ctx_,r_,null,st_));
+        call(new FctTextCompoSetText(),null,ctx_,r_,one(new StringStruct("_")),st_);
+        assertEq("_",call(new FctTextCompoGetText(),null,ctx_,r_,null,st_));
     }
     @Test
     public void toolTipText1() {
@@ -155,7 +155,7 @@ public final class TextAreaStructTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         Struct r_ = call(new FctTextArea1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("_")), st_);
         call(new FctTextAreaAppend(),null,ctx_,r_,one(new StringStruct("next")),st_);
-        assertEq("_next",call(new FctTextAreaGetText(),null,ctx_,r_,null,st_));
+        assertEq("_next",call(new FctTextCompoGetText(),null,ctx_,r_,null,st_));
     }
     @Test
     public void insert() {
@@ -166,8 +166,8 @@ public final class TextAreaStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct r_ = call(new FctTextArea1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("_")), st_);
-        call(new FctTextAreaInsert(),null,ctx_,r_,two(new StringStruct("previous"),new IntStruct(0)),st_);
-        assertEq("previous_",call(new FctTextAreaGetText(),null,ctx_,r_,null,st_));
+        call(new FctTextCompoInsert(),null,ctx_,r_,two(new StringStruct("previous"),new IntStruct(0)),st_);
+        assertEq("previous_",call(new FctTextCompoGetText(),null,ctx_,r_,null,st_));
     }
     @Test
     public void insertNo() {
@@ -178,8 +178,44 @@ public final class TextAreaStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct r_ = call(new FctTextArea1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("_")), st_);
-        call(new FctTextAreaInsert(),null,ctx_,r_,two(new StringStruct("previous"),new IntStruct(-1)),st_);
-        assertEq("_",call(new FctTextAreaGetText(),null,ctx_,r_,null,st_));
+        call(new FctTextCompoInsert(),null,ctx_,r_,two(new StringStruct("previous"),new IntStruct(-1)),st_);
+        assertEq("_",call(new FctTextCompoGetText(),null,ctx_,r_,null,st_));
+    }
+    @Test
+    public void remove() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        Struct r_ = call(new FctTextArea1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("_hello_")), st_);
+        call(new FctTextCompoRemove(),null,ctx_,r_,two(new IntStruct(1),new IntStruct(5)),st_);
+        assertEq("__",call(new FctTextCompoGetText(),null,ctx_,r_,null,st_));
+    }
+    @Test
+    public void removeNo1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        Struct r_ = call(new FctTextArea1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("_")), st_);
+        call(new FctTextCompoRemove(),null,ctx_,r_,two(new IntStruct(-1),new IntStruct(0)),st_);
+        assertEq("_",call(new FctTextCompoGetText(),null,ctx_,r_,null,st_));
+    }
+    @Test
+    public void removeNo2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        Struct r_ = call(new FctTextArea1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("_")), st_);
+        call(new FctTextCompoRemove(),null,ctx_,r_,two(new IntStruct(0),new IntStruct(-1)),st_);
+        assertEq("_",call(new FctTextCompoGetText(),null,ctx_,r_,null,st_));
     }
     @Test
     public void replaceSelection1() {
@@ -190,10 +226,10 @@ public final class TextAreaStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct r_ = call(new FctTextArea1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("_replace_")), st_);
-        call(new FctTextAreaSelect(),null,ctx_,r_,two(new IntStruct(1),new IntStruct(8)),st_);
-        assertEq("replace",call(new FctTextAreaGetSelectedText(),null,ctx_,r_,null,st_));
-        call(new FctTextAreaReplaceSelection(),null,ctx_,r_,one(new StringStruct("change")),st_);
-        assertEq("_change_",call(new FctTextAreaGetText(),null,ctx_,r_,null,st_));
+        call(new FctTextCompoSelect(),null,ctx_,r_,two(new IntStruct(1),new IntStruct(8)),st_);
+        assertEq("replace",call(new FctTextCompoGetSelectedText(),null,ctx_,r_,null,st_));
+        call(new FctTextCompoReplaceSelection(),null,ctx_,r_,one(new StringStruct("change")),st_);
+        assertEq("_change_",call(new FctTextCompoGetText(),null,ctx_,r_,null,st_));
     }
     @Test
     public void replaceSelection2() {
@@ -204,11 +240,11 @@ public final class TextAreaStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct r_ = call(new FctTextArea1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("_replace_")), st_);
-        call(new FctTextAreaSetSelectionStart(),null,ctx_,r_,one(new IntStruct(1)),st_);
-        call(new FctTextAreaSetSelectionEnd(),null,ctx_,r_,one(new IntStruct(8)),st_);
-        call(new FctTextAreaSelect(),null,ctx_,r_,two(new IntStruct(1),new IntStruct(8)),st_);
-        call(new FctTextAreaReplaceSelection(),null,ctx_,r_,one(new StringStruct("change")),st_);
-        assertEq("_change_",call(new FctTextAreaGetText(),null,ctx_,r_,null,st_));
+        call(new FctTextCompoSetSelectionStart(),null,ctx_,r_,one(new IntStruct(1)),st_);
+        call(new FctTextCompoSetSelectionEnd(),null,ctx_,r_,one(new IntStruct(8)),st_);
+        call(new FctTextCompoSelect(),null,ctx_,r_,two(new IntStruct(1),new IntStruct(8)),st_);
+        call(new FctTextCompoReplaceSelection(),null,ctx_,r_,one(new StringStruct("change")),st_);
+        assertEq("_change_",call(new FctTextCompoGetText(),null,ctx_,r_,null,st_));
     }
     @Test
     public void replaceAll() {
@@ -219,9 +255,9 @@ public final class TextAreaStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct r_ = call(new FctTextArea1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("_replace_")), st_);
-        call(new FctTextAreaSelectAll(),null,ctx_,r_,null,st_);
-        call(new FctTextAreaReplaceSelection(),null,ctx_,r_,one(new StringStruct("change")),st_);
-        assertEq("change",call(new FctTextAreaGetText(),null,ctx_,r_,null,st_));
+        call(new FctTextCompoSelectAll(),null,ctx_,r_,null,st_);
+        call(new FctTextCompoReplaceSelection(),null,ctx_,r_,one(new StringStruct("change")),st_);
+        assertEq("change",call(new FctTextCompoGetText(),null,ctx_,r_,null,st_));
     }
     @Test
     public void replaceRange() {
@@ -233,7 +269,7 @@ public final class TextAreaStructTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         Struct r_ = call(new FctTextArea1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("_replace_")), st_);
         call(new FctTextAreaReplaceRange(),null,ctx_,r_,three(new StringStruct("change"),new IntStruct(1),new IntStruct(8)),st_);
-        assertEq("_change_",call(new FctTextAreaGetText(),null,ctx_,r_,null,st_));
+        assertEq("_change_",call(new FctTextCompoGetText(),null,ctx_,r_,null,st_));
     }
     @Test
     public void replaceRange1() {
@@ -245,7 +281,7 @@ public final class TextAreaStructTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         Struct r_ = call(new FctTextArea1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("_replace_")), st_);
         call(new FctTextAreaReplaceRange(),null,ctx_,r_,three(new StringStruct("change"),new IntStruct(-1),new IntStruct(8)),st_);
-        assertEq("_replace_",call(new FctTextAreaGetText(),null,ctx_,r_,null,st_));
+        assertEq("_replace_",call(new FctTextCompoGetText(),null,ctx_,r_,null,st_));
     }
     @Test
     public void replaceRange2() {
@@ -257,7 +293,7 @@ public final class TextAreaStructTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         Struct r_ = call(new FctTextArea1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("_replace_")), st_);
         call(new FctTextAreaReplaceRange(),null,ctx_,r_,three(new StringStruct("change"),new IntStruct(8),new IntStruct(1)),st_);
-        assertEq("_replace_",call(new FctTextAreaGetText(),null,ctx_,r_,null,st_));
+        assertEq("_replace_",call(new FctTextCompoGetText(),null,ctx_,r_,null,st_));
     }
     @Test
     public void tabSize() {

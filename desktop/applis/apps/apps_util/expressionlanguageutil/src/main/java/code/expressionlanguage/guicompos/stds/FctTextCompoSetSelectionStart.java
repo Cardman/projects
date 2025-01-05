@@ -5,14 +5,16 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.guicompos.TextFieldStruct;
+import code.expressionlanguage.guicompos.*;
 import code.expressionlanguage.stds.StdCaller;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 
-public final class FctTextFieldGetText implements StdCaller {
+public final class FctTextCompoSetSelectionStart implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        TextFieldStruct inst_ = (TextFieldStruct) _instance;
-        return new ArgumentWrapper(inst_.getText());
+        TxtComponentStruct inst_ = (TxtComponentStruct) _instance;
+        inst_.setSelectionStart(_firstArgs.getArgumentWrappers().get(0).getValue());
+        return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

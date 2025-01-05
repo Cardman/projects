@@ -61,6 +61,8 @@ public final class GuiAliases implements AbsAliasFileBuilder {
     private static final String FONT="834";
     private static final String TEXT_AREA="_____1242";
     private static final String TEXT_FIELD="_____1243";
+    private static final String TEXT_PANE="_____1243_";
+    private static final String TEXT_COMPONENT="_____1243__";
     private static final String GR_LIST="_____1244";
     private static final String COMBO="_____1245";
     private static final String BUTTON_GROUP="_____1246";
@@ -277,10 +279,9 @@ public final class GuiAliases implements AbsAliasFileBuilder {
     private static final String TEXT_FIELD_REMOVE_ACTION="_____1351_";
     private static final String TEXT_FIELD_GET_ACTIONS="_____1351__";
     private static final String TEXT_FIELD_ADD_POPUP="_____1352";
-    private static final String TEXT_FIELD_GET_TEXT="_____1353";
-    private static final String TEXT_FIELD_SET_TEXT="_____1354";
     private static final String TEXT_AREA_APPEND="_____1355";
     private static final String TEXT_AREA_INSERT="_____1356";
+    private static final String TEXT_AREA_REMOVE="_____1356_";
     private static final String TEXT_AREA_REPLACE_RANGE="_____1357";
     private static final String TEXT_AREA_REPLACE_SELECTION="_____1358";
     private static final String TEXT_AREA_GET_SELECTED_TEXT="_____1359";
@@ -862,8 +863,6 @@ public final class GuiAliases implements AbsAliasFileBuilder {
     private String aliasPopupMenuNbMenu;
     private String aliasPopupMenuShow;
     private String aliasTextField;
-    private String aliasTextFieldGetText;
-    private String aliasTextFieldSetText;
     private String aliasTextFieldAuto;
     private String aliasTextFieldAddAction;
     private String aliasTextFieldRemoveAction;
@@ -877,6 +876,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
     private String aliasTextAreaSetTabSize;
     private String aliasTextAreaAppend;
     private String aliasTextAreaInsert;
+    private String aliasTextAreaRemove;
     private String aliasTextAreaReplaceRange;
     private String aliasTextAreaReplaceSelection;
     private String aliasTextAreaGetSelectedText;
@@ -884,6 +884,8 @@ public final class GuiAliases implements AbsAliasFileBuilder {
     private String aliasTextAreaSetSelectionEnd;
     private String aliasTextAreaSelect;
     private String aliasTextAreaSelectAll;
+    private String aliasTextPane;
+    private String aliasTextComponent;
     private String aliasCheckBox;
     private String aliasCheckBoxGetText;
     private String aliasCheckBoxSetText;
@@ -2808,19 +2810,54 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasCheckBox1CheckBox0(),guiAliasParameters.getAliasCheckBox1CheckBox1()), new FctCheckBox2(_cust,_guiEx,aliasCheckBox));
         StandardNamedFunction.addFct(constructors_, ctor_);
         StandardType.addType(_content.getStandards(), aliasCheckBox, stdcl_);
+        //aliasTextComponent
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasTextField, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL);
+        StandardClass txtCompo_ = new StandardClass(aliasTextComponent, fields_, constructors_, methods_, aliasInput, StdClassModifier.ABSTRACT);
+        stdcl_ = txtCompo_;
         stdcl_.addSuperStdTypes(_input);
         stdcl_.addSuperStdTypes(_component);
         stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTextFieldGetText, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL, new FctTextFieldGetText());
+        method_ = new StandardMethod(aliasTextAreaGetText, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL, new FctTextCompoGetText());
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasTextFieldSetText, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextField0SetLabelText0()), new FctTextFieldSetText());
+        method_ = new StandardMethod(aliasTextAreaSetText, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0SetLabelText0()), new FctTextCompoSetText());
         StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_content.getCharSeq().getAliasString(),_content.getPrimTypes().getAliasPrimInteger());
+        method_ = new StandardMethod(aliasTextAreaInsert, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0TreeNodeInsert0(),guiAliasParameters.getAliasTextArea0TreeNodeInsert1()), new FctTextCompoInsert());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
+        method_ = new StandardMethod(aliasTextAreaRemove, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0TreeNodeRemove0(),guiAliasParameters.getAliasTextArea0TreeNodeRemove1()), new FctTextCompoRemove());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasTextAreaGetSelectedText, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL, new FctTextCompoGetSelectedText());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
+        method_ = new StandardMethod(aliasTextAreaSetSelectionStart, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0TextAreaSetSelectionStart0()), new FctTextCompoSetSelectionStart());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
+        method_ = new StandardMethod(aliasTextAreaSetSelectionEnd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0TextAreaSetSelectionEnd0()), new FctTextCompoSetSelectionEnd());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_content.getCharSeq().getAliasString());
+        method_ = new StandardMethod(aliasTextAreaReplaceSelection, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0TextAreaReplaceSelection0()), new FctTextCompoReplaceSelection());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
+        method_ = new StandardMethod(aliasTextAreaSelect, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0TreeGetSelected0(),guiAliasParameters.getAliasTextArea0TreeGetSelected1()), new FctTextCompoSelect());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasTextAreaSelectAll, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctTextCompoSelectAll());
+        StandardNamedFunction.addFct(methods_, method_);
+        StandardType.addType(_content.getStandards(), aliasTextComponent, stdcl_);
+        methods_ = new CustList<StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new CustList<CstFieldInfo>();
+        stdcl_ = new StandardClass(aliasTextField, fields_, constructors_, methods_, aliasTextComponent, MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(txtCompo_);
+        stdcl_.addSuperStdTypes(_input);
+        stdcl_.addSuperStdTypes(_component);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
         params_ = new StringList(aliasActionListener);
         method_ = new StandardMethod(aliasTextFieldAddAction, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextField0TextFieldAddAction0()), new FctTextFieldAddAction());
         StandardNamedFunction.addFct(methods_, method_);
@@ -2846,30 +2883,13 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasTextArea, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL);
+        stdcl_ = new StandardClass(aliasTextArea, fields_, constructors_, methods_, aliasTextComponent, MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(txtCompo_);
         stdcl_.addSuperStdTypes(_input);
         stdcl_.addSuperStdTypes(_component);
         stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasTextAreaGetText, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL, new FctTextAreaGetText());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasTextAreaSetText, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0SetLabelText0()), new FctTextAreaSetText());
-        StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
         method_ = new StandardMethod(aliasTextAreaAppend, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0TabbedPaneAdd0()), new FctTextAreaAppend());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(_content.getCharSeq().getAliasString(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTextAreaInsert, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0TreeNodeInsert0(),guiAliasParameters.getAliasTextArea0TreeNodeInsert1()), new FctTextAreaInsert());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasTextAreaGetSelectedText, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL, new FctTextAreaGetSelectedText());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTextAreaSetSelectionStart, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0TextAreaSetSelectionStart0()), new FctTextAreaSetSelectionStart());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTextAreaSetSelectionEnd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0TextAreaSetSelectionEnd0()), new FctTextAreaSetSelectionEnd());
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasTextAreaGetTabSize, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctTextAreaGetTabSize());
@@ -2879,15 +2899,6 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList(_content.getCharSeq().getAliasString(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
         method_ = new StandardMethod(aliasTextAreaReplaceRange, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0TextAreaReplaceRange0(),guiAliasParameters.getAliasTextArea0TextAreaReplaceRange1(),guiAliasParameters.getAliasTextArea0TextAreaReplaceRange2()), new FctTextAreaReplaceRange());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasTextAreaReplaceSelection, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0TextAreaReplaceSelection0()), new FctTextAreaReplaceSelection());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTextAreaSelect, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0TreeGetSelected0(),guiAliasParameters.getAliasTextArea0TreeGetSelected1()), new FctTextAreaSelect());
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasTextAreaSelectAll, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctTextAreaSelectAll());
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false, new FctTextArea0(_cust,_guiEx,aliasTextArea));
@@ -2902,6 +2913,15 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasTextArea2TextArea0(),guiAliasParameters.getAliasTextArea2TextArea1(),guiAliasParameters.getAliasTextArea2TextArea2()), new FctTextArea3(_cust,_guiEx,aliasTextArea));
         StandardNamedFunction.addFct(constructors_, ctor_);
         StandardType.addType(_content.getStandards(), aliasTextArea, stdcl_);
+        stdcl_ = new StandardClass(aliasTextPane, fields_, constructors_, methods_, aliasTextComponent, MethodModifier.FINAL);
+        stdcl_.addSuperStdTypes(txtCompo_);
+        stdcl_.addSuperStdTypes(_input);
+        stdcl_.addSuperStdTypes(_component);
+        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
+        params_ = new StringList();
+        ctor_ = new StandardConstructor(params_,false, new FctTextPane(_cust,_guiEx,aliasTextPane));
+        StandardNamedFunction.addFct(constructors_, ctor_);
+        StandardType.addType(_content.getStandards(), aliasTextPane, stdcl_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
@@ -3603,9 +3623,10 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         setAliasComboAddListener(LgNamesContent.get(_util,_cust,_mapping.getVal(COMBO_ADD_LISTENER)));
         setAliasComboRemoveListener(LgNamesContent.get(_util,_cust,_mapping.getVal(COMBO_REMOVE_LISTENER)));
         setAliasTextField(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_FIELD)));
+        setAliasTextPane(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_PANE)));
+        setAliasTextComponent(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_COMPONENT)));
         setAliasComboRemoveItem(LgNamesContent.get(_util,_cust,_mapping.getVal(COMBO_REMOVE_ITEM)));
         setAliasRadioSetSelected(LgNamesContent.get(_util,_cust,_mapping.getVal(RADIO_SET_SELECTED)));
-        setAliasTextFieldGetText(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_FIELD_GET_TEXT)));
         setAliasPopupMenuRemoveMenu(LgNamesContent.get(_util,_cust,_mapping.getVal(POPUP_MENU_REMOVE_MENU)));
 //        setAliasTextFieldAddDocument(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_FIELD_ADD_DOCUMENT)));
         setAliasComboGetSelectedIndexes(LgNamesContent.get(_util,_cust,_mapping.getVal(COMBO_GET_SELECTED_INDEXES)));
@@ -3617,7 +3638,6 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         setAliasComboSelectItem(LgNamesContent.get(_util,_cust,_mapping.getVal(COMBO_SELECT_ITEM)));
         setAliasComboGetItemCount(LgNamesContent.get(_util,_cust,_mapping.getVal(COMBO_GET_ITEM_COUNT)));
         setAliasPopupMenuRemoveComp(LgNamesContent.get(_util,_cust,_mapping.getVal(POPUP_MENU_REMOVE_COMP)));
-        setAliasTextFieldSetText(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_FIELD_SET_TEXT)));
         setAliasCheckBoxSetSelected(LgNamesContent.get(_util,_cust,_mapping.getVal(CHECK_BOX_SET_SELECTED)));
         setAliasTextAreaSetSelectionEnd(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_AREA_SET_SELECTION_END)));
         setAliasSpinnerGetValue(LgNamesContent.get(_util,_cust,_mapping.getVal(SPINNER_GET_VALUE)));
@@ -3640,6 +3660,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         setAliasCheckBoxSetText(LgNamesContent.get(_util,_cust,_mapping.getVal(CHECK_BOX_SET_TEXT)));
         setAliasCheckBoxGetText(LgNamesContent.get(_util,_cust,_mapping.getVal(CHECK_BOX_GET_TEXT)));
         setAliasTextAreaInsert(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_AREA_INSERT)));
+        setAliasTextAreaRemove(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_AREA_REMOVE)));
         setAliasTextAreaSelectAll(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_AREA_SELECT_ALL)));
         setAliasTextAreaAppend(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_AREA_APPEND)));
         setAliasSpinnerGetMax(LgNamesContent.get(_util,_cust,_mapping.getVal(SPINNER_GET_MAX)));
@@ -3717,6 +3738,8 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         _en.add(FONT,"Font=$core.Font");
         _en.add(TEXT_AREA,"TextArea=$core.TextArea");
         _en.add(TEXT_FIELD,"TextField=$core.TextField");
+        _en.add(TEXT_PANE,"TextPane=$core.TextPane");
+        _en.add(TEXT_COMPONENT,"TextComponent=$core.TextComponent");
         _en.add(GR_LIST,"GrList=$core.GrList");
         _en.add(COMBO,"Combo=$core.ComboBox");
         _en.add(BUTTON_GROUP,"ButtonGroup=$core.ButtonGroup");
@@ -3934,10 +3957,9 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         _en.add(TEXT_FIELD_REMOVE_ACTION,"TextFieldRemoveAction=removeAction");
         _en.add(TEXT_FIELD_GET_ACTIONS,"TextFieldGetActions=getActions");
         _en.add(TEXT_FIELD_ADD_POPUP,"TextFieldAddPopup=add");
-        _en.add(TEXT_FIELD_GET_TEXT,"TextFieldGetText=getText");
-        _en.add(TEXT_FIELD_SET_TEXT,"TextFieldSetText=setText");
         _en.add(TEXT_AREA_APPEND,"TextAreaAppend=append");
         _en.add(TEXT_AREA_INSERT,"TextAreaInsert=insert");
+        _en.add(TEXT_AREA_REMOVE,"TextAreaRemove=remove");
         _en.add(TEXT_AREA_REPLACE_RANGE,"TextAreaReplaceRange=replaceRange");
         _en.add(TEXT_AREA_REPLACE_SELECTION,"TextAreaReplaceSelection=replaceSelection");
         _en.add(TEXT_AREA_GET_SELECTED_TEXT,"TextAreaGetSelectedText=getSelectedText");
@@ -4181,6 +4203,8 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         _fr.add(FONT,"Font=$coeur.Police");
         _fr.add(TEXT_AREA,"TextArea=$coeur.Zone");
         _fr.add(TEXT_FIELD,"TextField=$coeur.ChampTxt");
+        _fr.add(TEXT_PANE,"TextPane=$coeur.EditeurTxt");
+        _fr.add(TEXT_COMPONENT,"TextComponent=$coeur.CompoTxt");
         _fr.add(GR_LIST,"GrList=$coeur.GrListe");
         _fr.add(COMBO,"Combo=$coeur.ListeDeroulante");
         _fr.add(BUTTON_GROUP,"ButtonGroup=$coeur.GroupeBoutons");
@@ -4398,10 +4422,9 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         _fr.add(TEXT_FIELD_REMOVE_ACTION,"TextFieldRemoveAction=supprAction");
         _fr.add(TEXT_FIELD_GET_ACTIONS,"TextFieldGetActions=valActions");
         _fr.add(TEXT_FIELD_ADD_POPUP,"TextFieldAddPopup=ajout");
-        _fr.add(TEXT_FIELD_GET_TEXT,"TextFieldGetText=valTexte");
-        _fr.add(TEXT_FIELD_SET_TEXT,"TextFieldSetText=majTexte");
         _fr.add(TEXT_AREA_APPEND,"TextAreaAppend=ajout");
         _fr.add(TEXT_AREA_INSERT,"TextAreaInsert=inserer");
+        _fr.add(TEXT_AREA_REMOVE,"TextAreaRemove=suppr");
         _fr.add(TEXT_AREA_REPLACE_RANGE,"TextAreaReplaceRange=remplacerRang");
         _fr.add(TEXT_AREA_REPLACE_SELECTION,"TextAreaReplaceSelection=remplacerSelect");
         _fr.add(TEXT_AREA_GET_SELECTED_TEXT,"TextAreaGetSelectedText=valTextSelect");
@@ -4936,29 +4959,31 @@ public final class GuiAliases implements AbsAliasFileBuilder {
                 new KeyValueMemberName(_mapping.getVal(RADIO_SET_SELECTED),getAliasRadioSetSelected()),
                 new KeyValueMemberName(_mapping.getVal(ADD_CHANGE),getAliasAddChange())),allInput_)
         );
+        CustList<KeyValueMemberName> allTxtCompo_ = merge(new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(_mapping.getVal(TEXT_AREA_INSERT), getAliasTextAreaInsert()),
+                new KeyValueMemberName(_mapping.getVal(TEXT_AREA_REMOVE), getAliasTextAreaRemove()),
+                new KeyValueMemberName(_mapping.getVal(TEXT_AREA_REPLACE_SELECTION), getAliasTextAreaReplaceSelection()),
+                new KeyValueMemberName(_mapping.getVal(TEXT_AREA_GET_SELECTED_TEXT), getAliasTextAreaGetSelectedText()),
+                new KeyValueMemberName(_mapping.getVal(TEXT_AREA_SET_SELECTION_START), getAliasTextAreaSetSelectionStart()),
+                new KeyValueMemberName(_mapping.getVal(TEXT_AREA_SET_SELECTION_END), getAliasTextAreaSetSelectionEnd()),
+                new KeyValueMemberName(_mapping.getVal(TEXT_AREA_GET_TEXT), getAliasTextAreaGetText()),
+                new KeyValueMemberName(_mapping.getVal(TEXT_AREA_SET_TEXT), getAliasTextAreaSetText()),
+                new KeyValueMemberName(_mapping.getVal(TEXT_AREA_SELECT), getAliasTextAreaSelect()),
+                new KeyValueMemberName(_mapping.getVal(TEXT_AREA_SELECT_ALL), getAliasTextAreaSelectAll())),allInput_);
         _m.addEntry(getAliasTextField(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(TEXT_FIELD_ADD_ACTION),getAliasTextFieldAddAction()),
                 new KeyValueMemberName(_mapping.getVal(TEXT_FIELD_REMOVE_ACTION),getAliasTextFieldRemoveAction()),
                 new KeyValueMemberName(_mapping.getVal(TEXT_FIELD_GET_ACTIONS),getAliasTextFieldGetActions()),
-                new KeyValueMemberName(_mapping.getVal(TEXT_FIELD_ADD_POPUP),getAliasTextFieldAddPopup()),
-                new KeyValueMemberName(_mapping.getVal(TEXT_FIELD_GET_TEXT),getAliasTextFieldGetText()),
-                new KeyValueMemberName(_mapping.getVal(TEXT_FIELD_SET_TEXT),getAliasTextFieldSetText())),allInput_)
+                new KeyValueMemberName(_mapping.getVal(TEXT_FIELD_ADD_POPUP),getAliasTextFieldAddPopup())),allTxtCompo_)
         );
         _m.addEntry(getAliasTextArea(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(TEXT_AREA_APPEND),getAliasTextAreaAppend()),
-                new KeyValueMemberName(_mapping.getVal(TEXT_AREA_INSERT),getAliasTextAreaInsert()),
                 new KeyValueMemberName(_mapping.getVal(TEXT_AREA_REPLACE_RANGE),getAliasTextAreaReplaceRange()),
-                new KeyValueMemberName(_mapping.getVal(TEXT_AREA_REPLACE_SELECTION),getAliasTextAreaReplaceSelection()),
-                new KeyValueMemberName(_mapping.getVal(TEXT_AREA_GET_SELECTED_TEXT),getAliasTextAreaGetSelectedText()),
-                new KeyValueMemberName(_mapping.getVal(TEXT_AREA_SET_SELECTION_START),getAliasTextAreaSetSelectionStart()),
-                new KeyValueMemberName(_mapping.getVal(TEXT_AREA_SET_SELECTION_END),getAliasTextAreaSetSelectionEnd()),
                 new KeyValueMemberName(_mapping.getVal(TEXT_AREA_GET_TAB_SIZE),getAliasTextAreaGetTabSize()),
-                new KeyValueMemberName(_mapping.getVal(TEXT_AREA_SET_TAB_SIZE),getAliasTextAreaSetTabSize()),
-                new KeyValueMemberName(_mapping.getVal(TEXT_AREA_GET_TEXT),getAliasTextAreaGetText()),
-                new KeyValueMemberName(_mapping.getVal(TEXT_AREA_SET_TEXT),getAliasTextAreaSetText()),
-                new KeyValueMemberName(_mapping.getVal(TEXT_AREA_SELECT),getAliasTextAreaSelect()),
-                new KeyValueMemberName(_mapping.getVal(TEXT_AREA_SELECT_ALL),getAliasTextAreaSelectAll())),allInput_)
+                new KeyValueMemberName(_mapping.getVal(TEXT_AREA_SET_TAB_SIZE),getAliasTextAreaSetTabSize())),allTxtCompo_)
         );
+        _m.addEntry(getAliasTextComponent(),allTxtCompo_);
+        _m.addEntry(getAliasTabbedPane(),allTxtCompo_);
         _m.addEntry(getAliasCombo(),merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(COMBO_ADD_ITEM),getAliasComboAddItem()),
                 new KeyValueMemberName(_mapping.getVal(COMBO_GET_ITEM_COUNT),getAliasComboGetItemCount()),
@@ -5264,6 +5289,8 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         ref_.addEntry(_mapping.getVal(FONT),getAliasFont());
         ref_.addEntry(_mapping.getVal(TEXT_AREA),getAliasTextArea());
         ref_.addEntry(_mapping.getVal(TEXT_FIELD),getAliasTextField());
+        ref_.addEntry(_mapping.getVal(TEXT_PANE),getAliasTextPane());
+        ref_.addEntry(_mapping.getVal(TEXT_COMPONENT),getAliasTextComponent());
         ref_.addEntry(_mapping.getVal(GR_LIST),getAliasGrList());
         ref_.addEntry(_mapping.getVal(COMBO),getAliasCombo());
         ref_.addEntry(_mapping.getVal(BUTTON_GROUP),getAliasButtonGroup());
@@ -8290,22 +8317,6 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         this.aliasTextField = _v;
     }
 
-    public String getAliasTextFieldGetText() {
-        return aliasTextFieldGetText;
-    }
-
-    public void setAliasTextFieldGetText(String _v) {
-        this.aliasTextFieldGetText = _v;
-    }
-
-    public String getAliasTextFieldSetText() {
-        return aliasTextFieldSetText;
-    }
-
-    public void setAliasTextFieldSetText(String _v) {
-        this.aliasTextFieldSetText = _v;
-    }
-
     public String getAliasTextFieldAuto() {
         return aliasTextFieldAuto;
     }
@@ -8410,6 +8421,14 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         this.aliasTextAreaInsert = _v;
     }
 
+    public String getAliasTextAreaRemove() {
+        return aliasTextAreaRemove;
+    }
+
+    public void setAliasTextAreaRemove(String _v) {
+        this.aliasTextAreaRemove = _v;
+    }
+
     public String getAliasTextAreaReplaceRange() {
         return aliasTextAreaReplaceRange;
     }
@@ -8464,6 +8483,22 @@ public final class GuiAliases implements AbsAliasFileBuilder {
 
     public void setAliasTextAreaSelectAll(String _v) {
         this.aliasTextAreaSelectAll = _v;
+    }
+
+    public String getAliasTextPane() {
+        return aliasTextPane;
+    }
+
+    public void setAliasTextPane(String _v) {
+        this.aliasTextPane = _v;
+    }
+
+    public String getAliasTextComponent() {
+        return aliasTextComponent;
+    }
+
+    public void setAliasTextComponent(String _v) {
+        this.aliasTextComponent = _v;
     }
 
     public String getAliasCheckBox() {

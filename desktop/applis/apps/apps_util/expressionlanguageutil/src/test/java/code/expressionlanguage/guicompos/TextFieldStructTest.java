@@ -183,8 +183,8 @@ public final class TextFieldStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = gene(stds_,opt_);
         StackCall st_ = stack(ctx_);
         Struct r_ = call(new FctTextField1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
-        call(new FctTextFieldSetText(),null,ctx_,r_,one(new StringStruct("_")),st_);
-        assertEq("_",call(new FctTextFieldGetText(),null,ctx_,r_,null,st_));
+        call(new FctTextCompoSetText(),null,ctx_,r_,one(new StringStruct("_")),st_);
+        assertEq("_",call(new FctTextCompoGetText(),null,ctx_,r_,null,st_));
     }
     @Test
     public void toolTipText1() {

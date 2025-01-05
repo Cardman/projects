@@ -5,14 +5,14 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.guicompos.TextAreaStruct;
+import code.expressionlanguage.guicompos.*;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.Struct;
 
-public final class FctTextAreaGetText implements StdCaller {
+public final class FctTextCompoGetSelectedText implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        TextAreaStruct inst_ = (TextAreaStruct) _instance;
-        return new ArgumentWrapper(inst_.getText());
+        TxtComponentStruct inst_ = (TxtComponentStruct) _instance;
+        return new ArgumentWrapper(inst_.getSelectedText());
     }
 }
