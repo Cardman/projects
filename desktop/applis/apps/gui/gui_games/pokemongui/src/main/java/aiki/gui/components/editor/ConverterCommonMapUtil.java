@@ -360,13 +360,6 @@ public final class ConverterCommonMapUtil {
     }
 
     public static DataBase patchData(AbstractProgramInfos _api, DataBase _db) {
-        removeInvalidKeyTr(_db.getTranslatedCategories());
-        removeInvalidKeyTr(_db.getTranslatedTypes());
-        removeInvalidKeyAb(_db.getAbilities());
-        removeInvalidKeyIt(_db.getItems());
-        removeInvalidKeyMv(_db.getMoves());
-        removeInvalidKeyPk(_db.getPokedex());
-        removeInvalidKeySt(_db.getStatus());
         removeInvalidKeyImg(_db.getMiniItems());
         removeInvalidKeyImg(_db.getMiniPk());
         removeInvalidKeyImg(_db.getMaxiPkFront());
@@ -375,18 +368,25 @@ public final class ConverterCommonMapUtil {
         removeInvalidKeyImg(_db.getTypesImages());
         removeInvalidKeyColor(_db.getTypesColors());
         removeInvalidKeyTr(_db.getTranslatedAbilities());
+        removeInvalidKeyTr(_db.getTranslatedCategories());
         removeInvalidKeyTr(_db.getTranslatedItems());
         removeInvalidKeyTr(_db.getTranslatedMoves());
         removeInvalidKeyTr(_db.getTranslatedPokemon());
         removeInvalidKeyTr(_db.getTranslatedStatus());
-        completeLgs(_api,_db.getTranslatedCategories());
-        completeLgs(_api,_db.getTranslatedTypes());
+        removeInvalidKeyTr(_db.getTranslatedTypes());
         completeLgs(_api,_db.getTranslatedAbilities());
+        completeLgs(_api,_db.getTranslatedCategories());
         completeLgs(_api,_db.getTranslatedItems());
         completeLgs(_api,_db.getTranslatedMoves());
         completeLgs(_api,_db.getTranslatedPokemon());
         completeLgs(_api,_db.getTranslatedStatus());
+        completeLgs(_api,_db.getTranslatedTypes());
         addEntity(_db);
+        removeInvalidKeyAb(_db.getAbilities());
+        removeInvalidKeyIt(_db.getItems());
+        removeInvalidKeyMv(_db.getMoves());
+        removeInvalidKeyPk(_db.getPokedex());
+        removeInvalidKeySt(_db.getStatus());
         patchLitt(_api, _db);
         StringList ls_ = new StringList();
         ls_.add(Item.BALL);
@@ -405,6 +405,13 @@ public final class ConverterCommonMapUtil {
         ls_.add(Item.SELLING_ITEM);
         patchReplace(_db.getTranslatedClassesDescriptions(),ls_, _api);
         patchReplace(_db.getTranslatedFctMath(),EvolvedMathFactory.getFunctions(), _api);
+        patchRemoveDuplicates(_db.getTranslatedAbilities());
+        patchRemoveDuplicates(_db.getTranslatedCategories());
+        patchRemoveDuplicates(_db.getTranslatedItems());
+        patchRemoveDuplicates(_db.getTranslatedMoves());
+        patchRemoveDuplicates(_db.getTranslatedPokemon());
+        patchRemoveDuplicates(_db.getTranslatedStatus());
+        patchRemoveDuplicates(_db.getTranslatedTypes());
         new IntListConvertId<Gender>().patchReplace(_db.getTranslatedGenders(),Gender.all(), _api);
         new IntListConvertId<SelectedBoolean>().patchReplace(_db.getTranslatedBooleans(),SelectedBoolean.all(), _api);
         new IntListConvertId<DifficultyWinPointsFight>().patchReplace(_db.getTranslatedDiffWinPts(),DifficultyWinPointsFight.all(), _api);
@@ -413,6 +420,17 @@ public final class ConverterCommonMapUtil {
         new IntListConvertId<TargetChoice>().patchReplace(_db.getTranslatedTargets(),TargetChoice.all(), _api);
         new IntListConvertId<Statistic>().patchReplace(_db.getTranslatedStatistics(),Statistic.all(), _api);
         return _db;
+    }
+
+    private static void patchRemoveDuplicates(StringMap<StringMap<String>> _tr) {
+        for (StringMap<String> m: _tr.values()) {
+            StringList val_ = new StringList(m.values());
+            if (val_.hasDuplicates()) {
+                for (EntryCust<String,String> e:m.entryList()) {
+                    e.setValue(e.getKey());
+                }
+            }
+        }
     }
 
     private static void addEntity(DataBase _db) {
@@ -445,6 +463,22 @@ public final class ConverterCommonMapUtil {
             addTr(_db.getTranslatedTypes(),m);
         }
         addTrImg(_db.getTypesImages(), _db.getTranslatedTypes());
+        addTrsMap(_db.getTranslatedAbilities());
+        addTrsMap(_db.getTranslatedCategories());
+        addTrsMap(_db.getTranslatedItems());
+        addTrsMap(_db.getTranslatedMoves());
+        addTrsMap(_db.getTranslatedPokemon());
+        addTrsMap(_db.getTranslatedStatus());
+        addTrsMap(_db.getTranslatedTypes());
+    }
+
+    private static void addTrsMap(StringMap<StringMap<String>> _tr) {
+        StringList keys_ = new StringList();
+        for (StringMap<String> v: _tr.values()) {
+            keys_.addAllElts(v.getKeys());
+        }
+        keys_.removeDuplicates();
+        addTrs(_tr,keys_);
     }
 
     private static void completeLgs(AbstractProgramInfos _api, StringMap<StringMap<String>> _map) {
