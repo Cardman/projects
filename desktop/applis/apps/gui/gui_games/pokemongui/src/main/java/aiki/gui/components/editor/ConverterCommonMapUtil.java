@@ -241,16 +241,6 @@ public final class ConverterCommonMapUtil {
         return _map;
     }
 
-    private static StringList correctEnt(CustList<String> _keys) {
-        StringList allEntLg_ = new StringList();
-        for (String k: _keys) {
-            if (DataBase.isCorrectIdentifier(k)) {
-                allEntLg_.add(k);
-            }
-        }
-        return allEntLg_;
-    }
-
     private static void patchMap(StringList _allEnt, StringMap<String> _map, DataBase _litt) {
         CustList<String> values_ = _map.getKeys();
         boolean missing_ = false;
@@ -389,6 +379,8 @@ public final class ConverterCommonMapUtil {
         removeInvalidKeyTr(_db.getTranslatedMoves());
         removeInvalidKeyTr(_db.getTranslatedPokemon());
         removeInvalidKeyTr(_db.getTranslatedStatus());
+        addCategories(_db);
+        addTypes(_db);
         patchReplace(_db.getTranslatedAbilities(), _db.getAbilities().getKeys(), _api);
         StringList items_ = new StringList();
         items_.addAllElts(_db.getItems().getKeys());
@@ -408,31 +400,11 @@ public final class ConverterCommonMapUtil {
         status_.addAllElts(_db.getAnimStatus().getKeys());
         status_.removeDuplicates();
         patchReplace(_db.getTranslatedStatus(),status_, _api);
-        resetCategory(_db);
-        StringList allCats_ = new StringList();
-        for (MoveData m: _db.getMoves().values()) {
-            allCats_.add(_db.getCategory(m));
-        }
-        allCats_.add(_db.getDefCategory());
-        allCats_.removeDuplicates();
-        patchReplace(_db.getTranslatedCategories(),correctEnt(allCats_), _api);
+        patchReplace(_db.getTranslatedCategories(),new StringList(), _api);
         StringList allTypes_ = new StringList();
-        for (MoveData m: _db.getMoves().values()) {
-            allTypes_.addAllElts(correctEnt(m.getTypes()));
-        }
-        for (PokemonData m: _db.getPokedex().values()) {
-            allTypes_.addAllElts(correctEnt(m.getTypes()));
-        }
         allTypes_.addAllElts(_db.getTypesImages().getKeys());
         allTypes_.addAllElts(_db.getTypesColors().getKeys());
-        allTypes_.removeDuplicates();
         patchReplace(_db.getTranslatedTypes(),allTypes_, _api);
-        for (MoveData m: _db.getMoves().values()) {
-            resetTypes(_db.getTranslatedTypes(),m.getTypes());
-        }
-        for (PokemonData m: _db.getPokedex().values()) {
-            resetTypes(_db.getTranslatedTypes(),m.getTypes());
-        }
         patchLitt(_api, _db);
         StringList ls_ = new StringList();
         ls_.add(Item.BALL);
@@ -461,44 +433,47 @@ public final class ConverterCommonMapUtil {
         return _db;
     }
 
-    private static void resetTypes(StringMap<StringMap<String>> _t, StringList _y) {
-        StringList n_ = new StringList();
-        int len_ = _y.size();
-        for (int j = 0; j < len_; j++) {
-            String key_ = _y.get(j);
-            int countAbsent_ = countAbsent(_t, key_);
-            if (countAbsent_ == 0) {
-                n_.add(key_);
-            }
-        }
-        _y.clear();
-        _y.addAllElts(n_);
-    }
-
-    private static void resetCategory(DataBase _db) {
+    private static void addCategories(DataBase _db) {
         for (MoveData m: _db.getMoves().values()) {
             if (m instanceof DamagingMoveData) {
-                ((DamagingMoveData)m).setCategory(resetType(_db.getTranslatedCategories(),((DamagingMoveData)m).getCategory()));
+                addTr(_db.getTranslatedCategories(),((DamagingMoveData)m).getCategory());
             }
         }
     }
 
-    private static String resetType(StringMap<StringMap<String>> _t, String _k) {
-        if (countAbsent(_t, _k) == 0) {
-            return _k;
+    private static void addTypes(DataBase _db) {
+        for (MoveData m: _db.getMoves().values()) {
+            addTrs(_db.getTranslatedTypes(),m.getTypes());
         }
-        return DataBase.EMPTY_STRING;
+        for (PokemonData m: _db.getPokedex().values()) {
+            addTrs(_db.getTranslatedTypes(),m.getTypes());
+        }
     }
-
-    private static int countAbsent(StringMap<StringMap<String>> _t, String _k) {
-        int countAbsent_ = 0;
-        for (EntryCust<String,StringMap<String>> e: _t.entryList()) {
-            if (!e.getValue().contains(_k)) {
-                countAbsent_++;
+    private static void addTrs(StringMap<StringMap<String>> _t, StringList _ls) {
+        StringList next_ = new StringList();
+        int len_ = _ls.size();
+        for (int j = 0; j < len_; j++) {
+            String key_ = _ls.get(j);
+            if (addTr(_t, key_)){
+                next_.add(key_);
             }
         }
-        return countAbsent_;
+        _ls.clear();
+        _ls.addAllElts(next_);
     }
+
+    private static boolean addTr(StringMap<StringMap<String>> _t, String _key) {
+        if (DataBase.isCorrectIdentifier(_key)) {
+            for (EntryCust<String,StringMap<String>> e: _t.entryList()) {
+                if (!e.getValue().contains(_key)) {
+                    e.getValue().addEntry(_key, _key);
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
     private static void removeInvalidKeyColor(StringMap<String> _l) {
         int len_ = _l.size();
         StringMap<String> ti_ = new StringMap<String>();

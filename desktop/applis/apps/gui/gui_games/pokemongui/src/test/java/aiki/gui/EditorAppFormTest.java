@@ -83,6 +83,7 @@ public final class EditorAppFormTest extends InitEditorPkForm {
         db_.getPokedex().addEntry(DataBase.EMPTY_STRING, Instances.newPokemonData());
         PokemonData pk_ = Instances.newPokemonData();
         pk_.getTypes().add(DataBase.EMPTY_STRING);
+        pk_.getTypes().add(T_1);
         db_.getPokedex().addEntry(P_1, pk_);
         db_.getStatus().addEntry(DataBase.EMPTY_STRING, Instances.newStatusSimple());
         db_.getMiniPk().addEntry(DataBase.EMPTY_STRING,instance(new int[0][0]));
@@ -93,6 +94,11 @@ public final class EditorAppFormTest extends InitEditorPkForm {
         assertEq(2,res_.getTranslatedPokemon().size());
         assertEq(1,res_.getTranslatedPokemon().getValue(0).size());
         assertEq(1,res_.getTranslatedPokemon().getValue(1).size());
+        assertEq(2,res_.getTranslatedTypes().size());
+        assertEq(1,res_.getTranslatedTypes().getValue(0).size());
+        assertEq(T_1,res_.getTranslatedTypes().getValue(0).getKey(0));
+        assertEq(1,res_.getTranslatedTypes().getValue(1).size());
+        assertEq(T_1,res_.getTranslatedTypes().getValue(1).getKey(0));
     }
     @Test
     public void patchData5() {
