@@ -127,4 +127,19 @@ public final class EditorAppFormTest extends InitEditorPkForm {
         assertEq(2,res_.getTranslatedPokemon().getValue(0).size());
         assertEq(2,res_.getTranslatedPokemon().getValue(1).size());
     }
+    @Test
+    public void patchData7() {
+        MockProgramInfos api_ = initForms();
+        FacadeGame f_ = ConverterCommonMapUtil.facadeInit(api_);
+        f_.setSexList(new MockLSexList());
+        MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(api_.getTranslations()));
+        DataBase db_ = DocumentReaderAikiCoreUtil.initData(api_.getGenerator(), f_);
+        PokemonData p_ = Instances.newPokemonData();
+        p_.getEvolutions().addEntry(P_2,Instances.newEvolutionHappiness());
+        db_.getPokedex().addEntry(P_1, p_);
+        DataBase res_ = ConverterCommonMapUtil.patchData(api_, db_);
+        assertEq(2,res_.getTranslatedPokemon().size());
+        assertEq(2,res_.getTranslatedPokemon().getValue(0).size());
+        assertEq(2,res_.getTranslatedPokemon().getValue(1).size());
+    }
 }

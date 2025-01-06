@@ -1,5 +1,6 @@
 package aiki.gui.components.editor;
 
+import aiki.db.*;
 import code.gui.initialize.*;
 import code.util.*;
 
@@ -65,5 +66,16 @@ public final class IntListConvertId<E> implements IntListConvert<E, IdList<E>> {
         for (E f: _allEnt) {
             _map.addEntry(f,Long.toString(_map.size()));
         }
+    }
+    public void clean(StringMap<E> _map) {
+        StringMap<E> evos_ = new StringMap<E>();
+        for (EntryCust<String,E> e:_map.entryList()) {
+            String ev_ = e.getKey();
+            if (DataBase.isCorrectIdentifier(ev_)) {
+                evos_.addEntry(ev_,e.getValue());
+            }
+        }
+        _map.clear();
+        _map.addAllEntries(evos_);
     }
 }
