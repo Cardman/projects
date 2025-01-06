@@ -386,13 +386,7 @@ public final class ConverterCommonMapUtil {
         completeLgs(_api,_db.getTranslatedMoves());
         completeLgs(_api,_db.getTranslatedPokemon());
         completeLgs(_api,_db.getTranslatedStatus());
-        addAb(_db);
-        addCategories(_db);
-        addIt(_db);
-        addMv(_db);
-        addPk(_db);
-        addSt(_db);
-        addTypes(_db);
+        addEntity(_db);
         patchLitt(_api, _db);
         StringList ls_ = new StringList();
         ls_.add(Item.BALL);
@@ -421,6 +415,38 @@ public final class ConverterCommonMapUtil {
         return _db;
     }
 
+    private static void addEntity(DataBase _db) {
+        for (EntryCust<String, AbilityData> m: _db.getAbilities().entryList()) {
+            addTr(_db.getTranslatedAbilities(),m.getKey());
+        }
+        for (EntryCust<String, MoveData> m: _db.getMoves().entryList()) {
+            addTrs(_db.getTranslatedTypes(),m.getValue().getTypes());
+            addTr(_db.getTranslatedMoves(),m.getKey());
+            if (m.getValue() instanceof DamagingMoveData) {
+                ((DamagingMoveData)m.getValue()).setCategory(addTr(_db.getTranslatedCategories(),((DamagingMoveData)m.getValue()).getCategory()));
+            }
+        }
+        for (EntryCust<String, Item> m: _db.getItems().entryList()) {
+            addTr(_db.getTranslatedItems(),m.getKey());
+        }
+        addTrImg(_db.getMiniItems(), _db.getTranslatedItems());
+        for (EntryCust<String, PokemonData> m: _db.getPokedex().entryList()) {
+            addTr(_db.getTranslatedPokemon(),m.getKey());
+            addTrs(_db.getTranslatedTypes(),m.getValue().getTypes());
+        }
+        addTrImg(_db.getMiniPk(), _db.getTranslatedPokemon());
+        addTrImg(_db.getMaxiPkFront(), _db.getTranslatedPokemon());
+        addTrImg(_db.getMaxiPkBack(), _db.getTranslatedPokemon());
+        for (EntryCust<String, Status> m: _db.getStatus().entryList()) {
+            addTr(_db.getTranslatedStatus(),m.getKey());
+        }
+        addTrImg(_db.getAnimStatus(), _db.getTranslatedStatus());
+        for (String m: _db.getTypesColors().getKeys()) {
+            addTr(_db.getTranslatedTypes(),m);
+        }
+        addTrImg(_db.getTypesImages(), _db.getTranslatedTypes());
+    }
+
     private static void completeLgs(AbstractProgramInfos _api, StringMap<StringMap<String>> _map) {
         CustList<String> mustLgs_ = _api.getTranslations().getMapping().getKeys();
         StringList absent_ = new StringList(mustLgs_);
@@ -430,63 +456,13 @@ public final class ConverterCommonMapUtil {
             _map.addEntry(l,new StringMap<String>());
         }
     }
-    private static void addAb(DataBase _db) {
-        for (EntryCust<String, AbilityData> m: _db.getAbilities().entryList()) {
-            addTr(_db.getTranslatedAbilities(),m.getKey());
-        }
-    }
-    private static void addCategories(DataBase _db) {
-        for (MoveData m: _db.getMoves().values()) {
-            if (m instanceof DamagingMoveData) {
-                ((DamagingMoveData)m).setCategory(addTr(_db.getTranslatedCategories(),((DamagingMoveData)m).getCategory()));
-            }
-        }
-    }
 
-    private static void addIt(DataBase _db) {
-        for (EntryCust<String, Item> m: _db.getItems().entryList()) {
-            addTr(_db.getTranslatedItems(),m.getKey());
-        }
-        addTrImg(_db.getMiniItems(), _db.getTranslatedItems());
-    }
-    private static void addMv(DataBase _db) {
-        for (EntryCust<String, MoveData> m: _db.getMoves().entryList()) {
-            addTr(_db.getTranslatedMoves(),m.getKey());
-        }
-    }
-    private static void addPk(DataBase _db) {
-        for (EntryCust<String, PokemonData> m: _db.getPokedex().entryList()) {
-            addTr(_db.getTranslatedPokemon(),m.getKey());
-        }
-        addTrImg(_db.getMiniPk(), _db.getTranslatedPokemon());
-        addTrImg(_db.getMaxiPkFront(), _db.getTranslatedPokemon());
-        addTrImg(_db.getMaxiPkBack(), _db.getTranslatedPokemon());
-    }
-
-    private static void addSt(DataBase _db) {
-        for (EntryCust<String, Status> m: _db.getStatus().entryList()) {
-            addTr(_db.getTranslatedStatus(),m.getKey());
-        }
-        addTrImg(_db.getAnimStatus(), _db.getTranslatedStatus());
-    }
     private static void addTrImg(StringMap<ImageArrayBaseSixtyFour> _img, StringMap<StringMap<String>> _map) {
         for (EntryCust<String, ImageArrayBaseSixtyFour> m: _img.entryList()) {
             addTr(_map,m.getKey());
         }
     }
 
-    private static void addTypes(DataBase _db) {
-        for (MoveData m: _db.getMoves().values()) {
-            addTrs(_db.getTranslatedTypes(),m.getTypes());
-        }
-        for (PokemonData m: _db.getPokedex().values()) {
-            addTrs(_db.getTranslatedTypes(),m.getTypes());
-        }
-        for (String m: _db.getTypesColors().getKeys()) {
-            addTr(_db.getTranslatedTypes(),m);
-        }
-        addTrImg(_db.getTypesImages(), _db.getTranslatedTypes());
-    }
     private static void addTrs(StringMap<StringMap<String>> _t, StringList _ls) {
         StringList next_ = new StringList();
         int len_ = _ls.size();
