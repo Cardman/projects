@@ -379,32 +379,20 @@ public final class ConverterCommonMapUtil {
         removeInvalidKeyTr(_db.getTranslatedMoves());
         removeInvalidKeyTr(_db.getTranslatedPokemon());
         removeInvalidKeyTr(_db.getTranslatedStatus());
+        completeLgs(_api,_db.getTranslatedCategories());
+        completeLgs(_api,_db.getTranslatedTypes());
+        completeLgs(_api,_db.getTranslatedAbilities());
+        completeLgs(_api,_db.getTranslatedItems());
+        completeLgs(_api,_db.getTranslatedMoves());
+        completeLgs(_api,_db.getTranslatedPokemon());
+        completeLgs(_api,_db.getTranslatedStatus());
+        addAb(_db);
         addCategories(_db);
+        addIt(_db);
+        addMv(_db);
+        addPk(_db);
+        addSt(_db);
         addTypes(_db);
-        patchReplace(_db.getTranslatedAbilities(), _db.getAbilities().getKeys(), _api);
-        StringList items_ = new StringList();
-        items_.addAllElts(_db.getItems().getKeys());
-        items_.addAllElts(_db.getMiniItems().getKeys());
-        items_.removeDuplicates();
-        patchReplace(_db.getTranslatedItems(),items_, _api);
-        patchReplace(_db.getTranslatedMoves(), _db.getMoves().getKeys(), _api);
-        StringList pks_ = new StringList();
-        pks_.addAllElts(_db.getPokedex().getKeys());
-        pks_.addAllElts(_db.getMiniPk().getKeys());
-        pks_.addAllElts(_db.getMaxiPkFront().getKeys());
-        pks_.addAllElts(_db.getMaxiPkBack().getKeys());
-        pks_.removeDuplicates();
-        patchReplace(_db.getTranslatedPokemon(),pks_, _api);
-        StringList status_ = new StringList();
-        status_.addAllElts(_db.getStatus().getKeys());
-        status_.addAllElts(_db.getAnimStatus().getKeys());
-        status_.removeDuplicates();
-        patchReplace(_db.getTranslatedStatus(),status_, _api);
-        patchReplace(_db.getTranslatedCategories(),new StringList(), _api);
-        StringList allTypes_ = new StringList();
-        allTypes_.addAllElts(_db.getTypesImages().getKeys());
-        allTypes_.addAllElts(_db.getTypesColors().getKeys());
-        patchReplace(_db.getTranslatedTypes(),allTypes_, _api);
         patchLitt(_api, _db);
         StringList ls_ = new StringList();
         ls_.add(Item.BALL);
@@ -433,11 +421,57 @@ public final class ConverterCommonMapUtil {
         return _db;
     }
 
+    private static void completeLgs(AbstractProgramInfos _api, StringMap<StringMap<String>> _map) {
+        CustList<String> mustLgs_ = _api.getTranslations().getMapping().getKeys();
+        StringList absent_ = new StringList(mustLgs_);
+        CustList<String> present_ = _map.getKeys();
+        absent_.removeAllElements(present_);
+        for (String l: absent_) {
+            _map.addEntry(l,new StringMap<String>());
+        }
+    }
+    private static void addAb(DataBase _db) {
+        for (EntryCust<String, AbilityData> m: _db.getAbilities().entryList()) {
+            addTr(_db.getTranslatedAbilities(),m.getKey());
+        }
+    }
     private static void addCategories(DataBase _db) {
         for (MoveData m: _db.getMoves().values()) {
             if (m instanceof DamagingMoveData) {
                 ((DamagingMoveData)m).setCategory(addTr(_db.getTranslatedCategories(),((DamagingMoveData)m).getCategory()));
             }
+        }
+    }
+
+    private static void addIt(DataBase _db) {
+        for (EntryCust<String, Item> m: _db.getItems().entryList()) {
+            addTr(_db.getTranslatedItems(),m.getKey());
+        }
+        addTrImg(_db.getMiniItems(), _db.getTranslatedItems());
+    }
+    private static void addMv(DataBase _db) {
+        for (EntryCust<String, MoveData> m: _db.getMoves().entryList()) {
+            addTr(_db.getTranslatedMoves(),m.getKey());
+        }
+    }
+    private static void addPk(DataBase _db) {
+        for (EntryCust<String, PokemonData> m: _db.getPokedex().entryList()) {
+            addTr(_db.getTranslatedPokemon(),m.getKey());
+        }
+        addTrImg(_db.getMiniPk(), _db.getTranslatedPokemon());
+        addTrImg(_db.getMaxiPkFront(), _db.getTranslatedPokemon());
+        addTrImg(_db.getMaxiPkBack(), _db.getTranslatedPokemon());
+    }
+
+    private static void addSt(DataBase _db) {
+        for (EntryCust<String, Status> m: _db.getStatus().entryList()) {
+            addTr(_db.getTranslatedStatus(),m.getKey());
+        }
+        addTrImg(_db.getAnimStatus(), _db.getTranslatedStatus());
+    }
+    private static void addTrImg(StringMap<ImageArrayBaseSixtyFour> _img, StringMap<StringMap<String>> _map) {
+        for (EntryCust<String, ImageArrayBaseSixtyFour> m: _img.entryList()) {
+            addTr(_map,m.getKey());
         }
     }
 
@@ -448,6 +482,10 @@ public final class ConverterCommonMapUtil {
         for (PokemonData m: _db.getPokedex().values()) {
             addTrs(_db.getTranslatedTypes(),m.getTypes());
         }
+        for (String m: _db.getTypesColors().getKeys()) {
+            addTr(_db.getTranslatedTypes(),m);
+        }
+        addTrImg(_db.getTypesImages(), _db.getTranslatedTypes());
     }
     private static void addTrs(StringMap<StringMap<String>> _t, StringList _ls) {
         StringList next_ = new StringList();
