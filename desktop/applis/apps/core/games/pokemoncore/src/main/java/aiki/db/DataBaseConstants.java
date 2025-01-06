@@ -1648,15 +1648,22 @@ public final class DataBaseConstants {
     }
 
     private void checkGroups() {
-        if (gr1().hasDuplicates()) {
+        StringList all_ = new StringList();
+        all_.addAllElts(gr1());
+//        all_.addAllElts(gr2());
+        all_.addAllElts(gr3());
+//        all_.addAllElts(gr4());
+        all_.addAllElts(gr5());
+        all_.addAllElts(gr6());
+        all_.add(niveau);
+        all_.add(boost);
+        if (all_.hasDuplicates()) {
+            niveau=DataBase.EMPTY_STRING;
+            boost=DataBase.EMPTY_STRING;
             levelLooser=DataBase.EMPTY_STRING;
             levelWinner=DataBase.EMPTY_STRING;
-        }
-        if (gr2().hasDuplicates()) {
             cibleNiveau=DataBase.EMPTY_STRING;
             lanceurNiveau=DataBase.EMPTY_STRING;
-        }
-        if (gr3().hasDuplicates()) {
             pkSauvageNiveau=DataBase.EMPTY_STRING;
             pkUtNiveau=DataBase.EMPTY_STRING;
             dejaCapture=DataBase.EMPTY_STRING;
@@ -1674,20 +1681,14 @@ public final class DataBaseConstants {
             pkSauvagePierresEvos=DataBase.EMPTY_STRING;
             pkUtTypesBase=DataBase.EMPTY_STRING;
             pkUtPierresEvos=DataBase.EMPTY_STRING;
-        }
-        if (gr4().hasDuplicates()) {
-            lanceurNiveau=DataBase.EMPTY_STRING;
+//            lanceurNiveau=DataBase.EMPTY_STRING;
             attack=DataBase.EMPTY_STRING;
             defense=DataBase.EMPTY_STRING;
             power=DataBase.EMPTY_STRING;
-        }
-        if (gr5().hasDuplicates()) {
             baseCaptPk=DataBase.EMPTY_STRING;
             rateBallStatus=DataBase.EMPTY_STRING;
             foePkMaxHp=DataBase.EMPTY_STRING;
             foePkRemoteHp=DataBase.EMPTY_STRING;
-        }
-        if (gr6().hasDuplicates()) {
             immuTypeAttCombattantEntrant=DataBase.EMPTY_STRING;
             pasAttaqueInvoc=DataBase.EMPTY_STRING;
             pasAttaquesCopiables=DataBase.EMPTY_STRING;
@@ -1731,7 +1732,7 @@ public final class DataBaseConstants {
             cibleStatuts=DataBase.EMPTY_STRING;
             cibleTypes=DataBase.EMPTY_STRING;
             ciblePp=DataBase.EMPTY_STRING;
-            cibleNiveau=DataBase.EMPTY_STRING;
+//            cibleNiveau=DataBase.EMPTY_STRING;
             cibleBonheur=DataBase.EMPTY_STRING;
             nbKoEquipeCible=DataBase.EMPTY_STRING;
             nbKoEquipeAdvCible=DataBase.EMPTY_STRING;
@@ -1763,16 +1764,16 @@ public final class DataBaseConstants {
             lanceurStatuts=DataBase.EMPTY_STRING;
             lanceurTypes=DataBase.EMPTY_STRING;
             lanceurPp=DataBase.EMPTY_STRING;
-            lanceurNiveau=DataBase.EMPTY_STRING;
+//            lanceurNiveau=DataBase.EMPTY_STRING;
             lanceurBonheur=DataBase.EMPTY_STRING;
             nbKoEquipeLanceur=DataBase.EMPTY_STRING;
             nbKoEquipeAdvLanceur=DataBase.EMPTY_STRING;
             coeffEffBaseTypesLanceur=DataBase.EMPTY_STRING;
-            tempsTour=DataBase.EMPTY_STRING;
+//            tempsTour=DataBase.EMPTY_STRING;
             nbTour=DataBase.EMPTY_STRING;
             rateEffMoveAgainstTarget=DataBase.EMPTY_STRING;
             nbCombattantsTerrain=DataBase.EMPTY_STRING;
-            lieuCombat=DataBase.EMPTY_STRING;
+//            lieuCombat=DataBase.EMPTY_STRING;
             climats=DataBase.EMPTY_STRING;
             nbTourGlobal=DataBase.EMPTY_STRING;
             combattantEntrantClone=DataBase.EMPTY_STRING;
@@ -1819,6 +1820,177 @@ public final class DataBaseConstants {
             equipeNbUtilisation=DataBase.EMPTY_STRING;
             equipeAdvNbUtilisation=DataBase.EMPTY_STRING;
         }
+//        if (gr1().hasDuplicates()) {
+//            levelLooser=DataBase.EMPTY_STRING;
+//            levelWinner=DataBase.EMPTY_STRING;
+//        }
+//        if (gr2().hasDuplicates()) {
+//            cibleNiveau=DataBase.EMPTY_STRING;
+//            lanceurNiveau=DataBase.EMPTY_STRING;
+//        }
+//        if (gr3().hasDuplicates()) {
+//            pkSauvageNiveau=DataBase.EMPTY_STRING;
+//            pkUtNiveau=DataBase.EMPTY_STRING;
+//            dejaCapture=DataBase.EMPTY_STRING;
+//            nbFlees=DataBase.EMPTY_STRING;
+//            lieuCombat=DataBase.EMPTY_STRING;
+//            tempsTour=DataBase.EMPTY_STRING;
+//            masseMoyennePk=DataBase.EMPTY_STRING;
+//            pkUtGenre=DataBase.EMPTY_STRING;
+//            pkUtMasse=DataBase.EMPTY_STRING;
+//            pkUtVitesse=DataBase.EMPTY_STRING;
+//            pkSauvageGenre=DataBase.EMPTY_STRING;
+//            pkSauvageMasse=DataBase.EMPTY_STRING;
+//            pkSauvageVitesse=DataBase.EMPTY_STRING;
+//            pkSauvageTypesBase=DataBase.EMPTY_STRING;
+//            pkSauvagePierresEvos=DataBase.EMPTY_STRING;
+//            pkUtTypesBase=DataBase.EMPTY_STRING;
+//            pkUtPierresEvos=DataBase.EMPTY_STRING;
+//        }
+//        if (gr4().hasDuplicates()) {
+//            lanceurNiveau=DataBase.EMPTY_STRING;
+//            attack=DataBase.EMPTY_STRING;
+//            defense=DataBase.EMPTY_STRING;
+//            power=DataBase.EMPTY_STRING;
+//        }
+//        if (gr5().hasDuplicates()) {
+//            baseCaptPk=DataBase.EMPTY_STRING;
+//            rateBallStatus=DataBase.EMPTY_STRING;
+//            foePkMaxHp=DataBase.EMPTY_STRING;
+//            foePkRemoteHp=DataBase.EMPTY_STRING;
+//        }
+//        if (gr6().hasDuplicates()) {
+//            immuTypeAttCombattantEntrant=DataBase.EMPTY_STRING;
+//            pasAttaqueInvoc=DataBase.EMPTY_STRING;
+//            pasAttaquesCopiables=DataBase.EMPTY_STRING;
+//            ciblePossedeStatutRelation=DataBase.EMPTY_STRING;
+//            cibleEffet=DataBase.EMPTY_STRING;
+//            pasPpAttaqueCible=DataBase.EMPTY_STRING;
+//            pasUtilisAttaqueCible=DataBase.EMPTY_STRING;
+//            immuTypeAttCible=DataBase.EMPTY_STRING;
+//            aucunBoostPossible=DataBase.EMPTY_STRING;
+//            lanceurEffet=DataBase.EMPTY_STRING;
+//            typesAttaquesResVide=DataBase.EMPTY_STRING;
+//            pasPartenaire=DataBase.EMPTY_STRING;
+//            pasPartenaireArriere=DataBase.EMPTY_STRING;
+//            pasPartenaireTerrain=DataBase.EMPTY_STRING;
+//            pasTourTerrain=DataBase.EMPTY_STRING;
+//            existeGenreAssexue=DataBase.EMPTY_STRING;
+//            genresEgaux=DataBase.EMPTY_STRING;
+//            cibleGenre=DataBase.EMPTY_STRING;
+//            ciblePvRestants=DataBase.EMPTY_STRING;
+//            ciblePvMax=DataBase.EMPTY_STRING;
+//            cibleNbUtilisation=DataBase.EMPTY_STRING;
+//            cibleStatis=DataBase.EMPTY_STRING;
+//            cibleBoost=DataBase.EMPTY_STRING;
+//            sommeBoostPosCible=DataBase.EMPTY_STRING;
+//            cibleAttaqueChoisie=DataBase.EMPTY_STRING;
+//            cibleAttaques=DataBase.EMPTY_STRING;
+//            cibleAttaquesTypes=DataBase.EMPTY_STRING;
+//            cibleClone=DataBase.EMPTY_STRING;
+//            cibleDegatsRecus=DataBase.EMPTY_STRING;
+//            cibleDegatsRecusTotal=DataBase.EMPTY_STRING;
+//            cibleDegatsRecusTour=DataBase.EMPTY_STRING;
+//            cibleDegatsRecusTotalTour=DataBase.EMPTY_STRING;
+//            cibleDisparait=DataBase.EMPTY_STRING;
+//            cibleJoue=DataBase.EMPTY_STRING;
+//            cibleDerJoue=DataBase.EMPTY_STRING;
+//            cibleNom=DataBase.EMPTY_STRING;
+//            cibleMasse=DataBase.EMPTY_STRING;
+//            cibleTaille=DataBase.EMPTY_STRING;
+//            cibleCapacite=DataBase.EMPTY_STRING;
+//            cibleObjet=DataBase.EMPTY_STRING;
+//            cibleStatuts=DataBase.EMPTY_STRING;
+//            cibleTypes=DataBase.EMPTY_STRING;
+//            ciblePp=DataBase.EMPTY_STRING;
+//            cibleNiveau=DataBase.EMPTY_STRING;
+//            cibleBonheur=DataBase.EMPTY_STRING;
+//            nbKoEquipeCible=DataBase.EMPTY_STRING;
+//            nbKoEquipeAdvCible=DataBase.EMPTY_STRING;
+//            coeffEffBaseTypesCible=DataBase.EMPTY_STRING;
+//            lanceurGenre=DataBase.EMPTY_STRING;
+//            nbUtiliAttEqTour=DataBase.EMPTY_STRING;
+//            lanceurPvRestants=DataBase.EMPTY_STRING;
+//            lanceurPvMax=DataBase.EMPTY_STRING;
+//            lanceurNbUtilisation=DataBase.EMPTY_STRING;
+//            lanceurStatis=DataBase.EMPTY_STRING;
+//            lanceurBoost=DataBase.EMPTY_STRING;
+//            sommeBoostPosLanceur=DataBase.EMPTY_STRING;
+//            lanceurAttaqueChoisie=DataBase.EMPTY_STRING;
+//            lanceurAttaques=DataBase.EMPTY_STRING;
+//            lanceurAttaquesTypes=DataBase.EMPTY_STRING;
+//            lanceurClone=DataBase.EMPTY_STRING;
+//            lanceurDegatsRecus=DataBase.EMPTY_STRING;
+//            lanceurDegatsRecusTotal=DataBase.EMPTY_STRING;
+//            lanceurDegatsRecusTour=DataBase.EMPTY_STRING;
+//            lanceurDegatsRecusTotalTour=DataBase.EMPTY_STRING;
+//            lanceurDisparait=DataBase.EMPTY_STRING;
+//            lanceurJoue=DataBase.EMPTY_STRING;
+//            lanceurDerJoue=DataBase.EMPTY_STRING;
+//            lanceurNom=DataBase.EMPTY_STRING;
+//            lanceurMasse=DataBase.EMPTY_STRING;
+//            lanceurTaille=DataBase.EMPTY_STRING;
+//            lanceurCapacite=DataBase.EMPTY_STRING;
+//            lanceurObjet=DataBase.EMPTY_STRING;
+//            lanceurStatuts=DataBase.EMPTY_STRING;
+//            lanceurTypes=DataBase.EMPTY_STRING;
+//            lanceurPp=DataBase.EMPTY_STRING;
+//            lanceurNiveau=DataBase.EMPTY_STRING;
+//            lanceurBonheur=DataBase.EMPTY_STRING;
+//            nbKoEquipeLanceur=DataBase.EMPTY_STRING;
+//            nbKoEquipeAdvLanceur=DataBase.EMPTY_STRING;
+//            coeffEffBaseTypesLanceur=DataBase.EMPTY_STRING;
+//            tempsTour=DataBase.EMPTY_STRING;
+//            nbTour=DataBase.EMPTY_STRING;
+//            rateEffMoveAgainstTarget=DataBase.EMPTY_STRING;
+//            nbCombattantsTerrain=DataBase.EMPTY_STRING;
+//            lieuCombat=DataBase.EMPTY_STRING;
+//            climats=DataBase.EMPTY_STRING;
+//            nbTourGlobal=DataBase.EMPTY_STRING;
+//            combattantEntrantClone=DataBase.EMPTY_STRING;
+//            combattantEntrantTypes=DataBase.EMPTY_STRING;
+//            coeffEffBaseTypesCombattantEntrant=DataBase.EMPTY_STRING;
+//            equipeAdvCombattantEntrantNbUtilisation=DataBase.EMPTY_STRING;
+//            attaqueCategorie=DataBase.EMPTY_STRING;
+//            attaqueTypes=DataBase.EMPTY_STRING;
+//            attaqueNom=DataBase.EMPTY_STRING;
+//            puissanceBase=DataBase.EMPTY_STRING;
+//            fighterGenre=DataBase.EMPTY_STRING;
+//            fighterPvRestants=DataBase.EMPTY_STRING;
+//            fighterPvMax=DataBase.EMPTY_STRING;
+//            fighterNbUtilisation=DataBase.EMPTY_STRING;
+//            fighterStatis=DataBase.EMPTY_STRING;
+//            fighterBoost=DataBase.EMPTY_STRING;
+//            sommeBoostPosFighter=DataBase.EMPTY_STRING;
+//            fighterAttaqueChoisie=DataBase.EMPTY_STRING;
+//            fighterAttaques=DataBase.EMPTY_STRING;
+//            fighterAttaquesTypes=DataBase.EMPTY_STRING;
+//            fighterClone=DataBase.EMPTY_STRING;
+//            fighterDegatsRecus=DataBase.EMPTY_STRING;
+//            fighterDegatsRecusTotal=DataBase.EMPTY_STRING;
+//            fighterDegatsRecusTour=DataBase.EMPTY_STRING;
+//            fighterDegatsRecusTotalTour=DataBase.EMPTY_STRING;
+//            fighterDisparait=DataBase.EMPTY_STRING;
+//            fighterJoue=DataBase.EMPTY_STRING;
+//            fighterDerJoue=DataBase.EMPTY_STRING;
+//            fighterNom=DataBase.EMPTY_STRING;
+//            fighterMasse=DataBase.EMPTY_STRING;
+//            fighterTaille=DataBase.EMPTY_STRING;
+//            fighterCapacite=DataBase.EMPTY_STRING;
+//            fighterObjet=DataBase.EMPTY_STRING;
+//            fighterStatuts=DataBase.EMPTY_STRING;
+//            fighterTypes=DataBase.EMPTY_STRING;
+//            fighterPp=DataBase.EMPTY_STRING;
+//            fighterNiveau=DataBase.EMPTY_STRING;
+//            fighterBonheur=DataBase.EMPTY_STRING;
+//            nbKoEquipeFighter=DataBase.EMPTY_STRING;
+//            nbKoEquipeAdvFighter=DataBase.EMPTY_STRING;
+//            coeffEffBaseTypesFighter=DataBase.EMPTY_STRING;
+//            coeffEff=DataBase.EMPTY_STRING;
+//            nbUtilisationConsecutif=DataBase.EMPTY_STRING;
+//            equipeNbUtilisation=DataBase.EMPTY_STRING;
+//            equipeAdvNbUtilisation=DataBase.EMPTY_STRING;
+//        }
     }
 
     private void checkKeys() {
@@ -2354,12 +2526,12 @@ public final class DataBaseConstants {
         return str_;
     }
 
-    private StringList gr2() {
-        StringList str_ = new StringList();
-        str_.add(cibleNiveau);
-        str_.add(lanceurNiveau);
-        return str_;
-    }
+//    private StringList gr2() {
+//        StringList str_ = new StringList();
+//        str_.add(cibleNiveau);
+//        str_.add(lanceurNiveau);
+//        return str_;
+//    }
 
     private StringList gr3() {
         StringList str_ = new StringList();
@@ -2367,8 +2539,8 @@ public final class DataBaseConstants {
         str_.add(pkUtNiveau);
         str_.add(dejaCapture);
         str_.add(nbFlees);
-        str_.add(lieuCombat);
-        str_.add(tempsTour);
+//        str_.add(lieuCombat);
+//        str_.add(tempsTour);
         str_.add(masseMoyennePk);
         str_.add(pkUtGenre);
         str_.add(pkUtMasse);
@@ -2383,12 +2555,12 @@ public final class DataBaseConstants {
         return str_;
     }
 
-    private StringList gr4() {
-        StringList str_ = new StringList();
-        str_.add(lanceurNiveau);
-        stat(str_);
-        return str_;
-    }
+//    private StringList gr4() {
+//        StringList str_ = new StringList();
+//        str_.add(lanceurNiveau);
+//        stat(str_);
+//        return str_;
+//    }
 
     private StringList gr5() {
         StringList str_ = new StringList();
