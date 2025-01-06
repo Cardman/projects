@@ -436,7 +436,7 @@ public final class ConverterCommonMapUtil {
     private static void addCategories(DataBase _db) {
         for (MoveData m: _db.getMoves().values()) {
             if (m instanceof DamagingMoveData) {
-                addTr(_db.getTranslatedCategories(),((DamagingMoveData)m).getCategory());
+                ((DamagingMoveData)m).setCategory(addTr(_db.getTranslatedCategories(),((DamagingMoveData)m).getCategory()));
             }
         }
     }
@@ -454,7 +454,7 @@ public final class ConverterCommonMapUtil {
         int len_ = _ls.size();
         for (int j = 0; j < len_; j++) {
             String key_ = _ls.get(j);
-            if (addTr(_t, key_)){
+            if (!addTr(_t, key_).isEmpty()){
                 next_.add(key_);
             }
         }
@@ -462,16 +462,16 @@ public final class ConverterCommonMapUtil {
         _ls.addAllElts(next_);
     }
 
-    private static boolean addTr(StringMap<StringMap<String>> _t, String _key) {
+    private static String addTr(StringMap<StringMap<String>> _t, String _key) {
         if (DataBase.isCorrectIdentifier(_key)) {
             for (EntryCust<String,StringMap<String>> e: _t.entryList()) {
                 if (!e.getValue().contains(_key)) {
                     e.getValue().addEntry(_key, _key);
                 }
             }
-            return true;
+            return _key;
         }
-        return false;
+        return "";
     }
 
     private static void removeInvalidKeyColor(StringMap<String> _l) {
