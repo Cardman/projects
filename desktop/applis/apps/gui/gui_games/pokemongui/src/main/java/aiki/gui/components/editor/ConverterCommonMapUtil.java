@@ -447,6 +447,7 @@ public final class ConverterCommonMapUtil {
             new IntListConvertId<Ints>().addTrsDefValue(_db.getTranslatedItems(),m.getValue().getSecEffectsByItem());
             addTrsDefValue(_db.getTranslatedItems(),_db.getTranslatedTypes(),m.getValue().getTypesByOwnedItem());
             addTrsDefValue(_db.getTranslatedMoves(),_db.getTranslatedTypes(),m.getValue().getTypesByWeather());
+            addTrsEff(_db, m.getValue().getEffects());
             if (m.getValue() instanceof DamagingMoveData) {
                 ((DamagingMoveData)m.getValue()).setCategory(addTr(_db.getTranslatedCategories(),((DamagingMoveData)m.getValue()).getCategory()));
             }
@@ -461,6 +462,7 @@ public final class ConverterCommonMapUtil {
             addTrsEvo(_db, m.getValue().getEvolutions());
             addTrs(_db.getTranslatedAbilities(),m.getValue().getAbilities());
             addTrs(_db.getTranslatedMoves(),m.getValue().getMoveTutors());
+            m.getValue().setBaseEvo(addTr(_db.getTranslatedPokemon(),m.getValue().getBaseEvo()));
         }
         addTrImg(_db.getMiniPk(), _db.getTranslatedPokemon());
         addTrImg(_db.getMaxiPkFront(), _db.getTranslatedPokemon());
@@ -480,6 +482,17 @@ public final class ConverterCommonMapUtil {
         addTrsMap(_db.getTranslatedPokemon());
         addTrsMap(_db.getTranslatedStatus());
         addTrsMap(_db.getTranslatedTypes());
+    }
+
+    private static void addTrsEff(DataBase _db, CustList<Effect> _effs) {
+        for (Effect e: _effs) {
+            if (e instanceof EffectCounterAttack) {
+                new IntListConvertId<Rate>().addTrs(_db.getTranslatedTypes(),((EffectCounterAttack)e).getSufferingDamageTypes());
+            }
+            if (e instanceof EffectDamage) {
+                new IntListConvertId<Rate>().addTrs(_db.getTranslatedCategories(),((EffectDamage)e).getMultDamageAgainst());
+            }
+        }
     }
 
     public static void addTrsDefValue(StringMap<StringMap<String>> _tr, StringMap<StringMap<String>> _sec, StringMap<String> _eff) {

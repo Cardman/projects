@@ -79,6 +79,18 @@ public final class IntListConvertId<E> implements IntListConvert<E, IdList<E>> {
         _map.addAllEntries(evos_);
     }
 
+    public void addTrs(StringMap<StringMap<String>> _tr, StringMap<E> _eff) {
+        StringMap<E> e_ = new StringMap<E>();
+        for (EntryCust<String,E> e: _eff.entryList()) {
+            String k_ = e.getKey();
+            if (!ConverterCommonMapUtil.addTr(_tr, k_).isEmpty()) {
+                e_.addEntry(k_, e.getValue());
+            }
+        }
+        _eff.clear();
+        _eff.addAllEntries(e_);
+    }
+
     public void addTrsDefValue(StringMap<StringMap<String>> _tr, StringMap<E> _eff) {
         StringMap<E> e_ = new StringMap<E>();
         for (EntryCust<String,E> e: _eff.entryList()) {

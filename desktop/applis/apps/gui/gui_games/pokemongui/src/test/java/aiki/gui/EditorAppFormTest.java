@@ -3,11 +3,13 @@ package aiki.gui;
 import aiki.db.*;
 import aiki.facade.*;
 import aiki.fight.moves.*;
+import aiki.fight.moves.effects.*;
 import aiki.fight.pokemon.*;
 import aiki.fight.pokemon.evolution.*;
 import aiki.gui.components.editor.*;
 import aiki.instances.*;
 import aiki.sml.*;
+import code.maths.Rate;
 import code.mock.*;
 import code.threads.*;
 import code.util.*;
@@ -257,5 +259,33 @@ public final class EditorAppFormTest extends InitEditorPkForm {
         assertEq(2,res_.getTranslatedItems().size());
         assertEq(3,res_.getTranslatedItems().getValue(0).size());
         assertEq(3,res_.getTranslatedItems().getValue(1).size());
+    }
+    @Test
+    public void patchData13() {
+        MockProgramInfos api_ = initForms();
+        FacadeGame f_ = ConverterCommonMapUtil.facadeInit(api_);
+        f_.setSexList(new MockLSexList());
+        MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(api_.getTranslations()));
+        DataBase db_ = DocumentReaderAikiCoreUtil.initData(api_.getGenerator(), f_);
+        MoveData m_ = Instances.newDamagingMoveData();
+        EffectCounterAttack c_ = Instances.newEffectCounterAttack();
+        c_.getSufferingDamageTypes().addEntry(T_1, Rate.one());
+        c_.getSufferingDamageTypes().addEntry(NULL_REF, Rate.one());
+        m_.getEffects().add(c_);
+        EffectDamage d_ = Instances.newEffectDamage();
+        d_.getMultDamageAgainst().addEntry(C_1, Rate.one());
+        d_.getMultDamageAgainst().addEntry(NULL_REF, Rate.one());
+        m_.getEffects().add(d_);
+        db_.getMoves().addEntry(M_1,m_);
+        DataBase res_ = ConverterCommonMapUtil.patchData(api_, db_);
+        assertEq(2,res_.getTranslatedMoves().size());
+        assertEq(1,res_.getTranslatedMoves().getValue(0).size());
+        assertEq(1,res_.getTranslatedMoves().getValue(1).size());
+        assertEq(2,res_.getTranslatedTypes().size());
+        assertEq(1,res_.getTranslatedTypes().getValue(0).size());
+        assertEq(1,res_.getTranslatedTypes().getValue(1).size());
+        assertEq(2,res_.getTranslatedCategories().size());
+        assertEq(1,res_.getTranslatedCategories().getValue(0).size());
+        assertEq(1,res_.getTranslatedCategories().getValue(1).size());
     }
 }
