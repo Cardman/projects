@@ -3,6 +3,7 @@ package aiki.gui;
 import aiki.db.*;
 import aiki.facade.*;
 import aiki.fight.pokemon.*;
+import aiki.fight.pokemon.evolution.*;
 import aiki.gui.components.editor.*;
 import aiki.instances.Instances;
 import aiki.sml.*;
@@ -142,5 +143,88 @@ public final class EditorAppFormTest extends InitEditorPkForm {
         assertEq(2,res_.getTranslatedPokemon().size());
         assertEq(2,res_.getTranslatedPokemon().getValue(0).size());
         assertEq(2,res_.getTranslatedPokemon().getValue(1).size());
+    }
+    @Test
+    public void patchData8() {
+        MockProgramInfos api_ = initForms();
+        FacadeGame f_ = ConverterCommonMapUtil.facadeInit(api_);
+        f_.setSexList(new MockLSexList());
+        MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(api_.getTranslations()));
+        DataBase db_ = DocumentReaderAikiCoreUtil.initData(api_.getGenerator(), f_);
+        PokemonData p_ = Instances.newPokemonData();
+        EvolutionItem e_ = Instances.newEvolutionItem();
+        e_.setItem(I_1);
+        p_.getEvolutions().addEntry(P_2, e_);
+        db_.getPokedex().addEntry(P_1, p_);
+        DataBase res_ = ConverterCommonMapUtil.patchData(api_, db_);
+        assertEq(2,res_.getTranslatedPokemon().size());
+        assertEq(2,res_.getTranslatedPokemon().getValue(0).size());
+        assertEq(2,res_.getTranslatedPokemon().getValue(1).size());
+        assertEq(2,res_.getTranslatedItems().size());
+        assertEq(1,res_.getTranslatedItems().getValue(0).size());
+        assertEq(1,res_.getTranslatedItems().getValue(1).size());
+    }
+    @Test
+    public void patchData9() {
+        MockProgramInfos api_ = initForms();
+        FacadeGame f_ = ConverterCommonMapUtil.facadeInit(api_);
+        f_.setSexList(new MockLSexList());
+        MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(api_.getTranslations()));
+        DataBase db_ = DocumentReaderAikiCoreUtil.initData(api_.getGenerator(), f_);
+        PokemonData p_ = Instances.newPokemonData();
+        EvolutionStone e_ = Instances.newEvolutionStoneSimple();
+        e_.setStone(I_1);
+        p_.getEvolutions().addEntry(P_2, e_);
+        db_.getPokedex().addEntry(P_1, p_);
+        DataBase res_ = ConverterCommonMapUtil.patchData(api_, db_);
+        assertEq(2,res_.getTranslatedPokemon().size());
+        assertEq(2,res_.getTranslatedPokemon().getValue(0).size());
+        assertEq(2,res_.getTranslatedPokemon().getValue(1).size());
+        assertEq(2,res_.getTranslatedItems().size());
+        assertEq(1,res_.getTranslatedItems().getValue(0).size());
+        assertEq(1,res_.getTranslatedItems().getValue(1).size());
+    }
+    @Test
+    public void patchData10() {
+        MockProgramInfos api_ = initForms();
+        FacadeGame f_ = ConverterCommonMapUtil.facadeInit(api_);
+        f_.setSexList(new MockLSexList());
+        MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(api_.getTranslations()));
+        DataBase db_ = DocumentReaderAikiCoreUtil.initData(api_.getGenerator(), f_);
+        PokemonData p_ = Instances.newPokemonData();
+        EvolutionMove e_ = Instances.newEvolutionMove();
+        e_.setMove(M_1);
+        p_.getEvolutions().addEntry(P_2, e_);
+        db_.getPokedex().addEntry(P_1, p_);
+        DataBase res_ = ConverterCommonMapUtil.patchData(api_, db_);
+        assertEq(2,res_.getTranslatedPokemon().size());
+        assertEq(2,res_.getTranslatedPokemon().getValue(0).size());
+        assertEq(2,res_.getTranslatedPokemon().getValue(1).size());
+        assertEq(2,res_.getTranslatedMoves().size());
+        assertEq(1,res_.getTranslatedMoves().getValue(0).size());
+        assertEq(1,res_.getTranslatedMoves().getValue(1).size());
+    }
+    @Test
+    public void patchData11() {
+        MockProgramInfos api_ = initForms();
+        FacadeGame f_ = ConverterCommonMapUtil.facadeInit(api_);
+        f_.setSexList(new MockLSexList());
+        MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(api_.getTranslations()));
+        DataBase db_ = DocumentReaderAikiCoreUtil.initData(api_.getGenerator(), f_);
+        PokemonData p_ = Instances.newPokemonData();
+        EvolutionMoveType e_ = Instances.newEvolutionMoveType();
+        e_.setType(T_1);
+        p_.getEvolutions().addEntry(P_2, e_);
+        EvolutionTeam t_ = Instances.newEvolutionTeam();
+        t_.setPokemon(P_4);
+        p_.getEvolutions().addEntry(P_3, t_);
+        db_.getPokedex().addEntry(P_1, p_);
+        DataBase res_ = ConverterCommonMapUtil.patchData(api_, db_);
+        assertEq(2,res_.getTranslatedPokemon().size());
+        assertEq(4,res_.getTranslatedPokemon().getValue(0).size());
+        assertEq(4,res_.getTranslatedPokemon().getValue(1).size());
+        assertEq(2,res_.getTranslatedTypes().size());
+        assertEq(1,res_.getTranslatedTypes().getValue(0).size());
+        assertEq(1,res_.getTranslatedTypes().getValue(1).size());
     }
 }

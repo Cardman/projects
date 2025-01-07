@@ -478,8 +478,24 @@ public final class ConverterCommonMapUtil {
     private static void addTrsEvo(DataBase _db, StringMap<Evolution> _evos) {
         StringMap<Evolution> ev_ = new StringMap<Evolution>();
         for (EntryCust<String,Evolution> e: _evos.entryList()) {
+            Evolution evo_ = e.getValue();
+            if (evo_ instanceof EvolutionItem) {
+                ((EvolutionItem)evo_).setItem(addTr(_db.getTranslatedItems(), ((EvolutionItem)evo_).getItem()));
+            }
+            if (evo_ instanceof EvolutionMove) {
+                ((EvolutionMove)evo_).setMove(addTr(_db.getTranslatedMoves(), ((EvolutionMove)evo_).getMove()));
+            }
+            if (evo_ instanceof EvolutionMoveType) {
+                ((EvolutionMoveType)evo_).setType(addTr(_db.getTranslatedTypes(), ((EvolutionMoveType)evo_).getType()));
+            }
+            if (evo_ instanceof EvolutionStone) {
+                ((EvolutionStone)evo_).setStone(addTr(_db.getTranslatedItems(), ((EvolutionStone)evo_).getStone()));
+            }
+            if (evo_ instanceof EvolutionTeam) {
+                ((EvolutionTeam)evo_).setPokemon(addTr(_db.getTranslatedPokemon(), ((EvolutionTeam)evo_).getPokemon()));
+            }
             if (!addTr(_db.getTranslatedPokemon(), e.getKey()).isEmpty()){
-                ev_.addEntry(e.getKey(),e.getValue());
+                ev_.addEntry(e.getKey(), evo_);
             }
         }
         _evos.clear();
