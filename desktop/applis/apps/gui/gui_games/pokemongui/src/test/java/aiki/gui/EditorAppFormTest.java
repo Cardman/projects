@@ -2,13 +2,15 @@ package aiki.gui;
 
 import aiki.db.*;
 import aiki.facade.*;
+import aiki.fight.moves.*;
 import aiki.fight.pokemon.*;
 import aiki.fight.pokemon.evolution.*;
 import aiki.gui.components.editor.*;
-import aiki.instances.Instances;
+import aiki.instances.*;
 import aiki.sml.*;
 import code.mock.*;
 import code.threads.*;
+import code.util.*;
 import org.junit.Test;
 
 public final class EditorAppFormTest extends InitEditorPkForm {
@@ -226,5 +228,34 @@ public final class EditorAppFormTest extends InitEditorPkForm {
         assertEq(2,res_.getTranslatedTypes().size());
         assertEq(1,res_.getTranslatedTypes().getValue(0).size());
         assertEq(1,res_.getTranslatedTypes().getValue(1).size());
+    }
+    @Test
+    public void patchData12() {
+        MockProgramInfos api_ = initForms();
+        FacadeGame f_ = ConverterCommonMapUtil.facadeInit(api_);
+        f_.setSexList(new MockLSexList());
+        MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(api_.getTranslations()));
+        DataBase db_ = DocumentReaderAikiCoreUtil.initData(api_.getGenerator(), f_);
+        MoveData m_ = Instances.newDamagingMoveData();
+        m_.getSecEffectsByItem().addEntry(NULL_REF,new Ints());
+        m_.getSecEffectsByItem().addEntry(I_1,new Ints());
+        m_.getSecEffectsByItem().addEntry("__",new Ints());
+        m_.getTypesByOwnedItem().addEntry(NULL_REF,T_1);
+        m_.getTypesByOwnedItem().addEntry(I_2,T_2);
+        m_.getTypesByOwnedItem().addEntry("__",NULL_REF);
+        m_.getTypesByOwnedItem().addEntry(I_3,"__");
+        m_.getTypesByWeather().addEntry(NULL_REF,T_1);
+        m_.getTypesByWeather().addEntry(M_2,T_3);
+        db_.getMoves().addEntry(M_1,m_);
+        DataBase res_ = ConverterCommonMapUtil.patchData(api_, db_);
+        assertEq(2,res_.getTranslatedMoves().size());
+        assertEq(2,res_.getTranslatedMoves().getValue(0).size());
+        assertEq(2,res_.getTranslatedMoves().getValue(1).size());
+        assertEq(2,res_.getTranslatedTypes().size());
+        assertEq(3,res_.getTranslatedTypes().getValue(0).size());
+        assertEq(3,res_.getTranslatedTypes().getValue(1).size());
+        assertEq(2,res_.getTranslatedItems().size());
+        assertEq(3,res_.getTranslatedItems().getValue(0).size());
+        assertEq(3,res_.getTranslatedItems().getValue(1).size());
     }
 }

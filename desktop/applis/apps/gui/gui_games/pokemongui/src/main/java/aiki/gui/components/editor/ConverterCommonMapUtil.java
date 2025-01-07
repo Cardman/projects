@@ -438,8 +438,15 @@ public final class ConverterCommonMapUtil {
             addTr(_db.getTranslatedAbilities(),m.getKey());
         }
         for (EntryCust<String, MoveData> m: _db.getMoves().entryList()) {
-            addTrs(_db.getTranslatedTypes(),m.getValue().getTypes());
             addTr(_db.getTranslatedMoves(),m.getKey());
+            addTrs(_db.getTranslatedTypes(),m.getValue().getTypes());
+            addTrs(_db.getTranslatedTypes(),m.getValue().getBoostedTypes());
+            addTrs(_db.getTranslatedMoves(),m.getValue().getAchieveDisappearedPkUsingMove());
+            addTrs(_db.getTranslatedStatus(),m.getValue().getDeletedStatus());
+            addTrs(_db.getTranslatedStatus(),m.getValue().getRequiredStatus());
+            new IntListConvertId<Ints>().addTrsDefValue(_db.getTranslatedItems(),m.getValue().getSecEffectsByItem());
+            addTrsDefValue(_db.getTranslatedItems(),_db.getTranslatedTypes(),m.getValue().getTypesByOwnedItem());
+            addTrsDefValue(_db.getTranslatedMoves(),_db.getTranslatedTypes(),m.getValue().getTypesByWeather());
             if (m.getValue() instanceof DamagingMoveData) {
                 ((DamagingMoveData)m.getValue()).setCategory(addTr(_db.getTranslatedCategories(),((DamagingMoveData)m.getValue()).getCategory()));
             }
@@ -475,6 +482,20 @@ public final class ConverterCommonMapUtil {
         addTrsMap(_db.getTranslatedTypes());
     }
 
+    public static void addTrsDefValue(StringMap<StringMap<String>> _tr, StringMap<StringMap<String>> _sec, StringMap<String> _eff) {
+        StringMap<String> e_ = new StringMap<String>();
+        for (EntryCust<String,String> e: _eff.entryList()) {
+            String k_ = e.getKey();
+            String v_ = e.getValue();
+            boolean okKey_ = k_.isEmpty() || !ConverterCommonMapUtil.addTr(_tr, k_).isEmpty();
+            boolean okValue_ = !ConverterCommonMapUtil.addTr(_sec, v_).isEmpty();
+            if (okKey_ && okValue_) {
+                e_.addEntry(k_, v_);
+            }
+        }
+        _eff.clear();
+        _eff.addAllEntries(e_);
+    }
     private static void addTrsEvo(DataBase _db, StringMap<Evolution> _evos) {
         StringMap<Evolution> ev_ = new StringMap<Evolution>();
         for (EntryCust<String,Evolution> e: _evos.entryList()) {
@@ -540,7 +561,7 @@ public final class ConverterCommonMapUtil {
         _ls.addAllElts(next_);
     }
 
-    private static String addTr(StringMap<StringMap<String>> _t, String _key) {
+    public static String addTr(StringMap<StringMap<String>> _t, String _key) {
         if (DataBase.isCorrectIdentifier(_key)) {
             for (EntryCust<String,StringMap<String>> e: _t.entryList()) {
                 if (!e.getValue().contains(_key)) {
