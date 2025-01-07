@@ -136,6 +136,7 @@ public final class EditorAppFormTest extends InitEditorPkForm {
         DataBase db_ = DocumentReaderAikiCoreUtil.initData(api_.getGenerator(), f_);
         PokemonData p_ = Instances.newPokemonData();
         p_.getEvolutions().addEntry(P_2,Instances.newEvolutionHappiness());
+        p_.getEvolutions().addEntry(NULL_REF,Instances.newEvolutionHappiness());
         db_.getPokedex().addEntry(P_1, p_);
         DataBase res_ = ConverterCommonMapUtil.patchData(api_, db_);
         assertEq(2,res_.getTranslatedPokemon().size());

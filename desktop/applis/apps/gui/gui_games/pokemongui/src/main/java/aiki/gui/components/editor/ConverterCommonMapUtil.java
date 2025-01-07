@@ -451,9 +451,9 @@ public final class ConverterCommonMapUtil {
         for (EntryCust<String, PokemonData> m: _db.getPokedex().entryList()) {
             addTr(_db.getTranslatedPokemon(),m.getKey());
             addTrs(_db.getTranslatedTypes(),m.getValue().getTypes());
-            for (EntryCust<String,Evolution> e:m.getValue().getEvolutions().entryList()) {
-                addTr(_db.getTranslatedPokemon(), e.getKey());
-            }
+            addTrsEvo(_db, m.getValue().getEvolutions());
+            addTrs(_db.getTranslatedAbilities(),m.getValue().getAbilities());
+            addTrs(_db.getTranslatedMoves(),m.getValue().getMoveTutors());
         }
         addTrImg(_db.getMiniPk(), _db.getTranslatedPokemon());
         addTrImg(_db.getMaxiPkFront(), _db.getTranslatedPokemon());
@@ -473,6 +473,17 @@ public final class ConverterCommonMapUtil {
         addTrsMap(_db.getTranslatedPokemon());
         addTrsMap(_db.getTranslatedStatus());
         addTrsMap(_db.getTranslatedTypes());
+    }
+
+    private static void addTrsEvo(DataBase _db, StringMap<Evolution> _evos) {
+        StringMap<Evolution> ev_ = new StringMap<Evolution>();
+        for (EntryCust<String,Evolution> e: _evos.entryList()) {
+            if (!addTr(_db.getTranslatedPokemon(), e.getKey()).isEmpty()){
+                ev_.addEntry(e.getKey(),e.getValue());
+            }
+        }
+        _evos.clear();
+        _evos.addAllEntries(ev_);
     }
 
     private static void addTrsMap(StringMap<StringMap<String>> _tr) {
@@ -576,11 +587,6 @@ public final class ConverterCommonMapUtil {
 
     private static void removeInvalidKeyPk(StringMap<PokemonData> _l) {
         new IntListConvertId<PokemonData>().clean(_l);
-        int len_ = _l.size();
-        for (int j = 0; j < len_; j++) {
-            PokemonData d_ = _l.getValue(j);
-            new IntListConvertId<Evolution>().clean(d_.getEvolutions());
-        }
     }
 
     private static void removeInvalidKeyMv(StringMap<MoveData> _l) {
