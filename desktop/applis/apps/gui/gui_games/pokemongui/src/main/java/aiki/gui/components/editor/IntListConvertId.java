@@ -67,7 +67,7 @@ public final class IntListConvertId<E> implements IntListConvert<E, IdList<E>> {
             _map.addEntry(f,Long.toString(_map.size()));
         }
     }
-    public void clean(StringMap<E> _map) {
+    public void clean(AbsMap<String,E> _map) {
         StringMap<E> evos_ = new StringMap<E>();
         for (EntryCust<String,E> e:_map.entryList()) {
             String ev_ = e.getKey();
@@ -79,7 +79,7 @@ public final class IntListConvertId<E> implements IntListConvert<E, IdList<E>> {
         _map.addAllEntries(evos_);
     }
 
-    public void addTrs(StringMap<StringMap<String>> _tr, StringMap<E> _eff) {
+    public void addTrs(StringMap<StringMap<String>> _tr, AbsMap<String,E> _eff) {
         StringMap<E> e_ = new StringMap<E>();
         for (EntryCust<String,E> e: _eff.entryList()) {
             String k_ = e.getKey();
@@ -91,7 +91,18 @@ public final class IntListConvertId<E> implements IntListConvert<E, IdList<E>> {
         _eff.addAllEntries(e_);
     }
 
-    public void addTrsDefValue(StringMap<StringMap<String>> _tr, StringMap<E> _eff) {
+    public void addTrsValues(StringMap<StringMap<String>> _tr, AbsMap<E,String> _eff) {
+        IdMap<E,String> e_ = new IdMap<E,String>();
+        for (EntryCust<E, String> e: _eff.entryList()) {
+            String v_ = e.getValue();
+            if (!ConverterCommonMapUtil.addTr(_tr, v_).isEmpty()) {
+                e_.addEntry(e.getKey(), v_);
+            }
+        }
+        _eff.clear();
+        _eff.addAllEntries(e_);
+    }
+    public void addTrsDefValue(StringMap<StringMap<String>> _tr, AbsMap<String,E> _eff) {
         StringMap<E> e_ = new StringMap<E>();
         for (EntryCust<String,E> e: _eff.entryList()) {
             String k_ = e.getKey();

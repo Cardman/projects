@@ -486,45 +486,109 @@ public final class ConverterCommonMapUtil {
 
     private static void addTrsEff(DataBase _db, CustList<Effect> _effs) {
         for (Effect e: _effs) {
-            if (e instanceof EffectCounterAttack) {
-                new IntListConvertId<Rate>().addTrs(_db.getTranslatedTypes(),((EffectCounterAttack)e).getSufferingDamageTypes());
-            }
-            if (e instanceof EffectDamage) {
-                new IntListConvertId<Rate>().addTrs(_db.getTranslatedCategories(),((EffectDamage)e).getMultDamageAgainst());
-            }
-            if (e instanceof EffectEndRoundIndividual) {
-                new IntListConvertId<Rate>().addTrs(_db.getTranslatedStatus(),((EffectEndRoundIndividual)e).getMultDamageStatus());
-                new IntListConvertId<Rate>().addTrsDefValue(_db.getTranslatedTypes(),((EffectEndRoundIndividual)e).getHealHpByOwnerTypes());
-                ((EffectEndRoundIndividual)e).setUserStatusEndRound(addTr(_db.getTranslatedStatus(),((EffectEndRoundIndividual)e).getUserStatusEndRound()));
-            }
-            if (e instanceof EffectEndRoundMultiRelation) {
-                new IntListConvertId<Rate>().addTrs(_db.getTranslatedStatus(),((EffectEndRoundMultiRelation)e).getDamageByStatus());
-            }
-            if (e instanceof EffectGlobal) {
-                addTrs(_db.getTranslatedStatus(),((EffectGlobal)e).getPreventStatus());
-                addTrs(_db.getTranslatedTypes(),((EffectGlobal)e).getImmuneTypes());
-                addTrs(_db.getTranslatedTypes(),((EffectGlobal)e).getEfficiencyMoves());
-                addTrs(_db.getTranslatedTypes(),((EffectGlobal)e).getDisableImmuAgainstTypes());
-                addTrs(_db.getTranslatedAbilities(),((EffectGlobal)e).getCancelProtectingAbilities());
-                addTrs(_db.getTranslatedMoves(),((EffectGlobal)e).getUnusableMoves());
-                new IntListConvertId<Rate>().addTrs(_db.getTranslatedTypes(),((EffectGlobal)e).getMultDamagePrepaRound());
-                addTrs(_db.getTranslatedMoves(),((EffectGlobal)e).getMovesUsedByTargetedFighters());
-                new IntListConvertId<Rate>().addTrs(_db.getTranslatedMoves(),((EffectGlobal)e).getMultPowerMoves());
-                addTrs(_db.getTranslatedTypes(),((EffectGlobal)e).getMultStatIfContainsType());
-                addTrs(_db.getTranslatedMoves(),((EffectGlobal)e).getCancelEffects());
-                new IntListConvertId<Rate>().addTrs(_db.getTranslatedTypes(),((EffectGlobal)e).getMultDamageTypesMoves());
-                ((EffectGlobal)e).setInvokedMoveTerrain(addTr(_db.getTranslatedMoves(),((EffectGlobal)e).getInvokedMoveTerrain()));
-                addTrs(_db.getTranslatedTypes(),((EffectGlobal)e).getChangedTypesTerrain());
-            }
+            addTrsEff(_db, e);
         }
     }
 
-    public static void addTrsDefValue(StringMap<StringMap<String>> _tr, StringMap<StringMap<String>> _sec, StringMap<String> _eff) {
+    private static void addTrsEff(DataBase _db, Effect _e) {
+        if (_e instanceof EffectCounterAttack) {
+            new IntListConvertId<Rate>().addTrs(_db.getTranslatedTypes(),((EffectCounterAttack) _e).getSufferingDamageTypes());
+        }
+        if (_e instanceof EffectDamage) {
+            new IntListConvertId<Rate>().addTrs(_db.getTranslatedCategories(),((EffectDamage) _e).getMultDamageAgainst());
+        }
+        if (_e instanceof EffectEndRoundIndividual) {
+            new IntListConvertId<Rate>().addTrs(_db.getTranslatedStatus(),((EffectEndRoundIndividual) _e).getMultDamageStatus());
+            new IntListConvertId<Rate>().addTrsDefValue(_db.getTranslatedTypes(),((EffectEndRoundIndividual) _e).getHealHpByOwnerTypes());
+            ((EffectEndRoundIndividual) _e).setUserStatusEndRound(addTr(_db.getTranslatedStatus(),((EffectEndRoundIndividual) _e).getUserStatusEndRound()));
+        }
+        if (_e instanceof EffectEndRoundMultiRelation) {
+            new IntListConvertId<Rate>().addTrs(_db.getTranslatedStatus(),((EffectEndRoundMultiRelation) _e).getDamageByStatus());
+        }
+        if (_e instanceof EffectGlobal) {
+            addTrs(_db.getTranslatedStatus(),((EffectGlobal) _e).getPreventStatus());
+            addTrs(_db.getTranslatedTypes(),((EffectGlobal) _e).getImmuneTypes());
+            addTrs(_db.getTranslatedTypes(),((EffectGlobal) _e).getEfficiencyMoves());
+            addTrs(_db.getTranslatedTypes(),((EffectGlobal) _e).getDisableImmuAgainstTypes());
+            addTrs(_db.getTranslatedAbilities(),((EffectGlobal) _e).getCancelProtectingAbilities());
+            addTrs(_db.getTranslatedMoves(),((EffectGlobal) _e).getUnusableMoves());
+            new IntListConvertId<Rate>().addTrs(_db.getTranslatedTypes(),((EffectGlobal) _e).getMultDamagePrepaRound());
+            addTrs(_db.getTranslatedMoves(),((EffectGlobal) _e).getMovesUsedByTargetedFighters());
+            new IntListConvertId<Rate>().addTrs(_db.getTranslatedMoves(),((EffectGlobal) _e).getMultPowerMoves());
+            addTrs(_db.getTranslatedTypes(),((EffectGlobal) _e).getMultStatIfContainsType());
+            addTrs(_db.getTranslatedMoves(),((EffectGlobal) _e).getCancelEffects());
+            new IntListConvertId<Rate>().addTrs(_db.getTranslatedTypes(),((EffectGlobal) _e).getMultDamageTypesMoves());
+            ((EffectGlobal) _e).setInvokedMoveTerrain(addTr(_db.getTranslatedMoves(),((EffectGlobal) _e).getInvokedMoveTerrain()));
+            addTrs(_db.getTranslatedTypes(),((EffectGlobal) _e).getChangedTypesTerrain());
+        }
+        if (_e instanceof EffectInvoke) {
+            new IntListConvertId<EnvironmentType>().addTrsValues(_db.getTranslatedMoves(),((EffectInvoke) _e).getMoveFctEnv());
+            addTrsDefValue(_db.getTranslatedTypes(), _db.getTranslatedMoves(),((EffectInvoke) _e).getInvokingMoveByUserTypes());
+            addTrs(_db.getTranslatedMoves(),((EffectInvoke) _e).getMovesNotToBeInvoked());
+        }
+        if (_e instanceof EffectMultMovePower) {
+            new IntListConvertId<Rate>().addTrs(_db.getTranslatedTypes(),((EffectMultMovePower) _e).getMultMovePowerFctType());
+        }
+        if (_e instanceof EffectProtectFromTypes) {
+            addTrs(_db.getTranslatedTypes(),((EffectProtectFromTypes) _e).getImmuAgainstTypes());
+        }
+        if (_e instanceof EffectStatus) {
+            addTrs(_db.getTranslatedStatus(),((EffectStatus) _e).getDeletedStatus());
+            new IntListConvertId<String>().addTrs(_db.getTranslatedStatus(),((EffectStatus) _e).getLocalFailStatus());
+            new IntListConvertId<LgInt>().addTrsDefValue(_db.getTranslatedStatus(),((EffectStatus) _e).getLawStatus().getLaw());
+        }
+        if (_e instanceof EffectSwitchAbilities) {
+            ((EffectSwitchAbilities) _e).setConstAbility(addTr(_db.getTranslatedAbilities(),((EffectSwitchAbilities) _e).getConstAbility()));
+        }
+        if (_e instanceof EffectSwitchMoveTypes) {
+            addTrs(_db.getTranslatedTypes(),((EffectSwitchMoveTypes) _e).getReplacingTypes());
+            addTrs(_db.getTranslatedTypes(), _db.getTranslatedTypes(),((EffectSwitchMoveTypes) _e).getChangeTypes());
+        }
+        if (_e instanceof EffectSwitchTypes) {
+            new IntListConvertId<EnvironmentType>().addTrsValues(_db.getTranslatedTypes(),((EffectSwitchTypes) _e).getChgtTypeByEnv());
+            addTrs(_db.getTranslatedTypes(),((EffectSwitchTypes) _e).getConstTypes());
+            addTrs(_db.getTranslatedTypes(),((EffectSwitchTypes) _e).getAddedTypes());
+        }
+        if (_e instanceof EffectTeam) {
+            addTrs(_db.getTranslatedMoves(),((EffectTeam) _e).getUnusableMoves());
+            addTrs(_db.getTranslatedCategories(),((EffectTeam)_e).getMultDamage());
+            addTrs(_db.getTranslatedStatus(),((EffectTeam) _e).getProtectAgainstStatus());
+            addTrs(_db.getTranslatedMoves(),((EffectTeam) _e).getDisableFoeTeamEffects());
+            addTrs(_db.getTranslatedStatus(),((EffectTeam) _e).getDisableFoeTeamStatus());
+        }
+        if (_e instanceof EffectUnprotectFromTypes) {
+            addTrs(_db.getTranslatedTypes(),((EffectUnprotectFromTypes) _e).getDisableImmuAgainstTypes());
+            addTrs(_db.getTranslatedTypes(),((EffectUnprotectFromTypes) _e).getAttackTargetWithTypes());
+            addTrs(_db.getTranslatedMoves(),((EffectUnprotectFromTypes) _e).getDisableImmuFromMoves());
+            addTrs(_db.getTranslatedTypes(),((EffectUnprotectFromTypes) _e).getTypes());
+        }
+        if (_e instanceof EffectTeamWhileSendFoe) {
+            addTrs(_db.getTranslatedTypes(),((EffectTeamWhileSendFoe) _e).getDeletedByFoeTypes());
+            new IntListConvertId<Short>().addTrsValues(_db.getTranslatedStatus(),((EffectTeamWhileSendFoe)_e).getStatusByNbUses());
+        }
+    }
+
+    public static void addTrsDefValue(StringMap<StringMap<String>> _tr, StringMap<StringMap<String>> _sec, AbsMap<String,String> _eff) {
         StringMap<String> e_ = new StringMap<String>();
         for (EntryCust<String,String> e: _eff.entryList()) {
             String k_ = e.getKey();
             String v_ = e.getValue();
             boolean okKey_ = k_.isEmpty() || !ConverterCommonMapUtil.addTr(_tr, k_).isEmpty();
+            boolean okValue_ = !ConverterCommonMapUtil.addTr(_sec, v_).isEmpty();
+            if (okKey_ && okValue_) {
+                e_.addEntry(k_, v_);
+            }
+        }
+        _eff.clear();
+        _eff.addAllEntries(e_);
+    }
+
+    public static void addTrs(StringMap<StringMap<String>> _tr, StringMap<StringMap<String>> _sec, AbsMap<String,String> _eff) {
+        StringMap<String> e_ = new StringMap<String>();
+        for (EntryCust<String,String> e: _eff.entryList()) {
+            String k_ = e.getKey();
+            String v_ = e.getValue();
+            boolean okKey_ = !ConverterCommonMapUtil.addTr(_tr, k_).isEmpty();
             boolean okValue_ = !ConverterCommonMapUtil.addTr(_sec, v_).isEmpty();
             if (okKey_ && okValue_) {
                 e_.addEntry(k_, v_);
@@ -602,11 +666,7 @@ public final class ConverterCommonMapUtil {
         TypesDuos e_ = new TypesDuos();
         for (EntryCust<TypesDuo, Rate> e: _ls.entryList()) {
             TypesDuo key_ = e.getKey();
-            String k_ = key_.getDamageType();
-            String v_ = key_.getPokemonType();
-            boolean okKey_ = !ConverterCommonMapUtil.addTr(_t, k_).isEmpty();
-            boolean okValue_ = !ConverterCommonMapUtil.addTr(_t, v_).isEmpty();
-            if (okKey_ && okValue_) {
+            if (ok(_t, key_)) {
                 e_.addEntry(key_, e.getValue());
             }
         }
@@ -614,11 +674,40 @@ public final class ConverterCommonMapUtil {
         _ls.addAllEntries(e_);
     }
 
+    private static void addTrs(StringMap<StringMap<String>> _t, CustList<TypesDuo> _ls) {
+        CustList<TypesDuo> e_ = new CustList<TypesDuo>();
+        for (TypesDuo e: _ls) {
+            if (ok(_t, e)) {
+                e_.add(e);
+            }
+        }
+        _ls.clear();
+        _ls.addAllElts(e_);
+    }
+
+    private static boolean ok(StringMap<StringMap<String>> _t, TypesDuo _key) {
+        boolean okKey_ = !ConverterCommonMapUtil.addTr(_t, _key.getDamageType()).isEmpty();
+        boolean okValue_ = !ConverterCommonMapUtil.addTr(_t, _key.getPokemonType()).isEmpty();
+        return okKey_ && okValue_;
+    }
+
     private static void addTrs(StringMap<StringMap<String>> _t, StatisticTypeList<Rate> _ls) {
         StatisticTypeRate e_ = new StatisticTypeRate();
         for (EntryCust<StatisticType, Rate> e: _ls.entryList()) {
             StatisticType key_ = e.getKey();
             if (!ConverterCommonMapUtil.addTr(_t, key_.getType()).isEmpty()) {
+                e_.addEntry(key_, e.getValue());
+            }
+        }
+        _ls.clear();
+        _ls.addAllEntries(e_);
+    }
+
+    private static void addTrs(StringMap<StringMap<String>> _t, CategoryMults _ls) {
+        CategoryMults e_ = new CategoryMults();
+        for (EntryCust<CategoryMult, Rate> e: _ls.entryList()) {
+            CategoryMult key_ = e.getKey();
+            if (!ConverterCommonMapUtil.addTr(_t, key_.getCategory()).isEmpty()) {
                 e_.addEntry(key_, e.getValue());
             }
         }
