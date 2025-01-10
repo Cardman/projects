@@ -2,10 +2,13 @@ package aiki.gui;
 
 import aiki.db.*;
 import aiki.facade.*;
+import aiki.fight.enums.Statistic;
 import aiki.fight.moves.*;
 import aiki.fight.moves.effects.*;
 import aiki.fight.pokemon.*;
 import aiki.fight.pokemon.evolution.*;
+import aiki.fight.util.StatisticType;
+import aiki.fight.util.TypesDuo;
 import aiki.gui.components.editor.*;
 import aiki.instances.*;
 import aiki.sml.*;
@@ -287,5 +290,28 @@ public final class EditorAppFormTest extends InitEditorPkForm {
         assertEq(2,res_.getTranslatedCategories().size());
         assertEq(1,res_.getTranslatedCategories().getValue(0).size());
         assertEq(1,res_.getTranslatedCategories().getValue(1).size());
+    }
+    @Test
+    public void patchData14() {
+        MockProgramInfos api_ = initForms();
+        FacadeGame f_ = ConverterCommonMapUtil.facadeInit(api_);
+        f_.setSexList(new MockLSexList());
+        MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(api_.getTranslations()));
+        DataBase db_ = DocumentReaderAikiCoreUtil.initData(api_.getGenerator(), f_);
+        MoveData m_ = Instances.newDamagingMoveData();
+        m_.getEffects().add(Instances.newEffectEndRoundIndividual());
+        m_.getEffects().add(Instances.newEffectEndRoundMultiRelation());
+        EffectGlobal d_ = Instances.newEffectGlobal();
+        d_.getEfficiencyMoves().addEntry(new TypesDuo(T_1,NULL_REF),Rate.one());
+        d_.getEfficiencyMoves().addEntry(new TypesDuo(NULL_REF,T_2),Rate.one());
+        d_.getEfficiencyMoves().addEntry(new TypesDuo(T_1,T_2),Rate.one());
+        d_.getMultStatIfContainsType().addEntry(new StatisticType(Statistic.SPEED,T_3),Rate.one());
+        d_.getMultStatIfContainsType().addEntry(new StatisticType(Statistic.SPEED,NULL_REF),Rate.one());
+        m_.getEffects().add(d_);
+        db_.getMoves().addEntry(M_1,m_);
+        DataBase res_ = ConverterCommonMapUtil.patchData(api_, db_);
+        assertEq(2,res_.getTranslatedTypes().size());
+        assertEq(3,res_.getTranslatedTypes().getValue(0).size());
+        assertEq(3,res_.getTranslatedTypes().getValue(1).size());
     }
 }
