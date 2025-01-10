@@ -2,17 +2,16 @@ package aiki.gui;
 
 import aiki.db.*;
 import aiki.facade.*;
-import aiki.fight.enums.Statistic;
+import aiki.fight.abilities.*;
+import aiki.fight.enums.*;
 import aiki.fight.moves.*;
 import aiki.fight.moves.effects.*;
 import aiki.fight.pokemon.*;
 import aiki.fight.pokemon.evolution.*;
-import aiki.fight.util.CategoryMult;
-import aiki.fight.util.StatisticType;
-import aiki.fight.util.TypesDuo;
+import aiki.fight.util.*;
 import aiki.gui.components.editor.*;
 import aiki.instances.*;
-import aiki.map.levels.enums.EnvironmentType;
+import aiki.map.levels.enums.*;
 import aiki.sml.*;
 import code.maths.Rate;
 import code.mock.*;
@@ -358,5 +357,51 @@ public final class EditorAppFormTest extends InitEditorPkForm {
         assertEq(2,res_.getTranslatedTypes().size());
         assertEq(3,res_.getTranslatedTypes().getValue(0).size());
         assertEq(3,res_.getTranslatedTypes().getValue(1).size());
+    }
+    @Test
+    public void patchData16() {
+        MockProgramInfos api_ = initForms();
+        FacadeGame f_ = ConverterCommonMapUtil.facadeInit(api_);
+        f_.setSexList(new MockLSexList());
+        MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(api_.getTranslations()));
+        DataBase db_ = DocumentReaderAikiCoreUtil.initData(api_.getGenerator(), f_);
+        AbilityData a_ = Instances.newAbilityData();
+        a_.getHealHpByTypeIfWeather().addEntry(new WeatherType(M_1,T_1),Rate.one());
+        a_.getHealHpByTypeIfWeather().addEntry(new WeatherType(NULL_REF,T_1),Rate.one());
+        a_.getHealHpByTypeIfWeather().addEntry(new WeatherType(M_1,NULL_REF),Rate.one());
+        a_.getImmuStatusTypes().addEntry(T_1,new StringList());
+        a_.getImmuStatusTypes().addEntry(NULL_REF,new StringList());
+        a_.getImmuStatus().addEntry(M_1,new StringList());
+        a_.getImmuStatus().addEntry(NULL_REF,new StringList());
+        a_.getImmuStatus().addEntry("__",new StringList());
+        a_.getChangingBoostTypes().addEntry(T_1,new TypeDamageBoost(T_1,Rate.one()));
+        a_.getChangingBoostTypes().addEntry(T_1,new TypeDamageBoost(NULL_REF,Rate.one()));
+        a_.getChangingBoostTypes().addEntry(NULL_REF,new TypeDamageBoost(T_1,Rate.one()));
+        a_.getImmuLowStatIfStatus().add(new StatisticStatus(Statistic.SPEED,NULL_REF));
+        a_.getImmuLowStatIfStatus().add(new StatisticStatus(Statistic.SPEED,S_1));
+        a_.getMultStatIfStatutRank().addEntry(new StatisticStatus(Statistic.SPEED,NULL_REF),(byte)1);
+        a_.getMultStatIfStatutRank().addEntry(new StatisticStatus(Statistic.SPEED,S_1),(byte)1);
+        a_.getMultStatIfDamgeType().addEntry(new StatisticType(Statistic.SPEED,NULL_REF),(byte)1);
+        a_.getMultStatIfDamgeType().addEntry(new StatisticType(Statistic.SPEED,T_1),(byte)1);
+        a_.getMultStatIfDamageCat().addEntry(new StatisticCategory(Statistic.SPEED,NULL_REF),(byte)1);
+        a_.getMultStatIfDamageCat().addEntry(new StatisticCategory(Statistic.SPEED,C_1),(byte)1);
+        a_.getMultStatIfCat().addEntry(new StatisticCategory(Statistic.SPEED,NULL_REF),Rate.one());
+        a_.getMultStatIfCat().addEntry(new StatisticCategory(Statistic.SPEED,C_1),Rate.one());
+        a_.getEffectSending().add(Instances.newEffectWhileSendingSimple());
+        a_.getEffectEndRound().add(Instances.newEffectEndRoundFoe());
+        db_.getAbilities().addEntry(A_1,a_);
+        DataBase res_ = ConverterCommonMapUtil.patchData(api_, db_);
+        assertEq(2,res_.getTranslatedCategories().size());
+        assertEq(1,res_.getTranslatedCategories().getValue(0).size());
+        assertEq(1,res_.getTranslatedCategories().getValue(1).size());
+        assertEq(2,res_.getTranslatedMoves().size());
+        assertEq(1,res_.getTranslatedMoves().getValue(0).size());
+        assertEq(1,res_.getTranslatedMoves().getValue(1).size());
+        assertEq(2,res_.getTranslatedStatus().size());
+        assertEq(1,res_.getTranslatedStatus().getValue(0).size());
+        assertEq(1,res_.getTranslatedStatus().getValue(1).size());
+        assertEq(2,res_.getTranslatedTypes().size());
+        assertEq(1,res_.getTranslatedTypes().getValue(0).size());
+        assertEq(1,res_.getTranslatedTypes().getValue(1).size());
     }
 }

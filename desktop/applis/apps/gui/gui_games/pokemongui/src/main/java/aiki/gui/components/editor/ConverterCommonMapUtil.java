@@ -436,6 +436,7 @@ public final class ConverterCommonMapUtil {
     private static void addEntity(DataBase _db) {
         for (EntryCust<String, AbilityData> m: _db.getAbilities().entryList()) {
             addTr(_db.getTranslatedAbilities(),m.getKey());
+            addTr(_db, m.getValue());
         }
         for (EntryCust<String, MoveData> m: _db.getMoves().entryList()) {
             addTr(_db.getTranslatedMoves(),m.getKey());
@@ -484,6 +485,46 @@ public final class ConverterCommonMapUtil {
         addTrsMap(_db.getTranslatedTypes());
     }
 
+    private static void addTr(DataBase _db, AbilityData _a) {
+        addTrs(_db.getTranslatedTypes(), _a.getBreakFoeImmune());
+        addTrsDefValue(_db.getTranslatedMoves(), _db.getTranslatedTypes(), _a.getChgtTypeByWeather());
+        new IntListConvertId<Rate>().addTrs(_db.getTranslatedStatus(), _a.getDivideStatusRound());
+        new IntListConvertId<Rate>().addTrsDefValue(_db.getTranslatedMoves(), _a.getHealHpByWeather());
+        addTrs(_db.getTranslatedAbilities(), _a.getIgnAbility());
+        addTrs(_db.getTranslatedAbilities(), _a.getImmuAbility());
+        addTrs(_db.getTranslatedMoves(), _a.getIgnFoeTeamMove());
+        addTrs(_db.getTranslatedMoves(), _a.getImmuMove());
+        addTrs(_db.getTranslatedMoves(), _a.getImmuWeather());
+        addTrs(_db.getTranslatedMoves(), _a.getImmuAllyFromMoves());
+        addTrs(_db.getTranslatedStatus(), _a.getImmuStatusBeginRound());
+        new IntListConvertId<Rate>().addTrs(_db.getTranslatedTypes(), _a.getMultDamageFoe());
+        new IntListConvertId<Rate>().addTrs(_db.getTranslatedTypes(), _a.getMultPowerMovesTypesGlobal());
+        new IntListConvertId<Short>().addTrs(_db.getTranslatedCategories(), _a.getIncreasedPrio());
+        new IntListConvertId<Short>().addTrs(_db.getTranslatedTypes(), _a.getIncreasedPrioTypes());
+        addTrsByte(_db.getTranslatedTypes(), _a.getMultStatIfDamgeType());
+        addTrsRate(_db.getTranslatedCategories(), _a.getMultStatIfCat());
+        addTrsByte(_db.getTranslatedCategories(), _a.getMultStatIfDamageCat());
+        new IntListConvertId<LgInt>().addTrsDefValue(_db.getTranslatedStatus(), _a.getSingleStatus().getLaw());
+        addTrs(_db.getTranslatedStatus(), _db.getTranslatedStatus(), _a.getForwardStatus());
+        new IntListConvertId<String>().addTrs(_db.getTranslatedStatus(), _a.getFailStatus());
+        for (EffectEndRound e: _a.getEffectEndRound()) {
+            addTrsEff(_db,e);
+        }
+        for (EffectWhileSendingWithStatistic e: _a.getEffectSending()) {
+            addTrsEff(_db, e.getEffect());
+            e.setEnabledWeather(addTr(_db.getTranslatedMoves(),e.getEnabledWeather()));
+        }
+        addTrsListDefValue(_db.getTranslatedMoves(),_db.getTranslatedStatus(),_a.getImmuStatus());
+        addTrsListDefValue(_db.getTranslatedMoves(),_db.getTranslatedTypes(),_a.getImmuMoveTypesByWeather());
+        addTrsList(_db.getTranslatedTypes(),_db.getTranslatedStatus(),_a.getImmuStatusTypes());
+        addTrsByte(_db.getTranslatedStatus(),_a.getMultStatIfStatutRank());
+        addTrsByte(_db.getTranslatedStatus(),_a.getImmuLowStatIfStatus());
+        addTrs(_db.getTranslatedMoves(),_db.getTranslatedTypes(),_a.getHealHpByTypeIfWeather());
+        addTrsTypeDam(_db.getTranslatedTypes(),_a.getChangingBoostTypes());
+        new IntListConvertId<IdList<Statistic>>().addTrs(_db.getTranslatedTypes(),_a.getImmuLowStatisTypes());
+        _a.setTypeForMoves(addTr(_db.getTranslatedTypes(), _a.getTypeForMoves()));
+    }
+
     private static void addTrsEff(DataBase _db, CustList<Effect> _effs) {
         for (Effect e: _effs) {
             addTrsEff(_db, e);
@@ -515,7 +556,7 @@ public final class ConverterCommonMapUtil {
             new IntListConvertId<Rate>().addTrs(_db.getTranslatedTypes(),((EffectGlobal) _e).getMultDamagePrepaRound());
             addTrs(_db.getTranslatedMoves(),((EffectGlobal) _e).getMovesUsedByTargetedFighters());
             new IntListConvertId<Rate>().addTrs(_db.getTranslatedMoves(),((EffectGlobal) _e).getMultPowerMoves());
-            addTrs(_db.getTranslatedTypes(),((EffectGlobal) _e).getMultStatIfContainsType());
+            addTrsRate(_db.getTranslatedTypes(),((EffectGlobal) _e).getMultStatIfContainsType());
             addTrs(_db.getTranslatedMoves(),((EffectGlobal) _e).getCancelEffects());
             new IntListConvertId<Rate>().addTrs(_db.getTranslatedTypes(),((EffectGlobal) _e).getMultDamageTypesMoves());
             ((EffectGlobal) _e).setInvokedMoveTerrain(addTr(_db.getTranslatedMoves(),((EffectGlobal) _e).getInvokedMoveTerrain()));
@@ -592,6 +633,64 @@ public final class ConverterCommonMapUtil {
             boolean okValue_ = !ConverterCommonMapUtil.addTr(_sec, v_).isEmpty();
             if (okKey_ && okValue_) {
                 e_.addEntry(k_, v_);
+            }
+        }
+        _eff.clear();
+        _eff.addAllEntries(e_);
+    }
+
+    public static void addTrs(StringMap<StringMap<String>> _tr, StringMap<StringMap<String>> _sec, WeatherTypes _eff) {
+        WeatherTypes e_ = new WeatherTypes();
+        for (EntryCust<WeatherType, Rate> e: _eff.entryList()) {
+            String k_ = e.getKey().getWeather();
+            String v_ = e.getKey().getType();
+            boolean okKey_ = !ConverterCommonMapUtil.addTr(_tr, k_).isEmpty();
+            boolean okValue_ = !ConverterCommonMapUtil.addTr(_sec, v_).isEmpty();
+            if (okKey_ && okValue_) {
+                e_.addEntry(e.getKey(),e.getValue());
+            }
+        }
+        _eff.clear();
+        _eff.addAllEntries(e_);
+    }
+
+    public static void addTrsList(StringMap<StringMap<String>> _tr, StringMap<StringMap<String>> _sec, AbsMap<String,StringList> _eff) {
+        StringMap<StringList> e_ = new StringMap<StringList>();
+        for (EntryCust<String,StringList> e: _eff.entryList()) {
+            String k_ = e.getKey();
+            StringList v_ = e.getValue();
+            addTrs(_sec,v_);
+            if (!ConverterCommonMapUtil.addTr(_tr, k_).isEmpty()) {
+                e_.addEntry(k_, v_);
+            }
+        }
+        _eff.clear();
+        _eff.addAllEntries(e_);
+    }
+
+    public static void addTrsListDefValue(StringMap<StringMap<String>> _tr, StringMap<StringMap<String>> _sec, AbsMap<String,StringList> _eff) {
+        StringMap<StringList> e_ = new StringMap<StringList>();
+        for (EntryCust<String,StringList> e: _eff.entryList()) {
+            String k_ = e.getKey();
+            StringList v_ = e.getValue();
+            addTrs(_sec,v_);
+            if (k_.isEmpty() || !ConverterCommonMapUtil.addTr(_tr, k_).isEmpty()) {
+                e_.addEntry(k_, v_);
+            }
+        }
+        _eff.clear();
+        _eff.addAllEntries(e_);
+    }
+
+    private static void addTrsTypeDam(StringMap<StringMap<String>> _t, StringMap<TypeDamageBoost> _eff) {
+        StringMap<TypeDamageBoost> e_ = new StringMap<TypeDamageBoost>();
+        for (EntryCust<String,TypeDamageBoost> e: _eff.entryList()) {
+            String k_ = e.getKey();
+            TypeDamageBoost v_ = e.getValue();
+            boolean okKey_ = !ConverterCommonMapUtil.addTr(_t, k_).isEmpty();
+            boolean okValue_ = !ConverterCommonMapUtil.addTr(_t, v_.getType()).isEmpty();
+            if (okKey_ && okValue_) {
+                e_.addEntry(e.getKey(),e.getValue());
             }
         }
         _eff.clear();
@@ -691,11 +790,68 @@ public final class ConverterCommonMapUtil {
         return okKey_ && okValue_;
     }
 
-    private static void addTrs(StringMap<StringMap<String>> _t, StatisticTypeList<Rate> _ls) {
+    private static void addTrsByte(StringMap<StringMap<String>> _t, CustList<StatisticStatus> _ls) {
+        CustList<StatisticStatus> e_ = new CustList<StatisticStatus>();
+        for (StatisticStatus e: _ls) {
+            if (!ConverterCommonMapUtil.addTr(_t, e.getStatus()).isEmpty()) {
+                e_.add(e);
+            }
+        }
+        _ls.clear();
+        _ls.addAllElts(e_);
+    }
+
+    private static void addTrsByte(StringMap<StringMap<String>> _t, StatisticStatusList _ls) {
+        StatisticStatusList e_ = new StatisticStatusList();
+        for (EntryCust<StatisticStatus, Byte> e: _ls.entryList()) {
+            StatisticStatus key_ = e.getKey();
+            if (!ConverterCommonMapUtil.addTr(_t, key_.getStatus()).isEmpty()) {
+                e_.addEntry(key_, e.getValue());
+            }
+        }
+        _ls.clear();
+        _ls.addAllEntries(e_);
+    }
+    private static void addTrsRate(StringMap<StringMap<String>> _t, StatisticTypeList<Rate> _ls) {
         StatisticTypeRate e_ = new StatisticTypeRate();
         for (EntryCust<StatisticType, Rate> e: _ls.entryList()) {
             StatisticType key_ = e.getKey();
             if (!ConverterCommonMapUtil.addTr(_t, key_.getType()).isEmpty()) {
+                e_.addEntry(key_, e.getValue());
+            }
+        }
+        _ls.clear();
+        _ls.addAllEntries(e_);
+    }
+
+    private static void addTrsByte(StringMap<StringMap<String>> _t, StatisticTypeList<Byte> _ls) {
+        StatisticTypeByte e_ = new StatisticTypeByte();
+        for (EntryCust<StatisticType, Byte> e: _ls.entryList()) {
+            StatisticType key_ = e.getKey();
+            if (!ConverterCommonMapUtil.addTr(_t, key_.getType()).isEmpty()) {
+                e_.addEntry(key_, e.getValue());
+            }
+        }
+        _ls.clear();
+        _ls.addAllEntries(e_);
+    }
+
+    private static void addTrsRate(StringMap<StringMap<String>> _t, StatisticCategoryList<Rate> _ls) {
+        StatisticCategoryRate e_ = new StatisticCategoryRate();
+        for (EntryCust<StatisticCategory, Rate> e: _ls.entryList()) {
+            StatisticCategory key_ = e.getKey();
+            if (!ConverterCommonMapUtil.addTr(_t, key_.getCategory()).isEmpty()) {
+                e_.addEntry(key_, e.getValue());
+            }
+        }
+        _ls.clear();
+        _ls.addAllEntries(e_);
+    }
+    private static void addTrsByte(StringMap<StringMap<String>> _t, StatisticCategoryList<Byte> _ls) {
+        StatisticCategoryByte e_ = new StatisticCategoryByte();
+        for (EntryCust<StatisticCategory, Byte> e: _ls.entryList()) {
+            StatisticCategory key_ = e.getKey();
+            if (!ConverterCommonMapUtil.addTr(_t, key_.getCategory()).isEmpty()) {
                 e_.addEntry(key_, e.getValue());
             }
         }
