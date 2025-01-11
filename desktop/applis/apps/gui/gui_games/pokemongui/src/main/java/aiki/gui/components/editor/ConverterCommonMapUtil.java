@@ -455,6 +455,7 @@ public final class ConverterCommonMapUtil {
         }
         for (EntryCust<String, Item> m: _db.getItems().entryList()) {
             addTr(_db.getTranslatedItems(),m.getKey());
+            addTr(_db,m.getValue());
         }
         addTrImg(_db.getMiniItems(), _db.getTranslatedItems());
         for (EntryCust<String, PokemonData> m: _db.getPokedex().entryList()) {
@@ -606,6 +607,54 @@ public final class ConverterCommonMapUtil {
         if (_e instanceof EffectTeamWhileSendFoe) {
             addTrs(_db.getTranslatedTypes(),((EffectTeamWhileSendFoe) _e).getDeletedByFoeTypes());
             new IntListConvertId<Short>().addTrsValues(_db.getTranslatedStatus(),((EffectTeamWhileSendFoe)_e).getStatusByNbUses());
+        }
+    }
+    private static void addTr(DataBase _db, Item _i) {
+        if (_i instanceof Berry) {
+            addTr(_db,(Berry) _i);
+        }
+        if (_i instanceof Boost) {
+            new IntListConvertId<Short>().addTrs(_db.getTranslatedItems(),((Boost)_i).getHappiness());
+        }
+        if (_i instanceof Fossil) {
+            ((Fossil)_i).setPokemon(addTr(_db.getTranslatedPokemon(),((Fossil)_i).getPokemon()));
+        }
+        if (_i instanceof HealingItem) {
+            new IntListConvertId<Short>().addTrs(_db.getTranslatedItems(),((HealingItem)_i).getHappiness());
+        }
+        if (_i instanceof HealingStatus) {
+            addTrs(_db.getTranslatedStatus(),((HealingStatus)_i).getStatus());
+        }
+        if (_i instanceof ItemForBattle) {
+            addTr(_db,(ItemForBattle) _i);
+        }
+    }
+    private static void addTr(DataBase _db, Berry _i) {
+        addTrs(_db.getTranslatedStatus(),_i.getHealStatus());
+        new IntListConvertId<EfficiencyRate>().addTrs(_db.getTranslatedTypes(),_i.getMultFoesDamage());
+        new IntListConvertId<Rate>().addTrs(_db.getTranslatedTypes(),_i.getDamageRateRecoilFoe());
+        _i.setCategoryBoosting(addTr(_db.getTranslatedCategories(),_i.getCategoryBoosting()));
+    }
+    private static void addTr(DataBase _db, ItemForBattle _i) {
+        addTrs(_db.getTranslatedTypes(),_i.getTypesPk());
+        addTrs(_db.getTranslatedStatus(),_i.getImmuStatus());
+        new IntListConvertId<Short>().addTrs(_db.getTranslatedMoves(),_i.getIncreasingMaxNbRoundTrap());
+        addTrs(_db.getTranslatedStatus(),_i.getSynchroStatus());
+        new IntListConvertId<String>().addTrs(_db.getTranslatedMoves(),_i.getFailStatus());
+        addTrs(_db.getTranslatedPokemon(),_i.getMultStatPokemonRank());
+        new IntListConvertId<Short>().addTrs(_db.getTranslatedMoves(),_i.getIncreasingMaxNbRoundGlobalMove());
+        new IntListConvertId<Short>().addTrs(_db.getTranslatedMoves(),_i.getIncreasingMaxNbRoundTeamMove());
+        addTrs(_db.getTranslatedMoves(),_i.getImmuMoves());
+        addTrs(_db.getTranslatedPokemon(),_i.getHatching());
+        addTrs(_db.getTranslatedTypes(),_i.getImmuTypes());
+        addTrs(_db.getTranslatedMoves(),_i.getImmuWeather());
+        new IntListConvertId<IdMap<Statistic, Byte>>().addTrs(_db.getTranslatedTypes(),_i.getBoostStatisTypes());
+        for (EffectEndRound e: _i.getEffectEndRound()) {
+            addTrsEff(_db,e);
+        }
+        for (EffectWhileSendingWithStatistic e: _i.getEffectSending()) {
+            addTrsEff(_db, e.getEffect());
+            e.setEnabledWeather(addTr(_db.getTranslatedMoves(),e.getEnabledWeather()));
         }
     }
 
@@ -864,6 +913,18 @@ public final class ConverterCommonMapUtil {
         for (EntryCust<CategoryMult, Rate> e: _ls.entryList()) {
             CategoryMult key_ = e.getKey();
             if (!ConverterCommonMapUtil.addTr(_t, key_.getCategory()).isEmpty()) {
+                e_.addEntry(key_, e.getValue());
+            }
+        }
+        _ls.clear();
+        _ls.addAllEntries(e_);
+    }
+
+    private static void addTrs(StringMap<StringMap<String>> _t, StatisticPokemons _ls) {
+        StatisticPokemons e_ = new StatisticPokemons();
+        for (EntryCust<StatisticPokemon, Byte> e: _ls.entryList()) {
+            StatisticPokemon key_ = e.getKey();
+            if (!ConverterCommonMapUtil.addTr(_t, key_.getPokemon()).isEmpty()) {
                 e_.addEntry(key_, e.getValue());
             }
         }

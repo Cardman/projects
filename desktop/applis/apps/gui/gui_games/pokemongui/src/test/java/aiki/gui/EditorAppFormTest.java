@@ -4,6 +4,7 @@ import aiki.db.*;
 import aiki.facade.*;
 import aiki.fight.abilities.*;
 import aiki.fight.enums.*;
+import aiki.fight.items.ItemForBattle;
 import aiki.fight.moves.*;
 import aiki.fight.moves.effects.*;
 import aiki.fight.pokemon.*;
@@ -389,6 +390,7 @@ public final class EditorAppFormTest extends InitEditorPkForm {
         a_.getMultStatIfCat().addEntry(new StatisticCategory(Statistic.SPEED,C_1),Rate.one());
         a_.getEffectSending().add(Instances.newEffectWhileSendingSimple());
         a_.getEffectEndRound().add(Instances.newEffectEndRoundFoe());
+        db_.getItems().addEntry(I_1,Instances.newHealingHpStatus());
         db_.getAbilities().addEntry(A_1,a_);
         DataBase res_ = ConverterCommonMapUtil.patchData(api_, db_);
         assertEq(2,res_.getTranslatedCategories().size());
@@ -403,5 +405,26 @@ public final class EditorAppFormTest extends InitEditorPkForm {
         assertEq(2,res_.getTranslatedTypes().size());
         assertEq(1,res_.getTranslatedTypes().getValue(0).size());
         assertEq(1,res_.getTranslatedTypes().getValue(1).size());
+    }
+    @Test
+    public void patchData17() {
+        MockProgramInfos api_ = initForms();
+        FacadeGame f_ = ConverterCommonMapUtil.facadeInit(api_);
+        f_.setSexList(new MockLSexList());
+        MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(api_.getTranslations()));
+        DataBase db_ = DocumentReaderAikiCoreUtil.initData(api_.getGenerator(), f_);
+        ItemForBattle i_ = Instances.newItemForBattle();
+        i_.getMultStatPokemonRank().addEntry(new StatisticPokemon(Statistic.SPEED,P_1),(byte)1);
+        i_.getMultStatPokemonRank().addEntry(new StatisticPokemon(Statistic.SPEED,NULL_REF),(byte)1);
+        i_.getEffectSending().add(Instances.newEffectWhileSendingSimple());
+        i_.getEffectEndRound().add(Instances.newEffectEndRoundFoe());
+        db_.getItems().addEntry(I_1,i_);
+        db_.getItems().addEntry(I_2,Instances.newBoost());
+        db_.getItems().addEntry(I_3,Instances.newFossil());
+        db_.getItems().addEntry(I_4,Instances.newBerry());
+        DataBase res_ = ConverterCommonMapUtil.patchData(api_, db_);
+        assertEq(2,res_.getTranslatedPokemon().size());
+        assertEq(1,res_.getTranslatedPokemon().getValue(0).size());
+        assertEq(1,res_.getTranslatedPokemon().getValue(1).size());
     }
 }
