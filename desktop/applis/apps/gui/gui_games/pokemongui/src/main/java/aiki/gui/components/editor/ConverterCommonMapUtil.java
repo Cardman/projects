@@ -477,6 +477,15 @@ public final class ConverterCommonMapUtil {
             addTr(_db.getTranslatedTypes(),m);
         }
         addTrImg(_db.getTypesImages(), _db.getTranslatedTypes());
+        for (ListEffectCombo c:_db.getCombos().getEffects()) {
+            addTrs(_db.getTranslatedMoves(),c.getList());
+            for (Effect e: c.getCombo().getTeamMove()) {
+                addTrsEff(_db,e);
+            }
+            for (Effect e: c.getCombo().getEffectEndRound()) {
+                addTrsEff(_db,e);
+            }
+        }
         addTrsMap(_db.getTranslatedAbilities());
         addTrsMap(_db.getTranslatedCategories());
         addTrsMap(_db.getTranslatedItems());
