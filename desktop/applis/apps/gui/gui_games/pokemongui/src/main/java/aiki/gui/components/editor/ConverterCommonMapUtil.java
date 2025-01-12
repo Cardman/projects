@@ -465,6 +465,8 @@ public final class ConverterCommonMapUtil {
             addTrs(_db.getTranslatedAbilities(),m.getValue().getAbilities());
             addTrs(_db.getTranslatedMoves(),m.getValue().getMoveTutors());
             m.getValue().setBaseEvo(addTr(_db.getTranslatedPokemon(),m.getValue().getBaseEvo()));
+            patchMove(m.getValue().getTechnicalMoves(), _db.getTm());
+            patchMove(m.getValue().getHiddenMoves(), _db.getHm());
         }
         addTrImg(_db.getMiniPk(), _db.getTranslatedPokemon());
         addTrImg(_db.getMaxiPkFront(), _db.getTranslatedPokemon());
@@ -595,6 +597,9 @@ public final class ConverterCommonMapUtil {
             }
             patchLinks(_db,((LevelCave)_l).getLinksOtherLevels(),_l);
         }
+        if (_l instanceof LevelWithWildPokemon) {
+            patchIndex((LevelWithWildPokemon)_l);
+        }
     }
 
     private static void addTrs(DataBase _db, LevelLeague _l) {
@@ -625,7 +630,7 @@ public final class ConverterCommonMapUtil {
             patchMini(_db,l.getValue());
             if (l.getValue() instanceof Seller) {
                 addTrs(_db.getTranslatedItems(),((Seller)l.getValue()).getItems());
-                patchMove(_db,((Seller)l.getValue()).getTm());
+                patchMove(((Seller)l.getValue()).getTm(), _db.getTm());
             }
         }
         possiblePatch(_l, _l.getStorageCoords());
@@ -668,6 +673,14 @@ public final class ConverterCommonMapUtil {
         }
     }
 
+    private static void patchIndex(LevelWithWildPokemon _l) {
+        for (Block b: _l.getBlocks().values()) {
+            if (!_l.getWildPokemonAreas().isValidIndex(b.getIndexApparition())) {
+                b.setIndexApparition(IndexConstants.INDEX_NOT_FOUND_ELT);
+            }
+        }
+    }
+
     private static void possiblePatch(Level _l, NullablePoint _p) {
         if(_p.isDefined()) {
             patchTile(_l.getBlocks(), _p.getPoint());
@@ -698,10 +711,10 @@ public final class ConverterCommonMapUtil {
         _m.addAllEntries(nbs_);
     }
 
-    private static void patchMove(DataBase _db, Shorts _m) {
+    private static void patchMove(Shorts _m, ShortMap<String> _movesNb) {
         Shorts nbs_ = new Shorts();
         for (Short l: _m) {
-            if (_db.getTm().contains(l)) {
+            if (_movesNb.contains(l)) {
                 nbs_.add(l);
             }
         }
