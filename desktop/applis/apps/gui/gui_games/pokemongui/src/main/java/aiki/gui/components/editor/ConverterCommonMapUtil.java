@@ -616,6 +616,7 @@ public final class ConverterCommonMapUtil {
         patchMini(_db,_l.getGymLeader());
         patchMaxi(_db,_l.getGymLeader());
         addTr(_db,_l.getGymLeader().getTeam());
+
     }
     private static void addTrs(DataBase _db, LevelIndoorPokemonCenter _l) {
         _l.setGerants(LevelIndoorPokemonCenter.tryAdd(_l.getGerants(), new IdPersonMapper<Point>(),new IdPersonMapper<GerantPokemon>(),new IdPersonMapper<Seller>()));
@@ -654,8 +655,8 @@ public final class ConverterCommonMapUtil {
                 }
             }
         }
-        patchMove(_db, _l, _l.getTm());
-        patchMove(_db, _l, _l.getHm());
+        patchMove(_l, _l.getTm(), _db.getTm());
+        patchMove(_l, _l.getHm(), _db.getHm());
         patchItems(_db, _l, _l.getItems());
         for (EntryCust<Point, DualFight> l:_l.getDualFights().entryList()) {
             patchTile(_l.getBlocks(),l.getKey());
@@ -685,10 +686,10 @@ public final class ConverterCommonMapUtil {
         _items.addAllEntries(its_);
     }
 
-    private static void patchMove(DataBase _db, Level _l, Points<Short> _m) {
+    private static void patchMove(Level _l, Points<Short> _m, ShortMap<String> _movesNb) {
         Points<Short> nbs_ = new PointsShort();
         for (EntryCust<Point, Short> l: _m.entryList()) {
-            if (_db.getTm().contains(l.getValue())) {
+            if (_movesNb.contains(l.getValue())) {
                 patchTile(_l.getBlocks(),l.getKey());
                 nbs_.addEntry(l.getKey(),l.getValue());
             }
