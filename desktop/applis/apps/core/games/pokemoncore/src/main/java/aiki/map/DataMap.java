@@ -1007,7 +1007,7 @@ public final class DataMap {
         return correctCoords_;
     }
 
-    private boolean existLevel(Coords _c) {
+    public boolean existLevel(Coords _c) {
         int numberPlace_ = _c.getNumberPlace();
         if (!places.isValidIndex(numberPlace_)) {
             return false;

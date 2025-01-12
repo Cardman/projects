@@ -19,6 +19,7 @@ import aiki.fight.status.*;
 import aiki.fight.status.effects.*;
 import aiki.fight.util.*;
 import aiki.game.params.enums.*;
+import aiki.instances.*;
 import aiki.map.*;
 import aiki.map.buildings.*;
 import aiki.map.characters.*;
@@ -30,7 +31,6 @@ import aiki.map.pokemon.enums.*;
 import aiki.map.tree.util.*;
 import aiki.map.util.*;
 import aiki.sml.*;
-import aiki.sml.GamesPk;
 import aiki.util.*;
 import code.gui.*;
 import code.gui.images.*;
@@ -486,6 +486,7 @@ public final class ConverterCommonMapUtil {
                 addTrsEff(_db,e);
             }
         }
+        addTrMap(_db);
         addTrsMap(_db.getTranslatedAbilities());
         addTrsMap(_db.getTranslatedCategories());
         addTrsMap(_db.getTranslatedItems());
@@ -493,6 +494,279 @@ public final class ConverterCommonMapUtil {
         addTrsMap(_db.getTranslatedPokemon());
         addTrsMap(_db.getTranslatedStatus());
         addTrsMap(_db.getTranslatedTypes());
+    }
+
+    private static void addTrMap(DataBase _db) {
+        DataMap map_ = _db.getMap();
+        WildPk f_ = map_.getFirstPokemon();
+        addTr(_db, f_);
+        map_.setBegin(coords(map_,map_.getBegin()));
+        MiniMapCoordsList mini_ = new MiniMapCoordsList();
+        for (MiniMapCoordsTile m:map_.getMiniMap().getList()) {
+            if (!map_.getPlaces().isValidIndex(m.getTileMap().getPlace())){
+                m.getTileMap().setPlace(-1);
+            }
+            if (_db.getMiniMap(m.getTileMap().getFile()).length == 0) {
+                m.getTileMap().setFile(DataBase.EMPTY_STRING);
+            }
+            if (NumberUtil.signum(m.getMiniMapCoords().getXcoords()+1L) + NumberUtil.signum(m.getMiniMapCoords().getYcoords()+1L) == 2) {
+                mini_.addEntry(m.getMiniMapCoords(),m.getTileMap());
+            }
+        }
+        map_.setMiniMap(mini_);
+        if (_db.getMiniMap(map_.getUnlockedCity()).length == 0) {
+            map_.setUnlockedCity(DataBase.EMPTY_STRING);
+        }
+        for (Place p: map_.getPlaces()) {
+            for (Level l: p.getLevelsList()) {
+                addTrs(_db,l);
+            }
+            addTrs(_db, p);
+        }
+    }
+
+    private static void addTrs(DataBase _db, Place _l) {
+        if (_l instanceof City) {
+            for (EntryCust<Point,Building> e:((City)_l).getBuildings().entryList()) {
+                patchTile(((City)_l).getLevelOutdoor().getBlocks(), e.getKey());
+                possiblePatch(e.getValue().getLevel(), e.getValue().getExitCity());
+                addTrs(_db,e.getValue().getLevel());
+            }
+        }
+        if (_l instanceof Cave) {
+            LevelPoints lps_ = new LevelPoints();
+            for (LevelPointLink l:((Cave)_l).getLinksWithOtherPlaces().entryList()) {
+                if (((Cave)_l).getLevels().isValidIndex(l.getLevelPoint().getLevelIndex()) && existCoords(l.getLink().getCoords(), _db.getMap())) {
+                    lps_.addEntry(l.getLevelPoint(),l.getLink());
+                    patchTile(((Cave)_l).getLevels().get(l.getLevelPoint().getLevelIndex()).getBlocks(), l.getLevelPoint().getPoint());
+                    patchLink(_db,l.getLink());
+                }
+            }
+            ((Cave)_l).setLinksWithOtherPlaces(lps_);
+        }
+        if (_l instanceof InitializedPlace) {
+            patchLinks(_db, ((InitializedPlace) _l).getLinksWithCaves(), ((InitializedPlace) _l).getLevel());
+        }
+        if (_l instanceof League) {
+            patchLeague(_db, (League) _l);
+        }
+    }
+
+    private static void patchLinks(DataBase _db, Points<Link> _lks, Level _l) {
+        Points<Link> lps_ = new PointsLink();
+        for (EntryCust<Point,Link> l: _lks.entryList()) {
+            if (existCoords(l.getValue().getCoords(), _db.getMap())) {
+                lps_.addEntry(l.getKey(),l.getValue());
+                patchTile(_l.getBlocks(), l.getKey());
+                patchLink(_db,l.getValue());
+            }
+        }
+        _lks.clear();
+        _lks.addAllEntries(lps_);
+    }
+
+    private static void patchLeague(DataBase _db, League _l) {
+        if (existCoords(_l.getAccessCoords(), _db.getMap())) {
+            patchTile(_db.getMap().getLevelByCoords(_l.getAccessCoords()).getBlocks(), _l.getAccessCoords().getLevel().getPoint());
+        } else {
+            _l.setAccessCoords(new Coords());
+        }
+        if (!_l.getRooms().isEmpty()) {
+            possiblePatch(_l.getRooms().get(0), _l.getBegin());
+        }
+    }
+
+    private static void addTrs(DataBase _db, Level _l) {
+        if (_l instanceof LevelLeague) {
+            addTrs(_db,(LevelLeague) _l);
+        }
+        if (_l instanceof LevelWithWildPokemon) {
+            addTrs(_db,(LevelWithWildPokemon) _l);
+        }
+        if (_l instanceof LevelIndoorGym) {
+            addTrs(_db,(LevelIndoorGym) _l);
+        }
+        if (_l instanceof LevelIndoorPokemonCenter) {
+            addTrs(_db,(LevelIndoorPokemonCenter) _l);
+        }
+        if (_l instanceof LevelCave) {
+            for (EntryCust<Point,Link> l:((LevelCave)_l).getLinksOtherLevels().entryList()) {
+                patchTile(_l.getBlocks(), l.getKey());
+            }
+            patchLinks(_db,((LevelCave)_l).getLinksOtherLevels(),_l);
+        }
+    }
+
+    private static void addTrs(DataBase _db, LevelLeague _l) {
+        possiblePatch(_l, _l.getAccessPoint());
+        possiblePatch(_l, _l.getTrainerCoords());
+        possiblePatch(_l, _l.getNextLevelTarget());
+        patchMini(_db,_l.getTrainer());
+        patchMaxi(_db,_l.getTrainer());
+        addTr(_db,_l.getTrainer().getTeam());
+    }
+    private static void addTrs(DataBase _db, LevelIndoorGym _l) {
+        for (EntryCust<Point, GymTrainer> l:_l.getGymTrainers().entryList()) {
+            patchTile(_l.getBlocks(),l.getKey());
+            patchMini(_db,l.getValue());
+            patchMaxi(_db,l.getValue());
+            addTr(_db,l.getValue().getTeam());
+        }
+        possiblePatch(_l, _l.getGymLeaderCoords());
+        patchMini(_db,_l.getGymLeader());
+        patchMaxi(_db,_l.getGymLeader());
+        addTr(_db,_l.getGymLeader().getTeam());
+    }
+    private static void addTrs(DataBase _db, LevelIndoorPokemonCenter _l) {
+        _l.setGerants(LevelIndoorPokemonCenter.tryAdd(_l.getGerants(), new IdPersonMapper<Point>(),new IdPersonMapper<GerantPokemon>(),new IdPersonMapper<Seller>()));
+        for (EntryCust<Point, Person> l:_l.getGerants().entryList()) {
+            patchTile(_l.getBlocks(),l.getKey());
+            patchMini(_db,l.getValue());
+            if (l.getValue() instanceof Seller) {
+                addTrs(_db.getTranslatedItems(),((Seller)l.getValue()).getItems());
+                patchMove(_db,((Seller)l.getValue()).getTm());
+            }
+        }
+        possiblePatch(_l, _l.getStorageCoords());
+    }
+
+    private static void addTrs(DataBase _db, LevelWithWildPokemon _l) {
+        for (AbsAreaApparition a: _l.getWildPokemonAreas()) {
+            for (WildPk w: a.getWildPokemon()) {
+                addTr(_db,w);
+            }
+        }
+        for (EntryCust<Point,WildPk> l:_l.getLegendaryPks().entryList()) {
+            patchTile(_l.getBlocks(),l.getKey());
+            addTr(_db,l.getValue());
+        }
+        for (EntryCust<Point, CharacterInRoadCave> l:_l.getCharacters().entryList()) {
+            patchTile(_l.getBlocks(),l.getKey());
+            CharacterInRoadCave ch_ = l.getValue();
+            if (ch_ instanceof DealerItem) {
+                addTrs(_db.getTranslatedItems(),((DealerItem)ch_).getItems());
+            }
+            if (ch_ instanceof TrainerMultiFights) {
+                patchMaxi(_db, (Trainer) ch_);
+                patchMini(_db, (Trainer) ch_);
+                for (PokemonTeam p:((TrainerMultiFights)ch_).getTeamsRewards()) {
+                    addTr(_db, p.getTeam());
+                }
+            }
+        }
+        patchMove(_db, _l, _l.getTm());
+        patchMove(_db, _l, _l.getHm());
+        patchItems(_db, _l, _l.getItems());
+        for (EntryCust<Point, DualFight> l:_l.getDualFights().entryList()) {
+            patchTile(_l.getBlocks(),l.getKey());
+            possiblePatch(_l, l.getValue().getPt());
+            addTr(_db,l.getValue().getFoeTrainer().getTeam());
+            addTr(_db,l.getValue().getAlly().getTeam());
+            patchMiniSec(_db,l.getValue());
+            patchMini(_db,l.getValue().getFoeTrainer());
+        }
+    }
+
+    private static void possiblePatch(Level _l, NullablePoint _p) {
+        if(_p.isDefined()) {
+            patchTile(_l.getBlocks(), _p.getPoint());
+        }
+    }
+
+    private static void patchItems(DataBase _db, LevelWithWildPokemon _l, Points<String> _items) {
+        Points<String> its_ = new PointsString();
+        for (EntryCust<Point, String> l: _items.entryList()) {
+            if (!addTr(_db.getTranslatedItems(),l.getValue()).isEmpty()) {
+                patchTile(_l.getBlocks(),l.getKey());
+                its_.addEntry(l.getKey(),l.getValue());
+            }
+        }
+        _items.clear();
+        _items.addAllEntries(its_);
+    }
+
+    private static void patchMove(DataBase _db, Level _l, Points<Short> _m) {
+        Points<Short> nbs_ = new PointsShort();
+        for (EntryCust<Point, Short> l: _m.entryList()) {
+            if (_db.getTm().contains(l.getValue())) {
+                patchTile(_l.getBlocks(),l.getKey());
+                nbs_.addEntry(l.getKey(),l.getValue());
+            }
+        }
+        _m.clear();
+        _m.addAllEntries(nbs_);
+    }
+
+    private static void patchMove(DataBase _db, Shorts _m) {
+        Shorts nbs_ = new Shorts();
+        for (Short l: _m) {
+            if (_db.getTm().contains(l)) {
+                nbs_.add(l);
+            }
+        }
+        _m.clear();
+        _m.addAllElts(nbs_);
+    }
+
+    private static void addTr(DataBase _db, CustList<PkTrainer> _team) {
+        for (PkTrainer t: _team) {
+            addTr(_db,t);
+        }
+    }
+
+    private static void patchMiniSec(DataBase _db, DualFight _ch) {
+        if (_db.getPerson(_ch.getFoeTrainer().getImageMiniSecondTrainerFileName()).length == 0){
+            _ch.getFoeTrainer().setImageMiniSecondTrainerFileName(DataBase.EMPTY_STRING);
+        }
+    }
+
+    private static void patchMaxi(DataBase _db, Trainer _ch) {
+        if (_db.getTrainer(_ch.getImageMaxiFileName()).length == 0){
+            _ch.setImageMaxiFileName(DataBase.EMPTY_STRING);
+        }
+    }
+
+    private static void patchMini(DataBase _db, Person _ch) {
+        if (_db.getPerson(_ch.getImageMiniFileName()).length == 0){
+            _ch.setImageMiniFileName(DataBase.EMPTY_STRING);
+        }
+    }
+
+    private static void patchLink(DataBase _db, Link _ch) {
+        if (_db.getLink(_ch.getFileName()).length == 0){
+            _ch.setFileName(DataBase.EMPTY_STRING);
+        }
+    }
+
+    private static void patchTile(Points<Block> _blocks, Point _pt) {
+        EntryCust<Point, Block> e_ = Level.getEntryBlockByPoint(_pt, _blocks);
+        if (e_ == null) {
+            Block bl_ = Instances.newBlock();
+            bl_.setHeight(1);
+            bl_.setWidth(1);
+            _blocks.addEntry(_pt, bl_);
+        }
+    }
+
+    private static Coords coords(DataMap _dm, Coords _c) {
+        if (existCoords(_c, _dm)) {
+            return _c;
+        }
+        return new Coords();
+    }
+
+    private static boolean existCoords(Coords _c, DataMap _map) {
+        return _map.existLevel(_c) && _map.getLevelByCoords(_c).getEntryBlockByPoint(_c.getLevel().getPoint()) != null;
+    }
+
+    private static void addTr(DataBase _db, PkTrainer _f) {
+        addTr(_db,(Pokemon) _f);
+        addTrs(_db.getTranslatedMoves(),_f.getMoves());
+    }
+    private static void addTr(DataBase _db, Pokemon _f) {
+        _f.setName(addTr(_db.getTranslatedPokemon(), _f.getName()));
+        _f.setItem(addTr(_db.getTranslatedItems(), _f.getItem()));
+        _f.setAbility(addTr(_db.getTranslatedAbilities(), _f.getAbility()));
     }
 
     private static void addTr(DataBase _db, AbilityData _a) {
@@ -950,7 +1224,7 @@ public final class ConverterCommonMapUtil {
             }
             return _key;
         }
-        return "";
+        return DataBase.EMPTY_STRING;
     }
 
     private static void removeInvalidKeyColor(StringMap<String> _l) {
