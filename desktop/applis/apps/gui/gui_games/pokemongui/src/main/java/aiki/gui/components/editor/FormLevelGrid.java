@@ -36,14 +36,7 @@ public final class FormLevelGrid extends FormLevelGridCommon {
     }
     public void setupGridDims(Points<Block> _bk, Points<int[][]> _f) {
         links.clear();
-        CustList<Place> psl_ = getFacadeGame().getMap().getPlaces();
-        int nbPl_ = psl_.size();
-        for (int i = 0; i < nbPl_; i++) {
-            Place pl_ = psl_.get(i);
-            if (pl_ instanceof InitializedPlace) {
-                links.add(new EditedCrudPair<Coords, EditedCrudPair<InitializedPlace,PlaceInterConnects>>(AbsContentComponentModelLevelLinks.coords(i,0,null),new EditedCrudPair<InitializedPlace, PlaceInterConnects>((InitializedPlace) pl_,ConverterCommonMapUtil.copyPlaceInterConnects(((InitializedPlace) pl_).getSavedlinks()))));
-            }
-        }
+        links.addAllElts(buildLinks(getFacadeGame().getMap().getPlaces()));
         setupForeground(_f);
         setEdited(_bk);
         Limits limits_ = Level.limits(_bk);
@@ -54,6 +47,17 @@ public final class FormLevelGrid extends FormLevelGridCommon {
         getTopLeftRel().sety(0);
         getTopLeftRel().setx(0);
         setupGrid();
+    }
+    public static CustList<EditedCrudPair<Coords,EditedCrudPair<InitializedPlace,PlaceInterConnects>>> buildLinks(CustList<Place> _map) {
+        CustList<EditedCrudPair<Coords,EditedCrudPair<InitializedPlace,PlaceInterConnects>>> lks_ = new CustList<EditedCrudPair<Coords, EditedCrudPair<InitializedPlace, PlaceInterConnects>>>();
+        int nbPl_ = _map.size();
+        for (int i = 0; i < nbPl_; i++) {
+            Place pl_ = _map.get(i);
+            if (pl_ instanceof InitializedPlace) {
+                lks_.add(new EditedCrudPair<Coords, EditedCrudPair<InitializedPlace,PlaceInterConnects>>(AbsContentComponentModelLevelLinks.coords(i,0,null),new EditedCrudPair<InitializedPlace, PlaceInterConnects>((InitializedPlace) pl_,ConverterCommonMapUtil.copyPlaceInterConnects(((InitializedPlace) pl_).getSavedlinks()))));
+            }
+        }
+        return lks_;
     }
 
     public void prepend() {
@@ -75,50 +79,70 @@ public final class FormLevelGrid extends FormLevelGridCommon {
         int deltaCols_ = _previous.getTopLeft().getx() - _next.getTopLeft().getx();
         getTopLeftRel().sety(getTopLeftRel().gety()+deltaRows_);
         getTopLeftRel().setx(getTopLeftRel().getx()+deltaCols_);
-        Coords target_ = new Coords(getSelectedPlace());
+        adjust(_next, links, getSelectedPlace());
+    }
+
+    public static void adjust(Limits _next, CustList<EditedCrudPair<Coords, EditedCrudPair<InitializedPlace, PlaceInterConnects>>> _lks, Coords _sel) {
+        Coords target_ = new Coords(_sel);
         target_.getLevel().setPoint(new Point(0, 0));
-        for (EditedCrudPair<Coords, EditedCrudPair<InitializedPlace, PlaceInterConnects>> e: links) {
-            if (Coords.eq(e.getKey(),getSelectedPlace())) {
+        for (EditedCrudPair<Coords, EditedCrudPair<InitializedPlace, PlaceInterConnects>> e: _lks) {
+            if (Coords.eq(e.getKey(), _sel)) {
                 for (PlaceInterConnectCoords p:e.getValue().getValue().getList()) {
-                    move(_previous,_next, p.getPlaceInterConnect().getSource(), p.getPlaceInterConnect().getDir());
+                    move(_next, p.getPlaceInterConnect().getSource(), p.getPlaceInterConnect().getDir());
                 }
             } else {
                 for (PlaceInterConnectCoords p:e.getValue().getValue().getList()) {
                     Coords v_ = new Coords(p.getCoords());
                     v_.getLevel().setPoint(new Point(0, 0));
                     if (Coords.eq(target_,v_)) {
-                        move(_previous,_next, p.getCoords().getLevel().getPoint(), p.getPlaceInterConnect().getDir().getOpposite());
+                        move(_next, p.getCoords().getLevel().getPoint(), p.getPlaceInterConnect().getDir().getOpposite());
                     }
                 }
             }
         }
     }
 
-    private void move(Limits _previous, Limits _next, Point _src, Direction _dir) {
-        if (_previous.getTopLeft().getx() == _previous.getBottomRight().getx()) {
-            if (_dir == Direction.LEFT) {
-                _src.setx(_next.getTopLeft().getx());
-            }
-            if (_dir == Direction.RIGHT) {
-                _src.setx(_next.getBottomRight().getx());
-            }
-        } else if (_src.getx() == _previous.getTopLeft().getx()) {
+    private static void move(Limits _next, Point _src, Direction _dir) {
+        if (_dir == Direction.LEFT) {
             _src.setx(_next.getTopLeft().getx());
-        } else if (_src.getx() == _previous.getBottomRight().getx()) {
+        }
+        if (_dir == Direction.RIGHT) {
             _src.setx(_next.getBottomRight().getx());
         }
-        if (_previous.getTopLeft().gety() == _previous.getBottomRight().gety()) {
-            if (_dir == Direction.UP) {
-                _src.sety(_next.getTopLeft().gety());
-            }
-            if (_dir == Direction.DOWN) {
-                _src.sety(_next.getBottomRight().gety());
-            }
-        } else if (_src.gety() == _previous.getTopLeft().gety()) {
+//        if (_previous.getTopLeft().getx() == _previous.getBottomRight().getx()) {
+//            if (_dir == Direction.LEFT) {
+//                _src.setx(_next.getTopLeft().getx());
+//            }
+//            if (_dir == Direction.RIGHT) {
+//                _src.setx(_next.getBottomRight().getx());
+//            }
+//        } else if (_dir == Direction.LEFT || _dir == Direction.RIGHT) {
+//            if (_src.getx() == _previous.getTopLeft().getx()) {
+//                _src.setx(_next.getTopLeft().getx());
+//            } else {//if (_src.getx() == _previous.getBottomRight().getx())
+//                _src.setx(_next.getBottomRight().getx());
+//            }
+//        }
+        if (_dir == Direction.UP) {
             _src.sety(_next.getTopLeft().gety());
-        } else if (_src.gety() == _previous.getBottomRight().gety()) {
+        }
+        if (_dir == Direction.DOWN) {
             _src.sety(_next.getBottomRight().gety());
         }
+//        if (_previous.getTopLeft().gety() == _previous.getBottomRight().gety()) {
+//            if (_dir == Direction.UP) {
+//                _src.sety(_next.getTopLeft().gety());
+//            }
+//            if (_dir == Direction.DOWN) {
+//                _src.sety(_next.getBottomRight().gety());
+//            }
+//        } else if (_dir == Direction.UP || _dir == Direction.DOWN){
+//            if (_src.gety() == _previous.getTopLeft().gety()) {
+//                _src.sety(_next.getTopLeft().gety());
+//            } else {//if (_src.gety() == _previous.getBottomRight().gety())
+//                _src.sety(_next.getBottomRight().gety());
+//            }
+//        }
     }
 
     public void setupGrid() {

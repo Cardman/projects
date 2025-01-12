@@ -917,7 +917,7 @@ final class InitializationMap  extends EquallablePkUtil {
         League league_ =(League) map_.getPlace((short) 6);
         league_.getRooms().last().setFileName(LINK);
         league_.setName(LIGUE);
-        map_.addLevelLeague((short) 6);
+        map_.addLevelLeague(6);
         league_.getRooms().last().setFileName(LINK);
     }
 

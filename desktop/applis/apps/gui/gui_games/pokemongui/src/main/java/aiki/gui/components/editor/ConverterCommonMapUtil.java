@@ -504,8 +504,9 @@ public final class ConverterCommonMapUtil {
         addTr(_db, f_);
         map_.setBegin(coords(map_,map_.getBegin()));
         MiniMapCoordsList mini_ = new MiniMapCoordsList();
+        CustList<Place> plsEnt_ = map_.getPlaces();
         for (MiniMapCoordsTile m:map_.getMiniMap().getList()) {
-            if (!map_.getPlaces().isValidIndex(m.getTileMap().getPlace())){
+            if (!plsEnt_.isValidIndex(m.getTileMap().getPlace())){
                 m.getTileMap().setPlace(-1);
             }
             if (_db.getMiniMap(m.getTileMap().getFile()).length == 0) {
@@ -519,11 +520,32 @@ public final class ConverterCommonMapUtil {
         if (_db.getMiniMap(map_.getUnlockedCity()).length == 0) {
             map_.setUnlockedCity(DataBase.EMPTY_STRING);
         }
-        for (Place p: map_.getPlaces()) {
+        for (Place p: plsEnt_) {
             for (Level l: p.getLevelsList()) {
                 addTrs(_db,l);
             }
             addTrs(_db, p);
+        }
+        CustList<EditedCrudPair<Coords, EditedCrudPair<InitializedPlace, PlaceInterConnects>>> lks_ = FormLevelGrid.buildLinks(plsEnt_);
+        int nbPls_ = lks_.size();
+        for (int i = 0; i < nbPls_; i++) {
+            EditedCrudPair<Coords, EditedCrudPair<InitializedPlace, PlaceInterConnects>> e_ = lks_.get(i);
+            FormLevelGrid.adjust(e_.getValue().getKey().getLevel().limits(),lks_,e_.getKey());
+        }
+        cleanLinks(map_,lks_);
+    }
+    private static void cleanLinks(DataMap _map, CustList<EditedCrudPair<Coords, EditedCrudPair<InitializedPlace, PlaceInterConnects>>> _lks) {
+        for (EditedCrudPair<Coords, EditedCrudPair<InitializedPlace, PlaceInterConnects>> a: _lks) {
+            InitializedPlace place_ = a.getValue().getKey();
+            Level level_ = place_.getLevel();
+            Limits limits_ = level_.limits();
+            PlaceInterConnects next_ = new PlaceInterConnects();
+            for (PlaceInterConnectCoords k : place_.getSavedlinks().entryList()) {
+                if (_map.validSingleLevelPlaceInterConnect(a.getKey().getNumberPlace(),place_,limits_,k.getPlaceInterConnect())) {
+                    next_.addEntry(k.getPlaceInterConnect(),k.getCoords());
+                }
+            }
+            place_.setSavedlinks(next_);
         }
     }
 

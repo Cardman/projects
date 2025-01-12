@@ -578,7 +578,7 @@ public final class DataMap {
     private StringMap<IdList<Gender>> directCatchPk(PlaceLevelsInts _wildPokemonBeforeFirstLeague) {
         StringMap<IdList<Gender>> directCatchPk_ = new StringMap<IdList<Gender>>();
         int nbPlaces_ = places.size();
-        for (short p = IndexConstants.FIRST_INDEX; p < nbPlaces_; p++) {
+        for (int p = IndexConstants.FIRST_INDEX; p < nbPlaces_; p++) {
             Place pl_ = places.get(p);
             for (EntryCust<Integer, Level> l : pl_.getLevelsMap().entryList()) {
                 Level level_ = l.getValue();
@@ -592,7 +592,7 @@ public final class DataMap {
         return directCatchPk_;
     }
 
-    private void directCatchPkLevel(PlaceLevelsInts _wildPokemonBeforeFirstLeague, StringMap<IdList<Gender>> _directCatchPk, short _p, int _l, LevelWithWildPokemon _levelWild) {
+    private void directCatchPkLevel(PlaceLevelsInts _wildPokemonBeforeFirstLeague, StringMap<IdList<Gender>> _directCatchPk, int _p, int _l, LevelWithWildPokemon _levelWild) {
         PlaceLevel keyPlaceLevel_ = new PlaceLevel(_p, _l);
         if (!_wildPokemonBeforeFirstLeague.contains(keyPlaceLevel_)) {
             return;
@@ -873,7 +873,7 @@ public final class DataMap {
 
     private void basicValidateLinks(DataBase _d) {
         int nbPlaces_ = places.size();
-        for (short p = IndexConstants.FIRST_INDEX; p < nbPlaces_; p++) {
+        for (int p = IndexConstants.FIRST_INDEX; p < nbPlaces_; p++) {
             if (places.get(p) instanceof InitializedPlace) {
                 InitializedPlace place_ = (InitializedPlace) places.get(p);
                 Points< Link> links_;
@@ -898,7 +898,7 @@ public final class DataMap {
         }
     }
 
-    private void basicCheckLinksOtherPlaces(DataBase _d, short _p, LevelPoints _links, LevelPoint _l) {
+    private void basicCheckLinksOtherPlaces(DataBase _d, int _p, LevelPoints _links, LevelPoint _l) {
         Coords link_ = _links.getVal(_l).getCoords();
         DataInfoChecker.checkKey(_d,tree,_links.getVal(_l).getCoords());
         int numberPlace_ = link_.getNumberPlace();
@@ -931,7 +931,7 @@ public final class DataMap {
         return current_;
     }
 
-    private void basicCheckLinksWithCave(DataBase _d, short _p, Points<Link> _links, Point _pt) {
+    private void basicCheckLinksWithCave(DataBase _d, int _p, Points<Link> _links, Point _pt) {
         Coords link_ = _links.getVal(_pt).getCoords();
         DataInfoChecker.checkKey(_d,tree,_links.getVal(_pt).getCoords());
         int numberPlace_ = link_.getNumberPlace();
@@ -1054,7 +1054,7 @@ public final class DataMap {
         takenPokemon = new Condition();
         takenObjects = new Condition();
         int nbPlaces_ = places.size();
-        for (short s = IndexConstants.FIRST_INDEX; s < nbPlaces_; s++) {
+        for (int s = IndexConstants.FIRST_INDEX; s < nbPlaces_; s++) {
             Place place_ = places.get(s);
             if (place_ instanceof City) {
                 gymTrainersLeader(s, (City) place_);
@@ -1072,7 +1072,7 @@ public final class DataMap {
         }
     }
 
-    private void campaign(short _s, Place _place) {
+    private void campaign(int _s, Place _place) {
         for (EntryCust<Integer, Level> k : _place.getLevelsMap().entryList()) {
             LevelWithWildPokemon levelCave_ = (LevelWithWildPokemon) k.getValue();
             for (Point p : levelCave_.getLegendaryPks().getKeys()) {
@@ -1092,7 +1092,7 @@ public final class DataMap {
         normalTrainers(_s, _place);
     }
 
-    private void normalTrainers(short _s, Place _place) {
+    private void normalTrainers(int _s, Place _place) {
         IntMap<Level> levels_ = _place
                 .getLevelsMap();
         for (EntryCust<Integer, Level> e : levels_.entryList()) {
@@ -1116,7 +1116,7 @@ public final class DataMap {
         }
     }
 
-    private void utilBuildings(short _s, City _place) {
+    private void utilBuildings(int _s, City _place) {
         for (EntryCust<Point,Building> b : _place
                 .getBuildings().entryList()) {
             if (b.getValue() instanceof PokemonCenter) {
@@ -1132,7 +1132,7 @@ public final class DataMap {
         }
     }
 
-    private void takenLookup(short _s, int _k, LevelWithWildPokemon _levelCave) {
+    private void takenLookup(int _s, int _k, LevelWithWildPokemon _levelCave) {
         for (Point p : _levelCave.getCharacters().getKeys()) {
             if (!(_levelCave.getCharacters().getVal(p) instanceof DealerItem)) {
                 continue;
@@ -1162,7 +1162,7 @@ public final class DataMap {
         }
     }
 
-    private void hosts(short _s, EntryCust<Point, Building> _b) {
+    private void hosts(int _s, EntryCust<Point, Building> _b) {
         for (EntryCust<Point,Person> g : ((PokemonCenter) _b
                 .getValue()).getIndoor().getGerants()
                 .entryList()) {
@@ -1659,7 +1659,7 @@ public final class DataMap {
 
     private void enterLeague(Coords _id, Condition _condition, CoordssCondition _ret) {
         int nbPlaces_ = places.size();
-        for (short p = 0; p < nbPlaces_; p++) {
+        for (int p = 0; p < nbPlaces_; p++) {
             Place pl_ = places.get(p);
             if (pl_ instanceof League && Coords.eq(((League) pl_).getAccessCoords(), _id)) {
                 Coords coords_ = coords(p, new LevelPoint());
@@ -1775,7 +1775,7 @@ public final class DataMap {
     public boolean validSavedLink() {
         int nbPlaces_ = places.size();
         boolean valid_ = true;
-        for (short i = IndexConstants.FIRST_INDEX; i < nbPlaces_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nbPlaces_; i++) {
             InitializedPlace place_ = asInitializedPlace(i);
             if (place_ == null) {
                 continue;
@@ -1828,7 +1828,7 @@ public final class DataMap {
         }
         return valid_;
     }
-    private boolean validSingleLevelPlaceInterConnect(short _i,InitializedPlace _pl,Limits _limits,PlaceInterConnect _k) {
+    public boolean validSingleLevelPlaceInterConnect(int _i,InitializedPlace _pl,Limits _limits,PlaceInterConnect _k) {
         Point leftTopPoint_ = _limits.getTopLeft();
         Point rightBottomPoint_ = _limits.getBottomRight();
         boolean valid_ = _k.getDir() != Direction.UP || NumberUtil.eq(leftTopPoint_.gety(), _k.getSource().gety());
@@ -1950,7 +1950,7 @@ public final class DataMap {
             int d_ = NumberUtil.min(rightBottomPointOne_.getx() - p1_.getx(),
                     rightBottomPointTwo_.getx() - p2_.getx());
             length_ = u_ + d_ + 1;
-            for (short i = IndexConstants.FIRST_INDEX; i < length_; i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < length_; i++) {
                 keys1_.add(new PlaceInterConnect(new Point(
                         xtop1_ + i, p1_.gety()), _dir1));
                 keys2_.add(new PlaceInterConnect(new Point(
@@ -1972,7 +1972,7 @@ public final class DataMap {
             int d_ = NumberUtil.min(rightBottomPointOne_.gety() - p1_.gety(),
                     rightBottomPointTwo_.gety() - p2_.gety());
             length_ = u_ + d_ + 1;
-            for (short i = IndexConstants.FIRST_INDEX; i < length_; i++) {
+            for (int i = IndexConstants.FIRST_INDEX; i < length_; i++) {
                 keys1_.add(new PlaceInterConnect(new Point(p1_.getx(),
                         ytop1_ + i), _dir1));
                 keys2_.add(new PlaceInterConnect(new Point(p2_.getx(),
@@ -1991,7 +1991,7 @@ public final class DataMap {
                 _dir1.getOpposite()), coords2_);
         PlaceInterConnects join1_ = new PlaceInterConnects();
         PlaceInterConnects join2_ = new PlaceInterConnects();
-        for (short i = IndexConstants.FIRST_INDEX; i < length_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < length_; i++) {
             Coords c1_ = new Coords();
             c1_.setNumberPlace(_pl1);
             LevelPoint lp1_ = new LevelPoint();
@@ -2076,7 +2076,7 @@ public final class DataMap {
         addPlace(league_);
     }
 
-    public void addLevelLeague(short _league) {
+    public void addLevelLeague(int _league) {
         League league_ = (League) places.get(_league);
         LevelLeague level_ = levelLeague();
         league_.getRooms().add(level_);

@@ -14,6 +14,7 @@ import aiki.gui.components.editor.*;
 import aiki.instances.*;
 import aiki.map.buildings.*;
 import aiki.map.characters.*;
+import aiki.map.enums.Direction;
 import aiki.map.levels.*;
 import aiki.map.levels.enums.*;
 import aiki.map.places.*;
@@ -488,6 +489,7 @@ public final class EditorAppFormTest extends InitEditorPkForm {
         sell_.getTm().add((short)1);
         pc_.getIndoor().getGerants().addEntry(newPoint(0,0), sell_);
         ci_.getBuildings().addEntry(newPoint(0,0), pc_);
+        ci_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(0,0), Direction.UP),newCoords(-1,0,0,0));
         db_.getMap().addPlace(ci_);
         db_.getMap().addPlace(Instances.newLeague());
         db_.getMap().setBegin(newCoords(0,0,-1,-1));
