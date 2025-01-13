@@ -42,8 +42,8 @@ public final class FormLevelGrid extends FormLevelGridCommon {
         Limits limits_ = Level.limits(_bk);
         Point topLeft_ = limits_.getTopLeft();
         Point bottomRight_ = limits_.getBottomRight();
-        rowsCount = NumberUtil.max(1,bottomRight_.gety() - topLeft_.gety());
-        colsCount = NumberUtil.max(1,bottomRight_.getx() - topLeft_.getx());
+        rowsCount = NumberUtil.max(1,bottomRight_.gety() - topLeft_.gety()+1);
+        colsCount = NumberUtil.max(1,bottomRight_.getx() - topLeft_.getx()+1);
         getTopLeftRel().sety(0);
         getTopLeftRel().setx(0);
         setupGrid();

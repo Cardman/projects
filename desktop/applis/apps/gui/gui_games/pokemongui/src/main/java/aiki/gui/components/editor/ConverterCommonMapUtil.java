@@ -536,11 +536,11 @@ public final class ConverterCommonMapUtil {
     }
     private static void cleanLinks(DataMap _map, CustList<EditedCrudPair<Coords, EditedCrudPair<InitializedPlace, PlaceInterConnects>>> _lks) {
         for (EditedCrudPair<Coords, EditedCrudPair<InitializedPlace, PlaceInterConnects>> a: _lks) {
-            InitializedPlace place_ = a.getValue().getKey();
-            Level level_ = place_.getLevel();
-            Limits limits_ = level_.limits();
+            EditedCrudPair<InitializedPlace, PlaceInterConnects> value_ = a.getValue();
+            InitializedPlace place_ = value_.getKey();
+            Limits limits_ = place_.getLevel().limits();
             PlaceInterConnects next_ = new PlaceInterConnects();
-            for (PlaceInterConnectCoords k : place_.getSavedlinks().entryList()) {
+            for (PlaceInterConnectCoords k : value_.getValue().entryList()) {
                 if (_map.validSingleLevelPlaceInterConnect(a.getKey().getNumberPlace(),place_,limits_,k.getPlaceInterConnect())) {
                     next_.addEntry(k.getPlaceInterConnect(),k.getCoords());
                 }
@@ -621,7 +621,54 @@ public final class ConverterCommonMapUtil {
         }
         if (_l instanceof LevelWithWildPokemon) {
             patchIndex((LevelWithWildPokemon)_l);
+            removePtDuplicates((LevelWithWildPokemon) _l);
         }
+    }
+    private static void removePtDuplicates(LevelWithWildPokemon _l) {
+        Limits limits_ = _l.limits();
+        Point bottomRight_ = limits_.getBottomRight();
+        Point topLeft_ = limits_.getTopLeft();
+        int y_ = topLeft_.gety();
+        int rowsCount_ = NumberUtil.max(1,bottomRight_.gety() - y_ +1);
+        int x_ = topLeft_.getx();
+        int colsCount_ = NumberUtil.max(1,bottomRight_.getx() - x_ +1);
+        for (int i = 0; i < colsCount_; i++) {
+            for (int j = 0; j < rowsCount_; j++) {
+                Point candidate_ = new Point(i + x_, j + y_);
+                int count_ = count(_l, candidate_);
+                if (count_ > 1) {
+                    _l.getCharacters().removeKey(candidate_);
+                    _l.getLegendaryPks().removeKey(candidate_);
+                    _l.getTm().removeKey(candidate_);
+                    _l.getHm().removeKey(candidate_);
+                    _l.getDualFights().removeKey(candidate_);
+                    _l.getItems().removeKey(candidate_);
+                }
+            }
+        }
+    }
+
+    private static int count(LevelWithWildPokemon _l, Point _candidate) {
+        int count_ = 0;
+        if (_l.getCharacters().contains(_candidate)) {
+            count_++;
+        }
+        if (_l.getLegendaryPks().contains(_candidate)) {
+            count_++;
+        }
+        if (_l.getTm().contains(_candidate)) {
+            count_++;
+        }
+        if (_l.getHm().contains(_candidate)) {
+            count_++;
+        }
+        if (_l.getDualFights().contains(_candidate)) {
+            count_++;
+        }
+        if (_l.getItems().contains(_candidate)) {
+            count_++;
+        }
+        return count_;
     }
 
     private static void addTrs(DataBase _db, LevelLeague _l) {

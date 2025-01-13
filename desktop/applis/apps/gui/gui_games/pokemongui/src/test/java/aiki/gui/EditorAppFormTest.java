@@ -462,6 +462,7 @@ public final class EditorAppFormTest extends InitEditorPkForm {
         lv_.getBlocks().addEntry(newPoint(2,2),newBlock(2,2,EnvironmentType.ROAD,NULL_REF,-1));
         lv_.getBlocks().addEntry(newPoint(4,4),newBlock(2,2,EnvironmentType.ROAD,NULL_REF,-1));
         lv_.getBlocks().addEntry(newPoint(6,6),newBlock(2,2,EnvironmentType.ROAD,NULL_REF,-1));
+        lv_.getBlocks().addEntry(newPoint(8,8),newBlock(2,2,EnvironmentType.ROAD,NULL_REF,-1));
         lv_.getLinksOtherLevels().addEntry(newPoint(0,0),new Link(NULL_REF,newCoords(0,0,1,1)));
         lv_.getLinksOtherLevels().addEntry(newPoint(0,1),new Link(NULL_REF,newCoords(-1,0,1,1)));
         lv_.getCharacters().addEntry(newPoint(2,2),Instances.newDealerItem());
@@ -477,6 +478,8 @@ public final class EditorAppFormTest extends InitEditorPkForm {
         lv_.getItems().addEntry(newPoint(7,7),I_1);
         lv_.getTm().addEntry(newPoint(6,7),(short)1);
         lv_.getTm().addEntry(newPoint(6,7),(short)-1);
+        lv_.getTm().addEntry(newPoint(8,8),(short)1);
+        lv_.getHm().addEntry(newPoint(8,8),(short)1);
         ca_.getLinksWithOtherPlaces().addEntry(newLevelPoint(-1,0,0),new Link(NULL_REF,newCoords(0,0,0,0)));
         ca_.getLinksWithOtherPlaces().addEntry(newLevelPoint(0,2,3),new Link(NULL_REF,newCoords(-1,0,0,0)));
         ca_.getLevels().add(lv_);
@@ -497,6 +500,7 @@ public final class EditorAppFormTest extends InitEditorPkForm {
         tm_.setPlace(-1);
         db_.getMap().getMiniMap().addEntry(new MiniMapCoords(-1,-1), tm_);
         db_.getTm().addEntry((short)1,M_1);
+        db_.getHm().addEntry((short)1,M_1);
         db_.getPeople().addEntry(TRAINER,instance(new int[1][1]));
         DataBase res_ = ConverterCommonMapUtil.patchData(api_, db_);
         assertFalse(res_.getMap().getPlaces().isEmpty());

@@ -37,8 +37,8 @@ public final class FormLevelGridLink extends FormLevelGridCommon {
         Limits limits_ = Level.limits(getEdited());
         Point topLeft_ = limits_.getTopLeft();
         Point bottomRight_ = limits_.getBottomRight();
-        int rowsCount_ = NumberUtil.max(1, bottomRight_.gety() - topLeft_.gety());
-        int colsCount_ = NumberUtil.max(1, bottomRight_.getx() - topLeft_.getx());
+        int rowsCount_ = NumberUtil.max(1, bottomRight_.gety() - topLeft_.gety()+1);
+        int colsCount_ = NumberUtil.max(1, bottomRight_.getx() - topLeft_.getx()+1);
         AbstractImageFactory imgFact_ = getApi().getImageFactory();
         AbstractImage img_ = ConverterCommonMapUtil.buildImg(getApi(), getFacadeGame(), getEdited(), getTopLeftRel(), rowsCount_, colsCount_);
         img_.drawImage(ConverterCommonMapUtil.buildImgFore(getApi(), getFacadeGame(),limits_, getForeground(), getTopLeftRel(), rowsCount_, colsCount_),0, 0);
