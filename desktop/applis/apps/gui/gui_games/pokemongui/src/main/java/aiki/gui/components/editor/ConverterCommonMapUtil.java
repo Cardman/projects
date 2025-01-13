@@ -533,7 +533,22 @@ public final class ConverterCommonMapUtil {
             FormLevelGrid.adjust(e_.getValue().getKey().getLevel().limits(),lks_,e_.getKey());
         }
         cleanLinks(map_,lks_);
+        Condition trs_ = ContentComponentModelAccessCondition.viewRight(plsEnt_);
+        patchAccess(map_, trs_);
     }
+
+    private static void patchAccess(DataMap _map, Condition _trs) {
+        CustList<CoordsListCoords> next_ = new CustList<CoordsListCoords>();
+        for (CoordsListCoords c: _map.getAccessCondition().getList()) {
+            if (existCoords(c.getKey(), _map)) {
+                next_.add(c);
+            }
+        }
+        for (CoordsListCoords c:next_) {
+            c.getValue().retainAllElements(_trs);
+        }
+    }
+
     private static void cleanLinks(DataMap _map, CustList<EditedCrudPair<Coords, EditedCrudPair<InitializedPlace, PlaceInterConnects>>> _lks) {
         for (EditedCrudPair<Coords, EditedCrudPair<InitializedPlace, PlaceInterConnects>> a: _lks) {
             EditedCrudPair<InitializedPlace, PlaceInterConnects> value_ = a.getValue();

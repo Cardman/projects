@@ -12,6 +12,7 @@ import aiki.fight.pokemon.evolution.*;
 import aiki.fight.util.*;
 import aiki.gui.components.editor.*;
 import aiki.instances.*;
+import aiki.map.*;
 import aiki.map.buildings.*;
 import aiki.map.characters.*;
 import aiki.map.enums.Direction;
@@ -502,6 +503,7 @@ public final class EditorAppFormTest extends InitEditorPkForm {
         db_.getTm().addEntry((short)1,M_1);
         db_.getHm().addEntry((short)1,M_1);
         db_.getPeople().addEntry(TRAINER,instance(new int[1][1]));
+        db_.getMap().getAccessCondition().put(newCoords(-1,0,1,1), Condition.newList(newCoords(0,0,0,1)));
         DataBase res_ = ConverterCommonMapUtil.patchData(api_, db_);
         assertFalse(res_.getMap().getPlaces().isEmpty());
     }

@@ -62,14 +62,20 @@ public final class ContentComponentModelAccessCondition {
 
     private void viewRight() {
         trainers.clear();
-        CustList<Place> places_ = facadeGame.getMap().getPlaces();
-        int len_ = places_.size();
-        for (int i = 0; i < len_; i++) {
-            viewRight(places_, i);
+        for (Coords c: viewRight(facadeGame.getMap().getPlaces())) {
+            trainers.addEntry(c,BoolVal.FALSE);
         }
     }
 
-    private void viewRight(CustList<Place> _places, int _i) {
+    public static Condition viewRight(CustList<Place> _places) {
+        Condition dest_ = new Condition();
+        int len_ = _places.size();
+        for (int i = 0; i < len_; i++) {
+            viewRight(_places,i,dest_);
+        }
+        return dest_;
+    }
+    private static void viewRight(CustList<Place> _places, int _i, CustList<Coords> _dest) {
         Place place_ = _places.get(_i);
         CustList<Level> ls_ = place_.getLevelsList();
         int levs_ = ls_.size();
@@ -77,7 +83,7 @@ public final class ContentComponentModelAccessCondition {
             Level lv_ = ls_.get(j);
             if (lv_ instanceof LevelWithWildPokemon) {
                 for (Point k: ((LevelWithWildPokemon)lv_).getDualFights().getKeys()) {
-                    trainers.addEntry(AbsContentComponentModelLevelLinks.coords(_i,j,null,k),BoolVal.FALSE);
+                    _dest.add(AbsContentComponentModelLevelLinks.coords(_i,j,null,k));
                 }
             }
         }
@@ -86,13 +92,13 @@ public final class ContentComponentModelAccessCondition {
                     .getBuildings().entryList()) {
                 if (b.getValue() instanceof Gym && ((Gym) b.getValue()).getIndoor()
                         .getGymLeaderCoords().isDefined()) {
-                    trainers.addEntry(AbsContentComponentModelLevelLinks.coords(_i,0,b.getKey(),((Gym) b.getValue()).getIndoor()
-                            .getGymLeaderCoords().getPoint()), BoolVal.FALSE);
+                    _dest.add(AbsContentComponentModelLevelLinks.coords(_i,0,b.getKey(),((Gym) b.getValue()).getIndoor()
+                            .getGymLeaderCoords().getPoint()));
                 }
             }
         }
         if (place_ instanceof League && ((League) place_).getBegin().isDefined()) {
-            trainers.addEntry(AbsContentComponentModelLevelLinks.coords(_i,0,null,((League) place_).getBegin().getPoint()), BoolVal.FALSE);
+            _dest.add(AbsContentComponentModelLevelLinks.coords(_i,0,null,((League) place_).getBegin().getPoint()));
         }
     }
 
