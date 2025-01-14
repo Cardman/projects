@@ -469,7 +469,6 @@ public final class TabEditor implements AbsTabEditor {
 
     public void previewText(String _t) {
         getPreview().setText(_t);
-        getPreview().select(0,0);
     }
 
     public String centerText() {

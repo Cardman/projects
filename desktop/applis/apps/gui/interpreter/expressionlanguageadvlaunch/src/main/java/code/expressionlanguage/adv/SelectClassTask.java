@@ -13,6 +13,7 @@ public final class SelectClassTask implements Runnable {
     public void run() {
         String text_ = editor.centerText();
         editor.previewText(new DefaultUniformingString().apply(text_));
+        editor.previewSelect(0,0);
         editor.getFactories().getCompoFactory().invokeNow(new ClearCharacterAttributes(editor.getPreview()));
         FindAction.syntax(editor.getWindowSecEditor().getManageOptions(), editor.getFactories().getCompoFactory(), editor.getPreview());
         editor.usedType(editor.getFinderExpClasses().getText());
