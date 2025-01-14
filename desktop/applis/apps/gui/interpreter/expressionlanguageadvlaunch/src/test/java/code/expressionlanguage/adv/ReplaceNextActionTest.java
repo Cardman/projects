@@ -37,6 +37,7 @@ public final class ReplaceNextActionTest extends EquallableElAdvUtil {
     public void action3() {
         WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("the theme");
+        tabEditor(w_).getCenter().select(0,0);
         replaceText(w_);
         assertFalse(((MockCustComponent) tabEditor(w_).getReplaceNext()).isDeepAccessible());
         assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isDeepAccessible());
@@ -52,6 +53,7 @@ public final class ReplaceNextActionTest extends EquallableElAdvUtil {
     public void action4() {
         WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("the theme");
+        tabEditor(w_).getCenter().select(0,0);
         replaceText(w_);
         assertFalse(((MockCustComponent) tabEditor(w_).getReplaceNext()).isDeepAccessible());
         assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isDeepAccessible());

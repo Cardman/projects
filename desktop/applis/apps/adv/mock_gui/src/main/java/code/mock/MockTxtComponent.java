@@ -13,56 +13,51 @@ import code.util.core.NumberUtil;
 public abstract class MockTxtComponent extends MockInput implements AbsTxtComponent {
     private final CustList<AbsAutoCompleteListener> autoCompleteListeners = new CustList<AbsAutoCompleteListener>();
     private final StringBuilder builder = new StringBuilder();
-    private int selectionStart;
-    private int selectionEnd;
     private int caretColor;
     private int selectionColor;
     private int selectedTextColor;
     private boolean editable = true;
     private final IdList<AbsCaretListener> listeners = new IdList<AbsCaretListener>();
+    private final MockCaret caret = new MockCaret(listeners,this);
 
     @Override
     public int getCaretPosition() {
-        return selectionEnd;
+        return caret.getDot();
     }
 
     @Override
     public int getSelectionStart() {
-        return NumberUtil.min(selectionStart,selectionEnd);
+        return NumberUtil.min(caret.getDot(),caret.getMark());
     }
 
     @Override
     public void setCaretPosition(int _position) {
-        selectionStart = _position;
-        if (selectionEnd != _position) {
-            selectionEnd = _position;
-            caretUpdate();
-        }
+        caret.setDot(_position);
     }
 
     @Override
     public int getSelectionEnd() {
-        return NumberUtil.max(selectionStart,selectionEnd);
+        return NumberUtil.max(caret.getDot(),caret.getMark());
     }
 
     @Override
     public void moveCaretPosition(int _pos) {
-        if (selectionEnd != _pos) {
-            selectionEnd = _pos;
-            caretUpdate();
-        }
+        caret.moveDot(_pos);
     }
 
     @Override
     public int insert(String _s, int _i) {
         builder.insert(_i,_s);
+        updateInsert(_s, _i);
         applyInsert(_s, _i);
         return 1;
     }
 
+
     @Override
     public int remove(int _off, int _len) {
         builder.delete(_off, _off+_len);
+        updateRemove(_len, _off);
         applyRemove(_len,_off);
         return 1;
     }
@@ -112,14 +107,27 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
             return;
         }
         builder.delete(getSelectionStart(),getSelectionEnd());
+        updateRemove(getSelectionEnd()-getSelectionStart(), getSelectionStart());
         applyRemove(getSelectionEnd()-getSelectionStart(), getSelectionStart());
-        selectionEnd = getSelectionStart();
+
         builder.insert(getSelectionStart(),_s);
+        updateInsert(_s, getSelectionStart());
         applyInsert(_s, getSelectionStart());
-        selectionStart += _s.length();
-        selectionEnd += _s.length();
     }
 
+    private void updateInsert(String _s, int _i) {
+        if (_s.length() == 0) {
+            return;
+        }
+        getCaret().updateInsert(_s, _i);
+    }
+
+    private void updateRemove(int _len, int _i) {
+        if (_len == 0) {
+            return;
+        }
+        getCaret().updateRemove(_len, _i);
+    }
     public void append(String _s) {
         builder.append(_s);
     }
@@ -127,8 +135,10 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
     public void setText(String _s) {
         int old_ = builder.length();
         builder.delete(0, old_);
+        updateRemove(old_, 0);
         applyRemove(old_, 0);
         builder.append(_s);
+        updateInsert(_s, 0);
         applyInsert(_s, 0);
     }
 
@@ -197,11 +207,6 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
         select(0,builder.length());
     }
 
-    private void caretUpdate() {
-        for (AbsCaretListener a: listeners) {
-            a.caretUpdate(selectionStart,selectionEnd);
-        }
-    }
     public int getCaretColor() {
         return caretColor;
     }
@@ -345,5 +350,9 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
     @Override
     public void visibleCaret() {
         setEnabled(isEnabled());
+    }
+
+    public MockCaret getCaret() {
+        return caret;
     }
 }

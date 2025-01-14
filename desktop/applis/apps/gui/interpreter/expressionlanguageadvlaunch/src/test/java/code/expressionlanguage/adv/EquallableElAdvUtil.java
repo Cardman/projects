@@ -1182,6 +1182,7 @@ public abstract class EquallableElAdvUtil {
 
     protected void changeNow(WindowCdmEditor _w, String _v) {
         tabEditor(_w).getCenter().setText(_v);
+        tabEditor(_w).getCenter().select(0,0);
         executeOneTask(tabEditor(_w).getTaskManager());
 //        invokeAndClear(_w.getFrames());
     }

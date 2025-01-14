@@ -227,6 +227,7 @@ public final class FindActionTest extends EquallableElAdvUtil {
     public void action14() {
         WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("helo");
+        tabEditor(w_).getCenter().select(0,0);
         findText(w_);
         findNow(w_,"l");
         tabEditor(w_).getCenter().select(2,2);

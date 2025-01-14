@@ -107,6 +107,7 @@ public final class ManageExpressionTest extends EquallableElAdvUtil {
     public void replaceOne() {
         WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "public class pkg.ExClass:AbsStringReplacer{public StringSegment index(String t,int i){return t.indexOf('C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)+1):null;}public String replace(String t, int i, int b, int e){return \"c\";}}");
         tabEditor(w_).getCenter().setText("C t C t");
+        tabEditor(w_).getCenter().select(0,0);
         analyze(w_);
         assertTrue(w_.getUserResult().getReportedMessages().isAllEmptyErrors());
         refreshClasses(w_);
@@ -464,6 +465,7 @@ public final class ManageExpressionTest extends EquallableElAdvUtil {
     public void replacePreviousSegments() {
         WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "public class pkg.ExClass:AbsStringReplacer{public StringSegment index(String t,int i){int n = t.indexOf('C',i);if(n>0&&t.charAt(n-1)!=','&&t.charAt(n-1)!=' '){n=t.indexOf('C',n+1);}if(n==0){return new(begin:0,end:1);}if(n>0&&(t.charAt(n-1)==','||t.charAt(n-1)==' ')){return new(begin:n-1,end:n+1);}return null;}public String replace(String t, int i, int b, int e){var pref = t.startsWith(\",\",b)?\";\":t.startsWith(\" \",b)?\"__\":\"\";return i%3==0?pref+\"one\":i%3==1?pref+\"two\":pref+\"three\";}}");
         tabEditor(w_).getCenter().setText("C t,C t C t;C t,C t C t");
+        tabEditor(w_).getCenter().select(0,0);
         analyze(w_);
         assertTrue(w_.getUserResult().getReportedMessages().isAllEmptyErrors());
         refreshClasses(w_);
@@ -499,6 +501,7 @@ public final class ManageExpressionTest extends EquallableElAdvUtil {
     public void replacePreviousSegmentsSec() {
         WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "public class pkg.ExClass:AbsStringReplacer{public StringSegment index(String t,int i){int n = t.indexOf('t',i);if(n+1<t.length()&&t.charAt(n+1)!=','&&t.charAt(n+1)!=' '){n=t.indexOf('t',n+1);}if(n==t.length()-1){return new(begin:t.length()-1,end:t.length());}if(n+1<t.length()&&(t.charAt(n+1)==','||t.charAt(n+1)==' ')){return new(begin:n,end:n+2);}return null;}public String replace(String t, int i, int b, int e){var pref = t.substring(b,e).endsWith(\",\")?\";\":t.substring(b,e).endsWith(\" \")?\"__\":\"\";return i%3==0?\"one\"+pref:i%3==1?\"two\"+pref:\"three\"+pref;}}");
         tabEditor(w_).getCenter().setText("C t,C t C t;C t,C t C t");
+        tabEditor(w_).getCenter().select(0,0);
         analyze(w_);
         assertTrue(w_.getUserResult().getReportedMessages().isAllEmptyErrors());
         refreshClasses(w_);
@@ -534,6 +537,7 @@ public final class ManageExpressionTest extends EquallableElAdvUtil {
     public void badParam() {
         WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "public class pkg.ExClass<T>:AbsStringReplacer{public StringSegment index(String t,int i){return t.indexOf('C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)+1):null;}public String replace(String t, int i, int b, int e){return \"c\";}}");
         tabEditor(w_).getCenter().setText("C t C t");
+        tabEditor(w_).getCenter().select(0,0);
         analyze(w_);
         assertTrue(w_.getUserResult().getReportedMessages().isAllEmptyErrors());
         refreshClasses(w_);

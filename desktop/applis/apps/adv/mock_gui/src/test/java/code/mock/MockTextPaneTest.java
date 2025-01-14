@@ -116,8 +116,8 @@ public final class MockTextPaneTest extends EquallableMockGuiUtil {
         t_.addCaretListener(l_);
         t_.setText("_");
         t_.select(0,1);
-        assertEq(0,l_.getBegin());
-        assertEq(1,l_.getEnd());
+        assertEq(1,l_.getBegin());
+        assertEq(0,l_.getEnd());
     }
     @Test
     public void f11() {
@@ -174,6 +174,38 @@ public final class MockTextPaneTest extends EquallableMockGuiUtil {
         t_.setSelectionEnd(4);
         t_.select(1,4);
         t_.replaceSelection("fmm");
+        assertEq("hello",t_.getText());
+    }
+    @Test
+    public void f16() {
+        MockTextPane t_ = (MockTextPane) init().getCompoFactory().newTextPane();
+        t_.append("hello");
+        t_.select(2,4);
+        t_.remove(0,1);
+        assertEq("ello",t_.getText());
+    }
+    @Test
+    public void f17() {
+        MockTextPane t_ = (MockTextPane) init().getCompoFactory().newTextPane();
+        t_.append("hello");
+        t_.select(1,3);
+        t_.remove(4,1);
+        assertEq("hell",t_.getText());
+    }
+    @Test
+    public void f18() {
+        MockTextPane t_ = (MockTextPane) init().getCompoFactory().newTextPane();
+        t_.append("heo");
+        t_.select(1,3);
+        t_.insert("ll",2);
+        assertEq("hello",t_.getText());
+    }
+    @Test
+    public void f19() {
+        MockTextPane t_ = (MockTextPane) init().getCompoFactory().newTextPane();
+        t_.append("hell");
+        t_.select(1,2);
+        t_.insert("o",4);
         assertEq("hello",t_.getText());
     }
 }
