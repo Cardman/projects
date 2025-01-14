@@ -108,7 +108,7 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener {
     }
 
     @Override
-    public void changedUpdate() {
+    public void changedUpdate(int _off, int _len) {
         documentChangedEvent();
     }
 

@@ -20,7 +20,7 @@ public final class PkCompleteTextEvent implements AbsAutoCompleteListener {
     }
 
     @Override
-    public void changedUpdate() {
+    public void changedUpdate(int _off, int _len) {
         input.valueString();
     }
 }

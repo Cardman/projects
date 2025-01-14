@@ -24,6 +24,6 @@ public final class WrAutoCompleteListener implements DocumentListener {
 
     @Override
     public void changedUpdate(DocumentEvent _e) {
-        autoCompleteListener.changedUpdate();
+        autoCompleteListener.changedUpdate(_e.getOffset(), _e.getLength());
     }
 }

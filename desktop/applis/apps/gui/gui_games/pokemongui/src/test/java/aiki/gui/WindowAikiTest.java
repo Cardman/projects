@@ -181,7 +181,7 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         AikiNatLgNamesNavigation res_ = new DataWebInit(new PreparedRenderedPages(new DataGameInit(), new StringMap<Document>(), new StringMap<TranslationsAppli>(), new StringMap<String>(), new PokemonStandardsSample(), new StringList()), window_.getFrames().getCompoFactory().newMenuItem("")).call();
         res_.getNavigation().setLanguage("");
         assertEq("",res_.getNavigation().getLanguage());
-        new WalkNicknameAutoCompleteListener(new MockTextField(""),window_.getFacade()).changedUpdate();
+        new WalkNicknameAutoCompleteListener(new MockTextField(""),window_.getFacade()).changedUpdate(0,0);
         tryClick(window_.getLanguage());
         assertEq(0,new DefTaskEnabled().status(new ConcreteInteger(0)));
         window_.getScenePanel().getScene().getPaintableLabel().getMouseListenersRel().get(0).mouseReleased(null,null,null);

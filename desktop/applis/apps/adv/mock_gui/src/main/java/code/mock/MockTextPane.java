@@ -24,7 +24,7 @@ public final class MockTextPane extends MockTxtComponent implements AbsTextPane 
     @Override
     public void setParagraphAttributes(AbsAttrSet _attrs) {
         paragraph = _attrs;
-        applyChange(1);
+        applyChange(0,getBuilder().length());
     }
 
     @Override
@@ -41,7 +41,7 @@ public final class MockTextPane extends MockTxtComponent implements AbsTextPane 
                 attrSets.addEntry(k_,new CustList<AbsAttrSet>());
             }
         }
-        applyChange(_length);
+        applyChange(_begin,_length);
     }
 
     @Override
@@ -63,7 +63,7 @@ public final class MockTextPane extends MockTxtComponent implements AbsTextPane 
                 attrSets.addEntry(k_,elts_);
             }
         }
-        applyChange(_length);
+        applyChange(_begin,_length);
     }
 
     public StringMap<CustList<AbsAttrSet>> getAttrSets() {

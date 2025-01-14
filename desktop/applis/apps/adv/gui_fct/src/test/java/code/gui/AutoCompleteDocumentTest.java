@@ -179,7 +179,7 @@ public final class AutoCompleteDocumentTest extends EquallableGuiFctUtil {
         AutoCompleteDocument auto_ = new AutoCompleteDocument(f_, new StringList("ONE","TWO"), pre_);
         auto_.setDictionary(new StringList("ONE","TWO"));
         auto_.setMode(false);
-        auto_.changedUpdate();
+        auto_.changedUpdate(0,0);
         assertEq(0,auto_.getList().size());
         assertFalse(auto_.getPopup().isVisible());
     }

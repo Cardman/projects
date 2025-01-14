@@ -17,7 +17,7 @@ public final class MockTextFieldTest extends EquallableMockGuiUtil {
         MockTextField t_ = new MockTextField("length");
         MockAutoCompleteListener l_ = new MockAutoCompleteListener(t_);
         t_.addAutoComplete(l_);
-        l_.changedUpdate();
+        l_.changedUpdate(0,0);
         assertEq(6,t_.getSelectionEnd());
     }
     @Test

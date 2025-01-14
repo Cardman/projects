@@ -79,7 +79,7 @@ public final class MockTextAreaTest extends EquallableMockGuiUtil {
         t_.setCaretPosition(1);
         t_.moveCaretPosition(2);
         assertEq(1, t_.getSelectionStart());
-        assertEq(1, t_.getCaretPosition());
+        assertEq(2, t_.getCaretPosition());
         assertEq(2, t_.getSelectionEnd());
     }
     @Test

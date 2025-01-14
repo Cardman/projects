@@ -59,7 +59,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     public void chCenter() {
         WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("_");
-        ((MockTextPane)tabEditor(w_).getCenter()).getAutoCompleteListeners().get(0).changedUpdate();
+        ((MockTextPane)tabEditor(w_).getCenter()).getAutoCompleteListeners().get(0).changedUpdate(0,0);
         assertEq("_", tabEditor(w_).getCenter().getText());
     }
     @Test

@@ -6,5 +6,5 @@ public interface AbsAutoCompleteListener {
 
     void removeUpdate(int _off, int _len);
 
-    void changedUpdate();
+    void changedUpdate(int _off, int _len);
 }

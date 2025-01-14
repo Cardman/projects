@@ -228,7 +228,7 @@ public final class EditorPkCompletingTxtFormTest extends InitEditorPkForm {
         action(g_);
         left(g_);
         assertFalse(g_.getPopupMenu().isVisible());
-        ((MockTxtComponent)g_.getTextPane()).getAutoCompleteListeners().get(0).changedUpdate();
+        ((MockTxtComponent)g_.getTextPane()).getAutoCompleteListeners().get(0).changedUpdate(0,0);
     }
     @Test
     public void auto15() {

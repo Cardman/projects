@@ -13,7 +13,6 @@ import code.util.core.NumberUtil;
 public abstract class MockTxtComponent extends MockInput implements AbsTxtComponent {
     private final CustList<AbsAutoCompleteListener> autoCompleteListeners = new CustList<AbsAutoCompleteListener>();
     private final StringBuilder builder = new StringBuilder();
-    private String selected = "";
     private int selectionStart;
     private int selectionEnd;
     private int caretColor;
@@ -24,7 +23,7 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
 
     @Override
     public int getCaretPosition() {
-        return getSelectionStart();
+        return selectionEnd;
     }
 
     @Override
@@ -35,7 +34,10 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
     @Override
     public void setCaretPosition(int _position) {
         selectionStart = _position;
-        caretUpdate();
+        if (selectionEnd != _position) {
+            selectionEnd = _position;
+            caretUpdate();
+        }
     }
 
     @Override
@@ -45,8 +47,10 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
 
     @Override
     public void moveCaretPosition(int _pos) {
-        selectionEnd = _pos;
-        caretUpdate();
+        if (selectionEnd != _pos) {
+            selectionEnd = _pos;
+            caretUpdate();
+        }
     }
 
     @Override
@@ -112,7 +116,6 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
         selectionEnd = getSelectionStart();
         builder.insert(getSelectionStart(),_s);
         applyInsert(_s, getSelectionStart());
-        selected = "";
         selectionStart += _s.length();
         selectionEnd += _s.length();
     }
@@ -129,9 +132,9 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
         applyInsert(_s, 0);
     }
 
-    protected void applyChange(int _s) {
+    protected void applyChange(int _begin, int _s) {
         for (AbsAutoCompleteListener a: apply(_s)) {
-            a.changedUpdate();
+            a.changedUpdate(_begin,_s);
         }
     }
 
@@ -159,7 +162,7 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
     }
 
     public String getSelectedText() {
-        return selected;
+        return builder.substring(getSelectionStart(), getSelectionEnd());
     }
 
     public void setSelectionStart(int _i) {
@@ -186,17 +189,12 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
         if (selectionEnd_ < selectionStart_) {
             selectionEnd_ = selectionStart_;
         }
-        selected = builder.substring(selectionStart_, selectionEnd_);
-        selectionStart = selectionStart_;
-        selectionEnd = selectionEnd_;
-        caretUpdate();
+        setCaretPosition(selectionStart_);
+        moveCaretPosition(selectionEnd_);
     }
 
     public void selectAll() {
-        selectionStart = 0;
-        selectionEnd = builder.length();
-        selected = getText();
-        caretUpdate();
+        select(0,builder.length());
     }
 
     private void caretUpdate() {

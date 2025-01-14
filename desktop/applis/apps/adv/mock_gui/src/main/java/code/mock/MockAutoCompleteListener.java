@@ -22,7 +22,7 @@ public final class MockAutoCompleteListener implements AbsAutoCompleteListener {
     }
 
     @Override
-    public void changedUpdate() {
+    public void changedUpdate(int _off, int _len) {
         textField.setCaretPosition(textField.getText().length());
     }
 }

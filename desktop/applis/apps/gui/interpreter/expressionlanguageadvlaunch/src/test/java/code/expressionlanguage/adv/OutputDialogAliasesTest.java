@@ -137,7 +137,7 @@ public final class OutputDialogAliasesTest extends EquallableElAdvUtil {
         assertEq(1,w_.getLgAliases().size());
         assertEq("Runnable",w_.getLgAliases().getKey(0));
         assertEq("$core.Runner",w_.getLgAliases().getValue(0));
-        ((MockTextArea)o_.getAliases().getValue()).getAutoCompleteListeners().get(0).changedUpdate();
+        ((MockTextArea)o_.getAliases().getValue()).getAutoCompleteListeners().get(0).changedUpdate(0,0);
     }
     @Test
     public void errors() {
