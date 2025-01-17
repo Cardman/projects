@@ -21,7 +21,7 @@ public abstract class DualLabel extends DualLeaf {
     protected DualLabel(DualContainer _container, MetaLabel _component, RenderedPage _page) {
         super(_container, _component, _page);
         text = _component.getText();
-        label = GuiBaseUtil.prep(_page.getGene().getImageFactory());
+        label = GuiBaseUtil.prep(_page.getGene().getImageFactory(), _page.getGene().getCompoFactory());
         updateGraphics(label,_component);
     }
 

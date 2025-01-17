@@ -230,11 +230,10 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         but_.removeActionListener(advAc_);
         assertEq(0, ((MockPlainButton)but_).getActionListeners().size());
         assertEq(0, ((MockPlainButton)but_).getAdvActionListeners().size());
-        AbsPreparedLabel prep_ = ab_.newPreparedLabel("");
+        AbsPreparedLabel prep_ = ab_.newPreparedLabel(pr_.getImageFactory().newImageArgb(1,1));
         prep_.setIcon(pr_.getImageFactory(),pr_.getImageFactory().newImageArgb(1,1));
         b_.add(prep_);
         b_.add(ab_.newPreparedLabel(pr_.getImageFactory().newImageArgb(1,1)));
-        b_.add(pr_.getImageFactory().newImageArgb(1,1).newAbsPreparedLabel());
         assertEq(1,prep_.getHeight());
         assertEq(1,prep_.getWidth());
         ab_.newCustCheckBox();
@@ -282,7 +281,6 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         img_.addActionListener(new MockAction(0,new MockWithActionSample()));
         assertEq(1,((MockPlainButton)img_).getActionListeners().size());
         AbstractImage ig_ = pr_.getImageFactory().newImageArgb(1, 1);
-        pr_.getImageFactory().setIcon(new MockPreparedLabel(),ig_);
         ig_.drawLine(0,0,0,0);
         ig_.drawRect(0,0,0,0);
         ig_.drawOval(0,0,0,0);

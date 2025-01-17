@@ -4,11 +4,9 @@ import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.images.MetaFont;
-import code.vi.prot.impl.gui.PreparedLabel;
 
 import javax.imageio.ImageIO;
 import javax.imageio.stream.MemoryCacheImageOutputStream;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
@@ -27,11 +25,6 @@ public final class DefImage implements AbstractImage {
     public DefImage(BufferedImage _read) {
         image = _read;
         graphics = image.getGraphics();
-    }
-
-    @Override
-    public AbsPreparedLabel newAbsPreparedLabel() {
-        return new PreparedLabel(this,new JLabel());
     }
 
     @Override

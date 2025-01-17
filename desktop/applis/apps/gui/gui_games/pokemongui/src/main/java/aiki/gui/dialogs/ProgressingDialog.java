@@ -86,11 +86,11 @@ public final class ProgressingDialog implements ProgressDialog {
         AbsPanel label_ = frames.getCompoFactory().newLineBox();
         AbsPreparedLabel anim_;
         if (!_images.isEmpty()) {
-            anim_ = GuiBaseUtil.prep(frames.getImageFactory());
+            anim_ = GuiBaseUtil.prep(frames.getImageFactory(), frames.getCompoFactory());
             anim_.setPreferredSize(new MetaDimension(WIDTH_ANIM, HEIGTH_ANIM));
             animation = new AnimatedImage(frames.getImageFactory(), frames.getThreadFactory(), anim_, _images, TIME * 10);
         } else {
-            anim_ = GuiBaseUtil.prep(frames.getImageFactory());
+            anim_ = GuiBaseUtil.prep(frames.getImageFactory(), frames.getCompoFactory());
             anim_.setPreferredSize(new MetaDimension(WIDTH_ANIM, HEIGTH_ANIM));
             anim_.setOpaque(true);
             anim_.setBackground(GuiConstants.WHITE);

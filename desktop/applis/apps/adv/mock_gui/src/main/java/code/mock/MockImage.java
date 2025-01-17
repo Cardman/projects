@@ -1,6 +1,5 @@
 package code.mock;
 
-import code.gui.AbsPreparedLabel;
 import code.gui.images.AbstractImage;
 import code.gui.images.MetaFont;
 import code.images.*;
@@ -20,11 +19,6 @@ public final class MockImage implements AbstractImage {
         width = _p[0].length;
         this.pixels = _p;
         color = getRGB(0,0);
-    }
-
-    @Override
-    public AbsPreparedLabel newAbsPreparedLabel() {
-        return new MockPreparedLabel();
     }
 
     @Override

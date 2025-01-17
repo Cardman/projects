@@ -16,14 +16,14 @@ public final class AnimatedImageTest extends EquallableGuiDocUtil {
     @Test
     public void incr1() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(10, lgs(), StringUtil.wrapStringArray("/")));
-        AnimatedImage i_ = new AnimatedImage(pr_.getImageFactory(), pr_.getThreadFactory(), pr_.getCompoFactory().newPreparedLabel(""), one(), 0);
+        AnimatedImage i_ = new AnimatedImage(pr_.getImageFactory(), pr_.getThreadFactory(), pr_.getCompoFactory().newPreparedLabel(pr_.getImageFactory().newImageArgb(1,1)), one(), 0);
         i_.run();
         assertEq(0,i_.getIndex());
     }
     @Test
     public void incr2() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(DefaultGenerator.oneEltArr()), new MockFileSet(10, lgs(), StringUtil.wrapStringArray("/")));
-        AnimatedImage i_ = new AnimatedImage(pr_.getImageFactory(), pr_.getThreadFactory(), pr_.getCompoFactory().newPreparedLabel(""), two(), 0);
+        AnimatedImage i_ = new AnimatedImage(pr_.getImageFactory(), pr_.getThreadFactory(), pr_.getCompoFactory().newPreparedLabel(pr_.getImageFactory().newImageArgb(1,1)), two(), 0);
         i_.run();
         assertEq(1,i_.getIndex());
     }

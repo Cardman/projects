@@ -18,12 +18,6 @@ public final class PreparedLabel extends CustComponent implements AbsPreparedLab
         this(DefImageFactory.icon((DefImage) _icon));
     }
 
-    public PreparedLabel(AbstractImage _icon, JLabel _label) {
-        label = _label;
-        width = NumberUtil.max(0, _icon.getWidth());
-        height = NumberUtil.max(0,_icon.getHeight());
-    }
-
     public PreparedLabel(Icon _icon) {
         label = new JLabel(_icon);
         width = NumberUtil.max(0, _icon.getIconWidth());

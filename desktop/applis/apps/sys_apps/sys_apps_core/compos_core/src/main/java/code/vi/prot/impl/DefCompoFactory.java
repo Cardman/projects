@@ -52,11 +52,6 @@ public final class DefCompoFactory implements AbsCompoFactory {
     }
 
     @Override
-    public AbsPreparedLabel newPreparedLabel(String _key) {
-        return new PreparedLabel(UIManager.getIcon(_key));
-    }
-
-    @Override
     public AbsButton newImgButton(AbstractImage _imageIcon) {
         return new PlainButton(_imageIcon);
     }

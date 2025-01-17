@@ -43,11 +43,6 @@ public final class MockCompoFactory implements AbsCompoFactory {
     }
 
     @Override
-    public AbsPreparedLabel newPreparedLabel(String _key) {
-        return new MockPreparedLabel();
-    }
-
-    @Override
     public AbsButton newImgButton(AbstractImage _imageIcon) {
         _imageIcon.getWidth();
         return new MockPlainButton();

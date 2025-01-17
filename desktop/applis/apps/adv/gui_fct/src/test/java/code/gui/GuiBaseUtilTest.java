@@ -110,7 +110,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
 
     @Test
     public void prep() {
-        AbsPreparedLabel l_ = GuiBaseUtil.prep(new MockImageFactory());
+        AbsPreparedLabel l_ = GuiBaseUtil.prep(new MockImageFactory(), new MockCompoFactory());
         assertEq(1, l_.getWidth());
         assertEq(1, l_.getHeight());
     }

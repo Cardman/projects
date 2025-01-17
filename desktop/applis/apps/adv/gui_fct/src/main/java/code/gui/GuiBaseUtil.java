@@ -197,8 +197,8 @@ public final class GuiBaseUtil {
         return -1;
     }
 
-    public static AbsPreparedLabel prep(AbstractImageFactory _img) {
-        return _img.newImageArgb(1,1).newAbsPreparedLabel();
+    public static AbsPreparedLabel prep(AbstractImageFactory _img, AbsCompoFactory _compo) {
+        return _compo.newPreparedLabel(_img.newImageArgb(1,1));
     }
 
     public static void invokeLater(Runnable _r, AbstractLightProgramInfos _compoFactory) {

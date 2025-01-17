@@ -54,11 +54,11 @@ public final class ProgressingWebDialog implements ProgressDialogAdv {
         }
         AbsPreparedLabel anim_;
         if (!_images.isEmpty()) {
-            anim_ = GuiBaseUtil.prep(_session.getGene().getImageFactory());
+            anim_ = GuiBaseUtil.prep(_session.getGene().getImageFactory(), _session.getGene().getCompoFactory());
             anim_.setPreferredSize(new MetaDimension(WIDTH_ANIM, HEIGTH_ANIM));
             animation = new AnimatedImage(_session.getGene().getImageFactory(),_fact, anim_, _images, TIME * 10);
         } else {
-            anim_ = GuiBaseUtil.prep(_session.getGene().getImageFactory());
+            anim_ = GuiBaseUtil.prep(_session.getGene().getImageFactory(), _session.getGene().getCompoFactory());
             anim_.setPreferredSize(new MetaDimension(WIDTH_ANIM, HEIGTH_ANIM));
             anim_.setOpaque(true);
             anim_.setBackground(GuiConstants.WHITE);

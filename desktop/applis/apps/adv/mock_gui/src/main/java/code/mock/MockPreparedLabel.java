@@ -8,11 +8,6 @@ public final class MockPreparedLabel extends MockCustComponent implements AbsPre
     private int width;
     private int height;
 
-    public MockPreparedLabel() {
-        width = 1;
-        height = 1;
-    }
-
     public MockPreparedLabel(AbstractImage _abstractImage) {
         width = _abstractImage.getWidth();
         height = _abstractImage.getHeight();

@@ -20,6 +20,6 @@ public final class DfImageLabel extends DfCompoCtor {
 
     @Override
     public ArgumentWrapper inst(GuiExecutingBlocks _guiEx, AbstractExiting _exit, ContextEl _cont, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return new ArgumentWrapper(new PreparedLabelStruct(((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks().getImageFactory(),aliasImageLabel));
+        return new ArgumentWrapper(new PreparedLabelStruct(((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks().getImageFactory(),aliasImageLabel, ((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks().getCompoFactory()));
     }
 }
