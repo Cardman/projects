@@ -49,6 +49,16 @@ public abstract class TxtComponent extends CustComponent implements AbsTxtCompon
     }
 
     @Override
+    public int getDot() {
+        return getTextComponent().getCaret().getDot();
+    }
+
+    @Override
+    public int getMark() {
+        return getTextComponent().getCaret().getMark();
+    }
+
+    @Override
     public int enterAction() {
         return action(enterAction, getTextComponent(), 0);
     }

@@ -27,7 +27,7 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
 
     @Override
     public int getSelectionStart() {
-        return NumberUtil.min(caret.getDot(),caret.getMark());
+        return NumberUtil.min(getDot(),getMark());
     }
 
     @Override
@@ -37,12 +37,22 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
 
     @Override
     public int getSelectionEnd() {
-        return NumberUtil.max(caret.getDot(),caret.getMark());
+        return NumberUtil.max(getDot(),getMark());
     }
 
     @Override
     public void moveCaretPosition(int _pos) {
         caret.moveDot(_pos);
+    }
+
+    @Override
+    public int getDot() {
+        return caret.getDot();
+    }
+
+    @Override
+    public int getMark() {
+        return caret.getMark();
     }
 
     @Override

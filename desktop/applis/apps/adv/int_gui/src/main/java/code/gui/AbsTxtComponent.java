@@ -30,6 +30,8 @@ public interface AbsTxtComponent extends AbsCustComponent, TranslatableComponent
 
     int getSelectionColor();
 
+    int getDot();
+    int getMark();
     void setSelectionColor(int _c);
 
     void setSelectionStart(int _selectionStart);
