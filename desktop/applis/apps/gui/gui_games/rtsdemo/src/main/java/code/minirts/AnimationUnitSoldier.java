@@ -100,7 +100,7 @@ public final class AnimationUnitSoldier implements Runnable {
 
     void moving() {
         Facade f_ = battleground.getFacade();
-        AbsCustComponent parent_ = battleground.getContainer().getParent();
+        AbsCustComponent parent_ = battleground.getContainerParent();
         Rate w_ = new Rate(parent_.getWidth());
         Rate h_ = new Rate(parent_.getHeight());
         for (EntryCust<Long, Soldier> u: f_.getVisibleSoldiers(w_, h_)) {
@@ -116,7 +116,7 @@ public final class AnimationUnitSoldier implements Runnable {
 
     private void repaintBattleground() {
         Facade f_ = battleground.getFacade();
-        AbsCustComponent parent_ = battleground.getContainer().getParent();
+        AbsCustComponent parent_ = battleground.getContainerParent();
 //        int w_ = parent_.getWidth();
 //        int h_ = parent_.getHeight();
         RatePoint curTopLeft_ = f_.getTopLeftPoint();

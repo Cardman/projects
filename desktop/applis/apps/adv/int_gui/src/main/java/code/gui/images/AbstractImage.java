@@ -1,6 +1,5 @@
 package code.gui.images;
 
-import code.gui.AbsCustComponent;
 import code.gui.AbsPreparedLabel;
 
 
@@ -19,8 +18,6 @@ public interface AbstractImage {
 
     void drawImage(AbstractImage _image, int _i, int _j);
 
-    void setColorBg(AbsCustComponent _color);
-    void setColorFg(AbsCustComponent _color);
     void setColor(int _color);
 
     void fillRect(int _a, int _b, int _width, int _height);
@@ -38,9 +35,8 @@ public interface AbstractImage {
     int getColorValue();
 
     MetaFont getMetaFont();
-    void setFont(String _name, int _style, int _size);
+
     void setFont(MetaFont _font);
-    void setFont(AbsCustComponent _font);
 
     void drawPolygon(int[] _w, int[] _y, int _n);
 

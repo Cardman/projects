@@ -45,7 +45,7 @@ public final class WrappedLabel {
         }
         paintableLabel.setPreferredSize(new MetaDimension(w_, h_));
         AbstractImage img_ = _fact.newImageArgb(w_, h_);
-        img_.setFont(paintableLabel);
+        img_.setFont(paintableLabel.getMetaFont());
         paintComponent(img_);
         paintableLabel.setIcon(_fact,img_);
     }
@@ -55,9 +55,9 @@ public final class WrappedLabel {
     }
 
     public void paintComponent(AbstractImage _g) {
-        _g.setColorBg(getPaintableLabel());
+        _g.setColor(getPaintableLabel().getBackgroundValue());
         _g.fillRect(0, 0, _g.getWidth(), _g.getHeight());
-        _g.setColorFg(getPaintableLabel());
+        _g.setColor(getPaintableLabel().getForegroundValue());
         int hLine_ = compo.heightFont(paintableLabel.getMetaFont());
         int i_ = IndexConstants.FIRST_INDEX;
         for (String l: lines) {

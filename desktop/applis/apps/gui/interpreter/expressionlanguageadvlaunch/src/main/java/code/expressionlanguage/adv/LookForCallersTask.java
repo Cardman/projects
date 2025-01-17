@@ -24,7 +24,8 @@ public final class LookForCallersTask implements Runnable {
     static void updateCallersView(WindowWithTreeImpl _window, ResultRowSrcLocationList _result) {
         AbsTreeGui tree_ = tree(_window, _result);
         _window.getPanelSymbolsDetailScroll().setViewportView(tree_);
-        GuiBaseUtil.recalculate(_window.getPanelSymbolsDetailScroll());
+        _window.pack();
+//        GuiBaseUtil.recalculate(_window.getPanelSymbolsDetailScroll());
     }
 
     static AbstractMutableTreeNodeCore<String> node(WindowWithTreeImpl _window, ResultRowSrcLocationList _result, MetaCaller _r) {

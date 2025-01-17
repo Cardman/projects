@@ -197,10 +197,6 @@ public final class MockCustComponentTest extends EquallableMockGuiUtil {
         f_.setForeground(10);
         assertEq(10,f_.getBackgroundValue());
         assertEq(10,f_.getForegroundValue());
-        f_.setBackground(f_);
-        f_.setForeground(f_);
-        assertEq(10,f_.getBackgroundValue());
-        assertEq(10,f_.getForegroundValue());
         f_.setAutoscrolls(true);
         assertTrue(f_.isAutoscrolls());
         f_.setToolTipText("_");

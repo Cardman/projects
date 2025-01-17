@@ -7,6 +7,7 @@ public final class MockAttrSet implements AbsAttrSet {
     private int back;
     private int fore;
     private int fontSize;
+    private String fontFamily;
     private boolean italic;
     private boolean bold;
     private boolean underline;
@@ -24,6 +25,11 @@ public final class MockAttrSet implements AbsAttrSet {
     @Override
     public void addFontSize(int _color) {
         fontSize = _color;
+    }
+
+    @Override
+    public void addFontFamily(String _color) {
+        fontFamily = _color;
     }
 
     @Override
@@ -56,6 +62,10 @@ public final class MockAttrSet implements AbsAttrSet {
 
     public int getFore() {
         return fore;
+    }
+
+    public String getFontFamily() {
+        return fontFamily;
     }
 
     public boolean isBold() {

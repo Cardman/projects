@@ -4,7 +4,6 @@ import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.images.MetaFont;
-import code.vi.prot.impl.gui.CustComponent;
 import code.vi.prot.impl.gui.PreparedLabel;
 
 import javax.imageio.ImageIO;
@@ -86,16 +85,6 @@ public final class DefImage implements AbstractImage {
     }
 
     @Override
-    public void setColorBg(AbsCustComponent _color) {
-        setColor(((CustComponent)_color).getBackground());
-    }
-
-    @Override
-    public void setColorFg(AbsCustComponent _color) {
-        setColor(((CustComponent)_color).getForeground());
-    }
-
-    @Override
     public void setColor(int _color) {
         setColor(fullColor(_color));
     }
@@ -117,16 +106,6 @@ public final class DefImage implements AbstractImage {
 
     public void setFont(Font _font) {
         graphics.setFont(_font);
-    }
-
-    @Override
-    public void setFont(String _name, int _style, int _size) {
-        graphics.setFont(font(_name, _style, _size));
-    }
-
-    @Override
-    public void setFont(AbsCustComponent _font) {
-        graphics.setFont(((CustComponent)_font).getFont());
     }
 
     @Override

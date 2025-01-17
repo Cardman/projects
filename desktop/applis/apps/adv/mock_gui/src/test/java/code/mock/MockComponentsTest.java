@@ -294,11 +294,7 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         ig_.translate(0,0);
         ig_.toBytes();
         ig_.writeImg("");
-        ig_.setFont(ab_.newAbsolute());
         ig_.setFont(new MetaFont("",0,0));
-        ig_.setFont("",0,0);
-        ig_.setColorBg(ab_.newAbsolute());
-        ig_.setColorFg(ab_.newAbsolute());
         ig_.setColor(1);
         ig_.dispose();
         assertEq(1,ig_.getColorValue());

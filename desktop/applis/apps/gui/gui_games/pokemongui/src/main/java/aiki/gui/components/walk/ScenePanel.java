@@ -703,8 +703,8 @@ public final class ScenePanel {
         AbsPanel box_ =compoFactory.newPageBox();
         box_.add(window.getCompoFactory().newPlainLabel(messages.getVal(MessagesRenderScenePanel.GO_BACK)));
         chosenCity = window.getCompoFactory().newPlainLabel("");
-        chosenCity.setBackground(box_);
-        chosenCity.setForeground(box_);
+        chosenCity.setBackground(box_.getBackgroundValue());
+        chosenCity.setForeground(box_.getForegroundValue());
         box_.add(chosenCity);
         AbsPanel line_ = compoFactory.newLineBox();
         //avoid vertical spaces between tiles in map

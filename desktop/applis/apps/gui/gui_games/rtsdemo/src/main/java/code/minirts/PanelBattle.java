@@ -25,11 +25,13 @@ public final class PanelBattle {
     private boolean paintSelection;
 
     private final AbsPaintableLabel selecting;
+    private final AbsPanel containerParent;
     private final AbsPanel container;
     private final AbsPanel content;
 
-    public PanelBattle(Facade _facade, AbsCompoFactory _compoFactory) {
+    public PanelBattle(Facade _facade, AbsCompoFactory _compoFactory, AbsPanel _parent) {
         facade = _facade;
+        containerParent = _parent;
         container = _compoFactory.newAbsolute();
         content = _compoFactory.newAbsolute();
         content.setOpaque(true);
@@ -62,12 +64,11 @@ public final class PanelBattle {
         soldierLabel_.setLocation(_x, _y);
         soldierLabels.put(_next,soldierLabel_);
         RatePoint curTopLeft_ = facade.getTopLeftPoint();
-        AbsCustComponent parent_ = container.getParent();
 //        int w_ = parent_.getWidth();
 //        int h_ = parent_.getHeight();
         paintSelection = false;
 //        repaint(-curTopLeft_.x, -curTopLeft_.y, w_, h_);
-        repaint(_fact.getImageFactory(),curTopLeft_.getXcoords(), curTopLeft_.getYcoords(), parent_);
+        repaint(_fact.getImageFactory(),curTopLeft_.getXcoords(), curTopLeft_.getYcoords(), containerParent);
     }
 
     public void repaint(AbstractImageFactory _fact,Rate _x, Rate _y, AbsCustComponent _parent) {
@@ -85,7 +86,7 @@ public final class PanelBattle {
             }
             AbstractImage img_ = _fact.newImageArgb(w_, h_);
 //            CustGraphics gr_ = new CustGraphics(img_.getGraphics());
-            img_.setFont(u_.getPaintableLabel());
+            img_.setFont(u_.getPaintableLabel().getMetaFont());
             u_.paintComponent(img_);
             u_.setIcon(_fact,img_);
         }
@@ -98,7 +99,7 @@ public final class PanelBattle {
         AbstractImage img_ = _fact.newImageArgb(w_, h_);
         if (isPaintSelection()) {
             //            CustGraphics gr_ = new CustGraphics(img_.getGraphics());
-            img_.setFont(selecting);
+            img_.setFont(selecting.getMetaFont());
             Rect r_ = facade.getSelection();
             img_.setColor(GuiConstants.BLUE);
             img_.drawRect((int)r_.getLeft().ll(),(int) r_.getTop().ll(),(int) r_.getWidth().ll(), (int)r_.getHeight().ll());
@@ -107,7 +108,7 @@ public final class PanelBattle {
             img_.setColor(GuiConstants.newColor(255,255,255,0));
             img_.fillRect(0, 0, w_, h_);
         }
-        img_.setFont(selecting);
+        img_.setFont(selecting.getMetaFont());
         selecting.setIcon(_fact,img_);
     }
 
@@ -152,12 +153,11 @@ public final class PanelBattle {
     public void selectOrDeselectMany(AbstractImageFactory _fact) {
         facade.selectOrDeselectMany();
         RatePoint curTopLeft_ = facade.getTopLeftPoint();
-        AbsCustComponent parent_ = container.getParent();
 //        int w_ = parent_.getWidth();
 //        int h_ = parent_.getHeight();
 //        paintSelection = false;
 //        repaint(-curTopLeft_.x, -curTopLeft_.y, w_, h_);
-        repaint(_fact,curTopLeft_.getXcoords(), curTopLeft_.getYcoords(), parent_);
+        repaint(_fact,curTopLeft_.getXcoords(), curTopLeft_.getYcoords(), containerParent);
     }
 
     public void setNewLocation(int _x, int _y) {
@@ -165,9 +165,8 @@ public final class PanelBattle {
     }
 
     public void moveCamera(AbstractImageFactory _fact, Rate _x, Rate _y) {
-        AbsCustComponent parent_ = container.getParent();
-        int w_ = parent_.getWidth();
-        int h_ = parent_.getHeight();
+        int w_ = containerParent.getWidth();
+        int h_ = containerParent.getHeight();
         facade.moveCamera(_x, _y, new Rate(w_), new Rate(h_));
         RatePoint curTopLeft_ = facade.getTopLeftPoint();
         setLocation(curTopLeft_);
@@ -175,7 +174,7 @@ public final class PanelBattle {
 //        setLocation(curTopLeft_);
         paintSelection = false;
 //        repaint(-curTopLeft_.x, -curTopLeft_.y, w_, h_);
-        repaint(_fact,curTopLeft_.getXcoords(), curTopLeft_.getYcoords(), parent_);
+        repaint(_fact,curTopLeft_.getXcoords(), curTopLeft_.getYcoords(), containerParent);
     }
     public void setPaintSelection(boolean _paintSelection) {
         paintSelection = _paintSelection;
@@ -195,6 +194,10 @@ public final class PanelBattle {
 
     public AbsPanel getContainer() {
         return container;
+    }
+
+    public AbsPanel getContainerParent() {
+        return containerParent;
     }
 
     public void setSize(MetaDimension _dimension) {

@@ -5,6 +5,7 @@ package cards.gui.labels;
 import cards.gui.containers.ContainerSingleImpl;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
+import code.gui.images.MetaFont;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.util.Ints;
@@ -29,7 +30,7 @@ public final class GraphicKey extends AbsMetaLabelCard {
         _g.fillRect(0,0,getWidth(),getHeight());
         _g.setColor(GuiConstants.BLACK);
         _g.translate(getWidth()/2,0);
-        _g.setFont(DEFAULT, GuiConstants.BOLD,10);
+        _g.setFont(new MetaFont(DEFAULT, GuiConstants.BOLD,10));
         int nb_ = NumberUtil.min(pseudos.size(),couleurs.size());
         for (int i = 0; i < nb_; i++) {
             String n_ = pseudos.get(i);

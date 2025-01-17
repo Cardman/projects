@@ -25,7 +25,7 @@ public abstract class AbsMetaLabelRts {
         int w_ = _rts.getWidth();
         int h_ = _rts.getHeight();
         AbstractImage img_ = _fact.newImageArgb(NumberUtil.max(w_,1), NumberUtil.max(h_,1));
-        img_.setFont(_rts.getPaintableLabel());
+        img_.setFont(_rts.getPaintableLabel().getMetaFont());
         _rts.paintComponent(img_);
         _rts.setIcon(_fact,img_);
     }

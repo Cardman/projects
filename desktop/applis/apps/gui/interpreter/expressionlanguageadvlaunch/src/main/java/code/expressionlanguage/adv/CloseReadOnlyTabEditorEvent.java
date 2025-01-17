@@ -1,7 +1,6 @@
 package code.expressionlanguage.adv;
 
 import code.gui.AbsTabbedPane;
-import code.gui.GuiBaseUtil;
 import code.gui.events.AbsActionListener;
 
 public final class CloseReadOnlyTabEditorEvent implements AbsActionListener {
@@ -17,6 +16,7 @@ public final class CloseReadOnlyTabEditorEvent implements AbsActionListener {
         int index_ = editor_.getSelectedIndex();
         editor_.remove(index_);
         tabEditor.getDebuggerGui().getTabs().remove(index_);
-        GuiBaseUtil.recalculateWindow(tabEditor.getDebuggerGui().getCommonFrame());
+        tabEditor.getDebuggerGui().getCommonFrame().pack();
+//        GuiBaseUtil.recalculateWindow(tabEditor.getDebuggerGui().getCommonFrame());
     }
 }

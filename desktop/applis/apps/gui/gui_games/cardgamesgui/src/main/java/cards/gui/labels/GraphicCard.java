@@ -6,6 +6,7 @@ import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
+import code.gui.images.MetaFont;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.sml.util.TranslationsLg;
@@ -73,7 +74,7 @@ public final class GraphicCard<T> extends AbsMetaLabelCard {
             _g2.setColor(GuiConstants.BLACK);
             _g2.drawRect(0,0,getWidth()-1,getHeight()-1);
             _g2.setColor(GuiConstants.BLUE);
-            _g2.setFont(DEFAULT, GuiConstants.BOLD,20);
+            _g2.setFont(new MetaFont(DEFAULT, GuiConstants.BOLD,20));
             _g2.drawString(convCard.kind().toString(lg),20,80);
             return;
         }

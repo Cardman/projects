@@ -1,6 +1,5 @@
 package code.mock;
 
-import code.gui.AbsCustComponent;
 import code.gui.AbsPreparedLabel;
 import code.gui.images.AbstractImage;
 import code.gui.images.MetaFont;
@@ -73,16 +72,6 @@ public final class MockImage implements AbstractImage {
     }
 
     @Override
-    public void setColorBg(AbsCustComponent _c) {
-        setColor(_c.getBackgroundValue());
-    }
-
-    @Override
-    public void setColorFg(AbsCustComponent _c) {
-        setColor(_c.getForegroundValue());
-    }
-
-    @Override
     public void setColor(int _i) {
         color = _i;
     }
@@ -128,18 +117,8 @@ public final class MockImage implements AbstractImage {
     }
 
     @Override
-    public void setFont(String _name, int _style, int _size) {
-        setFont(new MetaFont(_name,_style,_size));
-    }
-
-    @Override
     public void setFont(MetaFont _font) {
         setMetaFont(_font);
-    }
-
-    @Override
-    public void setFont(AbsCustComponent _c) {
-        setFont(_c.getMetaFont());
     }
 
     public void setMetaFont(MetaFont _f) {

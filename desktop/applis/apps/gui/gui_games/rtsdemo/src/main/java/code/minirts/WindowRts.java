@@ -38,7 +38,7 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
 
     private final Facade facade = new Facade();
 
-    private final PanelBattle battleground = new PanelBattle(facade, getCompoFactory());
+    private final PanelBattle battleground;
     private final AbstractAtomicBoolean stopped;
     private final AbstractAtomicBoolean paused;
     private final AbstractAtomicLong count;
@@ -63,6 +63,8 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
     private final LanguagesButtonsPair mainButton;
     public WindowRts(AbstractProgramInfos _list, LanguagesButtonsPair _pair, int[][] _note) {
         super(_list);
+        AbsPanel battlegroundWrapper_ = getCompoFactory().newAbsolute();
+        battleground = new PanelBattle(facade, getCompoFactory(), battlegroundWrapper_);
         StringMap<String> mes_ = MessagesRts.valMessages(_list.currentLg());
         animate.setText(mes_.getVal(MessagesRts.ANIMATE));
         pause.setText(mes_.getVal(MessagesRts.PAUSE));
@@ -85,7 +87,6 @@ public final class WindowRts extends GroupFrame implements AbsOpenQuit {
         battleground.addMouseMotionListener(i_);
         battleground.setSize(new MetaDimension((int) facade.getScreen().getWidth().ll(), (int) facade.getScreen().getHeight().ll()));
 //        JPanel panelGame_ = new JPanel(new BorderLayout());
-        AbsPanel battlegroundWrapper_ = getCompoFactory().newAbsolute();
         battlegroundWrapper_.add(battleground.getContainer());
         RatePoint cust_ = facade.getTopLeftPoint();
         battleground.setLocation(cust_);

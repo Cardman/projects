@@ -65,6 +65,7 @@ public final class MockTextPaneTest extends EquallableMockGuiUtil {
         assertFalse(((MockAttrSet)a_).isUnderline());
         a_.addUnderline(true);
         assertTrue(((MockAttrSet)a_).isUnderline());
+        a_.addFontFamily("");
         t_.setCharacterAttributes(0,-1,a_,true);
         t_.setCharacterAttributes(0,1,a_,false);
         t_.setCharacterAttributes(0,2,a_,true);
@@ -74,12 +75,15 @@ public final class MockTextPaneTest extends EquallableMockGuiUtil {
         assertEq(2,((MockAttrSet)t_.getAttrSets().getVal("0").get(0)).getFontSize());
         assertEq(3,((MockAttrSet)t_.getAttrSets().getVal("0").get(0)).getBack());
         assertEq(4,((MockAttrSet)t_.getAttrSets().getVal("0").get(0)).getFore());
+        assertEq("",((MockAttrSet)t_.getAttrSets().getVal("0").get(0)).getFontFamily());
         assertEq(2,((MockAttrSet)t_.getAttrSets().getVal("1").get(0)).getFontSize());
         assertEq(3,((MockAttrSet)t_.getAttrSets().getVal("1").get(0)).getBack());
         assertEq(4,((MockAttrSet)t_.getAttrSets().getVal("1").get(0)).getFore());
+        assertEq("",((MockAttrSet)t_.getAttrSets().getVal("1").get(0)).getFontFamily());
         assertEq(2,((MockAttrSet)t_.getAttrSets().getVal("1").get(1)).getFontSize());
         assertEq(3,((MockAttrSet)t_.getAttrSets().getVal("1").get(1)).getBack());
         assertEq(4,((MockAttrSet)t_.getAttrSets().getVal("1").get(1)).getFore());
+        assertEq("",((MockAttrSet)t_.getAttrSets().getVal("1").get(1)).getFontFamily());
     }
     @Test
     public void f8() {

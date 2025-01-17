@@ -24,6 +24,11 @@ public final class DefAttrSet implements AbsAttrSet {
     }
 
     @Override
+    public void addFontFamily(String _color) {
+        StyleConstants.setFontFamily(attributes,_color);
+    }
+
+    @Override
     public void addItalic(boolean _color) {
         StyleConstants.setItalic(attributes,_color);
     }

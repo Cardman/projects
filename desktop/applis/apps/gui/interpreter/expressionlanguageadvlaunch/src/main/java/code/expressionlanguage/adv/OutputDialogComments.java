@@ -48,7 +48,8 @@ public final class OutputDialogComments implements WithFrame {
         dels.removeAll();
         commentsRows.clear();
         lines(factories_);
-        GuiBaseUtil.recalculate(scrollPane);
+        frame.pack();
+//        GuiBaseUtil.recalculate(scrollPane);
         frame.setVisible(true);
         associated.setEnabled(false);
     }

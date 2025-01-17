@@ -38,8 +38,8 @@ public abstract class DualLabel extends DualLeaf {
     }
 
     void backAndFront() {
-        label.setBackground(label.getParent());
-        label.setForeground(label.getParent());
+        label.setBackground(getContainer().getGraphic().getBackgroundValue());
+        label.setForeground(getContainer().getGraphic().getForegroundValue());
     }
 
     @Override

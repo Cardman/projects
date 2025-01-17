@@ -35,7 +35,7 @@ public abstract class AbsMetaLabelPk {
 //            return;
 //        }
         AbstractImage img_ = _fact.newImageArgb(NumberUtil.max(w_,1), NumberUtil.max(h_,1));
-        img_.setFont(_pk.getPaintableLabel());
+        img_.setFont(_pk.getPaintableLabel().getMetaFont());
         _pk.paintComponent(img_);
         _pk.setIcon(_fact,img_);
     }

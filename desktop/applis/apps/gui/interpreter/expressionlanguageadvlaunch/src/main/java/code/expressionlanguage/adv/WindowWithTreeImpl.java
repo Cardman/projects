@@ -41,7 +41,7 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
     private final AbsPanel panelSymbols;
     private final AbsTextArea analyzeState;
     private AbsPlainLabel lastCount;
-    private final AbsScrollPane panelSymbolsScroll;
+//    private final AbsScrollPane panelSymbolsScroll;
     private final AbsScrollPane panelSymbolsDetailScroll;
     private final AbsScrollPane panelSymbolsLocationScroll;
     private final EnabledMenu srcMenu;
@@ -100,11 +100,12 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         analyzeState = _list.getCompoFactory().newTextArea();
         lastCount = _list.getCompoFactory().newPlainLabel("0");
         panelSymbols = _list.getCompoFactory().newPageBox();
-        panelSymbolsScroll = _list.getCompoFactory().newAbsScrollPane(panelSymbols);
+//        panelSymbolsScroll = _list.getCompoFactory().newAbsScrollPane(panelSymbols);
         panelSymbolsDetailScroll = _list.getCompoFactory().newAbsScrollPane();
         panelSymbolsLocationScroll = _list.getCompoFactory().newAbsScrollPane();
         events = _list.getCompoFactory().newAbsTabbedPane();
-        events.add(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_FRAMES_FIND)), _list.getCompoFactory().newHorizontalSplitPane(panelSymbolsScroll, _list.getCompoFactory().newHorizontalSplitPane(panelSymbolsDetailScroll, panelSymbolsLocationScroll)));
+        events.add(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_FRAMES_FIND)), _list.getCompoFactory().newHorizontalSplitPane(_list.getCompoFactory().newAbsScrollPane(panelSymbols), _list.getCompoFactory().newHorizontalSplitPane(panelSymbolsDetailScroll, panelSymbolsLocationScroll)));
+//        events.add(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_FRAMES_FIND)), _list.getCompoFactory().newHorizontalSplitPane(panelSymbolsScroll, _list.getCompoFactory().newHorizontalSplitPane(panelSymbolsDetailScroll, panelSymbolsLocationScroll)));
         events.add(StringUtil.nullToEmpty(mes_.getVal(MessagesIde.IDE_POINTS_FRAMES_EVENT)), _list.getCompoFactory().newAbsScrollPane(analyzeState));
         editors = getFrames().getCompoFactory().newAbsTabbedPane();
         getCommonFrame().setContentPane(panel);
@@ -303,7 +304,8 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         cancelDialog.addActionListener(new CloseTreeDialog(this));
         panel_.add(cancelDialog);
         scrollDialog.setViewportView(panel_);
-        GuiBaseUtil.recalculate(scrollDialog);
+//        GuiBaseUtil.recalculate(scrollDialog);
+        pack();
         projectPart.setDividerLocation(projectPart.getHeight()-scrollDialog.getHeight());
     }
 
@@ -364,7 +366,8 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         cancelDialog.addActionListener(new CloseTreeDialog(this));
         panel_.add(cancelDialog);
         scrollDialog.setViewportView(panel_);
-        GuiBaseUtil.recalculateWindow(getCommonFrame());
+//        GuiBaseUtil.recalculateWindow(getCommonFrame());
+        getCommonFrame().pack();
     }
 
     void renameValidate() {
@@ -411,7 +414,8 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         cancelDialog.addActionListener(new CloseTreeDialog(this));
         panel_.add(cancelDialog);
         scrollDialog.setViewportView(panel_);
-        GuiBaseUtil.recalculateWindow(getCommonFrame());
+//        GuiBaseUtil.recalculateWindow(getCommonFrame());
+        getCommonFrame().pack();
     }
     void removeValidate() {
         AbstractProgramInfos frs_ = getFrames();
@@ -434,7 +438,8 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
     void clearTreeDialog() {
         setSelectedNode(null);
         scrollDialog.setVisible(false);
-        GuiBaseUtil.recalculateWindow(getCommonFrame());
+//        GuiBaseUtil.recalculateWindow(getCommonFrame());
+        getCommonFrame().pack();
         changeEnable(getTree().selectEvt());
     }
 
@@ -546,7 +551,8 @@ public abstract class WindowWithTreeImpl extends AbsEditorTabList {
         _p.add(usagesDefRef_);
     }
     public void update(ResultRowSrcLocationList _r) {
-        GuiBaseUtil.recalculate(panelSymbolsScroll);
+//        GuiBaseUtil.recalculate(panelSymbolsScroll);
+        pack();
         getEvents().selectIndex(0);
         _r.buildTree(this);
         LookForCallersTask.updateCallersView(this,_r);

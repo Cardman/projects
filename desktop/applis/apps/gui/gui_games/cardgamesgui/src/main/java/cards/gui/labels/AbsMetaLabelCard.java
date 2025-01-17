@@ -468,7 +468,7 @@ public abstract class AbsMetaLabelCard {
         int w_ = _carte.getWidth();
         int h_ = _carte.getHeight();
         AbstractImage img_ = _fact.newImageArgb(w_, h_);
-        img_.setFont(_carte.getPaintableLabel());
+        img_.setFont(_carte.getPaintableLabel().getMetaFont());
         _carte.paintComponent(img_);
         _carte.setIcon(_fact,img_);
     }

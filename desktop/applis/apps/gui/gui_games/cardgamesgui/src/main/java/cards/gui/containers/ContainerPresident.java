@@ -101,8 +101,8 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
                 } else {
                     l_.setPreferredSize(Carpet.getDimension(false));
                 }
-                l_.setBackground(_panel);
-                l_.setForeground(_panel);
+                l_.setBackground(_panel.getBackgroundValue());
+                l_.setForeground(_panel.getForegroundValue());
                 _panel.add(l_);
                 index_++;
             }

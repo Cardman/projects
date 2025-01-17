@@ -502,16 +502,6 @@ public abstract class CustComponent implements AbsCustComponent {
         setForeground(DefImage.fullColor(_color));
     }
 
-    @Override
-    public void setBackground(AbsCustComponent _other) {
-        setBackground(((CustComponent)_other).getBackground());
-    }
-
-    @Override
-    public void setForeground(AbsCustComponent _other) {
-        setForeground(((CustComponent)_other).getForeground());
-    }
-
     public void setForeground(Color _color) {
         getNatComponent().setForeground(_color);
         foreGroundValue = _color.getRGB();

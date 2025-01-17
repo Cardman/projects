@@ -635,11 +635,6 @@ public abstract class MockCustComponent implements AbsCustComponent {
     }
 
     @Override
-    public void setBackground(AbsCustComponent _c) {
-        setBackground(_c.getBackgroundValue());
-    }
-
-    @Override
     public int getBackgroundValue() {
         return background;
     }
@@ -647,11 +642,6 @@ public abstract class MockCustComponent implements AbsCustComponent {
     @Override
     public void setForeground(int _color) {
         foreground = _color;
-    }
-
-    @Override
-    public void setForeground(AbsCustComponent _c) {
-        setForeground(_c.getForegroundValue());
     }
 
     @Override

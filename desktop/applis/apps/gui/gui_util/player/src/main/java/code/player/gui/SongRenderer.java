@@ -42,7 +42,7 @@ public final class SongRenderer {
 //        }
         AbstractImage img_ = _fact.newImageArgb(NumberUtil.max(1,w_), NumberUtil.max(1,h_));
 //        CustGraphics gr_ = new CustGraphics(img_.getGraphics());
-        img_.setFont(paintableLabel);
+        img_.setFont(paintableLabel.getMetaFont());
         paintComponent(img_);
         paintableLabel.setIcon(_fact,img_);
     }
