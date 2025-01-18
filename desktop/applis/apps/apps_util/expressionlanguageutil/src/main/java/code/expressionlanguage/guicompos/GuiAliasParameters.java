@@ -374,6 +374,11 @@ public final class GuiAliasParameters {
     private static final String CHECK_BOX_0_CHECK_BOX_0="_____1710";
     private static final String CHECK_BOX_1_CHECK_BOX_0="_____1711";
     private static final String CHECK_BOX_1_CHECK_BOX_1="_____1712";
+    private static final String TEXT_PANE_0_CHAR_ATTR_0="_____1712_";
+    private static final String TEXT_PANE_0_CHAR_ATTR_1="_____1712__";
+    private static final String TEXT_PANE_0_CHAR_ATTR_2="_____1712___";
+    private static final String TEXT_PANE_0_CHAR_ATTR_3="_____1712____";
+
     private static final String TEXT_FIELD_0_TEXT_FIELD_ADD_ACTION_0="_____1714";
     private static final String TEXT_FIELD_0_TEXT_FIELD_REMOVE_ACTION_0="_____1714_";
     private static final String TEXT_FIELD_0_TEXT_FIELD_0="_____1715";
@@ -402,6 +407,13 @@ public final class GuiAliasParameters {
     private static final String TEXT_AREA_2_TEXT_AREA_1="_____1736";
     private static final String TEXT_AREA_2_TEXT_AREA_2="_____1737";
     private static final String TEXT_COMPONENT_0_EDITABLE_0="_____1737_";
+    private static final String ATTR_SET_0_BACKGROUND_0="_____1737__";
+    private static final String ATTR_SET_0_FOREGROUND_0="_____1737___";
+    private static final String ATTR_SET_0_FONTFAMILY_0="_____1737____";
+    private static final String ATTR_SET_0_FONTSIZE_0="_____1737_____";
+    private static final String ATTR_SET_0_ITALIC_0="_____1737______";
+    private static final String ATTR_SET_0_BOLD_0="_____1737_______";
+    private static final String ATTR_SET_0_UNDERLINE_0="_____1737________";
     private static final String SPINNER_0_SPINNER_SET_MAX_0="_____1738";
     private static final String SPINNER_0_SPINNER_SET_MIN_0="_____1739";
     private static final String SPINNER_0_TREE_NODE_SET_USER_OBJECT_0="_____1740";
@@ -837,6 +849,10 @@ public final class GuiAliasParameters {
     private String aliasCheckBox0CheckBox0;
     private String aliasCheckBox1CheckBox0;
     private String aliasCheckBox1CheckBox1;
+    private String aliasTextPane0CharAttr0;
+    private String aliasTextPane0CharAttr1;
+    private String aliasTextPane0CharAttr2;
+    private String aliasTextPane0CharAttr3;
     private String aliasTextField0TextFieldAddAction0;
     private String aliasTextField0TextFieldRemoveAction0;
     private String aliasTextField0TextField0;
@@ -865,6 +881,13 @@ public final class GuiAliasParameters {
     private String aliasTextArea2TextArea1;
     private String aliasTextArea2TextArea2;
     private String aliasTextComponent0Editable0;
+    private String aliasAttrSet0Background0;
+    private String aliasAttrSet0Foreground0;
+    private String aliasAttrSet0FontSize0;
+    private String aliasAttrSet0FontFamily0;
+    private String aliasAttrSet0Italic0;
+    private String aliasAttrSet0Bold0;
+    private String aliasAttrSet0Underline0;
     private String aliasSpinner0SpinnerSetMax0;
     private String aliasSpinner0SpinnerSetMin0;
     private String aliasSpinner0TreeNodeSetUserObject0;
@@ -1328,6 +1351,17 @@ public final class GuiAliasParameters {
         aliasTextArea2TextArea1=LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_AREA_2_TEXT_AREA_1));
         aliasTextArea2TextArea2=LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_AREA_2_TEXT_AREA_2));
         aliasTextComponent0Editable0=LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_COMPONENT_0_EDITABLE_0));
+        aliasAttrSet0Background0=LgNamesContent.get(_util,_cust,_mapping.getVal(ATTR_SET_0_BACKGROUND_0));
+        aliasAttrSet0Foreground0=LgNamesContent.get(_util,_cust,_mapping.getVal(ATTR_SET_0_FOREGROUND_0));
+        aliasAttrSet0FontSize0=LgNamesContent.get(_util,_cust,_mapping.getVal(ATTR_SET_0_FONTSIZE_0));
+        aliasAttrSet0FontFamily0=LgNamesContent.get(_util,_cust,_mapping.getVal(ATTR_SET_0_FONTFAMILY_0));
+        aliasAttrSet0Bold0=LgNamesContent.get(_util,_cust,_mapping.getVal(ATTR_SET_0_BOLD_0));
+        aliasAttrSet0Italic0=LgNamesContent.get(_util,_cust,_mapping.getVal(ATTR_SET_0_ITALIC_0));
+        aliasAttrSet0Underline0=LgNamesContent.get(_util,_cust,_mapping.getVal(ATTR_SET_0_UNDERLINE_0));
+        aliasTextPane0CharAttr0=LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_PANE_0_CHAR_ATTR_0));
+        aliasTextPane0CharAttr1=LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_PANE_0_CHAR_ATTR_1));
+        aliasTextPane0CharAttr2=LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_PANE_0_CHAR_ATTR_2));
+        aliasTextPane0CharAttr3=LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_PANE_0_CHAR_ATTR_3));
         aliasSpinner0SpinnerSetMax0=LgNamesContent.get(_util,_cust,_mapping.getVal(SPINNER_0_SPINNER_SET_MAX_0));
         aliasSpinner0SpinnerSetMin0=LgNamesContent.get(_util,_cust,_mapping.getVal(SPINNER_0_SPINNER_SET_MIN_0));
         aliasSpinner0TreeNodeSetUserObject0=LgNamesContent.get(_util,_cust,_mapping.getVal(SPINNER_0_TREE_NODE_SET_USER_OBJECT_0));
@@ -1792,6 +1826,17 @@ public final class GuiAliasParameters {
         _en.add(TEXT_AREA_2_TEXT_AREA_1,"TextArea2TextArea1=b");
         _en.add(TEXT_AREA_2_TEXT_AREA_2,"TextArea2TextArea2=c");
         _en.add(TEXT_COMPONENT_0_EDITABLE_0,"TextComponent0Editable0=a");
+        _en.add(ATTR_SET_0_BACKGROUND_0,"AttrSet0Back0=a");
+        _en.add(ATTR_SET_0_FOREGROUND_0,"AttrSet0Fore0=a");
+        _en.add(ATTR_SET_0_FONTSIZE_0,"AttrSet0Size0=a");
+        _en.add(ATTR_SET_0_FONTFAMILY_0,"AttrSet0Family0=a");
+        _en.add(ATTR_SET_0_BOLD_0,"AttrSet0Bold0=a");
+        _en.add(ATTR_SET_0_ITALIC_0,"AttrSet0Italic0=a");
+        _en.add(ATTR_SET_0_UNDERLINE_0,"AttrSet0Underline0=a");
+        _en.add(TEXT_PANE_0_CHAR_ATTR_0,"TextPane0CharAttr0=a");
+        _en.add(TEXT_PANE_0_CHAR_ATTR_1,"TextPane0CharAttr1=b");
+        _en.add(TEXT_PANE_0_CHAR_ATTR_2,"TextPane0CharAttr2=c");
+        _en.add(TEXT_PANE_0_CHAR_ATTR_3,"TextPane0CharAttr3=d");
         _en.add(SPINNER_0_SPINNER_SET_MAX_0,"Spinner0SpinnerSetMax0=a");
         _en.add(SPINNER_0_SPINNER_SET_MIN_0,"Spinner0SpinnerSetMin0=a");
         _en.add(SPINNER_0_TREE_NODE_SET_USER_OBJECT_0,"Spinner0TreeNodeSetUserObject0=a");
@@ -2256,6 +2301,17 @@ public final class GuiAliasParameters {
         _fr.add(TEXT_AREA_2_TEXT_AREA_1,"TextArea2TextArea1=b");
         _fr.add(TEXT_AREA_2_TEXT_AREA_2,"TextArea2TextArea2=c");
         _fr.add(TEXT_COMPONENT_0_EDITABLE_0,"TextComponent0Editable0=a");
+        _fr.add(ATTR_SET_0_BACKGROUND_0,"AttrSet0Back0=a");
+        _fr.add(ATTR_SET_0_FOREGROUND_0,"AttrSet0Fore0=a");
+        _fr.add(ATTR_SET_0_FONTSIZE_0,"AttrSet0Size0=a");
+        _fr.add(ATTR_SET_0_FONTFAMILY_0,"AttrSet0Family0=a");
+        _fr.add(ATTR_SET_0_BOLD_0,"AttrSet0Bold0=a");
+        _fr.add(ATTR_SET_0_ITALIC_0,"AttrSet0Italic0=a");
+        _fr.add(ATTR_SET_0_UNDERLINE_0,"AttrSet0Underline0=a");
+        _fr.add(TEXT_PANE_0_CHAR_ATTR_0,"TextPane0CharAttr0=a");
+        _fr.add(TEXT_PANE_0_CHAR_ATTR_1,"TextPane0CharAttr1=b");
+        _fr.add(TEXT_PANE_0_CHAR_ATTR_2,"TextPane0CharAttr2=c");
+        _fr.add(TEXT_PANE_0_CHAR_ATTR_3,"TextPane0CharAttr3=d");
         _fr.add(SPINNER_0_SPINNER_SET_MAX_0,"Spinner0SpinnerSetMax0=a");
         _fr.add(SPINNER_0_SPINNER_SET_MIN_0,"Spinner0SpinnerSetMin0=a");
         _fr.add(SPINNER_0_TREE_NODE_SET_USER_OBJECT_0,"Spinner0TreeNodeSetUserObject0=a");
@@ -2560,6 +2616,14 @@ public final class GuiAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(TEXT_AREA_1_TEXT_AREA_0),aliasTextArea1TextArea0),new KeyValueMemberName(_mapping.getVal(TEXT_AREA_1_TEXT_AREA_1),aliasTextArea1TextArea1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(TEXT_AREA_2_TEXT_AREA_0),aliasTextArea2TextArea0),new KeyValueMemberName(_mapping.getVal(TEXT_AREA_2_TEXT_AREA_1),aliasTextArea2TextArea1),new KeyValueMemberName(_mapping.getVal(TEXT_AREA_2_TEXT_AREA_2),aliasTextArea2TextArea2)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(TEXT_COMPONENT_0_EDITABLE_0),aliasTextComponent0Editable0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(ATTR_SET_0_BACKGROUND_0),aliasAttrSet0Background0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(ATTR_SET_0_FOREGROUND_0),aliasAttrSet0Foreground0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(ATTR_SET_0_FONTFAMILY_0),aliasAttrSet0FontFamily0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(ATTR_SET_0_FONTSIZE_0),aliasAttrSet0FontSize0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(ATTR_SET_0_BOLD_0),aliasAttrSet0Bold0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(ATTR_SET_0_ITALIC_0),aliasAttrSet0Italic0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(ATTR_SET_0_UNDERLINE_0),aliasAttrSet0Underline0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(TEXT_PANE_0_CHAR_ATTR_0),aliasTextPane0CharAttr0),new KeyValueMemberName(_mapping.getVal(TEXT_PANE_0_CHAR_ATTR_1),aliasTextPane0CharAttr1),new KeyValueMemberName(_mapping.getVal(TEXT_PANE_0_CHAR_ATTR_2),aliasTextPane0CharAttr2),new KeyValueMemberName(_mapping.getVal(TEXT_PANE_0_CHAR_ATTR_3),aliasTextPane0CharAttr3)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(SPINNER_0_SPINNER_SET_MAX_0),aliasSpinner0SpinnerSetMax0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(SPINNER_0_SPINNER_SET_MIN_0),aliasSpinner0SpinnerSetMin0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(SPINNER_0_TREE_NODE_SET_USER_OBJECT_0),aliasSpinner0TreeNodeSetUserObject0)));
@@ -4108,6 +4172,50 @@ public final class GuiAliasParameters {
 
     public String getAliasTextComponent0Editable0() {
         return aliasTextComponent0Editable0;
+    }
+
+    public String getAliasAttrSet0Background0() {
+        return aliasAttrSet0Background0;
+    }
+
+    public String getAliasAttrSet0Foreground0() {
+        return aliasAttrSet0Foreground0;
+    }
+
+    public String getAliasAttrSet0FontSize0() {
+        return aliasAttrSet0FontSize0;
+    }
+
+    public String getAliasAttrSet0FontFamily0() {
+        return aliasAttrSet0FontFamily0;
+    }
+
+    public String getAliasAttrSet0Italic0() {
+        return aliasAttrSet0Italic0;
+    }
+
+    public String getAliasAttrSet0Bold0() {
+        return aliasAttrSet0Bold0;
+    }
+
+    public String getAliasAttrSet0Underline0() {
+        return aliasAttrSet0Underline0;
+    }
+
+    public String getAliasTextPane0CharAttr0() {
+        return aliasTextPane0CharAttr0;
+    }
+
+    public String getAliasTextPane0CharAttr1() {
+        return aliasTextPane0CharAttr1;
+    }
+
+    public String getAliasTextPane0CharAttr2() {
+        return aliasTextPane0CharAttr2;
+    }
+
+    public String getAliasTextPane0CharAttr3() {
+        return aliasTextPane0CharAttr3;
     }
 
     public String getAliasSpinner0SpinnerSetMax0() {

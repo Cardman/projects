@@ -62,8 +62,10 @@ public final class GuiAliases implements AbsAliasFileBuilder {
     private static final String TEXT_AREA="_____1242";
     private static final String TEXT_FIELD="_____1243";
     private static final String TEXT_PANE="_____1243_";
+    private static final String TEXT_PANE_CHARACTER_ATTRIBUTES="_____1242_";
     private static final String TEXT_COMPONENT="_____1243__";
-    private static final String TEXT_COMPONENT_EDITABLE="_____1243___";
+    private static final String TEXT_COMPONENT_EDITABLE="_____1242__";
+    private static final String ATTR_SET="_____1243____";
     private static final String GR_LIST="_____1244";
     private static final String COMBO="_____1245";
     private static final String BUTTON_GROUP="_____1246";
@@ -276,6 +278,13 @@ public final class GuiAliases implements AbsAliasFileBuilder {
     private static final String RADIO_SET_TEXT="_____1348";
     private static final String RADIO_IS_SELECTED="_____1349";
     private static final String RADIO_SET_SELECTED="_____1350";
+    private static final String ATTR_SET_BACKGROUND="_____1350_";
+    private static final String ATTR_SET_FOREGROUND="_____1350__";
+    private static final String ATTR_SET_FONTSIZE="_____1350___";
+    private static final String ATTR_SET_FONTFAMILY="_____1350____";
+    private static final String ATTR_SET_ITALIC="_____1350_____";
+    private static final String ATTR_SET_BOLD="_____1350______";
+    private static final String ATTR_SET_UNDERLINE="_____1350_______";
     private static final String TEXT_FIELD_ADD_ACTION="_____1351";
     private static final String TEXT_FIELD_REMOVE_ACTION="_____1351_";
     private static final String TEXT_FIELD_GET_ACTIONS="_____1351__";
@@ -863,6 +872,14 @@ public final class GuiAliases implements AbsAliasFileBuilder {
     private String aliasPopupMenuRemoveMenu;
     private String aliasPopupMenuNbMenu;
     private String aliasPopupMenuShow;
+    private String aliasAttrSet;
+    private String aliasAttrSetBackground;
+    private String aliasAttrSetForeground;
+    private String aliasAttrSetFontSize;
+    private String aliasAttrSetFontFamily;
+    private String aliasAttrSetItalic;
+    private String aliasAttrSetBold;
+    private String aliasAttrSetUnderline;
     private String aliasTextField;
     private String aliasTextFieldAuto;
     private String aliasTextFieldAddAction;
@@ -886,6 +903,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
     private String aliasTextAreaSelect;
     private String aliasTextAreaSelectAll;
     private String aliasTextPane;
+    private String aliasTextPaneCharacterAttributes;
     private String aliasTextComponent;
     private String aliasTextComponentEditable;
     private String aliasCheckBox;
@@ -2815,6 +2833,35 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
+        stdcl_ = new StandardClass(aliasAttrSet, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
+        method_ = new StandardMethod(aliasAttrSetBackground, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasAttrSet0Background0()), new FctAttrSetBack());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
+        method_ = new StandardMethod(aliasAttrSetForeground, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasAttrSet0Foreground0()), new FctAttrSetFore());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
+        method_ = new StandardMethod(aliasAttrSetFontSize, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasAttrSet0FontSize0()), new FctAttrSetSize());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_content.getCharSeq().getAliasString());
+        method_ = new StandardMethod(aliasAttrSetFontFamily, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasAttrSet0FontFamily0()), new FctAttrSetFamily());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
+        method_ = new StandardMethod(aliasAttrSetBold, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasAttrSet0Bold0()), new FctAttrSetBold());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
+        method_ = new StandardMethod(aliasAttrSetItalic, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasAttrSet0Italic0()), new FctAttrSetItalic());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
+        method_ = new StandardMethod(aliasAttrSetUnderline, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasAttrSet0Underline0()), new FctAttrSetUnderline());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
+        ctor_ = new StandardConstructor(params_,false, new FctAttrSet(_guiEx));
+        StandardNamedFunction.addFct(constructors_, ctor_);
+        StandardType.addType(_content.getStandards(), aliasAttrSet, stdcl_);
+        methods_ = new CustList<StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new CustList<CstFieldInfo>();
         StandardClass txtCompo_ = new StandardClass(aliasTextComponent, fields_, constructors_, methods_, aliasInput, StdClassModifier.ABSTRACT);
         stdcl_ = txtCompo_;
         stdcl_.addSuperStdTypes(_input);
@@ -2925,6 +2972,9 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         stdcl_.addSuperStdTypes(_input);
         stdcl_.addSuperStdTypes(_component);
         stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),aliasAttrSet,_content.getPrimTypes().getAliasPrimBoolean());
+        method_ = new StandardMethod(aliasTextPaneCharacterAttributes, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextPane0CharAttr0(),guiAliasParameters.getAliasTextPane0CharAttr1(),guiAliasParameters.getAliasTextPane0CharAttr2(),guiAliasParameters.getAliasTextPane0CharAttr3()), new FctTextPaneCharAttr());
+        StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false, new FctTextPane(_cust,_guiEx,aliasTextPane));
         StandardNamedFunction.addFct(constructors_, ctor_);
@@ -3629,8 +3679,17 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         setAliasRadioIsSelected(LgNamesContent.get(_util,_cust,_mapping.getVal(RADIO_IS_SELECTED)));
         setAliasComboAddListener(LgNamesContent.get(_util,_cust,_mapping.getVal(COMBO_ADD_LISTENER)));
         setAliasComboRemoveListener(LgNamesContent.get(_util,_cust,_mapping.getVal(COMBO_REMOVE_LISTENER)));
+        setAliasAttrSet(LgNamesContent.get(_util,_cust,_mapping.getVal(ATTR_SET)));
+        setAliasAttrSetBackground(LgNamesContent.get(_util,_cust,_mapping.getVal(ATTR_SET_BACKGROUND)));
+        setAliasAttrSetForeground(LgNamesContent.get(_util,_cust,_mapping.getVal(ATTR_SET_FOREGROUND)));
+        setAliasAttrSetFontFamily(LgNamesContent.get(_util,_cust,_mapping.getVal(ATTR_SET_FONTFAMILY)));
+        setAliasAttrSetFontSize(LgNamesContent.get(_util,_cust,_mapping.getVal(ATTR_SET_FONTSIZE)));
+        setAliasAttrSetBold(LgNamesContent.get(_util,_cust,_mapping.getVal(ATTR_SET_BOLD)));
+        setAliasAttrSetItalic(LgNamesContent.get(_util,_cust,_mapping.getVal(ATTR_SET_ITALIC)));
+        setAliasAttrSetUnderline(LgNamesContent.get(_util,_cust,_mapping.getVal(ATTR_SET_UNDERLINE)));
         setAliasTextField(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_FIELD)));
         setAliasTextPane(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_PANE)));
+        setAliasTextPaneCharacterAttributes(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_PANE_CHARACTER_ATTRIBUTES)));
         setAliasTextComponent(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_COMPONENT)));
         setAliasTextComponentEditable(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_COMPONENT_EDITABLE)));
         setAliasComboRemoveItem(LgNamesContent.get(_util,_cust,_mapping.getVal(COMBO_REMOVE_ITEM)));
@@ -3744,9 +3803,18 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         _en.add(COLOR,"Color=$core.Color");
         _en.add(INPUT,"Input=$core.Input");
         _en.add(FONT,"Font=$core.Font");
+        _en.add(ATTR_SET,"AttrSet=$core.AttrSet");
+        _en.add(ATTR_SET_BACKGROUND,"AttrSetBackGround=back");
+        _en.add(ATTR_SET_FOREGROUND,"AttrSetForeGround=fore");
+        _en.add(ATTR_SET_FONTFAMILY,"AttrSetFontFamily=family");
+        _en.add(ATTR_SET_FONTSIZE,"AttrSetFontSize=size");
+        _en.add(ATTR_SET_BOLD,"AttrSetBold=bold");
+        _en.add(ATTR_SET_ITALIC,"AttrSetItalic=italic");
+        _en.add(ATTR_SET_UNDERLINE,"AttrSetUnderline=underline");
         _en.add(TEXT_AREA,"TextArea=$core.TextArea");
         _en.add(TEXT_FIELD,"TextField=$core.TextField");
         _en.add(TEXT_PANE,"TextPane=$core.TextPane");
+        _en.add(TEXT_PANE_CHARACTER_ATTRIBUTES,"TextPaneCharacterAttributes=charAttr");
         _en.add(TEXT_COMPONENT,"TextComponent=$core.TextComponent");
         _en.add(TEXT_COMPONENT_EDITABLE,"TextComponentEditable=editable");
         _en.add(GR_LIST,"GrList=$core.GrList");
@@ -4210,9 +4278,18 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         _fr.add(COLOR,"Color=$coeur.Couleur");
         _fr.add(INPUT,"Input=$coeur.Saisie");
         _fr.add(FONT,"Font=$coeur.Police");
+        _fr.add(ATTR_SET,"AttrSet=$coeur.AttrEns");
+        _fr.add(ATTR_SET_BACKGROUND,"AttrSetBackGround=arriere");
+        _fr.add(ATTR_SET_FOREGROUND,"AttrSetForeGround=avant");
+        _fr.add(ATTR_SET_FONTFAMILY,"AttrSetFontFamily=famille");
+        _fr.add(ATTR_SET_FONTSIZE,"AttrSetFontSize=taille");
+        _fr.add(ATTR_SET_BOLD,"AttrSetBold=gras");
+        _fr.add(ATTR_SET_ITALIC,"AttrSetItalic=italic");
+        _fr.add(ATTR_SET_UNDERLINE,"AttrSetUnderline=souligne");
         _fr.add(TEXT_AREA,"TextArea=$coeur.Zone");
         _fr.add(TEXT_FIELD,"TextField=$coeur.ChampTxt");
         _fr.add(TEXT_PANE,"TextPane=$coeur.EditeurTxt");
+        _fr.add(TEXT_PANE_CHARACTER_ATTRIBUTES,"TextPaneCharacterAttributes=carAttr");
         _fr.add(TEXT_COMPONENT,"TextComponent=$coeur.CompoTxt");
         _fr.add(TEXT_COMPONENT_EDITABLE,"TextComponentEditable=editable");
         _fr.add(GR_LIST,"GrList=$coeur.GrListe");
@@ -4969,6 +5046,15 @@ public final class GuiAliases implements AbsAliasFileBuilder {
                 new KeyValueMemberName(_mapping.getVal(RADIO_SET_SELECTED),getAliasRadioSetSelected()),
                 new KeyValueMemberName(_mapping.getVal(ADD_CHANGE),getAliasAddChange())),allInput_)
         );
+        _m.addEntry(getAliasAttrSet(),new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(_mapping.getVal(ATTR_SET_BACKGROUND),getAliasAttrSetBackground()),
+                new KeyValueMemberName(_mapping.getVal(ATTR_SET_FOREGROUND),getAliasAttrSetForeground()),
+                new KeyValueMemberName(_mapping.getVal(ATTR_SET_FONTFAMILY),getAliasAttrSetFontFamily()),
+                new KeyValueMemberName(_mapping.getVal(ATTR_SET_FONTSIZE),getAliasAttrSetFontSize()),
+                new KeyValueMemberName(_mapping.getVal(ATTR_SET_BOLD),getAliasAttrSetBold()),
+                new KeyValueMemberName(_mapping.getVal(ATTR_SET_ITALIC),getAliasAttrSetItalic()),
+                new KeyValueMemberName(_mapping.getVal(ATTR_SET_UNDERLINE),getAliasAttrSetUnderline()))
+        );
         CustList<KeyValueMemberName> allTxtCompo_ = merge(new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(TEXT_COMPONENT_EDITABLE), getAliasTextComponentEditable()),
                 new KeyValueMemberName(_mapping.getVal(TEXT_AREA_INSERT), getAliasTextAreaInsert()),
@@ -4992,6 +5078,9 @@ public final class GuiAliases implements AbsAliasFileBuilder {
                 new KeyValueMemberName(_mapping.getVal(TEXT_AREA_REPLACE_RANGE),getAliasTextAreaReplaceRange()),
                 new KeyValueMemberName(_mapping.getVal(TEXT_AREA_GET_TAB_SIZE),getAliasTextAreaGetTabSize()),
                 new KeyValueMemberName(_mapping.getVal(TEXT_AREA_SET_TAB_SIZE),getAliasTextAreaSetTabSize())),allTxtCompo_)
+        );
+        _m.addEntry(getAliasTextPane(),merge(new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(_mapping.getVal(TEXT_PANE_CHARACTER_ATTRIBUTES),getAliasTextPaneCharacterAttributes())),allTxtCompo_)
         );
         _m.addEntry(getAliasTextComponent(),allTxtCompo_);
         _m.addEntry(getAliasTabbedPane(),allTxtCompo_);
@@ -5298,6 +5387,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         ref_.addEntry(_mapping.getVal(COLOR),getAliasColor());
         ref_.addEntry(_mapping.getVal(INPUT),getAliasInput());
         ref_.addEntry(_mapping.getVal(FONT),getAliasFont());
+        ref_.addEntry(_mapping.getVal(ATTR_SET),getAliasAttrSet());
         ref_.addEntry(_mapping.getVal(TEXT_AREA),getAliasTextArea());
         ref_.addEntry(_mapping.getVal(TEXT_FIELD),getAliasTextField());
         ref_.addEntry(_mapping.getVal(TEXT_PANE),getAliasTextPane());
@@ -8320,6 +8410,70 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         this.aliasPopupMenuShow = _v;
     }
 
+    public String getAliasAttrSet() {
+        return aliasAttrSet;
+    }
+
+    public void setAliasAttrSet(String _v) {
+        this.aliasAttrSet = _v;
+    }
+
+    public String getAliasAttrSetBackground() {
+        return aliasAttrSetBackground;
+    }
+
+    public void setAliasAttrSetBackground(String _v) {
+        this.aliasAttrSetBackground = _v;
+    }
+
+    public String getAliasAttrSetForeground() {
+        return aliasAttrSetForeground;
+    }
+
+    public void setAliasAttrSetForeground(String _v) {
+        this.aliasAttrSetForeground = _v;
+    }
+
+    public String getAliasAttrSetFontSize() {
+        return aliasAttrSetFontSize;
+    }
+
+    public void setAliasAttrSetFontSize(String _v) {
+        this.aliasAttrSetFontSize = _v;
+    }
+
+    public String getAliasAttrSetFontFamily() {
+        return aliasAttrSetFontFamily;
+    }
+
+    public void setAliasAttrSetFontFamily(String _v) {
+        this.aliasAttrSetFontFamily = _v;
+    }
+
+    public String getAliasAttrSetItalic() {
+        return aliasAttrSetItalic;
+    }
+
+    public void setAliasAttrSetItalic(String _v) {
+        this.aliasAttrSetItalic = _v;
+    }
+
+    public String getAliasAttrSetBold() {
+        return aliasAttrSetBold;
+    }
+
+    public void setAliasAttrSetBold(String _v) {
+        this.aliasAttrSetBold = _v;
+    }
+
+    public String getAliasAttrSetUnderline() {
+        return aliasAttrSetUnderline;
+    }
+
+    public void setAliasAttrSetUnderline(String _v) {
+        this.aliasAttrSetUnderline = _v;
+    }
+
     public String getAliasTextField() {
         return aliasTextField;
     }
@@ -8502,6 +8656,14 @@ public final class GuiAliases implements AbsAliasFileBuilder {
 
     public void setAliasTextPane(String _v) {
         this.aliasTextPane = _v;
+    }
+
+    public String getAliasTextPaneCharacterAttributes() {
+        return aliasTextPaneCharacterAttributes;
+    }
+
+    public void setAliasTextPaneCharacterAttributes(String _v) {
+        this.aliasTextPaneCharacterAttributes = _v;
     }
 
     public String getAliasTextComponent() {
