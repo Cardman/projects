@@ -58,6 +58,12 @@ public abstract class TxtComponentStruct extends CustComponentStruct {
     public void selectAll() {
         component().selectAll();
     }
+    public Struct isEditable() {
+        return BooleanStruct.of(component().isEditable());
+    }
+    public void setEditable(Struct _v) {
+        component().setEditable(BooleanStruct.isTrue(_v));
+    }
     @Override
     protected AbsCustComponent getComponent() {
         return component();

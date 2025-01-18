@@ -63,6 +63,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
     private static final String TEXT_FIELD="_____1243";
     private static final String TEXT_PANE="_____1243_";
     private static final String TEXT_COMPONENT="_____1243__";
+    private static final String TEXT_COMPONENT_EDITABLE="_____1243___";
     private static final String GR_LIST="_____1244";
     private static final String COMBO="_____1245";
     private static final String BUTTON_GROUP="_____1246";
@@ -886,6 +887,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
     private String aliasTextAreaSelectAll;
     private String aliasTextPane;
     private String aliasTextComponent;
+    private String aliasTextComponentEditable;
     private String aliasCheckBox;
     private String aliasCheckBoxGetText;
     private String aliasCheckBoxSetText;
@@ -2810,7 +2812,6 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasCheckBox1CheckBox0(),guiAliasParameters.getAliasCheckBox1CheckBox1()), new FctCheckBox2(_cust,_guiEx,aliasCheckBox));
         StandardNamedFunction.addFct(constructors_, ctor_);
         StandardType.addType(_content.getStandards(), aliasCheckBox, stdcl_);
-        //aliasTextComponent
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
@@ -2848,6 +2849,12 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         StandardNamedFunction.addFct(methods_, method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasTextAreaSelectAll, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctTextCompoSelectAll());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasTextComponentEditable, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctInputIsEditable());
+        StandardNamedFunction.addFct(methods_, method_);
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
+        method_ = new StandardMethod(aliasTextComponentEditable, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextComponent0Editable0()), new FctInputSetEditable());
         StandardNamedFunction.addFct(methods_, method_);
         StandardType.addType(_content.getStandards(), aliasTextComponent, stdcl_);
         methods_ = new CustList<StandardMethod>();
@@ -3625,6 +3632,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         setAliasTextField(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_FIELD)));
         setAliasTextPane(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_PANE)));
         setAliasTextComponent(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_COMPONENT)));
+        setAliasTextComponentEditable(LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_COMPONENT_EDITABLE)));
         setAliasComboRemoveItem(LgNamesContent.get(_util,_cust,_mapping.getVal(COMBO_REMOVE_ITEM)));
         setAliasRadioSetSelected(LgNamesContent.get(_util,_cust,_mapping.getVal(RADIO_SET_SELECTED)));
         setAliasPopupMenuRemoveMenu(LgNamesContent.get(_util,_cust,_mapping.getVal(POPUP_MENU_REMOVE_MENU)));
@@ -3740,6 +3748,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         _en.add(TEXT_FIELD,"TextField=$core.TextField");
         _en.add(TEXT_PANE,"TextPane=$core.TextPane");
         _en.add(TEXT_COMPONENT,"TextComponent=$core.TextComponent");
+        _en.add(TEXT_COMPONENT_EDITABLE,"TextComponentEditable=editable");
         _en.add(GR_LIST,"GrList=$core.GrList");
         _en.add(COMBO,"Combo=$core.ComboBox");
         _en.add(BUTTON_GROUP,"ButtonGroup=$core.ButtonGroup");
@@ -4205,6 +4214,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         _fr.add(TEXT_FIELD,"TextField=$coeur.ChampTxt");
         _fr.add(TEXT_PANE,"TextPane=$coeur.EditeurTxt");
         _fr.add(TEXT_COMPONENT,"TextComponent=$coeur.CompoTxt");
+        _fr.add(TEXT_COMPONENT_EDITABLE,"TextComponentEditable=editable");
         _fr.add(GR_LIST,"GrList=$coeur.GrListe");
         _fr.add(COMBO,"Combo=$coeur.ListeDeroulante");
         _fr.add(BUTTON_GROUP,"ButtonGroup=$coeur.GroupeBoutons");
@@ -4960,6 +4970,7 @@ public final class GuiAliases implements AbsAliasFileBuilder {
                 new KeyValueMemberName(_mapping.getVal(ADD_CHANGE),getAliasAddChange())),allInput_)
         );
         CustList<KeyValueMemberName> allTxtCompo_ = merge(new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(_mapping.getVal(TEXT_COMPONENT_EDITABLE), getAliasTextComponentEditable()),
                 new KeyValueMemberName(_mapping.getVal(TEXT_AREA_INSERT), getAliasTextAreaInsert()),
                 new KeyValueMemberName(_mapping.getVal(TEXT_AREA_REMOVE), getAliasTextAreaRemove()),
                 new KeyValueMemberName(_mapping.getVal(TEXT_AREA_REPLACE_SELECTION), getAliasTextAreaReplaceSelection()),
@@ -8499,6 +8510,14 @@ public final class GuiAliases implements AbsAliasFileBuilder {
 
     public void setAliasTextComponent(String _v) {
         this.aliasTextComponent = _v;
+    }
+
+    public String getAliasTextComponentEditable() {
+        return aliasTextComponentEditable;
+    }
+
+    public void setAliasTextComponentEditable(String _v) {
+        this.aliasTextComponentEditable = _v;
     }
 
     public String getAliasCheckBox() {

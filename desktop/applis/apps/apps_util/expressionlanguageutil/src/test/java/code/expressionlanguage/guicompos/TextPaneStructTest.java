@@ -64,4 +64,28 @@ public final class TextPaneStructTest extends EquallableElUtUtil {
         call(new FctTextCompoRemove(),null,ctx_,r_,two(new IntStruct(1),new IntStruct(5)),st_);
         assertEq("__",call(new FctTextCompoGetText(),null,ctx_,r_,null,st_));
     }
+    @Test
+    public void editable1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        Struct r_ = call(new FctTextPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        call(new FctInputSetEditable(),null,ctx_,r_,one(BooleanStruct.of(false)),st_);
+        assertFalse(call(new FctInputIsEditable(),null,ctx_,r_,null,st_));
+    }
+    @Test
+    public void editable2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        Struct r_ = call(new FctTextPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        call(new FctInputSetEditable(),null,ctx_,r_,one(BooleanStruct.of(true)),st_);
+        assertTrue(call(new FctInputIsEditable(),null,ctx_,r_,null,st_));
+    }
 }

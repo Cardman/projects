@@ -401,6 +401,7 @@ public final class GuiAliasParameters {
     private static final String TEXT_AREA_2_TEXT_AREA_0="_____1735";
     private static final String TEXT_AREA_2_TEXT_AREA_1="_____1736";
     private static final String TEXT_AREA_2_TEXT_AREA_2="_____1737";
+    private static final String TEXT_COMPONENT_0_EDITABLE_0="_____1737_";
     private static final String SPINNER_0_SPINNER_SET_MAX_0="_____1738";
     private static final String SPINNER_0_SPINNER_SET_MIN_0="_____1739";
     private static final String SPINNER_0_TREE_NODE_SET_USER_OBJECT_0="_____1740";
@@ -863,6 +864,7 @@ public final class GuiAliasParameters {
     private String aliasTextArea2TextArea0;
     private String aliasTextArea2TextArea1;
     private String aliasTextArea2TextArea2;
+    private String aliasTextComponent0Editable0;
     private String aliasSpinner0SpinnerSetMax0;
     private String aliasSpinner0SpinnerSetMin0;
     private String aliasSpinner0TreeNodeSetUserObject0;
@@ -1325,6 +1327,7 @@ public final class GuiAliasParameters {
         aliasTextArea2TextArea0=LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_AREA_2_TEXT_AREA_0));
         aliasTextArea2TextArea1=LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_AREA_2_TEXT_AREA_1));
         aliasTextArea2TextArea2=LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_AREA_2_TEXT_AREA_2));
+        aliasTextComponent0Editable0=LgNamesContent.get(_util,_cust,_mapping.getVal(TEXT_COMPONENT_0_EDITABLE_0));
         aliasSpinner0SpinnerSetMax0=LgNamesContent.get(_util,_cust,_mapping.getVal(SPINNER_0_SPINNER_SET_MAX_0));
         aliasSpinner0SpinnerSetMin0=LgNamesContent.get(_util,_cust,_mapping.getVal(SPINNER_0_SPINNER_SET_MIN_0));
         aliasSpinner0TreeNodeSetUserObject0=LgNamesContent.get(_util,_cust,_mapping.getVal(SPINNER_0_TREE_NODE_SET_USER_OBJECT_0));
@@ -1788,6 +1791,7 @@ public final class GuiAliasParameters {
         _en.add(TEXT_AREA_2_TEXT_AREA_0,"TextArea2TextArea0=a");
         _en.add(TEXT_AREA_2_TEXT_AREA_1,"TextArea2TextArea1=b");
         _en.add(TEXT_AREA_2_TEXT_AREA_2,"TextArea2TextArea2=c");
+        _en.add(TEXT_COMPONENT_0_EDITABLE_0,"TextComponent0Editable0=a");
         _en.add(SPINNER_0_SPINNER_SET_MAX_0,"Spinner0SpinnerSetMax0=a");
         _en.add(SPINNER_0_SPINNER_SET_MIN_0,"Spinner0SpinnerSetMin0=a");
         _en.add(SPINNER_0_TREE_NODE_SET_USER_OBJECT_0,"Spinner0TreeNodeSetUserObject0=a");
@@ -2251,6 +2255,7 @@ public final class GuiAliasParameters {
         _fr.add(TEXT_AREA_2_TEXT_AREA_0,"TextArea2TextArea0=a");
         _fr.add(TEXT_AREA_2_TEXT_AREA_1,"TextArea2TextArea1=b");
         _fr.add(TEXT_AREA_2_TEXT_AREA_2,"TextArea2TextArea2=c");
+        _fr.add(TEXT_COMPONENT_0_EDITABLE_0,"TextComponent0Editable0=a");
         _fr.add(SPINNER_0_SPINNER_SET_MAX_0,"Spinner0SpinnerSetMax0=a");
         _fr.add(SPINNER_0_SPINNER_SET_MIN_0,"Spinner0SpinnerSetMin0=a");
         _fr.add(SPINNER_0_TREE_NODE_SET_USER_OBJECT_0,"Spinner0TreeNodeSetUserObject0=a");
@@ -2554,6 +2559,7 @@ public final class GuiAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(TEXT_AREA_0_TEXT_AREA_0),aliasTextArea0TextArea0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(TEXT_AREA_1_TEXT_AREA_0),aliasTextArea1TextArea0),new KeyValueMemberName(_mapping.getVal(TEXT_AREA_1_TEXT_AREA_1),aliasTextArea1TextArea1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(TEXT_AREA_2_TEXT_AREA_0),aliasTextArea2TextArea0),new KeyValueMemberName(_mapping.getVal(TEXT_AREA_2_TEXT_AREA_1),aliasTextArea2TextArea1),new KeyValueMemberName(_mapping.getVal(TEXT_AREA_2_TEXT_AREA_2),aliasTextArea2TextArea2)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(TEXT_COMPONENT_0_EDITABLE_0),aliasTextComponent0Editable0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(SPINNER_0_SPINNER_SET_MAX_0),aliasSpinner0SpinnerSetMax0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(SPINNER_0_SPINNER_SET_MIN_0),aliasSpinner0SpinnerSetMin0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(SPINNER_0_TREE_NODE_SET_USER_OBJECT_0),aliasSpinner0TreeNodeSetUserObject0)));
@@ -4098,6 +4104,10 @@ public final class GuiAliasParameters {
 
     public String getAliasTextArea2TextArea2() {
         return aliasTextArea2TextArea2;
+    }
+
+    public String getAliasTextComponent0Editable0() {
+        return aliasTextComponent0Editable0;
     }
 
     public String getAliasSpinner0SpinnerSetMax0() {
