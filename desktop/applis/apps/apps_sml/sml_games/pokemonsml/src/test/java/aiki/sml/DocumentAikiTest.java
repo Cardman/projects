@@ -103,12 +103,12 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
         a_.getImmuLowStat().add(Statistic.ACCURACY);
         a_.getImmuLowStatIfStatus().add(new StatisticStatus(Statistic.ACCURACY,""));
         a_.getImmuLowStatisTypes().addEntry("",new IdList<Statistic>(Statistic.ACCURACY));
-        a_.getBonusStatRank().addEntry(Statistic.ACCURACY,(byte)1);
+        a_.getBonusStatRank().addEntry(Statistic.ACCURACY,1);
         a_.getMultStatAlly().addEntry(Statistic.ACCURACY, Rate.one());
         a_.getMultStatIfCat().addEntry(new StatisticCategory(Statistic.ACCURACY,""),Rate.one());
-        a_.getMultStatIfStatutRank().addEntry(new StatisticStatus(Statistic.ACCURACY,""),(byte)1);
-        a_.getMultStatIfDamageCat().addEntry(new StatisticCategory(Statistic.ACCURACY,""),(byte)1);
-        a_.getMultStatIfDamgeType().addEntry(new StatisticType(Statistic.ACCURACY,""),(byte)1);
+        a_.getMultStatIfStatutRank().addEntry(new StatisticStatus(Statistic.ACCURACY,""),1);
+        a_.getMultStatIfDamageCat().addEntry(new StatisticCategory(Statistic.ACCURACY,""),1);
+        a_.getMultStatIfDamgeType().addEntry(new StatisticType(Statistic.ACCURACY,""),1);
         a_.getMultStat().addEntry(Statistic.ACCURACY,"");
         a_.getChangingBoostTypes().addEntry("",new TypeDamageBoost("",Rate.one()));
         a_.getHealHpByTypeIfWeather().addEntry(new WeatherType("",""),Rate.one());
@@ -126,9 +126,9 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
     @Test
     public void t15() {
         ItemForBattle a_ = Instances.newItemForBattle();
-        a_.getBoostStatisTypes().addEntry("", new IdMap<Statistic, Byte>());
-        a_.getMultStatPokemonRank().addEntry(new StatisticPokemon(Statistic.ACCURACY,""),(byte)1);
-        a_.getWinEvFight().addEntry(Statistic.ACCURACY,(short)1);
+        a_.getBoostStatisTypes().addEntry("", new IdMap<Statistic, Integer>());
+        a_.getMultStatPokemonRank().addEntry(new StatisticPokemon(Statistic.ACCURACY,""),1);
+        a_.getWinEvFight().addEntry(Statistic.ACCURACY,1);
         a_.getEffectEndRound().add(Instances.newEffectEndRoundFoe());
         a_.getEffectEndRound().add(Instances.newEffectEndRoundGlobal());
         a_.getEffectEndRound().add(Instances.newEffectEndRoundIndividual());
@@ -146,7 +146,7 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
     public void t16() {
         Berry a_ = Instances.newBerry();
         a_.getMultFoesDamage().addEntry("", new EfficiencyRate(Rate.one(),Rate.one()));
-        a_.getMultStat().addEntry(Statistic.ACCURACY,new BoostHpRate((byte) 1,Rate.one()));
+        a_.getMultStat().addEntry(Statistic.ACCURACY,new BoostHpRate(1,Rate.one()));
         Berry o_ = save(a_);
         assertEq(1,o_.getMultFoesDamage().size());
         assertEq(1,o_.getMultStat().size());
@@ -155,7 +155,7 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
     public void t17() {
         Berry a_ = Instances.newBerry();
         a_.getMultFoesDamage().addEntry("", new EfficiencyRate(Rate.one(),Rate.one()));
-        a_.getMultStat().addEntry(Statistic.ACCURACY,new BoostHpRate((byte) 1,Rate.one()));
+        a_.getMultStat().addEntry(Statistic.ACCURACY,new BoostHpRate(1,Rate.one()));
         Berry o_ = save(a_);
         assertEq(1,o_.getMultFoesDamage().size());
         assertEq(1,o_.getMultStat().size());
@@ -251,8 +251,8 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
     @Test
     public void t31() {
         PokemonData p_ = Instances.newPokemonData();
-        p_.getStatistics().addEntry(Statistic.ACCURACY,new StatBaseEv((short) 1,(short) 1));
-        p_.getLevMoves().add(new LevelMove((short) 1,""));
+        p_.getStatistics().addEntry(Statistic.ACCURACY,new StatBaseEv( 1, 1));
+        p_.getLevMoves().add(new LevelMove( 1,""));
         p_.getEvolutions().addEntry("1", Instances.newEvolutionItem());
         p_.getEvolutions().addEntry("2", Instances.newEvolutionLevelSimple());
         p_.getEvolutions().addEntry("3", Instances.newEvolutionLevelGender());
@@ -320,7 +320,7 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
         m_.getEffects().add(Instances.newEffectSwitchPointView());
         m_.getEffects().add(Instances.newEffectSwitchTypes());
         EffectTeam t_ = Instances.newEffectTeam();
-        t_.getMultDamage().addEntry(new CategoryMult("",(short) 1),Rate.one());
+        t_.getMultDamage().addEntry(new CategoryMult("", 1),Rate.one());
         m_.getEffects().add(t_);
         m_.getEffects().add(Instances.newEffectTeamWhileSendFoe());
         m_.getEffects().add(Instances.newEffectUnprotectFromTypes());
@@ -413,7 +413,7 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
         r_.getLevelRoad().getDualFights().addEntry(new Point(""), d_);
         r_.getLevelRoad().getItems().addEntry(new Point(""),"");
         r_.getLevelRoad().getBlocks().addEntry(new Point(""),Instances.newBlock());
-        r_.getLevelRoad().getTm().addEntry(new Point(""),(short)1);
+        r_.getLevelRoad().getTm().addEntry(new Point(""),1);
         r_.getLevelRoad().getCharacters().addEntry(new Point("0"),Instances.newDealerItem());
         TrainerMultiFights t_ = Instances.newTrainerMultiFights();
         t_.getTeamsRewards().add(Instances.newPokemonTeam());
@@ -473,39 +473,39 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
         game_.getPlayer().setNickname("_");
         Team t_ = Instances.newTeam();
         Fighter f_ = Instances.newFighter();
-        f_.getStatusRelat().addEntry(new MoveTeamPosition("",new TeamPosition((byte) 0,(byte) 0)),(short)0);
-        f_.getIncrUserAccuracy().addEntry(new MoveTeamPosition("",new TeamPosition((byte) 0,(byte) 0)),BoolVal.FALSE);
+        f_.getStatusRelat().addEntry(new MoveTeamPosition("",new TeamPosition(0,0)),0);
+        f_.getIncrUserAccuracy().addEntry(new MoveTeamPosition("",new TeamPosition(0,0)),BoolVal.FALSE);
         f_.getEnabledMoves().addEntry("",new ActivityOfMove(""));
-        f_.getTrappingMoves().addEntry(new MoveTeamPosition("",new TeamPosition((byte) 0,(byte) 0)),new ActivityOfMove(""));
+        f_.getTrappingMoves().addEntry(new MoveTeamPosition("",new TeamPosition(0,0)),new ActivityOfMove(""));
         f_.getCopiedMoves().addEntry("",new CopiedMove(""));
-        f_.getPrivateMoves().addEntry(new MoveTeamPosition("",new TeamPosition((byte) 0,(byte) 0)),new StringList());
-        f_.getTrackingMoves().addEntry(new MoveTeamPosition("",new TeamPosition((byte) 0,(byte) 0)),new AffectedMove(""));
+        f_.getPrivateMoves().addEntry(new MoveTeamPosition("",new TeamPosition(0,0)),new StringList());
+        f_.getTrackingMoves().addEntry(new MoveTeamPosition("",new TeamPosition(0,0)),new AffectedMove(""));
         f_.getMovesAbilitiesEvos().addEntry("",Instances.newMovesAbilities());
         f_.setAction(null);
-        t_.getMembers().addEntry((byte)0, f_);
+        t_.getMembers().addEntry(0, f_);
         Fighter f1_ = Instances.newFighter();
         ActionMove tcp_ = Instances.newActionMove();
         tcp_.getChosenTargets().add(new TargetCoords(""));
         f1_.setAction(tcp_);
-        t_.getMembers().addEntry((byte)1, f1_);
+        t_.getMembers().addEntry(1, f1_);
         Fighter f2_ = Instances.newFighter();
         f2_.setAction(Instances.newActionSwitch());
-        t_.getMembers().addEntry((byte)2, f2_);
+        t_.getMembers().addEntry(2, f2_);
         Fighter f3_ = Instances.newFighter();
         f3_.setAction(Instances.newActionHealMove());
-        t_.getMembers().addEntry((byte)3, f3_);
+        t_.getMembers().addEntry(3, f3_);
         Fighter f4_ = Instances.newFighter();
         f4_.setAction(Instances.newActionSimpleHeal());
-        t_.getMembers().addEntry((byte)4, f4_);
-        ByteMap<Anticipation> bm_ = new ByteMap<Anticipation>();
-        bm_.addEntry((byte)0,new Anticipation());
+        t_.getMembers().addEntry(4, f4_);
+        IntMap<Anticipation> bm_ = new IntMap<Anticipation>();
+        bm_.addEntry(0,new Anticipation());
         t_.getMovesAnticipation().addEntry("", bm_);
         t_.getEnabledMovesByGroup().add(new ListActivityOfMove(new StringList(),new ActivityOfMove("")));
-        ByteMap<StacksOfUses> bs_ = new ByteMap<StacksOfUses>();
-        bs_.addEntry((byte)0,new StacksOfUses(""));
+        IntMap<StacksOfUses> bs_ = new IntMap<StacksOfUses>();
+        bs_.addEntry(0,new StacksOfUses(""));
         t_.getHealAfter().addEntry("", bs_);
-        game_.getFight().getChoices().addEntry((byte)0,Instances.newChoiceOfEvolutionAndMoves());
-        game_.getFight().getTeams().addEntry((byte)0, t_);
+        game_.getFight().getChoices().addEntry(0,Instances.newChoiceOfEvolutionAndMoves());
+        game_.getFight().getTeams().addEntry(0, t_);
         game_.getFight().getAllyChoice().addEntry(new MoveTarget(""),new MoveTarget(""));
         game_.getBeatTrainer().addEntry(new NbFightCoords(new Coords(""),0),BoolVal.FALSE);
         CatchingBallFoeAction ca1_ = Instances.newCatchingBallFoeAction();
@@ -663,10 +663,10 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
         f_.getData().getExpGrowth().addEntry(ExpType.E, "_");
         f_.getData().getRates().addEntry(DifficultyWinPointsFight.FACILE, "_");
         f_.getData().getTypesColors().addEntry("_","_");
-        f_.getData().getLawsDamageRate().addEntry(DifficultyModelLaw.UNIFORME, new LawNumber(new MonteCarloNumber(),(short)0));
+        f_.getData().getLawsDamageRate().addEntry(DifficultyModelLaw.UNIFORME, new LawNumber(new MonteCarloNumber(),0));
         MonteCarloNumber badLaw_ = new MonteCarloNumber();
         badLaw_.addQuickEvent(Rate.one(), LgInt.minusOne());
-        f_.getData().getLawsDamageRate().addEntry(DifficultyModelLaw.CONSTANT_MIN, new LawNumber(badLaw_,(short)1));
+        f_.getData().getLawsDamageRate().addEntry(DifficultyModelLaw.CONSTANT_MIN, new LawNumber(badLaw_,1));
         f_.getData().getTableTypes().addEntry(new TypesDuo("_1","_2"),Rate.one());
         f_.getData().getTableTypes().addEntry(new TypesDuo("_2","_1"),Rate.one());
         f_.getData().getTableTypes().addEntry(new TypesDuo("_1","_1"),Rate.one());
@@ -693,9 +693,9 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
         f_.getData().getOverWorldHeros().addEntry(new ImageHeroKey(EnvironmentType.NOTHING, Direction.UP, Sex.NO), instance(new int[1][1]));
         f_.getData().getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.NOTHING, Direction.UP, Sex.NO), instance(new int[1][1]));
         f_.getData().getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.NOTHING, Direction.UP, Sex.NO), instance(new int[1][1]));
-        f_.getData().getTmPrice().addEntry((short)1,LgInt.one());
-        f_.getData().getTm().addEntry((short)1,"");
-        f_.getData().getHm().addEntry((short)1,"");
+        f_.getData().getTmPrice().addEntry(1,LgInt.one());
+        f_.getData().getTm().addEntry(1,"");
+        f_.getData().getHm().addEntry(1,"");
         f_.getData().getConstNum().addEntry("_",Rate.one());
         FacadeGame s_ = save(f_);
         assertEq(1,s_.getData().getPokedex().size());
@@ -793,7 +793,7 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
         r_.getLevelRoad().getDualFights().addEntry(new Point(""), d_);
         r_.getLevelRoad().getItems().addEntry(new Point(""),"");
         r_.getLevelRoad().getBlocks().addEntry(new Point(""),Instances.newBlock());
-        r_.getLevelRoad().getTm().addEntry(new Point(""),(short)1);
+        r_.getLevelRoad().getTm().addEntry(new Point(""),1);
         r_.getLevelRoad().getCharacters().addEntry(new Point("0"),Instances.newDealerItem());
         TrainerMultiFights t_ = Instances.newTrainerMultiFights();
         t_.getTeamsRewards().add(Instances.newPokemonTeam());

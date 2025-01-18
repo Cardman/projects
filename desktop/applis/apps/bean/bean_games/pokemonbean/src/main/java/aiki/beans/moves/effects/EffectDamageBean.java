@@ -9,7 +9,7 @@ import code.maths.Rate;
 import code.util.*;
 
 public class EffectDamageBean extends EffectBean {
-    private byte chRate;
+    private int chRate;
     private boolean constDamage;
     private NatStringTreeMap< Rate> damageLaw;
     private NatStringTreeMap< Rate> multDamageAgainst;
@@ -25,7 +25,7 @@ public class EffectDamageBean extends EffectBean {
     private String statisAtt;
     private boolean targetDefense;
     private String statisDef;
-    private DictionaryComparator<Statistic, Byte> boostStatisOnceKoFoe;
+    private DictionaryComparator<Statistic, Integer> boostStatisOnceKoFoe;
     private NatStringTreeMap<String> mapVarsDamage;
 
     @Override
@@ -114,7 +114,7 @@ public class EffectDamageBean extends EffectBean {
         }
         ignVarStatUserNeg_.sortElts(DictionaryComparatorUtil.cmpStatistic(data_,getLanguage()));
         ignVarStatUserNeg = ignVarStatUserNeg_;
-        DictionaryComparator<Statistic, Byte> boostStatisOnceKoFoe_;
+        DictionaryComparator<Statistic, Integer> boostStatisOnceKoFoe_;
         boostStatisOnceKoFoe_ = DictionaryComparatorUtil.buildStatisByte(data_,getLanguage());
         for (Statistic s: effect_.getBoostStatisOnceKoFoe().getKeys()) {
             boostStatisOnceKoFoe_.put(s, effect_.getBoostStatisOnceKoFoe().getVal(s));
@@ -199,7 +199,7 @@ public class EffectDamageBean extends EffectBean {
         return multDamageAgainst;
     }
 
-    public byte getChRate() {
+    public int getChRate() {
         return chRate;
     }
 
@@ -235,7 +235,7 @@ public class EffectDamageBean extends EffectBean {
         return randMax;
     }
 
-    public DictionaryComparator<Statistic,Byte> getBoostStatisOnceKoFoe() {
+    public DictionaryComparator<Statistic,Integer> getBoostStatisOnceKoFoe() {
         return boostStatisOnceKoFoe;
     }
 

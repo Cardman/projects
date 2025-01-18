@@ -923,34 +923,6 @@ public class NumbersTest extends EquallableExUtil {
         assertTrue(!NumberUtil.equalsSetBytes(nbs_,nbsTwo_));
     }
     @Test
-    public void eqSet4Test(){
-        Shorts nbs_ = new Shorts();
-        nbs_.add((short) 5);
-        nbs_.add((short) 1);
-        Shorts nbsTwo_ = new Shorts();
-        nbsTwo_.add((short) 5);
-        nbsTwo_.add((short) 1);
-        assertTrue(NumberUtil.equalsSetShorts(nbs_,nbsTwo_));
-    }
-    @Test
-    public void eqSet5Test(){
-        Shorts nbs_ = new Shorts();
-        nbs_.add((short) 5);
-        Shorts nbsTwo_ = new Shorts();
-        nbsTwo_.add((short) 5);
-        nbsTwo_.add((short) 1);
-        assertTrue(!NumberUtil.equalsSetShorts(nbs_,nbsTwo_));
-    }
-    @Test
-    public void eqSet6Test(){
-        Shorts nbs_ = new Shorts();
-        nbs_.add((short) 5);
-        nbs_.add((short) 1);
-        Shorts nbsTwo_ = new Shorts();
-        nbsTwo_.add((short) 5);
-        assertTrue(!NumberUtil.equalsSetShorts(nbs_,nbsTwo_));
-    }
-    @Test
     public void removeOneNumber1Test(){
         Shorts nbs_ = new Shorts();
         nbs_.add((short) 5);

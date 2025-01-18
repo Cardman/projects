@@ -867,8 +867,8 @@ public final class GameProgressionBeanTest extends InitDbGameProgressionBean {
         fac_.getGame().getPlayer().getCaughtPk().set(PROG_PK5, BoolVal.TRUE);
         fac_.getGame().getPlayer().getCaughtPk().set(PROG_PK6, BoolVal.TRUE);
         PokemonPlayer pk_ = fac_.getGame().getPlayer().getPokemonPlayerList().getValue(0);
-        pk_.setLevel((short) fac_.getData().getMaxLevel());
-        pk_.setHappiness((short) fac_.getData().getHappinessMax());
+        pk_.setLevel( fac_.getData().getMaxLevel());
+        pk_.setHappiness( fac_.getData().getHappinessMax());
         return fac_;
     }
     private FacadeGame fac(DataBase _init, String _nickname,Sex _s) {

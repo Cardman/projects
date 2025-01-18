@@ -33,7 +33,7 @@ public final class CrudGeneFormNb extends CrudGeneFormListSub<EditedCrudPair<Int
         destination.addChangeListener(new RenameNbEvent(this));
         initForm();
         CustList<EditedCrudPair<Integer, String>> nbs_ = new CustList<EditedCrudPair<Integer, String>>();
-        for (EntryCust<Short,String> e: factoryMessage.retrieveMap(getFactory(),facadeGame).entryList()) {
+        for (EntryCust<Integer,String> e: factoryMessage.retrieveMap(getFactory(),facadeGame).entryList()) {
             nbs_.add(new EditedCrudPair<Integer, String>((int)e.getKey(),e.getValue()));
         }
         IntIdComparator cmp_ = new IntIdComparator();
@@ -49,7 +49,7 @@ public final class CrudGeneFormNb extends CrudGeneFormListSub<EditedCrudPair<Int
     @Override
     public void afterModif(int _index, EditedCrudPair<Integer, String> _value) {
         int i_ = _value.getKey();
-        short k_ = (short) i_;
+        int k_ = i_;
         if (_index > -1) {
             int old_ = factoryMessage.retrieveMap(getFactory(), facadeGame).size();
             factoryMessage.delete(facadeGame,k_);
@@ -84,15 +84,14 @@ public final class CrudGeneFormNb extends CrudGeneFormListSub<EditedCrudPair<Int
     public void tryRename() {
         int selectedIndex_ = getSelectedIndex();
         if (selectedIndex_ >= 0) {
-            short next_ = (short) destination.getValue();
+            int next_ = destination.getValue();
             EditedCrudPair<Integer, String> entry_ = getList().get(selectedIndex_);
-            int key_ = entry_.getKey();
-            short old_ = (short) key_;
+            int old_ = entry_.getKey();
             factoryMessage.rename(facadeGame,old_,next_);
-            ShortMap<String> after_ = factoryMessage.retrieveMap(getFactory(), facadeGame);
+            IntMap<String> after_ = factoryMessage.retrieveMap(getFactory(), facadeGame);
             if (!after_.contains(old_)) {
                 getList().remove(selectedIndex_);
-                getList().add(new EditedCrudPair<Integer, String>((int) next_,entry_.getValue()));
+                getList().add(new EditedCrudPair<Integer, String>(next_,entry_.getValue()));
                 possibleSort();
                 if (tm) {
                     getCrudGeneFormSubContent().getFacadeGame().getData().getTmPrice().move(old_,next_);
@@ -110,7 +109,7 @@ public final class CrudGeneFormNb extends CrudGeneFormListSub<EditedCrudPair<Int
         LgInt priceValue_;
         if (getSelectedIndex() > -1) {
             int key_ = getList().get(getSelectedIndex()).getKey();
-            priceValue_ = getCrudGeneFormSubContent().getFacadeGame().getData().getTmPrice().getVal((short) key_);
+            priceValue_ = getCrudGeneFormSubContent().getFacadeGame().getData().getTmPrice().getVal(key_);
         } else {
             priceValue_ = null;
         }

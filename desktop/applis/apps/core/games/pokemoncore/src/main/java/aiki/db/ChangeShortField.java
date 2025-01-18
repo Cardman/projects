@@ -1,6 +1,6 @@
 package aiki.db;
 
 public interface ChangeShortField {
-    short value();
-    void value(short _v);
+    int value();
+    void value(int _v);
 }

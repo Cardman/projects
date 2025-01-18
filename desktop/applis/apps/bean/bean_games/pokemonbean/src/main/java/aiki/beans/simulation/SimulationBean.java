@@ -74,7 +74,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
     private String selectedAllyAction = TeamCrud.NOTHING.getTeamCrudString();
     private String selectedAction = TeamCrud.NOTHING.getTeamCrudString();
 
-    private StringMap<Short> availableEvosLevel = new StringMap<Short>();
+    private StringMap<Integer> availableEvosLevel = new StringMap<Integer>();
     private DictionaryComparator<String, String> availableEvos;
 
     private String chosenEvo = DataBase.EMPTY_STRING;
@@ -158,7 +158,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
                 moveSetInit(moves_);
                 return;
             }
-            StringList moves_ = simulation.getKeptMoves().getVal((byte) selectedPk).getVal(new KeyFightRound(IndexConstants.FIRST_INDEX, (byte)(NumberUtil.parseInt(selectedRound) -1)));
+            StringList moves_ = simulation.getKeptMoves().getVal(selectedPk).getVal(new KeyFightRound(IndexConstants.FIRST_INDEX, NumberUtil.parseInt(selectedRound) -1));
             moveSetInit(moves_);
         }
     }
@@ -207,7 +207,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
             StringMap<String> translationsCategories_;
             translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
             AvailableMovesInfos info_;
-            info_ = simulation.getAvailableMoves().getVal((byte) selectedPk);
+            info_ = simulation.getAvailableMoves().getVal(selectedPk);
             for (String k : info_.getMoves().getKeys()) {
                 MoveData moveData_ = data_.getMoves().getVal(k);
                 SelectLineMove line_ = MovesBean.buildLine(translationsMoves_,translationsTypes_,translationsCategories_,k,moveData_,getDataBase());
@@ -241,7 +241,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
             round.put(i, i);
         }
         int mult_ = simulation.getFirstMult();
-        placesFight.put((int) Fighter.BACK, DataBase.EMPTY_STRING);
+        placesFight.put(Fighter.BACK, DataBase.EMPTY_STRING);
         for (int i = IndexConstants.FIRST_INDEX; i < mult_; i++) {
             placesFight.put(i, Long.toString(i));
         }
@@ -261,7 +261,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
             getForms().removeKey(CST_POKEMON_ADDED);
             pk_.setIndex(team.size());
             team.add(pk_);
-            simulation.addPokemonPlayer(pk_.getPokemon(), pk_.getMoves(), (byte) 0, Rate.zero(), data_);
+            simulation.addPokemonPlayer(pk_.getPokemon(), pk_.getMoves(), 0, Rate.zero(), data_);
         } else if(getForms().contains(CST_POKEMON_INDEX_EDIT)) {
             int index_ = getForms().getValInt(CST_POKEMON_INDEX_EDIT);
             getForms().removeKey(CST_POKEMON_INDEX_EDIT);
@@ -287,16 +287,16 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
                 int ev_ = getForms().getValInt(StringUtil.concat(CST_POKEMON_EV_VAR, s.getStatName()));
                 getForms().removeKey(StringUtil.concat(CST_POKEMON_EV_VAR,s.getStatName()));
                 if (ev_ > data_.getMaxEv()) {
-                    ev_ = (short) data_.getMaxEv();
+                    ev_ = data_.getMaxEv();
                 }
-                pkPlayer_.getEv().put(s, (short) ev_);
+                pkPlayer_.getEv().put(s, ev_);
             }
             if (Rate.strGreater(hp_, pkPlayer_.pvMax(data_)) || heal_) {
                 pkPlayer_.setRemainingHp(pkPlayer_.pvMax(data_));
             } else {
                 pkPlayer_.setRemainingHp(hp_);
             }
-            pkPlayer_.setHappiness((short) happy_);
+            pkPlayer_.setHappiness(happy_);
             simulation.setInitialMoves(index_, team.get(index_).getMoves(), data_);
             getForms().removeKey(CST_ITEMS_SET_EDIT);
             getForms().removeKey(CST_POKEMON_NAME_EDIT);
@@ -343,7 +343,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
             pk_.getPkTrainer().setName(getForms().getValStr(CST_POKEMON_NAME_EDIT));
             pk_.getPkTrainer().setGender(getForms().getValGen(CST_POKEMON_GENDER_EDIT));
             pk_.getPkTrainer().setItem(getForms().getValStr(CST_ITEM_EDIT));
-            pk_.getPkTrainer().setLevel((short) getForms().getValInt(CST_POKEMON_LEVEL_EDIT));
+            pk_.getPkTrainer().setLevel(getForms().getValInt(CST_POKEMON_LEVEL_EDIT));
             if (foe_) {
                 pk_.setIndex(foeTeams.get(indexTeam).size());
                 foeTeams.get(indexTeam).add(pk_);
@@ -365,7 +365,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
             pk_.getPkTrainer().setName(getForms().getValStr(CST_POKEMON_NAME_EDIT));
             pk_.getPkTrainer().setGender(getForms().getValGen(CST_POKEMON_GENDER_EDIT));
             pk_.getPkTrainer().setItem(getForms().getValStr(CST_ITEM_EDIT));
-            pk_.getPkTrainer().setLevel((short) getForms().getValInt(CST_POKEMON_LEVEL_EDIT));
+            pk_.getPkTrainer().setLevel(getForms().getValInt(CST_POKEMON_LEVEL_EDIT));
         }
         getForms().put(CST_ADDING_TRAINER_PK,TeamCrud.NOTHING);
     }
@@ -464,7 +464,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
     public String clickLevel(int _indexOne, int _indexTwo) {
         //getForms().removeKey(INSIDE);
         DataBase data_ = getDataBase();
-        Place pl_ = data_.getMap().getPlace((short)_indexOne);
+        Place pl_ = data_.getMap().getPlace(_indexOne);
         if (pl_ instanceof League) {
             League l_ = (League) pl_;
             coords = new Coords();
@@ -955,8 +955,8 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
 //        }
         DataBase data_ = getDataBase();
         int index_ = getForms().getValInt(CST_POKEMON_INDEX_EDIT);
-        levelEvo = (short) NumberUtil.max(levelEvo, availableEvosLevel.getVal(chosenEvo));
-        simulation.setNextEvolutions(index_, chosenEvo, (short) levelEvo, data_);
+        levelEvo = NumberUtil.max(levelEvo, availableEvosLevel.getVal(chosenEvo));
+        simulation.setNextEvolutions(index_, chosenEvo, levelEvo, data_);
         evoList(data_, index_);
     }
     public void cancelEvo() {
@@ -970,8 +970,8 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
     }
 
     private void evoList(DataBase _data, int _index) {
-        StringMap<Short> evos_ = simulation.getAvailableEvolutions().get(_index);
-        availableEvosLevel = new StringMap<Short>(evos_);
+        StringMap<Integer> evos_ = simulation.getAvailableEvolutions().get(_index);
+        availableEvosLevel = new StringMap<Integer>(evos_);
         StringMap<String> map_ = _data.getTranslatedPokemon().getVal(getLanguage());
         availableEvos = DictionaryComparatorUtil.buildPkStr(_data,getLanguage());
         for (String e: evos_.getKeys()) {
@@ -984,7 +984,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
         if (selectedPk == IndexConstants.INDEX_NOT_FOUND_ELT) {
             return;
         }
-        simulation.getFrontFighters().first().get(NumberUtil.parseInt(selectedRound)).put((byte) selectedPk, (byte) NumberUtil.parseInt(placeFight));
+        simulation.getFrontFighters().first().get(NumberUtil.parseInt(selectedRound)).put(selectedPk, NumberUtil.parseInt(placeFight));
     }
     public void cancelFrontFighters() {
         displayIfError = false;
@@ -1041,7 +1041,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
             if (currentAbility.isEmpty()) {
                 return;
             }
-            int r_ = simulation.getAvailableMoves().getVal((byte) selectedPk).getKey().getRound();
+            int r_ = simulation.getAvailableMoves().getVal(selectedPk).getKey().getRound();
             simulation.setAbilityWhileFight(selectedPk, IndexConstants.FIRST_INDEX, r_, currentAbility);
         }
         StringList moves_ = new StringList();
@@ -1213,7 +1213,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
     public Rate numberNecessaryPointsForGrowingLevel(int _index){
         DataBase data_ = getDataBase();
         PokemonPlayer pk_ = teamAfterFight.get(_index);
-        short level_ = pk_.getLevel();
+        int level_ = pk_.getLevel();
         Rate diff_ = FightFacade.numberNecessaryPointsForGrowingLevel(pk_.getName(),level_+1L,data_);
         diff_.removeNb(pk_.getWonExpSinceLastLevel());
         return diff_;

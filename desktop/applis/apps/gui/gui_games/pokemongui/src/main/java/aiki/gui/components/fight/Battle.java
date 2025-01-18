@@ -510,8 +510,8 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             panelPlaces.removeAll();
             placesLabels.clear();
             placesLabelsAbs.clear();
-            byte mult_ = facade.getFight().getMult();
-            for (byte p = IndexConstants.FIRST_INDEX; p < mult_; p++) {
+            int mult_ = facade.getFight().getMult();
+            for (int p = IndexConstants.FIRST_INDEX; p < mult_; p++) {
                 PlaceLabel plLabel_ = new PlaceLabel(Long.toString(p), p, window.getCompoFactory());
                 plLabel_.addMouseListener(new PkNonModalEvent(getWindow().getModal()),new SelectPlaceEvent(this, p));
                 panelPlaces.add(plLabel_.getPaintableLabel());
@@ -882,7 +882,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             fleeWeb.add(fighterCaughtPanel.getContainer());
             int selectedIndex_ = fighterCaughtPanel.getListe().getSelectedIndex();
             if (selectedIndex_ > -1) {
-                byte creatureSauvage_ = facade.getSingleFoeToBeCaught(false, selectedIndex_).getFirstPosit();
+                int creatureSauvage_ = facade.getSingleFoeToBeCaught(false, selectedIndex_).getFirstPosit();
                 ballPanel.initBalls(creatureSauvage_, -1);
             } else {
                 ballPanel.initBalls(-1, -1);
@@ -898,13 +898,13 @@ public class Battle extends GroupFrame implements AbsChildFrame {
                 ballPanel.getListeBall().events();
                 return;
             }
-            byte creatureSauvage_ = facade.getSingleFoeToBeCaught(false, selectedIndex_).getFirstPosit();
+            int creatureSauvage_ = facade.getSingleFoeToBeCaught(false, selectedIndex_).getFirstPosit();
             fighterCatchingPanel.initFighters(facade.getPlayerToCatch());
             fighterCatchingPanel.getListe().select(0);
             fighterCatchingPanel.getListe().revalidate();
             fighterCatchingPanel.getListe().events();
             fleeWeb.add(fighterCatchingPanel.getContainer());
-            byte creatureUt_ = facade.getSinglePlayerToCatch(fighterCatchingPanel.getListe().getSelectedIndex()).getFirstPosit();
+            int creatureUt_ = facade.getSinglePlayerToCatch(fighterCatchingPanel.getListe().getSelectedIndex()).getFirstPosit();
             ballPanel.initBalls(creatureSauvage_, creatureUt_);
             ballPanel.getListeBall().select(0);
             ballPanel.getListeBall().computeDimensions();
@@ -1099,8 +1099,8 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 //        }
 //        enabledClicked = false;
         IntMap<CatchingBallFoeAction> attempted_ = facade.attempted();
-        ByteTreeMap<FighterPosition> playerFrontTeam_ = facade.getUnionFrontTeam();
-        ByteTreeMap<FighterPosition> foeFrontTeam_ = facade.getFoeFrontTeam();
+        IntTreeMap<FighterPosition> playerFrontTeam_ = facade.getUnionFrontTeam();
+        IntTreeMap<FighterPosition> foeFrontTeam_ = facade.getFoeFrontTeam();
         facade.attemptCatchingWildPokemon(enableAnimation);
         IntMap<CatchingBallFoeAction> result_ = facade.swallow(attempted_);
         enabledChangeLanguage = false;
@@ -1220,13 +1220,13 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 //        htmlDialogs.clear();
 //    }
 
-    public void choosePlayerTarget(byte _number, MiniTargetLabel _index) {
+    public void choosePlayerTarget(int _number, MiniTargetLabel _index) {
         window.setSavedGame(false);
         facade.setFirstChosenMovePlayerTarget(_number);
         targets.repaintLabel(_index,this);
     }
 
-    public void chooseFoeTarget(byte _number, MiniTargetLabel _index) {
+    public void chooseFoeTarget(int _number, MiniTargetLabel _index) {
         window.setSavedGame(false);
         facade.setFirstChosenMoveFoeTarget(_number);
         targets.repaintLabel(_index,this);
@@ -1238,7 +1238,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 //        }
 //        enableClick = false;
         enabledChangeLanguage = false;
-        facade.chooseFrontFighter((byte) fighterFrontPanel.getSelectedIndex());
+        facade.chooseFrontFighter(fighterFrontPanel.getSelectedIndex());
         fighterBackPanel.deselect();
         afterSelectFighter();
     }
@@ -1249,7 +1249,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 //        }
 //        enableClick = false;
         enabledChangeLanguage = false;
-        facade.chooseBackFighter((byte) fighterBackPanel.getSelectedIndex());
+        facade.chooseBackFighter(fighterBackPanel.getSelectedIndex());
         fighterFrontPanel.deselect();
         afterSelectFighter();
     }
@@ -1268,7 +1268,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 
     public void chooseBackFighterSub() {
         enabledChangeLanguage = false;
-        facade.chooseSubstituteFighter((byte) fighterBackPanelSub.getSelectedIndex());
+        facade.chooseSubstituteFighter(fighterBackPanelSub.getSelectedIndex());
         window.setSavedGame(false);
     }
 
@@ -1291,7 +1291,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         ballPanel.getListeBall().select(StringUtil.indexOf(names_,cat_.getCatchingBall()));
         ballPanel.getListeBall().revalidate();
         ballPanel.getListeBall().events();
-        Bytes catching_ = new Bytes();
+        Ints catching_ = new Ints();
         for (FighterPosition b: fighterCatchingPanel.getListe().getList()) {
             catching_.add(b.getFirstPosit());
         }
@@ -1354,7 +1354,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             CustList<CatchingBallFoeAction> catchingBalls_ = facade.getFight().getCatchingBalls();
             int s_ = catchingBalls_.size();
             for (int i = 0; i < s_; i++) {
-                AbsPlainLabel lab_ = window.getCompoFactory().newPlainLabel(facade.getFight().getFighter(Fight.toFoeFighter((byte) i)).getName());
+                AbsPlainLabel lab_ = window.getCompoFactory().newPlainLabel(facade.getFight().getFighter(Fight.toFoeFighter(i)).getName());
                 catchBallResult.add(lab_);
                 fleeWeb.add(lab_);
             }
@@ -1372,7 +1372,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
             }
             BallNumberRatePk res_ = result_.getVal(i);
             if (res_ == null) {
-                catchBallResult.get(i).setText(facade.getFight().getFighter(Fight.toFoeFighter((byte) i)).getName());
+                catchBallResult.get(i).setText(facade.getFight().getFighter(Fight.toFoeFighter(i)).getName());
             } else {
                 String pk_ = facade.translatePokemon(res_.getNamePk());
                 String it_ = facade.translateItem(res_.getName());
@@ -1400,7 +1400,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         if (fighterFleePanel.getSelectedIndex() < 0) {
             facade.getGame().getFight().setCurrentUserFlee(Fighter.BACK);
         } else {
-            facade.getGame().getFight().setCurrentUserFlee((byte) fighterFleePanel.getSelectedIndex());
+            facade.getGame().getFight().setCurrentUserFlee(fighterFleePanel.getSelectedIndex());
         }
         if (facade.getGame().getFight().getCurrentUserFlee() != Fighter.BACK) {
             flee.setEnabled(true);
@@ -1416,7 +1416,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
     }
     public void chooseFighter() {
         enabledChangeLanguage = false;
-        facade.choosePokemonForLearningAndEvolving((byte) fighterPanel.getSelectedIndex());
+        facade.choosePokemonForLearningAndEvolving(fighterPanel.getSelectedIndex());
         if (NumberUtil.eq(facade.getChosenIndex(), IndexConstants.INDEX_NOT_FOUND_ELT)) {
             actions.removeAll();
 //            window.pack();
@@ -1697,7 +1697,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 //        }
     }
 
-    private void updateGraphics(CustList<MiniTargetLabel> _list, byte _flag) {
+    private void updateGraphics(CustList<MiniTargetLabel> _list, int _flag) {
         for (MiniTargetLabel m: _list) {
             for (TargetCoords t: facade.getFight().getTemp().getTargetCoords()) {
                 if (t.getTeam() == _flag) {
@@ -1755,7 +1755,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 //        enableClick = _enableClick;
 //    }
 
-    public void changeFrontPlace(byte _index) {
+    public void changeFrontPlace(int _index) {
         window.setSavedGame(false);
         facade.setSubstituteEndRound(_index);
         for (PlaceLabel p: placesLabels) {
@@ -1867,7 +1867,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         enableAnimation = _enableAnimation;
     }
 
-    public void initBall(ByteTreeMap<FighterPosition> _playerFighters,ByteTreeMap<FighterPosition> _foeFighters) {
+    public void initBall(IntTreeMap<FighterPosition> _playerFighters,IntTreeMap<FighterPosition> _foeFighters) {
         frontBattle.initBall(_playerFighters,_foeFighters);
     }
 

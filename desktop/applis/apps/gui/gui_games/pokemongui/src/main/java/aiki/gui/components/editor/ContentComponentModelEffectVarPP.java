@@ -19,7 +19,7 @@ public final class ContentComponentModelEffectVarPP {
         form.setVisible(_dis);
     }
     void buildEntity(EffectVarPP _edited) {
-        _edited.setDeletePp((short) deletePp.valueInt());
+        _edited.setDeletePp(deletePp.valueInt());
     }
     void feedForm(EffectVarPP _edited) {
         deletePp.valueInt(_edited.getDeletePp());

@@ -49,7 +49,7 @@ public final class FacadeGameInventoryTest extends InitializationDataBase {
         facadeGame_.clearSortingItem();
         facadeGame_.openMenu();
         assertTrue(facadeGame_.getPlayer().getIndexesOfPokemonTeam().contains(0));
-        facadeGame_.selectPokemon((short) 0);
+        facadeGame_.selectPokemon( 0);
         assertEq(MULTI_EXP,facadeGame_.getGame().getPlayer().getPokemonPlayerList().getValue(0).getItem());
         assertEq(LgInt.zero(),facadeGame_.getGame().getPlayer().getInventory().getNumber(MULTI_EXP));
     }
@@ -66,7 +66,7 @@ public final class FacadeGameInventoryTest extends InitializationDataBase {
         facadeGame_.clearSortingItem();
         facadeGame_.openMenu();
         assertTrue(facadeGame_.isGivingObject());
-        facadeGame_.selectPokemon((short) 1);
+        facadeGame_.selectPokemon( 1);
         assertEq(NULL_REF,facadeGame_.getGame().getPlayer().getPokemonPlayerList().getValue(0).getItem());
         assertEq(PIERRE_LUNE,facadeGame_.getGame().getPlayer().getPokemonPlayerList().getValue(1).getItem());
         assertEq(LgInt.one(),facadeGame_.getGame().getPlayer().getInventory().getNumber(MULTI_EXP));
@@ -84,8 +84,8 @@ public final class FacadeGameInventoryTest extends InitializationDataBase {
         facadeGame_.clearSortingItem();
         facadeGame_.openMenu();
         assertTrue(facadeGame_.isGivingObject());
-        facadeGame_.selectPokemon((short) 1);
-        facadeGame_.setChosenTeamPokemon((short) 1);
+        facadeGame_.selectPokemon( 1);
+        facadeGame_.setChosenTeamPokemon( 1);
         facadeGame_.takeObjectFromTeam();
         assertEq(NULL_REF,facadeGame_.getGame().getPlayer().getPokemonPlayerList().getValue(0).getItem());
         assertEq(NULL_REF,facadeGame_.getGame().getPlayer().getPokemonPlayerList().getValue(1).getItem());
@@ -108,7 +108,7 @@ public final class FacadeGameInventoryTest extends InitializationDataBase {
         assertTrue(facadeGame_.getPlayer().getIndexesOfPokemonTeam().contains(0));
         assertEq(POTION,facadeGame_.getPlayer().getSelectedObject());
         facadeGame_.openMenu();
-        facadeGame_.selectPokemon((short) 0);
+        facadeGame_.selectPokemon( 0);
         assertEq(new Rate("21"),pokemonPlayer_.getRemainingHp());
         assertEq(LgInt.zero(),facadeGame_.getGame().getPlayer().getInventory().getNumber(POTION));
     }
@@ -143,7 +143,7 @@ public final class FacadeGameInventoryTest extends InitializationDataBase {
         givPk_.setName(MELOFEE);
         givPk_.setGender(Gender.NO_GENDER);
         givPk_.setAbility(STATIK);
-        givPk_.setLevel((short) 7);
+        givPk_.setLevel( 7);
         givPk_.setItem(PP_PLUS);
         facadeGame_.getGame().getPlayer().recevoirPokemon(givPk_, facadeGame_.getGame().getDifficulty(), facadeGame_.getData());
         facadeGame_.setContentOfNameItem(PIERRE_LUNE);
@@ -157,7 +157,7 @@ public final class FacadeGameInventoryTest extends InitializationDataBase {
         assertTrue(facadeGame_.getPlayer().getIndexesOfPokemonTeam().contains(2));
         assertEq(PIERRE_LUNE,facadeGame_.getPlayer().getSelectedObject());
         facadeGame_.openMenu();
-        facadeGame_.selectPokemon((short) 2);
+        facadeGame_.selectPokemon( 2);
         assertNotNull(facadeGame_.getPlayer().getSelectedPkTeam());
         assertTrue(facadeGame_.usedObjectForEvolving());
         assertEq(4, facadeGame_.getKeptMovesToEvo().size());
@@ -178,7 +178,7 @@ public final class FacadeGameInventoryTest extends InitializationDataBase {
         PokemonPlayer pokemonPlayer_ = facadeGame_.getGame().getPlayer().getPokemonPlayerList().getValue(0);
         pokemonPlayer_.setRemainingHp(Rate.one());
         facadeGame_.getGame().getPlayer().getItem(POTION);
-        facadeGame_.setChosenTeamPokemon((short) 0);
+        facadeGame_.setChosenTeamPokemon( 0);
         facadeGame_.setContentOfNameHealingItem(POTION);
         facadeGame_.searchPokemonHealingItem();
         facadeGame_.checkLineHealingItem(0);
@@ -187,7 +187,7 @@ public final class FacadeGameInventoryTest extends InitializationDataBase {
         facadeGame_.clearSortingHealingItem();
         facadeGame_.getPlayer().getIndexesOfPokemonTeam().clear();
         facadeGame_.useObject();
-        facadeGame_.selectPokemon((short) 0);
+        facadeGame_.selectPokemon( 0);
         assertEq(new Rate("21"),pokemonPlayer_.getRemainingHp());
         assertEq(LgInt.zero(),facadeGame_.getGame().getPlayer().getInventory().getNumber(POTION));
     }
@@ -198,7 +198,7 @@ public final class FacadeGameInventoryTest extends InitializationDataBase {
         PokemonPlayer pokemonPlayer_ = facadeGame_.getGame().getPlayer().getPokemonPlayerList().getValue(0);
         pokemonPlayer_.setRemainingHp(Rate.one());
         facadeGame_.getGame().getPlayer().getItem(PP_PLUS);
-        facadeGame_.setChosenTeamPokemon((short) 0);
+        facadeGame_.setChosenTeamPokemon( 0);
         facadeGame_.setContentOfNameItem(PP_PLUS);
         facadeGame_.searchObjectToUse();
         facadeGame_.checkLineItem(0);
@@ -207,7 +207,7 @@ public final class FacadeGameInventoryTest extends InitializationDataBase {
         facadeGame_.clearSortingItem();
         facadeGame_.getPlayer().getIndexesOfPokemonTeam().clear();
         facadeGame_.useObject();
-        facadeGame_.selectPokemon((short) 0);
+        facadeGame_.selectPokemon( 0);
         assertTrue(facadeGame_.usedObjectForBoosting());
         assertEq(20,facadeGame_.getPlayer().getPokemonPlayerList().firstValue().getMoves().getVal(JACKPOT).getMax());
         facadeGame_.gainPpMax(JACKPOT);
@@ -218,9 +218,9 @@ public final class FacadeGameInventoryTest extends InitializationDataBase {
     public void useObject6Test() {
         FacadeGame facadeGame_ = initTests();
         PokemonPlayer pokemonPlayer_ = facadeGame_.getGame().getPlayer().getPokemonPlayerList().getValue(0);
-        pokemonPlayer_.getMoves().getVal(JACKPOT).setCurrent((short) 0);
+        pokemonPlayer_.getMoves().getVal(JACKPOT).setCurrent( 0);
         facadeGame_.getGame().getPlayer().getItem(HUILE);
-        facadeGame_.setChosenTeamPokemon((short) 0);
+        facadeGame_.setChosenTeamPokemon( 0);
         facadeGame_.setContentOfNameHealingItem(HUILE);
         facadeGame_.searchPokemonHealingItem();
         facadeGame_.checkLineHealingItem(0);
@@ -229,7 +229,7 @@ public final class FacadeGameInventoryTest extends InitializationDataBase {
         facadeGame_.clearSortingHealingItem();
         facadeGame_.getPlayer().getIndexesOfPokemonTeam().clear();
         facadeGame_.useObject();
-        facadeGame_.selectPokemon((short) 0);
+        facadeGame_.selectPokemon( 0);
         assertTrue(facadeGame_.usedObjectForHealingAmove());
         facadeGame_.healMove(JACKPOT);
         assertEq(10,pokemonPlayer_.getMoves().getVal(JACKPOT).getCurrent());
@@ -243,7 +243,7 @@ public final class FacadeGameInventoryTest extends InitializationDataBase {
         givPk_.setName(MELOFEE);
         givPk_.setGender(Gender.NO_GENDER);
         givPk_.setAbility(STATIK);
-        givPk_.setLevel((short) 7);
+        givPk_.setLevel( 7);
         givPk_.setItem(PP_PLUS);
         facadeGame_.getGame().getPlayer().recevoirPokemon(givPk_, facadeGame_.getGame().getDifficulty(), facadeGame_.getData());
         facadeGame_.setContentOfNameItem(PIERRE_LUNE);
@@ -254,7 +254,7 @@ public final class FacadeGameInventoryTest extends InitializationDataBase {
         facadeGame_.clearSortingItem();
         facadeGame_.useObject();
         facadeGame_.openMenu();
-        facadeGame_.selectPokemon((short) 2);
+        facadeGame_.selectPokemon( 2);
         String move_ = facadeGame_.getUnKeptMovesToEvo().first();
         facadeGame_.addOrDeleteMoveEvo(move_);
         assertFalse(facadeGame_.okMoves());
@@ -266,7 +266,7 @@ public final class FacadeGameInventoryTest extends InitializationDataBase {
     @Test
     public void useTm1Test() {
         FacadeGame facadeGame_ = initTests();
-        facadeGame_.getGame().getPlayer().getTm((short)2);
+        facadeGame_.getGame().getPlayer().getTm(2);
         facadeGame_.searchTmToUse();
         facadeGame_.checkLineMove(0);
         facadeGame_.chooseMoveByObject();
@@ -274,13 +274,13 @@ public final class FacadeGameInventoryTest extends InitializationDataBase {
         assertTrue(!facadeGame_.getPlayer().getSelectedMove().isEmpty());
         facadeGame_.openMenu();
         assertTrue(facadeGame_.getPlayer().getIndexesOfPokemonTeam().contains(0));
-        facadeGame_.choosePokemonForLearningMove((byte) 0);
+        facadeGame_.choosePokemonForLearningMove( 0);
     }
     @Test
     public void useTm2Test() {
         FacadeGame facadeGame_ = initTests();
-        facadeGame_.getGame().getPlayer().getPokemonPlayerList().getValue(0).getMoves().put(PISTOLET_A_O,new UsesOfMove((short) 20));
-        facadeGame_.getGame().getPlayer().getTm((short)2);
+        facadeGame_.getGame().getPlayer().getPokemonPlayerList().getValue(0).getMoves().put(PISTOLET_A_O,new UsesOfMove( 20));
+        facadeGame_.getGame().getPlayer().getTm(2);
         facadeGame_.searchTmToUse();
         facadeGame_.checkLineMove(0);
         facadeGame_.chooseMoveByObject();
@@ -288,7 +288,7 @@ public final class FacadeGameInventoryTest extends InitializationDataBase {
         assertTrue(!facadeGame_.getPlayer().getSelectedMove().isEmpty());
         facadeGame_.openMenu();
         assertTrue(facadeGame_.getPlayer().getIndexesOfPokemonTeam().contains(0));
-        facadeGame_.choosePokemonForLearningMove((byte) 0);
+        facadeGame_.choosePokemonForLearningMove( 0);
         assertTrue(!facadeGame_.getGame().getPlayer().getPokemonPlayerList().getValue(0).getMoves().contains(TONNERRE));
         facadeGame_.learnMove(PISTOLET_A_O);
         assertTrue(facadeGame_.getGame().getPlayer().getPokemonPlayerList().getValue(0).getMoves().contains(TONNERRE));

@@ -71,9 +71,9 @@ final class FightAbilities {
     }
 
     private static void restoreBoost(Fighter _creatureCbt, Statistic _s, long _defStatistic, Fight _fight, TeamPosition _cbt, DataBase _import) {
-        byte boost_= _creatureCbt.getStatisBoost().getVal(_s);
+        int boost_= _creatureCbt.getStatisBoost().getVal(_s);
         if(boost_< _defStatistic){
-            _creatureCbt.variationBoostStatistique(_s,(byte) (_defStatistic -boost_));
+            _creatureCbt.variationBoostStatistique(_s, (int)(_defStatistic -boost_));
             _fight.addStatisticMessage(_cbt, _s, _defStatistic -boost_, _import);
         }
     }
@@ -86,7 +86,7 @@ final class FightAbilities {
             Status statut_=_import.getStatus().getVal(c);
             if (statut_ instanceof StatusBeginRound) {
                 StatusBeginRound status_ = (StatusBeginRound) statut_;
-                short nbTour_ = _creatureCbt.getStatusNbRoundShort(c);
+                int nbTour_ = _creatureCbt.getStatusNbRoundShort(c);
                 MonteCarloNumber loi_ = status_.getLawForUsingAMoveNbRound();
                 Rate coeffDivision_ = _fCapac.getDivideStatusRound().getVal(c);
                 if (Rate.strLower(Rate.divide(loi_.maximum(), coeffDivision_), new Rate(nbTour_))) {

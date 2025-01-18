@@ -23,7 +23,7 @@ public final class LevelPoint {
 
     public LevelPoint(String _string) {
         StringList elements_ = StringUtil.splitChars(_string, SEPARATOR);
-        levelIndex = (byte) NumberUtil.parseInt(elements_.first());
+        levelIndex = NumberUtil.parseInt(elements_.first());
         point = new Point(elements_.last());
     }
 

@@ -142,7 +142,7 @@ final class InitializationMap  extends EquallablePkUtil {
         pkm_.setAbility(PARATONNERRE);
         pkm_.setGender(Gender.NO_GENDER);
         pkm_.setItem(NULL_REF);
-        pkm_.setLevel((short) 7);
+        pkm_.setLevel( 7);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 0));
     }
@@ -150,7 +150,7 @@ final class InitializationMap  extends EquallablePkUtil {
     static void initBlockFirstRoad(DataBase _data) {
         DataMap map_ = _data.getMap();
         map_.addRoad();
-        Road road_ = (Road) map_.getPlace((short) 0);
+        Road road_ = (Road) map_.getPlace( 0);
         road_.setName(R_1);
         Block block_;
         block_ = newRoadBlock(2, 2, 0);
@@ -175,18 +175,18 @@ final class InitializationMap  extends EquallablePkUtil {
 
     static void initTrainersFirstRoad(DataBase _data) {
         DataMap map_ = _data.getMap();
-        Road road_ = (Road) map_.getPlace((short) 0);
+        Road road_ = (Road) map_.getPlace( 0);
         CustList<PokemonTeam> foeTeamsList_;
         foeTeamsList_ = new CustList<PokemonTeam>();
         CustList<PkTrainer> team_ = new CustList<PkTrainer>();
         team_.add(toPkTrainer(new NameLevel(PIKACHU, 3), new StringList(JACKPOT)));
         team_.add(toPkTrainer(new NameLevel(PIKACHU, 4), new StringList(JACKPOT)));
-        PokemonTeam foeTeamList_ = nvTeam((short) 200, team_);
+        PokemonTeam foeTeamList_ = nvTeam( 200, team_);
         foeTeamsList_.add(foeTeamList_);
         CustList<PkTrainer> teamTwo_ = new CustList<PkTrainer>();
         teamTwo_.add(toPkTrainer(new NameLevel(PIKACHU, 13), new StringList(JACKPOT)));
         teamTwo_.add(toPkTrainer(new NameLevel(PIKACHU, 14), new StringList(JACKPOT)));
-        foeTeamList_ = nvTeam((short) 200, teamTwo_);
+        foeTeamList_ = nvTeam( 200, teamTwo_);
         foeTeamsList_.add(foeTeamList_);
         TrainerMultiFights trainer_;
         trainer_ = newTrainer(foeTeamsList_, 1);
@@ -195,15 +195,15 @@ final class InitializationMap  extends EquallablePkUtil {
 
     static void initFirstRoadAreas(DataBase _data) {
         DataMap map_ = _data.getMap();
-        Road road_ = (Road) map_.getPlace((short) 0);
+        Road road_ = (Road) map_.getPlace( 0);
         MultAreaApparition area_;
         WildPk wild_;
         area_ = new MultAreaApparition();
-        area_.setAvgNbSteps((short) 1);
-//        area_.setMultFight((byte) 1);
+        area_.setAvgNbSteps( 1);
+//        area_.setMultFight( 1);
         wild_ = new WildPk();
         wild_.setName(PIKACHU);
-        wild_.setLevel((short) 1);
+        wild_.setLevel( 1);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.NO_GENDER);
 //        area_.setWildPokemon(new CustList<WildPk>());
@@ -211,29 +211,17 @@ final class InitializationMap  extends EquallablePkUtil {
         area_.getWildPokemonList().add(new CustList<WildPk>(wild_));
         wild_ = new WildPk();
         wild_.setName(PIKACHU);
-        wild_.setLevel((short) 3);
+        wild_.setLevel( 3);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.NO_GENDER);
         area_.getWildPokemonList().add(new CustList<WildPk>(wild_));
         road_.getLevelRoad().getWildPokemonAreas().add(area_);
         area_ = new MultAreaApparition();
-        area_.setAvgNbSteps((short) 1);
-//        area_.setMultFight((byte) 1);
+        area_.setAvgNbSteps( 1);
+//        area_.setMultFight( 1);
         wild_ = new WildPk();
         wild_.setName(ARTIKODIN);
-        wild_.setLevel((short) 1);
-        wild_.setAbility(PARATONNERRE);
-        wild_.setGender(Gender.NO_GENDER);
-//        area_.setWildPokemon(new CustList<WildPk>());
-//        area_.setWildPokemonFishing(new CustList<WildPk>());
-        area_.getWildPokemonList().add(new CustList<WildPk>(wild_));
-        road_.getLevelRoad().getWildPokemonAreas().add(area_);
-        area_ = new MultAreaApparition();
-        area_.setAvgNbSteps((short) 2);
-//        area_.setMultFight((byte) 1);
-        wild_ = new WildPk();
-        wild_.setName(ARTIKODIN);
-        wild_.setLevel((short) 1);
+        wild_.setLevel( 1);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.NO_GENDER);
 //        area_.setWildPokemon(new CustList<WildPk>());
@@ -241,11 +229,23 @@ final class InitializationMap  extends EquallablePkUtil {
         area_.getWildPokemonList().add(new CustList<WildPk>(wild_));
         road_.getLevelRoad().getWildPokemonAreas().add(area_);
         area_ = new MultAreaApparition();
-        area_.setAvgNbSteps((short) 2);
-//        area_.setMultFight((byte) 1);
+        area_.setAvgNbSteps( 2);
+//        area_.setMultFight( 1);
         wild_ = new WildPk();
         wild_.setName(ARTIKODIN);
-        wild_.setLevel((short) 1);
+        wild_.setLevel( 1);
+        wild_.setAbility(PARATONNERRE);
+        wild_.setGender(Gender.NO_GENDER);
+//        area_.setWildPokemon(new CustList<WildPk>());
+//        area_.setWildPokemonFishing(new CustList<WildPk>());
+        area_.getWildPokemonList().add(new CustList<WildPk>(wild_));
+        road_.getLevelRoad().getWildPokemonAreas().add(area_);
+        area_ = new MultAreaApparition();
+        area_.setAvgNbSteps( 2);
+//        area_.setMultFight( 1);
+        wild_ = new WildPk();
+        wild_.setName(ARTIKODIN);
+        wild_.setLevel( 1);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.NO_GENDER);
 //        area_.setWildPokemon(new CustList<WildPk>());
@@ -253,56 +253,56 @@ final class InitializationMap  extends EquallablePkUtil {
         area_.getWildPokemonList().add(new CustList<WildPk>(wild_));
         wild_ = new WildPk();
         wild_.setName(MEW);
-        wild_.setLevel((short) 1);
+        wild_.setLevel( 1);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.NO_GENDER);
         area_.getWildPokemonList().add(new CustList<WildPk>(wild_));
         road_.getLevelRoad().getWildPokemonAreas().add(area_);
         area_ = new MultAreaApparition();
-        area_.setAvgNbSteps((short) 1);
-//        area_.setMultFight((byte) 1);
+        area_.setAvgNbSteps( 1);
+//        area_.setMultFight( 1);
 //        area_.setWildPokemon(new CustList<WildPk>());
 //        area_.setWildPokemonFishing(new CustList<WildPk>());
         wild_ = new WildPk();
         wild_.setName(PTITARD);
-        wild_.setLevel((short) 1);
+        wild_.setLevel( 1);
         wild_.setAbility(ABSORB_EAU);
         wild_.setGender(Gender.NO_GENDER);
         area_.getWildPokemonList().add(new CustList<WildPk>(wild_));
         wild_ = new WildPk();
         wild_.setName(PTITARD);
-        wild_.setLevel((short) 1);
+        wild_.setLevel( 1);
         wild_.setAbility(ABSORB_EAU);
         wild_.setGender(Gender.NO_GENDER);
         area_.getWildPokemonFishingList().add(new CustList<WildPk>(wild_));
         wild_ = new WildPk();
         wild_.setName(TETARTE);
-        wild_.setLevel((short) 26);
+        wild_.setLevel( 26);
         wild_.setAbility(ABSORB_EAU);
         wild_.setGender(Gender.NO_GENDER);
         area_.getWildPokemonList().add(new CustList<WildPk>(wild_));
         wild_ = new WildPk();
         wild_.setName(TETARTE);
-        wild_.setLevel((short) 26);
+        wild_.setLevel( 26);
         wild_.setAbility(ABSORB_EAU);
         wild_.setGender(Gender.NO_GENDER);
         wild_.setItem(PIERRE_EAU);
         area_.getWildPokemonFishingList().add(new CustList<WildPk>(wild_));
         road_.getLevelRoad().getWildPokemonAreas().add(area_);
         area_ = new MultAreaApparition();
-        area_.setAvgNbSteps((short) 1);
-//        area_.setMultFight((byte) 1);
+        area_.setAvgNbSteps( 1);
+//        area_.setMultFight( 1);
 //        area_.setWildPokemon(new CustList<WildPk>());
 //        area_.setWildPokemonFishing(new CustList<WildPk>());
         wild_ = new WildPk();
         wild_.setName(TETARTE);
-        wild_.setLevel((short) 26);
+        wild_.setLevel( 26);
         wild_.setAbility(ABSORB_EAU);
         wild_.setGender(Gender.NO_GENDER);
         area_.getWildPokemonList().add(new CustList<WildPk>(wild_));
         wild_ = new WildPk();
         wild_.setName(TETARTE);
-        wild_.setLevel((short) 26);
+        wild_.setLevel( 26);
         wild_.setAbility(ABSORB_EAU);
         wild_.setGender(Gender.NO_GENDER);
         area_.getWildPokemonFishingList().add(new CustList<WildPk>(wild_));
@@ -312,7 +312,7 @@ final class InitializationMap  extends EquallablePkUtil {
     static void initBlockFirstCity(DataBase _data) {
         DataMap map_ = _data.getMap();
         map_.addCity(CITY);
-        City city_ = (City) map_.getPlace((short) 1);
+        City city_ = (City) map_.getPlace( 1);
         Block block_;
         block_ = newBlock(2, 2);
         city_.getLevel().getBlocks().addEntry(newPoint(0,0), block_);
@@ -336,7 +336,7 @@ final class InitializationMap  extends EquallablePkUtil {
 
     static void initBuildingsFirstCity(DataBase _data) {
         DataMap map_ = _data.getMap();
-        City city_ = (City) map_.getPlace((short) 1);
+        City city_ = (City) map_.getPlace( 1);
         Gym gym_;
         gym_ = new Gym();
         gym_.setImageFileName(LINK);
@@ -361,7 +361,7 @@ final class InitializationMap  extends EquallablePkUtil {
 
     static void initTrainersFirstCity(DataBase _data) {
         DataMap map_ = _data.getMap();
-        City city_ = (City) map_.getPlace((short) 1);
+        City city_ = (City) map_.getPlace( 1);
         Gym gym_;
         GymTrainer gymTrainer_;
         GymLeader gymLeader_;
@@ -369,44 +369,44 @@ final class InitializationMap  extends EquallablePkUtil {
         CustList<PkTrainer> team_ = new CustList<PkTrainer>();
         team_.add(toPkTrainer(new NameLevel(PIKACHU, 3), new StringList(JACKPOT)));
         team_.add(toPkTrainer(new NameLevel(PIKACHU, 4), new StringList(JACKPOT)));
-        gymTrainer_ = nvGymTrainer((short) 200, (byte) 1, team_);
+        gymTrainer_ = nvGymTrainer( 200,  1, team_);
         gym_.getIndoor().getGymTrainers().addEntry(newPoint(1, 7), gymTrainer_);
         CustList<PkTrainer> teamTwo_ = new CustList<PkTrainer>();
         teamTwo_.add(toPkTrainer(new NameLevel(PIKACHU, 3), new StringList(JACKPOT)));
         teamTwo_.add(toPkTrainer(new NameLevel(PIKACHU, 4), new StringList(JACKPOT)));
-        gymTrainer_ = nvGymTrainer((short) 200, (byte) 1, teamTwo_);
+        gymTrainer_ = nvGymTrainer( 200,  1, teamTwo_);
         gym_.getIndoor().getGymTrainers().addEntry(newPoint(7, 7), gymTrainer_);
         gym_.getIndoor().setGymLeaderCoords(newPoint(4, 1));
         CustList<PkTrainer> teamThree_ = new CustList<PkTrainer>();
         teamThree_.add(toPkTrainer(new NameLevel(PIKACHU, 5), new StringList(JACKPOT)));
         teamThree_.add(toPkTrainer(new NameLevel(PIKACHU, 8), new StringList(JACKPOT)));
-        gymLeader_ = nvGymLeader((short) 500, (byte) 1, teamThree_);
+        gymLeader_ = nvGymLeader( 500,  1, teamThree_);
         gymLeader_.setName(GYM_TR_ONE);
         gym_.getIndoor().setGymLeader(gymLeader_);
     }
 
     static void initPokemonCenterFirstCity(DataBase _data) {
         DataMap map_ = _data.getMap();
-        City city_ = (City) map_.getPlace((short) 1);
+        City city_ = (City) map_.getPlace( 1);
         PokemonCenter pk_;
         pk_ = (PokemonCenter) city_.getBuildings().getVal(newPoint(1, 1));
         pk_.getIndoor().getGerants().addEntry(newPoint(0, 4), newGerantPokemon(GeranceType.HEAL));
         Seller seller_;
         seller_ = new Seller();
         seller_.setItems(new StringList(POKE_BALL,HYPER_BALL,PT_DE_MIRE, PIERRE_EAU,ROCHE_ROYALE,PIERRE_LUNE,PIERRE_SOLEIL,PIERRE_GLACE));
-        seller_.setTm(Shorts.newList());
+        seller_.setTm(Ints.newList());
         seller_.setSell(SellType.ITEM);
         seller_.setImageMiniFileName(GERANT);
         pk_.getIndoor().getGerants().addEntry(newPoint(8, 4), seller_);
         seller_ = new Seller();
         seller_.setItems(new StringList());
-        seller_.setTm(Shorts.newList((short)2));
+        seller_.setTm(Ints.newList(2));
         seller_.setSell(SellType.TM);
         seller_.setImageMiniFileName(GERANT);
         pk_.getIndoor().getGerants().addEntry(newPoint(8, 5), seller_);
         seller_ = new Seller();
         seller_.setItems(new StringList());
-        seller_.setTm(Shorts.newList());
+        seller_.setTm(Ints.newList());
         seller_.setSell(SellType.MOVE);
         seller_.setImageMiniFileName(GERANT);
         pk_.getIndoor().getGerants().addEntry(newPoint(8, 6), seller_);
@@ -415,7 +415,7 @@ final class InitializationMap  extends EquallablePkUtil {
     static void initBlockSecondRoad(DataBase _data) {
         DataMap map_ = _data.getMap();
         map_.addRoad();
-        Road road_ = (Road) map_.getPlace((short) 2);
+        Road road_ = (Road) map_.getPlace( 2);
         road_.setName(R_2);
         Block block_;
         block_ = newRoadBlock(2, 2);
@@ -461,7 +461,7 @@ final class InitializationMap  extends EquallablePkUtil {
         TrainerMultiFights trainer_;
         PokemonTeam foeTeamList_;
         CustList<PokemonTeam> foeTeamsList_;
-        Road road_ = (Road) map_.getPlace((short) 2);
+        Road road_ = (Road) map_.getPlace( 2);
         DualFight dual_;
         CustList<PkTrainer> teamAl_ = new CustList<PkTrainer>();
         teamAl_.add(toPkTrainer(new NameLevel(PIKACHU, 25), new StringList(JACKPOT, CHARGE)));
@@ -469,19 +469,19 @@ final class InitializationMap  extends EquallablePkUtil {
         CustList<PkTrainer> team_ = new CustList<PkTrainer>();
         team_.add(toPkTrainer(new NameLevel(PIKACHU, 5), new StringList(JACKPOT)));
         team_.add(toPkTrainer(new NameLevel(PIKACHU, 8), new StringList(JACKPOT)));
-        dual_ = nvDualFight((short) 300, teamAl_, team_);
+        dual_ = nvDualFight( 300, teamAl_, team_);
         dual_.setNames(new StringList(DUAL_ONE_TR_ONE,DUAL_ONE_TR_TWO));
         dual_.setPt(newPoint(3, 0));
         road_.addDualFight(newCoords(2, 0, 2, 0), dual_);
         //map_.getBeatGymLeader().add(newCoords(2, 0, 2, 0));
-        road_ = (Road) map_.getPlace((short) 2);
+        road_ = (Road) map_.getPlace( 2);
         CustList<PkTrainer> teamAlTwo_ = new CustList<PkTrainer>();
         teamAlTwo_.add(toPkTrainer(new NameLevel(PIKACHU, 25), new StringList(JACKPOT, CHARGE)));
         teamAlTwo_.add(toPkTrainer(new NameLevel(PIKACHU, 28), new StringList(TONNERRE)));
         CustList<PkTrainer> teamTwo_ = new CustList<PkTrainer>();
         teamTwo_.add(toPkTrainer(new NameLevel(PIKACHU, 5), new StringList(JACKPOT)));
         teamTwo_.add(toPkTrainer(new NameLevel(PIKACHU, 8), new StringList(JACKPOT)));
-        dual_ = nvDualFight((short) 300, teamAlTwo_, teamTwo_);
+        dual_ = nvDualFight( 300, teamAlTwo_, teamTwo_);
         dual_.setNames(new StringList(DUAL_TWO_TR_ONE,DUAL_TWO_TR_TWO));
         dual_.setPt(newPoint(5, 0));
         road_.addDualFight(newCoords(2, 0, 4, 0), dual_);
@@ -490,7 +490,7 @@ final class InitializationMap  extends EquallablePkUtil {
         CustList<PkTrainer> teamThree_ = new CustList<PkTrainer>();
         teamThree_.add(toPkTrainer(new NameLevel(PIKACHU, 3), new StringList(JACKPOT)));
         teamThree_.add(toPkTrainer(new NameLevel(PIKACHU, 4), new StringList(JACKPOT)));
-        foeTeamList_ = nvTeam((short) 200, teamThree_);
+        foeTeamList_ = nvTeam( 200, teamThree_);
         foeTeamsList_.add(foeTeamList_);
         trainer_ = newTrainer(foeTeamsList_, 1);
         road_.addPerson(newCoords(2, 0, 11, 4), trainer_);
@@ -499,17 +499,17 @@ final class InitializationMap  extends EquallablePkUtil {
     static void initSecondRoadAreas(DataBase _data) {
         DataMap map_ = _data.getMap();
         WildPk wild_;
-        Road road_ = (Road) map_.getPlace((short) 2);
+        Road road_ = (Road) map_.getPlace( 2);
         wild_ = new WildPk();
         wild_.setName(MEW);
-        wild_.setLevel((short) 1);
+        wild_.setLevel( 1);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.NO_GENDER);
         road_.getLevelRoad().getLegendaryPks().addEntry(newPoint(11, 2), wild_);
         //map_.getTakenPokemon().add(newCoords(2, 0, 11, 2));
         wild_ = new WildPk();
         wild_.setName(ARTIKODIN);
-        wild_.setLevel((short) 1);
+        wild_.setLevel( 1);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.NO_GENDER);
         road_.getLevelRoad().getLegendaryPks().addEntry(newPoint(9, 5), wild_);
@@ -517,18 +517,18 @@ final class InitializationMap  extends EquallablePkUtil {
 
     static void initItemsSecondRoad(DataBase _data) {
         DataMap map_ = _data.getMap();
-        Road road_ = (Road) map_.getPlace((short) 2);
+        Road road_ = (Road) map_.getPlace( 2);
         road_.addObject(newCoords(2, 0, 6, 5), HYPER_BALL);
         //map_.getTakenObjects().add(newCoords(2, 0, 6, 5));
-        road_.addTm(newCoords(2, 0, 7, 5), (short) 2);
+        road_.addTm(newCoords(2, 0, 7, 5),  2);
         //map_.getTakenObjects().add(newCoords(2, 0, 7, 5));
-        road_.addHm(newCoords(2, 0, 8, 5), (short) 1);
+        road_.addHm(newCoords(2, 0, 8, 5),  1);
     }
 
     static void initBlockSecondCity(DataBase _data) {
         DataMap map_ = _data.getMap();
         map_.addCity(CITY_TWO);
-        City city_ = (City) map_.getPlace((short) 3);
+        City city_ = (City) map_.getPlace( 3);
         Block block_;
         block_ = newRoadBlock(2, 2);
         city_.getLevel().getBlocks().addEntry(newPoint(0,0), block_);
@@ -555,7 +555,7 @@ final class InitializationMap  extends EquallablePkUtil {
         City city_;
         Gym gym_;
         PokemonCenter pkCenter_;
-        city_ = (City) map_.getPlace((short) 3);
+        city_ = (City) map_.getPlace( 3);
         gym_ = new Gym();
         gym_.setImageFileName(LINK);
         gym_.setLevel(new LevelIndoorGym());
@@ -580,25 +580,25 @@ final class InitializationMap  extends EquallablePkUtil {
 
     static void initTrainersSecondCity(DataBase _data) {
         DataMap map_ = _data.getMap();
-        City city_ = (City) map_.getPlace((short) 3);
+        City city_ = (City) map_.getPlace( 3);
         GymTrainer gymTrainer_;
         GymLeader gymLeader_;
         Gym gym_ = (Gym) city_.getBuildings().getVal(newPoint(4, 1));
         CustList<PkTrainer> team_ = new CustList<PkTrainer>();
         team_.add(toPkTrainer(new NameLevel(PIKACHU, 3), new StringList(JACKPOT)));
         team_.add(toPkTrainer(new NameLevel(PIKACHU, 4), new StringList(JACKPOT)));
-        gymTrainer_ = nvGymTrainer((short) 200, (byte) 1, team_);
+        gymTrainer_ = nvGymTrainer( 200,  1, team_);
         gym_.getIndoor().getGymTrainers().addEntry(newPoint(1, 7), gymTrainer_);
         CustList<PkTrainer> teamTwo_ = new CustList<PkTrainer>();
         teamTwo_.add(toPkTrainer(new NameLevel(PIKACHU, 3), new StringList(JACKPOT)));
         teamTwo_.add(toPkTrainer(new NameLevel(PIKACHU, 4), new StringList(JACKPOT)));
-        gymTrainer_ = nvGymTrainer((short) 200, (byte) 1, teamTwo_);
+        gymTrainer_ = nvGymTrainer( 200,  1, teamTwo_);
         gym_.getIndoor().getGymTrainers().addEntry(newPoint(7, 7), gymTrainer_);
         gym_.getIndoor().setGymLeaderCoords(newPoint(4, 1));
         CustList<PkTrainer> teamThree_ = new CustList<PkTrainer>();
         teamThree_.add(toPkTrainer(new NameLevel(PIKACHU, 5), new StringList(JACKPOT)));
         teamThree_.add(toPkTrainer(new NameLevel(PIKACHU, 8), new StringList(JACKPOT)));
-        gymLeader_ = nvGymLeader((short) 500, (byte) 1, teamThree_);
+        gymLeader_ = nvGymLeader( 500,  1, teamThree_);
         gymLeader_.setName(GYM_TR_TWO);
         gym_.getIndoor().setGymLeader(gymLeader_);
     }
@@ -608,7 +608,7 @@ final class InitializationMap  extends EquallablePkUtil {
         //map_.getTakenObjects().add(newCoords(0, 0, 0, 1));
         City city_;
         PokemonCenter pk_;
-        city_ = (City) map_.getPlace((short) 3);
+        city_ = (City) map_.getPlace( 3);
         pk_ = (PokemonCenter) city_.getBuildings().getVal(newPoint(2, 1));
         pk_.getIndoor().getGerants().addEntry(newPoint(0, 4), newGerantPokemon(GeranceType.FOSSILE));
         pk_.getIndoor().getGerants().addEntry(newPoint(8, 4), newGerantPokemon(GeranceType.HOST));
@@ -617,7 +617,7 @@ final class InitializationMap  extends EquallablePkUtil {
     static void initBlockThirdRoad(DataBase _data) {
         DataMap map_ = _data.getMap();
         map_.addRoad();
-        Road road_ = (Road) map_.getPlace((short) 4);
+        Road road_ = (Road) map_.getPlace( 4);
         road_.setName(R_4);
         Block block_;
         block_ = newRoadBlock(2, 2);
@@ -643,9 +643,9 @@ final class InitializationMap  extends EquallablePkUtil {
     static void initBlockCave(DataBase _data) {
         DataMap map_ = _data.getMap();
         InitializationDataBase.addCave(map_);
-        Cave cave_ = (Cave) map_.getPlace((short) 5);
+        Cave cave_ = (Cave) map_.getPlace( 5);
         cave_.setName(CAVE);
-        InitializationDataBase.addLevelCave(map_, (short) 5);
+        InitializationDataBase.addLevelCave(map_,  5);
         LevelCave level_;
         Block block_;
         level_ = (LevelCave)cave_.getLevelsMap().getVal(0);
@@ -702,18 +702,18 @@ final class InitializationMap  extends EquallablePkUtil {
 
     static void initCaveAreas(DataBase _data) {
         DataMap map_ = _data.getMap();
-        Cave road_ = (Cave) map_.getPlace((short) 5);
+        Cave road_ = (Cave) map_.getPlace( 5);
         LevelCave level_;
-        //map level_ = road_.getLevels().getVal((byte) 0);
+        //map level_ = road_.getLevels().getVal( 0);
         level_ = (LevelCave)road_.getLevelsMap().getVal(1);
         MultAreaApparition area_;
         WildPk wild_;
         area_ = new MultAreaApparition();
-        area_.setAvgNbSteps((short) 1);
-//        area_.setMultFight((byte) 2);
+        area_.setAvgNbSteps( 1);
+//        area_.setMultFight( 2);
         wild_ = new WildPk();
         wild_.setName(TARINOR);
-        wild_.setLevel((short) 10);
+        wild_.setLevel( 10);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.NO_GENDER);
 //        area_.setWildPokemon(new CustList<WildPk>());
@@ -721,7 +721,7 @@ final class InitializationMap  extends EquallablePkUtil {
         area_.getWildPokemonList().add(new CustList<WildPk>(wild_));
         wild_ = new WildPk();
         wild_.setName(NINGALE);
-        wild_.setLevel((short) 13);
+        wild_.setLevel( 13);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.NO_GENDER);
         area_.getWildPokemonList().add(new CustList<WildPk>(wild_));
@@ -729,137 +729,137 @@ final class InitializationMap  extends EquallablePkUtil {
         area_ = new MultAreaApparition();
 //        area_.setWildPokemon(new CustList<WildPk>());
 //        area_.setWildPokemonFishing(new CustList<WildPk>());
-        area_.setAvgNbSteps((short) 1);
-//        area_.setMultFight((byte) 2);
+        area_.setAvgNbSteps( 1);
+//        area_.setMultFight( 2);
         wild_ = new WildPk();
         wild_.setName(NINGALE);
-        wild_.setLevel((short) 13);
+        wild_.setLevel( 13);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.NO_GENDER);
         area_.getWildPokemonList().add(new CustList<WildPk>(wild_));
         wild_ = new WildPk();
         wild_.setName(NUCLEOS);
-        wild_.setLevel((short) 13);
+        wild_.setLevel( 13);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.FEMALE);
         area_.getWildPokemonList().add(new CustList<WildPk>(wild_));
         wild_ = new WildPk();
         wild_.setName(NUCLEOS);
-        wild_.setLevel((short) 13);
+        wild_.setLevel( 13);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.MALE);
         area_.getWildPokemonList().add(new CustList<WildPk>(wild_));
         wild_ = new WildPk();
         wild_.setName(TARINOR);
-        wild_.setLevel((short) 13);
+        wild_.setLevel( 13);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.FEMALE);
         area_.getWildPokemonList().add(new CustList<WildPk>(wild_));
         wild_ = new WildPk();
         wild_.setName(TARINOR);
-        wild_.setLevel((short) 13);
+        wild_.setLevel( 13);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.MALE);
         area_.getWildPokemonList().add(new CustList<WildPk>(wild_));
         wild_ = new WildPk();
         wild_.setName(NINGALE);
-        wild_.setLevel((short) 13);
+        wild_.setLevel( 13);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.FEMALE);
         area_.getWildPokemonList().add(new CustList<WildPk>(wild_));
         wild_ = new WildPk();
         wild_.setName(NINGALE);
-        wild_.setLevel((short) 13);
+        wild_.setLevel( 13);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.MALE);
         area_.getWildPokemonList().add(new CustList<WildPk>(wild_));
         wild_ = new WildPk();
         wild_.setName(CARAPUCE);
-        wild_.setLevel((short) 13);
+        wild_.setLevel( 13);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.NO_GENDER);
         area_.getWildPokemonList().add(new CustList<WildPk>(wild_));
         wild_ = new WildPk();
         wild_.setName(PICHU);
-        wild_.setLevel((short) 13);
+        wild_.setLevel( 13);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.NO_GENDER);
         area_.getWildPokemonList().add(new CustList<WildPk>(wild_));
         wild_ = new WildPk();
         wild_.setName(YANMA);
-        wild_.setLevel((short) 13);
+        wild_.setLevel( 13);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.FEMALE);
         area_.getWildPokemonList().add(new CustList<WildPk>(wild_));
         wild_ = new WildPk();
         wild_.setName(YANMA);
-        wild_.setLevel((short) 13);
+        wild_.setLevel( 13);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.MALE);
         area_.getWildPokemonList().add(new CustList<WildPk>(wild_));
         wild_ = new WildPk();
         wild_.setName(BABIMANTA);
-        wild_.setLevel((short) 13);
+        wild_.setLevel( 13);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.FEMALE);
         area_.getWildPokemonList().add(new CustList<WildPk>(wild_));
         wild_ = new WildPk();
         wild_.setName(BABIMANTA);
-        wild_.setLevel((short) 13);
+        wild_.setLevel( 13);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.MALE);
         area_.getWildPokemonList().add(new CustList<WildPk>(wild_));
         wild_ = new WildPk();
         wild_.setName(PTITARD);
-        wild_.setLevel((short) 13);
+        wild_.setLevel( 13);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.FEMALE);
         area_.getWildPokemonList().add(new CustList<WildPk>(wild_));
         wild_ = new WildPk();
         wild_.setName(PTITARD);
-        wild_.setLevel((short) 13);
+        wild_.setLevel( 13);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.MALE);
         area_.getWildPokemonList().add(new CustList<WildPk>(wild_));
         wild_ = new WildPk();
         wild_.setName(REMORAID);
-        wild_.setLevel((short) 13);
+        wild_.setLevel( 13);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.NO_GENDER);
         area_.getWildPokemonList().add(new CustList<WildPk>(wild_));
         wild_ = new WildPk();
         wild_.setName(MELOFEE);
-        wild_.setLevel((short) 13);
+        wild_.setLevel( 13);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.NO_GENDER);
         area_.getWildPokemonList().add(new CustList<WildPk>(wild_));
         wild_ = new WildPk();
         wild_.setName(LIMAGMA);
-        wild_.setLevel((short) 13);
+        wild_.setLevel( 13);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.NO_GENDER);
         area_.getWildPokemonList().add(new CustList<WildPk>(wild_));
         wild_ = new WildPk();
         wild_.setName(CHENITI);
-        wild_.setLevel((short) 13);
+        wild_.setLevel( 13);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.FEMALE);
         area_.getWildPokemonList().add(new CustList<WildPk>(wild_));
         wild_ = new WildPk();
         wild_.setName(CHENITI);
-        wild_.setLevel((short) 13);
+        wild_.setLevel( 13);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.MALE);
         area_.getWildPokemonList().add(new CustList<WildPk>(wild_));
         wild_ = new WildPk();
         wild_.setName(LIMAGMA_F);
-        wild_.setLevel((short) 13);
+        wild_.setLevel( 13);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.FEMALE);
         area_.getWildPokemonList().add(new CustList<WildPk>(wild_));
         wild_ = new WildPk();
         wild_.setName(LIMAGMA_M);
-        wild_.setLevel((short) 13);
+        wild_.setLevel( 13);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.MALE);
         area_.getWildPokemonList().add(new CustList<WildPk>(wild_));
@@ -868,19 +868,19 @@ final class InitializationMap  extends EquallablePkUtil {
 
     static void initTrainersCave(DataBase _data) {
         DataMap map_ = _data.getMap();
-        //Road road_ = (Road) map_.getPlace((short) 0);
+        //Road road_ = (Road) map_.getPlace( 0);
         PokemonTeam foeTeamList_;
         CustList<PokemonTeam> foeTeamsList_;
         TrainerMultiFights trainer_;
         DualFight dual_;
-        Cave cave_ = (Cave) map_.getPlace((short) 5);
+        Cave cave_ = (Cave) map_.getPlace( 5);
         CustList<PkTrainer> teamAl_ = new CustList<PkTrainer>();
         teamAl_.add(toPkTrainer(new NameLevel(PIKACHU, 35), new StringList(JACKPOT, CHARGE)));
         teamAl_.add(toPkTrainer(new NameLevel(PIKACHU, 38), new StringList(TONNERRE)));
         CustList<PkTrainer> team_ = new CustList<PkTrainer>();
         team_.add(toPkTrainer(new NameLevel(PIKACHU, 15), new StringList(JACKPOT)));
         team_.add(toPkTrainer(new NameLevel(PIKACHU, 18), new StringList(JACKPOT)));
-        dual_ = nvDualFight((short) 300, teamAl_, team_);
+        dual_ = nvDualFight( 300, teamAl_, team_);
         dual_.setNames(new StringList(DUAL_THREE_TR_ONE,DUAL_THREE_TR_TWO));
         dual_.setPt(newPoint(3, 0));
         ((LevelCave)cave_.getLevelsMap().getVal(0)).getDualFights().addEntry(newPoint(2, 0), dual_);
@@ -889,7 +889,7 @@ final class InitializationMap  extends EquallablePkUtil {
         CustList<PkTrainer> teamTwo_ = new CustList<PkTrainer>();
         teamTwo_.add(toPkTrainer(new NameLevel(PIKACHU, 13), new StringList(JACKPOT)));
         teamTwo_.add(toPkTrainer(new NameLevel(PIKACHU, 14), new StringList(JACKPOT)));
-        foeTeamList_ = nvTeam((short) 200, teamTwo_);
+        foeTeamList_ = nvTeam( 200, teamTwo_);
         foeTeamsList_.add(foeTeamList_);
         trainer_ = newTrainer(foeTeamsList_, 1);
         ((LevelCave)cave_.getLevelsMap().getVal(0)).getCharacters().addEntry(newPoint(1, 5), trainer_);
@@ -898,7 +898,7 @@ final class InitializationMap  extends EquallablePkUtil {
         CustList<PkTrainer> teamThree_ = new CustList<PkTrainer>();
         teamThree_.add(toPkTrainer(new NameLevel(PIKACHU, 13), new StringList(JACKPOT)));
         teamThree_.add(toPkTrainer(new NameLevel(PIKACHU, 14), new StringList(JACKPOT)));
-        foeTeamList_ = nvTeam((short) 200, teamThree_);
+        foeTeamList_ = nvTeam( 200, teamThree_);
         foeTeamsList_.add(foeTeamList_);
         trainer_ = newTrainer(foeTeamsList_, 1);
         ((LevelCave)cave_.getLevelsMap().getVal(1)).getCharacters().addEntry(newPoint(5, 1), trainer_);
@@ -907,14 +907,14 @@ final class InitializationMap  extends EquallablePkUtil {
 
     static void initOtherCharactersFirstRoad(DataBase _data) {
         DataMap map_ = _data.getMap();
-        Road road_ = (Road) map_.getPlace((short) 0);
-        road_.addPerson(newCoords(0, 0, 0, 1), newDealerObject(new StringList(HYPER_BALL), Shorts.newList((short)5)));
+        Road road_ = (Road) map_.getPlace( 0);
+        road_.addPerson(newCoords(0, 0, 0, 1), newDealerObject(new StringList(HYPER_BALL), Ints.newList(5)));
     }
 
     static void initLeague(DataBase _data) {
         DataMap map_ = _data.getMap();
         map_.addLeague(LINK, newCoords(4, 0, 5, 4));
-        League league_ =(League) map_.getPlace((short) 6);
+        League league_ =(League) map_.getPlace( 6);
         league_.getRooms().last().setFileName(LINK);
         league_.setName(LIGUE);
         map_.addLevelLeague(6);
@@ -923,7 +923,7 @@ final class InitializationMap  extends EquallablePkUtil {
 
     static void initBlockLeague(DataBase _data) {
         DataMap map_ = _data.getMap();
-        League road_ = (League) map_.getPlace((short) 6);
+        League road_ = (League) map_.getPlace( 6);
         LevelLeague level_;
         Block block_;
         level_ = (LevelLeague) road_.getLevelsMap().getVal(0);
@@ -942,7 +942,7 @@ final class InitializationMap  extends EquallablePkUtil {
 
     static void initLeagueTrainers(DataBase _data) {
         DataMap map_ = _data.getMap();
-        League league_ = (League) map_.getPlace((short) 6);
+        League league_ = (League) map_.getPlace( 6);
         league_.getRooms().get(0).setTrainerCoords(newPoint(4, 4));
         league_.getRooms().get(0).setTrainer(trainerLeagueOne());
         league_.getRooms().get(0).getTrainer().setName(LEAGUE_TR_ONE);
@@ -963,20 +963,20 @@ final class InitializationMap  extends EquallablePkUtil {
         CustList<PkTrainer> team_ = new CustList<PkTrainer>();
         team_.add(toPkTrainer(new NameLevel(TARTARD, 35), new StringList(PISTOLET_A_O)));
         team_.add(toPkTrainer(new NameLevel(TARTARD, 38), new StringList(PISTOLET_A_O)));
-        return nvTrainerLeague((short) 2000, (byte) 1, team_);
+        return nvTrainerLeague( 2000,  1, team_);
     }
 
     private static TrainerLeague trainerLeagueOne() {
         CustList<PkTrainer> team_ = new CustList<PkTrainer>();
         team_.add(toPkTrainer(new NameLevel(PIKACHU, 35), new StringList(JACKPOT)));
         team_.add(toPkTrainer(new NameLevel(PIKACHU, 38), new StringList(JACKPOT)));
-        return nvTrainerLeague((short) 2000, (byte) 1, team_);
+        return nvTrainerLeague( 2000,  1, team_);
     }
 
     static void initBlockThirdCity(DataBase _data) {
         DataMap map_ = _data.getMap();
         map_.addCity(CITY_7);
-        City city_ = (City) map_.getPlace((short) 7);
+        City city_ = (City) map_.getPlace( 7);
         Block block_;
         block_ = newRoadBlock(2, 2);
         city_.getLevel().getBlocks().addEntry(newPoint(0,0), block_);
@@ -1000,7 +1000,7 @@ final class InitializationMap  extends EquallablePkUtil {
 
     static void initBuildingsThirdCity(DataBase _data) {
         DataMap map_ = _data.getMap();
-        City city_ = (City) map_.getPlace((short) 7);
+        City city_ = (City) map_.getPlace( 7);
         PokemonCenter pkCenter_;
         pkCenter_ = new PokemonCenter();
         pkCenter_.setImageFileName(LINK);
@@ -1018,7 +1018,7 @@ final class InitializationMap  extends EquallablePkUtil {
     static void initBlockFourthCity(DataBase _data) {
         DataMap map_ = _data.getMap();
         map_.addCity(CITY_8);
-        City city_ = (City) map_.getPlace((short) 8);
+        City city_ = (City) map_.getPlace( 8);
         Block block_;
         block_ = newRoadBlock(2, 2);
         city_.getLevel().getBlocks().addEntry(newPoint(0,0), block_);
@@ -1042,7 +1042,7 @@ final class InitializationMap  extends EquallablePkUtil {
 
     static void initBuildingsFourthCity(DataBase _data) {
         DataMap map_ = _data.getMap();
-        City city_ = (City) map_.getPlace((short) 8);
+        City city_ = (City) map_.getPlace( 8);
         PokemonCenter pkCenter_;
         pkCenter_ = new PokemonCenter();
         pkCenter_.setImageFileName(LINK);
@@ -1060,7 +1060,7 @@ final class InitializationMap  extends EquallablePkUtil {
     static void initBlockFourthRoad(DataBase _data) {
         DataMap map_ = _data.getMap();
         map_.addRoad();
-        Road road_ = (Road) map_.getPlace((short) 9);
+        Road road_ = (Road) map_.getPlace( 9);
         road_.setName(MOTORWAY_9);
         Block block_;
         block_ = newRoadBlock(2, 2);
@@ -1085,7 +1085,7 @@ final class InitializationMap  extends EquallablePkUtil {
 
     static void initTrainersFourthRoad(DataBase _data) {
         DataMap map_ = _data.getMap();
-        Road road_ = (Road) map_.getPlace((short) 9);
+        Road road_ = (Road) map_.getPlace( 9);
         PokemonTeam foeTeamList_;
         CustList<PokemonTeam> foeTeamsList_;
         foeTeamsList_ = new CustList<PokemonTeam>();
@@ -1094,14 +1094,14 @@ final class InitializationMap  extends EquallablePkUtil {
         team_.add(toPkTrainer(new NameLevel(PTITARD,4),new StringList(JACKPOT)));
         team_.add(toPkTrainer(new NameLevel(PIKACHU,3),new StringList(JACKPOT)));
         team_.add(toPkTrainer(new NameLevel(PIKACHU,4),new StringList(JACKPOT)));
-        foeTeamList_ = nvTeam((short) 200, team_);
+        foeTeamList_ = nvTeam( 200, team_);
         foeTeamsList_.add(foeTeamList_);
         CustList<PkTrainer> teamTwo_ = new CustList<PkTrainer>();
         teamTwo_.add(toPkTrainer(new NameLevel(PIKACHU,13),new StringList(JACKPOT)));
         teamTwo_.add(toPkTrainer(new NameLevel(PIKACHU,14),new StringList(JACKPOT)));
         teamTwo_.add(toPkTrainer(new NameLevel(PTITARD,13),new StringList(JACKPOT)));
         teamTwo_.add(toPkTrainer(new NameLevel(PTITARD,14),new StringList(JACKPOT)));
-        foeTeamList_ = nvTeam((short) 200, teamTwo_);
+        foeTeamList_ = nvTeam( 200, teamTwo_);
         foeTeamsList_.add(foeTeamList_);
         TrainerMultiFights trainer_;
         trainer_ = newTrainer(foeTeamsList_, 2);
@@ -1110,20 +1110,20 @@ final class InitializationMap  extends EquallablePkUtil {
 
     static void joinPlaces(DataBase _data) {
         DataMap map_ = _data.getMap();
-        map_.join((short)0,(short) 1, newPoint(0,0), newPoint(0,5), Direction.UP);
-        map_.join((short)0,(short) 2, newPoint(5,0), newPoint(0,0), Direction.RIGHT);
-        map_.join((short)2,(short) 3, newPoint(0,0), newPoint(0,5), Direction.UP);
-        map_.join((short)4,(short) 2, newPoint(0,0), newPoint(0,5), Direction.UP);
+        map_.join(0, 1, newPoint(0,0), newPoint(0,5), Direction.UP);
+        map_.join(0, 2, newPoint(5,0), newPoint(0,0), Direction.RIGHT);
+        map_.join(2, 3, newPoint(0,0), newPoint(0,5), Direction.UP);
+        map_.join(4, 2, newPoint(0,0), newPoint(0,5), Direction.UP);
         // right of cave
         DataMap.joinCavePlace(map_, newCoords(5, 0, 7, 2), newCoords(4, 0, 0, 2), LINK, LINK);
-        DataMap.joinLevelCave(map_, (short) 5, newLevelPoint(0,7,5), newLevelPoint(1,7,5), LINK, LINK);
-        DataMap.joinLevelCave(map_, (short) 5, newLevelPoint(0,2,3), newLevelPoint(1,2,3), LINK, LINK);
+        DataMap.joinLevelCave(map_,  5, newLevelPoint(0,7,5), newLevelPoint(1,7,5), LINK, LINK);
+        DataMap.joinLevelCave(map_,  5, newLevelPoint(0,2,3), newLevelPoint(1,2,3), LINK, LINK);
 
 //        map_.joinCavePlace(newCoords(5, 1, 4, 0), newCoords(7, 0, 2, 0), "file", "file");
 //        map_.joinCavePlace(newCoords(5, 1, 4, 0), newCoords(7, 0, 2, 0), "file", "file");
         DataMap.joinCavePlace(map_, newCoords(5, 1, 4, 0), newCoords(8, 0, 0, 0), LINK, LINK);
 //        map_.getAccessCondition().addEntry(newCoords(5, 1, 4, 0), new List<Coords>(newCoords(6, 0, 4, 8)));
-        map_.join((short)7,(short) 4, newPoint(0,0), newPoint(0,5), Direction.UP);
+        map_.join(7, 4, newPoint(0,0), newPoint(0,5), Direction.UP);
         //map_.join(_pl1, _pl2, _p1, _p2, _dir1);
         map_.getAccessCondition().addEntry(newCoords(5, 1, 4, 0), Condition.newList(newCoords(6, 0, 4, 8)));
         map_.getAccessCondition().addEntry(newCoords(7, 0, 0, 0), Condition.newList(newCoords(6, 0, 4, 8)));
@@ -1134,7 +1134,7 @@ final class InitializationMap  extends EquallablePkUtil {
         map_.getAccessCondition().addEntry(newCoords(7, 0, 5, 0), Condition.newList(newCoords(6, 0, 4, 8)));
         //map_.getAccessCondition().addEntry(newCoords(7, 0, 6, 0), new List<Coords>(newCoords(6, 0, 4, 8)));
         //map_.getAccessCondition().addEntry(newCoords(7, 0, 7, 0), new List<Coords>(newCoords(6, 0, 4, 8)));
-        map_.join((short) 9, (short)7, newPoint(0,0), newPoint(0,5), Direction.UP);
+        map_.join( 9, 7, newPoint(0,0), newPoint(0,5), Direction.UP);
     }
 
     static void initImages(DataBase _data) {
@@ -1479,19 +1479,19 @@ final class InitializationMap  extends EquallablePkUtil {
         map_.setUnlockedCity(MINI5);
     }
 
-    private static GymLeader nvGymLeader(short _reward, byte _mult, CustList<PkTrainer> _team) {
+    private static GymLeader nvGymLeader(int _reward, int _mult, CustList<PkTrainer> _team) {
         GymLeader gymLeader_ = new GymLeader();
         gymLeader_.setTeam(_team);
         gymLeader_.setReward(_reward);
         gymLeader_.setMultiplicityFight(_mult);
         gymLeader_.setName(NULL_REF);
-        gymLeader_.setTm((short) 2);
+        gymLeader_.setTm( 2);
         gymLeader_.setImageMiniFileName(TRAINER);
         gymLeader_.setImageMaxiFileName(TRAINER);
         return gymLeader_;
     }
 
-    private static GymTrainer nvGymTrainer(short _reward, byte _mult, CustList<PkTrainer> _team) {
+    private static GymTrainer nvGymTrainer(int _reward, int _mult, CustList<PkTrainer> _team) {
         GymTrainer gymTrainer_ = new GymTrainer();
         gymTrainer_.setTeam(_team);
         gymTrainer_.setReward(_reward);
@@ -1501,7 +1501,7 @@ final class InitializationMap  extends EquallablePkUtil {
         return gymTrainer_;
     }
 
-    private static TrainerLeague nvTrainerLeague(short _reward, byte _mult, CustList<PkTrainer> _team) {
+    private static TrainerLeague nvTrainerLeague(int _reward, int _mult, CustList<PkTrainer> _team) {
         TrainerLeague trainerLeague_ = new TrainerLeague();
         trainerLeague_.setTeam(_team);
         trainerLeague_.setReward(_reward);
@@ -1512,7 +1512,7 @@ final class InitializationMap  extends EquallablePkUtil {
         return trainerLeague_;
     }
 
-    private static DualFight nvDualFight(short _reward, CustList<PkTrainer> _teamAl, CustList<PkTrainer> _team) {
+    private static DualFight nvDualFight(int _reward, CustList<PkTrainer> _teamAl, CustList<PkTrainer> _team) {
         DualFight dual_ = new DualFight();
         Ally ally_ = new Ally();
         ally_.setTeam(_teamAl);
@@ -1528,7 +1528,7 @@ final class InitializationMap  extends EquallablePkUtil {
         return dual_;
     }
 
-    private static PokemonTeam nvTeam(short _reward, CustList<PkTrainer> _team) {
+    private static PokemonTeam nvTeam(int _reward, CustList<PkTrainer> _team) {
         PokemonTeam teamReward_ = new PokemonTeam();
         teamReward_.setTeam(_team);
         teamReward_.setReward(_reward);
@@ -1539,7 +1539,7 @@ final class InitializationMap  extends EquallablePkUtil {
             CustList<PokemonTeam> _teams, int _mult) {
         TrainerMultiFights trainer_ = new TrainerMultiFights();
         trainer_.setTeamsRewards(_teams);
-        trainer_.setMultiplicityFight((byte) _mult);
+        trainer_.setMultiplicityFight( _mult);
         trainer_.setImageMiniFileName(TRAINER);
         trainer_.setImageMaxiFileName(TRAINER);
         return trainer_;
@@ -1552,7 +1552,7 @@ final class InitializationMap  extends EquallablePkUtil {
         return gerant_;
     }
 
-    private static DealerItem newDealerObject(StringList _obj, Shorts _tm) {
+    private static DealerItem newDealerObject(StringList _obj, Ints _tm) {
         DealerItem dealer_ = new DealerItem();
         dealer_.setItems(new StringList(_obj));
         dealer_.setTechnicalMoves(_tm);

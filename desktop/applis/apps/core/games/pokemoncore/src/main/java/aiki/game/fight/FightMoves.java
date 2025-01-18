@@ -36,9 +36,9 @@ final class FightMoves {
     }
 
     static boolean existenceAntiClimatActif(Fight _fight,DataBase _import){
-        for(byte c:_fight.getTeams().getKeys()){
-            ByteMap<Fighter> membres_=_fight.getTeams().getVal(c).getMembers();
-            for(byte c2_:membres_.getKeys()){
+        for(int c:_fight.getTeams().getKeys()){
+            IntMap<Fighter> membres_=_fight.getTeams().getVal(c).getMembers();
+            for(int c2_:membres_.getKeys()){
                 Fighter membre_=membres_.getVal(c2_);
                 if (membre_.canDisableWeather(_import)) {
                     return true;

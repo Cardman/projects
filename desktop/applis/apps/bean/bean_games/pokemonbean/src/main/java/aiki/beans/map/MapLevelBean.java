@@ -237,11 +237,11 @@ public class MapLevelBean extends AbsLevelBean {
 //                return CST_ITEM;
         }
         if (l_.getTm().contains(pt_)) {
-            Short tm_ = l_.getTm().getVal(pt_);
+            Integer tm_ = l_.getTm().getVal(pt_);
             return tryRedirectMv(data_.getTm().getVal(tm_));
         }
         if (l_.getHm().contains(pt_)) {
-            Short tm_ = l_.getHm().getVal(pt_);
+            Integer tm_ = l_.getHm().getVal(pt_);
             return tryRedirectMv(data_.getHm().getVal(tm_));
         }
         if (l_.getCharacters().contains(pt_)) {

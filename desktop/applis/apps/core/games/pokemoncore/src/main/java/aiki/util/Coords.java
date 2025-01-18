@@ -11,7 +11,7 @@ public final class Coords {
     static final char SEPARATOR = ';';
     static final String INVALID = "";
 
-    private static final byte INVALID_NUMBER = IndexConstants.INDEX_NOT_FOUND_ELT - 1;
+    private static final int INVALID_NUMBER = IndexConstants.INDEX_NOT_FOUND_ELT - 1;
 
     private int numberPlace;
 
@@ -39,7 +39,7 @@ public final class Coords {
             return;
         }
         StringList elements_ = StringUtil.splitChars(_string,SEPARATOR);
-        numberPlace = (short) NumberUtil.parseInt(elements_.first());
+        numberPlace = NumberUtil.parseInt(elements_.first());
         if (_string.indexOf(SEPARATOR) == _string.lastIndexOf(SEPARATOR)) {
             insideBuilding = null;
         } else {

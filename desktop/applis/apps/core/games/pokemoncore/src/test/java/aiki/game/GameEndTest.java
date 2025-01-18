@@ -97,8 +97,8 @@ public class GameEndTest extends InitializationDataBase {
         game_.beatTrainer(new NbFightCoords(newCoords(5, 1, 5, 1), 0));
         game_.getPlayer().recupererOeufPensions(new Egg(PIKACHU));
         PokemonPlayer first_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
-        first_.setLevel((short) data_.getMaxLevel());
-        first_.setHappiness((short) data_.getHappinessMax());
+        first_.setLevel( data_.getMaxLevel());
+        first_.setHappiness( data_.getHappinessMax());
         assertTrue(!game_.endGame(data_));
     }
 
@@ -130,8 +130,8 @@ public class GameEndTest extends InitializationDataBase {
         game_.beatTrainer(new NbFightCoords(newCoords(5, 1, 5, 1), 0));
         game_.getPlayer().getBox().add(new Egg(PIKACHU));
         PokemonPlayer first_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
-        first_.setLevel((short) data_.getMaxLevel());
-        first_.setHappiness((short) data_.getHappinessMax());
+        first_.setLevel( data_.getMaxLevel());
+        first_.setHappiness( data_.getHappinessMax());
         assertTrue(!game_.endGame(data_));
     }
 
@@ -163,8 +163,8 @@ public class GameEndTest extends InitializationDataBase {
         game_.beatTrainer(new NbFightCoords(newCoords(5, 1, 5, 1), 0));
         game_.getPlayer().getBox().add(new PokemonPlayer(data_.getMap().getFirstPokemon(), data_));
         PokemonPlayer first_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
-        first_.setLevel((short) data_.getMaxLevel());
-        first_.setHappiness((short) data_.getHappinessMax());
+        first_.setLevel( data_.getMaxLevel());
+        first_.setHappiness( data_.getHappinessMax());
         assertTrue(!game_.endGame(data_));
     }
 
@@ -195,7 +195,7 @@ public class GameEndTest extends InitializationDataBase {
         game_.beatTrainer(new NbFightCoords(newCoords(5, 0, 1, 5), 0));
         game_.beatTrainer(new NbFightCoords(newCoords(5, 1, 5, 1), 0));
         PokemonPlayer first_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
-        first_.setHappiness((short) data_.getHappinessMax());
+        first_.setHappiness( data_.getHappinessMax());
         assertTrue(!game_.endGame(data_));
     }
 
@@ -226,7 +226,7 @@ public class GameEndTest extends InitializationDataBase {
         game_.beatTrainer(new NbFightCoords(newCoords(5, 0, 1, 5), 0));
         game_.beatTrainer(new NbFightCoords(newCoords(5, 1, 5, 1), 0));
         PokemonPlayer first_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
-        first_.setLevel((short) data_.getMaxLevel());
+        first_.setLevel( data_.getMaxLevel());
         assertTrue(!game_.endGame(data_));
     }
 
@@ -256,8 +256,8 @@ public class GameEndTest extends InitializationDataBase {
         game_.beatTrainer(new NbFightCoords(newCoords(2, 0, 11, 4), 0));
         game_.beatTrainer(new NbFightCoords(newCoords(5, 0, 1, 5), 0));
         PokemonPlayer first_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
-        first_.setLevel((short) data_.getMaxLevel());
-        first_.setHappiness((short) data_.getHappinessMax());
+        first_.setLevel( data_.getMaxLevel());
+        first_.setHappiness( data_.getHappinessMax());
         assertTrue(!game_.endGame(data_));
     }
 
@@ -287,8 +287,8 @@ public class GameEndTest extends InitializationDataBase {
         game_.beatTrainer(new NbFightCoords(newCoords(5, 0, 1, 5), 0));
         game_.beatTrainer(new NbFightCoords(newCoords(5, 1, 5, 1), 0));
         PokemonPlayer first_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
-        first_.setLevel((short) data_.getMaxLevel());
-        first_.setHappiness((short) data_.getHappinessMax());
+        first_.setLevel( data_.getMaxLevel());
+        first_.setHappiness( data_.getHappinessMax());
         assertTrue(!game_.endGame(data_));
     }
 
@@ -319,8 +319,8 @@ public class GameEndTest extends InitializationDataBase {
         game_.beatTrainer(new NbFightCoords(newCoords(5, 0, 1, 5), 0));
         game_.beatTrainer(new NbFightCoords(newCoords(5, 1, 5, 1), 0));
         PokemonPlayer first_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
-        first_.setLevel((short) data_.getMaxLevel());
-        first_.setHappiness((short) data_.getHappinessMax());
+        first_.setLevel( data_.getMaxLevel());
+        first_.setHappiness( data_.getHappinessMax());
         assertTrue(game_.endGame(data_));
     }
 }

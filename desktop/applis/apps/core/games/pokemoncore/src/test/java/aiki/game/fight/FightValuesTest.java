@@ -36,24 +36,24 @@ public class FightValuesTest extends InitializationDataBase {
         pokemon_.setItem(NULL_REF);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 32);
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(A_LA_QUEUE, (short) 10);
-        moves_.put(APRES_VOUS, (short) 10);
-        moves_.put(SEISME, (short) 10);
-        moves_.put(BROUHAHA, (short) 10);
+        pokemon_.setLevel( 32);
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(A_LA_QUEUE,  10);
+        moves_.put(APRES_VOUS,  10);
+        moves_.put(SEISME,  10);
+        moves_.put(BROUHAHA,  10);
         PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
-        pokemonUser_.setHappiness((short) 140);
+        pokemonUser_.setHappiness( 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         player_.getTeam().add(pokemonUser_);
         pokemonUser_ = new PokemonPlayer(pokemon_, _data, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
-        pokemonUser_.setHappiness((short) 140);
+        pokemonUser_.setHappiness( 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         player_.getTeam().add(pokemonUser_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
@@ -62,7 +62,7 @@ public class FightValuesTest extends InitializationDataBase {
         foePokemon_.setItem(PLAQUE_DRACO);
         foePokemon_.setAbility(MULTITYPE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
+        foePokemon_.setLevel( 3);
         foePokemon_.setMoves(new StringList(JACKPOT));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
@@ -70,13 +70,13 @@ public class FightValuesTest extends InitializationDataBase {
         foePokemon_.setItem(PLAQUE_DRACO);
         foePokemon_.setAbility(MULTITYPE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
+        foePokemon_.setLevel( 3);
         foePokemon_.setMoves(new StringList(JACKPOT));
         foeTeam_.add(foePokemon_);
         GymLeader trainer_ = new GymLeader();
         trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
-        trainer_.setMultiplicityFight((byte) 1);
+        trainer_.setReward( 200);
+        trainer_.setMultiplicityFight( 1);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, _data);
         fight_.setEnvType(EnvironmentType.ROAD);
@@ -178,7 +178,7 @@ public class FightValuesTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = calculateValuesFighter(data_);
         FightRound.initRound(fight_);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.EVASINESS, (byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.EVASINESS,  1);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setDisappeared(true);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterStatut(BRULURE);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setActed(true);
@@ -281,7 +281,7 @@ public class FightValuesTest extends InitializationDataBase {
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setActed(true);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).setActed(true);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setActed(true);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.EVASINESS, (byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.EVASINESS,  1);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setDisappeared(true);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterStatut(BRULURE);
         StringMap<String> map_ = FightValues.calculateValuesFighter(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_);
@@ -382,7 +382,7 @@ public class FightValuesTest extends InitializationDataBase {
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setDisappeared(true);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setActed(true);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setActed(true);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.EVASINESS, (byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.EVASINESS,  1);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setDisappeared(true);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterStatut(BRULURE);
         StringMap<String> map_ = FightValues.calculateValuesFighter(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_);
@@ -483,7 +483,7 @@ public class FightValuesTest extends InitializationDataBase {
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setDisappeared(true);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setActed(true);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setActed(true);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.EVASINESS, (byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.EVASINESS,  1);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setDisappeared(true);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterStatut(BRULURE);
         fight_.getTemp().setComputingArtInt(true);
@@ -541,7 +541,7 @@ public class FightValuesTest extends InitializationDataBase {
     @Test
     public void calculateValues1Test() {
         DataBase data_ = initDb();
-        Fight fight_ = calculateBasicBooleanValues((byte) 3, data_);
+        Fight fight_ = calculateBasicBooleanValues( 3, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
@@ -666,14 +666,14 @@ public class FightValuesTest extends InitializationDataBase {
     @Test
     public void calculateValues2Test() {
         DataBase data_ = initDb();
-        Fight fight_ = calculateBasicBooleanValues((byte) 3, data_);
+        Fight fight_ = calculateBasicBooleanValues( 3, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterStatut(SOMMEIL);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterPseudoStatut(tp(KEY_FOE, POKEMON_FIGHTER_ZERO), VAMPIGRAINE);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setDisappeared(true);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setActed(true);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK, (byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK,  1);
         StringMap<String> map_ = FightValues.calculateValues(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_);
         assertEq(EnvironmentType.ROAD.getEnvName(), map_.getVal(StringUtil.concat(VAR_PREFIX, MessagesDataBaseConstants.DEF_LIEU_COMBAT)));
         assertEq("0", map_.getVal(StringUtil.concat(VAR_PREFIX, MessagesDataBaseConstants.DEF_RATE_EFF_MOVE_AGAINST_TARGET)));
@@ -738,7 +738,7 @@ public class FightValuesTest extends InitializationDataBase {
     @Test
     public void calculateValues3Test() {
         DataBase data_ = initDb();
-        Fight fight_ = calculateBasicBooleanValues((byte) 3, data_);
+        Fight fight_ = calculateBasicBooleanValues( 3, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
@@ -748,7 +748,7 @@ public class FightValuesTest extends InitializationDataBase {
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterPseudoStatut(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), VAMPIGRAINE);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setDisappeared(true);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setActed(true);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK, (byte) 1);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK,  1);
         StringMap<String> map_ = FightValues.calculateValues(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), tp(KEY_FOE, POKEMON_FIGHTER_ZERO), data_);
         assertEq(EnvironmentType.ROAD.getEnvName(), map_.getVal(StringUtil.concat(VAR_PREFIX, MessagesDataBaseConstants.DEF_LIEU_COMBAT)));
         assertEq("0", map_.getVal(StringUtil.concat(VAR_PREFIX, MessagesDataBaseConstants.DEF_RATE_EFF_MOVE_AGAINST_TARGET)));
@@ -864,7 +864,7 @@ public class FightValuesTest extends InitializationDataBase {
     @Test
     public void calculateValues4Test() {
         DataBase data_ = initDb();
-        Fight fight_ = calculateBasicBooleanValues((byte) 3, data_);
+        Fight fight_ = calculateBasicBooleanValues( 3, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
@@ -885,7 +885,7 @@ public class FightValuesTest extends InitializationDataBase {
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_TWO).setActed(true);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setActed(true);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).setActed(true);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK, (byte) 1);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK,  1);
         StringMap<String> map_ = FightValues.calculateValues(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), tp(KEY_FOE, POKEMON_FIGHTER_ZERO), data_);
         assertEq(EnvironmentType.ROAD.getEnvName(), map_.getVal(StringUtil.concat(VAR_PREFIX, MessagesDataBaseConstants.DEF_LIEU_COMBAT)));
         assertEq("1", map_.getVal(StringUtil.concat(VAR_PREFIX, MessagesDataBaseConstants.DEF_RATE_EFF_MOVE_AGAINST_TARGET)));
@@ -1001,7 +1001,7 @@ public class FightValuesTest extends InitializationDataBase {
     @Test
     public void calculateValues5Test() {
         DataBase data_ = initDb();
-        Fight fight_ = calculateBasicBooleanValues((byte) 3, data_);
+        Fight fight_ = calculateBasicBooleanValues( 3, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
@@ -1018,7 +1018,7 @@ public class FightValuesTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setDisappeared(true);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setActed(true);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK, (byte) 1);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK,  1);
         StringMap<String> map_ = FightValues.calculateValues(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), tp(KEY_FOE, POKEMON_FIGHTER_ZERO), data_);
         assertEq(EnvironmentType.ROAD.getEnvName(), map_.getVal(StringUtil.concat(VAR_PREFIX, MessagesDataBaseConstants.DEF_LIEU_COMBAT)));
         assertEq("1", map_.getVal(StringUtil.concat(VAR_PREFIX, MessagesDataBaseConstants.DEF_RATE_EFF_MOVE_AGAINST_TARGET)));
@@ -1131,7 +1131,7 @@ public class FightValuesTest extends InitializationDataBase {
         assertEq(expectedList_,resultList_);
     }
 
-    private static Fight calculateBasicBooleanValues(byte _mult, DataBase _data) {
+    private static Fight calculateBasicBooleanValues(int _mult, DataBase _data) {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         Player player_ = Player.build(NICKNAME,diff_,false, _data);
@@ -1140,12 +1140,12 @@ public class FightValuesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(SEISME, (short) 10);
-        moves_.put(A_LA_QUEUE, (short) 10);
-        moves_.put(APRES_VOUS, (short) 10);
-        moves_.put(BROUHAHA, (short) 10);
+        pokemon_.setLevel( 3);
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(SEISME,  10);
+        moves_.put(A_LA_QUEUE,  10);
+        moves_.put(APRES_VOUS,  10);
+        moves_.put(BROUHAHA,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(_data);
@@ -1164,7 +1164,7 @@ public class FightValuesTest extends InitializationDataBase {
         foePokemon_.setItem(PLAQUE_DRACO);
         foePokemon_.setAbility(MULTITYPE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
+        foePokemon_.setLevel( 3);
         foePokemon_.setMoves(new StringList(A_LA_QUEUE,APRES_VOUS,SEISME,BROUHAHA));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
@@ -1172,7 +1172,7 @@ public class FightValuesTest extends InitializationDataBase {
         foePokemon_.setItem(MAGNET);
         foePokemon_.setAbility(SECHERESSE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 4);
+        foePokemon_.setLevel( 4);
         foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
@@ -1180,12 +1180,12 @@ public class FightValuesTest extends InitializationDataBase {
         foePokemon_.setItem(MAGNET);
         foePokemon_.setAbility(SECHERESSE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 4);
+        foePokemon_.setLevel( 4);
         foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         foeTeam_.add(foePokemon_);
         GymLeader trainer_ = new GymLeader();
         trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
+        trainer_.setReward( 200);
         trainer_.setMultiplicityFight(_mult);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, _data);
@@ -1195,7 +1195,7 @@ public class FightValuesTest extends InitializationDataBase {
     @Test
     public void calculateBasicBooleanValues1Test() {
         DataBase data_ = initDb();
-        Fight fight_ = calculateBasicBooleanValues((byte) 3, data_);
+        Fight fight_ = calculateBasicBooleanValues( 3, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
@@ -1252,7 +1252,7 @@ public class FightValuesTest extends InitializationDataBase {
     @Test
     public void calculateBasicBooleanValues2Test() {
         DataBase data_ = initDb();
-        Fight fight_ = calculateBasicBooleanValues((byte) 3, data_);
+        Fight fight_ = calculateBasicBooleanValues( 3, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
@@ -1309,7 +1309,7 @@ public class FightValuesTest extends InitializationDataBase {
     @Test
     public void calculateBasicBooleanValues3Test() {
         DataBase data_ = initDb();
-        Fight fight_ = calculateBasicBooleanValues((byte) 3, data_);
+        Fight fight_ = calculateBasicBooleanValues( 3, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
@@ -1367,7 +1367,7 @@ public class FightValuesTest extends InitializationDataBase {
     @Test
     public void calculateBasicBooleanValues4Test() {
         DataBase data_ = initDb();
-        Fight fight_ = calculateBasicBooleanValues((byte) 3, data_);
+        Fight fight_ = calculateBasicBooleanValues( 3, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
@@ -1426,7 +1426,7 @@ public class FightValuesTest extends InitializationDataBase {
     @Test
     public void calculateBasicBooleanValues5Test() {
         DataBase data_ = initDb();
-        Fight fight_ = calculateBasicBooleanValues((byte) 3, data_);
+        Fight fight_ = calculateBasicBooleanValues( 3, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
@@ -1487,7 +1487,7 @@ public class FightValuesTest extends InitializationDataBase {
     @Test
     public void calculateBasicBooleanValues6Test() {
         DataBase data_ = initDb();
-        Fight fight_ = calculateBasicBooleanValues((byte) 3, data_);
+        Fight fight_ = calculateBasicBooleanValues( 3, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
@@ -1499,17 +1499,17 @@ public class FightValuesTest extends InitializationDataBase {
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getTrackingMoves().getVal(new MoveTeamPosition(ENCORE, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO))).getActivity().enable();
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setFirstChosenMove(SEISME);
         FightRound.initRound(fight_);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).usePowerPointsByMove(new Difficulty(), SEISME, (short) 1);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).usePowerPointsByMove(new Difficulty(), SEISME,  1);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).successUsingMove();
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setLastUsedMove();
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK, (byte) data_.getMaxBoost());
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.DEFENSE, (byte) data_.getMaxBoost());
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPECIAL_ATTACK, (byte) data_.getMaxBoost());
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPECIAL_DEFENSE, (byte) data_.getMaxBoost());
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED, (byte) data_.getMaxBoost());
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ACCURACY, (byte) data_.getMaxBoost());
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.EVASINESS, (byte) data_.getMaxBoost());
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.CRITICAL_HIT, (byte) data_.getMaxBoost());
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK,  data_.getMaxBoost());
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.DEFENSE,  data_.getMaxBoost());
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPECIAL_ATTACK,  data_.getMaxBoost());
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPECIAL_DEFENSE,  data_.getMaxBoost());
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED,  data_.getMaxBoost());
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ACCURACY,  data_.getMaxBoost());
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.EVASINESS,  data_.getMaxBoost());
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.CRITICAL_HIT,  data_.getMaxBoost());
         StringMap<String> map_;
         map_ = FightValues.calculateBasicBooleanValues(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), tp(KEY_FOE, POKEMON_FIGHTER_ZERO), data_);
         assertEq(43, map_.size());
@@ -1560,7 +1560,7 @@ public class FightValuesTest extends InitializationDataBase {
     @Test
     public void calculateBasicBooleanValues7Test() {
         DataBase data_ = initDb();
-        Fight fight_ = calculateBasicBooleanValues((byte) 3, data_);
+        Fight fight_ = calculateBasicBooleanValues( 3, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
@@ -1622,7 +1622,7 @@ public class FightValuesTest extends InitializationDataBase {
     @Test
     public void calculateBasicBooleanValues8Test() {
         DataBase data_ = initDb();
-        Fight fight_ = calculateBasicBooleanValues((byte) 3, data_);
+        Fight fight_ = calculateBasicBooleanValues( 3, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
@@ -1684,7 +1684,7 @@ public class FightValuesTest extends InitializationDataBase {
     @Test
     public void calculateBasicBooleanValues9Test() {
         DataBase data_ = initDb();
-        Fight fight_ = calculateBasicBooleanValues((byte) 3, data_);
+        Fight fight_ = calculateBasicBooleanValues( 3, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
@@ -1746,7 +1746,7 @@ public class FightValuesTest extends InitializationDataBase {
     @Test
     public void calculateBasicBooleanValues10Test() {
         DataBase data_ = initDb();
-        Fight fight_ = calculateBasicBooleanValues((byte) 3, data_);
+        Fight fight_ = calculateBasicBooleanValues( 3, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
@@ -1824,7 +1824,7 @@ public class FightValuesTest extends InitializationDataBase {
     @Test
     public void calculateBasicBooleanValues11Test() {
         DataBase data_ = initDb();
-        Fight fight_ = calculateBasicBooleanValues((byte) 3, data_);
+        Fight fight_ = calculateBasicBooleanValues( 3, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
@@ -1901,7 +1901,7 @@ public class FightValuesTest extends InitializationDataBase {
     @Test
     public void calculateBasicBooleanValues12Test() {
         DataBase data_ = initDb();
-        Fight fight_ = calculateBasicBooleanValues((byte) 3, data_);
+        Fight fight_ = calculateBasicBooleanValues( 3, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
@@ -1965,7 +1965,7 @@ public class FightValuesTest extends InitializationDataBase {
     @Test
     public void calculateBasicBooleanValues13Test() {
         DataBase data_ = initDb();
-        Fight fight_ = calculateBasicBooleanValues((byte) 2, data_);
+        Fight fight_ = calculateBasicBooleanValues( 2, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
@@ -2030,7 +2030,7 @@ public class FightValuesTest extends InitializationDataBase {
     @Test
     public void calculateBasicBooleanValues14Test() {
         DataBase data_ = initDb();
-        Fight fight_ = calculateBasicBooleanValues((byte) 2, data_);
+        Fight fight_ = calculateBasicBooleanValues( 2, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
@@ -2112,7 +2112,7 @@ public class FightValuesTest extends InitializationDataBase {
     @Test
     public void calculateBasicBooleanValues15Test() {
         DataBase data_ = initDb();
-        Fight fight_ = calculateBasicBooleanValues((byte) 2, data_);
+        Fight fight_ = calculateBasicBooleanValues( 2, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
@@ -2194,7 +2194,7 @@ public class FightValuesTest extends InitializationDataBase {
     @Test
     public void calculateBasicBooleanValues16Test() {
         DataBase data_ = initDb();
-        Fight fight_ = calculateBasicBooleanValues((byte) 3, data_);
+        Fight fight_ = calculateBasicBooleanValues( 3, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
@@ -2256,7 +2256,7 @@ public class FightValuesTest extends InitializationDataBase {
     @Test
     public void calculateBasicBooleanValues17Test() {
         DataBase data_ = initDb();
-        Fight fight_ = calculateBasicBooleanValues((byte) 3, data_);
+        Fight fight_ = calculateBasicBooleanValues( 3, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
@@ -2319,7 +2319,7 @@ public class FightValuesTest extends InitializationDataBase {
     @Test
     public void calculateBasicBooleanValues18Test() {
         DataBase data_ = initDb();
-        Fight fight_ = calculateBasicBooleanValues((byte) 3, data_);
+        Fight fight_ = calculateBasicBooleanValues( 3, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
@@ -2381,7 +2381,7 @@ public class FightValuesTest extends InitializationDataBase {
     @Test
     public void calculateBasicBooleanValues19Test() {
         DataBase data_ = initDb();
-        Fight fight_ = calculateBasicBooleanValues((byte) 3, data_);
+        Fight fight_ = calculateBasicBooleanValues( 3, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
@@ -2443,7 +2443,7 @@ public class FightValuesTest extends InitializationDataBase {
     @Test
     public void calculateBooleanValues1Test() {
         DataBase data_ = initDb();
-        Fight fight_ = calculateBasicBooleanValues((byte) 3, data_);
+        Fight fight_ = calculateBasicBooleanValues( 3, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
@@ -2502,7 +2502,7 @@ public class FightValuesTest extends InitializationDataBase {
     @Test
     public void calculateBooleanValues2Test() {
         DataBase data_ = initDb();
-        Fight fight_ = calculateBasicBooleanValues((byte) 3, data_);
+        Fight fight_ = calculateBasicBooleanValues( 3, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
@@ -2562,7 +2562,7 @@ public class FightValuesTest extends InitializationDataBase {
     @Test
     public void calculateBooleanValues3Test() {
         DataBase data_ = initDb();
-        Fight fight_ = calculateBasicBooleanValues((byte) 3, data_);
+        Fight fight_ = calculateBasicBooleanValues( 3, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
@@ -2623,7 +2623,7 @@ public class FightValuesTest extends InitializationDataBase {
     @Test
     public void calculateBooleanValues4Test() {
         DataBase data_ = initDb();
-        Fight fight_ = calculateBasicBooleanValues((byte) 3, data_);
+        Fight fight_ = calculateBasicBooleanValues( 3, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
@@ -2729,7 +2729,7 @@ public class FightValuesTest extends InitializationDataBase {
     @Test
     public void calculateBooleanValues5Test() {
         DataBase data_ = initDb();
-        Fight fight_ = calculateBasicBooleanValues((byte) 3, data_);
+        Fight fight_ = calculateBasicBooleanValues( 3, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
@@ -2835,7 +2835,7 @@ public class FightValuesTest extends InitializationDataBase {
     @Test
     public void calculateBooleanValues6Test() {
         DataBase data_ = initDb();
-        Fight fight_ = calculateBasicBooleanValues((byte) 3, data_);
+        Fight fight_ = calculateBasicBooleanValues( 3, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
@@ -2899,7 +2899,7 @@ public class FightValuesTest extends InitializationDataBase {
     @Test
     public void calculateBooleanValues7Test() {
         DataBase data_ = initDb();
-        Fight fight_ = calculateBasicBooleanValues((byte) 3, data_);
+        Fight fight_ = calculateBasicBooleanValues( 3, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
@@ -2963,7 +2963,7 @@ public class FightValuesTest extends InitializationDataBase {
     @Test
     public void calculateBooleanValues8Test() {
         DataBase data_ = initDb();
-        Fight fight_ = calculateBasicBooleanValues((byte) 3, data_);
+        Fight fight_ = calculateBasicBooleanValues( 3, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterTypes(EAU);
@@ -3035,12 +3035,12 @@ public class FightValuesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(SEISME, (short) 10);
-        moves_.put(COPIE, (short) 10);
-        moves_.put(GLAS_DE_SOIN, (short) 10);
-        moves_.put(INTERVERSION, (short) 10);
+        pokemon_.setLevel( 3);
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(SEISME,  10);
+        moves_.put(COPIE,  10);
+        moves_.put(GLAS_DE_SOIN,  10);
+        moves_.put(INTERVERSION,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_, moves_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -3059,7 +3059,7 @@ public class FightValuesTest extends InitializationDataBase {
         foePokemon_.setItem(PLAQUE_DRACO);
         foePokemon_.setAbility(MULTITYPE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
+        foePokemon_.setLevel( 3);
         foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
@@ -3067,7 +3067,7 @@ public class FightValuesTest extends InitializationDataBase {
         foePokemon_.setItem(MAGNET);
         foePokemon_.setAbility(SECHERESSE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 4);
+        foePokemon_.setLevel( 4);
         foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
@@ -3075,13 +3075,13 @@ public class FightValuesTest extends InitializationDataBase {
         foePokemon_.setItem(MAGNET);
         foePokemon_.setAbility(SECHERESSE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 4);
+        foePokemon_.setLevel( 4);
         foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         foeTeam_.add(foePokemon_);
         GymLeader trainer_ = new GymLeader();
         trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
-        trainer_.setMultiplicityFight((byte) 3);
+        trainer_.setReward( 200);
+        trainer_.setMultiplicityFight( 3);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
         fight_.setEnvType(EnvironmentType.ROAD);

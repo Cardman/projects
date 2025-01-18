@@ -8,9 +8,9 @@ public final class MoveUsesTeam {
 
     private final String move;
 
-    private final byte nbUses;
+    private final int nbUses;
 
-    public MoveUsesTeam(String _move, byte _nbUses) {
+    public MoveUsesTeam(String _move, int _nbUses) {
         move = _move;
         nbUses = _nbUses;
     }

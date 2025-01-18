@@ -55,7 +55,7 @@ public final class GeneComponentModelSubscribeEffectCombo implements GeneCompone
     public ListEffectCombo value() {
         EffectCombo edited_ = Instances.newEffectCombo();
         edited_.setMultEvtRateSecEff(multEvtRateSecEff.valueRate());
-        edited_.setRankIncrementNbRound((short) rankIncrementNbRound.valueInt());
+        edited_.setRankIncrementNbRound(rankIncrementNbRound.valueInt());
         edited_.setRepeatedRoundsLaw(ConverterCommonMapUtil.buildMonteCarloNumber(repeatedRoundsLaw.getList()));
         edited_.setEffectEndRound(effectEndRound.getList());
         edited_.setTeamMove(teamMove.getList());

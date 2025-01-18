@@ -166,10 +166,10 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
     @Override
     public EditedCrudPair<String,MoveData> value() {
         MoveData ent_ = element;
-        ent_.setPp((short) pp.valueInt());
-        ent_.setPriority((byte) priority.valueInt());
-        ent_.setNbPrepaRound((short) nbPrepaRound.valueInt());
-        ent_.setRankIncrementNbRound((short) rankIncrementNbRound.valueInt());
+        ent_.setPp(pp.valueInt());
+        ent_.setPriority(priority.valueInt());
+        ent_.setNbPrepaRound(nbPrepaRound.valueInt());
+        ent_.setRankIncrementNbRound(rankIncrementNbRound.valueInt());
         ent_.setTypes(types.tryRet());
         ent_.setBoostedTypes(boostedTypes.tryRet());
         ent_.setAchieveDisappearedPkUsingMove(new StringList(achieveDisappearedPkUsingMove.tryRet()));

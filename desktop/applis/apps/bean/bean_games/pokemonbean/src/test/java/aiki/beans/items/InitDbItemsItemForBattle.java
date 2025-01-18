@@ -610,7 +610,7 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
         e_.getCancelChgtStat().add(Statistic.SPEED);
         e_.getCopyBoost().add(Statistic.SPEED);
         e_.getSwapBoostStatis().add(Statistic.SPEED);
-        e_.getStatisVarRank().addEntry(Statistic.SPEED,(byte)1);
+        e_.getStatisVarRank().addEntry(Statistic.SPEED,1);
         e_.getLocalFailStatis().addEntry(Statistic.SPEED, VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR);
         e_.getLocalFailSwapBoostStatis().addEntry(Statistic.SPEED, VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR);
         e_.getLawBoost().addQuickEvent(Statistic.SPEED,LgInt.one());

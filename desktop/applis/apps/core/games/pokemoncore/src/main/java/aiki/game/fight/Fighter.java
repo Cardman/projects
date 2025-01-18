@@ -60,7 +60,7 @@ public final class Fighter {
 
 //    public static final byte RATE_CENT = 100;
 
-    public static final byte BACK = -1;
+    public static final int BACK = -1;
 
     public static final String FULL_HEAL = "0";
     public static final String GROW_LEVEL = "1";
@@ -71,7 +71,7 @@ public final class Fighter {
     public static final String WON_EXP = "6";
     public static final String WON_HAPPINESS = "7";
 
-//    private static final String CENT = Byte.toString(RATE_CENT);
+//    private static final String CENT = Integer.toString(RATE_CENT);
 
     /**Only evolutions can change the name*/
     private String name;
@@ -110,7 +110,7 @@ public final class Fighter {
     private String currentAbility;
 
     /**The key set is not changed*/
-    private StringMap<Short> status;
+    private StringMap<Integer> status;
 
     /**The key set is not changed*/
     private MoveTeamPositionsShort statusRelat;
@@ -128,16 +128,16 @@ public final class Fighter {
     private StringMap<UsesOfMove> currentMoves;
 
     /**Never mind*/
-    private IdMap<Statistic,Short> ev;
+    private IdMap<Statistic,Integer> ev;
 
     /**Never mind*/
-    private IdMap<Statistic,Short> iv = new IdMap<Statistic,Short>();
+    private IdMap<Statistic,Integer> iv = new IdMap<Statistic,Integer>();
 
     /**Never mind*/
     private IdMap<Statistic,Rate> statisBase;
 
     /**Never mind*/
-    private IdMap<Statistic,Byte> statisBoost;
+    private IdMap<Statistic,Integer> statisBoost;
 
     /***/
     private Rate remainingHp;
@@ -183,10 +183,10 @@ public final class Fighter {
     private boolean acted;
 
     /***/
-    private byte groundPlace;
+    private int groundPlace;
 
     /***/
-    private byte groundPlaceSubst;
+    private int groundPlaceSubst;
 
     /**Never mind even if high (added to wonExpSinceLastLevel for grow level)*/
     private Rate wonExp;
@@ -195,10 +195,10 @@ public final class Fighter {
     private Rate wonExpSinceLastLevel;
 
     /**Used for learning moves - evolving (experience); numeric string values*/
-    private short level;
+    private int level;
 
     /**Never mind*/
-    private short happiness;
+    private int happiness;
 
     /**Never mind*/
     private String usedBallCatching;
@@ -210,7 +210,7 @@ public final class Fighter {
     private StringMap<Integer> nbUsesMoves;
 
     /***/
-    private short nbPrepaRound;
+    private int nbPrepaRound;
 
     /**if disappeared then nbPrepaRound &gt; 0*/
     private boolean disappeared;
@@ -285,7 +285,7 @@ public final class Fighter {
     public Fighter(){
     }
 
-    public Fighter(PokemonPlayer _pokemon,DataBase _import,byte _placeTerrain){
+    public Fighter(PokemonPlayer _pokemon,DataBase _import,int _placeTerrain){
         initCreatureUser(_pokemon,_import);
         initUserMoves(_pokemon);
         initEvIvUser(_pokemon);
@@ -294,7 +294,7 @@ public final class Fighter {
         groundPlaceSubst=_placeTerrain;
     }
 
-    public Fighter(PkTrainer _pokemon,DataBase _import,byte _placeTerrain){
+    public Fighter(PkTrainer _pokemon,DataBase _import,int _placeTerrain){
         initCreatureNonUser(_pokemon,_import);
         initPokemonTrainerMoves(_pokemon,_import);
         initEvIvOther();
@@ -303,7 +303,7 @@ public final class Fighter {
         groundPlaceSubst=_placeTerrain;
     }
 
-    public Fighter(WildPk _pokemon,DataBase _import,byte _placeTerrain){
+    public Fighter(WildPk _pokemon,DataBase _import,int _placeTerrain){
         initCreatureNonUser(_pokemon,_import);
         initWildPokemonMoves(_import);
         initEvIvOther();
@@ -329,9 +329,9 @@ public final class Fighter {
                 continue;
             }
             if(StringUtil.contains(_pokemon.getStatus(), e)){
-                status.put(e,(short) 1);
+                status.put(e, 1);
             }else{
-                status.put(e,(short) 0);
+                status.put(e, 0);
             }
         }
     }
@@ -348,13 +348,13 @@ public final class Fighter {
             if (_import.getStatus(e).getStatusType() != StatusType.INDIVIDUEL) {
                 continue;
             }
-            status.put(e,(short) 0);
+            status.put(e, 0);
         }
     }
 
     void initCreature(Pokemon _pokemon) {
         statusRelat = new MoveTeamPositionsShort();
-        status = new StringMap<Short>();
+        status = new StringMap<Integer>();
         incrUserAccuracy = new MoveTeamPositionsBoolVal();
         trackingMoves = new MoveTeamPositionsAffectedMove();
         trappingMoves = new MoveTeamPositionsActivityOfMove();
@@ -382,7 +382,7 @@ public final class Fighter {
     }
 
     void initEvIvUser(PokemonPlayer _pokemon) {
-        ev=new IdMap<Statistic,Short>();
+        ev=new IdMap<Statistic,Integer>();
         for (Statistic s: Statistic.getStatisticsWithBase()) {
             ev.put(s, _pokemon.getEv().getVal(s));
             iv.put(s, _pokemon.getIv().getVal(s));
@@ -395,7 +395,7 @@ public final class Fighter {
         movesAbilitiesEvos = new StringMap<MovesAbilities>();
         for(String e:_pokemon.getMoves()){
             MoveData fAtt_=_import.getMove(e);
-            short pp_=fAtt_.getPp();
+            int pp_=fAtt_.getPp();
             moves.put(e,new UsesOfMove(pp_));
             currentMoves.put(e,new UsesOfMove(pp_));
         }
@@ -407,17 +407,17 @@ public final class Fighter {
         PokemonData fPk_=fichePokemon(_import);
         for (String m: fPk_.getMovesAtLevel(level, _import.getNbMaxMoves())) {
             MoveData fAtt_=_import.getMove(m);
-            short pp_=fAtt_.getPp();
+            int pp_=fAtt_.getPp();
             moves.put(m,new UsesOfMove(pp_));
             currentMoves.put(m,new UsesOfMove(pp_));
         }
     }
 
     void initEvIvOther() {
-        ev = new IdMap<Statistic,Short>();
+        ev = new IdMap<Statistic,Integer>();
         for(Statistic c:Statistic.getStatisticsWithBase()){
-            ev.put(c, (short)0);
-            iv.put(c, (short)0);
+            ev.put(c, 0);
+            iv.put(c, 0);
         }
         remainingHp = Rate.zero();
     }
@@ -425,8 +425,8 @@ public final class Fighter {
     void initCreatureGeneral(DataBase _import){
         PokemonData fPk_=fichePokemonActuelle(_import);
         types=new StringList(fPk_.getTypes());
-        byte def_ = (byte) _import.getDefaultBoost();
-        statisBoost = new IdMap<Statistic,Byte>();
+        int def_ = _import.getDefaultBoost();
+        statisBoost = new IdMap<Statistic,Integer>();
         for(Statistic c:Statistic.getStatisticsWithBoost()){
             statisBoost.put(c, def_);
         }
@@ -469,7 +469,7 @@ public final class Fighter {
         wonExp = Rate.zero();
         copiedMoves = new StringMap<CopiedMove>();
         for(String e:_import.getMovesCopyingTemp()){
-            copiedMoves.put(e, new CopiedMove(DataBase.EMPTY_STRING,(short) 0));
+            copiedMoves.put(e, new CopiedMove(DataBase.EMPTY_STRING,0));
         }
         nbRepeatingSuccessfulMoves=LgInt.zero();
         usingItem=false;
@@ -546,7 +546,7 @@ public final class Fighter {
 
     //This class is covered
     //byte _user, in back
-    boolean validate(DataBase _data, byte _numberTeam, Fight _fight) {
+    boolean validate(DataBase _data, int _numberTeam, Fight _fight) {
         if (koNames(_data) || koAbilities(_data) || koItems(_data) || koHeightWeight() || koTypes(_data) || koOwnedMoves(_data)) {
             return false;
         }
@@ -742,7 +742,7 @@ public final class Fighter {
             }
         }
         for (Statistic s: Statistic.getStatisticsWithBoost()) {
-            byte boost_ = statisBoost.getVal(s);
+            int boost_ = statisBoost.getVal(s);
             if (boost_ < _data.getMinBoost() || boost_ > _data.getMaxBoost()) {
                 return true;
             }
@@ -888,12 +888,12 @@ public final class Fighter {
         if (!StringUtil.equalsSet(status.getKeys(), statusSingle_) || !MoveTeamPosition.equalsSet(statusRelat.getKeys(), relMoves(_fighters, statusRelation_))) {
             return true;
         }
-        for (short s: status.values()) {
+        for (int s: status.values()) {
             if (s < 0) {
                 return true;
             }
         }
-        for (short s: statusRelat.values()) {
+        for (int s: statusRelat.values()) {
             if (s < 0) {
                 return true;
             }
@@ -936,9 +936,9 @@ public final class Fighter {
         return false;
     }
 
-    private boolean koAction(DataBase _data, byte _numberTeam, Fight _fight) {
+    private boolean koAction(DataBase _data, int _numberTeam, Fight _fight) {
         Team team_ = _fight.getTeams().getVal(_numberTeam);
-        Bytes members_ = new Bytes(team_.getMembers().getKeys());
+        Ints members_ = new Ints(team_.getMembers().getKeys());
         if (action instanceof ActionMove) {
             ActionMove actionMove_ = (ActionMove) action;
             if (!_data.getMoves().contains(actionMove_.getFirstChosenMove()) || notBackOrInList(members_, actionMove_.getSubstitute())) {
@@ -958,15 +958,15 @@ public final class Fighter {
         return koActionSub(_data, members_);
     }
 
-    static boolean notBackOrInList(Bytes _members, byte _value) {
+    static boolean notBackOrInList(Ints _members, int _value) {
         return !backOrInList(_members, _value);
     }
 
-    static boolean backOrInList(Bytes _members, byte _value) {
+    static boolean backOrInList(Ints _members, int _value) {
         return NumberUtil.eq(_value, BACK) || _members.containsObj(_value);
     }
 
-    private boolean koActionSub(DataBase _data, Bytes _members) {
+    private boolean koActionSub(DataBase _data, Ints _members) {
         if (action instanceof ActionSwitch) {
             ActionSwitch actionSwitch_ = (ActionSwitch) action;
             if (NumberUtil.eq(actionSwitch_.getSubstitute(), BACK) || !_members.containsObj(actionSwitch_.getSubstitute())) {
@@ -1041,7 +1041,7 @@ public final class Fighter {
             if (statut_.getStatusType() == StatusType.INDIVIDUEL) {
                 continue;
             }
-            statusRelat.put(new MoveTeamPosition(c,_cbt),(short) 0);
+            statusRelat.put(new MoveTeamPosition(c,_cbt), 0);
         }
         for(String e:_import.getMovesActingMoveUses()){
             trackingMoves.put(new MoveTeamPosition(e,_cbt),new AffectedMove(DataBase.EMPTY_STRING,new ActivityOfMove()));
@@ -1072,7 +1072,7 @@ public final class Fighter {
         setActed(false);
     }
 
-    Rate numberNecessaryPointsForGrowingLevel(short _niveau,DataBase _import){
+    Rate numberNecessaryPointsForGrowingLevel(int _niveau,DataBase _import){
         return numberNecessaryPointsForGrowingLevel(name, _niveau, _import);
     }
 
@@ -1204,7 +1204,7 @@ public final class Fighter {
         if (!belongingToPlayer) {
             return LgInt.zero();
         }
-        short next_ = level;
+        int next_ = level;
         next_++;
         Rate nec_ = numberNecessaryPointsForGrowingLevel(next_, _import);
         Rate r_ = Rate.divide(Rate.plus(wonExpSinceLastLevel, wonExp), nec_);
@@ -1237,7 +1237,7 @@ public final class Fighter {
         return liste_;
     }
 
-    short powerPointsMove(String _attaque){
+    int powerPointsMove(String _attaque){
         for(String c:copiedMoves.getKeys()){
             if(StringUtil.quickEq(copiedMoves.getVal(c).getMove(),_attaque)){
                 return copiedMoves.getVal(c).getPp();
@@ -1252,9 +1252,9 @@ public final class Fighter {
         return 0;
     }
 
-    short maxPowerPointsMove(String _attaque, DataBase _import){
+    int maxPowerPointsMove(String _attaque, DataBase _import){
         for(String c:copiedMoves.getKeys()){
-            short pp_ = _import.ppCopiedMove(c);
+            int pp_ = _import.ppCopiedMove(c);
             if(StringUtil.quickEq(copiedMoves.getVal(c).getMove(),_attaque)){
                 return pp_;
             }
@@ -1268,7 +1268,7 @@ public final class Fighter {
         return 0;
     }
 
-    short healedPpMove(String _attaque,String _objet,DataBase _import){
+    int healedPpMove(String _attaque,String _objet,DataBase _import){
         if(changed){
             return 0;
         }
@@ -1294,38 +1294,38 @@ public final class Fighter {
             if(currentMoves.getVal(_attaque).getCurrent()+var_>currentMoves.getVal(_attaque).getMax()){
                 return currentMoves.getVal(_attaque).getLostPp();
             }
-            return (short) var_;
+            return (int) var_;
         }
         Berry baie_=(Berry)objet_;
         int var_=baie_.getHealPp();
         if(currentMoves.getVal(_attaque).getCurrent()+var_>currentMoves.getVal(_attaque).getMax()){
             return currentMoves.getVal(_attaque).getLostPp();
         }
-        return (short) var_;
+        return var_;
     }
 
-    void healPowerPoints(String _attaque,short _var){
+    void healPowerPoints(String _attaque,int _var){
         UsesOfMove pps_ = currentMoves.getVal(_attaque);
         pps_.heal(_var);
     }
 
 
-    void usePowerPointsByMove(Difficulty _diff,String _attaque,short _var){
+    void usePowerPointsByMove(Difficulty _diff,String _attaque,int _var){
         for(String c:copiedMoves.getKeys()){
             CopiedMove pp_= copiedMoves.getVal(c);
             if(!StringUtil.quickEq(pp_.getMove(),_attaque)){
                 continue;
             }
             if(pp_.getPp()<_var){
-                pp_.setPp((short) 0);
+                pp_.setPp(0);
             }else{
-                pp_.setPp((short) (pp_.getPp()-_var));
+                pp_.setPp(pp_.getPp()-_var);
             }
             return;
         }
         if (currentMoves.contains(_attaque)) {
             UsesOfMove pps_ = currentMoves.getVal(_attaque);
-            short ppAct_=pps_.getCurrent();
+            int ppAct_=pps_.getCurrent();
             if(changed){
                 changePpMovesEvo(_var, pps_, ppAct_);
                 return;
@@ -1333,7 +1333,7 @@ public final class Fighter {
             if(ppAct_<_var){
                 ppAct_=0;
             }else{
-                ppAct_=(short) (ppAct_-_var);
+                ppAct_= ppAct_-_var;
             }
             pps_.setCurrent(ppAct_);
             if(_diff.getRestoredMovesEndFight()){
@@ -1346,22 +1346,22 @@ public final class Fighter {
         }
     }
 
-    private void changePpMovesEvo(short _var, UsesOfMove _pps, short _ppAct) {
-        short ppAct_ = _ppAct;
+    private void changePpMovesEvo(int _var, UsesOfMove _pps, int _ppAct) {
+        int ppAct_ = _ppAct;
         if(ppAct_ < _var){
             ppAct_ =0;
         }else{
-            ppAct_ =(short) (ppAct_ - _var);
+            ppAct_ = ppAct_ - _var;
         }
         _pps.setCurrent(ppAct_);
     }
 
-    private void changePpMoves(short _var, UsesOfMove _pps) {
-        short pp_= _pps.getCurrent();
+    private void changePpMoves(int _var, UsesOfMove _pps) {
+        int pp_= _pps.getCurrent();
         if(pp_< _var){
             pp_=0;
         }else{
-            pp_=(short) (pp_- _var);
+            pp_= pp_- _var;
         }
         _pps.setCurrent(pp_);
     }
@@ -1424,7 +1424,7 @@ public final class Fighter {
         lastSuccessfulMove=((ActionMove)action).getFinalChosenMove();
     }
 
-    void groundPlaceSubst(byte _pos) {
+    void groundPlaceSubst(int _pos) {
         groundPlace = _pos;
         groundPlaceSubst = _pos;
     }
@@ -1455,12 +1455,12 @@ public final class Fighter {
 
 
     void affecterPseudoStatut(TeamPosition _combattant,String _pseudoStatut){
-        statusRelat.set(new MoveTeamPosition(_pseudoStatut,_combattant),(short) 1);
+        statusRelat.set(new MoveTeamPosition(_pseudoStatut,_combattant),1);
     }
 
     /**public for tests*/
     public void affecterStatut(String _statut){
-        status.set(_statut,(short) 1);
+        status.set(_statut,1);
     }
 
     void disableAllStatusByEnabledWeather(String _weather, DataBase _data) {
@@ -1510,23 +1510,23 @@ public final class Fighter {
 
     void incrementPseudoStatutCombattant(TeamPosition _combattant,String _pseudoStatut) {
         MoveTeamPosition key_ = new MoveTeamPosition(_pseudoStatut,_combattant);
-        statusRelat.set(key_,(short) (statusRelat.getVal(key_)+1));
+        statusRelat.set(key_, statusRelat.getVal(key_)+1);
     }
 
     void supprimerPseudoStatutCombattant(TeamPosition _combattant,String _pseudoStatut){
-        statusRelat.set(new MoveTeamPosition(_pseudoStatut,_combattant),(short) 0);
+        statusRelat.set(new MoveTeamPosition(_pseudoStatut,_combattant),0);
     }
 
     void supprimerPseudoStatut(String _pseudoStatut){
         for(MoveTeamPosition c:statusRelat.getKeys()){
             if(StringUtil.quickEq(c.getMove(),_pseudoStatut)){
-                statusRelat.put(c,(short) 0);
+                statusRelat.put(c,0);
             }
         }
     }
 
     void supprimerStatut(String _statut){
-        status.set(_statut,(short) 0);
+        status.set(_statut,0);
     }
 
     void affecterTypes(StringList _types){
@@ -1622,8 +1622,8 @@ public final class Fighter {
         item=_objet;
     }
 
-    void variationBoostStatistique(Statistic _statistique,byte _variation){
-        byte value_ = statisBoost.getVal(_statistique);
+    void variationBoostStatistique(Statistic _statistique,int _variation){
+        int value_ = statisBoost.getVal(_statistique);
         value_ += _variation;
         statisBoost.put(_statistique, value_);
     }
@@ -1654,7 +1654,7 @@ public final class Fighter {
             supprimerStatut(c);
         }
         for(MoveTeamPosition c:statusRelat.getKeys()){
-            statusRelat.put(c,(short) 0);
+            statusRelat.put(c,0);
         }
         for(String c:currentMoves.getKeys()){
             currentMoves.getVal(c).fullHeal();
@@ -1678,7 +1678,7 @@ public final class Fighter {
     }
 
     void apprendreAttaqueEcrasant(String _nouvelleAttaque,String _ancienneAttaque,DataBase _import){
-        short pp_=_import.ppCopiedMove(_ancienneAttaque);
+        int pp_=_import.ppCopiedMove(_ancienneAttaque);
         if (!StringUtil.contains(_import.getMovesCopyingTemp(), _ancienneAttaque)) {
             return;
         }
@@ -1686,7 +1686,7 @@ public final class Fighter {
     }
 
     void apprendreAttaqueEcrasantDef(String _nouvelleAttaque,String _ancienneAttaque,DataBase _import){
-        short pp_=_import.getMove(_nouvelleAttaque).getPp();
+        int pp_=_import.getMove(_nouvelleAttaque).getPp();
         StringList listIntersectMoves_;
         listIntersectMoves_ = StringUtil.intersect(moves.getKeys(),currentMoves.getKeys());
         if (!StringUtil.contains(listIntersectMoves_, _ancienneAttaque)) {
@@ -1701,7 +1701,7 @@ public final class Fighter {
         currentMoves.put(_nouvelleAttaque,new UsesOfMove(pp_));
     }
 
-    void transformer(Fighter _creature,short _pp){
+    void transformer(Fighter _creature,int _pp){
         currentName=_creature.getCurrentName();
         weight.affect(_creature.getWeight());
         height.affect(_creature.getHeight());
@@ -1745,7 +1745,7 @@ public final class Fighter {
             statisBase.put(c, new Rate(statEv_.getVal(c).getBase()));
         }
         for(Statistic c:statisBoost.getKeys()){
-            statisBoost.put(c, (byte)_import.getDefaultBoost());
+            statisBoost.put(c, _import.getDefaultBoost());
         }
         changed=false;
         clone.affectZero();
@@ -1817,9 +1817,9 @@ public final class Fighter {
     void calculateNewLevel(Difficulty _diff, DataBase _import, StringList _pkNamesBegin, TransientFight _te){
         String name_ = _import.translatePokemon(name);
         LevelExpPoints levelWonPoints_ = newLevelWonPoints(_import);
-        short achievedLevel_ = levelWonPoints_.getLevel();
+        int achievedLevel_ = levelWonPoints_.getLevel();
         Rate sommeDiffNiveaux_ = levelWonPoints_.getExpPoints();
-        short maxNiveau_=(short) _import.getMaxLevel();
+        int maxNiveau_=_import.getMaxLevel();
         if (achievedLevel_ != maxNiveau_) {
             changeWonPoints(achievedLevel_, sommeDiffNiveaux_, _import);
         } else {
@@ -1833,7 +1833,7 @@ public final class Fighter {
         StringList attaquesApprendre_=new StringList();
         updateMoveList(newMoves_, attaquesConnues_, attaquesApprendre_);
         initLearntMoves(attaquesApprendre_, attaquesConnues_, _import);
-        short monteNiveau_=(short) (achievedLevel_-level);
+        int monteNiveau_= achievedLevel_-level;
         setLevel(achievedLevel_);
         learnMoves(attaquesApprendre_, _import,_te);
         attaquesConnues_.clear();
@@ -1864,12 +1864,12 @@ public final class Fighter {
         return newLevelWonPoints(_import, name, level, wonExp, wonExpSinceLastLevel);
     }
 
-    static LevelExpPoints newLevelWonPoints(DataBase _import, String _name, short _level, Rate _wonExp, Rate _wonExpSinceLastLevel) {
-        short niveauTmp_= _level;
+    static LevelExpPoints newLevelWonPoints(DataBase _import, String _name, int _level, Rate _wonExp, Rate _wonExpSinceLastLevel) {
+        int niveauTmp_= _level;
         niveauTmp_++;
         Rate sommeDiffNiveaux_= numberNecessaryPointsForGrowingLevel(_name, niveauTmp_, _import);
         niveauTmp_--;
-        short maxNiveau_=(short) _import.getMaxLevel();
+        int maxNiveau_=_import.getMaxLevel();
         while(!Rate.strLower(Rate.plus(_wonExp, _wonExpSinceLastLevel), sommeDiffNiveaux_)){
             niveauTmp_++;
             if (niveauTmp_ >= maxNiveau_) {
@@ -1878,17 +1878,17 @@ public final class Fighter {
                 }
                 break;
             }
-            sommeDiffNiveaux_.addNb(numberNecessaryPointsForGrowingLevel(_name, (short) (niveauTmp_ + 1), _import));
+            sommeDiffNiveaux_.addNb(numberNecessaryPointsForGrowingLevel(_name, niveauTmp_ + 1L, _import));
         }
         return new LevelExpPoints(niveauTmp_,sommeDiffNiveaux_);
     }
 
-    void changeWonPoints(short _niveauTmp,Rate _sommeDiffNiveaux, DataBase _import) {
+    void changeWonPoints(int _niveauTmp,Rate _sommeDiffNiveaux, DataBase _import) {
         changeWonPoints(_niveauTmp, _sommeDiffNiveaux, _import, name, wonExp, wonExpSinceLastLevel);
     }
 
-    static void changeWonPoints(short _niveauTmp, Rate _sommeDiffNiveaux, DataBase _import, String _name, Rate _wonExp, Rate _wonExpSinceLastLevel) {
-        short maxNiveau_=(short) _import.getMaxLevel();
+    static void changeWonPoints(int _niveauTmp, Rate _sommeDiffNiveaux, DataBase _import, String _name, Rate _wonExp, Rate _wonExpSinceLastLevel) {
+        int maxNiveau_=_import.getMaxLevel();
         if(NumberUtil.eq(_niveauTmp,maxNiveau_)){
             //cas wonExp+wonExpSinceLastLevel>=sommeDiffNiveaux_:
             //==> wonExp+wonExpSinceLastLevel-sommeDiffNiveaux_>=0
@@ -1908,12 +1908,12 @@ public final class Fighter {
             //==> wonExpSinceLastLevel+wonExp-sommeDiffNiveaux_(n_i,niveauTmp_)+nombrePointsExpNecessPourMonterNiveauDepart(niveauTmp_)>=0
             //==> apres affectation wonExpSinceLastLevel>=0
             _wonExpSinceLastLevel.addNb(Rate.minus(_wonExp, _sommeDiffNiveaux));
-            _wonExpSinceLastLevel.addNb(numberNecessaryPointsForGrowingLevel(_name, (short) (_niveauTmp + 1), _import));
+            _wonExpSinceLastLevel.addNb(numberNecessaryPointsForGrowingLevel(_name, _niveauTmp + 1L, _import));
             _wonExp.affectZero();
         }
     }
 
-    StringMap<BoolVal> newMoves(short _niveauTmp, Difficulty _diff, DataBase _import) {
+    StringMap<BoolVal> newMoves(int _niveauTmp, Difficulty _diff, DataBase _import) {
         StringMap<BoolVal> newMoves_ = new StringMap<BoolVal>();
         StringList attaquesConnues_=new StringList(moves.getKeys());
         PokemonData fPk_=fichePokemon(_import);
@@ -1945,12 +1945,12 @@ public final class Fighter {
             return;
         }
         for(String e:_attaquesApprendre){
-            short pp_=_import.getMove(e).getPp();
+            int pp_=_import.getMove(e).getPp();
             moves.put(e,new UsesOfMove(pp_));
         }
         if (_attaquesApprendre.size() + currentMoves.size() <= _import.getNbMaxMoves()) {
             for(String e:_attaquesApprendre){
-                short pp_=_import.getMove(e).getPp();
+                int pp_=_import.getMove(e).getPp();
                 currentMoves.put(e,new UsesOfMove(pp_));
             }
         }
@@ -2002,14 +2002,14 @@ public final class Fighter {
         wonExp.addNb(_variation);
     }
 
-    Comment wonEvStatistic(Statistic _statistique,short _varEv,short _maxEv, DataBase _import){
+    Comment wonEvStatistic(Statistic _statistique,int _varEv,int _maxEv, DataBase _import){
         Comment c_ = new Comment();
-        short ev_=ev.getVal(_statistique);
+        int ev_=ev.getVal(_statistique);
         String name_ = _import.translatePokemon(name);
         String stat_ = _import.translateStatistics(_statistique);
         StringMap<String> mess_ = _import.getMessagesFighter();
         if(ev_+_varEv<_maxEv){
-            ev_=(short) (ev_+_varEv);
+            ev_ += _varEv;
             c_.addMessage(mess_.getVal(WON_EV), name_, Long.toString(_varEv), stat_);
         }else{
             ev_=_maxEv;
@@ -2019,7 +2019,7 @@ public final class Fighter {
         return c_;
     }
 
-    void winHappinessByGrowingLevel(short _diffNiv, DataBase _import, TransientFight _te){
+    void winHappinessByGrowingLevel(int _diffNiv, DataBase _import, TransientFight _te){
         Rate mult_=DataBase.defRateProduct();
         ItemForBattle objet_ = dataExpObject(_import);
         if (objet_ != null && !objet_.getMultWinningHappiness().isZero()) {
@@ -2027,11 +2027,11 @@ public final class Fighter {
         }
         mult_.multiplyBy(_import.getWonHappinessByGrowLevel());
         mult_.multiplyBy(new Rate(_diffNiv));
-        short maxBonheur_=(short) _import.getHappinessMax();
+        int maxBonheur_=_import.getHappinessMax();
         String name_ = _import.translatePokemon(name);
         StringMap<String> mess_ = _import.getMessagesFighter();
         if(happiness+mult_.ll()<=maxBonheur_){
-            happiness=(short) (happiness +mult_.ll());
+            happiness= (int) (happiness +mult_.ll());
             _te.addMessage(mess_.getVal(WON_HAPPINESS), name_, mult_.toNumberString());
         }else{
             happiness=maxBonheur_;
@@ -2064,7 +2064,7 @@ public final class Fighter {
         }
         currentMoves.clear();
         for(String e:attaquesRemplacant_){
-            short pp_=_import.getMove(e).getPp();
+            int pp_=_import.getMove(e).getPp();
             moves.put(e,new UsesOfMove(pp_));
         }
         currentMoves.putAllMap(moves);
@@ -2131,7 +2131,7 @@ public final class Fighter {
         action = action_;
     }
 
-    void setFirstChosenMoveTargetSubstitute(String _attaque, TargetCoords _cible, byte _remplacant){
+    void setFirstChosenMoveTargetSubstitute(String _attaque, TargetCoords _cible, int _remplacant){
         ActionMove action_ = new ActionMove();
         action_.setChosenTargets(TargetCoordsList.newList(_cible));
         action_.setSubstitute(_remplacant);
@@ -2194,25 +2194,25 @@ public final class Fighter {
     }
 
     void incrementRoundsStatus(String _nomStatut) {
-        status.put(_nomStatut, (short) (status.getVal(_nomStatut)+1));
+        status.put(_nomStatut, status.getVal(_nomStatut)+1);
     }
 
     void cancelSubstituteForMove() {
         setSubstituteForMove(BACK);
     }
-    void setSubstituteForMove(byte _remplacant) {
+    void setSubstituteForMove(int _remplacant) {
         if (action instanceof ChosenReplacing) {
             ((ChosenReplacing)action).setSubstitute(_remplacant);
         }
     }
 
-    void setSubstitute(byte _remplacant) {
+    void setSubstitute(int _remplacant) {
         ActionSwitch action_ = new ActionSwitch();
         action_.setSubstitute(_remplacant);
         action = action_;
     }
 
-    static Rate statistiqueGlobale(IdMap<Statistic,Rate> _statistiquesBase,Statistic _nomStat,short _ev,short _iv, short _level){
+    static Rate statistiqueGlobale(IdMap<Statistic,Rate> _statistiquesBase,Statistic _nomStat,int _ev,int _iv, int _level){
         return PokemonData.stat(_level, _statistiquesBase.getVal(_nomStat), _nomStat, _ev, _iv);
     }
 
@@ -2275,8 +2275,8 @@ public final class Fighter {
         }
         return !StringUtil.quickEq(usedMoveLastRound, _move);
     }
-    byte varPrio(TeamPosition _fighter, String _move, Fight _fight,DataBase _data) {
-        byte varPrio_=0;
+    int varPrio(TeamPosition _fighter, String _move, Fight _fight,DataBase _data) {
+        int varPrio_=0;
         MoveData fAtt_=_data.getMove(_move);
         String categOne_ = _data.getCategory(fAtt_);
         AbilityData fCapac_=ficheCapaciteActuelle(_data);
@@ -2420,7 +2420,7 @@ public final class Fighter {
         return new TargetCoordsList();
     }
 
-    byte getSubstistute() {
+    int getSubstistute() {
         if (action instanceof ChosenReplacing) {
             return ((ChosenReplacing)action).getSubstitute();
         }
@@ -2450,7 +2450,7 @@ public final class Fighter {
         remainingHp.affect(_hp);
     }
 
-    boolean isKoAt(byte _index) {
+    boolean isKoAt(int _index) {
         return getGroundPlaceSubst() == _index && estKo();
     }
 
@@ -2550,17 +2550,17 @@ public final class Fighter {
         currentAbility = _currentAbility;
     }
 
-    public short getStatusNbRoundShort(String _status) {
+    public int getStatusNbRoundShort(String _status) {
         return status.getVal(_status);
     }
 
-    public Short getStatusNbRound(String _status) {
+    public Integer getStatusNbRound(String _status) {
         return status.getVal(_status);
     }
 
-    int getNbStatusByRounds(short _nbRounds) {
+    int getNbStatusByRounds(int _nbRounds) {
         int i_ = IndexConstants.SIZE_EMPTY;
-        for (EntryCust<String, Short> e: status.entryList()) {
+        for (EntryCust<String, Integer> e: status.entryList()) {
             if (NumberUtil.eq(e.getValue(), _nbRounds)) {
                 i_++;
             }
@@ -2568,7 +2568,7 @@ public final class Fighter {
         return i_;
     }
 
-    public StringMap<Short> getStatus() {
+    public StringMap<Integer> getStatus() {
         return status;
     }
 
@@ -2580,15 +2580,15 @@ public final class Fighter {
         return status.contains(_status);
     }
 
-    public void setStatus(StringMap<Short> _status) {
+    public void setStatus(StringMap<Integer> _status) {
         status = _status;
     }
 
-    public short getStatusRelatNbRoundShort(MoveTeamPosition _status) {
+    public int getStatusRelatNbRoundShort(MoveTeamPosition _status) {
         return statusRelat.getVal(_status);
     }
 
-    public Short getStatusRelatNbRound(MoveTeamPosition _status) {
+    public Integer getStatusRelatNbRound(MoveTeamPosition _status) {
         return statusRelat.getVal(_status);
     }
 
@@ -2603,8 +2603,8 @@ public final class Fighter {
     public CustList<MoveTeamPosition> getStatusRelatSet() {
         return statusRelat.getKeys();
     }
-    public Shorts getStatusRelatValues() {
-        return new Shorts(statusRelat.values());
+    public Ints getStatusRelatValues() {
+        return new Ints(statusRelat.values());
     }
 
     public void setStatusRelat(MoveTeamPositionsShort _statusRelat) {
@@ -2663,19 +2663,19 @@ public final class Fighter {
         currentMoves = _currentMoves;
     }
 
-    public IdMap<Statistic,Short> getEv() {
+    public IdMap<Statistic,Integer> getEv() {
         return ev;
     }
 
-    public void setEv(IdMap<Statistic,Short> _ev) {
+    public void setEv(IdMap<Statistic,Integer> _ev) {
         ev = _ev;
     }
 
-    public IdMap<Statistic,Short> getIv() {
+    public IdMap<Statistic,Integer> getIv() {
         return iv;
     }
 
-    public void setIv(IdMap<Statistic,Short> _iv) {
+    public void setIv(IdMap<Statistic,Integer> _iv) {
         iv = _iv;
     }
 
@@ -2687,11 +2687,11 @@ public final class Fighter {
         statisBase = _statisBase;
     }
 
-    public IdMap<Statistic,Byte> getStatisBoost() {
+    public IdMap<Statistic,Integer> getStatisBoost() {
         return statisBoost;
     }
 
-    public void setStatisBoost(IdMap<Statistic,Byte> _statisBoost) {
+    public void setStatisBoost(IdMap<Statistic,Integer> _statisBoost) {
         statisBoost = _statisBoost;
     }
 
@@ -2817,19 +2817,19 @@ public final class Fighter {
         acted = _acted;
     }
 
-    public byte getGroundPlace() {
+    public int getGroundPlace() {
         return groundPlace;
     }
 
-    public void setGroundPlace(byte _groundPlace) {
+    public void setGroundPlace(int _groundPlace) {
         groundPlace = _groundPlace;
     }
 
-    public byte getGroundPlaceSubst() {
+    public int getGroundPlaceSubst() {
         return groundPlaceSubst;
     }
 
-    public void setGroundPlaceSubst(byte _groundPlaceSubst) {
+    public void setGroundPlaceSubst(int _groundPlaceSubst) {
         groundPlaceSubst = _groundPlaceSubst;
     }
 
@@ -2850,19 +2850,19 @@ public final class Fighter {
         wonExpSinceLastLevel = _gainExperienceDepuisDernierNiveau;
     }
 
-    public short getLevel() {
+    public int getLevel() {
         return level;
     }
 
-    public void setLevel(short _level) {
+    public void setLevel(int _level) {
         level = _level;
     }
 
-    public short getHappiness() {
+    public int getHappiness() {
         return happiness;
     }
 
-    public void setHappiness(short _happiness) {
+    public void setHappiness(int _happiness) {
         happiness = _happiness;
     }
 
@@ -2891,11 +2891,11 @@ public final class Fighter {
         nbUsesMoves = _nbUsesMoves;
     }
 
-    public short getNbPrepaRound() {
+    public int getNbPrepaRound() {
         return nbPrepaRound;
     }
 
-    public void setNbPrepaRound(short _nbPrepaRound) {
+    public void setNbPrepaRound(int _nbPrepaRound) {
         nbPrepaRound = _nbPrepaRound;
     }
 

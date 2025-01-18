@@ -66,7 +66,7 @@ public final class ContentComponentModelDualFight {
         TempTrainer tmp_ = new TempTrainer();
         tmp_.setImageMiniSecondTrainerFileName(miniFileName.getName().tryRet());
         tmp_.setTeam(tempTrainer.getWalk().getList());
-        tmp_.setReward((short) reward.valueInt());
+        tmp_.setReward(reward.valueInt());
         trainer.buildEntity(tmp_);
         edited.setFoeTrainer(tmp_);
         Ally ally_ = new Ally();

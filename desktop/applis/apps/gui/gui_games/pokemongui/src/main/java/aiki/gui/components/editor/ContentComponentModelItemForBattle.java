@@ -13,16 +13,16 @@ import code.util.*;
 import code.util.core.*;
 
 public final class ContentComponentModelItemForBattle {
-    private CrudGeneFormSimpleFormSub<String, IdMap<Statistic, Byte>> boostStatisTypes;
-    private CrudGeneFormSimpleFormSub<StatisticPokemon,Byte> multStatPokemonRank;
-    private CrudGeneFormSimpleFormSub<Statistic, Byte> boostStatisSuperEff;
-    private CrudGeneFormSimpleFormSub<Statistic, Byte> multStatRank;
-    private CrudGeneFormSimpleFormSub<Statistic, Short> winEvFight;
+    private CrudGeneFormSimpleFormSub<String, IdMap<Statistic, Integer>> boostStatisTypes;
+    private CrudGeneFormSimpleFormSub<StatisticPokemon,Integer> multStatPokemonRank;
+    private CrudGeneFormSimpleFormSub<Statistic, Integer> boostStatisSuperEff;
+    private CrudGeneFormSimpleFormSub<Statistic, Integer> multStatRank;
+    private CrudGeneFormSimpleFormSub<Statistic, Integer> winEvFight;
     private CrudGeneFormSimpleFormSub<Statistic, String> multStat;
     private CrudGeneFormSimpleFormSub<String, String> failStatus;
-    private CrudGeneFormSimpleFormSub<String,Short> increasingMaxNbRoundGlobalMove;
-    private CrudGeneFormSimpleFormSub<String,Short> increasingMaxNbRoundTeamMove;
-    private CrudGeneFormSimpleFormSub<String,Short> increasingMaxNbRoundTrap;
+    private CrudGeneFormSimpleFormSub<String,Integer> increasingMaxNbRoundGlobalMove;
+    private CrudGeneFormSimpleFormSub<String,Integer> increasingMaxNbRoundTeamMove;
+    private CrudGeneFormSimpleFormSub<String,Integer> increasingMaxNbRoundTrap;
     private GeneComponentModelLsStrSub<String, StringList> hatching;
     private GeneComponentModelLsStrSub<String,StringList> immuMoves;
     private GeneComponentModelLsStrSub<String,StringList> immuStatus;
@@ -54,20 +54,20 @@ public final class ContentComponentModelItemForBattle {
     AbsPanel form(GeneComponentModelItem _parent) {
         AbsCompoFactory compoFactory_ = _parent.getCompoFactory().getCompoFactory();
         itemForBattleForm = compoFactory_.newLineBox();
-        boostStatisTypes = new CrudGeneFormSimpleFormSub<String, IdMap<Statistic, Byte>>(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList(),_parent.getFrame());
-        boostStatisTypes.initFormWithVal(new DisplayEntryCustSubElementImpl<String, IdMap<Statistic, Byte>>(_parent.getSubscribedTranslationList().getFactoryTy(), _parent.getCompoFactory(),_parent.getFacade(),new StringMap<String>()),buildPart(_parent.getCompoFactory(), _parent.getFacade(), _parent.getSubscribedTranslationList().getFactoryTy(), new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<IdMap<Statistic, Byte>>(new GeneComponentModelSubscribeStatisticByte(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList(),_parent.getFrame())));
+        boostStatisTypes = new CrudGeneFormSimpleFormSub<String, IdMap<Statistic, Integer>>(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList(),_parent.getFrame());
+        boostStatisTypes.initFormWithVal(new DisplayEntryCustSubElementImpl<String, IdMap<Statistic, Integer>>(_parent.getSubscribedTranslationList().getFactoryTy(), _parent.getCompoFactory(),_parent.getFacade(),new StringMap<String>()),buildPart(_parent.getCompoFactory(), _parent.getFacade(), _parent.getSubscribedTranslationList().getFactoryTy(), new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<IdMap<Statistic, Integer>>(new GeneComponentModelSubscribeStatisticByte(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList(),_parent.getFrame())));
         itemForBattleForm.add(boostStatisTypes.getGroup());
-        multStatPokemonRank = new CrudGeneFormSimpleFormSub<StatisticPokemon, Byte>(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList(),_parent.getFrame());
-        multStatPokemonRank.initFormWithVal(new DisplayEntryCustSubElementStatisticPokemon<Byte>(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList()),new GeneComponentModelSubscribeFactoryDirect<StatisticPokemon>(new GeneComponentModelSubscribeStatisticPokemon(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList())),new GeneComponentModelSubscribeFactoryDirect<Byte>(new GeneComponentModelSubscribeByte(_parent.getCompoFactory())));
+        multStatPokemonRank = new CrudGeneFormSimpleFormSub<StatisticPokemon, Integer>(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList(),_parent.getFrame());
+        multStatPokemonRank.initFormWithVal(new DisplayEntryCustSubElementStatisticPokemon<Integer>(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList()),new GeneComponentModelSubscribeFactoryDirect<StatisticPokemon>(new GeneComponentModelSubscribeStatisticPokemon(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList())),new GeneComponentModelSubscribeFactoryDirect<Integer>(new GeneComponentModelSubscribeInteger(_parent.getCompoFactory())));
         itemForBattleForm.add(multStatPokemonRank.getGroup());
-        boostStatisSuperEff=new CrudGeneFormSimpleFormSub<Statistic,Byte>(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList(), _parent.getFrame());
-        boostStatisSuperEff.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Byte>(_parent.getSubscribedTranslationList().getFactoryStat(),_parent.getCompoFactory(),_parent.getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_parent.getCompoFactory(), _parent.getSubscribedTranslationList().getFactoryStat(), _parent.getFacade()), new GeneComponentModelSubscribeFactoryDirect<Byte>(new GeneComponentModelSubscribeByte(_parent.getCompoFactory())));
+        boostStatisSuperEff=new CrudGeneFormSimpleFormSub<Statistic,Integer>(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList(), _parent.getFrame());
+        boostStatisSuperEff.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Integer>(_parent.getSubscribedTranslationList().getFactoryStat(),_parent.getCompoFactory(),_parent.getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_parent.getCompoFactory(), _parent.getSubscribedTranslationList().getFactoryStat(), _parent.getFacade()), new GeneComponentModelSubscribeFactoryDirect<Integer>(new GeneComponentModelSubscribeInteger(_parent.getCompoFactory())));
         itemForBattleForm.add(boostStatisSuperEff.getGroup());
-        multStatRank=new CrudGeneFormSimpleFormSub<Statistic,Byte>(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList(), _parent.getFrame());
-        multStatRank.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Byte>(_parent.getSubscribedTranslationList().getFactoryStat(),_parent.getCompoFactory(),_parent.getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_parent.getCompoFactory(), _parent.getSubscribedTranslationList().getFactoryStat(), _parent.getFacade()), new GeneComponentModelSubscribeFactoryDirect<Byte>(new GeneComponentModelSubscribeByte(_parent.getCompoFactory())));
+        multStatRank=new CrudGeneFormSimpleFormSub<Statistic,Integer>(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList(), _parent.getFrame());
+        multStatRank.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Integer>(_parent.getSubscribedTranslationList().getFactoryStat(),_parent.getCompoFactory(),_parent.getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_parent.getCompoFactory(), _parent.getSubscribedTranslationList().getFactoryStat(), _parent.getFacade()), new GeneComponentModelSubscribeFactoryDirect<Integer>(new GeneComponentModelSubscribeInteger(_parent.getCompoFactory())));
         itemForBattleForm.add(multStatRank.getGroup());
-        winEvFight=new CrudGeneFormSimpleFormSub<Statistic,Short>(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList(), _parent.getFrame());
-        winEvFight.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Short>(_parent.getSubscribedTranslationList().getFactoryStat(),_parent.getCompoFactory(),_parent.getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_parent.getCompoFactory(), _parent.getSubscribedTranslationList().getFactoryStat(), _parent.getFacade()), new GeneComponentModelSubscribeFactoryDirect<Short>(new GeneComponentModelSubscribeShort(_parent.getCompoFactory())));
+        winEvFight=new CrudGeneFormSimpleFormSub<Statistic,Integer>(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList(), _parent.getFrame());
+        winEvFight.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Integer>(_parent.getSubscribedTranslationList().getFactoryStat(),_parent.getCompoFactory(),_parent.getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_parent.getCompoFactory(), _parent.getSubscribedTranslationList().getFactoryStat(), _parent.getFacade()), new GeneComponentModelSubscribeFactoryDirect<Integer>(new GeneComponentModelSubscribeInteger(_parent.getCompoFactory())));
         itemForBattleForm.add(winEvFight.getGroup());
         multStat=new CrudGeneFormSimpleFormSub<Statistic,String>(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList(), _parent.getFrame());
         multStat.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,String>(_parent.getSubscribedTranslationList().getFactoryStat(),_parent.getCompoFactory(),_parent.getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_parent.getCompoFactory(), _parent.getSubscribedTranslationList().getFactoryStat(), _parent.getFacade()), new GeneComponentModelSubscribeFactoryDirect<String>(new GeneComponentModelSubscribeString(_parent.getCompoFactory(),_parent.getFacade())));
@@ -75,14 +75,14 @@ public final class ContentComponentModelItemForBattle {
         failStatus=new CrudGeneFormSimpleFormSub<String,String>(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList(), _parent.getFrame());
         failStatus.initFormWithVal(new DisplayEntryCustSubElementImpl<String,String>(_parent.getSubscribedTranslationList().getFactorySt(),_parent.getCompoFactory(),_parent.getFacade(), new StringMap<String>()), buildPart(_parent.getCompoFactory(), _parent.getFacade(), _parent.getSubscribedTranslationList().getFactorySt(), new StringMap<String>()), new GeneComponentModelSubscribeFactoryString(_parent.getCompoFactory(),_parent.getFacade()));
         itemForBattleForm.add(failStatus.getGroup());
-        increasingMaxNbRoundGlobalMove = new CrudGeneFormSimpleFormSub<String, Short>(_parent.getCompoFactory(), _parent.getFacade(), _parent.getSubscribedTranslationList(), _parent.getFrame());
-        increasingMaxNbRoundGlobalMove.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Short>(_parent.getSubscribedTranslationList().getFactoryMv(),_parent.getCompoFactory(),_parent.getFacade(), new StringMap<String>()),buildPart(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList().getFactoryMv(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Short>(new GeneComponentModelSubscribeShort(_parent.getCompoFactory())));
+        increasingMaxNbRoundGlobalMove = new CrudGeneFormSimpleFormSub<String, Integer>(_parent.getCompoFactory(), _parent.getFacade(), _parent.getSubscribedTranslationList(), _parent.getFrame());
+        increasingMaxNbRoundGlobalMove.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Integer>(_parent.getSubscribedTranslationList().getFactoryMv(),_parent.getCompoFactory(),_parent.getFacade(), new StringMap<String>()),buildPart(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList().getFactoryMv(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Integer>(new GeneComponentModelSubscribeInteger(_parent.getCompoFactory())));
         itemForBattleForm.add(increasingMaxNbRoundGlobalMove.getGroup());
-        increasingMaxNbRoundTeamMove = new CrudGeneFormSimpleFormSub<String, Short>(_parent.getCompoFactory(), _parent.getFacade(), _parent.getSubscribedTranslationList(), _parent.getFrame());
-        increasingMaxNbRoundTeamMove.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Short>(_parent.getSubscribedTranslationList().getFactoryMv(),_parent.getCompoFactory(),_parent.getFacade(), new StringMap<String>()),buildPart(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList().getFactoryMv(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Short>(new GeneComponentModelSubscribeShort(_parent.getCompoFactory())));
+        increasingMaxNbRoundTeamMove = new CrudGeneFormSimpleFormSub<String, Integer>(_parent.getCompoFactory(), _parent.getFacade(), _parent.getSubscribedTranslationList(), _parent.getFrame());
+        increasingMaxNbRoundTeamMove.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Integer>(_parent.getSubscribedTranslationList().getFactoryMv(),_parent.getCompoFactory(),_parent.getFacade(), new StringMap<String>()),buildPart(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList().getFactoryMv(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Integer>(new GeneComponentModelSubscribeInteger(_parent.getCompoFactory())));
         itemForBattleForm.add(increasingMaxNbRoundTeamMove.getGroup());
-        increasingMaxNbRoundTrap = new CrudGeneFormSimpleFormSub<String, Short>(_parent.getCompoFactory(), _parent.getFacade(), _parent.getSubscribedTranslationList(), _parent.getFrame());
-        increasingMaxNbRoundTrap.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Short>(_parent.getSubscribedTranslationList().getFactoryMv(),_parent.getCompoFactory(),_parent.getFacade(), new StringMap<String>()),buildPart(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList().getFactoryMv(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Short>(new GeneComponentModelSubscribeShort(_parent.getCompoFactory())));
+        increasingMaxNbRoundTrap = new CrudGeneFormSimpleFormSub<String, Integer>(_parent.getCompoFactory(), _parent.getFacade(), _parent.getSubscribedTranslationList(), _parent.getFrame());
+        increasingMaxNbRoundTrap.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Integer>(_parent.getSubscribedTranslationList().getFactoryMv(),_parent.getCompoFactory(),_parent.getFacade(), new StringMap<String>()),buildPart(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList().getFactoryMv(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Integer>(new GeneComponentModelSubscribeInteger(_parent.getCompoFactory())));
         itemForBattleForm.add(increasingMaxNbRoundTrap.getGroup());
         hatching=ConverterCommonMapUtil.buildPkList(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList());
         itemForBattleForm.add(hatching.geneEnum());
@@ -151,14 +151,14 @@ public final class ContentComponentModelItemForBattle {
     void buildEntity(ItemForBattle _item) {
         _item.setBoostStatisTypes(ConverterCommonMapUtil.buildStringMapIdMapStatisticByte(boostStatisTypes.getList()));
         _item.setMultStatPokemonRank(ConverterCommonMapUtil.buildStatisticPokemons(multStatPokemonRank.getList()));
-        _item.setBoostStatisSuperEff(ConverterCommonMapUtil.buildIdMapStatisticByte(boostStatisSuperEff.getList()));
-        _item.setMultStatRank(ConverterCommonMapUtil.buildIdMapStatisticByte(multStatRank.getList()));
-        _item.setWinEvFight(ConverterCommonMapUtil.buildIdMapStatisticShort(winEvFight.getList()));
+        _item.setBoostStatisSuperEff(ConverterCommonMapUtil.buildIdMapStatisticInteger(boostStatisSuperEff.getList()));
+        _item.setMultStatRank(ConverterCommonMapUtil.buildIdMapStatisticInteger(multStatRank.getList()));
+        _item.setWinEvFight(ConverterCommonMapUtil.buildIdMapStatisticInteger(winEvFight.getList()));
         _item.setMultStat(ConverterCommonMapUtil.buildIdMapStatisticString(multStat.getList()));
         _item.setFailStatus(ConverterCommonMapUtil.buildStringMapString(failStatus.getList()));
-        _item.setIncreasingMaxNbRoundGlobalMove(ConverterCommonMapUtil.buildStringMapShort(increasingMaxNbRoundGlobalMove.getList()));
-        _item.setIncreasingMaxNbRoundTeamMove(ConverterCommonMapUtil.buildStringMapShort(increasingMaxNbRoundTeamMove.getList()));
-        _item.setIncreasingMaxNbRoundTrap(ConverterCommonMapUtil.buildStringMapShort(increasingMaxNbRoundTrap.getList()));
+        _item.setIncreasingMaxNbRoundGlobalMove(ConverterCommonMapUtil.buildStringMapInteger(increasingMaxNbRoundGlobalMove.getList()));
+        _item.setIncreasingMaxNbRoundTeamMove(ConverterCommonMapUtil.buildStringMapInteger(increasingMaxNbRoundTeamMove.getList()));
+        _item.setIncreasingMaxNbRoundTrap(ConverterCommonMapUtil.buildStringMapInteger(increasingMaxNbRoundTrap.getList()));
         _item.setHatching(hatching.tryRet());
         _item.setImmuMoves(immuMoves.tryRet());
         _item.setImmuStatus(immuStatus.tryRet());
@@ -188,16 +188,16 @@ public final class ContentComponentModelItemForBattle {
         _item.setEffectEndRound(effectEndRound.getList());
     }
     void feedForm(ItemForBattle _item) {
-        boostStatisTypes.setupValues(new MapToEntriesListUtil<String, IdMap<Statistic, Byte>>().build(_item.getBoostStatisTypes()));
-        multStatPokemonRank.setupValues(new MapToEntriesListUtil<StatisticPokemon,Byte>().build(_item.getMultStatPokemonRank()));
-        boostStatisSuperEff.setupValues(new MapToEntriesListUtil<Statistic,Byte>().build(_item.getBoostStatisSuperEff()));
-        multStatRank.setupValues(new MapToEntriesListUtil<Statistic,Byte>().build(_item.getMultStatRank()));
-        winEvFight.setupValues(new MapToEntriesListUtil<Statistic,Short>().build(_item.getWinEvFight()));
+        boostStatisTypes.setupValues(new MapToEntriesListUtil<String, IdMap<Statistic, Integer>>().build(_item.getBoostStatisTypes()));
+        multStatPokemonRank.setupValues(new MapToEntriesListUtil<StatisticPokemon,Integer>().build(_item.getMultStatPokemonRank()));
+        boostStatisSuperEff.setupValues(new MapToEntriesListUtil<Statistic,Integer>().build(_item.getBoostStatisSuperEff()));
+        multStatRank.setupValues(new MapToEntriesListUtil<Statistic,Integer>().build(_item.getMultStatRank()));
+        winEvFight.setupValues(new MapToEntriesListUtil<Statistic,Integer>().build(_item.getWinEvFight()));
         multStat.setupValues(new MapToEntriesListUtil<Statistic,String>().build(_item.getMultStat()));
         failStatus.setupValues(new MapToEntriesListUtil<String,String>().build(_item.getFailStatus()));
-        increasingMaxNbRoundGlobalMove.setupValues(new MapToEntriesListUtil<String,Short>().build(_item.getIncreasingMaxNbRoundGlobalMove()));
-        increasingMaxNbRoundTeamMove.setupValues(new MapToEntriesListUtil<String,Short>().build(_item.getIncreasingMaxNbRoundTeamMove()));
-        increasingMaxNbRoundTrap.setupValues(new MapToEntriesListUtil<String,Short>().build(_item.getIncreasingMaxNbRoundTrap()));
+        increasingMaxNbRoundGlobalMove.setupValues(new MapToEntriesListUtil<String,Integer>().build(_item.getIncreasingMaxNbRoundGlobalMove()));
+        increasingMaxNbRoundTeamMove.setupValues(new MapToEntriesListUtil<String,Integer>().build(_item.getIncreasingMaxNbRoundTeamMove()));
+        increasingMaxNbRoundTrap.setupValues(new MapToEntriesListUtil<String,Integer>().build(_item.getIncreasingMaxNbRoundTrap()));
         hatching.setupValue(_item.getHatching());
         immuMoves.setupValue(_item.getImmuMoves());
         immuStatus.setupValue(_item.getImmuStatus());
@@ -281,7 +281,7 @@ public final class ContentComponentModelItemForBattle {
         return lawForAttackFirst;
     }
 
-    public CrudGeneFormSimpleFormSub<String, IdMap<Statistic, Byte>> getBoostStatisTypes() {
+    public CrudGeneFormSimpleFormSub<String, IdMap<Statistic, Integer>> getBoostStatisTypes() {
         return boostStatisTypes;
     }
 
@@ -293,7 +293,7 @@ public final class ContentComponentModelItemForBattle {
         return effectSending;
     }
 
-    public CrudGeneFormSimpleFormSub<StatisticPokemon, Byte> getMultStatPokemonRank() {
+    public CrudGeneFormSimpleFormSub<StatisticPokemon, Integer> getMultStatPokemonRank() {
         return multStatPokemonRank;
     }
     private GeneComponentModelSubscribeFactorySelElt buildPart(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationMessagesFactory _facto, StringMap<String> _abs) {

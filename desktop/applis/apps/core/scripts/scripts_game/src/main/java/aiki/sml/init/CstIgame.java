@@ -2551,6 +2551,6 @@ protected static final char RB = '}';
 protected static final char RP = ')';
 protected CstIgame(){}
 protected static LawNumber ln(MonteCarloNumber _l,int _n){
-return new LawNumber(_l,(short)_n);
+return new LawNumber(_l,_n);
 }
 }

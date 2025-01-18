@@ -61,9 +61,9 @@ public class InventoryTest extends InitializationDataBase{
     public void getTm1Test() {
         DataBase data_ = initDb();
         Inventory obj_ = new Inventory(data_);
-        obj_.getTm((short) 1);
+        obj_.getTm( 1);
         assertEq(1,obj_.gotTm().size());
-        assertTrue(obj_.gotTm().containsObj((short) 1));
+        assertTrue(obj_.gotTm().containsObj( 1));
     }
 
     @Test
@@ -71,16 +71,16 @@ public class InventoryTest extends InitializationDataBase{
         DataBase data_ = initDb();
         Inventory obj_ = new Inventory(data_);
         assertEq(0,obj_.gotTm().size());
-        assertTrue(!obj_.gotTm().containsObj((short) 1));
+        assertTrue(!obj_.gotTm().containsObj( 1));
     }
 
     @Test
     public void getHm1Test() {
         DataBase data_ = initDb();
         Inventory obj_ = new Inventory(data_);
-        obj_.getHm((short) 1);
+        obj_.getHm( 1);
         assertEq(1,obj_.gotHm().size());
-        assertTrue(obj_.gotHm().containsObj((short) 1));
+        assertTrue(obj_.gotHm().containsObj( 1));
     }
 
     @Test
@@ -88,7 +88,7 @@ public class InventoryTest extends InitializationDataBase{
         DataBase data_ = initDb();
         Inventory obj_ = new Inventory(data_);
         assertEq(0,obj_.gotHm().size());
-        assertTrue(!obj_.gotHm().containsObj((short) 1));
+        assertTrue(!obj_.gotHm().containsObj( 1));
     }
 
     @Test

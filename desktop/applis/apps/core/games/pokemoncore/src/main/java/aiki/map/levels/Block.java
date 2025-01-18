@@ -22,7 +22,7 @@ public final class Block {
         type = EnvironmentType.NOTHING;
     }
 
-    public Block(short _width, short _height, EnvironmentType _env, String _tileFileName) {
+    public Block(int _width, int _height, EnvironmentType _env, String _tileFileName) {
         width = _width;
         height = _height;
         type = _env;

@@ -3,7 +3,7 @@ package aiki.game.fight;
 public final class CatchingBallFoeAction {
     private String catchingBall;
     private String nickname;
-    private byte player = Fighter.BACK;
+    private int player = Fighter.BACK;
     private boolean caught;
     private boolean team = true;
 
@@ -23,11 +23,11 @@ public final class CatchingBallFoeAction {
         this.nickname = _n;
     }
 
-    public byte getPlayer() {
+    public int getPlayer() {
         return player;
     }
 
-    public void setPlayer(byte _p) {
+    public void setPlayer(int _p) {
         this.player = _p;
     }
 

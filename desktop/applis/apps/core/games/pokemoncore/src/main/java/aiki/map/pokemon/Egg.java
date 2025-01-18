@@ -48,7 +48,7 @@ public final class Egg implements UsablePokemon, Displayable {
 //        return name+SEPARATOR+steps;
 //    }
 
-    public void versEclosion(short _nb) {
+    public void versEclosion(int _nb) {
         steps += _nb;
     }
 

@@ -31,14 +31,14 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setGender(Gender.FEMALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setFirstPokemon(newPokemonPlayer(pk_, data_));
         pk_ = new WildPk();
         pk_.setName(PTITARD);
         pk_.setGender(Gender.MALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_, data_));
         assertTrue(host_.validate(data_));
     }
@@ -53,14 +53,14 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setGender(Gender.MALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setFirstPokemon(newPokemonPlayer(pk_, data_));
         pk_ = new WildPk();
         pk_.setName(PTITARD);
         pk_.setGender(Gender.FEMALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_, data_));
         assertTrue(host_.validate(data_));
     }
@@ -75,14 +75,14 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setFirstPokemon(newPokemonPlayer(pk_, data_));
         pk_ = new WildPk();
         pk_.setName(LIMAGMA);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_, data_));
         assertTrue(host_.validate(data_));
     }
@@ -97,14 +97,14 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setFirstPokemon(newPokemonPlayer(pk_, data_));
         pk_ = new WildPk();
         pk_.setName(PIKACHU);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_, data_));
         assertTrue(host_.validate(data_));
     }
@@ -119,14 +119,14 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setGender(Gender.FEMALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setFirstPokemon(newPokemonPlayer(pk_, data_));
         pk_ = new WildPk();
         pk_.setName(LIMAGMA);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_, data_));
         assertTrue(host_.validate(data_));
     }
@@ -141,14 +141,14 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setFirstPokemon(newPokemonPlayer(pk_, data_));
         pk_ = new WildPk();
         pk_.setName(PTITARD);
         pk_.setGender(Gender.FEMALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_, data_));
         assertTrue(host_.validate(data_));
     }
@@ -163,14 +163,14 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setGender(Gender.MALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setFirstPokemon(newPokemonPlayer(pk_, data_));
         pk_ = new WildPk();
         pk_.setName(LIMAGMA);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_, data_));
         assertTrue(host_.validate(data_));
     }
@@ -185,14 +185,14 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setFirstPokemon(newPokemonPlayer(pk_, data_));
         pk_ = new WildPk();
         pk_.setName(PTITARD);
         pk_.setGender(Gender.MALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_, data_));
         assertTrue(host_.validate(data_));
     }
@@ -207,7 +207,7 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setGender(Gender.FEMALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setFirstPokemon(newPokemonPlayer(pk_, data_));
         host_.setSecondPokemon(new PokemonPlayer());
         assertTrue(!host_.validate(data_));
@@ -223,7 +223,7 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setGender(Gender.MALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setFirstPokemon(newPokemonPlayer(pk_, data_));
         host_.setSecondPokemon(new PokemonPlayer());
         assertTrue(!host_.validate(data_));
@@ -239,7 +239,7 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setFirstPokemon(newPokemonPlayer(pk_, data_));
         host_.setSecondPokemon(new PokemonPlayer());
         assertTrue(!host_.validate(data_));
@@ -255,7 +255,7 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setGender(Gender.FEMALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_, data_));
         host_.setFirstPokemon(new PokemonPlayer());
         assertTrue(!host_.validate(data_));
@@ -271,7 +271,7 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setGender(Gender.MALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_, data_));
         host_.setFirstPokemon(new PokemonPlayer());
         assertTrue(!host_.validate(data_));
@@ -287,7 +287,7 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_, data_));
         host_.setFirstPokemon(new PokemonPlayer());
         assertTrue(!host_.validate(data_));
@@ -303,14 +303,14 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setGender(Gender.FEMALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setFirstPokemon(newPokemonPlayer(pk_, data_));
         pk_ = new WildPk();
         pk_.setName(PTITARD);
         pk_.setGender(Gender.MALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_, data_));
         assertTrue(!host_.validate(data_));
     }
@@ -325,14 +325,14 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setGender(Gender.MALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setFirstPokemon(newPokemonPlayer(pk_, data_));
         pk_ = new WildPk();
         pk_.setName(PTITARD);
         pk_.setGender(Gender.FEMALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_, data_));
         assertTrue(!host_.validate(data_));
     }
@@ -347,14 +347,14 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setGender(Gender.MALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setFirstPokemon(newPokemonPlayer(pk_, data_));
         pk_ = new WildPk();
         pk_.setName(PTITARD);
         pk_.setGender(Gender.MALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_, data_));
         assertTrue(!host_.validate(data_));
     }
@@ -369,14 +369,14 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setGender(Gender.FEMALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setFirstPokemon(newPokemonPlayer(pk_, data_));
         pk_ = new WildPk();
         pk_.setName(PTITARD);
         pk_.setGender(Gender.FEMALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_, data_));
         assertTrue(!host_.validate(data_));
     }
@@ -391,14 +391,14 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setFirstPokemon(newPokemonPlayer(pk_, data_));
         pk_ = new WildPk();
         pk_.setName(PTITARD);
         pk_.setGender(Gender.MALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_, data_));
         assertTrue(!host_.validate(data_));
     }
@@ -413,14 +413,14 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setFirstPokemon(newPokemonPlayer(pk_, data_));
         pk_ = new WildPk();
         pk_.setName(PTITARD);
         pk_.setGender(Gender.FEMALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_, data_));
         assertTrue(!host_.validate(data_));
     }
@@ -435,14 +435,14 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_, data_));
         pk_ = new WildPk();
         pk_.setName(PTITARD);
         pk_.setGender(Gender.MALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setFirstPokemon(newPokemonPlayer(pk_, data_));
         assertTrue(!host_.validate(data_));
     }
@@ -457,14 +457,14 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_, data_));
         pk_ = new WildPk();
         pk_.setName(PTITARD);
         pk_.setGender(Gender.FEMALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setFirstPokemon(newPokemonPlayer(pk_, data_));
         assertTrue(!host_.validate(data_));
     }
@@ -489,14 +489,14 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setGender(Gender.FEMALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setFirstPokemon(newPokemonPlayer(pk_, data_));
         pk_ = new WildPk();
         pk_.setName(PTITARD);
         pk_.setGender(Gender.MALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_, data_));
         host_.setNbSteps(-4);
         assertTrue(!host_.validate(data_));
@@ -512,14 +512,14 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setGender(Gender.MALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setFirstPokemon(newPokemonPlayer(pk_, data_));
         pk_ = new WildPk();
         pk_.setName(PTITARD);
         pk_.setGender(Gender.FEMALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_, data_));
         host_.setNbSteps(-4);
         assertTrue(!host_.validate(data_));

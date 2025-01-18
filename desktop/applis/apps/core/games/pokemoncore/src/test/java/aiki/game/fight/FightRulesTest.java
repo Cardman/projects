@@ -43,7 +43,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -72,7 +72,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -85,8 +85,8 @@ public class FightRulesTest extends InitializationDataBase {
         Fight fight_ = substitutable2(data_, diff_, player_, new StringList(DETECTION));
         FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        fight_.getFirstPositPlayerFighters().put((byte) 0, Fighter.BACK);
-        fight_.getFirstPositPlayerFighters().put((byte) 1, (byte)0);
+        fight_.getFirstPositPlayerFighters().put( 0, Fighter.BACK);
+        fight_.getFirstPositPlayerFighters().put( 1, 0);
         assertTrue(FightRules.substitutable(fight_, diff_, data_));
     }
 
@@ -103,7 +103,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -120,8 +120,8 @@ public class FightRulesTest extends InitializationDataBase {
         Fight fight_ = substitutable3(data_, diff_, player_, new StringList(DETECTION));
         FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        fight_.getFirstPositPlayerFighters().put((byte) 0, (byte)1);
-        fight_.getFirstPositPlayerFighters().put((byte) 1, (byte)0);
+        fight_.getFirstPositPlayerFighters().put( 0, 1);
+        fight_.getFirstPositPlayerFighters().put( 1, 0);
         assertTrue(FightRules.substitutable(fight_, diff_, data_));
     }
 
@@ -138,7 +138,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -155,8 +155,8 @@ public class FightRulesTest extends InitializationDataBase {
         Fight fight_ = substitutable3(data_, diff_, player_, new StringList(DETECTION));
         FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        fight_.getFirstPositPlayerFighters().put((byte) 0, (byte)1);
-        fight_.getFirstPositPlayerFighters().put((byte) 1, (byte)0);
+        fight_.getFirstPositPlayerFighters().put( 0, 1);
+        fight_.getFirstPositPlayerFighters().put( 1, 0);
         assertTrue(!FightRules.substitutable(fight_, diff_, data_));
     }
 
@@ -173,7 +173,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -190,8 +190,8 @@ public class FightRulesTest extends InitializationDataBase {
         Fight fight_ = substitutable3(data_, diff_, player_, new StringList(DETECTION));
         FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        fight_.getFirstPositPlayerFighters().put((byte) 0, (byte)0);
-        fight_.getFirstPositPlayerFighters().put((byte) 1, (byte)0);
+        fight_.getFirstPositPlayerFighters().put( 0, 0);
+        fight_.getFirstPositPlayerFighters().put( 1, 0);
         assertTrue(!FightRules.substitutable(fight_, diff_, data_));
     }
 
@@ -208,7 +208,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -225,7 +225,7 @@ public class FightRulesTest extends InitializationDataBase {
         Fight fight_ = substitutable3(data_, diff_, player_, new StringList(DETECTION));
         FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        fight_.getFirstPositPlayerFighters().put((byte) 1, (byte) 1);
+        fight_.getFirstPositPlayerFighters().put( 1,  1);
         assertTrue(!FightRules.substitutable(fight_, diff_, data_));
     }
 
@@ -242,7 +242,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -275,7 +275,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -292,7 +292,7 @@ public class FightRulesTest extends InitializationDataBase {
         Fight fight_ = substitutable3(data_, diff_, player_, new StringList(DETECTION));
         FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        fight_.getFirstPositPlayerFighters().put((byte) 0, Fighter.BACK);
+        fight_.getFirstPositPlayerFighters().put( 0, Fighter.BACK);
         assertTrue(!FightRules.substitutable(fight_, diff_, data_));
     }
 
@@ -309,7 +309,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -330,9 +330,9 @@ public class FightRulesTest extends InitializationDataBase {
         Fight fight_ = substitutable3(data_, diff_, player_, new StringList(DETECTION));
         FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        fight_.getFirstPositPlayerFighters().put((byte) 1, Fighter.BACK);
-        fight_.getFirstPositPlayerFighters().put((byte) 2, (byte) 1);
-        fight_.getFirstPositPlayerFighters().put((byte) 3, (byte) 2);
+        fight_.getFirstPositPlayerFighters().put( 1, Fighter.BACK);
+        fight_.getFirstPositPlayerFighters().put( 2,  1);
+        fight_.getFirstPositPlayerFighters().put( 3,  2);
         assertTrue(!FightRules.substitutable(fight_, diff_, data_));
     }
 
@@ -349,7 +349,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -370,10 +370,10 @@ public class FightRulesTest extends InitializationDataBase {
         Fight fight_ = substitutable3(data_, diff_, player_, new StringList(DETECTION));
         FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        fight_.getFirstPositPlayerFighters().put((byte) 0, Fighter.BACK);
-        fight_.getFirstPositPlayerFighters().put((byte) 1, Fighter.BACK);
-        fight_.getFirstPositPlayerFighters().put((byte) 2, (byte) 1);
-        fight_.getFirstPositPlayerFighters().put((byte) 3, Fighter.BACK);
+        fight_.getFirstPositPlayerFighters().put( 0, Fighter.BACK);
+        fight_.getFirstPositPlayerFighters().put( 1, Fighter.BACK);
+        fight_.getFirstPositPlayerFighters().put( 2,  1);
+        fight_.getFirstPositPlayerFighters().put( 3, Fighter.BACK);
         assertTrue(!FightRules.substitutable(fight_, diff_, data_));
     }
 
@@ -390,7 +390,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -406,9 +406,9 @@ public class FightRulesTest extends InitializationDataBase {
         Fight fight_ = substitutable3(data_, diff_, player_, new StringList(DETECTION));
         FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        fight_.getFirstPositPlayerFighters().put((byte) 0, Fighter.BACK);
-        fight_.getFirstPositPlayerFighters().put((byte) 1, Fighter.BACK);
-        fight_.getFirstPositPlayerFighters().put((byte) 2, (byte) 1);
+        fight_.getFirstPositPlayerFighters().put( 0, Fighter.BACK);
+        fight_.getFirstPositPlayerFighters().put( 1, Fighter.BACK);
+        fight_.getFirstPositPlayerFighters().put( 2,  1);
         assertTrue(!FightRules.substitutable(fight_, diff_, data_));
     }
 
@@ -425,7 +425,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -446,10 +446,10 @@ public class FightRulesTest extends InitializationDataBase {
         Fight fight_ = substitutable3(data_, diff_, player_, new StringList(DETECTION));
         FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        fight_.getFirstPositPlayerFighters().put((byte) 0, (byte) 0);
-        fight_.getFirstPositPlayerFighters().put((byte) 1, Fighter.BACK);
-        fight_.getFirstPositPlayerFighters().put((byte) 2, (byte) 1);
-        fight_.getFirstPositPlayerFighters().put((byte) 3, Fighter.BACK);
+        fight_.getFirstPositPlayerFighters().put( 0,  0);
+        fight_.getFirstPositPlayerFighters().put( 1, Fighter.BACK);
+        fight_.getFirstPositPlayerFighters().put( 2,  1);
+        fight_.getFirstPositPlayerFighters().put( 3, Fighter.BACK);
         assertTrue(FightRules.substitutable(fight_, diff_, data_));
     }
 
@@ -466,7 +466,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -479,8 +479,8 @@ public class FightRulesTest extends InitializationDataBase {
         Fight fight_ = substitutable3(data_, diff_, player_, new StringList(DETECTION));
         FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        fight_.getFirstPositPlayerFighters().put((byte)0, (byte)0);
-        fight_.getFirstPositPlayerFighters().put((byte)1, Fighter.BACK);
+        fight_.getFirstPositPlayerFighters().put(0, 0);
+        fight_.getFirstPositPlayerFighters().put(1, Fighter.BACK);
         assertTrue(FightRules.substitutable(fight_, diff_, data_));
     }
 
@@ -497,7 +497,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -526,7 +526,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -559,7 +559,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -576,8 +576,8 @@ public class FightRulesTest extends InitializationDataBase {
         Fight fight_ = substitutable3(data_, diff_, player_, new StringList(DETECTION));
         FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_TWO), diff_, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        fight_.getFirstPositPlayerFighters().put((byte)1, Fighter.BACK);
-        fight_.getFirstPositPlayerFighters().put((byte)2, (byte)1);
+        fight_.getFirstPositPlayerFighters().put(1, Fighter.BACK);
+        fight_.getFirstPositPlayerFighters().put(2, 1);
         assertTrue(!FightRules.substitutable(fight_, diff_, data_));
     }
 
@@ -594,7 +594,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -610,7 +610,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = substitutable4(data_, diff_, player_, new StringList(DETECTION), new StringList(DETECTION));
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        fight_.getFirstPositPlayerFighters().put((byte)0, (byte)1);
+        fight_.getFirstPositPlayerFighters().put(0, 1);
         assertTrue(!FightRules.substitutable(fight_, diff_, data_));
     }
 
@@ -627,7 +627,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -643,7 +643,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = substitutable4(data_, diff_, player_, new StringList(DETECTION), new StringList(DETECTION));
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        fight_.getFirstPositPlayerFighters().put((byte)2, (byte)1);
+        fight_.getFirstPositPlayerFighters().put(2, 1);
         assertTrue(!FightRules.substitutable(fight_, diff_, data_));
     }
 
@@ -660,7 +660,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -692,7 +692,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -708,8 +708,8 @@ public class FightRulesTest extends InitializationDataBase {
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = substitutable4(data_, diff_, player_, new StringList(DETECTION), new StringList(DETECTION));
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        fight_.getFirstPositPlayerFighters().put((byte)0, Fighter.BACK);
-        fight_.getFirstPositPlayerFighters().put((byte)2, (byte)0);
+        fight_.getFirstPositPlayerFighters().put(0, Fighter.BACK);
+        fight_.getFirstPositPlayerFighters().put(2, 0);
         assertTrue(FightRules.substitutable(fight_, diff_, data_));
     }
 
@@ -726,7 +726,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -746,8 +746,8 @@ public class FightRulesTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         FightRound.roundThrowerMove(fight_, thrower_, diff_, data_);
         assertTrue(fight_.getFighter(thrower_).isSuccessfulMove());
-        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
-        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 3));
+        assertEq(1, fight_.getFirstPositPlayerFighters().getVal( 0));
+        assertEq(0, fight_.getFirstPositPlayerFighters().getVal( 3));
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         assertTrue(FightRules.substitutable(fight_, diff_, data_));
     }
@@ -765,7 +765,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -785,11 +785,11 @@ public class FightRulesTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         FightRound.roundThrowerMove(fight_, thrower_, diff_, data_);
         assertTrue(fight_.getFighter(thrower_).isSuccessfulMove());
-        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
-        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 3));
+        assertEq(1, fight_.getFirstPositPlayerFighters().getVal( 0));
+        assertEq(0, fight_.getFirstPositPlayerFighters().getVal( 3));
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
-        fight_.getFirstPositPlayerFighters().put((byte) 0, Fighter.BACK);
-        fight_.getFirstPositPlayerFighters().put((byte) 2, (byte)1);
+        fight_.getFirstPositPlayerFighters().put( 0, Fighter.BACK);
+        fight_.getFirstPositPlayerFighters().put( 2, 1);
         assertTrue(FightRules.substitutable(fight_, diff_, data_));
     }
 
@@ -806,7 +806,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -835,7 +835,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -868,7 +868,7 @@ public class FightRulesTest extends InitializationDataBase {
         fighter_.incrementConsecutiveUsesMove();
         fighter_.setActed(true);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
-        fight_.getFirstPositPlayerFighters().put((byte) 1,(byte) 1);
+        fight_.getFirstPositPlayerFighters().put( 1, 1);
         assertTrue(FightRules.substitutable(fight_, diff_, data_));
     }
 
@@ -885,7 +885,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -900,7 +900,7 @@ public class FightRulesTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_TWO), diff_, data_);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
-        fight_.getFirstPositPlayerFighters().put((byte) 1,(byte) 1);
+        fight_.getFirstPositPlayerFighters().put( 1, 1);
         assertTrue(!FightRules.substitutable(fight_, diff_, data_));
     }
 
@@ -917,7 +917,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -947,7 +947,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -974,7 +974,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -983,7 +983,7 @@ public class FightRulesTest extends InitializationDataBase {
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.usePowerPointsByMove(diff_, PISTOLET_A_O, (short) 50);
+        fighter_.usePowerPointsByMove(diff_, PISTOLET_A_O,  50);
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data_);
         assertEq(3, moves_.size());
         assertTrue(StringUtil.contains(moves_, ECUME));
@@ -1003,7 +1003,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1034,7 +1034,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1063,7 +1063,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1074,7 +1074,7 @@ public class FightRulesTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setFirstChosenMoveTarget(PISTOLET_A_O, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_.setLastUsedMove();
-        fighter_.setNbPrepaRound((short) 1);
+        fighter_.setNbPrepaRound( 1);
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data_);
         assertEq(1, moves_.size());
         assertTrue(StringUtil.contains(moves_, PISTOLET_A_O));
@@ -1092,7 +1092,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1121,7 +1121,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1152,7 +1152,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1183,7 +1183,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1213,10 +1213,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(PISTOLET_A_O, (short) 10);
-        map_.put(ROULADE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(PISTOLET_A_O,  10);
+        map_.put(ROULADE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1245,10 +1245,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(PISTOLET_A_O, (short) 10);
-        map_.put(ROULADE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(PISTOLET_A_O,  10);
+        map_.put(ROULADE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1277,10 +1277,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(PISTOLET_A_O, (short) 10);
-        map_.put(SOIN, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(PISTOLET_A_O,  10);
+        map_.put(SOIN,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1306,7 +1306,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1336,7 +1336,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1366,7 +1366,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1395,10 +1395,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(PISTOLET_A_O, (short) 10);
-        map_.put(VOL_MAGNETIK, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(PISTOLET_A_O,  10);
+        map_.put(VOL_MAGNETIK,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1424,10 +1424,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(PISTOLET_A_O, (short) 10);
-        map_.put(PRESCIENCE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(PISTOLET_A_O,  10);
+        map_.put(PRESCIENCE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1461,10 +1461,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(PISTOLET_A_O, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(PISTOLET_A_O,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1489,10 +1489,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(PISTOLET_A_O, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(PISTOLET_A_O,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1522,9 +1522,9 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(PISTOLET_A_O, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(PISTOLET_A_O,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1532,7 +1532,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(ECUME, CHARGE));
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
-        fight_.getFighter(f_).usePowerPointsByMove(diff_, PISTOLET_A_O, (short) 50);
+        fight_.getFighter(f_).usePowerPointsByMove(diff_, PISTOLET_A_O,  50);
         StringList moves_ = FightRules.allowedMoves(fight_, f_, data_);
         assertEq(0, moves_.size());
     }
@@ -1549,9 +1549,9 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(PISTOLET_A_O, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(PISTOLET_A_O,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1562,7 +1562,7 @@ public class FightRulesTest extends InitializationDataBase {
         fight_.getFoeTeam().activerEffetEquipe(TOUR_RAPIDE);
         fight_.getUserTeam().activerEffetEquipe(TOUR_RAPIDE);
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
-        fight_.getFighter(f_).usePowerPointsByMove(diff_, PISTOLET_A_O, (short) 50);
+        fight_.getFighter(f_).usePowerPointsByMove(diff_, PISTOLET_A_O,  50);
         fight_.getFighter(f_).activerAttaque(CYCLE_V);
         AffectedMove attaqueViseeActif_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).refPartAttaquesSurCombatAtt(new MoveTeamPosition(CHANT,f_));
         attaqueViseeActif_.getActivity().enable();
@@ -1584,7 +1584,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1609,7 +1609,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1634,10 +1634,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(INTERVERSION, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(INTERVERSION,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1662,10 +1662,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SIPHON, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SIPHON,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1690,10 +1690,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(BERCEUSE, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(BERCEUSE,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1718,10 +1718,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1750,10 +1750,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1782,10 +1782,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1798,7 +1798,7 @@ public class FightRulesTest extends InitializationDataBase {
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.setSubstitute((byte) 1);
+        fighter_.setSubstitute( 1);
         assertTrue(FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -1815,10 +1815,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1849,10 +1849,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1883,10 +1883,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1917,10 +1917,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1933,7 +1933,7 @@ public class FightRulesTest extends InitializationDataBase {
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.usePowerPointsByMove(diff_, SEISME, (short) 1);
+        fighter_.usePowerPointsByMove(diff_, SEISME,  1);
         fighter_.setChosenHealingObject(MAX_ELIXIR, data_);
         assertTrue(FightRules.playable(fight_, player_, diff_, data_));
     }
@@ -1951,10 +1951,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1967,7 +1967,7 @@ public class FightRulesTest extends InitializationDataBase {
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.usePowerPointsByMove(diff_, SEISME, (short) 1);
+        fighter_.usePowerPointsByMove(diff_, SEISME,  1);
         fighter_.setChosenHealingObjectMove(ELIXIR, SEISME);
         assertTrue(FightRules.playable(fight_, player_, diff_, data_));
     }
@@ -1985,10 +1985,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -2001,7 +2001,7 @@ public class FightRulesTest extends InitializationDataBase {
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.usePowerPointsByMove(diff_, SEISME, (short) 1);
+        fighter_.usePowerPointsByMove(diff_, SEISME,  1);
         fighter_.setChosenHealingObjectMove(HUILE, SEISME);
         assertTrue(FightRules.playable(fight_, player_, diff_, data_));
     }
@@ -2019,10 +2019,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -2035,7 +2035,7 @@ public class FightRulesTest extends InitializationDataBase {
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.usePowerPointsByMove(diff_, SEISME, (short) 1);
+        fighter_.usePowerPointsByMove(diff_, SEISME,  1);
         fighter_.setChosenHealingObjectMove(HUILE_MAX, SEISME);
         assertTrue(FightRules.playable(fight_, player_, diff_, data_));
     }
@@ -2053,10 +2053,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -2087,10 +2087,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -2121,10 +2121,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -2155,10 +2155,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -2171,7 +2171,7 @@ public class FightRulesTest extends InitializationDataBase {
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.usePowerPointsByMove(diff_, SEISME, (short) 1);
+        fighter_.usePowerPointsByMove(diff_, SEISME,  1);
         fighter_.setChosenHealingObjectMove(BAIE_MEPO, SEISME);
         assertTrue(FightRules.playable(fight_, player_, diff_, data_));
     }
@@ -2189,10 +2189,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -2223,10 +2223,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -2255,7 +2255,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -2264,7 +2264,7 @@ public class FightRulesTest extends InitializationDataBase {
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.usePowerPointsByMove(diff_, PISTOLET_A_O, (short) 50);
+        fighter_.usePowerPointsByMove(diff_, PISTOLET_A_O,  50);
         fighter_.setFirstChosenMoveTarget(PISTOLET_A_O, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
     }
@@ -2281,10 +2281,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(PISTOLET_A_O, (short) 10);
-        map_.put(INTERVERSION, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(PISTOLET_A_O,  10);
+        map_.put(INTERVERSION,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -2309,10 +2309,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(INTERVERSION, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(INTERVERSION,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -2337,10 +2337,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SIPHON, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SIPHON,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -2377,10 +2377,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SIPHON, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SIPHON,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -2417,10 +2417,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SIPHON, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SIPHON,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -2445,10 +2445,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(BERCEUSE, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(BERCEUSE,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -2473,10 +2473,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(BATAILLE, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(BATAILLE,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -2501,10 +2501,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(BERCEUSE, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(BERCEUSE,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -2529,10 +2529,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(BATAILLE, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(BATAILLE,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -2557,10 +2557,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(BATAILLE, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(BATAILLE,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -2585,10 +2585,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -2602,7 +2602,7 @@ public class FightRulesTest extends InitializationDataBase {
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.setSubstitute((byte) 1);
+        fighter_.setSubstitute( 1);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -2618,10 +2618,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -2634,7 +2634,7 @@ public class FightRulesTest extends InitializationDataBase {
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.setSubstitute((byte) 2);
+        fighter_.setSubstitute( 2);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -2650,10 +2650,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -2666,7 +2666,7 @@ public class FightRulesTest extends InitializationDataBase {
         Fight fight_ = rulesSending6(data_, diff_, player_, new StringList(DETECTION, CHARGE), 2);
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.setSubstitute((byte) 1);
+        fighter_.setSubstitute( 1);
         fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fighter_.setFirstChosenMove(SEISME);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
@@ -2684,10 +2684,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -2718,10 +2718,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -2751,10 +2751,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -2784,10 +2784,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -2818,10 +2818,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -2851,10 +2851,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -2884,10 +2884,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -2917,10 +2917,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -2933,7 +2933,7 @@ public class FightRulesTest extends InitializationDataBase {
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.usePowerPointsByMove(diff_, SEISME, (short) 1);
+        fighter_.usePowerPointsByMove(diff_, SEISME,  1);
         fighter_.setChosenHealingObjectMove(HUILE, DANSE_LUNE);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
     }
@@ -2951,10 +2951,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -2967,7 +2967,7 @@ public class FightRulesTest extends InitializationDataBase {
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.usePowerPointsByMove(diff_, SEISME, (short) 1);
+        fighter_.usePowerPointsByMove(diff_, SEISME,  1);
         fighter_.setChosenHealingObjectMove(HUILE_MAX, DANSE_LUNE);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
     }
@@ -2985,10 +2985,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -3001,7 +3001,7 @@ public class FightRulesTest extends InitializationDataBase {
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.usePowerPointsByMove(diff_, SEISME, (short) 1);
+        fighter_.usePowerPointsByMove(diff_, SEISME,  1);
         fighter_.setChosenHealingObject(HUILE, data_);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
     }
@@ -3019,10 +3019,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -3035,7 +3035,7 @@ public class FightRulesTest extends InitializationDataBase {
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.usePowerPointsByMove(diff_, SEISME, (short) 1);
+        fighter_.usePowerPointsByMove(diff_, SEISME,  1);
         fighter_.setChosenHealingObject(HUILE_MAX, data_);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
     }
@@ -3053,10 +3053,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -3086,10 +3086,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -3119,10 +3119,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -3152,10 +3152,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -3185,10 +3185,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -3217,7 +3217,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -3240,10 +3240,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -3257,7 +3257,7 @@ public class FightRulesTest extends InitializationDataBase {
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.setChosenHealingObject(BAIE_PITAYE, data_);
-        fighter_.variationBoostStatistique(Statistic.SPECIAL_ATTACK, (byte) 6);
+        fighter_.variationBoostStatistique(Statistic.SPECIAL_ATTACK,  6);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -3273,10 +3273,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -3306,10 +3306,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -3349,10 +3349,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -3392,9 +3392,9 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(PISTOLET_A_O, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(PISTOLET_A_O,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -3402,7 +3402,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(ECUME, CHARGE));
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
-        fight_.getFighter(f_).usePowerPointsByMove(diff_, PISTOLET_A_O, (short) 50);
+        fight_.getFighter(f_).usePowerPointsByMove(diff_, PISTOLET_A_O,  50);
         fight_.getFighter(f_).setFirstChosenMoveTarget(LUTTE, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         assertTrue(FightRules.playable(fight_, player_, diff_, data_));
     }
@@ -3419,10 +3419,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SIPHON, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SIPHON,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -3465,10 +3465,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SIPHON, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SIPHON,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -3493,10 +3493,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SIPHON, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SIPHON,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -3521,10 +3521,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SIPHON, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SIPHON,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -3549,10 +3549,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SIPHON, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SIPHON,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -3577,7 +3577,7 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
+        pokemon_.setLevel( 17);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -3598,10 +3598,10 @@ public class FightRulesTest extends InitializationDataBase {
         Fight fight_ = rulesSending6(data_, diff_, player_, new StringList(DETECTION, CHARGE), 2);
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
-        fighter_.setSubstitute((byte) 2);
+        fighter_.setSubstitute( 2);
         f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         fighter_ = fight_.getFighter(f_);
-        fighter_.setSubstitute((byte) 2);
+        fighter_.setSubstitute( 2);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -3618,10 +3618,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -3652,10 +3652,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -3686,10 +3686,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -3720,10 +3720,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -3754,10 +3754,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -3771,7 +3771,7 @@ public class FightRulesTest extends InitializationDataBase {
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         Fighter fighter_ = fight_.getFighter(f_);
         fighter_.affecterStatut(SOMMEIL);
-        fighter_.setSubstitute((byte) 0);
+        fighter_.setSubstitute( 0);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -3788,10 +3788,10 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(SEISME, (short) 10);
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(SEISME,  10);
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -3822,9 +3822,9 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(INTERVERSION, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(INTERVERSION,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -3853,19 +3853,19 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        Map<String,Short> map_ = new Map<String,Short>();
-        map_.put(INTERVERSION, (short) 10);
+        pokemon_.setLevel( 17);
+        Map<String,Integer> map_ = new Map<String,Integer>();
+        map_.put(INTERVERSION,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
-        partnersMoves_.add(new LevelMoves((short)3,new StringList(DETECTION,CHARGE)));
+        partnersMoves_.add(new LevelMoves(3,new StringList(DETECTION,CHARGE)));
         CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
         StringList foeMoves_ = new StringList(DETECTION,CHARGE);
-        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
+        foesMoves_.add(new LevelMoves(3,foeMoves_));
         Fight fight_ = playable(partnersMoves_, foesMoves_, player_, diff_);
         FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
         assertTrue(FightRules.playable(fight_, player_, diff_, data_));
@@ -3884,9 +3884,9 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -3914,9 +3914,9 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -3928,7 +3928,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMove(DANSE_LUNE);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstituteForMove((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstituteForMove( 1);
         assertTrue(FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -3945,9 +3945,9 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -3959,7 +3959,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending1(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMove(DANSE_LUNE);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstituteForMove((byte) 2);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstituteForMove( 2);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -3976,9 +3976,9 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -3990,7 +3990,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending1(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMove(DANSE_LUNE);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstituteForMove((byte) 3);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstituteForMove( 3);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -4007,9 +4007,9 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(DANSE_LUNE, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(DANSE_LUNE,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -4026,7 +4026,7 @@ public class FightRulesTest extends InitializationDataBase {
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMove(DANSE_LUNE);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getRemainingHp().affectZero();
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstituteForMove((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstituteForMove( 1);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -4043,9 +4043,9 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(RELAIS, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(RELAIS,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -4073,9 +4073,9 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(RELAIS, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(RELAIS,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -4087,7 +4087,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMove(RELAIS);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstituteForMove((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstituteForMove( 1);
         assertTrue(FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -4104,9 +4104,9 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(RELAIS, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(RELAIS,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -4118,7 +4118,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending1(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMove(RELAIS);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstituteForMove((byte) 2);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstituteForMove( 2);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -4135,9 +4135,9 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(RELAIS, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(RELAIS,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -4149,7 +4149,7 @@ public class FightRulesTest extends InitializationDataBase {
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = rulesSending1(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMove(RELAIS);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstituteForMove((byte) 3);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstituteForMove( 3);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
     }
 
@@ -4166,9 +4166,9 @@ public class FightRulesTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 17);
-        StringMap<Short> map_ = new StringMap<Short>();
-        map_.put(RELAIS, (short) 10);
+        pokemon_.setLevel( 17);
+        StringMap<Integer> map_ = new StringMap<Integer>();
+        map_.put(RELAIS,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -4181,124 +4181,124 @@ public class FightRulesTest extends InitializationDataBase {
         Fight fight_ = rulesSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMove(RELAIS);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getRemainingHp().affectZero();
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstituteForMove((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstituteForMove( 1);
         assertTrue(!FightRules.playable(fight_, player_, diff_, data_));
     }
 
     private Fight substitutable7(DataBase _data, Difficulty _diff, Player _player, StringList _foeMoves) {
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        foeTeam_.add(pkTrainer((short)3, _foeMoves));
-        foeTeam_.add(pkTrainer((short)3, _foeMoves));
-        foeTeam_.add(pkTrainer((short)3, _foeMoves));
-        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
         return substitutableGym(_player, _diff, _data, foeTeam_, 4);
     }
 
     private Fight substitutable6(DataBase _data, Difficulty _diff, Player _player, StringList _foeMoves) {
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        foeTeam_.add(pkTrainer((short)3, _foeMoves));
-        foeTeam_.add(pkTrainer((short)3, _foeMoves));
-        foeTeam_.add(pkTrainer((short)3, _foeMoves));
-        foeTeam_.add(pkTrainer((short)3, _foeMoves));
-        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
         return substitutableGym(_player, _diff, _data, foeTeam_, 4);
     }
 
     private Fight substitutable5(DataBase _data, Difficulty _diff, Player _player, StringList _firstMoves, StringList _secondMoves, StringList _foeMoves) {
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        foeTeam_.add(pkTrainer((short)3, _foeMoves));
-        foeTeam_.add(pkTrainer((short)3, _foeMoves));
-        foeTeam_.add(pkTrainer((short)3, _foeMoves));
-        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
         CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-        allyTeam_.add(pkTrainer((short)3, _firstMoves));
-        allyTeam_.add(pkTrainer((short)3, _secondMoves));
+        allyTeam_.add(pkTrainer(3, _firstMoves));
+        allyTeam_.add(pkTrainer(3, _secondMoves));
         return substitutableDual(_player, _diff, _data, foeTeam_, allyTeam_);
     }
 
     private Fight substitutable4(DataBase _data, Difficulty _diff, Player _player, StringList _moves, StringList _foeMoves) {
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        foeTeam_.add(pkTrainer((short)3, _foeMoves));
-        foeTeam_.add(pkTrainer((short)3, _foeMoves));
-        foeTeam_.add(pkTrainer((short)3, _foeMoves));
-        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
         CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-        allyTeam_.add(pkTrainer((short)3, _moves));
+        allyTeam_.add(pkTrainer(3, _moves));
         return substitutableDual(_player, _diff, _data, foeTeam_, allyTeam_);
     }
 
     private Fight substitutable3(DataBase _data, Difficulty _diff, Player _player, StringList _foeMoves) {
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        foeTeam_.add(pkTrainer((short)3, _foeMoves));
-        foeTeam_.add(pkTrainer((short)3, _foeMoves));
-        foeTeam_.add(pkTrainer((short)3, _foeMoves));
-        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
         return substitutableGym(_player, _diff, _data, foeTeam_, 2);
     }
 
     private Fight substitutable2(DataBase _data, Difficulty _diff, Player _player, StringList _foeMoves) {
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        foeTeam_.add(pkTrainer((short)3, _foeMoves));
-        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
         return substitutableGym(_player, _diff, _data, foeTeam_);
     }
 
     private Fight substitutable1(DataBase _data, Difficulty _diff, Player _player, StringList _moves, StringList _foeMoves) {
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
         CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-        allyTeam_.add(pkTrainer((short)3, _moves));
+        allyTeam_.add(pkTrainer(3, _moves));
         return substitutableDual(_player, _diff, _data, foeTeam_, allyTeam_);
     }
 
     private Fight rulesSending7(DataBase _data, Difficulty _diff, Player _player, StringList _foeMoves) {
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        foeTeam_.add(pkTrainer((short)3, _foeMoves));
-        foeTeam_.add(pkTrainer((short)3, _foeMoves));
-        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
         Fight fight_ = substitutableGym(_player, _diff, _data, foeTeam_, 3);
         return firstEffectWhileSendingTeams(_diff, _data, fight_);
     }
 
     private Fight rulesSending6(DataBase _data, Difficulty _diff, Player _player, StringList _foeMoves, int _mult) {
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
         Fight fight_ = substitutableGym(_player, _diff, _data, foeTeam_, _mult);
         return firstEffectWhileSendingTeams(_diff, _data, fight_);
     }
 
     private Fight rulesSending5(DataBase _data, Difficulty _diff, Player _player, StringList _foeMoves) {
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        foeTeam_.add(pkTrainer((short)3, _foeMoves));
-        foeTeam_.add(pkTrainer((short)3, _foeMoves));
-        foeTeam_.add(pkTrainer((short)3, _foeMoves));
-        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
         Fight fight_ = substitutableGym(_player, _diff, _data, foeTeam_, 4);
         return firstEffectWhileSendingTeams(_diff, _data, fight_);
     }
 
     private Fight rulesSending3(DataBase _data, Difficulty _diff, Player _player, StringList _foeMoves) {
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
         Fight fight_ = substitutableGym(_player, _diff, _data, foeTeam_);
         return firstEffectWhileSendingTeams(_diff, _data, fight_);
     }
 
     private Fight rulesSending1(DataBase _data, Difficulty _diff, Player _player, StringList _firstMoves, StringList _secondMoves, StringList _foeMoves) {
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
         CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-        allyTeam_.add(pkTrainer((short)3, _firstMoves));
-        allyTeam_.add(pkTrainer((short)3, _secondMoves));
+        allyTeam_.add(pkTrainer(3, _firstMoves));
+        allyTeam_.add(pkTrainer(3, _secondMoves));
         Fight fight_ = substitutableDual(_player, _diff, _data, foeTeam_, allyTeam_);
         return firstEffectWhileSendingTeams(_diff, _data, fight_);
     }
 
     private Fight rulesSending2(DataBase _data, Difficulty _diff, Player _player, StringList _partnerMoves, StringList _foeMoves) {
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        foeTeam_.add(pkTrainer((short)3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
         CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-        allyTeam_.add(pkTrainer((short)3, _partnerMoves));
+        allyTeam_.add(pkTrainer(3, _partnerMoves));
         Fight fight_ = substitutableDual(_player, _diff, _data, foeTeam_, allyTeam_);
         return firstEffectWhileSendingTeams(_diff, _data, fight_);
     }
@@ -4311,7 +4311,7 @@ public class FightRulesTest extends InitializationDataBase {
     private static Fight substitutableGym(Player _user, Difficulty _diff, DataBase _data, CustList<PkTrainer> _foeTeam) {
         GymLeader leader_ = new GymLeader();
         leader_.setTeam(_foeTeam);
-        leader_.setReward((short) 200);
+        leader_.setReward( 200);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_, _user, _diff, leader_, _data);
         fight_.setEnvType(EnvironmentType.ROAD);
@@ -4321,8 +4321,8 @@ public class FightRulesTest extends InitializationDataBase {
     private static Fight substitutableGym(Player _user, Difficulty _diff, DataBase _data, CustList<PkTrainer> _foeTeam, int _mult) {
         GymLeader leader_ = new GymLeader();
         leader_.setTeam(_foeTeam);
-        leader_.setMultiplicityFight((byte) _mult);
-        leader_.setReward((short) 200);
+        leader_.setMultiplicityFight( _mult);
+        leader_.setReward( 200);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_, _user, _diff, leader_, _data);
         fight_.setEnvType(EnvironmentType.ROAD);
@@ -4336,7 +4336,7 @@ public class FightRulesTest extends InitializationDataBase {
         dual_.setAlly(ally_);
         TempTrainer trainer_ = new TempTrainer();
         trainer_.setTeam(_foeTeam);
-        trainer_.setReward((short) 200);
+        trainer_.setReward( 200);
         dual_.setFoeTrainer(trainer_);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_, _user, _diff, dual_, _data);
@@ -4344,7 +4344,7 @@ public class FightRulesTest extends InitializationDataBase {
         return fight_;
     }
 
-    private static PkTrainer pkTrainer(short _level, StringList _moves) {
+    private static PkTrainer pkTrainer(int _level, StringList _moves) {
         PkTrainer foePokemon_ = new PkTrainer();
         foePokemon_.setName(TARTARD);
         foePokemon_.setItem(PLAQUE_DRACO);

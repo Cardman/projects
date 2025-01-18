@@ -30,7 +30,7 @@ public final class ContentComponentModelEffectCopyMove {
     }
 
     void buildEntity(EffectCopyMove _edited) {
-        _edited.setCopyingMoveForUser((short) copyingMoveForUser.valueInt());
+        _edited.setCopyingMoveForUser(copyingMoveForUser.valueInt());
         _edited.setMovesNotToBeCopied(movesNotToBeCopied.tryRet());
         _edited.setCopyingMoveForUserDef(copyingMoveForUserDef.isSelected());
     }

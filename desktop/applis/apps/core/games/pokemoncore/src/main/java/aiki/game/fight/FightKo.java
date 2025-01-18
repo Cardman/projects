@@ -38,7 +38,7 @@ final class FightKo {
             _fight.getFirstPositPlayerFighters().put(_combattant.getPosition(),Fighter.BACK);
         }else if(NumberUtil.eq(_combattant.getTeam(),Fight.CST_FOE)){
             Team equipeUt_=_fight.getUserTeam();
-            Bytes liste_ = FightOrder.fightersBelongingToUserHavingBeaten(_fight,_combattant.getPosition());
+            Ints liste_ = FightOrder.fightersBelongingToUserHavingBeaten(_fight,_combattant.getPosition());
             addExpEvsFighters(_fight,liste_,_combattant.getPosition(),_diff,_import);
             equipeUt_.toutSupprimerCombattantsContreAdv(_combattant.getPosition());
         }
@@ -65,10 +65,10 @@ final class FightKo {
         updateKoStatus(_fight, _combattant.getTeam(), equipe_);
     }
 
-    static void updateKoStatus(Fight _fight, byte _combattant, Team _equipe) {
+    static void updateKoStatus(Fight _fight, int _combattant, Team _equipe) {
         if (_combattant == Fight.CST_FOE) {
             boolean ko_ = true;
-            for (EntryCust<Byte,Fighter> e: _equipe.getMembers().entryList()) {
+            for (EntryCust<Integer, Fighter> e: _equipe.getMembers().entryList()) {
                 if (!e.getValue().estKo() && FightOrder.notCaught(_fight,Fight.toFoeFighter(e.getKey()))) {
                     ko_ = false;
                     break;
@@ -87,14 +87,14 @@ final class FightKo {
         return false;
     }
 
-    static void addExpEvsFighters(Fight _fight,Bytes _membres,byte _adv,Difficulty _diff,DataBase _import){
+    static void addExpEvsFighters(Fight _fight,Ints _membres,int _adv,Difficulty _diff,DataBase _import){
         TeamPositionList fightersBelongingToUser_ = FightOrder.fightersBelongingToUser(_fight,true);
-        Bytes porteursMultExp_ = FightOrder.fightersWearingExpObject(_fight,fightersBelongingToUser_, _import);
+        Ints porteursMultExp_ = FightOrder.fightersWearingExpObject(_fight,fightersBelongingToUser_, _import);
         Rate points_ = pointsFoe(_fight,_adv, _diff, _import);
         PointFoeExpObject pointFoeExpObject_ = new PointFoeExpObject(_membres,porteursMultExp_,points_,_adv);
         Rate sumMaxLevel_ = Rate.zero();
-        short levelMax_ = (short) _import.getMaxLevel();
-        short nbMax_ = 0;
+        int levelMax_ = _import.getMaxLevel();
+        int nbMax_ = 0;
         for (TeamPosition c: fightersBelongingToUser_) {
             Fighter fighter_ = _fight.getFighter(c);
             if (fighter_.getLevel() != levelMax_) {
@@ -124,8 +124,8 @@ final class FightKo {
 
     static void addEv(Fight _fight,
             TeamPosition _fighter,
-            Bytes _membres,
-            byte _adv, DataBase _import) {
+            Ints _membres,
+                      int _adv, DataBase _import) {
         Fighter membre_=_fight.getFighter(_fighter);
         Fighter creatureAdv_=_fight.getFoeTeam().getMembers().getVal(_adv);
         PokemonData fPk_=creatureAdv_.fichePokemon(_import);
@@ -150,12 +150,12 @@ final class FightKo {
     static void addEvStatistics(Fight _fight,
             TeamPosition _fighter,
             Rate _rateEv,
-            IdMap<Statistic,Short> _evs,
+            IdMap<Statistic,Integer> _evs,
             DataBase _import) {
         Fighter membre_=_fight.getUserTeam().refPartMembres(_fighter.getPosition());
         for(Statistic c2_: _evs.getKeys()){
             Rate ev_=Rate.multiply(_rateEv,new Rate(_evs.getVal(c2_)));
-            _fight.addComment(membre_.wonEvStatistic(c2_,(short)ev_.ll(),(short)_import.getMaxEv(), _import));
+            _fight.addComment(membre_.wonEvStatistic(c2_,(int)ev_.ll(),_import.getMaxEv(), _import));
         }
     }
 
@@ -178,7 +178,7 @@ final class FightKo {
         }
     }
 
-    static Rate gainBase(PointFoeExpObject _pointsFoeExp, Difficulty _diff, DataBase _import, String _expItem, short _winner, short _looser, byte _position) {
+    static Rate gainBase(PointFoeExpObject _pointsFoeExp, Difficulty _diff, DataBase _import, String _expItem, int _winner, int _looser, int _position) {
         Rate gainBase_=rateExp(_position, _pointsFoeExp.getMembers(), _pointsFoeExp.getPorteursMultExp());
         gainBase_.multiplyBy(_pointsFoeExp.getPoints());
         Rate rate_ = rateWonPoint(_diff, _import, _winner, _looser);
@@ -190,14 +190,14 @@ final class FightKo {
         return gainBase_;
     }
 
-    private static Rate rateExp(byte _fighter,
-                        Bytes _members, Bytes _porteursMultExp) {
-        byte nbPorteursMultExp_=(byte) _porteursMultExp.size();
-        byte presCbt_=0;
+    private static Rate rateExp(int _fighter,
+                        Ints _members, Ints _porteursMultExp) {
+        int nbPorteursMultExp_=_porteursMultExp.size();
+        int presCbt_=0;
         if(_members.containsObj(_fighter)){
             presCbt_=1;
         }
-        byte portMultExp_=0;
+        int portMultExp_=0;
         if(_porteursMultExp.containsObj(_fighter)){
             portMultExp_=1;
         }
@@ -224,7 +224,7 @@ final class FightKo {
         return rateWonPoint(_diff, _import, _fighterWinner.getLevel(), _fighterLooser.getLevel());
     }
 
-    static Rate rateWonPoint(Difficulty _diff, DataBase _import, short _winner, short _looser) {
+    static Rate rateWonPoint(Difficulty _diff, DataBase _import, int _winner, int _looser) {
         StringMap<String> vars_ = new StringMap<String>();
         vars_.put(_import.prefixLevelWinner(),Long.toString(_winner));
         vars_.put(_import.prefixLevelLooser(),Long.toString(_looser));
@@ -232,10 +232,10 @@ final class FightKo {
         return _import.evaluatePositiveExp(exp_, vars_, Rate.one());
     }
 
-    static Rate pointsFoe(Fight _fight,byte _adv, Difficulty _diff, DataBase _import) {
+    static Rate pointsFoe(Fight _fight,int _adv, Difficulty _diff, DataBase _import) {
         Fighter creatureAdv_=_fight.getFoeTeam().getMembers().getVal(_adv);
         PokemonData fPk_=creatureAdv_.fichePokemon(_import);
-        short niveauAdv_=creatureAdv_.getLevel();
+        int niveauAdv_=creatureAdv_.getLevel();
         Rate points_=new Rate(fPk_.getExpRate()*niveauAdv_);
         if(!_fight.getFightType().isWild()){
             points_.multiplyBy(_diff.getWinTrainerExp());
@@ -248,29 +248,29 @@ final class FightKo {
     /**no effect if mult == 1*/
     static void moveTeams(Fight _fight){
         //Apres chaque ko
-        byte nbCombattantsAvantUt_=0;
+        int nbCombattantsAvantUt_=0;
         Team equipeUt_=_fight.getUserTeam();
-        ByteMap<Fighter> membresEquipeUt_=equipeUt_.getMembers();
-        for(byte c:membresEquipeUt_.getKeys()){
+        IntMap<Fighter> membresEquipeUt_=equipeUt_.getMembers();
+        for(int c:membresEquipeUt_.getKeys()){
             Fighter membre_=membresEquipeUt_.getVal(c);
             if(!membre_.estArriere()){
                 nbCombattantsAvantUt_++;
             }
         }
-        byte nbCombattantsAvantAdv_=0;
+        int nbCombattantsAvantAdv_=0;
         Team equipeAdv_=_fight.getFoeTeam();
-        ByteMap<Fighter> membresEquipeAdv_=equipeAdv_.getMembers();
-        for(byte c:membresEquipeAdv_.getKeys()){
+        IntMap<Fighter> membresEquipeAdv_=equipeAdv_.getMembers();
+        for(int c:membresEquipeAdv_.getKeys()){
             Fighter membre_=membresEquipeAdv_.getVal(c);
             if(!membre_.estArriere()){
                 nbCombattantsAvantAdv_++;
             }
         }
-        equipeUt_.move((byte) 0);
-        equipeAdv_.move((byte) 0);
+        equipeUt_.move(0);
+        equipeAdv_.move(0);
         //preliminaire deplacer tous les combattants vers la gauche
-        byte a_;
-        byte b_;
+        int a_;
+        int b_;
         if(nbCombattantsAvantAdv_>nbCombattantsAvantUt_){
             a_ = nbCombattantsAvantAdv_;
             b_ = nbCombattantsAvantUt_;
@@ -278,7 +278,7 @@ final class FightKo {
             a_ = nbCombattantsAvantUt_;
             b_ = nbCombattantsAvantAdv_;
         }
-        byte c_ = 0;
+        int c_ = 0;
         while (a_ > 2 * c_ + b_) {
             c_++;
         }
@@ -292,7 +292,7 @@ final class FightKo {
         }
     }
 
-    static boolean canBeHealed(Fight _fight,byte _equipe,DataBase _import){
+    static boolean canBeHealed(Fight _fight,int _equipe,DataBase _import){
         Team equipeAdv_=_fight.getTeams().getVal(Fight.foe(_equipe));
         for(String c:equipeAdv_.enabledTeamMoves()){
             MoveData fAttAdv_=_import.getMove(c);

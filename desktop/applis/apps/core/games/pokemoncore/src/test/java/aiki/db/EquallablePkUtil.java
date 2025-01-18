@@ -458,30 +458,7 @@ public abstract class EquallablePkUtil {
         Assert.assertEquals(_expected, _result);
     }
 
-    public static void assertEq(int _expected, long _result) {
-        Assert.assertEquals(_expected, _result);
-    }
-
-    public static void assertEq(int _expected, int _result) {
-        Assert.assertEquals(_expected, _result);
-    }
-
-    public static void assertEq(int _expected, short _result) {
-        Assert.assertEquals(_expected, _result);
-    }
-
-    public static void assertEq(int _expected, byte _result) {
-        Assert.assertEquals(_expected, _result);
-    }
-
-    public static void assertEq(byte _expected, int _result) {
-        Assert.assertEquals(_expected, _result);
-    }
-
-    public static void assertEq(byte _expected, short _result) {
-        Assert.assertEquals(_expected, _result);
-    }
-    public static void assertEq(byte _expected, byte _result) {
+    public static void assertEq(long _expected, long _result) {
         Assert.assertEquals(_expected, _result);
     }
 
@@ -633,11 +610,11 @@ public abstract class EquallablePkUtil {
     }
 
     public static TeamPosition tp(int _t, int _p) {
-        return new TeamPosition((byte) _t,(byte) _p);
+        return new TeamPosition( _t, _p);
     }
 
     public static TargetCoords tc(int _t, int _p) {
-        return new TargetCoords((byte) _t,(byte) _p);
+        return new TargetCoords( _t, _p);
     }
     public static void initDefaultConsts(String _ballDef, String _rateCatching,
                                   String _rateFleeing, String _rateBoost,

@@ -2,7 +2,7 @@ package aiki.game.fight.actions;
 
 public interface ChosenReplacing {
 
-    byte getSubstitute();
+    int getSubstitute();
 
-    void setSubstitute(byte _remplacant);
+    void setSubstitute(int _remplacant);
 }

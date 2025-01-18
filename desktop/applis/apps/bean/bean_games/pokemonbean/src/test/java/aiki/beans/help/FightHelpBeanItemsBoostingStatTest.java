@@ -226,7 +226,7 @@ public final class FightHelpBeanItemsBoostingStatTest extends InitDbFightHelp {
     private static FacadeGame db(Statistic _st) {
         FacadeGame f_ = facade();
         ItemForBattle t_ = Instances.newItemForBattle();
-        t_.getMultStatRank().addEntry(_st,(byte)1);
+        t_.getMultStatRank().addEntry(_st,1);
         f_.getData().completeMembers(M_DAM, t_);
         f_.getData().completeMembers(M_STA, Instances.newBall());
         f_.getData().completeMembers(M_DAM_VAR, Instances.newItemForBattle());
@@ -240,7 +240,7 @@ public final class FightHelpBeanItemsBoostingStatTest extends InitDbFightHelp {
     private static FacadeGame dbSpec(Statistic _st) {
         FacadeGame f_ = facade();
         ItemForBattle t_ = Instances.newItemForBattle();
-        t_.getMultStatPokemonRank().addEntry(new StatisticPokemon(_st,NULL_REF),(byte)1);
+        t_.getMultStatPokemonRank().addEntry(new StatisticPokemon(_st,NULL_REF),1);
         f_.getData().completeMembers(M_DAM, t_);
         f_.getData().completeMembers(M_STA, Instances.newBall());
         f_.getData().completeMembers(M_DAM_VAR, Instances.newItemForBattle());
@@ -254,7 +254,7 @@ public final class FightHelpBeanItemsBoostingStatTest extends InitDbFightHelp {
     private static FacadeGame dbBerry(Statistic _st) {
         FacadeGame f_ = facade();
         Berry t_ = Instances.newBerry();
-        t_.getMultStat().addEntry(_st,new BoostHpRate((byte)1, Rate.one()));
+        t_.getMultStat().addEntry(_st,new BoostHpRate(1, Rate.one()));
         f_.getData().completeMembers(M_DAM, t_);
         f_.getData().completeMembers(M_STA, Instances.newBall());
         f_.getData().completeMembers(M_DAM_VAR, Instances.newBerry());

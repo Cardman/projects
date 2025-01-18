@@ -63,7 +63,7 @@ public final class GeneComponentModelSubscribeArea implements AbsGeneComponentMo
         if (area instanceof AreaApparition) {
             simple.buildEntity((AreaApparition)area);
         }
-        area.setAvgNbSteps((short) avgNbSteps.valueInt());
+        area.setAvgNbSteps(avgNbSteps.valueInt());
         return area;
     }
 

@@ -54,7 +54,7 @@ public final class FightHelpBeanPrepaRoundMovesTest extends InitDbFightHelp {
     private static FacadeGame db() {
         FacadeGame f_ = facade();
         DamagingMoveData t_ = Instances.newDamagingMoveData();
-        t_.setNbPrepaRound((short) 1);
+        t_.setNbPrepaRound( 1);
         f_.getData().completeMembers(M_DAM, t_);
         f_.getData().completeMembers(M_STA, Instances.newStatusMoveData());
         f_.getData().getTranslatedMoves().addEntry(EN,new StringMap<String>());
@@ -66,11 +66,11 @@ public final class FightHelpBeanPrepaRoundMovesTest extends InitDbFightHelp {
     private static FacadeGame dbFull() {
         FacadeGame f_ = facade();
         DamagingMoveData t_ = Instances.newDamagingMoveData();
-        t_.setNbPrepaRound((short) 1);
+        t_.setNbPrepaRound( 1);
         t_.setDisappearBeforeUse(false);
         f_.getData().completeMembers(M_DAM, t_);
         StatusMoveData d_ = Instances.newStatusMoveData();
-        d_.setNbPrepaRound((short) 1);
+        d_.setNbPrepaRound( 1);
         d_.setDisappearBeforeUse(true);
         f_.getData().completeMembers(M_STA, d_);
         f_.getData().getTranslatedMoves().addEntry(EN,new StringMap<String>());

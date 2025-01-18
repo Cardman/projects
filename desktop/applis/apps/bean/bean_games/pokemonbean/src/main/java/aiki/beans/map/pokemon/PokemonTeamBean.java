@@ -11,8 +11,8 @@ public class PokemonTeamBean extends AbsPkTeamBean {
     private int noFight;
     private Trainer trainer;
 //    private CustList<PkTrainer> team;
-    private short reward;
-    private short multiplicity;
+    private int reward;
+    private int multiplicity;
 
     @Override
     public void beforeDisplaying() {
@@ -190,11 +190,11 @@ public class PokemonTeamBean extends AbsPkTeamBean {
         trainer = _trainer;
     }
 
-    public short getReward() {
+    public int getReward() {
         return reward;
     }
 
-    public short getMultiplicity() {
+    public int getMultiplicity() {
         return multiplicity;
     }
 

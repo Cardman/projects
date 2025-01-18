@@ -141,7 +141,7 @@ final class FightInvoke {
 
     private static void invokingAllyMove(TeamPosition _lanceur, EffectInvoke _effet, Team _equipeLanceur, StringList _attaquesInvocables) {
         if(_effet.getInvokingAllyMove()){
-            for(byte c: _equipeLanceur.getMembers().getKeys()){
+            for(int c: _equipeLanceur.getMembers().getKeys()){
                 if(NumberUtil.eq(c,_lanceur.getPosition())){
                     continue;
                 }

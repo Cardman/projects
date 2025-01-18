@@ -88,7 +88,7 @@ public abstract class InitDbEffects extends InitDbConstr {
         et_.getMultStatisticFoe().addEntry(Statistic.EVASINESS,Rate.one());
         co1_.getTeamMove().add(et_);
         co1_.setMultEvtRateSecEff(Rate.one());
-        co1_.setRankIncrementNbRound((short)3);
+        co1_.setRankIncrementNbRound(3);
         c_.getEffects().add(new ListEffectCombo(new StringList(M_STA_00,M_STA_01), co1_));
         EffectCombo co2_ = Instances.newEffectCombo();
         EffectEndRoundFoe ef_ = Instances.newEffectEndRoundFoe();
@@ -96,7 +96,7 @@ public abstract class InitDbEffects extends InitDbConstr {
         ef_.setFailEndRound(VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR);
         co2_.getEffectEndRound().add(ef_);
         co2_.setMultEvtRateSecEff(Rate.newRate("2"));
-        co2_.setRankIncrementNbRound((short)4);
+        co2_.setRankIncrementNbRound(4);
         c_.getEffects().add(new ListEffectCombo(new StringList(M_STA_00,M_STA_02), co2_));
         EffectCombo co3_ = Instances.newEffectCombo();
         co3_.getRepeatedRoundsLaw().addQuickEvent(Rate.newRate("5"),LgInt.newLgInt("15"));

@@ -140,7 +140,7 @@ public class EditTrainerPokemonBean extends CommonBean {
             selected_.add(s.getName());
         }
         if (selected_.isEmpty()) {
-            selected_ = data_.getPokemon(namePk).getMovesBeforeLevel((short) common.getLevel());
+            selected_ = data_.getPokemon(namePk).getMovesBeforeLevel(common.getLevel());
         }
         if (add) {
             getForms().put(CST_POKEMON_FOE, !allyPk);

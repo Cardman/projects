@@ -69,7 +69,7 @@ public final class BallPanel {
     public void initBalls(int _creatureSauvage, int _creatureUt) {
         listeBall.clear();
         MetaFont metaFont_ = listeBall.getElements().getMetaFont();
-        NatStringTreeMap<BallNumberRate> map_ = facade.calculateCatchingRatesSingle((byte) _creatureSauvage,(byte) _creatureUt);
+        NatStringTreeMap<BallNumberRate> map_ = facade.calculateCatchingRatesSingle(_creatureSauvage,_creatureUt);
         int widthNb_ = number(metaFont_,map_,compoFactory);
         int widthRate_ = rate(metaFont_,map_,compoFactory);
         int maxPerc_ = compoFactory.stringWidth(metaFont_, StringUtil.concat("100", PERCENT));

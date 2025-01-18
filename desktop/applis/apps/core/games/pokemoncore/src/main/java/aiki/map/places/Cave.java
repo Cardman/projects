@@ -31,7 +31,7 @@ public final class Cave extends Campaign {
             _data.setError(true);
         }
         int nbLevels_ = levels.size();
-        for (byte i = IndexConstants.FIRST_INDEX; i < nbLevels_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nbLevels_; i++) {
             LevelCave level_ = levels.get(i);
             level_.validate(_data, _placeArea.getLevel(i));
             for (EntryCust<Point,Link> e : level_.getLinksOtherLevels()
@@ -92,7 +92,7 @@ public final class Cave extends Campaign {
         int nbLevels_ = levels.size();
         LevelPointEqList ids_ = new LevelPointEqList();
         boolean valid_ = true;
-        for (byte i = IndexConstants.FIRST_INDEX; i < nbLevels_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nbLevels_; i++) {
             LevelCave level_ = levels.get(i);
             for (EntryCust<Point,Link> e : level_.getLinksOtherLevels()
                     .entryList()) {

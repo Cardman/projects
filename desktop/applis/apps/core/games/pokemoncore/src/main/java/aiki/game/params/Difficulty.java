@@ -39,10 +39,10 @@ public final class Difficulty {
     private Rate rateLooseMoneyWin;
 
     /***/
-    private short ivPlayer;
+    private int ivPlayer;
 
     /***/
-    private short ivFoe;
+    private int ivFoe;
 
     /***/
     private boolean stillPossibleFlee;
@@ -93,17 +93,17 @@ public final class Difficulty {
             ivPlayer = 0;
         }
         if (ivPlayer > _data.getMaxIv()) {
-            ivPlayer = (short) _data.getMaxIv();
+            ivPlayer = _data.getMaxIv();
         }
         if (ivFoe < 0) {
             ivFoe = 0;
         }
         if (ivFoe > _data.getMaxIv()) {
-            ivFoe = (short) _data.getMaxIv();
+            ivFoe = _data.getMaxIv();
         }
     }
 
-    public MonteCarloNumber loi(short _team, short _player, DataBase _import) {
+    public MonteCarloNumber loi(int _team, int _player, DataBase _import) {
         if (NumberUtil.eq(_team,_player)) {
             return _import.getLawsDamageRate().getVal(getDamageRatePlayer()).getLaw();
         }
@@ -190,19 +190,19 @@ public final class Difficulty {
         rateLooseMoneyWin = _rateLooseMoneyWin;
     }
 
-    public short getIvPlayer() {
+    public int getIvPlayer() {
         return ivPlayer;
     }
 
-    public void setIvPlayer(short _ivPlayer) {
+    public void setIvPlayer(int _ivPlayer) {
         ivPlayer = _ivPlayer;
     }
 
-    public short getIvFoe() {
+    public int getIvFoe() {
         return ivFoe;
     }
 
-    public void setIvFoe(short _ivFoe) {
+    public void setIvFoe(int _ivFoe) {
         ivFoe = _ivFoe;
     }
 

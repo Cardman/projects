@@ -13,7 +13,7 @@ public final class PlaceIndex {
         CustList<PlaceIndex> places_ = new CustList<PlaceIndex>();
         CustList<Place> pls_ = _data.getMap().getPlaces();
         int s_ = pls_.size();
-        for (short i = 0; i < s_; i++) {
+        for (int i = 0; i < s_; i++) {
             PlaceIndex pl_ = new PlaceIndex();
             pl_.setIndex(i);
             pl_.setPlace(pls_.get(i));

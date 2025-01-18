@@ -85,7 +85,7 @@ public class DealerBean extends CommonBean {
     public StringList getAllTmDealer() {
         DataBase data_ = getDataBase();
         StringList moves_ = new StringList();
-        for (Short s: dealer.getTechnicalMoves()) {
+        for (Integer s: dealer.getTechnicalMoves()) {
             moves_.add(data_.getTm().getVal(s));
         }
         moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));

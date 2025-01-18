@@ -15,7 +15,7 @@ public class BlockTest extends EquallablePkUtil {
 
     @Test
     public void bounds1Test() {
-        Block block_ = new Block((short)5, (short)3, EnvironmentType.ROAD, "");
+        Block block_ = new Block(5, 3, EnvironmentType.ROAD, "");
         BlockBounds bounds_ = block_.bounds(newPoint(2,3));
         assertEq(2, bounds_.getxLeftTop());
         assertEq(3, bounds_.getyLeftTop());
@@ -29,8 +29,8 @@ public class BlockTest extends EquallablePkUtil {
 
     @Test
     public void intersection1Test() {
-        Block blockOne_ = new Block((short)5, (short)3, EnvironmentType.ROAD, "");
-        Block blockTwo_ = new Block((short)3, (short)5, EnvironmentType.ROAD, "");
+        Block blockOne_ = new Block(5, 3, EnvironmentType.ROAD, "");
+        Block blockTwo_ = new Block(3, 5, EnvironmentType.ROAD, "");
         BlockBounds intersection_ = Block.intersection(blockOne_.bounds(newPoint(2,3)), blockTwo_.bounds(newPoint(4,4)));
         assertEq(4, intersection_.getxLeftTop());
         assertEq(4, intersection_.getyLeftTop());
@@ -44,15 +44,15 @@ public class BlockTest extends EquallablePkUtil {
 
     @Test
     public void intersection2Test() {
-        Block blockOne_ = new Block((short)5, (short)3, EnvironmentType.ROAD, "");
-        Block blockTwo_ = new Block((short)3, (short)5, EnvironmentType.ROAD, "");
+        Block blockOne_ = new Block(5, 3, EnvironmentType.ROAD, "");
+        Block blockTwo_ = new Block(3, 5, EnvironmentType.ROAD, "");
         BlockBounds intersection_ = Block.intersection(blockOne_.bounds(newPoint(2,3)), blockTwo_.bounds(newPoint(4,6)));
         assertTrue(!intersection_.isValid());
     }
 
     @Test
     public void isValidForEditing1Test() {
-        Block blockOne_ = new Block((short)0, (short)3, EnvironmentType.ROAD, "");
+        Block blockOne_ = new Block(0, 3, EnvironmentType.ROAD, "");
         DataBase dataBase_ = newData();
         dataBase_.getMap().setSideLength(1);
         assertTrue(!blockOne_.hasValidImage(dataBase_));
@@ -64,7 +64,7 @@ public class BlockTest extends EquallablePkUtil {
 
     @Test
     public void isValidForEditing2Test() {
-        Block blockOne_ = new Block((short)3, (short)0, EnvironmentType.ROAD, "");
+        Block blockOne_ = new Block(3, 0, EnvironmentType.ROAD, "");
         DataBase dataBase_ = newData();
         dataBase_.getMap().setSideLength(1);
         assertTrue(!blockOne_.hasValidImage(dataBase_));
@@ -72,7 +72,7 @@ public class BlockTest extends EquallablePkUtil {
 
     @Test
     public void isValidForEditing3Test() {
-        Block blockOne_ = new Block((short)2, (short)3, EnvironmentType.ROAD, "tile.png");
+        Block blockOne_ = new Block(2, 3, EnvironmentType.ROAD, "tile.png");
         DataBase dataBase_ = newData();
         dataBase_.addImage("tile.png", rows());
         dataBase_.getMap().setSideLength(2);
@@ -81,7 +81,7 @@ public class BlockTest extends EquallablePkUtil {
 
     @Test
     public void isValidForEditing4Test() {
-        Block blockOne_ = new Block((short)3, (short)2, EnvironmentType.ROAD, "tile.png");
+        Block blockOne_ = new Block(3, 2, EnvironmentType.ROAD, "tile.png");
         DataBase dataBase_ = newData();
         dataBase_.addImage("tile.png", rows());
         dataBase_.getMap().setSideLength(2);
@@ -90,40 +90,40 @@ public class BlockTest extends EquallablePkUtil {
 
     @Test
     public void isValidForEditing5Test() {
-        Block blockOne_ = new Block((short)3, (short)2, EnvironmentType.ROAD, "tile.png");
+        Block blockOne_ = new Block(3, 2, EnvironmentType.ROAD, "tile.png");
         DataBase dataBase_ = newData();
         dataBase_.addImage("tile.png", rows());
         dataBase_.getMap().setSideLength(2);
         assertTrue(blockOne_.hasValidImage(dataBase_));
-        Block blockTwo_ = new Block((short)3, (short)2, EnvironmentType.ROAD, "tile.png");
+        Block blockTwo_ = new Block(3, 2, EnvironmentType.ROAD, "tile.png");
         assertTrue(blockTwo_.hasValidImage(dataBase_));
     }
 
     @Test
     public void isValidForEditing6Test() {
-        Block blockOne_ = new Block((short)3, (short)2, EnvironmentType.ROAD, "tile.png");
+        Block blockOne_ = new Block(3, 2, EnvironmentType.ROAD, "tile.png");
         DataBase dataBase_ = newData();
         dataBase_.addImage("tile.png", rows());
         dataBase_.getMap().setSideLength(2);
         assertTrue(blockOne_.hasValidImage(dataBase_));
-        Block blockTwo_ = new Block((short)2, (short)3, EnvironmentType.ROAD, "tile.png");
+        Block blockTwo_ = new Block(2, 3, EnvironmentType.ROAD, "tile.png");
         assertTrue(!blockTwo_.hasValidImage(dataBase_));
     }
 
     @Test
     public void isValidForEditing7Test() {
-        Block blockOne_ = new Block((short)2, (short)3, EnvironmentType.ROAD, "tile.png");
+        Block blockOne_ = new Block(2, 3, EnvironmentType.ROAD, "tile.png");
         DataBase dataBase_ = newData();
         dataBase_.addImage("tile.png", rows());
         dataBase_.getMap().setSideLength(2);
         assertTrue(!blockOne_.hasValidImage(dataBase_));
-        Block blockTwo_ = new Block((short)3, (short)2, EnvironmentType.ROAD, "tile.png");
+        Block blockTwo_ = new Block(3, 2, EnvironmentType.ROAD, "tile.png");
         assertTrue(blockTwo_.hasValidImage(dataBase_));
     }
 
     @Test
     public void isValidForEditing8Test() {
-        Block blockOne_ = new Block((short)2, (short)3, EnvironmentType.ROAD, "tile2.png");
+        Block blockOne_ = new Block(2, 3, EnvironmentType.ROAD, "tile2.png");
         DataBase dataBase_ = newData();
         dataBase_.addImage("tile.png", rows());
         dataBase_.getMap().setSideLength(2);
@@ -132,7 +132,7 @@ public class BlockTest extends EquallablePkUtil {
 
     @Test
     public void isValidForEditing9Test() {
-        Block blockOne_ = new Block((short)2, (short)3, EnvironmentType.ROAD, "tile.png");
+        Block blockOne_ = new Block(2, 3, EnvironmentType.ROAD, "tile.png");
         DataBase dataBase_ = newData();
         dataBase_.addImage("tile.png", rows());
         dataBase_.getMap().setSideLength(3);

@@ -355,7 +355,7 @@ final class InitializationAbilities extends EquallablePkUtil {
         ficheCapacite_.setHealHpWhileUsingBerry(new Rate("1/4"));
         _data.completeQuickMembers(BAJOUES, ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
-        ficheCapacite_.getLowStatFoeHit().addEntry(Statistic.SPEED, (byte) -1);
+        ficheCapacite_.getLowStatFoeHit().addEntry(Statistic.SPEED,  -1);
         _data.completeQuickMembers(POISSEUX, ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
         ficheCapacite_.setGiveItemToAllyHavingUsed(true);
@@ -387,7 +387,7 @@ final class InitializationAbilities extends EquallablePkUtil {
         ficheCapacite_.setTypeForMoves(NORMAL);
         _data.completeQuickMembers(NORMALISE,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
-        ficheCapacite_.getBoostStatRankProtected().addEntry(Statistic.SPECIAL_ATTACK,(byte)1);
+        ficheCapacite_.getBoostStatRankProtected().addEntry(Statistic.SPECIAL_ATTACK,1);
         ficheCapacite_.getImmuMoveTypesByWeather().addEntry(NULL_REF,new StringList(ELECTRIQUE));
         //validateficheCapacite_.getImmuMoveTypesByWeather().addEntry("GRELE",new StringList("ELECTRIQUE"));
         ficheCapacite_.getImmuMoveTypesByWeather().addEntry(ZENITH,new StringList(ELECTRIQUE));
@@ -445,7 +445,7 @@ final class InitializationAbilities extends EquallablePkUtil {
         ficheCapacite_.getImmuStatus().addEntry(ZENITH,new StringList(VAMPIGRAINE,BRULURE,POISON_ST,POISON_GRAVE));
         _data.completeQuickMembers(FEUILLE_PETITE,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
-        ficheCapacite_.getIncreasedPrio().addEntry(AUTRE,(short)1);
+        ficheCapacite_.getIncreasedPrio().addEntry(AUTRE,1);
         _data.completeQuickMembers(FARCEUR,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
         ficheCapacite_.setRecoilDamageFoe(new Rate("1/8"));
@@ -569,7 +569,7 @@ final class InitializationAbilities extends EquallablePkUtil {
         ficheCapacite_.setMultAllyDamage(new Rate("3/4"));
         _data.completeQuickMembers(GARDE_AMIE,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
-        ficheCapacite_.getMultStatIfKoFoe().addEntry(Statistic.ATTACK,(byte)1);
+        ficheCapacite_.getMultStatIfKoFoe().addEntry(Statistic.ATTACK,1);
         _data.completeQuickMembers(IMPUDENCE,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
         ficheCapacite_.setMultStab(new Rate("4/3"));
@@ -587,10 +587,10 @@ final class InitializationAbilities extends EquallablePkUtil {
         ficheCapacite_.getImmuLowStat().add(Statistic.ATTACK);
         _data.completeQuickMembers(HYPER_CUTTER,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
-        ficheCapacite_.getMultStatIfStatutRank().addEntry(new StatisticStatus(Statistic.SPEED,PEUR),(byte)1);
+        ficheCapacite_.getMultStatIfStatutRank().addEntry(new StatisticStatus(Statistic.SPEED,PEUR),1);
         _data.completeQuickMembers(IMPASSIBLE,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
-        ficheCapacite_.getMultStatIfLowStat().addEntry(Statistic.ATTACK,(byte)2);
+        ficheCapacite_.getMultStatIfLowStat().addEntry(Statistic.ATTACK,2);
         _data.completeQuickMembers(ACHARNE,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
         ficheCapacite_.setHealedHpRateBySwitch(new Rate("1/3"));
@@ -612,7 +612,7 @@ final class InitializationAbilities extends EquallablePkUtil {
         ficheCapacite_.getMultStat().addEntry(Statistic.CRITICAL_HIT,"2");
         _data.completeQuickMembers(TIRS,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
-        ficheCapacite_.getMultStatIfDamgeType().addEntry(new StatisticType(Statistic.ATTACK,TENEBRE),(byte)1);
+        ficheCapacite_.getMultStatIfDamgeType().addEntry(new StatisticType(Statistic.ATTACK,TENEBRE),1);
         _data.completeQuickMembers(COEUR_NOBLE,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
         effectWhileSending_ = defaultEffectWhileSending();
@@ -714,8 +714,8 @@ final class InitializationAbilities extends EquallablePkUtil {
         ficheCapacite_.setReverseEffectsPowerMovesTypesGlobal(true);
         _data.completeQuickMembers(AURA_INVERSEE,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
-        ficheCapacite_.getIncreasedPrioTypes().addEntry(VOL, (short)1);
-        ficheCapacite_.getIncreasedPrioTypes().addEntry(NORMAL, (short)1);
+        ficheCapacite_.getIncreasedPrioTypes().addEntry(VOL, 1);
+        ficheCapacite_.getIncreasedPrioTypes().addEntry(NORMAL, 1);
         _data.completeQuickMembers(AILES_BOURRASQUE,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
         ficheCapacite_.setCopyMovesTypes(true);
@@ -729,8 +729,8 @@ final class InitializationAbilities extends EquallablePkUtil {
         ficheCapacite_ = defaultFicheCapacite();
         effectWhileSendingWithStatistic_ = defaultEffectWhileSendingWithStatistic();
         effetStatistique_ = defaultEffetStatistique();
-        effetStatistique_.getStatisVarRank().addEntry(Statistic.ATTACK,(byte)1);
-        effetStatistique_.getStatisVarRank().addEntry(Statistic.SPECIAL_ATTACK,(byte)1);
+        effetStatistique_.getStatisVarRank().addEntry(Statistic.ATTACK,1);
+        effetStatistique_.getStatisVarRank().addEntry(Statistic.SPECIAL_ATTACK,1);
         effetStatistique_.setEvtRate(new Rate("1"));
         effetStatistique_.setTargetChoice(TargetChoice.LANCEUR);
         effetStatistique_.setFail(F);
@@ -741,8 +741,8 @@ final class InitializationAbilities extends EquallablePkUtil {
         ficheCapacite_ = defaultFicheCapacite();
         effectWhileSendingWithStatistic_ = defaultEffectWhileSendingWithStatistic();
         effetStatistique_ = defaultEffetStatistique();
-        effetStatistique_.getStatisVarRank().addEntry(Statistic.ATTACK,(byte)1);
-        effetStatistique_.getStatisVarRank().addEntry(Statistic.SPECIAL_ATTACK,(byte)1);
+        effetStatistique_.getStatisVarRank().addEntry(Statistic.ATTACK,1);
+        effetStatistique_.getStatisVarRank().addEntry(Statistic.SPECIAL_ATTACK,1);
         effetStatistique_.setEvtRate(new Rate("1/2"));
         effetStatistique_.setTargetChoice(TargetChoice.LANCEUR);
         effetStatistique_.setFail(F);
@@ -779,7 +779,7 @@ final class InitializationAbilities extends EquallablePkUtil {
         ficheCapacite_.getMultStatIfCat().addEntry(new StatisticCategory(Statistic.ACCURACY,AUTRE),new Rate("0"));
         _data.completeQuickMembers(PEAU_MIRACLE_TER,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
-        ficheCapacite_.getBonusStatRank().addEntry(Statistic.ACCURACY,(byte) 1);
+        ficheCapacite_.getBonusStatRank().addEntry(Statistic.ACCURACY, 1);
         _data.completeQuickMembers(PEAU_MIRACLE_QUATER,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
         ficheCapacite_.setImmuDamageRecoil(true);
@@ -820,7 +820,7 @@ final class InitializationAbilities extends EquallablePkUtil {
         ficheCapacite_.getImmuLowStat().add(Statistic.ACCURACY);
         _data.completeQuickMembers(REGARD_VIF,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
-        ficheCapacite_.getBoostStatRankEndRound().addEntry(Statistic.SPEED,(byte)1);
+        ficheCapacite_.getBoostStatRankEndRound().addEntry(Statistic.SPEED,1);
         _data.completeQuickMembers(TURBO,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
         ficheCapacite_.setMultEvtRateSecEffectOwner(new Rate("2"));
@@ -829,7 +829,7 @@ final class InitializationAbilities extends EquallablePkUtil {
         ficheCapacite_.setForbidUseBerryAgainstFoes(true);
         _data.completeQuickMembers(TENSION,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
-        ficheCapacite_.getMultStatIfDamageCat().addEntry(new StatisticCategory(Statistic.SPEED,PHYSIQUE),(byte)1);
+        ficheCapacite_.getMultStatIfDamageCat().addEntry(new StatisticCategory(Statistic.SPEED,PHYSIQUE),1);
         _data.completeQuickMembers(ARMUROUILLEE,ficheCapacite_);
     }
 
@@ -881,13 +881,13 @@ final class InitializationAbilities extends EquallablePkUtil {
         object_.setMultPower(NULL_REF);
         object_.setMultDamage(NULL_REF);
         object_.setMultStab(Rate.zero());
-        object_.setLowStatFoeHit(new IdMap<Statistic,Byte>());
-        object_.setBonusStatRank(new IdMap<Statistic,Byte>());
-        object_.setBoostStatRankProtected(new IdMap<Statistic,Byte>());
-        object_.setBoostStatRankEndRound(new IdMap<Statistic,Byte>());
+        object_.setLowStatFoeHit(new IdMap<Statistic,Integer>());
+        object_.setBonusStatRank(new IdMap<Statistic,Integer>());
+        object_.setBoostStatRankProtected(new IdMap<Statistic,Integer>());
+        object_.setBoostStatRankEndRound(new IdMap<Statistic,Integer>());
         object_.setMultStatAlly(new IdMap<Statistic,Rate>());
-        object_.setMultStatIfKoFoe(new IdMap<Statistic,Byte>());
-        object_.setMultStatIfLowStat(new IdMap<Statistic,Byte>());
+        object_.setMultStatIfKoFoe(new IdMap<Statistic,Integer>());
+        object_.setMultStatIfLowStat(new IdMap<Statistic,Integer>());
         object_.setMultStatIfCat(new StatisticCategoryRate());
         object_.setMultStatIfStatutRank(new StatisticStatusList());
         object_.setMultStatIfDamageCat(new StatisticCategoryByte());
@@ -895,7 +895,7 @@ final class InitializationAbilities extends EquallablePkUtil {
         object_.setMultStat(new IdMap<Statistic,String>());
         object_.setMultVarBoost(Rate.zero());
         object_.setHealedHpRateBySwitch(Rate.zero());
-        object_.setIncreasedPrio(new StringMap<Short>());
+        object_.setIncreasedPrio(new StringMap<Integer>());
         object_.setMaxStatisticsIfCh(new IdList<Statistic>());
         object_.setSingleStatus(new MonteCarloString());
         object_.setForwardStatus(new StringMap<String>());
@@ -912,7 +912,7 @@ final class InitializationAbilities extends EquallablePkUtil {
         object_.setFailStatus(new StringMap<String>());
         object_.setHealHpWhileUsingBerry(Rate.zero());
         object_.setMultPowerMovesTypesGlobal(new StringMap<Rate>());
-        object_.setIncreasedPrioTypes(new StringMap<Short>());
+        object_.setIncreasedPrioTypes(new StringMap<Integer>());
         return object_;
     }
 
@@ -929,7 +929,7 @@ final class InitializationAbilities extends EquallablePkUtil {
 
     private static EffectStatistic defaultEffetStatistique() {
         EffectStatistic object_ = new EffectStatistic();
-        object_.setStatisVarRank(new IdMap<Statistic,Byte>());
+        object_.setStatisVarRank(new IdMap<Statistic,Integer>());
         object_.setLocalFailStatis(new IdMap<Statistic,String>());
         object_.setEvtRate(Rate.zero());
         object_.setCopyBoost(new IdList<Statistic>());

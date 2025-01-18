@@ -22,7 +22,7 @@ public final class ContentComponentModelTrainer {
         return selected_;
     }
     void buildEntity(Trainer _edited) {
-        _edited.setMultiplicityFight((byte) mult.valueInt());
+        _edited.setMultiplicityFight(mult.valueInt());
         _edited.setImageMaxiFileName(maxiFileName.getName().tryRet());
         _edited.setImageMiniFileName(miniFileName.getName().tryRet());
     }

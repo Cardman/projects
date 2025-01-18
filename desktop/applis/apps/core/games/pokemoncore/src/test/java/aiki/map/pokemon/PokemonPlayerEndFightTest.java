@@ -27,7 +27,7 @@ public class PokemonPlayerEndFightTest extends InitializationDataBase {
     private static Fight endFight(
             Player _player,
             String _name,
-            short _level,
+            int _level,
             Difficulty _diff, DataBase _data) {
         WildPk foePokemon_ = new WildPk();
         foePokemon_.setName(_name);
@@ -56,13 +56,13 @@ public class PokemonPlayerEndFightTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 1);
+        pokemon_.setLevel( 1);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.getStatus().add(SOMMEIL);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        Fight fight_ = endFight(player_, PIKACHU, (short) 1, diff_, data_);
+        Fight fight_ = endFight(player_, PIKACHU,  1, diff_, data_);
         TeamPosition playerPk_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(playerPk_);
         UsablePokemon usable_ = player_.getTeam().first();
@@ -105,13 +105,13 @@ public class PokemonPlayerEndFightTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 1);
+        pokemon_.setLevel( 1);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.getStatus().add(SOMMEIL);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        Fight fight_ = endFight(player_, PIKACHU, (short) 1, diff_, data_);
+        Fight fight_ = endFight(player_, PIKACHU,  1, diff_, data_);
         TeamPosition playerPk_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(playerPk_);
         fighter_.affecterStatut(CONFUSION);
@@ -155,12 +155,12 @@ public class PokemonPlayerEndFightTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 1);
+        pokemon_.setLevel( 1);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        Fight fight_ = endFight(player_, PIKACHU, (short) 1, diff_, data_);
+        Fight fight_ = endFight(player_, PIKACHU,  1, diff_, data_);
         TeamPosition playerPk_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(playerPk_);
         fighter_.affecterStatut(CONFUSION);
@@ -203,12 +203,12 @@ public class PokemonPlayerEndFightTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 1);
+        pokemon_.setLevel( 1);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        Fight fight_ = endFight(player_, PIKACHU, (short) 1, diff_, data_);
+        Fight fight_ = endFight(player_, PIKACHU,  1, diff_, data_);
         TeamPosition playerPk_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(playerPk_);
         UsablePokemon usable_ = player_.getTeam().first();
@@ -250,17 +250,17 @@ public class PokemonPlayerEndFightTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 25);
+        pokemon_.setLevel( 25);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        Fight fight_ = endFight(player_, PIKACHU, (short) 1, diff_, data_);
-        FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
+        Fight fight_ = endFight(player_, PIKACHU,  1, diff_, data_);
+        FightFacade.chooseFrontFighter(fight_,  0, diff_, data_);
         FightFacade.chooseMove(fight_, BULLES_D_O, diff_, data_);
-        FightFacade.setFirstChosenMoveFoeTarget(fight_, (byte) 0);
+        FightFacade.setFirstChosenMoveFoeTarget(fight_,  0);
         FightFacade.regularRoundAllThrowersChooseActionsFoe(fight_, diff_, player_, data_, false);
-        FightFacade.choosePokemonForLearningAndEvolving(fight_, (byte) 0, data_);
+        FightFacade.choosePokemonForLearningAndEvolving(fight_,  0, data_);
         FightFacade.setEvolution(fight_, TETARTE);
         FightFacade.addOrForgetMove(fight_, DANSE_PLUIE);
         FightFacade.addOrForgetMove(fight_, ECUME);
@@ -316,17 +316,17 @@ public class PokemonPlayerEndFightTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 25);
+        pokemon_.setLevel( 25);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        Fight fight_ = endFight(player_, PIKACHU, (short) 1, diff_, data_);
-        FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, data_);
+        Fight fight_ = endFight(player_, PIKACHU,  1, diff_, data_);
+        FightFacade.chooseFrontFighter(fight_,  0, diff_, data_);
         FightFacade.chooseMove(fight_, BULLES_D_O, diff_, data_);
-        FightFacade.setFirstChosenMoveFoeTarget(fight_, (byte) 0);
+        FightFacade.setFirstChosenMoveFoeTarget(fight_,  0);
         FightFacade.regularRoundAllThrowersChooseActionsFoe(fight_, diff_, player_, data_, false);
-        FightFacade.choosePokemonForLearningAndEvolving(fight_, (byte) 0, data_);
+        FightFacade.choosePokemonForLearningAndEvolving(fight_,  0, data_);
         FightFacade.setEvolution(fight_, TETARTE);
         FightFacade.addOrForgetMove(fight_, DANSE_PLUIE);
         FightFacade.addOrForgetMove(fight_, ECUME);
@@ -382,12 +382,12 @@ public class PokemonPlayerEndFightTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 25);
+        pokemon_.setLevel( 25);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        Fight fight_ = endFight(player_, PIKACHU, (short) 1, diff_, data_);
+        Fight fight_ = endFight(player_, PIKACHU,  1, diff_, data_);
         PokemonPlayer pk_ = new PokemonPlayer(fight_.wildPokemon(), PIKA, HYPER_BALL, data_);
         assertEq(PIKACHU,pk_.getName());
         assertEq(Gender.NO_GENDER, pk_.getGender());
@@ -428,12 +428,12 @@ public class PokemonPlayerEndFightTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 25);
+        pokemon_.setLevel( 25);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        Fight fight_ = endFight(player_, PIKACHU, (short) 1, diff_, data_);
+        Fight fight_ = endFight(player_, PIKACHU,  1, diff_, data_);
         fight_.wildPokemon().affecterStatut(SOMMEIL);
         PokemonPlayer pk_ = new PokemonPlayer(fight_.wildPokemon(), PIKA, HYPER_BALL, data_);
         assertEq(PIKACHU,pk_.getName());
@@ -476,12 +476,12 @@ public class PokemonPlayerEndFightTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 25);
+        pokemon_.setLevel( 25);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        Fight fight_ = endFight(player_, PIKACHU, (short) 1, diff_, data_);
+        Fight fight_ = endFight(player_, PIKACHU,  1, diff_, data_);
         fight_.wildPokemon().affecterStatut(SOMMEIL);
         fight_.wildPokemon().affecterStatut(CONFUSION);
         PokemonPlayer pk_ = new PokemonPlayer(fight_.wildPokemon(), PIKA, HYPER_BALL, data_);
@@ -525,12 +525,12 @@ public class PokemonPlayerEndFightTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 25);
+        pokemon_.setLevel( 25);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        Fight fight_ = endFight(player_, PIKACHU, (short) 1, diff_, data_);
+        Fight fight_ = endFight(player_, PIKACHU,  1, diff_, data_);
         fight_.wildPokemon().affecterStatut(CONFUSION);
         PokemonPlayer pk_ = new PokemonPlayer(fight_.wildPokemon(), PIKA, HYPER_BALL, data_);
         assertEq(PIKACHU,pk_.getName());

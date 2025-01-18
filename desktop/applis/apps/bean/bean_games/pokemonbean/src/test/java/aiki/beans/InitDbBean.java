@@ -186,7 +186,7 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         pkm_.setAbility(PARATONNERRE);
         pkm_.setGender(Gender.NO_GENDER);
         pkm_.setItem(NULL_REF);
-        pkm_.setLevel((short) 7);
+        pkm_.setLevel( 7);
         data_.getMap().setFirstPokemon(pkm_);
         data_.getMap().setBegin(newCoords(0, 0, 0, 1));
         data_.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Sex.GIRL), instance(IMG_H_1));
@@ -219,14 +219,14 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         pkData_.setEggGroups(new StringList(data_.getDefaultEggGroup()));
         pkData_.setTypes(new StringList(ELECTRICK));
         statBase(pkData_);
-        pkData_.getLevMoves().add(new LevelMove((short)1,ECLAIR));
-        pkData_.getLevMoves().add(new LevelMove((short)1,CHARGE));
+        pkData_.getLevMoves().add(new LevelMove(1,ECLAIR));
+        pkData_.getLevMoves().add(new LevelMove(1,CHARGE));
         pkData_.setExpRate(1);
         pkData_.setHeight(Rate.one());
         pkData_.setWeight(Rate.one());
-        pkData_.setCatchingRate((short) 1);
-        pkData_.setHappiness((short) 1);
-        pkData_.setHappinessHatch((short) 1);
+        pkData_.setCatchingRate( 1);
+        pkData_.setHappiness( 1);
+        pkData_.setHappinessHatch( 1);
         pkData_.setAbilities(new StringList(PARATONNERRE));
         data_.completeMembers(PIKACHU,pkData_);
         Ball ball_ = Instances.newBall();
@@ -313,7 +313,7 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         pkm_.setAbility(PARATONNERRE);
         pkm_.setGender(Gender.NO_GENDER);
         pkm_.setItem(NULL_REF);
-        pkm_.setLevel((short) 7);
+        pkm_.setLevel( 7);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 1));
         initExpPoints(data_);
@@ -321,12 +321,12 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
     }
 
     protected static void statBase(PokemonData _pk) {
-        _pk.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)0));
-        _pk.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv((short)1,(short)0));
-        _pk.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)0));
-        _pk.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv((short)1,(short)0));
-        _pk.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv((short)1,(short)0));
-        _pk.getStatistics().addEntry(Statistic.HP,new StatBaseEv((short)1,(short)0));
+        _pk.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv(1,0));
+        _pk.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv(1,0));
+        _pk.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv(1,0));
+        _pk.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv(1,0));
+        _pk.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv(1,0));
+        _pk.getStatistics().addEntry(Statistic.HP,new StatBaseEv(1,0));
     }
 
     private static DataBase init() {
@@ -349,7 +349,7 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         move_.setTypes(new StringList(ELECTRICK));
         move_.setCategory("SPEC");
         move_.setAccuracy("1");
-        move_.setPp((short) 1);
+        move_.setPp( 1);
         data_.completeMembers(ECLAIR,move_);
         DamagingMoveData move2_ = Instances.newDamagingMoveData();
         EffectDamage eff2_ = Instances.newEffectDamage();
@@ -362,7 +362,7 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         move2_.setTypes(new StringList(ELECTRICK));
         move2_.setCategory("SPEC");
         move2_.setAccuracy("1");
-        move2_.setPp((short) 1);
+        move2_.setPp( 1);
         data_.completeMembers(LUTTE,move2_);
         DamagingMoveData move3_ = Instances.newDamagingMoveData();
         EffectDamage eff3_ = Instances.newEffectDamage();
@@ -375,7 +375,7 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         move3_.setTypes(new StringList(ELECTRICK));
         move3_.setCategory("SPEC");
         move3_.setAccuracy("1");
-        move3_.setPp((short) 1);
+        move3_.setPp( 1);
         data_.completeMembers(CHARGE,move3_);
         DamagingMoveData move4_ = Instances.newDamagingMoveData();
         EffectDamage eff4_ = Instances.newEffectDamage();
@@ -388,25 +388,25 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         move4_.setTypes(new StringList(ELECTRICK));
         move4_.setCategory("SPEC");
         move4_.setAccuracy("1");
-        move4_.setPp((short) 1);
+        move4_.setPp( 1);
         data_.completeMembers(CHARGE2,move4_);
         PokemonData pkData_ = Instances.newPokemonData();
         pkData_.setBaseEvo(PIKACHU);
         pkData_.setEggGroups(new StringList(data_.getDefaultEggGroup()));
         pkData_.setTypes(new StringList(ELECTRICK));
         statBase(pkData_);
-        pkData_.getLevMoves().add(new LevelMove((short)1,ECLAIR));
-        pkData_.getLevMoves().add(new LevelMove((short)1,CHARGE));
+        pkData_.getLevMoves().add(new LevelMove(1,ECLAIR));
+        pkData_.getLevMoves().add(new LevelMove(1,CHARGE));
         pkData_.setExpRate(1);
         pkData_.setHeight(Rate.one());
         pkData_.setWeight(Rate.one());
-        pkData_.setCatchingRate((short) 1);
-        pkData_.setHappiness((short) 1);
-        pkData_.setHappinessHatch((short) 1);
+        pkData_.setCatchingRate( 1);
+        pkData_.setHappiness( 1);
+        pkData_.setHappinessHatch( 1);
         pkData_.setAbilities(new StringList(PARATONNERRE));
         data_.completeMembers(PIKACHU,pkData_);
         data_.getTableTypes().addEntry(new TypesDuo(ELECTRICK,ELECTRICK),new Rate("1"));
-        data_.getTm().addEntry((short)100,ECLAIR);
+        data_.getTm().addEntry(100,ECLAIR);
         data_.sortEndRound();
         initPlaces(data_);
         MiniMapCoordsList miniMap_ = new MiniMapCoordsList();
@@ -426,7 +426,7 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         pkm_.setAbility(PARATONNERRE);
         pkm_.setGender(Gender.NO_GENDER);
         pkm_.setItem(NULL_REF);
-        pkm_.setLevel((short) 7);
+        pkm_.setLevel( 7);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 1));
         data_.completeVariables();
@@ -465,11 +465,11 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         pkg_.setAbility(PARATONNERRE);
         pkg_.setGender(Gender.NO_GENDER);
         pkg_.setItem(NULL_REF);
-        pkg_.setLevel((short) 7);
+        pkg_.setLevel( 7);
         pkg_.setMoves(new StringList(ECLAIR));
         gymLeader_.getTeam().add(pkg_);
-        gymLeader_.setReward((short) 1);
-        gymLeader_.setTm((short)100);
+        gymLeader_.setReward( 1);
+        gymLeader_.setTm(100);
         gymLeader_.setImageMiniFileName("1_1");
         gymLeader_.setImageMaxiFileName("1_1");
         Block block_ = Instances.newBlock();
@@ -485,14 +485,14 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         pkt_.setAbility(PARATONNERRE);
         pkt_.setGender(Gender.NO_GENDER);
         pkt_.setItem(NULL_REF);
-        pkt_.setLevel((short) 7);
+        pkt_.setLevel( 7);
         pkt_.setMoves(new StringList(ECLAIR));
         gt_.getTeam().add(pkt_);
         gt_.getTeam().add(pkt_);
         gt_.getTeam().add(pkt_);
         gt_.getTeam().add(pkt_);
-        gt_.setMultiplicityFight((byte) 2);
-        gt_.setReward((short) 1);
+        gt_.setMultiplicityFight(2);
+        gt_.setReward( 1);
         gt_.setImageMiniFileName("1_1");
         gt_.setImageMaxiFileName("1_1");
         gym_.setImageFileName("1_1");
@@ -541,8 +541,8 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         gr_.setIndexApparition(0);
         AreaApparition area_ = Instances.newAreaApparition();
         area_.getWildPokemon().add(pkm_);
-        area_.setMultFight((byte)1);
-        area_.setAvgNbSteps((byte)1);
+        area_.setMultFight(1);
+        area_.setAvgNbSteps(1);
         r_.getLevelRoad().getWildPokemonAreas().add(area_);
         r_.getLevelRoad().getBlocks().addEntry(newPoint(0,0), gr_);
         map_.getPlaces().add( r_);
@@ -791,7 +791,7 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         monteCarloNumber_.addQuickEvent(new Rate("87/100"),new LgInt("3"));
         monteCarloNumber_.addQuickEvent(new Rate("1"),new LgInt("16"));
         monteCarloNumber_.addQuickEvent(new Rate("17/20"),new LgInt("1"));
-        _data.getLawsDamageRate().put(DifficultyModelLaw.CROISSANT,new LawNumber(monteCarloNumber_,(short)4));
+        _data.getLawsDamageRate().put(DifficultyModelLaw.CROISSANT,new LawNumber(monteCarloNumber_,4));
         monteCarloNumber_ = new MonteCarloNumber();
         monteCarloNumber_.addQuickEvent(new Rate("99/100"),new LgInt("1"));
         monteCarloNumber_.addQuickEvent(new Rate("9/10"),new LgInt("1"));
@@ -809,7 +809,7 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         monteCarloNumber_.addQuickEvent(new Rate("17/20"),new LgInt("1"));
         monteCarloNumber_.addQuickEvent(new Rate("23/25"),new LgInt("1"));
         monteCarloNumber_.addQuickEvent(new Rate("87/100"),new LgInt("1"));
-        _data.getLawsDamageRate().put(DifficultyModelLaw.UNIFORME,new LawNumber(monteCarloNumber_,(short)3));
+        _data.getLawsDamageRate().put(DifficultyModelLaw.UNIFORME,new LawNumber(monteCarloNumber_,3));
         monteCarloNumber_ = new MonteCarloNumber();
         monteCarloNumber_.addQuickEvent(new Rate("24/25"),new LgInt("5"));
         monteCarloNumber_.addQuickEvent(new Rate("19/20"),new LgInt("6"));
@@ -827,13 +827,13 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         monteCarloNumber_.addQuickEvent(new Rate("17/20"),new LgInt("16"));
         monteCarloNumber_.addQuickEvent(new Rate("49/50"),new LgInt("3"));
         monteCarloNumber_.addQuickEvent(new Rate("89/100"),new LgInt("12"));
-        _data.getLawsDamageRate().put(DifficultyModelLaw.DECROISSANT,new LawNumber(monteCarloNumber_,(short)2));
+        _data.getLawsDamageRate().put(DifficultyModelLaw.DECROISSANT,new LawNumber(monteCarloNumber_,2));
         monteCarloNumber_ = new MonteCarloNumber();
         monteCarloNumber_.addQuickEvent(new Rate("17/20"),new LgInt("1"));
-        _data.getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MIN,new LawNumber(monteCarloNumber_,(short)1));
+        _data.getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MIN,new LawNumber(monteCarloNumber_,1));
         monteCarloNumber_ = new MonteCarloNumber();
         monteCarloNumber_.addQuickEvent(new Rate("1"),new LgInt("1"));
-        _data.getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MAX,new LawNumber(monteCarloNumber_,(short)5));
+        _data.getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MAX,new LawNumber(monteCarloNumber_,5));
     }
 
     protected static DataBase newData() {

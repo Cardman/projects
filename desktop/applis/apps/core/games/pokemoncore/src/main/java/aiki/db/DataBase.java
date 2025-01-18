@@ -70,7 +70,7 @@ public final class DataBase {
     public static final String MAX_BOOST = "2";
     public static final String VALEUR_DEF_STATIS = "4";
     public static final String NIVEAU_PK_ECLOSION = "8";
-    public static final short INVALID_LEVEL = -1;
+    public static final int INVALID_LEVEL = -1;
     public static final String PAS_NECES_INCREMENT_BONHEUR = "9";
     public static final String PP_MAX = "16";
     public static final String DEF_PKEQ = "18";
@@ -253,11 +253,11 @@ public final class DataBase {
 
     private StringMap<MoveData> moves = new StringMap<MoveData>();
 
-    private ShortMap< String> tm = new ShortMap< String>();
+    private IntMap< String> tm = new IntMap< String>();
 
-    private ShortMap< LgInt> tmPrice = new ShortMap< LgInt>();
+    private IntMap< LgInt> tmPrice = new IntMap< LgInt>();
 
-    private ShortMap< String> hm = new ShortMap< String>();
+    private IntMap< String> hm = new IntMap< String>();
 
     private StringMap<Item> items = new StringMap<Item>();
 
@@ -734,11 +734,11 @@ public final class DataBase {
 
     public void completeMoveTutors() {
         for (PokemonData pk_ : pokedex.values()) {
-            for (short hm_ : pk_.getHiddenMoves()) {
+            for (int hm_ : pk_.getHiddenMoves()) {
                 String move_ = hm.getVal(hm_);
                 pk_.getMoveTutors().add(move_);
             }
-            for (short hm_ : pk_.getTechnicalMoves()) {
+            for (int hm_ : pk_.getTechnicalMoves()) {
                 String move_ = tm.getVal(hm_);
                 pk_.getMoveTutors().add(move_);
             }
@@ -933,8 +933,8 @@ public final class DataBase {
     }
 
     private void checkNbRounds() {
-        Shorts incrementNbRound_ = new Shorts();
-        Shorts nonIncrementNbRound_ = new Shorts();
+        Ints incrementNbRound_ = new Ints();
+        Ints nonIncrementNbRound_ = new Ints();
         for (EndRoundMainElements e : getEvtEndRound()) {
             if (e.isIncrementNumberOfRounds()) {
                 incrementNbRound_.add(e.getNumberIncrement());
@@ -945,7 +945,7 @@ public final class DataBase {
         if (nonIncrementNbRound_.hasDuplicates()) {
             setError(true);
         }
-        for (short e : incrementNbRound_) {
+        for (int e : incrementNbRound_) {
             if (nonIncrementNbRound_.contains(e)) {
                 setError(true);
             }
@@ -962,7 +962,7 @@ public final class DataBase {
 
         DataInfoChecker.checkStringListContains(getMoves().getKeys(),hm.values(),this);
         DataInfoChecker.checkShortsContains(tm.getKeys(),tmPrice.getKeys(),this);
-        for (EntryCust<Short, LgInt> tmPrice_ : tmPrice.entryList()) {
+        for (EntryCust<Integer, LgInt> tmPrice_ : tmPrice.entryList()) {
             if (!tmPrice_.getValue().isZeroOrGt()) {
                 setError(true);
             }
@@ -3716,9 +3716,9 @@ public final class DataBase {
         moves = new StringMap<MoveData>();
         items = new StringMap<Item>();
         status = new StringMap<Status>();
-        tm = new ShortMap< String>();
-        tmPrice = new ShortMap< LgInt>();
-        hm = new ShortMap< String>();
+        tm = new IntMap<String>();
+        tmPrice = new IntMap< LgInt>();
+        hm = new IntMap< String>();
         abilities = new StringMap<AbilityData>();
         avgWeight = Rate.zero();
         movesProtAgainstPrio = new StringList();
@@ -4007,7 +4007,7 @@ public final class DataBase {
     private void updateInfoEffectEndRound(String _moveName, MoveData _move, EffectEndRound _e) {
         EndRoundMainElements endTurn_;
         endTurn_ = new EndRoundMainElements(_e);
-        endTurn_.setNumberIncrement((short) _e.getEndRoundRank());
+        endTurn_.setNumberIncrement(_e.getEndRoundRank());
         endTurn_.setIncrementNumberOfRounds(false);
         endTurn_.setEndRoundType(EndTurnType.ATTAQUE);
         endTurn_.setElement(_moveName);
@@ -4086,7 +4086,7 @@ public final class DataBase {
             if (!obj_.getEffectEndRound().isEmpty()) {
                 EndRoundMainElements endTurn_ = new EndRoundMainElements(obj_.getEffectEndRound()
                         .first());
-                endTurn_.setNumberIncrement((short) obj_.getEffectEndRound()
+                endTurn_.setNumberIncrement(obj_.getEffectEndRound()
                         .first().getEndRoundRank());
                 endTurn_.setIncrementNumberOfRounds(false);
                 endTurn_.setEndRoundType(EndTurnType.OBJET);
@@ -4119,7 +4119,7 @@ public final class DataBase {
         if (!_ability.getEffectEndRound().isEmpty()) {
             EndRoundMainElements endTurn_ = new EndRoundMainElements(_ability.getEffectEndRound()
                     .first());
-            endTurn_.setNumberIncrement((short) _ability.getEffectEndRound()
+            endTurn_.setNumberIncrement(_ability.getEffectEndRound()
                     .first().getEndRoundRank());
             endTurn_.setIncrementNumberOfRounds(false);
             endTurn_.setEndRoundType(EndTurnType.CAPACITE);
@@ -4151,7 +4151,7 @@ public final class DataBase {
         EffectEndRoundStatus e_ = endRound(_status);
         if (e_ != null) {
             EndRoundMainElements endTurn_ = new EndRoundMainElements(e_);
-            endTurn_.setNumberIncrement((short) e_.getEndRoundRank());
+            endTurn_.setNumberIncrement(e_.getEndRoundRank());
             endTurn_.setIncrementNumberOfRounds(false);
             endTurn_.setEndRoundType(EndTurnType.STATUT);
             endTurn_.setElement(_statusName);
@@ -4161,7 +4161,7 @@ public final class DataBase {
         }
         if (_status.getIncrementingEndRound()) {
             EndRoundMainElements endTurn_ = new EndRoundMainElements(null);
-            endTurn_.setNumberIncrement((short) _status.getIncrementEndRound());
+            endTurn_.setNumberIncrement(_status.getIncrementEndRound());
             endTurn_.setIncrementNumberOfRounds(true);
             endTurn_.setEndRoundType(EndTurnType.STATUT);
             endTurn_.setElement(_statusName);
@@ -4211,7 +4211,7 @@ public final class DataBase {
             return;
         }
         EndRoundMainElements endTurn_ = new EndRoundMainElements(_effect.getEffectEndRound().first());
-        endTurn_.setNumberIncrement((short) _effect.getEffectEndRound().first()
+        endTurn_.setNumberIncrement(_effect.getEffectEndRound().first()
                 .getEndRoundRank());
         endTurn_.setIncrementNumberOfRounds(false);
         endTurn_.setEndRoundType(EndTurnType.ATTAQUE_COMBI);
@@ -4585,10 +4585,10 @@ public final class DataBase {
         return EMPTY_STRING;
     }
 
-    public short ppCopiedMove(String _move) {
+    public int ppCopiedMove(String _move) {
         MoveData fAtt_ = getMove(_move);
         int nbEffets_ = fAtt_.nbEffets();
-        short pp_ = 0;
+        int pp_ = 0;
         for (int i = IndexConstants.FIRST_INDEX; i < nbEffets_; i++) {
             Effect effet_ = fAtt_.getEffet(i);
             if (effet_ instanceof EffectCopyMove && ((EffectCopyMove) effet_).getCopyingMoveForUser() > 0) {
@@ -4699,13 +4699,13 @@ public final class DataBase {
         return variables;
     }
 
-    public ShortMap< String> getTm() {
+    public IntMap< String> getTm() {
         return tm;
     }
 
-    public Shorts getTmByMove(String _move) {
-        Shorts tms_ = new Shorts();
-        for (EntryCust<Short, String> e : tm.entryList()) {
+    public Ints getTmByMove(String _move) {
+        Ints tms_ = new Ints();
+        for (EntryCust<Integer, String> e : tm.entryList()) {
             if (StringUtil.quickEq(e.getValue(), _move)) {
                 tms_.add(e.getKey());
             }
@@ -4713,17 +4713,17 @@ public final class DataBase {
         return tms_;
     }
 
-    public ShortMap< LgInt> getTmPrice() {
+    public IntMap< LgInt> getTmPrice() {
         return tmPrice;
     }
 
-    public ShortMap< String> getHm() {
+    public IntMap< String> getHm() {
         return hm;
     }
 
-    public Shorts getHmByMove(String _move) {
-        Shorts tms_ = new Shorts();
-        for (EntryCust<Short, String> e : hm.entryList()) {
+    public Ints getHmByMove(String _move) {
+        Ints tms_ = new Ints();
+        for (EntryCust<Integer, String> e : hm.entryList()) {
             if (StringUtil.quickEq(e.getValue(), _move)) {
                 tms_.add(e.getKey());
             }
@@ -4919,18 +4919,18 @@ public final class DataBase {
     }
 
     /** General data HTML - walking */
-    public short getNbNecStepsIncrHappiness() {
-        return (short) constNum(PAS_NECES_INCREMENT_BONHEUR).ll();
+    public int getNbNecStepsIncrHappiness() {
+        return (int) constNum(PAS_NECES_INCREMENT_BONHEUR).ll();
     }
 
     /** General data HTML - host */
-    public short getNbMaxStepsSameEvoBase() {
-        return (short) constNum(MAX_STEPS_SAME_EVO_BASE).ll();
+    public int getNbMaxStepsSameEvoBase() {
+        return (int) constNum(MAX_STEPS_SAME_EVO_BASE).ll();
     }
 
     /** General data HTML - host */
-    public short getNbMaxSteps() {
-        return (short) constNum(MAX_STEPS).ll();
+    public int getNbMaxSteps() {
+        return (int) constNum(MAX_STEPS).ll();
     }
 
     /** General data HTML */
@@ -4959,8 +4959,8 @@ public final class DataBase {
     }
 
     /** General data HTML */
-    public byte getNbMaxTeam() {
-        return (byte) constNum(DEF_PKEQ).ll();
+    public int getNbMaxTeam() {
+        return (int) constNum(DEF_PKEQ).ll();
     }
 
     /** USED in a table */
@@ -5125,12 +5125,12 @@ public final class DataBase {
         }
     }
 
-    public void renameTm(short _oldName, short _newName) {
+    public void renameTm(int _oldName, int _newName) {
         if (tm.contains(_newName)) {
             return;
         }
         for (PokemonData p: pokedex.values()) {
-            Shorts ls_ = p.getTechnicalMoves();
+            Ints ls_ = p.getTechnicalMoves();
             replace(_oldName, _newName, ls_);
         }
         for (Place p: map.getPlaces()) {
@@ -5139,7 +5139,7 @@ public final class DataBase {
         tm.move(_oldName,_newName);
     }
 
-    private void levelTm(short _oldName, short _newName, Place _p) {
+    private void levelTm(int _oldName, int _newName, Place _p) {
         for (Level l: _p.getLevelsList()) {
             if (l instanceof LevelWithWildPokemon) {
                 levelTm(_oldName, _newName, (LevelWithWildPokemon) l);
@@ -5154,7 +5154,7 @@ public final class DataBase {
         }
     }
 
-    private void levelTm(short _oldName, short _newName, LevelWithWildPokemon _l) {
+    private void levelTm(int _oldName, int _newName, LevelWithWildPokemon _l) {
         new ChangeShortValueUtil<Point>(_l.getTm()).replace(_oldName, _newName);
         for (CharacterInRoadCave c: _l.getCharacters().values()) {
             if (c instanceof DealerItem) {
@@ -5163,19 +5163,19 @@ public final class DataBase {
         }
     }
 
-    private void updateTm(short _oldName, short _newName, Gym _b) {
+    private void updateTm(int _oldName, int _newName, Gym _b) {
         ChangeShortFieldGymLeader ch_ = new ChangeShortFieldGymLeader(_b.getIndoor().getGymLeader());
         if (ch_.value() == _oldName) {
             ch_.value(_newName);
         }
     }
 
-    public void renameHm(short _oldName, short _newName) {
+    public void renameHm(int _oldName, int _newName) {
         if (hm.contains(_newName)) {
             return;
         }
         for (PokemonData p: pokedex.values()) {
-            Shorts ls_ = p.getHiddenMoves();
+            Ints ls_ = p.getHiddenMoves();
             replace(_oldName, _newName, ls_);
         }
         for (Place p: map.getPlaces()) {
@@ -5184,7 +5184,7 @@ public final class DataBase {
         hm.move(_oldName,_newName);
     }
 
-    private void levelHm(short _oldName, short _newName, Place _p) {
+    private void levelHm(int _oldName, int _newName, Place _p) {
         for (Level l: _p.getLevelsList()) {
             if (l instanceof LevelWithWildPokemon) {
                 levelHm(_oldName, _newName, (LevelWithWildPokemon) l);
@@ -5192,10 +5192,10 @@ public final class DataBase {
         }
     }
 
-    private void levelHm(short _oldName, short _newName, LevelWithWildPokemon _l) {
+    private void levelHm(int _oldName, int _newName, LevelWithWildPokemon _l) {
         new ChangeShortValueUtil<Point>(_l.getHm()).replace(_oldName, _newName);
     }
-    private static void replace(short _oldName, short _newName, Shorts _ls) {
+    private static void replace(int _oldName, int _newName, Ints _ls) {
         int len_ = _ls.size();
         for (int i = 0; i < len_; i++) {
             if (_ls.get(i) == _oldName) {
@@ -5204,10 +5204,10 @@ public final class DataBase {
         }
     }
 
-    public void deleteTm(short _oldName) {
+    public void deleteTm(int _oldName) {
         ChangeShortKeyUtil ch_ = new ChangeShortKeyUtil();
         for (PokemonData p: pokedex.values()) {
-            Shorts ls_ = p.getTechnicalMoves();
+            Ints ls_ = p.getTechnicalMoves();
             ch_.add(new ChangeStringFieldMatchShortsContains(ls_));
         }
         for (Place p: map.getPlaces()) {
@@ -5249,10 +5249,10 @@ public final class DataBase {
         }
         return ls_;
     }
-    public void deleteHm(short _oldName) {
+    public void deleteHm(int _oldName) {
         ChangeShortKeyUtil ch_ = new ChangeShortKeyUtil();
         for (PokemonData p: pokedex.values()) {
-            Shorts ls_ = p.getHiddenMoves();
+            Ints ls_ = p.getHiddenMoves();
             ch_.add(new ChangeStringFieldMatchShortsContains(ls_));
         }
         for (Place p: map.getPlaces()) {
@@ -5342,8 +5342,8 @@ public final class DataBase {
 //        movesEffectGlobal.replace(_oldName, _newName);
 //        movesFullHeal.replace(_oldName, _newName);
 //        movesEffectWhileSending.replace(_oldName, _newName);
-        new ChangeStringValueUtil<Short>(hm).replace(_oldName, _newName);
-        new ChangeStringValueUtil<Short>(tm).replace(_oldName, _newName);
+        new ChangeStringValueUtil<Integer>(hm).replace(_oldName, _newName);
+        new ChangeStringValueUtil<Integer>(tm).replace(_oldName, _newName);
         moves.move(_oldName, _newName);
         for (StringMap<String> t: getTranslatedMoves().values()) {
             t.move(_oldName, _newName);
@@ -5385,9 +5385,9 @@ public final class DataBase {
         for (Item o: items.values()) {
             if (o instanceof ItemForBattle) {
                 ItemForBattle obj_ = (ItemForBattle) o;
-                ls_.add(new ChangeStringFieldMatchMapContains<Short>(obj_.getIncreasingMaxNbRoundTrap()));
-                ls_.add(new ChangeStringFieldMatchMapContains<Short>(obj_.getIncreasingMaxNbRoundGlobalMove()));
-                ls_.add(new ChangeStringFieldMatchMapContains<Short>(obj_.getIncreasingMaxNbRoundTeamMove()));
+                ls_.add(new ChangeStringFieldMatchMapContains<Integer>(obj_.getIncreasingMaxNbRoundTrap()));
+                ls_.add(new ChangeStringFieldMatchMapContains<Integer>(obj_.getIncreasingMaxNbRoundGlobalMove()));
+                ls_.add(new ChangeStringFieldMatchMapContains<Integer>(obj_.getIncreasingMaxNbRoundTeamMove()));
                 ls_.addAllElts(changeEnabledWeatherList(obj_.getEffectSending()));
             }
         }
@@ -5410,8 +5410,8 @@ public final class DataBase {
                 ls_.addAllElts(new ChangeStringFieldLevelMoves().change(l));
             }
         }
-        ls_.add(new ChangeStringValueUtil<Short>(hm));
-        ls_.add(new ChangeStringValueUtil<Short>(tm));
+        ls_.add(new ChangeStringValueUtil<Integer>(hm));
+        ls_.add(new ChangeStringValueUtil<Integer>(tm));
         if (ls_.contains(_oldName)) {
             return;
         }
@@ -5729,11 +5729,11 @@ public final class DataBase {
         CustList<ChangeStringFieldMatch> ls_ = new CustList<ChangeStringFieldMatch>();
         if (_o instanceof HealingItem) {
             HealingItem h_ = (HealingItem) _o;
-            ls_.add(new ChangeStringFieldMatchMapContains<Short>(h_.getHappiness()));
+            ls_.add(new ChangeStringFieldMatchMapContains<Integer>(h_.getHappiness()));
         }
         if (_o instanceof Boost) {
             Boost b_ = (Boost) _o;
-            ls_.add(new ChangeStringFieldMatchMapContains<Short>(b_.getHappiness()));
+            ls_.add(new ChangeStringFieldMatchMapContains<Integer>(b_.getHappiness()));
         }
         return ls_;
     }
@@ -6011,7 +6011,7 @@ public final class DataBase {
         }
         if (_e instanceof EffectTeamWhileSendFoe) {
             EffectTeamWhileSendFoe eff_ = (EffectTeamWhileSendFoe) _e;
-            new ChangeStringValueUtil<Short>(eff_.getStatusByNbUses()).replace(_oldName, _newName);
+            new ChangeStringValueUtil<Integer>(eff_.getStatusByNbUses()).replace(_oldName, _newName);
         }
         if (_e instanceof EffectGlobal) {
             EffectGlobal eff_ = (EffectGlobal) _e;
@@ -6036,7 +6036,7 @@ public final class DataBase {
         }
         if (_e instanceof EffectTeamWhileSendFoe) {
             EffectTeamWhileSendFoe eff_ = (EffectTeamWhileSendFoe) _e;
-            ls_.add(new ChangeStringValueUtil<Short>(eff_.getStatusByNbUses()));
+            ls_.add(new ChangeStringValueUtil<Integer>(eff_.getStatusByNbUses()));
         }
         if (_e instanceof EffectGlobal) {
             EffectGlobal eff_ = (EffectGlobal) _e;
@@ -6488,7 +6488,7 @@ public final class DataBase {
         for (StatisticCategory t: all_) {
             chg_.add(new ChangeStringFieldMatchDef(new ChangeStringFieldStatisticCategory(t)));
         }
-        chg_.add(new ChangeStringFieldMatchMapContains<Short>(_a.getIncreasedPrio()));
+        chg_.add(new ChangeStringFieldMatchMapContains<Integer>(_a.getIncreasedPrio()));
         return chg_;
     }
 

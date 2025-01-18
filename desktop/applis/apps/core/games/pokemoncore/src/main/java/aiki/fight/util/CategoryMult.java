@@ -10,12 +10,12 @@ public final class CategoryMult implements Displayable {
 
     private String category;
 
-    private short mult;
+    private int mult;
 
     public CategoryMult() {
     }
 
-    public CategoryMult(String _category, short _mult) {
+    public CategoryMult(String _category, int _mult) {
         category = _category;
         mult = _mult;
     }
@@ -23,7 +23,7 @@ public final class CategoryMult implements Displayable {
     public CategoryMult(String _str) {
         StringList elements_ = StringUtil.splitChars(_str, SEPARATOR);
         category = elements_.first();
-        mult = (short) NumberUtil.parseInt(elements_.last());
+        mult = NumberUtil.parseInt(elements_.last());
     }
 
     
@@ -46,11 +46,11 @@ public final class CategoryMult implements Displayable {
         category = _category;
     }
 
-    public short getMult() {
+    public int getMult() {
         return mult;
     }
 
-    public void setMult(short _mult) {
+    public void setMult(int _mult) {
         mult = _mult;
     }
 

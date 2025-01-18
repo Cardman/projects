@@ -5,9 +5,9 @@ public class LawNumber {
 
     private final MonteCarloNumber law;
 
-    private final Short number;
+    private final Integer number;
 
-    public LawNumber(MonteCarloNumber _law, Short _number) {
+    public LawNumber(MonteCarloNumber _law, Integer _number) {
         law = _law;
         number = _number;
     }
@@ -16,7 +16,7 @@ public class LawNumber {
         return law;
     }
 
-    public Short getNumber() {
+    public Integer getNumber() {
         return number;
     }
 

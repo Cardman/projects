@@ -314,10 +314,10 @@ public final class AikiBeansFightStd{
         return arr_;
     }
 
-    public static NatArrayStruct getMvTar(AbsMap<Byte, MoveTarget> _map) {
+    public static NatArrayStruct getMvTar(AbsMap<Integer, MoveTarget> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (EntryCust<Byte, MoveTarget> e:_map.entryList()) {
+        for (EntryCust<Integer, MoveTarget> e:_map.entryList()) {
             PairStruct p_ = new PairStruct(new NaNbSt(e.getKey()),new MoveTargetStruct(e.getValue()));
             arr_.set(j_,p_);
             j_++;
@@ -366,10 +366,10 @@ public final class AikiBeansFightStd{
         return PokemonStandards.arrId(len_);
     }
 
-    public static NatArrayStruct getBigByAn(AbsMap<String, ByteTreeMap<Anticipation>> _map) {
+    public static NatArrayStruct getBigByAn(AbsMap<String, IntTreeMap<Anticipation>> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (EntryCust<String, ByteTreeMap<Anticipation>> e:_map.entryList()) {
+        for (EntryCust<String, IntTreeMap<Anticipation>> e:_map.entryList()) {
             PairStruct p_ = new PairStruct(new NaStSt(e.getKey()),getByAn(e.getValue()));
             arr_.set(j_,p_);
             j_++;
@@ -377,10 +377,10 @@ public final class AikiBeansFightStd{
         return arr_;
     }
 
-    public static NatArrayStruct getBigBySt(AbsMap<String, ByteTreeMap<StacksOfUses>> _map) {
+    public static NatArrayStruct getBigBySt(AbsMap<String, IntTreeMap<StacksOfUses>> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (EntryCust<String, ByteTreeMap<StacksOfUses>> e:_map.entryList()) {
+        for (EntryCust<String, IntTreeMap<StacksOfUses>> e:_map.entryList()) {
             PairStruct p_ = new PairStruct(new NaStSt(e.getKey()),getBySt(e.getValue()));
             arr_.set(j_,p_);
             j_++;
@@ -388,10 +388,10 @@ public final class AikiBeansFightStd{
         return arr_;
     }
 
-    public static NatArrayStruct getByAn(AbsMap<Byte, Anticipation> _map) {
+    public static NatArrayStruct getByAn(AbsMap<Integer, Anticipation> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (EntryCust<Byte, Anticipation> e:_map.entryList()) {
+        for (EntryCust<Integer, Anticipation> e:_map.entryList()) {
             PairStruct p_ = new PairStruct(new NaNbSt(e.getKey()),new AnticipationStruct(e.getValue()));
             arr_.set(j_,p_);
             j_++;
@@ -399,10 +399,10 @@ public final class AikiBeansFightStd{
         return arr_;
     }
 
-    public static NatArrayStruct getBySt(AbsMap<Byte, StacksOfUses> _map) {
+    public static NatArrayStruct getBySt(AbsMap<Integer, StacksOfUses> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (EntryCust<Byte, StacksOfUses> e:_map.entryList()) {
+        for (EntryCust<Integer, StacksOfUses> e:_map.entryList()) {
             PairStruct p_ = new PairStruct(new NaNbSt(e.getKey()),new StacksOfUsesStruct(e.getValue()));
             arr_.set(j_,p_);
             j_++;
@@ -432,10 +432,10 @@ public final class AikiBeansFightStd{
         return arr_;
     }
 
-    public static NatArrayStruct getWcMvTpNb(AbsMap<MoveTeamPosition, Short> _map) {
+    public static NatArrayStruct getWcMvTpNb(AbsMap<MoveTeamPosition, Integer> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (EntryCust<MoveTeamPosition, Short> e:_map.entryList()) {
+        for (EntryCust<MoveTeamPosition, Integer> e:_map.entryList()) {
             PairStruct p_ = new PairStruct(new MoveTeamPositionStruct(e.getKey()),new NaNbSt(e.getValue()));
             arr_.set(j_,p_);
             j_++;

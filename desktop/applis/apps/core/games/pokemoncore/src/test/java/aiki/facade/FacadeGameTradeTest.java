@@ -82,13 +82,13 @@ public final class FacadeGameTradeTest extends InitializationDataBase {
     private static PokemonPlayer newPokemonPlayer(String _name, String _ability, Gender _gender, String _item) {
         PokemonPlayer sent_ = new PokemonPlayer();
         sent_.setName(_name);
-        sent_.setLevel((short) 1);
+        sent_.setLevel( 1);
         sent_.setAbility(_ability);
         sent_.setItem(_item);
         sent_.setGender(_gender);
         sent_.setMoves(new StringMap<UsesOfMove>());
-        sent_.getMoves().put(CHARGE, new UsesOfMove((short) 10));
-        sent_.setHappiness((short) 70);
+        sent_.getMoves().put(CHARGE, new UsesOfMove( 10));
+        sent_.setHappiness( 70);
         sent_.setWonExpSinceLastLevel(Rate.one());
         sent_.setUsedBallCatching(POKE_BALL);
         return sent_;

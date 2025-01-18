@@ -14,7 +14,7 @@ public final class ActionMove extends AbstractAction implements ChosenMove,Chose
     private TargetCoordsList chosenTargets;
 
     /***/
-    private byte substitute;
+    private int substitute;
 
     public ActionMove() {
         super(KindAction.MOVE);
@@ -47,12 +47,12 @@ public final class ActionMove extends AbstractAction implements ChosenMove,Chose
     }
 
     @Override
-    public byte getSubstitute() {
+    public int getSubstitute() {
         return substitute;
     }
 
     @Override
-    public void setSubstitute(byte _substitute) {
+    public void setSubstitute(int _substitute) {
         substitute = _substitute;
     }
 

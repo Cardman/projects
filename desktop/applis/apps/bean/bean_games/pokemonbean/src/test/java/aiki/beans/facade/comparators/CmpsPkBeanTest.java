@@ -452,10 +452,10 @@ public final class CmpsPkBeanTest extends InitDbConstr {
     public void cmp20() {
         ComparatorCategoryMult c_ = new ComparatorCategoryMult();
         CustList<CategoryMult> lists_ = new CustList<CategoryMult>();
-        lists_.add(new CategoryMult(M_DAM_BAD,(short)0));
-        lists_.add(new CategoryMult(M_DAM,(short)0));
-        lists_.add(new CategoryMult(M_DAM_BAD,(short)1));
-        lists_.add(new CategoryMult(M_DAM,(short)1));
+        lists_.add(new CategoryMult(M_DAM_BAD,0));
+        lists_.add(new CategoryMult(M_DAM,0));
+        lists_.add(new CategoryMult(M_DAM_BAD,1));
+        lists_.add(new CategoryMult(M_DAM,1));
         lists_.sortElts(c_);
         assertEq(4,lists_.size());
         assertEq(M_DAM,lists_.get(0).getCategory());

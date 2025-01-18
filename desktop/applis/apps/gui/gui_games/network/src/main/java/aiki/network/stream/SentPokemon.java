@@ -4,15 +4,15 @@ import aiki.map.pokemon.PokemonPlayer;
 
 public final class SentPokemon {
 
-    private byte index;
+    private int index;
 
     private PokemonPlayer pokemon;
 
-    public byte getIndex() {
+    public int getIndex() {
         return index;
     }
 
-    public void setIndex(byte _index) {
+    public void setIndex(int _index) {
         index = _index;
     }
 

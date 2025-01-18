@@ -7,7 +7,7 @@ import aiki.util.DataInfoChecker;
 public final class GymLeader extends TrainerOneFight {
 
     /** Technical move given to the user after the fight */
-    private short tm;
+    private int tm;
 
     private String name;
 
@@ -18,11 +18,11 @@ public final class GymLeader extends TrainerOneFight {
         DataInfoChecker.checkShortsContains(_data.getTm().getKeys(),tm,_data);
     }
 
-    public short getTm() {
+    public int getTm() {
         return tm;
     }
 
-    public void setTm(short _tm) {
+    public void setTm(int _tm) {
         tm = _tm;
     }
 

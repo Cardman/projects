@@ -22,14 +22,14 @@ public final class ItemForBattle extends Item {
     private boolean boostExp;
     private StringList immuStatus;
     private boolean immuLowStatis;
-    private StringMap<Short> increasingMaxNbRoundTrap;
+    private StringMap<Integer> increasingMaxNbRoundTrap;
     private boolean attacksSoon;
     private StringList synchroStatus;
     private StringMap<String> failStatus;
     private Rate protectAgainstKo;
     private Rate protectAgainstKoIfFullHp;
     private Rate drainedHpByDamageRate;
-    private IdMap<Statistic, Short> winEvFight;
+    private IdMap<Statistic, Integer> winEvFight;
     private MonteCarloBoolean lawForAttackFirst;
     private Rate multTrappingDamage;
     private Rate multWinningHappiness;
@@ -39,19 +39,19 @@ public final class ItemForBattle extends Item {
     private String multDamage;
     private Rate multDrainedHp;
     private Rate damageRecoil;
-    private IdMap<Statistic, Byte> multStatRank;
+    private IdMap<Statistic, Integer> multStatRank;
 
     private StatisticPokemons multStatPokemonRank;
 
     private IdMap<Statistic, String> multStat;
-    private StringMap<Short> increasingMaxNbRoundGlobalMove;
-    private StringMap<Short> increasingMaxNbRoundTeamMove;
+    private StringMap<Integer> increasingMaxNbRoundGlobalMove;
+    private StringMap<Integer> increasingMaxNbRoundTeamMove;
     private StringList immuMoves;
     private StringList hatching;
     private StringList immuTypes;
     private StringList immuWeather;
-    private IdMap<Statistic, Byte> boostStatisSuperEff;
-    private StringMap<IdMap<Statistic, Byte>> boostStatisTypes;
+    private IdMap<Statistic, Integer> boostStatisSuperEff;
+    private StringMap<IdMap<Statistic, Integer>> boostStatisTypes;
 
     private CustList<EffectEndRound> effectEndRound;
     private CustList<EffectWhileSendingWithStatistic> effectSending;
@@ -77,7 +77,7 @@ public final class ItemForBattle extends Item {
         if (!effectSending.isEmpty()) {
             effectSending.first().validate(_data);
         }
-        for (EntryCust<StatisticPokemon, Byte> e : multStatPokemonRank
+        for (EntryCust<StatisticPokemon, Integer> e : multStatPokemonRank
                 .entryList()) {
             DataInfoChecker.checkStringListContains(_data.getPokedex().getKeys(),e.getKey().getPokemon(),_data);
         }
@@ -92,11 +92,11 @@ public final class ItemForBattle extends Item {
         DataInfoChecker.checkStringListContains(_data.getMoves().getKeys(),immuMoves,_data);
         DataInfoChecker.checkStringListContains(_data.getMovesEffectGlobalWeather(),immuWeather,_data);
         DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),boostStatisSuperEff.getKeys(),_data);
-        DataInfoChecker.checkPositiveBytes(boostStatisSuperEff.values(),_data);
+        DataInfoChecker.checkPositiveShorts(boostStatisSuperEff.values(),_data);
         DataInfoChecker.checkStringListContains(_data.getTypes(),boostStatisTypes.getKeys(),_data);
-        for (IdMap<Statistic, Byte> t : boostStatisTypes.values()) {
+        for (IdMap<Statistic, Integer> t : boostStatisTypes.values()) {
             DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),t.getKeys(),_data);
-            DataInfoChecker.checkPositiveBytes(t.values(),_data);
+            DataInfoChecker.checkPositiveShorts(t.values(),_data);
         }
         DataInfoChecker.checkStringListContains(_data.getStatus().getKeys(),immuStatus,_data);
         DataInfoChecker.checkStringListContains(_data.getStatus().getKeys(),synchroStatus,_data);
@@ -198,12 +198,12 @@ public final class ItemForBattle extends Item {
         immuLowStatis = _immuLowStatis;
     }
 
-    public StringMap<Short> getIncreasingMaxNbRoundTrap() {
+    public StringMap<Integer> getIncreasingMaxNbRoundTrap() {
         return increasingMaxNbRoundTrap;
     }
 
     public void setIncreasingMaxNbRoundTrap(
-            StringMap<Short> _increasingMaxNbRoundTrap) {
+            StringMap<Integer> _increasingMaxNbRoundTrap) {
         increasingMaxNbRoundTrap = _increasingMaxNbRoundTrap;
     }
 
@@ -255,11 +255,11 @@ public final class ItemForBattle extends Item {
         drainedHpByDamageRate = _drainedHpByDamageRate;
     }
 
-    public IdMap<Statistic, Short> getWinEvFight() {
+    public IdMap<Statistic, Integer> getWinEvFight() {
         return winEvFight;
     }
 
-    public void setWinEvFight(IdMap<Statistic, Short> _winEvFight) {
+    public void setWinEvFight(IdMap<Statistic, Integer> _winEvFight) {
         winEvFight = _winEvFight;
     }
 
@@ -335,11 +335,11 @@ public final class ItemForBattle extends Item {
         damageRecoil = _damageRecoil;
     }
 
-    public IdMap<Statistic, Byte> getMultStatRank() {
+    public IdMap<Statistic, Integer> getMultStatRank() {
         return multStatRank;
     }
 
-    public void setMultStatRank(IdMap<Statistic, Byte> _multStat) {
+    public void setMultStatRank(IdMap<Statistic, Integer> _multStat) {
         multStatRank = _multStat;
     }
 
@@ -360,21 +360,21 @@ public final class ItemForBattle extends Item {
         multStat = _multStat;
     }
 
-    public StringMap<Short> getIncreasingMaxNbRoundGlobalMove() {
+    public StringMap<Integer> getIncreasingMaxNbRoundGlobalMove() {
         return increasingMaxNbRoundGlobalMove;
     }
 
     public void setIncreasingMaxNbRoundGlobalMove(
-            StringMap<Short> _increasingMaxNbRoundGlobalMove) {
+            StringMap<Integer> _increasingMaxNbRoundGlobalMove) {
         increasingMaxNbRoundGlobalMove = _increasingMaxNbRoundGlobalMove;
     }
 
-    public StringMap<Short> getIncreasingMaxNbRoundTeamMove() {
+    public StringMap<Integer> getIncreasingMaxNbRoundTeamMove() {
         return increasingMaxNbRoundTeamMove;
     }
 
     public void setIncreasingMaxNbRoundTeamMove(
-            StringMap<Short> _increasingMaxNbRoundTeamMove) {
+            StringMap<Integer> _increasingMaxNbRoundTeamMove) {
         increasingMaxNbRoundTeamMove = _increasingMaxNbRoundTeamMove;
     }
 
@@ -410,21 +410,21 @@ public final class ItemForBattle extends Item {
         immuWeather = _immuWeather;
     }
 
-    public IdMap<Statistic, Byte> getBoostStatisSuperEff() {
+    public IdMap<Statistic, Integer> getBoostStatisSuperEff() {
         return boostStatisSuperEff;
     }
 
     public void setBoostStatisSuperEff(
-            IdMap<Statistic, Byte> _boostStatisSuperEff) {
+            IdMap<Statistic, Integer> _boostStatisSuperEff) {
         boostStatisSuperEff = _boostStatisSuperEff;
     }
 
-    public StringMap<IdMap<Statistic, Byte>> getBoostStatisTypes() {
+    public StringMap<IdMap<Statistic, Integer>> getBoostStatisTypes() {
         return boostStatisTypes;
     }
 
     public void setBoostStatisTypes(
-            StringMap<IdMap<Statistic, Byte>> _boostStatisTypes) {
+            StringMap<IdMap<Statistic, Integer>> _boostStatisTypes) {
         boostStatisTypes = _boostStatisTypes;
     }
 

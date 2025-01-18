@@ -24,10 +24,10 @@ public final class CrudPkCommon {
 
     public void patchLevel(DataBase _data) {
         if (level < _data.getMinLevel()) {
-            level = (short) _data.getMinLevel();
+            level = _data.getMinLevel();
         }
         if (level > _data.getMaxLevel()) {
-            level = (short) _data.getMaxLevel();
+            level = _data.getMaxLevel();
         }
     }
     public DictionaryComparator<String,String> getGenders() {

@@ -57,8 +57,8 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         c_.getDestination().setValue(2);
         assertEq(2,facade_.getData().getTmPrice().size());
         assertEq(2,facade_.getData().getTm().size());
-        assertEq(M_1,facade_.getData().getTm().getVal((short)1));
-        assertEq(M_2,facade_.getData().getTm().getVal((short)2));
+        assertEq(M_1,facade_.getData().getTm().getVal(1));
+        assertEq(M_2,facade_.getData().getTm().getVal(2));
     }
     @Test
     public void tmForm4() {
@@ -69,8 +69,8 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         c_.getDestination().setValue(2);
         assertEq(2,facade_.getData().getTmPrice().size());
         assertEq(2,facade_.getData().getTm().size());
-        assertEq(M_1,facade_.getData().getTm().getVal((short)1));
-        assertEq(M_2,facade_.getData().getTm().getVal((short)2));
+        assertEq(M_1,facade_.getData().getTm().getVal(1));
+        assertEq(M_2,facade_.getData().getTm().getVal(2));
     }
     @Test
     public void tmForm5() {
@@ -82,15 +82,15 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         c_.getDestination().setValue(3);
         assertEq(2,facade_.getData().getTmPrice().size());
         assertEq(2,facade_.getData().getTm().size());
-        assertEq(M_1,facade_.getData().getTm().getVal((short)3));
-        assertEq(M_2,facade_.getData().getTm().getVal((short)2));
+        assertEq(M_1,facade_.getData().getTm().getVal(3));
+        assertEq(M_2,facade_.getData().getTm().getVal(2));
     }
     @Test
     public void tmForm6() {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facadeAdd(pr_);
         PokemonData pData_ = Instances.newPokemonData();
-        pData_.getTechnicalMoves().add((short)1);
+        pData_.getTechnicalMoves().add(1);
         facade_.getData().completeQuickMembers(P_1, pData_);
         WindowPkEditor sub_ = window(pr_, facade_);
         CrudGeneFormNb c_ = crudTm(sub_);
@@ -120,7 +120,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         GeneComponentModelNb g_ = (GeneComponentModelNb)c_.getGene();
         g_.getValue().setupValue(M_3);
         tryClick(c_.getValidAddEdit());
-        assertEq(M_3,facade_.getData().getTm().getVal((short)1));
+        assertEq(M_3,facade_.getData().getTm().getVal(1));
     }
 
     @Test
@@ -174,8 +174,8 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         tryClick(c_.getAllButtons().get(0));
         c_.getDestination().setValue(2);
         assertEq(2,facade_.getData().getHm().size());
-        assertEq(M_1,facade_.getData().getHm().getVal((short)1));
-        assertEq(M_2,facade_.getData().getHm().getVal((short)2));
+        assertEq(M_1,facade_.getData().getHm().getVal(1));
+        assertEq(M_2,facade_.getData().getHm().getVal(2));
     }
     @Test
     public void hmForm4() {
@@ -185,8 +185,8 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         CrudGeneFormNb c_ = crudHm(sub_);
         c_.getDestination().setValue(2);
         assertEq(2,facade_.getData().getHm().size());
-        assertEq(M_1,facade_.getData().getHm().getVal((short)1));
-        assertEq(M_2,facade_.getData().getHm().getVal((short)2));
+        assertEq(M_1,facade_.getData().getHm().getVal(1));
+        assertEq(M_2,facade_.getData().getHm().getVal(2));
     }
     @Test
     public void hmForm5() {
@@ -197,15 +197,15 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         tryClick(c_.getAllButtons().get(0));
         c_.getDestination().setValue(3);
         assertEq(2,facade_.getData().getHm().size());
-        assertEq(M_1,facade_.getData().getHm().getVal((short)3));
-        assertEq(M_2,facade_.getData().getHm().getVal((short)2));
+        assertEq(M_1,facade_.getData().getHm().getVal(3));
+        assertEq(M_2,facade_.getData().getHm().getVal(2));
     }
     @Test
     public void hmForm6() {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facadeAdd(pr_);
         PokemonData pData_ = Instances.newPokemonData();
-        pData_.getHiddenMoves().add((short)1);
+        pData_.getHiddenMoves().add(1);
         facade_.getData().completeQuickMembers(P_1, pData_);
         WindowPkEditor sub_ = window(pr_, facade_);
         CrudGeneFormNb c_ = crudHm(sub_);
@@ -233,7 +233,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         GeneComponentModelNb g_ = (GeneComponentModelNb)c_.getGene();
         g_.getValue().setupValue(M_3);
         tryClick(c_.getValidAddEdit());
-        assertEq(M_3,facade_.getData().getHm().getVal((short)1));
+        assertEq(M_3,facade_.getData().getHm().getVal(1));
     }
 
     @Test
@@ -812,7 +812,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         ConverterCommonMapUtil.trigger(effForm_.getEffectKind(),MessagesEditorSelect.EFF_DAMAGE);
         tryClick(effForm_.getContentEffectDamage().getBoostStatisOnceKoFoe().getCrud().getAdd());
         effForm_.getContentEffectDamage().getBoostStatisOnceKoFoe().getCrud().getGenePair().getKey().setupValue(Statistic.SPEED);
-        effForm_.getContentEffectDamage().getBoostStatisOnceKoFoe().getCrud().getGenePair().getValue().setupValue((byte) 1);
+        effForm_.getContentEffectDamage().getBoostStatisOnceKoFoe().getCrud().getGenePair().getValue().setupValue( 1);
         tryClick(effForm_.getContentEffectDamage().getBoostStatisOnceKoFoe().getCrud().getValidAddEdit());
         tryClick(effForm_.getContentEffectDamage().getBoostStatisOnceKoFoe().getCrud().getAllButtons().get(0));
         tryClick(effForm_.getContentEffectDamage().getBoostStatisOnceKoFoe().getCrud().getCancel());
@@ -870,13 +870,13 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         ConverterCommonMapUtil.trigger(effForm_.getEffectKind(),MessagesEditorSelect.EFF_STATIS);
         tryClick(effForm_.getContentEffectStatistic().getStatisVarRank().getCrud().getAdd());
         effForm_.getContentEffectStatistic().getStatisVarRank().getCrud().getGenePair().getKey().setupValue(Statistic.SPEED);
-        effForm_.getContentEffectStatistic().getStatisVarRank().getCrud().getGenePair().getValue().setupValue((byte) 1);
+        effForm_.getContentEffectStatistic().getStatisVarRank().getCrud().getGenePair().getValue().setupValue( 1);
         tryClick(effForm_.getContentEffectStatistic().getStatisVarRank().getCrud().getValidAddEdit());
         tryClick(effForm_.getContentEffectStatistic().getStatisVarRank().getCrud().getAllButtons().get(0));
         tryClick(effForm_.getContentEffectStatistic().getStatisVarRank().getCrud().getCancel());
         tryClick(effForm_.getContentEffectStatistic().getStatisVarRank().getCrud().getAdd());
         effForm_.getContentEffectStatistic().getStatisVarRank().getCrud().getGenePair().getKey().setupValue(Statistic.HP);
-        effForm_.getContentEffectStatistic().getStatisVarRank().getCrud().getGenePair().getValue().setupValue((byte) 1);
+        effForm_.getContentEffectStatistic().getStatisVarRank().getCrud().getGenePair().getValue().setupValue( 1);
         tryClick(effForm_.getContentEffectStatistic().getStatisVarRank().getCrud().getValidAddEdit());
         tryClick(effectsCrud(g_).getValidAddEdit());
         tryClick(effectsCrud(g_).getAllButtons().get(0));
@@ -1340,11 +1340,11 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         tryClick(effectsCrud(g_).getAdd());
         ConverterCommonMapUtil.trigger(effects(effectsCrud(g_)).getEffectKind(),MessagesEditorSelect.EFF_TEAM);
         tryClick(effects(effectsCrud(g_)).getContentEffectTeam().getMultDamage().getCrud().getAdd());
-        effects(effectsCrud(g_)).getContentEffectTeam().getMultDamage().getCrud().getKey().setupValue(new CategoryMult(C_1,(short) 1));
+        effects(effectsCrud(g_)).getContentEffectTeam().getMultDamage().getCrud().getKey().setupValue(new CategoryMult(C_1, 1));
         effects(effectsCrud(g_)).getContentEffectTeam().getMultDamage().getCrud().getValue().setupValue(new Rate(1));
         tryClick(effects(effectsCrud(g_)).getContentEffectTeam().getMultDamage().getCrud().getValidAddEdit());
         tryClick(effects(effectsCrud(g_)).getContentEffectTeam().getMultDamage().getCrud().getAdd());
-        effects(effectsCrud(g_)).getContentEffectTeam().getMultDamage().getCrud().getKey().setupValue(new CategoryMult(C_2,(short) 2));
+        effects(effectsCrud(g_)).getContentEffectTeam().getMultDamage().getCrud().getKey().setupValue(new CategoryMult(C_2, 2));
         effects(effectsCrud(g_)).getContentEffectTeam().getMultDamage().getCrud().getValue().setupValue(new Rate(2));
         tryClick(effects(effectsCrud(g_)).getContentEffectTeam().getMultDamage().getCrud().getValidAddEdit());
         tryClick(effects(effectsCrud(g_)).getContentEffectTeam().getMultDamage().getCrud().getAllButtons().get(0));
@@ -1387,11 +1387,11 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         tryClick(effectsCrud(g_).getAdd());
         ConverterCommonMapUtil.trigger(effects(effectsCrud(g_)).getEffectKind(),MessagesEditorSelect.EFF_TEAM_WHILE_SENDING_FOE);
         tryClick(effects(effectsCrud(g_)).getContentEffectTeamWhileSendFoe().getStatusByNbUses().getCrud().getAdd());
-        effects(effectsCrud(g_)).getContentEffectTeamWhileSendFoe().getStatusByNbUses().getCrud().getKey().setupValue((short) 1);
+        effects(effectsCrud(g_)).getContentEffectTeamWhileSendFoe().getStatusByNbUses().getCrud().getKey().setupValue( 1);
         effects(effectsCrud(g_)).getContentEffectTeamWhileSendFoe().getStatusByNbUses().getCrud().getValue().setupValue(S_1);
         tryClick(effects(effectsCrud(g_)).getContentEffectTeamWhileSendFoe().getStatusByNbUses().getCrud().getValidAddEdit());
         tryClick(effects(effectsCrud(g_)).getContentEffectTeamWhileSendFoe().getStatusByNbUses().getCrud().getAdd());
-        effects(effectsCrud(g_)).getContentEffectTeamWhileSendFoe().getStatusByNbUses().getCrud().getKey().setupValue((short) 2);
+        effects(effectsCrud(g_)).getContentEffectTeamWhileSendFoe().getStatusByNbUses().getCrud().getKey().setupValue( 2);
         effects(effectsCrud(g_)).getContentEffectTeamWhileSendFoe().getStatusByNbUses().getCrud().getValue().setupValue(S_2);
         tryClick(effects(effectsCrud(g_)).getContentEffectTeamWhileSendFoe().getStatusByNbUses().getCrud().getValidAddEdit());
         tryClick(effectsCrud(g_).getValidAddEdit());
@@ -2258,12 +2258,12 @@ public final class EditorMvFormTest extends InitEditorPkForm {
 
     private FacadeGame facadeAdd(MockProgramInfos _m) {
         FacadeGame f_ = facade(_m);
-        f_.getData().getTm().addEntry((short)1,M_1);
-        f_.getData().getTm().addEntry((short)2,M_2);
-        f_.getData().getTmPrice().addEntry((short)1,new LgInt(1));
-        f_.getData().getTmPrice().addEntry((short)2,new LgInt(2));
-        f_.getData().getHm().addEntry((short)1,M_1);
-        f_.getData().getHm().addEntry((short)2,M_2);
+        f_.getData().getTm().addEntry(1,M_1);
+        f_.getData().getTm().addEntry(2,M_2);
+        f_.getData().getTmPrice().addEntry(1,new LgInt(1));
+        f_.getData().getTmPrice().addEntry(2,new LgInt(2));
+        f_.getData().getHm().addEntry(1,M_1);
+        f_.getData().getHm().addEntry(2,M_2);
         f_.getData().completeQuickMembers(M_1, Instances.newDamagingMoveData());
         f_.getData().completeQuickMembers(M_2, Instances.newDamagingMoveData());
         return f_;

@@ -143,14 +143,14 @@ public abstract class InitDbValidApp extends EquallableApplicationsUtil {
         initBlockFirstRoad(data_);
         initFirstRoadAreas(data_);
 
-        data_.getMap().join((short) 0,(short) 2,newPoint(0,0),newPoint(5,0), Direction.LEFT);
+        data_.getMap().join(0, 2,newPoint(0,0),newPoint(5,0), Direction.LEFT);
 
         initMiniMap(data_);
         data_.completeVariables();
         initRandomLaws(data_);
         initExpPoints(data_);
-        data_.getTm().addEntry((short)2,ECLAIR);
-        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
+        data_.getTm().addEntry(2,ECLAIR);
+        data_.getTmPrice().addEntry(2,new LgInt("1"));
         data_.initTypesByTable();
         initTranslations(data_);
         data_.initFamilies();
@@ -163,7 +163,7 @@ public abstract class InitDbValidApp extends EquallableApplicationsUtil {
         pkm_.setAbility(PARATONNERRE);
         pkm_.setGender(Gender.NO_GENDER);
         pkm_.setItem(NULL_REF);
-        pkm_.setLevel((short) 7);
+        pkm_.setLevel(7);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 2, 1));
     }
@@ -177,13 +177,13 @@ public abstract class InitDbValidApp extends EquallableApplicationsUtil {
         pkData_.setEggGroups(new StringList(data_.getDefaultEggGroup()));
         pkData_.setTypes(new StringList(ELECTRICK));
         statBase(pkData_);
-        pkData_.getLevMoves().add(new LevelMove((short)1,ECLAIR));
+        pkData_.getLevMoves().add(new LevelMove(1,ECLAIR));
         pkData_.setExpRate(1);
         pkData_.setHeight(Rate.one());
         pkData_.setWeight(Rate.one());
-        pkData_.setCatchingRate((short) 1);
-        pkData_.setHappiness((short) 1);
-        pkData_.setHappinessHatch((short) 1);
+        pkData_.setCatchingRate(1);
+        pkData_.setHappiness(1);
+        pkData_.setHappinessHatch(1);
         pkData_.setAbilities(new StringList(PARATONNERRE));
         data_.completeMembers(PIKACHU,pkData_);
         data_.completeMembers(PARATONNERRE,Instances.newAbilityData());
@@ -214,7 +214,7 @@ public abstract class InitDbValidApp extends EquallableApplicationsUtil {
         sec_.setTypes(new StringList(ELECTRICK));
         sec_.setCategory("SPEC");
         sec_.setAccuracy("1");
-        sec_.setPp((short) 1);
+        sec_.setPp(1);
         return sec_;
     }
 
@@ -230,17 +230,17 @@ public abstract class InitDbValidApp extends EquallableApplicationsUtil {
         move_.setTypes(new StringList(ELECTRICK));
         move_.setCategory("SPEC");
         move_.setAccuracy("1");
-        move_.setPp((short) 1);
+        move_.setPp(1);
         return move_;
     }
 
     public static void statBase(PokemonData _pk) {
-        _pk.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)0));
-        _pk.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv((short)1,(short)0));
-        _pk.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)0));
-        _pk.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv((short)1,(short)0));
-        _pk.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv((short)1,(short)0));
-        _pk.getStatistics().addEntry(Statistic.HP,new StatBaseEv((short)1,(short)0));
+        _pk.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv(1,0));
+        _pk.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv(1,0));
+        _pk.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv(1,0));
+        _pk.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv(1,0));
+        _pk.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv(1,0));
+        _pk.getStatistics().addEntry(Statistic.HP,new StatBaseEv(1,0));
     }
 
     public static void initConstants(DataBase _data) {
@@ -414,7 +414,7 @@ public abstract class InitDbValidApp extends EquallableApplicationsUtil {
         monteCarloNumber_.addQuickEvent(new Rate("87/100"),new LgInt("3"));
         monteCarloNumber_.addQuickEvent(new Rate("1"),new LgInt("16"));
         monteCarloNumber_.addQuickEvent(new Rate("17/20"),new LgInt("1"));
-        _data.getLawsDamageRate().addEntry(DifficultyModelLaw.CROISSANT,new LawNumber(monteCarloNumber_,(short)4));
+        _data.getLawsDamageRate().addEntry(DifficultyModelLaw.CROISSANT,new LawNumber(monteCarloNumber_,4));
         monteCarloNumber_ = new MonteCarloNumber();
         monteCarloNumber_.addQuickEvent(new Rate("99/100"),new LgInt("1"));
         monteCarloNumber_.addQuickEvent(new Rate("9/10"),new LgInt("1"));
@@ -432,7 +432,7 @@ public abstract class InitDbValidApp extends EquallableApplicationsUtil {
         monteCarloNumber_.addQuickEvent(new Rate("17/20"),new LgInt("1"));
         monteCarloNumber_.addQuickEvent(new Rate("23/25"),new LgInt("1"));
         monteCarloNumber_.addQuickEvent(new Rate("87/100"),new LgInt("1"));
-        _data.getLawsDamageRate().addEntry(DifficultyModelLaw.UNIFORME,new LawNumber(monteCarloNumber_,(short)3));
+        _data.getLawsDamageRate().addEntry(DifficultyModelLaw.UNIFORME,new LawNumber(monteCarloNumber_,3));
         monteCarloNumber_ = new MonteCarloNumber();
         monteCarloNumber_.addQuickEvent(new Rate("24/25"),new LgInt("5"));
         monteCarloNumber_.addQuickEvent(new Rate("19/20"),new LgInt("6"));
@@ -450,13 +450,13 @@ public abstract class InitDbValidApp extends EquallableApplicationsUtil {
         monteCarloNumber_.addQuickEvent(new Rate("17/20"),new LgInt("16"));
         monteCarloNumber_.addQuickEvent(new Rate("49/50"),new LgInt("3"));
         monteCarloNumber_.addQuickEvent(new Rate("89/100"),new LgInt("12"));
-        _data.getLawsDamageRate().addEntry(DifficultyModelLaw.DECROISSANT,new LawNumber(monteCarloNumber_,(short)2));
+        _data.getLawsDamageRate().addEntry(DifficultyModelLaw.DECROISSANT,new LawNumber(monteCarloNumber_,2));
         monteCarloNumber_ = new MonteCarloNumber();
         monteCarloNumber_.addQuickEvent(new Rate("17/20"),new LgInt("1"));
-        _data.getLawsDamageRate().addEntry(DifficultyModelLaw.CONSTANT_MIN,new LawNumber(monteCarloNumber_,(short)1));
+        _data.getLawsDamageRate().addEntry(DifficultyModelLaw.CONSTANT_MIN,new LawNumber(monteCarloNumber_,1));
         monteCarloNumber_ = new MonteCarloNumber();
         monteCarloNumber_.addQuickEvent(new Rate("1"),new LgInt("1"));
-        _data.getLawsDamageRate().addEntry(DifficultyModelLaw.CONSTANT_MAX,new LawNumber(monteCarloNumber_,(short)5));
+        _data.getLawsDamageRate().addEntry(DifficultyModelLaw.CONSTANT_MAX,new LawNumber(monteCarloNumber_,5));
     }
 
     public static void initMiniMap(DataBase _data) {
@@ -544,16 +544,16 @@ public abstract class InitDbValidApp extends EquallableApplicationsUtil {
         gym_ = (Gym) city_.getBuildings().getVal(newPoint(5, 1));
         CustList<PkTrainer> team_ = new CustList<PkTrainer>();
         team_.add(toPkTrainer(new NameLevel(PIKACHU, 1), new StringList(ECLAIR)));
-        gymTrainer_ = nvGymTrainer((short) 200, (byte) 1, team_);
+        gymTrainer_ = nvGymTrainer(200, 1, team_);
         gym_.getIndoor().getGymTrainers().addEntry(newPoint(1, 7), gymTrainer_);
         CustList<PkTrainer> teamTwo_ = new CustList<PkTrainer>();
         teamTwo_.add(toPkTrainer(new NameLevel(PIKACHU, 1), new StringList(ECLAIR)));
-        gymTrainer_ = nvGymTrainer((short) 200, (byte) 1, teamTwo_);
+        gymTrainer_ = nvGymTrainer(200, 1, teamTwo_);
         gym_.getIndoor().getGymTrainers().addEntry(newPoint(7, 7), gymTrainer_);
         gym_.getIndoor().setGymLeaderCoords(newPoint(4, 1));
         CustList<PkTrainer> teamThree_ = new CustList<PkTrainer>();
         teamThree_.add(toPkTrainer(new NameLevel(PIKACHU, 1), new StringList(ECLAIR)));
-        gymLeader_ = nvGymLeader((short) 500, (byte) 1, teamThree_);
+        gymLeader_ = nvGymLeader(500, 1, teamThree_);
         gymLeader_.setName("__");
         gym_.getIndoor().setGymLeader(gymLeader_);
     }
@@ -567,13 +567,13 @@ public abstract class InitDbValidApp extends EquallableApplicationsUtil {
         Seller seller_;
         seller_ = new Seller();
         seller_.setItems(new StringList(POKE_BALL));
-        seller_.setTm(Shorts.newList());
+        seller_.setTm(Ints.newList());
         seller_.setSell(SellType.ITEM);
         seller_.setImageMiniFileName(GERANT);
         pk_.getIndoor().getGerants().addEntry(newPoint(8, 4), seller_);
         seller_ = new Seller();
         seller_.setItems(new StringList());
-        seller_.setTm(Shorts.newList());
+        seller_.setTm(Ints.newList());
         seller_.setSell(SellType.MOVE);
         seller_.setImageMiniFileName(GERANT);
         pk_.getIndoor().getGerants().addEntry(newPoint(8, 6), seller_);
@@ -640,11 +640,11 @@ public abstract class InitDbValidApp extends EquallableApplicationsUtil {
         AreaApparition area_;
         WildPk wild_;
         area_ = new AreaApparition();
-        area_.setAvgNbSteps((short) 1);
-        area_.setMultFight((byte) 1);
+        area_.setAvgNbSteps(1);
+        area_.setMultFight(1);
         wild_ = new WildPk();
         wild_.setName(PIKACHU);
-        wild_.setLevel((short) 1);
+        wild_.setLevel(1);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.NO_GENDER);
         area_.setWildPokemon(new CustList<WildPk>());
@@ -656,21 +656,21 @@ public abstract class InitDbValidApp extends EquallableApplicationsUtil {
     private static TrainerLeague trainerLeagueOne() {
         CustList<PkTrainer> team_ = new CustList<PkTrainer>();
         team_.add(toPkTrainer(new NameLevel(PIKACHU, 35), new StringList(ECLAIR)));
-        return nvTrainerLeague((short) 2000, (byte) 1, team_);
+        return nvTrainerLeague(2000, 1, team_);
     }
-    private static GymLeader nvGymLeader(short _reward, byte _mult, CustList<PkTrainer> _team) {
+    private static GymLeader nvGymLeader(int _reward, int _mult, CustList<PkTrainer> _team) {
         GymLeader gymLeader_ = new GymLeader();
         gymLeader_.setTeam(_team);
         gymLeader_.setReward(_reward);
         gymLeader_.setMultiplicityFight(_mult);
         gymLeader_.setName(NULL_REF);
-        gymLeader_.setTm((short) 2);
+        gymLeader_.setTm(2);
         gymLeader_.setImageMiniFileName(TRAINER);
         gymLeader_.setImageMaxiFileName(TRAINER);
         return gymLeader_;
     }
 
-    private static GymTrainer nvGymTrainer(short _reward, byte _mult, CustList<PkTrainer> _team) {
+    private static GymTrainer nvGymTrainer(int _reward, int _mult, CustList<PkTrainer> _team) {
         GymTrainer gymTrainer_ = new GymTrainer();
         gymTrainer_.setTeam(_team);
         gymTrainer_.setReward(_reward);
@@ -680,7 +680,7 @@ public abstract class InitDbValidApp extends EquallableApplicationsUtil {
         return gymTrainer_;
     }
 
-    private static TrainerLeague nvTrainerLeague(short _reward, byte _mult, CustList<PkTrainer> _team) {
+    private static TrainerLeague nvTrainerLeague(int _reward, int _mult, CustList<PkTrainer> _team) {
         TrainerLeague trainerLeague_ = new TrainerLeague();
         trainerLeague_.setTeam(_team);
         trainerLeague_.setReward(_reward);
@@ -691,7 +691,7 @@ public abstract class InitDbValidApp extends EquallableApplicationsUtil {
         return trainerLeague_;
     }
 
-    private static DualFight nvDualFight(short _reward, CustList<PkTrainer> _teamAl, CustList<PkTrainer> _team) {
+    private static DualFight nvDualFight(int _reward, CustList<PkTrainer> _teamAl, CustList<PkTrainer> _team) {
         DualFight dual_ = new DualFight();
         Ally ally_ = new Ally();
         ally_.setTeam(_teamAl);
@@ -707,7 +707,7 @@ public abstract class InitDbValidApp extends EquallableApplicationsUtil {
         return dual_;
     }
 
-    private static PokemonTeam nvTeam(short _reward, CustList<PkTrainer> _team) {
+    private static PokemonTeam nvTeam(int _reward, CustList<PkTrainer> _team) {
         PokemonTeam teamReward_ = new PokemonTeam();
         teamReward_.setTeam(_team);
         teamReward_.setReward(_reward);
@@ -718,7 +718,7 @@ public abstract class InitDbValidApp extends EquallableApplicationsUtil {
             CustList<PokemonTeam> _teams, int _mult) {
         TrainerMultiFights trainer_ = new TrainerMultiFights();
         trainer_.setTeamsRewards(_teams);
-        trainer_.setMultiplicityFight((byte) _mult);
+        trainer_.setMultiplicityFight(_mult);
         trainer_.setImageMiniFileName(TRAINER);
         trainer_.setImageMaxiFileName(TRAINER);
         return trainer_;
@@ -731,7 +731,7 @@ public abstract class InitDbValidApp extends EquallableApplicationsUtil {
         return gerant_;
     }
 
-    private static DealerItem newDealerObject(StringList _obj, Shorts _tm) {
+    private static DealerItem newDealerObject(StringList _obj, Ints _tm) {
         DealerItem dealer_ = new DealerItem();
         dealer_.setItems(new StringList(_obj));
         dealer_.setTechnicalMoves(_tm);

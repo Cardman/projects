@@ -323,10 +323,10 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
         facade_.getData().completeMembers(M_POK_03,Instances.newDamagingMoveData());
         facade_.getData().completeMembers(I_BALL,Instances.newBall());
         facade_.getData().completeMembers(A_ABILITY,Instances.newAbilityData());
-        facade_.getData().getHm().addEntry((short)1,M_POK_00);
-        facade_.getData().getTm().addEntry((short)2,M_POK_02);
-        facade_.getData().getTm().addEntry((short)3,M_POK_03);
-        facade_.getData().getTmPrice().addEntry((short)2,LgInt.one());
+        facade_.getData().getHm().addEntry(1,M_POK_00);
+        facade_.getData().getTm().addEntry(2,M_POK_02);
+        facade_.getData().getTm().addEntry(3,M_POK_03);
+        facade_.getData().getTmPrice().addEntry(2,LgInt.one());
         facade_.getData().getTypes().add(T_TYPE1);
         trsCore(facade_);
         facade_.getData().setMap(dm(_it));
@@ -408,7 +408,7 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
     protected static PokemonData pk(String _one, String _egg) {
         PokemonData pk_ = Instances.newPokemonData();
         pk_.getEggGroups().add(_egg);
-        pk_.getLevMoves().add(new LevelMove((short) 1,_one));
+        pk_.getLevMoves().add(new LevelMove( 1,_one));
         return pk_;
     }
     protected static DataMap dm(String _it) {
@@ -442,7 +442,7 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
     protected static WildPk wp(String _it) {
         WildPk pk_ = Instances.newWildPk();
         pk_.setName(P_POK_00);
-        pk_.setLevel((short) 4);
+        pk_.setLevel( 4);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(A_ABILITY);
         pk_.setItem(_it);

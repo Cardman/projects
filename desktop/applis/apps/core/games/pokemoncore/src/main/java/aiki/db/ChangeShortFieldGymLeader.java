@@ -10,12 +10,12 @@ public final class ChangeShortFieldGymLeader implements ChangeShortField {
     }
 
     @Override
-    public short value() {
+    public int value() {
         return gymLeader.getTm();
     }
 
     @Override
-    public void value(short _v) {
+    public void value(int _v) {
         gymLeader.setTm(_v);
     }
 }

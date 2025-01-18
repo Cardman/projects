@@ -29,10 +29,10 @@ public final class FacadeGameFightKoFourTest extends InitializationDataBase {
         pk_.setItem(MULTI_EXP);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(ABSORB_EAU);
-        pk_.setLevel((short) 100);
+        pk_.setLevel( 100);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
         pkPl_.learnMove(CHARGE, HATE, data_);
         game_.initTrainerFight(data_);
@@ -46,9 +46,9 @@ public final class FacadeGameFightKoFourTest extends InitializationDataBase {
     @Test
     public void act1Test() {
         FacadeGame facadeGame_ = initTests();
-        facadeGame_.chooseFrontFighter((byte) 0);
+        facadeGame_.chooseFrontFighter( 0);
         facadeGame_.chooseMove(CHARGE);
-        facadeGame_.setFirstChosenMovePlayerTarget((byte) 1);
+        facadeGame_.setFirstChosenMovePlayerTarget( 1);
         AbstractAction action_;
         action_ = facadeGame_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
         assertEq(CHARGE, ((ActionMove)action_).getFirstChosenMove());

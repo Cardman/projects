@@ -23,8 +23,8 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
     private GeneComponentModelLsStrSub<String,StringList> types;
     private GeneComponentModelLsStrSub<String,StringList> abilities;
     private GeneComponentModelLsStrSub<String,StringList> moveTutors;
-    private GeneComponentModelLsStrSub<Short,Shorts> technicalMoves;
-    private GeneComponentModelLsStrSub<Short,Shorts> hiddenMoves;
+    private GeneComponentModelLsStrSub<Integer,Ints> technicalMoves;
+    private GeneComponentModelLsStrSub<Integer,Ints> hiddenMoves;
     private final IdMap<Statistic, FormStatBaseEv> statistics = new IdMap<Statistic, FormStatBaseEv>();
     private GeneComponentModelElt<GenderRepartition> genderRep;
     private GeneComponentModelEltEnumSub<String> baseEvo;
@@ -117,7 +117,7 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         edited.setMoveTutors(moveTutors.tryRet());
         edited.setStatistics(new IdMap<Statistic, StatBaseEv>());
         for (EntryCust<Statistic,FormStatBaseEv> e: statistics.entryList()) {
-            edited.getStatistics().addEntry(e.getKey(),new StatBaseEv((short)e.getValue().getBase().getValue(),(short)e.getValue().getEv().getValue()));
+            edited.getStatistics().addEntry(e.getKey(),new StatBaseEv(e.getValue().getBase().getValue(),e.getValue().getEv().getValue()));
         }
         edited.setGenderRep(genderRep.tryRet());
         edited.setBaseEvo(baseEvo.tryRet());
@@ -126,11 +126,11 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         edited.setEvolutions(ConverterCommonMapUtil.buildStringMapEvolution(evolutions.getList()));
         edited.setTechnicalMoves(technicalMoves.tryRet());
         edited.setHiddenMoves(hiddenMoves.tryRet());
-        edited.setCatchingRate((short) catchingRate.valueInt());
+        edited.setCatchingRate(catchingRate.valueInt());
         edited.setExpRate(expRate.valueLong());
         edited.setHatchingSteps(hatchingSteps.valueLgInt());
-        edited.setHappiness((short) happiness.valueInt());
-        edited.setHappinessHatch((short) happinessHatch.valueInt());
+        edited.setHappiness(happiness.valueInt());
+        edited.setHappinessHatch(happinessHatch.valueInt());
         edited.setEggGroups(new StringList(eggGroups.getList()));
         return new EditedCrudPair<String, PokemonData>(getGeneComponentModelSelectKey().tryRet(),edited);
     }
@@ -211,11 +211,11 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         return moveTutors;
     }
 
-    public GeneComponentModelLsStrSub<Short,Shorts> getTechnicalMoves() {
+    public GeneComponentModelLsStrSub<Integer,Ints> getTechnicalMoves() {
         return technicalMoves;
     }
 
-    public GeneComponentModelLsStrSub<Short,Shorts> getHiddenMoves() {
+    public GeneComponentModelLsStrSub<Integer,Ints> getHiddenMoves() {
         return hiddenMoves;
     }
 

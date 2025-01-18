@@ -4,7 +4,7 @@ public final class FighterNamePkNameMv {
     private String namePk;
     private String nameMvTr;
     private String nameMv;
-    private byte number;
+    private int number;
 
     public String getNamePk() {
         return namePk;
@@ -30,11 +30,11 @@ public final class FighterNamePkNameMv {
         this.nameMv = _n;
     }
 
-    public byte getNumber() {
+    public int getNumber() {
         return number;
     }
 
-    public void setNumber(byte _n) {
+    public void setNumber(int _n) {
         this.number = _n;
     }
 }

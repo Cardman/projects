@@ -53,10 +53,10 @@ public class FightEffectsTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(COPIE, (short) 10);
-        moves_.put(SEISME, (short) 10);
+        pokemon_.setLevel( 3);
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(COPIE,  10);
+        moves_.put(SEISME,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
         lasPk_.initIv(_diff);
         lasPk_.initPvRestants(_data);
@@ -77,7 +77,7 @@ public class FightEffectsTest extends InitializationDataBase {
         allyPokemon_.setItem(PLAQUE_DRACO);
         allyPokemon_.setAbility(MULTITYPE);
         allyPokemon_.setGender(Gender.NO_GENDER);
-        allyPokemon_.setLevel((short) 3);
+        allyPokemon_.setLevel( 3);
         allyPokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         allyTeam_.add(allyPokemon_);
         allyPokemon_ = new PkTrainer();
@@ -85,7 +85,7 @@ public class FightEffectsTest extends InitializationDataBase {
         allyPokemon_.setItem(MAGNET);
         allyPokemon_.setAbility(MULTITYPE);
         allyPokemon_.setGender(Gender.NO_GENDER);
-        allyPokemon_.setLevel((short) 4);
+        allyPokemon_.setLevel( 4);
         allyPokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         allyTeam_.add(allyPokemon_);
         ally_.setTeam(allyTeam_);
@@ -96,7 +96,7 @@ public class FightEffectsTest extends InitializationDataBase {
         foePokemon_.setItem(PLAQUE_DRACO);
         foePokemon_.setAbility(MULTITYPE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
+        foePokemon_.setLevel( 3);
         foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
@@ -104,7 +104,7 @@ public class FightEffectsTest extends InitializationDataBase {
         foePokemon_.setItem(MAGNET);
         foePokemon_.setAbility(PRESSION);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 4);
+        foePokemon_.setLevel( 4);
         foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
@@ -112,12 +112,12 @@ public class FightEffectsTest extends InitializationDataBase {
         foePokemon_.setItem(MAGNET);
         foePokemon_.setAbility(SECHERESSE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 4);
+        foePokemon_.setLevel( 4);
         foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         foeTeam_.add(foePokemon_);
         TempTrainer trainer_ = new TempTrainer();
         trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
+        trainer_.setReward( 200);
         dual_.setFoeTrainer(trainer_);
         Fight fight_ = FightFacade.newFight();
         FightInitialization.initFight(fight_, player_, _diff, dual_, _data);
@@ -161,7 +161,7 @@ public class FightEffectsTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = effectUnprotectFromMoveTypes(data_);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
-        assertEq(1, FightEffects.deltaBoostStatistic(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.ATTACK, (byte) 1, data_));
+        assertEq(1, FightEffects.deltaBoostStatistic(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  1, data_));
     }
 
     @Test
@@ -169,7 +169,7 @@ public class FightEffectsTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = effectUnprotectFromMoveTypes(data_);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
-        assertEq(-1, FightEffects.deltaBoostStatistic(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.ATTACK, (byte) -1, data_));
+        assertEq(-1, FightEffects.deltaBoostStatistic(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  -1, data_));
     }
 
     @Test
@@ -177,7 +177,7 @@ public class FightEffectsTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = effectUnprotectFromMoveTypes(data_);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
-        assertEq(6, FightEffects.deltaBoostStatistic(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.ATTACK, (byte) 7, data_));
+        assertEq(6, FightEffects.deltaBoostStatistic(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  7, data_));
     }
 
     @Test
@@ -185,7 +185,7 @@ public class FightEffectsTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = effectUnprotectFromMoveTypes(data_);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
-        assertEq(-6, FightEffects.deltaBoostStatistic(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.ATTACK, (byte) -7, data_));
+        assertEq(-6, FightEffects.deltaBoostStatistic(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  -7, data_));
     }
 
     @Test
@@ -193,7 +193,7 @@ public class FightEffectsTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = effectUnprotectFromMoveTypes(data_);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
-        assertEq(0, FightEffects.deltaBoostStatistic(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.ATTACK, (byte) 0, data_));
+        assertEq(0, FightEffects.deltaBoostStatistic(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  0, data_));
     }
 
     @Test
@@ -201,7 +201,7 @@ public class FightEffectsTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = effectUnprotectFromMoveTypes(data_);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(CRAN);
-        assertEq(-6, FightEffects.deltaBoostStatistic(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.ATTACK, (byte) -7, data_));
+        assertEq(-6, FightEffects.deltaBoostStatistic(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  -7, data_));
     }
 
     @Test
@@ -209,7 +209,7 @@ public class FightEffectsTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = effectUnprotectFromMoveTypes(data_);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(SIMPLE);
-        assertEq(2, FightEffects.deltaBoostStatistic(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.ATTACK, (byte) 1, data_));
+        assertEq(2, FightEffects.deltaBoostStatistic(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  1, data_));
     }
 
     @Test
@@ -217,7 +217,7 @@ public class FightEffectsTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = effectUnprotectFromMoveTypes(data_);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(SIMPLE);
-        assertEq(-2, FightEffects.deltaBoostStatistic(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.ATTACK, (byte) -1, data_));
+        assertEq(-2, FightEffects.deltaBoostStatistic(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  -1, data_));
     }
 
     @Test
@@ -225,17 +225,17 @@ public class FightEffectsTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = effectUnprotectFromMoveTypes(data_);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(CONTRAIRE);
-        assertEq(2, FightEffects.deltaBoostStatistic(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.ATTACK, (byte) 1, data_));
-        assertEq(2, FightEffects.deltaBoostStatistic(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.ATTACK, (byte) -1, data_));
+        assertEq(2, FightEffects.deltaBoostStatistic(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  1, data_));
+        assertEq(2, FightEffects.deltaBoostStatistic(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  -1, data_));
     }
 
     @Test
     public void deltaBoostStatisticMap1Test() {
         DataBase data_ = initDb();
         Fight fight_ = effectUnprotectFromMoveTypes(data_);
-        IdMap<Statistic,Byte> varsBase_ = new IdMap<Statistic,Byte>();
-        varsBase_.put(Statistic.ATTACK, (byte) 2);
-        IdMap<Statistic,Byte> vars_;
+        IdMap<Statistic,Integer> varsBase_ = new IdMap<Statistic,Integer>();
+        varsBase_.put(Statistic.ATTACK,  2);
+        IdMap<Statistic,Integer> vars_;
         vars_ = FightEffects.deltaBoostStatisticMap(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), varsBase_, data_);
         assertEq(1, vars_.size());
         assertEq(2, vars_.getVal(Statistic.ATTACK));
@@ -245,9 +245,9 @@ public class FightEffectsTest extends InitializationDataBase {
     public void deltaBoostStatisticMap2Test() {
         DataBase data_ = initDb();
         Fight fight_ = effectUnprotectFromMoveTypes(data_);
-        IdMap<Statistic,Byte> varsBase_ = new IdMap<Statistic,Byte>();
-        varsBase_.put(Statistic.ATTACK, (byte) -2);
-        IdMap<Statistic,Byte> vars_;
+        IdMap<Statistic,Integer> varsBase_ = new IdMap<Statistic,Integer>();
+        varsBase_.put(Statistic.ATTACK,  -2);
+        IdMap<Statistic,Integer> vars_;
         vars_ = FightEffects.deltaBoostStatisticMap(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), varsBase_, data_);
         assertEq(1, vars_.size());
         assertEq(-2, vars_.getVal(Statistic.ATTACK));
@@ -258,9 +258,9 @@ public class FightEffectsTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = effectUnprotectFromMoveTypes(data_);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
-        IdMap<Statistic,Byte> varsBase_ = new IdMap<Statistic,Byte>();
-        varsBase_.put(Statistic.ATTACK, (byte) -2);
-        IdMap<Statistic,Byte> vars_;
+        IdMap<Statistic,Integer> varsBase_ = new IdMap<Statistic,Integer>();
+        varsBase_.put(Statistic.ATTACK,  -2);
+        IdMap<Statistic,Integer> vars_;
         vars_ = FightEffects.deltaBoostStatisticMap(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), varsBase_, data_);
         assertEq(1, vars_.size());
         assertEq(-2, vars_.getVal(Statistic.ATTACK));
@@ -271,9 +271,9 @@ public class FightEffectsTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = effectUnprotectFromMoveTypes(data_);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(ACHARNE);
-        IdMap<Statistic,Byte> varsBase_ = new IdMap<Statistic,Byte>();
-        varsBase_.put(Statistic.ATTACK, (byte) 2);
-        IdMap<Statistic,Byte> vars_;
+        IdMap<Statistic,Integer> varsBase_ = new IdMap<Statistic,Integer>();
+        varsBase_.put(Statistic.ATTACK,  2);
+        IdMap<Statistic,Integer> vars_;
         vars_ = FightEffects.deltaBoostStatisticMap(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), varsBase_, data_);
         assertEq(1, vars_.size());
         assertEq(2, vars_.getVal(Statistic.ATTACK));
@@ -284,9 +284,9 @@ public class FightEffectsTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = effectUnprotectFromMoveTypes(data_);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(ACHARNE);
-        IdMap<Statistic,Byte> varsBase_ = new IdMap<Statistic,Byte>();
-        varsBase_.put(Statistic.ATTACK, (byte) -1);
-        IdMap<Statistic,Byte> vars_;
+        IdMap<Statistic,Integer> varsBase_ = new IdMap<Statistic,Integer>();
+        varsBase_.put(Statistic.ATTACK,  -1);
+        IdMap<Statistic,Integer> vars_;
         vars_ = FightEffects.deltaBoostStatisticMap(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), varsBase_, data_);
         assertEq(1, vars_.size());
         assertEq(2, vars_.getVal(Statistic.ATTACK));
@@ -297,9 +297,9 @@ public class FightEffectsTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = effectUnprotectFromMoveTypes(data_);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(ACHARNE);
-        IdMap<Statistic,Byte> varsBase_ = new IdMap<Statistic,Byte>();
-        varsBase_.put(Statistic.SPECIAL_ATTACK, (byte) -1);
-        IdMap<Statistic,Byte> vars_;
+        IdMap<Statistic,Integer> varsBase_ = new IdMap<Statistic,Integer>();
+        varsBase_.put(Statistic.SPECIAL_ATTACK,  -1);
+        IdMap<Statistic,Integer> vars_;
         vars_ = FightEffects.deltaBoostStatisticMap(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), varsBase_, data_);
         assertEq(2, vars_.size());
         assertEq(0, vars_.getVal(Statistic.SPECIAL_ATTACK));
@@ -311,10 +311,10 @@ public class FightEffectsTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = effectUnprotectFromMoveTypes(data_);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(ACHARNE);
-        IdMap<Statistic,Byte> varsBase_ = new IdMap<Statistic,Byte>();
-        varsBase_.put(Statistic.DEFENSE, (byte) -2);
-        varsBase_.put(Statistic.ATTACK, (byte) 1);
-        IdMap<Statistic,Byte> vars_;
+        IdMap<Statistic,Integer> varsBase_ = new IdMap<Statistic,Integer>();
+        varsBase_.put(Statistic.DEFENSE,  -2);
+        varsBase_.put(Statistic.ATTACK,  1);
+        IdMap<Statistic,Integer> vars_;
         vars_ = FightEffects.deltaBoostStatisticMap(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), varsBase_, data_);
         assertEq(2, vars_.size());
         assertEq(0, vars_.getVal(Statistic.DEFENSE));
@@ -326,10 +326,10 @@ public class FightEffectsTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = effectUnprotectFromMoveTypes(data_);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(ACHARNE);
-        IdMap<Statistic,Byte> varsBase_ = new IdMap<Statistic,Byte>();
-        varsBase_.put(Statistic.DEFENSE, (byte) -2);
-        varsBase_.put(Statistic.SPECIAL_ATTACK, (byte) 1);
-        IdMap<Statistic,Byte> vars_;
+        IdMap<Statistic,Integer> varsBase_ = new IdMap<Statistic,Integer>();
+        varsBase_.put(Statistic.DEFENSE,  -2);
+        varsBase_.put(Statistic.SPECIAL_ATTACK,  1);
+        IdMap<Statistic,Integer> vars_;
         vars_ = FightEffects.deltaBoostStatisticMap(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), varsBase_, data_);
         assertEq(3, vars_.size());
         assertEq(0, vars_.getVal(Statistic.DEFENSE));
@@ -342,8 +342,8 @@ public class FightEffectsTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = effectUnprotectFromMoveTypes(data_);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(ACHARNE);
-        IdMap<Statistic,Byte> varsBase_ = new IdMap<Statistic,Byte>();
-        IdMap<Statistic,Byte> vars_;
+        IdMap<Statistic,Integer> varsBase_ = new IdMap<Statistic,Integer>();
+        IdMap<Statistic,Integer> vars_;
         vars_ = FightEffects.deltaBoostStatisticMap(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), varsBase_, data_);
         assertEq(0, vars_.size());
     }
@@ -686,12 +686,12 @@ public class FightEffectsTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(SEISME, (short) 10);
-        moves_.put(COPIE, (short) 10);
-        moves_.put(GLAS_DE_SOIN, (short) 10);
-        moves_.put(INTERVERSION, (short) 10);
+        pokemon_.setLevel( 3);
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(SEISME,  10);
+        moves_.put(COPIE,  10);
+        moves_.put(GLAS_DE_SOIN,  10);
+        moves_.put(INTERVERSION,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(_data);
@@ -710,7 +710,7 @@ public class FightEffectsTest extends InitializationDataBase {
         foePokemon_.setItem(PLAQUE_DRACO);
         foePokemon_.setAbility(MULTITYPE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
+        foePokemon_.setLevel( 3);
         foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
@@ -718,7 +718,7 @@ public class FightEffectsTest extends InitializationDataBase {
         foePokemon_.setItem(MAGNET);
         foePokemon_.setAbility(SECHERESSE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 4);
+        foePokemon_.setLevel( 4);
         foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
@@ -726,13 +726,13 @@ public class FightEffectsTest extends InitializationDataBase {
         foePokemon_.setItem(MAGNET);
         foePokemon_.setAbility(SECHERESSE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 4);
+        foePokemon_.setLevel( 4);
         foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         foeTeam_.add(foePokemon_);
         GymLeader trainer_ = new GymLeader();
         trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
-        trainer_.setMultiplicityFight((byte) 3);
+        trainer_.setReward( 200);
+        trainer_.setMultiplicityFight( 3);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, _data);
         fight_.setEnvType(EnvironmentType.ROAD);
@@ -1644,8 +1644,8 @@ public class FightEffectsTest extends InitializationDataBase {
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         FightRound.initRound(fight_);
         Fighter fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
-        fighter_.getMoves().put(ECLAIR, new UsesOfMove((short)10));
-        fighter_.getCurrentMoves().put(ECLAIR, new UsesOfMove((short)10));
+        fighter_.getMoves().put(ECLAIR, new UsesOfMove(10));
+        fighter_.getCurrentMoves().put(ECLAIR, new UsesOfMove(10));
         fighter_.affecterTypes(FEU);
         MoveData fMove_ = data_.getMove(ADAPTATION);
         EffectSwitchTypes effect_ = (EffectSwitchTypes) fMove_.getEffet(IndexConstants.FIRST_INDEX);
@@ -1690,9 +1690,9 @@ public class FightEffectsTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(SEISME, (short) 10);
+        pokemon_.setLevel( 3);
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(SEISME,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(_data);
@@ -1711,7 +1711,7 @@ public class FightEffectsTest extends InitializationDataBase {
         foePokemon_.setItem(PLAQUE_DRACO);
         foePokemon_.setAbility(MULTITYPE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
+        foePokemon_.setLevel( 3);
         foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
@@ -1719,7 +1719,7 @@ public class FightEffectsTest extends InitializationDataBase {
         foePokemon_.setItem(MAGNET);
         foePokemon_.setAbility(SECHERESSE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 4);
+        foePokemon_.setLevel( 4);
         foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
@@ -1727,13 +1727,13 @@ public class FightEffectsTest extends InitializationDataBase {
         foePokemon_.setItem(MAGNET);
         foePokemon_.setAbility(SECHERESSE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 4);
+        foePokemon_.setLevel( 4);
         foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         foeTeam_.add(foePokemon_);
         GymLeader trainer_ = new GymLeader();
         trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
-        trainer_.setMultiplicityFight((byte) 3);
+        trainer_.setReward( 200);
+        trainer_.setMultiplicityFight( 3);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, _data);
         fight_.setEnvType(EnvironmentType.ROAD);
@@ -1923,8 +1923,8 @@ public class FightEffectsTest extends InitializationDataBase {
     public void effectCopyMove6Test() {
         DataBase data_ = initDb();
         Fight fight_ = effectCopyMove(data_);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getMoves().put(GRIBOUILLE, new UsesOfMove((byte)10));
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getCurrentMoves().put(GRIBOUILLE, new UsesOfMove((byte)10));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getMoves().put(GRIBOUILLE, new UsesOfMove(10));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getCurrentMoves().put(GRIBOUILLE, new UsesOfMove(10));
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
@@ -1946,8 +1946,8 @@ public class FightEffectsTest extends InitializationDataBase {
     public void effectCopyMove7Test() {
         DataBase data_ = initDb();
         Fight fight_ = effectCopyMove(data_);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getMoves().put(GRIBOUILLE, new UsesOfMove((byte)10));
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getCurrentMoves().put(GRIBOUILLE, new UsesOfMove((byte)10));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getMoves().put(GRIBOUILLE, new UsesOfMove(10));
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getCurrentMoves().put(GRIBOUILLE, new UsesOfMove(10));
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setChanged(true);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -2542,10 +2542,10 @@ public class FightEffectsTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(COPIE, (short) 10);
-        moves_.put(SEISME, (short) 10);
+        pokemon_.setLevel( 3);
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(COPIE,  10);
+        moves_.put(SEISME,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
         lasPk_.initIv(_diff);
         lasPk_.initPvRestants(_data);
@@ -2564,7 +2564,7 @@ public class FightEffectsTest extends InitializationDataBase {
         foePokemon_.setItem(PLAQUE_DRACO);
         foePokemon_.setAbility(MULTITYPE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
+        foePokemon_.setLevel( 3);
         foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
@@ -2572,7 +2572,7 @@ public class FightEffectsTest extends InitializationDataBase {
         foePokemon_.setItem(MAGNET);
         foePokemon_.setAbility(SECHERESSE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 4);
+        foePokemon_.setLevel( 4);
         foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
@@ -2580,13 +2580,13 @@ public class FightEffectsTest extends InitializationDataBase {
         foePokemon_.setItem(MAGNET);
         foePokemon_.setAbility(SECHERESSE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 4);
+        foePokemon_.setLevel( 4);
         foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         foeTeam_.add(foePokemon_);
         GymLeader trainer_ = new GymLeader();
         trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
-        trainer_.setMultiplicityFight((byte) 3);
+        trainer_.setReward( 200);
+        trainer_.setMultiplicityFight( 3);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, _diff, trainer_, _data);
         fight_.setEnvType(EnvironmentType.ROAD);
@@ -2906,9 +2906,9 @@ public class FightEffectsTest extends InitializationDataBase {
         assertEq(0, fighter_.getGroundPlace());
         assertEq(0, fighter_.getGroundPlaceSubst());
         assertEq(3, fight_.getFirstPositPlayerFighters().size());
-        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
-        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
-        assertEq(2, fight_.getFirstPositPlayerFighters().getVal((byte) 2));
+        assertEq(1, fight_.getFirstPositPlayerFighters().getVal( 0));
+        assertEq(0, fight_.getFirstPositPlayerFighters().getVal( 1));
+        assertEq(2, fight_.getFirstPositPlayerFighters().getVal( 2));
         assertEq(1, fight_.getEffects().size());
         AnimationEffect animSwitch_ = (AnimationEffect) fight_.getEffects().last();
         assertSame(EffectKind.CHANGED_PLACE,animSwitch_.getEffectKind());
@@ -2937,11 +2937,11 @@ public class FightEffectsTest extends InitializationDataBase {
         assertEq(0, fighter_.getGroundPlace());
         assertEq(0, fighter_.getGroundPlaceSubst());
         assertEq(5, fight_.getFirstPositPlayerFighters().size());
-        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 2));
-        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 3));
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 4));
+        assertEq(1, fight_.getFirstPositPlayerFighters().getVal( 0));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal( 1));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal( 2));
+        assertEq(0, fight_.getFirstPositPlayerFighters().getVal( 3));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal( 4));
         assertEq(1, fight_.getEffects().size());
         AnimationEffect animSwitch_ = (AnimationEffect) fight_.getEffects().last();
         assertSame(EffectKind.CHANGED_PLACE,animSwitch_.getEffectKind());
@@ -2970,11 +2970,11 @@ public class FightEffectsTest extends InitializationDataBase {
         assertEq(1, fighter_.getGroundPlace());
         assertEq(1, fighter_.getGroundPlaceSubst());
         assertEq(5, fight_.getFirstPositPlayerFighters().size());
-        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 2));
-        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 3));
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 4));
+        assertEq(1, fight_.getFirstPositPlayerFighters().getVal( 0));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal( 1));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal( 2));
+        assertEq(0, fight_.getFirstPositPlayerFighters().getVal( 3));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal( 4));
         assertEq(1, fight_.getEffects().size());
         AnimationEffect animSwitch_ = (AnimationEffect) fight_.getEffects().last();
         assertSame(EffectKind.CHANGED_PLACE,animSwitch_.getEffectKind());
@@ -3003,9 +3003,9 @@ public class FightEffectsTest extends InitializationDataBase {
         assertEq(0, fighter_.getGroundPlace());
         assertEq(0, fighter_.getGroundPlaceSubst());
         assertEq(3, fight_.getFirstPositFoeFighters().size());
-        assertEq(1, fight_.getFirstPositFoeFighters().getVal((byte) 0));
-        assertEq(0, fight_.getFirstPositFoeFighters().getVal((byte) 1));
-        assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 2));
+        assertEq(1, fight_.getFirstPositFoeFighters().getVal( 0));
+        assertEq(0, fight_.getFirstPositFoeFighters().getVal( 1));
+        assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal( 2));
         assertEq(1, fight_.getEffects().size());
         AnimationEffect animSwitch_ = (AnimationEffect) fight_.getEffects().last();
         assertSame(EffectKind.CHANGED_PLACE,animSwitch_.getEffectKind());
@@ -3088,11 +3088,11 @@ public class FightEffectsTest extends InitializationDataBase {
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
-        fighter_.variationBoostStatistique(Statistic.ATTACK, (byte) 3);
-        fighter_.variationBoostStatistique(Statistic.SPECIAL_ATTACK, (byte) 1);
-        fighter_.variationBoostStatistique(Statistic.SPEED, (byte) -1);
-        fighter_.variationBoostStatistique(Statistic.DEFENSE, (byte) -1);
-        fighter_.variationBoostStatistique(Statistic.SPECIAL_DEFENSE, (byte) -1);
+        fighter_.variationBoostStatistique(Statistic.ATTACK,  3);
+        fighter_.variationBoostStatistique(Statistic.SPECIAL_ATTACK,  1);
+        fighter_.variationBoostStatistique(Statistic.SPEED,  -1);
+        fighter_.variationBoostStatistique(Statistic.DEFENSE,  -1);
+        fighter_.variationBoostStatistique(Statistic.SPECIAL_DEFENSE,  -1);
         MoveData move_ = data_.getMove(DEGOMMAGE);
         EffectStatistic eff_ = (EffectStatistic) move_.getEffects().last();
         fight_.addEffect(thrower_, target_, eff_);
@@ -3130,14 +3130,14 @@ public class FightEffectsTest extends InitializationDataBase {
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
-        fighter_.variationBoostStatistique(Statistic.ATTACK, (byte) 1);
-        fighter_.variationBoostStatistique(Statistic.SPECIAL_ATTACK, (byte) 3);
+        fighter_.variationBoostStatistique(Statistic.ATTACK,  1);
+        fighter_.variationBoostStatistique(Statistic.SPECIAL_ATTACK,  3);
         fighter_ = fight_.getFighter(target_);
-        fighter_.variationBoostStatistique(Statistic.ATTACK, (byte) 3);
-        fighter_.variationBoostStatistique(Statistic.SPECIAL_ATTACK, (byte) 1);
-        fighter_.variationBoostStatistique(Statistic.SPEED, (byte) -1);
-        fighter_.variationBoostStatistique(Statistic.DEFENSE, (byte) -1);
-        fighter_.variationBoostStatistique(Statistic.SPECIAL_DEFENSE, (byte) -1);
+        fighter_.variationBoostStatistique(Statistic.ATTACK,  3);
+        fighter_.variationBoostStatistique(Statistic.SPECIAL_ATTACK,  1);
+        fighter_.variationBoostStatistique(Statistic.SPEED,  -1);
+        fighter_.variationBoostStatistique(Statistic.DEFENSE,  -1);
+        fighter_.variationBoostStatistique(Statistic.SPECIAL_DEFENSE,  -1);
         fight_.getUserTeam().activerEffetEquipe(BRUME);
         MoveData move_ = data_.getMove(BOOST);
         EffectStatistic eff_ = (EffectStatistic) move_.getEffects().last();
@@ -3182,11 +3182,11 @@ public class FightEffectsTest extends InitializationDataBase {
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
-        fighter_.variationBoostStatistique(Statistic.ATTACK, (byte) 3);
-        fighter_.variationBoostStatistique(Statistic.SPECIAL_ATTACK, (byte) 1);
-        fighter_.variationBoostStatistique(Statistic.SPEED, (byte) -1);
-        fighter_.variationBoostStatistique(Statistic.DEFENSE, (byte) -1);
-        fighter_.variationBoostStatistique(Statistic.SPECIAL_DEFENSE, (byte) -1);
+        fighter_.variationBoostStatistique(Statistic.ATTACK,  3);
+        fighter_.variationBoostStatistique(Statistic.SPECIAL_ATTACK,  1);
+        fighter_.variationBoostStatistique(Statistic.SPEED,  -1);
+        fighter_.variationBoostStatistique(Statistic.DEFENSE,  -1);
+        fighter_.variationBoostStatistique(Statistic.SPECIAL_DEFENSE,  -1);
         MoveData move_ = data_.getMove(BUEE_NOIRE);
         EffectStatistic eff_ = (EffectStatistic) move_.getEffects().last();
         fight_.addEffect(thrower_, target_, eff_);
@@ -3243,11 +3243,11 @@ public class FightEffectsTest extends InitializationDataBase {
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
-        fighter_.variationBoostStatistique(Statistic.ATTACK, (byte) 3);
-        fighter_.variationBoostStatistique(Statistic.SPECIAL_ATTACK, (byte) 1);
-        fighter_.variationBoostStatistique(Statistic.SPEED, (byte) -1);
-        fighter_.variationBoostStatistique(Statistic.DEFENSE, (byte) -1);
-        fighter_.variationBoostStatistique(Statistic.SPECIAL_DEFENSE, (byte) -1);
+        fighter_.variationBoostStatistique(Statistic.ATTACK,  3);
+        fighter_.variationBoostStatistique(Statistic.SPECIAL_ATTACK,  1);
+        fighter_.variationBoostStatistique(Statistic.SPEED,  -1);
+        fighter_.variationBoostStatistique(Statistic.DEFENSE,  -1);
+        fighter_.variationBoostStatistique(Statistic.SPECIAL_DEFENSE,  -1);
         MoveData move_ = data_.getMove(PERMUCOEUR);
         EffectStatistic eff_ = (EffectStatistic) move_.getEffects().last();
         fight_.addEffect(thrower_, target_, eff_);
@@ -3300,7 +3300,7 @@ public class FightEffectsTest extends InitializationDataBase {
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
-        fighter_.variationBoostStatistique(Statistic.ACCURACY, (byte) -6);
+        fighter_.variationBoostStatistique(Statistic.ACCURACY,  -6);
         MoveData move_ = data_.getMove(COUD_BOUE);
         EffectStatistic eff_ = (EffectStatistic) move_.getEffet(1+move_.indexOfPrimaryEffect());
         fight_.addEffect(thrower_, target_, eff_);
@@ -3331,13 +3331,13 @@ public class FightEffectsTest extends InitializationDataBase {
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
-        fighter_.variationBoostStatistique(Statistic.ATTACK, (byte) 6);
-        fighter_.variationBoostStatistique(Statistic.SPECIAL_ATTACK, (byte) 6);
-        fighter_.variationBoostStatistique(Statistic.SPEED, (byte) 4);
-        fighter_.variationBoostStatistique(Statistic.DEFENSE, (byte) 6);
-        fighter_.variationBoostStatistique(Statistic.SPECIAL_DEFENSE, (byte) 6);
-        fighter_.variationBoostStatistique(Statistic.ACCURACY, (byte) 6);
-        fighter_.variationBoostStatistique(Statistic.EVASINESS, (byte) 6);
+        fighter_.variationBoostStatistique(Statistic.ATTACK,  6);
+        fighter_.variationBoostStatistique(Statistic.SPECIAL_ATTACK,  6);
+        fighter_.variationBoostStatistique(Statistic.SPEED,  4);
+        fighter_.variationBoostStatistique(Statistic.DEFENSE,  6);
+        fighter_.variationBoostStatistique(Statistic.SPECIAL_DEFENSE,  6);
+        fighter_.variationBoostStatistique(Statistic.ACCURACY,  6);
+        fighter_.variationBoostStatistique(Statistic.EVASINESS,  6);
         MoveData move_ = data_.getMove(ACUPRESSION);
         EffectStatistic eff_ = (EffectStatistic) move_.getEffet(move_.indexOfPrimaryEffect());
         fight_.addEffect(thrower_, target_, eff_);
@@ -3380,13 +3380,13 @@ public class FightEffectsTest extends InitializationDataBase {
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
-        fighter_.variationBoostStatistique(Statistic.ATTACK, (byte) 6);
-        fighter_.variationBoostStatistique(Statistic.SPECIAL_ATTACK, (byte) 6);
-        fighter_.variationBoostStatistique(Statistic.SPEED, (byte) 4);
-        fighter_.variationBoostStatistique(Statistic.DEFENSE, (byte) 6);
-        fighter_.variationBoostStatistique(Statistic.SPECIAL_DEFENSE, (byte) 6);
-        fighter_.variationBoostStatistique(Statistic.ACCURACY, (byte) 6);
-        fighter_.variationBoostStatistique(Statistic.EVASINESS, (byte) 6);
+        fighter_.variationBoostStatistique(Statistic.ATTACK,  6);
+        fighter_.variationBoostStatistique(Statistic.SPECIAL_ATTACK,  6);
+        fighter_.variationBoostStatistique(Statistic.SPEED,  4);
+        fighter_.variationBoostStatistique(Statistic.DEFENSE,  6);
+        fighter_.variationBoostStatistique(Statistic.SPECIAL_DEFENSE,  6);
+        fighter_.variationBoostStatistique(Statistic.ACCURACY,  6);
+        fighter_.variationBoostStatistique(Statistic.EVASINESS,  6);
         MoveData move_ = data_.getMove(TROU_BIS);
         EffectStatistic eff_ = (EffectStatistic) move_.getEffet(move_.indexOfPrimaryEffect());
         fight_.addEffect(thrower_, target_, eff_);
@@ -3427,13 +3427,13 @@ public class FightEffectsTest extends InitializationDataBase {
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
-        fighter_.variationBoostStatistique(Statistic.ATTACK, (byte) 6);
-        fighter_.variationBoostStatistique(Statistic.SPECIAL_ATTACK, (byte) 6);
-        fighter_.variationBoostStatistique(Statistic.SPEED, (byte) 4);
-        fighter_.variationBoostStatistique(Statistic.DEFENSE, (byte) 4);
-        fighter_.variationBoostStatistique(Statistic.SPECIAL_DEFENSE, (byte) 6);
-        fighter_.variationBoostStatistique(Statistic.ACCURACY, (byte) 6);
-        fighter_.variationBoostStatistique(Statistic.EVASINESS, (byte) 6);
+        fighter_.variationBoostStatistique(Statistic.ATTACK,  6);
+        fighter_.variationBoostStatistique(Statistic.SPECIAL_ATTACK,  6);
+        fighter_.variationBoostStatistique(Statistic.SPEED,  4);
+        fighter_.variationBoostStatistique(Statistic.DEFENSE,  4);
+        fighter_.variationBoostStatistique(Statistic.SPECIAL_DEFENSE,  6);
+        fighter_.variationBoostStatistique(Statistic.ACCURACY,  6);
+        fighter_.variationBoostStatistique(Statistic.EVASINESS,  6);
         MoveData move_ = data_.getMove(ACUPRESSION);
         EffectStatistic eff_ = (EffectStatistic) move_.getEffet(move_.indexOfPrimaryEffect());
         IdList<Statistic> stats_ = FightSuccess.successfulChangedStatistics(fight_,thrower_, target_, eff_, data_);
@@ -3581,7 +3581,7 @@ public class FightEffectsTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(sub_);
         fighter_.setRemainedHp(new Rate("1"));
         fighter_ = fight_.getFighter(thrower_);
-        fighter_.setSubstitute((byte) 1);
+        fighter_.setSubstitute( 1);
         MoveData move_ = data_.getMove(DANSE_LUNE);
         EffectStatus eff_ = (EffectStatus) move_.getEffects().first();
         fight_.addEffect(thrower_, thrower_, eff_);
@@ -3591,11 +3591,11 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(sub_);
         assertEq(new Rate("1873/100"), fighter_.getRemainingHp());
         assertEq(5, fight_.getFirstPositPlayerFighters().size());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
-        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 2));
-        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 3));
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 4));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal( 0));
+        assertEq(0, fight_.getFirstPositPlayerFighters().getVal( 1));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal( 2));
+        assertEq(1, fight_.getFirstPositPlayerFighters().getVal( 3));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal( 4));
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(3, fight_.getEffects().size());
         AnimationEffectStatus animStatus_ = (AnimationEffectStatus) fight_.getEffects().first();
@@ -3655,7 +3655,7 @@ public class FightEffectsTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(sub_);
         fighter_.setRemainedHp(new Rate("1"));
         fighter_ = fight_.getFighter(thrower_);
-        fighter_.setSubstitute((byte) 1);
+        fighter_.setSubstitute( 1);
         fight_.getFoeTeam().ajouterEffetEquipeEntreeAdv(PICOTS);
         fight_.getFoeTeam().ajouterEffetEquipeEntreeAdv(PICS_TOXIK);
         MoveData move_ = data_.getMove(DANSE_LUNE);
@@ -3673,14 +3673,14 @@ public class FightEffectsTest extends InitializationDataBase {
         assertEq(0, fighter_.getGroundPlaceSubst());
         assertEq(new Rate("1873/100"), fighter_.getRemainingHp());
         assertEq(17,fighter_.getStatus().size());
-//        assertEq(17,fighter_.getStatus().getKeys((short) 0).size());
-        assertEq(17,fighter_.getNbStatusByRounds((short) 0));
+//        assertEq(17,fighter_.getStatus().getKeys( 0).size());
+        assertEq(17,fighter_.getNbStatusByRounds( 0));
         assertEq(5, fight_.getFirstPositPlayerFighters().size());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
-        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 2));
-        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 3));
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 4));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal( 0));
+        assertEq(0, fight_.getFirstPositPlayerFighters().getVal( 1));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal( 2));
+        assertEq(1, fight_.getFirstPositPlayerFighters().getVal( 3));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal( 4));
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(3, fight_.getEffects().size());
         AnimationEffectStatus animStatus_ = (AnimationEffectStatus) fight_.getEffects().first();
@@ -3727,11 +3727,11 @@ public class FightEffectsTest extends InitializationDataBase {
         assertEq(Fighter.BACK, fighter_.getGroundPlaceSubst());
         assertEq(new Rate("1"), fighter_.getRemainingHp());
         assertEq(5, fight_.getFirstPositPlayerFighters().size());
-        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 2));
-        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 3));
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 4));
+        assertEq(0, fight_.getFirstPositPlayerFighters().getVal( 0));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal( 1));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal( 2));
+        assertEq(1, fight_.getFirstPositPlayerFighters().getVal( 3));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal( 4));
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectStatus animStatus_ = (AnimationEffectStatus) fight_.getEffects().first();
@@ -3812,7 +3812,7 @@ public class FightEffectsTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(sub_);
         fighter_.setRemainedHp(new Rate("1"));
         fighter_ = fight_.getFighter(thrower_);
-        fighter_.setSubstitute((byte) 2);
+        fighter_.setSubstitute( 2);
         MoveData move_ = data_.getMove(DANSE_LUNE);
         EffectStatus eff_ = (EffectStatus) move_.getEffects().first();
         fight_.addEffect(thrower_, thrower_, eff_);
@@ -3822,9 +3822,9 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(sub_);
         assertEq(new Rate("106/5"), fighter_.getRemainingHp());
         assertEq(3, fight_.getFirstPositFoeFighters().size());
-        assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 0));
-        assertEq(1, fight_.getFirstPositFoeFighters().getVal((byte) 1));
-        assertEq(0, fight_.getFirstPositFoeFighters().getVal((byte) 2));
+        assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal( 0));
+        assertEq(1, fight_.getFirstPositFoeFighters().getVal( 1));
+        assertEq(0, fight_.getFirstPositFoeFighters().getVal( 2));
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(3, fight_.getEffects().size());
         AnimationEffectStatus animStatus_ = (AnimationEffectStatus) fight_.getEffects().first();
@@ -3863,8 +3863,8 @@ public class FightEffectsTest extends InitializationDataBase {
         FightEffects.effectStatus(fight_, thrower_, target_, eff_, diff_, data_);
         fighter_ = fight_.getFighter(thrower_);
         assertEq(0, fighter_.getStatusNbRound(BRULURE));
-//        assertEq(17, fighter_.getStatus().getKeys((short) 0).size());
-        assertEq(17, fighter_.getNbStatusByRounds((short) 0));
+//        assertEq(17, fighter_.getStatus().getKeys( 0).size());
+        assertEq(17, fighter_.getNbStatusByRounds( 0));
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectStatus anim_ = (AnimationEffectStatus) fight_.getEffects().first();
@@ -3888,7 +3888,7 @@ public class FightEffectsTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(sub_);
         fighter_.setRemainedHp(new Rate("1"));
         fighter_ = fight_.getFighter(thrower_);
-        fighter_.setSubstitute((byte) 1);
+        fighter_.setSubstitute( 1);
         MoveData move_ = data_.getMove(DANSE_LUNE);
         EffectStatus eff_ = (EffectStatus) move_.getEffects().first();
         FightEffects.effectStatus(fight_, thrower_, thrower_, eff_, diff_, data_);
@@ -3912,7 +3912,7 @@ public class FightEffectsTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(sub_);
         fighter_.setRemainedHp(new Rate("1"));
         fighter_ = fight_.getFighter(thrower_);
-        fighter_.setSubstitute((byte) 2);
+        fighter_.setSubstitute( 2);
         MoveData move_ = data_.getMove(DANSE_LUNE);
         EffectStatus eff_ = (EffectStatus) move_.getEffects().first();
         FightEffects.effectStatus(fight_, thrower_, thrower_, eff_, diff_, data_);
@@ -3977,7 +3977,7 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_.affecterPseudoStatut(tp(KEY_FOE, POKEMON_FIGHTER_ZERO), AMOUR);
         fighter_.affecterPseudoStatut(tp(KEY_FOE, POKEMON_FIGHTER_ZERO), VAMPIGRAINE);
         fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
-        fighter_.getStatisBoost().put(Statistic.EVASINESS, (byte) 1);
+        fighter_.getStatisBoost().put(Statistic.EVASINESS,  1);
         fighter_.getTrappingMoves().getVal(new MoveTeamPosition(SIPHON, teamPosition_)).enable();
         EffectTeam eff_ = (EffectTeam) data_.getMove(ANTI_BRUME).getEffects().last();
         FightEffects.effectTeam(fight_, teamPosition_, eff_, ANTI_BRUME, data_);
@@ -4045,8 +4045,8 @@ public class FightEffectsTest extends InitializationDataBase {
         TeamPosition teamPosition_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(teamPosition_);
         fighter_.affecterStatut(GEL);
-        fighter_.getStatisBoost().put(Statistic.ACCURACY,(byte) 1);
-        fighter_.getStatisBoost().put(Statistic.EVASINESS,(byte) -1);
+        fighter_.getStatisBoost().put(Statistic.ACCURACY, 1);
+        fighter_.getStatisBoost().put(Statistic.EVASINESS, -1);
         fighter_.affecterPseudoStatut(tp(KEY_FOE, POKEMON_FIGHTER_ZERO), CAUCHEMAR);
         fighter_.affecterPseudoStatut(tp(KEY_FOE, POKEMON_FIGHTER_ZERO), VAMPIGRAINE);
         EffectTeam eff_ = (EffectTeam) data_.getMove(BRUME).getEffects().last();
@@ -4081,8 +4081,8 @@ public class FightEffectsTest extends InitializationDataBase {
         TeamPosition teamPosition_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(teamPosition_);
         fighter_.affecterStatut(GEL);
-        fighter_.getStatisBoost().put(Statistic.ACCURACY,(byte) 1);
-        fighter_.getStatisBoost().put(Statistic.EVASINESS,(byte) -1);
+        fighter_.getStatisBoost().put(Statistic.ACCURACY, 1);
+        fighter_.getStatisBoost().put(Statistic.EVASINESS, -1);
         fighter_.affecterPseudoStatut(tp(KEY_FOE, POKEMON_FIGHTER_ZERO), CAUCHEMAR);
         fighter_.affecterPseudoStatut(tp(KEY_FOE, POKEMON_FIGHTER_ZERO), VAMPIGRAINE);
         EffectTeam eff_ = (EffectTeam) data_.getMove(ANTI_BRUME).getEffects().last();
@@ -4117,8 +4117,8 @@ public class FightEffectsTest extends InitializationDataBase {
         TeamPosition teamPosition_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(teamPosition_);
         fighter_.affecterStatut(GEL);
-        fighter_.getStatisBoost().put(Statistic.ACCURACY,(byte) 1);
-        fighter_.getStatisBoost().put(Statistic.EVASINESS,(byte) -1);
+        fighter_.getStatisBoost().put(Statistic.ACCURACY, 1);
+        fighter_.getStatisBoost().put(Statistic.EVASINESS, -1);
         fighter_.affecterPseudoStatut(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), CAUCHEMAR);
         fighter_.affecterPseudoStatut(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), VAMPIGRAINE);
         EffectTeam eff_ = (EffectTeam) data_.getMove(ANTI_BRUME).getEffects().last();
@@ -4336,10 +4336,10 @@ public class FightEffectsTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(COPIE, (short) 10);
-        moves_.put(SEISME, (short) 10);
+        pokemon_.setLevel( 3);
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(COPIE,  10);
+        moves_.put(SEISME,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
         lasPk_.initIv(_diff);
         lasPk_.initPvRestants(_data);
@@ -4360,7 +4360,7 @@ public class FightEffectsTest extends InitializationDataBase {
         allyPokemon_.setItem(PLAQUE_DRACO);
         allyPokemon_.setAbility(MULTITYPE);
         allyPokemon_.setGender(Gender.NO_GENDER);
-        allyPokemon_.setLevel((short) 3);
+        allyPokemon_.setLevel( 3);
         allyPokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         allyTeam_.add(allyPokemon_);
         allyPokemon_ = new PkTrainer();
@@ -4368,7 +4368,7 @@ public class FightEffectsTest extends InitializationDataBase {
         allyPokemon_.setItem(MAGNET);
         allyPokemon_.setAbility(SECHERESSE);
         allyPokemon_.setGender(Gender.NO_GENDER);
-        allyPokemon_.setLevel((short) 4);
+        allyPokemon_.setLevel( 4);
         allyPokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         allyTeam_.add(allyPokemon_);
         ally_.setTeam(allyTeam_);
@@ -4379,7 +4379,7 @@ public class FightEffectsTest extends InitializationDataBase {
         foePokemon_.setItem(PLAQUE_DRACO);
         foePokemon_.setAbility(MULTITYPE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
+        foePokemon_.setLevel( 3);
         foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
@@ -4387,7 +4387,7 @@ public class FightEffectsTest extends InitializationDataBase {
         foePokemon_.setItem(MAGNET);
         foePokemon_.setAbility(SECHERESSE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 4);
+        foePokemon_.setLevel( 4);
         foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
@@ -4395,12 +4395,12 @@ public class FightEffectsTest extends InitializationDataBase {
         foePokemon_.setItem(MAGNET);
         foePokemon_.setAbility(SECHERESSE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 4);
+        foePokemon_.setLevel( 4);
         foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         foeTeam_.add(foePokemon_);
         TempTrainer trainer_ = new TempTrainer();
         trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
+        trainer_.setReward( 200);
         dual_.setFoeTrainer(trainer_);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, _diff, dual_, _data);
@@ -4418,9 +4418,9 @@ public class FightEffectsTest extends InitializationDataBase {
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter partner_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         Fighter fighter_ = fight_.getFighter(thrower_);
-        fighter_.setSubstitute((byte) 1);
+        fighter_.setSubstitute( 1);
         FightRound.initRound(fight_);
-        fighter_.getStatisBoost().put(Statistic.ATTACK, (byte) 1);
+        fighter_.getStatisBoost().put(Statistic.ATTACK,  1);
         fighter_.creerClone(new Rate("1/2"));
         fighter_.getNbUsesMoves().put(BOUL_ARMURE, 1);
         fighter_.getDamageSufferedCateg().put(PHYSIQUE, Rate.one());
@@ -4441,21 +4441,21 @@ public class FightEffectsTest extends InitializationDataBase {
         fight_.addEffect(thrower_, thrower_, effect_);
         FightEffects.effectBatonPass(fight_, thrower_, diff_, data_);
         Team userTeam_ = fight_.getUserTeam();
-        ByteMap<Bytes> map_ = userTeam_.getPlayerFightersAgainstFoe();
-        assertEq(2, map_.getVal((byte) 0).size());
-        assertTrue(map_.getVal((byte) 0).containsObj((byte) 0));
-        assertTrue(map_.getVal((byte) 0).containsObj((byte) 1));
-        assertEq(2, map_.getVal((byte) 1).size());
-        assertTrue(map_.getVal((byte) 1).containsObj((byte) 0));
-        assertTrue(map_.getVal((byte) 1).containsObj((byte) 1));
+        IntMap<Ints> map_ = userTeam_.getPlayerFightersAgainstFoe();
+        assertEq(2, map_.getVal( 0).size());
+        assertTrue(map_.getVal( 0).containsObj( 0));
+        assertTrue(map_.getVal( 0).containsObj( 1));
+        assertEq(2, map_.getVal( 1).size());
+        assertTrue(map_.getVal( 1).containsObj( 0));
+        assertTrue(map_.getVal( 1).containsObj( 1));
         assertEq(5, fight_.getFirstPositPlayerFighters().size());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal( 0));
         assertEq(Fighter.BACK, fighter_.getGroundPlace());
         assertEq(Fighter.BACK, fighter_.getGroundPlaceSubst());
-        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 2));
-        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 3));
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 4));
+        assertEq(0, fight_.getFirstPositPlayerFighters().getVal( 1));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal( 2));
+        assertEq(1, fight_.getFirstPositPlayerFighters().getVal( 3));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal( 4));
         assertEq(0, partner_.getGroundPlace());
         assertEq(0, partner_.getGroundPlaceSubst());
         assertEq(1, partner_.getNbUsesMoves().getVal(BOUL_ARMURE));
@@ -4488,9 +4488,9 @@ public class FightEffectsTest extends InitializationDataBase {
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_THREE);
         Fighter partner_ = fight_.getFighter(tp(KEY_PLAYER, POKEMON_FIGHTER_FOUR));
         Fighter fighter_ = fight_.getFighter(thrower_);
-        fighter_.setSubstitute((byte) 4);
+        fighter_.setSubstitute( 4);
         FightRound.initRound(fight_);
-        fighter_.getStatisBoost().put(Statistic.ATTACK, (byte) 1);
+        fighter_.getStatisBoost().put(Statistic.ATTACK,  1);
         fighter_.creerClone(new Rate("1/2"));
         fighter_.getNbUsesMoves().put(BOUL_ARMURE, 1);
         fighter_.getDamageSufferedCateg().put(PHYSIQUE, Rate.one());
@@ -4512,14 +4512,14 @@ public class FightEffectsTest extends InitializationDataBase {
         fight_.addEffect(thrower_, thrower_, effect_);
         FightEffects.effectBatonPass(fight_, thrower_, diff_, data_);
         Team userTeam_ = fight_.getUserTeam();
-        ByteMap<Bytes> map_ = userTeam_.getPlayerFightersAgainstFoe();
+        IntMap<Ints> map_ = userTeam_.getPlayerFightersAgainstFoe();
         assertEq(3, map_.size());
         assertEq(5, fight_.getFirstPositPlayerFighters().size());
-        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 2));
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 3));
-        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 4));
+        assertEq(0, fight_.getFirstPositPlayerFighters().getVal( 0));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal( 1));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal( 2));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal( 3));
+        assertEq(1, fight_.getFirstPositPlayerFighters().getVal( 4));
         assertEq(1, partner_.getNbUsesMoves().getVal(BOUL_ARMURE));
         assertEq(Rate.one(), partner_.getDamageSufferedCateg().getVal(PHYSIQUE));
         assertEq(Rate.zero(), partner_.getDamageSufferedCategRound().getVal(PHYSIQUE));
@@ -4551,7 +4551,7 @@ public class FightEffectsTest extends InitializationDataBase {
         Fighter partner_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         FightRound.initRound(fight_);
-        fighter_.getStatisBoost().put(Statistic.ATTACK, (byte) 1);
+        fighter_.getStatisBoost().put(Statistic.ATTACK,  1);
         fighter_.creerClone(new Rate("1/2"));
         fighter_.getNbUsesMoves().put(BOUL_ARMURE, 1);
         fighter_.getDamageSufferedCateg().put(PHYSIQUE, Rate.one());
@@ -4573,14 +4573,14 @@ public class FightEffectsTest extends InitializationDataBase {
         fight_.addEffect(thrower_, thrower_, effect_);
         FightEffects.effectBatonPass(fight_, thrower_, diff_, data_);
         Team userTeam_ = fight_.getUserTeam();
-        ByteMap<Bytes> map_ = userTeam_.getPlayerFightersAgainstFoe();
+        IntMap<Ints> map_ = userTeam_.getPlayerFightersAgainstFoe();
         assertEq(3, map_.size());
         assertEq(5, fight_.getFirstPositPlayerFighters().size());
-        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 2));
-        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 3));
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 4));
+        assertEq(0, fight_.getFirstPositPlayerFighters().getVal( 0));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal( 1));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal( 2));
+        assertEq(1, fight_.getFirstPositPlayerFighters().getVal( 3));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal( 4));
         assertEq(0, partner_.getNbUsesMoves().getVal(BOUL_ARMURE));
         assertEq(Rate.zero(), partner_.getDamageSufferedCateg().getVal(PHYSIQUE));
         assertEq(Rate.zero(), partner_.getDamageSufferedCategRound().getVal(PHYSIQUE));
@@ -4605,7 +4605,7 @@ public class FightEffectsTest extends InitializationDataBase {
         Fighter partner_ = fight_.getFighter(tp(KEY_PLAYER, POKEMON_FIGHTER_FOUR));
         Fighter fighter_ = fight_.getFighter(thrower_);
         FightRound.initRound(fight_);
-        fighter_.getStatisBoost().put(Statistic.ATTACK, (byte) 1);
+        fighter_.getStatisBoost().put(Statistic.ATTACK,  1);
         fighter_.creerClone(new Rate("1/2"));
         fighter_.getNbUsesMoves().put(BOUL_ARMURE, 1);
         fighter_.getDamageSufferedCateg().put(PHYSIQUE, Rate.one());
@@ -4627,14 +4627,14 @@ public class FightEffectsTest extends InitializationDataBase {
         fight_.addEffect(thrower_, thrower_, effect_);
         FightEffects.effectBatonPass(fight_, thrower_, diff_, data_);
         Team userTeam_ = fight_.getUserTeam();
-        ByteMap<Bytes> map_ = userTeam_.getPlayerFightersAgainstFoe();
+        IntMap<Ints> map_ = userTeam_.getPlayerFightersAgainstFoe();
         assertEq(3, map_.size());
         assertEq(5, fight_.getFirstPositPlayerFighters().size());
-        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 2));
-        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 3));
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 4));
+        assertEq(0, fight_.getFirstPositPlayerFighters().getVal( 0));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal( 1));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal( 2));
+        assertEq(1, fight_.getFirstPositPlayerFighters().getVal( 3));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal( 4));
         assertEq(0, partner_.getNbUsesMoves().getVal(BOUL_ARMURE));
         assertEq(Rate.zero(), partner_.getDamageSufferedCateg().getVal(PHYSIQUE));
         assertEq(Rate.zero(), partner_.getDamageSufferedCategRound().getVal(PHYSIQUE));
@@ -4658,9 +4658,9 @@ public class FightEffectsTest extends InitializationDataBase {
         TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter partner_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_TWO);
         Fighter fighter_ = fight_.getFighter(thrower_);
-        fighter_.setSubstitute((byte) 2);
+        fighter_.setSubstitute( 2);
         FightRound.initRound(fight_);
-        fighter_.getStatisBoost().put(Statistic.ATTACK, (byte) 1);
+        fighter_.getStatisBoost().put(Statistic.ATTACK,  1);
         fighter_.creerClone(new Rate("1/2"));
         fighter_.getNbUsesMoves().put(BOUL_ARMURE, 1);
         fighter_.getDamageSufferedCateg().put(PHYSIQUE, Rate.one());
@@ -4681,18 +4681,18 @@ public class FightEffectsTest extends InitializationDataBase {
         fight_.addEffect(thrower_, thrower_, effect_);
         FightEffects.effectBatonPass(fight_, thrower_, diff_, data_);
         Team userTeam_ = fight_.getUserTeam();
-        ByteMap<Bytes> map_ = userTeam_.getPlayerFightersAgainstFoe();
-        assertEq(3, map_.getVal((byte) 0).size());
-        assertTrue(map_.getVal((byte) 0).containsObj((byte) 0));
-        assertTrue(map_.getVal((byte) 0).containsObj((byte) 1));
-        assertTrue(map_.getVal((byte) 0).containsObj((byte) 2));
-        assertEq(0, map_.getVal((byte) 1).size());
+        IntMap<Ints> map_ = userTeam_.getPlayerFightersAgainstFoe();
+        assertEq(3, map_.getVal( 0).size());
+        assertTrue(map_.getVal( 0).containsObj( 0));
+        assertTrue(map_.getVal( 0).containsObj( 1));
+        assertTrue(map_.getVal( 0).containsObj( 2));
+        assertEq(0, map_.getVal( 1).size());
         assertEq(3, fight_.getFirstPositFoeFighters().size());
-        assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 0));
+        assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal( 0));
         assertEq(Fighter.BACK, fighter_.getGroundPlace());
         assertEq(Fighter.BACK, fighter_.getGroundPlaceSubst());
-        assertEq(1, fight_.getFirstPositFoeFighters().getVal((byte) 1));
-        assertEq(0, fight_.getFirstPositFoeFighters().getVal((byte) 2));
+        assertEq(1, fight_.getFirstPositFoeFighters().getVal( 1));
+        assertEq(0, fight_.getFirstPositFoeFighters().getVal( 2));
         assertEq(0, partner_.getGroundPlace());
         assertEq(0, partner_.getGroundPlaceSubst());
         assertEq(1, partner_.getNbUsesMoves().getVal(BOUL_ARMURE));
@@ -4726,7 +4726,7 @@ public class FightEffectsTest extends InitializationDataBase {
         Fighter partner_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_TWO);
         Fighter fighter_ = fight_.getFighter(thrower_);
         FightRound.initRound(fight_);
-        fighter_.getStatisBoost().put(Statistic.ATTACK, (byte) 1);
+        fighter_.getStatisBoost().put(Statistic.ATTACK,  1);
         fighter_.creerClone(new Rate("1/2"));
         fighter_.getNbUsesMoves().put(BOUL_ARMURE, 1);
         fighter_.getDamageSufferedCateg().put(PHYSIQUE, Rate.one());
@@ -4747,17 +4747,17 @@ public class FightEffectsTest extends InitializationDataBase {
         fight_.addEffect(thrower_, thrower_, effect_);
         FightEffects.effectBatonPass(fight_, thrower_, diff_, data_);
         Team userTeam_ = fight_.getUserTeam();
-        ByteMap<Bytes> map_ = userTeam_.getPlayerFightersAgainstFoe();
-        assertEq(2, map_.getVal((byte) 0).size());
-        assertTrue(map_.getVal((byte) 0).containsObj((byte) 0));
-        assertTrue(map_.getVal((byte) 0).containsObj((byte) 1));
-        assertEq(0, map_.getVal((byte) 1).size());
+        IntMap<Ints> map_ = userTeam_.getPlayerFightersAgainstFoe();
+        assertEq(2, map_.getVal( 0).size());
+        assertTrue(map_.getVal( 0).containsObj( 0));
+        assertTrue(map_.getVal( 0).containsObj( 1));
+        assertEq(0, map_.getVal( 1).size());
         assertEq(3, fight_.getFirstPositFoeFighters().size());
-        assertEq(0, fight_.getFirstPositFoeFighters().getVal((byte) 0));
+        assertEq(0, fight_.getFirstPositFoeFighters().getVal( 0));
         assertEq(0, fighter_.getGroundPlace());
         assertEq(0, fighter_.getGroundPlaceSubst());
-        assertEq(1, fight_.getFirstPositFoeFighters().getVal((byte) 1));
-        assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 2));
+        assertEq(1, fight_.getFirstPositFoeFighters().getVal( 1));
+        assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal( 2));
         assertEq(Fighter.BACK, partner_.getGroundPlace());
         assertEq(Fighter.BACK, partner_.getGroundPlaceSubst());
         assertEq(0, partner_.getNbUsesMoves().getVal(BOUL_ARMURE));
@@ -4955,8 +4955,8 @@ public class FightEffectsTest extends InitializationDataBase {
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = effectDamageRate(diff_, data_);
         Fighter fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
-        fighter_.getStatisBoost().put(Statistic.ATTACK, (byte) 1);
-        fighter_.getStatisBoost().put(Statistic.DEFENSE, (byte) -1);
+        fighter_.getStatisBoost().put(Statistic.ATTACK,  1);
+        fighter_.getStatisBoost().put(Statistic.DEFENSE,  -1);
         EffectGlobal eff_;
         eff_ = (EffectGlobal) data_.getMove(ZONE_ETRANGE).getEffects().first();
         FightEffects.effectGlobal(fight_, eff_, ZONE_ETRANGE, data_);
@@ -5018,10 +5018,10 @@ public class FightEffectsTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(COPIE, (short) 10);
-        moves_.put(SEISME, (short) 10);
+        pokemon_.setLevel( 3);
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(COPIE,  10);
+        moves_.put(SEISME,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_, moves_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -5033,13 +5033,13 @@ public class FightEffectsTest extends InitializationDataBase {
         foePokemon_.setItem(PLAQUE_DRACO);
         foePokemon_.setAbility(MULTITYPE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
+        foePokemon_.setLevel( 3);
         foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         foeTeam_.add(foePokemon_);
         GymLeader trainer_ = new GymLeader();
-        trainer_.setMultiplicityFight((byte) 1);
+        trainer_.setMultiplicityFight( 1);
         trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
+        trainer_.setReward( 200);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
@@ -5063,10 +5063,10 @@ public class FightEffectsTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(COPIE, (short) 10);
-        moves_.put(SEISME, (short) 10);
+        pokemon_.setLevel( 3);
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(COPIE,  10);
+        moves_.put(SEISME,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_, moves_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -5078,13 +5078,13 @@ public class FightEffectsTest extends InitializationDataBase {
         foePokemon_.setItem(PLAQUE_DRACO);
         foePokemon_.setAbility(MULTITYPE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
+        foePokemon_.setLevel( 3);
         foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         foeTeam_.add(foePokemon_);
         GymLeader trainer_ = new GymLeader();
-        trainer_.setMultiplicityFight((byte) 1);
+        trainer_.setMultiplicityFight( 1);
         trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
+        trainer_.setReward( 200);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
@@ -5103,10 +5103,10 @@ public class FightEffectsTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(COPIE, (short) 10);
-        moves_.put(SEISME, (short) 10);
+        pokemon_.setLevel( 3);
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(COPIE,  10);
+        moves_.put(SEISME,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
         lasPk_.initIv(_diff);
         lasPk_.initPvRestants(_data);
@@ -5127,7 +5127,7 @@ public class FightEffectsTest extends InitializationDataBase {
         allyPokemon_.setItem(PLAQUE_DRACO);
         allyPokemon_.setAbility(MULTITYPE);
         allyPokemon_.setGender(Gender.NO_GENDER);
-        allyPokemon_.setLevel((short) 3);
+        allyPokemon_.setLevel( 3);
         allyPokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         allyTeam_.add(allyPokemon_);
         allyPokemon_ = new PkTrainer();
@@ -5135,7 +5135,7 @@ public class FightEffectsTest extends InitializationDataBase {
         allyPokemon_.setItem(MAGNET);
         allyPokemon_.setAbility(SECHERESSE);
         allyPokemon_.setGender(Gender.NO_GENDER);
-        allyPokemon_.setLevel((short) 4);
+        allyPokemon_.setLevel( 4);
         allyPokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         allyTeam_.add(allyPokemon_);
         ally_.setTeam(allyTeam_);
@@ -5146,7 +5146,7 @@ public class FightEffectsTest extends InitializationDataBase {
         foePokemon_.setItem(PLAQUE_DRACO);
         foePokemon_.setAbility(MULTITYPE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
+        foePokemon_.setLevel( 3);
         foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
@@ -5154,7 +5154,7 @@ public class FightEffectsTest extends InitializationDataBase {
         foePokemon_.setItem(MAGNET);
         foePokemon_.setAbility(PRESSION);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 4);
+        foePokemon_.setLevel( 4);
         foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
@@ -5162,12 +5162,12 @@ public class FightEffectsTest extends InitializationDataBase {
         foePokemon_.setItem(MAGNET);
         foePokemon_.setAbility(SECHERESSE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 4);
+        foePokemon_.setLevel( 4);
         foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         foeTeam_.add(foePokemon_);
         TempTrainer trainer_ = new TempTrainer();
         trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
+        trainer_.setReward( 200);
         dual_.setFoeTrainer(trainer_);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, _diff, dual_, _data);
@@ -5911,7 +5911,7 @@ public class FightEffectsTest extends InitializationDataBase {
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(target_);
         fighter_.backUpObject(BAIE_MEPO);
-        fighter_.usePowerPointsByMove(diff_, JACKPOT, (short) 17);
+        fighter_.usePowerPointsByMove(diff_, JACKPOT,  17);
         fighter_.setFirstChosenMoveTarget(JACKPOT, tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
         EffectVarPP eff_;
         eff_ = (EffectVarPP) data_.getMove(DEPIT).getEffects().first();
@@ -5945,10 +5945,10 @@ public class FightEffectsTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(COPIE, (short) 10);
-        moves_.put(SEISME, (short) 10);
+        pokemon_.setLevel( 3);
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(COPIE,  10);
+        moves_.put(SEISME,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
         lasPk_.initIv(_diff);
         lasPk_.initPvRestants(_data);
@@ -5969,7 +5969,7 @@ public class FightEffectsTest extends InitializationDataBase {
         allyPokemon_.setItem(PLAQUE_DRACO);
         allyPokemon_.setAbility(MULTITYPE);
         allyPokemon_.setGender(Gender.NO_GENDER);
-        allyPokemon_.setLevel((short) 3);
+        allyPokemon_.setLevel( 3);
         allyPokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         allyTeam_.add(allyPokemon_);
         allyPokemon_ = new PkTrainer();
@@ -5977,7 +5977,7 @@ public class FightEffectsTest extends InitializationDataBase {
         allyPokemon_.setItem(MAGNET);
         allyPokemon_.setAbility(SECHERESSE);
         allyPokemon_.setGender(Gender.NO_GENDER);
-        allyPokemon_.setLevel((short) 4);
+        allyPokemon_.setLevel( 4);
         allyPokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         allyTeam_.add(allyPokemon_);
         ally_.setTeam(allyTeam_);
@@ -5988,7 +5988,7 @@ public class FightEffectsTest extends InitializationDataBase {
         foePokemon_.setItem(PLAQUE_DRACO);
         foePokemon_.setAbility(MULTITYPE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
+        foePokemon_.setLevel( 3);
         foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
@@ -5996,12 +5996,12 @@ public class FightEffectsTest extends InitializationDataBase {
         foePokemon_.setItem(MAGNET);
         foePokemon_.setAbility(PRESSION);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 4);
+        foePokemon_.setLevel( 4);
         foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         foeTeam_.add(foePokemon_);
         TempTrainer trainer_ = new TempTrainer();
         trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
+        trainer_.setReward( 200);
         dual_.setFoeTrainer(trainer_);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, _diff, dual_, _data);
@@ -6209,7 +6209,7 @@ public class FightEffectsTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(IMPUDENCE);
         fighter_.backUpObject(NULL_REF);
-        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT, (byte) 6);
+        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,  6);
         fighter_.setFirstChosenMove(TONNERRE);
         FightRound.initRound(fight_);
         FightEffects.processEffectTarget(fight_, TONNERRE, IndexConstants.FIRST_INDEX, thrower_, target_, diff_, data_);
@@ -6242,7 +6242,7 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         assertEq(0, fighter_.getGroundPlace());
         assertEq(0, fighter_.getGroundPlaceSubst());
-        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
+        assertEq(1, fight_.getFirstPositPlayerFighters().getVal( 0));
     }
 
     @Test
@@ -6260,7 +6260,7 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_.affecterPseudoStatut(tp(KEY_FOE, POKEMON_FIGHTER_ZERO), AMOUR);
         fighter_.affecterPseudoStatut(tp(KEY_FOE, POKEMON_FIGHTER_ZERO), VAMPIGRAINE);
         fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
-        fighter_.getStatisBoost().put(Statistic.EVASINESS, (byte) 1);
+        fighter_.getStatisBoost().put(Statistic.EVASINESS,  1);
         fighter_.getTrappingMoves().getVal(new MoveTeamPosition(SIPHON, teamPosition_)).enable();
         fighter_ = fight_.getFighter(thrower_);
         fighter_.setFirstChosenMove(ANTI_BRUME);
@@ -6463,10 +6463,10 @@ public class FightEffectsTest extends InitializationDataBase {
         Fighter partner_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setFirstChosenMove(RELAIS);
-        fighter_.setSubstituteForMove((byte) 1);
-        //fighter_.setFirstChosenMoveSubstitute(move_, (byte) 1);
+        fighter_.setSubstituteForMove( 1);
+        //fighter_.setFirstChosenMoveSubstitute(move_,  1);
         FightRound.initRound(fight_);
-        fighter_.getStatisBoost().put(Statistic.ATTACK, (byte) 1);
+        fighter_.getStatisBoost().put(Statistic.ATTACK,  1);
         fighter_.creerClone(new Rate("1/2"));
         fighter_.getNbUsesMoves().put(BOUL_ARMURE, 1);
         fighter_.getDamageSufferedCateg().put(PHYSIQUE, Rate.one());
@@ -6485,18 +6485,18 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_.getTrappingMoves().getVal(new MoveTeamPosition(SIPHON, tp(KEY_FOE, POKEMON_FIGHTER_ZERO))).enable();
         FightEffects.processEffectTarget(fight_, RELAIS, IndexConstants.FIRST_INDEX, thrower_, thrower_, diff_, data_);
         Team userTeam_ = fight_.getUserTeam();
-        ByteMap<Bytes> map_ = userTeam_.getPlayerFightersAgainstFoe();
-        assertEq(2, map_.getVal((byte) 0).size());
-        assertTrue(map_.getVal((byte) 0).containsObj((byte) 0));
-        assertTrue(map_.getVal((byte) 0).containsObj((byte) 1));
-        assertEq(2, map_.getVal((byte) 1).size());
-        assertTrue(map_.getVal((byte) 1).containsObj((byte) 0));
-        assertTrue(map_.getVal((byte) 1).containsObj((byte) 1));
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
+        IntMap<Ints> map_ = userTeam_.getPlayerFightersAgainstFoe();
+        assertEq(2, map_.getVal( 0).size());
+        assertTrue(map_.getVal( 0).containsObj( 0));
+        assertTrue(map_.getVal( 0).containsObj( 1));
+        assertEq(2, map_.getVal( 1).size());
+        assertTrue(map_.getVal( 1).containsObj( 0));
+        assertTrue(map_.getVal( 1).containsObj( 1));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal( 0));
         assertEq(Fighter.BACK, fighter_.getGroundPlace());
         assertEq(Fighter.BACK, fighter_.getGroundPlaceSubst());
         assertTrue(fighter_.isSuccessfulMove());
-        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
+        assertEq(0, fight_.getFirstPositPlayerFighters().getVal( 1));
         assertEq(0, partner_.getGroundPlace());
         assertEq(0, partner_.getGroundPlaceSubst());
         assertEq(1, partner_.getNbUsesMoves().getVal(BOUL_ARMURE));

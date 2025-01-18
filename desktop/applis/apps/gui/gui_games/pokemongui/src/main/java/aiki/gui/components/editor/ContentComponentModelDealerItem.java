@@ -11,7 +11,7 @@ public final class ContentComponentModelDealerItem {
     private DealerItem edited = Instances.newDealerItem();
     private GeneComponentModelImgSelect miniFileName;
     private GeneComponentModelLsStrSub<String,StringList> items;
-    private GeneComponentModelLsStrSub<Short,Shorts> technicalMoves;
+    private GeneComponentModelLsStrSub<Integer,Ints> technicalMoves;
     AbsPanel effectForm(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact, FormLevelGrid _grid) {
         AbsPanel selected_ = _core.getCompoFactory().newLineBox();
         miniFileName = new GeneComponentModelImgSelect(_core,_fac,_fact.getImgRetrieverMiniSub());

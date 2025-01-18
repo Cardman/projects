@@ -44,7 +44,7 @@ public class InventoryValidationTest extends InitializationDataBase {
     public void validate5Test() {
         DataBase data_ = initDb();
         Inventory inventory_ = new Inventory(data_);
-        inventory_.getTm((short) -1);
+        inventory_.getTm( -1);
         assertTrue(!inventory_.validate(data_));
     }
 
@@ -52,7 +52,7 @@ public class InventoryValidationTest extends InitializationDataBase {
     public void validate6Test() {
         DataBase data_ = initDb();
         Inventory inventory_ = new Inventory(data_);
-        inventory_.getHm((short) -1);
+        inventory_.getHm( -1);
         assertTrue(!inventory_.validate(data_));
     }
 }

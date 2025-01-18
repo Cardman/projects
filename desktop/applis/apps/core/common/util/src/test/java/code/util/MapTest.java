@@ -527,19 +527,6 @@ public class MapTest extends EquallableExUtil {
         elts_ = mapEmpty_.getKeys();
         assertEq(0,elts_.size());
     }
-    @Test
-    public void getKeysNb4Test() {
-        ShortMap<Integer> map_ = new ShortMap<Integer>();
-        map_.put((short) 0, 0);
-        map_.put((short) 1, 1);
-        CustList<Short> elts_ = map_.getKeys();
-        assertEq(2,elts_.size());
-        assertEq(0,elts_.first());
-        assertEq(1,elts_.last());
-        ShortMap<Integer> mapEmpty_ = new ShortMap<Integer>(2);
-        elts_ = mapEmpty_.getKeys();
-        assertEq(0,elts_.size());
-    }
 //    @Test
 //    public void getKeysBoolTest() {
 //        BooleanMap<Integer> map_ = new BooleanMap<Integer>();

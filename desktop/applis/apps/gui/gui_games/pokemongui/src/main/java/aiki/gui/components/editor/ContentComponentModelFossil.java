@@ -25,7 +25,7 @@ public final class ContentComponentModelFossil {
     }
     void buildEntity(Fossil _item) {
         _item.setPokemon(pokemon.tryRet());
-        _item.setLevel((short) level.valueInt());
+        _item.setLevel(level.valueInt());
     }
     void feedForm(Fossil _item) {
         pokemon.setupValue(_item.getPokemon());

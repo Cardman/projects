@@ -28,18 +28,18 @@ public class MoveBean extends CommonBean {
 
     private String name;
     private String displayName;
-    private short pp;
+    private int pp;
     private boolean hasDefaultTypes;
     private StringList types;
     private String category;
     private StringList boostedTypes;
-    private byte priority;
+    private int priority;
     private String accuracy;
     private Ints effects;
-    private short nbPrepaRound;
+    private int nbPrepaRound;
     private boolean disappearBeforeUse;
     private DictionaryComparator<LgInt,Rate> repeatRoundLaw;
-    private short rankIncrementNbRound;
+    private int rankIncrementNbRound;
     private boolean rechargeRound;
     private boolean constUserChoice;
     private boolean secEffectIfNoDamage;
@@ -59,7 +59,7 @@ public class MoveBean extends CommonBean {
     private NatStringTreeMap<String> mapVarsAccuracy;
     private boolean cannotKo;
     private StringList affectedByMoves;
-    private ShortTreeMap<StringList> movesLevelLearntByPokemon;
+    private IntTreeMap<StringList> movesLevelLearntByPokemon;
     private StringList movesTmLearntByPokemon;
     private StringList movesHmLearntByPokemon;
     private StringList movesMtLearntByPokemon;
@@ -135,12 +135,12 @@ public class MoveBean extends CommonBean {
         movesTmLearntByPokemon = movesTmLearntByPokemon();
         StringList movesHmLearntByPokemon_;
         movesHmLearntByPokemon_ = new StringList();
-        Shorts hms_ = data_.getHmByMove(name_);
+        Ints hms_ = data_.getHmByMove(name_);
 //        if (Map.<Short>hasString(data_.getHm(), name_))
         if (!hms_.isEmpty()) {
 //            short tm_ = data_.getHm().getKeys(name_).first();
 //            short tm_ = data_.getHmByMove(name_).first();
-            short tm_ = hms_.first();
+            int tm_ = hms_.first();
             for (String p: data_.getPokedex().getKeys()) {
                 PokemonData pkData_ = data_.getPokemon(p);
                 if (pkData_.getHiddenMoves().containsObj(tm_)) {
@@ -179,12 +179,12 @@ public class MoveBean extends CommonBean {
         DataBase data_ = getDataBase();
         StringList movesTmLearntByPokemon_;
         movesTmLearntByPokemon_ = new StringList();
-        Shorts tms_ = data_.getTmByMove(name);
+        Ints tms_ = data_.getTmByMove(name);
 //        if (Map.<Short>hasString(data_.getTm(), name_))
         if (!tms_.isEmpty()) {
 //            short tm_ = data_.getTm().getKeys(name_).first();
 //            short tm_ = data_.getTmByMove(name_).first();
-            short tm_ = tms_.first();
+            int tm_ = tms_.first();
             for (String p: data_.getPokedex().getKeys()) {
                 PokemonData pkData_ = data_.getPokemon(p);
                 if (pkData_.getTechnicalMoves().containsObj(tm_)) {
@@ -196,10 +196,10 @@ public class MoveBean extends CommonBean {
         return movesTmLearntByPokemon_;
     }
 
-    private ShortTreeMap<StringList> movesLevelLearntByPokemon() {
+    private IntTreeMap<StringList> movesLevelLearntByPokemon() {
         DataBase data_ = getDataBase();
-        ShortTreeMap<StringList> movesLevelLearntByPokemon_;
-        movesLevelLearntByPokemon_ = new ShortTreeMap<StringList>();
+        IntTreeMap<StringList> movesLevelLearntByPokemon_;
+        movesLevelLearntByPokemon_ = new IntTreeMap<StringList>();
         for (String p: data_.getPokedex().getKeys()) {
             PokemonData pkData_ = data_.getPokemon(p);
             for (LevelMove l: pkData_.getLevMoves()) {
@@ -983,11 +983,11 @@ public class MoveBean extends CommonBean {
         return category;
     }
 
-    public short getPp() {
+    public int getPp() {
         return pp;
     }
 
-    public byte getPriority() {
+    public int getPriority() {
         return priority;
     }
 
@@ -1007,7 +1007,7 @@ public class MoveBean extends CommonBean {
         return ignVarEvasTargetPos;
     }
 
-    public short getNbPrepaRound() {
+    public int getNbPrepaRound() {
         return nbPrepaRound;
     }
 
@@ -1067,7 +1067,7 @@ public class MoveBean extends CommonBean {
         return constUserChoice;
     }
 
-    public short getRankIncrementNbRound() {
+    public int getRankIncrementNbRound() {
         return rankIncrementNbRound;
     }
 
@@ -1075,7 +1075,7 @@ public class MoveBean extends CommonBean {
         return repeatRoundLaw;
     }
 
-    public ShortTreeMap<StringList> getMovesLevelLearntByPokemon() {
+    public IntTreeMap<StringList> getMovesLevelLearntByPokemon() {
         return movesLevelLearntByPokemon;
     }
 

@@ -18,7 +18,7 @@ public class PseudoPlayerTest extends InitializationDataBase {
     public void new_PseudoPlayer_List_List_1Test() {
         DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         pokemon_.setName(PTITARD);
         pokemon_.setAbility(ABSORB_EAU);
         pokemon_.setItem(MULTI_EXP);
@@ -28,8 +28,8 @@ public class PseudoPlayerTest extends InitializationDataBase {
         CustList<CustList<NameLevel>> evolutions_;
         evolutions_ = new CustList<CustList<NameLevel>>();
         evolutions_.add(new CustList<NameLevel>());
-        evolutions_.first().add(new NameLevel(TETARTE,(short)26));
-        evolutions_.first().add(new NameLevel(TARTARD,(short)27));
+        evolutions_.first().add(new NameLevel(TETARTE,26));
+        evolutions_.first().add(new NameLevel(TARTARD,27));
         PseudoPlayer pseudoPlayer_;
         pseudoPlayer_ = new PseudoPlayer(new CustList<PokemonPlayer>(pk_), evolutions_);
         assertEq(1, pseudoPlayer_.getTeam().size());

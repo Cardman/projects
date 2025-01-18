@@ -12,7 +12,7 @@ public class AnimationSwitch extends AnimationInt {
 
     private boolean ko;
 
-    private short level;
+    private int level;
 
     private LgInt rateRemainHp;
 
@@ -46,11 +46,11 @@ public class AnimationSwitch extends AnimationInt {
         ko = _ko;
     }
 
-    public short getLevel() {
+    public int getLevel() {
         return level;
     }
 
-    public void setLevel(short _level) {
+    public void setLevel(int _level) {
         level = _level;
     }
 

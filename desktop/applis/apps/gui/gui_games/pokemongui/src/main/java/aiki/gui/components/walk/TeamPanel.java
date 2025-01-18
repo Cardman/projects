@@ -20,8 +20,8 @@ import code.gui.files.MessagesGuiFct;
 import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
 import code.gui.initialize.AbsCompoFactory;
-import code.util.ByteTreeMap;
-import code.util.Bytes;
+import code.util.IntTreeMap;
+import code.util.Ints;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -41,7 +41,7 @@ public final class TeamPanel {
 
     private final ScrollCustomGraphicList<UsablePokemon> liste;
 
-    private final Bytes indexes = new Bytes();
+    private final Ints indexes = new Ints();
 
     private final FacadeGame facade;
 
@@ -50,7 +50,7 @@ public final class TeamPanel {
     private final AbsPanel container;
     private final AbsCompoFactory compoFactory;
 
-    public TeamPanel(WindowAikiInt _parent, String _titre, FacadeGame _facade, ByteTreeMap<UsablePokemon> _team, StringMap<String> _mess, boolean _single, AbsActionListenerAct _act) {
+    public TeamPanel(WindowAikiInt _parent, String _titre, FacadeGame _facade, IntTreeMap<UsablePokemon> _team, StringMap<String> _mess, boolean _single, AbsActionListenerAct _act) {
         facade = _facade;
         renderer = new PokemonRenderer(_parent.getFrames(), facade, _single,_parent.getTileRender());
         liste = AikiFactory.usable(_parent.getFrames().getCompoFactory(), _parent.getImageFactory(), renderer, _act);
@@ -70,7 +70,7 @@ public final class TeamPanel {
         container.add(nbRemainPlaces, MessagesGuiFct.BORDER_LAYOUT_SOUTH);
     }
 
-    public void initFighters(ByteTreeMap<UsablePokemon> _fighters, StringMap<String> _mess) {
+    public void initFighters(IntTreeMap<UsablePokemon> _fighters, StringMap<String> _mess) {
         liste.clear();
         int side_ = facade.getMap().getSideLength();
         MetaFont metaFont_ = liste.getElements().getMetaFont();
@@ -80,7 +80,7 @@ public final class TeamPanel {
         int maxPixName_ = getDeltaName(_fighters);
         renderer.setCoords(maxPixName_, secCol(_fighters.values(), compoFactory, metaFont_, facade));
         indexes.clear();
-        for (byte f: _fighters.getKeys()) {
+        for (int f: _fighters.getKeys()) {
             indexes.add(f);
             liste.add(_fighters.getVal(f));
         }
@@ -97,7 +97,7 @@ public final class TeamPanel {
         nbRemainPlaces.setText(StringUtil.simpleNumberFormat(message_, rem_));
     }
 
-    int getDeltaName(ByteTreeMap<UsablePokemon> _team) {
+    int getDeltaName(IntTreeMap<UsablePokemon> _team) {
         CustList<UsablePokemon> values_ = _team.values();
         MetaFont metaFont_ = liste.getElements().getMetaFont();
         return NumberUtil.max(name(values_,compoFactory, metaFont_, facade),NumberUtil.max(ability(values_, compoFactory, metaFont_, facade),remainingHp(values_,compoFactory, metaFont_)));
@@ -198,7 +198,7 @@ public final class TeamPanel {
         return adjustIndex(liste, indexes);
     }
 
-    public static int adjustIndex(ScrollCustomGraphicList<UsablePokemon> _ls, Bytes _indexes) {
+    public static int adjustIndex(ScrollCustomGraphicList<UsablePokemon> _ls, Ints _indexes) {
         int index_ = _ls.getSelectedIndex();
         if (index_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
             return index_;

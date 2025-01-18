@@ -56,7 +56,7 @@ public abstract class FormAbsPk {
     }
 
     public void buildEntity(Pokemon _wildPk) {
-        _wildPk.setLevel((short) level.valueInt());
+        _wildPk.setLevel(level.valueInt());
         _wildPk.setName(name.tryRet());
         _wildPk.setAbility(ability.tryRet());
         _wildPk.setItem(item.tryRet());

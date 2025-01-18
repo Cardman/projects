@@ -141,7 +141,7 @@ public final class EditorStatFormTest extends InitEditorPkForm {
     public void statForm12() {
         MockProgramInfos pr_ = initForms();
         FacadeGame facade_ = facadeAdd(pr_);
-        facade_.getData().getLawsDamageRate().addEntry(DifficultyModelLaw.UNIFORME,new LawNumber(new MonteCarloNumber(),(short)0));
+        facade_.getData().getLawsDamageRate().addEntry(DifficultyModelLaw.UNIFORME,new LawNumber(new MonteCarloNumber(),0));
         WindowPkEditor sub_ = window(pr_, facade_);
         CrudGeneFormTrCstLaw cTr_ = crudTrDifficultyModelLawType(sub_);
         tryClick(cTr_.getFields().getVal(DifficultyModelLaw.UNIFORME).getAdd());

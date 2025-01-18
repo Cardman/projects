@@ -11,22 +11,22 @@ public final class PlaceLabel extends AbsMetaLabelPk {
 
     private boolean selected;
 
-    private final byte number;
+    private final int number;
 
     private String text;
 
-    public PlaceLabel(String _title, byte _number, AbsCompoFactory _compoFactory) {
+    public PlaceLabel(String _title, int _number, AbsCompoFactory _compoFactory) {
         this(_number, _compoFactory);
         text = _title;
         setPreferredSize(new MetaDimension(_compoFactory.stringWidth(getMetaFont(),text), getMetaFont().getRealSize()));
     }
 
-    public PlaceLabel(byte _number, AbsCompoFactory _compoFactory) {
+    public PlaceLabel(int _number, AbsCompoFactory _compoFactory) {
         super(_compoFactory);
         number = _number;
     }
 
-    public void setSelected(byte _number) {
+    public void setSelected(int _number) {
         selected = number == _number;
     }
 

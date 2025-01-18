@@ -13,7 +13,7 @@ public final class PkTrainer extends Pokemon {
 
     public PkTrainer() {
         setName(DataBase.EMPTY_STRING);
-        setLevel((short) 1);
+        setLevel(1);
         setGender(Gender.NO_GENDER);
         setAbility(DataBase.EMPTY_STRING);
         setItem(DataBase.EMPTY_STRING);

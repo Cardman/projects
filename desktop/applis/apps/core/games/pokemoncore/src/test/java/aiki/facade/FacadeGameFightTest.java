@@ -60,7 +60,7 @@ public final class FacadeGameFightTest extends InitializationDataBase {
         FacadeGame facadeGame_ = initTests();
         facadeGame_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setRemainedHp(Rate.one());
         facadeGame_.getPlayer().getItem(EAU_FRAICHE);
-        facadeGame_.chooseFrontFighter((byte) 0);
+        facadeGame_.chooseFrontFighter( 0);
         facadeGame_.searchPokemonHealingItem();
         facadeGame_.checkLineHealingItem(0);
         facadeGame_.setChosenHealingItem();
@@ -72,7 +72,7 @@ public final class FacadeGameFightTest extends InitializationDataBase {
         FacadeGame facadeGame_ = initTests();
         facadeGame_.getPlayer().getItem(MASTER_BALL);
         facadeGame_.getGame().getFight().getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        facadeGame_.getGame().getFight().getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
+        facadeGame_.getGame().getFight().getCatchingBalls().first().setPlayer(POKEMON_FIGHTER_ZERO);
         facadeGame_.attemptCatchingWildPokemon(false);
         assertEq(FightState.SURNOM, facadeGame_.getFight().getState());
     }
@@ -82,7 +82,7 @@ public final class FacadeGameFightTest extends InitializationDataBase {
         FacadeGame facadeGame_ = initTests();
         facadeGame_.getPlayer().getItem(MASTER_BALL);
         facadeGame_.getGame().getFight().getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        facadeGame_.getGame().getFight().getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
+        facadeGame_.getGame().getFight().getCatchingBalls().first().setPlayer(POKEMON_FIGHTER_ZERO);
         facadeGame_.attemptCatchingWildPokemon(false);
         facadeGame_.catchWildPokemon();
         assertTrue(facadeGame_.isEnabledMovingHero());
@@ -94,7 +94,7 @@ public final class FacadeGameFightTest extends InitializationDataBase {
         FacadeGame facadeGame_ = initTests();
         facadeGame_.getPlayer().getItem(MASTER_BALL);
         facadeGame_.getGame().getFight().getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        facadeGame_.getGame().getFight().getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
+        facadeGame_.getGame().getFight().getCatchingBalls().first().setPlayer(POKEMON_FIGHTER_ZERO);
         facadeGame_.attemptCatchingWildPokemon(true);
         facadeGame_.endRoundFightSuccessBall();
         facadeGame_.catchWildPokemon();
@@ -105,7 +105,7 @@ public final class FacadeGameFightTest extends InitializationDataBase {
     @Test
     public void act7Test() {
         FacadeGame facadeGame_ = initTests();
-        facadeGame_.chooseFrontFighter((byte) 0);
+        facadeGame_.chooseFrontFighter( 0);
         facadeGame_.chooseMove(JACKPOT);
         assertEq(1,facadeGame_.sortedFightersBeginRoundWildFight().size());
 //        assertEq(2,facadeGame_.sortedFightersBeginRoundWildFight().firstValue().size());
@@ -115,7 +115,7 @@ public final class FacadeGameFightTest extends InitializationDataBase {
     public void act8Test() {
         FacadeGame facadeGame_ = initTests();
         facadeGame_.getPlayer().getItem(MASTER_BALL);
-        assertEq(1,facadeGame_.calculateCatchingRatesSingle((byte) 0,(byte) 0).size());
+        assertEq(1,facadeGame_.calculateCatchingRatesSingle( 0, 0).size());
     }
 
     @Test
@@ -146,7 +146,7 @@ public final class FacadeGameFightTest extends InitializationDataBase {
         FacadeGame facadeGame_ = initTests();
         facadeGame_.getPlayer().getItem(MASTER_BALL);
         facadeGame_.getFight().getCatchingBalls().get(0).setCatchingBall(MASTER_BALL);
-        assertEq(1,facadeGame_.calculateCatchingRatesSingle((byte) 0,(byte) 0).size());
+        assertEq(1,facadeGame_.calculateCatchingRatesSingle( 0, 0).size());
         assertEq(1,facadeGame_.calculateCatchingRatesSum().size());
         assertEq(1,facadeGame_.swallow(facadeGame_.attempted()).size());
         assertTrue(facadeGame_.enoughBall());
@@ -165,7 +165,7 @@ public final class FacadeGameFightTest extends InitializationDataBase {
     public void act13Test() {
         FacadeGame facadeGame_ = initTests();
         facadeGame_.getFight().getCatchingBalls().get(0).setCatchingBall(MASTER_BALL);
-        assertEq(0,facadeGame_.calculateCatchingRatesSingle((byte) 0,(byte) 0).size());
+        assertEq(0,facadeGame_.calculateCatchingRatesSingle( 0, 0).size());
         assertFalse(facadeGame_.enoughBall());
     }
 

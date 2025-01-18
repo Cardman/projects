@@ -75,11 +75,11 @@ public final class FacadeGame {
 
     private final StringMap<LgInt> chosenItemsForBuyOrSell = new StringMap<LgInt>();
 
-    private final Shorts chosenTmForBuy = new Shorts();
+    private final Ints chosenTmForBuy = new Ints();
 
-    private short firstSelectPkToHost = IndexConstants.INDEX_NOT_FOUND_ELT;
+    private int firstSelectPkToHost = IndexConstants.INDEX_NOT_FOUND_ELT;
 
-    private short secondSelectPkToHost = IndexConstants.INDEX_NOT_FOUND_ELT;
+    private int secondSelectPkToHost = IndexConstants.INDEX_NOT_FOUND_ELT;
 
     private boolean givingObject;
 
@@ -1027,7 +1027,7 @@ public final class FacadeGame {
         // miniMapCoords.setXcoords((short) CustList.INDEX_NOT_FOUND_ELT);
         // miniMapCoords.setYcoords((short) CustList.INDEX_NOT_FOUND_ELT);
         game.getPlayerCoords().affect(coords_);
-        game.setRankLeague((byte) 0);
+        game.setRankLeague(0);
         changeCamera();
     }
 
@@ -1089,7 +1089,7 @@ public final class FacadeGame {
         game.getPlayer().cancelLearningMoveOnPokemon();
     }
 
-    public void setChosenTeamPokemon(short _chosenPokemon) {
+    public void setChosenTeamPokemon(int _chosenPokemon) {
         game.getPlayer().setChosenTeamPokemon(_chosenPokemon);
         selectedTeamPokemon = game.getPlayer().isValidPkPlayerChoice();
         if (selectedTeamPokemon) {
@@ -1097,7 +1097,7 @@ public final class FacadeGame {
         }
     }
 
-    public void switchTeamOrder(short _chosenOtherPokemon) {
+    public void switchTeamOrder(int _chosenOtherPokemon) {
         game.getPlayer().switchTeamOrder(_chosenOtherPokemon);
     }
 
@@ -1214,7 +1214,7 @@ public final class FacadeGame {
 
     public StringList getChosenTmForBuy() {
         StringList moves_ = new StringList();
-        for (short t : chosenTmForBuy) {
+        for (int t : chosenTmForBuy) {
             moves_.add(data.getTm().getVal(t));
         }
         return moves_;
@@ -1417,7 +1417,7 @@ public final class FacadeGame {
         Seller seller_ = (Seller) lev_.getGerants().getVal(
                 coords_.getLevel().getPoint());
         StringList list_ = new StringList();
-        for (short i : seller_.getTm()) {
+        for (int i : seller_.getTm()) {
             if (chosenTmForBuy.contains(i)) {
                 continue;
             }
@@ -1436,7 +1436,7 @@ public final class FacadeGame {
     StringList getOwnedMoves() {
         StringList list_ = new StringList();
         Inventory inventory_ = game.getPlayer().getInventory();
-        for (short i : inventory_.gotTm()) {
+        for (int i : inventory_.gotTm()) {
             String m_ = data.getTm().getVal(i);
             list_.add(m_);
         }
@@ -1662,7 +1662,7 @@ public final class FacadeGame {
 
     public LgInt amountTm() {
         LgInt amount_ = LgInt.zero();
-        for (short i : chosenTmForBuy) {
+        for (int i : chosenTmForBuy) {
             amount_.addNb(new LgInt(data.getTmPrice().getVal(i)));
         }
         return amount_;
@@ -1704,14 +1704,14 @@ public final class FacadeGame {
         game.getPlayer().cancelUseObject();
     }
 
-    public void selectPokemon(short _index) {
+    public void selectPokemon(int _index) {
         comment.clearMessages();
         giveObject(_index);
         choosePokemon(_index);
         comment.addComment(game.getPlayer().getCommentGame());
     }
 
-    void giveObject(short _index) {
+    void giveObject(int _index) {
         if (!givingObject) {
             return;
         }
@@ -1730,7 +1730,7 @@ public final class FacadeGame {
         return game.getPlayer().usedObjectForBoosting(data);
     }
 
-    void choosePokemon(short _chosenTeamPokemon) {
+    void choosePokemon(int _chosenTeamPokemon) {
         if (givingObject) {
             return;
         }
@@ -1803,7 +1803,7 @@ public final class FacadeGame {
     // %%%%end%%%% option items
 
     // %%%%begin%%%% hosting pokemon
-    public void setSelectPkToHost(short _selectPkToHost) {
+    public void setSelectPkToHost(int _selectPkToHost) {
         if (firstSelectPkToHost == IndexConstants.INDEX_NOT_FOUND_ELT) {
             firstSelectPkToHost = _selectPkToHost;
             return;
@@ -1824,11 +1824,11 @@ public final class FacadeGame {
         secondSelectPkToHost = _selectPkToHost;
     }
 
-    public short getFirstSelectPkToHost() {
+    public int getFirstSelectPkToHost() {
         return firstSelectPkToHost;
     }
 
-    public short getSecondSelectPkToHost() {
+    public int getSecondSelectPkToHost() {
         return secondSelectPkToHost;
     }
 
@@ -1839,9 +1839,9 @@ public final class FacadeGame {
         if (secondSelectPkToHost == IndexConstants.INDEX_NOT_FOUND_ELT) {
             return;
         }
-        ByteTreeMap< PokemonPlayer> team_ = game.getPlayer()
+        IntTreeMap< PokemonPlayer> team_ = game.getPlayer()
                 .getPokemonPlayerList();
-        Bytes keys_ = new Bytes(team_.getKeys());
+        Ints keys_ = new Ints(team_.getKeys());
         // int teamSize_ = game.getPlayer().getTeam().size();
         game.attemptForStoringPokemonToHost(keys_.get(firstSelectPkToHost),
                 keys_.get(secondSelectPkToHost), data);
@@ -1899,7 +1899,7 @@ public final class FacadeGame {
         game.getPlayer().chooseMoveByObject(move_, data);
     }
 
-    public void choosePokemonForLearningMove(byte _position) {
+    public void choosePokemonForLearningMove(int _position) {
         comment.clearMessages();
         game.getPlayer().choosePokemonForLearningMove(_position, data);
         comment.addComment(game.getPlayer().getCommentGame());
@@ -1914,7 +1914,7 @@ public final class FacadeGame {
     // %%%%end%%%% learn technical moves option
 
     // %%%%begin%%%% functions for learning move tutor
-    public void choosePokemonForMoveTutors(short _position) {
+    public void choosePokemonForMoveTutors(int _position) {
         game.getPlayer().choosePokemonForMoveTutors(_position, data);
     }
 
@@ -1976,7 +1976,7 @@ public final class FacadeGame {
         return game.isDualFight();
     }
 
-    public void chooseFrontFighter(byte _pos) {
+    public void chooseFrontFighter(int _pos) {
         game.chooseFrontFighter(_pos, data);
     }
 
@@ -1984,11 +1984,11 @@ public final class FacadeGame {
         game.changeAction(_action, data);
     }
 
-    public void chooseBackFighter(byte _pos) {
+    public void chooseBackFighter(int _pos) {
         game.chooseBackFighter(_pos, data);
     }
 
-    public void chooseSubstituteFighter(byte _pos) {
+    public void chooseSubstituteFighter(int _pos) {
         game.chooseSubstituteFighter(_pos, data);
     }
 
@@ -2004,11 +2004,11 @@ public final class FacadeGame {
     // game.validateSwitch();
     // }
 
-    public void setFirstChosenMoveFoeTarget(byte _cible) {
+    public void setFirstChosenMoveFoeTarget(int _cible) {
         game.setFirstChosenMoveFoeTarget(_cible);
     }
 
-    public void setFirstChosenMovePlayerTarget(byte _cible) {
+    public void setFirstChosenMovePlayerTarget(int _cible) {
         game.setFirstChosenMovePlayerTarget(_cible);
     }
 
@@ -2358,7 +2358,7 @@ public final class FacadeGame {
     // return game.sortedFightersUsingMoveDependingOnPlayerChoices(data);
     // }
 
-    public void setSubstituteEndRound(byte _remplacant) {
+    public void setSubstituteEndRound(int _remplacant) {
         game.setSubstituteEndRound(_remplacant);
     }
 
@@ -2419,11 +2419,11 @@ public final class FacadeGame {
         return game.getPlayerTeam();
     }
 
-    public ByteTreeMap< FighterPosition> getFoeFrontTeam() {
+    public IntTreeMap< FighterPosition> getFoeFrontTeam() {
         return game.getFoeFrontTeam();
     }
 
-    public ByteTreeMap< FighterPosition> getUnionFrontTeam() {
+    public IntTreeMap< FighterPosition> getUnionFrontTeam() {
         return game.getUnionFrontTeam();
     }
 
@@ -2477,15 +2477,15 @@ public final class FacadeGame {
     // %%%%end%%%% fight player side team
 
     // %%%%begin%%%% fight evolutions and learning moves
-    public boolean isChosableForLearningAndEvolving(byte _key) {
+    public boolean isChosableForLearningAndEvolving(int _key) {
         return game.isChosableForLearningAndEvolving(_key);
     }
 
-    public void choosePokemonForLearningAndEvolving(byte _key) {
+    public void choosePokemonForLearningAndEvolving(int _key) {
         game.choosePokemonForLearningAndEvolving(_key, data);
     }
 
-    public byte getChosenIndex() {
+    public int getChosenIndex() {
         return game.getChosenIndex();
     }
 
@@ -2527,7 +2527,7 @@ public final class FacadeGame {
     // %%%%end%%%% fight evolutions and learning moves
 
     // %%%%begin%%%% wild fight
-    public NatStringTreeMap< BallNumberRate> calculateCatchingRatesSingle(byte _creatureSauvage, byte _creatureUt) {
+    public NatStringTreeMap< BallNumberRate> calculateCatchingRatesSingle(int _creatureSauvage, int _creatureUt) {
         return game.calculateCatchingRatesSingle(data, _creatureSauvage, _creatureUt);
     }
 

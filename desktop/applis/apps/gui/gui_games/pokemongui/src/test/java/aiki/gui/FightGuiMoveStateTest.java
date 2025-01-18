@@ -334,10 +334,10 @@ public final class FightGuiMoveStateTest extends InitDbGuiAiki {
         assertEq(2,window_.getBattle().getBattle().getTargets().getFoeTargets().size());
         assertTrue(tree_.containsObj(window_.getBattle().getBattle().getTargets().getFoeTargets().get(0).getPaintableLabel()));
         assertTrue(tree_.containsObj(window_.getBattle().getBattle().getTargets().getFoeTargets().get(1).getPaintableLabel()));
-        assertEq(ECLAIR_4,window_.getFacade().getFight().getFighter(Fight.toUserFighter((byte) 0)).getFirstChosenMove());
-        assertEq(1,window_.getFacade().getFight().getFighter(Fight.toUserFighter((byte) 0)).getChosenTargets().size());
-        assertEq(0,window_.getFacade().getFight().getFighter(Fight.toUserFighter((byte) 0)).getChosenTargets().get(0).getPosition());
-        assertEq(Fight.CST_FOE,window_.getFacade().getFight().getFighter(Fight.toUserFighter((byte) 0)).getChosenTargets().get(0).getTeam());
+        assertEq(ECLAIR_4,window_.getFacade().getFight().getFighter(Fight.toUserFighter( 0)).getFirstChosenMove());
+        assertEq(1,window_.getFacade().getFight().getFighter(Fight.toUserFighter( 0)).getChosenTargets().size());
+        assertEq(0,window_.getFacade().getFight().getFighter(Fight.toUserFighter( 0)).getChosenTargets().get(0).getPosition());
+        assertEq(Fight.CST_FOE,window_.getFacade().getFight().getFighter(Fight.toUserFighter( 0)).getChosenTargets().get(0).getTeam());
     }
 
     @Test
@@ -449,10 +449,10 @@ public final class FightGuiMoveStateTest extends InitDbGuiAiki {
         assertFalse(tree_.containsObj(window_.getBattle().getBattle().getTargets().getPlayerTargets().get(0).getPaintableLabel()));
         assertTrue(tree_.containsObj(window_.getBattle().getBattle().getTargets().getPlayerTargets().get(1).getPaintableLabel()));
         assertTrue(tree_.containsObj(window_.getBattle().getBattle().getTargets().getPlayerTargets().get(2).getPaintableLabel()));
-        assertEq(ECLAIR_4,window_.getFacade().getFight().getFighter(Fight.toUserFighter((byte) 0)).getFirstChosenMove());
-        assertEq(1,window_.getFacade().getFight().getFighter(Fight.toUserFighter((byte) 0)).getChosenTargets().size());
-        assertEq(1,window_.getFacade().getFight().getFighter(Fight.toUserFighter((byte) 0)).getChosenTargets().get(0).getPosition());
-        assertEq(Fight.CST_PLAYER,window_.getFacade().getFight().getFighter(Fight.toUserFighter((byte) 0)).getChosenTargets().get(0).getTeam());
+        assertEq(ECLAIR_4,window_.getFacade().getFight().getFighter(Fight.toUserFighter( 0)).getFirstChosenMove());
+        assertEq(1,window_.getFacade().getFight().getFighter(Fight.toUserFighter( 0)).getChosenTargets().size());
+        assertEq(1,window_.getFacade().getFight().getFighter(Fight.toUserFighter( 0)).getChosenTargets().get(0).getPosition());
+        assertEq(Fight.CST_PLAYER,window_.getFacade().getFight().getFighter(Fight.toUserFighter( 0)).getChosenTargets().get(0).getTeam());
     }
 
     @Test
@@ -488,7 +488,7 @@ public final class FightGuiMoveStateTest extends InitDbGuiAiki {
         assertTrue(tree_.containsObj(window_.getBattle().getBattle().getActionsLabels().get(1).getPaintableLabel()));
         assertTrue(tree_.containsObj(window_.getBattle().getBattle().getActionsLabels().get(2).getPaintableLabel()));
         assertTrue(tree_.containsObj(window_.getBattle().getBattle().getActionsLabels().get(3).getPaintableLabel()));
-        assertEq(1,((ChosenReplacing)window_.getFacade().getFight().getFighter(Fight.toUserFighter((byte) 0)).getAction()).getSubstitute());
+        assertEq(1,((ChosenReplacing)window_.getFacade().getFight().getFighter(Fight.toUserFighter( 0)).getAction()).getSubstitute());
     }
 
     @Test
@@ -745,10 +745,10 @@ public final class FightGuiMoveStateTest extends InitDbGuiAiki {
         assertTrue(tree_.containsObj(window_.getBattle().getBattle().getTargets().getPlayerTargets().get(1).getPaintableLabel()));
         assertTrue(tree_.containsObj(window_.getBattle().getBattle().getTargets().getPlayerTargets().get(2).getPaintableLabel()));
         assertTrue(tree_.containsObj(window_.getBattle().getBattle().getTargets().getPlayerTargets().get(3).getPaintableLabel()));
-        assertEq(ECLAIR_4,window_.getFacade().getFight().getFighter(Fight.toUserFighter((byte) 0)).getFirstChosenMove());
-        assertEq(1,window_.getFacade().getFight().getFighter(Fight.toUserFighter((byte) 0)).getChosenTargets().size());
-        assertEq(1,window_.getFacade().getFight().getFighter(Fight.toUserFighter((byte) 0)).getChosenTargets().get(0).getPosition());
-        assertEq(Fight.CST_PLAYER,window_.getFacade().getFight().getFighter(Fight.toUserFighter((byte) 0)).getChosenTargets().get(0).getTeam());
+        assertEq(ECLAIR_4,window_.getFacade().getFight().getFighter(Fight.toUserFighter( 0)).getFirstChosenMove());
+        assertEq(1,window_.getFacade().getFight().getFighter(Fight.toUserFighter( 0)).getChosenTargets().size());
+        assertEq(1,window_.getFacade().getFight().getFighter(Fight.toUserFighter( 0)).getChosenTargets().get(0).getPosition());
+        assertEq(Fight.CST_PLAYER,window_.getFacade().getFight().getFighter(Fight.toUserFighter( 0)).getChosenTargets().get(0).getTeam());
     }
 
     @Test
@@ -971,8 +971,8 @@ public final class FightGuiMoveStateTest extends InitDbGuiAiki {
         assertEq(2,window_.getBattle().getBattle().getMovesLabels().size());
         assertFalse(tree_.containsObj(window_.getBattle().getBattle().getMovesLabels().get(0).getPaintableLabel()));
         assertTrue(tree_.containsObj(window_.getBattle().getBattle().getMovesLabels().get(1).getPaintableLabel()));
-        assertEq(ECLAIR_4,((ChosenMove)window_.getFacade().getFight().getFighter(Fight.toUserFighter((byte) 0)).getAction()).getFirstChosenMove());
-        assertEq(HUILE,((ActionHeal)window_.getFacade().getFight().getFighter(Fight.toUserFighter((byte) 0)).getAction()).getChosenHealingItem());
+        assertEq(ECLAIR_4,((ChosenMove)window_.getFacade().getFight().getFighter(Fight.toUserFighter( 0)).getAction()).getFirstChosenMove());
+        assertEq(HUILE,((ActionHeal)window_.getFacade().getFight().getFighter(Fight.toUserFighter( 0)).getAction()).getChosenHealingItem());
     }
     @Test
     public void state29() {
@@ -1041,8 +1041,8 @@ public final class FightGuiMoveStateTest extends InitDbGuiAiki {
         assertEq(2,window_.getBattle().getBattle().getMovesLabels().size());
         assertTrue(tree_.containsObj(window_.getBattle().getBattle().getMovesLabels().get(0).getPaintableLabel()));
         assertTrue(tree_.containsObj(window_.getBattle().getBattle().getMovesLabels().get(1).getPaintableLabel()));
-        assertEq(ECLAIR_4,((ActionMove)window_.getFacade().getFight().getFighter(Fight.toUserFighter((byte) 0)).getAction()).getFirstChosenMove());
-        assertEq(2,((ActionMove)window_.getFacade().getFight().getFighter(Fight.toUserFighter((byte) 0)).getAction()).getSubstitute());
+        assertEq(ECLAIR_4,((ActionMove)window_.getFacade().getFight().getFighter(Fight.toUserFighter( 0)).getAction()).getFirstChosenMove());
+        assertEq(2,((ActionMove)window_.getFacade().getFight().getFighter(Fight.toUserFighter( 0)).getAction()).getSubstitute());
     }
 
     @Test
@@ -1082,7 +1082,7 @@ public final class FightGuiMoveStateTest extends InitDbGuiAiki {
         loadRom(_window, coreDataBaseAttSt(def()));
         Game game_ = build(_window.getFacade());
         loadGame(_window, game_);
-        ((PokemonPlayer)game_.getPlayer().getTeam().last()).getMoves().addEntry(ECLAIR_4,new UsesOfMove((short) 1));
+        ((PokemonPlayer)game_.getPlayer().getTeam().last()).getMoves().addEntry(ECLAIR_4,new UsesOfMove( 1));
         game_.getPlayer().getTeam().add(pk(_window));
         game_.getPlayer().getTeam().add(pk(_window));
         _window.getFacade().attract();
@@ -1093,8 +1093,8 @@ public final class FightGuiMoveStateTest extends InitDbGuiAiki {
         loadRom(_window, coreDataBaseAttSt(def()));
         Game game_ = build(_window.getFacade());
         loadGame(_window, game_);
-        ((PokemonPlayer)game_.getPlayer().getTeam().last()).getMoves().addEntry(ECLAIR_4,new UsesOfMove((short) 1));
-        ((PokemonPlayer)game_.getPlayer().getTeam().last()).getMoves().getValue(1).setCurrent((short) 0);
+        ((PokemonPlayer)game_.getPlayer().getTeam().last()).getMoves().addEntry(ECLAIR_4,new UsesOfMove( 1));
+        ((PokemonPlayer)game_.getPlayer().getTeam().last()).getMoves().getValue(1).setCurrent( 0);
         game_.getPlayer().getTeam().add(pk(_window));
         game_.getPlayer().getTeam().add(pk(_window));
         _window.getFacade().attract();
@@ -1111,8 +1111,8 @@ public final class FightGuiMoveStateTest extends InitDbGuiAiki {
         _window.getFacade().healTr();
         Game game_ = build(_window.getFacade());
         loadGame(_window, game_);
-        ((PokemonPlayer)game_.getPlayer().getTeam().last()).getMoves().addEntry(ECLAIR_4,new UsesOfMove((short) 1));
-        ((PokemonPlayer)game_.getPlayer().getTeam().last()).getMoves().getValue(1).setCurrent((short) 0);
+        ((PokemonPlayer)game_.getPlayer().getTeam().last()).getMoves().addEntry(ECLAIR_4,new UsesOfMove( 1));
+        ((PokemonPlayer)game_.getPlayer().getTeam().last()).getMoves().getValue(1).setCurrent( 0);
         game_.getPlayer().getTeam().add(pk(_window));
         game_.getPlayer().getTeam().add(pk(_window));
         game_.getPlayer().getItem(HUILE);
@@ -1132,7 +1132,7 @@ public final class FightGuiMoveStateTest extends InitDbGuiAiki {
         loadRom(_window, coreDataBaseAttSt2(md_));
         Game game_ = build(_window.getFacade());
         loadGame(_window, game_);
-        ((PokemonPlayer)game_.getPlayer().getTeam().last()).getMoves().addEntry(ECLAIR_4,new UsesOfMove((short) 1));
+        ((PokemonPlayer)game_.getPlayer().getTeam().last()).getMoves().addEntry(ECLAIR_4,new UsesOfMove( 1));
         game_.getPlayer().getTeam().add(pk(_window));
         game_.getPlayer().getTeam().add(pk(_window));
         _window.getFacade().attract();
@@ -1150,19 +1150,19 @@ public final class FightGuiMoveStateTest extends InitDbGuiAiki {
         loadRom(_window, coreDataBaseAttSt2(md_));
         Game game_ = build(_window.getFacade());
         loadGame(_window, game_);
-        ((PokemonPlayer)game_.getPlayer().getTeam().last()).getMoves().addEntry(ECLAIR_4,new UsesOfMove((short) 1));
+        ((PokemonPlayer)game_.getPlayer().getTeam().last()).getMoves().addEntry(ECLAIR_4,new UsesOfMove( 1));
         game_.getPlayer().getTeam().add(pk(_window));
         _window.getFacade().attract();
         _window.getFacade().changeCamera();
         _window.afterLoadGame();
-        _window.getFacade().getFight().getFighter(Fight.toFoeFighter((byte) 1)).setRemainingHp(Rate.zero());
-        _window.getFacade().getFight().getFighter(Fight.toFoeFighter((byte) 1)).setGroundPlace(Fighter.BACK);
-        _window.getFacade().getFight().getFighter(Fight.toFoeFighter((byte) 1)).setGroundPlaceSubst(Fighter.BACK);
-        _window.getFacade().getFight().getFighter(Fight.toUserFighter((byte) 1)).setRemainingHp(Rate.zero());
-        _window.getFacade().getFight().getFighter(Fight.toUserFighter((byte) 1)).setGroundPlace(Fighter.BACK);
-        _window.getFacade().getFight().getFighter(Fight.toUserFighter((byte) 1)).setGroundPlaceSubst(Fighter.BACK);
-        _window.getFacade().getFight().getFirstPositPlayerFighters().put((byte)1,Fighter.BACK);
-        _window.getFacade().getFight().getFirstPositFoeFighters().put((byte)1,Fighter.BACK);
+        _window.getFacade().getFight().getFighter(Fight.toFoeFighter( 1)).setRemainingHp(Rate.zero());
+        _window.getFacade().getFight().getFighter(Fight.toFoeFighter( 1)).setGroundPlace(Fighter.BACK);
+        _window.getFacade().getFight().getFighter(Fight.toFoeFighter( 1)).setGroundPlaceSubst(Fighter.BACK);
+        _window.getFacade().getFight().getFighter(Fight.toUserFighter( 1)).setRemainingHp(Rate.zero());
+        _window.getFacade().getFight().getFighter(Fight.toUserFighter( 1)).setGroundPlace(Fighter.BACK);
+        _window.getFacade().getFight().getFighter(Fight.toUserFighter( 1)).setGroundPlaceSubst(Fighter.BACK);
+        _window.getFacade().getFight().getFirstPositPlayerFighters().put(1,Fighter.BACK);
+        _window.getFacade().getFight().getFirstPositFoeFighters().put(1,Fighter.BACK);
         _window.getBattle().setComments();
         _window.getBattle().initializeFight(true);
     }
@@ -1175,7 +1175,7 @@ public final class FightGuiMoveStateTest extends InitDbGuiAiki {
         loadRom(_window, coreDataBaseAttSt2(md_));
         Game game_ = build(_window.getFacade());
         loadGame(_window, game_);
-        ((PokemonPlayer)game_.getPlayer().getTeam().last()).getMoves().addEntry(ECLAIR_4,new UsesOfMove((short) 1));
+        ((PokemonPlayer)game_.getPlayer().getTeam().last()).getMoves().addEntry(ECLAIR_4,new UsesOfMove( 1));
         game_.getPlayer().getTeam().add(pk(_window));
         game_.getPlayer().getTeam().add(pk(_window));
         game_.getPlayer().getTeam().add(pk(_window));
@@ -1194,7 +1194,7 @@ public final class FightGuiMoveStateTest extends InitDbGuiAiki {
         loadRom(_window, coreDataBaseAttSt(md_));
         Game game_ = build(_window.getFacade());
         loadGame(_window, game_);
-        ((PokemonPlayer)game_.getPlayer().getTeam().last()).getMoves().addEntry(ECLAIR_4,new UsesOfMove((short) 1));
+        ((PokemonPlayer)game_.getPlayer().getTeam().last()).getMoves().addEntry(ECLAIR_4,new UsesOfMove( 1));
         _window.getFacade().attract();
         _window.getFacade().changeCamera();
         _window.afterLoadGame();
@@ -1208,7 +1208,7 @@ public final class FightGuiMoveStateTest extends InitDbGuiAiki {
         loadRom(_window, coreDataBaseAttSt3(md_));
         Game game_ = build(_window.getFacade());
         loadGame(_window, game_);
-        ((PokemonPlayer)game_.getPlayer().getTeam().last()).getMoves().addEntry(ECLAIR_4,new UsesOfMove((short) 1));
+        ((PokemonPlayer)game_.getPlayer().getTeam().last()).getMoves().addEntry(ECLAIR_4,new UsesOfMove( 1));
         game_.getPlayer().getTeam().add(pk(_window));
         game_.getPlayer().getTeam().add(pk(_window));
         _window.getFacade().attract();
@@ -1224,7 +1224,7 @@ public final class FightGuiMoveStateTest extends InitDbGuiAiki {
         loadRom(_window, coreDataBaseAttSt4(md_));
         Game game_ = build(_window.getFacade());
         loadGame(_window, game_);
-        ((PokemonPlayer)game_.getPlayer().getTeam().last()).getMoves().addEntry(ECLAIR_4,new UsesOfMove((short) 1));
+        ((PokemonPlayer)game_.getPlayer().getTeam().last()).getMoves().addEntry(ECLAIR_4,new UsesOfMove( 1));
         game_.getPlayer().getTeam().add(pk(_window));
         game_.getPlayer().getTeam().add(pk(_window));
         game_.getPlayer().getTeam().add(pk(_window));
@@ -1262,10 +1262,10 @@ public final class FightGuiMoveStateTest extends InitDbGuiAiki {
 
 
 //        initMiniMap(data_);
-        data_.getTm().addEntry((short)2,ECLAIR);
-        data_.getTm().addEntry((short)3,ECLAIR_4);
-        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
-        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        data_.getTm().addEntry(2,ECLAIR);
+        data_.getTm().addEntry(3,ECLAIR_4);
+        data_.getTmPrice().addEntry(2,new LgInt("1"));
+        data_.getTmPrice().addEntry(3,new LgInt("2"));
         compute(data_);
 
         return ball_;
@@ -1301,10 +1301,10 @@ public final class FightGuiMoveStateTest extends InitDbGuiAiki {
 
 
 //        initMiniMap(data_);
-        data_.getTm().addEntry((short)2,ECLAIR);
-        data_.getTm().addEntry((short)3,ECLAIR_4);
-        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
-        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        data_.getTm().addEntry(2,ECLAIR);
+        data_.getTm().addEntry(3,ECLAIR_4);
+        data_.getTmPrice().addEntry(2,new LgInt("1"));
+        data_.getTmPrice().addEntry(3,new LgInt("2"));
         compute(data_);
 
         return ball_;
@@ -1340,10 +1340,10 @@ public final class FightGuiMoveStateTest extends InitDbGuiAiki {
 
 
 //        initMiniMap(data_);
-        data_.getTm().addEntry((short)2,ECLAIR);
-        data_.getTm().addEntry((short)3,ECLAIR_4);
-        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
-        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        data_.getTm().addEntry(2,ECLAIR);
+        data_.getTm().addEntry(3,ECLAIR_4);
+        data_.getTmPrice().addEntry(2,new LgInt("1"));
+        data_.getTmPrice().addEntry(3,new LgInt("2"));
         compute(data_);
 
         return ball_;
@@ -1378,10 +1378,10 @@ public final class FightGuiMoveStateTest extends InitDbGuiAiki {
 
 
 //        initMiniMap(data_);
-        data_.getTm().addEntry((short)2,ECLAIR);
-        data_.getTm().addEntry((short)3,ECLAIR_4);
-        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
-        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        data_.getTm().addEntry(2,ECLAIR);
+        data_.getTm().addEntry(3,ECLAIR_4);
+        data_.getTmPrice().addEntry(2,new LgInt("1"));
+        data_.getTmPrice().addEntry(3,new LgInt("2"));
         compute(data_);
 
         return ball_;
@@ -1417,10 +1417,10 @@ public final class FightGuiMoveStateTest extends InitDbGuiAiki {
 
 
 //        initMiniMap(data_);
-        data_.getTm().addEntry((short)2,ECLAIR);
-        data_.getTm().addEntry((short)3,ECLAIR_4);
-        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
-        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        data_.getTm().addEntry(2,ECLAIR);
+        data_.getTm().addEntry(3,ECLAIR_4);
+        data_.getTmPrice().addEntry(2,new LgInt("1"));
+        data_.getTmPrice().addEntry(3,new LgInt("2"));
         compute(data_);
 
         return ball_;
@@ -1433,7 +1433,7 @@ public final class FightGuiMoveStateTest extends InitDbGuiAiki {
         pkm_.setAbility(PARATONNERRE);
         pkm_.setGender(Gender.NO_GENDER);
         pkm_.setItem(NULL_REF);
-        pkm_.setLevel((short) 1);
+        pkm_.setLevel( 1);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 1));
     }
@@ -1445,8 +1445,8 @@ public final class FightGuiMoveStateTest extends InitDbGuiAiki {
 
     public static Road withArea2(Road _road) {
         AreaApparition a_ = Instances.newAreaApparition();
-        a_.setAvgNbSteps((short) 1);
-        a_.setMultFight((byte) 2);
+        a_.setAvgNbSteps( 1);
+        a_.setMultFight( 2);
         a_.getWildPokemon().add(wild());
         a_.getWildPokemonFishing().add(wild());
         _road.getLevelRoad().getWildPokemonAreas().add(a_);
@@ -1455,8 +1455,8 @@ public final class FightGuiMoveStateTest extends InitDbGuiAiki {
 
     public static Road withArea3(Road _road) {
         AreaApparition a_ = Instances.newAreaApparition();
-        a_.setAvgNbSteps((short) 1);
-        a_.setMultFight((byte) 3);
+        a_.setAvgNbSteps( 1);
+        a_.setMultFight( 3);
         a_.getWildPokemon().add(wild());
         a_.getWildPokemonFishing().add(wild());
         _road.getLevelRoad().getWildPokemonAreas().add(a_);
@@ -1465,8 +1465,8 @@ public final class FightGuiMoveStateTest extends InitDbGuiAiki {
 
     public static Road withArea4(Road _road) {
         AreaApparition a_ = Instances.newAreaApparition();
-        a_.setAvgNbSteps((short) 1);
-        a_.setMultFight((byte) 4);
+        a_.setAvgNbSteps( 1);
+        a_.setMultFight( 4);
         a_.getWildPokemon().add(wild());
         a_.getWildPokemonFishing().add(wild());
         _road.getLevelRoad().getWildPokemonAreas().add(a_);

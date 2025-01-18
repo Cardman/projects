@@ -2,7 +2,7 @@ package aiki.fight.util;
 
 import code.util.CollCapacity;
 
-public final class StatisticCategoryByte extends StatisticCategoryList<Byte> {
+public final class StatisticCategoryByte extends StatisticCategoryList<Integer> {
     public StatisticCategoryByte() {
     }
     public StatisticCategoryByte(CollCapacity _cap) {
@@ -10,8 +10,8 @@ public final class StatisticCategoryByte extends StatisticCategoryList<Byte> {
     }
 
     @Override
-    protected Byte def() {
-        return (byte)0;
+    protected Integer def() {
+        return 0;
     }
 
 }

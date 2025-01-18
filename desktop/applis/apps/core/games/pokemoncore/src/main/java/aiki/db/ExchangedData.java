@@ -3,7 +3,7 @@ package aiki.db;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
-import code.util.ByteTreeMap;
+import code.util.IntTreeMap;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -29,10 +29,10 @@ public final class ExchangedData {
         setItems(new StringList(_dataBase.getItems().getKeys()));
     }
 
-    public ByteTreeMap<PokemonPlayer> getTeam(CustList<UsablePokemon> _otherTeam) {
-        ByteTreeMap<PokemonPlayer> team_ = new ByteTreeMap<PokemonPlayer>();
+    public IntTreeMap<PokemonPlayer> getTeam(CustList<UsablePokemon> _otherTeam) {
+        IntTreeMap<PokemonPlayer> team_ = new IntTreeMap<PokemonPlayer>();
         int nb_ = _otherTeam.size();
-        for (byte i = 0; i < nb_; i++) {
+        for (int i = 0; i < nb_; i++) {
             UsablePokemon pk_ =_otherTeam.get(i);
             if (!(pk_ instanceof PokemonPlayer)) {
                 continue;

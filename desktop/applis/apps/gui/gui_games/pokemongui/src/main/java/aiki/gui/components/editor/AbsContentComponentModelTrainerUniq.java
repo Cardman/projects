@@ -28,7 +28,7 @@ public abstract class AbsContentComponentModelTrainerUniq {
     void buildComEntity() {
         TrainerOneFight e_ = entity();
         e_.setTeam(trainer.getWalk().getList());
-        e_.setReward((short) reward.valueInt());
+        e_.setReward(reward.valueInt());
         trainerImg.buildEntity(e_);
     }
 

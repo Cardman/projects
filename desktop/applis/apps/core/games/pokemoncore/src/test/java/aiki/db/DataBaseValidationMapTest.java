@@ -70,7 +70,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pkm_.setName(ELECTRICK);
         pkm_.setAbility(ELECTRICK);
         pkm_.setItem(ELECTRICK);
-        pkm_.setLevel((short) -1);
+        pkm_.setLevel( -1);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 0));
         data_.completeVariables();
@@ -97,7 +97,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pkm_.setName(ELECTRICK);
         pkm_.setAbility(ELECTRICK);
         pkm_.setItem(ELECTRICK);
-        pkm_.setLevel((short) 1200);
+        pkm_.setLevel( 1200);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 0));
         data_.completeVariables();
@@ -125,14 +125,14 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         block_.setIndexApparition(10);
         AreaApparition area_ = Instances.newAreaApparition();
         area_.getWildPokemonFishing().add(Instances.newWildPk());
-        area_.setMultFight((byte)5);
+        area_.setMultFight(5);
         r_.getLevelRoad().getWildPokemonAreas().add(area_);
         area_ = Instances.newAreaApparition();
-        area_.setMultFight((byte)-1);
+        area_.setMultFight(-1);
         r_.getLevelRoad().getWildPokemonAreas().add(area_);
         r_.getLevelRoad().getBlocks().addEntry(newPoint(0,0), block_);
         TrainerMultiFights tr_ = Instances.newTrainerMultiFights();
-        tr_.setMultiplicityFight((byte) 5);
+        tr_.setMultiplicityFight( 5);
         PokemonTeam team_ = Instances.newPokemonTeam();
         PkTrainer pkTr_ = Instances.newPkTrainer();
         team_.getTeam().add(pkTr_);
@@ -151,11 +151,11 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         tr_.getTeamsRewards().add(Instances.newPokemonTeam());
         r_.getLevelRoad().getCharacters().addEntry(newPoint(1,1), tr_);
         TrainerMultiFights trTwo_ = Instances.newTrainerMultiFights();
-        trTwo_.setMultiplicityFight((byte)0);
+        trTwo_.setMultiplicityFight(0);
         r_.getLevelRoad().getCharacters().addEntry(newPoint(2,2), trTwo_);
         DealerItem deal_ = Instances.newDealerItem();
         deal_.getItems().add(ELECTRICK);
-        deal_.getTechnicalMoves().add((short)100);
+        deal_.getTechnicalMoves().add(100);
         r_.getLevelRoad().getCharacters().addEntry(newPoint(5,5), deal_);
         DualFight dual_ = Instances.newDualFight();
         dual_.setPt(newPoint(4,4));
@@ -173,12 +173,12 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         seller_.setSell(SellType.TM);
         pokemonCenter_.getIndoor().getGerants().addEntry(newPoint(1,2),seller_);
         seller_ = Instances.newSeller();
-        seller_.getTm().add((short)100);
+        seller_.getTm().add(100);
         seller_.setSell(SellType.ITEM);
         pokemonCenter_.getIndoor().getGerants().addEntry(newPoint(1,3),seller_);
         seller_ = Instances.newSeller();
         seller_.getItems().add(ELECTRICK);
-        seller_.getTm().add((short)100);
+        seller_.getTm().add(100);
         seller_.setSell(SellType.MOVE);
         pokemonCenter_.getIndoor().getGerants().addEntry(newPoint(1,4),seller_);
         pokemonCenter_.getIndoor().getGerants().addEntry(newPoint(1,5),Instances.newGymTrainer());
@@ -186,7 +186,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         city_.getBuildings().addEntry(newPoint(0,0), pokemonCenter_);
         Gym gym_ = Instances.newGym();
         GymLeader gymLeader_ = Instances.newGymLeader();
-        gymLeader_.setTm((short)100);
+        gymLeader_.setTm(100);
         block_ = Instances.newBlock();
         block_.setType(EnvironmentType.NOTHING);
         block_.setWidth(1);
@@ -224,7 +224,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pkm_.setName(ELECTRICK);
         pkm_.setAbility(ELECTRICK);
         pkm_.setItem(ELECTRICK);
-        pkm_.setLevel((short) 1200);
+        pkm_.setLevel( 1200);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 0));
         data_.completeVariables();
@@ -261,10 +261,10 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         wpk_.setAbility(ELECTRICK);
         wpk_.setItem(ELECTRICK);
         area_.getWildPokemonFishing().add(wpk_);
-        area_.setMultFight((byte)5);
+        area_.setMultFight(5);
         r_.getLevelRoad().getWildPokemonAreas().add(area_);
         area_ = Instances.newAreaApparition();
-        area_.setMultFight((byte)-1);
+        area_.setMultFight(-1);
         r_.getLevelRoad().getWildPokemonAreas().add(area_);
         r_.getLevelRoad().getBlocks().addEntry(newPoint(0,0), block_);
         DualFight dual_ = Instances.newDualFight();
@@ -278,7 +278,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pkm_.setName(ELECTRICK);
         pkm_.setAbility(ELECTRICK);
         pkm_.setItem(ELECTRICK);
-        pkm_.setLevel((short) 1200);
+        pkm_.setLevel( 1200);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 0));
         data_.completeVariables();
@@ -339,7 +339,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pkm_.setName(ELECTRICK);
         pkm_.setAbility(ELECTRICK);
         pkm_.setItem(ELECTRICK);
-        pkm_.setLevel((short) 1200);
+        pkm_.setLevel( 1200);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 0));
         data_.completeVariables();
@@ -372,14 +372,14 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         r_.getLevelRoad().getBlocks().addEntry(newPoint(0,0), block_);
         DealerItem deal_ = Instances.newDealerItem();
         deal_.getItems().add(ELECTRICK);
-        deal_.getTechnicalMoves().add((short)100);
+        deal_.getTechnicalMoves().add(100);
         r_.getLevelRoad().getCharacters().addEntry(newPoint(5,5), deal_);
         DualFight dual_ = Instances.newDualFight();
         dual_.setPt(newPoint(5,5));
         r_.getLevelRoad().getDualFights().addEntry(newPoint(5,5), dual_);
         r_.getLevelRoad().getLegendaryPks().addEntry(newPoint(5,5),Instances.newWildPk());
-        r_.getLevelRoad().getTm().addEntry(newPoint(5,5),(short)100);
-        r_.getLevelRoad().getHm().addEntry(newPoint(5,5),(short)100);
+        r_.getLevelRoad().getTm().addEntry(newPoint(5,5),100);
+        r_.getLevelRoad().getHm().addEntry(newPoint(5,5),100);
         map_.getPlaces().add( r_);
         map_.getPlaces().add( Instances.newCity());
         City city_ = Instances.newCity();
@@ -395,7 +395,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pkm_.setName(ELECTRICK);
         pkm_.setAbility(ELECTRICK);
         pkm_.setItem(ELECTRICK);
-        pkm_.setLevel((short) 1200);
+        pkm_.setLevel( 1200);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 0));
         data_.completeVariables();
@@ -437,7 +437,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pkm_.setName(ELECTRICK);
         pkm_.setAbility(ELECTRICK);
         pkm_.setItem(ELECTRICK);
-        pkm_.setLevel((short) 1200);
+        pkm_.setLevel( 1200);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 0));
         data_.completeVariables();
@@ -479,7 +479,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pkm_.setName(ELECTRICK);
         pkm_.setAbility(ELECTRICK);
         pkm_.setItem(ELECTRICK);
-        pkm_.setLevel((short) 1200);
+        pkm_.setLevel( 1200);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 0));
         data_.completeVariables();
@@ -510,8 +510,8 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         levelCave_.getDualFights().addEntry(newPoint(0,0),Instances.newDualFight());
         levelCave_.getCharacters().addEntry(newPoint(0,0),Instances.newTrainerMultiFights());
         levelCave_.getItems().addEntry(newPoint(0,0),ELECTRICK);
-        levelCave_.getTm().addEntry(newPoint(0,0),(short)0);
-        levelCave_.getHm().addEntry(newPoint(0,0),(short)0);
+        levelCave_.getTm().addEntry(newPoint(0,0),0);
+        levelCave_.getHm().addEntry(newPoint(0,0),0);
         levelCave_.getLegendaryPks().addEntry(newPoint(0,0),Instances.newWildPk());
         r_.getLevels().add(levelCave_);
         levelCave_ = Instances.newLevelCave();
@@ -543,7 +543,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pkm_.setName(ELECTRICK);
         pkm_.setAbility(ELECTRICK);
         pkm_.setItem(ELECTRICK);
-        pkm_.setLevel((short) 1200);
+        pkm_.setLevel( 1200);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 0));
         data_.completeVariables();
@@ -594,7 +594,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pkm_.setName(ELECTRICK);
         pkm_.setAbility(ELECTRICK);
         pkm_.setItem(ELECTRICK);
-        pkm_.setLevel((short) 1200);
+        pkm_.setLevel( 1200);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 0));
         data_.completeVariables();
@@ -646,7 +646,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pkm_.setName(ELECTRICK);
         pkm_.setAbility(ELECTRICK);
         pkm_.setItem(ELECTRICK);
-        pkm_.setLevel((short) 1200);
+        pkm_.setLevel( 1200);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 0));
         data_.completeVariables();
@@ -703,7 +703,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pkm_.setName(ELECTRICK);
         pkm_.setAbility(ELECTRICK);
         pkm_.setItem(ELECTRICK);
-        pkm_.setLevel((short) 1200);
+        pkm_.setLevel( 1200);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 0));
         data_.completeVariables();
@@ -765,7 +765,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pkm_.setName(ELECTRICK);
         pkm_.setAbility(ELECTRICK);
         pkm_.setItem(ELECTRICK);
-        pkm_.setLevel((short) 1200);
+        pkm_.setLevel( 1200);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 0));
         data_.completeVariables();
@@ -821,7 +821,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pkm_.setName(ELECTRICK);
         pkm_.setAbility(ELECTRICK);
         pkm_.setItem(ELECTRICK);
-        pkm_.setLevel((short) 1200);
+        pkm_.setLevel( 1200);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 0));
         data_.completeVariables();
@@ -876,7 +876,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pkm_.setName(ELECTRICK);
         pkm_.setAbility(ELECTRICK);
         pkm_.setItem(ELECTRICK);
-        pkm_.setLevel((short) 1200);
+        pkm_.setLevel( 1200);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 0));
         data_.completeVariables();
@@ -939,7 +939,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pkm_.setName(ELECTRICK);
         pkm_.setAbility(ELECTRICK);
         pkm_.setItem(ELECTRICK);
-        pkm_.setLevel((short) 1200);
+        pkm_.setLevel( 1200);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 0));
         data_.completeVariables();
@@ -966,7 +966,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pkm_.setName(ELECTRICK);
         pkm_.setAbility(ELECTRICK);
         pkm_.setItem(ELECTRICK);
-        pkm_.setLevel((short) -1);
+        pkm_.setLevel( -1);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0,2,2, 0, 0));
         data_.completeVariables();
@@ -995,7 +995,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pkm_.setName(ELECTRICK);
         pkm_.setAbility(ELECTRICK);
         pkm_.setItem(ELECTRICK);
-        pkm_.setLevel((short) -1);
+        pkm_.setLevel( -1);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0,2,2, 0, 0));
         data_.completeVariables();
@@ -1061,7 +1061,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pkm_.setName(ELECTRICK);
         pkm_.setAbility(ELECTRICK);
         pkm_.setItem(ELECTRICK);
-        pkm_.setLevel((short) 1200);
+        pkm_.setLevel( 1200);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 0));
         data_.completeVariables();
@@ -1126,7 +1126,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pkm_.setName(ELECTRICK);
         pkm_.setAbility(ELECTRICK);
         pkm_.setItem(ELECTRICK);
-        pkm_.setLevel((short) 1200);
+        pkm_.setLevel( 1200);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 0));
         data_.completeVariables();
@@ -1191,7 +1191,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pkm_.setName(ELECTRICK);
         pkm_.setAbility(ELECTRICK);
         pkm_.setItem(ELECTRICK);
-        pkm_.setLevel((short) 1200);
+        pkm_.setLevel( 1200);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 0));
         data_.completeVariables();
@@ -1235,7 +1235,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pkm_.setName(ELECTRICK);
         pkm_.setAbility(ELECTRICK);
         pkm_.setItem(ELECTRICK);
-        pkm_.setLevel((short) 1200);
+        pkm_.setLevel( 1200);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 0));
         data_.completeVariables();
@@ -1283,7 +1283,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pkm_.setName(ELECTRICK);
         pkm_.setAbility(ELECTRICK);
         pkm_.setItem(ELECTRICK);
-        pkm_.setLevel((short) 1200);
+        pkm_.setLevel( 1200);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 0));
         data_.completeVariables();
@@ -1307,29 +1307,29 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         damagingMoveData_.getEffects().add(effectDamage_);
         damagingMoveData_.setAccuracy("1");
         damagingMoveData_.setTargetChoice(TargetChoice.ANY_FOE);
-        damagingMoveData_.setPp((short) 1);
+        damagingMoveData_.setPp( 1);
         damagingMoveData_.setTypes(new StringList(ELECTRICK));
         data_.completeMembers(CHARGE,damagingMoveData_);
         PokemonData pokemonData_ = Instances.newPokemonData();
-        pokemonData_.getStatistics().addEntry(Statistic.HP,new StatBaseEv((short)1,(short)1));
-        pokemonData_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)1));
-        pokemonData_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)1));
-        pokemonData_.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv((short)1,(short)1));
-        pokemonData_.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv((short)1,(short)1));
-        pokemonData_.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv((short)1,(short)1));
+        pokemonData_.getStatistics().addEntry(Statistic.HP,new StatBaseEv(1,1));
+        pokemonData_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv(1,1));
+        pokemonData_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv(1,1));
+        pokemonData_.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv(1,1));
+        pokemonData_.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv(1,1));
+        pokemonData_.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv(1,1));
         pokemonData_.setTypes(new StringList(ELECTRICK));
-        pokemonData_.getLevMoves().add(new LevelMove((short)1,CHARGE));
+        pokemonData_.getLevMoves().add(new LevelMove(1,CHARGE));
         pokemonData_.setBaseEvo(PIKACHU);
         data_.completeMembers(PIKACHU,pokemonData_);
         pokemonData_ = Instances.newPokemonData();
-        pokemonData_.getStatistics().addEntry(Statistic.HP,new StatBaseEv((short)1,(short)1));
-        pokemonData_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)1));
-        pokemonData_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)1));
-        pokemonData_.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv((short)1,(short)1));
-        pokemonData_.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv((short)1,(short)1));
-        pokemonData_.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv((short)1,(short)1));
+        pokemonData_.getStatistics().addEntry(Statistic.HP,new StatBaseEv(1,1));
+        pokemonData_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv(1,1));
+        pokemonData_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv(1,1));
+        pokemonData_.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv(1,1));
+        pokemonData_.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv(1,1));
+        pokemonData_.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv(1,1));
         pokemonData_.setTypes(new StringList(ELECTRICK));
-        pokemonData_.getLevMoves().add(new LevelMove((short)1,CHARGE));
+        pokemonData_.getLevMoves().add(new LevelMove(1,CHARGE));
         pokemonData_.setGenderRep(GenderRepartition.LEGENDARY);
         pokemonData_.setBaseEvo(PIKACHU2);
         data_.completeMembers(PIKACHU2,pokemonData_);
@@ -1364,7 +1364,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pkm_.setName(ELECTRICK);
         pkm_.setAbility(ELECTRICK);
         pkm_.setItem(ELECTRICK);
-        pkm_.setLevel((short) 1200);
+        pkm_.setLevel( 1200);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 0));
         data_.completeVariables();
@@ -1388,18 +1388,18 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         damagingMoveData_.getEffects().add(effectDamage_);
         damagingMoveData_.setAccuracy("1");
         damagingMoveData_.setTargetChoice(TargetChoice.ANY_FOE);
-        damagingMoveData_.setPp((short) 1);
+        damagingMoveData_.setPp( 1);
         damagingMoveData_.setTypes(new StringList(ELECTRICK));
         data_.completeMembers(CHARGE,damagingMoveData_);
         PokemonData pokemonData_ = Instances.newPokemonData();
-        pokemonData_.getStatistics().addEntry(Statistic.HP,new StatBaseEv((short)1,(short)1));
-        pokemonData_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)1));
-        pokemonData_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)1));
-        pokemonData_.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv((short)1,(short)1));
-        pokemonData_.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv((short)1,(short)1));
-        pokemonData_.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv((short)1,(short)1));
+        pokemonData_.getStatistics().addEntry(Statistic.HP,new StatBaseEv(1,1));
+        pokemonData_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv(1,1));
+        pokemonData_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv(1,1));
+        pokemonData_.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv(1,1));
+        pokemonData_.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv(1,1));
+        pokemonData_.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv(1,1));
         pokemonData_.setTypes(new StringList(ELECTRICK));
-        pokemonData_.getLevMoves().add(new LevelMove((short)1,CHARGE));
+        pokemonData_.getLevMoves().add(new LevelMove(1,CHARGE));
         pokemonData_.setBaseEvo(PIKACHU);
         pokemonData_.setGenderRep(GenderRepartition.MIXED);
         data_.completeMembers(PIKACHU,pokemonData_);
@@ -1436,7 +1436,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pkm_.setName(ELECTRICK);
         pkm_.setAbility(ELECTRICK);
         pkm_.setItem(ELECTRICK);
-        pkm_.setLevel((short) 1200);
+        pkm_.setLevel( 1200);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 0));
         data_.completeVariables();
@@ -1460,7 +1460,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         damagingMoveData_.getEffects().add(effectDamage_);
         damagingMoveData_.setAccuracy("1");
         damagingMoveData_.setTargetChoice(TargetChoice.ANY_FOE);
-        damagingMoveData_.setPp((short) 1);
+        damagingMoveData_.setPp( 1);
         damagingMoveData_.setTypes(new StringList(ELECTRICK));
         data_.completeMembers(CHARGE,damagingMoveData_);
         damagingMoveData_ = Instances.newDamagingMoveData();
@@ -1470,18 +1470,18 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         damagingMoveData_.getEffects().add(effectDamage_);
         damagingMoveData_.setAccuracy("1");
         damagingMoveData_.setTargetChoice(TargetChoice.ANY_FOE);
-        damagingMoveData_.setPp((short) 1);
+        damagingMoveData_.setPp( 1);
         damagingMoveData_.setTypes(new StringList(ELECTRICK));
         data_.completeMembers(CHARGE2,damagingMoveData_);
         PokemonData pokemonData_ = Instances.newPokemonData();
-        pokemonData_.getStatistics().addEntry(Statistic.HP,new StatBaseEv((short)1,(short)1));
-        pokemonData_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)1));
-        pokemonData_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)1));
-        pokemonData_.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv((short)1,(short)1));
-        pokemonData_.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv((short)1,(short)1));
-        pokemonData_.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv((short)1,(short)1));
+        pokemonData_.getStatistics().addEntry(Statistic.HP,new StatBaseEv(1,1));
+        pokemonData_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv(1,1));
+        pokemonData_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv(1,1));
+        pokemonData_.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv(1,1));
+        pokemonData_.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv(1,1));
+        pokemonData_.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv(1,1));
         pokemonData_.setTypes(new StringList(ELECTRICK));
-        pokemonData_.getLevMoves().add(new LevelMove((short)1,CHARGE));
+        pokemonData_.getLevMoves().add(new LevelMove(1,CHARGE));
         pokemonData_.setBaseEvo(PIKACHU);
         EvolutionMove evolutionMove_ = Instances.newEvolutionMove();
         evolutionMove_.setMove(CHARGE2);
@@ -1489,14 +1489,14 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pokemonData_.setGenderRep(GenderRepartition.MIXED);
         data_.completeMembers(PIKACHU,pokemonData_);
         pokemonData_ = Instances.newPokemonData();
-        pokemonData_.getStatistics().addEntry(Statistic.HP,new StatBaseEv((short)1,(short)1));
-        pokemonData_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)1));
-        pokemonData_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)1));
-        pokemonData_.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv((short)1,(short)1));
-        pokemonData_.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv((short)1,(short)1));
-        pokemonData_.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv((short)1,(short)1));
+        pokemonData_.getStatistics().addEntry(Statistic.HP,new StatBaseEv(1,1));
+        pokemonData_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv(1,1));
+        pokemonData_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv(1,1));
+        pokemonData_.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv(1,1));
+        pokemonData_.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv(1,1));
+        pokemonData_.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv(1,1));
         pokemonData_.setTypes(new StringList(ELECTRICK));
-        pokemonData_.getLevMoves().add(new LevelMove((short)1,CHARGE));
+        pokemonData_.getLevMoves().add(new LevelMove(1,CHARGE));
         pokemonData_.setBaseEvo(PIKACHU);
         pokemonData_.setGenderRep(GenderRepartition.MIXED);
         data_.completeMembers(PIKACHU2,pokemonData_);
@@ -1533,7 +1533,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pkm_.setName(ELECTRICK);
         pkm_.setAbility(ELECTRICK);
         pkm_.setItem(ELECTRICK);
-        pkm_.setLevel((short) 1200);
+        pkm_.setLevel( 1200);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 0));
         data_.completeVariables();
@@ -1557,7 +1557,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         damagingMoveData_.getEffects().add(effectDamage_);
         damagingMoveData_.setAccuracy("1");
         damagingMoveData_.setTargetChoice(TargetChoice.ANY_FOE);
-        damagingMoveData_.setPp((short) 1);
+        damagingMoveData_.setPp( 1);
         damagingMoveData_.setTypes(new StringList(ELECTRICK));
         data_.completeMembers(CHARGE,damagingMoveData_);
         damagingMoveData_ = Instances.newDamagingMoveData();
@@ -1567,18 +1567,18 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         damagingMoveData_.getEffects().add(effectDamage_);
         damagingMoveData_.setAccuracy("1");
         damagingMoveData_.setTargetChoice(TargetChoice.ANY_FOE);
-        damagingMoveData_.setPp((short) 1);
+        damagingMoveData_.setPp( 1);
         damagingMoveData_.setTypes(new StringList(PARATONNERRE));
         data_.completeMembers(CHARGE2,damagingMoveData_);
         PokemonData pokemonData_ = Instances.newPokemonData();
-        pokemonData_.getStatistics().addEntry(Statistic.HP,new StatBaseEv((short)1,(short)1));
-        pokemonData_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)1));
-        pokemonData_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)1));
-        pokemonData_.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv((short)1,(short)1));
-        pokemonData_.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv((short)1,(short)1));
-        pokemonData_.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv((short)1,(short)1));
+        pokemonData_.getStatistics().addEntry(Statistic.HP,new StatBaseEv(1,1));
+        pokemonData_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv(1,1));
+        pokemonData_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv(1,1));
+        pokemonData_.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv(1,1));
+        pokemonData_.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv(1,1));
+        pokemonData_.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv(1,1));
         pokemonData_.setTypes(new StringList(ELECTRICK));
-        pokemonData_.getLevMoves().add(new LevelMove((short)1,CHARGE));
+        pokemonData_.getLevMoves().add(new LevelMove(1,CHARGE));
         pokemonData_.setBaseEvo(PIKACHU);
         EvolutionMoveType evolutionMoveType_ = Instances.newEvolutionMoveType();
         evolutionMoveType_.setType(PARATONNERRE);
@@ -1586,14 +1586,14 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pokemonData_.setGenderRep(GenderRepartition.MIXED);
         data_.completeMembers(PIKACHU,pokemonData_);
         pokemonData_ = Instances.newPokemonData();
-        pokemonData_.getStatistics().addEntry(Statistic.HP,new StatBaseEv((short)1,(short)1));
-        pokemonData_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)1));
-        pokemonData_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)1));
-        pokemonData_.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv((short)1,(short)1));
-        pokemonData_.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv((short)1,(short)1));
-        pokemonData_.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv((short)1,(short)1));
+        pokemonData_.getStatistics().addEntry(Statistic.HP,new StatBaseEv(1,1));
+        pokemonData_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv(1,1));
+        pokemonData_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv(1,1));
+        pokemonData_.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv(1,1));
+        pokemonData_.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv(1,1));
+        pokemonData_.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv(1,1));
         pokemonData_.setTypes(new StringList(ELECTRICK));
-        pokemonData_.getLevMoves().add(new LevelMove((short)1,CHARGE));
+        pokemonData_.getLevMoves().add(new LevelMove(1,CHARGE));
         pokemonData_.setBaseEvo(PIKACHU);
         pokemonData_.setGenderRep(GenderRepartition.MIXED);
         data_.completeMembers(PIKACHU2,pokemonData_);
@@ -1632,7 +1632,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pkm_.setName(ELECTRICK);
         pkm_.setAbility(ELECTRICK);
         pkm_.setItem(ELECTRICK);
-        pkm_.setLevel((short) 1200);
+        pkm_.setLevel( 1200);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 0));
         data_.completeVariables();
@@ -1682,7 +1682,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pkm_.setName(ELECTRICK);
         pkm_.setAbility(ELECTRICK);
         pkm_.setItem(ELECTRICK);
-        pkm_.setLevel((short) 1200);
+        pkm_.setLevel( 1200);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 0));
         TileMiniMap tile_ = new TileMiniMap();
@@ -1746,7 +1746,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pkm_.setName(ELECTRICK);
         pkm_.setAbility(ELECTRICK);
         pkm_.setItem(ELECTRICK);
-        pkm_.setLevel((short) 1200);
+        pkm_.setLevel( 1200);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 0));
         TileMiniMap tile_ = new TileMiniMap();
@@ -1810,7 +1810,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pkm_.setName(ELECTRICK);
         pkm_.setAbility(ELECTRICK);
         pkm_.setItem(ELECTRICK);
-        pkm_.setLevel((short) 1200);
+        pkm_.setLevel( 1200);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 0));
         TileMiniMap tile_ = new TileMiniMap();
@@ -1875,7 +1875,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pkm_.setName(ELECTRICK);
         pkm_.setAbility(ELECTRICK);
         pkm_.setItem(ELECTRICK);
-        pkm_.setLevel((short) 1200);
+        pkm_.setLevel( 1200);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 0));
         map_.getAccessCondition().put(newCoords(0, 0, 0, 0),Condition.newList(newCoords(1, 0,1,0, 0, 0)));
@@ -1930,7 +1930,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pkm_.setName(ELECTRICK);
         pkm_.setAbility(ELECTRICK);
         pkm_.setItem(ELECTRICK);
-        pkm_.setLevel((short) 1200);
+        pkm_.setLevel( 1200);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 0));
         map_.getAccessCondition().put(newCoords(2, 0, 0, 0),Condition.newList(newCoords(1, 0,1,0, 0, 0)));
@@ -1983,7 +1983,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pkm_.setName(ELECTRICK);
         pkm_.setAbility(ELECTRICK);
         pkm_.setItem(ELECTRICK);
-        pkm_.setLevel((short) 1200);
+        pkm_.setLevel( 1200);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 0));
         map_.getAccessCondition().put(newCoords(0, 0, 0, 0),Condition.newList(newCoords(2, 10, 0, 0)));
@@ -2181,7 +2181,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         pkm_.setName(ELECTRICK);
         pkm_.setAbility(ELECTRICK);
         pkm_.setItem(ELECTRICK);
-        pkm_.setLevel((short) 1200);
+        pkm_.setLevel( 1200);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 0));
         data_.completeVariables();
@@ -2528,32 +2528,32 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     @Test
     public void getLevelImage1Test() {
         DataBase data_ = InitializationDataBase.initDb();
-        assertEq(36,data_.getLevelImage((short)0,(byte)0).size());
+        assertEq(36,data_.getLevelImage(0,0).size());
     }
     @Test
     public void getLevelImage2Test() {
         DataBase data_ = InitializationDataBase.initDb();
-        assertEq(81,data_.getLevelImage((short)1,(byte)0,newPoint(1,1)).size());
+        assertEq(81,data_.getLevelImage(1,0,newPoint(1,1)).size());
     }
     @Test
     public void getWhiteLevelImage1Test() {
         DataBase data_ = InitializationDataBase.initDb();
-        assertEq(36,data_.getWhiteLevelImage((short)0,(byte)0).size());
+        assertEq(36,data_.getWhiteLevelImage(0,0).size());
     }
     @Test
     public void getWhiteLevelImage2Test() {
         DataBase data_ = InitializationDataBase.initDb();
-        assertEq(81,data_.getWhiteLevelImage((short)1,(byte)0,newPoint(1,1)).size());
+        assertEq(81,data_.getWhiteLevelImage(1,0,newPoint(1,1)).size());
     }
     @Test
     public void getBackLevelImage1Test() {
         DataBase data_ = InitializationDataBase.initDb();
-        assertEq(36,data_.getBackLevelImage((short)0,(byte)0).size());
+        assertEq(36,data_.getBackLevelImage(0,0).size());
     }
     @Test
     public void getBackLevelImage2Test() {
         DataBase data_ = InitializationDataBase.initDb();
-        assertEq(81,data_.getBackLevelImage((short)1,(byte)0,newPoint(1,1)).size());
+        assertEq(81,data_.getBackLevelImage(1,0,newPoint(1,1)).size());
     }
     @Test
     public void updateBorders1() {

@@ -9,7 +9,7 @@ import code.gui.initialize.*;
 public final class ContentComponentModelGymLeader extends AbsContentComponentModelTrainerUniq {
     private GymLeader edited = Instances.newGymLeader();
     private GeneComponentModelSubscribeString name;
-    private GeneComponentModelEltEnumSub<Short> tm;
+    private GeneComponentModelEltEnumSub<Integer> tm;
     @Override
     protected TrainerOneFight entity() {
         return edited;

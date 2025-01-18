@@ -2,14 +2,14 @@ package aiki.game.fight;
 
 public final class FighterPosition {
     private final Fighter fighter;
-    private final byte firstPosit;
+    private final int firstPosit;
 
-    public FighterPosition(Fighter _f, byte _p) {
+    public FighterPosition(Fighter _f, int _p) {
         this.fighter = _f;
         this.firstPosit = _p;
     }
 
-    public byte getFirstPosit() {
+    public int getFirstPosit() {
         return firstPosit;
     }
 

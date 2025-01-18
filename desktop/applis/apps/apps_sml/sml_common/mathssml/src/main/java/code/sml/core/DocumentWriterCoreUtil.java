@@ -172,19 +172,6 @@ public final class DocumentWriterCoreUtil {
         return elt_;
     }
 
-    public static Element setStringMapShort(StringMap<Short> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(ANON_TAG);
-        setFieldName(elt_, _fieldName);
-        for (EntryCust<String, Short> s: _object.entryList()) {
-            Element sub_ = setString(s.getKey(), ES, _document);
-            setKey(sub_);
-            elt_.appendChild(sub_);
-            sub_ = setShort(s.getValue(), ES, _document);
-            elt_.appendChild(sub_);
-        }
-        return elt_;
-    }
-
     public static Element setStringMapInteger(StringMap<Integer> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(ANON_TAG);
         setFieldName(elt_, _fieldName);
@@ -250,53 +237,27 @@ public final class DocumentWriterCoreUtil {
         return elt_;
     }
 
-    public static Element setMapByteByte(ByteMap<Byte> _object, String _fieldName, Document _document) {
+    public static Element setMapByteByte(IntMap<Integer> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(ANON_TAG);
         setFieldName(elt_, _fieldName);
-        for (EntryCust<Byte,Byte> s: _object.entryList()) {
-            Element sub_ = setByte(s.getKey(), ES, _document);
+        for (EntryCust<Integer, Integer> s: _object.entryList()) {
+            Element sub_ = setInteger(s.getKey(), ES, _document);
             setKey(sub_);
             elt_.appendChild(sub_);
-            sub_ = setByte(s.getValue(), ES, _document);
+            sub_ = setInteger(s.getValue(), ES, _document);
             elt_.appendChild(sub_);
         }
         return elt_;
     }
 
-    public static Element setMapByteListByte(ByteMap<Bytes> _object, String _fieldName, Document _document) {
+    public static Element setMapByteListByte(IntMap<Ints> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(ANON_TAG);
         setFieldName(elt_, _fieldName);
-        for (EntryCust<Byte,Bytes> s: _object.entryList()) {
-            Element sub_ = setByte(s.getKey(), ES, _document);
+        for (EntryCust<Integer,Ints> s: _object.entryList()) {
+            Element sub_ = setInteger(s.getKey(), ES, _document);
             setKey(sub_);
             elt_.appendChild(sub_);
-            sub_ = setListByte(s.getValue(), ES, _document);
-            elt_.appendChild(sub_);
-        }
-        return elt_;
-    }
-
-    public static Element setMapShortBoolean(ShortMap<BoolVal> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(ANON_TAG);
-        setFieldName(elt_, _fieldName);
-        for (EntryCust<Short,BoolVal> s: _object.entryList()) {
-            Element sub_ = setShort(s.getKey(), ES, _document);
-            setKey(sub_);
-            elt_.appendChild(sub_);
-            sub_ = setBoolean(s.getValue(), ES, _document);
-            elt_.appendChild(sub_);
-        }
-        return elt_;
-    }
-
-    public static Element setMapShortString(ShortMap<String> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(ANON_TAG);
-        setFieldName(elt_, _fieldName);
-        for (EntryCust<Short,String> s: _object.entryList()) {
-            Element sub_ = setShort(s.getKey(), ES, _document);
-            setKey(sub_);
-            elt_.appendChild(sub_);
-            sub_ = setString(s.getValue(), ES, _document);
+            sub_ = setListInteger(s.getValue(), ES, _document);
             elt_.appendChild(sub_);
         }
         return elt_;

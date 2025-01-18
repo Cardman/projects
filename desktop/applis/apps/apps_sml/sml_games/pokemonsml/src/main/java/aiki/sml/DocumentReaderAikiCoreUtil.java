@@ -190,7 +190,7 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(c_.getAttribute(DocumentWriterCoreUtil.FIELD),DocumentWriterAikiCoreUtil.KIND_CST_HM)) {
             for (Element e : c_.getChildElements()) {
-                short cle_ = (short) NumberUtil.parseInt(e.getAttribute(DocumentWriterCoreUtil.FIELD));
+                int cle_ = NumberUtil.parseInt(e.getAttribute(DocumentWriterCoreUtil.FIELD));
                 _d.getHm().put(cle_, e.getAttribute(DocumentWriterCoreUtil.VALUE));
             }
         }
@@ -251,7 +251,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
             _d.getLawsDamageRate().put(
                     getModelByName(e.getAttribute(DocumentWriterCoreUtil.FIELD)),
-                    new LawNumber(law_, (short) 0));
+                    new LawNumber(law_, 0));
         }
     }
 
@@ -271,7 +271,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static void tm(DataBase _d, Element _c) {
         for (Element e : _c.getChildElements()) {
-            short cle_ = (short) NumberUtil.parseInt(e.getAttribute(DocumentWriterCoreUtil.FIELD));
+            int cle_ = NumberUtil.parseInt(e.getAttribute(DocumentWriterCoreUtil.FIELD));
             _d.getTm().put(cle_, e.getAttribute(DocumentWriterCoreUtil.VALUE));
             LgInt price_ = price(e.getAttribute(DocumentWriterAikiCoreUtil.ATTR_IMG));
             _d.getTmPrice().put(cle_, price_);
@@ -1864,15 +1864,15 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_BONUS_STAT_RANK)) {
-            _object.setBonusStatRank(getMapStatisticByte(_element));
+            _object.setBonusStatRank(getMapStatisticShort(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_BOOST_STAT_RANK_PROTECTED)) {
-            _object.setBoostStatRankProtected(getMapStatisticByte(_element));
+            _object.setBoostStatRankProtected(getMapStatisticShort(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_BOOST_STAT_RANK_END_ROUND)) {
-            _object.setBoostStatRankEndRound(getMapStatisticByte(_element));
+            _object.setBoostStatRankEndRound(getMapStatisticShort(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_MULT_STAT_ALLY)) {
@@ -1880,11 +1880,11 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_MULT_STAT_IF_KO_FOE)) {
-            _object.setMultStatIfKoFoe(getMapStatisticByte(_element));
+            _object.setMultStatIfKoFoe(getMapStatisticShort(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_MULT_STAT_IF_LOW_STAT)) {
-            _object.setMultStatIfLowStat(getMapStatisticByte(_element));
+            _object.setMultStatIfLowStat(getMapStatisticShort(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_MULT_STAT_IF_CAT)) {
@@ -1944,11 +1944,11 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_INCREASED_PRIO)) {
-            _object.setIncreasedPrio(DocumentReaderCoreUtil.getStringMapShort(_element));
+            _object.setIncreasedPrio(DocumentReaderCoreUtil.getStringMapInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_INCREASED_PRIO_TYPES)) {
-            _object.setIncreasedPrioTypes(DocumentReaderCoreUtil.getStringMapShort(_element));
+            _object.setIncreasedPrioTypes(DocumentReaderCoreUtil.getStringMapInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_MAX_STATISTICS_IF_CH)) {
@@ -2020,7 +2020,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_LOW_STAT_FOE_HIT)) {
-            _object.setLowStatFoeHit(getMapStatisticByte(_element));
+            _object.setLowStatFoeHit(getMapStatisticShort(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_COPY_MOVES_TYPES)) {
@@ -2153,7 +2153,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_BOOST_STATIS)) {
-            _object.setBoostStatis(getMapStatisticByte(_element));
+            _object.setBoostStatis(getMapStatisticShort(_element));
             return;
         }
         getItem(_object, _element);
@@ -2165,7 +2165,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_HAPPINESS)) {
-            _object.setHappiness(DocumentReaderCoreUtil.getStringMapShort(_element));
+            _object.setHappiness(DocumentReaderCoreUtil.getStringMapInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_EVS)) {
@@ -2181,7 +2181,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_LEVEL)) {
-            _object.setLevel(DocumentReaderCoreUtil.getShort(_element));
+            _object.setLevel(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         getItem(_object, _element);
@@ -2205,7 +2205,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static void getHealingItem(HealingItem _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_HAPPINESS)) {
-            _object.setHappiness(DocumentReaderCoreUtil.getStringMapShort(_element));
+            _object.setHappiness(DocumentReaderCoreUtil.getStringMapInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_HEALING_TEAM)) {
@@ -2395,7 +2395,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_INCREASING_MAX_NB_ROUND_TRAP)) {
-            _object.setIncreasingMaxNbRoundTrap(DocumentReaderCoreUtil.getStringMapShort(_element));
+            _object.setIncreasingMaxNbRoundTrap(DocumentReaderCoreUtil.getStringMapInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_ATTACKS_SOON)) {
@@ -2467,7 +2467,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_MULT_STAT_RANK)) {
-            _object.setMultStatRank(getMapStatisticByte(_element));
+            _object.setMultStatRank(getMapStatisticShort(_element));
             return;
         }
         getItemForBattle1(_object, _fieldName, _element);
@@ -2483,11 +2483,11 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_INCREASING_MAX_NB_ROUND_GLOBAL_MOVE)) {
-            _object.setIncreasingMaxNbRoundGlobalMove(DocumentReaderCoreUtil.getStringMapShort(_element));
+            _object.setIncreasingMaxNbRoundGlobalMove(DocumentReaderCoreUtil.getStringMapInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_INCREASING_MAX_NB_ROUND_TEAM_MOVE)) {
-            _object.setIncreasingMaxNbRoundTeamMove(DocumentReaderCoreUtil.getStringMapShort(_element));
+            _object.setIncreasingMaxNbRoundTeamMove(DocumentReaderCoreUtil.getStringMapInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_IMMU_MOVES)) {
@@ -2507,7 +2507,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_BOOST_STATIS_SUPER_EFF)) {
-            _object.setBoostStatisSuperEff(getMapStatisticByte(_element));
+            _object.setBoostStatisSuperEff(getMapStatisticShort(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_BOOST_STATIS_TYPES)) {
@@ -2577,7 +2577,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static void getMoveData(MoveData _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_PP)) {
-            _object.setPp(DocumentReaderCoreUtil.getShort(_element));
+            _object.setPp(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_TYPES)) {
@@ -2589,7 +2589,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_PRIORITY)) {
-            _object.setPriority(DocumentReaderCoreUtil.getByte(_element));
+            _object.setPriority(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_ACCURACY)) {
@@ -2601,7 +2601,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_NB_PREPA_ROUND)) {
-            _object.setNbPrepaRound(DocumentReaderCoreUtil.getShort(_element));
+            _object.setNbPrepaRound(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_DISAPPEAR_BEFORE_USE)) {
@@ -2613,7 +2613,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_RANK_INCREMENT_NB_ROUND)) {
-            _object.setRankIncrementNbRound(DocumentReaderCoreUtil.getShort(_element));
+            _object.setRankIncrementNbRound(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_RECHARGE_ROUND)) {
@@ -3007,7 +3007,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_RANK_INCREMENT_NB_ROUND)) {
-            _object.setRankIncrementNbRound(DocumentReaderCoreUtil.getShort(_element));
+            _object.setRankIncrementNbRound(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_EFFECT_END_ROUND)) {
@@ -3027,7 +3027,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static void getEffectCopyFighter(EffectCopyFighter _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_PP_FOR_MOVES)) {
-            _object.setPpForMoves(DocumentReaderCoreUtil.getShort(_element));
+            _object.setPpForMoves(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         getEffect(_object, _fieldName, _element);
@@ -3035,7 +3035,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static void getEffectCopyMove(EffectCopyMove _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_COPYING_MOVE_FOR_USER)) {
-            _object.setCopyingMoveForUser(DocumentReaderCoreUtil.getShort(_element));
+            _object.setCopyingMoveForUser(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_COPYING_MOVE_FOR_USER_DEF)) {
@@ -3055,7 +3055,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_DROPPED_STAT_DIRECT_MOVE)) {
-            _object.setDroppedStatDirectMove(getMapStatisticByte(_element));
+            _object.setDroppedStatDirectMove(getMapStatisticShort(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_SUFFERING_DAMAGE_DIRECT_MOVE)) {
@@ -3075,7 +3075,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static void getEffectDamage(EffectDamage _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_CH_RATE)) {
-            _object.setChRate(DocumentReaderCoreUtil.getByte(_element));
+            _object.setChRate(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_CONST_DAMAGE)) {
@@ -3139,7 +3139,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_BOOST_STATIS_ONCE_KO_FOE)) {
-            _object.setBoostStatisOnceKoFoe(getMapStatisticByte(_element));
+            _object.setBoostStatisOnceKoFoe(getMapStatisticShort(_element));
             return;
         }
         getEffect(_object, _fieldName, _element);
@@ -3627,7 +3627,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static void getEffectStatistic(EffectStatistic _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_STATIS_VAR_RANK)) {
-            _object.setStatisVarRank(getMapStatisticByte(_element));
+            _object.setStatisVarRank(getMapStatisticShort(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_LOCAL_FAIL_STATIS)) {
@@ -3824,7 +3824,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_STATUS_BY_NB_USES)) {
-            _object.setStatusByNbUses(DocumentReaderCoreUtil.getMapShortString(_element));
+            _object.setStatusByNbUses(DocumentReaderCoreUtil.getMapIntegerString(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_DELETED_BY_FOE_TYPES)) {
@@ -3836,7 +3836,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_STATISTICS)) {
-            _object.setStatistics(getMapStatisticByte(_element));
+            _object.setStatistics(getMapStatisticShort(_element));
             return;
         }
         getEffect(_object, _fieldName, _element);
@@ -3864,7 +3864,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static void getEffectVarPP(EffectVarPP _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_DELETE_PP)) {
-            _object.setDeletePp(DocumentReaderCoreUtil.getShort(_element));
+            _object.setDeletePp(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         getEffect(_object, _fieldName, _element);
@@ -3950,11 +3950,11 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_HIDDEN_MOVES)) {
-            _object.setHiddenMoves(DocumentReaderCoreUtil.getListShort(_element));
+            _object.setHiddenMoves(DocumentReaderCoreUtil.getListInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_TECHNICAL_MOVES)) {
-            _object.setTechnicalMoves(DocumentReaderCoreUtil.getListShort(_element));
+            _object.setTechnicalMoves(DocumentReaderCoreUtil.getListInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_BASE_EVO)) {
@@ -3966,7 +3966,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_CATCHING_RATE)) {
-            _object.setCatchingRate(DocumentReaderCoreUtil.getShort(_element));
+            _object.setCatchingRate(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_HEIGHT)) {
@@ -3994,10 +3994,10 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_HAPPINESS)) {
-            _object.setHappiness(DocumentReaderCoreUtil.getShort(_element));
+            _object.setHappiness(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
-        _object.setHappinessHatch(DocumentReaderCoreUtil.getShort(_element));
+        _object.setHappinessHatch(DocumentReaderCoreUtil.getInteger(_element));
     }
 
     private static ExpType getExpType(Element _elt) {
@@ -4079,7 +4079,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEvolutionLevel(EvolutionLevel _object, Element _element) {
-        _object.setLevel(DocumentReaderCoreUtil.getShort(_element));
+        _object.setLevel(DocumentReaderCoreUtil.getInteger(_element));
     }
 
     private static void getEvolutionLevelGender(EvolutionLevelGender _object, String _fieldName, Element _element) {
@@ -4323,7 +4323,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_RANK_LEAGUE)) {
-            _object.setRankLeague(DocumentReaderCoreUtil.getByte(_element));
+            _object.setRankLeague(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_BEAT_GYM_TRAINER)) {
@@ -4466,11 +4466,11 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_MULT)) {
-            _object.setMult(DocumentReaderCoreUtil.getByte(_element));
+            _object.setMult(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_PLAYER_MAX_NUMBER_FRONT_FIGHTERS)) {
-            _object.setPlayerMaxNumberFrontFighters(DocumentReaderCoreUtil.getByte(_element));
+            _object.setPlayerMaxNumberFrontFighters(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_ENABLED_MOVES)) {
@@ -4486,7 +4486,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_NB_FLEE_ATTEMPT)) {
-            _object.setNbFleeAttempt(DocumentReaderCoreUtil.getShort(_element));
+            _object.setNbFleeAttempt(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_NB_ROUNDS)) {
@@ -4514,7 +4514,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_USED_ITEMS_WHILE_ROUND)) {
-            _object.setUsedItemsWhileRound(DocumentReaderCoreUtil.getStringMapShort(_element));
+            _object.setUsedItemsWhileRound(DocumentReaderCoreUtil.getStringMapInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_FIRST_POSIT_PLAYER_FIGHTERS)) {
@@ -4599,7 +4599,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_STATUS)) {
-            _object.setStatus(DocumentReaderCoreUtil.getStringMapShort(_element));
+            _object.setStatus(DocumentReaderCoreUtil.getStringMapInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_STATUS_RELAT)) {
@@ -4635,7 +4635,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_STATIS_BOOST)) {
-            _object.setStatisBoost(getMapStatisticByte(_element));
+            _object.setStatisBoost(getMapStatisticShort(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_REMAINING_HP)) {
@@ -4699,11 +4699,11 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_GROUND_PLACE)) {
-            _object.setGroundPlace(DocumentReaderCoreUtil.getByte(_element));
+            _object.setGroundPlace(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_GROUND_PLACE_SUBST)) {
-            _object.setGroundPlaceSubst(DocumentReaderCoreUtil.getByte(_element));
+            _object.setGroundPlaceSubst(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         getFighter2(_object, _fieldName, _element);
@@ -4719,11 +4719,11 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_LEVEL)) {
-            _object.setLevel(DocumentReaderCoreUtil.getShort(_element));
+            _object.setLevel(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_HAPPINESS)) {
-            _object.setHappiness(DocumentReaderCoreUtil.getShort(_element));
+            _object.setHappiness(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_USED_BALL_CATCHING)) {
@@ -4739,7 +4739,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_NB_PREPA_ROUND)) {
-            _object.setNbPrepaRound(DocumentReaderCoreUtil.getShort(_element));
+            _object.setNbPrepaRound(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_DISAPPEARED)) {
@@ -4852,7 +4852,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_CATCH_PLAYER)) {
-            _object.setPlayer(DocumentReaderCoreUtil.getByte(_element));
+            _object.setPlayer(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_CATCH_TEAM)) {
@@ -4925,11 +4925,11 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_NB_KO_ROUND)) {
-            _object.setNbKoRound(DocumentReaderCoreUtil.getByte(_element));
+            _object.setNbKoRound(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_NB_KO_PREVIOUS_ROUND)) {
-            _object.setNbKoPreviousRound(DocumentReaderCoreUtil.getByte(_element));
+            _object.setNbKoPreviousRound(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         _object.setSuccessfulMovesRound(DocumentReaderCoreUtil.getStringList(_element));
@@ -5002,7 +5002,7 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setChosenTargets(getListTargetCoords(_element));
             return;
         }
-        _object.setSubstitute(DocumentReaderCoreUtil.getByte(_element));
+        _object.setSubstitute(DocumentReaderCoreUtil.getInteger(_element));
     }
 
     private static void getActionSimpleHeal(ActionSimpleHeal _object, String _fieldName, Element _element) {
@@ -5010,7 +5010,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getActionSwitch(ActionSwitch _object, Element _element) {
-        _object.setSubstitute(DocumentReaderCoreUtil.getByte(_element));
+        _object.setSubstitute(DocumentReaderCoreUtil.getInteger(_element));
     }
 
     private static FightState getFightState(Element _elt) {
@@ -5101,11 +5101,11 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_IV_PLAYER)) {
-            _object.setIvPlayer(DocumentReaderCoreUtil.getShort(_element));
+            _object.setIvPlayer(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_IV_FOE)) {
-            _object.setIvFoe(DocumentReaderCoreUtil.getShort(_element));
+            _object.setIvFoe(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         getDifficulty1(_object, _fieldName, _element);
@@ -5230,10 +5230,10 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_TM)) {
-            _object.setTm(DocumentReaderCoreUtil.getMapShortBoolean(_element));
+            _object.setTm(DocumentReaderCoreUtil.getMapIntegerBoolean(_element));
             return;
         }
-        _object.setHm(DocumentReaderCoreUtil.getMapShortBoolean(_element));
+        _object.setHm(DocumentReaderCoreUtil.getMapIntegerBoolean(_element));
     }
 
     private static Player getPlayer(Element _element, SexListInt _sexList) {
@@ -5419,7 +5419,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_TECHNICAL_MOVES)) {
-            _object.setTechnicalMoves(DocumentReaderCoreUtil.getListShort(_element));
+            _object.setTechnicalMoves(DocumentReaderCoreUtil.getListInteger(_element));
             return;
         }
         getPerson(_object, _element);
@@ -5469,7 +5469,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static void getGymLeader(GymLeader _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_TM)) {
-            _object.setTm(DocumentReaderCoreUtil.getShort(_element));
+            _object.setTm(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_NAME)) {
@@ -5569,7 +5569,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_TM)) {
-            _object.setTm(DocumentReaderCoreUtil.getListShort(_element));
+            _object.setTm(DocumentReaderCoreUtil.getListInteger(_element));
             return;
         }
         getPerson(_object, _element);
@@ -5594,7 +5594,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static void getTrainer(Trainer _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_MULTIPLICITY_FIGHT)) {
-            _object.setMultiplicityFight(DocumentReaderCoreUtil.getByte(_element));
+            _object.setMultiplicityFight(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_IMAGE_MAXI_FILE_NAME)) {
@@ -5631,7 +5631,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static void getTrainerOneFight(TrainerOneFight _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_REWARD)) {
-            _object.setReward(DocumentReaderCoreUtil.getShort(_element));
+            _object.setReward(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_TEAM)) {
@@ -5674,7 +5674,7 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_MULT_FIGHT)) {
             AreaApparition ar_ = new AreaApparition();
-            ar_.setMultFight(DocumentReaderCoreUtil.getByte(_element));
+            ar_.setMultFight(DocumentReaderCoreUtil.getInteger(_element));
             return ar_;
         }
         return null;
@@ -5682,12 +5682,12 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static void getAreaApparition(AbsAreaApparition _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_AVG_NB_STEPS)) {
-            _object.setAvgNbSteps(DocumentReaderCoreUtil.getShort(_element));
+            _object.setAvgNbSteps(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         if (_object instanceof AreaApparition) {
             if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_MULT_FIGHT)) {
-                ((AreaApparition)_object).setMultFight(DocumentReaderCoreUtil.getByte(_element));
+                ((AreaApparition)_object).setMultFight(DocumentReaderCoreUtil.getInteger(_element));
                 return;
             }
             if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_WILD_POKEMON)) {
@@ -6056,14 +6056,14 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_HAPPINESS)) {
-            _object.setHappiness(DocumentReaderCoreUtil.getShort(_element));
+            _object.setHappiness(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_USED_BALL_CATCHING)) {
             _object.setUsedBallCatching(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        _object.setNbStepsTeamLead(DocumentReaderCoreUtil.getShort(_element));
+        _object.setNbStepsTeamLead(DocumentReaderCoreUtil.getInteger(_element));
     }
 
     private static PokemonTeam getPokemonTeam(Element _element) {
@@ -6080,7 +6080,7 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setTeam(getListPkTrainer(_element));
             return;
         }
-        _object.setReward(DocumentReaderCoreUtil.getShort(_element));
+        _object.setReward(DocumentReaderCoreUtil.getInteger(_element));
     }
 
     private static UsablePokemon getUsablePokemon(Element _element) {
@@ -6111,7 +6111,7 @@ public final class DocumentReaderAikiCoreUtil {
             return true;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_LEVEL)) {
-            _object.setLevel(DocumentReaderCoreUtil.getShort(_element));
+            _object.setLevel(DocumentReaderCoreUtil.getInteger(_element));
             return true;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_GENDER)) {
@@ -6410,38 +6410,19 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static IdMap<Statistic,Byte> getMapStatisticByte(Element _elt) {
+
+    private static IdMap<Statistic,Integer> getMapStatisticShort(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        IdMap<Statistic,Byte> map_ = new IdMap<Statistic,Byte>(cap_);
+        IdMap<Statistic,Integer> map_ = new IdMap<Statistic,Integer>(cap_);
         CustList<Statistic> keys_ = new CustList<Statistic>(cap_);
-        CustList<Byte> values_ = new CustList<Byte>(cap_);
+        CustList<Integer> values_ = new CustList<Integer>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
                 keys_.add(getStatistic(c));
             } else {
-                values_.add(DocumentReaderCoreUtil.getByte(c));
-            }
-        }
-        int min_ = NumberUtil.min(keys_.size(), values_.size());
-        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
-            map_.put(keys_.get(i), values_.get(i));
-        }
-        return map_;
-    }
-    private static IdMap<Statistic,Short> getMapStatisticShort(Element _elt) {
-        ElementList childElements_ = _elt.getChildElements();
-        int len_ = childElements_.getLength();
-        CollCapacity cap_ = new CollCapacity(len_/2);
-        IdMap<Statistic,Short> map_ = new IdMap<Statistic,Short>(cap_);
-        CustList<Statistic> keys_ = new CustList<Statistic>(cap_);
-        CustList<Short> values_ = new CustList<Short>(cap_);
-        for (Element c: childElements_) {
-            if (DocumentReaderCoreUtil.hasKey(c)) {
-                keys_.add(getStatistic(c));
-            } else {
-                values_.add(DocumentReaderCoreUtil.getShort(c));
+                values_.add(DocumentReaderCoreUtil.getInteger(c));
             }
         }
         int min_ = NumberUtil.min(keys_.size(), values_.size());
@@ -6578,16 +6559,16 @@ public final class DocumentReaderAikiCoreUtil {
         return list_;
     }
 
-    private static ByteMap<Anticipation> getMapByteAnticipation(Element _elt) {
+    private static IntMap<Anticipation> getMapByteAnticipation(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ByteMap<Anticipation> map_ = new ByteMap<Anticipation>(cap_);
-        CustList<Byte> keys_ = new CustList<Byte>(cap_);
+        IntMap<Anticipation> map_ = new IntMap<Anticipation>(cap_);
+        CustList<Integer> keys_ = new CustList<Integer>(cap_);
         CustList<Anticipation> values_ = new CustList<Anticipation>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
-                keys_.add(DocumentReaderCoreUtil.getByte(c));
+                keys_.add(DocumentReaderCoreUtil.getInteger(c));
             } else {
                 values_.add(getAnticipation(c));
             }
@@ -6598,16 +6579,16 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static ByteMap<ChoiceOfEvolutionAndMoves> getMapByteChoiceOfEvolutionAndMoves(Element _elt) {
+    private static IntMap<ChoiceOfEvolutionAndMoves> getMapByteChoiceOfEvolutionAndMoves(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ByteMap<ChoiceOfEvolutionAndMoves> map_ = new ByteMap<ChoiceOfEvolutionAndMoves>(cap_);
-        CustList<Byte> keys_ = new CustList<Byte>(cap_);
+        IntMap<ChoiceOfEvolutionAndMoves> map_ = new IntMap<ChoiceOfEvolutionAndMoves>(cap_);
+        CustList<Integer> keys_ = new CustList<Integer>(cap_);
         CustList<ChoiceOfEvolutionAndMoves> values_ = new CustList<ChoiceOfEvolutionAndMoves>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
-                keys_.add(DocumentReaderCoreUtil.getByte(c));
+                keys_.add(DocumentReaderCoreUtil.getInteger(c));
             } else {
                 values_.add(getChoiceOfEvolutionAndMoves(c));
             }
@@ -6618,16 +6599,16 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static ByteMap<Fighter> getMapByteFighter(Element _elt) {
+    private static IntMap<Fighter> getMapByteFighter(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ByteMap<Fighter> map_ = new ByteMap<Fighter>(cap_);
-        CustList<Byte> keys_ = new CustList<Byte>(cap_);
+        IntMap<Fighter> map_ = new IntMap<Fighter>(cap_);
+        CustList<Integer> keys_ = new CustList<Integer>(cap_);
         CustList<Fighter> values_ = new CustList<Fighter>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
-                keys_.add(DocumentReaderCoreUtil.getByte(c));
+                keys_.add(DocumentReaderCoreUtil.getInteger(c));
             } else {
                 values_.add(getFighter(c));
             }
@@ -6648,16 +6629,16 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return values_;
     }
-    private static ByteMap<StacksOfUses> getMapByteStacksOfUses(Element _elt) {
+    private static IntMap<StacksOfUses> getMapByteStacksOfUses(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ByteMap<StacksOfUses> map_ = new ByteMap<StacksOfUses>(cap_);
-        CustList<Byte> keys_ = new CustList<Byte>(cap_);
+        IntMap<StacksOfUses> map_ = new IntMap<StacksOfUses>(cap_);
+        CustList<Integer> keys_ = new CustList<Integer>(cap_);
         CustList<StacksOfUses> values_ = new CustList<StacksOfUses>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
-                keys_.add(DocumentReaderCoreUtil.getByte(c));
+                keys_.add(DocumentReaderCoreUtil.getInteger(c));
             } else {
                 values_.add(getStacksOfUses(c));
             }
@@ -6668,16 +6649,16 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static ByteMap<Team> getMapByteTeam(Element _elt) {
+    private static IntMap<Team> getMapByteTeam(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ByteMap<Team> map_ = new ByteMap<Team>(cap_);
-        CustList<Byte> keys_ = new CustList<Byte>(cap_);
+        IntMap<Team> map_ = new IntMap<Team>(cap_);
+        CustList<Integer> keys_ = new CustList<Integer>(cap_);
         CustList<Team> values_ = new CustList<Team>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
-                keys_.add(DocumentReaderCoreUtil.getByte(c));
+                keys_.add(DocumentReaderCoreUtil.getInteger(c));
             } else {
                 values_.add(getTeam(c));
             }
@@ -6768,18 +6749,18 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static StatisticCategoryList<Byte> getMapStatisticCategoryByte(Element _elt) {
+    private static StatisticCategoryList<Integer> getMapStatisticCategoryByte(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        StatisticCategoryList<Byte> map_ = new StatisticCategoryByte(cap_);
+        StatisticCategoryList<Integer> map_ = new StatisticCategoryByte(cap_);
         CustList<StatisticCategory> keys_ = new CustList<StatisticCategory>(cap_);
-        CustList<Byte> values_ = new CustList<Byte>(cap_);
+        CustList<Integer> values_ = new CustList<Integer>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
                 keys_.add(getStatisticCategory(c));
             } else {
-                values_.add(DocumentReaderCoreUtil.getByte(c));
+                values_.add(DocumentReaderCoreUtil.getInteger(c));
             }
         }
         int min_ = NumberUtil.min(keys_.size(), values_.size());
@@ -6794,12 +6775,12 @@ public final class DocumentReaderAikiCoreUtil {
         CollCapacity cap_ = new CollCapacity(len_/2);
         StatisticPokemons map_ = new StatisticPokemons(cap_);
         CustList<StatisticPokemon> keys_ = new CustList<StatisticPokemon>(cap_);
-        CustList<Byte> values_ = new CustList<Byte>(cap_);
+        CustList<Integer> values_ = new CustList<Integer>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
                 keys_.add(getStatisticPokemon(c));
             } else {
-                values_.add(DocumentReaderCoreUtil.getByte(c));
+                values_.add(DocumentReaderCoreUtil.getInteger(c));
             }
         }
         int min_ = NumberUtil.min(keys_.size(), values_.size());
@@ -6814,12 +6795,12 @@ public final class DocumentReaderAikiCoreUtil {
         CollCapacity cap_ = new CollCapacity(len_/2);
         StatisticStatusList map_ = new StatisticStatusList(cap_);
         CustList<StatisticStatus> keys_ = new CustList<StatisticStatus>(cap_);
-        CustList<Byte> values_ = new CustList<Byte>(cap_);
+        CustList<Integer> values_ = new CustList<Integer>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
                 keys_.add(getStatisticStatus(c));
             } else {
-                values_.add(DocumentReaderCoreUtil.getByte(c));
+                values_.add(DocumentReaderCoreUtil.getInteger(c));
             }
         }
         int min_ = NumberUtil.min(keys_.size(), values_.size());
@@ -6848,18 +6829,18 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static StatisticTypeList<Byte> getMapStatisticTypeByte(Element _elt) {
+    private static StatisticTypeList<Integer> getMapStatisticTypeByte(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        StatisticTypeList<Byte> map_ = new StatisticTypeByte(cap_);
+        StatisticTypeList<Integer> map_ = new StatisticTypeByte(cap_);
         CustList<StatisticType> keys_ = new CustList<StatisticType>(cap_);
-        CustList<Byte> values_ = new CustList<Byte>(cap_);
+        CustList<Integer> values_ = new CustList<Integer>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
                 keys_.add(getStatisticType(c));
             } else {
-                values_.add(DocumentReaderCoreUtil.getByte(c));
+                values_.add(DocumentReaderCoreUtil.getInteger(c));
             }
         }
         int min_ = NumberUtil.min(keys_.size(), values_.size());
@@ -7014,12 +6995,12 @@ public final class DocumentReaderAikiCoreUtil {
         CollCapacity cap_ = new CollCapacity(len_/2);
         MoveTeamPositionsShort map_ = new MoveTeamPositionsShort(cap_);
         CustList<MoveTeamPosition> keys_ = new CustList<MoveTeamPosition>(cap_);
-        CustList<Short> values_ = new CustList<Short>(cap_);
+        CustList<Integer> values_ = new CustList<Integer>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
                 keys_.add(getMoveTeamPosition(c));
             } else {
-                values_.add(DocumentReaderCoreUtil.getShort(c));
+                values_.add(DocumentReaderCoreUtil.getInteger(c));
             }
         }
         int min_ = NumberUtil.min(keys_.size(), values_.size());
@@ -7328,18 +7309,18 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static Points<Short> getMapPointShort(Element _elt) {
+    private static Points<Integer> getMapPointShort(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        Points<Short> map_ = new PointsShort(cap_);
+        Points<Integer> map_ = new PointsShort(cap_);
         CustList<Point> keys_ = new CustList<Point>(cap_);
-        CustList<Short> values_ = new CustList<Short>(cap_);
+        CustList<Integer> values_ = new CustList<Integer>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
                 keys_.add(getPoint(c));
             } else {
-                values_.add(DocumentReaderCoreUtil.getShort(c));
+                values_.add(DocumentReaderCoreUtil.getInteger(c));
             }
         }
         int min_ = NumberUtil.min(keys_.size(), values_.size());
@@ -7569,18 +7550,18 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static StringMap<IdMap<Statistic,Byte>> getStringMapMapStatisticByte(Element _elt) {
+    private static StringMap<IdMap<Statistic,Integer>> getStringMapMapStatisticByte(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        StringMap<IdMap<Statistic,Byte>> map_ = new StringMap<IdMap<Statistic,Byte>>(cap_);
+        StringMap<IdMap<Statistic,Integer>> map_ = new StringMap<IdMap<Statistic,Integer>>(cap_);
         StringList keys_ = new StringList(cap_);
-        CustList<IdMap<Statistic,Byte>> values_ = new CustList<IdMap<Statistic,Byte>>(cap_);
+        CustList<IdMap<Statistic,Integer>> values_ = new CustList<IdMap<Statistic,Integer>>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
                 keys_.add(DocumentReaderCoreUtil.getString(c));
             } else {
-                values_.add(getMapStatisticByte(c));
+                values_.add(getMapStatisticShort(c));
             }
         }
         int min_ = NumberUtil.min(keys_.size(), values_.size());
@@ -7589,13 +7570,13 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static StringMap<ByteMap<Anticipation>> getStringMapMapByteAnticipation(Element _elt) {
+    private static StringMap<IntMap<Anticipation>> getStringMapMapByteAnticipation(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        StringMap<ByteMap<Anticipation>> map_ = new StringMap<ByteMap<Anticipation>>(cap_);
+        StringMap<IntMap<Anticipation>> map_ = new StringMap<IntMap<Anticipation>>(cap_);
         StringList keys_ = new StringList(cap_);
-        CustList<ByteMap<Anticipation>> values_ = new CustList<ByteMap<Anticipation>>(cap_);
+        CustList<IntMap<Anticipation>> values_ = new CustList<IntMap<Anticipation>>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
                 keys_.add(DocumentReaderCoreUtil.getString(c));
@@ -7609,13 +7590,13 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static StringMap<ByteMap<StacksOfUses>> getStringMapMapByteStacksOfUses(Element _elt) {
+    private static StringMap<IntMap<StacksOfUses>> getStringMapMapByteStacksOfUses(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        StringMap<ByteMap<StacksOfUses>> map_ = new StringMap<ByteMap<StacksOfUses>>(cap_);
+        StringMap<IntMap<StacksOfUses>> map_ = new StringMap<IntMap<StacksOfUses>>(cap_);
         StringList keys_ = new StringList(cap_);
-        CustList<ByteMap<StacksOfUses>> values_ = new CustList<ByteMap<StacksOfUses>>(cap_);
+        CustList<IntMap<StacksOfUses>> values_ = new CustList<IntMap<StacksOfUses>>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
                 keys_.add(DocumentReaderCoreUtil.getString(c));

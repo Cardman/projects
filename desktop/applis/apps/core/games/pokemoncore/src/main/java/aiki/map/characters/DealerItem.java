@@ -10,7 +10,7 @@ public final class DealerItem extends Person implements CharacterInRoadCave {
 
     private StringList items;
 
-    private Shorts technicalMoves;
+    private Ints technicalMoves;
 
     @Override
     public void validate(DataBase _data) {
@@ -26,11 +26,11 @@ public final class DealerItem extends Person implements CharacterInRoadCave {
         items = _items;
     }
 
-    public Shorts getTechnicalMoves() {
+    public Ints getTechnicalMoves() {
         return technicalMoves;
     }
 
-    public void setTechnicalMoves(Shorts _technicalMoves) {
+    public void setTechnicalMoves(Ints _technicalMoves) {
         technicalMoves = _technicalMoves;
     }
 }

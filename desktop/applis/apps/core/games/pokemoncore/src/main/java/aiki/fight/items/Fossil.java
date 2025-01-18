@@ -8,7 +8,7 @@ public final class Fossil extends Item {
 
     private String pokemon;
 
-    private short level;
+    private int level;
 
     @Override
     public String getItemType() {
@@ -30,11 +30,11 @@ public final class Fossil extends Item {
         pokemon = _pokemon;
     }
 
-    public short getLevel() {
+    public int getLevel() {
         return level;
     }
 
-    public void setLevel(short _level) {
+    public void setLevel(int _level) {
         level = _level;
     }
 }

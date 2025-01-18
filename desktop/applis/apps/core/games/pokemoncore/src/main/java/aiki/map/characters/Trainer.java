@@ -6,7 +6,7 @@ import aiki.util.DataInfoChecker;
 
 public abstract class Trainer extends Person {
 
-    private byte multiplicityFight = 1;
+    private int multiplicityFight = 1;
 
     private String imageMaxiFileName;
 
@@ -24,11 +24,11 @@ public abstract class Trainer extends Person {
         return val_;
     }
 
-    public byte getMultiplicityFight() {
+    public int getMultiplicityFight() {
         return multiplicityFight;
     }
 
-    public void setMultiplicityFight(byte _multiplicityFight) {
+    public void setMultiplicityFight(int _multiplicityFight) {
         multiplicityFight = _multiplicityFight;
     }
 

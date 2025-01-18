@@ -15,7 +15,7 @@ public class DifficultyTest extends InitializationDataBase {
     public void validate1Test() {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
-        diff_.setIvFoe((short) -1);
+        diff_.setIvFoe( -1);
         diff_.validate(data_);
         assertEq(0, diff_.getIvFoe());
     }
@@ -24,7 +24,7 @@ public class DifficultyTest extends InitializationDataBase {
     public void validate2Test() {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
-        diff_.setIvPlayer((short) -1);
+        diff_.setIvPlayer( -1);
         diff_.validate(data_);
         assertEq(0, diff_.getIvPlayer());
     }
@@ -33,7 +33,7 @@ public class DifficultyTest extends InitializationDataBase {
     public void validate3Test() {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
-        diff_.setIvFoe((short) 1000);
+        diff_.setIvFoe( 1000);
         diff_.validate(data_);
         assertEq(31, diff_.getIvFoe());
     }
@@ -42,7 +42,7 @@ public class DifficultyTest extends InitializationDataBase {
     public void validate4Test() {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
-        diff_.setIvPlayer((short) 1000);
+        diff_.setIvPlayer( 1000);
         diff_.validate(data_);
         assertEq(31, diff_.getIvPlayer());
     }

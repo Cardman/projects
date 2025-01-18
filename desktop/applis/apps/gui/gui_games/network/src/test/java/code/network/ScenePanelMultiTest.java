@@ -574,11 +574,11 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
     }
     public static DataBase withPk(DataBase _data, String _key, StringMap<String> _trs) {
         PokemonData pk_ = Instances.newPokemonData();
-        pk_.getStatistics().addEntry(Statistic.ATTACK, new StatBaseEv((short) 1,(short)1));
-        pk_.getStatistics().addEntry(Statistic.DEFENSE, new StatBaseEv((short) 1,(short)1));
-        pk_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK, new StatBaseEv((short) 1,(short)1));
-        pk_.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE, new StatBaseEv((short) 1,(short)1));
-        pk_.getStatistics().addEntry(Statistic.HP, new StatBaseEv((short) 1,(short)1));
+        pk_.getStatistics().addEntry(Statistic.ATTACK, new StatBaseEv(1,1));
+        pk_.getStatistics().addEntry(Statistic.DEFENSE, new StatBaseEv(1,1));
+        pk_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK, new StatBaseEv(1,1));
+        pk_.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE, new StatBaseEv(1,1));
+        pk_.getStatistics().addEntry(Statistic.HP, new StatBaseEv(1,1));
         _data.completeQuickMembers(_key, pk_);
         _data.getMiniPk().addEntry(_key,instance(new int[][]{new int[1]}));
         _data.getMaxiPkBack().addEntry(_key,instance(new int[][]{new int[1]}));

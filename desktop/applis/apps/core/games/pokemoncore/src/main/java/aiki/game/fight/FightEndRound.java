@@ -67,7 +67,7 @@ final class FightEndRound {
         }
     }
 
-    static boolean proponedSwitchWhileKoPlayer(Fight _fight, byte _team, int _max) {
+    static boolean proponedSwitchWhileKoPlayer(Fight _fight, int _team, int _max) {
         boolean proponed_ = false;
         boolean sub_ = false;
         for(TeamPosition c:FightOrder.fighters(_fight, _team)){
@@ -89,7 +89,7 @@ final class FightEndRound {
         return proponedSwitchWhileKoPlayerMissing(_fight, _team, _max);
     }
 
-    private static boolean proponedSwitchWhileKoPlayerMissing(Fight _fight, byte _team, int _max) {
+    private static boolean proponedSwitchWhileKoPlayerMissing(Fight _fight, int _team, int _max) {
         int nbFrontPk_ = 0;
         boolean notFullTeam_ = false;
         for(TeamPosition c:FightOrder.fighters(_fight, _team)){
@@ -180,7 +180,7 @@ final class FightEndRound {
         return missingFighterInTeam(_fight, Fight.CST_FOE);
     }
 
-    static boolean missingFighterInTeam(Fight _fight, byte _team) {
+    static boolean missingFighterInTeam(Fight _fight, int _team) {
         int nbFrontPk_ = 0;
         boolean notFullTeam_ = false;
         for(TeamPosition c:FightOrder.fighters(_fight, _team)){
@@ -222,7 +222,7 @@ final class FightEndRound {
                 return;
             }
         }
-        for(byte c:_fight.getTeams().getKeys()){
+        for(int c:_fight.getTeams().getKeys()){
             Team equipe_=_fight.getTeams().getVal(c);
             equipe_.useItemsEndRound(_import,_fight.getTemp());
         }
@@ -517,7 +517,7 @@ final class FightEndRound {
             return true;
         }
         if(_elt.getEndRoundType() == EndTurnType.ATTAQUE_COMBI){
-            for(byte c: _fight.getTeams().getKeys()){
+            for(int c: _fight.getTeams().getKeys()){
                 Team equipe_= _fight.getTeams().getVal(c);
                 for(StringList c2_:equipe_.getEnabledMovesByGroup().getKeys()){
                     if(!StringUtil.quickEq(StringUtil.join(c2_, DataBase.SEPARATOR_MOVES), _elt.getElement())){
@@ -534,7 +534,7 @@ final class FightEndRound {
         for(TeamPosition c:FightOrder.frontFighters(_fight)){
             incrementNumberRounds(_fight,c, _move, _import);
         }
-        for(byte c: _fight.getTeams().getKeys()){
+        for(int c: _fight.getTeams().getKeys()){
             incrementNumberRoundsTeam(_fight, c, _move, _import);
         }
         incrementNumberRoundsGlobal(_fight, _move, _import);
@@ -594,7 +594,7 @@ final class FightEndRound {
         }
     }
 
-    static void incrementNumberRoundsTeam(Fight _fight,byte _team, String _move, DataBase _import) {
+    static void incrementNumberRoundsTeam(Fight _fight,int _team, String _move, DataBase _import) {
         Team equipe_=_fight.getTeams().getVal(_team);
         if (!equipe_.getEnabledMoves().contains(_move)) {
             return;
@@ -672,7 +672,7 @@ final class FightEndRound {
         _fight.addWeatherEndRoundMessage(_move, activity_, _import);
     }
 
-    static void incrementNumberRoundsTeamComboMoves(Fight _fight, byte _team, StringList _key, DataBase _import) {
+    static void incrementNumberRoundsTeamComboMoves(Fight _fight, int _team, StringList _key, DataBase _import) {
         Team equipe_ = _fight.getTeams().getVal(_team);
         ActivityOfMove activity_ = equipe_.getEnabledMovesByGroup().getVal(_key);
         if (!activity_.isEnabled()) {
@@ -691,7 +691,7 @@ final class FightEndRound {
         Team equipe_=_fight.getTeams().getVal(_combattant.getTeam());
         boolean testPositif_= _fight.getTemp().getSimulation();
         if(testPositif_||FightSuccess.tirage(_import, _effet.getDeleteAllStatusAlly())){
-            for(byte c:equipe_.getMembers().getKeys()){
+            for(int c:equipe_.getMembers().getKeys()){
                 if(NumberUtil.eq(c,_combattant.getPosition())){
                     continue;
                 }
@@ -932,19 +932,19 @@ final class FightEndRound {
 
     static void effectEndRoundPositionRelation(Fight _fight,TeamPosition _combattant,EffectEndRoundPositionRelation _effet,String _attaque, DataBase _import){
         Team equipeLanceur_=_fight.getTeams().getVal(_combattant.getTeam());
-        for(byte c:equipeLanceur_.getHealAfterSet(_attaque)){
+        for(int c:equipeLanceur_.getHealAfterSet(_attaque)){
             effectEndRoundPositionRelationIt(_fight, _combattant, _effet, _attaque, _import, equipeLanceur_, c);
         }
     }
 
-    private static void effectEndRoundPositionRelationIt(Fight _fight, TeamPosition _combattant, EffectEndRoundPositionRelation _effet, String _attaque, DataBase _import, Team _equipeLanceur, byte _c) {
+    private static void effectEndRoundPositionRelationIt(Fight _fight, TeamPosition _combattant, EffectEndRoundPositionRelation _effet, String _attaque, DataBase _import, Team _equipeLanceur, int _c) {
         StacksOfUses soinApres_= _equipeLanceur.getHealAfterVal(_attaque, _c);
-        for(EntryCust<Byte, Fighter> e: _equipeLanceur.fightersListAtCurrentPlace(_c).entryList()){
+        for(EntryCust<Integer, Fighter> e: _equipeLanceur.fightersListAtCurrentPlace(_c).entryList()){
             Fighter partenaire_= e.getValue();
             if(soinApres_.isLastStacked()){
                 soinApres_.setLastStacked(false);
                 if(soinApres_.getNbRounds()<1){
-                    soinApres_.setNbRounds((byte) (soinApres_.getNbRounds()+1));
+                    soinApres_.setNbRounds((soinApres_.getNbRounds()+1));
                 }
                 Rate varPv_=Rate.multiply(partenaire_.pvMax(), _effet.getHealHp());
                 Rate r_ = partenaire_.variationLeftHp(varPv_);
@@ -953,10 +953,10 @@ final class FightEndRound {
                 _fight.addHpMessage(new TeamPosition(_combattant.getTeam(), e.getKey()), _import,r_);
             }else if(soinApres_.isFirstStacked()){
                 if(soinApres_.getNbRounds()<1){
-                    soinApres_.setNbRounds((byte) (soinApres_.getNbRounds()+1));
+                    soinApres_.setNbRounds((soinApres_.getNbRounds()+1));
                 }else{
                     soinApres_.setFirstStacked(false);
-                    soinApres_.setNbRounds((byte) 0);
+                    soinApres_.setNbRounds(0);
                     Rate varPv_=Rate.multiply(partenaire_.pvMax(), _effet.getHealHp());
                     Rate r_ = partenaire_.variationLeftHp(varPv_);
                     _fight.addAnimationHealthPoints(new TeamPosition(_combattant.getTeam(), e.getKey()), varPv_);
@@ -970,7 +970,7 @@ final class FightEndRound {
     static void effectEndRoundPositionTargetRelation(Fight _fight,TeamPosition _combattant,String _attaque,Difficulty _diff,DataBase _import){
         Team equipeLanceur_=_fight.getTeams().getVal(_combattant.getTeam());
         Fighter creatureLanceur_ = equipeLanceur_.refPartMembres(_combattant.getPosition());
-        for(byte c:equipeLanceur_.getMovesAnticipationSet(_attaque)){
+        for(int c:equipeLanceur_.getMovesAnticipationSet(_attaque)){
             Anticipation attaqueAnticipe_=equipeLanceur_.getMovesAnticipationVal(_attaque, c);
             if(!attaqueAnticipe_.isEnabled()){
                 continue;
@@ -984,9 +984,9 @@ final class FightEndRound {
 
     private static boolean effectEndRoundPositionTargetRelationExit(Fight _fight, TeamPosition _combattant, String _attaque, Difficulty _diff, DataBase _import, Fighter _creatureLanceur, Anticipation _attaqueAnticipe) {
         TargetCoords target_ = _attaqueAnticipe.getTargetPosition();
-        Team equipeCible_= _fight.getTeams().getVal((byte) target_.getTeam());
-        for(EntryCust<Byte, Fighter> e:equipeCible_.fightersListAtCurrentPlace(target_).entryList()){
-            _fight.addMoveEndRoundRelMessage(_attaque, new TeamPosition((byte) target_.getTeam(), e.getKey()), _combattant, _import);
+        Team equipeCible_= _fight.getTeams().getVal(target_.getTeam());
+        for(EntryCust<Integer, Fighter> e:equipeCible_.fightersListAtCurrentPlace(target_).entryList()){
+            _fight.addMoveEndRoundRelMessage(_attaque, new TeamPosition(target_.getTeam(), e.getKey()), _combattant, _import);
             Fighter creatureCible_=e.getValue();
             AnimationEffect animation_;
             animation_ = new AnimationEffect();
@@ -996,18 +996,18 @@ final class FightEndRound {
             if(creatureCible_.getClone().isZero()){
                 if(Rate.greaterEq(_attaqueAnticipe.getDamage(),creatureCible_.getRemainingHp())){
                     animation_.setKoToFighter(true);
-                    FightKo.setKoMoveTeams(_fight,new TeamPosition((byte) target_.getTeam(),e.getKey()), _diff, _import);
-                    if (exitAfterKo(_fight,new TeamPosition((byte) target_.getTeam(),e.getKey()), _diff)) {
+                    FightKo.setKoMoveTeams(_fight,new TeamPosition(target_.getTeam(),e.getKey()), _diff, _import);
+                    if (exitAfterKo(_fight,new TeamPosition(target_.getTeam(),e.getKey()), _diff)) {
                         _fight.getEffects().add(animation_);
                         return true;
                     }
                 }else{
                     Rate r_ = creatureCible_.variationLeftHp(_attaqueAnticipe.getDamage().opposNb());
-                    _fight.addHpMessage(new TeamPosition((byte) target_.getTeam(), e.getKey()), _import,r_);
+                    _fight.addHpMessage(new TeamPosition(target_.getTeam(), e.getKey()), _import,r_);
                 }
             }else{
                 creatureCible_.infligerDegatsClone(_attaqueAnticipe.getDamage());
-                _fight.addHpCloneMessage(new TeamPosition((byte) target_.getTeam(), e.getKey()), _attaqueAnticipe.getDamage(), _import);
+                _fight.addHpCloneMessage(new TeamPosition(target_.getTeam(), e.getKey()), _attaqueAnticipe.getDamage(), _import);
             }
             _fight.getEffects().add(animation_);
             _attaqueAnticipe.getDamage().affectZero();
@@ -1184,7 +1184,7 @@ final class FightEndRound {
         if(!_statut.getIncrementingEndRound()){
             return;
         }
-        short nbTour_=creature_.getStatusNbRoundShort(_nomStatut);
+        int nbTour_=creature_.getStatusNbRoundShort(_nomStatut);
         if(nbTour_ <= 0){
             return;
         }
@@ -1251,7 +1251,7 @@ final class FightEndRound {
         }
         EffectEndRoundStatus es_ = (EffectEndRoundStatus) er_;
         Fighter creature_=_fight.getFighter(_cible);
-        short nbTour_=creature_.getStatusRelatNbRoundShort(new MoveTeamPosition(name_,_lanceur));
+        int nbTour_=creature_.getStatusRelatNbRoundShort(new MoveTeamPosition(name_,_lanceur));
         if(nbTour_ <= 0){
             return;
         }
@@ -1275,7 +1275,7 @@ final class FightEndRound {
         }
     }
 
-    private static boolean resterActif(Fight _fight, DataBase _import, short _nbTour, MonteCarloNumber _loi, byte _team, byte _cst) {
+    private static boolean resterActif(Fight _fight, DataBase _import, int _nbTour, MonteCarloNumber _loi, int _team, int _cst) {
         MonteCarloBoolean loiSachant_= _loi.knowingGreater(new Rate(_nbTour));
         LgInt maxRd_ = _import.getMaxRd();
         boolean resterActif_;
@@ -1365,7 +1365,7 @@ final class FightEndRound {
         }else if(Rate.lowerEq(creatureLanceur_.getRemainingHp(),varPv_)){
             _fight.addEffectRecoil(_cible);
             creature_.supprimerPseudoStatutCombattant(_lanceur,_nomStatut);
-            short nbTour_=creature_.getStatusRelatNbRoundShort(new MoveTeamPosition(_nomStatut,_lanceur));
+            int nbTour_=creature_.getStatusRelatNbRoundShort(new MoveTeamPosition(_nomStatut,_lanceur));
             _fight.addDisabledStatusRelMessage(_nomStatut, _cible, _lanceur, nbTour_, _import);
             FightKo.setKoMoveTeams(_fight,_lanceur,_diff,_import);
             _fight.addEffectRecoil(_lanceur);
@@ -1478,8 +1478,8 @@ final class FightEndRound {
     }
 
     static void learnAndEvolve(Fight _fight,DataBase _import) {
-        ByteMap<ChoiceOfEvolutionAndMoves> choices_ = _fight.getChoices();
-        for (byte k: choices_.getKeys()) {
+        IntMap<ChoiceOfEvolutionAndMoves> choices_ = _fight.getChoices();
+        for (int k: choices_.getKeys()) {
             ChoiceOfEvolutionAndMoves choice_ = choices_.getVal(k);
             Fighter fighter_ = _fight.getUserTeam().refPartMembres(k);
             StringList oldMoves_ = new StringList(fighter_.getMovesSet());

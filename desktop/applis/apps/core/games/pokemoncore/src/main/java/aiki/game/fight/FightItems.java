@@ -59,7 +59,7 @@ final class FightItems {
             return false;
         }
         Team equipeAdv_=_fight.getTeams().getVal(Fight.foe(_cbt.getTeam()));
-        for(byte c:equipeAdv_.getMembers().getKeys()){
+        for(int c:equipeAdv_.getMembers().getKeys()){
             if (ignoreFoeBerry(_fight, _cbt, _import, equipeAdv_, c)) {
                 continue;
             }
@@ -68,7 +68,7 @@ final class FightItems {
         return true;
     }
 
-    private static boolean ignoreFoeBerry(Fight _fight, TeamPosition _cbt, DataBase _import, Team _equipeAdv, byte _c) {
+    private static boolean ignoreFoeBerry(Fight _fight, TeamPosition _cbt, DataBase _import, Team _equipeAdv, int _c) {
         Fighter creatureAdv_= _equipeAdv.getMembers().getVal(_c);
         if(creatureAdv_.estArriere()){
             return true;
@@ -214,9 +214,9 @@ final class FightItems {
             if (_checkCondition && Rate.strLower(Rate.multiply(taux_, creature_.pvMax()), creature_.getRemainingHp())) {
                 continue;
             }
-            byte varBase_= _berry.getMultStat().getVal(c).getBoost();
-            byte var_=FightEffects.deltaBoostStatistic(_fight, _combattant,c,varBase_,_import);
-            byte boost_ = creature_.getStatisBoost().getVal(c);
+            int varBase_= _berry.getMultStat().getVal(c).getBoost();
+            int var_=FightEffects.deltaBoostStatistic(_fight, _combattant,c,varBase_,_import);
+            int boost_ = creature_.getStatisBoost().getVal(c);
             creature_.variationBoostStatistique(c,var_);
             _fight.addStatisticMessage(_combattant, c, var_, _import);
             if (boost_ < creature_.getStatisBoost().getVal(c)) {
@@ -229,7 +229,7 @@ final class FightItems {
         Fighter creature_=_fight.getFighter(_combattant);
         for(String c:creature_.getCurrentMovesSet()){
             if (creature_.powerPointsMove(c) == 0) {
-                short var_ = creature_.healedPpMove(c, _objectName, _import);
+                int var_ = creature_.healedPpMove(c, _objectName, _import);
                 if (var_ > 0) {
                     useObj(_fight, _combattant, _useObject, _import, creature_);
                     creature_.healPowerPoints(c, var_);

@@ -44,7 +44,7 @@ public final class FacadeGameSwitchsTest extends InitializationDataBase {
     @Test
     public void takeItemTeam2Test() {
         FacadeGame facadeGame_ = initTests();
-        facadeGame_.setChosenTeamPokemon((byte)0);
+        facadeGame_.setChosenTeamPokemon(0);
         assertTrue(!facadeGame_.isSelectedTeamPokemonItem());
         assertTrue(facadeGame_.isSelectedTeamPokemon());
     }
@@ -53,7 +53,7 @@ public final class FacadeGameSwitchsTest extends InitializationDataBase {
     public void takeItemTeam3Test() {
         FacadeGame facadeGame_ = initTests();
         facadeGame_.getGame().getPlayer().getTeam().add(new Egg(PIKACHU));
-        facadeGame_.setChosenTeamPokemon((byte)2);
+        facadeGame_.setChosenTeamPokemon(2);
         assertTrue(!facadeGame_.isSelectedTeamPokemonItem());
         assertTrue(!facadeGame_.isSelectedTeamPokemon());
     }
@@ -62,7 +62,7 @@ public final class FacadeGameSwitchsTest extends InitializationDataBase {
         FacadeGame facadeGame_ = initTests();
         PokemonPlayer first_ = (PokemonPlayer) facadeGame_.getGame().getPlayer().getTeam().first();
         first_.setItem(PIERRE_LUNE);
-        facadeGame_.setChosenTeamPokemon((byte)0);
+        facadeGame_.setChosenTeamPokemon(0);
         assertTrue(facadeGame_.isSelectedTeamPokemonItem());
         assertTrue(facadeGame_.isSelectedTeamPokemon());
     }
@@ -76,7 +76,7 @@ public final class FacadeGameSwitchsTest extends InitializationDataBase {
     @Test
     public void store2Test() {
         FacadeGame facadeGame_ = initTests();
-        facadeGame_.setChosenTeamPokemon((byte)0);
+        facadeGame_.setChosenTeamPokemon(0);
         assertTrue(facadeGame_.isSelectedPkTeamStorage());
         facadeGame_.gearStorage(StorageActions.STORE);
         assertEq(1,facadeGame_.getGame().getPlayer().getBox().size());
@@ -86,7 +86,7 @@ public final class FacadeGameSwitchsTest extends InitializationDataBase {
     public void store3Test() {
         FacadeGame facadeGame_ = initTests();
         facadeGame_.getGame().getPlayer().getTeam().add(new Egg(PIKACHU));
-        facadeGame_.setChosenTeamPokemon((byte)2);
+        facadeGame_.setChosenTeamPokemon(2);
         facadeGame_.gearStorage(StorageActions.STORE);
         assertEq(1,facadeGame_.getGame().getPlayer().getBox().size());
     }
@@ -94,26 +94,26 @@ public final class FacadeGameSwitchsTest extends InitializationDataBase {
     @Test
     public void store4Test() {
         FacadeGame facadeGame_ = initTests();
-        facadeGame_.setChosenTeamPokemon((byte)1);
+        facadeGame_.setChosenTeamPokemon(1);
         facadeGame_.gearStorage(StorageActions.STORE);
         facadeGame_.getGame().getPlayer().getTeam().add(new Egg(PIKACHU));
-        facadeGame_.setChosenTeamPokemon((byte)1);
+        facadeGame_.setChosenTeamPokemon(1);
         assertTrue(facadeGame_.isSelectedPkTeamStorage());
     }
 
     @Test
     public void store5Test() {
         FacadeGame facadeGame_ = initTests();
-        facadeGame_.setChosenTeamPokemon((byte)1);
+        facadeGame_.setChosenTeamPokemon(1);
         facadeGame_.gearStorage(StorageActions.STORE);
         facadeGame_.getGame().getPlayer().getTeam().add(new Egg(PIKACHU));
-        facadeGame_.setChosenTeamPokemon((byte)0);
+        facadeGame_.setChosenTeamPokemon(0);
         assertFalse(facadeGame_.isSelectedPkTeamStorage());
     }
     @Test
     public void withdrawPk1Test() {
         FacadeGame facadeGame_ = initTests();
-        facadeGame_.setChosenTeamPokemon((byte)0);
+        facadeGame_.setChosenTeamPokemon(0);
         facadeGame_.gearStorage(StorageActions.STORE);
         assertTrue(!facadeGame_.isSelectedPkTeamStorage());
         facadeGame_.searchPokemonFirstBox();
@@ -124,7 +124,7 @@ public final class FacadeGameSwitchsTest extends InitializationDataBase {
     @Test
     public void withdrawPk2Test() {
         FacadeGame facadeGame_ = initTests();
-        facadeGame_.setChosenTeamPokemon((byte)0);
+        facadeGame_.setChosenTeamPokemon(0);
         facadeGame_.gearStorage(StorageActions.STORE);
         facadeGame_.searchPokemonFirstBox();
         facadeGame_.checkLinePokemonFirstBox(0);
@@ -137,7 +137,7 @@ public final class FacadeGameSwitchsTest extends InitializationDataBase {
     @Test
     public void withdrawPk3Test() {
         FacadeGame facadeGame_ = initTests();
-        facadeGame_.setChosenTeamPokemon((byte)0);
+        facadeGame_.setChosenTeamPokemon(0);
         facadeGame_.gearStorage(StorageActions.STORE);
         facadeGame_.searchPokemonFirstBox();
         facadeGame_.checkLinePokemonFirstBox(0);
@@ -147,7 +147,7 @@ public final class FacadeGameSwitchsTest extends InitializationDataBase {
     @Test
     public void withdrawPk4Test() {
         FacadeGame facadeGame_ = initTests();
-        facadeGame_.setChosenTeamPokemon((byte)1);
+        facadeGame_.setChosenTeamPokemon(1);
         facadeGame_.gearStorage(StorageActions.STORE);
         facadeGame_.searchPokemonFirstBox();
         assertTrue(!facadeGame_.canTakeItemFromStorage());
@@ -159,7 +159,7 @@ public final class FacadeGameSwitchsTest extends InitializationDataBase {
     @Test
     public void takeItemBox1Test() {
         FacadeGame facadeGame_ = initTests();
-        facadeGame_.setChosenTeamPokemon((byte)1);
+        facadeGame_.setChosenTeamPokemon(1);
         facadeGame_.gearStorage(StorageActions.STORE);
         facadeGame_.searchPokemonFirstBox();
         facadeGame_.gearStorage(StorageActions.TAKE_ITEM_BOX);
@@ -168,7 +168,7 @@ public final class FacadeGameSwitchsTest extends InitializationDataBase {
     @Test
     public void takeItemBox2Test() {
         FacadeGame facadeGame_ = initTests();
-        facadeGame_.setChosenTeamPokemon((byte)1);
+        facadeGame_.setChosenTeamPokemon(1);
         facadeGame_.gearStorage(StorageActions.STORE);
         facadeGame_.searchPokemonFirstBox();
         facadeGame_.checkLinePokemonFirstBox(0);
@@ -180,7 +180,7 @@ public final class FacadeGameSwitchsTest extends InitializationDataBase {
     public void withdrawEgg1Test() {
         FacadeGame facadeGame_ = initTests();
         facadeGame_.getGame().getPlayer().getTeam().add(new Egg(PIKACHU));
-        facadeGame_.setChosenTeamPokemon((byte)2);
+        facadeGame_.setChosenTeamPokemon(2);
         facadeGame_.gearStorage(StorageActions.STORE);
         facadeGame_.searchEgg();
         facadeGame_.gearStorage(StorageActions.WIDRAW_EGG);
@@ -191,7 +191,7 @@ public final class FacadeGameSwitchsTest extends InitializationDataBase {
     public void withdrawEgg2Test() {
         FacadeGame facadeGame_ = initTests();
         facadeGame_.getGame().getPlayer().getTeam().add(new Egg(PIKACHU));
-        facadeGame_.setChosenTeamPokemon((byte)2);
+        facadeGame_.setChosenTeamPokemon(2);
         facadeGame_.gearStorage(StorageActions.STORE);
         facadeGame_.searchEgg();
         facadeGame_.checkLineEggs(0);
@@ -203,7 +203,7 @@ public final class FacadeGameSwitchsTest extends InitializationDataBase {
     public void withdrawEgg3Test() {
         FacadeGame facadeGame_ = initTests();
         facadeGame_.getGame().getPlayer().getTeam().add(new Egg(PIKACHU));
-        facadeGame_.setChosenTeamPokemon((byte)2);
+        facadeGame_.setChosenTeamPokemon(2);
         facadeGame_.gearStorage(StorageActions.STORE);
         facadeGame_.searchEgg();
         facadeGame_.checkLineEggs(0);
@@ -214,7 +214,7 @@ public final class FacadeGameSwitchsTest extends InitializationDataBase {
     public void switchBoxTeam1Test() {
         FacadeGame facadeGame_ = initTests();
         facadeGame_.getGame().getPlayer().getTeam().add(new Egg(PIKACHU));
-        facadeGame_.setChosenTeamPokemon((byte)0);
+        facadeGame_.setChosenTeamPokemon(0);
         facadeGame_.gearStorage(StorageActions.STORE);
         assertTrue(!facadeGame_.isSwitchable());
         assertTrue(!facadeGame_.isReleasable());
@@ -223,9 +223,9 @@ public final class FacadeGameSwitchsTest extends InitializationDataBase {
     public void switchBoxTeam2Test() {
         FacadeGame facadeGame_ = initTests();
         facadeGame_.getGame().getPlayer().getTeam().add(new Egg(PIKACHU));
-        facadeGame_.setChosenTeamPokemon((byte)0);
+        facadeGame_.setChosenTeamPokemon(0);
         facadeGame_.gearStorage(StorageActions.STORE);
-        facadeGame_.setChosenTeamPokemon((byte)0);
+        facadeGame_.setChosenTeamPokemon(0);
         assertTrue(!facadeGame_.isSwitchable());
         assertTrue(!facadeGame_.isReleasable());
     }
@@ -233,7 +233,7 @@ public final class FacadeGameSwitchsTest extends InitializationDataBase {
     public void switchBoxTeam3Test() {
         FacadeGame facadeGame_ = initTests();
         facadeGame_.getGame().getPlayer().getTeam().add(new Egg(PIKACHU));
-        facadeGame_.setChosenTeamPokemon((byte)0);
+        facadeGame_.setChosenTeamPokemon(0);
         facadeGame_.gearStorage(StorageActions.STORE);
         facadeGame_.searchPokemonFirstBox();
         facadeGame_.checkLinePokemonFirstBox(0);
@@ -244,10 +244,10 @@ public final class FacadeGameSwitchsTest extends InitializationDataBase {
     public void switchBoxTeam4Test() {
         FacadeGame facadeGame_ = initTests();
         facadeGame_.getGame().getPlayer().getTeam().add(new Egg(PIKACHU));
-        facadeGame_.setChosenTeamPokemon((byte)0);
+        facadeGame_.setChosenTeamPokemon(0);
         facadeGame_.gearStorage(StorageActions.STORE);
         facadeGame_.searchPokemonFirstBox();
-        facadeGame_.setChosenTeamPokemon((byte)0);
+        facadeGame_.setChosenTeamPokemon(0);
         facadeGame_.checkLinePokemonFirstBox(0);
         assertTrue(facadeGame_.isSwitchable());
         assertTrue(facadeGame_.isReleasable());
@@ -259,7 +259,7 @@ public final class FacadeGameSwitchsTest extends InitializationDataBase {
     public void switchBoxTeam5Test() {
         FacadeGame facadeGame_ = initTests();
         facadeGame_.getGame().getPlayer().getTeam().add(new Egg(PIKACHU));
-        facadeGame_.setChosenTeamPokemon((byte)2);
+        facadeGame_.setChosenTeamPokemon(2);
         facadeGame_.gearStorage(StorageActions.STORE);
         assertTrue(!facadeGame_.isSwitchable());
         assertTrue(!facadeGame_.isReleasable());
@@ -268,9 +268,9 @@ public final class FacadeGameSwitchsTest extends InitializationDataBase {
     public void switchBoxTeam6Test() {
         FacadeGame facadeGame_ = initTests();
         facadeGame_.getGame().getPlayer().getTeam().add(new Egg(PIKACHU));
-        facadeGame_.setChosenTeamPokemon((byte)2);
+        facadeGame_.setChosenTeamPokemon(2);
         facadeGame_.gearStorage(StorageActions.STORE);
-        facadeGame_.setChosenTeamPokemon((byte)1);
+        facadeGame_.setChosenTeamPokemon(1);
         assertTrue(!facadeGame_.isSwitchable());
         assertTrue(!facadeGame_.isReleasable());
     }
@@ -278,7 +278,7 @@ public final class FacadeGameSwitchsTest extends InitializationDataBase {
     public void switchBoxTeam7Test() {
         FacadeGame facadeGame_ = initTests();
         facadeGame_.getGame().getPlayer().getTeam().add(new Egg(PIKACHU));
-        facadeGame_.setChosenTeamPokemon((byte)2);
+        facadeGame_.setChosenTeamPokemon(2);
         facadeGame_.gearStorage(StorageActions.STORE);
         facadeGame_.searchEgg();
         facadeGame_.checkLineEggs(0);
@@ -289,11 +289,11 @@ public final class FacadeGameSwitchsTest extends InitializationDataBase {
     public void switchBoxTeam8Test() {
         FacadeGame facadeGame_ = initTests();
         facadeGame_.getGame().getPlayer().getTeam().add(new Egg(PIKACHU));
-        facadeGame_.setChosenTeamPokemon((byte)2);
+        facadeGame_.setChosenTeamPokemon(2);
         facadeGame_.gearStorage(StorageActions.STORE);
         facadeGame_.searchEgg();
         facadeGame_.checkLineEggs(0);
-        facadeGame_.setChosenTeamPokemon((byte)1);
+        facadeGame_.setChosenTeamPokemon(1);
         assertTrue(facadeGame_.isSwitchable());
         assertTrue(facadeGame_.isReleasable());
         facadeGame_.gearStorage(StorageActions.SWITCH_TEAM_BOX);
@@ -304,13 +304,13 @@ public final class FacadeGameSwitchsTest extends InitializationDataBase {
     public void switchBoxTeam9Test() {
         FacadeGame facadeGame_ = initTests();
         facadeGame_.getGame().getPlayer().getTeam().add(new Egg(PIKACHU));
-        facadeGame_.setChosenTeamPokemon((byte)0);
+        facadeGame_.setChosenTeamPokemon(0);
         facadeGame_.gearStorage(StorageActions.STORE);
-        facadeGame_.setChosenTeamPokemon((byte)1);
+        facadeGame_.setChosenTeamPokemon(1);
         facadeGame_.gearStorage(StorageActions.STORE);
         facadeGame_.searchEgg();
         facadeGame_.checkLineEggs(0);
-        facadeGame_.setChosenTeamPokemon((byte)0);
+        facadeGame_.setChosenTeamPokemon(0);
         assertTrue(!facadeGame_.isSwitchable());
         assertTrue(facadeGame_.isReleasable());
     }
@@ -319,13 +319,13 @@ public final class FacadeGameSwitchsTest extends InitializationDataBase {
         FacadeGame facadeGame_ = initTests();
         facadeGame_.getGame().getPlayer().getTeam().add(new Egg(PIKACHU));
         facadeGame_.getGame().getPlayer().getTeam().add(new Egg(PIKACHU));
-        facadeGame_.setChosenTeamPokemon((byte)0);
+        facadeGame_.setChosenTeamPokemon(0);
         facadeGame_.gearStorage(StorageActions.STORE);
-        facadeGame_.setChosenTeamPokemon((byte)1);
+        facadeGame_.setChosenTeamPokemon(1);
         facadeGame_.gearStorage(StorageActions.STORE);
         facadeGame_.searchEgg();
         facadeGame_.checkLineEggs(0);
-        facadeGame_.setChosenTeamPokemon((byte)1);
+        facadeGame_.setChosenTeamPokemon(1);
         assertTrue(facadeGame_.isSwitchable());
         assertTrue(facadeGame_.isReleasable());
         facadeGame_.gearStorage(StorageActions.SWITCH_TEAM_BOX);
@@ -336,11 +336,11 @@ public final class FacadeGameSwitchsTest extends InitializationDataBase {
     public void switchBoxTeam11Test() {
         FacadeGame facadeGame_ = initTests();
         facadeGame_.getGame().getPlayer().getTeam().add(new Egg(PIKACHU));
-        facadeGame_.setChosenTeamPokemon((byte)2);
+        facadeGame_.setChosenTeamPokemon(2);
         facadeGame_.gearStorage(StorageActions.STORE);
         facadeGame_.searchEgg();
         facadeGame_.checkLineEggs(0);
-        facadeGame_.setChosenTeamPokemon((byte)0);
+        facadeGame_.setChosenTeamPokemon(0);
         assertTrue(facadeGame_.isSwitchable());
         assertTrue(facadeGame_.isReleasable());
         facadeGame_.gearStorage(StorageActions.SWITCH_TEAM_BOX);
@@ -352,13 +352,13 @@ public final class FacadeGameSwitchsTest extends InitializationDataBase {
         FacadeGame facadeGame_ = initTests();
         facadeGame_.getGame().getPlayer().getTeam().add(new Egg(PIKACHU));
         facadeGame_.getGame().getPlayer().getTeam().add(new Egg(PIKACHU));
-        facadeGame_.setChosenTeamPokemon((byte)2);
+        facadeGame_.setChosenTeamPokemon(2);
         facadeGame_.gearStorage(StorageActions.STORE);
-        facadeGame_.setChosenTeamPokemon((byte)0);
+        facadeGame_.setChosenTeamPokemon(0);
         facadeGame_.gearStorage(StorageActions.STORE);
         facadeGame_.searchEgg();
         facadeGame_.checkLineEggs(0);
-        facadeGame_.setChosenTeamPokemon((byte)0);
+        facadeGame_.setChosenTeamPokemon(0);
         facadeGame_.searchPokemonFirstBox();
         facadeGame_.checkLinePokemonFirstBox(0);
         assertTrue(!facadeGame_.isSwitchable());
@@ -368,7 +368,7 @@ public final class FacadeGameSwitchsTest extends InitializationDataBase {
     public void release1Test() {
         FacadeGame facadeGame_ = initTests();
         facadeGame_.getGame().getPlayer().getTeam().add(new Egg(PIKACHU));
-        facadeGame_.setChosenTeamPokemon((byte)0);
+        facadeGame_.setChosenTeamPokemon(0);
         facadeGame_.gearStorage(StorageActions.STORE);
         facadeGame_.searchPokemonFirstBox();
         facadeGame_.checkLinePokemonFirstBox(0);
@@ -379,7 +379,7 @@ public final class FacadeGameSwitchsTest extends InitializationDataBase {
     public void release2Test() {
         FacadeGame facadeGame_ = initTests();
         facadeGame_.getGame().getPlayer().getTeam().add(new Egg(PIKACHU));
-        facadeGame_.setChosenTeamPokemon((byte)2);
+        facadeGame_.setChosenTeamPokemon(2);
         facadeGame_.gearStorage(StorageActions.STORE);
         facadeGame_.searchEgg();
         facadeGame_.checkLineEggs(0);

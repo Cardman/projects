@@ -94,7 +94,7 @@ public abstract class DataBaseValidationCommon extends EquallablePkUtil {
         monteCarloNumber_.addQuickEvent(new Rate("87/100"),new LgInt("3"));
         monteCarloNumber_.addQuickEvent(new Rate("1"),new LgInt("16"));
         monteCarloNumber_.addQuickEvent(new Rate("17/20"),new LgInt("1"));
-        _data.getLawsDamageRate().put(DifficultyModelLaw.CROISSANT,new LawNumber(monteCarloNumber_,(short)4));
+        _data.getLawsDamageRate().put(DifficultyModelLaw.CROISSANT,new LawNumber(monteCarloNumber_,4));
         monteCarloNumber_ = new MonteCarloNumber();
         monteCarloNumber_.addQuickEvent(new Rate("99/100"),new LgInt("1"));
         monteCarloNumber_.addQuickEvent(new Rate("9/10"),new LgInt("1"));
@@ -112,7 +112,7 @@ public abstract class DataBaseValidationCommon extends EquallablePkUtil {
         monteCarloNumber_.addQuickEvent(new Rate("17/20"),new LgInt("1"));
         monteCarloNumber_.addQuickEvent(new Rate("23/25"),new LgInt("1"));
         monteCarloNumber_.addQuickEvent(new Rate("87/100"),new LgInt("1"));
-        _data.getLawsDamageRate().put(DifficultyModelLaw.UNIFORME,new LawNumber(monteCarloNumber_,(short)3));
+        _data.getLawsDamageRate().put(DifficultyModelLaw.UNIFORME,new LawNumber(monteCarloNumber_,3));
         monteCarloNumber_ = new MonteCarloNumber();
         monteCarloNumber_.addQuickEvent(new Rate("24/25"),new LgInt("5"));
         monteCarloNumber_.addQuickEvent(new Rate("19/20"),new LgInt("6"));
@@ -130,13 +130,13 @@ public abstract class DataBaseValidationCommon extends EquallablePkUtil {
         monteCarloNumber_.addQuickEvent(new Rate("17/20"),new LgInt("16"));
         monteCarloNumber_.addQuickEvent(new Rate("49/50"),new LgInt("3"));
         monteCarloNumber_.addQuickEvent(new Rate("89/100"),new LgInt("12"));
-        _data.getLawsDamageRate().put(DifficultyModelLaw.DECROISSANT,new LawNumber(monteCarloNumber_,(short)2));
+        _data.getLawsDamageRate().put(DifficultyModelLaw.DECROISSANT,new LawNumber(monteCarloNumber_,2));
         monteCarloNumber_ = new MonteCarloNumber();
         monteCarloNumber_.addQuickEvent(new Rate("17/20"),new LgInt("1"));
-        _data.getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MIN,new LawNumber(monteCarloNumber_,(short)1));
+        _data.getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MIN,new LawNumber(monteCarloNumber_,1));
         monteCarloNumber_ = new MonteCarloNumber();
         monteCarloNumber_.addQuickEvent(new Rate("1"),new LgInt("1"));
-        _data.getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MAX,new LawNumber(monteCarloNumber_,(short)5));
+        _data.getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MAX,new LawNumber(monteCarloNumber_,5));
     }
 
     protected static void updateLg(DataBase _db) {

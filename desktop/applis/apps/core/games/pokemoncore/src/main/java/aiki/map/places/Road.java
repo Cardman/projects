@@ -39,7 +39,7 @@ public final class Road extends Campaign implements InitializedPlace {
 
     @Override
     public void validate(DataBase _data, PlaceArea _placeArea) {
-        LevelArea levelArea_ = _placeArea.getLevel((byte) 0);
+        LevelArea levelArea_ = _placeArea.getLevel(0);
         for (PlaceInterConnect p : linksWithCitiesAndOtherRoads.getKeys()) {
             DataInfoChecker.checkKey(_data,levelArea_,p.getSource(),false);
         }
@@ -83,11 +83,11 @@ public final class Road extends Campaign implements InitializedPlace {
         getLevelRoad().getDualFights().put(_coords.getLevel().getPoint(), _dualFight);
     }
 
-    public void addHm(Coords _coords, short _hm) {
+    public void addHm(Coords _coords, int _hm) {
         getLevelRoad().getHm().put(_coords.getLevel().getPoint(), _hm);
     }
 
-    public void addTm(Coords _coords, short _tm) {
+    public void addTm(Coords _coords, int _tm) {
         getLevelRoad().getTm().put(_coords.getLevel().getPoint(), _tm);
     }
 

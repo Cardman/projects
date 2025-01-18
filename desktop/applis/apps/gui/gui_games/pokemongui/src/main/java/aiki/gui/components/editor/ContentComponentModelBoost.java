@@ -9,18 +9,18 @@ import code.util.*;
 import code.util.core.*;
 
 public final class ContentComponentModelBoost {
-    private CrudGeneFormSimpleFormSub<Statistic, Short> evs;
-    private CrudGeneFormSimpleFormSub<String,Short> happiness;
+    private CrudGeneFormSimpleFormSub<Statistic, Integer> evs;
+    private CrudGeneFormSimpleFormSub<String,Integer> happiness;
     private GeneComponentModelRate winPp;
     private AbsPanel boostForm;
     AbsPanel form(GeneComponentModelItem _parent) {
         AbsCompoFactory compoFactory_ = _parent.getCompoFactory().getCompoFactory();
         boostForm = compoFactory_.newLineBox();
-        evs=new CrudGeneFormSimpleFormSub<Statistic,Short>(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList(), _parent.getFrame());
-        evs.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Short>(_parent.getSubscribedTranslationList().getFactoryStat(),_parent.getCompoFactory(),_parent.getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_parent.getCompoFactory(), _parent.getSubscribedTranslationList().getFactoryStat(), _parent.getFacade()), new GeneComponentModelSubscribeFactoryDirect<Short>(new GeneComponentModelSubscribeShort(_parent.getCompoFactory())));
+        evs=new CrudGeneFormSimpleFormSub<Statistic,Integer>(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList(), _parent.getFrame());
+        evs.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Integer>(_parent.getSubscribedTranslationList().getFactoryStat(),_parent.getCompoFactory(),_parent.getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_parent.getCompoFactory(), _parent.getSubscribedTranslationList().getFactoryStat(), _parent.getFacade()), new GeneComponentModelSubscribeFactoryDirect<Integer>(new GeneComponentModelSubscribeInteger(_parent.getCompoFactory())));
         boostForm.add(evs.getGroup());
-        happiness = new CrudGeneFormSimpleFormSub<String, Short>(_parent.getCompoFactory(), _parent.getFacade(), _parent.getSubscribedTranslationList(), _parent.getFrame());
-        happiness.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Short>(_parent.getSubscribedTranslationList().getFactoryIt(),_parent.getCompoFactory(),_parent.getFacade(), new StringMap<String>()),buildPart(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList().getFactoryIt(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Short>(new GeneComponentModelSubscribeShort(_parent.getCompoFactory())));
+        happiness = new CrudGeneFormSimpleFormSub<String, Integer>(_parent.getCompoFactory(), _parent.getFacade(), _parent.getSubscribedTranslationList(), _parent.getFrame());
+        happiness.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Integer>(_parent.getSubscribedTranslationList().getFactoryIt(),_parent.getCompoFactory(),_parent.getFacade(), new StringMap<String>()),buildPart(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList().getFactoryIt(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Integer>(new GeneComponentModelSubscribeInteger(_parent.getCompoFactory())));
         boostForm.add(happiness.getGroup());
         winPp=new GeneComponentModelRate(_parent.getCompoFactory());
         boostForm.add(winPp.geneRate());
@@ -31,13 +31,13 @@ public final class ContentComponentModelBoost {
         boostForm.setVisible(StringUtil.quickEq(_eff, Item.BOOST));
     }
     void buildEntity(Boost _item) {
-        _item.setEvs(ConverterCommonMapUtil.buildIdMapStatisticShort(evs.getList()));
-        _item.setHappiness(ConverterCommonMapUtil.buildStringMapShort(happiness.getList()));
+        _item.setEvs(ConverterCommonMapUtil.buildIdMapStatisticInteger(evs.getList()));
+        _item.setHappiness(ConverterCommonMapUtil.buildStringMapInteger(happiness.getList()));
         _item.setWinPp(winPp.valueRate());
     }
     void feedForm(Boost _item) {
-        evs.setupValues(new MapToEntriesListUtil<Statistic,Short>().build(_item.getEvs()));
-        happiness.setupValues(new MapToEntriesListUtil<String,Short>().build(_item.getHappiness()));
+        evs.setupValues(new MapToEntriesListUtil<Statistic,Integer>().build(_item.getEvs()));
+        happiness.setupValues(new MapToEntriesListUtil<String,Integer>().build(_item.getHappiness()));
         winPp.valueRate(_item.getWinPp());
     }
 

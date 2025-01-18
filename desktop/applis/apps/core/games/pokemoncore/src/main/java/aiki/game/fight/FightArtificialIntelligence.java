@@ -123,8 +123,8 @@ final class FightArtificialIntelligence {
             }
             // notKoFoeFighters_.size() == 1
             // koFoeFighters_.isEmpty() == 1
-            Bytes foeFighers_ = _fight.getFoeTeam().fightersAtCurrentPlace(_fighters.getNotKoFoeFighters().first());
-            for (byte f: foeFighers_) {
+            Ints foeFighers_ = _fight.getFoeTeam().fightersAtCurrentPlace(_fighters.getNotKoFoeFighters().first());
+            for (int f: foeFighers_) {
                 TeamPosition c2_ = Fight.toFoeFighter(f);
                 if (koFoeFighter(_fight, _fighters.getPartner(), m2_, c2_, _diff, _import)) {
                     _fight.getAllyChoice().put(new MoveTarget(_m, _fighters.getKoFoeFighters().first()), new MoveTarget(m2_, _fighters.getNotKoFoeFighters().first()));
@@ -157,8 +157,8 @@ final class FightArtificialIntelligence {
             TargetCoordssRate remainingTargetHp_ = remainingFoeTargetHp(_fight, _f, m, _diff, _import);
             remoteHp_.put(m, remainingTargetHp_);
             for (TargetCoords t: remainingTargetHp_.getKeys()) {
-                Bytes foeFighers_ = _fight.getFoeTeam().fightersAtCurrentPlace(t);
-                for (byte f2_: foeFighers_) {
+                Ints foeFighers_ = _fight.getFoeTeam().fightersAtCurrentPlace(t);
+                for (int f2_: foeFighers_) {
                     TeamPosition c2_ = Fight.toFoeFighter(f2_);
                     if (Rate.strLower(remainingTargetHp_.getVal(t), _fight.getFighter(c2_).getRemainingHp())) {
                         _fight.getAllyChoice().put(new MoveTarget(m,t), MoveTarget.def());
@@ -178,7 +178,7 @@ final class FightArtificialIntelligence {
             }
             TargetCoordsList list_ = new TargetCoordsList();
             int mult_ = _fight.getMult();
-            for (short f = IndexConstants.FIRST_INDEX; f < mult_; f++) {
+            for (int f = IndexConstants.FIRST_INDEX; f < mult_; f++) {
                 if (_fight.getFoeTeam().fightersAtCurrentPlace(f).isEmpty()) {
                     continue;
                 }
@@ -197,8 +197,8 @@ final class FightArtificialIntelligence {
         TargetCoordssRate remoteHpLoc_ = new TargetCoordssRate();
         int mult_ = _fight.getMult();
         _fight.getTemp().setSending(false);
-        for(byte f = IndexConstants.FIRST_INDEX; f < mult_; f++){
-            Bytes fighters_ = _fight.getFoeTeam().fightersAtCurrentPlace(f);
+        for(int f = IndexConstants.FIRST_INDEX; f < mult_; f++){
+            Ints fighters_ = _fight.getFoeTeam().fightersAtCurrentPlace(f);
             if (fighters_.isEmpty()) {
                 continue;
             }
@@ -346,8 +346,8 @@ final class FightArtificialIntelligence {
     static TargetCoordsList koFoeFighters(Fight _fight, TeamPosition _thrower, String _move, StringMap<TargetCoordsList> _possibleChoicesAlly, Difficulty _diff, DataBase _import) {
         TargetCoordsList kos_ = new TargetCoordsList();
         for (TargetCoords t: _possibleChoicesAlly.getVal(_move)) {
-            Bytes foeFighers_ = _fight.getFoeTeam().fightersAtCurrentPlace(t);
-            for (byte p:foeFighers_) {
+            Ints foeFighers_ = _fight.getFoeTeam().fightersAtCurrentPlace(t);
+            for (int p:foeFighers_) {
                 TeamPosition c2_ = Fight.toFoeFighter(p);
                 if (koFoeFighter(_fight, _thrower, _move, c2_, _diff, _import)) {
                     kos_.add(t);
@@ -416,7 +416,7 @@ final class FightArtificialIntelligence {
     }
 
     private static void choiceFoeArtificialIntelligenceWild(Fight _fight, Difficulty _diff, DataBase _import) {
-        for (EntryCust<Byte,Fighter> e: FightOrder.filteredFoe(_fight)) {
+        for (EntryCust<Integer,Fighter> e: FightOrder.filteredFoe(_fight)) {
             StringList attaquesUtilisables_= FightFacade.allowedMovesNotEmpty(_fight,Fight.toFoeFighter(e.getKey()), _import);
             MonteCarloString loi_ = new MonteCarloString();
             for(String m:attaquesUtilisables_){
@@ -471,12 +471,12 @@ final class FightArtificialIntelligence {
         statistiques_.put(UsefulValueLaw.MOY,Rate.zero());
         statistiques_.put(UsefulValueLaw.VAR,Rate.zero());
         int mult_ = _fight.getMult();
-        for (byte f = IndexConstants.FIRST_INDEX; f < mult_; f++) {
-            Bytes places_ = _fight.getUserTeam().fightersAtCurrentPlace(f);
+        for (int f = IndexConstants.FIRST_INDEX; f < mult_; f++) {
+            Ints places_ = _fight.getUserTeam().fightersAtCurrentPlace(f);
             if (places_.isEmpty()) {
                 continue;
             }
-            byte pos_ = places_.first();
+            int pos_ = places_.first();
             TeamPosition f_ = Fight.toUserFighter(pos_);
             if (reachable(_fight, _c, f_, _diff, _import, _m.getValue())) {
                 IdMap<UsefulValueLaw, Rate> statistiquesLoc_ = statistiquesLoc(_fight, _diff, _import, _c, _m, f_);
@@ -642,14 +642,14 @@ final class FightArtificialIntelligence {
     static void choiceForSubstituing(Fight _fight, DataBase _import){
         _fight.addEmptyMessage();
         Team foeTeam_=_fight.getFoeTeam();
-        ByteMap<Byte> beforeSubstitute_;
-        beforeSubstitute_ = new ByteMap<Byte>();
+        IntMap<Integer> beforeSubstitute_;
+        beforeSubstitute_ = new IntMap<Integer>();
         beforeSubstitute_.putAllMap(_fight.getFirstPositFoeFighters());
-        ByteMap<Byte> afterSubstitute_;
-        afterSubstitute_ = new ByteMap<Byte>();
-        Bytes remplacantsPotentiels_=new Bytes();
-        Bytes pksKo_=new Bytes();
-        for(byte c:foeTeam_.getMembers().getKeys()){
+        IntMap<Integer> afterSubstitute_;
+        afterSubstitute_ = new IntMap<Integer>();
+        Ints remplacantsPotentiels_=new Ints();
+        Ints pksKo_=new Ints();
+        for(int c:foeTeam_.getMembers().getKeys()){
             Fighter membre_=foeTeam_.getMembers().getVal(c);
             if(membre_.estKo()&&!NumberUtil.eq(membre_.getGroundPlaceSubst(),Fighter.BACK)){
                 pksKo_.add(c);
@@ -673,7 +673,7 @@ final class FightArtificialIntelligence {
             _fight.getFirstPositFoeFighters().put(pksKo_.get(i), Fighter.BACK);
             _fight.getFirstPositFoeFighters().put(remplacantsPotentiels_.get(i), membre_.getGroundPlaceSubst());
         }
-        Bytes free_ = freeFoePlaces(_fight);
+        Ints free_ = freeFoePlaces(_fight);
         int nbSubst_ = remplacantsPotentiels_.size();
         for(int i = nbSubst_; i < nbPksKo_; i++){
             _fight.getFirstPositFoeFighters().put(pksKo_.get(i), Fighter.BACK);
@@ -695,27 +695,27 @@ final class FightArtificialIntelligence {
         }
     }
 
-    private static Bytes freeFoePlaces(Fight _fight) {
-        Bytes free_ = new Bytes();
+    private static Ints freeFoePlaces(Fight _fight) {
+        Ints free_ = new Ints();
         int mult_ = _fight.getMult();
-        for (byte i = IndexConstants.FIRST_INDEX; i<mult_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i<mult_; i++) {
             free_.add(i);
         }
-        Bytes values_ = new Bytes(_fight.getFirstPositFoeFighters().values());
+        Ints values_ = new Ints(_fight.getFirstPositFoeFighters().values());
         values_.removeAllLong(Fighter.BACK);
-        for (byte b:values_) {
+        for (int b:values_) {
             free_.removeAllLong(b);
         }
         return free_;
     }
 
     private static void allySubstituting(Fight _fight, DataBase _import) {
-        ByteMap<Byte> beforeSubstitute_ = new ByteMap<Byte>();
+        IntMap<Integer> beforeSubstitute_ = new IntMap<Integer>();
         beforeSubstitute_.putAllMap(_fight.getFirstPositPlayerFighters());
-        ByteMap<Byte> afterSubstitute_ = new ByteMap<Byte>();
+        IntMap<Integer> afterSubstitute_ = new IntMap<Integer>();
         Team userTeam_= _fight.getUserTeam();
-        Bytes remplacantsPotentiels_ = new Bytes();
-        Bytes pksKo_ = new Bytes();
+        Ints remplacantsPotentiels_ = new Ints();
+        Ints pksKo_ = new Ints();
         for(TeamPosition c:FightOrder.fightersBelongingToUser(_fight,false)){
             Fighter membre_=userTeam_.getMembers().getVal(c.getPosition());
             if(membre_.estKo()&&!NumberUtil.eq(membre_.getGroundPlaceSubst(),Fighter.BACK)){
@@ -741,10 +741,10 @@ final class FightArtificialIntelligence {
         messageSubstituting(afterSubstitute_, beforeSubstitute_, userTeam_, _import, _fight, Fight.SEND_SUBSTITUTE);
     }
 
-    private static void replaceAllyTeam(Fight _fight, Bytes _remplacantsPotentiels) {
+    private static void replaceAllyTeam(Fight _fight, Ints _remplacantsPotentiels) {
         int mult_ = _fight.getMult();
         boolean done_ = false;
-        for (byte i = IndexConstants.FIRST_INDEX; i < mult_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < mult_; i++) {
 //                        if (done_) {
 //                            break;
 //                        }
@@ -758,8 +758,8 @@ final class FightArtificialIntelligence {
             }
         }
         if (!done_) {
-            byte iTer_ = IndexConstants.FIRST_INDEX;
-//                        while (Map.<Byte,Byte>hasNumber(_fight.getFirstPositPlayerFighters(), iTer_)) {
+            int iTer_ = IndexConstants.FIRST_INDEX;
+//                        while (Map.<Integer,Integer>hasNumber(_fight.getFirstPositPlayerFighters(), iTer_)) {
 //                            iTer_++;
 //                        }
             while (_fight.isUsedAt(iTer_)) {
@@ -769,7 +769,7 @@ final class FightArtificialIntelligence {
         }
     }
 
-    private static boolean existSubst(Fight _fight, byte _i) {
+    private static boolean existSubst(Fight _fight, int _i) {
         boolean existSubst_ = false;
 //                        for (TeamPosition c:FightOrder.fighters(_fight,Fight.PLAYER)) {
 //                            Fighter f_ = _fight.getFighter(c);
@@ -791,8 +791,8 @@ final class FightArtificialIntelligence {
         return existSubst_;
     }
 
-    private static void messageSubstituting(ByteMap<Byte> _afterSubstitute, ByteMap<Byte> _beforeSubstitute, Team _team, DataBase _import, Fight _fight, String _key) {
-        for (byte b: _afterSubstitute.getKeys()) {
+    private static void messageSubstituting(IntMap<Integer> _afterSubstitute, IntMap<Integer> _beforeSubstitute, Team _team, DataBase _import, Fight _fight, String _key) {
+        for (int b: _afterSubstitute.getKeys()) {
             if (NumberUtil.eq(_afterSubstitute.getVal(b), Fighter.BACK) || !NumberUtil.eq(_beforeSubstitute.getVal(b), Fighter.BACK)) {
                 continue;
             }
@@ -804,12 +804,12 @@ final class FightArtificialIntelligence {
 
     static boolean existFree(Fight _fight) {
         int mult_ = _fight.getMult();
-        Bytes allPlayer_ = new Bytes();
+        Ints allPlayer_ = new Ints();
         for(TeamPosition c:FightOrder.fightersBelongingToUser(_fight,true)){
             allPlayer_.add(_fight.getFighter(c).getGroundPlaceSubst());
         }
         boolean existFree_ = false;
-        for (byte i = IndexConstants.FIRST_INDEX; i< mult_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i< mult_; i++) {
             if (!_fight.isUsedAt(i)&&!allPlayer_.containsObj(i)) {
                 existFree_ = true;
             }

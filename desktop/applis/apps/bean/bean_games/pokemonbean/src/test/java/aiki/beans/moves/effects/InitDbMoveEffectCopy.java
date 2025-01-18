@@ -123,7 +123,7 @@ public abstract class InitDbMoveEffectCopy extends InitDbMoveEffect {
     protected static EffectCopyMove effectCopyMove(boolean _copyingMoveForUserDef, int _copy) {
         EffectCopyMove e_ = Instances.newEffectCopyMove();
         e_.setCopyingMoveForUserDef(_copyingMoveForUserDef);
-        e_.setCopyingMoveForUser((short) _copy);
+        e_.setCopyingMoveForUser( _copy);
         e_.getMovesNotToBeCopied().add(M_WEA);
         return e_;
     }
@@ -172,7 +172,7 @@ public abstract class InitDbMoveEffectCopy extends InitDbMoveEffect {
     }
     protected static EffectCopyFighter effectCopyFighter() {
         EffectCopyFighter e_ = Instances.newEffectCopyFighter();
-        e_.setPpForMoves((short) 1);
+        e_.setPpForMoves( 1);
         return e_;
     }
 }

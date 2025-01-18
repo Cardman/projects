@@ -91,11 +91,6 @@ public abstract class EquallableSerialUtil {
         return DocumentReaderCoreUtil.getStringMapBoolean(DocumentWriterCoreUtil.setStringMapBoolean(_i,"_",f_));
     }
 
-    public static StringMap<Short> saveStrMapShort(StringMap<Short> _i) {
-        FullDocument f_ = DocumentBuilder.newDocumentBuilder().newDocument();
-        return DocumentReaderCoreUtil.getStringMapShort(DocumentWriterCoreUtil.setStringMapShort(_i,"_",f_));
-    }
-
     public static StringMap<Integer> saveStrMapInt(StringMap<Integer> _i) {
         FullDocument f_ = DocumentBuilder.newDocumentBuilder().newDocument();
         return DocumentReaderCoreUtil.getStringMapInteger(DocumentWriterCoreUtil.setStringMapInteger(_i,"_",f_));
@@ -131,25 +126,16 @@ public abstract class EquallableSerialUtil {
         return DocumentReaderCoreUtil.getMapIntegerBoolean(DocumentWriterCoreUtil.setMapIntegerBoolean(_i,"_",f_));
     }
 
-    public static ByteMap<Byte> saveMapByteByte(ByteMap<Byte> _i) {
+    public static IntMap<Integer> saveMapByteByte(IntMap<Integer> _i) {
         FullDocument f_ = DocumentBuilder.newDocumentBuilder().newDocument();
         return DocumentReaderCoreUtil.getMapByteByte(DocumentWriterCoreUtil.setMapByteByte(_i,"_",f_));
     }
 
-    public static ByteMap<Bytes> saveMapByteListByte(ByteMap<Bytes> _i) {
+    public static IntMap<Ints> saveMapByteListByte(IntMap<Ints> _i) {
         FullDocument f_ = DocumentBuilder.newDocumentBuilder().newDocument();
         return DocumentReaderCoreUtil.getMapByteListByte(DocumentWriterCoreUtil.setMapByteListByte(_i,"_",f_));
     }
 
-    public static ShortMap<String> saveMapShortString(ShortMap<String> _i) {
-        FullDocument f_ = DocumentBuilder.newDocumentBuilder().newDocument();
-        return DocumentReaderCoreUtil.getMapShortString(DocumentWriterCoreUtil.setMapShortString(_i,"_",f_));
-    }
-
-    public static ShortMap<BoolVal> saveMapShortBoolVal(ShortMap<BoolVal> _i) {
-        FullDocument f_ = DocumentBuilder.newDocumentBuilder().newDocument();
-        return DocumentReaderCoreUtil.getMapShortBoolean(DocumentWriterCoreUtil.setMapShortBoolean(_i,"_",f_));
-    }
     public static LgInt saveLgInt(LgInt _i) {
         FullDocument f_ = DocumentBuilder.newDocumentBuilder().newDocument();
         return DocumentReaderMathUtil.getLgInt(DocumentWriterMathUtil.setLgInt(_i,"_",f_));

@@ -9,33 +9,33 @@ public final class TargetCoords {
     private static final char SEPARATOR=';';
 
     private static final int DISABLED = -1;
-    private final short team;
+    private final int team;
 
-    private final short position;
+    private final int position;
 
-    public TargetCoords(short _team,short _position) {
+    public TargetCoords(int _team,int _position) {
         team = _team;
         position = _position;
     }
 
     public TargetCoords(String _value) {
         StringList elts_ = StringUtil.splitChars(_value, SEPARATOR);
-        team = (short) NumberUtil.parseInt(elts_.first());
-        position = (short) NumberUtil.parseInt(elts_.last());
+        team = NumberUtil.parseInt(elts_.first());
+        position = NumberUtil.parseInt(elts_.last());
     }
     public static TargetCoords def() {
-        return new TargetCoords((short) DISABLED,Fighter.BACK);
+        return new TargetCoords(DISABLED,Fighter.BACK);
     }
 
     public static boolean ko(TargetCoords _pos) {
         return koTeam(_pos.getTeam()) ||koPosition(_pos.getPosition());
     }
 
-    public static boolean koTeam(short _team) {
+    public static boolean koTeam(int _team) {
         return !NumberUtil.eq(_team, Fight.CST_PLAYER) && !NumberUtil.eq(_team, Fight.CST_FOE);
     }
 
-    public static boolean koPosition(short _pos) {
+    public static boolean koPosition(int _pos) {
         return !NumberUtil.eq(_pos, Fighter.BACK) && _pos < 0;
     }
     
@@ -43,11 +43,11 @@ public final class TargetCoords {
         return new TargetCoords(_string);
     }
 
-    public static TargetCoords toUserTarget(short _position) {
+    public static TargetCoords toUserTarget(int _position) {
         return new TargetCoords(Fight.CST_PLAYER, _position);
     }
 
-    public static TargetCoords toFoeTarget(short _position) {
+    public static TargetCoords toFoeTarget(int _position) {
         return new TargetCoords(Fight.CST_FOE, _position);
     }
 
@@ -65,11 +65,11 @@ public final class TargetCoords {
     public boolean isEnabled() {
         return getTeam() != DISABLED;
     }
-    public short getTeam() {
+    public int getTeam() {
         return team;
     }
 
-    public short getPosition() {
+    public int getPosition() {
         return position;
     }
 

@@ -57,8 +57,8 @@ public abstract class AbsLevelBean extends CommonBean {
         int sideLength_ = data_.getMap().getSideLength();
         if (co_.isInside()) {
             Point ptInside_ = co_.getInsideBuilding();
-            feedImages(data_.getLevelImage((short) pl_, IndexConstants.FIRST_INDEX, ptInside_), getTiles(),sideLength_, _addBorder);
-            feedImages(data_.getBackLevelImage((short) pl_, IndexConstants.FIRST_INDEX, ptInside_), getWhiteTiles(),sideLength_, _addBorder);
+            feedImages(data_.getLevelImage(pl_, IndexConstants.FIRST_INDEX, ptInside_), getTiles(),sideLength_, _addBorder);
+            feedImages(data_.getBackLevelImage(pl_, IndexConstants.FIRST_INDEX, ptInside_), getWhiteTiles(),sideLength_, _addBorder);
         } else {
             outside = true;
             int lev_ = co_.getLevel().getLevelIndex();
@@ -74,8 +74,8 @@ public abstract class AbsLevelBean extends CommonBean {
             if (level_ instanceof LevelWithWildPokemon) {
                 wildPokemonAreas = ((LevelWithWildPokemon) level_).getWildPokemonAreas();
             }
-            feedImages(data_.getLevelImage((short) pl_, (byte) lev_), getTiles(),sideLength_, _addBorder);
-            feedImages(data_.getBackLevelImage((short) pl_, (byte) lev_), getWhiteTiles(),sideLength_, _addBorder);
+            feedImages(data_.getLevelImage(pl_, lev_), getTiles(),sideLength_, _addBorder);
+            feedImages(data_.getBackLevelImage(pl_, lev_), getWhiteTiles(),sideLength_, _addBorder);
         }
         if (place_ instanceof InitializedPlace) {
             for (PlaceInterConnectCoords n: ((InitializedPlace)place_).getPointsWithCitiesAndOtherRoads().entryList()){

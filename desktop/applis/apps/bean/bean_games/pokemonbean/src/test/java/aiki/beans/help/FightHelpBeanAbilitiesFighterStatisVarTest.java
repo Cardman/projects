@@ -64,7 +64,7 @@ public final class FightHelpBeanAbilitiesFighterStatisVarTest extends InitDbFigh
     private static FacadeGame dbGlobal() {
         FacadeGame f_ = facade();
         AbilityData t_ = Instances.newAbilityData();
-        t_.getMultStatIfLowStat().addEntry(Statistic.CRITICAL_HIT,(byte)0);
+        t_.getMultStatIfLowStat().addEntry(Statistic.CRITICAL_HIT,0);
         f_.getData().completeMembers(M_DAM, t_);
         f_.getData().completeMembers(M_STA, Instances.newAbilityData());
         f_.getData().getTranslatedAbilities().addEntry(EN,new StringMap<String>());

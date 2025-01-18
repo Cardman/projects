@@ -177,7 +177,7 @@ public abstract class InitDbMoveEffectTeam extends InitDbMoveEffect {
         e_.getDisableFoeTeamStatus().add(S_STA_SIM);
         e_.getProtectAgainstStatus().add(S_STA_SIM);
         e_.getUnusableMoves().add(M_STA);
-        e_.getMultDamage().addEntry(new CategoryMult(AUTRE,(short)1),Rate.one());
+        e_.getMultDamage().addEntry(new CategoryMult(AUTRE,1),Rate.one());
         return e_;
     }
 }

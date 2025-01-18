@@ -536,7 +536,7 @@ public class ScenePanelMulti {
 //        panelMenu.setVisible(false);
 //        disableFishing();
 //        panelOptions.removeAll();
-//        ByteTreeMap<UsablePokemon> pks_ = new ByteTreeMap<UsablePokemon>();
+//        IntTreeMap<UsablePokemon> pks_ = new IntTreeMap<UsablePokemon>();
 //        for (byte i: facade.getPlayer().getIndexesOfPokemonTeam()) {
 //            pks_.put(i, facade.getPlayer().getTeam().get(i));
 //        }
@@ -582,7 +582,7 @@ public class ScenePanelMulti {
 //        panelMenu.setVisible(false);
 //        disableFishing();
 //        panelOptions.removeAll();
-//        ByteTreeMap<UsablePokemon> pks_ = new ByteTreeMap<UsablePokemon>();
+//        IntTreeMap<UsablePokemon> pks_ = new IntTreeMap<UsablePokemon>();
 //        for (byte i: facade.getPlayer().getIndexesOfPokemonTeam()) {
 //            pks_.put(i, facade.getPlayer().getTeam().get(i));
 //        }
@@ -720,9 +720,9 @@ public class ScenePanelMulti {
         }
     }
 
-    public void setTradable(ByteTreeMap< PokemonPlayer> _team) {
-        ByteTreeMap<UsablePokemon> teamPks_ = new ByteTreeMap<UsablePokemon>();
-        for (EntryCust<Byte, PokemonPlayer> e: _team.entryList()) {
+    public void setTradable(IntTreeMap< PokemonPlayer> _team) {
+        IntTreeMap<UsablePokemon> teamPks_ = new IntTreeMap<UsablePokemon>();
+        for (EntryCust<Integer, PokemonPlayer> e: _team.entryList()) {
             e.getValue().initIv(facade.getGame().getDifficulty());
             teamPks_.put(e.getKey(), e.getValue());
         }
@@ -757,10 +757,10 @@ public class ScenePanelMulti {
         window.setContentPane(pane_);
     }
 
-    public void setTradableAfterTrading(ByteTreeMap< PokemonPlayer> _team) {
+    public void setTradableAfterTrading(IntTreeMap< PokemonPlayer> _team) {
 //        enabledClick = false;
-        ByteTreeMap<UsablePokemon> teamPks_ = new ByteTreeMap<UsablePokemon>();
-        for (EntryCust<Byte, PokemonPlayer> e: _team.entryList()) {
+        IntTreeMap<UsablePokemon> teamPks_ = new IntTreeMap<UsablePokemon>();
+        for (EntryCust<Integer, PokemonPlayer> e: _team.entryList()) {
             teamPks_.put(e.getKey(), e.getValue());
         }
         teamPan.initFighters(teamPks_,messages);
@@ -944,8 +944,8 @@ public class ScenePanelMulti {
 //            disableFishing();
 //        } else if (facade.getInterfaceType() == InterfaceType.PENSION) {
 //            AbsPanel set_ = compoFactory.newLineBox();
-//            ByteTreeMap<UsablePokemon> teamPks_ = new ByteTreeMap<UsablePokemon>();
-//            ByteTreeMap< PokemonPlayer> team_ = facade.getGame().getPlayer().getPokemonPlayerList();
+//            IntTreeMap<UsablePokemon> teamPks_ = new IntTreeMap<UsablePokemon>();
+//            IntTreeMap< PokemonPlayer> team_ = facade.getGame().getPlayer().getPokemonPlayerList();
 //            for (EntryCust<Byte, PokemonPlayer> e: team_.entryList()) {
 //                teamPks_.put(e.getKey(), e.getValue());
 //            }
@@ -979,7 +979,7 @@ public class ScenePanelMulti {
 //        addExit();
 //    }
 
-    private TeamPanel initTeam(ByteTreeMap<UsablePokemon> _team, String _key, boolean _single) {
+    private TeamPanel initTeam(IntTreeMap<UsablePokemon> _team, String _key, boolean _single) {
         return new TeamPanel(window, messages.getVal(_key), facade, _team, messages, _single, new AlwaysActionListenerAct());
     }
 
@@ -1177,8 +1177,8 @@ public class ScenePanelMulti {
 //    }
 
 //    private void initPkTeamMoveTutors() {
-//        ByteTreeMap<PokemonPlayer> team_ = facade.getPlayer().getPokemonPlayerList();
-//        ByteTreeMap<UsablePokemon> pks_ = new ByteTreeMap<UsablePokemon>();
+//        IntTreeMap<PokemonPlayer> team_ = facade.getPlayer().getPokemonPlayerList();
+//        IntTreeMap<UsablePokemon> pks_ = new IntTreeMap<UsablePokemon>();
 //        for (EntryCust<Byte, PokemonPlayer> e: team_.entryList()) {
 //            pks_.put(e.getKey(), e.getValue());
 //        }
@@ -1188,8 +1188,8 @@ public class ScenePanelMulti {
 //
 //    private void refreshPkTeamMoveTutors() {
 //        enabledClick = false;
-//        ByteTreeMap<PokemonPlayer> team_ = facade.getPlayer().getPokemonPlayerList();
-//        ByteTreeMap<UsablePokemon> pks_ = new ByteTreeMap<UsablePokemon>();
+//        IntTreeMap<PokemonPlayer> team_ = facade.getPlayer().getPokemonPlayerList();
+//        IntTreeMap<UsablePokemon> pks_ = new IntTreeMap<UsablePokemon>();
 //        for (EntryCust<Byte, PokemonPlayer> e: team_.entryList()) {
 //            pks_.put(e.getKey(), e.getValue());
 //        }
@@ -1198,7 +1198,7 @@ public class ScenePanelMulti {
 //    }
 //
 //    private void initTeam() {
-//        ByteTreeMap<UsablePokemon> pks_ = new ByteTreeMap<UsablePokemon>();
+//        IntTreeMap<UsablePokemon> pks_ = new IntTreeMap<UsablePokemon>();
 //        byte i_ = IndexConstants.FIRST_INDEX;
 //        for (UsablePokemon p: facade.getPlayer().getTeam()) {
 //            pks_.put(i_, p);
@@ -1209,7 +1209,7 @@ public class ScenePanelMulti {
 
 //    private void refreshTeam() {
 //        enabledClick = false;
-//        ByteTreeMap<UsablePokemon> pks_ = new ByteTreeMap<UsablePokemon>();
+//        IntTreeMap<UsablePokemon> pks_ = new IntTreeMap<UsablePokemon>();
 //        byte i_ = IndexConstants.FIRST_INDEX;
 //        for (UsablePokemon p: facade.getPlayer().getTeam()) {
 //            pks_.put(i_, p);

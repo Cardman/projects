@@ -294,8 +294,8 @@ public abstract class InitDbMap extends InitDbConstr {
 
     protected static PokemonData pk(String _one, String _second) {
         PokemonData pk_ = Instances.newPokemonData();
-        pk_.getLevMoves().add(new LevelMove((short) 1,_one));
-        pk_.getLevMoves().add(new LevelMove((short) 3,_second));
+        pk_.getLevMoves().add(new LevelMove( 1,_one));
+        pk_.getLevMoves().add(new LevelMove( 3,_second));
         return pk_;
     }
     protected static DualFight dual() {
@@ -309,7 +309,7 @@ public abstract class InitDbMap extends InitDbConstr {
         d_.getAlly().getTeam().add(wpTwo(P_POK_17,A_ABILITY2,I_HEAL_PP,19));
         d_.getFoeTrainer().getTeam().add(wpOne(P_POK_14,A_ABILITY2,I_HEAL,18));
         d_.getFoeTrainer().getTeam().add(wpTwo(P_POK_15,A_ABILITY,I_HEAL_HP,19));
-        d_.getFoeTrainer().setReward((short) 25);
+        d_.getFoeTrainer().setReward( 25);
         return d_;
     }
     protected static TrainerLeague trLeagueOne() {
@@ -317,7 +317,7 @@ public abstract class InitDbMap extends InitDbConstr {
         tmf_.setName(T_L_1);
         tmf_.setImageMaxiFileName(SINGLE);
         tmf_.setImageMiniFileName(SI);
-        mult((byte) 1, tmf_);
+        mult(1, tmf_);
         tmf_.getTeam().add(wpOne(P_POK_12,A_ABILITY,I_BOOST,20));
         tmf_.getTeam().add(wpTwo(P_POK_13,A_ABILITY2,I_ITEMBATTLE,25));
         return tmf_;
@@ -327,7 +327,7 @@ public abstract class InitDbMap extends InitDbConstr {
         tmf_.setName(T_L_2);
         tmf_.setImageMaxiFileName(SINGLE);
         tmf_.setImageMiniFileName(SI);
-        mult((byte) 1, tmf_);
+        mult(1, tmf_);
         tmf_.getTeam().add(wpOne(P_POK_20,A_ABILITY,I_BOOST,20));
         tmf_.getTeam().add(wpTwo(P_POK_21,A_ABILITY2,I_ITEMBATTLE,25));
         return tmf_;
@@ -337,17 +337,17 @@ public abstract class InitDbMap extends InitDbConstr {
         tmf_.setName(G_L_1);
         tmf_.setImageMaxiFileName(SINGLE);
         tmf_.setImageMiniFileName(SI);
-        mult((byte) 1, tmf_);
+        mult(1, tmf_);
         tmf_.getTeam().add(wpOne(P_POK_14,A_ABILITY2,I_HEAL,18));
         tmf_.getTeam().add(wpTwo(P_POK_15,A_ABILITY,I_HEAL_HP,19));
-        tmf_.setTm((short)2);
+        tmf_.setTm(2);
         return tmf_;
     }
     protected static GymTrainer trGymTrainer() {
         GymTrainer tmf_ = Instances.newGymTrainer();
         tmf_.setImageMaxiFileName(SINGLE);
         tmf_.setImageMiniFileName(SI);
-        mult((byte) 1, tmf_);
+        mult(1, tmf_);
         tmf_.getTeam().add(wpOne(P_POK_16,A_ABILITY,I_HEAL_HP_STATUS,18));
         tmf_.getTeam().add(wpTwo(P_POK_17,A_ABILITY2,I_HEAL_PP,19));
         return tmf_;
@@ -356,13 +356,13 @@ public abstract class InitDbMap extends InitDbConstr {
         TrainerMultiFights tmf_ = Instances.newTrainerMultiFights();
         tmf_.setImageMaxiFileName(SINGLE);
         tmf_.setImageMiniFileName(SI);
-        mult((byte) 2, tmf_);
+        mult(2, tmf_);
         tmf_.getTeamsRewards().add(teamOne());
         tmf_.getTeamsRewards().add(teamTwo());
         return tmf_;
     }
 
-    private static void mult(byte _m, Trainer _t) {
+    private static void mult(int _m, Trainer _t) {
         _t.setMultiplicityFight(_m);
     }
 
@@ -381,7 +381,7 @@ public abstract class InitDbMap extends InitDbConstr {
 
     private static PokemonTeam teamBase(int _v) {
         PokemonTeam t_ = Instances.newPokemonTeam();
-        t_.setReward((short) _v);
+        t_.setReward( _v);
         return t_;
     }
 
@@ -395,7 +395,7 @@ public abstract class InitDbMap extends InitDbConstr {
     protected static PkTrainer trp(String _name, String _ab, String _it, int _level, String _one, String _second) {
         PkTrainer pk_ = Instances.newPkTrainer();
         pk_.setName(_name);
-        pk_.setLevel((short) _level);
+        pk_.setLevel( _level);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(_ab);
         pk_.setItem(_it);
@@ -452,10 +452,10 @@ public abstract class InitDbMap extends InitDbConstr {
         facade_.getData().completeMembers(A_ABILITY,Instances.newAbilityData());
         facade_.getData().completeMembers(A_ABILITY2,Instances.newAbilityData());
         facade_.getData().setMap(dm());
-        facade_.getData().getHm().addEntry((short)1,M_POK_00);
-        facade_.getData().getTm().addEntry((short)1,M_POK_01);
-        facade_.getData().getTm().addEntry((short)2,M_POK_02);
-        facade_.getData().getTm().addEntry((short)3,M_POK_03);
+        facade_.getData().getHm().addEntry(1,M_POK_00);
+        facade_.getData().getTm().addEntry(1,M_POK_01);
+        facade_.getData().getTm().addEntry(2,M_POK_02);
+        facade_.getData().getTm().addEntry(3,M_POK_03);
         trsCore(facade_);
         return facade_;
     }
@@ -629,10 +629,10 @@ public abstract class InitDbMap extends InitDbConstr {
         d_.getPlaces().add(league(newCoords(3,0,0,2)));
         d_.getPlaces().add(lrOne(newCoords(3,0,0,1),newCoords(1,0,1,2),newCoords(0,0,1,0), "PL__"));
         d_.getAccessCondition().addEntry(newCoords(3,0,0,2),new Condition());
-        d_.join((short)0,(short)2,newPoint(1,0),newPoint(0,1),Direction.DOWN);
-        d_.join((short)2,(short)1,newPoint(0,0),newPoint(1,2),Direction.DOWN);
-        d_.join((short)4,(short)5,newPoint(0,0),newPoint(0,0),Direction.LEFT);
-        d_.join((short)6,(short)7,newPoint(0,0),newPoint(0,0),Direction.LEFT);
+        d_.join(0,2,newPoint(1,0),newPoint(0,1),Direction.DOWN);
+        d_.join(2,1,newPoint(0,0),newPoint(1,2),Direction.DOWN);
+        d_.join(4,5,newPoint(0,0),newPoint(0,0),Direction.LEFT);
+        d_.join(6,7,newPoint(0,0),newPoint(0,0),Direction.LEFT);
         return d_;
     }
     protected static League league(Coords _c) {
@@ -733,7 +733,7 @@ public abstract class InitDbMap extends InitDbConstr {
         l_.getGerants().addEntry(newPoint(2,1), s2_);
         Seller s3_ = Instances.newSeller();
         s3_.setSell(SellType.TM);
-        s3_.getTm().add((short)3);
+        s3_.getTm().add(3);
         l_.getGerants().addEntry(newPoint(2,2), s3_);
         pc_.setLevel(l_);
         return pc_;
@@ -802,11 +802,11 @@ public abstract class InitDbMap extends InitDbConstr {
         dOne_.getItems().add(I_BALL);
         sec_.getCharacters().addEntry(newPoint(1,1), dOne_);
         DealerItem dTwo_ = Instances.newDealerItem();
-        dTwo_.getTechnicalMoves().add((short) 2);
+        dTwo_.getTechnicalMoves().add( 2);
         sec_.getCharacters().addEntry(newPoint(1,2), dTwo_);
         sec_.getItems().addEntry(newPoint(2,0),I_BOOST);
-        sec_.getHm().addEntry(newPoint(2,1),(short)1);
-        sec_.getTm().addEntry(newPoint(2,2),(short)1);
+        sec_.getHm().addEntry(newPoint(2,1),1);
+        sec_.getTm().addEntry(newPoint(2,2),1);
         c_.getLevels().add(sec_);
         first_.getLinksOtherLevels().addEntry(newPoint(0,0),new Link("",newCoords(_pl,1,0,0)));
         sec_.getLinksOtherLevels().addEntry(newPoint(0,0),new Link("",newCoords(_pl,0,0,0)));
@@ -815,8 +815,8 @@ public abstract class InitDbMap extends InitDbConstr {
     }
     protected static AreaApparition areaOne() {
         AreaApparition a_ = Instances.newAreaApparition();
-        a_.setMultFight((byte)1);
-        a_.setAvgNbSteps((short) 5);
+        a_.setMultFight(1);
+        a_.setAvgNbSteps( 5);
         a_.getWildPokemon().add(wp(P_POK_00,A_ABILITY,I_FOSSIL));
         a_.getWildPokemon().add(wp(P_POK_01,A_ABILITY2,I_HEAL_STATUS));
         a_.getWildPokemonFishing().add(wp(P_POK_02,A_ABILITY,I_EVO_ITEM));
@@ -825,8 +825,8 @@ public abstract class InitDbMap extends InitDbConstr {
     }
     protected static AreaApparition areaTwo() {
         AreaApparition a_ = Instances.newAreaApparition();
-        a_.setMultFight((byte)1);
-        a_.setAvgNbSteps((short) 10);
+        a_.setMultFight(1);
+        a_.setAvgNbSteps( 10);
         a_.getWildPokemon().add(wp(P_POK_04,A_ABILITY,I_FOSSIL));
         a_.getWildPokemon().add(wp(P_POK_05,A_ABILITY2,I_HEAL_STATUS));
         a_.getWildPokemonFishing().add(wp(P_POK_06,A_ABILITY,I_EVO_ITEM));
@@ -835,7 +835,7 @@ public abstract class InitDbMap extends InitDbConstr {
     }
     protected static AreaApparition areaThree() {
         AreaApparition a_ = Instances.newAreaApparition();
-        a_.setMultFight((byte)1);
+        a_.setMultFight(1);
         a_.getWildPokemon().add(wp(P_POK_08,A_ABILITY,I_HEAL_STATUS));
         a_.getWildPokemon().add(wp(P_POK_09,A_ABILITY2,I_HEAL));
         a_.getWildPokemonFishing().add(wp(P_POK_10,A_ABILITY,I_HEAL_PP));
@@ -845,7 +845,7 @@ public abstract class InitDbMap extends InitDbConstr {
     protected static WildPk wp(String _name, String _ab, String _it) {
         WildPk pk_ = Instances.newWildPk();
         pk_.setName(_name);
-        pk_.setLevel((short) 4);
+        pk_.setLevel( 4);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(_ab);
         pk_.setItem(_it);

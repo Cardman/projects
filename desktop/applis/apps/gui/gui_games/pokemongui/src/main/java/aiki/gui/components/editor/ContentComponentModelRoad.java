@@ -26,11 +26,11 @@ public final class ContentComponentModelRoad {
         return getLevelWithWild().getLegendaryPks();
     }
 
-    public GeneComponentModelEltEnumSub<Short> getTm() {
+    public GeneComponentModelEltEnumSub<Integer> getTm() {
         return getLevelWithWild().getTm();
     }
 
-    public GeneComponentModelEltEnumSub<Short> getHm() {
+    public GeneComponentModelEltEnumSub<Integer> getHm() {
         return getLevelWithWild().getHm();
     }
 

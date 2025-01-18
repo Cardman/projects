@@ -15,9 +15,9 @@ import code.util.core.BoolVal;
 
 public class FightCalculationBean extends CommonFightBean {
     private DictionaryComparator<MoveTarget, MoveTarget> allyChoice;
-    private ByteTreeMap<MoveTarget> foeChoices;
+    private IntTreeMap<MoveTarget> foeChoices;
 
-    private ByteTreeMap<BoolVal> foeChoicesTargets;
+    private IntTreeMap<BoolVal> foeChoicesTargets;
     private CustList<KeyHypothesis> damage;
     private TeamPositionList sortedFighters;
     private CustList<ImgMovesListTeamPositionsList> sortedFightersWildFight;
@@ -56,11 +56,11 @@ public class FightCalculationBean extends CommonFightBean {
             allyChoice_.put(key_, value_);
         }
         allyChoice = allyChoice_;
-        ByteTreeMap<MoveTarget> foeChoices_;
-        foeChoices_ = new ByteTreeMap<MoveTarget>();
-        ByteTreeMap<BoolVal> foeChoicesTargets_;
-        foeChoicesTargets_ = new ByteTreeMap<BoolVal>();
-        for (byte k: fight_.getFoeTeam().getMembers().getKeys()) {
+        IntTreeMap<MoveTarget> foeChoices_;
+        foeChoices_ = new IntTreeMap<MoveTarget>();
+        IntTreeMap<BoolVal> foeChoicesTargets_;
+        foeChoicesTargets_ = new IntTreeMap<BoolVal>();
+        for (int k: fight_.getFoeTeam().getMembers().getKeys()) {
             Fighter f_ = fight_.getFoeTeam().getMembers().getVal(k);
             String move_ = f_.getFirstChosenMove();
             if (move_.isEmpty()) {
@@ -181,7 +181,7 @@ public class FightCalculationBean extends CommonFightBean {
     public String getTargetNameFoeChoice(int _index) {
         FacadeGame dataBaseFight_ = facade();
         Fight fight_ = dataBaseFight_.getGame().getFight();
-        MoveTarget mTarget_ = foeChoices.getVal((byte) _index);
+        MoveTarget mTarget_ = foeChoices.getVal(_index);
         TeamPosition key_ = fight_.getFighterKey(mTarget_.getTarget());
         Fighter fighter_ = fight_.getFighter(key_);
         return dataBaseFight_.translatePokemon(fighter_.getName());
@@ -190,7 +190,7 @@ public class FightCalculationBean extends CommonFightBean {
         FacadeGame dataBaseFight_ = facade();
         Fight fight_ = dataBaseFight_.getGame().getFight();
         Team team_ = fight_.getFoeTeam();
-        byte key_ = foeChoices.getKey(_index);
+        int key_ = foeChoices.getKey(_index);
         Fighter f_ = team_.refPartMembres(key_);
         return dataBaseFight_.translatePokemon(f_.getName());
     }
@@ -214,7 +214,7 @@ public class FightCalculationBean extends CommonFightBean {
         return allyChoice;
     }
 
-    public ByteTreeMap<MoveTarget> getFoeChoices() {
+    public IntTreeMap<MoveTarget> getFoeChoices() {
         return foeChoices;
     }
 }

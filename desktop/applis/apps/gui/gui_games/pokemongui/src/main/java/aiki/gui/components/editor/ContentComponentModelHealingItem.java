@@ -8,14 +8,14 @@ import code.util.*;
 import code.util.core.*;
 
 public final class ContentComponentModelHealingItem {
-    private CrudGeneFormSimpleFormSub<String,Short> happiness;
+    private CrudGeneFormSimpleFormSub<String,Integer> happiness;
     private AbsCustCheckBox healingTeam;
     private AbsPanel healingItemForm;
     AbsPanel form(GeneComponentModelItem _parent) {
         AbsCompoFactory compoFactory_ = _parent.getCompoFactory().getCompoFactory();
         healingItemForm = compoFactory_.newLineBox();
-        happiness = new CrudGeneFormSimpleFormSub<String, Short>(_parent.getCompoFactory(), _parent.getFacade(), _parent.getSubscribedTranslationList(), _parent.getFrame());
-        happiness.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Short>(_parent.getSubscribedTranslationList().getFactoryIt(),_parent.getCompoFactory(),_parent.getFacade(), new StringMap<String>()),buildPart(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList().getFactoryIt(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Short>(new GeneComponentModelSubscribeShort(_parent.getCompoFactory())));
+        happiness = new CrudGeneFormSimpleFormSub<String, Integer>(_parent.getCompoFactory(), _parent.getFacade(), _parent.getSubscribedTranslationList(), _parent.getFrame());
+        happiness.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Integer>(_parent.getSubscribedTranslationList().getFactoryIt(),_parent.getCompoFactory(),_parent.getFacade(), new StringMap<String>()),buildPart(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList().getFactoryIt(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Integer>(new GeneComponentModelSubscribeInteger(_parent.getCompoFactory())));
         healingItemForm.add(happiness.getGroup());
         healingTeam=compoFactory_.newCustCheckBox();
         healingItemForm.add(healingTeam);
@@ -26,11 +26,11 @@ public final class ContentComponentModelHealingItem {
         healingItemForm.setVisible(StringUtil.quickEq(_eff, Item.HEALING_HP) || StringUtil.quickEq(_eff, Item.HEALING_HP_STATUS) || StringUtil.quickEq(_eff, Item.HEALING_ITEM) || StringUtil.quickEq(_eff, Item.HEALING_PP) || StringUtil.quickEq(_eff, Item.HEALING_STATUS));
     }
     void buildEntity(HealingItem _item) {
-        _item.setHappiness(ConverterCommonMapUtil.buildStringMapShort(happiness.getList()));
+        _item.setHappiness(ConverterCommonMapUtil.buildStringMapInteger(happiness.getList()));
         _item.setHealingTeam(healingTeam.isSelected());
     }
     void feedForm(HealingItem _item) {
-        happiness.setupValues(new MapToEntriesListUtil<String,Short>().build(_item.getHappiness()));
+        happiness.setupValues(new MapToEntriesListUtil<String,Integer>().build(_item.getHappiness()));
         healingTeam.setSelected(_item.getHealingTeam());
     }
 

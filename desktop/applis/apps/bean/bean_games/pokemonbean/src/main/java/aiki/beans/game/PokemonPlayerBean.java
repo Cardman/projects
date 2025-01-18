@@ -18,7 +18,7 @@ import code.util.*;
 public class PokemonPlayerBean extends CommonSingleBean {
     private String name;
     private int[][] image;
-    private short level;
+    private int level;
     private String gender;
     private String ability;
     private String item;
@@ -32,9 +32,9 @@ public class PokemonPlayerBean extends CommonSingleBean {
     private CustList<StatisticInfoPkPlayer> statistics;
     private Rate wonExpSinceLastLevel;
     private Rate necessaryPointsNextLevel;
-    private short happiness;
+    private int happiness;
     private String usedBallCatching;
-    private short nbStepsTeamLead;
+    private int nbStepsTeamLead;
     private DictionaryComparator<String,int[][]> evolutions;
 
     @Override
@@ -142,7 +142,7 @@ public class PokemonPlayerBean extends CommonSingleBean {
         return evolutions;
     }
 
-    public short getLevel() {
+    public int getLevel() {
         return level;
     }
 
@@ -186,11 +186,11 @@ public class PokemonPlayerBean extends CommonSingleBean {
         return necessaryPointsNextLevel;
     }
 
-    public short getHappiness() {
+    public int getHappiness() {
         return happiness;
     }
 
-    public short getNbStepsTeamLead() {
+    public int getNbStepsTeamLead() {
         return nbStepsTeamLead;
     }
 

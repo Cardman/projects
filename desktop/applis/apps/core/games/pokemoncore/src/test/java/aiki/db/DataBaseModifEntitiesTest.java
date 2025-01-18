@@ -62,7 +62,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void renameItem3() {
         Boost b_ = Instances.newBoost();
-        b_.getHappiness().addEntry(POKE_BALL,(short)1);
+        b_.getHappiness().addEntry(POKE_BALL,1);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
         db_.renameItem(POKE_BALL,PIKACHU);
@@ -73,7 +73,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void renameItem4() {
         HealingPp b_ = Instances.newHealingPp();
-        b_.getHappiness().addEntry(POKE_BALL,(short)1);
+        b_.getHappiness().addEntry(POKE_BALL,1);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
         db_.renameItem(POKE_BALL,PIKACHU);
@@ -84,7 +84,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void renameItem5() {
         HealingPp b_ = Instances.newHealingPp();
-        b_.getHappiness().addEntry(POKE_BALL,(short)1);
+        b_.getHappiness().addEntry(POKE_BALL,1);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
         MoveData m_ = Instances.newDamagingMoveData();
@@ -98,7 +98,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void renameItem6() {
         HealingPp b_ = Instances.newHealingPp();
-        b_.getHappiness().addEntry(POKE_BALL,(short)1);
+        b_.getHappiness().addEntry(POKE_BALL,1);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
         PokemonData m_ = Instances.newPokemonData();
@@ -114,7 +114,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void renameItem7() {
         HealingPp b_ = Instances.newHealingPp();
-        b_.getHappiness().addEntry(POKE_BALL,(short)1);
+        b_.getHappiness().addEntry(POKE_BALL,1);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
         PokemonData m_ = Instances.newPokemonData();
@@ -130,7 +130,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void renameItem8() {
         HealingPp b_ = Instances.newHealingPp();
-        b_.getHappiness().addEntry(POKE_BALL,(short)1);
+        b_.getHappiness().addEntry(POKE_BALL,1);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
         PokemonData m_ = Instances.newPokemonData();
@@ -146,7 +146,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void renameItem9() {
         HealingPp b_ = Instances.newHealingPp();
-        b_.getHappiness().addEntry(POKE_BALL,(short)1);
+        b_.getHappiness().addEntry(POKE_BALL,1);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
         Road r_ = Instances.newRoad();
@@ -164,7 +164,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void renameItem10() {
         HealingPp b_ = Instances.newHealingPp();
-        b_.getHappiness().addEntry(POKE_BALL,(short)1);
+        b_.getHappiness().addEntry(POKE_BALL,1);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
         Road r_ = Instances.newRoad();
@@ -182,7 +182,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void renameItem11() {
         HealingPp b_ = Instances.newHealingPp();
-        b_.getHappiness().addEntry(POKE_BALL,(short)1);
+        b_.getHappiness().addEntry(POKE_BALL,1);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
         Road r_ = Instances.newRoad();
@@ -202,7 +202,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void renameItem12() {
         HealingPp b_ = Instances.newHealingPp();
-        b_.getHappiness().addEntry(POKE_BALL,(short)1);
+        b_.getHappiness().addEntry(POKE_BALL,1);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
         Road r_ = Instances.newRoad();
@@ -218,7 +218,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void renameItem13() {
         HealingPp b_ = Instances.newHealingPp();
-        b_.getHappiness().addEntry(POKE_BALL,(short)1);
+        b_.getHappiness().addEntry(POKE_BALL,1);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
         City r_ = Instances.newCity();
@@ -237,7 +237,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void renameItem14() {
         HealingPp b_ = Instances.newHealingPp();
-        b_.getHappiness().addEntry(POKE_BALL,(short)1);
+        b_.getHappiness().addEntry(POKE_BALL,1);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
         City r_ = Instances.newCity();
@@ -257,7 +257,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void renameItem15() {
         HealingPp b_ = Instances.newHealingPp();
-        b_.getHappiness().addEntry(POKE_BALL,(short)1);
+        b_.getHappiness().addEntry(POKE_BALL,1);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
         League r_ = Instances.newLeague();
@@ -278,7 +278,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void renameItem16() {
         HealingPp b_ = Instances.newHealingPp();
-        b_.getHappiness().addEntry(POKE_BALL,(short)1);
+        b_.getHappiness().addEntry(POKE_BALL,1);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
         Road r_ = Instances.newRoad();
@@ -319,7 +319,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     public void deleteItem2() {
         Boost b_ = Instances.newBoost();
         Ball c_ = Instances.newBall();
-        b_.getHappiness().addEntry(POKE_BALL,(short)1);
+        b_.getHappiness().addEntry(POKE_BALL,1);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL_2,b_);
         db_.completeMembers(POKE_BALL,c_);
@@ -329,7 +329,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void deleteItem3() {
         Boost b_ = Instances.newBoost();
-        b_.getHappiness().addEntry(POKE_BALL,(short)1);
+        b_.getHappiness().addEntry(POKE_BALL,1);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL_2,b_);
         db_.completeMembers(POKE_BALL,b_);
@@ -339,7 +339,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void deleteItem4() {
         HealingPp b_ = Instances.newHealingPp();
-        b_.getHappiness().addEntry(POKE_BALL,(short)1);
+        b_.getHappiness().addEntry(POKE_BALL,1);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL_2,b_);
         db_.completeMembers(POKE_BALL,b_);
@@ -349,7 +349,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void deleteItem5() {
         HealingPp b_ = Instances.newHealingPp();
-        b_.getHappiness().addEntry(POKE_BALL,(short)1);
+        b_.getHappiness().addEntry(POKE_BALL,1);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
         MoveData m_ = Instances.newDamagingMoveData();
@@ -361,7 +361,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void deleteItem6() {
         HealingPp b_ = Instances.newHealingPp();
-        b_.getHappiness().addEntry(POKE_BALL,(short)1);
+        b_.getHappiness().addEntry(POKE_BALL,1);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
         PokemonData m_ = Instances.newPokemonData();
@@ -375,7 +375,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void deleteItem7() {
         HealingPp b_ = Instances.newHealingPp();
-        b_.getHappiness().addEntry(POKE_BALL,(short)1);
+        b_.getHappiness().addEntry(POKE_BALL,1);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
         PokemonData m_ = Instances.newPokemonData();
@@ -389,7 +389,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void deleteItem8() {
         HealingPp b_ = Instances.newHealingPp();
-        b_.getHappiness().addEntry(POKE_BALL,(short)1);
+        b_.getHappiness().addEntry(POKE_BALL,1);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
         PokemonData m_ = Instances.newPokemonData();
@@ -403,7 +403,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void deleteItem9() {
         HealingPp b_ = Instances.newHealingPp();
-        b_.getHappiness().addEntry(POKE_BALL,(short)1);
+        b_.getHappiness().addEntry(POKE_BALL,1);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
         Road r_ = Instances.newRoad();
@@ -419,7 +419,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void deleteItem10() {
         HealingPp b_ = Instances.newHealingPp();
-        b_.getHappiness().addEntry(POKE_BALL,(short)1);
+        b_.getHappiness().addEntry(POKE_BALL,1);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
         Road r_ = Instances.newRoad();
@@ -435,7 +435,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void deleteItem11() {
         HealingPp b_ = Instances.newHealingPp();
-        b_.getHappiness().addEntry(POKE_BALL,(short)1);
+        b_.getHappiness().addEntry(POKE_BALL,1);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
         Road r_ = Instances.newRoad();
@@ -453,7 +453,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void deleteItem12() {
         HealingPp b_ = Instances.newHealingPp();
-        b_.getHappiness().addEntry(POKE_BALL,(short)1);
+        b_.getHappiness().addEntry(POKE_BALL,1);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
         Road r_ = Instances.newRoad();
@@ -467,7 +467,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void deleteItem13() {
         HealingPp b_ = Instances.newHealingPp();
-        b_.getHappiness().addEntry(POKE_BALL,(short)1);
+        b_.getHappiness().addEntry(POKE_BALL,1);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
         City r_ = Instances.newCity();
@@ -484,7 +484,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void deleteItem14() {
         HealingPp b_ = Instances.newHealingPp();
-        b_.getHappiness().addEntry(POKE_BALL,(short)1);
+        b_.getHappiness().addEntry(POKE_BALL,1);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
         City r_ = Instances.newCity();
@@ -502,7 +502,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void deleteItem15() {
         HealingPp b_ = Instances.newHealingPp();
-        b_.getHappiness().addEntry(POKE_BALL,(short)1);
+        b_.getHappiness().addEntry(POKE_BALL,1);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
         League r_ = Instances.newLeague();
@@ -521,7 +521,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void deleteItem16() {
         HealingPp b_ = Instances.newHealingPp();
-        b_.getHappiness().addEntry(POKE_BALL,(short)1);
+        b_.getHappiness().addEntry(POKE_BALL,1);
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
         Road r_ = Instances.newRoad();
@@ -662,7 +662,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
         ItemForBattle f_ = Instances.newItemForBattle();
-        f_.getMultStatPokemonRank().addEntry(new StatisticPokemon(Statistic.SPEED, POKE_BALL), (byte)1);
+        f_.getMultStatPokemonRank().addEntry(new StatisticPokemon(Statistic.SPEED, POKE_BALL), 1);
         db_.completeMembers(TREMPETTE, f_);
         db_.completeMembers(POKE_BALL_2,Instances.newBall());
         db_.renamePokemon(POKE_BALL,PIKACHU);
@@ -795,7 +795,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,b_);
         ItemForBattle f_ = Instances.newItemForBattle();
-        f_.getMultStatPokemonRank().addEntry(new StatisticPokemon(Statistic.SPEED, POKE_BALL), (byte)1);
+        f_.getMultStatPokemonRank().addEntry(new StatisticPokemon(Statistic.SPEED, POKE_BALL), 1);
         db_.completeMembers(TREMPETTE, f_);
         db_.completeMembers(POKE_BALL_2,Instances.newBall());
         db_.deletePokemon(POKE_BALL);
@@ -845,7 +845,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,Instances.newDamagingMoveData());
         PokemonData d_ = Instances.newPokemonData();
-        d_.getLevMoves().add(new LevelMove((short)1,POKE_BALL));
+        d_.getLevMoves().add(new LevelMove(1,POKE_BALL));
         db_.completeMembers(TREMPETTE2, d_);
         db_.renameMove(POKE_BALL,PIKACHU);
         assertEq(1,db_.getMoves().size());
@@ -1109,7 +1109,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         DataBase db_ = newData();
         db_.completeMembers(POKE_BALL,Instances.newDamagingMoveData());
         PokemonData d_ = Instances.newPokemonData();
-        d_.getLevMoves().add(new LevelMove((short)1,POKE_BALL));
+        d_.getLevMoves().add(new LevelMove(1,POKE_BALL));
         db_.completeMembers(TREMPETTE2, d_);
         db_.deleteMove(POKE_BALL);
         assertEq(1,db_.getMoves().size());
@@ -1601,7 +1601,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         DataBase db_ = newData();
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectTeamWhileSendFoe eff_ = Instances.newEffectTeamWhileSendFoe();
-        eff_.getStatusByNbUses().addEntry((short)1,POKE_BALL);
+        eff_.getStatusByNbUses().addEntry(1,POKE_BALL);
         move_.getEffects().add(eff_);
         db_.completeMembers(POKE_BALL_2, move_);
         db_.completeMembers(POKE_BALL,Instances.newStatusSimple());
@@ -1758,7 +1758,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     public void renameStatus17() {
         DataBase db_ = newData();
         AbilityData move_ = Instances.newAbilityData();
-        move_.getMultStatIfStatutRank().addEntry(new StatisticStatus(Statistic.SPEED,POKE_BALL),(byte)1);
+        move_.getMultStatIfStatutRank().addEntry(new StatisticStatus(Statistic.SPEED,POKE_BALL),1);
         db_.completeMembers(POKE_BALL_2, move_);
         db_.completeMembers(POKE_BALL,Instances.newStatusSimple());
         db_.renameStatus(POKE_BALL,PIKACHU);
@@ -1825,7 +1825,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         DataBase db_ = newData();
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectTeamWhileSendFoe eff_ = Instances.newEffectTeamWhileSendFoe();
-        eff_.getStatusByNbUses().addEntry((short)1,POKE_BALL);
+        eff_.getStatusByNbUses().addEntry(1,POKE_BALL);
         move_.getEffects().add(eff_);
         db_.completeMembers(POKE_BALL_2, move_);
         db_.completeMembers(POKE_BALL,Instances.newStatusSimple());
@@ -2154,7 +2154,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     public void renameType14() {
         DataBase db_ = newData();
         AbilityData move_ = Instances.newAbilityData();
-        move_.getMultStatIfDamgeType().addEntry(new StatisticType(Statistic.SPEED,POKE_BALL),(byte)0);
+        move_.getMultStatIfDamgeType().addEntry(new StatisticType(Statistic.SPEED,POKE_BALL),0);
         db_.completeMembers(POKE_BALL_2, move_);
         db_.renameType(POKE_BALL,PIKACHU);
         assertEq(PIKACHU,move_.getMultStatIfDamgeType().getKeys().first().getType());
@@ -2359,7 +2359,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         DataBase db_ = newData();
         defTrType(db_);
         AbilityData move_ = Instances.newAbilityData();
-        move_.getMultStatIfDamgeType().addEntry(new StatisticType(Statistic.SPEED,POKE_BALL),(byte)0);
+        move_.getMultStatIfDamgeType().addEntry(new StatisticType(Statistic.SPEED,POKE_BALL),0);
         db_.completeMembers(POKE_BALL_2, move_);
         assertTrue(db_.usedType(POKE_BALL));
     }
@@ -2462,7 +2462,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         DataBase db_ = newData();
         defTrCat(db_);
         AbilityData ab_ = Instances.newAbilityData();
-        ab_.getMultStatIfDamageCat().addEntry(new StatisticCategory(Statistic.SPEED,POKE_BALL),(byte)1);
+        ab_.getMultStatIfDamageCat().addEntry(new StatisticCategory(Statistic.SPEED,POKE_BALL),1);
         db_.completeMembers(POKE_BALL_2, ab_);
         db_.renameCategory(POKE_BALL,PIKACHU);
         assertEq(PIKACHU,ab_.getMultStatIfDamageCat().getKeys().first().getCategory());
@@ -2493,7 +2493,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         defTrCat(db_);
         StatusMoveData ab_ = Instances.newStatusMoveData();
         EffectTeam e_ = Instances.newEffectTeam();
-        e_.getMultDamage().addEntry(new CategoryMult(POKE_BALL,(short) 1),Rate.one());
+        e_.getMultDamage().addEntry(new CategoryMult(POKE_BALL, 1),Rate.one());
         ab_.getEffects().add(e_);
         ab_.getEffects().add(Instances.newEffectEndRoundFoe());
         db_.completeMembers(POKE_BALL_2, ab_);
@@ -2552,7 +2552,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         DataBase db_ = newData();
         defTrCat(db_);
         AbilityData ab_ = Instances.newAbilityData();
-        ab_.getMultStatIfDamageCat().addEntry(new StatisticCategory(Statistic.SPEED,POKE_BALL),(byte)1);
+        ab_.getMultStatIfDamageCat().addEntry(new StatisticCategory(Statistic.SPEED,POKE_BALL),1);
         db_.completeMembers(POKE_BALL_2, ab_);
         assertTrue(db_.usedCategory(POKE_BALL));
     }
@@ -2580,7 +2580,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         defTrCat(db_);
         StatusMoveData ab_ = Instances.newStatusMoveData();
         EffectTeam e_ = Instances.newEffectTeam();
-        e_.getMultDamage().addEntry(new CategoryMult(POKE_BALL,(short) 1),Rate.one());
+        e_.getMultDamage().addEntry(new CategoryMult(POKE_BALL, 1),Rate.one());
         ab_.getEffects().add(e_);
         ab_.getEffects().add(Instances.newEffectEndRoundFoe());
         db_.completeMembers(POKE_BALL_2, ab_);
@@ -2622,19 +2622,19 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void renameTm1() {
         DataBase db_ = newData();
-        db_.getTm().addEntry((short)1,POKE_BALL);
-        db_.renameTm((short)1,(short)1);
+        db_.getTm().addEntry(1,POKE_BALL);
+        db_.renameTm(1,1);
         assertEq(1,db_.getTm().size());
         assertEq(1,db_.getTm().firstKey());
     }
     @Test
     public void renameTm2() {
         DataBase db_ = newData();
-        db_.getTm().addEntry((short)1,POKE_BALL);
+        db_.getTm().addEntry(1,POKE_BALL);
         PokemonData pk_ = Instances.newPokemonData();
-        pk_.getTechnicalMoves().add((short) 1);
+        pk_.getTechnicalMoves().add( 1);
         db_.completeMembers(TREMPETTE, pk_);
-        db_.renameTm((short)1,(short)2);
+        db_.renameTm(1,2);
         assertEq(1,db_.getTm().size());
         assertEq(2,db_.getTm().firstKey());
         assertEq(2,pk_.getTechnicalMoves().first());
@@ -2642,11 +2642,11 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void renameTm3() {
         DataBase db_ = newData();
-        db_.getTm().addEntry((short)1,POKE_BALL);
+        db_.getTm().addEntry(1,POKE_BALL);
         PokemonData pk_ = Instances.newPokemonData();
-        pk_.getTechnicalMoves().add((short) 3);
+        pk_.getTechnicalMoves().add( 3);
         db_.completeMembers(TREMPETTE, pk_);
-        db_.renameTm((short)1,(short)2);
+        db_.renameTm(1,2);
         assertEq(1,db_.getTm().size());
         assertEq(2,db_.getTm().firstKey());
         assertEq(3,pk_.getTechnicalMoves().first());
@@ -2654,11 +2654,11 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void renameTm4() {
         DataBase db_ = newData();
-        db_.getTm().addEntry((short)1,POKE_BALL);
+        db_.getTm().addEntry(1,POKE_BALL);
         Road r_ = Instances.newRoad();
-        r_.getLevelRoad().getTm().addEntry(newPoint(0,0), (short) 1);
+        r_.getLevelRoad().getTm().addEntry(newPoint(0,0),  1);
         db_.getMap().getPlaces().add(r_);
-        db_.renameTm((short)1,(short)2);
+        db_.renameTm(1,2);
         assertEq(1,db_.getTm().size());
         assertEq(2,db_.getTm().firstKey());
         assertEq(2,r_.getLevelRoad().getTm().firstValue());
@@ -2666,11 +2666,11 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void renameTm5() {
         DataBase db_ = newData();
-        db_.getTm().addEntry((short)1,POKE_BALL);
+        db_.getTm().addEntry(1,POKE_BALL);
         Road r_ = Instances.newRoad();
-        r_.getLevelRoad().getTm().addEntry(newPoint(0,0), (short) 3);
+        r_.getLevelRoad().getTm().addEntry(newPoint(0,0),  3);
         db_.getMap().getPlaces().add(r_);
-        db_.renameTm((short)1,(short)2);
+        db_.renameTm(1,2);
         assertEq(1,db_.getTm().size());
         assertEq(2,db_.getTm().firstKey());
         assertEq(3,r_.getLevelRoad().getTm().firstValue());
@@ -2678,14 +2678,14 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void renameTm6() {
         DataBase db_ = newData();
-        db_.getTm().addEntry((short)1,POKE_BALL);
+        db_.getTm().addEntry(1,POKE_BALL);
         Road r_ = Instances.newRoad();
         DealerItem d_ = Instances.newDealerItem();
-        d_.getTechnicalMoves().add((short) 1);
+        d_.getTechnicalMoves().add( 1);
         r_.getLevelRoad().getCharacters().addEntry(newPoint(0,0), d_);
         r_.getLevelRoad().getCharacters().addEntry(newPoint(0,1),Instances.newTrainerMultiFights());
         db_.getMap().getPlaces().add(r_);
-        db_.renameTm((short)1,(short)2);
+        db_.renameTm(1,2);
         assertEq(1,db_.getTm().size());
         assertEq(2,db_.getTm().firstKey());
         assertEq(2,d_.getTechnicalMoves().first());
@@ -2693,14 +2693,14 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void renameTm7() {
         DataBase db_ = newData();
-        db_.getTm().addEntry((short)1,POKE_BALL);
+        db_.getTm().addEntry(1,POKE_BALL);
         City r_ = Instances.newCity();
         Gym g_ = Instances.newGym();
-        g_.getIndoor().getGymLeader().setTm((short) 1);
+        g_.getIndoor().getGymLeader().setTm( 1);
         r_.getBuildings().addEntry(newPoint(0,0), g_);
         r_.getBuildings().addEntry(newPoint(0,1),Instances.newPokemonCenter());
         db_.getMap().getPlaces().add(r_);
-        db_.renameTm((short)1,(short)2);
+        db_.renameTm(1,2);
         assertEq(1,db_.getTm().size());
         assertEq(2,db_.getTm().firstKey());
         assertEq(2,g_.getIndoor().getGymLeader().getTm());
@@ -2708,14 +2708,14 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void renameTm8() {
         DataBase db_ = newData();
-        db_.getTm().addEntry((short)1,POKE_BALL);
+        db_.getTm().addEntry(1,POKE_BALL);
         City r_ = Instances.newCity();
         Gym g_ = Instances.newGym();
-        g_.getIndoor().getGymLeader().setTm((short) 3);
+        g_.getIndoor().getGymLeader().setTm( 3);
         r_.getBuildings().addEntry(newPoint(0,0), g_);
         r_.getBuildings().addEntry(newPoint(0,1),Instances.newPokemonCenter());
         db_.getMap().getPlaces().add(r_);
-        db_.renameTm((short)1,(short)2);
+        db_.renameTm(1,2);
         assertEq(1,db_.getTm().size());
         assertEq(2,db_.getTm().firstKey());
         assertEq(3,g_.getIndoor().getGymLeader().getTm());
@@ -2723,105 +2723,105 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void deleteTm1() {
         DataBase db_ = newData();
-        db_.getTm().addEntry((short)1,POKE_BALL);
-        db_.deleteTm((short)1);
+        db_.getTm().addEntry(1,POKE_BALL);
+        db_.deleteTm(1);
         assertEq(0,db_.getTm().size());
     }
     @Test
     public void deleteTm2() {
         DataBase db_ = newData();
-        db_.getTm().addEntry((short)1,POKE_BALL);
+        db_.getTm().addEntry(1,POKE_BALL);
         PokemonData pk_ = Instances.newPokemonData();
-        pk_.getTechnicalMoves().add((short) 1);
+        pk_.getTechnicalMoves().add( 1);
         db_.completeMembers(TREMPETTE, pk_);
-        db_.deleteTm((short)1);
+        db_.deleteTm(1);
         assertEq(1,db_.getTm().size());
     }
     @Test
     public void deleteTm3() {
         DataBase db_ = newData();
-        db_.getTm().addEntry((short)1,POKE_BALL);
+        db_.getTm().addEntry(1,POKE_BALL);
         PokemonData pk_ = Instances.newPokemonData();
-        pk_.getTechnicalMoves().add((short) 3);
+        pk_.getTechnicalMoves().add( 3);
         db_.completeMembers(TREMPETTE, pk_);
-        db_.deleteTm((short)1);
+        db_.deleteTm(1);
         assertEq(0,db_.getTm().size());
     }
     @Test
     public void deleteTm4() {
         DataBase db_ = newData();
-        db_.getTm().addEntry((short)1,POKE_BALL);
+        db_.getTm().addEntry(1,POKE_BALL);
         Road r_ = Instances.newRoad();
-        r_.getLevelRoad().getTm().addEntry(newPoint(0,0), (short) 1);
+        r_.getLevelRoad().getTm().addEntry(newPoint(0,0),  1);
         db_.getMap().getPlaces().add(r_);
-        db_.deleteTm((short)1);
+        db_.deleteTm(1);
         assertEq(1,db_.getTm().size());
     }
     @Test
     public void deleteTm5() {
         DataBase db_ = newData();
-        db_.getTm().addEntry((short)1,POKE_BALL);
+        db_.getTm().addEntry(1,POKE_BALL);
         Road r_ = Instances.newRoad();
-        r_.getLevelRoad().getTm().addEntry(newPoint(0,0), (short) 3);
+        r_.getLevelRoad().getTm().addEntry(newPoint(0,0),  3);
         db_.getMap().getPlaces().add(r_);
-        db_.deleteTm((short)1);
+        db_.deleteTm(1);
         assertEq(0,db_.getTm().size());
     }
     @Test
     public void deleteTm6() {
         DataBase db_ = newData();
-        db_.getTm().addEntry((short)1,POKE_BALL);
+        db_.getTm().addEntry(1,POKE_BALL);
         Road r_ = Instances.newRoad();
         DealerItem d_ = Instances.newDealerItem();
-        d_.getTechnicalMoves().add((short) 1);
+        d_.getTechnicalMoves().add( 1);
         r_.getLevelRoad().getCharacters().addEntry(newPoint(0,0), d_);
         r_.getLevelRoad().getCharacters().addEntry(newPoint(0,1),Instances.newTrainerMultiFights());
         db_.getMap().getPlaces().add(r_);
-        db_.deleteTm((short)1);
+        db_.deleteTm(1);
         assertEq(1,db_.getTm().size());
     }
     @Test
     public void deleteTm7() {
         DataBase db_ = newData();
-        db_.getTm().addEntry((short)1,POKE_BALL);
+        db_.getTm().addEntry(1,POKE_BALL);
         City r_ = Instances.newCity();
         Gym g_ = Instances.newGym();
-        g_.getIndoor().getGymLeader().setTm((short) 1);
+        g_.getIndoor().getGymLeader().setTm( 1);
         r_.getBuildings().addEntry(newPoint(0,0), g_);
         r_.getBuildings().addEntry(newPoint(0,1),Instances.newPokemonCenter());
         db_.getMap().getPlaces().add(r_);
-        db_.deleteTm((short)1);
+        db_.deleteTm(1);
         assertEq(1,db_.getTm().size());
     }
     @Test
     public void deleteTm8() {
         DataBase db_ = newData();
-        db_.getTm().addEntry((short)1,POKE_BALL);
+        db_.getTm().addEntry(1,POKE_BALL);
         City r_ = Instances.newCity();
         Gym g_ = Instances.newGym();
-        g_.getIndoor().getGymLeader().setTm((short) 3);
+        g_.getIndoor().getGymLeader().setTm( 3);
         r_.getBuildings().addEntry(newPoint(0,0), g_);
         r_.getBuildings().addEntry(newPoint(0,1),Instances.newPokemonCenter());
         db_.getMap().getPlaces().add(r_);
-        db_.deleteTm((short)1);
+        db_.deleteTm(1);
         assertEq(0,db_.getTm().size());
     }
     @Test
     public void renameHm1() {
         DataBase db_ = newData();
-        db_.getHm().addEntry((short)1,POKE_BALL);
-        db_.renameHm((short)1,(short)1);
+        db_.getHm().addEntry(1,POKE_BALL);
+        db_.renameHm(1,1);
         assertEq(1,db_.getHm().size());
         assertEq(1,db_.getHm().firstKey());
     }
     @Test
     public void renameHm2() {
         DataBase db_ = newData();
-        db_.getHm().addEntry((short)1,POKE_BALL);
+        db_.getHm().addEntry(1,POKE_BALL);
         PokemonData pk_ = Instances.newPokemonData();
-        pk_.getHiddenMoves().add((short) 1);
+        pk_.getHiddenMoves().add( 1);
         db_.completeMembers(TREMPETTE, pk_);
-        db_.renameHm((short)1,(short)2);
+        db_.renameHm(1,2);
         assertEq(1,db_.getHm().size());
         assertEq(2,db_.getHm().firstKey());
         assertEq(2,pk_.getHiddenMoves().first());
@@ -2829,17 +2829,17 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void renameHm3() {
         DataBase db_ = newData();
-        db_.getHm().addEntry((short)1,POKE_BALL);
+        db_.getHm().addEntry(1,POKE_BALL);
         PokemonData pk_ = Instances.newPokemonData();
-        pk_.getHiddenMoves().add((short) 3);
+        pk_.getHiddenMoves().add( 3);
         db_.completeMembers(TREMPETTE, pk_);
         City r_ = Instances.newCity();
         Gym g_ = Instances.newGym();
-        g_.getIndoor().getGymLeader().setTm((short) 1);
+        g_.getIndoor().getGymLeader().setTm( 1);
         r_.getBuildings().addEntry(newPoint(0,0), g_);
         r_.getBuildings().addEntry(newPoint(0,1),Instances.newPokemonCenter());
         db_.getMap().getPlaces().add(r_);
-        db_.renameHm((short)1,(short)2);
+        db_.renameHm(1,2);
         assertEq(1,db_.getHm().size());
         assertEq(2,db_.getHm().firstKey());
         assertEq(3,pk_.getHiddenMoves().first());
@@ -2847,11 +2847,11 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void renameHm4() {
         DataBase db_ = newData();
-        db_.getHm().addEntry((short)1,POKE_BALL);
+        db_.getHm().addEntry(1,POKE_BALL);
         Road r_ = Instances.newRoad();
-        r_.getLevelRoad().getHm().addEntry(newPoint(0,0), (short) 1);
+        r_.getLevelRoad().getHm().addEntry(newPoint(0,0),  1);
         db_.getMap().getPlaces().add(r_);
-        db_.renameHm((short)1,(short)2);
+        db_.renameHm(1,2);
         assertEq(1,db_.getHm().size());
         assertEq(2,db_.getHm().firstKey());
         assertEq(2,r_.getLevelRoad().getHm().firstValue());
@@ -2859,11 +2859,11 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void renameHm5() {
         DataBase db_ = newData();
-        db_.getHm().addEntry((short)1,POKE_BALL);
+        db_.getHm().addEntry(1,POKE_BALL);
         Road r_ = Instances.newRoad();
-        r_.getLevelRoad().getHm().addEntry(newPoint(0,0), (short) 3);
+        r_.getLevelRoad().getHm().addEntry(newPoint(0,0),  3);
         db_.getMap().getPlaces().add(r_);
-        db_.renameHm((short)1,(short)2);
+        db_.renameHm(1,2);
         assertEq(1,db_.getHm().size());
         assertEq(2,db_.getHm().firstKey());
         assertEq(3,r_.getLevelRoad().getHm().firstValue());
@@ -2871,54 +2871,54 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     @Test
     public void deleteHm1() {
         DataBase db_ = newData();
-        db_.getHm().addEntry((short)1,POKE_BALL);
-        db_.deleteHm((short)1);
+        db_.getHm().addEntry(1,POKE_BALL);
+        db_.deleteHm(1);
         assertEq(0,db_.getHm().size());
     }
     @Test
     public void deleteHm2() {
         DataBase db_ = newData();
-        db_.getHm().addEntry((short)1,POKE_BALL);
+        db_.getHm().addEntry(1,POKE_BALL);
         PokemonData pk_ = Instances.newPokemonData();
-        pk_.getHiddenMoves().add((short) 1);
+        pk_.getHiddenMoves().add( 1);
         db_.completeMembers(TREMPETTE, pk_);
-        db_.deleteHm((short)1);
+        db_.deleteHm(1);
         assertEq(1,db_.getHm().size());
     }
     @Test
     public void deleteHm3() {
         DataBase db_ = newData();
-        db_.getHm().addEntry((short)1,POKE_BALL);
+        db_.getHm().addEntry(1,POKE_BALL);
         PokemonData pk_ = Instances.newPokemonData();
-        pk_.getHiddenMoves().add((short) 3);
+        pk_.getHiddenMoves().add( 3);
         db_.completeMembers(TREMPETTE, pk_);
         City r_ = Instances.newCity();
         Gym g_ = Instances.newGym();
-        g_.getIndoor().getGymLeader().setTm((short) 1);
+        g_.getIndoor().getGymLeader().setTm( 1);
         r_.getBuildings().addEntry(newPoint(0,0), g_);
         r_.getBuildings().addEntry(newPoint(0,1),Instances.newPokemonCenter());
         db_.getMap().getPlaces().add(r_);
-        db_.deleteHm((short)1);
+        db_.deleteHm(1);
         assertEq(0,db_.getHm().size());
     }
     @Test
     public void deleteHm4() {
         DataBase db_ = newData();
-        db_.getHm().addEntry((short)1,POKE_BALL);
+        db_.getHm().addEntry(1,POKE_BALL);
         Road r_ = Instances.newRoad();
-        r_.getLevelRoad().getHm().addEntry(newPoint(0,0), (short) 1);
+        r_.getLevelRoad().getHm().addEntry(newPoint(0,0),  1);
         db_.getMap().getPlaces().add(r_);
-        db_.deleteHm((short)1);
+        db_.deleteHm(1);
         assertEq(1,db_.getHm().size());
     }
     @Test
     public void deleteHm5() {
         DataBase db_ = newData();
-        db_.getHm().addEntry((short)1,POKE_BALL);
+        db_.getHm().addEntry(1,POKE_BALL);
         Road r_ = Instances.newRoad();
-        r_.getLevelRoad().getHm().addEntry(newPoint(0,0), (short) 3);
+        r_.getLevelRoad().getHm().addEntry(newPoint(0,0),  3);
         db_.getMap().getPlaces().add(r_);
-        db_.deleteHm((short)1);
+        db_.deleteHm(1);
         assertEq(0,db_.getHm().size());
     }
 

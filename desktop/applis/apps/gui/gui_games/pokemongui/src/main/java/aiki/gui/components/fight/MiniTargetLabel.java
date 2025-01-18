@@ -18,9 +18,9 @@ public final class MiniTargetLabel extends AbsMetaLabelPk {
 
     private boolean selected;
 
-    private final byte selectedTarget;
+    private final int selectedTarget;
 
-    public MiniTargetLabel(AbsCompoFactory _compoFactory, byte _key) {
+    public MiniTargetLabel(AbsCompoFactory _compoFactory, int _key) {
         super(_compoFactory);
         selectedTarget = _key;
     }

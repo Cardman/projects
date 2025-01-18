@@ -94,7 +94,7 @@ public final class CheckNumericStringsFight {
         }
         pk_.setAbility(_data.getAbilities().getKeys().first());
         StringList moves_ = new StringList();
-        StringMap<Short> movesPp_ = new StringMap<Short>();
+        StringMap<Integer> movesPp_ = new StringMap<Integer>();
         for (String m: pokemonData_.getMovesAtLevel(pk_.getLevel(), _data.getNbMaxMoves())) {
             MoveData fAtt_ = _data.getMove(m);
             if (fAtt_ == null) {
@@ -117,13 +117,13 @@ public final class CheckNumericStringsFight {
         foeTeam_.add(foePokemon_);
         GymLeader trainer_ = new GymLeader();
         trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
-        trainer_.setMultiplicityFight((byte) 1);
+        trainer_.setReward(200);
+        trainer_.setMultiplicityFight(1);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_, user_, diff_, trainer_, _data);
         fight_.setEnvType(EnvironmentType.ROAD);
-        TeamPosition userFighter_ = Fight.toUserFighter((byte) 0);
-        TeamPosition foeFighter_ = Fight.toFoeFighter((byte) 0);
+        TeamPosition userFighter_ = Fight.toUserFighter(0);
+        TeamPosition foeFighter_ = Fight.toFoeFighter(0);
         CheckNumericStringsFight checker_ = new CheckNumericStringsFight(fight_,userFighter_,foeFighter_, _data);
         checker_.checkMovesStr(diff_);
         checker_.checkAbilitiesStr(diff_);

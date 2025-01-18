@@ -30,7 +30,7 @@ public final class GeneComponentModelSubscribeLevelMove implements AbsGeneCompon
     @Override
     public LevelMove tryRet() {
         LevelMove lv_ = new LevelMove();
-        lv_.setLevel((short) level.valueInt());
+        lv_.setLevel(level.valueInt());
         lv_.setMove(move.tryRet());
         return lv_;
     }

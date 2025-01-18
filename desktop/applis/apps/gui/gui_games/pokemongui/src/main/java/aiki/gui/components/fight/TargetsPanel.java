@@ -28,7 +28,7 @@ public final class TargetsPanel {
     }
     public void setTargets(FacadeGame _facade, Battle _battle) {
         container = compoFactory.newLineBox();
-        byte mult_ = _facade.getFight().getMult();
+        int mult_ = _facade.getFight().getMult();
         foeTargets.clear();
         playerTargets.clear();
 //        ByteTreeMap<Fighter> teamPl_ = new ByteTreeMap< Fighter>();
@@ -85,7 +85,7 @@ public final class TargetsPanel {
             AbsMetaLabelPk.paintPk(_battle.getWindow().getImageFactory(), l);
         }
     }
-    private void placeLabels(byte _mult) {
+    private void placeLabels(int _mult) {
         if (_mult == 1) {
             container = compoFactory.newGrid(0, 2);
             container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));

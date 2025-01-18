@@ -32,10 +32,10 @@ import code.util.ints.Listable;
 
 public final class Fight {
 
-    public static final byte CST_PLAYER = 0;
+    public static final int CST_PLAYER = 0;
 
     /***/
-    public static final byte CST_FOE = 1;
+    public static final int CST_FOE = 1;
 
 //    public static final String FIGHT_ACCESS = "aiki.game.fight.fight";
 
@@ -200,10 +200,10 @@ public final class Fight {
     private EnvironmentType envType;
 
     /***/
-    private byte mult;
+    private int mult;
 
     /***/
-    private byte playerMaxNumberFrontFighters;
+    private int playerMaxNumberFrontFighters;
 
     /***/
     //private Map<String,TeamPosition> lanceursGlobaux;
@@ -215,13 +215,13 @@ public final class Fight {
     private StringMap<BoolVal> stillEnabledMoves;
 
     /***/
-    private ByteMap<Team> teams;
+    private IntMap<Team> teams;
 
     /**variable sur un tour*/
 //    private boolean fullHealing;
 
     /***/
-    private short nbFleeAttempt;
+    private int nbFleeAttempt;
 
     /***/
     private LgInt nbRounds;
@@ -248,7 +248,7 @@ public final class Fight {
 //    private TeamPositionsRate damageByCurrentUser = new TeamPositionsRate();
 
     /***/
-//    private ByteMap<BoolVal> kos = new ByteMap<BoolVal>();
+//    private IntMap<BoolVal> kos = new IntMap<BoolVal>();
 
     /***/
 //    private StringList sufferingTargetStatus = new StringList();
@@ -263,22 +263,22 @@ public final class Fight {
     private TeamPosition currentUser;
 
     /***/
-    private byte currentUserFlee = Fighter.BACK;
+    private int currentUserFlee = Fighter.BACK;
 
     /***/
     private FightState state;
 
     /***/
-    private StringMap<Short> usedItemsWhileRound;
+    private StringMap<Integer> usedItemsWhileRound;
 
     /***/
 //    private boolean simulation;
 
     /**All keys are the player + ally fighters keys*/
-    private ByteMap<Byte> firstPositPlayerFighters;
+    private IntMap<Integer> firstPositPlayerFighters;
 
     /**All keys are the foe fighters keys*/
-    private ByteMap<Byte> firstPositFoeFighters;
+    private IntMap<Integer> firstPositFoeFighters;
 
     /***/
     private MoveTargets allyChoice;
@@ -287,7 +287,7 @@ public final class Fight {
     private StringList lostObjects;
 
     /***/
-    private ByteMap<ChoiceOfEvolutionAndMoves> choices;
+    private IntMap<ChoiceOfEvolutionAndMoves> choices;
 
     /***/
     private StringList caughtEvolutions;
@@ -409,7 +409,7 @@ public final class Fight {
     }
 
     public Fighter wildPokemon(){
-        return getFoeTeam().getMembers().getVal((byte)0);
+        return getFoeTeam().getMembers().getVal(0);
     }
     public Team getFoeTeam() {
         return teams.getVal(CST_FOE);
@@ -418,18 +418,18 @@ public final class Fight {
         return teams.getVal(CST_PLAYER);
     }
 
-    public static byte foe(byte _eq){
+    public static int foe(int _eq){
         if(NumberUtil.eq(_eq, CST_PLAYER)){
             return CST_FOE;
         }
         return CST_PLAYER;
     }
 
-    public static TeamPosition toFoeFighter(byte _pos){
+    public static TeamPosition toFoeFighter(int _pos){
         return new TeamPosition(CST_FOE,_pos);
     }
 
-    public static TeamPosition toUserFighter(byte _pos){
+    public static TeamPosition toUserFighter(int _pos){
         return new TeamPosition(CST_PLAYER,_pos);
     }
 
@@ -443,10 +443,10 @@ public final class Fight {
     }
 
     public TeamPosition getFighterKey(TargetCoords _targetCoords) {
-        Team team_ = teams.getVal((byte) _targetCoords.getTeam());
-        Bytes keys_ = team_.fightersAtCurrentPlace(_targetCoords);
+        Team team_ = teams.getVal(_targetCoords.getTeam());
+        Ints keys_ = team_.fightersAtCurrentPlace(_targetCoords);
         if (!keys_.isEmpty()) {
-            return new TeamPosition((byte) _targetCoords.getTeam(), keys_.first());
+            return new TeamPosition(_targetCoords.getTeam(), keys_.first());
         }
         return new TeamPosition();
     }
@@ -457,20 +457,20 @@ public final class Fight {
     }
 
     public Fighter getFighter(int _t, int _f) {
-        return getFighter(new TeamPosition((byte) _t,(byte) _f));
+        return getFighter(new TeamPosition(_t,_f));
     }
     public Fighter getFighter(TeamPosition _teamPosition) {
         return teams.getVal(_teamPosition.getTeam()).getMembers().getVal(_teamPosition.getPosition());
     }
 
-    TeamPositionList sortedTeamMembersByPosition(byte _team) {
-        Bytes positions_ = new Bytes();
-        for (byte p: teams.getVal(_team).getMembers().getKeys()) {
+    TeamPositionList sortedTeamMembersByPosition(int _team) {
+        Ints positions_ = new Ints();
+        for (int p: teams.getVal(_team).getMembers().getKeys()) {
             positions_.add(p);
         }
         positions_.sort();
         TeamPositionList list_ = new TeamPositionList();
-        for (byte p: positions_) {
+        for (int p: positions_) {
             list_.add(new TeamPosition(_team, p));
         }
         return list_;
@@ -513,19 +513,19 @@ public final class Fight {
         envType = _envType;
     }
 
-    public byte getMult() {
+    public int getMult() {
         return mult;
     }
 
-    public void setMult(byte _mult) {
+    public void setMult(int _mult) {
         mult = _mult;
     }
 
-    public byte getPlayerMaxNumberFrontFighters() {
+    public int getPlayerMaxNumberFrontFighters() {
         return playerMaxNumberFrontFighters;
     }
 
-    public void setPlayerMaxNumberFrontFighters(byte _playerMaxNumberFrontFighters) {
+    public void setPlayerMaxNumberFrontFighters(int _playerMaxNumberFrontFighters) {
         playerMaxNumberFrontFighters = _playerMaxNumberFrontFighters;
     }
 
@@ -545,19 +545,19 @@ public final class Fight {
         stillEnabledMoves = _stillEnabledMoves;
     }
 
-    public ByteMap<Team> getTeams() {
+    public IntMap<Team> getTeams() {
         return teams;
     }
 
-    public void setTeams(ByteMap<Team> _teams) {
+    public void setTeams(IntMap<Team> _teams) {
         teams = _teams;
     }
 
-    public short getNbFleeAttempt() {
+    public int getNbFleeAttempt() {
         return nbFleeAttempt;
     }
 
-    public void setNbFleeAttempt(short _nbFleeAttempt) {
+    public void setNbFleeAttempt(int _nbFleeAttempt) {
         nbFleeAttempt = _nbFleeAttempt;
     }
 
@@ -593,11 +593,11 @@ public final class Fight {
         currentUser = _currentUser;
     }
 
-    public byte getCurrentUserFlee() {
+    public int getCurrentUserFlee() {
         return currentUserFlee;
     }
 
-    public void setCurrentUserFlee(byte _c) {
+    public void setCurrentUserFlee(int _c) {
         this.currentUserFlee = _c;
     }
 
@@ -609,25 +609,25 @@ public final class Fight {
         state = _state;
     }
 
-    public StringMap<Short> getUsedItemsWhileRound() {
+    public StringMap<Integer> getUsedItemsWhileRound() {
         return usedItemsWhileRound;
     }
 
-    public void setUsedItemsWhileRound(StringMap<Short> _usedItemsWhileRound) {
+    public void setUsedItemsWhileRound(StringMap<Integer> _usedItemsWhileRound) {
         usedItemsWhileRound = _usedItemsWhileRound;
     }
 
-    public ByteMap<Byte> getFirstPositPlayerFighters() {
+    public IntMap<Integer> getFirstPositPlayerFighters() {
         return firstPositPlayerFighters;
     }
 
-    boolean isUsedAt(byte _place) {
+    boolean isUsedAt(int _place) {
         return !getFirstPositPlayerFightersByPlace(_place).isEmpty();
     }
 
-    Bytes getFirstPositPlayerFightersByPlace(byte _place) {
-        Bytes l_ = new Bytes();
-        for (EntryCust<Byte, Byte> e: firstPositPlayerFighters.entryList()) {
+    Ints getFirstPositPlayerFightersByPlace(int _place) {
+        Ints l_ = new Ints();
+        for (EntryCust<Integer, Integer> e: firstPositPlayerFighters.entryList()) {
             if (e.getValue() == _place) {
                 l_.add(e.getKey());
             }
@@ -635,15 +635,15 @@ public final class Fight {
         return l_;
     }
 
-    public void setFirstPositPlayerFighters(ByteMap<Byte> _firstPositPlayerFighters) {
+    public void setFirstPositPlayerFighters(IntMap<Integer> _firstPositPlayerFighters) {
         firstPositPlayerFighters = _firstPositPlayerFighters;
     }
 
-    public ByteMap<Byte> getFirstPositFoeFighters() {
+    public IntMap<Integer> getFirstPositFoeFighters() {
         return firstPositFoeFighters;
     }
 
-    public void setFirstPositFoeFighters(ByteMap<Byte> _firstPositFoeFighters) {
+    public void setFirstPositFoeFighters(IntMap<Integer> _firstPositFoeFighters) {
         firstPositFoeFighters = _firstPositFoeFighters;
     }
 
@@ -671,11 +671,11 @@ public final class Fight {
         lostObjects = _lostObjects;
     }
 
-    public ByteMap<ChoiceOfEvolutionAndMoves> getChoices() {
+    public IntMap<ChoiceOfEvolutionAndMoves> getChoices() {
         return choices;
     }
 
-    public void setChoices(ByteMap<ChoiceOfEvolutionAndMoves> _choices) {
+    public void setChoices(IntMap<ChoiceOfEvolutionAndMoves> _choices) {
         choices = _choices;
     }
 
@@ -794,7 +794,7 @@ public final class Fight {
         getTemp().getEffects().add(anim_);
     }
 
-    void addAnimationStatistic(Statistic _st, byte _variation, boolean _swap) {
+    void addAnimationStatistic(Statistic _st, int _variation, boolean _swap) {
         CustList<AnimationInt> list_ = getEffects();
         if (list_.isEmpty()) {
             return;
@@ -1221,7 +1221,7 @@ public final class Fight {
         addMessage(_import, ABILITY_END_ROUND, ability_, name_);
     }
 
-    void addComboMoveEndRoundMessage(byte _team,StringList _moves, DataBase _import) {
+    void addComboMoveEndRoundMessage(int _team,StringList _moves, DataBase _import) {
         StringList moves_ = new StringList();
         for (String m: _moves) {
             moves_.add(_import.translateMove(m));
@@ -1286,7 +1286,7 @@ public final class Fight {
         addMessage(_import, BATON_PASS, name_, other_);
     }
 
-    void addDisabledTeamUsesMoveMessage(byte _team,String _move, DataBase _import) {
+    void addDisabledTeamUsesMoveMessage(int _team,String _move, DataBase _import) {
         String move_ = _import.translateMove(_move);
         if (NumberUtil.eq(_team, CST_FOE)) {
             addMessage(_import, DISABLED_FOE_TEAM_USES_MOVE, move_);
@@ -1295,7 +1295,7 @@ public final class Fight {
         }
     }
 
-    void addIncrTeamUsesMoveMessage(byte _team,String _move, DataBase _import) {
+    void addIncrTeamUsesMoveMessage(int _team,String _move, DataBase _import) {
         String move_ = _import.translateMove(_move);
         if (NumberUtil.eq(_team, CST_FOE)) {
             addMessage(_import, INCR_FOE_TEAM_USES_MOVE, move_);
@@ -1304,13 +1304,13 @@ public final class Fight {
         }
     }
 
-    void addDisabledTeamMoveMessage(byte _team, String _move, ActivityOfMove _activity, DataBase _import) {
+    void addDisabledTeamMoveMessage(int _team, String _move, ActivityOfMove _activity, DataBase _import) {
         if (!_activity.isEnabled()) {
             addDisabledTeamMoveMessage(_team, _move, _import);
         }
     }
 
-    void addDisabledTeamMoveMessage(byte _team,String _move, DataBase _import) {
+    void addDisabledTeamMoveMessage(int _team,String _move, DataBase _import) {
         String move_ = _import.translateMove(_move);
         if (NumberUtil.eq(_team, CST_FOE)) {
             addMessage(_import, DISABLED_FOE_TEAM_MOVE, move_);
@@ -1319,7 +1319,7 @@ public final class Fight {
         }
     }
 
-    void addEnabledTeamMoveMessage(byte _team,String _move, DataBase _import) {
+    void addEnabledTeamMoveMessage(int _team,String _move, DataBase _import) {
         String move_ = _import.translateMove(_move);
         if (NumberUtil.eq(_team, CST_FOE)) {
             addMessage(_import, ENABLED_FOE_TEAM_MOVE, move_);
@@ -1496,7 +1496,7 @@ public final class Fight {
         addMessage(_import, DISABLED_STATUS_REL_OTHER, status_, getFighterName(_fighter, _import));
     }
 
-    void addDisabledStatusRelMessage(String _status, TeamPosition _fighter, TeamPosition _other, short _nbRound,DataBase _import) {
+    void addDisabledStatusRelMessage(String _status, TeamPosition _fighter, TeamPosition _other, int _nbRound,DataBase _import) {
         String status_ = _import.translateStatus(_status);
         if (_nbRound > 0) {
             addMessage(_import, DISABLED_STATUS_REL, status_, getFighterName(_fighter, _import), getFighterName(_other, _import));

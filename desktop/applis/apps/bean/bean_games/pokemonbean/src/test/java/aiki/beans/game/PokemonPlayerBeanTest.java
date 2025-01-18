@@ -36,7 +36,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         DataBase init_ = one();
         FacadeGame fac_ = fac(init_);
         fac_.openMenu();
-        fac_.setChosenTeamPokemon((short) 0);
+        fac_.setChosenTeamPokemon( 0);
         assertEq(PIKACHU_TR,callPokemonPlayerBeanNameGet(displaying(beanPk(EN, fac_))));
     }
 
@@ -83,7 +83,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         DataBase init_ = one();
         FacadeGame fac_ = fac(init_);
         fac_.openMenu();
-        fac_.setChosenTeamPokemon((short) 0);
+        fac_.setChosenTeamPokemon( 0);
         assertEq(NULL_REF,callPokemonPlayerBeanUsedBallCatchingGet(displaying(beanPk(EN, fac_))));
     }
     @Test
@@ -101,9 +101,9 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
     public void getLevel() {
         DataBase init_ = one();
         FacadeGame fac_ = fac(init_);
-        first(fac_).setLevel((short) 10);
+        first(fac_).setLevel( 10);
         fac_.openMenu();
-        fac_.setChosenTeamPokemon((short) 0);
+        fac_.setChosenTeamPokemon( 0);
         assertEq(10,callPokemonPlayerBeanLevelGet(displaying(beanPk(EN, fac_))));
     }
     @Test
@@ -112,7 +112,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         FacadeGame fac_ = fac(init_);
         first(fac_).setGender(Gender.NO_GENDER);
         fac_.openMenu();
-        fac_.setChosenTeamPokemon((short) 0);
+        fac_.setChosenTeamPokemon( 0);
         assertEq(NO_G,callPokemonPlayerBeanGenderGet(displaying(beanPk(EN, fac_))));
     }
     @Test
@@ -121,7 +121,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         FacadeGame fac_ = fac(init_);
         first(fac_).setAbility(PARATONNERRE);
         fac_.openMenu();
-        fac_.setChosenTeamPokemon((short) 0);
+        fac_.setChosenTeamPokemon( 0);
         assertEq(PARATONNERRE_TR,callPokemonPlayerBeanAbilityGet(displaying(beanPk(EN, fac_))));
     }
     @Test
@@ -130,7 +130,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         FacadeGame fac_ = fac(init_);
         first(fac_).setItem(NULL_REF);
         fac_.openMenu();
-        fac_.setChosenTeamPokemon((short) 0);
+        fac_.setChosenTeamPokemon( 0);
         assertEq(NULL_REF,callPokemonPlayerBeanItemGet(displaying(beanPk(EN, fac_))));
     }
     @Test
@@ -139,7 +139,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         FacadeGame fac_ = fac(init_);
         first(fac_).setItem(POKE_BALL);
         fac_.openMenu();
-        fac_.setChosenTeamPokemon((short) 0);
+        fac_.setChosenTeamPokemon( 0);
         assertEq(POKE_BALL_TR,callPokemonPlayerBeanItemGet(displaying(beanPk(EN, fac_))));
     }
     @Test
@@ -148,7 +148,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         FacadeGame fac_ = fac(init_);
         divide(fac_);
         fac_.openMenu();
-        fac_.setChosenTeamPokemon((short) 0);
+        fac_.setChosenTeamPokemon( 0);
         assertEq(Rate.newRate("1931/200"),callPokemonPlayerBeanRemainingHpGet(displaying(beanPk(EN, fac_))));
     }
 
@@ -158,7 +158,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         FacadeGame fac_ = fac(init_);
         divide(fac_);
         fac_.openMenu();
-        fac_.setChosenTeamPokemon((short) 0);
+        fac_.setChosenTeamPokemon( 0);
         assertEq("5.0"+Rate.POWER+"1",callPokemonPlayerBeanRemainingHpPerCentGet(displaying(beanPk(EN, fac_))));
     }
 
@@ -168,7 +168,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         FacadeGame fac_ = fac(init_);
         divide(fac_);
         fac_.openMenu();
-        fac_.setChosenTeamPokemon((short) 0);
+        fac_.setChosenTeamPokemon( 0);
         assertEq(Rate.newRate("1931/100"),callPokemonPlayerBeanFullHpGet(displaying(beanPk(EN, fac_))));
     }
 
@@ -179,7 +179,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         FacadeGame fac_ = fac(init_);
         first(fac_).setNickname(NICKNAME);
         fac_.openMenu();
-        fac_.setChosenTeamPokemon((short) 0);
+        fac_.setChosenTeamPokemon( 0);
         assertEq(NICKNAME,callPokemonPlayerBeanNicknameGet(displaying(beanPk(EN, fac_))));
     }
 
@@ -189,7 +189,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         FacadeGame fac_ = fac(init_);
         first(fac_).setWonExpSinceLastLevel(Rate.newRate("1"));
         fac_.openMenu();
-        fac_.setChosenTeamPokemon((short) 0);
+        fac_.setChosenTeamPokemon( 0);
         assertEq(Rate.newRate("1"),callPokemonPlayerBeanWonExpSinceLastLevelGet(displaying(beanPk(EN, fac_))));
     }
 
@@ -199,7 +199,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         FacadeGame fac_ = fac(init_);
         first(fac_).setWonExpSinceLastLevel(Rate.newRate("2"));
         fac_.openMenu();
-        fac_.setChosenTeamPokemon((short) 0);
+        fac_.setChosenTeamPokemon( 0);
         assertEq(Rate.newRate("13"),callPokemonPlayerBeanNecessaryPointsNextLevelGet(displaying(beanPk(EN, fac_))));
     }
 
@@ -207,9 +207,9 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
     public void happiness() {
         DataBase init_ = one();
         FacadeGame fac_ = fac(init_);
-        first(fac_).setHappiness((short) 25);
+        first(fac_).setHappiness( 25);
         fac_.openMenu();
-        fac_.setChosenTeamPokemon((short) 0);
+        fac_.setChosenTeamPokemon( 0);
         assertEq(25,callPokemonPlayerBeanHappinessGet(displaying(beanPk(EN, fac_))));
     }
 
@@ -217,9 +217,9 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
     public void lead() {
         DataBase init_ = one();
         FacadeGame fac_ = fac(init_);
-        first(fac_).setNbStepsTeamLead((short) 25);
+        first(fac_).setNbStepsTeamLead( 25);
         fac_.openMenu();
-        fac_.setChosenTeamPokemon((short) 0);
+        fac_.setChosenTeamPokemon( 0);
         assertEq(25,callPokemonPlayerBeanNbStepsTeamLeadGet(displaying(beanPk(EN, fac_))));
     }
 
@@ -229,7 +229,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         types(init_);
         FacadeGame fac_ = fac(init_);
         fac_.openMenu();
-        fac_.setChosenTeamPokemon((short) 0);
+        fac_.setChosenTeamPokemon( 0);
         assertSizeEq(1,callPokemonPlayerBeanTypesGet(displaying(beanPk(EN, fac_))));
     }
 
@@ -239,7 +239,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         types(init_);
         FacadeGame fac_ = fac(init_);
         fac_.openMenu();
-        fac_.setChosenTeamPokemon((short) 0);
+        fac_.setChosenTeamPokemon( 0);
         assertEq(ELECTRICK_TR,elt(callPokemonPlayerBeanTypesGet(displaying(beanPk(EN, fac_))),0));
     }
 
@@ -250,7 +250,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         FacadeGame fac_ = fac(init_);
         first(fac_).setStatus(new StringList(STATUE));
         fac_.openMenu();
-        fac_.setChosenTeamPokemon((short) 0);
+        fac_.setChosenTeamPokemon( 0);
         assertSizeEq(1,callPokemonPlayerBeanStatusGet(displaying(beanPk(EN, fac_))));
     }
 
@@ -261,7 +261,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         FacadeGame fac_ = fac(init_);
         first(fac_).setStatus(new StringList(STATUE));
         fac_.openMenu();
-        fac_.setChosenTeamPokemon((short) 0);
+        fac_.setChosenTeamPokemon( 0);
         assertEq(STATUE_TR,elt(callPokemonPlayerBeanStatusGet(displaying(beanPk(EN, fac_))),0));
     }
 
@@ -271,7 +271,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         image(init_);
         FacadeGame fac_ = fac(init_);
         fac_.openMenu();
-        fac_.setChosenTeamPokemon((short) 0);
+        fac_.setChosenTeamPokemon( 0);
         assertEq(one(IMG_MAX_PIKA),callPokemonPlayerBeanImageGet(displaying(beanPk(EN, fac_))));
     }
 
@@ -281,7 +281,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         moves(init_);
         FacadeGame fac_ = fac(init_);
         fac_.openMenu();
-        fac_.setChosenTeamPokemon((short) 0);
+        fac_.setChosenTeamPokemon( 0);
         assertSizeEq(2,callPokemonPlayerBeanMovesGet(displaying(beanPk(EN, fac_))));
     }
 
@@ -291,7 +291,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         moves(init_);
         FacadeGame fac_ = fac(init_);
         fac_.openMenu();
-        fac_.setChosenTeamPokemon((short) 0);
+        fac_.setChosenTeamPokemon( 0);
         assertEq(ECLAIR_TR,first(elt(callPokemonPlayerBeanMovesGet(displaying(beanPk(EN, fac_))),0)));
     }
 
@@ -301,7 +301,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         moves(init_);
         FacadeGame fac_ = fac(init_);
         fac_.openMenu();
-        fac_.setChosenTeamPokemon((short) 0);
+        fac_.setChosenTeamPokemon( 0);
         assertEq(CHARGE_TR,first(elt(callPokemonPlayerBeanMovesGet(displaying(beanPk(EN, fac_))),1)));
     }
 
@@ -311,7 +311,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         moves(init_);
         FacadeGame fac_ = fac(init_);
         fac_.openMenu();
-        fac_.setChosenTeamPokemon((short) 0);
+        fac_.setChosenTeamPokemon( 0);
         assertEq(15,callUsesOfMoveGetMax(second(elt(callPokemonPlayerBeanMovesGet(displaying(beanPk(EN, fac_))),0))));
     }
 
@@ -321,7 +321,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         moves(init_);
         FacadeGame fac_ = fac(init_);
         fac_.openMenu();
-        fac_.setChosenTeamPokemon((short) 0);
+        fac_.setChosenTeamPokemon( 0);
         assertEq(20,callUsesOfMoveGetMax(second(elt(callPokemonPlayerBeanMovesGet(displaying(beanPk(EN, fac_))),1))));
     }
 
@@ -330,9 +330,9 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         DataBase init_ = one();
         moves(init_);
         FacadeGame fac_ = fac(init_);
-        first(fac_).getMoves().getVal(ECLAIR).setCurrent((short) 2);
+        first(fac_).getMoves().getVal(ECLAIR).setCurrent( 2);
         fac_.openMenu();
-        fac_.setChosenTeamPokemon((short) 0);
+        fac_.setChosenTeamPokemon( 0);
         assertEq(2,callUsesOfMoveGetCurrent(second(elt(callPokemonPlayerBeanMovesGet(displaying(beanPk(EN, fac_))),0))));
     }
 
@@ -341,9 +341,9 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         DataBase init_ = one();
         moves(init_);
         FacadeGame fac_ = fac(init_);
-        first(fac_).getMoves().getVal(CHARGE).setCurrent((short) 7);
+        first(fac_).getMoves().getVal(CHARGE).setCurrent( 7);
         fac_.openMenu();
-        fac_.setChosenTeamPokemon((short) 0);
+        fac_.setChosenTeamPokemon( 0);
         assertEq(7,callUsesOfMoveGetCurrent(second(elt(callPokemonPlayerBeanMovesGet(displaying(beanPk(EN, fac_))),1))));
     }
 
@@ -352,7 +352,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         DataBase init_ = one();
         FacadeGame fac_ = fac(init_);
         fac_.openMenu();
-        fac_.setChosenTeamPokemon((short) 0);
+        fac_.setChosenTeamPokemon( 0);
         assertSizeEq(6,callPokemonPlayerBeanStatisticsGet(displaying(beanPk(EN, fac_))));
     }
 
@@ -360,9 +360,9 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
     public void stats2() {
         DataBase init_ = one();
         FacadeGame fac_ = fac(init_);
-        first(fac_).getEv().set(Statistic.SPEED, (short) 3);
+        first(fac_).getEv().set(Statistic.SPEED,  3);
         fac_.openMenu();
-        fac_.setChosenTeamPokemon((short) 0);
+        fac_.setChosenTeamPokemon( 0);
         assertEq(SPEED_TR,callStatisticInfoPkPlayerGetName(elt(callPokemonPlayerBeanStatisticsGet(displaying(beanPk(EN, fac_))),Statistic.getStatisticsWithBase().indexOfObj(Statistic.SPEED))));
     }
 
@@ -370,9 +370,9 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
     public void stats3() {
         DataBase init_ = one();
         FacadeGame fac_ = fac(init_);
-        first(fac_).getEv().set(Statistic.SPEED, (short) 3);
+        first(fac_).getEv().set(Statistic.SPEED,  3);
         fac_.openMenu();
-        fac_.setChosenTeamPokemon((short) 0);
+        fac_.setChosenTeamPokemon( 0);
         assertEq(3,callStatisticInfoPkPlayerGetEv(elt(callPokemonPlayerBeanStatisticsGet(displaying(beanPk(EN, fac_))),Statistic.getStatisticsWithBase().indexOfObj(Statistic.SPEED))));
     }
 
@@ -380,9 +380,9 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
     public void stats4() {
         DataBase init_ = one();
         FacadeGame fac_ = fac(init_);
-        first(fac_).getIv().set(Statistic.SPEED, (short) 4);
+        first(fac_).getIv().set(Statistic.SPEED,  4);
         fac_.openMenu();
-        fac_.setChosenTeamPokemon((short) 0);
+        fac_.setChosenTeamPokemon( 0);
         assertEq(4,callStatisticInfoPkPlayerGetIv(elt(callPokemonPlayerBeanStatisticsGet(displaying(beanPk(EN, fac_))),Statistic.getStatisticsWithBase().indexOfObj(Statistic.SPEED))));
     }
 
@@ -390,10 +390,10 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
     public void stats5() {
         DataBase init_ = one();
         FacadeGame fac_ = fac(init_);
-        first(fac_).getEv().set(Statistic.SPEED, (short) 2);
-        first(fac_).getIv().set(Statistic.SPEED, (short) 5);
+        first(fac_).getEv().set(Statistic.SPEED,  2);
+        first(fac_).getIv().set(Statistic.SPEED,  5);
         fac_.openMenu();
-        fac_.setChosenTeamPokemon((short) 0);
+        fac_.setChosenTeamPokemon( 0);
         assertEq(Rate.newRate("221/40"),callStatisticInfoPkPlayerGetRate(elt(callPokemonPlayerBeanStatisticsGet(displaying(beanPk(EN, fac_))),Statistic.getStatisticsWithBase().indexOfObj(Statistic.SPEED))));
     }
 
@@ -403,7 +403,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         evos(init_);
         FacadeGame fac_ = fac(init_);
         fac_.openMenu();
-        fac_.setChosenTeamPokemon((short) 0);
+        fac_.setChosenTeamPokemon( 0);
         assertSizeEq(1,callPokemonPlayerBeanEvolutionsGet(displaying(beanPk(EN, fac_))));
     }
 
@@ -413,7 +413,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         evos(init_);
         FacadeGame fac_ = fac(init_);
         fac_.openMenu();
-        fac_.setChosenTeamPokemon((short) 0);
+        fac_.setChosenTeamPokemon( 0);
         assertEq(RAI,first(elt(callPokemonPlayerBeanEvolutionsGet(displaying(beanPk(EN, fac_))),0)));
     }
 
@@ -423,7 +423,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         evos(init_);
         FacadeGame fac_ = fac(init_);
         fac_.openMenu();
-        fac_.setChosenTeamPokemon((short) 0);
+        fac_.setChosenTeamPokemon( 0);
         assertEq(one(IMG_MAX_RAI),second(elt(callPokemonPlayerBeanEvolutionsGet(displaying(beanPk(EN, fac_))),0)));
     }
 
@@ -433,7 +433,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         evos(init_);
         FacadeGame fac_ = fac(init_);
         fac_.openMenu();
-        fac_.setChosenTeamPokemon((short) 0);
+        fac_.setChosenTeamPokemon( 0);
         assertEq(RAI_TR,callPokemonPlayerBeanGetEvo(displaying(beanPk(EN, fac_)),0));
     }
     @Test
@@ -443,10 +443,10 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         moves(init_);
         image(init_);
         FacadeGame fac_ = fac(init_);
-        first(fac_).getEv().set(Statistic.SPEED, (short) 2);
-        first(fac_).getIv().set(Statistic.SPEED, (short) 5);
+        first(fac_).getEv().set(Statistic.SPEED,  2);
+        first(fac_).getIv().set(Statistic.SPEED,  5);
         fac_.openMenu();
-        fac_.setChosenTeamPokemon((short) 0);
+        fac_.setChosenTeamPokemon( 0);
         StringMap<TranslationsAppli> builtMessages_ = new StringMap<TranslationsAppli>();
         builtMessages_.addEntry(EN,MessagesInit.en());
         builtMessages_.addEntry(FR,MessagesInit.fr());
@@ -522,10 +522,10 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
     private void moves(DataBase _init) {
         _init.addConstNumTest(DataBase.DEF_MAX_ATT,Rate.newRate("2"));
         DamagingMoveData one_ = Instances.newDamagingMoveData();
-        one_.setPp((short) 15);
+        one_.setPp( 15);
         _init.completeMembers(ECLAIR, one_);
         DamagingMoveData two_ = Instances.newDamagingMoveData();
-        two_.setPp((short) 20);
+        two_.setPp( 20);
         _init.completeMembers(CHARGE,two_);
     }
     private void revive(FacadeGame _fac) {
@@ -536,7 +536,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
 
     private void addFossile(DataBase _db) {
         Fossil fo_ = Instances.newFossil();
-        fo_.setLevel((short) 2);
+        fo_.setLevel( 2);
         fo_.setPokemon(PIKACHU);
         _db.completeMembers(FOSSIL, fo_);
     }
@@ -581,13 +581,13 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
     private static PokemonPlayer newPokemonPlayer(String _name, String _ability, Gender _gender, String _item) {
         PokemonPlayer sent_ = new PokemonPlayer();
         sent_.setName(_name);
-        sent_.setLevel((short) 1);
+        sent_.setLevel( 1);
         sent_.setAbility(_ability);
         sent_.setItem(_item);
         sent_.setGender(_gender);
         sent_.setMoves(new StringMap<UsesOfMove>());
-        sent_.getMoves().put(CHARGE, new UsesOfMove((short) 10));
-        sent_.setHappiness((short) 70);
+        sent_.getMoves().put(CHARGE, new UsesOfMove( 10));
+        sent_.setHappiness( 70);
         sent_.setWonExpSinceLastLevel(Rate.one());
         sent_.setUsedBallCatching(POKE_BALL);
         return sent_;

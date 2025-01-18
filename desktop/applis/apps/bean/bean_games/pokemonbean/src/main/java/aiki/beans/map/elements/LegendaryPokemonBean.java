@@ -33,7 +33,7 @@ public class LegendaryPokemonBean extends CommonBean {
         String name_ = pokemon.getName();
         return tryRedirectPk(name_);
     }
-    public short getLevel() {
+    public int getLevel() {
         return pokemon.getLevel();
     }
     public String getGender() {

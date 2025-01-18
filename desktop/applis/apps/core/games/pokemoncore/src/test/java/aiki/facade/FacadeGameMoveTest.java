@@ -36,7 +36,7 @@ public final class FacadeGameMoveTest extends InitializationDataBase {
     @Test
     public void searchTest() {
         FacadeGame facadeGame_ = initTests();
-        facadeGame_.getPlayer().getTm((short) 2);
+        facadeGame_.getPlayer().getTm( 2);
         facadeGame_.setContentOfNameMove(null);
         facadeGame_.setContentOfTypeMove(null);
         facadeGame_.setSearchModeNameMove(SearchingMode.WHOLE_STRING);

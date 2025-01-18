@@ -110,10 +110,10 @@ public final class GeneComponentModelEvolution implements ChangeableFormType{
 
     public Evolution valueEvo() {
         if (edited instanceof EvolutionLevelSimple) {
-            ((EvolutionLevelSimple)edited).setLevel((short) level.valueInt());
+            ((EvolutionLevelSimple)edited).setLevel(level.valueInt());
         }
         if (edited instanceof EvolutionLevelGender) {
-            ((EvolutionLevelGender)edited).setLevel((short) level.valueInt());
+            ((EvolutionLevelGender)edited).setLevel(level.valueInt());
             ((EvolutionLevelGender)edited).setGender(evoGender.tryRet());
         }
         if (edited instanceof EvolutionStoneSimple) {

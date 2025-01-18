@@ -521,7 +521,7 @@ public abstract class InitDbEndRound extends InitDbConstr {
     }
     private static MoveData incr(int _rank) {
         MoveData m_ = Instances.newDamagingMoveData();
-        m_.setRankIncrementNbRound((short) _rank);
+        m_.setRankIncrementNbRound( _rank);
         return m_;
     }
 
@@ -581,13 +581,13 @@ public abstract class InitDbEndRound extends InitDbConstr {
     }
     private static EffectCombo combo(int _rank) {
         EffectCombo ec_ = Instances.newEffectCombo();
-        ec_.setRankIncrementNbRound((short)_rank);
+        ec_.setRankIncrementNbRound(_rank);
         return ec_;
     }
 
     private static EffectCombo comboFoe(int _incr, int _act) {
         EffectCombo ec_ = Instances.newEffectCombo();
-        ec_.setRankIncrementNbRound((short)_incr);
+        ec_.setRankIncrementNbRound(_incr);
         ec_.getEffectEndRound().add(foe(_act));
         return ec_;
     }

@@ -25,9 +25,9 @@ public abstract class LevelWithWildPokemon extends Level {
 
     private Points< String> items;
 
-    private Points< Short> tm;
+    private Points< Integer> tm;
 
-    private Points< Short> hm;
+    private Points< Integer> hm;
 
     protected final void validateLevelWithWildPokemon(DataBase _data, LevelArea _level) {
         checkAreasBlocks(_data);
@@ -62,12 +62,12 @@ public abstract class LevelWithWildPokemon extends Level {
             keys_.add(e.getKey());
         }
         DataInfoChecker.checkShortsContains(_data.getTm().getKeys(),tm.values(),_data);
-        for (EntryCust<Point,Short> e : tm.entryList()) {
+        for (EntryCust<Point,Integer> e : tm.entryList()) {
             DataInfoChecker.checkKey(_data, _level, e.getKey(),true);
             keys_.add(e.getKey());
         }
         DataInfoChecker.checkShortsContains(_data.getHm().getKeys(),hm.values(),_data);
-        for (EntryCust<Point,Short> e : hm.entryList()) {
+        for (EntryCust<Point,Integer> e : hm.entryList()) {
             DataInfoChecker.checkKey(_data, _level, e.getKey(),true);
             keys_.add(e.getKey());
         }
@@ -261,19 +261,19 @@ public abstract class LevelWithWildPokemon extends Level {
         items = _items;
     }
 
-    public Points< Short> getTm() {
+    public Points< Integer> getTm() {
         return tm;
     }
 
-    public void setTm(Points< Short> _tm) {
+    public void setTm(Points< Integer> _tm) {
         tm = _tm;
     }
 
-    public Points< Short> getHm() {
+    public Points< Integer> getHm() {
         return hm;
     }
 
-    public void setHm(Points< Short> _hm) {
+    public void setHm(Points< Integer> _hm) {
         hm = _hm;
     }
 

@@ -37,7 +37,7 @@ public final class TransientFight {
     private TeamPositionsRate damageByCurrentUser = new TeamPositionsRate();
 
     /***/
-    private ByteMap<BoolVal> kos = new ByteMap<BoolVal>();
+    private IntMap<BoolVal> kos = new IntMap<BoolVal>();
 
     /***/
     private StringList sufferingTargetStatus = new StringList();
@@ -108,10 +108,10 @@ public final class TransientFight {
 //    private byte chosenFoeTarget = Fighter.BACK;
 
     /***/
-    private byte chosenIndexFront = Fighter.BACK;
+    private int chosenIndexFront = Fighter.BACK;
 
     /***/
-    private byte chosenIndexBack = Fighter.BACK;
+    private int chosenIndexBack = Fighter.BACK;
 
     /***/
     private IdList<ActionType> possibleActionsCurFighter = new IdList<ActionType>();
@@ -129,10 +129,10 @@ public final class TransientFight {
     private String chosenHealingMove = DataBase.EMPTY_STRING;
 
     /***/
-    private byte chosenSubstitute = Fighter.BACK;
+    private int chosenSubstitute = Fighter.BACK;
 
     /***/
-    private byte chosenIndex = Fighter.BACK;
+    private int chosenIndex = Fighter.BACK;
 
     /***/
     private NatStringTreeMap<BoolVal> moves = new NatStringTreeMap<BoolVal>();
@@ -295,11 +295,11 @@ public final class TransientFight {
         damageByCurrentUser = _damage;
     }
 
-    public ByteMap<BoolVal> getKos() {
+    public IntMap<BoolVal> getKos() {
         return kos;
     }
 
-    public void setKos(ByteMap<BoolVal> _kos) {
+    public void setKos(IntMap<BoolVal> _kos) {
         kos = _kos;
     }
 
@@ -444,19 +444,19 @@ public final class TransientFight {
         targetCoords = _t;
     }
 
-    public byte getChosenIndexFront() {
+    public int getChosenIndexFront() {
         return chosenIndexFront;
     }
 
-    void setChosenIndexFront(byte _chosenIndex) {
+    void setChosenIndexFront(int _chosenIndex) {
         chosenIndexFront = _chosenIndex;
     }
 
-    public byte getChosenIndexBack() {
+    public int getChosenIndexBack() {
         return chosenIndexBack;
     }
 
-    void setChosenIndexBack(byte _chosenIndexBack) {
+    void setChosenIndexBack(int _chosenIndexBack) {
         chosenIndexBack = _chosenIndexBack;
     }
 
@@ -500,19 +500,19 @@ public final class TransientFight {
         chosenHealingMove = _chosenHealingMove;
     }
 
-    public byte getChosenSubstitute() {
+    public int getChosenSubstitute() {
         return chosenSubstitute;
     }
 
-    void setChosenSubstitute(byte _chosenSubstitute) {
+    void setChosenSubstitute(int _chosenSubstitute) {
         chosenSubstitute = _chosenSubstitute;
     }
 
-    public byte getChosenIndex() {
+    public int getChosenIndex() {
         return chosenIndex;
     }
 
-    void setChosenIndex(byte _chosenIndex) {
+    void setChosenIndex(int _chosenIndex) {
         chosenIndex = _chosenIndex;
     }
 

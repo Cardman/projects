@@ -130,7 +130,7 @@ final class FightValues {
     private static void sommeLanceurBoostsPositifs(Fighter _creatureCbtLanceur, StringMap<String> _variables, AbsVariableSuffixStatArg _boost, String _sommeBoostPos) {
         Rate sommeLanceurBoostsPositifs_=Rate.zero();
         for(Statistic c: _creatureCbtLanceur.getStatisBoost().getKeys()){
-            byte boost_= _creatureCbtLanceur.getStatisBoost().getVal(c);
+            int boost_= _creatureCbtLanceur.getStatisBoost().getVal(c);
             if(boost_>0){
                 sommeLanceurBoostsPositifs_.addNb(new Rate(boost_));
             }
@@ -304,7 +304,7 @@ final class FightValues {
             if(!StringUtil.contains(_creatureCbtLanceur.attaquesUtilisables(), c)){
                 _variables.put(_key.value(c),Fight.ZERO);
             }else{
-                short ppActuel_= _creatureCbtLanceur.powerPointsMove(c);
+                int ppActuel_= _creatureCbtLanceur.powerPointsMove(c);
                 _variables.put(_key.value(c),Long.toString(ppActuel_));
             }
         }
@@ -312,8 +312,8 @@ final class FightValues {
 
     private static int nbCombattantsTerrain(Fight _fight) {
         int nbCombattantsTerrain_=0;
-        for(byte c: _fight.getTeams().getKeys()){
-            for(byte c2_: _fight.getTeams().getVal(c).getMembers().getKeys()){
+        for(int c: _fight.getTeams().getKeys()){
+            for(int c2_: _fight.getTeams().getVal(c).getMembers().getKeys()){
                 Fighter cbtEquipe_= _fight.getTeams().getVal(c).getMembers().getVal(c2_);
                 if(cbtEquipe_.estKo()){
                     continue;
@@ -457,9 +457,9 @@ final class FightValues {
 
     private static boolean aucunBoostPossible(DataBase _import, Fighter _creatureCbtCible) {
         boolean aucunBoostPossible_=true;
-        byte maxBoost_=(byte) _import.getMaxBoost();
+        int maxBoost_=_import.getMaxBoost();
         for(Statistic c: _creatureCbtCible.getStatisBoost().getKeys()){
-            byte boost_= _creatureCbtCible.getStatisBoost().getVal(c);
+            int boost_= _creatureCbtCible.getStatisBoost().getVal(c);
             if(boost_<maxBoost_){
                 aucunBoostPossible_=false;
                 break;

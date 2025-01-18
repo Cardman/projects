@@ -244,7 +244,7 @@ m199dataMap_.setUnlockedCity(F_CITY_UNLOCKED_TXT);
 m199dataMap_.setBegin(LvUt.newCoords(P0,0,new Point(6,8)));
 WildPk m199wildPk_=Instances.newWildPk();
 m199wildPk_.setName(I_EVOLI);
-m199wildPk_.setLevel((short)1);
+m199wildPk_.setLevel(1);
 m199wildPk_.setGender(Gender.NO_GENDER);
 m199wildPk_.setAbility(I_ADAPTABILITE);
 m199dataMap_.setFirstPokemon(m199wildPk_);

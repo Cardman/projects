@@ -286,16 +286,16 @@ public class GameValidationTest extends InitializationDataBase {
         pk_.setGender(Gender.FEMALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
         pk_ = new WildPk();
         pk_.setName(PTITARD);
         pk_.setGender(Gender.MALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.attemptForStoringPokemonToHost((short)1, (short) 2, data_);
+        game_.attemptForStoringPokemonToHost(1,  2, data_);
         assertTrue(validate(game_, data_));
         assertEq(newCoords(3, 0, 2, 1, 7, 4), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
@@ -348,16 +348,16 @@ public class GameValidationTest extends InitializationDataBase {
         pk_.setGender(Gender.FEMALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
         pk_ = new WildPk();
         pk_.setName(PTITARD);
         pk_.setGender(Gender.MALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.attemptForStoringPokemonToHost((short)1, (short) 2, data_);
+        game_.attemptForStoringPokemonToHost(1,  2, data_);
         assertTrue(validate(game_, data_));
         assertEq(newCoords(3, 0, 2, 1, 7, 4), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
@@ -1593,21 +1593,21 @@ public class GameValidationTest extends InitializationDataBase {
         pk_.setGender(Gender.FEMALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
         pk_ = new WildPk();
         pk_.setName(PTITARD);
         pk_.setGender(Gender.MALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
         game_.beatGymLeader(newCoords(1, 0, 5, 1, 4, 1));
         game_.beatGymLeader(newCoords(3, 0, 4, 1, 4, 1));
         game_.beatGymLeader(newCoords(2, 0, 2, 0));
         game_.beatGymLeader(newCoords(2, 0, 4, 0));
         game_.beatGymLeader(newCoords(6, 0, 4, 8));
-        game_.storePokemonToHost((short) 1,(short) 2, newCoords(8, 0, 3, 3, 0, 4));
+        game_.storePokemonToHost( 1, 2, newCoords(8, 0, 3, 3, 0, 4));
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
@@ -1625,21 +1625,21 @@ public class GameValidationTest extends InitializationDataBase {
         pk_.setGender(Gender.FEMALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
         pk_ = new WildPk();
         pk_.setName(PTITARD);
         pk_.setGender(Gender.MALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
         game_.beatGymLeader(newCoords(1, 0, 5, 1, 4, 1));
         game_.beatGymLeader(newCoords(3, 0, 4, 1, 4, 1));
         game_.beatGymLeader(newCoords(2, 0, 2, 0));
         game_.beatGymLeader(newCoords(2, 0, 4, 0));
         game_.beatGymLeader(newCoords(6, 0, 4, 8));
-        game_.storePokemonToHost((short) 1,(short) 2, newCoords(8, 0, 3, 3, 0, 4));
+        game_.storePokemonToHost( 1, 2, newCoords(8, 0, 3, 3, 0, 4));
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
@@ -1652,8 +1652,8 @@ public class GameValidationTest extends InitializationDataBase {
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         game_.getPlayer().recupererOeufPensions(new Egg(PTITARD));
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
@@ -1666,8 +1666,8 @@ public class GameValidationTest extends InitializationDataBase {
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         game_.getPlayer().recupererOeufPensions(new Egg(PTITARD));
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
@@ -1685,7 +1685,7 @@ public class GameValidationTest extends InitializationDataBase {
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().last();
         pkPl_.getRemainingHp().affectZero();
@@ -1706,7 +1706,7 @@ public class GameValidationTest extends InitializationDataBase {
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().last();
         pkPl_.getRemainingHp().affectZero();
@@ -1727,12 +1727,12 @@ public class GameValidationTest extends InitializationDataBase {
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().last();
         pkPl_.getRemainingHp().affectZero();
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
@@ -1750,12 +1750,12 @@ public class GameValidationTest extends InitializationDataBase {
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().last();
         pkPl_.getRemainingHp().affectZero();
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         assertTrue(validate(game_, data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
         assertEq(0, game_.getRankLeague());
@@ -2235,17 +2235,17 @@ public class GameValidationTest extends InitializationDataBase {
         pk_.setGender(Gender.FEMALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
         pk_ = new WildPk();
         pk_.setName(PTITARD);
         pk_.setGender(Gender.MALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
         //invalid data
-        game_.storePokemonToHost((short) 1,(short) 2, newCoords(8, 0, 3, 3, 0, 4));
+        game_.storePokemonToHost( 1, 2, newCoords(8, 0, 3, 3, 0, 4));
         assertTrue(!validate(game_, data_));
     }
     @Test
@@ -2259,17 +2259,17 @@ public class GameValidationTest extends InitializationDataBase {
         pk_.setGender(Gender.FEMALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
         pk_ = new WildPk();
         pk_.setName(PTITARD);
         pk_.setGender(Gender.MALE);
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
         //invalid data
-        game_.storePokemonToHost((short) 1,(short) 2, newCoords(8, 0, 3, 3, 0, 4));
+        game_.storePokemonToHost( 1, 2, newCoords(8, 0, 3, 3, 0, 4));
         assertTrue(!validate(game_, data_));
     }
     @Test
@@ -2594,7 +2594,7 @@ public class GameValidationTest extends InitializationDataBase {
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), data_);
         //invalid data
-        game_.setRankLeague((byte) 1);
+        game_.setRankLeague( 1);
         assertTrue(!validate(game_, data_));
     }
     @Test
@@ -2603,7 +2603,7 @@ public class GameValidationTest extends InitializationDataBase {
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), data_);
         //invalid data
-        game_.setRankLeague((byte) 1);
+        game_.setRankLeague( 1);
         assertTrue(!validate(game_, data_));
     }
     @Test
@@ -2667,7 +2667,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, data_);
         game_.moving(Direction.UP, data_);
         //invalid data
-        game_.setRankLeague((byte) 3);
+        game_.setRankLeague( 3);
         assertTrue(!validate(game_, data_));
     }
     @Test
@@ -2731,7 +2731,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, data_);
         game_.moving(Direction.UP, data_);
         //invalid data
-        game_.setRankLeague((byte) 3);
+        game_.setRankLeague( 3);
         assertTrue(!validate(game_, data_));
     }
     @Test
@@ -2795,7 +2795,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, data_);
         game_.moving(Direction.UP, data_);
         //invalid data
-        game_.setRankLeague((byte) 0);
+        game_.setRankLeague( 0);
         assertTrue(!validate(game_, data_));
     }
     @Test
@@ -2859,7 +2859,7 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.UP, data_);
         game_.moving(Direction.UP, data_);
         //invalid data
-        game_.setRankLeague((byte) 0);
+        game_.setRankLeague( 0);
         assertTrue(!validate(game_, data_));
     }
     @Test
@@ -3596,7 +3596,7 @@ public class GameValidationTest extends InitializationDataBase {
         //beat very quickly a trainer
         game_.getFight().getTemp().getKos().put(Fight.CST_FOE, BoolVal.TRUE);
         game_.endFight(data_);
-        game_.setRankLeague((byte) 0);
+        game_.setRankLeague( 0);
         game_.setPlayerCoords(newCoords(0, 0, 0, 0));
         game_.getPlayer().getItem(REPOUSSE);
         game_.getPlayer().chooseObject(REPOUSSE);
@@ -3699,8 +3699,8 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.RIGHT, data_);
         game_.moving(Direction.RIGHT, data_);
         PokemonPlayer pkPlayer_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
-        pkPlayer_.setHappiness((short) 170);
-        pkPlayer_.setLevel((short) 100);
+        pkPlayer_.setHappiness( 170);
+        pkPlayer_.setLevel( 100);
         game_.setZippedRom(ZIPPED_ROM);
         assertTrue(checkAndInitialize(game_, data_));
         assertEq(newCoords(8, 0, 3, 4), game_.getPlayerCoords());
@@ -3957,7 +3957,7 @@ public class GameValidationTest extends InitializationDataBase {
         //beat very quickly a trainer
         game_.getFight().getTemp().getKos().put(Fight.CST_FOE, BoolVal.TRUE);
         game_.endFight(data_);
-        game_.setRankLeague((byte) 0);
+        game_.setRankLeague( 0);
         game_.setPlayerCoords(newCoords(0, 0, 0, 0));
         game_.getPlayer().getItem(REPOUSSE);
         game_.getPlayer().chooseObject(REPOUSSE);
@@ -4060,8 +4060,8 @@ public class GameValidationTest extends InitializationDataBase {
         game_.moving(Direction.RIGHT, data_);
         game_.moving(Direction.RIGHT, data_);
         PokemonPlayer pkPlayer_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
-        pkPlayer_.setHappiness((short) 170);
-        pkPlayer_.setLevel((short) 100);
+        pkPlayer_.setHappiness( 170);
+        pkPlayer_.setLevel( 100);
         game_.setZippedRom(ZIPPED_ROM);
         assertTrue(checkAndInitialize(game_, data_));
         assertEq(newCoords(8, 0, 3, 4), game_.getPlayerCoords());

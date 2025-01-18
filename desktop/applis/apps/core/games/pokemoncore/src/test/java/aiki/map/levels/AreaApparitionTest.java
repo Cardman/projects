@@ -36,7 +36,7 @@ public final class AreaApparitionTest extends InitializationDataBase {
         pk_.setName(PIKACHU);
         pk_.setAbility(STATIK);
         pk_.setGender(Gender.NO_GENDER);
-        pk_.setLevel((short) 3);
+        pk_.setLevel( 3);
         pk_.setItem(NULL_REF);
         list_.add(pk_);
         MonteCarloWilPkList law_ = AreaApparition.random(list_, AreaApparition.ALWAYS_APPARITION,1);
@@ -59,7 +59,7 @@ public final class AreaApparitionTest extends InitializationDataBase {
         pk_.setName(PIKACHU);
         pk_.setAbility(STATIK);
         pk_.setGender(Gender.NO_GENDER);
-        pk_.setLevel((short) 3);
+        pk_.setLevel( 3);
         pk_.setItem(NULL_REF);
         list_.add(pk_);
         MonteCarloWilPkList law_ = AreaApparition.random(list_, 3,1);
@@ -77,14 +77,14 @@ public final class AreaApparitionTest extends InitializationDataBase {
         pkOne_.setName(PIKACHU);
         pkOne_.setAbility(STATIK);
         pkOne_.setGender(Gender.NO_GENDER);
-        pkOne_.setLevel((short) 3);
+        pkOne_.setLevel( 3);
         pkOne_.setItem(NULL_REF);
         list_.add(pkOne_);
         WildPk pkTwo_ = new WildPk();
         pkTwo_.setName(MELOFEE);
         pkTwo_.setAbility(STATIK);
         pkTwo_.setGender(Gender.NO_GENDER);
-        pkTwo_.setLevel((short) 3);
+        pkTwo_.setLevel( 3);
         pkTwo_.setItem(NULL_REF);
         list_.add(pkTwo_);
         MonteCarloWilPkList law_ = AreaApparition.random(list_, 3,1);
@@ -104,21 +104,21 @@ public final class AreaApparitionTest extends InitializationDataBase {
         pkOne_.setName(PIKACHU);
         pkOne_.setAbility(STATIK);
         pkOne_.setGender(Gender.NO_GENDER);
-        pkOne_.setLevel((short) 3);
+        pkOne_.setLevel( 3);
         pkOne_.setItem(NULL_REF);
         list_.add(pkOne_);
         WildPk pkTwo_ = new WildPk();
         pkTwo_.setName(MELOFEE);
         pkTwo_.setAbility(STATIK);
         pkTwo_.setGender(Gender.NO_GENDER);
-        pkTwo_.setLevel((short) 3);
+        pkTwo_.setLevel( 3);
         pkTwo_.setItem(NULL_REF);
         list_.add(pkTwo_);
         WildPk pkThree_ = new WildPk();
         pkThree_.setName(MELOFEE);
         pkThree_.setAbility(STATIK);
         pkThree_.setGender(Gender.NO_GENDER);
-        pkThree_.setLevel((short) 3);
+        pkThree_.setLevel( 3);
         pkThree_.setItem(NULL_REF);
         list_.add(pkThree_);
         MonteCarloWilPkList law_ = AreaApparition.random(list_, 3,1);
@@ -138,14 +138,14 @@ public final class AreaApparitionTest extends InitializationDataBase {
         pkOne_.setName(PIKACHU);
         pkOne_.setAbility(STATIK);
         pkOne_.setGender(Gender.NO_GENDER);
-        pkOne_.setLevel((short) 3);
+        pkOne_.setLevel( 3);
         pkOne_.setItem(NULL_REF);
         list_.add(pkOne_);
         WildPk pkTwo_ = new WildPk();
         pkTwo_.setName(MELOFEE);
         pkTwo_.setAbility(STATIK);
         pkTwo_.setGender(Gender.NO_GENDER);
-        pkTwo_.setLevel((short) 3);
+        pkTwo_.setLevel( 3);
         pkTwo_.setItem(NULL_REF);
         list_.add(pkTwo_);
         MonteCarloWilPkList law_ = AreaApparition.random(list_, AreaApparition.ALWAYS_APPARITION,1);
@@ -163,21 +163,21 @@ public final class AreaApparitionTest extends InitializationDataBase {
         pkOne_.setName(PIKACHU);
         pkOne_.setAbility(STATIK);
         pkOne_.setGender(Gender.NO_GENDER);
-        pkOne_.setLevel((short) 3);
+        pkOne_.setLevel( 3);
         pkOne_.setItem(NULL_REF);
         list_.add(pkOne_);
         WildPk pkTwo_ = new WildPk();
         pkTwo_.setName(MELOFEE);
         pkTwo_.setAbility(STATIK);
         pkTwo_.setGender(Gender.NO_GENDER);
-        pkTwo_.setLevel((short) 3);
+        pkTwo_.setLevel( 3);
         pkTwo_.setItem(NULL_REF);
         list_.add(pkTwo_);
         WildPk pkThree_ = new WildPk();
         pkThree_.setName(MELOFEE);
         pkThree_.setAbility(STATIK);
         pkThree_.setGender(Gender.NO_GENDER);
-        pkThree_.setLevel((short) 3);
+        pkThree_.setLevel( 3);
         pkThree_.setItem(NULL_REF);
         list_.add(pkThree_);
         MonteCarloWilPkList law_ = AreaApparition.random(list_, AreaApparition.ALWAYS_APPARITION,1);
@@ -190,7 +190,7 @@ public final class AreaApparitionTest extends InitializationDataBase {
     @Test
     public void random9Test() {
         MultAreaApparition m_ = new MultAreaApparition();
-        m_.setAvgNbSteps((short) 2);
+        m_.setAvgNbSteps( 2);
         CustList<WildPk> list_ = feed();
         m_.getWildPokemonList().add(list_);
         DataBase db_ = InitializationDataBase.initDb();
@@ -207,7 +207,7 @@ public final class AreaApparitionTest extends InitializationDataBase {
     @Test
     public void random10Test() {
         MultAreaApparition m_ = new MultAreaApparition();
-        m_.setAvgNbSteps((short) 2);
+        m_.setAvgNbSteps( 2);
         CustList<WildPk> base_ = new CustList<WildPk>();
         base_.add(one());
         CustList<WildPk> list_ = feed();
@@ -246,14 +246,14 @@ public final class AreaApparitionTest extends InitializationDataBase {
         pkTwo_.setName(MELOFEE);
         pkTwo_.setAbility(STATIK);
         pkTwo_.setGender(Gender.NO_GENDER);
-        pkTwo_.setLevel((short) 3);
+        pkTwo_.setLevel( 3);
         pkTwo_.setItem(NULL_REF);
         list_.add(pkTwo_);
         WildPk pkThree_ = new WildPk();
         pkThree_.setName(MELOFEE);
         pkThree_.setAbility(STATIK);
         pkThree_.setGender(Gender.NO_GENDER);
-        pkThree_.setLevel((short) 3);
+        pkThree_.setLevel( 3);
         pkThree_.setItem(NULL_REF);
         list_.add(pkThree_);
         return list_;
@@ -264,7 +264,7 @@ public final class AreaApparitionTest extends InitializationDataBase {
         pkOne_.setName(PIKACHU);
         pkOne_.setAbility(STATIK);
         pkOne_.setGender(Gender.NO_GENDER);
-        pkOne_.setLevel((short) 3);
+        pkOne_.setLevel( 3);
         pkOne_.setItem(NULL_REF);
         return pkOne_;
     }

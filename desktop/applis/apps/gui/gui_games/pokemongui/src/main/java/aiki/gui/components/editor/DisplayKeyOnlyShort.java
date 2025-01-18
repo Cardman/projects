@@ -2,10 +2,10 @@ package aiki.gui.components.editor;
 
 import code.gui.*;
 
-public final class DisplayKeyOnlyShort<V> implements DisplayEntryCust<Integer, EditedCrudPair<Short,V>> {
+public final class DisplayKeyOnlyShort<V> implements DisplayEntryCust<Integer, EditedCrudPair<Integer,V>> {
 
     @Override
-    public String display(Integer _k, EditedCrudPair<Short, V> _v) {
+    public String display(Integer _k, EditedCrudPair<Integer, V> _v) {
         return Long.toString(_v.getKey());
     }
 }

@@ -5,7 +5,7 @@ public class InfosAnimationStatistic {
 
     private Statistic statistic;
 
-    private byte variation;
+    private int variation;
 
     private boolean swap;
 
@@ -17,11 +17,11 @@ public class InfosAnimationStatistic {
         statistic = _statistic;
     }
 
-    public byte getVariation() {
+    public int getVariation() {
         return variation;
     }
 
-    public void setVariation(byte _variation) {
+    public void setVariation(int _variation) {
         variation = _variation;
     }
 

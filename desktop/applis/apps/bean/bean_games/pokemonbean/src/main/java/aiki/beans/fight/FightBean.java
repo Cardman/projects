@@ -11,10 +11,10 @@ import code.util.StringMap;
 import code.util.core.BoolVal;
 
 public class FightBean extends CommonFightBean {
-    private byte mult;
+    private int mult;
     private NatStringTreeMap<ActivityOfMove> enabledMoves;
     private NatStringTreeMap<BoolVal> stillEnabledMoves;
-    private short nbFleeAttempt;
+    private int nbFleeAttempt;
     private LgInt nbRounds;
     private Rate winningMoney;
 
@@ -55,7 +55,7 @@ public class FightBean extends CommonFightBean {
         return PkScriptPages.WEB_FIGHT_HTML_TEAM_HTML;
     }
 
-    public byte getMult() {
+    public int getMult() {
         return mult;
     }
 
@@ -63,7 +63,7 @@ public class FightBean extends CommonFightBean {
         return nbRounds;
     }
 
-    public short getNbFleeAttempt() {
+    public int getNbFleeAttempt() {
         return nbFleeAttempt;
     }
 

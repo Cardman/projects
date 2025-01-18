@@ -5,11 +5,11 @@ import code.util.core.StringUtil;
 
 
 public enum Direction {
-    UP((byte)0,(byte)-1, DataBase.DEF_DIR_UP),DOWN((byte)0,(byte)1, DataBase.DEF_DIR_DOWN),LEFT((byte)-1,(byte)0, DataBase.DEF_DIR_LEFT),RIGHT((byte)1,(byte)0, DataBase.DEF_DIR_RIGHT);
-    private final byte xCoords;
-    private final byte yCoords;
+    UP(0,-1, DataBase.DEF_DIR_UP),DOWN(0,1, DataBase.DEF_DIR_DOWN),LEFT(-1,0, DataBase.DEF_DIR_LEFT),RIGHT(1,0, DataBase.DEF_DIR_RIGHT);
+    private final int xCoords;
+    private final int yCoords;
     private final String dirName;
-    Direction(byte _x, byte _y, String _d) {
+    Direction(int _x, int _y, String _d) {
         xCoords = _x;
         yCoords = _y;
         dirName = _d;
@@ -47,10 +47,10 @@ public enum Direction {
         return dirName;
     }
 
-    public byte getx() {
+    public int getx() {
         return xCoords;
     }
-    public byte gety() {
+    public int gety() {
         return yCoords;
     }
 }

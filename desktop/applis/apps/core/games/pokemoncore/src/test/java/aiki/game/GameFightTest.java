@@ -47,7 +47,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.getDifficulty().setRandomWildFight(false);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
         Coords closest_ = game_.closestTile(data_.getMap());
-        Road road_ = (Road) data_.getMap().getPlace((short) 0);
+        Road road_ = (Road) data_.getMap().getPlace( 0);
         LevelRoad l_ = road_.getLevelRoad();
         TrainerMultiFights t_ = (TrainerMultiFights) l_.getCharacters().getVal(closest_.getLevel().getPoint());
         String fileName_ = t_.getImageMaxiFileName();
@@ -63,7 +63,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
-        Road road_ = (Road) data_.getMap().getPlace((short) 2);
+        Road road_ = (Road) data_.getMap().getPlace( 2);
         LevelRoad l_ = road_.getLevelRoad();
         DualFight t_ = l_.getDualFights().getVal(newPoint(2, 0));
         String fileName_ = t_.getFoeTrainer().getImageMaxiFileName();
@@ -79,7 +79,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
-        Road road_ = (Road) data_.getMap().getPlace((short) 2);
+        Road road_ = (Road) data_.getMap().getPlace( 2);
         LevelRoad l_ = road_.getLevelRoad();
         DualFight t_ = l_.getDualFights().getVal(newPoint(2, 0));
         String fileName_ = t_.getFoeTrainer().getImageMaxiFileName();
@@ -95,7 +95,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.UP);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
         Coords closest_ = game_.closestTile(data_.getMap());
-        City city_ = (City) data_.getMap().getPlace((short) 1);
+        City city_ = (City) data_.getMap().getPlace( 1);
         LevelIndoorGym l_ = (LevelIndoorGym) city_.getLevelByCoords(closest_);
         GymLeader t_ = l_.getGymLeader();
         String fileName_ = t_.getImageMaxiFileName();
@@ -111,7 +111,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.DOWN);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
         Coords closest_ = game_.closestTile(data_.getMap());
-        City city_ = (City) data_.getMap().getPlace((short) 1);
+        City city_ = (City) data_.getMap().getPlace( 1);
         LevelIndoorGym l_ = (LevelIndoorGym) city_.getLevelByCoords(closest_);
         GymTrainer t_ = l_.getGymTrainers().getVal(newPoint(1, 7));
         String fileName_ = t_.getImageMaxiFileName();
@@ -133,7 +133,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.UP);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
         Coords closest_ = game_.closestTile(data_.getMap());
-        League city_ = (League) data_.getMap().getPlace((short) 6);
+        League city_ = (League) data_.getMap().getPlace( 6);
         LevelLeague l_ = city_.getLevelLeague(closest_.getLevel().getLevelIndex());
         TrainerLeague t_ = l_.getTrainer();
         String fileName_ = t_.getImageMaxiFileName();
@@ -160,7 +160,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
-        Road road_ = (Road) data_.getMap().getPlace((short) 2);
+        Road road_ = (Road) data_.getMap().getPlace( 2);
         LevelRoad l_ = road_.getLevelRoad();
         DualFight t_ = l_.getDualFights().getVal(newPoint(4, 0));
         String fileName_ = t_.getFoeTrainer().getImageMaxiFileName();
@@ -176,7 +176,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
-        Road road_ = (Road) data_.getMap().getPlace((short) 2);
+        Road road_ = (Road) data_.getMap().getPlace( 2);
         LevelRoad l_ = road_.getLevelRoad();
         DualFight t_ = l_.getDualFights().getVal(newPoint(4, 0));
         String fileName_ = t_.getFoeTrainer().getImageMaxiFileName();
@@ -284,14 +284,14 @@ public class GameFightTest extends InitializationDataBase {
         pk_.setItem(MULTI_EXP);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(ABSORB_EAU);
-        pk_.setLevel((short) 100);
+        pk_.setLevel( 100);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
         pkPl_.learnMove(SEISME, HATE, data_);
         game_.initTrainerFight(data_);
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         AbstractAction action_;
         action_ = game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
         assertNull(action_);
@@ -313,14 +313,14 @@ public class GameFightTest extends InitializationDataBase {
         pk_.setItem(MULTI_EXP);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(ABSORB_EAU);
-        pk_.setLevel((short) 100);
+        pk_.setLevel( 100);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
         pkPl_.learnMove(SEISME, HATE, data_);
         game_.initTrainerFight(data_);
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.chooseMove(SEISME, data_);
         AbstractAction action_;
         action_ = game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
@@ -343,16 +343,16 @@ public class GameFightTest extends InitializationDataBase {
         pk_.setItem(MULTI_EXP);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(ABSORB_EAU);
-        pk_.setLevel((short) 100);
+        pk_.setLevel( 100);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
         pkPl_.learnMove(CHARGE, HATE, data_);
         game_.initTrainerFight(data_);
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.chooseMove(CHARGE, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         AbstractAction action_;
         action_ = game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
         assertEq(CHARGE, ((ActionMove)action_).getFirstChosenMove());
@@ -375,7 +375,7 @@ public class GameFightTest extends InitializationDataBase {
         return _chosablePlayerTargets.get(_i).getName();
     }
 
-    private byte getKey(CustList<ChosableTargetName> _chosablePlayerTargets, int _i) {
+    private int getKey(CustList<ChosableTargetName> _chosablePlayerTargets, int _i) {
         return _chosablePlayerTargets.get(_i).getKey();
     }
 
@@ -392,16 +392,16 @@ public class GameFightTest extends InitializationDataBase {
         pk_.setItem(MULTI_EXP);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(ABSORB_EAU);
-        pk_.setLevel((short) 100);
+        pk_.setLevel( 100);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
         pkPl_.learnMove(CHARGE, HATE, data_);
         game_.initTrainerFight(data_);
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.chooseMove(CHARGE, data_);
-        game_.setFirstChosenMovePlayerTarget((byte) 1);
+        game_.setFirstChosenMovePlayerTarget( 1);
         AbstractAction action_;
         action_ = game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
         assertEq(CHARGE, ((ActionMove)action_).getFirstChosenMove());
@@ -428,14 +428,14 @@ public class GameFightTest extends InitializationDataBase {
         pk_.setItem(MULTI_EXP);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(ABSORB_EAU);
-        pk_.setLevel((short) 100);
+        pk_.setLevel( 100);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
         pkPl_.learnMove(SEISME, HATE, data_);
         game_.initTrainerFight(data_);
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.SWITCH, data_);
         AbstractAction action_;
         action_ = game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
@@ -459,16 +459,16 @@ public class GameFightTest extends InitializationDataBase {
         pk_.setItem(MULTI_EXP);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(ABSORB_EAU);
-        pk_.setLevel((short) 100);
+        pk_.setLevel( 100);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
         pkPl_.learnMove(SEISME, HATE, data_);
         game_.initTrainerFight(data_);
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.SWITCH, data_);
-        game_.chooseSubstituteFighter((byte) 0, data_);
+        game_.chooseSubstituteFighter( 0, data_);
         AbstractAction action_;
         action_ = game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
         assertEq(1, ((ActionSwitch) action_).getSubstitute());
@@ -491,10 +491,10 @@ public class GameFightTest extends InitializationDataBase {
         pk_.setItem(MULTI_EXP);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(ABSORB_EAU);
-        pk_.setLevel((short) 100);
+        pk_.setLevel( 100);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
         pkPl_.learnMove(SEISME, HATE, data_);
         game_.initTrainerFight(data_);
@@ -521,14 +521,14 @@ public class GameFightTest extends InitializationDataBase {
 //        pk_.setItem(MULTI_EXP);
 //        pk_.setGender(Gender.NO_GENDER);
 //        pk_.setAbility(ABSORB_EAU);
-//        pk_.setLevel((short) 100);
+//        pk_.setLevel( 100);
 //        game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data);
-//        game_.getPlayer().setChosenTeamPokemon((short) 0);
-//        game_.getPlayer().switchTeamOrder((short) 1);
+//        game_.getPlayer().setChosenTeamPokemon( 0);
+//        game_.getPlayer().switchTeamOrder( 1);
 //        PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
 //        pkPl_.learnMove(SEISME, HATE, data);
         game_.initTrainerFight(data_);
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.HEALING, data_);
         game_.setChosenHealingItem(EAU_FRAICHE, data_);
         //game_.deselect();
@@ -553,7 +553,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.moving(Direction.DOWN, data_);
         game_.moving(Direction.RIGHT, data_);
         game_.moving(Direction.RIGHT, data_);
-        NatStringTreeMap<BallNumberRate> balls_ = game_.calculateCatchingRatesSingle(data_,(byte) 0,(byte) 0);
+        NatStringTreeMap<BallNumberRate> balls_ = game_.calculateCatchingRatesSingle(data_, 0, 0);
         assertEq(1, balls_.size());
         BallNumberRate ball_ = balls_.getVal(MASTER_BALL);
         assertEq(MASTER_BALL, ball_.getName());
@@ -574,25 +574,25 @@ public class GameFightTest extends InitializationDataBase {
         pk_.setItem(MULTI_EXP);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(ABSORB_EAU);
-        pk_.setLevel((short) 100);
+        pk_.setLevel( 100);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
         pkPl_.learnMove(SEISME, HATE, data_);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
         game_.getDifficulty().setRandomWildFight(false);
         game_.initTrainerFight(data_);
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.chooseMove(SEISME, data_);
         game_.roundAllThrowers(data_, false);
         game_.deselect();
-        game_.chooseBackFighter((byte) 0, data_);
-        game_.setSubstituteEndRound((byte) 0);
+        game_.chooseBackFighter( 0, data_);
+        game_.setSubstituteEndRound( 0);
         assertEq(0, game_.getFight().getTemp().getChosenIndexBack());
         assertEq(Fighter.BACK, game_.getFight().getTemp().getChosenIndexFront());
-        assertEq(0, game_.getFight().getFirstPositPlayerFighters().getVal((byte) 0));
-        assertEq(0, game_.getFight().getFirstPositPlayerFighters().getVal((byte) 1));
+        assertEq(0, game_.getFight().getFirstPositPlayerFighters().getVal( 0));
+        assertEq(0, game_.getFight().getFirstPositPlayerFighters().getVal( 1));
     }
     @Test
     public void remainingThrowersTargetsHp1(){
@@ -606,10 +606,10 @@ public class GameFightTest extends InitializationDataBase {
         pk_.setItem(MULTI_EXP);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(ABSORB_EAU);
-        pk_.setLevel((short) 100);
+        pk_.setLevel( 100);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
         pkPl_.learnMove(SEISME, HATE, data_);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
@@ -709,7 +709,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.moving(Direction.DOWN, data_);
         game_.moving(Direction.RIGHT, data_);
         game_.moving(Direction.RIGHT, data_);
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.chooseMove(JACKPOT, data_);
         CustList<MovesListTeamPositionsList> map_;
         map_ = game_.sortedFightersBeginRoundWildFight(data_);
@@ -732,16 +732,16 @@ public class GameFightTest extends InitializationDataBase {
         pk_.setItem(MULTI_EXP);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(ABSORB_EAU);
-        pk_.setLevel((short) 100);
+        pk_.setLevel( 100);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
         pkPl_.learnMove(SEISME, HATE, data_);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
         game_.getDifficulty().setRandomWildFight(false);
         game_.initTrainerFight(data_);
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.chooseMove(SEISME, data_);
         TeamPositionList tree_;
         tree_ = game_.sortedFightersBeginRound(data_);
@@ -760,10 +760,10 @@ public class GameFightTest extends InitializationDataBase {
         pk_.setItem(MULTI_EXP);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(ABSORB_EAU);
-        pk_.setLevel((short) 100);
+        pk_.setLevel( 100);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
         pkPl_.learnMove(SEISME, HATE, data_);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
@@ -771,8 +771,8 @@ public class GameFightTest extends InitializationDataBase {
         game_.initTrainerFight(data_);
         CustList< FighterPosition> team_ = game_.getPlayerTeam();
         assertEq(2, team_.size());
-        assertSame(team_.get((byte) 0).getFighter(), game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO));
-        assertSame(team_.get((byte) 1).getFighter(), game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE));
+        assertSame(team_.get( 0).getFighter(), game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO));
+        assertSame(team_.get( 1).getFighter(), game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE));
     }
     @Test
     public void getFoeFrontTeam1(){
@@ -786,18 +786,18 @@ public class GameFightTest extends InitializationDataBase {
         pk_.setItem(MULTI_EXP);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(ABSORB_EAU);
-        pk_.setLevel((short) 100);
+        pk_.setLevel( 100);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
         pkPl_.learnMove(SEISME, HATE, data_);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
         game_.getDifficulty().setRandomWildFight(false);
         game_.initTrainerFight(data_);
-        ByteTreeMap< FighterPosition> team_ = game_.getFoeFrontTeam();
+        IntTreeMap< FighterPosition> team_ = game_.getFoeFrontTeam();
         assertEq(1, team_.size());
-        assertSame(team_.getVal((byte) 0).getFighter(), game_.getFight().getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO));
+        assertSame(team_.getVal( 0).getFighter(), game_.getFight().getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO));
     }
     @Test
     public void getUnionFrontTeam1(){
@@ -811,18 +811,18 @@ public class GameFightTest extends InitializationDataBase {
         pk_.setItem(MULTI_EXP);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(ABSORB_EAU);
-        pk_.setLevel((short) 100);
+        pk_.setLevel( 100);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
         pkPl_.learnMove(SEISME, HATE, data_);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
         game_.getDifficulty().setRandomWildFight(false);
         game_.initTrainerFight(data_);
-        ByteTreeMap< FighterPosition> team_ = game_.getUnionFrontTeam();
+        IntTreeMap< FighterPosition> team_ = game_.getUnionFrontTeam();
         assertEq(1, team_.size());
-        assertSame(team_.getVal((byte) 0).getFighter(), game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO));
+        assertSame(team_.getVal( 0).getFighter(), game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO));
     }
     @Test
     public void getPlayerFrontTeam1(){
@@ -836,10 +836,10 @@ public class GameFightTest extends InitializationDataBase {
         pk_.setItem(MULTI_EXP);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(ABSORB_EAU);
-        pk_.setLevel((short) 100);
+        pk_.setLevel( 100);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
         pkPl_.learnMove(SEISME, HATE, data_);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
@@ -847,7 +847,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.initTrainerFight(data_);
         CustList< FighterPosition> team_ = game_.getPlayerFrontTeam();
         assertEq(1, team_.size());
-        assertSame(team_.get((byte) 0).getFighter(), game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO));
+        assertSame(team_.get( 0).getFighter(), game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO));
     }
     @Test
     public void getPlayerBackTeam1(){
@@ -861,10 +861,10 @@ public class GameFightTest extends InitializationDataBase {
         pk_.setItem(MULTI_EXP);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(ABSORB_EAU);
-        pk_.setLevel((short) 100);
+        pk_.setLevel( 100);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
         pkPl_.learnMove(SEISME, HATE, data_);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
@@ -872,7 +872,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.initTrainerFight(data_);
         CustList< FighterPosition> team_ = game_.getPlayerBackTeam();
         assertEq(1, team_.size());
-        assertSame(team_.get((byte) 0).getFighter(), game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE));
+        assertSame(team_.get( 0).getFighter(), game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE));
     }
     @Test
     public void getPlayerFrontTeamForSubstituting1(){
@@ -886,22 +886,22 @@ public class GameFightTest extends InitializationDataBase {
         pk_.setItem(MULTI_EXP);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(ABSORB_EAU);
-        pk_.setLevel((short) 100);
+        pk_.setLevel( 100);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
         pkPl_.learnMove(SEISME, HATE, data_);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
         game_.getDifficulty().setRandomWildFight(false);
         game_.initTrainerFight(data_);
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.chooseMove(SEISME, data_);
         game_.roundAllThrowers(data_, false);
         game_.deselect();
         CustList< FighterPosition> team_ = game_.getPlayerFrontTeam();
         assertEq(1, team_.size());
-        assertSame(team_.get((byte) 0).getFighter(), game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO));
+        assertSame(team_.get( 0).getFighter(), game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO));
     }
     @Test
     public void getPlayerBackTeamForSubstituting1(){
@@ -915,22 +915,22 @@ public class GameFightTest extends InitializationDataBase {
         pk_.setItem(MULTI_EXP);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(ABSORB_EAU);
-        pk_.setLevel((short) 100);
+        pk_.setLevel( 100);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
         pkPl_.learnMove(SEISME, HATE, data_);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
         game_.getDifficulty().setRandomWildFight(false);
         game_.initTrainerFight(data_);
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.chooseMove(SEISME, data_);
         game_.roundAllThrowers(data_, false);
         game_.deselect();
         CustList< FighterPosition> team_ = game_.getPlayerBackTeam();
         assertEq(1, team_.size());
-        assertSame(team_.get((byte) 0).getFighter(), game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE));
+        assertSame(team_.get( 0).getFighter(), game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE));
     }
     @Test
     public void isChosableForLearningAndEvolving1Test(){
@@ -944,20 +944,20 @@ public class GameFightTest extends InitializationDataBase {
         pk_.setItem(MULTI_EXP);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(ABSORB_EAU);
-        pk_.setLevel((short) 100);
+        pk_.setLevel( 100);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
         pkPl_.learnMove(SEISME, FAUX_CHAGE, data_);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
         game_.getDifficulty().setRandomWildFight(false);
         game_.initTrainerFight(data_);
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.chooseMove(SEISME, data_);
         game_.roundAllThrowers(data_, false);
         game_.deselect();
-        assertTrue(game_.isChosableForLearningAndEvolving((byte) 0));
+        assertTrue(game_.isChosableForLearningAndEvolving( 0));
     }
     @Test
     public void isChosableForLearningAndEvolving2Test(){
@@ -971,20 +971,20 @@ public class GameFightTest extends InitializationDataBase {
         pk_.setItem(MULTI_EXP);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(ABSORB_EAU);
-        pk_.setLevel((short) 100);
+        pk_.setLevel( 100);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
         pkPl_.learnMove(SEISME, FAUX_CHAGE, data_);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
         game_.getDifficulty().setRandomWildFight(false);
         game_.initTrainerFight(data_);
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.chooseMove(SEISME, data_);
         game_.roundAllThrowers(data_, false);
         game_.deselect();
-        assertTrue(!game_.isChosableForLearningAndEvolving((byte) 1));
+        assertTrue(!game_.isChosableForLearningAndEvolving( 1));
     }
     @Test
     public void choosePokemonForLearningAndEvolving1Test(){
@@ -998,20 +998,20 @@ public class GameFightTest extends InitializationDataBase {
         pk_.setItem(MULTI_EXP);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(ABSORB_EAU);
-        pk_.setLevel((short) 100);
+        pk_.setLevel( 100);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
         pkPl_.learnMove(SEISME, FAUX_CHAGE, data_);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
         game_.getDifficulty().setRandomWildFight(false);
         game_.initTrainerFight(data_);
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.chooseMove(SEISME, data_);
         game_.roundAllThrowers(data_, false);
         game_.deselect();
-        game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
+        game_.choosePokemonForLearningAndEvolving( 0, data_);
         assertEq(0, game_.getChosenIndex());
         NatStringTreeMap<BoolVal> moves_ = game_.getMoves();
         assertEq(4, moves_.size());
@@ -1041,20 +1041,20 @@ public class GameFightTest extends InitializationDataBase {
         pk_.setItem(MULTI_EXP);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(ABSORB_EAU);
-        pk_.setLevel((short) 100);
+        pk_.setLevel( 100);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
         pkPl_.learnMove(SEISME, FAUX_CHAGE, data_);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
         game_.getDifficulty().setRandomWildFight(false);
         game_.initTrainerFight(data_);
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.chooseMove(SEISME, data_);
         game_.roundAllThrowers(data_, false);
         game_.deselect();
-        game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
+        game_.choosePokemonForLearningAndEvolving( 0, data_);
         game_.setEvolution(NINJASK);
         assertEq(0, game_.getChosenIndex());
         NatStringTreeMap<BoolVal> moves_ = game_.getMoves();
@@ -1102,21 +1102,21 @@ public class GameFightTest extends InitializationDataBase {
         pk_.setItem(MULTI_EXP);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(ABSORB_EAU);
-        pk_.setLevel((short) 100);
+        pk_.setLevel( 100);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
         pkPl_.learnMove(SEISME, LIRE_ESPRIT, data_);
-        pkPl_.setHappiness((short) 120);
+        pkPl_.setHappiness( 120);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
         game_.getDifficulty().setRandomWildFight(false);
         game_.initTrainerFight(data_);
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.chooseMove(SEISME, data_);
         game_.roundAllThrowers(data_, false);
         game_.deselect();
-        game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
+        game_.choosePokemonForLearningAndEvolving( 0, data_);
         game_.setEvolution(TARINORME);
         game_.setAbility(MAGNEPIEGE);
         assertEq(0, game_.getChosenIndex());
@@ -1148,7 +1148,7 @@ public class GameFightTest extends InitializationDataBase {
         assertTrue(StringUtil.contains(abilities_, FERMETE));
         assertTrue(StringUtil.contains(abilities_, MAGNEPIEGE));
         assertEq(MAGNEPIEGE, game_.getAbility());
-        //assertEq(TURBO, game_.getFight().getChoices().getVal((byte) 0).getAbility());
+        //assertEq(TURBO, game_.getFight().getChoices().getVal( 0).getAbility());
     }
     @Test
     public void addOrForgetMove1(){
@@ -1162,20 +1162,20 @@ public class GameFightTest extends InitializationDataBase {
         pk_.setItem(MULTI_EXP);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(ABSORB_EAU);
-        pk_.setLevel((short) 100);
+        pk_.setLevel( 100);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
         pkPl_.learnMove(SEISME, FAUX_CHAGE, data_);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
         game_.getDifficulty().setRandomWildFight(false);
         game_.initTrainerFight(data_);
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.chooseMove(SEISME, data_);
         game_.roundAllThrowers(data_, false);
         game_.deselect();
-        game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
+        game_.choosePokemonForLearningAndEvolving( 0, data_);
         game_.setEvolution(NINJASK);
         game_.addOrForgetMove(PLAIE_CROIX);
         assertEq(0, game_.getChosenIndex());

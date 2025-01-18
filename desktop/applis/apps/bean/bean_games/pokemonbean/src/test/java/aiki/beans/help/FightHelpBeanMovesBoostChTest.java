@@ -48,7 +48,7 @@ public final class FightHelpBeanMovesBoostChTest extends InitDbFightHelp {
         FacadeGame f_ = facade();
         DamagingMoveData t_ = Instances.newDamagingMoveData();
         EffectDamage e_ = Instances.newEffectDamage();
-        e_.setChRate((byte) 1);
+        e_.setChRate(1);
         t_.getEffects().add(e_);
         f_.getData().completeMembers(M_DAM, t_);
         StatusMoveData s_ = Instances.newStatusMoveData();

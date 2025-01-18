@@ -4,7 +4,7 @@ import aiki.map.pokemon.enums.Gender;
 
 public final class SortingPokemonPlayer extends Sorting {
 
-    private short level;
+    private int level;
 
     private String ability;
 
@@ -14,13 +14,13 @@ public final class SortingPokemonPlayer extends Sorting {
 
     private Gender gender;
 
-    private short nbPossEvos;
+    private int nbPossEvos;
 
-    public short getLevel() {
+    public int getLevel() {
         return level;
     }
 
-    public void setLevel(short _level) {
+    public void setLevel(int _level) {
         level = _level;
     }
 
@@ -56,11 +56,11 @@ public final class SortingPokemonPlayer extends Sorting {
         gender = _gender;
     }
 
-    public short getNbPossEvos() {
+    public int getNbPossEvos() {
         return nbPossEvos;
     }
 
-    public void setNbPossEvos(short _nbPossEvos) {
+    public void setNbPossEvos(int _nbPossEvos) {
         nbPossEvos = _nbPossEvos;
     }
 }

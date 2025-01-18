@@ -110,8 +110,8 @@ public abstract class InitDbMoveEffectTeamWhileSendFoe extends InitDbMoveEffect 
         e_.setFailSending(VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR);
         e_.setDamageRateAgainstFoe(VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR);
         e_.getDeletedByFoeTypes().add(T_TYPE1);
-        e_.getStatistics().addEntry(Statistic.SPEED,(byte)1);
-        e_.getStatusByNbUses().addEntry((short)1,S_STA_SIM);
+        e_.getStatistics().addEntry(Statistic.SPEED,1);
+        e_.getStatusByNbUses().addEntry(1,S_STA_SIM);
         return e_;
     }
 }

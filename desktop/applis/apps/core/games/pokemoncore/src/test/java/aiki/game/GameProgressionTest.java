@@ -733,7 +733,7 @@ public class GameProgressionTest extends InitializationDataBase {
         pk_.setName(PTITARD);
         pk_.setAbility(ATTENTION);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 1);
         game_.getPlayer().storeIntoBox(data_);
         GameProgression gameProgression_ = new GameProgression(data_,game_);
         assertTrue(!gameProgression_.isFinishedGame());
@@ -971,7 +971,7 @@ public class GameProgressionTest extends InitializationDataBase {
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, game_.getDifficulty(), data_);
         PokemonPlayer pkPlayer_ = (PokemonPlayer) game_.getPlayer().getTeam().get(0);
-        pkPlayer_.setLevel((short) 100);
+        pkPlayer_.setLevel( 100);
         GameProgression gameProgression_ = new GameProgression(data_,game_);
         assertTrue(!gameProgression_.isFinishedGame());
         assertEq(NICKNAME, gameProgression_.getNickname());
@@ -1088,7 +1088,7 @@ public class GameProgressionTest extends InitializationDataBase {
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, game_.getDifficulty(), data_);
         PokemonPlayer pkPlayer_ = (PokemonPlayer) game_.getPlayer().getTeam().get(0);
-        pkPlayer_.setHappiness((short) 170);
+        pkPlayer_.setHappiness( 170);
         GameProgression gameProgression_ = new GameProgression(data_,game_);
         assertTrue(!gameProgression_.isFinishedGame());
         assertEq(NICKNAME, gameProgression_.getNickname());
@@ -1205,8 +1205,8 @@ public class GameProgressionTest extends InitializationDataBase {
         Game game_ = new Game(data_);
         game_.initUserInteract(NICKNAME, game_.getDifficulty(), data_);
         PokemonPlayer pkPlayer_ = (PokemonPlayer) game_.getPlayer().getTeam().get(0);
-        pkPlayer_.setHappiness((short) 170);
-        pkPlayer_.setLevel((short) 100);
+        pkPlayer_.setHappiness( 170);
+        pkPlayer_.setLevel( 100);
         game_.catchAll(data_);
         game_.beatGymLeader(newCoords(1, 0, 5, 1, 4, 1));
         game_.beatGymLeader(newCoords(2, 0, 2, 0));

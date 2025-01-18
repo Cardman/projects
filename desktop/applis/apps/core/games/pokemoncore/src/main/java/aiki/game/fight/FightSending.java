@@ -35,7 +35,7 @@ final class FightSending {
     private FightSending() {
     }
 
-    static void sendBeginTeam(Fight _fight,byte _noTeam,DataBase _import) {
+    static void sendBeginTeam(Fight _fight,int _noTeam,DataBase _import) {
         for(TeamPosition e: FightOrder.fighters(_fight,_noTeam)){
             Fighter creatureCbt_=_fight.getFighter(e);
             if(creatureCbt_.estArriere()){
@@ -51,7 +51,7 @@ final class FightSending {
         firstEffectWhileSendingTeam(_fight,Fight.CST_PLAYER,_diff,_import);
     }
 
-    static void firstEffectWhileSendingTeam(Fight _fight,byte _noTeam, Difficulty _diff,DataBase _import) {
+    static void firstEffectWhileSendingTeam(Fight _fight,int _noTeam, Difficulty _diff,DataBase _import) {
         for(TeamPosition e: FightOrder.fighters(_fight,_noTeam)){
             Fighter creatureCbt_=_fight.getFighter(e);
             if(creatureCbt_.estArriere()){
@@ -179,7 +179,7 @@ final class FightSending {
     private static boolean endedFightPlayer(Fight _fight, Difficulty _diff, DataBase _import) {
         for(TeamPosition c: FightOrder.fightersBelongingToUser(_fight,true)){
             Fighter membre_= _fight.getFighter(c);
-            byte pos_ = _fight.getFirstPositPlayerFighters().getVal(c.getPosition());
+            int pos_ = _fight.getFirstPositPlayerFighters().getVal(c.getPosition());
             if (NumberUtil.eq(pos_, Fighter.BACK) || !membre_.estArriere()) {
                 continue;
             }
@@ -198,7 +198,7 @@ final class FightSending {
     private static boolean endedFightAlly(Fight _fight, Difficulty _diff, DataBase _import) {
         for(TeamPosition c: FightOrder.fightersBelongingToUser(_fight,false)){
             Fighter membre_= _fight.getFighter(c);
-            byte pos_ = _fight.getFirstPositPlayerFighters().getVal(c.getPosition());
+            int pos_ = _fight.getFirstPositPlayerFighters().getVal(c.getPosition());
             if (NumberUtil.eq(pos_,Fighter.BACK)) {
                 //not sent
                 continue;
@@ -216,9 +216,9 @@ final class FightSending {
     }
 
     private static boolean endedFightFoe(Fight _fight, Difficulty _diff, Player _user, DataBase _import, Team _equipeAdv) {
-        for(byte c: _equipeAdv.getMembers().getKeys()){
+        for(int c: _equipeAdv.getMembers().getKeys()){
             Fighter membre_= _equipeAdv.refPartMembres(c);
-            byte pos_ = _fight.getFirstPositFoeFighters().getVal(c);
+            int pos_ = _fight.getFirstPositFoeFighters().getVal(c);
             if (NumberUtil.eq(pos_,Fighter.BACK)) {
                 //not sent
                 continue;
@@ -276,7 +276,7 @@ final class FightSending {
     private static void chgPlayerGroundPos(Fight _fight) {
         for(TeamPosition c: FightOrder.fightersBelongingToUser(_fight,true)){
             Fighter membre_= _fight.getFighter(c);
-            byte pos_ = _fight.getFirstPositPlayerFighters().getVal(c.getPosition());
+            int pos_ = _fight.getFirstPositPlayerFighters().getVal(c.getPosition());
             if (NumberUtil.eq(pos_, Fighter.BACK) || membre_.estArriere()) {
                 continue;
             }
@@ -287,7 +287,7 @@ final class FightSending {
     private static void withdrawalPlayer(Fight _fight, DataBase _import) {
         for(TeamPosition c: FightOrder.fightersBelongingToUser(_fight,true)){
             Fighter membre_= _fight.getFighter(c);
-            byte pos_ = _fight.getFirstPositPlayerFighters().getVal(c.getPosition());
+            int pos_ = _fight.getFirstPositPlayerFighters().getVal(c.getPosition());
             if (!NumberUtil.eq(pos_,Fighter.BACK)) {
                 //must stay at front
                 continue;
@@ -305,7 +305,7 @@ final class FightSending {
     private static void withdrawalAlly(Fight _fight, DataBase _import) {
         for(TeamPosition c: FightOrder.fightersBelongingToUser(_fight,false)){
             Fighter membre_= _fight.getFighter(c);
-            byte pos_ = _fight.getFirstPositPlayerFighters().getVal(c.getPosition());
+            int pos_ = _fight.getFirstPositPlayerFighters().getVal(c.getPosition());
             if (!NumberUtil.eq(pos_,Fighter.BACK)) {
                 //must stay at front
                 continue;
@@ -326,9 +326,9 @@ final class FightSending {
     }
 
     private static void withdrawalFoe(Fight _fight, DataBase _import, Team _equipeAdv) {
-        for(byte c: _equipeAdv.getMembers().getKeys()){
+        for(int c: _equipeAdv.getMembers().getKeys()){
             Fighter membre_= _equipeAdv.refPartMembres(c);
-            byte pos_ = _fight.getFirstPositFoeFighters().getVal(c);
+            int pos_ = _fight.getFirstPositFoeFighters().getVal(c);
             if (!NumberUtil.eq(pos_,Fighter.BACK)) {
                 //must stay at front
                 continue;
@@ -340,7 +340,7 @@ final class FightSending {
     }
 
     private static void affectGroundPlaceBySubstFoe(Team _equipeAdv) {
-        for(byte c: _equipeAdv.getMembers().getKeys()){
+        for(int c: _equipeAdv.getMembers().getKeys()){
             Fighter membre_= _equipeAdv.refPartMembres(c);
             if (!membre_.estKo()) {
                 membre_.affectGroundPlaceBySubst();
@@ -397,7 +397,7 @@ final class FightSending {
         Fighter fighter_ = _fight.getFighter(_t);
         for (MoveTeamPosition m: fighter_.getStatusRelatSet()) {
             if (TeamPosition.eq(m.getTeamPosition(), _cbtRetire)) {
-                short r_ = fighter_.getStatusRelatNbRoundShort(m);
+                int r_ = fighter_.getStatusRelatNbRoundShort(m);
                 fighter_.supprimerPseudoStatutCombattant(_cbtRetire, m.getMove());
                 _fight.addDisabledStatusRelMessage(m.getMove(), _t, _cbtRetire, r_, _import);
             }
@@ -462,7 +462,7 @@ final class FightSending {
     private static void ajouterCombattantsContreAdv(Fight _fight, TeamPosition _cbtEnvoye, Fighter _cr) {
         if(_cr.isBelongingToPlayer()){
             Team team_=_fight.getFoeTeam();
-            for(byte c: team_.getMembers().getKeys()){
+            for(int c: team_.getMembers().getKeys()){
                 Fighter fighter_=team_.getMembers().getVal(c);
                 if(fighter_.estArriere()){
                     continue;
@@ -471,7 +471,7 @@ final class FightSending {
             }
         }else if (NumberUtil.eq(_cbtEnvoye.getTeam(), Fight.CST_FOE)){
             Team team_=_fight.getUserTeam();
-            for(byte c:team_.getMembers().getKeys()){
+            for(int c:team_.getMembers().getKeys()){
                 Fighter creature_=team_.getMembers().getVal(c);
                 if (creature_.estArriere() || !creature_.isBelongingToPlayer()) {
                     continue;
@@ -544,7 +544,7 @@ final class FightSending {
     }
 
     static void effectsTeamWhileSendingFoeFighter(Fight _fight, TeamPosition _cbt,Difficulty _diff,DataBase _import) {
-        byte noTeam_ = _cbt.getTeam();
+        int noTeam_ = _cbt.getTeam();
         Fighter creatureCbt_=_fight.getFighter(_cbt);
         Team equipeAdvCbtEnvoye_=_fight.getTeams().getVal(Fight.foe(noTeam_));
         StringMap<LgInt> nbUtilisationsEntreeAdv_=equipeAdvCbtEnvoye_.getEnabledMovesWhileSendingFoeUses();
@@ -598,7 +598,7 @@ final class FightSending {
         Team equipeAdvCbtEnvoye_=_fight.getTeams().getVal(Fight.foe(_cbt.getTeam()));
         StringMap<LgInt> nbUtilisationsEntreeAdv_=equipeAdvCbtEnvoye_.getEnabledMovesWhileSendingFoeUses();
         Fighter creatureCbt_=_fight.getFighter(_cbt);
-        IdMap<Statistic, Byte> vars_ = varsStats(_fight, _cbt, _effet, _import);
+        IdMap<Statistic, Integer> vars_ = varsStats(_fight, _cbt, _effet, _import);
         for (Statistic s: vars_.getKeys()) {
             creatureCbt_.variationBoostStatistique(s, vars_.getVal(s));
             _fight.addStatisticMessage(_cbt, s, vars_.getVal(s), _import);
@@ -634,8 +634,8 @@ final class FightSending {
 
     private static void statusByNbUses(Fight _fight, TeamPosition _cbt, String _attaque, EffectTeamWhileSendFoe _effet, DataBase _import, StringMap<LgInt> _nbUtilisationsEntreeAdv, Fighter _creatureCbt) {
         LgInt utilisation_= _nbUtilisationsEntreeAdv.getVal(_attaque);
-        ShortMap<String> statutSiNb_= _effet.getStatusByNbUses();
-        short utilisationBis_=(short)utilisation_.ll();
+        IntMap<String> statutSiNb_= _effet.getStatusByNbUses();
+        int utilisationBis_=(int)utilisation_.ll();
         if(statutSiNb_.contains(utilisationBis_)){
             String statut_=statutSiNb_.getVal(utilisationBis_);
             if(!FightSuccess.successfulAffectedStatusProtect(_fight, _cbt,statut_,false,new StringList(), _import)){
@@ -645,7 +645,7 @@ final class FightSending {
             _fight.addStatusMessage(_cbt, statut_, _import);
             return;
         }
-        short indice_ = indiceUt(statutSiNb_, utilisationBis_);
+        int indice_ = indiceUt(statutSiNb_, utilisationBis_);
         if(indice_==utilisationBis_){
             return;
         }
@@ -657,10 +657,10 @@ final class FightSending {
         _fight.addStatusMessage(_cbt, statut_, _import);
     }
 
-    private static IdMap<Statistic, Byte> varsStats(Fight _fight, TeamPosition _cbt, EffectTeamWhileSendFoe _effet, DataBase _import) {
-        IdMap<Statistic,Byte> vars_ = new IdMap<Statistic,Byte>();
+    private static IdMap<Statistic, Integer> varsStats(Fight _fight, TeamPosition _cbt, EffectTeamWhileSendFoe _effet, DataBase _import) {
+        IdMap<Statistic,Integer> vars_ = new IdMap<Statistic,Integer>();
         for (Statistic s: _effet.getStatistics().getKeys()) {
-            byte varBase_ = _effet.getStatistics().getVal(s);
+            int varBase_ = _effet.getStatistics().getVal(s);
             if (!FightSuccess.successChangedStatisticProtect(_fight, _cbt, s, varBase_, false, new StringList(), _import)) {
                 continue;
             }
@@ -670,9 +670,9 @@ final class FightSending {
         return vars_;
     }
 
-    private static short indiceUt(ShortMap<String> _statutSiNb, short _utilisationBis) {
-        short indice_= _utilisationBis;
-        for(short i = _utilisationBis; i> IndexConstants.SIZE_EMPTY; i--){
+    private static int indiceUt(IntMap<String> _statutSiNb, int _utilisationBis) {
+        int indice_= _utilisationBis;
+        for(int i = _utilisationBis; i> IndexConstants.SIZE_EMPTY; i--){
             if(_statutSiNb.contains(i)){
                 indice_=i;
                 break;

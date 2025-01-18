@@ -12,7 +12,7 @@ public final class AreaApparition extends AbsAreaApparition {
 
     private CustList<WildPk> wildPokemon;
 
-    private byte multFight;
+    private int multFight;
 
     private CustList<WildPk> wildPokemonFishing;
 
@@ -92,11 +92,11 @@ public final class AreaApparition extends AbsAreaApparition {
         wildPokemon = _wildPokemon;
     }
 
-    public byte getMultFight() {
+    public int getMultFight() {
         return multFight;
     }
 
-    public void setMultFight(byte _multFight) {
+    public void setMultFight(int _multFight) {
         multFight = _multFight;
     }
 

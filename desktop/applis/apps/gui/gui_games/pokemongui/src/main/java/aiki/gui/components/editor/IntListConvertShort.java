@@ -2,14 +2,14 @@ package aiki.gui.components.editor;
 
 import code.util.*;
 
-public final class IntListConvertShort implements IntListConvert<Short, Shorts> {
+public final class IntListConvertShort implements IntListConvert<Integer, Ints> {
     @Override
-    public Shorts fromList(CustList<Short> _ls) {
-        return new Shorts(_ls);
+    public Ints fromList(CustList<Integer> _ls) {
+        return new Ints(_ls);
     }
 
     @Override
-    public CustList<Short> toList(Shorts _ls) {
+    public CustList<Integer> toList(Ints _ls) {
         return _ls;
     }
 }

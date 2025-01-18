@@ -154,7 +154,7 @@ public abstract class InitDbItemEvolving extends InitDbItem {
         FacadeGame facade_ = facade();
         Fossil f_ = Instances.newFossil();
         f_.setPokemon(P_POKEMON);
-        f_.setLevel((short) 1);
+        f_.setLevel( 1);
         facade_.getData().completeMembers(I_BASE, f_);
         facade_.getData().completeMembers(P_POKEMON, pk(new StringList("__"), GenderRepartition.NO_GENDER));
         trsEvos(facade_, CI_FOSSIL_TR);

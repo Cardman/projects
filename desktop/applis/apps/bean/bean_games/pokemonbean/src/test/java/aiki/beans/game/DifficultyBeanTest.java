@@ -168,14 +168,14 @@ public final class DifficultyBeanTest extends InitDbDifficultyBean {
     @Test
     public void getIvFoe() {
         FacadeGame fac_ = fac();
-        diff(fac_).setIvFoe((short) 1);
+        diff(fac_).setIvFoe( 1);
         assertEq(1,callDifficultyBeanIvFoeGet(displaying(beanDiff(EN, fac_))));
     }
 
     @Test
     public void getIvPlayer() {
         FacadeGame fac_ = fac();
-        diff(fac_).setIvPlayer((short) 1);
+        diff(fac_).setIvPlayer( 1);
         assertEq(1,callDifficultyBeanIvPlayerGet(displaying(beanDiff(EN, fac_))));
     }
 

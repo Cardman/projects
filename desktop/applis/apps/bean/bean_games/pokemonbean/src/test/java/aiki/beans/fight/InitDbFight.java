@@ -815,7 +815,7 @@ public abstract class InitDbFight extends InitDbBean {
         data_.completeMembers(M_ACC, mac_);
         StatusMoveData mcopy_ = Instances.newStatusMoveData();
         EffectCopyMove efcp_ = Instances.newEffectCopyMove();
-        efcp_.setCopyingMoveForUser((short) 1);
+        efcp_.setCopyingMoveForUser( 1);
         mcopy_.getEffects().add(efcp_);
         data_.completeMembers(M_COPY, mcopy_);
         StatusMoveData mally_ = Instances.newStatusMoveData();
@@ -899,14 +899,14 @@ public abstract class InitDbFight extends InitDbBean {
         pkData_.setEggGroups(new StringList(_data.getDefaultEggGroup()));
         pkData_.setTypes(new StringList(ELECTRICK));
         statBase(pkData_);
-        pkData_.getLevMoves().add(new LevelMove((short)1,ECLAIR));
-        pkData_.getLevMoves().add(new LevelMove((short)1,CHARGE));
+        pkData_.getLevMoves().add(new LevelMove(1,ECLAIR));
+        pkData_.getLevMoves().add(new LevelMove(1,CHARGE));
         pkData_.setExpRate(1);
         pkData_.setHeight(Rate.one());
         pkData_.setWeight(Rate.one());
-        pkData_.setCatchingRate((short) 1);
-        pkData_.setHappiness((short) 1);
-        pkData_.setHappinessHatch((short) 1);
+        pkData_.setCatchingRate( 1);
+        pkData_.setHappiness( 1);
+        pkData_.setHappinessHatch( 1);
         pkData_.setAbilities(new StringList(PARATONNERRE));
         _data.completeMembers(PIKA_2,pkData_);
         StringMap<String> trPks_ = new StringMap<String>();
@@ -925,7 +925,7 @@ public abstract class InitDbFight extends InitDbBean {
     protected DataBase dbBaseCalcRoque() {
         DataBase data_ = dbBaseCalcCom();
         StatusMoveData al_ = Instances.newStatusMoveData();
-        al_.setPp((short) 20);
+        al_.setPp( 20);
         EffectSwitchPosition e_ = Instances.newEffectSwitchPosition();
         e_.setTargetChoice(TargetChoice.ALLIE);
         al_.setTargetChoice(TargetChoice.ALLIE);
@@ -965,11 +965,11 @@ public abstract class InitDbFight extends InitDbBean {
         data_.getTranslatedMoves().getVal(EN).addEntry(CHARGE2,CHARGE_TR2);
         data_.getTranslatedMoves().getVal(EN).addEntry(M_TEAM,M_TEAM_TR);
         data_.getCombos().setEffects(new ListEffectCombos());
-        data_.getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MIN,new LawNumber(law(),(short)1));
-        data_.getLawsDamageRate().put(DifficultyModelLaw.CROISSANT,new LawNumber(law(),(short)1));
-        data_.getLawsDamageRate().put(DifficultyModelLaw.UNIFORME,new LawNumber(law(),(short)1));
-        data_.getLawsDamageRate().put(DifficultyModelLaw.DECROISSANT,new LawNumber(law(),(short)1));
-        data_.getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MAX,new LawNumber(law(),(short)5));
+        data_.getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MIN,new LawNumber(law(),1));
+        data_.getLawsDamageRate().put(DifficultyModelLaw.CROISSANT,new LawNumber(law(),1));
+        data_.getLawsDamageRate().put(DifficultyModelLaw.UNIFORME,new LawNumber(law(),1));
+        data_.getLawsDamageRate().put(DifficultyModelLaw.DECROISSANT,new LawNumber(law(),1));
+        data_.getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MAX,new LawNumber(law(),5));
         return data_;
     }
 
@@ -985,21 +985,21 @@ public abstract class InitDbFight extends InitDbBean {
         pkData_.setEggGroups(new StringList(_data.getDefaultEggGroup()));
         pkData_.setTypes(new StringList(ELECTRICK));
         statBase(pkData_);
-        pkData_.getLevMoves().add(new LevelMove((short)1,ECLAIR));
-        pkData_.getLevMoves().add(new LevelMove((short)1,CHARGE));
+        pkData_.getLevMoves().add(new LevelMove(1,ECLAIR));
+        pkData_.getLevMoves().add(new LevelMove(1,CHARGE));
         pkData_.setExpRate(1);
         pkData_.setHeight(Rate.one());
         pkData_.setWeight(Rate.one());
-        pkData_.setCatchingRate((short) 1);
-        pkData_.setHappiness((short) 1);
-        pkData_.setHappinessHatch((short) 1);
+        pkData_.setCatchingRate( 1);
+        pkData_.setHappiness( 1);
+        pkData_.setHappinessHatch( 1);
         pkData_.setAbilities(new StringList(PARATONNERRE));
         return pkData_;
     }
 
     private DamagingMoveData damMoveAcc(TargetChoice _target, String _power) {
         DamagingMoveData move_ = Instances.newDamagingMoveData();
-        move_.setPp((short) 20);
+        move_.setPp( 20);
         move_.setCategory(SPEC);
         move_.setAccuracy("1");
         move_.setTypes(new StringList(ELECTRICK));
@@ -1016,7 +1016,7 @@ public abstract class InitDbFight extends InitDbBean {
         updateLg(data_);
         data_.initializeMembers();
         DamagingMoveData move_ = Instances.newDamagingMoveData();
-        move_.setPp((short) 20);
+        move_.setPp( 20);
         move_.setCategory(SPEC);
         data_.completeMembers(ECLAIR, move_);
         StatusMoveData sta_ = Instances.newStatusMoveData();
@@ -1032,14 +1032,14 @@ public abstract class InitDbFight extends InitDbBean {
         pkData_.setEggGroups(new StringList(data_.getDefaultEggGroup()));
         pkData_.setTypes(new StringList(ELECTRICK));
         statBase(pkData_);
-        pkData_.getLevMoves().add(new LevelMove((short)1,ECLAIR));
-        pkData_.getLevMoves().add(new LevelMove((short)1,CHARGE));
+        pkData_.getLevMoves().add(new LevelMove(1,ECLAIR));
+        pkData_.getLevMoves().add(new LevelMove(1,CHARGE));
         pkData_.setExpRate(1);
         pkData_.setHeight(Rate.one());
         pkData_.setWeight(Rate.one());
-        pkData_.setCatchingRate((short) 1);
-        pkData_.setHappiness((short) 1);
-        pkData_.setHappinessHatch((short) 1);
+        pkData_.setCatchingRate( 1);
+        pkData_.setHappiness( 1);
+        pkData_.setHappinessHatch( 1);
         pkData_.setAbilities(new StringList(PARATONNERRE));
         data_.completeMembers(PIKACHU,pkData_);
         Ball ball_ = Instances.newBall();
@@ -1126,7 +1126,7 @@ public abstract class InitDbFight extends InitDbBean {
         pkm_.setAbility(PARATONNERRE);
         pkm_.setGender(Gender.NO_GENDER);
         pkm_.setItem(NULL_REF);
-        pkm_.setLevel((short) 7);
+        pkm_.setLevel( 7);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 1));
         data_.getCombos().setEffects(new ListEffectCombos());
@@ -1151,7 +1151,7 @@ public abstract class InitDbFight extends InitDbBean {
         Fight fight_ = f_.getFight();
         ActivityOfMove some_ = new ActivityOfMove(true);
         some_.setEnabled(true);
-        some_.setNbTurn((short) 1);
+        some_.setNbTurn( 1);
         fight_.getEnabledMoves().set(CHARGE, some_);
         return f_;
     }
@@ -1160,14 +1160,14 @@ public abstract class InitDbFight extends InitDbBean {
         Game g_ = new Game();
         Difficulty diff_= new Difficulty();
         Player player_ = Player.build(diff_,false,_data);
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,3),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,4),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,5),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,6),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,7),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,8),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,9),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,10),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,3),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,4),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,5),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,6),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,7),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,8),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,9),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,10),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
         foeTeam_.add(toPkTrainer(new NameLevel(PIKACHU,3),new StringList(ECLAIR,M_TEAM)));
         foeTeam_.add(toPkTrainer(new NameLevel(PIKA_2,4),new StringList(ECLAIR,M_TEAM)));
@@ -1179,8 +1179,8 @@ public abstract class InitDbFight extends InitDbBean {
         foeTeam_.add(toPkTrainer(new NameLevel(PIKA_2,10),new StringList(ECLAIR,M_TEAM)));
         TrainerLeague trainer_ = Instances.newTrainerLeague();
         trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
-        trainer_.setMultiplicityFight((byte) 4);
+        trainer_.setReward( 200);
+        trainer_.setMultiplicityFight(4);
         g_.setPlayer(player_);
         fac_.setGame(g_);
         Fight fight_ = g_.getFight();
@@ -1193,14 +1193,14 @@ public abstract class InitDbFight extends InitDbBean {
         Game g_ = new Game();
         Difficulty diff_= new Difficulty();
         Player player_ = Player.build(diff_,false,_data);
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,3),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,4),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,5),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,6),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,7),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,8),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,9),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,10),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,3),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,4),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,5),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,6),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,7),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,8),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,9),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,10),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
         foeTeam_.add(toPkTrainer(new NameLevel(PIKACHU,3),new StringList(ECLAIR)));
         foeTeam_.add(toPkTrainer(new NameLevel(PIKA_2,4),new StringList(ECLAIR)));
@@ -1212,8 +1212,8 @@ public abstract class InitDbFight extends InitDbBean {
         foeTeam_.add(toPkTrainer(new NameLevel(PIKA_2,10),new StringList(ECLAIR)));
         TrainerLeague trainer_ = Instances.newTrainerLeague();
         trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
-        trainer_.setMultiplicityFight((byte) 4);
+        trainer_.setReward( 200);
+        trainer_.setMultiplicityFight(4);
         g_.setPlayer(player_);
         fac_.setGame(g_);
         Fight fight_ = g_.getFight();
@@ -1226,14 +1226,14 @@ public abstract class InitDbFight extends InitDbBean {
         Game g_ = new Game();
         Difficulty diff_= new Difficulty();
         Player player_ = Player.build(diff_,false,_data);
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,3),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,4),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,5),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,6),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,7),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,8),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,9),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,10),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,3),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,4),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,5),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,6),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,7),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,8),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,9),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,10),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
         CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
         allyTeam_.add(toPkTrainer(new NameLevel(PIKACHU,3),new StringList(ECLAIR,M_TEAM)));
         allyTeam_.add(toPkTrainer(new NameLevel(PIKA_2,4),new StringList(ECLAIR,M_TEAM)));
@@ -1254,7 +1254,7 @@ public abstract class InitDbFight extends InitDbBean {
         foeTeam_.add(toPkTrainer(new NameLevel(PIKA_2,10),new StringList(ECLAIR,M_TEAM)));
         DualFight trainer_ = Instances.newDualFight();
         trainer_.getFoeTrainer().setTeam(foeTeam_);
-        trainer_.getFoeTrainer().setReward((short) 200);
+        trainer_.getFoeTrainer().setReward( 200);
         trainer_.getAlly().setTeam(allyTeam_);
         g_.setPlayer(player_);
         fac_.setGame(g_);
@@ -1268,14 +1268,14 @@ public abstract class InitDbFight extends InitDbBean {
         Game g_ = new Game();
         Difficulty diff_= new Difficulty();
         Player player_ = Player.build(diff_,false,_data);
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,3),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,4),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,5),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,6),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,7),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,8),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,9),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,10),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,3),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,4),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,5),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,6),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,7),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,8),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,9),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,10),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
         CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
         allyTeam_.add(toPkTrainer(new NameLevel(PIKACHU,3),new StringList(ECLAIR,M_TEAM)));
         allyTeam_.add(toPkTrainer(new NameLevel(PIKA_2,4),new StringList(ECLAIR,M_TEAM)));
@@ -1296,7 +1296,7 @@ public abstract class InitDbFight extends InitDbBean {
         foeTeam_.add(toPkTrainer(new NameLevel(PIKA_2,10),new StringList(ECLAIR,M_TEAM)));
         DualFight trainer_ = Instances.newDualFight();
         trainer_.getFoeTrainer().setTeam(foeTeam_);
-        trainer_.getFoeTrainer().setReward((short) 200);
+        trainer_.getFoeTrainer().setReward( 200);
         trainer_.getAlly().setTeam(allyTeam_);
         g_.setPlayer(player_);
         fac_.setGame(g_);
@@ -1314,7 +1314,7 @@ public abstract class InitDbFight extends InitDbBean {
         Game g_ = new Game();
         Difficulty diff_= new Difficulty();
         Player player_ = Player.build(diff_,false,_data);
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,3),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,3),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
         g_.setPlayer(player_);
         fac_.setGame(g_);
         Fight fight_ = g_.getFight();
@@ -1327,14 +1327,14 @@ public abstract class InitDbFight extends InitDbBean {
         Game g_ = new Game();
         Difficulty diff_= new Difficulty();
         Player player_ = Player.build(diff_,false,_data);
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,3),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,4),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,5),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,6),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,7),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,8),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,9),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,10),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,3),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,4),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,5),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,6),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,7),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,8),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,9),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,10),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
         foeTeam_.add(toPkTrainer(new NameLevel(PIKACHU,3),new StringList(M_ROQUE)));
         foeTeam_.add(toPkTrainer(new NameLevel(PIKA_2,4),new StringList(M_ROQUE)));
@@ -1346,8 +1346,8 @@ public abstract class InitDbFight extends InitDbBean {
         foeTeam_.add(toPkTrainer(new NameLevel(PIKA_2,10),new StringList(M_ROQUE)));
         TrainerLeague trainer_ = Instances.newTrainerLeague();
         trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
-        trainer_.setMultiplicityFight((byte) 4);
+        trainer_.setReward( 200);
+        trainer_.setMultiplicityFight(4);
         g_.setPlayer(player_);
         fac_.setGame(g_);
         Fight fight_ = g_.getFight();
@@ -1360,7 +1360,7 @@ public abstract class InitDbFight extends InitDbBean {
         Game g_ = new Game();
         Difficulty diff_= new Difficulty();
         Player player_ = Player.build(diff_,false,_data);
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,3),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,3),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
         g_.setPlayer(player_);
         fac_.setGame(g_);
         Fight fight_ = g_.getFight();
@@ -1368,8 +1368,8 @@ public abstract class InitDbFight extends InitDbBean {
         foeTeam_.add(toPkTrainer(new NameLevel(PIKA_2,3),new StringList(M_TEAM)));
         TrainerLeague trainer_ = Instances.newTrainerLeague();
         trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
-        trainer_.setMultiplicityFight((byte) 1);
+        trainer_.setReward( 200);
+        trainer_.setMultiplicityFight(1);
         FightFacade.initFight(fight_, player_, diff_, trainer_, _data);
         FightFacade.initTypeEnv(fight_,EnvironmentType.ROAD,diff_,_data);
         return fac_;
@@ -1379,14 +1379,14 @@ public abstract class InitDbFight extends InitDbBean {
         Game g_ = new Game();
         Difficulty diff_= new Difficulty();
         Player player_ = Player.build(diff_,false,_data);
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,3),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,4),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,5),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,6),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,7),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,8),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,9),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,10),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,3),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,4),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,5),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,6),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,7),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,8),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,9),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,10),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
         foeTeam_.add(toPkTrainer(new NameLevel(PIKACHU,3),new StringList(ECLAIR,M_TEAM)));
         foeTeam_.add(toPkTrainer(new NameLevel(PIKA_2,4),new StringList(ECLAIR,M_TEAM)));
@@ -1398,8 +1398,8 @@ public abstract class InitDbFight extends InitDbBean {
         foeTeam_.add(toPkTrainer(new NameLevel(PIKA_2,10),new StringList(ECLAIR,M_TEAM)));
         TrainerLeague trainer_ = Instances.newTrainerLeague();
         trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
-        trainer_.setMultiplicityFight((byte) 4);
+        trainer_.setReward( 200);
+        trainer_.setMultiplicityFight(4);
         g_.setPlayer(player_);
         fac_.setGame(g_);
         Fight fight_ = g_.getFight();
@@ -1413,14 +1413,14 @@ public abstract class InitDbFight extends InitDbBean {
         Game g_ = new Game();
         Difficulty diff_= new Difficulty();
         Player player_ = Player.build(diff_,false,_data);
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,3),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,4),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,5),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,6),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,7),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,8),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,9),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
-        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,10),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,3),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,4),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,5),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,6),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,7),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,8),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,9),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,10),move(move(new StringMap<Integer>(),CHARGE,8),CHARGE2,5),diff_,_data));
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
         foeTeam_.add(toPkTrainer(new NameLevel(PIKACHU,3),new StringList(ECLAIR,M_TEAM)));
         foeTeam_.add(toPkTrainer(new NameLevel(PIKA_2,4),new StringList(ECLAIR,M_TEAM)));
@@ -1432,8 +1432,8 @@ public abstract class InitDbFight extends InitDbBean {
         foeTeam_.add(toPkTrainer(new NameLevel(PIKA_2,10),new StringList(ECLAIR,M_TEAM)));
         TrainerLeague trainer_ = Instances.newTrainerLeague();
         trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
-        trainer_.setMultiplicityFight((byte) 4);
+        trainer_.setReward( 200);
+        trainer_.setMultiplicityFight(4);
         g_.setPlayer(player_);
         fac_.setGame(g_);
         Fight fight_ = g_.getFight();
@@ -1442,7 +1442,7 @@ public abstract class InitDbFight extends InitDbBean {
         fight_.getUserTeam().getMembers().getValue(0).getTrackingMoves().getValue(0).setMove(M_TEAM);
         fight_.getUserTeam().getMembers().getValue(0).getPrivateMoves().setValue(0,new StringList(M_TEAM));
         fight_.getUserTeam().getMembers().getValue(0).getCopiedMoves().getValue(0).setMove(M_TEAM);
-        fight_.getUserTeam().getMembers().getValue(0).getCopiedMoves().getValue(0).setPp((short) 3);
+        fight_.getUserTeam().getMembers().getValue(0).getCopiedMoves().getValue(0).setPp( 3);
         fight_.getUserTeam().getMembers().getValue(0).getIncrUserAccuracy().setValue(0,BoolVal.TRUE);
         fight_.getUserTeam().getMembers().getValue(0).getEnabledMovesForAlly().setValue(0, BoolVal.TRUE);
         fight_.getUserTeam().getMembers().getValue(0).getAlreadyInvokedMovesRound().add(M_TEAM);
@@ -1457,7 +1457,7 @@ public abstract class InitDbFight extends InitDbBean {
         fight_.getUserTeam().getMembers().getValue(0).setExpItem(I_SAMPLE);
         fight_.getUserTeam().getMembers().getValue(0).setLastUsedItem(I_SAMPLE);
         fight_.getUserTeam().getMembers().getValue(0).setUsedBallCatching(I_SAMPLE);
-        fight_.getUserTeam().getMembers().getValue(0).getStatusRelat().setValue(0,(short) 1);
+        fight_.getUserTeam().getMembers().getValue(0).getStatusRelat().setValue(0, 1);
         fight_.getUserTeam().getMembers().getValue(0).setChanged(true);
         fight_.getUserTeam().getMembers().getValue(0).setActed(true);
         fight_.getUserTeam().getMembers().getValue(0).setUsingItem(true);
@@ -1468,24 +1468,24 @@ public abstract class InitDbFight extends InitDbBean {
         return fac_;
     }
     private void updateMoves(Fight _fight) {
-        _fight.getUserTeam().getHealAfter().getVal(M_STACK).getValue(0).setNbRounds((byte) 1);
+        _fight.getUserTeam().getHealAfter().getVal(M_STACK).getValue(0).setNbRounds(1);
         _fight.getUserTeam().getHealAfter().getVal(M_STACK).getValue(0).setLastStacked(true);
         _fight.getUserTeam().getHealAfter().getVal(M_STACK).getValue(0).setFirstStacked(true);
-        _fight.getFoeTeam().getHealAfter().getVal(M_STACK).getValue(0).setNbRounds((byte) 0);
+        _fight.getFoeTeam().getHealAfter().getVal(M_STACK).getValue(0).setNbRounds(0);
         _fight.getFoeTeam().getHealAfter().getVal(M_STACK).getValue(0).setLastStacked(false);
         _fight.getFoeTeam().getHealAfter().getVal(M_STACK).getValue(0).setFirstStacked(false);
         _fight.getUserTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setIncrementing(true);
-        _fight.getUserTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setNbRounds((byte) 1);
+        _fight.getUserTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setNbRounds(1);
         _fight.getUserTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setDamage(Rate.one());
-        _fight.getUserTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setTargetPosition(new TargetCoords((short) -1,Fighter.BACK));
+        _fight.getUserTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setTargetPosition(new TargetCoords( -1,Fighter.BACK));
         _fight.getFoeTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setIncrementing(false);
-        _fight.getFoeTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setNbRounds((byte) 0);
+        _fight.getFoeTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setNbRounds(0);
         _fight.getFoeTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setDamage(Rate.zero());
-        _fight.getFoeTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setTargetPosition(TargetCoords.toFoeTarget((short) 0));
+        _fight.getFoeTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setTargetPosition(TargetCoords.toFoeTarget( 0));
         _fight.getFoeTeam().getMovesAnticipation().getVal(M_ANT).getValue(1).setIncrementing(false);
-        _fight.getFoeTeam().getMovesAnticipation().getVal(M_ANT).getValue(1).setNbRounds((byte) 0);
+        _fight.getFoeTeam().getMovesAnticipation().getVal(M_ANT).getValue(1).setNbRounds(0);
         _fight.getFoeTeam().getMovesAnticipation().getVal(M_ANT).getValue(1).setDamage(Rate.zero());
-        _fight.getFoeTeam().getMovesAnticipation().getVal(M_ANT).getValue(1).setTargetPosition(TargetCoords.toUserTarget((short) 0));
+        _fight.getFoeTeam().getMovesAnticipation().getVal(M_ANT).getValue(1).setTargetPosition(TargetCoords.toUserTarget( 0));
     }
     protected FacadeGame facade(DataBase _data) {
         FacadeGame fac_ = initFacade(_data);
@@ -1498,7 +1498,7 @@ public abstract class InitDbFight extends InitDbBean {
 ////        foePokemon_.setItem(MAGNET);
 //        foePokemon_.setAbility(PARATONNERRE);
 //        foePokemon_.setGender(Gender.NO_GENDER);
-//        foePokemon_.setLevel((short) 3);
+//        foePokemon_.setLevel( 3);
 //        foePokemon_.setMoves(new StringList(ECLAIR));
 //        foeTeam_.add(foePokemon_);
         foeTeam_.add(toPkTrainer(new NameLevel(PIKACHU,3),new StringList(ECLAIR)));
@@ -1507,13 +1507,13 @@ public abstract class InitDbFight extends InitDbBean {
 ////        foePokemon_.setItem(MAGNET);
 //        foePokemon_.setAbility(PARATONNERRE);
 //        foePokemon_.setGender(Gender.NO_GENDER);
-//        foePokemon_.setLevel((short) 4);
+//        foePokemon_.setLevel( 4);
 //        foePokemon_.setMoves(new StringList(ECLAIR));
         foeTeam_.add(toPkTrainer(new NameLevel(PIKACHU,4),new StringList(ECLAIR)));
         TrainerLeague trainer_ = Instances.newTrainerLeague();
         trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
-        trainer_.setMultiplicityFight((byte) 2);
+        trainer_.setReward( 200);
+        trainer_.setMultiplicityFight(2);
         g_.setPlayer(player_);
         fac_.setGame(g_);
         Fight fight_ = g_.getFight();
@@ -1548,11 +1548,11 @@ public abstract class InitDbFight extends InitDbBean {
         _data.getRates().put(DifficultyWinPointsFight.DIFFICILE, "1");
         _data.getRates().put(DifficultyWinPointsFight.TRES_DIFFICILE, "1/2");
     }
-    private static StringMap<Short> move(StringMap<Short> _moves, String _move, int _pp) {
-        _moves.addEntry(_move, (short) _pp);
+    private static StringMap<Integer> move(StringMap<Integer> _moves, String _move, int _pp) {
+        _moves.addEntry(_move,  _pp);
         return _moves;
     }
-    private static PokemonPlayer pkPlayer(NameLevel _nameLevel, StringMap<Short> _moves, Difficulty _diff, DataBase _data) {
+    private static PokemonPlayer pkPlayer(NameLevel _nameLevel, StringMap<Integer> _moves, Difficulty _diff, DataBase _data) {
         WildPk w_ = Instances.newWildPk();
         w_.setName(_nameLevel.getName());
         w_.setLevel(_nameLevel.getLevel());

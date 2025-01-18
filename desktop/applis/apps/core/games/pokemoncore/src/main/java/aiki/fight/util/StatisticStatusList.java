@@ -2,7 +2,7 @@ package aiki.fight.util;
 
 import code.util.*;
 
-public final class StatisticStatusList extends AbsBasicMap<StatisticStatus,Byte> {
+public final class StatisticStatusList extends AbsBasicMap<StatisticStatus,Integer> {
     public StatisticStatusList() {
     }
     public StatisticStatusList(CollCapacity _cap) {
@@ -10,8 +10,8 @@ public final class StatisticStatusList extends AbsBasicMap<StatisticStatus,Byte>
     }
 
     @Override
-    protected Byte def() {
-        return (byte)0;
+    protected Integer def() {
+        return 0;
     }
 
     @Override

@@ -38,7 +38,7 @@ public final class GeneComponentModelSubscribeCategoryMult implements AbsGeneCom
     public CategoryMult tryRet() {
         CategoryMult lv_ = new CategoryMult();
         lv_.setCategory(category.tryRet());
-        lv_.setMult((short) mult.valueInt());
+        lv_.setMult(mult.valueInt());
         return lv_;
     }
 

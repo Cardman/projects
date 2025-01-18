@@ -23,7 +23,7 @@ public class PseudoPlayerFighter extends PseudoFighter {
 
     private boolean front;
 
-    private final Bytes foes;
+    private final Ints foes;
 
     private final CustList<NameLevel> evoLevels;
 
@@ -31,7 +31,7 @@ public class PseudoPlayerFighter extends PseudoFighter {
 
     private final CustList<StringList> abilities;
 
-    private final ByteMap<String> evolutions;
+    private final IntMap<String> evolutions;
 
     private final CustList<NameLevel> infosRealEvolutions;
 
@@ -41,19 +41,19 @@ public class PseudoPlayerFighter extends PseudoFighter {
         wonExp = Rate.zero();
         wonExpSinceLastLevel = _pseudo.copyWonPointsSinceLastLevel();
         front = _front;
-        foes = new Bytes();
+        foes = new Ints();
         evoLevels = _evoLevels;
         moves = new CustList<StringList>();
         abilities = new CustList<StringList>();
-        evolutions = new ByteMap<String>();
+        evolutions = new IntMap<String>();
         infosRealEvolutions = new CustList<NameLevel>();
     }
 
     void calculateNewLevel(int _round,DataBase _import) {
         LevelExpPoints levelWonPoints_ = newLevelWonPoints(_import);
-        short achievedLevel_ = levelWonPoints_.getLevel();
+        int achievedLevel_ = levelWonPoints_.getLevel();
         Rate sommeDiffNiveaux_ = levelWonPoints_.getExpPoints();
-        short maxNiveau_=(short) _import.getMaxLevel();
+        int maxNiveau_=_import.getMaxLevel();
         if (achievedLevel_ != maxNiveau_) {
             changeWonPoints(achievedLevel_, sommeDiffNiveaux_, _import);
         }
@@ -71,7 +71,7 @@ public class PseudoPlayerFighter extends PseudoFighter {
             PokemonData fPk_=_import.getPokemon(getName());
             abilities_.addAllElts(fPk_.getAbilities());
             abilities_.sort();
-            evolutions.put((byte) _round, getName());
+            evolutions.put(_round, getName());
         }
         abilities.add(abilities_);
         moves.add(moves_);
@@ -81,15 +81,15 @@ public class PseudoPlayerFighter extends PseudoFighter {
         return Fighter.newLevelWonPoints(_import, getName(), getLevel(), getWonExp(), getWonExpSinceLastLevel());
     }
 
-    Rate numberNecessaryPointsForGrowingLevel(short _niveau,DataBase _import){
+    Rate numberNecessaryPointsForGrowingLevel(int _niveau,DataBase _import){
         return FightFacade.numberNecessaryPointsForGrowingLevel(getName(),_niveau,_import);
     }
 
-    void changeWonPoints(short _niveauTmp,Rate _sommeDiffNiveaux, DataBase _import) {
+    void changeWonPoints(int _niveauTmp,Rate _sommeDiffNiveaux, DataBase _import) {
         Fighter.changeWonPoints(_niveauTmp, _sommeDiffNiveaux, _import, getName(), getWonExp(), getWonExpSinceLastLevel());
     }
 
-    StringList newMoves(short _tmpLevel, DataBase _import) {
+    StringList newMoves(int _tmpLevel, DataBase _import) {
         StringList newMoves_ = new StringList();
         PokemonData fPk_ = _import.getPokemon(getName());
         for(LevelMove nivAtt_: fPk_.getLevMoves()){
@@ -121,7 +121,7 @@ public class PseudoPlayerFighter extends PseudoFighter {
             index_++;
             int evoLevels_ = evoLevels.size();
             for (int i = index_; i < evoLevels_; i++) {
-                evoLevels.get(i).setLevel((short) NumberUtil.max(getLevel(), evoLevels.get(i).getLevel()));
+                evoLevels.get(i).setLevel(NumberUtil.max(getLevel(), evoLevels.get(i).getLevel()));
             }
         }
     }
@@ -150,7 +150,7 @@ public class PseudoPlayerFighter extends PseudoFighter {
         return abilities;
     }
 
-    public ByteMap<String> getEvolutions() {
+    public IntMap<String> getEvolutions() {
         return evolutions;
     }
 
@@ -186,7 +186,7 @@ public class PseudoPlayerFighter extends PseudoFighter {
         front = _front;
     }
 
-    public Bytes getFoes() {
+    public Ints getFoes() {
         return foes;
     }
 }

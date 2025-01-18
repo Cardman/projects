@@ -36,8 +36,8 @@ public class FighterBean extends CommonFightBean {
     private String expItem;
     private String ability;
     private String currentAbility;
-    private NatStringTreeMap<Short> status;
-    private DictionaryComparator<MoveTeamPosition,Short> statusRelat;
+    private NatStringTreeMap<Integer> status;
+    private DictionaryComparator<MoveTeamPosition,Integer> statusRelat;
     private StringList types;
     private NatStringTreeMap<UsesOfMove> moves;
     private NatStringTreeMap<UsesOfMove> currentMoves;
@@ -52,14 +52,14 @@ public class FighterBean extends CommonFightBean {
     private NatStringTreeMap<ActivityOfMove> enabledMoves;
     private NatStringTreeMap<BoolVal> enabledMovesForAlly;
     private NatStringTreeMap<MultPowerMoves> damageRateByType;
-    private byte groundPlace;
+    private int groundPlace;
     private Rate wonExpSinceLastLevel;
     private Rate necessaryPointsNextLevel;
-    private short level;
-    private short happiness;
+    private int level;
+    private int happiness;
     private DictionaryComparator<MoveTeamPosition,BoolVal> incrUserAccuracy;
     private NatStringTreeMap<Integer> nbUsesMoves;
-    private short nbPrepaRound;
+    private int nbPrepaRound;
     private boolean needingToRecharge;
     private DictionaryComparator<MoveTeamPosition,AffectedMove> trackingMoves;
     private DictionaryComparator<MoveTeamPosition,ActivityOfMove> trappingMoves;
@@ -71,7 +71,7 @@ public class FighterBean extends CommonFightBean {
     private String lastUsedItem;
     private LgInt nbRounds;
     private boolean acted;
-    private byte groundPlaceSubst;
+    private int groundPlaceSubst;
     private String usedBallCatching;
     private boolean disappeared;
     private String lastSufferedMove;
@@ -90,7 +90,7 @@ public class FighterBean extends CommonFightBean {
         DataBase data_ = dataBaseFight_.getData();
         int noTeam_ = getForms().getValInt(NO_TEAM);
         int noFighter_ = getForms().getValInt(NO_FIGHTER);
-        Fighter fighter_ = dataBaseFight_.getGame().getFight().getTeams().getVal((byte) noTeam_).getMembers().getVal((byte) noFighter_);
+        Fighter fighter_ = dataBaseFight_.getGame().getFight().getTeams().getVal(noTeam_).getMembers().getVal(noFighter_);
         StringMap<String> translationsPokemon_;
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         StringMap<String> translationsItems_;
@@ -210,12 +210,12 @@ public class FighterBean extends CommonFightBean {
         relMoves(fighter_);
     }
 
-    private DictionaryComparator<MoveTeamPosition, Short> statusRelat(Fighter _fighter) {
+    private DictionaryComparator<MoveTeamPosition, Integer> statusRelat(Fighter _fighter) {
         FacadeGame dataBaseFight_ = facade();
         DataBase data_ = dataBaseFight_.getData();
         StringMap<String> translationsStatus_;
         translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        DictionaryComparator<MoveTeamPosition, Short> statusRelat_ = DictionaryComparatorUtil.buildMoveTeamPositionShort();
+        DictionaryComparator<MoveTeamPosition, Integer> statusRelat_ = DictionaryComparatorUtil.buildMoveTeamPositionShort();
         for (MoveTeamPosition m: _fighter.getStatusRelatSet()) {
             String move_ = translationsStatus_.getVal(m.getMove());
             MoveTeamPosition m_ = new MoveTeamPosition(move_, m.getTeamPosition());
@@ -224,13 +224,13 @@ public class FighterBean extends CommonFightBean {
         return statusRelat_;
     }
 
-    private NatStringTreeMap<Short> status(Fighter _fighter) {
+    private NatStringTreeMap<Integer> status(Fighter _fighter) {
         FacadeGame dataBaseFight_ = facade();
         DataBase data_ = dataBaseFight_.getData();
         StringMap<String> translationsStatus_;
         translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        NatStringTreeMap<Short> status_;
-        status_ = new NatStringTreeMap<Short>();
+        NatStringTreeMap<Integer> status_;
+        status_ = new NatStringTreeMap<Integer>();
         for (String m: _fighter.getStatusSet()) {
             status_.put(translationsStatus_.getVal(m), _fighter.getStatusNbRound(m));
         }
@@ -534,14 +534,14 @@ public class FighterBean extends CommonFightBean {
         FacadeGame dataBaseFight_ = facade();
         int noTeam_ = getForms().getValInt(NO_TEAM);
         int noFighter_ = getForms().getValInt(NO_FIGHTER);
-        Fighter fighter_ = dataBaseFight_.getGame().getFight().getTeams().getVal((byte) noTeam_).getMembers().getVal((byte) noFighter_);
+        Fighter fighter_ = dataBaseFight_.getGame().getFight().getTeams().getVal(noTeam_).getMembers().getVal(noFighter_);
         return fighter_.estArriere();
     }
     public boolean isBackSubst() {
         FacadeGame dataBaseFight_ = facade();
         int noTeam_ = getForms().getValInt(NO_TEAM);
         int noFighter_ = getForms().getValInt(NO_FIGHTER);
-        Fighter fighter_ = dataBaseFight_.getGame().getFight().getTeams().getVal((byte) noTeam_).getMembers().getVal((byte) noFighter_);
+        Fighter fighter_ = dataBaseFight_.getGame().getFight().getTeams().getVal(noTeam_).getMembers().getVal(noFighter_);
         return fighter_.getGroundPlaceSubst() == Fighter.BACK;
     }
     public boolean isFoeStatusRelatTeam(int _index) {
@@ -617,11 +617,11 @@ public class FighterBean extends CommonFightBean {
         return belongingToPlayer;
     }
 
-    public byte getGroundPlaceSubst() {
+    public int getGroundPlaceSubst() {
         return groundPlaceSubst;
     }
 
-    public byte getGroundPlace() {
+    public int getGroundPlace() {
         return groundPlace;
     }
 
@@ -629,11 +629,11 @@ public class FighterBean extends CommonFightBean {
         return nickname;
     }
 
-    public short getHappiness() {
+    public int getHappiness() {
         return happiness;
     }
 
-    public short getLevel() {
+    public int getLevel() {
         return level;
     }
 
@@ -785,7 +785,7 @@ public class FighterBean extends CommonFightBean {
         return usedMoveLastRound;
     }
 
-    public short getNbPrepaRound() {
+    public int getNbPrepaRound() {
         return nbPrepaRound;
     }
 
@@ -809,11 +809,11 @@ public class FighterBean extends CommonFightBean {
         return needingToRecharge;
     }
 
-    public NatStringTreeMap<Short> getStatus() {
+    public NatStringTreeMap<Integer> getStatus() {
         return status;
     }
 
-    public DictionaryComparator<MoveTeamPosition,Short> getStatusRelat() {
+    public DictionaryComparator<MoveTeamPosition,Integer> getStatusRelat() {
         return statusRelat;
     }
 

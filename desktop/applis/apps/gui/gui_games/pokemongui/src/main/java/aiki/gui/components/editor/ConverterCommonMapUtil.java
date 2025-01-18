@@ -101,16 +101,16 @@ public final class ConverterCommonMapUtil {
     public static GeneComponentModelLsStrSub<String,StringList> buildTypeList(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
         return mergeLs(_api, _facade, _sub.getFactoryTy());
     }
-    public static GeneComponentModelLsStrSub<Short,Shorts> buildTmList(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
+    public static GeneComponentModelLsStrSub<Integer,Ints> buildTmList(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
         return mergeLsNb(_api, _facade, _sub.getFactoryMv(), _sub.getFactoryTm());
     }
-    public static GeneComponentModelLsStrSub<Short,Shorts> buildHmList(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
+    public static GeneComponentModelLsStrSub<Integer,Ints> buildHmList(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
         return mergeLsNb(_api, _facade, _sub.getFactoryMv(), _sub.getFactoryHm());
     }
-    public static GeneComponentModelEltEnumSub<Short> buildTm(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
+    public static GeneComponentModelEltEnumSub<Integer> buildTm(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
         return mergeNb(_api, _facade, _sub.getFactoryMv(), _sub.getFactoryTm());
     }
-    public static GeneComponentModelEltEnumSub<Short> buildHm(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
+    public static GeneComponentModelEltEnumSub<Integer> buildHm(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationList _sub){
         return mergeNb(_api, _facade, _sub.getFactoryMv(), _sub.getFactoryHm());
     }
     public static GeneComponentModelEltEnumSub<String> buildImg(AbstractProgramInfos _api, FacadeGame _facade, SubscribedTranslationMessagesFactoryImgName _img) {
@@ -123,44 +123,44 @@ public final class ConverterCommonMapUtil {
     public static GeneComponentModelLsStrSub<String,StringList> mergeLs(AbstractProgramInfos _api, FacadeGame _sub, SubscribedTranslationMessagesFactory _builder) {
         return new StringSubscribeBuilderUtil(_builder).mergeLs(_api, _sub);
     }
-    private static GeneComponentModelLsStrSub<Short,Shorts> mergeLsNb(AbstractProgramInfos _api, FacadeGame _sub, SubscribedTranslationMessagesFactory _builderMv, SubscribedTranslationMessagesNbFactory _builder) {
-        ShortMap<String> map_ = _builder.retrieveMap(_api, _sub);
+    private static GeneComponentModelLsStrSub<Integer,Ints> mergeLsNb(AbstractProgramInfos _api, FacadeGame _sub, SubscribedTranslationMessagesFactory _builderMv, SubscribedTranslationMessagesNbFactory _builder) {
+        IntMap<String> map_ = _builder.retrieveMap(_api, _sub);
         AbsMap<String, String> messages_ = _builderMv.getContainer().buildMessages(_api, _sub);
-        ShortMap<String> sub_ = map(map_, messages_);
-        TreeMap<Short, String> treeFilter_ = feedTreeNb(sub_, sub_.getKeys());
-        GeneComponentModelLs<Short> sel_ = new GeneComponentModelLs<Short>(_api, treeFilter_);
-        GeneComponentModelLsStrSub<Short,Shorts> g_ = new GeneComponentModelLsStrSub<Short,Shorts>(sel_,new IntListConvertShort());
+        IntMap<String> sub_ = map(map_, messages_);
+        TreeMap<Integer, String> treeFilter_ = feedTreeNb(sub_, sub_.getKeys());
+        GeneComponentModelLs<Integer> sel_ = new GeneComponentModelLs<Integer>(_api, treeFilter_);
+        GeneComponentModelLsStrSub<Integer,Ints> g_ = new GeneComponentModelLsStrSub<Integer,Ints>(sel_,new IntListConvertShort());
         feedSubNb(_builderMv,_builder, sub_, treeFilter_, sel_, g_.getSubs(), messages_);
         return g_;
     }
-    private static GeneComponentModelEltEnumSub<Short> mergeNb(AbstractProgramInfos _api, FacadeGame _sub, SubscribedTranslationMessagesFactory _builderMv, SubscribedTranslationMessagesNbFactory _builder) {
-        ShortMap<String> map_ = _builder.retrieveMap(_api, _sub);
+    private static GeneComponentModelEltEnumSub<Integer> mergeNb(AbstractProgramInfos _api, FacadeGame _sub, SubscribedTranslationMessagesFactory _builderMv, SubscribedTranslationMessagesNbFactory _builder) {
+        IntMap<String> map_ = _builder.retrieveMap(_api, _sub);
         AbsMap<String, String> messages_ = _builderMv.getContainer().buildMessages(_api, _sub);
-        ShortMap<String> sub_ = map(map_, messages_);
-        TreeMap<Short, String> treeFilter_ = feedTreeNb(sub_, sub_.getKeys());
-        GeneComponentModelElt<Short> sel_ = new GeneComponentModelElt<Short>(_api, treeFilter_,new NbDefValue<Short>((short)0));
-        GeneComponentModelEltEnumSub<Short> g_ = new GeneComponentModelEltEnumSub<Short>(sel_);
+        IntMap<String> sub_ = map(map_, messages_);
+        TreeMap<Integer, String> treeFilter_ = feedTreeNb(sub_, sub_.getKeys());
+        GeneComponentModelElt<Integer> sel_ = new GeneComponentModelElt<Integer>(_api, treeFilter_,new NbDefValue<Integer>(0));
+        GeneComponentModelEltEnumSub<Integer> g_ = new GeneComponentModelEltEnumSub<Integer>(sel_);
         feedSubNb(_builderMv,_builder, sub_, treeFilter_, sel_, g_.getSubs(), messages_);
         return g_;
     }
-    public static ShortMap<String> map(ShortMap<String> _map, AbsMap<String,String> _messages) {
-        ShortMap<String> messages_ = new ShortMap<String>();
-        for (EntryCust<Short,String> e: _map.entryList()) {
+    public static IntMap<String> map(IntMap<String> _map, AbsMap<String,String> _messages) {
+        IntMap<String> messages_ = new IntMap<String>();
+        for (EntryCust<Integer,String> e: _map.entryList()) {
             messages_.addEntry(e.getKey(),StringUtil.nullToEmpty(_messages.getVal(e.getValue()))+":"+e.getKey());
         }
         return messages_;
     }
 
-    private static void feedSubNb(SubscribedTranslationMessagesFactory _builderMv, SubscribedTranslationMessagesNbFactory _builder, ShortMap<String> _sub, TreeMap<Short, String> _treeFilter, GeneComponentModelStr _sel, IdList<SubscribedTranslation> _subs, AbsMap<String, String> _messages) {
+    private static void feedSubNb(SubscribedTranslationMessagesFactory _builderMv, SubscribedTranslationMessagesNbFactory _builder, IntMap<String> _sub, TreeMap<Integer, String> _treeFilter, GeneComponentModelStr _sel, IdList<SubscribedTranslation> _subs, AbsMap<String, String> _messages) {
         _subs.add(_builderMv.getContainer().buildSub(_messages, new StringMap<String>()));
         _subs.add(_builder.buildSub(_sub, _messages));
         _subs.add(_builder.buildSub(_treeFilter, _messages));
         _subs.add(new SubscribedTranslationSelect(_sel));
     }
 
-    public static TreeMap<Short, String> feedTreeNb(AbsMap<Short, String> _messages, CustList<Short> _rem) {
-        TreeMap<Short, String> tree_ = new TreeMap<Short, String>(new ComparatorTrWrapper<Short>().wrap(_messages));
-        for (short s: _rem) {
+    public static TreeMap<Integer, String> feedTreeNb(AbsMap<Integer, String> _messages, CustList<Integer> _rem) {
+        TreeMap<Integer, String> tree_ = new TreeMap<Integer, String>(new ComparatorTrWrapper<Integer>().wrap(_messages));
+        for (int s: _rem) {
             tree_.put(s,_messages.getVal(s));
         }
         return tree_;
@@ -783,9 +783,9 @@ public final class ConverterCommonMapUtil {
         _items.addAllEntries(its_);
     }
 
-    private static void patchMove(Level _l, Points<Short> _m, ShortMap<String> _movesNb) {
-        Points<Short> nbs_ = new PointsShort();
-        for (EntryCust<Point, Short> l: _m.entryList()) {
+    private static void patchMove(Level _l, Points<Integer> _m, IntMap<String> _movesNb) {
+        Points<Integer> nbs_ = new PointsShort();
+        for (EntryCust<Point, Integer> l: _m.entryList()) {
             if (_movesNb.contains(l.getValue())) {
                 patchTile(_l.getBlocks(),l.getKey());
                 nbs_.addEntry(l.getKey(),l.getValue());
@@ -795,9 +795,9 @@ public final class ConverterCommonMapUtil {
         _m.addAllEntries(nbs_);
     }
 
-    private static void patchMove(Shorts _m, ShortMap<String> _movesNb) {
-        Shorts nbs_ = new Shorts();
-        for (Short l: _m) {
+    private static void patchMove(Ints _m, IntMap<String> _movesNb) {
+        Ints nbs_ = new Ints();
+        for (Integer l: _m) {
             if (_movesNb.contains(l)) {
                 nbs_.add(l);
             }
@@ -881,8 +881,8 @@ public final class ConverterCommonMapUtil {
         addTrs(_db.getTranslatedStatus(), _a.getImmuStatusBeginRound());
         new IntListConvertId<Rate>().addTrs(_db.getTranslatedTypes(), _a.getMultDamageFoe());
         new IntListConvertId<Rate>().addTrs(_db.getTranslatedTypes(), _a.getMultPowerMovesTypesGlobal());
-        new IntListConvertId<Short>().addTrs(_db.getTranslatedCategories(), _a.getIncreasedPrio());
-        new IntListConvertId<Short>().addTrs(_db.getTranslatedTypes(), _a.getIncreasedPrioTypes());
+        new IntListConvertId<Integer>().addTrs(_db.getTranslatedCategories(), _a.getIncreasedPrio());
+        new IntListConvertId<Integer>().addTrs(_db.getTranslatedTypes(), _a.getIncreasedPrioTypes());
         addTrsByte(_db.getTranslatedTypes(), _a.getMultStatIfDamgeType());
         addTrsRate(_db.getTranslatedCategories(), _a.getMultStatIfCat());
         addTrsByte(_db.getTranslatedCategories(), _a.getMultStatIfDamageCat());
@@ -987,7 +987,7 @@ public final class ConverterCommonMapUtil {
         }
         if (_e instanceof EffectTeamWhileSendFoe) {
             addTrs(_db.getTranslatedTypes(),((EffectTeamWhileSendFoe) _e).getDeletedByFoeTypes());
-            new IntListConvertId<Short>().addTrsValues(_db.getTranslatedStatus(),((EffectTeamWhileSendFoe)_e).getStatusByNbUses());
+            new IntListConvertId<Integer>().addTrsValues(_db.getTranslatedStatus(),((EffectTeamWhileSendFoe)_e).getStatusByNbUses());
         }
     }
     private static void addTr(DataBase _db, Item _i) {
@@ -995,13 +995,13 @@ public final class ConverterCommonMapUtil {
             addTr(_db,(Berry) _i);
         }
         if (_i instanceof Boost) {
-            new IntListConvertId<Short>().addTrs(_db.getTranslatedItems(),((Boost)_i).getHappiness());
+            new IntListConvertId<Integer>().addTrs(_db.getTranslatedItems(),((Boost)_i).getHappiness());
         }
         if (_i instanceof Fossil) {
             ((Fossil)_i).setPokemon(addTr(_db.getTranslatedPokemon(),((Fossil)_i).getPokemon()));
         }
         if (_i instanceof HealingItem) {
-            new IntListConvertId<Short>().addTrs(_db.getTranslatedItems(),((HealingItem)_i).getHappiness());
+            new IntListConvertId<Integer>().addTrs(_db.getTranslatedItems(),((HealingItem)_i).getHappiness());
         }
         if (_i instanceof HealingStatus) {
             addTrs(_db.getTranslatedStatus(),((HealingStatus)_i).getStatus());
@@ -1019,17 +1019,17 @@ public final class ConverterCommonMapUtil {
     private static void addTr(DataBase _db, ItemForBattle _i) {
         addTrs(_db.getTranslatedTypes(),_i.getTypesPk());
         addTrs(_db.getTranslatedStatus(),_i.getImmuStatus());
-        new IntListConvertId<Short>().addTrs(_db.getTranslatedMoves(),_i.getIncreasingMaxNbRoundTrap());
+        new IntListConvertId<Integer>().addTrs(_db.getTranslatedMoves(),_i.getIncreasingMaxNbRoundTrap());
         addTrs(_db.getTranslatedStatus(),_i.getSynchroStatus());
         new IntListConvertId<String>().addTrs(_db.getTranslatedMoves(),_i.getFailStatus());
         addTrs(_db.getTranslatedPokemon(),_i.getMultStatPokemonRank());
-        new IntListConvertId<Short>().addTrs(_db.getTranslatedMoves(),_i.getIncreasingMaxNbRoundGlobalMove());
-        new IntListConvertId<Short>().addTrs(_db.getTranslatedMoves(),_i.getIncreasingMaxNbRoundTeamMove());
+        new IntListConvertId<Integer>().addTrs(_db.getTranslatedMoves(),_i.getIncreasingMaxNbRoundGlobalMove());
+        new IntListConvertId<Integer>().addTrs(_db.getTranslatedMoves(),_i.getIncreasingMaxNbRoundTeamMove());
         addTrs(_db.getTranslatedMoves(),_i.getImmuMoves());
         addTrs(_db.getTranslatedPokemon(),_i.getHatching());
         addTrs(_db.getTranslatedTypes(),_i.getImmuTypes());
         addTrs(_db.getTranslatedMoves(),_i.getImmuWeather());
-        new IntListConvertId<IdMap<Statistic, Byte>>().addTrs(_db.getTranslatedTypes(),_i.getBoostStatisTypes());
+        new IntListConvertId<IdMap<Statistic, Integer>>().addTrs(_db.getTranslatedTypes(),_i.getBoostStatisTypes());
         for (EffectEndRound e: _i.getEffectEndRound()) {
             addTrsEff(_db,e);
         }
@@ -1233,7 +1233,7 @@ public final class ConverterCommonMapUtil {
 
     private static void addTrsByte(StringMap<StringMap<String>> _t, StatisticStatusList _ls) {
         StatisticStatusList e_ = new StatisticStatusList();
-        for (EntryCust<StatisticStatus, Byte> e: _ls.entryList()) {
+        for (EntryCust<StatisticStatus, Integer> e: _ls.entryList()) {
             StatisticStatus key_ = e.getKey();
             if (!ConverterCommonMapUtil.addTr(_t, key_.getStatus()).isEmpty()) {
                 e_.addEntry(key_, e.getValue());
@@ -1254,9 +1254,9 @@ public final class ConverterCommonMapUtil {
         _ls.addAllEntries(e_);
     }
 
-    private static void addTrsByte(StringMap<StringMap<String>> _t, StatisticTypeList<Byte> _ls) {
+    private static void addTrsByte(StringMap<StringMap<String>> _t, StatisticTypeList<Integer> _ls) {
         StatisticTypeByte e_ = new StatisticTypeByte();
-        for (EntryCust<StatisticType, Byte> e: _ls.entryList()) {
+        for (EntryCust<StatisticType, Integer> e: _ls.entryList()) {
             StatisticType key_ = e.getKey();
             if (!ConverterCommonMapUtil.addTr(_t, key_.getType()).isEmpty()) {
                 e_.addEntry(key_, e.getValue());
@@ -1277,9 +1277,9 @@ public final class ConverterCommonMapUtil {
         _ls.clear();
         _ls.addAllEntries(e_);
     }
-    private static void addTrsByte(StringMap<StringMap<String>> _t, StatisticCategoryList<Byte> _ls) {
+    private static void addTrsByte(StringMap<StringMap<String>> _t, StatisticCategoryList<Integer> _ls) {
         StatisticCategoryByte e_ = new StatisticCategoryByte();
-        for (EntryCust<StatisticCategory, Byte> e: _ls.entryList()) {
+        for (EntryCust<StatisticCategory, Integer> e: _ls.entryList()) {
             StatisticCategory key_ = e.getKey();
             if (!ConverterCommonMapUtil.addTr(_t, key_.getCategory()).isEmpty()) {
                 e_.addEntry(key_, e.getValue());
@@ -1303,7 +1303,7 @@ public final class ConverterCommonMapUtil {
 
     private static void addTrs(StringMap<StringMap<String>> _t, StatisticPokemons _ls) {
         StatisticPokemons e_ = new StatisticPokemons();
-        for (EntryCust<StatisticPokemon, Byte> e: _ls.entryList()) {
+        for (EntryCust<StatisticPokemon, Integer> e: _ls.entryList()) {
             StatisticPokemon key_ = e.getKey();
             if (!ConverterCommonMapUtil.addTr(_t, key_.getPokemon()).isEmpty()) {
                 e_.addEntry(key_, e.getValue());
@@ -1814,13 +1814,13 @@ public final class ConverterCommonMapUtil {
             legs_.addEntry(new Point(f.getKey()),copyWildPk(f.getValue()));
         }
         _cp.setLegendaryPks(legs_);
-        Points<Short> hm_ = new PointsShort(new CollCapacity(_e.getHm().size()));
-        for (EntryCust<Point,Short> f:_e.getHm().entryList()) {
+        Points<Integer> hm_ = new PointsShort(new CollCapacity(_e.getHm().size()));
+        for (EntryCust<Point,Integer> f:_e.getHm().entryList()) {
             hm_.addEntry(new Point(f.getKey()),f.getValue());
         }
         _cp.setHm(hm_);
-        Points<Short> tm_ = new PointsShort(new CollCapacity(_e.getTm().size()));
-        for (EntryCust<Point,Short> f:_e.getTm().entryList()) {
+        Points<Integer> tm_ = new PointsShort(new CollCapacity(_e.getTm().size()));
+        for (EntryCust<Point,Integer> f:_e.getTm().entryList()) {
             tm_.addEntry(new Point(f.getKey()),f.getValue());
         }
         _cp.setTm(tm_);
@@ -1871,7 +1871,7 @@ public final class ConverterCommonMapUtil {
     public static DealerItem copyDealerItem(DealerItem _e) {
         DealerItem cp_ = new DealerItem();
         cp_.setItems(new StringList(_e.getItems()));
-        cp_.setTechnicalMoves(new Shorts(_e.getTechnicalMoves()));
+        cp_.setTechnicalMoves(new Ints(_e.getTechnicalMoves()));
         cp_.setImageMiniFileName(_e.getImageMiniFileName());
         return cp_;
     }
@@ -2009,12 +2009,12 @@ public final class ConverterCommonMapUtil {
         cp_.setMultPower(_e.getMultPower());
         cp_.setMultDamage(_e.getMultDamage());
         cp_.setMultStab(new Rate(_e.getMultStab()));
-        cp_.setBonusStatRank(new IdMap<Statistic,Byte>(_e.getBonusStatRank()));
-        cp_.setBoostStatRankProtected(new IdMap<Statistic,Byte>(_e.getBoostStatRankProtected()));
-        cp_.setBoostStatRankEndRound(new IdMap<Statistic,Byte>(_e.getBoostStatRankEndRound()));
+        cp_.setBonusStatRank(new IdMap<Statistic,Integer>(_e.getBonusStatRank()));
+        cp_.setBoostStatRankProtected(new IdMap<Statistic,Integer>(_e.getBoostStatRankProtected()));
+        cp_.setBoostStatRankEndRound(new IdMap<Statistic,Integer>(_e.getBoostStatRankEndRound()));
         cp_.setMultStatAlly(new IdMap<Statistic,Rate>(_e.getMultStatAlly()));
-        cp_.setMultStatIfKoFoe(new IdMap<Statistic,Byte>(_e.getMultStatIfKoFoe()));
-        cp_.setMultStatIfLowStat(new IdMap<Statistic,Byte>(_e.getMultStatIfLowStat()));
+        cp_.setMultStatIfKoFoe(new IdMap<Statistic,Integer>(_e.getMultStatIfKoFoe()));
+        cp_.setMultStatIfLowStat(new IdMap<Statistic,Integer>(_e.getMultStatIfLowStat()));
         cp_.setMultStatIfCat(copyStatisticCategoryRate(_e.getMultStatIfCat()));
         cp_.setMultStatIfStatutRank(copyStatisticStatusList(_e.getMultStatIfStatutRank()));
         cp_.setMultStatIfDamageCat(copyStatisticCategoryByte(_e.getMultStatIfDamageCat()));
@@ -2028,8 +2028,8 @@ public final class ConverterCommonMapUtil {
         cp_.setPlate(_e.isPlate());
         cp_.setHealedStatusBySwitch(_e.isHealedStatusBySwitch());
         cp_.setHealedHpRateBySwitch(new Rate(_e.getHealedHpRateBySwitch()));
-        cp_.setIncreasedPrio(new StringMap<Short>(_e.getIncreasedPrio()));
-        cp_.setIncreasedPrioTypes(new StringMap<Short>(_e.getIncreasedPrioTypes()));
+        cp_.setIncreasedPrio(new StringMap<Integer>(_e.getIncreasedPrio()));
+        cp_.setIncreasedPrioTypes(new StringMap<Integer>(_e.getIncreasedPrioTypes()));
         cp_.setMaxStatisticsIfCh(new IdList<Statistic>(_e.getMaxStatisticsIfCh()));
         cp_.setSingleStatus(copyMonteCarloString(_e.getSingleStatus()));
         cp_.setAchievedDisappearedPk(_e.isAchievedDisappearedPk());
@@ -2046,7 +2046,7 @@ public final class ConverterCommonMapUtil {
         cp_.setImmuAllyFromMoves(new StringList(_e.getImmuAllyFromMoves()));
         cp_.setImmuStatusTypes(copyStringMapStringList(_e.getImmuStatusTypes()));
         cp_.setImmuLowStatisTypes(copyStringMapListStatistic(_e.getImmuLowStatisTypes()));
-        cp_.setLowStatFoeHit(new IdMap<Statistic,Byte>(_e.getLowStatFoeHit()));
+        cp_.setLowStatFoeHit(new IdMap<Statistic,Integer>(_e.getLowStatFoeHit()));
         cp_.setCopyMovesTypes(_e.isCopyMovesTypes());
         cp_.setMultPowerMovesTypesGlobal(copyStringMapRate(_e.getMultPowerMovesTypesGlobal()));
         cp_.setReverseEffectsPowerMovesTypesGlobal(_e.isReverseEffectsPowerMovesTypesGlobal());
@@ -2112,7 +2112,7 @@ public final class ConverterCommonMapUtil {
         cp_.setMaxHpHealingHpRate(new Rate(_e.getMaxHpHealingHpRate()));
         cp_.setDamageRateRecoilFoe(copyStringMapRate(_e.getDamageRateRecoilFoe()));
         cp_.setCategoryBoosting(_e.getCategoryBoosting());
-        cp_.setBoostStatis(new IdMap<Statistic,Byte>(_e.getBoostStatis()));
+        cp_.setBoostStatis(new IdMap<Statistic,Integer>(_e.getBoostStatis()));
         copyItem(cp_,_e);
         return cp_;
     }
@@ -2120,8 +2120,8 @@ public final class ConverterCommonMapUtil {
     public static Boost copyBoost(Boost _e){
         Boost cp_ = new Boost();
         cp_.setWinPp(new Rate(_e.getWinPp()));
-        cp_.setHappiness(new StringMap<Short>(_e.getHappiness()));
-        cp_.setEvs(new IdMap<Statistic,Short>(_e.getEvs()));
+        cp_.setHappiness(new StringMap<Integer>(_e.getHappiness()));
+        cp_.setEvs(new IdMap<Statistic,Integer>(_e.getEvs()));
         copyItem(cp_,_e);
         return cp_;
     }
@@ -2161,7 +2161,7 @@ public final class ConverterCommonMapUtil {
     }
 
     public static void copyHealingItem(HealingItem _cp,HealingItem _e){
-        _cp.setHappiness(new StringMap<Short>(_e.getHappiness()));
+        _cp.setHappiness(new StringMap<Integer>(_e.getHappiness()));
         _cp.setHealingTeam(_e.getHealingTeam());
         copyItem(_cp,_e);
     }
@@ -2249,14 +2249,14 @@ public final class ConverterCommonMapUtil {
         cp_.setBoostExp(_e.getBoostExp());
         cp_.setImmuStatus(new StringList(_e.getImmuStatus()));
         cp_.setImmuLowStatis(_e.getImmuLowStatis());
-        cp_.setIncreasingMaxNbRoundTrap(new StringMap<Short>(_e.getIncreasingMaxNbRoundTrap()));
+        cp_.setIncreasingMaxNbRoundTrap(new StringMap<Integer>(_e.getIncreasingMaxNbRoundTrap()));
         cp_.setAttacksSoon(_e.getAttacksSoon());
         cp_.setSynchroStatus(new StringList(_e.getSynchroStatus()));
         cp_.setFailStatus(new StringMap<String>(_e.getFailStatus()));
         cp_.setProtectAgainstKo(new Rate(_e.getProtectAgainstKo()));
         cp_.setProtectAgainstKoIfFullHp(new Rate(_e.getProtectAgainstKoIfFullHp()));
         cp_.setDrainedHpByDamageRate(new Rate(_e.getDrainedHpByDamageRate()));
-        cp_.setWinEvFight(new IdMap<Statistic,Short>(_e.getWinEvFight()));
+        cp_.setWinEvFight(new IdMap<Statistic,Integer>(_e.getWinEvFight()));
         cp_.setLawForAttackFirst(copyMonteCarloBool(_e.getLawForAttackFirst()));
         cp_.setMultTrappingDamage(new Rate(_e.getMultTrappingDamage()));
         cp_.setMultWinningHappiness(new Rate(_e.getMultWinningHappiness()));
@@ -2266,16 +2266,16 @@ public final class ConverterCommonMapUtil {
         cp_.setMultDamage(_e.getMultDamage());
         cp_.setMultDrainedHp(new Rate(_e.getMultDrainedHp()));
         cp_.setDamageRecoil(new Rate(_e.getDamageRecoil()));
-        cp_.setMultStatRank(new IdMap<Statistic,Byte>(_e.getMultStatRank()));
+        cp_.setMultStatRank(new IdMap<Statistic,Integer>(_e.getMultStatRank()));
         cp_.setMultStatPokemonRank(copyStatisticPokemons(_e.getMultStatPokemonRank()));
         cp_.setMultStat(new IdMap<Statistic,String>(_e.getMultStat()));
-        cp_.setIncreasingMaxNbRoundGlobalMove(new StringMap<Short>(_e.getIncreasingMaxNbRoundGlobalMove()));
-        cp_.setIncreasingMaxNbRoundTeamMove(new StringMap<Short>(_e.getIncreasingMaxNbRoundTeamMove()));
+        cp_.setIncreasingMaxNbRoundGlobalMove(new StringMap<Integer>(_e.getIncreasingMaxNbRoundGlobalMove()));
+        cp_.setIncreasingMaxNbRoundTeamMove(new StringMap<Integer>(_e.getIncreasingMaxNbRoundTeamMove()));
         cp_.setImmuMoves(new StringList(_e.getImmuMoves()));
         cp_.setHatching(new StringList(_e.getHatching()));
         cp_.setImmuTypes(new StringList(_e.getImmuTypes()));
         cp_.setImmuWeather(new StringList(_e.getImmuWeather()));
-        cp_.setBoostStatisSuperEff(new IdMap<Statistic,Byte>(_e.getBoostStatisSuperEff()));
+        cp_.setBoostStatisSuperEff(new IdMap<Statistic,Integer>(_e.getBoostStatisSuperEff()));
         cp_.setBoostStatisTypes(copyStringMapMapStatistic(_e.getBoostStatisTypes()));
         cp_.setEffectEndRound(copyEffectEndRoundList(_e.getEffectEndRound()));
         cp_.setEffectSending(copyEffectWhileSendingWithStatisticList(_e.getEffectSending()));
@@ -2500,7 +2500,7 @@ public final class ConverterCommonMapUtil {
     public static EffectCounterAttack copyEffectCounterAttack(EffectCounterAttack _e){
         EffectCounterAttack cp_ = new EffectCounterAttack();
         cp_.setSufferingDamageTypes(copyStringMapRate(_e.getSufferingDamageTypes()));
-        cp_.setDroppedStatDirectMove(new IdMap<Statistic,Byte>(_e.getDroppedStatDirectMove()));
+        cp_.setDroppedStatDirectMove(new IdMap<Statistic,Integer>(_e.getDroppedStatDirectMove()));
         cp_.setSufferingDamageDirectMove(new Rate(_e.getSufferingDamageDirectMove()));
         cp_.setProtectFail(_e.getProtectFail());
         cp_.setCounterFail(_e.getCounterFail());
@@ -2525,7 +2525,7 @@ public final class ConverterCommonMapUtil {
         cp_.setStatisAtt(_e.getStatisAtt());
         cp_.setTargetDefense(_e.isTargetDefense());
         cp_.setStatisDef(_e.getStatisDef());
-        cp_.setBoostStatisOnceKoFoe(new IdMap<Statistic,Byte>(_e.getBoostStatisOnceKoFoe()));
+        cp_.setBoostStatisOnceKoFoe(new IdMap<Statistic,Integer>(_e.getBoostStatisOnceKoFoe()));
         copyEffect(cp_,_e);
         return cp_;
     }
@@ -2772,7 +2772,7 @@ public final class ConverterCommonMapUtil {
 
     public static EffectStatistic copyEffectStatistic(EffectStatistic _e){
         EffectStatistic cp_ = new EffectStatistic();
-        cp_.setStatisVarRank(new IdMap<Statistic,Byte>(_e.getStatisVarRank()));
+        cp_.setStatisVarRank(new IdMap<Statistic,Integer>(_e.getStatisVarRank()));
         cp_.setLocalFailStatis(new IdMap<Statistic,String>(_e.getLocalFailStatis()));
         cp_.setEvtRate(new Rate(_e.getEvtRate()));
         cp_.setCopyBoost(new IdList<Statistic>(_e.getCopyBoost()));
@@ -2865,12 +2865,12 @@ public final class ConverterCommonMapUtil {
     public static EffectTeamWhileSendFoe copyEffectTeamWhileSendFoe(EffectTeamWhileSendFoe _e){
         EffectTeamWhileSendFoe cp_ = new EffectTeamWhileSendFoe();
         cp_.setFailSending(_e.getFailSending());
-        ShortMap<String> s_ = new ShortMap<String>();
+        IntMap<String> s_ = new IntMap<String>();
         s_.addAllEntries(_e.getStatusByNbUses());
         cp_.setStatusByNbUses(s_);
         cp_.setDeletedByFoeTypes(new StringList(_e.getDeletedByFoeTypes()));
         cp_.setDamageRateAgainstFoe(_e.getDamageRateAgainstFoe());
-        cp_.setStatistics(new IdMap<Statistic,Byte>(_e.getStatistics()));
+        cp_.setStatistics(new IdMap<Statistic,Integer>(_e.getStatistics()));
         copyEffect(cp_,_e);
         return cp_;
     }
@@ -3048,8 +3048,8 @@ public final class ConverterCommonMapUtil {
         cp_.setGenderRep(_e.getGenderRep());
         cp_.setAbilities(new StringList(_e.getAbilities()));
         cp_.setMoveTutors(new StringList(_e.getMoveTutors()));
-        cp_.setHiddenMoves(new Shorts(_e.getHiddenMoves()));
-        cp_.setTechnicalMoves(new Shorts(_e.getTechnicalMoves()));
+        cp_.setHiddenMoves(new Ints(_e.getHiddenMoves()));
+        cp_.setTechnicalMoves(new Ints(_e.getTechnicalMoves()));
         cp_.setBaseEvo(_e.getBaseEvo());
         cp_.setEvolutions(copyMapEvolution(_e.getEvolutions()));
         cp_.setCatchingRate(_e.getCatchingRate());
@@ -3209,14 +3209,14 @@ public final class ConverterCommonMapUtil {
         new MapToEntriesListUtil<String,IdList<Statistic>>().feedMap(_m, c_);
         return c_;
     }
-    public static StringMap<IdMap<Statistic, Byte>> buildStringMapIdMapStatisticByte(CustList<EditedCrudPair<String, IdMap<Statistic, Byte>>> _m) {
-        StringMap<IdMap<Statistic, Byte>> c_ = new StringMap<IdMap<Statistic, Byte>>(new CollCapacity(_m.size()));
-        new MapToEntriesListUtil<String,IdMap<Statistic, Byte>>().feedMap(_m, c_);
+    public static StringMap<IdMap<Statistic, Integer>> buildStringMapIdMapStatisticByte(CustList<EditedCrudPair<String, IdMap<Statistic, Integer>>> _m) {
+        StringMap<IdMap<Statistic, Integer>> c_ = new StringMap<IdMap<Statistic, Integer>>(new CollCapacity(_m.size()));
+        new MapToEntriesListUtil<String,IdMap<Statistic, Integer>>().feedMap(_m, c_);
         return c_;
     }
-    public static ShortMap<String> buildShortMapString(CustList<EditedCrudPair<Short, String>> _m) {
-        ShortMap<String> c_ = new ShortMap<String>(new CollCapacity(_m.size()));
-        new MapToEntriesListUtil<Short,String>().feedMap(_m, c_);
+    public static IntMap<String> buildIntegerMapString(CustList<EditedCrudPair<Integer, String>> _m) {
+        IntMap<String> c_ = new IntMap<String>(new CollCapacity(_m.size()));
+        new MapToEntriesListUtil<Integer,String>().feedMap(_m, c_);
         return c_;
     }
     public static StringMap<EfficiencyRate> buildStringMapEfficiencyRate(CustList<EditedCrudPair<String, EfficiencyRate>> _m) {
@@ -3239,14 +3239,14 @@ public final class ConverterCommonMapUtil {
         new ConverterCommonMap<String,Rate>().copy(new IdTechnicalCopier<String>(),new RateTechnicalCopier(), c_, _m);
         return c_;
     }
-    public static ShortMap<LgInt> copyStringMapLgInt(ShortMap<LgInt> _m) {
-        ShortMap<LgInt> c_ = new ShortMap<LgInt>(new CollCapacity(_m.size()));
-        new ConverterCommonMap<Short,LgInt>().copy(new IdTechnicalCopier<Short>(),new LgIntTechnicalCopier(), c_, _m);
+    public static IntMap<LgInt> copyStringMapLgInt(IntMap<LgInt> _m) {
+        IntMap<LgInt> c_ = new IntMap<LgInt>(new CollCapacity(_m.size()));
+        new ConverterCommonMap<Integer,LgInt>().copy(new IdTechnicalCopier<Integer>(),new LgIntTechnicalCopier(), c_, _m);
         return c_;
     }
-    public static StringMap<Short> buildStringMapShort(CustList<EditedCrudPair<String, Short>> _m) {
-        StringMap<Short> c_ = new StringMap<Short>(new CollCapacity(_m.size()));
-        new MapToEntriesListUtil<String,Short>().feedMap(_m, c_);
+    public static StringMap<Integer> buildStringMapInteger(CustList<EditedCrudPair<String, Integer>> _m) {
+        StringMap<Integer> c_ = new StringMap<Integer>(new CollCapacity(_m.size()));
+        new MapToEntriesListUtil<String,Integer>().feedMap(_m, c_);
         return c_;
     }
     public static StringMap<Ints> buildStringMapInts(CustList<EditedCrudPair<String, Ints>> _m) {
@@ -3264,14 +3264,9 @@ public final class ConverterCommonMapUtil {
         new ConverterCommonMap<Statistic,BoostHpRate>().copy(new IdTechnicalCopier<Statistic>(),new BoostHpRateTechnicalCopier(), c_,_m);
         return c_;
     }
-    public static IdMap<Statistic,Byte> buildIdMapStatisticByte(CustList<EditedCrudPair<Statistic, Byte>> _m) {
-        IdMap<Statistic,Byte> c_ = new IdMap<Statistic,Byte>(new CollCapacity(_m.size()));
-        new MapToEntriesListUtil<Statistic,Byte>().feedMap(_m, c_);
-        return c_;
-    }
-    public static IdMap<Statistic,Short> buildIdMapStatisticShort(CustList<EditedCrudPair<Statistic, Short>> _m) {
-        IdMap<Statistic,Short> c_ = new IdMap<Statistic,Short>(new CollCapacity(_m.size()));
-        new MapToEntriesListUtil<Statistic,Short>().feedMap(_m, c_);
+    public static IdMap<Statistic,Integer> buildIdMapStatisticInteger(CustList<EditedCrudPair<Statistic, Integer>> _m) {
+        IdMap<Statistic,Integer> c_ = new IdMap<Statistic,Integer>(new CollCapacity(_m.size()));
+        new MapToEntriesListUtil<Statistic,Integer>().feedMap(_m, c_);
         return c_;
     }
     public static IdMap<Statistic,Rate> buildIdMapStatisticRate(CustList<EditedCrudPair<Statistic, Rate>> _m) {
@@ -3299,14 +3294,14 @@ public final class ConverterCommonMapUtil {
         new ConverterCommonMap<CategoryMult, Rate>().copy(new CategoryMultTechnicalCopier(),new RateTechnicalCopier(),c_,_m);
         return c_;
     }
-    public static StatisticCategoryByte buildStatisticCategoryByte(CustList<EditedCrudPair<StatisticCategory, Byte>> _m) {
+    public static StatisticCategoryByte buildStatisticCategoryByte(CustList<EditedCrudPair<StatisticCategory, Integer>> _m) {
         StatisticCategoryByte c_ = new StatisticCategoryByte(new CollCapacity(_m.size()));
-        new ConverterCommonMap<StatisticCategory, Byte>().feed(c_,_m);
+        new ConverterCommonMap<StatisticCategory, Integer>().feed(c_,_m);
         return c_;
     }
-    public static StatisticCategoryByte copyStatisticCategoryByte(StatisticCategoryList<Byte> _m) {
+    public static StatisticCategoryByte copyStatisticCategoryByte(StatisticCategoryList<Integer> _m) {
         StatisticCategoryByte c_ = new StatisticCategoryByte(new CollCapacity(_m.size()));
-        new ConverterCommonMap<StatisticCategory, Byte>().copy(new StatisticCategoryTechnicalCopier(),new IdTechnicalCopier<Byte>(),c_,_m);
+        new ConverterCommonMap<StatisticCategory, Integer>().copy(new StatisticCategoryTechnicalCopier(),new IdTechnicalCopier<Integer>(),c_,_m);
         return c_;
     }
     public static StatisticCategoryRate buildStatisticCategoryRate(CustList<EditedCrudPair<StatisticCategory, Rate>> _m) {
@@ -3319,34 +3314,34 @@ public final class ConverterCommonMapUtil {
         new ConverterCommonMap<StatisticCategory, Rate>().copy(new StatisticCategoryTechnicalCopier(),new RateTechnicalCopier(),c_,_m);
         return c_;
     }
-    public static StatisticPokemons buildStatisticPokemons(CustList<EditedCrudPair<StatisticPokemon,Byte>> _m) {
+    public static StatisticPokemons buildStatisticPokemons(CustList<EditedCrudPair<StatisticPokemon,Integer>> _m) {
         StatisticPokemons c_ = new StatisticPokemons(new CollCapacity(_m.size()));
-        new ConverterCommonMap<StatisticPokemon,Byte>().feed(c_,_m);
+        new ConverterCommonMap<StatisticPokemon,Integer>().feed(c_,_m);
         return c_;
     }
     public static StatisticPokemons copyStatisticPokemons(StatisticPokemons _m) {
         StatisticPokemons c_ = new StatisticPokemons(new CollCapacity(_m.size()));
-        new ConverterCommonMap<StatisticPokemon,Byte>().copy(new StatisticPokemonTechnicalCopier(),new IdTechnicalCopier<Byte>(),c_, _m);
+        new ConverterCommonMap<StatisticPokemon,Integer>().copy(new StatisticPokemonTechnicalCopier(),new IdTechnicalCopier<Integer>(),c_, _m);
         return c_;
     }
-    public static StatisticStatusList buildStatisticStatusList(CustList<EditedCrudPair<StatisticStatus,Byte>> _m) {
+    public static StatisticStatusList buildStatisticStatusList(CustList<EditedCrudPair<StatisticStatus,Integer>> _m) {
         StatisticStatusList c_ = new StatisticStatusList(new CollCapacity(_m.size()));
-        new ConverterCommonMap<StatisticStatus,Byte>().feed(c_,_m);
+        new ConverterCommonMap<StatisticStatus,Integer>().feed(c_,_m);
         return c_;
     }
     public static StatisticStatusList copyStatisticStatusList(StatisticStatusList _m) {
         StatisticStatusList c_ = new StatisticStatusList(new CollCapacity(_m.size()));
-        new ConverterCommonMap<StatisticStatus,Byte>().copy(new StatisticStatusTechnicalCopier(),new IdTechnicalCopier<Byte>(),c_,_m);
+        new ConverterCommonMap<StatisticStatus,Integer>().copy(new StatisticStatusTechnicalCopier(),new IdTechnicalCopier<Integer>(),c_,_m);
         return c_;
     }
-    public static StatisticTypeByte buildStatisticTypeByte(CustList<EditedCrudPair<StatisticType,Byte>> _m) {
+    public static StatisticTypeByte buildStatisticTypeByte(CustList<EditedCrudPair<StatisticType,Integer>> _m) {
         StatisticTypeByte c_ = new StatisticTypeByte(new CollCapacity(_m.size()));
-        new ConverterCommonMap<StatisticType,Byte>().feed(c_,_m);
+        new ConverterCommonMap<StatisticType,Integer>().feed(c_,_m);
         return c_;
     }
-    public static StatisticTypeByte copyStatisticTypeByte(StatisticTypeList<Byte> _m) {
+    public static StatisticTypeByte copyStatisticTypeByte(StatisticTypeList<Integer> _m) {
         StatisticTypeByte c_ = new StatisticTypeByte(new CollCapacity(_m.size()));
-        new ConverterCommonMap<StatisticType,Byte>().copy(new StatisticTypeTechnicalCopier(),new IdTechnicalCopier<Byte>(),c_,_m);
+        new ConverterCommonMap<StatisticType,Integer>().copy(new StatisticTypeTechnicalCopier(),new IdTechnicalCopier<Integer>(),c_,_m);
         return c_;
     }
     public static StatisticTypeRate buildStatisticTypeRate(CustList<EditedCrudPair<StatisticType,Rate>> _m) {
@@ -3404,9 +3399,9 @@ public final class ConverterCommonMapUtil {
         new ConverterCommonMap<String,IdList<Statistic>>().copy(new IdTechnicalCopier<String>(),new ListStatisticTechnicalCopier(),c_,_m);
         return c_;
     }
-    public static StringMap<IdMap<Statistic,Byte>> copyStringMapMapStatistic(StringMap<IdMap<Statistic,Byte>> _m) {
-        StringMap<IdMap<Statistic,Byte>> c_ = new StringMap<IdMap<Statistic,Byte>>(new CollCapacity(_m.size()));
-        new ConverterCommonMap<String,IdMap<Statistic,Byte>>().copy(new IdTechnicalCopier<String>(),new IdMapImmutableTechnicalCopier<Statistic,Byte>(),c_,_m);
+    public static StringMap<IdMap<Statistic,Integer>> copyStringMapMapStatistic(StringMap<IdMap<Statistic,Integer>> _m) {
+        StringMap<IdMap<Statistic,Integer>> c_ = new StringMap<IdMap<Statistic,Integer>>(new CollCapacity(_m.size()));
+        new ConverterCommonMap<String,IdMap<Statistic,Integer>>().copy(new IdTechnicalCopier<String>(),new IdMapImmutableTechnicalCopier<Statistic,Integer>(),c_,_m);
         return c_;
     }
     public static CustList<TypesDuo> copyListTypesDuo(CustList<TypesDuo> _m) {

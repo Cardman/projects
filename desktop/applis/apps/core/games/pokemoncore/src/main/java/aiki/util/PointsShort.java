@@ -2,7 +2,7 @@ package aiki.util;
 
 import code.util.CollCapacity;
 
-public final class PointsShort extends Points<Short> {
+public final class PointsShort extends Points<Integer> {
     public PointsShort() {
     }
     public PointsShort(CollCapacity _cap) {
@@ -10,7 +10,7 @@ public final class PointsShort extends Points<Short> {
     }
 
     @Override
-    protected Short def() {
-        return (short)0;
+    protected Integer def() {
+        return 0;
     }
 }

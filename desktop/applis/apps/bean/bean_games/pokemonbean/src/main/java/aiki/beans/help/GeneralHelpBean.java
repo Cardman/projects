@@ -26,7 +26,7 @@ public class GeneralHelpBean extends CommonBean {
     private String begin;
 
     private Pokemon firstPokemon;
-    private byte nbMaxTeam;
+    private int nbMaxTeam;
     private int minLevel;
     private int maxLevel;
     private int nbMaxMoves;
@@ -35,8 +35,8 @@ public class GeneralHelpBean extends CommonBean {
     private int maxIv;
     private int happinessMax;
     private int nbNecStepsIncrHappiness;
-    private short nbMaxStepsSameEvoBase;
-    private short nbMaxSteps;
+    private int nbMaxStepsSameEvoBase;
+    private int nbMaxSteps;
     private StringList pokemonDefaultEggGroup = new StringList();
     private Rate defaultMoney;
     private StringList tm = new StringList();
@@ -128,7 +128,7 @@ public class GeneralHelpBean extends CommonBean {
         String name_ = firstPokemon.getName();
         return tryRedirectPk(name_);
     }
-    public short getLevel() {
+    public int getLevel() {
         return firstPokemon.getLevel();
     }
     public String getGender() {
@@ -242,7 +242,7 @@ public class GeneralHelpBean extends CommonBean {
         DataBase data_ = getDataBase();
         String move_ = tm.get(_moveIndex);
 //        short key_ = data_.getTm().getKeys(move_).first();
-        short key_ = data_.getTmByMove(move_).first();
+        int key_ = data_.getTmByMove(move_).first();
         if (data_.getTmPrice().contains(key_)) {
             return data_.getTmPrice().getVal(key_).toNumberString();
         }
@@ -308,7 +308,7 @@ public class GeneralHelpBean extends CommonBean {
         return unlockedCity;
     }
 
-    public byte getNbMaxTeam() {
+    public int getNbMaxTeam() {
         return nbMaxTeam;
     }
 
@@ -328,11 +328,11 @@ public class GeneralHelpBean extends CommonBean {
         return nbNecStepsIncrHappiness;
     }
 
-    public short getNbMaxStepsSameEvoBase() {
+    public int getNbMaxStepsSameEvoBase() {
         return nbMaxStepsSameEvoBase;
     }
 
-    public short getNbMaxSteps() {
+    public int getNbMaxSteps() {
         return nbMaxSteps;
     }
 

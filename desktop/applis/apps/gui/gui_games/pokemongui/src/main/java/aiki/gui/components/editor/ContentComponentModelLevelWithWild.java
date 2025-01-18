@@ -13,8 +13,8 @@ import code.util.core.*;
 
 public final class ContentComponentModelLevelWithWild {
     private GeneComponentModelEltEnumSub<String> items;
-    private GeneComponentModelEltEnumSub<Short> hm;
-    private GeneComponentModelEltEnumSub<Short> tm;
+    private GeneComponentModelEltEnumSub<Integer> hm;
+    private GeneComponentModelEltEnumSub<Integer> tm;
     private final ContentComponentModelDealerItem dealerItem = new ContentComponentModelDealerItem();
     private final ContentComponentModelTrainerMultiFights trainerMultiFights = new ContentComponentModelTrainerMultiFights();
     private final ContentComponentModelDualFight dualFight = new ContentComponentModelDualFight();
@@ -176,7 +176,7 @@ public final class ContentComponentModelLevelWithWild {
         }
     }
 
-    private void techHidden(GeneComponentModelEltEnumSub<Short> _sel) {
+    private void techHidden(GeneComponentModelEltEnumSub<Integer> _sel) {
         AbsCompoFactory compoFactory_ = contentLevel.getLevel().getApi().getCompoFactory();
         AbsPanel form_ = compoFactory_.newLineBox();
         form_.add(_sel.geneEnum());
@@ -369,11 +369,11 @@ public final class ContentComponentModelLevelWithWild {
         return legendaryPks;
     }
 
-    public GeneComponentModelEltEnumSub<Short> getTm() {
+    public GeneComponentModelEltEnumSub<Integer> getTm() {
         return tm;
     }
 
-    public GeneComponentModelEltEnumSub<Short> getHm() {
+    public GeneComponentModelEltEnumSub<Integer> getHm() {
         return hm;
     }
 

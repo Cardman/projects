@@ -27,7 +27,7 @@ public final class FightWildIntroThread extends FightIntroThread {
 //        pokemon = ConverterGraphicBufferedImage.decodeToImage(getBattle().getWindow().getImageFactory(), getFacade().getData().getMaxiPkFront().getVal(name_));
         getBattle().setHerosOppositeSex(getHerosOppositeSex(), false);
         CustList<AbstractImage> imgs_ = new CustList<AbstractImage>();
-        for (EntryCust<Byte, Fighter> f: getFacade().getFight().getFoeTeam().getMembers().entryList()) {
+        for (EntryCust<Integer, Fighter> f: getFacade().getFight().getFoeTeam().getMembers().entryList()) {
             String name_ = f.getValue().getName();
             imgs_.add(ConverterGraphicBufferedImage.decodeToImage(getBattle().getWindow().getImageFactory(), getFacade().getData().getMaxiPkFront().getVal(name_).getImage()));
         }

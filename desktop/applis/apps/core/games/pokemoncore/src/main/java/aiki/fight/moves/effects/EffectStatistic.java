@@ -12,7 +12,7 @@ import code.util.IdMap;
 
 public final class EffectStatistic extends Effect {
 
-    private IdMap<Statistic, Byte> statisVarRank;
+    private IdMap<Statistic, Integer> statisVarRank;
     private IdMap<Statistic, String> localFailStatis;
     private Rate evtRate;
     private IdList<Statistic> copyBoost;
@@ -78,11 +78,11 @@ public final class EffectStatistic extends Effect {
         DataInfoChecker.checkEmptyStatisticList(cancelChgtStat,_data);
     }
 
-    public IdMap<Statistic, Byte> getStatisVarRank() {
+    public IdMap<Statistic, Integer> getStatisVarRank() {
         return statisVarRank;
     }
 
-    public void setStatisVarRank(IdMap<Statistic, Byte> _statisVarRank) {
+    public void setStatisVarRank(IdMap<Statistic, Integer> _statisVarRank) {
         statisVarRank = _statisVarRank;
     }
 

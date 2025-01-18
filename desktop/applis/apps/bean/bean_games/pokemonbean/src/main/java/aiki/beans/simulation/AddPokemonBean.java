@@ -64,13 +64,13 @@ public class AddPokemonBean extends WithFilterBean {
         }*/
         WildPk pk_ = new WildPk();
         pk_.setName(namePk);
-        pk_.setLevel((short) common.getLevel());
+        pk_.setLevel(common.getLevel());
         pk_.setAbility(ability);
         pk_.setGender(PokemonStandards.getGenderByName(common.getGender()));
         PokemonData pkData_ = data_.getPokemon(namePk);
         PokemonPlayerDto pkDto_ = new PokemonPlayerDto();
         pkDto_.setPokemon(pk_);
-        pkDto_.setMoves(pkData_.getMovesAtLevel((short) common.getLevel(), data_.getNbMaxMoves()));
+        pkDto_.setMoves(pkData_.getMovesAtLevel(common.getLevel(), data_.getNbMaxMoves()));
         getForms().put(CST_POKEMON_ADDED, pkDto_);
         getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.ADD);
         return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;

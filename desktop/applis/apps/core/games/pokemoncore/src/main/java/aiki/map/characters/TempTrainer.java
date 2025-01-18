@@ -8,14 +8,14 @@ public final class TempTrainer extends TrainerOneFight {
     private String imageMiniSecondTrainerFileName;
 
     public TempTrainer() {
-        setMultiplicityFight((byte) 2);
+        setMultiplicityFight(2);
     }
 
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
         validateTrainerOneFight(_data);
-        setMultiplicityFight((byte) 2);
+        setMultiplicityFight(2);
     }
 
     @Override

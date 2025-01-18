@@ -28,13 +28,13 @@ public final class FacadeGameFightKoThreeTest extends InitializationDataBase {
         pk_.setItem(MULTI_EXP);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(ABSORB_EAU);
-        pk_.setLevel((short) 100);
+        pk_.setLevel( 100);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
         pkPl_.learnMove(SEISME, LIRE_ESPRIT, data_);
-        pkPl_.setHappiness((short) 120);
+        pkPl_.setHappiness( 120);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
         game_.getDifficulty().setRandomWildFight(false);
         game_.initTrainerFight(data_);
@@ -48,11 +48,11 @@ public final class FacadeGameFightKoThreeTest extends InitializationDataBase {
     @Test
     public void act1Test() {
         FacadeGame facadeGame_ = initTests();
-        facadeGame_.chooseFrontFighter((byte) 0);
+        facadeGame_.chooseFrontFighter( 0);
         facadeGame_.chooseMove(SEISME);
         facadeGame_.roundAllThrowers(false);
         facadeGame_.deselect();
-        facadeGame_.choosePokemonForLearningAndEvolving((byte) 0);
+        facadeGame_.choosePokemonForLearningAndEvolving( 0);
         facadeGame_.setEvolution(TARINORME);
         facadeGame_.setAbility(MAGNEPIEGE);
         assertEq(0, facadeGame_.getChosenIndex());

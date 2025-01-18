@@ -136,7 +136,7 @@ public abstract class InitDbMoveEffectStatistic extends InitDbMoveEffect {
         return e_;
     }
     protected EffectStatistic withStatisVarRank(EffectStatistic _e, Statistic _statis, int _v) {
-        _e.getStatisVarRank().addEntry(_statis,(byte)_v);
+        _e.getStatisVarRank().addEntry(_statis,_v);
         return _e;
     }
     protected EffectStatistic withLawBoost(EffectStatistic _e, Statistic _statis, LgInt _v) {

@@ -174,7 +174,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFightTrainerDual1(Sex.GIRL, diff_, data_);
         game_.getFight().getAllyChoice().clear();
         game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)), new MoveTarget(JACKPOT, new TargetCoords((short) 2,(short) 0)));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)), new MoveTarget(JACKPOT, new TargetCoords( 2, 0)));
         assertTrue(!FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -184,7 +184,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFightTrainerDual1(Sex.BOY, diff_, data_);
         game_.getFight().getAllyChoice().clear();
         game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)), new MoveTarget(JACKPOT, new TargetCoords((short) 2,(short) 0)));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)), new MoveTarget(JACKPOT, new TargetCoords( 2, 0)));
         assertTrue(!FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -194,7 +194,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFightTrainerDual1(Sex.GIRL, diff_, data_);
         game_.getFight().getAllyChoice().clear();
         game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, new TargetCoords((short) 2,(short) 0)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, new TargetCoords( 2, 0)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)));
         assertTrue(!FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -204,7 +204,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFightTrainerDual1(Sex.BOY, diff_, data_);
         game_.getFight().getAllyChoice().clear();
         game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, new TargetCoords((short) 2,(short) 0)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, new TargetCoords( 2, 0)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)));
         assertTrue(!FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -254,7 +254,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFightTrainerDual1(Sex.GIRL, diff_, data_);
         game_.getFight().getAllyChoice().clear();
         game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)), new MoveTarget(JACKPOT, new TargetCoords(Fight.CST_PLAYER,(short) (Fighter.BACK-1))));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)), new MoveTarget(JACKPOT, new TargetCoords(Fight.CST_PLAYER, (Fighter.BACK-1))));
         assertTrue(!FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -264,7 +264,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFightTrainerDual1(Sex.BOY, diff_, data_);
         game_.getFight().getAllyChoice().clear();
         game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)), new MoveTarget(JACKPOT, new TargetCoords(Fight.CST_PLAYER,(short) (Fighter.BACK-1))));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)), new MoveTarget(JACKPOT, new TargetCoords(Fight.CST_PLAYER, (Fighter.BACK-1))));
         assertTrue(!FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -274,7 +274,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFightTrainerDual1(Sex.GIRL, diff_, data_);
         game_.getFight().getAllyChoice().clear();
         game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, new TargetCoords(Fight.CST_PLAYER,(short) (Fighter.BACK-1))), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, new TargetCoords(Fight.CST_PLAYER, (Fighter.BACK-1))), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)));
         assertTrue(!FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -284,7 +284,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFightTrainerDual1(Sex.BOY, diff_, data_);
         game_.getFight().getAllyChoice().clear();
         game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO)));
-        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, new TargetCoords(Fight.CST_PLAYER,(short) (Fighter.BACK-1))), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)));
+        game_.getFight().getAllyChoice().put(new MoveTarget(JACKPOT, new TargetCoords(Fight.CST_PLAYER, (Fighter.BACK-1))), new MoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ONE)));
         assertTrue(!FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
@@ -361,7 +361,7 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFight(Sex.GIRL, diff_, data_);
         Fight fight_ = game_.getFight();
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst( 1);
         assertTrue(!FightFacade.validPlacesSubst(fight_, Fight.CST_PLAYER, true));
     }
     @Test
@@ -370,7 +370,7 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFight(Sex.BOY, diff_, data_);
         Fight fight_ = game_.getFight();
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst( 1);
         assertTrue(!FightFacade.validPlacesSubst(fight_, Fight.CST_PLAYER, true));
     }
     @Test
@@ -379,7 +379,7 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFight3(Sex.GIRL, diff_, data_);
         Fight fight_ = game_.getFight();
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setGroundPlaceSubst((byte) 0);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setGroundPlaceSubst( 0);
         assertTrue(!FightFacade.validPlacesSubst(fight_, Fight.CST_PLAYER, true));
     }
     @Test
@@ -388,7 +388,7 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFight3(Sex.BOY, diff_, data_);
         Fight fight_ = game_.getFight();
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setGroundPlaceSubst((byte) 0);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setGroundPlaceSubst( 0);
         assertTrue(!FightFacade.validPlacesSubst(fight_, Fight.CST_PLAYER, true));
     }
     @Test
@@ -447,7 +447,7 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFight(Sex.GIRL, diff_, data_);
         Fight fight_ = game_.getFight();
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlace((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlace( 1);
         assertTrue(!FightFacade.validPlaces(fight_, Fight.CST_PLAYER));
     }
     @Test
@@ -456,7 +456,7 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFight(Sex.BOY, diff_, data_);
         Fight fight_ = game_.getFight();
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlace((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlace( 1);
         assertTrue(!FightFacade.validPlaces(fight_, Fight.CST_PLAYER));
     }
     @Test
@@ -465,7 +465,7 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFight3(Sex.GIRL, diff_, data_);
         Fight fight_ = game_.getFight();
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setGroundPlace((byte) 0);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setGroundPlace( 0);
         assertTrue(!FightFacade.validPlaces(fight_, Fight.CST_PLAYER));
     }
     @Test
@@ -474,7 +474,7 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFight3(Sex.BOY, diff_, data_);
         Fight fight_ = game_.getFight();
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setGroundPlace((byte) 0);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setGroundPlace( 0);
         assertTrue(!FightFacade.validPlaces(fight_, Fight.CST_PLAYER));
     }
     @Test
@@ -516,8 +516,8 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFightTrainer4(Sex.GIRL, diff_, data_);
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstitute((byte) 2);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setSubstitute((byte) 2);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstitute( 2);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setSubstitute( 2);
         assertTrue(!FightFacade.validSwitchTeam(fight_, Fight.CST_PLAYER));
     }
     @Test
@@ -527,8 +527,8 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFightTrainer4(Sex.BOY, diff_, data_);
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstitute((byte) 2);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setSubstitute((byte) 2);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstitute( 2);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setSubstitute( 2);
         assertTrue(!FightFacade.validSwitchTeam(fight_, Fight.CST_PLAYER));
     }
     @Test
@@ -537,7 +537,7 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainer2(Sex.GIRL, diff_, data_);
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -549,7 +549,7 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainer2(Sex.BOY, diff_, data_);
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -561,7 +561,7 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainer2(Sex.GIRL, diff_, data_);
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -573,7 +573,7 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainer2(Sex.BOY, diff_, data_);
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -587,13 +587,13 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
         addBackFoeFighter(pk_, game_, data_);
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -607,13 +607,13 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
         addBackFoeFighter(pk_, game_, data_);
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -627,13 +627,13 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
         addBackFoeFighter(pk_, game_, data_);
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -647,13 +647,13 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
         addBackFoeFighter(pk_, game_, data_);
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -667,7 +667,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -675,7 +675,7 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         addBackFoeFighter(pk_, game_, data_);
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -683,7 +683,7 @@ public class FightValidationTest extends InitializationDataBase {
 //        FightRound.roundUser(fight_, diff_, player_, data_);
 //        FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         game_.sendSubstitutes(data_);
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -697,7 +697,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -705,7 +705,7 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         addBackFoeFighter(pk_, game_, data_);
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -713,7 +713,7 @@ public class FightValidationTest extends InitializationDataBase {
 //        FightRound.roundUser(fight_, diff_, player_, data_);
 //        FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         game_.sendSubstitutes(data_);
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -727,7 +727,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -735,7 +735,7 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         addBackFoeFighter(pk_, game_, data_);
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -743,7 +743,7 @@ public class FightValidationTest extends InitializationDataBase {
 //        FightRound.roundUser(fight_, diff_, player_, data_);
 //        FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         game_.sendSubstitutes(data_);
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -757,7 +757,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -765,7 +765,7 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         addBackFoeFighter(pk_, game_, data_);
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -773,7 +773,7 @@ public class FightValidationTest extends InitializationDataBase {
 //        FightRound.roundUser(fight_, diff_, player_, data_);
 //        FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         game_.sendSubstitutes(data_);
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -802,11 +802,11 @@ public class FightValidationTest extends InitializationDataBase {
         PokemonPlayer pkLast_ = (PokemonPlayer) game_.getPlayer().getTeam().last();
         pkLast_.getRemainingHp().affectZero();
         game_.initTrainerFight(data_);
-        game_.chooseBackFighter((byte) 0, data_);
+        game_.chooseBackFighter( 0, data_);
         game_.setChosenHealingItem(RAPPEL, data_);
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.chooseMove(JACKPOT, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.roundAllThrowers(data_, true);
         game_.roundUser(data_);
         Fighter fighter_ =game_.getFight().getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -850,11 +850,11 @@ public class FightValidationTest extends InitializationDataBase {
         PokemonPlayer pkLast_ = (PokemonPlayer) game_.getPlayer().getTeam().last();
         pkLast_.getRemainingHp().affectZero();
         game_.initTrainerFight(data_);
-        game_.chooseBackFighter((byte) 0, data_);
+        game_.chooseBackFighter( 0, data_);
         game_.setChosenHealingItem(RAPPEL, data_);
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.chooseMove(JACKPOT, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.roundAllThrowers(data_, true);
         game_.roundUser(data_);
         Fighter fighter_ =game_.getFight().getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -898,11 +898,11 @@ public class FightValidationTest extends InitializationDataBase {
         PokemonPlayer pkLast_ = (PokemonPlayer) game_.getPlayer().getTeam().last();
         pkLast_.getRemainingHp().affectZero();
         game_.initTrainerFight(data_);
-        game_.chooseBackFighter((byte) 0, data_);
+        game_.chooseBackFighter( 0, data_);
         game_.setChosenHealingItem(RAPPEL, data_);
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.chooseMove(JACKPOT, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.roundAllThrowers(data_, true);
         game_.roundUser(data_);
         Fighter fighter_ =game_.getFight().getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -946,11 +946,11 @@ public class FightValidationTest extends InitializationDataBase {
         PokemonPlayer pkLast_ = (PokemonPlayer) game_.getPlayer().getTeam().last();
         pkLast_.getRemainingHp().affectZero();
         game_.initTrainerFight(data_);
-        game_.chooseBackFighter((byte) 0, data_);
+        game_.chooseBackFighter( 0, data_);
         game_.setChosenHealingItem(RAPPEL, data_);
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.chooseMove(JACKPOT, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.roundAllThrowers(data_, true);
         game_.roundUser(data_);
         Fighter fighter_ =game_.getFight().getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -978,7 +978,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight3(Sex.GIRL, diff_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         FightRound.initRound(fight_);
@@ -987,7 +987,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(JACKPOT);
         fighter_.setLastUsedMove(JACKPOT);
-        fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
+        fighter_.usePowerPointsByMove(diff_,JACKPOT, 1);
         fighter_.setActed(true);
         fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
@@ -1007,7 +1007,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight3(Sex.BOY, diff_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         FightRound.initRound(fight_);
@@ -1016,7 +1016,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(JACKPOT);
         fighter_.setLastUsedMove(JACKPOT);
-        fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
+        fighter_.usePowerPointsByMove(diff_,JACKPOT, 1);
         fighter_.setActed(true);
         fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
@@ -1036,7 +1036,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight3(Sex.GIRL, diff_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         FightRound.initRound(fight_);
@@ -1045,7 +1045,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(JACKPOT);
         fighter_.setLastUsedMove(JACKPOT);
-        fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
+        fighter_.usePowerPointsByMove(diff_,JACKPOT, 1);
         fighter_.setActed(true);
         fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
@@ -1065,7 +1065,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight3(Sex.BOY, diff_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         FightRound.initRound(fight_);
@@ -1074,7 +1074,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(JACKPOT);
         fighter_.setLastUsedMove(JACKPOT);
-        fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
+        fighter_.usePowerPointsByMove(diff_,JACKPOT, 1);
         fighter_.setActed(true);
         fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
@@ -1095,7 +1095,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -1104,10 +1104,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(JACKPOT, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
         Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
@@ -1115,7 +1115,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
-        fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
+        fighter_.usePowerPointsByMove(diff_,JACKPOT, 1);
         fighter_.setActed(true);
         fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
@@ -1150,7 +1150,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -1159,10 +1159,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(JACKPOT, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
         Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
@@ -1170,7 +1170,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
-        fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
+        fighter_.usePowerPointsByMove(diff_,JACKPOT, 1);
         fighter_.setActed(true);
         fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
@@ -1205,7 +1205,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -1214,10 +1214,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(JACKPOT, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
         Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
@@ -1225,7 +1225,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
-        fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
+        fighter_.usePowerPointsByMove(diff_,JACKPOT, 1);
         fighter_.setActed(true);
         fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
@@ -1260,7 +1260,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -1269,10 +1269,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(JACKPOT, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
         Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
@@ -1280,7 +1280,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
-        fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
+        fighter_.usePowerPointsByMove(diff_,JACKPOT, 1);
         fighter_.setActed(true);
         fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
@@ -1315,7 +1315,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -1324,10 +1324,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(JACKPOT, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
         Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
@@ -1335,7 +1335,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
-        fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
+        fighter_.usePowerPointsByMove(diff_,JACKPOT, 1);
         fighter_.setActed(true);
         fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
@@ -1371,7 +1371,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -1380,10 +1380,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(JACKPOT, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
         Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
@@ -1391,7 +1391,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
-        fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
+        fighter_.usePowerPointsByMove(diff_,JACKPOT, 1);
         fighter_.setActed(true);
         fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
@@ -1427,7 +1427,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -1436,10 +1436,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(JACKPOT, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
         Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
@@ -1447,7 +1447,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
-        fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
+        fighter_.usePowerPointsByMove(diff_,JACKPOT, 1);
         fighter_.setActed(true);
         fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
@@ -1483,7 +1483,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -1492,10 +1492,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(JACKPOT, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
         Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
@@ -1503,7 +1503,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
-        fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
+        fighter_.usePowerPointsByMove(diff_,JACKPOT, 1);
         fighter_.setActed(true);
         fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
@@ -1537,12 +1537,12 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainer2(Sex.GIRL, diff_, data_);
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
         //invalid data_
-        fight_.getFirstPositFoeFighters().put((byte)0, (byte)0);
+        fight_.getFirstPositFoeFighters().put(0, 0);
         assertTrue(!FightFacade.validSubstitutingTeam(fight_, FightOrder.fighters(game_.getFight(), Fight.CST_FOE)));
     }
     @Test
@@ -1551,12 +1551,12 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainer2(Sex.BOY, diff_, data_);
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
         //invalid data_
-        fight_.getFirstPositFoeFighters().put((byte)0, (byte)0);
+        fight_.getFirstPositFoeFighters().put(0, 0);
         assertTrue(!FightFacade.validSubstitutingTeam(fight_, FightOrder.fighters(game_.getFight(), Fight.CST_FOE)));
     }
     @Test
@@ -1567,18 +1567,18 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
         addBackFoeFighter(pk_, game_, data_);
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
         //invalid data_
-        fight_.getFirstPositPlayerFighters().put((byte)3, (byte)1);
+        fight_.getFirstPositPlayerFighters().put(3, 1);
         assertTrue(!FightFacade.validSubstitutingTeam(fight_, FightOrder.fighters(game_.getFight(), Fight.CST_PLAYER)));
     }
     @Test
@@ -1589,18 +1589,18 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
         addBackFoeFighter(pk_, game_, data_);
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
         //invalid data_
-        fight_.getFirstPositPlayerFighters().put((byte)3, (byte)1);
+        fight_.getFirstPositPlayerFighters().put(3, 1);
         assertTrue(!FightFacade.validSubstitutingTeam(fight_, FightOrder.fighters(game_.getFight(), Fight.CST_PLAYER)));
     }
     @Test
@@ -1611,18 +1611,18 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
         addBackFoeFighter(pk_, game_, data_);
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
         //invalid data_
-        fight_.getFirstPositPlayerFighters().put((byte)3, (byte)2);
+        fight_.getFirstPositPlayerFighters().put(3, 2);
         assertTrue(!FightFacade.validSubstitutingTeam(fight_, FightOrder.fighters(game_.getFight(), Fight.CST_PLAYER)));
     }
     @Test
@@ -1633,18 +1633,18 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
         addBackFoeFighter(pk_, game_, data_);
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
         //invalid data_
-        fight_.getFirstPositPlayerFighters().put((byte)3, (byte)2);
+        fight_.getFirstPositPlayerFighters().put(3, 2);
         assertTrue(!FightFacade.validSubstitutingTeam(fight_, FightOrder.fighters(game_.getFight(), Fight.CST_PLAYER)));
     }
     @Test
@@ -1655,7 +1655,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -1663,14 +1663,14 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         addBackFoeFighter(pk_, game_, data_);
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
         //invalid data_
-        fight_.getFirstPositFoeFighters().put((byte)3, (byte)2);
-        fight_.getFirstPositFoeFighters().put((byte)4, (byte)1);
-        fight_.getFirstPositFoeFighters().put((byte)2, (byte)0);
+        fight_.getFirstPositFoeFighters().put(3, 2);
+        fight_.getFirstPositFoeFighters().put(4, 1);
+        fight_.getFirstPositFoeFighters().put(2, 0);
         assertTrue(!FightFacade.validSubstitutingTeam(fight_, FightOrder.fighters(game_.getFight(), Fight.CST_FOE)));
     }
     @Test
@@ -1681,7 +1681,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -1689,14 +1689,14 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         addBackFoeFighter(pk_, game_, data_);
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
         //invalid data_
-        fight_.getFirstPositFoeFighters().put((byte)3, (byte)2);
-        fight_.getFirstPositFoeFighters().put((byte)4, (byte)1);
-        fight_.getFirstPositFoeFighters().put((byte)2, (byte)0);
+        fight_.getFirstPositFoeFighters().put(3, 2);
+        fight_.getFirstPositFoeFighters().put(4, 1);
+        fight_.getFirstPositFoeFighters().put(2, 0);
         assertTrue(!FightFacade.validSubstitutingTeam(fight_, FightOrder.fighters(game_.getFight(), Fight.CST_FOE)));
     }
     @Test
@@ -1707,7 +1707,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -1715,12 +1715,12 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         addBackFoeFighter(pk_, game_, data_);
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
         //invalid data_
-        fight_.getFirstPositFoeFighters().put((byte)2, Fighter.BACK);
+        fight_.getFirstPositFoeFighters().put(2, Fighter.BACK);
         assertTrue(!FightFacade.validSubstitutingTeam(fight_, FightOrder.fighters(game_.getFight(), Fight.CST_FOE)));
     }
     @Test
@@ -1731,7 +1731,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -1739,12 +1739,12 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         addBackFoeFighter(pk_, game_, data_);
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
         //invalid data_
-        fight_.getFirstPositFoeFighters().put((byte)2, Fighter.BACK);
+        fight_.getFirstPositFoeFighters().put(2, Fighter.BACK);
         assertTrue(!FightFacade.validSubstitutingTeam(fight_, FightOrder.fighters(game_.getFight(), Fight.CST_FOE)));
     }
     @Test
@@ -1755,26 +1755,26 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
         addBackFoeFighter(pk_, game_, data_);
         addBackFoeFighter(pk_, game_, data_);
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
         game_.sendSubstitutes(data_);
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, true);
         FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_TWO), diff_, data_);
         FightRound.endRoundShowActions(fight_, diff_, game_.getPlayer(), data_);
         //invalid data_
-        fight_.getFirstPositFoeFighters().put((byte)3, Fighter.BACK);
+        fight_.getFirstPositFoeFighters().put(3, Fighter.BACK);
         assertTrue(!FightFacade.validSubstitutingTeam(fight_, FightOrder.fighters(game_.getFight(), Fight.CST_FOE)));
     }
     @Test
@@ -1785,26 +1785,26 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
         addBackFoeFighter(pk_, game_, data_);
         addBackFoeFighter(pk_, game_, data_);
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
         game_.sendSubstitutes(data_);
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, true);
         FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_TWO), diff_, data_);
         FightRound.endRoundShowActions(fight_, diff_, game_.getPlayer(), data_);
         //invalid data_
-        fight_.getFirstPositFoeFighters().put((byte)3, Fighter.BACK);
+        fight_.getFirstPositFoeFighters().put(3, Fighter.BACK);
         assertTrue(!FightFacade.validSubstitutingTeam(fight_, FightOrder.fighters(game_.getFight(), Fight.CST_FOE)));
     }
     @Test
@@ -1813,14 +1813,14 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual2(Sex.GIRL, diff_, data_);
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, true);
         FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_TWO), diff_, data_);
         FightRound.endRoundShowActions(fight_, diff_, game_.getPlayer(), data_);
         //invalid data_
-        fight_.getFirstPositPlayerFighters().put((byte)3, Fighter.BACK);
+        fight_.getFirstPositPlayerFighters().put(3, Fighter.BACK);
         assertTrue(!FightFacade.validSubstitutingTeam(fight_, FightOrder.fighters(game_.getFight(), Fight.CST_PLAYER)));
     }
     @Test
@@ -1829,14 +1829,14 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual2(Sex.BOY, diff_, data_);
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, true);
         FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_TWO), diff_, data_);
         FightRound.endRoundShowActions(fight_, diff_, game_.getPlayer(), data_);
         //invalid data_
-        fight_.getFirstPositPlayerFighters().put((byte)3, Fighter.BACK);
+        fight_.getFirstPositPlayerFighters().put(3, Fighter.BACK);
         assertTrue(!FightFacade.validSubstitutingTeam(fight_, FightOrder.fighters(game_.getFight(), Fight.CST_PLAYER)));
     }
     @Test
@@ -1895,11 +1895,11 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         cancelFoeArtificialIntelligence(fight_);
-        CustList<StringMap<Short>> movesFoe_ = new CustList<StringMap<Short>>();
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(BROUHAHA, (short) 10);
+        CustList<StringMap<Integer>> movesFoe_ = new CustList<StringMap<Integer>>();
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(BROUHAHA,  10);
         movesFoe_.add(moves_);
-        movesFoe_.add(new StringMap<Short>());
+        movesFoe_.add(new StringMap<Integer>());
         replaceFoeMoves(fight_, movesFoe_);
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, data_);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
@@ -1912,11 +1912,11 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         cancelFoeArtificialIntelligence(fight_);
-        CustList<StringMap<Short>> movesFoe_ = new CustList<StringMap<Short>>();
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(BROUHAHA, (short) 10);
+        CustList<StringMap<Integer>> movesFoe_ = new CustList<StringMap<Integer>>();
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(BROUHAHA,  10);
         movesFoe_.add(moves_);
-        movesFoe_.add(new StringMap<Short>());
+        movesFoe_.add(new StringMap<Integer>());
         replaceFoeMoves(fight_, movesFoe_);
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, data_);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
@@ -1929,11 +1929,11 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         cancelFoeArtificialIntelligence(fight_);
-        CustList<StringMap<Short>> movesFoe_ = new CustList<StringMap<Short>>();
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(BROUHAHA, (short) 10);
+        CustList<StringMap<Integer>> movesFoe_ = new CustList<StringMap<Integer>>();
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(BROUHAHA,  10);
         movesFoe_.add(moves_);
-        movesFoe_.add(new StringMap<Short>());
+        movesFoe_.add(new StringMap<Integer>());
         replaceFoeMoves(fight_, movesFoe_);
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, data_);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
@@ -1946,11 +1946,11 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         cancelFoeArtificialIntelligence(fight_);
-        CustList<StringMap<Short>> movesFoe_ = new CustList<StringMap<Short>>();
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(BROUHAHA, (short) 10);
+        CustList<StringMap<Integer>> movesFoe_ = new CustList<StringMap<Integer>>();
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(BROUHAHA,  10);
         movesFoe_.add(moves_);
-        movesFoe_.add(new StringMap<Short>());
+        movesFoe_.add(new StringMap<Integer>());
         replaceFoeMoves(fight_, movesFoe_);
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, data_);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
@@ -1963,14 +1963,14 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         cancelFoeArtificialIntelligence(fight_);
-        CustList<StringMap<Short>> movesFoe_ = new CustList<StringMap<Short>>();
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(DEMI_TOUR, (short) 10);
+        CustList<StringMap<Integer>> movesFoe_ = new CustList<StringMap<Integer>>();
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(DEMI_TOUR,  10);
         movesFoe_.add(moves_);
-        movesFoe_.add(new StringMap<Short>());
+        movesFoe_.add(new StringMap<Integer>());
         replaceFoeMoves(fight_, movesFoe_);
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, data_);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setSubstituteForMove((byte) 1);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setSubstituteForMove( 1);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -1981,14 +1981,14 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         cancelFoeArtificialIntelligence(fight_);
-        CustList<StringMap<Short>> movesFoe_ = new CustList<StringMap<Short>>();
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(DEMI_TOUR, (short) 10);
+        CustList<StringMap<Integer>> movesFoe_ = new CustList<StringMap<Integer>>();
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(DEMI_TOUR,  10);
         movesFoe_.add(moves_);
-        movesFoe_.add(new StringMap<Short>());
+        movesFoe_.add(new StringMap<Integer>());
         replaceFoeMoves(fight_, movesFoe_);
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, data_);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setSubstituteForMove((byte) 1);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setSubstituteForMove( 1);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -1999,11 +1999,11 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         cancelFoeArtificialIntelligence(fight_);
-        CustList<StringMap<Short>> movesFoe_ = new CustList<StringMap<Short>>();
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(DEMI_TOUR, (short) 10);
+        CustList<StringMap<Integer>> movesFoe_ = new CustList<StringMap<Integer>>();
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(DEMI_TOUR,  10);
         movesFoe_.add(moves_);
-        movesFoe_.add(new StringMap<Short>());
+        movesFoe_.add(new StringMap<Integer>());
         replaceFoeMoves(fight_, movesFoe_);
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, data_);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
@@ -2016,11 +2016,11 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         cancelFoeArtificialIntelligence(fight_);
-        CustList<StringMap<Short>> movesFoe_ = new CustList<StringMap<Short>>();
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(DEMI_TOUR, (short) 10);
+        CustList<StringMap<Integer>> movesFoe_ = new CustList<StringMap<Integer>>();
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(DEMI_TOUR,  10);
         movesFoe_.add(moves_);
-        movesFoe_.add(new StringMap<Short>());
+        movesFoe_.add(new StringMap<Integer>());
         replaceFoeMoves(fight_, movesFoe_);
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, data_);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
@@ -2033,13 +2033,13 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         cancelAllyArtificialIntelligence(fight_);
-        CustList<StringMap<Short>> movesAlly_ = new CustList<StringMap<Short>>();
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(BROUHAHA, (short) 10);
-        movesAlly_.add(new StringMap<Short>());
-        movesAlly_.add(new StringMap<Short>());
+        CustList<StringMap<Integer>> movesAlly_ = new CustList<StringMap<Integer>>();
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(BROUHAHA,  10);
+        movesAlly_.add(new StringMap<Integer>());
+        movesAlly_.add(new StringMap<Integer>());
         movesAlly_.add(moves_);
-        movesAlly_.add(new StringMap<Short>());
+        movesAlly_.add(new StringMap<Integer>());
         replacePlayerMoves(fight_, movesAlly_);
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, data_);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
@@ -2052,13 +2052,13 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         cancelAllyArtificialIntelligence(fight_);
-        CustList<StringMap<Short>> movesAlly_ = new CustList<StringMap<Short>>();
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(BROUHAHA, (short) 10);
-        movesAlly_.add(new StringMap<Short>());
-        movesAlly_.add(new StringMap<Short>());
+        CustList<StringMap<Integer>> movesAlly_ = new CustList<StringMap<Integer>>();
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(BROUHAHA,  10);
+        movesAlly_.add(new StringMap<Integer>());
+        movesAlly_.add(new StringMap<Integer>());
         movesAlly_.add(moves_);
-        movesAlly_.add(new StringMap<Short>());
+        movesAlly_.add(new StringMap<Integer>());
         replacePlayerMoves(fight_, movesAlly_);
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, data_);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
@@ -2071,13 +2071,13 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
 //        cancelAllyArtificialIntelligence(fight_);
-//        CustList<Map<String, Short>> movesAlly_ = new CustList<>();
-//        Map<String, Short> moves_ = new Map<String,Short>();
-//        moves_.put(BROUHAHA, (short) 10);
+//        CustList<Map<String, Integer>> movesAlly_ = new CustList<>();
+//        Map<String, Integer> moves_ = new Map<String,Integer>();
+//        moves_.put(BROUHAHA,  10);
 //        movesAlly_.add(moves_);
-//        movesAlly_.add(new Map<String, Short>());
-//        movesAlly_.add(new Map<String, Short>());
-//        movesAlly_.add(new Map<String, Short>());
+//        movesAlly_.add(new Map<String, Integer>());
+//        movesAlly_.add(new Map<String, Integer>());
+//        movesAlly_.add(new Map<String, Integer>());
 //        replacePlayerMoves(fight_, movesAlly_);
         //FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, data_);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
@@ -2090,13 +2090,13 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
 //        cancelAllyArtificialIntelligence(fight_);
-//        CustList<Map<String, Short>> movesAlly_ = new CustList<>();
-//        Map<String, Short> moves_ = new Map<String,Short>();
-//        moves_.put(BROUHAHA, (short) 10);
+//        CustList<Map<String, Integer>> movesAlly_ = new CustList<>();
+//        Map<String, Integer> moves_ = new Map<String,Integer>();
+//        moves_.put(BROUHAHA,  10);
 //        movesAlly_.add(moves_);
-//        movesAlly_.add(new Map<String, Short>());
-//        movesAlly_.add(new Map<String, Short>());
-//        movesAlly_.add(new Map<String, Short>());
+//        movesAlly_.add(new Map<String, Integer>());
+//        movesAlly_.add(new Map<String, Integer>());
+//        movesAlly_.add(new Map<String, Integer>());
 //        replacePlayerMoves(fight_, movesAlly_);
         //FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, data_);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
@@ -2108,7 +2108,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFightTrainer2(Sex.GIRL, diff_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -2121,7 +2121,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFightTrainer2(Sex.BOY, diff_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -2135,14 +2135,14 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -2156,14 +2156,14 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -2177,7 +2177,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -2185,7 +2185,7 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -2199,7 +2199,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -2207,7 +2207,7 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -2221,7 +2221,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -2238,7 +2238,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -2255,11 +2255,11 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         cancelFoeArtificialIntelligence(fight_);
-        CustList<StringMap<Short>> movesFoe_ = new CustList<StringMap<Short>>();
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(DEMI_TOUR, (short) 10);
+        CustList<StringMap<Integer>> movesFoe_ = new CustList<StringMap<Integer>>();
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(DEMI_TOUR,  10);
         movesFoe_.add(moves_);
-        movesFoe_.add(new StringMap<Short>());
+        movesFoe_.add(new StringMap<Integer>());
         replaceFoeMoves(fight_, movesFoe_);
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, data_);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
@@ -2272,11 +2272,11 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         cancelFoeArtificialIntelligence(fight_);
-        CustList<StringMap<Short>> movesFoe_ = new CustList<StringMap<Short>>();
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(DEMI_TOUR, (short) 10);
+        CustList<StringMap<Integer>> movesFoe_ = new CustList<StringMap<Integer>>();
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(DEMI_TOUR,  10);
         movesFoe_.add(moves_);
-        movesFoe_.add(new StringMap<Short>());
+        movesFoe_.add(new StringMap<Integer>());
         replaceFoeMoves(fight_, movesFoe_);
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, data_);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
@@ -2289,7 +2289,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -2298,7 +2298,7 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -2313,7 +2313,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -2322,7 +2322,7 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -2337,7 +2337,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -2346,12 +2346,12 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
         game_.sendSubstitutes(data_);
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -2365,7 +2365,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -2374,12 +2374,12 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
         game_.sendSubstitutes(data_);
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -2393,7 +2393,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -2402,7 +2402,7 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -2416,7 +2416,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -2425,7 +2425,7 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -2439,7 +2439,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -2448,11 +2448,11 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
-        game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
+        game_.choosePokemonForLearningAndEvolving( 0, data_);
         game_.setEvolution(MUNJA);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
     }
@@ -2464,7 +2464,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -2473,11 +2473,11 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
-        game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
+        game_.choosePokemonForLearningAndEvolving( 0, data_);
         game_.setEvolution(MUNJA);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
     }
@@ -2489,7 +2489,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -2498,11 +2498,11 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
-        game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
+        game_.choosePokemonForLearningAndEvolving( 0, data_);
         game_.setEvolution(TETARTE);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
     }
@@ -2514,7 +2514,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -2523,11 +2523,11 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
-        game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
+        game_.choosePokemonForLearningAndEvolving( 0, data_);
         game_.setEvolution(TETARTE);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
     }
@@ -2539,7 +2539,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -2548,11 +2548,11 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
-        game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
+        game_.choosePokemonForLearningAndEvolving( 0, data_);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -2563,7 +2563,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -2572,11 +2572,11 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
-        game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
+        game_.choosePokemonForLearningAndEvolving( 0, data_);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -2587,7 +2587,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -2596,10 +2596,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(DEMI_TOUR, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.roundAllThrowers(data_, false);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
     }
@@ -2611,7 +2611,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -2620,10 +2620,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(DEMI_TOUR, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.roundAllThrowers(data_, false);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
     }
@@ -2635,7 +2635,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -2644,10 +2644,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(JACKPOT, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
         Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
@@ -2655,7 +2655,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
-        fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
+        fighter_.usePowerPointsByMove(diff_,JACKPOT, 1);
         fighter_.setActed(true);
         fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
@@ -2690,7 +2690,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -2699,10 +2699,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(JACKPOT, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
         Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
@@ -2710,7 +2710,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
-        fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
+        fighter_.usePowerPointsByMove(diff_,JACKPOT, 1);
         fighter_.setActed(true);
         fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
@@ -2810,11 +2810,11 @@ public class FightValidationTest extends InitializationDataBase {
         PokemonPlayer pkLast_ = (PokemonPlayer) game_.getPlayer().getTeam().last();
         pkLast_.getRemainingHp().affectZero();
         game_.initTrainerFight(data_);
-        game_.chooseBackFighter((byte) 0, data_);
+        game_.chooseBackFighter( 0, data_);
         game_.setChosenHealingItem(RAPPEL, data_);
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.chooseMove(JACKPOT, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.roundAllThrowers(data_, true);
         game_.roundUser(data_);
         Fighter fighter_ =game_.getFight().getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -2834,8 +2834,8 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.setActed(true);
         FightRound.endRoundShowActions(game_.getFight(), game_.getDifficulty(), game_.getPlayer(), data_);
         assertTrue(FightFacade.validate(game_.getFight(), data_, game_.getPlayer(), game_.getDifficulty()));
-//        FightFacade.chooseBackFighter(game_.getFight(), (byte) 0, data_);
-//        FightFacade.setSubstituteBack(game_.getFight(), (byte) 1);
+//        FightFacade.chooseBackFighter(game_.getFight(),  0, data_);
+//        FightFacade.setSubstituteBack(game_.getFight(),  1);
     }
     @Test
     public void validate48Test(){
@@ -2860,11 +2860,11 @@ public class FightValidationTest extends InitializationDataBase {
         PokemonPlayer pkLast_ = (PokemonPlayer) game_.getPlayer().getTeam().last();
         pkLast_.getRemainingHp().affectZero();
         game_.initTrainerFight(data_);
-        game_.chooseBackFighter((byte) 0, data_);
+        game_.chooseBackFighter( 0, data_);
         game_.setChosenHealingItem(RAPPEL, data_);
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.chooseMove(JACKPOT, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.roundAllThrowers(data_, true);
         game_.roundUser(data_);
         Fighter fighter_ =game_.getFight().getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -2884,8 +2884,8 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.setActed(true);
         FightRound.endRoundShowActions(game_.getFight(), game_.getDifficulty(), game_.getPlayer(), data_);
         assertTrue(FightFacade.validate(game_.getFight(), data_, game_.getPlayer(), game_.getDifficulty()));
-//        FightFacade.chooseBackFighter(game_.getFight(), (byte) 0, data_);
-//        FightFacade.setSubstituteBack(game_.getFight(), (byte) 1);
+//        FightFacade.chooseBackFighter(game_.getFight(),  0, data_);
+//        FightFacade.setSubstituteBack(game_.getFight(),  1);
     }
     @Test
     public void validate49Test(){
@@ -2895,7 +2895,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -2904,10 +2904,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(JACKPOT, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
         Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
@@ -2915,7 +2915,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
-        fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
+        fighter_.usePowerPointsByMove(diff_,JACKPOT, 1);
         fighter_.setActed(true);
         fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
@@ -2951,7 +2951,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -2960,10 +2960,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(JACKPOT, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
         Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
@@ -2971,7 +2971,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
-        fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
+        fighter_.usePowerPointsByMove(diff_,JACKPOT, 1);
         fighter_.setActed(true);
         fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
@@ -3023,7 +3023,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -3032,10 +3032,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(DEMI_TOUR, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         game_.roundAllThrowers(data_, false);
@@ -3049,7 +3049,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -3058,10 +3058,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(DEMI_TOUR, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         game_.roundAllThrowers(data_, false);
@@ -3075,7 +3075,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, true);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
     }
@@ -3087,7 +3087,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, true);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
     }
@@ -3098,7 +3098,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight3(Sex.GIRL, diff_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -3111,7 +3111,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight3(Sex.BOY, diff_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -3124,13 +3124,13 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight3(Sex.GIRL, diff_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
         //Never mind for the nickname
         fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_FIGHTER_ZERO);
         fight_.getCatchingBalls().first().setNickname(NICKNAME);
         game_.catchKoWildPokemon(data_);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
@@ -3142,13 +3142,13 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight3(Sex.BOY, diff_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
         //Never mind for the nickname
         fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_FIGHTER_ZERO);
         fight_.getCatchingBalls().first().setNickname(NICKNAME);
         game_.catchKoWildPokemon(data_);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
@@ -3160,7 +3160,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight3(Sex.GIRL, diff_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         FightRound.initRound(fight_);
@@ -3169,7 +3169,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(JACKPOT);
         fighter_.setLastUsedMove(JACKPOT);
-        fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
+        fighter_.usePowerPointsByMove(diff_,JACKPOT, 1);
         fighter_.setActed(true);
         fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
@@ -3189,7 +3189,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight3(Sex.BOY, diff_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         FightRound.initRound(fight_);
@@ -3198,7 +3198,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(JACKPOT);
         fighter_.setLastUsedMove(JACKPOT);
-        fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
+        fighter_.usePowerPointsByMove(diff_,JACKPOT, 1);
         fighter_.setActed(true);
         fighter_ =fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
@@ -3220,11 +3220,11 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         cancelFoeArtificialIntelligence(fight_);
-        CustList<StringMap<Short>> movesFoe_ = new CustList<StringMap<Short>>();
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(BROUHAHA, (short) 10);
+        CustList<StringMap<Integer>> movesFoe_ = new CustList<StringMap<Integer>>();
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(BROUHAHA,  10);
         movesFoe_.add(moves_);
-        movesFoe_.add(new StringMap<Short>());
+        movesFoe_.add(new StringMap<Integer>());
         replaceFoeMoves(fight_, movesFoe_);
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, data_);
         //invalid data_
@@ -3240,11 +3240,11 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         cancelFoeArtificialIntelligence(fight_);
-        CustList<StringMap<Short>> movesFoe_ = new CustList<StringMap<Short>>();
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(BROUHAHA, (short) 10);
+        CustList<StringMap<Integer>> movesFoe_ = new CustList<StringMap<Integer>>();
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(BROUHAHA,  10);
         movesFoe_.add(moves_);
-        movesFoe_.add(new StringMap<Short>());
+        movesFoe_.add(new StringMap<Integer>());
         replaceFoeMoves(fight_, movesFoe_);
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, data_);
         //invalid data_
@@ -3260,15 +3260,15 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         cancelFoeArtificialIntelligence(fight_);
-        CustList<StringMap<Short>> movesFoe_ = new CustList<StringMap<Short>>();
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(JACKPOT, (short) 10);
+        CustList<StringMap<Integer>> movesFoe_ = new CustList<StringMap<Integer>>();
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(JACKPOT,  10);
         movesFoe_.add(moves_);
-        movesFoe_.add(new StringMap<Short>());
+        movesFoe_.add(new StringMap<Integer>());
         replaceFoeMoves(fight_, movesFoe_);
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, data_);
         //invalid data_
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, TargetCoords.toUserTarget((short) 2));
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, TargetCoords.toUserTarget( 2));
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -3280,15 +3280,15 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         cancelFoeArtificialIntelligence(fight_);
-        CustList<StringMap<Short>> movesFoe_ = new CustList<StringMap<Short>>();
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(JACKPOT, (short) 10);
+        CustList<StringMap<Integer>> movesFoe_ = new CustList<StringMap<Integer>>();
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(JACKPOT,  10);
         movesFoe_.add(moves_);
-        movesFoe_.add(new StringMap<Short>());
+        movesFoe_.add(new StringMap<Integer>());
         replaceFoeMoves(fight_, movesFoe_);
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, data_);
         //invalid data_
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, TargetCoords.toUserTarget((short) 2));
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, TargetCoords.toUserTarget( 2));
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -3300,15 +3300,15 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         cancelFoeArtificialIntelligence(fight_);
-        CustList<StringMap<Short>> movesFoe_ = new CustList<StringMap<Short>>();
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(JACKPOT, (short) 10);
+        CustList<StringMap<Integer>> movesFoe_ = new CustList<StringMap<Integer>>();
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(JACKPOT,  10);
         movesFoe_.add(moves_);
-        movesFoe_.add(new StringMap<Short>());
+        movesFoe_.add(new StringMap<Integer>());
         replaceFoeMoves(fight_, movesFoe_);
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, data_);
         //invalid data_
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, TargetCoords.toUserTarget((short) -1));
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, TargetCoords.toUserTarget( -1));
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -3320,15 +3320,15 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         cancelFoeArtificialIntelligence(fight_);
-        CustList<StringMap<Short>> movesFoe_ = new CustList<StringMap<Short>>();
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(JACKPOT, (short) 10);
+        CustList<StringMap<Integer>> movesFoe_ = new CustList<StringMap<Integer>>();
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(JACKPOT,  10);
         movesFoe_.add(moves_);
-        movesFoe_.add(new StringMap<Short>());
+        movesFoe_.add(new StringMap<Integer>());
         replaceFoeMoves(fight_, movesFoe_);
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, data_);
         //invalid data_
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, TargetCoords.toUserTarget((short) -1));
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, TargetCoords.toUserTarget( -1));
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -3340,7 +3340,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -3348,15 +3348,15 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         cancelFoeArtificialIntelligence(fight_);
-        CustList<StringMap<Short>> movesFoe_ = new CustList<StringMap<Short>>();
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(JACKPOT, (short) 10);
+        CustList<StringMap<Integer>> movesFoe_ = new CustList<StringMap<Integer>>();
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(JACKPOT,  10);
         movesFoe_.add(moves_);
-        movesFoe_.add(new StringMap<Short>());
-        movesFoe_.add(new StringMap<Short>());
+        movesFoe_.add(new StringMap<Integer>());
+        movesFoe_.add(new StringMap<Integer>());
         replaceFoeMoves(fight_, movesFoe_);
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, data_);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setSubstitute((byte) 2);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setSubstitute( 2);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -3368,7 +3368,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -3376,15 +3376,15 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         cancelFoeArtificialIntelligence(fight_);
-        CustList<StringMap<Short>> movesFoe_ = new CustList<StringMap<Short>>();
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(JACKPOT, (short) 10);
+        CustList<StringMap<Integer>> movesFoe_ = new CustList<StringMap<Integer>>();
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(JACKPOT,  10);
         movesFoe_.add(moves_);
-        movesFoe_.add(new StringMap<Short>());
-        movesFoe_.add(new StringMap<Short>());
+        movesFoe_.add(new StringMap<Integer>());
+        movesFoe_.add(new StringMap<Integer>());
         replaceFoeMoves(fight_, movesFoe_);
         FightArtificialIntelligence.choiceArtificialIntelligence(fight_, diff_, data_);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setSubstitute((byte) 2);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setSubstitute( 2);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -3393,9 +3393,9 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFight(Sex.GIRL, diff_, data_);
         Player player_ = game_.getPlayer();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.chooseMove(JACKPOT, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         assertTrue(FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3404,9 +3404,9 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFight(Sex.BOY, diff_, data_);
         Player player_ = game_.getPlayer();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.chooseMove(JACKPOT, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         assertTrue(FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3455,9 +3455,9 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.GIRL, diff_, data_);
         Player player_ = game_.getPlayer();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.SWITCH, data_);
-        game_.chooseSubstituteFighter((byte) 0, data_);
+        game_.chooseSubstituteFighter( 0, data_);
         assertTrue(FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3466,9 +3466,9 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.BOY, diff_, data_);
         Player player_ = game_.getPlayer();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.SWITCH, data_);
-        game_.chooseSubstituteFighter((byte) 0, data_);
+        game_.chooseSubstituteFighter( 0, data_);
         assertTrue(FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3477,9 +3477,9 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.GIRL, diff_, data_);
         Player player_ = game_.getPlayer();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.SWITCH, data_);
-        game_.chooseSubstituteFighter((byte) 0, data_);
+        game_.chooseSubstituteFighter( 0, data_);
         //invalid data_
         game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getRemainingHp().affectZero();
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
@@ -3490,9 +3490,9 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.BOY, diff_, data_);
         Player player_ = game_.getPlayer();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.SWITCH, data_);
-        game_.chooseSubstituteFighter((byte) 0, data_);
+        game_.chooseSubstituteFighter( 0, data_);
         //invalid data_
         game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getRemainingHp().affectZero();
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
@@ -3503,11 +3503,11 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.GIRL, diff_, data_);
         Player player_ = game_.getPlayer();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.SWITCH, data_);
-        game_.chooseSubstituteFighter((byte) 0, data_);
+        game_.chooseSubstituteFighter( 0, data_);
         //invalid data_
-        game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstitute((byte) 2);
+        game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstitute( 2);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3516,11 +3516,11 @@ public class FightValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainerDual1(Sex.BOY, diff_, data_);
         Player player_ = game_.getPlayer();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.SWITCH, data_);
-        game_.chooseSubstituteFighter((byte) 0, data_);
+        game_.chooseSubstituteFighter( 0, data_);
         //invalid data_
-        game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstitute((byte) 2);
+        game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstitute( 2);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3546,7 +3546,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
         game_.initTrainerFight(data_);
         //invalid data_
-        game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstitute((byte) 1);
+        game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstitute( 1);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, game_.getPlayer(), game_.getDifficulty()));
     }
     @Test
@@ -3572,7 +3572,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
         game_.initTrainerFight(data_);
         //invalid data_
-        game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstitute((byte) 1);
+        game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstitute( 1);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, game_.getPlayer(), game_.getDifficulty()));
     }
     @Test
@@ -3602,7 +3602,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight(Sex.GIRL, diff_, data_);
         Player player_ = game_.getPlayer();
         //invalid data_
-        game_.getFight().setMult((byte) 0);
+        game_.getFight().setMult( 0);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3612,7 +3612,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight(Sex.BOY, diff_, data_);
         Player player_ = game_.getPlayer();
         //invalid data_
-        game_.getFight().setMult((byte) 0);
+        game_.getFight().setMult( 0);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3622,7 +3622,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight(Sex.GIRL, diff_, data_);
         Player player_ = game_.getPlayer();
         //invalid data_
-        game_.getFight().setMult((byte) 2);
+        game_.getFight().setMult( 2);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3632,7 +3632,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight(Sex.BOY, diff_, data_);
         Player player_ = game_.getPlayer();
         //invalid data_
-        game_.getFight().setMult((byte) 2);
+        game_.getFight().setMult( 2);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3642,7 +3642,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFightTrainer1(Sex.GIRL, diff_, data_);
         Player player_ = game_.getPlayer();
         //invalid data_
-        game_.getFight().setMult((byte) 2);
+        game_.getFight().setMult( 2);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3652,7 +3652,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFightTrainer1(Sex.BOY, diff_, data_);
         Player player_ = game_.getPlayer();
         //invalid data_
-        game_.getFight().setMult((byte) 2);
+        game_.getFight().setMult( 2);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3662,7 +3662,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFightTrainerDual1(Sex.GIRL, diff_, data_);
         Player player_ = game_.getPlayer();
         //invalid data_
-        game_.getFight().setMult((byte) 1);
+        game_.getFight().setMult( 1);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3672,7 +3672,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFightTrainerDual1(Sex.BOY, diff_, data_);
         Player player_ = game_.getPlayer();
         //invalid data_
-        game_.getFight().setMult((byte) 1);
+        game_.getFight().setMult( 1);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3682,7 +3682,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFightTrainerDual1(Sex.GIRL, diff_, data_);
         Player player_ = game_.getPlayer();
         //invalid data_
-        game_.getFight().setPlayerMaxNumberFrontFighters((byte) 2);
+        game_.getFight().setPlayerMaxNumberFrontFighters( 2);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3692,7 +3692,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFightTrainerDual1(Sex.BOY, diff_, data_);
         Player player_ = game_.getPlayer();
         //invalid data_
-        game_.getFight().setPlayerMaxNumberFrontFighters((byte) 2);
+        game_.getFight().setPlayerMaxNumberFrontFighters( 2);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3744,7 +3744,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -3761,7 +3761,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -3776,7 +3776,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight(Sex.GIRL, diff_, data_);
         Player player_ = game_.getPlayer();
         //invalid data_
-        game_.getFight().setNbFleeAttempt((short) -1);
+        game_.getFight().setNbFleeAttempt( -1);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3786,7 +3786,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight(Sex.BOY, diff_, data_);
         Player player_ = game_.getPlayer();
         //invalid data_
-        game_.getFight().setNbFleeAttempt((short) -1);
+        game_.getFight().setNbFleeAttempt( -1);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3876,7 +3876,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight(Sex.GIRL, diff_, data_);
         Player player_ = game_.getPlayer();
         //invalid data_
-        game_.getFight().getUsedItemsWhileRound().put(INVALID_DATA_KEY, (short) 1);
+        game_.getFight().getUsedItemsWhileRound().put(INVALID_DATA_KEY,  1);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3886,7 +3886,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight(Sex.BOY, diff_, data_);
         Player player_ = game_.getPlayer();
         //invalid data_
-        game_.getFight().getUsedItemsWhileRound().put(INVALID_DATA_KEY, (short) 1);
+        game_.getFight().getUsedItemsWhileRound().put(INVALID_DATA_KEY,  1);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3897,7 +3897,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         player_.getItem(BAIE_ORAN);
         //invalid data_
-        game_.getFight().getUsedItemsWhileRound().put(BAIE_ORAN, (short) -1);
+        game_.getFight().getUsedItemsWhileRound().put(BAIE_ORAN,  -1);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3908,7 +3908,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         player_.getItem(BAIE_ORAN);
         //invalid data_
-        game_.getFight().getUsedItemsWhileRound().put(BAIE_ORAN, (short) -1);
+        game_.getFight().getUsedItemsWhileRound().put(BAIE_ORAN,  -1);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3938,8 +3938,8 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFightTrainer3(Sex.GIRL, diff_, data_);
         Player player_ = game_.getPlayer();
         //invalid data_
-        player_.setChosenTeamPokemon((short) 1);
-        player_.switchTeamOrder((short) 2);
+        player_.setChosenTeamPokemon( 1);
+        player_.switchTeamOrder( 2);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3949,8 +3949,8 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFightTrainer3(Sex.BOY, diff_, data_);
         Player player_ = game_.getPlayer();
         //invalid data_
-        player_.setChosenTeamPokemon((short) 1);
-        player_.switchTeamOrder((short) 2);
+        player_.setChosenTeamPokemon( 1);
+        player_.switchTeamOrder( 2);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3961,7 +3961,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getUserTeam().getPlayerFightersAgainstFoe().put((byte) 2, new Bytes());
+        fight_.getUserTeam().getPlayerFightersAgainstFoe().put( 2, new Ints());
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3972,7 +3972,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getUserTeam().getPlayerFightersAgainstFoe().put((byte) 2, new Bytes());
+        fight_.getUserTeam().getPlayerFightersAgainstFoe().put( 2, new Ints());
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3983,7 +3983,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFirstPositFoeFighters().put((byte) 2, Fighter.BACK);
+        fight_.getFirstPositFoeFighters().put( 2, Fighter.BACK);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3994,7 +3994,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFirstPositFoeFighters().put((byte) 2, Fighter.BACK);
+        fight_.getFirstPositFoeFighters().put( 2, Fighter.BACK);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4005,7 +4005,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFirstPositPlayerFighters().put((byte) 4, Fighter.BACK);
+        fight_.getFirstPositPlayerFighters().put( 4, Fighter.BACK);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4016,7 +4016,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFirstPositPlayerFighters().put((byte) 4, Fighter.BACK);
+        fight_.getFirstPositPlayerFighters().put( 4, Fighter.BACK);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4027,7 +4027,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFirstPositFoeFighters().put((byte) 1, (byte) 2);
+        fight_.getFirstPositFoeFighters().put( 1,  2);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4038,7 +4038,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFirstPositFoeFighters().put((byte) 1, (byte) 2);
+        fight_.getFirstPositFoeFighters().put( 1,  2);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4049,7 +4049,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFirstPositPlayerFighters().put((byte) 3, (byte) 2);
+        fight_.getFirstPositPlayerFighters().put( 3,  2);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4060,7 +4060,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFirstPositPlayerFighters().put((byte) 3, (byte) 2);
+        fight_.getFirstPositPlayerFighters().put( 3,  2);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4115,7 +4115,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getEnabledMoves().getVal(GRAVITE).setNbTurn((short) -1);
+        fight_.getEnabledMoves().getVal(GRAVITE).setNbTurn( -1);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4126,7 +4126,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getEnabledMoves().getVal(GRAVITE).setNbTurn((short) -1);
+        fight_.getEnabledMoves().getVal(GRAVITE).setNbTurn( -1);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4137,8 +4137,8 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setGroundPlace((byte) 0);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setGroundPlaceSubst((byte) 0);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setGroundPlace( 0);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setGroundPlaceSubst( 0);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4149,8 +4149,8 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setGroundPlace((byte) 0);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setGroundPlaceSubst((byte) 0);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setGroundPlace( 0);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setGroundPlaceSubst( 0);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4161,8 +4161,8 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_THREE).setGroundPlace((byte) 1);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_THREE).setGroundPlaceSubst((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_THREE).setGroundPlace( 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_THREE).setGroundPlaceSubst( 1);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4173,8 +4173,8 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_THREE).setGroundPlace((byte) 1);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_THREE).setGroundPlaceSubst((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_THREE).setGroundPlace( 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_THREE).setGroundPlaceSubst( 1);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4185,7 +4185,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -4193,8 +4193,8 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setSubstitute((byte) 2);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).setSubstitute((byte) 2);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setSubstitute( 2);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).setSubstitute( 2);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4205,7 +4205,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -4213,8 +4213,8 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setSubstitute((byte) 2);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).setSubstitute((byte) 2);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setSubstitute( 2);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).setSubstitute( 2);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4225,8 +4225,8 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstitute((byte) 2);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setSubstitute((byte) 2);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstitute( 2);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setSubstitute( 2);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4237,8 +4237,8 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstitute((byte) 2);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setSubstitute((byte) 2);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setSubstitute( 2);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).setSubstitute( 2);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4249,8 +4249,8 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlace((byte) 1);
-        //fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlace( 1);
+        //fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst( 1);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4261,8 +4261,8 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlace((byte) 1);
-        //fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlace( 1);
+        //fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst( 1);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4273,8 +4273,8 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setGroundPlace((byte) 1);
-        //fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setGroundPlace( 1);
+        //fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst( 1);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4285,8 +4285,8 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setGroundPlace((byte) 1);
-        //fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setGroundPlace( 1);
+        //fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst( 1);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4297,7 +4297,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst( 1);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4308,7 +4308,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst( 1);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4319,7 +4319,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst( 1);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4330,7 +4330,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data_
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst((byte) 1);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setGroundPlaceSubst( 1);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4341,7 +4341,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -4350,10 +4350,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(DEMI_TOUR, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.roundAllThrowers(data_, false);
         //invalid data_
         fight_.setCurrentUser(tp(KEY_FOE, POKEMON_FIGHTER_ZERO));
@@ -4368,7 +4368,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -4377,10 +4377,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(DEMI_TOUR, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.roundAllThrowers(data_, false);
         //invalid data_
         fight_.setCurrentUser(tp(KEY_FOE, POKEMON_FIGHTER_ZERO));
@@ -4395,7 +4395,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -4404,10 +4404,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(DEMI_TOUR, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.roundAllThrowers(data_, false);
         //invalid data_
         ActionMove actionMove_ = (ActionMove) fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
@@ -4422,7 +4422,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -4431,10 +4431,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(DEMI_TOUR, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.roundAllThrowers(data_, false);
         //invalid data_
         ActionMove actionMove_ = (ActionMove) fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAction();
@@ -4449,7 +4449,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -4458,10 +4458,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(DEMI_TOUR, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.roundAllThrowers(data_, false);
         //invalid data_
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setActed(false);
@@ -4475,7 +4475,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -4484,10 +4484,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(DEMI_TOUR, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.roundAllThrowers(data_, false);
         //invalid data_
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setActed(false);
@@ -4501,7 +4501,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -4510,10 +4510,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(DEMI_TOUR, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.roundAllThrowers(data_, false);
         //invalid data_
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).setFirstChosenMoveTarget(DEMI_TOUR, tc(KEY_FOE, POKEMON_TARGET_ONE));
@@ -4530,7 +4530,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -4539,10 +4539,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(DEMI_TOUR, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.roundAllThrowers(data_, false);
         //invalid data_
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).setFirstChosenMoveTarget(DEMI_TOUR, tc(KEY_FOE, POKEMON_TARGET_ONE));
@@ -4559,7 +4559,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -4568,10 +4568,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(DEMI_TOUR, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.roundAllThrowers(data_, false);
         //invalid data_
         fight_.getAllyChoice().put(new MoveTarget(DEMI_TOUR, tc(KEY_FOE, POKEMON_TARGET_ONE)), new MoveTarget(INVALID_DATA_KEY, tc(KEY_FOE, POKEMON_TARGET_ONE)));
@@ -4586,7 +4586,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -4595,10 +4595,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(DEMI_TOUR, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.roundAllThrowers(data_, false);
         //invalid data_
         fight_.getAllyChoice().put(new MoveTarget(DEMI_TOUR, tc(KEY_FOE, POKEMON_TARGET_ONE)), new MoveTarget(INVALID_DATA_KEY, tc(KEY_FOE, POKEMON_TARGET_ONE)));
@@ -4613,7 +4613,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -4622,10 +4622,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(DEMI_TOUR, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         //invalid data_
         fight_.getAllyChoice().put(new MoveTarget(DEMI_TOUR, tc(KEY_FOE, POKEMON_TARGET_ONE)), new MoveTarget(INVALID_DATA_KEY, tc(KEY_FOE, POKEMON_TARGET_ONE)));
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
@@ -4639,7 +4639,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -4648,10 +4648,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(DEMI_TOUR, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         //invalid data_
         fight_.getAllyChoice().put(new MoveTarget(DEMI_TOUR, tc(KEY_FOE, POKEMON_TARGET_ONE)), new MoveTarget(INVALID_DATA_KEY, tc(KEY_FOE, POKEMON_TARGET_ONE)));
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
@@ -4665,7 +4665,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -4674,11 +4674,11 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
-        game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
+        game_.choosePokemonForLearningAndEvolving( 0, data_);
         game_.setEvolution(TETARTE);
         //invalid data_
         fight_.getChoices().clear();
@@ -4692,7 +4692,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -4701,11 +4701,11 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
-        game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
+        game_.choosePokemonForLearningAndEvolving( 0, data_);
         game_.setEvolution(TETARTE);
         //invalid data_
         fight_.getChoices().clear();
@@ -4719,7 +4719,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -4728,11 +4728,11 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
-        game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
+        game_.choosePokemonForLearningAndEvolving( 0, data_);
         game_.setEvolution(TETARTE);
         //invalid data_
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getMovesAbilitiesEvos().clear();
@@ -4747,7 +4747,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -4756,11 +4756,11 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
-        game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
+        game_.choosePokemonForLearningAndEvolving( 0, data_);
         game_.setEvolution(TETARTE);
         //invalid data_
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getMovesAbilitiesEvos().clear();
@@ -4775,7 +4775,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -4784,14 +4784,14 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
-        game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
+        game_.choosePokemonForLearningAndEvolving( 0, data_);
         game_.setEvolution(TETARTE);
         //invalid data_
-        fight_.getChoices().getVal((byte) 0).getKeptMoves().add(ZENITH);
+        fight_.getChoices().getVal( 0).getKeptMoves().add(ZENITH);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4802,7 +4802,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -4811,14 +4811,14 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
-        game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
+        game_.choosePokemonForLearningAndEvolving( 0, data_);
         game_.setEvolution(TETARTE);
         //invalid data_
-        fight_.getChoices().getVal((byte) 0).getKeptMoves().add(ZENITH);
+        fight_.getChoices().getVal( 0).getKeptMoves().add(ZENITH);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4829,7 +4829,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -4838,13 +4838,13 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
-        game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
+        game_.choosePokemonForLearningAndEvolving( 0, data_);
         //invalid data_
-        fight_.getChoices().getVal((byte) 0).getKeptMoves().add(ZENITH);
+        fight_.getChoices().getVal( 0).getKeptMoves().add(ZENITH);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4855,7 +4855,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -4864,13 +4864,13 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
-        game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
+        game_.choosePokemonForLearningAndEvolving( 0, data_);
         //invalid data_
-        fight_.getChoices().getVal((byte) 0).getKeptMoves().add(ZENITH);
+        fight_.getChoices().getVal( 0).getKeptMoves().add(ZENITH);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4881,7 +4881,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -4890,14 +4890,14 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
-        game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
+        game_.choosePokemonForLearningAndEvolving( 0, data_);
         game_.setEvolution(TETARTE);
         //invalid data_
-        fight_.getChoices().getVal((byte) 0).setAbility(PRESSION);
+        fight_.getChoices().getVal( 0).setAbility(PRESSION);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4908,7 +4908,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -4917,14 +4917,14 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
-        game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
+        game_.choosePokemonForLearningAndEvolving( 0, data_);
         game_.setEvolution(TETARTE);
         //invalid data_
-        fight_.getChoices().getVal((byte) 0).setAbility(PRESSION);
+        fight_.getChoices().getVal( 0).setAbility(PRESSION);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -4935,7 +4935,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -4944,11 +4944,11 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
-        game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
+        game_.choosePokemonForLearningAndEvolving( 0, data_);
         game_.setEvolution(TETARTE);
         //invalid data_
         fight_.getTemp().getKos().put(Fight.CST_PLAYER, BoolVal.TRUE);
@@ -4963,7 +4963,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -4972,11 +4972,11 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
-        game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
+        game_.choosePokemonForLearningAndEvolving( 0, data_);
         game_.setEvolution(TETARTE);
         //invalid data_
         fight_.getTemp().getKos().put(Fight.CST_PLAYER, BoolVal.TRUE);
@@ -4990,11 +4990,11 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFightTrainerDual4(Sex.GIRL, diff_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
-        game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
+        game_.choosePokemonForLearningAndEvolving( 0, data_);
         game_.setEvolution(TETARTE);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
     }
@@ -5005,11 +5005,11 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFightTrainerDual4(Sex.BOY, diff_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
-        game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
+        game_.choosePokemonForLearningAndEvolving( 0, data_);
         game_.setEvolution(TETARTE);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
     }
@@ -5021,7 +5021,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -5029,7 +5029,7 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
@@ -5046,7 +5046,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -5054,7 +5054,7 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
@@ -5139,7 +5139,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -5148,10 +5148,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(JACKPOT, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
         Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
@@ -5159,7 +5159,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
-        fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
+        fighter_.usePowerPointsByMove(diff_,JACKPOT, 1);
         fighter_.setActed(true);
         fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
@@ -5196,7 +5196,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -5205,10 +5205,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(JACKPOT, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
         Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
@@ -5216,7 +5216,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
-        fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
+        fighter_.usePowerPointsByMove(diff_,JACKPOT, 1);
         fighter_.setActed(true);
         fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
@@ -5253,7 +5253,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -5262,10 +5262,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(JACKPOT, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
         Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
@@ -5273,7 +5273,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
-        fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
+        fighter_.usePowerPointsByMove(diff_,JACKPOT, 1);
         fighter_.setActed(true);
         fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
@@ -5310,7 +5310,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -5319,10 +5319,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(JACKPOT, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
         Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
@@ -5330,7 +5330,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
-        fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
+        fighter_.usePowerPointsByMove(diff_,JACKPOT, 1);
         fighter_.setActed(true);
         fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
@@ -5367,7 +5367,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -5376,10 +5376,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(JACKPOT, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
         Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
@@ -5387,7 +5387,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
-        fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
+        fighter_.usePowerPointsByMove(diff_,JACKPOT, 1);
         fighter_.setActed(true);
         fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
@@ -5414,8 +5414,8 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.setActed(true);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         //invalid data_
-        fight_.getFirstPositPlayerFighters().put((byte) 1, Fighter.BACK);
-        fight_.getFirstPositPlayerFighters().put((byte) 2, Fighter.BACK);
+        fight_.getFirstPositPlayerFighters().put( 1, Fighter.BACK);
+        fight_.getFirstPositPlayerFighters().put( 2, Fighter.BACK);
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -5426,7 +5426,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -5435,10 +5435,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(JACKPOT, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
         Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
@@ -5446,7 +5446,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
-        fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
+        fighter_.usePowerPointsByMove(diff_,JACKPOT, 1);
         fighter_.setActed(true);
         fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
@@ -5473,8 +5473,8 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.setActed(true);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         //invalid data_
-        fight_.getFirstPositPlayerFighters().put((byte) 1, Fighter.BACK);
-        fight_.getFirstPositPlayerFighters().put((byte) 2, Fighter.BACK);
+        fight_.getFirstPositPlayerFighters().put( 1, Fighter.BACK);
+        fight_.getFirstPositPlayerFighters().put( 2, Fighter.BACK);
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -5485,7 +5485,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -5494,10 +5494,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(JACKPOT, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
         Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
@@ -5505,7 +5505,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
-        fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
+        fighter_.usePowerPointsByMove(diff_,JACKPOT, 1);
         fighter_.setActed(true);
         fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
@@ -5532,7 +5532,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.setActed(true);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         //invalid data_
-        fight_.getFirstPositFoeFighters().put((byte) 0, (byte) 0);
+        fight_.getFirstPositFoeFighters().put( 0,  0);
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -5543,7 +5543,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -5552,10 +5552,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(JACKPOT, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
         Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
@@ -5563,7 +5563,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
-        fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
+        fighter_.usePowerPointsByMove(diff_,JACKPOT, 1);
         fighter_.setActed(true);
         fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
@@ -5590,7 +5590,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.setActed(true);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         //invalid data_
-        fight_.getFirstPositFoeFighters().put((byte) 0, (byte) 0);
+        fight_.getFirstPositFoeFighters().put( 0,  0);
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -5601,20 +5601,20 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
         //invalid data_
-        fight_.getFirstPositPlayerFighters().put((byte) 1, Fighter.BACK);
-        fight_.getFirstPositPlayerFighters().put((byte) 2, Fighter.BACK);
+        fight_.getFirstPositPlayerFighters().put( 1, Fighter.BACK);
+        fight_.getFirstPositPlayerFighters().put( 2, Fighter.BACK);
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -5625,20 +5625,20 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
         //invalid data_
-        fight_.getFirstPositPlayerFighters().put((byte) 1, Fighter.BACK);
-        fight_.getFirstPositPlayerFighters().put((byte) 2, Fighter.BACK);
+        fight_.getFirstPositPlayerFighters().put( 1, Fighter.BACK);
+        fight_.getFirstPositPlayerFighters().put( 2, Fighter.BACK);
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -5649,19 +5649,19 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
         //invalid data_
-        fight_.getFirstPositFoeFighters().put((byte) 0, (byte) 0);
+        fight_.getFirstPositFoeFighters().put( 0,  0);
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -5672,19 +5672,19 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
         //invalid data_
-        fight_.getFirstPositFoeFighters().put((byte) 0, (byte) 0);
+        fight_.getFirstPositFoeFighters().put( 0,  0);
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -5695,14 +5695,14 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -5718,14 +5718,14 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -5741,7 +5741,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -5750,19 +5750,19 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(DEMI_TOUR, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.roundAllThrowers(data_, false);
         //invalid data_
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getRemainingHp().affectZero();
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
         //fight_.setState(FightState.SWITCH_APRES_ATTAQUE);
-//        game_.chooseFrontFighter((byte) 0, data_);
+//        game_.chooseFrontFighter( 0, data_);
 //        game_.changeAction(ActionType.MOVE, data_);
 //        game_.chooseMove(DEMI_TOUR, data_);
-//        game_.setFirstChosenMoveFoeTarget((byte) 0);
+//        game_.setFirstChosenMoveFoeTarget( 0);
 //        game_.roundAllThrowers(data_, false);
 
     }
@@ -5774,7 +5774,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -5783,19 +5783,19 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(DEMI_TOUR, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.roundAllThrowers(data_, false);
         //invalid data_
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getRemainingHp().affectZero();
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
         //fight_.setState(FightState.SWITCH_APRES_ATTAQUE);
-//        game_.chooseFrontFighter((byte) 0, data_);
+//        game_.chooseFrontFighter( 0, data_);
 //        game_.changeAction(ActionType.MOVE, data_);
 //        game_.chooseMove(DEMI_TOUR, data_);
-//        game_.setFirstChosenMoveFoeTarget((byte) 0);
+//        game_.setFirstChosenMoveFoeTarget( 0);
 //        game_.roundAllThrowers(data_, false);
 
     }
@@ -5807,7 +5807,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, true);
         //invalid data_
         fight_.getCatchingBalls().first().setCatchingBall(INVALID_DATA_KEY);
@@ -5821,7 +5821,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, true);
         //invalid data_
         fight_.getCatchingBalls().first().setCatchingBall(INVALID_DATA_KEY);
@@ -5835,7 +5835,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, true);
         //invalid data_
         fight_.getCatchingBalls().first().setCatchingBall(BAIE_ORAN);
@@ -5849,7 +5849,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, true);
         //invalid data_
         fight_.getCatchingBalls().first().setCatchingBall(BAIE_ORAN);
@@ -5863,7 +5863,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, true);
         //invalid data_
         fight_.getTemp().getKos().put(Fight.CST_PLAYER, BoolVal.TRUE);
@@ -5877,7 +5877,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, true);
         //invalid data_
         fight_.getTemp().getKos().put(Fight.CST_PLAYER, BoolVal.TRUE);
@@ -5891,7 +5891,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, true);
         //invalid data_
         fight_.setFightType(FightType.DRESSEUR);
@@ -5905,7 +5905,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, true);
         //invalid data_
         fight_.setFightType(FightType.DRESSEUR);
@@ -5918,7 +5918,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight3(Sex.GIRL, diff_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -5933,7 +5933,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight3(Sex.BOY, diff_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -5948,7 +5948,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight3(Sex.GIRL, diff_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -5963,7 +5963,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight3(Sex.BOY, diff_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -5978,7 +5978,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight3(Sex.GIRL, diff_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -5993,7 +5993,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight3(Sex.BOY, diff_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -6031,7 +6031,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -6040,14 +6040,14 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
-        game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
+        game_.choosePokemonForLearningAndEvolving( 0, data_);
         game_.setEvolution(TETARTE);
         //invalid data_
-        fight_.getChoices().getVal((byte) 0).setName(PIKACHU);
+        fight_.getChoices().getVal( 0).setName(PIKACHU);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -6058,7 +6058,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -6067,14 +6067,14 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
-        game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
+        game_.choosePokemonForLearningAndEvolving( 0, data_);
         game_.setEvolution(TETARTE);
         //invalid data_
-        fight_.getChoices().getVal((byte) 0).setName(PIKACHU);
+        fight_.getChoices().getVal( 0).setName(PIKACHU);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -6085,7 +6085,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -6094,10 +6094,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(DEMI_TOUR, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.roundAllThrowers(data_, false);
         //invalid data_
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setAction(null);
@@ -6111,7 +6111,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -6120,10 +6120,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(DEMI_TOUR, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.roundAllThrowers(data_, false);
         //invalid data_
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setAction(null);
@@ -6137,7 +6137,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -6146,13 +6146,13 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(DEMI_TOUR, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.roundAllThrowers(data_, false);
         //invalid data_
-        fight_.setCurrentUser(Fight.toUserFighter((byte) 6));
+        fight_.setCurrentUser(Fight.toUserFighter( 6));
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -6163,7 +6163,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -6172,13 +6172,13 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(DEMI_TOUR, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.roundAllThrowers(data_, false);
         //invalid data_
-        fight_.setCurrentUser(Fight.toUserFighter((byte) 6));
+        fight_.setCurrentUser(Fight.toUserFighter( 6));
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -6189,7 +6189,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -6198,10 +6198,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(JACKPOT, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
         Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
@@ -6209,7 +6209,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
-        fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
+        fighter_.usePowerPointsByMove(diff_,JACKPOT, 1);
         fighter_.setActed(true);
         fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
@@ -6248,7 +6248,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -6257,10 +6257,10 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(JACKPOT, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         //this round is simulated (possible round)
         FightRound.beginRound(fight_, diff_, data_);
         Fighter fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
@@ -6268,7 +6268,7 @@ public class FightValidationTest extends InitializationDataBase {
         fighter_.setDisappeared(false);
         fighter_.ajouterAttaquesDejaInvoqueesTour(fighter_.getFinalChosenMove());
         fighter_.setLastUsedMove(fighter_.getFinalChosenMove());
-        fighter_.usePowerPointsByMove(diff_,JACKPOT,(short) 1);
+        fighter_.usePowerPointsByMove(diff_,JACKPOT, 1);
         fighter_.setActed(true);
         fighter_ =fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         fighter_.affectNoRoundBeforeUsingMove();
@@ -6307,7 +6307,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -6316,11 +6316,11 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
-        game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
+        game_.choosePokemonForLearningAndEvolving( 0, data_);
         game_.setEvolution(TETARTE);
         //invalid data_
         fight_.getAllyChoice().clear();
@@ -6335,7 +6335,7 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
@@ -6344,11 +6344,11 @@ public class FightValidationTest extends InitializationDataBase {
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
-        game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
+        game_.choosePokemonForLearningAndEvolving( 0, data_);
         game_.setEvolution(TETARTE);
         //invalid data_
         fight_.getAllyChoice().clear();
@@ -6363,14 +6363,14 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -6387,14 +6387,14 @@ public class FightValidationTest extends InitializationDataBase {
         PkTrainer pk_ = new PkTrainer();
         pk_.setAbility(MOITEUR);
         pk_.setItem(NULL_REF);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setName(PTITARD);
         pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
         addBackFoeFighter(pk_, game_, data_);
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.changeAction(ActionType.MOVE, data_);
         game_.chooseMove(BROUHAHA, data_);
         game_.roundAllThrowers(data_, false);
@@ -6411,7 +6411,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, true);
         //invalid data_
         fight_.getCatchingBalls().clear();
@@ -6425,7 +6425,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, true);
         //invalid data_
         fight_.getCatchingBalls().clear();
@@ -6439,11 +6439,11 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, true);
         //invalid data_
         fight_.getCatchingBalls().clear();
-        fight_.setMult((byte) 127);
+        fight_.setMult( 127);
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -6454,11 +6454,11 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, true);
         //invalid data_
         fight_.getCatchingBalls().clear();
-        fight_.setMult((byte) 127);
+        fight_.setMult( 127);
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -6469,11 +6469,11 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, true);
-        fight_.getCatchingBalls().first().setPlayer((byte) -1);
+        fight_.getCatchingBalls().first().setPlayer( -1);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
-        assertEq((byte)POKEMON_FIGHTER_ZERO,fight_.getCatchingBalls().first().getPlayer());
+        assertEq(POKEMON_FIGHTER_ZERO,fight_.getCatchingBalls().first().getPlayer());
     }
     @Test
     public void validate236Test(){
@@ -6483,21 +6483,21 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
-        fight_.getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
+        fight_.getCatchingBalls().first().setPlayer(POKEMON_FIGHTER_ZERO);
         game_.attemptCatchingWildPokemon(data_, true);
-        fight_.getCatchingBalls().first().setPlayer((byte) -1);
+        fight_.getCatchingBalls().first().setPlayer( -1);
         assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
-        assertEq((byte)POKEMON_FIGHTER_ZERO,fight_.getCatchingBalls().first().getPlayer());
+        assertEq(POKEMON_FIGHTER_ZERO,fight_.getCatchingBalls().first().getPlayer());
     }
     private static void addBackFoeFighter(PkTrainer _pk, Game _game, DataBase _data) {
         Fight fight_ = _game.getFight();
         Fighter fighter_ = new Fighter(_pk, _data, Fighter.BACK);
         fighter_.initIvAdv(_game.getDifficulty(),NULL_REF);
         fighter_.setRemainingHp(fighter_.pvMax());
-        ByteMap<Fighter> team_ = fight_.getFoeTeam().getMembers();
-        TeamPosition key_ = Fight.toFoeFighter((byte) team_.size());
-        fight_.getFirstPositFoeFighters().put((byte) team_.size(), Fighter.BACK);
-        team_.put((byte) team_.size(), fighter_);
+        IntMap<Fighter> team_ = fight_.getFoeTeam().getMembers();
+        TeamPosition key_ = Fight.toFoeFighter( team_.size());
+        fight_.getFirstPositFoeFighters().put( team_.size(), Fighter.BACK);
+        team_.put( team_.size(), fighter_);
         TeamPositionList fs_ = FightOrder.fighters(fight_);
         fighter_.initCreatureRelationsAutre(fs_, _data);
         FightFacade.ajouterRelationAutre(_data, fight_, key_, fs_);
@@ -6514,11 +6514,11 @@ public class FightValidationTest extends InitializationDataBase {
         _fight.getAllyChoice().clear();
     }
 
-    private static void replaceFoeMoves(Fight _fight, CustList<StringMap<Short>> _moves) {
+    private static void replaceFoeMoves(Fight _fight, CustList<StringMap<Integer>> _moves) {
         Team.replace(_moves, _fight.getFoeTeam());
     }
 
-    private static void replacePlayerMoves(Fight _fight, CustList<StringMap<Short>> _moves) {
+    private static void replacePlayerMoves(Fight _fight, CustList<StringMap<Integer>> _moves) {
         Team.replace(_moves, _fight.getUserTeam());
     }
 
@@ -6530,7 +6530,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.getPlayer().useObject(_data);
         game_.setPlayerCoords(newCoords(2, 0, 2, 1));
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
-        pkPl_.getMoves().put(DEMI_TOUR, new UsesOfMove((short)10));
+        pkPl_.getMoves().put(DEMI_TOUR, new UsesOfMove(10));
         //game_.getPlayerOrientation() == UP
         game_.initTrainerFight(_data);
         return game_;
@@ -6559,13 +6559,13 @@ public class FightValidationTest extends InitializationDataBase {
         pk_.setItem(MULTI_EXP);
         pk_.setGender(_sex.getGender());
         pk_.setAbility(ABSORB_EAU);
-        pk_.setLevel((short) 26);
+        pk_.setLevel( 26);
         game_.getPlayer().recevoirPokemon(pk_, _diff, _data);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
         pkPl_.learnMove(BROUHAHA, DANSE_PLUIE, _data);
-//        pkPl_.getMoves().put(BROUHAHA, new UsesOfMove((short)10));
+//        pkPl_.getMoves().put(BROUHAHA, new UsesOfMove(10));
         pkPl_.getWonExpSinceLastLevel().addNb(new Rate("49"));
         game_.setPlayerCoords(newCoords(2, 0, 2, 1));
         //game_.getPlayerOrientation() == UP
@@ -6584,13 +6584,13 @@ public class FightValidationTest extends InitializationDataBase {
         pk_.setItem(MULTI_EXP);
         pk_.setGender(_sex.getGender());
         pk_.setAbility(ABSORB_EAU);
-        pk_.setLevel((short) 100);
+        pk_.setLevel( 100);
         game_.getPlayer().recevoirPokemon(pk_, _diff, _data);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
         pkPl_.learnMove(BROUHAHA, COGNOBIDON, _data);
-//        pkPl_.getMoves().put(BROUHAHA, new UsesOfMove((short)10));
+//        pkPl_.getMoves().put(BROUHAHA, new UsesOfMove(10));
         game_.setPlayerCoords(newCoords(2, 0, 2, 1));
         //game_.getPlayerOrientation() == UP
         game_.initTrainerFight(_data);
@@ -6608,13 +6608,13 @@ public class FightValidationTest extends InitializationDataBase {
         pk_.setItem(MULTI_EXP);
         pk_.setGender(_sex.getGender());
         pk_.setAbility(ABSORB_EAU);
-        pk_.setLevel((short) 100);
+        pk_.setLevel( 100);
         game_.getPlayer().recevoirPokemon(pk_, _diff, _data);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
         pkPl_.learnMove(BROUHAHA, FAUX_CHAGE, _data);
-        //pkPl_.getMoves().put(BROUHAHA, new UsesOfMove((short)10));
+        //pkPl_.getMoves().put(BROUHAHA, new UsesOfMove(10));
         game_.setPlayerCoords(newCoords(2, 0, 2, 1));
         //game_.getPlayerOrientation() == UP
         game_.initTrainerFight(_data);
@@ -6632,13 +6632,13 @@ public class FightValidationTest extends InitializationDataBase {
         pk_.setItem(MULTI_EXP);
         pk_.setGender(_sex.getGender());
         pk_.setAbility(ABSORB_EAU);
-        pk_.setLevel((short) 100);
+        pk_.setLevel( 100);
         game_.getPlayer().recevoirPokemon(pk_, _diff, _data);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
         pkPl_.learnMove(BROUHAHA, HATE, _data);
-        //pkPl_.getMoves().put(BROUHAHA, new UsesOfMove((short)10));
+        //pkPl_.getMoves().put(BROUHAHA, new UsesOfMove(10));
         game_.setPlayerCoords(newCoords(2, 0, 2, 1));
         //game_.getPlayerOrientation() == UP
         game_.initTrainerFight(_data);
@@ -6657,8 +6657,8 @@ public class FightValidationTest extends InitializationDataBase {
         pk_.setGender(_sex.getGender());
         pk_.setAbility(ABSORB_EAU);
         game_.getPlayer().recevoirPokemon(pk_, _diff, _data);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         game_.setPlayerCoords(newCoords(2, 0, 2, 1));
         //game_.getPlayerOrientation() == UP
         game_.initTrainerFight(_data);
@@ -6676,10 +6676,10 @@ public class FightValidationTest extends InitializationDataBase {
         pk_.setItem(MULTI_EXP);
         pk_.setGender(_sex.getGender());
         pk_.setAbility(ABSORB_EAU);
-        pk_.setLevel((short) 100);
+        pk_.setLevel( 100);
         game_.getPlayer().recevoirPokemon(pk_, _diff, _data);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
         pkPl_.learnMove(DEMI_TOUR, FAUX_CHAGE, _data);
         //game_.getPlayerOrientation() == UP
@@ -6700,7 +6700,7 @@ public class FightValidationTest extends InitializationDataBase {
         pk_.setItem(MULTI_EXP);
         pk_.setGender(_sex.getGender());
         pk_.setAbility(ABSORB_EAU);
-        pk_.setLevel((short) 100);
+        pk_.setLevel( 100);
         game_.getPlayer().recevoirPokemon(pk_, _diff, _data);
         game_.getPlayer().recevoirPokemon(pk_, _diff, _data);
         game_.beatGymLeader(newCoords(1, 0, 5, 1, 4, 1));
@@ -6736,13 +6736,13 @@ public class FightValidationTest extends InitializationDataBase {
         pk_.setItem(MULTI_EXP);
         pk_.setGender(_sex.getGender());
         pk_.setAbility(ABSORB_EAU);
-        pk_.setLevel((short) 100);
+        pk_.setLevel( 100);
         game_.getPlayer().recevoirPokemon(pk_, _diff, _data);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 2);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 2);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
         pkPl_.learnMove(BROUHAHA, HATE, _data);
-        //pkPl_.getMoves().put(BROUHAHA, new UsesOfMove((short)10));
+        //pkPl_.getMoves().put(BROUHAHA, new UsesOfMove(10));
         //game_.getPlayerOrientation() == UP
         game_.moving(Direction.DOWN, _data);
         game_.moving(Direction.DOWN, _data);
@@ -6765,12 +6765,12 @@ public class FightValidationTest extends InitializationDataBase {
         pk_.setItem(MULTI_EXP);
         pk_.setGender(_sex.getGender());
         pk_.setAbility(ABSORB_EAU);
-        pk_.setLevel((short) 100);
+        pk_.setLevel( 100);
         game_.getPlayer().recevoirPokemon(pk_, _diff, _data);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
-        //pkPl_.getMoves().put(BROUHAHA, new UsesOfMove((short)10));
+        //pkPl_.getMoves().put(BROUHAHA, new UsesOfMove(10));
         pkPl_.learnMove(BROUHAHA, HATE, _data);
         //game_.getPlayerOrientation() == UP
         game_.moving(Direction.DOWN, _data);
@@ -6817,12 +6817,12 @@ public class FightValidationTest extends InitializationDataBase {
         pk_.setItem(MULTI_EXP);
         pk_.setGender(_sex.getGender());
         pk_.setAbility(ABSORB_EAU);
-        pk_.setLevel((short) 100);
+        pk_.setLevel( 100);
         game_.getPlayer().recevoirPokemon(pk_, _diff, _data);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
-        //pkPl_.getMoves().put(BROUHAHA, new UsesOfMove((short)10));
+        //pkPl_.getMoves().put(BROUHAHA, new UsesOfMove(10));
         pkPl_.learnMove(BROUHAHA, HATE, _data);
         //game_.getPlayerOrientation() == UP
         game_.moving(Direction.DOWN, _data);

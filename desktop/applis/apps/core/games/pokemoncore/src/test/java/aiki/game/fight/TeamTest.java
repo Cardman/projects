@@ -9,7 +9,7 @@ import aiki.map.pokemon.enums.Gender;
 import aiki.util.TeamPositionList;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.util.Bytes;
+import code.util.Ints;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -144,24 +144,24 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        team_.initEquipeUtilisateur(player_, diff_, (short) 1, data_);
+        team_.initEquipeUtilisateur(player_, diff_,  1, data_);
         assertEq(2, team_.getMembers().size());
-        assertEq(0, team_.getMembers().getVal((byte) 0).getGroundPlace());
-        assertEq(Fighter.BACK, team_.getMembers().getVal((byte) 1).getGroundPlace());
+        assertEq(0, team_.getMembers().getVal( 0).getGroundPlace());
+        assertEq(Fighter.BACK, team_.getMembers().getVal( 1).getGroundPlace());
         assertEq(1, team_.getMovesAnticipation().size());
         assertEq(1, team_.getMovesAnticipation().getVal(PRESCIENCE).size());
-        Anticipation ant_ = team_.getMovesAnticipation().getVal(PRESCIENCE).getVal((byte) 0);
+        Anticipation ant_ = team_.getMovesAnticipation().getVal(PRESCIENCE).getVal( 0);
         assertEq(Rate.zero(), ant_.getDamage());
         assertEq(0, ant_.getNbRounds());
         assertTrue(!ant_.isIncrementing());
         assertEq(1, team_.getHealAfter().size());
         assertEq(1, team_.getHealAfter().getVal(VOEU).size());
-        StacksOfUses stack_ = team_.getHealAfter().getVal(VOEU).getVal((byte) 0);
+        StacksOfUses stack_ = team_.getHealAfter().getVal(VOEU).getVal( 0);
         assertEq(0, stack_.getNbRounds());
         assertTrue(!stack_.isFirstStacked());
         assertTrue(!stack_.isLastStacked());
@@ -182,7 +182,7 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -191,19 +191,19 @@ public class TeamTest extends InitializationDataBase {
         player_.getTeam().add(egg_);
         PokemonPlayer pk_ = (PokemonPlayer) player_.getTeam().get(0);
         pk_.setRemainingHp(Rate.zero());
-        team_.initEquipeUtilisateur(player_, diff_, (short) 1, data_);
+        team_.initEquipeUtilisateur(player_, diff_,  1, data_);
         assertEq(2, team_.getMembers().size());
-        assertEq(0, team_.getMembers().getVal((byte) 1).getGroundPlace());
-        assertEq(Fighter.BACK, team_.getMembers().getVal((byte) 0).getGroundPlace());
+        assertEq(0, team_.getMembers().getVal( 1).getGroundPlace());
+        assertEq(Fighter.BACK, team_.getMembers().getVal( 0).getGroundPlace());
         assertEq(1, team_.getMovesAnticipation().size());
         assertEq(1, team_.getMovesAnticipation().getVal(PRESCIENCE).size());
-        Anticipation ant_ = team_.getMovesAnticipation().getVal(PRESCIENCE).getVal((byte) 0);
+        Anticipation ant_ = team_.getMovesAnticipation().getVal(PRESCIENCE).getVal( 0);
         assertEq(Rate.zero(), ant_.getDamage());
         assertEq(0, ant_.getNbRounds());
         assertTrue(!ant_.isIncrementing());
         assertEq(1, team_.getHealAfter().size());
         assertEq(1, team_.getHealAfter().getVal(VOEU).size());
-        StacksOfUses stack_ = team_.getHealAfter().getVal(VOEU).getVal((byte) 0);
+        StacksOfUses stack_ = team_.getHealAfter().getVal(VOEU).getVal( 0);
         assertEq(0, stack_.getNbRounds());
         assertTrue(!stack_.isFirstStacked());
         assertTrue(!stack_.isLastStacked());
@@ -220,34 +220,34 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
-        team_.initEquipeUtilisateur(player_, diff_, (short) 2, data_);
+        team_.initEquipeUtilisateur(player_, diff_,  2, data_);
         assertEq(2, team_.getMembers().size());
-        assertEq(0, team_.getMembers().getVal((byte) 0).getGroundPlace());
-        assertEq(1, team_.getMembers().getVal((byte) 1).getGroundPlace());
+        assertEq(0, team_.getMembers().getVal( 0).getGroundPlace());
+        assertEq(1, team_.getMembers().getVal( 1).getGroundPlace());
         assertEq(1, team_.getMovesAnticipation().size());
         assertEq(2, team_.getMovesAnticipation().getVal(PRESCIENCE).size());
-        Anticipation ant_ = team_.getMovesAnticipation().getVal(PRESCIENCE).getVal((byte) 0);
+        Anticipation ant_ = team_.getMovesAnticipation().getVal(PRESCIENCE).getVal( 0);
         assertEq(Rate.zero(), ant_.getDamage());
         assertEq(0, ant_.getNbRounds());
         assertTrue(!ant_.isIncrementing());
-        ant_ = team_.getMovesAnticipation().getVal(PRESCIENCE).getVal((byte) 1);
+        ant_ = team_.getMovesAnticipation().getVal(PRESCIENCE).getVal( 1);
         assertEq(Rate.zero(), ant_.getDamage());
         assertEq(0, ant_.getNbRounds());
         assertTrue(!ant_.isIncrementing());
         assertEq(1, team_.getHealAfter().size());
         assertEq(2, team_.getHealAfter().getVal(VOEU).size());
-        StacksOfUses stack_ = team_.getHealAfter().getVal(VOEU).getVal((byte) 0);
+        StacksOfUses stack_ = team_.getHealAfter().getVal(VOEU).getVal( 0);
         assertEq(0, stack_.getNbRounds());
         assertTrue(!stack_.isFirstStacked());
         assertTrue(!stack_.isLastStacked());
-        stack_ = team_.getHealAfter().getVal(VOEU).getVal((byte) 1);
+        stack_ = team_.getHealAfter().getVal(VOEU).getVal( 1);
         assertEq(0, stack_.getNbRounds());
         assertTrue(!stack_.isFirstStacked());
         assertTrue(!stack_.isLastStacked());
@@ -264,7 +264,7 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -277,7 +277,7 @@ public class TeamTest extends InitializationDataBase {
         pokemonAlly_.setItem(MAGNET);
         pokemonAlly_.setAbility(PARATONNERRE);
         pokemonAlly_.setGender(Gender.NO_GENDER);
-        pokemonAlly_.setLevel((short) 3);
+        pokemonAlly_.setLevel( 3);
         pokemonAlly_.setMoves(new StringList(JACKPOT));
         ally_.add(pokemonAlly_);
         pokemonAlly_ = new PkTrainer();
@@ -285,36 +285,36 @@ public class TeamTest extends InitializationDataBase {
         pokemonAlly_.setItem(MAGNET);
         pokemonAlly_.setAbility(PARATONNERRE);
         pokemonAlly_.setGender(Gender.NO_GENDER);
-        pokemonAlly_.setLevel((short) 3);
+        pokemonAlly_.setLevel( 3);
         pokemonAlly_.setMoves(new StringList(JACKPOT));
         ally_.add(pokemonAlly_);
-        team_.initEquipeUtilisateur(player_, diff_, (byte) 1, (byte) 2, data_, ally_);
+        team_.initEquipeUtilisateur(player_, diff_,  1,  2, data_, ally_);
         assertEq(4, team_.getMembers().size());
-        assertEq(0, team_.getMembers().getVal((byte) 0).getGroundPlace());
-        assertTrue(team_.getMembers().getVal((byte) 0).isBelongingToPlayer());
-        assertEq(Fighter.BACK, team_.getMembers().getVal((byte) 1).getGroundPlace());
-        assertTrue(team_.getMembers().getVal((byte) 1).isBelongingToPlayer());
-        assertEq(1, team_.getMembers().getVal((byte) 2).getGroundPlace());
-        assertTrue(!team_.getMembers().getVal((byte) 2).isBelongingToPlayer());
-        assertEq(Fighter.BACK, team_.getMembers().getVal((byte) 3).getGroundPlace());
-        assertTrue(!team_.getMembers().getVal((byte) 3).isBelongingToPlayer());
+        assertEq(0, team_.getMembers().getVal( 0).getGroundPlace());
+        assertTrue(team_.getMembers().getVal( 0).isBelongingToPlayer());
+        assertEq(Fighter.BACK, team_.getMembers().getVal( 1).getGroundPlace());
+        assertTrue(team_.getMembers().getVal( 1).isBelongingToPlayer());
+        assertEq(1, team_.getMembers().getVal( 2).getGroundPlace());
+        assertTrue(!team_.getMembers().getVal( 2).isBelongingToPlayer());
+        assertEq(Fighter.BACK, team_.getMembers().getVal( 3).getGroundPlace());
+        assertTrue(!team_.getMembers().getVal( 3).isBelongingToPlayer());
         assertEq(1, team_.getMovesAnticipation().size());
         assertEq(2, team_.getMovesAnticipation().getVal(PRESCIENCE).size());
-        Anticipation ant_ = team_.getMovesAnticipation().getVal(PRESCIENCE).getVal((byte) 0);
+        Anticipation ant_ = team_.getMovesAnticipation().getVal(PRESCIENCE).getVal( 0);
         assertEq(Rate.zero(), ant_.getDamage());
         assertEq(0, ant_.getNbRounds());
         assertTrue(!ant_.isIncrementing());
-        ant_ = team_.getMovesAnticipation().getVal(PRESCIENCE).getVal((byte) 1);
+        ant_ = team_.getMovesAnticipation().getVal(PRESCIENCE).getVal( 1);
         assertEq(Rate.zero(), ant_.getDamage());
         assertEq(0, ant_.getNbRounds());
         assertTrue(!ant_.isIncrementing());
         assertEq(1, team_.getHealAfter().size());
         assertEq(2, team_.getHealAfter().getVal(VOEU).size());
-        StacksOfUses stack_ = team_.getHealAfter().getVal(VOEU).getVal((byte) 0);
+        StacksOfUses stack_ = team_.getHealAfter().getVal(VOEU).getVal( 0);
         assertEq(0, stack_.getNbRounds());
         assertTrue(!stack_.isFirstStacked());
         assertTrue(!stack_.isLastStacked());
-        stack_ = team_.getHealAfter().getVal(VOEU).getVal((byte) 1);
+        stack_ = team_.getHealAfter().getVal(VOEU).getVal( 1);
         assertEq(0, stack_.getNbRounds());
         assertTrue(!stack_.isFirstStacked());
         assertTrue(!stack_.isLastStacked());
@@ -331,7 +331,7 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -345,7 +345,7 @@ public class TeamTest extends InitializationDataBase {
         pokemonAlly_.setItem(MAGNET);
         pokemonAlly_.setAbility(PARATONNERRE);
         pokemonAlly_.setGender(Gender.NO_GENDER);
-        pokemonAlly_.setLevel((short) 3);
+        pokemonAlly_.setLevel( 3);
         pokemonAlly_.setMoves(new StringList(JACKPOT));
         ally_.add(pokemonAlly_);
         pokemonAlly_ = new PkTrainer();
@@ -353,36 +353,36 @@ public class TeamTest extends InitializationDataBase {
         pokemonAlly_.setItem(MAGNET);
         pokemonAlly_.setAbility(PARATONNERRE);
         pokemonAlly_.setGender(Gender.NO_GENDER);
-        pokemonAlly_.setLevel((short) 3);
+        pokemonAlly_.setLevel( 3);
         pokemonAlly_.setMoves(new StringList(JACKPOT));
         ally_.add(pokemonAlly_);
-        team_.initEquipeUtilisateur(player_, diff_, (byte) 1, (byte) 2, data_, ally_);
+        team_.initEquipeUtilisateur(player_, diff_,  1,  2, data_, ally_);
         assertEq(4, team_.getMembers().size());
-        assertEq(0, team_.getMembers().getVal((byte) 0).getGroundPlace());
-        assertTrue(team_.getMembers().getVal((byte) 0).isBelongingToPlayer());
-        assertEq(Fighter.BACK, team_.getMembers().getVal((byte) 1).getGroundPlace());
-        assertTrue(team_.getMembers().getVal((byte) 1).isBelongingToPlayer());
-        assertEq(1, team_.getMembers().getVal((byte) 2).getGroundPlace());
-        assertTrue(!team_.getMembers().getVal((byte) 2).isBelongingToPlayer());
-        assertEq(Fighter.BACK, team_.getMembers().getVal((byte) 3).getGroundPlace());
-        assertTrue(!team_.getMembers().getVal((byte) 3).isBelongingToPlayer());
+        assertEq(0, team_.getMembers().getVal( 0).getGroundPlace());
+        assertTrue(team_.getMembers().getVal( 0).isBelongingToPlayer());
+        assertEq(Fighter.BACK, team_.getMembers().getVal( 1).getGroundPlace());
+        assertTrue(team_.getMembers().getVal( 1).isBelongingToPlayer());
+        assertEq(1, team_.getMembers().getVal( 2).getGroundPlace());
+        assertTrue(!team_.getMembers().getVal( 2).isBelongingToPlayer());
+        assertEq(Fighter.BACK, team_.getMembers().getVal( 3).getGroundPlace());
+        assertTrue(!team_.getMembers().getVal( 3).isBelongingToPlayer());
         assertEq(1, team_.getMovesAnticipation().size());
         assertEq(2, team_.getMovesAnticipation().getVal(PRESCIENCE).size());
-        Anticipation ant_ = team_.getMovesAnticipation().getVal(PRESCIENCE).getVal((byte) 0);
+        Anticipation ant_ = team_.getMovesAnticipation().getVal(PRESCIENCE).getVal( 0);
         assertEq(Rate.zero(), ant_.getDamage());
         assertEq(0, ant_.getNbRounds());
         assertTrue(!ant_.isIncrementing());
-        ant_ = team_.getMovesAnticipation().getVal(PRESCIENCE).getVal((byte) 1);
+        ant_ = team_.getMovesAnticipation().getVal(PRESCIENCE).getVal( 1);
         assertEq(Rate.zero(), ant_.getDamage());
         assertEq(0, ant_.getNbRounds());
         assertTrue(!ant_.isIncrementing());
         assertEq(1, team_.getHealAfter().size());
         assertEq(2, team_.getHealAfter().getVal(VOEU).size());
-        StacksOfUses stack_ = team_.getHealAfter().getVal(VOEU).getVal((byte) 0);
+        StacksOfUses stack_ = team_.getHealAfter().getVal(VOEU).getVal( 0);
         assertEq(0, stack_.getNbRounds());
         assertTrue(!stack_.isFirstStacked());
         assertTrue(!stack_.isLastStacked());
-        stack_ = team_.getHealAfter().getVal(VOEU).getVal((byte) 1);
+        stack_ = team_.getHealAfter().getVal(VOEU).getVal( 1);
         assertEq(0, stack_.getNbRounds());
         assertTrue(!stack_.isFirstStacked());
         assertTrue(!stack_.isLastStacked());
@@ -399,7 +399,7 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -413,7 +413,7 @@ public class TeamTest extends InitializationDataBase {
         pokemonAlly_.setItem(MAGNET);
         pokemonAlly_.setAbility(PARATONNERRE);
         pokemonAlly_.setGender(Gender.NO_GENDER);
-        pokemonAlly_.setLevel((short) 3);
+        pokemonAlly_.setLevel( 3);
         pokemonAlly_.setMoves(new StringList(JACKPOT));
         ally_.add(pokemonAlly_);
         pokemonAlly_ = new PkTrainer();
@@ -421,43 +421,43 @@ public class TeamTest extends InitializationDataBase {
         pokemonAlly_.setItem(MAGNET);
         pokemonAlly_.setAbility(PARATONNERRE);
         pokemonAlly_.setGender(Gender.NO_GENDER);
-        pokemonAlly_.setLevel((short) 3);
+        pokemonAlly_.setLevel( 3);
         pokemonAlly_.setMoves(new StringList(JACKPOT));
         ally_.add(pokemonAlly_);
-        team_.initEquipeUtilisateur(player_, diff_, (byte) 1, (byte) 2, data_, ally_);
+        team_.initEquipeUtilisateur(player_, diff_,  1,  2, data_, ally_);
         assertEq(4, team_.getMembers().size());
-        assertEq(0, team_.getMembers().getVal((byte) 0).getGroundPlace());
-        assertTrue(team_.getMembers().getVal((byte) 0).isBelongingToPlayer());
-        assertEq(Fighter.BACK, team_.getMembers().getVal((byte) 1).getGroundPlace());
-        assertTrue(team_.getMembers().getVal((byte) 1).isBelongingToPlayer());
-        assertEq(1, team_.getMembers().getVal((byte) 2).getGroundPlace());
-        assertTrue(!team_.getMembers().getVal((byte) 2).isBelongingToPlayer());
-        assertEq(Fighter.BACK, team_.getMembers().getVal((byte) 3).getGroundPlace());
-        assertTrue(!team_.getMembers().getVal((byte) 3).isBelongingToPlayer());
+        assertEq(0, team_.getMembers().getVal( 0).getGroundPlace());
+        assertTrue(team_.getMembers().getVal( 0).isBelongingToPlayer());
+        assertEq(Fighter.BACK, team_.getMembers().getVal( 1).getGroundPlace());
+        assertTrue(team_.getMembers().getVal( 1).isBelongingToPlayer());
+        assertEq(1, team_.getMembers().getVal( 2).getGroundPlace());
+        assertTrue(!team_.getMembers().getVal( 2).isBelongingToPlayer());
+        assertEq(Fighter.BACK, team_.getMembers().getVal( 3).getGroundPlace());
+        assertTrue(!team_.getMembers().getVal( 3).isBelongingToPlayer());
         assertEq(1, team_.getMovesAnticipation().size());
         assertEq(2, team_.getMovesAnticipation().getVal(PRESCIENCE).size());
-        Anticipation ant_ = team_.getMovesAnticipation().getVal(PRESCIENCE).getVal((byte) 0);
+        Anticipation ant_ = team_.getMovesAnticipation().getVal(PRESCIENCE).getVal( 0);
         assertEq(Rate.zero(), ant_.getDamage());
         assertEq(0, ant_.getNbRounds());
         assertTrue(!ant_.isIncrementing());
-        ant_ = team_.getMovesAnticipation().getVal(PRESCIENCE).getVal((byte) 1);
+        ant_ = team_.getMovesAnticipation().getVal(PRESCIENCE).getVal( 1);
         assertEq(Rate.zero(), ant_.getDamage());
         assertEq(0, ant_.getNbRounds());
         assertTrue(!ant_.isIncrementing());
         assertEq(1, team_.getHealAfter().size());
         assertEq(2, team_.getHealAfter().getVal(VOEU).size());
-        StacksOfUses stack_ = team_.getHealAfter().getVal(VOEU).getVal((byte) 0);
+        StacksOfUses stack_ = team_.getHealAfter().getVal(VOEU).getVal( 0);
         assertEq(0, stack_.getNbRounds());
         assertTrue(!stack_.isFirstStacked());
         assertTrue(!stack_.isLastStacked());
-        stack_ = team_.getHealAfter().getVal(VOEU).getVal((byte) 1);
+        stack_ = team_.getHealAfter().getVal(VOEU).getVal( 1);
         assertEq(0, stack_.getNbRounds());
         assertTrue(!stack_.isFirstStacked());
         assertTrue(!stack_.isLastStacked());
-        assertEq(Gender.MALE, team_.getMembers().getVal((byte) 2).getGender());
-        assertEq(Gender.MALE, team_.getMembers().getVal((byte) 2).getCurrentGender());
-        assertEq(Gender.NO_GENDER, team_.getMembers().getVal((byte) 3).getGender());
-        assertEq(Gender.NO_GENDER, team_.getMembers().getVal((byte) 3).getCurrentGender());
+        assertEq(Gender.MALE, team_.getMembers().getVal( 2).getGender());
+        assertEq(Gender.MALE, team_.getMembers().getVal( 2).getCurrentGender());
+        assertEq(Gender.NO_GENDER, team_.getMembers().getVal( 3).getGender());
+        assertEq(Gender.NO_GENDER, team_.getMembers().getVal( 3).getCurrentGender());
     }
 
     @Test
@@ -471,7 +471,7 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -485,7 +485,7 @@ public class TeamTest extends InitializationDataBase {
         pokemonAlly_.setItem(MAGNET);
         pokemonAlly_.setAbility(PARATONNERRE);
         pokemonAlly_.setGender(Gender.NO_GENDER);
-        pokemonAlly_.setLevel((short) 3);
+        pokemonAlly_.setLevel( 3);
         pokemonAlly_.setMoves(new StringList(JACKPOT));
         ally_.add(pokemonAlly_);
         pokemonAlly_ = new PkTrainer();
@@ -493,43 +493,43 @@ public class TeamTest extends InitializationDataBase {
         pokemonAlly_.setItem(MAGNET);
         pokemonAlly_.setAbility(PARATONNERRE);
         pokemonAlly_.setGender(Gender.NO_GENDER);
-        pokemonAlly_.setLevel((short) 3);
+        pokemonAlly_.setLevel( 3);
         pokemonAlly_.setMoves(new StringList(JACKPOT));
         ally_.add(pokemonAlly_);
-        team_.initEquipeUtilisateur(player_, diff_, (byte) 1, (byte) 2, data_, ally_);
+        team_.initEquipeUtilisateur(player_, diff_,  1,  2, data_, ally_);
         assertEq(4, team_.getMembers().size());
-        assertEq(0, team_.getMembers().getVal((byte) 0).getGroundPlace());
-        assertTrue(team_.getMembers().getVal((byte) 0).isBelongingToPlayer());
-        assertEq(Fighter.BACK, team_.getMembers().getVal((byte) 1).getGroundPlace());
-        assertTrue(team_.getMembers().getVal((byte) 1).isBelongingToPlayer());
-        assertEq(1, team_.getMembers().getVal((byte) 2).getGroundPlace());
-        assertTrue(!team_.getMembers().getVal((byte) 2).isBelongingToPlayer());
-        assertEq(Fighter.BACK, team_.getMembers().getVal((byte) 3).getGroundPlace());
-        assertTrue(!team_.getMembers().getVal((byte) 3).isBelongingToPlayer());
+        assertEq(0, team_.getMembers().getVal( 0).getGroundPlace());
+        assertTrue(team_.getMembers().getVal( 0).isBelongingToPlayer());
+        assertEq(Fighter.BACK, team_.getMembers().getVal( 1).getGroundPlace());
+        assertTrue(team_.getMembers().getVal( 1).isBelongingToPlayer());
+        assertEq(1, team_.getMembers().getVal( 2).getGroundPlace());
+        assertTrue(!team_.getMembers().getVal( 2).isBelongingToPlayer());
+        assertEq(Fighter.BACK, team_.getMembers().getVal( 3).getGroundPlace());
+        assertTrue(!team_.getMembers().getVal( 3).isBelongingToPlayer());
         assertEq(1, team_.getMovesAnticipation().size());
         assertEq(2, team_.getMovesAnticipation().getVal(PRESCIENCE).size());
-        Anticipation ant_ = team_.getMovesAnticipation().getVal(PRESCIENCE).getVal((byte) 0);
+        Anticipation ant_ = team_.getMovesAnticipation().getVal(PRESCIENCE).getVal( 0);
         assertEq(Rate.zero(), ant_.getDamage());
         assertEq(0, ant_.getNbRounds());
         assertTrue(!ant_.isIncrementing());
-        ant_ = team_.getMovesAnticipation().getVal(PRESCIENCE).getVal((byte) 1);
+        ant_ = team_.getMovesAnticipation().getVal(PRESCIENCE).getVal( 1);
         assertEq(Rate.zero(), ant_.getDamage());
         assertEq(0, ant_.getNbRounds());
         assertTrue(!ant_.isIncrementing());
         assertEq(1, team_.getHealAfter().size());
         assertEq(2, team_.getHealAfter().getVal(VOEU).size());
-        StacksOfUses stack_ = team_.getHealAfter().getVal(VOEU).getVal((byte) 0);
+        StacksOfUses stack_ = team_.getHealAfter().getVal(VOEU).getVal( 0);
         assertEq(0, stack_.getNbRounds());
         assertTrue(!stack_.isFirstStacked());
         assertTrue(!stack_.isLastStacked());
-        stack_ = team_.getHealAfter().getVal(VOEU).getVal((byte) 1);
+        stack_ = team_.getHealAfter().getVal(VOEU).getVal( 1);
         assertEq(0, stack_.getNbRounds());
         assertTrue(!stack_.isFirstStacked());
         assertTrue(!stack_.isLastStacked());
-        assertEq(Gender.FEMALE, team_.getMembers().getVal((byte) 2).getGender());
-        assertEq(Gender.FEMALE, team_.getMembers().getVal((byte) 2).getCurrentGender());
-        assertEq(Gender.NO_GENDER, team_.getMembers().getVal((byte) 3).getGender());
-        assertEq(Gender.NO_GENDER, team_.getMembers().getVal((byte) 3).getCurrentGender());
+        assertEq(Gender.FEMALE, team_.getMembers().getVal( 2).getGender());
+        assertEq(Gender.FEMALE, team_.getMembers().getVal( 2).getCurrentGender());
+        assertEq(Gender.NO_GENDER, team_.getMembers().getVal( 3).getGender());
+        assertEq(Gender.NO_GENDER, team_.getMembers().getVal( 3).getCurrentGender());
     }
 
     @Test
@@ -544,24 +544,24 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         pokemon_.setMoves(new StringList(JACKPOT));
         foeTeam_.add(pokemon_);
-        team_.initEquipeAdversaire(player_, foeTeam_, diff_, (short) 1, data_);
+        team_.initEquipeAdversaire(player_, foeTeam_, diff_,  1, data_);
         assertEq(1, team_.getMembers().size());
-        assertEq(0, team_.getMembers().getVal((byte) 0).getGroundPlace());
+        assertEq(0, team_.getMembers().getVal( 0).getGroundPlace());
 
         assertEq(POKE_BALL, data_.getBallDef());
-        assertEq(POKE_BALL, team_.getMembers().getVal((byte) 0).getUsedBallCatching());
+        assertEq(POKE_BALL, team_.getMembers().getVal( 0).getUsedBallCatching());
         assertEq(1, team_.getMovesAnticipation().size());
         assertEq(1, team_.getMovesAnticipation().getVal(PRESCIENCE).size());
-        Anticipation ant_ = team_.getMovesAnticipation().getVal(PRESCIENCE).getVal((byte) 0);
+        Anticipation ant_ = team_.getMovesAnticipation().getVal(PRESCIENCE).getVal( 0);
         assertEq(Rate.zero(), ant_.getDamage());
         assertEq(0, ant_.getNbRounds());
         assertTrue(!ant_.isIncrementing());
         assertEq(1, team_.getHealAfter().size());
         assertEq(1, team_.getHealAfter().getVal(VOEU).size());
-        StacksOfUses stack_ = team_.getHealAfter().getVal(VOEU).getVal((byte) 0);
+        StacksOfUses stack_ = team_.getHealAfter().getVal(VOEU).getVal( 0);
         assertEq(0, stack_.getNbRounds());
         assertTrue(!stack_.isFirstStacked());
         assertTrue(!stack_.isLastStacked());
@@ -579,22 +579,22 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         pokemon_.setMoves(new StringList(JACKPOT));
         foeTeam_.add(pokemon_);
-        team_.initEquipeAdversaire(player_, foeTeam_, diff_, (short) 1, data_);
+        team_.initEquipeAdversaire(player_, foeTeam_, diff_,  1, data_);
         assertEq(1, team_.getMembers().size());
-        assertEq(0, team_.getMembers().getVal((byte) 0).getGroundPlace());
-        assertEq(NULL_REF, team_.getMembers().getVal((byte) 0).getUsedBallCatching());
+        assertEq(0, team_.getMembers().getVal( 0).getGroundPlace());
+        assertEq(NULL_REF, team_.getMembers().getVal( 0).getUsedBallCatching());
         assertEq(1, team_.getMovesAnticipation().size());
         assertEq(1, team_.getMovesAnticipation().getVal(PRESCIENCE).size());
-        Anticipation ant_ = team_.getMovesAnticipation().getVal(PRESCIENCE).getVal((byte) 0);
+        Anticipation ant_ = team_.getMovesAnticipation().getVal(PRESCIENCE).getVal( 0);
         assertEq(Rate.zero(), ant_.getDamage());
         assertEq(0, ant_.getNbRounds());
         assertTrue(!ant_.isIncrementing());
         assertEq(1, team_.getHealAfter().size());
         assertEq(1, team_.getHealAfter().getVal(VOEU).size());
-        StacksOfUses stack_ = team_.getHealAfter().getVal(VOEU).getVal((byte) 0);
+        StacksOfUses stack_ = team_.getHealAfter().getVal(VOEU).getVal( 0);
         assertEq(0, stack_.getNbRounds());
         assertTrue(!stack_.isFirstStacked());
         assertTrue(!stack_.isLastStacked());
@@ -612,7 +612,7 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         pokemon_.setMoves(new StringList(JACKPOT));
         foeTeam_.add(pokemon_);
         pokemon_ = new PkTrainer();
@@ -620,22 +620,22 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         pokemon_.setMoves(new StringList(OEIL_MIRACLE));
         foeTeam_.add(pokemon_);
-        team_.initEquipeAdversaire(player_, foeTeam_, diff_, (short) 1, data_);
+        team_.initEquipeAdversaire(player_, foeTeam_, diff_,  1, data_);
         assertEq(2, team_.getMembers().size());
-        assertEq(0, team_.getMembers().getVal((byte) 0).getGroundPlace());
-        assertEq(Fighter.BACK, team_.getMembers().getVal((byte) 1).getGroundPlace());
+        assertEq(0, team_.getMembers().getVal( 0).getGroundPlace());
+        assertEq(Fighter.BACK, team_.getMembers().getVal( 1).getGroundPlace());
         assertEq(1, team_.getMovesAnticipation().size());
         assertEq(1, team_.getMovesAnticipation().getVal(PRESCIENCE).size());
-        Anticipation ant_ = team_.getMovesAnticipation().getVal(PRESCIENCE).getVal((byte) 0);
+        Anticipation ant_ = team_.getMovesAnticipation().getVal(PRESCIENCE).getVal( 0);
         assertEq(Rate.zero(), ant_.getDamage());
         assertEq(0, ant_.getNbRounds());
         assertTrue(!ant_.isIncrementing());
         assertEq(1, team_.getHealAfter().size());
         assertEq(1, team_.getHealAfter().getVal(VOEU).size());
-        StacksOfUses stack_ = team_.getHealAfter().getVal(VOEU).getVal((byte) 0);
+        StacksOfUses stack_ = team_.getHealAfter().getVal(VOEU).getVal( 0);
         assertEq(0, stack_.getNbRounds());
         assertTrue(!stack_.isFirstStacked());
         assertTrue(!stack_.isLastStacked());
@@ -652,24 +652,24 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         CustList<WildPk> wlist_ = new CustList<WildPk>();
         wlist_.add(pokemon_);
         team_.initPokemonSauvage(player_, diff_, wlist_, data_);
         assertEq(1, team_.getMembers().size());
-        assertEq(0, team_.getMembers().getVal((byte) 0).getGroundPlace());
+        assertEq(0, team_.getMembers().getVal( 0).getGroundPlace());
 
         assertEq(POKE_BALL, data_.getBallDef());
-        assertEq(POKE_BALL, team_.getMembers().getVal((byte) 0).getUsedBallCatching());
+        assertEq(POKE_BALL, team_.getMembers().getVal( 0).getUsedBallCatching());
         assertEq(1, team_.getMovesAnticipation().size());
         assertEq(1, team_.getMovesAnticipation().getVal(PRESCIENCE).size());
-        Anticipation ant_ = team_.getMovesAnticipation().getVal(PRESCIENCE).getVal((byte) 0);
+        Anticipation ant_ = team_.getMovesAnticipation().getVal(PRESCIENCE).getVal( 0);
         assertEq(Rate.zero(), ant_.getDamage());
         assertEq(0, ant_.getNbRounds());
         assertTrue(!ant_.isIncrementing());
         assertEq(1, team_.getHealAfter().size());
         assertEq(1, team_.getHealAfter().getVal(VOEU).size());
-        StacksOfUses stack_ = team_.getHealAfter().getVal(VOEU).getVal((byte) 0);
+        StacksOfUses stack_ = team_.getHealAfter().getVal(VOEU).getVal( 0);
         assertEq(0, stack_.getNbRounds());
         assertTrue(!stack_.isFirstStacked());
         assertTrue(!stack_.isLastStacked());
@@ -686,22 +686,22 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         CustList<WildPk> wlist_ = new CustList<WildPk>();
         wlist_.add(pokemon_);
         team_.initPokemonSauvage(player_, diff_, wlist_, data_);
         assertEq(1, team_.getMembers().size());
-        assertEq(0, team_.getMembers().getVal((byte) 0).getGroundPlace());
-        assertEq(NULL_REF, team_.getMembers().getVal((byte) 0).getUsedBallCatching());
+        assertEq(0, team_.getMembers().getVal( 0).getGroundPlace());
+        assertEq(NULL_REF, team_.getMembers().getVal( 0).getUsedBallCatching());
         assertEq(1, team_.getMovesAnticipation().size());
         assertEq(1, team_.getMovesAnticipation().getVal(PRESCIENCE).size());
-        Anticipation ant_ = team_.getMovesAnticipation().getVal(PRESCIENCE).getVal((byte) 0);
+        Anticipation ant_ = team_.getMovesAnticipation().getVal(PRESCIENCE).getVal( 0);
         assertEq(Rate.zero(), ant_.getDamage());
         assertEq(0, ant_.getNbRounds());
         assertTrue(!ant_.isIncrementing());
         assertEq(1, team_.getHealAfter().size());
         assertEq(1, team_.getHealAfter().getVal(VOEU).size());
-        StacksOfUses stack_ = team_.getHealAfter().getVal(VOEU).getVal((byte) 0);
+        StacksOfUses stack_ = team_.getHealAfter().getVal(VOEU).getVal( 0);
         assertEq(0, stack_.getNbRounds());
         assertTrue(!stack_.isFirstStacked());
         assertTrue(!stack_.isLastStacked());
@@ -718,23 +718,23 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
-        team_.initEquipeUtilisateur(player_, diff_, (short) 2, data_);
-        TeamPosition fighterCoordsOne_ = new TeamPosition(Fight.CST_PLAYER, (byte)0);
-        TeamPosition fighterCoordsTwo_ = new TeamPosition(Fight.CST_PLAYER, (byte)1);
+        team_.initEquipeUtilisateur(player_, diff_,  2, data_);
+        TeamPosition fighterCoordsOne_ = new TeamPosition(Fight.CST_PLAYER, 0);
+        TeamPosition fighterCoordsTwo_ = new TeamPosition(Fight.CST_PLAYER, 1);
         TeamPositionList fightersCoords_ = new TeamPositionList();
         fightersCoords_.add(fighterCoordsOne_);
         fightersCoords_.add(fighterCoordsTwo_);
         team_.initRelationsCombattant(fightersCoords_, data_);
-        Fighter fighter_ = team_.getMembers().getVal((byte) 0);
+        Fighter fighter_ = team_.getMembers().getVal( 0);
         assertEq(24, fighter_.getStatusRelat().size());
-//        assertEq(22, fighter_.getStatusRelat().getKeys((short) 0).size());
+//        assertEq(22, fighter_.getStatusRelat().getKeys( 0).size());
         assertEq(0, fighter_.getStatusRelatValues().getMinimum(-1));
         assertEq(0, fighter_.getStatusRelatValues().getMaximum(-1));
         assertEq(6, fighter_.getTrackingMoves().size());
@@ -743,9 +743,9 @@ public class TeamTest extends InitializationDataBase {
         assertEq(0, fighter_.getPrivateMoves().getVal(new MoveTeamPosition(POSSESSIF,fighterCoordsTwo_)).size());
         assertEq(4, fighter_.getTrappingMoves().size());
         assertEq(4, fighter_.getIncrUserAccuracy().size());
-        fighter_ = team_.getMembers().getVal((byte) 1);
+        fighter_ = team_.getMembers().getVal( 1);
         assertEq(24, fighter_.getStatusRelat().size());
-//        assertEq(22, fighter_.getStatusRelat().getKeys((short) 0).size());
+//        assertEq(22, fighter_.getStatusRelat().getKeys( 0).size());
         assertEq(0, fighter_.getStatusRelatValues().getMinimum(-1));
         assertEq(0, fighter_.getStatusRelatValues().getMaximum(-1));
         assertEq(6, fighter_.getTrackingMoves().size());
@@ -767,25 +767,25 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
-        team_.initEquipeUtilisateur(player_, diff_, (short) 2, data_);
-        team_.ajouterCombattantsContreAdv((byte) 1,(byte) 0);
+        team_.initEquipeUtilisateur(player_, diff_,  2, data_);
+        team_.ajouterCombattantsContreAdv( 1, 0);
         assertEq(2, team_.getPlayerFightersAgainstFoe().size());
-        assertTrue(team_.getPlayerFightersAgainstFoe().contains((byte) 0));
-        assertTrue(team_.getPlayerFightersAgainstFoe().contains((byte) 1));
-        assertEq(0, team_.getPlayerFightersAgainstFoe().getVal((byte) 0).size());
-        assertEq(1, team_.getPlayerFightersAgainstFoe().getVal((byte) 1).size());
-        assertTrue(team_.getPlayerFightersAgainstFoe().getVal((byte) 1).containsObj((byte) 0));
+        assertTrue(team_.getPlayerFightersAgainstFoe().contains( 0));
+        assertTrue(team_.getPlayerFightersAgainstFoe().contains( 1));
+        assertEq(0, team_.getPlayerFightersAgainstFoe().getVal( 0).size());
+        assertEq(1, team_.getPlayerFightersAgainstFoe().getVal( 1).size());
+        assertTrue(team_.getPlayerFightersAgainstFoe().getVal( 1).containsObj( 0));
         assertEq(2, team_.getPlayerFightersAgainstFoeSet().size());
-        assertEq(0, team_.getPlayerFightersAgainstFoeVal((byte) 0).size());
-        assertEq(1, team_.getPlayerFightersAgainstFoeVal((byte) 1).size());
-        assertTrue(team_.getPlayerFightersAgainstFoeVal((byte) 1).containsObj((byte) 0));
+        assertEq(0, team_.getPlayerFightersAgainstFoeVal( 0).size());
+        assertEq(1, team_.getPlayerFightersAgainstFoeVal( 1).size());
+        assertTrue(team_.getPlayerFightersAgainstFoeVal( 1).containsObj( 0));
     }
 
     @Test
@@ -799,7 +799,7 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -812,12 +812,12 @@ public class TeamTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        team_.initEquipeUtilisateur(player_, diff_, (short) 2, data_);
-        team_.getMembers().getVal((byte) 1).setGroundPlace((byte) 2);
-        team_.getMembers().getVal((byte) 0).setGroundPlace((byte) 1);
-        team_.move((byte) 0);
-        assertEq(0, team_.getMembers().getVal((byte) 0).getGroundPlace());
-        assertEq(1, team_.getMembers().getVal((byte) 1).getGroundPlace());
+        team_.initEquipeUtilisateur(player_, diff_,  2, data_);
+        team_.getMembers().getVal( 1).setGroundPlace( 2);
+        team_.getMembers().getVal( 0).setGroundPlace( 1);
+        team_.move( 0);
+        assertEq(0, team_.getMembers().getVal( 0).getGroundPlace());
+        assertEq(1, team_.getMembers().getVal( 1).getGroundPlace());
     }
 
     @Test
@@ -831,7 +831,7 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -844,10 +844,10 @@ public class TeamTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        team_.initEquipeUtilisateur(player_, diff_, (short) 2, data_);
-        team_.move((byte) 1);
-        assertEq(1, team_.getMembers().getVal((byte) 0).getGroundPlace());
-        assertEq(2, team_.getMembers().getVal((byte) 1).getGroundPlace());
+        team_.initEquipeUtilisateur(player_, diff_,  2, data_);
+        team_.move( 1);
+        assertEq(1, team_.getMembers().getVal( 0).getGroundPlace());
+        assertEq(2, team_.getMembers().getVal( 1).getGroundPlace());
     }
 
     @Test
@@ -861,7 +861,7 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -874,12 +874,12 @@ public class TeamTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        team_.initEquipeUtilisateur(player_, diff_, (short) 2, data_);
-        team_.getMembers().getVal((byte) 1).setGroundPlace((byte) 1);
-        team_.getMembers().getVal((byte) 0).setGroundPlace((byte) 1);
-        team_.move((byte) 0);
-        assertEq(0, team_.getMembers().getVal((byte) 0).getGroundPlace());
-        assertEq(1, team_.getMembers().getVal((byte) 1).getGroundPlace());
+        team_.initEquipeUtilisateur(player_, diff_,  2, data_);
+        team_.getMembers().getVal( 1).setGroundPlace( 1);
+        team_.getMembers().getVal( 0).setGroundPlace( 1);
+        team_.move( 0);
+        assertEq(0, team_.getMembers().getVal( 0).getGroundPlace());
+        assertEq(1, team_.getMembers().getVal( 1).getGroundPlace());
     }
 
     @Test
@@ -893,7 +893,7 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -906,19 +906,19 @@ public class TeamTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        team_.initEquipeUtilisateur(player_, diff_, (short) 2, data_);
-        team_.getMembers().getVal((byte) 1).setGroundPlace((byte) 0);
-        team_.getMembers().getVal((byte) 0).setGroundPlace((byte) 1);
-        Bytes positions_ = team_.fightersAtCurrentPlace((short) 0);
+        team_.initEquipeUtilisateur(player_, diff_,  2, data_);
+        team_.getMembers().getVal( 1).setGroundPlace( 0);
+        team_.getMembers().getVal( 0).setGroundPlace( 1);
+        Ints positions_ = team_.fightersAtCurrentPlace( 0);
         assertEq(1, positions_.size());
-        assertTrue(positions_.containsObj((byte) 1));
-        positions_ = team_.fightersAtCurrentPlace((short) 1);
+        assertTrue(positions_.containsObj( 1));
+        positions_ = team_.fightersAtCurrentPlace( 1);
         assertEq(1, positions_.size());
-        assertTrue(positions_.containsObj((byte) 0));
+        assertTrue(positions_.containsObj( 0));
         positions_ = team_.fightersAtCurrentPlace(Fighter.BACK);
         assertEq(2, positions_.size());
-        assertTrue(positions_.containsObj((byte) 2));
-        assertTrue(positions_.containsObj((byte) 3));
+        assertTrue(positions_.containsObj( 2));
+        assertTrue(positions_.containsObj( 3));
     }
 
     @Test
@@ -927,8 +927,8 @@ public class TeamTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         Team team_ = new Team(data_);
         Player player_ = Player.build(NICKNAME,diff_,true,data_);
-        team_.initEquipeUtilisateur(player_, diff_, (short) 2, data_);
-        assertEq(0, team_.fighterTeamAtIndex((short) -1).size());
+        team_.initEquipeUtilisateur(player_, diff_,  2, data_);
+        assertEq(0, team_.fighterTeamAtIndex( -1).size());
     }
 
     @Test
@@ -942,7 +942,7 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -955,15 +955,15 @@ public class TeamTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        team_.initEquipeUtilisateur(player_, diff_, (short) 2, data_);
-        team_.getMembers().getVal((byte) 1).setGroundPlaceSubst((byte) 0);
-        team_.getMembers().getVal((byte) 1).setGroundPlace((byte) 0);
-        team_.getMembers().getVal((byte) 0).setGroundPlaceSubst((byte) 1);
-        team_.getMembers().getVal((byte) 0).setGroundPlace((byte) 1);
-        CustList<FighterPosition> positions_ = team_.playerFighterAtIndex((short) 0);
+        team_.initEquipeUtilisateur(player_, diff_,  2, data_);
+        team_.getMembers().getVal( 1).setGroundPlaceSubst( 0);
+        team_.getMembers().getVal( 1).setGroundPlace( 0);
+        team_.getMembers().getVal( 0).setGroundPlaceSubst( 1);
+        team_.getMembers().getVal( 0).setGroundPlace( 1);
+        CustList<FighterPosition> positions_ = team_.playerFighterAtIndex( 0);
         assertEq(1, positions_.size());
         assertEq(1, positions_.get(0).getFirstPosit());
-        positions_ = team_.playerFighterAtIndex((short) 1);
+        positions_ = team_.playerFighterAtIndex( 1);
         assertEq(1, positions_.size());
         assertEq(0, positions_.get(0).getFirstPosit());
         positions_ = team_.playerFighterAtIndex(Fighter.BACK);
@@ -981,7 +981,7 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -998,15 +998,15 @@ public class TeamTest extends InitializationDataBase {
         CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
         allyTeam_.add(new PkTrainer(pokemon_, new StringList(PISTOLET_A_O)));
         allyTeam_.add(new PkTrainer(pokemon_, new StringList(PISTOLET_A_O)));
-        team_.initEquipeUtilisateur(player_, diff_, (byte) 1, (byte) 2, data_, allyTeam_);
-        team_.getMembers().getVal((byte) 0).setGroundPlace((byte) 1);
-        team_.getMembers().getVal((byte) 5).setGroundPlace((byte) 0);
-        team_.getMembers().getVal((byte) 0).setGroundPlaceSubst((byte) 1);
-        team_.getMembers().getVal((byte) 5).setGroundPlaceSubst((byte) 0);
-        CustList<FighterPosition> positions_ = team_.playerFighterAtIndex((short) 0);
+        team_.initEquipeUtilisateur(player_, diff_,  1,  2, data_, allyTeam_);
+        team_.getMembers().getVal( 0).setGroundPlace( 1);
+        team_.getMembers().getVal( 5).setGroundPlace( 0);
+        team_.getMembers().getVal( 0).setGroundPlaceSubst( 1);
+        team_.getMembers().getVal( 5).setGroundPlaceSubst( 0);
+        CustList<FighterPosition> positions_ = team_.playerFighterAtIndex( 0);
         assertEq(1, positions_.size());
         assertEq(0, positions_.get(0).getFirstPosit());
-        positions_ = team_.playerFighterAtIndex((short) 1);
+        positions_ = team_.playerFighterAtIndex( 1);
         assertEq(0, positions_.size());
         positions_ = team_.playerFighterAtIndex(Fighter.BACK);
         assertEq(0, positions_.size());
@@ -1023,7 +1023,7 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1036,17 +1036,17 @@ public class TeamTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        team_.initEquipeUtilisateur(player_, diff_, (short) 2, data_);
-        team_.getMembers().getVal((byte) 1).setGroundPlaceSubst((byte) 0);
-        team_.getMembers().getVal((byte) 1).setGroundPlace((byte) 0);
-        team_.getMembers().getVal((byte) 0).setGroundPlaceSubst((byte) 1);
-        team_.getMembers().getVal((byte) 0).setGroundPlace((byte) 1);
-        Bytes positions_ = team_.otherFighterAtIndex((short) 0);
+        team_.initEquipeUtilisateur(player_, diff_,  2, data_);
+        team_.getMembers().getVal( 1).setGroundPlaceSubst( 0);
+        team_.getMembers().getVal( 1).setGroundPlace( 0);
+        team_.getMembers().getVal( 0).setGroundPlaceSubst( 1);
+        team_.getMembers().getVal( 0).setGroundPlace( 1);
+        Ints positions_ = team_.otherFighterAtIndex( 0);
         assertEq(1, positions_.size());
-        assertTrue(positions_.containsObj((byte) 1));
-        positions_ = team_.otherFighterAtIndex((short) 1);
+        assertTrue(positions_.containsObj( 1));
+        positions_ = team_.otherFighterAtIndex( 1);
         assertEq(1, positions_.size());
-        assertTrue(positions_.containsObj((byte) 0));
+        assertTrue(positions_.containsObj( 0));
         positions_ = team_.otherFighterAtIndex(Fighter.BACK);
         assertEq(0, positions_.size());
     }
@@ -1062,7 +1062,7 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1079,17 +1079,17 @@ public class TeamTest extends InitializationDataBase {
         CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
         allyTeam_.add(new PkTrainer(pokemon_, new StringList(PISTOLET_A_O)));
         allyTeam_.add(new PkTrainer(pokemon_, new StringList(PISTOLET_A_O)));
-        team_.initEquipeUtilisateur(player_, diff_, (byte) 1, (byte) 2, data_, allyTeam_);
-        team_.getMembers().getVal((byte) 0).setGroundPlace((byte) 1);
-        team_.getMembers().getVal((byte) 5).setGroundPlace((byte) 0);
-        team_.getMembers().getVal((byte) 0).setGroundPlaceSubst((byte) 1);
-        team_.getMembers().getVal((byte) 5).setGroundPlaceSubst((byte) 0);
-        Bytes positions_ = team_.otherFighterAtIndex((short) 0);
+        team_.initEquipeUtilisateur(player_, diff_,  1,  2, data_, allyTeam_);
+        team_.getMembers().getVal( 0).setGroundPlace( 1);
+        team_.getMembers().getVal( 5).setGroundPlace( 0);
+        team_.getMembers().getVal( 0).setGroundPlaceSubst( 1);
+        team_.getMembers().getVal( 5).setGroundPlaceSubst( 0);
+        Ints positions_ = team_.otherFighterAtIndex( 0);
         assertEq(1, positions_.size());
-        assertTrue(positions_.containsObj((byte) 5));
-        positions_ = team_.otherFighterAtIndex((short) 1);
+        assertTrue(positions_.containsObj( 5));
+        positions_ = team_.otherFighterAtIndex( 1);
         assertEq(1, positions_.size());
-        assertTrue(positions_.containsObj((byte) 0));
+        assertTrue(positions_.containsObj( 0));
         positions_ = team_.otherFighterAtIndex(Fighter.BACK);
         assertEq(0, positions_.size());
     }
@@ -1105,7 +1105,7 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1118,16 +1118,16 @@ public class TeamTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        team_.initEquipeUtilisateur(player_, diff_, (short) 2, data_);
-        team_.getMembers().getVal((byte) 0).setGroundPlace((byte) 1);
-        team_.getMembers().getVal((byte) 1).setGroundPlace(Fighter.BACK);
-        team_.getMembers().getVal((byte) 2).setGroundPlace((byte) 0);
-        team_.getMembers().getVal((byte) 0).setGroundPlaceSubst((byte) 1);
-        team_.getMembers().getVal((byte) 1).setGroundPlaceSubst(Fighter.BACK);
-        team_.getMembers().getVal((byte) 2).setGroundPlaceSubst((byte) 0);
-        assertEq(1, team_.substituteAtIndex((short) 0).first().getFirstPosit());
-        assertEq(3, team_.substituteAtIndex((short) 1).first().getFirstPosit());
-        assertEq(0, team_.substituteAtIndex((short) 2).size());
+        team_.initEquipeUtilisateur(player_, diff_,  2, data_);
+        team_.getMembers().getVal( 0).setGroundPlace( 1);
+        team_.getMembers().getVal( 1).setGroundPlace(Fighter.BACK);
+        team_.getMembers().getVal( 2).setGroundPlace( 0);
+        team_.getMembers().getVal( 0).setGroundPlaceSubst( 1);
+        team_.getMembers().getVal( 1).setGroundPlaceSubst(Fighter.BACK);
+        team_.getMembers().getVal( 2).setGroundPlaceSubst( 0);
+        assertEq(1, team_.substituteAtIndex( 0).first().getFirstPosit());
+        assertEq(3, team_.substituteAtIndex( 1).first().getFirstPosit());
+        assertEq(0, team_.substituteAtIndex( 2).size());
         assertEq(0, team_.substituteAtIndex(Fighter.BACK).size());
     }
 
@@ -1142,7 +1142,7 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1155,18 +1155,18 @@ public class TeamTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        team_.initEquipeUtilisateur(player_, diff_, (short) 2, data_);
-        team_.getMembers().getVal((byte) 0).setGroundPlace((byte) 1);
-        team_.getMembers().getVal((byte) 1).setGroundPlace(Fighter.BACK);
-        team_.getMembers().getVal((byte) 2).setGroundPlace((byte) 0);
-        team_.getMembers().getVal((byte) 0).setGroundPlaceSubst((byte) 1);
-        team_.getMembers().getVal((byte) 1).setGroundPlaceSubst(Fighter.BACK);
-        team_.getMembers().getVal((byte) 2).setGroundPlaceSubst((byte) 0);
-        assertEq(0, Team.indexOfSubstitute(team_.getBackTeam(),(byte) 1));
-        assertEq(1, Team.indexOfSubstitute(team_.getBackTeam(),(byte) 3));
-        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, Team.indexOfSubstitute(team_.getBackTeam(),(byte) 0));
-        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, Team.indexOfSubstitute(team_.getBackTeam(),(byte) 2));
-        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, Team.indexOfSubstitute(team_.getBackTeam(),(byte) 4));
+        team_.initEquipeUtilisateur(player_, diff_,  2, data_);
+        team_.getMembers().getVal( 0).setGroundPlace( 1);
+        team_.getMembers().getVal( 1).setGroundPlace(Fighter.BACK);
+        team_.getMembers().getVal( 2).setGroundPlace( 0);
+        team_.getMembers().getVal( 0).setGroundPlaceSubst( 1);
+        team_.getMembers().getVal( 1).setGroundPlaceSubst(Fighter.BACK);
+        team_.getMembers().getVal( 2).setGroundPlaceSubst( 0);
+        assertEq(0, Team.indexOfSubstitute(team_.getBackTeam(), 1));
+        assertEq(1, Team.indexOfSubstitute(team_.getBackTeam(), 3));
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, Team.indexOfSubstitute(team_.getBackTeam(), 0));
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, Team.indexOfSubstitute(team_.getBackTeam(), 2));
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, Team.indexOfSubstitute(team_.getBackTeam(), 4));
         assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, Team.indexOfSubstitute(team_.getBackTeam(),Fighter.BACK));
     }
 
@@ -1181,7 +1181,7 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1195,18 +1195,18 @@ public class TeamTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        team_.initEquipeUtilisateur(player_, diff_, (short) 2, data_);
-        team_.getMembers().getVal((byte) 0).setGroundPlace((byte) 1);
-        team_.getMembers().getVal((byte) 1).setGroundPlace(Fighter.BACK);
-        team_.getMembers().getVal((byte) 3).setGroundPlace((byte) 0);
-        team_.getMembers().getVal((byte) 0).setGroundPlaceSubst((byte) 1);
-        team_.getMembers().getVal((byte) 1).setGroundPlaceSubst(Fighter.BACK);
-        team_.getMembers().getVal((byte) 3).setGroundPlaceSubst((byte) 0);
-        assertEq(0, team_.fighterAtIndex((short) 0));
-        assertEq(1, team_.fighterAtIndex((short) 1));
-        assertEq(3, team_.fighterAtIndex((short) 2));
-        assertEq(4, team_.fighterAtIndex((short) 3));
-        assertEq(Fighter.BACK, team_.fighterAtIndex((short) 4));
+        team_.initEquipeUtilisateur(player_, diff_,  2, data_);
+        team_.getMembers().getVal( 0).setGroundPlace( 1);
+        team_.getMembers().getVal( 1).setGroundPlace(Fighter.BACK);
+        team_.getMembers().getVal( 3).setGroundPlace( 0);
+        team_.getMembers().getVal( 0).setGroundPlaceSubst( 1);
+        team_.getMembers().getVal( 1).setGroundPlaceSubst(Fighter.BACK);
+        team_.getMembers().getVal( 3).setGroundPlaceSubst( 0);
+        assertEq(0, team_.fighterAtIndex( 0));
+        assertEq(1, team_.fighterAtIndex( 1));
+        assertEq(3, team_.fighterAtIndex( 2));
+        assertEq(4, team_.fighterAtIndex( 3));
+        assertEq(Fighter.BACK, team_.fighterAtIndex( 4));
         assertEq(Fighter.BACK, team_.fighterAtIndex(Fighter.BACK));
     }
 
@@ -1221,7 +1221,7 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1238,16 +1238,16 @@ public class TeamTest extends InitializationDataBase {
         CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
         allyTeam_.add(new PkTrainer(pokemon_, new StringList(PISTOLET_A_O)));
         allyTeam_.add(new PkTrainer(pokemon_, new StringList(PISTOLET_A_O)));
-        team_.initEquipeUtilisateur(player_, diff_, (byte) 1, (byte) 2, data_, allyTeam_);
-        team_.getMembers().getVal((byte) 0).setGroundPlace((byte) 1);
-        team_.getMembers().getVal((byte) 5).setGroundPlace((byte) 0);
-        team_.getMembers().getVal((byte) 0).setGroundPlaceSubst((byte) 1);
-        team_.getMembers().getVal((byte) 5).setGroundPlaceSubst((byte) 0);
-        assertEq(0, team_.fighterAtIndex((short) 0));
-        assertEq(1, team_.fighterAtIndex((short) 1));
-        assertEq(3, team_.fighterAtIndex((short) 2));
-        assertEq(4, team_.fighterAtIndex((short) 3));
-        assertEq(Fighter.BACK, team_.fighterAtIndex((short) 4));
+        team_.initEquipeUtilisateur(player_, diff_,  1,  2, data_, allyTeam_);
+        team_.getMembers().getVal( 0).setGroundPlace( 1);
+        team_.getMembers().getVal( 5).setGroundPlace( 0);
+        team_.getMembers().getVal( 0).setGroundPlaceSubst( 1);
+        team_.getMembers().getVal( 5).setGroundPlaceSubst( 0);
+        assertEq(0, team_.fighterAtIndex( 0));
+        assertEq(1, team_.fighterAtIndex( 1));
+        assertEq(3, team_.fighterAtIndex( 2));
+        assertEq(4, team_.fighterAtIndex( 3));
+        assertEq(Fighter.BACK, team_.fighterAtIndex( 4));
         assertEq(Fighter.BACK, team_.fighterAtIndex(Fighter.BACK));
     }
 
@@ -1262,7 +1262,7 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1275,17 +1275,17 @@ public class TeamTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        team_.initEquipeUtilisateur(player_, diff_, (short) 2, data_);
+        team_.initEquipeUtilisateur(player_, diff_,  2, data_);
         team_.getSuccessfulMovesRound().add(CHARGE);
         team_.getNbUsesMovesRound().put(AIRE_DE_FEU, 1);
         team_.getNbUsesMovesRound().put(AIRE_D_EAU, 2);
-        team_.getMembers().getVal((byte) 0).setSuccessfulMove(true);
+        team_.getMembers().getVal( 0).setSuccessfulMove(true);
         team_.clearSuccessfuleMovesRound();
         assertEq(0, team_.getSuccessfulMovesRound().size());
         assertEq(0, team_.getNbUsesMovesRound().getVal(AIRE_DE_FEU));
         assertEq(0, team_.getNbUsesMovesRound().getVal(AIRE_D_EAU));
         assertEq(0, team_.getNbUsesMovesRound().getVal(AIRE_D_HERBE));
-        assertTrue(!team_.getMembers().getVal((byte) 0).isSuccessfulMove());
+        assertTrue(!team_.getMembers().getVal( 0).isSuccessfulMove());
     }
 
     @Test
@@ -1299,7 +1299,7 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1312,7 +1312,7 @@ public class TeamTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        team_.initEquipeUtilisateur(player_, diff_, (short) 2, data_);
+        team_.initEquipeUtilisateur(player_, diff_,  2, data_);
         team_.addSuccessfulMoveRound(AIRE_D_EAU);
         ActivityOfMove activity_ = team_.getEnabledMovesByGroup().getVal(new StringList(AIRE_D_EAU,AIRE_D_HERBE));
         assertTrue(!activity_.isEnabled());
@@ -1334,7 +1334,7 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1347,12 +1347,12 @@ public class TeamTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        team_.initEquipeUtilisateur(player_, diff_, (short) 2, data_);
-        team_.getMembers().getVal((byte) 0).setUsingItem(true);
-        team_.getMembers().getVal((byte) 1).setCurrentAbility(NULL_REF);
+        team_.initEquipeUtilisateur(player_, diff_,  2, data_);
+        team_.getMembers().getVal( 0).setUsingItem(true);
+        team_.getMembers().getVal( 1).setCurrentAbility(NULL_REF);
         useItemsEndRound(team_, data_);
-        assertEq(NULL_REF, team_.getMembers().getVal((byte) 0).getItem());
-        assertEq(MAGNET, team_.getMembers().getVal((byte) 0).getLastUsedItem());
+        assertEq(NULL_REF, team_.getMembers().getVal( 0).getItem());
+        assertEq(MAGNET, team_.getMembers().getVal( 0).getLastUsedItem());
     }
 
     @Test
@@ -1366,7 +1366,7 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1379,12 +1379,12 @@ public class TeamTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        team_.initEquipeUtilisateur(player_, diff_, (short) 2, data_);
-        team_.getMembers().getVal((byte) 0).setUsingItem(true);
-        team_.getMembers().getVal((byte) 1).setCurrentAbility(SYMBIOSE);
+        team_.initEquipeUtilisateur(player_, diff_,  2, data_);
+        team_.getMembers().getVal( 0).setUsingItem(true);
+        team_.getMembers().getVal( 1).setCurrentAbility(SYMBIOSE);
         useItemsEndRound(team_, data_);
-        assertEq(MAGNET, team_.getMembers().getVal((byte) 0).getItem());
-        assertEq(NULL_REF, team_.getMembers().getVal((byte) 0).getLastUsedItem());
+        assertEq(MAGNET, team_.getMembers().getVal( 0).getItem());
+        assertEq(NULL_REF, team_.getMembers().getVal( 0).getLastUsedItem());
     }
 
     @Test
@@ -1398,7 +1398,7 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1411,12 +1411,12 @@ public class TeamTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        team_.initEquipeUtilisateur(player_, diff_, (short) 2, data_);
-        team_.getMembers().getVal((byte) 0).setUsingItem(true);
-        team_.getMembers().getVal((byte) 1).setCurrentAbility(SYMBIOSE);
+        team_.initEquipeUtilisateur(player_, diff_,  2, data_);
+        team_.getMembers().getVal( 0).setUsingItem(true);
+        team_.getMembers().getVal( 1).setCurrentAbility(SYMBIOSE);
         useItemsEndRound(team_, data_);
-        assertEq(NULL_REF, team_.getMembers().getVal((byte) 0).getItem());
-        assertEq(NULL_REF, team_.getMembers().getVal((byte) 0).getLastUsedItem());
+        assertEq(NULL_REF, team_.getMembers().getVal( 0).getItem());
+        assertEq(NULL_REF, team_.getMembers().getVal( 0).getLastUsedItem());
     }
 
     @Test
@@ -1430,7 +1430,7 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1443,11 +1443,11 @@ public class TeamTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        team_.initEquipeUtilisateur(player_, diff_, (short) 2, data_);
-        team_.getMembers().getVal((byte) 1).setCurrentAbility(NULL_REF);
+        team_.initEquipeUtilisateur(player_, diff_,  2, data_);
+        team_.getMembers().getVal( 1).setCurrentAbility(NULL_REF);
         useItemsEndRound(team_, data_);
-        assertEq(MAGNET, team_.getMembers().getVal((byte) 0).getItem());
-        assertEq(NULL_REF, team_.getMembers().getVal((byte) 0).getLastUsedItem());
+        assertEq(MAGNET, team_.getMembers().getVal( 0).getItem());
+        assertEq(NULL_REF, team_.getMembers().getVal( 0).getLastUsedItem());
     }
 
     @Test
@@ -1461,7 +1461,7 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1474,9 +1474,9 @@ public class TeamTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        team_.initEquipeUtilisateur(player_, diff_, (short) 2, data_);
-        team_.setNbKoRound((byte) 2);
-        team_.setNbKoPreviousRound((byte) 4);
+        team_.initEquipeUtilisateur(player_, diff_,  2, data_);
+        team_.setNbKoRound( 2);
+        team_.setNbKoPreviousRound( 4);
         team_.setNbKoRound();
         assertEq(2, team_.getNbKoPreviousRound());
         assertEq(0, team_.getNbKoRound());
@@ -1493,7 +1493,7 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1506,15 +1506,15 @@ public class TeamTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        team_.initEquipeUtilisateur(player_, diff_, (short) 2, data_);
-        Fighter fighter_ = team_.getMembers().getVal((byte) 0);
+        team_.initEquipeUtilisateur(player_, diff_,  2, data_);
+        Fighter fighter_ = team_.getMembers().getVal( 0);
         fighter_.setFirstChosenMoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO));
-        fighter_ = team_.getMembers().getVal((byte) 1);
+        fighter_ = team_.getMembers().getVal( 1);
         fighter_.setFirstChosenMove(OEIL_MIRACLE);
         team_.chooseMoves();
-        fighter_ = team_.getMembers().getVal((byte) 0);
+        fighter_ = team_.getMembers().getVal( 0);
         assertEq(JACKPOT, fighter_.getFinalChosenMove());
-        fighter_ = team_.getMembers().getVal((byte) 1);
+        fighter_ = team_.getMembers().getVal( 1);
         assertEq(OEIL_MIRACLE, fighter_.getFinalChosenMove());
     }
 
@@ -1529,7 +1529,7 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1542,15 +1542,15 @@ public class TeamTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        team_.initEquipeUtilisateur(player_, diff_, (short) 2, data_);
+        team_.initEquipeUtilisateur(player_, diff_,  2, data_);
         team_.getSuccessfulMovesRound().add(CHARGE);
         team_.getNbUsesMovesRound().put(AIRE_DE_FEU, 1);
         team_.getNbUsesMovesRound().put(AIRE_D_EAU, 2);
-        team_.setNbKoRound((byte) 2);
-        team_.setNbKoPreviousRound((byte) 4);
-        Fighter fighter_ = team_.getMembers().getVal((byte) 0);
+        team_.setNbKoRound( 2);
+        team_.setNbKoPreviousRound( 4);
+        Fighter fighter_ = team_.getMembers().getVal( 0);
         fighter_.setFirstChosenMoveTarget(JACKPOT, tc(KEY_FOE, POKEMON_TARGET_ZERO));
-        fighter_ = team_.getMembers().getVal((byte) 1);
+        fighter_ = team_.getMembers().getVal( 1);
         fighter_.setFirstChosenMove(OEIL_MIRACLE);
         team_.initRoundTeam();
         assertEq(0, team_.getSuccessfulMovesRound().size());
@@ -1559,9 +1559,9 @@ public class TeamTest extends InitializationDataBase {
         assertEq(0, team_.getNbUsesMovesRound().getVal(AIRE_D_HERBE));
         assertEq(2, team_.getNbKoPreviousRound());
         assertEq(0, team_.getNbKoRound());
-        fighter_ = team_.getMembers().getVal((byte) 0);
+        fighter_ = team_.getMembers().getVal( 0);
         assertEq(JACKPOT, fighter_.getFinalChosenMove());
-        fighter_ = team_.getMembers().getVal((byte) 1);
+        fighter_ = team_.getMembers().getVal( 1);
         assertEq(OEIL_MIRACLE, fighter_.getFinalChosenMove());
     }
 
@@ -1576,7 +1576,7 @@ public class TeamTest extends InitializationDataBase {
         pokemon_.setItem(MAGNET);
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1595,10 +1595,10 @@ public class TeamTest extends InitializationDataBase {
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
-        team_.initEquipeUtilisateur(player_, diff_, (short) 1, data_);
-        Bytes list_ = team_.notKoPartnersWithoutStatus((byte) 0);
+        team_.initEquipeUtilisateur(player_, diff_,  1, data_);
+        Ints list_ = team_.notKoPartnersWithoutStatus( 0);
         assertEq(1, list_.size());
-        assertTrue(list_.containsObj((byte) 3));
+        assertTrue(list_.containsObj( 3));
     }
 
     private void useItemsEndRound(Team _team, DataBase _data) {
@@ -1606,9 +1606,9 @@ public class TeamTest extends InitializationDataBase {
     }
 
 //
-//    static int getNbStatusRelatByRounds(Fighter _f, short _nbRounds) {
+//    static int getNbStatusRelatByRounds(Fighter _f, int _nbRounds) {
 ////        int i_ = IndexConstants.SIZE_EMPTY;
-////        for (CommonParam<MoveTeamPosition, Short> e: _f.getStatusRelat().entryList()) {
+////        for (CommonParam<MoveTeamPosition, Integer> e: _f.getStatusRelat().entryList()) {
 ////            if (NumberUtil.eq(e.getValue(), _nbRounds)) {
 ////                i_++;
 ////            }

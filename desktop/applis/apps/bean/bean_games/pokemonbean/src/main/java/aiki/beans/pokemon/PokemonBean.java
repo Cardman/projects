@@ -47,7 +47,7 @@ public class PokemonBean extends CommonBean {
     private StringList possibleGenders;
     private StringList types;
     private StringList abilities;
-    private short catchingRate;
+    private int catchingRate;
     private StringList evolutions;
     private IdList<Statistic> statisticsEnum;
     private StringList statistics;
@@ -55,8 +55,8 @@ public class PokemonBean extends CommonBean {
     private String expEvo;
     private long expRate;
     private CustList<LevelMove> levMoves;
-    private ShortTreeMap< String> technicalMoves;
-    private ShortTreeMap< String> hiddenMoves;
+    private IntTreeMap< String> technicalMoves;
+    private IntTreeMap< String> hiddenMoves;
     private StringList moveTutors;
     private LgInt hatchingSteps;
     private StringList eggGroupsPk;
@@ -66,7 +66,7 @@ public class PokemonBean extends CommonBean {
 
     private DictionaryComparator<MiniMapCoords, String> namesPlaces;
 
-    private Shorts placesAppears;
+    private Ints placesAppears;
 
     @Override
     public void beforeDisplaying() {
@@ -80,7 +80,7 @@ public class PokemonBean extends CommonBean {
 //        });
         images = data_.getMap().getImages(data_);
         namesPlaces = DictionaryComparatorUtil.buildMiniMapCoords();
-        placesAppears = new Shorts();
+        placesAppears = new Ints();
         for (MiniMapCoords m: images.getKeys()) {
             namesPlaces.put(m, data_.getMap().getName(m.getXcoords(), m.getYcoords()));
         }
@@ -88,7 +88,7 @@ public class PokemonBean extends CommonBean {
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         name = getForms().getValStr(CST_PK);
         int nbPlaces_ = places.size();
-        for (short i = IndexConstants.FIRST_INDEX; i < nbPlaces_; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i < nbPlaces_; i++) {
             if (isAppearingPlace(i)) {
                 placesAppears.add(i);
             }
@@ -146,12 +146,12 @@ public class PokemonBean extends CommonBean {
             l_.setLevel(l.getLevel());
             levMoves.add(l_);
         }
-        technicalMoves = new ShortTreeMap< String>();
-        for (Short s: pk_.getTechnicalMoves()) {
+        technicalMoves = new IntTreeMap< String>();
+        for (Integer s: pk_.getTechnicalMoves()) {
             technicalMoves.put(s, translationsMoves_.getVal(data_.getTm().getVal(s)));
         }
-        hiddenMoves = new ShortTreeMap< String>();
-        for (Short s: pk_.getHiddenMoves()) {
+        hiddenMoves = new IntTreeMap< String>();
+        for (Integer s: pk_.getHiddenMoves()) {
             hiddenMoves.put(s, translationsMoves_.getVal(data_.getHm().getVal(s)));
         }
         moveTutors = new StringList(pk_.getMoveTutors());
@@ -193,7 +193,7 @@ public class PokemonBean extends CommonBean {
         DataBase data_ = getDataBase();
         int pl_ = data_.getMap().getMiniMap().getVal(key_).getPlace();
         boolean appear_ = false;
-        for (short p: placesAppears) {
+        for (int p: placesAppears) {
             PlaceIndex plInd_ = places.get(p);
             if (plInd_.getIndex() == pl_) {
                 appear_ = true;
@@ -280,14 +280,14 @@ public class PokemonBean extends CommonBean {
         PokemonData pk_ = data_.getPokemon(name);
         return tryRedirectPk(pk_.getBaseEvo());
     }
-    public short getBase(int _index) {
+    public int getBase(int _index) {
         DataBase data_ = getDataBase();
         PokemonData pk_ = data_.getPokemon(name);
         Statistic stat_ = statisticsEnum.get(_index);
         StatBaseEv statEv_ = pk_.getStatistics().getVal(stat_);
         return statEv_.getBase();
     }
-    public short getEv(int _index) {
+    public int getEv(int _index) {
         DataBase data_ = getDataBase();
         PokemonData pk_ = data_.getPokemon(name);
         Statistic stat_ = statisticsEnum.get(_index);
@@ -421,7 +421,7 @@ public class PokemonBean extends CommonBean {
         return abilities;
     }
 
-    public short getCatchingRate() {
+    public int getCatchingRate() {
         return catchingRate;
     }
 
@@ -457,11 +457,11 @@ public class PokemonBean extends CommonBean {
         return levMoves;
     }
 
-    public ShortTreeMap<String> getTechnicalMoves() {
+    public IntTreeMap<String> getTechnicalMoves() {
         return technicalMoves;
     }
 
-    public ShortTreeMap<String> getHiddenMoves() {
+    public IntTreeMap<String> getHiddenMoves() {
         return hiddenMoves;
     }
 

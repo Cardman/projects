@@ -2237,7 +2237,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
     @Test
     public void useEvo3() {
         WindowAiki window_ = newSelIt();
-        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, TeamPanel.adjustIndex(AikiFactory.usable(window_.getCompoFactory(),window_.getImageFactory(),null,new AlwaysActionListenerAct()),new Bytes()));
+        assertEq(IndexConstants.INDEX_NOT_FOUND_ELT, TeamPanel.adjustIndex(AikiFactory.usable(window_.getCompoFactory(),window_.getImageFactory(),null,new AlwaysActionListenerAct()),new Ints()));
         loadRomGameItBase(window_);
         window_.getFacade().itTr();
         tryClick(window_.getScenePanel().getItems());
@@ -2669,7 +2669,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         WindowAiki window_ = newSelIt();
         loadRomGameItBoost(window_);
         window_.getFacade().itTr();
-        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent((short) 0);
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent( 0);
         tryClick(window_.getScenePanel().getItems());
         SelectItem sel_ = window_.getSelectItem();
         PaginatorItem pag_ = sel_.getPaginatorItem();
@@ -2693,7 +2693,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         WindowAiki window_ = newSelIt();
         loadRomGameItBoost(window_);
         window_.getFacade().itTr();
-        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent((short) 0);
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent( 0);
         tryClick(window_.getScenePanel().getItems());
         SelectItem sel_ = window_.getSelectItem();
         PaginatorItem pag_ = sel_.getPaginatorItem();
@@ -2710,7 +2710,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         WindowAiki window_ = newSelIt();
         loadRomGameItBoost(window_);
         window_.getFacade().itTr();
-        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent((short) 0);
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent( 0);
         tryClick(window_.getScenePanel().getItems());
         SelectItem sel_ = window_.getSelectItem();
         PaginatorItem pag_ = sel_.getPaginatorItem();
@@ -2732,7 +2732,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         WindowAiki window_ = newSelIt();
         loadRomGameItBoost(window_);
         window_.getFacade().itTr();
-        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent((short) 0);
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent( 0);
         tryClick(window_.getScenePanel().getItems());
         SelectItem sel_ = window_.getSelectItem();
         PaginatorItem pag_ = sel_.getPaginatorItem();
@@ -2751,7 +2751,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         WindowAiki window_ = newSelIt();
         loadRomGameItBoost(window_);
         window_.getFacade().itTr();
-        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent((short) 0);
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent( 0);
         tryClick(window_.getScenePanel().getItems());
         SelectItem sel_ = window_.getSelectItem();
         PaginatorItem pag_ = sel_.getPaginatorItem();
@@ -2772,7 +2772,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         WindowAiki window_ = newSelIt();
         loadRomGameItHealMoves(window_);
         window_.getFacade().itTr();
-        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent((short) 0);
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent( 0);
         tryClick(window_.getScenePanel().getItems());
         SelectItem sel_ = window_.getSelectItem();
         PaginatorItem pag_ = sel_.getPaginatorItem();
@@ -2796,7 +2796,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         WindowAiki window_ = newSelIt();
         loadRomGameItHealMoves(window_);
         window_.getFacade().itTr();
-        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent((short) 0);
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent( 0);
         tryClick(window_.getScenePanel().getItems());
         SelectItem sel_ = window_.getSelectItem();
         PaginatorItem pag_ = sel_.getPaginatorItem();
@@ -2813,7 +2813,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         WindowAiki window_ = newSelIt();
         loadRomGameItHealMoves(window_);
         window_.getFacade().itTr();
-        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent((short) 0);
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent( 0);
         tryClick(window_.getScenePanel().getItems());
         SelectItem sel_ = window_.getSelectItem();
         PaginatorItem pag_ = sel_.getPaginatorItem();
@@ -2952,7 +2952,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         WindowAiki window_ = newSelIt();
         loadRomGameItBerryMove(window_);
         window_.getFacade().itTr();
-        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent((short) 0);
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent( 0);
         tryClick(window_.getScenePanel().getItems());
         SelectItem sel_ = window_.getSelectItem();
         PaginatorItem pag_ = sel_.getPaginatorItem();
@@ -2976,7 +2976,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         WindowAiki window_ = newSelIt();
         loadRomGameItBerryMove(window_);
         window_.getFacade().itTr();
-        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent((short) 0);
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent( 0);
         tryClick(window_.getScenePanel().getItems());
         SelectItem sel_ = window_.getSelectItem();
         PaginatorItem pag_ = sel_.getPaginatorItem();
@@ -2993,7 +2993,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         WindowAiki window_ = newSelIt();
         loadRomGameItBerryMove(window_);
         window_.getFacade().itTr();
-        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent((short) 0);
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent( 0);
         tryClick(window_.getScenePanel().getItems());
         SelectItem sel_ = window_.getSelectItem();
         PaginatorItem pag_ = sel_.getPaginatorItem();
@@ -3015,7 +3015,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         WindowAiki window_ = newSelIt();
         loadRomGameItBerryMove(window_);
         window_.getFacade().itTr();
-        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent((short) 0);
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent( 0);
         tryClick(window_.getScenePanel().getItems());
         SelectItem sel_ = window_.getSelectItem();
         PaginatorItem pag_ = sel_.getPaginatorItem();
@@ -3034,7 +3034,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         WindowAiki window_ = newSelIt();
         loadRomGameItBerryMove(window_);
         window_.getFacade().itTr();
-        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent((short) 0);
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent( 0);
         tryClick(window_.getScenePanel().getItems());
         SelectItem sel_ = window_.getSelectItem();
         PaginatorItem pag_ = sel_.getPaginatorItem();
@@ -4079,7 +4079,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         HealingPp pp_ = Instances.newHealingPp();
         pp_.setHealedMovePp(5);
         loadRomGameManageTeam(window_, pp_);
-        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent((short) 0);
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent( 0);
         window_.getFacade().healTr();
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(0);
@@ -4101,7 +4101,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         HealingPp pp_ = Instances.newHealingPp();
         pp_.setHealedMovePp(5);
         loadRomGameManageTeam(window_, pp_);
-        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent((short) 0);
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent( 0);
         window_.getFacade().healTr();
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(0);
@@ -4124,7 +4124,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         HealingPp pp_ = Instances.newHealingPp();
         pp_.setHealedMovePp(5);
         loadRomGameManageTeam(window_, pp_);
-        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent((short) 0);
+        ((PokemonPlayer)window_.getFacade().getPlayer().getTeam().get(0)).getMoves().getValue(0).setCurrent( 0);
         window_.getFacade().healTr();
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(0);
@@ -4248,8 +4248,8 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         loadRom(_window, coreDataBase());
         _window.getFacade().getData().getConstNum().put(DataBase.DEF_MAX_ATT,new Rate(_max));
         loadGame(_window, build(_window.getFacade()));
-        _window.getFacade().getGame().getPlayer().getInventory().getTm((short) 2);
-        _window.getFacade().getGame().getPlayer().getInventory().getTm((short) 3);
+        _window.getFacade().getGame().getPlayer().getInventory().getTm( 2);
+        _window.getFacade().getGame().getPlayer().getInventory().getTm( 3);
     }
     private static void loadRomGameOneHost(WindowAiki _window) {
         loadRomGameHost(_window);
@@ -4397,10 +4397,10 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         DataBase data_ = withIt(withIt(init_, SNOW, trsIt_, "gel", evo_,trsDesc_,"eve"), HUILE, trsIt_, "jama", it_, trsDesc_, "velo");
         initBegin(data_);
         data_.getMap().addPlace(withBlocks(Instances.newRoad()));
-        data_.getTm().addEntry((short)2,ECLAIR);
-        data_.getTm().addEntry((short)3,ECLAIR_4);
-        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
-        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        data_.getTm().addEntry(2,ECLAIR);
+        data_.getTm().addEntry(3,ECLAIR_4);
+        data_.getTmPrice().addEntry(2,new LgInt("1"));
+        data_.getTmPrice().addEntry(3,new LgInt("2"));
         compute(data_);
         return data_;
     }
@@ -4417,10 +4417,10 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         DataBase data_ = withIt(withIt(init_, SNOW, trsIt_, "gel", boost_,trsDesc_,"eve"), HUILE, trsIt_, "jama", it_, trsDesc_, "velo");
         initBegin(data_);
         data_.getMap().addPlace(withBlocks(Instances.newRoad()));
-        data_.getTm().addEntry((short)2,ECLAIR);
-        data_.getTm().addEntry((short)3,ECLAIR_4);
-        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
-        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        data_.getTm().addEntry(2,ECLAIR);
+        data_.getTm().addEntry(3,ECLAIR_4);
+        data_.getTmPrice().addEntry(2,new LgInt("1"));
+        data_.getTmPrice().addEntry(3,new LgInt("2"));
         compute(data_);
         return data_;
     }
@@ -4438,10 +4438,10 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         DataBase data_ = withIt(withIt(init_, SNOW, trsIt_, "gel", boost_,trsDesc_,"eve"), HUILE, trsIt_, "jama", it_, trsDesc_, "velo");
         initBegin(data_);
         data_.getMap().addPlace(withBlocks(Instances.newRoad()));
-        data_.getTm().addEntry((short)2,ECLAIR);
-        data_.getTm().addEntry((short)3,ECLAIR_4);
-        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
-        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        data_.getTm().addEntry(2,ECLAIR);
+        data_.getTm().addEntry(3,ECLAIR_4);
+        data_.getTmPrice().addEntry(2,new LgInt("1"));
+        data_.getTmPrice().addEntry(3,new LgInt("2"));
         compute(data_);
         return data_;
     }
@@ -4452,18 +4452,18 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         DataBase init_ = coreDataBaseIt(trsIt_, trsPk_);
         init_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, trsDesc_);
         Boost boost_ = Instances.newBoost();
-        IdMap<Statistic, Short> map_ = new IdMap<Statistic, Short>();
-        map_.addEntry(Statistic.HP, (short)1);
+        IdMap<Statistic, Integer> map_ = new IdMap<Statistic, Integer>();
+        map_.addEntry(Statistic.HP, 1);
         boost_.setEvs(map_);
         HealingPp it_ = Instances.newHealingPp();
         it_.setHealedMovePp(5);
         DataBase data_ = withIt(withIt(init_, SNOW, trsIt_, "gel", boost_,trsDesc_,"eve"), HUILE, trsIt_, "jama", it_, trsDesc_, "velo");
         initBegin(data_);
         data_.getMap().addPlace(withBlocks(Instances.newRoad()));
-        data_.getTm().addEntry((short)2,ECLAIR);
-        data_.getTm().addEntry((short)3,ECLAIR_4);
-        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
-        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        data_.getTm().addEntry(2,ECLAIR);
+        data_.getTm().addEntry(3,ECLAIR_4);
+        data_.getTmPrice().addEntry(2,new LgInt("1"));
+        data_.getTmPrice().addEntry(3,new LgInt("2"));
         compute(data_);
         return data_;
     }
@@ -4475,18 +4475,18 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         DataBase init_ = coreDataBaseIt(trsIt_, trsPk_);
         init_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, trsDesc_);
         Boost boost_ = Instances.newBoost();
-        IdMap<Statistic, Short> map_ = new IdMap<Statistic, Short>();
-        map_.addEntry(Statistic.HP, (short)1);
+        IdMap<Statistic, Integer> map_ = new IdMap<Statistic, Integer>();
+        map_.addEntry(Statistic.HP, 1);
         boost_.setEvs(map_);
         HealingPp it_ = Instances.newHealingPp();
         it_.setHealingAllMovesFullpp(5);
         DataBase data_ = withIt(withIt(init_, SNOW, trsIt_, "gel", boost_,trsDesc_,"eve"), HUILE, trsIt_, "jama", it_, trsDesc_, "velo");
         initBegin(data_);
         data_.getMap().addPlace(withBlocks(Instances.newRoad()));
-        data_.getTm().addEntry((short)2,ECLAIR);
-        data_.getTm().addEntry((short)3,ECLAIR_4);
-        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
-        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        data_.getTm().addEntry(2,ECLAIR);
+        data_.getTm().addEntry(3,ECLAIR_4);
+        data_.getTmPrice().addEntry(2,new LgInt("1"));
+        data_.getTmPrice().addEntry(3,new LgInt("2"));
         compute(data_);
         return data_;
     }
@@ -4498,18 +4498,18 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         DataBase init_ = coreDataBaseIt(trsIt_, trsPk_);
         init_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, trsDesc_);
         Boost boost_ = Instances.newBoost();
-        IdMap<Statistic, Short> map_ = new IdMap<Statistic, Short>();
-        map_.addEntry(Statistic.HP, (short)1);
+        IdMap<Statistic, Integer> map_ = new IdMap<Statistic, Integer>();
+        map_.addEntry(Statistic.HP, 1);
         boost_.setEvs(map_);
         HealingHp it_ = Instances.newHealingHp();
         it_.setHp(Rate.one());
         DataBase data_ = withIt(withIt(init_, SNOW, trsIt_, "gel", boost_,trsDesc_,"eve"), HUILE, trsIt_, "jama", it_, trsDesc_, "velo");
         initBegin(data_);
         data_.getMap().addPlace(withBlocks(Instances.newRoad()));
-        data_.getTm().addEntry((short)2,ECLAIR);
-        data_.getTm().addEntry((short)3,ECLAIR_4);
-        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
-        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        data_.getTm().addEntry(2,ECLAIR);
+        data_.getTm().addEntry(3,ECLAIR_4);
+        data_.getTmPrice().addEntry(2,new LgInt("1"));
+        data_.getTmPrice().addEntry(3,new LgInt("2"));
         compute(data_);
         return data_;
     }
@@ -4521,18 +4521,18 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         DataBase init_ = coreDataBaseIt(trsIt_, trsPk_);
         init_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, trsDesc_);
         Boost boost_ = Instances.newBoost();
-        IdMap<Statistic, Short> map_ = new IdMap<Statistic, Short>();
-        map_.addEntry(Statistic.HP, (short)1);
+        IdMap<Statistic, Integer> map_ = new IdMap<Statistic, Integer>();
+        map_.addEntry(Statistic.HP, 1);
         boost_.setEvs(map_);
         Berry it_ = Instances.newBerry();
         it_.setHealHp(Rate.one());
         DataBase data_ = withIt(withIt(init_, SNOW, trsIt_, "gel", boost_,trsDesc_,"eve"), HUILE, trsIt_, "jama", it_, trsDesc_, "velo");
         initBegin(data_);
         data_.getMap().addPlace(withBlocks(Instances.newRoad()));
-        data_.getTm().addEntry((short)2,ECLAIR);
-        data_.getTm().addEntry((short)3,ECLAIR_4);
-        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
-        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        data_.getTm().addEntry(2,ECLAIR);
+        data_.getTm().addEntry(3,ECLAIR_4);
+        data_.getTmPrice().addEntry(2,new LgInt("1"));
+        data_.getTmPrice().addEntry(3,new LgInt("2"));
         compute(data_);
         return data_;
     }
@@ -4545,8 +4545,8 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         init_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, trsDesc_);
         init_.getTranslatedStatus().addEntry(LANGUAGE, trsSt_);
         Boost boost_ = Instances.newBoost();
-        IdMap<Statistic, Short> map_ = new IdMap<Statistic, Short>();
-        map_.addEntry(Statistic.HP, (short)1);
+        IdMap<Statistic, Integer> map_ = new IdMap<Statistic, Integer>();
+        map_.addEntry(Statistic.HP, 1);
         boost_.setEvs(map_);
         HealingSimpleStatus it_ = Instances.newHealingSimpleStatus();
         it_.getStatus().add(DESERT);
@@ -4554,10 +4554,10 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         DataBase data_ = withIt(withIt(init_, SNOW, trsIt_, "gel", boost_,trsDesc_,"eve"), HUILE, trsIt_, "jama", it_, trsDesc_, "velo");
         initBegin(data_);
         data_.getMap().addPlace(withBlocks(Instances.newRoad()));
-        data_.getTm().addEntry((short)2,ECLAIR);
-        data_.getTm().addEntry((short)3,ECLAIR_4);
-        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
-        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        data_.getTm().addEntry(2,ECLAIR);
+        data_.getTm().addEntry(3,ECLAIR_4);
+        data_.getTmPrice().addEntry(2,new LgInt("1"));
+        data_.getTmPrice().addEntry(3,new LgInt("2"));
         compute(data_);
         return data_;
     }
@@ -4571,8 +4571,8 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         init_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, trsDesc_);
         init_.getTranslatedStatus().addEntry(LANGUAGE, trsSt_);
         Boost boost_ = Instances.newBoost();
-        IdMap<Statistic, Short> map_ = new IdMap<Statistic, Short>();
-        map_.addEntry(Statistic.HP, (short)1);
+        IdMap<Statistic, Integer> map_ = new IdMap<Statistic, Integer>();
+        map_.addEntry(Statistic.HP, 1);
         boost_.setEvs(map_);
         Berry it_ = Instances.newBerry();
         it_.getHealStatus().add(DESERT);
@@ -4580,10 +4580,10 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         DataBase data_ = withIt(withIt(init_, SNOW, trsIt_, "gel", boost_,trsDesc_,"eve"), HUILE, trsIt_, "jama", it_, trsDesc_, "velo");
         initBegin(data_);
         data_.getMap().addPlace(withBlocks(Instances.newRoad()));
-        data_.getTm().addEntry((short)2,ECLAIR);
-        data_.getTm().addEntry((short)3,ECLAIR_4);
-        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
-        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        data_.getTm().addEntry(2,ECLAIR);
+        data_.getTm().addEntry(3,ECLAIR_4);
+        data_.getTmPrice().addEntry(2,new LgInt("1"));
+        data_.getTmPrice().addEntry(3,new LgInt("2"));
         compute(data_);
         return data_;
     }
@@ -4597,8 +4597,8 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         init_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, trsDesc_);
         init_.getTranslatedStatus().addEntry(LANGUAGE, trsSt_);
         Boost boost_ = Instances.newBoost();
-        IdMap<Statistic, Short> map_ = new IdMap<Statistic, Short>();
-        map_.addEntry(Statistic.HP, (short)1);
+        IdMap<Statistic, Integer> map_ = new IdMap<Statistic, Integer>();
+        map_.addEntry(Statistic.HP, 1);
         boost_.setEvs(map_);
         HealingSimpleItem it_ = Instances.newHealingSimpleItem();
         it_.setHealingTeam(true);
@@ -4606,10 +4606,10 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         DataBase data_ = withIt(withIt(init_, SNOW, trsIt_, "gel", boost_,trsDesc_,"eve"), HUILE, trsIt_, "jama", it_, trsDesc_, "velo");
         initBegin(data_);
         data_.getMap().addPlace(withBlocks(Instances.newRoad()));
-        data_.getTm().addEntry((short)2,ECLAIR);
-        data_.getTm().addEntry((short)3,ECLAIR_4);
-        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
-        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        data_.getTm().addEntry(2,ECLAIR);
+        data_.getTm().addEntry(3,ECLAIR_4);
+        data_.getTmPrice().addEntry(2,new LgInt("1"));
+        data_.getTmPrice().addEntry(3,new LgInt("2"));
         compute(data_);
         return data_;
     }
@@ -4625,17 +4625,17 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         init_.getPokedex().getVal(PIKACHU).getEvolutions().addEntry(RAICHU, ev_);
         init_.getPokedex().getVal(PIKACHU).setBaseEvo(PIKACHU);
         init_.getPokedex().getVal(RAICHU).setBaseEvo(PIKACHU);
-        init_.getPokedex().getVal(RAICHU).getLevMoves().add(new LevelMove((short) 1,ECLAIR_2));
+        init_.getPokedex().getVal(RAICHU).getLevMoves().add(new LevelMove( 1,ECLAIR_2));
         EvolvingStone evo_ = Instances.newEvolvingStone();
         HealingPp it_ = Instances.newHealingPp();
         it_.setHealedMovePp(5);
         DataBase data_ = withIt(withIt(init_, SNOW, trsIt_, "gel", evo_,trsDesc_,"eve"), HUILE, trsIt_, "jama", it_, trsDesc_, "velo");
         initBegin(data_);
         data_.getMap().addPlace(withBlocks(Instances.newRoad()));
-        data_.getTm().addEntry((short)2,ECLAIR);
-        data_.getTm().addEntry((short)3,ECLAIR_4);
-        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
-        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        data_.getTm().addEntry(2,ECLAIR);
+        data_.getTm().addEntry(3,ECLAIR_4);
+        data_.getTmPrice().addEntry(2,new LgInt("1"));
+        data_.getTmPrice().addEntry(3,new LgInt("2"));
         compute(data_);
         return data_;
     }
@@ -4667,10 +4667,10 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         DataBase data_ = withIt(withIt(init_, SNOW, trsIt_, "gel", evo_,trsDesc_,"eve"), HUILE, trsIt_, "jama", it_, trsDesc_, "velo");
         initBegin(data_);
         data_.getMap().addPlace(withBlocks(Instances.newRoad()));
-        data_.getTm().addEntry((short)2,ECLAIR);
-        data_.getTm().addEntry((short)3,ECLAIR_4);
-        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
-        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        data_.getTm().addEntry(2,ECLAIR);
+        data_.getTm().addEntry(3,ECLAIR_4);
+        data_.getTmPrice().addEntry(2,new LgInt("1"));
+        data_.getTmPrice().addEntry(3,new LgInt("2"));
         compute(data_);
         return data_;
     }
@@ -4683,10 +4683,10 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         DataBase data_ = withIt(init_, SNOW, trsIt_, "gel", Instances.newSellingItem(),trsDesc_,"eve");
         initBegin(data_);
         data_.getMap().addPlace(withBlocks(Instances.newRoad()));
-        data_.getTm().addEntry((short)2,ECLAIR);
-        data_.getTm().addEntry((short)3,ECLAIR_4);
-        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
-        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        data_.getTm().addEntry(2,ECLAIR);
+        data_.getTm().addEntry(3,ECLAIR_4);
+        data_.getTmPrice().addEntry(2,new LgInt("1"));
+        data_.getTmPrice().addEntry(3,new LgInt("2"));
         compute(data_);
         return data_;
     }
@@ -4699,17 +4699,17 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         withPk(init_, RAICHU, trsPk_, RAICHU_TR);
         init_.getPokedex().getVal(PIKACHU).setBaseEvo(PIKACHU);
         init_.getPokedex().getVal(RAICHU).setBaseEvo(RAICHU);
-        init_.getPokedex().getVal(RAICHU).getLevMoves().add(new LevelMove((short) 1,ECLAIR_2));
+        init_.getPokedex().getVal(RAICHU).getLevMoves().add(new LevelMove( 1,ECLAIR_2));
         EvolvingStone evo_ = Instances.newEvolvingStone();
         HealingPp it_ = Instances.newHealingPp();
         it_.setHealedMovePp(5);
         DataBase data_ = withIt(withIt(init_, SNOW, trsIt_, "gel", evo_,trsDesc_,"eve"), HUILE, trsIt_, "jama", it_, trsDesc_, "velo");
         initBegin(data_);
         data_.getMap().addPlace(withBlocks(Instances.newRoad()));
-        data_.getTm().addEntry((short)2,ECLAIR);
-        data_.getTm().addEntry((short)3,ECLAIR_4);
-        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
-        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        data_.getTm().addEntry(2,ECLAIR);
+        data_.getTm().addEntry(3,ECLAIR_4);
+        data_.getTmPrice().addEntry(2,new LgInt("1"));
+        data_.getTmPrice().addEntry(3,new LgInt("2"));
         compute(data_);
         return data_;
     }
@@ -4727,16 +4727,16 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         withPk(init_, RAICHU, trsPk_, RAICHU_TR);
         init_.getPokedex().getVal(RAICHU).setBaseEvo(RAICHU);
         Berry stat_ = Instances.newBerry();
-        stat_.getMultStat().addEntry(Statistic.SPEED,new BoostHpRate((byte) 1,Rate.one()));
+        stat_.getMultStat().addEntry(Statistic.SPEED,new BoostHpRate(1,Rate.one()));
         HealingPp it_ = Instances.newHealingPp();
         it_.setHealedMovePp(5);
         DataBase data_ = withIt(withIt(withIt(init_, POKE_BALL, trsIt_, "poc"), SNOW, trsIt_, "gel", stat_,trsDesc_,"eve"), HUILE, trsIt_, "jama", _item, trsDesc_, "velo");
         initBegin(data_);
         data_.getMap().addPlace(withBlocks(Instances.newRoad()));
-        data_.getTm().addEntry((short)2,ECLAIR);
-        data_.getTm().addEntry((short)3,ECLAIR_4);
-        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
-        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        data_.getTm().addEntry(2,ECLAIR);
+        data_.getTm().addEntry(3,ECLAIR_4);
+        data_.getTmPrice().addEntry(2,new LgInt("1"));
+        data_.getTmPrice().addEntry(3,new LgInt("2"));
         compute(data_);
         return data_;
     }

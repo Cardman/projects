@@ -38,7 +38,7 @@ public final class GeneComponentModelSubscribePokemonTeam implements AbsGeneComp
     @Override
     public PokemonTeam tryRet() {
         team.setTeam(simple.getWalk().getList());
-        team.setReward((short) reward.valueInt());
+        team.setReward(reward.valueInt());
         return team;
     }
 

@@ -156,10 +156,10 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
 
 
 //        initMiniMap(data_);
-        data_.getTm().addEntry((short)2,ECLAIR);
-        data_.getTm().addEntry((short)3,ECLAIR_4);
-        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
-        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        data_.getTm().addEntry(2,ECLAIR);
+        data_.getTm().addEntry(3,ECLAIR_4);
+        data_.getTmPrice().addEntry(2,new LgInt("1"));
+        data_.getTmPrice().addEntry(3,new LgInt("2"));
         compute(data_);
 
 
@@ -197,10 +197,10 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
 
 
 //        initMiniMap(data_);
-        data_.getTm().addEntry((short)2,ECLAIR);
-        data_.getTm().addEntry((short)3,ECLAIR_4);
-        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
-        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        data_.getTm().addEntry(2,ECLAIR);
+        data_.getTm().addEntry(3,ECLAIR_4);
+        data_.getTmPrice().addEntry(2,new LgInt("1"));
+        data_.getTmPrice().addEntry(3,new LgInt("2"));
         compute(data_);
 
 
@@ -230,7 +230,7 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         DataBase res_ = withPk(mv_, PIKACHU, trsPk_, PIKACHU_TR);
         Fossil chick_ = Instances.newFossil();
         chick_.setPokemon(PIKACHU);
-        chick_.setLevel((short) 1);
+        chick_.setLevel( 1);
         Ball ballIt_ = Instances.newBall();
         ballIt_.setCatchingRate("1");
         ballIt_.setPrice(1);
@@ -241,10 +241,10 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
 
 
 //        initMiniMap(data_);
-        data_.getTm().addEntry((short)2,ECLAIR);
-        data_.getTm().addEntry((short)3,ECLAIR_4);
-        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
-        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        data_.getTm().addEntry(2,ECLAIR);
+        data_.getTm().addEntry(3,ECLAIR_4);
+        data_.getTmPrice().addEntry(2,new LgInt("1"));
+        data_.getTmPrice().addEntry(3,new LgInt("2"));
         compute(data_);
 
 
@@ -277,10 +277,10 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
 
 
 //        initMiniMap(data_);
-        data_.getTm().addEntry((short)2,ECLAIR);
-        data_.getTm().addEntry((short)3,ECLAIR_4);
-        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
-        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        data_.getTm().addEntry(2,ECLAIR);
+        data_.getTm().addEntry(3,ECLAIR_4);
+        data_.getTmPrice().addEntry(2,new LgInt("1"));
+        data_.getTmPrice().addEntry(3,new LgInt("2"));
         data_.getMap().setUnlockedCity("4");
         data_.getMiniMap().addEntry("0",instance(new int[][]{new int[1]}));
         data_.getMiniMap().addEntry("1",instance(new int[][]{new int[1]}));
@@ -324,10 +324,10 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
 
 
 //        initMiniMap(data_);
-        data_.getTm().addEntry((short)2,ECLAIR);
-        data_.getTm().addEntry((short)3,ECLAIR_4);
-        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
-        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        data_.getTm().addEntry(2,ECLAIR);
+        data_.getTm().addEntry(3,ECLAIR_4);
+        data_.getTmPrice().addEntry(2,new LgInt("1"));
+        data_.getTmPrice().addEntry(3,new LgInt("2"));
         city_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(2,0),Direction.RIGHT),newCoords(1,0,0,0));
         road_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(0,0),Direction.LEFT),newCoords(0,0,2,0));
         compute(data_);
@@ -370,10 +370,10 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
 
 
 //        initMiniMap(data_);
-        data_.getTm().addEntry((short)2,ECLAIR);
-        data_.getTm().addEntry((short)3,ECLAIR_4);
-        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
-        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        data_.getTm().addEntry(2,ECLAIR);
+        data_.getTm().addEntry(3,ECLAIR_4);
+        data_.getTmPrice().addEntry(2,new LgInt("1"));
+        data_.getTmPrice().addEntry(3,new LgInt("2"));
         city_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(2,0),Direction.RIGHT),newCoords(1,0,0,0));
         road_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(0,0),Direction.LEFT),newCoords(0,0,2,0));
         compute(data_);
@@ -411,10 +411,10 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
 
 
 //        initMiniMap(data_);
-        data_.getTm().addEntry((short)2,ECLAIR);
-        data_.getTm().addEntry((short)3,ECLAIR_4);
-        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
-        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        data_.getTm().addEntry(2,ECLAIR);
+        data_.getTm().addEntry(3,ECLAIR_4);
+        data_.getTmPrice().addEntry(2,new LgInt("1"));
+        data_.getTmPrice().addEntry(3,new LgInt("2"));
         city_.getLinksWithCaves().addEntry(newPoint(2,0),new Link(DESERT,newCoords(1,0,0,0)));
         cave_.getLinksWithOtherPlaces().addEntry(newLevelPoint(0,0,0),new Link(DESERT,newCoords(0,0,2,0)));
         compute(data_);
@@ -449,10 +449,10 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
 
 
 //        initMiniMap(data_);
-        data_.getTm().addEntry((short)2,ECLAIR);
-        data_.getTm().addEntry((short)3,ECLAIR_4);
-        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
-        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        data_.getTm().addEntry(2,ECLAIR);
+        data_.getTm().addEntry(3,ECLAIR_4);
+        data_.getTmPrice().addEntry(2,new LgInt("1"));
+        data_.getTmPrice().addEntry(3,new LgInt("2"));
         city_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(2,0),Direction.RIGHT),newCoords(1,0,0,0));
         road_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(0,0),Direction.LEFT),newCoords(0,0,2,0));
         compute(data_);
@@ -494,10 +494,10 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
 
 
 //        initMiniMap(data_);
-        data_.getTm().addEntry((short)2,ECLAIR);
-        data_.getTm().addEntry((short)3,ECLAIR_4);
-        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
-        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        data_.getTm().addEntry(2,ECLAIR);
+        data_.getTm().addEntry(3,ECLAIR_4);
+        data_.getTmPrice().addEntry(2,new LgInt("1"));
+        data_.getTmPrice().addEntry(3,new LgInt("2"));
         city_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(2,0),Direction.RIGHT),newCoords(1,0,0,0));
         road_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(0,0),Direction.LEFT),newCoords(0,0,2,0));
         compute(data_);
@@ -535,10 +535,10 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
 
 
 //        initMiniMap(data_);
-        data_.getTm().addEntry((short)2,ECLAIR);
-        data_.getTm().addEntry((short)3,ECLAIR_4);
-        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
-        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        data_.getTm().addEntry(2,ECLAIR);
+        data_.getTm().addEntry(3,ECLAIR_4);
+        data_.getTmPrice().addEntry(2,new LgInt("1"));
+        data_.getTmPrice().addEntry(3,new LgInt("2"));
         city_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(2,0),Direction.RIGHT),newCoords(1,0,0,0));
         road_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(0,0),Direction.LEFT),newCoords(0,0,2,0));
         compute(data_);
@@ -576,10 +576,10 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
 
 
 //        initMiniMap(data_);
-        data_.getTm().addEntry((short)2,ECLAIR);
-        data_.getTm().addEntry((short)3,ECLAIR_4);
-        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
-        data_.getTmPrice().addEntry((short)3,new LgInt("2"));
+        data_.getTm().addEntry(2,ECLAIR);
+        data_.getTm().addEntry(3,ECLAIR_4);
+        data_.getTmPrice().addEntry(2,new LgInt("1"));
+        data_.getTmPrice().addEntry(3,new LgInt("2"));
         city_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(2,0),Direction.RIGHT),newCoords(1,0,0,0));
         road_.getSavedlinks().addEntry(new PlaceInterConnect(newPoint(0,0),Direction.LEFT),newCoords(0,0,2,0));
         compute(data_);
@@ -698,8 +698,8 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
     }
     public static Road withArea(Road _road) {
         AreaApparition a_ = Instances.newAreaApparition();
-        a_.setAvgNbSteps((short) 1);
-        a_.setMultFight((byte) 1);
+        a_.setAvgNbSteps(1);
+        a_.setMultFight(1);
         a_.getWildPokemon().add(wild());
         a_.getWildPokemonFishing().add(wild());
         _road.getLevelRoad().getWildPokemonAreas().add(a_);
@@ -713,7 +713,7 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
     public static WildPk wild(String _name, int _lev, String _ab, String _it) {
         WildPk walk_ = Instances.newWildPk();
         walk_.setName(_name);
-        walk_.setLevel((short) _lev);
+        walk_.setLevel(_lev);
         walk_.setGender(Gender.NO_GENDER);
         walk_.setAbility(_ab);
         walk_.setItem(_it);
@@ -956,20 +956,20 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         pkData_.setEggGroups(new StringList(_data.getDefaultEggGroup()));
         pkData_.setTypes(new StringList(ELECTRICK));
         statBase(pkData_);
-        pkData_.getLevMoves().add(new LevelMove((short)1,ECLAIR));
-//        pkData_.getLevMoves().add(new LevelMove((short)10,ECLAIR_2));
-//        pkData_.getLevMoves().add(new LevelMove((short)20,ECLAIR_5));
-//        pkData_.getLevMoves().add(new LevelMove((short)30,ECLAIR_6));
-//        pkData_.getLevMoves().add(new LevelMove((short)32,ECLAIR_7));
+        pkData_.getLevMoves().add(new LevelMove(1,ECLAIR));
+//        pkData_.getLevMoves().add(new LevelMove(10,ECLAIR_2));
+//        pkData_.getLevMoves().add(new LevelMove(20,ECLAIR_5));
+//        pkData_.getLevMoves().add(new LevelMove(30,ECLAIR_6));
+//        pkData_.getLevMoves().add(new LevelMove(32,ECLAIR_7));
         pkData_.setExpRate(1);
         pkData_.setHeight(Rate.one());
         pkData_.setWeight(Rate.one());
-        pkData_.setCatchingRate((short) 1);
-        pkData_.setHappiness((short) 1);
-        pkData_.setHappinessHatch((short) 1);
+        pkData_.setCatchingRate( 1);
+        pkData_.setHappiness( 1);
+        pkData_.setHappinessHatch( 1);
         pkData_.setAbilities(new StringList(PARATONNERRE));
 //        pkData_.getMoveTutors().add(ECLAIR_2);
-        pkData_.getTechnicalMoves().add((short)3);
+        pkData_.getTechnicalMoves().add(3);
         return pkData_;
     }
 
@@ -987,7 +987,7 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         sec_.setTypes(new StringList(ELECTRICK));
         sec_.setCategory("SPEC");
         sec_.setAccuracy("1");
-        sec_.setPp((short) 1);
+        sec_.setPp( 1);
         return sec_;
     }
 
@@ -998,7 +998,7 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         pkm_.setAbility(PARATONNERRE);
         pkm_.setGender(Gender.NO_GENDER);
         pkm_.setItem(NULL_REF);
-        pkm_.setLevel((short) 1);
+        pkm_.setLevel( 1);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 2, 1));
     }
@@ -1010,7 +1010,7 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         pkm_.setAbility(PARATONNERRE);
         pkm_.setGender(Gender.NO_GENDER);
         pkm_.setItem(NULL_REF);
-        pkm_.setLevel((short) 1);
+        pkm_.setLevel( 1);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(1, 0, 0, 1));
     }
@@ -1022,37 +1022,37 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         pkm_.setAbility(PARATONNERRE);
         pkm_.setGender(Gender.NO_GENDER);
         pkm_.setItem(NULL_REF);
-        pkm_.setLevel((short) 1);
+        pkm_.setLevel( 1);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0,0,0, 2, 1));
     }
 
     protected static void statBase(PokemonData _pk) {
-        _pk.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)0));
-        _pk.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv((short)1,(short)0));
-        _pk.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)0));
-        _pk.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv((short)1,(short)0));
-        _pk.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv((short)1,(short)0));
-        _pk.getStatistics().addEntry(Statistic.HP,new StatBaseEv((short)1,(short)0));
+        _pk.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv(1,0));
+        _pk.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv(1,0));
+        _pk.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv(1,0));
+        _pk.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv(1,0));
+        _pk.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv(1,0));
+        _pk.getStatistics().addEntry(Statistic.HP,new StatBaseEv(1,0));
     }
 
     public static void initRandomLaws(DataBase _data) {
         MonteCarloNumber monteCarloNumber_;
         monteCarloNumber_ = new MonteCarloNumber();
         monteCarloNumber_.addQuickEvent(new Rate("1"),new LgInt("1"));
-        _data.getLawsDamageRate().addEntry(DifficultyModelLaw.CROISSANT,new LawNumber(monteCarloNumber_,(short)4));
+        _data.getLawsDamageRate().addEntry(DifficultyModelLaw.CROISSANT,new LawNumber(monteCarloNumber_,4));
         monteCarloNumber_ = new MonteCarloNumber();
         monteCarloNumber_.addQuickEvent(new Rate("1"),new LgInt("1"));
-        _data.getLawsDamageRate().addEntry(DifficultyModelLaw.UNIFORME,new LawNumber(monteCarloNumber_,(short)3));
+        _data.getLawsDamageRate().addEntry(DifficultyModelLaw.UNIFORME,new LawNumber(monteCarloNumber_,3));
         monteCarloNumber_ = new MonteCarloNumber();
         monteCarloNumber_.addQuickEvent(new Rate("1"),new LgInt("1"));
-        _data.getLawsDamageRate().addEntry(DifficultyModelLaw.DECROISSANT,new LawNumber(monteCarloNumber_,(short)2));
+        _data.getLawsDamageRate().addEntry(DifficultyModelLaw.DECROISSANT,new LawNumber(monteCarloNumber_,2));
         monteCarloNumber_ = new MonteCarloNumber();
         monteCarloNumber_.addQuickEvent(new Rate("1"),new LgInt("1"));
-        _data.getLawsDamageRate().addEntry(DifficultyModelLaw.CONSTANT_MIN,new LawNumber(monteCarloNumber_,(short)1));
+        _data.getLawsDamageRate().addEntry(DifficultyModelLaw.CONSTANT_MIN,new LawNumber(monteCarloNumber_,1));
         monteCarloNumber_ = new MonteCarloNumber();
         monteCarloNumber_.addQuickEvent(new Rate("1"),new LgInt("1"));
-        _data.getLawsDamageRate().addEntry(DifficultyModelLaw.CONSTANT_MAX,new LawNumber(monteCarloNumber_,(short)5));
+        _data.getLawsDamageRate().addEntry(DifficultyModelLaw.CONSTANT_MAX,new LawNumber(monteCarloNumber_,5));
     }
 
     public static Block newBlock(int _h, int _w, EnvironmentType _type, String _tileFileName, int _index) {
@@ -1094,7 +1094,7 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
     }
 
     public static Seller sellerWithTm(Seller _seller,int _item) {
-        _seller.getTm().add((short) _item);
+        _seller.getTm().add( _item);
         return _seller;
     }
 

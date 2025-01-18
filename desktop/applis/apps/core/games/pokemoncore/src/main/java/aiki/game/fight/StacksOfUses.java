@@ -14,7 +14,7 @@ public final class StacksOfUses implements Displayable {
 
     private static final String TRUE="1";
 
-    private byte nbRounds;
+    private int nbRounds;
 
     private boolean firstStacked;
 
@@ -28,7 +28,7 @@ public final class StacksOfUses implements Displayable {
         if (elts_.size() < 2) {
             return;
         }
-        nbRounds = (byte) NumberUtil.parseInt(elts_.first());
+        nbRounds = NumberUtil.parseInt(elts_.first());
         firstStacked = StringUtil.quickEq(elts_.get(IndexConstants.SECOND_INDEX), TRUE);
         lastStacked = StringUtil.quickEq(elts_.last(), TRUE);
     }
@@ -42,11 +42,11 @@ public final class StacksOfUses implements Displayable {
         return nbRounds >= 0;
     }
 
-    public byte getNbRounds() {
+    public int getNbRounds() {
         return nbRounds;
     }
 
-    public void setNbRounds(byte _nbRounds) {
+    public void setNbRounds(int _nbRounds) {
         nbRounds = _nbRounds;
     }
 

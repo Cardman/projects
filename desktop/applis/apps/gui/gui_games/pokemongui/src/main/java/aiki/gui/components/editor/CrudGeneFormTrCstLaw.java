@@ -61,7 +61,7 @@ public final class CrudGeneFormTrCstLaw implements AbsCrudGeneFormTrCstOpen, Cru
 
     @Override
     public void apply(DifficultyModelLaw _k) {
-        Short nb_ = facadeGame.getData().getLawsDamageRate().getVal(_k).getNumber();
+        Integer nb_ = facadeGame.getData().getLawsDamageRate().getVal(_k).getNumber();
         facadeGame.getData().getLawsDamageRate().put(_k, new LawNumber(ConverterCommonMapUtil.buildMonteCarloNumber(fields.getVal(_k).getList()),nb_));
     }
 }

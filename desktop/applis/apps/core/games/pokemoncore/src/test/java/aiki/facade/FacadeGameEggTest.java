@@ -25,7 +25,7 @@ public final class FacadeGameEggTest extends InitializationDataBase {
         game_.getPlayer().doRevivingFossil(LAVA, diff_, data_);
         Egg egg_;
         egg_ = new Egg(NUCLEOS);
-        egg_.versEclosion((short) 15);
+        egg_.versEclosion( 15);
         game_.getPlayer().getBox().add(egg_);
         PokemonPlayer pk_ = (PokemonPlayer) game_.getPlayer().getTeam().get(1);
         pk_.setItem(PIERRE_LUNE);

@@ -102,7 +102,7 @@ final class FightStatistic {
         Item fObjet_ = FightItems.useItsObject(_fight, _fighter, _import);
         if (fObjet_ instanceof ItemForBattle) {
             ItemForBattle fObjetCombat_ = (ItemForBattle) fObjet_;
-            IdMap<Statistic, Byte> multStatisCran_ = fObjetCombat_.getMultStatRank();
+            IdMap<Statistic, Integer> multStatisCran_ = fObjetCombat_.getMultStatRank();
             if (multStatisCran_.contains(_statistic)) {
                 bonus_ += multStatisCran_.getVal(_statistic);
             }
@@ -113,7 +113,7 @@ final class FightStatistic {
         }
         AbilityData ability_ = fighter_.ficheCapaciteActuelle(_import);
         if (ability_ != null) {
-            IdMap<Statistic,Byte> multStatisCran_ = ability_.getBonusStatRank();
+            IdMap<Statistic,Integer> multStatisCran_ = ability_.getBonusStatRank();
             if (multStatisCran_.contains(_statistic)) {
                 bonus_+=multStatisCran_.getVal(_statistic);
             }
@@ -128,10 +128,10 @@ final class FightStatistic {
         return bonus_;
     }
 
-    static Rate multiplyStatisticPartner(Fight _fight, Statistic _statistic, byte _noTeam, DataBase _import) {
+    static Rate multiplyStatisticPartner(Fight _fight, Statistic _statistic, int _noTeam, DataBase _import) {
         Rate rate_ = Rate.one();
         Team team_ = _fight.getTeams().getVal(_noTeam);
-        for(byte c:team_.getMembers().getKeys()){
+        for(int c:team_.getMembers().getKeys()){
             Fighter partenaire_=team_.getMembers().getVal(c);
             if(partenaire_.estArriere()){
                 continue;
@@ -144,15 +144,15 @@ final class FightStatistic {
         return rate_;
     }
 
-    static Rate multiplyStatisticTeamMoveEffect(Fight _fight, Statistic _statistic, byte _noTeam, DataBase _import) {
+    static Rate multiplyStatisticTeamMoveEffect(Fight _fight, Statistic _statistic, int _noTeam, DataBase _import) {
         return multiplyStatisticFoeTeamMoveEffectRet(_fight, _statistic, _noTeam, _import,new EffectTeamMultStatRetrieverTeam());
     }
 
-    static Rate multiplyStatisticFoeTeamMoveEffect(Fight _fight, Statistic _statistic, byte _noTeam, DataBase _import) {
+    static Rate multiplyStatisticFoeTeamMoveEffect(Fight _fight, Statistic _statistic, int _noTeam, DataBase _import) {
         return multiplyStatisticFoeTeamMoveEffectRet(_fight, _statistic, _noTeam, _import,new EffectTeamMultStatRetrieverFoeTeam());
     }
 
-    static Rate multiplyStatisticFoeTeamMoveEffectRet(Fight _fight, Statistic _statistic, byte _noTeam, DataBase _import, AbsEffectTeamMultStatRetriever _retr) {
+    static Rate multiplyStatisticFoeTeamMoveEffectRet(Fight _fight, Statistic _statistic, int _noTeam, DataBase _import, AbsEffectTeamMultStatRetriever _retr) {
         Rate rate_ = Rate.one();
         Team equipe_ = _fight.getTeams().getVal(_noTeam);
         for(String c:equipe_.enabledTeamMoves()){
@@ -192,7 +192,7 @@ final class FightStatistic {
         return rate_;
     }
 
-    static Rate rateBoost(byte _boost, DataBase _import) {
+    static Rate rateBoost(int _boost, DataBase _import) {
         //RATE_BOOST
         String numericExp_ = _import.getRateBoost();
         StringMap<String> variables_ = new StringMap<String>();

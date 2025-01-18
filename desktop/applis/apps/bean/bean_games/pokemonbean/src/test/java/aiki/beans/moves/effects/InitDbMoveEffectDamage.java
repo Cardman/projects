@@ -154,7 +154,7 @@ public abstract class InitDbMoveEffectDamage extends InitDbMoveEffect{
         ef_.setPower(_power);
         ef_.setTargetDefense(_targetDefense);
         ef_.setUserAttack(_userAttack);
-        ef_.setChRate((byte) _ch);
+        ef_.setChRate(_ch);
         ef_.setStatisAtt(Statistic.ATTACK);
         ef_.setStatisDef(Statistic.DEFENSE);
         ef_.setSummingUserTeamOkFighter(_summingUserTeamOkFighter);
@@ -164,8 +164,8 @@ public abstract class InitDbMoveEffectDamage extends InitDbMoveEffect{
         ef_.setConstDamage(_constDamage);
         ef_.setChLaw(new MonteCarloNumber());
         ef_.setHitsLaw(new MonteCarloNumber());
-        IdMap<Statistic, Byte> b_ = new IdMap<Statistic, Byte>();
-        b_.addEntry(Statistic.SPEED,(byte)1);
+        IdMap<Statistic, Integer> b_ = new IdMap<Statistic, Integer>();
+        b_.addEntry(Statistic.SPEED,1);
         ef_.setBoostStatisOnceKoFoe(b_);
         IdList<Statistic> d_ = new IdList<Statistic>();
         d_.add(Statistic.DEFENSE);

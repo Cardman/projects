@@ -30,30 +30,30 @@ public class DataMapClosestTileTest extends EquallablePkUtil {
         c_.setBuildings(new PointsBuilding());
         LevelOutdoor city_ = new LevelOutdoor();
         city_.setBlocks(new PointsBlock());
-        Block block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
+        Block block_ = new Block(3,3, EnvironmentType.ROAD, VOIE);
         city_.getBlocks().put(newPoint(0,0), block_);
-        block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
+        block_ = new Block(3,3, EnvironmentType.ROAD, VOIE);
         city_.getBlocks().put(newPoint(0,3), block_);
-        block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
+        block_ = new Block(3,3, EnvironmentType.ROAD, VOIE);
         city_.getBlocks().put(newPoint(0,6), block_);
-        block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
+        block_ = new Block(3,3, EnvironmentType.ROAD, VOIE);
         city_.getBlocks().put(newPoint(3,0), block_);
-        block_ = new Block((short)3,(short)3, EnvironmentType.NOTHING, VOIE);
+        block_ = new Block(3,3, EnvironmentType.NOTHING, VOIE);
         city_.getBlocks().put(newPoint(3,3), block_);
-        block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
+        block_ = new Block(3,3, EnvironmentType.ROAD, VOIE);
         city_.getBlocks().put(newPoint(3,6), block_);
-        block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
+        block_ = new Block(3,3, EnvironmentType.ROAD, VOIE);
         city_.getBlocks().put(newPoint(6,0), block_);
-        block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
+        block_ = new Block(3,3, EnvironmentType.ROAD, VOIE);
         city_.getBlocks().put(newPoint(6,3), block_);
-        block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
+        block_ = new Block(3,3, EnvironmentType.ROAD, VOIE);
         city_.getBlocks().put(newPoint(6,6), block_);
         c_.setLevel(city_);
         Gym gym_ = new Gym();
         gym_.setExitCity(newPoint(1,1));
         gym_.setLevel(new LevelIndoorGym());
         gym_.getLevel().setBlocks(new PointsBlock());
-        block_ = new Block((short)9,(short)9, EnvironmentType.BUILDING, VOIE);
+        block_ = new Block(9,9, EnvironmentType.BUILDING, VOIE);
         gym_.getLevel().getBlocks().put(newPoint(0,0), block_);
         gym_.getIndoor().setGymLeaderCoords(newPoint(1,1));
         c_.getBuildings().put(newPoint(4,5), gym_);
@@ -64,7 +64,7 @@ public class DataMapClosestTileTest extends EquallablePkUtil {
         road_.setSavedlinks(new PlaceInterConnects());
         LevelRoad level_ = new LevelRoad();
         level_.setBlocks(new PointsBlock());
-        Block block_ = new Block((short)3,(short)6, EnvironmentType.ROAD, VOIE);
+        Block block_ = new Block(3,6, EnvironmentType.ROAD, VOIE);
         level_.getBlocks().put(newPoint(0,0), block_);
         road_.setLevel(level_);
         return road_;
@@ -77,7 +77,7 @@ public class DataMapClosestTileTest extends EquallablePkUtil {
         dataMap_.setPlaces(new CustList<Place>());
         dataMap_.getPlaces().add(cityOne_);
         dataMap_.getPlaces().add(roadOne_);
-        dataMap_.join((short)0, (short)1, newPoint(4,0), newPoint(1,5), Direction.UP);
+        dataMap_.join(0, 1, newPoint(4,0), newPoint(1,5), Direction.UP);
         return dataMap_;
     }
 

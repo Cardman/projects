@@ -2,7 +2,7 @@ package aiki.beans.moves.effects;
 import aiki.fight.moves.effects.EffectVarPP;
 
 public class EffectVarPPBean extends EffectBean {
-    private short deletePp;
+    private int deletePp;
 
     @Override
     public void beforeDisplaying() {
@@ -11,7 +11,7 @@ public class EffectVarPPBean extends EffectBean {
         deletePp = effect_.getDeletePp();
     }
 
-    public short getDeletePp() {
+    public int getDeletePp() {
         return deletePp;
     }
 }

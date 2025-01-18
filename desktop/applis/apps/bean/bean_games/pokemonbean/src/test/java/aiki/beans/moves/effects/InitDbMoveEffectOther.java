@@ -307,7 +307,7 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
         e_.setProtectFail(VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR);
         e_.setSufferingDamageDirectMove(Rate.one());
         e_.getSufferingDamageTypes().addEntry(T_TYPE1,Rate.one());
-        e_.getDroppedStatDirectMove().addEntry(Statistic.SPEED,(byte)1);
+        e_.getDroppedStatDirectMove().addEntry(Statistic.SPEED,1);
         return e_;
     }
     protected static NaSt dispMoveEffAlly() {
@@ -697,7 +697,7 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
     }
     protected static NaSt dispMoveEffVarPp() {
         EffectVarPP e_ = Instances.newEffectVarPP();
-        e_.setDeletePp((short) 1);
+        e_.setDeletePp( 1);
         return dispMoveEffOther(feedDbMoveEffDataOther(e_));
     }
     protected static NaSt dispMoveEffWinMoney() {

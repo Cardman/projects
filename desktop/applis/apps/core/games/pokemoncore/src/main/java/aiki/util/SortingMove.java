@@ -6,9 +6,9 @@ public final class SortingMove extends Sorting {
 
     private int moveClass;
 
-    private short pp;
+    private int pp;
 
-    private byte priority;
+    private int priority;
 
     private TargetChoice targetChoice;
 
@@ -22,19 +22,19 @@ public final class SortingMove extends Sorting {
         moveClass = _moveClass;
     }
 
-    public short getPp() {
+    public int getPp() {
         return pp;
     }
 
-    public void setPp(short _pp) {
+    public void setPp(int _pp) {
         pp = _pp;
     }
 
-    public byte getPriority() {
+    public int getPriority() {
         return priority;
     }
 
-    public void setPriority(byte _priority) {
+    public void setPriority(int _priority) {
         priority = _priority;
     }
 

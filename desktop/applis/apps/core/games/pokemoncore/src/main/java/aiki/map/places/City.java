@@ -41,7 +41,7 @@ public final class City extends Place implements InitializedPlace {
 
     @Override
     public void validate(DataBase _data, PlaceArea _placeArea) {
-        LevelArea levelArea_ = _placeArea.getLevel((byte) 0);
+        LevelArea levelArea_ = _placeArea.getLevel(0);
         boolean existPkCenter_ = false;
         int nbGyms_ = 0;
         PointEqList ids_ = new PointEqList();

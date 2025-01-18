@@ -149,7 +149,7 @@ public final class NetAiki {
     }
     public static SentPokemon importSentPokemon(CustList<String> _check) {
         SentPokemon n_ = new SentPokemon();
-        n_.setIndex((byte) NumberUtil.parseInt(_check.get(0)));
+        n_.setIndex(NumberUtil.parseInt(_check.get(0)));
         n_.setPokemon(importPokemonPlayer(_check.get(1),AIKI_SEP_1,AIKI_SEP_2,AIKI_SEP_3));
         return n_;
     }
@@ -158,7 +158,7 @@ public final class NetAiki {
         out_.append(CLIENT_NET_PK);
         out_.append(AIKI_SEP_0);
         CustList<String> pks_ = new CustList<String>();
-        for (EntryCust<Byte, PokemonPlayer> m: _check.getTradablePokemon().entryList()) {
+        for (EntryCust<Integer, PokemonPlayer> m: _check.getTradablePokemon().entryList()) {
             pks_.add(""+m.getKey()+AIKI_SEP_2+exportPokemonPlayer(m.getValue(),AIKI_SEP_3,AIKI_SEP_4,AIKI_SEP_5));
         }
         out_.append(StringUtil.join(pks_,AIKI_SEP_1));
@@ -166,10 +166,10 @@ public final class NetAiki {
     }
     public static NetPokemon importNetPokemon(CustList<String> _check) {
         NetPokemon n_ = new NetPokemon();
-        n_.setTradablePokemon(new ByteTreeMap<PokemonPlayer>());
+        n_.setTradablePokemon(new IntTreeMap<PokemonPlayer>());
         for (String m: StringUtil.partsStr(_check.get(0),0,_check.get(0).length(),AIKI_SEP_1)) {
             CustList<String> kv_ = StringUtil.partsStr(m, 0, m.length(), AIKI_SEP_2);
-            n_.getTradablePokemon().addEntry((byte)NumberUtil.parseInt(kv_.first()),importPokemonPlayer(kv_.last(),AIKI_SEP_3,AIKI_SEP_4,AIKI_SEP_5));
+            n_.getTradablePokemon().addEntry(NumberUtil.parseInt(kv_.first()),importPokemonPlayer(kv_.last(),AIKI_SEP_3,AIKI_SEP_4,AIKI_SEP_5));
         }
         return n_;
     }
@@ -255,7 +255,7 @@ public final class NetAiki {
         out_.append(_sep);
         out_.append(StringUtil.join(moves_,_sec));
         CustList<String> stats_ = new CustList<String>();
-        for (EntryCust<Statistic, Short> m: _pk.getEv().entryList()) {
+        for (EntryCust<Statistic, Integer> m: _pk.getEv().entryList()) {
             stats_.add(m.getKey().getStatName()+_th+m.getValue());
         }
         out_.append(_sep);
@@ -278,22 +278,22 @@ public final class NetAiki {
     public static PokemonPlayer importPokemonPlayer(CustList<String> _infos, char _sec, char _th) {
         PokemonPlayer p_ = new PokemonPlayer();
         p_.setName(_infos.get(0));
-        p_.setLevel((short) NumberUtil.parseInt(_infos.get(1)));
+        p_.setLevel(NumberUtil.parseInt(_infos.get(1)));
         p_.setGender(Gender.getGenderByName(_infos.get(2)));
         p_.setAbility(_infos.get(3));
         p_.setItem(_infos.get(4));
         p_.setNickname(unescapeId(_infos.get(5)));
         for (String m: StringUtil.splitChar(_infos.get(6), _sec)) {
-            p_.getMoves().addEntry(m, new UsesOfMove((short) 0));
+            p_.getMoves().addEntry(m, new UsesOfMove(0));
         }
         for (String m: StringUtil.splitChar(_infos.get(7), _sec)) {
             StringList kv_ = StringUtil.splitChar(m, _th);
-            p_.getEv().addEntry(Statistic.getStatisticByName(kv_.first()),(short)NumberUtil.parseInt(kv_.last()));
+            p_.getEv().addEntry(Statistic.getStatisticByName(kv_.first()),NumberUtil.parseInt(kv_.last()));
         }
         p_.setWonExpSinceLastLevel(new Rate(_infos.get(8)));
-        p_.setHappiness((short)NumberUtil.parseInt(_infos.get(9)));
+        p_.setHappiness(NumberUtil.parseInt(_infos.get(9)));
         p_.setUsedBallCatching(_infos.get(10));
-        p_.setNbStepsTeamLead((short)NumberUtil.parseInt(_infos.get(11)));
+        p_.setNbStepsTeamLead(NumberUtil.parseInt(_infos.get(11)));
         return p_;
     }
 //    public static StringBuilder exportEgg(Egg _pk, char _sep) {
@@ -321,7 +321,7 @@ public final class NetAiki {
         QuitAiki r_ = new QuitAiki();
         r_.getContent().setClosing(NetCommon.toBoolEquals(_index.get(0),0));
         r_.getContent().setServer(NetCommon.toBoolEquals(_index.get(0),1));
-        r_.setPlace((byte) NumberUtil.parseInt(_index.get(0).substring(2)));
+        r_.setPlace(NumberUtil.parseInt(_index.get(0).substring(2)));
         return r_;
     }
     public static String escapeId(String _str) {

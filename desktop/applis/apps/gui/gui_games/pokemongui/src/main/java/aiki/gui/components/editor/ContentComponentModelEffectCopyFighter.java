@@ -19,7 +19,7 @@ public final class ContentComponentModelEffectCopyFighter {
         form.setVisible(_dis);
     }
     void buildEntity(EffectCopyFighter _edited) {
-        _edited.setPpForMoves((short) ppForMoves.valueInt());
+        _edited.setPpForMoves(ppForMoves.valueInt());
     }
     void feedForm(EffectCopyFighter _edited) {
         ppForMoves.valueInt(_edited.getPpForMoves());

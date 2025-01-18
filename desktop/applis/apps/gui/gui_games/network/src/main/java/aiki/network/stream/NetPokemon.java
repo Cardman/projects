@@ -5,13 +5,13 @@ import code.util.*;
 
 public final class NetPokemon {
 
-    private ByteTreeMap<PokemonPlayer> tradablePokemon;
+    private IntTreeMap<PokemonPlayer> tradablePokemon;
 
-    public ByteTreeMap< PokemonPlayer> getTradablePokemon() {
+    public IntTreeMap< PokemonPlayer> getTradablePokemon() {
         return tradablePokemon;
     }
 
-    public void setTradablePokemon(ByteTreeMap< PokemonPlayer> _tradablePokemon) {
+    public void setTradablePokemon(IntTreeMap< PokemonPlayer> _tradablePokemon) {
         tradablePokemon = _tradablePokemon;
     }
 }

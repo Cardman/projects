@@ -28,7 +28,7 @@ public final class FacadeGamePokemonPlayerTest extends InitializationDataBase {
         Pokemon w_ = new WildPk();
         w_.setName(NUCLEOS);
         w_.setGender(Gender.NO_GENDER);
-        w_.setLevel((short) 2);
+        w_.setLevel( 2);
         w_.setAbility(ABSORB_EAU);
         w_.setItem(MULTI_EXP);
         PokemonPlayer pkPlayer_ = new PokemonPlayer(w_, data_);

@@ -8,7 +8,7 @@ public final class ChangeShortFieldMatchDef implements ChangeShortFieldMatch {
     }
 
     @Override
-    public boolean match(short _v) {
+    public boolean match(int _v) {
         return changeStringField.value() == _v;
     }
 }

@@ -4,10 +4,10 @@ import code.gui.*;
 import code.util.core.*;
 import code.util.ints.*;
 
-public final class ComparingShortKey<V> implements Comparing<EditedCrudPair<Short, V>>  {
+public final class ComparingShortKey<V> implements Comparing<EditedCrudPair<Integer, V>>  {
 
     @Override
-    public int compare(EditedCrudPair<Short, V> _one, EditedCrudPair<Short, V> _two) {
+    public int compare(EditedCrudPair<Integer, V> _one, EditedCrudPair<Integer, V> _two) {
         return NumberUtil.compareLg(_one.getKey(), _two.getKey());
     }
 }

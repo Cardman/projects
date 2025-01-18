@@ -9,17 +9,17 @@ public final class BoostHpRate implements Displayable {
 
     private static final char SEPARATOR = ';';
 
-    private final byte boost;
+    private final int boost;
 
     private final Rate hpRate;
 
     public BoostHpRate(String _str) {
         StringList elements_ = StringUtil.splitChars(_str, SEPARATOR);
-        boost = (byte) NumberUtil.parseInt(elements_.first());
+        boost = NumberUtil.parseInt(elements_.first());
         hpRate = new Rate(elements_.last());
     }
 
-    public BoostHpRate(byte _boost, Rate _hpRate) {
+    public BoostHpRate(int _boost, Rate _hpRate) {
         boost = _boost;
         hpRate = _hpRate;
     }
@@ -29,7 +29,7 @@ public final class BoostHpRate implements Displayable {
         return new BoostHpRate(_string);
     }
 
-    public byte getBoost() {
+    public int getBoost() {
         return boost;
     }
 

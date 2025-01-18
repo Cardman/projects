@@ -7,7 +7,7 @@ import code.gui.initialize.AbstractSocket;
 import code.network.Exiting;
 import code.network.NetCommon;
 import code.network.NetGroupFrame;
-import code.util.ByteTreeMap;
+import code.util.IntTreeMap;
 import code.util.CustList;
 import code.util.core.IndexConstants;
 
@@ -20,8 +20,8 @@ public final class ServerActLoopAikiCheckCompatibility implements IntServerActLo
             return;
         }
         CheckCompatibility first_ = NetAiki.getCheckCompatibility(_instance).getVal((int) IndexConstants.FIRST_INDEX);
-        ByteTreeMap<PokemonPlayer> pkFirst_ = check_.getData().getTeam(first_.getTeam());
-        ByteTreeMap< PokemonPlayer> pkSecond_ = first_.getData().getTeam(check_.getTeam());
+        IntTreeMap<PokemonPlayer> pkFirst_ = check_.getData().getTeam(first_.getTeam());
+        IntTreeMap< PokemonPlayer> pkSecond_ = first_.getData().getTeam(check_.getTeam());
         if (pkFirst_.size() * pkSecond_.size() == 0) {
             //pkFirst_.isEmpty() || pkSecond_.isEmpty()
             Exiting forcedBye_ = new Exiting();
@@ -45,8 +45,8 @@ public final class ServerActLoopAikiCheckCompatibility implements IntServerActLo
         NetGroupFrame.trySendString(NetAiki.exportNetPokemon(net_), _common.getSockets().getVal((int) IndexConstants.SECOND_INDEX));
 //        if (check_.getIndex() == IndexConstants.SECOND_INDEX) {
 //            CheckCompatibility first_ = NetAiki.getCheckCompatibility(_instance).getVal((int) IndexConstants.FIRST_INDEX);
-//            ByteTreeMap<PokemonPlayer> pkFirst_ = check_.getData().getTeam(first_.getTeam());
-//            ByteTreeMap< PokemonPlayer> pkSecond_ = first_.getData().getTeam(check_.getTeam());
+//            IntTreeMap<PokemonPlayer> pkFirst_ = check_.getData().getTeam(first_.getTeam());
+//            IntTreeMap< PokemonPlayer> pkSecond_ = first_.getData().getTeam(check_.getTeam());
 //            if (pkFirst_.isEmpty() || pkSecond_.isEmpty()) {
 //                Exiting forcedBye_ = new Exiting();
 //                forcedBye_.setForced(true);

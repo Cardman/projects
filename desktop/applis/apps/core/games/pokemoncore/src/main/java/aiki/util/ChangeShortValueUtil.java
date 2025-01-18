@@ -4,14 +4,14 @@ import aiki.db.*;
 import code.util.*;
 
 public final class ChangeShortValueUtil<K> implements ChangeShortFieldMatch {
-    private final AbsBasicMap<K,Short> collection;
-    public ChangeShortValueUtil(AbsBasicMap<K,Short> _map) {
+    private final AbsBasicMap<K,Integer> collection;
+    public ChangeShortValueUtil(AbsBasicMap<K,Integer> _map) {
         collection = _map;
     }
 
     @Override
-    public boolean match(short _v) {
-        for (EntryCust<K,Short> e: collection.entryList()) {
+    public boolean match(int _v) {
+        for (EntryCust<K,Integer> e: collection.entryList()) {
             if (e.getValue() == _v) {
                 return true;
             }
@@ -19,8 +19,8 @@ public final class ChangeShortValueUtil<K> implements ChangeShortFieldMatch {
         return false;
     }
 
-    public void replace(short _o, short _n) {
-        for (EntryCust<K,Short> e: collection.entryList()) {
+    public void replace(int _o, int _n) {
+        for (EntryCust<K,Integer> e: collection.entryList()) {
             if (e.getValue() == _o) {
                 e.setValue(_n);
             }

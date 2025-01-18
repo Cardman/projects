@@ -630,8 +630,8 @@ public final class ScenePanel {
         disableFishing();
         panelOptions.removeAll();
         panelOptions.add(scrollPaneDetail, MessagesGuiFct.BORDER_LAYOUT_EAST);
-        ByteTreeMap<UsablePokemon> pks_ = new ByteTreeMap<UsablePokemon>();
-        for (byte i: facade.getPlayer().getIndexesOfPokemonTeam()) {
+        IntTreeMap<UsablePokemon> pks_ = new IntTreeMap<UsablePokemon>();
+        for (int i: facade.getPlayer().getIndexesOfPokemonTeam()) {
             pks_.put(i, facade.getPlayer().getTeam().get(i));
         }
 
@@ -762,9 +762,9 @@ public final class ScenePanel {
         }
     }*/
 
-    /*public void setTradable(ByteTreeMap< PokemonPlayer> _team) {
-        ByteTreeMap<UsablePokemon> teamPks_ = new ByteTreeMap<UsablePokemon>();
-        for (EntryCust<Byte, PokemonPlayer> e: _team.entryList()) {
+    /*public void setTradable(IntTreeMap< PokemonPlayer> _team) {
+        IntTreeMap<UsablePokemon> teamPks_ = new IntTreeMap<UsablePokemon>();
+        for (EntryCust<Integer, PokemonPlayer> e: _team.entryList()) {
             teamPks_.put(e.getKey(), e.getValue());
         }
         teamPan = initTeam(teamPks_, POKEMON_SELECT, true);
@@ -787,10 +787,10 @@ public final class ScenePanel {
         panelNetWork.add(readyCheck);
     }*/
 
-    /*public void setTradableAfterTrading(ByteTreeMap< PokemonPlayer> _team) {
+    /*public void setTradableAfterTrading(IntTreeMap< PokemonPlayer> _team) {
         enabledClick = false;
-        ByteTreeMap<UsablePokemon> teamPks_ = new ByteTreeMap<UsablePokemon>();
-        for (EntryCust<Byte, PokemonPlayer> e: _team.entryList()) {
+        IntTreeMap<UsablePokemon> teamPks_ = new IntTreeMap<UsablePokemon>();
+        for (EntryCust<Integer, PokemonPlayer> e: _team.entryList()) {
             teamPks_.put(e.getKey(), e.getValue());
         }
         teamPan.initFighters(teamPks_,messagesTeamPanel);
@@ -983,9 +983,9 @@ public final class ScenePanel {
             disableFishing();
         } else if (facade.getInterfaceType() == InterfaceType.PENSION) {
             AbsPanel set_ = compoFactory.newLineBox();
-            ByteTreeMap<UsablePokemon> teamPks_ = new ByteTreeMap<UsablePokemon>();
-            ByteTreeMap< PokemonPlayer> team_ = facade.getGame().getPlayer().getPokemonPlayerList();
-            for (EntryCust<Byte, PokemonPlayer> e: team_.entryList()) {
+            IntTreeMap<UsablePokemon> teamPks_ = new IntTreeMap<UsablePokemon>();
+            IntTreeMap< PokemonPlayer> team_ = facade.getGame().getPlayer().getPokemonPlayerList();
+            for (EntryCust<Integer, PokemonPlayer> e: team_.entryList()) {
                 teamPks_.put(e.getKey(), e.getValue());
             }
             teamPan = initTeam(teamPks_, MessagesRenderScenePanel.POKEMON_SELECT_TWO, false);
@@ -1018,7 +1018,7 @@ public final class ScenePanel {
         addExit();
     }
 
-    private TeamPanel initTeam(ByteTreeMap<UsablePokemon> _team, String _key, boolean _single) {
+    private TeamPanel initTeam(IntTreeMap<UsablePokemon> _team, String _key, boolean _single) {
         return new TeamPanel(window, messages.getVal(_key), facade, _team, messages, _single, new PkNonModalEvent(window.getModal()));
     }
 
@@ -1252,9 +1252,9 @@ public final class ScenePanel {
 //    }
 
     private void initPkTeamMoveTutors() {
-        ByteTreeMap<PokemonPlayer> team_ = facade.getPlayer().getPokemonPlayerList();
-        ByteTreeMap<UsablePokemon> pks_ = new ByteTreeMap<UsablePokemon>();
-        for (EntryCust<Byte, PokemonPlayer> e: team_.entryList()) {
+        IntTreeMap<PokemonPlayer> team_ = facade.getPlayer().getPokemonPlayerList();
+        IntTreeMap<UsablePokemon> pks_ = new IntTreeMap<UsablePokemon>();
+        for (EntryCust<Integer, PokemonPlayer> e: team_.entryList()) {
             pks_.put(e.getKey(), e.getValue());
         }
         teamPan = initTeam(pks_, MessagesRenderScenePanel.POKEMON_SELECT, true);
@@ -1263,9 +1263,9 @@ public final class ScenePanel {
 
     private void refreshPkTeamMoveTutors() {
 //        enabledClick = false;
-        ByteTreeMap<PokemonPlayer> team_ = facade.getPlayer().getPokemonPlayerList();
-        ByteTreeMap<UsablePokemon> pks_ = new ByteTreeMap<UsablePokemon>();
-        for (EntryCust<Byte, PokemonPlayer> e: team_.entryList()) {
+        IntTreeMap<PokemonPlayer> team_ = facade.getPlayer().getPokemonPlayerList();
+        IntTreeMap<UsablePokemon> pks_ = new IntTreeMap<UsablePokemon>();
+        for (EntryCust<Integer, PokemonPlayer> e: team_.entryList()) {
             pks_.put(e.getKey(), e.getValue());
         }
         teamPan.initFighters(pks_,messages);
@@ -1273,8 +1273,8 @@ public final class ScenePanel {
     }
 
     private void initTeam() {
-        ByteTreeMap<UsablePokemon> pks_ = new ByteTreeMap<UsablePokemon>();
-        byte i_ = IndexConstants.FIRST_INDEX;
+        IntTreeMap<UsablePokemon> pks_ = new IntTreeMap<UsablePokemon>();
+        int i_ = IndexConstants.FIRST_INDEX;
         for (UsablePokemon p: facade.getPlayer().getTeam()) {
             pks_.put(i_, p);
             i_++;
@@ -1284,8 +1284,8 @@ public final class ScenePanel {
 
     private void refreshTeam() {
 //        enabledClick = false;
-        ByteTreeMap<UsablePokemon> pks_ = new ByteTreeMap<UsablePokemon>();
-        byte i_ = IndexConstants.FIRST_INDEX;
+        IntTreeMap<UsablePokemon> pks_ = new IntTreeMap<UsablePokemon>();
+        int i_ = IndexConstants.FIRST_INDEX;
         for (UsablePokemon p: facade.getPlayer().getTeam()) {
             pks_.put(i_, p);
             i_++;
@@ -1394,7 +1394,7 @@ public final class ScenePanel {
 //        }
 //    }
     public void preparePk() {
-        facade.selectPokemon((short) teamPan.getSelectedIndexSingle());
+        facade.selectPokemon(teamPan.getSelectedIndexSingle());
     }
 
     public void prepareItem() {
@@ -1417,7 +1417,7 @@ public final class ScenePanel {
             window.pack();
             return;
         }
-        facade.choosePokemonForMoveTutors((short) selectedIndex_);
+        facade.choosePokemonForMoveTutors(selectedIndex_);
         movesLearntList.clear();
         movesLearntListLabel.clear();
         movesLearnt.removeAll();
@@ -1433,7 +1433,7 @@ public final class ScenePanel {
             movesLearntListLabel.add(check_);
         }
         StringList unselectedMoves_ = facade.getUnselectedMoves();
-        StringMap<Short> chosenMoves_ = facade.getPlayer().getChosenMoves();
+        StringMap<Integer> chosenMoves_ = facade.getPlayer().getChosenMoves();
         for (String m: unselectedMoves_) {
             String tr_ = facade.translateMove(m);
             MoveTutorCheckBox check_ = new MoveTutorCheckBox(m, StringUtil.concat(tr_,SPACE,Long.toString(chosenMoves_.getVal(m))),false,this);
@@ -1483,7 +1483,7 @@ public final class ScenePanel {
 //        if (!enabledClick) {
 //            return;
 //        }
-        facade.setChosenTeamPokemon((short) teamPan.getSelectedIndex());
+        facade.setChosenTeamPokemon(teamPan.getSelectedIndex());
         setEnablingStoring();
     }
 
@@ -1494,14 +1494,14 @@ public final class ScenePanel {
         switchUsable.setEnabled(true);
         if (switchUsable.isSelected()) {
             window.setSavedGame(false);
-            facade.switchTeamOrder((short) teamPan.getSelectedIndex());
+            facade.switchTeamOrder(teamPan.getSelectedIndex());
             switchUsable.setSelected(false);
 //            enabledSwitchTeam = false;
             refreshTeam();
             window.pack();
             return;
         }
-        facade.setChosenTeamPokemon((short) teamPan.getSelectedIndex());
+        facade.setChosenTeamPokemon(teamPan.getSelectedIndex());
         LanguageDialogButtons.enable(detailPk,facade.isSelectedTeamPokemon());
         LanguageDialogButtons.enable(takeItemTeam,facade.isSelectedTeamPokemonItem());
         LanguageDialogButtons.enable(healPk,facade.isSelectedTeamPokemon());
@@ -1573,7 +1573,7 @@ public final class ScenePanel {
 //            //facade.cancelUsingObjectOnPokemon();
 //            return;
 //        }
-        facade.selectPokemon((short) index_);
+        facade.selectPokemon(index_);
         if (facade.isGivingObject()) {
             window.setSavedGame(false);
             exitInteractionPack();
@@ -1733,7 +1733,7 @@ public final class ScenePanel {
         movesLearntList.clear();
         movesLearnt.removeAll();
         movesLearnt.add(window.getCompoFactory().newPlainLabel(messages.getVal(MessagesRenderScenePanel.SELECT_HEAL_MOVE)));
-        StringMap<Short> moves_ = facade.getPlayer().getChosenMoves();
+        StringMap<Integer> moves_ = facade.getPlayer().getChosenMoves();
         StringList keys_ = new StringList(moves_.getKeys());
 //        keys_.sort(new Comparator<String>() {
 //            @Override
@@ -1758,7 +1758,7 @@ public final class ScenePanel {
         movesLearnt.removeAll();
         movesLearnt.add(window.getCompoFactory().newPlainLabel(messages.getVal(MessagesRenderScenePanel.SELECT_BOOST_MOVE)));
         movesLearntList.clear();
-        StringMap<Short> moves_ = facade.getPlayer().getChosenMoves();
+        StringMap<Integer> moves_ = facade.getPlayer().getChosenMoves();
         StringList keys_ = new StringList(moves_.getKeys());
 //        keys_.sort(new Comparator<String>() {
 //            @Override
@@ -1816,12 +1816,12 @@ public final class ScenePanel {
 //            return;
 //        }
 //        enabledClick = false;
-        facade.setSelectPkToHost((short) teamPan.getSelectedIndex());
+        facade.setSelectPkToHost(teamPan.getSelectedIndex());
 //        enabledClick = true;
     }
 
     public void selectPokemonTm() {
-        facade.choosePokemonForLearningMove((byte) teamPan.getSelectedIndex());
+        facade.choosePokemonForLearningMove(teamPan.getSelectedIndex());
         if (facade.getPlayer().getSelectedMove().isEmpty()) {
             window.setSavedGame(false);
             setTextArea(StringUtil.join(facade.getComment().getMessages(), RETURN_LINE));
@@ -1832,7 +1832,7 @@ public final class ScenePanel {
         movesLearnt.removeAll();
         movesLearnt.add(window.getCompoFactory().newPlainLabel(messages.getVal(MessagesRenderScenePanel.SELECT_TM)));
         movesLearntList.clear();
-        StringMap<Short> moves_ = facade.getPlayer().getChosenMoves();
+        StringMap<Integer> moves_ = facade.getPlayer().getChosenMoves();
         StringList keys_ = new StringList(moves_.getKeys());
 //        keys_.sort(new Comparator<String>() {
 //            @Override

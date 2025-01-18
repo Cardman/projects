@@ -80,7 +80,7 @@ public final class Game {
     private Player player;
 
     /**nombre de dresseurs de la ligue battus (remis a zero une fois la ligue battue)*/
-    private byte rankLeague;
+    private int rankLeague;
 
     private IntMap<PointEqList> beatGymTrainer;
 
@@ -766,7 +766,7 @@ public final class Game {
         return hostedPk.getVal(_coords).isFree();
     }
 
-    public void attemptForStoringPokemonToHost(short _pos1,short _pos2,DataBase _d){
+    public void attemptForStoringPokemonToHost(int _pos1,int _pos2,DataBase _d){
         commentGame.clearMessages();
         DataMap d_=_d.getMap();
         int nb_ = player.getPokemonPlayerList().size();
@@ -788,7 +788,7 @@ public final class Game {
         }
     }
 
-    boolean canStorePokemonToHost(short _pos1,short _pos2,DataBase _d){
+    boolean canStorePokemonToHost(int _pos1,int _pos2,DataBase _d){
         if(_pos1==_pos2){
             StringMap<String> mess_ = _d.getMessagesGame();
             commentGame.addMessage(mess_.getVal(SAME_PK));
@@ -869,7 +869,7 @@ public final class Game {
         return vide_;
     }
 
-    void storePokemonToHost(short _pos1,short _pos2,Coords _coords){
+    void storePokemonToHost(int _pos1,int _pos2,Coords _coords){
         HostPokemonDuo valeur_=hostedPk.getVal(_coords);
         valeur_.setFirstPokemon((PokemonPlayer) player.getTeam().get(_pos1));
         valeur_.setSecondPokemon((PokemonPlayer) player.getTeam().get(_pos2));
@@ -1032,12 +1032,12 @@ public final class Game {
             takenObjects.put(voisin_, BoolVal.TRUE);
             interfaceType = InterfaceType.RIEN;
         } else if (l_.getTm().contains(pt_)) {
-            short obj_ = l_.getTm().getVal(pt_);
+            int obj_ = l_.getTm().getVal(pt_);
             player.getTm(obj_);
             takenObjects.put(voisin_, BoolVal.TRUE);
             interfaceType = InterfaceType.RIEN;
         } else if (l_.getHm().contains(pt_)) {
-            short obj_ = l_.getHm().getVal(pt_);
+            int obj_ = l_.getHm().getVal(pt_);
             player.getHm(obj_);
             takenObjects.put(voisin_, BoolVal.TRUE);
             interfaceType = InterfaceType.RIEN;
@@ -1048,7 +1048,7 @@ public final class Game {
             for (String o: ((DealerItem)person_).getItems()) {
                 player.getItem(o);
             }
-            for (Short t: ((DealerItem)person_).getTechnicalMoves()) {
+            for (Integer t: ((DealerItem)person_).getTechnicalMoves()) {
                 player.getTm(t);
             }
             takenObjects.put(voisin_, BoolVal.TRUE);
@@ -1220,7 +1220,7 @@ public final class Game {
         initFight(_d, pkLeg_);
     }
 
-    public void setChosenTeamPokemon(short _pk) {
+    public void setChosenTeamPokemon(int _pk) {
         player.setChosenTeamPokemon(_pk);
     }
 
@@ -1232,7 +1232,7 @@ public final class Game {
         player.nickname(_texte, _import);
     }
 
-    public void chooseFrontFighter(byte _pos, DataBase _import) {
+    public void chooseFrontFighter(int _pos, DataBase _import) {
         FightFacade.chooseFrontFighter(fight, _pos,difficulty,_import);
     }
 
@@ -1240,11 +1240,11 @@ public final class Game {
         FightFacade.changeAction(fight, _action, _import, difficulty);
     }
 
-    public void chooseBackFighter(byte _pos, DataBase _import) {
+    public void chooseBackFighter(int _pos, DataBase _import) {
         FightFacade.chooseBackFighter(fight, _pos,_import);
     }
 
-    public void chooseSubstituteFighter(byte _pos, DataBase _import) {
+    public void chooseSubstituteFighter(int _pos, DataBase _import) {
         FightFacade.chooseSubstituteFighter(fight, _pos,_import);
     }
 
@@ -1256,11 +1256,11 @@ public final class Game {
         FightFacade.deselect(fight);
     }
 
-    public void setFirstChosenMoveFoeTarget(byte _cible){
+    public void setFirstChosenMoveFoeTarget(int _cible){
         FightFacade.setFirstChosenMoveFoeTarget(fight,_cible);
     }
 
-    public void setFirstChosenMovePlayerTarget(byte _cible){
+    public void setFirstChosenMovePlayerTarget(int _cible){
         FightFacade.setFirstChosenMovePlayerTarget(fight,_cible);
     }
 
@@ -1268,7 +1268,7 @@ public final class Game {
         FightFacade.setChosenHealingItem(fight,_objet,_import);
     }
 
-    public NatStringTreeMap<BallNumberRate> calculateCatchingRatesSingle(DataBase _import, byte _creatureSauvage, byte _creatureUt) {
+    public NatStringTreeMap<BallNumberRate> calculateCatchingRatesSingle(DataBase _import, int _creatureSauvage, int _creatureUt) {
         return FightFacade.calculateCatchingRatesSingle(fight, difficulty, player, _import, _creatureSauvage, _creatureUt);
     }
 
@@ -1292,7 +1292,7 @@ public final class Game {
         return FightFacade.sortedFightersBeginRound(fight, _data);
     }
 
-    public void setSubstituteEndRound(byte _remplacant){
+    public void setSubstituteEndRound(int _remplacant){
         FightFacade.setSubstituteEndRound(fight,_remplacant);
     }
 
@@ -1559,7 +1559,7 @@ public final class Game {
     private int sommeNiveau() {
         int sommeNiveau_ = 0;
         Team equipeAdv_=fight.getFoeTeam();
-        for(byte c:equipeAdv_.getMembers().getKeys()){
+        for(int c:equipeAdv_.getMembers().getKeys()){
             Fighter creature_=equipeAdv_.getMembers().getVal(c);
             sommeNiveau_ += creature_.getLevel();
         }
@@ -1669,8 +1669,8 @@ public final class Game {
         commentGame.addComment(fight.getComment());
         if (!_enableAnimation) {
             for(String c:fight.getUsedItemsWhileRound().getKeys()){
-                short quantite_=fight.getUsedItemsWhileRound().getVal(c);
-                for(byte i = IndexConstants.FIRST_INDEX; i<quantite_; i++){
+                int quantite_=fight.getUsedItemsWhileRound().getVal(c);
+                for(int i = IndexConstants.FIRST_INDEX; i<quantite_; i++){
                     player.useInInventory(c);
                 }
             }
@@ -1694,8 +1694,8 @@ public final class Game {
         FightFacade.endRoundFightBasic(fight, difficulty, player, _import);
         commentGame.addComment(fight.getComment());
         for(String c:fight.getUsedItemsWhileRound().getKeys()){
-            short quantite_=fight.getUsedItemsWhileRound().getVal(c);
-            for(byte i = IndexConstants.FIRST_INDEX; i<quantite_; i++){
+            int quantite_=fight.getUsedItemsWhileRound().getVal(c);
+            for(int i = IndexConstants.FIRST_INDEX; i<quantite_; i++){
                 player.useInInventory(c);
             }
         }
@@ -1711,11 +1711,11 @@ public final class Game {
         return FightFacade.getPlayerTeam(fight);
     }
 
-    public ByteTreeMap<FighterPosition> getFoeFrontTeam() {
+    public IntTreeMap<FighterPosition> getFoeFrontTeam() {
         return FightFacade.getFoeFrontTeam(fight);
     }
 
-    public ByteTreeMap<FighterPosition> getUnionFrontTeam() {
+    public IntTreeMap<FighterPosition> getUnionFrontTeam() {
         return FightFacade.getUnionFrontTeam(fight);
     }
 
@@ -1759,15 +1759,15 @@ public final class Game {
 //        return FightFacade.getPlayerBackTeam(fight);
 //    }
 
-    public boolean isChosableForLearningAndEvolving(byte _key) {
+    public boolean isChosableForLearningAndEvolving(int _key) {
         return FightFacade.isChosableForLearningAndEvolving(fight, _key);
     }
 
-    public void choosePokemonForLearningAndEvolving(byte _key, DataBase _d) {
+    public void choosePokemonForLearningAndEvolving(int _key, DataBase _d) {
         FightFacade.choosePokemonForLearningAndEvolving(fight, _key, _d);
     }
 
-    public byte getChosenIndex() {
+    public int getChosenIndex() {
         return fight.getTemp().getChosenIndex();
     }
 
@@ -1912,7 +1912,7 @@ public final class Game {
         int s_ = ls_.size();
         for (int f = 0; f < s_; f++) {
             String catchingBall_ = ls_.get(f).getCatchingBall();
-            Fighter fighter_ = fight.getFighter(Fight.toFoeFighter((byte) f));
+            Fighter fighter_ = fight.getFighter(Fight.toFoeFighter(f));
             String pseudo_ = getNicknameOrDefault(ls_.get(f).getNickname(), _import, fighter_);
             if (!StringUtil.quickEq(catchingBall_,DataBase.EMPTY_STRING)) {
                 player.catchWildPokemon(fighter_,pseudo_, catchingBall_,difficulty, _import, ls_.get(f).isTeam());
@@ -2675,11 +2675,11 @@ public final class Game {
         player = _player;
     }
 
-    public byte getRankLeague() {
+    public int getRankLeague() {
         return rankLeague;
     }
 
-    public void setRankLeague(byte _rankLeague) {
+    public void setRankLeague(int _rankLeague) {
         rankLeague = _rankLeague;
     }
 

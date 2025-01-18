@@ -23,22 +23,22 @@ public class TeamPositionTest extends EquallablePkUtil {
     }
     @Test
     public void new_TeamPosition_4_test() {
-        TeamPosition t_ = new TeamPosition(Fighter.BACK, (byte) 0);
+        TeamPosition t_ = new TeamPosition(Fighter.BACK,  0);
         assertEq(0,t_.getPosition());
     }
     @Test
     public void new_TeamPosition_5_test() {
-        TeamPosition t_ = new TeamPosition((byte) 0,Fighter.BACK);
+        TeamPosition t_ = new TeamPosition( 0,Fighter.BACK);
         assertEq(Fighter.BACK,t_.getPosition());
     }
     @Test
     public void display1Test() {
-        TeamPosition t_ = new TeamPosition((byte) 0,(byte) 0);
+        TeamPosition t_ = new TeamPosition( 0, 0);
         assertNotNull(t_.display());
     }
     @Test
     public void display2Test() {
-        TeamPosition t_ = new TeamPosition((byte) 0,Fighter.BACK);
+        TeamPosition t_ = new TeamPosition( 0,Fighter.BACK);
         assertNotNull(t_.display());
     }
 }

@@ -13,7 +13,7 @@ public class PseudoFoeFighter extends PseudoFighter {
         super(_pokemon.getName(), _pokemon.getLevel());
     }
 
-    Rate pointsFoe(byte _mult,Difficulty _diff, DataBase _import) {
+    Rate pointsFoe(int _mult,Difficulty _diff, DataBase _import) {
         PokemonData fPk_ = _import.getPokemon(getName());
         Rate points_=new Rate(fPk_.getExpRate()*getLevel()*_mult);
         points_.multiplyBy(_diff.getWinTrainerExp());

@@ -8,7 +8,7 @@ import org.junit.Test;
 public class MoveTargetTest extends EquallablePkUtil {
     @Test
     public void new_MoveTarget_1_test() {
-        MoveTarget mt_ = new MoveTarget("",new TargetCoords((short) -1, Fighter.BACK));
+        MoveTarget mt_ = new MoveTarget("",new TargetCoords( -1, Fighter.BACK));
         assertNotNull(mt_.getTarget());
     }
     @Test

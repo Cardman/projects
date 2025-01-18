@@ -295,13 +295,13 @@ public abstract class InitDbPk extends InitDbConstr {
         facade_.getData().completeMembers(I_HOLD,item_);
         PokemonData pk0_ = specPk(new StringList(FIRST_GROUP), P_POK_00);
         EvolutionLevelSimple el0_ = Instances.newEvolutionLevelSimple();
-        el0_.setLevel((short)5);
+        el0_.setLevel(5);
         pk0_.getEvolutions().addEntry(P_POK_01, el0_);
         facade_.getData().completeMembers(P_POK_00, pk0_);
         PokemonData pk1_ = specPk(new StringList(FIRST_GROUP), P_POK_00);
         EvolutionLevelGender el1_ = Instances.newEvolutionLevelGender();
         el1_.setGender(Gender.NO_GENDER);
-        el1_.setLevel((short)5);
+        el1_.setLevel(5);
         pk1_.getEvolutions().addEntry(P_POK_02, el1_);
         facade_.getData().completeMembers(P_POK_01, pk1_);
         facade_.getData().completeMembers(P_POK_02, specPk(new StringList(FIRST_GROUP), P_POK_00));
@@ -517,15 +517,15 @@ public abstract class InitDbPk extends InitDbConstr {
     private static WildPk wpk(String _name) {
         WildPk w_ = Instances.newWildPk();
         w_.setGender(Gender.NO_GENDER);
-        w_.setLevel((short)1);
+        w_.setLevel(1);
         w_.setName(_name);
         return w_;
     }
 
     private static AreaApparition area() {
         AreaApparition a_ = Instances.newAreaApparition();
-        a_.setAvgNbSteps((short)2);
-        a_.setMultFight((byte)1);
+        a_.setAvgNbSteps(2);
+        a_.setMultFight(1);
         return a_;
     }
 

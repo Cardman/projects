@@ -11,11 +11,11 @@ public final class SelectPlayerTarget implements AbsMouseListenerIntRel {
 
     private final Battle battle;
 
-    private final byte number;
+    private final int number;
 
     private final MiniTargetLabel cur;
 
-    public SelectPlayerTarget(Battle _battle, byte _number, MiniTargetLabel _current) {
+    public SelectPlayerTarget(Battle _battle, int _number, MiniTargetLabel _current) {
         battle = _battle;
         number = _number;
         cur = _current;

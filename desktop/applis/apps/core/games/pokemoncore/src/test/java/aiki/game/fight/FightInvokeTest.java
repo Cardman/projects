@@ -34,12 +34,12 @@ public class FightInvokeTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(BROUHAHA, (short) 10);
-        moves_.put(COPIE, (short) 10);
-        moves_.put(GLAS_DE_SOIN, (short) 10);
-        moves_.put(INTERVERSION, (short) 10);
+        pokemon_.setLevel( 3);
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(BROUHAHA,  10);
+        moves_.put(COPIE,  10);
+        moves_.put(GLAS_DE_SOIN,  10);
+        moves_.put(INTERVERSION,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(_data);
@@ -58,7 +58,7 @@ public class FightInvokeTest extends InitializationDataBase {
         foePokemon_.setItem(PLAQUE_DRACO);
         foePokemon_.setAbility(MULTITYPE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
+        foePokemon_.setLevel( 3);
         foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
@@ -66,7 +66,7 @@ public class FightInvokeTest extends InitializationDataBase {
         foePokemon_.setItem(MAGNET);
         foePokemon_.setAbility(SECHERESSE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 4);
+        foePokemon_.setLevel( 4);
         foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
@@ -74,13 +74,13 @@ public class FightInvokeTest extends InitializationDataBase {
         foePokemon_.setItem(MAGNET);
         foePokemon_.setAbility(SECHERESSE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 4);
+        foePokemon_.setLevel( 4);
         foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         foeTeam_.add(foePokemon_);
         GymLeader trainer_ = new GymLeader();
         trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
-        trainer_.setMultiplicityFight((byte) 3);
+        trainer_.setReward( 200);
+        trainer_.setMultiplicityFight( 3);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, _data);
         return fight_;
@@ -596,7 +596,7 @@ public class FightInvokeTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
-        Fight fight_ = processInvokingMove(diff_, (byte) 1, data_);
+        Fight fight_ = processInvokingMove(diff_,  1, data_);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setLastSufferedMove(JACKPOT);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMoveTarget(MIMIQUE, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         FightRound.initRound(fight_);
@@ -625,12 +625,12 @@ public class FightInvokeTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(SEISME, (short) 10);
-        moves_.put(COPIE, (short) 10);
-        moves_.put(MIMIQUE, (short) 10);
-        moves_.put(INTERVERSION, (short) 10);
+        pokemon_.setLevel( 3);
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(SEISME,  10);
+        moves_.put(COPIE,  10);
+        moves_.put(MIMIQUE,  10);
+        moves_.put(INTERVERSION,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_, moves_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -649,7 +649,7 @@ public class FightInvokeTest extends InitializationDataBase {
         foePokemon_.setItem(PLAQUE_DRACO);
         foePokemon_.setAbility(MULTITYPE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
+        foePokemon_.setLevel( 3);
         foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
@@ -657,7 +657,7 @@ public class FightInvokeTest extends InitializationDataBase {
         foePokemon_.setItem(MAGNET);
         foePokemon_.setAbility(SECHERESSE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 4);
+        foePokemon_.setLevel( 4);
         foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
@@ -665,13 +665,13 @@ public class FightInvokeTest extends InitializationDataBase {
         foePokemon_.setItem(MAGNET);
         foePokemon_.setAbility(SECHERESSE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 4);
+        foePokemon_.setLevel( 4);
         foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         foeTeam_.add(foePokemon_);
         GymLeader trainer_ = new GymLeader();
         trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
-        trainer_.setMultiplicityFight((byte) 1);
+        trainer_.setReward( 200);
+        trainer_.setMultiplicityFight( 1);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
         fight_.getTemp().setSimulation(true);
@@ -692,19 +692,19 @@ public class FightInvokeTest extends InitializationDataBase {
         assertTrue(!fight_.getTemp().getAcceptableChoices());
     }
 
-    private static Fight processInvokingMove(Difficulty _diff, byte _mult, DataBase _data) {
+    private static Fight processInvokingMove(Difficulty _diff, int _mult, DataBase _data) {
         Player player_ = Player.build(NICKNAME,_diff,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 3);
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(SEISME, (short) 10);
-        moves_.put(COPIE, (short) 10);
-        moves_.put(MIMIQUE, (short) 10);
-        moves_.put(INTERVERSION, (short) 10);
+        pokemon_.setLevel( 3);
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(SEISME,  10);
+        moves_.put(COPIE,  10);
+        moves_.put(MIMIQUE,  10);
+        moves_.put(INTERVERSION,  10);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
         lasPk_.initIv(_diff);
         lasPk_.initPvRestants(_data);
@@ -723,7 +723,7 @@ public class FightInvokeTest extends InitializationDataBase {
         foePokemon_.setItem(PLAQUE_DRACO);
         foePokemon_.setAbility(MULTITYPE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
+        foePokemon_.setLevel( 3);
         foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
@@ -731,7 +731,7 @@ public class FightInvokeTest extends InitializationDataBase {
         foePokemon_.setItem(MAGNET);
         foePokemon_.setAbility(SECHERESSE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 4);
+        foePokemon_.setLevel( 4);
         foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
@@ -739,12 +739,12 @@ public class FightInvokeTest extends InitializationDataBase {
         foePokemon_.setItem(MAGNET);
         foePokemon_.setAbility(SECHERESSE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 4);
+        foePokemon_.setLevel( 4);
         foePokemon_.setMoves(new StringList(JACKPOT,PAR_ICI,COPIE));
         foeTeam_.add(foePokemon_);
         GymLeader trainer_ = new GymLeader();
         trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
+        trainer_.setReward( 200);
         trainer_.setMultiplicityFight(_mult);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, _diff, trainer_, _data);
@@ -756,7 +756,7 @@ public class FightInvokeTest extends InitializationDataBase {
     public void processInvokingMove1Test() {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
-        Fight fight_ = processInvokingMove(diff_, (byte) 1, data_);
+        Fight fight_ = processInvokingMove(diff_,  1, data_);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMove(SEISME);
         FightRound.initRound(fight_);
         FightInvoke.processInvokingMove(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
@@ -774,7 +774,7 @@ public class FightInvokeTest extends InitializationDataBase {
     public void processInvokingMove2Test() {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
-        Fight fight_ = processInvokingMove(diff_, (byte) 1, data_);
+        Fight fight_ = processInvokingMove(diff_,  1, data_);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setLastSufferedMove(JACKPOT);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMoveTarget(MIMIQUE, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         FightRound.initRound(fight_);
@@ -794,7 +794,7 @@ public class FightInvokeTest extends InitializationDataBase {
     public void processInvokingMove3Test() {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
-        Fight fight_ = processInvokingMove(diff_, (byte) 1, data_);
+        Fight fight_ = processInvokingMove(diff_,  1, data_);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setLastSufferedMove(BOOST);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMoveTarget(MIMIQUE, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         FightRound.initRound(fight_);
@@ -813,7 +813,7 @@ public class FightInvokeTest extends InitializationDataBase {
     public void processInvokingMove4Test() {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
-        Fight fight_ = processInvokingMove(diff_, (byte) 2, data_);
+        Fight fight_ = processInvokingMove(diff_,  2, data_);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMoveTarget(ASSISTANCE_BIS, tc(KEY_PLAYER, POKEMON_TARGET_ONE));
         FightRound.initRound(fight_);
         FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
@@ -832,7 +832,7 @@ public class FightInvokeTest extends InitializationDataBase {
     public void processInvokingMove1SimulationTest() {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
-        Fight fight_ = processInvokingMove(diff_, (byte) 1, data_);
+        Fight fight_ = processInvokingMove(diff_,  1, data_);
         fight_.getTemp().setSimulation(true);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setLastSufferedMove(JACKPOT);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMoveTarget(METRONOME, tc(KEY_FOE, POKEMON_TARGET_ZERO));

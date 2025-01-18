@@ -8,7 +8,7 @@ import code.util.CustList;
 
 public abstract class TrainerOneFight extends Trainer implements Rewardable {
 
-    private short reward;
+    private int reward;
 
     private CustList<PkTrainer> team;
 
@@ -29,11 +29,11 @@ public abstract class TrainerOneFight extends Trainer implements Rewardable {
     }
 
     @Override
-    public short getReward() {
+    public int getReward() {
         return reward;
     }
 
-    public void setReward(short _reward) {
+    public void setReward(int _reward) {
         reward = _reward;
     }
 

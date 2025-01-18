@@ -117,7 +117,7 @@ public class GameTest extends InitializationDataBase {
         pk_.setName(MEW);
         pk_.setAbility(PARATONNERRE);
         pk_.setGender(Gender.NO_GENDER);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setItem(NULL_REF);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
@@ -444,7 +444,7 @@ public class GameTest extends InitializationDataBase {
         game_.beatGymLeader(newCoords(3, 0, 4, 1, 4, 1));
         game_.setPlayerCoords(newCoords(6, 0, 4, 5));
         game_.setPlayerOrientation(Direction.UP);
-        game_.setRankLeague((byte) 1);
+        game_.setRankLeague( 1);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
         assertEq(InterfaceType.PERSONNAGE, game_.getInterfaceType());
     }
@@ -625,7 +625,7 @@ public class GameTest extends InitializationDataBase {
         pk_.setName(MEW);
         pk_.setAbility(PARATONNERRE);
         pk_.setGender(Gender.NO_GENDER);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setItem(NULL_REF);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
         assertTrue(game_.isEmpty(data_.getMap(), newCoords(2, 0, 11, 2)));
@@ -851,7 +851,7 @@ public class GameTest extends InitializationDataBase {
         assertEq(1, nbTakenObjects(game_.getTakenObjects(),true));
         assertEq(3, nbTakenObjects(game_.getTakenObjects(),false));
         assertSame(BoolVal.TRUE,game_.getTakenObjects().getVal(newCoords(2, 0, 7, 5)));
-        assertTrue(game_.getPlayer().getInventory().gotTm().containsObj((short) 2));
+        assertTrue(game_.getPlayer().getInventory().gotTm().containsObj( 2));
     }
 
     @Test
@@ -867,7 +867,7 @@ public class GameTest extends InitializationDataBase {
         assertEq(1, nbTakenObjects(game_.getTakenObjects(),true));
         assertEq(3, nbTakenObjects(game_.getTakenObjects(),false));
         assertSame(BoolVal.TRUE,game_.getTakenObjects().getVal(newCoords(2, 0, 8, 5)));
-        assertTrue(game_.getPlayer().getInventory().gotHm().containsObj((short) 1));
+        assertTrue(game_.getPlayer().getInventory().gotHm().containsObj( 1));
     }
 
     @Test
@@ -883,7 +883,7 @@ public class GameTest extends InitializationDataBase {
         assertEq(1, nbTakenObjects(game_.getTakenObjects(),true));
         assertEq(3, nbTakenObjects(game_.getTakenObjects(),false));
         assertSame(BoolVal.TRUE,game_.getTakenObjects().getVal(newCoords(0, 0, 0, 1)));
-        assertTrue(game_.getPlayer().getInventory().gotTm().containsObj((short) 5));
+        assertTrue(game_.getPlayer().getInventory().gotTm().containsObj( 5));
         assertEq(new LgInt("1"), game_.getPlayer().getInventory().getNumber(HYPER_BALL));
     }
 
@@ -929,16 +929,16 @@ public class GameTest extends InitializationDataBase {
         game_.getDifficulty().setRandomWildFight(false);
         Pokemon pk_ = new WildPk();
         pk_.setName(PTITARD);
-        pk_.setLevel((short) 24);
+        pk_.setLevel( 24);
         pk_.setAbility(ABSORB_EAU);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setItem(NULL_REF);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         assertEq(PTITARD, ((PokemonPlayer) game_.getPlayer().getTeam().get(0)).getName());
         DataMap map_ = data_.getMap();
-        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace( 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AbsAreaApparition area_;
@@ -946,7 +946,7 @@ public class GameTest extends InitializationDataBase {
         game_.newIndex(true, 0, area_, data_);
         game_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
         game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setRemainedHp(Rate.one());
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.setChosenHealingItem(EAU_FRAICHE, data_);
         game_.roundAllThrowers(data_, false);
         assertEq(LgInt.zero(), game_.getPlayer().getInventory().getNumber(EAU_FRAICHE));
@@ -964,16 +964,16 @@ public class GameTest extends InitializationDataBase {
         game_.getDifficulty().setRandomWildFight(false);
         Pokemon pk_ = new WildPk();
         pk_.setName(PTITARD);
-        pk_.setLevel((short) 25);
+        pk_.setLevel( 25);
         pk_.setAbility(ABSORB_EAU);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setItem(NULL_REF);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         assertEq(PTITARD, ((PokemonPlayer) game_.getPlayer().getTeam().get(0)).getName());
         DataMap map_ = data_.getMap();
-        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace( 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AbsAreaApparition area_;
@@ -981,7 +981,7 @@ public class GameTest extends InitializationDataBase {
         game_.newIndex(true, 0, area_, data_);
         game_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
         game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setRemainedHp(Rate.one());
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.setChosenHealingItem(EAU_FRAICHE, data_);
         game_.roundAllThrowers(data_, false);
         assertEq(LgInt.zero(), game_.getPlayer().getInventory().getNumber(EAU_FRAICHE));
@@ -1001,16 +1001,16 @@ public class GameTest extends InitializationDataBase {
         game_.getDifficulty().setRandomWildFight(false);
         Pokemon pk_ = new WildPk();
         pk_.setName(PTITARD);
-        pk_.setLevel((short) 25);
+        pk_.setLevel( 25);
         pk_.setAbility(ABSORB_EAU);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setItem(NULL_REF);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         assertEq(PTITARD, ((PokemonPlayer) game_.getPlayer().getTeam().get(0)).getName());
         DataMap map_ = data_.getMap();
-        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace( 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AbsAreaApparition area_;
@@ -1018,9 +1018,9 @@ public class GameTest extends InitializationDataBase {
         game_.newIndex(true, 0, area_, data_);
         game_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
         game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setRemainedHp(Rate.one());
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.chooseMove(BULLES_D_O, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.roundAllThrowers(data_, false);
         assertEq(new LgInt("1"), game_.getPlayer().getInventory().getNumber(EAU_FRAICHE));
         assertEq(FightState.APPRENDRE_EVOLUER, game_.getFight().getState());
@@ -1039,16 +1039,16 @@ public class GameTest extends InitializationDataBase {
         game_.getDifficulty().setRandomWildFight(false);
         Pokemon pk_ = new WildPk();
         pk_.setName(TETARTE);
-        pk_.setLevel((short) 100);
+        pk_.setLevel( 100);
         pk_.setAbility(ABSORB_EAU);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setItem(NULL_REF);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         assertEq(TETARTE, ((PokemonPlayer) game_.getPlayer().getTeam().get(0)).getName());
         DataMap map_ = data_.getMap();
-        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace( 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AbsAreaApparition area_;
@@ -1056,9 +1056,9 @@ public class GameTest extends InitializationDataBase {
         game_.newIndex(true, 0, area_, data_);
         game_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
         game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setRemainedHp(Rate.one());
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.chooseMove(BOUE_BOMBE, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.roundAllThrowers(data_, false);
         assertEq(new LgInt("1"), game_.getPlayer().getInventory().getNumber(EAU_FRAICHE));
         assertTrue(!game_.getFight().getFightType().isExisting());
@@ -1076,18 +1076,18 @@ public class GameTest extends InitializationDataBase {
         game_.getDifficulty().setRandomWildFight(false);
         Pokemon pk_ = new WildPk();
         pk_.setName(PTITARD);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         pk_.setAbility(ABSORB_EAU);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setItem(NULL_REF);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         game_.getPlayer().setSelectedMove(DEMI_TOUR);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
+        game_.getPlayer().setChosenTeamPokemon( 0);
         game_.getPlayer().learnMove(TOURNIQUET, data_);
         DataMap map_ = data_.getMap();
-        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace( 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AbsAreaApparition area_;
@@ -1095,9 +1095,9 @@ public class GameTest extends InitializationDataBase {
         game_.newIndex(true, 0, area_, data_);
         game_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
         game_.getFight().getFoeTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.chooseMove(DEMI_TOUR, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.roundAllThrowers(data_, false);
         assertEq(FightState.SWITCH_APRES_ATTAQUE, game_.getFight().getState());
         game_.roundAllThrowers(data_, false);
@@ -1115,18 +1115,18 @@ public class GameTest extends InitializationDataBase {
         game_.getDifficulty().setRandomWildFight(false);
         Pokemon pk_ = new WildPk();
         pk_.setName(PTITARD);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         pk_.setAbility(ABSORB_EAU);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setItem(NULL_REF);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         game_.getPlayer().setSelectedMove(DEMI_TOUR);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
+        game_.getPlayer().setChosenTeamPokemon( 0);
         game_.getPlayer().learnMove(TOURNIQUET, data_);
         DataMap map_ = data_.getMap();
-        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace( 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AbsAreaApparition area_;
@@ -1135,9 +1135,9 @@ public class GameTest extends InitializationDataBase {
         game_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
         game_.getFight().getFoeTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
         game_.getFight().getEnabledMoves().getVal(TEMPETESABLE).enable();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.chooseMove(DEMI_TOUR, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.roundAllThrowers(data_, false);
         assertEq(FightState.SWITCH_APRES_ATTAQUE, game_.getFight().getState());
         game_.roundAllThrowers(data_, false);
@@ -1156,18 +1156,18 @@ public class GameTest extends InitializationDataBase {
         game_.getDifficulty().setRandomWildFight(false);
         Pokemon pk_ = new WildPk();
         pk_.setName(PTITARD);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         pk_.setAbility(ABSORB_EAU);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setItem(NULL_REF);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         game_.getPlayer().setSelectedMove(DEMI_TOUR);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
+        game_.getPlayer().setChosenTeamPokemon( 0);
         game_.getPlayer().learnMove(TOURNIQUET, data_);
         DataMap map_ = data_.getMap();
-        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace( 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AbsAreaApparition area_;
@@ -1176,9 +1176,9 @@ public class GameTest extends InitializationDataBase {
         game_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
         game_.getFight().getFoeTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
         game_.getFight().getEnabledMoves().getVal(TEMPETESABLE).enable();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.chooseMove(DEMI_TOUR, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.getFight().wildPokemon().setRemainedHp(new Rate("56/5"));
         game_.roundAllThrowers(data_, false);
         assertEq(FightState.SWITCH_APRES_ATTAQUE, game_.getFight().getState());
@@ -1199,18 +1199,18 @@ public class GameTest extends InitializationDataBase {
         game_.getDifficulty().setRandomWildFight(false);
         Pokemon pk_ = new WildPk();
         pk_.setName(PTITARD);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         pk_.setAbility(ABSORB_EAU);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setItem(NULL_REF);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         game_.getPlayer().setSelectedMove(DEMI_TOUR);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
+        game_.getPlayer().setChosenTeamPokemon( 0);
         game_.getPlayer().learnMove(TOURNIQUET, data_);
         DataMap map_ = data_.getMap();
-        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace( 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AbsAreaApparition area_;
@@ -1219,13 +1219,13 @@ public class GameTest extends InitializationDataBase {
         game_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
         game_.getFight().getFoeTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
         game_.getFight().getEnabledMoves().getVal(TEMPETESABLE).enable();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.chooseMove(DEMI_TOUR, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.getFight().wildPokemon().setRemainedHp(new Rate("56/5"));
         game_.roundAllThrowers(data_, false);
         assertEq(FightState.SWITCH_APRES_ATTAQUE, game_.getFight().getState());
-        game_.chooseBackFighter((byte) 0, data_);
+        game_.chooseBackFighter( 0, data_);
         game_.roundAllThrowers(data_, false);
         assertTrue(FightFacade.win(game_.getFight()));
     }
@@ -1241,18 +1241,18 @@ public class GameTest extends InitializationDataBase {
         game_.getDifficulty().setRandomWildFight(false);
         Pokemon pk_ = new WildPk();
         pk_.setName(PTITARD);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         pk_.setAbility(ABSORB_EAU);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setItem(NULL_REF);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         game_.getPlayer().setSelectedMove(DEMI_TOUR);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
+        game_.getPlayer().setChosenTeamPokemon( 0);
         game_.getPlayer().learnMove(TOURNIQUET, data_);
         DataMap map_ = data_.getMap();
-        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace( 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AbsAreaApparition area_;
@@ -1261,12 +1261,12 @@ public class GameTest extends InitializationDataBase {
         game_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
         game_.getFight().getFoeTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
         game_.getFight().getEnabledMoves().getVal(TEMPETESABLE).enable();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.chooseMove(DEMI_TOUR, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.roundAllThrowers(data_, false);
         assertEq(FightState.SWITCH_APRES_ATTAQUE, game_.getFight().getState());
-        game_.chooseBackFighter((byte) 0, data_);
+        game_.chooseBackFighter( 0, data_);
         game_.roundAllThrowers(data_, false);
         assertEq(FightState.ATTAQUES, game_.getFight().getState());
         assertTrue(game_.getFight().getFightType().isWild());
@@ -1283,18 +1283,18 @@ public class GameTest extends InitializationDataBase {
         game_.getDifficulty().setRandomWildFight(false);
         Pokemon pk_ = new WildPk();
         pk_.setName(PTITARD);
-        pk_.setLevel((short) 5);
+        pk_.setLevel( 5);
         pk_.setAbility(ABSORB_EAU);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setItem(NULL_REF);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         game_.getPlayer().setSelectedMove(DEMI_TOUR);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
+        game_.getPlayer().setChosenTeamPokemon( 0);
         game_.getPlayer().learnMove(TOURNIQUET, data_);
         DataMap map_ = data_.getMap();
-        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace( 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AbsAreaApparition area_;
@@ -1303,9 +1303,9 @@ public class GameTest extends InitializationDataBase {
         game_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
         game_.getFight().getFoeTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
         game_.getFight().getEnabledMoves().getVal(TEMPETESABLE).enable();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.chooseMove(DEMI_TOUR, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.roundAllThrowers(data_, true);
         assertEq(FightState.ATTAQUES, game_.getFight().getState());
         assertTrue(game_.getFight().getFightType().isWild());
@@ -1323,16 +1323,16 @@ public class GameTest extends InitializationDataBase {
         game_.getDifficulty().setRandomWildFight(false);
         Pokemon pk_ = new WildPk();
         pk_.setName(PTITARD);
-        pk_.setLevel((short) 24);
+        pk_.setLevel( 24);
         pk_.setAbility(ABSORB_EAU);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setItem(NULL_REF);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         assertEq(PTITARD, ((PokemonPlayer) game_.getPlayer().getTeam().get(0)).getName());
         DataMap map_ = data_.getMap();
-        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace( 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AbsAreaApparition area_;
@@ -1340,7 +1340,7 @@ public class GameTest extends InitializationDataBase {
         game_.newIndex(true, 0, area_, data_);
         game_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
         game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setRemainedHp(Rate.one());
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.setChosenHealingItem(EAU_FRAICHE, data_);
         game_.roundAllThrowers(data_, true);
         game_.roundUser(data_);
@@ -1361,16 +1361,16 @@ public class GameTest extends InitializationDataBase {
         game_.getDifficulty().setRandomWildFight(false);
         Pokemon pk_ = new WildPk();
         pk_.setName(PTITARD);
-        pk_.setLevel((short) 25);
+        pk_.setLevel( 25);
         pk_.setAbility(ABSORB_EAU);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setItem(NULL_REF);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         assertEq(PTITARD, ((PokemonPlayer) game_.getPlayer().getTeam().get(0)).getName());
         DataMap map_ = data_.getMap();
-        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace( 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AbsAreaApparition area_;
@@ -1378,7 +1378,7 @@ public class GameTest extends InitializationDataBase {
         game_.newIndex(true, 0, area_, data_);
         game_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
         game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setRemainedHp(Rate.one());
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.setChosenHealingItem(EAU_FRAICHE, data_);
         game_.roundAllThrowers(data_, true);
         game_.roundUser(data_);
@@ -1401,16 +1401,16 @@ public class GameTest extends InitializationDataBase {
         game_.getDifficulty().setRandomWildFight(false);
         Pokemon pk_ = new WildPk();
         pk_.setName(TETARTE);
-        pk_.setLevel((short) 100);
+        pk_.setLevel( 100);
         pk_.setAbility(ABSORB_EAU);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setItem(NULL_REF);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         assertEq(TETARTE, ((PokemonPlayer) game_.getPlayer().getTeam().get(0)).getName());
         DataMap map_ = data_.getMap();
-        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace( 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AbsAreaApparition area_;
@@ -1418,9 +1418,9 @@ public class GameTest extends InitializationDataBase {
         game_.newIndex(true, 0, area_, data_);
         game_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
         game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setRemainedHp(Rate.one());
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.chooseMove(BOUE_BOMBE, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.roundAllThrowers(data_, true);
         game_.roundUser(data_);
         game_.endRoundFightBasic(data_);
@@ -1439,22 +1439,22 @@ public class GameTest extends InitializationDataBase {
         game_.getDifficulty().setRandomWildFight(false);
         Pokemon pk_ = new WildPk();
         pk_.setName(PTITARD);
-        pk_.setLevel((short) 25);
+        pk_.setLevel( 25);
         pk_.setAbility(ABSORB_EAU);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setItem(NULL_REF);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         game_.initTrainerFight(data_);
         game_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
         game_.getFight().getFoeTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.chooseMove(BULLES_D_O, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.roundAllThrowers(data_, false);
         assertEq(FightState.APPRENDRE_EVOLUER, game_.getFight().getState());
-        game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
+        game_.choosePokemonForLearningAndEvolving( 0, data_);
         game_.addOrForgetMove(ECUME);
         game_.learnAndEvolve(data_);
         assertEq(FightState.APPRENDRE_EVOLUER, game_.getFight().getState());
@@ -1470,22 +1470,22 @@ public class GameTest extends InitializationDataBase {
         game_.getDifficulty().setRandomWildFight(false);
         Pokemon pk_ = new WildPk();
         pk_.setName(PTITARD);
-        pk_.setLevel((short) 25);
+        pk_.setLevel( 25);
         pk_.setAbility(ABSORB_EAU);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setItem(NULL_REF);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         game_.initTrainerFight(data_);
         game_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
         game_.getFight().getFoeTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.chooseMove(BULLES_D_O, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.roundAllThrowers(data_, false);
         assertEq(FightState.APPRENDRE_EVOLUER, game_.getFight().getState());
-        game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
+        game_.choosePokemonForLearningAndEvolving( 0, data_);
         game_.setEvolution(TETARTE);
         game_.learnAndEvolve(data_);
         assertEq(FightState.SWITCH_PROPOSE, game_.getFight().getState());
@@ -1502,16 +1502,16 @@ public class GameTest extends InitializationDataBase {
         game_.getDifficulty().setRandomWildFight(false);
         Pokemon pk_ = new WildPk();
         pk_.setName(PTITARD);
-        pk_.setLevel((short) 25);
+        pk_.setLevel( 25);
         pk_.setAbility(ABSORB_EAU);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setItem(NULL_REF);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         assertEq(PTITARD, ((PokemonPlayer) game_.getPlayer().getTeam().get(0)).getName());
         DataMap map_ = data_.getMap();
-        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace( 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AbsAreaApparition area_;
@@ -1519,11 +1519,11 @@ public class GameTest extends InitializationDataBase {
         game_.newIndex(true, 0, area_, data_);
         game_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
         game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setRemainedHp(Rate.one());
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.setChosenHealingItem(EAU_FRAICHE, data_);
         game_.roundAllThrowers(data_, false);
         assertEq(FightState.APPRENDRE_EVOLUER, game_.getFight().getState());
-        game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
+        game_.choosePokemonForLearningAndEvolving( 0, data_);
         game_.setEvolution(TETARTE);
         game_.learnAndEvolve(data_);
         assertEq(FightState.ATTAQUES, game_.getFight().getState());
@@ -1541,28 +1541,28 @@ public class GameTest extends InitializationDataBase {
         game_.getDifficulty().setRandomWildFight(false);
         Pokemon pk_ = new WildPk();
         pk_.setName(PTITARD);
-        pk_.setLevel((short) 25);
+        pk_.setLevel( 25);
         pk_.setAbility(ABSORB_EAU);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setItem(NULL_REF);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         assertEq(PTITARD, ((PokemonPlayer) game_.getPlayer().getTeam().get(0)).getName());
         DataMap map_ = data_.getMap();
-        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace( 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AbsAreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newIndex(true, 0, area_, data_);
         game_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.chooseMove(BULLES_D_O, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.roundAllThrowers(data_, false);
         assertEq(FightState.APPRENDRE_EVOLUER, game_.getFight().getState());
-        game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
+        game_.choosePokemonForLearningAndEvolving( 0, data_);
         game_.setEvolution(TETARTE);
         game_.learnAndEvolve(data_);
         assertTrue(FightFacade.win(game_.getFight()));
@@ -1579,22 +1579,22 @@ public class GameTest extends InitializationDataBase {
         game_.getDifficulty().setRandomWildFight(false);
         Pokemon pk_ = new WildPk();
         pk_.setName(PTITARD);
-        pk_.setLevel((short) 25);
+        pk_.setLevel( 25);
         pk_.setAbility(ABSORB_EAU);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setItem(NULL_REF);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         game_.initTrainerFight(data_);
         game_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
         game_.getFight().getFoeTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.chooseMove(BULLES_D_O, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.roundAllThrowers(data_, false);
         assertEq(FightState.APPRENDRE_EVOLUER, game_.getFight().getState());
-        game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
+        game_.choosePokemonForLearningAndEvolving( 0, data_);
         game_.setEvolution(TETARTE);
         game_.learnAndEvolve(data_);
         assertEq(FightState.SWITCH_PROPOSE, game_.getFight().getState());
@@ -1612,24 +1612,24 @@ public class GameTest extends InitializationDataBase {
         game_.getDifficulty().setRandomWildFight(false);
         Pokemon pk_ = new WildPk();
         pk_.setName(PTITARD);
-        pk_.setLevel((short) 25);
+        pk_.setLevel( 25);
         pk_.setAbility(ABSORB_EAU);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setItem(NULL_REF);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         game_.initTrainerFight(data_);
         game_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
         game_.getFight().getFoeTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.chooseMove(BULLES_D_O, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.getFight().getUserTeam().getEnabledMovesWhileSendingFoeUses().getVal(PICOTS).increment();
         game_.getFight().getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).setRemainedHp(Rate.one());
         game_.roundAllThrowers(data_, false);
         assertEq(FightState.APPRENDRE_EVOLUER, game_.getFight().getState());
-        game_.choosePokemonForLearningAndEvolving((byte) 0, data_);
+        game_.choosePokemonForLearningAndEvolving( 0, data_);
         game_.setEvolution(TETARTE);
         game_.learnAndEvolve(data_);
         assertEq(FightState.SWITCH_PROPOSE, game_.getFight().getState());
@@ -1651,19 +1651,19 @@ public class GameTest extends InitializationDataBase {
         game_.getDifficulty().setRandomWildFight(false);
         Pokemon pk_ = new WildPk();
         pk_.setName(TETARTE);
-        pk_.setLevel((short) 100);
+        pk_.setLevel( 100);
         pk_.setAbility(ABSORB_EAU);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setItem(NULL_REF);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data_);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        game_.getPlayer().setChosenTeamPokemon( 0);
+        game_.getPlayer().switchTeamOrder( 1);
         game_.initTrainerFight(data_);
         game_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
         game_.getFight().getFoeTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
-        game_.chooseFrontFighter((byte) 0, data_);
+        game_.chooseFrontFighter( 0, data_);
         game_.chooseMove(BOUE_BOMBE, data_);
-        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.setFirstChosenMoveFoeTarget( 0);
         game_.getFight().getUserTeam().getEnabledMovesWhileSendingFoeUses().getVal(PICOTS).increment();
         game_.getFight().getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).setRemainedHp(Rate.one());
         game_.roundAllThrowers(data_, false);
@@ -1988,7 +1988,7 @@ public class GameTest extends InitializationDataBase {
         game_.getBeatGymTrainer().getVal(3).add(newPoint(1, 7));
         game_.getBeatGymTrainer().getVal(3).add(newPoint(7, 7));
         game_.beatGymLeader(newCoords(3, 0, 4, 1, 4, 1));
-        game_.setRankLeague((byte) 1);
+        game_.setRankLeague( 1);
         game_.movingHero(data_);
         assertTrue(game_.isPlaceChanged());
         assertEq(1, game_.getNbSteps());
@@ -2008,7 +2008,7 @@ public class GameTest extends InitializationDataBase {
         game_.getBeatGymTrainer().getVal(3).add(newPoint(1, 7));
         game_.getBeatGymTrainer().getVal(3).add(newPoint(7, 7));
         game_.beatGymLeader(newCoords(3, 0, 4, 1, 4, 1));
-        game_.setRankLeague((byte) 1);
+        game_.setRankLeague( 1);
         game_.movingHero(data_);
         assertTrue(!game_.isPlaceChanged());
         assertEq(1, game_.getNbSteps());
@@ -2028,7 +2028,7 @@ public class GameTest extends InitializationDataBase {
         game_.getBeatGymTrainer().getVal(3).add(newPoint(1, 7));
         game_.getBeatGymTrainer().getVal(3).add(newPoint(7, 7));
         game_.beatGymLeader(newCoords(3, 0, 4, 1, 4, 1));
-        game_.setRankLeague((byte) 2);
+        game_.setRankLeague( 2);
         game_.movingHero(data_);
         assertTrue(game_.isPlaceChanged());
         assertEq(1, game_.getNbSteps());
@@ -2085,7 +2085,7 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.UP);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(ARTIKODIN);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
@@ -2105,7 +2105,7 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.LEFT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(ARTIKODIN);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
@@ -2310,7 +2310,7 @@ public class GameTest extends InitializationDataBase {
         game_.beatGymLeader(newCoords(2, 0, 4, 0));
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(ARTIKODIN);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
@@ -2437,7 +2437,7 @@ public class GameTest extends InitializationDataBase {
         game_.beatGymLeader(newCoords(2, 0, 4, 0));
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(ARTIKODIN);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
@@ -3140,13 +3140,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         PokemonPlayer pokemonFemale_ = new PokemonPlayer(pokemonDonne_, data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         PokemonPlayer pokemonMale_ = new PokemonPlayer(pokemonDonne_, data_);
@@ -3170,13 +3170,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         PokemonPlayer pokemonFemale_ = new PokemonPlayer(pokemonDonne_, data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         PokemonPlayer pokemonMale_ = new PokemonPlayer(pokemonDonne_, data_);
@@ -3201,13 +3201,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
@@ -3227,13 +3227,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
@@ -3241,7 +3241,7 @@ public class GameTest extends InitializationDataBase {
         PokemonPlayer pkOne_=(PokemonPlayer) game_.getPlayer().getTeam().get(2);
         PokemonPlayer pkTwo_=(PokemonPlayer) game_.getPlayer().getTeam().get(2);
         assertTrue(!Game.canStoreThesePokemonToHost(new Comment(), pkOne_,pkTwo_, data_));
-        //assertTrue(!game_.canStoreThesePokemonToHost((short) 2,(short) 2, data));
+        //assertTrue(!game_.canStoreThesePokemonToHost( 2, 2, data));
     }
 
     @Test
@@ -3254,13 +3254,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
@@ -3268,7 +3268,7 @@ public class GameTest extends InitializationDataBase {
         PokemonPlayer pkOne_=(PokemonPlayer) game_.getPlayer().getTeam().get(1);
         PokemonPlayer pkTwo_=(PokemonPlayer) game_.getPlayer().getTeam().get(2);
         assertTrue(Game.canStoreThesePokemonToHost(new Comment(), pkOne_,pkTwo_, data_));
-        //assertTrue(game_.canStoreThesePokemonToHost((short) 1,(short) 2, data));
+        //assertTrue(game_.canStoreThesePokemonToHost( 1, 2, data));
     }
 
     @Test
@@ -3281,13 +3281,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
@@ -3295,7 +3295,7 @@ public class GameTest extends InitializationDataBase {
         PokemonPlayer pkOne_=(PokemonPlayer) game_.getPlayer().getTeam().get(2);
         PokemonPlayer pkTwo_=(PokemonPlayer) game_.getPlayer().getTeam().get(1);
         assertTrue(Game.canStoreThesePokemonToHost(new Comment(), pkOne_,pkTwo_, data_));
-        //assertTrue(game_.canStoreThesePokemonToHost((short) 2,(short) 1, data));
+        //assertTrue(game_.canStoreThesePokemonToHost( 2, 1, data));
     }
 
     @Test
@@ -3308,13 +3308,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
@@ -3322,7 +3322,7 @@ public class GameTest extends InitializationDataBase {
         PokemonPlayer pkOne_=(PokemonPlayer) game_.getPlayer().getTeam().get(1);
         PokemonPlayer pkTwo_=(PokemonPlayer) game_.getPlayer().getTeam().get(2);
         assertTrue(!Game.canStoreThesePokemonToHost(new Comment(), pkOne_,pkTwo_, data_));
-        //assertTrue(!game_.canStoreThesePokemonToHost((short) 1,(short) 2, data));
+        //assertTrue(!game_.canStoreThesePokemonToHost( 1, 2, data));
     }
 
     @Test
@@ -3335,13 +3335,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
@@ -3349,7 +3349,7 @@ public class GameTest extends InitializationDataBase {
         PokemonPlayer pkOne_=(PokemonPlayer) game_.getPlayer().getTeam().get(2);
         PokemonPlayer pkTwo_=(PokemonPlayer) game_.getPlayer().getTeam().get(1);
         assertTrue(!Game.canStoreThesePokemonToHost(new Comment(), pkOne_,pkTwo_, data_));
-        //assertTrue(!game_.canStoreThesePokemonToHost((short) 2,(short) 1, data));
+        //assertTrue(!game_.canStoreThesePokemonToHost( 2, 1, data));
     }
 
     @Test
@@ -3362,13 +3362,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PIKACHU);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
@@ -3376,7 +3376,7 @@ public class GameTest extends InitializationDataBase {
         PokemonPlayer pkOne_=(PokemonPlayer) game_.getPlayer().getTeam().get(1);
         PokemonPlayer pkTwo_=(PokemonPlayer) game_.getPlayer().getTeam().get(2);
         assertTrue(!Game.canStoreThesePokemonToHost(new Comment(), pkOne_,pkTwo_, data_));
-        //assertTrue(!game_.canStoreThesePokemonToHost((short) 1,(short) 2, data));
+        //assertTrue(!game_.canStoreThesePokemonToHost( 1, 2, data));
     }
 
     @Test
@@ -3389,13 +3389,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PIKACHU);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
@@ -3403,7 +3403,7 @@ public class GameTest extends InitializationDataBase {
         PokemonPlayer pkOne_=(PokemonPlayer) game_.getPlayer().getTeam().get(2);
         PokemonPlayer pkTwo_=(PokemonPlayer) game_.getPlayer().getTeam().get(1);
         assertTrue(!Game.canStoreThesePokemonToHost(new Comment(), pkOne_,pkTwo_, data_));
-        //assertTrue(!game_.canStoreThesePokemonToHost((short) 2,(short) 1, data));
+        //assertTrue(!game_.canStoreThesePokemonToHost( 2, 1, data));
     }
 
     @Test
@@ -3416,13 +3416,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PIKACHU);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
@@ -3430,7 +3430,7 @@ public class GameTest extends InitializationDataBase {
         PokemonPlayer pkOne_=(PokemonPlayer) game_.getPlayer().getTeam().get(2);
         PokemonPlayer pkTwo_=(PokemonPlayer) game_.getPlayer().getTeam().get(1);
         assertTrue(!Game.canStoreThesePokemonToHost(new Comment(), pkOne_,pkTwo_, data_));
-        //assertTrue(!game_.canStoreThesePokemonToHost((short) 2,(short) 1, data));
+        //assertTrue(!game_.canStoreThesePokemonToHost( 2, 1, data));
     }
 
     @Test
@@ -3443,13 +3443,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PIKACHU);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
@@ -3457,7 +3457,7 @@ public class GameTest extends InitializationDataBase {
         PokemonPlayer pkOne_=(PokemonPlayer) game_.getPlayer().getTeam().get(1);
         PokemonPlayer pkTwo_=(PokemonPlayer) game_.getPlayer().getTeam().get(2);
         assertTrue(!Game.canStoreThesePokemonToHost(new Comment(), pkOne_,pkTwo_, data_));
-        //assertTrue(!game_.canStoreThesePokemonToHost((short) 1,(short) 2, data));
+        //assertTrue(!game_.canStoreThesePokemonToHost( 1, 2, data));
     }
 
     @Test
@@ -3470,13 +3470,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(NUCLEOS);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
@@ -3484,7 +3484,7 @@ public class GameTest extends InitializationDataBase {
         PokemonPlayer pkOne_=(PokemonPlayer) game_.getPlayer().getTeam().get(1);
         PokemonPlayer pkTwo_=(PokemonPlayer) game_.getPlayer().getTeam().get(2);
         assertTrue(!Game.canStoreThesePokemonToHost(new Comment(), pkOne_,pkTwo_, data_));
-        //assertTrue(!game_.canStoreThesePokemonToHost((short) 1,(short) 2, data));
+        //assertTrue(!game_.canStoreThesePokemonToHost( 1, 2, data));
     }
 
     @Test
@@ -3497,13 +3497,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(NUCLEOS);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
@@ -3511,7 +3511,7 @@ public class GameTest extends InitializationDataBase {
         PokemonPlayer pkOne_=(PokemonPlayer) game_.getPlayer().getTeam().get(2);
         PokemonPlayer pkTwo_=(PokemonPlayer) game_.getPlayer().getTeam().get(1);
         assertTrue(!Game.canStoreThesePokemonToHost(new Comment(), pkOne_,pkTwo_, data_));
-        //assertTrue(!game_.canStoreThesePokemonToHost((short) 2,(short) 1, data));
+        //assertTrue(!game_.canStoreThesePokemonToHost( 2, 1, data));
     }
 
     @Test
@@ -3524,13 +3524,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(LIMAGMA);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
@@ -3538,7 +3538,7 @@ public class GameTest extends InitializationDataBase {
         PokemonPlayer pkOne_=(PokemonPlayer) game_.getPlayer().getTeam().get(2);
         PokemonPlayer pkTwo_=(PokemonPlayer) game_.getPlayer().getTeam().get(1);
         assertTrue(Game.canStoreThesePokemonToHost(new Comment(), pkOne_,pkTwo_, data_));
-        //assertTrue(game_.canStoreThesePokemonToHost((short) 2,(short) 1, data));
+        //assertTrue(game_.canStoreThesePokemonToHost( 2, 1, data));
     }
 
     @Test
@@ -3551,13 +3551,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(LIMAGMA);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
@@ -3565,7 +3565,7 @@ public class GameTest extends InitializationDataBase {
         PokemonPlayer pkOne_=(PokemonPlayer) game_.getPlayer().getTeam().get(1);
         PokemonPlayer pkTwo_=(PokemonPlayer) game_.getPlayer().getTeam().get(2);
         assertTrue(Game.canStoreThesePokemonToHost(new Comment(), pkOne_,pkTwo_, data_));
-        //assertTrue(game_.canStoreThesePokemonToHost((short) 1,(short) 2, data));
+        //assertTrue(game_.canStoreThesePokemonToHost( 1, 2, data));
     }
 
     @Test
@@ -3578,13 +3578,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PIKACHU);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(LIMAGMA);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
@@ -3592,7 +3592,7 @@ public class GameTest extends InitializationDataBase {
         PokemonPlayer pkOne_=(PokemonPlayer) game_.getPlayer().getTeam().get(1);
         PokemonPlayer pkTwo_=(PokemonPlayer) game_.getPlayer().getTeam().get(2);
         assertTrue(Game.canStoreThesePokemonToHost(new Comment(), pkOne_,pkTwo_, data_));
-        //assertTrue(game_.canStoreThesePokemonToHost((short) 1,(short) 2, data));
+        //assertTrue(game_.canStoreThesePokemonToHost( 1, 2, data));
     }
 
     @Test
@@ -3605,13 +3605,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PIKACHU);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(LIMAGMA);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
@@ -3619,7 +3619,7 @@ public class GameTest extends InitializationDataBase {
         PokemonPlayer pkOne_=(PokemonPlayer) game_.getPlayer().getTeam().get(2);
         PokemonPlayer pkTwo_=(PokemonPlayer) game_.getPlayer().getTeam().get(1);
         assertTrue(Game.canStoreThesePokemonToHost(new Comment(), pkOne_,pkTwo_, data_));
-        //assertTrue(game_.canStoreThesePokemonToHost((short) 2,(short) 1, data));
+        //assertTrue(game_.canStoreThesePokemonToHost( 2, 1, data));
     }
 
     @Test
@@ -3632,13 +3632,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PIKACHU);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PIKACHU);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
@@ -3646,7 +3646,7 @@ public class GameTest extends InitializationDataBase {
         PokemonPlayer pkOne_=(PokemonPlayer) game_.getPlayer().getTeam().get(1);
         PokemonPlayer pkTwo_=(PokemonPlayer) game_.getPlayer().getTeam().get(2);
         assertTrue(!Game.canStoreThesePokemonToHost(new Comment(), pkOne_,pkTwo_, data_));
-        //assertTrue(!game_.canStoreThesePokemonToHost((short) 1,(short) 2, data));
+        //assertTrue(!game_.canStoreThesePokemonToHost( 1, 2, data));
     }
 
     @Test
@@ -3659,13 +3659,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PIKACHU);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PIKACHU);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
@@ -3673,7 +3673,7 @@ public class GameTest extends InitializationDataBase {
         PokemonPlayer pkOne_=(PokemonPlayer) game_.getPlayer().getTeam().get(2);
         PokemonPlayer pkTwo_=(PokemonPlayer) game_.getPlayer().getTeam().get(1);
         assertTrue(!Game.canStoreThesePokemonToHost(new Comment(), pkOne_,pkTwo_, data_));
-        //assertTrue(!game_.canStoreThesePokemonToHost((short) 2,(short) 1, data));
+        //assertTrue(!game_.canStoreThesePokemonToHost( 2, 1, data));
     }
 
     @Test
@@ -3686,13 +3686,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(DEMANTA);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
@@ -3700,7 +3700,7 @@ public class GameTest extends InitializationDataBase {
         PokemonPlayer pkOne_=(PokemonPlayer) game_.getPlayer().getTeam().get(1);
         PokemonPlayer pkTwo_=(PokemonPlayer) game_.getPlayer().getTeam().get(2);
         assertTrue(Game.canStoreThesePokemonToHost(new Comment(), pkOne_,pkTwo_, data_));
-        //assertTrue(game_.canStoreThesePokemonToHost((short) 1,(short) 2, data));
+        //assertTrue(game_.canStoreThesePokemonToHost( 1, 2, data));
     }
 
     @Test
@@ -3713,13 +3713,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(DEMANTA);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
@@ -3727,7 +3727,7 @@ public class GameTest extends InitializationDataBase {
         PokemonPlayer pkOne_=(PokemonPlayer) game_.getPlayer().getTeam().get(2);
         PokemonPlayer pkTwo_=(PokemonPlayer) game_.getPlayer().getTeam().get(1);
         assertTrue(Game.canStoreThesePokemonToHost(new Comment(), pkOne_,pkTwo_, data_));
-        //assertTrue(game_.canStoreThesePokemonToHost((short) 2,(short) 1, data));
+        //assertTrue(game_.canStoreThesePokemonToHost( 2, 1, data));
     }
 
     @Test
@@ -3740,13 +3740,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(DEMANTA);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
@@ -3754,7 +3754,7 @@ public class GameTest extends InitializationDataBase {
         PokemonPlayer pkOne_=(PokemonPlayer) game_.getPlayer().getTeam().get(1);
         PokemonPlayer pkTwo_=(PokemonPlayer) game_.getPlayer().getTeam().get(2);
         assertTrue(!Game.canStoreThesePokemonToHost(new Comment(), pkOne_,pkTwo_, data_));
-        //assertTrue(!game_.canStoreThesePokemonToHost((short) 1,(short) 2, data));
+        //assertTrue(!game_.canStoreThesePokemonToHost( 1, 2, data));
     }
 
     @Test
@@ -3767,13 +3767,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(DEMANTA);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
@@ -3781,7 +3781,7 @@ public class GameTest extends InitializationDataBase {
         PokemonPlayer pkOne_=(PokemonPlayer) game_.getPlayer().getTeam().get(2);
         PokemonPlayer pkTwo_=(PokemonPlayer) game_.getPlayer().getTeam().get(1);
         assertTrue(!Game.canStoreThesePokemonToHost(new Comment(), pkOne_,pkTwo_, data_));
-        //assertTrue(!game_.canStoreThesePokemonToHost((short) 2,(short) 1, data));
+        //assertTrue(!game_.canStoreThesePokemonToHost( 2, 1, data));
     }
 
     @Test
@@ -3794,13 +3794,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(LIMAGMA_M);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(LIMAGMA_F);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
@@ -3808,7 +3808,7 @@ public class GameTest extends InitializationDataBase {
         PokemonPlayer pkOne_=(PokemonPlayer) game_.getPlayer().getTeam().get(2);
         PokemonPlayer pkTwo_=(PokemonPlayer) game_.getPlayer().getTeam().get(1);
         assertTrue(Game.canStoreThesePokemonToHost(new Comment(), pkOne_,pkTwo_, data_));
-        //assertTrue(game_.canStoreThesePokemonToHost((short) 2,(short) 1, data));
+        //assertTrue(game_.canStoreThesePokemonToHost( 2, 1, data));
     }
 
     @Test
@@ -3821,13 +3821,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(LIMAGMA_M);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
@@ -3835,7 +3835,7 @@ public class GameTest extends InitializationDataBase {
         PokemonPlayer pkOne_=(PokemonPlayer) game_.getPlayer().getTeam().get(2);
         PokemonPlayer pkTwo_=(PokemonPlayer) game_.getPlayer().getTeam().get(1);
         assertTrue(Game.canStoreThesePokemonToHost(new Comment(), pkOne_,pkTwo_, data_));
-        //assertTrue(game_.canStoreThesePokemonToHost((short) 2,(short) 1, data));
+        //assertTrue(game_.canStoreThesePokemonToHost( 2, 1, data));
     }
 
     @Test
@@ -3848,18 +3848,18 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         assertEq(3, game_.getPlayer().getTeam().size());
-        assertTrue(!game_.canStorePokemonToHost((short) 1,(short) 1, data_));
+        assertTrue(!game_.canStorePokemonToHost( 1, 1, data_));
     }
 
     @Test
@@ -3872,18 +3872,18 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         assertEq(3, game_.getPlayer().getTeam().size());
-        assertTrue(!game_.canStorePokemonToHost((short) 2,(short) 2, data_));
+        assertTrue(!game_.canStorePokemonToHost( 2, 2, data_));
     }
 
     @Test
@@ -3896,18 +3896,18 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         assertEq(3, game_.getPlayer().getTeam().size());
-        assertTrue(game_.canStorePokemonToHost((short) 1,(short) 2, data_));
+        assertTrue(game_.canStorePokemonToHost( 1, 2, data_));
     }
 
     @Test
@@ -3920,18 +3920,18 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         assertEq(3, game_.getPlayer().getTeam().size());
-        assertTrue(game_.canStorePokemonToHost((short) 2,(short) 1, data_));
+        assertTrue(game_.canStorePokemonToHost( 2, 1, data_));
     }
 
     @Test
@@ -3944,18 +3944,18 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         assertEq(3, game_.getPlayer().getTeam().size());
-        assertTrue(!game_.canStorePokemonToHost((short) 1,(short) 2, data_));
+        assertTrue(!game_.canStorePokemonToHost( 1, 2, data_));
     }
 
     @Test
@@ -3968,18 +3968,18 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         assertEq(3, game_.getPlayer().getTeam().size());
-        assertTrue(!game_.canStorePokemonToHost((short) 2,(short) 1, data_));
+        assertTrue(!game_.canStorePokemonToHost( 2, 1, data_));
     }
 
     @Test
@@ -3992,18 +3992,18 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PIKACHU);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         assertEq(3, game_.getPlayer().getTeam().size());
-        assertTrue(!game_.canStorePokemonToHost((short) 1,(short) 2, data_));
+        assertTrue(!game_.canStorePokemonToHost( 1, 2, data_));
     }
 
     @Test
@@ -4016,18 +4016,18 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PIKACHU);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         assertEq(3, game_.getPlayer().getTeam().size());
-        assertTrue(!game_.canStorePokemonToHost((short) 2,(short) 1, data_));
+        assertTrue(!game_.canStorePokemonToHost( 2, 1, data_));
     }
 
     @Test
@@ -4040,18 +4040,18 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PIKACHU);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         assertEq(3, game_.getPlayer().getTeam().size());
-        assertTrue(!game_.canStorePokemonToHost((short) 2,(short) 1, data_));
+        assertTrue(!game_.canStorePokemonToHost( 2, 1, data_));
     }
 
     @Test
@@ -4064,18 +4064,18 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PIKACHU);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         assertEq(3, game_.getPlayer().getTeam().size());
-        assertTrue(!game_.canStorePokemonToHost((short) 1,(short) 2, data_));
+        assertTrue(!game_.canStorePokemonToHost( 1, 2, data_));
     }
 
     @Test
@@ -4088,18 +4088,18 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(NUCLEOS);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         assertEq(3, game_.getPlayer().getTeam().size());
-        assertTrue(!game_.canStorePokemonToHost((short) 1,(short) 2, data_));
+        assertTrue(!game_.canStorePokemonToHost( 1, 2, data_));
     }
 
     @Test
@@ -4112,18 +4112,18 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(NUCLEOS);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         assertEq(3, game_.getPlayer().getTeam().size());
-        assertTrue(!game_.canStorePokemonToHost((short) 2,(short) 1, data_));
+        assertTrue(!game_.canStorePokemonToHost( 2, 1, data_));
     }
 
     @Test
@@ -4136,18 +4136,18 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(LIMAGMA);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         assertEq(3, game_.getPlayer().getTeam().size());
-        assertTrue(game_.canStorePokemonToHost((short) 2,(short) 1, data_));
+        assertTrue(game_.canStorePokemonToHost( 2, 1, data_));
     }
 
     @Test
@@ -4160,18 +4160,18 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(LIMAGMA);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         assertEq(3, game_.getPlayer().getTeam().size());
-        assertTrue(game_.canStorePokemonToHost((short) 1,(short) 2, data_));
+        assertTrue(game_.canStorePokemonToHost( 1, 2, data_));
     }
 
     @Test
@@ -4184,18 +4184,18 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PIKACHU);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(LIMAGMA);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         assertEq(3, game_.getPlayer().getTeam().size());
-        assertTrue(game_.canStorePokemonToHost((short) 1,(short) 2, data_));
+        assertTrue(game_.canStorePokemonToHost( 1, 2, data_));
     }
 
     @Test
@@ -4208,18 +4208,18 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PIKACHU);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(LIMAGMA);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         assertEq(3, game_.getPlayer().getTeam().size());
-        assertTrue(game_.canStorePokemonToHost((short) 2,(short) 1, data_));
+        assertTrue(game_.canStorePokemonToHost( 2, 1, data_));
     }
 
     @Test
@@ -4232,18 +4232,18 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PIKACHU);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PIKACHU);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         assertEq(3, game_.getPlayer().getTeam().size());
-        assertTrue(!game_.canStorePokemonToHost((short) 1,(short) 2, data_));
+        assertTrue(!game_.canStorePokemonToHost( 1, 2, data_));
     }
 
     @Test
@@ -4256,18 +4256,18 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PIKACHU);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PIKACHU);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         assertEq(3, game_.getPlayer().getTeam().size());
-        assertTrue(!game_.canStorePokemonToHost((short) 2,(short) 1, data_));
+        assertTrue(!game_.canStorePokemonToHost( 2, 1, data_));
     }
 
     @Test
@@ -4280,18 +4280,18 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(DEMANTA);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         assertEq(3, game_.getPlayer().getTeam().size());
-        assertTrue(game_.canStorePokemonToHost((short) 1,(short) 2, data_));
+        assertTrue(game_.canStorePokemonToHost( 1, 2, data_));
     }
 
     @Test
@@ -4304,18 +4304,18 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         PokemonPlayer pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(DEMANTA);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new PokemonPlayer();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         assertEq(3, game_.getPlayer().getTeam().size());
-        assertTrue(game_.canStorePokemonToHost((short) 2,(short) 1, data_));
+        assertTrue(game_.canStorePokemonToHost( 2, 1, data_));
     }
 
     @Test
@@ -4328,18 +4328,18 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(DEMANTA);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         assertEq(3, game_.getPlayer().getTeam().size());
-        assertTrue(!game_.canStorePokemonToHost((short) 1,(short) 2, data_));
+        assertTrue(!game_.canStorePokemonToHost( 1, 2, data_));
     }
 
     @Test
@@ -4352,18 +4352,18 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(DEMANTA);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         assertEq(3, game_.getPlayer().getTeam().size());
-        assertTrue(!game_.canStorePokemonToHost((short) 2,(short) 1, data_));
+        assertTrue(!game_.canStorePokemonToHost( 2, 1, data_));
     }
 
     @Test
@@ -4376,18 +4376,18 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(LIMAGMA_M);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(LIMAGMA_F);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         assertEq(3, game_.getPlayer().getTeam().size());
-        assertTrue(game_.canStorePokemonToHost((short) 2,(short) 1, data_));
+        assertTrue(game_.canStorePokemonToHost( 2, 1, data_));
     }
 
     @Test
@@ -4400,18 +4400,18 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(LIMAGMA_M);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         assertEq(3, game_.getPlayer().getTeam().size());
-        assertTrue(game_.canStorePokemonToHost((short) 2,(short) 1, data_));
+        assertTrue(game_.canStorePokemonToHost( 2, 1, data_));
     }
 
     @Test
@@ -4424,19 +4424,19 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         PokemonPlayer first_ = (PokemonPlayer) game_.getPlayer().getTeam().get(1);
         PokemonPlayer second_ = (PokemonPlayer) game_.getPlayer().getTeam().get(2);
-        game_.storePokemonToHost((short) 1,(short) 2, newCoords(3, 0, 2, 1, 8, 4));
+        game_.storePokemonToHost( 1, 2, newCoords(3, 0, 2, 1, 8, 4));
         HostPokemonDuo hosted_;
         hosted_ = game_.getHostedPk().getVal(newCoords(3, 0, 2, 1, 8, 4));
         assertEq(0, hosted_.getNbSteps());
@@ -4454,19 +4454,19 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         PokemonPlayer first_ = (PokemonPlayer) game_.getPlayer().getTeam().get(1);
         PokemonPlayer second_ = (PokemonPlayer) game_.getPlayer().getTeam().get(2);
-        game_.storePokemonToHost((short) 2,(short) 1, newCoords(3, 0, 2, 1, 8, 4));
+        game_.storePokemonToHost( 2, 1, newCoords(3, 0, 2, 1, 8, 4));
         HostPokemonDuo hosted_;
         hosted_ = game_.getHostedPk().getVal(newCoords(3, 0, 2, 1, 8, 4));
         assertEq(0, hosted_.getNbSteps());
@@ -4484,11 +4484,11 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(LIMAGMA);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
-        game_.attemptForStoringPokemonToHost((short) 0,(short) 1, data_);
+        game_.attemptForStoringPokemonToHost( 0, 1, data_);
         assertEq(2, game_.getPlayer().getTeam().size());
         assertTrue(game_.isReinitInteraction());
         assertTrue(game_.availableHosting(newCoords(3, 0, 2, 1, 8, 4)));
@@ -4504,17 +4504,17 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PIKACHU);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PIKACHU);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
-        game_.attemptForStoringPokemonToHost((short) 1,(short) 2, data_);
+        game_.attemptForStoringPokemonToHost( 1, 2, data_);
         assertEq(3, game_.getPlayer().getTeam().size());
         assertTrue(game_.isReinitInteraction());
         assertTrue(game_.availableHosting(newCoords(3, 0, 2, 1, 8, 4)));
@@ -4530,19 +4530,19 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         PokemonPlayer first_ = (PokemonPlayer) game_.getPlayer().getTeam().get(1);
         PokemonPlayer second_ = (PokemonPlayer) game_.getPlayer().getTeam().get(2);
-        game_.attemptForStoringPokemonToHost((short) 1,(short) 2, data_);
+        game_.attemptForStoringPokemonToHost( 1, 2, data_);
         assertTrue(!game_.isReinitInteraction());
         assertEq(1, game_.getPlayer().getTeam().size());
         assertTrue(!game_.availableHosting(newCoords(3, 0, 2, 1, 8, 4)));
@@ -4563,19 +4563,19 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         PokemonPlayer first_ = (PokemonPlayer) game_.getPlayer().getTeam().get(1);
         PokemonPlayer second_ = (PokemonPlayer) game_.getPlayer().getTeam().get(2);
-        game_.attemptForStoringPokemonToHost((short) 2,(short) 1, data_);
+        game_.attemptForStoringPokemonToHost( 2, 1, data_);
         assertTrue(!game_.isReinitInteraction());
         assertEq(1, game_.getPlayer().getTeam().size());
         assertTrue(!game_.availableHosting(newCoords(3, 0, 2, 1, 8, 4)));
@@ -4596,13 +4596,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         PokemonPlayer pokemonFemale_ = new PokemonPlayer(pokemonDonne_, data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         PokemonPlayer pokemonMale_ = new PokemonPlayer(pokemonDonne_, data_);
@@ -4625,13 +4625,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         PokemonPlayer pokemonFemale_ = new PokemonPlayer(pokemonDonne_, data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(DEMANTA);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         PokemonPlayer pokemonMale_ = new PokemonPlayer(pokemonDonne_, data_);
@@ -4665,13 +4665,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         PokemonPlayer pokemonFemale_ = new PokemonPlayer(pokemonDonne_, data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         PokemonPlayer pokemonMale_ = new PokemonPlayer(pokemonDonne_, data_);
@@ -4692,13 +4692,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         PokemonPlayer pokemonFemale_ = new PokemonPlayer(pokemonDonne_, data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         PokemonPlayer pokemonMale_ = new PokemonPlayer(pokemonDonne_, data_);
@@ -4720,13 +4720,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         PokemonPlayer pokemonFemale_ = new PokemonPlayer(pokemonDonne_, data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         PokemonPlayer pokemonMale_ = new PokemonPlayer(pokemonDonne_, data_);
@@ -4750,13 +4750,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         PokemonPlayer pokemonFemale_ = new PokemonPlayer(pokemonDonne_, data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(DEMANTA);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         PokemonPlayer pokemonMale_ = new PokemonPlayer(pokemonDonne_, data_);
@@ -4781,13 +4781,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         PokemonPlayer pokemonFemale_ = new PokemonPlayer(pokemonDonne_, data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(LIMAGMA);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         PokemonPlayer pokemonNoGender_ = new PokemonPlayer(pokemonDonne_, data_);
@@ -4811,13 +4811,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PTITARD);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         PokemonPlayer pokemonFemale_ = new PokemonPlayer(pokemonDonne_, data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(LIMAGMA);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         PokemonPlayer pokemonNoGender_ = new PokemonPlayer(pokemonDonne_, data_);
@@ -4841,13 +4841,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PIKACHU);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         PokemonPlayer firstPokemonNoGender_ = new PokemonPlayer(pokemonDonne_, data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(LIMAGMA);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         PokemonPlayer secondPokemonNoGender_ = new PokemonPlayer(pokemonDonne_, data_);
@@ -4871,13 +4871,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(LIMAGMA);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         PokemonPlayer firstPokemonNoGender_ = new PokemonPlayer(pokemonDonne_, data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(LIMAGMA);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         PokemonPlayer secondPokemonNoGender_ = new PokemonPlayer(pokemonDonne_, data_);
@@ -4901,13 +4901,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(TETARTE);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         PokemonPlayer pokemonFemale_ = new PokemonPlayer(pokemonDonne_, data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(TETARTE);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         PokemonPlayer pokemonMale_ = new PokemonPlayer(pokemonDonne_, data_);
@@ -4931,13 +4931,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(TETARTE);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         PokemonPlayer pokemonFemale_ = new PokemonPlayer(pokemonDonne_, data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(TETARTE);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         PokemonPlayer pokemonMale_ = new PokemonPlayer(pokemonDonne_, data_);
@@ -4963,13 +4963,13 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(TETARTE);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         PokemonPlayer pokemonFemale_ = new PokemonPlayer(pokemonDonne_, data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(TETARTE);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         PokemonPlayer pokemonMale_ = new PokemonPlayer(pokemonDonne_, data_);
@@ -4994,7 +4994,7 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PIKACHU);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
@@ -5002,13 +5002,13 @@ public class GameTest extends InitializationDataBase {
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(TETARTE);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         PokemonPlayer pokemonFemale_ = new PokemonPlayer(pokemonDonne_, data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(TETARTE);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         PokemonPlayer pokemonMale_ = new PokemonPlayer(pokemonDonne_, data_);
@@ -5030,7 +5030,7 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PIKACHU);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
@@ -5039,13 +5039,13 @@ public class GameTest extends InitializationDataBase {
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(TETARTE);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         PokemonPlayer pokemonFemale_ = new PokemonPlayer(pokemonDonne_, data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(TETARTE);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         PokemonPlayer pokemonMale_ = new PokemonPlayer(pokemonDonne_, data_);
@@ -5067,17 +5067,17 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(TETARTE);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(TETARTE);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
-        game_.attemptForStoringPokemonToHost((short) 1,(short) 2, data_);
+        game_.attemptForStoringPokemonToHost( 1, 2, data_);
         game_.receiveOnlyEgg(data_);
         assertTrue(!game_.isReinitInteraction());
         assertEq(1, game_.getPlayer().getTeam().size());
@@ -5093,17 +5093,17 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(TETARTE);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(TETARTE);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
-        game_.attemptForStoringPokemonToHost((short) 1,(short) 2, data_);
+        game_.attemptForStoringPokemonToHost( 1, 2, data_);
         game_.getHostedPk().getVal(newCoords(3, 0, 2, 1, 8, 4)).setNbSteps(256);
         game_.receiveOnlyEgg(data_);
         assertTrue(!game_.isReinitInteraction());
@@ -5122,20 +5122,20 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(TETARTE);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(TETARTE);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
-        game_.attemptForStoringPokemonToHost((short) 1,(short) 2, data_);
+        game_.attemptForStoringPokemonToHost( 1, 2, data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PIKACHU);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
@@ -5162,20 +5162,20 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(TETARTE);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(TETARTE);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
-        game_.attemptForStoringPokemonToHost((short) 1,(short) 2, data_);
+        game_.attemptForStoringPokemonToHost( 1, 2, data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PIKACHU);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
@@ -5198,20 +5198,20 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(TETARTE);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(TETARTE);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
-        game_.attemptForStoringPokemonToHost((short) 1,(short) 2, data_);
+        game_.attemptForStoringPokemonToHost( 1, 2, data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PIKACHU);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
@@ -5233,17 +5233,17 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(TETARTE);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(TETARTE);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
-        game_.attemptForStoringPokemonToHost((short) 1,(short) 2, data_);
+        game_.attemptForStoringPokemonToHost( 1, 2, data_);
         game_.getHostedPk().getVal(newCoords(3, 0, 2, 1, 8, 4)).setNbSteps(256);
         assertEq(1, game_.getPlayer().getTeam().size());
         game_.receiveEggOrParents(data_);
@@ -5263,20 +5263,20 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(TETARTE);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(TETARTE);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
-        game_.attemptForStoringPokemonToHost((short) 1,(short) 2, data_);
+        game_.attemptForStoringPokemonToHost( 1, 2, data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PIKACHU);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
@@ -5301,20 +5301,20 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(TETARTE);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(TETARTE);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
-        game_.attemptForStoringPokemonToHost((short) 1,(short) 2, data_);
+        game_.attemptForStoringPokemonToHost( 1, 2, data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PIKACHU);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
@@ -5341,17 +5341,17 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(TETARTE);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(TETARTE);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
-        game_.attemptForStoringPokemonToHost((short) 1,(short) 2, data_);
+        game_.attemptForStoringPokemonToHost( 1, 2, data_);
         assertEq(1, game_.getPlayer().getTeam().size());
         game_.receiveEggOrParents(data_);
         assertTrue(!game_.isReinitInteraction());
@@ -5370,20 +5370,20 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(TETARTE);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.FEMALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(TETARTE);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.MALE);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
-        game_.attemptForStoringPokemonToHost((short) 1,(short) 2, data_);
+        game_.attemptForStoringPokemonToHost( 1, 2, data_);
         pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PIKACHU);
-        pokemonDonne_.setLevel((short) 1);
+        pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), data_);
@@ -5566,8 +5566,8 @@ public class GameTest extends InitializationDataBase {
         game_.beatTrainer(new NbFightCoords(newCoords(5, 0, 1, 5), 0));
         game_.beatTrainer(new NbFightCoords(newCoords(5, 1, 5, 1), 0));
         PokemonPlayer first_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
-        first_.setLevel((short) data_.getMaxLevel());
-        first_.setHappiness((short) data_.getHappinessMax());
+        first_.setLevel( data_.getMaxLevel());
+        first_.setHappiness( data_.getHappinessMax());
         game_.moving(Direction.LEFT, data_);
         assertEq(Direction.LEFT,game_.getPlayerOrientation());
         assertEq(newCoords(3, 0, 3, 2),game_.getPlayerCoords());
@@ -5785,7 +5785,7 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.UP);
         PokemonPlayer pkUserTeam_ = (PokemonPlayer) game_.getTeam().get(0);
         assertEq(PIKACHU, pkUserTeam_.getNickname());
-        game_.setChosenTeamPokemon((short) 0);
+        game_.setChosenTeamPokemon( 0);
         game_.nickname(NULL_REF, data_);
         pkUserTeam_ = (PokemonPlayer) game_.getTeam().get(0);
         assertEq(PIKACHU, pkUserTeam_.getNickname());
@@ -5805,7 +5805,7 @@ public class GameTest extends InitializationDataBase {
         pk_.setName(LIMAGMA);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(FOUR);
-        pk_.setLevel((short) 7);
+        pk_.setLevel( 7);
         pk_.setItem(NULL_REF);
         player_.getBox().add(new PokemonPlayer(pk_, data_));
         egg_ = new Egg(PIKACHU);
@@ -5847,7 +5847,7 @@ public class GameTest extends InitializationDataBase {
         pk_.setName(LIMAGMA);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(FOUR);
-        pk_.setLevel((short) 7);
+        pk_.setLevel( 7);
         pk_.setItem(NULL_REF);
         player_.getBox().add(new PokemonPlayer(pk_, data_));
         egg_ = new Egg(PIKACHU);
@@ -5856,13 +5856,13 @@ public class GameTest extends InitializationDataBase {
         hosted_ = game_.getHostedPk().getVal(newCoords(3, 0, 2, 1, 8, 4));
         pk_ = new WildPk();
         pk_.setName(PTITARD);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setAbility(STATIK);
         pk_.setGender(Gender.FEMALE);
         hosted_.setFirstPokemon(new PokemonPlayer(pk_, data_));
         pk_ = new WildPk();
         pk_.setName(PTITARD);
-        pk_.setLevel((short) 1);
+        pk_.setLevel( 1);
         pk_.setAbility(STATIK);
         pk_.setGender(Gender.MALE);
         hosted_.setSecondPokemon(new PokemonPlayer(pk_, data_));

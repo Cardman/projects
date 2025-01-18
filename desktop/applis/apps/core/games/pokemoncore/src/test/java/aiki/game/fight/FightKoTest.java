@@ -36,17 +36,17 @@ public class FightKoTest extends InitializationDataBase {
         pokemon_.setItem(NULL_REF);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 32);
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(A_LA_QUEUE, (short) 10);
-        moves_.put(APRES_VOUS, (short) 10);
-        moves_.put(SEISME, (short) 10);
-        moves_.put(BROUHAHA, (short) 10);
+        pokemon_.setLevel( 32);
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(A_LA_QUEUE,  10);
+        moves_.put(APRES_VOUS,  10);
+        moves_.put(SEISME,  10);
+        moves_.put(BROUHAHA,  10);
         PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
-        pokemonUser_.setHappiness((short) 140);
+        pokemonUser_.setHappiness( 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         pokemonUser_.setItem(MULTI_EXP);
         player_.getTeam().add(pokemonUser_);
@@ -55,7 +55,7 @@ public class FightKoTest extends InitializationDataBase {
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setItem(BAIE_CHERIM);
-        pokemonUser_.setHappiness((short) 140);
+        pokemonUser_.setHappiness( 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         pokemonUser_.setRemainingHp(Rate.zero());
         player_.getTeam().add(pokemonUser_);
@@ -64,7 +64,7 @@ public class FightKoTest extends InitializationDataBase {
         foePokemon_.setItem(PLAQUE_DRACO);
         foePokemon_.setAbility(MULTITYPE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
+        foePokemon_.setLevel( 3);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, _diff, foePokemon_, _data);
         fight_.setEnvType(EnvironmentType.ROAD);
@@ -77,7 +77,7 @@ public class FightKoTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         diff_.setDiffWinningExpPtsFight(DifficultyWinPointsFight.TRES_FACILE);
         Fight fight_ = rateWonPoint(diff_, data_);
-        assertEq(new Rate("4"), FightKo.rateWonPoint(diff_, data_, fight_.getUserTeam().refPartMembres((byte)POKEMON_FIGHTER_ZERO), fight_.getFoeTeam().refPartMembres(tp(KEY_FOE, POKEMON_FIGHTER_ZERO).getPosition())));
+        assertEq(new Rate("4"), FightKo.rateWonPoint(diff_, data_, fight_.getUserTeam().refPartMembres(POKEMON_FIGHTER_ZERO), fight_.getFoeTeam().refPartMembres(tp(KEY_FOE, POKEMON_FIGHTER_ZERO).getPosition())));
     }
 
     @Test
@@ -86,7 +86,7 @@ public class FightKoTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         diff_.setDiffWinningExpPtsFight(DifficultyWinPointsFight.FACILE);
         Fight fight_ = rateWonPoint(diff_, data_);
-        assertEq(new Rate("2"), FightKo.rateWonPoint(diff_, data_, fight_.getUserTeam().refPartMembres((byte)POKEMON_FIGHTER_ZERO), fight_.getFoeTeam().refPartMembres(tp(KEY_FOE, POKEMON_FIGHTER_ZERO).getPosition())));
+        assertEq(new Rate("2"), FightKo.rateWonPoint(diff_, data_, fight_.getUserTeam().refPartMembres(POKEMON_FIGHTER_ZERO), fight_.getFoeTeam().refPartMembres(tp(KEY_FOE, POKEMON_FIGHTER_ZERO).getPosition())));
     }
 
     @Test
@@ -95,7 +95,7 @@ public class FightKoTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         diff_.setDiffWinningExpPtsFight(DifficultyWinPointsFight.DIFFICILE);
         Fight fight_ = rateWonPoint(diff_, data_);
-        assertEq(new Rate("1"), FightKo.rateWonPoint(diff_, data_, fight_.getUserTeam().refPartMembres((byte)POKEMON_FIGHTER_ZERO), fight_.getFoeTeam().refPartMembres(tp(KEY_FOE, POKEMON_FIGHTER_ZERO).getPosition())));
+        assertEq(new Rate("1"), FightKo.rateWonPoint(diff_, data_, fight_.getUserTeam().refPartMembres(POKEMON_FIGHTER_ZERO), fight_.getFoeTeam().refPartMembres(tp(KEY_FOE, POKEMON_FIGHTER_ZERO).getPosition())));
     }
 
     @Test
@@ -104,7 +104,7 @@ public class FightKoTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         diff_.setDiffWinningExpPtsFight(DifficultyWinPointsFight.TRES_DIFFICILE);
         Fight fight_ = rateWonPoint(diff_, data_);
-        assertEq(new Rate("1/2"), FightKo.rateWonPoint(diff_, data_, fight_.getUserTeam().refPartMembres((byte)POKEMON_FIGHTER_ZERO), fight_.getFoeTeam().refPartMembres(tp(KEY_FOE, POKEMON_FIGHTER_ZERO).getPosition())));
+        assertEq(new Rate("1/2"), FightKo.rateWonPoint(diff_, data_, fight_.getUserTeam().refPartMembres(POKEMON_FIGHTER_ZERO), fight_.getFoeTeam().refPartMembres(tp(KEY_FOE, POKEMON_FIGHTER_ZERO).getPosition())));
     }
 
     private static Fight addExp(Difficulty _diff, DataBase _data) {
@@ -114,24 +114,24 @@ public class FightKoTest extends InitializationDataBase {
         pokemon_.setItem(NULL_REF);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 32);
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(A_LA_QUEUE, (short) 10);
-        moves_.put(APRES_VOUS, (short) 10);
-        moves_.put(SEISME, (short) 10);
-        moves_.put(BROUHAHA, (short) 10);
+        pokemon_.setLevel( 32);
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(A_LA_QUEUE,  10);
+        moves_.put(APRES_VOUS,  10);
+        moves_.put(SEISME,  10);
+        moves_.put(BROUHAHA,  10);
         PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data, moves_);
         pokemonUser_.initIv(_diff);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
-        pokemonUser_.setHappiness((short) 140);
+        pokemonUser_.setHappiness( 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         player_.getTeam().add(pokemonUser_);
         pokemonUser_ = new PokemonPlayer(pokemon_, _data, moves_);
         pokemonUser_.initIv(_diff);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
-        pokemonUser_.setHappiness((short) 140);
+        pokemonUser_.setHappiness( 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         pokemonUser_.setRemainingHp(Rate.zero());
         player_.getTeam().add(pokemonUser_);
@@ -141,13 +141,13 @@ public class FightKoTest extends InitializationDataBase {
         foePokemon_.setItem(PLAQUE_DRACO);
         foePokemon_.setAbility(MULTITYPE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
+        foePokemon_.setLevel( 3);
         foePokemon_.setMoves(new StringList(JACKPOT,PREVENTION,RELAIS));
         foeTeam_.add(foePokemon_);
         GymLeader trainer_ = new GymLeader();
         trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
-        trainer_.setMultiplicityFight((byte) 3);
+        trainer_.setReward( 200);
+        trainer_.setMultiplicityFight( 3);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, _diff, trainer_, _data);
         fight_.setEnvType(EnvironmentType.ROAD);
@@ -161,9 +161,9 @@ public class FightKoTest extends InitializationDataBase {
         diff_.setDiffWinningExpPtsFight(DifficultyWinPointsFight.DIFFICILE);
         Fight fight_ = addExp(diff_, data_);
         TeamPositionList fightersBelongingToUser_ = FightOrder.fightersBelongingToUser(fight_,true);
-        Bytes porteursMultExp_ = FightOrder.fightersWearingExpObject(fight_,fightersBelongingToUser_, data_);
-        Rate points_ = FightKo.pointsFoe(fight_,(byte) 0, diff_, data_);
-        Bytes fighters_ = FightOrder.fightersBelongingToUserHavingBeaten(fight_,(byte) 0);
+        Ints porteursMultExp_ = FightOrder.fightersWearingExpObject(fight_,fightersBelongingToUser_, data_);
+        Rate points_ = FightKo.pointsFoe(fight_, 0, diff_, data_);
+        Ints fighters_ = FightOrder.fightersBelongingToUserHavingBeaten(fight_, 0);
         addExp(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), fighters_, porteursMultExp_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), points_, diff_, true, data_);
         assertEq(new Rate("4995/2"), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getWonExp());
     }
@@ -175,9 +175,9 @@ public class FightKoTest extends InitializationDataBase {
         diff_.setDiffWinningExpPtsFight(DifficultyWinPointsFight.DIFFICILE);
         Fight fight_ = addExp(diff_, data_);
         TeamPositionList fightersBelongingToUser_ = FightOrder.fightersBelongingToUser(fight_,true);
-        Bytes porteursMultExp_ = FightOrder.fightersWearingExpObject(fight_,fightersBelongingToUser_, data_);
-        Rate points_ = FightKo.pointsFoe(fight_,(byte) 0, diff_, data_);
-        Bytes fighters_ = new Bytes();
+        Ints porteursMultExp_ = FightOrder.fightersWearingExpObject(fight_,fightersBelongingToUser_, data_);
+        Rate points_ = FightKo.pointsFoe(fight_, 0, diff_, data_);
+        Ints fighters_ = new Ints();
         addExp(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), fighters_, porteursMultExp_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), points_, diff_, false, data_);
         assertEq(Rate.zero(), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getWonExp());
     }
@@ -190,9 +190,9 @@ public class FightKoTest extends InitializationDataBase {
         Fight fight_ = addExp(diff_, data_);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setExpItem(MULTI_EXP);
         TeamPositionList fightersBelongingToUser_ = FightOrder.fightersBelongingToUser(fight_,true);
-        Bytes porteursMultExp_ = FightOrder.fightersWearingExpObject(fight_,fightersBelongingToUser_, data_);
-        Rate points_ = FightKo.pointsFoe(fight_,(byte) 0, diff_, data_);
-        Bytes fighters_ = FightOrder.fightersBelongingToUserHavingBeaten(fight_,(byte) 0);
+        Ints porteursMultExp_ = FightOrder.fightersWearingExpObject(fight_,fightersBelongingToUser_, data_);
+        Rate points_ = FightKo.pointsFoe(fight_, 0, diff_, data_);
+        Ints fighters_ = FightOrder.fightersBelongingToUserHavingBeaten(fight_, 0);
         addExp(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), fighters_, porteursMultExp_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), points_, diff_, true, data_);
         assertEq(new Rate("4995/2"), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getWonExp());
     }
@@ -205,9 +205,9 @@ public class FightKoTest extends InitializationDataBase {
         Fight fight_ = addExp(diff_, data_);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setExpItem(OEUF_CHANCE);
         TeamPositionList fightersBelongingToUser_ = FightOrder.fightersBelongingToUser(fight_,true);
-        Bytes porteursMultExp_ = FightOrder.fightersWearingExpObject(fight_,fightersBelongingToUser_, data_);
-        Rate points_ = FightKo.pointsFoe(fight_,(byte) 0, diff_, data_);
-        Bytes fighters_ = FightOrder.fightersBelongingToUserHavingBeaten(fight_,(byte) 0);
+        Ints porteursMultExp_ = FightOrder.fightersWearingExpObject(fight_,fightersBelongingToUser_, data_);
+        Rate points_ = FightKo.pointsFoe(fight_, 0, diff_, data_);
+        Ints fighters_ = FightOrder.fightersBelongingToUserHavingBeaten(fight_, 0);
         addExp(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), fighters_, porteursMultExp_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), points_, diff_, false, data_);
         assertEq(new Rate("14985/4"), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getWonExp());
     }
@@ -218,13 +218,13 @@ public class FightKoTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         diff_.setDiffWinningExpPtsFight(DifficultyWinPointsFight.DIFFICILE);
         Fight fight_ = addExp(diff_, data_);
-        IdMap<Statistic,Short> evs_ = new IdMap<Statistic,Short>();
-        evs_.put(Statistic.ATTACK, (short) 2);
-        evs_.put(Statistic.DEFENSE, (short) 2);
-        evs_.put(Statistic.SPECIAL_ATTACK, (short) 2);
-        evs_.put(Statistic.SPECIAL_DEFENSE, (short) 2);
-        evs_.put(Statistic.SPEED, (short) 2);
-        evs_.put(Statistic.HP, (short) 2);
+        IdMap<Statistic,Integer> evs_ = new IdMap<Statistic,Integer>();
+        evs_.put(Statistic.ATTACK,  2);
+        evs_.put(Statistic.DEFENSE,  2);
+        evs_.put(Statistic.SPECIAL_ATTACK,  2);
+        evs_.put(Statistic.SPECIAL_DEFENSE,  2);
+        evs_.put(Statistic.SPEED,  2);
+        evs_.put(Statistic.HP,  2);
         FightKo.addEvStatistics(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), new Rate("3"), evs_, data_);
         assertEq(6, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getEv().getVal(Statistic.ATTACK));
         assertEq(6, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getEv().getVal(Statistic.DEFENSE));
@@ -241,24 +241,24 @@ public class FightKoTest extends InitializationDataBase {
         pokemon_.setItem(NULL_REF);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 32);
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(A_LA_QUEUE, (short) 10);
-        moves_.put(APRES_VOUS, (short) 10);
-        moves_.put(SEISME, (short) 10);
-        moves_.put(BROUHAHA, (short) 10);
+        pokemon_.setLevel( 32);
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(A_LA_QUEUE,  10);
+        moves_.put(APRES_VOUS,  10);
+        moves_.put(SEISME,  10);
+        moves_.put(BROUHAHA,  10);
         PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data, moves_);
         pokemonUser_.initIv(_diff);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
-        pokemonUser_.setHappiness((short) 140);
+        pokemonUser_.setHappiness( 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         player_.getTeam().add(pokemonUser_);
         pokemonUser_ = new PokemonPlayer(pokemon_, _data, moves_);
         pokemonUser_.initIv(_diff);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
-        pokemonUser_.setHappiness((short) 140);
+        pokemonUser_.setHappiness( 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         pokemonUser_.setRemainingHp(Rate.zero());
         player_.getTeam().add(pokemonUser_);
@@ -268,13 +268,13 @@ public class FightKoTest extends InitializationDataBase {
         foePokemon_.setItem(PLAQUE_DRACO);
         foePokemon_.setAbility(MULTITYPE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
+        foePokemon_.setLevel( 3);
         foePokemon_.setMoves(new StringList(JACKPOT,PREVENTION,RELAIS));
         foeTeam_.add(foePokemon_);
         GymLeader trainer_ = new GymLeader();
         trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
-        trainer_.setMultiplicityFight((byte) 1);
+        trainer_.setReward( 200);
+        trainer_.setMultiplicityFight( 1);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, _diff, trainer_, _data);
         fight_.setEnvType(EnvironmentType.ROAD);
@@ -287,8 +287,8 @@ public class FightKoTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         diff_.setDiffWinningExpPtsFight(DifficultyWinPointsFight.DIFFICILE);
         Fight fight_ = addEv(diff_, data_);
-        Bytes fighters_ = FightOrder.fightersBelongingToUserHavingBeaten(fight_,(byte) 0);
-        FightKo.addEv(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), fighters_, (byte) 0, data_);
+        Ints fighters_ = FightOrder.fightersBelongingToUserHavingBeaten(fight_, 0);
+        FightKo.addEv(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), fighters_,  0, data_);
         assertEq(3, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getEv().getVal(Statistic.DEFENSE));
     }
 
@@ -298,8 +298,8 @@ public class FightKoTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         diff_.setDiffWinningExpPtsFight(DifficultyWinPointsFight.DIFFICILE);
         Fight fight_ = addEv(diff_, data_);
-        Bytes fighters_ = FightOrder.fightersBelongingToUserHavingBeaten(fight_,(byte) 0);
-        FightKo.addEv(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), fighters_, (byte) 0, data_);
+        Ints fighters_ = FightOrder.fightersBelongingToUserHavingBeaten(fight_, 0);
+        FightKo.addEv(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), fighters_,  0, data_);
         assertEq(0, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getEv().getVal(Statistic.DEFENSE));
     }
 
@@ -310,8 +310,8 @@ public class FightKoTest extends InitializationDataBase {
         diff_.setDiffWinningExpPtsFight(DifficultyWinPointsFight.DIFFICILE);
         Fight fight_ = addEv(diff_, data_);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).backUpObject(HYPER_BALL);
-        Bytes fighters_ = FightOrder.fightersBelongingToUserHavingBeaten(fight_,(byte) 0);
-        FightKo.addEv(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), fighters_, (byte) 0, data_);
+        Ints fighters_ = FightOrder.fightersBelongingToUserHavingBeaten(fight_, 0);
+        FightKo.addEv(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), fighters_,  0, data_);
         assertEq(3, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getEv().getVal(Statistic.DEFENSE));
     }
 
@@ -322,8 +322,8 @@ public class FightKoTest extends InitializationDataBase {
         diff_.setDiffWinningExpPtsFight(DifficultyWinPointsFight.DIFFICILE);
         Fight fight_ = addEv(diff_, data_);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).backUpObject(GROSSERACINE);
-        Bytes fighters_ = FightOrder.fightersBelongingToUserHavingBeaten(fight_,(byte) 0);
-        FightKo.addEv(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), fighters_, (byte) 0, data_);
+        Ints fighters_ = FightOrder.fightersBelongingToUserHavingBeaten(fight_, 0);
+        FightKo.addEv(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), fighters_,  0, data_);
         assertEq(3, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getEv().getVal(Statistic.DEFENSE));
     }
 
@@ -334,8 +334,8 @@ public class FightKoTest extends InitializationDataBase {
         diff_.setDiffWinningExpPtsFight(DifficultyWinPointsFight.DIFFICILE);
         Fight fight_ = addEv(diff_, data_);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setExpItem(BRAC_MACHO);
-        Bytes fighters_ = FightOrder.fightersBelongingToUserHavingBeaten(fight_,(byte) 0);
-        FightKo.addEv(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), fighters_, (byte) 0, data_);
+        Ints fighters_ = FightOrder.fightersBelongingToUserHavingBeaten(fight_, 0);
+        FightKo.addEv(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), fighters_,  0, data_);
         assertEq(6, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getEv().getVal(Statistic.DEFENSE));
     }
 
@@ -346,8 +346,8 @@ public class FightKoTest extends InitializationDataBase {
         diff_.setDiffWinningExpPtsFight(DifficultyWinPointsFight.DIFFICILE);
         Fight fight_ = addEv(diff_, data_);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setExpItem(CEINT_POUV);
-        Bytes fighters_ = FightOrder.fightersBelongingToUserHavingBeaten(fight_,(byte) 0);
-        FightKo.addEv(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), fighters_, (byte) 0, data_);
+        Ints fighters_ = FightOrder.fightersBelongingToUserHavingBeaten(fight_, 0);
+        FightKo.addEv(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), fighters_,  0, data_);
         assertEq(7, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getEv().getVal(Statistic.DEFENSE));
     }
 
@@ -361,17 +361,17 @@ public class FightKoTest extends InitializationDataBase {
         pokemon_.setItem(NULL_REF);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 32);
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(A_LA_QUEUE, (short) 10);
-        moves_.put(APRES_VOUS, (short) 10);
-        moves_.put(SEISME, (short) 10);
-        moves_.put(BROUHAHA, (short) 10);
+        pokemon_.setLevel( 32);
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(A_LA_QUEUE,  10);
+        moves_.put(APRES_VOUS,  10);
+        moves_.put(SEISME,  10);
+        moves_.put(BROUHAHA,  10);
         PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
-        pokemonUser_.setHappiness((short) 140);
+        pokemonUser_.setHappiness( 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         pokemonUser_.setItem(MULTI_EXP);
         player_.getTeam().add(pokemonUser_);
@@ -380,7 +380,7 @@ public class FightKoTest extends InitializationDataBase {
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setItem(BAIE_CHERIM);
-        pokemonUser_.setHappiness((short) 140);
+        pokemonUser_.setHappiness( 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         pokemonUser_.setRemainingHp(Rate.zero());
         player_.getTeam().add(pokemonUser_);
@@ -390,17 +390,17 @@ public class FightKoTest extends InitializationDataBase {
         foePokemon_.setItem(PLAQUE_DRACO);
         foePokemon_.setAbility(MULTITYPE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
+        foePokemon_.setLevel( 3);
         foePokemon_.setMoves(new StringList(JACKPOT,PREVENTION,RELAIS));
         foeTeam_.add(foePokemon_);
         GymLeader trainer_ = new GymLeader();
         trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
-        trainer_.setMultiplicityFight((byte) 3);
+        trainer_.setReward( 200);
+        trainer_.setMultiplicityFight( 3);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
-        assertEq(new Rate("4995/2"), FightKo.pointsFoe(fight_,(byte) 0, diff_, data_));
+        assertEq(new Rate("4995/2"), FightKo.pointsFoe(fight_, 0, diff_, data_));
     }
 
     @Test
@@ -408,7 +408,7 @@ public class FightKoTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         Fight fight_ = rateWonPoint(diff_, data_);
-        assertEq(new Rate("300"), FightKo.pointsFoe(fight_,(byte) 0, diff_, data_));
+        assertEq(new Rate("300"), FightKo.pointsFoe(fight_, 0, diff_, data_));
     }
 
     @Test
@@ -417,8 +417,8 @@ public class FightKoTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         diff_.setDiffWinningExpPtsFight(DifficultyWinPointsFight.DIFFICILE);
         Fight fight_ = addExp(diff_, data_);
-        Bytes fighters_ = FightOrder.fightersBelongingToUserHavingBeaten(fight_,(byte) 0);
-        FightKo.addExpEvsFighters(fight_,fighters_, (byte) 0, diff_, data_);
+        Ints fighters_ = FightOrder.fightersBelongingToUserHavingBeaten(fight_, 0);
+        FightKo.addExpEvsFighters(fight_,fighters_,  0, diff_, data_);
         assertEq(new Rate("4995/2"), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getWonExp());
         assertEq(new Rate("0"), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getWonExp());
         assertEq(3, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getEv().getVal(Statistic.DEFENSE));
@@ -436,24 +436,24 @@ public class FightKoTest extends InitializationDataBase {
         pokemon_.setItem(NULL_REF);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 32);
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(A_LA_QUEUE, (short) 10);
-        moves_.put(APRES_VOUS, (short) 10);
-        moves_.put(SEISME, (short) 10);
-        moves_.put(BROUHAHA, (short) 10);
+        pokemon_.setLevel( 32);
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(A_LA_QUEUE,  10);
+        moves_.put(APRES_VOUS,  10);
+        moves_.put(SEISME,  10);
+        moves_.put(BROUHAHA,  10);
         PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(diff_);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
-        pokemonUser_.setHappiness((short) 140);
+        pokemonUser_.setHappiness( 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         player_.getTeam().add(pokemonUser_);
         pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(diff_);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
-        pokemonUser_.setHappiness((short) 140);
+        pokemonUser_.setHappiness( 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         player_.getTeam().add(pokemonUser_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
@@ -462,18 +462,18 @@ public class FightKoTest extends InitializationDataBase {
         foePokemon_.setItem(PLAQUE_DRACO);
         foePokemon_.setAbility(MULTITYPE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
+        foePokemon_.setLevel( 3);
         foePokemon_.setMoves(new StringList(JACKPOT,PREVENTION,RELAIS));
         foeTeam_.add(foePokemon_);
         GymLeader trainer_ = new GymLeader();
         trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
-        trainer_.setMultiplicityFight((byte) 3);
+        trainer_.setReward( 200);
+        trainer_.setMultiplicityFight( 3);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
-        Bytes fighters_ = FightOrder.fightersBelongingToUserHavingBeaten(fight_,(byte) 0);
-        FightKo.addExpEvsFighters(fight_,fighters_, (byte) 0, diff_, data_);
+        Ints fighters_ = FightOrder.fightersBelongingToUserHavingBeaten(fight_, 0);
+        FightKo.addExpEvsFighters(fight_,fighters_,  0, diff_, data_);
         assertEq(new Rate("4995/4"), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getWonExp());
         assertEq(new Rate("4995/4"), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getWonExp());
         assertEq(3, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getEv().getVal(Statistic.DEFENSE));
@@ -491,17 +491,17 @@ public class FightKoTest extends InitializationDataBase {
         pokemon_.setItem(NULL_REF);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 100);
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(A_LA_QUEUE, (short) 10);
-        moves_.put(APRES_VOUS, (short) 10);
-        moves_.put(SEISME, (short) 10);
-        moves_.put(BROUHAHA, (short) 10);
+        pokemon_.setLevel( 100);
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(A_LA_QUEUE,  10);
+        moves_.put(APRES_VOUS,  10);
+        moves_.put(SEISME,  10);
+        moves_.put(BROUHAHA,  10);
         PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(diff_);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
-        pokemonUser_.setHappiness((short) 140);
+        pokemonUser_.setHappiness( 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         player_.getTeam().add(pokemonUser_);
         pokemon_ = new WildPk();
@@ -509,12 +509,12 @@ public class FightKoTest extends InitializationDataBase {
         pokemon_.setItem(NULL_REF);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 32);
+        pokemon_.setLevel( 32);
         pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(diff_);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
-        pokemonUser_.setHappiness((short) 140);
+        pokemonUser_.setHappiness( 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         player_.getTeam().add(pokemonUser_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
@@ -523,18 +523,18 @@ public class FightKoTest extends InitializationDataBase {
         foePokemon_.setItem(PLAQUE_DRACO);
         foePokemon_.setAbility(MULTITYPE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
+        foePokemon_.setLevel( 3);
         foePokemon_.setMoves(new StringList(JACKPOT,PREVENTION,RELAIS));
         foeTeam_.add(foePokemon_);
         GymLeader trainer_ = new GymLeader();
         trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
-        trainer_.setMultiplicityFight((byte) 3);
+        trainer_.setReward( 200);
+        trainer_.setMultiplicityFight( 3);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
         fight_.setEnvType(EnvironmentType.ROAD);
-        Bytes fighters_ = FightOrder.fightersBelongingToUserHavingBeaten(fight_,(byte) 0);
-        FightKo.addExpEvsFighters(fight_,fighters_, (byte) 0, diff_, data_);
+        Ints fighters_ = FightOrder.fightersBelongingToUserHavingBeaten(fight_, 0);
+        FightKo.addExpEvsFighters(fight_,fighters_,  0, diff_, data_);
         assertEq(new Rate("0"), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getWonExp());
         assertEq(new Rate("4995/2"), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getWonExp());
         assertEq(3, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getEv().getVal(Statistic.DEFENSE));
@@ -545,10 +545,10 @@ public class FightKoTest extends InitializationDataBase {
     public void setFighterKo1Test() {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
-        Fight fight_ = moveTeams(diff_, (byte) 3, data_);
+        Fight fight_ = moveTeams(diff_,  3, data_);
         Fighter u_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter f_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
-        u_.transformer(f_, (short) 5);
+        u_.transformer(f_,  5);
         assertEq(TARTARD, u_.getCurrentName());
         FightKo.setFighterKo(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_);
         assertEq(YANMA, u_.getCurrentName());
@@ -566,31 +566,31 @@ public class FightKoTest extends InitializationDataBase {
         pokemon_.setItem(NULL_REF);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 32);
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(A_LA_QUEUE, (short) 10);
-        moves_.put(APRES_VOUS, (short) 10);
-        moves_.put(SEISME, (short) 10);
-        moves_.put(BROUHAHA, (short) 10);
+        pokemon_.setLevel( 32);
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(A_LA_QUEUE,  10);
+        moves_.put(APRES_VOUS,  10);
+        moves_.put(SEISME,  10);
+        moves_.put(BROUHAHA,  10);
         PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data, moves_);
         pokemonUser_.initIv(_diff);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
-        pokemonUser_.setHappiness((short) 140);
+        pokemonUser_.setHappiness( 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         player_.getTeam().add(pokemonUser_);
         pokemonUser_ = new PokemonPlayer(pokemon_, _data, moves_);
         pokemonUser_.initIv(_diff);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
-        pokemonUser_.setHappiness((short) 140);
+        pokemonUser_.setHappiness( 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         player_.getTeam().add(pokemonUser_);
         pokemonUser_ = new PokemonPlayer(pokemon_, _data, moves_);
         pokemonUser_.initIv(_diff);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
-        pokemonUser_.setHappiness((short) 140);
+        pokemonUser_.setHappiness( 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         player_.getTeam().add(pokemonUser_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
@@ -599,7 +599,7 @@ public class FightKoTest extends InitializationDataBase {
         foePokemon_.setItem(PLAQUE_DRACO);
         foePokemon_.setAbility(MULTITYPE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
+        foePokemon_.setLevel( 3);
         foePokemon_.setMoves(new StringList(JACKPOT,PREVENTION,RELAIS));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
@@ -607,7 +607,7 @@ public class FightKoTest extends InitializationDataBase {
         foePokemon_.setItem(PLAQUE_DRACO);
         foePokemon_.setAbility(MULTITYPE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
+        foePokemon_.setLevel( 3);
         foePokemon_.setMoves(new StringList(JACKPOT,PREVENTION,RELAIS));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
@@ -615,7 +615,7 @@ public class FightKoTest extends InitializationDataBase {
         foePokemon_.setItem(PLAQUE_DRACO);
         foePokemon_.setAbility(MULTITYPE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
+        foePokemon_.setLevel( 3);
         foePokemon_.setMoves(new StringList(JACKPOT,PREVENTION,RELAIS));
         foeTeam_.add(foePokemon_);
         Ally ally_ = new Ally();
@@ -625,15 +625,15 @@ public class FightKoTest extends InitializationDataBase {
         allyPokemon_.setItem(PLAQUE_DRACO);
         allyPokemon_.setAbility(MULTITYPE);
         allyPokemon_.setGender(Gender.NO_GENDER);
-        allyPokemon_.setLevel((short) 3);
+        allyPokemon_.setLevel( 3);
         allyPokemon_.setMoves(new StringList(JACKPOT,PREVENTION,RELAIS));
         allyTeam_.add(allyPokemon_);
         ally_.setTeam(allyTeam_);
         DualFight dual_ = new DualFight();
         TempTrainer trainer_ = new TempTrainer();
         trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
-        trainer_.setMultiplicityFight((byte) 3);
+        trainer_.setReward( 200);
+        trainer_.setMultiplicityFight( 3);
         dual_.setAlly(ally_);
         dual_.setFoeTrainer(trainer_);
         Fight fight_ = FightFacade.newFight();
@@ -649,15 +649,15 @@ public class FightKoTest extends InitializationDataBase {
         Fight fight_ = setKo(diff_, data_);
         Fighter u_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter f_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO);
-        u_.transformer(f_, (short) 5);
+        u_.transformer(f_,  5);
         assertEq(TARTARD, u_.getCurrentName());
         FightKo.setKo(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
         assertEq(YANMA, u_.getCurrentName());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal( 0));
         assertEq(Fighter.BACK, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getGroundPlace());
         assertEq(0, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getGroundPlaceSubst());
         assertEq(Rate.zero(), fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getRemainingHp());
-        assertEq(0, fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal((byte) 0).size());
+        assertEq(0, fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal( 0).size());
         assertSame(BoolVal.FALSE, fight_.getTemp().getKos().getVal(Fight.CST_PLAYER));
         assertSame(BoolVal.FALSE, fight_.getTemp().getKos().getVal(Fight.CST_FOE));
     }
@@ -679,13 +679,13 @@ public class FightKoTest extends InitializationDataBase {
         assertEq(Fighter.BACK, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getGroundPlace());
         assertEq(0, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getGroundPlaceSubst());
         assertEq(Rate.zero(), fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getRemainingHp());
-        Bytes list_ = fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal((byte) 0);
+        Ints list_ = fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal( 0);
         assertEq(2, list_.size());
-        assertTrue(list_.containsObj((byte) 1));
-        assertTrue(list_.containsObj((byte) 2));
-        list_ = fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal((byte) 1);
+        assertTrue(list_.containsObj( 1));
+        assertTrue(list_.containsObj( 2));
+        list_ = fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal( 1);
         assertEq(0, list_.size());
-        list_ = fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal((byte)2);
+        list_ = fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal(2);
         assertEq(0, list_.size());
         assertSame(BoolVal.FALSE, fight_.getTemp().getKos().getVal(Fight.CST_PLAYER));
         assertSame(BoolVal.FALSE, fight_.getTemp().getKos().getVal(Fight.CST_FOE));
@@ -713,11 +713,11 @@ public class FightKoTest extends InitializationDataBase {
         assertEq(Rate.zero(), fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getRemainingHp());
         assertEq(Fighter.BACK, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_TWO).getGroundPlace());
         assertEq(Rate.zero(), fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_TWO).getRemainingHp());
-        Bytes list_ = fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal((byte) 0);
+        Ints list_ = fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal( 0);
         assertEq(0, list_.size());
-        list_ = fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal((byte) 1);
+        list_ = fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal( 1);
         assertEq(0, list_.size());
-        list_ = fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal((byte)2);
+        list_ = fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal(2);
         assertEq(0, list_.size());
         assertSame(BoolVal.FALSE, fight_.getTemp().getKos().getVal(Fight.CST_PLAYER));
         assertSame(BoolVal.TRUE, fight_.getTemp().getKos().getVal(Fight.CST_FOE));
@@ -800,38 +800,38 @@ public class FightKoTest extends InitializationDataBase {
         assertTrue(!FightKo.endedFight(fight_,diff_));
     }
 
-    private static Fight moveTeams(Difficulty _diff, byte _mult, DataBase _data) {
+    private static Fight moveTeams(Difficulty _diff, int _mult, DataBase _data) {
         Player player_ = Player.build(NICKNAME,_diff,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 32);
-        StringMap<Short> moves_ = new StringMap<Short>();
-        moves_.put(A_LA_QUEUE, (short) 10);
-        moves_.put(APRES_VOUS, (short) 10);
-        moves_.put(SEISME, (short) 10);
-        moves_.put(BROUHAHA, (short) 10);
+        pokemon_.setLevel( 32);
+        StringMap<Integer> moves_ = new StringMap<Integer>();
+        moves_.put(A_LA_QUEUE,  10);
+        moves_.put(APRES_VOUS,  10);
+        moves_.put(SEISME,  10);
+        moves_.put(BROUHAHA,  10);
         PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data, moves_);
         pokemonUser_.initIv(_diff);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
-        pokemonUser_.setHappiness((short) 140);
+        pokemonUser_.setHappiness( 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         player_.getTeam().add(pokemonUser_);
         pokemonUser_ = new PokemonPlayer(pokemon_, _data, moves_);
         pokemonUser_.initIv(_diff);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
-        pokemonUser_.setHappiness((short) 140);
+        pokemonUser_.setHappiness( 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         player_.getTeam().add(pokemonUser_);
         pokemonUser_ = new PokemonPlayer(pokemon_, _data, moves_);
         pokemonUser_.initIv(_diff);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
-        pokemonUser_.setHappiness((short) 140);
+        pokemonUser_.setHappiness( 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         player_.getTeam().add(pokemonUser_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
@@ -840,7 +840,7 @@ public class FightKoTest extends InitializationDataBase {
         foePokemon_.setItem(PLAQUE_DRACO);
         foePokemon_.setAbility(MULTITYPE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
+        foePokemon_.setLevel( 3);
         foePokemon_.setMoves(new StringList(JACKPOT,PREVENTION,RELAIS));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
@@ -848,7 +848,7 @@ public class FightKoTest extends InitializationDataBase {
         foePokemon_.setItem(PLAQUE_DRACO);
         foePokemon_.setAbility(MULTITYPE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
+        foePokemon_.setLevel( 3);
         foePokemon_.setMoves(new StringList(JACKPOT,PREVENTION,RELAIS));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
@@ -856,12 +856,12 @@ public class FightKoTest extends InitializationDataBase {
         foePokemon_.setItem(PLAQUE_DRACO);
         foePokemon_.setAbility(MULTITYPE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short) 3);
+        foePokemon_.setLevel( 3);
         foePokemon_.setMoves(new StringList(JACKPOT,PREVENTION,RELAIS));
         foeTeam_.add(foePokemon_);
         GymLeader trainer_ = new GymLeader();
         trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
+        trainer_.setReward( 200);
         trainer_.setMultiplicityFight(_mult);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, _diff, trainer_, _data);
@@ -873,7 +873,7 @@ public class FightKoTest extends InitializationDataBase {
     public void moveTeams1Test() {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
-        Fight fight_ = moveTeams(diff_, (byte) 1, data_);
+        Fight fight_ = moveTeams(diff_,  1, data_);
         FightKo.moveTeams(fight_);
         assertEq(0, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getGroundPlace());
         assertEq(Fighter.BACK, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getGroundPlace());
@@ -887,7 +887,7 @@ public class FightKoTest extends InitializationDataBase {
     public void moveTeams2Test() {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
-        Fight fight_ = moveTeams(diff_, (byte) 2, data_);
+        Fight fight_ = moveTeams(diff_,  2, data_);
         FightKo.setKo(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
         FightKo.setKo(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightKo.moveTeams(fight_);
@@ -903,7 +903,7 @@ public class FightKoTest extends InitializationDataBase {
     public void moveTeams3Test() {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
-        Fight fight_ = moveTeams(diff_, (byte) 3, data_);
+        Fight fight_ = moveTeams(diff_,  3, data_);
         FightKo.setKo(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
         FightKo.setKo(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_TWO), diff_, data_);
         FightKo.setKo(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
@@ -921,7 +921,7 @@ public class FightKoTest extends InitializationDataBase {
     public void moveTeams4Test() {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
-        Fight fight_ = moveTeams(diff_, (byte) 3, data_);
+        Fight fight_ = moveTeams(diff_,  3, data_);
         FightKo.setKo(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_TWO), diff_, data_);
         FightKo.setKo(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightKo.setKo(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ONE), diff_, data_);
@@ -938,7 +938,7 @@ public class FightKoTest extends InitializationDataBase {
     public void moveTeams5Test() {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
-        Fight fight_ = moveTeams(diff_, (byte) 3, data_);
+        Fight fight_ = moveTeams(diff_,  3, data_);
         FightKo.setKo(fight_,tp(KEY_FOE, POKEMON_FIGHTER_TWO), diff_, data_);
         FightKo.setKo(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightKo.setKo(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
@@ -955,7 +955,7 @@ public class FightKoTest extends InitializationDataBase {
     public void moveTeams6Test() {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
-        Fight fight_ = moveTeams(diff_, (byte) 3, data_);
+        Fight fight_ = moveTeams(diff_,  3, data_);
         FightKo.setKo(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightKo.setKo(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ONE), diff_, data_);
         FightKo.moveTeams(fight_);
@@ -971,7 +971,7 @@ public class FightKoTest extends InitializationDataBase {
     public void moveTeams7Test() {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
-        Fight fight_ = moveTeams(diff_, (byte) 3, data_);
+        Fight fight_ = moveTeams(diff_,  3, data_);
         FightKo.setKo(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
         FightKo.setKo(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
         FightKo.moveTeams(fight_);
@@ -987,7 +987,7 @@ public class FightKoTest extends InitializationDataBase {
     public void setKoMoveTeams1Test() {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
-        Fight fight_ = moveTeams(diff_, (byte) 3, data_);
+        Fight fight_ = moveTeams(diff_,  3, data_);
         FightKo.setKoMoveTeams(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         assertEq(0, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getGroundPlace());
         assertEq(1, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getGroundPlace());
@@ -1017,7 +1017,7 @@ public class FightKoTest extends InitializationDataBase {
     public void setKoMoveTeams2Test() {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
-        Fight fight_ = moveTeams(diff_, (byte) 2, data_);
+        Fight fight_ = moveTeams(diff_,  2, data_);
         FightKo.setKoMoveTeams(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         assertEq(0, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getGroundPlace());
         assertEq(1, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ONE).getGroundPlace());
@@ -1040,7 +1040,7 @@ public class FightKoTest extends InitializationDataBase {
     public void setKoMoveTeams3Test() {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
-        Fight fight_ = moveTeams(diff_, (byte) 2, data_);
+        Fight fight_ = moveTeams(diff_,  2, data_);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_TWO).getRemainingHp().affectZero();
         FightKo.setKoMoveTeams(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         assertEq(0, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getGroundPlace());
@@ -1064,7 +1064,7 @@ public class FightKoTest extends InitializationDataBase {
     public void setKoMoveTeams4Test() {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
-        Fight fight_ = moveTeams(diff_, (byte) 2, data_);
+        Fight fight_ = moveTeams(diff_,  2, data_);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_TWO).getRemainingHp().affectZero();
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_TWO).getRemainingHp().affectZero();
         FightKo.setKoMoveTeams(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
@@ -1089,7 +1089,7 @@ public class FightKoTest extends InitializationDataBase {
     public void canBeHealed1Test() {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
-        Fight fight_ = moveTeams(diff_, (byte) 3, data_);
+        Fight fight_ = moveTeams(diff_,  3, data_);
         assertTrue(FightKo.canBeHealed(fight_, Fight.CST_PLAYER, data_));
     }
 
@@ -1097,7 +1097,7 @@ public class FightKoTest extends InitializationDataBase {
     public void canBeHealed2Test() {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
-        Fight fight_ = moveTeams(diff_, (byte) 3, data_);
+        Fight fight_ = moveTeams(diff_,  3, data_);
         fight_.getFoeTeam().activerEffetEquipe(BRUME);
         assertTrue(FightKo.canBeHealed(fight_, Fight.CST_PLAYER, data_));
     }
@@ -1106,7 +1106,7 @@ public class FightKoTest extends InitializationDataBase {
     public void canBeHealed3Test() {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
-        Fight fight_ = moveTeams(diff_, (byte) 3, data_);
+        Fight fight_ = moveTeams(diff_,  3, data_);
         fight_.getFoeTeam().activerEffetEquipe(ANTI_SOIN);
         assertTrue(!FightKo.canBeHealed(fight_, Fight.CST_PLAYER, data_));
     }
@@ -1115,12 +1115,12 @@ public class FightKoTest extends InitializationDataBase {
     public void canBeHealed4Test() {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
-        Fight fight_ = moveTeams(diff_, (byte) 3, data_);
+        Fight fight_ = moveTeams(diff_,  3, data_);
         fight_.getFoeTeam().activerEffetEquipe(TOUR_RAPIDE);
         assertTrue(FightKo.canBeHealed(fight_, Fight.CST_PLAYER, data_));
     }
     static void addExp(Fight _fight,TeamPosition _fighter,
-                       Bytes _members, Bytes _porteursMultExp,
+                       Ints _members, Ints _porteursMultExp,
                        TeamPosition _foe, Rate _points,
                        Difficulty _diff, boolean _showMessage, DataBase _import) {
         FightKo.addExp(_fight,_fighter, new PointFoeExpObject(_members,_porteursMultExp,_points,_foe.getPosition()),_diff,_showMessage,_import);

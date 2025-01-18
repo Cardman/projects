@@ -66,7 +66,7 @@ public class FighterRenderer implements AbsCustCellRenderGene<FighterPosition> {
         if (facade.getFight().getChoices().isEmpty()) {
             enabled = true;
         } else {
-            enabled = facade.isChosableForLearningAndEvolving((byte) _index);
+            enabled = facade.isChosableForLearningAndEvolving(_index);
         }
         int w_ = NumberUtil.max(150,sideLength+maxWidthName+maxWidthHealthPointsRate);
         int h_ = NumberUtil.max(sideLength, 2 * _lab.getRealSize() + 2);

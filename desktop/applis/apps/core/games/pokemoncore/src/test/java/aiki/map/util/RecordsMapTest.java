@@ -51,7 +51,7 @@ public final class RecordsMapTest extends EquallablePkUtil {
         StatisticPokemons c_ = new StatisticPokemons();
         c_.getVal(new StatisticPokemon(";"));
         assertTrue(c_.isEmpty());
-        c_.addEntry(new StatisticPokemon(DataBase.DEF_STAT_SPEED+";"), (byte) 0);
+        c_.addEntry(new StatisticPokemon(DataBase.DEF_STAT_SPEED+";"),  0);
         assertNotNull(c_.getKeys());
         assertTrue(!c_.isEmpty());
     }

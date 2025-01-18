@@ -50,7 +50,7 @@ public final class FightHelpBeanMovesTargetTeamDamageTest extends InitDbFightHel
         FacadeGame f_ = facade();
         DamagingMoveData t_ = Instances.newDamagingMoveData();
         EffectTeam e_ = Instances.newEffectTeam();
-        e_.getMultDamage().addEntry(new CategoryMult(NULL_REF,(byte)1),Rate.one());
+        e_.getMultDamage().addEntry(new CategoryMult(NULL_REF,1),Rate.one());
         t_.getEffects().add(e_);
         f_.getData().completeMembers(M_DAM, t_);
         StatusMoveData s_ = Instances.newStatusMoveData();

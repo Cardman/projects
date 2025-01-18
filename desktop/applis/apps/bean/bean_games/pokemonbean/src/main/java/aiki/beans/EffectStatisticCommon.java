@@ -11,7 +11,7 @@ import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class EffectStatisticCommon {
-    private NatStringTreeMap< Byte> statisVarRank;
+    private NatStringTreeMap< Integer> statisVarRank;
 
     private NatStringTreeMap< String> localFailStatis;
     private Rate evtRate;
@@ -32,8 +32,8 @@ public final class EffectStatisticCommon {
         AbsMap<Statistic,String> translatedStatistics_ = _data.getTranslatedStatistics().getVal(_lg);
         evtRate = adj_.getEvtRate();
 //        evtRatePerCent = Rate.multiply(evtRate, new Rate(CommonBean.CST_CENT)).evaluate(2);
-        NatStringTreeMap< Byte> statisVarRank_;
-        statisVarRank_ = new NatStringTreeMap< Byte>();
+        NatStringTreeMap< Integer> statisVarRank_;
+        statisVarRank_ = new NatStringTreeMap< Integer>();
         for (Statistic s: adj_.getStatisVarRank().getKeys()) {
             statisVarRank_.put(translatedStatistics_.getVal(s), adj_.getStatisVarRank().getVal(s));
         }
@@ -138,7 +138,7 @@ public final class EffectStatisticCommon {
         return Rate.multiply(evtRate, new Rate(CommonBean.CST_CENT)).evaluate(2);
     }
 
-    public NatStringTreeMap<Byte> getStatisVarRank() {
+    public NatStringTreeMap<Integer> getStatisVarRank() {
         return statisVarRank;
     }
 

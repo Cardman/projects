@@ -10,7 +10,7 @@ public final class PokemonTeam implements Rewardable {
 
     private CustList<PkTrainer> team;
 
-    private short reward;
+    private int reward;
 
     public void validate(DataBase _data) {
         for (PkTrainer p : team) {
@@ -31,11 +31,11 @@ public final class PokemonTeam implements Rewardable {
     }
 
     @Override
-    public short getReward() {
+    public int getReward() {
         return reward;
     }
 
-    public void setReward(short _reward) {
+    public void setReward(int _reward) {
         reward = _reward;
     }
 

@@ -1069,14 +1069,14 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         initBlockFirstRoad(data_);
         initFirstRoadAreas(data_);
 
-        data_.getMap().join((short) 0,(short) 2,newPoint(0,0),newPoint(5,0), Direction.LEFT);
+        data_.getMap().join( 0, 2,newPoint(0,0),newPoint(5,0), Direction.LEFT);
 
         initMiniMap(data_);
         data_.completeVariables();
         initRandomLaws(data_);
         initExpPoints(data_);
-        data_.getTm().addEntry((short)2,ECLAIR);
-        data_.getTmPrice().addEntry((short)2,new LgInt("1"));
+        data_.getTm().addEntry(2,ECLAIR);
+        data_.getTmPrice().addEntry(2,new LgInt("1"));
         data_.initTypesByTable();
         initTranslations(data_);
         data_.initFamilies();
@@ -1089,7 +1089,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         pkm_.setAbility(PARATONNERRE);
         pkm_.setGender(Gender.NO_GENDER);
         pkm_.setItem(NULL_REF);
-        pkm_.setLevel((short) 7);
+        pkm_.setLevel( 7);
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 2, 1));
     }
@@ -1104,13 +1104,13 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         pkData_.setEggGroups(new StringList(data_.getDefaultEggGroup()));
         pkData_.setTypes(new StringList(ELECTRICK));
         statBase(pkData_);
-        pkData_.getLevMoves().add(new LevelMove((short)1,ECLAIR));
+        pkData_.getLevMoves().add(new LevelMove(1,ECLAIR));
         pkData_.setExpRate(1);
         pkData_.setHeight(Rate.one());
         pkData_.setWeight(Rate.one());
-        pkData_.setCatchingRate((short) 1);
-        pkData_.setHappiness((short) 1);
-        pkData_.setHappinessHatch((short) 1);
+        pkData_.setCatchingRate( 1);
+        pkData_.setHappiness( 1);
+        pkData_.setHappinessHatch( 1);
         pkData_.setAbilities(new StringList(PARATONNERRE));
         data_.completeMembers(PIKACHU,pkData_);
         data_.completeMembers(PARATONNERRE,Instances.newAbilityData());
@@ -1137,17 +1137,17 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         move_.setTypes(new StringList(ELECTRICK));
         move_.setCategory("SPEC");
         move_.setAccuracy("1");
-        move_.setPp((short) 1);
+        move_.setPp( 1);
         return move_;
     }
 
     public static void statBase(PokemonData _pk) {
-        _pk.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)0));
-        _pk.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv((short)1,(short)0));
-        _pk.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)0));
-        _pk.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv((short)1,(short)0));
-        _pk.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv((short)1,(short)0));
-        _pk.getStatistics().addEntry(Statistic.HP,new StatBaseEv((short)1,(short)0));
+        _pk.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv(1,0));
+        _pk.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv(1,0));
+        _pk.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv(1,0));
+        _pk.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv(1,0));
+        _pk.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv(1,0));
+        _pk.getStatistics().addEntry(Statistic.HP,new StatBaseEv(1,0));
     }
 
     public static void initConstants(DataBase _data) {
@@ -1320,7 +1320,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         monteCarloNumber_.addQuickEvent(new Rate("87/100"),new LgInt("3"));
         monteCarloNumber_.addQuickEvent(new Rate("1"),new LgInt("16"));
         monteCarloNumber_.addQuickEvent(new Rate("17/20"),new LgInt("1"));
-        _data.getLawsDamageRate().addEntry(DifficultyModelLaw.CROISSANT,new LawNumber(monteCarloNumber_,(short)4));
+        _data.getLawsDamageRate().addEntry(DifficultyModelLaw.CROISSANT,new LawNumber(monteCarloNumber_,4));
         monteCarloNumber_ = new MonteCarloNumber();
         monteCarloNumber_.addQuickEvent(new Rate("99/100"),new LgInt("1"));
         monteCarloNumber_.addQuickEvent(new Rate("9/10"),new LgInt("1"));
@@ -1338,7 +1338,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         monteCarloNumber_.addQuickEvent(new Rate("17/20"),new LgInt("1"));
         monteCarloNumber_.addQuickEvent(new Rate("23/25"),new LgInt("1"));
         monteCarloNumber_.addQuickEvent(new Rate("87/100"),new LgInt("1"));
-        _data.getLawsDamageRate().addEntry(DifficultyModelLaw.UNIFORME,new LawNumber(monteCarloNumber_,(short)3));
+        _data.getLawsDamageRate().addEntry(DifficultyModelLaw.UNIFORME,new LawNumber(monteCarloNumber_,3));
         monteCarloNumber_ = new MonteCarloNumber();
         monteCarloNumber_.addQuickEvent(new Rate("24/25"),new LgInt("5"));
         monteCarloNumber_.addQuickEvent(new Rate("19/20"),new LgInt("6"));
@@ -1356,13 +1356,13 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         monteCarloNumber_.addQuickEvent(new Rate("17/20"),new LgInt("16"));
         monteCarloNumber_.addQuickEvent(new Rate("49/50"),new LgInt("3"));
         monteCarloNumber_.addQuickEvent(new Rate("89/100"),new LgInt("12"));
-        _data.getLawsDamageRate().addEntry(DifficultyModelLaw.DECROISSANT,new LawNumber(monteCarloNumber_,(short)2));
+        _data.getLawsDamageRate().addEntry(DifficultyModelLaw.DECROISSANT,new LawNumber(monteCarloNumber_,2));
         monteCarloNumber_ = new MonteCarloNumber();
         monteCarloNumber_.addQuickEvent(new Rate("17/20"),new LgInt("1"));
-        _data.getLawsDamageRate().addEntry(DifficultyModelLaw.CONSTANT_MIN,new LawNumber(monteCarloNumber_,(short)1));
+        _data.getLawsDamageRate().addEntry(DifficultyModelLaw.CONSTANT_MIN,new LawNumber(monteCarloNumber_,1));
         monteCarloNumber_ = new MonteCarloNumber();
         monteCarloNumber_.addQuickEvent(new Rate("1"),new LgInt("1"));
-        _data.getLawsDamageRate().addEntry(DifficultyModelLaw.CONSTANT_MAX,new LawNumber(monteCarloNumber_,(short)5));
+        _data.getLawsDamageRate().addEntry(DifficultyModelLaw.CONSTANT_MAX,new LawNumber(monteCarloNumber_,5));
     }
 
     public static void initMiniMap(DataBase _data) {
@@ -1450,16 +1450,16 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         gym_ = (Gym) city_.getBuildings().getVal(newPoint(5, 1));
         CustList<PkTrainer> team_ = new CustList<PkTrainer>();
         team_.add(toPkTrainer(new NameLevel(PIKACHU, 1), new StringList(ECLAIR)));
-        gymTrainer_ = nvGymTrainer((short) 200, (byte) 1, team_);
+        gymTrainer_ = nvGymTrainer( 200,  1, team_);
         gym_.getIndoor().getGymTrainers().addEntry(newPoint(1, 7), gymTrainer_);
         CustList<PkTrainer> teamTwo_ = new CustList<PkTrainer>();
         teamTwo_.add(toPkTrainer(new NameLevel(PIKACHU, 1), new StringList(ECLAIR)));
-        gymTrainer_ = nvGymTrainer((short) 200, (byte) 1, teamTwo_);
+        gymTrainer_ = nvGymTrainer( 200,  1, teamTwo_);
         gym_.getIndoor().getGymTrainers().addEntry(newPoint(7, 7), gymTrainer_);
         gym_.getIndoor().setGymLeaderCoords(newPoint(4, 1));
         CustList<PkTrainer> teamThree_ = new CustList<PkTrainer>();
         teamThree_.add(toPkTrainer(new NameLevel(PIKACHU, 1), new StringList(ECLAIR)));
-        gymLeader_ = nvGymLeader((short) 500, (byte) 1, teamThree_);
+        gymLeader_ = nvGymLeader( 500,  1, teamThree_);
         gymLeader_.setName("__");
         gym_.getIndoor().setGymLeader(gymLeader_);
     }
@@ -1473,13 +1473,13 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         Seller seller_;
         seller_ = new Seller();
         seller_.setItems(new StringList(POKE_BALL));
-        seller_.setTm(Shorts.newList());
+        seller_.setTm(Ints.newList());
         seller_.setSell(SellType.ITEM);
         seller_.setImageMiniFileName(GERANT);
         pk_.getIndoor().getGerants().addEntry(newPoint(8, 4), seller_);
         seller_ = new Seller();
         seller_.setItems(new StringList());
-        seller_.setTm(Shorts.newList());
+        seller_.setTm(Ints.newList());
         seller_.setSell(SellType.MOVE);
         seller_.setImageMiniFileName(GERANT);
         pk_.getIndoor().getGerants().addEntry(newPoint(8, 6), seller_);
@@ -1546,11 +1546,11 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         AreaApparition area_;
         WildPk wild_;
         area_ = new AreaApparition();
-        area_.setAvgNbSteps((short) 1);
-        area_.setMultFight((byte) 1);
+        area_.setAvgNbSteps( 1);
+        area_.setMultFight( 1);
         wild_ = new WildPk();
         wild_.setName(PIKACHU);
-        wild_.setLevel((short) 1);
+        wild_.setLevel( 1);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.NO_GENDER);
         area_.setWildPokemon(new CustList<WildPk>());
@@ -1562,21 +1562,21 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     private static TrainerLeague trainerLeagueOne() {
         CustList<PkTrainer> team_ = new CustList<PkTrainer>();
         team_.add(toPkTrainer(new NameLevel(PIKACHU, 35), new StringList(ECLAIR)));
-        return nvTrainerLeague((short) 2000, (byte) 1, team_);
+        return nvTrainerLeague( 2000,  1, team_);
     }
-    private static GymLeader nvGymLeader(short _reward, byte _mult, CustList<PkTrainer> _team) {
+    private static GymLeader nvGymLeader(int _reward, int _mult, CustList<PkTrainer> _team) {
         GymLeader gymLeader_ = new GymLeader();
         gymLeader_.setTeam(_team);
         gymLeader_.setReward(_reward);
         gymLeader_.setMultiplicityFight(_mult);
         gymLeader_.setName(NULL_REF);
-        gymLeader_.setTm((short) 2);
+        gymLeader_.setTm( 2);
         gymLeader_.setImageMiniFileName(TRAINER);
         gymLeader_.setImageMaxiFileName(TRAINER);
         return gymLeader_;
     }
 
-    private static GymTrainer nvGymTrainer(short _reward, byte _mult, CustList<PkTrainer> _team) {
+    private static GymTrainer nvGymTrainer(int _reward, int _mult, CustList<PkTrainer> _team) {
         GymTrainer gymTrainer_ = new GymTrainer();
         gymTrainer_.setTeam(_team);
         gymTrainer_.setReward(_reward);
@@ -1586,7 +1586,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         return gymTrainer_;
     }
 
-    private static TrainerLeague nvTrainerLeague(short _reward, byte _mult, CustList<PkTrainer> _team) {
+    private static TrainerLeague nvTrainerLeague(int _reward, int _mult, CustList<PkTrainer> _team) {
         TrainerLeague trainerLeague_ = new TrainerLeague();
         trainerLeague_.setTeam(_team);
         trainerLeague_.setReward(_reward);
@@ -1624,7 +1624,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
 //            CustList<PokemonTeam> _teams, int _mult) {
 //        TrainerMultiFights trainer_ = new TrainerMultiFights();
 //        trainer_.setTeamsRewards(_teams);
-//        trainer_.setMultiplicityFight((byte) _mult);
+//        trainer_.setMultiplicityFight( _mult);
 //        trainer_.setImageMiniFileName(TRAINER);
 //        trainer_.setImageMaxiFileName(TRAINER);
 //        return trainer_;
@@ -1649,36 +1649,36 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
 //        //black
 //        Block block_;
 //        block_ = new Block();
-//        block_.setHeight((short) _h);
-//        block_.setWidth((short) _w);
+//        block_.setHeight( _h);
+//        block_.setWidth( _w);
 //        block_.setType(_type);
 //        block_.setTileFileName(_tileFileName);
-//        block_.setIndexApparition((short) _index);
+//        block_.setIndexApparition( _index);
 //        return block_;
 //    }
 
 //    private static LevelPoint newLevelPoint(int _level, int _x, int _y) {
 //        LevelPoint begin_ = new LevelPoint();
-//        begin_.setLevelIndex((byte) _level);
+//        begin_.setLevelIndex( _level);
 //        begin_.setPoint(newPoint(_x, _y));
 //        return begin_;
 //    }
 //
 //    private static Coords newCoords(int _place, int _level, int _x, int _y) {
 //        Coords begin_ = new Coords();
-//        begin_.setNumberPlace((short) _place);
+//        begin_.setNumberPlace( _place);
 //        begin_.setLevel(new LevelPoint());
-//        begin_.getLevel().setLevelIndex((byte) _level);
+//        begin_.getLevel().setLevelIndex( _level);
 //        begin_.getLevel().setPoint(newPoint(_x, _y));
 //        return begin_;
 //    }
 //
 //    private static Coords newCoords(int _place, int _level, int _xi, int _yi, int _x, int _y) {
 //        Coords begin_ = new Coords();
-//        begin_.setNumberPlace((short) _place);
+//        begin_.setNumberPlace( _place);
 //        begin_.affectInside(newPoint(_xi, _yi));
 //        begin_.setLevel(new LevelPoint());
-//        begin_.getLevel().setLevelIndex((byte) _level);
+//        begin_.getLevel().setLevelIndex( _level);
 //        begin_.getLevel().setPoint(newPoint(_x, _y));
 //        return begin_;
 //    }
@@ -1694,7 +1694,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     }
 
 //    private static Point newPoint(int _x, int _y) {
-//        return new Point((short)_x, (short)_y);
+//        return new Point(_x, _y);
 //    }
     private static CreateMainWindowAiki launcher(MockProgramInfos _pr, AikiFactory _fact) {
         return launcher(_pr, _fact, DocumentReaderAikiCoreUtil.newLoadingGame());

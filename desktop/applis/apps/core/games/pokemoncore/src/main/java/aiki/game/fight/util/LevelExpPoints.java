@@ -3,16 +3,16 @@ import code.maths.Rate;
 
 public final class LevelExpPoints {
 
-    private final short level;
+    private final int level;
 
     private final Rate expPoints;
 
-    public LevelExpPoints(short _level, Rate _expPoints) {
+    public LevelExpPoints(int _level, Rate _expPoints) {
         level = _level;
         expPoints = _expPoints;
     }
 
-    public short getLevel() {
+    public int getLevel() {
         return level;
     }
 

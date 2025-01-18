@@ -153,37 +153,6 @@ public final class NatTreeMapTest extends EquallableExUtil {
     }
 
     @Test
-    public void put6Test() {
-        ShortTreeMap<Integer> map_ = new ShortTreeMap<Integer>();
-        CustList<EntryCust<Short,Integer>> l_ = map_.getList();
-        assertEq(0, l_.size());
-        map_.put((short) 2, 2);
-        map_.put((short) 2, 1);
-        assertEq(1, l_.size());
-        assertEq(2, l_.get(0).getKey());
-        assertEq(1, l_.get(0).getValue());
-        map_.put((short) 4, 2);
-        assertEq(2, l_.size());
-        assertEq(2, l_.get(0).getKey());
-        assertEq(1, l_.get(0).getValue());
-        assertEq(4, l_.get(1).getKey());
-        assertEq(2, l_.get(1).getValue());
-        map_.put((short) 4, 3);
-        assertEq(2, l_.size());
-        assertEq(2, l_.get(0).getKey());
-        assertEq(1, l_.get(0).getValue());
-        assertEq(4, l_.get(1).getKey());
-        assertEq(3, l_.get(1).getValue());
-        map_.put((short) 3, 2);
-        assertEq(3, l_.size());
-        assertEq(2, l_.get(0).getKey());
-        assertEq(1, l_.get(0).getValue());
-        assertEq(3, l_.get(1).getKey());
-        assertEq(2, l_.get(1).getValue());
-        assertEq(4, l_.get(2).getKey());
-        assertEq(3, l_.get(2).getValue());
-    }
-    @Test
     public void size1Test() {
         IntTreeMap<Integer> map_ = new IntTreeMap<Integer>();
         assertEq(0, map_.size());

@@ -56,19 +56,19 @@ public final class AbilityData {
     private String multPower;
     private String multDamage;
     private Rate multStab;
-    private IdMap<Statistic, Byte> bonusStatRank;
-    private IdMap<Statistic, Byte> boostStatRankProtected;
-    private IdMap<Statistic, Byte> boostStatRankEndRound;
+    private IdMap<Statistic, Integer> bonusStatRank;
+    private IdMap<Statistic, Integer> boostStatRankProtected;
+    private IdMap<Statistic, Integer> boostStatRankEndRound;
     private IdMap<Statistic, Rate> multStatAlly;
-    private IdMap<Statistic, Byte> multStatIfKoFoe;
-    private IdMap<Statistic, Byte> multStatIfLowStat;
+    private IdMap<Statistic, Integer> multStatIfKoFoe;
+    private IdMap<Statistic, Integer> multStatIfLowStat;
     private StatisticCategoryList<Rate> multStatIfCat;
 
     private StatisticStatusList multStatIfStatutRank;
 
-    private StatisticCategoryList<Byte> multStatIfDamageCat;
+    private StatisticCategoryList<Integer> multStatIfDamageCat;
 
-    private StatisticTypeList<Byte> multStatIfDamgeType;
+    private StatisticTypeList<Integer> multStatIfDamgeType;
 
     private IdMap<Statistic, String> multStat;
     private boolean inflictingDamageInsteadOfSuffering;
@@ -79,8 +79,8 @@ public final class AbilityData {
     private boolean plate;
     private boolean healedStatusBySwitch;
     private Rate healedHpRateBySwitch;
-    private StringMap<Short> increasedPrio;
-    private StringMap<Short> increasedPrioTypes;
+    private StringMap<Integer> increasedPrio;
+    private StringMap<Integer> increasedPrioTypes;
     private IdList<Statistic> maxStatisticsIfCh;
     private MonteCarloString singleStatus;
     private boolean achievedDisappearedPk;
@@ -105,7 +105,7 @@ public final class AbilityData {
 
     private StringMap<IdList<Statistic>> immuLowStatisTypes;
 
-    private IdMap<Statistic, Byte> lowStatFoeHit;
+    private IdMap<Statistic, Integer> lowStatFoeHit;
 
     private boolean copyMovesTypes;
 
@@ -194,16 +194,16 @@ public final class AbilityData {
         DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),boostStatRankProtected.getKeys(),_data);
         DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),boostStatRankEndRound.getKeys(),_data);
         DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),multStatIfKoFoe.getKeys(),_data);
-        DataInfoChecker.checkPositiveBytes(boostStatRankProtected.values(),_data);
-        DataInfoChecker.checkPositiveBytes(multStatIfKoFoe.values(),_data);
-        DataInfoChecker.checkPositiveBytes(boostStatRankEndRound.values(),_data);
-        DataInfoChecker.checkPositiveBytes(multStatIfLowStat.values(),_data);
+        DataInfoChecker.checkPositiveShorts(boostStatRankProtected.values(),_data);
+        DataInfoChecker.checkPositiveShorts(multStatIfKoFoe.values(),_data);
+        DataInfoChecker.checkPositiveShorts(boostStatRankEndRound.values(),_data);
+        DataInfoChecker.checkPositiveShorts(multStatIfLowStat.values(),_data);
         DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),multStatIfLowStat.getKeys(),_data);
-        DataInfoChecker.checkPositiveBytes(multStatIfStatutRank.values(),_data);
+        DataInfoChecker.checkPositiveShorts(multStatIfStatutRank.values(),_data);
         DataInfoChecker.checkStatisticStatus(multStatIfStatutRank.getKeys(), _data);
-        DataInfoChecker.checkPositiveBytes(multStatIfDamageCat.values(),_data);
+        DataInfoChecker.checkPositiveShorts(multStatIfDamageCat.values(),_data);
         DataInfoChecker.checkStatisticCategory(_data.getCategories(), multStatIfDamageCat.getKeys(), _data);
-        DataInfoChecker.checkPositiveBytes(multStatIfDamgeType.values(),_data);
+        DataInfoChecker.checkPositiveShorts(multStatIfDamgeType.values(),_data);
         DataInfoChecker.checkStatisticType(multStatIfDamgeType.getKeys(), _data);
         DataInfoChecker.checkPositiveOrZero(recoilDamageFoe,_data);
         DataInfoChecker.checkPositiveOrZero(decreaseNecStepsHatch,_data);
@@ -535,29 +535,29 @@ public final class AbilityData {
         multStab = _multStab;
     }
 
-    public IdMap<Statistic, Byte> getBonusStatRank() {
+    public IdMap<Statistic, Integer> getBonusStatRank() {
         return bonusStatRank;
     }
 
-    public void setBonusStatRank(IdMap<Statistic, Byte> _bonusStatRank) {
+    public void setBonusStatRank(IdMap<Statistic, Integer> _bonusStatRank) {
         bonusStatRank = _bonusStatRank;
     }
 
-    public IdMap<Statistic, Byte> getBoostStatRankProtected() {
+    public IdMap<Statistic, Integer> getBoostStatRankProtected() {
         return boostStatRankProtected;
     }
 
     public void setBoostStatRankProtected(
-            IdMap<Statistic, Byte> _boostStatRankProtected) {
+            IdMap<Statistic, Integer> _boostStatRankProtected) {
         boostStatRankProtected = _boostStatRankProtected;
     }
 
-    public IdMap<Statistic, Byte> getBoostStatRankEndRound() {
+    public IdMap<Statistic, Integer> getBoostStatRankEndRound() {
         return boostStatRankEndRound;
     }
 
     public void setBoostStatRankEndRound(
-            IdMap<Statistic, Byte> _boostStatRankEndRound) {
+            IdMap<Statistic, Integer> _boostStatRankEndRound) {
         boostStatRankEndRound = _boostStatRankEndRound;
     }
 
@@ -569,19 +569,19 @@ public final class AbilityData {
         multStatAlly = _multStat;
     }
 
-    public IdMap<Statistic, Byte> getMultStatIfKoFoe() {
+    public IdMap<Statistic, Integer> getMultStatIfKoFoe() {
         return multStatIfKoFoe;
     }
 
-    public void setMultStatIfKoFoe(IdMap<Statistic, Byte> _multStatIfKoFoe) {
+    public void setMultStatIfKoFoe(IdMap<Statistic, Integer> _multStatIfKoFoe) {
         multStatIfKoFoe = _multStatIfKoFoe;
     }
 
-    public IdMap<Statistic, Byte> getMultStatIfLowStat() {
+    public IdMap<Statistic, Integer> getMultStatIfLowStat() {
         return multStatIfLowStat;
     }
 
-    public void setMultStatIfLowStat(IdMap<Statistic, Byte> _multStatIfLowStat) {
+    public void setMultStatIfLowStat(IdMap<Statistic, Integer> _multStatIfLowStat) {
         multStatIfLowStat = _multStatIfLowStat;
     }
 
@@ -603,21 +603,21 @@ public final class AbilityData {
         multStatIfStatutRank = _multStatIfStatutRank;
     }
 
-    public StatisticCategoryList<Byte> getMultStatIfDamageCat() {
+    public StatisticCategoryList<Integer> getMultStatIfDamageCat() {
         return multStatIfDamageCat;
     }
 
     public void setMultStatIfDamageCat(
-            StatisticCategoryList<Byte> _multStatIfDamageCat) {
+            StatisticCategoryList<Integer> _multStatIfDamageCat) {
         multStatIfDamageCat = _multStatIfDamageCat;
     }
 
-    public StatisticTypeList<Byte> getMultStatIfDamgeType() {
+    public StatisticTypeList<Integer> getMultStatIfDamgeType() {
         return multStatIfDamgeType;
     }
 
     public void setMultStatIfDamgeType(
-            StatisticTypeList<Byte> _multStatIfDamgeType) {
+            StatisticTypeList<Integer> _multStatIfDamgeType) {
         multStatIfDamgeType = _multStatIfDamgeType;
     }
 
@@ -694,19 +694,19 @@ public final class AbilityData {
         healedHpRateBySwitch = _healedHpRateBySwitch;
     }
 
-    public StringMap<Short> getIncreasedPrio() {
+    public StringMap<Integer> getIncreasedPrio() {
         return increasedPrio;
     }
 
-    public void setIncreasedPrio(StringMap<Short> _increasedPrio) {
+    public void setIncreasedPrio(StringMap<Integer> _increasedPrio) {
         increasedPrio = _increasedPrio;
     }
 
-    public StringMap<Short> getIncreasedPrioTypes() {
+    public StringMap<Integer> getIncreasedPrioTypes() {
         return increasedPrioTypes;
     }
 
-    public void setIncreasedPrioTypes(StringMap<Short> _increasedPrioTypes) {
+    public void setIncreasedPrioTypes(StringMap<Integer> _increasedPrioTypes) {
         increasedPrioTypes = _increasedPrioTypes;
     }
 
@@ -842,11 +842,11 @@ public final class AbilityData {
         immuLowStatisTypes = _immuLowStatisTypes;
     }
 
-    public IdMap<Statistic, Byte> getLowStatFoeHit() {
+    public IdMap<Statistic, Integer> getLowStatFoeHit() {
         return lowStatFoeHit;
     }
 
-    public void setLowStatFoeHit(IdMap<Statistic, Byte> _lowStatFoeHit) {
+    public void setLowStatFoeHit(IdMap<Statistic, Integer> _lowStatFoeHit) {
         lowStatFoeHit = _lowStatFoeHit;
     }
 

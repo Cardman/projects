@@ -11,7 +11,7 @@ import code.util.AbsMap;
 public class BoostBean extends ItemBean {
     private Rate winPp;
     private int maxEv;
-    private DictionaryComparator<Statistic, Short> evs;
+    private DictionaryComparator<Statistic, Integer> evs;
 
     @Override
     public void beforeDisplaying() {
@@ -21,7 +21,7 @@ public class BoostBean extends ItemBean {
         Boost item_ = (Boost) getItem();
         winPp = item_.getWinPp();
         initHappiness(item_.getHappiness());
-        DictionaryComparator<Statistic, Short> evs_;
+        DictionaryComparator<Statistic, Integer> evs_;
         evs_ = DictionaryComparatorUtil.buildStatisShort(data_,getLanguage());
         for (Statistic s: item_.getEvs().getKeys()) {
             evs_.put(s, item_.getEvs().getVal(s));
@@ -39,7 +39,7 @@ public class BoostBean extends ItemBean {
         return winPp;
     }
 
-    public DictionaryComparator<Statistic,Short> getEvs() {
+    public DictionaryComparator<Statistic,Integer> getEvs() {
         return evs;
     }
 

@@ -33,7 +33,7 @@ public class TmRenderer implements AbsCustCellRenderGene<String> {
         selected = _isSelected;
         name = _info;
 //        short tm_ = facade.getData().getTm().getKeys(name).first();
-        short tm_ = facade.getData().getTmByMove(name).first();
+        int tm_ = facade.getData().getTmByMove(name).first();
         price = facade.getData().getTmPrice().getVal(tm_);
         AbstractImage i_ = fact.newImageRgb(150,sideLength);
         paintComponent(i_);

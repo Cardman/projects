@@ -313,7 +313,7 @@ public final class FacadeGameInteractTest extends InitializationDataBase {
         FacadeGame facadeGame_ = new FacadeGame();
         facadeGame_.setData(data_);
         facadeGame_.setGame(game_);
-        facadeGame_.setChosenTeamPokemon((short) 0);
+        facadeGame_.setChosenTeamPokemon( 0);
         facadeGame_.validateNickname("NICKNAME");
         assertEq("NICKNAME", facadeGame_.getPlayer().getPokemonPlayerList().firstValue().getNickname());
         assertEq("NICKNAME", facadeGame_.nickname());

@@ -108,8 +108,8 @@ final class FightRules {
 
     private static void movesAnticipation(DataBase _import, Team _equipe, Fighter _creatureCbt, StringList _liste) {
         boolean lance_=false;
-        for (ByteMap<Anticipation> m: _equipe.getMovesAnticipationValues()) {
-            for (byte p: m.getKeys()) {
+        for (IntMap<Anticipation> m: _equipe.getMovesAnticipationValues()) {
+            for (int p: m.getKeys()) {
                 if (NumberUtil.eq(_creatureCbt.getGroundPlace(), p) && m.getVal(p).isEnabled()) {
                     lance_ = true;
                     break;
@@ -213,13 +213,13 @@ final class FightRules {
     static boolean substitutable(Fight _fight, Difficulty _diff, DataBase _import){
         boolean error_ = false;
         boolean autoriseEchangePositionFinTour_=_diff.getAllowedSwitchPlacesEndRound();
-        Bytes places_ = new Bytes();
-        Bytes playerPlaces_ = new Bytes();
-        byte nbPkNonKo_=0;
+        Ints places_ = new Ints();
+        Ints playerPlaces_ = new Ints();
+        int nbPkNonKo_=0;
         for(TeamPosition c: FightOrder.fightersBelongingToUser(_fight,true)){
             Fighter creature_ = _fight.getFighter(c);
             String name_ = _import.translatePokemon(creature_.getName());
-            byte currentPos_ = _fight.getFirstPositPlayerFighters().getVal(c.getPosition());
+            int currentPos_ = _fight.getFirstPositPlayerFighters().getVal(c.getPosition());
             if(creature_.estKo()){
                 if(!NumberUtil.eq(currentPos_,Fighter.BACK)){
                     _fight.addMessage(_import,Fight.ERR_SUBSTITUTE_KO_END_ROUND, name_);
@@ -235,7 +235,7 @@ final class FightRules {
             }
         }
         for(TeamPosition k: FightOrder.fightersBelongingToUser(_fight,false)){
-            byte currentPosPart_ = _fight.getFirstPositPlayerFighters().getVal(k.getPosition());
+            int currentPosPart_ = _fight.getFirstPositPlayerFighters().getVal(k.getPosition());
             if (!NumberUtil.eq(currentPosPart_, Fighter.BACK)) {
                 places_.add(currentPosPart_);
             }
@@ -245,10 +245,10 @@ final class FightRules {
         return checkDuplicate(_fight, _import, error_, places_, playerPlaces_, nbPkNonKo_);
     }
 
-    private static boolean checkDuplicate(Fight _fight, DataBase _import, boolean _error, Bytes _places, Bytes _playerPlaces, byte _nbPkNonKo) {
+    private static boolean checkDuplicate(Fight _fight, DataBase _import, boolean _error, Ints _places, Ints _playerPlaces, int _nbPkNonKo) {
         boolean error_ = _error;
         int nbPl_ = _places.size();
-        for(byte i = IndexConstants.SECOND_INDEX; i<nbPl_; i++){
+        for(int i = IndexConstants.SECOND_INDEX; i<nbPl_; i++){
             if(NumberUtil.eq(_places.get(i - 1), _places.get(i))){
                 _fight.addMessage(_import,Fight.ERR_SUBSTITUTE_PLACE, Long.toString(_places.get(i)));
                 error_ = true;
@@ -277,7 +277,7 @@ final class FightRules {
         return !error_;
     }
 
-    private static boolean lookForError(Fight _fight, DataBase _import, boolean _error, boolean _autoriseEchangePositionFinTour, Fighter _creature, byte _currentPos) {
+    private static boolean lookForError(Fight _fight, DataBase _import, boolean _error, boolean _autoriseEchangePositionFinTour, Fighter _creature, int _currentPos) {
         boolean error_ = _error;
         boolean belong_ = belong(_fight, _currentPos);
         if (!belong_) {
@@ -291,10 +291,10 @@ final class FightRules {
         return error_;
     }
 
-    private static boolean belong(Fight _fight, byte _currentPos) {
+    private static boolean belong(Fight _fight, int _currentPos) {
         boolean belong_ = true;
         for(TeamPosition k: FightOrder.fightersBelongingToUser(_fight,false)){
-            byte currentPosPart_ = _fight.getFirstPositPlayerFighters().getVal(k.getPosition());
+            int currentPosPart_ = _fight.getFirstPositPlayerFighters().getVal(k.getPosition());
 //                if (Numbers.eq(partner_.getGroundPlaceSubst(), c_)) {
 //                    belong_ = false;
 //                }
@@ -311,12 +311,12 @@ final class FightRules {
         StringMap<LgInt> utilisationsObjets_=new StringMap<LgInt>();
         //String retour_=DataBase.EMPTY_STRING;
         boolean error_ = basicError(_fight, _import);
-        byte nbActions_=0;
+        int nbActions_=0;
         //byte nbNonKo_=0;
-        byte nb_ = 0;
+        int nb_ = 0;
         //byte nbFront_ = 0;
         boolean existFrontWithoutAct_ = false;
-        for(byte c:equipeUt_.getMembers().getKeys()){
+        for(int c:equipeUt_.getMembers().getKeys()){
             Fighter creature_=equipeUt_.getMembers().getVal(c);
             if (!creature_.isBelongingToPlayer()) {
                 continue;
@@ -347,10 +347,10 @@ final class FightRules {
         return playableSpec(_fight, _import, error_, nbActions_, nb_, existFrontWithoutAct_);
     }
 
-    private static boolean playableSpec(Fight _fight, DataBase _import, boolean _error, byte _nbActions, byte _nb, boolean _existFrontWithoutAct) {
+    private static boolean playableSpec(Fight _fight, DataBase _import, boolean _error, int _nbActions, int _nb, boolean _existFrontWithoutAct) {
         Team equipeUt_=_fight.getUserTeam();
         boolean error_ = _error;
-        for(byte c: equipeUt_.getMembers().getKeys()){
+        for(int c: equipeUt_.getMembers().getKeys()){
             Fighter creature_= equipeUt_.getMembers().getVal(c);
             if (!(creature_.getAction() instanceof ActionHeal) || creature_.getChosenHealingItem().isEmpty()) {
                 continue;
@@ -393,8 +393,8 @@ final class FightRules {
     private static boolean basicError(Fight _fight, DataBase _import) {
         Team equipeUt_=_fight.getUserTeam();
         boolean error_ = false;
-        Bytes remplacants_=new Bytes();
-        for(byte c: equipeUt_.getMembers().getKeys()){
+        Ints remplacants_=new Ints();
+        for(int c: equipeUt_.getMembers().getKeys()){
             Fighter creature_= equipeUt_.getMembers().getVal(c);
             if (!creature_.isBelongingToPlayer() || NumberUtil.eq(creature_.getGroundPlaceSubst(), Fighter.BACK)) {
                 continue;
@@ -413,7 +413,7 @@ final class FightRules {
         return error_;
     }
 
-    private static boolean updateErrorHealing(Fight _fight, DataBase _import, boolean _error, byte _c, Fighter _creature) {
+    private static boolean updateErrorHealing(Fight _fight, DataBase _import, boolean _error, int _c, Fighter _creature) {
         boolean error_ = _error;
         String name_ = _import.translatePokemon(_creature.getName());
         String nomObjet_ = _creature.getChosenHealingItem();
@@ -458,7 +458,7 @@ final class FightRules {
         return error_;
     }
 
-    private static boolean updateErrorHealingBerry(Fight _fight, DataBase _import, byte _c, Fighter _creature, boolean _error, Berry _baie) {
+    private static boolean updateErrorHealingBerry(Fight _fight, DataBase _import, int _c, Fighter _creature, boolean _error, Berry _baie) {
         boolean error_ = _error;
         String name_ = _import.translatePokemon(_creature.getName());
         String nomObjet_ = _creature.getChosenHealingItem();
@@ -471,7 +471,7 @@ final class FightRules {
                 _fight.addMessage(_import, Fight.ERR_NO_EFFECT, itemNameTr_, name_);
             }
         } else {
-            short var_ = _creature.healedPpMove(attaque_, nomObjet_, _import);
+            int var_ = _creature.healedPpMove(attaque_, nomObjet_, _import);
             if (var_ == 0) {
                 error_ = true;
                 _fight.addMessage(_import, Fight.ERR_NO_EFFECT, itemNameTr_, name_);
@@ -506,13 +506,13 @@ final class FightRules {
     private static boolean agitPp(DataBase _import, Fighter _creature, String _nomObjet, HealingPp _soinpp) {
         boolean agit_ = false;
         if (_soinpp.getHealedMovePp() > 0 || _soinpp.getHealingMoveFullpp()) {
-            short var_ = _creature.healedPpMove(_creature.getFirstChosenMove(), _nomObjet, _import);
+            int var_ = _creature.healedPpMove(_creature.getFirstChosenMove(), _nomObjet, _import);
             if (var_ > 0) {
                 agit_ = true;
             }
         } else {
             for (String c2_ : _creature.getCurrentMovesSet()) {
-                short var_ = _creature.healedPpMove(c2_, _nomObjet, _import);
+                int var_ = _creature.healedPpMove(c2_, _nomObjet, _import);
                 if (var_ > 0) {
                     agit_ = true;
                     break;
@@ -522,12 +522,12 @@ final class FightRules {
         return agit_;
     }
 
-    private static boolean agitBaie(Fight _fight, DataBase _import, byte _c, Fighter _creature, Berry _baie) {
+    private static boolean agitBaie(Fight _fight, DataBase _import, int _c, Fighter _creature, Berry _baie) {
         boolean agit_ = false;
         if(!_baie.getMultStat().isEmpty()){
             for(Statistic c2_: _baie.getMultStat().getKeys()){
-                byte varBase_= _baie.getMultStat().getVal(c2_).getBoost();
-                byte var_= FightEffects.deltaBoostStatistic(_fight,Fight.toUserFighter(_c),c2_,varBase_, _import);
+                int varBase_= _baie.getMultStat().getVal(c2_).getBoost();
+                int var_= FightEffects.deltaBoostStatistic(_fight,Fight.toUserFighter(_c),c2_,varBase_, _import);
                 if(var_>0){
                     agit_=true;
                     break;
@@ -579,7 +579,7 @@ final class FightRules {
         return checkPartner(_fight, _import, _error, _creature);
     }
 
-    private static boolean checkActionMove(Fight _fight, Difficulty _diff, DataBase _import, boolean _error, byte _c, Fighter _creature) {
+    private static boolean checkActionMove(Fight _fight, Difficulty _diff, DataBase _import, boolean _error, int _c, Fighter _creature) {
         String name_ = _import.translatePokemon(_creature.getName());
         boolean error_ = _error;
         if(_creature.estArriere()){
@@ -622,7 +622,7 @@ final class FightRules {
         return error_;
     }
 
-    private static boolean checkActionMoveTarget(Fight _fight, Difficulty _diff, DataBase _import, byte _c, Fighter _creature, boolean _error, String _attaque) {
+    private static boolean checkActionMoveTarget(Fight _fight, Difficulty _diff, DataBase _import, int _c, Fighter _creature, boolean _error, String _attaque) {
         boolean error_ = _error;
         String name_ = _import.translatePokemon(_creature.getName());
         String moveName_ = _import.translateMove(_attaque);
@@ -639,9 +639,9 @@ final class FightRules {
         }
         TargetCoords first_ = cibles_.first();
         if(fAtt_.getTargetChoice() == TargetChoice.ADJ_UNIQ){
-            byte noTeam_ = (byte) first_.getTeam();
+            int noTeam_ = first_.getTeam();
             Team equipeCible_= _fight.getTeams().getVal(noTeam_);
-            Bytes cbts_=equipeCible_.fightersAtCurrentPlace(first_);
+            Ints cbts_=equipeCible_.fightersAtCurrentPlace(first_);
             if(cbts_.size() != DataBase.ONE_POSSIBLE_CHOICE){
                 _fight.addMessage(_import,Fight.ERR_NO_CHOSEN_TARGET, moveName_, name_);
                 return true;
@@ -660,9 +660,9 @@ final class FightRules {
             return error_;
         }
         if (fAtt_.getTargetChoice() == TargetChoice.AUTRE_UNIQ) {
-            byte noTeam_ = (byte) first_.getTeam();
+            int noTeam_ = first_.getTeam();
             Team equipeCible_= _fight.getTeams().getVal(noTeam_);
-            Bytes cbts_=equipeCible_.fightersAtCurrentPlace(first_);
+            Ints cbts_=equipeCible_.fightersAtCurrentPlace(first_);
             if(cbts_.size() != DataBase.ONE_POSSIBLE_CHOICE){
                 _fight.addMessage(_import,Fight.ERR_NO_CHOSEN_TARGET, moveName_, name_);
                 return true;
@@ -684,8 +684,8 @@ final class FightRules {
         return _fAtt.getTargetChoice() == TargetChoice.ANY_FOE && NumberUtil.eq(_first.getTeam(), Fight.CST_PLAYER);
     }
 
-    private static byte incActionsNb(byte _nbActions, Fighter _creature) {
-        byte nbActions_ = _nbActions;
+    private static int incActionsNb(int _nbActions, Fighter _creature) {
+        int nbActions_ = _nbActions;
         if(_creature.getAction() instanceof ActionMove){
             nbActions_++;
         }

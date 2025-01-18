@@ -150,9 +150,9 @@ public abstract class InitDbSolution extends InitDbConstr {
         d_.getAccessCondition().addEntry(newCoords(3,0,2,2),Condition.newList(newCoords(3,0,2,1)));
         d_.getAccessCondition().addEntry(newCoords(3,0,3,2),Condition.newList(newCoords(3,0,2,1)));
         d_.getAccessCondition().addEntry(newCoords(3,0,3,0),Condition.newList(newCoords(4,0,1,0)));
-//        d_.join((short)0,(short)1,newPoint(2,0),newPoint(0,0),Direction.RIGHT);
-//        d_.join((short)1,(short)2,newPoint(1,0),newPoint(0,0),Direction.RIGHT);
-//        d_.join((short)2,(short)3,newPoint(2,0),newPoint(0,0),Direction.RIGHT);
+//        d_.join(0,1,newPoint(2,0),newPoint(0,0),Direction.RIGHT);
+//        d_.join(1,2,newPoint(1,0),newPoint(0,0),Direction.RIGHT);
+//        d_.join(2,3,newPoint(2,0),newPoint(0,0),Direction.RIGHT);
         return d_;
     }
 
@@ -218,10 +218,10 @@ public abstract class InitDbSolution extends InitDbConstr {
         tmf_.setName(G_L);
 //        tmf_.setImageMaxiFileName(SINGLE);
 //        tmf_.setImageMiniFileName(SI);
-//        mult((byte) 1, tmf_);
+//        mult(1, tmf_);
 //        tmf_.getTeam().add(wpOne(P_POK_14,A_ABILITY2,I_HEAL,18));
 //        tmf_.getTeam().add(wpTwo(P_POK_15,A_ABILITY,I_HEAL_HP,19));
-//        tmf_.setTm((short)2);
+//        tmf_.setTm(2);
         return tmf_;
     }
     protected static Road roadTwo(Coords _left, Coords _right) {
@@ -269,12 +269,12 @@ public abstract class InitDbSolution extends InitDbConstr {
 //        d_.getAlly().getTeam().add(wpTwo(P_POK_17,A_ABILITY2,I_HEAL_PP,19));
 //        d_.getFoeTrainer().getTeam().add(wpOne(P_POK_14,A_ABILITY2,I_HEAL,18));
 //        d_.getFoeTrainer().getTeam().add(wpTwo(P_POK_15,A_ABILITY,I_HEAL_HP,19));
-//        d_.getFoeTrainer().setReward((short) 25);
+//        d_.getFoeTrainer().setReward( 25);
         return d_;
     }
     protected static AreaApparition area(String _pk) {
         AreaApparition a_ = Instances.newAreaApparition();
-        a_.setMultFight((byte)1);
+        a_.setMultFight(1);
         a_.getWildPokemon().add(wp(_pk));
         return a_;
     }
@@ -313,7 +313,7 @@ public abstract class InitDbSolution extends InitDbConstr {
         tmf_.setName(T_L);
 //        tmf_.setImageMaxiFileName(SINGLE);
 //        tmf_.setImageMiniFileName(SI);
-//        mult((byte) 1, tmf_);
+//        mult(1, tmf_);
 //        tmf_.getTeam().add(wpOne(P_POK_12,A_ABILITY,I_BOOST,20));
 //        tmf_.getTeam().add(wpTwo(P_POK_13,A_ABILITY2,I_ITEMBATTLE,25));
         return tmf_;
@@ -424,7 +424,7 @@ public abstract class InitDbSolution extends InitDbConstr {
         PokemonData pk_ = pk(new StringList("__"), GenderRepartition.NO_GENDER);
         pk_.setBaseEvo(_base);
         EvolutionLevelSimple e_ = Instances.newEvolutionLevelSimple();
-        e_.setLevel((short) 16);
+        e_.setLevel( 16);
         pk_.getEvolutions().addEntry(_evo,e_);
         return pk_;
     }
@@ -443,7 +443,7 @@ public abstract class InitDbSolution extends InitDbConstr {
     protected static WildPk wp(String _name) {
         WildPk pk_ = Instances.newWildPk();
         pk_.setName(_name);
-        pk_.setLevel((short) 4);
+        pk_.setLevel( 4);
         pk_.setGender(Gender.NO_GENDER);
 //        pk_.setAbility(_ab);
 //        pk_.setItem(_it);

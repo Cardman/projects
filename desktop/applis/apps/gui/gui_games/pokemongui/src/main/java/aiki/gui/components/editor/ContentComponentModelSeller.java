@@ -13,7 +13,7 @@ public final class ContentComponentModelSeller {
     private GeneComponentModelElt<String> kind;
     private GeneComponentModelImgSelect miniFileName;
     private GeneComponentModelLsStrSub<String,StringList> items;
-    private GeneComponentModelLsStrSub<Short,Shorts> tm;
+    private GeneComponentModelLsStrSub<Integer,Ints> tm;
     AbsPanel effectForm(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact, FormLevelGrid _grid) {
         AbsPanel selected_ = _core.getCompoFactory().newLineBox();
         kind = new GeneComponentModelElt<String>(_core, MessagesPkEditor.getMessagesEditorSelectTileKindSellTypeTr(MessagesPkEditor.getAppliTr(_core.currentLg())).getMapping(), new EmptyDefValue());

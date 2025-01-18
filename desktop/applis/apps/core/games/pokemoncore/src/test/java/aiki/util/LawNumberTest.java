@@ -9,6 +9,6 @@ public class LawNumberTest extends EquallablePkUtil {
     @Test
     public void test() {
         assertEq("",new Comment().join());
-        assertEq(0,new LawNumber(new MonteCarloNumber(), (short) 0).getNumber());
+        assertEq(0,new LawNumber(new MonteCarloNumber(),  0).getNumber());
     }
 }

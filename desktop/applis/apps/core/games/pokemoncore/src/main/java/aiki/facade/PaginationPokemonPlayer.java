@@ -75,7 +75,7 @@ public final class PaginationPokemonPlayer
                 }
                 s_.setKeyItem(pk_.getItem());
                 s_.setLevel(pk_.getLevel());
-                s_.setNbPossEvos((short) pk_.getDirectEvolutions(data).size());
+                s_.setNbPossEvos(pk_.getDirectEvolutions(data).size());
                 s_.setGender(pk_.getGender());
                 pokemon.addEntry(s_, pk_);
             }

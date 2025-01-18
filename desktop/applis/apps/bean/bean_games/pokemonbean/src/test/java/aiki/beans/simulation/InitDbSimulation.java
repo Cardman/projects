@@ -3503,11 +3503,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         facade_.getData().getRates().put(DifficultyWinPointsFight.FACILE, "1");
         facade_.getData().getRates().put(DifficultyWinPointsFight.DIFFICILE, "1");
         facade_.getData().getRates().put(DifficultyWinPointsFight.TRES_DIFFICILE, "1");
-        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MIN, new LawNumber(lawOne(),(short)0));
-        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.CROISSANT, new LawNumber(lawOne(),(short)1));
-        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.UNIFORME, new LawNumber(lawOne(),(short)2));
-        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.DECROISSANT, new LawNumber(lawOne(),(short)3));
-        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MAX, new LawNumber(lawOne(),(short)4));
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MIN, new LawNumber(lawOne(),0));
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.CROISSANT, new LawNumber(lawOne(),1));
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.UNIFORME, new LawNumber(lawOne(),2));
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.DECROISSANT, new LawNumber(lawOne(),3));
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MAX, new LawNumber(lawOne(),4));
         TypesDuos t_ = new TypesDuos();
         t_.addEntry(new TypesDuo(T_SIM_1,T_SIM_1),Rate.one());
         t_.addEntry(new TypesDuo(T_SIM_1,T_SIM_2),Rate.one());
@@ -3673,11 +3673,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         facade_.getData().getRates().put(DifficultyWinPointsFight.FACILE, "1");
         facade_.getData().getRates().put(DifficultyWinPointsFight.DIFFICILE, "1");
         facade_.getData().getRates().put(DifficultyWinPointsFight.TRES_DIFFICILE, "1");
-        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MIN, new LawNumber(lawOne(),(short)0));
-        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.CROISSANT, new LawNumber(lawOne(),(short)1));
-        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.UNIFORME, new LawNumber(lawOne(),(short)2));
-        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.DECROISSANT, new LawNumber(lawOne(),(short)3));
-        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MAX, new LawNumber(lawOne(),(short)4));
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MIN, new LawNumber(lawOne(),0));
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.CROISSANT, new LawNumber(lawOne(),1));
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.UNIFORME, new LawNumber(lawOne(),2));
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.DECROISSANT, new LawNumber(lawOne(),3));
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MAX, new LawNumber(lawOne(),4));
         facade_.getData().completeMembers(I_NOTHING,Instances.newItemForBattle());
         TypesDuos t_ = new TypesDuos();
         t_.addEntry(new TypesDuo(T_SIM_1,T_SIM_1),Rate.one());
@@ -3727,11 +3727,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         facade_.getData().getRates().put(DifficultyWinPointsFight.FACILE, "1");
         facade_.getData().getRates().put(DifficultyWinPointsFight.DIFFICILE, "1");
         facade_.getData().getRates().put(DifficultyWinPointsFight.TRES_DIFFICILE, "1");
-        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MIN, new LawNumber(lawOne(),(short)0));
-        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.CROISSANT, new LawNumber(lawOne(),(short)1));
-        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.UNIFORME, new LawNumber(lawOne(),(short)2));
-        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.DECROISSANT, new LawNumber(lawOne(),(short)3));
-        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MAX, new LawNumber(lawOne(),(short)4));
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MIN, new LawNumber(lawOne(),0));
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.CROISSANT, new LawNumber(lawOne(),1));
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.UNIFORME, new LawNumber(lawOne(),2));
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.DECROISSANT, new LawNumber(lawOne(),3));
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MAX, new LawNumber(lawOne(),4));
         facade_.getData().completeMembers(I_NOTHING,Instances.newItemForBattle());
         TypesDuos t_ = new TypesDuos();
         t_.addEntry(new TypesDuo(T_SIM_1,T_SIM_1),Rate.one());
@@ -3813,11 +3813,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         facade_.getData().getRates().put(DifficultyWinPointsFight.FACILE, "1");
         facade_.getData().getRates().put(DifficultyWinPointsFight.DIFFICILE, "1");
         facade_.getData().getRates().put(DifficultyWinPointsFight.TRES_DIFFICILE, "1");
-        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MIN, new LawNumber(lawOne(),(short)0));
-        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.CROISSANT, new LawNumber(lawOne(),(short)1));
-        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.UNIFORME, new LawNumber(lawOne(),(short)2));
-        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.DECROISSANT, new LawNumber(lawOne(),(short)3));
-        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MAX, new LawNumber(lawOne(),(short)4));
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MIN, new LawNumber(lawOne(),0));
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.CROISSANT, new LawNumber(lawOne(),1));
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.UNIFORME, new LawNumber(lawOne(),2));
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.DECROISSANT, new LawNumber(lawOne(),3));
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MAX, new LawNumber(lawOne(),4));
         facade_.getData().completeMembers(I_NOTHING,Instances.newItemForBattle());
         TypesDuos t_ = new TypesDuos();
         t_.addEntry(new TypesDuo(T_SIM_1,T_SIM_1),Rate.one());
@@ -3876,7 +3876,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         pkm_.setAbility(A_SIM_1);
         pkm_.setGender(Gender.NO_GENDER);
         pkm_.setItem(NULL_REF);
-        pkm_.setLevel((short) 7);
+        pkm_.setLevel( 7);
         dm_.setFirstPokemon(pkm_);
         dm_.setBegin(newCoords(0, 0, 0, 1));
         return dm_;
@@ -4001,7 +4001,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
     private static DamagingMoveData power(String _type, String _cat, String _power) {
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         move_.setAccuracy("1");
-        move_.setPp((short)15);
+        move_.setPp(15);
         move_.setTypes(new StringList(_type));
         move_.setBoostedTypes(new StringList(_type));
         move_.setCategory(_cat);
@@ -4015,7 +4015,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
     private static DamagingMoveData powerBad() {
         DamagingMoveData move_ = Instances.newDamagingMoveData();
-        move_.setPp((short)5);
+        move_.setPp(5);
         move_.setAccuracy(VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR);
         move_.setTypes(new StringList(T_SIM_2));
         move_.setBoostedTypes(new StringList(T_SIM_2));
@@ -4029,7 +4029,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
     private static StatusMoveData noEff() {
         StatusMoveData st_ = Instances.newStatusMoveData();
-        st_.setPp((short)1);
+        st_.setPp(1);
         return st_;
     }
     private static void target(MoveData _dam, Effect _ef) {
@@ -4044,8 +4044,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         pk_.setBaseEvo(_base);
         pk_.setLevMoves(_moves);
         pk_.setExpEvo(ExpType.E);
-        pk_.setHiddenMoves(Shorts.newList());
-        pk_.setTechnicalMoves(Shorts.newList());
+        pk_.setHiddenMoves(Ints.newList());
+        pk_.setTechnicalMoves(Ints.newList());
         pk_.setMoveTutors(new StringList(M_POK_03));
         return pk_;
     }
@@ -4056,12 +4056,12 @@ public abstract class InitDbSimulation extends InitDbConstr {
         pk_.setAbilities(new StringList(A_SIM_1,A_SIM_2));
         pk_.setBaseEvo(_base);
         EvolutionLevelSimple e_ = Instances.newEvolutionLevelSimple();
-        e_.setLevel((short) _lev);
+        e_.setLevel( _lev);
         pk_.getEvolutions().addEntry(_evo, e_);
         pk_.setLevMoves(_moves);
         pk_.setExpEvo(ExpType.E);
-        pk_.setHiddenMoves(Shorts.newList());
-        pk_.setTechnicalMoves(Shorts.newList());
+        pk_.setHiddenMoves(Ints.newList());
+        pk_.setTechnicalMoves(Ints.newList());
         pk_.setMoveTutors(new StringList(M_POK_03));
         return pk_;
     }
@@ -4072,15 +4072,15 @@ public abstract class InitDbSimulation extends InitDbConstr {
         pk_.setAbilities(new StringList(A_SIM_1,A_SIM_2));
         pk_.setBaseEvo(_base);
         EvolutionLevelSimple e_ = Instances.newEvolutionLevelSimple();
-        e_.setLevel((short) _lev);
+        e_.setLevel( _lev);
         pk_.getEvolutions().addEntry(_evo, e_);
         EvolutionLevelSimple e2_ = Instances.newEvolutionLevelSimple();
-        e2_.setLevel((short) _lev2);
+        e2_.setLevel( _lev2);
         pk_.getEvolutions().addEntry(_evo2, e2_);
         pk_.setLevMoves(_moves);
         pk_.setExpEvo(ExpType.E);
-        pk_.setHiddenMoves(Shorts.newList());
-        pk_.setTechnicalMoves(Shorts.newList());
+        pk_.setHiddenMoves(Ints.newList());
+        pk_.setTechnicalMoves(Ints.newList());
         pk_.setMoveTutors(new StringList(M_POK_03));
         return pk_;
     }
@@ -4098,8 +4098,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         pk_.getEvolutions().addEntry(_evo2, e2_);
         pk_.setLevMoves(_moves);
         pk_.setExpEvo(ExpType.E);
-        pk_.setHiddenMoves(Shorts.newList());
-        pk_.setTechnicalMoves(Shorts.newList());
+        pk_.setHiddenMoves(Ints.newList());
+        pk_.setTechnicalMoves(Ints.newList());
         pk_.setMoveTutors(new StringList(M_POK_03));
         return pk_;
     }
@@ -4114,8 +4114,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         pk_.getEvolutions().addEntry(_evo, e_);
         pk_.setLevMoves(_moves);
         pk_.setExpEvo(ExpType.E);
-        pk_.setHiddenMoves(Shorts.newList());
-        pk_.setTechnicalMoves(Shorts.newList());
+        pk_.setHiddenMoves(Ints.newList());
+        pk_.setTechnicalMoves(Ints.newList());
         pk_.setMoveTutors(new StringList(M_POK_03));
         return pk_;
     }
@@ -4127,13 +4127,13 @@ public abstract class InitDbSimulation extends InitDbConstr {
         pk_.setBaseEvo(_base);
         pk_.setLevMoves(_moves);
         pk_.setExpEvo(ExpType.E);
-        pk_.setHiddenMoves(Shorts.newList());
-        pk_.setTechnicalMoves(Shorts.newList());
+        pk_.setHiddenMoves(Ints.newList());
+        pk_.setTechnicalMoves(Ints.newList());
         pk_.setMoveTutors(new StringList(M_POK_03));
         return pk_;
     }
     private static CustList<LevelMove> withLearn(CustList<LevelMove> _set, int _level, String _move) {
-        _set.add(new LevelMove((short)_level,_move));
+        _set.add(new LevelMove(_level,_move));
         return _set;
     }
     protected static NaSt chooseTrainer() {
@@ -4399,7 +4399,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         d_.getAlly().getTeam().add(wpTwo(P_POK_03,A_SIM_2,19));
         d_.getFoeTrainer().getTeam().add(wpOne(P_POK_00,A_SIM_2,18));
         d_.getFoeTrainer().getTeam().add(wpTwo(P_POK_01,A_SIM_1,19));
-        d_.getFoeTrainer().setReward((short) 25);
+        d_.getFoeTrainer().setReward( 25);
         return d_;
     }
     protected static TrainerLeague trLeagueOne() {
@@ -4407,7 +4407,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         tmf_.setName(T_L_1);
         tmf_.setImageMaxiFileName(SINGLE);
         tmf_.setImageMiniFileName(SI);
-        mult((byte) 2, tmf_);
+        mult(2, tmf_);
         tmf_.getTeam().add(trp(P_POK_00,A_SIM_1,4));
         tmf_.getTeam().add(trp(P_POK_01,A_SIM_2,4));
         tmf_.getTeam().add(trp(P_POK_02,A_SIM_1,4));
@@ -4419,7 +4419,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         tmf_.setName(T_L_2);
         tmf_.setImageMaxiFileName(SINGLE);
         tmf_.setImageMiniFileName(SI);
-        mult((byte) 2, tmf_);
+        mult(2, tmf_);
         tmf_.getTeam().add(trp(P_POK_04,A_SIM_1,5));
         tmf_.getTeam().add(trp(P_POK_05,A_SIM_2,5));
         tmf_.getTeam().add(trp(P_POK_06,A_SIM_1,5));
@@ -4431,17 +4431,17 @@ public abstract class InitDbSimulation extends InitDbConstr {
         tmf_.setName(G_L_1);
         tmf_.setImageMaxiFileName(SINGLE);
         tmf_.setImageMiniFileName(SI);
-        mult((byte) 1, tmf_);
+        mult(1, tmf_);
         tmf_.getTeam().add(wpOne(P_POK_00,A_SIM_2,18));
         tmf_.getTeam().add(wpTwo(P_POK_01,A_SIM_1,19));
-        tmf_.setTm((short)2);
+        tmf_.setTm(2);
         return tmf_;
     }
     protected static GymTrainer trGymTrainer() {
         GymTrainer tmf_ = Instances.newGymTrainer();
         tmf_.setImageMaxiFileName(SINGLE);
         tmf_.setImageMiniFileName(SI);
-        mult((byte) 1, tmf_);
+        mult(1, tmf_);
         tmf_.getTeam().add(wpOne(P_POK_02,A_SIM_1,18));
         tmf_.getTeam().add(wpTwo(P_POK_03,A_SIM_2,19));
         return tmf_;
@@ -4450,13 +4450,13 @@ public abstract class InitDbSimulation extends InitDbConstr {
         TrainerMultiFights tmf_ = Instances.newTrainerMultiFights();
         tmf_.setImageMaxiFileName(SINGLE);
         tmf_.setImageMiniFileName(SI);
-        mult((byte) 2, tmf_);
+        mult(2, tmf_);
         tmf_.getTeamsRewards().add(teamOne());
         tmf_.getTeamsRewards().add(teamTwo());
         return tmf_;
     }
 
-    private static void mult(byte _m, Trainer _t) {
+    private static void mult(int _m, Trainer _t) {
         _t.setMultiplicityFight(_m);
     }
 
@@ -4475,7 +4475,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
 
     private static PokemonTeam teamBase(int _v) {
         PokemonTeam t_ = Instances.newPokemonTeam();
-        t_.setReward((short) _v);
+        t_.setReward( _v);
         return t_;
     }
 
@@ -4489,7 +4489,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
     protected static PkTrainer trp(String _name, String _ab, int _level, String _one, String _second) {
         PkTrainer pk_ = Instances.newPkTrainer();
         pk_.setName(_name);
-        pk_.setLevel((short) _level);
+        pk_.setLevel( _level);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(_ab);
         pk_.setItem(NULL_REF);
@@ -4500,7 +4500,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
     protected static PkTrainer trp(String _name, String _ab, int _level) {
         PkTrainer pk_ = Instances.newPkTrainer();
         pk_.setName(_name);
-        pk_.setLevel((short) _level);
+        pk_.setLevel( _level);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setAbility(_ab);
         pk_.setItem(NULL_REF);

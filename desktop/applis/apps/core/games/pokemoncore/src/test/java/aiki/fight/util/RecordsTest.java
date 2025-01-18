@@ -31,7 +31,7 @@ public final class RecordsTest extends EquallablePkUtil {
     @Test
     public void test1() {
         CategoryMult c_ = CategoryMult.newCategoryMult("");
-        c_.setMult((short) 1);
+        c_.setMult( 1);
         c_.setCategory("");
         c_.display();
         assertEq(1,c_.getMult());
@@ -63,7 +63,7 @@ public final class RecordsTest extends EquallablePkUtil {
     @Test
     public void test4() {
         LevelMove c_ = LevelMove.newLevelMove("");
-        c_.setLevel((short) 1);
+        c_.setLevel( 1);
         c_.setMove("");
         c_.display();
         assertEq(1,c_.getLevel());

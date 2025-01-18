@@ -1677,7 +1677,7 @@ public class DataBaseTest extends EquallablePkUtil {
         moveDamage_ = new DamagingMoveData();
         moveDamage_.setCategory("SPECIAL");
         moveDamage_.setDirect(false);
-        moveDamage_.setPp((short) 40);
+        moveDamage_.setPp( 40);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -1697,7 +1697,7 @@ public class DataBaseTest extends EquallablePkUtil {
         moveDamage_ = new DamagingMoveData();
         moveDamage_.setCategory("PHYSIQUE");
         moveDamage_.setDirect(false);
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -1716,7 +1716,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initValue(DataBase.DEF_CAT,AUTRE);
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -1733,7 +1733,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy(StringUtil.concat("1+",VAR_PREFIX,"NB_TURN*100"));
         moveDamage_.setEffects(new CustList<Effect>());
@@ -1750,7 +1750,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -1767,7 +1767,7 @@ public class DataBaseTest extends EquallablePkUtil {
         DamagingMoveData moveDamage_;
         moveDamage_ = new DamagingMoveData();
         moveDamage_.setCategory(AUTRE);
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -1789,7 +1789,7 @@ public class DataBaseTest extends EquallablePkUtil {
         DamagingMoveData moveDamage_;
         moveDamage_ = new DamagingMoveData();
         moveDamage_.setCategory(AUTRE);
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -1811,7 +1811,7 @@ public class DataBaseTest extends EquallablePkUtil {
         DamagingMoveData moveDamage_;
         moveDamage_ = new DamagingMoveData();
         moveDamage_.setCategory(AUTRE);
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -1833,7 +1833,7 @@ public class DataBaseTest extends EquallablePkUtil {
         DamagingMoveData moveDamage_;
         moveDamage_ = new DamagingMoveData();
         moveDamage_.setCategory(AUTRE);
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -1855,7 +1855,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -1876,7 +1876,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -1898,7 +1898,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -1920,7 +1920,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -1940,7 +1940,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -1961,7 +1961,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -1981,7 +1981,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -2002,7 +2002,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -2022,7 +2022,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -2042,7 +2042,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -2065,7 +2065,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -2089,14 +2089,14 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
         EffectCopyMove effStatus_;
         effStatus_ = new EffectCopyMove();
         effStatus_.setFail("");
-        effStatus_.setCopyingMoveForUser((short) 0);
+        effStatus_.setCopyingMoveForUser( 0);
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         completeMembersMoveOne(data_, moveDamage_);
@@ -2110,14 +2110,14 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
         EffectCopyMove effStatus_;
         effStatus_ = new EffectCopyMove();
         effStatus_.setFail("");
-        effStatus_.setCopyingMoveForUser((short) 1);
+        effStatus_.setCopyingMoveForUser( 1);
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         completeMembersMoveOne(data_, moveDamage_);
@@ -2131,7 +2131,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -2156,7 +2156,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -2182,7 +2182,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -2208,7 +2208,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -2234,7 +2234,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -2259,7 +2259,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -2278,7 +2278,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -2297,7 +2297,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -2316,7 +2316,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -2335,7 +2335,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -2354,7 +2354,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -2374,7 +2374,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -2395,7 +2395,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -2417,7 +2417,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -2439,7 +2439,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -2461,7 +2461,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -2484,7 +2484,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -2508,7 +2508,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -2529,11 +2529,11 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
-        moveDamage_.setRankIncrementNbRound((short) 1);
+        moveDamage_.setRankIncrementNbRound( 1);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         completeMembersMoveOne(data_, moveDamage_);
         assertEq(1, data_.getEvtEndRound().size());
@@ -2549,7 +2549,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -2582,7 +2582,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -2610,7 +2610,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -2638,7 +2638,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -2666,7 +2666,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -2695,7 +2695,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -2724,7 +2724,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -2757,7 +2757,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -2780,7 +2780,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -2805,7 +2805,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -2831,7 +2831,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -3044,7 +3044,7 @@ public class DataBaseTest extends EquallablePkUtil {
         EffectCombo eff_;
         eff_ = new EffectCombo();
         eff_.setEffectEndRound(new CustList<EffectEndRoundFoe>());
-        eff_.setRankIncrementNbRound((short) 2);
+        eff_.setRankIncrementNbRound( 2);
         data_.completeMembers(new StringList("FLYING","SURF"), eff_);
         assertEq(1, data_.getEvtEndRound().size());
         assertEq(2, data_.getEvtEndRound().first().getNumberIncrement());
@@ -3079,7 +3079,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -3102,7 +3102,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -3126,7 +3126,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -3146,7 +3146,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -3172,7 +3172,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
 
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
@@ -3220,7 +3220,7 @@ public class DataBaseTest extends EquallablePkUtil {
         DamagingMoveData moveDamage_;
         moveDamage_ = new DamagingMoveData();
         moveDamage_.setCategory(AUTRE);
-        moveDamage_.setPp((short) 20);
+        moveDamage_.setPp( 20);
         moveDamage_.setAccuracy("100");
         moveDamage_.setEffects(new CustList<Effect>());
         EffectDamage damage_;

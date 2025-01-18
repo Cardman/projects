@@ -41,7 +41,7 @@ public final class RefreshWildPkMoves implements SubscribedTranslation, AbsChang
         if (pokemon_ == null) {
             return;
         }
-        StringList movesAtLevel_ = pokemon_.getMovesAtLevel((short) _grid.getLevel().valueInt(), _facadeGame.getData().getNbMaxMoves());
+        StringList movesAtLevel_ = pokemon_.getMovesAtLevel(_grid.getLevel().valueInt(), _facadeGame.getData().getNbMaxMoves());
         AbsPanel absPanel_ = _api.getCompoFactory().newPageBox();
         StringList all_ = new StringList();
         for (String m: movesAtLevel_) {

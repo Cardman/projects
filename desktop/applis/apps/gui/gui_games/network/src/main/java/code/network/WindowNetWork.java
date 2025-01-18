@@ -897,7 +897,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
     public void okReceived() {
         aiki.getFacade().applyTrading();
-        ByteTreeMap< PokemonPlayer> tree_ = aiki.getFacade().getExchangeData().getTeam(aiki.getFacade().getGame().getPlayer().getTeam());
+        IntTreeMap< PokemonPlayer> tree_ = aiki.getFacade().getExchangeData().getTeam(aiki.getFacade().getGame().getPlayer().getTeam());
         scenePanel.setTradableAfterTrading(tree_);
         pack();
     }

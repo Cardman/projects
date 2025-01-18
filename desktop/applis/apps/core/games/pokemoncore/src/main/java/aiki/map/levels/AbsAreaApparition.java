@@ -8,7 +8,7 @@ import code.util.CustList;
 
 public abstract class AbsAreaApparition {
 
-    static final byte ALWAYS_APPARITION = 1;
+    static final int ALWAYS_APPARITION = 1;
 
     private CustList<CustList<WildPk>> wildPokemonList;
 
@@ -17,7 +17,7 @@ public abstract class AbsAreaApparition {
 
     private MonteCarloWilPkList wildPokemonRandFishing;
 
-    private short avgNbSteps;
+    private int avgNbSteps;
 
     public void validate(DataBase _data) {
         DataInfoChecker.checkLower(ALWAYS_APPARITION,avgNbSteps,_data);
@@ -50,11 +50,11 @@ public abstract class AbsAreaApparition {
     public abstract WildPk getWildPokemon(int _index);
     public abstract CustList<WildPk> getWildPokemonFishing();
     public abstract WildPk getPokemonFishing(int _index);
-    public short getAvgNbSteps() {
+    public int getAvgNbSteps() {
         return avgNbSteps;
     }
 
-    public void setAvgNbSteps(short _avgNbSteps) {
+    public void setAvgNbSteps(int _avgNbSteps) {
         avgNbSteps = _avgNbSteps;
     }
 

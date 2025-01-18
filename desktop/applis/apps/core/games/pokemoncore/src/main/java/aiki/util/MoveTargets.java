@@ -15,7 +15,7 @@ public final class MoveTargets extends AbsBasicMap<MoveTarget,MoveTarget> {
 
     @Override
     protected MoveTarget def() {
-        return new MoveTarget("",new TargetCoords((short) -1, Fighter.BACK));
+        return new MoveTarget("",new TargetCoords(-1, Fighter.BACK));
     }
 
     @Override

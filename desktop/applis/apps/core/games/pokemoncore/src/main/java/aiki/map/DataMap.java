@@ -720,7 +720,7 @@ public final class DataMap {
                 for (Person p : ((LevelIndoorPokemonCenter) l_).getGerants()
                         .values()) {
                     if (p instanceof Seller) {
-                        for (short s : ((Seller) p).getTm()) {
+                        for (int s : ((Seller) p).getTm()) {
                             movesTmHm_.add(_d.getTm().getVal(s));
                         }
                     }
@@ -2091,7 +2091,7 @@ public final class DataMap {
         TrainerLeague trainer_ = new TrainerLeague();
         trainer_.setImageMaxiFileName(DataBase.EMPTY_STRING);
         trainer_.setImageMiniFileName(DataBase.EMPTY_STRING);
-        trainer_.setMultiplicityFight((byte) 1);
+        trainer_.setMultiplicityFight(1);
         trainer_.setTeam(new CustList<PkTrainer>());
         level_.setTrainer(trainer_);
         return level_;

@@ -240,11 +240,11 @@ public abstract class InitDbConstr extends InitDbBean {
     protected static void feed(MoveData _mv, TargetChoice _t, String _acc, SwitchType _n, int _rk, boolean _c, boolean _d, boolean _an, boolean _ep, boolean _rech, boolean _sec, boolean _multi, boolean _prio, boolean _solo, String _achieve, String _wea, int _prepa, int _prioNb) {
         _mv.setTargetChoice(_t);
         _mv.setAccuracy(_acc);
-        _mv.setNbPrepaRound((short) _prepa);
-        _mv.setPp((short) 1);
-        _mv.setPriority((byte) _prioNb);
+        _mv.setNbPrepaRound( _prepa);
+        _mv.setPp( 1);
+        _mv.setPriority(_prioNb);
         _mv.setSwitchType(_n);
-        _mv.setRankIncrementNbRound((short) _rk);
+        _mv.setRankIncrementNbRound( _rk);
         _mv.setBoostedTypes(new StringList(T_TYPE1));
         _mv.setTypes(new StringList(T_TYPE1));
         _mv.setAchieveDisappearedPkUsingMove(new StringList(_achieve));
@@ -317,46 +317,46 @@ public abstract class InitDbConstr extends InitDbBean {
         pk_.setAbilities(new StringList(A_ABILITY));
         pk_.setHeight(Rate.one());
         pk_.setWeight(Rate.one());
-        pk_.setHappiness((short) 1);
-        pk_.setHappinessHatch((short) 1);
+        pk_.setHappiness( 1);
+        pk_.setHappinessHatch( 1);
         pk_.setExpRate(1);
-        pk_.setCatchingRate((short) 1);
+        pk_.setCatchingRate( 1);
         pk_.setExpEvo(ExpType.E);
         pk_.setGenderRep(_rep);
         pk_.setHatchingSteps(LgInt.one());
-        pk_.setHiddenMoves(Shorts.newList((short) 1));
-        pk_.setTechnicalMoves(Shorts.newList((short) 1));
+        pk_.setHiddenMoves(Ints.newList(1));
+        pk_.setTechnicalMoves(Ints.newList(1));
         pk_.setEggGroups(_g);
         pk_.setMoveTutors(new StringList(M_DAM));
         CustList<LevelMove> lv_ = new CustList<LevelMove>();
-        lv_.add(new LevelMove((short) 1,M_DAM));
-        lv_.add(new LevelMove((short) 3,M_STA));
+        lv_.add(new LevelMove( 1,M_DAM));
+        lv_.add(new LevelMove( 3,M_STA));
         pk_.setLevMoves(lv_);
         statAdv(pk_);
         return pk_;
     }
 
-    protected static void feedTm(ShortMap< String> _tm, ShortMap< LgInt> _tmPrice) {
+    protected static void feedTm(IntMap< String> _tm, IntMap< LgInt> _tmPrice) {
         feedTm(_tm, _tmPrice, 1,M_DAM);
     }
-    protected static void feedHm(ShortMap< String> _hm) {
+    protected static void feedHm(IntMap< String> _hm) {
         feedHm(_hm, 1,M_STA);
     }
-    protected static void feedTm(ShortMap< String> _tm, ShortMap< LgInt> _tmPrice, int _nb, String _m) {
-        _tm.addEntry((short)_nb,_m);
-        _tmPrice.addEntry((short)_nb,LgInt.one());
+    protected static void feedTm(IntMap< String> _tm, IntMap< LgInt> _tmPrice, int _nb, String _m) {
+        _tm.addEntry(_nb,_m);
+        _tmPrice.addEntry(_nb,LgInt.one());
     }
-    protected static void feedHm(ShortMap< String> _hm, int _nb, String _m) {
-        _hm.addEntry((short)_nb,_m);
+    protected static void feedHm(IntMap< String> _hm, int _nb, String _m) {
+        _hm.addEntry(_nb,_m);
     }
 
     protected static void statAdv(PokemonData _pk) {
-        _pk.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)1));
-        _pk.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv((short)1,(short)1));
-        _pk.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)1));
-        _pk.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv((short)1,(short)1));
-        _pk.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv((short)1,(short)1));
-        _pk.getStatistics().addEntry(Statistic.HP,new StatBaseEv((short)1,(short)1));
+        _pk.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv(1,1));
+        _pk.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv(1,1));
+        _pk.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv(1,1));
+        _pk.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv(1,1));
+        _pk.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv(1,1));
+        _pk.getStatistics().addEntry(Statistic.HP,new StatBaseEv(1,1));
     }
 
     public static PkData pkDataByFacade(FacadeGame _dataBase) {

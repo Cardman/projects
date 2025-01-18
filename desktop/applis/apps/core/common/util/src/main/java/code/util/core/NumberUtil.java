@@ -86,33 +86,6 @@ public final class NumberUtil {
         return contains_;
     }
 
-    public static boolean equalsSetShorts(Listable<Short> _list1, Listable<Short> _list2) {
-        for (Short c: _list2) {
-            boolean contains_ = containsShort(_list1, c);
-            if (!contains_) {
-                return false;
-            }
-        }
-        for (Short c: _list1) {
-            boolean contains_ = containsShort(_list2, c);
-            if (!contains_) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private static boolean containsShort(Listable<Short> _list1, Short _c) {
-        boolean contains_ = false;
-        for (Short d: _list1) {
-            if (eq(_c, d)) {
-                contains_ = true;
-                break;
-            }
-        }
-        return contains_;
-    }
-
     public static boolean equalsSetInts(Listable<Integer> _list1, Listable<Integer> _list2) {
         for (Integer c: _list2) {
             boolean contains_ = containsInt(_list1, c);

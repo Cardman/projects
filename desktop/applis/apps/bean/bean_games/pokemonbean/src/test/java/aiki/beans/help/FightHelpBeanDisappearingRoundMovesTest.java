@@ -23,10 +23,10 @@ public final class FightHelpBeanDisappearingRoundMovesTest extends InitDbFightHe
         FacadeGame f_ = facade();
         DamagingMoveData t_ = Instances.newDamagingMoveData();
         t_.setDisappearBeforeUse(true);
-        t_.setNbPrepaRound((short) 1);
+        t_.setNbPrepaRound( 1);
         f_.getData().completeMembers(M_DAM, t_);
         DamagingMoveData p_ = Instances.newDamagingMoveData();
-        p_.setNbPrepaRound((short) 1);
+        p_.setNbPrepaRound( 1);
         f_.getData().completeMembers(M_STA, p_);
         f_.getData().completeMembers(M_DAM_VAR, Instances.newStatusMoveData());
         f_.getData().getTranslatedMoves().addEntry(EN,new StringMap<String>());

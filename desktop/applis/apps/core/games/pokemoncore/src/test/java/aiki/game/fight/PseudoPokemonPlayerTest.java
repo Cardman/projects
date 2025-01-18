@@ -16,7 +16,7 @@ public class PseudoPokemonPlayerTest extends InitializationDataBase {
     public void new_PseudoPokemonPlayer_PokemonPlayer_1Test() {
         DataBase data_ = initDb();
         Pokemon pokemon_ = new WildPk();
-        pokemon_.setLevel((short) 3);
+        pokemon_.setLevel( 3);
         pokemon_.setName(PTITARD);
         pokemon_.setAbility(ABSORB_EAU);
         pokemon_.setItem(MULTI_EXP);

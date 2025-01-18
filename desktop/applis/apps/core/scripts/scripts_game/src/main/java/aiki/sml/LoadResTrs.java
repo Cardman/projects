@@ -20,12 +20,12 @@ public final class LoadResTrs {
     private LoadResTrs(){}
     public static void loadResources(DataBase _d, StringMap<TranslationsAppli> _defParts) {
         for (EntryCust<String,String> c: Cst.cs().entryList()) {
-            short cle_ = (short) NumberUtil.parseInt(c.getKey());
+            int cle_ =  NumberUtil.parseInt(c.getKey());
             _d.getHm().addEntry(cle_, c.getValue());
         }
         for (EntryCust<String,String> c: Cst.ct().entryList()) {
             StringList infos_ = StringUtil.splitChars(c.getValue(), TAB_CHAR);
-            short cle_ = (short) NumberUtil.parseInt(c.getKey());
+            int cle_ =  NumberUtil.parseInt(c.getKey());
             _d.getTm().addEntry(cle_, infos_.first().trim());
             LgInt price_ = new LgInt(infos_.last().trim());
             _d.getTmPrice().addEntry(cle_, price_);

@@ -35,10 +35,10 @@ public final class ComparatorsTest extends EquallablePkUtil {
     @Test
     public void comparePlaceLevelTest() {
         CustList<PlaceLevel> coords_ = new CustList<PlaceLevel>();
-        coords_.add(new PlaceLevel((short)0,(byte)0));
-        coords_.add(new PlaceLevel((short)1,(byte)0));
-        coords_.add(new PlaceLevel((short)0,(byte)1));
-        coords_.add(new PlaceLevel((short)1,(byte)1));
+        coords_.add(new PlaceLevel(0,0));
+        coords_.add(new PlaceLevel(1,0));
+        coords_.add(new PlaceLevel(0,1));
+        coords_.add(new PlaceLevel(1,1));
         coords_.sortElts(new ComparatorPlaceLevel());
         assertEq(0,coords_.get(0).getPlace());
         assertEq(0,coords_.get(0).getLevel());
@@ -52,10 +52,10 @@ public final class ComparatorsTest extends EquallablePkUtil {
     @Test
     public void compareScreenCoordsTest() {
         CustList<ScreenCoords> coords_ = new CustList<ScreenCoords>();
-        coords_.add(new ScreenCoords((short)0,(byte)0));
-        coords_.add(new ScreenCoords((short)1,(byte)0));
-        coords_.add(new ScreenCoords((short)0,(byte)1));
-        coords_.add(new ScreenCoords((short)1,(byte)1));
+        coords_.add(new ScreenCoords(0,0));
+        coords_.add(new ScreenCoords(1,0));
+        coords_.add(new ScreenCoords(0,1));
+        coords_.add(new ScreenCoords(1,1));
         coords_.sortElts(new ComparatorScreenCoords());
         assertEq(0,coords_.get(0).getXcoords());
         assertEq(0,coords_.get(0).getYcoords());

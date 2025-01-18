@@ -12,7 +12,7 @@ import code.util.StringMap;
 public abstract class ItemBean extends CommonBean {
     static final String ITEM_BEAN= PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEM_HTML;
 
-    private DictionaryComparator<String, Short> happiness;
+    private DictionaryComparator<String, Integer> happiness;
     private String name;
     private String displayName;
     private int price;
@@ -33,9 +33,9 @@ public abstract class ItemBean extends CommonBean {
         description = translationsClasses_.getVal(item_.getItemType());
     }
 
-    public void initHappiness(StringMap<Short> _map) {
+    public void initHappiness(StringMap<Integer> _map) {
         DataBase data_ = getDataBase();
-        DictionaryComparator<String, Short> happiness_;
+        DictionaryComparator<String, Integer> happiness_;
         happiness_ = DictionaryComparatorUtil.buildItemsShort(data_,getLanguage());
         for (String i: _map.getKeys()) {
             happiness_.put(i, _map.getVal(i));
@@ -53,7 +53,7 @@ public abstract class ItemBean extends CommonBean {
         return tryRedirectIt(happiness.getKey(_index));
     }
 
-    public DictionaryComparator<String,Short> getHappiness() {
+    public DictionaryComparator<String,Integer> getHappiness() {
         return happiness;
     }
 

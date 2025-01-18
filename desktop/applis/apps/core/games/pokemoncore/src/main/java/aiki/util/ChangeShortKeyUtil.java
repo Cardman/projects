@@ -8,7 +8,7 @@ public final class ChangeShortKeyUtil {
     public void add(ChangeShortFieldMatch _map) {
         collection.add(_map);
     }
-    public boolean contains(short _o) {
+    public boolean contains(int _o) {
         for (ChangeShortFieldMatch e:collection) {
             if (e.match(_o)) {
                 return true;

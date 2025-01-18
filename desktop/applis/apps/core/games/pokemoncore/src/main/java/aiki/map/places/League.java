@@ -33,9 +33,9 @@ public final class League extends Place {
                 .validate(_data, _placeArea.getLevel(IndexConstants.FIRST_INDEX));
         DataInfoChecker.checkEmpty(_data,rooms.first(),begin);
         int nbRooms_ = rooms.size();
-        for (byte i = IndexConstants.SECOND_INDEX; i < nbRooms_; i++) {
+        for (int i = IndexConstants.SECOND_INDEX; i < nbRooms_; i++) {
             getLevelLeague(i).validate(_data, _placeArea.getLevel(i));
-            NullablePoint next_ = getLevelLeague((byte) (i - 1)).getNextLevelTarget();
+            NullablePoint next_ = getLevelLeague(i - 1).getNextLevelTarget();
             DataInfoChecker.checkEmpty(_data,getLevelLeague(i),next_);
             DataInfoChecker.checkKey(_data,_placeArea.getLevel(i),next_,true);
         }

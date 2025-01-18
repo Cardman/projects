@@ -145,21 +145,15 @@ public final class DataInfoChecker {
             _data.setError(true);
         }
     }
-    public static void checkPositiveShorts(CustList<Short> _value, DataBase _data) {
-        for (short s : _value) {
+    public static void checkPositiveShorts(CustList<Integer> _value, DataBase _data) {
+        for (int s : _value) {
             checkPositive(s,_data);
         }
     }
 
-    public static void checkPositiveOrZeroShorts(CustList<Short> _value, DataBase _data) {
-        for (short s : _value) {
+    public static void checkPositiveOrZeroShorts(CustList<Integer> _value, DataBase _data) {
+        for (int s : _value) {
             checkPositiveOrZero(s,_data);
-        }
-    }
-
-    public static void checkPositiveBytes(CustList<Byte> _value, DataBase _data) {
-        for (byte s : _value) {
-            checkPositive(s,_data);
         }
     }
 
@@ -168,8 +162,8 @@ public final class DataInfoChecker {
         checkPositiveOrZero(_value, _data);
     }
 
-    public static void checkNegativeBytes(CustList<Byte> _value, DataBase _data) {
-        for (byte s : _value) {
+    public static void checkNegativeBytes(CustList<Integer> _value, DataBase _data) {
+        for (int s : _value) {
             checkNegative(s,_data);
         }
     }
@@ -275,12 +269,6 @@ public final class DataInfoChecker {
         }
     }
 
-    public static void checkEmptyShorts(Shorts _value, DataBase _data) {
-        if (!_value.isEmpty()) {
-            _data.setError(true);
-        }
-    }
-
     public static void checkEmptyInts(Ints _value, DataBase _data) {
         if (!_value.isEmpty()) {
             _data.setError(true);
@@ -333,15 +321,15 @@ public final class DataInfoChecker {
         }
     }
 
-    public static void checkShortsContains(CustList<Short> _list, CustList<Short> _field, DataBase _data) {
-        for (short s: _field) {
+    public static void checkShortsContains(CustList<Integer> _list, CustList<Integer> _field, DataBase _data) {
+        for (int s: _field) {
             checkShortsContains(_list,s,_data);
         }
     }
 
 
-    public static void checkShortsContains(CustList<Short> _list, short _field, DataBase _data) {
-        for (short s: _list) {
+    public static void checkShortsContains(CustList<Integer> _list, int _field, DataBase _data) {
+        for (int s: _list) {
             if (s == _field) {
                 return;
             }

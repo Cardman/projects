@@ -18,7 +18,7 @@ public class PseudoFoeFighterTest extends InitializationDataBase {
         PkTrainer foe_ = new PkTrainer();
         foe_.setName(TARTARD);
         foe_.setAbility(ABSORB_EAU);
-        foe_.setLevel((short) 10);
+        foe_.setLevel( 10);
         foe_.setItem(NULL_REF);
         foe_.setMoves(new StringList(CHARGE));
         pseudoFoeFighter_ = new PseudoFoeFighter(foe_);
@@ -34,7 +34,7 @@ public class PseudoFoeFighterTest extends InitializationDataBase {
         PkTrainer foe_ = new PkTrainer();
         foe_.setName(TARTARD);
         foe_.setAbility(ABSORB_EAU);
-        foe_.setLevel((short) 10);
+        foe_.setLevel( 10);
         foe_.setItem(NULL_REF);
         foe_.setMoves(new StringList(CHARGE));
         pseudoFoeFighter_ = new PseudoFoeFighter(foe_);
@@ -42,7 +42,7 @@ public class PseudoFoeFighterTest extends InitializationDataBase {
         diff_.setDiffWinningExpPtsFight(DifficultyWinPointsFight.DIFFICILE);
         diff_.setWinTrainerExp(new Rate("3/2"));
         diff_.setRateWinningExpPtsFight(Rate.one());
-        Rate wonPoints_ = pseudoFoeFighter_.pointsFoe((byte) 2, diff_, data_);
+        Rate wonPoints_ = pseudoFoeFighter_.pointsFoe( 2, diff_, data_);
         assertEq(new Rate("5550"),wonPoints_);
     }
 }

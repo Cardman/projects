@@ -19,16 +19,16 @@ import code.util.core.IndexConstants;
 
 public abstract class MoveData {
 
-    private short pp;
+    private int pp;
     private StringList types;
     private StringList boostedTypes;
-    private byte priority;
+    private int priority;
     private String accuracy;
     private CustList<Effect> effects;
-    private short nbPrepaRound;
+    private int nbPrepaRound;
     private boolean disappearBeforeUse;
     private MonteCarloNumber repeatRoundLaw;
-    private short rankIncrementNbRound;
+    private int rankIncrementNbRound;
     private boolean rechargeRound;
     private boolean constUserChoice;
     private boolean stoppableMoveSolo;
@@ -156,11 +156,11 @@ public abstract class MoveData {
 
     public abstract boolean canBoostAllies();
 
-    public short getPp() {
+    public int getPp() {
         return pp;
     }
 
-    public void setPp(short _pp) {
+    public void setPp(int _pp) {
         pp = _pp;
     }
 
@@ -180,11 +180,11 @@ public abstract class MoveData {
         boostedTypes = _boostedTypes;
     }
 
-    public byte getPriority() {
+    public int getPriority() {
         return priority;
     }
 
-    public void setPriority(byte _priority) {
+    public void setPriority(int _priority) {
         priority = _priority;
     }
 
@@ -204,11 +204,11 @@ public abstract class MoveData {
         effects = _effects;
     }
 
-    public short getNbPrepaRound() {
+    public int getNbPrepaRound() {
         return nbPrepaRound;
     }
 
-    public void setNbPrepaRound(short _nbPrepaRound) {
+    public void setNbPrepaRound(int _nbPrepaRound) {
         nbPrepaRound = _nbPrepaRound;
     }
 
@@ -228,11 +228,11 @@ public abstract class MoveData {
         repeatRoundLaw = _repeatRoundLaw;
     }
 
-    public short getRankIncrementNbRound() {
+    public int getRankIncrementNbRound() {
         return rankIncrementNbRound;
     }
 
-    public void setRankIncrementNbRound(short _rankIncrementNbRound) {
+    public void setRankIncrementNbRound(int _rankIncrementNbRound) {
         rankIncrementNbRound = _rankIncrementNbRound;
     }
 

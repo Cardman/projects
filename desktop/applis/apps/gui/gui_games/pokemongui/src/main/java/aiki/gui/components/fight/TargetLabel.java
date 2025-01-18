@@ -23,7 +23,7 @@ public class TargetLabel {
 
     private String fighterName;
 
-    private short level;
+    private int level;
 
     private int finalWidth;
 
@@ -300,11 +300,11 @@ public class TargetLabel {
         return fighterName;
     }
 
-    public short getLevel() {
+    public int getLevel() {
         return level;
     }
 
-    public void setLevel(short _level) {
+    public void setLevel(int _level) {
         level = _level;
     }
 

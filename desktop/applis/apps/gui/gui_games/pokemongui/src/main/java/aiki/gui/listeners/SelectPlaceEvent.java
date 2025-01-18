@@ -10,9 +10,9 @@ public class SelectPlaceEvent implements AbsMouseListenerIntRel {
 
     private Battle battle;
 
-    private byte index;
+    private int index;
 
-    public SelectPlaceEvent(Battle _battle, byte _index) {
+    public SelectPlaceEvent(Battle _battle, int _index) {
         battle = _battle;
         index = _index;
     }

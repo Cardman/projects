@@ -85,7 +85,7 @@ public class SellerBean extends CommonBean {
     public StringList getAllTm() {
         DataBase data_ = getDataBase();
         StringList moves_ = new StringList();
-        for (Short s: seller.getTm()) {
+        for (Integer s: seller.getTm()) {
             moves_.add(data_.getTm().getVal(s));
         }
         moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));

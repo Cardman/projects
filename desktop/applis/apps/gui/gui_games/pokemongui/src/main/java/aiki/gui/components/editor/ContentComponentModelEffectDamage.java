@@ -22,7 +22,7 @@ public final class ContentComponentModelEffectDamage {
     private CrudGeneFormMonteCarloStrSub damageLaw;
     private GeneComponentModelSubscribeString power;
     private CrudGeneFormSimpleFormSub<String,Rate> multDamageAgainst;
-    private CrudGeneFormSimpleFormSub<Statistic,Byte> boostStatisOnceKoFoe;
+    private CrudGeneFormSimpleFormSub<Statistic,Integer> boostStatisOnceKoFoe;
     private GeneComponentModelLsStrSub<Statistic,IdList<Statistic>> ignVarStatTargetPos;
     private GeneComponentModelLsStrSub<Statistic,IdList<Statistic>> ignVarStatUserNeg;
     private GeneComponentModelEltEnumSub<Statistic> statisAtt;
@@ -64,8 +64,8 @@ public final class ContentComponentModelEffectDamage {
         multDamageAgainst = new CrudGeneFormSimpleFormSub<String, Rate>(_core, _fac, _fact, _f);
         multDamageAgainst.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Rate>(_fact.getFactoryCa(),_core,_fac, new StringMap<String>()), buildPart(_core,_fac,_fact.getFactoryCa(), new StringMap<String>()), new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core)));
         selected_.add(multDamageAgainst.getGroup());
-        boostStatisOnceKoFoe = new CrudGeneFormSimpleFormSub<Statistic,Byte>(_core, _fac, _fact, _f);
-        boostStatisOnceKoFoe.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Byte>(_fact.getFactoryStat(),_core,_fac, new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac), new GeneComponentModelSubscribeFactoryDirect<Byte>(new GeneComponentModelSubscribeByte(_core)));
+        boostStatisOnceKoFoe = new CrudGeneFormSimpleFormSub<Statistic,Integer>(_core, _fac, _fact, _f);
+        boostStatisOnceKoFoe.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Integer>(_fact.getFactoryStat(),_core,_fac, new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac), new GeneComponentModelSubscribeFactoryDirect<Integer>(new GeneComponentModelSubscribeInteger(_core)));
         selected_.add(boostStatisOnceKoFoe.getGroup());
         selected_.setVisible(false);
         form =selected_;
@@ -79,7 +79,7 @@ public final class ContentComponentModelEffectDamage {
     }
     void buildEntity(EffectDamage _edited) {
         _edited.setPower(power.tryRet());
-        _edited.setChRate((byte) chRate.valueInt());
+        _edited.setChRate(chRate.valueInt());
         _edited.setConstDamage(constDamage.isSelected());
         _edited.setRandMax(randMax.isSelected());
         _edited.setSummingUserTeamOkFighter(summingUserTeamOkFighter.isSelected());
@@ -93,7 +93,7 @@ public final class ContentComponentModelEffectDamage {
         _edited.setHitsLaw(ConverterCommonMapUtil.buildMonteCarloNumber(hitsLaw.getList()));
         _edited.setDamageLaw(PatchPkLawStringUtil.patch(ConverterCommonMapUtil.buildMonteCarloString(damageLaw.getCrud().getList())));
         _edited.setMultDamageAgainst(ConverterCommonMapUtil.buildStringMapRate(multDamageAgainst.getList()));
-        _edited.setBoostStatisOnceKoFoe(ConverterCommonMapUtil.buildIdMapStatisticByte(boostStatisOnceKoFoe.getList()));
+        _edited.setBoostStatisOnceKoFoe(ConverterCommonMapUtil.buildIdMapStatisticInteger(boostStatisOnceKoFoe.getList()));
     }
     void feedForm(EffectDamage _edited) {
         power.setupValue(_edited.getPower());
@@ -111,7 +111,7 @@ public final class ContentComponentModelEffectDamage {
         hitsLaw.setupValues(new MapToEntriesListUtil<Rate,LgInt>().build(_edited.getHitsLaw()));
         damageLaw.setupValues(new MapToEntriesListUtil<String,LgInt>().build(_edited.getDamageLaw()));
         multDamageAgainst.setupValues(new MapToEntriesListUtil<String,Rate>().build(_edited.getMultDamageAgainst()));
-        boostStatisOnceKoFoe.setupValues(new MapToEntriesListUtil<Statistic,Byte>().build(_edited.getBoostStatisOnceKoFoe()));
+        boostStatisOnceKoFoe.setupValues(new MapToEntriesListUtil<Statistic,Integer>().build(_edited.getBoostStatisOnceKoFoe()));
     }
 
     public AbsCustCheckBox getRandMax() {
@@ -162,7 +162,7 @@ public final class ContentComponentModelEffectDamage {
         return multDamageAgainst;
     }
 
-    public CrudGeneFormSimpleFormSub<Statistic, Byte> getBoostStatisOnceKoFoe() {
+    public CrudGeneFormSimpleFormSub<Statistic, Integer> getBoostStatisOnceKoFoe() {
         return boostStatisOnceKoFoe;
     }
 }

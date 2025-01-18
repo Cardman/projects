@@ -6,7 +6,7 @@ public class PseudoPokemonPlayer {
 
     private final Rate wonPointsSinceLastLevel;
 
-    private short level;
+    private int level;
 
     private String name;
 
@@ -31,11 +31,11 @@ public class PseudoPokemonPlayer {
         return wonPointsSinceLastLevel;
     }
 
-    public short getLevel() {
+    public int getLevel() {
         return level;
     }
 
-    public void setLevel(short _level) {
+    public void setLevel(int _level) {
         level = _level;
     }
 

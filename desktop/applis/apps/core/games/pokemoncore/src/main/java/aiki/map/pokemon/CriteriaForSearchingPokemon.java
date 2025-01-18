@@ -68,7 +68,7 @@ public final class CriteriaForSearchingPokemon extends CriteriaForSearching {
     }
 
     public boolean matchLevel(long _level) {
-        return CriteriaForSearching.match(minLevel, maxLevel, (short) _level);
+        return CriteriaForSearching.match(minLevel, maxLevel, _level);
     }
 
     public boolean matchMoves(StringList _moves) {
@@ -76,7 +76,7 @@ public final class CriteriaForSearchingPokemon extends CriteriaForSearching {
     }
 
     public boolean matchNbPossEvos(long _level) {
-        return CriteriaForSearching.match(minNbPossEvols, maxNbPossEvols, (short) _level);
+        return CriteriaForSearching.match(minNbPossEvols, maxNbPossEvols, _level);
     }
 
     public void setSearchModeName(SearchingMode _searchModeName) {

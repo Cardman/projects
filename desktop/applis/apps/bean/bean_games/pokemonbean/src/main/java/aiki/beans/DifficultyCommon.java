@@ -72,8 +72,8 @@ public final class DifficultyCommon {
         _diff.setWinTrainerExp(winTrainerExp);
         _diff.setRateWinningExpPtsFight(rateWinningExpPtsFight);
         _diff.setEndFightIfOneTeamKo(endFightIfOneTeamKo);
-        _diff.setIvPlayer((short) ivPlayer);
-        _diff.setIvFoe((short) ivFoe);
+        _diff.setIvPlayer(ivPlayer);
+        _diff.setIvFoe(ivFoe);
         _diff.setRateWinMoneyBase(rateWinMoneyBase);
         _diff.setRateLooseMoneyWin(rateLooseMoneyWin);
         _diff.setRestoredMovesEndFight(restoredMovesEndFight);

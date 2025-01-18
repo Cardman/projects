@@ -6,18 +6,18 @@ import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.status.StatusType;
 import aiki.util.DataInfoChecker;
 import code.util.IdMap;
-import code.util.ShortMap;
+import code.util.*;
 import code.util.StringList;
 
 
 public final class EffectTeamWhileSendFoe extends Effect {
 
     private String failSending;
-    private ShortMap< String> statusByNbUses;
+    private IntMap< String> statusByNbUses;
     private StringList deletedByFoeTypes;
     private String damageRateAgainstFoe;
 
-    private IdMap<Statistic, Byte> statistics;
+    private IdMap<Statistic, Integer> statistics;
 
     @Override
     public void validate(DataBase _data) {
@@ -36,11 +36,11 @@ public final class EffectTeamWhileSendFoe extends Effect {
         failSending = _failSending;
     }
 
-    public ShortMap< String> getStatusByNbUses() {
+    public IntMap< String> getStatusByNbUses() {
         return statusByNbUses;
     }
 
-    public void setStatusByNbUses(ShortMap< String> _statusByNbUses) {
+    public void setStatusByNbUses(IntMap< String> _statusByNbUses) {
         statusByNbUses = _statusByNbUses;
     }
 
@@ -60,11 +60,11 @@ public final class EffectTeamWhileSendFoe extends Effect {
         damageRateAgainstFoe = _damageRateAgainstFoe;
     }
 
-    public IdMap<Statistic, Byte> getStatistics() {
+    public IdMap<Statistic, Integer> getStatistics() {
         return statistics;
     }
 
-    public void setStatistics(IdMap<Statistic, Byte> _statistics) {
+    public void setStatistics(IdMap<Statistic, Integer> _statistics) {
         statistics = _statistics;
     }
 }

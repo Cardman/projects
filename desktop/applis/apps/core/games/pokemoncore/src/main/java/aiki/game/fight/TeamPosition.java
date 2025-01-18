@@ -13,16 +13,16 @@ public final class TeamPosition {
 
     private final boolean valid;
 
-    private final byte team;
+    private final int team;
 
-    private final byte position;
+    private final int position;
 
     public TeamPosition() {
         valid = false;
         team = IndexConstants.SIZE_EMPTY;
         position = IndexConstants.SIZE_EMPTY;
     }
-    public TeamPosition(byte _team, byte _position) {
+    public TeamPosition(int _team, int _position) {
         team = _team;
         position = _position;
         valid = _team != Fighter.BACK && _position != Fighter.BACK;
@@ -36,8 +36,8 @@ public final class TeamPosition {
             return;
         }
         StringList elts_ = StringUtil.splitChars(_value, SEPARATOR);
-        team = (byte) NumberUtil.parseInt(elts_.first());
-        position = (byte) NumberUtil.parseInt(elts_.last());
+        team = NumberUtil.parseInt(elts_.first());
+        position = NumberUtil.parseInt(elts_.last());
         valid = true;
     }
 
@@ -53,11 +53,11 @@ public final class TeamPosition {
         return _tp1.eq(_tp2);
     }
 
-    public byte getTeam() {
+    public int getTeam() {
         return team;
     }
 
-    public byte getPosition() {
+    public int getPosition() {
         return position;
     }
 

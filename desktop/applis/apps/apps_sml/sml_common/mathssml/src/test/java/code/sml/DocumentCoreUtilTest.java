@@ -119,15 +119,6 @@ public final class DocumentCoreUtilTest extends EquallableSerialUtil {
         assertEq(BoolVal.TRUE,ls_.getValue(1));
     }
     @Test
-    public void t18() {
-        StringMap<Short> inSingle_ = new StringMap<Short>();
-        inSingle_.addEntry("1",(short)1);
-        StringMap<Short> ls_ = saveStrMapShort(inSingle_);
-        assertEq(1,ls_.size());
-        assertEq("1",ls_.getKey(0));
-        assertEq(1,ls_.getValue(0));
-    }
-    @Test
     public void t19() {
         StringMap<Integer> inSingle_ = new StringMap<Integer>();
         inSingle_.addEntry("1",1);
@@ -202,42 +193,21 @@ public final class DocumentCoreUtilTest extends EquallableSerialUtil {
     }
     @Test
     public void t27() {
-        ByteMap<Byte> inSingle_ = new ByteMap<Byte>();
-        inSingle_.addEntry((byte)1,(byte)2);
-        ByteMap<Byte> ls_ = saveMapByteByte(inSingle_);
+        IntMap<Integer> inSingle_ = new IntMap<Integer>();
+        inSingle_.addEntry(1,2);
+        IntMap<Integer> ls_ = saveMapByteByte(inSingle_);
         assertEq(1,ls_.size());
         assertEq(1,ls_.getKey(0));
         assertEq(2,ls_.getValue(0));
     }
     @Test
     public void t28() {
-        ByteMap<Bytes> inSingle_ = new ByteMap<Bytes>();
-        inSingle_.addEntry((byte)1,Bytes.newList((byte)2));
-        ByteMap<Bytes> ls_ = saveMapByteListByte(inSingle_);
+        IntMap<Ints> inSingle_ = new IntMap<Ints>();
+        inSingle_.addEntry(1,Ints.newList(2));
+        IntMap<Ints> ls_ = saveMapByteListByte(inSingle_);
         assertEq(1,ls_.size());
         assertEq(1,ls_.getKey(0));
         assertEq(1,ls_.getValue(0).size());
         assertEq(2,ls_.getValue(0).get(0));
-    }
-    @Test
-    public void t29() {
-        ShortMap<String> inSingle_ = new ShortMap<String>();
-        inSingle_.addEntry((short)1,"2");
-        ShortMap<String> ls_ = saveMapShortString(inSingle_);
-        assertEq(1,ls_.size());
-        assertEq(1,ls_.getKey(0));
-        assertEq("2",ls_.getValue(0));
-    }
-    @Test
-    public void t30() {
-        ShortMap<BoolVal> inSingle_ = new ShortMap<BoolVal>();
-        inSingle_.addEntry((short)0,BoolVal.FALSE);
-        inSingle_.addEntry((short)1,BoolVal.TRUE);
-        ShortMap<BoolVal> ls_ = saveMapShortBoolVal(inSingle_);
-        assertEq(2,ls_.size());
-        assertEq(0,ls_.getKey(0));
-        assertEq(BoolVal.FALSE,ls_.getValue(0));
-        assertEq(1,ls_.getKey(1));
-        assertEq(BoolVal.TRUE,ls_.getValue(1));
     }
 }

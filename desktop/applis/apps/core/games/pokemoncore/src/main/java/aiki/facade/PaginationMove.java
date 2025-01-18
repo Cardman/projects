@@ -89,9 +89,9 @@ public final class PaginationMove extends
     public static int price(DataBase _data, String _move) {
         int price_ = 0;
         // CustList<Short> tmKeys_ = _data.getTm().getKeys(_list.get(i));
-        Shorts tmKeys_ = _data.getTmByMove(_move);
+        Ints tmKeys_ = _data.getTmByMove(_move);
         if (!tmKeys_.isEmpty()) {
-            short tm_ = tmKeys_.first();
+            int tm_ = tmKeys_.first();
             if (_data.getTmPrice().contains(tm_)) {
                 price_ = (int) _data.getTmPrice().getVal(tm_).ll();
             }

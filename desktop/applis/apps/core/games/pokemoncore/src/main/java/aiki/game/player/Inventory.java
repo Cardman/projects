@@ -11,14 +11,14 @@ public final class Inventory {
 
     private StringMap<LgInt> items;
 
-    private ShortMap<BoolVal> tm;
+    private IntMap<BoolVal> tm;
 
-    private ShortMap<BoolVal> hm;
+    private IntMap<BoolVal> hm;
 
     public Inventory() {
         setItems(new StringMap<LgInt>());
-        setTm(new ShortMap<BoolVal>());
-        setHm(new ShortMap<BoolVal>());
+        setTm(new IntMap<BoolVal>());
+        setHm(new IntMap<BoolVal>());
     }
 
     public Inventory(DataBase _dataBase) {
@@ -26,12 +26,12 @@ public final class Inventory {
         for (String o: _dataBase.getItems().getKeys()) {
             getItems().put(o, LgInt.zero());
         }
-        setTm(new ShortMap<BoolVal>());
-        for (short t: _dataBase.getTm().getKeys()) {
+        setTm(new IntMap<BoolVal>());
+        for (int t: _dataBase.getTm().getKeys()) {
             getTm().put(t, BoolVal.FALSE);
         }
-        setHm(new ShortMap<BoolVal>());
-        for (short t: _dataBase.getHm().getKeys()) {
+        setHm(new IntMap<BoolVal>());
+        for (int t: _dataBase.getHm().getKeys()) {
             getHm().put(t, BoolVal.FALSE);
         }
     }
@@ -47,16 +47,16 @@ public final class Inventory {
         if (!StringUtil.equalsSet(obj_, objData_)) {
             return false;
         }
-        if (!NumberUtil.equalsSetShorts(tm.getKeys(), _data.getTm().getKeys())) {
+        if (!NumberUtil.equalsSetInts(tm.getKeys(), _data.getTm().getKeys())) {
             return false;
         }
-        return NumberUtil.equalsSetShorts(hm.getKeys(), _data.getHm().getKeys());
+        return NumberUtil.equalsSetInts(hm.getKeys(), _data.getHm().getKeys());
     }
-    public void getTm(short _t) {
+    public void getTm(int _t) {
         tm.put(_t, BoolVal.TRUE);
     }
 
-    public void getHm(short _t) {
+    public void getHm(int _t) {
         hm.put(_t, BoolVal.TRUE);
     }
 
@@ -80,18 +80,18 @@ public final class Inventory {
         items.getVal(_object).addNb(_number);
     }
 
-    CustList<Short> getAllTm() {
+    CustList<Integer> getAllTm() {
         return tm.getKeys();
     }
 
-    CustList<Short> getAllHm() {
+    CustList<Integer> getAllHm() {
         return hm.getKeys();
     }
 
-    public Shorts gotTm() {
-        Shorts n_;
-        n_ = new Shorts();
-        for (EntryCust<Short,BoolVal> e: tm.entryList()) {
+    public Ints gotTm() {
+        Ints n_;
+        n_ = new Ints();
+        for (EntryCust<Integer,BoolVal> e: tm.entryList()) {
             if (e.getValue()==BoolVal.TRUE) {
                 n_.add(e.getKey());
             }
@@ -99,10 +99,10 @@ public final class Inventory {
         return n_;
     }
 
-    public Shorts gotHm() {
-        Shorts n_;
-        n_ = new Shorts();
-        for (EntryCust<Short,BoolVal> e: hm.entryList()) {
+    public Ints gotHm() {
+        Ints n_;
+        n_ = new Ints();
+        for (EntryCust<Integer,BoolVal> e: hm.entryList()) {
             if (e.getValue()==BoolVal.TRUE) {
                 n_.add(e.getKey());
             }
@@ -121,19 +121,19 @@ public final class Inventory {
         items = _items;
     }
 
-    public ShortMap< BoolVal> getTm() {
+    public IntMap< BoolVal> getTm() {
         return tm;
     }
 
-    public void setTm(ShortMap< BoolVal> _tm) {
+    public void setTm(IntMap< BoolVal> _tm) {
         tm = _tm;
     }
 
-    public ShortMap< BoolVal> getHm() {
+    public IntMap< BoolVal> getHm() {
         return hm;
     }
 
-    public void setHm(ShortMap< BoolVal> _hm) {
+    public void setHm(IntMap< BoolVal> _hm) {
         hm = _hm;
     }
 }

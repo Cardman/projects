@@ -12,8 +12,8 @@ import code.util.StringMap;
 public final class Boost extends Item {
 
     private Rate winPp;
-    private StringMap<Short> happiness;
-    private IdMap<Statistic, Short> evs;
+    private StringMap<Integer> happiness;
+    private IdMap<Statistic, Integer> evs;
 
     @Override
     public String getItemType() {
@@ -28,11 +28,11 @@ public final class Boost extends Item {
             DataInfoChecker.checkZero(winPp,_data);
         }
         DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBase(),evs.getKeys(),_data);
-        for (EntryCust<Statistic, Short> s : evs.entryList()) {
+        for (EntryCust<Statistic, Integer> s : evs.entryList()) {
             DataInfoChecker.checkPositiveOrZero(s.getValue(),_data);
         }
         DataInfoChecker.checkStringListContains(DataInfoChecker.itemsBall(_data).getKeys(),happiness.getKeys(),_data);
-        for (EntryCust<String, Short> k : happiness.entryList()) {
+        for (EntryCust<String, Integer> k : happiness.entryList()) {
             DataInfoChecker.checkPositiveOrZero(k.getValue(),_data);
         }
     }
@@ -45,19 +45,19 @@ public final class Boost extends Item {
         winPp = _winPp;
     }
 
-    public StringMap<Short> getHappiness() {
+    public StringMap<Integer> getHappiness() {
         return happiness;
     }
 
-    public void setHappiness(StringMap<Short> _happiness) {
+    public void setHappiness(StringMap<Integer> _happiness) {
         happiness = _happiness;
     }
 
-    public IdMap<Statistic, Short> getEvs() {
+    public IdMap<Statistic, Integer> getEvs() {
         return evs;
     }
 
-    public void setEvs(IdMap<Statistic, Short> _evs) {
+    public void setEvs(IdMap<Statistic, Integer> _evs) {
         evs = _evs;
     }
 

@@ -27,7 +27,7 @@ public final class GeneComponentModelSubscribeBoostHpRate implements AbsGeneComp
 
     @Override
     public BoostHpRate tryRet() {
-        return new BoostHpRate((byte) boost.valueInt(), hpRate.valueRate());
+        return new BoostHpRate(boost.valueInt(), hpRate.valueRate());
     }
 
     @Override

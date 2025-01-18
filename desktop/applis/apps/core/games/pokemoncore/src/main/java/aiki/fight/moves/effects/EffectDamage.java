@@ -15,7 +15,7 @@ import code.util.StringMap;
 
 public final class EffectDamage extends Effect {
 
-    private byte chRate;
+    private int chRate;
 
     private boolean constDamage;
 
@@ -47,7 +47,7 @@ public final class EffectDamage extends Effect {
 
     private Statistic statisDef;
 
-    private IdMap<Statistic, Byte> boostStatisOnceKoFoe;
+    private IdMap<Statistic, Integer> boostStatisOnceKoFoe;
 
     @Override
     public void validate(DataBase _data) {
@@ -61,7 +61,7 @@ public final class EffectDamage extends Effect {
         DataInfoChecker.checkTargetNot(TargetChoice.UNIQUE_IMPORTE,getTargetChoice(),_data);
         DataInfoChecker.checkTargetNot(TargetChoice.GLOBALE,getTargetChoice(),_data);
         DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),boostStatisOnceKoFoe.getKeys(),_data);
-        DataInfoChecker.checkPositiveBytes(boostStatisOnceKoFoe.values(),_data);
+        DataInfoChecker.checkPositiveShorts(boostStatisOnceKoFoe.values(),_data);
         DataInfoChecker.checkStringListContains(_data.getCategories(),multDamageAgainst.getKeys(),_data);
         DataInfoChecker.checkPositiveRates(multDamageAgainst.values(),_data);
         patch();
@@ -105,11 +105,11 @@ public final class EffectDamage extends Effect {
         }
     }
 
-    public byte getChRate() {
+    public int getChRate() {
         return chRate;
     }
 
-    public void setChRate(byte _chRate) {
+    public void setChRate(int _chRate) {
         chRate = _chRate;
     }
 
@@ -233,12 +233,12 @@ public final class EffectDamage extends Effect {
         statisDef = _statisDef;
     }
 
-    public IdMap<Statistic, Byte> getBoostStatisOnceKoFoe() {
+    public IdMap<Statistic, Integer> getBoostStatisOnceKoFoe() {
         return boostStatisOnceKoFoe;
     }
 
     public void setBoostStatisOnceKoFoe(
-            IdMap<Statistic, Byte> _boostStatisOnceKoFoe) {
+            IdMap<Statistic, Integer> _boostStatisOnceKoFoe) {
         boostStatisOnceKoFoe = _boostStatisOnceKoFoe;
     }
 }

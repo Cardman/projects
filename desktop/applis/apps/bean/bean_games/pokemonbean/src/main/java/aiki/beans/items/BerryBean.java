@@ -26,7 +26,7 @@ public class BerryBean extends ItemBean {
     private Rate maxHpHealingHpRate;
     private DictionaryComparator<String, Rate> damageRateRecoilFoe;
     private String categoryBoosting;
-    private DictionaryComparator<Statistic, Byte> boostStatis;
+    private DictionaryComparator<Statistic, Integer> boostStatis;
 
     @Override
     public void beforeDisplaying() {
@@ -72,7 +72,7 @@ public class BerryBean extends ItemBean {
             damageRateRecoilFoe_.put(s, item_.getDamageRateRecoilFoe().getVal(s));
         }
         damageRateRecoilFoe = damageRateRecoilFoe_;
-        DictionaryComparator<Statistic, Byte> boostStatis_;
+        DictionaryComparator<Statistic, Integer> boostStatis_;
         boostStatis_ = DictionaryComparatorUtil.buildStatisByte(data_,getLanguage());
         for (Statistic s: item_.getBoostStatis().getKeys()) {
             boostStatis_.put(s, item_.getBoostStatis().getVal(s));
@@ -165,7 +165,7 @@ public class BerryBean extends ItemBean {
         return damageRateRecoilFoe;
     }
 
-    public DictionaryComparator<Statistic,Byte> getBoostStatis() {
+    public DictionaryComparator<Statistic,Integer> getBoostStatis() {
         return boostStatis;
     }
 

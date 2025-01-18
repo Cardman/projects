@@ -2,11 +2,11 @@ package aiki.game.fight;
 
 import aiki.game.fight.actions.ActionMove;
 import aiki.game.fight.actions.ActionSwitch;
-import code.util.ByteMap;
+import code.util.IntMap;
 import code.util.CustList;
 
 public final class FightSimulationActions {
-    private final CustList<CustList<ByteMap<ChoiceOfEvolutionAndMoves>>> movesAbilities;
+    private final CustList<CustList<IntMap<ChoiceOfEvolutionAndMoves>>> movesAbilities;
 
     private final CustList<CustList<CustList<ActionMove>>> actionsBeforeRound;
 
@@ -18,10 +18,10 @@ public final class FightSimulationActions {
         actionsBeforeRound = new CustList<CustList<CustList<ActionMove>>>();
         actionsSubstitutingBack = new CustList<CustList<CustList<ActionSwitch>>>();
         actionsSubstitutingFront = new CustList<CustList<CustList<ActionSwitch>>>();
-        movesAbilities = new CustList<CustList<ByteMap<ChoiceOfEvolutionAndMoves>>>();
+        movesAbilities = new CustList<CustList<IntMap<ChoiceOfEvolutionAndMoves>>>();
     }
 
-    public CustList<ByteMap<ChoiceOfEvolutionAndMoves>> getMovesAbilities(int _index) {
+    public CustList<IntMap<ChoiceOfEvolutionAndMoves>> getMovesAbilities(int _index) {
         return movesAbilities.get(_index);
     }
 
@@ -37,7 +37,7 @@ public final class FightSimulationActions {
         return actionsSubstitutingFront.get(_index);
     }
 
-    public CustList<CustList<ByteMap<ChoiceOfEvolutionAndMoves>>> getMovesAbilities() {
+    public CustList<CustList<IntMap<ChoiceOfEvolutionAndMoves>>> getMovesAbilities() {
         return movesAbilities;
     }
 

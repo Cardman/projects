@@ -25,12 +25,12 @@ public final class LoadRes{
         LoadResInit.loadResources(_d);
         LoadResImg.loadResources(_d, _sexList,_messagesParse);
         /*for (EntryCust<String,String> c: Cst.cs().entryList()) {
-            short cle_ = (short) NumberUtil.parseInt(c.getKey());
+            short cle_ =  NumberUtil.parseInt(c.getKey());
             _d.getHm().addEntry(cle_, c.getValue());
         }
         for (EntryCust<String,String> c: Cst.ct().entryList()) {
             StringList infos_ = StringUtil.splitChars(c.getValue(), TAB_CHAR);
-            short cle_ = (short) NumberUtil.parseInt(c.getKey());
+            short cle_ =  NumberUtil.parseInt(c.getKey());
             _d.getTm().addEntry(cle_, infos_.first().trim());
             LgInt price_ = new LgInt(infos_.last().trim());
             _d.getTmPrice().addEntry(cle_, price_);
@@ -172,7 +172,7 @@ public final class LoadRes{
 ////            }
 //            _d.getLawsDamageRate().addEntry(
 //                    getModelByName(infos_.first()),
-//                    new LawNumber(law_, (short) NumberUtil.parseInt(infos_.last())));
+//                    new LawNumber(law_,  NumberUtil.parseInt(infos_.last())));
 //        }
 //        _d.getLawsDamageRate().addAllEntries(Cst.lg());
 //        _d.setExpGrowth(new IdMap<ExpType, String>());

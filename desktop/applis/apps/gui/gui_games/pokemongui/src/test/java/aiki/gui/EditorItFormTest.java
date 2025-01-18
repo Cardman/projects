@@ -169,8 +169,8 @@ public final class EditorItFormTest extends InitEditorPkForm {
         ConverterCommonMapUtil.trigger(((GeneComponentModelItem)cm_.getGene()).getEffectKind().getSelectUniq(),Item.ITEM_FOR_BATTLE);
         tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getBoostStatisTypes().getCrud().getAdd());
         ((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getBoostStatisTypes().getCrud().getKey().setupValue(T_1);
-        IdMap<Statistic, Byte> stats_ = new IdMap<Statistic, Byte>();
-        stats_.addEntry(Statistic.SPEED,(byte)2);
+        IdMap<Statistic, Integer> stats_ = new IdMap<Statistic, Integer>();
+        stats_.addEntry(Statistic.SPEED,2);
         ((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getBoostStatisTypes().getCrud().getValue().setupValue(stats_);
         tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getBoostStatisTypes().getCrud().getValidAddEdit());
         tryClick(cm_.getValidAddEdit());
@@ -275,11 +275,11 @@ public final class EditorItFormTest extends InitEditorPkForm {
         ConverterCommonMapUtil.trigger(((GeneComponentModelItem)cm_.getGene()).getEffectKind().getSelectUniq(),Item.ITEM_FOR_BATTLE);
         tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getMultStatPokemonRank().getCrud().getAdd());
         ((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getMultStatPokemonRank().getCrud().getKey().setupValue(new StatisticPokemon(Statistic.SPEED,P_1));
-        ((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getMultStatPokemonRank().getCrud().getValue().setupValue((byte)1);
+        ((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getMultStatPokemonRank().getCrud().getValue().setupValue(1);
         tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getMultStatPokemonRank().getCrud().getValidAddEdit());
         tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getMultStatPokemonRank().getCrud().getAdd());
         ((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getMultStatPokemonRank().getCrud().getKey().setupValue(new StatisticPokemon(Statistic.SPEED,P_2));
-        ((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getMultStatPokemonRank().getCrud().getValue().setupValue((byte)2);
+        ((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getMultStatPokemonRank().getCrud().getValue().setupValue(2);
         tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getMultStatPokemonRank().getCrud().getValidAddEdit());
         tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getMultStatPokemonRank().getCrud().getAllButtons().get(0));
         tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getMultStatPokemonRank().getCrud().getCancel());
@@ -339,7 +339,7 @@ public final class EditorItFormTest extends InitEditorPkForm {
         ConverterCommonMapUtil.trigger(((GeneComponentModelItem)cm_.getGene()).getEffectKind().getSelectUniq(),Item.BERRY);
         tryClick(((GeneComponentModelItem)cm_.getGene()).getBerryForm().getMultStat().getCrud().getAdd());
         ((GeneComponentModelItem)cm_.getGene()).getBerryForm().getMultStat().getCrud().getKey().setupValue(Statistic.SPEED);
-        ((GeneComponentModelItem)cm_.getGene()).getBerryForm().getMultStat().getCrud().getValue().setupValue(new BoostHpRate((byte) 1,new Rate(2)));
+        ((GeneComponentModelItem)cm_.getGene()).getBerryForm().getMultStat().getCrud().getValue().setupValue(new BoostHpRate( 1,new Rate(2)));
         tryClick(((GeneComponentModelItem)cm_.getGene()).getBerryForm().getMultStat().getCrud().getValidAddEdit());
         tryClick(cm_.getValidAddEdit());
         tryClick(cm_.getAllButtons().get(0));

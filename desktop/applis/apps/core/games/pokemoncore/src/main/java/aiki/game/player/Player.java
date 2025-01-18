@@ -109,18 +109,18 @@ public final class Player {
 
     private String selectedMove = DataBase.EMPTY_STRING;
 
-    private StringMap<Short> chosenMoves = new StringMap<Short>();
+    private StringMap<Integer> chosenMoves = new StringMap<Integer>();
 
     private StringMap<BoolVal> selectedMoves = new StringMap<BoolVal>();
 
-    private short chosenTeamPokemon = IndexConstants.INDEX_NOT_FOUND_ELT;
+    private int chosenTeamPokemon = IndexConstants.INDEX_NOT_FOUND_ELT;
 
     private String chosenAbilityForEvolution = DataBase.EMPTY_STRING;
 
-    private Bytes indexesOfPokemonTeam = new Bytes();
+    private Ints indexesOfPokemonTeam = new Ints();
 
     //values are true <==> a move has to be forgotten
-    private ByteMap<BoolVal> indexesOfPokemonTeamMoves = new ByteMap<BoolVal>();
+    private IntMap<BoolVal> indexesOfPokemonTeamMoves = new IntMap<BoolVal>();
 
     public Player(){
     }
@@ -174,12 +174,12 @@ public final class Player {
         commentGame = new Comment();
         selectedObject = DataBase.EMPTY_STRING;
         selectedMove = DataBase.EMPTY_STRING;
-        chosenMoves = new StringMap<Short>();
+        chosenMoves = new StringMap<Integer>();
         selectedMoves = new StringMap<BoolVal>();
         chosenTeamPokemon = IndexConstants.INDEX_NOT_FOUND_ELT;
         chosenAbilityForEvolution = DataBase.EMPTY_STRING;
-        indexesOfPokemonTeam = new Bytes();
-        indexesOfPokemonTeamMoves = new ByteMap<BoolVal>();
+        indexesOfPokemonTeam = new Ints();
+        indexesOfPokemonTeamMoves = new IntMap<BoolVal>();
         for(UsablePokemon e:team){
             if (!(e instanceof PokemonPlayer)) {
                 continue;
@@ -306,7 +306,7 @@ public final class Player {
             if (!(e instanceof Egg)) {
                 continue;
             }
-            ((Egg) e).versEclosion((short) coeff_);
+            ((Egg) e).versEclosion(coeff_);
         }
         eclosionOeuf(_diff,_import);
         StringMap<String> mess_ = _import.getMessagesPlayer();
@@ -320,7 +320,7 @@ public final class Player {
 
     void eclosionOeuf(Difficulty _diff,DataBase _import){
         int nbPks_ = team.size();
-        for(short k = IndexConstants.FIRST_INDEX; k<nbPks_; k++){
+        for(int k = IndexConstants.FIRST_INDEX; k<nbPks_; k++){
             UsablePokemon usPk_=team.get(k);
             if (!(usPk_ instanceof Egg)) {
                 continue;
@@ -347,7 +347,7 @@ public final class Player {
         if (inventory.getNumber(_nomFossile).isZero()) {
             return;
         }
-        short pos_=(short) (team.size());
+        int pos_= team.size();
         Fossil fossile_=(Fossil)_import.getItem(_nomFossile);
         if(pos_<_import.getNbMaxTeam()){
             PokemonPlayer lasPk_ = new PokemonPlayer(fossile_,_import);
@@ -447,7 +447,7 @@ public final class Player {
     }
 
     public void takePokemonFromBox(int _box, DataBase _import){
-        short pos_=(short) team.size();
+        int pos_=team.size();
         if(pos_>=_import.getNbMaxTeam()){
             return;
         }
@@ -464,7 +464,7 @@ public final class Player {
         return chosenTeamPokemon != IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 
-    public void switchTeamOrder(short _other){
+    public void switchTeamOrder(int _other){
         if(NumberUtil.eq(chosenTeamPokemon, _other)){
             return;
         }
@@ -482,7 +482,7 @@ public final class Player {
         return team.get(chosenTeamPokemon) instanceof PokemonPlayer;
     }
 
-    public void switchObjectsTeam(short _other) {
+    public void switchObjectsTeam(int _other) {
         if (NumberUtil.eq(chosenTeamPokemon, _other)) {
             return;
         }
@@ -522,7 +522,7 @@ public final class Player {
     public void setPokemonAbleToHoldObject() {
         indexesOfPokemonTeam.clear();
         int nbPks_ = team.size();
-        for (byte k = IndexConstants.FIRST_INDEX; k<nbPks_; k++) {
+        for (int k = IndexConstants.FIRST_INDEX; k<nbPks_; k++) {
             UsablePokemon us_ = team.get(k);
             if (!(us_ instanceof Pokemon) || !((Pokemon) us_).getItem().isEmpty()) {
                 continue;
@@ -531,7 +531,7 @@ public final class Player {
         }
     }
 
-    public void giveObject(short _indice){
+    public void giveObject(int _indice){
         String obj_=((PokemonPlayer) team.get(_indice)).getItem();
         if(!obj_.isEmpty()){
             return;
@@ -560,7 +560,7 @@ public final class Player {
         healTeamWithoutUsingObject(_import);
     }
 
-    void heal(short _chosenTeamPokemon, DataBase _import){
+    void heal(int _chosenTeamPokemon, DataBase _import){
         if (!indexesOfPokemonTeam.contains(_chosenTeamPokemon)) {
             return;
         }
@@ -618,7 +618,7 @@ public final class Player {
         boolean consommer_=false;
         Rate pvRestaures_= _pkSoigne.pvSoignesSansStatut(_objet, _import);
         _pkSoigne.variationPvRestants(pvRestaures_);
-        short happinessIncrease_ = _pkSoigne.pointBonheurGagnes(_objet, _import);
+        int happinessIncrease_ = _pkSoigne.pointBonheurGagnes(_objet, _import);
         _pkSoigne.variationBonheur(happinessIncrease_, _import);
         commentGame.addComment(_pkSoigne.getCommentPk());
         if(!pvRestaures_.isZero()){
@@ -632,7 +632,7 @@ public final class Player {
     private boolean healByPp(DataBase _import, PokemonPlayer _pkSoigne, HealingPp _objet) {
         StringMap<String> mess_ = _import.getMessagesPlayer();
         boolean consommer_=false;
-        StringMap<Short> attaquesRestaures_= _pkSoigne.ppSoignesAttaques(_objet);
+        StringMap<Integer> attaquesRestaures_= _pkSoigne.ppSoignesAttaques(_objet);
         if (_objet.isHealingAllMovesPp() || _objet.getHealingAllMovesFullpp() > 0) {
             _pkSoigne.soinPpAttaques(attaquesRestaures_);
         }
@@ -678,7 +678,7 @@ public final class Player {
         return consommer_;
     }
 
-    void initializeMovesToBeHealed(short _chosenTeamPokemon, DataBase _import) {
+    void initializeMovesToBeHealed(int _chosenTeamPokemon, DataBase _import) {
         chosenTeamPokemon = _chosenTeamPokemon;
         chosenMoves.clear();
         PokemonPlayer pkSoigne_=(PokemonPlayer) team.get(chosenTeamPokemon);
@@ -686,7 +686,7 @@ public final class Player {
         if(objet_ instanceof Berry){
             Berry baie_=(Berry)objet_;
             for (String m: pkSoigne_.getMoves().getKeys()) {
-                short pp_ = pkSoigne_.ppSoignesAttaqueBaie(baie_,m);
+                int pp_ = pkSoigne_.ppSoignesAttaqueBaie(baie_,m);
                 if (pp_ > 0) {
                     chosenMoves.put(m, pp_);
                 }
@@ -695,7 +695,7 @@ public final class Player {
         if(objet_ instanceof HealingPp){
             HealingPp soin_=(HealingPp)objet_;
             for (String m: pkSoigne_.getMoves().getKeys()) {
-                short pp_ = pkSoigne_.ppSoignesAttaque(soin_,m);
+                int pp_ = pkSoigne_.ppSoignesAttaque(soin_,m);
                 if (pp_ > 0) {
                     chosenMoves.put(m, pp_);
                 }
@@ -715,7 +715,7 @@ public final class Player {
             return;
         }
         PokemonPlayer pkSoigne_=(PokemonPlayer) team.get(chosenTeamPokemon);
-        short ppRest_ = chosenMoves.getVal(_move);
+        int ppRest_ = chosenMoves.getVal(_move);
         String move_ = _import.translateMove(_move);
         String pk_ = _import.translatePokemon(pkSoigne_.getName());
         StringMap<String> mess_ = _import.getMessagesPlayer();
@@ -729,14 +729,14 @@ public final class Player {
         chosenMoves.clear();
     }
 
-    void initializeMovesToBeBoosted(short _chosenTeamPokemon, DataBase _import) {
+    void initializeMovesToBeBoosted(int _chosenTeamPokemon, DataBase _import) {
         chosenTeamPokemon = _chosenTeamPokemon;
         chosenMoves.clear();
         PokemonPlayer pkSoigne_=(PokemonPlayer) team.get(chosenTeamPokemon);
-        short maxPp_=(short) _import.getMaxPp();
+        int maxPp_=(int) _import.getMaxPp();
         Boost boost_ = (Boost)_import.getItem(selectedObject);
         for (String m: pkSoigne_.getMoves().getKeys()) {
-            short currentMax_ = pkSoigne_.getMoves().getVal(m).getMax();
+            int currentMax_ = pkSoigne_.getMoves().getVal(m).getMax();
             if (currentMax_ >= maxPp_) {
                 continue;
             }
@@ -757,9 +757,9 @@ public final class Player {
         }
         Boost boost_=(Boost)_import.getItem(selectedObject);
         PokemonPlayer pk_ = (PokemonPlayer) team.get(chosenTeamPokemon);
-        short ppMax_ = pk_.getMoves().getVal(_move).getMax();
+        int ppMax_ = pk_.getMoves().getVal(_move).getMax();
         pk_.boostPp(_move, chosenMoves.getVal(_move));
-        short happinessIncrease_ = pk_.pointBonheurGagnes(boost_, _import);
+        int happinessIncrease_ = pk_.pointBonheurGagnes(boost_, _import);
         pk_.variationBonheur(happinessIncrease_, _import);
         if (happinessIncrease_ > 0) {
             commentGame.addComment(pk_.getCommentPk());
@@ -781,13 +781,13 @@ public final class Player {
     }
 
 
-    void boostStatistique(short _chosenTeamPokemon,DataBase _import){
+    void boostStatistique(int _chosenTeamPokemon,DataBase _import){
         PokemonPlayer pk_ = (PokemonPlayer) team.get(_chosenTeamPokemon);
         boolean increase_ = false;
         Boost boost_ = (Boost) _import.getItem(selectedObject);
         for (Statistic s: boost_.getEvs().getKeys()) {
-            short increment_ = boost_.getEvs().getVal(s);
-            short var_=pk_.evGagnes(increment_, s, (short) _import.getMaxEv());
+            int increment_ = boost_.getEvs().getVal(s);
+            int var_=pk_.evGagnes(increment_, s, _import.getMaxEv());
             pk_.gainEv(selectedObject,var_,_import);
             if (var_ > 0) {
                 increase_ = true;
@@ -797,7 +797,7 @@ public final class Player {
                 commentGame.addMessage(mess_.getVal(BOOSTED_STATISTIC), stat_, pkName_, Long.toString(var_));
             }
         }
-        short happinessIncrease_ = pk_.pointBonheurGagnes(_import.getItem(selectedObject), _import);
+        int happinessIncrease_ = pk_.pointBonheurGagnes(_import.getItem(selectedObject), _import);
         pk_.variationBonheur(happinessIncrease_, _import);
         if (happinessIncrease_ > 0) {
             commentGame.addComment(pk_.getCommentPk());
@@ -808,8 +808,8 @@ public final class Player {
         }
     }
 
-    public void choosePokemonForMoveTutors(short _indice, DataBase _import) {
-        Bytes keys_ = new Bytes(getPokemonPlayerList().getKeys());
+    public void choosePokemonForMoveTutors(int _indice, DataBase _import) {
+        Ints keys_ = new Ints(getPokemonPlayerList().getKeys());
         chosenTeamPokemon = keys_.get(_indice);
         chosenMoves.clear();
         selectedMoves.clear();
@@ -947,7 +947,7 @@ public final class Player {
         indexesOfPokemonTeamMoves.clear();
         int maxMoves_;
         maxMoves_ = _import.getNbMaxMoves();
-        for (byte i: indexesOfPokemonTeam) {
+        for (int i: indexesOfPokemonTeam) {
             PokemonPlayer pk_ = (PokemonPlayer) team.get(i);
 //            indexesOfPokemonTeamMoves.put(i, Numbers.eq(pk_.getMoves().size(), maxMoves_));
             indexesOfPokemonTeamMoves.put(i, ComparatorBoolean.of(pk_.getMoves().size() >= maxMoves_));
@@ -958,14 +958,14 @@ public final class Player {
     }
 
     private void chooseMoveByTm(String _move, DataBase _import) {
-        for (byte i: getPokemonPlayerList().getKeys()) {
+        for (int i: getPokemonPlayerList().getKeys()) {
             PokemonPlayer pk_ = (PokemonPlayer) team.get(i);
             if (pk_.getMoves().contains(_move)) {
                 continue;
             }
             PokemonData fPk_ = _import.getPokemon(pk_.getName());
 //                for (short c: _import.getTm().getKeys(_move))
-            for (short c: _import.getTmByMove(_move)) {
+            for (int c: _import.getTmByMove(_move)) {
                 if (fPk_.getTechnicalMoves().containsObj(c)) {
                     indexesOfPokemonTeam.add(i);
                     break;
@@ -975,14 +975,14 @@ public final class Player {
     }
 
     private void chooseMoveByHm(String _move, DataBase _import) {
-        for (byte i: getPokemonPlayerList().getKeys()) {
+        for (int i: getPokemonPlayerList().getKeys()) {
             PokemonPlayer pk_ = (PokemonPlayer) team.get(i);
             if (pk_.getMoves().contains(_move)) {
                 continue;
             }
             PokemonData fPk_ = _import.getPokemon(pk_.getName());
 //                for (short c: _import.getHm().getKeys(_move))
-            for (short c: _import.getHmByMove(_move)) {
+            for (int c: _import.getHmByMove(_move)) {
                 if (fPk_.getHiddenMoves().containsObj(c)) {
                     indexesOfPokemonTeam.add(i);
                     break;
@@ -991,11 +991,11 @@ public final class Player {
         }
     }
 
-    public void choosePokemonForLearningMove(byte _position, DataBase _import) {
+    public void choosePokemonForLearningMove(int _position, DataBase _import) {
         clearComments();
         chosenMoves.clear();
         chosenTeamPokemon = indexesOfPokemonTeam.get(_position);
-        if (indexesOfPokemonTeamMoves.getVal((byte) chosenTeamPokemon) == BoolVal.TRUE) {
+        if (indexesOfPokemonTeamMoves.getVal(chosenTeamPokemon) == BoolVal.TRUE) {
             PokemonPlayer pk_ = (PokemonPlayer) team.get(chosenTeamPokemon);
             for (String m: pk_.getMoves().getKeys()) {
                 chosenMoves.put(m, pk_.getMoves().getVal(m).getMax());
@@ -1026,7 +1026,7 @@ public final class Player {
     }
 
     public void recevoirPokemon(Pokemon _pokemonDonne,Difficulty _diff,DataBase _import){
-        short pos_=(short) (team.size());
+        int pos_=team.size();
         if(pos_<_import.getNbMaxTeam()){
             PokemonPlayer lasPk_ = new PokemonPlayer(_pokemonDonne,_import);
             lasPk_.initIv(_diff);
@@ -1111,15 +1111,15 @@ public final class Player {
         money.addNb(prixTotal_);
     }
 
-    public boolean canBeBought(Shorts _tm,DataBase _import) {
+    public boolean canBeBought(Ints _tm,DataBase _import) {
         LgInt prixTotal_=LgInt.zero();
-        for(short o:_tm){
+        for(int o:_tm){
             prixTotal_.addNb(_import.getTmPrice().getVal(o));
         }
         return LgInt.greaterEq(money, prixTotal_);
     }
 
-    void achatCt(short _ct,DataBase _import){
+    void achatCt(int _ct,DataBase _import){
         if (inventory.gotTm().containsObj(_ct)) {
             return;
         }
@@ -1127,13 +1127,13 @@ public final class Player {
         money.removeNb(_import.getTmPrice().getVal(_ct));
     }
 
-    public void achatCts(Shorts _cts,DataBase _import){
-        for(short c:_cts){
+    public void achatCts(Ints _cts,DataBase _import){
+        for(int c:_cts){
             achatCt(c,_import);
         }
     }
 
-    public void getHm(short _cs){
+    public void getHm(int _cs){
         inventory.getHm(_cs);
     }
 
@@ -1173,7 +1173,7 @@ public final class Player {
     }
 
     void useObjectForEvolving(DataBase _import) {
-        for (byte i: getPokemonPlayerList().getKeys()) {
+        for (int i: getPokemonPlayerList().getKeys()) {
             PokemonPlayer pk_ = (PokemonPlayer) team.get(i);
             StringList evos_ = pk_.possibleEvolutions(selectedObject, _import);
             if (!evos_.isEmpty()) {
@@ -1286,7 +1286,7 @@ public final class Player {
         return usedObjectForBoosting(_import);
     }
 
-    public void choosePokemonForUsingObject(short _index,DataBase _import) {
+    public void choosePokemonForUsingObject(int _index,DataBase _import) {
         clearComments();
         if (usedObjectForHealing(_import)) {
             if (usedObjectForHealingAmove(_import)) {
@@ -1321,7 +1321,7 @@ public final class Player {
         commentGame.clearMessages();
     }
 
-    void choosePokemonForEvolution(short _chosenTeamPokemon,DataBase _data) {
+    void choosePokemonForEvolution(int _chosenTeamPokemon,DataBase _data) {
         StringMap<String> mess_ = _data.getMessagesPlayer();
         if (!indexesOfPokemonTeam.contains(_chosenTeamPokemon)) {
             PokemonPlayer pk_ = (PokemonPlayer) team.get(_chosenTeamPokemon);
@@ -1427,9 +1427,9 @@ public final class Player {
 
     public void catchWildPokemon(Fighter _pokemonSauvage, String _pseudo, String _ballCapture, Difficulty _diff, DataBase _import, boolean _team){
         clearComments();
-        short pos_;
+        int pos_;
         if (_team) {
-            pos_= (short) team.size();
+            pos_= team.size();
         } else {
             pos_ = _import.getNbMaxTeam();
         }
@@ -1454,7 +1454,7 @@ public final class Player {
         addMessageNewPk(lastPk_.getName(), alreadyCaught_, _import);
     }
 
-    public void reindexAfterStoringToHost(short _pos1,short _pos2){
+    public void reindexAfterStoringToHost(int _pos1,int _pos2){
         team.remove(NumberUtil.max(_pos1,_pos2));
         team.remove(NumberUtil.min(_pos1,_pos2));
     }
@@ -1497,7 +1497,7 @@ public final class Player {
         inventory.use(_objet);
     }
 
-    public void getTm(short _ct){
+    public void getTm(int _ct){
         inventory.getTm(_ct);
     }
     private void attrapePk(String _name) {
@@ -1508,10 +1508,10 @@ public final class Player {
         return caughtPk.contains(_name) && caughtPk.getVal(_name) == BoolVal.TRUE;
     }
 
-    public ByteTreeMap< PokemonPlayer> getPokemonPlayerList() {
-        ByteTreeMap< PokemonPlayer> indexes_ = new ByteTreeMap< PokemonPlayer>();
+    public IntTreeMap< PokemonPlayer> getPokemonPlayerList() {
+        IntTreeMap< PokemonPlayer> indexes_ = new IntTreeMap< PokemonPlayer>();
         int nbPks_ = team.size();
-        for (byte p = IndexConstants.FIRST_INDEX; p<nbPks_; p++) {
+        for (int p = IndexConstants.FIRST_INDEX; p<nbPks_; p++) {
             if (team.get(p) instanceof PokemonPlayer) {
                 indexes_.put(p, (PokemonPlayer) team.get(p));
             }
@@ -1519,10 +1519,10 @@ public final class Player {
         return indexes_;
     }
 
-    public ByteTreeMap< Egg> getEggsList() {
-        ByteTreeMap< Egg> indexes_ = new ByteTreeMap< Egg>();
+    public IntTreeMap< Egg> getEggsList() {
+        IntTreeMap< Egg> indexes_ = new IntTreeMap< Egg>();
         int nbPks_ = team.size();
-        for (byte p = IndexConstants.FIRST_INDEX; p<nbPks_; p++) {
+        for (int p = IndexConstants.FIRST_INDEX; p<nbPks_; p++) {
             if (team.get(p) instanceof Egg) {
                 indexes_.put(p, (Egg) team.get(p));
             }
@@ -1534,23 +1534,23 @@ public final class Player {
         return remainingRepelSteps > 0;
     }
 
-    public void restore(Bytes _indexes) {
-        ByteTreeMap< Integer> map_;
-        map_ = new ByteTreeMap< Integer>();
+    public void restore(Ints _indexes) {
+        IntTreeMap< Integer> map_;
+        map_ = new IntTreeMap< Integer>();
         int nbIndexes_ = _indexes.size();
-        for (byte i = IndexConstants.FIRST_INDEX; i < nbIndexes_; i++) {
-            map_.put(i, (int)_indexes.get(i));
+        for (int i = IndexConstants.FIRST_INDEX; i < nbIndexes_; i++) {
+            map_.put(i, _indexes.get(i));
         }
-        TreeMap<Byte,Integer> copy_;
-        copy_ = new TreeMap<Byte, Integer>(new ComparatorTreeMapValue<Byte>(map_));
+        TreeMap<Integer,Integer> copy_;
+        copy_ = new TreeMap<Integer, Integer>(new ComparatorTreeMapValue<Integer>(map_));
         copy_.putAllMap(map_);
         swap(copy_.getKeys());
     }
 
-    public void swap(CustList<Byte> _indexes) {
+    public void swap(CustList<Integer> _indexes) {
         CustList<UsablePokemon> team_;
         team_ = new CustList<UsablePokemon>();
-        for (byte i: _indexes) {
+        for (int i: _indexes) {
             team_.add(team.get(i));
         }
         team.clear();
@@ -1650,7 +1650,7 @@ public final class Player {
         selectedMove = _selectedMove;
     }
 
-    public StringMap<Short> getChosenMoves() {
+    public StringMap<Integer> getChosenMoves() {
         return chosenMoves;
     }
 
@@ -1658,11 +1658,11 @@ public final class Player {
         return selectedMoves;
     }
 
-    public short getChosenTeamPokemon() {
+    public int getChosenTeamPokemon() {
         return chosenTeamPokemon;
     }
 
-    public void setChosenTeamPokemon(short _chosenTeamPokemon) {
+    public void setChosenTeamPokemon(int _chosenTeamPokemon) {
         chosenTeamPokemon = _chosenTeamPokemon;
     }
 
@@ -1670,11 +1670,11 @@ public final class Player {
         chosenAbilityForEvolution = _chosenAbilityForEvolution;
     }
 
-    public Bytes getIndexesOfPokemonTeam() {
+    public Ints getIndexesOfPokemonTeam() {
         return indexesOfPokemonTeam;
     }
 
-    public ByteMap<BoolVal> getIndexesOfPokemonTeamMoves() {
+    public IntMap<BoolVal> getIndexesOfPokemonTeamMoves() {
         return indexesOfPokemonTeamMoves;
     }
 

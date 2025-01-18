@@ -278,9 +278,9 @@ public abstract class InitDbItems extends InitDbConstr {
     protected static Boost boost() {
         Boost b_ = Instances.newBoost();
         b_.setWinPp(Rate.one());
-        b_.getHappiness().addEntry(I_BALL,(short)1);
-        b_.getHappiness().addEntry(I_BOOST,(short)2);
-        b_.getEvs().addEntry(Statistic.SPEED,(short)1);
+        b_.getHappiness().addEntry(I_BALL,1);
+        b_.getHappiness().addEntry(I_BOOST,2);
+        b_.getEvs().addEntry(Statistic.SPEED,1);
         b_.setPrice(2);
         return b_;
     }
@@ -299,11 +299,11 @@ public abstract class InitDbItems extends InitDbConstr {
         b_.setWithoutFail(_withoutFail);
         b_.setMaxHpHealingHp(Rate.one());
         b_.setMaxHpHealingHpRate(Rate.one());
-        b_.getBoostStatis().addEntry(Statistic.SPEED,(byte)1);
+        b_.getBoostStatis().addEntry(Statistic.SPEED,1);
         b_.getDamageRateRecoilFoe().addEntry(C_CAT,Rate.one());
         b_.getHealStatus().add(S_STA_SIM);
         b_.getMultFoesDamage().addEntry(T_TYPE1,new EfficiencyRate(Rate.one(),Rate.one()));
-        b_.getMultStat().addEntry(Statistic.SPEED,new BoostHpRate((byte)1,Rate.one()));
+        b_.getMultStat().addEntry(Statistic.SPEED,new BoostHpRate(1,Rate.one()));
         b_.setPrice(1);
         return b_;
     }
@@ -329,16 +329,16 @@ public abstract class InitDbItems extends InitDbConstr {
         b_.setBoostExp(_boostExp);
         b_.setCancelImmuType(_cancelImmuType);
         b_.setImmuLowStatis(_immuLowStatis);
-        b_.getMultStatRank().addEntry(Statistic.SPEED,(byte)1);
-        b_.getWinEvFight().addEntry(Statistic.SPEED,(short)1);
+        b_.getMultStatRank().addEntry(Statistic.SPEED,1);
+        b_.getWinEvFight().addEntry(Statistic.SPEED,1);
         b_.getMultStat().addEntry(Statistic.SPEED,VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR);
-        b_.getBoostStatisSuperEff().addEntry(Statistic.SPEED,(byte)1);
-        b_.getIncreasingMaxNbRoundGlobalMove().addEntry(M_DAM,(short)1);
-        b_.getIncreasingMaxNbRoundTeamMove().addEntry(M_DAM,(short)1);
-        b_.getIncreasingMaxNbRoundTrap().addEntry(M_DAM,(short)1);
-        b_.getBoostStatisTypes().addEntry(T_TYPE1,new IdMap<Statistic,Byte>());
-        b_.getBoostStatisTypes().getVal(T_TYPE1).addEntry(Statistic.SPEED,(byte)1);
-        b_.getMultStatPokemonRank().addEntry(new StatisticPokemon(Statistic.SPEED,P_POKEMON),(byte)1);
+        b_.getBoostStatisSuperEff().addEntry(Statistic.SPEED,1);
+        b_.getIncreasingMaxNbRoundGlobalMove().addEntry(M_DAM,1);
+        b_.getIncreasingMaxNbRoundTeamMove().addEntry(M_DAM,1);
+        b_.getIncreasingMaxNbRoundTrap().addEntry(M_DAM,1);
+        b_.getBoostStatisTypes().addEntry(T_TYPE1,new IdMap<Statistic,Integer>());
+        b_.getBoostStatisTypes().getVal(T_TYPE1).addEntry(Statistic.SPEED,1);
+        b_.getMultStatPokemonRank().addEntry(new StatisticPokemon(Statistic.SPEED,P_POKEMON),1);
         b_.getLawForAttackFirst().addQuickEvent(BoolVal.TRUE, _trueEff);
         b_.getLawForAttackFirst().addQuickEvent(BoolVal.FALSE, _falseEff);
         b_.getImmuMoves().add(M_DAM);

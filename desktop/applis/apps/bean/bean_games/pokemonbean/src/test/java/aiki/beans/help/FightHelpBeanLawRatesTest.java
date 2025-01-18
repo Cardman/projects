@@ -37,7 +37,7 @@ public final class FightHelpBeanLawRatesTest extends InitDbFightHelp {
         MonteCarloNumber law_ = new MonteCarloNumber();
         law_.addQuickEvent(Rate.newRate("1"), LgInt.newLgInt("3"));
         law_.addQuickEvent(Rate.newRate("3"),LgInt.newLgInt("1"));
-        f_.getData().getLawsDamageRate().addEntry(DifficultyModelLaw.UNIFORME,new LawNumber(law_,(short)1));
+        f_.getData().getLawsDamageRate().addEntry(DifficultyModelLaw.UNIFORME,new LawNumber(law_,1));
         f_.getData().setCombos(Instances.newCombos());
         f_.getData().getTranslatedDiffModelLaw().addEntry(EN,new IdMap<DifficultyModelLaw,String>());
         f_.getData().getTranslatedDiffModelLaw().getVal(EN).addEntry(DifficultyModelLaw.UNIFORME,"U");

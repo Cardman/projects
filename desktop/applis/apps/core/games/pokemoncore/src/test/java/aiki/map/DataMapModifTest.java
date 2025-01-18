@@ -331,8 +331,8 @@ public final class DataMapModifTest extends EquallablePkUtil {
         coordsAccessLeague_.getLevel().setPoint(newPoint(5,1));
         dataMap_.getPlaces().add(roadSix_);
         dataMap_.getPlaces().add(cityFive_);
-        dataMap_.join((short)0, (short)1, newPoint(4,0), newPoint(1,5), Direction.UP);
-        dataMap_.join((short)7, (short)0, newPoint(0,1), newPoint(8,4), Direction.LEFT);
+        dataMap_.join(0, 1, newPoint(4,0), newPoint(1,5), Direction.UP);
+        dataMap_.join(7, 0, newPoint(0,1), newPoint(8,4), Direction.LEFT);
         return dataMap_;
     }
 
@@ -356,7 +356,7 @@ public final class DataMapModifTest extends EquallablePkUtil {
         levelCave_.setHm(new PointsShort());
         levelCave_.setTm(new PointsShort());
         levelCave_.setWildPokemonAreas(new CustList<AbsAreaApparition>());
-        Block block_ = new Block((short)3,(short)6, EnvironmentType.ROCK, VOIE);
+        Block block_ = new Block(3,6, EnvironmentType.ROCK, VOIE);
         levelCave_.getBlocks().put(newPoint(0,0), block_);
         return levelCave_;
     }
@@ -372,9 +372,9 @@ public final class DataMapModifTest extends EquallablePkUtil {
         levelCave_.setHm(new PointsShort());
         levelCave_.setTm(new PointsShort());
         levelCave_.setWildPokemonAreas(new CustList<AbsAreaApparition>());
-        Block block_ = new Block((short)3,(short)3, EnvironmentType.ROCK, VOIE);
+        Block block_ = new Block(3,3, EnvironmentType.ROCK, VOIE);
         levelCave_.getBlocks().put(newPoint(0,0), block_);
-        block_ = new Block((short)3,(short)3, EnvironmentType.NOTHING, VOIE);
+        block_ = new Block(3,3, EnvironmentType.NOTHING, VOIE);
         levelCave_.getBlocks().put(newPoint(0,3), block_);
         return levelCave_;
     }
@@ -384,7 +384,7 @@ public final class DataMapModifTest extends EquallablePkUtil {
         league_.setRooms(new CustList<LevelLeague>());
         LevelLeague level_ = new LevelLeague();
         level_.setBlocks(new PointsBlock());
-        Block block_ = new Block((short)5,(short)5, EnvironmentType.ROAD, VOIE);
+        Block block_ = new Block(5,5, EnvironmentType.ROAD, VOIE);
         level_.getBlocks().put(newPoint(0,0), block_);
         level_.setAccessPoint(newPoint(2,0));
         level_.setNextLevelTarget(newPoint(2,4));
@@ -392,7 +392,7 @@ public final class DataMapModifTest extends EquallablePkUtil {
         league_.getRooms().add(level_);
         level_ = new LevelLeague();
         level_.setBlocks(new PointsBlock());
-        block_ = new Block((short)5,(short)5, EnvironmentType.ROAD, VOIE);
+        block_ = new Block(5,5, EnvironmentType.ROAD, VOIE);
         level_.getBlocks().put(newPoint(0,0), block_);
         level_.setAccessPoint(newPoint(2,0));
         level_.setNextLevelTarget(new NullablePoint());
@@ -407,23 +407,23 @@ public final class DataMapModifTest extends EquallablePkUtil {
         c_.setBuildings(new PointsBuilding());
         LevelOutdoor city_ = new LevelOutdoor();
         city_.setBlocks(new PointsBlock());
-        Block block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
+        Block block_ = new Block(3,3, EnvironmentType.ROAD, VOIE);
         city_.getBlocks().put(newPoint(0,0), block_);
-        block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
+        block_ = new Block(3,3, EnvironmentType.ROAD, VOIE);
         city_.getBlocks().put(newPoint(0,3), block_);
-        block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
+        block_ = new Block(3,3, EnvironmentType.ROAD, VOIE);
         city_.getBlocks().put(newPoint(0,6), block_);
-        block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
+        block_ = new Block(3,3, EnvironmentType.ROAD, VOIE);
         city_.getBlocks().put(newPoint(3,0), block_);
-        block_ = new Block((short)3,(short)3, EnvironmentType.NOTHING, VOIE);
+        block_ = new Block(3,3, EnvironmentType.NOTHING, VOIE);
         city_.getBlocks().put(newPoint(3,3), block_);
-        block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
+        block_ = new Block(3,3, EnvironmentType.ROAD, VOIE);
         city_.getBlocks().put(newPoint(3,6), block_);
-        block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
+        block_ = new Block(3,3, EnvironmentType.ROAD, VOIE);
         city_.getBlocks().put(newPoint(6,0), block_);
-        block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
+        block_ = new Block(3,3, EnvironmentType.ROAD, VOIE);
         city_.getBlocks().put(newPoint(6,3), block_);
-        block_ = new Block((short)3,(short)3, EnvironmentType.ROAD, VOIE);
+        block_ = new Block(3,3, EnvironmentType.ROAD, VOIE);
         city_.getBlocks().put(newPoint(6,6), block_);
         c_.setLevel(city_);
         Gym gym_ = new Gym();
@@ -438,7 +438,7 @@ public final class DataMapModifTest extends EquallablePkUtil {
         road_.setSavedlinks(new PlaceInterConnects());
         LevelRoad level_ = new LevelRoad();
         level_.setBlocks(new PointsBlock());
-        Block block_ = new Block((short)6,(short)3, EnvironmentType.ROAD, VOIE2);
+        Block block_ = new Block(6,3, EnvironmentType.ROAD, VOIE2);
         level_.getBlocks().put(newPoint(0,0), block_);
         road_.setLevel(level_);
         return road_;
@@ -448,7 +448,7 @@ public final class DataMapModifTest extends EquallablePkUtil {
         road_.setSavedlinks(new PlaceInterConnects());
         LevelRoad level_ = new LevelRoad();
         level_.setBlocks(new PointsBlock());
-        Block block_ = new Block((short)3,(short)6, EnvironmentType.ROAD, VOIE3);
+        Block block_ = new Block(3,6, EnvironmentType.ROAD, VOIE3);
         level_.getBlocks().put(newPoint(0,0), block_);
         road_.setLevel(level_);
         return road_;

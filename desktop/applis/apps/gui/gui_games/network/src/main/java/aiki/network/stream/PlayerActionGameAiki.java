@@ -3,13 +3,13 @@ package aiki.network.stream;
 
 public abstract class PlayerActionGameAiki {
 
-    private byte place;
+    private int place;
 
-    public byte getPlace() {
+    public int getPlace() {
         return place;
     }
 
-    public void setPlace(byte _place) {
+    public void setPlace(int _place) {
         place = _place;
     }
 

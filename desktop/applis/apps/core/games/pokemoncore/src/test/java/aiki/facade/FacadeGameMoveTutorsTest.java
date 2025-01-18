@@ -34,7 +34,7 @@ public final class FacadeGameMoveTutorsTest extends InitializationDataBase {
     @Test
     public void listMoves1Test() {
         FacadeGame facadeGame_ = initTests();
-        facadeGame_.choosePokemonForMoveTutors((short)0);
+        facadeGame_.choosePokemonForMoveTutors(0);
         assertEq(3,facadeGame_.getSelectedMoves().size());
         assertEq(1,facadeGame_.getUnselectedMoves().size());
         String move_ = facadeGame_.getUnselectedMoves().get(0);
@@ -49,7 +49,7 @@ public final class FacadeGameMoveTutorsTest extends InitializationDataBase {
     @Test
     public void listMoves2Test() {
         FacadeGame facadeGame_ = initTests();
-        facadeGame_.choosePokemonForMoveTutors((short)0);
+        facadeGame_.choosePokemonForMoveTutors(0);
         assertEq(3,facadeGame_.getSelectedMoves().size());
         assertEq(1,facadeGame_.getUnselectedMoves().size());
         String move_ = facadeGame_.getUnselectedMoves().get(0);
@@ -66,7 +66,7 @@ public final class FacadeGameMoveTutorsTest extends InitializationDataBase {
     @Test
     public void listMoves3Test() {
         FacadeGame facadeGame_ = initTests();
-        facadeGame_.choosePokemonForMoveTutors((short)0);
+        facadeGame_.choosePokemonForMoveTutors(0);
         assertEq(3,facadeGame_.getSelectedMoves().size());
         assertEq(1,facadeGame_.getUnselectedMoves().size());
         String move_ = facadeGame_.getUnselectedMoves().get(0);

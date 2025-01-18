@@ -52,10 +52,10 @@ public final class PokemonData {
     private StringList moveTutors;
 
     /** DONE */
-    private Shorts hiddenMoves;
+    private Ints hiddenMoves;
 
     /** DONE */
-    private Shorts technicalMoves;
+    private Ints technicalMoves;
 
     /** DONE */
     private String baseEvo;
@@ -64,7 +64,7 @@ public final class PokemonData {
     private StringMap<Evolution> evolutions;
 
     /** DONE */
-    private short catchingRate;
+    private int catchingRate;
 
     /** DONE */
     private Rate height;
@@ -82,10 +82,10 @@ public final class PokemonData {
     private LgInt hatchingSteps;
 
     /** DONE */
-    private short happiness;
+    private int happiness;
 
     /***/
-    private short happinessHatch;
+    private int happinessHatch;
 
     public void validate(DataBase _data) {
         eggGroups.removeDuplicates();
@@ -129,7 +129,7 @@ public final class PokemonData {
             _data.setError(true);
             return;
         }
-        short min_ = levMoves.first().getLevel();
+        int min_ = levMoves.first().getLevel();
         patchLevelMoves(_data, min_);
         min_ = levMoves.first().getLevel();
         for (LevelMove p : levMoves) {
@@ -150,9 +150,9 @@ public final class PokemonData {
         }
     }
 
-    private void patchLevelMoves(DataBase _data, short _min) {
+    private void patchLevelMoves(DataBase _data, int _min) {
         if (_min > _data.getMinLevel()) {
-            levMoves.first().setLevel((short) _data.getMinLevel());
+            levMoves.first().setLevel(_data.getMinLevel());
         }
     }
 
@@ -167,18 +167,18 @@ public final class PokemonData {
     // return FORM_STATIS;
     // }
 
-    public Rate statHp(short _niv, IdMap<Statistic, Short> _ev,
-            IdMap<Statistic, Short> _iv) {
+    public Rate statHp(int _niv, IdMap<Statistic, Integer> _ev,
+            IdMap<Statistic, Integer> _iv) {
         return stat(_niv, Statistic.HP, _ev.getVal(Statistic.HP),
                 _iv.getVal(Statistic.HP));
     }
 
-    public Rate stat(short _niv, Statistic _stat, short _ev, short _iv) {
+    public Rate stat(int _niv, Statistic _stat, int _ev, int _iv) {
         return stat(_niv, statistics.getVal(_stat).getBase(), _stat, _ev, _iv);
     }
 
-    public static Rate stat(short _niv, short _base, Statistic _stat,
-            short _ev, short _iv) {
+    public static Rate stat(int _niv, int _base, Statistic _stat,
+                            int _ev, int _iv) {
         return stat(_niv, new Rate(_base), _stat, _ev, _iv);
     }
 
@@ -193,8 +193,8 @@ public final class PokemonData {
      * }<br/>
      * return stat_;
      */
-    public static Rate stat(short _niv, Rate _base, Statistic _stat, short _ev,
-            short _iv) {
+    public static Rate stat(int _niv, Rate _base, Statistic _stat, int _ev,
+                            int _iv) {
         Rate stat_ = Rate.multiply(_base, new Rate(RATE_BASE));
         stat_.addNb(new Rate(RATE_EV * _ev));
         stat_.addNb(new Rate(RATE_IV * _iv));
@@ -206,7 +206,7 @@ public final class PokemonData {
         return stat_;
     }
 
-    public StringList getMovesBeforeLevel(short _level) {
+    public StringList getMovesBeforeLevel(int _level) {
         StringList list_ = new StringList();
         for (LevelMove p : levMoves) {
             if (p.getLevel() > _level) {
@@ -217,7 +217,7 @@ public final class PokemonData {
         return list_;
     }
 
-    public StringList getMovesAtLevel(short _level, int _maxNumber) {
+    public StringList getMovesAtLevel(int _level, int _maxNumber) {
         StringList list_ = new StringList();
         for (LevelMove l : levMoves.getReverse()) {
             if (list_.size() == _maxNumber) {
@@ -254,8 +254,8 @@ public final class PokemonData {
         return evos_;
     }
 
-    public IdMap<Statistic, Short> getEvs() {
-        IdMap<Statistic, Short> evs_ = new IdMap<Statistic, Short>();
+    public IdMap<Statistic, Integer> getEvs() {
+        IdMap<Statistic, Integer> evs_ = new IdMap<Statistic, Integer>();
         for (Statistic s : statistics.getKeys()) {
             evs_.put(s, statistics.getVal(s).getEv());
         }
@@ -318,19 +318,19 @@ public final class PokemonData {
         moveTutors = _moveTutors;
     }
 
-    public Shorts getHiddenMoves() {
+    public Ints getHiddenMoves() {
         return hiddenMoves;
     }
 
-    public void setHiddenMoves(Shorts _hiddenMoves) {
+    public void setHiddenMoves(Ints _hiddenMoves) {
         hiddenMoves = _hiddenMoves;
     }
 
-    public Shorts getTechnicalMoves() {
+    public Ints getTechnicalMoves() {
         return technicalMoves;
     }
 
-    public void setTechnicalMoves(Shorts _technicalMoves) {
+    public void setTechnicalMoves(Ints _technicalMoves) {
         technicalMoves = _technicalMoves;
     }
 
@@ -350,11 +350,11 @@ public final class PokemonData {
         evolutions = _evolutions;
     }
 
-    public short getCatchingRate() {
+    public int getCatchingRate() {
         return catchingRate;
     }
 
-    public void setCatchingRate(short _catchingRate) {
+    public void setCatchingRate(int _catchingRate) {
         catchingRate = _catchingRate;
     }
 
@@ -398,19 +398,19 @@ public final class PokemonData {
         hatchingSteps = _hatchingSteps;
     }
 
-    public short getHappiness() {
+    public int getHappiness() {
         return happiness;
     }
 
-    public void setHappiness(short _happiness) {
+    public void setHappiness(int _happiness) {
         happiness = _happiness;
     }
 
-    public short getHappinessHatch() {
+    public int getHappinessHatch() {
         return happinessHatch;
     }
 
-    public void setHappinessHatch(short _happinessHatch) {
+    public void setHappinessHatch(int _happinessHatch) {
         happinessHatch = _happinessHatch;
     }
 }

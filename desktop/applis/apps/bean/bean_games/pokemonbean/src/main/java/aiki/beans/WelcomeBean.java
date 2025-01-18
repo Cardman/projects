@@ -32,10 +32,10 @@ public class WelcomeBean extends CommonBean {
                 for (String m: pkData_.getMoveTutors()) {
                     learntMoves_.add(m);
                 }
-                for (Short hm_: pkData_.getHiddenMoves()) {
+                for (Integer hm_: pkData_.getHiddenMoves()) {
                     learntMoves_.add(StringUtil.nullToEmpty(data_.getHm().getVal(hm_)));
                 }
-                for (Short tm_: pkData_.getTechnicalMoves()) {
+                for (Integer tm_: pkData_.getTechnicalMoves()) {
                     learntMoves_.add(StringUtil.nullToEmpty(data_.getTm().getVal(tm_)));
                 }
             }

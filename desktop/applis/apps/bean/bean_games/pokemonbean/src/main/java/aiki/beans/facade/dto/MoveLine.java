@@ -4,12 +4,12 @@ import code.util.StringList;
 public class MoveLine {
     private String displayName;
     private String name;
-    private short pp;
+    private int pp;
     private StringList types;
     private boolean damageMove;
     private String category;
     private boolean direct;
-    private short priority;
+    private int priority;
     private String accuracy;
     private String power;
 
@@ -29,11 +29,11 @@ public class MoveLine {
         name = _name;
     }
 
-    public short getPp() {
+    public int getPp() {
         return pp;
     }
 
-    public void setPp(short _pp) {
+    public void setPp(int _pp) {
         pp = _pp;
     }
 
@@ -69,11 +69,11 @@ public class MoveLine {
         direct = _direct;
     }
 
-    public short getPriority() {
+    public int getPriority() {
         return priority;
     }
 
-    public void setPriority(short _priority) {
+    public void setPriority(int _priority) {
         priority = _priority;
     }
 

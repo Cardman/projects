@@ -160,27 +160,6 @@ public final class DocumentReaderCoreUtil {
         return map_;
     }
 
-    public static StringMap<Short> getStringMapShort(Element _elt) {
-        ElementList childElements_ = _elt.getChildElements();
-        int len_ = childElements_.getLength();
-        CollCapacity cap_ = new CollCapacity(len_/2);
-        StringMap<Short> map_ = new StringMap<Short>(cap_);
-        StringList keys_ = new StringList(cap_);
-        Shorts values_ = new Shorts(cap_);
-        for (Element c: childElements_) {
-            if (hasKey(c)) {
-                keys_.add(getString(c));
-            } else {
-                values_.add(getShort(c));
-            }
-        }
-        int min_ = NumberUtil.min(keys_.size(), values_.size());
-        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
-            map_.put(keys_.get(i), values_.get(i));
-        }
-        return map_;
-    }
-
     public static StringMap<Integer> getStringMapInteger(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
@@ -285,18 +264,18 @@ public final class DocumentReaderCoreUtil {
         }
         return map_;
     }
-    public static ByteMap<Byte> getMapByteByte(Element _elt) {
+    public static IntMap<Integer> getMapByteByte(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ByteMap<Byte> map_ = new ByteMap<Byte>(cap_);
-        Bytes keys_ = new Bytes(cap_);
-        Bytes values_ = new Bytes(cap_);
+        IntMap<Integer> map_ = new IntMap<Integer>(cap_);
+        Ints keys_ = new Ints(cap_);
+        Ints values_ = new Ints(cap_);
         for (Element c: childElements_) {
             if (hasKey(c)) {
-                keys_.add(getByte(c));
+                keys_.add(getInteger(c));
             } else {
-                values_.add(getByte(c));
+                values_.add(getInteger(c));
             }
         }
         int min_ = NumberUtil.min(keys_.size(), values_.size());
@@ -305,18 +284,18 @@ public final class DocumentReaderCoreUtil {
         }
         return map_;
     }
-    public static ByteMap<Bytes> getMapByteListByte(Element _elt) {
+    public static IntMap<Ints> getMapByteListByte(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ByteMap<Bytes> map_ = new ByteMap<Bytes>(cap_);
-        Bytes keys_ = new Bytes(cap_);
-        CustList<Bytes> values_ = new CustList<Bytes>(cap_);
+        IntMap<Ints> map_ = new IntMap<Ints>(cap_);
+        Ints keys_ = new Ints(cap_);
+        CustList<Ints> values_ = new CustList<Ints>(cap_);
         for (Element c: childElements_) {
             if (hasKey(c)) {
-                keys_.add(getByte(c));
+                keys_.add(getInteger(c));
             } else {
-                values_.add(getListByte(c));
+                values_.add(getListInteger(c));
             }
         }
         int min_ = NumberUtil.min(keys_.size(), values_.size());
@@ -325,46 +304,7 @@ public final class DocumentReaderCoreUtil {
         }
         return map_;
     }
-    public static ShortMap<BoolVal> getMapShortBoolean(Element _elt) {
-        ElementList childElements_ = _elt.getChildElements();
-        int len_ = childElements_.getLength();
-        CollCapacity cap_ = new CollCapacity(len_/2);
-        ShortMap<BoolVal> map_ = new ShortMap<BoolVal>(cap_);
-        Shorts keys_ = new Shorts(cap_);
-        CustList<BoolVal> values_ = new CustList<BoolVal>(cap_);
-        for (Element c: childElements_) {
-            if (hasKey(c)) {
-                keys_.add(getShort(c));
-            } else {
-                values_.add(getBoolVal(c));
-            }
-        }
-        int min_ = NumberUtil.min(keys_.size(), values_.size());
-        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
-            map_.put(keys_.get(i), values_.get(i));
-        }
-        return map_;
-    }
-    public static ShortMap<String> getMapShortString(Element _elt) {
-        ElementList childElements_ = _elt.getChildElements();
-        int len_ = childElements_.getLength();
-        CollCapacity cap_ = new CollCapacity(len_/2);
-        ShortMap<String> map_ = new ShortMap<String>(cap_);
-        Shorts keys_ = new Shorts(cap_);
-        StringList values_ = new StringList(cap_);
-        for (Element c: childElements_) {
-            if (hasKey(c)) {
-                keys_.add(getShort(c));
-            } else {
-                values_.add(getString(c));
-            }
-        }
-        int min_ = NumberUtil.min(keys_.size(), values_.size());
-        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
-            map_.put(keys_.get(i), values_.get(i));
-        }
-        return map_;
-    }
+
     public static IntMap<BoolVal> getMapIntegerBoolean(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();

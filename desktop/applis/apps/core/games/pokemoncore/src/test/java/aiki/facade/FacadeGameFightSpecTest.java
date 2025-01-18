@@ -33,7 +33,7 @@ public final class FacadeGameFightSpecTest extends InitializationDataBase {
         pokemon_.setItem(PLAQUE_DRACO);
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
-        pokemon_.setLevel((short) 1);
+        pokemon_.setLevel( 1);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, data_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -50,7 +50,7 @@ public final class FacadeGameFightSpecTest extends InitializationDataBase {
         foePokemon_.setItem(PLAQUE_DRACO);
         foePokemon_.setAbility(MULTITYPE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short)7);
+        foePokemon_.setLevel(7);
         foePokemon_.setMoves(new StringList(CHARGE));
         foeTeam_.add(foePokemon_);
         foePokemon_ = new PkTrainer();
@@ -58,7 +58,7 @@ public final class FacadeGameFightSpecTest extends InitializationDataBase {
         foePokemon_.setItem(PLAQUE_DRACO);
         foePokemon_.setAbility(MULTITYPE);
         foePokemon_.setGender(Gender.NO_GENDER);
-        foePokemon_.setLevel((short)7);
+        foePokemon_.setLevel(7);
         foePokemon_.setMoves(new StringList(CHARGE));
         foeTeam_.add(foePokemon_);
         DualFight dual_ = new DualFight();
@@ -69,14 +69,14 @@ public final class FacadeGameFightSpecTest extends InitializationDataBase {
         allyPokemon_.setItem(PLAQUE_DRACO);
         allyPokemon_.setAbility(MULTITYPE);
         allyPokemon_.setGender(Gender.NO_GENDER);
-        allyPokemon_.setLevel((short)50);
+        allyPokemon_.setLevel(50);
         allyPokemon_.setMoves(new StringList(JACKPOT));
         allyTeam_.add(allyPokemon_);
         ally_.setTeam(allyTeam_);
         dual_.setAlly(ally_);
         TempTrainer trainer_ = new TempTrainer();
         trainer_.setTeam(foeTeam_);
-        trainer_.setReward((short) 200);
+        trainer_.setReward( 200);
         dual_.setFoeTrainer(trainer_);
         FightFacade.initFight(fight_, player_, diff_, dual_, data_);
         FightFacade.initTypeEnv(fight_, newCoords(0, 0, 0, 0), diff_, data_);
@@ -93,7 +93,7 @@ public final class FacadeGameFightSpecTest extends InitializationDataBase {
         assertTrue(facadeGame_.isDualFight());
         facadeGame_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
         facadeGame_.getFight().getFoeTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
-        facadeGame_.chooseFrontFighter((byte) 0);
+        facadeGame_.chooseFrontFighter( 0);
         facadeGame_.chooseMove(TOURNIQUET);
         facadeGame_.roundAllThrowers(false);
         assertEq(FightState.SWITCH_WHILE_KO_USER, facadeGame_.getFight().getState());

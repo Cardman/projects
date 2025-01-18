@@ -30,7 +30,7 @@ public final class FacadeGameBallTest extends InitializationDataBase {
         game_.getPlayer().getItem(HYPER_BALL);
         game_.setPlayerCoords(newCoords(0, 0, 0, 0));
         DataMap map_ = data_.getMap();
-        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace( 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AbsAreaApparition area_;
@@ -52,7 +52,7 @@ public final class FacadeGameBallTest extends InitializationDataBase {
         facadeGame_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
         assertTrue(facadeGame_.getFight().getFightType().isWild());
         facadeGame_.getGame().getFight().getCatchingBalls().first().setCatchingBall(HYPER_BALL);
-        facadeGame_.getGame().getFight().getCatchingBalls().first().setPlayer((byte)POKEMON_FIGHTER_ZERO);
+        facadeGame_.getGame().getFight().getCatchingBalls().first().setPlayer(POKEMON_FIGHTER_ZERO);
         facadeGame_.attemptCatchingWildPokemon(true);
         facadeGame_.roundUser();
         facadeGame_.endRoundFightBall();

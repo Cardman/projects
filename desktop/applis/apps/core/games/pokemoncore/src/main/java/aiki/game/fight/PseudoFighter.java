@@ -3,20 +3,20 @@ package aiki.game.fight;
 
 public class PseudoFighter {
 
-    private short level;
+    private int level;
 
     private String name;
 
-    public PseudoFighter(String _name, short _level) {
+    public PseudoFighter(String _name, int _level) {
         level = _level;
         name = _name;
     }
 
-    public short getLevel() {
+    public int getLevel() {
         return level;
     }
 
-    public void setLevel(short _level) {
+    public void setLevel(int _level) {
         level = _level;
     }
 

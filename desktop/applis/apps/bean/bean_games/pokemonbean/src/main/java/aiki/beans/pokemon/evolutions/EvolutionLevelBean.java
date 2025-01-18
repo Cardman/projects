@@ -3,7 +3,7 @@ import aiki.fight.pokemon.evolution.EvolutionLevel;
 
 
 public class EvolutionLevelBean extends EvolutionBean {
-    private short level;
+    private int level;
 
     @Override
     public void beforeDisplaying() {
@@ -12,7 +12,7 @@ public class EvolutionLevelBean extends EvolutionBean {
         level = evo_.getLevel();
     }
 
-    public short getLevel() {
+    public int getLevel() {
         return level;
     }
 }

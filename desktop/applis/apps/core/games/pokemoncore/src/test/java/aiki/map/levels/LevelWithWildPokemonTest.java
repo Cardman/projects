@@ -27,7 +27,7 @@ public class LevelWithWildPokemonTest extends EquallablePkUtil {
     public void getAreaByPoint2FailTest() {
         LevelWithWildPokemon level_ = new LevelRoad();
         level_.setBlocks(new PointsBlock());
-        Block block_ = new Block((short)5, (short)3, EnvironmentType.ROAD, "");
+        Block block_ = new Block(5, 3, EnvironmentType.ROAD, "");
         level_.getBlocks().put(newPoint(0,0), block_);
         level_.setWildPokemonAreas(new CustList<AbsAreaApparition>());
         assertTrue(level_.getAreaByPoint(newPoint(0,0)).isVirtual());
@@ -38,7 +38,7 @@ public class LevelWithWildPokemonTest extends EquallablePkUtil {
         LevelWithWildPokemon level_ = new LevelRoad();
         level_.setBlocks(new PointsBlock());
         level_.setWildPokemonAreas(new CustList<AbsAreaApparition>());
-        Block block_ = new Block((short)5, (short)3, EnvironmentType.ROAD, "");
+        Block block_ = new Block(5, 3, EnvironmentType.ROAD, "");
         block_.setIndexApparition( 0);
         level_.getBlocks().put(newPoint(0,0), block_);
         AreaApparition area_ = new AreaApparition();
@@ -48,7 +48,7 @@ public class LevelWithWildPokemonTest extends EquallablePkUtil {
         pk_.setName("PIKACHU");
         pk_.setAbility("STATIK");
         pk_.setGender(Gender.NO_GENDER);
-        pk_.setLevel((short) 3);
+        pk_.setLevel( 3);
         pk_.setItem("");
         area_.getWildPokemon().add(pk_);
         level_.getWildPokemonAreas().add(area_);

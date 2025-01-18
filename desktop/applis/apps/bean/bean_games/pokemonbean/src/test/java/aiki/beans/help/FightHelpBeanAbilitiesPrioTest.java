@@ -51,7 +51,7 @@ public final class FightHelpBeanAbilitiesPrioTest extends InitDbFightHelp {
     private static FacadeGame db() {
         FacadeGame f_ = facade();
         AbilityData t_ = Instances.newAbilityData();
-        t_.getIncreasedPrio().addEntry(NULL_REF,(short)1);
+        t_.getIncreasedPrio().addEntry(NULL_REF,1);
         f_.getData().completeMembers(M_DAM, t_);
         f_.getData().completeMembers(M_STA, Instances.newAbilityData());
         f_.getData().getTranslatedAbilities().addEntry(EN,new StringMap<String>());
@@ -62,7 +62,7 @@ public final class FightHelpBeanAbilitiesPrioTest extends InitDbFightHelp {
     private static FacadeGame dbCat() {
         FacadeGame f_ = facade();
         AbilityData t_ = Instances.newAbilityData();
-        t_.getIncreasedPrioTypes().addEntry(NULL_REF,(short)1);
+        t_.getIncreasedPrioTypes().addEntry(NULL_REF,1);
         f_.getData().completeMembers(M_DAM, t_);
         f_.getData().completeMembers(M_STA, Instances.newAbilityData());
         f_.getData().getTranslatedAbilities().addEntry(EN,new StringMap<String>());

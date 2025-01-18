@@ -7,9 +7,9 @@ public final class StatisticInfoPkPlayer {
 
     private Rate rate;
 
-    private short ev;
+    private int ev;
 
-    private short iv;
+    private int iv;
 
     public String getName() {
         return name;
@@ -27,19 +27,19 @@ public final class StatisticInfoPkPlayer {
         rate = _rate;
     }
 
-    public short getEv() {
+    public int getEv() {
         return ev;
     }
 
-    public void setEv(short _ev) {
+    public void setEv(int _ev) {
         ev = _ev;
     }
 
-    public short getIv() {
+    public int getIv() {
         return iv;
     }
 
-    public void setIv(short _iv) {
+    public void setIv(int _iv) {
         iv = _iv;
     }
 }

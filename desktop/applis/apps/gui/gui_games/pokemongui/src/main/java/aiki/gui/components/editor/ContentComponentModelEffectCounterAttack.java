@@ -11,7 +11,7 @@ import code.util.*;
 public final class ContentComponentModelEffectCounterAttack {
 
     private CrudGeneFormSimpleFormSub<String, Rate> sufferingDamageTypes;
-    private CrudGeneFormSimpleFormSub<Statistic, Byte> droppedStatDirectMove;
+    private CrudGeneFormSimpleFormSub<Statistic, Integer> droppedStatDirectMove;
     private GeneComponentModelRate sufferingDamageDirectMove;
     private GeneComponentModelSubscribeString protectFail;
     private GeneComponentModelSubscribeString counterFail;
@@ -30,8 +30,8 @@ public final class ContentComponentModelEffectCounterAttack {
         sufferingDamageTypes = new CrudGeneFormSimpleFormSub<String, Rate>(_core, _fac, _fact, _f);
         sufferingDamageTypes.initFormWithVal(new DisplayEntryCustSubElementImpl<String, Rate>(_fact.getFactoryTy(), _core, _fac, new StringMap<String>()),buildPart(_core,_fac,_fact.getFactoryTy(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core)));
         selected_.add(sufferingDamageTypes.getGroup());
-        droppedStatDirectMove = new CrudGeneFormSimpleFormSub<Statistic, Byte>(_core, _fac, _fact, _f);
-        droppedStatDirectMove.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic, Byte>(_fact.getFactoryStat(), _core, _fac, new IdMap<Statistic, String>()),new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac),new GeneComponentModelSubscribeFactoryDirect<Byte>(new GeneComponentModelSubscribeByte(_core)));
+        droppedStatDirectMove = new CrudGeneFormSimpleFormSub<Statistic, Integer>(_core, _fac, _fact, _f);
+        droppedStatDirectMove.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic, Integer>(_fact.getFactoryStat(), _core, _fac, new IdMap<Statistic, String>()),new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac),new GeneComponentModelSubscribeFactoryDirect<Integer>(new GeneComponentModelSubscribeInteger(_core)));
         selected_.add(droppedStatDirectMove.getGroup());
         selected_.setVisible(false);
         form =selected_;
@@ -45,14 +45,14 @@ public final class ContentComponentModelEffectCounterAttack {
         _edited.setCounterFail(counterFail.tryRet());
         _edited.setSufferingDamageDirectMove(sufferingDamageDirectMove.valueRate());
         _edited.setSufferingDamageTypes(ConverterCommonMapUtil.buildStringMapRate(sufferingDamageTypes.getList()));
-        _edited.setDroppedStatDirectMove(ConverterCommonMapUtil.buildIdMapStatisticByte(droppedStatDirectMove.getList()));
+        _edited.setDroppedStatDirectMove(ConverterCommonMapUtil.buildIdMapStatisticInteger(droppedStatDirectMove.getList()));
     }
     void feedForm(EffectCounterAttack _edited) {
         protectFail.setupValue(_edited.getProtectFail());
         counterFail.setupValue(_edited.getCounterFail());
         sufferingDamageDirectMove.valueRate(_edited.getSufferingDamageDirectMove());
         sufferingDamageTypes.setupValues(new MapToEntriesListUtil<String,Rate>().build(_edited.getSufferingDamageTypes()));
-        droppedStatDirectMove.setupValues(new MapToEntriesListUtil<Statistic,Byte>().build(_edited.getDroppedStatDirectMove()));
+        droppedStatDirectMove.setupValues(new MapToEntriesListUtil<Statistic,Integer>().build(_edited.getDroppedStatDirectMove()));
     }
     void display(boolean _dis) {
         form.setVisible(_dis);
@@ -75,7 +75,7 @@ public final class ContentComponentModelEffectCounterAttack {
         return sufferingDamageTypes;
     }
 
-    public CrudGeneFormSimpleFormSub<Statistic, Byte> getDroppedStatDirectMove() {
+    public CrudGeneFormSimpleFormSub<Statistic, Integer> getDroppedStatDirectMove() {
         return droppedStatDirectMove;
     }
 }

@@ -27,32 +27,32 @@ public class PokemonDataTest extends EquallablePkUtil {
         pk_.setTypes(new StringList("ELETRICK"));
         IdMap<Statistic,StatBaseEv> statistics_;
         statistics_ = new IdMap<Statistic,StatBaseEv>();
-        statistics_.put(Statistic.ATTACK, new StatBaseEv((short)50,(short)0));
-        statistics_.put(Statistic.DEFENSE, new StatBaseEv((short)50,(short)0));
-        statistics_.put(Statistic.SPECIAL_ATTACK, new StatBaseEv((short)50,(short)0));
-        statistics_.put(Statistic.SPECIAL_DEFENSE, new StatBaseEv((short)50,(short)0));
-        statistics_.put(Statistic.SPEED, new StatBaseEv((short)50,(short)0));
-        statistics_.put(Statistic.HP, new StatBaseEv((short)80,(short)0));
+        statistics_.put(Statistic.ATTACK, new StatBaseEv(50,0));
+        statistics_.put(Statistic.DEFENSE, new StatBaseEv(50,0));
+        statistics_.put(Statistic.SPECIAL_ATTACK, new StatBaseEv(50,0));
+        statistics_.put(Statistic.SPECIAL_DEFENSE, new StatBaseEv(50,0));
+        statistics_.put(Statistic.SPEED, new StatBaseEv(50,0));
+        statistics_.put(Statistic.HP, new StatBaseEv(80,0));
         pk_.setStatistics(statistics_);
         CustList<LevelMove> levMoves_ = new CustList<LevelMove>();
-        levMoves_.add(new LevelMove((short)1,"ECLAIR"));
-        levMoves_.add(new LevelMove((short)3,"CHARGE"));
-        levMoves_.add(new LevelMove((short)6,"VIVE_ATTAQUE"));
-        levMoves_.add(new LevelMove((short)15,"TONNERRE"));
-        levMoves_.add(new LevelMove((short)15,"FOUDRE"));
+        levMoves_.add(new LevelMove(1,"ECLAIR"));
+        levMoves_.add(new LevelMove(3,"CHARGE"));
+        levMoves_.add(new LevelMove(6,"VIVE_ATTAQUE"));
+        levMoves_.add(new LevelMove(15,"TONNERRE"));
+        levMoves_.add(new LevelMove(15,"FOUDRE"));
         pk_.setLevMoves(levMoves_);
         pk_.setGenderRep(GenderRepartition.NO_GENDER);
         pk_.setAbilities(new StringList("STATIK"));
         pk_.setBaseEvo("PIKACHU");
-        pk_.setCatchingRate((short) 200);
+        pk_.setCatchingRate( 200);
         pk_.setExpEvo(ExpType.P);
-        pk_.setTechnicalMoves(new Shorts());
-        pk_.setHiddenMoves(new Shorts());
+        pk_.setTechnicalMoves(new Ints());
+        pk_.setHiddenMoves(new Ints());
         pk_.setMoveTutors(new StringList("VIVE_ATTAQUE"));
         pk_.setExpRate(100l);
         pk_.setHatchingSteps(new LgInt(200));
-        pk_.setHappiness((short) 70);
-        pk_.setHappinessHatch((short) 140);
+        pk_.setHappiness( 70);
+        pk_.setHappinessHatch( 140);
         pk_.setEvolutions(new StringMap<Evolution>());
         pk_.setEggGroups(new StringList("SOURIS"));
         return pk_;
@@ -61,7 +61,7 @@ public class PokemonDataTest extends EquallablePkUtil {
     @Test
     public void getMovesAtLevel1Test() {
         PokemonData data_ = dataBase();
-        StringList moves_ = data_.getMovesAtLevel((short) 1, 4);
+        StringList moves_ = data_.getMovesAtLevel( 1, 4);
         assertEq(1, moves_.size());
         assertEq("ECLAIR", moves_.get(0));
     }
@@ -69,7 +69,7 @@ public class PokemonDataTest extends EquallablePkUtil {
     @Test
     public void getMovesAtLevel2Test() {
         PokemonData data_ = dataBase();
-        StringList moves_ = data_.getMovesAtLevel((short) 3, 1);
+        StringList moves_ = data_.getMovesAtLevel( 3, 1);
         assertEq(1, moves_.size());
         assertEq("CHARGE", moves_.get(0));
     }
@@ -77,7 +77,7 @@ public class PokemonDataTest extends EquallablePkUtil {
     @Test
     public void getMovesAtLevel3Test() {
         PokemonData data_ = dataBase();
-        StringList moves_ = data_.getMovesAtLevel((short) 3, 2);
+        StringList moves_ = data_.getMovesAtLevel( 3, 2);
         assertEq(2, moves_.size());
         assertEq("CHARGE", moves_.get(0));
         assertEq("ECLAIR", moves_.get(1));
@@ -86,7 +86,7 @@ public class PokemonDataTest extends EquallablePkUtil {
     @Test
     public void getMovesAtLevel4Test() {
         PokemonData data_ = dataBase();
-        StringList moves_ = data_.getMovesAtLevel((short) 6, 2);
+        StringList moves_ = data_.getMovesAtLevel( 6, 2);
         assertEq(2, moves_.size());
         assertEq("VIVE_ATTAQUE", moves_.get(0));
         assertEq("CHARGE", moves_.get(1));
@@ -95,7 +95,7 @@ public class PokemonDataTest extends EquallablePkUtil {
     @Test
     public void getMovesAtLevel5Test() {
         PokemonData data_ = dataBase();
-        StringList moves_ = data_.getMovesAtLevel((short) 7, 2);
+        StringList moves_ = data_.getMovesAtLevel( 7, 2);
         assertEq(2, moves_.size());
         assertEq("VIVE_ATTAQUE", moves_.get(0));
         assertEq("CHARGE", moves_.get(1));
@@ -104,7 +104,7 @@ public class PokemonDataTest extends EquallablePkUtil {
     @Test
     public void getMovesAtLevel6Test() {
         PokemonData data_ = dataBase();
-        StringList moves_ = data_.getMovesAtLevel((short) 15, 2);
+        StringList moves_ = data_.getMovesAtLevel( 15, 2);
         assertEq(2, moves_.size());
         assertEq("FOUDRE", moves_.get(0));
         assertEq("TONNERRE", moves_.get(1));
