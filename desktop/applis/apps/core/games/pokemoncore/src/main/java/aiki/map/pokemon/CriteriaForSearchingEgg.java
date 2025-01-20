@@ -16,7 +16,7 @@ public final class CriteriaForSearchingEgg extends CriteriaForSearching {
         return match(searchModeName, contentOfName, _name);
     }
 
-    public boolean matchSteps(int _steps) {
+    public boolean matchSteps(long _steps) {
         return CriteriaForSearching.match(minSteps, maxSteps, _steps);
     }
 

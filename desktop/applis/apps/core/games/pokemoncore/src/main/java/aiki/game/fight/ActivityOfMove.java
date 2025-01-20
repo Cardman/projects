@@ -12,7 +12,7 @@ public final class ActivityOfMove implements Displayable {
     private static final String FALSE = "0";
     private static final String TRUE = "1";
 
-    private int nbTurn;
+    private long nbTurn;
 
     private boolean enabled;
 
@@ -34,7 +34,7 @@ public final class ActivityOfMove implements Displayable {
 
     public ActivityOfMove(String _value) {
         StringList elts_ = StringUtil.splitChars(_value, SEPARATOR);
-        nbTurn = NumberUtil.parseInt(elts_.first());
+        nbTurn = NumberUtil.parseLongZero(elts_.first());
         enabled = elts_.size() > 1 && StringUtil.quickEq(elts_.get(IndexConstants.SECOND_INDEX), TRUE);
         incrementCount = StringUtil.quickEq(elts_.last(), TRUE);
     }
@@ -76,11 +76,11 @@ public final class ActivityOfMove implements Displayable {
         }
     }
 
-    public int getNbTurn() {
+    public long getNbTurn() {
         return nbTurn;
     }
 
-    public void setNbTurn(int _nbTurn) {
+    public void setNbTurn(long _nbTurn) {
         nbTurn = _nbTurn;
     }
 

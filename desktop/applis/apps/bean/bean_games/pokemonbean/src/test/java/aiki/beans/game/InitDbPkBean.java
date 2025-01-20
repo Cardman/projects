@@ -45,6 +45,14 @@ public abstract class InitDbPkBean extends InitDbBean {
         return callLongs(new PokemonPlayerBeanGetEvo(),_str,_args);
     }
 
+    public static NaSt callPokemonPlayerBeanGetEvoImg(NaSt _str, long... _args) {
+        return callLongs(new PokemonPlayerBeanGetEvoImg(),_str,_args);
+    }
+
+    public static NaSt callPokemonPlayerBeanGetEvoKey(NaSt _str, long... _args) {
+        return callLongs(new PokemonPlayerBeanGetEvoKey(),_str,_args);
+    }
+
     public static NaSt callPokemonPlayerBeanEvolutionsGet(NaSt _str, long... _args) {
         return callLongs(new PokemonPlayerBeanEvolutionsGet(),_str,_args);
     }

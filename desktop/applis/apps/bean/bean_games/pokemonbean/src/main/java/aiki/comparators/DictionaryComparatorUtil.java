@@ -109,10 +109,6 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<String,String>(_data.getTranslatedPokemon().getVal(_language));
     }
 
-    public static DictionaryComparator<String,int[][]> buildPkImg(DataBase _data, String _language) {
-        return new DictionaryComparator<String,int[][]>(_data.getTranslatedPokemon().getVal(_language));
-    }
-
     public static DictionaryComparator<String,Status> buildStatusData(DataBase _data, String _language) {
         return new DictionaryComparator<String,Status>(_data.getTranslatedStatus().getVal(_language));
     }

@@ -4,13 +4,13 @@ import aiki.facade.Sorting;
 
 public final class SortingEgg extends Sorting {
 
-    private int steps;
+    private long steps;
 
-    public int getSteps() {
+    public long getSteps() {
         return steps;
     }
 
-    public void setSteps(int _steps) {
+    public void setSteps(long _steps) {
         steps = _steps;
     }
 

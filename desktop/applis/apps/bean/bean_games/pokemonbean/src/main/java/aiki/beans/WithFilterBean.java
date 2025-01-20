@@ -62,7 +62,7 @@ public abstract class WithFilterBean extends CommonBean {
                 }
             }
         } else {
-            int int_ = NumberUtil.parseInt(_typedPrice);
+            long int_ = NumberUtil.parseLongZero(_typedPrice);
             for (EntryCust<String, Item> i: _data.getItems().entryList()) {
                 String display_ = translationsItems_.getVal(i.getKey());
                 //                String class_ = translationsClasses_.getVal(i_.getClass().getName());

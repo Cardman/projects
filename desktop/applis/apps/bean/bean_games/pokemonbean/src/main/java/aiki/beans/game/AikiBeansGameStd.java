@@ -12,6 +12,7 @@ public final class AikiBeansGameStd{
     public static final String BEAN_DIFFICULTY_COMMON = "difficulty_common";
     public static final String TYPE_GAME_PROGRESSION_BEAN = "aiki.beans.game.GameProgressionBean";
     public static final String TYPE_POKEMON_PLAYER_BEAN = "aiki.beans.game.PokemonPlayerBean";
+    public static final String TYPE_POKEMON_PLAYER_BEAN_2 = "_";
     private static final String CHANGE = "change";
     private static final String GET_REMAINING_OTHER_TRAINERS_PLACE_NAME = "getRemainingOtherTrainersPlaceName";
     private static final String GET_IMAGE_POKEMON_FULL = "getImagePokemonFull";
@@ -24,6 +25,7 @@ public final class AikiBeansGameStd{
     private static final String GET_IMAGE_POKEMON_PARTIAL = "getImagePokemonPartial";
     private static final String GET_TR_POKEMON_PARTIAL = "getTrPokemonPartial";
     private static final String GET_EVO = "getEvo";
+    private static final String GET_IMG = "getImg";
     private static final String D_WIN_POINTS_FIGHT = "winPointsFight";
     private static final String D_DIFF_WINNING_EXP_PTS_FIGHT = "diffWinningExpPtsFight";
     private static final String D_ALLOW_CATCHING_KO = "allowCatchingKo";
@@ -162,8 +164,7 @@ public final class AikiBeansGameStd{
     }
     public static void buildPokemonPlayerBean(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, BeanNatCommonLgNames.TYPE_BEAN);
+        SpecialNatClass type_ = new SpecialNatClass(fields_, new CustList<SpecNatMethod>(), BeanNatCommonLgNames.TYPE_BEAN);
         fields_.add(new StandardField(NAME,BeanNatCommonLgNames.STRING, new PokemonPlayerBeanNameGet(),null));
         fields_.add(new StandardField(IMAGE,BeanNatCommonLgNames.STRING, new PokemonPlayerBeanImageGet(),null));
         fields_.add(new StandardField(EVOLUTIONS, BeanNatCommonLgNames.TYPE_MAP, new PokemonPlayerBeanEvolutionsGet(),null));
@@ -184,8 +185,12 @@ public final class AikiBeansGameStd{
         fields_.add(new StandardField(STATUS, BeanNatCommonLgNames.TYPE_LIST, new PokemonPlayerBeanStatusGet(),null));
         fields_.add(new StandardField(MOVES, BeanNatCommonLgNames.TYPE_MAP, new PokemonPlayerBeanMovesGet(),null));
         fields_.add(new StandardField(STATISTICS, BeanNatCommonLgNames.TYPE_LIST, new PokemonPlayerBeanStatisticsGet(),null));
-        methods_.add( new SpecNatMethod(GET_EVO,BeanNatCommonLgNames.STRING, new PokemonPlayerBeanGetEvo()));
         _std.getStds().addEntry(TYPE_POKEMON_PLAYER_BEAN, type_);
+        CustList<StandardField> fieldsCompo_=new CustList<StandardField>();
+        SpecialNatClass typeCompo_ = new SpecialNatClass(fieldsCompo_, new CustList<SpecNatMethod>(), BeanNatCommonLgNames.TYPE_BEAN);
+        fieldsCompo_.add( new StandardField(GET_EVO,BeanNatCommonLgNames.STRING, new PokemonPlayerBeanGetEvo(),null));
+        fieldsCompo_.add( new StandardField(GET_IMG,BeanNatCommonLgNames.STRING, new PokemonPlayerBeanGetEvoImg(),null));
+        _std.getStds().addEntry(TYPE_POKEMON_PLAYER_BEAN_2, typeCompo_);
     }
 
     public static NatArrayStruct getStPkPl(CustList<StatisticInfoPkPlayer> _ls) {

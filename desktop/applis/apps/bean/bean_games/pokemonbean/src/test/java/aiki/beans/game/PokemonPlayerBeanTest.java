@@ -414,7 +414,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         FacadeGame fac_ = fac(init_);
         fac_.openMenu();
         fac_.setChosenTeamPokemon( 0);
-        assertEq(RAI,first(elt(callPokemonPlayerBeanEvolutionsGet(displaying(beanPk(EN, fac_))),0)));
+        assertEq(RAI,callPokemonPlayerBeanGetEvoKey(elt(callPokemonPlayerBeanEvolutionsGet(displaying(beanPk(EN, fac_))),0)));
     }
 
     @Test
@@ -424,7 +424,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         FacadeGame fac_ = fac(init_);
         fac_.openMenu();
         fac_.setChosenTeamPokemon( 0);
-        assertEq(one(IMG_MAX_RAI),second(elt(callPokemonPlayerBeanEvolutionsGet(displaying(beanPk(EN, fac_))),0)));
+        assertEq(one(IMG_MAX_RAI),callPokemonPlayerBeanGetEvoImg(elt(callPokemonPlayerBeanEvolutionsGet(displaying(beanPk(EN, fac_))),0)));
     }
 
     @Test
@@ -434,7 +434,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         FacadeGame fac_ = fac(init_);
         fac_.openMenu();
         fac_.setChosenTeamPokemon( 0);
-        assertEq(RAI_TR,callPokemonPlayerBeanGetEvo(displaying(beanPk(EN, fac_)),0));
+        assertEq(RAI_TR,callPokemonPlayerBeanGetEvo(elt(callPokemonPlayerBeanEvolutionsGet(displaying(beanPk(EN, fac_))),0)));
     }
     @Test
     public void init() {

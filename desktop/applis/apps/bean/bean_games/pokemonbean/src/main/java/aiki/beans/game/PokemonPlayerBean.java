@@ -3,8 +3,6 @@ package aiki.beans.game;
 import aiki.beans.CommonSingleBean;
 import aiki.beans.facade.comparators.ComparatorStatisticInfoPkPlayer;
 import aiki.beans.facade.game.dto.StatisticInfoPkPlayer;
-import aiki.comparators.DictionaryComparator;
-import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
@@ -15,7 +13,7 @@ import aiki.map.pokemon.enums.Gender;
 import code.maths.Rate;
 import code.util.*;
 
-public class PokemonPlayerBean extends CommonSingleBean {
+public final class PokemonPlayerBean extends CommonSingleBean {
     private String name;
     private int[][] image;
     private long level;
@@ -23,7 +21,7 @@ public class PokemonPlayerBean extends CommonSingleBean {
     private String ability;
     private String item;
     private Rate remainingHp;
-//    private String remainingHpPerCent;
+    private String remainingHpPerCent;
     private Rate fullHp;
     private StringList types;
     private StringList status;
@@ -35,7 +33,7 @@ public class PokemonPlayerBean extends CommonSingleBean {
     private long happiness;
     private String usedBallCatching;
     private long nbStepsTeamLead;
-    private DictionaryComparator<String,int[][]> evolutions;
+    private CustList<ImgPkPlayer> evolutions;
 
     @Override
     public void beforeDisplaying() {
@@ -60,13 +58,13 @@ public class PokemonPlayerBean extends CommonSingleBean {
             usedBallCatching = translatedItems_.getVal(pkPlayer_.getUsedBallCatching());
         }
         image = data_.getMaxiPkFront().getVal(pkPlayer_.getName()).getImage();
-        DictionaryComparator<String, int[][]> evolutions_;
-        evolutions_ = DictionaryComparatorUtil.buildPkImg(data_,getLanguage());
+        NatStringTreeMap<ImgPkPlayer> tmp_ = new NatStringTreeMap<ImgPkPlayer>();
         for (String e: pkPlayer_.getDirectEvolutions(data_)) {
             int[][] img_ = data_.getMaxiPkFront().getVal(e).getImage();
-            evolutions_.put(e, img_);
+            String tr_ = translatedPokemon_.getVal(e);
+            tmp_.put(tr_, new ImgPkPlayer(e,tr_,img_));
         }
-        evolutions = evolutions_;
+        evolutions = tmp_.values();
         ability = translatedAbilities_.getVal(pkPlayer_.getAbility());
         level = pkPlayer_.getLevel();
         gender = translationsGenders_.getVal(pkPlayer_.getGender());
@@ -76,7 +74,7 @@ public class PokemonPlayerBean extends CommonSingleBean {
         }
         remainingHp = pkPlayer_.getRemainingHp();
         fullHp = pkPlayer_.pvMax(data_);
-//        remainingHpPerCent = Rate.multiply(Rate.divide(remainingHp, fullHp), new Rate(100)).evaluate(2);
+        remainingHpPerCent = Rate.multiply(Rate.divide(remainingHp, fullHp), new Rate(100)).evaluate(2);
         types = new StringList();
         for (String t: data_.getPokemon(pkPlayer_.getName()).getTypes()) {
             types.add(translatedTypes_.getVal(t));
@@ -114,13 +112,6 @@ public class PokemonPlayerBean extends CommonSingleBean {
         status = status_;
         nbStepsTeamLead = pkPlayer_.getNbStepsTeamLead();
     }
-    public String getEvo(int _index) {
-        String evo_ = evolutions.getKey(_index);
-        FacadeGame facadeGame_ = facade();
-        DataBase data_ = facadeGame_.getData();
-        StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        return translatedPokemon_.getVal(evo_);
-    }
 
     Rate numberNecessaryPointsForGrowingLevel(String _name){
         FacadeGame facadeGame_ = facade();
@@ -138,7 +129,7 @@ public class PokemonPlayerBean extends CommonSingleBean {
         return image;
     }
 
-    public DictionaryComparator<String,int[][]> getEvolutions() {
+    public CustList<ImgPkPlayer> getEvolutions() {
         return evolutions;
     }
 
@@ -167,7 +158,7 @@ public class PokemonPlayerBean extends CommonSingleBean {
     }
 
     public String getRemainingHpPerCent() {
-        return Rate.multiply(Rate.divide(remainingHp, fullHp), new Rate(100)).evaluate(2);
+        return remainingHpPerCent;
     }
 
     public Rate getFullHp() {

@@ -12,7 +12,7 @@ public final class Anticipation implements Displayable{
 
     private Rate damage;
 
-    private int nbRounds;
+    private long nbRounds;
 
     private TargetCoords targetPosition;
 
@@ -26,7 +26,7 @@ public final class Anticipation implements Displayable{
     public Anticipation(String _value) {
         StringList elts_ = StringUtil.splitChars(_value, SEPARATOR);
         damage = new Rate(elts_.first());
-        nbRounds = NumberUtil.parseInt(elts_.get(IndexConstants.SECOND_INDEX));
+        nbRounds = NumberUtil.parseLongZero(elts_.get(IndexConstants.SECOND_INDEX));
         targetPosition = new TargetCoords(elts_.last());
         incrementing = !NumberUtil.eq(targetPosition.getPosition(), Fighter.BACK);
     }
@@ -60,11 +60,11 @@ public final class Anticipation implements Displayable{
         damage = _damage;
     }
 
-    public int getNbRounds() {
+    public long getNbRounds() {
         return nbRounds;
     }
 
-    public void setNbRounds(int _nbRounds) {
+    public void setNbRounds(long _nbRounds) {
         nbRounds = _nbRounds;
     }
 

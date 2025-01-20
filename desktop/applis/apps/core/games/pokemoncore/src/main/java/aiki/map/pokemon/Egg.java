@@ -14,7 +14,7 @@ public final class Egg implements UsablePokemon, Displayable {
     private final String name;
 
     /**nombre de pas depuis l'obtention de l'oeuf.*/
-    private int steps;
+    private long steps;
 
 //    private Egg() {
 //    }
@@ -25,7 +25,7 @@ public final class Egg implements UsablePokemon, Displayable {
         name = list_.first();
         String steps_ = list_.last();
         if (MathExpUtil.isNumber(steps_)) {
-            steps = NumberUtil.parseInt(steps_);
+            steps = NumberUtil.parseLongZero(steps_);
         }
     }
 
@@ -64,7 +64,7 @@ public final class Egg implements UsablePokemon, Displayable {
         return name;
     }
 
-    public int getSteps() {
+    public long getSteps() {
         return steps;
     }
 

@@ -270,7 +270,7 @@ public final class Player {
             if (!(u instanceof Egg)) {
                 continue;
             }
-            int nbPas_=((Egg) u).getSteps();
+            long nbPas_=((Egg) u).getSteps();
             String nom_=((Egg) u).getName();
             PokemonData fPk_=_import.getPokemon(nom_);
             LgInt pas_=fPk_.getHatchingSteps();
