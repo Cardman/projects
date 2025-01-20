@@ -6,13 +6,13 @@ public final class SortingMove extends Sorting {
 
     private int moveClass;
 
-    private int pp;
+    private long pp;
 
     private int priority;
 
     private TargetChoice targetChoice;
 
-    private int price;
+    private long price;
 
     public int getMoveClass() {
         return moveClass;
@@ -22,11 +22,11 @@ public final class SortingMove extends Sorting {
         moveClass = _moveClass;
     }
 
-    public int getPp() {
+    public long getPp() {
         return pp;
     }
 
-    public void setPp(int _pp) {
+    public void setPp(long _pp) {
         pp = _pp;
     }
 
@@ -46,11 +46,11 @@ public final class SortingMove extends Sorting {
         targetChoice = _targetChoice;
     }
 
-    public int getPrice() {
+    public long getPrice() {
         return price;
     }
 
-    public void setPrice(int _price) {
+    public void setPrice(long _price) {
         price = _price;
     }
 }

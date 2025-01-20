@@ -28,7 +28,7 @@ public class MoveBean extends CommonBean {
 
     private String name;
     private String displayName;
-    private int pp;
+    private long pp;
     private boolean hasDefaultTypes;
     private StringList types;
     private String category;
@@ -59,7 +59,7 @@ public class MoveBean extends CommonBean {
     private NatStringTreeMap<String> mapVarsAccuracy;
     private boolean cannotKo;
     private StringList affectedByMoves;
-    private IntTreeMap<StringList> movesLevelLearntByPokemon;
+    private LongTreeMap<StringList> movesLevelLearntByPokemon;
     private StringList movesTmLearntByPokemon;
     private StringList movesHmLearntByPokemon;
     private StringList movesMtLearntByPokemon;
@@ -196,10 +196,10 @@ public class MoveBean extends CommonBean {
         return movesTmLearntByPokemon_;
     }
 
-    private IntTreeMap<StringList> movesLevelLearntByPokemon() {
+    private LongTreeMap<StringList> movesLevelLearntByPokemon() {
         DataBase data_ = getDataBase();
-        IntTreeMap<StringList> movesLevelLearntByPokemon_;
-        movesLevelLearntByPokemon_ = new IntTreeMap<StringList>();
+        LongTreeMap<StringList> movesLevelLearntByPokemon_;
+        movesLevelLearntByPokemon_ = new LongTreeMap<StringList>();
         for (String p: data_.getPokedex().getKeys()) {
             PokemonData pkData_ = data_.getPokemon(p);
             for (LevelMove l: pkData_.getLevMoves()) {
@@ -983,7 +983,7 @@ public class MoveBean extends CommonBean {
         return category;
     }
 
-    public int getPp() {
+    public long getPp() {
         return pp;
     }
 
@@ -1075,7 +1075,7 @@ public class MoveBean extends CommonBean {
         return repeatRoundLaw;
     }
 
-    public IntTreeMap<StringList> getMovesLevelLearntByPokemon() {
+    public LongTreeMap<StringList> getMovesLevelLearntByPokemon() {
         return movesLevelLearntByPokemon;
     }
 

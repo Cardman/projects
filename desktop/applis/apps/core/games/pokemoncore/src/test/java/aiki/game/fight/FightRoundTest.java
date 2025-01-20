@@ -55,10 +55,10 @@ public class FightRoundTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 32);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(ULTRASON,  10);
-        moves_.put(BROUHAHA,  10);
-        moves_.put(POURSUITE,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(ULTRASON,10L);
+        moves_.put(BROUHAHA,10L);
+        moves_.put(POURSUITE,10L);
         PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.setNickname(PIKA);
@@ -127,11 +127,11 @@ public class FightRoundTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 32);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(A_LA_QUEUE,  10);
-        moves_.put(APRES_VOUS,  10);
-        moves_.put(SEISME,  10);
-        moves_.put(BROUHAHA,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(A_LA_QUEUE,10L);
+        moves_.put(APRES_VOUS,10L);
+        moves_.put(SEISME,10L);
+        moves_.put(BROUHAHA,10L);
         PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data, moves_);
         pokemonUser_.initIv(_diff);
         pokemonUser_.setNickname(PIKA);
@@ -323,11 +323,11 @@ public class FightRoundTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 32);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(ROUE_DE_FEU,  10);
-        moves_.put(RONFLEMENT,  10);
-        moves_.put(BLABLA_DODO,  10);
-        moves_.put(BROUHAHA,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(ROUE_DE_FEU,10L);
+        moves_.put(RONFLEMENT,10L);
+        moves_.put(BLABLA_DODO,10L);
+        moves_.put(BROUHAHA,10L);
         PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data, moves_);
         pokemonUser_.initIv(_diff);
         pokemonUser_.setNickname(PIKA);
@@ -1069,11 +1069,11 @@ public class FightRoundTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 3);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(SEISME,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(MIMIQUE,  10);
-        moves_.put(INTERVERSION,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(SEISME,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(MIMIQUE,10L);
+        moves_.put(INTERVERSION,10L);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_, moves_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1131,11 +1131,11 @@ public class FightRoundTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 3);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(SEISME,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(MIMIQUE,  10);
-        moves_.put(INTERVERSION,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(SEISME,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(MIMIQUE,10L);
+        moves_.put(INTERVERSION,10L);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_, moves_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1192,11 +1192,11 @@ public class FightRoundTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 3);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(SEISME,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(MIMIQUE,  10);
-        moves_.put(INTERVERSION,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(SEISME,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(MIMIQUE,10L);
+        moves_.put(INTERVERSION,10L);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_, moves_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -1250,11 +1250,11 @@ public class FightRoundTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 3);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(SEISME,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(MIMIQUE,  10);
-        moves_.put(INTERVERSION,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(SEISME,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(MIMIQUE,10L);
+        moves_.put(INTERVERSION,10L);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
         lasPk_.initIv(_diff);
         lasPk_.initPvRestants(_data);
@@ -1365,11 +1365,11 @@ public class FightRoundTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 3);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(SEISME,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(GLAS_DE_SOIN,  10);
-        moves_.put(INTERVERSION,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(SEISME,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(GLAS_DE_SOIN,10L);
+        moves_.put(INTERVERSION,10L);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
         lasPk_.initIv(_diff);
         lasPk_.initPvRestants(_data);
@@ -1674,11 +1674,11 @@ public class FightRoundTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 3);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(SEISME,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(GLAS_DE_SOIN,  10);
-        moves_.put(INTERVERSION,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(SEISME,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(GLAS_DE_SOIN,10L);
+        moves_.put(INTERVERSION,10L);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(_data);
@@ -1939,10 +1939,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -1969,10 +1969,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -2000,10 +2000,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -2031,10 +2031,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(COUD_BOUE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(COUD_BOUE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -2063,10 +2063,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(COUD_BOUE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(COUD_BOUE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_THREE);
@@ -2100,17 +2100,17 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(COUD_BOUE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(COUD_BOUE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_THREE);
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(IMPUDENCE);
         fighter_.backUpObject(NULL_REF);
-        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,  6);
+        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,6L);
         String move_ = SEISME;
         fighter_.setFirstChosenMove(move_);
         fighter_.affecterPseudoStatut(target_, AMOUR);
@@ -2135,10 +2135,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(COUD_BOUE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(COUD_BOUE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -2167,10 +2167,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(PROVOC,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(PROVOC,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -2200,10 +2200,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(ABIME,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(ABIME,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -2231,10 +2231,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -2263,10 +2263,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -2297,10 +2297,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -2330,10 +2330,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(COUD_BOUE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(COUD_BOUE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -2363,10 +2363,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(MUR_DE_FER,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(MUR_DE_FER,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets3(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -2395,10 +2395,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(GLAS_DE_SOIN,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(GLAS_DE_SOIN,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets3(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -2429,10 +2429,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(FORCE_NATURE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(FORCE_NATURE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets3(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -2466,10 +2466,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(PICOTS,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(PICOTS,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets4(data_, diff_, moves_, new StringList(JACKPOT, PAR_ICI, COPIE), new StringList(JACKPOT, PAR_ICI, REFLET_MAGIK));
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -2496,10 +2496,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(BERCEUSE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(BERCEUSE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets4(data_, diff_, moves_, new StringList(JACKPOT, PAR_ICI, COPIE), new StringList(JACKPOT, PAR_ICI, REFLET_MAGIK));
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -2528,10 +2528,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(BERCEUSE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(BERCEUSE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets4(data_, diff_, moves_, new StringList(JACKPOT, PAR_ICI, COPIE), new StringList(JACKPOT, PAR_ICI, REFLET_MAGIK));
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -2554,10 +2554,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(COUD_BOUE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(COUD_BOUE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_THREE);
@@ -2591,10 +2591,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(POSSESSIF,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(POSSESSIF,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets3(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -2633,10 +2633,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(COUD_BOUE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(COUD_BOUE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -2671,10 +2671,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(COUD_BOUE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(TOUR_RAPIDE,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(COUD_BOUE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(TOUR_RAPIDE,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         fight_.getFoeTeam().ajouterEffetEquipeEntreeAdv(PICOTS);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
@@ -2718,10 +2718,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(COUD_BOUE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(TOUR_RAPIDE,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(COUD_BOUE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(TOUR_RAPIDE,10L);
         Fight fight_ = processEffectTargets4(data_, diff_, moves_, new StringList(JACKPOT, PAR_ICI, COPIE), new StringList(JACKPOT, ABRI, COPIE));
         fight_.getFoeTeam().ajouterEffetEquipeEntreeAdv(PICOTS);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
@@ -2763,10 +2763,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(POSSESSIF,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(POSSESSIF,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets6(data_, diff_, moves_, new StringList(JACKPOT, PAR_ICI, COPIE));
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -2800,10 +2800,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets5(data_, diff_, moves_, new StringList(JACKPOT, PAR_ICI, COPIE));
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -2833,10 +2833,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(ROUE_DE_FEU,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(ROUE_DE_FEU,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets5(data_, diff_, moves_, new StringList(JACKPOT, PAR_ICI, COPIE));
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -2869,10 +2869,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(COUP_D_MAIN,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(COUP_D_MAIN,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets5(data_, diff_, moves_, new StringList(JACKPOT, PAR_ICI, COPIE));
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -2902,10 +2902,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(VAMPIPOING,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(VAMPIPOING,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets5(data_, diff_, moves_, new StringList(JACKPOT, PAR_ICI, COPIE));
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -2944,10 +2944,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
@@ -2976,10 +2976,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(BERCEUSE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(BERCEUSE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
@@ -3007,10 +3007,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(BERCEUSE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(BERCEUSE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets4(data_, diff_, moves_, new StringList(JACKPOT, PAR_ICI, COPIE), new StringList(DRACO_RAGE, PAR_ICI, COPIE));
         fight_.getTemp().setSimulation(true);
         TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -3038,10 +3038,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(ROUE_DE_FEU,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(ROUE_DE_FEU,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets5(data_, diff_, moves_, new StringList(JACKPOT, PAR_ICI, COPIE));
         fight_.getTemp().setSimulation(true);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
@@ -3075,10 +3075,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -3103,10 +3103,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -3131,10 +3131,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DETECTION,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DETECTION,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -3160,10 +3160,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(AIRE_D_EAU,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(AIRE_D_EAU,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -3190,10 +3190,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(FORCE_NATURE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(FORCE_NATURE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -3221,10 +3221,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(FORCE_NATURE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  1);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(FORCE_NATURE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,1L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -3252,10 +3252,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(FORCE_NATURE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  1);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(FORCE_NATURE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,1L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -3284,10 +3284,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(FORCE_NATURE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  1);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(FORCE_NATURE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,1L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -3316,10 +3316,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(FORCE_NATURE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(ABIME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(FORCE_NATURE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(ABIME,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -3345,10 +3345,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(FORCE_NATURE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(ABIME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(FORCE_NATURE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(ABIME,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -3375,10 +3375,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(FORCE_NATURE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(CASSE,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(FORCE_NATURE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(CASSE,10L);
         Fight fight_ = processEffectTargets7(data_, diff_, moves_, new StringList(JACKPOT, PAR_ICI, COPIE), new StringList(JACKPOT, PAR_ICI, COPIE));
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -3405,10 +3405,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -3431,10 +3431,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(COUD_BOUE,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(COUD_BOUE,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -3468,10 +3468,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(PLANNEUR,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(PLANNEUR,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -3493,10 +3493,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(PLANNEUR,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(PLANNEUR,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -3520,10 +3520,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(COUD_BOUE,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(COUD_BOUE,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -3554,10 +3554,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(COUD_BOUE,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(COUD_BOUE,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -3591,10 +3591,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(FORCE_NATURE,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(FORCE_NATURE,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -3622,10 +3622,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(MIMIQUE,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(MIMIQUE,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -3651,10 +3651,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(ROULADE,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(ROULADE,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -3688,10 +3688,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(ROULADE,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(ROULADE,10L);
         Fight fight_ = processEffectTargets4(data_, diff_, moves_, new StringList(JACKPOT, PAR_ICI, COPIE), new StringList(JACKPOT, PAR_ICI, DANSE_LUNE));
         TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -3714,10 +3714,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(ROULADE,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(ROULADE,10L);
         Fight fight_ = processEffectTargets4(data_, diff_, moves_, new StringList(JACKPOT, PAR_ICI, COPIE), new StringList(JACKPOT, PAR_ICI, DANSE_LUNE));
         TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -3740,10 +3740,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(GLAS_DE_SOIN,  10);
-        moves_.put(ROULADE,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(GLAS_DE_SOIN,10L);
+        moves_.put(ROULADE,10L);
         Fight fight_ = processEffectTargets3(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -3771,10 +3771,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(GLAS_DE_SOIN,  10);
-        moves_.put(ROULADE,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(GLAS_DE_SOIN,10L);
+        moves_.put(ROULADE,10L);
         Fight fight_ = processEffectTargets3(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -3809,10 +3809,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(DEGOMMAGE,  10);
-        moves_.put(ROULADE,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(DEGOMMAGE,10L);
+        moves_.put(ROULADE,10L);
         Fight fight_ = processEffectTargets3(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -3842,10 +3842,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(DEGOMMAGE,  10);
-        moves_.put(ROULADE,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(DEGOMMAGE,10L);
+        moves_.put(ROULADE,10L);
         Fight fight_ = processEffectTargets3(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -3879,10 +3879,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(DEGOMMAGE,  10);
-        moves_.put(ROULADE,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(DEGOMMAGE,10L);
+        moves_.put(ROULADE,10L);
         Fight fight_ = processEffectTargets3(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -3915,10 +3915,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(PERENITE,  10);
-        moves_.put(ROULADE,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(PERENITE,10L);
+        moves_.put(ROULADE,10L);
         Fight fight_ = processEffectTargets3(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -3950,10 +3950,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(PERENITE_BIS,  10);
-        moves_.put(ROULADE,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(PERENITE_BIS,10L);
+        moves_.put(ROULADE,10L);
         Fight fight_ = processEffectTargets3(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -3985,10 +3985,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -4011,10 +4011,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -4037,10 +4037,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -4064,10 +4064,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -4091,10 +4091,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
         fight_.getTemp().setSimulation(true);
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
@@ -4119,10 +4119,10 @@ public class FightRoundTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         Fight fight_ = processEffectTargets4(data_, diff_, moves_, new StringList(JACKPOT, PAR_ICI, COPIE), new StringList(DRACO_RAGE, PAR_ICI, COPIE));
         fight_.getTemp().setSimulation(true);
         TeamPosition thrower_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -4147,9 +4147,9 @@ public class FightRoundTest extends InitializationDataBase {
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MAX);
         Map<String,Integer> moves_ = new Map<String,Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
         userMoves_.add(new LevelMoves(3,moves_));
         userMoves_.add(new LevelMoves(3,moves_));
@@ -4187,10 +4187,10 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(DEGOMMAGE,  10);
-        moves_.put(ROULADE,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(DEGOMMAGE,10L);
+        moves_.put(ROULADE,10L);
         Fight fight_ = processEffectTargets3(data_, diff_, moves_);
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         FightKo.setKoMoveTeams(fight_, f_, diff_, data_);
@@ -4213,8 +4213,8 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
         Fight fight_ = processEffectTargets12(data_, diff_, moves_, new StringList(JACKPOT), new StringList(JACKPOT));
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         FightKo.setKoMoveTeams(fight_, f_, diff_, data_);
@@ -4239,8 +4239,8 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
         Fight fight_ = processEffectTargets12(data_, diff_, moves_, new StringList(JACKPOT), new StringList(JACKPOT));
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         FightKo.setKoMoveTeams(fight_, f_, diff_, data_);
@@ -4265,8 +4265,8 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
         Fight fight_ = processEffectTargets12(data_, diff_, moves_, new StringList(JACKPOT), new StringList(JACKPOT));
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
@@ -4291,8 +4291,8 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
         Fight fight_ = processEffectTargets12(data_, diff_, moves_, new StringList(JACKPOT), new StringList(JACKPOT));
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         FightKo.setKoMoveTeams(fight_, f_, diff_, data_);
@@ -4317,9 +4317,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(PICOTS,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(PICOTS,10L);
         Fight fight_ = processEffectTargets12(data_, diff_, moves_, new StringList(JACKPOT), new StringList(JACKPOT));
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
@@ -4346,9 +4346,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(PICOTS,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(PICOTS,10L);
         Fight fight_ = processEffectTargets12(data_, diff_, moves_, new StringList(JACKPOT), new StringList(JACKPOT));
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
@@ -4374,9 +4374,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(PICOTS,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(PICOTS,10L);
         Fight fight_ = processEffectTargets12(data_, diff_, moves_, new StringList(JACKPOT), new StringList(JACKPOT));
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
@@ -4402,9 +4402,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(PICOTS,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(PICOTS,10L);
         Fight fight_ = processEffectTargets12(data_, diff_, moves_, new StringList(JACKPOT), new StringList(JACKPOT));
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
@@ -4429,9 +4429,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(PICOTS,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(PICOTS,10L);
         Fight fight_ = processEffectTargets12(data_, diff_, moves_, new StringList(JACKPOT), new StringList(JACKPOT));
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
@@ -4457,9 +4457,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(PICOTS,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(PICOTS,10L);
         Fight fight_ = processEffectTargets12(data_, diff_, moves_, new StringList(JACKPOT), new StringList(JACKPOT));
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
@@ -4484,9 +4484,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(PICOTS,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(PICOTS,10L);
         Fight fight_ = processEffectTargets12(data_, diff_, moves_, new StringList(JACKPOT), new StringList(JACKPOT));
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
@@ -4510,9 +4510,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(PICOTS,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(PICOTS,10L);
         Fight fight_ = processEffectTargets12(data_, diff_, moves_, new StringList(JACKPOT), new StringList(JACKPOT));
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
@@ -4536,9 +4536,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(PICOTS,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(PICOTS,10L);
         Fight fight_ = processEffectTargets12(data_, diff_, moves_, new StringList(JACKPOT), new StringList(JACKPOT));
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
@@ -4562,9 +4562,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(PICOTS,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(PICOTS,10L);
         Fight fight_ = processEffectTargets12(data_, diff_, moves_, new StringList(JACKPOT), new StringList(JACKPOT));
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
@@ -4590,9 +4590,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(PICOTS,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(PICOTS,10L);
         Fight fight_ = processEffectTargets12(data_, diff_, moves_, new StringList(JACKPOT), new StringList(JACKPOT));
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
@@ -4618,9 +4618,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(PICOTS,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(PICOTS,10L);
         Fight fight_ = processEffectTargets12(data_, diff_, moves_, new StringList(JACKPOT), new StringList(JACKPOT));
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
@@ -4647,9 +4647,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(PICOTS,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(PICOTS,10L);
         Fight fight_ = processEffectTargets12(data_, diff_, moves_, new StringList(JACKPOT), new StringList(JACKPOT));
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
@@ -4676,9 +4676,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(PICOTS,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(PICOTS,10L);
         Fight fight_ = processEffectTargets12(data_, diff_, moves_, new StringList(JACKPOT), new StringList(JACKPOT));
         FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), diff_, data_);
         fight_.setState(FightState.SWITCH_WHILE_KO_USER);
@@ -4706,9 +4706,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(PICOTS,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(PICOTS,10L);
         Fight fight_ = processEffectTargets12(data_, diff_, moves_, new StringList(JACKPOT), new StringList(JACKPOT));
         TeamPosition p_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         FightKo.setKoMoveTeams(fight_, p_, diff_, data_);
@@ -4755,9 +4755,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(PICOTS,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(PICOTS,10L);
         Fight fight_ = processEffectTargets10(data_, diff_, moves_, new StringList(JACKPOT), new StringList(JACKPOT));
         TeamPosition p_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         FightKo.setKoMoveTeams(fight_, p_, diff_, data_);
@@ -4810,9 +4810,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(PICOTS,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(PICOTS,10L);
         Fight fight_ = processEffectTargets14(data_, diff_, moves_, new StringList(JACKPOT), new StringList(JACKPOT));
         TeamPosition exiting_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition entering_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ONE);
@@ -4847,9 +4847,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(PICOTS,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(PICOTS,10L);
         Fight fight_ = processEffectTargets8(data_, diff_, moves_, new StringList(JACKPOT), new StringList(JACKPOT));
         TeamPosition exiting_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         TeamPosition entering_ = tp(KEY_PLAYER, POKEMON_FIGHTER_THREE);
@@ -4884,9 +4884,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(PICOTS,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(PICOTS,10L);
         Fight fight_ = processEffectTargets13(data_, diff_, moves_, new StringList(JACKPOT), new StringList(JACKPOT));
         TeamPosition exiting_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         TeamPosition entering_ = tp(KEY_FOE, POKEMON_FIGHTER_TWO);
@@ -4924,9 +4924,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(DEMI_TOUR,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(DEMI_TOUR,10L);
         Fight fight_ = processEffectTargets1(data_, diff_, moves_, new StringList(JACKPOT), new StringList(DETECTION));
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -4952,9 +4952,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(COUD_BOUE,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(COUD_BOUE,10L);
         Fight fight_ = processEffectTargets1(data_, diff_, moves_, new StringList(JACKPOT), new StringList(DETECTION));
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -4977,9 +4977,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(COUD_BOUE,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(COUD_BOUE,10L);
         Fight fight_ = processEffectTargets12(data_, diff_, moves_, new StringList(JACKPOT), new StringList(DETECTION));
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -5002,9 +5002,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(COUD_BOUE,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(COUD_BOUE,10L);
         Fight fight_ = processEffectTargets1(data_, diff_, moves_, new StringList(JACKPOT), new StringList(DETECTION));
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -5028,9 +5028,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(COUD_BOUE,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(COUD_BOUE,10L);
         Fight fight_ = processEffectTargets1(data_, diff_, moves_, new StringList(JACKPOT), new StringList(DETECTION));
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -5063,9 +5063,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(COUD_BOUE,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(COUD_BOUE,10L);
         Fight fight_ = processEffectTargets11(data_, diff_, moves_, new StringList(DEMI_TOUR), new StringList(DETECTION));
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -5096,9 +5096,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(COUD_BOUE,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(COUD_BOUE,10L);
         Fight fight_ = processEffectTargets11(data_, diff_, moves_, new StringList(DEMI_TOUR), new StringList(DETECTION));
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -5129,9 +5129,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(COUD_BOUE,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(COUD_BOUE,10L);
         Fight fight_ = processEffectTargets10(data_, diff_, moves_, new StringList(JACKPOT), new StringList(DETECTION));
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
@@ -5158,9 +5158,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(DEMI_TOUR,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(DEMI_TOUR,10L);
         Fight fight_ = processEffectTargets1(data_, diff_, moves_, new StringList(JACKPOT), new StringList(DETECTION));
         FightRound.initRound(fight_);
         assertEq(0, FightRound.selectTargetHavingToPlayAfterThrower(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), data_).size());
@@ -5172,9 +5172,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(SEISME,  10);
-        moves_.put(DEMI_TOUR,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(SEISME,10L);
+        moves_.put(DEMI_TOUR,10L);
         Fight fight_ = processEffectTargets1(data_, diff_, moves_, new StringList(JACKPOT), new StringList(DETECTION));
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -5189,9 +5189,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(SEISME,  10);
-        moves_.put(DEMI_TOUR,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(SEISME,10L);
+        moves_.put(DEMI_TOUR,10L);
         Fight fight_ = processEffectTargets1(data_, diff_, moves_, new StringList(JACKPOT), new StringList(DETECTION));
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -5207,9 +5207,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(APRES_VOUS,  10);
-        moves_.put(DEMI_TOUR,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(APRES_VOUS,10L);
+        moves_.put(DEMI_TOUR,10L);
         Fight fight_ = processEffectTargets1(data_, diff_, moves_, new StringList(JACKPOT), new StringList(DETECTION));
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
@@ -5230,9 +5230,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(APRES_VOUS,  10);
-        moves_.put(DEMI_TOUR,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(APRES_VOUS,10L);
+        moves_.put(DEMI_TOUR,10L);
         Fight fight_ = processEffectTargets8(data_, diff_, moves_, new StringList(JACKPOT), new StringList(DETECTION));
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
@@ -5263,9 +5263,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(APRES_VOUS,  10);
-        moves_.put(DEMI_TOUR,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(APRES_VOUS,10L);
+        moves_.put(DEMI_TOUR,10L);
         Fight fight_ = processEffectTargets1(data_, diff_, moves_, new StringList(JACKPOT), new StringList(DETECTION));
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
@@ -5288,9 +5288,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(A_LA_QUEUE,  10);
-        moves_.put(DEMI_TOUR,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(A_LA_QUEUE,10L);
+        moves_.put(DEMI_TOUR,10L);
         Fight fight_ = processEffectTargets1(data_, diff_, moves_, new StringList(JACKPOT), new StringList(DETECTION));
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
@@ -5312,9 +5312,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(COUD_BOUE,  10);
-        moves_.put(DEMI_TOUR,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(COUD_BOUE,10L);
+        moves_.put(DEMI_TOUR,10L);
         Fight fight_ = processEffectTargets9(data_, diff_, moves_, new StringList(JACKPOT), new StringList(DETECTION));
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
@@ -5337,9 +5337,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(SEISME,  10);
-        moves_.put(DEMI_TOUR,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(SEISME,10L);
+        moves_.put(DEMI_TOUR,10L);
         Fight fight_ = processEffectTargets1(data_, diff_, moves_, new StringList(JACKPOT), new StringList(DETECTION));
         TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
@@ -5363,9 +5363,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(SEISME,  10);
-        moves_.put(DEMI_TOUR,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(SEISME,10L);
+        moves_.put(DEMI_TOUR,10L);
         Fight fight_ = calculateCatchingRate1(data_, diff_, moves_, PIKACHU, 3);
         fight_.wildPokemon().setRemainedHp(new Rate("89/10"));
         assertEq(new Rate("1"),FightRound.calculateCatchingRate(fight_, fight_.getUserTeam().playerFighterAtIndex( 0).first(), HYPER_BALL, false, diff_, data_, fight_.wildPokemon()));
@@ -5382,9 +5382,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(SEISME,  10);
-        moves_.put(DEMI_TOUR,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(SEISME,10L);
+        moves_.put(DEMI_TOUR,10L);
         Fight fight_ = calculateCatchingRate1(data_, diff_, moves_, PIKACHU, 3);
         FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
         assertEq(new Rate("1"),FightRound.calculateCatchingRate(fight_, fight_.getUserTeam().playerFighterAtIndex( 0).first(), HYPER_BALL, false, diff_, data_, fight_.wildPokemon()));
@@ -5396,9 +5396,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(SEISME,  10);
-        moves_.put(DEMI_TOUR,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(SEISME,10L);
+        moves_.put(DEMI_TOUR,10L);
         Fight fight_ = calculateCatchingRate1(data_, diff_, moves_, PIKACHU, 3);
         fight_.wildPokemon().affecterStatut(SOMMEIL);
         fight_.wildPokemon().setRemainedHp(new Rate("89/10"));
@@ -5411,9 +5411,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(SEISME,  10);
-        moves_.put(DEMI_TOUR,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(SEISME,10L);
+        moves_.put(DEMI_TOUR,10L);
         Fight fight_ = calculateCatchingRate1(data_, diff_, moves_, PIKACHU, 3);
         fight_.wildPokemon().affecterStatut(SOMMEIL);
         assertEq(new Rate("0"),FightRound.calculateCatchingRate(fight_, fight_.getUserTeam().playerFighterAtIndex( 0).first(), HYPER_BALL, false, diff_, data_, fight_.wildPokemon()));
@@ -5425,9 +5425,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(SEISME,  10);
-        moves_.put(DEMI_TOUR,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(SEISME,10L);
+        moves_.put(DEMI_TOUR,10L);
         Fight fight_ = calculateCatchingRate1(data_, diff_, moves_, PIKACHU, 3);
         assertEq(new Rate("1"),FightRound.calculateCatchingRate(fight_, fight_.getUserTeam().playerFighterAtIndex( 0).first(), MASTER_BALL, false, diff_, data_, fight_.wildPokemon()));
     }
@@ -5438,9 +5438,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(SEISME,  10);
-        moves_.put(DEMI_TOUR,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(SEISME,10L);
+        moves_.put(DEMI_TOUR,10L);
         Fight fight_ = calculateCatchingRate1(data_, diff_, moves_, TETARTE, 3);
         assertEq(new Rate("1"),FightRound.calculateCatchingRate(fight_, fight_.getUserTeam().playerFighterAtIndex( 0).first(), MASTER_BALL, false, diff_, data_, fight_.wildPokemon()));
     }
@@ -5451,9 +5451,9 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(SEISME,  10);
-        moves_.put(DEMI_TOUR,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(SEISME,10L);
+        moves_.put(DEMI_TOUR,10L);
         Fight fight_ = calculateCatchingRate1(data_, diff_, moves_, TETARTE, 3);
         assertEq(new Rate("1"),FightRound.calculateCatchingRate(fight_, fight_.getUserTeam().playerFighterAtIndex( 0).first(), PAS_DE_BALL, false, diff_, data_, fight_.wildPokemon()));
     }
@@ -5465,9 +5465,9 @@ public class FightRoundTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setStillPossibleFlee(true);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(SEISME,  10);
-        moves_.put(DEMI_TOUR,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(SEISME,10L);
+        moves_.put(DEMI_TOUR,10L);
         Fight fight_ = calculateCatchingRate1(data_, diff_, moves_, PIKACHU, 3);
         MonteCarloNumber mcn_ = FightRound.calculateFleeingRate(fight_, diff_, data_);
         assertEq(1,mcn_.nbEvents());
@@ -5481,9 +5481,9 @@ public class FightRoundTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setStillPossibleFlee(false);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(SEISME,  10);
-        moves_.put(DEMI_TOUR,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(SEISME,10L);
+        moves_.put(DEMI_TOUR,10L);
         Fight fight_ = calculateCatchingRate1(data_, diff_, moves_, PIKACHU, 3);
         MonteCarloNumber mcn_ = FightRound.calculateFleeingRate(fight_, diff_, data_);
         assertEq(1,mcn_.nbEvents());
@@ -5497,9 +5497,9 @@ public class FightRoundTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setStillPossibleFlee(false);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(SEISME,  10);
-        moves_.put(DEMI_TOUR,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(SEISME,10L);
+        moves_.put(DEMI_TOUR,10L);
         Fight fight_ = calculateCatchingRate1(data_, diff_, moves_, PIKACHU, 10);
         MonteCarloNumber mcn_ = FightRound.calculateFleeingRate(fight_, diff_, data_);
         assertEq(1,mcn_.nbEvents());
@@ -5513,9 +5513,9 @@ public class FightRoundTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setStillPossibleFlee(false);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(SEISME,  10);
-        moves_.put(DEMI_TOUR,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(SEISME,10L);
+        moves_.put(DEMI_TOUR,10L);
         Fight fight_ = calculateCatchingRate1(data_, diff_, moves_, MELOFEE, 10);
         MonteCarloNumber mcn_ = FightRound.calculateFleeingRate(fight_, diff_, data_);
         assertEq(1,mcn_.nbEvents());
@@ -5529,9 +5529,9 @@ public class FightRoundTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setStillPossibleFlee(false);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(SEISME,  10);
-        moves_.put(DEMI_TOUR,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(SEISME,10L);
+        moves_.put(DEMI_TOUR,10L);
         Fight fight_ = calculateCatchingRate1(data_, diff_, moves_, TARINOR, 10);
         MonteCarloNumber mcn_ = FightRound.calculateFleeingRate(fight_, diff_, data_);
         assertEq(1,mcn_.nbEvents());
@@ -5545,9 +5545,9 @@ public class FightRoundTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setStillPossibleFlee(false);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(SEISME,  10);
-        moves_.put(DEMI_TOUR,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(SEISME,10L);
+        moves_.put(DEMI_TOUR,10L);
         Fight fight_ = calculateCatchingRate1(data_, diff_, moves_, TARINOR, 10);
         fight_.wildPokemon().setRemainingHp(Rate.zero());
         MonteCarloNumber mcn_ = FightRound.calculateFleeingRate(fight_, diff_, data_);
@@ -5562,9 +5562,9 @@ public class FightRoundTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setStillPossibleFlee(false);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(SEISME,  10);
-        moves_.put(DEMI_TOUR,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(SEISME,10L);
+        moves_.put(DEMI_TOUR,10L);
         Fight fight_ = calculateCatchingRate1(data_, diff_, moves_, TARINOR, 10);
         fight_.getCatchingBalls().first().setCatchingBall(MASTER_BALL);
         fight_.getCatchingBalls().first().setCaught(true);
@@ -6793,8 +6793,8 @@ public class FightRoundTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 17);
-        StringMap<Integer> map_ = new StringMap<Integer>();
-        map_.put(SEISME,  15);
+        StringMap<Long> map_ = new StringMap<Long>();
+        map_.put(SEISME,15L);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -7009,8 +7009,8 @@ public class FightRoundTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 17);
-        StringMap<Integer> map_ = new StringMap<Integer>();
-        map_.put(DEMI_TOUR, 20);
+        StringMap<Long> map_ = new StringMap<Long>();
+        map_.put(DEMI_TOUR,20L);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -7071,8 +7071,8 @@ public class FightRoundTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 17);
-        StringMap<Integer> map_ = new StringMap<Integer>();
-        map_.put(DEMI_TOUR, 20);
+        StringMap<Long> map_ = new StringMap<Long>();
+        map_.put(DEMI_TOUR,20L);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -7146,8 +7146,8 @@ public class FightRoundTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 17);
-        StringMap<Integer> map_ = new StringMap<Integer>();
-        map_.put(DEMI_TOUR, 20);
+        StringMap<Long> map_ = new StringMap<Long>();
+        map_.put(DEMI_TOUR,20L);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -7219,8 +7219,8 @@ public class FightRoundTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 17);
-        StringMap<Integer> map_ = new StringMap<Integer>();
-        map_.put(DEMI_TOUR, 20);
+        StringMap<Long> map_ = new StringMap<Long>();
+        map_.put(DEMI_TOUR,20L);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -7266,8 +7266,8 @@ public class FightRoundTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 17);
-        StringMap<Integer> map_ = new StringMap<Integer>();
-        map_.put(DEMI_TOUR, 20);
+        StringMap<Long> map_ = new StringMap<Long>();
+        map_.put(DEMI_TOUR,20L);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -7342,8 +7342,8 @@ public class FightRoundTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 17);
-        StringMap<Integer> map_ = new StringMap<Integer>();
-        map_.put(DEMI_TOUR, 20);
+        StringMap<Long> map_ = new StringMap<Long>();
+        map_.put(DEMI_TOUR,20L);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -7490,8 +7490,8 @@ public class FightRoundTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 17);
-        StringMap<Integer> map_ = new StringMap<Integer>();
-        map_.put(DEMI_TOUR, 20);
+        StringMap<Long> map_ = new StringMap<Long>();
+        map_.put(DEMI_TOUR,20L);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -7561,8 +7561,8 @@ public class FightRoundTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 17);
-        StringMap<Integer> map_ = new StringMap<Integer>();
-        map_.put(DEMI_TOUR, 20);
+        StringMap<Long> map_ = new StringMap<Long>();
+        map_.put(DEMI_TOUR,20L);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -7623,8 +7623,8 @@ public class FightRoundTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 17);
-        StringMap<Integer> map_ = new StringMap<Integer>();
-        map_.put(DEMI_TOUR, 20);
+        StringMap<Long> map_ = new StringMap<Long>();
+        map_.put(DEMI_TOUR,20L);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -7697,8 +7697,8 @@ public class FightRoundTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 17);
-        StringMap<Integer> map_ = new StringMap<Integer>();
-        map_.put(DEMI_TOUR, 20);
+        StringMap<Long> map_ = new StringMap<Long>();
+        map_.put(DEMI_TOUR,20L);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -7798,8 +7798,8 @@ public class FightRoundTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 17);
-        StringMap<Integer> map_ = new StringMap<Integer>();
-        map_.put(DEMI_TOUR, 20);
+        StringMap<Long> map_ = new StringMap<Long>();
+        map_.put(DEMI_TOUR,20L);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -7856,8 +7856,8 @@ public class FightRoundTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 17);
-        StringMap<Integer> map_ = new StringMap<Integer>();
-        map_.put(DEMI_TOUR, 20);
+        StringMap<Long> map_ = new StringMap<Long>();
+        map_.put(DEMI_TOUR,20L);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -7921,8 +7921,8 @@ public class FightRoundTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 17);
-        StringMap<Integer> map_ = new StringMap<Integer>();
-        map_.put(DEMI_TOUR, 20);
+        StringMap<Long> map_ = new StringMap<Long>();
+        map_.put(DEMI_TOUR,20L);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -8065,8 +8065,8 @@ public class FightRoundTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 17);
-        StringMap<Integer> map_ = new StringMap<Integer>();
-        map_.put(DEMI_TOUR, 20);
+        StringMap<Long> map_ = new StringMap<Long>();
+        map_.put(DEMI_TOUR,20L);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -8139,8 +8139,8 @@ public class FightRoundTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 17);
-        StringMap<Integer> map_ = new StringMap<Integer>();
-        map_.put(DEMI_TOUR, 20);
+        StringMap<Long> map_ = new StringMap<Long>();
+        map_.put(DEMI_TOUR,20L);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -8306,8 +8306,8 @@ public class FightRoundTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 17);
-        StringMap<Integer> map_ = new StringMap<Integer>();
-        map_.put(DEMI_TOUR, 20);
+        StringMap<Long> map_ = new StringMap<Long>();
+        map_.put(DEMI_TOUR,20L);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -8400,8 +8400,8 @@ public class FightRoundTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 17);
-        StringMap<Integer> map_ = new StringMap<Integer>();
-        map_.put(DEMI_TOUR, 20);
+        StringMap<Long> map_ = new StringMap<Long>();
+        map_.put(DEMI_TOUR,20L);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -8532,8 +8532,8 @@ public class FightRoundTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 17);
-        StringMap<Integer> map_ = new StringMap<Integer>();
-        map_.put(DEMI_TOUR, 20);
+        StringMap<Long> map_ = new StringMap<Long>();
+        map_.put(DEMI_TOUR,20L);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_,map_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -8663,7 +8663,7 @@ public class FightRoundTest extends InitializationDataBase {
         return fight_;
     }
 
-    private Fight calculateCatchingRate1(DataBase _data, Difficulty _diff, StringMap<Integer> _moves, String _name, int _level) {
+    private Fight calculateCatchingRate1(DataBase _data, Difficulty _diff, StringMap<Long> _moves, String _name, int _level) {
         Player player_ = Player.build(NICKNAME, _diff,false, _data);
         player_.getTeam().add(pkPlayer(_diff, _data,  3, _moves));
         player_.getTeam().add(pkPlayer(_diff, _data,  4, _moves));
@@ -8679,7 +8679,7 @@ public class FightRoundTest extends InitializationDataBase {
         return fight_;
     }
 
-    private Fight processEffectTargets14(DataBase _data, Difficulty _diff, StringMap<Integer> _moves, StringList _partnerMoves, StringList _foeMoves) {
+    private Fight processEffectTargets14(DataBase _data, Difficulty _diff, StringMap<Long> _moves, StringList _partnerMoves, StringList _foeMoves) {
         Player player_ = Player.build(NICKNAME, _diff,false, _data);
         player_.getTeam().add(pkPlayer(_diff, _data, 3, _moves));
         player_.getTeam().add(pkPlayer(_diff, _data, 4, _moves));
@@ -8690,66 +8690,7 @@ public class FightRoundTest extends InitializationDataBase {
         return processEffectTargetsDual(_diff, _data, player_, allyTeam_, foeTeam_);
     }
 
-    private Fight processEffectTargets13(DataBase _data, Difficulty _diff, StringMap<Integer> _moves, StringList _partnerMoves, StringList _foeMoves) {
-        Player player_ = Player.build(NICKNAME, _diff,false, _data);
-        player_.getTeam().add(pkPlayer(_diff, _data, 3, _moves));
-        player_.getTeam().add(pkPlayer(_diff, _data, 4, _moves));
-        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-        allyTeam_.add(pkTrainer(3, _partnerMoves));
-        allyTeam_.add(pkTrainer(4, _partnerMoves));
-        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        foeTeam_.add(pkTrainer(3, _foeMoves));
-        foeTeam_.add(pkTrainer(3, _foeMoves));
-        foeTeam_.add(pkTrainer(3, _foeMoves));
-        return processEffectTargetsDual(_diff, _data, player_, allyTeam_, foeTeam_);
-    }
-
-    private Fight processEffectTargets12(DataBase _data, Difficulty _diff, StringMap<Integer> _moves, StringList _partnerMoves, StringList _foeMoves) {
-        Player player_ = Player.build(NICKNAME, _diff,false, _data);
-        player_.getTeam().add(pkPlayer(_diff, _data, 3, _moves));
-        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-        allyTeam_.add(pkTrainer(3, _partnerMoves));
-        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        foeTeam_.add(pkTrainer(3, _foeMoves));
-        return processEffectTargetsDual(_diff, _data, player_, allyTeam_, foeTeam_);
-    }
-
-    private Fight processEffectTargets11(DataBase _data, Difficulty _diff, StringMap<Integer> _moves, StringList _partnerMoves, StringList _foeMoves) {
-        Player player_ = Player.build(NICKNAME, _diff,false, _data);
-        player_.getTeam().add(pkPlayer(_diff, _data, 3, _moves));
-        player_.getTeam().add(pkPlayer(_diff, _data, 4, _moves));
-        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-        allyTeam_.add(pkTrainer(3, _partnerMoves));
-        allyTeam_.add(pkTrainer(3, _partnerMoves));
-        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        foeTeam_.add(pkTrainer(3, _foeMoves));
-        return processEffectTargetsDual(_diff, _data, player_, allyTeam_, foeTeam_);
-    }
-
-    private Fight processEffectTargets10(DataBase _data, Difficulty _diff, StringMap<Integer> _moves, StringList _partnerMoves, StringList _foeMoves) {
-        Player player_ = Player.build(NICKNAME, _diff,false, _data);
-        player_.getTeam().add(pkPlayer(_diff, _data, 3, _moves));
-        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-        allyTeam_.add(pkTrainer(3, _partnerMoves));
-        allyTeam_.add(pkTrainer(3, _partnerMoves));
-        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        foeTeam_.add(pkTrainer(3, _foeMoves));
-        return processEffectTargetsDual(_diff, _data, player_, allyTeam_, foeTeam_);
-    }
-
-    private Fight processEffectTargets9(DataBase _data, Difficulty _diff, StringMap<Integer> _moves, StringList _partnerMoves, StringList _foeMoves) {
-        Player player_ = Player.build(NICKNAME, _diff,false, _data);
-        player_.getTeam().add(pkPlayer(_diff, _data, 3, _moves));
-        player_.getTeam().add(pkPlayer(_diff, _data, 4, _moves));
-        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
-        allyTeam_.add(pkTrainer(3, _partnerMoves));
-        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
-        foeTeam_.add(pkTrainer(3, _foeMoves));
-        foeTeam_.add(pkTrainer(3, _foeMoves));
-        return processEffectTargetsDual(_diff, _data, player_, allyTeam_, foeTeam_);
-    }
-
-    private Fight processEffectTargets8(DataBase _data, Difficulty _diff, StringMap<Integer> _moves, StringList _partnerMoves, StringList _foeMoves) {
+    private Fight processEffectTargets13(DataBase _data, Difficulty _diff, StringMap<Long> _moves, StringList _partnerMoves, StringList _foeMoves) {
         Player player_ = Player.build(NICKNAME, _diff,false, _data);
         player_.getTeam().add(pkPlayer(_diff, _data, 3, _moves));
         player_.getTeam().add(pkPlayer(_diff, _data, 4, _moves));
@@ -8758,10 +8699,69 @@ public class FightRoundTest extends InitializationDataBase {
         allyTeam_.add(pkTrainer(4, _partnerMoves));
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
         foeTeam_.add(pkTrainer(3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
         return processEffectTargetsDual(_diff, _data, player_, allyTeam_, foeTeam_);
     }
 
-    private Fight processEffectTargets7(DataBase _data, Difficulty _diff, StringMap<Integer> _moves, StringList _partnerMoves, StringList _foeMoves) {
+    private Fight processEffectTargets12(DataBase _data, Difficulty _diff, StringMap<Long> _moves, StringList _partnerMoves, StringList _foeMoves) {
+        Player player_ = Player.build(NICKNAME, _diff,false, _data);
+        player_.getTeam().add(pkPlayer(_diff, _data, 3, _moves));
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        allyTeam_.add(pkTrainer(3, _partnerMoves));
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer(3, _foeMoves));
+        return processEffectTargetsDual(_diff, _data, player_, allyTeam_, foeTeam_);
+    }
+
+    private Fight processEffectTargets11(DataBase _data, Difficulty _diff, StringMap<Long> _moves, StringList _partnerMoves, StringList _foeMoves) {
+        Player player_ = Player.build(NICKNAME, _diff,false, _data);
+        player_.getTeam().add(pkPlayer(_diff, _data, 3, _moves));
+        player_.getTeam().add(pkPlayer(_diff, _data, 4, _moves));
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        allyTeam_.add(pkTrainer(3, _partnerMoves));
+        allyTeam_.add(pkTrainer(3, _partnerMoves));
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer(3, _foeMoves));
+        return processEffectTargetsDual(_diff, _data, player_, allyTeam_, foeTeam_);
+    }
+
+    private Fight processEffectTargets10(DataBase _data, Difficulty _diff, StringMap<Long> _moves, StringList _partnerMoves, StringList _foeMoves) {
+        Player player_ = Player.build(NICKNAME, _diff,false, _data);
+        player_.getTeam().add(pkPlayer(_diff, _data, 3, _moves));
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        allyTeam_.add(pkTrainer(3, _partnerMoves));
+        allyTeam_.add(pkTrainer(3, _partnerMoves));
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer(3, _foeMoves));
+        return processEffectTargetsDual(_diff, _data, player_, allyTeam_, foeTeam_);
+    }
+
+    private Fight processEffectTargets9(DataBase _data, Difficulty _diff, StringMap<Long> _moves, StringList _partnerMoves, StringList _foeMoves) {
+        Player player_ = Player.build(NICKNAME, _diff,false, _data);
+        player_.getTeam().add(pkPlayer(_diff, _data, 3, _moves));
+        player_.getTeam().add(pkPlayer(_diff, _data, 4, _moves));
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        allyTeam_.add(pkTrainer(3, _partnerMoves));
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer(3, _foeMoves));
+        foeTeam_.add(pkTrainer(3, _foeMoves));
+        return processEffectTargetsDual(_diff, _data, player_, allyTeam_, foeTeam_);
+    }
+
+    private Fight processEffectTargets8(DataBase _data, Difficulty _diff, StringMap<Long> _moves, StringList _partnerMoves, StringList _foeMoves) {
+        Player player_ = Player.build(NICKNAME, _diff,false, _data);
+        player_.getTeam().add(pkPlayer(_diff, _data, 3, _moves));
+        player_.getTeam().add(pkPlayer(_diff, _data, 4, _moves));
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        allyTeam_.add(pkTrainer(3, _partnerMoves));
+        allyTeam_.add(pkTrainer(4, _partnerMoves));
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(pkTrainer(3, _foeMoves));
+        return processEffectTargetsDual(_diff, _data, player_, allyTeam_, foeTeam_);
+    }
+
+    private Fight processEffectTargets7(DataBase _data, Difficulty _diff, StringMap<Long> _moves, StringList _partnerMoves, StringList _foeMoves) {
         Player player_ = Player.build(NICKNAME, _diff,false, _data);
         player_.getTeam().add(pkPlayer(_diff, _data, 100, _moves));
         player_.getTeam().add(pkPlayer(_diff, _data, 3, _moves));
@@ -8775,7 +8775,7 @@ public class FightRoundTest extends InitializationDataBase {
         return processEffectTargetsDual(_diff, _data, player_, allyTeam_, foeTeam_);
     }
 
-    private Fight processEffectTargets6(DataBase _data, Difficulty _diff, StringMap<Integer> _moves, StringList _foeMoves) {
+    private Fight processEffectTargets6(DataBase _data, Difficulty _diff, StringMap<Long> _moves, StringList _foeMoves) {
         Player player_ = Player.build(NICKNAME, _diff,false, _data);
         player_.getTeam().add(pkPlayer(_diff, _data, 3, _moves));
         player_.getTeam().add(pkPlayer(_diff, _data, 3, _moves));
@@ -8787,7 +8787,7 @@ public class FightRoundTest extends InitializationDataBase {
         return processEffectTargetsDual(_diff, _data, player_, allyTeam_, foeTeam_);
     }
 
-    private Fight processEffectTargets5(DataBase _data, Difficulty _diff, StringMap<Integer> _moves, StringList _foeMoves) {
+    private Fight processEffectTargets5(DataBase _data, Difficulty _diff, StringMap<Long> _moves, StringList _foeMoves) {
         Player player_ = Player.build(NICKNAME, _diff,false, _data);
         player_.getTeam().add(pkPlayer(_diff, _data, 3, _moves));
         CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
@@ -8797,7 +8797,7 @@ public class FightRoundTest extends InitializationDataBase {
         return processEffectTargetsDual(_diff, _data, player_, allyTeam_, foeTeam_);
     }
 
-    private Fight processEffectTargets4(DataBase _data, Difficulty _diff, StringMap<Integer> _moves, StringList _partnerMoves, StringList _foeMoves) {
+    private Fight processEffectTargets4(DataBase _data, Difficulty _diff, StringMap<Long> _moves, StringList _partnerMoves, StringList _foeMoves) {
         Player player_ = Player.build(NICKNAME, _diff,false, _data);
         player_.getTeam().add(pkPlayer(_diff, _data, 3, _moves));
         player_.getTeam().add(pkPlayer(_diff, _data, 3, _moves));
@@ -8811,11 +8811,11 @@ public class FightRoundTest extends InitializationDataBase {
         return processEffectTargetsDual(_diff, _data, player_, allyTeam_, foeTeam_);
     }
 
-    private Fight processEffectTargets3(DataBase _data, Difficulty _diff, StringMap<Integer> _moves) {
+    private Fight processEffectTargets3(DataBase _data, Difficulty _diff, StringMap<Long> _moves) {
         return processEffectTargets4(_data, _diff, _moves, new StringList(JACKPOT, PAR_ICI, COPIE), new StringList(JACKPOT, PAR_ICI, SAISIE));
     }
 
-    private Fight processEffectTargets1(DataBase _data, Difficulty _diff, StringMap<Integer> _moves, StringList _partnerMoves, StringList _foeMoves) {
+    private Fight processEffectTargets1(DataBase _data, Difficulty _diff, StringMap<Long> _moves, StringList _partnerMoves, StringList _foeMoves) {
         Player player_ = Player.build(NICKNAME, _diff,false, _data);
         player_.getTeam().add(pkPlayer(_diff, _data, 3, _moves));
         player_.getTeam().add(pkPlayer(_diff, _data, 4, _moves));
@@ -8826,7 +8826,7 @@ public class FightRoundTest extends InitializationDataBase {
         return processEffectTargetsDual(_diff, _data, player_, allyTeam_, foeTeam_);
     }
 
-    private Fight processEffectTargets2(DataBase _data, Difficulty _diff, StringMap<Integer> _moves) {
+    private Fight processEffectTargets2(DataBase _data, Difficulty _diff, StringMap<Long> _moves) {
         return processEffectTargets4(_data, _diff, _moves, new StringList(JACKPOT, PAR_ICI, COPIE), new StringList(JACKPOT, PAR_ICI, COPIE));
     }
 
@@ -8852,7 +8852,7 @@ public class FightRoundTest extends InitializationDataBase {
         return fight_;
     }
 
-    private static PokemonPlayer pkPlayer(Difficulty _diff, DataBase _data, int _level, StringMap<Integer> _moves) {
+    private static PokemonPlayer pkPlayer(Difficulty _diff, DataBase _data, int _level, StringMap<Long> _moves) {
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);

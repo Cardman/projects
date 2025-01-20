@@ -38,7 +38,7 @@ public final class Berry extends Item {
 
     private String categoryBoosting;
 
-    private IdMap<Statistic, Integer> boostStatis;
+    private IdMap<Statistic,Long> boostStatis;
 
     @Override
     public String getItemType() {
@@ -196,11 +196,11 @@ public final class Berry extends Item {
         categoryBoosting = _categoryBoosting;
     }
 
-    public IdMap<Statistic, Integer> getBoostStatis() {
+    public IdMap<Statistic,Long> getBoostStatis() {
         return boostStatis;
     }
 
-    public void setBoostStatis(IdMap<Statistic, Integer> _boostStatis) {
+    public void setBoostStatis(IdMap<Statistic,Long> _boostStatis) {
         boostStatis = _boostStatis;
     }
 }

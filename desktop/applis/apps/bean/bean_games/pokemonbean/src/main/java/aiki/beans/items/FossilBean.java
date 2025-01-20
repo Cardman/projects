@@ -5,7 +5,7 @@ import code.util.StringMap;
 
 public class FossilBean extends ItemBean {
     private String pokemon;
-    private int level;
+    private long level;
 
     @Override
     public void beforeDisplaying() {
@@ -23,7 +23,7 @@ public class FossilBean extends ItemBean {
         return tryRedirectPk(pokemon);
     }
 
-    public int getLevel() {
+    public long getLevel() {
         return level;
     }
 }

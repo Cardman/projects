@@ -127,7 +127,7 @@ public final class FightHelpBeanAbilitiesBoostingStatTest extends InitDbFightHel
     private static FacadeGame db(Statistic _st) {
         FacadeGame f_ = facade();
         AbilityData t_ = Instances.newAbilityData();
-        t_.getBonusStatRank().addEntry(_st,1);
+        t_.getBonusStatRank().addEntry(_st,1L);
         f_.getData().completeMembers(M_DAM, t_);
         f_.getData().completeMembers(M_STA, Instances.newAbilityData());
         f_.getData().getTranslatedAbilities().addEntry(EN,new StringMap<String>());

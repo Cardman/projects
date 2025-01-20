@@ -1444,8 +1444,8 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newIndex(true, 0, area_, data_);
         game_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
-        game_.getFight().getFoeTeam().getMembers().values().first().getStatisBoost().put(Statistic.SPEED,  6);
-        game_.getFight().getUserTeam().getMembers().values().first().getStatisBoost().put(Statistic.SPEED,  -6);
+        game_.getFight().getFoeTeam().getMembers().values().first().getStatisBoost().put(Statistic.SPEED,6L);
+        game_.getFight().getUserTeam().getMembers().values().first().getStatisBoost().put(Statistic.SPEED,-6L);
         assertTrue(game_.getFight().getFightType().isWild());
         game_.attemptFlee(data_, false);
         assertTrue(!game_.getFight().getFightType().isExisting());
@@ -1474,8 +1474,8 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newIndex(true, 0, area_, data_);
         game_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
-        game_.getFight().getFoeTeam().getMembers().values().first().getStatisBoost().put(Statistic.SPEED,  6);
-        game_.getFight().getUserTeam().getMembers().values().first().getStatisBoost().put(Statistic.SPEED,  -6);
+        game_.getFight().getFoeTeam().getMembers().values().first().getStatisBoost().put(Statistic.SPEED,6L);
+        game_.getFight().getUserTeam().getMembers().values().first().getStatisBoost().put(Statistic.SPEED,-6L);
         assertTrue(game_.getFight().getFightType().isWild());
         game_.attemptFlee(data_, false);
         assertTrue(game_.getFight().getFightType().isExisting());
@@ -1504,8 +1504,8 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newIndex(true, 0, area_, data_);
         game_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
-        game_.getFight().getFoeTeam().getMembers().values().first().getStatisBoost().put(Statistic.SPEED,  6);
-        game_.getFight().getUserTeam().getMembers().values().first().getStatisBoost().put(Statistic.SPEED,  -6);
+        game_.getFight().getFoeTeam().getMembers().values().first().getStatisBoost().put(Statistic.SPEED,6L);
+        game_.getFight().getUserTeam().getMembers().values().first().getStatisBoost().put(Statistic.SPEED,-6L);
         assertTrue(game_.getFight().getFightType().isWild());
         game_.attemptFlee(data_, true);
         assertTrue(game_.getFight().getFightType().isExisting());
@@ -1564,8 +1564,8 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newIndex(true, 0, area_, data_);
         game_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
-        game_.getFight().getFoeTeam().getMembers().values().first().getStatisBoost().put(Statistic.SPEED,  6);
-        game_.getFight().getUserTeam().getMembers().values().first().getStatisBoost().put(Statistic.SPEED,  -6);
+        game_.getFight().getFoeTeam().getMembers().values().first().getStatisBoost().put(Statistic.SPEED,6L);
+        game_.getFight().getUserTeam().getMembers().values().first().getStatisBoost().put(Statistic.SPEED,-6L);
         assertTrue(game_.getFight().getFightType().isWild());
         game_.attemptFlee(data_, true);
         game_.roundUser(data_);
@@ -1596,8 +1596,8 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newIndex(true, 0, area_, data_);
         game_.getFight().getUserTeam().getEnabledMoves().getVal(AIR_VEINARD).enable();
-        game_.getFight().getFoeTeam().getMembers().values().first().getStatisBoost().put(Statistic.SPEED,  6);
-        game_.getFight().getUserTeam().getMembers().values().first().getStatisBoost().put(Statistic.SPEED,  -6);
+        game_.getFight().getFoeTeam().getMembers().values().first().getStatisBoost().put(Statistic.SPEED,6L);
+        game_.getFight().getUserTeam().getMembers().values().first().getStatisBoost().put(Statistic.SPEED,-6L);
         assertTrue(game_.getFight().getFightType().isWild());
         game_.attemptFlee(data_, true);
         game_.roundUser(data_);

@@ -26,7 +26,7 @@ public class EffectTeamBean extends EffectBean {
     private StringList protectAgainstStatus;
     private StringList disableFoeTeamEffects;
     private StringList disableFoeTeamStatus;
-    private int defaultBoost;
+    private long defaultBoost;
 
     @Override
     public void beforeDisplaying() {
@@ -201,7 +201,7 @@ public class EffectTeamBean extends EffectBean {
         return cancelChgtStatFoeTeam;
     }
 
-    public int getDefaultBoost() {
+    public long getDefaultBoost() {
         return defaultBoost;
     }
 

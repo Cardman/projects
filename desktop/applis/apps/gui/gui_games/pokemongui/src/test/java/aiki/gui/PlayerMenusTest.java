@@ -4452,8 +4452,8 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         DataBase init_ = coreDataBaseIt(trsIt_, trsPk_);
         init_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, trsDesc_);
         Boost boost_ = Instances.newBoost();
-        IdMap<Statistic, Integer> map_ = new IdMap<Statistic, Integer>();
-        map_.addEntry(Statistic.HP, 1);
+        IdMap<Statistic,Long> map_ = new IdMap<Statistic,Long>();
+        map_.addEntry(Statistic.HP, 1L);
         boost_.setEvs(map_);
         HealingPp it_ = Instances.newHealingPp();
         it_.setHealedMovePp(5);
@@ -4475,8 +4475,8 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         DataBase init_ = coreDataBaseIt(trsIt_, trsPk_);
         init_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, trsDesc_);
         Boost boost_ = Instances.newBoost();
-        IdMap<Statistic, Integer> map_ = new IdMap<Statistic, Integer>();
-        map_.addEntry(Statistic.HP, 1);
+        IdMap<Statistic,Long> map_ = new IdMap<Statistic,Long>();
+        map_.addEntry(Statistic.HP,1L);
         boost_.setEvs(map_);
         HealingPp it_ = Instances.newHealingPp();
         it_.setHealingAllMovesFullpp(5);
@@ -4498,8 +4498,8 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         DataBase init_ = coreDataBaseIt(trsIt_, trsPk_);
         init_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, trsDesc_);
         Boost boost_ = Instances.newBoost();
-        IdMap<Statistic, Integer> map_ = new IdMap<Statistic, Integer>();
-        map_.addEntry(Statistic.HP, 1);
+        IdMap<Statistic,Long> map_ = new IdMap<Statistic,Long>();
+        map_.addEntry(Statistic.HP,1L);
         boost_.setEvs(map_);
         HealingHp it_ = Instances.newHealingHp();
         it_.setHp(Rate.one());
@@ -4521,8 +4521,8 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         DataBase init_ = coreDataBaseIt(trsIt_, trsPk_);
         init_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, trsDesc_);
         Boost boost_ = Instances.newBoost();
-        IdMap<Statistic, Integer> map_ = new IdMap<Statistic, Integer>();
-        map_.addEntry(Statistic.HP, 1);
+        IdMap<Statistic,Long> map_ = new IdMap<Statistic,Long>();
+        map_.addEntry(Statistic.HP,1L);
         boost_.setEvs(map_);
         Berry it_ = Instances.newBerry();
         it_.setHealHp(Rate.one());
@@ -4545,8 +4545,8 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         init_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, trsDesc_);
         init_.getTranslatedStatus().addEntry(LANGUAGE, trsSt_);
         Boost boost_ = Instances.newBoost();
-        IdMap<Statistic, Integer> map_ = new IdMap<Statistic, Integer>();
-        map_.addEntry(Statistic.HP, 1);
+        IdMap<Statistic,Long> map_ = new IdMap<Statistic,Long>();
+        map_.addEntry(Statistic.HP,1L);
         boost_.setEvs(map_);
         HealingSimpleStatus it_ = Instances.newHealingSimpleStatus();
         it_.getStatus().add(DESERT);
@@ -4571,8 +4571,8 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         init_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, trsDesc_);
         init_.getTranslatedStatus().addEntry(LANGUAGE, trsSt_);
         Boost boost_ = Instances.newBoost();
-        IdMap<Statistic, Integer> map_ = new IdMap<Statistic, Integer>();
-        map_.addEntry(Statistic.HP, 1);
+        IdMap<Statistic,Long> map_ = new IdMap<Statistic,Long>();
+        map_.addEntry(Statistic.HP,1L);
         boost_.setEvs(map_);
         Berry it_ = Instances.newBerry();
         it_.getHealStatus().add(DESERT);
@@ -4597,8 +4597,8 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         init_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, trsDesc_);
         init_.getTranslatedStatus().addEntry(LANGUAGE, trsSt_);
         Boost boost_ = Instances.newBoost();
-        IdMap<Statistic, Integer> map_ = new IdMap<Statistic, Integer>();
-        map_.addEntry(Statistic.HP, 1);
+        IdMap<Statistic,Long> map_ = new IdMap<Statistic,Long>();
+        map_.addEntry(Statistic.HP,1L);
         boost_.setEvs(map_);
         HealingSimpleItem it_ = Instances.newHealingSimpleItem();
         it_.setHealingTeam(true);

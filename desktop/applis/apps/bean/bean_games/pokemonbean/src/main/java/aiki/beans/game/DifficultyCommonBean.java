@@ -70,19 +70,19 @@ public class DifficultyCommonBean extends CommonBean {
         return difficultyCommon.getEndFightIfOneTeamKo();
     }
 
-    public void setIvPlayer(int _ivPlayer) {
+    public void setIvPlayer(long _ivPlayer) {
         difficultyCommon.setIvPlayer(_ivPlayer);
     }
 
-    public int getIvPlayer() {
+    public long getIvPlayer() {
         return difficultyCommon.getIvPlayer();
     }
 
-    public void setIvFoe(int _ivFoe) {
+    public void setIvFoe(long _ivFoe) {
         difficultyCommon.setIvFoe(_ivFoe);
     }
 
-    public int getIvFoe() {
+    public long getIvFoe() {
         return difficultyCommon.getIvFoe();
     }
 

@@ -360,7 +360,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
     public void stats2() {
         DataBase init_ = one();
         FacadeGame fac_ = fac(init_);
-        first(fac_).getEv().set(Statistic.SPEED,  3);
+        first(fac_).getEv().set(Statistic.SPEED,3L);
         fac_.openMenu();
         fac_.setChosenTeamPokemon( 0);
         assertEq(SPEED_TR,callStatisticInfoPkPlayerGetName(elt(callPokemonPlayerBeanStatisticsGet(displaying(beanPk(EN, fac_))),Statistic.getStatisticsWithBase().indexOfObj(Statistic.SPEED))));
@@ -370,7 +370,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
     public void stats3() {
         DataBase init_ = one();
         FacadeGame fac_ = fac(init_);
-        first(fac_).getEv().set(Statistic.SPEED,  3);
+        first(fac_).getEv().set(Statistic.SPEED,3L);
         fac_.openMenu();
         fac_.setChosenTeamPokemon( 0);
         assertEq(3,callStatisticInfoPkPlayerGetEv(elt(callPokemonPlayerBeanStatisticsGet(displaying(beanPk(EN, fac_))),Statistic.getStatisticsWithBase().indexOfObj(Statistic.SPEED))));
@@ -380,7 +380,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
     public void stats4() {
         DataBase init_ = one();
         FacadeGame fac_ = fac(init_);
-        first(fac_).getIv().set(Statistic.SPEED,  4);
+        first(fac_).getIv().set(Statistic.SPEED,4L);
         fac_.openMenu();
         fac_.setChosenTeamPokemon( 0);
         assertEq(4,callStatisticInfoPkPlayerGetIv(elt(callPokemonPlayerBeanStatisticsGet(displaying(beanPk(EN, fac_))),Statistic.getStatisticsWithBase().indexOfObj(Statistic.SPEED))));
@@ -390,8 +390,8 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
     public void stats5() {
         DataBase init_ = one();
         FacadeGame fac_ = fac(init_);
-        first(fac_).getEv().set(Statistic.SPEED,  2);
-        first(fac_).getIv().set(Statistic.SPEED,  5);
+        first(fac_).getEv().set(Statistic.SPEED,2L);
+        first(fac_).getIv().set(Statistic.SPEED,5L);
         fac_.openMenu();
         fac_.setChosenTeamPokemon( 0);
         assertEq(Rate.newRate("221/40"),callStatisticInfoPkPlayerGetRate(elt(callPokemonPlayerBeanStatisticsGet(displaying(beanPk(EN, fac_))),Statistic.getStatisticsWithBase().indexOfObj(Statistic.SPEED))));
@@ -443,8 +443,8 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         moves(init_);
         image(init_);
         FacadeGame fac_ = fac(init_);
-        first(fac_).getEv().set(Statistic.SPEED,  2);
-        first(fac_).getIv().set(Statistic.SPEED,  5);
+        first(fac_).getEv().set(Statistic.SPEED,2L);
+        first(fac_).getIv().set(Statistic.SPEED,5L);
         fac_.openMenu();
         fac_.setChosenTeamPokemon( 0);
         StringMap<TranslationsAppli> builtMessages_ = new StringMap<TranslationsAppli>();

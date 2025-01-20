@@ -11,7 +11,7 @@ import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class EffectStatisticCommon {
-    private NatStringTreeMap< Integer> statisVarRank;
+    private NatStringTreeMap< Long> statisVarRank;
 
     private NatStringTreeMap< String> localFailStatis;
     private Rate evtRate;
@@ -24,7 +24,7 @@ public final class EffectStatisticCommon {
     private NatStringTreeMap< Rate> lawBoost;
     private StringList cancelLowStat;
     private StringList cancelChgtStat;
-    private int defaultBoost;
+    private long defaultBoost;
     private NatStringTreeMap<String> mapVarsStatistics;
 
     public void init(DataBase _data, String _lg, EffectStatistic _statis, boolean _withEff) {
@@ -32,8 +32,8 @@ public final class EffectStatisticCommon {
         AbsMap<Statistic,String> translatedStatistics_ = _data.getTranslatedStatistics().getVal(_lg);
         evtRate = adj_.getEvtRate();
 //        evtRatePerCent = Rate.multiply(evtRate, new Rate(CommonBean.CST_CENT)).evaluate(2);
-        NatStringTreeMap< Integer> statisVarRank_;
-        statisVarRank_ = new NatStringTreeMap< Integer>();
+        NatStringTreeMap< Long> statisVarRank_;
+        statisVarRank_ = new NatStringTreeMap< Long>();
         for (Statistic s: adj_.getStatisVarRank().getKeys()) {
             statisVarRank_.put(translatedStatistics_.getVal(s), adj_.getStatisVarRank().getVal(s));
         }
@@ -138,7 +138,7 @@ public final class EffectStatisticCommon {
         return Rate.multiply(evtRate, new Rate(CommonBean.CST_CENT)).evaluate(2);
     }
 
-    public NatStringTreeMap<Integer> getStatisVarRank() {
+    public NatStringTreeMap<Long> getStatisVarRank() {
         return statisVarRank;
     }
 
@@ -154,7 +154,7 @@ public final class EffectStatisticCommon {
         return cancelLowStat;
     }
 
-    public int getDefaultBoost() {
+    public long getDefaultBoost() {
         return defaultBoost;
     }
 

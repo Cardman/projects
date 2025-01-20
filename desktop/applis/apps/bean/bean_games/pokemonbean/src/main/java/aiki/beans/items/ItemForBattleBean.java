@@ -34,7 +34,7 @@ public class ItemForBattleBean extends ItemBean {
     private Rate protectAgainstKo;
     private Rate protectAgainstKoIfFullHp;
     private Rate drainedHpByDamageRate;
-    private DictionaryComparator<Statistic, Integer> winEvFight;
+    private DictionaryComparator<Statistic, Long> winEvFight;
 
     private MonteCarloBoolean lawForAttackFirst;
     private Rate multTrappingDamage;
@@ -45,7 +45,7 @@ public class ItemForBattleBean extends ItemBean {
     private String multDamage;
     private Rate multDrainedHp;
     private Rate damageRecoil;
-    private DictionaryComparator<Statistic, Integer> multStatRank;
+    private DictionaryComparator<Statistic, Long> multStatRank;
     private DictionaryComparator<StatisticPokemon, Integer> multStatPokemonRank;
     private DictionaryComparator<Statistic,String> multStat;
     private DictionaryComparator<String, Integer> increasingMaxNbRoundGlobalMove;
@@ -54,8 +54,8 @@ public class ItemForBattleBean extends ItemBean {
 //    private StringList hatching;
     private StringList immuTypes;
     private StringList immuWeather;
-    private DictionaryComparator<Statistic, Integer> boostStatisSuperEff;
-    private DictionaryComparator<String, DictionaryComparator<Statistic, Integer>> boostStatisTypes;
+    private DictionaryComparator<Statistic, Long> boostStatisSuperEff;
+    private DictionaryComparator<String, DictionaryComparator<Statistic, Long>> boostStatisTypes;
 //    private boolean endRound;
 //    private int endRoundRank;
 //    private StringList reasonsEndRound;
@@ -126,13 +126,13 @@ public class ItemForBattleBean extends ItemBean {
         }
         synchroStatus_.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
         synchroStatus = synchroStatus_;
-        DictionaryComparator<Statistic, Integer> winEvFight_;
+        DictionaryComparator<Statistic, Long> winEvFight_;
         winEvFight_ = DictionaryComparatorUtil.buildStatisShort(data_,getLanguage());
         for (Statistic s: item_.getWinEvFight().getKeys()) {
             winEvFight_.put(s, item_.getWinEvFight().getVal(s));
         }
         winEvFight = winEvFight_;
-        DictionaryComparator<Statistic, Integer> multStatRank_;
+        DictionaryComparator<Statistic, Long> multStatRank_;
         multStatRank_ = DictionaryComparatorUtil.buildStatisByte(data_,getLanguage());
         for (Statistic s: item_.getMultStatRank().getKeys()) {
             multStatRank_.put(s, item_.getMultStatRank().getVal(s));
@@ -157,7 +157,7 @@ public class ItemForBattleBean extends ItemBean {
             multStat_.put(s, formula_);
         }
         multStat = multStat_;
-        DictionaryComparator<Statistic, Integer> boostStatisSuperEff_;
+        DictionaryComparator<Statistic, Long> boostStatisSuperEff_;
         boostStatisSuperEff_ = DictionaryComparatorUtil.buildStatisByte(data_,getLanguage());
         for (Statistic s: item_.getBoostStatisSuperEff().getKeys()) {
             boostStatisSuperEff_.put(s, item_.getBoostStatisSuperEff().getVal(s));
@@ -221,14 +221,14 @@ public class ItemForBattleBean extends ItemBean {
         lawForAttackFirst = item_.getLawForAttackFirst();
     }
 
-    private DictionaryComparator<String, DictionaryComparator<Statistic, Integer>> boostStatisTypes(ItemForBattle _item) {
+    private DictionaryComparator<String, DictionaryComparator<Statistic, Long>> boostStatisTypes(ItemForBattle _item) {
         DataBase data_ = getDataBase();
-        DictionaryComparator<String, DictionaryComparator<Statistic, Integer>> boostStatisTypes_;
+        DictionaryComparator<String, DictionaryComparator<Statistic, Long>> boostStatisTypes_;
         boostStatisTypes_ = DictionaryComparatorUtil.buildTypesTypeDic(data_,getLanguage());
-        for (EntryCust<String, IdMap<Statistic, Integer>> t: _item.getBoostStatisTypes().entryList()) {
-            DictionaryComparator<Statistic, Integer> boost_;
+        for (EntryCust<String, IdMap<Statistic,Long>> t: _item.getBoostStatisTypes().entryList()) {
+            DictionaryComparator<Statistic, Long> boost_;
             boost_ = DictionaryComparatorUtil.buildStatisByte(data_,getLanguage());
-            for (EntryCust<Statistic, Integer> s: t.getValue().entryList()) {
+            for (EntryCust<Statistic, Long> s: t.getValue().entryList()) {
                 boost_.put(s.getKey(), s.getValue());
             }
             boostStatisTypes_.put(t.getKey(), boost_);
@@ -552,7 +552,7 @@ public class ItemForBattleBean extends ItemBean {
         return multDamage;
     }
 
-    public DictionaryComparator<Statistic,Integer> getMultStatRank() {
+    public DictionaryComparator<Statistic,Long> getMultStatRank() {
         return multStatRank;
     }
 
@@ -560,11 +560,11 @@ public class ItemForBattleBean extends ItemBean {
         return multStatPokemonRank;
     }
 
-    public DictionaryComparator<Statistic,Integer> getBoostStatisSuperEff() {
+    public DictionaryComparator<Statistic,Long> getBoostStatisSuperEff() {
         return boostStatisSuperEff;
     }
 
-    public DictionaryComparator<String,DictionaryComparator<Statistic,Integer>> getBoostStatisTypes() {
+    public DictionaryComparator<String,DictionaryComparator<Statistic,Long>> getBoostStatisTypes() {
         return boostStatisTypes;
     }
 
@@ -600,7 +600,7 @@ public class ItemForBattleBean extends ItemBean {
         return synchroStatus;
     }
 
-    public DictionaryComparator<Statistic,Integer> getWinEvFight() {
+    public DictionaryComparator<Statistic,Long> getWinEvFight() {
         return winEvFight;
     }
 

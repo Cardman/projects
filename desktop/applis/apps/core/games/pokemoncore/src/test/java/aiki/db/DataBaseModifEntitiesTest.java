@@ -1601,7 +1601,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         DataBase db_ = newData();
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectTeamWhileSendFoe eff_ = Instances.newEffectTeamWhileSendFoe();
-        eff_.getStatusByNbUses().addEntry(1,POKE_BALL);
+        eff_.getStatusByNbUses().addEntry(1L,POKE_BALL);
         move_.getEffects().add(eff_);
         db_.completeMembers(POKE_BALL_2, move_);
         db_.completeMembers(POKE_BALL,Instances.newStatusSimple());
@@ -1825,7 +1825,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         DataBase db_ = newData();
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectTeamWhileSendFoe eff_ = Instances.newEffectTeamWhileSendFoe();
-        eff_.getStatusByNbUses().addEntry(1,POKE_BALL);
+        eff_.getStatusByNbUses().addEntry(1L,POKE_BALL);
         move_.getEffects().add(eff_);
         db_.completeMembers(POKE_BALL_2, move_);
         db_.completeMembers(POKE_BALL,Instances.newStatusSimple());
@@ -2154,7 +2154,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
     public void renameType14() {
         DataBase db_ = newData();
         AbilityData move_ = Instances.newAbilityData();
-        move_.getMultStatIfDamgeType().addEntry(new StatisticType(Statistic.SPEED,POKE_BALL),0);
+        move_.getMultStatIfDamgeType().addEntry(new StatisticType(Statistic.SPEED,POKE_BALL),0L);
         db_.completeMembers(POKE_BALL_2, move_);
         db_.renameType(POKE_BALL,PIKACHU);
         assertEq(PIKACHU,move_.getMultStatIfDamgeType().getKeys().first().getType());
@@ -2359,7 +2359,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         DataBase db_ = newData();
         defTrType(db_);
         AbilityData move_ = Instances.newAbilityData();
-        move_.getMultStatIfDamgeType().addEntry(new StatisticType(Statistic.SPEED,POKE_BALL),0);
+        move_.getMultStatIfDamgeType().addEntry(new StatisticType(Statistic.SPEED,POKE_BALL),0L);
         db_.completeMembers(POKE_BALL_2, move_);
         assertTrue(db_.usedType(POKE_BALL));
     }
@@ -2462,7 +2462,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         DataBase db_ = newData();
         defTrCat(db_);
         AbilityData ab_ = Instances.newAbilityData();
-        ab_.getMultStatIfDamageCat().addEntry(new StatisticCategory(Statistic.SPEED,POKE_BALL),1);
+        ab_.getMultStatIfDamageCat().addEntry(new StatisticCategory(Statistic.SPEED,POKE_BALL),1L);
         db_.completeMembers(POKE_BALL_2, ab_);
         db_.renameCategory(POKE_BALL,PIKACHU);
         assertEq(PIKACHU,ab_.getMultStatIfDamageCat().getKeys().first().getCategory());
@@ -2552,7 +2552,7 @@ public final class DataBaseModifEntitiesTest extends DataBaseValidationCommon {
         DataBase db_ = newData();
         defTrCat(db_);
         AbilityData ab_ = Instances.newAbilityData();
-        ab_.getMultStatIfDamageCat().addEntry(new StatisticCategory(Statistic.SPEED,POKE_BALL),1);
+        ab_.getMultStatIfDamageCat().addEntry(new StatisticCategory(Statistic.SPEED,POKE_BALL),1L);
         db_.completeMembers(POKE_BALL_2, ab_);
         assertTrue(db_.usedCategory(POKE_BALL));
     }

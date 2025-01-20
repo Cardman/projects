@@ -23,7 +23,7 @@ public class TargetLabel {
 
     private String fighterName;
 
-    private int level;
+    private long level;
 
     private int finalWidth;
 
@@ -42,11 +42,11 @@ public class TargetLabel {
     private CustList<AbstractImage> statistics = new CustList<AbstractImage>();
 
     public static int getWidthStatistic(FrontBattle _parent, FacadeGame _facade) {
-        int minValueStatis_ = _facade.getData().getMinBoost();
-        int maxValueStatis_ = _facade.getData().getMaxBoost();
+        long minValueStatis_ = _facade.getData().getMinBoost();
+        long maxValueStatis_ = _facade.getData().getMaxBoost();
         int sideLength_ = _facade.getData().getMap().getSideLength();
         int maxWidthValue_ = IndexConstants.SIZE_EMPTY;
-        for (int i = minValueStatis_; i < maxValueStatis_; i++) {
+        for (long i = minValueStatis_; i < maxValueStatis_; i++) {
             String var_ = Long.toString(i);
             maxWidthValue_ = NumberUtil.max(maxWidthValue_, _parent.stringWidth(var_));
         }
@@ -300,11 +300,11 @@ public class TargetLabel {
         return fighterName;
     }
 
-    public int getLevel() {
+    public long getLevel() {
         return level;
     }
 
-    public void setLevel(int _level) {
+    public void setLevel(long _level) {
         level = _level;
     }
 

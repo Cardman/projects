@@ -10,18 +10,18 @@ public final class GeneComponentModelSubscribeLevelMove implements AbsGeneCompon
     private final AbstractProgramInfos programInfos;
     private final FacadeGame facade;
     private GeneComponentModelEltEnumSub<String> move;
-    private final GeneComponentModelInt level;
+    private final GeneComponentModelLong level;
     private final SubscribedTranslationList subscribedTranslationList;
     public GeneComponentModelSubscribeLevelMove(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub) {
         programInfos = _fact;
         facade = _facade;
         subscribedTranslationList = _sub;
-        level = new GeneComponentModelInt(_fact);
+        level = new GeneComponentModelLong(_fact);
     }
     @Override
     public AbsCustComponent geneEnum(int _select, int _value) {
         AbsPanel form_ = programInfos.getCompoFactory().newLineBox();
-        form_.add(level.geneInt());
+        form_.add(level.geneLong());
         move = ConverterCommonMapUtil.buildMvFull(programInfos, facade,subscribedTranslationList);
         form_.add(move.geneEnum());
         return form_;
@@ -30,14 +30,14 @@ public final class GeneComponentModelSubscribeLevelMove implements AbsGeneCompon
     @Override
     public LevelMove tryRet() {
         LevelMove lv_ = new LevelMove();
-        lv_.setLevel(level.valueInt());
+        lv_.setLevel(level.valueLong());
         lv_.setMove(move.tryRet());
         return lv_;
     }
 
     @Override
     public void setupValue(LevelMove _value) {
-        level.valueInt(_value.getLevel());
+        level.valueLong(_value.getLevel());
         move.setupValue(_value.getMove());
     }
 
@@ -48,7 +48,7 @@ public final class GeneComponentModelSubscribeLevelMove implements AbsGeneCompon
         return ids_;
     }
 
-    public GeneComponentModelInt getLevel() {
+    public GeneComponentModelLong getLevel() {
         return level;
     }
 

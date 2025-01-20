@@ -135,7 +135,7 @@ public abstract class InitDbMoveEffectStatistic extends InitDbMoveEffect {
         e_.getLocalFailSwapBoostStatis().addEntry(Statistic.SPEED, _swapFail);
         return e_;
     }
-    protected EffectStatistic withStatisVarRank(EffectStatistic _e, Statistic _statis, int _v) {
+    protected EffectStatistic withStatisVarRank(EffectStatistic _e, Statistic _statis, long _v) {
         _e.getStatisVarRank().addEntry(_statis,_v);
         return _e;
     }

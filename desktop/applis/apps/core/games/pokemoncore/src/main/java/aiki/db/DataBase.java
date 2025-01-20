@@ -4919,18 +4919,18 @@ public final class DataBase {
     }
 
     /** General data HTML - walking */
-    public int getNbNecStepsIncrHappiness() {
-        return (int) constNum(PAS_NECES_INCREMENT_BONHEUR).ll();
+    public long getNbNecStepsIncrHappiness() {
+        return constNum(PAS_NECES_INCREMENT_BONHEUR).ll();
     }
 
     /** General data HTML - host */
-    public int getNbMaxStepsSameEvoBase() {
-        return (int) constNum(MAX_STEPS_SAME_EVO_BASE).ll();
+    public long getNbMaxStepsSameEvoBase() {
+        return constNum(MAX_STEPS_SAME_EVO_BASE).ll();
     }
 
     /** General data HTML - host */
-    public int getNbMaxSteps() {
-        return (int) constNum(MAX_STEPS).ll();
+    public long getNbMaxSteps() {
+        return constNum(MAX_STEPS).ll();
     }
 
     /** General data HTML */
@@ -4939,48 +4939,48 @@ public final class DataBase {
     }
 
     /** USED */
-    public int getHappinessEvo() {
-        return (int) constNum(EVO_BONHEUR).ll();
+    public long getHappinessEvo() {
+        return constNum(EVO_BONHEUR).ll();
     }
 
     /** General data HTML */
-    public int getHappinessMax() {
-        return (int) constNum(MAX_BONHEUR).ll();
+    public long getHappinessMax() {
+        return constNum(MAX_BONHEUR).ll();
     }
 
     /** General data HTML */
-    public int getMaxEv() {
-        return (int) constNum(MAX_EV).ll();
+    public long getMaxEv() {
+        return constNum(MAX_EV).ll();
     }
 
     /** General data HTML */
-    public int getMaxIv() {
-        return (int) constNum(MAX_IV).ll();
+    public long getMaxIv() {
+        return constNum(MAX_IV).ll();
     }
 
     /** General data HTML */
-    public int getNbMaxTeam() {
-        return (int) constNum(DEF_PKEQ).ll();
+    public long getNbMaxTeam() {
+        return constNum(DEF_PKEQ).ll();
     }
 
     /** USED in a table */
-    public int getMinBoost() {
-        return (int) constNum(MIN_BOOST).ll();
+    public long getMinBoost() {
+        return constNum(MIN_BOOST).ll();
     }
 
     /** USED */
-    public int getDefaultBoost() {
-        return (int) constNum(VALEUR_DEF_STATIS).ll();
+    public long getDefaultBoost() {
+        return constNum(VALEUR_DEF_STATIS).ll();
     }
 
     /** USED in a table */
-    public int getMaxBoost() {
-        return (int) constNum(MAX_BOOST).ll();
+    public long getMaxBoost() {
+        return constNum(MAX_BOOST).ll();
     }
 
     /** General data HTML */
-    public int getNbMaxMoves() {
-        return (int) constNum(DEF_MAX_ATT).ll();
+    public long getNbMaxMoves() {
+        return constNum(DEF_MAX_ATT).ll();
     }
 
     /** USED */
@@ -4989,13 +4989,13 @@ public final class DataBase {
     }
 
     /** General data HTML */
-    public int getMinLevel() {
-        return (int) constNum(DataBase.NIVEAU_PK_ECLOSION).ll();
+    public long getMinLevel() {
+        return constNum(DataBase.NIVEAU_PK_ECLOSION).ll();
     }
 
     /** General data HTML */
-    public int getMaxLevel() {
-        return (int) constNum(DataBase.NIVEAU_PK_MAX).ll();
+    public long getMaxLevel() {
+        return constNum(DataBase.NIVEAU_PK_MAX).ll();
     }
 
     /** USED */
@@ -6011,7 +6011,7 @@ public final class DataBase {
         }
         if (_e instanceof EffectTeamWhileSendFoe) {
             EffectTeamWhileSendFoe eff_ = (EffectTeamWhileSendFoe) _e;
-            new ChangeStringValueUtil<Integer>(eff_.getStatusByNbUses()).replace(_oldName, _newName);
+            new ChangeStringValueUtil<Long>(eff_.getStatusByNbUses()).replace(_oldName, _newName);
         }
         if (_e instanceof EffectGlobal) {
             EffectGlobal eff_ = (EffectGlobal) _e;
@@ -6036,7 +6036,7 @@ public final class DataBase {
         }
         if (_e instanceof EffectTeamWhileSendFoe) {
             EffectTeamWhileSendFoe eff_ = (EffectTeamWhileSendFoe) _e;
-            ls_.add(new ChangeStringValueUtil<Integer>(eff_.getStatusByNbUses()));
+            ls_.add(new ChangeStringValueUtil<Long>(eff_.getStatusByNbUses()));
         }
         if (_e instanceof EffectGlobal) {
             EffectGlobal eff_ = (EffectGlobal) _e;

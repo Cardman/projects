@@ -471,7 +471,7 @@ final class FightRules {
                 _fight.addMessage(_import, Fight.ERR_NO_EFFECT, itemNameTr_, name_);
             }
         } else {
-            int var_ = _creature.healedPpMove(attaque_, nomObjet_, _import);
+            long var_ = _creature.healedPpMove(attaque_, nomObjet_, _import);
             if (var_ == 0) {
                 error_ = true;
                 _fight.addMessage(_import, Fight.ERR_NO_EFFECT, itemNameTr_, name_);
@@ -506,13 +506,13 @@ final class FightRules {
     private static boolean agitPp(DataBase _import, Fighter _creature, String _nomObjet, HealingPp _soinpp) {
         boolean agit_ = false;
         if (_soinpp.getHealedMovePp() > 0 || _soinpp.getHealingMoveFullpp()) {
-            int var_ = _creature.healedPpMove(_creature.getFirstChosenMove(), _nomObjet, _import);
+            long var_ = _creature.healedPpMove(_creature.getFirstChosenMove(), _nomObjet, _import);
             if (var_ > 0) {
                 agit_ = true;
             }
         } else {
             for (String c2_ : _creature.getCurrentMovesSet()) {
-                int var_ = _creature.healedPpMove(c2_, _nomObjet, _import);
+                long var_ = _creature.healedPpMove(c2_, _nomObjet, _import);
                 if (var_ > 0) {
                     agit_ = true;
                     break;
@@ -527,7 +527,7 @@ final class FightRules {
         if(!_baie.getMultStat().isEmpty()){
             for(Statistic c2_: _baie.getMultStat().getKeys()){
                 int varBase_= _baie.getMultStat().getVal(c2_).getBoost();
-                int var_= FightEffects.deltaBoostStatistic(_fight,Fight.toUserFighter(_c),c2_,varBase_, _import);
+                long var_= FightEffects.deltaBoostStatistic(_fight,Fight.toUserFighter(_c),c2_,varBase_, _import);
                 if(var_>0){
                     agit_=true;
                     break;

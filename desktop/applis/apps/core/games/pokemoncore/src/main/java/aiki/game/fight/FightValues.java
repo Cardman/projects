@@ -130,7 +130,7 @@ final class FightValues {
     private static void sommeLanceurBoostsPositifs(Fighter _creatureCbtLanceur, StringMap<String> _variables, AbsVariableSuffixStatArg _boost, String _sommeBoostPos) {
         Rate sommeLanceurBoostsPositifs_=Rate.zero();
         for(Statistic c: _creatureCbtLanceur.getStatisBoost().getKeys()){
-            int boost_= _creatureCbtLanceur.getStatisBoost().getVal(c);
+            long boost_= _creatureCbtLanceur.getStatisBoost().getVal(c);
             if(boost_>0){
                 sommeLanceurBoostsPositifs_.addNb(new Rate(boost_));
             }
@@ -304,7 +304,7 @@ final class FightValues {
             if(!StringUtil.contains(_creatureCbtLanceur.attaquesUtilisables(), c)){
                 _variables.put(_key.value(c),Fight.ZERO);
             }else{
-                int ppActuel_= _creatureCbtLanceur.powerPointsMove(c);
+                long ppActuel_= _creatureCbtLanceur.powerPointsMove(c);
                 _variables.put(_key.value(c),Long.toString(ppActuel_));
             }
         }
@@ -457,9 +457,9 @@ final class FightValues {
 
     private static boolean aucunBoostPossible(DataBase _import, Fighter _creatureCbtCible) {
         boolean aucunBoostPossible_=true;
-        int maxBoost_=_import.getMaxBoost();
+        long maxBoost_=_import.getMaxBoost();
         for(Statistic c: _creatureCbtCible.getStatisBoost().getKeys()){
-            int boost_= _creatureCbtCible.getStatisBoost().getVal(c);
+            long boost_= _creatureCbtCible.getStatisBoost().getVal(c);
             if(boost_<maxBoost_){
                 aucunBoostPossible_=false;
                 break;

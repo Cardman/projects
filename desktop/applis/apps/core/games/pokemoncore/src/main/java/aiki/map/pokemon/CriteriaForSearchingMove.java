@@ -53,7 +53,7 @@ public final class CriteriaForSearchingMove extends CriteriaForSearching {
         return match(searchModeType, contentOfType, _types);
     }
 
-    public boolean matchPrice(int _price) {
+    public boolean matchPrice(long _price) {
         return CriteriaForSearching.match(minPrice, maxPrice, _price);
     }
 
@@ -64,7 +64,7 @@ public final class CriteriaForSearchingMove extends CriteriaForSearching {
         return StringUtil.quickEq(selectedClass, _item.getMoveType());
     }
 
-    public boolean matchPp(int _pp) {
+    public boolean matchPp(long _pp) {
         return CriteriaForSearching.match(minPp, maxPp, _pp);
     }
 

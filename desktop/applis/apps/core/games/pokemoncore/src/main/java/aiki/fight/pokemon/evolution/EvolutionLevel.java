@@ -5,7 +5,7 @@ import aiki.db.DataBase;
 
 public abstract class EvolutionLevel extends Evolution {
 
-    private int level;
+    private long level;
 
     protected final boolean validateEvolutionLevel(DataBase _dataBase) {
         boolean res_ = level <= 0;
@@ -15,11 +15,11 @@ public abstract class EvolutionLevel extends Evolution {
         return res_;
     }
 
-    public int getLevel() {
+    public long getLevel() {
         return level;
     }
 
-    public void setLevel(int _level) {
+    public void setLevel(long _level) {
         level = _level;
     }
 }

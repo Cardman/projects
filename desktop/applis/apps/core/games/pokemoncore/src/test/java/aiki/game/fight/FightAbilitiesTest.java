@@ -310,11 +310,11 @@ public class FightAbilitiesTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 32);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(A_LA_QUEUE,  10);
-        moves_.put(APRES_VOUS,  10);
-        moves_.put(SEISME,  10);
-        moves_.put(BROUHAHA,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(A_LA_QUEUE,10L);
+        moves_.put(APRES_VOUS,10L);
+        moves_.put(SEISME,10L);
+        moves_.put(BROUHAHA,10L);
         PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.setNickname(PIKA);
@@ -441,7 +441,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
     public void enableAbility1Test() {
         DataBase data_ = initDb();
         Fight fight_ = enableAbility(HYPER_CUTTER, MULTITYPE,  1, data_);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK,  -2);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK,-2L);
         FightAbilities.enableAbility(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_);
         assertEq(0, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.ATTACK));
     }
@@ -451,7 +451,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = enableAbility(PIED_VELOCE, MULTITYPE,  1, data_);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterStatut(PARALYSIE);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED,  -1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED,-1L);
         FightAbilities.enableAbility(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_);
         assertEq(0, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.SPEED));
         assertEq(1, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getStatusNbRound(PARALYSIE));
@@ -500,7 +500,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = enableAbility(PIED_VELOCE, MULTITYPE,  1, data_);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterStatut(PARALYSIE);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED,  2);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED,2L);
         FightAbilities.enableAbility(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_);
         assertEq(2, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.SPEED));
     }
@@ -510,7 +510,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = enableAbility(PIED_VELOCE, MULTITYPE,  1, data_);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).supprimerStatut(PARALYSIE);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED,  -1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED,-1L);
         FightAbilities.enableAbility(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_);
         assertEq(-1, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.SPEED));
     }
@@ -519,7 +519,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
     public void enableAbility9Test() {
         DataBase data_ = initDb();
         Fight fight_ = enableAbility(PIED_VELOCE, MULTITYPE,  1, data_);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED,  -1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED,-1L);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterStatut(BRULURE);
         FightAbilities.enableAbility(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_);
         assertEq(0, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.ATTACK));
@@ -531,7 +531,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = enableAbility(PIED_VELOCE, MULTITYPE,  1, data_);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED,  -1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED,-1L);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).affecterStatut(BRULURE);
         FightAbilities.enableAbility(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_);
         assertEq(0, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.ATTACK));
@@ -542,7 +542,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
     public void enableAbility11Test() {
         DataBase data_ = initDb();
         Fight fight_ = enableAbility(HYPER_CUTTER, MULTITYPE,  1, data_);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK,  2);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK,2L);
         FightAbilities.enableAbility(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_);
         assertEq(2, fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.ATTACK));
     }

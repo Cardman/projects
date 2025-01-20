@@ -44,11 +44,11 @@ public class FightSuccessTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 3);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(SEISME,  10);
-        moves_.put(SOIN,  10);
-        moves_.put(COUD_KRANE,  10);
-        moves_.put(BROUHAHA,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(SEISME,  10L);
+        moves_.put(SOIN,  10L);
+        moves_.put(COUD_KRANE,  10L);
+        moves_.put(BROUHAHA,  10L);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(_data);
@@ -755,11 +755,11 @@ public class FightSuccessTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 3);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(SEISME,  10);
-        moves_.put(SOIN,  10);
-        moves_.put(GLAS_DE_SOIN,  10);
-        moves_.put(INTERVERSION,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(SEISME,  10L);
+        moves_.put(SOIN,  10L);
+        moves_.put(GLAS_DE_SOIN,  10L);
+        moves_.put(INTERVERSION,  10L);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(_data);
@@ -1588,11 +1588,11 @@ public class FightSuccessTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 3);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(SEISME,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(GLAS_DE_SOIN,  10);
-        moves_.put(INTERVERSION,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(SEISME,  10L);
+        moves_.put(COPIE,  10L);
+        moves_.put(GLAS_DE_SOIN,  10L);
+        moves_.put(INTERVERSION,  10L);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(_data);
@@ -1956,11 +1956,11 @@ public class FightSuccessTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 3);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(SEISME,  10);
-        moves_.put(A_LA_QUEUE,  10);
-        moves_.put(APRES_VOUS,  10);
-        moves_.put(BROUHAHA,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(SEISME,  10L);
+        moves_.put(A_LA_QUEUE,  10L);
+        moves_.put(APRES_VOUS,  10L);
+        moves_.put(BROUHAHA,  10L);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(_data);
@@ -2040,7 +2040,7 @@ public class FightSuccessTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = rateEffAgainstTargetMove(data_);
         fight_.getFoeTeam().activerEffetEquipe(RUNE_PROTECT);
-        assertTrue(FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  -1, false, new StringList(), data_));
+        assertTrue(FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,-1L, false, new StringList(), data_));
     }
 
     @Test
@@ -2048,7 +2048,7 @@ public class FightSuccessTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = rateEffAgainstTargetMove(data_);
         fight_.getFoeTeam().activerEffetEquipe(BRUME);
-        assertTrue(!FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  -1, false, new StringList(), data_));
+        assertTrue(!FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,-1L, false, new StringList(), data_));
     }
 
     @Test
@@ -2056,7 +2056,7 @@ public class FightSuccessTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = rateEffAgainstTargetMove(data_);
         fight_.getFoeTeam().activerEffetEquipe(BRUME);
-        assertTrue(FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  -1, false, new StringList(BRUME), data_));
+        assertTrue(FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,-1L, false, new StringList(BRUME), data_));
     }
 
     @Test
@@ -2064,7 +2064,7 @@ public class FightSuccessTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = rateEffAgainstTargetMove(data_);
         fight_.getFoeTeam().activerEffetEquipe(BRUME);
-        assertTrue(FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  1, false, new StringList(), data_));
+        assertTrue(FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,1L, false, new StringList(), data_));
     }
 
     @Test
@@ -2073,7 +2073,7 @@ public class FightSuccessTest extends InitializationDataBase {
         Fight fight_ = rateEffAgainstTargetMove(data_);
         fight_.getFoeTeam().activerEffetEquipe(BRUME);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setCurrentAbility(HYPER_CUTTER);
-        assertTrue(!FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  -1, false, new StringList(BRUME), data_));
+        assertTrue(!FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,-1L, false, new StringList(BRUME), data_));
     }
 
     @Test
@@ -2081,7 +2081,7 @@ public class FightSuccessTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = rateEffAgainstTargetMove(data_);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setCurrentAbility(HYPER_CUTTER);
-        assertTrue(FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  -1, true, new StringList(), data_));
+        assertTrue(FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,-1L, true, new StringList(), data_));
     }
 
     @Test
@@ -2090,7 +2090,7 @@ public class FightSuccessTest extends InitializationDataBase {
         Fight fight_ = rateEffAgainstTargetMove(data_);
         fight_.getFoeTeam().activerEffetEquipe(BRUME);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setCurrentAbility(HYPER_CUTTER);
-        assertTrue(FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  1, false, new StringList(BRUME), data_));
+        assertTrue(FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,1L, false, new StringList(BRUME), data_));
     }
 
     @Test
@@ -2099,7 +2099,7 @@ public class FightSuccessTest extends InitializationDataBase {
         Fight fight_ = rateEffAgainstTargetMove(data_);
         fight_.getFoeTeam().activerEffetEquipe(BRUME);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
-        assertTrue(FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  -1, false, new StringList(BRUME), data_));
+        assertTrue(FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,-1L, false, new StringList(BRUME), data_));
     }
 
     @Test
@@ -2109,7 +2109,7 @@ public class FightSuccessTest extends InitializationDataBase {
         fight_.getFoeTeam().activerEffetEquipe(BRUME);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setCurrentAbility(CRAN);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterStatut(ERE_GEL);
-        assertTrue(FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  -1, false, new StringList(BRUME), data_));
+        assertTrue(FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,-1L, false, new StringList(BRUME), data_));
     }
 
     @Test
@@ -2120,7 +2120,7 @@ public class FightSuccessTest extends InitializationDataBase {
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setCurrentAbility(CRAN);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterStatut(ERE_GEL);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).affecterStatut(BRULURE);
-        assertTrue(!FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  -1, false, new StringList(BRUME), data_));
+        assertTrue(!FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,-1L, false, new StringList(BRUME), data_));
     }
 
     @Test
@@ -2128,7 +2128,7 @@ public class FightSuccessTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = rateEffAgainstTargetMove(data_);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).backUpObject(NULL_REF);
-        assertTrue(FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  -1, false, new StringList(), data_));
+        assertTrue(FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,-1L, false, new StringList(), data_));
     }
 
     @Test
@@ -2136,7 +2136,7 @@ public class FightSuccessTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = rateEffAgainstTargetMove(data_);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).backUpObject(BAIE_MEPO);
-        assertTrue(FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  -1, false, new StringList(), data_));
+        assertTrue(FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,-1L, false, new StringList(), data_));
     }
 
     @Test
@@ -2144,7 +2144,7 @@ public class FightSuccessTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = rateEffAgainstTargetMove(data_);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).backUpObject(HERBEBLANCHE);
-        assertTrue(!FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  -1, false, new StringList(), data_));
+        assertTrue(!FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,-1L, false, new StringList(), data_));
     }
 
     @Test
@@ -2152,7 +2152,7 @@ public class FightSuccessTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = rateEffAgainstTargetMove(data_);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).backUpObject(HERBEBLANCHE);
-        assertTrue(FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  1, false, new StringList(), data_));
+        assertTrue(FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,1L, false, new StringList(), data_));
     }
 
     @Test
@@ -2160,8 +2160,8 @@ public class FightSuccessTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = rateEffAgainstTargetMove(data_);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK,  data_.getMaxBoost());
-        assertTrue(!FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  1, false, new StringList(), data_));
-        assertTrue(FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  -1, false, new StringList(), data_));
+        assertTrue(!FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,1L, false, new StringList(), data_));
+        assertTrue(FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,-1L, false, new StringList(), data_));
     }
 
     @Test
@@ -2169,8 +2169,8 @@ public class FightSuccessTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = rateEffAgainstTargetMove(data_);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK,  data_.getMinBoost());
-        assertTrue(FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  1, false, new StringList(), data_));
-        assertTrue(!FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  -1, false, new StringList(), data_));
+        assertTrue(FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,1L, false, new StringList(), data_));
+        assertTrue(!FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,-1L, false, new StringList(), data_));
     }
 
     @Test
@@ -2178,7 +2178,7 @@ public class FightSuccessTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = rateEffAgainstTargetMove(data_);
         fight_.getFoeTeam().activerEffetEquipe(TOUR_RAPIDE);
-        assertTrue(FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  -1, false, new StringList(), data_));
+        assertTrue(FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,-1L, false, new StringList(), data_));
     }
 
     @Test
@@ -2187,7 +2187,7 @@ public class FightSuccessTest extends InitializationDataBase {
         Fight fight_ = rateEffAgainstTargetMove(data_);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setTypes(new StringList(EAU));
-        assertTrue(FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  -1, false, new StringList(), data_));
+        assertTrue(FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,-1L, false, new StringList(), data_));
     }
 
     @Test
@@ -2196,7 +2196,7 @@ public class FightSuccessTest extends InitializationDataBase {
         Fight fight_ = rateEffAgainstTargetMove(data_);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setTypes(new StringList(PLANTE));
-        assertTrue(FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  -1, false, new StringList(), data_));
+        assertTrue(FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,-1L, false, new StringList(), data_));
     }
 
     @Test
@@ -2205,7 +2205,7 @@ public class FightSuccessTest extends InitializationDataBase {
         Fight fight_ = rateEffAgainstTargetMove(data_);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).setCurrentAbility(FLORA_VOILE);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setTypes(new StringList(PLANTE));
-        assertTrue(FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.SPEED,  -1, false, new StringList(), data_));
+        assertTrue(FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.SPEED,-1L, false, new StringList(), data_));
     }
 
     @Test
@@ -2214,7 +2214,7 @@ public class FightSuccessTest extends InitializationDataBase {
         Fight fight_ = rateEffAgainstTargetMove(data_);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).setCurrentAbility(FLORA_VOILE);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setTypes(new StringList(PLANTE));
-        assertTrue(FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  1, false, new StringList(), data_));
+        assertTrue(FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,1L, false, new StringList(), data_));
     }
 
     @Test
@@ -2223,7 +2223,7 @@ public class FightSuccessTest extends InitializationDataBase {
         Fight fight_ = rateEffAgainstTargetMove(data_);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).setCurrentAbility(FLORA_VOILE);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setTypes(new StringList(PLANTE));
-        assertTrue(!FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  -1, false, new StringList(), data_));
+        assertTrue(!FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,-1L, false, new StringList(), data_));
     }
 
     @Test
@@ -2232,14 +2232,14 @@ public class FightSuccessTest extends InitializationDataBase {
         Fight fight_ = rateEffAgainstTargetMove(data_);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).setCurrentAbility(FLORA_VOILE);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setTypes(new StringList(EAU));
-        assertTrue(FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  -1, false, new StringList(), data_));
+        assertTrue(FightSuccess.successChangedStatisticProtect(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,-1L, false, new StringList(), data_));
     }
 
     @Test
     public void successChangedStatistic1Test() {
         DataBase data_ = initDb();
         Fight fight_ = rateEffAgainstTargetMove(data_);
-        assertTrue(FightSuccess.successChangedStatistic(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  -1, data_));
+        assertTrue(FightSuccess.successChangedStatistic(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,-1L, data_));
     }
 
     @Test
@@ -2247,7 +2247,7 @@ public class FightSuccessTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = rateEffAgainstTargetMove(data_);
         fight_.getFoeTeam().activerEffetEquipe(BRUME);
-        assertTrue(!FightSuccess.successChangedStatistic(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  -1, data_));
+        assertTrue(!FightSuccess.successChangedStatistic(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,-1L, data_));
     }
 
     @Test
@@ -2256,7 +2256,7 @@ public class FightSuccessTest extends InitializationDataBase {
         Fight fight_ = rateEffAgainstTargetMove(data_);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(INFILTRATION);
         fight_.getFoeTeam().activerEffetEquipe(BRUME);
-        assertTrue(FightSuccess.successChangedStatistic(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  -1, data_));
+        assertTrue(FightSuccess.successChangedStatistic(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,-1L, data_));
     }
 
     @Test
@@ -2265,7 +2265,7 @@ public class FightSuccessTest extends InitializationDataBase {
         Fight fight_ = rateEffAgainstTargetMove(data_);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(INFILTRATION);
         fight_.getUserTeam().activerEffetEquipe(BRUME);
-        assertTrue(!FightSuccess.successChangedStatistic(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), Statistic.ATTACK,  -1, data_));
+        assertTrue(!FightSuccess.successChangedStatistic(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), Statistic.ATTACK,-1L, data_));
     }
 
     @Test
@@ -2274,7 +2274,7 @@ public class FightSuccessTest extends InitializationDataBase {
         Fight fight_ = rateEffAgainstTargetMove(data_);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
         fight_.getFoeTeam().activerEffetEquipe(BRUME);
-        assertTrue(!FightSuccess.successChangedStatistic(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,  -1, data_));
+        assertTrue(!FightSuccess.successChangedStatistic(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), tp(KEY_FOE, POKEMON_FIGHTER_ZERO), Statistic.ATTACK,-1L, data_));
     }
 
     @Test
@@ -2365,11 +2365,11 @@ public class FightSuccessTest extends InitializationDataBase {
     public void successfulChangedStatistics5Test() {
         DataBase data_ = initDb();
         Fight fight_ = sufferingDamageTypes(data_);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK,  3);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPECIAL_ATTACK,  1);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED,  -1);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.DEFENSE,  -1);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPECIAL_DEFENSE,  -1);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK,3L);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPECIAL_ATTACK,1L);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED,-1L);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.DEFENSE,-1L);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPECIAL_DEFENSE,-1L);
         MoveData move_ = data_.getMove(DEGOMMAGE);
         EffectStatistic eff_ = (EffectStatistic) move_.getEffects().last();
         IdList<Statistic> stats_ = FightSuccess.successfulChangedStatistics(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), tp(KEY_FOE, POKEMON_FIGHTER_ZERO), eff_, data_);
@@ -2383,13 +2383,13 @@ public class FightSuccessTest extends InitializationDataBase {
     public void successfulChangedStatistics6Test() {
         DataBase data_ = initDb();
         Fight fight_ = sufferingDamageTypes(data_);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK,  1);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPECIAL_ATTACK,  3);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK,  3);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPECIAL_ATTACK,  1);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED,  -1);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.DEFENSE,  -1);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPECIAL_DEFENSE,  -1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK,1L);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPECIAL_ATTACK,3L);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK,3L);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPECIAL_ATTACK,1L);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED,-1L);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.DEFENSE,-1L);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPECIAL_DEFENSE,-1L);
         fight_.getUserTeam().activerEffetEquipe(BRUME);
         MoveData move_ = data_.getMove(BOOST);
         EffectStatistic eff_ = (EffectStatistic) move_.getEffet(move_.indexOfPrimaryEffect());
@@ -2404,11 +2404,11 @@ public class FightSuccessTest extends InitializationDataBase {
     public void successfulChangedStatistics7Test() {
         DataBase data_ = initDb();
         Fight fight_ = sufferingDamageTypes(data_);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK,  3);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPECIAL_ATTACK,  1);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED,  -1);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.DEFENSE,  -1);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPECIAL_DEFENSE,  -1);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK,3L);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPECIAL_ATTACK,1L);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED,-1L);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.DEFENSE,-1L);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPECIAL_DEFENSE,-1L);
         MoveData move_ = data_.getMove(BUEE_NOIRE);
         EffectStatistic eff_ = (EffectStatistic) move_.getEffects().last();
         IdList<Statistic> stats_ = FightSuccess.successfulChangedStatistics(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), tp(KEY_FOE, POKEMON_FIGHTER_ZERO), eff_, data_);
@@ -2426,11 +2426,11 @@ public class FightSuccessTest extends InitializationDataBase {
     public void successfulChangedStatistics8Test() {
         DataBase data_ = initDb();
         Fight fight_ = sufferingDamageTypes(data_);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK,  3);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPECIAL_ATTACK,  1);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED,  -1);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.DEFENSE,  -1);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPECIAL_DEFENSE,  -1);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK,3L);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPECIAL_ATTACK,1L);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED,-1L);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.DEFENSE,-1L);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPECIAL_DEFENSE,-1L);
         MoveData move_ = data_.getMove(PERMUCOEUR);
         EffectStatistic eff_ = (EffectStatistic) move_.getEffects().last();
         IdList<Statistic> stats_ = FightSuccess.successfulChangedStatistics(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), tp(KEY_FOE, POKEMON_FIGHTER_ZERO), eff_, data_);
@@ -2447,11 +2447,11 @@ public class FightSuccessTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = sufferingDamageTypes(data_);
         fight_.getUserTeam().activerEffetEquipe(BRUME);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK,  3);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPECIAL_ATTACK,  1);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED,  -1);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.DEFENSE,  -1);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPECIAL_DEFENSE,  -1);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK,3L);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPECIAL_ATTACK,1L);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED,-1L);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.DEFENSE,-1L);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPECIAL_DEFENSE,-1L);
         MoveData move_ = data_.getMove(PERMUCOEUR);
         EffectStatistic eff_ = (EffectStatistic) move_.getEffects().last();
         IdList<Statistic> stats_ = FightSuccess.successfulChangedStatistics(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), tp(KEY_FOE, POKEMON_FIGHTER_ZERO), eff_, data_);
@@ -2466,10 +2466,10 @@ public class FightSuccessTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = sufferingDamageTypes(data_);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).creerClone(new Rate("1/2"));
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK,  3);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK,  1);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.DEFENSE,  1);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPECIAL_DEFENSE,  1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK,3L);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK,1L);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.DEFENSE,1L);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPECIAL_DEFENSE,1L);
         MoveData move_ = data_.getMove(PERMUCOEUR);
         EffectStatistic eff_ = (EffectStatistic) move_.getEffects().last();
         IdList<Statistic> stats_ = FightSuccess.successfulChangedStatistics(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), tp(KEY_FOE, POKEMON_FIGHTER_ZERO), eff_, data_);
@@ -2484,11 +2484,11 @@ public class FightSuccessTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = sufferingDamageTypes(data_);
         fight_.getFoeTeam().activerEffetEquipe(BRUME);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK,  3);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPECIAL_ATTACK,  1);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED,  -1);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.DEFENSE,  -1);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPECIAL_DEFENSE,  -1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK,3L);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPECIAL_ATTACK,1L);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED,-1L);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.DEFENSE,-1L);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPECIAL_DEFENSE,-1L);
         MoveData move_ = data_.getMove(PERMUCOEUR);
         EffectStatistic eff_ = (EffectStatistic) move_.getEffects().last();
         IdList<Statistic> stats_ = FightSuccess.successfulChangedStatistics(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), tp(KEY_FOE, POKEMON_FIGHTER_ZERO), eff_, data_);
@@ -2513,7 +2513,7 @@ public class FightSuccessTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = sufferingDamageTypes(data_);
         fight_.getFoeTeam().activerEffetEquipe(BRUME);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ACCURACY,  3);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ACCURACY,3L);
         MoveData move_ = data_.getMove(PERMUCOEUR);
         EffectStatistic eff_ = (EffectStatistic) move_.getEffects().last();
         IdList<Statistic> stats_ = FightSuccess.successfulChangedStatistics(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), tp(KEY_FOE, POKEMON_FIGHTER_ZERO), eff_, data_);
@@ -2902,7 +2902,7 @@ public class FightSuccessTest extends InitializationDataBase {
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).backUpObject(NULL_REF);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMove(MUR_DE_FER);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.DEFENSE,  6);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.DEFENSE,6L);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT, tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
         FightRound.initRound(fight_);
         Effect eff_ = data_.getMove(MUR_DE_FER).getEffects().first();
@@ -3218,7 +3218,7 @@ public class FightSuccessTest extends InitializationDataBase {
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).backUpObject(NULL_REF);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setFirstChosenMove(MUR_DE_FER);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.DEFENSE,  6);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.DEFENSE,6L);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setFirstChosenMoveTarget(JACKPOT,tc(KEY_PLAYER, POKEMON_TARGET_ZERO));
         FightRound.initRound(fight_);
         RandomBoolResults pair_;
@@ -3320,11 +3320,11 @@ public class FightSuccessTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 32);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(ROUE_DE_FEU,  10);
-        moves_.put(RONFLEMENT,  10);
-        moves_.put(COUD_KRANE,  10);
-        moves_.put(BROUHAHA,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(ROUE_DE_FEU,  10L);
+        moves_.put(RONFLEMENT,  10L);
+        moves_.put(COUD_KRANE,  10L);
+        moves_.put(BROUHAHA,  10L);
         PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data, moves_);
         pokemonUser_.initIv(diff_);
         pokemonUser_.setNickname(PIKA);
@@ -3515,7 +3515,7 @@ public class FightSuccessTest extends InitializationDataBase {
     public void accuracy8Test() {
         DataBase data_ = initDb();
         Fight fight_ = sufferingDamageTypes(data_);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ACCURACY,  -1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ACCURACY,-1L);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(ANNULE_GARDE);
         assertEq(new Rate("1"), FightSuccess.accuracy(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), tp(KEY_FOE, POKEMON_FIGHTER_ZERO), TONNERRE, data_));
     }
@@ -3524,7 +3524,7 @@ public class FightSuccessTest extends InitializationDataBase {
     public void accuracy9Test() {
         DataBase data_ = initDb();
         Fight fight_ = sufferingDamageTypes(data_);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ACCURACY,  -1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ACCURACY,-1L);
         assertEq(new Rate("2/3"), FightSuccess.accuracy(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), tp(KEY_FOE, POKEMON_FIGHTER_ZERO), TONNERRE, data_));
     }
 
@@ -3532,7 +3532,7 @@ public class FightSuccessTest extends InitializationDataBase {
     public void accuracy10Test() {
         DataBase data_ = initDb();
         Fight fight_ = sufferingDamageTypes(data_);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ACCURACY,  -1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.ACCURACY,-1L);
         assertEq(new Rate("1"), FightSuccess.accuracy(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), tp(KEY_FOE, POKEMON_FIGHTER_ZERO), COPIE_TYPE, data_));
     }
 
@@ -3540,7 +3540,7 @@ public class FightSuccessTest extends InitializationDataBase {
     public void accuracy11Test() {
         DataBase data_ = initDb();
         Fight fight_ = sufferingDamageTypes(data_);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.EVASINESS,  1);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.EVASINESS,1L);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(ANNULE_GARDE);
         assertEq(new Rate("1"), FightSuccess.accuracy(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), tp(KEY_FOE, POKEMON_FIGHTER_ZERO), TONNERRE, data_));
     }
@@ -3549,7 +3549,7 @@ public class FightSuccessTest extends InitializationDataBase {
     public void accuracy12Test() {
         DataBase data_ = initDb();
         Fight fight_ = sufferingDamageTypes(data_);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.EVASINESS,  1);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.EVASINESS,1L);
         assertEq(new Rate("2/3"), FightSuccess.accuracy(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), tp(KEY_FOE, POKEMON_FIGHTER_ZERO), TONNERRE, data_));
     }
 
@@ -3557,7 +3557,7 @@ public class FightSuccessTest extends InitializationDataBase {
     public void accuracy13Test() {
         DataBase data_ = initDb();
         Fight fight_ = sufferingDamageTypes(data_);
-        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.EVASINESS,  1);
+        fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.EVASINESS,1L);
         assertEq(new Rate("1"), FightSuccess.accuracy(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), tp(KEY_FOE, POKEMON_FIGHTER_ZERO), COPIE_TYPE, data_));
     }
 
@@ -3565,7 +3565,7 @@ public class FightSuccessTest extends InitializationDataBase {
     public void accuracy14Test() {
         DataBase data_ = initDb();
         Fight fight_ = sufferingDamageTypes(data_);
-        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.EVASINESS,  1);
+        fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).variationBoostStatistique(Statistic.EVASINESS,1L);
         assertEq(new Rate("1"), FightSuccess.accuracy(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), RELAIS, data_));
     }
 

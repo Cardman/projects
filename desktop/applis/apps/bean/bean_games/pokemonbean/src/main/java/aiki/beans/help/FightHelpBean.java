@@ -185,13 +185,13 @@ public class FightHelpBean extends CommonBean {
     private StringList types;
     private Rate minHpNotKo;
     private Rate wonHappinessPointsLevel;
-    private int defaultBoostValue;
+    private long defaultBoostValue;
     private String defaultMove;
     private String catchingFormula;
     private NatStringTreeMap<String> varCatchingFormula;
     private String fleeingFormula;
     private NatStringTreeMap<String> varFleeingFormula;
-    private int happinessPoints;
+    private long happinessPoints;
     private Rate strongMove;
     private StringMap<String> rates;
     private NatStringTreeMap< String> varRates;
@@ -4723,7 +4723,7 @@ public class FightHelpBean extends CommonBean {
         return tryRedirectMv(defaultMove);
     }
 
-    public int getDefaultBoostValue() {
+    public long getDefaultBoostValue() {
         return defaultBoostValue;
     }
 
@@ -5039,7 +5039,7 @@ public class FightHelpBean extends CommonBean {
         return wonHappinessPointsLevel;
     }
 
-    public int getHappinessPoints() {
+    public long getHappinessPoints() {
         return happinessPoints;
     }
 

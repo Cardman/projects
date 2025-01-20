@@ -49,7 +49,7 @@ public final class FightHelpBeanMovesKoTargetTest extends InitDbFightHelp {
         FacadeGame f_ = facade();
         DamagingMoveData t_ = Instances.newDamagingMoveData();
         EffectDamage e_ = Instances.newEffectDamage();
-        e_.getBoostStatisOnceKoFoe().addEntry(Statistic.CRITICAL_HIT,1);
+        e_.getBoostStatisOnceKoFoe().addEntry(Statistic.CRITICAL_HIT,1L);
         t_.getEffects().add(e_);
         f_.getData().completeMembers(M_DAM, t_);
         StatusMoveData s_ = Instances.newStatusMoveData();

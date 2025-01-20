@@ -77,18 +77,18 @@ public class AbilityBean extends CommonBean {
     private IdList<Statistic> maxStatisticsIfCh;
     private CustList<StatisticStatus> immuLowStatIfStatus;
     private CustList<TypesDuo> breakFoeImmune;
-    private DictionaryComparator<Statistic, Integer> bonusStatRank;
-    private DictionaryComparator<Statistic, Integer> boostStatRankEndRound;
-    private DictionaryComparator<Statistic, Integer> boostStatRankProtected;
-    private DictionaryComparator<Statistic, Integer> lowStatFoeHit;
-    private DictionaryComparator<Statistic, Integer> multStatIfKoFoe;
-    private DictionaryComparator<Statistic, Integer> multStatIfLowStat;
+    private DictionaryComparator<Statistic, Long> bonusStatRank;
+    private DictionaryComparator<Statistic, Long> boostStatRankEndRound;
+    private DictionaryComparator<Statistic, Long> boostStatRankProtected;
+    private DictionaryComparator<Statistic, Long> lowStatFoeHit;
+    private DictionaryComparator<Statistic, Long> multStatIfKoFoe;
+    private DictionaryComparator<Statistic, Long> multStatIfLowStat;
     private DictionaryComparator<Statistic, String> multStat;
     private DictionaryComparator<Statistic, Rate> multStatAlly;
-    private DictionaryComparator<StatisticCategory, Integer> multStatIfDamageCat;
+    private DictionaryComparator<StatisticCategory, Long> multStatIfDamageCat;
     private DictionaryComparator<StatisticCategory, Rate> multStatIfCat;
     private DictionaryComparator<StatisticStatus, Integer> multStatIfStatutRank;
-    private DictionaryComparator<StatisticType, Integer> multStatIfDamgeType;
+    private DictionaryComparator<StatisticType, Long> multStatIfDamgeType;
     private DictionaryComparator<WeatherType, Rate> healHpByTypeIfWeather;
     private DictionaryComparator<String, TypeDamageBoost> changingBoostTypes;
     private DictionaryComparator<String, Integer> increasedPrio;
@@ -272,7 +272,7 @@ public class AbilityBean extends CommonBean {
             changingBoostTypes_.put(w, ability_.getChangingBoostTypes().getVal(w));
         }
         changingBoostTypes = changingBoostTypes_;
-        DictionaryComparator<StatisticCategory, Integer> multStatIfDamageCat_;
+        DictionaryComparator<StatisticCategory, Long> multStatIfDamageCat_;
         multStatIfDamageCat_ = DictionaryComparatorUtil.buildStatisticCategoryByte(data_,getLanguage());
         for (StatisticCategory w: ability_.getMultStatIfDamageCat().getKeys()) {
             multStatIfDamageCat_.put(w, ability_.getMultStatIfDamageCat().getVal(w));
@@ -284,7 +284,7 @@ public class AbilityBean extends CommonBean {
             multStatIfCat_.put(w, ability_.getMultStatIfCat().getVal(w));
         }
         multStatIfCat = multStatIfCat_;
-        DictionaryComparator<StatisticType, Integer> multStatIfDamgeType_;
+        DictionaryComparator<StatisticType, Long> multStatIfDamgeType_;
 //        multStatIfDamgeType_ = new TreeMap<new>(new NaturalComparator<StatisticType>() {
 //            @Override
 //            public int compare(StatisticType _o1, StatisticType _o2) {
@@ -338,9 +338,9 @@ public class AbilityBean extends CommonBean {
         return multStatAlly_;
     }
 
-    private DictionaryComparator<Statistic, Integer> multStatIfLowStat(AbilityData _ability) {
+    private DictionaryComparator<Statistic, Long> multStatIfLowStat(AbilityData _ability) {
         DataBase data_ = getDataBase();
-        DictionaryComparator<Statistic, Integer> multStatIfLowStat_;
+        DictionaryComparator<Statistic, Long> multStatIfLowStat_;
         multStatIfLowStat_ = DictionaryComparatorUtil.buildStatisByte(data_,getLanguage());
         for (Statistic s: _ability.getMultStatIfLowStat().getKeys()) {
             multStatIfLowStat_.put(s, _ability.getMultStatIfLowStat().getVal(s));
@@ -348,9 +348,9 @@ public class AbilityBean extends CommonBean {
         return multStatIfLowStat_;
     }
 
-    private DictionaryComparator<Statistic, Integer> multStatIfKoFoe(AbilityData _ability) {
+    private DictionaryComparator<Statistic, Long> multStatIfKoFoe(AbilityData _ability) {
         DataBase data_ = getDataBase();
-        DictionaryComparator<Statistic, Integer> multStatIfKoFoe_;
+        DictionaryComparator<Statistic, Long> multStatIfKoFoe_;
         multStatIfKoFoe_ = DictionaryComparatorUtil.buildStatisByte(data_,getLanguage());
         for (Statistic s: _ability.getMultStatIfKoFoe().getKeys()) {
             multStatIfKoFoe_.put(s, _ability.getMultStatIfKoFoe().getVal(s));
@@ -358,9 +358,9 @@ public class AbilityBean extends CommonBean {
         return multStatIfKoFoe_;
     }
 
-    private DictionaryComparator<Statistic, Integer> lowStatFoeHit(AbilityData _ability) {
+    private DictionaryComparator<Statistic, Long> lowStatFoeHit(AbilityData _ability) {
         DataBase data_ = getDataBase();
-        DictionaryComparator<Statistic, Integer> lowStatFoeHit_;
+        DictionaryComparator<Statistic, Long> lowStatFoeHit_;
         lowStatFoeHit_ = DictionaryComparatorUtil.buildStatisByte(data_,getLanguage());
         for (Statistic s: _ability.getLowStatFoeHit().getKeys()) {
             lowStatFoeHit_.put(s, _ability.getLowStatFoeHit().getVal(s));
@@ -368,9 +368,9 @@ public class AbilityBean extends CommonBean {
         return lowStatFoeHit_;
     }
 
-    private DictionaryComparator<Statistic, Integer> boostStatRankProtected(AbilityData _ability) {
+    private DictionaryComparator<Statistic, Long> boostStatRankProtected(AbilityData _ability) {
         DataBase data_ = getDataBase();
-        DictionaryComparator<Statistic, Integer> boostStatRankProtected_;
+        DictionaryComparator<Statistic, Long> boostStatRankProtected_;
         boostStatRankProtected_ = DictionaryComparatorUtil.buildStatisByte(data_,getLanguage());
         for (Statistic s: _ability.getBoostStatRankProtected().getKeys()) {
             boostStatRankProtected_.put(s, _ability.getBoostStatRankProtected().getVal(s));
@@ -378,9 +378,9 @@ public class AbilityBean extends CommonBean {
         return boostStatRankProtected_;
     }
 
-    private DictionaryComparator<Statistic, Integer> boostStatRankEndRound(AbilityData _ability) {
+    private DictionaryComparator<Statistic, Long> boostStatRankEndRound(AbilityData _ability) {
         DataBase data_ = getDataBase();
-        DictionaryComparator<Statistic, Integer> boostStatRankEndRound_;
+        DictionaryComparator<Statistic, Long> boostStatRankEndRound_;
         boostStatRankEndRound_ = DictionaryComparatorUtil.buildStatisByte(data_,getLanguage());
         for (Statistic s: _ability.getBoostStatRankEndRound().getKeys()) {
             boostStatRankEndRound_.put(s, _ability.getBoostStatRankEndRound().getVal(s));
@@ -388,9 +388,9 @@ public class AbilityBean extends CommonBean {
         return boostStatRankEndRound_;
     }
 
-    private DictionaryComparator<Statistic, Integer> bonusStatRank(AbilityData _ability) {
+    private DictionaryComparator<Statistic, Long> bonusStatRank(AbilityData _ability) {
         DataBase data_ = getDataBase();
-        DictionaryComparator<Statistic, Integer> bonusStatRank_;
+        DictionaryComparator<Statistic, Long> bonusStatRank_;
         bonusStatRank_ = DictionaryComparatorUtil.buildStatisByte(data_,getLanguage());
         for (Statistic s: _ability.getBonusStatRank().getKeys()) {
             bonusStatRank_.put(s, _ability.getBonusStatRank().getVal(s));
@@ -1488,11 +1488,11 @@ public class AbilityBean extends CommonBean {
         return multStat;
     }
 
-    public DictionaryComparator<StatisticCategory,Integer> getMultStatIfDamageCat() {
+    public DictionaryComparator<StatisticCategory,Long> getMultStatIfDamageCat() {
         return multStatIfDamageCat;
     }
 
-    public DictionaryComparator<StatisticType,Integer> getMultStatIfDamgeType() {
+    public DictionaryComparator<StatisticType,Long> getMultStatIfDamgeType() {
         return multStatIfDamgeType;
     }
 
@@ -1504,27 +1504,27 @@ public class AbilityBean extends CommonBean {
         return multStatIfStatutRank;
     }
 
-    public DictionaryComparator<Statistic,Integer> getBonusStatRank() {
+    public DictionaryComparator<Statistic,Long> getBonusStatRank() {
         return bonusStatRank;
     }
 
-    public DictionaryComparator<Statistic,Integer> getBoostStatRankEndRound() {
+    public DictionaryComparator<Statistic,Long> getBoostStatRankEndRound() {
         return boostStatRankEndRound;
     }
 
-    public DictionaryComparator<Statistic,Integer> getBoostStatRankProtected() {
+    public DictionaryComparator<Statistic,Long> getBoostStatRankProtected() {
         return boostStatRankProtected;
     }
 
-    public DictionaryComparator<Statistic,Integer> getLowStatFoeHit() {
+    public DictionaryComparator<Statistic,Long> getLowStatFoeHit() {
         return lowStatFoeHit;
     }
 
-    public DictionaryComparator<Statistic,Integer> getMultStatIfKoFoe() {
+    public DictionaryComparator<Statistic,Long> getMultStatIfKoFoe() {
         return multStatIfKoFoe;
     }
 
-    public DictionaryComparator<Statistic,Integer> getMultStatIfLowStat() {
+    public DictionaryComparator<Statistic,Long> getMultStatIfLowStat() {
         return multStatIfLowStat;
     }
 

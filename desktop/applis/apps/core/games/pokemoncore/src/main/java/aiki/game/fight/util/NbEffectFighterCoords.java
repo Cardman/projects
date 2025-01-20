@@ -8,17 +8,17 @@ public final class NbEffectFighterCoords {
 
     private static final char SEPARATOR = ',';
 
-    private final int number;
+    private final long number;
 
     private final TeamPosition position;
 
     public NbEffectFighterCoords(String _str) {
         StringList list_ = StringUtil.splitChars(_str, SEPARATOR);
-        number = NumberUtil.parseInt(list_.first());
+        number = NumberUtil.parseLongZero(list_.first());
         position = new TeamPosition(list_.last());
     }
 
-    public NbEffectFighterCoords(int _number, TeamPosition _position) {
+    public NbEffectFighterCoords(long _number, TeamPosition _position) {
         number = _number;
         position = _position;
     }
@@ -35,7 +35,7 @@ public final class NbEffectFighterCoords {
         return TeamPosition.eq(position, _obj.getPosition());
     }
 
-    public int getNumber() {
+    public long getNumber() {
         return number;
     }
 

@@ -38,7 +38,7 @@ public final class NetAikiTest extends EquallableNetworkUtil {
         pp_.setItem("ITEM");
         pp_.setNickname("NICKNAME");
         pp_.getMoves().addEntry("MOVE",new UsesOfMove(1,3));
-        pp_.getEv().addEntry(Statistic.SPEED, 4);
+        pp_.getEv().addEntry(Statistic.SPEED,4L);
         pp_.setWonExpSinceLastLevel(new Rate("5/6"));
         pp_.setUsedBallCatching("BALL");
         pp_.setNbStepsTeamLead(8);
@@ -69,7 +69,7 @@ public final class NetAikiTest extends EquallableNetworkUtil {
         pp_.setItem("");
         pp_.setNickname("NIC\\KN:AME");
         pp_.getMoves().addEntry("MOVE",new UsesOfMove(1,3));
-        pp_.getEv().addEntry(Statistic.SPEED, 4);
+        pp_.getEv().addEntry(Statistic.SPEED,4L);
         pp_.setWonExpSinceLastLevel(new Rate("5/6"));
         pp_.setUsedBallCatching("BALL");
         pp_.setNbStepsTeamLead(8);
@@ -100,7 +100,7 @@ public final class NetAikiTest extends EquallableNetworkUtil {
         pp_.setItem("ITEM");
         pp_.setNickname("NICKNAME");
         pp_.getMoves().addEntry("MOVE",new UsesOfMove(1,3));
-        pp_.getEv().addEntry(Statistic.SPEED, 4);
+        pp_.getEv().addEntry(Statistic.SPEED,4L);
         pp_.setWonExpSinceLastLevel(new Rate("5/6"));
         pp_.setUsedBallCatching("BALL");
         pp_.setNbStepsTeamLead(8);
@@ -131,7 +131,7 @@ public final class NetAikiTest extends EquallableNetworkUtil {
         pp_.setItem("");
         pp_.setNickname("NIC\\KN:AME");
         pp_.getMoves().addEntry("MOVE",new UsesOfMove(1,3));
-        pp_.getEv().addEntry(Statistic.SPEED, 4);
+        pp_.getEv().addEntry(Statistic.SPEED,4L);
         pp_.setWonExpSinceLastLevel(new Rate("5/6"));
         pp_.setUsedBallCatching("BALL");
         pp_.setNbStepsTeamLead(8);
@@ -163,7 +163,7 @@ public final class NetAikiTest extends EquallableNetworkUtil {
         pp_.setItem("ITEM");
         pp_.setNickname("NICKNAME");
         pp_.getMoves().addEntry("MOVE",new UsesOfMove(1,3));
-        pp_.getEv().addEntry(Statistic.SPEED, 4);
+        pp_.getEv().addEntry(Statistic.SPEED,4L);
         pp_.setWonExpSinceLastLevel(new Rate("5/6"));
         pp_.setUsedBallCatching("BALL");
         pp_.setNbStepsTeamLead(8);
@@ -196,7 +196,7 @@ public final class NetAikiTest extends EquallableNetworkUtil {
         pp_.setItem("ITEM");
         pp_.setNickname("NICKNAME");
         pp_.getMoves().addEntry("MOVE",new UsesOfMove(1,3));
-        pp_.getEv().addEntry(Statistic.SPEED, 4);
+        pp_.getEv().addEntry(Statistic.SPEED,4L);
         pp_.setWonExpSinceLastLevel(new Rate("5/6"));
         pp_.setUsedBallCatching("BALL");
         pp_.setNbStepsTeamLead(8);
@@ -236,7 +236,7 @@ public final class NetAikiTest extends EquallableNetworkUtil {
         pp_.setItem("ITEM");
         pp_.setNickname("NICKNAME");
         pp_.getMoves().addEntry("MOVE",new UsesOfMove(1,3));
-        pp_.getEv().addEntry(Statistic.SPEED, 4);
+        pp_.getEv().addEntry(Statistic.SPEED,4L);
         pp_.setWonExpSinceLastLevel(new Rate("5/6"));
         pp_.setUsedBallCatching("BALL");
         pp_.setNbStepsTeamLead(8);
@@ -250,7 +250,7 @@ public final class NetAikiTest extends EquallableNetworkUtil {
         pp2_.setItem("ITEM_");
         pp2_.setNickname("NICKNAME_");
         pp2_.getMoves().addEntry("MOVE_",new UsesOfMove(1,3));
-        pp2_.getEv().addEntry(Statistic.SPEED, 14);
+        pp2_.getEv().addEntry(Statistic.SPEED,14L);
         pp2_.setWonExpSinceLastLevel(new Rate("15/16"));
         pp2_.setUsedBallCatching("BALL_");
         pp2_.setNbStepsTeamLead(18);
@@ -311,7 +311,7 @@ public final class NetAikiTest extends EquallableNetworkUtil {
         pp_.setItem("ITEM");
         pp_.setNickname("NICKNAME");
         pp_.getMoves().addEntry("MOVE",new UsesOfMove(1,3));
-        pp_.getEv().addEntry(Statistic.SPEED, 4);
+        pp_.getEv().addEntry(Statistic.SPEED,4L);
         pp_.setWonExpSinceLastLevel(new Rate("5/6"));
         pp_.setUsedBallCatching("BALL");
         pp_.setNbStepsTeamLead(8);
@@ -325,7 +325,7 @@ public final class NetAikiTest extends EquallableNetworkUtil {
         pp2_.setItem("ITEM_");
         pp2_.setNickname("NICKNAME_");
         pp2_.getMoves().addEntry("MOVE_",new UsesOfMove(1,3));
-        pp2_.getEv().addEntry(Statistic.SPEED, 14);
+        pp2_.getEv().addEntry(Statistic.SPEED,14L);
         pp2_.setWonExpSinceLastLevel(new Rate("15/16"));
         pp2_.setUsedBallCatching("BALL_");
         pp2_.setNbStepsTeamLead(18);
@@ -361,7 +361,7 @@ public final class NetAikiTest extends EquallableNetworkUtil {
         pp2_.setItem("ITEM_");
         pp2_.setNickname("NICKNAME_");
         pp2_.getMoves().addEntry("MOVE_",new UsesOfMove(1,3));
-        pp2_.getEv().addEntry(Statistic.SPEED, 14);
+        pp2_.getEv().addEntry(Statistic.SPEED,14L);
         pp2_.setWonExpSinceLastLevel(new Rate("15/16"));
         pp2_.setUsedBallCatching("BALL_");
         pp2_.setNbStepsTeamLead(18);
@@ -400,7 +400,7 @@ public final class NetAikiTest extends EquallableNetworkUtil {
         pp2_.setItem("ITEM_");
         pp2_.setNickname("NICKNAME_");
         pp2_.getMoves().addEntry("MOVE_",new UsesOfMove(1,3));
-        pp2_.getEv().addEntry(Statistic.SPEED, 14);
+        pp2_.getEv().addEntry(Statistic.SPEED,14L);
         pp2_.setWonExpSinceLastLevel(new Rate("15/16"));
         pp2_.setUsedBallCatching("BALL_");
         pp2_.setNbStepsTeamLead(18);

@@ -150,9 +150,20 @@ public final class DataInfoChecker {
             checkPositive(s,_data);
         }
     }
+    public static void checkPositiveLongs(CustList<Long> _value, DataBase _data) {
+        for (long s : _value) {
+            checkPositive(s,_data);
+        }
+    }
 
     public static void checkPositiveOrZeroShorts(CustList<Integer> _value, DataBase _data) {
         for (int s : _value) {
+            checkPositiveOrZero(s,_data);
+        }
+    }
+
+    public static void checkPositiveOrZeroLongs(CustList<Long> _value, DataBase _data) {
+        for (long s : _value) {
             checkPositiveOrZero(s,_data);
         }
     }
@@ -162,8 +173,8 @@ public final class DataInfoChecker {
         checkPositiveOrZero(_value, _data);
     }
 
-    public static void checkNegativeBytes(CustList<Integer> _value, DataBase _data) {
-        for (int s : _value) {
+    public static void checkNegativeBytes(CustList<Long> _value, DataBase _data) {
+        for (long s : _value) {
             checkNegative(s,_data);
         }
     }

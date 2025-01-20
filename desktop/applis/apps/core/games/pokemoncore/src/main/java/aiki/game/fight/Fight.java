@@ -794,7 +794,7 @@ public final class Fight {
         getTemp().getEffects().add(anim_);
     }
 
-    void addAnimationStatistic(Statistic _st, int _variation, boolean _swap) {
+    void addAnimationStatistic(Statistic _st, long _variation, boolean _swap) {
         CustList<AnimationInt> list_ = getEffects();
         if (list_.isEmpty()) {
             return;

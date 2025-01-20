@@ -214,9 +214,9 @@ final class FightItems {
             if (_checkCondition && Rate.strLower(Rate.multiply(taux_, creature_.pvMax()), creature_.getRemainingHp())) {
                 continue;
             }
-            int varBase_= _berry.getMultStat().getVal(c).getBoost();
-            int var_=FightEffects.deltaBoostStatistic(_fight, _combattant,c,varBase_,_import);
-            int boost_ = creature_.getStatisBoost().getVal(c);
+            long varBase_= _berry.getMultStat().getVal(c).getBoost();
+            long var_=FightEffects.deltaBoostStatistic(_fight, _combattant,c,varBase_,_import);
+            long boost_ = creature_.getStatisBoost().getVal(c);
             creature_.variationBoostStatistique(c,var_);
             _fight.addStatisticMessage(_combattant, c, var_, _import);
             if (boost_ < creature_.getStatisBoost().getVal(c)) {
@@ -229,7 +229,7 @@ final class FightItems {
         Fighter creature_=_fight.getFighter(_combattant);
         for(String c:creature_.getCurrentMovesSet()){
             if (creature_.powerPointsMove(c) == 0) {
-                int var_ = creature_.healedPpMove(c, _objectName, _import);
+                long var_ = creature_.healedPpMove(c, _objectName, _import);
                 if (var_ > 0) {
                     useObj(_fight, _combattant, _useObject, _import, creature_);
                     creature_.healPowerPoints(c, var_);

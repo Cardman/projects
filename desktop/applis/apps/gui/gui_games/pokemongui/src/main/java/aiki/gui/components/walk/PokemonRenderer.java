@@ -53,7 +53,7 @@ public class PokemonRenderer implements AbsCustCellRenderGene<UsablePokemon> {
 
     private boolean ko;
 
-    private int remainSteps;
+    private long remainSteps;
     private final AbstractProgramInfos fact;
     private final IntTileRender render;
 
@@ -102,7 +102,7 @@ public class PokemonRenderer implements AbsCustCellRenderGene<UsablePokemon> {
             Egg egg_ = (Egg) pokemon;
             int[][] img_ = facade.getData().getMiniPk(egg_.getName());
             miniImagePk = render.render(fact.getImageFactory(),img_,sideLength,sideLength);
-            remainSteps = (int) (facade.getData().getPokemon(egg_.getName()).getHatchingSteps().ll() - egg_.getSteps());
+            remainSteps = facade.getData().getPokemon(egg_.getName()).getHatchingSteps().ll() - egg_.getSteps();
         }
         int w_ = getWidth();
 //        int w_ = coords * 2 + sideLength * 2;

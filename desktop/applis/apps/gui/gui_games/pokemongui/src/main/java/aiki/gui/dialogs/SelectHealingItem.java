@@ -117,7 +117,7 @@ public final class SelectHealingItem extends SelectDialog {
                 return;
             }
             getOkButton().setEnabled(false);
-            StringMap<Integer> moves_ = getFacade().getPlayer().getChosenMoves();
+            StringMap<Long> moves_ = getFacade().getPlayer().getChosenMoves();
             StringList keys_ = new StringList(moves_.getKeys());
             keys_.sortElts(new TrMovesComparator(getFacade().getData()));
             movesPanel.removeAll();

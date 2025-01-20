@@ -14,7 +14,7 @@ import code.util.StringMap;
 
 public class EffectCounterAttackBean extends EffectBean {
     private DictionaryComparator<String,Rate> sufferingDamageTypes;
-    private DictionaryComparator<Statistic, Integer> droppedStatDirectMove;
+    private DictionaryComparator<Statistic, Long> droppedStatDirectMove;
     private Rate sufferingDamageDirectMove;
     private StringList reasonsProtect;
     private StringList reasonsCounter;
@@ -32,7 +32,7 @@ public class EffectCounterAttackBean extends EffectBean {
             sufferingDamageTypes_.put(type_, effect_.getSufferingDamageTypes().getVal(type_));
         }
         sufferingDamageTypes = sufferingDamageTypes_;
-        DictionaryComparator<Statistic, Integer> droppedStatDirectMove_;
+        DictionaryComparator<Statistic, Long> droppedStatDirectMove_;
         droppedStatDirectMove_ = DictionaryComparatorUtil.buildStatisByte(data_,getLanguage());
         for (Statistic st_: effect_.getDroppedStatDirectMove().getKeys()) {
             droppedStatDirectMove_.put(st_, effect_.getDroppedStatDirectMove().getVal(st_));
@@ -115,7 +115,7 @@ public class EffectCounterAttackBean extends EffectBean {
         return sufferingDamageTypes;
     }
 
-    public DictionaryComparator<Statistic,Integer> getDroppedStatDirectMove() {
+    public DictionaryComparator<Statistic,Long> getDroppedStatDirectMove() {
         return droppedStatDirectMove;
     }
 

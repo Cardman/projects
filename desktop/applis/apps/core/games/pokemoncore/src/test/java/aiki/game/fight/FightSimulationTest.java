@@ -1111,7 +1111,7 @@ public class FightSimulationTest extends InitializationDataBase {
         pokemon_.setItem(NULL_REF);
         pokemon_.setGender(Gender.NO_GENDER);
         fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
-        CustList<StringMap<Integer>> list_;
+        CustList<StringMap<Long>> list_;
         list_ = fightSimulation_.getFirstNextEvolutions(data_);
         assertEq(1, list_.size());
         assertEq(1, list_.first().size());
@@ -1131,7 +1131,7 @@ public class FightSimulationTest extends InitializationDataBase {
         pokemon_.setItem(NULL_REF);
         pokemon_.setGender(Gender.NO_GENDER);
         fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
-        CustList<StringMap<Integer>> list_;
+        CustList<StringMap<Long>> list_;
         list_ = fightSimulation_.getFirstNextEvolutions(data_);
         assertEq(1, list_.size());
         assertEq(0, list_.first().size());
@@ -1158,7 +1158,7 @@ public class FightSimulationTest extends InitializationDataBase {
         assertEq(1, list_.first().size());
         assertEq(TETARTE, list_.first().first().getName());
         assertEq(26, list_.first().first().getLevel());
-        CustList<StringMap<Integer>> available_;
+        CustList<StringMap<Long>> available_;
         available_ = fightSimulation_.getAvailableEvolutions();
         assertEq(1, available_.size());
         assertEq(2, available_.first().size());
@@ -1185,7 +1185,7 @@ public class FightSimulationTest extends InitializationDataBase {
         list_ = fightSimulation_.getEvolutions();
         assertEq(1, list_.size());
         assertEq(0, list_.first().size());
-        CustList<StringMap<Integer>> available_;
+        CustList<StringMap<Long>> available_;
         available_ = fightSimulation_.getAvailableEvolutions();
         assertEq(1, available_.size());
         assertEq(1, available_.first().size());
@@ -1216,7 +1216,7 @@ public class FightSimulationTest extends InitializationDataBase {
         assertEq(26, list_.first().first().getLevel());
         assertEq(TARTARD, list_.first().get(1).getName());
         assertEq(26, list_.first().get(1).getLevel());
-        CustList<StringMap<Integer>> available_;
+        CustList<StringMap<Long>> available_;
         available_ = fightSimulation_.getAvailableEvolutions();
         assertEq(1, available_.size());
         assertEq(0, available_.first().size());
@@ -1246,7 +1246,7 @@ public class FightSimulationTest extends InitializationDataBase {
         assertEq(26, list_.first().first().getLevel());
         assertEq(TARTARD, list_.first().get(1).getName());
         assertEq(27, list_.first().get(1).getLevel());
-        CustList<StringMap<Integer>> available_;
+        CustList<StringMap<Long>> available_;
         available_ = fightSimulation_.getAvailableEvolutions();
         assertEq(1, available_.size());
         assertEq(0, available_.first().size());
@@ -1272,7 +1272,7 @@ public class FightSimulationTest extends InitializationDataBase {
         list_ = fightSimulation_.getEvolutions();
         assertEq(1, list_.size());
         assertEq(0, list_.first().size());
-        CustList<StringMap<Integer>> available_;
+        CustList<StringMap<Long>> available_;
         available_ = fightSimulation_.getAvailableEvolutions();
         assertEq(1, available_.size());
         assertEq(1, available_.first().size());
@@ -1302,7 +1302,7 @@ public class FightSimulationTest extends InitializationDataBase {
         assertEq(1, list_.first().size());
         assertEq(TETARTE, list_.first().first().getName());
         assertEq(26, list_.first().first().getLevel());
-        CustList<StringMap<Integer>> available_;
+        CustList<StringMap<Long>> available_;
         available_ = fightSimulation_.getAvailableEvolutions();
         assertEq(1, available_.size());
         assertEq(2, available_.first().size());
@@ -1330,7 +1330,7 @@ public class FightSimulationTest extends InitializationDataBase {
         list_ = fightSimulation_.getEvolutions();
         assertEq(1, list_.size());
         assertEq(0, list_.first().size());
-        CustList<StringMap<Integer>> available_;
+        CustList<StringMap<Long>> available_;
         available_ = fightSimulation_.getAvailableEvolutions();
         assertEq(1, available_.size());
         assertEq(1, available_.first().size());
@@ -1360,7 +1360,7 @@ public class FightSimulationTest extends InitializationDataBase {
         assertEq(1, list_.first().size());
         assertEq(TETARTE, list_.first().first().getName());
         assertEq(26, list_.first().first().getLevel());
-        CustList<StringMap<Integer>> available_;
+        CustList<StringMap<Long>> available_;
         available_ = fightSimulation_.getAvailableEvolutions();
         assertEq(1, available_.size());
         assertEq(2, available_.first().size());

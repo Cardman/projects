@@ -13,7 +13,7 @@ public final class Boost extends Item {
 
     private Rate winPp;
     private StringMap<Integer> happiness;
-    private IdMap<Statistic, Integer> evs;
+    private IdMap<Statistic,Long> evs;
 
     @Override
     public String getItemType() {
@@ -28,7 +28,7 @@ public final class Boost extends Item {
             DataInfoChecker.checkZero(winPp,_data);
         }
         DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBase(),evs.getKeys(),_data);
-        for (EntryCust<Statistic, Integer> s : evs.entryList()) {
+        for (EntryCust<Statistic, Long> s : evs.entryList()) {
             DataInfoChecker.checkPositiveOrZero(s.getValue(),_data);
         }
         DataInfoChecker.checkStringListContains(DataInfoChecker.itemsBall(_data).getKeys(),happiness.getKeys(),_data);
@@ -53,11 +53,11 @@ public final class Boost extends Item {
         happiness = _happiness;
     }
 
-    public IdMap<Statistic, Integer> getEvs() {
+    public IdMap<Statistic,Long> getEvs() {
         return evs;
     }
 
-    public void setEvs(IdMap<Statistic, Integer> _evs) {
+    public void setEvs(IdMap<Statistic,Long> _evs) {
         evs = _evs;
     }
 

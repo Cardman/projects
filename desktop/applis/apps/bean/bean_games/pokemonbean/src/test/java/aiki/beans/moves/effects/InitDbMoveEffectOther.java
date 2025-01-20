@@ -307,7 +307,7 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
         e_.setProtectFail(VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR);
         e_.setSufferingDamageDirectMove(Rate.one());
         e_.getSufferingDamageTypes().addEntry(T_TYPE1,Rate.one());
-        e_.getDroppedStatDirectMove().addEntry(Statistic.SPEED,1);
+        e_.getDroppedStatDirectMove().addEntry(Statistic.SPEED,1L);
         return e_;
     }
     protected static NaSt dispMoveEffAlly() {

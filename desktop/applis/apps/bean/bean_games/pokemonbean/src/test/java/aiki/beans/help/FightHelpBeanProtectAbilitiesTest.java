@@ -54,7 +54,7 @@ public final class FightHelpBeanProtectAbilitiesTest extends InitDbFightHelp {
     private static FacadeGame db() {
         FacadeGame f_ = facade();
         AbilityData t_ = Instances.newAbilityData();
-        t_.getBoostStatRankProtected().addEntry(Statistic.CRITICAL_HIT,1);
+        t_.getBoostStatRankProtected().addEntry(Statistic.CRITICAL_HIT,1L);
         f_.getData().completeMembers(M_DAM, t_);
         f_.getData().completeMembers(M_STA, Instances.newAbilityData());
         f_.getData().getTranslatedAbilities().addEntry(EN,new StringMap<String>());

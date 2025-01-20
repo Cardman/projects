@@ -992,7 +992,7 @@ public final class ScenePanel {
             teamPan.addListenerHost(this);
             set_.add(teamPan.getContainer());
             AbsPanel form_ = compoFactory.newPageBox();
-            int nbRemSteps_ = facade.getRemaingingSteps();
+            long nbRemSteps_ = facade.getRemaingingSteps();
             String buttonText_= StringUtil.simpleNumberFormat(messages.getVal(MessagesRenderScenePanel.GET_EGG), nbRemSteps_);
             receiveEgg = window.getCompoFactory().newPlainButton(buttonText_);
             receiveEgg.addActionListener(new PkNonModalEvent(window.getModal()),new ReceiveFromHostEvent(this, true));
@@ -1433,7 +1433,7 @@ public final class ScenePanel {
             movesLearntListLabel.add(check_);
         }
         StringList unselectedMoves_ = facade.getUnselectedMoves();
-        StringMap<Integer> chosenMoves_ = facade.getPlayer().getChosenMoves();
+        StringMap<Long> chosenMoves_ = facade.getPlayer().getChosenMoves();
         for (String m: unselectedMoves_) {
             String tr_ = facade.translateMove(m);
             MoveTutorCheckBox check_ = new MoveTutorCheckBox(m, StringUtil.concat(tr_,SPACE,Long.toString(chosenMoves_.getVal(m))),false,this);
@@ -1733,7 +1733,7 @@ public final class ScenePanel {
         movesLearntList.clear();
         movesLearnt.removeAll();
         movesLearnt.add(window.getCompoFactory().newPlainLabel(messages.getVal(MessagesRenderScenePanel.SELECT_HEAL_MOVE)));
-        StringMap<Integer> moves_ = facade.getPlayer().getChosenMoves();
+        StringMap<Long> moves_ = facade.getPlayer().getChosenMoves();
         StringList keys_ = new StringList(moves_.getKeys());
 //        keys_.sort(new Comparator<String>() {
 //            @Override
@@ -1758,7 +1758,7 @@ public final class ScenePanel {
         movesLearnt.removeAll();
         movesLearnt.add(window.getCompoFactory().newPlainLabel(messages.getVal(MessagesRenderScenePanel.SELECT_BOOST_MOVE)));
         movesLearntList.clear();
-        StringMap<Integer> moves_ = facade.getPlayer().getChosenMoves();
+        StringMap<Long> moves_ = facade.getPlayer().getChosenMoves();
         StringList keys_ = new StringList(moves_.getKeys());
 //        keys_.sort(new Comparator<String>() {
 //            @Override
@@ -1832,7 +1832,7 @@ public final class ScenePanel {
         movesLearnt.removeAll();
         movesLearnt.add(window.getCompoFactory().newPlainLabel(messages.getVal(MessagesRenderScenePanel.SELECT_TM)));
         movesLearntList.clear();
-        StringMap<Integer> moves_ = facade.getPlayer().getChosenMoves();
+        StringMap<Long> moves_ = facade.getPlayer().getChosenMoves();
         StringList keys_ = new StringList(moves_.getKeys());
 //        keys_.sort(new Comparator<String>() {
 //            @Override

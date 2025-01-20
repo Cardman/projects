@@ -29,7 +29,7 @@ public final class ItemForBattle extends Item {
     private Rate protectAgainstKo;
     private Rate protectAgainstKoIfFullHp;
     private Rate drainedHpByDamageRate;
-    private IdMap<Statistic, Integer> winEvFight;
+    private IdMap<Statistic,Long> winEvFight;
     private MonteCarloBoolean lawForAttackFirst;
     private Rate multTrappingDamage;
     private Rate multWinningHappiness;
@@ -39,7 +39,7 @@ public final class ItemForBattle extends Item {
     private String multDamage;
     private Rate multDrainedHp;
     private Rate damageRecoil;
-    private IdMap<Statistic, Integer> multStatRank;
+    private IdMap<Statistic,Long> multStatRank;
 
     private StatisticPokemons multStatPokemonRank;
 
@@ -50,8 +50,8 @@ public final class ItemForBattle extends Item {
     private StringList hatching;
     private StringList immuTypes;
     private StringList immuWeather;
-    private IdMap<Statistic, Integer> boostStatisSuperEff;
-    private StringMap<IdMap<Statistic, Integer>> boostStatisTypes;
+    private IdMap<Statistic,Long> boostStatisSuperEff;
+    private StringMap<IdMap<Statistic,Long>> boostStatisTypes;
 
     private CustList<EffectEndRound> effectEndRound;
     private CustList<EffectWhileSendingWithStatistic> effectSending;
@@ -92,11 +92,11 @@ public final class ItemForBattle extends Item {
         DataInfoChecker.checkStringListContains(_data.getMoves().getKeys(),immuMoves,_data);
         DataInfoChecker.checkStringListContains(_data.getMovesEffectGlobalWeather(),immuWeather,_data);
         DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),boostStatisSuperEff.getKeys(),_data);
-        DataInfoChecker.checkPositiveShorts(boostStatisSuperEff.values(),_data);
+        DataInfoChecker.checkPositiveLongs(boostStatisSuperEff.values(),_data);
         DataInfoChecker.checkStringListContains(_data.getTypes(),boostStatisTypes.getKeys(),_data);
-        for (IdMap<Statistic, Integer> t : boostStatisTypes.values()) {
+        for (IdMap<Statistic,Long> t : boostStatisTypes.values()) {
             DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),t.getKeys(),_data);
-            DataInfoChecker.checkPositiveShorts(t.values(),_data);
+            DataInfoChecker.checkPositiveLongs(t.values(),_data);
         }
         DataInfoChecker.checkStringListContains(_data.getStatus().getKeys(),immuStatus,_data);
         DataInfoChecker.checkStringListContains(_data.getStatus().getKeys(),synchroStatus,_data);
@@ -104,7 +104,7 @@ public final class ItemForBattle extends Item {
         DataInfoChecker.checkStringListContains(_data.getTrappingMoves(),increasingMaxNbRoundTrap.getKeys(),_data);
         DataInfoChecker.checkPositiveOrZeroShorts(increasingMaxNbRoundTrap.values(),_data);
         DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBase(),winEvFight.getKeys(),_data);
-        DataInfoChecker.checkPositiveOrZeroShorts(winEvFight.values(),_data);
+        DataInfoChecker.checkPositiveOrZeroLongs(winEvFight.values(),_data);
         DataInfoChecker.checkPositiveOrZero(protectAgainstKo,_data);
         DataInfoChecker.checkPositiveOrZero(protectAgainstKoIfFullHp,_data);
         DataInfoChecker.checkPositiveOrZero(drainedHpByDamageRate,_data);
@@ -255,11 +255,11 @@ public final class ItemForBattle extends Item {
         drainedHpByDamageRate = _drainedHpByDamageRate;
     }
 
-    public IdMap<Statistic, Integer> getWinEvFight() {
+    public IdMap<Statistic,Long> getWinEvFight() {
         return winEvFight;
     }
 
-    public void setWinEvFight(IdMap<Statistic, Integer> _winEvFight) {
+    public void setWinEvFight(IdMap<Statistic,Long> _winEvFight) {
         winEvFight = _winEvFight;
     }
 
@@ -335,11 +335,11 @@ public final class ItemForBattle extends Item {
         damageRecoil = _damageRecoil;
     }
 
-    public IdMap<Statistic, Integer> getMultStatRank() {
+    public IdMap<Statistic,Long> getMultStatRank() {
         return multStatRank;
     }
 
-    public void setMultStatRank(IdMap<Statistic, Integer> _multStat) {
+    public void setMultStatRank(IdMap<Statistic,Long> _multStat) {
         multStatRank = _multStat;
     }
 
@@ -410,21 +410,21 @@ public final class ItemForBattle extends Item {
         immuWeather = _immuWeather;
     }
 
-    public IdMap<Statistic, Integer> getBoostStatisSuperEff() {
+    public IdMap<Statistic,Long> getBoostStatisSuperEff() {
         return boostStatisSuperEff;
     }
 
     public void setBoostStatisSuperEff(
-            IdMap<Statistic, Integer> _boostStatisSuperEff) {
+            IdMap<Statistic,Long> _boostStatisSuperEff) {
         boostStatisSuperEff = _boostStatisSuperEff;
     }
 
-    public StringMap<IdMap<Statistic, Integer>> getBoostStatisTypes() {
+    public StringMap<IdMap<Statistic,Long>> getBoostStatisTypes() {
         return boostStatisTypes;
     }
 
     public void setBoostStatisTypes(
-            StringMap<IdMap<Statistic, Integer>> _boostStatisTypes) {
+            StringMap<IdMap<Statistic,Long>> _boostStatisTypes) {
         boostStatisTypes = _boostStatisTypes;
     }
 

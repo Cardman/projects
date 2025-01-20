@@ -226,7 +226,7 @@ public final class FightHelpBeanItemsBoostingStatTest extends InitDbFightHelp {
     private static FacadeGame db(Statistic _st) {
         FacadeGame f_ = facade();
         ItemForBattle t_ = Instances.newItemForBattle();
-        t_.getMultStatRank().addEntry(_st,1);
+        t_.getMultStatRank().addEntry(_st,1L);
         f_.getData().completeMembers(M_DAM, t_);
         f_.getData().completeMembers(M_STA, Instances.newBall());
         f_.getData().completeMembers(M_DAM_VAR, Instances.newItemForBattle());

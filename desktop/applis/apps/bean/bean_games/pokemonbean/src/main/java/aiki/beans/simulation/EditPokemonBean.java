@@ -21,9 +21,9 @@ import code.util.core.StringUtil;
 
 public class EditPokemonBean extends CommonBean {
     private String namePk = DataBase.EMPTY_STRING;
-    private int level;
+    private long level;
     private Rate experience;
-    private int happiness;
+    private long happiness;
     private boolean heal;
     private Rate remainingHp;
     private IdMap<Statistic, EvLine> ev;
@@ -47,13 +47,13 @@ public class EditPokemonBean extends CommonBean {
             }
         }
         namePk = getForms().getValStr(CST_POKEMON_NAME_EDIT);
-        level = getForms().getValInt(CST_POKEMON_LEVEL_EDIT);
+        level = getForms().getValLong(CST_POKEMON_LEVEL_EDIT);
         experience = getForms().getValRate(CST_POKEMON_EXPERIENCE);
-        happiness = getForms().getValInt(CST_POKEMON_HAPPINESS);
+        happiness = getForms().getValLong(CST_POKEMON_HAPPINESS);
         item = getForms().getValStr(CST_ITEM_EDIT);
         for (Statistic s: Statistic.getStatisticsWithBase()) {
             EvLine ev_ = new EvLine();
-            ev_.setEv(getForms().getValInt(StringUtil.concat(CST_POKEMON_EV_VAR, s.getStatName())));
+            ev_.setEv(getForms().getValLong(StringUtil.concat(CST_POKEMON_EV_VAR, s.getStatName())));
             ev.put(s, ev_);
         }
         remainingHp = getForms().getValRate(CST_POKEMON_HP);
@@ -165,7 +165,7 @@ public class EditPokemonBean extends CommonBean {
         return inRange(_selected.size(),1,data_.getNbMaxMoves());
     }
 
-    public int getLevel() {
+    public long getLevel() {
         return level;
     }
 
@@ -197,11 +197,11 @@ public class EditPokemonBean extends CommonBean {
         ball = _ball;
     }
 
-    public void setHappiness(int _happiness) {
+    public void setHappiness(long _happiness) {
         happiness = _happiness;
     }
 
-    public int getHappiness() {
+    public long getHappiness() {
         return happiness;
     }
 

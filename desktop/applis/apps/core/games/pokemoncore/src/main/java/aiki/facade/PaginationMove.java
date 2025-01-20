@@ -56,7 +56,7 @@ public final class PaginationMove extends
         int len_ = _list.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             MoveData i_ = _data.getMove(_list.get(i));
-            int price_ = price(_list, _data, i);
+            long price_ = price(_list, _data, i);
             if (!getCriteria().matchPrice(price_) || !getCriteria().matchClass(i_) || !getCriteria().matchPp(i_.getPp()) || !getCriteria().matchTargetChoice(i_.getTargetChoice()) || !getCriteria().matchPrio(i_.getPriority()) || !getCriteria().matchTypes(types(i_)) || !match(translatedMove.getVal(_list.get(i)))) {
                 continue;
             }
@@ -82,18 +82,18 @@ public final class PaginationMove extends
         return types_;
     }
 
-    public static int price(CustList<String> _list, DataBase _data, int _i) {
+    public static long price(CustList<String> _list, DataBase _data, int _i) {
         return price(_data, _list.get(_i));
     }
 
-    public static int price(DataBase _data, String _move) {
-        int price_ = 0;
+    public static long price(DataBase _data, String _move) {
+        long price_ = 0;
         // CustList<Short> tmKeys_ = _data.getTm().getKeys(_list.get(i));
         Ints tmKeys_ = _data.getTmByMove(_move);
         if (!tmKeys_.isEmpty()) {
             int tm_ = tmKeys_.first();
             if (_data.getTmPrice().contains(tm_)) {
-                price_ = (int) _data.getTmPrice().getVal(tm_).ll();
+                price_ = _data.getTmPrice().getVal(tm_).ll();
             }
         }
         return price_;

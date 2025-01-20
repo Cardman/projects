@@ -15,7 +15,7 @@ public abstract class FormAbsPk {
     private GeneComponentModelEltEnumSub<String> ability;
     private GeneComponentModelEltEnumSub<String> item;
     private GeneComponentModelEltEnumSub<Gender> gender;
-    private final GeneComponentModelInt level;
+    private final GeneComponentModelLong level;
     private AbsPanel form;
     private final AbsCommonFrame frame;
     protected FormAbsPk(AbstractProgramInfos _ed, FacadeGame _facade, SubscribedTranslationList _sub, AbsCommonFrame _f) {
@@ -23,12 +23,12 @@ public abstract class FormAbsPk {
         facadeGame = _facade;
         subscribedTranslationList = _sub;
         frame = _f;
-        level = new GeneComponentModelInt(api);
+        level = new GeneComponentModelLong(api);
     }
 
     public void feedFormQuick() {
         form = api.getCompoFactory().newPageBox();
-        form.add(level.geneInt());
+        form.add(level.geneLong());
         name = ConverterCommonMapUtil.buildPkFull(api, facadeGame, subscribedTranslationList);
         form.add(name.geneEnum());
         ability = ConverterCommonMapUtil.buildAbFull(api, facadeGame, subscribedTranslationList, new IdMap<String, String>());
@@ -40,7 +40,7 @@ public abstract class FormAbsPk {
     }
 
     public void feedFormQuick(Pokemon _wildPk) {
-        level.valueInt(_wildPk.getLevel());
+        level.valueLong(_wildPk.getLevel());
         name.setupValue(_wildPk.getName());
         ability.setupValue(_wildPk.getAbility());
         item.setupValue(_wildPk.getItem());
@@ -56,7 +56,7 @@ public abstract class FormAbsPk {
     }
 
     public void buildEntity(Pokemon _wildPk) {
-        _wildPk.setLevel(level.valueInt());
+        _wildPk.setLevel(level.valueLong());
         _wildPk.setName(name.tryRet());
         _wildPk.setAbility(ability.tryRet());
         _wildPk.setItem(item.tryRet());
@@ -83,7 +83,7 @@ public abstract class FormAbsPk {
         return form;
     }
 
-    public GeneComponentModelInt getLevel() {
+    public GeneComponentModelLong getLevel() {
         return level;
     }
 

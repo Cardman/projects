@@ -25,8 +25,8 @@ public final class DifficultyCommon {
     private boolean endFightIfOneTeamKo;
     private Rate rateWinMoneyBase;
     private Rate rateLooseMoneyWin;
-    private int ivPlayer;
-    private int ivFoe;
+    private long ivPlayer;
+    private long ivFoe;
     private boolean stillPossibleFlee;
     private boolean restoredMovesEndFight;
     private boolean enabledClosing;
@@ -138,19 +138,19 @@ public final class DifficultyCommon {
         return endFightIfOneTeamKo;
     }
 
-    public void setIvPlayer(int _ivPlayer) {
+    public void setIvPlayer(long _ivPlayer) {
         ivPlayer = _ivPlayer;
     }
 
-    public int getIvPlayer() {
+    public long getIvPlayer() {
         return ivPlayer;
     }
 
-    public void setIvFoe(int _ivFoe) {
+    public void setIvFoe(long _ivFoe) {
         ivFoe = _ivFoe;
     }
 
-    public int getIvFoe() {
+    public long getIvFoe() {
         return ivFoe;
     }
 

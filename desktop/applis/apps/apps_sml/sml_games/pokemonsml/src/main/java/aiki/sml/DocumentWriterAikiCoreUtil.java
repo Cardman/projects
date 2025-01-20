@@ -1383,7 +1383,7 @@ public final class DocumentWriterAikiCoreUtil {
 
     private static void setFossil(Fossil _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getPokemon(),FIELD_POKEMON,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getLevel(),FIELD_LEVEL,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setLong(_object.getLevel(),FIELD_LEVEL,_document));
         setItem(_object, _element, _document);
     }
 
@@ -1602,7 +1602,7 @@ public final class DocumentWriterAikiCoreUtil {
         return (StatusMoveData) _pk;
     }
     private static void setMoveData(MoveData _object, Element _element, Document _document) {
-        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getPp(),FIELD_PP,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setLong(_object.getPp(),FIELD_PP,_document));
         _element.appendChild(DocumentWriterCoreUtil.setStringList(_object.getTypes(),FIELD_TYPES,_document));
         _element.appendChild(DocumentWriterCoreUtil.setStringList(_object.getBoostedTypes(),FIELD_BOOSTED_TYPES,_document));
         _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getPriority(),FIELD_PRIORITY,_document));
@@ -2447,7 +2447,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static void setEvolutionLevel(EvolutionLevel _object, Element _element, Document _document) {
-        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getLevel(),FIELD_LEVEL,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setLong(_object.getLevel(),FIELD_LEVEL,_document));
     }
 
     private static void setEvolutionLevelGender(EvolutionLevelGender _object, Element _element, Document _document) {
@@ -2806,8 +2806,8 @@ public final class DocumentWriterAikiCoreUtil {
         _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getGroundPlaceSubst(),FIELD_GROUND_PLACE_SUBST,_document));
         _element.appendChild(DocumentWriterMathUtil.setRate(_object.getWonExp(),FIELD_WON_EXP,_document));
         _element.appendChild(DocumentWriterMathUtil.setRate(_object.getWonExpSinceLastLevel(),FIELD_WON_EXP_SINCE_LAST_LEVEL,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getLevel(),FIELD_LEVEL,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getHappiness(),FIELD_HAPPINESS,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setLong(_object.getLevel(),FIELD_LEVEL,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setLong(_object.getHappiness(),FIELD_HAPPINESS,_document));
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getUsedBallCatching(),FIELD_USED_BALL_CATCHING,_document));
         _element.appendChild(setMapMoveTeamPositionBoolean(_object.getIncrUserAccuracy(),FIELD_INCR_USER_ACCURACY,_document));
         _element.appendChild(DocumentWriterCoreUtil.setStringMapInteger(_object.getNbUsesMoves(),FIELD_NB_USES_MOVES,_document));
@@ -3022,8 +3022,8 @@ public final class DocumentWriterAikiCoreUtil {
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.getEndFightIfOneTeamKo(),FIELD_END_FIGHT_IF_ONE_TEAM_KO,_document));
         _element.appendChild(DocumentWriterMathUtil.setRate(_object.getRateWinMoneyBase(),FIELD_RATE_WIN_MONEY_BASE,_document));
         _element.appendChild(DocumentWriterMathUtil.setRate(_object.getRateLooseMoneyWin(),FIELD_RATE_LOOSE_MONEY_WIN,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getIvPlayer(),FIELD_IV_PLAYER,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getIvFoe(),FIELD_IV_FOE,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setLong(_object.getIvPlayer(),FIELD_IV_PLAYER,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setLong(_object.getIvFoe(),FIELD_IV_FOE,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.getStillPossibleFlee(),FIELD_STILL_POSSIBLE_FLEE,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.getRestoredMovesEndFight(),FIELD_RESTORED_MOVES_END_FIGHT,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.getEnabledClosing(),FIELD_ENABLED_CLOSING,_document));
@@ -3101,7 +3101,7 @@ public final class DocumentWriterAikiCoreUtil {
         _element.appendChild(setInventory(_object.getInventory(),FIELD_INVENTORY,_document));
         _element.appendChild(DocumentWriterCoreUtil.setStringMapBoolean(_object.getCaughtPk(),FIELD_CAUGHT_PK,_document));
         _element.appendChild(DocumentWriterMathUtil.setLgInt(_object.getMoney(),FIELD_MONEY,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getRemainingRepelSteps(),FIELD_REMAINING_REPEL_STEPS,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setLong(_object.getRemainingRepelSteps(),FIELD_REMAINING_REPEL_STEPS,_document));
     }
 
     private static Element setSex(Sex _object, String _fieldName, Document _document) {
@@ -3604,7 +3604,7 @@ public final class DocumentWriterAikiCoreUtil {
 
     private static void setPkTrainer(PkTrainer _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getName(),FIELD_NAME,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getLevel(),FIELD_LEVEL,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setLong(_object.getLevel(),FIELD_LEVEL,_document));
         _element.appendChild(setGender(_object.getGender(),FIELD_GENDER,_document));
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getAbility(),FIELD_ABILITY,_document));
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getItem(),FIELD_ITEM,_document));
@@ -3623,7 +3623,7 @@ public final class DocumentWriterAikiCoreUtil {
 
     private static void setPokemonPlayer(PokemonPlayer _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getName(),FIELD_NAME,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getLevel(),FIELD_LEVEL,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setLong(_object.getLevel(),FIELD_LEVEL,_document));
         _element.appendChild(setGender(_object.getGender(),FIELD_GENDER,_document));
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getAbility(),FIELD_ABILITY,_document));
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getItem(),FIELD_ITEM,_document));
@@ -3633,9 +3633,9 @@ public final class DocumentWriterAikiCoreUtil {
         _element.appendChild(setStringMapUsesOfMove(_object.getMoves(),FIELD_MOVES,_document));
         _element.appendChild(setMapStatisticShort(_object.getEv(),FIELD_EV,_document));
         _element.appendChild(DocumentWriterMathUtil.setRate(_object.getWonExpSinceLastLevel(),FIELD_WON_EXP_SINCE_LAST_LEVEL,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getHappiness(),FIELD_HAPPINESS,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setLong(_object.getHappiness(),FIELD_HAPPINESS,_document));
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getUsedBallCatching(),FIELD_USED_BALL_CATCHING,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getNbStepsTeamLead(),FIELD_NB_STEPS_TEAM_LEAD,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setLong(_object.getNbStepsTeamLead(),FIELD_NB_STEPS_TEAM_LEAD,_document));
     }
 
     private static Element setPokemonTeam(PokemonTeam _object, String _fieldName, Document _document) {
@@ -3675,7 +3675,7 @@ public final class DocumentWriterAikiCoreUtil {
 
     private static void setWildPk(WildPk _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getName(),FIELD_NAME,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getLevel(),FIELD_LEVEL,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setLong(_object.getLevel(),FIELD_LEVEL,_document));
         _element.appendChild(setGender(_object.getGender(),FIELD_GENDER,_document));
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getAbility(),FIELD_ABILITY,_document));
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getItem(),FIELD_ITEM,_document));
@@ -3919,14 +3919,14 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapStatisticShort(AbsMap<Statistic,Integer> _object, String _fieldName, Document _document) {
+    private static Element setMapStatisticShort(AbsMap<Statistic,Long> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<Statistic, Integer> s: _object.entryList()) {
+        for (EntryCust<Statistic, Long> s: _object.entryList()) {
             Element sub_ = setStatistic(s.getKey(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
-            sub_ = DocumentWriterCoreUtil.setInteger(s.getValue(), EMPTY_STRING, _document);
+            sub_ = DocumentWriterCoreUtil.setLong(s.getValue(), EMPTY_STRING, _document);
             elt_.appendChild(sub_);
         }
         return elt_;
@@ -4164,14 +4164,14 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapStatisticCategoryByte(StatisticCategoryList<Integer> _object, String _fieldName, Document _document) {
+    private static Element setMapStatisticCategoryByte(StatisticCategoryList<Long> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<StatisticCategory, Integer> s: _object.entryList()) {
+        for (EntryCust<StatisticCategory, Long> s: _object.entryList()) {
             Element sub_ = setStatisticCategory(s.getKey(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
-            sub_ = DocumentWriterCoreUtil.setInteger(s.getValue(), EMPTY_STRING, _document);
+            sub_ = DocumentWriterCoreUtil.setLong(s.getValue(), EMPTY_STRING, _document);
             elt_.appendChild(sub_);
         }
         return elt_;
@@ -4216,14 +4216,14 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapStatisticTypeByte(StatisticTypeList<Integer> _object, String _fieldName, Document _document) {
+    private static Element setMapStatisticTypeByte(StatisticTypeList<Long> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<StatisticType, Integer> s: _object.entryList()) {
+        for (EntryCust<StatisticType, Long> s: _object.entryList()) {
             Element sub_ = setStatisticType(s.getKey(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
-            sub_ = DocumentWriterCoreUtil.setInteger(s.getValue(), EMPTY_STRING, _document);
+            sub_ = DocumentWriterCoreUtil.setLong(s.getValue(), EMPTY_STRING, _document);
             elt_.appendChild(sub_);
         }
         return elt_;
@@ -4684,10 +4684,10 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setStringMapMapStatisticByte(StringMap<IdMap<Statistic,Integer>> _object, String _fieldName, Document _document) {
+    private static Element setStringMapMapStatisticByte(StringMap<IdMap<Statistic,Long>> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<String, IdMap<Statistic,Integer>> s: _object.entryList()) {
+        for (EntryCust<String, IdMap<Statistic,Long>> s: _object.entryList()) {
             Element sub_ = DocumentWriterCoreUtil.setString(s.getKey(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);

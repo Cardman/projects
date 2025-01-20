@@ -47,7 +47,7 @@ public final class EffectDamage extends Effect {
 
     private Statistic statisDef;
 
-    private IdMap<Statistic, Integer> boostStatisOnceKoFoe;
+    private IdMap<Statistic,Long> boostStatisOnceKoFoe;
 
     @Override
     public void validate(DataBase _data) {
@@ -61,7 +61,7 @@ public final class EffectDamage extends Effect {
         DataInfoChecker.checkTargetNot(TargetChoice.UNIQUE_IMPORTE,getTargetChoice(),_data);
         DataInfoChecker.checkTargetNot(TargetChoice.GLOBALE,getTargetChoice(),_data);
         DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),boostStatisOnceKoFoe.getKeys(),_data);
-        DataInfoChecker.checkPositiveShorts(boostStatisOnceKoFoe.values(),_data);
+        DataInfoChecker.checkPositiveLongs(boostStatisOnceKoFoe.values(),_data);
         DataInfoChecker.checkStringListContains(_data.getCategories(),multDamageAgainst.getKeys(),_data);
         DataInfoChecker.checkPositiveRates(multDamageAgainst.values(),_data);
         patch();
@@ -233,12 +233,12 @@ public final class EffectDamage extends Effect {
         statisDef = _statisDef;
     }
 
-    public IdMap<Statistic, Integer> getBoostStatisOnceKoFoe() {
+    public IdMap<Statistic,Long> getBoostStatisOnceKoFoe() {
         return boostStatisOnceKoFoe;
     }
 
     public void setBoostStatisOnceKoFoe(
-            IdMap<Statistic, Integer> _boostStatisOnceKoFoe) {
+            IdMap<Statistic,Long> _boostStatisOnceKoFoe) {
         boostStatisOnceKoFoe = _boostStatisOnceKoFoe;
     }
 }

@@ -58,7 +58,7 @@ public final class PaginationHealingItem extends
 
     public void search(CustList<String> _list, DataBase _data) {
         healingItems.clear();
-        Ints pps_ = new Ints();
+        Longs pps_ = new Longs();
         for (MoveData f : _data.getMoves().values()) {
             pps_.add(f.getPp());
         }

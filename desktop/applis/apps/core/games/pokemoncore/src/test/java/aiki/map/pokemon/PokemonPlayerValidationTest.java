@@ -184,7 +184,7 @@ public class PokemonPlayerValidationTest extends InitializationDataBase {
     public void validate23Test() {
         DataBase data_ = initDb();
         PokemonPlayer pk_ = pokemonPlayer(data_,  3);
-        pk_.getEv().put(Statistic.ACCURACY,  1);
+        pk_.getEv().put(Statistic.ACCURACY,  1L);
         assertTrue(!pk_.validate(data_));
     }
 
@@ -192,7 +192,7 @@ public class PokemonPlayerValidationTest extends InitializationDataBase {
     public void validate24Test() {
         DataBase data_ = initDb();
         PokemonPlayer pk_ = pokemonPlayer(data_,  3);
-        pk_.getEv().put(Statistic.DEFENSE,  -1);
+        pk_.getEv().put(Statistic.DEFENSE,  -1L);
         assertTrue(!pk_.validate(data_));
     }
 

@@ -6,6 +6,6 @@ import code.bean.nat.*;
 public class EffectTeamWhileSendFoeBeanStatusByNbUsesGet implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return PokemonStandards.getIntStr(( (EffectTeamWhileSendFoeBean) ((PokemonBeanStruct)_instance).getInstance()).getStatusByNbUses());
+        return PokemonStandards.getLongStr(( (EffectTeamWhileSendFoeBean) ((PokemonBeanStruct)_instance).getInstance()).getStatusByNbUses());
     }
 }

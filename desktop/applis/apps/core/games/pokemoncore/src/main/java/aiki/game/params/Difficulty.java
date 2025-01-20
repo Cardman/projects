@@ -39,10 +39,10 @@ public final class Difficulty {
     private Rate rateLooseMoneyWin;
 
     /***/
-    private int ivPlayer;
+    private long ivPlayer;
 
     /***/
-    private int ivFoe;
+    private long ivFoe;
 
     /***/
     private boolean stillPossibleFlee;
@@ -190,19 +190,19 @@ public final class Difficulty {
         rateLooseMoneyWin = _rateLooseMoneyWin;
     }
 
-    public int getIvPlayer() {
+    public long getIvPlayer() {
         return ivPlayer;
     }
 
-    public void setIvPlayer(int _ivPlayer) {
+    public void setIvPlayer(long _ivPlayer) {
         ivPlayer = _ivPlayer;
     }
 
-    public int getIvFoe() {
+    public long getIvFoe() {
         return ivFoe;
     }
 
-    public void setIvFoe(int _ivFoe) {
+    public void setIvFoe(long _ivFoe) {
         ivFoe = _ivFoe;
     }
 

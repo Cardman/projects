@@ -389,10 +389,10 @@ public final class EditorAppFormTest extends InitEditorPkForm {
         a_.getImmuLowStatIfStatus().add(new StatisticStatus(Statistic.SPEED,S_1));
         a_.getMultStatIfStatutRank().addEntry(new StatisticStatus(Statistic.SPEED,NULL_REF),1);
         a_.getMultStatIfStatutRank().addEntry(new StatisticStatus(Statistic.SPEED,S_1),1);
-        a_.getMultStatIfDamgeType().addEntry(new StatisticType(Statistic.SPEED,NULL_REF),1);
-        a_.getMultStatIfDamgeType().addEntry(new StatisticType(Statistic.SPEED,T_1),1);
-        a_.getMultStatIfDamageCat().addEntry(new StatisticCategory(Statistic.SPEED,NULL_REF),1);
-        a_.getMultStatIfDamageCat().addEntry(new StatisticCategory(Statistic.SPEED,C_1),1);
+        a_.getMultStatIfDamgeType().addEntry(new StatisticType(Statistic.SPEED,NULL_REF),1L);
+        a_.getMultStatIfDamgeType().addEntry(new StatisticType(Statistic.SPEED,T_1),1L);
+        a_.getMultStatIfDamageCat().addEntry(new StatisticCategory(Statistic.SPEED,NULL_REF),1L);
+        a_.getMultStatIfDamageCat().addEntry(new StatisticCategory(Statistic.SPEED,C_1),1L);
         a_.getMultStatIfCat().addEntry(new StatisticCategory(Statistic.SPEED,NULL_REF),Rate.one());
         a_.getMultStatIfCat().addEntry(new StatisticCategory(Statistic.SPEED,C_1),Rate.one());
         a_.getEffectSending().add(Instances.newEffectWhileSendingSimple());

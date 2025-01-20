@@ -891,7 +891,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         move_.getEffects().add(effectDamage_);
         move_.setTargetChoice(TargetChoice.ANY_FOE);
         EffectStatistic effectStatistic_ = Instances.newEffectStatistic();
-        effectStatistic_.getStatisVarRank().addEntry(Statistic.ATTACK,  1);
+        effectStatistic_.getStatisVarRank().addEntry(Statistic.ATTACK,1L);
         effectStatistic_.setTargetChoice(TargetChoice.LANCEUR);
         move_.getEffects().add(effectStatistic_);
         data_.completeMembers(CHARGE, move_);
@@ -908,7 +908,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         move_.getEffects().add(effectDamage_);
         move_.setTargetChoice(TargetChoice.ANY_FOE);
         EffectStatistic effectStatistic_ = Instances.newEffectStatistic();
-        effectStatistic_.getStatisVarRank().addEntry(Statistic.ATTACK,  -1);
+        effectStatistic_.getStatisVarRank().addEntry(Statistic.ATTACK,-1L);
         effectStatistic_.setTargetChoice(TargetChoice.LANCEUR);
         move_.getEffects().add(effectStatistic_);
         data_.completeMembers(CHARGE, move_);
@@ -1022,7 +1022,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         move_.setTargetChoice(TargetChoice.TOUS_ADV);
         EffectStatistic effectStatistic_ = Instances.newEffectStatistic();
         effectStatistic_.setTargetChoice(TargetChoice.TOUS_ADV);
-        effectStatistic_.getStatisVarRank().addEntry(Statistic.EVASINESS,  -1);
+        effectStatistic_.getStatisVarRank().addEntry(Statistic.EVASINESS,-1L);
         move_.getEffects().add(effectStatistic_);
         data_.completeMembers(CHARGE, move_);
         assertTrue(DataBase.nextIteration(move_,0));
@@ -1411,7 +1411,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         effectDamage_.setTargetChoice(TargetChoice.TOUS_ADV);
         move_.getEffects().add(effectDamage_);
         EffectStatistic effectStatistic_ = Instances.newEffectStatistic();
-        effectStatistic_.getStatisVarRank().addEntry(Statistic.ATTACK,  -1);
+        effectStatistic_.getStatisVarRank().addEntry(Statistic.ATTACK,-1L);
         effectStatistic_.setTargetChoice(TargetChoice.LANCEUR);
         move_.getEffects().add(effectStatistic_);
         move_.setTypes(new StringList(ELECTRICK));

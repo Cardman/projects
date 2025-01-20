@@ -2181,7 +2181,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_LEVEL)) {
-            _object.setLevel(DocumentReaderCoreUtil.getInteger(_element));
+            _object.setLevel(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
         getItem(_object, _element);
@@ -2577,7 +2577,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static void getMoveData(MoveData _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_PP)) {
-            _object.setPp(DocumentReaderCoreUtil.getInteger(_element));
+            _object.setPp(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_TYPES)) {
@@ -4079,7 +4079,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEvolutionLevel(EvolutionLevel _object, Element _element) {
-        _object.setLevel(DocumentReaderCoreUtil.getInteger(_element));
+        _object.setLevel(DocumentReaderCoreUtil.getLong(_element));
     }
 
     private static void getEvolutionLevelGender(EvolutionLevelGender _object, String _fieldName, Element _element) {
@@ -4719,11 +4719,11 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_LEVEL)) {
-            _object.setLevel(DocumentReaderCoreUtil.getInteger(_element));
+            _object.setLevel(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_HAPPINESS)) {
-            _object.setHappiness(DocumentReaderCoreUtil.getInteger(_element));
+            _object.setHappiness(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_USED_BALL_CATCHING)) {
@@ -5101,11 +5101,11 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_IV_PLAYER)) {
-            _object.setIvPlayer(DocumentReaderCoreUtil.getInteger(_element));
+            _object.setIvPlayer(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_IV_FOE)) {
-            _object.setIvFoe(DocumentReaderCoreUtil.getInteger(_element));
+            _object.setIvFoe(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
         getDifficulty1(_object, _fieldName, _element);
@@ -5274,7 +5274,7 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setMoney(DocumentReaderMathUtil.getLgInt(_element));
             return;
         }
-        _object.setRemainingRepelSteps(DocumentReaderCoreUtil.getInteger(_element));
+        _object.setRemainingRepelSteps(DocumentReaderCoreUtil.getLong(_element));
     }
 
     private static Sex getSex(Element _elt, SexListInt _sexList) {
@@ -6056,14 +6056,14 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_HAPPINESS)) {
-            _object.setHappiness(DocumentReaderCoreUtil.getInteger(_element));
+            _object.setHappiness(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_USED_BALL_CATCHING)) {
             _object.setUsedBallCatching(DocumentReaderCoreUtil.getString(_element));
             return;
         }
-        _object.setNbStepsTeamLead(DocumentReaderCoreUtil.getInteger(_element));
+        _object.setNbStepsTeamLead(DocumentReaderCoreUtil.getLong(_element));
     }
 
     private static PokemonTeam getPokemonTeam(Element _element) {
@@ -6111,7 +6111,7 @@ public final class DocumentReaderAikiCoreUtil {
             return true;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_LEVEL)) {
-            _object.setLevel(DocumentReaderCoreUtil.getInteger(_element));
+            _object.setLevel(DocumentReaderCoreUtil.getLong(_element));
             return true;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_GENDER)) {
@@ -6411,18 +6411,18 @@ public final class DocumentReaderAikiCoreUtil {
         return map_;
     }
 
-    private static IdMap<Statistic,Integer> getMapStatisticShort(Element _elt) {
+    private static IdMap<Statistic,Long> getMapStatisticShort(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        IdMap<Statistic,Integer> map_ = new IdMap<Statistic,Integer>(cap_);
+        IdMap<Statistic,Long> map_ = new IdMap<Statistic,Long>(cap_);
         CustList<Statistic> keys_ = new CustList<Statistic>(cap_);
-        CustList<Integer> values_ = new CustList<Integer>(cap_);
+        CustList<Long> values_ = new CustList<Long>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
                 keys_.add(getStatistic(c));
             } else {
-                values_.add(DocumentReaderCoreUtil.getInteger(c));
+                values_.add(DocumentReaderCoreUtil.getLong(c));
             }
         }
         int min_ = NumberUtil.min(keys_.size(), values_.size());
@@ -6749,18 +6749,18 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static StatisticCategoryList<Integer> getMapStatisticCategoryByte(Element _elt) {
+    private static StatisticCategoryList<Long> getMapStatisticCategoryByte(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        StatisticCategoryList<Integer> map_ = new StatisticCategoryByte(cap_);
+        StatisticCategoryList<Long> map_ = new StatisticCategoryByte(cap_);
         CustList<StatisticCategory> keys_ = new CustList<StatisticCategory>(cap_);
-        CustList<Integer> values_ = new CustList<Integer>(cap_);
+        CustList<Long> values_ = new CustList<Long>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
                 keys_.add(getStatisticCategory(c));
             } else {
-                values_.add(DocumentReaderCoreUtil.getInteger(c));
+                values_.add(DocumentReaderCoreUtil.getLong(c));
             }
         }
         int min_ = NumberUtil.min(keys_.size(), values_.size());
@@ -6829,18 +6829,18 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static StatisticTypeList<Integer> getMapStatisticTypeByte(Element _elt) {
+    private static StatisticTypeList<Long> getMapStatisticTypeByte(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        StatisticTypeList<Integer> map_ = new StatisticTypeByte(cap_);
+        StatisticTypeList<Long> map_ = new StatisticTypeByte(cap_);
         CustList<StatisticType> keys_ = new CustList<StatisticType>(cap_);
-        CustList<Integer> values_ = new CustList<Integer>(cap_);
+        CustList<Long> values_ = new CustList<Long>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
                 keys_.add(getStatisticType(c));
             } else {
-                values_.add(DocumentReaderCoreUtil.getInteger(c));
+                values_.add(DocumentReaderCoreUtil.getLong(c));
             }
         }
         int min_ = NumberUtil.min(keys_.size(), values_.size());
@@ -7550,13 +7550,13 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static StringMap<IdMap<Statistic,Integer>> getStringMapMapStatisticByte(Element _elt) {
+    private static StringMap<IdMap<Statistic,Long>> getStringMapMapStatisticByte(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        StringMap<IdMap<Statistic,Integer>> map_ = new StringMap<IdMap<Statistic,Integer>>(cap_);
+        StringMap<IdMap<Statistic,Long>> map_ = new StringMap<IdMap<Statistic,Long>>(cap_);
         StringList keys_ = new StringList(cap_);
-        CustList<IdMap<Statistic,Integer>> values_ = new CustList<IdMap<Statistic,Integer>>(cap_);
+        CustList<IdMap<Statistic,Long>> values_ = new CustList<IdMap<Statistic,Long>>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
                 keys_.add(DocumentReaderCoreUtil.getString(c));

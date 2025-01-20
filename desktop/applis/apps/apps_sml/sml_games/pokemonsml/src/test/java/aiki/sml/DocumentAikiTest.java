@@ -103,12 +103,12 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
         a_.getImmuLowStat().add(Statistic.ACCURACY);
         a_.getImmuLowStatIfStatus().add(new StatisticStatus(Statistic.ACCURACY,""));
         a_.getImmuLowStatisTypes().addEntry("",new IdList<Statistic>(Statistic.ACCURACY));
-        a_.getBonusStatRank().addEntry(Statistic.ACCURACY,1);
+        a_.getBonusStatRank().addEntry(Statistic.ACCURACY,1L);
         a_.getMultStatAlly().addEntry(Statistic.ACCURACY, Rate.one());
         a_.getMultStatIfCat().addEntry(new StatisticCategory(Statistic.ACCURACY,""),Rate.one());
         a_.getMultStatIfStatutRank().addEntry(new StatisticStatus(Statistic.ACCURACY,""),1);
-        a_.getMultStatIfDamageCat().addEntry(new StatisticCategory(Statistic.ACCURACY,""),1);
-        a_.getMultStatIfDamgeType().addEntry(new StatisticType(Statistic.ACCURACY,""),1);
+        a_.getMultStatIfDamageCat().addEntry(new StatisticCategory(Statistic.ACCURACY,""),1L);
+        a_.getMultStatIfDamgeType().addEntry(new StatisticType(Statistic.ACCURACY,""),1L);
         a_.getMultStat().addEntry(Statistic.ACCURACY,"");
         a_.getChangingBoostTypes().addEntry("",new TypeDamageBoost("",Rate.one()));
         a_.getHealHpByTypeIfWeather().addEntry(new WeatherType("",""),Rate.one());
@@ -126,9 +126,9 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
     @Test
     public void t15() {
         ItemForBattle a_ = Instances.newItemForBattle();
-        a_.getBoostStatisTypes().addEntry("", new IdMap<Statistic, Integer>());
+        a_.getBoostStatisTypes().addEntry("", new IdMap<Statistic,Long>());
         a_.getMultStatPokemonRank().addEntry(new StatisticPokemon(Statistic.ACCURACY,""),1);
-        a_.getWinEvFight().addEntry(Statistic.ACCURACY,1);
+        a_.getWinEvFight().addEntry(Statistic.ACCURACY,1L);
         a_.getEffectEndRound().add(Instances.newEffectEndRoundFoe());
         a_.getEffectEndRound().add(Instances.newEffectEndRoundGlobal());
         a_.getEffectEndRound().add(Instances.newEffectEndRoundIndividual());

@@ -13,8 +13,8 @@ public final class ContentComponentModelEffectTeamWhileSendFoe {
     private GeneComponentModelSubscribeString damageRateAgainstFoe;
     private GeneComponentModelLsStrSub<String,StringList> deletedByFoeTypes;
 
-    private CrudGeneFormSimpleFormSub<Integer, String> statusByNbUses;
-    private CrudGeneFormSimpleFormSub<Statistic, Integer> statistics;
+    private CrudGeneFormSimpleFormSub<Long, String> statusByNbUses;
+    private CrudGeneFormSimpleFormSub<Statistic, Long> statistics;
 
     private AbsPanel form;
     AbsPanel effectForm(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
@@ -27,11 +27,11 @@ public final class ContentComponentModelEffectTeamWhileSendFoe {
         damageRateAgainstFoe.addComplete();
         deletedByFoeTypes = ConverterCommonMapUtil.buildTypeList(_core,_fac,_fact);
         selected_.add(deletedByFoeTypes.geneEnum());
-        statusByNbUses = new CrudGeneFormSimpleFormSub<Integer, String>(_core, _fac, _fact, _f);
-        statusByNbUses.initForm(new DisplayKeyOnlyShort<String>(), new ComparingShortKey<String>(), new GeneComponentModelSubscribeFactoryDirect<Integer>(new GeneComponentModelSubscribeInteger(_core)),buildPart(_core,_fac,_fact.getFactorySt(),new StringMap<String>()));
+        statusByNbUses = new CrudGeneFormSimpleFormSub<Long, String>(_core, _fac, _fact, _f);
+        statusByNbUses.initForm(new DisplayKeyOnlyShort<String>(), new ComparingShortKey<String>(), new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(_core)),buildPart(_core,_fac,_fact.getFactorySt(),new StringMap<String>()));
         selected_.add(statusByNbUses.getGroup());
-        statistics = new CrudGeneFormSimpleFormSub<Statistic, Integer>(_core, _fac, _fact, _f);
-        statistics.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Integer>(_fact.getFactoryStat(),_core,_fac, new IdMap<Statistic, String>()),new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac),new GeneComponentModelSubscribeFactoryDirect<Integer>(new GeneComponentModelSubscribeInteger(_core)));
+        statistics = new CrudGeneFormSimpleFormSub<Statistic, Long>(_core, _fac, _fact, _f);
+        statistics.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Long>(_fact.getFactoryStat(),_core,_fac, new IdMap<Statistic, String>()),new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac),new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(_core)));
         selected_.add(statistics.getGroup());
         selected_.setVisible(false);
         form =selected_;
@@ -51,8 +51,8 @@ public final class ContentComponentModelEffectTeamWhileSendFoe {
         failSending.setupValue(_edited.getFailSending());
         damageRateAgainstFoe.setupValue(_edited.getDamageRateAgainstFoe());
         deletedByFoeTypes.setupValue(_edited.getDeletedByFoeTypes());
-        statusByNbUses.setupValues(new MapToEntriesListUtil<Integer,String>().build(_edited.getStatusByNbUses()));
-        statistics.setupValues(new MapToEntriesListUtil<Statistic,Integer>().build(_edited.getStatistics()));
+        statusByNbUses.setupValues(new MapToEntriesListUtil<Long,String>().build(_edited.getStatusByNbUses()));
+        statistics.setupValues(new MapToEntriesListUtil<Statistic,Long>().build(_edited.getStatistics()));
     }
     void display(boolean _dis) {
         form.setVisible(_dis);
@@ -70,11 +70,11 @@ public final class ContentComponentModelEffectTeamWhileSendFoe {
         return deletedByFoeTypes;
     }
 
-    public CrudGeneFormSimpleFormSub<Integer, String> getStatusByNbUses() {
+    public CrudGeneFormSimpleFormSub<Long, String> getStatusByNbUses() {
         return statusByNbUses;
     }
 
-    public CrudGeneFormSimpleFormSub<Statistic, Integer> getStatistics() {
+    public CrudGeneFormSimpleFormSub<Statistic, Long> getStatistics() {
         return statistics;
     }
 }

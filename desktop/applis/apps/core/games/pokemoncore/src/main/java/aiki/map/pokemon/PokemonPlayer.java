@@ -56,7 +56,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
     private StringList status;
 
     /***/
-    private IdMap<Statistic,Integer> iv;
+    private IdMap<Statistic,Long> iv;
 
     /**nickname du pokemon par defaut le nom du pokemon*/
     private String nickname;
@@ -65,19 +65,19 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
     private StringMap<UsesOfMove> moves;
 
     /***/
-    private IdMap<Statistic,Integer> ev;
+    private IdMap<Statistic,Long> ev;
 
     /**Points d'experience gagnes depuis la derniere montee de niveau*/
     private Rate wonExpSinceLastLevel;
 
     /**happiness du pokemon (0 a 255)*/
-    private int happiness;
+    private long happiness;
 
     /**nom de la ball ayant capture le pokemon. Si ce nom est vide, alors le pokemon vient d'une eclosion ou d'un don.*/
     private String usedBallCatching;
 
     /**Nombre de pas effectue en tete d'equipe.*/
-    private int nbStepsTeamLead;
+    private long nbStepsTeamLead;
 
     private Comment commentPk = new Comment();
 
@@ -103,7 +103,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         status = new StringList();
         nickname = DataBase.EMPTY_STRING;
         moves = new StringMap<UsesOfMove>();
-        ev = new IdMap<Statistic,Integer>();
+        ev = new IdMap<Statistic,Long>();
         wonExpSinceLastLevel = Rate.zero();
         usedBallCatching = DataBase.EMPTY_STRING;
     }
@@ -119,7 +119,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         this(_pokemonDonne, _import, getMovesAtLevel(_pokemonDonne.getName(),_pokemonDonne.getLevel(),_import));
     }
 
-    public PokemonPlayer(Pokemon _pokemonDonne,DataBase _import, StringMap<Integer> _moves) {
+    public PokemonPlayer(Pokemon _pokemonDonne,DataBase _import, StringMap<Long> _moves) {
 //        super(_pokemonDonne);
         setName(_pokemonDonne.getName());
         setLevel(_pokemonDonne.getLevel());
@@ -235,31 +235,31 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         initEvIv(_import, _initEv);
     }
 
-    void initMoves(StringMap<Integer> _moves) {
+    void initMoves(StringMap<Long> _moves) {
         if (!trading) {
             moves = new StringMap<UsesOfMove>();
         }
         for (String m: _moves.getKeys()) {
-            int pp_ = _moves.getVal(m);
+            long pp_ = _moves.getVal(m);
             moves.put(m, new UsesOfMove(pp_));
         }
     }
 
     void initEvIv(DataBase _import, boolean _initEv) {
         if (!trading) {
-            iv = new IdMap<Statistic,Integer>();
-            ev = new IdMap<Statistic,Integer>();
+            iv = new IdMap<Statistic,Long>();
+            ev = new IdMap<Statistic,Long>();
         }
         for(Statistic c:Statistic.getStatisticsWithBase()){
             if (_initEv) {
-                ev.put(c, 0);
+                ev.put(c, 0L);
             }
             iv.put(c, _import.getMaxIv());
         }
     }
 
-    static StringMap<Integer> getMovesAtLevel(String _name, int _level, DataBase _import) {
-        StringMap<Integer> moves_ = new StringMap<Integer>();
+    static StringMap<Long> getMovesAtLevel(String _name, long _level, DataBase _import) {
+        StringMap<Long> moves_ = new StringMap<Long>();
         PokemonData fPk_=_import.getPokemon(_name);
         for (String m: fPk_.getMovesAtLevel(_level, _import.getNbMaxMoves())) {
             MoveData fAtt_=_import.getMove(m);
@@ -273,11 +273,11 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         return fPk_.getDirectEvolutions(getGender(), true);
     }
 
-    public StringMap<Integer> getAllEvolutions(DataBase _import) {
+    public StringMap<Long> getAllEvolutions(DataBase _import) {
         return getAllEvolutions(getName(), getLevel(), false, _import);
     }
 
-    public static StringMap<Integer> getAllEvolutions(String _base, int _level, boolean _sep, DataBase _import) {
+    public static StringMap<Long> getAllEvolutions(String _base, long _level, boolean _sep, DataBase _import) {
         if (_sep) {
             return getAllEvolutionsSep(_base, _level, _import);
         } else {
@@ -285,18 +285,18 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         }
     }
 
-    private static StringMap<Integer> getAllEvolutionsNoSep(String _base, int _level, DataBase _import) {
-        StringMap<Integer> evolutionsLevels_ = new StringMap<Integer>();
-        StringMap<Integer> currentEvolutions_ = new StringMap<Integer>();
-        currentEvolutions_.put(_base, (int) IndexConstants.FIRST_INDEX);
-        StringMap<Integer> newEvolutions_;
+    private static StringMap<Long> getAllEvolutionsNoSep(String _base, long _level, DataBase _import) {
+        StringMap<Long> evolutionsLevels_ = new StringMap<Long>();
+        StringMap<Long> currentEvolutions_ = new StringMap<Long>();
+        currentEvolutions_.put(_base, (long) IndexConstants.FIRST_INDEX);
+        StringMap<Long> newEvolutions_;
         while (true) {
-            newEvolutions_ = new StringMap<Integer>();
+            newEvolutions_ = new StringMap<Long>();
             for (String e: currentEvolutions_.getKeys()) {
                 PokemonData fPk_ = _import.getPokemon(e);
                 for (String e2_: fPk_.getEvolutions().getKeys()) {
                     Evolution evo_ = fPk_.getEvolution(e2_);
-                    int max_ = NumberUtil.max(currentEvolutions_.getVal(e), _level);
+                    long max_ = NumberUtil.max(currentEvolutions_.getVal(e), _level);
                     if (evo_ instanceof EvolutionLevel) {
                         max_= NumberUtil.max(max_, ((EvolutionLevel) evo_).getLevel());
                     }
@@ -307,23 +307,23 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
                 break;
             }
             evolutionsLevels_.putAllMap(newEvolutions_);
-            currentEvolutions_ = new StringMap<Integer>(newEvolutions_);
+            currentEvolutions_ = new StringMap<Long>(newEvolutions_);
         }
         return evolutionsLevels_;
     }
 
-    private static StringMap<Integer> getAllEvolutionsSep(String _base, int _level, DataBase _import) {
-        StringMap<Integer> evolutionsLevels_ = new StringMap<Integer>();
-        StringMap<Integer> currentEvolutions_ = new StringMap<Integer>();
-        currentEvolutions_.put(_base, (int) IndexConstants.FIRST_INDEX);
-        StringMap<Integer> newEvolutions_;
+    private static StringMap<Long> getAllEvolutionsSep(String _base, long _level, DataBase _import) {
+        StringMap<Long> evolutionsLevels_ = new StringMap<Long>();
+        StringMap<Long> currentEvolutions_ = new StringMap<Long>();
+        currentEvolutions_.put(_base, (long) IndexConstants.FIRST_INDEX);
+        StringMap<Long> newEvolutions_;
         while (true) {
-            newEvolutions_ = new StringMap<Integer>();
+            newEvolutions_ = new StringMap<Long>();
             for (String e: currentEvolutions_.getKeys()) {
                 PokemonData fPk_ = _import.getPokemon(StringUtil.splitStrings(e, SEPARATOR).last());
                 for (String e2_: fPk_.getEvolutions().getKeys()) {
                     Evolution evo_ = fPk_.getEvolution(e2_);
-                    int max_ = NumberUtil.max(currentEvolutions_.getVal(e), _level);
+                    long max_ = NumberUtil.max(currentEvolutions_.getVal(e), _level);
                     if (evo_ instanceof EvolutionLevel) {
                         max_= NumberUtil.max(max_, ((EvolutionLevel) evo_).getLevel());
                     }
@@ -334,7 +334,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
                 break;
             }
             evolutionsLevels_.putAllMap(newEvolutions_);
-            currentEvolutions_ = new StringMap<Integer>(newEvolutions_);
+            currentEvolutions_ = new StringMap<Long>(newEvolutions_);
         }
         return evolutionsLevels_;
     }
@@ -350,7 +350,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         possibleEvolution = DataBase.EMPTY_STRING;
         trading = false;
         if (iv == null) {
-            iv = new IdMap<Statistic,Integer>();
+            iv = new IdMap<Statistic,Long>();
         }
         for(Statistic s: Statistic.getStatisticsWithBase()){
             iv.put(s, _diff.getIvPlayer());
@@ -429,7 +429,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
                     break;
                 }
                 MoveData fAtt_ = _dateBase.getMove(m);
-                int pp_=fAtt_.getPp();
+                long pp_=fAtt_.getPp();
                 moves.put(m, new UsesOfMove(pp_));
                 nb_++;
             }
@@ -457,20 +457,20 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         if (iv != null) {
             iv.clear();
         } else {
-            iv = new IdMap<Statistic,Integer>();
+            iv = new IdMap<Statistic,Long>();
         }
     }
 
     private void initEvWithBase() {
         if (ev == null) {
-            ev = new IdMap<Statistic,Integer>();
+            ev = new IdMap<Statistic,Long>();
             for (Statistic s: Statistic.getStatisticsWithBase()) {
-                ev.put(s, 0);
+                ev.put(s, 0L);
             }
         } else {
             for (Statistic s: Statistic.getStatisticsWithBase()) {
                 if (!ev.contains(s)) {
-                    ev.put(s, 0);
+                    ev.put(s, 0L);
                 }
                 //Here: ev.contains(s)
             }
@@ -483,15 +483,15 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         }
     }
 
-    public int evGagnes(int _increment, Statistic _stat,int _maxEv){
-        int valeur_= ev.getVal(_stat);
+    public long evGagnes(long _increment, Statistic _stat,long _maxEv){
+        long valeur_= ev.getVal(_stat);
         if(valeur_+_increment<_maxEv){
             return _increment;
         }
         return _maxEv-valeur_;
     }
 
-    public void gainEv(String _objet,int _var,DataBase _import){
+    public void gainEv(String _objet,long _var,DataBase _import){
         if (_var == 0) {
             return;
         }
@@ -502,7 +502,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
     }
 
     public void deplacement(DataBase _import){
-        int pasNecesIncrementBonheur_ = _import.getNbNecStepsIncrHappiness();
+        long pasNecesIncrementBonheur_ = _import.getNbNecStepsIncrHappiness();
         nbStepsTeamLead++;
         Comment comment_ = new Comment();
         while (nbStepsTeamLead >= pasNecesIncrementBonheur_) {
@@ -513,7 +513,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         commentPk = comment_;
     }
 
-    public int pointBonheurGagnesSansObjet(DataBase _import){
+    public long pointBonheurGagnesSansObjet(DataBase _import){
         Rate mult_=DataBase.defRateProduct();
         if(!getItem().isEmpty()){
             Item objet_=_import.getItem(getItem());
@@ -525,12 +525,12 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
             }
         }
         if(happiness+mult_.ll()<=_import.getHappinessMax()){
-            return (int) mult_.ll();
+            return mult_.ll();
         }
         return _import.getHappinessMax()-happiness;
     }
 
-    public void variationBonheur(int _var, DataBase _data){
+    public void variationBonheur(long _var, DataBase _data){
         clearComment();
         happiness+=_var;
         String name_ = _data.translatePokemon(getName());
@@ -573,19 +573,19 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
     }
 
     public void learnMove(String _nvAtt,DataBase _import){
-        int pp_=_import.getMove(_nvAtt).getPp();
+        long pp_=_import.getMove(_nvAtt).getPp();
         moves.put(_nvAtt, new UsesOfMove(pp_));
     }
 
     public void learnMove(String _nvAtt,String _ancAtt,DataBase _import){
-        int pp_=_import.getMove(_nvAtt).getPp();
+        long pp_=_import.getMove(_nvAtt).getPp();
         if(moves.size()>=_import.getNbMaxMoves()){
             moves.removeKey(_ancAtt);
         }
         moves.put(_nvAtt, new UsesOfMove(pp_));
     }
 
-    public static StringMap<BoolVal> getMovesForEvolution(int _level, StringList _currentMoves, String _evolution, DataBase _import) {
+    public static StringMap<BoolVal> getMovesForEvolution(long _level, StringList _currentMoves, String _evolution, DataBase _import) {
         StringMap<BoolVal> moves_;
         moves_ = new StringMap<BoolVal>();
         PokemonData pk_ = _import.getPokemon(_evolution);
@@ -741,7 +741,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
             }
         }
         if (keys_.size() < _moves.size()) {
-            int nb_ = _import.getNbMaxMoves() + 1;
+            long nb_ = _import.getNbMaxMoves() + 1;
             for (int i = 0; i < nb_; i++) {
                 keys_.add(DataBase.EMPTY_STRING);
             }
@@ -814,7 +814,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         return _soin.getHp();
     }
 
-    public int pointBonheurGagnes(Item _objet,DataBase _import){
+    public long pointBonheurGagnes(Item _objet,DataBase _import){
         Rate mult_=DataBase.defRateProduct();
         if(!getItem().isEmpty()){
             Item objet_=_import.getItem(getItem());
@@ -838,14 +838,14 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
             }
         }
         if(happiness+mult_.ll()<=_import.getHappinessMax()){
-            return (int) mult_.ll();
+            return mult_.ll();
         }
         return _import.getHappinessMax()-happiness;
     }
 
 
-    public StringMap<Integer> ppSoignesAttaques(HealingPp _soin){
-        StringMap<Integer> soinAttaques_ = new StringMap<Integer>();
+    public StringMap<Long> ppSoignesAttaques(HealingPp _soin){
+        StringMap<Long> soinAttaques_ = new StringMap<Long>();
         if(_soin.isHealingAllMovesPp()){
             for(String c:moves.getKeys()){
                 UsesOfMove pp_=moves.getVal(c);
@@ -859,13 +859,13 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
             if(pp_.getCurrent()+soinPpAttaques_>=pp_.getMax()){
                 soinAttaques_.put(c,pp_.getLostPp());
             }else{
-                soinAttaques_.put(c,(int)soinPpAttaques_);
+                soinAttaques_.put(c,soinPpAttaques_);
             }
         }
         return soinAttaques_;
     }
 
-    public int ppSoignesAttaqueBaie(Berry _baie,String _attaque){
+    public long ppSoignesAttaqueBaie(Berry _baie,String _attaque){
         UsesOfMove pp_=moves.getVal(_attaque);
         if(pp_.getCurrent()+_baie.getHealPp()>=pp_.getMax()){
             return pp_.getLostPp();
@@ -873,7 +873,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         return _baie.getHealPp();
     }
 
-    public int ppSoignesAttaque(HealingPp _soin,String _attaque){
+    public long ppSoignesAttaque(HealingPp _soin,String _attaque){
         UsesOfMove pp_=moves.getVal(_attaque);
         if(_soin.getHealingMoveFullpp()){
             return pp_.getLostPp();
@@ -881,25 +881,25 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         if(pp_.getCurrent()+_soin.getHealedMovePp()>=pp_.getMax()){
             return pp_.getLostPp();
         }
-        return (int) _soin.getHealedMovePp();
+        return _soin.getHealedMovePp();
     }
 
-    public void soinPpAttaques(StringMap<Integer> _soinPp){
+    public void soinPpAttaques(StringMap<Long> _soinPp){
         for(String c:_soinPp.getKeys()){
             moves.getVal(c).heal(_soinPp.getVal(c));
         }
     }
 
-    public int wonPp(Boost _boost,String _move, int _max) {
-        int pp_=moves.getVal(_move).getMax();
-        int delta_ = (int) _boost.getWinPp().ll();
+    public long wonPp(Boost _boost,String _move, long _max) {
+        long pp_=moves.getVal(_move).getMax();
+        long delta_ = _boost.getWinPp().ll();
         if(pp_+delta_<_max){
             return delta_;
         }
         return _max - pp_;
     }
 
-    public void boostPp(String _move,int _delta) {
+    public void boostPp(String _move,long _delta) {
         moves.getVal(_move).boost(_delta);
     }
 
@@ -955,11 +955,11 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         status = _status;
     }
 
-    public IdMap<Statistic,Integer> getIv() {
+    public IdMap<Statistic,Long> getIv() {
         return iv;
     }
 
-    public void setIv(IdMap<Statistic,Integer> _iv) {
+    public void setIv(IdMap<Statistic,Long> _iv) {
         iv = _iv;
     }
 
@@ -979,11 +979,11 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         moves = _moves;
     }
 
-    public IdMap<Statistic,Integer> getEv() {
+    public IdMap<Statistic,Long> getEv() {
         return ev;
     }
 
-    public void setEv(IdMap<Statistic,Integer> _ev) {
+    public void setEv(IdMap<Statistic,Long> _ev) {
         ev = _ev;
     }
 
@@ -995,11 +995,11 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         wonExpSinceLastLevel = _wonExpSinceLastLevel;
     }
 
-    public int getHappiness() {
+    public long getHappiness() {
         return happiness;
     }
 
-    public void setHappiness(int _happiness) {
+    public void setHappiness(long _happiness) {
         happiness = _happiness;
     }
 
@@ -1011,11 +1011,11 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         usedBallCatching = _usedBallCatching;
     }
 
-    public int getNbStepsTeamLead() {
+    public long getNbStepsTeamLead() {
         return nbStepsTeamLead;
     }
 
-    public void setNbStepsTeamLead(int _nbStepsTeamLead) {
+    public void setNbStepsTeamLead(long _nbStepsTeamLead) {
         nbStepsTeamLead = _nbStepsTeamLead;
     }
 

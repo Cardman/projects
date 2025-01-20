@@ -2523,7 +2523,7 @@ public class FighterValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainer(Sex.GIRL, diff_, data_);
         Fighter figther_ = game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
-        figther_.variationBoostStatistique(Statistic.ATTACK,  -10);
+        figther_.variationBoostStatistique(Statistic.ATTACK,-10L);
         assertTrue(!figther_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
     @Test
@@ -2532,7 +2532,7 @@ public class FighterValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainer(Sex.BOY, diff_, data_);
         Fighter figther_ = game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
-        figther_.variationBoostStatistique(Statistic.ATTACK,  -10);
+        figther_.variationBoostStatistique(Statistic.ATTACK,-10L);
         assertTrue(!figther_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
     @Test
@@ -2541,7 +2541,7 @@ public class FighterValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainer(Sex.GIRL, diff_, data_);
         Fighter figther_ = game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
-        figther_.variationBoostStatistique(Statistic.ATTACK,  10);
+        figther_.variationBoostStatistique(Statistic.ATTACK,10L);
         assertTrue(!figther_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
     @Test
@@ -2550,7 +2550,7 @@ public class FighterValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainer(Sex.BOY, diff_, data_);
         Fighter figther_ = game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
-        figther_.variationBoostStatistique(Statistic.ATTACK,  10);
+        figther_.variationBoostStatistique(Statistic.ATTACK,10L);
         assertTrue(!figther_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
     @Test
@@ -2595,7 +2595,7 @@ public class FighterValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainer(Sex.GIRL, diff_, data_);
         Fighter figther_ = game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
-        figther_.getEv().put(Statistic.ATTACK,  -1);
+        figther_.getEv().put(Statistic.ATTACK,-1L);
         assertTrue(!figther_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
     @Test
@@ -2604,7 +2604,7 @@ public class FighterValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainer(Sex.BOY, diff_, data_);
         Fighter figther_ = game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
-        figther_.getEv().put(Statistic.ATTACK,  -1);
+        figther_.getEv().put(Statistic.ATTACK,-1L);
         assertTrue(!figther_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
     @Test
@@ -2631,7 +2631,7 @@ public class FighterValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainer(Sex.GIRL, diff_, data_);
         Fighter figther_ = game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
-        figther_.getEv().put(Statistic.ACCURACY,  1);
+        figther_.getEv().put(Statistic.ACCURACY,1L);
         assertTrue(!figther_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
     @Test
@@ -2640,7 +2640,7 @@ public class FighterValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainer(Sex.BOY, diff_, data_);
         Fighter figther_ = game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
-        figther_.getEv().put(Statistic.ACCURACY,  1);
+        figther_.getEv().put(Statistic.ACCURACY,1L);
         assertTrue(!figther_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
     @Test
@@ -2649,7 +2649,7 @@ public class FighterValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainer(Sex.GIRL, diff_, data_);
         Fighter figther_ = game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
-        figther_.getStatisBoost().put(Statistic.HP,  1);
+        figther_.getStatisBoost().put(Statistic.HP,1L);
         assertTrue(!figther_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
     @Test
@@ -2658,7 +2658,7 @@ public class FighterValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         Game game_ = newGameInFightTrainer(Sex.BOY, diff_, data_);
         Fighter figther_ = game_.getFight().getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
-        figther_.getStatisBoost().put(Statistic.HP,  1);
+        figther_.getStatisBoost().put(Statistic.HP,1L);
         assertTrue(!figther_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
     @Test

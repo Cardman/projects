@@ -30,7 +30,7 @@ public final class GameProgression {
     private final StringList visitedPlaces;
     private final StringList unVisitedPlaces;
     private final LgInt money;
-    private final int remainStepsRepel;
+    private final long remainStepsRepel;
     private final int nbRemainingEggs;
     private final int nbRemainingNotMaxLevel;
     private final int nbRemainingNotMaxHappiness;
@@ -198,7 +198,7 @@ public final class GameProgression {
         return money;
     }
 
-    public int getRemainStepsRepel() {
+    public long getRemainStepsRepel() {
         return remainStepsRepel;
     }
 

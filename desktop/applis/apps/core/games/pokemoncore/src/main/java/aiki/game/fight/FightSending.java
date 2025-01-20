@@ -598,7 +598,7 @@ final class FightSending {
         Team equipeAdvCbtEnvoye_=_fight.getTeams().getVal(Fight.foe(_cbt.getTeam()));
         StringMap<LgInt> nbUtilisationsEntreeAdv_=equipeAdvCbtEnvoye_.getEnabledMovesWhileSendingFoeUses();
         Fighter creatureCbt_=_fight.getFighter(_cbt);
-        IdMap<Statistic, Integer> vars_ = varsStats(_fight, _cbt, _effet, _import);
+        IdMap<Statistic,Long> vars_ = varsStats(_fight, _cbt, _effet, _import);
         for (Statistic s: vars_.getKeys()) {
             creatureCbt_.variationBoostStatistique(s, vars_.getVal(s));
             _fight.addStatisticMessage(_cbt, s, vars_.getVal(s), _import);
@@ -634,8 +634,8 @@ final class FightSending {
 
     private static void statusByNbUses(Fight _fight, TeamPosition _cbt, String _attaque, EffectTeamWhileSendFoe _effet, DataBase _import, StringMap<LgInt> _nbUtilisationsEntreeAdv, Fighter _creatureCbt) {
         LgInt utilisation_= _nbUtilisationsEntreeAdv.getVal(_attaque);
-        IntMap<String> statutSiNb_= _effet.getStatusByNbUses();
-        int utilisationBis_=(int)utilisation_.ll();
+        LongMap<String> statutSiNb_= _effet.getStatusByNbUses();
+        long utilisationBis_=utilisation_.ll();
         if(statutSiNb_.contains(utilisationBis_)){
             String statut_=statutSiNb_.getVal(utilisationBis_);
             if(!FightSuccess.successfulAffectedStatusProtect(_fight, _cbt,statut_,false,new StringList(), _import)){
@@ -645,7 +645,7 @@ final class FightSending {
             _fight.addStatusMessage(_cbt, statut_, _import);
             return;
         }
-        int indice_ = indiceUt(statutSiNb_, utilisationBis_);
+        long indice_ = indiceUt(statutSiNb_, utilisationBis_);
         if(indice_==utilisationBis_){
             return;
         }
@@ -657,10 +657,10 @@ final class FightSending {
         _fight.addStatusMessage(_cbt, statut_, _import);
     }
 
-    private static IdMap<Statistic, Integer> varsStats(Fight _fight, TeamPosition _cbt, EffectTeamWhileSendFoe _effet, DataBase _import) {
-        IdMap<Statistic,Integer> vars_ = new IdMap<Statistic,Integer>();
+    private static IdMap<Statistic,Long> varsStats(Fight _fight, TeamPosition _cbt, EffectTeamWhileSendFoe _effet, DataBase _import) {
+        IdMap<Statistic,Long> vars_ = new IdMap<Statistic,Long>();
         for (Statistic s: _effet.getStatistics().getKeys()) {
-            int varBase_ = _effet.getStatistics().getVal(s);
+            long varBase_ = _effet.getStatistics().getVal(s);
             if (!FightSuccess.successChangedStatisticProtect(_fight, _cbt, s, varBase_, false, new StringList(), _import)) {
                 continue;
             }
@@ -670,9 +670,9 @@ final class FightSending {
         return vars_;
     }
 
-    private static int indiceUt(IntMap<String> _statutSiNb, int _utilisationBis) {
-        int indice_= _utilisationBis;
-        for(int i = _utilisationBis; i> IndexConstants.SIZE_EMPTY; i--){
+    private static long indiceUt(LongMap<String> _statutSiNb, long _utilisationBis) {
+        long indice_= _utilisationBis;
+        for(long i = _utilisationBis; i> IndexConstants.SIZE_EMPTY; i--){
             if(_statutSiNb.contains(i)){
                 indice_=i;
                 break;

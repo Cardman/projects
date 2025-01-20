@@ -9,7 +9,7 @@ public final class GeneComponentModelLong {
         this.compoFactory = _c;
     }
 
-    public AbsCustComponent geneLong() {
+    public AbsSpinner geneLong() {
         textLong = compoFactory.getCompoFactory().newSpinner(0, Long.MIN_VALUE,Long.MAX_VALUE,1);
         return textLong;
     }

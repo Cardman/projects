@@ -25,7 +25,7 @@ public class EffectDamageBean extends EffectBean {
     private String statisAtt;
     private boolean targetDefense;
     private String statisDef;
-    private DictionaryComparator<Statistic, Integer> boostStatisOnceKoFoe;
+    private DictionaryComparator<Statistic, Long> boostStatisOnceKoFoe;
     private NatStringTreeMap<String> mapVarsDamage;
 
     @Override
@@ -114,7 +114,7 @@ public class EffectDamageBean extends EffectBean {
         }
         ignVarStatUserNeg_.sortElts(DictionaryComparatorUtil.cmpStatistic(data_,getLanguage()));
         ignVarStatUserNeg = ignVarStatUserNeg_;
-        DictionaryComparator<Statistic, Integer> boostStatisOnceKoFoe_;
+        DictionaryComparator<Statistic, Long> boostStatisOnceKoFoe_;
         boostStatisOnceKoFoe_ = DictionaryComparatorUtil.buildStatisByte(data_,getLanguage());
         for (Statistic s: effect_.getBoostStatisOnceKoFoe().getKeys()) {
             boostStatisOnceKoFoe_.put(s, effect_.getBoostStatisOnceKoFoe().getVal(s));
@@ -235,7 +235,7 @@ public class EffectDamageBean extends EffectBean {
         return randMax;
     }
 
-    public DictionaryComparator<Statistic,Integer> getBoostStatisOnceKoFoe() {
+    public DictionaryComparator<Statistic,Long> getBoostStatisOnceKoFoe() {
         return boostStatisOnceKoFoe;
     }
 

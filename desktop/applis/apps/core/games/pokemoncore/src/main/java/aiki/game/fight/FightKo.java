@@ -93,7 +93,7 @@ final class FightKo {
         Rate points_ = pointsFoe(_fight,_adv, _diff, _import);
         PointFoeExpObject pointFoeExpObject_ = new PointFoeExpObject(_membres,porteursMultExp_,points_,_adv);
         Rate sumMaxLevel_ = Rate.zero();
-        int levelMax_ = _import.getMaxLevel();
+        long levelMax_ = _import.getMaxLevel();
         int nbMax_ = 0;
         for (TeamPosition c: fightersBelongingToUser_) {
             Fighter fighter_ = _fight.getFighter(c);
@@ -150,12 +150,12 @@ final class FightKo {
     static void addEvStatistics(Fight _fight,
             TeamPosition _fighter,
             Rate _rateEv,
-            IdMap<Statistic,Integer> _evs,
+            IdMap<Statistic,Long> _evs,
             DataBase _import) {
         Fighter membre_=_fight.getUserTeam().refPartMembres(_fighter.getPosition());
         for(Statistic c2_: _evs.getKeys()){
             Rate ev_=Rate.multiply(_rateEv,new Rate(_evs.getVal(c2_)));
-            _fight.addComment(membre_.wonEvStatistic(c2_,(int)ev_.ll(),_import.getMaxEv(), _import));
+            _fight.addComment(membre_.wonEvStatistic(c2_,ev_.ll(),_import.getMaxEv(), _import));
         }
     }
 
@@ -178,7 +178,7 @@ final class FightKo {
         }
     }
 
-    static Rate gainBase(PointFoeExpObject _pointsFoeExp, Difficulty _diff, DataBase _import, String _expItem, int _winner, int _looser, int _position) {
+    static Rate gainBase(PointFoeExpObject _pointsFoeExp, Difficulty _diff, DataBase _import, String _expItem, long _winner, long _looser, int _position) {
         Rate gainBase_=rateExp(_position, _pointsFoeExp.getMembers(), _pointsFoeExp.getPorteursMultExp());
         gainBase_.multiplyBy(_pointsFoeExp.getPoints());
         Rate rate_ = rateWonPoint(_diff, _import, _winner, _looser);
@@ -224,7 +224,7 @@ final class FightKo {
         return rateWonPoint(_diff, _import, _fighterWinner.getLevel(), _fighterLooser.getLevel());
     }
 
-    static Rate rateWonPoint(Difficulty _diff, DataBase _import, int _winner, int _looser) {
+    static Rate rateWonPoint(Difficulty _diff, DataBase _import, long _winner, long _looser) {
         StringMap<String> vars_ = new StringMap<String>();
         vars_.put(_import.prefixLevelWinner(),Long.toString(_winner));
         vars_.put(_import.prefixLevelLooser(),Long.toString(_looser));
@@ -235,7 +235,7 @@ final class FightKo {
     static Rate pointsFoe(Fight _fight,int _adv, Difficulty _diff, DataBase _import) {
         Fighter creatureAdv_=_fight.getFoeTeam().getMembers().getVal(_adv);
         PokemonData fPk_=creatureAdv_.fichePokemon(_import);
-        int niveauAdv_=creatureAdv_.getLevel();
+        long niveauAdv_=creatureAdv_.getLevel();
         Rate points_=new Rate(fPk_.getExpRate()*niveauAdv_);
         if(!_fight.getFightType().isWild()){
             points_.multiplyBy(_diff.getWinTrainerExp());

@@ -252,7 +252,7 @@ final class FightOrder {
 
     static Rate speed(Fight _fight, TeamPosition _cbt,DataBase _import){
         Fighter creatureCbt_=_fight.getFighter(_cbt);
-        int cran_=creatureCbt_.getStatisBoost().getVal(Statistic.SPEED);
+        long cran_=creatureCbt_.getStatisBoost().getVal(Statistic.SPEED);
         cran_ += FightStatistic.bonusBoost(_fight,Statistic.SPEED, _cbt, _import);
         Rate boostSpeed_ = FightStatistic.rateBoost(cran_,_import);
         Rate speed_ = creatureCbt_.statistiqueGlobaleEvIv(Statistic.SPEED);

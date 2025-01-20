@@ -55,8 +55,8 @@ public class FighterBean extends CommonFightBean {
     private int groundPlace;
     private Rate wonExpSinceLastLevel;
     private Rate necessaryPointsNextLevel;
-    private int level;
-    private int happiness;
+    private long level;
+    private long happiness;
     private DictionaryComparator<MoveTeamPosition,BoolVal> incrUserAccuracy;
     private NatStringTreeMap<Integer> nbUsesMoves;
     private int nbPrepaRound;
@@ -629,11 +629,11 @@ public class FighterBean extends CommonFightBean {
         return nickname;
     }
 
-    public int getHappiness() {
+    public long getHappiness() {
         return happiness;
     }
 
-    public int getLevel() {
+    public long getLevel() {
         return level;
     }
 

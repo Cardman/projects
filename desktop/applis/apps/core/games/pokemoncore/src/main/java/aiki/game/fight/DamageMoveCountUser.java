@@ -11,7 +11,7 @@ public class DamageMoveCountUser {
 
     private Rate damageClone;
 
-    private int hits;
+    private long hits;
 
     private boolean keepProcessing;
 
@@ -47,11 +47,11 @@ public class DamageMoveCountUser {
         damageClone = _damageClone;
     }
 
-    public int getHits() {
+    public long getHits() {
         return hits;
     }
 
-    public void setHits(int _hits) {
+    public void setHits(long _hits) {
         hits = _hits;
     }
 

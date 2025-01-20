@@ -681,7 +681,7 @@ final class FightEffects {
         Rate leftHp_ = new Rate(_fight.getFighter(_cible).getRemainingHp());
         miseAKo_ = damageCloneResults(_fight, _throwerDamageLaws, _cible, _import, minHits_);
         Rate degats_ = _fight.getTemp().getDamage().getDamage();
-        int nbCoupsTotal_ = _fight.getTemp().getDamage().getHits();
+        long nbCoupsTotal_ = _fight.getTemp().getDamage().getHits();
         _fight.addNbHitsMessage(nbCoupsTotal_, _cible, _import);
         _fight.setAnimationDamage(degats_, FightMoves.moveTypes(_fight, _lanceur, _attaqueLanceur, _import));
         if (miseAKo_) {
@@ -788,7 +788,7 @@ final class FightEffects {
             miseAKo_ = _fight.getTemp().isPutKo();
         } else {
             _fight.getTemp().getDamage().setCriticalHit(false);
-            int nbCoupsTotal_ = (int) _minHits.ll();
+            long nbCoupsTotal_ = _minHits.ll();
             _fight.getTemp().getDamage().setHits(nbCoupsTotal_);
             _fight.getTemp().getDamage().setDamage(Rate.zero());
         }
@@ -797,7 +797,7 @@ final class FightEffects {
 
     private static void enableAbilties(Fight _fight, TeamPosition _lanceur, TeamPosition _cible, String _attaqueLanceur, DataBase _import, Fighter _creatureCible) {
         boolean coupCritique_ = _fight.getTemp().getDamage().isCriticalHit();
-        int nbCoupsTotal_ = _fight.getTemp().getDamage().getHits();
+        long nbCoupsTotal_ = _fight.getTemp().getDamage().getHits();
         AbilityData capaciteActiveCible_ = capaciteActiveCible(_fight, _lanceur, _cible, _import, _creatureCible);
         enableTargetAbility(
                 _fight,
@@ -837,9 +837,9 @@ final class FightEffects {
         }
     }
 
-    private static void boostTarget(Fight _fight, TeamPosition _cible, DataBase _import, Fighter _creatureCible, IdMap<Statistic, Integer> _map) {
+    private static void boostTarget(Fight _fight, TeamPosition _cible, DataBase _import, Fighter _creatureCible, IdMap<Statistic,Long> _map) {
         for (Statistic s: _map.getKeys()) {
-            int varBase_ = _map.getVal(s);
+            long varBase_ = _map.getVal(s);
             _creatureCible.variationBoostStatistique(s, varBase_);
             _fight.addStatisticMessage(_cible, s, varBase_, _import);
         }
@@ -904,9 +904,9 @@ final class FightEffects {
         MonteCarloNumber repetCoup_=_laws.getNumberHits().getVal(_fighter);
         Rate sommeCoups_ = Rate.zero();
         LgInt maxRd_ = _import.getMaxRd();
-        int nbCoups_ = (int) NumberUtil.max(1,randomRate(_fight, _import, repetCoup_, _target).ll());
+        long nbCoups_ = NumberUtil.max(1,randomRate(_fight, _import, repetCoup_, _target).ll());
         boolean coupCritique_ = false;
-        for (int i = IndexConstants.FIRST_INDEX; i<nbCoups_; i++){
+        for (long i = IndexConstants.FIRST_INDEX; i<nbCoups_; i++){
             Rate degatsBase_ = _laws.getBase().getVal(_fighter).editNumber(maxRd_,_import.getGenerator());
             Rate cc_ = randomRate(_fight, _import,_laws.getCriticalHit().getVal(_fighter), _target);
             if(cc_.greaterThanOne()){
@@ -937,15 +937,15 @@ final class FightEffects {
         Rate degatsClone_ = new Rate(damage_.getDamageClone());
         Rate degats_ = new Rate(damage_.getDamage());
         Rate sommeCoups_ = new Rate(damage_.getDamageCount());
-        int previousHits_ = damage_.getHits();
+        long previousHits_ = damage_.getHits();
         Fighter creatureCible_=_fight.getFighter(_target);
         MonteCarloNumber loiRand_ = _laws.getRandomRate();
         LgInt maxRd_ = _import.getMaxRd();
-        int nbCoups_ = (int) NumberUtil.max(1, _laws.getNumberHits().getVal(_fighter).editNumber(maxRd_, _import.getGenerator()).ll());
+        long nbCoups_ = NumberUtil.max(1, _laws.getNumberHits().getVal(_fighter).editNumber(maxRd_, _import.getGenerator()).ll());
         boolean coupCritique_ = false;
         boolean keepProcessing_ = true;
-        int nbHits_ = 0;
-        for (int i = IndexConstants.FIRST_INDEX; i<nbCoups_; i++){
+        long nbHits_ = 0;
+        for (long i = IndexConstants.FIRST_INDEX; i<nbCoups_; i++){
             Rate degatsBase_ = _laws.getBase().getVal(_fighter).editNumber(maxRd_,_import.getGenerator());
             Rate cc_ = randomRate(_fight, _import, _laws.getCriticalHit().getVal(_fighter), _target);
             if(cc_.greaterThanOne()){
@@ -1246,7 +1246,7 @@ final class FightEffects {
     static Rate attack(Fight _fight, TeamPosition _thrower, TeamPosition _target, EffectDamage _effect, StringMap<String> _variables, DataBase _import) {
         Fighter thrower_ = _fight.getFighter(_thrower);
         Fighter target_ = _fight.getFighter(_target);
-        int baseBoost_=_import.getDefaultBoost();
+        long baseBoost_=_import.getDefaultBoost();
         Statistic statis_=_effect.getStatisAtt();
         Rate att_;
         if(_effect.isUserAttack()){
@@ -1259,7 +1259,7 @@ final class FightEffects {
         vars_.putAllMap(FightValues.calculateValuesFighter(_fight, _thrower, _import));
         att_.multiplyBy(FightStatistic.statisticWithoutBase(_fight, _thrower, statis_, vars_, _import));
         AbilityData ab_ = FightAbilities.ignoredTargetAbility(_fight, _thrower, _target, _import);
-        int boost_=thrower_.getStatisBoost().getVal(statis_);
+        long boost_=thrower_.getStatisBoost().getVal(statis_);
         boost_ += FightStatistic.bonusBoost(_fight, statis_, _thrower, _import);
         if(boost_<=baseBoost_){
             if(!_effect.getIgnVarStatUserNeg().containsObj(statis_)){
@@ -1274,7 +1274,7 @@ final class FightEffects {
     static Rate defense(Fight _fight, TeamPosition _thrower, TeamPosition _target, EffectDamage _effect, StringMap<String> _variables, DataBase _import) {
         Fighter thrower_ = _fight.getFighter(_thrower);
         Fighter target_ = _fight.getFighter(_target);
-        int baseBoost_=_import.getDefaultBoost();
+        long baseBoost_=_import.getDefaultBoost();
         Statistic statis_=_effect.getStatisDef();
         Rate def_;
         if(_effect.isTargetDefense()){
@@ -1282,7 +1282,7 @@ final class FightEffects {
         }else{
             def_=thrower_.statistiqueGlobaleEvIv(statis_);
         }
-        int boost_=target_.getStatisBoost().getVal(statis_);
+        long boost_=target_.getStatisBoost().getVal(statis_);
         boost_ += FightStatistic.bonusBoost(_fight, statis_, _target, _import);
         if(boost_>=baseBoost_){
             if(!_effect.getIgnVarStatTargetPos().containsObj(statis_)){
@@ -1694,7 +1694,7 @@ final class FightEffects {
         criticalHitCanHappen_ = criticalHitCanHappen(_fight, _lanceur, _cible, _import);
         MonteCarloNumber loiCc_ = new MonteCarloNumber();
         if(criticalHitCanHappen_){
-            int boostCc_ = FightStatistic.criticalHit(_fight, _lanceur, _effect.getChRate(), _import);
+            long boostCc_ = FightStatistic.criticalHit(_fight, _lanceur, _effect.getChRate(), _import);
             Rate probaCc_ = FightSuccess.rateCriticalHit(_fight, _lanceur, boostCc_, _import);
             Rate minCc_= _effect.getChLaw().minimum();
             Rate maxCc_ = _effect.getChLaw().maximum();
@@ -1786,25 +1786,25 @@ final class FightEffects {
     static void enableTargetAbility(
             Fight _fight,
             TeamPosition _lanceur, TeamPosition _cible,
-            boolean _criticalHit, int _hitsCount,
+            boolean _criticalHit, long _hitsCount,
             String _attaqueLanceur, DataBase _import) {
         Fighter creatureCible_=_fight.getFighter(_cible);
         AbilityData fCapac_ = capaciteActiveCible(_fight, _lanceur, _cible, _import, creatureCible_);
         if (fCapac_ == null) {
             return;
         }
-        int maxBoost_=_import.getMaxBoost();
+        long maxBoost_=_import.getMaxBoost();
         StringList typeAttaque_=FightMoves.moveTypes(_fight, _lanceur,_attaqueLanceur,_import);
         MoveData fAttaqueLanceur_ = _import.getMove(_attaqueLanceur);
         String categorie_=_import.getCategory(fAttaqueLanceur_);
         for(Statistic c:creatureCible_.getStatisBoost().getKeys()){
             if(_criticalHit&&fCapac_.getMaxStatisticsIfCh().containsObj(c)){
-                int boostActuel_=creatureCible_.getStatisBoost().getVal(c);
+                long boostActuel_=creatureCible_.getStatisBoost().getVal(c);
                 creatureCible_.variationBoostStatistique(c, maxBoost_-boostActuel_);
-                _fight.addStatisticMessage(_cible, c, (long)maxBoost_-boostActuel_, _import);
+                _fight.addStatisticMessage(_cible, c, maxBoost_-boostActuel_, _import);
                 continue;
             }
-            int var_=0;
+            long var_=0;
             for (String t: typeAttaque_) {
                 if(fCapac_.getMultStatIfDamgeType().contains(new StatisticType(c,t))){
                     var_+=fCapac_.getMultStatIfDamgeType().getVal(new StatisticType(c,t));
@@ -1879,11 +1879,11 @@ final class FightEffects {
 
     private static void lowStatFoeHit(Fight _fight, TeamPosition _lanceur, TeamPosition _cible, DataBase _import, Fighter _creatureCible, AbilityData _fCapacLanceur) {
         for (Statistic s: _fCapacLanceur.getLowStatFoeHit().getKeys()) {
-            int varBase_ = _fCapacLanceur.getLowStatFoeHit().getVal(s);
+            long varBase_ = _fCapacLanceur.getLowStatFoeHit().getVal(s);
             if (!FightSuccess.successChangedStatistic(_fight, _lanceur, _cible, s, varBase_, _import)) {
                 continue;
             }
-            int var_ = deltaBoostStatistic(_fight, _cible, s, varBase_, _import);
+            long var_ = deltaBoostStatistic(_fight, _cible, s, varBase_, _import);
             _creatureCible.variationBoostStatistique(s, var_);
             _fight.addStatisticMessage(_cible, s, var_, _import);
         }
@@ -1957,8 +1957,8 @@ final class FightEffects {
         MoveData fAttaqueLanceur_ = _import.getMove(_move);
         EffectDamage eff_ = (EffectDamage) fAttaqueLanceur_.getEffet(fAttaqueLanceur_.indexOfPrimaryEffect());
         for (Statistic s: eff_.getBoostStatisOnceKoFoe().getKeys()) {
-            int varBoost_ = eff_.getBoostStatisOnceKoFoe().getVal(s);
-            int var_ = deltaBoostStatistic(_fight,_lanceur,s,varBoost_,_import);
+            long varBoost_ = eff_.getBoostStatisOnceKoFoe().getVal(s);
+            long var_ = deltaBoostStatistic(_fight,_lanceur,s,varBoost_,_import);
             creatureLanceur_.variationBoostStatistique(s,var_);
             _fight.addStatisticMessage(_lanceur, s, var_, _import);
         }
@@ -1973,8 +1973,8 @@ final class FightEffects {
             if(!fCapacLanceur_.getMultStatIfKoFoe().contains(c)){
                 continue;
             }
-            int varBoost_=fCapacLanceur_.getMultStatIfKoFoe().getVal(c);
-            int var_=deltaBoostStatistic(_fight,_lanceur,c,varBoost_,_import);
+            long varBoost_=fCapacLanceur_.getMultStatIfKoFoe().getVal(c);
+            long var_=deltaBoostStatistic(_fight,_lanceur,c,varBoost_,_import);
             creatureLanceur_.variationBoostStatistique(c,var_);
             _fight.addStatisticMessage(_lanceur, c, var_, _import);
         }
@@ -2017,23 +2017,23 @@ final class FightEffects {
         equipe_.activerEffetEquipe(_attaque);
         _fight.addEnabledTeamMoveMessage(_combattant.getTeam(), _attaque, _import);
         effectTeamProtectStatus(_fight, _combattant, _effet, _import, equipe_);
-        int baseBoost_=_import.getDefaultBoost();
+        long baseBoost_=_import.getDefaultBoost();
         for(Statistic c:_effet.getProtectAgainstLowStat()){
             for(int c2_:equipe_.getMembers().getKeys()){
                 Fighter creature_=equipe_.refPartMembres(c2_);
-                int boost_=creature_.getStatisBoost().getVal(c);
+                long boost_=creature_.getStatisBoost().getVal(c);
                 if(boost_<baseBoost_){
                     creature_.variationBoostStatistique(c, baseBoost_-boost_);
-                    _fight.addStatisticMessage(new TeamPosition(_combattant.getTeam(), c2_), c, (long)baseBoost_-boost_, _import);
+                    _fight.addStatisticMessage(new TeamPosition(_combattant.getTeam(), c2_), c, baseBoost_-boost_, _import);
                 }
             }
         }
         for(Statistic c:_effet.getCancelChgtStatFoeTeam()){
             for(int c2_:equipeAdv_.getMembers().getKeys()){
                 Fighter creature_=equipeAdv_.refPartMembres(c2_);
-                int boost_=creature_.getStatisBoost().getVal(c);
+                long boost_=creature_.getStatisBoost().getVal(c);
                 creature_.variationBoostStatistique(c, baseBoost_-boost_);
-                _fight.addStatisticMessage(new TeamPosition(Fight.foe(_combattant.getTeam()), c2_), c, (long)baseBoost_-boost_, _import);
+                _fight.addStatisticMessage(new TeamPosition(Fight.foe(_combattant.getTeam()), c2_), c, baseBoost_-boost_, _import);
             }
         }
     }
@@ -2168,13 +2168,13 @@ final class FightEffects {
         for(TeamPosition c:FightOrder.frontFighters(_fight)){
             disableStatus(_fight, c, _import);
         }
-        int base_ = _import.getDefaultBoost();
+        long base_ = _import.getDefaultBoost();
         for (Statistic s: _effet.getCancelChgtStat()) {
             for(TeamPosition c:FightOrder.frontFighters(_fight)){
                 Fighter creature_= _fight.getFighter(c);
-                int boost_=creature_.getStatisBoost().getVal(s);
+                long boost_=creature_.getStatisBoost().getVal(s);
                 creature_.variationBoostStatistique(s, base_ - boost_);
-                _fight.addStatisticMessage(c, s, (long)base_ - boost_, _import);
+                _fight.addStatisticMessage(c, s, base_ - boost_, _import);
             }
         }
         for(TeamPosition c:FightOrder.frontFighters(_fight)){
@@ -2253,7 +2253,7 @@ final class FightEffects {
     }
 
     static void effectStatistic(Fight _fight,TeamPosition _lanceur,TeamPosition _cible,EffectStatistic _effet,IdList<Statistic> _statistiques,DataBase _import){
-        IdMap<Statistic,Integer> varStatisCran_=_effet.getStatisVarRank();
+        IdMap<Statistic,Long> varStatisCran_=_effet.getStatisVarRank();
         Fighter creatureCible_= _fight.getFighter(_cible);
         MonteCarloEnum<Statistic> loi_ = lawBoost(_effet, _statistiques);
         if (!loi_.events().isEmpty() && !FightSuccess.isBadSimulation(_fight, loi_)) {
@@ -2263,14 +2263,14 @@ final class FightEffects {
 //                }
 //            }
             Statistic statistique_ = FightSuccess.random(_import, loi_);
-            int delta_ = deltaBoostStatistic(_fight, _cible, statistique_, varStatisCran_.getVal(statistique_), _import);
+            long delta_ = deltaBoostStatistic(_fight, _cible, statistique_, varStatisCran_.getVal(statistique_), _import);
             creatureCible_.variationBoostStatistique(statistique_, delta_);
             _fight.addAnimationStatistic(statistique_, delta_, false);
             _fight.addStatisticMessage(_cible, statistique_, delta_, _import);
         }
         if(!varStatisCran_.isEmpty()){
-            IdMap<Statistic,Integer> vars_ = new IdMap<Statistic,Integer>();
-            for (EntryCust<Statistic,Integer> e: varStatisCran_.entryList()) {
+            IdMap<Statistic,Long> vars_ = new IdMap<Statistic,Long>();
+            for (EntryCust<Statistic,Long> e: varStatisCran_.entryList()) {
                 if (Statistic.containsStatistic(_statistiques,e.getKey())) {
                     vars_.put(e.getKey(), e.getValue());
                 }
@@ -2294,9 +2294,9 @@ final class FightEffects {
             //copieBoost
             Fighter creatureLanceur_=_fight.getFighter(_lanceur);
             for(Statistic e:_statistiques){
-                int boostLanceur_=creatureLanceur_.getStatisBoost().getVal(e);
-                int boostCible_= _creatureCible.getStatisBoost().getVal(e);
-                int delta_= boostCible_ - boostLanceur_;
+                long boostLanceur_=creatureLanceur_.getStatisBoost().getVal(e);
+                long boostCible_= _creatureCible.getStatisBoost().getVal(e);
+                long delta_= boostCible_ - boostLanceur_;
                 creatureLanceur_.variationBoostStatistique(e,delta_);
                 _fight.addAnimationStatistic(e, delta_, false);
                 _fight.addStatisticMessage(_lanceur, e, delta_, _import);
@@ -2304,7 +2304,7 @@ final class FightEffects {
         }
         if(!_effet.getCancelLowStat().isEmpty()||!_effet.getCancelChgtStat().isEmpty()){
             for(Statistic e:_statistiques){
-                int boost_= _creatureCible.getStatisBoost().getVal(e);
+                long boost_= _creatureCible.getStatisBoost().getVal(e);
                 _creatureCible.variationBoostStatistique(e,-boost_);
                 _fight.addAnimationStatistic(e, -boost_, false);
                 _fight.addStatisticMessage(_cible, e, -boost_, _import);
@@ -2313,10 +2313,10 @@ final class FightEffects {
         if(!_effet.getSwapBoostStatis().isEmpty()){
             Fighter creatureLanceur_=_fight.getFighter(_lanceur);
             for(Statistic e:_statistiques){
-                int boostLanceur_=creatureLanceur_.getStatisBoost().getVal(e);
-                int boostCible_= _creatureCible.getStatisBoost().getVal(e);
-                int varCible_= boostLanceur_-boostCible_;
-                int varLanceur_= boostCible_-boostLanceur_;
+                long boostLanceur_=creatureLanceur_.getStatisBoost().getVal(e);
+                long boostCible_= _creatureCible.getStatisBoost().getVal(e);
+                long varCible_= boostLanceur_-boostCible_;
+                long varLanceur_= boostCible_-boostLanceur_;
                 _creatureCible.variationBoostStatistique(e,varCible_);
                 _fight.addStatisticMessage(_cible, e, varCible_, _import);
                 creatureLanceur_.variationBoostStatistique(e,varLanceur_);
@@ -2727,8 +2727,8 @@ final class FightEffects {
             for(String e: _fight.getTemp().getSufferingTargetStatus()){
                 for(Statistic c: _creatureCible.getStatisBoost().getKeys()){
                     if(fCapacCible_.getMultStatIfStatutRank().contains(new StatisticStatus(c,e))){
-                        int varBoost_=fCapacCible_.getMultStatIfStatutRank().getVal(new StatisticStatus(c,e));
-                        int var_=deltaBoostStatistic(_fight,_cible,c,varBoost_,_import);
+                        long varBoost_=fCapacCible_.getMultStatIfStatutRank().getVal(new StatisticStatus(c,e));
+                        long var_=deltaBoostStatistic(_fight,_cible,c,varBoost_,_import);
                         _creatureCible.variationBoostStatistique(c,var_);
                         _fight.addStatisticMessage(_cible, c, var_, _import);
                     }
@@ -2802,16 +2802,16 @@ final class FightEffects {
         }
     }
 
-    static IdMap<Statistic,Integer> deltaBoostStatisticMap(Fight _fight, TeamPosition _combattant,IdMap<Statistic,Integer> _varBase,DataBase _import) {
-        IdMap<Statistic,Integer> map_ = new IdMap<Statistic,Integer>();
+    static IdMap<Statistic,Long> deltaBoostStatisticMap(Fight _fight, TeamPosition _combattant,IdMap<Statistic,Long> _varBase,DataBase _import) {
+        IdMap<Statistic,Long> map_ = new IdMap<Statistic,Long>();
         for (Statistic s: _varBase.getKeys()) {
-            int var_ = deltaBoostStatistic(_fight, _combattant, s, _varBase.getVal(s), _import);
+            long var_ = deltaBoostStatistic(_fight, _combattant, s, _varBase.getVal(s), _import);
             map_.put(s, var_);
         }
         if (map_.isEmpty()) {
             return map_;
         }
-        Ints values_ = new Ints(map_.values());
+        Longs values_ = new Longs(map_.values());
         if (values_.getMinimum(_import.getMaxBoost() + 1L) >= 0) {
             return map_;
         }
@@ -2822,7 +2822,7 @@ final class FightEffects {
         }
         for (Statistic s: _varBase.getKeys()) {
             if (_varBase.getVal(s) < 0) {
-                map_.put(s, 0);
+                map_.put(s, 0L);
             }
         }
         for (Statistic s: ab_.getMultStatIfLowStat().getKeys()) {
@@ -2835,7 +2835,7 @@ final class FightEffects {
         return map_;
     }
 
-    static int deltaBoostStatistic(Fight _fight, TeamPosition _combattant,Statistic _stat,int _varBase,DataBase _import){
+    static long deltaBoostStatistic(Fight _fight, TeamPosition _combattant,Statistic _stat,long _varBase,DataBase _import){
         Fighter creature_=_fight.getFighter(_combattant);
         Rate var_=new Rate(_varBase);
         AbilityData fCapac_=creature_.ficheCapaciteActuelle(_import);
@@ -2851,19 +2851,19 @@ final class FightEffects {
                 }
             }
         }
-        int maxBoost_=_import.getMaxBoost();
-        int minBoost_=_import.getMinBoost();
-        int boostActuel_=creature_.getStatisBoost().getVal(_stat);
+        long maxBoost_=_import.getMaxBoost();
+        long minBoost_=_import.getMinBoost();
+        long boostActuel_=creature_.getStatisBoost().getVal(_stat);
         if(var_.isZeroOrGt()){
             if(boostActuel_+var_.ll()>maxBoost_){
                 return maxBoost_-boostActuel_;
             }
-            return (int)var_.ll();
+            return var_.ll();
         }
         if(boostActuel_+var_.ll()<minBoost_){
             return minBoost_-boostActuel_;
         }
-        return (int)var_.ll();
+        return var_.ll();
     }
 
     static Rate criticalHitEvent(Fight _fight, TeamPosition _thrower, Rate _max, DataBase _import) {

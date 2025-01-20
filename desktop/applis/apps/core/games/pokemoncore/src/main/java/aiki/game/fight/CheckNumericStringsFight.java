@@ -94,7 +94,7 @@ public final class CheckNumericStringsFight {
         }
         pk_.setAbility(_data.getAbilities().getKeys().first());
         StringList moves_ = new StringList();
-        StringMap<Integer> movesPp_ = new StringMap<Integer>();
+        StringMap<Long> movesPp_ = new StringMap<Long>();
         for (String m: pokemonData_.getMovesAtLevel(pk_.getLevel(), _data.getNbMaxMoves())) {
             MoveData fAtt_ = _data.getMove(m);
             if (fAtt_ == null) {

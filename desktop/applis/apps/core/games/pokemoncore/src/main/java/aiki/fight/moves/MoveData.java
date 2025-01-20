@@ -19,7 +19,7 @@ import code.util.core.IndexConstants;
 
 public abstract class MoveData {
 
-    private int pp;
+    private long pp;
     private StringList types;
     private StringList boostedTypes;
     private int priority;
@@ -156,11 +156,11 @@ public abstract class MoveData {
 
     public abstract boolean canBoostAllies();
 
-    public int getPp() {
+    public long getPp() {
         return pp;
     }
 
-    public void setPp(int _pp) {
+    public void setPp(long _pp) {
         pp = _pp;
     }
 

@@ -519,7 +519,7 @@ public final class FrontBattle extends AbsMetaLabelPk {
                     TargetLabel user_ = playerTargets.getVal(animation_.getFromFighter().getPosition());
                     TargetLabel target_ = playerTargets.getVal(animation_.getToFighter().getPosition());
                     String name_ = user_.getFighterName();
-                    int level_ = user_.getLevel();
+                    long level_ = user_.getLevel();
                     LgInt rateRemaingHp_ = user_.getPercentHp();
                     LgInt percentExp_ = user_.getPercentExp();
                     user_.setLevel(target_.getLevel());
@@ -534,7 +534,7 @@ public final class FrontBattle extends AbsMetaLabelPk {
                     TargetLabel user_ = foeTargets.getVal(animation_.getFromFighter().getPosition());
                     TargetLabel target_ = foeTargets.getVal(animation_.getToFighter().getPosition());
                     String name_ = user_.getFighterName();
-                    int level_ = user_.getLevel();
+                    long level_ = user_.getLevel();
                     LgInt rateRemaingHp_ = user_.getPercentHp();
                     LgInt percentExp_ = user_.getPercentExp();
                     user_.setLevel(target_.getLevel());

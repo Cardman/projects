@@ -12,7 +12,7 @@ public final class EffectCounterAttack extends Effect {
 
     private StringMap<Rate> sufferingDamageTypes;
 
-    private IdMap<Statistic, Integer> droppedStatDirectMove;
+    private IdMap<Statistic,Long> droppedStatDirectMove;
 
     private Rate sufferingDamageDirectMove;
 
@@ -38,12 +38,12 @@ public final class EffectCounterAttack extends Effect {
         sufferingDamageTypes = _sufferingDamageTypes;
     }
 
-    public IdMap<Statistic, Integer> getDroppedStatDirectMove() {
+    public IdMap<Statistic,Long> getDroppedStatDirectMove() {
         return droppedStatDirectMove;
     }
 
     public void setDroppedStatDirectMove(
-            IdMap<Statistic, Integer> _droppedStatDirectMove) {
+            IdMap<Statistic,Long> _droppedStatDirectMove) {
         droppedStatDirectMove = _droppedStatDirectMove;
     }
 

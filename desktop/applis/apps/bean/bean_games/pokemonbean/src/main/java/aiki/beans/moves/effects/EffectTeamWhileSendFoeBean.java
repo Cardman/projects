@@ -9,10 +9,10 @@ import aiki.fight.moves.effects.EffectTeamWhileSendFoe;
 import code.util.*;
 
 public class EffectTeamWhileSendFoeBean extends EffectBean {
-    private IntTreeMap< String> statusByNbUses;
+    private LongTreeMap< String> statusByNbUses;
     private StringList deletedByFoeTypes;
     private String damageRateAgainstFoe;
-    private DictionaryComparator<Statistic,Integer> statistics;
+    private DictionaryComparator<Statistic,Long> statistics;
     private StringList reasonsSending;
     private NatStringTreeMap<String> mapVarsFailSending;
     private NatStringTreeMap<String> mapVarsDamageSentFoe;
@@ -22,7 +22,7 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
         super.beforeDisplaying();
         EffectTeamWhileSendFoe effect_ = (EffectTeamWhileSendFoe) getEffect();
         DataBase data_ = getDataBase();
-        DictionaryComparator<Statistic,Integer> statistics_;
+        DictionaryComparator<Statistic,Long> statistics_;
         statistics_ = DictionaryComparatorUtil.buildStatisByte(data_, getLanguage());
         for (Statistic s: effect_.getStatistics().getKeys()) {
             statistics_.put(s, effect_.getStatistics().getVal(s));
@@ -35,9 +35,9 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
         }
         deletedByFoeTypes_.sortElts(DictionaryComparatorUtil.cmpTypes(data_,getLanguage()));
         deletedByFoeTypes = deletedByFoeTypes_;
-        IntTreeMap< String> statusByNbUses_;
-        statusByNbUses_ = new IntTreeMap< String>();
-        for (Integer s: effect_.getStatusByNbUses().getKeys()) {
+        LongTreeMap< String> statusByNbUses_;
+        statusByNbUses_ = new LongTreeMap< String>();
+        for (Long s: effect_.getStatusByNbUses().getKeys()) {
             String status_ = effect_.getStatusByNbUses().getVal(s);
             statusByNbUses_.put(s, status_);
         }
@@ -104,10 +104,10 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
         return translatedTypes_.getVal(type_);
     }
     public String clickStatus(int _indexEffect, int _index) {
-        IntTreeMap< String> statusByNbUses_;
-        statusByNbUses_ = new IntTreeMap< String>();
+        LongTreeMap< String> statusByNbUses_;
+        statusByNbUses_ = new LongTreeMap< String>();
         EffectTeamWhileSendFoe effect_ = (EffectTeamWhileSendFoe) getEffect(_indexEffect);
-        for (Integer s: effect_.getStatusByNbUses().getKeys()) {
+        for (Long s: effect_.getStatusByNbUses().getKeys()) {
             String status_ = effect_.getStatusByNbUses().getVal(s);
             statusByNbUses_.put(s, status_);
         }
@@ -134,11 +134,11 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
         return mapVarsDamageSentFoe;
     }
 
-    public DictionaryComparator<Statistic,Integer> getStatistics() {
+    public DictionaryComparator<Statistic,Long> getStatistics() {
         return statistics;
     }
 
-    public IntTreeMap<String> getStatusByNbUses() {
+    public LongTreeMap<String> getStatusByNbUses() {
         return statusByNbUses;
     }
 

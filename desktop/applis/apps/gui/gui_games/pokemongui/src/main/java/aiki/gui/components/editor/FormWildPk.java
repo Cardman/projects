@@ -19,7 +19,7 @@ public final class FormWildPk extends FormAbsPk {
         feedFormQuick();
         view = getApi().getCompoFactory().newAbsScrollPane();
         getForm().add(view);
-        getLevel().getSpinner().addChangeListener(new RefreshWildPkMoves(getFacadeGame(),this));
+        getLevel().getTextLong().addChangeListener(new RefreshWildPkMoves(getFacadeGame(),this));
         getName().getSelectUniq().getSelect().addListener(new RefreshWildPkMoves(getFacadeGame(),this));
     }
 

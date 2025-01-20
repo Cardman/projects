@@ -88,21 +88,21 @@ final class FightStatistic {
         }
     }
 
-    static int criticalHit(Fight _fight, TeamPosition _fighter, int _rate, DataBase _import) {
+    static long criticalHit(Fight _fight, TeamPosition _fighter, int _rate, DataBase _import) {
         Fighter creatureLanceur_ = _fight.getFighter(_fighter);
-        int boostCc_=creatureLanceur_.getStatisBoost().getVal(Statistic.CRITICAL_HIT);
+        long boostCc_=creatureLanceur_.getStatisBoost().getVal(Statistic.CRITICAL_HIT);
         boostCc_ += FightStatistic.bonusBoost(_fight,Statistic.CRITICAL_HIT, _fighter, _import);
         boostCc_ += _rate;
         return boostCc_;
     }
 
-    static int bonusBoost(Fight _fight, Statistic _statistic, TeamPosition _fighter, DataBase _import) {
+    static long bonusBoost(Fight _fight, Statistic _statistic, TeamPosition _fighter, DataBase _import) {
         Fighter fighter_ = _fight.getFighter(_fighter);
-        int bonus_ = 0;
+        long bonus_ = 0;
         Item fObjet_ = FightItems.useItsObject(_fight, _fighter, _import);
         if (fObjet_ instanceof ItemForBattle) {
             ItemForBattle fObjetCombat_ = (ItemForBattle) fObjet_;
-            IdMap<Statistic, Integer> multStatisCran_ = fObjetCombat_.getMultStatRank();
+            IdMap<Statistic,Long> multStatisCran_ = fObjetCombat_.getMultStatRank();
             if (multStatisCran_.contains(_statistic)) {
                 bonus_ += multStatisCran_.getVal(_statistic);
             }
@@ -113,7 +113,7 @@ final class FightStatistic {
         }
         AbilityData ability_ = fighter_.ficheCapaciteActuelle(_import);
         if (ability_ != null) {
-            IdMap<Statistic,Integer> multStatisCran_ = ability_.getBonusStatRank();
+            IdMap<Statistic,Long> multStatisCran_ = ability_.getBonusStatRank();
             if (multStatisCran_.contains(_statistic)) {
                 bonus_+=multStatisCran_.getVal(_statistic);
             }
@@ -192,7 +192,7 @@ final class FightStatistic {
         return rate_;
     }
 
-    static Rate rateBoost(int _boost, DataBase _import) {
+    static Rate rateBoost(long _boost, DataBase _import) {
         //RATE_BOOST
         String numericExp_ = _import.getRateBoost();
         StringMap<String> variables_ = new StringMap<String>();

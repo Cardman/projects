@@ -20,7 +20,7 @@ public final class EggLabel extends SelectableLabel {
 
     private int xName;
 
-    private int remainSteps;
+    private long remainSteps;
 
     private int xSteps;
 
@@ -35,7 +35,7 @@ public final class EggLabel extends SelectableLabel {
         int[][] miniPk_ = _facade.getData().getMiniPk(egg.getKeyName());
         sideLength = _facade.getMap().getSideLength();
         miniImagePk = _rend.render(_fact,miniPk_,sideLength,sideLength);
-        remainSteps = (int) (_facade.getData().getPokemon(egg.getKeyName()).getHatchingSteps().ll() - egg.getSteps());
+        remainSteps = _facade.getData().getPokemon(egg.getKeyName()).getHatchingSteps().ll() - egg.getSteps();
         xRemainSteps = stringWidth(Long.toString(remainSteps));
     }
 

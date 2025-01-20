@@ -8,17 +8,17 @@ public final class StatBaseEv implements Displayable{
 
     private static final char SEPARATOR = ';';
 
-    private final int base;
+    private final long base;
 
-    private final int ev;
+    private final long ev;
 
     public StatBaseEv(String _str) {
         StringList elements_ = StringUtil.splitChars(_str, SEPARATOR);
-        base = NumberUtil.parseInt(elements_.first());
-        ev = NumberUtil.parseInt(elements_.last());
+        base = NumberUtil.parseLongZero(elements_.first());
+        ev = NumberUtil.parseLongZero(elements_.last());
     }
 
-    public StatBaseEv(int _base, int _ev) {
+    public StatBaseEv(long _base, long _ev) {
         base = _base;
         ev = _ev;
     }
@@ -28,11 +28,11 @@ public final class StatBaseEv implements Displayable{
         return new StatBaseEv(_string);
     }
 
-    public int getBase() {
+    public long getBase() {
         return base;
     }
 
-    public int getEv() {
+    public long getEv() {
         return ev;
     }
 

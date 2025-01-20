@@ -35,14 +35,14 @@ import code.util.ints.Comparing;
 public final class DictionaryComparatorUtil {
     private DictionaryComparatorUtil() {
     }
-    public static DictionaryComparator<Statistic,Integer> buildStatisByte(DataBase _data, String _language) {
-        return new DictionaryComparator<Statistic,Integer>(_data.getTranslatedStatistics().getVal(_language));
+    public static DictionaryComparator<Statistic,Long> buildStatisByte(DataBase _data, String _language) {
+        return new DictionaryComparator<Statistic,Long>(_data.getTranslatedStatistics().getVal(_language));
     }
     public static DictionaryComparator<Statistic,Rate> buildStatisRate(DataBase _data, String _language) {
         return new DictionaryComparator<Statistic,Rate>(_data.getTranslatedStatistics().getVal(_language));
     }
-    public static DictionaryComparator<Statistic,Integer> buildStatisShort(DataBase _data, String _language) {
-        return new DictionaryComparator<Statistic,Integer>(_data.getTranslatedStatistics().getVal(_language));
+    public static DictionaryComparator<Statistic,Long> buildStatisShort(DataBase _data, String _language) {
+        return new DictionaryComparator<Statistic,Long>(_data.getTranslatedStatistics().getVal(_language));
     }
     public static DictionaryComparator<Statistic,String> buildStatisString(DataBase _data, String _language) {
         return new DictionaryComparator<Statistic,String>(_data.getTranslatedStatistics().getVal(_language));
@@ -157,8 +157,8 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<String,EfficiencyRate>(_data.getTranslatedTypes().getVal(_language));
     }
 
-    public static DictionaryComparator<String, DictionaryComparator<Statistic, Integer>> buildTypesTypeDic(DataBase _data, String _language) {
-        return new DictionaryComparator<String,DictionaryComparator<Statistic, Integer>>(_data.getTranslatedTypes().getVal(_language));
+    public static DictionaryComparator<String, DictionaryComparator<Statistic, Long>> buildTypesTypeDic(DataBase _data, String _language) {
+        return new DictionaryComparator<String,DictionaryComparator<Statistic, Long>>(_data.getTranslatedTypes().getVal(_language));
     }
     public static DictionaryComparator<FighterNameId,DictionaryComparator<String,IdMap<FighterNameId, KeyHypothesis>>> buildCalcAll(DataBase _data, String _language) {
         return new DictionaryComparator<FighterNameId,DictionaryComparator<String,IdMap<FighterNameId, KeyHypothesis>>>(new ComparatorFighterId(_data,_language));
@@ -224,8 +224,8 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<StatisticCategory, Rate>(new ComparatorStatisticCategory(_data, _language));
     }
 
-    public static DictionaryComparator<StatisticCategory,Integer> buildStatisticCategoryByte(DataBase _data, String _language) {
-        return new DictionaryComparator<StatisticCategory, Integer>(new ComparatorStatisticCategory(_data, _language));
+    public static DictionaryComparator<StatisticCategory,Long> buildStatisticCategoryByte(DataBase _data, String _language) {
+        return new DictionaryComparator<StatisticCategory, Long>(new ComparatorStatisticCategory(_data, _language));
     }
 
     public static DictionaryComparator<Rate,Rate> feedRateRate(MonteCarloNumber _law) {
@@ -314,8 +314,8 @@ public final class DictionaryComparatorUtil {
     public static DictionaryComparator<StatisticType, Rate> buildStatisTypeRate(DataBase _data, String _lg) {
         return new DictionaryComparator<StatisticType, Rate>(new ComparatorStatisticType(_data, _lg));
     }
-    public static DictionaryComparator<StatisticType, Integer> buildStatisTypeByte(DataBase _data, String _lg) {
-        return new DictionaryComparator<StatisticType, Integer>(new ComparatorStatisticType(_data, _lg));
+    public static DictionaryComparator<StatisticType, Long> buildStatisTypeByte(DataBase _data, String _lg) {
+        return new DictionaryComparator<StatisticType, Long>(new ComparatorStatisticType(_data, _lg));
     }
 
     public static DictionaryComparator<StatisticStatus, Integer> buildStatisticStatus(DataBase _data, String _lg) {

@@ -280,14 +280,14 @@ public class PokemonBean extends CommonBean {
         PokemonData pk_ = data_.getPokemon(name);
         return tryRedirectPk(pk_.getBaseEvo());
     }
-    public int getBase(int _index) {
+    public long getBase(int _index) {
         DataBase data_ = getDataBase();
         PokemonData pk_ = data_.getPokemon(name);
         Statistic stat_ = statisticsEnum.get(_index);
         StatBaseEv statEv_ = pk_.getStatistics().getVal(stat_);
         return statEv_.getBase();
     }
-    public int getEv(int _index) {
+    public long getEv(int _index) {
         DataBase data_ = getDataBase();
         PokemonData pk_ = data_.getPokemon(name);
         Statistic stat_ = statisticsEnum.get(_index);

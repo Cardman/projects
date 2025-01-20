@@ -13,7 +13,7 @@ public final class GeneComponentModelEvolution implements ChangeableFormType{
     private final AbstractProgramInfos programInfos;
     private final FacadeGame fac;
     private GeneComponentModelElt<String> evolutionKind;
-    private final GeneComponentModelInt level;
+    private final GeneComponentModelLong level;
     private GeneComponentModelEltEnumSub<String> item;
     private GeneComponentModelEltEnumSub<String> evoTeamPokemon;
     private GeneComponentModelEltEnumSub<String> evoMove;
@@ -33,7 +33,7 @@ public final class GeneComponentModelEvolution implements ChangeableFormType{
         frame = _f;
         programInfos = _core;
         fac = _facade;
-        level = new GeneComponentModelInt(_core);
+        level = new GeneComponentModelLong(_core);
         subscribedTranslationList = _subscription;
     }
 
@@ -50,7 +50,7 @@ public final class GeneComponentModelEvolution implements ChangeableFormType{
         AbsPanel selected_ = compoFactory_.newLineBox();
         evoForm_.add(evolutionKind.geneEnum());
         evoForm_.add(selected_);
-        compoLevel = level.geneInt();
+        compoLevel = level.geneLong();
         compoLevel.setVisible(false);
         selected_.add(compoLevel);
         compoItem = item.geneEnum();
@@ -110,10 +110,10 @@ public final class GeneComponentModelEvolution implements ChangeableFormType{
 
     public Evolution valueEvo() {
         if (edited instanceof EvolutionLevelSimple) {
-            ((EvolutionLevelSimple)edited).setLevel(level.valueInt());
+            ((EvolutionLevelSimple)edited).setLevel(level.valueLong());
         }
         if (edited instanceof EvolutionLevelGender) {
-            ((EvolutionLevelGender)edited).setLevel(level.valueInt());
+            ((EvolutionLevelGender)edited).setLevel(level.valueLong());
             ((EvolutionLevelGender)edited).setGender(evoGender.tryRet());
         }
         if (edited instanceof EvolutionStoneSimple) {
@@ -140,11 +140,11 @@ public final class GeneComponentModelEvolution implements ChangeableFormType{
 
     public void valueEvo(Evolution _evo) {
         if (_evo instanceof EvolutionLevelSimple) {
-            level.valueInt(((EvolutionLevelSimple) _evo).getLevel());
+            level.valueLong(((EvolutionLevelSimple) _evo).getLevel());
             displayRepaint(MessagesEditorSelect.EVO_LEVEL_SIMPLE);
         }
         if (_evo instanceof EvolutionLevelGender) {
-            level.valueInt(((EvolutionLevelGender) _evo).getLevel());
+            level.valueLong(((EvolutionLevelGender) _evo).getLevel());
             evoGender.setupValue(((EvolutionLevelGender) _evo).getGender());
             displayRepaint(MessagesEditorSelect.EVO_LEVEL_GENDER);
         }
@@ -210,7 +210,7 @@ public final class GeneComponentModelEvolution implements ChangeableFormType{
         return evolutionKind;
     }
 
-    public GeneComponentModelInt getLevel() {
+    public GeneComponentModelLong getLevel() {
         return level;
     }
 

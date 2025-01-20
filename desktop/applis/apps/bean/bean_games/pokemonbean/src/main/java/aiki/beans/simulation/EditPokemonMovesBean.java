@@ -84,7 +84,7 @@ public class EditPokemonMovesBean extends WithFilterBean {
         if (player) {
             if (availableMovesOnly) {
                 String namePk_ = getForms().getValStr(CST_POKEMON_NAME_EDIT);
-                int level_ = getForms().getValInt(CST_POKEMON_LEVEL_EDIT);
+                long level_ = getForms().getValLong(CST_POKEMON_LEVEL_EDIT);
                 set_.addAllEntries(FightSimulation.possiblesInitialMoves(namePk_, level_, data_));
             } else {
                 set_.addAllEntries(data_.getMoves());

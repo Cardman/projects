@@ -904,7 +904,7 @@ public final class Game {
     }
 
 
-    public int nbRemainingSteps(Coords _coords,DataBase _d){
+    public long nbRemainingSteps(Coords _coords,DataBase _d){
         HostPokemonDuo valeur_=hostedPk.getVal(_coords);
         PokemonData pkDataOne_=_d.getPokedex().getVal(valeur_.getFirstPokemon().getName());
         PokemonData pkDataTwo_=_d.getPokedex().getVal(valeur_.getSecondPokemon().getName());

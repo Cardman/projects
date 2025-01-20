@@ -736,14 +736,14 @@ public final class Rate implements Displayable {
     }
 
     /** */
-    public long signumToLong() {
+    public int signumToLong() {
         if (isZero()) {
-            return 0L;
+            return 0;
         }
         if (isZeroOrGt()) {
-            return 1L;
+            return 1;
         }
-        return -1L;
+        return -1;
     }
 
     public Rate signum() {

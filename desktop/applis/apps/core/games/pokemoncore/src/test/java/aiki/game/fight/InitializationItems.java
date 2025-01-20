@@ -220,12 +220,12 @@ final class InitializationItems  extends EquallablePkUtil {
         objetAttachableCombat_.setPrice(1000);
         _data.completeQuickMembers(LUNETTES_FILTRE,objetAttachableCombat_);
         objetAttachableCombat_ = defaultObjetAttachableCombat();
-        objetAttachableCombat_.getBoostStatisTypes().addEntry(EAU, new IdMap<Statistic,Integer>());
-        objetAttachableCombat_.getBoostStatisTypes().getVal(EAU).addEntry(Statistic.SPECIAL_DEFENSE,  1);
+        objetAttachableCombat_.getBoostStatisTypes().addEntry(EAU, new IdMap<Statistic,Long>());
+        objetAttachableCombat_.getBoostStatisTypes().getVal(EAU).addEntry(Statistic.SPECIAL_DEFENSE,1L);
         objetAttachableCombat_.setPrice(1000);
         _data.completeQuickMembers(LICHEN_LUMINEUX,objetAttachableCombat_);
         objetAttachableCombat_ = defaultObjetAttachableCombat();
-        objetAttachableCombat_.getBoostStatisSuperEff().addEntry(Statistic.ATTACK, 1);
+        objetAttachableCombat_.getBoostStatisSuperEff().addEntry(Statistic.ATTACK,1L);
         objetAttachableCombat_.setPrice(1000);
         _data.completeQuickMembers(VULNE_ASSURANCE,objetAttachableCombat_);
         soinPP_ = defaultHealingPp();
@@ -258,7 +258,7 @@ final class InitializationItems  extends EquallablePkUtil {
         _data.completeQuickMembers(BAIE_LAMPOU,baie_);
         baie_ = defaultBaie();
         baie_.setCategoryBoosting(SPECIALE);
-        baie_.getBoostStatis().addEntry(Statistic.SPECIAL_DEFENSE,  1);
+        baie_.getBoostStatis().addEntry(Statistic.SPECIAL_DEFENSE,1L);
         baie_.getMultFoesDamage().addEntry(TENEBRE,new EfficiencyRate(new Rate("1"),new Rate("1/2")));
         baie_.setPrice(200);
         _data.completeQuickMembers(BAIE_MANGA,baie_);
@@ -358,7 +358,7 @@ final class InitializationItems  extends EquallablePkUtil {
         objetAttachableCombat_.setPrice(1000);
         _data.completeQuickMembers(CEINT_FORCE,objetAttachableCombat_);
         objetAttachableCombat_ = defaultObjetAttachableCombat();
-        objetAttachableCombat_.getMultStatRank().addEntry(Statistic.CRITICAL_HIT,1);
+        objetAttachableCombat_.getMultStatRank().addEntry(Statistic.CRITICAL_HIT,1L);
         objetAttachableCombat_.setPrice(1000);
         _data.completeQuickMembers(LENTILSCOPE,objetAttachableCombat_);
         objetAttachableCombat_ = defaultObjetAttachableCombat();
@@ -401,7 +401,7 @@ final class InitializationItems  extends EquallablePkUtil {
         _data.completeQuickMembers(MAX_REPOUSSE,repousse_);
         boost_ = defaultBoost();
         initHappinessBall(boost_);
-        boost_.getEvs().addEntry(Statistic.HP,10);
+        boost_.getEvs().addEntry(Statistic.HP,10L);
         boost_.setPrice(9800);
         _data.completeQuickMembers(PV_PLUS,boost_);
         baie_ = defaultBaie();
@@ -427,12 +427,12 @@ final class InitializationItems  extends EquallablePkUtil {
         boost_.setPrice(9800);
         _data.completeQuickMembers(PP_PLUS_BIS,boost_);
         boost_ = defaultBoost();
-        boost_.getEvs().addEntry(Statistic.ATTACK,  2);
+        boost_.getEvs().addEntry(Statistic.ATTACK,2L);
         _data.completeQuickMembers(MUSCLE, boost_);
         boost_ = defaultBoost();
         boost_.setPrice(15);
         boost_.getHappiness().addEntry(POKE_BALL,  2);
-        boost_.getEvs().addEntry(Statistic.SPEED,  3);
+        boost_.getEvs().addEntry(Statistic.SPEED,3L);
         _data.completeQuickMembers(BOLT, boost_);
         baie_ = defaultBaie();
         baie_.setHealPp(10);
@@ -482,7 +482,7 @@ final class InitializationItems  extends EquallablePkUtil {
         baie_.setPrice(200);
         _data.completeQuickMembers(BAIE_CHERIM,baie_);
         objetAttachableCombat_ = defaultObjetAttachableCombat();
-        objetAttachableCombat_.getWinEvFight().addEntry(Statistic.DEFENSE,4);
+        objetAttachableCombat_.getWinEvFight().addEntry(Statistic.DEFENSE,4L);
         objetAttachableCombat_.setPrice(1000);
         _data.completeQuickMembers(CEINT_POUV,objetAttachableCombat_);
         objetAttachableCombat_ = defaultObjetAttachableCombat();
@@ -718,7 +718,7 @@ final class InitializationItems  extends EquallablePkUtil {
         object_.setHealHpRate(Rate.zero());
         object_.setMaxHpHealingHpRate(Rate.zero());
         object_.setDamageRateRecoilFoe(new StringMap<Rate>());
-        object_.setBoostStatis(new IdMap<Statistic,Integer>());
+        object_.setBoostStatis(new IdMap<Statistic,Long>());
         object_.setCategoryBoosting(NULL_REF);
         return object_;
     }
@@ -735,7 +735,7 @@ final class InitializationItems  extends EquallablePkUtil {
         object_.setProtectAgainstKo(Rate.zero());
         object_.setProtectAgainstKoIfFullHp(Rate.zero());
         object_.setDrainedHpByDamageRate(Rate.zero());
-        object_.setWinEvFight(new IdMap<Statistic,Integer>());
+        object_.setWinEvFight(new IdMap<Statistic,Long>());
         object_.setLawForAttackFirst(new MonteCarloBoolean());
         object_.setMultTrappingDamage(Rate.zero());
         object_.setMultWinningHappiness(Rate.zero());
@@ -745,15 +745,15 @@ final class InitializationItems  extends EquallablePkUtil {
         object_.setMultDamage(NULL_REF);
         object_.setMultDrainedHp(Rate.zero());
         object_.setDamageRecoil(Rate.zero());
-        object_.setMultStatRank(new IdMap<Statistic,Integer>());
+        object_.setMultStatRank(new IdMap<Statistic,Long>());
         object_.setMultStatPokemonRank(new StatisticPokemons());
         object_.setMultStat(new IdMap<Statistic,String>());
         object_.setIncreasingMaxNbRoundGlobalMove(new StringMap<Integer>());
         object_.setIncreasingMaxNbRoundTeamMove(new StringMap<Integer>());
         object_.setHatching(new StringList());
         object_.setImmuTypes(new StringList());
-        object_.setBoostStatisTypes(new StringMap<IdMap<Statistic,Integer>>());
-        object_.setBoostStatisSuperEff(new IdMap<Statistic,Integer>());
+        object_.setBoostStatisTypes(new StringMap<IdMap<Statistic,Long>>());
+        object_.setBoostStatisSuperEff(new IdMap<Statistic,Long>());
         //object_.setSansEffetCapacite(new StringList());
         object_.setEffectEndRound(new CustList<EffectEndRound>());
         object_.setEffectSending(new CustList<EffectWhileSendingWithStatistic>());
@@ -826,7 +826,7 @@ final class InitializationItems  extends EquallablePkUtil {
         Boost object_ = new Boost();
         object_.setWinPp(Rate.zero());
         object_.setHappiness(new StringMap<Integer>());
-        object_.setEvs(new IdMap<Statistic,Integer>());
+        object_.setEvs(new IdMap<Statistic,Long>());
         return object_;
     }
 
@@ -846,7 +846,7 @@ final class InitializationItems  extends EquallablePkUtil {
 
     private static EffectStatistic defaultEffetStatistique() {
         EffectStatistic object_ = new EffectStatistic();
-        object_.setStatisVarRank(new IdMap<Statistic,Integer>());
+        object_.setStatisVarRank(new IdMap<Statistic,Long>());
         object_.setLocalFailStatis(new IdMap<Statistic,String>());
         object_.setEvtRate(Rate.zero());
         object_.setCopyBoost(new IdList<Statistic>());

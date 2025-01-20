@@ -35,7 +35,7 @@ public class EditTrainerPokemonBean extends CommonBean {
         item = getForms().getValStr(CST_ITEM_EDIT);
         ability = getForms().getValStr(CST_POKEMON_ABILITY_EDIT);
         common.setGender(getForms().getValGen(CST_POKEMON_GENDER_EDIT).getGenderName());
-        common.setLevel(getForms().getValInt(CST_POKEMON_LEVEL_EDIT));
+        common.setLevel(getForms().getValLong(CST_POKEMON_LEVEL_EDIT));
 
         moves.clear();
         DataBase data_ = getDataBase();

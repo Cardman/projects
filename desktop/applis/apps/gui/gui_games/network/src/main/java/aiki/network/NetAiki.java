@@ -255,7 +255,7 @@ public final class NetAiki {
         out_.append(_sep);
         out_.append(StringUtil.join(moves_,_sec));
         CustList<String> stats_ = new CustList<String>();
-        for (EntryCust<Statistic, Integer> m: _pk.getEv().entryList()) {
+        for (EntryCust<Statistic, Long> m: _pk.getEv().entryList()) {
             stats_.add(m.getKey().getStatName()+_th+m.getValue());
         }
         out_.append(_sep);
@@ -278,7 +278,7 @@ public final class NetAiki {
     public static PokemonPlayer importPokemonPlayer(CustList<String> _infos, char _sec, char _th) {
         PokemonPlayer p_ = new PokemonPlayer();
         p_.setName(_infos.get(0));
-        p_.setLevel(NumberUtil.parseInt(_infos.get(1)));
+        p_.setLevel(NumberUtil.parseLongZero(_infos.get(1)));
         p_.setGender(Gender.getGenderByName(_infos.get(2)));
         p_.setAbility(_infos.get(3));
         p_.setItem(_infos.get(4));
@@ -288,12 +288,12 @@ public final class NetAiki {
         }
         for (String m: StringUtil.splitChar(_infos.get(7), _sec)) {
             StringList kv_ = StringUtil.splitChar(m, _th);
-            p_.getEv().addEntry(Statistic.getStatisticByName(kv_.first()),NumberUtil.parseInt(kv_.last()));
+            p_.getEv().addEntry(Statistic.getStatisticByName(kv_.first()),NumberUtil.parseLongZero(kv_.last()));
         }
         p_.setWonExpSinceLastLevel(new Rate(_infos.get(8)));
-        p_.setHappiness(NumberUtil.parseInt(_infos.get(9)));
+        p_.setHappiness(NumberUtil.parseLongZero(_infos.get(9)));
         p_.setUsedBallCatching(_infos.get(10));
-        p_.setNbStepsTeamLead(NumberUtil.parseInt(_infos.get(11)));
+        p_.setNbStepsTeamLead(NumberUtil.parseLongZero(_infos.get(11)));
         return p_;
     }
 //    public static StringBuilder exportEgg(Egg _pk, char _sep) {

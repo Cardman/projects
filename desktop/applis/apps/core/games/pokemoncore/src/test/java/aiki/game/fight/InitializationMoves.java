@@ -921,7 +921,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.LANCEUR);
         effetStatistique_ = defaultEffetStatistique();
         effetStatistique_.setEvtRate(new Rate("1"));
-        effetStatistique_.getStatisVarRank().addEntry(Statistic.ACCURACY,  0);
+        effetStatistique_.getStatisVarRank().addEntry(Statistic.ACCURACY,0L);
         effetStatistique_.setTargetChoice(TargetChoice.LANCEUR);
         ficheAttaqueNonOff_.getEffects().add(effetStatistique_);
         effectCounterAttack_ = defaultEffectCounterAttack();
@@ -944,14 +944,14 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.LANCEUR);
         effetStatistique_ = defaultEffetStatistique();
         effetStatistique_.setEvtRate(new Rate("1"));
-        effetStatistique_.getStatisVarRank().addEntry(Statistic.SPECIAL_DEFENSE,  0);
+        effetStatistique_.getStatisVarRank().addEntry(Statistic.SPECIAL_DEFENSE,0L);
         effetStatistique_.setTargetChoice(TargetChoice.LANCEUR);
         ficheAttaqueNonOff_.getEffects().add(effetStatistique_);
         effectCounterAttack_ = defaultEffectCounterAttack();
         effectCounterAttack_.setTargetChoice(TargetChoice.LANCEUR);
         effectCounterAttack_.setProtectFail(VAR_PREFIX+ MessagesDataBaseConstants.DEF_LANCEUR_CLONE+">0");
         effectCounterAttack_.setFail(NULL_REF);
-        effectCounterAttack_.getDroppedStatDirectMove().addEntry(Statistic.ATTACK,  -1);
+        effectCounterAttack_.getDroppedStatDirectMove().addEntry(Statistic.ATTACK,-1L);
         ficheAttaqueNonOff_.getEffects().add(effectCounterAttack_);
         _data.completeQuickMembers(BOUCLIER_ROYAL,ficheAttaqueNonOff_);
         ficheAttaqueNonOff_ = defaultFicheAttaqueNonOff();
@@ -966,7 +966,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.LANCEUR);
         effetStatistique_ = defaultEffetStatistique();
         effetStatistique_.setEvtRate(new Rate("1"));
-        effetStatistique_.getStatisVarRank().addEntry(Statistic.ATTACK, 0);
+        effetStatistique_.getStatisVarRank().addEntry(Statistic.ATTACK,0L);
         effetStatistique_.setTargetChoice(TargetChoice.LANCEUR);
         ficheAttaqueNonOff_.getEffects().add(effetStatistique_);
         effectCounterAttack_ = defaultEffectCounterAttack();
@@ -2382,7 +2382,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetDegats_.setTargetChoice(TargetChoice.ADJ_MULT);
         ficheAttaqueOff_.getEffects().add(effetDegats_);
         effetStatistique_ = defaultEffetStatistique();
-        effetStatistique_.getStatisVarRank().addEntry(Statistic.DEFENSE,1);
+        effetStatistique_.getStatisVarRank().addEntry(Statistic.DEFENSE,1L);
         effetStatistique_.setEvtRate(new Rate("1"));
         effetStatistique_.setTargetChoice(TargetChoice.LANCEUR);
         effetStatistique_.getRequiredSuccessfulEffects().add(0);
@@ -2510,13 +2510,13 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.UNIQUE_IMPORTE);
         effetStatistique_ = defaultEffetStatistique();
-        effetStatistique_.getStatisVarRank().addEntry(Statistic.SPECIAL_DEFENSE,2);
-        effetStatistique_.getStatisVarRank().addEntry(Statistic.ATTACK,2);
-        effetStatistique_.getStatisVarRank().addEntry(Statistic.DEFENSE,2);
-        effetStatistique_.getStatisVarRank().addEntry(Statistic.ACCURACY,2);
-        effetStatistique_.getStatisVarRank().addEntry(Statistic.SPECIAL_ATTACK,2);
-        effetStatistique_.getStatisVarRank().addEntry(Statistic.EVASINESS,2);
-        effetStatistique_.getStatisVarRank().addEntry(Statistic.SPEED,2);
+        effetStatistique_.getStatisVarRank().addEntry(Statistic.SPECIAL_DEFENSE,2L);
+        effetStatistique_.getStatisVarRank().addEntry(Statistic.ATTACK,2L);
+        effetStatistique_.getStatisVarRank().addEntry(Statistic.DEFENSE,2L);
+        effetStatistique_.getStatisVarRank().addEntry(Statistic.ACCURACY,2L);
+        effetStatistique_.getStatisVarRank().addEntry(Statistic.SPECIAL_ATTACK,2L);
+        effetStatistique_.getStatisVarRank().addEntry(Statistic.EVASINESS,2L);
+        effetStatistique_.getStatisVarRank().addEntry(Statistic.SPEED,2L);
         effetStatistique_.getLawBoost().addQuickEvent(Statistic.SPECIAL_DEFENSE,new LgInt("1"));
         effetStatistique_.getLawBoost().addQuickEvent(Statistic.ATTACK,new LgInt("1"));
         effetStatistique_.getLawBoost().addQuickEvent(Statistic.DEFENSE,new LgInt("1"));
@@ -2652,7 +2652,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetStatut_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
         ficheAttaqueNonOff_.getEffects().add(effetStatut_);
         effetStatistique_ = defaultEffetStatistique();
-        effetStatistique_.getStatisVarRank().addEntry(Statistic.ATTACK,2);
+        effetStatistique_.getStatisVarRank().addEntry(Statistic.ATTACK,2L);
         effetStatistique_.setEvtRate(new Rate("1"));
         effetStatistique_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
         effetStatistique_.getRequiredSuccessfulEffects().add(0);
@@ -2903,7 +2903,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.LANCEUR);
         effetStatistique_ = defaultEffetStatistique();
         effetStatistique_.setFail(F);
-        effetStatistique_.getStatisVarRank().addEntry(Statistic.DEFENSE,2);
+        effetStatistique_.getStatisVarRank().addEntry(Statistic.DEFENSE,2L);
         effetStatistique_.setEvtRate(new Rate("1"));
         effetStatistique_.setTargetChoice(TargetChoice.LANCEUR);
         ficheAttaqueNonOff_.getEffects().add(effetStatistique_);
@@ -2921,7 +2921,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.LANCEUR);
         effetStatistique_ = defaultEffetStatistique();
         effetStatistique_.setFail(F);
-        effetStatistique_.getStatisVarRank().addEntry(Statistic.DEFENSE,1);
+        effetStatistique_.getStatisVarRank().addEntry(Statistic.DEFENSE,1L);
         effetStatistique_.setEvtRate(new Rate("1"));
         effetStatistique_.setTargetChoice(TargetChoice.LANCEUR);
         ficheAttaqueNonOff_.getEffects().add(effetStatistique_);
@@ -2938,7 +2938,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.LANCEUR);
         effetStatistique_ = defaultEffetStatistique();
-        effetStatistique_.getStatisVarRank().addEntry(Statistic.DEFENSE,2);
+        effetStatistique_.getStatisVarRank().addEntry(Statistic.DEFENSE,2L);
         effetStatistique_.setEvtRate(new Rate("1"));
         effetStatistique_.setTargetChoice(TargetChoice.LANCEUR);
         ficheAttaqueNonOff_.getEffects().add(effetStatistique_);
@@ -3020,7 +3020,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetDegats_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
         ficheAttaqueOff_.getEffects().add(effetDegats_);
         effetStatistique_ = defaultEffetStatistique();
-        effetStatistique_.getStatisVarRank().addEntry(Statistic.ACCURACY,-1);
+        effetStatistique_.getStatisVarRank().addEntry(Statistic.ACCURACY,-1L);
         effetStatistique_.getLocalFailStatis().addEntry(Statistic.ACCURACY,VAR_PREFIX+ MessagesDataBaseConstants.DEF_CIBLE_CLONE+">0");
         effetStatistique_.setEvtRate(new Rate("1"));
         effetStatistique_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
@@ -3482,7 +3482,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.LANCEUR);
         effetStatistique_ = defaultEffetStatistique();
         effetStatistique_.setEvtRate(new Rate("1"));
-        effetStatistique_.getStatisVarRank().addEntry(Statistic.DEFENSE,  0);
+        effetStatistique_.getStatisVarRank().addEntry(Statistic.DEFENSE,0L);
         effetStatistique_.setTargetChoice(TargetChoice.LANCEUR);
         ficheAttaqueNonOff_.getEffects().add(effetStatistique_);
         effetImmu_ = defaultEffetImmu();
@@ -3516,7 +3516,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
         effetStatistique_ = defaultEffetStatistique();
         effetStatistique_.setEvtRate(new Rate("1"));
-        effetStatistique_.getStatisVarRank().addEntry(Statistic.EVASINESS, 0);
+        effetStatistique_.getStatisVarRank().addEntry(Statistic.EVASINESS,0L);
         effetStatistique_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
         ficheAttaqueNonOff_.getEffects().add(effetStatistique_);
         effetAntiChoix_ = defaultEffetAntiChoix();
@@ -3560,7 +3560,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.ADJ_UNIQ);
         effetStatistique_ = defaultEffetStatistique();
         effetStatistique_.setEvtRate(new Rate("1"));
-        effetStatistique_.getStatisVarRank().addEntry(Statistic.DEFENSE,  0);
+        effetStatistique_.getStatisVarRank().addEntry(Statistic.DEFENSE,0L);
         effetStatistique_.setTargetChoice(TargetChoice.ADJ_UNIQ);
         ficheAttaqueNonOff_.getEffects().add(effetStatistique_);
         effetAntiChoix_ = defaultEffetAntiChoix();
@@ -3791,7 +3791,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.ADJ_MULT);
         effetStatistique_ = defaultEffetStatistique();
-        effetStatistique_.getStatisVarRank().addEntry(Statistic.ATTACK,-2);
+        effetStatistique_.getStatisVarRank().addEntry(Statistic.ATTACK,-2L);
         effetStatistique_.getLocalFailStatis().addEntry(Statistic.ATTACK,VAR_PREFIX+ MessagesDataBaseConstants.DEF_CIBLE_CLONE+">0");
         effetStatistique_.setEvtRate(new Rate("1"));
         effetStatistique_.setTargetChoice(TargetChoice.ADJ_MULT);
@@ -3842,8 +3842,8 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.LANCEUR);
         effetEquipeEntreeAdv_ = defaultEffetEquipeEntreeAdv();
-        effetEquipeEntreeAdv_.getStatusByNbUses().addEntry(1,POISON_ST);
-        effetEquipeEntreeAdv_.getStatusByNbUses().addEntry(2,POISON_GRAVE);
+        effetEquipeEntreeAdv_.getStatusByNbUses().addEntry(1L,POISON_ST);
+        effetEquipeEntreeAdv_.getStatusByNbUses().addEntry(2L,POISON_GRAVE);
         effetEquipeEntreeAdv_.getDeletedByFoeTypes().add(POISON);
         effetEquipeEntreeAdv_.setTargetChoice(TargetChoice.LANCEUR);
         effetEquipeEntreeAdv_.setFailSending(VAR_PREFIX+ MessagesDataBaseConstants.DEF_IMMU_TYPE_ATT_COMBATTANT_ENTRANT+DataBase.SEP_BETWEEN_KEYS+SOL+"|"+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_COMBATTANT_ENTRANT_TYPES+"},{"+VOL+";"+POISON+";"+ACIER+"}))>0|"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_COMBATTANT_ENTRANT_CLONE+">0");
@@ -3861,9 +3861,9 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.LANCEUR);
         effetEquipeEntreeAdv_ = defaultEffetEquipeEntreeAdv();
-        effetEquipeEntreeAdv_.getStatistics().addEntry(Statistic.SPEED,  -1);
-        effetEquipeEntreeAdv_.getStatusByNbUses().addEntry(1,POISON_ST);
-        effetEquipeEntreeAdv_.getStatusByNbUses().addEntry(2,POISON_GRAVE);
+        effetEquipeEntreeAdv_.getStatistics().addEntry(Statistic.SPEED,-1L);
+        effetEquipeEntreeAdv_.getStatusByNbUses().addEntry(1L,POISON_ST);
+        effetEquipeEntreeAdv_.getStatusByNbUses().addEntry(2L,POISON_GRAVE);
         effetEquipeEntreeAdv_.getDeletedByFoeTypes().add(POISON);
         effetEquipeEntreeAdv_.setTargetChoice(TargetChoice.LANCEUR);
         effetEquipeEntreeAdv_.setFailSending(VAR_PREFIX+ MessagesDataBaseConstants.DEF_IMMU_TYPE_ATT_COMBATTANT_ENTRANT+DataBase.SEP_BETWEEN_KEYS+SOL+"|"+MbOperationNode.CARD+"("+MbOperationNode.INTER+"({"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_COMBATTANT_ENTRANT_TYPES+"},{"+VOL+";"+POISON+";"+ACIER+"}))>0|"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_COMBATTANT_ENTRANT_CLONE+">0");
@@ -3934,7 +3934,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.ALLIE);
         effetStatistique_ = defaultEffetStatistique();
         effetStatistique_.setEvtRate(new Rate("1"));
-        effetStatistique_.getStatisVarRank().addEntry(Statistic.ACCURACY,  0);
+        effetStatistique_.getStatisVarRank().addEntry(Statistic.ACCURACY,0L);
         //validate effetStatistique_.setTargetChoice(TargetChoice.ADJ_UNIQ);
         effetStatistique_.setTargetChoice(TargetChoice.ALLIE);
         ficheAttaqueNonOff_.getEffects().add(effetStatistique_);
@@ -4361,7 +4361,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.LANCEUR);
         effetStatistique_ = defaultEffetStatistique();
-        effetStatistique_.getStatisVarRank().addEntry(Statistic.SPECIAL_DEFENSE,1);
+        effetStatistique_.getStatisVarRank().addEntry(Statistic.SPECIAL_DEFENSE,1L);
         effetStatistique_.setEvtRate(new Rate("1"));
         effetStatistique_.setTargetChoice(TargetChoice.LANCEUR);
         ficheAttaqueNonOff_.getEffects().add(effetStatistique_);
@@ -4700,7 +4700,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.ADJ_ADV);
         effetStatistique_ = defaultEffetStatistique();
-        effetStatistique_.getStatisVarRank().addEntry(Statistic.EVASINESS,-1);
+        effetStatistique_.getStatisVarRank().addEntry(Statistic.EVASINESS,-1L);
         effetStatistique_.getLocalFailStatis().addEntry(Statistic.EVASINESS,VAR_PREFIX+ MessagesDataBaseConstants.DEF_CIBLE_CLONE+">0");
         effetStatistique_.setEvtRate(new Rate("1"));
         effetStatistique_.setTargetChoice(TargetChoice.ADJ_ADV);
@@ -5043,7 +5043,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.LANCEUR);
         effetStatistique_ = defaultEffetStatistique();
-        effetStatistique_.getStatisVarRank().addEntry(Statistic.SPEED,  0);
+        effetStatistique_.getStatisVarRank().addEntry(Statistic.SPEED,0L);
         effetStatistique_.setEvtRate(new Rate("1"));
         effetStatistique_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
         ficheAttaqueNonOff_.getEffects().add(effetStatistique_);
@@ -5118,7 +5118,7 @@ final class InitializationMoves extends EquallablePkUtil {
         effetDegats_.setStatisDef(Statistic.SPECIAL_DEFENSE);
         effetDegats_.setTargetDefense(true);
         effetDegats_.setTargetChoice(TargetChoice.ADJ_UNIQ);
-        effetDegats_.getBoostStatisOnceKoFoe().addEntry(Statistic.ATTACK, 1);
+        effetDegats_.getBoostStatisOnceKoFoe().addEntry(Statistic.ATTACK,1L);
         effetDegats_.setFail(NULL_REF);
         ficheAttaqueOff_.getEffects().add(effetDegats_);
         _data.completeQuickMembers(DARD_MORTEL,ficheAttaqueOff_);
@@ -6469,7 +6469,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.LANCEUR);
         effetStatistique_ = defaultEffetStatistique();
-        effetStatistique_.getStatisVarRank().addEntry(Statistic.ATTACK,6);
+        effetStatistique_.getStatisVarRank().addEntry(Statistic.ATTACK,6L);
         effetStatistique_.setEvtRate(new Rate("1"));
         effetStatistique_.setTargetChoice(TargetChoice.LANCEUR);
         ficheAttaqueNonOff_.getEffects().add(effetStatistique_);
@@ -6485,7 +6485,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.LANCEUR);
         effetStatistique_ = defaultEffetStatistique();
-        effetStatistique_.getStatisVarRank().addEntry(Statistic.ATTACK,1);
+        effetStatistique_.getStatisVarRank().addEntry(Statistic.ATTACK,1L);
         effetStatistique_.setEvtRate(new Rate("1"));
         effetStatistique_.setTargetChoice(TargetChoice.LANCEUR);
         ficheAttaqueNonOff_.getEffects().add(effetStatistique_);
@@ -6501,7 +6501,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
         effetStatistique_ = defaultEffetStatistique();
-        effetStatistique_.getStatisVarRank().addEntry(Statistic.DEFENSE,-2);
+        effetStatistique_.getStatisVarRank().addEntry(Statistic.DEFENSE,-2L);
         effetStatistique_.setEvtRate(new Rate("1"));
         effetStatistique_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
         ficheAttaqueNonOff_.getEffects().add(effetStatistique_);
@@ -6517,7 +6517,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.LANCEUR);
         effetStatistique_ = defaultEffetStatistique();
-        effetStatistique_.getStatisVarRank().addEntry(Statistic.SPEED,1);
+        effetStatistique_.getStatisVarRank().addEntry(Statistic.SPEED,1L);
         effetStatistique_.setEvtRate(new Rate("1"));
         effetStatistique_.setTargetChoice(TargetChoice.LANCEUR);
         ficheAttaqueNonOff_.getEffects().add(effetStatistique_);
@@ -6533,7 +6533,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
         effetStatistique_ = defaultEffetStatistique();
-        effetStatistique_.getStatisVarRank().addEntry(Statistic.ACCURACY,-1);
+        effetStatistique_.getStatisVarRank().addEntry(Statistic.ACCURACY,-1L);
         effetStatistique_.setEvtRate(new Rate("1"));
         effetStatistique_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
         ficheAttaqueNonOff_.getEffects().add(effetStatistique_);
@@ -6549,7 +6549,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.LANCEUR);
         effetStatistique_ = defaultEffetStatistique();
-        effetStatistique_.getStatisVarRank().addEntry(Statistic.EVASINESS,1);
+        effetStatistique_.getStatisVarRank().addEntry(Statistic.EVASINESS,1L);
         effetStatistique_.setEvtRate(new Rate("1"));
         effetStatistique_.setTargetChoice(TargetChoice.LANCEUR);
         ficheAttaqueNonOff_.getEffects().add(effetStatistique_);
@@ -6653,7 +6653,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueNonOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.LANCEUR);
         effetStatistique_ = defaultEffetStatistique();
-        effetStatistique_.getStatisVarRank().addEntry(Statistic.CRITICAL_HIT,1);
+        effetStatistique_.getStatisVarRank().addEntry(Statistic.CRITICAL_HIT,1L);
         effetStatistique_.setEvtRate(new Rate("1"));
         effetStatistique_.setTargetChoice(TargetChoice.LANCEUR);
         ficheAttaqueNonOff_.getEffects().add(effetStatistique_);
@@ -7040,7 +7040,7 @@ final class InitializationMoves extends EquallablePkUtil {
         ficheAttaqueOff_.getEffects().add(effetDegats_);
         effetStatistique_ = defaultEffetStatistique();
         effetStatistique_.setFail(VAR_PREFIX+ MessagesDataBaseConstants.DEF_LANCEUR_EFFET+DataBase.SEP_BETWEEN_KEYS+SEISME+"|"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_LANCEUR_EFFET+DataBase.SEP_BETWEEN_KEYS+ENCORE+"|"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_LANCEUR_EFFET+DataBase.SEP_BETWEEN_KEYS+VOL_MAGNETIK+"|"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_LANCEUR_EFFET+DataBase.SEP_BETWEEN_KEYS+ANTI_AIR+"|"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_LANCEUR_EFFET+DataBase.SEP_BETWEEN_KEYS+EMBARGO+"|"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_LANCEUR_EFFET+DataBase.SEP_BETWEEN_KEYS+ANNEAU_HYDRO+"|"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_LANCEUR_EFFET+DataBase.SEP_BETWEEN_KEYS+COUP_D_MAIN+"|"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_LANCEUR_EFFET+DataBase.SEP_BETWEEN_KEYS+ROULADE);
-        effetStatistique_.getStatisVarRank().addEntry(Statistic.CRITICAL_HIT,1);
+        effetStatistique_.getStatisVarRank().addEntry(Statistic.CRITICAL_HIT,1L);
         effetStatistique_.setEvtRate(new Rate("1"));
         effetStatistique_.setTargetChoice(TargetChoice.LANCEUR);
         ficheAttaqueOff_.getEffects().add(effetStatistique_);
@@ -7402,7 +7402,7 @@ final class InitializationMoves extends EquallablePkUtil {
 
     private static EffectStatistic defaultEffetStatistique() {
         EffectStatistic object_ = new EffectStatistic();
-        object_.setStatisVarRank(new IdMap<Statistic,Integer>());
+        object_.setStatisVarRank(new IdMap<Statistic,Long>());
         object_.setLocalFailStatis(new IdMap<Statistic,String>());
         object_.setEvtRate(Rate.zero());
         object_.setCopyBoost(new IdList<Statistic>());
@@ -7438,7 +7438,7 @@ final class InitializationMoves extends EquallablePkUtil {
 
     private static EffectDamage defaultEffetDegats() {
         EffectDamage object_ = new EffectDamage();
-        object_.setBoostStatisOnceKoFoe(new IdMap<Statistic,Integer>());
+        object_.setBoostStatisOnceKoFoe(new IdMap<Statistic,Long>());
         object_.setDamageLaw(new MonteCarloString());
         object_.setMultDamageAgainst(new StringMap<Rate>());
         object_.setChLaw(new MonteCarloNumber());
@@ -7659,8 +7659,8 @@ final class InitializationMoves extends EquallablePkUtil {
 
     private static EffectTeamWhileSendFoe defaultEffetEquipeEntreeAdv() {
         EffectTeamWhileSendFoe object_ = new EffectTeamWhileSendFoe();
-        object_.setStatistics(new IdMap<Statistic,Integer>());
-        object_.setStatusByNbUses(new IntMap<String>());
+        object_.setStatistics(new IdMap<Statistic,Long>());
+        object_.setStatusByNbUses(new LongMap<String>());
         object_.setDeletedByFoeTypes(new StringList());
         object_.setDamageRateAgainstFoe(NULL_REF);
         object_.setTargetChoice(TargetChoice.NOTHING);
@@ -7831,7 +7831,7 @@ final class InitializationMoves extends EquallablePkUtil {
         object_.setFail(NULL_REF);
         object_.setRequiredSuccessfulEffects(new Ints());
         object_.setSufferingDamageTypes(new StringMap<Rate>());
-        object_.setDroppedStatDirectMove(new IdMap<Statistic,Integer>());
+        object_.setDroppedStatDirectMove(new IdMap<Statistic,Long>());
         object_.setSufferingDamageDirectMove(Rate.zero());
         object_.setProtectFail(NULL_REF);
         object_.setCounterFail(NULL_REF);

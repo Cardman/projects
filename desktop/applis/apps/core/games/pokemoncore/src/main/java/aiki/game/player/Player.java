@@ -100,7 +100,7 @@ public final class Player {
     private LgInt money;
 
     /***/
-    private int remainingRepelSteps;
+    private long remainingRepelSteps;
 
     /***/
     private Comment commentGame = new Comment();
@@ -109,7 +109,7 @@ public final class Player {
 
     private String selectedMove = DataBase.EMPTY_STRING;
 
-    private StringMap<Integer> chosenMoves = new StringMap<Integer>();
+    private StringMap<Long> chosenMoves = new StringMap<Long>();
 
     private StringMap<BoolVal> selectedMoves = new StringMap<BoolVal>();
 
@@ -174,7 +174,7 @@ public final class Player {
         commentGame = new Comment();
         selectedObject = DataBase.EMPTY_STRING;
         selectedMove = DataBase.EMPTY_STRING;
-        chosenMoves = new StringMap<Integer>();
+        chosenMoves = new StringMap<Long>();
         selectedMoves = new StringMap<BoolVal>();
         chosenTeamPokemon = IndexConstants.INDEX_NOT_FOUND_ELT;
         chosenAbilityForEvolution = DataBase.EMPTY_STRING;
@@ -618,7 +618,7 @@ public final class Player {
         boolean consommer_=false;
         Rate pvRestaures_= _pkSoigne.pvSoignesSansStatut(_objet, _import);
         _pkSoigne.variationPvRestants(pvRestaures_);
-        int happinessIncrease_ = _pkSoigne.pointBonheurGagnes(_objet, _import);
+        long happinessIncrease_ = _pkSoigne.pointBonheurGagnes(_objet, _import);
         _pkSoigne.variationBonheur(happinessIncrease_, _import);
         commentGame.addComment(_pkSoigne.getCommentPk());
         if(!pvRestaures_.isZero()){
@@ -632,7 +632,7 @@ public final class Player {
     private boolean healByPp(DataBase _import, PokemonPlayer _pkSoigne, HealingPp _objet) {
         StringMap<String> mess_ = _import.getMessagesPlayer();
         boolean consommer_=false;
-        StringMap<Integer> attaquesRestaures_= _pkSoigne.ppSoignesAttaques(_objet);
+        StringMap<Long> attaquesRestaures_= _pkSoigne.ppSoignesAttaques(_objet);
         if (_objet.isHealingAllMovesPp() || _objet.getHealingAllMovesFullpp() > 0) {
             _pkSoigne.soinPpAttaques(attaquesRestaures_);
         }
@@ -686,7 +686,7 @@ public final class Player {
         if(objet_ instanceof Berry){
             Berry baie_=(Berry)objet_;
             for (String m: pkSoigne_.getMoves().getKeys()) {
-                int pp_ = pkSoigne_.ppSoignesAttaqueBaie(baie_,m);
+                long pp_ = pkSoigne_.ppSoignesAttaqueBaie(baie_,m);
                 if (pp_ > 0) {
                     chosenMoves.put(m, pp_);
                 }
@@ -695,7 +695,7 @@ public final class Player {
         if(objet_ instanceof HealingPp){
             HealingPp soin_=(HealingPp)objet_;
             for (String m: pkSoigne_.getMoves().getKeys()) {
-                int pp_ = pkSoigne_.ppSoignesAttaque(soin_,m);
+                long pp_ = pkSoigne_.ppSoignesAttaque(soin_,m);
                 if (pp_ > 0) {
                     chosenMoves.put(m, pp_);
                 }
@@ -715,7 +715,7 @@ public final class Player {
             return;
         }
         PokemonPlayer pkSoigne_=(PokemonPlayer) team.get(chosenTeamPokemon);
-        int ppRest_ = chosenMoves.getVal(_move);
+        long ppRest_ = chosenMoves.getVal(_move);
         String move_ = _import.translateMove(_move);
         String pk_ = _import.translatePokemon(pkSoigne_.getName());
         StringMap<String> mess_ = _import.getMessagesPlayer();
@@ -733,10 +733,10 @@ public final class Player {
         chosenTeamPokemon = _chosenTeamPokemon;
         chosenMoves.clear();
         PokemonPlayer pkSoigne_=(PokemonPlayer) team.get(chosenTeamPokemon);
-        int maxPp_=(int) _import.getMaxPp();
+        long maxPp_= _import.getMaxPp();
         Boost boost_ = (Boost)_import.getItem(selectedObject);
         for (String m: pkSoigne_.getMoves().getKeys()) {
-            int currentMax_ = pkSoigne_.getMoves().getVal(m).getMax();
+            long currentMax_ = pkSoigne_.getMoves().getVal(m).getMax();
             if (currentMax_ >= maxPp_) {
                 continue;
             }
@@ -757,9 +757,9 @@ public final class Player {
         }
         Boost boost_=(Boost)_import.getItem(selectedObject);
         PokemonPlayer pk_ = (PokemonPlayer) team.get(chosenTeamPokemon);
-        int ppMax_ = pk_.getMoves().getVal(_move).getMax();
+        long ppMax_ = pk_.getMoves().getVal(_move).getMax();
         pk_.boostPp(_move, chosenMoves.getVal(_move));
-        int happinessIncrease_ = pk_.pointBonheurGagnes(boost_, _import);
+        long happinessIncrease_ = pk_.pointBonheurGagnes(boost_, _import);
         pk_.variationBonheur(happinessIncrease_, _import);
         if (happinessIncrease_ > 0) {
             commentGame.addComment(pk_.getCommentPk());
@@ -768,7 +768,7 @@ public final class Player {
         if (ppMax_ != pk_.getMoves().getVal(_move).getMax()) {
             String move_ = _import.translateMove(_move);
             String pkName_ = _import.translatePokemon(pk_.getName());
-            int diff_ = pk_.getMoves().getVal(_move).getMax();
+            long diff_ = pk_.getMoves().getVal(_move).getMax();
             diff_ -= ppMax_;
             commentGame.addMessage(mess_.getVal(BOOSTED_MOVE), move_, pkName_, Long.toString(diff_));
         }
@@ -786,8 +786,8 @@ public final class Player {
         boolean increase_ = false;
         Boost boost_ = (Boost) _import.getItem(selectedObject);
         for (Statistic s: boost_.getEvs().getKeys()) {
-            int increment_ = boost_.getEvs().getVal(s);
-            int var_=pk_.evGagnes(increment_, s, _import.getMaxEv());
+            long increment_ = boost_.getEvs().getVal(s);
+            long var_=pk_.evGagnes(increment_, s, _import.getMaxEv());
             pk_.gainEv(selectedObject,var_,_import);
             if (var_ > 0) {
                 increase_ = true;
@@ -797,7 +797,7 @@ public final class Player {
                 commentGame.addMessage(mess_.getVal(BOOSTED_STATISTIC), stat_, pkName_, Long.toString(var_));
             }
         }
-        int happinessIncrease_ = pk_.pointBonheurGagnes(_import.getItem(selectedObject), _import);
+        long happinessIncrease_ = pk_.pointBonheurGagnes(_import.getItem(selectedObject), _import);
         pk_.variationBonheur(happinessIncrease_, _import);
         if (happinessIncrease_ > 0) {
             commentGame.addComment(pk_.getCommentPk());
@@ -945,7 +945,7 @@ public final class Player {
         }
         indexesOfPokemonTeam.removeDuplicates();
         indexesOfPokemonTeamMoves.clear();
-        int maxMoves_;
+        long maxMoves_;
         maxMoves_ = _import.getNbMaxMoves();
         for (int i: indexesOfPokemonTeam) {
             PokemonPlayer pk_ = (PokemonPlayer) team.get(i);
@@ -1191,7 +1191,7 @@ public final class Player {
             return;
         }
         Repel repouse_=(Repel)_import.getItem(selectedObject);
-        remainingRepelSteps=(int) repouse_.getSteps();
+        remainingRepelSteps=repouse_.getSteps();
         String it_ = _import.translateItem(selectedObject);
         StringMap<String> mess_ = _import.getMessagesPlayer();
         commentGame.addMessage(mess_.getVal(ENABLE_REPEL), it_, Long.toString(remainingRepelSteps));
@@ -1427,7 +1427,7 @@ public final class Player {
 
     public void catchWildPokemon(Fighter _pokemonSauvage, String _pseudo, String _ballCapture, Difficulty _diff, DataBase _import, boolean _team){
         clearComments();
-        int pos_;
+        long pos_;
         if (_team) {
             pos_= team.size();
         } else {
@@ -1622,11 +1622,11 @@ public final class Player {
         money = _money;
     }
 
-    public int getRemainingRepelSteps() {
+    public long getRemainingRepelSteps() {
         return remainingRepelSteps;
     }
 
-    public void setRemainingRepelSteps(int _remainingRepelSteps) {
+    public void setRemainingRepelSteps(long _remainingRepelSteps) {
         remainingRepelSteps = _remainingRepelSteps;
     }
 
@@ -1650,7 +1650,7 @@ public final class Player {
         selectedMove = _selectedMove;
     }
 
-    public StringMap<Integer> getChosenMoves() {
+    public StringMap<Long> getChosenMoves() {
         return chosenMoves;
     }
 

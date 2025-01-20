@@ -51,9 +51,9 @@ public class PseudoPlayerFighter extends PseudoFighter {
 
     void calculateNewLevel(int _round,DataBase _import) {
         LevelExpPoints levelWonPoints_ = newLevelWonPoints(_import);
-        int achievedLevel_ = levelWonPoints_.getLevel();
+        long achievedLevel_ = levelWonPoints_.getLevel();
         Rate sommeDiffNiveaux_ = levelWonPoints_.getExpPoints();
-        int maxNiveau_=_import.getMaxLevel();
+        long maxNiveau_=_import.getMaxLevel();
         if (achievedLevel_ != maxNiveau_) {
             changeWonPoints(achievedLevel_, sommeDiffNiveaux_, _import);
         }
@@ -85,11 +85,11 @@ public class PseudoPlayerFighter extends PseudoFighter {
         return FightFacade.numberNecessaryPointsForGrowingLevel(getName(),_niveau,_import);
     }
 
-    void changeWonPoints(int _niveauTmp,Rate _sommeDiffNiveaux, DataBase _import) {
+    void changeWonPoints(long _niveauTmp,Rate _sommeDiffNiveaux, DataBase _import) {
         Fighter.changeWonPoints(_niveauTmp, _sommeDiffNiveaux, _import, getName(), getWonExp(), getWonExpSinceLastLevel());
     }
 
-    StringList newMoves(int _tmpLevel, DataBase _import) {
+    StringList newMoves(long _tmpLevel, DataBase _import) {
         StringList newMoves_ = new StringList();
         PokemonData fPk_ = _import.getPokemon(getName());
         for(LevelMove nivAtt_: fPk_.getLevMoves()){

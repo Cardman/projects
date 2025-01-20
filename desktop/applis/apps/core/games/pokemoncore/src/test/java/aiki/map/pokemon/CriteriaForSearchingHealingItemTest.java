@@ -688,7 +688,7 @@ public class CriteriaForSearchingHealingItemTest extends InitializationDataBase 
         CriteriaForSearchingHealingItem criteria_;
         criteria_ = new CriteriaForSearchingHealingItem();
         criteria_.setRelativeRatePp(SelectedBoolean.NO);
-        criteria_.setMinPp((long) 20);
+        criteria_.setMinPp(20L);
         assertTrue(!criteria_.matchPp(data_.getItem(ELIXIR)));
     }
 
@@ -698,7 +698,7 @@ public class CriteriaForSearchingHealingItemTest extends InitializationDataBase 
         CriteriaForSearchingHealingItem criteria_;
         criteria_ = new CriteriaForSearchingHealingItem();
         criteria_.setRelativeRatePp(SelectedBoolean.NO);
-        criteria_.setMinPp((long) 20);
+        criteria_.setMinPp(20L);
         assertTrue(!criteria_.matchPp(data_.getItem(HUILE)));
     }
 
@@ -708,7 +708,7 @@ public class CriteriaForSearchingHealingItemTest extends InitializationDataBase 
         CriteriaForSearchingHealingItem criteria_;
         criteria_ = new CriteriaForSearchingHealingItem();
         criteria_.setRelativeRatePp(SelectedBoolean.NO);
-        criteria_.setMaxPp((long) 20);
+        criteria_.setMaxPp(20L);
         assertTrue(criteria_.matchPp(data_.getItem(ELIXIR)));
     }
 
@@ -718,7 +718,7 @@ public class CriteriaForSearchingHealingItemTest extends InitializationDataBase 
         CriteriaForSearchingHealingItem criteria_;
         criteria_ = new CriteriaForSearchingHealingItem();
         criteria_.setRelativeRatePp(SelectedBoolean.NO);
-        criteria_.setMaxPp((long) 20);
+        criteria_.setMaxPp(20L);
         assertTrue(criteria_.matchPp(data_.getItem(HUILE)));
     }
 
@@ -779,7 +779,7 @@ public class CriteriaForSearchingHealingItemTest extends InitializationDataBase 
         criteria_ = new CriteriaForSearchingHealingItem();
         criteria_.setRelativeRatePp(SelectedBoolean.NO);
         criteria_.setHealOneMove(SelectedBoolean.YES);
-        criteria_.setMinPp((long) 20);
+        criteria_.setMinPp(20L);
         assertTrue(!criteria_.matchPp(data_.getItem(HUILE)));
     }
 
@@ -830,7 +830,7 @@ public class CriteriaForSearchingHealingItemTest extends InitializationDataBase 
         criteria_ = new CriteriaForSearchingHealingItem();
         criteria_.setRelativeRatePp(SelectedBoolean.NO);
         criteria_.setHealOneMove(SelectedBoolean.NO);
-        criteria_.setMinPp((long) 20);
+        criteria_.setMinPp(20L);
         assertTrue(!criteria_.matchPp(data_.getItem(ELIXIR)));
     }
 
@@ -876,7 +876,7 @@ public class CriteriaForSearchingHealingItemTest extends InitializationDataBase 
         CriteriaForSearchingHealingItem criteria_;
         criteria_ = new CriteriaForSearchingHealingItem();
         criteria_.setHealOneMove(SelectedBoolean.YES);
-        criteria_.setMinPp((long) 20);
+        criteria_.setMinPp(20L);
         assertTrue(!criteria_.matchPp(data_.getItem(HUILE)));
     }
 
@@ -886,7 +886,7 @@ public class CriteriaForSearchingHealingItemTest extends InitializationDataBase 
         CriteriaForSearchingHealingItem criteria_;
         criteria_ = new CriteriaForSearchingHealingItem();
         criteria_.setHealOneMove(SelectedBoolean.NO);
-        criteria_.setMinPp((long) 20);
+        criteria_.setMinPp(20L);
         assertTrue(!criteria_.matchPp(data_.getItem(ELIXIR)));
     }
 
@@ -929,7 +929,7 @@ public class CriteriaForSearchingHealingItemTest extends InitializationDataBase 
         DataBase data_ = initDb();
         CriteriaForSearchingHealingItem criteria_;
         criteria_ = new CriteriaForSearchingHealingItem();
-        criteria_.setMinPp((long) 20);
+        criteria_.setMinPp(20L);
         assertTrue(!criteria_.matchPp(data_.getItem(HUILE)));
     }
 
@@ -938,7 +938,7 @@ public class CriteriaForSearchingHealingItemTest extends InitializationDataBase 
         DataBase data_ = initDb();
         CriteriaForSearchingHealingItem criteria_;
         criteria_ = new CriteriaForSearchingHealingItem();
-        criteria_.setMinPp((long) 20);
+        criteria_.setMinPp(20L);
         assertTrue(!criteria_.matchPp(data_.getItem(ELIXIR)));
     }
 

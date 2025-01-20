@@ -329,7 +329,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(NULL_REF);
-        fighter_.variationBoostStatistique(Statistic.DEFENSE,  1);
+        fighter_.variationBoostStatistique(Statistic.DEFENSE,1L);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(NULL_REF);
@@ -348,7 +348,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(NULL_REF);
-        fighter_.variationBoostStatistique(Statistic.ATTACK,  1);
+        fighter_.variationBoostStatistique(Statistic.ATTACK,1L);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(METEO);
         fighter_.backUpObject(NULL_REF);
@@ -367,7 +367,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(NULL_REF);
-        fighter_.variationBoostStatistique(Statistic.ATTACK,  1);
+        fighter_.variationBoostStatistique(Statistic.ATTACK,1L);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(INCONSCIENT);
         fighter_.backUpObject(NULL_REF);
@@ -386,7 +386,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(NULL_REF);
-        fighter_.variationBoostStatistique(Statistic.ATTACK,  -1);
+        fighter_.variationBoostStatistique(Statistic.ATTACK,-1L);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(NULL_REF);
@@ -405,7 +405,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(NULL_REF);
-        fighter_.variationBoostStatistique(Statistic.ATTACK,  -1);
+        fighter_.variationBoostStatistique(Statistic.ATTACK,-1L);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(NULL_REF);
@@ -424,7 +424,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(NULL_REF);
-        fighter_.variationBoostStatistique(Statistic.ATTACK,  -1);
+        fighter_.variationBoostStatistique(Statistic.ATTACK,-1L);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(INCONSCIENT);
         fighter_.backUpObject(NULL_REF);
@@ -443,7 +443,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(NULL_REF);
-        fighter_.variationBoostStatistique(Statistic.ATTACK,  1);
+        fighter_.variationBoostStatistique(Statistic.ATTACK,1L);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(NULL_REF);
@@ -465,7 +465,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(NULL_REF);
-        fighter_.variationBoostStatistique(Statistic.ATTACK,  -1);
+        fighter_.variationBoostStatistique(Statistic.ATTACK,-1L);
         DamagingMoveData move_ = (DamagingMoveData) data_.getMove(PARADOXE);
         EffectDamage eff_ = (EffectDamage) move_.getEffet(move_.indexOfPrimaryEffect());
         assertEq(new Rate("893/100"),FightEffects.defense(fight_, thrower_, target_, eff_, variables_, data_));
@@ -484,7 +484,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(NULL_REF);
-        fighter_.variationBoostStatistique(Statistic.DEFENSE,  1);
+        fighter_.variationBoostStatistique(Statistic.DEFENSE,1L);
         DamagingMoveData move_ = (DamagingMoveData) data_.getMove(DON_NATUREL);
         EffectDamage eff_ = (EffectDamage) move_.getEffet(move_.indexOfPrimaryEffect());
         assertEq(new Rate("321/20"),FightEffects.defense(fight_, thrower_, target_, eff_, variables_, data_));
@@ -503,7 +503,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(NULL_REF);
-        fighter_.variationBoostStatistique(Statistic.DEFENSE,  1);
+        fighter_.variationBoostStatistique(Statistic.DEFENSE,1L);
         DamagingMoveData move_ = (DamagingMoveData) data_.getMove(DON_NATUREL);
         EffectDamage eff_ = (EffectDamage) move_.getEffet(move_.indexOfPrimaryEffect());
         assertEq(new Rate("107/10"),FightEffects.defense(fight_, thrower_, target_, eff_, variables_, data_));
@@ -522,7 +522,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(NULL_REF);
-        fighter_.variationBoostStatistique(Statistic.DEFENSE,  1);
+        fighter_.variationBoostStatistique(Statistic.DEFENSE,1L);
         DamagingMoveData move_ = (DamagingMoveData) data_.getMove(DON_NATUREL);
         EffectDamage eff_ = (EffectDamage) move_.getEffet(move_.indexOfPrimaryEffect());
         assertEq(new Rate("321/20"),FightEffects.defense(fight_, thrower_, target_, eff_, variables_, data_));
@@ -541,7 +541,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(NULL_REF);
-        fighter_.variationBoostStatistique(Statistic.DEFENSE,  1);
+        fighter_.variationBoostStatistique(Statistic.DEFENSE,1L);
         DamagingMoveData move_ = (DamagingMoveData) data_.getMove(ATTRITION);
         EffectDamage eff_ = (EffectDamage) move_.getEffet(move_.indexOfPrimaryEffect());
         assertEq(new Rate("107/10"),FightEffects.defense(fight_, thrower_, target_, eff_, variables_, data_));
@@ -560,7 +560,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(NULL_REF);
-        fighter_.variationBoostStatistique(Statistic.DEFENSE,  -1);
+        fighter_.variationBoostStatistique(Statistic.DEFENSE,-1L);
         DamagingMoveData move_ = (DamagingMoveData) data_.getMove(ATTRITION);
         EffectDamage eff_ = (EffectDamage) move_.getEffet(move_.indexOfPrimaryEffect());
         assertEq(new Rate("107/15"),FightEffects.defense(fight_, thrower_, target_, eff_, variables_, data_));
@@ -958,11 +958,11 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 3);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(FORCE_NATURE,  10);
-        moves_.put(MOI_D_ABORD,  10);
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(FORCE_NATURE,10L);
+        moves_.put(MOI_D_ABORD,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
         lasPk_.initIv(_diff);
         lasPk_.initPvRestants(_data);
@@ -1826,7 +1826,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.affecterTypes(ELECTRIQUE);
         fighter_.setFirstChosenMove(move_);
-        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,  6);
+        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,6L);
         fighter_ = fight_.getFighter(target_);
         fighter_.affecterTypes(NORMAL);
         FightRound.initRound(fight_);
@@ -1864,7 +1864,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.affecterTypes(ELECTRIQUE);
         fighter_.setFirstChosenMove(move_);
-        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,  6);
+        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,6L);
         fighter_ = fight_.getFighter(target_);
         fighter_.affecterTypes(NORMAL);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
@@ -1903,7 +1903,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(METEO);
         fighter_.affecterTypes(ELECTRIQUE);
         fighter_.setFirstChosenMoveTarget(move_, tc(KEY_FOE, POKEMON_TARGET_ZERO));
-        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,  6);
+        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,6L);
         fighter_.getNbUsesMoves().put(STOCKAGE, 1);
         fighter_ = fight_.getFighter(target_);
         fighter_.affecterTypes(NORMAL);
@@ -1943,7 +1943,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(METEO);
         fighter_.affecterTypes(ELECTRIQUE);
         fighter_.setFirstChosenMoveTarget(move_, tc(KEY_FOE, POKEMON_TARGET_ZERO));
-        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,  6);
+        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,6L);
         fighter_.getNbUsesMoves().put(STOCKAGE, 1);
         fighter_ = fight_.getFighter(target_);
         fighter_.affecterTypes(NORMAL);
@@ -1990,7 +1990,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(MULTI_COUPS);
         fighter_.affecterTypes(ELECTRIQUE);
         fighter_.setFirstChosenMoveTarget(move_, tc(KEY_FOE, POKEMON_TARGET_ZERO));
-        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,  6);
+        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,6L);
         fighter_.getNbUsesMoves().put(STOCKAGE, 1);
         fighter_ = fight_.getFighter(target_);
         fighter_.affecterTypes(NORMAL);
@@ -2031,7 +2031,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.affecterTypes(ELECTRIQUE);
         fighter_.setFirstChosenMove(move_);
-        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,  6);
+        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,6L);
         fighter_ = fight_.getFighter(target_);
         fighter_.affecterTypes(NORMAL);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
@@ -2070,7 +2070,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.affecterTypes(ELECTRIQUE);
         fighter_.setFirstChosenMoveTarget(move_, tc(KEY_FOE, POKEMON_TARGET_ZERO));
-        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,  6);
+        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,6L);
         fighter_ = fight_.getFighter(target_);
         fighter_.affecterTypes(NORMAL);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
@@ -2129,7 +2129,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.affecterTypes(ELECTRIQUE);
         fighter_.setFirstChosenMoveTarget(move_, tc(KEY_FOE, POKEMON_TARGET_ZERO));
-        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,  6);
+        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,6L);
         fighter_ = fight_.getFighter(target_);
         fighter_.affecterTypes(NORMAL);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
@@ -2247,7 +2247,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.affecterTypes(ELECTRIQUE);
         fighter_.setFirstChosenMoveTarget(move_, tc(KEY_FOE, POKEMON_TARGET_ZERO));
-        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,  6);
+        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,6L);
         fighter_ = fight_.getFighter(target_);
         fighter_.affecterTypes(NORMAL);
         ThrowerDamageLaws laws_ = FightEffects.calculateLawsForDamageByTeam(fight_, thrower_, target_, move_, diff_, data_);
@@ -2274,7 +2274,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.affecterTypes(ELECTRIQUE);
         fighter_.setFirstChosenMove(move_);
-        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,  6);
+        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,6L);
         fighter_ = fight_.getFighter(target_);
         fighter_.affecterTypes(NORMAL);
         ThrowerDamageLaws laws_ = FightEffects.calculateLawsForDamageByTeam(fight_, thrower_, target_, move_, diff_, data_);
@@ -2343,9 +2343,9 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 3);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(DRACO_RAGE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(SEISME,10L);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_, moves_);
         lasPk_.initIv(diff_);
         lasPk_.initPvRestants(data_);
@@ -2397,7 +2397,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.affecterTypes(ELECTRIQUE);
         fighter_.setFirstChosenMoveTarget(move_, tc(KEY_FOE, POKEMON_TARGET_ZERO));
-        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,  6);
+        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,6L);
         fighter_ = fight_.getFighter(target_);
         fighter_.affecterTypes(NORMAL);
         ThrowerDamageLaws laws_ = FightEffects.calculateLawsForDamageByTeam(fight_, thrower_, target_, move_, diff_, data_);
@@ -2454,9 +2454,9 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 3);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
         lasPk_.initIv(_diff);
         lasPk_.initPvRestants(_data);
@@ -4213,9 +4213,9 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 3);
-        StringMap<Integer> moves_ = new StringMap<Integer>();
-        moves_.put(COPIE,  10);
-        moves_.put(SEISME,  10);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
         PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, _data, moves_);
         lasPk_.initIv(_diff);
         lasPk_.initPvRestants(_data);
@@ -4456,7 +4456,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(IMPUDENCE);
         fighter_.backUpObject(NULL_REF);
-        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,  6);
+        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,6L);
         String move_ = TONNERRE;
         Effect effect_ = data_.getMove(move_).getEffet(0);
         fight_.addEffect(thrower_, target_, effect_);
@@ -4604,7 +4604,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.setRemainedHp(new Rate("15"));
         fighter_.backUpObject(GRELOT_COQUE);
-        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,  6);
+        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,6L);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(SUINTEMENT);
         String move_ = TONNERRE;
@@ -4644,7 +4644,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(IMPUDENCE);
         fighter_.setRemainedHp(new Rate("1/2"));
         fighter_.backUpObject(GRELOT_COQUE);
-        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,  6);
+        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,6L);
         fighter_ = fight_.getFighter(target_);
         //fighter_.setRemainedHp(new Rate("1"));
         fighter_.setCurrentAbility(SUINTEMENT);
@@ -4685,7 +4685,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(TERA_VOLTAGE);
         fighter_.backUpObject(GRELOT_COQUE);
-        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,  6);
+        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,6L);
         fighter_ = fight_.getFighter(target_);
         //fighter_.setRemainedHp(new Rate("1"));
         fighter_.setCurrentAbility(COLERIQUE);
@@ -4726,7 +4726,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(TERA_VOLTAGE);
         fighter_.backUpObject(GRELOT_COQUE);
-        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,  6);
+        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,6L);
         fighter_ = fight_.getFighter(target_);
         //fighter_.setRemainedHp(new Rate("1"));
         fighter_.setCurrentAbility(ARMURBASTON);
@@ -4767,7 +4767,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(TERA_VOLTAGE);
         fighter_.setRemainedHp(new Rate("1"));
         fighter_.backUpObject(BAIE_ORAN);
-        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,  6);
+        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,6L);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(ARMURBASTON);
         fighter_.backUpObject(BAIE_ORAN);
@@ -4809,7 +4809,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(TERA_VOLTAGE);
         fighter_.setRemainedHp(new Rate("1"));
         fighter_.backUpObject(BAIE_ORAN);
-        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,  6);
+        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,6L);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(ARMURBASTON);
         fighter_.setRemainedHp(new Rate("24107/2675"));
@@ -4852,7 +4852,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(TERA_VOLTAGE);
         //fighter_.setRemainedHp(new Rate("1"));
         fighter_.backUpObject(BAIE_ORAN);
-        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,  6);
+        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,6L);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(ARMURBASTON);
         fighter_.backUpObject(BAIE_ORAN);
@@ -4896,7 +4896,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(TERA_VOLTAGE);
         fighter_.backUpObject(BAIE_ORAN);
-        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,  6);
+        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,6L);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(ARMURBASTON);
         fighter_.backUpObject(BAIE_ORAN);
@@ -4942,7 +4942,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.activerAttaqueBlocantLanceur(ROULADE);
         fighter_.getEnabledMovesConstChoices().getVal(ROULADE).increment();
         fighter_.backUpObject(BAIE_ORAN);
-        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,  6);
+        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,6L);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(ARMURBASTON);
         fighter_.backUpObject(BAIE_ORAN);
@@ -4986,7 +4986,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(TERA_VOLTAGE);
         fighter_.backUpObject(BAIE_ORAN);
-        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,  6);
+        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,6L);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(ARMURBASTON);
         fighter_.backUpObject(BAIE_ORAN);
@@ -5026,7 +5026,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(TERA_VOLTAGE);
         fighter_.backUpObject(BAIE_ORAN);
-        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,  6);
+        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,6L);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(ARMURBASTON);
         fighter_.backUpObject(BAIE_ORAN);
@@ -5113,7 +5113,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(IMPUDENCE);
         fighter_.setRemainedHp(new Rate("1/2"));
         fighter_.backUpObject(GRELOT_COQUE);
-        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,  6);
+        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,6L);
         FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), diff_, data_);
         FightKo.setKoMoveTeams(fight_, tp(KEY_PLAYER, POKEMON_FIGHTER_TWO), diff_, data_);
         fighter_ = fight_.getFighter(target_);
@@ -5155,7 +5155,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(IMPUDENCE);
         fighter_.backUpObject(NULL_REF);
-        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,  6);
+        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,6L);
         fighter_ = fight_.getFighter(target_);
         fighter_.setItem(LICHEN_LUMINEUX);
         String move_ = PISTOLET_A_O;
@@ -5192,7 +5192,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(IMPUDENCE);
         fighter_.backUpObject(NULL_REF);
-        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,  6);
+        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,6L);
         fighter_ = fight_.getFighter(target_);
         fighter_.setItem(LICHEN_LUMINEUX);
         String move_ = TONNERRE;
@@ -5232,7 +5232,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(IMPUDENCE);
         fighter_.backUpObject(NULL_REF);
-        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,  6);
+        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,6L);
         fighter_ = fight_.getFighter(target_);
         fighter_.setItem(VULNE_ASSURANCE);
         fighter_.setTypes(new StringList(FEU));
@@ -5532,7 +5532,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(IMPUDENCE);
         fighter_.setRemainedHp(new Rate("1/2"));
         fighter_.backUpObject(GRELOT_COQUE);
-        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,  6);
+        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,6L);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(SUINTEMENT);
         String move_ = TONNERRE;
@@ -5562,7 +5562,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(IMPUDENCE);
         fighter_.setRemainedHp(new Rate("1/2"));
         fighter_.backUpObject(GRELOT_COQUE);
-        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,  6);
+        fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,6L);
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(SUINTEMENT);
         String move_ = TONNERRE;

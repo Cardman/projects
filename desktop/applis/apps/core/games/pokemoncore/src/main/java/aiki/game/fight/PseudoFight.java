@@ -170,7 +170,7 @@ public class PseudoFight {
         PseudoFoeFighter foe_ = foes.get(_adv);
         Rate points_ = foe_.pointsFoe(mult, _diff, _import);
         Rate sumMaxLevel_ = Rate.zero();
-        int levelMax_ = _import.getMaxLevel();
+        long levelMax_ = _import.getMaxLevel();
         int nbMax_ = 0;
         for (int c: fightersBelongingToUser_) {
             if (playerFighters.get(c).getLevel() != levelMax_) {

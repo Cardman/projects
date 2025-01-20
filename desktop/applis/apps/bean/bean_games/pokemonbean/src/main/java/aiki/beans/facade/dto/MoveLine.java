@@ -4,7 +4,7 @@ import code.util.StringList;
 public class MoveLine {
     private String displayName;
     private String name;
-    private int pp;
+    private long pp;
     private StringList types;
     private boolean damageMove;
     private String category;
@@ -29,11 +29,11 @@ public class MoveLine {
         name = _name;
     }
 
-    public int getPp() {
+    public long getPp() {
         return pp;
     }
 
-    public void setPp(int _pp) {
+    public void setPp(long _pp) {
         pp = _pp;
     }
 

@@ -12,7 +12,7 @@ import code.util.core.*;
 
 public final class ContentComponentModelBerry {
     private CrudGeneFormSimpleFormSub<Statistic, BoostHpRate> multStat;
-    private CrudGeneFormSimpleFormSub<Statistic, Integer> boostStatis;
+    private CrudGeneFormSimpleFormSub<Statistic, Long> boostStatis;
     private CrudGeneFormSimpleFormSub<String,EfficiencyRate> multFoesDamage;
     private CrudGeneFormSimpleFormSub<String,Rate> damageRateRecoilFoe;
     private GeneComponentModelLsStrSub<String,StringList> healStatus;
@@ -32,8 +32,8 @@ public final class ContentComponentModelBerry {
         multStat=new CrudGeneFormSimpleFormSub<Statistic,BoostHpRate>(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList(), _parent.getFrame());
         multStat.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,BoostHpRate>(_parent.getSubscribedTranslationList().getFactoryStat(),_parent.getCompoFactory(),_parent.getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_parent.getCompoFactory(), _parent.getSubscribedTranslationList().getFactoryStat(), _parent.getFacade()), new GeneComponentModelSubscribeFactoryDirect<BoostHpRate>(new GeneComponentModelSubscribeBoostHpRate(_parent.getCompoFactory())));
         berryForm.add(multStat.getGroup());
-        boostStatis=new CrudGeneFormSimpleFormSub<Statistic,Integer>(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList(), _parent.getFrame());
-        boostStatis.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Integer>(_parent.getSubscribedTranslationList().getFactoryStat(),_parent.getCompoFactory(),_parent.getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_parent.getCompoFactory(), _parent.getSubscribedTranslationList().getFactoryStat(), _parent.getFacade()), new GeneComponentModelSubscribeFactoryDirect<Integer>(new GeneComponentModelSubscribeInteger(_parent.getCompoFactory())));
+        boostStatis=new CrudGeneFormSimpleFormSub<Statistic,Long>(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList(), _parent.getFrame());
+        boostStatis.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Long>(_parent.getSubscribedTranslationList().getFactoryStat(),_parent.getCompoFactory(),_parent.getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_parent.getCompoFactory(), _parent.getSubscribedTranslationList().getFactoryStat(), _parent.getFacade()), new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(_parent.getCompoFactory())));
         berryForm.add(boostStatis.getGroup());
         multFoesDamage = new CrudGeneFormSimpleFormSub<String, EfficiencyRate>(_parent.getCompoFactory(), _parent.getFacade(), _parent.getSubscribedTranslationList(), _parent.getFrame());
         multFoesDamage.initFormWithVal(new DisplayEntryCustSubElementImpl<String,EfficiencyRate>(_parent.getSubscribedTranslationList().getFactoryTy(),_parent.getCompoFactory(),_parent.getFacade(), new StringMap<String>()),buildPart(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList().getFactoryTy(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<EfficiencyRate>(new GeneComponentModelSubscribeEfficiencyRate(_parent.getCompoFactory())));
@@ -85,7 +85,7 @@ public final class ContentComponentModelBerry {
     }
     void feedForm(Berry _item) {
         multStat.setupValues(new MapToEntriesListUtil<Statistic,BoostHpRate>().build(_item.getMultStat()));
-        boostStatis.setupValues(new MapToEntriesListUtil<Statistic,Integer>().build(_item.getBoostStatis()));
+        boostStatis.setupValues(new MapToEntriesListUtil<Statistic,Long>().build(_item.getBoostStatis()));
         multFoesDamage.setupValues(new MapToEntriesListUtil<String,EfficiencyRate>().build(_item.getMultFoesDamage()));
         damageRateRecoilFoe.setupValues(new MapToEntriesListUtil<String,Rate>().build(_item.getDamageRateRecoilFoe()));
         healStatus.setupValue(_item.getHealStatus());

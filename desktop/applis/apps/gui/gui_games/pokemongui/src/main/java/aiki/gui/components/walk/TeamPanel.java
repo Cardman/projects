@@ -92,7 +92,7 @@ public final class TeamPanel {
 //        if (nbRemainPlaces == null) {
 //            return;
 //        }
-        int rem_ = facade.getRemainingRooms();
+        long rem_ = facade.getRemainingRooms();
         String message_ = _mess.getVal(MessagesRenderScenePanel.ROOMS);
         nbRemainPlaces.setText(StringUtil.simpleNumberFormat(message_, rem_));
     }

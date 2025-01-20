@@ -439,8 +439,8 @@ return m219berry_;
 static Item m17(){
 Berry m220berry_=Instances.newBerry();
 m220berry_.setCategoryBoosting(I_PHYSIQUE);
-IdMap<Statistic,Integer> m220enumMapStatisticByte_=new IdMap<Statistic,Integer>(new CollCapacity(1));
-m220enumMapStatisticByte_.addEntry(Statistic.DEFENSE,1);
+IdMap<Statistic,Long> m220enumMapStatisticByte_=new IdMap<Statistic,Long>(new CollCapacity(1));
+m220enumMapStatisticByte_.addEntry(Statistic.DEFENSE,1L);
 m220berry_.setBoostStatis(m220enumMapStatisticByte_);
 m220berry_.setPrice(0);
 return m220berry_;
@@ -737,8 +737,8 @@ return m260berry_;
 static Item m58(){
 Berry m261berry_=Instances.newBerry();
 m261berry_.setCategoryBoosting(I_SPECIALE);
-IdMap<Statistic,Integer> m261enumMapStatisticByte_=new IdMap<Statistic,Integer>(new CollCapacity(1));
-m261enumMapStatisticByte_.addEntry(Statistic.SPECIAL_DEFENSE,1);
+IdMap<Statistic,Long> m261enumMapStatisticByte_=new IdMap<Statistic,Long>(new CollCapacity(1));
+m261enumMapStatisticByte_.addEntry(Statistic.SPECIAL_DEFENSE,1L);
 m261berry_.setBoostStatis(m261enumMapStatisticByte_);
 m261berry_.setPrice(0);
 return m261berry_;
@@ -897,8 +897,8 @@ return m283itemForBattle_;
 }
 static Item m81(){
 ItemForBattle m284itemForBattle_ =Instances.newItemForBattle();
-IdMap<Statistic,Integer> m284enumMapStatisticShort_=new IdMap<Statistic,Integer>(new CollCapacity(1));
-m284enumMapStatisticShort_.addEntry(Statistic.SPECIAL_DEFENSE,4);
+IdMap<Statistic,Long> m284enumMapStatisticShort_=new IdMap<Statistic,Long>(new CollCapacity(1));
+m284enumMapStatisticShort_.addEntry(Statistic.SPECIAL_DEFENSE,4L);
 m284itemForBattle_.setWinEvFight(m284enumMapStatisticShort_);
 m284itemForBattle_.setPrice(1000);
 return m284itemForBattle_;
@@ -955,9 +955,9 @@ return m289itemForBattle_;
 }
 static Item m87(){
 ItemForBattle m290itemForBattle_ =Instances.newItemForBattle();
-StringMap<IdMap<Statistic,Integer>> m290stringMapEnumMapStatisticByte_=new StringMap<IdMap<Statistic,Integer>>(new CollCapacity(1));
-IdMap<Statistic,Integer> m290enumMapStatisticByte_=new IdMap<Statistic,Integer>(new CollCapacity(1));
-m290enumMapStatisticByte_.addEntry(Statistic.ATTACK,1);
+StringMap<IdMap<Statistic,Long>> m290stringMapEnumMapStatisticByte_=new StringMap<IdMap<Statistic,Long>>(new CollCapacity(1));
+IdMap<Statistic,Long> m290enumMapStatisticByte_=new IdMap<Statistic,Long>(new CollCapacity(1));
+m290enumMapStatisticByte_.addEntry(Statistic.ATTACK,1L);
 m290stringMapEnumMapStatisticByte_.addEntry(I_GLACE,m290enumMapStatisticByte_);
 m290itemForBattle_.setBoostStatisTypes(m290stringMapEnumMapStatisticByte_);
 m290itemForBattle_.setPrice(1000);
@@ -1010,8 +1010,8 @@ m295stringMapShort_.addEntry(I_APPAT_BALL,2);
 m295stringMapShort_.addEntry(I_COPAIN_BALL,2);
 m295stringMapShort_.addEntry(I_FILET_BALL,2);
 m295boost_.setHappiness(m295stringMapShort_);
-IdMap<Statistic,Integer> m295enumMapStatisticShort_=new IdMap<Statistic,Integer>(new CollCapacity(1));
-m295enumMapStatisticShort_.addEntry(Statistic.SPECIAL_ATTACK,10);
+IdMap<Statistic,Long> m295enumMapStatisticShort_=new IdMap<Statistic,Long>(new CollCapacity(1));
+m295enumMapStatisticShort_.addEntry(Statistic.SPECIAL_ATTACK,10L);
 m295boost_.setEvs(m295enumMapStatisticShort_);
 m295boost_.setPrice(9800);
 return m295boost_;
@@ -1047,8 +1047,8 @@ m297stringMapShort_.addEntry(I_APPAT_BALL,2);
 m297stringMapShort_.addEntry(I_COPAIN_BALL,2);
 m297stringMapShort_.addEntry(I_FILET_BALL,2);
 m297boost_.setHappiness(m297stringMapShort_);
-IdMap<Statistic,Integer> m297enumMapStatisticShort_=new IdMap<Statistic,Integer>(new CollCapacity(1));
-m297enumMapStatisticShort_.addEntry(Statistic.SPEED,10);
+IdMap<Statistic,Long> m297enumMapStatisticShort_=new IdMap<Statistic,Long>(new CollCapacity(1));
+m297enumMapStatisticShort_.addEntry(Statistic.SPEED,10L);
 m297boost_.setEvs(m297enumMapStatisticShort_);
 m297boost_.setPrice(9800);
 return m297boost_;
@@ -1089,8 +1089,8 @@ return m303itemForBattle_;
 }
 static Item m101(){
 ItemForBattle m304itemForBattle_ =Instances.newItemForBattle();
-IdMap<Statistic,Integer> m304enumMapStatisticShort_=new IdMap<Statistic,Integer>(new CollCapacity(1));
-m304enumMapStatisticShort_.addEntry(Statistic.DEFENSE,4);
+IdMap<Statistic,Long> m304enumMapStatisticShort_=new IdMap<Statistic,Long>(new CollCapacity(1));
+m304enumMapStatisticShort_.addEntry(Statistic.DEFENSE,4L);
 m304itemForBattle_.setWinEvFight(m304enumMapStatisticShort_);
 m304itemForBattle_.setPrice(1000);
 return m304itemForBattle_;
@@ -1103,8 +1103,8 @@ return m305healingSimpleItem_;
 }
 static Item m103(){
 ItemForBattle m306itemForBattle_ =Instances.newItemForBattle();
-IdMap<Statistic,Integer> m306enumMapStatisticShort_=new IdMap<Statistic,Integer>(new CollCapacity(1));
-m306enumMapStatisticShort_.addEntry(Statistic.SPEED,4);
+IdMap<Statistic,Long> m306enumMapStatisticShort_=new IdMap<Statistic,Long>(new CollCapacity(1));
+m306enumMapStatisticShort_.addEntry(Statistic.SPEED,4L);
 m306itemForBattle_.setWinEvFight(m306enumMapStatisticShort_);
 m306itemForBattle_.setPrice(1000);
 return m306itemForBattle_;
@@ -1330,8 +1330,8 @@ m332stringMapShort_.addEntry(I_APPAT_BALL,2);
 m332stringMapShort_.addEntry(I_COPAIN_BALL,2);
 m332stringMapShort_.addEntry(I_FILET_BALL,2);
 m332boost_.setHappiness(m332stringMapShort_);
-IdMap<Statistic,Integer> m332enumMapStatisticShort_=new IdMap<Statistic,Integer>(new CollCapacity(1));
-m332enumMapStatisticShort_.addEntry(Statistic.DEFENSE,10);
+IdMap<Statistic,Long> m332enumMapStatisticShort_=new IdMap<Statistic,Long>(new CollCapacity(1));
+m332enumMapStatisticShort_.addEntry(Statistic.DEFENSE,10L);
 m332boost_.setEvs(m332enumMapStatisticShort_);
 m332boost_.setPrice(9800);
 return m332boost_;
@@ -1546,8 +1546,8 @@ return m360healingHp_;
 }
 static Item m158(){
 ItemForBattle m361itemForBattle_ =Instances.newItemForBattle();
-IdMap<Statistic,Integer> m361enumMapStatisticByte_=new IdMap<Statistic,Integer>(new CollCapacity(1));
-m361enumMapStatisticByte_.addEntry(Statistic.CRITICAL_HIT,1);
+IdMap<Statistic,Long> m361enumMapStatisticByte_=new IdMap<Statistic,Long>(new CollCapacity(1));
+m361enumMapStatisticByte_.addEntry(Statistic.CRITICAL_HIT,1L);
 m361itemForBattle_.setMultStatRank(m361enumMapStatisticByte_);
 m361itemForBattle_.setPrice(1000);
 return m361itemForBattle_;
@@ -1562,17 +1562,17 @@ return m362itemForBattle_;
 }
 static Item m160(){
 ItemForBattle m363itemForBattle_ =Instances.newItemForBattle();
-IdMap<Statistic,Integer> m363enumMapStatisticShort_=new IdMap<Statistic,Integer>(new CollCapacity(1));
-m363enumMapStatisticShort_.addEntry(Statistic.SPECIAL_ATTACK,4);
+IdMap<Statistic,Long> m363enumMapStatisticShort_=new IdMap<Statistic,Long>(new CollCapacity(1));
+m363enumMapStatisticShort_.addEntry(Statistic.SPECIAL_ATTACK,4L);
 m363itemForBattle_.setWinEvFight(m363enumMapStatisticShort_);
 m363itemForBattle_.setPrice(1000);
 return m363itemForBattle_;
 }
 static Item m161(){
 ItemForBattle m364itemForBattle_ =Instances.newItemForBattle();
-StringMap<IdMap<Statistic,Integer>> m364stringMapEnumMapStatisticByte_=new StringMap<IdMap<Statistic,Integer>>(new CollCapacity(1));
-IdMap<Statistic,Integer> m364enumMapStatisticByte_=new IdMap<Statistic,Integer>(new CollCapacity(1));
-m364enumMapStatisticByte_.addEntry(Statistic.SPECIAL_DEFENSE,1);
+StringMap<IdMap<Statistic,Long>> m364stringMapEnumMapStatisticByte_=new StringMap<IdMap<Statistic,Long>>(new CollCapacity(1));
+IdMap<Statistic,Long> m364enumMapStatisticByte_=new IdMap<Statistic,Long>(new CollCapacity(1));
+m364enumMapStatisticByte_.addEntry(Statistic.SPECIAL_DEFENSE,1L);
 m364stringMapEnumMapStatisticByte_.addEntry(I_EAU,m364enumMapStatisticByte_);
 m364itemForBattle_.setBoostStatisTypes(m364stringMapEnumMapStatisticByte_);
 m364itemForBattle_.setPrice(1000);
@@ -2146,16 +2146,16 @@ return m440itemForBattle_;
 }
 static Item m238(){
 ItemForBattle m441itemForBattle_ =Instances.newItemForBattle();
-IdMap<Statistic,Integer> m441enumMapStatisticShort_=new IdMap<Statistic,Integer>(new CollCapacity(1));
-m441enumMapStatisticShort_.addEntry(Statistic.HP,4);
+IdMap<Statistic,Long> m441enumMapStatisticShort_=new IdMap<Statistic,Long>(new CollCapacity(1));
+m441enumMapStatisticShort_.addEntry(Statistic.HP,4L);
 m441itemForBattle_.setWinEvFight(m441enumMapStatisticShort_);
 m441itemForBattle_.setPrice(1000);
 return m441itemForBattle_;
 }
 static Item m239(){
 ItemForBattle m442itemForBattle_ =Instances.newItemForBattle();
-IdMap<Statistic,Integer> m442enumMapStatisticShort_=new IdMap<Statistic,Integer>(new CollCapacity(1));
-m442enumMapStatisticShort_.addEntry(Statistic.ATTACK,4);
+IdMap<Statistic,Long> m442enumMapStatisticShort_=new IdMap<Statistic,Long>(new CollCapacity(1));
+m442enumMapStatisticShort_.addEntry(Statistic.ATTACK,4L);
 m442itemForBattle_.setWinEvFight(m442enumMapStatisticShort_);
 m442itemForBattle_.setPrice(1000);
 return m442itemForBattle_;
@@ -2313,8 +2313,8 @@ m455stringMapShort_.addEntry(I_APPAT_BALL,2);
 m455stringMapShort_.addEntry(I_COPAIN_BALL,2);
 m455stringMapShort_.addEntry(I_FILET_BALL,2);
 m455boost_.setHappiness(m455stringMapShort_);
-IdMap<Statistic,Integer> m455enumMapStatisticShort_=new IdMap<Statistic,Integer>(new CollCapacity(1));
-m455enumMapStatisticShort_.addEntry(Statistic.ATTACK,10);
+IdMap<Statistic,Long> m455enumMapStatisticShort_=new IdMap<Statistic,Long>(new CollCapacity(1));
+m455enumMapStatisticShort_.addEntry(Statistic.ATTACK,10L);
 m455boost_.setEvs(m455enumMapStatisticShort_);
 m455boost_.setPrice(9800);
 return m455boost_;
@@ -2351,8 +2351,8 @@ m457stringMapShort_.addEntry(I_APPAT_BALL,2);
 m457stringMapShort_.addEntry(I_COPAIN_BALL,2);
 m457stringMapShort_.addEntry(I_FILET_BALL,2);
 m457boost_.setHappiness(m457stringMapShort_);
-IdMap<Statistic,Integer> m457enumMapStatisticShort_=new IdMap<Statistic,Integer>(new CollCapacity(1));
-m457enumMapStatisticShort_.addEntry(Statistic.HP,10);
+IdMap<Statistic,Long> m457enumMapStatisticShort_=new IdMap<Statistic,Long>(new CollCapacity(1));
+m457enumMapStatisticShort_.addEntry(Statistic.HP,10L);
 m457boost_.setEvs(m457enumMapStatisticShort_);
 m457boost_.setPrice(9800);
 return m457boost_;
@@ -2601,8 +2601,8 @@ return m487itemForBattle_;
 }
 static Item m285(){
 ItemForBattle m488itemForBattle_ =Instances.newItemForBattle();
-IdMap<Statistic,Integer> m488enumMapStatisticByte_=new IdMap<Statistic,Integer>(new CollCapacity(1));
-m488enumMapStatisticByte_.addEntry(Statistic.ATTACK,1);
+IdMap<Statistic,Long> m488enumMapStatisticByte_=new IdMap<Statistic,Long>(new CollCapacity(1));
+m488enumMapStatisticByte_.addEntry(Statistic.ATTACK,1L);
 m488itemForBattle_.setBoostStatisSuperEff(m488enumMapStatisticByte_);
 m488itemForBattle_.setPrice(1000);
 return m488itemForBattle_;
@@ -2633,8 +2633,8 @@ m489stringMapShort_.addEntry(I_APPAT_BALL,2);
 m489stringMapShort_.addEntry(I_COPAIN_BALL,2);
 m489stringMapShort_.addEntry(I_FILET_BALL,2);
 m489boost_.setHappiness(m489stringMapShort_);
-IdMap<Statistic,Integer> m489enumMapStatisticShort_=new IdMap<Statistic,Integer>(new CollCapacity(1));
-m489enumMapStatisticShort_.addEntry(Statistic.SPECIAL_DEFENSE,10);
+IdMap<Statistic,Long> m489enumMapStatisticShort_=new IdMap<Statistic,Long>(new CollCapacity(1));
+m489enumMapStatisticShort_.addEntry(Statistic.SPECIAL_DEFENSE,10L);
 m489boost_.setEvs(m489enumMapStatisticShort_);
 m489boost_.setPrice(9800);
 return m489boost_;

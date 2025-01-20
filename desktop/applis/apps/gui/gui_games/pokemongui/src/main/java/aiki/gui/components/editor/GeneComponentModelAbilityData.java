@@ -25,12 +25,12 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
     private CrudGeneFormSimpleFormSub<String,Integer> increasedPrioTypes;
     private CrudGeneFormSimpleFormSub<Statistic, Rate> multStatAlly;
     private CrudGeneFormSimpleFormSub<Statistic, String> multStat;
-    private CrudGeneFormSimpleFormSub<Statistic, Integer> bonusStatRank;
-    private CrudGeneFormSimpleFormSub<Statistic, Integer> boostStatRankEndRound;
-    private CrudGeneFormSimpleFormSub<Statistic, Integer> boostStatRankProtected;
-    private CrudGeneFormSimpleFormSub<Statistic, Integer> lowStatFoeHit;
-    private CrudGeneFormSimpleFormSub<Statistic, Integer> multStatIfKoFoe;
-    private CrudGeneFormSimpleFormSub<Statistic, Integer> multStatIfLowStat;
+    private CrudGeneFormSimpleFormSub<Statistic, Long> bonusStatRank;
+    private CrudGeneFormSimpleFormSub<Statistic, Long> boostStatRankEndRound;
+    private CrudGeneFormSimpleFormSub<Statistic, Long> boostStatRankProtected;
+    private CrudGeneFormSimpleFormSub<Statistic, Long> lowStatFoeHit;
+    private CrudGeneFormSimpleFormSub<Statistic, Long> multStatIfKoFoe;
+    private CrudGeneFormSimpleFormSub<Statistic, Long> multStatIfLowStat;
     private CrudGeneFormSimpleFormSub<String, String> chgtTypeByWeather;
     private CrudGeneFormSimpleFormSub<String, String> failStatus;
     private CrudGeneFormSimpleFormSub<String, String> forwardStatus;
@@ -40,9 +40,9 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
     private CrudGeneFormSimpleFormSub<String, StringList> immuStatus;
     private CrudGeneFormSimpleFormSub<String, StringList> immuStatusTypes;
     private CrudGeneFormSimpleFormSub<String, IdList<Statistic>> immuLowStatisTypes;
-    private CrudGeneFormSimpleFormSub<StatisticType,Integer> multStatIfDamgeType;
+    private CrudGeneFormSimpleFormSub<StatisticType,Long> multStatIfDamgeType;
     private CrudGeneFormSimpleFormSub<StatisticStatus,Integer> multStatIfStatutRank;
-    private CrudGeneFormSimpleFormSub<StatisticCategory,Integer> multStatIfDamageCat;
+    private CrudGeneFormSimpleFormSub<StatisticCategory,Long> multStatIfDamageCat;
     private CrudGeneFormSimpleFormSub<StatisticCategory,Rate> multStatIfCat;
     private CrudGeneFormMonteCarloSub<String> singleStatus;
     private GeneComponentModelSubscribeString multPower;
@@ -138,23 +138,23 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         multStat=new CrudGeneFormSimpleFormSub<Statistic,String>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
         multStat.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,String>(getSubscribedTranslationList().getFactoryStat(),getCompoFactory(),getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(getCompoFactory(), getSubscribedTranslationList().getFactoryStat(), getFacade()), new GeneComponentModelSubscribeFactoryDirect<String>(new GeneComponentModelSubscribeString(getCompoFactory(),getFacade())));
         form_.add(multStat.getGroup());
-        bonusStatRank=new CrudGeneFormSimpleFormSub<Statistic,Integer>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
-        bonusStatRank.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Integer>(getSubscribedTranslationList().getFactoryStat(),getCompoFactory(),getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(getCompoFactory(), getSubscribedTranslationList().getFactoryStat(), getFacade()), new GeneComponentModelSubscribeFactoryDirect<Integer>(new GeneComponentModelSubscribeInteger(getCompoFactory())));
+        bonusStatRank=new CrudGeneFormSimpleFormSub<Statistic,Long>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
+        bonusStatRank.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Long>(getSubscribedTranslationList().getFactoryStat(),getCompoFactory(),getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(getCompoFactory(), getSubscribedTranslationList().getFactoryStat(), getFacade()), new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(getCompoFactory())));
         form_.add(bonusStatRank.getGroup());
-        boostStatRankEndRound=new CrudGeneFormSimpleFormSub<Statistic,Integer>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
-        boostStatRankEndRound.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Integer>(getSubscribedTranslationList().getFactoryStat(),getCompoFactory(),getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(getCompoFactory(), getSubscribedTranslationList().getFactoryStat(), getFacade()), new GeneComponentModelSubscribeFactoryDirect<Integer>(new GeneComponentModelSubscribeInteger(getCompoFactory())));
+        boostStatRankEndRound=new CrudGeneFormSimpleFormSub<Statistic,Long>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
+        boostStatRankEndRound.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Long>(getSubscribedTranslationList().getFactoryStat(),getCompoFactory(),getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(getCompoFactory(), getSubscribedTranslationList().getFactoryStat(), getFacade()), new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(getCompoFactory())));
         form_.add(boostStatRankEndRound.getGroup());
-        boostStatRankProtected=new CrudGeneFormSimpleFormSub<Statistic,Integer>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
-        boostStatRankProtected.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Integer>(getSubscribedTranslationList().getFactoryStat(),getCompoFactory(),getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(getCompoFactory(), getSubscribedTranslationList().getFactoryStat(), getFacade()), new GeneComponentModelSubscribeFactoryDirect<Integer>(new GeneComponentModelSubscribeInteger(getCompoFactory())));
+        boostStatRankProtected=new CrudGeneFormSimpleFormSub<Statistic,Long>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
+        boostStatRankProtected.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Long>(getSubscribedTranslationList().getFactoryStat(),getCompoFactory(),getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(getCompoFactory(), getSubscribedTranslationList().getFactoryStat(), getFacade()), new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(getCompoFactory())));
         form_.add(boostStatRankProtected.getGroup());
-        lowStatFoeHit=new CrudGeneFormSimpleFormSub<Statistic,Integer>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
-        lowStatFoeHit.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Integer>(getSubscribedTranslationList().getFactoryStat(),getCompoFactory(),getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(getCompoFactory(), getSubscribedTranslationList().getFactoryStat(), getFacade()), new GeneComponentModelSubscribeFactoryDirect<Integer>(new GeneComponentModelSubscribeInteger(getCompoFactory())));
+        lowStatFoeHit=new CrudGeneFormSimpleFormSub<Statistic,Long>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
+        lowStatFoeHit.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Long>(getSubscribedTranslationList().getFactoryStat(),getCompoFactory(),getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(getCompoFactory(), getSubscribedTranslationList().getFactoryStat(), getFacade()), new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(getCompoFactory())));
         form_.add(lowStatFoeHit.getGroup());
-        multStatIfKoFoe=new CrudGeneFormSimpleFormSub<Statistic,Integer>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
-        multStatIfKoFoe.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Integer>(getSubscribedTranslationList().getFactoryStat(),getCompoFactory(),getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(getCompoFactory(), getSubscribedTranslationList().getFactoryStat(), getFacade()), new GeneComponentModelSubscribeFactoryDirect<Integer>(new GeneComponentModelSubscribeInteger(getCompoFactory())));
+        multStatIfKoFoe=new CrudGeneFormSimpleFormSub<Statistic,Long>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
+        multStatIfKoFoe.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Long>(getSubscribedTranslationList().getFactoryStat(),getCompoFactory(),getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(getCompoFactory(), getSubscribedTranslationList().getFactoryStat(), getFacade()), new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(getCompoFactory())));
         form_.add(multStatIfKoFoe.getGroup());
-        multStatIfLowStat=new CrudGeneFormSimpleFormSub<Statistic,Integer>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
-        multStatIfLowStat.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Integer>(getSubscribedTranslationList().getFactoryStat(),getCompoFactory(),getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(getCompoFactory(), getSubscribedTranslationList().getFactoryStat(), getFacade()), new GeneComponentModelSubscribeFactoryDirect<Integer>(new GeneComponentModelSubscribeInteger(getCompoFactory())));
+        multStatIfLowStat=new CrudGeneFormSimpleFormSub<Statistic,Long>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
+        multStatIfLowStat.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Long>(getSubscribedTranslationList().getFactoryStat(),getCompoFactory(),getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(getCompoFactory(), getSubscribedTranslationList().getFactoryStat(), getFacade()), new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(getCompoFactory())));
         form_.add(multStatIfLowStat.getGroup());
         chgtTypeByWeather=new CrudGeneFormSimpleFormSub<String,String>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
         chgtTypeByWeather.initFormWithVal(new DisplayEntryCustSubElementImpl<String,String>(getSubscribedTranslationList().getFactoryMv(),getCompoFactory(),getFacade(), ConverterCommonMapUtil.defKeyEmpty(" ")), buildPart(getCompoFactory(), getFacade(), getSubscribedTranslationList().getFactoryMv(), ConverterCommonMapUtil.defKeyEmpty(" ")), new GeneComponentModelSubscribeFactorySelElt(getCompoFactory(),getFacade(),getSubscribedTranslationList().getFactoryTy(),new StringMap<String>()));
@@ -183,14 +183,14 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         immuLowStatisTypes=new CrudGeneFormSimpleFormSub<String,IdList<Statistic>>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
         immuLowStatisTypes.initFormWithVal(new DisplayEntryCustSubElementImpl<String,IdList<Statistic>>(getSubscribedTranslationList().getFactoryTy(),getCompoFactory(),getFacade(), new StringMap<String>()), buildPart(getCompoFactory(), getFacade(), getSubscribedTranslationList().getFactoryTy(), new StringMap<String>()), new GeneComponentModelSubscribeFactorySelLs<Statistic,IdList<Statistic>>(getCompoFactory(),getFacade(),getSubscribedTranslationList().getFactoryStat(),new IdSubscribeBuilderUtilFactory<Statistic>()));
         form_.add(immuLowStatisTypes.getGroup());
-        multStatIfDamgeType = new CrudGeneFormSimpleFormSub<StatisticType, Integer>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
-        multStatIfDamgeType.initFormWithVal(new DisplayEntryCustSubElementStatisticType<Integer>(getCompoFactory(),getFacade(),getSubscribedTranslationList()),new GeneComponentModelSubscribeFactoryDirect<StatisticType>(new GeneComponentModelSubscribeStatisticType(getCompoFactory(),getFacade(),getSubscribedTranslationList())),new GeneComponentModelSubscribeFactoryDirect<Integer>(new GeneComponentModelSubscribeInteger(getCompoFactory())));
+        multStatIfDamgeType = new CrudGeneFormSimpleFormSub<StatisticType, Long>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
+        multStatIfDamgeType.initFormWithVal(new DisplayEntryCustSubElementStatisticType<Long>(getCompoFactory(),getFacade(),getSubscribedTranslationList()),new GeneComponentModelSubscribeFactoryDirect<StatisticType>(new GeneComponentModelSubscribeStatisticType(getCompoFactory(),getFacade(),getSubscribedTranslationList())),new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(getCompoFactory())));
         form_.add(multStatIfDamgeType.getGroup());
         multStatIfStatutRank = new CrudGeneFormSimpleFormSub<StatisticStatus, Integer>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
         multStatIfStatutRank.initFormWithVal(new DisplayEntryCustSubElementStatisticStatus<Integer>(getCompoFactory(),getFacade(),getSubscribedTranslationList()),new GeneComponentModelSubscribeFactoryDirect<StatisticStatus>(new GeneComponentModelSubscribeStatisticStatus(getCompoFactory(),getFacade(),getSubscribedTranslationList())),new GeneComponentModelSubscribeFactoryDirect<Integer>(new GeneComponentModelSubscribeInteger(getCompoFactory())));
         form_.add(multStatIfStatutRank.getGroup());
-        multStatIfDamageCat = new CrudGeneFormSimpleFormSub<StatisticCategory, Integer>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
-        multStatIfDamageCat.initFormWithVal(new DisplayEntryCustSubElementStatisticCategory<Integer>(getCompoFactory(),getFacade(),getSubscribedTranslationList()),new GeneComponentModelSubscribeFactoryDirect<StatisticCategory>(new GeneComponentModelSubscribeStatisticCategory(getCompoFactory(),getFacade(),getSubscribedTranslationList())),new GeneComponentModelSubscribeFactoryDirect<Integer>(new GeneComponentModelSubscribeInteger(getCompoFactory())));
+        multStatIfDamageCat = new CrudGeneFormSimpleFormSub<StatisticCategory, Long>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
+        multStatIfDamageCat.initFormWithVal(new DisplayEntryCustSubElementStatisticCategory<Long>(getCompoFactory(),getFacade(),getSubscribedTranslationList()),new GeneComponentModelSubscribeFactoryDirect<StatisticCategory>(new GeneComponentModelSubscribeStatisticCategory(getCompoFactory(),getFacade(),getSubscribedTranslationList())),new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(getCompoFactory())));
         form_.add(multStatIfDamageCat.getGroup());
         multStatIfCat = new CrudGeneFormSimpleFormSub<StatisticCategory, Rate>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
         multStatIfCat.initFormWithVal(new DisplayEntryCustSubElementStatisticCategory<Rate>(getCompoFactory(),getFacade(),getSubscribedTranslationList()),new GeneComponentModelSubscribeFactoryDirect<StatisticCategory>(new GeneComponentModelSubscribeStatisticCategory(getCompoFactory(),getFacade(),getSubscribedTranslationList())),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(getCompoFactory())));
@@ -413,12 +413,12 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         increasedPrioTypes.setupValues(new MapToEntriesListUtil<String,Integer>().build(ability_.getIncreasedPrioTypes()));
         multStatAlly.setupValues(new MapToEntriesListUtil<Statistic,Rate>().build(ability_.getMultStatAlly()));
         multStat.setupValues(new MapToEntriesListUtil<Statistic,String>().build(ability_.getMultStat()));
-        bonusStatRank.setupValues(new MapToEntriesListUtil<Statistic,Integer>().build(ability_.getBonusStatRank()));
-        boostStatRankEndRound.setupValues(new MapToEntriesListUtil<Statistic,Integer>().build(ability_.getBoostStatRankEndRound()));
-        boostStatRankProtected.setupValues(new MapToEntriesListUtil<Statistic,Integer>().build(ability_.getBoostStatRankProtected()));
-        lowStatFoeHit.setupValues(new MapToEntriesListUtil<Statistic,Integer>().build(ability_.getLowStatFoeHit()));
-        multStatIfKoFoe.setupValues(new MapToEntriesListUtil<Statistic,Integer>().build(ability_.getMultStatIfKoFoe()));
-        multStatIfLowStat.setupValues(new MapToEntriesListUtil<Statistic,Integer>().build(ability_.getMultStatIfLowStat()));
+        bonusStatRank.setupValues(new MapToEntriesListUtil<Statistic,Long>().build(ability_.getBonusStatRank()));
+        boostStatRankEndRound.setupValues(new MapToEntriesListUtil<Statistic,Long>().build(ability_.getBoostStatRankEndRound()));
+        boostStatRankProtected.setupValues(new MapToEntriesListUtil<Statistic,Long>().build(ability_.getBoostStatRankProtected()));
+        lowStatFoeHit.setupValues(new MapToEntriesListUtil<Statistic,Long>().build(ability_.getLowStatFoeHit()));
+        multStatIfKoFoe.setupValues(new MapToEntriesListUtil<Statistic,Long>().build(ability_.getMultStatIfKoFoe()));
+        multStatIfLowStat.setupValues(new MapToEntriesListUtil<Statistic,Long>().build(ability_.getMultStatIfLowStat()));
         chgtTypeByWeather.setupValues(new MapToEntriesListUtil<String,String>().build(ability_.getChgtTypeByWeather()));
         failStatus.setupValues(new MapToEntriesListUtil<String,String>().build(ability_.getFailStatus()));
         forwardStatus.setupValues(new MapToEntriesListUtil<String,String>().build(ability_.getForwardStatus()));
@@ -428,9 +428,9 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         immuStatus.setupValues(new MapToEntriesListUtil<String,StringList>().build(ability_.getImmuStatus()));
         immuStatusTypes.setupValues(new MapToEntriesListUtil<String,StringList>().build(ability_.getImmuStatusTypes()));
         immuLowStatisTypes.setupValues(new MapToEntriesListUtil<String,IdList<Statistic>>().build(ability_.getImmuLowStatisTypes()));
-        multStatIfDamgeType.setupValues(new MapToEntriesListUtil<StatisticType,Integer>().build(ability_.getMultStatIfDamgeType()));
+        multStatIfDamgeType.setupValues(new MapToEntriesListUtil<StatisticType,Long>().build(ability_.getMultStatIfDamgeType()));
         multStatIfStatutRank.setupValues(new MapToEntriesListUtil<StatisticStatus,Integer>().build(ability_.getMultStatIfStatutRank()));
-        multStatIfDamageCat.setupValues(new MapToEntriesListUtil<StatisticCategory,Integer>().build(ability_.getMultStatIfDamageCat()));
+        multStatIfDamageCat.setupValues(new MapToEntriesListUtil<StatisticCategory,Long>().build(ability_.getMultStatIfDamageCat()));
         multStatIfCat.setupValues(new MapToEntriesListUtil<StatisticCategory,Rate>().build(ability_.getMultStatIfCat()));
         singleStatus.setupValues(new MapToEntriesListUtil<String,LgInt>().build(ability_.getSingleStatus()));
         multPower.setupValue(ability_.getMultPower());
@@ -550,7 +550,7 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         return multStatIfStatutRank;
     }
 
-    public CrudGeneFormSimpleFormSub<StatisticCategory, Integer> getMultStatIfDamageCat() {
+    public CrudGeneFormSimpleFormSub<StatisticCategory, Long> getMultStatIfDamageCat() {
         return multStatIfDamageCat;
     }
 

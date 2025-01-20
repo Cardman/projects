@@ -12,7 +12,7 @@ import code.maths.*;
 import code.util.*;
 
 public final class GeneComponentModelMoveData extends GeneComponentModelEntity<MoveData> implements ChangeableFormType {
-    private final GeneComponentModelInt pp;
+    private final GeneComponentModelLong pp;
     private final GeneComponentModelInt priority;
     private final GeneComponentModelInt nbPrepaRound;
     private final GeneComponentModelInt rankIncrementNbRound;
@@ -52,7 +52,7 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
 
     public GeneComponentModelMoveData(AbsCommonFrame _frame, AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
         super(_frame,_core, _facade, _sub);
-        pp = new GeneComponentModelInt(_core);
+        pp = new GeneComponentModelLong(_core);
         priority = new GeneComponentModelInt(_core);
         nbPrepaRound = new GeneComponentModelInt(_core);
         rankIncrementNbRound = new GeneComponentModelInt(_core);
@@ -113,7 +113,7 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         page_.add(geneComponentModelSelectKey());
         AbsPanel form_ = compoFactory_.newLineBox();
         form_.add(damagingMove);
-        form_.add(pp.geneInt());
+        form_.add(pp.geneLong());
         form_.add(priority.geneInt());
         form_.add(nbPrepaRound.geneInt());
         form_.add(rankIncrementNbRound.geneInt());
@@ -166,7 +166,7 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
     @Override
     public EditedCrudPair<String,MoveData> value() {
         MoveData ent_ = element;
-        ent_.setPp(pp.valueInt());
+        ent_.setPp(pp.valueLong());
         ent_.setPriority(priority.valueInt());
         ent_.setNbPrepaRound(nbPrepaRound.valueInt());
         ent_.setRankIncrementNbRound(rankIncrementNbRound.valueInt());
@@ -216,7 +216,7 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         MoveData move_ = ConverterCommonMapUtil.copyMoveData(_v.getValue());
         getFacade().getData().getMoves().put(DataBase.EMPTY_STRING, move_);
         element = move_;
-        pp.valueInt(move_.getPp());
+        pp.valueLong(move_.getPp());
         priority.valueInt(move_.getPriority());
         nbPrepaRound.valueInt(move_.getNbPrepaRound());
         rankIncrementNbRound.valueInt(move_.getRankIncrementNbRound());
@@ -254,7 +254,7 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         }
     }
 
-    public GeneComponentModelInt getPp() {
+    public GeneComponentModelLong getPp() {
         return pp;
     }
 

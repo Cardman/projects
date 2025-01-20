@@ -128,16 +128,16 @@ public final class Fighter {
     private StringMap<UsesOfMove> currentMoves;
 
     /**Never mind*/
-    private IdMap<Statistic,Integer> ev;
+    private IdMap<Statistic,Long> ev;
 
     /**Never mind*/
-    private IdMap<Statistic,Integer> iv = new IdMap<Statistic,Integer>();
+    private IdMap<Statistic,Long> iv = new IdMap<Statistic,Long>();
 
     /**Never mind*/
     private IdMap<Statistic,Rate> statisBase;
 
     /**Never mind*/
-    private IdMap<Statistic,Integer> statisBoost;
+    private IdMap<Statistic,Long> statisBoost;
 
     /***/
     private Rate remainingHp;
@@ -195,10 +195,10 @@ public final class Fighter {
     private Rate wonExpSinceLastLevel;
 
     /**Used for learning moves - evolving (experience); numeric string values*/
-    private int level;
+    private long level;
 
     /**Never mind*/
-    private int happiness;
+    private long happiness;
 
     /**Never mind*/
     private String usedBallCatching;
@@ -382,7 +382,7 @@ public final class Fighter {
     }
 
     void initEvIvUser(PokemonPlayer _pokemon) {
-        ev=new IdMap<Statistic,Integer>();
+        ev=new IdMap<Statistic,Long>();
         for (Statistic s: Statistic.getStatisticsWithBase()) {
             ev.put(s, _pokemon.getEv().getVal(s));
             iv.put(s, _pokemon.getIv().getVal(s));
@@ -395,7 +395,7 @@ public final class Fighter {
         movesAbilitiesEvos = new StringMap<MovesAbilities>();
         for(String e:_pokemon.getMoves()){
             MoveData fAtt_=_import.getMove(e);
-            int pp_=fAtt_.getPp();
+            long pp_=fAtt_.getPp();
             moves.put(e,new UsesOfMove(pp_));
             currentMoves.put(e,new UsesOfMove(pp_));
         }
@@ -407,17 +407,17 @@ public final class Fighter {
         PokemonData fPk_=fichePokemon(_import);
         for (String m: fPk_.getMovesAtLevel(level, _import.getNbMaxMoves())) {
             MoveData fAtt_=_import.getMove(m);
-            int pp_=fAtt_.getPp();
+            long pp_=fAtt_.getPp();
             moves.put(m,new UsesOfMove(pp_));
             currentMoves.put(m,new UsesOfMove(pp_));
         }
     }
 
     void initEvIvOther() {
-        ev = new IdMap<Statistic,Integer>();
+        ev = new IdMap<Statistic,Long>();
         for(Statistic c:Statistic.getStatisticsWithBase()){
-            ev.put(c, 0);
-            iv.put(c, 0);
+            ev.put(c, 0L);
+            iv.put(c, 0L);
         }
         remainingHp = Rate.zero();
     }
@@ -425,8 +425,8 @@ public final class Fighter {
     void initCreatureGeneral(DataBase _import){
         PokemonData fPk_=fichePokemonActuelle(_import);
         types=new StringList(fPk_.getTypes());
-        int def_ = _import.getDefaultBoost();
-        statisBoost = new IdMap<Statistic,Integer>();
+        long def_ = _import.getDefaultBoost();
+        statisBoost = new IdMap<Statistic,Long>();
         for(Statistic c:Statistic.getStatisticsWithBoost()){
             statisBoost.put(c, def_);
         }
@@ -742,7 +742,7 @@ public final class Fighter {
             }
         }
         for (Statistic s: Statistic.getStatisticsWithBoost()) {
-            int boost_ = statisBoost.getVal(s);
+            long boost_ = statisBoost.getVal(s);
             if (boost_ < _data.getMinBoost() || boost_ > _data.getMaxBoost()) {
                 return true;
             }
@@ -1072,7 +1072,7 @@ public final class Fighter {
         setActed(false);
     }
 
-    Rate numberNecessaryPointsForGrowingLevel(int _niveau,DataBase _import){
+    Rate numberNecessaryPointsForGrowingLevel(long _niveau,DataBase _import){
         return numberNecessaryPointsForGrowingLevel(name, _niveau, _import);
     }
 
@@ -1204,7 +1204,7 @@ public final class Fighter {
         if (!belongingToPlayer) {
             return LgInt.zero();
         }
-        int next_ = level;
+        long next_ = level;
         next_++;
         Rate nec_ = numberNecessaryPointsForGrowingLevel(next_, _import);
         Rate r_ = Rate.divide(Rate.plus(wonExpSinceLastLevel, wonExp), nec_);
@@ -1237,7 +1237,7 @@ public final class Fighter {
         return liste_;
     }
 
-    int powerPointsMove(String _attaque){
+    long powerPointsMove(String _attaque){
         for(String c:copiedMoves.getKeys()){
             if(StringUtil.quickEq(copiedMoves.getVal(c).getMove(),_attaque)){
                 return copiedMoves.getVal(c).getPp();
@@ -1252,7 +1252,7 @@ public final class Fighter {
         return 0;
     }
 
-    int maxPowerPointsMove(String _attaque, DataBase _import){
+    long maxPowerPointsMove(String _attaque, DataBase _import){
         for(String c:copiedMoves.getKeys()){
             int pp_ = _import.ppCopiedMove(c);
             if(StringUtil.quickEq(copiedMoves.getVal(c).getMove(),_attaque)){
@@ -1268,7 +1268,7 @@ public final class Fighter {
         return 0;
     }
 
-    int healedPpMove(String _attaque,String _objet,DataBase _import){
+    long healedPpMove(String _attaque,String _objet,DataBase _import){
         if(changed){
             return 0;
         }
@@ -1294,7 +1294,7 @@ public final class Fighter {
             if(currentMoves.getVal(_attaque).getCurrent()+var_>currentMoves.getVal(_attaque).getMax()){
                 return currentMoves.getVal(_attaque).getLostPp();
             }
-            return (int) var_;
+            return var_;
         }
         Berry baie_=(Berry)objet_;
         int var_=baie_.getHealPp();
@@ -1304,7 +1304,7 @@ public final class Fighter {
         return var_;
     }
 
-    void healPowerPoints(String _attaque,int _var){
+    void healPowerPoints(String _attaque,long _var){
         UsesOfMove pps_ = currentMoves.getVal(_attaque);
         pps_.heal(_var);
     }
@@ -1325,7 +1325,7 @@ public final class Fighter {
         }
         if (currentMoves.contains(_attaque)) {
             UsesOfMove pps_ = currentMoves.getVal(_attaque);
-            int ppAct_=pps_.getCurrent();
+            long ppAct_=pps_.getCurrent();
             if(changed){
                 changePpMovesEvo(_var, pps_, ppAct_);
                 return;
@@ -1346,8 +1346,8 @@ public final class Fighter {
         }
     }
 
-    private void changePpMovesEvo(int _var, UsesOfMove _pps, int _ppAct) {
-        int ppAct_ = _ppAct;
+    private void changePpMovesEvo(long _var, UsesOfMove _pps, long _ppAct) {
+        long ppAct_ = _ppAct;
         if(ppAct_ < _var){
             ppAct_ =0;
         }else{
@@ -1356,8 +1356,8 @@ public final class Fighter {
         _pps.setCurrent(ppAct_);
     }
 
-    private void changePpMoves(int _var, UsesOfMove _pps) {
-        int pp_= _pps.getCurrent();
+    private void changePpMoves(long _var, UsesOfMove _pps) {
+        long pp_= _pps.getCurrent();
         if(pp_< _var){
             pp_=0;
         }else{
@@ -1622,8 +1622,8 @@ public final class Fighter {
         item=_objet;
     }
 
-    void variationBoostStatistique(Statistic _statistique,int _variation){
-        int value_ = statisBoost.getVal(_statistique);
+    void variationBoostStatistique(Statistic _statistique,long _variation){
+        long value_ = statisBoost.getVal(_statistique);
         value_ += _variation;
         statisBoost.put(_statistique, value_);
     }
@@ -1686,7 +1686,7 @@ public final class Fighter {
     }
 
     void apprendreAttaqueEcrasantDef(String _nouvelleAttaque,String _ancienneAttaque,DataBase _import){
-        int pp_=_import.getMove(_nouvelleAttaque).getPp();
+        long pp_=_import.getMove(_nouvelleAttaque).getPp();
         StringList listIntersectMoves_;
         listIntersectMoves_ = StringUtil.intersect(moves.getKeys(),currentMoves.getKeys());
         if (!StringUtil.contains(listIntersectMoves_, _ancienneAttaque)) {
@@ -1817,9 +1817,9 @@ public final class Fighter {
     void calculateNewLevel(Difficulty _diff, DataBase _import, StringList _pkNamesBegin, TransientFight _te){
         String name_ = _import.translatePokemon(name);
         LevelExpPoints levelWonPoints_ = newLevelWonPoints(_import);
-        int achievedLevel_ = levelWonPoints_.getLevel();
+        long achievedLevel_ = levelWonPoints_.getLevel();
         Rate sommeDiffNiveaux_ = levelWonPoints_.getExpPoints();
-        int maxNiveau_=_import.getMaxLevel();
+        long maxNiveau_=_import.getMaxLevel();
         if (achievedLevel_ != maxNiveau_) {
             changeWonPoints(achievedLevel_, sommeDiffNiveaux_, _import);
         } else {
@@ -1833,7 +1833,7 @@ public final class Fighter {
         StringList attaquesApprendre_=new StringList();
         updateMoveList(newMoves_, attaquesConnues_, attaquesApprendre_);
         initLearntMoves(attaquesApprendre_, attaquesConnues_, _import);
-        int monteNiveau_= achievedLevel_-level;
+        long monteNiveau_= achievedLevel_-level;
         setLevel(achievedLevel_);
         learnMoves(attaquesApprendre_, _import,_te);
         attaquesConnues_.clear();
@@ -1864,12 +1864,12 @@ public final class Fighter {
         return newLevelWonPoints(_import, name, level, wonExp, wonExpSinceLastLevel);
     }
 
-    static LevelExpPoints newLevelWonPoints(DataBase _import, String _name, int _level, Rate _wonExp, Rate _wonExpSinceLastLevel) {
-        int niveauTmp_= _level;
+    static LevelExpPoints newLevelWonPoints(DataBase _import, String _name, long _level, Rate _wonExp, Rate _wonExpSinceLastLevel) {
+        long niveauTmp_= _level;
         niveauTmp_++;
         Rate sommeDiffNiveaux_= numberNecessaryPointsForGrowingLevel(_name, niveauTmp_, _import);
         niveauTmp_--;
-        int maxNiveau_=_import.getMaxLevel();
+        long maxNiveau_=_import.getMaxLevel();
         while(!Rate.strLower(Rate.plus(_wonExp, _wonExpSinceLastLevel), sommeDiffNiveaux_)){
             niveauTmp_++;
             if (niveauTmp_ >= maxNiveau_) {
@@ -1883,12 +1883,12 @@ public final class Fighter {
         return new LevelExpPoints(niveauTmp_,sommeDiffNiveaux_);
     }
 
-    void changeWonPoints(int _niveauTmp,Rate _sommeDiffNiveaux, DataBase _import) {
+    void changeWonPoints(long _niveauTmp,Rate _sommeDiffNiveaux, DataBase _import) {
         changeWonPoints(_niveauTmp, _sommeDiffNiveaux, _import, name, wonExp, wonExpSinceLastLevel);
     }
 
-    static void changeWonPoints(int _niveauTmp, Rate _sommeDiffNiveaux, DataBase _import, String _name, Rate _wonExp, Rate _wonExpSinceLastLevel) {
-        int maxNiveau_=_import.getMaxLevel();
+    static void changeWonPoints(long _niveauTmp, Rate _sommeDiffNiveaux, DataBase _import, String _name, Rate _wonExp, Rate _wonExpSinceLastLevel) {
+        long maxNiveau_=_import.getMaxLevel();
         if(NumberUtil.eq(_niveauTmp,maxNiveau_)){
             //cas wonExp+wonExpSinceLastLevel>=sommeDiffNiveaux_:
             //==> wonExp+wonExpSinceLastLevel-sommeDiffNiveaux_>=0
@@ -1913,7 +1913,7 @@ public final class Fighter {
         }
     }
 
-    StringMap<BoolVal> newMoves(int _niveauTmp, Difficulty _diff, DataBase _import) {
+    StringMap<BoolVal> newMoves(long _niveauTmp, Difficulty _diff, DataBase _import) {
         StringMap<BoolVal> newMoves_ = new StringMap<BoolVal>();
         StringList attaquesConnues_=new StringList(moves.getKeys());
         PokemonData fPk_=fichePokemon(_import);
@@ -1945,12 +1945,12 @@ public final class Fighter {
             return;
         }
         for(String e:_attaquesApprendre){
-            int pp_=_import.getMove(e).getPp();
+            long pp_=_import.getMove(e).getPp();
             moves.put(e,new UsesOfMove(pp_));
         }
         if (_attaquesApprendre.size() + currentMoves.size() <= _import.getNbMaxMoves()) {
             for(String e:_attaquesApprendre){
-                int pp_=_import.getMove(e).getPp();
+                long pp_=_import.getMove(e).getPp();
                 currentMoves.put(e,new UsesOfMove(pp_));
             }
         }
@@ -2002,9 +2002,9 @@ public final class Fighter {
         wonExp.addNb(_variation);
     }
 
-    Comment wonEvStatistic(Statistic _statistique,int _varEv,int _maxEv, DataBase _import){
+    Comment wonEvStatistic(Statistic _statistique,long _varEv,long _maxEv, DataBase _import){
         Comment c_ = new Comment();
-        int ev_=ev.getVal(_statistique);
+        long ev_=ev.getVal(_statistique);
         String name_ = _import.translatePokemon(name);
         String stat_ = _import.translateStatistics(_statistique);
         StringMap<String> mess_ = _import.getMessagesFighter();
@@ -2019,7 +2019,7 @@ public final class Fighter {
         return c_;
     }
 
-    void winHappinessByGrowingLevel(int _diffNiv, DataBase _import, TransientFight _te){
+    void winHappinessByGrowingLevel(long _diffNiv, DataBase _import, TransientFight _te){
         Rate mult_=DataBase.defRateProduct();
         ItemForBattle objet_ = dataExpObject(_import);
         if (objet_ != null && !objet_.getMultWinningHappiness().isZero()) {
@@ -2027,11 +2027,11 @@ public final class Fighter {
         }
         mult_.multiplyBy(_import.getWonHappinessByGrowLevel());
         mult_.multiplyBy(new Rate(_diffNiv));
-        int maxBonheur_=_import.getHappinessMax();
+        long maxBonheur_=_import.getHappinessMax();
         String name_ = _import.translatePokemon(name);
         StringMap<String> mess_ = _import.getMessagesFighter();
         if(happiness+mult_.ll()<=maxBonheur_){
-            happiness= (int) (happiness +mult_.ll());
+            happiness += mult_.ll();
             _te.addMessage(mess_.getVal(WON_HAPPINESS), name_, mult_.toNumberString());
         }else{
             happiness=maxBonheur_;
@@ -2064,7 +2064,7 @@ public final class Fighter {
         }
         currentMoves.clear();
         for(String e:attaquesRemplacant_){
-            int pp_=_import.getMove(e).getPp();
+            long pp_=_import.getMove(e).getPp();
             moves.put(e,new UsesOfMove(pp_));
         }
         currentMoves.putAllMap(moves);
@@ -2212,7 +2212,7 @@ public final class Fighter {
         action = action_;
     }
 
-    static Rate statistiqueGlobale(IdMap<Statistic,Rate> _statistiquesBase,Statistic _nomStat,int _ev,int _iv, int _level){
+    static Rate statistiqueGlobale(IdMap<Statistic,Rate> _statistiquesBase,Statistic _nomStat,long _ev,long _iv, long _level){
         return PokemonData.stat(_level, _statistiquesBase.getVal(_nomStat), _nomStat, _ev, _iv);
     }
 
@@ -2663,19 +2663,19 @@ public final class Fighter {
         currentMoves = _currentMoves;
     }
 
-    public IdMap<Statistic,Integer> getEv() {
+    public IdMap<Statistic,Long> getEv() {
         return ev;
     }
 
-    public void setEv(IdMap<Statistic,Integer> _ev) {
+    public void setEv(IdMap<Statistic,Long> _ev) {
         ev = _ev;
     }
 
-    public IdMap<Statistic,Integer> getIv() {
+    public IdMap<Statistic,Long> getIv() {
         return iv;
     }
 
-    public void setIv(IdMap<Statistic,Integer> _iv) {
+    public void setIv(IdMap<Statistic,Long> _iv) {
         iv = _iv;
     }
 
@@ -2687,11 +2687,11 @@ public final class Fighter {
         statisBase = _statisBase;
     }
 
-    public IdMap<Statistic,Integer> getStatisBoost() {
+    public IdMap<Statistic,Long> getStatisBoost() {
         return statisBoost;
     }
 
-    public void setStatisBoost(IdMap<Statistic,Integer> _statisBoost) {
+    public void setStatisBoost(IdMap<Statistic,Long> _statisBoost) {
         statisBoost = _statisBoost;
     }
 
@@ -2850,19 +2850,19 @@ public final class Fighter {
         wonExpSinceLastLevel = _gainExperienceDepuisDernierNiveau;
     }
 
-    public int getLevel() {
+    public long getLevel() {
         return level;
     }
 
-    public void setLevel(int _level) {
+    public void setLevel(long _level) {
         level = _level;
     }
 
-    public int getHappiness() {
+    public long getHappiness() {
         return happiness;
     }
 
-    public void setHappiness(int _happiness) {
+    public void setHappiness(long _happiness) {
         happiness = _happiness;
     }
 

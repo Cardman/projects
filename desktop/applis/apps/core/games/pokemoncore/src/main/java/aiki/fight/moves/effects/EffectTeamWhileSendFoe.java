@@ -13,11 +13,11 @@ import code.util.StringList;
 public final class EffectTeamWhileSendFoe extends Effect {
 
     private String failSending;
-    private IntMap< String> statusByNbUses;
+    private LongMap< String> statusByNbUses;
     private StringList deletedByFoeTypes;
     private String damageRateAgainstFoe;
 
-    private IdMap<Statistic, Integer> statistics;
+    private IdMap<Statistic,Long> statistics;
 
     @Override
     public void validate(DataBase _data) {
@@ -36,11 +36,11 @@ public final class EffectTeamWhileSendFoe extends Effect {
         failSending = _failSending;
     }
 
-    public IntMap< String> getStatusByNbUses() {
+    public LongMap< String> getStatusByNbUses() {
         return statusByNbUses;
     }
 
-    public void setStatusByNbUses(IntMap< String> _statusByNbUses) {
+    public void setStatusByNbUses(LongMap< String> _statusByNbUses) {
         statusByNbUses = _statusByNbUses;
     }
 
@@ -60,11 +60,11 @@ public final class EffectTeamWhileSendFoe extends Effect {
         damageRateAgainstFoe = _damageRateAgainstFoe;
     }
 
-    public IdMap<Statistic, Integer> getStatistics() {
+    public IdMap<Statistic,Long> getStatistics() {
         return statistics;
     }
 
-    public void setStatistics(IdMap<Statistic, Integer> _statistics) {
+    public void setStatistics(IdMap<Statistic,Long> _statistics) {
         statistics = _statistics;
     }
 }

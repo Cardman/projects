@@ -21,7 +21,7 @@ public final class EffectStatisticBeanTest extends InitDbMoveEffectStatistic {
     }
     @Test
     public void notEmptyVarBoost1() {
-        assertTrue(callEffectStatisticBeanNotEmptyVarBoost(dispMoveEffStatis(feedDbMoveEffDataDamComp(withStatisVarRank(eff(Rate.one(), VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR, VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR), Statistic.SPEED,1)),0)));
+        assertTrue(callEffectStatisticBeanNotEmptyVarBoost(dispMoveEffStatis(feedDbMoveEffDataDamComp(withStatisVarRank(eff(Rate.one(), VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR, VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR), Statistic.SPEED,1L)),0)));
     }
     @Test
     public void notEmptyVarBoost2() {
@@ -77,35 +77,35 @@ public final class EffectStatisticBeanTest extends InitDbMoveEffectStatistic {
     }
     @Test
     public void getStatisVarRank1() {
-        assertSizeEq(2,callEffectStatisticBeanStatisVarRankGet(dispMoveEffStatis(feedDbMoveEffDataDamComp(withStatisVarRank(withStatisVarRank(eff(Rate.one(), VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR, VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR),Statistic.SPEED,1),Statistic.ACCURACY,2)),0)));
+        assertSizeEq(2,callEffectStatisticBeanStatisVarRankGet(dispMoveEffStatis(feedDbMoveEffDataDamComp(withStatisVarRank(withStatisVarRank(eff(Rate.one(), VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR, VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR),Statistic.SPEED,1L),Statistic.ACCURACY,2L)),0)));
     }
     @Test
     public void getStatisVarRank2() {
-        assertEq(ST_ACC_TR,first(elt(callEffectStatisticBeanStatisVarRankGet(dispMoveEffStatis(feedDbMoveEffDataDamComp(withStatisVarRank(withStatisVarRank(eff(Rate.one(), VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR, VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR),Statistic.SPEED,1),Statistic.ACCURACY,2)),0)),0)));
+        assertEq(ST_ACC_TR,first(elt(callEffectStatisticBeanStatisVarRankGet(dispMoveEffStatis(feedDbMoveEffDataDamComp(withStatisVarRank(withStatisVarRank(eff(Rate.one(), VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR, VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR),Statistic.SPEED,1L),Statistic.ACCURACY,2L)),0)),0)));
     }
     @Test
     public void getStatisVarRank3() {
-        assertEq(2,second(elt(callEffectStatisticBeanStatisVarRankGet(dispMoveEffStatis(feedDbMoveEffDataDamComp(withStatisVarRank(withStatisVarRank(eff(Rate.one(), VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR, VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR),Statistic.SPEED,1),Statistic.ACCURACY,2)),0)),0)));
+        assertEq(2,second(elt(callEffectStatisticBeanStatisVarRankGet(dispMoveEffStatis(feedDbMoveEffDataDamComp(withStatisVarRank(withStatisVarRank(eff(Rate.one(), VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR, VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR),Statistic.SPEED,1L),Statistic.ACCURACY,2L)),0)),0)));
     }
     @Test
     public void getStatisVarRank4() {
-        assertEq(ST_SPEED_TR,first(elt(callEffectStatisticBeanStatisVarRankGet(dispMoveEffStatis(feedDbMoveEffDataDamComp(withStatisVarRank(withStatisVarRank(eff(Rate.one(), VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR, VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR),Statistic.SPEED,1),Statistic.ACCURACY,2)),0)),1)));
+        assertEq(ST_SPEED_TR,first(elt(callEffectStatisticBeanStatisVarRankGet(dispMoveEffStatis(feedDbMoveEffDataDamComp(withStatisVarRank(withStatisVarRank(eff(Rate.one(), VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR, VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR),Statistic.SPEED,1L),Statistic.ACCURACY,2L)),0)),1)));
     }
     @Test
     public void getStatisVarRank5() {
-        assertEq(1,second(elt(callEffectStatisticBeanStatisVarRankGet(dispMoveEffStatis(feedDbMoveEffDataDamComp(withStatisVarRank(withStatisVarRank(eff(Rate.one(), VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR, VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR),Statistic.SPEED,1),Statistic.ACCURACY,2)),0)),1)));
+        assertEq(1,second(elt(callEffectStatisticBeanStatisVarRankGet(dispMoveEffStatis(feedDbMoveEffDataDamComp(withStatisVarRank(withStatisVarRank(eff(Rate.one(), VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR, VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR),Statistic.SPEED,1L),Statistic.ACCURACY,2L)),0)),1)));
     }
     @Test
     public void getMapVarsStatistics1() {
-        assertSizeEq(1,callEffectStatisticBeanMapVarsStatisticsGet(dispMoveEffStatis(feedDbMoveEffDataDamComp(withStatisVarRank(withStatisVarRank(eff(Rate.one(), VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR, ""),Statistic.SPEED,1),Statistic.ACCURACY,2)),0)));
+        assertSizeEq(1,callEffectStatisticBeanMapVarsStatisticsGet(dispMoveEffStatis(feedDbMoveEffDataDamComp(withStatisVarRank(withStatisVarRank(eff(Rate.one(), VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR, ""),Statistic.SPEED,1L),Statistic.ACCURACY,2L)),0)));
     }
     @Test
     public void getMapVarsStatistics2() {
-        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,first(elt(callEffectStatisticBeanMapVarsStatisticsGet(dispMoveEffStatis(feedDbMoveEffDataDamComp(withStatisVarRank(withStatisVarRank(eff(Rate.one(), VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR, ""),Statistic.SPEED,1),Statistic.ACCURACY,2)),0)),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,first(elt(callEffectStatisticBeanMapVarsStatisticsGet(dispMoveEffStatis(feedDbMoveEffDataDamComp(withStatisVarRank(withStatisVarRank(eff(Rate.one(), VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR, ""),Statistic.SPEED,1L),Statistic.ACCURACY,2L)),0)),0)));
     }
     @Test
     public void getMapVarsStatistics3() {
-        assertEq(TIME,second(elt(callEffectStatisticBeanMapVarsStatisticsGet(dispMoveEffStatis(feedDbMoveEffDataDamComp(withStatisVarRank(withStatisVarRank(eff(Rate.one(), VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR, ""),Statistic.SPEED,1),Statistic.ACCURACY,2)),0)),0)));
+        assertEq(TIME,second(elt(callEffectStatisticBeanMapVarsStatisticsGet(dispMoveEffStatis(feedDbMoveEffDataDamComp(withStatisVarRank(withStatisVarRank(eff(Rate.one(), VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR, ""),Statistic.SPEED,1L),Statistic.ACCURACY,2L)),0)),0)));
     }
     @Test
     public void getMapVarsStatistics4() {
@@ -121,15 +121,15 @@ public final class EffectStatisticBeanTest extends InitDbMoveEffectStatistic {
     }
     @Test
     public void getFail1() {
-        assertEq("",callEffectStatisticBeanGetFail(dispMoveEffStatis(feedDbMoveEffDataDamComp(withStatisVarRank(withStatisVarRank(eff(Rate.one(), VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR, ""),Statistic.SPEED,1),Statistic.ACCURACY,2)),0),0));
+        assertEq("",callEffectStatisticBeanGetFail(dispMoveEffStatis(feedDbMoveEffDataDamComp(withStatisVarRank(withStatisVarRank(eff(Rate.one(), VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR, ""),Statistic.SPEED,1L),Statistic.ACCURACY,2L)),0),0));
     }
     @Test
     public void getFail2() {
-        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,callEffectStatisticBeanGetFail(dispMoveEffStatis(feedDbMoveEffDataDamComp(withStatisVarRank(withStatisVarRank(eff(Rate.one(), VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR, ""),Statistic.SPEED,1),Statistic.ACCURACY,2)),0),1));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,callEffectStatisticBeanGetFail(dispMoveEffStatis(feedDbMoveEffDataDamComp(withStatisVarRank(withStatisVarRank(eff(Rate.one(), VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR, ""),Statistic.SPEED,1L),Statistic.ACCURACY,2L)),0),1));
     }
     @Test
     public void getSwapFail() {
-        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,callEffectStatisticBeanGetSwapFail(dispMoveEffStatis(feedDbMoveEffDataDamComp(withStatisVarRank(withStatisVarRank(eff(Rate.one(), "", VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR),Statistic.SPEED,1),Statistic.ACCURACY,2)),0),0));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,callEffectStatisticBeanGetSwapFail(dispMoveEffStatis(feedDbMoveEffDataDamComp(withStatisVarRank(withStatisVarRank(eff(Rate.one(), "", VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR),Statistic.SPEED,1L),Statistic.ACCURACY,2L)),0),0));
     }
     @Test
     public void getRate() {

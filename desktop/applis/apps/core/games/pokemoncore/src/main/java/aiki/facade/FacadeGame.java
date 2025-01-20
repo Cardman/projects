@@ -1849,7 +1849,7 @@ public final class FacadeGame {
         secondSelectPkToHost = IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 
-    public int getRemaingingSteps() {
+    public long getRemaingingSteps() {
         Coords voisin_ = closestTile();
         if (game.availableHosting(voisin_)) {
             return IndexConstants.INDEX_NOT_FOUND_ELT;
@@ -1857,7 +1857,7 @@ public final class FacadeGame {
         return game.nbRemainingSteps(voisin_, data);
     }
 
-    public int getRemaingingSteps(Coords _coords) {
+    public long getRemaingingSteps(Coords _coords) {
         return game.nbRemainingSteps(_coords, data);
     }
 
@@ -2709,9 +2709,9 @@ public final class FacadeGame {
         return game.getFight();
     }
 
-    public int getRemainingRooms() {
-        int max_ = data.getNbMaxTeam();
-        int current_ = getPlayer().getTeam().size();
+    public long getRemainingRooms() {
+        long max_ = data.getNbMaxTeam();
+        long current_ = getPlayer().getTeam().size();
         return max_ - current_;
     }
 

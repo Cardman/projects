@@ -71,10 +71,11 @@ final class FightAbilities {
     }
 
     private static void restoreBoost(Fighter _creatureCbt, Statistic _s, long _defStatistic, Fight _fight, TeamPosition _cbt, DataBase _import) {
-        int boost_= _creatureCbt.getStatisBoost().getVal(_s);
+        long boost_= _creatureCbt.getStatisBoost().getVal(_s);
         if(boost_< _defStatistic){
-            _creatureCbt.variationBoostStatistique(_s, (int)(_defStatistic -boost_));
-            _fight.addStatisticMessage(_cbt, _s, _defStatistic -boost_, _import);
+            long vari_ = _defStatistic - boost_;
+            _creatureCbt.variationBoostStatistique(_s, vari_);
+            _fight.addStatisticMessage(_cbt, _s, vari_, _import);
         }
     }
 

@@ -325,16 +325,16 @@ public final class DocumentReaderCoreUtil {
         }
         return map_;
     }
-    public static IntMap<String> getMapIntegerString(Element _elt) {
+    public static LongMap<String> getMapIntegerString(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        IntMap<String> map_ = new IntMap<String>(cap_);
-        Ints keys_ = new Ints(cap_);
+        LongMap<String> map_ = new LongMap<String>(cap_);
+        Longs keys_ = new Longs(cap_);
         StringList values_ = new StringList(cap_);
         for (Element c: childElements_) {
             if (hasKey(c)) {
-                keys_.add(getInteger(c));
+                keys_.add(getLong(c));
             } else {
                 values_.add(getString(c));
             }

@@ -11,7 +11,7 @@ public abstract class Pokemon {
     private String name;
 
     /***/
-    private int level;
+    private long level;
 
     /***/
     private Gender gender;
@@ -46,11 +46,11 @@ public abstract class Pokemon {
         name = _name;
     }
 
-    public int getLevel() {
+    public long getLevel() {
         return level;
     }
 
-    public void setLevel(int _level) {
+    public void setLevel(long _level) {
         level = _level;
     }
 

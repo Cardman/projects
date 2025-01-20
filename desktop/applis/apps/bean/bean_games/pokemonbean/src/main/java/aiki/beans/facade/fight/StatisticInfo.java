@@ -7,10 +7,10 @@ public final class StatisticInfo {
     /***/
     private Statistic statistic;
     private String displayStatistic;
-    private int ev;
-    private int iv;
+    private long ev;
+    private long iv;
     private Rate statisBase;
-    private int statisBoost;
+    private long statisBoost;
 
     public void setStatistic(Statistic _statistic) {
         statistic = _statistic;
@@ -43,19 +43,19 @@ public final class StatisticInfo {
         displayStatistic = _displayStatistic;
     }
 
-    public int getEv() {
+    public long getEv() {
         return ev;
     }
 
-    public void setEv(int _ev) {
+    public void setEv(long _ev) {
         ev = _ev;
     }
 
-    public int getIv() {
+    public long getIv() {
         return iv;
     }
 
-    public void setIv(int _iv) {
+    public void setIv(long _iv) {
         iv = _iv;
     }
 
@@ -67,11 +67,11 @@ public final class StatisticInfo {
         statisBase = _statisBase;
     }
 
-    public int getStatisBoost() {
+    public long getStatisBoost() {
         return statisBoost;
     }
 
-    public void setStatisBoost(int _statisBoost) {
+    public void setStatisBoost(long _statisBoost) {
         statisBoost = _statisBoost;
     }
 }

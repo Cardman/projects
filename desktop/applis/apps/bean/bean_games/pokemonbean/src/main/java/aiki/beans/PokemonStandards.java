@@ -471,10 +471,10 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         }
         return arr_;
     }
-    public static NatArrayStruct getBigNatMapSta(AbsMap<String, DictionaryComparator<Statistic, Integer>> _map) {
+    public static NatArrayStruct getBigNatMapSta(AbsMap<String, DictionaryComparator<Statistic, Long>> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (EntryCust<String, DictionaryComparator<Statistic, Integer>> e:_map.entryList()) {
+        for (EntryCust<String, DictionaryComparator<Statistic, Long>> e:_map.entryList()) {
             PairStruct p_ = new PairStruct(new NaStSt(e.getKey()),getStaByte(e.getValue()));
             arr_.set(j_,p_);
             j_++;
@@ -535,20 +535,20 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         }
         return arr_;
     }
-    public static NatArrayStruct getStatisticTypeByteMap(AbsMap<StatisticType, Integer> _map) {
+    public static NatArrayStruct getStatisticTypeByteMap(AbsMap<StatisticType, Long> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (EntryCust<StatisticType, Integer> e:_map.entryList()) {
+        for (EntryCust<StatisticType, Long> e:_map.entryList()) {
             PairStruct p_ = new PairStruct(NaNu.NULL_VALUE,new NaNbSt(e.getValue()));
             arr_.set(j_,p_);
             j_++;
         }
         return arr_;
     }
-    public static NatArrayStruct getStatisticCategoryByteMap(AbsMap<StatisticCategory, Integer> _map) {
+    public static NatArrayStruct getStatisticCategoryByteMap(AbsMap<StatisticCategory, Long> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (EntryCust<StatisticCategory, Integer> e:_map.entryList()) {
+        for (EntryCust<StatisticCategory, Long> e:_map.entryList()) {
             PairStruct p_ = new PairStruct(NaNu.NULL_VALUE,new NaNbSt(e.getValue()));
             arr_.set(j_,p_);
             j_++;
@@ -626,10 +626,10 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         }
         return arr_;
     }
-    public static NatArrayStruct getShStrList(AbsMap<Integer, StringList> _map) {
+    public static NatArrayStruct getShStrList(AbsMap<Long, StringList> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (EntryCust<Integer, StringList> e:_map.entryList()) {
+        for (EntryCust<Long, StringList> e:_map.entryList()) {
             PairStruct p_ = new PairStruct(new NaNbSt(e.getKey()),getStringArray(e.getValue()));
             arr_.set(j_,p_);
             j_++;
@@ -939,10 +939,20 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         }
         return arr_;
     }
-    public static NatArrayStruct getStaByte(AbsMap<Statistic, Integer> _map) {
+    public static NatArrayStruct getStrLong(AbsMap<String, Long> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
-        for (EntryCust<Statistic,Integer> e: _map.entryList()){
+        for (EntryCust<String,Long> e: _map.entryList()){
+            PairStruct p_ = new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey())),new NaNbSt(e.getValue()));
+            arr_.set(i_,p_);
+            i_++;
+        }
+        return arr_;
+    }
+    public static NatArrayStruct getStaByte(AbsMap<Statistic, Long> _map) {
+        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+        int i_ = 0;
+        for (EntryCust<Statistic,Long> e: _map.entryList()){
             PairStruct p_ = new PairStruct(NaNu.NULL_VALUE,new NaNbSt(e.getValue()));
             arr_.set(i_,p_);
             i_++;
@@ -973,6 +983,16 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
         for (EntryCust<Integer,String> e: _map.entryList()){
+            PairStruct p_ = new PairStruct(new NaNbSt(e.getKey()),new NaStSt(StringUtil.nullToEmpty(e.getValue())));
+            arr_.set(i_,p_);
+            i_++;
+        }
+        return arr_;
+    }
+    public static NatArrayStruct getLongStr(AbsMap<Long, String> _map) {
+        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+        int i_ = 0;
+        for (EntryCust<Long,String> e: _map.entryList()){
             PairStruct p_ = new PairStruct(new NaNbSt(e.getKey()),new NaStSt(StringUtil.nullToEmpty(e.getValue())));
             arr_.set(i_,p_);
             i_++;

@@ -26,17 +26,17 @@ public class GeneralHelpBean extends CommonBean {
     private String begin;
 
     private Pokemon firstPokemon;
-    private int nbMaxTeam;
-    private int minLevel;
-    private int maxLevel;
-    private int nbMaxMoves;
+    private long nbMaxTeam;
+    private long minLevel;
+    private long maxLevel;
+    private long nbMaxMoves;
     private long maxPp;
-    private int maxEv;
-    private int maxIv;
-    private int happinessMax;
-    private int nbNecStepsIncrHappiness;
-    private int nbMaxStepsSameEvoBase;
-    private int nbMaxSteps;
+    private long maxEv;
+    private long maxIv;
+    private long happinessMax;
+    private long nbNecStepsIncrHappiness;
+    private long nbMaxStepsSameEvoBase;
+    private long nbMaxSteps;
     private StringList pokemonDefaultEggGroup = new StringList();
     private Rate defaultMoney;
     private StringList tm = new StringList();
@@ -128,7 +128,7 @@ public class GeneralHelpBean extends CommonBean {
         String name_ = firstPokemon.getName();
         return tryRedirectPk(name_);
     }
-    public int getLevel() {
+    public long getLevel() {
         return firstPokemon.getLevel();
     }
     public String getGender() {
@@ -274,19 +274,19 @@ public class GeneralHelpBean extends CommonBean {
         return ConverterBufferedImage.getSquareColorSixtyFour(color_, DataBase.SEPARATOR_RGB, data_.getMap().getSideLength());
     }
 
-    public int getMaxLevel() {
+    public long getMaxLevel() {
         return maxLevel;
     }
 
-    public int getMaxEv() {
+    public long getMaxEv() {
         return maxEv;
     }
 
-    public int getMaxIv() {
+    public long getMaxIv() {
         return maxIv;
     }
 
-    public int getHappinessMax() {
+    public long getHappinessMax() {
         return happinessMax;
     }
 
@@ -308,15 +308,15 @@ public class GeneralHelpBean extends CommonBean {
         return unlockedCity;
     }
 
-    public int getNbMaxTeam() {
+    public long getNbMaxTeam() {
         return nbMaxTeam;
     }
 
-    public int getMinLevel() {
+    public long getMinLevel() {
         return minLevel;
     }
 
-    public int getNbMaxMoves() {
+    public long getNbMaxMoves() {
         return nbMaxMoves;
     }
 
@@ -324,15 +324,15 @@ public class GeneralHelpBean extends CommonBean {
         return maxPp;
     }
 
-    public int getNbNecStepsIncrHappiness() {
+    public long getNbNecStepsIncrHappiness() {
         return nbNecStepsIncrHappiness;
     }
 
-    public int getNbMaxStepsSameEvoBase() {
+    public long getNbMaxStepsSameEvoBase() {
         return nbMaxStepsSameEvoBase;
     }
 
-    public int getNbMaxSteps() {
+    public long getNbMaxSteps() {
         return nbMaxSteps;
     }
 

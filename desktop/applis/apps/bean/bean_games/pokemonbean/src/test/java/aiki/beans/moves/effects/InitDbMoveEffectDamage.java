@@ -164,8 +164,8 @@ public abstract class InitDbMoveEffectDamage extends InitDbMoveEffect{
         ef_.setConstDamage(_constDamage);
         ef_.setChLaw(new MonteCarloNumber());
         ef_.setHitsLaw(new MonteCarloNumber());
-        IdMap<Statistic, Integer> b_ = new IdMap<Statistic, Integer>();
-        b_.addEntry(Statistic.SPEED,1);
+        IdMap<Statistic,Long> b_ = new IdMap<Statistic,Long>();
+        b_.addEntry(Statistic.SPEED,1L);
         ef_.setBoostStatisOnceKoFoe(b_);
         IdList<Statistic> d_ = new IdList<Statistic>();
         d_.add(Statistic.DEFENSE);

@@ -33,7 +33,7 @@ public class GameProgressionBean extends CommonSingleBean {
     private StringList visitedPlaces;
     private StringList unVisitedPlaces;
     private LgInt money;
-    private int remainStepsRepel;
+    private long remainStepsRepel;
     private int nbRemainingEggs;
     private int nbRemainingNotMaxLevel;
     private int nbRemainingNotMaxHappiness;
@@ -259,7 +259,7 @@ public class GameProgressionBean extends CommonSingleBean {
         return nbRemainingEggs;
     }
 
-    public int getRemainStepsRepel() {
+    public long getRemainStepsRepel() {
         return remainStepsRepel;
     }
 

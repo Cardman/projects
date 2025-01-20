@@ -74,11 +74,11 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
     private String selectedAllyAction = TeamCrud.NOTHING.getTeamCrudString();
     private String selectedAction = TeamCrud.NOTHING.getTeamCrudString();
 
-    private StringMap<Integer> availableEvosLevel = new StringMap<Integer>();
+    private StringMap<Long> availableEvosLevel = new StringMap<Long>();
     private DictionaryComparator<String, String> availableEvos;
 
     private String chosenEvo = DataBase.EMPTY_STRING;
-    private int levelEvo;
+    private long levelEvo;
 
     private FightSimulation simulation;
 
@@ -277,14 +277,14 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
             String ball_ = getForms().getValStr(CST_CATCHING_BALL);
             getForms().removeKey(CST_CATCHING_BALL);
             pkPlayer_.setUsedBallCatching(ball_);
-            int happy_ = getForms().getValInt(CST_POKEMON_HAPPINESS);
+            long happy_ = getForms().getValLong(CST_POKEMON_HAPPINESS);
             getForms().removeKey(CST_POKEMON_HAPPINESS);
             Rate hp_ = getForms().getValRate(CST_POKEMON_HP).absNb();
             getForms().removeKey(CST_POKEMON_HP);
             boolean heal_ = getForms().getValBool(CST_HEAL_EDIT_PK);
             getForms().removeKey(CST_HEAL_EDIT_PK);
             for (Statistic s:Statistic.getStatisticsWithBase()) {
-                int ev_ = getForms().getValInt(StringUtil.concat(CST_POKEMON_EV_VAR, s.getStatName()));
+                long ev_ = getForms().getValLong(StringUtil.concat(CST_POKEMON_EV_VAR, s.getStatName()));
                 getForms().removeKey(StringUtil.concat(CST_POKEMON_EV_VAR,s.getStatName()));
                 if (ev_ > data_.getMaxEv()) {
                     ev_ = data_.getMaxEv();
@@ -343,7 +343,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
             pk_.getPkTrainer().setName(getForms().getValStr(CST_POKEMON_NAME_EDIT));
             pk_.getPkTrainer().setGender(getForms().getValGen(CST_POKEMON_GENDER_EDIT));
             pk_.getPkTrainer().setItem(getForms().getValStr(CST_ITEM_EDIT));
-            pk_.getPkTrainer().setLevel(getForms().getValInt(CST_POKEMON_LEVEL_EDIT));
+            pk_.getPkTrainer().setLevel(getForms().getValLong(CST_POKEMON_LEVEL_EDIT));
             if (foe_) {
                 pk_.setIndex(foeTeams.get(indexTeam).size());
                 foeTeams.get(indexTeam).add(pk_);
@@ -365,7 +365,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
             pk_.getPkTrainer().setName(getForms().getValStr(CST_POKEMON_NAME_EDIT));
             pk_.getPkTrainer().setGender(getForms().getValGen(CST_POKEMON_GENDER_EDIT));
             pk_.getPkTrainer().setItem(getForms().getValStr(CST_ITEM_EDIT));
-            pk_.getPkTrainer().setLevel(getForms().getValInt(CST_POKEMON_LEVEL_EDIT));
+            pk_.getPkTrainer().setLevel(getForms().getValLong(CST_POKEMON_LEVEL_EDIT));
         }
         getForms().put(CST_ADDING_TRAINER_PK,TeamCrud.NOTHING);
     }
@@ -568,7 +568,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
         PokemonTrainerDto pk_ = foeTeams.get(indexTeam).get(_index);
         return data_.translatePokemon(pk_.getPkTrainer().getName());
     }
-    public int getLevelFoe(int _index) {
+    public long getLevelFoe(int _index) {
         PokemonTrainerDto pk_ = foeTeams.get(indexTeam).get(_index);
         return pk_.getPkTrainer().getLevel();
     }
@@ -644,7 +644,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
         PokemonTrainerDto pk_ = allyTeams.get(indexTeam).get(_index);
         return data_.translatePokemon(pk_.getPkTrainer().getName());
     }
-    public int getLevelAlly(int _index) {
+    public long getLevelAlly(int _index) {
         PokemonTrainerDto pk_ = allyTeams.get(indexTeam).get(_index);
         return pk_.getPkTrainer().getLevel();
     }
@@ -833,7 +833,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
         PokemonPlayerDto pk_ = team.get(_index);
         return data_.translatePokemon(pk_.getPokemon().getName());
     }
-    public int getLevel(int _index) {
+    public long getLevel(int _index) {
         PokemonPlayerDto pk_ = team.get(_index);
         return pk_.getPokemon().getLevel();
     }
@@ -970,8 +970,8 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
     }
 
     private void evoList(DataBase _data, int _index) {
-        StringMap<Integer> evos_ = simulation.getAvailableEvolutions().get(_index);
-        availableEvosLevel = new StringMap<Integer>(evos_);
+        StringMap<Long> evos_ = simulation.getAvailableEvolutions().get(_index);
+        availableEvosLevel = new StringMap<Long>(evos_);
         StringMap<String> map_ = _data.getTranslatedPokemon().getVal(getLanguage());
         availableEvos = DictionaryComparatorUtil.buildPkStr(_data,getLanguage());
         for (String e: evos_.getKeys()) {
@@ -1173,7 +1173,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
         PokemonPlayer pk_ = teamAfterFight.get(_index);
         return data_.translatePokemon(pk_.getName());
     }
-    public int getLevelAfterFight(int _index) {
+    public long getLevelAfterFight(int _index) {
         PokemonPlayer pk_ = teamAfterFight.get(_index);
         return pk_.getLevel();
     }
@@ -1213,7 +1213,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
     public Rate numberNecessaryPointsForGrowingLevel(int _index){
         DataBase data_ = getDataBase();
         PokemonPlayer pk_ = teamAfterFight.get(_index);
-        int level_ = pk_.getLevel();
+        long level_ = pk_.getLevel();
         Rate diff_ = FightFacade.numberNecessaryPointsForGrowingLevel(pk_.getName(),level_+1L,data_);
         diff_.removeNb(pk_.getWonExpSinceLastLevel());
         return diff_;
@@ -1565,11 +1565,11 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
         chosenEvo = _chosenEvo;
     }
 
-    public void setLevelEvo(int _levelEvo) {
+    public void setLevelEvo(long _levelEvo) {
         levelEvo = _levelEvo;
     }
 
-    public int getLevelEvo() {
+    public long getLevelEvo() {
         return levelEvo;
     }
 

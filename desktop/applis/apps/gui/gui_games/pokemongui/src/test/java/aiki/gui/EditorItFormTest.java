@@ -169,8 +169,8 @@ public final class EditorItFormTest extends InitEditorPkForm {
         ConverterCommonMapUtil.trigger(((GeneComponentModelItem)cm_.getGene()).getEffectKind().getSelectUniq(),Item.ITEM_FOR_BATTLE);
         tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getBoostStatisTypes().getCrud().getAdd());
         ((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getBoostStatisTypes().getCrud().getKey().setupValue(T_1);
-        IdMap<Statistic, Integer> stats_ = new IdMap<Statistic, Integer>();
-        stats_.addEntry(Statistic.SPEED,2);
+        IdMap<Statistic,Long> stats_ = new IdMap<Statistic,Long>();
+        stats_.addEntry(Statistic.SPEED,2L);
         ((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getBoostStatisTypes().getCrud().getValue().setupValue(stats_);
         tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getBoostStatisTypes().getCrud().getValidAddEdit());
         tryClick(cm_.getValidAddEdit());
@@ -394,7 +394,7 @@ public final class EditorItFormTest extends InitEditorPkForm {
         tryClick(cm_.getAdd());
         ((GeneComponentModelItem)cm_.getGene()).getGeneComponentModelSelectKey().setupValue(I_1);
         ConverterCommonMapUtil.trigger(((GeneComponentModelItem)cm_.getGene()).getEffectKind().getSelectUniq(),Item.FOSSIL);
-        ((GeneComponentModelItem)cm_.getGene()).getFossilForm().getLevel().valueInt(2);
+        ((GeneComponentModelItem)cm_.getGene()).getFossilForm().getLevel().valueLong(2);
         tryClick(cm_.getValidAddEdit());
         tryClick(cm_.getAllButtons().get(0));
         tryClick(cm_.getCancel());

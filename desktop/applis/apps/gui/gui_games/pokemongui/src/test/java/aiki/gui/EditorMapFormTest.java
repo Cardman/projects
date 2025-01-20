@@ -49,7 +49,7 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         sub_.getFormDataMap().getFormWildPk().getName().setupValue(P_1);
         sub_.getFormDataMap().getFormWildPk().getAbility().setupValue(A_1);
         sub_.getFormDataMap().getFormWildPk().getItem().setupValue(I_1);
-        sub_.getFormDataMap().getFormWildPk().getLevel().valueInt(2);
+        sub_.getFormDataMap().getFormWildPk().getLevel().valueLong(2);
         sub_.getFormDataMap().getFormWildPk().getGender().setupValue(Gender.NO_GENDER);
         tryClick(sub_.getFormDataMap().getApplyMapModif());
         assertEq(P_1,facade_.getData().getMap().getFirstPokemon().getName());

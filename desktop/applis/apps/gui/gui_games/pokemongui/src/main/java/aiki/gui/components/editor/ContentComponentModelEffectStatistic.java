@@ -10,7 +10,7 @@ import code.util.*;
 
 public final class ContentComponentModelEffectStatistic {
 
-    private CrudGeneFormSimpleFormSub<Statistic, Integer> statisVarRank;
+    private CrudGeneFormSimpleFormSub<Statistic, Long> statisVarRank;
     private CrudGeneFormSimpleFormSub<Statistic, String> localFailStatis;
     private GeneComponentModelRate evtRate;
     private GeneComponentModelLsStrSub<Statistic,IdList<Statistic>> copyBoost;
@@ -33,8 +33,8 @@ public final class ContentComponentModelEffectStatistic {
         selected_.add(cancelLowStat.geneEnum());
         cancelChgtStat = ConverterCommonMapUtil.buildStatisticsLs(_core,_fac,_fact);
         selected_.add(cancelChgtStat.geneEnum());
-        statisVarRank = new CrudGeneFormSimpleFormSub<Statistic,Integer>(_core, _fac, _fact, _f);
-        statisVarRank.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Integer>(_fact.getFactoryStat(),_core,_fac, new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac), new GeneComponentModelSubscribeFactoryDirect<Integer>(new GeneComponentModelSubscribeInteger(_core)));
+        statisVarRank = new CrudGeneFormSimpleFormSub<Statistic,Long>(_core, _fac, _fact, _f);
+        statisVarRank.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Long>(_fact.getFactoryStat(),_core,_fac, new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac), new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(_core)));
         selected_.add(statisVarRank.getGroup());
         localFailStatis = new CrudGeneFormSimpleFormSub<Statistic,String>(_core, _fac, _fact, _f);
         localFailStatis.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,String>(_fact.getFactoryStat(),_core,_fac, new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac), new GeneComponentModelSubscribeFactoryString(_core,_fac));
@@ -70,7 +70,7 @@ public final class ContentComponentModelEffectStatistic {
         swapBoostStatis.setupValue(_edited.getSwapBoostStatis());
         cancelLowStat.setupValue(_edited.getCancelLowStat());
         cancelChgtStat.setupValue(_edited.getCancelChgtStat());
-        statisVarRank.setupValues(new MapToEntriesListUtil<Statistic,Integer>().build(_edited.getStatisVarRank()));
+        statisVarRank.setupValues(new MapToEntriesListUtil<Statistic,Long>().build(_edited.getStatisVarRank()));
         localFailStatis.setupValues(new MapToEntriesListUtil<Statistic,String>().build(_edited.getLocalFailStatis()));
         localFailSwapBoostStatis.setupValues(new MapToEntriesListUtil<Statistic,String>().build(_edited.getLocalFailSwapBoostStatis()));
         lawBoost.setupValues(new MapToEntriesListUtil<Statistic,LgInt>().build(_edited.getLawBoost()));
@@ -92,7 +92,7 @@ public final class ContentComponentModelEffectStatistic {
         return swapBoostStatis;
     }
 
-    public CrudGeneFormSimpleFormSub<Statistic, Integer> getStatisVarRank() {
+    public CrudGeneFormSimpleFormSub<Statistic, Long> getStatisVarRank() {
         return statisVarRank;
     }
 

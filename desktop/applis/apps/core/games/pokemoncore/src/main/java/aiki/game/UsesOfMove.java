@@ -9,22 +9,22 @@ public final class UsesOfMove implements Displayable{
 
     private static final char SEPARATOR = ',';
 
-    private int current;
+    private long current;
 
-    private int max;
+    private long max;
 
     public UsesOfMove(String _string) {
         StringList elements_ = StringUtil.splitChars(_string, SEPARATOR);
-        current =NumberUtil.parseInt(elements_.first());
-        max = NumberUtil.parseInt(elements_.last());
+        current =NumberUtil.parseLongZero(elements_.first());
+        max = NumberUtil.parseLongZero(elements_.last());
     }
 
-    public UsesOfMove(int _max) {
+    public UsesOfMove(long _max) {
         current = _max;
         max = _max;
     }
 
-    public UsesOfMove(int _current,int _max) {
+    public UsesOfMove(long _current,long _max) {
         current = _current;
         max = _max;
     }
@@ -34,34 +34,34 @@ public final class UsesOfMove implements Displayable{
         return new UsesOfMove(_string);
     }
 
-    public void heal(int _nb) {
+    public void heal(long _nb) {
         current += _nb;
     }
     public void fullHeal() {
         current = max;
     }
 
-    public void boost(int _nb) {
+    public void boost(long _nb) {
         max += _nb;
     }
 
-    public int getLostPp() {
+    public long getLostPp() {
         return max - current;
     }
 
-    public int getCurrent() {
+    public long getCurrent() {
         return current;
     }
 
-    public void setCurrent(int _current) {
+    public void setCurrent(long _current) {
         current = _current;
     }
 
-    public int getMax() {
+    public long getMax() {
         return max;
     }
 
-    public void setMax(int _max) {
+    public void setMax(long _max) {
         max = _max;
     }
 

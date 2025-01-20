@@ -34,7 +34,7 @@ public final class CrudGeneFormNb extends CrudGeneFormListSub<EditedCrudPair<Int
         initForm();
         CustList<EditedCrudPair<Integer, String>> nbs_ = new CustList<EditedCrudPair<Integer, String>>();
         for (EntryCust<Integer,String> e: factoryMessage.retrieveMap(getFactory(),facadeGame).entryList()) {
-            nbs_.add(new EditedCrudPair<Integer, String>((int)e.getKey(),e.getValue()));
+            nbs_.add(new EditedCrudPair<Integer, String>(e.getKey(),e.getValue()));
         }
         IntIdComparator cmp_ = new IntIdComparator();
         geneComponentModelNb = new GeneComponentModelNb(getFactory(), facadeGame, subscription());
@@ -48,8 +48,7 @@ public final class CrudGeneFormNb extends CrudGeneFormListSub<EditedCrudPair<Int
 
     @Override
     public void afterModif(int _index, EditedCrudPair<Integer, String> _value) {
-        int i_ = _value.getKey();
-        int k_ = i_;
+        int k_ = _value.getKey();
         if (_index > -1) {
             int old_ = factoryMessage.retrieveMap(getFactory(), facadeGame).size();
             factoryMessage.delete(facadeGame,k_);

@@ -8,15 +8,15 @@ import code.util.core.*;
 
 public final class ContentComponentModelFossil {
     private GeneComponentModelEltEnumSub<String> pokemon;
-    private GeneComponentModelInt level;
+    private GeneComponentModelLong level;
     private AbsPanel fossilForm;
     AbsPanel form(GeneComponentModelItem _parent) {
         AbsCompoFactory compoFactory_ = _parent.getCompoFactory().getCompoFactory();
         fossilForm = compoFactory_.newLineBox();
         pokemon = ConverterCommonMapUtil.buildPkFull(_parent.getCompoFactory(), _parent.getFacade(), _parent.getSubscribedTranslationList());
         fossilForm.add(pokemon.geneEnum());
-        level=new GeneComponentModelInt(_parent.getCompoFactory());
-        fossilForm.add(level.geneInt());
+        level=new GeneComponentModelLong(_parent.getCompoFactory());
+        fossilForm.add(level.geneLong());
         fossilForm.setVisible(false);
         return fossilForm;
     }
@@ -25,11 +25,11 @@ public final class ContentComponentModelFossil {
     }
     void buildEntity(Fossil _item) {
         _item.setPokemon(pokemon.tryRet());
-        _item.setLevel(level.valueInt());
+        _item.setLevel(level.valueLong());
     }
     void feedForm(Fossil _item) {
         pokemon.setupValue(_item.getPokemon());
-        level.valueInt(_item.getLevel());
+        level.valueLong(_item.getLevel());
     }
 
     public IdList<SubscribedTranslation> all() {
@@ -38,7 +38,7 @@ public final class ContentComponentModelFossil {
         return ids_;
     }
 
-    public GeneComponentModelInt getLevel() {
+    public GeneComponentModelLong getLevel() {
         return level;
     }
 }

@@ -8,7 +8,7 @@ public final class LevelMove implements Displayable {
 
     private static final char SEPARATOR = ';';
 
-    private int level;
+    private long level;
 
     private String move;
 
@@ -17,7 +17,7 @@ public final class LevelMove implements Displayable {
 
     public LevelMove(String _str) {
         StringList elements_ = StringUtil.splitChars(_str, SEPARATOR);
-        level = NumberUtil.parseInt(elements_.first());
+        level = NumberUtil.parseLongZero(elements_.first());
         move = elements_.last();
     }
 
@@ -31,11 +31,11 @@ public final class LevelMove implements Displayable {
         return new LevelMove(_string);
     }
 
-    public int getLevel() {
+    public long getLevel() {
         return level;
     }
 
-    public void setLevel(int _level) {
+    public void setLevel(long _level) {
         level = _level;
     }
 

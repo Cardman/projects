@@ -71,7 +71,7 @@ public final class FightHelpBeanAbilitiesDamageStatisTest extends InitDbFightHel
     private static FacadeGame dbGlobal() {
         FacadeGame f_ = facade();
         AbilityData t_ = Instances.newAbilityData();
-        t_.getMultStatIfDamgeType().addEntry(new StatisticType(Statistic.CRITICAL_HIT,NULL_REF),0);
+        t_.getMultStatIfDamgeType().addEntry(new StatisticType(Statistic.CRITICAL_HIT,NULL_REF),0L);
         f_.getData().completeMembers(M_DAM, t_);
         f_.getData().completeMembers(M_STA, Instances.newAbilityData());
         f_.getData().getTranslatedAbilities().addEntry(EN,new StringMap<String>());
@@ -82,7 +82,7 @@ public final class FightHelpBeanAbilitiesDamageStatisTest extends InitDbFightHel
     private static FacadeGame dbCat() {
         FacadeGame f_ = facade();
         AbilityData t_ = Instances.newAbilityData();
-        t_.getMultStatIfDamageCat().addEntry(new StatisticCategory(Statistic.CRITICAL_HIT,NULL_REF),0);
+        t_.getMultStatIfDamageCat().addEntry(new StatisticCategory(Statistic.CRITICAL_HIT,NULL_REF),0L);
         f_.getData().completeMembers(M_DAM, t_);
         f_.getData().completeMembers(M_STA, Instances.newAbilityData());
         f_.getData().getTranslatedAbilities().addEntry(EN,new StringMap<String>());

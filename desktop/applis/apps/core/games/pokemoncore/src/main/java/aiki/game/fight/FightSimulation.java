@@ -85,7 +85,7 @@ public class FightSimulation {
     /**getFirst() index: fight, getSecond() index: initial position*/
     private final CustList<StringList> items;
 
-    private CustList<StringMap<Integer>> availableEvolutions;
+    private CustList<StringMap<Long>> availableEvolutions;
 
     private final CustList<CustList<NameLevel>> evolutions;
 
@@ -400,10 +400,10 @@ public class FightSimulation {
 //        return list_.isValidIndex(index_);
     }
 
-    public static StringMap<MoveData> possiblesInitialMoves(String _name, int _level, DataBase _import) {
+    public static StringMap<MoveData> possiblesInitialMoves(String _name, long _level, DataBase _import) {
         PokemonData data_ = _import.getPokemon(_name);
         String basePk_ = data_.getBaseEvo();
-        StringMap<Integer> evos_ = PokemonPlayer.getAllEvolutions(basePk_, _level, true, _import);
+        StringMap<Long> evos_ = PokemonPlayer.getAllEvolutions(basePk_, _level, true, _import);
         StringList keys_ = new StringList(evos_.getKeys());
         StringList moves_ = new StringList();
         StringList res_ = keys_.filterEndsWith(StringUtil.concat(PokemonPlayer.SEPARATOR,_name));
@@ -418,7 +418,7 @@ public class FightSimulation {
         for (int i = IndexConstants.SECOND_INDEX; i < nbPaths_; i++) {
             String beforeEvo_ = path_.get(index_);
             PokemonData dataBeforeEvo_ = _import.getPokemon(beforeEvo_);
-            int level_ = evos_.getVal(StringUtil.join(path_.left(i + 1), PokemonPlayer.SEPARATOR));
+            long level_ = evos_.getVal(StringUtil.join(path_.left(i + 1), PokemonPlayer.SEPARATOR));
             feedPossiblesInitialMoves(dataBeforeEvo_, level_, moves_, _import);
             index_++;
         }
@@ -437,7 +437,7 @@ public class FightSimulation {
         }
         return moves_;
     }
-    private static void feedPossiblesInitialMoves(PokemonData _data, int _level, StringList _moves, DataBase _import) {
+    private static void feedPossiblesInitialMoves(PokemonData _data, long _level, StringList _moves, DataBase _import) {
         for (LevelMove p: _data.getLevMoves()) {
             if (p.getLevel() > _level) {
                 break;
@@ -456,8 +456,8 @@ public class FightSimulation {
     public void addPokemonPlayer(
             Pokemon _pokemon, StringList _initialMoves,
             int _happiness, Rate _wonPointsExperienceSinceLastLevel, DataBase _import) {
-        StringMap<Integer> moves_;
-        moves_ = new StringMap<Integer>();
+        StringMap<Long> moves_;
+        moves_ = new StringMap<Long>();
         for (String m: _initialMoves) {
             MoveData m_ = _import.getMove(m);
             moves_.put(m, m_.getPp());
@@ -524,10 +524,10 @@ public class FightSimulation {
         //game.getPlayer().getTeam().addAll(team);
     }
 
-    CustList<StringMap<Integer>> getFirstNextEvolutions(DataBase _import) {
-        CustList<StringMap<Integer>> list_ = new CustList<StringMap<Integer>>();
+    CustList<StringMap<Long>> getFirstNextEvolutions(DataBase _import) {
+        CustList<StringMap<Long>> list_ = new CustList<StringMap<Long>>();
         for (PokemonPlayer p: team) {
-            StringMap<Integer> direct_ = direct(p.getName(), p.getLevel(), _import);
+            StringMap<Long> direct_ = direct(p.getName(), p.getLevel(), _import);
             list_.add(direct_);
         }
         return list_;
@@ -548,7 +548,7 @@ public class FightSimulation {
         }
     }
 
-    public void setNextEvolutions(int _index, String _currentEvo, int _level, DataBase _import) {
+    public void setNextEvolutions(int _index, String _currentEvo, long _level, DataBase _import) {
         if (StringUtil.quickEq(_currentEvo, DataBase.EMPTY_STRING)) {
             return;
         }
@@ -556,7 +556,7 @@ public class FightSimulation {
         evolutions.get(_index).add(new NameLevel(_currentEvo, _level));
     }
 
-    private void restoreAvailableEvolutions(StringMap<Integer> _currentEvo, int _index) {
+    private void restoreAvailableEvolutions(StringMap<Long> _currentEvo, int _index) {
         availableEvolutions.get(_index).clear();
         availableEvolutions.get(_index).putAllMap(_currentEvo);
     }
@@ -582,9 +582,9 @@ public class FightSimulation {
         }
     }
 
-    private static StringMap<Integer> direct(String _base, int _level, DataBase _import) {
-        StringMap<Integer> direct_ = new StringMap<Integer>();
-        for (EntryCust<String, Integer> k: getNextEvos(_base, _level, _import).entryList()) {
+    private static StringMap<Long> direct(String _base, long _level, DataBase _import) {
+        StringMap<Long> direct_ = new StringMap<Long>();
+        for (EntryCust<String, Long> k: getNextEvos(_base, _level, _import).entryList()) {
             String prefix_ = StringUtil.concat(_base, FightSimulation.SEPARATOR_PK);
             String rep_ = StringUtil.replaceBegin(k.getKey(), prefix_);
             direct_.put(rep_, k.getValue());
@@ -592,12 +592,12 @@ public class FightSimulation {
         return direct_;
     }
 
-    private static StringMap<Integer> getNextEvos(String _base, int _level, DataBase _import) {
-        StringMap<Integer> evos_;
+    private static StringMap<Long> getNextEvos(String _base, long _level, DataBase _import) {
+        StringMap<Long> evos_;
         evos_ = PokemonPlayer.getAllEvolutions(_base, _level, true, _import);
         StringList keys_ = new StringList(evos_.getKeys());
         keys_ = getNextEvos(keys_);
-        StringMap<Integer> next_ = new StringMap<Integer>();
+        StringMap<Long> next_ = new StringMap<Long>();
         for (String e: keys_) {
             next_.addEntry(e, evos_.getVal(e));
         }
@@ -1422,7 +1422,7 @@ public class FightSimulation {
         return _m.isEmpty() || _m.size() > _import.getNbMaxMoves();
     }
 
-    static StringMap<BoolVal> movesToBeChosen(StringList _allMoves, StringList _currentMoves, int _max) {
+    static StringMap<BoolVal> movesToBeChosen(StringList _allMoves, StringList _currentMoves, long _max) {
         StringList movesToBeLearnt_ = new StringList(_allMoves);
         StringMap<BoolVal> choicesMoves_ = new StringMap<BoolVal>();
         StringUtil.removeAllElements(movesToBeLearnt_, _currentMoves);
@@ -1754,7 +1754,7 @@ public class FightSimulation {
             }
             return;
         }
-        StringMap<Integer> pps_ = ppsDataBase(_import);
+        StringMap<Long> pps_ = ppsDataBase(_import);
         int nbFoes_ = foeTeams.size();
 //        int nbFoes_ = trainers_.size();
         for (int i = IndexConstants.FIRST_INDEX; i < nbFoes_; i++) {
@@ -1805,7 +1805,7 @@ public class FightSimulation {
         return false;
     }
 
-    private void afterFight(StringMap<Integer> _pps, int _i, int _index, Player _player) {
+    private void afterFight(StringMap<Long> _pps, int _i, int _index, Player _player) {
         CustList<UsablePokemon> team_ = _player.getTeam();
         int teamSize_ = team_.size();
         for (int k = 0; k < teamSize_; k++) {
@@ -1831,9 +1831,9 @@ public class FightSimulation {
         }
     }
 
-    private static StringMap<Integer> ppsDataBase(DataBase _import) {
-        StringMap<Integer> pps_;
-        pps_ = new StringMap<Integer>();
+    private static StringMap<Long> ppsDataBase(DataBase _import) {
+        StringMap<Long> pps_;
+        pps_ = new StringMap<Long>();
         for (EntryCust<String,MoveData> m: _import.getMoves().entryList()) {
             pps_.put(m.getKey(), m.getValue().getPp());
         }
@@ -2020,7 +2020,7 @@ public class FightSimulation {
         return usedStones;
     }
 
-    public CustList<StringMap<Integer>> getAvailableEvolutions() {
+    public CustList<StringMap<Long>> getAvailableEvolutions() {
         return availableEvolutions;
     }
 

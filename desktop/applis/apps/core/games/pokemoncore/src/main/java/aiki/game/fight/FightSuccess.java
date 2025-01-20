@@ -549,8 +549,8 @@ final class FightSuccess {
     }
 
     private static void multAcc(Fight _fight, TeamPosition _lanceur, DataBase _import, MoveData _fAttaque, Rate _precision, Fighter _creatureCbtLanceur) {
-        int boost_= _creatureCbtLanceur.getStatisBoost().getVal(Statistic.ACCURACY);
-        int baseBoost_=_import.getDefaultBoost();
+        long boost_= _creatureCbtLanceur.getStatisBoost().getVal(Statistic.ACCURACY);
+        long baseBoost_=_import.getDefaultBoost();
         boost_ += FightStatistic.bonusBoost(_fight, Statistic.ACCURACY, _lanceur, _import);
         if(boost_>=baseBoost_){
             _precision.multiplyBy(FightStatistic.rateBoost(boost_, _import));
@@ -562,8 +562,8 @@ final class FightSuccess {
     }
 
     private static Rate evasiness(Fight _fight, TeamPosition _lanceur, TeamPosition _cible, DataBase _import, MoveData _fAttaque, Fighter _creatureCbtCible) {
-        int baseBoost_=_import.getDefaultBoost();
-        int boost_;
+        long baseBoost_=_import.getDefaultBoost();
+        long boost_;
         boost_= _creatureCbtCible.getStatisBoost().getVal(Statistic.EVASINESS);
         boost_ += FightStatistic.bonusBoost(_fight, Statistic.EVASINESS, _cible, _import);
         boolean ignorer_=true;
@@ -720,8 +720,8 @@ final class FightSuccess {
         Fighter creatureCbtCible_=_fight.getFighter(_cible);
         //CustList<Statistic> statistiquesEchangees_=new CustList<>();
         for(Statistic c:echangeStatis_){
-            int boostLanceur_=creatureCbtLanceur_.getStatisBoost().getVal(c);
-            int boostCible_=creatureCbtCible_.getStatisBoost().getVal(c);
+            long boostLanceur_=creatureCbtLanceur_.getStatisBoost().getVal(c);
+            long boostCible_=creatureCbtCible_.getStatisBoost().getVal(c);
             boolean passerIteration_= !successChangedStatistic(_fight, _lanceur, _cible, c, boostLanceur_ - boostCible_, _import);
             if(!successChangedStatistic(_fight,_cible,_lanceur,c, boostCible_-boostLanceur_,_import)){
                 passerIteration_=true;
@@ -741,7 +741,7 @@ final class FightSuccess {
         Fighter creatureCbtCible_= _fight.getFighter(_cible);
         IdList<Statistic> statistiquesBaisseAnnulees_=new IdList<Statistic>();
         for(Statistic c:annuleBaisse_){
-            int boostCible_=creatureCbtCible_.getStatisBoost().getVal(c);
+            long boostCible_=creatureCbtCible_.getStatisBoost().getVal(c);
             if(boostCible_< _import.getDefaultBoost()){
                 statistiquesBaisseAnnulees_.add(c);
             }
@@ -755,8 +755,8 @@ final class FightSuccess {
         Fighter creatureCbtCible_= _fight.getFighter(_cible);
         IdList<Statistic> statistiquesCopiees_= new IdList<Statistic>();
         for(Statistic c:copieBoost_){
-            int boostLanceur_=creatureCbtLanceur_.getStatisBoost().getVal(c);
-            int boostCible_=creatureCbtCible_.getStatisBoost().getVal(c);
+            long boostLanceur_=creatureCbtLanceur_.getStatisBoost().getVal(c);
+            long boostCible_=creatureCbtCible_.getStatisBoost().getVal(c);
             if(successChangedStatistic(_fight, _lanceur, _lanceur,c, boostCible_-boostLanceur_, _import)){
                 statistiquesCopiees_.add(c);
             }
@@ -778,7 +778,7 @@ final class FightSuccess {
 
     static IdList<Statistic> successfulChangedBoostedStatistics(Fight _fight,TeamPosition _lanceur,TeamPosition _cible,EffectStatistic _effet,DataBase _import) {
         IdList<Statistic> statistiques_=new IdList<Statistic>();
-        IdMap<Statistic,Integer> varStatisCran_=_effet.getStatisVarRank();
+        IdMap<Statistic,Long> varStatisCran_=_effet.getStatisVarRank();
         for (Statistic s: _effet.getStatisVarRank().getKeys()) {
             if(successChangedStatistic(_fight,_lanceur,_cible,s,varStatisCran_.getVal(s),_import)){
                 statistiques_.add(s);
@@ -787,7 +787,7 @@ final class FightSuccess {
         return statistiques_;
     }
 
-    static boolean successChangedStatistic(Fight _fight,TeamPosition _lanceur,TeamPosition _cible,Statistic _statistique,int _variation,DataBase _import){
+    static boolean successChangedStatistic(Fight _fight,TeamPosition _lanceur,TeamPosition _cible,Statistic _statistique,long _variation,DataBase _import){
         Fighter creatureCbtLanceur_=_fight.getFighter(_lanceur);
         boolean ignoreCapaciteCible_=FightAbilities.ignoreTargetAbility(_fight,_lanceur,_cible,_import);
         StringList protectionsIgnorees_=new StringList();
@@ -798,7 +798,7 @@ final class FightSuccess {
         return successChangedStatisticProtect(_fight,_cible,_statistique,_variation,ignoreCapaciteCible_,protectionsIgnorees_,_import);
     }
 
-    static boolean successChangedStatisticProtect(Fight _fight,TeamPosition _combattant,Statistic _statistique,int _variation,
+    static boolean successChangedStatisticProtect(Fight _fight,TeamPosition _combattant,Statistic _statistique,long _variation,
                                                   boolean _ignoreCapacite,StringList _protectionsIgnorees,DataBase _import){
         Team equipe_=_fight.getTeams().getVal(_combattant.getTeam());
         Fighter creatureCbt_=_fight.getFighter(_combattant);
@@ -830,10 +830,10 @@ final class FightSuccess {
         return checkBoost(_fight, _combattant, _statistique, _variation, _import, creatureCbt_);
     }
 
-    private static boolean checkBoost(Fight _fight, TeamPosition _combattant, Statistic _statistique, int _variation, DataBase _import, Fighter _creatureCbt) {
-        int boost_= _creatureCbt.getStatisBoost().getVal(_statistique);
-        int maxBoost_=_import.getMaxBoost();
-        int minBoost_=_import.getMinBoost();
+    private static boolean checkBoost(Fight _fight, TeamPosition _combattant, Statistic _statistique, long _variation, DataBase _import, Fighter _creatureCbt) {
+        long boost_= _creatureCbt.getStatisBoost().getVal(_statistique);
+        long maxBoost_=_import.getMaxBoost();
+        long minBoost_=_import.getMinBoost();
         if(_variation >0){
             if(boost_==maxBoost_){
                 _fight.addImmuChgtStatMaxMessage(_combattant, _statistique, _import);
@@ -848,7 +848,7 @@ final class FightSuccess {
         return true;
     }
 
-    private static boolean immuStatisByTeam(Fight _fight, TeamPosition _combattant, Statistic _statistique, int _variation, StringList _protectionsIgnorees, DataBase _import, Team _equipe) {
+    private static boolean immuStatisByTeam(Fight _fight, TeamPosition _combattant, Statistic _statistique, long _variation, StringList _protectionsIgnorees, DataBase _import, Team _equipe) {
         StringMap<CustList<EffectTeam>> effectTeams_ = effectsTeamProt(_import, _equipe, _protectionsIgnorees);
         int nbEffects_ = effectTeams_.size();
         for (int c = 0; c < nbEffects_; c++) {
@@ -864,7 +864,7 @@ final class FightSuccess {
         return false;
     }
 
-    private static boolean immuStatisByType(Fight _fight, TeamPosition _combattant, Statistic _statistique, int _variation, DataBase _import, Team _equipe, Fighter _creatureCbt) {
+    private static boolean immuStatisByType(Fight _fight, TeamPosition _combattant, Statistic _statistique, long _variation, DataBase _import, Team _equipe, Fighter _creatureCbt) {
         boolean immuByType_ = false;
         for (int f_: _equipe.frontFighters()) {
             Fighter part_ = _fight.getFighter(new TeamPosition(_combattant.getTeam(), f_));
@@ -1223,7 +1223,7 @@ final class FightSuccess {
         return forbiddenStatus_;
     }
 
-    static Rate rateCriticalHit(Fight _fight, TeamPosition _thrower,int _boost,DataBase _import) {
+    static Rate rateCriticalHit(Fight _fight, TeamPosition _thrower,long _boost,DataBase _import) {
         StringMap<String> vars_ = new StringMap<String>();
         vars_.put(_import.prefixBoost(), Long.toString(_boost));
         String rateBoos_ = _import.getRateBoostCriticalHit();

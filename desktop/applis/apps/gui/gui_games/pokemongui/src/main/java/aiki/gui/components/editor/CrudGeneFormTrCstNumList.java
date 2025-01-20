@@ -50,7 +50,7 @@ public final class CrudGeneFormTrCstNumList implements AbsCrudGeneFormTrCstOpen 
     }
 
     public void apply(String _k, GeneComponentModelRate _f) {
-        int nb_ = facadeGame.getData().getNbMaxMoves();
+        long nb_ = facadeGame.getData().getNbMaxMoves();
         facadeGame.getData().getConstNum().put(_k, _f.valueRate());
         if (StringUtil.quickEq(_k, DataBase.DEF_MAX_ATT) && nb_ != facadeGame.getData().getNbMaxMoves()) {
             subscriptions.updateRenamingId("","",new StringList());

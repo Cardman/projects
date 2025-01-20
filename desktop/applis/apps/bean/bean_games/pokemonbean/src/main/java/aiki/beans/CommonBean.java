@@ -182,7 +182,7 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         setBaseForms(_forms);
     }
 
-    public static boolean inRange(int _value, int _min, int _max) {
+    public static boolean inRange(long _value, long _min, long _max) {
         return _value >= _min && _value <= _max;
     }
     protected static String escapedStringQuote(String _string) {

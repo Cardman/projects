@@ -8,7 +8,7 @@ import code.util.EntryCust;
 
 public final class CrudPkCommon {
     private String gender = Gender.NO_GENDER.getGenderName();
-    private int level;
+    private long level;
     private DictionaryComparator<String,String> genders;
 
     public void init(DataBase _data,String _lg) {
@@ -42,11 +42,11 @@ public final class CrudPkCommon {
         gender = _gender;
     }
 
-    public void setLevel(int _level) {
+    public void setLevel(long _level) {
         level = _level;
     }
 
-    public int getLevel() {
+    public long getLevel() {
         return level;
     }
 }

@@ -1135,8 +1135,8 @@ public final class FightFacade {
             chosen_.setName(move_);
             chosen_.setTypes(_import.getMove(move_).getTypes());
             chosen_.setUsable(true);
-            int max_ = fighter_.maxPowerPointsMove(move_, _import);
-            int current_ = fighter_.powerPointsMove(move_);
+            long max_ = fighter_.maxPowerPointsMove(move_, _import);
+            long current_ = fighter_.powerPointsMove(move_);
             UsesOfMove uses_ = new UsesOfMove(current_,max_);
             chosen_.setUses(uses_);
             map_.put(_import.translateMove(move_), chosen_);
@@ -1154,8 +1154,8 @@ public final class FightFacade {
             } else {
                 chosen_.setUsable(StringUtil.contains(attaquesAutorisees_, m));
             }
-            int max_ = fighter_.maxPowerPointsMove(m, _import);
-            int current_ = fighter_.powerPointsMove(m);
+            long max_ = fighter_.maxPowerPointsMove(m, _import);
+            long current_ = fighter_.powerPointsMove(m);
             UsesOfMove uses_ = new UsesOfMove(current_,max_);
             chosen_.setUses(uses_);
             map_.put(_import.translateMove(m), chosen_);
@@ -2085,7 +2085,7 @@ public final class FightFacade {
             }
             if (!validMoves_) {
                 int nbChosen_ = choice_.getKeptMoves().size();
-                int max_ = _import.getNbMaxMoves();
+                long max_ = _import.getNbMaxMoves();
                 int min_ = fighter_.nbMoves();
                 _fight.addMessage(_import,Fight.ERR_EVOLVING, name_,Long.toString(min_), Long.toString(max_), Long.toString(nbChosen_));
             }
@@ -2517,11 +2517,11 @@ public final class FightFacade {
         return list_;
     }
 
-    public static Rate gainBase(PointFoeExpObject _pointsFoeExp, Difficulty _diff, DataBase _import, String _expItem, int _winner, int _looser, int _position) {
+    public static Rate gainBase(PointFoeExpObject _pointsFoeExp, Difficulty _diff, DataBase _import, String _expItem, long _winner, long _looser, int _position) {
         return FightKo.gainBase(_pointsFoeExp, _diff, _import, _expItem, _winner, _looser, _position);
     }
 
-    public static Rate rateWonPoint(Difficulty _diff, DataBase _import, int _winner, int _looser) {
+    public static Rate rateWonPoint(Difficulty _diff, DataBase _import, long _winner, long _looser) {
         return FightKo.rateWonPoint(_diff, _import, _winner, _looser);
     }
 
@@ -2835,7 +2835,7 @@ public final class FightFacade {
         _fight.getTemp().getKos().put(Fight.CST_PLAYER,BoolVal.FALSE);
         _fight.getTemp().getKos().put(Fight.CST_FOE,BoolVal.FALSE);
         for (Fighter f: _fight.getFoeTeam().getMembers().values()) {
-            f.setIv(new IdMap<Statistic,Integer>());
+            f.setIv(new IdMap<Statistic,Long>());
             boolean isCaught_ = _user.estAttrape(f.getName());
             if (isCaught_) {
 
@@ -2845,7 +2845,7 @@ public final class FightFacade {
             }
         }
         for (Fighter f: _fight.getUserTeam().getMembers().values()) {
-            f.setIv(new IdMap<Statistic,Integer>());
+            f.setIv(new IdMap<Statistic,Long>());
             f.initIvUt(_diff);
             f.initHp();
         }
